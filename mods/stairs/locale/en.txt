@@ -1,0 +1,25 @@
+### init.lua ###
+Wooden Stair	=	Wooden Stair
+Wooden Slab	=	Wooden Slab
+Stone Stair	=	Stone Stair
+Stone Slab	=	Stone Slab
+Cobble Stair	=	Cobble Stair
+Cobble Slab	=	Cobble Slab
+Brick Stair	=	Brick Stair
+Brick Slab	=	Brick Slab
+Sandstone Stair	=	Sandstone Stair
+Sandstone Slab	=	Sandstone Slab
+Junglewood Stair	=	Junglewood Stair
+Junglewood Slab	=	Junglewood Slab
+Stone Brick Stair	=	Stone Brick Stair
+Stone Brick Slab	=	Stone Brick Slab
+Desert Stone Brick Stair	=	Desert Stone Brick Stair
+Desert Stone Brick Slab	=	Desert Stone Brick Slab
+Desert Stone Stair	=	Desert Stone Stair
+Desert Stone Slab	=	Desert Stone Slab
+Desert Cobble Stair	=	Desert Cobble Stair
+Desert Cobble Slab	=	Desert Cobble Slab
+Sandstone Brick Stair	=	Sandstone Brick Stair
+Sandstone Brick Slab	=	Sandstone Brick Slab
+Obsidian Stair	=	Obsidian Stair
+Obsidian Slab	=	Obsidian Slab

@@ -1,0 +1,6 @@
+stairs
+doors
+lottplants
+default
+dye
+intllib?

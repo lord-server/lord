@@ -1,0 +1,2 @@
+### init.lua ###
+Ghost Stone	= Ghost Stone

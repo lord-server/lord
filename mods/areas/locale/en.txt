@@ -1,0 +1,90 @@
+### init.lua ###
+Can administer areas.	=	Can administer areas.
+Can can more, bigger areas.	=	Can can more, bigger areas.
+Can protect areas.	=	Can protect areas.
+
+### internal.lua ###
+Self protection is disabled or you do not have the necessary privilege.
+Area is too big.	=	Area is too big.
+You have reached the maximum amount of areas that you are allowed to  protect.	=	You have reached the maximum amount of areas that you are allowed to  protect.
+The area intersects with	=	The area intersects with
+
+### chatcommands.lua ###
+Protect your own area	=	Protect your own area
+Invalid usage, see	=	Invalid usage, see
+You need to select an area first.	=	You need to select an area first.
+You can't protect that area	=	You can't protect that area
+Area protected.	=	Area protected.
+Protect an area beetween two positions and give a player access to it without setting the parent of the area to any existing area	=	Protect an area beetween two positions and give a player access to it without setting the parent of the area to any existing area
+The player	=	The player
+does not exist.	=	does not exist.
+You have been granted control over area #	=	You have been granted control over area #
+. Type /list_areas to show your areas.	=	. Type /list_areas to show your areas.
+Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.	=	Give a player access to a sub-area beetween two positions that have already been protected, Use set_owner if you don't want the parent to be set.
+Rename a area that you own	=	Rename a area that you own
+That area doesn't exist.	=	That area doesn't exist.
+You don't own that area.	=	You don't own that area.
+Area renamed.	=	Area renamed.
+Find areas using a Lua regular expression	=	Find areas using a Lua regular expression
+A regular expression is required.	=	A regular expression is required.
+Invalid regular expression.	=	Invalid regular expression.
+No matches found.	=	No matches found.
+List your areas, or all areas if you are an admin	=	List your areas, or all areas if you are an admin
+No visible areas.	=	No visible areas.
+Recursively remove areas using an id	=	Recursively remove areas using an id
+Area	=	Area
+does not exist or is not owned by you.	=	does not exist or is not owned by you.
+Removed area	=	Removed area
+and it's sub areas.	=	and it's sub areas.
+Remove an area using an id	=	Remove an area using an id
+Change the owner of an area using it's ID	=	Change the owner of an area using it's ID
+has given you control over the area	=	has given you control over the area
+Owner changed.	=	Owner changed.
+Toggle an area open (anyone can interact) or closed	=	Toggle an area open (anyone can interact) or closed
+opened	=	opened
+closed	=	closed
+Move (or resize) an area to the current positions.	=	Move (or resize) an area to the current positions.
+Area successfully moved.	=	Area successfully moved.
+Get information about area configuration and usage.	=	Get information about area configuration and usage.
+Self protection is disabled	=	Self protection is disabled
+Self protection is enabled	=	Self protection is enabled
+have the neccessary privilege	=	have the neccessary privilege
+and you	=	and you
+but you don't	=	but you don't
+You are an area administrator	=	You are an area administrator
+You have extended area protection limits	=	You have extended area protection limits
+privilege).	=	privilege).
+area	=	area
+areas	=	areas
+Number of your areas:	=	Number of your areas:
+you have no area protection limits.	=	you have no area protection limits.
+the maximum number	=	the maximum number
+spanning up to	=	spanning up to
+Players with the	=	Players with the
+privilege	=	privilege
+can protect up to	=	can protect up to
+You can protect areas	=	You can protect areas
+
+### pos.lua ###
+Select a area by id.	=	Select a area by id.
+The area	=	The area
+selected.	=	selected.
+Set area protection region position 1 to your location or the one specified	=	Set area protection region position 1 to your location or the one specified
+Unable to get position.	=	Unable to get position.
+Area position 1 set to	=	Area position 1 set to
+Set area protection region position 2 to your location or the one specified	=	Set area protection region position 2 to your location or the one specified
+Area position 2 set to	=	Area position 2 set to
+Set area protection region, position 1, or position 2 by punching nodes, or display the region	=	Set area protection region, position 1, or position 2 by punching nodes, or display the region
+Select positions by punching two nodes.	=	Select positions by punching two nodes.
+Select position 1 by punching a node.	=	Select position 1 by punching a node.
+Select position 2 by punching a node.	=	Select position 2 by punching a node.
+Position	=	Position
+Unknown subcommand	=	Unknown subcommand
+set to	=	set to
+
+### interact.lua ###
+is protected by	=	is protected by
+
+### hud.lua ###
+:open	=	:open
+Areas:	=	Areas:

@@ -1,0 +1,25 @@
+### init.lua ###
+Gold Coin	=	Золотая монета
+Silver Coin	=	Серебрянная монета
+Copper Coin	=	Медная монета
+Shop Chest	=	Сундук торговца
+
+Customer gives (pay here !)	=	Оплата
+Customer gets	=	Приобретённый товар
+Owner wants	=	Цена
+Owner gives	=	Предложение
+Exchange	=	Купить
+Customers gave:	=	Выручка
+Your stock:	=	Склад
+You want:	=	Цена
+In exchange, you give:	=	Предложение
+Owner, Use(E)+Place(RMB) for customer interface	=	Используйте "Использовать" (обычно E) и ПКМ,\nчтобы увидеть прилавок, как покупатель.
+
+Exchange shop (owned by	=	Прилавок (продавец
+This is your own shop, you can't exchange to yourself!	=	Это Ваш прилавок, Вы не сможете здесь ничего купить!
+Exchange can not be done, contact the shop owner.	=	Обмен не может быть произведён.\nВозможно, на складе закончился товар.\nОбратитесь к продавцу.
+Exchange can not be done, visit later.	=	Обмен не может быть произведён.\nВозможно, на складе закончился товар.\nПриходите позже.
+Exchange can not be done, check if you put all items!	=	Обмен не может быть произведён.\nПроверьте правильность оплаты.
+In your store	=	В Вашем магазине
+ended goods.	=	закончился товар.
+Exchanged!	=	Обмен прошёл успешно!

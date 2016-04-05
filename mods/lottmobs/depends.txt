@@ -1,0 +1,7 @@
+default
+mobs
+fire
+bones
+lottores
+lord_money
+intllib?

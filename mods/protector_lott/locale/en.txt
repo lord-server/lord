@@ -1,0 +1,59 @@
+### init.lua ###
+Protection Logo	=	Protection Logo
+
+Protection	=	Protection
+owned by	=	owned by
+
+PUNCH node to show protected area or USE for area check	=	PUNCH node to show protected area or USE for area check
+Members: (type player name then press Enter to add)	=	Members: (type player name then press Enter to add)
+Close	=	Close
+
+This area is owned by	=	This area is owned by
+Protection located at:	=	Protection located at:
+Members:	=	Members:
+This area is not protected.	=	This area is not protected.
+You can build here.	=	You can build here.
+
+Overlaps into another protected area!	=	Overlaps into another protected area!
+
+To Chest	=	To Chest
+To Inventory	=	To Inventory
+
+Ignore player protection	=	Ignore player protection
+
+### blocks.lua ###
+Protection Brick Block	=	Protection Brick Block
+Protection Obsidian	=	Protection Obsidian
+Protection Stone	=	Protection Stone
+Protection Stonebrick	=	Protection Stonebrick
+Protection Cobble	=	Protection Cobble
+Protection Desert Stone	=	Protection Desert Stone
+Protection Desert Cobble	=	Protection Desert Cobble
+Protection Desert Stone Brick	=	Protection Desert Stone Brick
+Protection Sandstone	=	Protection Sandstone
+Protection Sandstone Brick	=	Protection Sandstone Brick
+Protection Dungeon Stone	=	Protection Dungeon Stone
+Protection Paving Stone	=	Protection Paving Stone
+Protection Marble	=	Protection Marble
+Protection Marble Brick	=	Protection Marble Brick
+Protection Orc Brick	=	Protection Orc Brick
+Protection Mordor Stone	=	Protection Mordor Stone
+
+### doors.lua ###
+Protected Steel Door	=	Protected Steel Door
+Protected Glass Door	=	Protected Glass Door
+Protected Obsidian Glass Door	=	Protected Obsidian Glass Door
+
+Protected Wooden Door	=	Protected Wooden Door
+Protected Junglewood Door	=	Protected Junglewood Door
+Protected Alder Door	=	Protected Alder Door
+Protected Birch Door	=	Protected Birch Door
+Protected Pine Door	=	Protected Pine Door
+Protected Lebethron Door	=	Protected Lebethron Door
+Protected Mallorn Door	=	Protected Mallorn Door
+
+Protected Oak Door	=	Protected Oak Door
+Protected Jail Door	=	Protected Jail Door
+
+### chests.lua ###
+Protected Chest	=	Protected Chest

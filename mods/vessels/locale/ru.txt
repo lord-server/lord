@@ -1,0 +1,5 @@
+### init.lua ###
+Glass Bottle (empty)	=	Стеклянная бутыль
+Drinking Glass (empty)	=	Стеклянный стакан
+Heavy Steel Bottle (empty)	=	Стальная бутыль
+Pile of Glass Fragments	=	Осколки стекла

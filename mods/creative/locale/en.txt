@@ -1,0 +1,6 @@
+### init.lua ###
+Palette = Palette
+Clear = Clear
+Trash = Trash
+Main = Main
+Creative Mode	=	Creative Mode

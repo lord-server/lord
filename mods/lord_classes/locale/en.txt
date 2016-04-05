@@ -1,0 +1,40 @@
+### init.lua ###
+Shadow	=	Shadow
+Dwarf	=	Dwarf
+Elf	=	Elf
+Man	=	Man
+Orc	=	Orc
+Hobbit	=	Hobbit
+
+Male	=	Male
+Female	=	Female
+
+You became a shadow-male	=	You became a shadow-male
+You became a shadow-female	=	You became a shadow-female
+You became a orc-male	=	You became a orc-male
+You became a orc-female	=	You became a orc-female
+You became a man-male	=	You became a man-male
+You became a man-female	=	You became a man-female
+You became a dwarf-male	=	You became a dwarf-male
+You became a dwarf-female	=	You became a dwarf-female
+You became a hobbit-male	=	You became a hobbit-male
+You became a hobbit-female	=	You became a hobbit-female
+You became a elf-male	=	You became a elf-male
+You became a elf-female	=	You became a elf-female
+
+Please select the race you wish to be:	=	Please select the race you wish to be:
+
+Cancel	=	Cancel
+Ok	=	Ok
+
+Change the race of any player	=	Change the race of any player
+
+### privileges.lua ###
+A male player	=	A male player
+A female player	=	A female player
+A dwarf player	=	A dwarf player
+An elf player	=	An elf player
+A human player	=	A human player
+An orc player	=	An orc player
+A hobbit player	=	A hobbit player
+A shadow player	=	A shadow player

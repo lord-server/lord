@@ -1,0 +1,3 @@
+### init.lua ###
+Boat	=	Boat
+Sail Boat	=	Sail Boat

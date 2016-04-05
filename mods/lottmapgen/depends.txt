@@ -1,0 +1,9 @@
+default
+lottplants
+lottfarming
+lottores
+worldedit
+lottother
+stairs
+areas?
+intllib?

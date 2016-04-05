@@ -1,0 +1,19 @@
+### init.lua ###
+Permission to override teleport to other players. UNFINISHED	=	Разрешение отменить перемещение других игроков. НЕОКОНЧЕННО
+
+Request teleport to another player	=	Запросить перемещение к другому игроку
+Request player to teleport to you	=	Запросить перемещение другого игрока к себе
+Accept teleport requests from another player	=	Принять запрос на перемещение от другого игрока
+Deny teleport requests from another player	=	Отклонить запрос на перемещение от другого игрока
+
+Request Accepted!	=	Запрос принят!
+You are teleporting to	=	Вы перемещены к
+is teleporting to you.	=	перемещён к Вам.
+Usage: /tpy allows you to accept teleport requests sent to you by other players	=	Использование: /tpy для принятия запросов на перемещение от других игроков
+Teleport request denied.	=	Запрос отклонён!
+Teleport request sent! It will time out in	=	Запрос отправлен! Он будет действовать
+seconds.	=	секунд.
+is requesting that you teleport to them. /tpy to accept; /tpn to deny	=	запрашивает разрешения для перемещения Вас к нему (к ней). Используйте /tpy для разрешения, или /tpn для отклонения.
+Usage: /tphr <Player name>	=	Использование: /tphr <Player name>
+is requesting to teleport to you. /tpy to accept.	=	запрашивает разрешения для перемещения к Вам. Используйте /tpy для разрешения, или /tpn для отклонения.
+Usage: /tpr <Player name>	=	Использование: /tpr <Player name>

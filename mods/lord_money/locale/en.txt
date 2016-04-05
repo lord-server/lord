@@ -1,0 +1,22 @@
+### init.lua ###
+Gold Coin	=	Gold Coin
+Silver Coin	=	Silver Coin
+Copper Coin	=	Copper Coin
+Shop Chest	=	Shop Chest
+
+Customer gives (pay here !)	=	Customer gives (pay here !)
+Customer gets	=	Customer gets
+Owner wants	=	Owner wants
+Owner gives	=	Owner gives
+Exchange	=	Exchange
+Customers gave:	=	Customers gave:
+Your stock:	=	Your stock:
+You want:	=	You want:
+In exchange, you give:	=	In exchange, you give:
+Owner, Use(E)+Place(RMB) for customer interface	=	Owner, Use(E)+Place(RMB) for customer interface
+
+Exchange shop (owned by	=	Exchange shop (owned by
+This is your own shop, you can't exchange to yourself!	=	This is your own shop, you can't exchange to yourself!
+Exchange can not be done, contact the shop owner.	=	Exchange can not be done, contact the shop owner.
+Exchange can not be done, check if you put all items!	=	Exchange can not be done, check if you put all items!
+Exchanged!	=	Exchanged!

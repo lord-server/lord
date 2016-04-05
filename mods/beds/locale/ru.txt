@@ -1,0 +1,13 @@
+### init.lua ###
+Leave Bed	=	Проснуться
+
+### functions.lua ###
+Good morning.	=	С добрым утром.
+of	=	из
+players are in bed	=	игроков спят.
+Force night skip	=	Ночь закончилась.
+You can only sleep at night.	=	Спать можно только ночью.
+
+### beds.lua ###
+Fancy Bed	=	Роскошная кровать
+Simple Bed	=	Простая кровать

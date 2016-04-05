@@ -1,0 +1,19 @@
+### init.lua ###
+Soil	=	Почва
+Wet Soil	=	Влажная почва
+
+Wooden Hoe	=	Деревянная мотыга
+Stone Hoe	=	Каменная мотыга
+Steel Hoe	=	Стальная мотыга
+Bronze Hoe	=	Бронзовая мотыга
+
+Grass	=	Трава
+Jungle Grass	=	Конопля
+
+Wheat Seed	=	Семена пшеницы
+Wheat	=	Пшеница
+Flour	=	Мука
+Bread	=	Хлеб
+
+Cotton Seed	=	Семена хлопка
+String	=	Нити

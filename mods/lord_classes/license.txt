@@ -1,0 +1,5 @@
+Code: narrnika - LGPL v2.1
+
+Textures, CC BY-SA:
+Gabo - *_skin.png
+catninja - *_skinf.png

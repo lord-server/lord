@@ -1,0 +1,6 @@
+default
+lottmapgen
+castle
+lottores
+lottblocks
+intllib?

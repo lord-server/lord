@@ -1,0 +1,16 @@
+### init.lua ###
+White dye	=	Белая краска
+Grey dye	=	Серая краска
+Dark grey dye	=	Тёмно-серая краска
+Black dye	=	Чёрная краска
+Violet dye	=	Фиолетовая краска
+Blue dye	=	Синяя краска
+Cyan dye	=	Голубая краска
+Dark green dye	=	Тёмно-зелёная краска
+Green dye	=	Зелёная краска
+Yellow dye	=	Жёлтая краска
+Brown dye	=	Коричневая краска
+Orange dye	=	Оранжевая краска
+Red dye	=	Красная краска
+Magenta dye	=	Пурпурная краска
+Pink dye	=	Розовая краска

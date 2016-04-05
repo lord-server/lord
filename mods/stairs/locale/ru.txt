@@ -1,0 +1,27 @@
+### init.lua ###
+Wooden Stair	=	Ступенька из яблони
+Wooden Slab	=	Плита из яблони
+Stone Stair	=	Ступенька из камня
+Stone Slab	=	Плита из камня
+Cobble Stair	=	Ступенька из булыжника
+Cobble Slab	=	Плита из булыжника
+Brick Stair	=	Ступенька из кирпича
+Brick Slab	=	Плита из кирпича
+Sandstone Stair	=	Ступенька из песчанника
+Sandstone Slab	=	Плита из песчанника
+Junglewood Stair	=	Ступенька из эвкалипта
+Junglewood Slab	=	Плита из эвкалипта
+Stone Brick Stair	=	Ступенька из каменных блоков
+Stone Brick Slab	=	Плита из каменных блоков
+Desert Stone Brick Stair	=	Ступенька из блоков пустынного камня
+Desert Stone Brick Slab	=	Плита из блоков пустынного камня
+Desert Stone Stair	=	Ступенька из пустынного камня
+Desert Stone Slab	=	Плита из пустынного камня
+Desert Cobble Stair	=	Ступенька из пустынного булыжника
+Desert Cobble Slab	=	Плита из пустынного булыжника
+Sandstone Brick Stair	=	Ступенька из блоков песчанника
+Sandstone Brick Slab	=	Плита из блоков песчанника
+Obsidian Stair	=	Обсидиановая ступенька
+Obsidian Slab	=	Обсидиановая плита
+Mossycobble Stair	= Ступенька из замшелого булыжника
+Mossycobble Slab	= Плита  из замшелого булыжника

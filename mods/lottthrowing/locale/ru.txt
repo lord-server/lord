@@ -1,0 +1,32 @@
+### init.lua ###
+Normal Wood Bow	=	Яблоневый лук
+Alder Wood Bow	=	Ольховый лук
+Birch Wood Bow	=	Берёзовый лук
+Lebethron Wood Bow	=	Лебетроновый лук
+Mallorn Bow	=	Маллорновый лук
+Wooden Crossbow	=	Деревянный арбалет
+Steel Crossbow	=	Стальной арбалет
+Tin Crossbow	=	Оловянный арбалет
+Silver Crossbow	=	Серебрянный арбалет
+Gold Crossbow	=	Золотой арбалет
+Galvorn Crossbow	=	Галворновый арбалет
+Mithril Crossbow	=	Мифриловый арбалет
+
+### axe.lua ###
+Dwarvern Throwing Axe	=	Гномий метательный топор
+Elven Throwing Axe	=	Эльфийский метательный топор
+Steel Throwing Axe	=	Стальной метательный топор
+Galvorn Throwing Axe	=	Галворновый метательный топор
+
+
+### arrow.lua ###
+Arrow	=	Стрела
+
+### mithril_arrow.lua ###
+Mithril Arrow	=	Мифриловая стрела
+
+### bolt.lua ###
+Bolt	=	Болт
+
+### mithril_bolt.lua ###
+Mithril Bolt	=	Мифриловый болт

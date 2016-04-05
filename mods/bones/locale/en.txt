@@ -1,0 +1,13 @@
+### init.lua ###
+Corpse	=	Corpse
+Unknown corpse	=	Unknown corpse
+Corpse of	=	Corpse of
+
+### items.lua ###
+Bone Dust	=	Bone Dust
+Bone	=	Bone
+Bone Scythe	=	Bone Scythe
+
+### skeleton.lua ###
+Skeleton Head	=	Skeleton Head
+Skeleton	=	Skeleton

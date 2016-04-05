@@ -1,0 +1,88 @@
+### init.lua ###
+Brambles Of Mordor	=	Brambles Of Mordor
+Pilinehtar	=	Pilinehtar
+Honey	=	Honey
+
+### wild_food.lua ###
+Wild Barley	=	Wild Barley
+Wild Berries	=	Wild Berries
+Wild Corn plant	=	Wild Corn plant
+Wild Cabbage	=	Wild Cabbage
+Wild Melon	=	Wild Melon
+Mushroom Wild	=	Mushroom Wild
+Pipeweed Wild	=	Pipeweed Wild
+Potato Wild	=	Potato Wild
+Wild Tomatoes	=	Wild Tomatoes
+Wild Turnips	=	Wild Turnips
+
+### nodes.lua ###
+Alder Leaf	=	Alder Leaf
+Apple Leaf	=	Apple Leaf
+Birch Leaf	=	Birch Leaf
+Beech Leaf	=	Beech Leaf
+Culumalda Leaf	=	Culumalda Leaf
+Yellow Flowers on Culumalda Leaf	=	Yellow Flowers on Culumalda Leaf
+Elm Leaf	=	Elm Leaf
+Fir Leaf	=	Fir Leaf
+Lebethron Leaf	=	Lebethron Leaf
+Mallorn Leaf	=	Mallorn Leaf
+Pine Leaf	=	Pine Leaf
+Plum Leaf	=	Plum Leaf
+Rowan Leaf	=	Rowan Leaf
+Rowan Leaf with Berries	=	Rowan Leaf with Berries
+White Leaf	=	White Leaf
+Yavannamire Leaf	=	Yavannamire Leaf
+Mirkwood Leaves	=	Mirkwood Leaves
+Pine Tree	=	Pine Tree
+Birch Tree	=	Birch Tree
+Alder Tree	=	Alder Tree
+Lebethron Tree	=	Lebethron Tree
+Mallorn Tree	=	Mallorn Tree
+Young Mallorn Trunk	=	Young Mallorn Trunk
+Alder Sapling	=	Alder Sapling
+Apple Tree Sapling	=	Apple Tree Sapling
+Birch Sapling	=	Birch Sapling
+Beech Sapling	=	Beech Sapling
+Culumalda Sapling	=	Culumalda Sapling
+Elm Sapling	=	Elm Sapling
+Fir Sapling	=	Fir Sapling
+Lebethron Sapling	=	Lebethron Sapling
+Mallorn Sapling	=	Mallorn Sapling
+Pine Sapling	=	Pine Sapling
+Plum Tree Sapling	=	Plum Tree Sapling
+Rowan Sapling	=	Rowan Sapling
+White Tree Sapling	=	White Tree Sapling
+Yavannamire Sapling	=	Yavannamire Sapling
+Mirkwood Sapling	=	Mirkwood Sapling
+Plum	=	Plum
+Yavannamire Fruit	=	Yavannamire Fruit
+Pine Planks	=	Pine Planks
+Birch Planks	=	Birch Planks
+Alder Planks	=	Alder Planks
+Lebethron Planks	=	Lebethron Planks
+Mallorn Planks	=	Mallorn Planks
+Lorien Grass	=	Lorien Grass
+Birch Wood Stair	=	Birch Wood Stair
+Birch Wood Slab	=	Birch Wood Slab
+Pine Wood Stair	=	Pine Wood Stair
+Pine Wood Slab	=	Pine Wood Slab
+Alder Wood Stair	=	Alder Wood Stair
+Alder Wood Slab	=	Alder Wood Slab
+Lebethron Wood Stair	=	Lebethron Wood Stair
+Lebethron Wood Slab	=	Lebethron Wood Slab
+Mallorn Wood Stair	=	Mallorn Wood Stair
+Mallorn Wood Slab	=	Mallorn Wood Slab
+Fireflies	=	Fireflies
+
+### flowers.lua ###
+Athelas	=	Athelas
+Anemones	=	Anemones
+Eglantive	=	Eglantive
+Iris	=	Iris
+Lissuin	=	Lissuin
+Mallos	=	Mallos
+Niphredil	=	Niphredil
+Seregon	=	Seregon
+Asphodel	=	Asphodel
+Elanor	=	Elanor
+

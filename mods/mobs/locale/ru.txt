@@ -1,0 +1,5 @@
+### bee.lua ###
+Honey	= Мёд
+Beehive	= Улей
+Honey Block	= Блок мёда
+Bee	= Пчела

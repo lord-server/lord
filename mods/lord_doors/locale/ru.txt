@@ -1,0 +1,3 @@
+### init.lua ###
+Gondor Door	= Дверь Гондора
+

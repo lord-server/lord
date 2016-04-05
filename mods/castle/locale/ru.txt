@@ -1,0 +1,207 @@
+### pillars.lua ###
+Brick Block Pillar Base	=	Основание кирпичной колонны
+Obsidian Pillar Base	=	Основание обсидиановой колонны
+Stone Pillar Base	=	Основание каменной колонны
+Cobble Pillar Base	=	Основание колонны из булыжника
+Stonebrick Pillar Base	=	Основание колонны из каменных блоков
+Desert Stone Pillar Base	=	Основание колонны из пустынного камня
+Desert Cobble Pillar Base	=	Основание колонны из пустынного булыжника
+Desert Stone Brick Pillar Base	=	Основание колонны из блоков пустынного камня
+Sandstone Pillar Base	=	Основание колонны из песчанника
+Sandstone Brick Pillar Base	=	Основание колонны из блоков песчанника
+Dungeon Stone Pillar Base	=	Основание колонны из малахита
+Paving Stone Pillar Base	=	Основание колонны из брусчатки
+Marble Pillar Base	=	Основание колонны из мрамора
+Marble Brick Pillar Base	=	Основание колонны из мраморных кирпичей
+Orc Brick Pillar Base	=	Основание колонны из оркского камня
+Mordor Stone Pillar Base	=	Основание колонны из камня Мордора
+
+Brick Block Pillar Middle	=	Кирпичная колонна
+Obsidian Pillar Middle	=	Обсидиановая колонна
+Stone Pillar Middle	=	Каменная колонна
+Cobble Pillar Middle	=	Колонна из булыжника
+Stonebrick Pillar Middle	=	Колонна из каменных блоков
+Desert Stone Pillar Middle	=	Колонна из пустынного камня
+Desert Cobble Pillar Middle	=	Колонна из пустынного булыжника
+Desert Stone Brick Pillar Middle	=	Колонна из блоков пустынного камня
+Sandstone Pillar Middle	=	Колонна из песчанника
+Sandstone Brick Pillar Middle	=	Колонна из блоков песчанника
+Dungeon Stone Pillar Middle	=	Колонна из малахита
+Paving Stone Pillar Middle	=	Колонна из брусчатки
+Marble Pillar Middle	=	Колонна из мрамора
+Marble Brick Pillar Middle	=	Колонна из мраморных кирпичей
+Orc Brick Pillar Middle	=	Колонна из оркского камня
+Mordor Stone Pillar Middle	=	Колонна из камня Мордора
+
+Brick Block Pillar Top	=	Навершие кирпичной колонны
+Obsidian Pillar Top	=	Навершие обсидиановой колонны
+Stone Pillar Top	=	Навершие каменной колонны
+Stonebrick Pillar Top	=	Навершие колонны из каменных блоков
+Cobble Pillar Top	=	Навершие колонны из булыжника
+Desert Stone Pillar Top	=	Навершие колонны из пустынного камня
+Desert Cobble Pillar Top	=	Навершие колонны из пустынного булыжника
+Desert Stone Brick Pillar Top	=	Навершие колонны из блоков пустынного камня
+Sandstone Pillar Top	=	Навершие колонны из песчанника
+Sandstone Brick Pillar Top	=	Навершие колонны из блоков песчанника
+Dungeon Stone Pillar Top	=	Навершие колонны из малахита
+Paving Stone Pillar Top	=	Навершие колонны из брусчатки
+Marble Pillar Top	=	Навершие колонны из мрамора
+Marble Brick Pillar Top	=	Навершие колонны из мраморных кирпичей
+Orc Brick Pillar Top	=	Навершие колонны из оркского камня
+Mordor Stone Pillar Top	=	Навершие колонны из камня Мордора
+
+### arrowslit.lua ###
+Brick Block Arrowslit	=	Прямая кирпичная бойница
+Obsidian Arrowslit	=	Прямая обсидиановая бойница
+Stone Arrowslit	=	Прямая каменная бойница
+Cobble Arrowslit	=	Прямая бойница из булыжника
+Stonebrick Arrowslit	=	Прямая бойница из каменных блоков
+Desert Stone Arrowslit	=	Прямая бойница из пустынного камня
+Desert Cobble Arrowslit	=	Прямая бойница из пустынного булыжника
+Desert Stone Brick Arrowslit	=	Прямая бойница из блоков пустынного камня
+Sandstone Arrowslit	=	Прямая бойница из песчанника
+Sandstone Brick Arrowslit	=	Прямая бойница из блоков песчанника
+Dungeon Stone Arrowslit	=	Прямая бойница из малахита
+Paving Stone Arrowslit	=	Прямая бойница из брусчатки
+Marble Arrowslit	=	Прямая бойница из мрамора
+Marble Brick Arrowslit	=	Прямая бойница из мраморного кирпича
+Orc Brick Arrowslit	=	Прямая бойница из оркского камня
+Mordor Stone Arrowslit	=	Прямая бойница из камня Мордора
+
+Brick Block Arrowslit with Cross	=	Крестовая кирпичная бойница
+Obsidian Arrowslit with Cross	=	Крестовая обсидиановая бойница
+Stone Arrowslit with Cross	=	Крестовая каменная бойница
+Cobble Arrowslit with Cross	=	Крестовая бойница из булыжника
+Stonebrick Arrowslit with Cross	=	Крестовая бойница из каменных блоков
+Desert Stone Arrowslit with Cross	=	Крестовая бойница из пустынного камня
+Desert Cobble Arrowslit with Cross	=	Крестовая бойница из пустынного булыжника
+Desert Stone Brick Arrowslit with Cross	=	Крестовая бойница из блоков пустынного камня
+Sandstone Arrowslit with Cross	=	Крестовая бойница из песчанника
+Sandstone Brick Arrowslit with Cross	=	Крестовая бойница из блоков песчанника
+Dungeon Stone Arrowslit with Cross	=	Крестовая бойница из малахита
+Paving Stone Arrowslit with Cross	=	Крестовая бойница из брусчатки
+Marble Arrowslit with Cross	=	Крестовая бойница из мрамора
+Marble Brick Arrowslit with Cross	=	Крестовая бойница из мраморного кирпича
+Orc Brick Arrowslit with Cross	=	Крестовая бойница из оркского камня
+Mordor Stone Arrowslit with Cross	=	Крестовая бойница из камня Мордора
+
+Brick Block Arrowslit with Hole	=	Т-образная кирпичная бойница
+Obsidian Arrowslit with Hole	=	Т-образная обсидиановая бойница
+Stone Arrowslit with Hole	=	Т-образная каменная бойница
+Cobble Arrowslit with Hole	=	Т-образная бойница из булыжника
+Stonebrick Arrowslit with Hole	=	Т-образная бойница из каменных блоков
+Desert Stone Arrowslit with Hole	=	Т-образная бойница из пустынного камня
+Desert Cobble Arrowslit with Hole	=	Т-образная бойница из пустынного булыжника
+Desert Stone Brick Arrowslit with Hole	=	Т-образная бойница из блоков пустынного камня
+Sandstone Arrowslit with Hole	=	Т-образная бойница из песчанника
+Sandstone Brick Arrowslit with Hole	=	Т-образная бойница из блоков песчанника
+Dungeon Stone Arrowslit with Hole	=	Т-образная бойница из малахита
+Paving Stone Arrowslit with Hole	=	Т-образная бойница из брусчатки
+Marble Arrowslit with Hole	=	Т-образная бойница из мрамора
+Marble Brick Arrowslit with Hole	=	Т-образная бойница из мраморного кирпича
+Orc Brick Arrowslit with Hole	=	Т-образная бойница из оркского камня
+Mordor Stone Arrowslit with Hole	=	Т-образная бойница из камня Мордора
+
+### tapestry.lua ###
+Tapestry Top	=	Основание для гобелена
+White Tapestry	=	Белый гобелен
+White Tapestry (Long)	=	Белый гобелен (длинный)
+White Tapestry (Very Long)	=	Белый гобелен (очень длинный)
+Grey Tapestry	=	Серый гобелен
+Grey Tapestry (Long)	=	Серый гобелен (длинный)
+Grey Tapestry (Very Long)	=	Серый гобелен (очень длинный)
+Dark Grey Tapestry	=	Тёмно-серый гобелен
+Dark Grey Tapestry (Long)	=	Тёмно-серый гобелен (длинный)
+Dark Grey Tapestry (Very Long)	=	Тёмно-серый гобелен (очень длинный)
+Black Tapestry	=	Чёрный гобелен
+Black Tapestry (Long)	=	Чёрный гобелен (длинный)
+Black Tapestry (Very Long)	=	Чёрный гобелен (очень длинный)
+Violet Tapestry	=	Фиолетовый гобелен
+Violet Tapestry (Long)	=	Фиолетовый гобелен (длинный)
+Violet Tapestry (Very Long)	=	Фиолетовый гобелен (очень длинный)
+Blue Tapestry	=	Синий гобелен
+Blue Tapestry (Long)	=	Синий гобелен (длинный)
+Blue Tapestry (Very Long)	=	Синий гобелен (очень длинный)
+Cyan Tapestry	=	Голубой гобелен
+Cyan Tapestry (Long)	=	Голубой гобелен (длинный)
+Cyan Tapestry (Very Long)	=	Голубой гобелен (очень длинный)
+Dark Green Tapestry	=	Тёмно-зелёный гобелен
+Dark Green Tapestry (Long)	=	Тёмно-зелёный гобелен (длинный)
+Dark Green Tapestry (Very Long)	=	Тёмно-зелёный гобелен (очень длинный)
+Green Tapestry	=	Зелёный гобелен
+Green Tapestry (Long)	=	Зелёный гобелен (длинный)
+Green Tapestry (Very Long)	=	Зелёный гобелен (очень длинный)
+Yellow Tapestry	=	Жёлтый гобелен
+Yellow Tapestry (Long)	=	Жёлтый гобелен (длинный)
+Yellow Tapestry (Very Long)	=	Жёлтый гобелен (очень длинный)
+Brown Tapestry	=	Коричневый гобелен
+Brown Tapestry (Long)	=	Коричневый гобелен (длинный)
+Brown Tapestry (Very Long)	=	Коричневый гобелен (очень длинный)
+Orange Tapestry	=	Оранжевый гобелен
+Orange Tapestry (Long)	=	Оранжевый гобелен (длинный)
+Orange Tapestry (Very Long)	=	Оранжевый гобелен (очень длинный)
+Red Tapestry	=	Красный гобелен
+Red Tapestry (Long)	=	Красный гобелен (длинный)
+Red Tapestry (Very Long)	=	Красный гобелен (очень длинный)
+Magenta Tapestry	=	Пурпурный гобелен
+Magenta Tapestry (Long)	=	Пурпурный гобелен (длинный)
+Magenta Tapestry (Very Long)	=	Пурпурный гобелен (очень длинный)
+Pink Tapestry	=	Розовый гобелен
+Pink Tapestry (Long)	=	Розовый гобелен (длинный)
+Pink Tapestry (Very Long)	=	Розовый гобелен (очень длинный)
+
+### jailbars.lua ###
+Jailbars	=	Решётка
+
+### town_item.lua ###
+Anvil	=	Наковальня
+Workbench	=	Рабочий стол
+Dungeon Stone	=	Малахит
+Straw	=	Сено
+Bound Straw	=	Обвязанное сено
+Castle Straw Stair	=	Ступенька из сена
+Castle Straw Slab	=	Плита из сена
+Light Block	=	Витражные светильник
+Paving Stone	=	Брусчатка
+
+Source Material	=	Метериалы:
+Recipe to Use	=	Схема:
+Craft Output	=	Результат:
+
+### murder_hole.lua ###
+Brick Block Murder Hole	=	Кирпичная дыра-убийца
+Obsidian Murder Hole	=	Обсидиановая дыра-убийца
+Stone Murder Hole	=	Каменная дыра-убийца
+Cobble Murder Hole	=	Дыра-убийца из булыжника
+Stonebrick Murder Hole	=	Дыра-убийца из каменных блоков
+Desert Stone Murder Hole	=	Дыра-убийца из пустынного камня
+Desert Cobble Murder Hole	=	Дыра-убийца из пустынного булыжника
+Desert Stone Brick Murder Hole	=	Дыра-убийца из блоков пустынного камня
+Sandstone Murder Hole	=	Дыра-убийца из песчанника
+Sandstone Brick Murder Hole	=	Дыра-убийца из блоков песчанника
+Dungeon Stone Murder Hole	=	Дыра-убийца из малахита
+Paving Stone Murder Hole	=	Дыра-убийца из брусчатки
+Marble Murder Hole	=	Дыра-убийца из мрамора
+Marble Brick Murder Hole	=	Дыра-убийца из мраморных кирпичей
+Orc Brick Murder Hole	=	Дыра-убийца из оркского камня
+Mordor Stone Murder Hole	=	Дыра-убийца из камня Мордора
+
+### shields_decor.lua ###
+Mounted Shield	=	Декоративный щит
+
+### rope.lua ###
+Rope	=	Гномья верёвка
+Ropebox	=	Блок для гномьей верёвки
+
+### init.lua ###
+Oak Door	=	Дверь с зарешоченным окном
+Jail Door	=	Дверь-решётка
+Oak Door With Lock	=	Дверь с зарешеченным окном с замком
+Jail Door With Lock	=	Дверь-решётка с замком
+Ironbound Chest	=	Ларец
+Ironbound Chest (owned by	=	Ларец (только для
+Battleaxe	=	Боевой топор гномов
+Dungeon Stone Stair	=	Малахитовая ступенька
+Dungeon Stone Slab	=	Малахитовая плита
+Castle Pavement Stair	=	Ступенька из брусчатки
+Castle Pavement Slab	=	Плита из брусчатки

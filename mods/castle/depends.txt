@@ -1,0 +1,11 @@
+default
+stairs
+doors
+farming
+lottores
+lottblocks
+lottmapgen
+building_blocks?
+asphalt?
+streets?
+moreblocks?

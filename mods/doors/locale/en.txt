@@ -1,0 +1,15 @@
+### api.lua ###
+Owned by	=	Owned by
+
+### doors.lua ###
+Wooden Door	=	Wooden Door
+Steel Door	=	Steel Door
+Glass Door	=	Glass Door
+Obsidian Glass Door	=	Obsidian Glass Door
+Wooden Door With Lock	=	Wooden Door With Lock
+Steel Door With Lock	=	Steel Door With Lock
+Glass Door With Lock	=	Glass Door With Lock
+Obsidian Glass Door With Lock	=	Obsidian Glass Door With Lock
+
+### trapdoors.lua ###
+Trapdoor	=	Trapdoor

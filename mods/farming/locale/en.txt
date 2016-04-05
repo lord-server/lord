@@ -1,0 +1,19 @@
+### init.lua ###
+Soil	=	Soil
+Wet Soil	=	Wet Soil
+
+Wooden Hoe	=	Wooden Hoe
+Stone Hoe	=	Stone Hoe
+Steel Hoe	=	Steel Hoe
+Bronze Hoe	=	Bronze Hoe
+
+Grass	=	Grass
+Jungle Grass	=	Jungle Grass
+
+Wheat Seed	=	Wheat Seed
+Wheat	=	Wheat
+Flour	=	Flour
+Bread	=	Bread
+
+Cotton Seed	=	Cotton Seed
+String	=	String

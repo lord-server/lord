@@ -1,0 +1,2 @@
+### init.lua ###
+Teleport to the spawn location	=	Переместиться на точку спавна

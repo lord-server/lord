@@ -1,0 +1,7 @@
+default
+wool
+bees
+stairs
+lottplants
+lottblocks?
+bucket?

@@ -1,0 +1,47 @@
+### init.lua ###
+Small Bag = Маленькая сумка
+Medium Bag = Средняя сумка
+Large Bag = Большая сумка
+
+### zcg.lua ###
+Book of Crafts = Книга\n"Основы крафта"
+
+### cooking.lua ###
+Book of Cooking = Книга\n"Использование печки"
+
+### forbidden.lua ###
+Book of Forbidden Crafts = Книга\n"Улучшенный крафт"
+
+### protection.lua ###
+Book of Protection = Книга\n"Крафт доспехов"
+
+### potions.lua ###
+Book of Potions = Книга\n"Приготовление зелий"
+Base Potions:	=	Базовые зелья:
+Orc Draught (Hurting Potion):	=	Орочье питьё\n(наносит урон):
+Spider Poison (Speed Weakening Potion):	=	Паучье зелье\n(замедляет):
+Limpe (Breathing Underwater Potion):	=	Лимп\n(даёт дышать под водой):
+Miruvor (Jump Boost Potion):	=	Мирувор\n(увеличивает высоту прыжка):
+Athelas Brew (Healing Potion):	=	Настойка ателаса\n(исцеляет):
+Ent Draught (Healing & Jump Weakening Potion):	=	Напиток энтов\n(исцеляет, но мешает прыгать):
+Mese Base Potion	=	MESE-зелье
+Geodes Base Potion	=	Жеодовое зелье
+Seregon Base Potion	=	Серегоновое зелье
+Power Level	=	Уровень
+
+### brewing.lua ###
+Book of Brewing = Книга\n"Приготовление алкоголя"
+Wine	=	Вино
+Beer	=	Пиво
+Mead	=	Медовуха
+Cider	=	Сидр
+Ale	=	Эль
+
+### master.lua ###
+Master Book of Crafts = Книга\n"Все рецепты"
+Potions	=	Зелья
+Brewing	=	Алкоголь
+
+### common ###
+Exit	=	Закрыть
+Page	=	Страница

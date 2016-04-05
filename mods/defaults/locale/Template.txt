@@ -1,0 +1,10 @@
+### init.lua ###
+Ghost Stone	= 
+Ghost Cobble = 
+Ghost Desert Stone = 
+Ghost Desert Cobble = 
+Ghost Brick = 
+Ghost Stone Brick = 
+Ghost Desert Stone Brick = 
+Ghost Sandstone = 
+Ghost Sandstone Brick = 

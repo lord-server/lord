@@ -1,0 +1,5 @@
+### bee.lua ###
+Honey	= Honey
+Beehive	= Beehive
+Honey Block	= Honey Block
+Bee	= Bee

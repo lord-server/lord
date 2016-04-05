@@ -1,0 +1,98 @@
+### init.lua ###
+get effect info	=	Вывести информацию об эффектах, действующих на персонажа
+effects:	=	Эффекты:
+
+You are under the effects of the Orc Draught potion.	=	Вы под воздействием орочьего питья.
+You are under the effects of the Spider Poison potion.	=	Вы под воздействием паучьего зелья.
+You are under the effects of the Limpe potion.	=	Вы под воздействием лимпа.
+You are under the effects of the Miruvor potion.	=	Вы под воздействием мирувора.
+You are under the effects of the Athelas Brew potion.	=	Вы под воздействием настойки ателаса.
+You are under the effects of the Ent Draught potion.	=	Вы под воздействием напитка энтов.
+
+The effects of the Orc Draught potion have worn off.	=	Эффект от орочьего питья закончился.
+The effects of the Spider Poison potion have worn off.	=	Эффект от паучьего зелья закончился.
+The effects of the Limpe potion have worn off.	=	Эффект от лимпа закончился.
+The effects of the Miruvor potion have worn off.	=	Эффект от мирувора закончился.
+The effects of the Athelas Brew potion have worn off.	=	Эффект от настойки ателаса закончился.
+The effects of the Ent Draught potion have worn off.	=	Эффект от напитка энтов закончился.
+
+Wine	=	Вино
+Beer	=	Пиво
+Ale	=	Эль
+Mead	=	Медовуха
+Cider	=	Сидр
+
+Brewer cannot be removed because it is not empty	=	Не поднимается - внутри что-то есть.
+
+Orc Draught (Strength: power1)	=	Орочье питьё (сила: +1)
+Orc Draught (Strength: corruption1)	=	Орочье питьё (сила: -1)
+Orc Draught (Strength: power2)	=	Орочье питьё (сила: +2)
+Orc Draught (Strength: corruption2)	=	Орочье питьё (сила: -2)
+Orc Draught (Strength: power3)	=	Орочье питьё (сила: +3)
+Orc Draught (Strength: corruption3)	=	Орочье питьё (сила: -3)
+Spider Poison (Strength: power1)	=	Паучье зелье (сила: +1)
+Spider Poison (Strength: corruption1)	=	Паучье зелье (сила: -1)
+Spider Poison (Strength: power2)	=	Паучье зелье (сила: +2)
+Spider Poison (Strength: corruption2)	=	Паучье зелье (сила: -2)
+Spider Poison (Strength: power3)	=	Паучье зелье (сила: +3)
+Spider Poison (Strength: corruption3)	=	Паучье зелье (сила: -3)
+Limpe (Strength: power1)	=	Лимп (сила: +1)
+Limpe (Strength: corruption1)	=	Лимп (сила: -1)
+Limpe (Strength: power2)	=	Лимп (сила: +2)
+Limpe (Strength: corruption2)	=	Лимп (сила: -2)
+Limpe (Strength: power3)	=	Лимп (сила: +3)
+Limpe (Strength: corruption3)	=	Лимп (сила: -3)
+Miruvor (Strength: power1)	=	Мирувор (сила: +1)
+Miruvor (Strength: corruption1)	=	Мирувор (сила: -1)
+Miruvor (Strength: power2)	=	Мирувор (сила: +2)
+Miruvor (Strength: corruption2)	=	Мирувор (сила: -2)
+Miruvor (Strength: power3)	=	Мирувор (сила: +3)
+Miruvor (Strength: corruption3)	=	Мирувор (сила: -3)
+Athelas Brew (Strength: power1)	=	Настойка ателаса (сила: +1)
+Athelas Brew (Strength: corruption1)	=	Настойка ателаса (сила: -1)
+Athelas Brew (Strength: power2)	=	Настойка ателаса (сила: +2)
+Athelas Brew (Strength: corruption2)	=	Настойка ателаса (сила: -2)
+Athelas Brew (Strength: power3)	=	Настойка ателаса (сила: +3)
+Athelas Brew (Strength: corruption3)	=	Настойка ателаса (сила: -3)
+Ent Draught (Strength: power1)	=	Напиток энтов (сила: +1)
+Ent Draught (Strength: corruption1)	=	Напиток энтов (сила: -1)
+Ent Draught (Strength: power2)	=	Напиток энтов (сила: +2)
+Ent Draught (Strength: corruption2)	=	Напиток энтов (сила: -2)
+Ent Draught (Strength: power3)	=	Напиток энтов (сила: +3)
+Ent Draught (Strength: corruption3)	=	Напиток энтов (сила: -3)
+
+### cauldron.lua ###
+Filled Cauldron	=	Полный котёл
+Two Third Filled Cauldron	=	Котёл, заполненый на 2/3
+One Third Filled Cauldron	=	Котёл, заполненый на 1/3
+Empty Cauldron	=	Пустой котёл
+
+Glass Bottle (empty)	=	Стеклянная бутыль
+Glass Bottle (Water)	=	Стеклянная бутыль с водой
+Drinking Glass (empty)	=	Стеклянный стакан
+Drinking Glass (Water)	=	Стеклянный стакан с водой
+
+###  brewing.lua ###
+Brewer	=	Бочка
+Brewer Brewing	=	Бочка: работает
+Brewer Out Of Heat	=	Бочка: нет топлива
+Brewer is empty	=	Бочка: нет материала
+
+###  potionbrewing.lua ###
+Potion Brewer	=	Лаборатория
+Potion Brewer Brewing	=	Лаборатория: работает
+Potion Brewer Out Of Heat	=	Лаборатория: нет топлива
+Potion Brewer is empty	=	Лаборатория: нет материала
+
+Glass Bottle (Mese Water)	=	Стеклянная бутыль с MESE-зельем
+Glass Bottle (Geodes Crystal Water)	=	Стеклянная бутыль с жеодовым зельем
+Glass Bottle (Seregon Water)	=	Стеклянная бутыль с серегоновым зельем
+
+### arrows.lua ###
+Potion Arrow	=	Зачарованная стрела\n
+
+### common ###
+Fuel:	=	Топливо:
+Ingredients:	=	Ингредиенты:
+Result:	=	Результат:
+

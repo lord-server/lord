@@ -1,0 +1,89 @@
+### fabrics.lua ###
+Flax Thread	=	Льняные нити
+Black Flax	=	Чёрный лён
+Blue Flax	=	Синий лён
+Brown Flax	=	Коричневый лён
+Green Flax	=	Зелёный лён
+Grey Flax	=	Серый лён
+Pink Flax	=	Розовый лён
+Red Flax	=	Красный лён
+White Flax	=	Белый лён
+Yellow Flax	=	Жёлтый лён
+
+Felt Thread	=	Войлочные нити
+Black Felt	=	Чёрный войлок
+Blue Felt	=	Синий войлок
+Brown Felt	=	Коричневый войлок
+Green Felt	=	Зевойлокый войлок
+Grey Felt	=	Серый войлок
+Pink Felt	=	Розовый войлок
+Red Felt	=	Красный войлок
+White Felt	=	Белый войлок
+Yellow Felt	=	Жёлтый войлок
+
+### midgewater.lua ###
+Midgewater Cap	=	Болотная шапка
+Midgewater Jacket	=	Болотная куртка
+Midgewater Pants	=	Болотные штаны
+Midgewater Boots	=	Болотные ботинки
+
+### chetwood.lua ###
+Chetwood Cap	=	Лесная шапка
+Chetwood Jacket	=	Лесная куртка
+Chetwood Pants	=	Лесные штаны
+Chetwood Boots	=	Лесные ботинки
+
+### hobbit.lua ###
+Blue Hobbit Shirt	=	Синяя рубашка хобита
+Blue Hobbit Shorts	=	Синие шорты хобита
+Blue Hobbit Shoes	=	Синяя обувь хобита
+Blue Hobbit Cloak	=	Синий плащ хобита
+Brown Hobbit Shirt	=	Коричневая рубашка хобита
+Brown Hobbit Shorts	=	Коричневые шорты хобита
+Brown Hobbit Shoes	=	Коричневая обувь хобита
+Brown Hobbit Cloak	=	Коричневый плащ хобита
+Green Hobbit Shirt	=	Зелёная рубашка хобита
+Green Hobbit Shorts	=	Зелёные шорты хобита
+Green Hobbit Shoes	=	Зелёная обувь хобита
+Green Hobbit Cloak	=	Зелёный плащ хобита
+Grey Hobbit Shirt	=	Серая рубашка хобита
+Grey Hobbit Shorts	=	Серые шорты хобита
+Grey Hobbit Shoes	=	Серая обувь хобита
+Grey Hobbit Cloak	=	Серый плащ хобита
+Pink Hobbit Shirt	=	Розовая рубашка хобита
+Pink Hobbit Shorts	=	Розовые шорты хобита
+Pink Hobbit Shoes	=	Розовая обувь хобита
+Pink Hobbit Cloak	=	Розовый плащ хобита
+Red Hobbit Shirt	=	Красная рубашка хобита
+Red Hobbit Shorts	=	Красные шорты хобита
+Red Hobbit Shoes	=	Красная обувь хобита
+Red Hobbit Cloak	=	Красный плащ хобита
+White Hobbit Shirt	=	Белая рубашка хобита
+White Hobbit Shorts	=	Белые шорты хобита
+White Hobbit Shoes	=	Белая обувь хобита
+White Hobbit Cloak	=	Белый плащ хобита
+Yellow Hobbit Shirt	=	Жёлтая рубашка хобита
+Yellow Hobbit Shorts	=	Жёлтые шорты хобита
+Yellow Hobbit Shoes	=	Жёлтая обувь хобита
+Yellow Hobbit Cloak	=	Жёлтый плащ хобита
+
+### brandybuck.lua ###
+Brandybuck Shirt	=	Рубашка Брендибака
+Brandybuck Trousers	=	Штаны Брендибака
+Brandybuck Shoes	=	Обувь Брендибака
+
+### ettenmoor.lua ###
+Ettenmoor Hood	=	Эттенский капюшон
+Ettenmoor Robe	=	Эттенская мантия
+Ettenmoor Trousers	=	Эттенские штаны
+
+### cloaks.lua ###
+Ranger's Cloak	=	Плащ рейнджера
+Mordor Cloak	=	Плащ Мордора
+
+### elven.lua ###
+Elven Hood	=	Эльфийский капюшон
+Elven Shirt	=	Эльфийская рубашка
+Elven Trousers	=	Эльфийские штаны
+Elven Shoes	=	Эльфийская обувь
+Elven Cloak	=	Эльфийский плащ

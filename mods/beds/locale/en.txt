@@ -1,0 +1,13 @@
+### init.lua ###
+Leave Bed	=	Leave Bed
+
+### functions.lua ###
+Good morning.	=	Good morning.
+of	=	of
+players are in bed	=	players are in bed
+Force night skip	=	Force night skip
+You can only sleep at night.	=	You can only sleep at night.
+
+### beds.lua ###
+Fancy Bed	=	Fancy Bed
+Simple Bed	=	Simple Bed

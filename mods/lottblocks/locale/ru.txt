@@ -1,0 +1,157 @@
+### init.lua ###
+Snowy Cobblestone	=	Заснеженный булыжник
+Orc Brick	=	Оркский кирпич
+Orc Brick Stair	=	Ступенька из оркского кирпича
+Orc Brick Slab	=	Плита из оркского кирпича
+Marble Brick	=	Мраморный кирпич
+Marble Brick Stair	=	Ступенька из мраморного кирпича
+Marble Brick Slab	=	Плита из мраморного кирпича
+
+### beds.lua ###
+Red Bed	=	Красная кровать
+Blue Bed	=	Синяя кровать
+Green Bed	=	Зелёная кровать
+
+### chests.lua ###
+Lockpick	=	Отмычка
+Lockpick failed	=	Взлом не удался!
+
+Hobbit Chest	=	Сундук хоббитов
+Gondorian Chest	=	Сундук Гондора
+Rohirrim Chest	=	Сундук Рохана
+Elven (Lorien) Chest	=	Сундук Лориэна
+Elven (Mirkwood) Chest	=	Сундук Лихолесья
+Mordor Chest	=	Сундук Мордора
+Angmar Chest	=	Сундук Ангмара
+
+Only Hobbits can open this kind of chest!	=	Этот сундук могут открыть только хоббиты!
+Only Humans can open this kind of chest!	=	Этот сундук могут открыть только люди!
+Only Elves can open this kind of chest!	=	Этот сундук могут открыть только эльфы!
+Only Orcs can open this kind of chest!	=	Этот сундук могут открыть только орки!
+
+### decoration.lua ###
+Tree With Vines	=	Ствол дерева с лианами
+Tree With Vines Stair	=	Ступенька из дерева с лианами
+Tree With Vines Slab	=	Плита из дерева с лианами
+Tree With Moss	=	Замшелый ствол дерева
+Tree With Moss Stair	=	Ступенька из замшелого дерева
+Tree With Moss Slab	=	Плита из замшелого дерева
+Dark Leaf Roof	=	Густые ветки яблони
+Dark Leaf Roof Stair	=	Ступенька из густых веток яблони
+Dark Leaf Roof Slab	=	Плита из густых веток яблони
+Mallorn Leaf Roof	=	Густые ветки маллорна
+Mallorn Leaf Roof Stair	=	Ступенька из густых веток маллорна
+Mallorn Leaf Roof Slab	=	Плита из густых веток маллорна
+Mallorn Pillar	=	Колонна из маллорна
+Mallorn Pillar Stair	=	Ступенька из маллорновой колонны
+Mallorn Pillar Slab	=	Плита из маллорновой колонны
+White Mallorn	=	Белый маллорн
+White Mallorn Stair	=	Ступенька из белого маллорна
+White Mallorn Slab	=	Плита из белого маллорна
+White Dwarf Stone	=	Белый гномий камень
+White Dwarf Stone Stair	=	Ступенька из белого гномьего камня
+White Dwarf Stone Slab	=	Плита из белого гномьего камня
+Black Dwarf Stone	=	Чёрный гномий камень
+Black Dwarf Stone Stair	=	Ступенька из чёрного гномьего камня
+Black Dwarf Stone Slab	=	Плита из чёрного гномьего камня
+Stripe Dwarf Stone	=	Полосатый гномий камень
+
+### lamps.lua ###
+Not enough space for lamppost to be placed	=	Не хватает места!
+Wood Lamppost	=	Яблоневый фонарь
+Wood Small Lamp	=	Яблоневая лампа
+Alder Lamppost	=	Ольховый фонарь
+Alder Small Lamp	=	Ольховая лампа
+Junglewood Lamppost	=	Эвкалиптовый фонарь
+Junglewood Small Lamp	=	Эвкалиптовая лампа
+Birch Lamppost	=	Берёзовый фонарь
+Birch Small Lamp	=	Берёзовая лампа
+Pine Lamppost	=	Сосновый фонарь
+Pine Small Lamp	=	Сосновая лампа
+Lebethron Lamppost	=	Лебетроновый фонарь
+Lebethron Small Lamp	=	Лебетроновая лампа
+Mallorn Lamppost	=	Маллорновый фонарь
+Mallorn Small Lamp	=	Маллорновая лампа
+Mordor Wooden Lamppost	=	Яблоневый фонарь Мордора
+Mordor Wooden Small Lamp	=	Яблоневая лампа Мордора
+Mordor Alder Lamppost	=	Ольховый фонарь Мордора
+Mordor Alder Small Lamp	=	Ольховая лампа Мордора
+Mordor Junglewood Lamppost	=	Эвкалиптовый фонарь Мордора
+Mordor Junglewood Small Lamp	=	Эвкалиптовая лампа Мордора
+Mordor Birch Lamppost	=	Берёзовый фонарь Мордора
+Mordor Birch Small Lamp	=	Берёзовая лампа Мордора
+Mordor Pine Lamppost	=	Сосновый фонарь Мордора
+Mordor Pine Small Lamp	=	Сосновая лампа Мордора
+Mordor Lebethron Lamppost	=	Лебетроновый фонарь Мордора
+Mordor Lebethron Small Lamp	=	Лебетроновая лампа Мордора
+
+### misc.lua ###
+Elven Rope	=	Ельфийская верёвка
+
+### music.lua ###
+Dwarvern Harp	=	Гномья арфа
+Dwarvern Harp Strings	=	Гномьи струны
+Alder (Note F) Whistle	=	Ольховый свисток (нота ФА)
+Birch (Note D) Whistle	=	Берёзовый свисток (нота РЕ)
+Jungle (Note G) Whistle	=	Эвкалиптовый свисток (нота СОЛЬ)
+Lebethron (Note A) Whistle	=	Лебетроновый свисток (нота ЛЯ)
+Mallorn (Note Eb) Whistle	=	Маллорновый свисток (нота МИ-бемоль)
+Pine (Note Bb) Whistle	=	Сосновый свисток (нота СИ-бемоль)
+Wood (Note C) Whistle	=	Яблоневый свисток (нота ДО)
+
+### wooden_stuff.lua ###
+Wooden Door	=	Яблоневая дверь
+Wooden Door With Lock	=	Яблоневая дверь с замком
+Wooden Trapdoor	=	Яблоневый люк
+Wooden Fence	=	Яблоневый забор
+Wooden Table	=	Яблоневый стол
+Wooden Chair	=	Яблоневый стул
+Junglewood Door	=	Эвкалиптовая дверь
+Junglewood Door With Lock	=	Эвкалиптовая дверь с замком
+Junglewood Trapdoor	=	Эвкалиптовый люк
+Junglewood Fence	=	Эвкалиптовый забор
+Junglewood Table	=	Эвкалиптовый стол
+Junglewood Chair	=	Эвкалиптовый стул
+Junglewood Ladder	=	Эвкалиптовая лестница
+Junglewood Stick	=	Эвкалиптовая палочка
+Alder Door	=	Ольховая дверь
+Alder Door With Lock	=	Ольховая дверь с замком
+Alder Trapdoor	=	Ольховый люк
+Alder Fence		=	Ольховый забор
+Alder Table		=	Ольховый стол
+Alder Chair		=	Ольховый стул
+Alder Ladder	=	Ольховая лестница
+Alder Stick	=	Ольховая палочка
+Birch Door	=	Берёзовая дверь
+Birch Door With Lock	=	Берёзовая дверь с замком
+Birch Trapdoor	=	Берёзовый люк
+Birch Fence		=	Берёзовый забор
+Birch Table		=	Берёзовый стол
+Birch Chair		=	Берёзовый стул
+Birch Ladder	=	Берёзовая лестница
+Birch Stick	=	Берёзовая палочка
+Pine Door	=	Сосновая дверь
+Pine Door With Lock	=	Сосновая дверь с замком
+Pine Trapdoor	=	Сосновый люк
+Pine Fence	=	Сосновый забор
+Pine Table	=	Сосновый стол
+Pine Chair	=	Сосновый стул
+Pine Ladder	=	Сосновая лестница
+Pine Stick	=	Сосновая палочка
+Lebethron Door	=	Лебетроновая дверь
+Lebethron Door With Lock	=	Лебетроновая дверь с замком
+Lebethron Trapdoor	=	Лебетроновый люк
+Lebethron Fence	=	Лебетроновый забор
+Lebethron Table	=	Лебетроновый стол
+Lebethron Chair	=	Лебетроновый стул
+Lebethron Ladder	=	Лебетроновая лестница
+Lebethron Stick	=	Лебетроновая палочка
+Mallorn Door	=	Маллорновая дверь
+Mallorn Door With Lock	=	Маллорновая дверь с замком
+Mallorn Trapdoor	=	Маллорновый люк
+Mallorn Fence	=	Маллорновый забор
+Mallorn Table	=	Маллорновый стол
+Mallorn Chair	=	Маллорновый стул
+Mallorn Ladder	=	Маллорновая лестница
+Mallorn Stick	=	Маллорновая палочка
+

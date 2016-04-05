@@ -1,0 +1,47 @@
+### init.lua ###
+Small Bag = Small Bag
+Medium Bag = Medium Bag
+Large Bag = Large Bag
+
+### zcg.lua ###
+Book of Crafts = Book of Crafts
+
+### cooking.lua ###
+Book of Cooking = Book of Cooking
+
+### forbidden.lua ###
+Book of Forbidden Crafts = Book of Forbidden Crafts
+
+### protection.lua ###
+Book of Protection = Book of Protection
+
+### potions.lua ###
+Book of Potions = Book of Potions
+Base Potions:	=	Base Potions:
+Orc Draught (Hurting Potion):	=	Orc Draught (Hurting Potion):
+Spider Poison (Speed Weakening Potion):	=	Spider Poison (Speed Weakening Potion):
+Limpe (Breathing Underwater Potion):	=	Limpe (Breathing Underwater Potion):
+Miruvor (Jump Boost Potion):	=	Miruvor (Jump Boost Potion):
+Athelas Brew (Healing Potion):	=	Athelas Brew (Healing Potion):
+Ent Draught (Healing & Jump Weakening Potion):	=	Ent Draught (Healing & Jump Weakening Potion):
+Mese Base Potion	=	Mese Base Potion
+Geodes Base Potion	=	Geodes Base Potion
+Seregon Base Potion	=	Seregon Base Potion
+Power Level	=	Power Level
+
+### brewing.lua ###
+Book of Brewing = Book of Brewing
+Wine	=	Wine
+Beer	=	Beer
+Mead	=	Mead
+Cider	=	Cider
+Ale	=	Ale
+
+### master.lua ###
+Master Book of Crafts = Master Book of Crafts
+Potions	=	Potions
+Brewing	=	Brewing
+
+### common ###
+Exit	=	Exit
+Page	=	Page
