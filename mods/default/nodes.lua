@@ -4,7 +4,7 @@ local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s en
 
 -- Stone / Камень
 minetest.register_node("default:stone", {
-	description = SL("Stone"), 
+	description = SL("Stone"),
 	tiles = {"default_stone.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
@@ -255,36 +255,36 @@ minetest.register_node("default:tree", {
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-			
+
 			local p0 = pointed_thing.under  -- куда смотрим
 			local p1 = pointed_thing.above  -- куда ставим
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
 			p3.y = p3.y + 1
-			
+
 			if minetest.is_protected(p1, placer:get_player_name()) or
 			minetest.is_protected(p3, placer:get_player_name()) then
 				minetest.record_protection_violation(p1, placer:get_player_name())
 				return itemstack
 			end
-			
+
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local dir = {}
 				local x = math.abs(p0.x - p1.x)
-				local y = math.abs(p0.y - p1.y) 
+				local y = math.abs(p0.y - p1.y)
 				local z = math.abs(p0.z - p1.z)
-				
+
 				-- установка по вектору на игрока
 				--if z>x then param2 = 6 else param2 = 13 end
 				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				--if y+1>math.max(x,z) then param2 = 0 end
-				
+
 				-- установка по грани узла
-				if z~=0 then param2 = 6 
+				if z~=0 then param2 = 6
 				elseif x~=0 then param2 = 13
 				else param2 = 0 end
-				
+
 				if z==0 then
 					if x==0 then
 						if y>0 then
@@ -301,11 +301,11 @@ minetest.register_node("default:tree", {
 					-- лицом на юг
 				else
 					-- лицом на север
-				end 
-				
+				end
+
 			end
 			minetest.set_node(p1,{name = "default:tree_trunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then	
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -346,36 +346,36 @@ minetest.register_node("default:jungletree", {
 	on_place = function(itemstack, placer, pointed_thing)
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-			
+
 			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
 			p3.y = p3.y + 1
-			
+
 			if minetest.is_protected(p1, placer:get_player_name()) or
 			minetest.is_protected(p3, placer:get_player_name()) then
 				minetest.record_protection_violation(p1, placer:get_player_name())
 				return itemstack
 			end
-			
+
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local dir = {}
 				local x = math.abs(p0.x - p1.x)
-				local y = math.abs(p0.y - p1.y) 
+				local y = math.abs(p0.y - p1.y)
 				local z = math.abs(p0.z - p1.z)
-				
+
 				-- установка по вектору на игрока
 				--if z>x then param2 = 6 else param2 = 13 end
 				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				--if y+1>math.max(x,z) then param2 = 0 end
-				
+
 				-- установка по грани узла
-				if z~=0 then param2 = 6 
+				if z~=0 then param2 = 6
 				elseif x~=0 then param2 = 13
 				else param2 = 0 end
-				
+
 				if z==0 then
 					if x==0 then
 						if y>0 then
@@ -392,12 +392,12 @@ minetest.register_node("default:jungletree", {
 					-- лицом на юг
 				else
 					-- лицом на север
-				end 
+				end
 				--print(tostring(x)..","..tostring(y)..","..tostring(z))
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "default:jungletree_trunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then	
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -639,6 +639,10 @@ minetest.register_node("default:fence_wood", {
 		type = "fixed",
 		fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
 	},
+	collision_box = {
+		type = "fixed",
+		fixed = {-1/2, -1/2, -1/2, 1/2, 1, 1/2},
+	},
 	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=2, wooden = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -731,13 +735,13 @@ minetest.register_node("default:ladder", {
 			--local above = pointed_thing.above
 			--local above_2 = {x = above.x, y = above.y, z = above.z}
 				--above_2.y = above_2.y + 1
-			
+
 			--if minetest.is_protected(above, placer:get_player_name()) or
 			--minetest.is_protected(above_2, placer:get_player_name()) then
 				--minetest.record_protection_violation(above, placer:get_player_name())
 				--return itemstack
 			--end
-			
+
 			--if pointed_thing.above.x < pointed_thing.under.x then
 				--param2 = 1
 			--elseif pointed_thing.above.x > pointed_thing.under.x then
@@ -747,7 +751,7 @@ minetest.register_node("default:ladder", {
 			--elseif pointed_thing.above.z > pointed_thing.under.z then
 				--param2 = 2
 			--end
-			
+
 			--if param2 then
 				--minetest.set_node(pointed_thing.above,{name = "default:ladder", param2 = param2})
 				--if not minetest.setting_getbool("creative_mode") then

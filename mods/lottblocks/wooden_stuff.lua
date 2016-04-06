@@ -74,6 +74,10 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				type = "fixed",
 				fixed = {-1/7, -1/2, -1/7, 1/7, 1/2, 1/7},
 			},
+			collision_box = {
+				type = "fixed",
+				fixed = {-1/2, -1/2, -1/2, 1/2, 1, 1/2},
+			},
 			--groups = {choppy=2,flammable=2},
 			groups = node_groups,
 		})
@@ -84,21 +88,21 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{wood_name, wood_name, wood_name,},
 			}
 		})
-		
+
 		-- STICK | ПАЛОЧКА
 		minetest.register_craftitem("lottblocks:stick_" .. name, {
 			description = SL(description .. " Stick"),
 			inventory_image = "lottblocks_" .. name .. "_stick.png",
 			groups = {stick=1},
 		})
-			
+
 		minetest.register_craft({
 			output = "lottblocks:stick_" .. name .. " 4",
 			recipe = {
 				{wood_name},
 			}
 		})
-		
+
 		-- LADDER | ЛЕСТНИЦА
 		minetest.register_node("lottblocks:ladder_" .. name, {
 			description = SL(description .. " Ladder"),
@@ -150,7 +154,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 					local above = pointed_thing.above
 					local above_2 = {x = above.x, y = above.y, z = above.z}
 						above_2.y = above_2.y + 1
-					
+
 					if minetest.registered_nodes[node_under.name].on_rightclick then
 						return minetest.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack)
 					end
@@ -160,7 +164,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 						minetest.record_protection_violation(above, placer:get_player_name())
 						return itemstack
 					end
-					
+
 					if pointed_thing.above.x < pointed_thing.under.x then
 						param2 = 1
 					elseif pointed_thing.above.x > pointed_thing.under.x then
@@ -170,7 +174,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 					elseif pointed_thing.above.z > pointed_thing.under.z then
 						param2 = 2
 					end
-					
+
 					if param2 then
 						minetest.set_node(pointed_thing.above,{name = "lottblocks:ladder_" .. name, param2 = param2})
 						if not minetest.setting_getbool("creative_mode") then
@@ -185,7 +189,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			legacy_wallmounted = true,
 			sounds = default.node_sound_wood_defaults(),
 		})
-		
+
 		local stick_name = "lottblocks:stick_" .. name
 		minetest.register_craft({
 			output = "lottblocks:ladder_" .. name .. " 7",
@@ -195,7 +199,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{stick_name, "", stick_name},
 			}
 		})
-				
+
 	end
     minetest.register_node("lottblocks:" .. name .. "_table", {
         description = SL(description .. " Table"),
@@ -269,4 +273,3 @@ lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "
 lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
-
