@@ -16,40 +16,6 @@ function prot.get_hotbar_bg(x,y)
 	return out
 end
 
-local function prot_item_drop(itemstack, dropper, pos)
-	if dropper and dropper.get_player_name then
-		local v = dropper:get_look_dir()
-		local p = {x=pos.x+v.x, y=pos.y+1.5+v.y, z=pos.z+v.z}
-		local r
-		if dropper:get_player_control().sneak then
-			r = itemstack
-			itemstack = itemstack:to_table()
-			itemstack.count = 1
-			itemstack = ItemStack(itemstack)
-			r:take_item()
-		else
-			r = ItemStack("")
-		end
-		minetest.sound_play("item_drop", {
-			pos=pos,
-			gain = 1.0,
-			max_hear_distance = 32,
-		})
-		local obj = minetest.add_item(p, itemstack)
-		if obj then
-			v.x = v.x*2
-			v.y = v.y*2 + 1
-			v.z = v.z*2
-			obj:setvelocity(v)
-			obj:get_luaentity().dropped_by = dropper:get_player_name()
-		end
-		return r
-	else
-		minetest.add_item(pos, itemstack)
-		return ItemStack("")
-	end
-end
-
 -- get static spawn position
 local statspawn = (minetest.setting_get_pos("static_spawnpoint") or {x = 0, y = 2, z = 0})
 
@@ -118,7 +84,7 @@ protector.generate_formspec = function(meta)
 			end
 			i = i + 1
 	end
-	
+
 	if i < npp then
 		formspec = formspec .. "field[" .. (i % 4 * 2 + 1 / 3) .. ","
 		.. (math.floor(i / 4 + 3) + 1 / 3) .. ";1.433,.5;protector_add_member;;]"
@@ -167,12 +133,9 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		owner = meta:get_string("owner")
 		members = meta:get_string("members")
 
-		if owner ~= digger then 
+		if owner ~= digger then
 			if onlyowner or not protector.is_member(meta, digger) then
 				if infolevel == 1 then
-					--local itemstack = dig_player:get_wielded_item()
-					--itemstack = prot_item_drop(itemstack, digger, dig_player:getpos())
-					--dig_player:set_wielded_item("")
 					minetest.get_player_by_name(digger):set_hp(dig_player:get_hp()-protector.damage)
 					minetest.chat_send_player(digger,
 					SL("This area is owned by").." " .. owner .. "!")
@@ -217,6 +180,19 @@ end
 
 -- Can node be added or removed, if so return node else true (for protected)
 
+function protector.drop_wielded_item(digger)
+	local player = minetest.get_player_by_name(digger)
+
+	-- Stop random crashes
+	if player == nil then
+		return
+	end
+
+	local itemstack = player:get_wielded_item()
+	minetest.item_drop(itemstack, player, player:getpos()) -- Drop entire itemstack
+	player:set_wielded_item("") -- Remove itemstack from inventory
+end
+
 protector.old_is_protected = minetest.is_protected
 
 function minetest.is_protected(pos, digger)
@@ -225,6 +201,15 @@ function minetest.is_protected(pos, digger)
 -- hurt here
 --player = minetest.get_player_by_name(digger)
 --player:set_hp(player:get_hp()-2)
+
+		-- The hack explained:
+		-- 1. Player places the node
+		-- 2. Server returns the node to player's inventory
+		-- 3. Some time (like 0.1s, nobody will feel this lag) passes and we
+		--    drop the item
+		-- 4. ???
+		-- 5. PROFIT
+		minetest.after(0.1, protector.drop_wielded_item, digger)
 		return true
 	end
 	return protector.old_is_protected(pos, digger)
@@ -293,7 +278,7 @@ minetest.register_node("protector_lott:protect2", {
 	on_rightclick = function(pos, node, clicker, itemstack)
 		local meta = minetest.get_meta(pos)
 		if protector.can_dig(1, pos, clicker:get_player_name(), true, 1) then
-			minetest.show_formspec(clicker:get_player_name(), 
+			minetest.show_formspec(clicker:get_player_name(),
 			"protector_lott:node_" .. minetest.pos_to_string(pos), protector.generate_formspec(meta))
 		end
 	end,
@@ -343,7 +328,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				protector.del_member(meta, string.sub(field,string.len("protector_del_member_") + 1))
 			end
 		end
-		
+
 		if not fields.close_me then
 			minetest.show_formspec(player:get_player_name(), formname, protector.generate_formspec(meta))
 		end
