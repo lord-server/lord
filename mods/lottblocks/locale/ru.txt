@@ -86,7 +86,7 @@ Mordor Lebethron Lamppost	=	Лебетроновый фонарь Мордора
 Mordor Lebethron Small Lamp	=	Лебетроновая лампа Мордора
 
 ### misc.lua ###
-Elven Rope	=	Ельфийская верёвка
+Elven Rope	=	Эльфийская верёвка
 
 ### music.lua ###
 Dwarvern Harp	=	Гномья арфа
