@@ -164,7 +164,7 @@ Castle Straw Slab	=	Плита из сена
 Light Block	=	Витражные светильник
 Paving Stone	=	Брусчатка
 
-Source Material	=	Метериалы:
+Source Material	=	Материалы:
 Recipe to Use	=	Схема:
 Craft Output	=	Результат:
 
