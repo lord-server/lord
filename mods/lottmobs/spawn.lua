@@ -61,9 +61,9 @@ mobs:spawn_specific("lottmobs:half_troll",	{"lottmapgen:angsnowblock"},	{"air"},
 
 mobs:spawn_specific("lottmobs:nazgul",	{"default:stone"},	{"air"}, -1, 2, 30, 30000, 2, -31000, -50)
 
-mobs:spawn_specific("lottmobs:witch_king",	{"default:stone"},	{"air"}, -1, 2, 30, 60000, 7, -31000, -1000)
+mobs:spawn_specific("lottmobs:witch_king",	{"default:stone"},	{"air"}, -1, 2, 30, 60000, 1, -31000, -1000)
 
-mobs:spawn_specific("lottmobs:balrog", {"default:stone"}, {"air"}, -1, 2, 30, 100000, 7, -31000, -10000)
+mobs:spawn_specific("lottmobs:balrog", {"default:stone"}, {"air"}, -1, 2, 30, 100000, 1, -31000, -10000)
 
 mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 2, 30, 9000, 7, -31000, -100)
 
