@@ -2,7 +2,7 @@
 Invalid character name	=	Invalid character name:
 Invalid character name. Contact to the administration.	=	Invalid character name. Contact to the administration.
 
-your name must contain more than 2 symbols;	=	your name must contain more than 2 symbols;
-your name must be less than 14 symbols;	=	your name must be less than 14 symbols;
-your name must contain only letters, also allows '-' and '_';	=	your name must contain only letters, also allows '-' and '_';
-your name must begin with capital letters;	=	your name must begin with capital letters;
+Your name must contain more than 2 symbols;	=	Your name must contain more than 2 symbols;
+Your name must be less than 14 symbols;	=	Your name must be less than 14 symbols;
+Your name must contain only letters; '-' and '_' are also allowed;	=	Your name must contain only letters; '-' and '_' are also allowed;
+Your name must begin with capital letters;	=	Your name must begin with capital letters;
