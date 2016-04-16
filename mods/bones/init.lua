@@ -1,7 +1,7 @@
 local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
 
 -- Minetest 0.4 mod: bones
--- See README.txt for licensing and other information. 
+-- See README.txt for licensing and other information.
 
 local publish = tonumber(minetest.setting_get("share_bones_time")) or 60*5
 
@@ -23,7 +23,7 @@ end
 local function register_corpse(race)
 	-- проверка существования расы
 	local check_race = false
-	for r, _ in pairs(classes.list) do
+	for r, _ in pairs(races.list) do
 		if race == r then check_race = true end
 	end
 	if not check_race then return end
@@ -32,7 +32,7 @@ local function register_corpse(race)
 		description = SL("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
-		tiles = {classes.list[race].texture.male},
+		tiles = {race.."_male.png"},
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -106,7 +106,7 @@ local function register_corpse(race)
 		description = SL("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
-		tiles = {classes.list[race].texture.female},
+		tiles = {race.."_male.png"},
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -177,25 +177,25 @@ local function register_corpse(race)
 	})
 end
 
-for race, _ in pairs(classes.list) do
+for race, _ in pairs(races.list) do
 	register_corpse(race)
 end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
 minetest.register_on_dieplayer(function(player)
 	if minetest.setting_getbool("creative_mode") then return end
-	local race = classes.get_race(player:get_player_name()).race
-	local gender = classes.get_race(player:get_player_name()).gender
+	local race = races.get_race_and_gender(player:get_player_name())[1]
+	local gender = races.get_race_and_gender(player:get_player_name())[2]
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=player:get_player_name().."_armor"})
-	
-	if race == classes.default.race then return end
-	
+
+	if race == races.default[1] then return end
+
 	local pos = player:getpos()
 	pos.x = math.floor(pos.x+0.5)
 	pos.y = math.floor(pos.y+0.5)
 	pos.z = math.floor(pos.z+0.5)
-	
+
 	if minetest.get_node(pos).name ~= "air" then
 		local new_pos = minetest.find_node_near(pos, 5*3, "air")
 		if new_pos then
@@ -204,7 +204,7 @@ minetest.register_on_dieplayer(function(player)
 			for i = 1, player_inv:get_size("main") do player_inv:set_stack("main", i, nil) end
 			for i = 1, player_inv:get_size("craft") do player_inv:set_stack("craft", i, nil) end
 			for i = 1, player_inv:get_size("armor") do player_inv:set_stack("armor", i, nil) end
-			if armor_inv then 
+			if armor_inv then
 				for i = 1, armor_inv:get_size("armor") do armor_inv:set_stack("armor", i, nil) end
 			end
 			armor:set_player_armor(player)
@@ -212,10 +212,10 @@ minetest.register_on_dieplayer(function(player)
 			return
 		end
 	end
-	
+
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	minetest.set_node(pos, {name="bones:corpse_"..race.."_"..gender, param2=param2})
-	
+
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
 	inv:set_size("main", 8*5)
@@ -229,7 +229,7 @@ minetest.register_on_dieplayer(function(player)
 	for i = 1, player_inv:get_size("armor") do
 		inv:add_item("main", player_inv:get_stack("armor", i))
 		player_inv:set_stack("armor", i, nil)
-		if armor_inv then 
+		if armor_inv then
 			armor_inv:set_stack("armor", i, nil)
 		end
 	end
