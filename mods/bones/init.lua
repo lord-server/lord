@@ -106,7 +106,7 @@ local function register_corpse(race)
 		description = SL("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
-		tiles = {race.."_male.png"},
+		tiles = {race.."_female.png"},
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,

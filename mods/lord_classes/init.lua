@@ -1,7 +1,7 @@
 local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
 
 --[[
-  TODO: Move file functions into a separate mod (lord_util?)
+  TODO: Move I/O-related functions into a separate mod (lord_util?)
 --]]
 
 --[[
@@ -45,6 +45,11 @@ races.cache = {
 	granted_privs = {},  -- Contains privileges given by this mod.
 	revoked_privs = {}
 }
+
+minetest.register_privilege("race", {
+	description = "Ability to change race and gender of a player.",
+	give_to_singleplayer= false,
+})
 
 --[[
   Boilerplate functions
@@ -119,9 +124,7 @@ end
 
 -- Tinker with privs
 function races.update_privileges(name, granted_privs, revoked_privs)
-	print("update_privileges")
 	local privs = minetest.get_player_privs(name)
-	print(dump(privs))
 
 	-- Create tables if they don't exist
 	races.cache.granted_privs[name] = races.cache.granted_privs[name] or {}
@@ -132,14 +135,12 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 		if races.cache.granted_privs[name][priv_name] then
 			races.cache.granted_privs[name][priv_name] = nil
 			privs[priv_name] = nil
-			print("1 Revoking ", priv_name)
 		end
 	end
 
 	for priv_name, _ in pairs(races.cache.revoked_privs[name]) do
 		races.cache.revoked_privs[name][priv_name] = nil
 		privs[priv_name] = true
-		print("1 Granting", priv_name)
 	end
 
 	-- Step #2: Grant/revoke new privileges
@@ -148,7 +149,6 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 			if not privs[priv_name] then  -- Player hasn't this privilege
 				privs[priv_name] = true
 				races.cache.granted_privs[name][priv_name] = true
-				print("2 Granting", priv_name)
 			end
 		end
 	end
@@ -157,11 +157,9 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 		for _, priv_name in pairs(revoked_privs) do
 			privs[priv_name] = nil
 			races.cache.revoked_privs[name][priv_name] = true
-			print("2 Revoking", priv_name)
 		end
 	end
-	print("= PRIVS OF", name)
-	print(dump(privs))
+
 	minetest.set_player_privs(name, privs)
 end
 
@@ -173,13 +171,14 @@ function races.set_race_and_gender(name, race_and_gender, should_cache)
 
 	local race = race_and_gender[1]
 
-	-- if races.list[race].granted_privs or races.list[race].revoked_privs then
-		races.update_privileges(name, races.list[race].granted_privs,
-		                        races.list[race].revoked_privs)
-	-- end
+	races.update_privileges(name, races.list[race].granted_privs,
+		races.list[race].revoked_privs)
 
 	races.cache.players[name] = race_and_gender
 	races.update_player(name, race_and_gender)
+
+	-- Notify player
+	minetest.chat_send_player(name, SL("change_" .. r[1]))
 
 	return true
 end
@@ -225,7 +224,7 @@ function races.show_change_form(name)
 		"dropdown[0.0,2.3;3.0,1.0;race;"..races_list..";1]"..
 		"dropdown[4.0,2.3;3.0,1.0;gender;"..SL("Male")..","..SL("Female")..";1]"..
 		"button_exit[0.0,3.3;3.0,1.0;cancel;"..SL("Cancel").."]"..
-		"button_exit[4.0,3.3;3.0,1.0;ok;"..SL("Ok").."]"
+		"button_exit[4.0,3.3;3.0,1.0;ok;"..SL("OK").."]"
 
 	minetest.show_formspec(name, "change_race", form)
 end
@@ -239,13 +238,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			races.set_race_and_gender(name, r, true)
 
 			-- This message will become user-friendly after translating
-			minetest.chat_send_player(name, "change_" .. r[1] .. "_" .. r[2])
 			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
 			races.save()
 		elseif fields.quit then
 			races.set_race_and_gender(name, races.default, false)
-			minetest.chat_send_player(name, SL("change_" .. races.default[1]..
-			                          "_" .. races.default[2]))
 			minetest.log("action", name .. " became a " .. races.default[1]..
 			             " " .. races.default[2])
 			-- Don't save, so player can change the race later
@@ -268,12 +264,75 @@ minetest.register_on_joinplayer(function(player)
 	end
 end)
 
-minetest.register_chatcommand("race", { -- изменение расы любому игроку
-	params = "<player name> <new race> <new gender>",
+minetest.register_chatcommand("race", {
+	params = SL("<player name> <new race>"),
 	privs = {},
-	description = SL("Change the race of any player"),
+	description = SL("Change the race of a player"),
 	func = function(name, params)
+		-- Parse arguments
+		args = {}
+		for arg in params:gmatch("[^%s]+") do
+			table.insert(args, arg)
+		end
 
+		-- Throw an error if there are too few arguments
+		if #args < 2 then
+			return false, SL("Too few arguments")
+		end
+
+		-- Check if player exists
+		if not races.cache.players[args[1]] then
+			return false, string.format(SL("Player '%s' does not exist"), args[1])
+		end
+
+		r = races.get_race_and_gender(args[1])
+		if races.set_race_and_gender(args[1], {args[2], r[2]}, true) then
+			races.save()
+
+			minetest.log("action", string.format("%s has changed %s's race to %s",
+					name, args[1], args[2]))
+			return true, string.format(SL("%s's race has been changed to %s"),
+					args[1], args[2])
+		else
+			return false, SL("Invalid race")
+		end
+	end
+})
+
+minetest.register_chatcommand("gender", {
+	params = "<player name> <new gender>",
+	privs = {race=true},
+	description = SL("Change the gender of a player"),
+	func = function(name, params)
+		-- Parse arguments
+		args = {}
+		for arg in params:gmatch("[^%s]+") do
+			table.insert(args, arg)
+		end
+
+		-- Throw an error if there are too few arguments
+		if #args < 2 then
+			return false, SL("Too few arguments")
+		end
+
+		-- Check if player exists
+		if not races.cache.players[args[1]] then
+			return false, string.format(SL("Player '%s' does not exist"), args[1])
+		end
+
+		-- Set gender
+		r = races.get_race_and_gender(args[1])
+
+		if races.set_race_and_gender(args[1], {r[1], args[2]}, true) then
+			races.save()
+
+			minetest.log("action", string.format("%s has changed %s's gender to %s",
+				name, args[1], args[2]))
+			return true, string.format(SL("%s's gender has been changed to %s"),
+				args[1], args[2])
+		else
+			return false, SL("Invalid gender. Possible values: 'male', 'female'")
+		end
 	end
 })
 
