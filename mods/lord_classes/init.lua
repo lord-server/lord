@@ -39,7 +39,9 @@ races.list = {
 races.default = {"shadow", "female"}
 
 -- All data will be stored in this table
--- races.cache[player_name] = {"shadow", "female"}
+-- races.cache.players[player_name] = {"shadow", "female"}
+-- races.cache.granted_privs[player_name] = {"fly", "fast"}
+-- races.cache.revoked_privs[player_name] = {"shout", "interact"}
 races.cache = {
 	players = {},
 	granted_privs = {},  -- Contains privileges given by this mod.
@@ -163,7 +165,7 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	minetest.set_player_privs(name, privs)
 end
 
-function races.set_race_and_gender(name, race_and_gender, should_cache)
+function races.set_race_and_gender(name, race_and_gender, show_message)
 	local valid = races.validate(race_and_gender)
 	if not valid then
 		return false
@@ -178,7 +180,9 @@ function races.set_race_and_gender(name, race_and_gender, should_cache)
 	races.update_player(name, race_and_gender)
 
 	-- Notify player
-	minetest.chat_send_player(name, SL("change_" .. r[1]))
+	if show_message then
+		minetest.chat_send_player(name, SL("change_" .. race))
+	end
 
 	return true
 end
@@ -219,13 +223,15 @@ function races.show_change_form(name)
 
 	local races_list = table.concat(list, ",")
 
-	form = form..
-		"label[0,0;"..minetest.formspec_escape(SL("Please select the race you wish to be:")).."]"..
-		"dropdown[0.0,2.3;3.0,1.0;race;"..races_list..";1]"..
-		"dropdown[4.0,2.3;3.0,1.0;gender;"..SL("Male")..","..SL("Female")..";1]"..
-		"button_exit[0.0,3.3;3.0,1.0;cancel;"..SL("Cancel").."]"..
-		"button_exit[4.0,3.3;3.0,1.0;ok;"..SL("OK").."]"
-
+	form = form .. string.format(
+		"label[0,0;%s]"..  -- Information label
+		"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+		"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+		"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+		minetest.formspec_escape(SL("Please select the race you wish to be:")),
+		races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
+	)
 	minetest.show_formspec(name, "change_race", form)
 end
 
@@ -241,10 +247,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
 			races.save()
 		elseif fields.quit then
-			races.set_race_and_gender(name, races.default, false)
+			races.set_race_and_gender(name, races.default, true)
 			minetest.log("action", name .. " became a " .. races.default[1]..
-			             " " .. races.default[2])
-			-- Don't save, so player can change the race later
+				" " .. races.default[2])
+			races.save()
 		end
 	end
 end)
@@ -258,7 +264,7 @@ minetest.register_on_joinplayer(function(player)
 			races.show_change_form(name)
 			return
 		end
-		races.set_race_and_gender(name, races.get_race_and_gender(name), true)
+		races.set_race_and_gender(name, races.get_race_and_gender(name), false)
 	else
 		races.show_change_form(name)
 	end
@@ -290,9 +296,9 @@ minetest.register_chatcommand("race", {
 			races.save()
 
 			minetest.log("action", string.format("%s has changed %s's race to %s",
-					name, args[1], args[2]))
+				name, args[1], args[2]))
 			return true, string.format(SL("%s's race has been changed to %s"),
-					args[1], args[2])
+				args[1], args[2])
 		else
 			return false, SL("Invalid race")
 		end
@@ -323,7 +329,7 @@ minetest.register_chatcommand("gender", {
 		-- Set gender
 		r = races.get_race_and_gender(args[1])
 
-		if races.set_race_and_gender(args[1], {r[1], args[2]}, true) then
+		if races.set_race_and_gender(args[1], {r[1], args[2]}, false) then
 			races.save()
 
 			minetest.log("action", string.format("%s has changed %s's gender to %s",
