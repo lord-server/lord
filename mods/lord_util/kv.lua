@@ -23,7 +23,7 @@ if not minetest.global_exists("util") then
 end
 
 -- TODO: use settings
-local KV_FILE = minetest.get_worldpath().."storage.serialized"
+local KV_FILE = minetest.get_worldpath().."/storage.serialized"
 local SAVE_INTERVAL = 10 -- seconds
 
 local storage = {}
