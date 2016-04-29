@@ -31,53 +31,53 @@ local content_changed = false
 local timer_delta = 0
 
 local function load()
-    local input = io.open(KV_FILE, "r")
-    if not input then
+	local input = io.open(KV_FILE, "r")
+	if not input then
 		return false
 	end
-    local content = input:read("*all")
-    storage = minetest.deserialize(content)
-    input:close()
+	local content = input:read("*all")
+	storage = minetest.deserialize(content)
+	input:close()
 end
 
 function util.kv_get(key, mod)
-    local modname = minetest.get_current_modname() or mod or "global"
-    -- Create table for the mod if it doesn't exist
-    if storage[modname] == nil then
+	local modname = minetest.get_current_modname() or mod or "global"
+	-- Create table for the mod if it doesn't exist
+	if storage[modname] == nil then
         storage[modname] = {}
-    end
-    -- Prevent crash
-    if key == nil then
-        minetest.log("error", "In mod \""..modname.."\":")
-        minetest.log("error", "  util.kv_get(): key must not be nil")
-        return nil
-    end
+	end
+	-- Prevent crash
+	if key == nil then
+		minetest.log("error", "In mod \""..modname.."\":")
+        	minetest.log("error", "  util.kv_get(): key must not be nil")
+        	return nil
+	end
 	return storage[modname][key]
 end
 
 function util.kv_set(key, value, mod)
-    local modname = minetest.get_current_modname() or mod or "global"
-    -- Create table for the mod if it doesn't exist
-    if storage[modname] == nil then
-        storage[modname] = {}
-    end
-    -- Prevent crash
-    if key == nil then
-        minetest.log("error", "In mod \""..modname.."\":")
-        minetest.log("error", " util.kv_set(): key must not be nil")
+	local modname = minetest.get_current_modname() or mod or "global"
+	-- Create table for the mod if it doesn't exist
+	if storage[modname] == nil then
+		storage[modname] = {}
+	end
+	-- Prevent crash
+	if key == nil then
+	        minetest.log("error", "In mod \""..modname.."\":")
+	        minetest.log("error", " util.kv_set(): key must not be nil")
 		return
-    end
+	end
 	storage[modname][key] = value
-    content_changed = true
+	content_changed = true
 end
 
 function util.kv_save()
 	local output = io.open(KV_FILE, "w")
 	if not output then return false end
 	local content = minetest.serialize(storage)
-    output:write(content)
-    output:close()
-    return true
+	output:write(content)
+	output:close()
+	return true
 end
 
 load()
@@ -87,7 +87,7 @@ minetest.register_globalstep(function(dtime)
 	timer_delta = timer_delta + dtime;
 	if timer_delta >= SAVE_INTERVAL then
         if content_changed then
-            util.kv_save()
+        	util.kv_save()
         end
 		timer_delta = 0
 	end
