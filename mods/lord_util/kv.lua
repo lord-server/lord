@@ -44,13 +44,13 @@ function util.kv_get(key, mod)
 	local modname = minetest.get_current_modname() or mod or "global"
 	-- Create table for the mod if it doesn't exist
 	if storage[modname] == nil then
-        storage[modname] = {}
+		storage[modname] = {}
 	end
 	-- Prevent crash
 	if key == nil then
 		minetest.log("error", "In mod \""..modname.."\":")
-        	minetest.log("error", "  util.kv_get(): key must not be nil")
-        	return nil
+		minetest.log("error", "  util.kv_get(): key must not be nil")
+		return nil
 	end
 	return storage[modname][key]
 end
@@ -63,8 +63,8 @@ function util.kv_set(key, value, mod)
 	end
 	-- Prevent crash
 	if key == nil then
-	        minetest.log("error", "In mod \""..modname.."\":")
-	        minetest.log("error", " util.kv_set(): key must not be nil")
+		minetest.log("error", "In mod \""..modname.."\":")
+		minetest.log("error", " util.kv_set(): key must not be nil")
 		return
 	end
 	storage[modname][key] = value
@@ -86,9 +86,9 @@ load()
 minetest.register_globalstep(function(dtime)
 	timer_delta = timer_delta + dtime;
 	if timer_delta >= SAVE_INTERVAL then
-        if content_changed then
-        	util.kv_save()
-        end
+		if content_changed then
+			util.kv_save()
+		end
 		timer_delta = 0
 	end
 end)
