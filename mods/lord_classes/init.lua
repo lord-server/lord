@@ -129,6 +129,12 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	local privs = minetest.get_player_privs(name)
 
 	-- Create tables if they don't exist
+	if races.cache.granted_privs == nil then
+		races.cache.granted_privs = {}
+	end
+		if races.cache.revoked_privs == nil then
+		races.cache.revoked_privs = {}
+	end
 	races.cache.granted_privs[name] = races.cache.granted_privs[name] or {}
 	races.cache.revoked_privs[name] = races.cache.revoked_privs[name] or {}
 
@@ -259,7 +265,7 @@ minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
 	if table.contains(races.cache.players, name) then  -- Player is registered already
-		r = races.get_race_and_gender(name)
+		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
 			return
