@@ -1,177 +1,353 @@
 local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
 
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."privileges.lua")
+--[[
+  TODO: Move I/O-related functions into a separate mod (lord_util?)
+--]]
 
--- Определение особенностей рас
-classes	=	{}
-classes.list	=	{}
-classes.list.shadow	=	{
-	name	= SL("Shadow"),
-	texture	= {male = "shadow_skin.png", female = "shadow_skinf.png"},
-	privs	= {male = {"fly", "fast", "noclip", "GAMEshadow"}, female = {"fly", "fast", "noclip", "shout", "GAMEshadow"}},
-	msg		= {male = SL("You became a shadow-male"), female = SL("You became a shadow-female")},
-}
-classes.list.orc		=	{
-	name	= SL("Orc"),
-	texture	= {male = "orc_skin.png", female = "orc_skin.png"},
-	privs	= {male = {"interact", "shout", "home", "GAMEorc", "GAMEmale"}, female = {"interact", "shout", "home", "GAMEorc", "GAMEfemale"}},
-	msg		= {male = SL("You became a orc-male"), female = SL("You became a orc-female")},
-}
-classes.list.man		=	{
-	name	= SL("Man"),
-	texture	= {male = "man_skin.png", female = "man_skinf.png"},
-	privs	= {male = {"interact", "shout", "home", "GAMEman", "GAMEmale"}, female = {"interact", "shout", "home", "GAMEman", "GAMEfemale"}},
-	msg		= {male = SL("You became a man-male"), female = SL("You became a man-female")},
-}
-classes.list.dwarf	=	{
-	name	= SL("Dwarf"),
-	texture	= {male = "dwarf_skin.png", female = "dwarf_skinf.png"},
-	privs	= {male = {"interact", "shout", "home", "GAMEdwarf", "GAMEmale"}, female = {"interact", "shout", "home", "GAMEdwarf", "GAMEfemale"}},
-	msg		= {male = SL("You became a dwarf-male"), female = SL("You became a dwarf-female")},
-}
-classes.list.hobbit	=	{
-	name	= SL("Hobbit"),
-	texture	= {male = "hobbit_skin.png", female = "hobbit_skinf.png"},
-	privs	= {male = {"interact", "shout", "home", "GAMEhobbit", "GAMEmale"}, female = {"interact", "shout", "home", "GAMEhobbit", "GAMEfemale"}},
-	msg		= {male = SL("You became a hobbit-male"), female = SL("You became a hobbit-female")},
-}
-classes.list.elf		=	{
-	name	= SL("Elf"),
-	texture	= {male = "elf_skin.png", female = "elf_skinf.png"},
-	privs	= {male = {"interact", "shout", "home", "GAMEelf", "GAMEmale"}, female = {"interact", "shout", "home", "GAMEelf", "GAMEfemale"}},
-	msg		= {male = SL("You became a elf-male"), female = SL("You became a elf-female")},
+--[[
+  Definitions
+--]]
+races = {
+	save_path = minetest.get_worldpath() .. "/races.txt"
 }
 
--- Раса и пол по умолчанию
-classes.default = {}
-classes.default.race = "shadow"
-classes.default.gender = "female"
-classes.default.priv = "GAMEshadow"
+races.list = {
+	shadow = {
+		name = SL("Shadow"),
+		granted_privs = {"fly", "fast"},
+		revoked_privs = {"shout", "interact"},
+		cannot_be_selected = true,
+	},
+	orc = {
+		name = SL("Orc"),
+	},
+	man = {
+		name = SL("Man"),
+	},
+	dwarf = {
+		name = SL("Dwarf"),
+	},
+	hobbit = {
+		name = SL("Hobbit"),
+	},
+	elf = {
+		name = SL("Elf"),
+	},
+}
 
--- Определение расы
-classes.get_race = function (name) -- возвращает таблицу {race, gender}
-	local privs = minetest.get_player_privs(name)
-	local ans = {}
-	if minetest.check_player_privs(name, {GAMEelf = true}) then
-		ans.race = "elf"
-	elseif minetest.check_player_privs(name, {GAMEdwarf = true}) then
-		ans.race = "dwarf"
-	elseif minetest.check_player_privs(name, {GAMEhobbit = true}) then
-		ans.race = "hobbit"
-	elseif minetest.check_player_privs(name, {GAMEman = true}) then
-		ans.race = "man"
-	elseif minetest.check_player_privs(name, {GAMEorc = true}) then
-		ans.race = "orc"
-	elseif minetest.check_player_privs(name, {GAMEshadow = true}) then
-		ans.race = "shadow"
+-- TODO: Get these values via minetest.setting_get()
+races.default = {"shadow", "female"}
+
+-- All data will be stored in this table
+-- races.cache.players[player_name] = {"shadow", "female"}
+-- races.cache.granted_privs[player_name] = {"fly", "fast"}
+-- races.cache.revoked_privs[player_name] = {"shout", "interact"}
+races.cache = {
+	players = {},
+	granted_privs = {},  -- Contains privileges given by this mod.
+	revoked_privs = {}
+}
+
+minetest.register_privilege("race", {
+	description = "Ability to change race and gender of a player.",
+	give_to_singleplayer= false,
+})
+
+--[[
+  Boilerplate functions
+--]]
+
+-- Load serialized classes from file
+-- Returns false when failed, true otherwise
+function races.load()
+	local input = io.open(races.save_path, "r")
+    if not input then
+		return false
 	end
-	if minetest.check_player_privs(name, {GAMEmale = true}) then
-		ans.gender = "male"
-	elseif minetest.check_player_privs(name, {GAMEfemale = true}) then
-		ans.gender = "female"
-	end
-	return ans
+    local content = input:read("*all")
+    races.cache = minetest.deserialize(content)
+    input:close()
+	return true
 end
 
--- Присвоение расы
-classes.set_race = function (name, race, gender)
-	local privs = {}
-	for _, priv in pairs(classes.list[race].privs[gender]) do
-		privs[priv] = true
+races.load()
+
+-- Serialize and save the races
+-- Returns false when failed, true otherwise
+function races.save()
+	local output = io.open(races.save_path, "w")
+	if not output then
+		return false
 	end
-	minetest.set_player_privs(name, privs)
-	multiskin[name].skin = classes.list[race].texture[gender]
+	local content = minetest.serialize(races.cache)
+    output:write(content)
+    output:close()
+    return true
+end
+
+function table.contains(t, v)
+	for k, _ in pairs(t) do
+		if k == v then
+			return true
+		end
+	end
+	return false
+end
+
+-- Validates {race, gender} tables
+-- Returns true if the table is valid, false otherwise
+function races.validate(race_and_gender)
+	local race = race_and_gender[1]
+	local gender = race_and_gender[2]
+
+	if table.contains(races.list, race) then
+		if gender == "male" or gender == "female" then
+			return true
+		end
+	end
+	return false
+end
+
+-- Updates player visuals
+function races.update_player(name, race_and_gender)
+	local race = race_and_gender[1]
+	local gender = race_and_gender[2]
+
+	-- TODO: caching
+	local texture = race .. "_" .. gender .. ".png" -- e.g. shadow_female.png
+	multiskin[name].skin = texture
 	multiskin:update_player_visuals(minetest.get_player_by_name(name))
 end
 
--- Форма выбора расы/пола
-classes.change_race_form = function ()
-	local form = "size[7,4]background[7,4;1,1;gui_formbg.png;true]"
-	local list = {}
-	for r, d in pairs(classes.list) do
-		if r ~= classes.default.race then table.insert(list, SL(d.name)) end
+-- Returns the race and the gender of specified player
+function races.get_race_and_gender(name)
+	return races.cache.players[name] or races.default
+end
+
+-- Tinker with privs
+function races.update_privileges(name, granted_privs, revoked_privs)
+	local privs = minetest.get_player_privs(name)
+
+	-- Create tables if they don't exist
+	if races.cache.granted_privs == nil then
+		races.cache.granted_privs = {}
 	end
-	list = table.concat(list, ",")
-	form = form.."label[0,0;"..minetest.formspec_escape(SL("Please select the race you wish to be:")).."]"
-	form = form.."dropdown[0.0,2.3;3.0,1.0;lst_race;"..list..";1]"
-	form = form.."dropdown[4.0,2.3;3.0,1.0;lst_gender;"..SL("Male")..","..SL("Female")..";1]"
-	form = form.."button_exit[0.0,3.3;3.0,1.0;btn_cancel;"..SL("Cancel").."]"
-	form = form.."button_exit[4.0,3.3;3.0,1.0;btn_ok;"..SL("Ok").."]"
-	return form
+		if races.cache.revoked_privs == nil then
+		races.cache.revoked_privs = {}
+	end
+	races.cache.granted_privs[name] = races.cache.granted_privs[name] or {}
+	races.cache.revoked_privs[name] = races.cache.revoked_privs[name] or {}
+
+	-- Step #1: Restore normal privileges
+	for priv_name, _ in pairs(privs) do
+		if races.cache.granted_privs[name][priv_name] then
+			races.cache.granted_privs[name][priv_name] = nil
+			privs[priv_name] = nil
+		end
+	end
+
+	for priv_name, _ in pairs(races.cache.revoked_privs[name]) do
+		races.cache.revoked_privs[name][priv_name] = nil
+		privs[priv_name] = true
+	end
+
+	-- Step #2: Grant/revoke new privileges
+	if granted_privs then
+		for _, priv_name in pairs(granted_privs) do
+			if not privs[priv_name] then  -- Player hasn't this privilege
+				privs[priv_name] = true
+				races.cache.granted_privs[name][priv_name] = true
+			end
+		end
+	end
+
+	if revoked_privs then
+		for _, priv_name in pairs(revoked_privs) do
+			privs[priv_name] = nil
+			races.cache.revoked_privs[name][priv_name] = true
+		end
+	end
+
+	minetest.set_player_privs(name, privs)
+end
+
+function races.set_race_and_gender(name, race_and_gender, show_message)
+	local valid = races.validate(race_and_gender)
+	if not valid then
+		return false
+	end
+
+	local race = race_and_gender[1]
+
+	races.update_privileges(name, races.list[race].granted_privs,
+		races.list[race].revoked_privs)
+
+	races.cache.players[name] = race_and_gender
+	races.update_player(name, race_and_gender)
+
+	-- Notify player
+	if show_message then
+		minetest.chat_send_player(name, SL("change_" .. race))
+	end
+
+	return true
+end
+
+-- Converts user-friendly names to the corresponding internal names
+-- Will return default values if the input is incorrect
+-- E.g. Shadow -> shadow, Male -> male
+function races.to_internal(race, gender)
+	local _race = races.default[1]
+	local _gender = races.default[2]
+
+	for internal_name, def in pairs(races.list) do
+		if def.name == race then
+			_race = internal_name
+		end
+	end
+
+	if gender == SL("Female") then
+		_gender = "female"
+	elseif gender == SL("Male") then
+		_gender = "male"
+	end
+
+	return {_race, _gender}
+end
+
+-- The form
+function races.show_change_form(name)
+	local form = "size[7,4]"..
+				 "background[7,4;1,1;gui_formbg.png;true]"
+
+	local list = {}
+	for _, def in pairs(races.list) do
+		if not def.cannot_be_selected then  -- Exclude "shadow"
+			table.insert(list, def.name)
+		end
+	end
+
+	local races_list = table.concat(list, ",")
+
+	form = form .. string.format(
+		"label[0,0;%s]"..  -- Information label
+		"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+		"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+		"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+		minetest.formspec_escape(SL("Please select the race you wish to be:")),
+		races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
+	)
+	minetest.show_formspec(name, "change_race", form)
 end
 
 -- Обработка событий формы
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
-		if fields.btn_ok then -- кнопка Ok
-			local race, gender = classes.default.race, classes.default.gender
-			for r, d in pairs(classes.list) do
-				if fields.lst_race == d.name then race = r end
-			end
-			if fields.lst_gender == SL("Male") then
-				gender = "male"
-			end
-			classes.set_race(name, race, gender)
-			minetest.chat_send_player(name, classes.list[race].msg[gender])
-			minetest.log("action", name.." became a "..race..", "..gender)
-		elseif fields.quit then -- выход с формы (cancel или esc)
-			classes.set_race(name, classes.default.race, classes.default.gender)
-			minetest.chat_send_player(name, classes.list[classes.default.race].msg[classes.default.gender])
-			minetest.log("action", name.." became a "..classes.default.race..", "..classes.default.gender)
-		else -- переключение списков
-			-- empty
+		if fields.ok then -- OK button pressed
+			r = races.to_internal(fields.race, fields.gender)
+			races.set_race_and_gender(name, r, true)
+
+			-- This message will become user-friendly after translating
+			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
+			races.save()
+		elseif fields.quit then
+			races.set_race_and_gender(name, races.default, true)
+			minetest.log("action", name .. " became a " .. races.default[1]..
+				" " .. races.default[2])
+			races.save()
 		end
 	end
 end)
 
--- Вход игрока в игру
-minetest.register_on_joinplayer(function(player) -- подключение игрока к игре
+minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	if classes.get_race(name).race == classes.default.race then -- раса определена - тень
-		multiskin[name].skin = classes.list[classes.get_race(name).race].texture[classes.get_race(name).gender] -- ставим базовый скин
-		multiskin:update_player_visuals(player) -- обновляем скин
-		minetest.show_formspec(name, "change_race", classes.change_race_form()) -- показываем форму выбора
-	elseif classes.get_race(name).race then -- раса - не тень, но определена
-		multiskin[name].skin = classes.list[classes.get_race(name).race].texture[classes.get_race(name).gender] -- ставим базовый скин
-		multiskin:update_player_visuals(player) -- обновляем скин
-	else -- раса не определена
-		classes.set_race(name, classes.default.race, classes.default.gender) -- делаем тенью
-		minetest.show_formspec(name, "change_race", classes.change_race_form()) -- показываем форму выбора
-	end
-end)
 
--- Команды
-minetest.register_chatcommand("race", { -- изменение расы любому игроку
-	params = "<player name> <new race> <new gender>",
-	privs = {race = true},
-	description = SL("Change the race of any player"),
-	func = function(name, params)
-		if not(params and #params > 0) then -- не введено никаких параметров
-			minetest.chat_send_player(name, SL("fail_message_1"))
+	if table.contains(races.cache.players, name) then  -- Player is registered already
+		local r = races.get_race_and_gender(name)
+		if races.list[r[1]].cannot_be_selected then
+			races.show_change_form(name)
 			return
 		end
-		local params_list = {}
-		for w in string.gmatch(params, "%S+") do
-			table.insert(params_list, w)
+		races.set_race_and_gender(name, races.get_race_and_gender(name), false)
+	else
+		races.show_change_form(name)
+	end
+end)
+
+minetest.register_chatcommand("race", {
+	params = SL("<player name> <new race>"),
+	privs = {},
+	description = SL("Change the race of a player"),
+	func = function(name, params)
+		-- Parse arguments
+		args = {}
+		for arg in params:gmatch("[^%s]+") do
+			table.insert(args, arg)
 		end
-		if #params_list < 3 then -- недостаточно данных
-			minetest.chat_send_player(name, SL("fail_message_2"))
-		elseif not(minetest.get_player_by_name(params_list[1])) then -- неверное имя игрока
-			minetest.chat_send_player(name, SL("fail_message_3"))
-		elseif not(classes.list[params_list[2]]) then -- неверное название расы
-			local list = {}
-			for i in pairs(classes.list) do table.insert(list, i) end
-			list = table.concat(list, ", ")
-			minetest.chat_send_player(name, SL("fail_message_4").." "..list..")")
-		elseif not(params_list[3] == 'male' or params_list[3] == 'female') then -- неверное название пола
-			minetest.chat_send_player(name, SL("fail_message_5"))
-		else -- всё верно
-			classes.set_race(params_list[1], params_list[2], params_list[3])
-			minetest.chat_send_player(name, SL("ok_message_1").." "..params_list[1])
-			minetest.chat_send_player(params_list[1], SL("ok_message_2")..classes.list[params_list[2]].msg[params_list[3]])
+
+		-- Throw an error if there are too few arguments
+		if #args < 2 then
+			return false, SL("Too few arguments")
+		end
+
+		-- Check if player exists
+		if not races.cache.players[args[1]] then
+			return false, string.format(SL("Player '%s' does not exist"), args[1])
+		end
+
+		r = races.get_race_and_gender(args[1])
+		if races.set_race_and_gender(args[1], {args[2], r[2]}, true) then
+			races.save()
+
+			minetest.log("action", string.format("%s has changed %s's race to %s",
+				name, args[1], args[2]))
+			return true, string.format(SL("%s's race has been changed to %s"),
+				args[1], args[2])
+		else
+			return false, SL("Invalid race")
 		end
 	end
 })
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+minetest.register_chatcommand("gender", {
+	params = "<player name> <new gender>",
+	privs = {race=true},
+	description = SL("Change the gender of a player"),
+	func = function(name, params)
+		-- Parse arguments
+		args = {}
+		for arg in params:gmatch("[^%s]+") do
+			table.insert(args, arg)
+		end
+
+		-- Throw an error if there are too few arguments
+		if #args < 2 then
+			return false, SL("Too few arguments")
+		end
+
+		-- Check if player exists
+		if not races.cache.players[args[1]] then
+			return false, string.format(SL("Player '%s' does not exist"), args[1])
+		end
+
+		-- Set gender
+		r = races.get_race_and_gender(args[1])
+
+		if races.set_race_and_gender(args[1], {r[1], args[2]}, false) then
+			races.save()
+
+			minetest.log("action", string.format("%s has changed %s's gender to %s",
+				name, args[1], args[2]))
+			return true, string.format(SL("%s's gender has been changed to %s"),
+				args[1], args[2])
+		else
+			return false, SL("Invalid gender. Possible values: 'male', 'female'")
+		end
+	end
+})
+
+if minetest.setting_getbool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." loaded")
+end

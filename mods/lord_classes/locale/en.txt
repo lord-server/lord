@@ -1,40 +1,38 @@
 ### init.lua ###
-Shadow	=	Shadow
-Dwarf	=	Dwarf
-Elf	=	Elf
-Man	=	Man
-Orc	=	Orc
-Hobbit	=	Hobbit
+Shadow = Shadow
+Dwarf = Dwarf
+Elf = Elf
+Man = Man
+Orc = Orc
+Hobbit = Hobbit
 
-Male	=	Male
-Female	=	Female
+Male = Male
+Female = Female
 
-You became a shadow-male	=	You became a shadow-male
-You became a shadow-female	=	You became a shadow-female
-You became a orc-male	=	You became a orc-male
-You became a orc-female	=	You became a orc-female
-You became a man-male	=	You became a man-male
-You became a man-female	=	You became a man-female
-You became a dwarf-male	=	You became a dwarf-male
-You became a dwarf-female	=	You became a dwarf-female
-You became a hobbit-male	=	You became a hobbit-male
-You became a hobbit-female	=	You became a hobbit-female
-You became a elf-male	=	You became a elf-male
-You became a elf-female	=	You became a elf-female
+Cancel = Cancel
+OK = OK
 
-Please select the race you wish to be:	=	Please select the race you wish to be:
+Ability to change race and gender of a player. = Ability to change race and gender of a player.
 
-Cancel	=	Cancel
-Ok	=	Ok
+Please select the race you wish to be: = Please select the race you wish to be:
+change_shadow = Now you're a shadow
+change_orc = Now you're an orc
+change_man = Now you're a human
+change_dwarf = Now you're a dwarf
+change_hobbit = Now you're a hobbit
+change_elf = Now you're an elf
 
-Change the race of any player	=	Change the race of any player
+Change the race of a player = Change the race of a player
+Too few arguments = Too few arguments
+Player '%s' does not exist = Player '%s' does not exist
+%s's race has been changed to %s = %s's race has been changed to %s
+Invalid race = Invalid race
 
-### privileges.lua ###
-A male player	=	A male player
-A female player	=	A female player
-A dwarf player	=	A dwarf player
-An elf player	=	An elf player
-A human player	=	A human player
-An orc player	=	An orc player
-A hobbit player	=	A hobbit player
-A shadow player	=	A shadow player
+Change the gender of a player = Change the gender of a player
+Too few arguments = Too few arguments
+Player '%s' does not exist = Player '%s' does not exist
+%s's gender has been changed to %s = %s's gender has been changed to %s
+Invalid gender. Possible values: 'male', 'female' = Invalid gender. Possible values: 'male', 'female'
+
+<player name> <new race> = <player name> <new race>
+<player name> <new gender> = <player name> <new gender>
