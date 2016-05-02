@@ -144,7 +144,7 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			end
 			minv:set_size(temp, 0) -- закрываем буфер
 			if not can_exchange then -- если обмен не возможен, пишем отчёт "товара нет на складе" и выходим из функции.
-				if mail ~= "" then
+				if mail ~= nil and mail ~= "" then
 					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended goods.")
 					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
 				end
@@ -190,7 +190,7 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			end
 			minv:set_size(temp, 0) -- закрываем буфер
 			if not can_exchange then -- если обмен не возможен, пишем отчёт "нет места на складе" и выходим из функции.
-				if mail ~= "" then
+				if mail ~= nil and mail ~= "" then
 					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended place.")
 					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
 				end
@@ -250,4 +250,3 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 		end
 	end
 end)
-
