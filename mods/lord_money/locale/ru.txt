@@ -16,10 +16,11 @@ In exchange, you give:	=	Предложение
 Owner, Use(E)+Place(RMB) for customer interface	=	Используйте "Использовать" (обычно E) и ПКМ,\nчтобы увидеть прилавок, как покупатель.
 
 Exchange shop (owned by	=	Прилавок (продавец
-This is your own shop, you can't exchange to yourself!	=	Это Ваш прилавок, Вы не сможете здесь ничего купить!
-Exchange can not be done, contact the shop owner.	=	Обмен не может быть произведён.\nВозможно, на складе закончился товар.\nОбратитесь к продавцу.
-Exchange can not be done, visit later.	=	Обмен не может быть произведён.\nВозможно, на складе закончился товар.\nПриходите позже.
-Exchange can not be done, check if you put all items!	=	Обмен не может быть произведён.\nПроверьте правильность оплаты.
+Exchange can not be done, ended goods.	=	Обмен не может быть произведён:\nна складе закончился товар;\nобратитесь к продавцу.
+Exchange can not be done, ended place.	=	Обмен не может быть произведён:\nна складе закончилось место;\nобратитесь к продавцу.
+Exchange can not be done, check if you put all items!	=	Обмен не может быть произведён:\nпроверьте правильность оплаты.
+Exchange can not be done, check if you have place!	=	Обмен не может быть произведён:\nпроверьте наличие места.
 In your store	=	В Вашем магазине
 ended goods.	=	закончился товар.
+ended place.	=	закончилось место.
 Exchanged!	=	Обмен прошёл успешно!
