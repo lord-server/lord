@@ -16,7 +16,11 @@ In exchange, you give:	=	In exchange, you give:
 Owner, Use(E)+Place(RMB) for customer interface	=	Owner, Use(E)+Place(RMB) for customer interface
 
 Exchange shop (owned by	=	Exchange shop (owned by
-This is your own shop, you can't exchange to yourself!	=	This is your own shop, you can't exchange to yourself!
-Exchange can not be done, contact the shop owner.	=	Exchange can not be done, contact the shop owner.
+Exchange can not be done, ended goods.	=	Exchange can not be done, ended goods.
+Exchange can not be done, ended place.	=	Exchange can not be done, ended place.
 Exchange can not be done, check if you put all items!	=	Exchange can not be done, check if you put all items!
+Exchange can not be done, check if you have place!	=	Exchange can not be done, check if you have place!
+In your store	=	In your store
+ended goods.	=	ended goods.
+ended place.	=	ended place.
 Exchanged!	=	Exchanged!
