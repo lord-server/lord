@@ -1,6 +1,6 @@
 ### init.lua ###
 Gold Coin	=	Золотая монета
-Silver Coin	=	Серебрянная монета
+Silver Coin	=	Серебряная монета
 Copper Coin	=	Медная монета
 Shop Chest	=	Сундук торговца
 
