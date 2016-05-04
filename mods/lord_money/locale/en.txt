@@ -1,8 +1,11 @@
-### init.lua ###
+### money.lua ###
 Gold Coin	=	Gold Coin
 Silver Coin	=	Silver Coin
 Copper Coin	=	Copper Coin
+
+### shop.lua ###
 Shop Chest	=	Shop Chest
+License = License
 
 Customer gives (pay here !)	=	Customer gives (pay here !)
 Customer gets	=	Customer gets
