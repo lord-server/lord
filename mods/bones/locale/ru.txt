@@ -4,7 +4,7 @@ Unknown corpse	=	Неизвестно чей труп
 Corpse of	=	Труп
 
 ### items.lua ###
-Bone Dust	=	Костяная пыть
+Bone Dust	=	Костяная пыль
 Bone	=	Кость
 Bone Scythe	=	Костяная коса
 
