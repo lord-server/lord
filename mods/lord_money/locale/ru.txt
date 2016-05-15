@@ -1,8 +1,11 @@
-### init.lua ###
+### money.lua ###
 Gold Coin	=	Золотая монета
-Silver Coin	=	Серебрянная монета
+Silver Coin	=	Серебряная монета
 Copper Coin	=	Медная монета
-Shop Chest	=	Сундук торговца
+
+### shop.lua ###
+Shop Chest	=	Прилавок
+License = Лицензия на торговлю
 
 Customer gives (pay here !)	=	Оплата
 Customer gets	=	Приобретённый товар

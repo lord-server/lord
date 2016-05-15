@@ -61,14 +61,7 @@ minetest.register_node("lottfarming:melon_3", {
 	description = SL("Melon"),
 	paramtype2 = "facedir",
 	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
-		drop = {
-		max_items = 6,
-		items = {
-			{ items = {'lottfarming:melon_seed'} },
-			{ items = {'lottfarming:melon_seed'}, rarity = 20},
-			{ items = {'lottfarming:melon 8'} },
-		}
-	},
+	drop = "lottfarming:melon_3",
 	groups = {choppy=2, oddly_breakable_by_hand=1, flammable=2, plant=1},
 	sounds = default.node_sound_wood_defaults(),
 })

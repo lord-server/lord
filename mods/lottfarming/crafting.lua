@@ -224,12 +224,8 @@ minetest.register_craft({
 -- FOOD
 
 minetest.register_craft({
-	output = 'lottfarming:melon',
-	recipe = {
-		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
-		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
-		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
-	}
+	output = 'lottfarming:melon 9',
+	recipe = {{'lottfarming:melon_3'}},
 })
 
 -- COOKING
