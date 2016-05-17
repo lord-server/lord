@@ -1,10 +1,10 @@
 ### init.lua ###
 Ghost Stone	= Призрачный камень
-Ghost Cobble = Призрачный былыжник
+Ghost Cobble = Призрачный булыжник
 Ghost Desert Stone = Призрачный пустынный камень
 Ghost Desert Cobble = Призрачный пустынный булыжник
 Ghost Brick = Призрачный кирпич
 Ghost Stone Brick = Призрачный каменный кирпич
 Ghost Desert Stone Brick = Призрачный пустынный кирпич
-Ghost Sandstone = Призрачный песчанник
-Ghost Sandstone Brick = Призрачные блоки песчанника
+Ghost Sandstone = Призрачный песчаник
+Ghost Sandstone Brick = Призрачные блоки песчаника
