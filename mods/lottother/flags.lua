@@ -73,7 +73,7 @@ for _, row in ipairs(tapestry.colours) do
 	    },
           on_place = function(itemstack, placer, pointed_thing)
                local above = pointed_thing.above
-               if minetest.env:get_node({x = above.x, y = above.y + 1, z = above.z}).name ~= "air" then
+               if minetest.get_node({x = above.x, y = above.y + 1, z = above.z}).name ~= "air" then
                     return itemstack
                end
           local fdir = 0
@@ -86,8 +86,8 @@ for _, row in ipairs(tapestry.colours) do
                }
                fdir = minetest.dir_to_facedir(dir)
           end
-          minetest.env:add_node(above, {name = "lottother:tapestry_"..name, param2 = fdir})
-          minetest.env:add_node({x = above.x, y = above.y + 1, z = above.z}, {name = "lottother:tapestry_top_"..name,param2 = fdir})
+          minetest.add_node(above, {name = "lottother:tapestry_"..name, param2 = fdir})
+          minetest.add_node({x = above.x, y = above.y + 1, z = above.z}, {name = "lottother:tapestry_top_"..name,param2 = fdir})
           if not minetest.setting_getbool("creative_mode") then
           	itemstack:take_item()
           end
@@ -95,7 +95,7 @@ for _, row in ipairs(tapestry.colours) do
           end,
           on_destruct = function(pos)
                local p = {x=pos.x, y=pos.y+1, z=pos.z}
-	          minetest.env:remove_node(p)
+	          minetest.remove_node(p)
           end
 	})
 end

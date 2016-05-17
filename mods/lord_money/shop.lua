@@ -58,7 +58,7 @@ minetest.register_node("lord_money:shop", {
 	sounds = default.node_sound_wood_defaults(),
 	after_place_node = function(pos, placer, itemstack)
 		local owner = placer:get_player_name()
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", SL("Exchange shop (owned by").." "..owner..")")
 		meta:set_string("owner",owner)
 		local inv = meta:get_inventory()
@@ -71,7 +71,7 @@ minetest.register_node("lord_money:shop", {
 		clicker:get_inventory():set_size("customer_gives", 5*2)
 		clicker:get_inventory():set_size("customer_gets", 5*2)
 		shop.current_shop[clicker:get_player_name()] = pos
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if clicker:get_player_name() == meta:get_string("owner") and not clicker:get_player_control().aux1 then
 			minetest.show_formspec(clicker:get_player_name(),"lord_money:shop_formspec",shop.formspec.owner(pos))
 		else
@@ -79,22 +79,22 @@ minetest.register_node("lord_money:shop", {
 		end
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
 		return count
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
 		return stack:get_count()
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
 		return stack:get_count()
 	end,
 	can_dig = function(pos, player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
 		return inv:is_empty("stock") and inv:is_empty("customers_gave") and inv:is_empty("owner_wants") and inv:is_empty("owner_gives")
 	end
@@ -115,7 +115,7 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 		local name = sender:get_player_name() -- имя покупателя
 		if fields.exchange then -- нажата кнопка "купить"
 			local pos = shop.current_shop[name] -- расположение магазина
-			local meta = minetest.env:get_meta(pos) -- метаданные магазина
+			local meta = minetest.get_meta(pos) -- метаданные магазина
 			local mail = ""
 			if minetest.get_modpath("mail_list") then -- если есть мод взаимодействия с e-mail
 				mail = get_mail(meta:get_string("owner")) -- адрес владельца

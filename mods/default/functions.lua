@@ -7,7 +7,7 @@ local random = math.random
 function default.can_grow(pos)
 	local n
     for p = pos.y + 1, pos.y + 20 do
-		n = minetest.env:get_node({x = pos.x, y = p, z = pos.z})
+		n = minetest.get_node({x = pos.x, y = p, z = pos.z})
 		if (n.name~="air") then
 			return false
 		end

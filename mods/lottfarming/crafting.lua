@@ -27,13 +27,13 @@ minetest.register_node("lottfarming:decay_tree", {
 
 local function decaying_wood(pos)
 	if pos == nil then return false end
-	local node = minetest.env:get_node(pos)
+	local node = minetest.get_node(pos)
 	local name = node.name
-	local above = minetest.env:get_node({x=pos.x, y=pos.y+1, z=pos.z})
+	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
 	if name == "default:tree_trunk" or name == "default:jungletree_trunk" then
 		if above.name == "air" then
 			node.name = "lottfarming:decay_tree"
-			minetest.env:set_node(pos, node)
+			minetest.set_node(pos, node)
 			return true
 		end
 	end
@@ -42,7 +42,7 @@ end
 
 local function growgen(pos)
 	if pos == nil then return false end
-	name = minetest.env:get_node(pos).name
+	name = minetest.get_node(pos).name
 	local farm_list = {
 		["lottfarming:turnips_1"] = "lottfarming:turnips_2",
 		["lottfarming:turnips_2"] = "lottfarming:turnips_3",
@@ -98,7 +98,7 @@ local function growgen(pos)
 	}
 	for farm_1, farm_2 in pairs(farm_list) do
 		if name == farm_1 then
-			minetest.env:set_node(pos, {name=farm_2})
+			minetest.set_node(pos, {name=farm_2})
 			return true
 		end
 	end

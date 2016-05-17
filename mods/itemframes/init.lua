@@ -51,9 +51,9 @@ facedir[3] = {x=-1,y=0,z=0}
 local remove_item = function(pos, node)
 	local objs = nil
 	if node.name == "itemframes:frame" then
-		objs = minetest.env:get_objects_inside_radius(pos, .5)
+		objs = minetest.get_objects_inside_radius(pos, .5)
 	elseif minetest.get_item_group(node.name, "group:pedestal") then
-		objs = minetest.env:get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
+		objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
 	end
 	if objs then
 		for _, obj in ipairs(objs) do
@@ -66,7 +66,7 @@ end
 
 local update_item = function(pos, node)
 	remove_item(pos, node)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" then
 			local posad = facedir[node.param2]
@@ -79,7 +79,7 @@ local update_item = function(pos, node)
 		end
 		tmp.nodename = node.name
 		tmp.texture = ItemStack(meta:get_string("item")):get_name()
-		local e = minetest.env:add_entity(pos,"itemframes:item")
+		local e = minetest.add_entity(pos,"itemframes:item")
 		if node.name == "itemframes:frame" then
 			local yaw = math.pi*2 - node.param2 * math.pi/2
 			e:setyaw(yaw)
@@ -88,12 +88,12 @@ local update_item = function(pos, node)
 end
 
 local drop_item = function(pos, node)
-	local meta = minetest.env:get_meta(pos)
+	local meta = minetest.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" then
-			minetest.env:add_item(pos, meta:get_string("item"))
+			minetest.add_item(pos, meta:get_string("item"))
 		elseif minetest.get_item_group(node.name, "group:pedestal") then
-			minetest.env:add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
+			minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
 		end
 		meta:set_string("item","")
 	end
@@ -115,7 +115,7 @@ minetest.register_node("itemframes:frame",{
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		meta:set_string("owner",placer:get_player_name())
 		meta:set_string("infotext", SL("Item frame").."\n"..SL("(owned by").." "..placer:get_player_name()..")")
 	end,
@@ -127,7 +127,7 @@ minetest.register_node("itemframes:frame",{
 		else
 			item_name = ": "..minetest.registered_items[itemstack:get_name()].description
 		end
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if clicker:get_player_name() == meta:get_string("owner") then
 			drop_item(pos,node)
 			local s = itemstack:take_item()
@@ -138,14 +138,14 @@ minetest.register_node("itemframes:frame",{
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		if puncher:get_player_name() == meta:get_string("owner") then
 			meta:set_string("infotext", SL("Item frame").."\n"..SL("(owned by").." "..puncher:get_player_name()..")")
 			drop_item(pos, node)
 		end
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.env:get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		return player:get_player_name() == meta:get_string("owner")
 	end,
 })
@@ -174,7 +174,7 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 		sounds = sounds,
 		paramtype = "light",
 		after_place_node = function(pos, placer, itemstack)
-			local meta = minetest.env:get_meta(pos)
+			local meta = minetest.get_meta(pos)
 			meta:set_string("owner",placer:get_player_name())
 			meta:set_string("infotext", SL("Pedestal").."\n"..SL("(owned by").." "..placer:get_player_name()..")")
 		end,
@@ -186,7 +186,7 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 			else
 				item_name = ": "..minetest.registered_items[itemstack:get_name()].description
 			end
-			local meta = minetest.env:get_meta(pos)
+			local meta = minetest.get_meta(pos)
 			if clicker:get_player_name() == meta:get_string("owner") then
 				drop_item(pos,node)
 				local s = itemstack:take_item()
@@ -197,14 +197,14 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 			return itemstack
 		end,
 		on_punch = function(pos,node,puncher)
-			local meta = minetest.env:get_meta(pos)
+			local meta = minetest.get_meta(pos)
 			if puncher:get_player_name() == meta:get_string("owner") then
 				meta:set_string("infotext", SL("Pedestal").."\n"..SL("(owned by").." "..puncher:get_player_name()..")")
 				drop_item(pos,node)
 			end
 		end,
 		can_dig = function(pos,player)
-			local meta = minetest.env:get_meta(pos)
+			local meta = minetest.get_meta(pos)
 			return player:get_player_name() == meta:get_string("owner")
 		end,
 	})

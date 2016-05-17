@@ -2,22 +2,22 @@
 -- TREE FUNCTIONS
 	
 function add_tree_branch(pos,nodename)
-	local n = minetest.env:get_node(pos)
+	local n = minetest.get_node(pos)
 
 	--print(n.name)
 	if (n.name=="air") then
-		minetest.env:add_node(pos, {name=nodename})
+		minetest.add_node(pos, {name=nodename})
 	end
 	
 end
 
 function add_tree_trunk(pos,nodename)
-	local n = minetest.env:get_node(pos)
+	local n = minetest.get_node(pos)
 
 	--print(n.name)
 	if (n.name=="air") or (string.find(n.name,"leaf"))  or (string.find(n.name,"sapling")) then
 		--print("===========================сработало=================================")
-		minetest.env:add_node(pos, {name=nodename})
+		minetest.add_node(pos, {name=nodename})
 	end
 	
 end
@@ -629,16 +629,16 @@ function add_tree_branch_mirktree(pos)
 	for i = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 		for k = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 			local p = {x=pos.x+i, y=pos.y, z=pos.z+k}
-			local n = minetest.env:get_node(p)
+			local n = minetest.get_node(p)
 			if (n.name=="air") then
-				minetest.env:add_node(p, {name="lottplants:mirkleaf"})
+				minetest.add_node(p, {name="lottplants:mirkleaf"})
 			end
 			local chance = math.abs(i+k)
 			if (chance < 1) then
 				p = {x=pos.x+i, y=pos.y+1, z=pos.z+k}
-				n = minetest.env:get_node(p)
+				n = minetest.get_node(p)
 				if (n.name=="air") then
-					minetest.env:add_node(p, {name="lottplants:mirkleaf"})
+					minetest.add_node(p, {name="lottplants:mirkleaf"})
 				end
 			end
 		end

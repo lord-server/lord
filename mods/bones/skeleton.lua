@@ -70,7 +70,7 @@ minetest.register_node("bones:skeleton_body", {
 			minetest.record_protection_violation(above, placer:get_player_name())
 			return itemstack
 		end
-		if minetest.env:get_node(above_2).name ~= "air" then
+		if minetest.get_node(above_2).name ~= "air" then
 			return itemstack
 		end
 		local fdir = 0
@@ -83,8 +83,8 @@ minetest.register_node("bones:skeleton_body", {
 			}
 			fdir = minetest.dir_to_facedir(dir)
 		end
-		minetest.env:add_node(above, {name = "bones:skeleton_body", param2 = fdir})
-		minetest.env:add_node(above_2, {name = "bones:skeleton", param2 = fdir})
+		minetest.add_node(above, {name = "bones:skeleton_body", param2 = fdir})
+		minetest.add_node(above_2, {name = "bones:skeleton", param2 = fdir})
 		if not minetest.setting_getbool("creative_mode") then
 			itemstack:take_item()
 		end
@@ -92,7 +92,7 @@ minetest.register_node("bones:skeleton_body", {
 	end,
 	on_destruct = function(pos)
 		local p = {x=pos.x, y=pos.y+1, z=pos.z}
-		minetest.env:remove_node(p)
+		minetest.remove_node(p)
 	end
 })
 

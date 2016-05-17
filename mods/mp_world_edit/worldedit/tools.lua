@@ -11,7 +11,7 @@ minetest.register_tool("worldedit:admin_stick", {
 	    local can_access = minetest.get_player_privs(user_name).worldedit
 	    if not can_access then return end 
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
-	    local node=minetest.env:get_node(pos)
+	    local node=minetest.get_node(pos)
 	    local node_name=node.name
 		local pressed = user:get_player_control()
 	    
@@ -32,7 +32,7 @@ minetest.register_tool("worldedit:admin_stick", {
 				--end
 		
 			else
-				minetest.env:remove_node(pointed_thing.under)
+				minetest.remove_node(pointed_thing.under)
 			end
 		elseif pointed_thing.type == "object" then
 			obj = pointed_thing.ref
@@ -108,7 +108,7 @@ minetest.register_tool("worldedit:pick_admin", {
 	    if not can_access then return end 
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
 	    if pos == nil then return end
-	    local node=minetest.env:get_node(pos)
+	    local node=minetest.get_node(pos)
 		if pointed_thing.type == "node" and pos ~= nil then
 			minetest.node_dig(pos, node, user)
 		elseif pointed_thing.type == "object" then
