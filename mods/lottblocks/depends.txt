@@ -3,4 +3,5 @@ doors
 lottplants
 default
 dye
+lord_classes
 intllib?

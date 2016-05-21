@@ -34,7 +34,7 @@ minetest.register_node("lottblocks:hobbit_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEhobbit=true}) then
+			if races.get_race_and_gender(player)[1] == "hobbit" then
 				minetest.show_formspec(
 					player, "lottblocks:hobbit_chest", default.get_chest_formspec(pos, "gui_hobbitbg.png")
 				)
@@ -82,7 +82,7 @@ minetest.register_node("lottblocks:gondor_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEman=true}) then
+			if races.get_race_and_gender(player)[1] == "man" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:gondor_chest",
@@ -132,7 +132,7 @@ minetest.register_node("lottblocks:rohan_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEman=true}) then
+			if races.get_race_and_gender(player)[1] == "man" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:rohan_chest",
@@ -182,7 +182,7 @@ minetest.register_node("lottblocks:elfloth_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEelf=true}) then
+			if races.get_race_and_gender(player)[1] == "elf" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:elfloth_chest",
@@ -232,7 +232,7 @@ minetest.register_node("lottblocks:elfmirk_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEelf=true}) then
+			if races.get_race_and_gender(player)[1] == "elf" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:elfmirk_chest",
@@ -282,7 +282,7 @@ minetest.register_node("lottblocks:mordor_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEorc=true}) then
+			if races.get_race_and_gender(player)[1] == "orc" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:mordor_chest",
@@ -332,7 +332,7 @@ minetest.register_node("lottblocks:angmar_chest", {
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
             local item = itemstack:get_name()
-			if minetest.check_player_privs(player, {GAMEorc=true}) then
+			if races.get_race_and_gender(player)[1] == "orc" then
 				minetest.show_formspec(
 					player,
 					"lottblocks:angmar_chest",
