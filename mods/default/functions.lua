@@ -25,7 +25,7 @@ function default.can_grow(pos)
 	if not light_level or light_level < 13 then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -423,6 +423,11 @@ end
 if falling_trees == true then
 	function default.dig_tree(pos, node, name, digger, height, radius, drop)
 		minetest.node_dig(pos, node, digger)
+
+		if minetest.is_protected(pos, digger:get_player_name()) then
+			return
+		end
+
 		local base_y = pos.y
 		for i = 1, (height + 5) do
 			pos.y = base_y + i
