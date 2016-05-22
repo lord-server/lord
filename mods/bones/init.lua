@@ -9,6 +9,8 @@ local bones_formspec =
 	"size[8,9]"..
 	"list[current_name;main;0,-0.2;8,5;]"..
 	"list[current_player;main;0,5.2;8,4;]"..
+	"listring[current_name;main]"..
+	"listring[current_player;main]"..
 	"background[-0.5,-0.65;9,10.35;gui_bonesbg.png]"..
 	"listcolors[#606060AA;#606060;#141318;#30434C;#FFF]"
 
