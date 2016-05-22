@@ -314,6 +314,12 @@ minetest.register_abm({
     				"label[6,1.5;"..SL("Result:").."]"..
 					"list[current_name;dst;6,2;1,1;]"..
 					"list[current_player;main;0,5;8,4;]"..
+					"listring[current_name;fuel]"..
+					"listring[current_player;main]"..
+					"listring[current_name;src]"..
+					"listring[current_player;main]"..
+					"listring[current_name;dst]"..
+					"listring[current_player;main]"..
 					"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]"..
 					"listcolors[#606060AA;#888;#141318;#30434C;#FFF]")
 			return
