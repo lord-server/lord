@@ -4,7 +4,7 @@ local shop = {}
 shop.current_shop = {}
 shop.formspec = {
 	customer = function(pos)
-		local list_name = "nodemeta:"..pos.x..','..pos.y..','..pos.z
+		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
 		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
 		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
@@ -22,11 +22,17 @@ shop.formspec = {
 		"list[current_player;customer_gets;3,2.4;5,2;]"..
 
 		"button[0,4.35;8,1;exchange;"..SL("Exchange").."]"..
-		"list[current_player;main;0,5.3;8,4;]"
+		"list[current_player;main;0,5.3;8,4;]"..
+
+		"listring[current_player;customer_gets]"..
+		"listring[current_player;main]"..
+		"listring[current_player;customer_gives]"..
+		"listring[current_player;main]"
+
 		return formspec
 	end,
 	owner = function(pos)
-		local list_name = "nodemeta:"..pos.x..','..pos.y..','..pos.z
+		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
 		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
 		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
@@ -44,7 +50,17 @@ shop.formspec = {
 		"list["..list_name..";customers_gave;3,2.4;5,2;]"..
 
 		"label[0,4.35;"..SL("Owner, Use(E)+Place(RMB) for customer interface").."]"..
-		"list[current_player;main;0,5.3;8,4;]"
+		"list[current_player;main;0,5.3;8,4;]"..
+
+		"listring["..list_name..";owner_gives]"..
+		"listring[current_player;main]"..
+		"listring["..list_name..";stock]"..
+		"listring[current_player;main]"..
+		"listring["..list_name..";owner_wants]"..
+		"listring[current_player;main]"..
+		"listring["..list_name..";customers_gave]"..
+		"listring[current_player;main]"
+
 		return formspec
 	end,
 }
