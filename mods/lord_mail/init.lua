@@ -19,7 +19,9 @@ mail.get_output_formspec = function(meta,pos,owner)
 		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
 		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
 		"list[nodemeta:".. spos .. ";main;0,0;8,4;]"..
-		"list[current_player;main;0,5;8,4;]"
+		"list[current_player;main;0,5;8,4;]"..
+		"listring[nodemeta:".. spos .. ";main]"..
+		"listring[current_player;main]"
 
 		if minetest.check_player_privs(owner, {privs = true}) then
 			formspec = formspec .. "field[2.34,4.34;3,1;mail_change_owner;;".. owner .."]"..
