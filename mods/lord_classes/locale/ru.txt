@@ -22,15 +22,16 @@ change_dwarf = Теперь вы - гном
 change_hobbit = Теперь вы - хоббит
 change_elf = Теперь вы - эльф
 
-Change the race of a player = Изменить расу игрока
-Too few arguments = Слишком мало параметров
+Change the race of a player. Possible values\: %s = Изменить расу игрока. Возможные значения: %s
+Too few arguments. Try %s to show the correct usage = Слишком мало параметров. Напишите %s, чтобы показать, как использовать эту команду
 Player '%s' does not exist = Игрока '%s' не существует
 %s's race has been changed to %s = Раса игрока %s изменена на %s
-Invalid race = Некорректное название расы
+Invalid race. Possible values: %s = Некорректное название расы. Возможные значения: %s
 
-Change the gender of a player = Изменить пол игрока
+Change the gender of a player. Possible values\: 'male', 'female' = Изменить пол игрока. Возможные значения: 'male', 'female'
 %s's gender has been changed to %s = Пол игрока %s изменён на %s
 Invalid gender. Possible values: 'male', 'female' = Некорректный пол. Возможные значения: 'male', 'female'
+
 
 <player name> <new race> = <ник игрока> <новая раса>
 <player name> <new gender> = <ник игрока> <новый пол>

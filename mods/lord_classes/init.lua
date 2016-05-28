@@ -38,6 +38,14 @@ races.list = {
 -- TODO: Get these values via minetest.setting_get()
 races.default = {"shadow", "female"}
 
+local tmp_races_list = {}
+for name, _ in pairs(races.list) do
+	table.insert(tmp_races_list, name)
+end
+
+-- A string contaning possible race values
+races.list_str = table.concat(tmp_races_list, ", ")
+
 -- All data will be stored in this table
 -- races.cache.players[player_name] = {"shadow", "female"}
 -- races.cache.granted_privs[player_name] = {"fly", "fast"}
@@ -241,15 +249,12 @@ function races.show_change_form(name)
 	minetest.show_formspec(name, "change_race", form)
 end
 
--- Обработка событий формы
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
 		if fields.ok then -- OK button pressed
 			r = races.to_internal(fields.race, fields.gender)
 			races.set_race_and_gender(name, r, true)
-
-			-- This message will become user-friendly after translating
 			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
 			races.save()
 		elseif fields.quit then
@@ -279,7 +284,7 @@ end)
 minetest.register_chatcommand("race", {
 	params = SL("<player name> <new race>"),
 	privs = {},
-	description = SL("Change the race of a player"),
+	description = string.format(SL("Change the race of a player. Possible values: %s"), races.list_str),
 	func = function(name, params)
 		-- Parse arguments
 		args = {}
@@ -289,7 +294,9 @@ minetest.register_chatcommand("race", {
 
 		-- Throw an error if there are too few arguments
 		if #args < 2 then
-			return false, SL("Too few arguments")
+			return false, string.format(
+				SL("Too few arguments. Try %s to show the correct usage"),
+				"/help race")
 		end
 
 		-- Check if player exists
@@ -306,15 +313,16 @@ minetest.register_chatcommand("race", {
 			return true, string.format(SL("%s's race has been changed to %s"),
 				args[1], args[2])
 		else
-			return false, SL("Invalid race")
+			return false, string.format(SL("Invalid race. Possible values: %s"),
+				races.list_str)
 		end
 	end
 })
 
 minetest.register_chatcommand("gender", {
-	params = "<player name> <new gender>",
+	params = SL("<player name> <new gender>"),
 	privs = {race=true},
-	description = SL("Change the gender of a player"),
+	description = SL("Change the gender of a player. Possible values: 'male', 'female'"),
 	func = function(name, params)
 		-- Parse arguments
 		args = {}
@@ -324,7 +332,9 @@ minetest.register_chatcommand("gender", {
 
 		-- Throw an error if there are too few arguments
 		if #args < 2 then
-			return false, SL("Too few arguments")
+			return false, string.format(
+				SL("Too few arguments. Try %s to show the correct usage"),
+				"/help gender")
 		end
 
 		-- Check if player exists
