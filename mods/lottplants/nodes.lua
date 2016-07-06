@@ -114,7 +114,7 @@ minetest.register_node("lottplants:beechleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, flammable=2},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
 	drop = {
 		max_items = 1,
 		items = {
