@@ -491,8 +491,8 @@ minetest.register_node("default:leaves", {
 		--climbable=true,
 	liquid_viscosity = 8,
 	liquidtype = "source",
-	liquid_alternative_flowing = "lottplants:alderleaf",
-	liquid_alternative_source = "lottplants:alderleaf",
+	liquid_alternative_flowing = "default:leaves",
+	liquid_alternative_source = "default:leaves",
 	liquid_renewable = false,
 	liquid_range = 0,
 
