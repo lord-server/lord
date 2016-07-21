@@ -10,7 +10,7 @@ Close	=	Закрыть
 
 This area is owned by	=	Это только для
 Protection located at:	=	Защитный блок на координатах
-Members:	=	Так же доступно для
+Members:	=	Также доступно для
 This area is not protected.	=	Этот блок не защищён.
 You can build here.	=	Вы можете здесь строить.
 
