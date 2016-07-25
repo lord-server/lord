@@ -13,7 +13,7 @@ Cancel = Отмена
 Back = Назад
 OK = OK
 
-Ability to change race and gender of a player. = Возможность изменять расу и пол любому игроку.
+Ability to change race and gender of a player. = Возможность изменять расу и пол игроку.
 
 Please select the race you wish to be: = Выберите расу и пол для вашего персонажа:
 Choose a skin for your character: = Выберите скин для вашего персонажа:
@@ -24,18 +24,10 @@ change_dwarf = Теперь вы - гном
 change_hobbit = Теперь вы - хоббит
 change_elf = Теперь вы - эльф
 
-Change the race of a player. Possible values\: %s = Изменить расу игрока. Возможные значения: %s
-Too few arguments. Try %s to show the correct usage = Слишком мало параметров. Напишите %s, чтобы показать, как использовать эту команду
+Too few arguments. Try %s to show the correct usage = Слишком мало аргументов. Напишите %s, чтобы показать, как использовать эту команду
 Player '%s' does not exist = Игрока '%s' не существует
-%s's race has been changed to %s = Раса игрока %s изменена на %s
-Invalid race. Possible values: %s = Некорректное название расы. Возможные значения: %s
 
-Change the gender of a player. Possible values\: 'male', 'female' = Изменить пол игрока. Возможные значения: 'male', 'female'
-%s's gender has been changed to %s = Пол игрока %s изменён на %s
-Invalid gender. Possible values: 'male', 'female' = Некорректный пол. Возможные значения: 'male', 'female'
-
-
-<player name> <new race> = <ник игрока> <новая раса>
-<player name> <new gender> = <ник игрока> <новый пол>
+<player name> = <имя игрока>
 
 Won't give another chance = Ещё одного шанса не будет
+Second chance = Второй шанс

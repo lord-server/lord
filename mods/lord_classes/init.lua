@@ -392,48 +392,10 @@ minetest.register_chatcommand("second_chance", {
 	end
 })
 
-minetest.register_chatcommand("race", {
-	params = SL("<player name> <new race>"),
-	privs = {},
-	description = string.format(SL("Change the race of a player. Possible values: %s"), races.list_str),
-	func = function(name, params)
-		-- Parse arguments
-		args = {}
-		for arg in params:gmatch("[^%s]+") do
-			table.insert(args, arg)
-		end
-
-		-- Throw an error if there are too few arguments
-		if #args < 2 then
-			return false, string.format(
-				SL("Too few arguments. Try %s to show the correct usage"),
-				"/help race")
-		end
-
-		-- Check if player exists
-		if not races.cache.players[args[1]] then
-			return false, string.format(SL("Player '%s' does not exist"), args[1])
-		end
-
-		r = races.get_race_and_gender(args[1])
-		if races.set_race_and_gender(args[1], {args[2], r[2]}, true) then
-			races.save()
-
-			minetest.log("action", string.format("%s has changed %s's race to %s",
-				name, args[1], args[2]))
-			return true, string.format(SL("%s's race has been changed to %s"),
-				args[1], args[2])
-		else
-			return false, string.format(SL("Invalid race. Possible values: %s"),
-				races.list_str)
-		end
-	end
-})
-
-minetest.register_chatcommand("gender", {
-	params = SL("<player name> <new gender>"),
+minetest.register_chatcommand("give_chance", {
+	params = SL("<player name>"),
 	privs = {race=true},
-	description = SL("Change the gender of a player. Possible values: 'male', 'female'"),
+	description = string.format(SL("Give another chance to a player."), races.list_str),
 	func = function(name, params)
 		-- Parse arguments
 		args = {}
@@ -442,10 +404,10 @@ minetest.register_chatcommand("gender", {
 		end
 
 		-- Throw an error if there are too few arguments
-		if #args < 2 then
+		if #args < 1 then
 			return false, string.format(
 				SL("Too few arguments. Try %s to show the correct usage"),
-				"/help gender")
+				"/help give_chance")
 		end
 
 		-- Check if player exists
@@ -453,19 +415,7 @@ minetest.register_chatcommand("gender", {
 			return false, string.format(SL("Player '%s' does not exist"), args[1])
 		end
 
-		-- Set gender
-		r = races.get_race_and_gender(args[1])
-
-		if races.set_race_and_gender(args[1], {r[1], args[2]}, false) then
-			races.save()
-
-			minetest.log("action", string.format("%s has changed %s's gender to %s",
-				name, args[1], args[2]))
-			return true, string.format(SL("%s's gender has been changed to %s"),
-				args[1], args[2])
-		else
-			return false, SL("Invalid gender. Possible values: 'male', 'female'")
-		end
+		races.show_change_form(args[1])
 	end
 })
 
