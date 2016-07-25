@@ -10,11 +10,13 @@ Male = Муж.
 Female = Жен.
 
 Cancel = Отмена
+Back = Назад
 OK = OK
 
 Ability to change race and gender of a player. = Возможность изменять расу и пол любому игроку.
 
 Please select the race you wish to be: = Выберите расу и пол для вашего персонажа:
+Choose a skin for your character: = Выберите скин для вашего персонажа:
 change_shadow = Теперь вы - тень.
 change_orc = Теперь вы - орк
 change_man = Теперь вы - человек
@@ -35,3 +37,5 @@ Invalid gender. Possible values: 'male', 'female' = Некорректный п�
 
 <player name> <new race> = <ник игрока> <новая раса>
 <player name> <new gender> = <ник игрока> <новый пол>
+
+Won't give another chance = Ещё одного шанса не будет

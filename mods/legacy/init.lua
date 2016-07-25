@@ -134,6 +134,16 @@ minetest.register_alias("lottspecial:scarecrow", "lottfarming:melon")
 minetest.register_alias("lottspecial:scarecrow_bottom", "lottfarming:melon")
 minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
+-- Corpses
+for _, gender in pairs({"male", "female"}) do
+	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do
+		local n = "bones:corpse_"..race.."_"..gender
+		print(n)
+		minetest.register_alias(n, n.."_1")
+	end
+end
+minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
+
 gaurds = {"dwarven", "elven", "gondor", "orc", "rohan", "uruk_hai"}
 for i, v in pairs(gaurds) do
     minetest.register_alias("lottnpc:" .. v .. "_guard_spawner", "legacy:dirt")

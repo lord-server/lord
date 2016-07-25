@@ -22,93 +22,12 @@ local function is_owner(pos, name)
 	return false
 end
 
-local function register_corpse(race)
-	-- проверка существования расы
-	local check_race = false
-	for r, _ in pairs(races.list) do
-		if race == r then check_race = true end
-	end
-	if not check_race then return end
-	-- решистрация мужского трупа
-	minetest.register_node("bones:corpse_"..race.."_male", {
+local function register_corpse(race, gender, skin)
+	minetest.register_node(string.format("bones:corpse_%s_%s_%d", race, gender, skin), {
 		description = SL("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
-		tiles = {race.."_male.png"},
-		paramtype = "light",
-		sunlight_propagates = true,
-		walkable = false,
-		selection_box = {
-			type = "fixed",
-			fixed = {-0.3, -0.5, -0.7, 0.3, -0.2, 0.7},
-		},
-		paramtype2 = "facedir",
-		groups = {dig_immediate=3, corpse = 1},
-		can_dig = function(pos, player)
-			local inv = minetest.get_meta(pos):get_inventory()
-			return is_owner(pos, player:get_player_name()) and inv:is_empty("main")
-		end,
-		allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-			if is_owner(pos, player:get_player_name()) then return count end
-			return 0
-		end,
-		allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-			return 0
-		end,
-		allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-			if is_owner(pos, player:get_player_name()) then return stack:get_count() end
-			return 0
-		end,
-		on_metadata_inventory_take = function(pos, listname, index, stack, player)
-			local meta = minetest.get_meta(pos)
-			if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
-				meta:set_string("infotext", SL("Unknown corpse"))
-				meta:set_string("owner", "")
-			end
-		end,
-		on_construct = function(pos)
-			local meta = minetest.get_meta(pos)
-			local inv = meta:get_inventory()
-			inv:set_size("main", 8*5)
-			meta:set_string("infotext", SL("Unknown corpse"))
-			meta:set_string("formspec", bones_formspec)
-		end,
-		on_timer = function(pos, elapsed)
-			if publish <= 0 then return false end -- таймер не работает
-			local meta = minetest.get_meta(pos)
-			local time = meta:get_int("time") + elapsed
-			if time >= publish then
-				meta:set_string("infotext", SL("Unknown corpse"))
-				meta:set_string("owner", "")
-				return false
-			else
-				meta:set_int("time", time)
-				return true
-			end
-		end,
-		on_punch = function(pos, node, player)
-			if(not is_owner(pos, player:get_player_name())) then return end
-			local inv = minetest.get_meta(pos):get_inventory()
-			local player_inv = player:get_inventory()
-			local has_space = true
-			for i=1,inv:get_size("main") do
-				local stk = inv:get_stack("main", i)
-				if player_inv:room_for_item("main", stk) then
-					inv:set_stack("main", i, nil)
-					player_inv:add_item("main", stk)
-				else
-					has_space = false
-					break
-				end
-			end
-		end
-	})
-	-- решистрация женского трупа
-	minetest.register_node("bones:corpse_"..race.."_female", {
-		description = SL("Corpse"),
-		drawtype = "mesh",
-		mesh = "bones.obj",
-		tiles = {race.."_female.png"},
+		tiles = {races.get_texture_name(race, gender, skin)},
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,
@@ -180,7 +99,13 @@ local function register_corpse(race)
 end
 
 for race, _ in pairs(races.list) do
-	register_corpse(race)
+	for _, gender in pairs({"male", "female"}) do
+		for skin=1, races.list[race][gender.."_skins"] do
+			if not races.list[race].no_corpse then
+				register_corpse(race, gender, skin)
+			end
+		end
+	end
 end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
@@ -188,10 +113,11 @@ minetest.register_on_dieplayer(function(player)
 	if minetest.setting_getbool("creative_mode") then return end
 	local race = races.get_race_and_gender(player:get_player_name())[1]
 	local gender = races.get_race_and_gender(player:get_player_name())[2]
+	local skin = races.get_skin(player:get_player_name())
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=player:get_player_name().."_armor"})
 
-	if race == races.default[1] then return end
+	if races.list[race].no_corpse then return end
 
 	local pos = player:getpos()
 	pos.x = math.floor(pos.x+0.5)
@@ -216,7 +142,7 @@ minetest.register_on_dieplayer(function(player)
 	end
 
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
-	minetest.set_node(pos, {name="bones:corpse_"..race.."_"..gender, param2=param2})
+	minetest.set_node(pos, {name=string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2=param2})
 
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()

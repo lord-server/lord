@@ -7,6 +7,10 @@ local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s en
 --[[
   Definitions
 --]]
+
+local form_header = "size[7,4]"..
+                    "background[7,4;1,1;gui_formbg.png;true]"
+
 races = {
 	save_path = minetest.get_worldpath() .. "/races.txt"
 }
@@ -17,26 +21,40 @@ races.list = {
 		granted_privs = {"fly", "fast"},
 		revoked_privs = {"shout", "interact"},
 		cannot_be_selected = true,
+		no_corpse = true,
+		male_skins = 1,
+		female_skins = 1,
 	},
 	orc = {
 		name = SL("Orc"),
+		male_skins = 5,
+		female_skins = 5,
 	},
 	man = {
 		name = SL("Man"),
+		male_skins = 8,
+		female_skins = 5,
 	},
 	dwarf = {
 		name = SL("Dwarf"),
+		male_skins = 5,
+		female_skins = 5,
 	},
 	hobbit = {
 		name = SL("Hobbit"),
+		male_skins = 5,
+		female_skins = 5,
 	},
 	elf = {
 		name = SL("Elf"),
+		male_skins = 6,
+		female_skins = 5,
 	},
 }
 
 -- TODO: Get these values via minetest.setting_get()
 races.default = {"shadow", "female"}
+races.default_skin = 1
 
 local tmp_races_list = {}
 for name, _ in pairs(races.list) do
@@ -53,7 +71,9 @@ races.list_str = table.concat(tmp_races_list, ", ")
 races.cache = {
 	players = {},
 	granted_privs = {},  -- Contains privileges given by this mod.
-	revoked_privs = {}
+	revoked_privs = {},
+	can_change = {},  -- {foo=true, bar=false}
+	skins = {}, -- {foo=1, bar=4}
 }
 
 minetest.register_privilege("race", {
@@ -64,6 +84,22 @@ minetest.register_privilege("race", {
 --[[
   Boilerplate functions
 --]]
+local function mktable(p)
+	if not p then
+		return {}
+	else
+		return p
+	end
+end
+
+-- Minetest will completely overwrite table structure, and we must restore it
+local function ensure_table_struct()
+	races.cache.players = mktable(races.cache.players)
+	races.cache.granted_privs = mktable(races.cache.granted_privs)
+	races.cache.revoked_privs = mktable(races.cache.revoked_privs)
+	races.cache.can_change = mktable(races.cache.can_change)
+	races.cache.skins = mktable(races.cache.skins)
+end
 
 -- Load serialized classes from file
 -- Returns false when failed, true otherwise
@@ -79,6 +115,7 @@ function races.load()
 end
 
 races.load()
+ensure_table_struct()
 
 -- Serialize and save the races
 -- Returns false when failed, true otherwise
@@ -117,12 +154,12 @@ function races.validate(race_and_gender)
 end
 
 -- Updates player visuals
-function races.update_player(name, race_and_gender)
+function races.update_player(name, race_and_gender, skin)
 	local race = race_and_gender[1]
 	local gender = race_and_gender[2]
 
 	-- TODO: caching
-	local texture = race .. "_" .. gender .. ".png" -- e.g. shadow_female.png
+	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
 	multiskin[name].skin = texture
 	multiskin:update_player_visuals(minetest.get_player_by_name(name))
 end
@@ -132,17 +169,42 @@ function races.get_race_and_gender(name)
 	return races.cache.players[name] or races.default
 end
 
+function races.set_race_and_gender(name, race_and_gender, show_message)
+	local valid = races.validate(race_and_gender)
+	if not valid then
+		return false
+	end
+
+	local race = race_and_gender[1]
+
+	races.update_privileges(name, races.list[race].granted_privs,
+		races.list[race].revoked_privs)
+
+	races.cache.players[name] = race_and_gender
+	races.update_player(name, race_and_gender, races.default_skin)
+
+	-- Notify player
+	if show_message then
+		minetest.chat_send_player(name, SL("change_" .. race))
+	end
+
+	return true
+end
+
+function races.get_skin(name)
+	return races.cache.skins[name] or races.default_skin
+end
+
+function races.set_skin(name, skin)
+	races.cache.skins[name] = skin
+	races.update_player(name, races.get_race_and_gender(name), skin)
+end
+
 -- Tinker with privs
 function races.update_privileges(name, granted_privs, revoked_privs)
 	local privs = minetest.get_player_privs(name)
 
 	-- Create tables if they don't exist
-	if races.cache.granted_privs == nil then
-		races.cache.granted_privs = {}
-	end
-		if races.cache.revoked_privs == nil then
-		races.cache.revoked_privs = {}
-	end
 	races.cache.granted_privs[name] = races.cache.granted_privs[name] or {}
 	races.cache.revoked_privs[name] = races.cache.revoked_privs[name] or {}
 
@@ -179,28 +241,6 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	minetest.set_player_privs(name, privs)
 end
 
-function races.set_race_and_gender(name, race_and_gender, show_message)
-	local valid = races.validate(race_and_gender)
-	if not valid then
-		return false
-	end
-
-	local race = race_and_gender[1]
-
-	races.update_privileges(name, races.list[race].granted_privs,
-		races.list[race].revoked_privs)
-
-	races.cache.players[name] = race_and_gender
-	races.update_player(name, race_and_gender)
-
-	-- Notify player
-	if show_message then
-		minetest.chat_send_player(name, SL("change_" .. race))
-	end
-
-	return true
-end
-
 -- Converts user-friendly names to the corresponding internal names
 -- Will return default values if the input is incorrect
 -- E.g. Shadow -> shadow, Male -> male
@@ -225,8 +265,7 @@ end
 
 -- The form
 function races.show_change_form(name)
-	local form = "size[7,4]"..
-				 "background[7,4;1,1;gui_formbg.png;true]"
+	local form = form_header
 
 	local list = {}
 	for _, def in pairs(races.list) do
@@ -249,19 +288,68 @@ function races.show_change_form(name)
 	minetest.show_formspec(name, "change_race", form)
 end
 
+function races.get_texture_name(race, gender, skin)
+	return string.format("%s_%s%d.png", race, gender, skin)
+end
+
+-- Generates number sequence starting with 1 and ending with `max`
+local function generate_sequence(max)
+	t = {}
+	for i = 1, max do
+		table.insert(t, i)
+	end
+	return table.concat(t, ",")
+end
+
+function races.get_skins_num(race, gender)
+	return races.list[race][gender.."_skins"]
+end
+
+function races.show_skin_change_form(race, gender, skin, name)
+	local form = form_header
+
+	form = form .. string.format(
+		"label[0,0;%s]"..
+		"image[0.0,0.5;3.3,3.0;preview_%s_%s%d.png]"..
+		"dropdown[3.6,0.51;3.0,1.0;skin;%s;%d]"..
+		"button_exit[0.0,3.3;3.0,1.0;back;%s]"..
+		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",
+
+		SL("Choose a skin for your character:"),
+		race, gender, skin,
+		generate_sequence(races.list[race][gender.."_skins"]), skin,
+		SL("Back"),
+		SL("OK")
+	)
+	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
+end
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
 		if fields.ok then -- OK button pressed
-			r = races.to_internal(fields.race, fields.gender)
+			local r = races.to_internal(fields.race, fields.gender)
 			races.set_race_and_gender(name, r, true)
 			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
+			races.show_skin_change_form(r[1], r[2], 1, name)
+
 			races.save()
 		elseif fields.quit then
 			races.set_race_and_gender(name, races.default, true)
 			minetest.log("action", name .. " became a " .. races.default[1]..
 				" " .. races.default[2])
 			races.save()
+		end
+	end
+	if formname == "change_skin" then
+		if fields.back then
+			minetest.after(0.1, races.show_change_form, name)
+		elseif fields.ok then
+			races.set_skin(name, tonumber(fields.skin))
+			races.save()
+		elseif fields.skin then
+			local r = races.get_race_and_gender(name)
+			minetest.after(0.1, races.show_skin_change_form, r[1], r[2], tonumber(fields.skin), name)
 		end
 	end
 end)
@@ -275,11 +363,34 @@ minetest.register_on_joinplayer(function(player)
 			races.show_change_form(name)
 			return
 		end
-		races.set_race_and_gender(name, races.get_race_and_gender(name), false)
+		r = races.get_race_and_gender(name)
+		races.set_race_and_gender(name, r, false)
+		races.update_player(name, r, races.get_skin(name))
+		-- Player is registered, but has no skin
+		if races.cache.skins[name] == nil then
+			races.cache.skins[name] = races.default_skin
+		end
 	else
 		races.show_change_form(name)
+		races.cache.can_change[name] = true
 	end
 end)
+
+minetest.register_chatcommand("second_chance", {
+	params = "",
+	privs = {},
+	description = SL("Second chance"),
+	func = function(name, params)
+		if races.cache.can_change[name] == nil then
+			races.cache.can_change[name] = true
+		end
+		if not races.cache.can_change[name] then
+			return false, SL("Won't give another chance")
+		end
+		races.show_change_form(name)
+		races.cache.can_change[name] = false
+	end
+})
 
 minetest.register_chatcommand("race", {
 	params = SL("<player name> <new race>"),
