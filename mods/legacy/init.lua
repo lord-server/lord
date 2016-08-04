@@ -166,4 +166,26 @@ minetest.register_alias("lottarmor:helmet_rohan", "lottarmor:helmet_steel")
 minetest.register_alias("lottarmor:chestplate_rohan", "lottarmor:chestplate_steel")
 minetest.register_alias("lottarmor:boots_rohan", "lottarmor:boots_steel")
 
+-- Tools
+for _, tooltype in pairs({"pick", "shovel", "axe", "sword"}) do
+	-- ex-default
+	for _, material in pairs({"wood", "stone", "steel", "bronze"}) do
+		minetest.register_alias("default:"..tooltype.."_"..material,
+			"tools:"..tooltype.."_"..material)
+	end
+	-- ex-lottores
+	for _, material in pairs({"copper", "tin", "silver", "gold", "galvorn", "mithril"}) do
+		minetest.register_alias("lottores:"..material..tooltype,
+			"tools:"..tooltype.."_"..material)
+	end
+end
+
+local materials = {"wood", "stone", "steel", "bronze", "copper", "tin", "silver", "gold", "galvorn", "mithril"}
+-- ex-lottweapons
+for _, tooltype in pairs({"battleaxe", "warhammer", "spear", "dagger"}) do
+	for _, material in pairs(materials) do
+		minetest.register_alias("lottweapons:"..material.."_"..tooltype,
+			"tools:"..tooltype.."_"..material)
+	end
+end
 if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

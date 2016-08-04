@@ -97,24 +97,6 @@ Furnace is empty	=	Печь: нет материала
 Furnace out of fuel	=	Печь: нет топлива
 Furnace active	=	Печь: работает
 
-### tools.lua ###
-Wooden Pickaxe	=	Деревянная кирка
-Stone Pickaxe	=	Каменная кирка
-Steel Pickaxe	=	Стальная кирка
-Bronze Pickaxe	=	Бронзовая кирка
-Wooden Shovel	=	Деревянная лопата
-Stone Shovel	=	Каменная лопата
-Steel Shovel	=	Стальная лопата
-Bronze Shovel	=	Бронзовая лопата
-Wooden Axe		=	Деревянный топор
-Stone Axe		=	Каменный топор
-Steel Axe		=	Стальной топор
-Bronze Axe		=	Бронзовый топор
-Wooden Sword	=	Деревянный меч
-Stone Sword		=	Каменный меч
-Steel Sword		=	Стальной меч
-Bronze Sword	=	Бронзовый меч
-
 ### chatcommands.lua ###
 print out privileges of player	=	Вывести привилегии игрока
 Give privilege to player	=	Дать привилегии игроку
