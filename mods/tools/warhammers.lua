@@ -10,7 +10,6 @@ tools.warhammer = {
 	end,
 	wood = {
 		description = SL("Training Warhammer"),
-		inventory_image = "lottweapons_wood_warhammer.png",
 		range = 2,
 		full_punch_interval = 2,
 		max_drop_level=1,
@@ -20,7 +19,6 @@ tools.warhammer = {
 	},
 	stone = {
 		description = SL("Stone Warhammer"),
-		inventory_image = "lottweapons_stone_warhammer.png",
 		range = 2,
 		full_punch_interval = 1.5,
 		max_drop_level=1,
@@ -29,7 +27,6 @@ tools.warhammer = {
 	},
 	steel = {
 		description = SL("Steel Warhammer"),
-		inventory_image = "lottweapons_steel_warhammer.png",
 		range = 2,
 		full_punch_interval = 1.2,
 		max_drop_level=1,
@@ -39,7 +36,6 @@ tools.warhammer = {
 	},
 	bronze = {
 		description = SL("Bronze Warhammer"),
-		inventory_image = "lottweapons_bronze_warhammer.png",
 		range = 2,
 		full_punch_interval = 1.1,
 		max_drop_level=1,
@@ -49,7 +45,6 @@ tools.warhammer = {
 	},
 	copper = {
 		description = SL("Copper Warhammer"),
-		inventory_image = "lottweapons_copper_warhammer.png",
 		range = 2,
 		full_punch_interval = 1.3,
 		max_drop_level=1,
@@ -59,7 +54,6 @@ tools.warhammer = {
 	},
 	tin = {
 		description = SL("Tin Warhammer"),
-		inventory_image = "lottweapons_tin_warhammer.png",
 		range = 2,
 		full_punch_interval = 1.3,
 		max_drop_level=1,
@@ -69,7 +63,6 @@ tools.warhammer = {
 	},
 	silver = {
 		description = SL("Silver Warhammer"),
-		inventory_image = "lottweapons_silver_warhammer.png",
 		range = 2,
 		full_punch_interval = 1,
 		max_drop_level=1,
@@ -79,7 +72,6 @@ tools.warhammer = {
 	},
 	gold = {
 		description = SL("Gold Warhammer"),
-		inventory_image = "lottweapons_gold_warhammer.png",
 		full_punch_interval = 0.75,
 		max_drop_level=1,
 		snappy={times={[1]=2.60, [2]=1.40, [3]=0.50}, uses=30, maxlevel=2},
@@ -88,7 +80,6 @@ tools.warhammer = {
 	},
 	galvorn = {
 		description = SL("Galvorn Warhammer"),
-		inventory_image = "lottweapons_galvorn_warhammer.png",
 		range = 2,
 		full_punch_interval = 0.50,
 		max_drop_level=1,
@@ -98,7 +89,6 @@ tools.warhammer = {
 	},
 	mithril = {
 		description = SL("Mithril Warhammer"),
-		inventory_image = "lottweapons_mithril_warhammer.png",
 		range = 2,
 		full_punch_interval = 0.25,
 		max_drop_level=1,

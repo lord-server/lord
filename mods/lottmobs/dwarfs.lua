@@ -96,9 +96,9 @@ lottmobs.register_dwarf("", 20, 30, textures1, 2, 4, 5, 175, drops1)
 
 --Dwarfs with mithril armor & warhammers.
 local textures2 = {
-    {"lottmobs_dwarf_1.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "lottweapons_mithril_warhammer.png", "lottarmor_trans.png"},
-    {"lottmobs_dwarf_2.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "lottweapons_mithril_warhammer.png", "lottarmor_trans.png"},
-    {"lottmobs_dwarf_3.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "lottweapons_mithril_warhammer.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_1.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "tools_warhammer_mithril.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_2.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "tools_warhammer_mithril.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_3.png", "lottarmor_helmet_mithril.png^lottarmor_chestplate_mithril.png^lottarmor_leggings_mithril.png^lottarmor_boots_mithril.png^lottarmor_shield_mithril.png", "tools_warhammer_mithril.png", "lottarmor_trans.png"},
 }
 
 local drops2 = {
