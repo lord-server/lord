@@ -326,6 +326,7 @@ function mobs:register_mob(name, def)
 				local nod = minetest.get_node_or_nil(pos)
 				if not nod then return end ;  -- print ("standing in "..nod.name)
 				local nodef = minetest.registered_nodes[nod.name]
+				if not nodef then return end
 				pos.y = pos.y + 1
 
 				-- water
