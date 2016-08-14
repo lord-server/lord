@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct, desc, img)
 	minetest.register_craftitem(potion_name.."_arrow", {

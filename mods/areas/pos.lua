@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- I could depend on WorldEdit for this, but you need to have the 'worldedit'
 -- permission to use those commands and you don't have
@@ -251,4 +251,3 @@ minetest.register_entity("areas:pos2", {
 		areas.marker2[name] = nil
 	end,
 })
-

@@ -1,11 +1,11 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 defaults = {}
 
 -- GHOST
 -- ghost_stone
 minetest.register_node("defaults:st0ne", {
-	description = SL("Ghost Stone"), 
+	description = SL("Ghost Stone"),
 	tiles = {"default_stone.png"},
 	--tiles = {"ghost_stone_inv.png"},
 	is_ground_content = true,
@@ -31,7 +31,7 @@ minetest.register_craft({
 
 -- ghost cobble
 minetest.register_node("defaults:c0bble", {
-	description = SL("Ghost Cobble"), 
+	description = SL("Ghost Cobble"),
 	tiles = {"default_cobble.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_cobble_inv.png",
@@ -52,7 +52,7 @@ minetest.register_craft({
 
 -- ghost desert stone
 minetest.register_node("defaults:desert_st0ne", {
-	description = SL("Ghost Desert Stone"), 
+	description = SL("Ghost Desert Stone"),
 	tiles = {"default_desert_stone.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_desert_stone_inv.png",
@@ -73,7 +73,7 @@ minetest.register_craft({
 
 -- ghost desert cobble
 minetest.register_node("defaults:desert_c0bble", {
-	description = SL("Ghost Desert Cobble"), 
+	description = SL("Ghost Desert Cobble"),
 	tiles = {"default_desert_cobble.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_desert_cobble_inv.png",
@@ -94,7 +94,7 @@ minetest.register_craft({
 
 -- ghost brick
 minetest.register_node("defaults:bricks", {
-	description = SL("Ghost Brick"), 
+	description = SL("Ghost Brick"),
 	tiles = {"default_brick.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_brick_inv.png",
@@ -115,7 +115,7 @@ minetest.register_craft({
 
 -- ghost stone brick
 minetest.register_node("defaults:st0ne_brick", {
-	description = SL("Ghost Stone Brick"), 
+	description = SL("Ghost Stone Brick"),
 	tiles = {"default_stone_brick.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_stone_brick_inv.png",
@@ -136,7 +136,7 @@ minetest.register_craft({
 
 -- ghost desert stone brick
 minetest.register_node("defaults:desert_st0ne_brick", {
-	description = SL("Ghost Desert Stone Brick"), 
+	description = SL("Ghost Desert Stone Brick"),
 	tiles = {"default_desert_stone_brick.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_desert_stone_brick_inv.png",
@@ -157,7 +157,7 @@ minetest.register_craft({
 
 -- ghost sandstone
 minetest.register_node("defaults:sandst0ne", {
-	description = SL("Ghost Sandstone"), 
+	description = SL("Ghost Sandstone"),
 	tiles = {"default_sandstone.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_sandstone_inv.png",
@@ -178,7 +178,7 @@ minetest.register_craft({
 
 -- ghost sandstone brick
 minetest.register_node("defaults:sandst0nebrick", {
-	description = SL("Ghost Sandstone Brick"), 
+	description = SL("Ghost Sandstone Brick"),
 	tiles = {"default_sandstone_brick.png"},
 	is_ground_content = true,
 	inventory_image = "ghost_sandstone_brick_inv.png",

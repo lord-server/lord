@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_privilege("interact",		SL("Can interact with things and modify the world"))
 minetest.register_privilege("teleport",		SL("Can use /teleport command"))

@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
 minetest.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")

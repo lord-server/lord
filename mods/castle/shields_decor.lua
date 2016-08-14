@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_node("castle:shield",{
 	description = SL("Mounted Shield"),
@@ -21,7 +21,7 @@ minetest.register_node("castle:shield",{
 		fixed = {
 			{-0.500000,-0.500000,0.375000,0.500000,0.500000,0.500000}, --NodeBox 1
 		},
-	},			
+	},
 })
 
 
@@ -55,7 +55,7 @@ minetest.register_node("castle:shield_2",{
 		fixed = {
 			{-0.500000,-0.500000,0.375000,0.500000,0.500000,0.500000}, --NodeBox 1
 		},
-	},			
+	},
 })
 
 minetest.register_craft({
@@ -88,7 +88,7 @@ minetest.register_node("castle:shield_3",{
 		fixed = {
 			{-0.500000,-0.500000,0.375000,0.500000,0.500000,0.500000}, --NodeBox 1
 		},
-	},			
+	},
 })
 
 minetest.register_craft({
@@ -99,4 +99,3 @@ minetest.register_craft({
 		{"dye:grey", "default:steel_ingot","dye:green"},
 	}
 })
-

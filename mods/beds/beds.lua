@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- fancy shaped bed
 beds.register_bed("beds:fancy_bed", {
@@ -66,7 +66,7 @@ beds.register_bed("beds:bed", {
 	    },
 	    top = {
 		"beds_bed_top_top.png^[transformR90",
-		"default_wood.png", 
+		"default_wood.png",
 		"beds_bed_side_top_r.png",
 		"beds_bed_side_top_r.png^[transformfx",
 		"beds_bed_side_top.png",

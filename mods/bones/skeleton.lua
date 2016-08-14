@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_node("bones:skeleton", {
 	description = SL("Skeleton Head"),
@@ -20,8 +20,8 @@ minetest.register_node("bones:skeleton", {
 		fixed = {
 			{-0.3125,0.3125,-0.3125,0.3125,0.5,0.3125},
 			{ -0.5,0.25,-0.5,0.5,0.415385,0.5},
-			{-0.5,-0.1875,-0.5,0.5,0.375,0.5}, 
-			{-0.375,-0.5,-0.3125,0.375,0.125,0.3125}, 
+			{-0.5,-0.1875,-0.5,0.5,0.375,0.5},
+			{-0.375,-0.5,-0.3125,0.375,0.125,0.3125},
 		},
 	},
 	sounds = default.node_sound_dirt_defaults({

@@ -1,7 +1,7 @@
 -- Minetest 0.4 mod: lord_homedecor
 -- See README.txt for licensing and other information.
 
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 local modpath = minetest.get_modpath("lord_homedecor")
 
 -- Definitions made by this mod that other mods can use too

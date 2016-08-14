@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- Base Ingredients
 minetest.register_node("lottpotion:glass_bottle_mese", {

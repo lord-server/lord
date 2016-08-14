@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 local hole = {}
 
@@ -43,11 +43,11 @@ for _, row in ipairs(hole.types) do
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-8/16,-8/16,-8/16,-4/16,8/16,8/16}, 
-			{4/16,-8/16,-8/16,8/16,8/16,8/16}, 
-			{-4/16,-8/16,-8/16,4/16,8/16,-4/16}, 
-			{-4/16,-8/16,8/16,4/16,8/16,4/16}, 
-		
+			{-8/16,-8/16,-8/16,-4/16,8/16,8/16},
+			{4/16,-8/16,-8/16,8/16,8/16,8/16},
+			{-4/16,-8/16,-8/16,4/16,8/16,-4/16},
+			{-4/16,-8/16,8/16,4/16,8/16,4/16},
+
 		},
 	},
 	})
@@ -62,4 +62,3 @@ for _, row in ipairs(hole.types) do
 		})
 	end
 end
-

@@ -1,5 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
-
+local SL = lord.require_intllib()
 
 local function redefinition(chatcommand, new_description)
 	if minetest.chatcommands[chatcommand] then

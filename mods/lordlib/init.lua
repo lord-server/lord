@@ -1,8 +1,8 @@
-util = {}
+lord = {}
 
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/kv.lua")
 
-function util.require_intllib()
+function lord.require_intllib()
 	if minetest.global_exists("intllib") then
 		return intllib.Getter()
 	else
@@ -10,8 +10,8 @@ function util.require_intllib()
 	end
 end
 
-function util.mod_loaded()
+function lord.mod_loaded()
 	if minetest.setting_getbool("msg_loading_mods") then
-		minetest.log("action", minetest.get_current_modname().." mod loaded")
+		minetest.log("action", minetest.get_current_modname() .. " mod loaded")
 	end
 end

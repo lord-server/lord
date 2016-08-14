@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_chatcommand("protect", {
 	params = "<AreaName>",
@@ -60,7 +60,7 @@ minetest.register_chatcommand("set_owner", {
 
 		local id = areas:add(ownerName, areaName, pos1, pos2, nil)
 		areas:save()
-	
+
 		minetest.chat_send_player(ownerName, SL("You have been granted control over area #")..id..SL(". Type /list_areas to show your areas."))
 		return true, SL("Area protected.").." ID: "..id
 	end
@@ -388,4 +388,3 @@ minetest.register_chatcommand("area_info", {
 		return true, table.concat(lines, "\n")
 	end,
 })
-

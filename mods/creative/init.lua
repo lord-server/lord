@@ -1,5 +1,4 @@
--- minetest/creative/init.lua
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_privilege("creative", {
 	description = SL("Creative Mode"),

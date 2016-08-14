@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 function areas:player_exists(name)
 	return minetest.auth_table[name] ~= nil
@@ -207,4 +207,3 @@ function areas:isAreaOwner(id, name)
 	end
 	return false
 end
-

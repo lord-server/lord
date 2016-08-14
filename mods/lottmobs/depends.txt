@@ -4,4 +4,4 @@ fire
 bones
 lottores
 lord_money
-intllib?
+lordlib

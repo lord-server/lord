@@ -104,4 +104,4 @@ for _, tooltype in ipairs(tooltypes) do
 	end
 end
 
-util.mod_loaded()
+lord.mod_loaded()

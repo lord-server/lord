@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua

@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- This mod provides the visible text on signs library used by Home Decor
 -- and perhaps other mods at some point in the future.  Forked from thexyz's/

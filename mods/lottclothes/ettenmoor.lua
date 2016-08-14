@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- outfit from the ettenmoor region. wizard style (as possible).
 -- made from grey and brown felt & gold ingot. 

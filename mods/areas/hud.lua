@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- This is inspired by the landrush mod by Bremaweb
 
@@ -47,4 +47,3 @@ end)
 minetest.register_on_leaveplayer(function(player)
 	areas.hud[player:get_player_name()] = nil
 end)
-

@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
@@ -17,4 +17,3 @@ minetest.register_on_protection_violation(function(pos, name)
 				table.concat(owners, ", ")))
 	end
 end)
-

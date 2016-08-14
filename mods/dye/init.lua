@@ -1,6 +1,4 @@
--- minetest/dye/init.lua
-
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- Other mods can use these for looping through available colors
 dye = {}

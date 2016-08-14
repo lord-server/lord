@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- the simplest outfit available.
 -- made from green felt & wood (just cut down the nearest tree).

@@ -4,7 +4,7 @@
 --Version	2.2
 --License	WTFPL
 
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 --VARIABLES
   local bees = {}

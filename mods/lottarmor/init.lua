@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/multiskin.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/armor.lua")

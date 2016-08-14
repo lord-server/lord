@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- Minetest 0.4 mod: bucket
 -- See README.txt for licensing and other information.
@@ -59,7 +59,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 				if pointed_thing.type ~= "node" then
 					return
 				end
-				
+
 				local node = minetest.get_node_or_nil(pointed_thing.under)
 				local ndef
 				if node then

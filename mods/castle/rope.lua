@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_node("castle:ropes",{
 	description = SL("Rope"),
@@ -12,7 +12,7 @@ minetest.register_node("castle:ropes",{
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16}, 
+			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16},
 		},
 	},
 	selection_box = {
@@ -44,7 +44,7 @@ minetest.register_node("castle:box_rope", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16}, 
+			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16},
 		},
 	},
 	selection_box = {
@@ -55,7 +55,7 @@ minetest.register_node("castle:box_rope", {
 	},
     after_destruct = function(pos,oldnode)
         local node = minetest.get_node({x=pos.x,y=pos.y-1,z=pos.z})
-        if node.name == "castle:box_rope" then 
+        if node.name == "castle:box_rope" then
             minetest.remove_node({x=pos.x,y=pos.y-1,z=pos.z})
         end
     end,
@@ -77,17 +77,17 @@ minetest.register_node("castle:ropebox", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-2/16, -2/16, -4/16, 2/16, 2/16, 4/16}, 
-			{-2/16, -4/16, -2/16, 2/16, 4/16, 2/16}, 
-			{-2/16, -3/16, -3/16, 2/16, 3/16, 3/16}, 
+			{-2/16, -2/16, -4/16, 2/16, 2/16, 4/16},
+			{-2/16, -4/16, -2/16, 2/16, 4/16, 2/16},
+			{-2/16, -3/16, -3/16, 2/16, 3/16, 3/16},
 			{-3/16, -2/16, -2/16, -2/16, 8/16, 2/16},
 			{2/16, -2/16, -2/16, 3/16, 8/16, 2/16},
-			{-1/16, -8/16, -1/16, 1/16, -4/16, 1/16},    
+			{-1/16, -8/16, -1/16, 1/16, -4/16, 1/16},
 		},
 	},
     after_destruct = function(pos,oldnode)
         local node = minetest.get_node({x=pos.x,y=pos.y-1,z=pos.z})
-        if node.name == "castle:box_rope" then 
+        if node.name == "castle:box_rope" then
             minetest.remove_node({x=pos.x,y=pos.y-1,z=pos.z})
         end
     end,

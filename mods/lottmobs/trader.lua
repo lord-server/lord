@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 --This code comes almost exclusively from the trader and inventory of mobf, by Sapier.
 --The copyright notice bellow is from mobf:

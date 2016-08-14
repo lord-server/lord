@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 dofile(minetest.get_modpath("lottother").."/rings.lua")
 dofile(minetest.get_modpath("lottother").."/ms.lua")

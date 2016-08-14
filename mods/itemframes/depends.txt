@@ -3,4 +3,4 @@ lottmapgen
 castle
 lottores
 lottblocks
-intllib?
+lordlib

@@ -1,4 +1,3 @@
-
 -- Returns a list of areas that include the provided position
 function areas:getAreasAtPos(pos)
 	local a = {}
@@ -83,4 +82,3 @@ function areas:canInteractInArea(pos1, pos2, name, allow_open)
 	end
 	return true
 end
-

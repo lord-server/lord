@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.

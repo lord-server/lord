@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 -- minetest/fire/init.lua
 
 minetest.register_node("fire:basic_flame", {
@@ -181,11 +181,11 @@ minetest.register_abm({
 		-- Если под пламенем не топливо - пламя удаляем
 		local node_under = minetest.get_node({x=p0.x,y=p0.y-1,z=p0.z})
 		local fuel_group = minetest.get_item_group(node_under.name, "flammable")
-		if fuel_group ~= 10 then 
+		if fuel_group ~= 10 then
 			minetest.remove_node(p0)
 			fire.on_flame_remove_at(p0)
 			return
-		end	
+		end
 		--end
 		--[[badger
                 if math.random(1,4) == 1 then

@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 -- mods/default/craftitems.lua
 
 minetest.register_craftitem("default:stick", {

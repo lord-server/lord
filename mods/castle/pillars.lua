@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
 minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
@@ -49,7 +49,7 @@ for _, row in ipairs(pillar.types) do
 		fixed = {
 			{-0.500000,-0.500000,-0.500000,0.500000,-0.375000,0.500000},
 			{-0.375000,-0.375000,-0.375000,0.375000,-0.125000,0.375000},
-			{-0.250000,-0.125000,-0.250000,0.250000,0.500000,0.250000}, 
+			{-0.250000,-0.125000,-0.250000,0.250000,0.500000,0.250000},
 		},
 	},
 	})
@@ -64,8 +64,8 @@ for _, row in ipairs(pillar.types) do
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,0.312500,-0.500000,0.500000,0.500000,0.500000}, 
-			{-0.375000,0.062500,-0.375000,0.375000,0.312500,0.375000}, 
+			{-0.500000,0.312500,-0.500000,0.500000,0.500000,0.500000},
+			{-0.375000,0.062500,-0.375000,0.375000,0.312500,0.375000},
 			{-0.250000,-0.500000,-0.250000,0.250000,0.062500,0.250000},
 		},
 	},

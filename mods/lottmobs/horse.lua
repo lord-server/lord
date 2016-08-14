@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 local function is_ground(pos)
 	local nn = minetest.get_node(pos).name

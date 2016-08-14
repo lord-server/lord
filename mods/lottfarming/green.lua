@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 minetest.register_craftitem("lottfarming:green_mushroom_spore", {
 	description = SL("Green Mushroom Spores"),

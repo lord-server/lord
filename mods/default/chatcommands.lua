@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 --Modified from builtin/game/chatcommands.lua to hide privs starting with GAME
 

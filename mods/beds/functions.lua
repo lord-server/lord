@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
@@ -58,7 +58,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		if skip then
 			return
 		end
-		if p then 
+		if p then
 			player:setpos(p)
 		end
 
@@ -102,7 +102,7 @@ local function update_formspecs(finished)
 			"label[2.7,11; "..SL("Good morning.").."]"
 	else
 		form_n = beds.formspec ..
-			"label[2.2,11;"..tostring(player_in_bed).." "..SL("of").." "..tostring(ges).." "..SL("players are in bed").."]"	
+			"label[2.2,11;"..tostring(player_in_bed).." "..SL("of").." "..tostring(ges).." "..SL("players are in bed").."]"
 		if is_majority then
 			form_n = form_n ..
 				"button_exit[2,8;4,0.75;force;"..SL("Force night skip").."]"

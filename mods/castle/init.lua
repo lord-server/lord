@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 dofile(minetest.get_modpath("castle").."/pillars.lua") --колонны
 dofile(minetest.get_modpath("castle").."/arrowslit.lua") --бойницы
@@ -115,9 +115,9 @@ minetest.register_node("castle:ironbound_chest",{
 		type = "fixed",
 		fixed = {
 			{-0.500000,-0.500000,-0.312500,0.500000,-0.062500,0.312500},
-			{-0.500000,-0.062500,-0.250000,0.500000,0.000000,0.250000}, 
+			{-0.500000,-0.062500,-0.250000,0.500000,0.000000,0.250000},
 			{-0.500000,0.000000,-0.187500,0.500000,0.062500,0.187500},
-			{-0.500000,0.062500,-0.062500,0.500000,0.125000,0.062500}, 
+			{-0.500000,0.062500,-0.062500,0.500000,0.125000,0.062500},
 		},
 	},
 	selection_box = {
@@ -125,7 +125,7 @@ minetest.register_node("castle:ironbound_chest",{
 		fixed = {
 			{-0.5,-0.500000,-0.400000,0.5,0.200000,0.4},
 
-		},		
+		},
 	},
 	sounds = default.node_sound_wood_defaults(),
 	after_place_node = function(pos, placer)
