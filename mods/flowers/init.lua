@@ -13,6 +13,7 @@ minetest.register_alias("flowers:flower_geranium", "flowers:geranium")
 minetest.register_alias("flowers:flower_rose", "flowers:rose")
 minetest.register_alias("flowers:flower_tulip", "flowers:tulip")
 minetest.register_alias("flowers:flower_viola", "flowers:viola")
+minetest.register_alias("flowers:flower_cactus_decor", "flowers:cactus_decor")
 
 minetest.register_node("flowers:dandelion_white", {
 	description = SL("White Dandelion"),
@@ -120,6 +121,16 @@ minetest.register_node("flowers:viola", {
 		type = "fixed",
 		fixed = { -0.15, -0.5, -0.15, 0.15, 0.2, 0.15 },
 	},
+})
+
+minetest.register_node("flowers:cactus_decor", {
+	description = SL("Cactus decorative"),
+	tiles = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
+	paramtype2 = "facedir",
+	is_ground_content = true,
+	groups = {snappy=1,choppy=3,flammable=2},
+	sounds = default.node_sound_wood_defaults(),
+	on_place = minetest.rotate_node
 })
 
 minetest.register_abm({

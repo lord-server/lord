@@ -87,7 +87,7 @@ local flowers_list = {
 	{ "White Dandelion",	"dandelion_white",	"flowers:dandelion_white" },
 	{ "Blue Geranium",		"geranium",			"flowers:geranium" },
 	{ "Viola",				"viola",			"flowers:viola" },
-	{ "Cactus",				"cactus",			"default:cactus" },
+	{ "Cactus",				"cactus",			"flowers:cactus_decor" },
 	{ "Bonsai",				"bonsai",			"default:sapling" }
 }
 

@@ -5,3 +5,4 @@ Blue Geranium	=	Герань
 Rose	=	Роза
 Tulip	=	Тюльпан
 Viola	=	Фиалка
+Cactus decorative = Кактус декоративный

@@ -523,6 +523,7 @@ minetest.register_node("default:cactus", {
 	paramtype2 = "facedir",
 	is_ground_content = true,
 	groups = {snappy=1,choppy=3,flammable=2},
+	drop = "flowers:cactus_decor",
 	sounds = default.node_sound_wood_defaults(),
 	on_place = minetest.rotate_node
 })
