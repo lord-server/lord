@@ -135,7 +135,7 @@ minetest.register_node("flowers:cactus_decor", {
 
 minetest.register_abm({
 	nodenames = {"group:flora"},
-	neighbors = {"default:dirt_with_grass", "default:desert_sand"},
+	neighbors = {"lottmapgen:shire_grass", "default:desert_sand"},
 	interval = 50,
 	chance = 25,
 	action = function(pos, node)
@@ -144,7 +144,7 @@ minetest.register_abm({
 		pos.y = pos.y + 1
 		if under.name == "default:desert_sand" then
 			minetest.set_node(pos, {name="default:dry_shrub"})
-		elseif under.name ~= "default:dirt_with_grass" then
+		elseif under.name ~= "lottmapgen:shire_grass" then
 			return
 		end
 
@@ -164,7 +164,7 @@ minetest.register_abm({
 			return
 		end
 
-		local seedling = minetest.find_nodes_in_area(pos0, pos1, "default:dirt_with_grass")
+		local seedling = minetest.find_nodes_in_area(pos0, pos1, "lottmapgen:shire_grass")
 		if #seedling > 0 then
 			seedling = seedling[math.random(#seedling)]
 			seedling.y = seedling.y + 1
