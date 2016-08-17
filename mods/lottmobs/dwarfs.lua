@@ -140,9 +140,9 @@ lottmobs.register_dwarf("1", 30, 40, textures2, 2.75, 3.5, 13, 75, drops2)
 
 --Dwarfs with steel armor & swords.
 local textures3 = {
-    {"lottmobs_dwarf_1.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "default_tool_steelsword.png", "lottarmor_trans.png"},
-    {"lottmobs_dwarf_2.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "default_tool_steelsword.png", "lottarmor_trans.png"},
-    {"lottmobs_dwarf_3.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "default_tool_steelsword.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_1.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "tools_sword_steel.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_2.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "tools_sword_steel.png", "lottarmor_trans.png"},
+    {"lottmobs_dwarf_3.png", "lottarmor_helmet_steel.png^lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "tools_sword_steel.png", "lottarmor_trans.png"},
 }
 
 local drops3 = {
