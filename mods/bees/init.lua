@@ -493,11 +493,11 @@ local SL = lord.require_intllib()
       --if (minetest.find_node_near(p, 5, 'group:flora') ~= nil and minetest.find_node_near(p, 40, 'mobs:beehive') == nil) then
         --minetest.add_node(p, {name='mobs:beehive'})
       --end
-      print("начало спавна улья - "..tostring(os.clock()))
+      --print("начало спавна улья - "..tostring(os.clock()))
       if minetest.find_node_near(p, 40, 'bees:hive_wild') == nil then
         minetest.add_node(p, {name='bees:hive_wild'})
       end
-      print("окончание спавна улья - "..tostring(os.clock()))
+      --print("окончание спавна улья - "..tostring(os.clock()))
       
     end,
   })
