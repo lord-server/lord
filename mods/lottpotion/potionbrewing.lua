@@ -49,6 +49,56 @@ minetest.register_node("lottpotion:glass_bottle_seregon", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
+-- Negative Base Ingredients
+minetest.register_node("lottpotion:glass_bottle_obsidian", {
+	description = SL("Glass Bottle (Obsidian Water)"),
+	drawtype = "plantlike",
+	tiles = {"vessels_glass_bottle.png^lottpotion_water_obsidian.png"},
+	inventory_image = "vessels_glass_bottle_inv.png^lottpotion_water_obsidian.png",
+	wield_image = "vessels_glass_bottle_inv.png^lottpotion_water_obsidian.png",
+	paramtype = "light",
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+	},
+	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	sounds = default.node_sound_glass_defaults(),
+})
+
+minetest.register_node("lottpotion:glass_bottle_bonedust", {
+	description = SL("Glass Bottle (Bonedust Water)"),
+	drawtype = "plantlike",
+	tiles = {"vessels_glass_bottle.png^lottpotion_water_bonedust.png"},
+	inventory_image = "vessels_glass_bottle_inv.png^lottpotion_water_bonedust.png",
+	wield_image = "vessels_glass_bottle_inv.png^lottpotion_water_bonedust.png",
+	paramtype = "light",
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+	},
+	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	sounds = default.node_sound_glass_defaults(),
+})
+
+minetest.register_node("lottpotion:glass_bottle_mordor", {
+	description = SL("Glass Bottle (Mordor Water)"),
+	drawtype = "plantlike",
+	tiles = {"vessels_glass_bottle.png^lottpotion_water_mordor.png"},
+	inventory_image = "vessels_glass_bottle_inv.png^lottpotion_water_mordor.png",
+	wield_image = "vessels_glass_bottle_inv.png^lottpotion_water_mordor.png",
+	paramtype = "light",
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
+	},
+	groups = {vessel=1,dig_immediate=3,attached_node=1},
+	sounds = default.node_sound_glass_defaults(),
+})
+
+
 minetest.register_craft({
 	output = 'lottpotion:potion_brewer',
 	recipe = {
@@ -178,6 +228,36 @@ local recipes = {
      {"default:leaves 10",        "lottpotion:glass_bottle_geodes",         "lottpotion:entdraught_power1"},
      {"default:leaves 10",        "lottpotion:entdraught_power1",         "lottpotion:entdraught_power2", 120},
      {"default:leaves 10",        "lottpotion:entdraught_power2",         "lottpotion:entdraught_power3", 240},
+
+--Negative Base Potion
+	{"lottplants:brambles_of_mordor_fake",	"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_mordor"},
+	{"default:obsidian_shard 1",		"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_obsidian"},
+	{"bones:bonedust 1",			"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_bonedust"},
+--Negative Potions
+     --Orc Draught
+     {"lottmobs:meat_raw 5",        "lottpotion:glass_bottle_mordor",         "lottpotion:orcdraught_corruption1"},
+     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_corruption1",         "lottpotion:orcdraught_corruption2", 180},
+     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_corruption2",         "lottpotion:orcdraught_corruption3", 240},
+     --Spider Poison
+     {"lottmobs:spiderpoison 2",        "lottpotion:glass_bottle_mordor",         "lottpotion:spiderpoison_corruption1"},
+     {"lottmobs:spiderpoison 2",        "lottpotion:spiderpoison_corruption1",         "lottpotion:spiderpoison_corruption2", 180},
+     {"lottmobs:spiderpoison 2",        "lottpotion:spiderpoison_corruption2",         "lottpotion:spiderpoison_corruption3", 240},
+     --Limpe
+     {"lottplants:yavannamireleaf 10",        "lottpotion:glass_bottle_obsidian",         "lottpotion:limpe_corruption1"},
+     {"lottplants:yavannamireleaf 10",        "lottpotion:limpe_corruption1",         "lottpotion:limpe_corruption2", 180},
+     {"lottplants:yavannamireleaf 10",        "lottpotion:limpe_corruption2",         "lottpotion:limpe_corruption3", 240},
+     --Miruvor
+     {"lottplants:yavannamirefruit 2",        "lottpotion:glass_bottle_obsidian",         "lottpotion:miruvor_corruption1"},
+     {"lottplants:yavannamirefruit 2",        "lottpotion:miruvor_corruption1",         "lottpotion:miruvor_corruption2", 180},
+     {"lottplants:yavannamirefruit 2",        "lottpotion:miruvor_corruption2",         "lottpotion:miruvor_corruption3", 240},
+     --Athelas Brew
+     {"lottfarming:athelas 3",        "lottpotion:glass_bottle_bonedust",         "lottpotion:athelasbrew_corruption1"},
+     {"lottfarming:athelas 3",        "lottpotion:athelasbrew_corruption1",         "lottpotion:athelasbrew_corruption2", 180},
+     {"lottfarming:athelas 3",        "lottpotion:athelasbrew_corruption2",         "lottpotion:athelasbrew_corruption3", 240},
+     --Ent Draught
+     {"default:leaves 10",        "lottpotion:glass_bottle_bonedust",         "lottpotion:entdraught_corruption1"},
+     {"default:leaves 10",        "lottpotion:entdraught_corruption1",         "lottpotion:entdraught_corruption2", 120},
+     {"default:leaves 10",        "lottpotion:entdraught_corruption2",         "lottpotion:entdraught_corruption3", 240},
 }
 
 for _, data in pairs(recipes) do

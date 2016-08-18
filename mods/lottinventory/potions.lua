@@ -79,7 +79,7 @@ local get_formspec = function(player,page)
                .."item_image_button[4,4;1,1;lottpotion:spiderpoison_power2;zcg:spiderpoison_power2;]"
                .."item_image_button[5,4;1,1;lottmobs:spiderpoison;zcg:lottmobs:spiderpoison;2]"
                .."image[6,4;1,1;zcg_craft_arrow.png]"
-               .."item_image_button[7,4;1,1;lottpotion:spiderpoison_power2;zcg:spiderpoison_power3;]"
+               .."item_image_button[7,4;1,1;lottpotion:spiderpoison_power3;zcg:spiderpoison_power3;]"
                .."background[5,5;1,1;craft_formbg.png;true]"
 	end
      if page=="potions4" then
@@ -167,7 +167,7 @@ local get_formspec = function(player,page)
 		return "size[8,5.5]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
-               .."image[7,1;1,1;zcg_next_inactive.png]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN;;false;false;zcg_next_press.png]"
                .."image_button[6,1;1,1;zcg_previous.png;potions6;;false;false;zcg_previous_press.png]"
                .."label[0,1;"..SL("Ent Draught (Healing & Jump Weakening Potion):").."]"
                --First potion
@@ -188,6 +188,195 @@ local get_formspec = function(player,page)
                .."item_image_button[5,4;1,1;default:leaves;zcg:leaves;10]"
                .."image[6,4;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,4;1,1;lottpotion:entdraught_power3;zcg:entdraught_power3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+	end
+	if page=="potionsN" then
+		return "size[8,5.5]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN2;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potions7;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Base Potions Of Negative:").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Obsidian Base Potion").."]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_water;lottpotion:glass_bottle_water;]"
+               .."item_image_button[5,2;1,1;default:obsidian_shard;zcg:obsidian_shard;]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:glass_bottle_obsidian;zcg:glass_bottle_obsidian;]"
+               --Second
+               .."label[1,3.2; "..SL("Bonedust Base Potion").."]"
+               .."item_image_button[4,3;1,1;lottpotion:glass_bottle_water;lottpotion:glass_bottle_water;]"
+               .."item_image_button[5,3;1,1;bones:bonedust;zcg:bonedust;]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:glass_bottle_bonedust;zcg:glass_bottle_bonedust;]"
+               --Third
+               .."label[1,4.2; "..SL("Mordor Base Potion").."]"
+               .."item_image_button[4,4;1,1;lottpotion:glass_bottle_water;lottpotion:glass_bottle_water;]"
+               .."item_image_button[5,4;1,1;lottplants:brambles_of_mordor;zcg:brambles_of_mordor;]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:glass_bottle_mordor;zcg:glass_bottle_mordor;]"
+	end
+     if page=="potionsN2" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN3;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Orc Draught (Healing Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_mordor;zcg:glass_bottle_mordor;]"
+               .."item_image_button[5,2;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:orcdraught_corruption1;zcg:orcdraught_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:orcdraught_corruption1;zcg:orcdraught_corruption1;]"
+               .."item_image_button[5,3;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:orcdraught_corruption2;zcg:orcdraught_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:orcdraught_corruption2;zcg:orcdraught_corruption2;]"
+               .."item_image_button[5,4;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:orcdraught_corruption3;zcg:orcdraught_corruption3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+     end
+     if page=="potionsN3" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN4;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN2;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Spider Poison (Jump And Speed Boost Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_mordor;zcg:glass_bottle_mordor;]"
+               .."item_image_button[5,2;1,1;lottmobs:spiderpoison;zcg:lottmobs:spiderpoison;2]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:spiderpoison_corruption1;zcg:spiderpoison_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:spiderpoison_corruption1;zcg:spiderpoison_corruption1;]"
+               .."item_image_button[5,3;1,1;lottmobs:spiderpoison;zcg:lottmobs:spiderpoison;2]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:spiderpoison_corruption2;zcg:spiderpoison_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:spiderpoison_corruption2;zcg:spiderpoison_corruption2;]"
+               .."item_image_button[5,4;1,1;lottmobs:spiderpoison;zcg:lottmobs:spiderpoison;2]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:spiderpoison_corruption3;zcg:spiderpoison_corruption3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+	end
+     if page=="potionsN4" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN5;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN3;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Limpe (Breathing Underwater Block Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_obsidian;zcg:glass_bottle_obsidian;]"
+               .."item_image_button[5,2;1,1;lottplants:yavannamireleaf;zcg:yavannamireleaf;10]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:limpe_corruption1;zcg:limpe_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:limpe_corruption1;zcg:limpe_corruption1;]"
+               .."item_image_button[5,3;1,1;lottplants:yavannamireleaf;zcg:yavannamireleaf;10]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:limpe_corruption2;zcg:limpe_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:limpe_corruption2;zcg:limpe_corruption2;]"
+               .."item_image_button[5,4;1,1;lottplants:yavannamireleaf;zcg:yavannamireleaf;10]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:limpe_corruption3;zcg:limpe_corruption3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+	end
+     if page=="potionsN5" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN6;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN4;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Miruvor (Jump Block Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_obsidian;zcg:glass_bottle_obsidian;]"
+               .."item_image_button[5,2;1,1;lottplants:yavannamirefruit;zcg:yavannamirefruit;2]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:miruvor_corruption1;zcg:miruvor_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:miruvor_corruption1;zcg:miruvor_corruption1;]"
+               .."item_image_button[5,3;1,1;lottplants:yavannamirefruit;zcg:yavannamirefruit;2]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:miruvor_corruption2;zcg:miruvor_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:miruvor_corruption2;zcg:miruvor_corruption2;]"
+               .."item_image_button[5,4;1,1;lottplants:yavannamirefruit;zcg:yavannamirefruit;2]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:miruvor_corruption3;zcg:miruvor_corruption3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+	end
+     if page=="potionsN6" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image_button[7,1;1,1;zcg_next.png;potionsN7;;false;false;zcg_next_press.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN5;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Athelas Brew (Hurting Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_bonedust;zcg:glass_bottle_bonedust;]"
+               .."item_image_button[5,2;1,1;lottfarming:athelas;zcg:athelas;3]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:athelasbrew_corruption1;zcg:athelasbrew_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:athelasbrew_corruption1;zcg:athelasbrew_corruption1;]"
+               .."item_image_button[5,3;1,1;lottfarming:athelas;zcg:athelas;3]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:athelasbrew_corruption2;zcg:athelasbrew_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:athelasbrew_corruption2;zcg:athelasbrew_corruption2;]"
+               .."item_image_button[5,4;1,1;lottfarming:athelas;zcg:athelas;3]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:athelasbrew_corruption3;zcg:athelasbrew_corruption3;]"
+               .."background[5,5;1,1;craft_formbg.png;true]"
+	end
+     if page=="potionsN7" then
+		return "size[8,5.5]"
+               .."label[0,0;"..SL("Book of Potions").."]"
+               .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
+               .."image[7,1;1,1;zcg_next_inactive.png]"
+               .."image_button[6,1;1,1;zcg_previous.png;potionsN6;;false;false;zcg_previous_press.png]"
+               .."label[0,1;"..SL("Ent Draught (Boost And Control Lose Potion):").."]"
+               --First potion
+               .."label[1,2.2; "..SL("Power Level")..": -1]"
+               .."item_image_button[4,2;1,1;lottpotion:glass_bottle_bonedust;zcg:glass_bottle_bonedust;]"
+               .."item_image_button[5,2;1,1;default:leaves;zcg:leaves;10]"
+               .."image[6,2;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,2;1,1;lottpotion:entdraught_corruption1;zcg:entdraught_corruption1;]"
+               --Second
+               .."label[1,3.2; "..SL("Power Level")..": -2]"
+               .."item_image_button[4,3;1,1;lottpotion:entdraught_corruption1;zcg:entdraught_corruption1;]"
+               .."item_image_button[5,3;1,1;default:leaves;zcg:leaves;10]"
+               .."image[6,3;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,3;1,1;lottpotion:entdraught_corruption2;zcg:entdraught_corruption2;]"
+               --Third
+               .."label[1,4.2; "..SL("Power Level")..": -3]"
+               .."item_image_button[4,4;1,1;lottpotion:entdraught_corruption2;zcg:entdraught_corruption2;]"
+               .."item_image_button[5,4;1,1;default:leaves;zcg:leaves;10]"
+               .."image[6,4;1,1;zcg_craft_arrow.png]"
+               .."item_image_button[7,4;1,1;lottpotion:entdraught_corruption3;zcg:entdraught_corruption3;]"
                .."background[5,5;1,1;craft_formbg.png;true]"
 	end
 end
@@ -213,6 +402,28 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 	end
      if fields.potions7 then
 	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions7"))
+	end
+	--Negative-potions--
+     if fields.potionsN then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN"))
+	end
+     if fields.potionsN2 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN2"))
+	end
+     if fields.potionsN3 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN3"))
+	end
+     if fields.potionsN4 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN4"))
+	end
+     if fields.potionsN5 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN5"))
+	end
+     if fields.potionsN6 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN6"))
+	end
+     if fields.potionsN7 then
+	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN7"))
 	end
 end)
 

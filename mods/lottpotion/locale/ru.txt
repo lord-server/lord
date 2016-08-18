@@ -88,6 +88,10 @@ Glass Bottle (Mese Water)	=	Стеклянная бутыль с MESE-зелье
 Glass Bottle (Geodes Crystal Water)	=	Стеклянная бутыль с жеодовым зельем
 Glass Bottle (Seregon Water)	=	Стеклянная бутыль с серегоновым зельем
 
+Glass Bottle (Obsidian Water)	=	Стеклянная бутыль с обсидиановым зельем
+Glass Bottle (Bonedust Water)	=	Стеклянная бутыль с зельем из костей
+Glass Bottle (Mordor Water)	=	Стеклянная бутыль с мордорским зельем
+
 ### arrows.lua ###
 Potion Arrow	=	Зачарованная стрела\n
 

@@ -17,16 +17,32 @@ Book of Protection = Book of Protection
 
 ### potions.lua ###
 Book of Potions = Book of Potions
+
 Base Potions:	=	Base Potions:
+Base Potions Of Negative:	=	Base Potions Of Negative:
+
 Orc Draught (Hurting Potion):	=	Orc Draught (Hurting Potion):
 Spider Poison (Speed Weakening Potion):	=	Spider Poison (Speed Weakening Potion):
 Limpe (Breathing Underwater Potion):	=	Limpe (Breathing Underwater Potion):
 Miruvor (Jump Boost Potion):	=	Miruvor (Jump Boost Potion):
 Athelas Brew (Healing Potion):	=	Athelas Brew (Healing Potion):
 Ent Draught (Healing & Jump Weakening Potion):	=	Ent Draught (Healing & Jump Weakening Potion):
+
+Orc Draught (Healing Potion):	=	Orc Draught (Healing Potion):
+Spider Poison (Jump And Speed Boost Potion):	=	Spider Poison (Jump And Speed Boost Potion):
+Limpe (Breathing Underwater Block Potion):	=	Limpe (Breathing Underwater Block Potion):
+Miruvor (Jump Block Potion):	=	Miruvor (Jump Block Potion):
+Athelas Brew (Hurting Potion):	=	Athelas Brew (Hurting Potion):
+Ent Draught (Boost And Control Lose Potion):	=	Ent Draught (Boost And Control Lose Potion):
+
 Mese Base Potion	=	Mese Base Potion
 Geodes Base Potion	=	Geodes Base Potion
 Seregon Base Potion	=	Seregon Base Potion
+
+Obsidian Base Potion	=	Obsidian Base Potion
+Bonedust Base Potion	=	Bonedust Base Potion
+Mordor Base Potion	=	Mordor Base Potion
+
 Power Level	=	Power Level
 
 ### brewing.lua ###

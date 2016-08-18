@@ -88,6 +88,10 @@ Glass Bottle (Mese Water)	=	Glass Bottle (Mese Water)
 Glass Bottle (Geodes Crystal Water)	=	Glass Bottle (Geodes Crystal Water)
 Glass Bottle (Seregon Water)	=	Glass Bottle (Seregon Water)
 
+Glass Bottle (Obsidian Water)	=	Glass Bottle (Obsidian Water)
+Glass Bottle (Bonedust Water)	=	Glass Bottle (Bonedust Water)
+Glass Bottle (Mordor Water)	=	Glass Bottle (Mordor Water)
+
 ### arrows.lua ###
 Potion Arrow	=	Potion Arrow
 
