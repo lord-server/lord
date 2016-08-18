@@ -27,6 +27,8 @@ minetest.register_craftitem("lottfarming:orc_food", {
 				user:hud_remove(second_screen)
 			end)
 		end)
+		itemstack:take_item(1)
+		return itemstack
 	end,
 })
 
@@ -64,6 +66,8 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 				user:hud_remove(second_screen)
 			end)
 		end)
+		itemstack:take_item(1)
+		return itemstack
 	end,
 })
 
