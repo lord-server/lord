@@ -116,26 +116,12 @@ function worldedit.copy(pos1, pos2, axis, amount)
 	local copy_light_data = copy_manip:get_light_data()
 	local copy_param2_data = copy_manip:get_param2_data()
 
-	local nodes = {}
-	local light = {}
-	local param2 = {}
-
-	for z = copy_pos1.z, copy_pos2.z do
-		for x = copy_pos1.x, copy_pos2.x do
-			for y = copy_pos1.y, copy_pos2.y do
-				local index = copy_area:index(x, y, z)
-				table.insert(nodes, copy_data[index])
-				table.insert(light, copy_light_data[index])
-				table.insert(param2, copy_param2_data[index])
-			end
-		end
-	end
-
 	local paste_pos1 = copy_pos1
 	local paste_pos2 = copy_pos2
-	local diff = {x = 0, y = 0, z = 0}
 	paste_pos1[axis] = paste_pos1[axis] + amount
 	paste_pos2[axis] = paste_pos2[axis] + amount
+
+	local diff = {x = 0, y = 0, z = 0}
 	diff[axis] = amount
 
 	local paste_manip, paste_area = mh.init(paste_pos1, paste_pos2)
@@ -143,15 +129,14 @@ function worldedit.copy(pos1, pos2, axis, amount)
 	local paste_light_data = paste_manip:get_light_data()
 	local paste_param2_data = paste_manip:get_param2_data()
 
-	local i = 0
 	for z = paste_pos1.z, paste_pos2.z do
 		for x = paste_pos1.x, paste_pos2.x do
 			for y = paste_pos1.y, paste_pos2.y do
-				i = i + 1
-				local index = paste_area:index(x, y, z)
-				paste_data[index] = nodes[i]
-				paste_light_data[index] = light[i]
-				paste_param2_data[index] = param2[i]
+				local c_index = copy_area:index(x-diff.x, y-diff.y, z-diff.z)
+				local p_index = paste_area:index(x, y, z)
+				paste_data[p_index] = copy_data[c_index]
+				paste_light_data[p_index] = copy_light_data[c_index]
+				paste_param2_data[p_index] = copy_param2_data[c_index]
 			end
 		end
 	end
