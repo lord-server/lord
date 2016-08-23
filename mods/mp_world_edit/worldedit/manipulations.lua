@@ -110,57 +110,58 @@ end
 -- @param amount
 -- @return The number of nodes copied.
 function worldedit.copy(pos1, pos2, axis, amount)
-	local pos1, pos2 = worldedit.sort_pos(pos1, pos2)
+	local copy_pos1, copy_pos2 = worldedit.sort_pos(pos1, pos2)
+	local copy_manip, copy_area = mh.init(copy_pos1, copy_pos2)
+	local copy_data = copy_manip:get_data()
+	local copy_light_data = copy_manip:get_light_data()
+	local copy_param2_data = copy_manip:get_param2_data()
 
-	worldedit.keep_loaded(pos1, pos2)
+	local nodes = {}
+	local light = {}
+	local param2 = {}
 
-	local get_node, get_meta, set_node = minetest.get_node,
-			minetest.get_meta, minetest.set_node
-	-- Copy things backwards when negative to avoid corruption.
-	-- FIXME: Lots of code duplication here.
-	if amount < 0 then
-		local pos = {}
-		pos.x = pos1.x
-		while pos.x <= pos2.x do
-			pos.y = pos1.y
-			while pos.y <= pos2.y do
-				pos.z = pos1.z
-				while pos.z <= pos2.z do
-					local node = get_node(pos) -- Obtain current node
-					local meta = get_meta(pos):to_table() -- Get meta of current node
-					local value = pos[axis] -- Store current position
-					pos[axis] = value + amount -- Move along axis
-					set_node(pos, node) -- Copy node to new position
-					get_meta(pos):from_table(meta) -- Set metadata of new node
-					pos[axis] = value -- Restore old position
-					pos.z = pos.z + 1
-				end
-				pos.y = pos.y + 1
+	for z = copy_pos1.z, copy_pos2.z do
+		for x = copy_pos1.x, copy_pos2.x do
+			for y = copy_pos1.y, copy_pos2.y do
+				local index = copy_area:index(x, y, z)
+				table.insert(nodes, copy_data[index])
+				table.insert(light, copy_light_data[index])
+				table.insert(param2, copy_param2_data[index])
 			end
-			pos.x = pos.x + 1
-		end
-	else
-		local pos = {}
-		pos.x = pos2.x
-		while pos.x >= pos1.x do
-			pos.y = pos2.y
-			while pos.y >= pos1.y do
-				pos.z = pos2.z
-				while pos.z >= pos1.z do
-					local node = get_node(pos) -- Obtain current node
-					local meta = get_meta(pos):to_table() -- Get meta of current node
-					local value = pos[axis] -- Store current position
-					pos[axis] = value + amount -- Move along axis
-					set_node(pos, node) -- Copy node to new position
-					get_meta(pos):from_table(meta) -- Set metadata of new node
-					pos[axis] = value -- Restore old position
-					pos.z = pos.z - 1
-				end
-				pos.y = pos.y - 1
-			end
-			pos.x = pos.x - 1
 		end
 	end
+
+	local paste_pos1 = copy_pos1
+	local paste_pos2 = copy_pos2
+	local diff = {x = 0, y = 0, z = 0}
+	paste_pos1[axis] = paste_pos1[axis] + amount
+	paste_pos2[axis] = paste_pos2[axis] + amount
+	diff[axis] = amount
+
+	local paste_manip, paste_area = mh.init(paste_pos1, paste_pos2)
+	local paste_data = paste_manip:get_data()
+	local paste_light_data = paste_manip:get_light_data()
+	local paste_param2_data = paste_manip:get_param2_data()
+
+	local i = 0
+	for z = paste_pos1.z, paste_pos2.z do
+		for x = paste_pos1.x, paste_pos2.x do
+			for y = paste_pos1.y, paste_pos2.y do
+				i = i + 1
+				local index = paste_area:index(x, y, z)
+				paste_data[index] = nodes[i]
+				paste_light_data[index] = light[i]
+				paste_param2_data[index] = param2[i]
+			end
+		end
+	end
+
+	paste_manip:set_data(paste_data)
+	paste_manip:set_light_data(paste_light_data)
+	paste_manip:set_param2_data(paste_param2_data)
+	paste_manip:write_to_map()
+	paste_manip:update_map()
+
 	return worldedit.volume(pos1, pos2)
 end
 
@@ -594,4 +595,3 @@ function worldedit.clear_objects(pos1, pos2)
 	end
 	return count
 end
-
