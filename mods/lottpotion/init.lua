@@ -1,5 +1,12 @@
 local SL = lord.require_intllib()
 
+local limit = {	speed = 4,
+				jump =2,
+				gravity = 3,
+				air = 3,	
+}
+
+
 lottpotion = {}
 
 dofile(minetest.get_modpath("lottpotion").."/cauldron.lua")
@@ -10,8 +17,7 @@ lottpotion = {
 		phys_override = function(sname, name, fname, time, sdata, flags)
 			local def = {
 				on_use = function(itemstack, user, pointed_thing)
-					lottpotion.grant(time, user:get_player_name(), fname.."_"..flags.type..sdata.type, name, flags)
-					itemstack:take_item()
+					lottpotion.grant(time, user, fname.."_"..flags.type..sdata.type, name, flags, itemstack)
 					return itemstack
 				end,
 				lottpotion = {
@@ -35,7 +41,7 @@ lottpotion = {
 								hp = hp + (sdata.hp or 3)
 							end
 							hp = math.min(20, hp)
-							hp = math.max(0, hp)
+							hp = math.max(1, hp)
 							user:set_hp(hp)
 						end)
 					end
@@ -77,10 +83,11 @@ lottpotion = {
 			return def
 		end,
 	},
-	grant = function(time, playername, potion_name, type, flags)
+	grant = function(time, user, potion_name, type, flags, itemstack)
 		local rootdef = minetest.registered_items[potion_name]
+		local playername = user:get_player_name()
 		if rootdef == nil then
-			return
+			return 
 		end
 		if rootdef.lottpotion == nil then
 			return
@@ -89,18 +96,48 @@ lottpotion = {
 		for name, val in pairs(rootdef.lottpotion) do
 			def[name] = val
 		end
+		
+		-- limit effects
+		local test = lottpotion.players[playername]
+		if test.speed + def.speed > limit.speed or test.jump + def.jump > limit.jump then return end
+		
+		itemstack:take_item()
+		local image_potion = itemstack:get_definition().inventory_image
+		if image_potion == nil then
+			image_potion = "lottpotion_bottle.png"
+		end	
+		
+		-- for corruption
 		if flags.inv==true then
 			def.gravity = 0 - def.gravity
 			def.speed = 0 - def.speed
 			def.jump = 0 - def.jump
 		end
+		
 		lottpotion.addPrefs(playername, def.speed, def.jump, def.gravity)
 		lottpotion.refresh(playername)
 		minetest.chat_send_player(playername, SL("You are under the effects of the "..type.." potion."))
+		
+		local first_screen = user:hud_add({
+			hud_elem_type = "image",
+			position = {x=0.95, y=0.95},
+			scale = {x=-5, y=-8},
+			text = image_potion,
+			offset = {x=0, y=1},
+		})
+
 		minetest.after(time, function()
-			lottpotion.addPrefs(playername, 0-def.speed, 0-def.jump, 0-def.gravity)
+			local rest_speed = 0-def.speed
+			local rest_jump = 0-def.jump
+			local rest_gravity = 0-def.gravity
+			rest_speed = math.min(rest_speed,limit.speed)
+			rest_jump = math.min(rest_jump,limit.jump)
+			rest_gravity = math.min(rest_gravity,limit.gravity)
+			
+			lottpotion.addPrefs(playername, rest_speed, rest_jump, rest_gravity)
 			lottpotion.refresh(playername)
 			minetest.chat_send_player(playername, SL("The effects of the "..type.." potion have worn off."))
+			user:hud_remove(first_screen)
 		end)
 	end,
 	addPrefs = function(playername, speed, jump, gravity)
