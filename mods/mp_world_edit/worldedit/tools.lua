@@ -105,7 +105,11 @@ minetest.register_tool("worldedit:pick_admin", {
 	on_use = function(itemstack, user, pointed_thing)
 	    local user_name = user:get_player_name()
 	    local can_access = minetest.get_player_privs(user_name).worldedit
-	    if not can_access then return end 
+	    if not can_access then 
+			itemstack.take_item()
+			return itemstack
+	    end 
+	    minetest.log("action","Admins Pickaxe in use "..user_name)
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
 	    if pos == nil then return end
 	    local node=minetest.get_node(pos)
