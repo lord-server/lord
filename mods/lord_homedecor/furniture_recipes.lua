@@ -1,6 +1,6 @@
 
 minetest.register_craft({
-	output = "lord_homedecor:table", "lord_homedecor:chair 2",
+	output = "lord_homedecor:table",
 	recipe = {
 		{ "group:wood","group:wood", "group:wood" },
 		{ "group:stick", "", "group:stick" },
@@ -52,50 +52,50 @@ minetest.register_craft({
 	burntime = 30,
 })
 
-minetest.register_craft({
-	output = "lord_homedecor:chair 2",
-	recipe = {
-		{ "group:stick",""},
-		{ "group:wood","group:wood" },
-		{ "group:stick","group:stick" },
-	},
-})
+--minetest.register_craft({
+	--output = "lord_homedecor:chair 2",
+	--recipe = {
+		--{ "group:stick",""},
+		--{ "group:wool","group:wool" },
+		--{ "group:stick","group:stick" },
+	--},
+--})
 
-minetest.register_craft({
-	type = "fuel",
-	recipe = "lord_homedecor:chair",
-	burntime = 15,
-})
+--minetest.register_craft({
+	--type = "fuel",
+	--recipe = "lord_homedecor:chair",
+	--burntime = 15,
+--})
 
-local chaircolors = { "black", "red", "pink", "violet", "blue", "dark_green" }
+--local chaircolors = { "black", "red", "pink", "violet", "blue", "dark_green" }
 
-for _, color in ipairs(chaircolors) do
+--for _, color in ipairs(chaircolors) do
 
-	minetest.register_craft({
-		type = "shapeless",
-		output = "lord_homedecor:chair_"..color,
-		recipe = {
-			"lord_homedecor:chair",
-			"wool:white",
-			"dye:"..color
-		},
-	})
+	--minetest.register_craft({
+		--type = "shapeless",
+		--output = "lord_homedecor:chair_"..color,
+		--recipe = {
+			--"lord_homedecor:chair",
+			--"wool:white",
+			--"dye:"..color
+		--},
+	--})
 
-	minetest.register_craft({
-		type = "shapeless",
-		output = "lord_homedecor:chair_"..color,
-		recipe = {
-			"lord_homedecor:chair",
-			"wool:"..color
-		},
-	})
+	--minetest.register_craft({
+		--type = "shapeless",
+		--output = "lord_homedecor:chair_"..color,
+		--recipe = {
+			--"lord_homedecor:chair",
+			--"wool:"..color
+		--},
+	--})
 
-	minetest.register_craft({
-		type = "fuel",
-		recipe = "lord_homedecor:chair_"..color,
-		burntime = 15,
-	})
-end
+	--minetest.register_craft({
+		--type = "fuel",
+		--recipe = "lord_homedecor:chair_"..color,
+		--burntime = 15,
+	--})
+--end
 
 minetest.register_craft({
 	type = "fuel",

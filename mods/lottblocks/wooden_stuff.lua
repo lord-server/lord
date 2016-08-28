@@ -264,6 +264,14 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
     		{'group:stick', 'group:stick'},
     	}
     })
+    minetest.register_craft({
+    	output = "lottblocks:" .. name .. "_chair",
+    	recipe = {
+    		{'', 'group:stick'},
+    		{wood_name, wood_name},
+    		{'group:stick', 'group:stick'},
+    	}
+    })
 end
 
 lottblocks.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
