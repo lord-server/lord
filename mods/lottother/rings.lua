@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
 
+local DWARF_RING_USES = 300
+
 minetest.register_craftitem("lottother:ringsilver_lump", {
 	description = SL("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
@@ -70,7 +72,7 @@ minetest.register_craftitem("lottother:narya", {
 })
 --follow = "lottother:narya",
 
---FUNCTION = Same armor stats as a full set of mithril. 
+--FUNCTION = Same armor stats as a full set of mithril.
 minetest.register_craftitem("lottother:white_gem_ring", {
 	description = SL("White Gem Ring"),
 	inventory_image = "lottother_whitegem_ring.png",
@@ -196,10 +198,10 @@ minetest.register_craftitem("lottother:purple_am_ring", {
 	inventory_image = "lottother_purplegem_am_ring.png",
      groups = {forbidden=1},
 })
-minetest.register_craftitem("lottother:dwarf_ring", {
+minetest.register_tool("lottother:dwarf_ring", {
 	description = SL("Dwarf Ring"),
 	inventory_image = "lottother_dwarf_ring.png",
-     groups = {forbidden=1},
+	groups = {forbidden=1},
 })
 
 minetest.register_craft({
@@ -232,60 +234,53 @@ minetest.register_craft({
 	cooktime = 1000,
 })
 
+local lumps = {
+	-- ["name"] = level,
+	["lottores:limestone_lump"] = 1,
+	["lottores:silver_lump"] = 3,
+	["lottores:tin_lump"] = 1,
+	["lottores:lead_lump"] = 1,
+	["default:coal_lump"] = 2,
+	["default:iron_lump"] = 2,
+	["default:copper_lump"] = 2,
+	["default:gold_lump"] = 3,
+	["lottores:rough_rock_lump"] = 1,
+}
 
+for i, j in pairs(lumps) do
+	minetest.register_craft({
+		type = "shapeless",
+		output = i .. " 2",
+		recipe = {i, "lottother:dwarf_ring"},
+		replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
+	})
+end
 
---Dwarf ring crafts...
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:limestone_lump 2",
-	recipe = {"lottores:limestone_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:silver_lump 2",
-	recipe = {"lottores:silver_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:tin_lump 2",
-	recipe = {"lottores:tin_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:lead_lump 2",
-	recipe = {"lottores:lead_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:coal_lump 2",
-	recipe = {"default:coal_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:iron_lump 2",
-	recipe = {"default:iron_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:copper_lump 2",
-	recipe = {"default:copper_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:gold_lump 2",
-	recipe = {"default:gold_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:rough_rock_lump 2",
-	recipe = {"lottores:rough_rock_lump", "lottother:dwarf_ring"},
-	replacements = {{ "lottother:dwarf_ring", "lottother:dwarf_ring"}},
-})
+local function starts_with(str, st)
+	return string.sub(str, 1, string.len(st)) == st
+end
+
+-- Ring wearing
+minetest.register_on_craft(function(is, player, old_grid, inv)
+	local has_ring = inv:contains_item("craft", ItemStack("lottother:dwarf_ring"))
+	local ring_itemstack
+	local ring_index
+	local lump
+
+	if has_ring then
+		for i, itemstack in ipairs(old_grid) do
+			local name = itemstack:to_string()
+			-- We know that there's an ore
+			if not starts_with(name, "lottother:dwarf_ring") and name ~= "" then
+				lump_name, trash = name:match("([%w:_]+)(.*)")
+				lump = lump_name
+			elseif starts_with(name, "lottother:dwarf_ring") then
+				ring_itemstack = itemstack
+				ring_index = i
+			end
+		end
+		print(lump)
+		ring_itemstack:add_wear(65535/(DWARF_RING_USES / lumps[lump] - 1))
+		inv:set_stack("craft", ring_index, ring_itemstack)
+	end
+end)
