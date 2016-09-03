@@ -104,4 +104,3 @@ lord_homedecor.register("wall_sconce", {
 	light_source = default.LIGHT_MAX-4,
 })
 
-

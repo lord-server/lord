@@ -1065,21 +1065,21 @@ minetest.register_craft({
 
 ---- wood-lattice lamps
 
-minetest.register_craft( {
-        output = "lord_homedecor:lattice_lantern_large 2",
-        recipe = {
-			{ "dye:black", "dye:yellow", "dye:black" },
-			{ "group:stick", "building_blocks:woodglass", "group:stick" },
-			{ "group:stick", "lord_homedecor:power_crystal", "group:stick" }
-        },
-})
+--minetest.register_craft( {
+        --output = "lord_homedecor:lattice_lantern_large 2",
+        --recipe = {
+			--{ "dye:black", "dye:yellow", "dye:black" },
+			--{ "group:stick", "building_blocks:woodglass", "group:stick" },
+			--{ "group:stick", "default:torch", "group:stick" }
+        --},
+--})
 
-minetest.register_craft( {
-        output = "lord_homedecor:lattice_lantern_small 8",
-        recipe = {
-			{ "lord_homedecor:lattice_lantern_large" },
-        },
-})
+--minetest.register_craft( {
+        --output = "lord_homedecor:lattice_lantern_small 8",
+        --recipe = {
+			--{ "lord_homedecor:lattice_lantern_large" },
+        --},
+--})
 
 ---- yellow glowlights
 
@@ -2856,14 +2856,14 @@ minetest.register_craft({
 	--},
 --})
 
---minetest.register_craft({
-	--output = "lord_homedecor:wall_lamp 2",
-	--recipe = {
-		--{ "", "lord_homedecor:lattice_lantern_large", "" },
-		--{ "default:iron_lump", "group:stick", "" },
-		--{ "default:iron_lump", "group:stick", "" },
-	--},
---})
+minetest.register_craft({
+	output = "lord_homedecor:wall_lamp 2",
+	recipe = {
+		{ "default:glass", "default:torch", "default:glass" },
+		{ "default:iron_lump", "group:stick", "" },
+		{ "default:iron_lump", "group:stick", "" },
+	},
+})
 
 --minetest.register_craft({
 	--output = "lord_homedecor:desk_globe",
