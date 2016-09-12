@@ -1,8 +1,8 @@
 local SL = lord.require_intllib()
 
-minetest.register_craftitem("lottfarming:potato_seed", {
-	description = SL("Potato Seeds"),
-	inventory_image = "lottfarming_potato_seed.png",
+minetest.register_craftitem("lottfarming:half_of_potatoe", {
+	description = SL("Half of potatoe"),
+	inventory_image = "lottfarming_half_of_potatoe.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
 		local nu = minetest.get_node(ptu)
@@ -55,12 +55,9 @@ minetest.register_node("lottfarming:potato_3", {
 	drop = {
 		max_items = 6,
 		items = {
-			{ items = {'lottfarming:potato_seed'} },
-			{ items = {'lottfarming:potato_seed'}, rarity = 2},
-			{ items = {'lottfarming:potato_seed'}, rarity = 5},
-			{ items = {'lottfarming:potato'} },
-			{ items = {'lottfarming:potato'}, rarity = 2 },
-			{ items = {'lottfarming:potato'}, rarity = 5 }
+			{ items = {'lottfarming:potato'}, rarity = 1 },
+			{ items = {'lottfarming:potato'}, rarity = 3 },
+			{ items = {'lottfarming:potato'}, rarity = 6 }
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1,plant=1},

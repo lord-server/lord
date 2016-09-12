@@ -199,7 +199,7 @@ minetest.register_node(":default:grass_1", {
 	drop = {
 		max_items = 1,
 		items = {
-			{items = {'farming:seed_wheat'},rarity = 7},
+			{items = {'farming:wheat'},rarity = 7},
 			{items = {'farming:seed_cotton'},rarity = 7},
 			{items = {'default:grass_1'}},
 		}
@@ -233,7 +233,7 @@ for i=2,5 do
 		drop = {
 			max_items = 1,
 			items = {
-				{items = {'farming:seed_wheat'},rarity = 7},
+				{items = {'farming:wheat'},rarity = 7},
 				{items = {'farming:seed_cotton'},rarity = 7},
 				{items = {'default:grass_1'}},
 			}
@@ -324,9 +324,9 @@ end
 --
 -- Wheat
 --
-minetest.register_craftitem("farming:seed_wheat", {
-	description = SL("Wheat Seed"),
-	inventory_image = "farming_wheat_seed.png",
+minetest.register_craftitem("farming:wheat", {
+	description = SL("Wheat"),
+	inventory_image = "farming_wheat.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
 		local nu = minetest.get_node(ptu)
@@ -337,9 +337,9 @@ minetest.register_craftitem("farming:seed_wheat", {
 	end,
 })
 
-minetest.register_craftitem("farming:wheat", {
-	description = SL("Wheat"),
-	inventory_image = "farming_wheat.png",
+minetest.register_craftitem("farming:sheaf_wheat", {
+	description = SL("Sheaf wheat"),
+	inventory_image = "farming_sheaf_wheat.png",
 })
 
 minetest.register_craftitem("farming:flour", {
@@ -351,6 +351,13 @@ minetest.register_craftitem("farming:bread", {
 	description = SL("Bread"),
 	inventory_image = "farming_bread.png",
 	on_use = minetest.item_eat(4),
+})
+
+minetest.register_craft({
+	output = 'farming:wheat 6',
+	recipe = {
+		{'farming:sheaf_wheat'},
+	}
 })
 
 minetest.register_craft({
@@ -369,10 +376,8 @@ minetest.register_craft({
 for i=1,8 do
 	local drop = {
 		items = {
-			{items = {'farming:wheat'},rarity=9-i},
-			{items = {'farming:wheat'},rarity=18-i*2},
-			{items = {'farming:seed_wheat'},rarity=9-i},
-			{items = {'farming:seed_wheat'},rarity=18-i*2},
+			{items = {'farming:sheaf_wheat'},rarity=9-i},
+			{items = {'farming:sheaf_wheat'},rarity=18-i*2},
 		}
 	}
 	minetest.register_node("farming:wheat_"..i, {

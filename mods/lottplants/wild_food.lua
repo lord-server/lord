@@ -8,17 +8,17 @@ minetest.register_node("lottplants:barley_wild", {
 	description = SL("Wild Barley"),
 	drawtype = "plantlike",
 	waving = 1,
-	tiles = { "lottfarming_barley_3.png" },
-	inventory_image = "lottfarming_barley_3.png",
-	wield_image = "lottfarming_barley_3.png",
+	tiles = { "lottfarming_sheaf_barley.png" },
+	inventory_image = "lottfarming_sheaf_barley.png",
+	wield_image = "lottfarming_sheaf_barley.png",
 	sunlight_propagates = true,
 	paramtype = "light",
 drop = {
 		max_items = 3,
 		items = {
-			{ items = {'lottfarming:barley'} },
-			{ items = {'lottfarming:barley'}, rarity = 5},
-			{ items = {'lottfarming:barley'}, rarity = 10}
+			{ items = {'lottfarming:sheaf_barley'} },
+			{ items = {'lottfarming:sheaf_barley'}, rarity = 5},
+			{ items = {'lottfarming:sheaf_barley'}, rarity = 10}
 		}
 	},
 	walkable = false,
@@ -74,9 +74,9 @@ minetest.register_node("lottplants:corn_wild", {
 	drop = {
 		max_items = 3,
 		items = {
-			{ items = {'lottfarming:corn'} },
-			{ items = {'lottfarming:corn'}, rarity = 5},
-			{ items = {'lottfarming:corn 9'}, rarity = 10}
+			{ items = {'lottfarming:ear_of_corn'} },
+			{ items = {'lottfarming:ear_of_corn'}, rarity = 5},
+			{ items = {'lottfarming:ear_of_corn 9'}, rarity = 10}
 		}
 	},
 	walkable = false,

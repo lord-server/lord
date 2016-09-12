@@ -1,4 +1,4 @@
-### init.lua ###
+﻿### init.lua ###
 Soil	=	Почва
 Wet Soil	=	Влажная почва
 
@@ -10,8 +10,8 @@ Bronze Hoe	=	Бронзовая мотыга
 Grass	=	Трава
 Jungle Grass	=	Конопля
 
-Wheat Seed	=	Семена пшеницы
 Wheat	=	Пшеница
+Sheaf wheat	=	Сноп пшеницы
 Flour	=	Мука
 Bread	=	Хлеб
 

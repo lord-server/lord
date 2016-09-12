@@ -1,10 +1,10 @@
-### athelas.lua ###
+﻿### athelas.lua ###
 Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 
 ### barley.lua ###
-Barley Seeds	=	Семена ячменя
 Barley	=	Ячмень
+Sheaf barley	=	Сноп ячменя
 Cooked Barley	=	Высушенный ячмень
 
 ### berries.lua ###
@@ -26,8 +26,8 @@ Cabbage	=	Капуста
 Salad	=	Салат
 
 ### corn.lua ###
-Corn Seeds	=	Семена кукурузы
 Corn	=	Кукуруза
+Ear of corn	=	Початок кукурузы
 
 ### crafting.lua ###
 Bowl	=	Миска
@@ -53,9 +53,9 @@ Cooked Pipeweed	=	Высушенный табак
 Pipe	=	Трубка
 
 ### potato.lua ###
-Potato Seeds	=	Семена картошки
+Half of potatoe	=	Половина картошки
 Potato	=	Картошка
-Cooked Potato	=	Запечёная картошка
+Cooked Potato	=	Запеченная картошка
 
 ### red.lua ###
 Red Mushroom Spores	=	Споры красных грибов

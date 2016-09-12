@@ -23,7 +23,7 @@ local get_formspec = function(player,page)
                --Third
                .."label[1,4.2; "..SL("Mead").."]"
                .."item_image_button[4,4;1,1;lottpotion:drinking_glass_water;zcg:drinking_glass_water;]"
-               .."item_image_button[5,4;1,1;lottplants:honey;zcg:honey;6]"
+               .."item_image_button[5,4;1,1;bees:bottle_honey;zcg:honey;6]"
                .."image[6,4;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,4;1,1;lottpotion:mead;zcg:mead;]"
      end

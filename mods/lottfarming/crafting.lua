@@ -160,9 +160,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:barley_seed 2',
+	output = 'lottfarming:barley 6',
 	recipe = {
-		{'lottfarming:barley'},
+		{'lottfarming:sheaf_barley'},
 	}
 })
 
@@ -181,9 +181,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:corn_seed 2',
+	output = 'lottfarming:corn 6',
 	recipe = {
-		{'lottfarming:corn'},
+		{'lottfarming:ear_of_corn'},
 	}
 })
 
@@ -202,7 +202,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:potato_seed 2',
+	output = 'lottfarming:half_of_potatoe 2',
 	recipe = {
 		{'lottfarming:potato'},
 	}
@@ -233,7 +233,7 @@ minetest.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:barley_cooked",
-	recipe = "lottfarming:barley"
+	recipe = "lottfarming:sheaf_barley"
 })
 
 minetest.register_craft({

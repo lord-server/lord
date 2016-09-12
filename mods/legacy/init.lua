@@ -134,6 +134,10 @@ minetest.register_alias("lottspecial:scarecrow", "lottfarming:melon")
 minetest.register_alias("lottspecial:scarecrow_bottom", "lottfarming:melon")
 minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
+minetest.register_alias("farming:wheat0", "farming:wheat")
+minetest.register_alias("lottfarming:barley0", "lottfarming:barley")
+minetest.register_alias("lottfarming:corn0", "lottfarming:corn")
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do

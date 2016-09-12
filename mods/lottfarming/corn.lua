@@ -1,8 +1,8 @@
 local SL = lord.require_intllib()
 
-minetest.register_craftitem("lottfarming:corn_seed", {
-	description = SL("Corn Seeds"),
-	inventory_image = "lottfarming_corn_seed.png",
+minetest.register_craftitem("lottfarming:corn", {
+	description = SL("Corn"),
+	inventory_image = "lottfarming_corn.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
 		local nu = minetest.get_node(ptu)
@@ -12,9 +12,9 @@ minetest.register_craftitem("lottfarming:corn_seed", {
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:corn_1")
 	end,
 })
-minetest.register_craftitem("lottfarming:corn", {
-	description = SL("Corn"),
-	inventory_image = "lottfarming_corn.png",
+minetest.register_craftitem("lottfarming:ear_of_corn", {
+	description = SL("Ear of corn"),
+	inventory_image = "lottfarming_ear_of_corn.png",
      groups = {salad=1},
 	on_use = minetest.item_eat(4),
 })
@@ -93,12 +93,9 @@ minetest.register_node("lottfarming:corn_23", {
 	drop = {
 		max_items = 6,
 		items = {
-			{ items = {'lottfarming:corn'} },
-			{ items = {'lottfarming:corn'}, rarity = 2},
-			{ items = {'lottfarming:corn'}, rarity = 5},
-			{ items = {'lottfarming:corn_seed'} },
-			{ items = {'lottfarming:corn_seed'}, rarity = 2 },
-			{ items = {'lottfarming:corn_seed'}, rarity = 5 }
+			{ items = {'lottfarming:ear_of_corn'} },
+			{ items = {'lottfarming:ear_of_corn'}, rarity = 2},
+			{ items = {'lottfarming:ear_of_corn'}, rarity = 5},
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
@@ -122,12 +119,9 @@ minetest.register_node("lottfarming:corn_32", {
 	drop = {
 		max_items = 6,
 		items = {
-			{ items = {'lottfarming:corn'} },
-			{ items = {'lottfarming:corn'}, rarity = 2},
-			{ items = {'lottfarming:corn'}, rarity = 5},
-			{ items = {'lottfarming:corn_seed'} },
-			{ items = {'lottfarming:corn_seed'}, rarity = 2 },
-			{ items = {'lottfarming:corn_seed'}, rarity = 5 }
+			{ items = {'lottfarming:ear_of_corn'} },
+			{ items = {'lottfarming:ear_of_corn'}, rarity = 2},
+			{ items = {'lottfarming:ear_of_corn'}, rarity = 5},
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},

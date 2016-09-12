@@ -5,7 +5,7 @@ lottmobs = {}
 lottmobs.guard = function(self, clicker, payment)
 	local item = clicker:get_wielded_item()
 	local name = clicker:get_player_name()
-	if item:get_name() == "lottfarming:corn"
+	if item:get_name() == "lottfarming:ear_of_corn"
 	or item:get_name() == "farming:bread" then
 		local hp = self.object:get_hp()
 		if hp >= self.hp_max then
@@ -681,7 +681,7 @@ mobs:register_mob("lottmobs:hobbit", {
 	armor = 300,
 	damage = 3,
 	drops = {
-		{name = "lottfarming:corn_seed",
+		{name = "lottfarming:corn",
 		chance = 5,
 		min = 3,
 		max = 10,},
@@ -689,7 +689,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		chance = 5,
 		min = 3,
 		max = 10,},
-		{name = "lottfarming:barley_seed",
+		{name = "lottfarming:barley",
 		chance = 5,
 		min = 3,
 		max = 10,},
@@ -697,7 +697,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		chance = 5,
 		min = 3,
 		max = 10,},
-		{name = "lottfarming:potato_seed",
+		{name = "lottfarming:half_of_potatoe",
 		chance = 5,
 		min = 3,
 		max = 10,},

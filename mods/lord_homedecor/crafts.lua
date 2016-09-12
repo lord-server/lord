@@ -2291,7 +2291,7 @@ minetest.register_craft({
 --minetest.register_craft( {
         --output = "lord_homedecor:tatami_mat",
         --recipe = {
-			--{"farming:wheat", "farming:wheat", "farming:wheat"}
+			--{"farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat"}
         --},
 --})
 

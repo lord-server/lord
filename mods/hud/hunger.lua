@@ -217,12 +217,12 @@ if minetest.get_modpath("mobfcooking") ~= nil then
 end
 
 if minetest.get_modpath("lottfarming") ~= nil then
-	overwrite("lottfarming:barley", 4)
+	overwrite("lottfarming:sheaf_barley", 4)
 	overwrite("lottfarming:berries", 2)
 	overwrite("lottfarming:blue_mushroom", 3)
 	overwrite("lottfarming:brown_mushroom", 4)
 	overwrite("lottfarming:cabbage", 4)
-	overwrite("lottfarming:corn", 6)
+	overwrite("lottfarming:ear_of_corn", 6)
 	overwrite("lottfarming:green_mushroom", 3)
 	overwrite("lottfarming:melon", 4)
 	overwrite("lottfarming:potato", 1)

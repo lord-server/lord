@@ -374,11 +374,11 @@ mobs:register_mob("lottmobs:horse", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
+	follow = "farming:sheaf_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "farming:sheaf_wheat" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -425,11 +425,11 @@ mobs:register_mob("lottmobs:horsepeg", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
+	follow = "farming:sheaf_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "farming:sheaf_wheat" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -477,11 +477,11 @@ mobs:register_mob("lottmobs:horseara", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
+	follow = "farming:sheaf_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "farming:sheaf_wheat" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
     		if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -529,11 +529,11 @@ mobs:register_mob("lottmobs:shirepony", {
 		walk_start = 45,
 		walk_end = 85,
 	},
-	follow = "farming:wheat",
+	follow = "farming:sheaf_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "farming:sheaf_wheat" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
 			if not minetest.setting_getbool("creative_mode") then
 			   	item:take_item()
@@ -581,11 +581,11 @@ mobs:register_mob("lottmobs:shireponyblack", {
 		walk_start = 45,
 		walk_end = 85,
 	},
-	follow = "farming:wheat",
+	follow = "farming:sheaf_wheat",
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "farming:sheaf_wheat" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()

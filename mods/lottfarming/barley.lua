@@ -1,8 +1,8 @@
 local SL = lord.require_intllib()
 
-minetest.register_craftitem("lottfarming:barley_seed", {
-	description = SL("Barley Seeds"),
-	inventory_image = "lottfarming_barley_seed.png",
+minetest.register_craftitem("lottfarming:barley", {
+	description = SL("Barley"),
+	inventory_image = "lottfarming_barley.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
 		local nu = minetest.get_node(ptu)
@@ -51,25 +51,22 @@ minetest.register_node("lottfarming:barley_3", {
 	walkable = false,
 	drawtype = "plantlike",
 	waving = 1,
-	tiles = {"lottfarming_barley_3.png"},
+	tiles = {"lottfarming_sheaf_barley.png"},
 	drop = {
 		max_items = 6,
 		items = {
-			{ items = {'lottfarming:barley_seed'} },
-			{ items = {'lottfarming:barley_seed'}, rarity = 2},
-			{ items = {'lottfarming:barley_seed'}, rarity = 5},
-			{ items = {'lottfarming:barley'} },
-			{ items = {'lottfarming:barley'}, rarity = 2 },
-			{ items = {'lottfarming:barley'}, rarity = 5 }
+			{ items = {'lottfarming:sheaf_barley'} },
+			{ items = {'lottfarming:sheaf_barley'}, rarity = 2 },
+			{ items = {'lottfarming:sheaf_barley'}, rarity = 5 }
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1,plant=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:barley", {
-	description = SL("Barley"),
-	inventory_image = "lottfarming_barley_3.png",
+minetest.register_craftitem("lottfarming:sheaf_barley", {
+	description = SL("Sheaf barley"),
+	inventory_image = "lottfarming_sheaf_barley.png",
 })
 
 farming:add_plant("lottfarming:barley_3", {"lottfarming:barley_1", "lottfarming:barley_2"}, 50, 20)
@@ -78,7 +75,7 @@ minetest.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:barley_cooked",
-	recipe = "lottfarming:barley"
+	recipe = "lottfarming:sheaf_barley"
 })
 
 minetest.register_craftitem("lottfarming:barley_cooked", {

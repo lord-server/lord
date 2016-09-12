@@ -221,14 +221,14 @@ minetest.register_node("castle:straw", {
 minetest.register_craft({
 	output = "castle:straw 3",
 	recipe = {
-		{"farming:wheat", "farming:wheat", "farming:wheat"},
-		{"farming:wheat", "farming:wheat", "farming:wheat"},
-		{"farming:wheat", "farming:wheat", "farming:wheat"},
+		{"farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat"},
+		{"farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat"},
+		{"farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat"},
 	}
 })
 
 minetest.register_craft({
-	output = "farming:wheat 3",
+	output = "farming:sheaf_wheat 3",
 	recipe = {
 		{"castle:straw"},
 	}
