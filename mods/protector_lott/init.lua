@@ -188,9 +188,13 @@ function protector.drop_wielded_item(digger)
 		return
 	end
 
-	local itemstack = player:get_wielded_item()
-	minetest.item_drop(itemstack, player, player:getpos()) -- Drop entire itemstack
-	player:set_wielded_item("") -- Remove itemstack from inventory
+	if player:get_hp() == 0 then
+		player:set_wielded_item("")
+	else
+		local itemstack = player:get_wielded_item()
+		minetest.item_drop(itemstack, player, player:getpos()) -- Drop entire itemstack
+		player:set_wielded_item("") -- Remove itemstack from inventory
+	end
 end
 
 protector.old_is_protected = minetest.is_protected
