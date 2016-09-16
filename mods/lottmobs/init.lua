@@ -681,7 +681,7 @@ mobs:register_mob("lottmobs:hobbit", {
 	armor = 300,
 	damage = 3,
 	drops = {
-		{name = "lottfarming:corn",
+		{name = "lottfarming:corn0",
 		chance = 5,
 		min = 3,
 		max = 10,},
@@ -689,7 +689,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		chance = 5,
 		min = 3,
 		max = 10,},
-		{name = "lottfarming:barley",
+		{name = "lottfarming:barley0",
 		chance = 5,
 		min = 3,
 		max = 10,},

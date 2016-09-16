@@ -283,9 +283,9 @@ minetest.register_node("lottplants:turnips_wild", {
 	description = SL("Wild Turnips"),
 	drawtype = "plantlike",
 	waving = 1,
-	tiles = { "lottplants_turnips_wild.png" },
-	inventory_image = "lottplants_turnips_wild.png",
-	wield_image = "lottplants_turnips_wild.png",
+	tiles = { "lottfarming_turnips_4.png" },
+	inventory_image = "lottfarming_turnips_4.png",
+	wield_image = "lottfarming_turnips_4.png",
 	sunlight_propagates = true,
 	paramtype = "light",
 	drop = {

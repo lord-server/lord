@@ -1,6 +1,6 @@
 local SL = lord.require_intllib()
 
-minetest.register_craftitem("lottfarming:corn", {
+minetest.register_craftitem("lottfarming:corn0", {
 	description = SL("Corn"),
 	inventory_image = "lottfarming_corn.png",
 	on_place = function(itemstack, placer, pointed_thing)
