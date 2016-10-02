@@ -20,7 +20,7 @@ tools.sources = {
 	copper = "default:copper_ingot",
 	tin = "lottores:tin_ingot",
 	silver = "lottores:silver_ingot",
-	gold = "lottores:gold_ingot",
+	gold = "default:gold_ingot",
 	galvorn = "lottores:galvorn_ingot",
 	mithril = "lottores:mithril_ingot",
 }
