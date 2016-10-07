@@ -39,7 +39,8 @@ minetest.register_alias("papyrus", "default:papyrus")
 minetest.register_alias("bookshelf", "default:bookshelf")
 minetest.register_alias("glass", "default:glass")
 minetest.register_alias("wooden_fence", "default:fence_wood")
-minetest.register_alias("rail", "default:rail")
+minetest.register_alias("rail", "carts:rail")
+minetest.register_alias("default:rail", "carts:rail")
 minetest.register_alias("ladder", "default:ladder")
 minetest.register_alias("wood", "default:wood")
 minetest.register_alias("mese", "default:mese")
@@ -199,4 +200,5 @@ end
 
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
+
 if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
