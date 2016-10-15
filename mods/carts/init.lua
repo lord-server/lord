@@ -575,7 +575,14 @@ minetest.register_node("carts:stopping_rail", {
 		type = "fixed",
 		fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
 	},
-	groups = {bendy=2,snappy=1,dig_immediate=2,attached_node=1,rail=1,connect_to_raillike=1},
+	on_construct = function(pos)
+		minetest.get_meta(pos):set_string("cart_acceleration", "-0.2")
+	end,
+	on_destruct = function(pos)
+		minetest.get_meta(pos):set_string("cart_acceleration", "0")
+	end,
+	groups = {bendy=2, snappy=1, dig_immediate=2, attached_node=1, rail=1,
+		connect_to_raillike=1},
 })
 
 local function register_rail_craft(item, special)
