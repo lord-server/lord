@@ -27,7 +27,7 @@ Add spiral centered at WorldEdit position 1 with side length <length>, height <h
 Copy the current WorldEdit region along the x/y/z/? axis by <amount> nodes	=	Копировать текущий WorldEdit-регион со смещением вдоль оси x/y/z/? на <amount> узлов
 Move the current WorldEdit region along the x/y/z/? axis by <amount> nodes	=	Сместить текущий WorldEdit-регион вдоль оси x/y/z/? на <amount> узлов
 Stack the current WorldEdit region along the x/y/z/? axis <count> times	=	Размножить текущий WorldEdit-регион вдоль оси x/y/z/? <count> раз
-Stack the current WorldEdit region <count> times by offset <x>, <y>, <z>	=	Размножить текущий WorldEdit-регион <count> раз с шагом <x>, <y>, <z> по соответствующим осям [НЕ РАБОТАЕТ]
+Stack the current WorldEdit region <count> times by offset <x>, <y>, <z>	=	Размножить текущий WorldEdit-регион <count> раз с шагом <x>, <y>, <z> по соответствующим осям
 Scale the current WorldEdit positions and region by a factor of <stretchx>, <stretchy>, <stretchz> along the X, Y, and Z axes, repectively, with position 1 as the origin	=	Масштабировать текущий WorldEdit-регион с коэффициентами <stretchx>, <stretchy>, <stretchz> вдоль осей X, Y и Z, используя WorldEdit-позицию 1 в качестве точки отсчёта
 Transpose the current WorldEdit region along the x/y/z/? and x/y/z/? axes	=	Транспонировать текущий WorldEdit-регион от оси x/y/z/? к оси x/y/z/?
 Flip the current WorldEdit region along the x/y/z/? axis	=	Отразить текущий WorldEdit-регион по оси x/y/z/?
