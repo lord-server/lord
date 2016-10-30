@@ -1,4 +1,4 @@
-﻿### athelas.lua ###
+### athelas.lua ###
 Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 

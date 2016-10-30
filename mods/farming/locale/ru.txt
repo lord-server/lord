@@ -1,4 +1,4 @@
-﻿### init.lua ###
+### init.lua ###
 Soil	=	Почва
 Wet Soil	=	Влажная почва
 
