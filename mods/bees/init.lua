@@ -295,10 +295,10 @@ local SL = lord.require_intllib()
       local inv  = meta:get_inventory()
       if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
         local health = clicker:get_hp()
-        if ((health-4) <= 0) then
+        if health <= 4 then
                 clicker:set_wielded_item("")
         end
-        clicker:set_hp(health-4)
+        clicker:set_hp(health - 4)
       else
         meta:set_int('agressive', 1)
       end
@@ -756,9 +756,9 @@ local SL = lord.require_intllib()
           local inv  = meta:get_inventory()
           if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
             local health = clicker:get_hp()
-        if ((health-4) <= 0) then
-                clicker:set_wielded_item("")
-        end
+            if health <= 4 then
+                    clicker:set_wielded_item("")
+            end
             clicker:set_hp(health-4)
           else
             meta:set_int('agressive', 1)
