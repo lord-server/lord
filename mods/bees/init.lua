@@ -80,8 +80,8 @@ local SL = lord.require_intllib()
       if not inv:contains_item('frames_filled','bees:frame_full') or not inv:contains_item('bottles_empty','vessels:glass_bottle') then
         return
       end
-      if inv:room_for_item('frames_emptied', 'bees:frame_empty') 
-      and inv:room_for_item('wax','bees:wax') 
+      if inv:room_for_item('frames_emptied', 'bees:frame_empty')
+      and inv:room_for_item('wax','bees:wax')
       and inv:room_for_item('bottles_full', 'bees:bottle_honey') then
         --add to output
         inv:add_item('frames_emptied', 'bees:frame_empty')
@@ -152,7 +152,7 @@ local SL = lord.require_intllib()
         return stack:get_count()
       else
         return 0
-      end  
+      end
     end,
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
       return 0
@@ -166,7 +166,7 @@ local SL = lord.require_intllib()
     groups = { not_in_creative_inventory=1 },
     tiles = {
       {
-        name='bees_strip.png', 
+        name='bees_strip.png',
         animation={type='vertical_frames', aspect_w=16,aspect_h=16, length=2.0}
       }
     },
@@ -211,16 +211,16 @@ local SL = lord.require_intllib()
       local minp = {x=pos.x-r, y=pos.y-r, z=pos.z-r}
       local maxp = {x=pos.x+r, y=pos.y+r, z=pos.z+r}
       local flowers = minetest.find_nodes_in_area(minp, maxp, 'group:flower')
-      
+
       -- если нет цветов в радиусе "r" королева умирает и колония погибает
-      if #flowers == 0 then 
+      if #flowers == 0 then
         inv:set_stack('queen', 1, '')
         meta:set_string('infotext', SL('this colony died, not enough flowers in area'))
-        return 
-      end --not any flowers nearby The queen dies! 
-      
+        return
+      end --not any flowers nearby The queen dies!
+
       if #flowers < 3 then return end --requires 2 or more flowers before can make honey / Требуется 2 или более цветов, еще можно сделать мед
-      local flower = flowers[math.random(#flowers)] 
+      local flower = flowers[math.random(#flowers)]
       bees.polinate_flower(flower, minetest.get_node(flower).name)
       local stacks = inv:get_list('combs')
       for k, v in pairs(stacks) do
@@ -231,9 +231,9 @@ local SL = lord.require_intllib()
         end
       end
       --what to do if all combs are filled / что делать, если все соты заполнены
-      
+
     end,
-    
+
     on_construct = function(pos)
       minetest.get_node(pos).param2 = 0
       local meta = minetest.get_meta(pos)
@@ -248,7 +248,7 @@ local SL = lord.require_intllib()
         inv:set_stack('combs', i, 'bees:honey_comb')
       end
     end,
-    
+
     on_punch = function(pos, node, puncher)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
@@ -257,7 +257,7 @@ local SL = lord.require_intllib()
         puncher:set_hp(health-4)
       end
     end,
-    
+
     on_metadata_inventory_take = function(pos, listname, index, stack, taker)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
@@ -268,15 +268,15 @@ local SL = lord.require_intllib()
         taker:set_hp(health-2)
       end
     end,
-    
+
 	--restart the colony by adding a queen / перезагрузите колонии, добавив королеву
-    on_metadata_inventory_put = function(pos, listname, index, stack, taker) 
+    on_metadata_inventory_put = function(pos, listname, index, stack, taker)
       local timer = minetest.get_node_timer(pos)
       if not timer:is_started() then
         timer:start(10)
       end
     end,
-    
+
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if listname == 'queen' and stack:get_name() == 'mobs:bee' then
         return 1
@@ -284,7 +284,7 @@ local SL = lord.require_intllib()
         return 0
       end
     end,
-    
+
     on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
       minetest.show_formspec(
         clicker:get_player_name(),
@@ -295,12 +295,15 @@ local SL = lord.require_intllib()
       local inv  = meta:get_inventory()
       if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
         local health = clicker:get_hp()
+        if ((health-4) <= 0) then
+                clicker:set_wielded_item("")
+        end
         clicker:set_hp(health-4)
       else
         meta:set_int('agressive', 1)
       end
     end,
-    
+
     can_dig = function(pos,player)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
@@ -312,7 +315,7 @@ local SL = lord.require_intllib()
     end,
     after_dig_node = function(pos, oldnode, oldmetadata, user)
       local wielded if user:get_wielded_item() ~= nil then wielded = user:get_wielded_item() else return end
-      if 'bees:grafting_tool' == wielded:get_name() then 
+      if 'bees:grafting_tool' == wielded:get_name() then
         local inv = user:get_inventory()
         if inv then
           inv:add_item('main', ItemStack('mobs:bee'))
@@ -352,7 +355,7 @@ local SL = lord.require_intllib()
       inv:set_size('frames', 8)
       meta:set_string('infotext',SL('requires queen bee to function'))
     end,
-    
+
     on_rightclick = function(pos, node, clicker, itemstack)
       minetest.show_formspec(
         clicker:get_player_name(),
@@ -363,12 +366,15 @@ local SL = lord.require_intllib()
       local inv  = meta:get_inventory()
       if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
         local health = clicker:get_hp()
-        clicker:set_hp(health-4)
+        if health <= 4 then
+                clicker:set_wielded_item("")
+        end
+        clicker:set_hp(health - 4)
       else
         meta:set_int('agressive', 1)
       end
     end,
-    
+
     on_timer = function(pos,elapsed)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
@@ -384,7 +390,7 @@ local SL = lord.require_intllib()
           progress = progress + #flowers
           meta:set_int('progress', progress)
           if progress > 1000 then
-            local flower = flowers[math.random(#flowers)] 
+            local flower = flowers[math.random(#flowers)]
             bees.polinate_flower(flower, minetest.get_node(flower).name)
             local stacks = inv:get_list('frames')
             for k, v in pairs(stacks) do
@@ -403,7 +409,7 @@ local SL = lord.require_intllib()
         end
       end
     end,
-    
+
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
       if listname == 'queen' then
         local timer = minetest.get_node_timer(pos)
@@ -412,10 +418,10 @@ local SL = lord.require_intllib()
         timer:stop()
       end
     end,
-    
+
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
       local inv = minetest.get_meta(pos):get_inventory()
-      if from_list == to_list then 
+      if from_list == to_list then
         if inv:get_stack(to_list, to_index):is_empty() then
           return 1
         else
@@ -425,7 +431,7 @@ local SL = lord.require_intllib()
         return 0
       end
     end,
-    
+
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
@@ -439,7 +445,7 @@ local SL = lord.require_intllib()
         end
       end
     end,
-    
+
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if not minetest.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
       if listname == 'queen' then
@@ -457,7 +463,7 @@ local SL = lord.require_intllib()
 
 --ABMS
   --particles / частицы (имитация вылета пчел из улья)
-  --minetest.register_abm({ 
+  --minetest.register_abm({
     --nodenames = {'bees:hive_artificial', 'mobs:beehive', 'bees:hive_industrial'},
     --interval  = 300,
     --chance    = 4,
@@ -475,21 +481,21 @@ local SL = lord.require_intllib()
   --})
 
   --spawn abm. This should be changed to a more realistic type of spawning
-  minetest.register_abm({ 
+  minetest.register_abm({
     nodenames = {'group:leaves'},
     neighbors = {'group:flora'},
     interval = 3000,
     chance = 10,
     action = function(pos, node, _, active_object_count_wider)
-		if active_object_count_wider > 0 then 
+		if active_object_count_wider > 0 then
 			--print("Здесь уже есть улей")
-			return 
+			return
 		end
       local p = {x=pos.x, y=pos.y-1, z=pos.z}
-      if minetest.get_node(p).walkable == false then 
-		return 
+      if minetest.get_node(p).walkable == false then
+		return
 	  end
-      
+
       --if (minetest.find_node_near(p, 5, 'group:flora') ~= nil and minetest.find_node_near(p, 40, 'mobs:beehive') == nil) then
         --minetest.add_node(p, {name='mobs:beehive'})
       --end
@@ -498,7 +504,7 @@ local SL = lord.require_intllib()
         minetest.add_node(p, {name='bees:hive_wild'})
       end
       --print("окончание спавна улья - "..tostring(os.clock()))
-      
+
     end,
   })
 
@@ -515,7 +521,7 @@ local SL = lord.require_intllib()
       end
     end,
   })
-  
+
   --remove bees
   minetest.register_abm({
     nodenames = {'bees:bees'},
@@ -545,7 +551,7 @@ local SL = lord.require_intllib()
     stack_max = 12,
     on_use = minetest.item_eat(3, "vessels:glass_bottle"),
   })
-  
+
   minetest.register_craftitem('bees:wax', {
     description = SL('bees wax'),
     inventory_image = 'bees_wax.png',
@@ -565,7 +571,7 @@ local SL = lord.require_intllib()
     --inventory_image = 'mobs_bee_inv.png',
     --stack_max = 1,
   --})
-  
+
 --CRAFTS
   minetest.register_craft({
     output = 'bees:extractor',
@@ -602,7 +608,7 @@ local SL = lord.require_intllib()
       {'', '', ''},
     }
   })
-  
+
   minetest.register_craft({
     output = 'bees:frame_empty',
     recipe = {
@@ -658,7 +664,7 @@ local SL = lord.require_intllib()
 --COMPATIBILTY --remove after all has been updated
   --ALIASES
     minetest.register_alias('bees:honey_extractor', 'bees:extractor')
-  --BACKWARDS COMPATIBILITY WITH OLDER VERSION  
+  --BACKWARDS COMPATIBILITY WITH OLDER VERSION
     minetest.register_alias('bees:honey_bottle', 'bees:bottle_honey')
     minetest.register_abm({
       nodenames = {'bees:hive', 'bees:hive_artificial_inhabited'},
@@ -750,6 +756,9 @@ local SL = lord.require_intllib()
           local inv  = meta:get_inventory()
           if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
             local health = clicker:get_hp()
+        if ((health-4) <= 0) then
+                clicker:set_wielded_item("")
+        end
             clicker:set_hp(health-4)
           else
             meta:set_int('agressive', 1)
@@ -770,7 +779,7 @@ local SL = lord.require_intllib()
               progress = progress + #flowers
               meta:set_int('progress', progress)
               if progress > 1000 then
-                local flower = flowers[math.random(#flowers)] 
+                local flower = flowers[math.random(#flowers)]
                 bees.polinate_flower(flower, minetest.get_node(flower).name)
                 local stacks = inv:get_list('frames')
                 for k, v in pairs(stacks) do
@@ -799,7 +808,7 @@ local SL = lord.require_intllib()
         end,
         allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
           local inv = minetest.get_meta(pos):get_inventory()
-          if from_list == to_list then 
+          if from_list == to_list then
             if inv:get_stack(to_list, to_index):is_empty() then
               return 1
             else
