@@ -160,7 +160,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:barley 6',
+	output = 'lottfarming:barley0 6',
 	recipe = {
 		{'lottfarming:sheaf_barley'},
 	}
@@ -181,7 +181,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:corn 6',
+	output = 'lottfarming:corn0 6',
 	recipe = {
 		{'lottfarming:ear_of_corn'},
 	}
