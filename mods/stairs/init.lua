@@ -30,7 +30,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 
 			local p0 = pointed_thing.under  -- куда смотрим
 			local p1 = pointed_thing.above  -- куда ставим
-			local p3 = placer:getpos()
+			local p3 = placer:getpos()      -- позиция игрока
 			local param2 = 0
 			local p1_={x=p1.x,y=p1.y+1,z=p1.z} -- узел над местом установки
 			
@@ -87,8 +87,9 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 				end
 			end
 			
-			--print("param2="..tostring(param2))
 			
+			
+			--print("param2="..tostring(param2))
 			minetest.set_node(p1,{name = "stairs:stair_" .. subname, param2 = param2})
 			if not minetest.setting_getbool("creative_mode") then	
 				itemstack:take_item()

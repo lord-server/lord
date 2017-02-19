@@ -18,6 +18,7 @@ local function atan(x)
 	end
 end
 
+
 function mobs:register_mob(name, def)
 	minetest.register_entity(name, {
 		stepheight = def.stepheight or 0.6,

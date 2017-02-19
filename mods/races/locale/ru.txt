@@ -1,0 +1,33 @@
+### init.lua ###
+Shadow = Тень
+Dwarf = Гномы
+Elf = Эльфы
+Man = Люди
+Orc = Орки
+Hobbit = Хоббиты
+
+Male = Муж.
+Female = Жен.
+
+Cancel = Отмена
+Back = Назад
+OK = OK
+
+Ability to change race and gender of a player. = Возможность изменять расу и пол игроку.
+
+Please select the race you wish to be: = Выберите расу и пол для вашего персонажа:
+Choose a skin for your character: = Выберите скин для вашего персонажа:
+change_shadow = Теперь вы - тень.
+change_orc = Теперь вы - орк
+change_man = Теперь вы - человек
+change_dwarf = Теперь вы - гном
+change_hobbit = Теперь вы - хоббит
+change_elf = Теперь вы - эльф
+
+Too few arguments. Try %s to show the correct usage = Слишком мало аргументов. Напишите %s, чтобы показать, как использовать эту команду
+Player '%s' does not exist = Игрока '%s' не существует
+
+<player name> = <имя игрока>
+
+Won't give another chance = Ещё одного шанса не будет
+Second chance = Второй шанс
