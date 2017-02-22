@@ -1,3 +1,5 @@
+local SL = lord.require_intllib()
+
 -- Mobs Api (17th September 2015)
 mobs = {}
 mobs.mod = "redo"
@@ -1630,7 +1632,7 @@ function mobs:capture_mob(self, clicker, chance_hand, chance_net, chance_lasso, 
 				clicker:get_inventory():add_item("main", mobname)
 				self.object:remove()
 			else
-				minetest.chat_send_player(name, "Missed!")
+				minetest.chat_send_player(name, SL("Missed!"))
 			end
 		end
 	end
