@@ -6,17 +6,17 @@
 --
 
 minetest.register_node("legacy:dirt", {
-    description = "Legacy Dirt",
-    tiles = {"default_dirt.png"},
-    groups = {not_in_creative_inventory = 1, oddly_breakable_by_hand = 1}
+	description = "Legacy Dirt",
+	tiles = {"default_dirt.png"},
+	groups = {not_in_creative_inventory = 1, oddly_breakable_by_hand = 1}
 })
 minetest.register_abm({
-    nodenames = {"legacy:dirt"},
-    interval = 10,
-    chance = 1,
-    action = function(pos)
-        minetest.remove_node(pos)
-    end
+	nodenames = {"legacy:dirt"},
+	interval = 10,
+	chance = 1,
+	action = function(pos)
+		minetest.remove_node(pos)
+	end
 })
 
 minetest.register_alias("stone", "default:stone")
@@ -147,7 +147,6 @@ minetest.register_alias("lottfarming:potato_seed", "lottfarming:half_of_potatoe"
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do
 		local n = "bones:corpse_"..race.."_"..gender
-		print(n)
 		minetest.register_alias(n, n.."_1")
 	end
 end
@@ -165,10 +164,10 @@ for i, v in pairs(gaurds) do
 end
 
 minetest.register_entity(":npcf:nametag", {
-    physical = false,
-    on_step = function(self)
-        self.object:remove()
-    end
+	physical = false,
+	on_step = function(self)
+		self.object:remove()
+	end
 })
 
 minetest.register_alias("lottarmor:helmet_rohan", "lottarmor:helmet_steel")

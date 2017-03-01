@@ -2,7 +2,7 @@ local SL = lord.require_intllib()
 
 minetest.register_node("bones:skeleton", {
 	description = SL("Skeleton Head"),
-	 drawtype = "nodebox",
+	drawtype = "nodebox",
 	tiles = {
 		"bones_skeleton_top.png",
 		"bones_skeleton_bottom.png",
@@ -12,7 +12,7 @@ minetest.register_node("bones:skeleton", {
 		"bones_skeleton_front.png"
 	},
 	paramtype2 = "facedir",
-	 paramtype = "light",
+	paramtype = "light",
 	groups = {dig_immediate=2},
 	 drop = "",
 	 node_box = {
