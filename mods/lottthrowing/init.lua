@@ -200,7 +200,7 @@ minetest.register_tool("lottthrowing:crossbow_steel", {
 	inventory_image = "lottthrowing_crossbow_steel.png",
      stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/70)
 			end

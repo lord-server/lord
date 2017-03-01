@@ -14,12 +14,12 @@ minetest.register_tool("worldedit:admin_stick", {
 	    if pointed_thing.type~="node" then return end
 	    local user_name = user:get_player_name()
 	    local can_access = minetest.get_player_privs(user_name).admin_pick
-	    if not can_access then return end 
+	    if not can_access then return end
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
 	    local node=minetest.get_node(pos)
 	    local node_name=node.name
 		local pressed = user:get_player_control()
-	    
+
 		if pointed_thing.type == "node" then
 			if pressed.aux1 then  -- если нажата клавиша использовать
 
@@ -35,7 +35,7 @@ minetest.register_tool("worldedit:admin_stick", {
 						--end
 					--end
 				--end
-		
+
 			else
 				minetest.remove_node(pointed_thing.under)
 			end
@@ -56,19 +56,19 @@ minetest.register_tool("worldedit:admin_stick", {
 	on_place = function(itemstack, placer, pointed_thing)
 	    local user_name = placer:get_player_name()
 	    local can_access = minetest.get_player_privs(user_name).admin_pick
-	    if (not can_access) or (pointed_thing.type ~= "node") then 
+	    if (not can_access) or (pointed_thing.type ~= "node") then
 			return itemstack
-		end 
+		end
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,true)
 		local max_nodes = 200
 		local item = placer:get_inventory():get_stack("main", placer:get_wield_index()+1)
 		local item_name = item:get_name()
 		local item_type = item:get_definition().type
-		
+
 		if item_type ~= "node" then
 			return itemstack
-		end	
-		
+		end
+
 		minetest.set_node(pointed_thing.above, {name=item_name})
 		for i = 2, max_nodes do
 			pos.y = pos.y - 1
@@ -85,7 +85,7 @@ minetest.register_tool("worldedit:admin_stick", {
 	end,
 	stack_max = 1,
 	liquids_pointable = true,
-	    
+
 })
 
 minetest.register_tool("worldedit:pick_admin", {
@@ -110,10 +110,10 @@ minetest.register_tool("worldedit:pick_admin", {
 	on_use = function(itemstack, user, pointed_thing)
 	    local user_name = user:get_player_name()
 	    local can_access = minetest.get_player_privs(user_name).admin_pick
-	    if not can_access then 
+	    if not can_access then
 			-- itemstack.take_item()
 			return itemstack
-	    end 
+	    end
 	    minetest.log("action","Admins Pickaxe in use "..user_name)
 	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
 	    if pos == nil then return end
@@ -121,7 +121,7 @@ minetest.register_tool("worldedit:pick_admin", {
 		if pointed_thing.type == "node" and pos ~= nil then
 			minetest.node_dig(pos, node, user)
 		elseif pointed_thing.type == "object" then
-			obj = pointed_thing.ref
+			local obj = pointed_thing.ref
 			if obj ~= nil then
 				if (obj:get_player_name() ~= nil) and (obj:get_player_name() ~= "") then
 					-- Player
@@ -139,4 +139,3 @@ minetest.register_tool("worldedit:pick_admin", {
 		return
 	end,
 })
-

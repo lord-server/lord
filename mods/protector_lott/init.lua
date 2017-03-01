@@ -114,7 +114,7 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	end
 
 	local nodename = minetest.get_node(pos).name
-	local nodedef = minetest.registered_nodes[name]
+	local nodedef = minetest.registered_nodes[nodename]
 	if nodedef ~= nil then
 		if nodedef.groups["corpse"] then
 			return true

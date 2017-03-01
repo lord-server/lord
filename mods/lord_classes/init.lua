@@ -294,7 +294,7 @@ end
 
 -- Generates number sequence starting with 1 and ending with `max`
 local function generate_sequence(max)
-	t = {}
+	local t = {}
 	for i = 1, max do
 		table.insert(t, i)
 	end

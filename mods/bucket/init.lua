@@ -139,7 +139,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 		end
 		-- Check if pointing to a liquid source
 		local node = minetest.get_node(pointed_thing.under)
-		liquiddef = bucket.liquids[node.name]
+		local liquiddef = bucket.liquids[node.name]
 		if liquiddef ~= nil and liquiddef.itemname ~= nil and
 			(node.name == liquiddef.source or
 			(node.name == liquiddef.flowing and

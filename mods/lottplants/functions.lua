@@ -1,6 +1,6 @@
 
 -- TREE FUNCTIONS
-	
+
 function add_tree_branch(pos,nodename)
 	local n = minetest.get_node(pos)
 
@@ -8,7 +8,7 @@ function add_tree_branch(pos,nodename)
 	if (n.name=="air") then
 		minetest.add_node(pos, {name=nodename})
 	end
-	
+
 end
 
 function add_tree_trunk(pos,nodename)
@@ -19,7 +19,7 @@ function add_tree_trunk(pos,nodename)
 		--print("===========================сработало=================================")
 		minetest.add_node(pos, {name=nodename})
 	end
-	
+
 end
 
 
@@ -33,7 +33,7 @@ function lottplants_aldertree(pos)
 	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:aldertree"}) -- заменяем саженец на ствол
 	for j = 0, t do
 		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:aldertree")
-	end	
+	end
 	for j = t-2, t do
 		if j == t or j == t - 2 then
 			for i = -2, 2 do
@@ -57,7 +57,7 @@ function lottplants_appletree(pos)
 	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
 	for j = 0, t do
 		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end	
+	end
 	for j = t-2, t do
 		if j == t or j == t - 2 then
 			for i = -2, 2 do
@@ -109,7 +109,7 @@ function lottplants_birchtree(pos)
 		end
 	end
 	end
-	
+
 	local j = math.floor(t * 0.6)
 	for i = -2, 2 do
 	for k = -3, 3 do
@@ -120,7 +120,7 @@ function lottplants_birchtree(pos)
 		end
 	end
 	end
-	
+
 	local j = math.floor(t * 0.8)
 	for i = -2, 2 do
 	for k = -2, 2 do
@@ -131,7 +131,7 @@ function lottplants_birchtree(pos)
 		end
 	end
 	end
-	
+
 	j = t
 	for i = -2, 2 do
 	for k = -1, 1 do
@@ -142,7 +142,7 @@ function lottplants_birchtree(pos)
 		end
 	end
 	end
-	
+
 end
 
 -- Beeches / Бук
@@ -158,6 +158,7 @@ function lottplants_beechtree(pos)
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
+		local j
 		if absi >= absk then
 			j = t - absi
 		else
@@ -230,7 +231,7 @@ function lottplants_elmtree(pos)
 	for j = 0, t do
 		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
 	end
-	
+
 	local j = math.floor(t * 0.4)
 	for i = -2, 2 do
 	for k = -2, 2 do
@@ -241,7 +242,7 @@ function lottplants_elmtree(pos)
 		end
 	end
 	end
-	
+
 	local j = math.floor(t * 0.7)
 	for i = -2, 2 do
 	for k = -2, 2 do
@@ -252,7 +253,7 @@ function lottplants_elmtree(pos)
 		end
 	end
 	end
-	
+
 	j = t
 	for i = -2, 2 do
 	for k = -2, 2 do
@@ -263,7 +264,7 @@ function lottplants_elmtree(pos)
 		end
 	end
 	end
-	
+
 end
 
 -- Firs / Ель
@@ -551,7 +552,7 @@ function lottplants_rowantree(pos)
 				--end
 				if math.random(3) ~= 2 then
 					add_tree_branch({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},"lottplants:rowanleaf")
-				end	
+				end
 			end
 			end
 		else
@@ -566,7 +567,7 @@ function lottplants_rowantree(pos)
 					add_tree_branch({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},"lottplants:rowanberry")
 				elseif math.random(2) ~= 2 then
 					add_tree_branch({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},"lottplants:rowanleaf")
-				end	
+				end
 			end
 			end
 		end
@@ -712,7 +713,7 @@ function lottplants_smallmirktree(pos)
 	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:jungletree"}) -- заменяем саженец на ствол
 	for j = 0, 7 do
 		if j == 6 then
-			
+
 			for i = -1, 1 do
 			for k = -1, 1 do
 				if math.abs(i) + math.abs(k) == 2 then
@@ -730,7 +731,7 @@ function lottplants_smallmirktree(pos)
 			add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:jungletree")
 		end
 	end
-	
+
 	local j=6
 	for i = -4, 4 do
 	for k = -4, 4 do
@@ -740,7 +741,7 @@ function lottplants_smallmirktree(pos)
 	end
 	end
 
-	
+
 end
 
 -- SAPLINGS

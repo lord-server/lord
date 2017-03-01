@@ -158,7 +158,7 @@ minetest.register_abm( {
 	action = function ( pos, node )
 		local meta = minetest.get_meta( pos )
 		local inv = meta:get_inventory()
-		local cresult, newinput, needed
+		local result, newinput, needed
 		if not inv:is_empty( 'src' ) then
 			-- Check for a valid recipe and sufficient resources to craft it
 			needed, newinput, result = get_recipe( inv )

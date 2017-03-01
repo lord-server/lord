@@ -42,7 +42,7 @@ end
 
 clothing.update_inventory = function(self, player)
 	local name = player:get_player_name()
-	if unified_inventory then
+	if minetest.global_exists("unified_inventory") then
 		if unified_inventory.current_page[name] == "clothing" then
 			unified_inventory.set_inventory_formspec(player, "clothing")
 		end
