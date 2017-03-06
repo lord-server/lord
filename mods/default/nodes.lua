@@ -562,7 +562,15 @@ default.bookshelf_formspec =
 
 minetest.register_node("default:bookshelf", {
 	description = SL("Bookshelf"),
-	tiles = {"default_wood.png", "default_wood.png", "default_bookshelf.png"},
+	drawtype = "mesh",
+	mesh = "3dbookshelf.obj",
+	tiles = {
+		"default_wood.png",
+		"default_wood.png^3dbookshelf_inside_back.png",
+		"3dbookshelf_books.png",
+	},
+	paramtype = "light",
+	paramtype2 = "facedir",
 	is_ground_content = false,
 	groups = {choppy=3,oddly_breakable_by_hand=2,flammable=3, wooden = 1},
 	sounds = default.node_sound_wood_defaults(),
