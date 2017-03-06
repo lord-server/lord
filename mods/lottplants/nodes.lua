@@ -182,8 +182,6 @@ minetest.register_node("lottplants:yellowflowers", {
     drop = {
 	    	max_items = 3,
 		    items = {
-		        { items = {'lottplants:culumaldaleaf'} },
-		    	{ items = {'lottplants:culumaldasapling'}, rarity = 20 },
 		    	{ items = {'lottplants:yellowflowers'} },
 		    }
 	    },
