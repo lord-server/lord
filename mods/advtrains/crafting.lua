@@ -24,7 +24,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'advtrains:dtrack_bumper_placer 2',
 	recipe = {
-		{'default:wood', 'dye:red'},
+		{'group:wood', 'dye:red'},
 		{'default:steel_ingot', 'default:steel_ingot'},
 		{'advtrains:dtrack_placer', ''},
 	},
