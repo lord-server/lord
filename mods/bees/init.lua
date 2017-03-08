@@ -333,7 +333,7 @@ local SL = lord.require_intllib()
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'facedir',
-    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1},
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,},
     sounds = default.node_sound_wood_defaults(),
     node_box = {
       type = 'fixed',
@@ -576,9 +576,9 @@ local SL = lord.require_intllib()
   minetest.register_craft({
     output = 'bees:extractor',
     recipe = {
-      {'default:wood','default:steel_ingot','default:wood'},
-      {'default:steel_ingot','default:stick','default:steel_ingot'},
-      {'default:wood','default:steel_ingot','default:wood'},
+      {'group:wood','default:steel_ingot','group:wood'},
+      {'default:steel_ingot','group:stick','default:steel_ingot'},
+      {'group:wood','default:steel_ingot','group:wood'},
     }
   })
 
@@ -595,8 +595,8 @@ local SL = lord.require_intllib()
     output = 'bees:hive_artificial',
     recipe = {
       {'group:wood','group:wood','group:wood'},
-      {'group:wood','default:stick','group:wood'},
-      {'group:wood','default:stick','group:wood'},
+      {'group:wood','group:stick','group:wood'},
+      {'group:wood','group:stick','group:wood'},
     }
   })
 
@@ -604,7 +604,7 @@ local SL = lord.require_intllib()
     output = 'bees:grafting_tool',
     recipe = {
       {'', '', 'default:steel_ingot'},
-      {'', 'default:stick', ''},
+      {'', 'group:stick', ''},
       {'', '', ''},
     }
   })
@@ -613,8 +613,8 @@ local SL = lord.require_intllib()
     output = 'bees:frame_empty',
     recipe = {
       {'group:wood',  'group:wood',  'group:wood'},
-      {'default:stick', 'default:stick', 'default:stick'},
-      {'default:stick', 'default:stick', 'default:stick'},
+      {'group:stick', 'group:stick', 'group:stick'},
+      {'group:stick', 'group:stick', 'group:stick'},
     }
   })
 

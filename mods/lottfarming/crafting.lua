@@ -3,10 +3,10 @@ local SL = lord.require_intllib()
 -- ITEMS and TOOLS
 
 minetest.register_craft({
-	output = "lottfarming:bowl",
+	output = "lottfarming:bowl 8",
 	recipe = {
-		{"default:wood", "", "default:wood"},
-		{"", "default:wood", ""},
+		{"group:wood", "", "group:wood"},
+		{"", "group:wood", ""},
 		{"", "", ""},
 	}
 })
