@@ -6,9 +6,9 @@
 minetest.register_craft({
 	output = 'advtrains:dtrack_placer 50',
 	recipe = {
-		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
-		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
-		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
+		{'default:steel_ingot', '', 'default:steel_ingot'},
+		{'default:steel_ingot', 'group:wood', 'default:steel_ingot'},
+		{'default:steel_ingot', '', 'default:steel_ingot'},
 	},
 })
 minetest.register_craft({
@@ -26,7 +26,7 @@ minetest.register_craft({
 	recipe = {
 		{'default:wood', 'dye:red'},
 		{'default:steel_ingot', 'default:steel_ingot'},
-		{'advtrains:dtrack_placer', 'advtrains:dtrack_placer'},
+		{'advtrains:dtrack_placer', ''},
 	},
 })
 minetest.register_craft({
@@ -70,7 +70,7 @@ minetest.register_craft({
 	output = 'advtrains:boiler',
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'carts:steam_mechanism', '', 'default:steel_ingot'},
+		{'carts:steam_mechanism', 'lottpotion:cauldron_full', 'default:steel_ingot'},
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
 	},
 })
@@ -80,18 +80,35 @@ minetest.register_craft({
 	output = 'advtrains:driver_cab',
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
-		{'', '', 'default:glass'},
+		{'default:bronze_ingot', '', 'default:glass'},
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
 	},
 })
 
---drivers'cab
+--wheel
 minetest.register_craft({
 	output = 'advtrains:wheel',
 	recipe = {
-		{'', 'default:steel_ingot', ''},
+		{'', 'default:steel_ingot', 'dye:red'},
 		{'default:steel_ingot', 'group:stick', 'default:steel_ingot'},
 		{'', 'default:steel_ingot', ''},
+	},
+})
+
+--wheel_pair
+minetest.register_craft({
+	output = 'advtrains:wheel_pair',
+	recipe = {
+		{'advtrains:wheel', 'default:steel_ingot', 'advtrains:wheel'},
+	},
+})
+
+--trolley
+minetest.register_craft({
+	output = 'advtrains:trolley',
+	recipe = {
+		{'default:steel_ingot', '', 'default:steel_ingot'},
+		{'advtrains:wheel_pair', 'default:steel_ingot', 'advtrains:wheel_pair'},
 	},
 })
 
@@ -99,8 +116,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'advtrains:chimney',
 	recipe = {
+		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
 		{'', 'default:steel_ingot', ''},
-		{'', 'default:steel_ingot', 'default:torch'},
 		{'', 'default:steel_ingot', ''},
 	},
 })
