@@ -72,6 +72,7 @@ function advtrains.on_control_change(pc, train, flip)
 		end
 		if pc.aux1 then
 			--horn
+			minetest.sound_play("horn",{pos=train.last_pos, max_hear_distance = 30, loop=false, gain=1})
 		end
 	end
 end
