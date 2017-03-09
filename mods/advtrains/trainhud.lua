@@ -68,6 +68,7 @@ function advtrains.on_control_change(pc, train, flip)
 		end
 		if pc.jump then
 			train.brake = true
+			minetest.sound_play("stoptrain",{pos=train.last_pos, max_hear_distance = 30, loop=false, gain=1})
 		end
 		if pc.aux1 then
 			--horn
@@ -110,15 +111,15 @@ end
 function advtrains.hud_train_format(train, flip)
 	local fct=flip and -1 or 1
 	if not train then return "" end
-	
+
 	local max=train.max_speed or 10
 	local vel=advtrains.abs_ceil(train.velocity)
 	local tvel=advtrains.abs_ceil(train.tarvelocity)
 	local topLine, firstLine, secondLine
-	
+
 	topLine="  ["..mletter[fct*train.movedir].."]  "..doorstr[(train.door_open or 0) * train.movedir].."  "..(train.brake and "="..( train.brake_hold_state==2 and "^" or "" ).."B=" or "")
 	firstLine=attrans("Speed:").." |"..string.rep("+", vel)..string.rep("_", max-vel)..">"
 	secondLine=attrans("Target:").." |"..string.rep("+", tvel)..string.rep("_", max-tvel)..">"
-	
+
 	return topLine.."\n"..firstLine.."\n"..secondLine
 end
