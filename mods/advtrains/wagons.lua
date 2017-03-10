@@ -241,7 +241,7 @@ function wagon:on_step(dtime)
 
 	-- sound play
 	local SOUND_PLAY_RATE = 20
-	
+
 	local vel = advtrains.abs_ceil(self:train().velocity)
 	if vel ~= 0 then
 			if not self:train().soundtime then
@@ -250,7 +250,7 @@ function wagon:on_step(dtime)
 self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE / #self:train().trainparts
 			--self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE
 			if self:train().soundtime <= 0 then
-					minetest.sound_play("steamtact", {pos=self:train().last_pos, max_hear_distance = 30, loop=false, gain=1})
+					minetest.sound_play("steamtact", {pos=self:train().last_pos, max_hear_distance = 40, loop=false, gain=1})
 					self:train().soundtime = 100
 			end
 	end
