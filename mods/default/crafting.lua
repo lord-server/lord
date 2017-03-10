@@ -425,12 +425,6 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:steel_ingot 3",
-	recipe = "group:rail",
-})
-
-minetest.register_craft({
-	type = "cooking",
 	output = "default:copper_ingot",
 	recipe = "group:copper_item",
 })
