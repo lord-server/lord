@@ -240,18 +240,21 @@ function wagon:on_step(dtime)
 	end
 
 	-- sound play
-	if self:train().velocity~=0 then
-	    if not self:train().soundtime then
-	        self:train().soundtime = 177
-	    end
-	    self:train().soundtime = self:train().soundtime - self:train().velocity
-	    if self:train().soundtime <= 0 then
-	        minetest.sound_play("steamtact",{pos=self:train().last_pos, max_hear_distance = 30, loop=false, gain=1})
-	        self:train().soundtime = 177
-	    end
-
-	end
+	local SOUND_PLAY_RATE = 20
 	
+	local vel = advtrains.abs_ceil(self:train().velocity)
+	if vel ~= 0 then
+			if not self:train().soundtime then
+					self:train().soundtime = 100
+			end
+self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE / #self:train().trainparts
+			--self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE
+			if self:train().soundtime <= 0 then
+					minetest.sound_play("steamtact", {pos=self:train().last_pos, max_hear_distance = 30, loop=false, gain=1})
+					self:train().soundtime = 100
+			end
+	end
+
 	--driver control
 	for seatno, seat in ipairs(self.seats) do
 		local driver=self.seatp[seatno] and minetest.get_player_by_name(self.seatp[seatno])
