@@ -40,7 +40,7 @@ function advtrains.on_control_change(pc, train, flip)
 		--shift+use:see wagons.lua
 	else
 		if pc.up then
-			train.tarvelocity = train.tarvelocity + 1
+			train.tarvelocity = math.min(train.tarvelocity + 1, 10)
 		end
 		if pc.down then
 			if train.velocity>0 then
