@@ -206,37 +206,37 @@ advtrains.register_wagon("wagon_box", {
 	},
 }, S("Box Wagon"), "advtrains_wagon_box_inv.png")
 
-minetest.register_craft({
-	output = 'advtrains:newlocomotive',
-	recipe = {
-		{'protector_lott:protect2', 'dye:black', 'advtrains:chimney'},
-		{'advtrains:driver_cab', 'lottores:galvorn_block', 'advtrains:boiler'},
-		{'advtrains:trolley', 'advtrains:wheel_pair', 'advtrains:trolley'},
-	},
-})
-
-minetest.register_craft({
-	output = 'advtrains:detailed_steam_engine',
-	recipe = {
-		{'protector_lott:protect2', 'dye:green', 'advtrains:chimney'},
-		{'advtrains:driver_cab', 'lottores:galvorn_block', 'advtrains:boiler'},
-		{'advtrains:wheel_pair', '', 'advtrains:trolley'},
-	},
-})
-
-minetest.register_craft({
-	output = 'advtrains:wagon_default',
-	recipe = {
-		{'default:steelblock', 'dye:green', 'default:steelblock'},
-		{'lottblocks:pine_chair', 'lottores:galvorn_block', 'lottblocks:pine_table'},
-		{'advtrains:trolley', '', 'advtrains:trolley'},
-	},
-})
-minetest.register_craft({
-	output = 'advtrains:wagon_box',
-	recipe = {
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'default:chest', 'lottores:galvorn_block', 'default:chest'},
-		{'advtrains:trolley', '', 'advtrains:trolley'},
-	},
-})
+-- minetest.register_craft({
+-- 	output = 'advtrains:newlocomotive',
+-- 	recipe = {
+-- 		{'protector_lott:protect2', 'dye:black', 'advtrains:chimney'},
+-- 		{'advtrains:driver_cab', 'lottores:galvorn_block', 'advtrains:boiler'},
+-- 		{'advtrains:trolley', 'advtrains:wheel_pair', 'advtrains:trolley'},
+-- 	},
+-- })
+--
+-- minetest.register_craft({
+-- 	output = 'advtrains:detailed_steam_engine',
+-- 	recipe = {
+-- 		{'protector_lott:protect2', 'dye:green', 'advtrains:chimney'},
+-- 		{'advtrains:driver_cab', 'lottores:galvorn_block', 'advtrains:boiler'},
+-- 		{'advtrains:wheel_pair', '', 'advtrains:trolley'},
+-- 	},
+-- })
+--
+-- minetest.register_craft({
+-- 	output = 'advtrains:wagon_default',
+-- 	recipe = {
+-- 		{'default:steelblock', 'dye:green', 'default:steelblock'},
+-- 		{'lottblocks:pine_chair', 'lottores:galvorn_block', 'lottblocks:pine_table'},
+-- 		{'advtrains:trolley', '', 'advtrains:trolley'},
+-- 	},
+-- })
+-- minetest.register_craft({
+-- 	output = 'advtrains:wagon_box',
+-- 	recipe = {
+-- 		{'group:wood', 'group:wood', 'group:wood'},
+-- 		{'default:chest', 'lottores:galvorn_block', 'default:chest'},
+-- 		{'advtrains:trolley', '', 'advtrains:trolley'},
+-- 	},
+-- })

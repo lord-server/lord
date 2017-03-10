@@ -2,7 +2,7 @@
 
 function advtrains.register_platform(preset)
 	local ndef=minetest.registered_nodes[preset]
-	if not ndef then 
+	if not ndef then
 		minetest.log("warning", " register_platform couldn't find preset node "..preset)
 		return
 	end
@@ -47,20 +47,20 @@ function advtrains.register_platform(preset)
 		paramtype = "light",
 		sunlight_propagates = true,
 	})
-	minetest.register_craft({
-		type="shapeless",
-		output = "advtrains:platform_high_"..nodename.." 1",
-		recipe = {
-			"dye:yellow", preset
-		},
-	})
-	minetest.register_craft({
-		type="shapeless",
-		output = "advtrains:platform_low_"..nodename.." 2",
-		recipe = {
-			"dye:yellow", "dye:yellow", preset
-		},
-	})
+	-- minetest.register_craft({
+	-- 	type="shapeless",
+	-- 	output = "advtrains:platform_high_"..nodename.." 1",
+	-- 	recipe = {
+	-- 		"dye:yellow", preset
+	-- 	},
+	-- })
+	-- minetest.register_craft({
+	-- 	type="shapeless",
+	-- 	output = "advtrains:platform_low_"..nodename.." 2",
+	-- 	recipe = {
+	-- 		"dye:yellow", "dye:yellow", preset
+	-- 	},
+	-- })
 end
 
 
