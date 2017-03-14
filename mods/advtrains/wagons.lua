@@ -251,6 +251,7 @@ self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE 
 			--self:train().soundtime = self:train().soundtime - vel * dtime * SOUND_PLAY_RATE
 			if self:train().soundtime <= 0 then
 					minetest.sound_play("steamtact", {pos=self:train().last_pos, max_hear_distance = 40, loop=false, gain=1})
+					minetest.sound_play("wagon", {pos=self:train().last_pos_prev, max_hear_distance = 20, loop=false, gain=3})
 					self:train().soundtime = 100
 			end
 	end
