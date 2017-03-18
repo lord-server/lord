@@ -74,7 +74,7 @@ minetest.register_tool("worldedit:admin_stick", {
 			pos.y = pos.y - 1
 			local node_below = minetest.get_node(pos)
 			if node_below ~= nil then
-				if node_below.name == "air" then
+				if (node_below.name == "air") or (minetest.registered_items[node_below.name].groups["water"]) then
 					minetest.set_node(pos, {name = item_name})
 				else
 					break

@@ -1,2 +1,5 @@
 ### init.lua ###
 Fire	=	Fire
+### campfire.lua ###
+Campfire 	= Campfire
+Active campfire = Active campfire

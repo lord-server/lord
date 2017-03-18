@@ -1,2 +1,6 @@
 ### init.lua ###
 Fire	=	Пламя
+
+### campfire.lua ###
+Campfire 	= Костровище
+Active campfire = Костёр

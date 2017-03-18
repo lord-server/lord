@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
+
 -- minetest/fire/init.lua
+dofile(minetest.get_modpath("fire").."/campfire.lua")
 
 minetest.register_node("fire:basic_flame", {
 	description = SL("Fire"),

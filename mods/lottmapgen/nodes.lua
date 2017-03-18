@@ -285,36 +285,6 @@ minetest.register_node("lottmapgen:default_grass", {
 })
 
 minetest.register_abm({
-	nodenames = {"default:dirt_with_grass"},
-	interval = 2,
-	chance = 1,
-	action = function(pos, node)
-		local count_grasses = {};
-		local curr_max  = 0;
-		local curr_type = "lottmapgen:default_grass";
-
-		local positions = minetest.find_nodes_in_area( {x=(pos.x-2), y=(pos.y-2), z=(pos.z-2)},
-							       {x=(pos.x+2), y=(pos.y+2), z=(pos.z+2)},
-							   "group:lottmapgen_grass" );
-		for _,p in ipairs(positions) do
-			local n = minetest.get_node( p );
-			if( n and n.name ) then
-				if( not( count_grasses[ n.name ] )) then
-					count_grasses[ n.name ] = 1;
-				else
-					count_grasses[ n.name ] = count_grasses[ n.name ] + 1;
-				end
-				if( count_grasses[ n.name ] > curr_max ) then
-					curr_max  = count_grasses[ n.name ];
-					curr_type = n.name;
-				end
-			end
-		end
-		minetest.set_node(pos, {name = curr_type })
-        end
-})
-
-minetest.register_abm({
 	nodenames = {"group:lottmapgen_grass"},
 	interval = 2,
 	chance = 20,
