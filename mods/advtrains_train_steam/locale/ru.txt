@@ -1,7 +1,0 @@
-Driver Stand (left) = Машинист стоит слева
-Driver Stand (right) = Машинист стоит справа
-Steam Engine = Паровоз
-Detailed Steam Engine = Улучшенный паровоз
-Passenger Wagon = Пассажирский вагон
-Box Wagon = Грузовой вагон
-POST Wagon = Почтовый вагон
