@@ -103,9 +103,9 @@ lottpotion = {
 		
 		itemstack:take_item()
 		local image_potion = nil
-		if itemstack:get_definition then
-		  image_potion = itemstack:get_definition().inventory_image
-		end  
+		--if itemstack:get_definition then
+		--  image_potion = itemstack:get_definition().inventory_image
+		--end
 		if image_potion == nil then
 			image_potion = "lottpotion_bottle.png"
 		end	
