@@ -3,7 +3,7 @@ local SL = lord.require_intllib()
 -- ITEMS and TOOLS
 
 minetest.register_craft({
-	output = "lottfarming:bowl 8",
+	output = "lottfarming:bowl 9",
 	recipe = {
 		{"group:wood", "", "group:wood"},
 		{"", "group:wood", ""},
@@ -137,6 +137,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottfarming:mushroom_soup',
 	recipe = {
+		{'', 'lottores:salt', ''},
 		{'group:mushroom', 'group:mushroom', 'group:mushroom'},
 		{'', 'lottfarming:bowl', ''},
 	}
@@ -145,6 +146,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottfarming:salad',
 	recipe = {
+		{'', 'lottores:salt', ''},
 		{'group:salad', 'group:salad', 'group:salad'},
 		{'', 'lottfarming:bowl', ''},
 	}

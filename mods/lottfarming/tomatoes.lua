@@ -112,6 +112,7 @@ minetest.register_craftitem("lottfarming:tomato_soup", {
 minetest.register_craft({
 	output = 'lottfarming:tomato_soup',
 	recipe = {
+		{'', 'lottores:salt', ''},
 		{'lottfarming:tomatoes_cooked', 'lottfarming:tomatoes_cooked', 'lottfarming:tomatoes_cooked'},
 		{'', 'lottfarming:bowl', ''},
 	}

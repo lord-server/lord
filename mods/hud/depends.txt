@@ -1,4 +1,7 @@
 default
+lottfarming
+lottplants
+lottmobs
 mobs?
 moretrees?
 dwarves?

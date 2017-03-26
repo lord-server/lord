@@ -89,13 +89,6 @@ minetest.register_craftitem("lottfarming:turnips", {
 
 farming:add_plant("lottfarming:turnips_4", {"lottfarming:turnips_1", "lottfarming:turnips_2", "lottfarming:turnips_3"}, 50, 20)
 
-minetest.register_craft({
-	type = "cooking",
-	cooktime = 15,
-	output = "lottfarming:turnips_cooked",
-	recipe = "lottfarming:turnips"
-})
-
 minetest.register_craftitem("lottfarming:turnips_cooked", {
 	description = SL("Cooked Turnips"),
 	inventory_image = "lottfarming_turnips_cooked.png",

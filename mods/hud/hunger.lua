@@ -27,7 +27,12 @@ function hud.item_eat(hunger_change, replace_with_item, poisen)
 			if h>30 then h=30 end
 			hud.hunger[name]=h
 			hud.set_hunger(user)
-			itemstack:add_item(replace_with_item) -- note: replace_with_item is optional
+			local inv = user:get_inventory()
+			if inv:room_for_item("main", replace_with_item) then
+				inv:add_item("main", replace_with_item)
+			else
+				minetest.item_drop(ItemStack(replace_with_item), user, user:getpos())
+			end
 			--sound:eat
 			if poisen then
 				poisenp(1.0, poisen, 0, user)
@@ -219,22 +224,28 @@ end
 if minetest.get_modpath("lottfarming") ~= nil then
 	overwrite("lottfarming:sheaf_barley", 4)
 	overwrite("lottfarming:berries", 2)
-	overwrite("lottfarming:blue_mushroom", 3)
+	overwrite("lottfarming:blue_mushroom", 3, "", 2)
 	overwrite("lottfarming:brown_mushroom", 4)
 	overwrite("lottfarming:cabbage", 4)
 	overwrite("lottfarming:ear_of_corn", 6)
-	overwrite("lottfarming:green_mushroom", 3)
+	overwrite("lottfarming:green_mushroom", 2, "", 2)
 	overwrite("lottfarming:melon", 4)
 	overwrite("lottfarming:potato", 1)
 	overwrite("lottfarming:potato_cooked", 8)
-	overwrite("lottfarming:red_mushroom", 4)
+	overwrite("lottfarming:red_mushroom", -8, "", 8)
+	overwrite("lottfarming:red_rhcy", 4)
 	overwrite("lottfarming:tomatoes", 2)
 	overwrite("lottfarming:tomatoes_cooked", 4)
-	overwrite("lottfarming:tomato_soup", 8)
+	overwrite("lottfarming:tomato_soup", 8, "lottfarming:bowl")
 	overwrite("lottfarming:turnips", 1)
 	overwrite("lottfarming:turnips_cooked", 8)
-	overwrite("lottfarming:salad", 6)
-	overwrite("lottfarming:mushroom_soup", 8)
+	overwrite("lottfarming:salad", 6, "lottfarming:bowl")
+	overwrite("lottfarming:mushroom_soup", 8, "lottfarming:bowl")
+end
+
+if minetest.get_modpath("lottores") ~= nil then
+	overwrite("lottores:salt", 0, "", 2)
+	overwrite("lottores:salt_block", 0, "", 24)
 end
 
 if minetest.get_modpath("lottplants") ~= nil then
@@ -245,4 +256,5 @@ end
 
 if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:meat", 4)
+	overwrite("lottmobs:meat_raw", 2, "", 4)
 end

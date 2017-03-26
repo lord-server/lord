@@ -3,12 +3,13 @@ local SL = lord.require_intllib()
 minetest.register_craftitem("lottmobs:meat", {
 	description = SL("Cooked Meat"),
 	inventory_image = "lottmobs_meat.png",
-	on_use = minetest.item_eat(4),
+	on_use = minetest.item_eat(1),
 })
 
 minetest.register_craftitem("lottmobs:meat_raw", {
 	description = SL("Raw Meat"),
 	inventory_image = "lottmobs_meat_raw.png",
+	on_use = minetest.item_eat(1),
 })
 
 minetest.register_craft({

@@ -87,14 +87,6 @@ minetest.register_node("lottfarming:cabbage", {
 
 farming:add_plant("lottfarming:cabbage_3", {"lottfarming:cabbage_1", "lottfarming:cabbage_2"}, 80, 20)
 
-minetest.register_craft({
-	output = 'lottfarming:salad',
-	recipe = {
-		{'group:salad', 'group:salad', 'group:salad'},
-		{'', 'lottfarming:bowl', ''},
-	}
-})
-
 minetest.register_craftitem("lottfarming:salad", {
 	description = SL("Salad"),
 	inventory_image = "lottfarming_salad.png",

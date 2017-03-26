@@ -215,24 +215,8 @@ minetest.register_abm({
 	end
 })
 
-minetest.register_craft({
-	type = "cooking",
-	cooktime = 15,
-	output = "lottfarming:turnips_cooked",
-	recipe = "lottfarming:turnips"
-})
-
 minetest.register_craftitem("lottfarming:mushroom_soup", {
 	description = SL("Cream of Mushroom Soup"),
 	inventory_image = "lottfarming_mushroom_soup.png",
 	on_use = minetest.item_eat(6),
 })
-
-minetest.register_craft({
-	output = 'lottfarming:mushroom_soup',
-	recipe = {
-		{'group:mushroom', 'group:mushroom', 'group:mushroom'},
-		{'', 'lottfarming:bowl', ''},
-	}
-})
-

@@ -287,9 +287,22 @@ function lottplants_firtree(pos)
 			j = t - absk
 		end
 		if math.random() > (absi + absk) / 24 then
-			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},"lottplants:firleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i+1,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i-1,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k+1},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k-1},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i+1,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i-1,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k+1},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k-1},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i+2,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i-2,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k+2},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k-2},"lottplants:pineleaf")
 		end
 	end
 	end
@@ -485,22 +498,9 @@ function lottplants_pinetree(pos)
 			j = t - absk
 		end
 		if math.random() > (absi + absk) / 24 then
-			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i+1,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i-1,y=pos.y+j-2,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k+1},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k-1},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i+1,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i-1,y=pos.y+j-5,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k+1},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k-1},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i+2,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i-2,y=pos.y+j-8,z=pos.z+k},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k+2},"lottplants:pineleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-8,z=pos.z+k-2},"lottplants:pineleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:firleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},"lottplants:firleaf")
+			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},"lottplants:firleaf")
 		end
 	end
 	end

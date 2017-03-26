@@ -72,13 +72,6 @@ minetest.register_craftitem("lottfarming:potato", {
 
 farming:add_plant("lottfarming:potato_3", {"lottfarming:potato_1", "lottfarming:potato_2"}, 50, 20)
 
-minetest.register_craft({
-	type = "cooking",
-	cooktime = 15,
-	output = "lottfarming:potato_cooked",
-	recipe = "lottfarming:potato"
-})
-
 minetest.register_craftitem("lottfarming:potato_cooked", {
 	description = SL("Cooked Potato"),
 	inventory_image = "lottfarming_potato_cooked.png",
