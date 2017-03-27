@@ -1309,14 +1309,7 @@ mobs:register_mob("lottmobs:balrog", {
 	lava_damage = 0,
 	light_damage = 0,
 	on_rightclick = nil,
-	attack_type = "dogshoot",
-	dogshoot_switch = 1,
-	dogshoot_count_max = 12, -- shoot for 10 seconds
-	dogshoot_count2_max = 3, -- dogfight for 3 seconds
-	reach = 3,
-	shoot_interval = 2.5,
-	arrow = "lottmobs:fireball",
-	shoot_offset = 1,
+	attack_type = "dogfight",
 	jump = true,
 	sounds = {
 		war_cry = "mobs_die_yell",
