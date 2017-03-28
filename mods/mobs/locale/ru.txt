@@ -6,10 +6,10 @@ Bee	= Пчела
 
 ### api.lua ###
 [MOBS] mod profiling enabled, damage not enabled =
-lifetimer expired, removed @1 =
-[Mobs Redo] @1 has spawning disabled =
+lifetimer expired, removed @1 = таймер жизни истёк, удален @1
+[Mobs Redo] @1 has spawning disabled = [Mobs Redo] спавн @1 выключен
 [Mobs Redo] Chance setting for @1 is now @2 =
-[mobs] @1 failed to spawn at @2 = 
+[mobs] @1 failed to spawn at @2 =
 Not tamed! = Не приручили!
 @1 is owner! = @1 его хозяин!
 Missed! = Не поймал!
