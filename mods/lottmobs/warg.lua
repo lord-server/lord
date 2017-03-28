@@ -7,7 +7,7 @@ lottmobs:register_horse("lottmobs:warg_mount", {
 	visual = "mesh",
 	stepheight = 1.1,
 	attach_height = 20,
-	offset = false,
+	offset = true,
 	offset_h = 4,
 	run = true,
 	hp = 40,
