@@ -44,6 +44,7 @@ dofile(minetest.get_modpath("lottmobs").."/craftitems.lua")
 dofile(minetest.get_modpath("lottmobs").."/elves.lua")
 dofile(minetest.get_modpath("lottmobs").."/dwarfs.lua")
 dofile(minetest.get_modpath("lottmobs").."/horse.lua")
+dofile(minetest.get_modpath("lottmobs").."/warg.lua")
 dofile(minetest.get_modpath("lottmobs").."/trader_goods.lua")
 dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
@@ -930,7 +931,7 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	step = 1,
 })
 
-mobs:register_mob("lottmobs:warg", {
+--[[mobs:register_mob("lottmobs:warg", {
 	type = "monster",
 	hp_min = 25,
 	hp_max = 40,
@@ -974,7 +975,7 @@ mobs:register_mob("lottmobs:warg", {
 	group_attack = true,
 	step = 1,
 	sounds = {},
-})
+})]]--
 
 mobs:register_mob("lottmobs:uruk_hai", {
 	type = "monster",
@@ -1309,7 +1310,14 @@ mobs:register_mob("lottmobs:balrog", {
 	lava_damage = 0,
 	light_damage = 0,
 	on_rightclick = nil,
-	attack_type = "dogfight",
+	attack_type = "dogshoot",
+	dogshoot_switch = 1,
+	dogshoot_count_max = 12, -- shoot for 10 seconds
+	dogshoot_count2_max = 3, -- dogfight for 3 seconds
+	reach = 3,
+	shoot_interval = 2.5,
+	arrow = "lottmobs:fireball",
+	shoot_offset = 1,
 	jump = true,
 	sounds = {
 		war_cry = "mobs_die_yell",
