@@ -5,4 +5,15 @@ Honey Block	= Блок мёда
 Bee	= Пчела
 
 ### api.lua ###
-Missed!	= Не поймал!
+[MOBS] mod profiling enabled, damage not enabled =
+lifetimer expired, removed @1 =
+[Mobs Redo] @1 has spawning disabled =
+[Mobs Redo] Chance setting for @1 is now @2 =
+[mobs] @1 failed to spawn at @2 = 
+Not tamed! = Не приручили!
+@1 is owner! = @1 его хозяин!
+Missed! = Не поймал!
+@1 at full health (@2) = @1 при полном здоровье (@2)
+@1 has been tamed! = @1 его уже приручил!
+Enter name: = Введите имя:
+Rename = Переименовать
