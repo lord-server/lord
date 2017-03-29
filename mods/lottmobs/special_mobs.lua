@@ -1,6 +1,7 @@
 mobs:register_mob("lottmobs:elf_trader", {
 	type = "npc",
-	hp_min = 20,
+        race = "GAMEelf",
+        hp_min = 20,
 	hp_max = 50,
 	collisionbox = {-0.3,-1.1,-0.3, 0.3,0.91,0.3},
 	textures = {
@@ -40,6 +41,20 @@ mobs:register_mob("lottmobs:elf_trader", {
 		death = "default_death",
 		attack = "mobs_slash_attack",
 	},
+	drops = {
+		{name = "lord_money:silver_coin 9",
+		chance = 3,
+		min = 1,
+		max = 6,},
+		{name = "lord_money:gold_coin 3",
+		chance = 7,
+		min = 1,
+		max = 5,},
+		{name = "lord_money:cooper_coin 30",
+		chance = 10,
+		min = 1,
+		max = 3,},
+	},
 	attacks_monsters = true,
 	peaceful = true,
 	group_attack = true,
@@ -48,10 +63,12 @@ mobs:register_mob("lottmobs:elf_trader", {
 		lottmobs_trader(self, clicker, entity, lottmobs.elf, "gui_elfbg.png", "GAMEelf")
 	end,
 })
+--mobs:register_spawn("lottmobs:elf_trader", {"lottmapgen:lorien_grass"}, 20, 0, 60000, 3, 31000)
 
 mobs:register_mob("lottmobs:human_trader", {
 	type = "npc",
-	hp_min = 15,
+        race = "GAMEman",
+        hp_min = 15,
 	hp_max = 35,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	textures = {
@@ -91,6 +108,20 @@ mobs:register_mob("lottmobs:human_trader", {
 		death = "default_death",
 		attack = "default_punch2",
 	},
+	drops = {
+		{name = "lord_money:silver_coin 9",
+		chance = 3,
+		min = 1,
+		max = 6,},
+		{name = "lord_money:gold_coin 3",
+		chance = 7,
+		min = 1,
+		max = 5,},
+		{name = "lord_money:cooper_coin 30",
+		chance = 10,
+		min = 1,
+		max = 3,},
+	},
 	attacks_monsters = true,
 	peaceful = true,
 	group_attack = true,
@@ -99,10 +130,13 @@ mobs:register_mob("lottmobs:human_trader", {
 		lottmobs_trader(self, clicker, entity, lottmobs.human, "gui_gondorbg.png", "GAMEman")
 	end,
 })
+--mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:rohan_grass"}, 20, -1, 60000, 3, 31000)
+--mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:gondor_grass"}, 20, -1, 60000, 3, 31000)
 
 mobs:register_mob("lottmobs:hobbit_trader", {
-	type = "animal",
-	hp_min = 5,
+	type = "npc",
+        race = "GAMEman",
+        hp_min = 5,
 	hp_max = 15,
 	collisionbox = {-0.3,-0.75,-0.3, 0.3,0.7,0.3},
 	textures = {
@@ -132,6 +166,20 @@ mobs:register_mob("lottmobs:hobbit_trader", {
 		punch_start = 189,
 		punch_end = 198,
 	},
+	drops = {
+		{name = "lord_money:silver_coin 9",
+		chance = 3,
+		min = 1,
+		max = 6,},
+		{name = "lord_money:gold_coin 3",
+		chance = 7,
+		min = 1,
+		max = 5,},
+		{name = "lord_money:cooper_coin 30",
+		chance = 10,
+		min = 1,
+		max = 3,},
+	},
 	jump = true,
 	step=1,
 	passive = true,
@@ -141,10 +189,12 @@ mobs:register_mob("lottmobs:hobbit_trader", {
 		lottmobs_trader(self, clicker, entity, lottmobs.hobbit, "gui_hobbitbg.png", "GAMEhobbit")
 	end,
 })
+--mobs:register_spawn("lottmobs:hobbit_trader", {"lottmapgen:shire_grass"}, 20, -1, 60000, 3, 31000)
 
 mobs:register_mob("lottmobs:dwarf_trader", {
 	type = "npc",
-	hp_min = 20,
+        race = "GAMEdwarf",
+        hp_min = 20,
 	hp_max = 30,
 	collisionbox = {-0.3,-.85,-0.3, 0.3,0.68,0.3},
 	textures = {
@@ -159,12 +209,7 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 	run_velocity = 2,
 	armor = 200,
 	damage = 4,
-	drops = {
-		{name = "default:diamond",
-		chance = 30,
-		min = 1,
-		max = 2,},
-	},
+	drops = {},
 	light_resistant = true,
 	drawtype = "front",
 	water_damage = 0,
@@ -190,6 +235,20 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 		death = "default_death",
 		attack = "default_punch2",
 	},
+	drops = {
+		{name = "lord_money:silver_coin 9",
+		chance = 3,
+		min = 1,
+		max = 6,},
+		{name = "lord_money:gold_coin 3",
+		chance = 7,
+		min = 1,
+		max = 5,},
+		{name = "lord_money:cooper_coin 30",
+		chance = 10,
+		min = 1,
+		max = 3,},
+	},
 	attacks_monsters = true,
 	peaceful = true,
 	group_attack = true,
@@ -198,3 +257,4 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 		lottmobs_trader(self, clicker, entity, lottmobs.dwarf, "gui_angmarbg.png", "GAMEdwarf")
 	end,
 })
+--mobs:register_spawn("lottmobs:dwarf_trader", {"lottmapgen:ironhill_grass"}, 20, -1, 60000, 3, 31000)

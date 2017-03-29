@@ -1,5 +1,6 @@
 ### init.lua ###
 NPC at full health.	=	NPC здоров.
+Warg = Варг
 
 ### craftitems.lua ###
 Spider Poison	=	Паучий яд
@@ -15,6 +16,10 @@ Black Horse	=	Вороной конь
 Shire Pony 1	=	Чёрный пони
 Shire Pony 2	=	Серый пони
 
+### animals.lua
+Raw Porkchop = Кабанье мясо
+Cooked Porkchop = Жареное кабанье мясо
+
 ### trader.lua ###
 Trader	=	Торговец
 Hello	=	Привет
@@ -24,6 +29,32 @@ Selection	=	Товар
 Price	=	Цена
 Payment	=	Оплата
 Brought items	=	Покупка
+We have many treasures, and for the right price we might be willing to part with them... = У нас много сокровищ, и за правильную цену мы могли бы с ними расстаться...
+Don't even think of stealing our treasure... If you do, heads shall roll. = Даже не думайте о том, чтобы украсть наше сокровище ... Если вы это сделаете, лишитесь головы.
+What are you doing here? What do you want from us? = Вы че сюда пришли? Что то хотите от нас?
+Be careful when you enter our homes, a fall from the ladder could well prove deadly. = Будьте осторожны, когда вы входите в наши дома, падение с лестницы может оказаться смертельным.
+If you want to mine, do so. There's plenty of iron to go around! = Если вы хотите добывать, то добывайте. Вокруг много железа, в перед и с песней!
+If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly. = Если вы рискнете зарыться глубоко под землю, берегитесь! Монстры там очень сильные, и убивают неподготовленного мгновенно.
+Welcome to our lovely forest home, weary traveler. Refresh yourself here. = Добро пожаловать в наш прекрасный лесной дом, утомленный путешественник. Прокачайте себя здесь.
+Sauron grows in power. Shall we be able to vanquish him again? = Власть Саурон растет. Сможем ли мы снова его победить?
+We are a peace loving people, but if we are angered, our wrath is terrible! = Мы не злопамятные, но злые и память у нас хорошая!
+Rest among us and prepare yourself, for war is imminent. = Нам всем нужно готовиться, потому что война неизбежна.
+If you wish to buy goods from us, there are certain traders who wander our land. = Хочешь что-то купить покупай, или проваливай от сюда.
+Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme. = Осторожно! Мы все ходим по краю лезвия - одно ложное движение, и все закончится, а Саурон будет править верховным.
+Ah, what a lovely land we have, so peaceful, so beautiful. = Ах, какая прекрасная земля у нас, такая мирная, такая красивая.
+There's nothing quite like the smell of pipe smoke rising on a cold October morning, is there? = Нет ничего лучше запаха дымящейся трубки, в холодное октябрьское утро, не так ли?
+If you are in need of any food, there are traders who wander around and they usually have a good stock. = Если вам нужна еда, найдите торговца, который бродит неподалеку, у него обычно хороший выбор.
+If you are thinking that you'll find adventures here, think again! Good day! = Если вы думаете, что здесь найдете приключения, подумайте еще раз! Добрый вечер!
+We hear tales of war, but they cannot be more than tales - like that of the Oliphaunt. = Мы слышим рассказы о войне, и нам кажеться что это сказки - как у Олифаунта.
+Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes... = Пища должна нравиться, и внешне и на вкус. Иногда нужно не просто поесть немного здесь и немного там, а посидеть в хорошей компании.
+War comes swiftly... We are preparing, but are we doing enough? = Война надвигается быстро ... Мы готовимся, но достаточно ли мы делаем?
+The noble race of man rises in the world! Even the dwarves are starting to show interest in some of our goods. = Благородная раса людей вновь расцветает! Даже гномы начинают проявлять интерес к некоторым нашим товарам.
+Are you willing to fight with us? We have much to lose, but much to gain also! We must rally together. = Готовы ли вы сразиться вместе с нами? Нам многое предстоит потерять, но еще большемы должны выиграть! Нам нужно сплотиться вместе.
+Don't listen to those who say that all this talk of war will come to nothing, for we are at war now. = Не слушайте тех, кто говорит, что все эти разговоры о войне ни к чему не приведут, Они просто тролли.
+We suffer raids from orcs, and other evil things, yet we do nothing! We must act, and act with force! = Мы терпим набеги орков и других тварей, и ничего не делаем! Мы должны действовать и действовать немедленно!
+Life here is far from normal. We wish for peace, yet the only way we can get peace is through war... = Жизнь здесь далека от идеала. Мы желаем мира, но единственный способ получить мир - это война ...
+DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!! = УМРИ!!! Убббббллллллюююююдддддооокккккк!!
+Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL! = Хрррррррррррррррррррр!, СМЕРТЬ! СМЕРТЬ! СМЕРТЬ!
 
 ### trader_goods.lua ###
 #dwarf
@@ -81,4 +112,3 @@ Minardil	=	Minardil
 Oromendil	=	Oromendil
 Tarcil	=	Tarcil
 Vorondil	=	Vorondil
-
