@@ -1,3 +1,4 @@
+local SL = lord.require_intllib()
 
 local function is_ground(pos)
 	local nn = minetest.get_node(pos).name
@@ -31,7 +32,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 		function craftitem.on_place(itemstack, placer, pointed_thing)
 			if pointed_thing.above then
 				minetest.add_entity(pointed_thing.above, name)
-				
+
 				if not minetest.setting_getbool("creative_mode") then
 					itemstack:take_item()
 				end
@@ -198,29 +199,40 @@ function lottmobs:register_horse(name, craftitem, horse)
 	end
 
 	function horse:on_rightclick(clicker)
+		local player = clicker:get_player_name()
 		if not clicker or not clicker:is_player() then
 			return
 		end
 		if self.driver and clicker == self.driver then
 			self.driver = nil
+			self.ridername = nil
 			clicker:set_detach()
 			default.player_attached[clicker:get_player_name()] = false
 			if self.offset == true then
 				clicker:set_eye_offset({x=0,y=0,z=0},{x=0,y=0,z=0})
 			end
-		elseif not self.driver then
-			self.driver = clicker
-			attach_h = self.attach_h or 15
-			attach_r = self.attach_r or 90
-			clicker:set_attach(self.object, "", {x=0,y= attach_h ,z=0}, {x=0,y= attach_r ,z=0})
-			default.player_attached[clicker:get_player_name()] = true
-			self.object:setyaw(clicker:get_look_yaw())
-			self.ridername = clicker:get_player_name()
-			
-			if self.offset == true then
-				offset_h = self.offset_h or 0
-				offset_r = self.offset_r or 0
-				clicker:set_eye_offset({x=0,y= offset_h ,z=0},{x=0,y= offset_r ,z=0})
+		elseif not self.driver and not default.player_attached[player] then
+
+			for no = 1, #self.riders do -- who can drive
+				if self.riders[no] == races.get_race_and_gender(player)[1] or
+				   clicker:get_inventory():get_stack("main", clicker:get_wield_index()):get_name() == "lottother:beast_ring" then
+
+					self.driver = clicker
+					attach_h = self.attach_h or 15
+					attach_r = self.attach_r or 90
+					clicker:set_attach(self.object, "", {x=0,y= attach_h ,z=0}, {x=0,y= attach_r ,z=0})
+
+					default.player_attached[clicker:get_player_name()] = true
+					self.object:setyaw(clicker:get_look_yaw())
+					self.ridername = clicker:get_player_name()
+
+					if self.offset == true then
+						offset_h = self.offset_h or 0
+						offset_r = self.offset_r or 0
+						self.driver_attach_at = {x=0,y=-20 ,z=0}
+						clicker:set_eye_offset({x=0,y= offset_h ,z=0},{x=0,y= offset_r ,z=0})
+					end
+				end
 			end
 		end
 	end
@@ -230,7 +242,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 		if staticdata then
 			self.v = tonumber(staticdata)
 		end
-		
+
 		local hp = self.hp or 10
 		self.object:set_hp(hp)
 	end
@@ -238,18 +250,16 @@ function lottmobs:register_horse(name, craftitem, horse)
 	function horse:get_staticdata()
 		return tostring(self.v)
 	end
-	
+
 	function horse:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
-		--print(rider:get_player_name())
 		local ridername = self.ridername
+		print(ridername)
 		if ridername ~= nil then
 			rider = minetest.get_player_by_name(ridername)
-			print(rider:get_player_name())
 		end
-		
-		
+
 		if puncher and puncher:is_player() then
-			if puncher:get_player_name() == ridername or ridername == nil then
+			if puncher:get_player_name() == ridername then
 				puncher:get_inventory():add_item("main", name)
 				default.player_attached[puncher:get_player_name()] = false
 				puncher:set_detach()
@@ -257,6 +267,8 @@ function lottmobs:register_horse(name, craftitem, horse)
 				if self.offset == true then
 					puncher:set_eye_offset({x=0,y=0,z=0},{x=0,y=0,z=0})
 				end
+			elseif ridername == nil then
+				puncher:get_inventory():add_item("main", name)
 			elseif self.aggressive == true then
 				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
 				local _,obj
@@ -266,7 +278,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 						minetest.after(2, function()
 							self.underattack = false
 						end)
-						
+
 						puncher:punch(self.object, 1.0, {
 							full_punch_interval = 1.0,
 							damage_groups = {fleshy = self.dps}
@@ -284,7 +296,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 						minetest.after(2, function()
 							self.underattack = false
 						end)
-						
+
 						puncher:punch(self.object, 1.0, {
 							full_punch_interval = 1.0,
 							damage_groups = {fleshy = self.dps}
@@ -293,8 +305,8 @@ function lottmobs:register_horse(name, craftitem, horse)
 				end
 			end
 		end
-			
-		if self.object:get_hp() <= 0 then
+
+		if self.object:get_hp() <= 0 and default.player_attached[ridername] then
 			default.player_attached[ridername] = false
 			rider:set_detach()
 			self.object:remove()
@@ -310,13 +322,15 @@ end
 ---------------------
 
 lottmobs:register_horse("lottmobs:horseh1", {
-	description = "Brown Horse",
+	description = SL("Brown Horse"),
 	inventory_image = "lottmobs_horse_inventory.png",
 	}, {
+	riders = {"man", "elf"},
 	physical = true,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
+	hp = 30,
 	visual_size = {x=1,y=1},
 	mesh = "horseh1_model.x",
 	textures = {"lottmobs_horse.png"},
@@ -326,7 +340,7 @@ lottmobs:register_horse("lottmobs:horseh1", {
 		stand_end = 50,
 		walk_start = 75,
 		walk_end = 98,
-		
+
 	},
 	max_speed = 7,
 	forward_boost = 2.33,
@@ -336,13 +350,15 @@ lottmobs:register_horse("lottmobs:horseh1", {
 --horse white
 
 lottmobs:register_horse("lottmobs:horsepegh1", {
-	description = "White Horse",
+	description = SL("White Horse"),
 	inventory_image = "lottmobs_horsepeg_inventory.png",
 	}, {
+	riders = {"man", "elf"},
 	physical = true,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
+	hp = 30,
 	visual_size = {x=1,y=1},
 	mesh = "horseh1_model.x",
 	textures = {"lottmobs_horsepeg.png"},
@@ -361,13 +377,15 @@ lottmobs:register_horse("lottmobs:horsepegh1", {
 --horse arabik
 
 lottmobs:register_horse("lottmobs:horsearah1", {
-	description = "Black Horse",
+	description = SL("Black Horse"),
 	inventory_image = "lottmobs_horseara_inventory.png",
 	}, {
+	riders = {"man", "elf"},
 	physical = true,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
+	hp = 30,
 	visual_size = {x=1,y=1},
 	mesh = "horseh1_model.x",
 	textures = {"lottmobs_horseara.png"},
@@ -385,16 +403,21 @@ lottmobs:register_horse("lottmobs:horsearah1", {
 
 
 lottmobs:register_horse("lottmobs:shireponyblackh1", {
-	description = "Shire Pony",
+	description = SL("Shire Pony"),
 	inventory_image = "lottmobs_shireponyblack_inventory.png",
 	}, {
+	riders = {"dwarf", "hobbit"},
 	physical = true,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
+	hp = 30,
 	visual_size = {x=1.3,y=1.3},
 	mesh = "shireponyh1_model.x",
 	textures = {"lottmobs_shireponyblack.png"},
+	offset = true,
+	offset_h = 2,
+	attach_h = 10,
 	animation = {
 		speed_normal = 15,
 		stand_start = 0,
@@ -409,16 +432,21 @@ lottmobs:register_horse("lottmobs:shireponyblackh1", {
 
 
 lottmobs:register_horse("lottmobs:shireponyh1", {
-	description = "Shire Pony",
+	description = SL("Shire Pony"),
 	inventory_image = "lottmobs_shirepony_inventory.png",
 	}, {
+	riders = {"dwarf", "hobbit"},
 	physical = true,
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
+	hp = 30,
 	visual_size = {x=1.3,y=1.3},
 	mesh = "shireponyh1_model.x",
 	textures = {"lottmobs_shirepony.png"},
+	offset = true,
+	offset_h = 2,
+	attach_h = 10,
 	animation = {
 		speed_normal = 15,
 		stand_start = 0,
@@ -471,7 +499,7 @@ mobs:register_mob("lottmobs:horse", {
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "lottfarming:barley_cooked" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -484,7 +512,7 @@ mobs:register_mob("lottmobs:horse", {
 	step=1,
 	passive = true,
 })
-mobs:register_spawn("lottmobs:horse", {"lottmapgen:rohan_grass"}, 20, -1, 6000, 3, 31000)
+--mobs:register_spawn("lottmobs:horse", {"lottmapgen:rohan_grass"}, 20, -1, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:horsepeg", {
 	type = "animal",
@@ -523,7 +551,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "lottfarming:barley_cooked" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -536,7 +564,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 	step=1,
 	passive = true,
 })
-mobs:register_spawn("lottmobs:horsepeg", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
+--mobs:register_spawn("lottmobs:horsepeg", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
 
 
 mobs:register_mob("lottmobs:horseara", {
@@ -576,7 +604,7 @@ mobs:register_mob("lottmobs:horseara", {
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "lottfarming:barley_cooked" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
     		if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -589,7 +617,7 @@ mobs:register_mob("lottmobs:horseara", {
 	step=1,
 	passive = true,
 })
-mobs:register_spawn("lottmobs:horseara", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
+--mobs:register_spawn("lottmobs:horseara", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
 
 mobs:register_mob("lottmobs:shirepony", {
 	type = "animal",
@@ -629,7 +657,7 @@ mobs:register_mob("lottmobs:shirepony", {
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "lottfarming:barley_cooked" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
 			if not minetest.setting_getbool("creative_mode") then
 			   	item:take_item()
@@ -642,7 +670,7 @@ mobs:register_mob("lottmobs:shirepony", {
 	step=1,
 	passive = true,
 })
-mobs:register_spawn("lottmobs:shirepony", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
+--mobs:register_spawn("lottmobs:shirepony", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:shireponyblack", {
 	type = "animal",
@@ -682,7 +710,7 @@ mobs:register_mob("lottmobs:shireponyblack", {
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "farming:wheat" then
+		if item:get_name() == "lottfarming:barley_cooked" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
         	if not minetest.setting_getbool("creative_mode") then
 				item:take_item()
@@ -695,4 +723,4 @@ mobs:register_mob("lottmobs:shireponyblack", {
 	step=1,
 	passive = true,
 })
-mobs:register_spawn("lottmobs:shireponyblack", {"lottmapgen:shire_grass"}, 20, -1, 9000, 3, 31000)
+--mobs:register_spawn("lottmobs:shireponyblack", {"lottmapgen:shire_grass"}, 20, -1, 9000, 3, 31000)

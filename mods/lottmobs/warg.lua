@@ -1,14 +1,18 @@
+local SL = lord.require_intllib()
+
 lottmobs:register_horse("lottmobs:warg_mount", {
-	description = "Warg",
+	description = SL("Warg"),
 	inventory_image = "lottmobs_warg_inv.png",
 	}, {
+	riders = {"orc"},
 	physical = true,
-	collisionbox = {-0.5, -0.01, -0.5, 0.5, 2.5, 0.5},
+	collisionbox = {-0.6, -0.01, -0.6, 0.6, 1.5, 0.6},
 	visual = "mesh",
 	stepheight = 1.1,
 	attach_height = 20,
 	offset = true,
 	offset_h = 4,
+	attach_h = 17,
 	run = true,
 	hp = 40,
 	dps = 8,
@@ -36,8 +40,7 @@ mobs:register_mob("lottmobs:warg", {
 	race = "GAMEorc",
 	hp_min = 25,
 	hp_max = 40,
---	collisionbox = {-1.2, -0.1, -1.2, 1.2, 1.5, 1.2},
-	collisionbox = {-1, -0.1, -1, 1, 1.5, 1},
+	collisionbox = {-0.6, -0.1, -0.6, 0.6, 1.5, 0.6},
 	textures = {
 		{"lottmobs_warg.png"},
 	},

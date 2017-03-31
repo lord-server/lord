@@ -55,4 +55,5 @@ Nenya	=	Nenya
 Purple Gem Ring	=	Purple Gem Ring
 Purple Gem Mithril Ring	=	Purple Gem Mithril Ring
 Mithril Almost Magic Ring	=	Mithril Almost Magic Ring
-Dwarf Ring	=	Dwarf Ring
+Dwarf Ring  =	Dwarf Ring
+Beast Ring  =   Beast Ring

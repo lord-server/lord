@@ -19,6 +19,7 @@ Shire Pony 2	=	Серый пони
 ### animals.lua
 Raw Porkchop = Кабанье мясо
 Cooked Porkchop = Жареное кабанье мясо
+Boar = Кабан
 
 ### trader.lua ###
 Trader	=	Торговец

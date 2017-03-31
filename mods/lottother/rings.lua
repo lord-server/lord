@@ -2,6 +2,11 @@ local SL = lord.require_intllib()
 
 local DWARF_RING_USES = 300
 
+minetest.register_craftitem("lottother:beast_ring", {
+	description = SL("Beast Ring"),
+	inventory_image = "lottother_beast_ring.png",
+     groups = {forbidden=1},
+})
 minetest.register_craftitem("lottother:ringsilver_lump", {
 	description = SL("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",

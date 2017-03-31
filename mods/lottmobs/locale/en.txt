@@ -19,6 +19,7 @@ Shire Pony 2	=	Shire Pony
 ### animals.lua
 Raw Porkchop = Raw Porkchop
 Cooked Porkchop = Cooked Porkchop
+Boar = Boar
 
 ### trader.lua ###
 Trader	=	Trader
