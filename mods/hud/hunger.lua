@@ -227,6 +227,7 @@ if minetest.get_modpath("lottfarming") ~= nil then
 	overwrite("lottfarming:blue_mushroom", 3, "", 2)
 	overwrite("lottfarming:brown_mushroom", 4)
 	overwrite("lottfarming:cabbage", 4)
+	overwrite("lottfarming:carrot_item", 2)
 	overwrite("lottfarming:ear_of_corn", 6)
 	overwrite("lottfarming:green_mushroom", 2, "", 2)
 	overwrite("lottfarming:melon", 4)
@@ -257,4 +258,7 @@ end
 if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:meat", 4)
 	overwrite("lottmobs:meat_raw", 2, "", 4)
+	overwrite("lottmobs:pork_cooked", 6)
+	overwrite("lottmobs:pork_raw", 3, "", 4)
+
 end

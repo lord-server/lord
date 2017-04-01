@@ -6,6 +6,8 @@ Warg = Варг
 Spider Poison	=	Паучий яд
 Cooked Meat	=	Жареное мясо
 Raw Meat	=	Сырое мясо
+Raw Porkchop = Кабанье мясо
+Cooked Porkchop = Жареное кабанье мясо
 Dirty Jacket	=	Грязная куртка
 Dirty Trousers	=	Грязные штаны
 
@@ -17,9 +19,7 @@ Shire Pony 1	=	Чёрный пони
 Shire Pony 2	=	Серый пони
 You can't ride this beast!!! = Вы не можете оседлать это животное!!!
 
-### animals.lua
-Raw Porkchop = Кабанье мясо
-Cooked Porkchop = Жареное кабанье мясо
+### boar.lua
 Boar = Кабан
 
 ### trader.lua ###

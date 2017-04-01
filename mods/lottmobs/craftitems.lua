@@ -18,6 +18,26 @@ minetest.register_craft({
 	recipe = "lottmobs:meat_raw",
 })
 
+minetest.register_craftitem("lottmobs:pork_raw", {
+	description = SL("Raw Porkchop"),
+	inventory_image = "mobs_pork_raw.png",
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craftitem("lottmobs:pork_cooked", {
+	description = SL("Cooked Porkchop"),
+	inventory_image = "mobs_pork_cooked.png",
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:pork_cooked",
+	recipe = "lottmobs:pork_raw",
+	cooktime = 5,
+})
+
+
 minetest.register_craftitem("lottmobs:dirty_shirt", {
     description = SL("Dirty Jacket"),
     inventory_image = "lottclothes_inv_jacket_midgewater.png^[colorize:#935d3675",
