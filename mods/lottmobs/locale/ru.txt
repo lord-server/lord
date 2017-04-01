@@ -15,7 +15,7 @@ White Horse	=	Белая лошадь
 Black Horse	=	Вороной конь
 Shire Pony 1	=	Чёрный пони
 Shire Pony 2	=	Серый пони
-You can't ride this beast!!! = Вы не можете ездить на этом животном!!!
+You can't ride this beast!!! = Вы не можете оседлать это животное!!!
 
 ### animals.lua
 Raw Porkchop = Кабанье мясо

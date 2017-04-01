@@ -71,3 +71,7 @@ Tomato Soup	=	Tomato Soup
 Turnip Seeds	=	Turnip Seeds
 Turnips	=	Turnips
 Cooked Turnips	=	Cooked Turnips
+
+### carrots.lua ###
+Carrot Seeds = Carrot Seeds
+Carrot = Carrot

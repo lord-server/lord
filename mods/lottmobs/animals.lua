@@ -182,10 +182,10 @@ mobs:register_mob("lottmobs:bunny", {
 		punch_start = 16,
 		punch_end = 24,
 	},
-	follow = {"farming:carrot", "farming_plus:carrot_item"},
+	follow = {"lottfarming:carrot", "lottfarming:carrot_item"},
 	view_range = 8,
 	replace_rate = 10,
-	replace_what = {"farming:carrot_7", "farming:carrot_8", "farming_plus:carrot"},
+	replace_what = {"lottfarming:carrot_7", "lottfarming:carrot_8", "lottfarming:carrot"},
 	replace_with = "air",
 })
 

@@ -145,6 +145,9 @@ end
 -- ========= CORN =========
 dofile(minetest.get_modpath("lottfarming").."/corn.lua")
 
+-- ========= CARROT =========
+dofile(minetest.get_modpath("lottfarming").."/carrots.lua")
+
 -- ========= BERRIES =========
 dofile(minetest.get_modpath("lottfarming").."/berries.lua")
 

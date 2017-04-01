@@ -71,3 +71,7 @@ Tomato Soup	=	Томатный суп
 Turnip Seeds	=	Семена репы
 Turnips	=	Репа
 Cooked Turnips	=	Пареная репа
+
+### carrots.lua ###
+Carrot Seeds = Семена морковки
+Carrot = Морковка
