@@ -15,6 +15,7 @@ White Horse	=	White Horse
 Black Horse	=	Black Horse
 Shire Pony 1	=	Shire Pony
 Shire Pony 2	=	Shire Pony
+You can't ride this beast!!! = You can't ride this beast!!!
 
 ### animals.lua
 Raw Porkchop = Raw Porkchop

@@ -234,6 +234,11 @@ function lottmobs:register_horse(name, craftitem, horse)
 					end
 				end
 			end
+			if default.player_attached[clicker:get_player_name()] then
+				return value
+			else
+				minetest.chat_send_player(player, core.colorize("#ff8ea1", SL("You can't ride this beast!!!")))
+			end
 		end
 	end
 
