@@ -95,6 +95,9 @@ local function growgen(pos)
 		["farming:cotton_5"] = "farming:cotton_6",
 		["farming:cotton_6"] = "farming:cotton_7",
 		["farming:cotton_7"] = "farming:cotton_8",
+		["lottfarming:carrot_1"] = "lottfarming:carrot_2",
+		["lottfarming:carrot_2"] = "lottfarming:carrot_3",
+		["lottfarming:carrot_3"] = "lottfarming:carrot",
 	}
 	for farm_1, farm_2 in pairs(farm_list) do
 		if name == farm_1 then
@@ -150,7 +153,7 @@ minetest.register_craft({
 		{'group:salad', 'group:salad', 'group:salad'},
 		{'', 'lottfarming:bowl', ''},
 	}
-}) 
+})
 
 -- SEEDS
 

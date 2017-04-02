@@ -63,7 +63,7 @@ mobs:register_mob("lottmobs:boar", {
 	walk_velocity = 2,
 	run_velocity = 3,
 	jump = true,
-	follow = {"default:apple", "farming:potato"},
+	follow = {"default:apple", "lottfarming:potato"},
 	view_range = 10,
 	drops = {
 		{name = "lottmobs:pork_raw", chance = 1, min = 1, max = 3},
@@ -93,7 +93,3 @@ mobs:register_mob("lottmobs:boar", {
 		end
 	end,
 })
---mobs:register_spawn("lottmobs:warg", {"lottmapgen:mordor_stone"}, 20, -1, 5000, 3, 31000)
---mobs:register_spawn("lottmobs:warg", {"default:snowblock"}, 15, -1, 7500, 3, 31000)
---mobs:register_spawn("lottmobs:warg", {"lottmapgen:angsnowblock"}, 20, -1, 5000, 5, 31000)
-

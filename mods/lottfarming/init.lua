@@ -107,6 +107,7 @@ function farming.hoe_on_use(itemstack, user, pointed_thing, uses)
 end
 
 function farming:add_plant(full_grown, names, interval, chance)
+	print(full_grown)
 	minetest.register_abm({
 		nodenames = names,
 		interval = interval,

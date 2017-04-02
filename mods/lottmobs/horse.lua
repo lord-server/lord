@@ -258,7 +258,6 @@ function lottmobs:register_horse(name, craftitem, horse)
 
 	function horse:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
 		local ridername = self.ridername
-		print(ridername)
 		if ridername ~= nil then
 			rider = minetest.get_player_by_name(ridername)
 		end
@@ -274,6 +273,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 				end
 			elseif ridername == nil then
 				puncher:get_inventory():add_item("main", name)
+				self.object:remove()
 			elseif self.aggressive == true then
 				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
 				local _,obj

@@ -72,10 +72,10 @@ minetest.register_node("lottfarming:carrot", {
 		items = {
 			{ items = {'lottfarming:carrot_seed'} },
 			{ items = {'lottfarming:carrot_seed'}, rarity = 2},
-			{ items = {'lottfarming:carrot_seed'}, rarity = 5},
+			{ items = {'lottfarming:carrot_seed'}, rarity = 35},
 			{ items = {'lottfarming:carrot_item'} },
 			{ items = {'lottfarming:carrot_item'}, rarity = 2 },
-			{ items = {'lottfarming:carrot_item'}, rarity = 5 }
+			{ items = {'lottfarming:carrot_item'}, rarity = 35 }
 		}
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1,plant=1},
@@ -88,4 +88,4 @@ minetest.register_craftitem("lottfarming:carrot_item", {
 	on_use = minetest.item_eat(2),
 })
 
-farming.add_plant("lottfarming:carrot", {"lottfarming:carrot_1", "lottfarming:carrot_2", "lottfarming:carrot_3"}, 50, 20)
+farming:add_plant("lottfarming:carrot", {"lottfarming:carrot_1", "lottfarming:carrot_2", "lottfarming:carrot_3"}, 50, 20)

@@ -9,12 +9,12 @@ mobs:spawn_specific("lottmobs:dwarf1",	{"lottmapgen:ironhill_grass"},	{"air"}, -
 mobs:spawn_specific("lottmobs:dwarf2",	{"lottmapgen:ironhill_grass"},	{"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 
 --elves.lua
-mobs:spawn_specific("lottmobs:elf",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:elf",     {"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf1",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf2",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 
 --boar.lua
-mobs:spawn_specific("lottmobs:boar",		{"lottmapgen:ithilien_grass"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:boar",		{"lottmapgen:ironhill_grass"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 
 --horse.lua
 mobs:spawn_specific("lottmobs:horse",		{"lottmapgen:rohan_grass"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
