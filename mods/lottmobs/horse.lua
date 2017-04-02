@@ -417,7 +417,7 @@ lottmobs:register_horse("lottmobs:shireponyblackh1", {
 	visual = "mesh",
 	stepheight = 1.1,
 	hp = 30,
-	visual_size = {x=1.3,y=1.3},
+	visual_size = {x=1.15,y=1.15},
 	mesh = "shireponyh1_model.x",
 	textures = {"lottmobs_shireponyblack.png"},
 	offset = true,
@@ -446,7 +446,7 @@ lottmobs:register_horse("lottmobs:shireponyh1", {
 	visual = "mesh",
 	stepheight = 1.1,
 	hp = 30,
-	visual_size = {x=1.3,y=1.3},
+	visual_size = {x=1.15,y=1.15},
 	mesh = "shireponyh1_model.x",
 	textures = {"lottmobs_shirepony.png"},
 	offset = true,
@@ -500,13 +500,13 @@ mobs:register_mob("lottmobs:horse", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
-	view_range = 5,
+	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
+	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "lottfarming:barley_cooked" then
+		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
-        	if not minetest.setting_getbool("creative_mode") then
+        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
         		clicker:set_wielded_item(item)
         	end
@@ -517,7 +517,6 @@ mobs:register_mob("lottmobs:horse", {
 	step=1,
 	passive = true,
 })
---mobs:register_spawn("lottmobs:horse", {"lottmapgen:rohan_grass"}, 20, -1, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:horsepeg", {
 	type = "animal",
@@ -552,13 +551,13 @@ mobs:register_mob("lottmobs:horsepeg", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
-	view_range = 5,
+	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
+	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "lottfarming:barley_cooked" then
+		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
-        	if not minetest.setting_getbool("creative_mode") then
+        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
         		clicker:set_wielded_item(item)
         	end
@@ -569,8 +568,6 @@ mobs:register_mob("lottmobs:horsepeg", {
 	step=1,
 	passive = true,
 })
---mobs:register_spawn("lottmobs:horsepeg", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
-
 
 mobs:register_mob("lottmobs:horseara", {
 	type = "animal",
@@ -605,13 +602,13 @@ mobs:register_mob("lottmobs:horseara", {
 		walk_start = 75,
 		walk_end = 100,
 	},
-	follow = "farming:wheat",
-	view_range = 5,
+	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
+	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "lottfarming:barley_cooked" then
+		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
-    		if not minetest.setting_getbool("creative_mode") then
+    		if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
     			clicker:set_wielded_item(item)
             end
@@ -622,7 +619,6 @@ mobs:register_mob("lottmobs:horseara", {
 	step=1,
 	passive = true,
 })
---mobs:register_spawn("lottmobs:horseara", {"lottmapgen:rohan_grass"}, 20, -1, 7000, 3, 31000)
 
 mobs:register_mob("lottmobs:shirepony", {
 	type = "animal",
@@ -658,13 +654,13 @@ mobs:register_mob("lottmobs:shirepony", {
 		walk_start = 45,
 		walk_end = 85,
 	},
-	follow = "farming:wheat",
+	follow = {"lottfarming:carrot", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "lottfarming:barley_cooked" then
+		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 			   	item:take_item()
             	clicker:set_wielded_item(item)
             end
@@ -675,7 +671,6 @@ mobs:register_mob("lottmobs:shirepony", {
 	step=1,
 	passive = true,
 })
---mobs:register_spawn("lottmobs:shirepony", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:shireponyblack", {
 	type = "animal",
@@ -711,13 +706,13 @@ mobs:register_mob("lottmobs:shireponyblack", {
 		walk_start = 45,
 		walk_end = 85,
 	},
-	follow = "farming:wheat",
+	follow = {"lottfarming:carrot", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "lottfarming:barley_cooked" then
+		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
     		minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
-        	if not minetest.setting_getbool("creative_mode") then
+        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
                 clicker:set_wielded_item(item)
         	end
@@ -728,4 +723,3 @@ mobs:register_mob("lottmobs:shireponyblack", {
 	step=1,
 	passive = true,
 })
---mobs:register_spawn("lottmobs:shireponyblack", {"lottmapgen:shire_grass"}, 20, -1, 9000, 3, 31000)

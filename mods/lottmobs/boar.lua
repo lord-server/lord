@@ -63,7 +63,7 @@ mobs:register_mob("lottmobs:boar", {
 	walk_velocity = 2,
 	run_velocity = 3,
 	jump = true,
-	follow = {"default:apple", "lottfarming:potato"},
+	follow = {"default:apple", "lottfarming:potato", "lottother:beast_ring"},
 	view_range = 10,
 	drops = {
 		{name = "lottmobs:pork_raw", chance = 1, min = 1, max = 3},
@@ -83,9 +83,9 @@ mobs:register_mob("lottmobs:boar", {
 	},
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "default:apple" then
+		if item:get_name() == "default:apple" or item:get_name() == "lottother:beast_ring" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:boar_mount")
-        	if not minetest.setting_getbool("creative_mode") then
+        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
         		clicker:set_wielded_item(item)
         	end

@@ -76,9 +76,9 @@ mobs:register_mob("lottmobs:warg", {
 	},
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
-		if item:get_name() == "bones:skeleton_body" then
+		if item:get_name() == "bones:skeleton_body" or item:get_name() == "lottother:beast_ring" then
         	minetest.add_entity(self.object:getpos(), "lottmobs:warg_mount")
-        	if not minetest.setting_getbool("creative_mode") then
+        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
         		clicker:set_wielded_item(item)
         	end
@@ -93,6 +93,3 @@ mobs:register_mob("lottmobs:warg", {
 	step = 1,
 	sounds = {},
 })
---mobs:register_spawn("lottmobs:warg", {"lottmapgen:mordor_stone"}, 20, -1, 5000, 3, 31000)
---mobs:register_spawn("lottmobs:warg", {"default:snowblock"}, 15, -1, 7500, 3, 31000)
---mobs:register_spawn("lottmobs:warg", {"lottmapgen:angsnowblock"}, 20, -1, 5000, 5, 31000)

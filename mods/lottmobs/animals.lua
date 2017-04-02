@@ -37,16 +37,14 @@ mobs:register_mob("lottmobs:chicken", {
 		walk_start = 10,
 		walk_end = 50,
 	},
+	follow = "lottother:beast_ring",
+	view_range = 5,
 	jump = true,
 	step=1,
 	passive = true,
 	sounds = {
 	},
 })
---[[mobs:register_spawn("lottmobs:chicken",
-	{"lottmapgen:gondor_grass", "lottmapgen:dunland_grass", "lottmapgen:rohan_grass",
-	"lottmapgen:shire_grass", "lottmapgen:ithilien_grass", "lottmapgen:ironhill_grass"},
-	20, -1, 10000, 3, 31000)]]--
 
 --[[mobs:register_mob("lottmobs:sheep", {
 	type = "animal",
@@ -182,18 +180,12 @@ mobs:register_mob("lottmobs:bunny", {
 		punch_start = 16,
 		punch_end = 24,
 	},
-	follow = {"lottfarming:carrot", "lottfarming:carrot_item"},
+	follow = {"lottfarming:carrot", "lottfarming:carrot_item", "lottother:beast_ring"},
 	view_range = 8,
 	replace_rate = 10,
 	replace_what = {"lottfarming:carrot_7", "lottfarming:carrot_8", "lottfarming:carrot"},
 	replace_with = "air",
 })
-
---[[mobs:register_spawn("lottmobs:bunny",
-    {"lottmapgen:shire_grass", "lottmapgen:gondor_grass", "lottmapgen:dunland_grass",
-	"lottmapgen:ironhill_grass", "lottmapgen:fangorn_grass", "lottmapgen:rohan_grass",
-	"lottmapgen:ithilien_grass", "lottmapgen:lorien_grass", "default:dirt_with_snow"},
-    20, 10, 10000, 1, 31000)]]--
 
 --[[mobs:register_mob("lottmobs:rat", {
 	type = "animal",
