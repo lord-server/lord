@@ -77,6 +77,10 @@ mobs:register_mob("lottmobs:warg", {
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "bones:skeleton_body" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:warg_mount")
         	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()

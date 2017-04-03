@@ -500,11 +500,21 @@ mobs:register_mob("lottmobs:horse", {
 		walk_start = 75,
 		walk_end = 100,
 	},
+	replace_rate = 1,
+	replace_what = {
+		{"farming:wheat_8", "air", 0}, {"farming:wheat_7", "air", 0}, {"farming:wheat_6", "air", 0},
+		{"farming:wheat_5", "air", 0}, {"farming:wheat_4", "air", 0}, {"farming:wheat_3", "air", 0},
+		{"lottfarming:barley_3", "air", 0}, {"lottfarming:barley_wild", "air", 0}
+	},
 	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
         	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
@@ -551,11 +561,21 @@ mobs:register_mob("lottmobs:horsepeg", {
 		walk_start = 75,
 		walk_end = 100,
 	},
+	replace_rate = 1,
+	replace_what = {
+		{"farming:wheat_8", "air", 0}, {"farming:wheat_7", "air", 0}, {"farming:wheat_6", "air", 0},
+		{"farming:wheat_5", "air", 0}, {"farming:wheat_4", "air", 0}, {"farming:wheat_3", "air", 0},
+		{"lottfarming:barley_3", "air", 0}, {"lottfarming:barley_wild", "air", 0}
+	},
 	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
         	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
@@ -602,11 +622,21 @@ mobs:register_mob("lottmobs:horseara", {
 		walk_start = 75,
 		walk_end = 100,
 	},
+	replace_rate = 1,
+	replace_what = {
+		{"farming:wheat_8", "air", 0}, {"farming:wheat_7", "air", 0}, {"farming:wheat_6", "air", 0},
+		{"farming:wheat_5", "air", 0}, {"farming:wheat_4", "air", 0}, {"farming:wheat_3", "air", 0},
+		{"lottfarming:barley_3", "air", 0}, {"lottfarming:barley_wild", "air", 0}
+	},
 	follow = {"default:apple", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 9,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
     		minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
     		if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
@@ -654,11 +684,21 @@ mobs:register_mob("lottmobs:shirepony", {
 		walk_start = 45,
 		walk_end = 85,
 	},
+	replace_rate = 1,
+	replace_what = {
+		{"farming:wheat_8", "air", 0}, {"farming:wheat_7", "air", 0}, {"farming:wheat_6", "air", 0},
+		{"farming:wheat_5", "air", 0}, {"farming:wheat_4", "air", 0}, {"farming:wheat_3", "air", 0},
+		{"lottfarming:barley_3", "air", 0}, {"lottfarming:barley_wild", "air", 0}
+	},
 	follow = {"lottfarming:carrot", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
 			if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 			   	item:take_item()
@@ -706,11 +746,21 @@ mobs:register_mob("lottmobs:shireponyblack", {
 		walk_start = 45,
 		walk_end = 85,
 	},
+	replace_rate = 1,
+	replace_what = {
+		{"farming:wheat_8", "air", 0}, {"farming:wheat_7", "air", 0}, {"farming:wheat_6", "air", 0},
+		{"farming:wheat_5", "air", 0}, {"farming:wheat_4", "air", 0}, {"farming:wheat_3", "air", 0},
+		{"lottfarming:barley_3", "air", 0}, {"lottplants:barley_wild", "air", 0}
+	},
 	follow = {"lottfarming:carrot", "farming:sheaf_wheat", "lottother:beast_ring"},
 	view_range = 5,
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "lottfarming:barley_cooked" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
     		minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
         	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()

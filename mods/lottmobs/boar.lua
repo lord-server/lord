@@ -9,11 +9,9 @@ lottmobs:register_horse("lottmobs:boar_mount", {
 	collisionbox = {-0.4, -0.01, -0.4, 0.4, 1, 0.4},
 	visual = "mesh",
 	stepheight = 1.1,
---	attach_height = -120,
 	offset = true,
 	offset_h = 2,
 	attach_h = 14,
---	attach_r = 10,
 	reach = 2,
 	run = true,
 	hp = 40,
@@ -39,7 +37,6 @@ lottmobs:register_horse("lottmobs:boar_mount", {
 mobs:register_mob("lottmobs:boar", {
 	type = "animal",
 --	type = "monster",
---	race = "GAMEorc",
 	passive = false,
 	attack_type = "dogfight",
 	group_attack = true,
@@ -81,9 +78,15 @@ mobs:register_mob("lottmobs:boar", {
 		punch_start = 70,
 		punch_end = 100,
 	},
+	replace_rate = 1,
+	replace_what = { {"lottfarming:potato_3", "air", 0}, {"lottfarming:turnips_4", "air", 0}},
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "default:apple" or item:get_name() == "lottother:beast_ring" then
+			if math.random(1, 3) ~= 1 then
+				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				return
+			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:boar_mount")
         	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()

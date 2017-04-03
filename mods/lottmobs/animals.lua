@@ -182,9 +182,8 @@ mobs:register_mob("lottmobs:bunny", {
 	},
 	follow = {"lottfarming:carrot", "lottfarming:carrot_item", "lottother:beast_ring"},
 	view_range = 8,
-	replace_rate = 10,
-	replace_what = {"lottfarming:carrot_7", "lottfarming:carrot_8", "lottfarming:carrot"},
-	replace_with = "air",
+	replace_rate = 1,
+	replace_what = { {"lottfarming:carrot", "air", 0}, {"lottfarming:cabbage_1", "air", 0}}
 })
 
 --[[mobs:register_mob("lottmobs:rat", {
