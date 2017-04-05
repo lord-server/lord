@@ -116,5 +116,5 @@ gdragon_base.on_rightclick = lottmobs.dragon.ride
 
 mobs:register_mob("lottmobs:dragon_great_tame", lottmobs.deepclone(gdragon_base) )
 
-mobs:register_egg("lottmobs:dragon_great", "Boss Dragon", "mobs_dragon_egg.png", 1)
-mobs:register_egg("lottmobs:dragon_great_tame", "Great Dragon", "default_lava_source_animated.png", 1)
+--mobs:register_egg("lottmobs:dragon_great", "Boss Dragon", "mobs_dragon_egg.png", 1)
+--mobs:register_egg("lottmobs:dragon_great_tame", "Great Dragon", "default_lava_source_animated.png", 1)

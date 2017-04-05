@@ -50,6 +50,9 @@ dofile(minetest.get_modpath("lottmobs").."/trader_goods.lua")
 dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
 dofile(minetest.get_modpath("lottmobs").."/animals.lua")
+--dofile(minetest.get_modpath("lottmobs").."/dragons.lua")
+
+dofile(minetest.get_modpath("lottmobs").."/eggs.lua")
 -- Mobs
 
 mobs:register_mob("lottmobs:ent", {
@@ -425,7 +428,6 @@ mobs:register_mob("lottmobs:gondor_guard", {
 	group_attack = true,
 	step = 1,
 })
---mobs:register_spawn("lottmobs:gondor_guard", {"lottmapgen:gondor_grass"}, 20, -1, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:ithilien_ranger", {
 	type = "npc",
@@ -891,52 +893,6 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	group_attack = true,
 	step = 1,
 })
-
---[[mobs:register_mob("lottmobs:warg", {
-	type = "monster",
-	hp_min = 25,
-	hp_max = 40,
-	collisionbox = {-0.5, -0.01, -0.5, 0.5, 2.5, 0.5},
-	textures = {
-		{"lottmobs_warg.png"},
-	},
-	visual = "mesh",
-	mesh = "warg.b3d",
-	makes_footstep_sound = true,
-	walk_velocity = 2,
-	run_velocity = 5,
-	view_range = 16,
-	armor = 300,
-	drops = {
-		{name = "lottmobs:meat_raw",			chance = 5,		min = 3,		max = 10,},
-		{name = "lottclothes:felt_grey",	chance = 5,		min = 2,		max = 7,},
-	},
-	light_resistant = true,
-	drawtype = "front",
-	water_damage = 1,
-	lava_damage = 5,
-	light_damage = 0,
-	damage = 8,
-	attack_type = "dogfight", --Rather suitible name!
-	animation = {
-		speed_normal = 10,
-		speed_run = 10,
-		stand_start = 135,
-		stand_end = 280,
-		walk_start = 40,
-		walk_end = 75,
-		run_start = 80,
-		run_end = 130,
-		punch_start = 350,
-		punch_end = 420,
-	},
-	jump = true,
-	attacks_monsters = true,
-	peaceful = true,
-	group_attack = true,
-	step = 1,
-	sounds = {},
-})]]--
 
 mobs:register_mob("lottmobs:uruk_hai", {
 	type = "monster",
