@@ -60,7 +60,7 @@ mobs:register_mob("lottmobs:boar", {
 	walk_velocity = 2,
 	run_velocity = 3,
 	jump = true,
-	follow = {"default:apple", "lottfarming:potato", "lottfarming:carrot_item", "lottother:beast_ring"},
+	follow = {"default:apple", "lottfarming:potato", "lottother:beast_ring"},
 	view_range = 10,
 	drops = {
 		{name = "lottmobs:pork_raw", chance = 1, min = 1, max = 3},
@@ -79,7 +79,7 @@ mobs:register_mob("lottmobs:boar", {
 		punch_end = 100,
 	},
 	replace_rate = 1,
-	replace_what = { {"lottfarming:potato_3", "air", 0}, {"lottfarming:carrot_item", "air", 0}},
+	replace_what = {{"lottfarming:potato_3", "air", 0}, {"lottfarming:turnips_4", "air", 0}},
 	on_rightclick = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "default:apple" or item:get_name() == "lottother:beast_ring" then

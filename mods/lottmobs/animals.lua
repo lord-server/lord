@@ -180,10 +180,10 @@ mobs:register_mob("lottmobs:bunny", {
 		punch_start = 16,
 		punch_end = 24,
 	},
-	follow = {"lottfarming:carrot", "lottfarming:cabbage", "lottother:beast_ring"},
+	follow = {"lottfarming:carrot_item", "lottother:beast_ring"},
 	view_range = 8,
 	replace_rate = 1,
-	replace_what = { {"lottfarming:carrot", "air", 0}, {"lottfarming:cabbage_3", "air", 0}}
+	replace_what = { {"lottfarming:carrot", "air", 0}, {"lottfarming:cabbage_1", "air", 0}}
 })
 
 --[[mobs:register_mob("lottmobs:rat", {
