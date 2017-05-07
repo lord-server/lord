@@ -229,8 +229,8 @@ minetest.register_craft({
 	output = "castle:battleaxe",
 	recipe = {
 		{"default:steel_ingot", "default:mese_crystal","default:steel_ingot"},
-		{"default:steel_ingot", "default:stick","default:steel_ingot"},
-                  {"", "default:stick",""}
+		{"default:steel_ingot", "group:stick","default:steel_ingot"},
+                  {"", "group:stick",""}
 	}
 })
 

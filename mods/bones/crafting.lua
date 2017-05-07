@@ -15,8 +15,8 @@ minetest.register_craft({
 	output = 'bones:bone_scythe',
 	recipe = {
 		{'bones:bone', 'bones:bone', ''},
-		{'', 'default:stick', ''},
-		{'', 'default:stick',''},
+		{'', 'group:stick', ''},
+		{'', 'group:stick',''},
 	}
 })
 

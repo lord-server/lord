@@ -10,6 +10,7 @@ minetest.register_node("lord_homedecor:skylight", {
 	paramtype = "light",
 	sounds = default.node_sound_glass_defaults(),
 	selection_box = lord_homedecor.nodebox.slab_y(0.1),
+	collision_box = lord_homedecor.nodebox.slab_y(0.1),
 })
 
 minetest.register_node("lord_homedecor:skylight_frosted", {
@@ -23,6 +24,7 @@ minetest.register_node("lord_homedecor:skylight_frosted", {
 	paramtype = "light",
 	sounds = default.node_sound_glass_defaults(),
 	selection_box = lord_homedecor.nodebox.slab_y(0.1),
+	collision_box = lord_homedecor.nodebox.slab_y(0.1),
 })
 
 for _, s in pairs({"terracotta", "wood", "glass"}) do
