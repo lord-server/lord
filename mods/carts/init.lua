@@ -14,9 +14,9 @@ local cart = {
 	physical = false,
 	collisionbox = {-0.5,-0.5,-0.5, 0.5,0.5,0.5},
 	visual = "mesh",
-	mesh = "cart.x",
+	mesh = "carts_cart.b3d",
 	visual_size = {x=1, y=1},
-	textures = {"cart.png"},
+	textures = {"carts.png"},
 
 	driver = nil,
 	velocity = {x=0, y=0, z=0},

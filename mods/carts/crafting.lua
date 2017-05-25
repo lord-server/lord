@@ -7,9 +7,9 @@ local SL = lord.require_intllib()
 minetest.register_craft({
 	output = "carts:cart",
 	recipe = {
-		{"", "", ""},
 		{"default:steel_ingot", "", "default:steel_ingot"},
-		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+		{"group:wood", "", "group:wood"},
+		{"default:steel_ingot", "group:wood", "default:steel_ingot"},
 	},
 })
 
