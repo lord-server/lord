@@ -1,3 +1,4 @@
+local SL = lord.require_intllib()
 -- mods/default/crafting.lua
 
 minetest.register_craft({
@@ -327,10 +328,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "default:gravel",
-	recipe = {
-		{'default:cobble'},
-	}
+	type = "shapeless",
+	output = "default:dirt",
+	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
 })
 
 --
@@ -517,3 +517,95 @@ minetest.register_craft({
 	recipe = "default:lava_source",
 	burntime = 60,
 })
+
+
+stairs.register_stair_and_slab("wood", "default:wood",
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3, wooden = 1},
+		{"default_wood.png"},
+		SL("Wooden Stair"),
+		SL("Wooden Slab"),
+		default.node_sound_wood_defaults())
+
+stairs.register_stair_and_slab("stone", "default:stone",
+		{cracky=3},
+		{"default_stone.png"},
+		SL("Stone Stair"),
+		SL("Stone Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("cobble", "default:cobble",
+		{cracky=3},
+		{"default_cobble.png"},
+		SL("Cobble Stair"),
+		SL("Cobble Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("brick", "default:brick",
+		{cracky=3},
+		{"default_brick.png"},
+		SL("Brick Stair"),
+		SL("Brick Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("sandstone", "default:sandstone",
+		{crumbly=2,cracky=2},
+		{"default_sandstone.png"},
+		SL("Sandstone Stair"),
+		SL("Sandstone Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("junglewood", "default:junglewood",
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3, wooden = 1},
+		{"default_junglewood.png"},
+		SL("Junglewood Stair"),
+		SL("Junglewood Slab"),
+		default.node_sound_wood_defaults())
+
+stairs.register_stair_and_slab("stonebrick", "default:stonebrick",
+		{cracky=3},
+		{"default_stone_brick.png"},
+		SL("Stone Brick Stair"),
+		SL("Stone Brick Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("desert_stonebrick", "default:desert_stonebrick",
+		{cracky=3},
+		{"default_desert_stone_brick.png"},
+		SL("Desert Stone Brick Stair"),
+		SL("Desert Stone Brick Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("desert_stone", "default:desert_stone",
+		{cracky=3},
+		{"default_desert_stone.png"},
+		SL("Desert Stone Stair"),
+		SL("Desert Stone Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("desert_cobble", "default:desert_cobble",
+		{cracky=3},
+		{"default_desert_cobble.png"},
+		SL("Desert Cobble Stair"),
+		SL("Desert Cobble Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("sandstonebrick", "default:sandstonebrick",
+		{cracky=3},
+		{"default_sandstone_brick.png"},
+		SL("Sandstone Brick Stair"),
+		SL("Sandstone Brick Slab"),
+		default.node_sound_stone_defaults())
+
+stairs.register_stair_and_slab("obsidian", "default:obsidian",
+		{cracky=3},
+		{"default_obsidian.png"},
+		SL("Obsidian Stair"),
+		SL("Obsidian Slab"),
+		default.node_sound_stone_defaults())
+		
+stairs.register_stair_and_slab("mossycobble", "default:mossycobble",
+		{cracky=3},
+		{"default_mossycobble.png"},
+		SL("Mossycobble Stair"),
+		SL("Mossycobble Slab"),
+		default.node_sound_stone_defaults())

@@ -106,14 +106,19 @@ function grinder.get_grinding_recipe(typename, items)
 end
 
 local recipes = {
-	{"default:coal_lump", "grinder:coal_dust 2", 5},
-	{"default:stone", "default:sand", 5},
-	{"default:desert_stone", "default:desert_sand", 5},
+	{"default:stone", "default:cobble", 5},
+	{"default:desert_stone", "default:desert_cobble", 5},
 	{"default:cobble", "default:gravel", 5},
-	{"default:glass", "default:desert_sand", 5},
-	{"vessels:glass_bottle 5", "default:desert_sand", 8},
-	{"vessels:drinking_glass 3", "default:desert_sand", 6},
-	{"vessels:glass_fragments 3", "default:desert_sand", 6},
+	{"default:desert_cobble", "default:gravel", 5},
+	{"default:mossycobble", "default:gravel", 5},
+	{"default:snowycobble", "default:gravel", 5},
+	{"default:gravel", "default:sand", 5},
+	{"default:sand", "default:clay", 5},
+	{"default:coal_lump", "grinder:coal_dust 2", 5},
+	{"default:glass", "default:sand", 5},
+	{"vessels:glass_bottle 5", "default:sand", 8},
+	{"vessels:drinking_glass 3", "default:sand", 6},
+	{"vessels:glass_fragments 3", "default:sand", 6},
 }
 
 for _, data in pairs(recipes) do
@@ -481,12 +486,6 @@ minetest.register_abm({
 
 		inv:set_stack("fuel", 1, afterfuel.items[1])
 	end,
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:steel_ingot",
-	recipe = "group:steel_item",
 })
 
 minetest.register_craftitem("grinder:coal_dust", {

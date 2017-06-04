@@ -143,6 +143,15 @@ minetest.register_alias("lottfarming:corn", "lottfarming:ear_of_corn")
 minetest.register_alias("lottfarming:corn_seed", "lottfarming:corn0")
 minetest.register_alias("lottfarming:potato_seed", "lottfarming:half_of_potatoe")
 
+minetest.register_alias("lord_homedecor:stair_Adobe", "stairs:stair_adobe")
+minetest.register_alias("lord_homedecor:stair_Roofing", "stairs:stair_roofing")
+minetest.register_alias("lord_homedecor:stair_grate", "stairs:stair_grate")
+minetest.register_alias("lord_homedecor:stair_hardwood", "stairs:stair_hardwood")
+minetest.register_alias("lord_homedecor:slab_Adobe", "stairs:slab_adobe")
+minetest.register_alias("lord_homedecor:slab_Roofing", "stairs:slab_roofing")
+minetest.register_alias("lord_homedecor:slab_grate", "stairs:slab_grate")
+minetest.register_alias("lord homedecor:slab_hardwood", "stairs:slab_hardwood")
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do

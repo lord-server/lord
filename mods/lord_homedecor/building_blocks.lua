@@ -285,159 +285,37 @@ minetest.register_node("lord_homedecor:scaffolding", {
 minetest.register_craft({
 	output = "lord_homedecor:scaffolding 3",
 	recipe = {
-		{"default:wood","default:wood","default:wood"},
+		{"group:wood","group:wood","group:wood"},
 		{"","group:stick",""},
 		{"group:stick","","group:stick"}
 	}
 })
 
--- END REGISTER NODE
 
-if minetest.get_modpath("moreblocks") then
-
-	stairsplus:register_all(
-		"building_blocks",
-		"hardwood",
-		"lord_homedecor:hardwood",
-		{
-			description = "Hardwood",
-			tiles = {"building_blocks_hardwood.png"},
-			groups = {choppy=1,flammable=1},
-			sounds = default.node_sound_wood_defaults(),
-		}
-	)
-	stairsplus:register_all(
-		"building_blocks",
-		"grate",
-		"lord_homedecor:grate",
-		{
-			description = "Grate",
-			tiles = {"building_blocks_grate.png"},
-			groups = {cracky=1},
-			sounds = default.node_sound_stone_defaults(),
-		}
-	)
-	stairsplus:register_all(
-		"building_blocks",
-		"Adobe",
-		"lord_homedecor:Adobe",
-		{
-			description = "Adobe",
-			tiles = {"building_blocks_Adobe.png"},
-			groups = {crumbly=3},
-			sounds = default.node_sound_stone_defaults(),
-		}
-	)
-	stairsplus:register_all(
-		"building_blocks",
-		"Roofing",
-		"lord_homedecor:Roofing",
-		{
-			description = "Roofing",
-			tiles = {"building_blocks_Roofing.png"},
-			groups = {snappy=3},
-			sounds = default.node_sound_stone_defaults(),
-		}
-	)
-else
-	bb_stairs = {}
-
-	-- Node will be called stairs:stair_<subname>
-	function bb_stairs.register_stair(subname, recipeitem, groups, images, description)
-		minetest.register_node("lord_homedecor:stair_" .. subname, {
-			description = SL(description),
-			drawtype = "nodebox",
-			tiles = images,
-			paramtype = "light",
-			paramtype2 = "facedir",
-			is_ground_content = true,
-			groups = groups,
-			node_box = {
-				type = "fixed",
-				fixed = {
-					{-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-					{-0.5, 0, 0, 0.5, 0.5, 0.5},
-				},
-			},
-		})
-
-		minetest.register_craft({
-			output = 'lord_homedecor:stair_' .. subname .. ' 4',
-			recipe = {
-				{recipeitem, "", ""},
-				{recipeitem, recipeitem, ""},
-				{recipeitem, recipeitem, recipeitem},
-			},
-		})
-
-		-- Flipped recipe for the silly minecrafters
-		minetest.register_craft({
-			output = 'lord_homedecor:stair_' .. subname .. ' 4',
-			recipe = {
-				{"", "", recipeitem},
-				{"", recipeitem, recipeitem},
-				{recipeitem, recipeitem, recipeitem},
-			},
-		})
-	end
-
-	-- Node will be called stairs:slab_<subname>
-	function bb_stairs.register_slab(subname, recipeitem, groups, images, description)
-		minetest.register_node("lord_homedecor:slab_" .. subname, {
-			description = SL(description),
-			drawtype = "nodebox",
-			tiles = images,
-			paramtype = "light",
-			is_ground_content = true,
-			groups = groups,
-			node_box = {
-				type = "fixed",
-				fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-			},
-			selection_box = {
-				type = "fixed",
-				fixed = {-0.5, -0.5, -0.5, 0.5, 0, 0.5},
-			},
-		})
-
-		minetest.register_craft({
-			output = 'lord_homedecor:slab_' .. subname .. ' 3',
-			recipe = {
-				{recipeitem, recipeitem, recipeitem},
-			},
-		})
-	end
-
-	-- Nodes will be called stairs:{stair,slab}_<subname>
-	function bb_stairs.register_stair_and_slab(subname, recipeitem, groups, images, desc_stair, desc_slab)
-		bb_stairs.register_stair(subname, recipeitem, groups, images, desc_stair)
-		bb_stairs.register_slab(subname, recipeitem, groups, images, desc_slab)
-	end
-	bb_stairs.register_stair_and_slab("hardwood","lord_homedecor:hardwood",
+stairs.register_stair_and_slab("hardwood", "lord_homedecor:hardwood",
 		{choppy=1,flammable=1},
 		{"building_blocks_hardwood.png"},
-		"Hardwood stair",
-		"Hardwood slab"
-	)
-	bb_stairs.register_stair_and_slab("grate","lord_homedecor:grate",
+		SL("Hardwood stair"),
+		SL("Hardwood slab"),
+		default.node_sound_wood_defaults())
+stairs.register_stair_and_slab("grate", "lord_homedecor:grate",
 		{cracky=1},
 		{"building_blocks_grate.png"},
-		"Grate Stair",
-		"Grate Slab"
-	)
-	bb_stairs.register_stair_and_slab("Adobe", "lord_homedecor:Adobe",
-		{crumbly=3},
+		SL("Grate stair"),
+		SL("Grate slab"),
+		default.node_sound_leaves_defaults())
+stairs.register_stair_and_slab("adobe", "lord_homedecor:Adobe",
+		{cracky=3},
 		{"building_blocks_Adobe.png"},
-		"Adobe stair",
-		"Adobe slab"
-	)
-	bb_stairs.register_stair_and_slab("Roofing", "lord_homedecor:Roofing",
-		{snappy=3},
+		SL("Adobe stair"),
+		SL("Adobe slab"),
+		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab("roofing", "lord_homedecor:Roofing",
+		{cracky=3},
 		{"building_blocks_Roofing.png"},
-		"Roofing stair",
-		"Roofing slab"
-	)
-end
+		SL("Roofing stair"),
+		SL("Roofing slab"),
+		default.node_sound_stone_defaults())
 
 
 minetest.register_craft({

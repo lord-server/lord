@@ -95,7 +95,7 @@ end
 local function update_formspecs(finished)
 	local ges = #minetest.get_connected_players()
 	local form_n = ""
-	local is_majority = (ges/2) < player_in_bed
+	local is_majority = (ges/2) <= player_in_bed
 
 	if finished then
 		form_n = beds.formspec ..

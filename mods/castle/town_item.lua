@@ -287,8 +287,8 @@ minetest.register_node("castle:light",{
 minetest.register_craft({
 	output = "castle:light",
 	recipe = {
-		{"default:stick", "default:glass", "default:stick"},
+		{"group:stick", "default:glass", "group:stick"},
 		{"default:glass", "default:torch", "default:glass"},
-		{"default:stick", "default:glass", "default:stick"},
+		{"group:stick", "default:glass", "group:stick"},
 	}
 })
