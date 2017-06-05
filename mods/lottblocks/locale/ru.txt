@@ -99,6 +99,31 @@ Mallorn (Note Eb) Whistle	=	Маллорновый свисток (нота МИ
 Pine (Note Bb) Whistle	=	Сосновый свисток (нота СИ-бемоль)
 Wood (Note C) Whistle	=	Яблоневый свисток (нота ДО)
 
+### palantiri.lua ###
+Palantir = Палантир
+Network Name = Клан палантиров
+Palantir Name = Имя палантира
+Both the network and the palantir must have a name!! = Клан и Палантир должны иметь имя!!
+Palantir cannot use reserved name! = Палантир не может иметь зарезервированное имя!
+Someone else has a network with this name! = Кто-то уже создал такой клан!
+A palantir already exists on this network with the same name! = В этом клане уже есть палантир с таким именем!
+The palantiri is no longer anchored to the world! = Палантир больше не привязан к миру!
+Teleport to... = Перемещение к...
+Allowed races = Разрешённые расы
+dwarves = гномы
+elves = эльфы
+men = люди
+orcs = орки
+hobbits = хоббиты
+Allows editing palantiri = Разрешено изменять палантир
+Proceed = Сохранить
+Sorry, at the point of teleport wall = Извините, в точке перемещения стена.
+One does not simply set down a palantir... = Здесь нельзя установить Палантир...
+You have no skill use the palantir! = У вас мало опыта для использования палантира!
+
+### guides.lua ###
+Palantir Guidebook = Книга Палантиров
+
 ### wooden_stuff.lua ###
 Wooden Door	=	Яблоневая дверь
 Wooden Door With Lock	=	Яблоневая дверь с замком
@@ -154,4 +179,3 @@ Mallorn Table	=	Маллорновый стол
 Mallorn Chair	=	Маллорновый стул
 Mallorn Ladder	=	Маллорновая лестница
 Mallorn Stick	=	Маллорновая палочка
-

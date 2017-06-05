@@ -117,6 +117,7 @@ minetest.register_node(":vessels:glass_bottle", {
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
+		local res = nil
 		pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
@@ -124,21 +125,30 @@ minetest.register_node(":vessels:glass_bottle", {
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_two_third_full"})
 			itemstack:take_item()
-			user:get_inventory():add_item("main", "lottpotion:glass_bottle_water")
+			res = user:get_inventory():add_item("main", "lottpotion:glass_bottle_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_two_third_full") then
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_one_third_full"})
 			itemstack:take_item()
-			user:get_inventory():add_item('main', "lottpotion:glass_bottle_water")
+			res = user:get_inventory():add_item('main', "lottpotion:glass_bottle_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_one_third_full") then
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_empty"})
 			itemstack:take_item()
-			user:get_inventory():add_item('main', "lottpotion:glass_bottle_water")
+			res = user:get_inventory():add_item('main', "lottpotion:glass_bottle_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 	end
@@ -175,6 +185,7 @@ minetest.register_node(":vessels:drinking_glass", {
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
+		local res = nil
 		local pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
@@ -182,21 +193,30 @@ minetest.register_node(":vessels:drinking_glass", {
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_two_third_full"})
 			itemstack:take_item()
-			user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			res = user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_two_third_full") then
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_one_third_full"})
 			itemstack:take_item()
-			user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			res = user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_one_third_full") then
 			minetest.remove_node(pos)
 			minetest.set_node(pos, {name="lottpotion:cauldron_empty"})
 			itemstack:take_item()
-			user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			res = user:get_inventory():add_item('main', "lottpotion:drinking_glass_water")
+			if res then
+				minetest.item_drop(res, user, pos)
+			end
 			return itemstack
 		end
 	end
