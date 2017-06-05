@@ -82,9 +82,9 @@ minetest.register_craftitem("lottmobs:horsemeat_raw", {
 	on_use = minetest.item_eat(2),
 })
 
-minetest.register_craftitem("lottmobs:chiken_raw", {
+minetest.register_craftitem("lottmobs:chiсken_raw", {
 	description = SL("Raw Chiken"),
-	inventory_image = "lottmobs_chiken_raw.png",
+	inventory_image = "lottmobs_chiсken_raw.png",
 	on_use = minetest.item_eat(2),
 })
 
@@ -105,9 +105,9 @@ minetest.register_craftitem("lottmobs:horsemeat_cooked", {
 	on_use = minetest.item_eat(5),
 })
 
-minetest.register_craftitem("lottmobs:chiken_cooked", {
-	description = SL("Cooked Chiken"),
-	inventory_image = "lottmobs_chiken_cooked.png",
+minetest.register_craftitem("lottmobs:chiсken_cooked", {
+	description = SL("Cooked Chiсken"),
+	inventory_image = "lottmobs_chiсken_cooked.png",
 	on_use = minetest.item_eat(4),
 })
 
