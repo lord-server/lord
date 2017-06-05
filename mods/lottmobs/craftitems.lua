@@ -68,3 +68,57 @@ minetest.register_craftitem("lottmobs:spiderpoison", {
 	description = SL("Spider Poison"),
 	inventory_image = "lottmobs_spiderpoison.png",
 })
+
+
+minetest.register_craftitem("lottmobs:fish_raw", {
+	description = SL("Raw Fish"),
+	inventory_image = "lottmobs_fish_raw.png",
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottmobs:horsemeat_raw", {
+	description = SL("Raw Horsemeat"),
+	inventory_image = "lottmobs_horsemeat_raw.png",
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craftitem("lottmobs:chiken_raw", {
+	description = SL("Raw Chiken"),
+	inventory_image = "lottmobs_chiken_raw.png",
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craftitem("lottmobs:rabbit_raw", {
+	description = SL("Raw Rabbit"),
+	inventory_image = "lottmobs_rabbit_raw.png",
+	on_use = minetest.item_eat(1),
+})
+minetest.register_craftitem("lottmobs:fish_cooked", {
+	description = SL("Cooked Fish"),
+	inventory_image = "lottmobs_fish_cooked.png",
+	on_use = minetest.item_eat(3),
+})
+
+minetest.register_craftitem("lottmobs:horsemeat_cooked", {
+	description = SL("Cooked Horsemeat"),
+	inventory_image = "lottmobs_horsemeat_cooked.png",
+	on_use = minetest.item_eat(5),
+})
+
+minetest.register_craftitem("lottmobs:chiken_cooked", {
+	description = SL("Cooked Chiken"),
+	inventory_image = "lottmobs_chiken_cooked.png",
+	on_use = minetest.item_eat(4),
+})
+
+minetest.register_craftitem("lottmobs:rabbit_cooked", {
+	description = SL("Cooked Rabbit"),
+	inventory_image = "lottmobs_rabbit_cooked.png",
+	on_use = minetest.item_eat(3),
+})
+
+minetest.register_craftitem("lottmobs:rabbit_cooked", {
+	description = SL("Rotten Meat"),
+	inventory_image = "lottmobs_rabbit_cooked.png",
+	on_use = minetest.item_eat(2),
+})
