@@ -269,5 +269,6 @@ if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:chicken_cooked", 4)
 	overwrite("lottmobs:rabbit_cooked", 3)
 	overwrite("lottmobs:rotten_meat", 2, "", 6)
+	overwrite("lottmobs:egg", 1, "", 2)
 
 end
