@@ -83,7 +83,7 @@ minetest.register_craftitem("lottmobs:horsemeat_raw", {
 })
 
 minetest.register_craftitem("lottmobs:chiсken_raw", {
-	description = SL("Raw Chiken"),
+	description = SL("Raw Chicken"),
 	inventory_image = "lottmobs_chiсken_raw.png",
 	on_use = minetest.item_eat(2),
 })
