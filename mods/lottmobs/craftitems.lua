@@ -117,8 +117,8 @@ minetest.register_craftitem("lottmobs:rabbit_cooked", {
 	on_use = minetest.item_eat(3),
 })
 
-minetest.register_craftitem("lottmobs:rabbit_cooked", {
+minetest.register_craftitem("lottmobs:rotten_meat", {
 	description = SL("Rotten Meat"),
-	inventory_image = "lottmobs_rabbit_cooked.png",
+	inventory_image = "lottmobs_rotten_meat.png",
 	on_use = minetest.item_eat(2),
 })
