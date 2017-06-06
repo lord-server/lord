@@ -1,3 +1,5 @@
+local SL = lord.require_intllib()
+
 minetest.register_craftitem("lottfarming:lembas", {
   description = SL("Lembas"),
   inventory_image = "lottfarming_lembas.png",
