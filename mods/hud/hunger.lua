@@ -242,6 +242,8 @@ if minetest.get_modpath("lottfarming") ~= nil then
 	overwrite("lottfarming:turnips_cooked", 8)
 	overwrite("lottfarming:salad", 6, "lottfarming:bowl")
 	overwrite("lottfarming:mushroom_soup", 8, "lottfarming:bowl")
+	overwrite("lottfarming:cookie_cracker", 2)
+	overwrite("lottfarming:lembas", 100)
 end
 
 if minetest.get_modpath("lottores") ~= nil then
