@@ -51,12 +51,12 @@ minetest.register_craftitem("lottachievements:achievement_book", {
 
 -- Random Achievements!
 
-lottachievements.register_achievement("smoke_rings", {
-	title = SL("Smoke Rings"),
-	description = SL("Blow a smoke ring with a pipe"),
-	icon = "lottfarming_smoke_ring.png",
-	id = 1,
-})
+-- lottachievements.register_achievement("smoke_rings", {
+-- 	title = SL("Smoke Rings"),
+-- 	description = SL("Blow a smoke ring with a pipe"),
+-- 	icon = "lottfarming_smoke_ring.png",
+-- 	id = 1,
+-- })
 
 lottachievements.register_achievement("a_long_path_to_mushrooms", {
 	title = SL("A Long Path to Mushrooms"),
@@ -82,12 +82,12 @@ lottachievements.register_achievement("tasty_taters", {
 	}
 })
 
-lottachievements.register_achievement("thief", {
-	title = SL("Thief!"),
-	description = SL("Use a lockpick to break into a chest of a different race"),
-	icon = "lottblocks_steel_lockpick.png",
-	id = 4,
-})
+-- lottachievements.register_achievement("thief", {
+-- 	title = SL("Thief!"),
+-- 	description = SL("Use a lockpick to break into a chest of a different race"),
+-- 	icon = "lottblocks_steel_lockpick.png",
+-- 	id = 4,
+-- })
 
 lottachievements.register_achievement("rope_is_useful", {
 	title = SL("Rope is useful!"),
@@ -495,13 +495,13 @@ lottachievements.register_achievement("abandoned_workshop", {
 	}
 })
 
-lottachievements.register_achievement("ringsilver_crafter", {
-	title = SL("Ringsilver crafter"),
-	description = SL("Form your first ingot of ringsilver!"),
-	icon = "lottother_ringsilver_ingot.png",
-	requires = "abandoned_workshop",
-	id = 38,
-})
+-- lottachievements.register_achievement("ringsilver_crafter", {
+-- 	title = SL("Ringsilver crafter"),
+-- 	description = SL("Form your first ingot of ringsilver!"),
+-- 	icon = "lottother_ringsilver_ingot.png",
+-- 	requires = "abandoned_workshop",
+-- 	id = 38,
+-- })
 
 lottachievements.register_achievement("the_ring_is_prepared", {
 	title = SL("The Ring is Prepared..."),
@@ -529,21 +529,21 @@ lottachievements.register_achievement("a_pickaxe_fit_for_a_king", {
 	}
 })
 
-lottachievements.register_achievement("polisher", {
-	title = SL("Polisher"),
-	description = SL("Polish a gem"),
-	icon = "lottother_redgem.png",
-	requires = "a_pickaxe_fit_for_a_king",
-	id = 41,
-})
+-- lottachievements.register_achievement("polisher", {
+-- 	title = SL("Polisher"),
+-- 	description = SL("Polish a gem"),
+-- 	icon = "lottother_redgem.png",
+-- 	requires = "a_pickaxe_fit_for_a_king",
+-- 	id = 41,
+-- })
 
-lottachievements.register_achievement("ring_smith", {
-	title = SL("Ring Smith"),
-	description = SL("Forge a ring of power"),
-	requires = "polisher",
-	icon = "lottother_narya.png",
-	id = 42,
-})
+-- lottachievements.register_achievement("ring_smith", {
+-- 	title = SL("Ring Smith"),
+-- 	description = SL("Forge a ring of power"),
+-- 	requires = "polisher",
+-- 	icon = "lottother_narya.png",
+-- 	id = 42,
+-- })
 
 lottachievements.register_achievement("supersonic_speed", {
 	title = SL("Supersonic Speed"),
