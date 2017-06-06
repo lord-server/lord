@@ -3,8 +3,6 @@ local SL = lord.require_intllib()
 arrows = {
 	{"lottthrowing:arrow", "lottthrowing:arrow_entity"},
      {"lottthrowing:arrow_mithril", "lottthrowing:arrow_mithril_entity"},
-	{"lottthrowing:arrow_fire", "lottthrowing:arrow_fire_entity"},
-     {"lottthrowing:arrow_fire_blue", "lottthrowing:arrow_fire_blue_entity"},
      {"lottthrowing:arrow_magical", "lottthrowing:arrow_magical_entity"},
 }
 
