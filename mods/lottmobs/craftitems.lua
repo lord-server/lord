@@ -82,9 +82,9 @@ minetest.register_craftitem("lottmobs:fish_raw", {
 	--on_use = minetest.item_eat(2),
 --})
 
-minetest.register_craftitem("lottmobs:chiсken_raw", {
+minetest.register_craftitem("lottmobs:chicken_raw", {
 	description = SL("Raw Chicken"),
-	inventory_image = "lottmobs_chiсken_raw.png",
+	inventory_image = "lottmobs_chicken_raw.png",
 	on_use = minetest.item_eat(2),
 })
 
@@ -106,9 +106,9 @@ minetest.register_craftitem("lottmobs:fish_cooked", {
 	--on_use = minetest.item_eat(5),
 --})
 
-minetest.register_craftitem("lottmobs:chiсken_cooked", {
+minetest.register_craftitem("lottmobs:chicken_cooked", {
 	description = SL("Cooked Chiсken"),
-	inventory_image = "lottmobs_chiсken_cooked.png",
+	inventory_image = "lottmobs_chicken_cooked.png",
 	on_use = minetest.item_eat(4),
 })
 
