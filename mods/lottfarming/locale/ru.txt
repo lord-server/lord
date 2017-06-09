@@ -46,6 +46,10 @@ Melon	=	Арбуз
 Orc Food	=	Еда орков
 Orc medicine	=	Лекарство орков
 
+### other.lua ###
+Lembas = Лембас (только для админов/модеров)
+Cracker = Крекер
+
 ### pipeweed.lua ###
 Pipeweed Seeds	=	Семена табака
 Pipeweed	=	Табак
