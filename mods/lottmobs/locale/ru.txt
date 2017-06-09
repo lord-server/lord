@@ -14,10 +14,10 @@ Raw Fish = Сырая Рыба
 Raw Horsmeat = Сырая Конина
 Raw Chicken = Сырая Курица
 Raw Rabbit = Сырая Крольчатина
-Cooked Fish = Сырая Рыба
-Cooked Horsmeat = Сырая Конина
-Cooked Chicken = Сырая Курица
-Cooked Rabbit = Сырая Крольчатина
+Cooked Fish = Жареная Рыба
+Cooked Horsmeat = Жареная Конина
+Cooked Chicken = Жареная Курица
+Cooked Rabbit = Жареная Крольчатина
 
 ### horse.lua ###
 Brown Horse	=	Гнедая лошадь
