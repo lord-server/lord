@@ -18,6 +18,9 @@ Cooked Fish = Жареная Рыба
 Cooked Horsmeat = Жареная Конина
 Cooked Chicken = Жареная Курица
 Cooked Rabbit = Жареная Крольчатина
+Rotten Meat = Гнилое Мясо
+Chicken Egg = Куриное Яйцо
+Omelette = Яичница
 
 ### horse.lua ###
 Brown Horse	=	Гнедая лошадь
