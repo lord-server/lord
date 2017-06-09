@@ -132,7 +132,7 @@ minetest.register_craftitem("lottmobs:egg", {
 })
 
 minetest.register_craftitem("lottmobs:fried_egg", {
-	description = SL("Fried Chicken Egg"),
+	description = SL("Omelette"),
 	inventory_image = "lottmobs_fried_egg.png",
 	on_use = minetest.item_eat(3),
 })
