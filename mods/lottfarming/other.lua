@@ -14,7 +14,42 @@ minetest.register_craftitem("lottfarming:cookie_cracker", {
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "lottfarming:dough",
+	output = "lottfarming:salted_dough",
 	recipe = {{"lottores:salt", "lottfarming:dough"}}
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottfarming:dough",
+	recipe = {{"lottpotion:glass_bottle_water", "farming:flour"}}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottfarming:yeast_dough",
+	recipe = {{"group:mushrooms", "lottfarming:dough"}}
+})
+
+minetest.register_craftitem("lottfarming:dough", {
+  description = SL("Dough"),
+  inventory_image = "lottfarming_dough.png",
+  on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottfarming:yeast_dough", {
+  description = SL("Yeast Dough"),
+  inventory_image = "lottfarming_ydough.png",
+  on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottfarming:salted_dough", {
+  description = SL("Salted Dough"),
+  inventory_image = "lottfarming_sdough.png",
+  on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottfarming:salted_dough", {
+  description = SL("Salted Dough"),
+  inventory_image = "lottfarming_sdough.png",
+  on_use = minetest.item_eat(1),
+})
