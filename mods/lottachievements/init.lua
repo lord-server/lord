@@ -33,8 +33,6 @@ dofile(minetest.get_modpath("lottachievements").."/triggers.lua")
 -- To add achievements in the middle of ids (e.g. between 29 and 30),
 -- use the script at the bottom of the file, changing the variables as needed.
 
--- 1 Книга (по центру) + 4 разных драгоценных камня по углам + 1 брюлик + 1 месе + 1 мифрила + 1 слиток золота.
-
 minetest.register_craftitem("lottachievements:achievement_book", {
 	description = SL("Achievements Book"),
 	inventory_image = "lottachievements_achievement_book.png",
@@ -49,14 +47,27 @@ minetest.register_craftitem("lottachievements:achievement_book", {
 	end,
 })
 
+minetest.register_craft({
+	output = 'lottachievements:achievement_book',
+	recipe = {
+		{'lottores:blue_gem', 'lottores:tilkal_ingot', 'lottother:purple_gem'},
+		{'default:mese_crystal', 'default:book', 'default:diamond'},
+		{'lottores:white_gem', 'lottother:ringsilver_ingot', 'lottores:red_gem'},
+	}
+})
 -- Random Achievements!
 
--- lottachievements.register_achievement("smoke_rings", {
--- 	title = SL("Smoke Rings"),
--- 	description = SL("Blow a smoke ring with a pipe"),
--- 	icon = "lottfarming_smoke_ring.png",
--- 	id = 1,
--- })
+lottachievements.register_achievement("i_achieved_this", {
+	title = SL("I achieved this!"),
+	description = SL("Make the Achievements Book"),
+	icon = "lottachievements_achievement_book.png",
+	id = 1,
+	trigger = {
+		type = "craft",
+		item = "lottachievements:achievement_book",
+		target = 1,
+	}
+})
 
 lottachievements.register_achievement("a_long_path_to_mushrooms", {
 	title = SL("A Long Path to Mushrooms"),
