@@ -162,7 +162,7 @@ lottachievements.register_trigger("chat", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("Наааписано сообщений @1/@2", itemcount, tmp.target),
+			label = S("Написано сообщений @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
