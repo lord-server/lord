@@ -53,3 +53,15 @@ minetest.register_craftitem("lottfarming:salted_dough", {
   inventory_image = "lottfarming_sdough.png",
   on_use = minetest.item_eat(1),
 })
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottfarming:dough_with_egg",
+	recipe = {{"lottmobs:chicken_egg", "lottfarming:dough"}}
+})
+
+minetest.register_craftitem("lottfarming:dough_with_egg", {
+  description = SL("Dough"),
+  inventory_image = "lottfarming_eggdough.png",
+  on_use = minetest.item_eat(1),
+})
