@@ -1,5 +1,6 @@
 ## init.lua ##
 Grinder = Дробилка
+Roll = Барабан
 Grinder is empty = В дробилке пусто
 Grinding = Измельчение
 Coal dust = Угольная пыль

@@ -15,7 +15,7 @@ local function poisenp(tick, time, time_left, player)
 	if player:get_hp()-1 > 0 then
 		player:set_hp(player:get_hp()-1)
 	end
-	
+
 end
 
 function hud.item_eat(hunger_change, replace_with_item, poisen)
@@ -93,15 +93,17 @@ if minetest.get_modpath("animalmaterials") ~= nil then
 	overwrite("animalmaterials:fish_clownfish", 2)
 end
 
+--[[
 if minetest.get_modpath("fishing") ~= nil then
 	overwrite("fishing:fish_raw", 2)
-	overwrite("fishing:fish", 4)
+	overwrite("fishing:fish_cooked", 4)
 	overwrite("fishing:sushi", 6)
 	overwrite("fishing:shark", 4)
 	overwrite("fishing:shark_cooked", 8)
 	overwrite("fishing:pike", 4)
 	overwrite("fishing:pike_cooked", 8)
 end
+]]--
 
 if minetest.get_modpath("glooptest") ~= nil then
 	overwrite("glooptest:kalite_lump", 1)
@@ -260,5 +262,6 @@ if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:meat_raw", 2, "", 4)
 	overwrite("lottmobs:pork_cooked", 6)
 	overwrite("lottmobs:pork_raw", 3, "", 4)
-
+    overwrite("lottmobs:fish_raw", 2)
+	overwrite("lottmobs:fish_cooked", 6)
 end

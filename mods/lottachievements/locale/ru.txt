@@ -1,7 +1,7 @@
 ### init.lua ###
-Achievements Book = Книга достижений
-Smoke Rings = Колечки дыма
-Blow a smoke ring with a pipe = Выпустите колечко дыма из трубки
+Achievements Book = Книга\n"Мои достижения"
+I achieved this! = Я достиг этого!
+Make the Achievements Book = Сделать Книгу "Мои достижения"
 A Long Path to Mushrooms = Долгий путь к грибам
 Show a hobbitish love of mushrooms by eating 99! = Продемонстрировать хоббитам любовь к грибам, съев 99 штук!
 Tasty Taters = Вкусная Картоха
@@ -101,7 +101,7 @@ Have 500 deaths to your name! = Есть 500 смертей на ваше имя
 So dead, I'm immortal! = Опять умер, я бессмертен!
 1000 deaths. Yes, 1000. = 1000 смертей. Да, 1000.
 A young wizard = Начинающий волшебник
-Craft a book of palantir = Создайте книгу палантиров
+Craft a book of palantir = Создайте книгу "Палантиры"
 ### api.lua ###
 Secret Achievement Unlocked: = Секретное достижение разблокировано:
 Secret Achievement Unlocked: %s = Секретное достижение разблокировано: s%

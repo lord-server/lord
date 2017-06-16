@@ -35,7 +35,7 @@ lottachievements.register_trigger("dig", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 dug", itemcount, tmp.target),
+			label = S("Добыто @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -72,7 +72,7 @@ lottachievements.register_trigger("place", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 placed", itemcount, tmp.target),
+			label = S("Установленно @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -109,7 +109,7 @@ lottachievements.register_trigger("eat", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 eaten", itemcount, tmp.target),
+			label = S("Съедено @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -140,7 +140,7 @@ lottachievements.register_trigger("death", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 deaths", itemcount, tmp.target),
+			label = S("@1/@2 смертей", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -162,7 +162,7 @@ lottachievements.register_trigger("chat", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 chat messages", itemcount, tmp.target),
+			label = S("Написано сообщений @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -184,7 +184,7 @@ lottachievements.register_trigger("join", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 game joins", itemcount, tmp.target),
+			label = S("Заходов на сервер @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -215,7 +215,7 @@ lottachievements.register_trigger("craft", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 crafted", itemcount, tmp.target),
+			label = S("Создано @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -272,7 +272,7 @@ lottachievements.register_trigger("kill", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = S("@1/@2 killed", itemcount, tmp.target),
+			label = S("Убито @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
