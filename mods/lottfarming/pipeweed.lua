@@ -131,6 +131,8 @@ minetest.register_tool("lottfarming:pipe", {
 					vertical = false,
 					texture = "lottfarming_smoke_ring.png",
 				})
+				-- временно отложено здесь будет вызов функции для триггера со счетчиком
+				--lottachievements.unlock(player:get_player_name(), "smoke_rings")
 			end
 		end
 	end

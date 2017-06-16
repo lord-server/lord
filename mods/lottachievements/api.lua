@@ -138,12 +138,15 @@ function lottachievements._additional_triggers(name, def)
 	-- Depreciated!
 end
 
+
+-- регистрация достижений
 function lottachievements.register_achievement(name, def)
 	-- наименование запихивается внутрь таблицы достижения
 	def.name = name
 
 	-- Add Triggers
 	if def.trigger and def.trigger.type then
+		-- достаем функцию из нужного триггера
 		local func = lottachievements.trigger_types[def.trigger.type]
 		if func then
 			func(def)
@@ -152,7 +155,7 @@ function lottachievements.register_achievement(name, def)
 		end
 	end
 
-	-- Add Award
+	-- Add Award (награда)  если нет триггера отрабатывает только это присвоение
 	lottachievements.def[name] = def
 
 	local tdef = lottachievements.def[name]

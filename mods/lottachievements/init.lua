@@ -409,91 +409,91 @@ lottachievements.register_achievement("marksman_of_lorien", {
 	}
 })
 
-lottachievements.register_achievement("durins_bane", {
-	title = SL("Durin's Bane"),
-	description = SL("Kill a Balrog"),
-	icon = "fire_basic_flame.png",
-	id = 27,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:balrog",
-		target = 1,
-	}
-})
+-- lottachievements.register_achievement("durins_bane", {
+-- 	title = SL("Durin's Bane"),
+-- 	description = SL("Kill a Balrog"),
+-- 	icon = "fire_basic_flame.png",
+-- 	id = 27,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:balrog",
+-- 		target = 1,
+-- 	}
+-- })
 
-lottachievements.register_achievement("begone_foul_dwimmerlaik", {
-	title = SL("Begone, foul dwimmerlaik"),
-	description = SL("Kill the king of the Nazgul"),
-	icon = "lottachievements_witch_king.png",
-	id = 26,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:witch_king",
-		target = 1,
-	}
-})
+-- lottachievements.register_achievement("begone_foul_dwimmerlaik", {
+-- 	title = SL("Begone, foul dwimmerlaik"),
+-- 	description = SL("Kill the king of the Nazgul"),
+-- 	icon = "lottachievements_witch_king.png",
+-- 	id = 26,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:witch_king",
+-- 		target = 1,
+-- 	}
+-- })
 
-lottachievements.register_achievement("living_wood", {
-	title = SL("Living Wood"),
-	description = SL("Kill an ent"),
-	icon = "default_jungletree.png",
-	id = 25,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:ent",
-		target = 1,
-	}
-})
+-- lottachievements.register_achievement("living_wood", {
+-- 	title = SL("Living Wood"),
+-- 	description = SL("Kill an ent"),
+-- 	icon = "default_jungletree.png",
+-- 	id = 25,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:ent",
+-- 		target = 1,
+-- 	}
+-- })
 
-lottachievements.register_achievement("elven_champion", {
-	title = SL("Elven Champion"),
-	description = SL("Kill 25 Mordor orcs"),
-	icon = "tools_sword_elven.png",
-	id = 22,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:orc",
-		target = 25,
-	}
-})
+-- lottachievements.register_achievement("elven_champion", {
+-- 	title = SL("Elven Champion"),
+-- 	description = SL("Kill 25 Mordor orcs"),
+-- 	icon = "tools_sword_elven.png",
+-- 	id = 22,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:orc",
+-- 		target = 25,
+-- 	}
+-- })
 
-lottachievements.register_achievement("orcish_warlord", {
-	title = SL("Orcish Warlord"),
-	description = SL("Kill 25 elves"),
-	icon = "tools_sword_orc.png",
-	id = 23,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:elf",
-		target = 25,
-	}
-})
+-- lottachievements.register_achievement("orcish_warlord", {
+-- 	title = SL("Orcish Warlord"),
+-- 	description = SL("Kill 25 elves"),
+-- 	icon = "tools_sword_orc.png",
+-- 	id = 23,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:elf",
+-- 		target = 25,
+-- 	}
+-- })
 
-lottachievements.register_achievement("spider_hunter", {
-	title = SL("Spider Hunter"),
-	description = SL("Kill 25 spiders"),
-	icon = "lottplants_mirkleaf_inv.png",
-	id = 24,
-	trigger = {
-		type = "kill",
-		mob = "lottmobs:spider",
-		target = 25,
-	}
-})
+-- lottachievements.register_achievement("spider_hunter", {
+-- 	title = SL("Spider Hunter"),
+-- 	description = SL("Kill 25 spiders"),
+-- 	icon = "lottplants_mirkleaf_inv.png",
+-- 	id = 24,
+-- 	trigger = {
+-- 		type = "kill",
+-- 		mob = "lottmobs:spider",
+-- 		target = 25,
+-- 	}
+-- })
 
 -- Advanced Achievements
 
-lottachievements.register_achievement("abandoned_workshop", {
-	title = SL("Abandoned Workshop"),
-	description = SL("Discover a secret Elven Workshop underground"),
-	icon = "default_cracked_stone_brick.png",
-	id = 37,
-	trigger = {
-		type = "dig",
-		node = "default:cracked_stonebrick",
-		target = 1
-	}
-})
+-- lottachievements.register_achievement("abandoned_workshop", {
+-- 	title = SL("Abandoned Workshop"),
+-- 	description = SL("Discover a secret Elven Workshop underground"),
+-- 	icon = "default_cracked_stone_brick.png",
+-- 	id = 37,
+-- 	trigger = {
+-- 		type = "dig",
+-- 		node = "default:cracked_stonebrick",
+-- 		target = 1
+-- 	}
+-- })
 
 -- lottachievements.register_achievement("ringsilver_crafter", {
 -- 	title = SL("Ringsilver crafter"),
@@ -516,18 +516,18 @@ lottachievements.register_achievement("the_ring_is_prepared", {
 	}
 })
 
-lottachievements.register_achievement("a_pickaxe_fit_for_a_king", {
-	title = SL("A pickaxe fit for a king"),
-	description = SL("Craft a gem pickaxe"),
-	icon = "lottother_gempick.png",
-	requires = "abandoned_workshop",
-	id = 40,
-	trigger = {
-		type = "craft",
-		item = "lottother:gem_pick",
-		target = 1,
-	}
-})
+-- lottachievements.register_achievement("a_pickaxe_fit_for_a_king", {
+-- 	title = SL("A pickaxe fit for a king"),
+-- 	description = SL("Craft a gem pickaxe"),
+-- 	icon = "lottother_gempick.png",
+-- 	requires = "abandoned_workshop",
+-- 	id = 40,
+-- 	trigger = {
+-- 		type = "craft",
+-- 		item = "lottother:gem_pick",
+-- 		target = 1,
+-- 	}
+-- })
 
 -- lottachievements.register_achievement("polisher", {
 -- 	title = SL("Polisher"),
