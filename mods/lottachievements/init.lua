@@ -299,7 +299,7 @@ lottachievements.register_achievement("calm_ithilien", {
 
 lottachievements.register_achievement("in_the_lands_of_mordor", {
 	title = SL("In the lands of Mordor ..."),
-	description = SL("Visit Mordor and dobudte Mordorskiy stone as evidence"),
+	description = SL("Visit Mordor and get Mordor stone as evidence"),
 	icon = "lottmapgen_mordor_stone.png",
 	id = 21,
 	trigger = {
