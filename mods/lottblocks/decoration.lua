@@ -271,7 +271,7 @@ minetest.register_craft({
 	}
 })
 
--- Dwarf Tombs, by Amaz.
+--[[Dwarf Tombs, by Amaz.
 minetest.register_node("lottblocks:dwarf_tomb_top", {
 	description = "Dwarf Tomb",
 	drawtype = "nodebox",
@@ -387,3 +387,4 @@ minetest.register_node("lottblocks:dwarf_tomb_bottom", {
 	},
 	sounds = default.node_sound_stone_defaults(),
 })
+]]

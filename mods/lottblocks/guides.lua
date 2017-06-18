@@ -98,7 +98,7 @@ minetest.register_craft({
 local ring_guide = dofile(minetest.get_modpath("lottblocks")
 	.. "/guide_text/ring_guide.lua")
 
-minetest.register_craftitem("lottblocks:ring_guide", {
+--[[minetest.register_craftitem("lottblocks:ring_guide", {
 	description = "Ring Guidebook",
 	inventory_image = "default_book.png^[colorize:pink:100",
 	groups = {book = 1, forbidden = 1},
@@ -108,5 +108,5 @@ minetest.register_craftitem("lottblocks:ring_guide", {
 		guide_on_use(itemstack, user)
 	end,
 })
-
+]]
 -- No craft for the ring guide, can only be found in generated structures.

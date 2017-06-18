@@ -1,4 +1,4 @@
-### nodes.lua ###
+﻿### nodes.lua ###
 Fog	=	Туман
 Snow Block	=	Блок снега
 Frozen Stone	=	Обледеневший камень
@@ -10,10 +10,10 @@ Dunland Grass	=	Трава Дунланда
 Iron Hills Grass	=	Трава железных гор
 Gondor Grass	=	Трава Гондора
 Lorien Grass	=	Трава Лориена
-? Grass	=	? Grass
+Fangorn Grass	=	Трава Фангорн
 Mirkwood Grass	=	Трава Мирквуда
 Rohan Grass	=	Трава Рохана
-Shire Grass	=	Shire трава
+Shire Grass	=	Трава Шира
 Ithilien Grass	=	Трава Итилиэна
 
 Mordor Stone Stair	=	Ступенька из камня Мордора
