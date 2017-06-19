@@ -354,10 +354,12 @@ end)
 
 minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack,
 		user, pointed_thing, old_itemstack, old_level, level)
+	--print("что-то съели")
 	if not user or not itemstack or not user:get_player_name()
 	or user:get_player_name() == "" or level == old_level then
 		return
 	end
+	--print("получение данных игрока")
 	local data = lottachievements.players[user:get_player_name()]
 	if not lottachievements.increment_item_counter(data, "eat", itemstack:get_name()) then
 		return

@@ -750,30 +750,30 @@ lottachievements.register_achievement("daggins_surname", {
 
 
 
---[[lottachievements.register_achievement("a_long_path_to_mushrooms", {
-	title = SL("A Long Path to Mushrooms"),
-	description = SL("Show a hobbitish love of mushrooms by eating 99!"),
-	icon = "lottplants_mushroom_wild.png",
-	id = 2,
-	trigger = {
-		type = "eat",
-		item = "lottfarming:brown_mushroom",
-		target = 99
-	}
-})
+-- lottachievements.register_achievement("a_long_path_to_mushrooms", {
+-- 	title = SL("A Long Path to Mushrooms"),
+-- 	description = SL("Show a hobbitish love of mushrooms by eating 99!"),
+-- 	icon = "lottplants_mushroom_wild.png",
+-- 	id = 2,
+-- 	trigger = {
+-- 		type = "eat",
+-- 		item = "lottfarming:brown_mushroom",
+-- 		target = 99
+-- 	}
+-- })
 
-lottachievements.register_achievement("tasty_taters", {
-	title = SL("Tasty Taters"),
-	description = SL("Fill your belly with the good ballast of 9 potatoes"),
-	icon = "lottfarming_potato_cooked.png",
-	id = 3,
-	trigger = {
-		type = "eat",
-		item = "lottfarming:potato_cooked",
-		target = 9
-	}
-})
-]]
+-- lottachievements.register_achievement("tasty_taters", {
+-- 	title = SL("Tasty Taters"),
+-- 	description = SL("Fill your belly with the good ballast of 9 potatoes"),
+-- 	icon = "lottfarming_potato_cooked.png",
+-- 	id = 3,
+-- 	trigger = {
+-- 		type = "eat",
+-- 		item = "lottfarming:potato_cooked",
+-- 		target = 9
+-- 	}
+-- })
+
 
 --[[lottachievements.register_achievement("thief", {
 	title = SL("Thief!"),
