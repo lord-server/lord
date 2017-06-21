@@ -17,10 +17,10 @@ mobs:register_mob("lottmobs:chicken", {
 	walk_velocity = 1,
 	armor = 300,
 		drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:chicken_raw",
 		chance = 1,
-		min = 1,
-		max = 3,},
+		min = 0,
+		max = 1,},
 	},
 	light_resistant = true,
 	drawtype = "front",
