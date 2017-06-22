@@ -111,7 +111,7 @@ local mobs_shoot_egg = function (item, player, pointed_thing)
 end
 
 minetest.register_node("lottmobs:egg", {
-	description = S("Chicken Egg"),
+	description = SL("Chicken Egg"),
 	tiles = {"lottmobs_egg.png"},
 	inventory_image  = "lottmobs_egg.png",
 	visual_scale = 0.7,
