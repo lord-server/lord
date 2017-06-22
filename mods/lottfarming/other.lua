@@ -15,20 +15,20 @@ minetest.register_craftitem("lottfarming:cookie_cracker", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:salted_dough",
-	recipe = {{"lottores:salt", "lottfarming:dough"}}
+	recipe = {"lottores:salt", "lottfarming:dough"},
 })
 
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:dough",
-	recipe = {{"lottpotion:glass_bottle_water", "farming:flour"}},
-	replacements = {{"lottpotion:glass_bottle_water", "vessels:glass_bottle"}}
+	recipe = {"lottpotion:glass_bottle_water", "farming:flour"},
+	replacements = {{"lottpotion:glass_bottle_water", "vessels:glass_bottle"}},
 })
 
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:yeast_dough",
-	recipe = {{"group:mushrooms", "lottfarming:dough"}}
+	recipe = {"group:mushrooms", "lottfarming:dough"},
 })
 
 minetest.register_craftitem("lottfarming:dough", {
@@ -52,7 +52,7 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 --minetest.register_craft({
 	--type = "shapeless",
 	--output = "lottfarming:dough_with_egg",
-	--recipe = {{"lottmobs:chicken_egg", "lottfarming:dough"}}
+	--recipe = {"lottmobs:chicken_egg", "lottfarming:dough"},
 --})
 
 --minetest.register_craftitem("lottfarming:dough_with_egg", {
@@ -76,12 +76,12 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 --minetest.register_craft({
 	--type = "shapeless",
 	--output = "lottfarming:sugar",
-	--recipe = {{"default:papyrus"}}
+	--recipe = {"default:papyrus"},
 --})
 
 --minetest.register_craft({
 	--type = "shapeless",
 	--output = "lottfarming:dough_for_sbread",
-	--recipe = {{"lottmobs:butter", "lottfarming:sugar", "lottfarming:dough"}}
+	--recipe = {"lottmobs:butter", "lottfarming:sugar", "lottfarming:dough"},
 --})
 
