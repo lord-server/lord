@@ -1,9 +1,9 @@
 local SL = lord.require_intllib()
 
-mobs:register_arrow("mobs_animal:egg_entity", {
+mobs:register_arrow("lottmobs:egg_entity", {
 	visual = "sprite",
 	visual_size = {x=.5, y=.5},
-	textures = {"mobs_chicken_egg.png"},
+	textures = {"lottmobs_egg.png"},
 	velocity = 6,
 
 	hit_player = function(self, player)
@@ -81,7 +81,7 @@ local mobs_shoot_egg = function (item, player, pointed_thing)
 		x = playerpos.x,
 		y = playerpos.y +1.5,
 		z = playerpos.z
-	}, "mobs_animal:egg_entity")
+	}, "lottmobs:egg_entity")
 
 	local ent = obj:get_luaentity()
 	local dir = player:get_look_dir()
