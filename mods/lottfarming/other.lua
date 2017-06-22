@@ -21,7 +21,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:dough",
-	recipe = {{"lottpotion:glass_bottle_water", "farming:flour"}}
+	recipe = {{"lottpotion:glass_bottle_water", "farming:flour"}},
 	replacements = {{"lottpotion:glass_bottle_water", "vessels:glass_bottle"}}
 })
 
