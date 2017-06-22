@@ -76,11 +76,11 @@ minetest.register_craftitem("lottmobs:fish_raw", {
 	on_use = minetest.item_eat(1),
 })
 
---minetest.register_craftitem("lottmobs:horsemeat_raw", {
-	--description = SL("Raw Horsemeat"),
-	--inventory_image = "lottmobs_horsemeat_raw.png",
-	--on_use = minetest.item_eat(2),
---})
+minetest.register_craftitem("lottmobs:horsemeat_raw", {
+	description = SL("Raw Horsemeat"),
+	inventory_image = "lottmobs_horsemeat_raw.png",
+	on_use = minetest.item_eat(2),
+})
 
 minetest.register_craftitem("lottmobs:chicken_raw", {
 	description = SL("Raw Chicken"),
@@ -88,11 +88,11 @@ minetest.register_craftitem("lottmobs:chicken_raw", {
 	on_use = minetest.item_eat(2),
 })
 
---minetest.register_craftitem("lottmobs:rabbit_raw", {
-	--description = SL("Raw Rabbit"),
-	--inventory_image = "lottmobs_rabbit_raw.png",
-	--on_use = minetest.item_eat(1),
---})
+minetest.register_craftitem("lottmobs:rabbit_raw", {
+	description = SL("Raw Rabbit"),
+	inventory_image = "lottmobs_rabbit_raw.png",
+	on_use = minetest.item_eat(1),
+})
 
 minetest.register_craftitem("lottmobs:fish_cooked", {
 	description = SL("Cooked Fish"),
@@ -100,11 +100,11 @@ minetest.register_craftitem("lottmobs:fish_cooked", {
 	on_use = minetest.item_eat(3),
 })
 
---minetest.register_craftitem("lottmobs:horsemeat_cooked", {
-	--description = SL("Cooked Horsemeat"),
-	--inventory_image = "lottmobs_horsemeat_cooked.png",
-	--on_use = minetest.item_eat(5),
---})
+minetest.register_craftitem("lottmobs:horsemeat_cooked", {
+	description = SL("Cooked Horsemeat"),
+	inventory_image = "lottmobs_horsemeat_cooked.png",
+	on_use = minetest.item_eat(5),
+})
 
 minetest.register_craftitem("lottmobs:chicken_cooked", {
 	description = SL("Cooked Chiсken"),
@@ -112,11 +112,11 @@ minetest.register_craftitem("lottmobs:chicken_cooked", {
 	on_use = minetest.item_eat(4),
 })
 
---minetest.register_craftitem("lottmobs:rabbit_cooked", {
-	--description = SL("Cooked Rabbit"),
-	--inventory_image = "lottmobs_rabbit_cooked.png",
-	--on_use = minetest.item_eat(3),
---})
+minetest.register_craftitem("lottmobs:rabbit_cooked", {
+	description = SL("Cooked Rabbit"),
+	inventory_image = "lottmobs_rabbit_cooked.png",
+	on_use = minetest.item_eat(3),
+})
 
 minetest.register_craftitem("lottmobs:rotten_meat", {
 	description = SL("Rotten Meat"),
