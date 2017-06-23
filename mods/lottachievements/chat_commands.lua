@@ -14,22 +14,24 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
+local SL = lord.require_intllib()
+
 local S = lottachievements.gettext
 
 minetest.register_chatcommand("achievements", {
 	params = S("[c|clear|disable|enable]"),
-	description = S("Show, clear, disable or enable your achievements"),
+	description = SL("Show, clear, disable or enable your achievements"),
 	func = function(name, param)
 		if param == "clear" then
 			lottachievements.clear_player(name)
 			minetest.chat_send_player(name,
-			S("All your achievements and statistics have been cleared. You can now start again."))
+			SL("All your achievements and statistics have been cleared. You can now start again."))
 		elseif param == "disable" then
 			lottachievements.disable(name)
-			minetest.chat_send_player(name, S("You have disabled your achievements."))
+			minetest.chat_send_player(name, SL("You have disabled your achievements."))
 		elseif param == "enable" then
 			lottachievements.enable(name)
-			minetest.chat_send_player(name, S("You have enabled your achievements."))
+			minetest.chat_send_player(name, SL("You have enabled your achievements."))
 		elseif param == "c" then
 			lottachievements.show_to(name, name, nil, true)
 		else
@@ -40,13 +42,13 @@ minetest.register_chatcommand("achievements", {
 
 minetest.register_chatcommand("achievement-info", {
 	params = S("<achievement ID>"),
-	description = S("Show details of an achievement"),
+	description = SL("Show details of an achievement"),
 	func = function(name, param)
 		local def = lottachievements.def[param]
 		if def then
 			minetest.chat_send_player(name, string.format(S("%s: %s"), def.title, def.description))
 		else
-			minetest.chat_send_player(name, S("Achievement not found."))
+			minetest.chat_send_player(name, SL("Achievement not found."))
 		end
 	end
 })
@@ -56,7 +58,7 @@ minetest.register_chatcommand("achievement-stats", {
 		server = true
 	},
 	params = S("<name>"),
-	description = S("Get the achievements statistics for the given player or yourself"),
+	description = SL("Get the achievements statistics for the given player or yourself"),
 	func = function(name, param)
 		if not param or param == "" then
 			param = name
