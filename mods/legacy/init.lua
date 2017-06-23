@@ -157,6 +157,17 @@ minetest.register_alias("lottthrowing:arrow_fire_entity", "lottpotion:limpe_powe
 minetest.register_alias("lottthrowing:arrow_fire_blue", "lottpotion:miruvor_power2_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_blue_entity", "lottpotion:spiderpoison_corruption3_arrow")
 
+minetest.register_alias("lottplants:anemones_fake", "lottplants:anemones")
+minetest.register_alias("lottplants:asphodel_fake", "lottplants:asphodel")
+minetest.register_alias("lottplants:eglantive_fake", "lottplants:eglantive")
+minetest.register_alias("lottplants:elanor_fake", "lottplants:elanor")
+minetest.register_alias("lottplants:iris_fake", "lottplants:iris")
+minetest.register_alias("lottplants:lissuin_fake", "lottplants:lissuin")
+minetest.register_alias("lottplants:mallos_fake", "lottplants:mallos")
+minetest.register_alias("lottplants:niphredil_fake", "lottplants:niphredil")
+minetest.register_alias("lottplants:seregon_fake", "lottplants:seregon")
+
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do
