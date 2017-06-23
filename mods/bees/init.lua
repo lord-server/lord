@@ -536,33 +536,28 @@ local SL = lord.require_intllib()
   minetest.register_craftitem('bees:frame_empty', {
     description = SL('empty hive frame'),
     inventory_image = 'bees_frame_empty.png',
-    stack_max = 24,
   })
 
   minetest.register_craftitem('bees:frame_full', {
     description = SL('filled hive frame'),
     inventory_image = 'bees_frame_full.png',
-    stack_max = 12,
   })
 
   minetest.register_craftitem('bees:bottle_honey', {
     description = SL('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
-    stack_max = 12,
     on_use = minetest.item_eat(3, "vessels:glass_bottle"),
   })
 
   minetest.register_craftitem('bees:wax', {
     description = SL('bees wax'),
     inventory_image = 'bees_wax.png',
-    stack_max = 48,
   })
 
   minetest.register_craftitem('bees:honey_comb', {
     description = SL('honey comb'),
     inventory_image = 'bees_comb.png',
     on_use = minetest.item_eat(2),
-    stack_max = 8,
   })
 
   --minetest.register_craftitem('bees:queen', {
