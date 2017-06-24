@@ -166,7 +166,8 @@ minetest.register_alias("lottplants:lissuin_fake", "lottplants:lissuin")
 minetest.register_alias("lottplants:mallos_fake", "lottplants:mallos")
 minetest.register_alias("lottplants:niphredil_fake", "lottplants:niphredil")
 minetest.register_alias("lottplants:seregon_fake", "lottplants:seregon")
-
+minetest.register_alias("lottplants:brambles_of_mordor_fake", "lottplants:brambles_of_mordor")
+minetest.register_alias("lottplants:pilinehtar_fake", "lottplants:pilinehtar")
 
 -- Corpses
 for _, gender in pairs({"male", "female"}) do

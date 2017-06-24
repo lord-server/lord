@@ -121,7 +121,7 @@ minetest.register_node("lottplants:lissuin", {
 	paramtype = "light",
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_pink=1},
+	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_orange=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",
@@ -157,7 +157,7 @@ minetest.register_node("lottplants:niphredil", {
 	paramtype = "light",
 	walkable = false,
 	buildable_to = true,
-	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_brown=1},
+	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_white=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",

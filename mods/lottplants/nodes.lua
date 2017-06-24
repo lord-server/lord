@@ -18,7 +18,7 @@ minetest.register_node("lottplants:alderleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -50,7 +50,7 @@ minetest.register_node("lottplants:appleleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -82,7 +82,7 @@ minetest.register_node("lottplants:birchleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -114,7 +114,7 @@ minetest.register_node("lottplants:beechleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -146,7 +146,7 @@ minetest.register_node("lottplants:culumaldaleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_red=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -178,7 +178,7 @@ minetest.register_node("lottplants:yellowflowers", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_orange=1},
     drop = {
 	    	max_items = 3,
 		    items = {
@@ -204,7 +204,7 @@ minetest.register_node("lottplants:elmleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -236,7 +236,7 @@ minetest.register_node("lottplants:firleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -268,7 +268,7 @@ minetest.register_node("lottplants:lebethronleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -299,7 +299,7 @@ minetest.register_node("lottplants:mallornleaf", {
 	liquid_alternative_source = "lottplants:mallornleaf",
 	liquid_renewable = false,
 	liquid_range = 0,
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_yellow=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -331,7 +331,7 @@ minetest.register_node("lottplants:pineleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -395,7 +395,7 @@ minetest.register_node("lottplants:rowanleaf", {
 	liquid_range = 0,
 
 	paramtype = "light",
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_yellow=1},
     drop = {
 	    	max_items = 1,
 		    items = {
@@ -450,7 +450,7 @@ minetest.register_node("lottplants:whiteleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_white=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -482,7 +482,7 @@ minetest.register_node("lottplants:yavannamireleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -518,7 +518,7 @@ minetest.register_node("lottplants:mirkleaf", {
 	liquid_renewable = false,
 	liquid_range = 0,
 
-	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, not_in_creative_inventory =1},
+	groups = {snappy=3, leafdecay=3, flammable=2, leaves=1, color_green=1},
 	drop = {
 		max_items = 1,
 		items = {
@@ -1116,7 +1116,7 @@ minetest.register_node("lottplants:plum", {
 		type = "fixed",
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
 	},
-	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1},
+	groups = {fleshy=3,dig_immediate=3,flammable=2,leafdecay=3,leafdecay_drop=1,color_violet=1},
 	on_use = minetest.item_eat(2),
 	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = function(pos, placer, itemstack)
@@ -1204,7 +1204,7 @@ minetest.register_node("lottplants:lorien_grass_1", {
 	walkable = false,
 	is_ground_content = true,
 	buildable_to = true,
-	groups = {snappy=3,flammable=3,flora=1,attached_node=1, grass=1},
+	groups = {snappy=3,flammable=3,flora=1,attached_node=1, grass=1,color_green=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",

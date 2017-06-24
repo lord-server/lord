@@ -230,7 +230,7 @@ local recipes = {
      {"default:leaves 10",        "lottpotion:entdraught_power2",         "lottpotion:entdraught_power3", 240},
 
 --Negative Base Potion
-	{"lottplants:brambles_of_mordor_fake",	"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_mordor"},
+	{"lottplants:brambles_of_mordor",	"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_mordor"},
 	{"default:obsidian_shard 1",		"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_obsidian"},
 	{"bones:bonedust 1",			"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_bonedust"},
 --Negative Potions

@@ -44,7 +44,29 @@ for _, row in ipairs(dyelocal.dyes) do
 		output = item_name.." 4",
 		recipe = {"group:flower,color_"..name},
 	})
+	minetest.register_craft({
+		type = "shapeless",
+		output = item_name.." 4",
+		recipe = {"group:leaves,color_"..name},
+	})
 end
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:brown 4",
+	recipe = {"default:dirt"},
+})
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:green 4",
+	recipe = {"default:grass_1"},
+})
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:green 4",
+	recipe = {"lottplants:lorien_grass_1"},
+})
+
 -- manually add coal->black dye
 minetest.register_craft({
 	type = "shapeless",
