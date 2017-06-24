@@ -88,3 +88,6 @@ is protected by	=	- принадлежит
 ### hud.lua ###
 :open	=	:открыто
 Areas:	=	Территории:
+
+### legacy.lua ###
+Loads, converts, and saves the areas from a legacy save file. = Загружает, конвертирует и сохраняет области из старого файла сохранения.

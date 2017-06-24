@@ -1,10 +1,10 @@
+local SL = lord.require_intllib()
 -- This file contains functions to convert from
 -- the old areas format and other compatability code.
 
 minetest.register_chatcommand("legacy_load_areas", {
 	params = "<version>",
-	description = "Loads, converts, and saves the areas from"
-		.." a legacy save file.",
+	description = SL("Loads, converts, and saves the areas from a legacy save file."),
 	privs = {areas=true, server=true},
 	func = function(name, param)
 		minetest.chat_send_player(name, "Converting areas...")
