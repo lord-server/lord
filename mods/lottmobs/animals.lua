@@ -1,5 +1,15 @@
 local SL = lord.require_intllib()
 
+local dropItems = lottmobs.dropItems
+
+local function dropEgg(obj)
+  local pos = obj:getpos()
+  if pos then
+    lottmobs.dropItems(pos, {{"lottmobs:egg"}})
+  end
+end
+
+
 mobs:register_arrow("lottmobs:egg_entity", {
 	visual = "sprite",
 	visual_size = {x=.5, y=.5},
@@ -8,7 +18,7 @@ mobs:register_arrow("lottmobs:egg_entity", {
 
 	hit_player = function(self, player)
 		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
-			full_punch_interval = 1.0,
+			full_punch_interval = 0.7,
 			damage_groups = {fleshy = 1},
 		}, nil)
 	end,
@@ -59,6 +69,8 @@ mobs:register_arrow("lottmobs:egg_entity", {
 		ent2.tamed = true
 		ent2.owner = self.playername
 	end
+}
+
 })
 
 
@@ -176,6 +188,12 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
+	on_step = function(self, dtime)
+    		if self.mode == "lay_egg" then
+      			dropEgg(self.object)
+      			self.modetimer = 2
+    		end
+  	end
 	sounds = {
 	},
 })
