@@ -129,3 +129,38 @@ minetest.register_craftitem("lottmobs:fried_egg", {
 	inventory_image = "lottmobs_fried_egg.png",
 	on_use = minetest.item_eat(3),
 })
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:fish_cooked",
+	recipe = "lottmobs:fish_raw",
+	cooktime = 3,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:horsemeat_cooked",
+	recipe = "lottmobs:horsemeat_raw",
+	cooktime = 8,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:chicken_cooked",
+	recipe = "lottmobs:chicken_raw",
+	cooktime = 6,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:rabbit_cooked",
+	recipe = "lottmobs:rabbit_raw",
+	cooktime = 5,
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmobs:fried_egg",
+	recipe = "lottmobs:egg",
+	cooktime = 3,
+})
