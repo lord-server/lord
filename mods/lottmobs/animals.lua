@@ -48,27 +48,6 @@ mobs:register_arrow("lottmobs:egg_entity", {
 		end
 
 		local mob = minetest.add_entity(pos, "lottmobs:chicken")
-		local ent2 = mob:get_luaentity()
-
-		mob:set_properties({
-			textures = ent2.child_texture[1],
-			visual_size = {
-				x = ent2.base_size.x / 2,
-				y = ent2.base_size.y / 2
-			},
-			collisionbox = {
-				ent2.base_colbox[1] / 2,
-				ent2.base_colbox[2] / 2,
-				ent2.base_colbox[3] / 2,
-				ent2.base_colbox[4] / 2,
-				ent2.base_colbox[5] / 2,
-				ent2.base_colbox[6] / 2
-			},
-		})
-
-		ent2.child = true
-		ent2.tamed = true
-		ent2.owner = self.playername
 	end
 })
 
