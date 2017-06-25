@@ -9,7 +9,6 @@ local function dropEgg(obj)
   end
 end
 
-
 mobs:register_arrow("lottmobs:egg_entity", {
 	visual = "sprite",
 	visual_size = {x=.5, y=.5},
