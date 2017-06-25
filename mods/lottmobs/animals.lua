@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
 
+lay_egg = {chance = 0.01, duration = 1},
+
 local dropItems = lottmobs.dropItems
 
 local function dropEgg(obj)
@@ -185,14 +187,15 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
+	
+	sounds = {
+	},
 	on_step = function(self, dtime)
     		if self.mode == "lay_egg" then
       			dropEgg(self.object)
       			self.modetimer = 2
     		end
   	end
-	sounds = {
-	},
 })
 
 --[[mobs:register_mob("lottmobs:sheep", {
