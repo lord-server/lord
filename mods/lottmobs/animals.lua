@@ -68,8 +68,6 @@ mobs:register_arrow("lottmobs:egg_entity", {
 		ent2.tamed = true
 		ent2.owner = self.playername
 	end
-}
-
 })
 
 
