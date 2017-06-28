@@ -108,6 +108,7 @@ end
 -- Screwdriver
 minetest.register_tool("screwdriver:screwdriver", {
 	description = SL("Screwdriver (left-click rotates face, right-click rotates axis)"),
+	groups = {steel_item=1},
 	inventory_image = "screwdriver.png",
 	on_use = function(itemstack, user, pointed_thing)
 		screwdriver_handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE, USES)
@@ -121,6 +122,7 @@ minetest.register_tool("screwdriver:screwdriver", {
 
 minetest.register_tool("screwdriver:screwdriver_galvorn", {
 	description = SL("Galvorn Screwdriver (left-click rotates face, right-click rotates axis)"),
+	groups = {galvorn_item=1},
 	inventory_image = "screwdriver_galvorn.png",
 	on_use = function(itemstack, user, pointed_thing)
 		screwdriver_handler(itemstack, user, pointed_thing, screwdriver.ROTATE_FACE, USES_GALVORN)
