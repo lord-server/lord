@@ -54,7 +54,6 @@ mobs:register_mob("lottmobs:warg", {
 	drops = {
 		{name = "lottmobs:rotten_meat", chance = 5, min = 4, max = 10,},
 		{name = "lottclothes:felt_grey", chance = 5, min = 2, max = 7,},
-		{name = "lottother:beast_ring", chance = 0.0000000000000000001, min = 0, max = 3,},
 	},
 	light_resistant = true,
 	drawtype = "front",
