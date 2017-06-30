@@ -12,7 +12,6 @@ minetest.register_craftitem("lottother:ringsilver_lump", {
 	description = SL("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
     groups = {forbidden=1},
-	stack_max = 1,
 })
 minetest.register_craftitem("lottother:ringsilver_ingot", {
 	description = SL("Refined Ring Silver"),
