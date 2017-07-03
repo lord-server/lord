@@ -9,7 +9,7 @@ arrows = {
 bolts = {
 	{"lottthrowing:bolt", "lottthrowing:bolt_entity"},
      {"lottthrowing:bolt_mithril", "lottthrowing:bolt_mithril_entity"},
-	{"lottthrowing:bolt_fire", "lottthrowing:bolt_fire_entity"},
+	{"lottthrowing:bolt", "lottthrowing:bolt"},
 }
 
 local lottthrowing_shoot_arrow = function(itemstack, player)
