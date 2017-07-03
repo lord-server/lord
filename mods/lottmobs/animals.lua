@@ -2,8 +2,6 @@ local SL = lord.require_intllib()
 
 lay_egg = {chance = 0.01, duration = 1}
 
-local minetest.add_item = lottmobs.dropItems
-
 local function dropEgg(obj)
   local pos = obj:getpos()
   if pos then
