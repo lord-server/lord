@@ -156,6 +156,7 @@ minetest.register_alias("lottthrowing:arrow_fire", "lottpotion:athelasbrew_power
 minetest.register_alias("lottthrowing:arrow_fire_entity", "lottpotion:limpe_power3_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_blue", "lottpotion:miruvor_power2_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_blue_entity", "lottpotion:spiderpoison_corruption3_arrow")
+minetest.register_alias("lottthrowing:bolt_fire", "lottpotion:bolt")
 
 minetest.register_alias("lottplants:anemones_fake", "lottplants:anemones")
 minetest.register_alias("lottplants:asphodel_fake", "lottplants:asphodel")
