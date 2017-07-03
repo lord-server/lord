@@ -2,12 +2,12 @@ local SL = lord.require_intllib()
 
 lay_egg = {chance = 0.01, duration = 1}
 
-local dropItems = lottmobs.dropItems
+local minetest.add_item = lottmobs.dropItems
 
 local function dropEgg(obj)
   local pos = obj:getpos()
   if pos then
-    lottmobs.dropItems(pos, {{"lottmobs:egg"}})
+    minetest.add_item(pos, {{"lottmobs:egg"}})
   end
 end
 
@@ -15,7 +15,7 @@ mobs:register_arrow("lottmobs:egg_entity", {
 	visual = "sprite",
 	visual_size = {x=.5, y=.5},
 	textures = {"lottmobs_egg.png"},
-	velocity = 6,
+	velocity = 9,
 
 	hit_player = function(self, player)
 		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
