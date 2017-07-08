@@ -1387,7 +1387,8 @@ mobs:register_arrow("lottmobs:darkball", {
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					--local n = minetest.get_node(pos).name
 					local n = minetest.get_node(p).name
-					if n ~= "lottblocks:palantir" and n ~= "lottores:tilkal" then
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
 						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
 							minetest.set_node(p, {name="fire:basic_flame"})
 						else
@@ -1404,12 +1405,15 @@ mobs:register_arrow("lottmobs:darkball", {
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local n = minetest.get_node(p).name
-					if n ~= "lottblocks:palantir" and n ~= "lottores:tilkal" then
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					--print(dump(fbd))
+					if fbd == nil then
 						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
 							minetest.set_node(p, {name="fire:basic_flame"})
 						else
 							minetest.remove_node(p)
 						end
+					else
 					end
 				end
 			end
@@ -1450,7 +1454,8 @@ mobs:register_arrow("lottmobs:fireball", {
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local n = minetest.get_node(p).name
-					if n ~= "lottblocks:palantir" and n ~= "lottores:tilkal" then
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
 						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
 							minetest.set_node(p, {name="fire:basic_flame"})
 						else
@@ -1479,7 +1484,8 @@ mobs:register_arrow("lottmobs:fireball", {
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					local n = minetest.get_node(p).name
-					if n ~= "lottblocks:palantir" and n ~= "lottores:tilkal" then
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
 						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
 							minetest.set_node(p, {name="fire:basic_flame"})
 						else
