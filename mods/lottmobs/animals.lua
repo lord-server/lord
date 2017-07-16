@@ -1,14 +1,5 @@
 local SL = lord.require_intllib()
 
-lay_egg = {chance = 0.01, duration = 1}
-
-local function dropEgg(obj)
-  local pos = obj:getpos()
-  if pos then
-    minetest.add_item(pos, {{"lottmobs:egg"}})
-  end
-end
-
 mobs:register_arrow("lottmobs:egg_entity", {
 	visual = "sprite",
 	visual_size = {x=.5, y=.5},
@@ -168,12 +159,6 @@ mobs:register_mob("lottmobs:chicken", {
 	
 	sounds = {
 	},
-	on_step = function(self, dtime)
-    		if self.mode == "lay_egg" then
-      			dropEgg(self.object)
-      			self.modetimer = 2
-    		end
-  	end
 })
 
 --[[mobs:register_mob("lottmobs:sheep", {
