@@ -105,11 +105,6 @@ minetest.register_node("lottmobs:egg", {
 		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
 	},
 	groups = {snappy = 2, dig_immediate = 3},
-	after_place_node = function(pos, placer, itemstack)
-		if placer:is_player() then
-			minetest.set_node(pos, {name = "lottmobs:egg", param2 = 1})
-		end
-	end,
 	on_use = mobs_shoot_egg
 })
 
@@ -132,6 +127,10 @@ mobs:register_mob("lottmobs:chicken", {
 	armor = 300,
 		drops = {
 		{name = "lottmobs:chicken_raw",
+		chance = 1,
+		min = 0,
+		max = 1,},
+		{name = "lottmobs:egg",
 		chance = 1,
 		min = 0,
 		max = 1,},
