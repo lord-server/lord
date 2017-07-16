@@ -135,6 +135,7 @@ mobs:register_mob("lottmobs:chicken", {
 	},
 	visual = "mesh",
 	mesh = "chicken_model.x",
+	visual_size = {x=1.5, y=1.5, z=1.5,},
 	makes_footstep_sound = true,
 	walk_velocity = 1,
 	armor = 300,
