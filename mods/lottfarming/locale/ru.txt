@@ -49,6 +49,9 @@ Orc medicine	=	Лекарство орков
 ### other.lua ###
 Lembas = Лембас (только для админов/модеров)
 Cracker = Крекер
+Dough = Тесто
+Yeast Dough = Дрожжевое тесто
+Salted Dough = Тесто с солью
 
 ### pipeweed.lua ###
 Pipeweed Seeds	=	Семена табака
