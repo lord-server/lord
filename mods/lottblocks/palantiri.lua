@@ -40,6 +40,9 @@ end
 local function check_blocks(pos)
 	local minp = {x = pos.x - 2, y = pos.y - 2, z = pos.z - 2}
 	local maxp = {x = pos.x + 2, y = pos.y + 2, z = pos.z + 2}
+
+	worldedit.keep_loaded(minp, maxp)
+
 	local _, tilkal = minetest.find_nodes_in_area(minp, maxp, "lottores:tilkal")
 	local _, mithril = minetest.find_nodes_in_area(minp, maxp, "lottores:mithril_block")
 	if tilkal["lottores:tilkal"] < 8 or mithril["lottores:mithril_block"] < 16 then

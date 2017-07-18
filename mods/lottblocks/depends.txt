@@ -5,3 +5,4 @@ default
 dye
 lord_classes
 lordlib
+worldedit
