@@ -32,13 +32,13 @@ stairs.register_stair_and_slab("orc_brick", "lottblocks:orc_brick",
 )
 minetest.register_node("lottblocks:marble_brick", {
 	description = SL("Marble Brick"),
-	tiles = {"lottblocks_marble_brick.png"},
+	tiles = {"lottblocks_marble_brick_new.png"},
 	is_ground_content = false,
 	groups = {cracky=2},
 })
 stairs.register_stair_and_slab("marble_brick", "lottblocks:marble_brick",
 		{cracky=2},
-		{"lottblocks_marble_brick.png"},
+		{"lottblocks_marble_brick_new.png"},
 		SL("Marble Brick Stair"),
 		SL("Marble Brick Slab"),
 		default.node_sound_stone_defaults()

@@ -307,6 +307,7 @@ minetest.register_node("lottblocks:palantir", {
 					end
 					--print(player_name)
 					sender:setpos({x = pos.x, y = pos.y + 1, z = pos.z})
+					minetest.close_formspec(player_name, formname)
 					return
 				elseif fields.teleports == nil or
 				lottblocks.palantiri[meta:get_string("network")][fields.teleports] == nil then
@@ -321,6 +322,7 @@ minetest.register_node("lottblocks:palantir", {
 						return
 				end
 				sender:setpos({x = p.x + 1, y = p.y, z = p.z})
+				minetest.close_formspec(player_name, formname)
 			elseif can_tp == false then
 				if fields.teleports and not (fields.teleports == SL("Teleport to...")) then
 					sender:setpos({
