@@ -205,9 +205,9 @@ local recipes = {
      {"lottores:geodes_crystal_1",        "lottpotion:glass_bottle_water",         "lottpotion:glass_bottle_geodes"},
 --Potions
      --Orc Draught
-     {"lottmobs:meat_raw 5",        "lottpotion:glass_bottle_seregon",         "lottpotion:orcdraught_power1"},
-     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_power1",         "lottpotion:orcdraught_power2", 180},
-     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_power2",         "lottpotion:orcdraught_power3", 240},
+     {"lottmobs:rotten_meat 5",        "lottpotion:glass_bottle_seregon",         "lottpotion:orcdraught_power1"},
+     {"lottmobs:rotten_meat 5",        "lottpotion:orcdraught_power1",         "lottpotion:orcdraught_power2", 180},
+     {"lottmobs:rotten_meat 5",        "lottpotion:orcdraught_power2",         "lottpotion:orcdraught_power3", 240},
      --Spider Poison
      {"lottmobs:spiderpoison 2",        "lottpotion:glass_bottle_seregon",         "lottpotion:spiderpoison_power1"},
      {"lottmobs:spiderpoison 2",        "lottpotion:spiderpoison_power1",         "lottpotion:spiderpoison_power2", 180},
@@ -235,9 +235,9 @@ local recipes = {
 	{"bones:bonedust 1",			"lottpotion:glass_bottle_water",	"lottpotion:glass_bottle_bonedust"},
 --Negative Potions
      --Orc Draught
-     {"lottmobs:meat_raw 5",        "lottpotion:glass_bottle_mordor",         "lottpotion:orcdraught_corruption1"},
-     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_corruption1",         "lottpotion:orcdraught_corruption2", 180},
-     {"lottmobs:meat_raw 5",        "lottpotion:orcdraught_corruption2",         "lottpotion:orcdraught_corruption3", 240},
+     {"lottmobs:rotten_meat 5",        "lottpotion:glass_bottle_mordor",         "lottpotion:orcdraught_corruption1"},
+     {"lottmobs:rotten_meat 5",        "lottpotion:orcdraught_corruption1",         "lottpotion:orcdraught_corruption2", 180},
+     {"lottmobs:rotten_meat 5",        "lottpotion:orcdraught_corruption2",         "lottpotion:orcdraught_corruption3", 240},
      --Spider Poison
      {"lottmobs:spiderpoison 2",        "lottpotion:glass_bottle_mordor",         "lottpotion:spiderpoison_corruption1"},
      {"lottmobs:spiderpoison 2",        "lottpotion:spiderpoison_corruption1",         "lottpotion:spiderpoison_corruption2", 180},
