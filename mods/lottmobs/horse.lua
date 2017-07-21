@@ -542,7 +542,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:horsemeat_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
@@ -603,7 +603,7 @@ mobs:register_mob("lottmobs:horseara", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:horsemeat_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
@@ -665,7 +665,7 @@ mobs:register_mob("lottmobs:shirepony", {
 	armor = 200,
     visual_size = {x=1.3,y=1.3},
 	drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:horsemeat_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
@@ -727,7 +727,7 @@ mobs:register_mob("lottmobs:shireponyblack", {
 	armor = 200,
     visual_size = {x=1.3,y=1.3},
 	drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:horsemeat_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
