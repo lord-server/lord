@@ -279,7 +279,7 @@ mobs:register_mob("lottmobs:bunny", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 1, min = 1, max = 1},
+		{name = "lottmobs:rabbit_raw", chance = 1, min = 1, max = 1},
 	},
 	water_damage = 1,
 	lava_damage = 4,
