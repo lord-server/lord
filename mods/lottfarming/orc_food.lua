@@ -42,7 +42,7 @@ minetest.register_craft({
 	output = "lottfarming:orc_food 4",
 	recipe = {
 		{"default:dirt", "lottfarming:potato_cooked", "default:dirt"},
-		{"lottmobs:meat_raw", "farming:bread", "lottmobs:meat_raw"},
+		{"lottmobs:rotten_meat", "farming:bread", "lottmobs:rotten_meat"},
 		{"default:dirt", "default:dirt", "default:dirt"},
 	}
 })
