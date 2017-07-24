@@ -1989,3 +1989,5 @@ minetest.register_node("default:snowblock", {
 		dug = {name="default_snow_footstep", gain=0.75},
 	}),
 })
+
+minetest.register_alias("default:leaves", "lottplants:appleleaf")
