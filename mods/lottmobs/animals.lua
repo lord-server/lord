@@ -21,33 +21,34 @@ mobs:register_arrow("lottmobs:egg_entity", {
 	end,
 
 	hit_node = function(self, pos, node)
-
 		if math.random(1, 10) > 1 then
 			return
 		end
 
 		pos.y = pos.y + 1
 
-		local nod = minetest.get_node_or_nil(pos)
-
-		if not nod
-		or not minetest.registered_nodes[nod.name]
-		or minetest.registered_nodes[nod.name].walkable == true then
+		local node = minetest.get_node_or_nil(pos)
+		if not node then
 			return
 		end
 
-		local mob = minetest.add_entity(pos, "lottmobs:chicken")
+		local node_def = minetest.registered_nodes[node.name]
+
+		if not node_def or node_def.walkable then
+			return
+		end
+
+		minetest.add_entity(pos, "lottmobs:chicken")
 	end
 })
 
 
 -- egg throwing item
 
-local egg_GRAVITY = 9
-local egg_VELOCITY = 19
+local EGG_GRAVITY = 9
+local EGG_VELOCITY = 19
 
-local mobs_shoot_egg = function (item, player, pointed_thing)
-
+local mobs_shoot_egg = function(item, player, pointed_thing)
 	local playerpos = player:getpos()
 
 	minetest.sound_play("default_place_node_hard", {
@@ -58,25 +59,25 @@ local mobs_shoot_egg = function (item, player, pointed_thing)
 
 	local obj = minetest.add_entity({
 		x = playerpos.x,
-		y = playerpos.y +1.5,
+		y = playerpos.y + 1.5,
 		z = playerpos.z
 	}, "lottmobs:egg_entity")
 
 	local ent = obj:get_luaentity()
 	local dir = player:get_look_dir()
 
-	ent.velocity = egg_VELOCITY -- needed for api internal timing
+	ent.velocity = EGG_VELOCITY -- needed for api internal timing
 	ent.switch = 1 -- needed so that egg doesn't despawn straight away
 
 	obj:setvelocity({
-		x = dir.x * egg_VELOCITY,
-		y = dir.y * egg_VELOCITY,
-		z = dir.z * egg_VELOCITY
+		x = dir.x * EGG_VELOCITY,
+		y = dir.y * EGG_VELOCITY,
+		z = dir.z * EGG_VELOCITY
 	})
 
 	obj:setacceleration({
 		x = dir.x * -3,
-		y = -egg_GRAVITY,
+		y = -EGG_GRAVITY,
 		z = dir.z * -3
 	})
 
