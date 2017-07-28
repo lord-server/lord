@@ -10,16 +10,16 @@ Raw Porkchop = Кабанье мясо
 Cooked Porkchop = Жареное кабанье мясо
 Dirty Jacket	=	Грязная куртка
 Dirty Trousers	=	Грязные штаны
-Raw Fish = Сырая Рыба
-Raw Horsemeat = Сырая Конина
-Raw Chicken = Сырая Курица
-Raw Rabbit = Сырая Крольчатина
-Cooked Fish = Жареная Рыба
-Cooked Horsemeat = Жареная Конина
-Cooked Chicken = Жареная Курица
-Cooked Rabbit = Жареная Крольчатина
-Rotten Meat = Гнилое Мясо
-Chicken Egg = Куриное Яйцо
+Raw Fish = Сырая рыба
+Raw Horsemeat = Сырая конина
+Raw Chicken = Сырая курица
+Raw Rabbit = Сырая крольчатина
+Cooked Fish = Жареная рыба
+Cooked Horsemeat = Жареная конина
+Cooked Chicken = Жареная курица
+Cooked Rabbit = Жареная крольчатина
+Rotten Meat = Гнилое мясо
+Chicken Egg = Куриное яйцо
 Omelette = Яичница
 
 ### horse.lua ###
