@@ -52,7 +52,7 @@ mobs:register_mob("lottmobs:warg", {
 	view_range = 15,
 	armor = 300,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 5, min = 3, max = 10,},
+		{name = "lottmobs:rotten_meat", chance = 5, min = 4, max = 10,},
 		{name = "lottclothes:felt_grey", chance = 5, min = 2, max = 7,},
 	},
 	light_resistant = true,

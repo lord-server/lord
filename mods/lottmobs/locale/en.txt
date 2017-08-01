@@ -8,6 +8,14 @@ Cooked Meat	=	Cooked Meat
 Raw Meat	=	Raw Meat
 Dirty Jacket	=	Dirty Jacket
 Dirty Trousers	=	Dirty Trousers
+Raw Fish = Raw Fish
+Raw Horsmeat = Raw Horsmeat
+Raw Chicken = Raw Chicken
+Raw Rabbit = Raw Rabbit
+Cooked Fish = Cooked Fish
+Cooked Horsmeat = Cooked Horsmeat
+Cooked Chicken = Cooked Chicken
+Cooked Rabbit = Cooked Rabbit
 
 ### horse.lua ###
 Brown Horse	=	Brown Horse

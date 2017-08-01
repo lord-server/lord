@@ -1,5 +1,114 @@
 local SL = lord.require_intllib()
 
+mobs:register_arrow("lottmobs:egg_entity", {
+	visual = "sprite",
+	visual_size = {x=.5, y=.5},
+	textures = {"lottmobs_egg.png"},
+	velocity = 9,
+
+	hit_player = function(self, player)
+		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
+			full_punch_interval = 0.7,
+			damage_groups = {fleshy = 1},
+		}, nil)
+	end,
+
+	hit_mob = function(self, player)
+		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
+			full_punch_interval = 1.0,
+			damage_groups = {fleshy = 1},
+		}, nil)
+	end,
+
+	hit_node = function(self, pos, node)
+		if math.random(1, 10) > 1 then
+			return
+		end
+
+		pos.y = pos.y + 1
+
+		local node = minetest.get_node_or_nil(pos)
+		if not node then
+			return
+		end
+
+		local node_def = minetest.registered_nodes[node.name]
+
+		if not node_def or node_def.walkable then
+			return
+		end
+
+		minetest.add_entity(pos, "lottmobs:chicken")
+	end
+})
+
+
+-- egg throwing item
+
+local EGG_GRAVITY = 9
+local EGG_VELOCITY = 19
+
+local mobs_shoot_egg = function(item, player, pointed_thing)
+	local playerpos = player:getpos()
+
+	minetest.sound_play("default_place_node_hard", {
+		pos = playerpos,
+		gain = 1.0,
+		max_hear_distance = 5,
+	})
+
+	local obj = minetest.add_entity({
+		x = playerpos.x,
+		y = playerpos.y + 1.5,
+		z = playerpos.z
+	}, "lottmobs:egg_entity")
+
+	local ent = obj:get_luaentity()
+	local dir = player:get_look_dir()
+
+	ent.velocity = EGG_VELOCITY -- needed for api internal timing
+	ent.switch = 1 -- needed so that egg doesn't despawn straight away
+
+	obj:setvelocity({
+		x = dir.x * EGG_VELOCITY,
+		y = dir.y * EGG_VELOCITY,
+		z = dir.z * EGG_VELOCITY
+	})
+
+	obj:setacceleration({
+		x = dir.x * -3,
+		y = -EGG_GRAVITY,
+		z = dir.z * -3
+	})
+
+	-- pass player name to egg for chick ownership
+	local ent2 = obj:get_luaentity()
+	ent2.playername = player:get_player_name()
+
+	item:take_item()
+
+	return item
+end
+
+minetest.register_node("lottmobs:egg", {
+	description = SL("Chicken Egg"),
+	tiles = {"lottmobs_egg.png"},
+	inventory_image  = "lottmobs_egg.png",
+	visual_scale = 0.7,
+	drawtype = "plantlike",
+	wield_image = "lottmobs_egg.png",
+	paramtype = "light",
+	walkable = false,
+	is_ground_content = true,
+	sunlight_propagates = true,
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
+	},
+	groups = {snappy = 2, dig_immediate = 3},
+	on_use = mobs_shoot_egg
+})
+
 mobs:register_mob("lottmobs:chicken", {
 	type = "animal",
 	hp_min = 5,
@@ -13,14 +122,19 @@ mobs:register_mob("lottmobs:chicken", {
 	},
 	visual = "mesh",
 	mesh = "chicken_model.x",
+	visual_size = {x=1.5, y=1.5, z=1.5,},
 	makes_footstep_sound = true,
 	walk_velocity = 1,
 	armor = 300,
 		drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:chicken_raw",
 		chance = 1,
-		min = 1,
-		max = 3,},
+		min = 0,
+		max = 1,},
+		{name = "lottmobs:egg",
+		chance = 1,
+		min = 0,
+		max = 1,},
 	},
 	light_resistant = true,
 	drawtype = "front",
@@ -42,6 +156,7 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
+	
 	sounds = {
 	},
 })
@@ -165,7 +280,7 @@ mobs:register_mob("lottmobs:bunny", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 1, min = 1, max = 1},
+		{name = "lottmobs:rabbit_raw", chance = 1, min = 1, max = 1},
 	},
 	water_damage = 1,
 	lava_damage = 4,
