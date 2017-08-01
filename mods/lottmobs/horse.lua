@@ -481,7 +481,7 @@ mobs:register_mob("lottmobs:horse", {
 	walk_velocity = 1,
 	armor = 200,
 	drops = {
-		{name = "lottmobs:meat_raw",
+		{name = "lottmobs:horsemeat_raw",
 		chance = 1,
 		min = 2,
 		max = 3,},
