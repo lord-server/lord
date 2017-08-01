@@ -222,7 +222,7 @@ minetest.register_node("lottmapgen:lorien_grass", {
 })
 
 minetest.register_node("lottmapgen:fangorn_grass", {
-	description = "? Grass",
+	description = SL("Fangorn Grass"),
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
 	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},

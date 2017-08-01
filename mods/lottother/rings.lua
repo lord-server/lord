@@ -5,27 +5,29 @@ local DWARF_RING_USES = 300
 minetest.register_craftitem("lottother:beast_ring", {
 	description = SL("Beast Ring"),
 	inventory_image = "lottother_beast_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:ringsilver_lump", {
 	description = SL("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ringsilver_ingot", {
 	description = SL("Refined Ring Silver"),
 	inventory_image = "lottother_ringsilver_ingot.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ring", {
 	description = SL("Plain Ring"),
 	inventory_image = "lottother_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_gem", {
 	description = SL("Purple Gem"),
 	inventory_image = "lottother_purplegem.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
 })
 
 
@@ -34,17 +36,20 @@ minetest.register_craftitem("lottother:purple_gem", {
 minetest.register_craftitem("lottother:blue_gem_ring", {
 	description = SL("Blue Gem Ring"),
 	inventory_image = "lottother_bluegem_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:blue_am_ring", {
 	description = SL("Blue Almost Magic Ring"),
 	inventory_image = "lottother_bluegem_am_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:vilya", {
 	description = SL("Vilya"),
 	inventory_image = "lottother_vilya.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_globalstep(function(dtime)
 	for _, player in ipairs(minetest.get_connected_players()) do
@@ -63,17 +68,20 @@ end)
 minetest.register_craftitem("lottother:red_gem_ring", {
 	description = SL("Red Gem Ring"),
 	inventory_image = "lottother_redgem_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:red_am_ring", {
 	description = SL("Red Almost Magic Ring"),
 	inventory_image = "lottother_redgem_am_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:narya", {
 	description = SL("Narya"),
 	inventory_image = "lottother_narya.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 --follow = "lottother:narya",
 
@@ -81,12 +89,14 @@ minetest.register_craftitem("lottother:narya", {
 minetest.register_craftitem("lottother:white_gem_ring", {
 	description = SL("White Gem Ring"),
 	inventory_image = "lottother_whitegem_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:white_am_ring", {
 	description = SL("White Almost Magic Ring"),
 	inventory_image = "lottother_whitegem_am_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_tool("lottother:nenya", {
 	description = SL("Nenya"),
@@ -191,17 +201,20 @@ minetest.register_craft({
 minetest.register_craftitem("lottother:purple_gem_ring", {
 	description = SL("Purple Gem Ring"),
 	inventory_image = "lottother_purplegem_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_gem_mithril_ring", {
 	description = SL("Purple Gem Mithril Ring"),
 	inventory_image = "lottother_purplegem_mithril_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_am_ring", {
 	description = SL("Mithril Almost Magic Ring"),
 	inventory_image = "lottother_purplegem_am_ring.png",
-     groups = {forbidden=1},
+    groups = {forbidden=1},
+	stack_max = 1,
 })
 minetest.register_tool("lottother:dwarf_ring", {
 	description = SL("Dwarf Ring"),

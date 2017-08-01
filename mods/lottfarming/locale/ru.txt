@@ -12,7 +12,7 @@ Berries Seeds	=	Семена ягод
 Berries	=	Ягоды
 
 ### blue.lua ###
-Blue Mushroom Spores	=	Споры синих грбов
+Blue Mushroom Spores	=	Споры синих грибов
 Blue Mushroom	=	Синие грибы
 Cream of Mushroom Soup	=	Грибной суп
 

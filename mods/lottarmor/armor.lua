@@ -416,11 +416,13 @@ minetest.register_on_joinplayer(function(player)
 			player:get_inventory():set_stack(listname, index, stack)
 			armor:set_player_armor(player)
 			armor:update_inventory(player)
+			lottachievements.equip(stack, player, 1)
 		end,
 		on_take = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, nil)
 			armor:set_player_armor(player)
 			armor:update_inventory(player)
+			lottachievements.equip(stack, player, -1)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
 			local plaver_inv = player:get_inventory()
@@ -431,7 +433,37 @@ minetest.register_on_joinplayer(function(player)
 			armor:update_inventory(player)
 		end,
 		allow_put = function(inv, listname, index, stack, player)
-			return 1
+			if index == 1 then
+				if stack:get_definition().groups.armor_head == nil then
+					return 0
+				else
+					return 1
+				end
+			elseif index == 2 then
+				if stack:get_definition().groups.armor_torso == nil then
+					return 0
+				else
+					return 1
+				end
+			elseif index == 3 then
+				if stack:get_definition().groups.armor_legs == nil then
+					return 0
+				else
+					return 1
+				end
+			elseif index == 4 then
+				if stack:get_definition().groups.armor_feet == nil then
+					return 0
+				else
+					return 1
+				end
+			elseif index == 5 then
+				if stack:get_definition().groups.armor_shield == nil then
+					return 0
+				else
+					return 1
+				end
+			end
 		end,
 		allow_take = function(inv, listname, index, stack, player)
 			return stack:get_count()

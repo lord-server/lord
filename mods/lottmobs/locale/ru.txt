@@ -34,6 +34,13 @@ You could not tame this beast!!! = Вы не смогли приручить э�
 ### boar.lua
 Boar = Кабан
 
+### fishes.lua ###
+Fish raw       = Сырая рыба
+Fish cooked    = Жареная рыба
+Clownfish      = Рыба клоун
+Tropical fish  = Тропическая рыбка
+
+
 ### trader.lua ###
 Trader	=	Торговец
 Hello	=	Привет

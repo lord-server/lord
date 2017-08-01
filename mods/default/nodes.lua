@@ -1851,7 +1851,7 @@ minetest.register_node("default:grass_1", {
 	walkable = false,
 	is_ground_content = true,
 	buildable_to = true,
-	groups = {snappy=3,flammable=3,flora=1,attached_node=1,grass=1},
+	groups = {snappy=3,flammable=3,flora=1,attached_node=1,grass=1,color_green=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
 		type = "fixed",

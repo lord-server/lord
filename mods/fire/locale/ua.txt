@@ -1,3 +1,7 @@
+
 ### campfire.lua ###
-Campfire 	= Багаття
+Campfire    	= Багаття
 Active campfire = Палаюче багаття
+Ash             = Попіл
+Fireplace       = Місце багаття
+Cooking         = Готування

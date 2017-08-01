@@ -152,6 +152,24 @@ minetest.register_alias("lord_homedecor:slab_Roofing", "stairs:slab_roofing")
 minetest.register_alias("lord_homedecor:slab_grate", "stairs:slab_grate")
 minetest.register_alias("lord homedecor:slab_hardwood", "stairs:slab_hardwood")
 
+minetest.register_alias("lottthrowing:arrow_fire", "lottpotion:athelasbrew_power1_arrow")
+minetest.register_alias("lottthrowing:arrow_fire_entity", "lottpotion:limpe_power3_arrow")
+minetest.register_alias("lottthrowing:arrow_fire_blue", "lottpotion:miruvor_power2_arrow")
+minetest.register_alias("lottthrowing:arrow_fire_blue_entity", "lottpotion:spiderpoison_corruption3_arrow")
+minetest.register_alias("lottthrowing:bolt_fire", "lottpotion:bolt")
+
+minetest.register_alias("lottplants:anemones_fake", "lottplants:anemones")
+minetest.register_alias("lottplants:asphodel_fake", "lottplants:asphodel")
+minetest.register_alias("lottplants:eglantive_fake", "lottplants:eglantive")
+minetest.register_alias("lottplants:elanor_fake", "lottplants:elanor")
+minetest.register_alias("lottplants:iris_fake", "lottplants:iris")
+minetest.register_alias("lottplants:lissuin_fake", "lottplants:lissuin")
+minetest.register_alias("lottplants:mallos_fake", "lottplants:mallos")
+minetest.register_alias("lottplants:niphredil_fake", "lottplants:niphredil")
+minetest.register_alias("lottplants:seregon_fake", "lottplants:seregon")
+minetest.register_alias("lottplants:brambles_of_mordor_fake", "lottplants:brambles_of_mordor")
+minetest.register_alias("lottplants:pilinehtar_fake", "lottplants:pilinehtar")
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do

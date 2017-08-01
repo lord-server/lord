@@ -50,6 +50,7 @@ dofile(minetest.get_modpath("lottmobs").."/trader_goods.lua")
 dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
 dofile(minetest.get_modpath("lottmobs").."/animals.lua")
+dofile(minetest.get_modpath("lottmobs").."/fishes.lua")
 --dofile(minetest.get_modpath("lottmobs").."/dragons.lua")
 
 dofile(minetest.get_modpath("lottmobs").."/eggs.lua")
@@ -1384,11 +1385,15 @@ mobs:register_arrow("lottmobs:darkball", {
 			for dy=-1,1 do
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(pos).name
-					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-						minetest.set_node(p, {name="fire:basic_flame"})
-					else
-						minetest.remove_node(p)
+					--local n = minetest.get_node(pos).name
+					local n = minetest.get_node(p).name
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
+						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+							minetest.set_node(p, {name="fire:basic_flame"})
+						else
+							minetest.remove_node(p)
+						end
 					end
 				end
 			end
@@ -1399,11 +1404,16 @@ mobs:register_arrow("lottmobs:darkball", {
 			for dy=-2,1 do
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(pos).name
-					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-						minetest.set_node(p, {name="fire:basic_flame"})
+					local n = minetest.get_node(p).name
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					--print(dump(fbd))
+					if fbd == nil then
+						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+							minetest.set_node(p, {name="fire:basic_flame"})
+						else
+							minetest.remove_node(p)
+						end
 					else
-						minetest.remove_node(p)
 					end
 				end
 			end
@@ -1443,11 +1453,14 @@ mobs:register_arrow("lottmobs:fireball", {
 			for dy=-1,1 do
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(pos).name
-					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-						minetest.set_node(p, {name="fire:basic_flame"})
-					else
-						minetest.remove_node(p)
+					local n = minetest.get_node(p).name
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
+						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+							minetest.set_node(p, {name="fire:basic_flame"})
+						else
+							minetest.remove_node(p)
+						end
 					end
 				end
 			end
@@ -1470,11 +1483,14 @@ mobs:register_arrow("lottmobs:fireball", {
 			for dy=-2,1 do
 				for dz=-1,1 do
 					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(pos).name
-					if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-						minetest.set_node(p, {name="fire:basic_flame"})
-					else
-						minetest.remove_node(p)
+					local n = minetest.get_node(p).name
+					local fbd = minetest.registered_nodes[n].groups.forbidden
+					if fbd == nil then
+						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+							minetest.set_node(p, {name="fire:basic_flame"})
+						else
+							minetest.remove_node(p)
+						end
 					end
 				end
 			end

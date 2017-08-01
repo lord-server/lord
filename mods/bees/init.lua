@@ -49,7 +49,7 @@ local SL = lord.require_intllib()
     description = SL('honey extractor'),
     tiles = {"bees_extractor_top.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png"},
     paramtype2 = "facedir",
-    groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1},
+    groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
     on_construct = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
@@ -333,7 +333,7 @@ local SL = lord.require_intllib()
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'facedir',
-    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,},
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3,wooden=1},
     sounds = default.node_sound_wood_defaults(),
     node_box = {
       type = 'fixed',
@@ -535,34 +535,30 @@ local SL = lord.require_intllib()
 --ITEMS
   minetest.register_craftitem('bees:frame_empty', {
     description = SL('empty hive frame'),
+	groups = {wooden=1},
     inventory_image = 'bees_frame_empty.png',
-    stack_max = 24,
   })
 
   minetest.register_craftitem('bees:frame_full', {
     description = SL('filled hive frame'),
     inventory_image = 'bees_frame_full.png',
-    stack_max = 12,
   })
 
   minetest.register_craftitem('bees:bottle_honey', {
     description = SL('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
-    stack_max = 12,
     on_use = minetest.item_eat(3, "vessels:glass_bottle"),
   })
 
   minetest.register_craftitem('bees:wax', {
     description = SL('bees wax'),
     inventory_image = 'bees_wax.png',
-    stack_max = 48,
   })
 
   minetest.register_craftitem('bees:honey_comb', {
     description = SL('honey comb'),
     inventory_image = 'bees_comb.png',
     on_use = minetest.item_eat(2),
-    stack_max = 8,
   })
 
   --minetest.register_craftitem('bees:queen', {
@@ -621,6 +617,7 @@ local SL = lord.require_intllib()
 --TOOLS
   minetest.register_tool('bees:smoker', {
     description = SL('smoker'),
+	groups = {steel_item = 1},
     inventory_image = 'bees_smoker.png',
     tool_capabilities = {
       full_punch_interval = 3.0,
@@ -653,6 +650,7 @@ local SL = lord.require_intllib()
 
   minetest.register_tool('bees:grafting_tool', {
     description = SL('grafting tool'),
+	groups = {steel_item = 1},
     inventory_image = 'bees_grafting_tool.png',
     tool_capabilities = {
       full_punch_interval = 3.0,

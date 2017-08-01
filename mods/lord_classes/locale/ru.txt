@@ -1,4 +1,4 @@
-### init.lua ###
+﻿### init.lua ###
 Shadow = Тень
 Dwarf = Гномы
 Elf = Эльфы
@@ -31,3 +31,5 @@ Player '%s' does not exist = Игрока '%s' не существует
 
 Won't give another chance = Ещё одного шанса не будет
 Second chance = Второй шанс
+
+Give another chance to a player. = Дать еще один шанс игроку.

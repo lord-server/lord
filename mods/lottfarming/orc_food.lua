@@ -84,7 +84,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 })
 
 minetest.register_craft({
-	output = "lottfarming:orc_medicine 2",
+	output = "lottfarming:orc_medicine",
 	recipe = {
 		{"", "lottfarming:berries", ""},
 		{"lottfarming:berries", "lottfarming:orc_food", "lottfarming:berries"},

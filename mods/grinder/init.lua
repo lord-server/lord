@@ -491,7 +491,7 @@ minetest.register_abm({
 minetest.register_craftitem("grinder:coal_dust", {
 	description = SL("Coal dust"),
 	inventory_image = "grinder_coal_dust.png",
-	groups = {fuel=1},
+	groups = {fuel=1,coal=1},
 })
 
 minetest.register_craft({
