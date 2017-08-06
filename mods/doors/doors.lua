@@ -31,10 +31,9 @@ doors.register_door("doors:door_wood_lock", {
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "doors:door_wood_lock",
-	recipe = {
-		{"doors:door_wood", "default:steel_ingot"}
-	}
+	recipe = {"doors:door_wood", "default:steel_ingot"}
 })
 
 
@@ -69,10 +68,9 @@ doors.register_door("doors:door_steel_lock", {
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "doors:door_steel_lock",
-	recipe = {
-		{"doors:door_steel", "default:steel_ingot"}
-	}
+	recipe = {"doors:door_steel", "default:steel_ingot"}
 })
 
 
@@ -107,10 +105,9 @@ doors.register_door("doors:door_glass_lock", {
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "doors:door_glass_lock",
-	recipe = {
-		{"doors:door_glass", "default:steel_ingot"}
-	}
+	recipe = {"doors:door_glass", "default:steel_ingot"}
 })
 
 
@@ -145,8 +142,7 @@ doors.register_door("doors:door_obsidian_glass_lock", {
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "doors:door_obsidian_glass_lock",
-	recipe = {
-		{"doors:door_obsidian_glass", "default:steel_ingot"}
-	}
+	recipe = {"doors:door_obsidian_glass", "default:steel_ingot"}
 })

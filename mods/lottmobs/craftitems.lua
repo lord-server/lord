@@ -1,26 +1,5 @@
 local SL = lord.require_intllib()
 
--- === FISH start
-minetest.register_craftitem("lottmobs:fish_raw", {
-	description = SL("Fish raw"),
-	inventory_image = "lottmobs_fish_raw.png",
-	on_use = minetest.item_eat(1),
-})
-
-minetest.register_craftitem("lottmobs:fish_cooked", {
-	description = SL("Fish cooked"),
-	inventory_image = "lottmobs_fish_cooked.png",
-	on_use = minetest.item_eat(3),
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottmobs:fish_cooked",
-	recipe = "lottmobs:fish_raw",
-	cooktime = 4,
-})
--- === FISH end
-
 minetest.register_craftitem("lottmobs:meat", {
 	description = SL("Cooked Meat"),
 	inventory_image = "lottmobs_meat.png",

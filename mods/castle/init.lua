@@ -66,17 +66,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "castle:oak_door_lock",
-	recipe = {
-		{"castle:oak_door", "default:steel_ingot"}
-	}
+	recipe = {"castle:oak_door", "default:steel_ingot"}
 })
 
 minetest.register_craft({
+	type = "shapeless",
 	output = "castle:jail_door_lock",
-	recipe = {
-		{"castle:jail_door", "default:steel_ingot"}
-	}
+	recipe = {"castle:jail_door", "default:steel_ingot"}
 })
 
 function default.get_ironbound_chest_formspec(pos)

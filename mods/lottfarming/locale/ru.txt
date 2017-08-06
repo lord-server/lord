@@ -1,4 +1,4 @@
-### athelas.lua ###
+﻿### athelas.lua ###
 Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 
@@ -47,7 +47,6 @@ Orc Food	=	Еда орков
 Orc medicine	=	Лекарство орков
 
 ### other.lua ###
-Lembas = Лембас (только для админов/модеров)
 Cracker = Крекер
 Dough = Тесто
 Yeast Dough = Дрожжевое тесто

@@ -17,11 +17,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'technic:copper_locked_chest 1',
-	recipe = {
-		{'default:steel_ingot'},
-		{'technic:copper_chest'},
-	}
+	type = "shapeless",
+	output = "technic:copper_locked_chest 1",
+	recipe = {"technic:copper_chest", "default:steel_ingot"}
 })
 
 technic.chests:register("Copper", {

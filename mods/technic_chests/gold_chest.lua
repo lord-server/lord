@@ -1,38 +1,25 @@
-
-local material_list
-if minetest.get_modpath("moreores") then
-	material_list = { 'silver' }
-else
-	-- Make the gold chest obtainable for mere mortals (the silver chest is not obtainable)
-	material_list = { 'copper', 'silver' }
-end
-
-for _, material in ipairs(material_list) do
-	minetest.register_craft({
-		output = 'technic:gold_chest',
-		recipe = {
-			{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
-			{'default:gold_ingot',"technic:"..material.."_chest",'default:gold_ingot'},
-			{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
-		}
-	})
-
-	minetest.register_craft({
-		output = 'technic:gold_locked_chest',
-		recipe = {
-			{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
-			{'default:gold_ingot',"technic:"..material.."_locked_chest",'default:gold_ingot'},
-			{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
-		}
-	})
-end
+minetest.register_craft({
+	output = 'technic:gold_chest',
+	recipe = {
+		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
+		{'default:gold_ingot',"technic:silver_chest",'default:gold_ingot'},
+		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
+	}
+})
 
 minetest.register_craft({
 	output = 'technic:gold_locked_chest',
 	recipe = {
-		{'default:steel_ingot'},
-		{'technic:gold_chest'},
+		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
+		{'default:gold_ingot',"technic:silver_locked_chest",'default:gold_ingot'},
+		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
 	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "technic:gold_locked_chest",
+	recipe = {"technic:gold_chest", "default:steel_ingot"}
 })
 
 technic.chests:register("Gold", {

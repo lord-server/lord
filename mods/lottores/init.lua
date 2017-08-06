@@ -826,10 +826,9 @@ stairs.register_stair_and_slab("galvorn_block", "lottores:galvorn_block",
 -- Crafting
 
 minetest.register_craft({
-	output = 'lottores:galvorn_ingot',
-	recipe = {
-		{'lottores:lead_ingot', 'default:mese_crystal'},
-	}
+	type = "shapeless",
+	output = "lottores:galvorn_ingot",
+	recipe = {"lottores:lead_ingot", "default:mese_crystal"}
 })
 
 minetest.register_craft({
@@ -849,11 +848,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottores:tilkal_ingot',
-	recipe = {
-		{'default:copper_ingot', 'lottores:silver_ingot', 'lottores:tin_ingot'},
-		{'lottores:lead_ingot', 'default:steel_ingot', 'default:gold_ingot'},
-	}
+	type = "shapeless",
+	output = "lottores:tilkal_ingot",
+	recipe = {"default:copper_ingot", "lottores:silver_ingot", "lottores:tin_ingot", "lottores:lead_ingot", "default:steel_ingot", "default:gold_ingot"}
 })
 
 minetest.register_craft({
@@ -966,31 +963,27 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottores:ithildin_1',
-	recipe = {
-		{'lottores:mithril_ingot', 'lottores:geodes_crystal_1'},
-	}
+	type = "shapeless",
+	output = "lottores:ithildin_1",
+	recipe = {"lottores:mithril_ingot", "lottores:geodes_crystal_1"}
 })
 
 minetest.register_craft({
-	output = 'lottores:ithildin_stone_1',
-	recipe = {
-		{'lottores:ithildin_1', 'group:stone'},
-	}
+	type = "shapeless",
+	output = "lottores:ithildin_stone_1",
+	recipe = {"lottores:ithildin_1", "group:stone"}
 })
 
 minetest.register_craft({
-	output = 'lottores:ithildin_lamp_1',
-	recipe = {
-		{'lottores:mithril_ingot', 'lottother:blue_torch'},
-	}
+	type = "shapeless",
+	output = "lottores:ithildin_lamp_1",
+	recipe = {"lottores:mithril_ingot", "lottother:blue_torch"}
 })
 
 minetest.register_craft({
-	output = 'lottores:ithildin_stonelamp_1',
-	recipe = {
-		{'lottores:ithildin_lamp_1', 'group:stone'},
-	}
+	type = "shapeless",
+	output = "lottores:ithildin_stonelamp_1",
+	recipe = {"lottores:ithildin_lamp_1", "group:stone"}
 })
 
 minetest.register_craft({

@@ -122,8 +122,10 @@ minetest.register_craftitem("lord_money:license", {
 	groups = {not_in_creative_inventory=1, book=1, paper=1},
 })
 
-minetest.register_craft({output = "lord_money:shop",
-	recipe = {{"lord_money:license"}, {"default:chest_locked"}},
+minetest.register_craft({
+	type = "shapeless",
+	output = "lord_money:shop",
+	recipe = {"lord_money:license", "default:chest_locked"}
 })
 
 minetest.register_on_player_receive_fields(function(sender, formname, fields)
