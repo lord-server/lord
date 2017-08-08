@@ -106,6 +106,7 @@ function grinder.get_grinding_recipe(typename, items)
 end
 
 local recipes = {
+	{"bones:bone", "bones:bonedust 3", 3},
 	{"default:stone", "default:cobble", 5},
 	{"default:desert_stone", "default:desert_cobble", 5},
 	{"default:cobble", "default:gravel", 5},
