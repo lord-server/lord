@@ -6,12 +6,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	type = "cooking",
-	output = "bones:bonedust",
-	recipe = "bones:bone",
-})
-
-minetest.register_craft({
 	output = 'bones:bone_scythe',
 	recipe = {
 		{'bones:bone', 'bones:bone', ''},
