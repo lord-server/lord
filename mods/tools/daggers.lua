@@ -66,7 +66,7 @@ tools.dagger = {
 		full_punch_interval = 1,
 		max_drop_level=0,
 		snappy={times={[2]=.80, [3]=0.40}, uses=10, maxlevel=1},
-		damage_groups = {fleshy=5},
+		damage_groups = {fleshy=4},
 		groups = {silver_item = 1},
 	},
 	gold = {
@@ -75,7 +75,7 @@ tools.dagger = {
 		full_punch_interval = .6,
 		max_drop_level=0,
 		snappy={times={[2]=.80, [3]=0.40}, uses=15, maxlevel=1},
-		damage_groups = {fleshy=5},
+		damage_groups = {fleshy=4},
 		groups = {gold_item = 1},
 	},
 	galvorn = {
@@ -84,7 +84,7 @@ tools.dagger = {
 		full_punch_interval = .5,
 		max_drop_level=0,
 		snappy={times={[2]=.90, [3]=0.45}, uses=20, maxlevel=1},
-		damage_groups = {fleshy=5.5},
+		damage_groups = {fleshy=4.5},
 		groups = {forbidden=1, galvorn_item = 1},
 	},
 	mithril = {
@@ -93,7 +93,7 @@ tools.dagger = {
 		full_punch_interval = .25,
 		max_drop_level=0,
 		snappy={times={[2]=.75, [3]=0.35}, uses=25, maxlevel=2},
-		damage_groups = {fleshy=6.5},
+		damage_groups = {fleshy=5.5},
 		groups = {mithril_item = 1},
 	}
 }
