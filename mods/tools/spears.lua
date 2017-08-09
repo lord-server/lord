@@ -30,7 +30,7 @@ tools.spear = {
 	steel = {
 		description = SL("Steel Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 1.20,
 		max_drop_level=1,
 		snappy={times={[1]=2.40, [2]=1.40, [3]=0.40}, uses=15, maxlevel=1},
@@ -40,7 +40,7 @@ tools.spear = {
 	bronze = {
 		description = SL("Bronze Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 1.10,
 		max_drop_level=1,
 		snappy={times={[1]=2.40, [2]=1.40, [3]=0.40}, uses=20, maxlevel=1},
@@ -50,6 +50,7 @@ tools.spear = {
 	copper = {
 		description = SL("Copper Spear"),
 		wield_image_transform = "^[transformFX",
+		range = 9,
 		full_punch_interval = 1.30,
 		max_drop_level=1,
 		snappy={times={[1]=2.70, [2]=1.70, [3]=0.70}, uses=5, maxlevel=1},
@@ -59,7 +60,7 @@ tools.spear = {
 	tin = {
 		description = SL("Tin Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 1.30,
 		max_drop_level=1,
 		snappy={times={[1]=2.70, [2]=1.70, [3]=0.70}, uses=5, maxlevel=1},
@@ -69,7 +70,7 @@ tools.spear = {
 	silver = {
 		description = SL("Silver Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 1,
 		max_drop_level=1,
 		snappy={times={[1]=2.2, [2]=1.2, [3]=0.20}, uses=15, maxlevel=1},
@@ -79,7 +80,7 @@ tools.spear = {
 	gold = {
 		description = SL("Gold Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 0.75,
 		max_drop_level=1,
 		snappy={times={[1]=2.2, [2]=1.2, [3]=0.20}, uses=20, maxlevel=1},
@@ -89,21 +90,21 @@ tools.spear = {
 	galvorn = {
 		description = SL("Galvorn Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 0.50,
 		max_drop_level=1,
 		snappy={times={[1]=2.3, [2]=1.3, [3]=0.30}, uses=25, maxlevel=1},
-		damage_groups = {fleshy=7},
+		damage_groups = {fleshy=6},
 		groups = {forbidden=1, galvorn_item=1},
 	},
 	mithril = {
 		description = SL("Mithril Spear"),
 		wield_image_transform = "^[transformFX",
-		range = 7,
+		range = 9,
 		full_punch_interval = 0.25,
 		max_drop_level=1,
 		snappy={times={[1]=2.00, [2]=1.00, [3]=0.20}, uses=30, maxlevel=2},
-		damage_groups = {fleshy=8},
+		damage_groups = {fleshy=7},
 		groups = {mithril_item = 1},
 	}
 }
