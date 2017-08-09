@@ -118,7 +118,7 @@ tools.axe = {
 			uses=30,
 			maxlevel=3
 		},
-		damage_groups = {forbidden=1, fleshy=6},
+		damage_groups = {forbidden=1, fleshy=6.5},
 		groups = {galvorn_item = 1},
 	},
 	mithril = {
@@ -130,7 +130,7 @@ tools.axe = {
 			uses=60,
 			maxlevel=2
 		},
-		damage_groups = {fleshy=7},
+		damage_groups = {fleshy=7.5},
 		groups = {mithril_item = 1},
 	}
 }
