@@ -224,25 +224,25 @@ if minetest.get_modpath("mobfcooking") ~= nil then
 end
 
 if minetest.get_modpath("lottfarming") ~= nil then
-	overwrite("lottfarming:sheaf_barley", 4)
-	overwrite("lottfarming:berries", 2)
+	overwrite("lottfarming:sheaf_barley", 3)
+	overwrite("lottfarming:berries", 1)
 	overwrite("lottfarming:blue_mushroom", 3, "", 2)
-	overwrite("lottfarming:brown_mushroom", 4)
-	overwrite("lottfarming:cabbage", 4)
-	overwrite("lottfarming:carrot_item", 2)
-	overwrite("lottfarming:ear_of_corn", 6)
+	overwrite("lottfarming:brown_mushroom", 2)
+	overwrite("lottfarming:cabbage", 3)
+	overwrite("lottfarming:carrot_item", 3)
+	overwrite("lottfarming:ear_of_corn", 3)
 	overwrite("lottfarming:green_mushroom", 2, "", 2)
-	overwrite("lottfarming:melon", 4)
+	overwrite("lottfarming:melon", 3)
 	overwrite("lottfarming:potato", 1)
 	overwrite("lottfarming:potato_cooked", 8)
 	overwrite("lottfarming:red_mushroom", -8, "", 8)
 	overwrite("lottfarming:red_rhcy", 4)
 	overwrite("lottfarming:tomatoes", 2)
 	overwrite("lottfarming:tomatoes_cooked", 4)
-	overwrite("lottfarming:tomato_soup", 8, "lottfarming:bowl")
+	overwrite("lottfarming:tomato_soup", 7, "lottfarming:bowl")
 	overwrite("lottfarming:turnips", 1)
-	overwrite("lottfarming:turnips_cooked", 8)
-	overwrite("lottfarming:salad", 6, "lottfarming:bowl")
+	overwrite("lottfarming:turnips_cooked", 3)
+	overwrite("lottfarming:salad", 5, "lottfarming:bowl")
 	overwrite("lottfarming:mushroom_soup", 8, "lottfarming:bowl")
 	overwrite("lottfarming:cookie_cracker", 2)
 end
@@ -254,15 +254,15 @@ end
 
 if minetest.get_modpath("lottplants") ~= nil then
 	overwrite("lottplants:plum", 2)
-	overwrite("lottplants:yavannamirefruit", 10)
+	overwrite("lottplants:yavannamirefruit", 8, "", -2)
 	overwrite("lottplants:honey", 2)
 end
 
 if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:meat", 4)
-	overwrite("lottmobs:meat_raw", 2, "", 4)
+	overwrite("lottmobs:meat_raw", 1, "", 4)
 	overwrite("lottmobs:pork_cooked", 6)
-	overwrite("lottmobs:pork_raw", 3, "", 4)
+	overwrite("lottmobs:pork_raw", 2, "", 4)
 
 	overwrite("lottmobs:horsemeat_raw", 2, "", 3)
 	overwrite("lottmobs:chicken_raw", 2, "", 4)
@@ -270,7 +270,7 @@ if minetest.get_modpath("lottmobs") ~= nil then
 	overwrite("lottmobs:horsemeat_cooked", 5)
 	overwrite("lottmobs:chicken_cooked", 4)
 	overwrite("lottmobs:rabbit_cooked", 3)
-	overwrite("lottmobs:rotten_meat", 2, "", 6)
+	overwrite("lottmobs:rotten_meat", -2, "", 6)
 	--overwrite("lottmobs:egg", 1, "", 2)
 	overwrite("lottmobs:fried_egg", 3)
 	overwrite("lottmobs:fish_raw", 1, "", 2)
