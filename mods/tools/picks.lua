@@ -108,7 +108,7 @@ tools.pick = {
 		full_punch_interval = 0.9,
 		max_drop_level = 3,
 		cracky = {
-			times={[1]=2.4, [2]=1.2, [3]=0.60},
+			times={[1]=2.4, [2]=1.2, [3]=0.65},
 			uses=30,
 			maxlevel=3
 		},
@@ -120,7 +120,7 @@ tools.pick = {
 		full_punch_interval = 0.8,
 		max_drop_level = 3,
 		cracky = {
-			times={[1]=1.5, [2]=0.8, [3]=0.40},
+			times={[1]=1.7, [2]=0.9, [3]=0.50},
 			uses=60,
 			maxlevel=3
 		},
