@@ -48,10 +48,9 @@ lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct,
 	minetest.register_entity(potion_name.."_arrow_entity", THROWING_ARROW_ENTITY)
 	
 	minetest.register_craft({
+		type = "shapeless",
 		output = potion_name.."_arrow",
-		recipe = {
-			{'lottthrowing:arrow', potion_name},
-		}
+		recipe = {"lottthrowing:arrow", potion_name}
 	})
 	
 	arrows[#arrows+1] = {potion_name.."_arrow", potion_name.."_arrow_entity"}
