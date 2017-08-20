@@ -1,200 +1,191 @@
 local SL = lord.require_intllib()
 
-defaults = {}
+ghost = {}
 
--- GHOST
--- ghost_stone
-minetest.register_node("defaults:st0ne", {
-	description = SL("Ghost Stone"),
-	tiles = {"default_stone.png"},
-	--tiles = {"ghost_stone_inv.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_stone_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	--drop = 'defaults:st0ne',
-	legacy_mineral = true,
-	--liquidtype = "flowing",
-	--liquid_viscosity = 1,
-	--liquid_range = 2,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
+ghost.original_materials = {
+}
+
+function ghost.deepcopy(orig)
+	local orig_type = type(orig)
+	local copy
+	if orig_type == 'table' then
+		copy = {}
+		for orig_key, orig_value in pairs(orig) do
+			copy[ghost.deepcopy(orig_key)] = ghost.deepcopy(orig_value)
+		end
+		-- We don't copy metatable!
+	else
+		copy = orig
+	end
+	return copy
+end
+
+function ghost.make_ghost_name(name)
+	return "defaults:"..string.gsub(name, ":", "_")
+end
+
+function ghost.register_ghost_material(name)
+	local orig_node = minetest.registered_nodes[name]
+
+	if orig_node == nil then
+		minetest.log("error", "Unknown original node")
+	end
+
+	if (orig_node.groups ~= nil and orig_node.groups.ghostly ~= nil) then
+		-- эта нода уже призрачная
+		return
+	end
+
+	local orig_name = orig_node.name
+	local ghost_name = ghost.make_ghost_name(orig_name)
+
+	if minetest.registered_nodes[ghost_name] ~= nil then
+		-- уже зарегали
+		return
+	end
+
+	local node = ghost.deepcopy(orig_node)
+
+	minetest.log("action", "registering ghost variant of \""..node.name.."\"")
+
+	node.name = ghost_name
+	node.walkable = false
+	if node.description ~= nil then
+		node.description = "Ghost "..node.description
+	end
+	if node.groups == nil then
+		node.groups = {}
+	end
+	node.groups.ghostly = 1
+	if type(node.drop) == "string" then
+		node.drop = {
+			maxitems = 1,
+			items = {
+				{items = {node.drop, 'default:mese_crystal 8'}},
+			}
+		}
+	elseif type(node.drop) == "table" then
+		-- TODO: add mese to table
+		node.drop = {
+			maxitems = 1,
+			items = {
+				{items = {orig_name, 'default:mese_crystal 8'}},
+			}
+		}
+	else
+		node.drop = {
+			maxitems = 1,
+			items = {
+				{items = {orig_name, 'default:mese_crystal 8'}},
+			}
+		}
+	end
+	minetest.register_node(ghost_name, node)
+end
+
+
+ghost.has_crystals = function(crystalstack)
+	if (crystalstack:get_count() < 8) then
+		return false
+	end
+	local item_name = crystalstack:get_name()
+	if (item_name ~= "default:mese_crystal") then
+		return false
+	end
+	return true
+end
+
+
+minetest.register_tool("defaults:ghost_tool", {
+	description = "Make node ghostly",
+	inventory_image = "ghost_tool.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local pt = pointed_thing
+		local creative = minetest.setting_getbool("creative_mode")
+		local USES=152
+
+		if (pt.type == "node") then
+			local node = minetest.get_node(pt.under)
+			local pos  = pt.under
+
+			if minetest.is_protected(pos, user:get_player_name()) then
+				minetest.record_protection_violation(pos, user:get_player_name())
+				return
+			end
+
+			local name = node.name
+			local ghost_name = ghost.make_ghost_name(name)
+			if minetest.registered_nodes[ghost_name] == nil then
+				minetest.log("action", "can not convert node "..name.." to ghost")
+				return itemstack
+			end
+			if (not creative) then
+				local crystalstack = user:get_inventory():get_stack("main", user:get_wield_index()+1)
+				if (ghost.has_crystals(crystalstack) == false) then
+					return itemstack
+				end
+				minetest.remove_node(pos)
+				minetest.add_node(pos, {name=ghost_name})
+				crystalstack:take_item(8);
+				user:get_inventory():set_stack("main", user:get_wield_index()+1, crystalstack)
+				itemstack:add_wear(65535 / (USES - 1))
+			else
+				minetest.remove_node(pos)
+				minetest.add_node(pos, {name=ghost_name})
+			end
+		end
+
+
+		return itemstack
+	end
 })
+
 minetest.register_craft({
-	output = 'defaults:st0ne',
+	output = "defaults:ghost_tool",
 	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:stone', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
+		{"default:mese_crystal"},
+		{"lottother:ringsilver_ingot"},
+		{"lottother:ringsilver_ingot"},
+	},
 })
 
--- ghost cobble
-minetest.register_node("defaults:c0bble", {
-	description = SL("Ghost Cobble"),
-	tiles = {"default_cobble.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_cobble_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:c0bble',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:cobble', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
 
--- ghost desert stone
-minetest.register_node("defaults:desert_st0ne", {
-	description = SL("Ghost Desert Stone"),
-	tiles = {"default_desert_stone.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_desert_stone_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:desert_st0ne',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:desert_stone', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
 
--- ghost desert cobble
-minetest.register_node("defaults:desert_c0bble", {
-	description = SL("Ghost Desert Cobble"),
-	tiles = {"default_desert_cobble.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_desert_cobble_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:desert_c0bble',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:desert_cobble', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
+for i,material in ipairs(ghost.original_materials) do
+	ghost.register_ghost_material(material)
+end
 
--- ghost brick
-minetest.register_node("defaults:bricks", {
-	description = SL("Ghost Brick"),
-	tiles = {"default_brick.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_brick_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:bricks',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:brick', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
+minetest.log("action", "add groups to ghost")
 
--- ghost stone brick
-minetest.register_node("defaults:st0ne_brick", {
-	description = SL("Ghost Stone Brick"),
-	tiles = {"default_stone_brick.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_stone_brick_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:st0ne_brick',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:stonebrick', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
+for name,material in pairs(minetest.registered_nodes) do
+	minetest.log("action", "checking "..name)
+	if (material.groups ~= nil and material.groups.ghostly == nil) then
+		if (material.groups.stone ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.tree ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.wood ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.leaves ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.cracky ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.crumbly ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+		if (material.groups.need_ghost_variant ~= nil) then
+			ghost.register_ghost_material(name)
+		end
+	end
+end
 
--- ghost desert stone brick
-minetest.register_node("defaults:desert_st0ne_brick", {
-	description = SL("Ghost Desert Stone Brick"),
-	tiles = {"default_desert_stone_brick.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_desert_stone_brick_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:desert_st0ne_brick',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:desert_stonebrick', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
 
--- ghost sandstone
-minetest.register_node("defaults:sandst0ne", {
-	description = SL("Ghost Sandstone"),
-	tiles = {"default_sandstone.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_sandstone_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:sandst0ne',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:sandstone', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
+if minetest.setting_getbool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
 
--- ghost sandstone brick
-minetest.register_node("defaults:sandst0nebrick", {
-	description = SL("Ghost Sandstone Brick"),
-	tiles = {"default_sandstone_brick.png"},
-	is_ground_content = true,
-	inventory_image = "ghost_sandstone_brick_inv.png",
-	walkable = false,
-	groups = {cracky=3, stone=1},
-	legacy_mineral = true,
-	post_effect_color = {a = 255, r = 0, g = 0, b = 0},
-	sounds = default.node_sound_stone_defaults(),
-})
-minetest.register_craft({
-	output = 'defaults:sandst0nebrick',
-	recipe = {
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:sandstonebrick', 'default:mese_crystal'},
-		{'default:mese_crystal', 'default:mese_crystal', 'default:mese_crystal'},
-	}
-})
-
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
