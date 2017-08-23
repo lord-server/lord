@@ -547,7 +547,7 @@ local SL = lord.require_intllib()
   minetest.register_craftitem('bees:bottle_honey', {
     description = SL('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
-    on_use = minetest.item_eat(3, "vessels:glass_bottle"),
+    on_use = minetest.item_eat(1),
   })
 
   minetest.register_craftitem('bees:wax', {
