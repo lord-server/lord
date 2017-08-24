@@ -5,5 +5,4 @@ lottfarming
 lottplants
 bones
 lottthrowing
-hud
 lordlib

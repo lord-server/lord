@@ -7,13 +7,16 @@ function hud.load_hunger(player)
 end
 
 -- Poison player
-local function poisenp(tick, time, time_left, player)
+local function poisenp(tick, poisen, time_left, player)
+	time_full = math.abs(poisen)
 	time_left = time_left + tick
-	if time_left < time then
-		minetest.after(tick, poisenp, tick, time, time_left, player)
+	if time_left < time_full then
+		minetest.after(tick, poisenp, tick, poisen, time_left, player)
 	end
-	if player:get_hp()-1 > 0 then
-		player:set_hp(player:get_hp()-1)
+	if (player:get_hp()+1 < 20)and(poisen > 0) then
+		player:set_hp(player:get_hp() + 1)
+	elseif (player:get_hp()-1 > 0)and(poisen < 0) then
+		player:set_hp(player:get_hp() - 1)
 	end
 
 end
@@ -49,230 +52,67 @@ local function overwrite(name, hunger_change, replace_with_item, poisen)
 	minetest.registered_items[name] = tab
 end
 
-overwrite("default:apple", 2)
-if minetest.get_modpath("farming") ~= nil then
-	overwrite("farming:bread", 4)
-end
+overwrite("bees:bottle_honey", 2, "vessels:drinking_glass", 3)
 
-if minetest.get_modpath("mobs") ~= nil then
-	overwrite("mobs:meat", 6)
-	overwrite("mobs:meat_raw", 3)
-	overwrite("mobs:rat_cooked", 5)
-end
+overwrite("default:apple", 1)
 
-if minetest.get_modpath("moretrees") ~= nil then
-	overwrite("moretrees:coconut_milk", 1)
-	overwrite("moretrees:raw_coconut", 2)
-	overwrite("moretrees:acorn_muffin", 3)
-	overwrite("moretrees:spruce_nuts", 1)
-	overwrite("moretrees:pine_nuts", 1)
-	overwrite("moretrees:fir_nuts", 1)
-end
-
-if minetest.get_modpath("dwarves") ~= nil then
-	overwrite("dwarves:beer", 2)
-	overwrite("dwarves:apple_cider", 1)
-	overwrite("dwarves:midus", 2)
-	overwrite("dwarves:tequila", 2)
-	overwrite("dwarves:tequila_with_lime", 2)
-	overwrite("dwarves:sake", 2)
-end
-
-if minetest.get_modpath("animalmaterials") ~= nil then
-	overwrite("animalmaterials:milk", 2)
-	overwrite("animalmaterials:meat_raw", 3)
-	overwrite("animalmaterials:meat_pork", 3)
-	overwrite("animalmaterials:meat_beef", 3)
-	overwrite("animalmaterials:meat_chicken", 3)
-	overwrite("animalmaterials:meat_lamb", 3)
-	overwrite("animalmaterials:meat_venison", 3)
-	overwrite("animalmaterials:meat_undead", 3, "", 3)
-	overwrite("animalmaterials:meat_toxic", 3, "", 5)
-	overwrite("animalmaterials:meat_ostrich", 3)
-	overwrite("animalmaterials:fish_bluewhite", 2)
-	overwrite("animalmaterials:fish_clownfish", 2)
-end
-
---[[
-if minetest.get_modpath("fishing") ~= nil then
-	overwrite("fishing:fish_raw", 2)
-	overwrite("fishing:fish_cooked", 4)
-	overwrite("fishing:sushi", 6)
-	overwrite("fishing:shark", 4)
-	overwrite("fishing:shark_cooked", 8)
-	overwrite("fishing:pike", 4)
-	overwrite("fishing:pike_cooked", 8)
-end
-]]--
-
-if minetest.get_modpath("glooptest") ~= nil then
-	overwrite("glooptest:kalite_lump", 1)
-end
-
-if minetest.get_modpath("bushes") ~= nil then
-	overwrite("bushes:sugar", 1)
-	overwrite("bushes:strawberry", 2)
-	overwrite("bushes:berry_pie_raw", 3)
-	overwrite("bushes:berry_pie_cooked", 4)
-	overwrite("bushes:basket_pies", 15)
-end
-
-if minetest.get_modpath("bushes_classic") then
-	-- bushes_classic mod, as found in the plantlife modpack
-	local berries = {
-	    "strawberry",
-		"blackberry",
-		"blueberry",
-		"raspberry",
-		"gooseberry",
-		"mixed_berry"}
-	for _, berry in ipairs(berries) do
-		if berry ~= "mixed_berry" then
-			overwrite("bushes:"..berry, 1)
-		end
-		overwrite("bushes:"..berry.."_pie_raw", 2)
-		overwrite("bushes:"..berry.."_pie_cooked", 5)
-		overwrite("bushes:basket_"..berry, 15)
-	end
-end
-
-if minetest.get_modpath("mushroom") ~= nil then
-	overwrite("mushroom:brown", 1)
-	overwrite("mushroom:red", 1, "", 3)
-end
-
-if minetest.get_modpath("docfarming") ~= nil then
-	overwrite("docfarming:carrot", 2)
-	overwrite("docfarming:cucumber", 2)
-	overwrite("docfarming:corn", 2)
-	overwrite("docfarming:potato", 4)
-	overwrite("docfarming:bakedpotato", 5)
-	overwrite("docfarming:raspberry", 3)
-end
-
-if minetest.get_modpath("farming_plus") ~= nil then
-	overwrite("farming_plus:carrot_item", 3)
-	overwrite("farming_plus:banana", 2)
-	overwrite("farming_plus:orange_item", 2)
-	overwrite("farming:pumpkin_bread", 4)
-	overwrite("farming_plus:strawberry_item", 2)
-	overwrite("farming_plus:tomato_item", 2)
-	overwrite("farming_plus:potato_item", 4)
-	overwrite("farming_plus:rhubarb_item", 2)
-end
-
-if minetest.get_modpath("mtfoods") ~= nil then
-	overwrite("mtfoods:dandelion_milk", 1)
-	overwrite("mtfoods:sugar", 1)
-	overwrite("mtfoods:short_bread", 4)
-	overwrite("mtfoods:cream", 1)
-	overwrite("mtfoods:chocolate", 2)
-	overwrite("mtfoods:cupcake", 2)
-	overwrite("mtfoods:strawberry_shortcake", 2)
-	overwrite("mtfoods:cake", 3)
-	overwrite("mtfoods:chocolate_cake", 3)
-	overwrite("mtfoods:carrot_cake", 3)
-	overwrite("mtfoods:pie_crust", 3)
-	overwrite("mtfoods:apple_pie", 3)
-	overwrite("mtfoods:rhubarb_pie", 2)
-	overwrite("mtfoods:banana_pie", 3)
-	overwrite("mtfoods:pumpkin_pie", 3)
-	overwrite("mtfoods:cookies", 2)
-	overwrite("mtfoods:mlt_burger", 5)
-	overwrite("mtfoods:potato_slices", 2)
-	overwrite("mtfoods:potato_chips", 3)
-	--mtfoods:medicine
-	overwrite("mtfoods:casserole", 3)
-	overwrite("mtfoods:glass_flute", 2)
-	overwrite("mtfoods:orange_juice", 2)
-	overwrite("mtfoods:apple_juice", 2)
-	overwrite("mtfoods:apple_cider", 2)
-	overwrite("mtfoods:cider_rack", 2)
-end
-
-if minetest.get_modpath("fruit") ~= nil then
-	overwrite("fruit:apple", 2)
-	overwrite("fruit:pear", 2)
-	overwrite("fruit:bananna", 3)
-	overwrite("fruit:orange", 2)
-end
-
-if minetest.get_modpath("mush45") ~= nil then
-	overwrite("mush45:meal", 4)
-end
-
-if minetest.get_modpath("seaplants") ~= nil then
-	overwrite("seaplants:kelpgreen", 1)
-	overwrite("seaplants:kelpbrown", 1)
-	overwrite("seaplants:seagrassgreen", 1)
-	overwrite("seaplants:seagrassred", 1)
-	overwrite("seaplants:seasaladmix", 6)
-	overwrite("seaplants:kelpgreensalad", 1)
-	overwrite("seaplants:kelpbrownsalad", 1)
-	overwrite("seaplants:seagrassgreensalad", 1)
-	overwrite("seaplants:seagrassgreensalad", 1)
-end
-
-if minetest.get_modpath("mobfcooking") ~= nil then
-	overwrite("mobfcooking:cooked_pork", 6)
-	overwrite("mobfcooking:cooked_ostrich", 6)
-	overwrite("mobfcooking:cooked_beef", 6)
-	overwrite("mobfcooking:cooked_chicken", 6)
-	overwrite("mobfcooking:cooked_lamb", 6)
-	overwrite("mobfcooking:cooked_venison", 6)
-	overwrite("mobfcooking:cooked_fish", 6)
-end
+overwrite("farming:bread", 8)
 
 if minetest.get_modpath("lottfarming") ~= nil then
-	overwrite("lottfarming:sheaf_barley", 3)
 	overwrite("lottfarming:berries", 1)
-	overwrite("lottfarming:blue_mushroom", 3, "", 2)
-	overwrite("lottfarming:brown_mushroom", 2)
-	overwrite("lottfarming:cabbage", 3)
-	overwrite("lottfarming:carrot_item", 3)
-	overwrite("lottfarming:ear_of_corn", 3)
-	overwrite("lottfarming:green_mushroom", 2, "", 2)
-	overwrite("lottfarming:melon", 3)
+	overwrite("lottfarming:blue_mushroom", 1, "", -2)
+	overwrite("lottfarming:brown_mushroom", 1)
+	overwrite("lottfarming:cabbage", 1)
+	overwrite("lottfarming:carrot_item", 1)
+	overwrite("lottfarming:cookie_cracker", 7)
+	overwrite("lottfarming:ear_of_corn", 2)
+	overwrite("lottfarming:green_mushroom", 1, "", -2)
+	overwrite("lottfarming:melon", 1)
+	overwrite("lottfarming:mushroom_soup", 3, "lottfarming:bowl")
 	overwrite("lottfarming:potato", 1)
-	overwrite("lottfarming:potato_cooked", 8)
-	overwrite("lottfarming:red_mushroom", -8, "", 8)
-	overwrite("lottfarming:red_rhcy", 4)
-	overwrite("lottfarming:tomatoes", 2)
-	overwrite("lottfarming:tomatoes_cooked", 4)
-	overwrite("lottfarming:tomato_soup", 7, "lottfarming:bowl")
+	overwrite("lottfarming:potato_cooked", 4)
+	overwrite("lottfarming:red_mushroom", -8, "", -8)
+	overwrite("lottfarming:salad", 4, "lottfarming:bowl")
+	overwrite("lottfarming:tomato_soup", 4, "lottfarming:bowl")
+	overwrite("lottfarming:tomatoes", 1)
+	overwrite("lottfarming:tomatoes_cooked", 3)
 	overwrite("lottfarming:turnips", 1)
-	overwrite("lottfarming:turnips_cooked", 3)
-	overwrite("lottfarming:salad", 5, "lottfarming:bowl")
-	overwrite("lottfarming:mushroom_soup", 8, "lottfarming:bowl")
-	overwrite("lottfarming:cookie_cracker", 2)
-end
-
-if minetest.get_modpath("lottores") ~= nil then
-	overwrite("lottores:salt", 0, "", 2)
-	overwrite("lottores:salt_block", 0, "", 24)
-end
-
-if minetest.get_modpath("lottplants") ~= nil then
-	overwrite("lottplants:plum", 2)
-	overwrite("lottplants:yavannamirefruit", 8, "", -2)
-	overwrite("lottplants:honey", 2)
+	overwrite("lottfarming:turnips_cooked", 2)
 end
 
 if minetest.get_modpath("lottmobs") ~= nil then
-	overwrite("lottmobs:meat", 4)
-	overwrite("lottmobs:meat_raw", 1, "", 4)
-	overwrite("lottmobs:pork_cooked", 6)
-	overwrite("lottmobs:pork_raw", 2, "", 4)
+	overwrite("lottmobs:chicken_cooked", 8)
+	overwrite("lottmobs:chicken_raw", 1, "", -4)
+	overwrite("lottmobs:egg", 1)
+	overwrite("lottmobs:fish_cooked", 6)
+	overwrite("lottmobs:fish_raw", 1, "", -2)
+	overwrite("lottmobs:fried_egg", 2)
+	overwrite("lottmobs:horsemeat_cooked", 17)
+	overwrite("lottmobs:horsemeat_raw", 2, "", -3)
+	overwrite("lottmobs:meat", 6)
+	overwrite("lottmobs:meat_raw", 1, "", -4)
+	overwrite("lottmobs:pork_cooked", 19)
+	overwrite("lottmobs:pork_raw", 2, "", -4)
+	overwrite("lottmobs:rabbit_cooked", 4)
+	overwrite("lottmobs:rabbit_raw", 1, "", -4)
+	overwrite("lottmobs:rotten_meat", -6, "", -6)
+end
 
-	overwrite("lottmobs:horsemeat_raw", 2, "", 3)
-	overwrite("lottmobs:chicken_raw", 2, "", 4)
-	overwrite("lottmobs:rabbit_raw", 1, "", 4)
-	overwrite("lottmobs:horsemeat_cooked", 5)
-	overwrite("lottmobs:chicken_cooked", 4)
-	overwrite("lottmobs:rabbit_cooked", 3)
-	overwrite("lottmobs:rotten_meat", -2, "", 6)
-	--overwrite("lottmobs:egg", 1, "", 2)
-	overwrite("lottmobs:fried_egg", 3)
-	overwrite("lottmobs:fish_raw", 1, "", 2)
-	overwrite("lottmobs:fish_cooked", 3)
+if minetest.get_modpath("lottores") ~= nil then
+	overwrite("lottores:salt", 0, "", -2)
+	overwrite("lottores:salt_block", 0, "", -24)
+end
+
+if minetest.get_modpath("lottplants") ~= nil then
+	overwrite("lottplants:honey", 2)
+	overwrite("lottplants:plum", 1)
+	overwrite("lottplants:yavannamirefruit", 15, "", 4)
+end
+
+if minetest.get_modpath("lottpotion") ~= nil then
+	overwrite("lottpotion:ale", 1, "vessels:drinking_glass", 4)
+	overwrite("lottpotion:beer", 2, "vessels:drinking_glass", 2)
+	overwrite("lottpotion:cider", 2, "vessels:drinking_glass", 2)
+	overwrite("lottpotion:mead", 3, "vessels:drinking_glass", 4)
+	overwrite("lottpotion:wine", 2, "vessels:drinking_glass", 5)
 end
