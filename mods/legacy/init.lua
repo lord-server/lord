@@ -177,7 +177,6 @@ for _, gender in pairs({"male", "female"}) do
 		minetest.register_alias(n, n.."_1")
 	end
 end
-minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
 gaurds = {"dwarven", "elven", "gondor", "orc", "rohan", "uruk_hai"}
 for i, v in pairs(gaurds) do

@@ -4,7 +4,6 @@
 mobs = {}
 mobs.mod = "redo"
 
-
 -- Intllib
 local S
 
@@ -1886,7 +1885,6 @@ local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
 		return
 	end
 
-
 	-- weapon wear
 	local weapon = hitter:get_wielded_item()
 	local punch_interval = 1.4
@@ -1931,7 +1929,7 @@ local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
 		return
 	end
 
---	print ("Mob Damage is", damage)
+	--	print ("Mob Damage is", damage)
 
 	-- add weapon wear
 	if tool_capabilities then
@@ -2051,11 +2049,11 @@ local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
 	and hitter:get_player_name() ~= self.owner
 	and not mobs.invis[ hitter:get_player_name() ] then
 
-		-- attack whoever punched mob
+		-- attack whoever punched mob / нападать на того, кто ударил моба
 		self.state = ""
 		do_attack(self, hitter)
 
-		-- alert others to the attack
+		-- alert others to the attack / предупредить других в атаку
 		local objs = minetest.get_objects_inside_radius(hitter:getpos(), self.view_range)
 		local obj = nil
 
@@ -2073,7 +2071,6 @@ local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
 		end
 	end
 end
-
 
 -- get entity staticdata
 local mob_staticdata = function(self)
