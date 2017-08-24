@@ -274,6 +274,14 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "castle:pavement 4",
+	recipe = {
+		{"default:cobble", "default:stone"},
+		{"default:stone", "default:cobble"},
+	}
+})
+
 minetest.register_node("castle:light",{
 	drawtype = "glasslike",
 	description = SL("Light Block"),
