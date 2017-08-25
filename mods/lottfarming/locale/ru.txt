@@ -47,10 +47,13 @@ Orc Food	=	Еда орков
 Orc medicine	=	Лекарство орков
 
 ### other.lua ###
+Candy = Конфета
 Cracker = Крекер
+Dough with Egg = Тесто с яйцом
 Dough = Тесто
-Yeast Dough = Дрожжевое тесто
 Salted Dough = Тесто с солью
+Sugar = Сахар
+Yeast Dough = Дрожжевое тесто
 
 ### pipeweed.lua ###
 Pipeweed Seeds	=	Семена табака
