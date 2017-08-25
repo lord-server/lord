@@ -47,7 +47,7 @@ Orc Food	=	Еда орков
 Orc medicine	=	Лекарство орков
 
 ### other.lua ###
-Candy = Конфета
+Caramel Candy = Карамельная конфета
 Cracker = Крекер
 Dough with Egg = Тесто с яйцом
 Dough = Тесто
