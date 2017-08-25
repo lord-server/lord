@@ -187,7 +187,7 @@ mobs:register_mob("lottmobs:chicken", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 1, min = 1, max = 2},
+		{name = "lottmobs:mutton_raw", chance = 1, min = 1, max = 3},
 		{name = "wool:white", chance = 1, min = 1, max = 1},
 	},
 	water_damage = 1,
