@@ -152,6 +152,9 @@ minetest.register_alias("lord_homedecor:slab_Roofing", "stairs:slab_roofing")
 minetest.register_alias("lord_homedecor:slab_grate", "stairs:slab_grate")
 minetest.register_alias("lord homedecor:slab_hardwood", "stairs:slab_hardwood")
 
+minetest.register_alias("lottmobs:meat", "lottmobs:rotten_meat")
+minetest.register_alias("lottmobs:meat_raw", "lottmobs:rotten_meat")
+
 minetest.register_alias("lottthrowing:arrow_fire", "lottpotion:athelasbrew_power1_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_entity", "lottpotion:limpe_power3_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_blue", "lottpotion:miruvor_power2_arrow")
