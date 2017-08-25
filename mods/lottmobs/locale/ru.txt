@@ -4,8 +4,6 @@ Warg = Варг
 
 ### craftitems.lua ###
 Spider Poison	=	Паучий яд
-Cooked Meat	=	Жареное мясо
-Raw Meat	=	Сырое мясо
 Raw Porkchop = Кабанье мясо
 Cooked Porkchop = Жареное кабанье мясо
 Dirty Jacket	=	Грязная куртка
