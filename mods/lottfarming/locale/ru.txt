@@ -54,6 +54,7 @@ Dough = Тесто
 Salted Dough = Тесто с солью
 Sugar = Сахар
 Yeast Dough = Дрожжевое тесто
+Biscuit = Бисквитный корж
 
 ### pipeweed.lua ###
 Pipeweed Seeds	=	Семена табака
