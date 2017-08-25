@@ -63,6 +63,7 @@ if minetest.get_modpath("lottfarming") ~= nil then
 	overwrite("lottfarming:blue_mushroom", 1, "", -2)
 	overwrite("lottfarming:brown_mushroom", 1)
 	overwrite("lottfarming:cabbage", 1)
+	overwrite("lottfarming:candy", 1)
 	overwrite("lottfarming:carrot_item", 1)
 	overwrite("lottfarming:cookie_cracker", 7)
 	overwrite("lottfarming:ear_of_corn", 2)
