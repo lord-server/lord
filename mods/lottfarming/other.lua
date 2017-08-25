@@ -65,12 +65,12 @@ minetest.register_craftitem("lottfarming:dough_with_egg", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:sugar",
-	recipe = {"default:papyrus"},
+	recipe = "default:papyrus"
 })
 
 minetest.register_craftitem("lottfarming:sugar", {
 	description = SL("Sugar"),
-	inventory_image = "lottfarming_suagar.png",
+	inventory_image = "lottfarming_sugar.png",
 	on_use = minetest.item_eat(1),
 })
 
@@ -83,7 +83,7 @@ minetest.register_craftitem("lottfarming:candy", {
 minetest.register_craft({
 	type = "cooking",
 	output = "lottfarming:candy",
-	recipe = {"lottfarming:sugar"},
+	recipe = "lottfarming:sugar"
 })
 
 --[[
