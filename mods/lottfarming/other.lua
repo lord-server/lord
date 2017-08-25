@@ -62,6 +62,18 @@ minetest.register_craftitem("lottfarming:dough_with_egg", {
 	on_use = minetest.item_eat(1),
 })
 
+minetest.register_craftitem("lottfarming:biscuit", {
+	description = SL("Biscuit"),
+	inventory_image = "lottfarming_biscuit.png",
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottfarming:biscuit",
+	recipe = "lottfarming:dough_with_egg"
+})
+
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:sugar",
