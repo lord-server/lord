@@ -65,7 +65,7 @@ minetest.register_craftitem("lottfarming:dough_with_egg", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:sugar",
-	recipe = "default:papyrus"
+	recipe = {"default:papyrus"}
 })
 
 minetest.register_craftitem("lottfarming:sugar", {
