@@ -25,6 +25,12 @@ Cabbage Seed	=	Семена капусты
 Cabbage	=	Капуста
 Salad	=	Салат
 
+### cake.lua ###
+Honey Cake = Медовый пирог
+Berry Cake = Ягодный пирог
+The Lie = Индейская Пирога
+Craft a Cake = Приготовить пирог
+
 ### corn.lua ###
 Corn	=	Кукуруза
 Ear of corn	=	Початок кукурузы
