@@ -75,9 +75,9 @@ minetest.register_craftitem("lottfarming:sugar", {
 })
 
 minetest.register_craftitem("lottfarming:candy", {
-	description = SL("Candy"),
+	description = SL("Caramel Candy"),
 	inventory_image = "lottfarming_candy.png",
-	on_use = minetest.item_eat(2),
+	on_use = minetest.item_eat(1),
 })
 
 minetest.register_craft({
