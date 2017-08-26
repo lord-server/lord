@@ -1,6 +1,6 @@
 local SL = lord.require_intllib()
 
--- œ»–Œ√ --
+-- √è√à√ê√é√É --
 
 local sizes = {-0.4375, -0.3125, -0.1875, -0.0625, 0.0625, 0.1875, 0.3125}
 
@@ -20,22 +20,22 @@ for i, size in ipairs(sizes) do
 		name_h = "lottfarming:cake_honey"
 		description_h = SL("Honey Cake")
 		drop_h = nil
-		tiles_h = {"lottfarming_hcake_top.png", "lottfarming_hcake_bottom.png", "lottfarming_hcake_side.png"}
+		tiles_h = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png"}
 	else
 		name = "cake:cake_honey_"..slice
 		drop = ''
-		tiles = {"lottfarming_hcake_top.png", "lottfarming_hcake_bottom.png", "lottfarming_hcake_side.png", "lottfarming_hcake_inner.png", "lottfarming_hcake_side.png", "lottfarming_hcake_side.png"}
+		tiles = {"lottfarming_hcake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png", "lottfarming_hcake_inner.png", "lottfarming_hcake_side.png", "lottfarming_hcake_side.png"}
 	end
 
 	if slice_b == 0 then
 		name = "lottfarming:cake_berries"
 		description = SL("Berry Cake")
 		drop = nil
-		tiles = {"lottfarming_bcake_top.png", "lottfarming_bcake_bottom.png", "lottfarming_bcake_side.png"}
+		tiles = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png"}
 	else
 		name = "cake:cake_berries_"..slice
 		drop = ''
-		tiles = {"lottfarming_bcake_top.png", "lottfarming_bcake_bottom.png", "lottfarming_bcake_side.png", "lottfarming_bcake_inner.png", "lottfarming_bcake_side.png", "lottfarming_bcake_side.png"}
+		tiles = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png", "lottfarming_bcake_inner.png", "lottfarming_bcake_side.png", "lottfarming_bcake_side.png"}
 
 	end
 
@@ -112,7 +112,7 @@ minetest.register_craft({
 	}
 })
 
--- ƒŒ—“»∆≈Õ»≈ --
+-- √Ñ√é√ë√í√à√Ü√Ö√ç√à√Ö --
 if minetest.get_modpath("lottachivments") then
 	lottachievements.register_achievement("lottachivements_the_lie", {
 		title = SL("The Lie"),
