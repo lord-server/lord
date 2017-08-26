@@ -97,7 +97,7 @@ minetest.register_craft({
 		{"lottfarming:sugar"},
 		{"bees:bottle_honey"},
 		{"lottfarming:biscuit"},
-	}
+	},
 	replacements = {{"bees:bottle_honey", "vessels:glass_bottle"}},
 })
 
