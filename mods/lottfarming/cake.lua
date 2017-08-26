@@ -1,6 +1,6 @@
 local SL = lord.require_intllib()
 
--- ÏÈÐÎÃ --
+-- ПИРОГ --
 
 local sizes = {-0.4375, -0.3125, -0.1875, -0.0625, 0.0625, 0.1875, 0.3125}
 
@@ -110,7 +110,7 @@ minetest.register_craft({
 	}
 })
 
--- ÄÎÑÒÈÆÅÍÈÅ --
+-- ДОСТИЖЕНИЕ --
 if minetest.get_modpath("lottachivments") then
 	lottachievements.register_achievement("lottachivements_the_lie", {
 		title = SL("The Lie"),
@@ -119,7 +119,7 @@ if minetest.get_modpath("lottachivments") then
 		trigger = {
 			type = "craft",
 			item = "lottfarming:cake_honey", "lottfarming:cake_berries",
-			target = 1
-		}
-	})
+			target = 1,
+		},
+	}),
 end
