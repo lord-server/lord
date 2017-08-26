@@ -39,59 +39,57 @@ for i, size in ipairs(sizes) do
 
 	end
 
-	minetest.register_node(name_h, {
-		description = description_h,
-		drop = drop_h,
-		drawtype = "nodebox",
-		tiles = tiles_h,
-		paramtype = "light",
-		is_ground_content = false,
-		groups = {crumbly=3},
-		--sounds = sounds,
-		node_box = {
-			type = "fixed",
-			fixed = {
-				{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
-			}
-		},
-		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
-			
-			if i < #sizes then
-				minetest.swap_node(pos, {name="lottfarming:cake_"..i})
-			else
-				minetest.remove_node(pos)
-			end
-		end,
-	})
-end
+minetest.register_node(name_h, {
+	description = description_h,
+	drop = drop_h,
+	drawtype = "nodebox",
+	tiles = tiles_h,
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {crumbly=3},
+	--sounds = sounds,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
+		}
+	},
+	on_rightclick = function(pos, node, clicker)
+		clicker:set_hp(clicker:get_hp() + 1)
+		
+		if i < #sizes then
+			minetest.swap_node(pos, {name="lottfarming:cake_honey_"..i})
+		else
+			minetest.remove_node(pos)
+		end
+	end,
+})
 
-	minetest.register_node(name_b, {
-		description = description_b,
-		drop = drop_b,
-		drawtype = "nodebox",
-		tiles = tiles_b,
-		paramtype = "light",
-		is_ground_content = false,
-		groups = {crumbly=3},
-		--sounds = sounds,
-		node_box = {
-			type = "fixed",
-			fixed = {
-				{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
-			}
-		},
-		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
-			
-			if i < #sizes then
-				minetest.swap_node(pos, {name="lottfarming:cake_"..i})
-			else
-				minetest.remove_node(pos)
-			end
-		end,
-	})
-end
+minetest.register_node(name_b, {
+	description = description_b,
+	drop = drop_b,
+	drawtype = "nodebox",
+	tiles = tiles_b,
+	paramtype = "light",
+	is_ground_content = false,
+	groups = {crumbly=3},
+	--sounds = sounds,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
+		}
+	},
+	on_rightclick = function(pos, node, clicker)
+		clicker:set_hp(clicker:get_hp() + 1)
+		
+		if i < #sizes then
+			minetest.swap_node(pos, {name="lottfarming:cake_berries_"..i})
+		else
+			minetest.remove_node(pos)
+		end
+	end,
+})
 
 minetest.register_craft({
 	output = "lottfarming:cake_honey",
