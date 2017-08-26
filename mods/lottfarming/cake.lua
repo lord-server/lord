@@ -22,20 +22,20 @@ for i, size in ipairs(sizes) do
 		drop_h = nil
 		tiles_h = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png"}
 	else
-		name = "cake:cake_honey_"..slice
-		drop = ''
-		tiles = {"lottfarming_hcake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png", "lottfarming_hcake_inner.png", "lottfarming_hcake_side.png", "lottfarming_hcake_side.png"}
+		name_h = "cake:cake_honey_"..slice
+		drop_h = ''
+		tiles_h = {"lottfarming_hcake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png", "lottfarming_hcake_inner.png", "lottfarming_hcake_side.png", "lottfarming_hcake_side.png"}
 	end
 
 	if slice_b == 0 then
-		name = "lottfarming:cake_berries"
-		description = SL("Berry Cake")
-		drop = nil
-		tiles = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png"}
+		name_b = "lottfarming:cake_berries"
+		description_b = SL("Berry Cake")
+		drop_b = nil
+		tiles_b = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png"}
 	else
-		name = "cake:cake_berries_"..slice
-		drop = ''
-		tiles = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png", "lottfarming_bcake_inner.png", "lottfarming_bcake_side.png", "lottfarming_bcake_side.png"}
+		name_b = "cake:cake_berries_"..slice
+		drop_b = ''
+		tiles_b = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png", "lottfarming_bcake_inner.png", "lottfarming_bcake_side.png", "lottfarming_bcake_side.png"}
 
 	end
 
