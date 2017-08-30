@@ -6,6 +6,11 @@ minetest.register_craftitem("lottmobs:pork_raw", {
 	on_use = minetest.item_eat(2),
 })
 
+minetest.register_craftitem("lottmobs:feather", {
+	description = SL("Feather"),
+	inventory_image = "lottmobs_feather.png",
+})
+
 minetest.register_craftitem("lottmobs:pork_cooked", {
 	description = SL("Cooked Porkchop"),
 	inventory_image = "mobs_pork_cooked.png",
