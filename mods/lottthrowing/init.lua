@@ -190,7 +190,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottthrowing:bow_wood_alder',
-	recipe = {recipe = {
+	recipe = {
 		{'', 'lottplants:alderwood', 'farming:string'},
 		{'lottplants:alderwood', '', 'farming:string'},
 		{'', 'lottplants:alderwood', 'farming:string'},
@@ -212,6 +212,7 @@ minetest.register_craft({
 		{'', 'lottplants:lebethronwood', 'farming:string'},
 		{'lottplants:lebethronwoo', '', 'farming:string'},
 		{'', 'lottplants:lebethronwoo', 'farming:string'},
+	}
 })
 
 minetest.register_craft({
