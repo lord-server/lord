@@ -38,7 +38,7 @@ local get_formspec = function(player,page)
                --First potion
                .."label[1,2.2; "..SL("Power Level")..": 1]"
                .."item_image_button[4,2;1,1;lottpotion:glass_bottle_seregon;zcg:glass_bottle_seregon;]"
-               .."item_image_button[5,2;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,2;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,2;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,2;1,1;lottpotion:orcdraught_power1;zcg:orcdraught_power1;]"
                --Second
