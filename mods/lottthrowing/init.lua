@@ -178,6 +178,51 @@ minetest.register_craft({
 	}
 })
 
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood',
+	recipe = {
+		{'', 'default:wood', 'farming:string'},
+		{'default:wood', '', 'farming:string'},
+		{'', 'default:wood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_alder',
+	recipe = {recipe = {
+		{'', 'lottplants:alderwood', 'farming:string'},
+		{'lottplants:alderwood', '', 'farming:string'},
+		{'', 'lottplants:alderwood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_birch',
+	recipe = {
+		{'', 'lottplants:birchwood', 'farming:string'},
+		{'lottplants:birchwood', '', 'farming:string'},
+		{'', 'lottplants:birchwood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_lebethron',
+	recipe = {
+		{'', 'lottplants:lebethronwood', 'farming:string'},
+		{'lottplants:lebethronwoo', '', 'farming:string'},
+		{'', 'lottplants:lebethronwoo', 'farming:string'},
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_mallorn',
+	recipe = {
+		{'', 'lottplants:mallornwood', 'farming:string'},
+		{'lottplants:mallornwood', '', 'farming:string'},
+		{'', 'lottplants:mallornwood', 'farming:string'},
+	}
+})
+
 minetest.register_tool("lottthrowing:crossbow_wood", {
 	description = SL("Wooden Crossbow"),
 	groups = {wooden = 1},
@@ -287,9 +332,9 @@ minetest.register_tool("lottthrowing:crossbow_mithril", {
 minetest.register_craft({
 	output = 'lottthrowing:crossbow_wood',
 	recipe = {
-		{'', 'farming:string', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'', 'farming:string', 'default:wood'},
+		{'', 'farming:string', 'group:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'', 'farming:string', 'group:wood'},
 	}
 })
 
@@ -297,7 +342,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_steel',
 	recipe = {
 		{'', 'farming:string', 'default:steel_ingot'},
-		{'default:wood', 'default:wood', 'default:steel_ingot'},
+		{'group:wood', 'group:wood', 'default:steel_ingot'},
 		{'', 'farming:string', 'default:steel_ingot'},
 	}
 })
@@ -306,7 +351,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_tin',
 	recipe = {
 		{'', 'farming:string', 'lottores:tin_ingot'},
-		{'default:wood', 'default:wood', 'lottores:tin_ingot'},
+		{'group:wood', 'group:wood', 'lottores:tin_ingot'},
 		{'', 'farming:string', 'lottores:tin_ingot'},
 	}
 })
@@ -315,7 +360,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_silver',
 	recipe = {
 		{'', 'farming:string', 'lottores:silver_ingot'},
-		{'default:wood', 'default:wood', 'lottores:silver_ingot'},
+		{'group:wood', 'group:wood', 'lottores:silver_ingot'},
 		{'', 'farming:string', 'lottores:silver_ingot'},
 	}
 })
@@ -324,7 +369,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_gold',
 	recipe = {
 		{'', 'farming:string', 'default:gold_ingot'},
-		{'default:wood', 'default:wood', 'default:gold_ingot'},
+		{'group:wood', 'group:wood', 'default:gold_ingot'},
 		{'', 'farming:string', 'default:gold_ingot'},
 	}
 })
@@ -333,7 +378,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_galvorn',
 	recipe = {
 		{'', 'farming:string', 'lottores:galvorn_ingot'},
-		{'default:wood', 'default:wood', 'lottores:galvorn_ingot'},
+		{'group:wood', 'group:wood', 'lottores:galvorn_ingot'},
 		{'', 'farming:string', 'lottores:galvorn_ingot'},
 	}
 })
@@ -343,6 +388,70 @@ minetest.register_craft({
 	recipe = {
 		{'', 'farming:string', 'lottores:mithril_ingot'},
 		{'default:wood', 'default:wood', 'lottores:mithril_ingot'},
+		{'', 'farming:string', 'lottores:mithril_ingot'},
+	}
+})
+
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_wood',
+	recipe = {
+		{'group:wood', 'farming:string', ''},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wood', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_steel',
+	recipe = {
+		{'default:steel_ingot', 'farming:string', ''},
+		{'default:steel_ingot', 'group:wood', 'group:wood'},
+		{'default:steel_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_tin',
+	recipe = {
+		{'lottores:tin_ingot', 'farming:string', ''},
+		{'lottores:tin_ingot', 'group:wood', 'group:wood'},
+		{'lottores:tin_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_silver',
+	recipe = {
+		{'lottores:silver_ingot', 'farming:string', ''},
+		{'lottores:silver_ingot', 'group:wood', 'group:wood'},
+		{'lottores:silver_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_gold',
+	recipe = {
+		{'default:gold_ingot', 'farming:string', ''},
+		{'default:gold_ingot', 'group:wood', 'group:wood'},
+		{'default:gold_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_galvorn',
+	recipe = {
+		{'lottores:galvorn_ingot', 'farming:string', ''},
+		{'lottores:galvorn_ingot', 'group:wood', 'group:wood'},
+		{'lottores:galvorn_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_mithril',
+	recipe = {
+		{'', 'farming:string', 'lottores:mithril_ingot'},
+		{'default:wood', 'group:wood', 'group:wood'},
 		{'', 'farming:string', 'lottores:mithril_ingot'},
 	}
 })
