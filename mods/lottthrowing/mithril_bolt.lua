@@ -81,8 +81,15 @@ end
 minetest.register_entity("lottthrowing:bolt_mithril_entity", THROWING_BOLT_ENTITY)
 
 minetest.register_craft({
-	output = 'lottthrowing:bolt_mithril 16',
+	output = 'lottthrowing:bolt_mithril 8',
 	recipe = {
 		{'default:steel_ingot', 'lottores:mithril_ingot'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bolt_mithril 8',
+	recipe = {
+		{'lottores:mithril_ingot', 'default:steel_ingot'},
 	}
 })
