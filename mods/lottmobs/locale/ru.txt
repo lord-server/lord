@@ -19,6 +19,7 @@ Cooked Rabbit = Жареная крольчатина
 Rotten Meat = Гнилое мясо
 Chicken Egg = Куриное яйцо
 Omelette = Яичница
+Feather = Перо
 
 ### horse.lua ###
 Brown Horse	=	Гнедая лошадь
@@ -26,8 +27,8 @@ White Horse	=	Белая лошадь
 Black Horse	=	Вороной конь
 Shire Pony 1	=	Чёрный пони
 Shire Pony 2	=	Серый пони
-You can't ride this beast!!! = Вы не можете оседлать это животное!!!
-You could not tame this beast!!! = Вы не смогли приручить это животное!!!
+You can't ride this beast!!! = Вы не можете оседлать это животное
+You could not tame this beast!!! = Вы не смогли приручить это животное
 
 ### boar.lua
 Boar = Кабан
