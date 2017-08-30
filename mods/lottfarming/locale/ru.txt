@@ -3,9 +3,9 @@ Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 
 ### barley.lua ###
-Barley	=	Ячмень
-Sheaf barley	=	Сноп ячменя
-Cooked Barley	=	Высушенный ячмень
+Barley = Ячмень
+Sheaf barley = Сноп ячменя
+Cooked Barley = Высушенный ячмень
 
 ### berries.lua ###
 Berries Seeds	=	Семена ягод
@@ -26,10 +26,10 @@ Cabbage	=	Капуста
 Salad	=	Салат
 
 ### cake.lua ###
-Honey Cake = Медовый пирог
+Honey Cake = Медовик
 Berry Cake = Ягодный пирог
-The Lie = Индейская Пирога
-Craft a Cake = Приготовить пирог
+The Lie = Не слипнется
+Craft the Honey Cake = Приготовить медовик
 
 ### corn.lua ###
 Corn	=	Кукуруза
