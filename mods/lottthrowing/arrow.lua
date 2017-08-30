@@ -111,3 +111,12 @@ minetest.register_craft({
 		{'', '', 'lottmobs:feather'},
 	}
 })
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow 8',
+	recipe = {
+		{'default:steel_ingot'},
+		{'group:stick'},
+		{'lottmobs:feather'},
+	}
+})
