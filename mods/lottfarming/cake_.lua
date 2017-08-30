@@ -1,6 +1,8 @@
+--При добавлении убрать нижнее подчеркивание в названии текста
+
 local SL = lord.require_intllib()
 
--- ����� --
+-- ПИРОГ --
 
 local sizes = {-0.4375, -0.3125, -0.1875, -0.0625, 0.0625, 0.1875, 0.3125}
 
@@ -110,15 +112,15 @@ for i, size in ipairs(sizes) do
 		}
 	})
 
--- ���������� --
+-- ДОСТИЖЕНИЕ --
 	if minetest.get_modpath("lottachivments") then
 		lottachievements.register_achievement("lottachivements_the_lie", {
 			title = SL("The Lie"),
-			description = SL("Craft a cake"),
+			description = SL("Craft the Honey Cake"),
 			icon = "cake.png",
 			trigger = {
 				type = "craft",
-				item = "lottfarming:cake_honey", "lottfarming:cake_berries",
+				item = "lottfarming:cake_honey",
 				target = 1,
 			},
 		})
