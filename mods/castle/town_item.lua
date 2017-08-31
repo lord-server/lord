@@ -195,11 +195,9 @@ minetest.register_node("castle:dungeon_stone", {
 })
 
 minetest.register_craft({
-	type = shapeless
+	type = "shapeless",
 	output = "castle:dungeon_stone",
-	recipe = {
-		{"default:stonebrick", "default:obsidian"},
-	}
+	recipe = {"default:stonebrick", "default:obsidian"},
 })
 
 minetest.register_node("castle:straw", {
