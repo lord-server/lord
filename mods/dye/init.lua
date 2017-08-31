@@ -67,11 +67,17 @@ minetest.register_craft({
 	recipe = {"lottplants:lorien_grass_1"},
 })
 
--- manually add coal->black dye
+-- manually
 minetest.register_craft({
 	type = "shapeless",
 	output = "dye:black 4",
 	recipe = {"group:coal"},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:dark_gray 4",
+	recipe = {"fire:ash"},
 })
 
 -- Mix recipes
