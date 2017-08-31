@@ -48,7 +48,7 @@ mobs:register_arrow("lottmobs:egg_entity", {
 local EGG_GRAVITY = 9
 local EGG_VELOCITY = 19
 
-local mobs_shoot_egg = function(item, player, pointed_thing)
+local shoot_egg = function(item, player, pointed_thing)
 	local playerpos = player:getpos()
 
 	minetest.sound_play("default_place_node_hard", {
@@ -90,23 +90,10 @@ local mobs_shoot_egg = function(item, player, pointed_thing)
 	return item
 end
 
-minetest.register_node("lottmobs:egg", {
+minetest.register_craftitem("lottmobs:egg", {
 	description = SL("Chicken Egg"),
-	tiles = {"lottmobs_egg.png"},
 	inventory_image  = "lottmobs_egg.png",
-	visual_scale = 0.7,
-	drawtype = "plantlike",
-	wield_image = "lottmobs_egg.png",
-	paramtype = "light",
-	walkable = false,
-	is_ground_content = true,
-	sunlight_propagates = true,
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
-	},
-	groups = {snappy = 2, dig_immediate = 3},
-	on_use = mobs_shoot_egg
+	on_use = shoot_egg
 })
 
 mobs:register_mob("lottmobs:chicken", {
