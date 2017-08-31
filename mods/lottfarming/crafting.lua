@@ -127,6 +127,11 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "lottfarming:bacteria_fertiliser",
+	recipe = {{"lottpotion:glass_bottle_water", "fire:ash"}}
+})
+
+minetest.register_craft({
 	output = 'lottfarming:pipe',
 	recipe = {
 		{'', '', 'group:stick'},
