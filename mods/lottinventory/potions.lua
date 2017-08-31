@@ -44,13 +44,13 @@ local get_formspec = function(player,page)
                --Second
                .."label[1,3.2; "..SL("Power Level")..": 2]"
                .."item_image_button[4,3;1,1;lottpotion:orcdraught_power1;zcg:orcdraught_power1;]"
-               .."item_image_button[5,3;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,3;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,3;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,3;1,1;lottpotion:orcdraught_power2;zcg:orcdraught_power2;]"
                --Third
                .."label[1,4.2; "..SL("Power Level")..": 3]"
                .."item_image_button[4,4;1,1;lottpotion:orcdraught_power2;zcg:orcdraught_power2;]"
-               .."item_image_button[5,4;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,4;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,4;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,4;1,1;lottpotion:orcdraught_power3;zcg:orcdraught_power3;]"
                .."background[5,5;1,1;craft_formbg.png;true]"
@@ -227,19 +227,19 @@ local get_formspec = function(player,page)
                --First potion
                .."label[1,2.2; "..SL("Power Level")..": -1]"
                .."item_image_button[4,2;1,1;lottpotion:glass_bottle_mordor;zcg:glass_bottle_mordor;]"
-               .."item_image_button[5,2;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,2;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,2;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,2;1,1;lottpotion:orcdraught_corruption1;zcg:orcdraught_corruption1;]"
                --Second
                .."label[1,3.2; "..SL("Power Level")..": -2]"
                .."item_image_button[4,3;1,1;lottpotion:orcdraught_corruption1;zcg:orcdraught_corruption1;]"
-               .."item_image_button[5,3;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,3;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,3;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,3;1,1;lottpotion:orcdraught_corruption2;zcg:orcdraught_corruption2;]"
                --Third
                .."label[1,4.2; "..SL("Power Level")..": -3]"
                .."item_image_button[4,4;1,1;lottpotion:orcdraught_corruption2;zcg:orcdraught_corruption2;]"
-               .."item_image_button[5,4;1,1;lottmobs:meat_raw;zcg:meat_raw;5]"
+               .."item_image_button[5,4;1,1;lottmobs:rotten_meat;zcg:rotten_meat;5]"
                .."image[6,4;1,1;zcg_craft_arrow.png]"
                .."item_image_button[7,4;1,1;lottpotion:orcdraught_corruption3;zcg:orcdraught_corruption3;]"
                .."background[5,5;1,1;craft_formbg.png;true]"
