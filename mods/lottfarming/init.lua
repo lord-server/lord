@@ -150,7 +150,7 @@ dofile(minetest.get_modpath("lottfarming").."/corn.lua")
 dofile(minetest.get_modpath("lottfarming").."/carrots.lua")
 
 -- ========= CAKE =========
---dofile(minetest.get_modpath("lottfarming").."/cake.lua")
+dofile(minetest.get_modpath("lottfarming").."/cake.lua")
 
 -- ========= BERRIES =========
 dofile(minetest.get_modpath("lottfarming").."/berries.lua")
