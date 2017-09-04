@@ -111,7 +111,7 @@ for i, size in ipairs(sizes) do
 	})
 
 -- ДОСТИЖЕНИЕ --
-	if minetest.get_modpath("lottachivments") then
+	if minetest.get_modpath("lottachievements") then
 		lottachievements.register_achievement("lottachivements_the_lie", {
 			title = SL("The Lie"),
 			description = SL("Craft the Honey Cake"),
