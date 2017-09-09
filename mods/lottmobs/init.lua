@@ -1367,6 +1367,52 @@ mobs:register_mob("lottmobs:troll", {
 
 -- Arrows
 
+local flame_node = function(pos)
+	local n = minetest.get_node(pos).name
+	local fbd = minetest.registered_nodes[n].groups.forbidden
+	if fbd == nil then
+		if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+			minetest.set_node(pos, {name="fire:basic_flame"})
+		else
+			minetest.remove_node(pos)
+		end
+	end
+end
+
+local flame_area = function(p1, p2)
+	local x
+	local y
+	local z
+	for y=p1.y,p2.y do
+	for z=p1.z,p2.z do
+		minetest.punch_node({x=p1.x-1, y=y, z=z})
+		minetest.punch_node({x=p2.x+1, y=y, z=z})
+	end
+	end
+
+	for x=p1.x,p2.x do
+	for z=p1.z,p2.z do
+		minetest.punch_node({x=x, y=p1.y-1, z=z})
+		minetest.punch_node({x=x, y=p2.y+1, z=z})
+	end
+	end
+
+	for x=p1.x,p2.x do
+	for y=p1.y,p2.y do
+		minetest.punch_node({x=x, y=y, z=p1.z-1})
+		minetest.punch_node({x=x, y=y, z=p2.z+1})
+	end
+	end
+
+	for x=p1.x,p2.x do
+		for y=p1.y,p2.y do
+			for z=p1.z,p2.z do
+				flame_node({x=x, y=y, z=z})
+			end
+		end
+	end
+end
+
 mobs:register_arrow("lottmobs:darkball", {
 	visual = "sprite",
 	visual_size = {x=1, y=1},
@@ -1381,43 +1427,14 @@ mobs:register_arrow("lottmobs:darkball", {
 			damage_groups = {fleshy=4},
 		}, vec)
 		local pos = self.object:getpos()
-		for dx=-1,1 do
-			for dy=-1,1 do
-				for dz=-1,1 do
-					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					--local n = minetest.get_node(pos).name
-					local n = minetest.get_node(p).name
-					local fbd = minetest.registered_nodes[n].groups.forbidden
-					if fbd == nil then
-						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-							minetest.set_node(p, {name="fire:basic_flame"})
-						else
-							minetest.remove_node(p)
-						end
-					end
-				end
-			end
-		end
+		local p1 = {x=pos.x-1, y=pos.y-1, z=pos.z-1}
+		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
+		flame_area(p1, p2)
 	end,
 	hit_node = function(self, pos, node)
-		for dx=-1,1 do
-			for dy=-2,1 do
-				for dz=-1,1 do
-					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(p).name
-					local fbd = minetest.registered_nodes[n].groups.forbidden
-					--print(dump(fbd))
-					if fbd == nil then
-						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-							minetest.set_node(p, {name="fire:basic_flame"})
-						else
-							minetest.remove_node(p)
-						end
-					else
-					end
-				end
-			end
-		end
+		local p1 = {x=pos.x-1, y=pos.y-2, z=pos.z-1}
+		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
+		flame_area(p1, p2)
 	end
 })
 
@@ -1449,22 +1466,9 @@ mobs:register_arrow("lottmobs:fireball", {
 			damage_groups = {fleshy=4},
 		}, vec)
 		local pos = self.object:getpos()
-		for dx=-1,1 do
-			for dy=-1,1 do
-				for dz=-1,1 do
-					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(p).name
-					local fbd = minetest.registered_nodes[n].groups.forbidden
-					if fbd == nil then
-						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-							minetest.set_node(p, {name="fire:basic_flame"})
-						else
-							minetest.remove_node(p)
-						end
-					end
-				end
-			end
-		end
+		local p1 = {x=pos.x-1, y=pos.y-1, z=pos.z-1}
+		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
+		flame_area(p1, p2)
 	end,
 
 	hit_mob = function(self, player)
@@ -1479,22 +1483,9 @@ mobs:register_arrow("lottmobs:fireball", {
 	--	mobs:explosion(pos, 1, 1, 0)
 	--end
 	hit_node = function(self, pos, node)
-		for dx=-1,1 do
-			for dy=-2,1 do
-				for dz=-1,1 do
-					local p = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
-					local n = minetest.get_node(p).name
-					local fbd = minetest.registered_nodes[n].groups.forbidden
-					if fbd == nil then
-						if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-							minetest.set_node(p, {name="fire:basic_flame"})
-						else
-							minetest.remove_node(p)
-						end
-					end
-				end
-			end
-		end
+		local p1 = {x=pos.x-1, y=pos.y-2, z=pos.z-1}
+		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
+		flame_area(p1, p2)
 	end
 })
 
