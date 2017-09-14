@@ -97,7 +97,7 @@ end
 
 
 minetest.register_tool("defaults:ghost_tool", {
-	description = "Make node ghostly",
+	description = "Призрачный посох",
 	inventory_image = "ghost_tool.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
