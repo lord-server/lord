@@ -130,7 +130,6 @@ end
 minetest.register_craftitem("bucket:bucket_empty", {
 	description = SL("Empty Bucket"),
 	inventory_image = "bucket.png",
-	stack_max = 1,
 	liquids_pointable = true,
 	on_use = function(itemstack, user, pointed_thing)
 		-- Must be pointing to node
