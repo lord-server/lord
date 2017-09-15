@@ -176,8 +176,8 @@ minetest.register_alias("defaults:desert_st0ne_brick", "defaults:default_desert_
 minetest.register_alias("defaults:st0ne_brick",        "defaults:default_stonebrick")
 minetest.register_alias("defaults:bricks",             "defaults:default_brick")
 minetest.register_alias("defaults:desert_c0bble",      "defaults:default_desert_cobble")
-minetest.register_alias("defaults:cobble",             "defaults:default_cobble")
-minetest.register_alias("defaults:desert_stone",       "defaults:default_desert_stone")
+minetest.register_alias("defaults:c0bble",             "defaults:default_cobble")
+minetest.register_alias("defaults:desert_st0ne",       "defaults:default_desert_stone")
 minetest.register_alias("defaults:st0ne",              "defaults:default_stone")
 
 
