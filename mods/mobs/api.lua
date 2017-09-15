@@ -50,19 +50,19 @@ end
 
 
 -- Load settings
-local damage_enabled = minetest.setting_getbool("enable_damage")
-local peaceful_only = minetest.setting_getbool("only_peaceful_mobs")
-local disable_blood = minetest.setting_getbool("mobs_disable_blood")
-local creative = minetest.setting_getbool("creative_mode")
-local spawn_protected = tonumber(minetest.setting_get("mobs_spawn_protected")) or 1
-local remove_far = minetest.setting_getbool("remove_far_mobs")
-local difficulty = tonumber(minetest.setting_get("mob_difficulty")) or 1.0
-local show_health = minetest.setting_getbool("mob_show_health") ~= false
-local max_per_block = tonumber(minetest.setting_get("max_objects_per_block") or 99)
+local damage_enabled = minetest.settings:get_bool("enable_damage")
+local peaceful_only = minetest.settings:get_bool("only_peaceful_mobs")
+local disable_blood = minetest.settings:get_bool("mobs_disable_blood")
+local creative = minetest.settings:get_bool("creative_mode")
+local spawn_protected = tonumber(minetest.settings:get("mobs_spawn_protected")) or 1
+local remove_far = minetest.settings:get_bool("remove_far_mobs")
+local difficulty = tonumber(minetest.settings:get("mob_difficulty")) or 1.0
+local show_health = minetest.settings:get_bool("mob_show_health") ~= false
+local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or 99)
 
 -- calculate aoc range for mob count
-local aosrb = tonumber(minetest.setting_get("active_object_send_range_blocks"))
-local abr = tonumber(minetest.setting_get("active_block_range"))
+local aosrb = tonumber(minetest.settings:get("active_object_send_range_blocks"))
+local abr = tonumber(minetest.settings:get("active_block_range"))
 local aoc_range = max(aosrb, abr) * 16
 
 -- pathfinding settings
@@ -2503,7 +2503,7 @@ function mobs:spawn_specific(name, nodes, neighbors, min_light, max_light,
 	interval, chance, aoc, min_height, max_height, day_toggle, on_spawn)
 
 	-- chance/spawn number override in minetest.conf for registered mob
-	local numbers = minetest.setting_get(name)
+	local numbers = minetest.settings:get(name)
 
 	if numbers then
 		numbers = numbers:split(",")

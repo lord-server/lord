@@ -14,7 +14,7 @@ lord_homedecor = {
 	gettext = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end,
 
 	-- infinite stacks
-	expect_infinite_stacks = minetest.setting_getbool("creative_mode") and not minetest.get_modpath("unified_inventory")
+	expect_infinite_stacks = minetest.settings:get_bool("creative_mode") and not minetest.get_modpath("unified_inventory")
 }
 
 
@@ -146,4 +146,4 @@ dofile(modpath.."/crafts.lua")
 dofile(modpath.."/roofing.lua")
 
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

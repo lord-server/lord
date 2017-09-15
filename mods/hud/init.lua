@@ -31,9 +31,9 @@ HUD_HOTBAR_TRANSPARENCY = true
 HUD_TICK = 0.2
 HUD_HUNGER_TICK = 300
 
-HUD_ENABLE_HUNGER = minetest.setting_getbool("hud_hunger_enable")
+HUD_ENABLE_HUNGER = minetest.settings:get_bool("hud_hunger_enable")
 if HUD_ENABLE_HUNGER == nil then
-	HUD_ENABLE_HUNGER = minetest.setting_getbool("enable_damage")
+	HUD_ENABLE_HUNGER = minetest.settings:get_bool("enable_damage")
 end
 
 HUD_SHOW_ARMOR = false
@@ -70,7 +70,7 @@ if minetest.get_modpath("crafting") == nil then
 	player:hud_set_hotbar_selected_image("hud_hotbar_selected.png")
 end
 
- if minetest.setting_getbool("enable_damage") then
+ if minetest.settings:get_bool("enable_damage") then
  --hunger
 	if HUD_ENABLE_HUNGER then
        	 player:hud_add({
@@ -271,7 +271,7 @@ minetest.after(2.5, function()
 			local name = player:get_player_name()
 
 			-- only proceed if damage is enabled
-			if minetest.setting_getbool("enable_damage") then
+			if minetest.settings:get_bool("enable_damage") then
 			 local h = tonumber(hud.hunger[name])
 			 local hp = player:get_hp()
 			 if HUD_ENABLE_HUNGER and timer > 4 then
@@ -279,7 +279,7 @@ minetest.after(2.5, function()
 				if h > 15 and hp > 0 and hud.air[name] > 0 then
 					player:set_hp(hp+1)
 				-- or damage player by 1 hp if saturation is < 2 (of 30)
-				elseif h <= 1 and minetest.setting_getbool("enable_damage") then
+				elseif h <= 1 and minetest.settings:get_bool("enable_damage") then
 					if hp-1 >= 0 then player:set_hp(hp-1) end
 				end
 			 end
@@ -305,4 +305,4 @@ minetest.after(2.5, function()
 	end)
 end)
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

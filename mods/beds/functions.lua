@@ -2,7 +2,7 @@ local SL = lord.require_intllib()
 
 local player_in_bed = 0
 local is_sp = minetest.is_singleplayer()
-local enable_respawn = minetest.setting_getbool("enable_bed_respawn")
+local enable_respawn = minetest.settings:get_bool("enable_bed_respawn")
 if enable_respawn == nil then
 	enable_respawn = true
 end

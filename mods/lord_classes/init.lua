@@ -52,7 +52,7 @@ races.list = {
 	},
 }
 
--- TODO: Get these values via minetest.setting_get()
+-- TODO: Get these values via minetest.settings:get()
 races.default = {"shadow", "female"}
 races.default_skin = 1
 
@@ -419,6 +419,6 @@ minetest.register_chatcommand("give_chance", {
 	end
 })
 
-if minetest.setting_getbool("msg_loading_mods") then
+if minetest.settings:get_bool("msg_loading_mods") then
 	minetest.log("action", minetest.get_current_modname().." loaded")
 end

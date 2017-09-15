@@ -1,7 +1,7 @@
 lottmapgen = {}
 
 local areas_mod = minetest.global_exists("areas")
-local protect_houses = minetest.setting_getbool("protect_structures") or true
+local protect_houses = minetest.settings:get_bool("protect_structures") or true
 
 local lottmapgen_list = {
 	-- Description      Technical name  Area name        Area owner       Area bounding box (from placement point)

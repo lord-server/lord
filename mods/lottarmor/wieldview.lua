@@ -1,13 +1,13 @@
 local time = 0
-local update_time = tonumber(minetest.setting_get("lottarmor_update_time"))
+local update_time = tonumber(minetest.settings:get("lottarmor_update_time"))
 if not update_time then
 	update_time = 2
-	minetest.setting_set("lottarmor_update_time", tostring(update_time))
+	minetest.settings:set("lottarmor_update_time", tostring(update_time))
 end
-local node_tiles = minetest.setting_getbool("lottarmor_node_tiles")
+local node_tiles = minetest.settings:get_bool("lottarmor_node_tiles")
 if not node_tiles then
 	node_tiles = false
-	minetest.setting_set("lottarmor_node_tiles", "true")
+	minetest.settings:set("lottarmor_node_tiles", "true")
 end
 
 lottarmor = {

@@ -101,7 +101,7 @@ minetest.register_tool("defaults:ghost_tool", {
 	inventory_image = "ghost_tool.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
-		local creative = minetest.setting_getbool("creative_mode")
+		local creative = minetest.settings:get_bool("creative_mode")
 		local USES=152
 
 		if (pt.type == "node") then
@@ -185,7 +185,7 @@ for name,material in pairs(minetest.registered_nodes) do
 end
 
 
-if minetest.setting_getbool("msg_loading_mods") then
+if minetest.settings:get_bool("msg_loading_mods") then
 	minetest.log("action", minetest.get_current_modname().." mod LOADED")
 end
 

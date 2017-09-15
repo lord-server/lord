@@ -136,7 +136,7 @@ local function detect_languages()
 
 	local v
 
-	v = minetest.setting_get("language")
+	v = minetest.settings:get("language")
 	if v and v~="" then
 		addlang(v)
 	end

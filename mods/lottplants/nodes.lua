@@ -585,7 +585,7 @@ minetest.register_node("lottplants:pinetree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:pinetrunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -643,7 +643,7 @@ minetest.register_node("lottplants:birchtree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:birchtrunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -701,7 +701,7 @@ minetest.register_node("lottplants:aldertree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:aldertrunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -759,7 +759,7 @@ minetest.register_node("lottplants:lebethrontree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:lebethrontrunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -817,7 +817,7 @@ minetest.register_node("lottplants:mallorntree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:mallorntrunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -893,7 +893,7 @@ minetest.register_node("lottplants:mallorntree_young", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:mallorntrunk_young", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack

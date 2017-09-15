@@ -1,11 +1,11 @@
 local SL = lord.require_intllib()
 
-local creative = minetest.setting_getbool("creative_mode")
+local creative = minetest.settings:get_bool("creative_mode")
 
 local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 	local axe_entity = "lottthrowing:" .. axe .. "_entity"
 	local lottthrowing_throw_axe = function(itemstack, player)
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			player:get_inventory():remove_item("main", player:get_wield_index())
 		end
 		local playerpos = player:getpos()

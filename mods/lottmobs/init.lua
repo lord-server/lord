@@ -15,12 +15,12 @@ lottmobs.guard = function(self, clicker, payment)
 		hp = hp + 4
 		if hp > self.hp_max then hp = self.hp_max end
 		self.object:set_hp(hp)
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end
 	elseif item:get_name() == payment then
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end
@@ -1491,4 +1491,4 @@ mobs:register_arrow("lottmobs:fireball", {
 
 dofile(minetest.get_modpath("lottmobs").."/spawn.lua")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

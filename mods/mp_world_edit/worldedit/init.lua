@@ -38,4 +38,4 @@ load_module(path .. "/code.lua")
 load_module(path .. "/compatibility.lua")
 load_module(path .. "/tools.lua")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

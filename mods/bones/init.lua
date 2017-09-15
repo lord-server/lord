@@ -3,7 +3,7 @@ local SL = lord.require_intllib()
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
 
-local publish = tonumber(minetest.setting_get("share_bones_time")) or 60*5
+local publish = tonumber(minetest.settings:get("share_bones_time")) or 60*5
 
 local bones_formspec =
 	"size[8,9]"..
@@ -110,7 +110,7 @@ end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
 minetest.register_on_dieplayer(function(player)
-	if minetest.setting_getbool("creative_mode") then return end
+	if minetest.settings:get_bool("creative_mode") then return end
 	local race = races.get_race_and_gender(player:get_player_name())[1]
 	local gender = races.get_race_and_gender(player:get_player_name())[2]
 	local skin = races.get_skin(player:get_player_name())
@@ -182,4 +182,4 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."items.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."skeleton.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."crafting.lua")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

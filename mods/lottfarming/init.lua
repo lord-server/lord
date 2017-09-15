@@ -26,7 +26,7 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 	minetest.add_node(pt.above, {name=plantname})
-	if not minetest.setting_getbool("creative_mode") then
+	if not minetest.settings:get_bool("creative_mode") then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -58,7 +58,7 @@ function place_spore(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 	minetest.add_node(pt.above, {name=plantname})
-	if not minetest.setting_getbool("creative_mode") then
+	if not minetest.settings:get_bool("creative_mode") then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -197,4 +197,4 @@ dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 -- ========= OTHER =========
 dofile(minetest.get_modpath("lottfarming").."/other.lua")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
