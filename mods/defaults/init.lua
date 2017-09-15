@@ -124,7 +124,8 @@ minetest.register_tool("defaults:ghost_tool", {
 				if (ghost.has_crystals(crystalstack) == false) then
 					return itemstack
 				end
-				minetest.swap_node(pos, {name=ghost_name})
+				node.name = ghost_name
+				minetest.swap_node(pos, node)
 				crystalstack:take_item(8);
 				user:get_inventory():set_stack("main", user:get_wield_index()+1, crystalstack)
 				itemstack:add_wear(65535 / (USES - 1))
