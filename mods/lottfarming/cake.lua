@@ -116,6 +116,8 @@ for i, size in ipairs(sizes) do
 			title = SL("The Lie"),
 			description = SL("Craft the Honey Cake"),
 			icon = "cake.png",
+			id = 43,
+			secret = true,
 			trigger = {
 				type = "craft",
 				item = "lottfarming:cake_honey",
