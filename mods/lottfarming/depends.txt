@@ -2,3 +2,4 @@ default
 farming
 lottores
 lordlib
+lottachievements
