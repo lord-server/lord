@@ -199,7 +199,7 @@ local function cooking(pos, itemstack)
                 end
             end)
 
-            if not minetest.setting_getbool("creative_mode") then
+            if not minetest.settings:get_bool("creative_mode") then
                 itemstack:take_item()
                 return itemstack
             end
@@ -313,7 +313,7 @@ minetest.register_node('fire:campfire_active', {
                     6
                 )
 
-         if not minetest.setting_getbool("creative_mode") then
+         if not minetest.settings:get_bool("creative_mode") then
             itemstack:take_item()
 			return itemstack
          end

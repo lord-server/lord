@@ -13,7 +13,7 @@ local SL = lord.require_intllib()
 -- }
 
 -- CWz's keyword interact mod uses this setting.
-local current_keyword = minetest.setting_get("interact_keyword") or "iaccept"
+local current_keyword = minetest.settings:get("interact_keyword") or "iaccept"
 
 --**********************************************************************
 local ansi_decode={
@@ -235,7 +235,7 @@ end
 
 -- infinite stacks
 
-if minetest.get_modpath("unified_inventory") or not minetest.setting_getbool("creative_mode") then
+if minetest.get_modpath("unified_inventory") or not minetest.settings:get_bool("creative_mode") then
 	signs_lib.expect_infinite_stacks = false
 else
 	signs_lib.expect_infinite_stacks = true
@@ -886,7 +886,7 @@ minetest.register_node(":locked_sign:sign_wall_locked", {
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("owner")
 		local pname = sender:get_player_name() or ""
-		if pname ~= owner and pname ~= minetest.setting_get("name")
+		if pname ~= owner and pname ~= minetest.settings:get("name")
 		  and not minetest.check_player_privs(pname, {sign_editor=true}) then
 			return
 		end
@@ -899,7 +899,7 @@ minetest.register_node(":locked_sign:sign_wall_locked", {
 		local meta = minetest.get_meta(pos)
 		local owner = meta:get_string("owner")
 		local pname = player:get_player_name()
-		return pname == owner or pname == minetest.setting_get("name")
+		return pname == owner or pname == minetest.settings:get("name")
 			or minetest.check_player_privs(pname, {sign_editor=true})
 	end,
 	on_rotate = signs_lib.wallmounted_rotate
@@ -1209,4 +1209,4 @@ minetest.register_craft( {
         --~ },
 --~ })
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

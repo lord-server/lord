@@ -88,18 +88,18 @@ local function info_form(name)
 			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"..
 			"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
 	end
-	form = form.."label[0.3,1.0;"..SL("Admin:").." "..minetest.setting_get("name").."]" --admin
-	if minetest.setting_getbool("enable_pvp") then --pvp
+	form = form.."label[0.3,1.0;"..SL("Admin:").." "..minetest.settings:get("name").."]" --admin
+	if minetest.settings:get_bool("enable_pvp") then --pvp
 		form = form.."label[0.3,1.5;"..SL("PvP:").." "..SL("On").."]"
 	else
 		form = form.."label[0.3,1.5;"..SL("PvP:").." "..SL("Off").."]"
 	end
-	if minetest.setting_getbool("enable_damage") then --урон
+	if minetest.settings:get_bool("enable_damage") then --урон
 		form = form.."label[0.3,2.0;"..SL("Damage:").." "..SL("On").."]"
 	else
 		form = form.."label[0.3,2.0;"..SL("Damage:").." "..SL("Off").."]"
 	end
-	form = form.."label[0.3,2.5;"..SL("Default privileges:").." "..minetest.setting_get("default_privs").."]" --базовые права
+	form = form.."label[0.3,2.5;"..SL("Default privileges:").." "..minetest.settings:get("default_privs").."]" --базовые права
 	form = form.."textarea[0.6,3.5;7.4,4.83;txt_info;"..SL("Info:")..";"..minetest.formspec_escape(read_info()).."]"
 	if privs["info"] then
 		form = form..
@@ -362,5 +362,5 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
 

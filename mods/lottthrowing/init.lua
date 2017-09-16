@@ -15,7 +15,7 @@ bolts = {
 local lottthrowing_shoot_arrow = function(itemstack, player)
 	for _,arrow in ipairs(arrows) do
 		if player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name() == arrow[1] then
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				player:get_inventory():remove_item("main", arrow[1])
 			end
 			local playerpos = player:getpos()
@@ -38,7 +38,7 @@ end
 local lottthrowing_shoot_bolt = function(itemstack, player)
 	for _,arrow in ipairs(bolts) do
 		if player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name() == arrow[1] then
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				player:get_inventory():remove_item("main", arrow[1])
 			end
 			local playerpos = player:getpos()

@@ -11,7 +11,7 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 	-- Allow the stack to be placed and remove it in on_put()
 	-- This allows the creative inventory to restore the stack
 	allow_put = function(inv, listname, index, stack, player)
-		if minetest.setting_getbool("creative_mode") then
+		if minetest.settings:get_bool("creative_mode") then
 			return stack:get_count()
 		else
 			return 0
@@ -27,7 +27,7 @@ trash:set_size("main", 1)
 minetest.after(0, function()
 	local inv = minetest.create_detached_inventory("creative", {
  	allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			if minetest.setting_getbool("creative_mode") then
+			if minetest.settings:get_bool("creative_mode") then
  				return count
  			else
  				return 0
@@ -37,7 +37,7 @@ minetest.after(0, function()
  			return 0
  		end,
  		allow_take = function(inv, listname, index, stack, player)
- 			if minetest.setting_getbool("creative_mode") then
+ 			if minetest.settings:get_bool("creative_mode") then
  				return -1
  			else
  				return 0
@@ -101,13 +101,13 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	-- If in creative mode, modify player's inventory forms
-	if minetest.setting_getbool("creative_mode") then
+	if minetest.settings:get_bool("creative_mode") then
 		creative_inventory.set_creative_formspec(player, 0, 1)
 	end
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if not minetest.setting_getbool("creative_mode") then
+	if not minetest.settings:get_bool("creative_mode") then
 		return
 	end
 	-- Figure out current page from formspec
@@ -164,7 +164,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	creative_inventory.set_creative_formspec(player, start_i, start_i / (6*10) + 1)
 end)
 
-if minetest.setting_getbool("creative_mode") then
+if minetest.settings:get_bool("creative_mode") then
 	local digtime = 0.5
 	minetest.register_item(":", {
 		type = "none",
@@ -206,4 +206,4 @@ if minetest.setting_getbool("creative_mode") then
 
 end
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

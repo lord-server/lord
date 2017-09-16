@@ -329,7 +329,7 @@ minetest.register_node("default:tree", {
 
 			end
 			minetest.set_node(p1,{name = "default:tree_trunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -421,7 +421,7 @@ minetest.register_node("default:jungletree", {
 				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "default:jungletree_trunk", param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -858,7 +858,7 @@ minetest.register_node("default:ladder", {
 
 			--if param2 then
 				--minetest.set_node(pointed_thing.above,{name = "default:ladder", param2 = param2})
-				--if not minetest.setting_getbool("creative_mode") then
+				--if not minetest.settings:get_bool("creative_mode") then
 					--itemstack:take_item()
 				--end
 			--end
@@ -1676,6 +1676,22 @@ minetest.register_node("default:mossycobble", {
 minetest.register_node("default:coalblock", {
 	description = SL("Coal Block"),
 	tiles = {"default_coal_block.png"},
+	is_ground_content = true,
+	groups = {cracky=3,flammable=10},
+	sounds = default.node_sound_stone_defaults(),
+	on_punch = function(pos, node, puncher)
+		if puncher:get_wielded_item():get_name() == "default:torch" then
+			pos_above={x=pos.x,y=pos.y+1,z=pos.z}
+			if minetest.get_node(pos_above).name == "air" then
+				minetest.set_node(pos_above, {name="fire:basic_flame"})
+			end
+		end
+	end,
+})
+
+minetest.register_node("default:charcoalblock", {
+	description = SL("Charcoal Block"),
+	tiles = {"default_charcoal_block.png"},
 	is_ground_content = true,
 	groups = {cracky=3,flammable=10},
 	sounds = default.node_sound_stone_defaults(),

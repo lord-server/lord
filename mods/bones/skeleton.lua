@@ -84,7 +84,7 @@ minetest.register_node("bones:skeleton_body", {
 		end
 		minetest.add_node(above, {name = "bones:skeleton_body", param2 = fdir})
 		minetest.add_node(above_2, {name = "bones:skeleton", param2 = fdir})
-		if not minetest.setting_getbool("creative_mode") then
+		if not minetest.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack
@@ -95,4 +95,4 @@ minetest.register_node("bones:skeleton_body", {
 	end
 })
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

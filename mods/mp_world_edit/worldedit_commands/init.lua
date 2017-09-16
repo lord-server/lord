@@ -1015,7 +1015,7 @@ minetest.register_chatcommand("/lua", {
 	description = SL("Executes <code> as a Lua chunk in the global namespace"),
 	privs = {worldedit=true, server=true},
 	func = function(name, param)
-		local admin = minetest.setting_get("name")
+		local admin = minetest.settings:get("name")
 		if not admin or not name == admin then
 			worldedit.player_notify(name, "this command can only be run by the server administrator")
 			return
@@ -1034,7 +1034,7 @@ minetest.register_chatcommand("/luatransform", {
 	description = SL("Executes <code> as a Lua chunk in the global namespace with the variable pos available, for each node in the current WorldEdit region"),
 	privs = {worldedit=true, server=true},
 	func = safe_region(function(name, param)
-		local admin = minetest.setting_get("name")
+		local admin = minetest.settings:get("name")
 		if not admin or not name == admin then
 			worldedit.player_notify(name, "this command can only be run by the server administrator")
 			return
@@ -1154,4 +1154,4 @@ minetest.register_chatcommand("/clearobjects", {
 	end),
 })
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

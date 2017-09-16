@@ -90,7 +90,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			--print("param2="..tostring(param2))
 			
 			minetest.set_node(p1,{name = "stairs:stair_" .. subname, param2 = param2})
-			if not minetest.setting_getbool("creative_mode") then	
+			if not minetest.settings:get_bool("creative_mode") then	
 				itemstack:take_item()
 			end
 			return itemstack
@@ -289,7 +289,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				end
 			end
 
-			if not minetest.setting_getbool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -313,4 +313,4 @@ function stairs.register_stair_and_slab(subname, recipeitem, groups, images, des
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

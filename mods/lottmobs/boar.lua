@@ -88,7 +88,7 @@ mobs:register_mob("lottmobs:boar", {
 				return
 			end
         	minetest.add_entity(self.object:getpos(), "lottmobs:boar_mount")
-        	if not minetest.setting_getbool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+        	if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
         		clicker:set_wielded_item(item)
         	end

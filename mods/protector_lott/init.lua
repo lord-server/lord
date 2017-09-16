@@ -21,10 +21,10 @@ local statspawn = (minetest.setting_get_pos("static_spawnpoint") or {x = 0, y = 
 
 protector = {}
 protector.mod = "redo"
-protector.radius = (tonumber(minetest.setting_get("protector_radius")) or 5)
-protector.pvp = minetest.setting_getbool("protector_pvp")
-protector.spawn = (tonumber(minetest.setting_get("protector_pvp_spawn")) or 0)
-protector.damage = (tonumber(minetest.setting_get("protector_damage")) or 1)
+protector.radius = (tonumber(minetest.settings:get("protector_radius")) or 5)
+protector.pvp = minetest.settings:get_bool("protector_pvp")
+protector.spawn = (tonumber(minetest.settings:get("protector_pvp_spawn")) or 0)
+protector.damage = (tonumber(minetest.settings:get("protector_damage")) or 1)
 
 protector.get_member_list = function(meta)
 	return meta:get_string("members"):split(" ")
@@ -396,7 +396,7 @@ minetest.register_node("protector_lott:display_node", {
 })
 
 -- Disable PVP in your own protected areas
-if minetest.setting_getbool("enable_pvp") and protector.pvp then
+if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 
 	if minetest.register_on_punchplayer then
 
@@ -441,4 +441,4 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."blocks.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."doors.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."chests.lua")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

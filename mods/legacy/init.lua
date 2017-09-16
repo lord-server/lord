@@ -173,6 +173,17 @@ minetest.register_alias("lottplants:seregon_fake", "lottplants:seregon")
 minetest.register_alias("lottplants:brambles_of_mordor_fake", "lottplants:brambles_of_mordor")
 minetest.register_alias("lottplants:pilinehtar_fake", "lottplants:pilinehtar")
 
+minetest.register_alias("defaults:sandst0nebrick",     "defaults:default_sandstonebrick")
+minetest.register_alias("defaults:sandst0ne",          "defaults:default_sandstone")
+minetest.register_alias("defaults:desert_st0ne_brick", "defaults:default_desert_stonebrick")
+minetest.register_alias("defaults:st0ne_brick",        "defaults:default_stonebrick")
+minetest.register_alias("defaults:bricks",             "defaults:default_brick")
+minetest.register_alias("defaults:desert_c0bble",      "defaults:default_desert_cobble")
+minetest.register_alias("defaults:c0bble",             "defaults:default_cobble")
+minetest.register_alias("defaults:desert_st0ne",       "defaults:default_desert_stone")
+minetest.register_alias("defaults:st0ne",              "defaults:default_stone")
+
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do
@@ -180,7 +191,6 @@ for _, gender in pairs({"male", "female"}) do
 		minetest.register_alias(n, n.."_1")
 	end
 end
-minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
 gaurds = {"dwarven", "elven", "gondor", "orc", "rohan", "uruk_hai"}
 for i, v in pairs(gaurds) do
@@ -230,4 +240,4 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

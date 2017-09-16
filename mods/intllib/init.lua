@@ -13,7 +13,7 @@ local MP = minetest.get_modpath("intllib")
 dofile(MP.."/lib.lua")
 
 
-local LANG = minetest.setting_get("language")
+local LANG = minetest.settings:get("language")
 if not (LANG and (LANG ~= "")) then LANG = os.getenv("LANG") end
 if not (LANG and (LANG ~= "")) then LANG = "en" end
 

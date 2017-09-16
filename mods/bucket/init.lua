@@ -81,7 +81,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 						return
 					end
 					if math.floor(fullness/128) == 1 or
-						not minetest.setting_getbool("liquid_finite") then
+						not minetest.settings:get_bool("liquid_finite") then
 						minetest.add_node(pos, {name=source,
 								param2=fullness})
 						return
@@ -130,7 +130,6 @@ end
 minetest.register_craftitem("bucket:bucket_empty", {
 	description = SL("Empty Bucket"),
 	inventory_image = "bucket.png",
-	stack_max = 1,
 	liquids_pointable = true,
 	on_use = function(itemstack, user, pointed_thing)
 		-- Must be pointing to node
@@ -143,7 +142,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 		if liquiddef ~= nil and liquiddef.itemname ~= nil and
 			(node.name == liquiddef.source or
 			(node.name == liquiddef.flowing and
-				minetest.setting_getbool("liquid_finite"))) then
+				minetest.settings:get_bool("liquid_finite"))) then
 			if check_protection(pointed_thing.under,
 					user:get_player_name(),
 					"take ".. node.name) then
@@ -215,4 +214,4 @@ minetest.register_craft({output = "bucket:bucket_water",
 	recipe = "bucket:bucket_snow",
 })
 
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

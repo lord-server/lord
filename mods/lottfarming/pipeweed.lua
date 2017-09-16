@@ -116,7 +116,7 @@ minetest.register_tool("lottfarming:pipe", {
 		for _,arrow in ipairs(pipeweed) do
 			if player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name() == arrow[1] then
 				player:set_hp(player:get_hp()+2)
-				if not minetest.setting_getbool("creative_mode") then
+				if not minetest.settings:get_bool("creative_mode") then
 					player:get_inventory():remove_item("main", arrow[1])
 				end
 				local pos = player:getpos()

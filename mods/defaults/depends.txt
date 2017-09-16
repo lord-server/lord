@@ -1,2 +1,8 @@
 default
 lordlib
+castle
+lottores
+lottblocks
+lottmapgen
+lord_homedecor
+lord_doors

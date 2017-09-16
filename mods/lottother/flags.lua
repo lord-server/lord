@@ -88,7 +88,7 @@ for _, row in ipairs(tapestry.colours) do
           end
           minetest.add_node(above, {name = "lottother:tapestry_"..name, param2 = fdir})
           minetest.add_node({x = above.x, y = above.y + 1, z = above.z}, {name = "lottother:tapestry_top_"..name,param2 = fdir})
-          if not minetest.setting_getbool("creative_mode") then
+          if not minetest.settings:get_bool("creative_mode") then
           	itemstack:take_item()
           end
           return itemstack

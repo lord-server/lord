@@ -11,7 +11,7 @@ function lord.require_intllib()
 end
 
 function lord.mod_loaded()
-	if minetest.setting_getbool("msg_loading_mods") then
+	if minetest.settings:get_bool("msg_loading_mods") then
 		minetest.log("action", minetest.get_current_modname() .. " mod loaded")
 	end
 end
