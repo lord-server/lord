@@ -110,7 +110,7 @@ Craft a book of palantir = Создайте книгу "Палантиры"
 Baggins surname = Фамилия Бэггинс
 Make 8 large bags = Смастерите 8 больших сумок
 The Lie = Не слипнется
-Craft the Cake = Приготовить любой пирог
+Craft the Honey Cake = Приготовить медовик
 
 
 
