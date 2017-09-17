@@ -109,20 +109,3 @@ for i, size in ipairs(sizes) do
 			{"lottfarming:biscuit"},
 		}
 	})
-
--- ДОСТИЖЕНИЕ --
-	if minetest.get_modpath("lottachievements") then
-		lottachievements.register_achievement("lottachievements_the_lie", {
-			title = SL("The Lie"),
-			description = SL("Craft the Honey Cake"),
-			icon = "cake.png",
-			id = 43,
-			secret = true,
-			trigger = {
-				type = "craft",
-				item = "lottfarming:cake_honey",
-				target = 1,
-			},
-		})
-	end
-end
