@@ -56,7 +56,7 @@ for i, size in ipairs(sizes) do
 			},
 		},
 		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
+			set_hp(clicker:get_hp() + 1)
 		
 			if i < #sizes then
 				minetest.swap_node(pos, {name="lottfarming:cake_honey_"..i})
@@ -83,7 +83,7 @@ for i, size in ipairs(sizes) do
 			}
 		},
 		on_rightclick = function(pos, node, clicker)
-			clicker:minetest.item_eat(1)
+			minetest.item_eat(1)
 			
 			if i < #sizes then
 				minetest.swap_node(pos, {name="lottfarming:cake_berries_"..i})
