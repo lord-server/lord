@@ -28,8 +28,6 @@ Salad	=	Салат
 ### cake.lua ###
 Honey Cake = Медовик
 Berry Cake = Ягодный пирог
-The Lie = Не слипнется
-Craft the Honey Cake = Приготовить медовик
 
 ### corn.lua ###
 Corn	=	Кукуруза
