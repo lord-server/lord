@@ -757,7 +757,7 @@ lottachievements.register_achievement("lottachievements_the_lie", {
 	id = 55,
 	trigger = {
 		type = "craft",
-		item = "cake=1",
+		item = "lottfarming:cake_honey",
 		target = 1
 	}
 })
