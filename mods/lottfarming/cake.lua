@@ -48,7 +48,7 @@ for i, size in ipairs(sizes) do
 		is_ground_content = false,
 		groups = {crumbly=3},
 		--sounds = sounds,
-		stack_max = 1
+		stack_max = 1,
 		node_box = {
 			type = "fixed",
 			fixed = {
@@ -75,7 +75,7 @@ for i, size in ipairs(sizes) do
 		is_ground_content = false,
 		groups = {crumbly=3},
 		--sounds = sounds,
-		stack_max = 1
+		stack_max = 1,
 		node_box = {
 			type = "fixed",
 			fixed = {
