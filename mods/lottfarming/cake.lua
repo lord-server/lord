@@ -46,7 +46,7 @@ for i, size in ipairs(sizes) do
 		tiles = tiles_h,
 		paramtype = "light",
 		is_ground_content = false,
-		groups = {crumbly=3},
+		groups = {crumbly=3, cake=1},
 		--sounds = sounds,
 		stack_max = 1,
 		node_box = {
@@ -73,7 +73,7 @@ for i, size in ipairs(sizes) do
 		tiles = tiles_b,
 		paramtype = "light",
 		is_ground_content = false,
-		groups = {crumbly=3},
+		groups = {crumbly=3, cake=1,},
 		--sounds = sounds,
 		stack_max = 1,
 		node_box = {
@@ -83,7 +83,7 @@ for i, size in ipairs(sizes) do
 			}
 		},
 		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
+			clicker:minetest.item_eat(1)
 			
 			if i < #sizes then
 				minetest.swap_node(pos, {name="lottfarming:cake_berries_"..i})
