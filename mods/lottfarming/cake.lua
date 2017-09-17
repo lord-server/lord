@@ -109,3 +109,4 @@ for i, size in ipairs(sizes) do
 			{"lottfarming:biscuit"},
 		}
 	})
+end
