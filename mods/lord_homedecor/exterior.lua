@@ -5,32 +5,6 @@ local bbq_cbox = {
 	fixed = { -0.5, -0.5, -0.3125, 0.5, 0.53125, 0.3125 }
 }
 
---lord_homedecor.register("barbecue", {
-	--description = "Barbecue",
-	--mesh = "homedecor_barbecue.obj",
-	--tiles = {
-		--"homedecor_generic_metal_black.png",
-		--{	name="homedecor_embers.png",
-			--animation={
-				--type="vertical_frames",
-				--aspect_w=16,
-				--aspect_h=16,
-				--length=2
-			--}
-		--},
-		--"homedecor_barbecue_meat.png",
-	--},
-	--groups = { snappy=3 },
-	--light_source = 9,
-	--selection_box = bbq_cbox,
-	--collision_box = bbq_cbox,
-	--sounds = default.node_sound_stone_defaults(),
-	---- no need for placeholder it appears
-	--expand = { top="air" },
---})
-
---minetest.register_alias("homedecor:barbecue_meat", "air")
-
 local bl1_sbox = {
 	type = "fixed",
 	fixed = { -0.5, -0.5, -0.25, 1.5, 0.5, 0.5 }
@@ -96,53 +70,6 @@ local dc_cbox = {
 	type = "fixed",
 	fixed = { -0.5, -0.5, -0.5, 0.5, 0, 1 }
 }
-
---lord_homedecor.register("deckchair", {
-	--mesh = "homedecor_deckchair.obj",
-	--tiles = {"homedecor_deckchair.png"},
-	--description = "Deck Chair",
-	--groups = { snappy = 3 },
-	--expand = { forward="placeholder" },
-	--sounds = default.node_sound_wood_defaults(),
-	--selection_box = dc_cbox,
-	--collision_box = dc_cbox,
-	--on_rotate = screwdriver.disallow
---})
-
---minetest.register_alias("lord_homedecor:deckchair_foot", "homedecor:deckchair")
---minetest.register_alias("lord_homedecor:deckchair_head", "air")
-
---lord_homedecor.register("deckchair_striped_blue", {
-	--mesh = "homedecor_deckchair.obj",
-	--tiles = {"homedecor_deckchair_striped_blue.png"},
-	--description = "Deck Chair",
-	--groups = { snappy = 3 },
-	--expand = { forward="placeholder" },
-	--sounds = default.node_sound_wood_defaults(),
-	--selection_box = dc_cbox,
-	--collision_box = dc_cbox,
-	--on_rotate = screwdriver.disallow
---})
-
---lord_homedecor.register("doghouse", {
-	--mesh = "homedecor_doghouse.obj",
-	--tiles = {
-		--"homedecor_shingles_terracotta.png",
-		--"default_wood.png",
-		--"building_blocks_towel.png"
-	--},
-	--description = "Doghouse",
-	--inventory_image = "homedecor_doghouse_inv.png",
-	--selection_box = homedecor.nodebox.slab_y(1.5),
-	--collision_box = homedecor.nodebox.slab_y(1.5),
-	--groups = {snappy=3},
-	--expand = { top="placeholder" },
-	--sounds = default.node_sound_wood_defaults(),
-	--on_rotate = screwdriver.rotate_simple
---})
-
---minetest.register_alias("homedecor:doghouse_roof", "air")
---minetest.register_alias("homedecor:doghouse_base", "homedecor:doghouse")
 
 lord_homedecor.register("simple_bench", {
 	tiles = { "homedecor_generic_wood_old.png" },
