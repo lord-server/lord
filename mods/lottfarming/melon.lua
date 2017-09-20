@@ -57,15 +57,6 @@ minetest.register_node("lottfarming:melon_2", {
 	sounds = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node("lottfarming:melon_3", {
-	description = SL("Melon"),
-	paramtype2 = "facedir",
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
-	drop = "lottfarming:melon_3",
-	groups = {choppy=2, oddly_breakable_by_hand=1, flammable=2, plant=1},
-	sounds = default.node_sound_wood_defaults(),
-})
-
 minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 minetest.register_craftitem("lottfarming:melon", {
 	description = SL("Melon"),
