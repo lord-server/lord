@@ -94,9 +94,18 @@ Snow	=	Снег
 Snow Block	=	Снежный блок
 
 owned by	=	только для
+
+### furnace.lua ###
+Furnace = Печь
 Furnace is empty	=	Печь: нет материала
 Furnace out of fuel	=	Печь: нет топлива
 Furnace active	=	Печь: работает
+Empty = Пусто
+active = горит
+inactive = не горит
+Fuel = Топливо
+Item = Предмет
+Not cookable = Не для печи
 
 ### chatcommands.lua ###
 print out privileges of player	=	Вывести привилегии игрока

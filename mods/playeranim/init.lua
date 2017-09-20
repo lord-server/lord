@@ -82,7 +82,9 @@ local function rotate(player, bone, x, y, z)
 	or rotation.y ~= rotation_cache.y
 	or rotation.z ~= rotation_cache.z then
 		player_cache[bone] = rotation
+		--local t1 = os.clock()
 		player:set_bone_position(bone, bone_position[bone], rotation)
+		--print(os.clock() - t1)
 	end
 end
 
@@ -185,7 +187,7 @@ end
 local previous_animation = {}
 
 local function set_animation(player, anim)
-	if (anim == WALK or anim == MINE or anim == WALK_MINE) 
+	if (anim == WALK or anim == MINE or anim == WALK_MINE)
 	or (previous_animation[player] ~= anim) then
 		previous_animation[player] = anim
 		animations[anim](player)
@@ -298,7 +300,9 @@ minetest.register_globalstep(function(dtime)
 				body_moving(player, sneak, true)
 			else
 				set_animation(player, STAND)
+				--local t1 = os.clock()
 				body_moving(player, sneak)
+				--print(os.clock() - t1)
 			end
 		end
 	end
