@@ -107,11 +107,11 @@ for i, size in ipairs(sizes) do
 	minetest.register_node(name_mel, {
 		description = description_mel,
 		drop = drop_mel,
-		drawtype = "nodebox",
+		drawtype = "facedir",
 		tiles = tiles_mel,
 		paramtype = "light",
 		is_ground_content = false,
-		groups = {crumbly=3},
+		groups = {choppy=2, oddly_breakable_by_hand=1, flammable=2, plant=1},
 		sounds = default.node_sound_wood_defaults(),
 		},
 		on_rightclick = function(pos, node, clicker)
