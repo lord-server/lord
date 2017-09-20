@@ -1,8 +1,8 @@
 local SL = lord.require_intllib()
 
--- ПИРОГ --
-
 local sizes = {-0.4375, -0.3125, -0.1875, -0.0625, 0.0625, 0.1875, 0.3125}
+
+local cube_sizes = {-0.5, 0.0, 0.5}
 
 for i, size in ipairs(sizes) do
 	local slice_h = i - 1
@@ -39,6 +39,17 @@ for i, size in ipairs(sizes) do
 
 	end
 
+	if slice_mel == 0 then
+		name_mel = "lottfarming:cake_honey"
+		description_mel = SL("Melon")
+		drop_mel = lottfarming:melon 9
+		tiles_mel = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"}
+	else
+		name_mel = "lottfarming:melon_3_"..slice_mel
+		drop_mel = ''
+		tiles_mel = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_slice.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"}
+	end
+	
 	minetest.register_node(name_h, {
 		description = description_h,
 		drop = drop_h,
@@ -87,6 +98,27 @@ for i, size in ipairs(sizes) do
 			
 			if i < #sizes then
 				minetest.swap_node(pos, {name="lottfarming:cake_berries_"..i})
+			else
+				minetest.remove_node(pos)
+			end
+		end,
+	})
+	
+	minetest.register_node(name_mel, {
+		description = description_mel,
+		drop = drop_mel,
+		drawtype = "nodebox",
+		tiles = tiles_mel,
+		paramtype = "light",
+		is_ground_content = false,
+		groups = {crumbly=3},
+		sounds = default.node_sound_wood_defaults(),
+		},
+		on_rightclick = function(pos, node, clicker)
+			clicker:set_hp(clicker:get_hp() + 1)
+			
+			if i < #cube_sizes then
+				minetest.swap_node(pos, {name="lottfarming:melon_3_"..i})
 			else
 				minetest.remove_node(pos)
 			end
