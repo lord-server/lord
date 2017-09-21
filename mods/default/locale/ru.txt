@@ -2,7 +2,7 @@
 Stick	=	Палочка
 Paper	=	Бумага
 Book	=	Книга
-Coal Lump	=	Уголь
+Coal Lump	=	Каменный уголь
 Charcoal Lump	=	Древесный уголь
 Iron Lump	=	Железо
 Copper Lump	=	Медь
@@ -73,7 +73,7 @@ Furnace	=	Печь
 Cobblestone	=	Булыжник
 Desert Cobble	=	Пустынный булыжник
 Mossy Cobblestone	=	Замшелый булыжник
-Coal Block	=	Блок угля
+Coal Block	=	Блок каменного угля
 Charcoal Block	=	Блок древесного угля
 Steel Block	=	Стальной блок
 Copper Block	=	Медный блок
