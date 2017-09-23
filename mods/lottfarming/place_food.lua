@@ -54,14 +54,18 @@ for i, size in ipairs(sizes) do
 			},
 		},
 		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
-		
-			if i < #sizes then
-				minetest.swap_node(pos, {name="lottfarming:cake_honey_"..i})
-			else
-				minetest.remove_node(pos)
-			end
-		end,
+			if minetest.is_protected(pos, clicker:get_player_name())
+				else
+					clicker:set_hp(clicker:get_hp() + 1)
+			
+					if i < #sizes then
+						minetest.swap_node(pos, {name="lottfarming:cake_honey_"..i})
+					else
+						minetest.remove_node(pos)
+					end
+				end,
+			end,
+		end
 	})
 
 	minetest.register_node(name_b, {
