@@ -2,8 +2,6 @@ local SL = lord.require_intllib()
 
 local sizes = {-0.4375, -0.3125, -0.1875, -0.0625, 0.0625, 0.1875, 0.3125}
 
-local cube_sizes = {-0.5, 0.0, 0.5}
-
 for i, size in ipairs(sizes) do
 	local slice_h = i - 1
 	local slice_b = i - 1
@@ -37,17 +35,6 @@ for i, size in ipairs(sizes) do
 		drop_b = ''
 		tiles_b = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png", "lottfarming_bcake_inner.png", "lottfarming_bcake_side.png", "lottfarming_bcake_side.png"}
 
-	end
-
-	if slice_mel == 0 then
-		name_mel = "lottfarming:cake_honey"
-		description_mel = SL("Melon")
-		drop_mel = lottfarming:melon 9
-		tiles_mel = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"}
-	else
-		name_mel = "lottfarming:melon_3_"..slice_mel
-		drop_mel = ''
-		tiles_mel = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_slice.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"}
 	end
 	
 	minetest.register_node(name_h, {
@@ -104,27 +91,6 @@ for i, size in ipairs(sizes) do
 		end,
 	})
 	
-	minetest.register_node(name_mel, {
-		description = description_mel,
-		drop = drop_mel,
-		drawtype = "facedir",
-		tiles = tiles_mel,
-		paramtype = "light",
-		is_ground_content = false,
-		groups = {choppy=2, oddly_breakable_by_hand=1, flammable=2, plant=1},
-		sounds = default.node_sound_wood_defaults(),
-		},
-		on_rightclick = function(pos, node, clicker)
-			clicker:set_hp(clicker:get_hp() + 1)
-			
-			if i < #cube_sizes then
-				minetest.swap_node(pos, {name="lottfarming:melon_3_"..i})
-			else
-				minetest.remove_node(pos)
-			end
-		end,
-	})
-
 	minetest.register_craft({
 		output = "lottfarming:cake_honey",
 		recipe = {
