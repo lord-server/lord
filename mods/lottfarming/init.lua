@@ -149,9 +149,6 @@ dofile(minetest.get_modpath("lottfarming").."/corn.lua")
 -- ========= CARROT =========
 dofile(minetest.get_modpath("lottfarming").."/carrots.lua")
 
--- ========= CAKE =========
-dofile(minetest.get_modpath("lottfarming").."/cake.lua")
-
 -- ========= BERRIES =========
 dofile(minetest.get_modpath("lottfarming").."/berries.lua")
 
@@ -184,6 +181,9 @@ dofile(minetest.get_modpath("lottfarming").."/crafting.lua")
 
 -- ========= BROWN MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/brown.lua")
+
+-- ========= PLACE_FOOD =========
+dofile(minetest.get_modpath("lottfarming").."/place_food.lua")
 
 -- ========= RED MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/red.lua")
