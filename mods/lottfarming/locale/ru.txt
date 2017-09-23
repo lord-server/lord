@@ -25,10 +25,6 @@ Cabbage Seed	=	Семена капусты
 Cabbage	=	Капуста
 Salad	=	Салат
 
-### cake.lua ###
-Honey Cake = Медовик
-Berry Cake = Ягодный пирог
-
 ### corn.lua ###
 Corn	=	Кукуруза
 Ear of corn	=	Початок кукурузы
@@ -65,6 +61,10 @@ Pipeweed Seeds	=	Семена табака
 Pipeweed	=	Табак
 Cooked Pipeweed	=	Высушенный табак
 Pipe	=	Трубка
+
+### place_food.lua ###
+Honey Cake = Медовик
+Berry Cake = Ягодный пирог
 
 ### potato.lua ###
 Half of potatoe	=	Половина картошки
