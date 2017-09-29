@@ -410,6 +410,13 @@ local SL = lord.require_intllib()
       end
     end,
 
+    allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+    	if minetest.is_protected(pos, player:get_player_name()) then
+    		return 0
+    	end
+    	return stack:get_count()
+    end,
+
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
       if listname == 'queen' then
         local timer = minetest.get_node_timer(pos)
@@ -421,6 +428,9 @@ local SL = lord.require_intllib()
 
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
       local inv = minetest.get_meta(pos):get_inventory()
+      if minetest.is_protected(pos, player:get_player_name()) then
+    		return 0
+    	end
       if from_list == to_list then
         if inv:get_stack(to_list, to_index):is_empty() then
           return 1
@@ -436,6 +446,9 @@ local SL = lord.require_intllib()
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
       local timer = minetest.get_node_timer(pos)
+      if minetest.is_protected(pos, player:get_player_name()) then
+    		return 0
+    	end
       if listname == 'queen' or listname == 'frames' then
         meta:set_string('queen', stack:get_name())
         meta:set_string('infotext',SL('queen is inserted, now for the empty frames'));
