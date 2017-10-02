@@ -318,7 +318,7 @@ minetest.register_node("lottpotion:potion_brewer", {
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
-		return 1
+		return stack:get_count()
 	end,
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
@@ -367,7 +367,7 @@ minetest.register_node("lottpotion:potion_brewer_active", {
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
-		return 1
+		return stack:get_count()
 	end,
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
@@ -384,7 +384,6 @@ minetest.register_node("lottpotion:potion_brewer_active", {
 		else
 			return 0
 		end
-		return 1
 	end,
 
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
