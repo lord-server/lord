@@ -91,13 +91,13 @@ local function register_recipe(typename, data)
 	else
 		data.output = ItemStack(data.output):to_string()
 	end
-	
+
 	local recipe = {time = data.time, input = {}, output = data.output}
 	local index = get_recipe_index(data.input)
 	for _, stack in ipairs(data.input) do
 		recipe.input[ItemStack(stack):get_name()] = ItemStack(stack):get_count()
 	end
-	
+
 	lottpotion.brew_recipes[typename].recipes[index] = recipe
 end
 
@@ -220,7 +220,38 @@ minetest.register_node("lottpotion:brewer", {
   	    local meta = minetest.get_meta(pos)
         meta:set_string("infotext", SL(machine_name))
         meta:set_string("formspec", formspec)
-    end
+    end,
+
+  allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+    return 1
+	end,
+
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local inv = minetest.get_meta(pos):get_inventory()
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		if from_list == to_list then
+			if inv:get_stack(to_list, to_index):is_empty() then
+				return 1
+			else
+				return 0
+			end
+		else
+			return 0
+		end
+    return 1
+	end,
+
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+  		if minetest.is_protected(pos, player:get_player_name()) then
+  			return 0
+  		end
+  		return stack:get_count()
+  	end,
 })
 
 minetest.register_node("lottpotion:brewer_active", {
@@ -245,6 +276,36 @@ minetest.register_node("lottpotion:brewer_active", {
 	groups = {cracky=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_stone_defaults(),
 	can_dig = lottpotion.can_dig,
+  allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+    return 1
+	end,
+
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local inv = minetest.get_meta(pos):get_inventory()
+		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		if from_list == to_list then
+			if inv:get_stack(to_list, to_index):is_empty() then
+				return 1
+			else
+				return 0
+			end
+		else
+			return 0
+		end
+    return 1
+	end,
+
+	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+  		if minetest.is_protected(pos, player:get_player_name()) then
+  			return 0
+  		end
+  		return stack:get_count()
+  	end,
 })
 
 minetest.register_abm({
@@ -254,13 +315,13 @@ minetest.register_abm({
 	action = function(pos, node, active_object_count, active_object_count_wider)
 		local meta = minetest.get_meta(pos)
 		local inv    = meta:get_inventory()
-		
+
 		if inv:get_size("src") == 1 then -- Old furnace -> convert it
 			inv:set_size("src", 2)
 			inv:set_stack("src", 2, inv:get_stack("src2", 1))
 			inv:set_size("src2", 0)
 		end
-		
+
 		local recipe = nil
 
 		for i, name in pairs({
