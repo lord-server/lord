@@ -137,10 +137,10 @@ for i, size in ipairs(cube_sizes) do
 		name_mel = "lottfarming:melon_3"
 		description_mel = SL("Melon")
 		drop_mel = "lottfarming:melon"
-		tiles_mel = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_hcake_side.png"}
+		tiles_mel = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png"}
 	else
-		name_mel = "lottfarming:melon_3"..slice_mel
-		drop_mel = "lottfarming:melon_3"..slice_mel
+		name_mel = "lottfarming:melon_3_"..slice_mel
+		drop_mel = "lottfarming:melon_3_"..slice_mel
 		tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_inner.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"}
 	end
 
@@ -148,11 +148,11 @@ for i, size in ipairs(cube_sizes) do
 		name_cabb = "lottfarming:cabbage"
 		description_cabb = SL("Cabbage")
 		drop_cabb = "lottfarming:cabbage"
-		tiles_cabb = {"lottfarming_cake_top.png", "lottfarming_cake_bottom.png", "lottfarming_bcake_side.png"}
+		tiles_cabb = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png"}
 	else
 		name_cabb = "lottfarming:cabbage_"..slice_cabb
 		drop_cabb = "lottfarming:cabbage_"..slice_cabb
-		tiles_cabb = tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_inner.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"}
+		tiles_cabb = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_inner.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"}
 
 	end
 	
