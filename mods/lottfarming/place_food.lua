@@ -65,9 +65,8 @@ for i, size in ipairs(sizes) do
 					else
 						minetest.remove_node(pos)
 					end
-				end,
-			end,
-		end
+				end
+			end
 	})
 
 	minetest.register_node(name_b, {
@@ -96,9 +95,8 @@ for i, size in ipairs(sizes) do
 					else
 						minetest.remove_node(pos)
 					end
-				end,
-			end,
-		end
+				end
+			end
 	})
 	
 	minetest.register_craft({
@@ -123,7 +121,7 @@ end
 
 for i, size in ipairs(cube_sizes) do
 	local slice_mel = i - 1
-	local slice_b = i - 1
+	local slice_cabb = i - 1
 	local name_mel
 	local name_cabb
 	local description_mel
@@ -176,7 +174,7 @@ for i, size in ipairs(cube_sizes) do
 					else
 						minetest.remove_node(pos)
 					end
-				end,
-			end,
-		end
+				end
+			end
 	})
+end
