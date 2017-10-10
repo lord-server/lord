@@ -56,7 +56,7 @@ for i, size in ipairs(sizes) do
 			},
 		},
 		on_rightclick = function(pos, node, clicker, player)
-			if minetest.is_protected(pos, player:get_player_name())
+			if minetest.is_protected(pos, player:get_player_name()) then
 				else
 					clicker:set_hp(clicker:get_hp() + 1)
 			
@@ -87,7 +87,7 @@ for i, size in ipairs(sizes) do
 			}
 		},
 		on_rightclick = function(pos, node, clicker, player)
-			if minetest.is_protected(pos, clicker:get_player_name())
+			if minetest.is_protected(pos, clicker:get_player_name()) then
 				else
 					clicker:set_hp(clicker:get_hp() + 1)
 			
@@ -167,7 +167,7 @@ for i, size in ipairs(cube_sizes) do
 		--sounds = sounds,
 		stack_max = 64,
 		on_rightclick = function(pos, node, clicker, player)
-			if minetest.is_protected(pos, player:get_player_name())
+			if minetest.is_protected(pos, player:get_player_name()) then
 				else
 					clicker:set_hp(clicker:get_hp() + 1)
 			
