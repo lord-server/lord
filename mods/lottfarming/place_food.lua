@@ -53,8 +53,8 @@ for i, size in ipairs(sizes) do
 				{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
 			},
 		},
-		on_rightclick = function(pos, node, clicker)
-			if minetest.is_protected(pos, clicker:get_player_name())
+		on_rightclick = function(pos, node, clicker, player)
+			if minetest.is_protected(pos, player:get_player_name())
 				else
 					clicker:set_hp(clicker:get_hp() + 1)
 			
@@ -84,7 +84,7 @@ for i, size in ipairs(sizes) do
 				{size, -0.5, -0.4375, 0.4375, 0, 0.4375},
 			}
 		},
-		on_rightclick = function(pos, node, clicker)
+		on_rightclick = function(pos, node, clicker, player)
 			if minetest.is_protected(pos, clicker:get_player_name())
 				else
 					clicker:set_hp(clicker:get_hp() + 1)
