@@ -88,6 +88,7 @@ minetest.register_node("castle:workbench",{
 		return inv:is_empty("src") and inv:is_empty("dst") and inv:is_empty("rec")
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local inv = minetest.get_meta(pos):get_inventory()
 		if minetest.is_protected(pos, player:get_player_name()) then
 			minetest.log("action", player:get_player_name()..
 					" attempt moves stuff in workbench at "..minetest.pos_to_string(pos))
@@ -95,6 +96,7 @@ minetest.register_node("castle:workbench",{
 		end
 		minetest.log("action", player:get_player_name()..
 				" moves stuff in workbench at "..minetest.pos_to_string(pos))
+		return count		
 	end,
   allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
@@ -104,6 +106,7 @@ minetest.register_node("castle:workbench",{
 		end
 		minetest.log("action", player:get_player_name()..
 				" moves stuff to workbench at "..minetest.pos_to_string(pos))
+		return stack:get_count()
 	end,
   allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
