@@ -81,7 +81,7 @@ Mallorn Wood Slab	=	Плита из маллорна
 Fireflies	=	Светлячки
 
 ### flowers.lua ###
-Athelas	=	Ацелас
+Athelas	=	Ателас
 Anemones	=	Анемона
 Eglantive	=	Эглантив
 Iris	=	Ирис
