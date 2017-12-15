@@ -1,0 +1,8 @@
+bees
+default
+farming
+lottfarming
+lottmobs
+lottores
+lottplants
+lottpotion
