@@ -752,12 +752,12 @@ lottachievements.register_achievement("daggins_surname", {
 lottachievements.register_achievement("lottachievements_the_lie", {
 	title = SL("The Lie"),
 	description = SL("Craft the Cake"),
-	icon = "lottachievements_cake.png",
+	icon = "lottfarming_honey_cake.png",
 	secret = true,
 	id = 55,
 	trigger = {
 		type = "craft",
-		item = "lottfarming:cake_honey",
+		item = "lottfarming:honey_cake",
 		target = 1
 	}
 })
