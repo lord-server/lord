@@ -150,13 +150,19 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			end
 
 			minetest.add_node(pointed_thing.under, {name="air"})
-
+			
+			local inv = user:get_inventory()
 			if node.name == liquiddef.source then
 				node.param2 = LIQUID_MAX
 			end
-			itemstack:take_item()
-			return itemstack
-			add_item({name = liquiddef.itemname, metadata = tostring(node.param2)})
+
+			if itemstack:get_count() == 1 then
+				return ItemStack({name = liquiddef.itemname, metadata = tostring(node.param2)})
+			else
+				itemstack:take_item()
+				return itemstack,
+				inv:add_item("main", liquiddef.itemname)
+			end
 		end
 	end,
 })
