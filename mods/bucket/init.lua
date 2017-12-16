@@ -151,15 +151,12 @@ minetest.register_craftitem("bucket:bucket_empty", {
 
 			minetest.add_node(pointed_thing.under, {name="air"})
 
-			if itemstack.get_count() == 1 then
-				if node.name == liquiddef.source then
-					node.param2 = LIQUID_MAX
-				end
-				return ItemStack({name = liquiddef.itemname,
-						metadata = tostring(node.param2)})
-			else
-				minetest.chat_send_player(SL("Your inventory is full."))
+			if node.name == liquiddef.source then
+				node.param2 = LIQUID_MAX
 			end
+			itemstack:take_item()
+			return itemstack
+			add_item({name = liquiddef.itemname, metadata = tostring(node.param2)})
 		end
 	end,
 })
