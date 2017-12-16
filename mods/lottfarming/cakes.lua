@@ -4,12 +4,14 @@ minetest.register_craftitem("lottfarming:berry_cake", {
 	description = SL("Berry Cake"),
 	inventory_image = "lottfarming_berry_cake.png",
 	on_use = minetest.item_eat(3),
+	stack_max = 1,
 })
 
 minetest.register_craftitem("lottfarming:honey_cake", {
 	description = SL("Honey Cake"),
 	inventory_image = "lottfarming_honey_cake.png",
 	on_use = minetest.item_eat(3),
+	stack_max = 1,
 })
 
 minetest.register_craft({
