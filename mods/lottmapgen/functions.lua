@@ -43,10 +43,10 @@ function lottmapgen_farmingplants(data, vi)
 	local c_plant3 = minetest.get_content_id("lottplants:corn_wild")
 	local c_plant4 = minetest.get_content_id("lottplants:potato_wild")
 	local c_plant5 = minetest.get_content_id("lottplants:mushroom_wild")
-     local c_plant6 = minetest.get_content_id("lottplants:berries_wild")
-     local c_plant7 = minetest.get_content_id("lottplants:turnips_wild")
-     local c_plant8 = minetest.get_content_id("lottplants:tomatoes_wild")
-     local c_plant9 = minetest.get_content_id("lottplants:cabbage_wild")
+    local c_plant6 = minetest.get_content_id("lottplants:berries_wild")
+    local c_plant7 = minetest.get_content_id("lottplants:turnips_wild")
+    local c_plant8 = minetest.get_content_id("lottplants:tomatoes_wild")
+    local c_plant9 = minetest.get_content_id("lottplants:cabbage_wild")
 	local rand = math.random(9)
 	if rand == 1 then
 		data[vi] = c_plant1
@@ -111,7 +111,7 @@ function lottmapgen_papyrus(x, y, z, area, data)
 end
 
 function lottmapgen_farmingrareplants(data, vi)
-     local c_rplant1 = minetest.get_content_id("lottplants:athelas")
+    local c_rplant1 = minetest.get_content_id("lottplants:athelas")
 	local c_rplant2 = minetest.get_content_id("lottplants:melon_wild")
 	local rand = math.random(2)
 	if rand == 1 then

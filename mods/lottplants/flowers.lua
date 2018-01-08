@@ -6,6 +6,7 @@ minetest.register_node("lottplants:athelas", {
 	description = SL("Athelas"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_athelas.png" },
+	drop = "lottfarming:athelas",
 	inventory_image = "lottplants_athelas.png",
 	wield_image = "lottplants_athelas.png",
 	sunlight_propagates = true,
