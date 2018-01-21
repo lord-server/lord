@@ -160,8 +160,11 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				return ItemStack({name = liquiddef.itemname, metadata = tostring(node.param2)})
 			else
 				itemstack:take_item()
-				return itemstack,
-				inv:add_item("main", liquiddef.itemname)
+				res = user:get_inventory():add_item("main", "lottpotion:glass_bottle_water")
+				if res then
+					minetest.item_drop(res, user, pos)
+				end
+				return itemstack
 			end
 		end
 	end,
