@@ -362,14 +362,14 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "farming:flour" 4,
+	output = "farming:flour 4",
 	recipe = {"farming:wheat0", "farming:wheat0", "farming:wheat0", "farming:wheat0"}
 })
 
 minetest.register_craft({
 	type = "cooking",
 	cooktime = 12,
-	output = "farming:bread" 4,
+	output = "farming:bread 4",
 	recipe = "lottfarming:yeast_dough"
 })
 
