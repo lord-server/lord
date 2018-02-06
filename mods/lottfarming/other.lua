@@ -9,7 +9,7 @@ minetest.register_craftitem("lottfarming:cookie_cracker", {
 minetest.register_craft({
 	type = "cooking",
 	cooktime = 7,
-	output = "lottfarming:cookie_cracker" 16,
+	output = "lottfarming:cookie_cracker 16",
 	recipe = "lottfarming:salted_dough"
 })
 
@@ -21,7 +21,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "lottfarming:dough",
+	output = "lottfarming:dough 4",
 	recipe = {"lottpotion:glass_bottle_water", "farming:flour"},
 	replacements = {{"lottpotion:glass_bottle_water", "vessels:glass_bottle"}},
 })
@@ -70,13 +70,13 @@ minetest.register_craftitem("lottfarming:biscuit", {
 
 minetest.register_craft({
 	type = "cooking",
-	output = "lottfarming:biscuit" 2,
+	output = "lottfarming:biscuit 2",
 	recipe = "lottfarming:dough_with_egg"
 })
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "lottfarming:sugar" 4,
+	output = "lottfarming:sugar 4",
 	recipe = {"default:papyrus"}
 })
 
@@ -94,7 +94,7 @@ minetest.register_craftitem("lottfarming:candy", {
 
 minetest.register_craft({
 	type = "cooking",
-	output = "lottfarming:candy",
+	output = "lottfarming:candy 2",
 	recipe = "lottfarming:sugar"
 })
 
