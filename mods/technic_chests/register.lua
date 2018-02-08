@@ -155,24 +155,26 @@ local function get_receive_fields(name, data)
 	return function(pos, formname, fields, sender)
 		local meta = minetest.get_meta(pos)
 		local page = "main"
-		if fields.sort or (data.autosort and fields.quit and meta:get_int("autosort") == 1) then
-			sort_inventory(meta:get_inventory())
+		if has_locked_chest_privilege(meta,sender) == true then
+			if fields.sort or (data.autosort and fields.quit and meta:get_int("autosort") == 1) then
+				sort_inventory(meta:get_inventory())
+			end
+			if fields.edit_infotext then
+				page = "edit_infotext"
+			end
+			if fields.autosort_to_1 then meta:set_int("autosort", 1) end
+			if fields.autosort_to_0 then meta:set_int("autosort", 0) end
+			if fields.infotext_box then
+				meta:set_string("infotext", fields.infotext_box)
+			end
+			if data.color then
+				-- This sets the node
+				local nn = "technic:"..lname..(data.locked and "_locked" or "").."_chest"
+				check_color_buttons(pos, meta, nn, fields)
+			end
+			meta:get_inventory():set_size("main", data.width * data.height)
+			set_formspec(pos, data, page)
 		end
-		if fields.edit_infotext then
-			page = "edit_infotext"
-		end
-		if fields.autosort_to_1 then meta:set_int("autosort", 1) end
-		if fields.autosort_to_0 then meta:set_int("autosort", 0) end
-		if fields.infotext_box then
-			meta:set_string("infotext", fields.infotext_box)
-		end
-		if data.color then
-			-- This sets the node
-			local nn = "technic:"..lname..(data.locked and "_locked" or "").."_chest"
-			check_color_buttons(pos, meta, nn, fields)
-		end
-		meta:get_inventory():set_size("main", data.width * data.height)
-		set_formspec(pos, data, page)
 	end
 end
 
@@ -303,4 +305,3 @@ function technic.chests:register(name, data)
 	end
 
 end
-
