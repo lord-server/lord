@@ -1,6 +1,6 @@
 ### init.lua ###
 Limestone Ore	=	Известняковая руда
-Rough Rock	=	Раф-роковый блок
+Rough Rock	=	Грубый Камень
 Silver Ore	=	Серебряная руда
 Tin Ore	=	Оловянная руда
 Lead Ore	=	Свинцовая руда
@@ -9,7 +9,7 @@ Blue Gem Ore	=	Сапфировая жила
 White Gem Ore	=	Алмазная жила
 Red Gem Ore	=	Рубиновая жила
 Limestone Lump	=	Известняк
-Rough Rock Lump	=	Раф-рок
+Rough Rock Lump	=	Кусок Грубого Камня
 Silver Lump	=	Серебро
 Silver Ingot	=	Слиток серебра
 Tin Lump	=	Олово
