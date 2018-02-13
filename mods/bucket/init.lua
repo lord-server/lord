@@ -160,6 +160,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				return ItemStack({name = liquiddef.itemname, metadata = tostring(node.param2)})
 			else
 				itemstack:take_item()
+				local pos = user:getpos()
 				res = user:get_inventory():add_item("main", liquiddef.itemname)
 				if res then
 					minetest.item_drop(res, user, pos)
