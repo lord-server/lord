@@ -155,7 +155,7 @@ local function get_receive_fields(name, data)
 	return function(pos, formname, fields, sender)
 		local meta = minetest.get_meta(pos)
 		local page = "main"
-		if has_locked_chest_privilege(meta,sender) == true then
+		if has_locked_chest_privilege(meta,sender) == true or not data.locked then
 			if fields.sort or (data.autosort and fields.quit and meta:get_int("autosort") == 1) then
 				sort_inventory(meta:get_inventory())
 			end
