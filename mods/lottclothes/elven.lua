@@ -39,7 +39,7 @@ minetest.register_craft({
 	output = "lottclothes:hood_elven",
 	recipe = {
 		{"lottclothes:flax_grey", "lottclothes:flax_grey", "lottclothes:flax_grey"},
-		{"lottclothes:flax_grey", "" , "lottclothes:flax_grey"},
+		{"lottclothes:flax_white", "" , "lottclothes:flax_white"},
 	}
 })
 
@@ -47,7 +47,7 @@ minetest.register_craft({
 	output = "lottclothes:shirt_elven",
 	recipe = {
 		{"lottclothes:flax_grey", "", "lottclothes:flax_grey"},
-		{"lottclothes:flax_grey", "lottclothes:flax_grey", "lottclothes:flax_grey"},
+		{"lottclothes:flax_white", "lottclothes:flax_grey", "lottclothes:flax_white"},
 		{"lottclothes:flax_grey", "lottclothes:flax_grey", "lottclothes:flax_grey"}
 	}
 })
@@ -56,7 +56,7 @@ minetest.register_craft({
 	output = "lottclothes:trousers_elven",
 	recipe = {
 		{"lottclothes:flax_grey", "lottclothes:flax_grey", "lottclothes:flax_grey"},
-		{"lottclothes:flax_grey", "" , "lottclothes:flax_grey"},
+		{"lottclothes:flax_white", "" , "lottclothes:flax_white"},
 		{"lottclothes:flax_grey", "" , "lottclothes:flax_grey"}
 	}
 })
@@ -65,15 +65,15 @@ minetest.register_craft({
 	output = "lottclothes:shoes_elven",
 	recipe = {
 		{"lottclothes:flax_grey", "" , "lottclothes:flax_grey"},
-		{"lottclothes:felt_black", "" , "lottclothes:felt_black"}
+		{"lottclothes:flax_white", "" , "lottclothes:flax_white"}
 	}
 })
 
 minetest.register_craft({
 	output = "lottclothes:cloak_elven",
 	recipe = {
+		{"lottclothes:flax_white", "lottclothes:flax_white"},
 		{"lottclothes:flax_grey", "lottclothes:flax_grey"},
-		{"lottclothes:flax_grey", "lottclothes:flax_grey"},
-		{"lottclothes:flax_grey", "lottclothes:flax_grey"}
+		{"lottclothes:flax_white", "lottclothes:flax_white"}
 	}
 })
