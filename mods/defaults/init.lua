@@ -46,7 +46,7 @@ function ghost.register_ghost_material(name)
 
 	local node = ghost.deepcopy(orig_node)
 
-	minetest.log("action", "registering ghost variant of \""..node.name.."\"")
+	--minetest.log("action", "registering ghost variant of \""..node.name.."\"")
 
 	node.name = ghost_name
 	node.walkable = false
@@ -57,6 +57,7 @@ function ghost.register_ghost_material(name)
 		node.groups = {}
 	end
 	node.groups.ghostly = 1
+	node.groups.not_in_creative_inventory = 1
 	if type(node.drop) == "string" then
 		node.drop = {
 			maxitems = 1,
@@ -155,10 +156,10 @@ for i,material in ipairs(ghost.original_materials) do
 	ghost.register_ghost_material(material)
 end
 
-minetest.log("action", "add groups to ghost")
+--minetest.log("action", "add groups to ghost")
 
 for name,material in pairs(minetest.registered_nodes) do
-	minetest.log("action", "checking "..name)
+	--minetest.log("action", "checking "..name)
 	if (material.groups ~= nil and material.groups.ghostly == nil) then
 		if (material.groups.stone ~= nil) then
 			ghost.register_ghost_material(name)
@@ -188,4 +189,3 @@ end
 if minetest.settings:get_bool("msg_loading_mods") then
 	minetest.log("action", minetest.get_current_modname().." mod LOADED")
 end
-

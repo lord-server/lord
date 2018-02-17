@@ -83,6 +83,9 @@ local function register_corpse(race, gender, skin)
 			if(not is_owner(pos, player:get_player_name())) then return end
 			local inv = minetest.get_meta(pos):get_inventory()
 			local player_inv = player:get_inventory()
+			if not player_inv then
+				return
+			end
 			local has_space = true
 			for i=1,inv:get_size("main") do
 				local stk = inv:get_stack("main", i)

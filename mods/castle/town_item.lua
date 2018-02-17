@@ -65,40 +65,65 @@ minetest.register_node("castle:workbench",{
 	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=2, wooden = 1},
 	drawtype = "normal",
     on_construct = function ( pos )
-        local meta = minetest.get_meta( pos )
-		meta:set_string( 'formspec', 'size[8,9;]' ..
-			"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
-			"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
-			'label[0,0;'..SL('Source Material')..']' ..
-			'list[context;src;0,0.5;2,4;]' ..
-			'label[3.5,0.5;'..SL('Recipe to Use')..']' ..
-			'list[context;rec;2.5,1;3,3;]' ..
-			'label[6,0;'..SL('Craft Output')..']' ..
-			'list[context;dst;6,0.5;2,4;]' ..
-			'list[current_player;main;0,5;8,4;]' )
-        meta:set_string( 'infotext', SL('Workbench'))
-        local inv = meta:get_inventory()
-        inv:set_size( 'src', 2 * 4 )
-		inv:set_size( 'rec', 3 * 3 )
-		inv:set_size( 'dst', 2 * 4 )
+      local meta = minetest.get_meta( pos )
+			meta:set_string( 'formspec', 'size[8,9;]' ..
+				"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
+				"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
+				'label[0,0;'..SL('Source Material')..']' ..
+				'list[context;src;0,0.5;2,4;]' ..
+				'label[3.5,0.5;'..SL('Recipe to Use')..']' ..
+				'list[context;rec;2.5,1;3,3;]' ..
+				'label[6,0;'..SL('Craft Output')..']' ..
+				'list[context;dst;6,0.5;2,4;]' ..
+				'list[current_player;main;0,5;8,4;]' )
+    	meta:set_string( 'infotext', SL('Workbench'))
+    	local inv = meta:get_inventory()
+    	inv:set_size( 'src', 2 * 4 )
+			inv:set_size( 'rec', 3 * 3 )
+			inv:set_size( 'dst', 2 * 4 )
     end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory()
-		return inv:is_empty("main")
+		return inv:is_empty("src") and inv:is_empty("dst") and inv:is_empty("rec")
 	end,
-	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+		local inv = minetest.get_meta(pos):get_inventory()
+		if minetest.is_protected(pos, player:get_player_name()) then
+			minetest.log("action", player:get_player_name()..
+					" attempt moves stuff in workbench at "..minetest.pos_to_string(pos))
+			return 0
+		end
 		minetest.log("action", player:get_player_name()..
 				" moves stuff in workbench at "..minetest.pos_to_string(pos))
+		return count		
 	end,
-    on_metadata_inventory_put = function(pos, listname, index, stack, player)
+  allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			minetest.log("action", player:get_player_name()..
+					" attempt moves stuff to workbench at "..minetest.pos_to_string(pos))
+			return 0
+		end
 		minetest.log("action", player:get_player_name()..
 				" moves stuff to workbench at "..minetest.pos_to_string(pos))
+		return stack:get_count()
 	end,
-    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+  allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+		if minetest.is_protected(pos, player:get_player_name()) then
+			minetest.log("action", player:get_player_name()..
+					" attempt takes stuff from workbench at "..minetest.pos_to_string(pos))
+			return 0
+		end
 		minetest.log("action", player:get_player_name()..
 				" takes stuff from workbench at "..minetest.pos_to_string(pos))
+		return stack:get_count()
 	end,
+	-- allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+	-- end,
+	-- allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+	-- end,
+	-- allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+	-- end,
 })
 local get_recipe = function ( inv )
 	local result, needed, input

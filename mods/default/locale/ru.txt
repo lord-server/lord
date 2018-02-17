@@ -2,7 +2,7 @@
 Stick	=	Палочка
 Paper	=	Бумага
 Book	=	Книга
-Coal Lump	=	Уголь
+Coal Lump	=	Каменный уголь
 Charcoal Lump	=	Древесный уголь
 Iron Lump	=	Железо
 Copper Lump	=	Медь
@@ -73,7 +73,7 @@ Furnace	=	Печь
 Cobblestone	=	Булыжник
 Desert Cobble	=	Пустынный булыжник
 Mossy Cobblestone	=	Замшелый булыжник
-Coal Block	=	Блок угля
+Coal Block	=	Блок каменного угля
 Charcoal Block	=	Блок древесного угля
 Steel Block	=	Стальной блок
 Copper Block	=	Медный блок
@@ -94,9 +94,18 @@ Snow	=	Снег
 Snow Block	=	Снежный блок
 
 owned by	=	только для
+
+### furnace.lua ###
+Furnace = Печь
 Furnace is empty	=	Печь: нет материала
 Furnace out of fuel	=	Печь: нет топлива
 Furnace active	=	Печь: работает
+Empty = Пусто
+active = горит
+inactive = не горит
+Fuel = Топливо
+Item = Предмет
+Not cookable = Не для печи
 
 ### chatcommands.lua ###
 print out privileges of player	=	Вывести привилегии игрока
