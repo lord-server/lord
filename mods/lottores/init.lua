@@ -374,6 +374,13 @@ minetest.register_craftitem("lottores:white_gem", {
 minetest.register_node("lottores:tilkal", {
 	description = SL("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
+	special_tiles = {
+		{
+			image="lottores_tilkal_animated.png",
+			backface_culling=true,
+			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=0.8}
+		},
+	},
 	sounds = default.node_sound_defaults(),
 	groups = {forbidden=1},
 })
