@@ -3,6 +3,8 @@ local SL = lord.require_intllib()
 dofile(minetest.get_modpath("lottplants").."/nodes.lua")
 dofile(minetest.get_modpath("lottplants").."/wild_food.lua")
 dofile(minetest.get_modpath("lottplants").."/flowers.lua")
+dofile(minetest.get_modpath("lottplants").."/fireflies.lua")
+
 
 -- ===== GROWING TIME =====
 -- 67 11
