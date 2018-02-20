@@ -554,7 +554,7 @@ minetest.register_node("default:cactus", {
 
 
 minetest.register_node("default:papyrus", {
-	description = "Papyrus",
+	description = SL("Papyrus"),
 	drawtype = "plantlike",
 	tiles = {"default_papyrus.png"},
 	inventory_image = "default_papyrus.png",
