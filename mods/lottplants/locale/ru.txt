@@ -78,7 +78,6 @@ Lebethron Wood Stair	=	Ступенька из лебетрона
 Lebethron Wood Slab	=	Плита из лебетрона
 Mallorn Wood Stair	=	Ступенька из маллорна
 Mallorn Wood Slab	=	Плита из маллорна
-Fireflies	=	Светлячки
 
 ### flowers.lua ###
 Athelas	=	Ателас
@@ -92,4 +91,6 @@ Seregon	=	Серегон
 Asphodel	=	Асфоделус
 Elanor	=	Эланор
 
-
+### fireflies.lua ###
+Fireflies	=	Светлячки
+Bug Net = Сачок
