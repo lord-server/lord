@@ -45,18 +45,18 @@ minetest.register_tool("lottinventory:large", {
 minetest.register_craft({
 	output = 'lottinventory:small',
 	recipe = {
-		{'', 'group:stick', ''},
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'', 'default:steel_ingot', ''},
+		{'group:wool', 'group:chest', 'group:wool'},
+		{'group:wool', 'group:wool', 'group:wool'},
 	}
 })
 
 minetest.register_craft({
 	output = 'lottinventory:medium',
 	recipe = {
-		{'', 'group:stick', ''},
-		{'group:wood', 'lottinventory:small', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'', 'default:steel_ingot', ''},
+		{'group:wool', 'group:smallchest', 'group:wool'},
+		{'group:wool', 'lottinventory:small', 'group:wool'},
 	}
 })
 
@@ -64,8 +64,8 @@ minetest.register_craft({
 	output = 'lottinventory:large',
 	recipe = {
 		{'', 'default:steel_ingot', ''},
-		{'group:wood', 'lottinventory:medium', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wool', 'group:smallchest', 'group:wool'},
+		{'group:wool', 'lottinventory:medium', 'group:wool'},
 	}
 })
 
@@ -98,6 +98,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottinventory:brewing_book',
+	type = "shapeless",
 	recipe = {
 		{'lottpotion:brewer', 'lottinventory:cooking_book'},
 	}
@@ -105,6 +106,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottinventory:potions_book',
+	type = "shapeless",
 	recipe = {
 		{'lottpotion:potion_brewer', 'lottinventory:cooking_book'},
 	}
@@ -121,6 +123,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottinventory:master_book',
+	type = "shapeless",
 	recipe = {
 		{'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot'},
 		{'lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot'},
