@@ -7,7 +7,6 @@ minetest.register_craft({
 	recipe = {
 		{"group:wood", "", "group:wood"},
 		{"", "group:wood", ""},
-		{"", "", ""},
 	}
 })
 
@@ -123,11 +122,13 @@ minetest.register_tool("lottfarming:bacteria_fertiliser", {
 
 minetest.register_craft({
 	output = "lottfarming:bacteria_fertiliser",
+	type = "shapeless",
 	recipe = {{"lottpotion:glass_bottle_water", "bones:bonedust"}}
 })
 
 minetest.register_craft({
 	output = "lottfarming:bacteria_fertiliser",
+	type = "shapeless",
 	recipe = {{"lottpotion:glass_bottle_water", "fire:ash"}}
 })
 
@@ -144,6 +145,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottfarming:mushroom_soup',
+	type = "shapeless",
 	recipe = {
 		{'', 'lottores:salt', ''},
 		{'group:mushroom', 'group:mushroom', 'group:mushroom'},
@@ -153,6 +155,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'lottfarming:salad',
+	type = "shapeless",
 	recipe = {
 		{'', 'lottores:salt', ''},
 		{'group:salad', 'group:salad', 'group:salad'},
