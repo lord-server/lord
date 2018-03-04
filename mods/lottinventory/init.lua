@@ -46,7 +46,7 @@ minetest.register_craft({
 	output = 'lottinventory:small',
 	recipe = {
 		{'', 'default:steel_ingot', ''},
-		{'group:wool', 'group:chest', 'group:wool'},
+		{'group:wool', 'group:smallchest', 'group:wool'},
 		{'group:wool', 'group:wool', 'group:wool'},
 	}
 })
@@ -96,21 +96,18 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'lottinventory:brewing_book',
-	type = "shapeless",
-	recipe = {
-		{'lottpotion:brewer', 'lottinventory:cooking_book'},
-	}
+minetest.register_craft({ 
+    type = "shapeless", 
+    output = "lottinventory:brewing_book", 
+    recipe = {'lottpotion:brewer', 'lottinventory:cooking_book'} 
 })
 
-minetest.register_craft({
-	output = 'lottinventory:potions_book',
-	type = "shapeless",
-	recipe = {
-		{'lottpotion:potion_brewer', 'lottinventory:cooking_book'},
-	}
+minetest.register_craft({ 
+    type = "shapeless", 
+    output = "lottinventory:potions_book", 
+    recipe = {'lottpotion:potion_brewer', 'lottinventory:cooking_book'} 
 })
+
 
 minetest.register_craft({
 	output = 'lottinventory:forbidden_crafts_book',
@@ -122,13 +119,13 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottinventory:master_book',
 	type = "shapeless",
-	recipe = {
+	output = "lottinventory:master_book",
+	recipe =
 		{'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot'},
 		{'lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot'},
-		{'lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'},
-	}
+		{'lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'}
+
 })
 
 if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
