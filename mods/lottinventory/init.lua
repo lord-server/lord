@@ -63,8 +63,17 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottinventory:large',
 	recipe = {
-		{'default:steel_ingot', 'farming:string', 'default:steel_ingot'},
-		{'lottinventory:medium', 'farming:string', 'lottinventory:medium'},
+		{'default:steel_ingot', 'lottinventory:medium', 'default:steel_ingot'},
+		{'farming:string', 'lottinventory:small', 'farming:string'},
+	}
+})
+
+
+minetest.register_craft({
+	output = 'lottinventory:large',
+	recipe = {
+		{'default:steel_ingot', 'lottinventory:small', 'default:steel_ingot'},
+		{'farming:string', 'lottinventory:medium', 'farming:string'},
 	}
 })
 
