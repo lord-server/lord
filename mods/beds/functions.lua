@@ -134,14 +134,14 @@ function beds.on_rightclick(pos, player)
 	local ppos = player:getpos()
 	local tod = minetest.get_timeofday() 
 	
-	minetest.chat_send_all(SL("@1 is asleep. For a force skip night, half of the players must also go to bed", name))
-	
 	if tod > 0.2 and tod < 0.805 then
 		if beds.player[name] then
 			lay_down(player, nil, nil, false)
 		end
 		minetest.chat_send_player(name, SL("You can only sleep at night."))
 		return
+	else	
+		minetest.chat_send_all(SL("@1 is asleep. For a force skip night, half of the players must also go to bed", name))
 	end
 
 	-- move to bed
