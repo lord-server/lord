@@ -89,7 +89,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless", 
 	output = 'lottinventory:cooking_book',
-	recipe = {'lottinventory:crafts_book',  'default:furnace'}
+	recipe = {'lottinventory:crafts_book',  'default:furnace'},
 	replacements = {{"default:furnace", "default:furnace"}}
 })
 
@@ -105,7 +105,7 @@ minetest.register_craft({
 minetest.register_craft({ 
 	type = "shapeless", 
 	output = "lottinventory:brewing_book", 
-	recipe = {'lottpotion:brewer', 'lottinventory:cooking_book'}
+	recipe = {'lottpotion:brewer', 'lottinventory:cooking_book'},
 	replacements = {{"lottpotion:brewer", "lottpotion:brewer"}}
 })
 
