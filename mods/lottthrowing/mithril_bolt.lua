@@ -59,7 +59,7 @@ THROWING_BOLT_ENTITY.on_step = function(self, dtime)
 					self.object:remove()
 				end
 			else
-				local damage = 20
+				local damage = 13
 				obj:punch(self.object, 1.0, {
 					full_punch_interval=1.0,
 					damage_groups={fleshy=damage},
