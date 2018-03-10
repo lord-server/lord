@@ -14,6 +14,7 @@ minetest.register_node("lottplants:fireflies", {
 			},
 		},
 	},
+	inventory_image = "lottplants_fireflies.png",
 	alpha = 100,
 	paramtype = "light",
 	light_source = 8,
