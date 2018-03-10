@@ -129,11 +129,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottinventory:master_book",
-	recipe =
-		{'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot'},
-		{'lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot'},
-		{'lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'}
-
+	recipe = {'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot','lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot','lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'}
 })
 
 if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
