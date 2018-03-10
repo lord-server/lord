@@ -76,7 +76,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "dye:dark_gray 2",
+	output = "dye:dark_grey 2",
 	recipe = {"fire:ash"},
 })
 
