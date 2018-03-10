@@ -92,8 +92,8 @@ end
 
 minetest.register_craftitem("lottmobs:egg", {
 	description = SL("Chicken Egg"),
-	inventory_image  = "lottmobs_egg.png",
-	on_use = shoot_egg
+--	on_use = shoot_egg
+	inventory_image  = "lottmobs_egg.png"
 })
 
 mobs:register_mob("lottmobs:chicken", {
