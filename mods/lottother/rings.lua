@@ -5,30 +5,39 @@ local DWARF_RING_USES = 300
 minetest.register_craftitem("lottother:beast_ring", {
 	description = SL("Beast Ring"),
 	inventory_image = "lottother_beast_ring.png",
-    groups = {forbidden=1},
+	groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:ringsilver_lump", {
 	description = SL("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
-    groups = {forbidden=1},
+	groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ringsilver_ingot", {
 	description = SL("Refined Ring Silver"),
 	inventory_image = "lottother_ringsilver_ingot.png",
-    groups = {forbidden=1},
+	groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ring", {
 	description = SL("Plain Ring"),
 	inventory_image = "lottother_ring.png",
-    groups = {forbidden=1},
+	groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_gem", {
 	description = SL("Purple Gem"),
 	inventory_image = "lottother_purplegem.png",
-    groups = {forbidden=1},
+	groups = {forbidden=1},
 })
+
+minetest.register_node("lottother:ringsilver_block", {
+	description = SL("Ringsilver Block"),
+	tiles = {"lottother_ringsilver_block.png"},
+	is_ground_content = true,
+	groups = {cracky=2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 
 
 --ELF RINGS
@@ -103,6 +112,15 @@ minetest.register_tool("lottother:nenya", {
 	inventory_image = "lottother_nenya_inv.png",
 	groups = {armor_head=15, armor_torso=20, armor_legs=20, armor_feet=15, armor_shield=25,forbidden=1},
 	wear = 0,
+})
+
+minetest.register_craft({
+	output = "lottother:ringsilver_block",
+	recipe = {
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	},
 })
 
 minetest.register_craft({
