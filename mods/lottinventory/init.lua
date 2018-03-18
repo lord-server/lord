@@ -46,26 +46,34 @@ minetest.register_craft({
 	output = 'lottinventory:small',
 	recipe = {
 		{'', 'group:stick', ''},
-		{'group:wood', 'group:wood', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wool', 'default:steel_ingot', 'group:wool'},
+		{'group:wool', 'group:wool', 'group:wool'},
 	}
 })
 
 minetest.register_craft({
 	output = 'lottinventory:medium',
 	recipe = {
-		{'', 'group:stick', ''},
-		{'group:wood', 'lottinventory:small', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'default:steel_ingot', 'farming:string', 'default:steel_ingot'},
+		{'lottinventory:small', 'farming:string', 'lottinventory:small'},
 	}
 })
+
 
 minetest.register_craft({
 	output = 'lottinventory:large',
 	recipe = {
-		{'', 'default:steel_ingot', ''},
-		{'group:wood', 'lottinventory:medium', 'group:wood'},
-		{'group:wood', 'group:wood', 'group:wood'},
+		{'default:steel_ingot', 'lottinventory:medium', 'default:steel_ingot'},
+		{'farming:string', 'lottinventory:small', 'farming:string'},
+	}
+})
+
+
+minetest.register_craft({
+	output = 'lottinventory:large',
+	recipe = {
+		{'default:steel_ingot', 'lottinventory:small', 'default:steel_ingot'},
+		{'farming:string', 'lottinventory:medium', 'farming:string'},
 	}
 })
 
@@ -79,12 +87,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	type = "shapeless", 
 	output = 'lottinventory:cooking_book',
-	recipe = {
-		{'default:coal_lump', 'default:coal_lump', 'default:coal_lump'},
-		{'default:coal_lump', 'default:book', 'default:coal_lump'},
-		{'default:coal_lump', 'default:coal_lump', 'default:coal_lump'},
-	}
+	recipe = {'lottinventory:crafts_book',  'default:furnace'},
+	replacements = {{"default:furnace", "default:furnace"}}
 })
 
 minetest.register_craft({
@@ -96,19 +102,20 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = 'lottinventory:brewing_book',
-	recipe = {
-		{'lottpotion:brewer', 'lottinventory:cooking_book'},
-	}
+minetest.register_craft({ 
+	type = "shapeless", 
+	output = "lottinventory:brewing_book", 
+	recipe = {'lottpotion:brewer', 'lottinventory:cooking_book'},
+	replacements = {{"lottpotion:brewer", "lottpotion:brewer"}}
 })
 
-minetest.register_craft({
-	output = 'lottinventory:potions_book',
-	recipe = {
-		{'lottpotion:potion_brewer', 'lottinventory:cooking_book'},
-	}
+minetest.register_craft({ 
+	type = "shapeless", 
+	output = "lottinventory:potions_book", 
+	recipe = {'lottpotion:potion_brewer', 'lottinventory:cooking_book'},
+	replacements = {{"lottpotion:potion_brewer", "lottpotion:potion_brewer"}}
 })
+
 
 minetest.register_craft({
 	output = 'lottinventory:forbidden_crafts_book',
@@ -120,12 +127,9 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottinventory:master_book',
-	recipe = {
-		{'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot'},
-		{'lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot'},
-		{'lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'},
-	}
+	type = "shapeless",
+	output = "lottinventory:master_book",
+	recipe = {'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot','lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot','lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'}
 })
 
 if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
