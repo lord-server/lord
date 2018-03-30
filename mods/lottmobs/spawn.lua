@@ -23,16 +23,11 @@ mobs:spawn_specific("lottmobs:horseara",	{"lottmapgen:rohan_grass"}, {"air"}, -1
 mobs:spawn_specific("lottmobs:shirepony",	{"lottmapgen:shire_grass"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:shireponyblack",	{"lottmapgen:shire_grass"}, {"air"}, -1, 20, 30, 13500, 2, 0, 31000)
 
---animals
+--animals.lua
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
-
---mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
---mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
---mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:ithilien_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
---mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:shire_grass"},     {"air"}, -1, 20, 10, 10000, 1, 0, 31000)
 
 mobs:spawn_specific("lottmobs:bunny",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
 mobs:spawn_specific("lottmobs:bunny",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
@@ -89,6 +84,18 @@ mobs:spawn_specific("lottmobs:troll", {"default:stone"},		{"air"}, -1, 2, 30, 12
 mobs:spawn_specific("lottmobs:troll", {"default:snow"},			{"air"}, -1, 2, 30, 9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"default:snowblock"},		{"air"}, -1, 2, 30, 9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"lottmapgen:angsnowblock"},	{"air"}, -1, 2, 30, 9000, 3, -31000, 31000)
+
+--cow.lua
+mobs:spawn_specific("lottmobs:cow",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:cow",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:cow",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:cow", {"lottmapgen:shire_grass"}, {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
+
+--sheep.lua
+mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
+mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
+mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:ithilien_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
+mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:shire_grass"},     {"air"}, -1, 20, 10, 10000, 1, 0, 31000)
 
 --special_mobs.lua
 mobs:spawn_specific("lottmobs:elf_trader",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 90000, 2, -31000, 31000)
