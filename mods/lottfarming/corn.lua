@@ -11,6 +11,10 @@ minetest.register_craftitem("lottfarming:corn0", {
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:corn_1")
 	end,
+	
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_craftitem("lottfarming:ear_of_corn", {
 	description = SL("Ear of corn"),
@@ -32,6 +36,10 @@ minetest.register_node("lottfarming:corn_1", {
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_2", {
 	paramtype = "light",
@@ -47,6 +55,10 @@ minetest.register_node("lottfarming:corn_2", {
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_3", {
 	paramtype = "light",
@@ -56,6 +68,10 @@ minetest.register_node("lottfarming:corn_3", {
 	tiles = {"lottfarming_corn_3.png"},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_4", {
 	paramtype = "light",
@@ -65,6 +81,10 @@ minetest.register_node("lottfarming:corn_4", {
 	tiles = {"lottfarming_corn_4.png"},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_21", {
 	paramtype = "light",
@@ -74,6 +94,10 @@ minetest.register_node("lottfarming:corn_21", {
 	tiles = {"lottfarming_corn_21.png"},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_22", {
 	paramtype = "light",
@@ -83,6 +107,10 @@ minetest.register_node("lottfarming:corn_22", {
 	tiles = {"lottfarming_corn_22.png"},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_23", {
 	paramtype = "light",
@@ -100,6 +128,10 @@ minetest.register_node("lottfarming:corn_23", {
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_31", {
 	paramtype = "light",
@@ -109,6 +141,10 @@ minetest.register_node("lottfarming:corn_31", {
 	tiles = {"lottfarming_corn_31.png"},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 minetest.register_node("lottfarming:corn_32", {
 	paramtype = "light",
@@ -126,6 +162,10 @@ minetest.register_node("lottfarming:corn_32", {
 	},
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_leaves_defaults(),
+		
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 
 chance = 10

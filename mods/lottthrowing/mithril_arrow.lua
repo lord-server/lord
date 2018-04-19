@@ -81,8 +81,42 @@ end
 minetest.register_entity("lottthrowing:arrow_mithril_entity", THROWING_ARROW_ENTITY)
 
 minetest.register_craft({
-	output = 'lottthrowing:arrow_mithril 16',
+	output = 'lottthrowing:arrow_mithril 8',
 	recipe = {
-		{'default:stick', 'default:stick', 'lottores:mithril_ingot'},
+		{'lottmobs:feather', 'group:stick', 'lottores:mithril_ingot'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow_mithril 8',
+	recipe = {
+		{'lottores:mithril_ingot', 'group:stick', 'lottmobs:feather'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow_mithril 8',
+	recipe = {
+		{'', '', 'lottores:mithril_ingot'},
+		{'', 'group:stick', ''},
+		{'lottmobs:feather', '', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow_mithril 8',
+	recipe = {
+		{'lottores:mithril_ingot', '', ''},
+		{'', 'group:stick', ''},
+		{'', '', 'lottmobs:feather'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow_mithril 8',
+	recipe = {
+		{'lottores:mithril_ingot'},
+		{'group:stick'},
+		{'lottmobs:feather'},
 	}
 })

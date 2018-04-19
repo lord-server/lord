@@ -9,7 +9,7 @@ minetest.register_craftitem("lottfarming:cookie_cracker", {
 minetest.register_craft({
 	type = "cooking",
 	cooktime = 7,
-	output = "lottfarming:cookie_cracker",
+	output = "lottfarming:cookie_cracker 16",
 	recipe = "lottfarming:salted_dough"
 })
 
@@ -21,7 +21,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "lottfarming:dough",
+	output = "lottfarming:dough 4",
 	recipe = {"lottpotion:glass_bottle_water", "farming:flour"},
 	replacements = {{"lottpotion:glass_bottle_water", "vessels:glass_bottle"}},
 })
@@ -49,36 +49,62 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 	inventory_image = "lottfarming_sdough.png",
 	on_use = minetest.item_eat(1),
 })
---[[
+
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:dough_with_egg",
-	recipe = {"lottmobs:chicken_egg", "lottfarming:dough"},
+	recipe = {"lottmobs:egg", "lottfarming:dough"},
 })
 
 minetest.register_craftitem("lottfarming:dough_with_egg", {
-	description = SL("Dough"),
+	description = SL("Dough with Egg"),
 	inventory_image = "lottfarming_eggdough.png",
 	on_use = minetest.item_eat(1),
 })
 
+minetest.register_craftitem("lottfarming:biscuit", {
+	description = SL("Biscuit"),
+	inventory_image = "lottfarming_biscuit.png",
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottfarming:biscuit 2",
+	recipe = "lottfarming:dough_with_egg"
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottfarming:sugar 4",
+	recipe = {"default:papyrus"}
+})
+
+minetest.register_craftitem("lottfarming:sugar", {
+	description = SL("Sugar"),
+	inventory_image = "lottfarming_sugar.png",
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottfarming:candy", {
+	description = SL("Caramel Candy"),
+	inventory_image = "lottfarming_candy.png",
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottfarming:candy 2",
+	recipe = "lottfarming:sugar"
+})
+
+--[[
 minetest.register_craftitem("lottfarming:dough_for_sbread", {
 	description = SL("Dough for Shortbread"),
 	inventory_image = "lottfarming_sbreaddough.png",
 	on_use = minetest.item_eat(1),
 })
 
-minetest.register_craftitem("lottfarming:sugar", {
-	description = SL("Sugar"),
-	inventory_image = "lottfarming_suagar.png",
-	on_use = minetest.item_eat(1),
-})
-
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottfarming:sugar",
-	recipe = {"default:papyrus"},
-})
 
 minetest.register_craft({
 	type = "shapeless",

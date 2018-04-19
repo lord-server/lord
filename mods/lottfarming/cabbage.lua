@@ -72,7 +72,7 @@ minetest.register_node("lottfarming:cabbage_3", {
 			{ items = {'lottfarming:cabbage'}, rarity = 5 }
 		}
 	},
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, plant=1},
+	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
 	sounds = default.node_sound_wood_defaults(),
 })
 

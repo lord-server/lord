@@ -749,7 +749,18 @@ lottachievements.register_achievement("daggins_surname", {
 	}
 })
 
-
+lottachievements.register_achievement("lottachievements_the_lie", {
+	title = SL("The Lie"),
+	description = SL("Craft the Cake"),
+	icon = "lottfarming_honey_cake.png",
+	secret = true,
+	id = 55,
+	trigger = {
+		type = "craft",
+		item = "lottfarming:honey_cake",
+		target = 1
+	}
+})
 
 -- lottachievements.register_achievement("a_long_path_to_mushrooms", {
 -- 	title = SL("A Long Path to Mushrooms"),

@@ -62,3 +62,4 @@ Nenya	=	Кольцо воды
 Vilya	=	Кольцо воздуха
 Dwarf Ring	=	Гномье кольцо
 Beast Ring  =   Кольцо Зверя
+Ringsilver Block = Блок ювелирного серебра

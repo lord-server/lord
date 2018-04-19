@@ -31,7 +31,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=3, [2]=1.90, [3]=1.50}, uses=15, maxlevel=2},
 		snappy = {times={[1]=2.75, [2]=1.45, [3]=0.60}, uses=25, maxlevel=2},
-		damage_groups = {fleshy=4.5},
+		damage_groups = {fleshy=5.5},
 		groups = {steel_item=1},
 	},
 	bronze = {
@@ -40,7 +40,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=2.80, [2]=1.70, [3]=1.30}, uses=20, maxlevel=2},
 		snappy = {times={[1]=2.55, [2]=1.25, [3]=0.50}, uses=30, maxlevel=2},
-		damage_groups = {fleshy=5},
+		damage_groups = {fleshy=6},
 		groups = {bronze_item=1},
 	},
 	copper = {
@@ -49,7 +49,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=3.25, [2]=2.00, [3]=1.75}, uses=5, maxlevel=1},
 		snappy = {times={[1]=2.75, [2]=1.45, [3]=0.60}, uses=10, maxlevel=1},
-		damage_groups = {fleshy=3},
+		damage_groups = {fleshy=4},
 		groups = {copper_item=1},
 	},
 	tin = {
@@ -58,7 +58,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=3.25, [2]=2.00, [3]=1.75}, uses=5, maxlevel=1},
 		snappy = {times={[1]=2.75, [2]=1.45, [3]=0.60}, uses=10, maxlevel=1},
-		damage_groups = {fleshy=3},
+		damage_groups = {fleshy=4},
 		groups = {tin_item=1},
 	},
 	silver = {
@@ -67,7 +67,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=2.80, [2]=1.70, [3]=1.30}, uses=15, maxlevel=2},
 		snappy = {times={[1]=2.60, [2]=1.30, [3]=0.50}, uses=25, maxlevel=2},
-		damage_groups = {fleshy=5.5},
+		damage_groups = {fleshy=6.5},
 		groups = {silver_item=1},
 	},
 	gold = {
@@ -76,7 +76,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=2.80, [2]=1.70, [3]=1.30}, uses=20, maxlevel=2},
 		snappy = {times={[1]=2.60, [2]=1.30, [3]=0.50}, uses=30, maxlevel=2},
-		damage_groups = {fleshy=5.5},
+		damage_groups = {fleshy=6.5},
 		groups = {gold_item=1},
 	},
 	galvorn = {
@@ -85,7 +85,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=2.50, [2]=1.50, [3]=.90}, uses=25, maxlevel=2},
 		snappy = {times={[1]=2.50, [2]=1.50, [3]=0.85}, uses=35, maxlevel=2},
-		damage_groups = {fleshy=6},
+		damage_groups = {fleshy=7.5},
 		groups = {forbidden=1, galvorn_item=1},
 	},
 	mithril = {
@@ -94,7 +94,7 @@ tools.battleaxe = {
 		max_drop_level=1,
 		choppy = {times={[1]=2, [2]=1, [3]=.50}, uses=35, maxlevel=3},
 		snappy = {times={[1]=1, [2]=1.10, [3]=0.50}, uses=40, maxlevel=3},
-		damage_groups = {fleshy=7},
+		damage_groups = {fleshy=8.5},
 		groups = {mithril_item=1},
 	}
 }

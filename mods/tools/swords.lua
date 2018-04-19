@@ -29,7 +29,7 @@ tools.sword = {
 			uses=20,
 			maxlevel=1
 		},
-		damage_groups = {fleshy=4},
+		damage_groups = {fleshy=3},
 	},
 	steel = {
 		description = SL("Steel Sword"),
@@ -112,7 +112,7 @@ tools.sword = {
 			uses=40,
 			maxlevel=3
 		},
-		damage_groups = {fleshy=7},
+		damage_groups = {fleshy=6},
 		groups = {forbidden=1, galvorn_item = 1},
 	},
 	mithril = {
@@ -124,7 +124,7 @@ tools.sword = {
 			uses=80,
 			maxlevel=3
 		},
-		damage_groups = {fleshy=8},
+		damage_groups = {fleshy=7},
 		groups = {mithril_item = 1},
 	}
 }

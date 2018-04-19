@@ -65,7 +65,7 @@ minetest.register_tool("lottthrowing:bow_wood", {
    stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/50)
 			end
 		end
@@ -80,7 +80,7 @@ minetest.register_tool("lottthrowing:bow_wood_alder", {
    stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/70)
 			end
 		end
@@ -95,7 +95,7 @@ minetest.register_tool("lottthrowing:bow_wood_birch", {
    stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/100)
 			end
 		end
@@ -110,7 +110,7 @@ minetest.register_tool("lottthrowing:bow_wood_lebethron", {
    stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/150)
 			end
 		end
@@ -125,7 +125,7 @@ minetest.register_tool("lottthrowing:bow_wood_mallorn", {
    stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/300)
 			end
 		end
@@ -178,6 +178,52 @@ minetest.register_craft({
 	}
 })
 
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood',
+	recipe = {
+		{'', 'default:wood', 'farming:string'},
+		{'default:wood', '', 'farming:string'},
+		{'', 'default:wood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_alder',
+	recipe = {
+		{'', 'lottplants:alderwood', 'farming:string'},
+		{'lottplants:alderwood', '', 'farming:string'},
+		{'', 'lottplants:alderwood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_birch',
+	recipe = {
+		{'', 'lottplants:birchwood', 'farming:string'},
+		{'lottplants:birchwood', '', 'farming:string'},
+		{'', 'lottplants:birchwood', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_lebethron',
+	recipe = {
+		{'', 'lottplants:lebethronwood', 'farming:string'},
+		{'lottplants:lebethronwoo', '', 'farming:string'},
+		{'', 'lottplants:lebethronwoo', 'farming:string'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:bow_wood_mallorn',
+	recipe = {
+		{'', 'lottplants:mallornwood', 'farming:string'},
+		{'lottplants:mallornwood', '', 'farming:string'},
+		{'', 'lottplants:mallornwood', 'farming:string'},
+	}
+})
+
 minetest.register_tool("lottthrowing:crossbow_wood", {
 	description = SL("Wooden Crossbow"),
 	groups = {wooden = 1},
@@ -185,7 +231,7 @@ minetest.register_tool("lottthrowing:crossbow_wood", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/50)
 			end
 		end
@@ -200,7 +246,7 @@ minetest.register_tool("lottthrowing:crossbow_steel", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/70)
 			end
 		end
@@ -215,7 +261,7 @@ minetest.register_tool("lottthrowing:crossbow_tin", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/100)
 			end
 		end
@@ -230,7 +276,7 @@ minetest.register_tool("lottthrowing:crossbow_silver", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/150)
 			end
 		end
@@ -245,7 +291,7 @@ minetest.register_tool("lottthrowing:crossbow_gold", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/200)
 			end
 		end
@@ -261,7 +307,7 @@ minetest.register_tool("lottthrowing:crossbow_galvorn", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/300)
 			end
 		end
@@ -276,7 +322,7 @@ minetest.register_tool("lottthrowing:crossbow_mithril", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not minetest.setting_getbool("creative_mode") then
 				itemstack:add_wear(65535/500)
 			end
 		end
@@ -287,9 +333,9 @@ minetest.register_tool("lottthrowing:crossbow_mithril", {
 minetest.register_craft({
 	output = 'lottthrowing:crossbow_wood',
 	recipe = {
-		{'', 'farming:string', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'', 'farming:string', 'default:wood'},
+		{'', 'farming:string', 'group:wood'},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'', 'farming:string', 'group:wood'},
 	}
 })
 
@@ -297,7 +343,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_steel',
 	recipe = {
 		{'', 'farming:string', 'default:steel_ingot'},
-		{'default:wood', 'default:wood', 'default:steel_ingot'},
+		{'group:wood', 'group:wood', 'default:steel_ingot'},
 		{'', 'farming:string', 'default:steel_ingot'},
 	}
 })
@@ -306,7 +352,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_tin',
 	recipe = {
 		{'', 'farming:string', 'lottores:tin_ingot'},
-		{'default:wood', 'default:wood', 'lottores:tin_ingot'},
+		{'group:wood', 'group:wood', 'lottores:tin_ingot'},
 		{'', 'farming:string', 'lottores:tin_ingot'},
 	}
 })
@@ -315,7 +361,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_silver',
 	recipe = {
 		{'', 'farming:string', 'lottores:silver_ingot'},
-		{'default:wood', 'default:wood', 'lottores:silver_ingot'},
+		{'group:wood', 'group:wood', 'lottores:silver_ingot'},
 		{'', 'farming:string', 'lottores:silver_ingot'},
 	}
 })
@@ -324,7 +370,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_gold',
 	recipe = {
 		{'', 'farming:string', 'default:gold_ingot'},
-		{'default:wood', 'default:wood', 'default:gold_ingot'},
+		{'group:wood', 'group:wood', 'default:gold_ingot'},
 		{'', 'farming:string', 'default:gold_ingot'},
 	}
 })
@@ -333,7 +379,7 @@ minetest.register_craft({
 	output = 'lottthrowing:crossbow_galvorn',
 	recipe = {
 		{'', 'farming:string', 'lottores:galvorn_ingot'},
-		{'default:wood', 'default:wood', 'lottores:galvorn_ingot'},
+		{'group:wood', 'group:wood', 'lottores:galvorn_ingot'},
 		{'', 'farming:string', 'lottores:galvorn_ingot'},
 	}
 })
@@ -347,6 +393,70 @@ minetest.register_craft({
 	}
 })
 
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_wood',
+	recipe = {
+		{'group:wood', 'farming:string', ''},
+		{'group:wood', 'group:wood', 'group:wood'},
+		{'group:wood', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_steel',
+	recipe = {
+		{'default:steel_ingot', 'farming:string', ''},
+		{'default:steel_ingot', 'group:wood', 'group:wood'},
+		{'default:steel_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_tin',
+	recipe = {
+		{'lottores:tin_ingot', 'farming:string', ''},
+		{'lottores:tin_ingot', 'group:wood', 'group:wood'},
+		{'lottores:tin_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_silver',
+	recipe = {
+		{'lottores:silver_ingot', 'farming:string', ''},
+		{'lottores:silver_ingot', 'group:wood', 'group:wood'},
+		{'lottores:silver_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_gold',
+	recipe = {
+		{'default:gold_ingot', 'farming:string', ''},
+		{'default:gold_ingot', 'group:wood', 'group:wood'},
+		{'default:gold_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_galvorn',
+	recipe = {
+		{'lottores:galvorn_ingot', 'farming:string', ''},
+		{'lottores:galvorn_ingot', 'group:wood', 'group:wood'},
+		{'lottores:galvorn_ingot', 'farming:string', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:crossbow_mithril',
+	recipe = {
+		{'', 'farming:string', 'lottores:mithril_ingot'},
+		{'default:wood', 'group:wood', 'group:wood'},
+		{'', 'farming:string', 'lottores:mithril_ingot'},
+	}
+})
+
 dofile(minetest.get_modpath("lottthrowing").."/arrow.lua")
 dofile(minetest.get_modpath("lottthrowing").."/mithril_arrow.lua")
 
@@ -355,8 +465,8 @@ dofile(minetest.get_modpath("lottthrowing").."/mithril_bolt.lua")
 
 dofile(minetest.get_modpath("lottthrowing").."/axe.lua")
 
-if minetest.settings:get("log_mods") then
+if minetest.setting_get("log_mods") then
 	minetest.log("action", "lottthrowing loaded")
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.setting_getbool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

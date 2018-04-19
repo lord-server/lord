@@ -3,9 +3,9 @@ Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 
 ### barley.lua ###
-Barley	=	Ячмень
-Sheaf barley	=	Сноп ячменя
-Cooked Barley	=	Высушенный ячмень
+Barley = Ячмень
+Sheaf barley = Сноп ячменя
+Cooked Barley = Высушенный ячмень
 
 ### berries.lua ###
 Berries Seeds	=	Семена ягод
@@ -47,16 +47,24 @@ Orc Food	=	Еда орков
 Orc medicine	=	Лекарство орков
 
 ### other.lua ###
+Caramel Candy = Карамельная конфета
 Cracker = Крекер
+Dough with Egg = Тесто с яйцом
 Dough = Тесто
-Yeast Dough = Дрожжевое тесто
 Salted Dough = Тесто с солью
+Sugar = Сахар
+Yeast Dough = Дрожжевое тесто
+Biscuit = Бисквитный корж
 
 ### pipeweed.lua ###
 Pipeweed Seeds	=	Семена табака
 Pipeweed	=	Табак
 Cooked Pipeweed	=	Высушенный табак
 Pipe	=	Трубка
+
+### place_food.lua ###
+Honey Cake = Медовик
+Berry Cake = Ягодный пирог
 
 ### potato.lua ###
 Half of potatoe	=	Половина картошки

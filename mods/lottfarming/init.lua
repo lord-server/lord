@@ -182,6 +182,9 @@ dofile(minetest.get_modpath("lottfarming").."/crafting.lua")
 -- ========= BROWN MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/brown.lua")
 
+-- ========= CAKES =========
+dofile(minetest.get_modpath("lottfarming").."/cakes.lua")
+
 -- ========= RED MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/red.lua")
 

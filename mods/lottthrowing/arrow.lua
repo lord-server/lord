@@ -81,8 +81,42 @@ end
 minetest.register_entity("lottthrowing:arrow_entity", THROWING_ARROW_ENTITY)
 
 minetest.register_craft({
-	output = 'lottthrowing:arrow 16',
+	output = 'lottthrowing:arrow 8',
 	recipe = {
-		{'default:stick', 'default:stick', 'default:steel_ingot'},
+		{'lottmobs:feather', 'group:stick', 'default:steel_ingot'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow 8',
+	recipe = {
+		{'default:steel_ingot', 'group:stick', 'lottmobs:feather'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow 8',
+	recipe = {
+		{'', '', 'default:steel_ingot'},
+		{'', 'group:stick', ''},
+		{'lottmobs:feather', '', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow 8',
+	recipe = {
+		{'default:steel_ingot', '', ''},
+		{'', 'group:stick', ''},
+		{'', '', 'lottmobs:feather'},
+	}
+})
+
+minetest.register_craft({
+	output = 'lottthrowing:arrow 8',
+	recipe = {
+		{'default:steel_ingot'},
+		{'group:stick'},
+		{'lottmobs:feather'},
 	}
 })

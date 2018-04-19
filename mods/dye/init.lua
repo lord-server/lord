@@ -74,6 +74,12 @@ minetest.register_craft({
 	recipe = {"group:coal"},
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "dye:dark_grey 2",
+	recipe = {"fire:ash"},
+})
+
 -- Mix recipes
 -- Just mix everything to everything somehow sanely
 

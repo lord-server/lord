@@ -48,7 +48,7 @@ mobs:register_arrow("lottmobs:egg_entity", {
 local EGG_GRAVITY = 9
 local EGG_VELOCITY = 19
 
-local mobs_shoot_egg = function(item, player, pointed_thing)
+local shoot_egg = function(item, player, pointed_thing)
 	local playerpos = player:getpos()
 
 	minetest.sound_play("default_place_node_hard", {
@@ -90,23 +90,10 @@ local mobs_shoot_egg = function(item, player, pointed_thing)
 	return item
 end
 
-minetest.register_node("lottmobs:egg", {
+minetest.register_craftitem("lottmobs:egg", {
 	description = SL("Chicken Egg"),
-	tiles = {"lottmobs_egg.png"},
-	inventory_image  = "lottmobs_egg.png",
-	visual_scale = 0.7,
-	drawtype = "plantlike",
-	wield_image = "lottmobs_egg.png",
-	paramtype = "light",
-	walkable = false,
-	is_ground_content = true,
-	sunlight_propagates = true,
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
-	},
-	groups = {snappy = 2, dig_immediate = 3},
-	on_use = mobs_shoot_egg
+--	on_use = shoot_egg
+	inventory_image  = "lottmobs_egg.png"
 })
 
 mobs:register_mob("lottmobs:chicken", {
@@ -134,7 +121,11 @@ mobs:register_mob("lottmobs:chicken", {
 		{name = "lottmobs:egg",
 		chance = 1,
 		min = 0,
-		max = 1,},
+		max = 2,},
+		{name = "lottmobs:feather",
+		chance = 2,
+		min = 0,
+		max = 3,},
 	},
 	light_resistant = true,
 	drawtype = "front",
@@ -187,7 +178,7 @@ mobs:register_mob("lottmobs:chicken", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 1, min = 1, max = 2},
+		{name = "lottmobs:mutton_raw", chance = 1, min = 1, max = 3},
 		{name = "wool:white", chance = 1, min = 1, max = 1},
 	},
 	water_damage = 1,
