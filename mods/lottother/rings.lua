@@ -35,7 +35,7 @@ minetest.register_node("lottother:ringsilver_block", {
 	tiles = {"lottother_ringsilver_block.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_metal_defaults(),
 })
 
 
