@@ -123,7 +123,7 @@ minetest.register_node("flowers:viola", {
 	},
 })
 
-minetest.register_node("flower:cactus_decor", {
+minetest.register_node("flowers:cactus_decor", {
 	description = SL("Cactus decorative"),
 	drawtype = "nodebox",
 	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png","default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
