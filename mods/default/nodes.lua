@@ -541,15 +541,38 @@ minetest.register_node("default:leaves", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("default:cactus", {
+minetest.register_node("mcl_core:cactus", {
 	description = SL("Cactus"),
-	tiles = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
-	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png","default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
 	is_ground_content = true,
-	groups = {snappy=1,choppy=3,flammable=2},
-	drop = "flowers:cactus_decor",
+	stack_max = 64,
+	groups = {snappy=1, choppy=3, flammable=2, plant=1, oddly_breakable_by_hand=1},
 	sounds = default.node_sound_wood_defaults(),
-	on_place = minetest.rotate_node
+	paramtype = "light",
+	sunlight_propagates = true,
+	drop = "flowers:cactus_decor",
+	node_placement_prediction = "",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-7/16, -8/16, -7/16,  7/16, 8/16,  7/16}, -- Main body
+			{-8/16, -8/16, -7/16,  8/16, 8/16, -7/16}, -- Spikes
+			{-8/16, -8/16,  7/16,  8/16, 8/16,  7/16}, -- Spikes
+			{-7/16, -8/16, -8/16, -7/16, 8/16,  8/16}, -- Spikes
+			{7/16,  -8/16,  8/16,  7/16, 8/16, -8/16}, -- Spikes
+		},
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {-7/16, -8/16, -7/16,  7/16, 7/16,  7/16}, -- Main body. slightly lower than node box
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-7/16, -8/16, -7/16, 7/16, 8/16, 7/16},
+		},
+	},
 })
 
 
