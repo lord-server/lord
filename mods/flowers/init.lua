@@ -129,7 +129,7 @@ minetest.register_node("flowers:cactus_decor", {
 	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png","default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
 	is_ground_content = true,
 	groups = {snappy=1, choppy=3, flammable=2, plant=1, oddly_breakable_by_hand=1},
-	sounds = default.node_sound_wood_defaults(),
+	sounds = default.node_sound_leaves_defaults(),
 	paramtype = "light",
 	sunlight_propagates = true,
 	node_placement_prediction = "",
