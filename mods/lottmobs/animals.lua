@@ -98,58 +98,78 @@ minetest.register_craftitem("lottmobs:egg", {
 
 mobs:register_mob("lottmobs:chicken", {
 	type = "animal",
-	hp_min = 5,
-	hp_max = 10,
-	collisionbox = {-0.3,0,-0.3, 0.3,0.8,0.3},
+
+	hp_min = 4,
+	hp_max = 8,
+	collisionbox = {-0.2, -0.01, -0.2, 0.2, 0.69, 0.2},
+	runaway = true,
+	visual = "mesh",
+	mesh = "chicken_model.b3d",
 	textures = {
 		{"lottmobs_chicken.png"},
 	},
-	sounds = {
-		random = "mobs_chicken",
-	},
-	visual = "mesh",
-	mesh = "chicken_model.x",
-	visual_size = {x=1.5, y=1.5, z=1.5,},
+	visual_size = {x=2.2, y=2.2},
+
 	makes_footstep_sound = true,
-	walk_velocity = 1,
+	walk_velocity = 1.25,
 	armor = 300,
-		drops = {
+	drops = {
 		{name = "lottmobs:chicken_raw",
 		chance = 1,
 		min = 0,
 		max = 1,},
-		{name = "lottmobs:egg",
-		chance = 1,
-		min = 0,
-		max = 2,},
 		{name = "lottmobs:feather",
 		chance = 2,
 		min = 0,
 		max = 3,},
 	},
-	light_resistant = true,
-	drawtype = "front",
 	water_damage = 1,
-	lava_damage = 10,
-	light_damage = 0,
-	animation = {
-		speed_normal = 10,
-		speed_run = 15,
-		stand_start = 0,
-		stand_end = 0,
-		sit_start = 1,
-		sit_end = 9,
-		walk_start = 10,
-		walk_end = 50,
+	lava_damage = 4,
+	light_resistant = true,
+	sounds = {
+		random = "mobs_chicken",
+		death = "Chickenhurt1",
+		damage = "Chickenhurt1", 
+		distance = 16,
 	},
+	animation = {
+		stand_speed = 25, walk_speed = 25, run_speed = 50,
+		stand_start = 0,		stand_end = 0,
+		walk_start = 0,		walk_end = 40,
+		run_start = 0,		run_end = 40,
+	},
+
 	follow = {"farming:wheat0", "lottother:beast_ring"},
-	view_range = 5,
+	view_range = 16,
+	fear_height = 4,
+
 	jump = true,
 	step=1,
 	passive = true,
+
+	do_custom = function(self, dtime)
+
+		self.egg_timer = (self.egg_timer or 0) + dtime
+		if self.egg_timer < 10 then
+			return
+		end
+		self.egg_timer = 0
+
+		if math.random(1, 100) > 1 then
+			return
+		end
+
+		local pos = self.object:getpos()
+
+		minetest.add_item(pos, "lottmobs:egg")
+
+		minetest.sound_play("mobs_mc_chicken_lay_egg", {
+			pos = pos,
+			gain = 1.0,
+			max_hear_distance = 16,
+		})
+	end,	
 	
-	sounds = {
-	},
 })
 
 --[[mobs:register_mob("lottmobs:sheep", {
