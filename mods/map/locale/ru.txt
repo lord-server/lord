@@ -1,0 +1,2 @@
+## init.lua ##
+Mapping Kit\nUse with 'Minimap' key = Набор картографа\nИспользовать на клавишу 'Миникарта' 

@@ -1,0 +1,2 @@
+## init.lua ##
+Mapping Kit\nUse with 'Minimap' key = Mapping Kit\nUse with 'Minimap' key 
