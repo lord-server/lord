@@ -1,0 +1,4 @@
+## init.lua ##
+Kill yourself to respawn = Убить своего персонажа для экстренного возвращения на точку возрождения
+No static_spawnpoint defined = Не обнаруженно ни одного static_spawnpoint
+You need to be online to be killed! = Для убийства своего персонажа нужно быть в сети! 
