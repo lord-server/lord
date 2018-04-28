@@ -1,0 +1,4 @@
+### init.lua ###
+Chain = Цепь
+Chain Top = Крепление цепи
+Chandelier = Канделябр
