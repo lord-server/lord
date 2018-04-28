@@ -569,6 +569,9 @@ minetest.register_node("default:cactus", {
 			{-7/16, -8/16, -7/16, 7/16, 8/16, 7/16},
 		},
 	},
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 
 
