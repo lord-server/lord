@@ -153,6 +153,9 @@ minetest.register_node("flowers:cactus_decor", {
 			{-7/16, -8/16, -7/16, 7/16, 8/16, 7/16},
 		},
 	},
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 
 minetest.register_abm({
