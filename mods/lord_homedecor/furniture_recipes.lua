@@ -149,12 +149,12 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
-	output = "lord_homedecor:shower_head",
-	recipe = {
-		{"default:steel_ingot", "bucket:bucket_water"},
-	},
-})
+-- minetest.register_craft({
+-- 	output = "lord_homedecor:shower_head",
+-- 	recipe = {
+-- 		{"default:steel_ingot", "bucket:bucket_water"},
+-- 	},
+-- })
 
 minetest.register_craft({
 	output = "lord_homedecor:bars 6",

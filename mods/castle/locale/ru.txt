@@ -161,7 +161,7 @@ Straw	=	Сено
 Bound Straw	=	Обвязанное сено
 Castle Straw Stair	=	Ступенька из сена
 Castle Straw Slab	=	Плита из сена
-Light Block	=	Витражные светильник
+Light Block	=	Витражный светильник
 Paving Stone	=	Брусчатка
 
 Source Material	=	Материалы:

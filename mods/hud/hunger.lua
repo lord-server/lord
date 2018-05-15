@@ -52,7 +52,7 @@ local function overwrite(name, hunger_change, replace_with_item, poisen)
 	minetest.registered_items[name] = tab
 end
 
-overwrite("bees:bottle_honey", 2, "vessels:drinking_glass", 3)
+overwrite("bees:bottle_honey", 2, "vessels:glass_bottle", 3)
 
 overwrite("default:apple", 1)
 
