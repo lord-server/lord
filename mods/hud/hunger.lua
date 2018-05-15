@@ -52,7 +52,7 @@ local function overwrite(name, hunger_change, replace_with_item, poisen)
 	minetest.registered_items[name] = tab
 end
 
-overwrite("bees:bottle_honey", 2, "vessels:drinking_glass", 3)
+overwrite("bees:bottle_honey", 2, "vessels:glass_bottle", 3)
 
 overwrite("default:apple", 1)
 
@@ -113,6 +113,6 @@ if minetest.get_modpath("lottpotion") ~= nil then
 	overwrite("lottpotion:ale", 1, "vessels:drinking_glass", 4)
 	overwrite("lottpotion:beer", 2, "vessels:drinking_glass", 2)
 	overwrite("lottpotion:cider", 2, "vessels:drinking_glass", 2)
-	overwrite("lottpotion:mead", 3, "vessels:glass_bottle", 4)
+	overwrite("lottpotion:mead", 3, "vessels:drinking_glass", 4)
 	overwrite("lottpotion:wine", 2, "vessels:drinking_glass", 5)
 end
