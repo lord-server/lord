@@ -227,7 +227,7 @@ for _, nn in pairs({"active", "inactive"}) do
 			inv:set_size("input", 2)
 			inv:set_size("output", 2)
 			inv:set_size("fuel", 1)
-			meta:set_string("infotext", SL("Dual Furnace")
+			meta:set_string("infotext", SL("Dual Furnace"))
 			meta:set_string("formspec", formspec)
 		end,
 
