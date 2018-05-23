@@ -279,12 +279,12 @@ minetest.register_craft({
 	}
 })
 
-lottblocks.crafting.add_craft("default:bronze_ingot 3", {
-	recipe = {"lottores:tin_ingot", "default:copper_ingot 2"},
+lottblocks.crafting.add_craft("default:bronze_ingot 2", {
+	recipe = {"lottores:tin_ingot", "default:copper_ingot"},
 	type = "dualfurn"
 })
 
-lottblocks.crafting.add_craft("default:bronze_ingot 3", {
-	recipe = {"lottores:tin_lump", "default:copper_lump 2"},
+lottblocks.crafting.add_craft("default:bronze_ingot 2", {
+	recipe = {"lottores:tin_lump", "default:copper_lump"},
 	type = "dualfurn"
 })
