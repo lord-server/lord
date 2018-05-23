@@ -1,4 +1,3 @@
 default
 stairs
-lottblocks
 lordlib
