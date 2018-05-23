@@ -10,11 +10,11 @@ local S, NS = dofile(MP.."/intllib.lua")
 
 --  Quartz Crystal
 minetest.register_craftitem("quartz:quartz_crystal", {
-	description = S("Quartz Crystal"),
+	description = SL("Quartz Crystal"),
 	inventory_image = "quartz_crystal_full.png",
 })
 minetest.register_craftitem("quartz:quartz_crystal_piece", {
-	description = S("Quartz Crystal Piece"),
+	description = SL("Quartz Crystal Piece"),
 	inventory_image = "quartz_crystal_piece.png",
 })
 
@@ -24,7 +24,7 @@ minetest.register_craftitem("quartz:quartz_crystal_piece", {
 
 --  Ore
 minetest.register_node("quartz:quartz_ore", {
-	description = S("Quartz Ore"),
+	description = SL("Quartz Ore"),
 	tiles = {"default_stone.png^quartz_ore.png"},
 	groups = {cracky=3, stone=1},
 	drop = 'quartz:quartz_crystal',
@@ -44,7 +44,7 @@ minetest.register_ore({
 
 -- Quartz Block
 minetest.register_node("quartz:block", {
-	description = S("Quartz Block"),
+	description = SL("Quartz Block"),
 	tiles = {"quartz_block.png"},
 	groups = {cracky=3, oddly_breakable_by_hand=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -52,7 +52,7 @@ minetest.register_node("quartz:block", {
 
 -- Chiseled Quartz
 minetest.register_node("quartz:chiseled", {
-	description = S("Chiseled Quartz"),
+	description = SL("Chiseled Quartz"),
 	tiles = {"quartz_chiseled.png"},
 	groups = {cracky=3, oddly_breakable_by_hand=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -60,7 +60,7 @@ minetest.register_node("quartz:chiseled", {
 
 -- Quartz Pillar
 minetest.register_node("quartz:pillar", {
-	description = S("Quartz Pillar"),
+	description = SL("Quartz Pillar"),
 	paramtype2 = "facedir",
 	tiles = {"quartz_pillar_top.png", "quartz_pillar_top.png", "quartz_pillar_side.png"},
 	groups = {cracky=3, oddly_breakable_by_hand=1},
@@ -72,15 +72,15 @@ minetest.register_node("quartz:pillar", {
 stairs.register_stair_and_slab("quartzblock", "quartz:block",
 		{cracky=3, oddly_breakable_by_hand=1},
 		{"quartz_block.png"},
-		S("Quartz stair"),
-		S("Quartz slab"),
+		SL("Quartz stair"),
+		SL("Quartz slab"),
 		default.node_sound_glass_defaults())
 
 stairs.register_stair_and_slab("quartzstair", "quartz:pillar",
 		{cracky=3, oddly_breakable_by_hand=1},
 		{"quartz_pillar_top.png", "quartz_pillar_top.png", "quartz_pillar_side.png"},
-		S("Quartz Pillar stair"),
-		S("Quartz Pillar slab"),
+		SL("Quartz Pillar stair"),
+		SL("Quartz Pillar slab"),
 		default.node_sound_glass_defaults())
 
 --
@@ -89,7 +89,7 @@ stairs.register_stair_and_slab("quartzstair", "quartz:pillar",
 
 -- Quartz Crystal Piece
 minetest.register_craft({
-	output = '"quartz:quartz_crystal_piece" 3',
+	output = 'quartz:quartz_crystal_piece 3',
 	recipe = {
 		{'quartz:quartz_crystal'}
 	}
@@ -97,11 +97,10 @@ minetest.register_craft({
 
 -- Quartz Block
 minetest.register_craft({
-	output = '"quartz:block" 4',
+	output = 'quartz:block 4',
 	recipe = {
-		{'quartz:quartz_crystal', 'quartz:quartz_crystal', ''},
-		{'quartz:quartz_crystal', 'quartz:quartz_crystal', ''},
-		{'', '', ''}
+		{'quartz:quartz_crystal', 'quartz:quartz_crystal'},
+		{'quartz:quartz_crystal', 'quartz:quartz_crystal'}
 	}
 })
 
@@ -109,19 +108,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'quartz:chiseled 2',
 	recipe = {
-		{'stairs:slab_quartzblock', '', ''},
-		{'stairs:slab_quartzblock', '', ''},
-		{'', '', ''},
-	}
-})
-
--- Chiseled Quartz (for stairsplus)
-minetest.register_craft({
-	output = 'quartz:chiseled 2',
-	recipe = {
-		{'quartz:slab_block', '', ''},
-		{'quartz:slab_block', '', ''},
-		{'', '', ''},
+		{'stairs:slab_quartzblock'},
+		{'stairs:slab_quartzblock'}
 	}
 })
 
@@ -129,12 +117,23 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'quartz:pillar 2',
 	recipe = {
-		{'quartz:block', '', ''},
-		{'quartz:block', '', ''},
-		{'', '', ''},
+		{'quartz:block'},
+		{'quartz:block'}
 	}
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = "quartz:quartz_crystal",
+	recipe = "group:sand",
+})
+
+minetest.register_craft({
+	type = shapeless
+	output = "quartz:quartz_crystal",
+	recipe = {"quartz:block"}
+})
+	
 --
 -- ABMS
 --
