@@ -182,20 +182,3 @@ if minetest.get_modpath("moreblocks") and settings:get_bool("ENABLE_STAIRSPLUS")
 	table.insert(circular_saw.known_stairs, "quartz:chiseled")
 	table.insert(circular_saw.known_stairs, "quartz:pillar")
 end
-
---
--- Deprecated
---
-
-if settings:get_bool("ENABLE_HORIZONTAL_PILLAR") then
-	-- Quartz Pillar (horizontal)
-	minetest.register_node("quartz:pillar_horizontal", {
-			description = "Quartz Pillar Horizontal",
-			tiles = {"quartz_pillar_side.png", "quartz_pillar_side.png", "quartz_pillar_side.png^[transformR90",
-			"quartz_pillar_side.png^[transformR90", "quartz_pillar_top.png", "quartz_pillar_top.png"},
-			paramtype2 = "facedir",
-			drop = 'quartz:pillar',
-			groups = {cracky=3, oddly_breakable_by_hand=1, not_in_creative_inventory=1},
-			sounds = default.node_sound_glass_defaults(),
-	})
-end
