@@ -29,6 +29,9 @@ Only Humans can open this kind of chest!	=	Этот сундук могут от
 Only Elves can open this kind of chest!	=	Этот сундук могут открыть только эльфы!
 Only Orcs can open this kind of chest!	=	Этот сундук могут открыть только орки!
 
+### crafting.lua ###
+Dual Furnace = Двойная печь
+
 ### decoration.lua ###
 Tree With Vines	=	Ствол дерева с лианами
 Tree With Vines Stair	=	Ступенька из дерева с лианами
