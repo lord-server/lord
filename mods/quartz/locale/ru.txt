@@ -1,0 +1,11 @@
+### init.lua ###
+Quartz Crystal = Кристалл кварца
+Quartz Crystal Piece = Осколок кристалла кварца
+Quartz Ore = Кварцевая жила
+Quartz Block = Кварцевый блок
+Chiseled Quartz = Обточенный кварцевый блок
+Quartz Pillar = Кварцевая колонна
+Quartz stair = Кварцевая ступенька
+Quartz slab = Кварцевая плита
+Quartz Pillar stair = Ступенька из кварцевой колонны
+Quartz Pillar slab = Плита из кварцевой колонны
