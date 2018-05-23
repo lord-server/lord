@@ -121,7 +121,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "cooking",
 	output = "quartz:quartz_crystal",
-	recipe = "group:sand",
+	recipe = "default:sand",
 })
 
 minetest.register_craft({
