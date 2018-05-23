@@ -1,3 +1,5 @@
+local SL = lord.require_intllib()
+
 --Function for random breakages!
 
 local function random_break(pos, chance, output, src_time)
