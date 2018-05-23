@@ -1,5 +1,32 @@
 local SL = lord.require_intllib()
 
+--Function for random breakages!
+
+local function random_break(pos, chance, output, src_time)
+	local inv = minetest.get_meta(pos):get_inventory()
+	if math.random(8) > chance then
+		if inv:room_for_item("output", output) then
+			inv:add_item("output", output)
+			for i = 1, 2 do
+				local s = inv:get_stack("input", i)
+				local n = s:get_name()
+				local c = s:get_count()
+				inv:set_stack("input", i, n .. " " .. c - 1)
+			end
+			src_time = 0
+		end
+	else
+		for i = 1, 2 do
+			local s = inv:get_stack("input", i)
+			local n = s:get_name()
+			local c = s:get_count()
+			inv:set_stack("input", i, n .. " " .. c - 1)
+		end
+		src_time = 0
+	end
+	return src_time
+end
+
 --The three basic gem ore definitions
 
 minetest.register_node("lottother:blue_gem_ore", {
