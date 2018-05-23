@@ -1,4 +1,4 @@
---Aliases:
+--Aliases(TODO:переместить в legacy):
 minetest.register_alias("lottores:blue_gem_ore", "lottother:blue_gem_ore")
 minetest.register_alias("lottores:red_gem_ore", "lottother:red_gem_ore")
 minetest.register_alias("lottores:white_gem_ore", "lottother:white_gem_ore")
@@ -17,12 +17,10 @@ minetest.register_alias("lottother:ringsilver_ingot", "lottother:ringsilver")
 
 local SL = lord.require_intllib()
 
---TODO: Rework ring functions.
-
 --ELF RINGS
 --FUNCTION = Sets your health to max every 10 seconds.
 
-minetest.register_craftitem("lottother:vilya", {
+minetest.register_craftitem("lottother:vilya_new", {
 	description = minetest.colorize("skyblue", SL("Vilya\nElven Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_vilya.png",
@@ -44,7 +42,7 @@ end)
 
 --FUNCTION = Makes (good) mobs follow you.
 
-minetest.register_craftitem("lottother:narya", {
+minetest.register_craftitem("lottother:narya_new", {
 	description = minetest.colorize("crimson", SL("Narya\nElven Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_narya.png",
@@ -55,7 +53,7 @@ minetest.register_craftitem("lottother:narya", {
 
 --FUNCTION = Same armor stats as a full set of mithril.
 
-minetest.register_tool("lottother:nenya", {
+minetest.register_tool("lottother:nenya_new", {
 	description = minetest.colorize("silver", "Nenya\nElven Ring of Power") ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_nenya_inv.png",
@@ -67,7 +65,7 @@ minetest.register_tool("lottother:nenya", {
 
 --Dwarf Ring:
 
-minetest.register_craftitem("lottother:dwarf_ring", {
+minetest.register_craftitem("lottother:dwarf_ring_new", {
 	description = minetest.colorize("darkviolet", SL("Dragakoo\nDwarvern Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_dwarf_ring.png",
@@ -118,7 +116,7 @@ minetest.register_craft({
 })
 
 --Beast Ring
-minetest.register_craftitem("lottother:beast_ring", {
+minetest.register_craftitem("lottother:beast_ring_new", {
 	description = minetest.colorize("#47f71b", SL("Suotty\nHobbit Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_beast_ring.png",
