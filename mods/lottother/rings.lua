@@ -28,7 +28,7 @@ minetest.register_craftitem("lottother:purple_gem", {
 	description = SL("Purple Gem"),
 	inventory_image = "lottother_purplegem.png",
 	groups = {forbidden=1},
-})]]--
+})
 
 minetest.register_craft({
 	output = "lottother:ringsilver_block",
@@ -45,7 +45,7 @@ minetest.register_node("lottother:ringsilver_block", {
 	is_ground_content = true,
 	groups = {cracky=2},
 	sounds = default.node_sound_metal_defaults(),
-})
+})]]--
 
 
 
