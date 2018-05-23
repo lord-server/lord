@@ -125,9 +125,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	type = shapeless,
-	output = "quartz:quartz_crystal",
-	recipe = {"quartz:block"}
+	output = 'quartz:quartz_crystal',
+	recipe = {
+		{'quartz:block'},
+	}
 })
 	
 --
