@@ -15,7 +15,7 @@ minetest.register_craftitem("lottother:pure_gold", {
 })
 
 minetest.register_craftitem("lottother:goldsilver", {
-	description = SL("Goldsilver"),
+	description = SL("Electrum"),
 	inventory_image = "lottother_goldsilver.png",
         groups = {forbidden=1},
 })
