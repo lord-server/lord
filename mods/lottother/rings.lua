@@ -2,7 +2,7 @@ local SL = lord.require_intllib()
 
 local DWARF_RING_USES = 300
 
-minetest.register_craftitem("lottother:beast_ring", {
+--[[minetest.register_craftitem("lottother:beast_ring", {
 	description = SL("Beast Ring"),
 	inventory_image = "lottother_beast_ring.png",
 	groups = {forbidden=1},
@@ -28,6 +28,15 @@ minetest.register_craftitem("lottother:purple_gem", {
 	description = SL("Purple Gem"),
 	inventory_image = "lottother_purplegem.png",
 	groups = {forbidden=1},
+})]]--
+
+minetest.register_craft({
+	output = "lottother:ringsilver_block",
+	recipe = {
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
+	},
 })
 
 minetest.register_node("lottother:ringsilver_block", {
@@ -73,6 +82,7 @@ minetest.register_globalstep(function(dtime)
 
 end)
 
+--[[
 --FUNCTION = Makes (good) mobs follow you.
 minetest.register_craftitem("lottother:red_gem_ring", {
 	description = SL("Red Gem Ring"),
@@ -85,7 +95,7 @@ minetest.register_craftitem("lottother:red_am_ring", {
 	inventory_image = "lottother_redgem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
-})
+})]]
 minetest.register_craftitem("lottother:narya", {
 	description = SL("Narya"),
 	inventory_image = "lottother_narya.png",
@@ -94,6 +104,8 @@ minetest.register_craftitem("lottother:narya", {
 })
 --follow = "lottother:narya",
 
+
+--[[
 --FUNCTION = Same armor stats as a full set of mithril.
 minetest.register_craftitem("lottother:white_gem_ring", {
 	description = SL("White Gem Ring"),
@@ -106,7 +118,7 @@ minetest.register_craftitem("lottother:white_am_ring", {
 	inventory_image = "lottother_whitegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
-})
+})]]--
 minetest.register_tool("lottother:nenya", {
 	description = SL("Nenya"),
 	inventory_image = "lottother_nenya_inv.png",
@@ -114,15 +126,8 @@ minetest.register_tool("lottother:nenya", {
 	wear = 0,
 })
 
-minetest.register_craft({
-	output = "lottother:ringsilver_block",
-	recipe = {
-	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
-	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
-	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
-	},
-})
 
+--[[
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottother:ringsilver_lump",
@@ -162,7 +167,7 @@ minetest.register_craft({
 	{"lottores:rough_rock_lump", "lottother:blue_gem_ring", "lottores:rough_rock_lump"},
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
 	},
-})
+})]]--
 minetest.register_craft({
 	type = "cooking",
 	output = "lottother:vilya",
@@ -170,6 +175,7 @@ minetest.register_craft({
 	cooktime = 1000,
 })
 
+--[[
 minetest.register_craft({
 	output = "lottother:red_gem_ring",
 	recipe = {
@@ -212,11 +218,11 @@ minetest.register_craft({
 	output = "lottother:nenya",
 	recipe = "lottother:white_am_ring",
 	cooktime = 1000,
-})
+})]]--
 
 --OTHER RINGS
 --Mithril ring (base for Dwarf ring)
-minetest.register_craftitem("lottother:purple_gem_ring", {
+--[[minetest.register_craftitem("lottother:purple_gem_ring", {
 	description = SL("Purple Gem Ring"),
 	inventory_image = "lottother_purplegem_ring.png",
     groups = {forbidden=1},
@@ -233,14 +239,14 @@ minetest.register_craftitem("lottother:purple_am_ring", {
 	inventory_image = "lottother_purplegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
-})
+})]]--
 minetest.register_tool("lottother:dwarf_ring", {
 	description = SL("Dwarf Ring"),
 	inventory_image = "lottother_dwarf_ring.png",
 	groups = {forbidden=1},
 })
 
-minetest.register_craft({
+--[[minetest.register_craft({
 	output = "lottother:purple_gem_ring",
 	recipe = {
 	{"lottother:purple_gem"},
@@ -268,7 +274,7 @@ minetest.register_craft({
 	output = "lottother:dwarf_ring",
 	recipe = "lottother:purple_am_ring",
 	cooktime = 1000,
-})
+})]]--
 
 local lumps = {
 	-- ["name"] = level,
