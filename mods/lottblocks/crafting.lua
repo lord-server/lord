@@ -300,3 +300,8 @@ lottblocks.crafting.add_craft("default:bronze_ingot 2", {
 	recipe = {"lottores:tin_lump", "default:copper_lump"},
 	type = "dualfurn"
 })
+
+lottblocks.crafting.add_craft("lottores:galvorn_ingot", {
+	recipe = {"lottores:lead_ingot", "default:mese_crystal"},
+	type = "dualfurn",
+})
