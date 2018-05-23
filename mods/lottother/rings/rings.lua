@@ -15,6 +15,12 @@ minetest.register_alias("lottother:purple_gem_mithril_ring", "lottother:purple_a
 minetest.register_alias("lottother:ringsilver_lump", "lottother:ringsilver")
 minetest.register_alias("lottother:ringsilver_ingot", "lottother:ringsilver")
 
+--[[minetest.register_alias("lottother:vilya", "lottother:blue_gem_ring")
+minetest.register_alias("lottother:narya", "lottother:red_gem_ring")
+minetest.register_alias("lottother:nenya", "lottother:white_gem_ring")
+minetest.register_alias("lottother:dwarf_ring", "lottother:purple_gem_ring")
+minetest.register_alias("lottother:beast_ring", "lottother:beast_ring_new")]]--
+
 local SL = lord.require_intllib()
 
 --ELF RINGS

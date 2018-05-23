@@ -5,19 +5,19 @@ local SL = lord.require_intllib()
 minetest.register_craftitem("lottother:pure_silver", {
 	description = SL("Pure Silver"),
 	inventory_image = "lottother_pure_silver.png",
-        groups = {forbidden=1},
+    groups = {forbidden=1},
 })
 
 minetest.register_craftitem("lottother:pure_gold", {
 	description = SL("Pure Gold"),
-        inventory_image = "lottother_pure_gold.png",
-        groups = {forbidden=1},
+	inventory_image = "lottother_pure_gold.png",
+    groups = {forbidden=1},
 })
 
 minetest.register_craftitem("lottother:goldsilver", {
 	description = SL("Electrum"),
 	inventory_image = "lottother_goldsilver.png",
-        groups = {forbidden=1},
+    groups = {forbidden=1},
 })
 
 -- Crafts
