@@ -241,6 +241,9 @@ for _, nn in pairs({"active", "inactive"}) do
 			timer:start(1.0)
 		end,
 		allow_metadata_inventory_put = function(pos, listname, index, stack, player)
+			if minetest.is_protected(pos, player:get_player_name()) then
+  				return 0
+  			end
 			if listname == "fuel" then
 				if minetest.get_craft_result({method="fuel", width=1, items={stack}}).time ~= 0 then
 					return stack:get_count()
@@ -254,6 +257,9 @@ for _, nn in pairs({"active", "inactive"}) do
 			end
 		end,
 		allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+			if minetest.is_protected(pos, player:get_player_name()) then
+  				return 0
+  			end
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			if to_list == "fuel" then
@@ -266,6 +272,12 @@ for _, nn in pairs({"active", "inactive"}) do
 			else
 				return count
 			end
+		end,
+		allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+ 			if minetest.is_protected(pos, player:get_player_name()) then
+  				return 0
+  			end
+  			return stack:get_count()
 		end,
 	})
 end
