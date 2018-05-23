@@ -728,12 +728,6 @@ stairs.register_stair_and_slab("galvorn_block", "lottores:galvorn_block",
 	recipe = {"lottores:lead_ingot", "default:mese_crystal"}
 })]]--
 
-lottblocks.crafting.add_craft("lottores:galvorn_ingot", {
-	recipe = {"lottores:lead_ingot", "default:mese_crystal"},
-	type = "dualfurn",
-})
-
-
 minetest.register_craft({
 	output = 'lottores:tilkal',
 	recipe = {
