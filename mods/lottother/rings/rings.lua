@@ -127,7 +127,7 @@ minetest.register_craft({
 
 --Beast Ring
 minetest.register_craftitem("lottother:beast_ring_new", {
-	description = minetest.colorize("Goldenrod", SL("Suotty\nHuman Ring of Power")) ..
+	description = minetest.colorize("goldenrod", SL("Suotty\nHuman Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_beast_ring.png",
 	stack_max = 1,
