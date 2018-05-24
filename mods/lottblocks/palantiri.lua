@@ -122,7 +122,7 @@ minetest.register_privilege("palantiri", {
 })
 
 minetest.register_node("lottblocks:palantir", {
-	description = SL("Palantir"),
+	description = minetest.colorize("mediumpurple", SL("Palantir")),
 	tiles = {"default_obsidian.png"},
 	paramtype = "light",
 	drawtype = "mesh",
