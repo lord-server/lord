@@ -1,26 +1,3 @@
---Aliases(TODO:переместить в legacy):
-minetest.register_alias("lottores:blue_gem_ore", "lottother:blue_gem_ore")
-minetest.register_alias("lottores:red_gem_ore", "lottother:red_gem_ore")
-minetest.register_alias("lottores:white_gem_ore", "lottother:white_gem_ore")
-
-minetest.register_alias("lottores:blue_gem", "lottother:blue_gem")
-minetest.register_alias("lottores:red_gem", "lottother:red_gem")
-minetest.register_alias("lottores:white_gem", "lottother:white_gem")
-
-minetest.register_alias("lottother:blue_am_ring", "lottother:blue_rr_ring")
-minetest.register_alias("lottother:red_am_ring", "lottother:red_rr_ring")
-minetest.register_alias("lottother:white_am_ring", "lottother:white_rr_ring")
-
-minetest.register_alias("lottother:purple_gem_mithril_ring", "lottother:purple_am_ring")
-minetest.register_alias("lottother:ringsilver_lump", "lottother:ringsilver")
-minetest.register_alias("lottother:ringsilver_ingot", "lottother:ringsilver")
-
-minetest.register_alias("lottother:vilya", "lottother:blue_gem_ring")
-minetest.register_alias("lottother:narya", "lottother:red_gem_ring")
-minetest.register_alias("lottother:nenya", "lottother:white_gem_ring")
-minetest.register_alias("lottother:dwarf_ring", "lottother:purple_gem_ring")
-minetest.register_alias("lottother:beast_ring", "lottother:beast_ring_new")
-
 local SL = lord.require_intllib()
 
 --ELF RINGS
