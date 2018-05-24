@@ -1,127 +1,198 @@
-return "return {[\"background\"] = \"gui_rohanbg.png\", " ..
-	"[\"title\"] = \"Concerning the Rings of Power\"," ..
-	"[\"page_max\"] = 19, [\"text_len\"] = 8622, [\"owner\"] = \"An Elven Smith\"," ..
-	"[\"text\"] = \"When certain materials are bound together, and\\\nunited into " ..
-	"a single, cohesive new material, certain\\\nchanges take place, not only in " ..
-	"their physical\\\nstructure but also in their capabilities and uses.\\\n\\\n" ..
-	"Having spent many years working on these\\\nconcepts, with the help and guidance " ..
-	"of Annatar,\\\nthe kindly lord of gifts, we, the elves, have come to\\\na great " ..
-	"understanding of these matters, in regards\\\nto a few, particular materials. " ..
-	"From this knowledge,\\\nwe have been able to devise objects of great\\\npower, " ..
-	"unknown to our land until this time, objects\\\nwhich have been seen only " ..
-	"among the Valar.\\\nOur knowledge concerns, in particular, gold, silver,\\\n" ..
-	"and gems, fashioned into the form of rings.  So that\\\nthis knowledge might " ..
-	"be passed on to the future\\\nand to posterity, I have determined that it is\\\n" ..
-	"necessary for me to write about  the process\\\nthrough which these objects are " ..
-	"made.\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\nRINGSILVER\\\n" ..
-	"---------------------------------------------------------------------\\\n" ..
-	"The first steps involve the preparation of ringsilver,\\\nout of which the " ..
-	"ring is formed. First, normal ingots\\\nof gold and silver, which even the " ..
-	"dwarves\\\nconsider to be pure, must be taken, and purified\\\nfurther, so " ..
-	"that there are no impurities left in them.\\\nThis is done simply by heating " ..
-	"a gold or silver\\\ningot over a normal fire, and leaving it there for a\\\n" ..
-	"longer time. After this, the two pure ingots must be\\\nheated up, and " ..
-	"combined into goldsilver, in a\\\nfurnace like that used for bronze, made " ..
-	"of a normal\\\nfurnace, with iron above, and to both sides of it.\\\nAfter " ..
-	"several goldsilver ingots have been made,\\\nthey can be smelted, in a " ..
-	"special furnace with\\\nmithril, over a fire which has had rough rock added\\\n" ..
-	"to it. This furnace is made by surrounding a normal\\\nfurnace in obsidian, " ..
-	"so as to prevent it from setting\\\nnearby things on fire. When the ringsilver " ..
-	"has been\\\ncooked, it will appear on top of the furnace,\\\npropelled out by " ..
-	"the force of the blast which\\\nhappens when the materials combine. \\\n\\\n" ..
-	"The ringsilver will be very hot, and must be cooled\\\ndown in natural " ..
-	"seawater, within ten seconds, in\\\norder for it to form the correct structure. " ..
-	"Then, you\\\nhave ringsilver, the basis of the ring!" ..
-	"\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\nRINGS\\\n" ..
-	"----------------------------------------------------------------------\\\n" ..
-	"Out of the ringsilver, you can then form a ring. This\\\nis not easy, " ..
-	"despite sounding so. The ring formed\\\nmust be perfect in shape, and therefore, " ..
-	"cannot be\\\nformed in one step.\\\n\\\nFirst, two ingots of ringsilver must be " ..
-	"taken, and\\\nplaced together in the dual furnace, which was\\\nused to combine " ..
-	"the gold and silver earlier. Then,\\\nthe ingots will fuse together, forming a " ..
-	"quarter of a\\\nring. However, they may not form in the correct\\\nshape, and " ..
-	"will melt in the ashes of the fire. When\\\ntwo of these have been obtained, " ..
-	"they must be\\\nsmelted in a fire, in order to obtain a half ring.\\\nAgain, " ..
-	"the join between these two pieces may be\\\nimperfect, and so will be discarded. " ..
-	"When two half\\\nrings have been obtained, they must be smelted,\\\nagain, with " ..
-	"the chance of failure, to produce a\\\nwhole ring.\\\n\\\nAfter the ring has " ..
-	"been made, it must be prepared\\\nin order that a gem might be set in it. " ..
-	"First, two pins\\\nmust be crafted out of ringsilver, one ingot of which\\\n " ..
-	"produces both pins necessary, and then, the pins\\\nmust be added to the ring, " ..
-	"one above and to the\\\nleft, the other above and two the right.\\\n\\\nAfter " ..
-	"this has been done, the ring is ready to be\\\ncombined with the gem, the " ..
-	"preparation of which\\\nI shall now discuss." ..
-	"\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\nGEMS\\\n" ..
-	"----------------------------------------------------------------------\\\n" ..
-	"In the depths of the earth, certain gems of various\\\ncolours can be found. " ..
-	"These gems require a\\\ncomplex process, fraught with the risk of them\\\n" ..
-	"breaking, before they can be added to the ring.\\\n\\\nEven the first step of" ..
-	"mining these gems out is not\\\neasy. Normal pickaxes cannot dig them, because" ..
-	"\\\nthe stone in which they are encased is so hard.\\\nA mithril pickaxe is " ..
-	"required, but it must also have\\\nrough rock added to it, in order to give it " ..
-	"some\\\nchance of having the gems survive the mining\\\nprocess. Three rough " ..
-	"rock should be placed\\\nabove a mithril pickaxe, one directly above, one to" ..
-	"\\\nthe left, one to the right. Even with this pickaxe, it is\\\nstill rare to " ..
-	"obtain a gem from the ore.\\\n\\\nWhen you have obtained several gems, and you" ..
-	"\\\nmust have several, for you will not complete the\\\nprocess without breaking " ..
-	"some, you can begin on\\\nthe next stages of preparing the gem. The gem\\\nwhich " ..
-	"you receive from the ore will be encrusted in\\\nstone, which needs to be removed. " ..
-	"This can be\\\ndone by smelting the gem in a normal furnace,\\\nwhich will return " ..
-	"an uncut gem.\\\nThis new gem must be cut, with a chisel, in order\\\nto shape " ..
-	"it for the ring. This is a simple enough\\\ntask, but the gems all too often " ..
-	"does not survive it,\\\nand the chisel can only withstand a few uses. To\\\n" ..
-	"make the chisel, a stick must be place in the\\\nbottom left corner of the grid, " ..
-	"and then, an ingot of\\\nsteel must be placed in the middle. To the right\\\n" ..
-	"and above that, an ingot of mithril must be placed,\\\nand this will form a" ..
-	"chisel. This should then be\\\ncrafted with an uncut gem, and if your hand is" ..
-	"\\\nsteady, and the structure of the gem sound, the\\\ngem will be successfully " ..
-	"cut.\\\n\\\nBut even then the process is not complete, and\\\nthere remains one " ..
-	"final step. The gem must be\\\npolished, and this can be done by surrounding it" ..
-	"\\\nwith sand. This can expose more flaws, leading to\\\nthe gem falling apart. " ..
-	"But, if everything is\\\nsuccessful, then you will have a gem which is ready\\\n" ..
-	"to be combined with the ring.\\\n\\\n\\\n\\\n\\\n\\\n\\\nRINGS OF POWER\\\n" ..
-	"----------------------------------------------------------------------\\\n" ..
-	"Now, you should have a ring and a gem prepared,\\\nand ready to be combined, " ..
-	"and have the new\\\nproperties added to the materials.\\\n\\\nFirst, the cut, " ..
-	"polished gem must be combined with\\\nthe prepared ring in the dual furnace. " ..
-	"The bond\\\nbetween the gem and the ring may fail, spoiling\\\nboth of them. " ..
-	"But hopefully, the ring and the gem\\\nwill flawlessly fuse together, creating " ..
-	"a united\\\nwhole, which cannot be separated.\\\n\\\nAfter the gem has been " ..
-	"fused to the ring, then they\\\nmust undergo the change of properties. This " ..
-	"has\\\ntwo main steps.\\\n\\\nFirst, the ring must be surrounded with rough " ..
-	"rock. This must then be smelted in a very special\\\nfurnace, along with " ..
-	"certain other materials. The\\\nspecial furnace is made in the following way:" ..
-	"\\\nA ringsliver furnace (mentioned above) is placed in\\\nthe middle. Below, " ..
-	"to the right and left of this are\\\nplaced blocks of tilkal. Directly above " ..
-	"and below\\\nthe ringsilver furnace are placed blocks of mithril.\\\nAbove, " ..
-	"to the right and left of it, are placed galvorn\\\nblocks, and finally, to " ..
-	"each side of it are placed\\\nblocks of steel.\\\n\\\nThis complex structure " ..
-	"is necessary not only to\\\nboth absorb and retain heat, but also, the " ..
-	"materials\\\nthemselves contribute to the changing of the\\\nproperties " ..
-	"of the rings.\\\n\\\nWhen this furnace has been built, it cannot simply" ..
-	"\\\nbe placed down. Under it, you must place a three\\\nby three square of " ..
-	"lava, and the furnace must rest\\\nin the middle of this, directly above the lava." ..
-	"\\\n\\\nWhen the furnace has been placed, in it must be\\\nput the ring, " ..
-	"surrounded in rough rock, one block\\\nof mithril, one block of tilkal and " ..
-	"one block of\\\ngalvorn, along with plenty of fuel. It will take two\\\ndays " ..
-	"and one night for the materials to have mixed,\\\nand the ring to be imbued " ..
-	"with its power.\\\n\\\nWhen the days and night have passed, stand well\\\nback " ..
-	"from the furnace. If the ring has been\\\nsuccessfully made, there will be an " ..
-	"explosion\\\npowerful enough to kill nearly everything within\\\na large " ..
-	"distance from the furnace, which will leave\\\na large crater, at the bottom " ..
-	"of which, you will find the ring. If, however, the ring is not successfully\\\n " ..
-	"made, then there will a smaller explosion, but still\\\npowerful, and the " ..
-	"ring will not be formed.\\\n\\\nIf all is successful, then you will have a ring " ..
-	"of\\\npower!\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\n\\\nCONCLUSION\\\n" ..
-	"----------------------------------------------------------------------\\\n" ..
-	"The rings of power are complex things, and the\\\nprocess of making them is " ..
-	"also complex. It\\\nrequires time, patience and a good quanity of\\\nresources. " ..
-	"We did not discover this process at one\\\nsingle time, but rather, it took " ..
-	"place over a long\\\nperiod of time, with slow steps of discovery, and\\\nmuch " ..
-	"experimentation with various materials. You,\\\ntherefore, unknown reader, " ..
-	"have a large\\\nadvantage over us, with the process written out, I\\\nhope " ..
-	"with clarity enough so that it is easy to follow.\\\n\\\nAs a final note, " ..
-	"there is only one way in which\\\nthese rings can be destroyed. They " ..
-	"must be\\\nthrown into lava, after which you are advised to \\\nretreat " ..
-	"a fair distance, for the death of the ring is\\\neven more explosive that " ..
-	"its birth was.\\\n\\\nFarewell, and good luck to you, unknown reader!\"}"
+return "return {[\"background\"] = \"gui_bookbg.png\", " ..
+	"[\"title\"] = \"Овладевая Силами Колец\"," ..
+	"[\"page_max\"] = 15, [\"text_len\"] = 8622, [\"owner\"] = \"Эльфийский Кузнец\"," ..
+	"[\"text\"] = "..
+	"'					ВВЕДЕНИЕ \\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	Когда разные материалы сливаются друг с другом\\\n" ..
+	"и объединяются в единый связанный определенной\\\n" ..
+	"структурой новый материал, происходят изменения\\\n" ..
+	"не только в его физических свойствах, но и в\\\n" ..
+	"возможностях его использования. Проведя много лет,\\\n" ..
+	"развивая эту идею под руководством Аннатара,\\\n" ..
+	"любезного Лорда Даров, мы, эльфы, достигли высокого\\\n" ..
+	"уровня понимания вопросов в отношении некоторых\\\n" ..
+	"материалов. Мы смогли изобрести предметы великой\\\n" ..
+	"силы благодаря этим знаниям. Они касаются, в\\\n" ..
+	"частности, золота, серебра и драгоценных камней,\\\n" ..
+	"выделанных по форме колец. Чтобы эти знания могли\\\n" ..
+	"быть переданы будущему поколению, мы решили, что\\\n" ..
+	"следует написать о процессе создания этих предметов.\\\n" ..
+	"\\\n" ..
+	"\\\n" ..
+	"				Ювелирное Серебро\\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	Первые шаги включают подготовку кольца, из \\\n" ..
+	"которого образуется кольцо власти. Во-первых, \\\n" ..
+	"простые слитки золота и серебра, которые обычно \\\n" ..
+	"считают чистыми, должны быть очищены еще сильнее,\\\n" ..
+	"чтобы в них не осталось никаких примесей. Это \\\n" ..
+	"делается просто путем нагревания слитка золота \\\n" ..
+	"или серебра над обыкновенным огнем в печи и томления \\\n" ..
+	"его там в течение длительного времени. После\\\n" ..
+	"этого два чистых слитка должны быть нагреты \\\n" ..
+	"и объединены в специальной печи, используемой для бронзы.\\\n" ..
+	"В результате этого вы получите электрум. \\\n" ..
+	"\\\n" ..
+	"	После того, как было изготовленно несколько слитков \\\n" ..
+	"электрума, их можно плавить в специальной печи \\\n" ..
+	"с мифрилом над огнем с добавлением куска грубой\\\n" ..
+	"скалы. Когда ювелирное серебро будет приготовлено, \\\n" ..
+	"оно появится поверх печи, выталкиваемое силой взрыва,\\\n" ..
+	"возникающей при слиянии двух материалов. Этот сплав\\\n" ..
+	"получится очень горячим и должен быть охлажден в \\\n" ..
+	"естественной морской воде в течение пяти секунд, \\\n" ..
+	"чтобы он сформировал правильную структуру. Только\\\n" ..
+	"тогда вы получите ювелирное серебро — основу кольца.\\\n" ..
+	"\\\n" ..
+	"						КОЛЬЦА\\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	Из ювелирного серебра следует изготовить кольцо.\\\n" ..
+	"Это не так легко, как звучит. Отливаемое кольцо\\\n" ..
+	"должно быть совершенным по форме и, следовательно,\\\n" ..
+	"не может быть собрано в один шаг. Сначала два \\\n" ..
+	"слитка ювелирного серебра должны быть помещены \\\n" ..
+	"вместе в двойную печь, которая ранее использовалась \\\n" ..
+	"для сплавления золота и серебра. Слитки сольются \\\n" ..
+	"воедино, образуя четверть кольца. Однако они могут \\\n" ..
+	"получиться неправильной формы и их придется выбросить \\\n" ..
+	"в огонь. Когда две четверти были получены, их следует \\\n" ..
+	"сварить вместе, чтобы получить полукольцо. Опять же, \\\n" ..
+	"деталь может получится непригодным для дальнейшего \\\n" ..
+	"использования. Когда получены два полукольца, они \\\n" ..
+	"должны быть сварены, опять же, с шансом брака, в одно \\\n" ..
+	"цельное кольцо.\\\n" ..
+	"\\\n" ..
+	"	После того, как кольцо было собрано, оно должно \\\n" ..
+	"быть подготовлено для установки драгоценного камня. \\\n" ..
+	"Нужно изготовить два штифта из одного слитка ювелирного\\\n" ..
+	"серебра, а затем присоеденить к кольцу, один сверху \\\n" ..
+	"слева, другой сверху справа. После этого кольцо будет\\\n" ..
+	"готово к объединению с драгоценным камнем, подготовку \\\n" ..
+	"которого я сейчас опишу.\\\n" ..
+	"\\\n" ..
+	"\\\n" ..
+	"					ДРАГОЦЕННЫЕ КАМНИ\\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	В глубинах земли можно найти драгоценные камни\\\n" ..
+	"трех цветов. Эти драгоценные камни требуют сложного\\\n" ..
+	"процесса подготовки, чреватого риском раскола кристалла.\\\n" ..
+	"Даже первый шаг добычи этих драгоценных камней непрост.\\\n" ..
+	"Обыкновенные кирки не могут их выкопать, потому что \\\n" ..
+	"камень, в который они заключены, очень тверд. Для этой \\\n" ..
+	"цели требуется мифриловая кирка, но она должна иметь в \\\n" ..
+	"своем составе три куска грубого камня, чтобы обеспечить\\\n" ..
+	"шанс сохранения целосности кристалла в процессе добычи. \\\n" ..
+	"Даже с этой киркой лишь с небольшим шансом можно получить\\\n" ..
+	"драгоценный камень из руды. \\\n" ..
+	"\\\n" ..
+	"	Когда вы добыли несколько драгоценных камней,\\\n" ..
+	"(именно несколько, на случай раскола кристалла при его \\\n" ..
+	"обработке) вы можете начать следующие этапы подготовки \\\n" ..
+	"драгоценного камня. Кристалл, который вы получаете из\\\n" ..
+	"руды, будет содержать куски обычного камня, которые \\\n" ..
+	"необходимо удалить. Это можно сделать плавлением куска \\\n" ..
+	"руды в обычной печи, которая оставит неограненный камень. \\\n" ..
+	"\\\n" ..
+	"	Затем этому камню нужно придать необходимую для \\\n" ..
+	"кольца форму с помощью долота. Это довольно простая задача, \\\n" ..
+	"но драгоценные камни слишком часто не выдерживают этого, \\\n" ..
+	"да и долото годится только для нескольких применений. \\\n" ..
+	"Чтобы сделать долото, в нижнем левом углу сетки должна \\\n" ..
+	"быть установлена ​​палка, а затем в середине должен быть \\\n" ..
+	"положен ​​слиток мифрила. В верхнем левом углу сетки \\\n" ..
+	"должен быть помещен слиток стали, и это сформирует \\\n" ..
+	"долото. С помощью него вам нужно огранить драгоценный \\\n" ..
+	"камень. Если ваша рука не будет делать лишних резких \\\n" ..
+	"движений и структура драгоценного камня окажется \\\n" ..
+	"без изъянов, ваш драгоценный камень будет успешно \\\n" ..
+	"огранен. \\\n" ..
+	"\\\n" ..
+	"	Но даже тогда обработка не будет завершена и \\\n" ..
+	"останется последний шаг. Кристалл должен быть \\\n" ..
+	"отполирован. Это можно сделать, окружив его песком \\\n" ..
+	"в сетке крафта. Этот процесс может выявить еще больше \\\n" ..
+	"недостатков, что приведет к расколу драгоценного камня. \\\n" ..
+	"И если все пройдет успешно, у вас будет драгоценный \\\n" ..
+	"камень, который будет готов стать одним целым с кольцом.\\\n" ..
+	"\\\n" ..
+	"	Но сказанное ранее верно только для трех видов \\\n" ..
+	"камней: для адаманта, рубина и танзанита. Четвертый же \\\n" ..
+	"должен быть создан искусственно. Мы, эльфы, называем \\\n" ..
+	"его ильванитом (от Ilvana, что переводится с Квенья \\\n" ..
+	"как совершенный). Ильванит - кристалл фиолетового\\\n" ..
+	"цвета, имеющий совершенную кристаллическую структуру. \\\n" ..
+	"Чтобы создать этот камень необходимо получить кварц из\\\n" ..
+	"песка путем его обработки в обыкновенной печи, а затем \\\n" ..
+	"слить воедино с неограненным кристаллом танзанита. \\\n" ..
+	"Сделав это вы получите неограненный ильванит. Возможен и \\\n" ..
+	"шанс неудачи, поскольку кварц может слиться с танзанитом\\\n" ..
+	"неправильно и оба кристалла испарятся. Если вам повезет,\\\n" ..
+	"начните огранку, а затем полировку в соответствии с \\\n" ..
+	"приведенным выше алгоритмом действий.\\\n" ..
+	"\\\n" ..
+	"\\\n" ..
+	"					КОЛЬЦА ВЛАСТИ\\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	Теперь у вас должно быть подготовленное кольцо \\\n" ..
+	"и драгоценный камень, готовые к объединению. Сперва, \\\n" ..
+	"отполированный ограненный кристалл следует вставить в\\\n" ..
+	"подготовленное кольцо используя двойную печь. Слияние \\\n" ..
+	"драгоценного камня и кольца может пойти не по плану, \\\n" ..
+	"испортив их обоих. Но, надеюсь, кольцо и драгоценный \\\n" ..
+	"камень будут безупречно соеденены вместе, создавая одно \\\n" ..
+	"неразделимое целое. \\\n" ..
+	"\\\n" ..
+	"	После того, как драгоценный камень был слит с \\\n" ..
+	"кольцом, они должны подвергнуться изменению свойств их \\\n" ..
+	"материалов. Это происходит в два шага. Сперва кольцо \\\n" ..
+	"следует окружить кусками грубой скалы. Затем его необходимо \\\n" ..
+	"плавить в специальной печи вместе с некоторыми другими\\\n" ..
+	"материалами. Сложная структура печи необходима не только \\\n" ..
+	"для поглощения и сохранения тепла, но также важны и сами \\\n" ..
+	"ее материалы, способствующие изменению свойств колец. \\\n" ..
+	"\\\n" ..
+	"	Когда эта печь будет готова, ее нельзя просто \\\n" ..
+	"поставить. Под ней нужно разместить квадрат из блоков \\\n" ..
+	"лавы со сторонами три на три, а печь должна находиться \\\n" ..
+	"посреди него, прямо над центральным блоком лавы. Когда \\\n" ..
+	"печь была помещена, в нее должно быть положено кольцо, \\\n" ..
+	"окруженное грубой скалой, один блок мифрила, один блок \\\n" ..
+	"тилкала и один блок галворна вместе с большим количеством \\\n" ..
+	"топлива. \\\n" ..
+	"\\\n" ..
+	"	Пройдет много времени пока материалы окончательно \\\n" ..
+	"смешаются, а кольцо будет наполнено их могуществом. По его \\\n" ..
+	"окончанию достаньте кольцо из печи. Если кольцо было успешно \\\n" ..
+	"приготовленно, произойдет взрыв, достаточно мощный, чтобы убить \\\n" ..
+	"почти все живое на довольно большом расстоянии от печи. Из-за \\\n" ..
+	"взрыва образуется большой кратер, на дне которого вы найдете \\\n" ..
+	"кольцо. Если, же не все пройдет гладко, тогда будет уже \\\n" ..
+	"не такой большой взрыв, но все же мощный, и кольцо, увы, не \\\n" ..
+	"получится. Если же все будет успешно, у вас будет кольцо \\\n" ..
+	"власти!\\\n" ..
+	"\\\n" ..
+	"\\\n" ..
+	"\\\n" ..
+	"					ЗАКЛЮЧЕНИЕ\\\n" ..
+	"--------------------------------------------------\\\n" ..
+	"	Кольца власти - сложные вещи, и процесс их \\\n" ..
+	"создания является таким же сложным. Он требует времени, \\\n" ..
+	"терпения и большого количества ресурсов. Мы не \\\n" ..
+	"открыли этот процесс за один раз, а, скорее,\\\n" ..
+	"открытие происходило в течение длительного времени, с\\\n" ..
+	"медленными этапами познания и многими экспериментами\\\n" ..
+	"с различными материалами. У вас, неизвестный читатель,\\\n" ..
+	"есть большое преимущество перед нами - вы имеете \\\n" ..
+	"описанный по порядку процесс. Я надеюсь, он достаточно \\\n" ..
+	"ясен, чтобы можно было самому изготовить кольцо. \\\n" ..
+	">>>\\\n" ..
+	"	Скажу напоследок: есть только один способ, \\\n" ..
+	"которым эти кольца могут быть уничтожены. Их нужно \\\n" ..
+	"бросить в лаву, после чего рекомендуется отступить \\\n" ..
+	"на безопасное расстояние, потому что смерть кольца еще\\\n" ..
+	"более взрывоопасна, чем его рождение. Удачи, и прощай, \\\n" ..
+	"неизвестный читатель!\\\n" ..
+	"\\\n" ..
+	"								Искренне ваш,\\\n" ..
+	"						Эльфийский Кузнец, Тануавель'}"
