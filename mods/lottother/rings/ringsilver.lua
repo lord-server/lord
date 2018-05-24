@@ -88,7 +88,7 @@ minetest.register_craftitem("lottother:hot_ringsilver", {
 				if pos ~= nil then
 					local node = minetest.get_node(pos).name
 					ent:remove()
-					if node == "default:water_source" and os.time() - tonumber(metadata) <= 13 then
+					if node == "default:water_source" and --[[Из-за этого крашится игра]] --[[os.time() - tonumber(metadata) <= 13]] then
 						minetest.add_item(pos, "lottother:ringsilver")
 					end
 					-- Сначало нужно впендюрить эту ачивку
