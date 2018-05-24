@@ -15,11 +15,11 @@ minetest.register_alias("lottother:purple_gem_mithril_ring", "lottother:purple_a
 minetest.register_alias("lottother:ringsilver_lump", "lottother:ringsilver")
 minetest.register_alias("lottother:ringsilver_ingot", "lottother:ringsilver")
 
---[[minetest.register_alias("lottother:vilya", "lottother:blue_gem_ring")
+minetest.register_alias("lottother:vilya", "lottother:blue_gem_ring")
 minetest.register_alias("lottother:narya", "lottother:red_gem_ring")
 minetest.register_alias("lottother:nenya", "lottother:white_gem_ring")
 minetest.register_alias("lottother:dwarf_ring", "lottother:purple_gem_ring")
-minetest.register_alias("lottother:beast_ring", "lottother:beast_ring_new")]]--
+minetest.register_alias("lottother:beast_ring", "lottother:beast_ring_new")
 
 local SL = lord.require_intllib()
 
@@ -31,6 +31,7 @@ minetest.register_craftitem("lottother:vilya_new", {
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_vilya.png",
 	groups = {forbidden=1},
+	stack_max = 1,
 })
 local time = 0
 minetest.register_globalstep(function(dtime)
@@ -53,6 +54,7 @@ minetest.register_craftitem("lottother:narya_new", {
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_narya.png",
 	groups = {forbidden=1},
+	stack_max = 1,
 })
 --In mob def:
 --follow = "lottother:narya",
@@ -63,7 +65,8 @@ minetest.register_tool("lottother:nenya_new", {
 	description = minetest.colorize("silver", "Nenya\nElven Ring of Power") ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_nenya_inv.png",
-	groups = {armor_head=15, armor_torso=20, armor_legs=20, armor_feet=15, armor_shield=25,forbidden=1},
+	stack_max = 1,
+	groups = {armor_shield=90,forbidden=1},
 	wear = 0,
 })
 
@@ -75,6 +78,7 @@ minetest.register_craftitem("lottother:dwarf_ring_new", {
 	description = minetest.colorize("darkviolet", SL("Dragakoo\nDwarvern Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_dwarf_ring.png",
+	stack_max = 1,
 	groups = {forbidden=1},
 })
 
@@ -123,8 +127,9 @@ minetest.register_craft({
 
 --Beast Ring
 minetest.register_craftitem("lottother:beast_ring_new", {
-	description = minetest.colorize("#47f71b", SL("Suotty\nHobbit Ring of Power")) ..
+	description = minetest.colorize("Goldenrod", SL("Suotty\nHuman Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_beast_ring.png",
+	stack_max = 1,
 	groups = {forbidden=1},
 })
