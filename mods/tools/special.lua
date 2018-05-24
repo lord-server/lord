@@ -28,6 +28,20 @@ minetest.register_tool("tools:sword_orc", {
 	groups = {steel_item = 1},
 })
 
+minetest.register_tool("tools:melkor_pick", {
+	description = SL("Melkor Pickaxe"),
+	inventory_image = "tools_melkor_pick.png",
+	tool_capabilities = {
+		full_punch_interval = 1.3,
+		max_drop_level=1,
+		groupcaps={
+			hard = {times={[1]=7.5}, uses=50, maxlevel=3}
+		},
+		damage_groups = {fleshy=5},
+	},
+	groups = {forbidden = 1},
+})
+
 minetest.register_craft({
 	output = 'tools:sword_elven',
 	recipe = {
@@ -51,6 +65,15 @@ minetest.register_craft({
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot', ''},
 		{'', 'default:steel_ingot', ''},
+		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
+	output = 'tools:melkor_pick',
+	recipe = {
+		{'lottores:mithril_ingot', 'lottores:tilkal', 'lottores:mithril_ingot'},
+		{'', 'group:stick', ''},
 		{'', 'group:stick', ''},
 	}
 })
