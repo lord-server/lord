@@ -100,6 +100,7 @@ end
 minetest.register_tool("defaults:ghost_tool", {
 	description = "Призрачный посох",
 	inventory_image = "ghost_tool.png",
+	wield_scale = {x=2, y=2, z=1},
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
 		local creative = minetest.settings:get_bool("creative_mode")
