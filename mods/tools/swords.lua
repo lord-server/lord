@@ -12,6 +12,7 @@ tools.sword = {
 		description = SL("Wooden Sword"),
 		full_punch_interval = 2,
 		max_drop_level = 0,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[2]=1.6, [3]=0.40},
 			uses=10,
@@ -24,6 +25,7 @@ tools.sword = {
 		description = SL("Stone Sword"),
 		full_punch_interval = 1.5,
 		max_drop_level = 0,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[2]=1.4, [3]=0.40},
 			uses=20,
@@ -35,6 +37,7 @@ tools.sword = {
 		description = SL("Steel Sword"),
 		full_punch_interval = 1.05,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.5, [2]=1.20, [3]=0.35},
 			uses=30,
@@ -47,6 +50,7 @@ tools.sword = {
 		description = SL("Bronze Sword"),
 		full_punch_interval = 0.9,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.5, [2]=1.20, [3]=0.35},
 			uses=40,
@@ -59,6 +63,7 @@ tools.sword = {
 		description = SL("Copper Sword"),
 		full_punch_interval = 1.25,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.5, [2]=1.20, [3]=0.35},
 			uses=30,
@@ -71,6 +76,7 @@ tools.sword = {
 		description = SL("Tin Sword"),
 		full_punch_interval = 1.25,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.5, [2]=1.20, [3]=0.35},
 			uses=35,
@@ -83,6 +89,7 @@ tools.sword = {
 		description = SL("Silver Sword"),
 		full_punch_interval = 1,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.3, [2]=1.10, [3]=0.35},
 			uses=30,
@@ -95,6 +102,7 @@ tools.sword = {
 		description = SL("Gold Sword"),
 		full_punch_interval = 0.75,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.3, [2]=1.10, [3]=0.35},
 			uses=40,
@@ -107,6 +115,7 @@ tools.sword = {
 		description = SL("Galvorn Sword"),
 		full_punch_interval = 0.5,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=2.0, [2]=1.00, [3]=0.35},
 			uses=40,
@@ -119,6 +128,7 @@ tools.sword = {
 		description = SL("Mithril Sword"),
 		full_punch_interval = 0.25,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		snappy = {
 			times={[1]=0.70, [2]=0.80, [3]=0.25},
 			uses=80,
