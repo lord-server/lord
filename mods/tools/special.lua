@@ -6,6 +6,7 @@ minetest.register_tool("tools:sword_elven", {
 	tool_capabilities = {
 		full_punch_interval = 0.25,
 		max_drop_level=2,
+		wield_scale = {x=2, y=2, z=1},
 		groupcaps={
 			snappy={times={[1]=1.60, [2]=1.30, [3]=0.90}, uses=50, maxlevel=3},
 		},
@@ -20,6 +21,7 @@ minetest.register_tool("tools:sword_orc", {
 	tool_capabilities = {
 		full_punch_interval = 0.75,
 		max_drop_level=2,
+		wield_scale = {x=2, y=2, z=1},
 		groupcaps={
 			snappy={times={[1]=2.25, [2]=1.80, [3]=1.30}, uses=17, maxlevel=3},
 		},
