@@ -18,6 +18,7 @@ tools.axe = {
 		description = SL("Wooden Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times = {[3]=2.00},
 			uses = 10,
@@ -30,6 +31,7 @@ tools.axe = {
 		description = SL("Stone Axe"),
 		full_punch_interval = 1.2,
 		max_drop_level = 0,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[2]=2.00, [3]=1.50},
 			uses=20,
@@ -41,6 +43,7 @@ tools.axe = {
 		description = SL("Steel Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.50, [2]=1.40, [3]=1.00},
 			uses=20,
@@ -53,6 +56,7 @@ tools.axe = {
 		description = SL("Bronze Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.50,
 			[2]=1.40, [3]=1.00},
@@ -65,6 +69,7 @@ tools.axe = {
 		description = SL("Copper Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.50, [2]=1.40, [3]=1.00},
 			uses=20,
@@ -77,6 +82,7 @@ tools.axe = {
 		description = SL("Tin Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.50, [2]=1.40, [3]=1.00},
 			uses=25,
@@ -89,6 +95,7 @@ tools.axe = {
 		description = SL("Silver Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.30, [2]=1.20, [3]=0.80},
 			uses=20,
@@ -113,6 +120,7 @@ tools.axe = {
 		description = SL("Galvorn Axe"),
 		full_punch_interval = 0.9,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=2.20, [2]=1.00, [3]=0.60},
 			uses=30,
@@ -125,6 +133,7 @@ tools.axe = {
 		description = SL("Mithril Axe"),
 		full_punch_interval = 0.8,
 		max_drop_level = 1,
+		wield_scale = {x=2, y=2, z=1},
 		choppy = {
 			times={[1]=1.80, [2]=0.60, [3]=0.30},
 			uses=60,
