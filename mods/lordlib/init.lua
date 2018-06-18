@@ -5,6 +5,8 @@ function lord.load(file)
 	return dofile(path .. '/' .. file)
 end
 
+lord.load("signals.lua")
+
 function lord.require_intllib()
 	if minetest.global_exists("intllib") then
 		return intllib.Getter()
