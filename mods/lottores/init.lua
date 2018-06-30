@@ -271,7 +271,7 @@ minetest.register_node("lottores:tilkal", {
 	description = SL("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
 	sounds = default.node_sound_metal_defaults(),
-	groups = {forbidden=1},
+	groups = {forbidden=1, hard=1},
 })
 
 minetest.register_node("lottores:limestone", {
@@ -664,7 +664,7 @@ minetest.register_abm(
 -- Stairs & Slabs
 
 stairs.register_stair_and_slab("tilkal", "lottores:tilkal",
-        {forbidden=1},
+        {forbidden=1, hard=1},
 		{"lottores_tilkal.png"},
 		SL("Tilkal Stair"),
 		SL("Tilkal Slab"),

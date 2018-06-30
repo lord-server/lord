@@ -88,3 +88,4 @@ Mithril Dagger	=	Мифриловый кинжал
 
 Elven Sword	=	Эльфийский меч
 Orcish Sword	=	Ятаган Урук-Хая
+Melkor Pickaxe = Кирка Мелькора
