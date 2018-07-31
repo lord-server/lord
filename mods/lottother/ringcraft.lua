@@ -514,7 +514,7 @@ end
 minetest.register_craft({
 	output = "lottother:ring_furnace_inactive",
 	recipe = {
-		{"lottores:galvorn_block", "lottores:mithril_block", "lottores:galvorn_block"},
+		{"lottores:galvorn_block", "lottother:ringsilver_block", "lottores:galvorn_block"},
 		{"default:steelblock", "lottother:ringsilver_furnace_inactive", "default:obsidian"},
 		{"lottores:tilkal", "lottores:mithril_block", "lottores:tilkal"},
 	},
@@ -523,7 +523,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lottother:ring_furnace_inactive",
 	recipe = {
-		{"lottores:galvorn_block", "lottores:ringsilver_block", "lottores:galvorn_block"},
+		{"lottores:galvorn_block", "lottother:ringsilver_block", "lottores:galvorn_block"},
 		{"default:obsidian", "lottother:ringsilver_furnace_inactive", "default:steelblock"},
 		{"lottores:tilkal", "lottores:mithril_block", "lottores:tilkal"},
 	},
