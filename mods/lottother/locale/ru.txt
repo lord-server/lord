@@ -100,8 +100,9 @@ Pure Gold Block = Блок чистого золота
 Electrum Block = Блок электрума\n(Сплав золота и серебра)
 
 Ring Furnace = Печь для колец
+This area is not hot enough for a ringsilver furnace. = Это место недостаточно горячо для размещения печи для колец.
 
-### ringcraft.lua ###
+### ringsilver.lua ###
 
 Pure Silver = Слиток чистого серебра
 Pure Gold = Слиток чистого золота
