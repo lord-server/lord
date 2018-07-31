@@ -3,10 +3,11 @@ local SL = lord.require_intllib()
 --dofile(minetest.get_modpath("lottother").."/rings.lua")
 dofile(minetest.get_modpath("lottother").."/ms.lua")
 dofile(minetest.get_modpath("lottother").."/flags.lua")
-dofile(minetest.get_modpath("lottother").."/rings/rings.lua")
-dofile(minetest.get_modpath("lottother").."/rings/ringcraft.lua")
-dofile(minetest.get_modpath("lottother").."/rings/gems.lua")
-dofile(minetest.get_modpath("lottother").."/rings/ringsilver.lua")
+dofile(minetest.get_modpath("lottother").."/rings_old.lua")
+dofile(minetest.get_modpath("lottother").."/rings.lua")
+dofile(minetest.get_modpath("lottother").."/ringcraft.lua")
+dofile(minetest.get_modpath("lottother").."/gems.lua")
+dofile(minetest.get_modpath("lottother").."/ringsilver.lua")
 
 minetest.register_node("lottother:blue_torch", {
 	description = SL("Blue Torch"),
