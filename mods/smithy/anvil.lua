@@ -144,6 +144,7 @@ minetest.register_node(":castle:anvil", {
 		if( not( input ) 
 			or input:is_empty()
 			or input:get_name() == "technic:water_can" 
+			--Добавить кольца в фильтр починки
 			or input:get_name() == "technic:lava_can" ) then
 			meta:set_string("formspec",
 			smithy_anvil_formspec,
