@@ -1,0 +1,111 @@
+### init.lua ###
+Blue Torch	=	Эльфийский факел
+Orc Torch	=	Оркский факел
+Blue Flame	=	Синее пламя
+Dirt Substitute	=	Заменитель земли
+Snow Substitute	=	Заменитель снега
+Mordor Stone Substitute	=	Заменитель мордерского камня
+Air Substitute	=	Заменитель воздуха
+
+### flags.lua ###
+Tapestry Top	=	Крепление штандарта
+
+Angmar Tapestry	=	Штандарт Ангмара
+Dunland Tapestry	=	Штандарт Дунланда
+Dwarf Tapestry	=	Штандарт гномов
+Gondor Tapestry	=	Штандарт Гондора
+Lorien Tapestry	=	Штандарт Лориэна
+Mirkwood Tapestry	=	Штандарт Лихолесья
+Mordor Tapestry	=	Штандарт Мордора
+Rohan Tapestry	=	Штандарт Рохана
+Uruk Hai Tapestry	=	Штандарт Урук-хай
+
+Angmar Tapestry Top	=	Штандарт Ангмара (верх)
+Dunland Tapestry Top	=	Штандарт Дунланда (верх)
+Dwarf Tapestry Top	=	Штандарт гномов (верх)
+Gondor Tapestry Top	=	Штандарт Гондора (верх)
+Lorien Tapestry Top	=	Штандарт Лориэна (верх)
+Mirkwood Tapestry Top	=	Штандарт Лихолесья (верх)
+Mordor Tapestry Top	=	Штандарт Мордора (верх)
+Rohan Tapestry Top	=	Штандарт Рохана (верх)
+Uruk Hai Tapestry Top	=	Штандарт Урук-хай (верх)
+
+### ms.lua ###
+Mordor Mob Spawner	=	точка спавна Mordor Mob
+Rohan Mob Spawner	=	точка спавна Rohan Mob
+Elf Mob Spawner	=	точка спавна Elf Mob
+Hobbit Mob Spawner	=	точка спавна Hobbit Mob
+Gondor Mob Spawner	=	точка спавна Gondor Mob
+Angmar Mob Spawner	=	точка спавна Angmar Mob
+
+### rings.lua ###
+
+Narya\nElven Ring of Power = Нарья\nЭльфийское Кольцо Силы
+Nenya\nElven Ring of Power = Нэнья\nЭльфийское Кольцо Силы
+Vilya\nElven Ring of Power = Вилья\nЭльфийское Кольцо Силы
+Dragakoo\nDwarvern Ring of Power	=	Драгакоо\nГномье Кольцо Силы
+Suotty\nBeast Ring of Power  =   Сюотти\nДикое Кольцо Силы
+
+### gems.lua ###
+
+Tansanite Gem Ore = Танзанитовая жила
+Adamant Gem Ore = Адамантовая жила
+Ruby Gem Ore = Рубиновая жила
+
+Stone Encrusted Tansanite Gem = Кристалл танзанита в породе
+Stone Encrusted Adamant Gem = Кристалл адаманта в породе
+Stone Encrusted Ruby Gem = Кристалл рубина в породе
+
+Uncut Tansanite Gem = Неограненный кристалл танзанита
+Uncut Ruby Gem = Неограненный кристалл рубина
+Uncut Ilvanite Gem = Неограненный кристалл ильванита
+Uncut Adamant Gem = Неограненный кристалл адаманта
+
+Unpolished Tansanite Gem = Неполированный кристалл танзанита
+Unpolished Ruby Gem = Неполированный кристалл рубина
+Unpolished Ilvanite Gem = Неполированный кристалл ильванита
+Unpolished Adamant Gem = Неполированный кристалл адаманта
+
+Chisel = Долото
+
+Tansanite Gem = Кристалл танзанита
+Ruby Gem = Кристалл рубина
+Ilvanite Gem = Кристалл ильванита
+Adamant Gem = Кристалл адаманта
+
+Gem Mining Pickaxe = Кирка для добычи кристаллов
+
+### ringcraft.lua ###
+
+Quarter Ring = Четверть кольца
+Half Ring = Половина кольца
+Plain Ring = Кольцо
+Pin = Штифт
+
+Prepared Ring = Подготовленное кольцо
+
+Tansanite Ring = Кольцо с танзанитом
+Ruby Ring = Кольцо с рубином
+Ilvanite Ring = Кольцо с ильванитом
+Adamant Ring = Кольцо с адамантом
+
+Coated Tansanite Ring = Покрытое кусками грубой скалы кольцо с танзанитом
+Coated Ruby Ring = Покрытое кусками грубой скалы кольцо с рубином
+Coated Ilvanite Ring = Покрытое кусками грубой скалы кольцо с ильванитом
+Coated Adamant Ring = Покрытое кусками грубой скалы кольцо с адамантом
+
+Ringsilver Block = Блок ювелирного серебра
+Pure Silver Block = Блок чистого серебра
+Pure Gold Block = Блок чистого золота
+Electrum Block = Блок электрума\n(Сплав золота и серебра)
+
+### ringcraft.lua ###
+
+Pure Silver = Слиток чистого серебра
+Pure Gold = Слиток чистого золота
+Electrum = Слиток электрума\n(Сплав золота и серебра)
+
+Hot Ringsilver = Горячее ювелирное серебро
+Ringsilver = Ювелирное серебро
+
+Ringsilver Furnace = Печь для ювелирного серебра
