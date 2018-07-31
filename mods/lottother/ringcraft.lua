@@ -503,7 +503,7 @@ for _, status in pairs({"active", "inactive"}) do
 		on_place = function(itemstack, placer, pointed_thing)
 			if check_nodes(pointed_thing.above) == false then
 				minetest.chat_send_player(placer:get_player_name(),
-					"This area is not hot enough for a ringsilver furnace.")
+					SL("This area is not hot enough for a ringsilver furnace."))
 				return
 			end
 			return minetest.item_place(itemstack, placer, pointed_thing)
