@@ -99,6 +99,8 @@ Pure Silver Block = Блок чистого серебра
 Pure Gold Block = Блок чистого золота
 Electrum Block = Блок электрума\n(Сплав золота и серебра)
 
+Ring Furnace = Печь для колец
+
 ### ringcraft.lua ###
 
 Pure Silver = Слиток чистого серебра
