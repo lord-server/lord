@@ -1,1 +1,1 @@
---dofile(minetest.get_modpath("smithy") .. "/anvil.lua")
+dofile(minetest.get_modpath("smithy") .. "/anvil.lua")
