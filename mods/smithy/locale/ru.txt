@@ -1,0 +1,4 @@
+Repairing Hammer = Молот для починки
+Anvil = Наковальня
+Anvil (owned by %s) = Наковальня (только для %s)
+Owner: %s = Только для %s
