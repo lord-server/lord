@@ -92,11 +92,13 @@ Tansanite Ring = Кольцо с танзанитом
 Ruby Ring = Кольцо с рубином
 Ilvanite Ring = Кольцо с ильванитом
 Adamant Ring = Кольцо с адамантом
+Emerald Ring = Кольцо с изумрудом
 
 Coated Tansanite Ring = Покрытое кусками грубой скалы кольцо с танзанитом
 Coated Ruby Ring = Покрытое кусками грубой скалы кольцо с рубином
 Coated Ilvanite Ring = Покрытое кусками грубой скалы кольцо с ильванитом
 Coated Adamant Ring = Покрытое кусками грубой скалы кольцо с адамантом
+Coated Emerald Ring = Покрытое кусками грубой скалы кольцо с изумрудом
 
 Ringsilver Block = Блок ювелирного серебра
 Pure Silver Block = Блок чистого серебра
@@ -105,6 +107,11 @@ Electrum Block = Блок электрума\n(Сплав золота и сер
 
 Ring Furnace = Печь для колец
 This area is not hot enough for a ringsilver furnace. = Это место недостаточно горячо для размещения печи для колец.
+
+Fuel = Топливо
+Galvorn Block = Блоки галворна
+Mithril Block = Блоки мифрила
+Tilkal Block = Блоки тилкала
 
 ### ringsilver.lua ###
 
