@@ -82,7 +82,10 @@ local gdragon_base = {
 	jump = true,
 	fly = true,
 	drops = {
---		{name = "dmobs:dragon_egg_great", chance = 1, min = 1, max = 1},
+		{name = "lottother:stony_green_gem", chance = 0.7, min = 0, max = 1},
+		{name = "lottother:stony_blue_gem", chance = 0.7, min = 0, max = 1},
+		{name = "lottother:stony_red_gem", chance = 0.7, min = 0, max = 1},
+		{name = "lottother:stony_white_gem", chance = 0.7, min = 0, max = 1},
 	},
 	fall_speed = 0,
 	stepheight = 10,
@@ -102,7 +105,7 @@ local gdragon_base = {
 		punch_start = 22,
 		punch_end = 47,
 	},
-	knock_back = 2,
+	knock_back = 4,
 }
 
 mobs:register_mob("lottmobs:dragon_great", lottmobs.deepclone(gdragon_base) )
