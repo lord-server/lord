@@ -424,6 +424,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	if itemstack:get_name() == "lottother:blue_gem"
 	or itemstack:get_name() == "lottother:red_gem"
 	or itemstack:get_name() == "lottother:purple_gem"
+	or itemstack:get_name() == "lottother:green_gem"
 	or itemstack:get_name() == "lottother:white_gem" then
 		if math.random(3) > 1 then
 			itemstack:take_item()
