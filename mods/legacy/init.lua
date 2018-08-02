@@ -247,6 +247,7 @@ minetest.register_alias("lottores:white_gem_ore", "lottother:white_gem_ore")
 minetest.register_alias("lottores:blue_gem", "lottother:stony_blue_gem")
 minetest.register_alias("lottores:red_gem", "lottother:stony_red_gem")
 minetest.register_alias("lottores:white_gem", "lottother:stony_white_gem")
+minetest.register_alias("lottores:purple_gem", "lottother:uncut_purple_gem")
 
 minetest.register_alias("lottother:blue_am_ring", "lottother:blue_rr_ring")
 minetest.register_alias("lottother:red_am_ring", "lottother:red_rr_ring")
