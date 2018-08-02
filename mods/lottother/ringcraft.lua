@@ -1,5 +1,16 @@
 local SL = lord.require_intllib()
 
+minetest.register_privilege("dragon", {
+	description = SL("Allows craft Ring Guid"),
+	give_to_singleplayer = false,
+})
+
+--[[if minetest.check_player_privs(sender, "dragon") then
+	
+else	minetest.chat_send_player(player_name, minetest.colorize("red", SL("You have no skill craft this thing!")))
+	return
+end]]
+
 --Function for random breakages!
 
 local function random_break(pos, chance, output, src_time)
