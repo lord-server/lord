@@ -153,7 +153,7 @@ lottblocks.crafting.add_craft("lottother:red_gem_ring", {
 })
 
 lottblocks.crafting.add_craft("lottother:purple_gem_ring", {
-	recipe = {"lottother:prepared_ring", "lottother:purple_gem"},
+	recipe = {"lottother:prepared_ring", "lottother:purple_gem_new"},
 	type = "dualfurn",
 	time = 60,
 	func = function(pos, output, src_time)
