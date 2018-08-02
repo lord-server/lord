@@ -175,6 +175,12 @@ minetest.register_craftitem("lottother:stony_white_gem", {
 	inventory_image = "lottother_stony_whitegem.png",
 })
 
+
+minetest.register_craftitem("lottother:stony_green_gem", {
+	description = SL("Stone Encrusted Emerald Gem"),
+	inventory_image = "lottother_stony_greengem.png",
+})
+
 -- You cook the above to get uncut gems
 -- (I'm using ^[colorize here so as to have these the same textures as the
 -- cut, unpolished gems, without having to have separate textures for them!)
@@ -197,6 +203,11 @@ minetest.register_craftitem("lottother:uncut_purple_gem", {
 minetest.register_craftitem("lottother:uncut_white_gem", {
 	description = SL("Uncut Adamant Gem"),
 	inventory_image = "lottother_uncut_whitegem.png^[colorize:#898985:100",
+})
+
+minetest.register_craftitem("lottother:uncut_green_gem", {
+	description = SL("Uncut Emerald Gem"),
+	inventory_image = "lottother_uncut_greengem.png",
 })
 
 -- Crafts
@@ -243,6 +254,12 @@ minetest.register_craftitem("lottother:unpolished_white_gem", {
 	description = SL("Unpolished Adamant Gem"),
 	inventory_image = "lottother_whitegem.png^[colorize:#898985:170",
 })
+
+minetest.register_craftitem("lottother:unpolished_green_gem", {
+	description = SL("Unpolished Emerald Gem"),
+	inventory_image = "lottother_greengem.png^[colorize:#898985:170",
+})
+
 
 minetest.register_tool("lottother:chisel", {
 	description = SL("Chisel"),
@@ -335,6 +352,11 @@ minetest.register_craftitem("lottother:purple_gem", {
 minetest.register_craftitem("lottother:white_gem", {
 	description = SL("Adamant Gem"),
 	inventory_image = "lottother_whitegem.png",
+})
+
+minetest.register_craftitem("lottother:green_gem", {
+	description = SL("Emerald Gem"),
+	inventory_image = "lottother_greengem.png",
 })
 
 -- Crafts
