@@ -233,6 +233,13 @@ minetest.register_craft({
 	cooktime = 9,
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = "lottother:uncut_green_gem",
+	recipe = "lottother:stony_green_gem",
+	cooktime = 9,
+})
+
 -- You then craft them with a chisel to get unpolished gems
 
 minetest.register_craftitem("lottother:unpolished_blue_gem", {
@@ -311,6 +318,12 @@ minetest.register_craft({
 	recipe = {"lottother:uncut_white_gem", "lottother:chisel"},
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottother:unpolished_green_gem",
+	recipe = {"lottother:uncut_green_gem", "lottother:chisel"},
+})
+
 minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	if itemstack:get_name() == "lottother:unpolished_blue_gem"
 	or itemstack:get_name() == "lottother:unpolished_red_gem"
@@ -344,7 +357,7 @@ minetest.register_craftitem("lottother:red_gem", {
 	inventory_image = "lottother_redgem.png",
 })
 
-minetest.register_craftitem("lottother:purple_gem", {
+minetest.register_craftitem("lottother:purple_gem_new", {
 	description = SL("Ilvanite Gem"),
 	inventory_image = "lottother_purplegem.png",
 })
@@ -380,7 +393,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "lottother:purple_gem",
+	output = "lottother:purple_gem_new",
 	recipe = {
 		{"group:sand", "group:sand", "group:sand"},
 		{"group:sand", "lottother:unpolished_purple_gem", "group:sand"},
@@ -393,6 +406,16 @@ minetest.register_craft({
 	recipe = {
 		{"group:sand", "group:sand", "group:sand"},
 		{"group:sand", "lottother:unpolished_white_gem", "group:sand"},
+		{"group:sand", "group:sand", "group:sand"},
+	},
+})
+
+
+minetest.register_craft({
+	output = "lottother:green_gem",
+	recipe = {
+		{"group:sand", "group:sand", "group:sand"},
+		{"group:sand", "lottother:unpolished_green_gem", "group:sand"},
 		{"group:sand", "group:sand", "group:sand"},
 	},
 })
@@ -451,8 +474,8 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 end)
 
 -- Крафт Ильванита
-lottblocks.crafting.add_craft("lottother:unpolished_purple_gem", {
-	recipe = {"lottother:unpolished_blue_gem", "quartz:quartz_crystal"},
+lottblocks.crafting.add_craft("lottother:uncut_purple_gem", {
+	recipe = {"lottother:uncut_blue_gem", "quartz:quartz_crystal"},
 	type = "dualfurn",
 	time = 6,
 	func = function(pos, output, src_time)
