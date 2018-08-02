@@ -88,7 +88,7 @@ minetest.register_craftitem("lottother:hot_ringsilver", {
 	on_drop = function(itemstack, dropper, pos)
 		local metadata = itemstack:get_metadata()
 		local ent = item_drop(itemstack, dropper, pos)
-		minetest.after(3, function()
+		minetest.after(10, function()
 			if ent ~= nil and metadata ~= nil then
 				local pos = ent:getpos()
 				if pos ~= nil then
@@ -97,10 +97,9 @@ minetest.register_craftitem("lottother:hot_ringsilver", {
 					if node == "default:water_source" --[[(Из-за этого крашится игра, эту херь вообще надо отсюда убрать) and os.time() - tonumber(metadata) <= 13]] then
 						minetest.add_item(pos, "lottother:ringsilver")
 					end
-					-- Сначало нужно впендюрить эту ачивку
-					--[[if dropper and dropper:get_player_name() then
+					if dropper and dropper:get_player_name() then
 						lottachievements.unlock(dropper:get_player_name(), "ringsilver_crafter")
-					end]]--
+					end
 				end
 			end
 		end)
