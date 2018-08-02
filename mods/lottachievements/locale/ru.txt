@@ -106,7 +106,7 @@ So dead, I'm immortal! = Опять. Да я бессмертен!
 At The Speed Of Light = На скорости света
 Craft a palantir = Создайте Палантир
 A young wizard = Начинающий волшебник
-Craft a book of palantir = Создайте книгу "Палантиры"
+Craft a book of palantir = Создайте книгу "Со Скоростью Звука"
 Baggins surname = Фамилия Бэггинс
 Make 8 large bags = Смастерите 8 больших сумок
 The Lie = Не слипнется
@@ -125,6 +125,8 @@ Polisher = Полировщик
 Polish a gem = Отполируйте драгоценный камень
 Dragon Killer = Убийца дракона
 Kill a Dragon = Убейте дракона
+Knoledge Of Power = Знание - сила
+Craft Ring Guide = Создайте книгу "Овладевая Силами Колец"
 
 
 A Long Path to Mushrooms = Долгий путь к грибам
