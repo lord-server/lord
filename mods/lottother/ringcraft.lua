@@ -134,6 +134,13 @@ minetest.register_craftitem("lottother:white_gem_ring", {
     groups = {forbidden=1},
 })
 
+
+minetest.register_craftitem("lottother:green_gem_ring", {
+	description = SL("Emerald Ring"),
+	inventory_image = "lottother_greengem_ring.png",
+    groups = {forbidden=1},
+})
+
 lottblocks.crafting.add_craft("lottother:blue_gem_ring", {
 	recipe = {"lottother:prepared_ring", "lottother:blue_gem"},
 	type = "dualfurn",
@@ -163,6 +170,15 @@ lottblocks.crafting.add_craft("lottother:purple_gem_ring", {
 
 lottblocks.crafting.add_craft("lottother:white_gem_ring", {
 	recipe = {"lottother:prepared_ring", "lottother:white_gem"},
+	type = "dualfurn",
+	time = 60,
+	func = function(pos, output, src_time)
+		return random_break(pos, 2, output, src_time)
+	end
+})
+
+lottblocks.crafting.add_craft("lottother:green_gem_ring", {
+	recipe = {"lottother:prepared_ring", "lottother:green_gem"},
 	type = "dualfurn",
 	time = 60,
 	func = function(pos, output, src_time)
@@ -204,6 +220,13 @@ minetest.register_craftitem("lottother:white_rr_ring", {
 	stack_max = 1,
 })
 
+minetest.register_craftitem("lottother:green_rr_ring", {
+	description = SL("Coated Emerald Ring"),
+	inventory_image = "lottother_greengem_rr_ring.png",
+	groups = {forbidden=1, ring = 1},
+	stack_max = 1,
+})
+
 minetest.register_craft({
 	output = "lottother:blue_rr_ring",
 	recipe = {
@@ -240,6 +263,15 @@ minetest.register_craft({
 	},
 })
 
+minetest.register_craft({
+	output = "lottother:green_rr_ring",
+	recipe = {
+	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
+	{"lottores:rough_rock_lump", "lottother:green_gem_ring", "lottores:rough_rock_lump"},
+	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
+	},
+})
+
 -- Then cook in a special furnace!
 -- It's hard-coded, but has only one purpose (and, ofc, gets destroyed when used, 100% chance!)
 
@@ -248,13 +280,13 @@ local formspec = "size[8,8]"..
 	"list[current_player;main;0,3.75;8,1;]"..
 	"list[current_player;main;0,5;8,3;8]"..
 	"list[context;ring;3.5,1.5;1,1;]"..
-	"label[2.25,0.7;Galvorn]"..
+	"label[2.25,0.7;"..SL("Galvorn Block").."]"..
 	"list[context;galvorn;3.5,0.5;1,1;]"..
-	"label[1.5,1.7;Mithril]"..
+	"label[1.5,1.7;"..SL("Mithril Block").."]"..
 	"list[context;mithril;2.5,1.5;1,1;]"..
-	"label[5.5,1.7;Tilkal]"..
+	"label[5.5,1.7;"..SL("Tilkal Block").."]"..
 	"list[context;tilkal;4.5,1.5;1,1;]"..
-	"label[2.5,2.7;Fuel]"..
+	"label[2.5,2.7;"..SL("Fuel").."]"..
 	"list[context;fuel;3.5,2.5;1,1;]"..
 	"image[4.5,2.5;1,1;default_furnace_fire_bg.png]"..
 	"image[5.5,2.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"
@@ -290,6 +322,8 @@ local function is_cookable(inv)
 			return true, "nenya_new"
 		elseif inv:contains_item("ring", "lottother:purple_rr_ring") then
 			return true, "dwarf_ring_new"
+		elseif inv:contains_item("ring", "lottother:green_rr_ring") then
+			return true, "beast_ring_new"
 		end
 	end
 	return false
@@ -345,10 +379,9 @@ local function furnace_node_timer(pos, elapsed)
 						"lottother:" .. ring)
 					item:setvelocity({x=0, y=10, z=0})
 					local pn = meta:get_string("player_name")
-					--Сначала надо впендюрить ачивку
-					--[[if pn and pn ~= "" then
+					if pn and pn ~= "" then
 						lottachievements.unlock(pn, "ring_smith")
-					end]]
+					end
 					default.explode(pos, 0, 14, 100)
 				else
 					default.explode(pos, 0, 5, 20)
@@ -458,7 +491,7 @@ for _, status in pairs({"active", "inactive"}) do
 			inv:set_size("galvorn", 1)
 			inv:set_size("ring", 1)
 			inv:set_size("fuel", 1)
-			meta:set_string("infotext", SL("Ringsilver Furnace"))
+			meta:set_string("infotext", SL("Ring Furnace"))
 			meta:set_string("formspec", formspec)
 		end,
 
@@ -582,7 +615,7 @@ minetest.register_node("lottother:pure_silver_block", {
 })
 
 minetest.register_craft({
-	output = "lottother:pure_silver_block",
+	output = "lottother:pure_gold_block",
 	recipe = {
 	{"lottother:pure_gold", "lottother:pure_gold", "lottother:pure_gold"},
 	{"lottother:pure_gold", "lottother:pure_gold", "lottother:pure_gold"},
@@ -596,4 +629,25 @@ minetest.register_node("lottother:pure_gold_block", {
 	is_ground_content = true,
 	groups = {cracky=2},
 	sounds = default.node_sound_metal_defaults(),
+})
+
+minetest.register_craft({
+	output = "lottother:pure_gold 9",
+	recipe = {
+	{"lottother:pure_gold_block"},
+	},
+})
+
+minetest.register_craft({
+	output = "lottother:goldsilver 9",
+	recipe = {
+	{"lottother:goldsilver_block"},
+	},
+})
+
+minetest.register_craft({
+	output = "lottother:ringsilver 9",
+	recipe = {
+	{"lottother:ringsilver_block"},
+	},
 })
