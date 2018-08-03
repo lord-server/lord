@@ -41,7 +41,7 @@ minetest.register_craftitem("lottother:narya_new", {
 --FUNCTION = Same armor stats as a full set of mithril.
 
 minetest.register_tool("lottother:nenya_new", {
-	description = minetest.colorize("silver", "Nenya\nElven Ring of Power") ..
+	description = minetest.colorize("silver", SL("Nenya\nElven Ring of Power")) ..
 		minetest.get_background_escape_sequence("lightgoldenrodyellow"),
 	inventory_image = "lottother_nenya_inv.png",
 	stack_max = 1,
