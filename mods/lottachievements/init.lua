@@ -686,7 +686,7 @@ lottachievements.register_achievement("supersonic_speed", {
 	title = SL("At The Speed Of Light"),
 	description = SL("Craft a palantir"),
 	icon = "default_obsidian.png",
-	requires = "master_craftsman"
+	requires = "master_craftsman",
 	secret = true,
 	id = 52,
 	trigger = {
@@ -776,7 +776,7 @@ lottachievements.register_achievement("i_said_meow", {
 	title = SL("I Said Meow"),
 	description = SL("Find Nyan Cat"),
 	icon = "default_nc_front.png",
-	requires = "supersonic_speed"
+	requires = "supersonic_speed",
 	secret = true,
 	id = 57,
 })
@@ -800,7 +800,7 @@ lottachievements.register_achievement("dragon", {
 	description = SL("Kill a Dragon"),
 	icon = "fire_basic_flame.png",
 	id = 59,
-	requires = "i_said_meow"
+	requires = "i_said_meow",
 	trigger = {
 		type = "kill",
 		mob = "lottmobs:dragon_great",
@@ -816,7 +816,7 @@ lottachievements.register_achievement("ring_booker", {
 	description = SL("Craft Ring Guide"),
 	icon = "lottblocks_book_green.png",
 	id = 60,
-	requires = "dragon"
+	requires = "dragon",
 	trigger = {
 		type = "kill",
 		mob = "lottmobs:dragon_great",
