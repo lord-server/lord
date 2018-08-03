@@ -522,7 +522,7 @@ default.explode = function(pos, time, radius, damage, node)
 			end
 		end
 		minetest.sound_play("default_explode", {pos=pos, gain=1.5, max_hear_distance=2*64})
-		minetest.set_node(pos, {name="default:lava_source"})
+		minetest.set_node(pos, {name="castle:pillars_dungeon_stone_top"})
 
 		local objects = minetest.get_objects_inside_radius(pos, radius * 2)
 		for _,obj in ipairs(objects) do
