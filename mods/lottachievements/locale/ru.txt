@@ -103,16 +103,30 @@ King of Dying = Король умирающих
 Have 500 deaths to your name! = Есть 500 смертей на ваше имя
 So dead, I'm immortal! = Опять. Да я бессмертен!
 1000 deaths. Yes, 1000. = 1000 смертей. Да, именно 1000!
-Supersonic Speed = Преодолевая звук
+At The Speed Of Light = На скорости света
 Craft a palantir = Создайте Палантир
 A young wizard = Начинающий волшебник
-Craft a book of palantir = Создайте книгу "Палантиры"
+Craft a book of palantir = Создайте книгу "Со Скоростью Звука"
 Baggins surname = Фамилия Бэггинс
 Make 8 large bags = Смастерите 8 больших сумок
 The Lie = Не слипнется
-Craft the Honey Cake = Приготовить медовик
-
-
+Craft the Honey Cake = Приготовьте медовик
+I Said Meow = Кто сказал "Мяу"?
+Find Nyan Cat = Найдите радужного кота
+Lord Of The Rings = Властелин Колец
+Finally! You got the ring! = Наконец-то! Вы получили кольцо!
+A pickaxe fit for a king = Кирка, достойная короля
+Craft a gem pickaxe = Смастерите кирку для драгоценных камней
+Ringsilver crafter = Мастер-ювелир
+Form your first ingot of ringsilver! = Сформируйте ваш первый слиток ювелирного серебра!
+The Ring is Prepared... = Кольцо готово...
+Make a ring ready to have a gem fitted to it = Смастерите кольцо, готовое к установке в него драгоценного камня
+Polisher = Полировщик
+Polish a gem = Отполируйте драгоценный камень
+Dragon Killer = Убийца дракона
+Kill a Dragon = Убейте дракона
+Knoledge Of Power = Знание - сила
+Craft Ring Guide = Создайте книгу "Овладевая Силами Колец"
 
 
 A Long Path to Mushrooms = Долгий путь к грибам
@@ -123,7 +137,7 @@ Thief! = Вор!
 Use a lockpick to break into a chest of a different race = Используйте отмычку, чтобы проникнуть в сундук другой расы
 Dwarvern Tomb = Могила гнома
 Find (and loot!) a dwarvern tomb, deep underground... = Найти (и ограбить!) могилу гнома, находящуюся глубоко под землей...
-Durin's Bane = Проклятие Дьюрина
+Durin's Bane = Проклятие Дурина
 Kill a Balrog = Убейте Балрога
 Begone, foul dwimmerlaik = Изыди, грязный плод некромантии
 Kill the king of the Nazgul = Убейте Короля Назгулов
@@ -133,20 +147,10 @@ Elven Champion = Эльф - чемпион
 Kill 25 Mordor orcs = Убейте 25 орков Мордора
 Orcish Warlord = Оркский Военачальник
 Kill 25 elves = Убейте 25 эльфов
-Spider Hunter = Охотник на пауков
+Spider Hunter = Человек-Паук
 Kill 25 spiders = Убейте 25 пауков
 Abandoned Workshop = Заброшенная Мастерская
 Discover a secret Elven Workshop underground = Откройте для себя секрет Эльфийской Подземной Мастерской
-Ringsilver crafter = Мастер-ювелир
-Form your first ingot of ringsilver! = Сформируйте ваш первый слиток ювелирного серебра!
-The Ring is Prepared... = Кольцо готово...
-Make a ring ready to have a gem fitted to it = Сделать кольцо с установленным в него ювелирным камнем
-A pickaxe fit for a king = Кирка, пригодная для короля
-Craft a gem pickaxe = Смастерите кирку с драгоценным камнем
-Polisher = Полировщик
-Polish a gem = Отполируйте драгоценный камень
-Ring Smith = Кольцо Кузнеца
-Forge a ring of power = Выковать кольцо всевластья
 
 ### api.lua ###
 Secret Achievement Unlocked: = Секретное достижение разблокировано:
