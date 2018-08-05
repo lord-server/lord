@@ -12,7 +12,7 @@ minetest.register_tool("tools:sword_elven", {
 		},
 		damage_groups = {fleshy=7.5},
 	},
-	groups = {bronze_item = 1},
+	groups = {bronze_item = 1, forbidden = 1},
 })
 
 minetest.register_tool("tools:sword_orc", {
@@ -30,6 +30,22 @@ minetest.register_tool("tools:sword_orc", {
 	groups = {steel_item = 1},
 })
 
+
+minetest.register_tool("tools:dragon_warrior_sword", {
+	description = SL("Crusher/nDragon Warrior Sword"),
+	inventory_image = "tools_dragon_warrior_sword.png",
+	tool_capabilities = {
+		full_punch_interval = 0.20,
+		max_drop_level=2,
+		wield_scale = {x=2, y=2, z=1},
+		groupcaps={
+			snappy={times={[1]=1.60, [2]=1.30, [3]=0.90}, uses=90, maxlevel=3},
+		},
+		damage_groups = {fleshy=9.5},
+	},
+	groups = {mithril_item = 1, forbidden = 1},
+})
+
 minetest.register_tool("tools:melkor_pick", {
 	description = SL("Melkor Pickaxe"),
 	inventory_image = "tools_melkor_pick.png",
@@ -37,11 +53,20 @@ minetest.register_tool("tools:melkor_pick", {
 		full_punch_interval = 1.3,
 		max_drop_level=1,
 		groupcaps={
-			hard = {times={[1]=7.5}, uses=50, maxlevel=3}
+			hard = {times={[1]=7.5}, uses=25, maxlevel=3}
 		},
-		damage_groups = {fleshy=5},
+		damage_groups = {fleshy=2},
 	},
-	groups = {forbidden = 1},
+	groups = {mithril_item = 1, forbidden = 1},
+})
+
+minetest.register_craft({
+	output = 'tools:dragon_warrior_sword',
+	recipe = {
+		{'default:mese', 'lottores:mithril_block', 'default:mese'},
+		{'default:mese', 'tools:sword_mithril', 'default:mese'},
+		{'', 'lottores:tilkal_ingot', ''},
+	}
 })
 
 minetest.register_craft({
