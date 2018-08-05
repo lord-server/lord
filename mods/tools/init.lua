@@ -62,6 +62,7 @@ local function register_tool(tooltype, material, itemdef)
 		wield_image = "tools_"..tooltype.."_"..material..".png"..
 			(itemdef.wield_image_transform or ""),
 		range = itemdef.range,
+		wield_scale = {x=2, y=2, z=1},
 		tool_capabilities = {
 			full_punch_interval = itemdef.full_punch_interval,
 			max_drop_level = itemdef.max_drop_level,
