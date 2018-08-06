@@ -43,7 +43,8 @@ minetest.register_craftitem("lottmobs:leather", {
 
 minetest.register_craftitem("lottmobs:saddle", {
 	description = SL("Saddle"),
-	inventory_image = "lottmobs_horse_hide_white.png",
+	inventory_image = "lottmobs_ssaddle.png",
+	stack_max = 1,
 })
 
 minetest.register_craftitem("lottmobs:pork_cooked", {
