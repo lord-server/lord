@@ -32,7 +32,7 @@ minetest.register_tool("tools:sword_orc", {
 
 
 minetest.register_tool("tools:dragon_warrior_sword", {
-	description = SL("Crusher/nDragon Warrior Sword"),
+	description = SL("Crusher\nDragon Warrior Sword"),
 	wield_scale = {x=1,5, y=1,5, z=1},
 	inventory_image = "tools_dragon_warrior_sword.png",
 	tool_capabilities = {
