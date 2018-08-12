@@ -5,7 +5,6 @@ Workspace: = Починка:
 Optional = Место
 storage for = для
 your hammer = молота
-Repairing Hammer = Молоток
 The workpiece slot is for damaged tools only. = Чинить можно только сломанные инструменты.
 You can not repair rings! = Кольца чинить нельзя!
 Can not break. Something is inside. = Не поднять. На наковальне что-то есть.
