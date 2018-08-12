@@ -16,6 +16,7 @@ minetest.register_tool("smithy:hammer", {
 
 local smithy_anvil_formspec =
 	"size[8,7]"..
+	"background[0,0;8.5,8.5;gui_anvilbg.png;true]"..
 	"list[current_name;input;2,1;1,1;]"..
 	"list[current_name;hammer;5,1;1,1;]"..
 	"label[0.5,1.25;"..SL("Workspace:").."]"..
