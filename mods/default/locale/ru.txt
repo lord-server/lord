@@ -1,5 +1,5 @@
 ### craftitems.lua ###
-Stick	=	Палочка
+Stick	=	Палка
 Paper	=	Бумага
 Book	=	Книга
 Coal Lump	=	Каменный уголь
@@ -93,7 +93,7 @@ Ice	=	Лёд
 Snow	=	Снег
 Snow Block	=	Снежный блок
 
-owned by	=	только для
+owned by	=	владелец:
 
 ### furnace.lua ###
 Furnace = Печь
