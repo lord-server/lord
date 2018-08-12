@@ -1,10 +1,11 @@
 Owner: %s = Владелец: %s
 Anvil = Наковальня
 Workspace: = Починка:
-Optional = Необязательное
-storage for = хранилище для
+Optional = Хранилище
+storage for = для
 your hammer = молотка
 Repairing Hammer = Молоток
 The workpiece slot is for damaged tools only. = Чинить можно только сломанные инструменты.
 You can not repair rings! = Нельзя чинить кольца!
 Can not break. Something is inside. = Не поднять. Внутри что-то есть.
+Anvil (owned by %s) = Наковальня (владелец: %s)
