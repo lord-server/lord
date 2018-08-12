@@ -170,19 +170,21 @@ local SL = lord.require_intllib()
 
   minetest.register_node('bees:bees', {
     description = SL('flying bees'),
-    drawtype = 'plantlike',
+    drawtype = "glasslike",
     paramtype = 'light',
-    groups = { not_in_creative_inventory=1 },
+    groups = {catchable=1},
     tiles = {
       {
         name='bees_strip.png',
         animation={type='vertical_frames', aspect_w=16,aspect_h=16, length=2.0}
       }
     },
+    inventory_image = "bees_strip_inv.png",
+    wield_image = "bees_strip_inv.png",
     damage_per_second = 1,
     walkable = false,
     buildable_to = true,
-    pointable = false,
+    pointable = true,
     on_punch = function(pos, node, puncher)
       local health = puncher:get_hp()
       puncher:set_hp(health-2)
