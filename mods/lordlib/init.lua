@@ -1,6 +1,11 @@
 lord = {}
 
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/kv.lua")
+function lord.load(file)
+	local path = minetest.get_modpath(minetest.get_current_modname())
+	return dofile(path .. '/' .. file)
+end
+
+lord.load("signals.lua")
 
 function lord.require_intllib()
 	if minetest.global_exists("intllib") then
