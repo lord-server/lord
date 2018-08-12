@@ -2,7 +2,7 @@
 
 %s Chest = %s Сундук
 %s Locked Chest = %s Запертый сундук
-%s Locked Chest (owned by %s) = %s Запертый сундук (владелец %s)
+%s Locked Chest (owned by %s) = %s Запертый сундук (владелец: %s)
 Color Filter: %s = Цв. фильтр: %s
 Edit chest description: = Редактировать описание сундука:
 
