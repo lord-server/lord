@@ -87,7 +87,7 @@ minetest.register_node(":castle:anvil", {
 			or not( inv:is_empty("hammer"))
 			or not( player )
 			or ( owner and owner ~= '' and player:get_player_name() ~= owner )) then
-			minetest.chat_send_player( player:get_player_name(), SL('Cant break. Something is inside.'));
+			minetest.chat_send_player( player:get_player_name(), SL('Can not break. Something is inside.'));
 			return false;
 		end
 		return true;
