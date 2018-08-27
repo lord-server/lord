@@ -240,4 +240,27 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
+minetest.register_alias("lottores:blue_gem_ore", "lottother:blue_gem_ore")
+minetest.register_alias("lottores:red_gem_ore", "lottother:red_gem_ore")
+minetest.register_alias("lottores:white_gem_ore", "lottother:white_gem_ore")
+
+minetest.register_alias("lottores:blue_gem", "lottother:stony_blue_gem")
+minetest.register_alias("lottores:red_gem", "lottother:stony_red_gem")
+minetest.register_alias("lottores:white_gem", "lottother:stony_white_gem")
+minetest.register_alias("lottores:purple_gem", "lottother:uncut_purple_gem")
+
+minetest.register_alias("lottother:blue_am_ring", "lottother:blue_rr_ring")
+minetest.register_alias("lottother:red_am_ring", "lottother:red_rr_ring")
+minetest.register_alias("lottother:white_am_ring", "lottother:white_rr_ring")
+
+minetest.register_alias("lottother:purple_gem_mithril_ring", "lottother:purple_rr_ring")
+minetest.register_alias("lottother:ringsilver_lump", "lottother:ringsilver")
+minetest.register_alias("lottother:ringsilver_ingot", "lottother:ringsilver")
+
+minetest.register_alias("lottother:vilya", "lottother:blue_gem_ring")
+minetest.register_alias("lottother:narya", "lottother:red_gem_ring")
+minetest.register_alias("lottother:nenya", "lottother:white_gem_ring")
+minetest.register_alias("lottother:dwarf_ring", "lottother:purple_gem_ring")
+minetest.register_alias("lottother:beast_ring", "lottother:beast_ring_new")
+
 if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end

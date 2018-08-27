@@ -11,6 +11,42 @@ minetest.register_craftitem("lottmobs:feather", {
 	inventory_image = "lottmobs_feather.png",
 })
 
+minetest.register_craftitem("lottmobs:dragon_scale", {
+	description = SL("Dragon Scale"),
+	inventory_image = "lottmobs_dragon_scale.png",
+})
+
+minetest.register_craftitem("lottmobs:dragon_fang", {
+	description = SL("Dragon Fang"),
+	inventory_image = "lottmobs_dragon_fang.png",
+})
+
+minetest.register_craftitem("lottmobs:horse_hide", {
+	description = SL("Horse Hide\nBrown"),
+	inventory_image = "lottmobs_horse_hide.png",
+})
+
+minetest.register_craftitem("lottmobs:horse_hide_black", {
+	description = SL("Horse Hide\nBlack"),
+	inventory_image = "lottmobs_horse_hide_black.png",
+})
+
+minetest.register_craftitem("lottmobs:horse_hide_white", {
+	description = SL("Horse Hide\nWhite"),
+	inventory_image = "lottmobs_horse_hide_white.png",
+})
+
+minetest.register_craftitem("lottmobs:leather", {
+	description = SL("Leather"),
+	inventory_image = "lottmobs_leather.png",
+})
+
+minetest.register_craftitem("lottmobs:saddle", {
+	description = SL("Saddle"),
+	inventory_image = "lottmobs_ssaddle.png",
+	stack_max = 1,
+})
+
 minetest.register_craftitem("lottmobs:pork_cooked", {
 	description = SL("Cooked Porkchop"),
 	inventory_image = "mobs_pork_cooked.png",

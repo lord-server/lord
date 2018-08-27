@@ -29,7 +29,7 @@ tools.sources = {
 minetest.register_item(":", {
 	type = "none",
 	wield_image = "wieldhand.png",
-	wield_scale = {x=1,y=1,z=2.5},
+	wield_scale = {x=1,y=1,z=4},
 	tool_capabilities = {
 		full_punch_interval = 0.9,
 		max_drop_level = 0,
@@ -62,6 +62,7 @@ local function register_tool(tooltype, material, itemdef)
 		wield_image = "tools_"..tooltype.."_"..material..".png"..
 			(itemdef.wield_image_transform or ""),
 		range = itemdef.range,
+		wield_scale = {x=1.5, y=1.5, z=1},
 		tool_capabilities = {
 			full_punch_interval = itemdef.full_punch_interval,
 			max_drop_level = itemdef.max_drop_level,

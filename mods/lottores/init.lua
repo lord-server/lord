@@ -56,63 +56,6 @@ minetest.register_node("lottores:mithril_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:blue_gem_ore", {
-	description = SL("Blue Gem Ore"),
-	tiles = {"default_stone.png^lottores_bluegem_ore.png"},
-	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:blue_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("lottores:white_gem_ore", {
-	description = SL("White Gem Ore"),
-	tiles = {"default_stone.png^lottores_whitegem_ore.png"},
-	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:white_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
-})
-
-minetest.register_node("lottores:red_gem_ore", {
-	description = SL("Red Gem Ore"),
-	tiles = {"default_stone.png^lottores_redgem_ore.png"},
-	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:red_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
-})
-
 -- Ores Spawning
 
 minetest.register_ore({
@@ -238,38 +181,6 @@ minetest.register_ore({
 
 minetest.register_ore({
 	ore_type       = "scatter",
-	ore            = "lottores:blue_gem_ore",
-	wherein        = "default:stone",
-	clust_scarcity = 14*14*14,
-	clust_num_ores = 4,
-	clust_size     = 2,
-	y_min     = -31000,
-	y_max     = -256,
-})
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "lottores:red_gem_ore",
-	wherein        = "default:stone",
-	clust_scarcity = 14*14*14,
-	clust_num_ores = 4,
-	clust_size     = 2,
-	y_min     = -31000,
-	y_max     = -256,
-})
-minetest.register_ore({
-	ore_type       = "scatter",
-	ore            = "lottores:white_gem_ore",
-	wherein        = "default:stone",
-	clust_scarcity = 14*14*14,
-	clust_num_ores = 4,
-	clust_size     = 2,
-	y_min     = -31000,
-	y_max     = -256,
-})
-
-
-minetest.register_ore({
-	ore_type       = "scatter",
 	ore            = "lottores:mithril_ore",
 	wherein        = "default:stone",
 	clust_scarcity = 18*18*18,
@@ -352,21 +263,6 @@ minetest.register_craftitem("lottores:tilkal_ingot", {
 	description = SL("Tilkal Ingot"),
 	inventory_image = "lottores_tilkal_ingot.png",
      groups = {forbidden=1},
-})
-
-minetest.register_craftitem("lottores:blue_gem", {
-	description = SL("Blue Gem"),
-	inventory_image = "lottores_bluegem.png",
-})
-
-minetest.register_craftitem("lottores:red_gem", {
-	description = SL("Red Gem"),
-	inventory_image = "lottores_redgem.png",
-})
-
-minetest.register_craftitem("lottores:white_gem", {
-	description = SL("White Gem"),
-	inventory_image = "lottores_whitegem.png",
 })
 
 -- Nodes
@@ -825,11 +721,12 @@ stairs.register_stair_and_slab("galvorn_block", "lottores:galvorn_block",
 
 -- Crafting
 
-minetest.register_craft({
+--Old Craft recipe of galvorn ingot
+--[[minetest.register_craft({
 	type = "shapeless",
 	output = "lottores:galvorn_ingot",
 	recipe = {"lottores:lead_ingot", "default:mese_crystal"}
-})
+})]]--
 
 minetest.register_craft({
 	output = 'lottores:tilkal',
@@ -849,8 +746,11 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "lottores:tilkal_ingot",
-	recipe = {"default:copper_ingot", "lottores:silver_ingot", "lottores:tin_ingot", "lottores:lead_ingot", "default:steel_ingot", "default:gold_ingot"}
+	output = 'lottores:tilkal_ingot',
+	recipe = {
+		'default:copper_ingot', 'lottores:silver_ingot', 'lottores:tin_ingot',
+		'lottores:lead_ingot', 'default:steel_ingot', 'default:gold_ingot',
+	}
 })
 
 minetest.register_craft({

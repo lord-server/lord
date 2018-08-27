@@ -686,6 +686,7 @@ lottachievements.register_achievement("supersonic_speed", {
 	title = SL("Supersonic Speed"),
 	description = SL("Craft a palantir"),
 	icon = "default_obsidian.png",
+	requires = "master_craftsman",
 	secret = true,
 	id = 52,
 	trigger = {
@@ -761,6 +762,96 @@ lottachievements.register_achievement("lottachievements_the_lie", {
 		target = 1
 	}
 })
+
+lottachievements.register_achievement("ring_smith", {
+	title = SL("Lord Of The Rings"),
+	description = SL("Finally! You got the ring!"),
+	icon = "lottother_beast_ring.png",
+	requires = "polisher",
+	secret = true,
+	id = 56,
+})
+
+lottachievements.register_achievement("i_said_meow", {
+	title = SL("I Said Meow"),
+	description = SL("Find Nyan Cat"),
+	icon = "default_nc_front.png",
+	requires = "supersonic_speed",
+	secret = true,
+	id = 57,
+})
+
+
+lottachievements.register_achievement("a_pickaxe_fit_for_a_king", {
+ 	title = SL("A pickaxe fit for a king"),
+ 	description = SL("Craft a gem pickaxe"),
+ 	icon = "lottother_gempick.png",
+ 	requires = "ring_booker",
+ 	id = 58,
+ 	trigger = {
+ 		type = "craft",
+ 		item = "lottother:gem_pick",
+ 		target = 1,
+ 	}
+ })
+
+lottachievements.register_achievement("dragon", {
+	title = SL("Dragon Killer"),
+	description = SL("Kill a Dragon"),
+	icon = "fire_basic_flame.png",
+	id = 59,
+	requires = "i_said_meow",
+	trigger = {
+		type = "kill",
+		mob = "lottmobs:dragon_great",
+		target = 1,
+		setprivs = function(player,data)
+			minetest.set_player_privs(player.get_player_name(),"dragon")
+		end
+	}
+})
+
+lottachievements.register_achievement("ring_booker", {
+	title = SL("Knoledge Of Power"),
+	description = SL("Craft Ring Guide"),
+	icon = "lottblocks_book_green.png",
+	id = 60,
+	requires = "dragon",
+	trigger = {
+		type = "kill",
+		mob = "lottmobs:dragon_great",
+		target = 1,
+	}
+})
+
+lottachievements.register_achievement("ringsilver_crafter", {
+ 	title = SL("Ringsilver crafter"),
+ 	description = SL("Form your first ingot of ringsilver!"),
+ 	icon = "lottother_ringsilver_ingot.png",
+ 	requires = "ring_booker",
+ 	id = 61,
+ })
+
+lottachievements.register_achievement("a_pickaxe_fit_for_a_king", {
+ 	title = SL("A pickaxe fit for a king"),
+ 	description = SL("Craft a gem pickaxe"),
+ 	icon = "lottother_gempick.png",
+ 	requires = "ring_booker",
+ 	id = 63,
+ 	trigger = {
+ 		type = "craft",
+ 		item = "lottother:gem_pick",
+ 		target = 1,
+ 	}
+ })
+
+lottachievements.register_achievement("polisher", {
+ 	title = SL("Polisher"),
+ 	description = SL("Polish a gem"),
+ 	icon = "lottother_redgem.png",
+ 	requires = "a_pickaxe_fit_for_a_king",
+ 	id = 64,
+ })
 
 -- lottachievements.register_achievement("a_long_path_to_mushrooms", {
 -- 	title = SL("A Long Path to Mushrooms"),

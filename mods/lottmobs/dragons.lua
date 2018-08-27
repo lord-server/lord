@@ -26,15 +26,15 @@ lottmobs.dragon.ride = function(self, clicker)
         local inv = clicker:get_inventory()
             if self.driver and clicker == self.driver then
                 object_detach(self, clicker, {x=1, y=0, z=1})
-                if inv:room_for_item("main", "mobs:saddle") then
-                    inv:add_item("main", "mobs:saddle")
+                if inv:room_for_item("main", "lottmobs:saddle") then
+                    inv:add_item("main", "lottmobs:saddle")
                 else
-                    minetest.add_item(clicker.getpos(), "mobs:saddle")
+                    minetest.add_item(clicker.getpos(), "lottmobs:saddle")
                 end
                 elseif not self.driver then
-                    if clicker:get_wielded_item():get_name() == "mobs:saddle" then
+                    if clicker:get_wielded_item():get_name() == "lottmobs:saddle" then
                         object_attach(self, clicker, {x=0, y=12, z=4}, {x=0, y=0, z=4})
-                        inv:remove_item("main", "mobs:saddle")
+                        inv:remove_item("main", "lottmobs:saddle")
                     end
             end
     end
@@ -45,8 +45,8 @@ local gdragon_base = {
 	type = "monster",
 	passive = false,
 	attacks_monsters = false,
-	damage = 5,
-	reach = 4,
+	damage = 7,
+	reach = 6,
 	attack_type = "dogshoot",
 	shoot_interval = 2.5,
 	dogshoot_switch = 2,
@@ -55,8 +55,8 @@ local gdragon_base = {
 --	arrow = "dmobs:lightning",
 	arrow = "lottmobs:fireball",
 	shoot_offset = 0,
-	hp_min = 140,
-	hp_max = 180,
+	hp_min = 1700,
+	hp_max = 2200,
 	armor = 220,
 	collisionbox = {-0.6, -1.4, -0.6, 0.6, 0.6, 0.6},
 	visual = "mesh",
@@ -82,7 +82,10 @@ local gdragon_base = {
 	jump = true,
 	fly = true,
 	drops = {
---		{name = "dmobs:dragon_egg_great", chance = 1, min = 1, max = 1},
+		{name = "lottother:stony_green_gem", chance = 0.1, min = 0, max = 1},
+		{name = "lottother:stony_blue_gem", chance = 0.7, min = 0, max = 1},
+		{name = "lottother:stony_red_gem", chance = 0.7, min = 0, max = 1},
+		{name = "lottother:stony_white_gem", chance = 0.7, min = 0, max = 1},
 	},
 	fall_speed = 0,
 	stepheight = 10,
@@ -102,7 +105,7 @@ local gdragon_base = {
 		punch_start = 22,
 		punch_end = 47,
 	},
-	knock_back = 2,
+	knock_back = 4,
 }
 
 mobs:register_mob("lottmobs:dragon_great", lottmobs.deepclone(gdragon_base) )
@@ -116,5 +119,5 @@ gdragon_base.on_rightclick = lottmobs.dragon.ride
 
 mobs:register_mob("lottmobs:dragon_great_tame", lottmobs.deepclone(gdragon_base) )
 
---mobs:register_egg("lottmobs:dragon_great", "Boss Dragon", "mobs_dragon_egg.png", 1)
---mobs:register_egg("lottmobs:dragon_great_tame", "Great Dragon", "default_lava_source_animated.png", 1)
+mobs:register_egg("lottmobs:dragon_great", "Boss Dragon", "mobs_dragon_egg.png", 1)
+mobs:register_egg("lottmobs:dragon_great_tame", "Great Dragon", "default_lava_source_animated.png", 1)

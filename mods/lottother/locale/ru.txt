@@ -39,27 +39,87 @@ Gondor Mob Spawner	=	точка спавна Gondor Mob
 Angmar Mob Spawner	=	точка спавна Angmar Mob
 
 ### rings.lua ###
-Unrefined Ring Silver	=	Ювелирное серебро
-Refined Ring Silver	=	Слиток ювелирного серебра
 
-Plain Ring	=	Простое кольцо
-Purple Gem	=	Фианит
+Narya\nElven Ring of Power = Нарья\nЭльфийское Кольцо Силы
+Nenya\nElven Ring of Power = Нэнья\nЭльфийское Кольцо Силы
+Vilya\nElven Ring of Power = Вилья\nЭльфийское Кольцо Силы
+Dragakoo\nDwarvern Ring of Power	=	Драгакоо\nГномье Кольцо Силы
+Suotty\nBeast Ring of Power  =   Сюотти\nДикое Кольцо Силы
 
-Red Gem Ring	=	Кольцо с рубином
-Blue Gem Ring	=	Кольцо с сапфиром
-White Gem Ring	=	Кольцо с алмазом
-Purple Gem Ring	=	Кольцо с фианитом
+### gems.lua ###
 
-Purple Gem Mithril Ring	=	Мифриловое кольцо с фианитом
+Tansanite Gem Ore = Танзанитовая жила
+Adamant Gem Ore = Адамантовая жила
+Ruby Gem Ore = Рубиновая жила
 
-Red Almost Magic Ring	=	Магическое кольцо с рубином
-Blue Almost Magic Ring	=	Магическое кольцо с сапфиром
-White Almost Magic Ring	=	Магическое кольцо с алмазом
-Mithril Almost Magic Ring	=	Магическое кольцо с фианитом
+Stone Encrusted Tansanite Gem = Кристалл танзанита в породе
+Stone Encrusted Adamant Gem = Кристалл адаманта в породе
+Stone Encrusted Ruby Gem = Кристалл рубина в породе
+Stone Encrusted Emerald Gem = Кристалл изумруда в породе
 
-Narya	=	Кольцо огня
-Nenya	=	Кольцо воды
-Vilya	=	Кольцо воздуха
-Dwarf Ring	=	Гномье кольцо
-Beast Ring  =   Кольцо Зверя
+Uncut Tansanite Gem = Неограненный кристалл танзанита
+Uncut Ruby Gem = Неограненный кристалл рубина
+Uncut Ilvanite Gem = Неограненный кристалл ильванита
+Uncut Adamant Gem = Неограненный кристалл адаманта
+Uncut Emerald Gem = Неограненный кристалл изумруда
+
+Unpolished Tansanite Gem = Неполированный кристалл танзанита
+Unpolished Ruby Gem = Неполированный кристалл рубина
+Unpolished Ilvanite Gem = Неполированный кристалл ильванита
+Unpolished Adamant Gem = Неполированный кристалл адаманта
+Unpolished Emerald Gem = Неполированный кристалл изумруда
+
+Chisel = Долото
+
+Tansanite Gem = Танзанит
+Ruby Gem = Рубин
+Ilvanite Gem = Ильванит
+Adamant Gem = Адамант
+Emerald Gem = Изумруд
+
+Gem Mining Pickaxe = Кирка для добычи кристаллов
+
+### ringcraft.lua ###
+
+Quarter Ring = Четверть кольца
+Half Ring = Половина кольца
+Plain Ring = Кольцо
+Pin = Штифт
+
+Prepared Ring = Подготовленное кольцо
+
+Tansanite Ring = Кольцо с танзанитом
+Ruby Ring = Кольцо с рубином
+Ilvanite Ring = Кольцо с ильванитом
+Adamant Ring = Кольцо с адамантом
+Emerald Ring = Кольцо с изумрудом
+
+Coated Tansanite Ring = Покрытое кусками грубой скалы кольцо с танзанитом
+Coated Ruby Ring = Покрытое кусками грубой скалы кольцо с рубином
+Coated Ilvanite Ring = Покрытое кусками грубой скалы кольцо с ильванитом
+Coated Adamant Ring = Покрытое кусками грубой скалы кольцо с адамантом
+Coated Emerald Ring = Покрытое кусками грубой скалы кольцо с изумрудом
+
 Ringsilver Block = Блок ювелирного серебра
+Pure Silver Block = Блок чистого серебра
+Pure Gold Block = Блок чистого золота
+Electrum Block = Блок электрума\n(Сплав золота и серебра)
+
+Ring Furnace = Печь для колец
+This area is not hot enough for a ringsilver furnace. = Это место недостаточно горячо для размещения печи для колец.
+
+Fuel = Топливо
+Galvorn Block = Блоки галворна
+Mithril Block = Блоки мифрила
+Tilkal Block = Блоки тилкала
+
+### ringsilver.lua ###
+
+Pure Silver = Слиток чистого серебра
+Pure Gold = Слиток чистого золота
+Electrum = Слиток электрума\n(Сплав золота и серебра)
+
+Hot Ringsilver = Горячее ювелирное серебро
+Ringsilver = Ювелирное серебро
+
+Ringsilver Furnace = Печь для ювелирного серебра
