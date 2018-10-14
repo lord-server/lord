@@ -9,3 +9,4 @@ The workpiece slot is for damaged tools only. = Чинить можно толь
 You can not repair rings! = Кольца чинить нельзя!
 Can not break. Something is inside. = Не поднять. На наковальне что-то есть.
 Anvil (owned by %s) = Наковальня (владелец: %s)
+Only for @1 = Только для @1
