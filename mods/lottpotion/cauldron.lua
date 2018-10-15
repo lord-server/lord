@@ -9,6 +9,7 @@ minetest.register_node("lottpotion:cauldron_full",{
 	paramtype2 = "facedir",
 	groups = {cracky=2},
 	legacy_facedir_simple = true,
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -33,6 +34,7 @@ minetest.register_node("lottpotion:cauldron_two_third_full",{
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -57,6 +59,7 @@ minetest.register_node("lottpotion:cauldron_one_third_full",{
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -80,6 +83,7 @@ minetest.register_node("lottpotion:cauldron_empty",{
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=1,level=2},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {

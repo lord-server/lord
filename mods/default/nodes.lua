@@ -543,13 +543,38 @@ minetest.register_node("default:leaves", {
 
 minetest.register_node("default:cactus", {
 	description = SL("Cactus"),
-	tiles = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
-	paramtype2 = "facedir",
+	drawtype = "nodebox",
+	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png","default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
 	is_ground_content = true,
-	groups = {snappy=1,choppy=3,flammable=2},
+	groups = {snappy=1, choppy=3, flammable=2, plant=1, oddly_breakable_by_hand=1},
+	sounds = default.node_sound_leaves_defaults(),
+	paramtype = "light",
+	sunlight_propagates = true,
 	drop = "flowers:cactus_decor",
-	sounds = default.node_sound_wood_defaults(),
-	on_place = minetest.rotate_node
+	node_placement_prediction = "",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-7/16, -8/16, -7/16,  7/16, 8/16,  7/16}, -- Main body
+			{-8/16, -8/16, -7/16,  8/16, 8/16, -7/16}, -- Spikes
+			{-8/16, -8/16,  7/16,  8/16, 8/16,  7/16}, -- Spikes
+			{-7/16, -8/16, -8/16, -7/16, 8/16,  8/16}, -- Spikes
+			{7/16,  -8/16,  8/16,  7/16, 8/16, -8/16}, -- Spikes
+		},
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {-7/16, -8/16, -7/16,  7/16, 7/16,  7/16}, -- Main body. slightly lower than node box
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{-7/16, -8/16, -7/16, 7/16, 8/16, 7/16},
+		},
+	},
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 
 minetest.register_node("default:papyrus", {
@@ -567,6 +592,9 @@ minetest.register_node("default:papyrus", {
 	},
 	groups = {snappy=3,flammable=2,grass=1},
 	sounds = default.node_sound_leaves_defaults(),
+	after_dig_node = function(pos, node, metadata, digger)
+		default.dig_up(pos, node, digger)
+	end,
 })
 
 default.bookshelf_formspec =
@@ -1710,7 +1738,7 @@ minetest.register_node("default:steelblock", {
 	tiles = {"default_steel_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_metal_defaults(),
 })
 
 minetest.register_node("default:copperblock", {
@@ -1718,7 +1746,7 @@ minetest.register_node("default:copperblock", {
 	tiles = {"default_copper_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_metal_defaults(),
 })
 
 minetest.register_node("default:bronzeblock", {
@@ -1726,7 +1754,7 @@ minetest.register_node("default:bronzeblock", {
 	tiles = {"default_bronze_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_metal_defaults(),
 })
 
 minetest.register_node("default:mese", {
@@ -1734,7 +1762,7 @@ minetest.register_node("default:mese", {
 	tiles = {"default_mese_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_glass_defaults(),
 })
 minetest.register_alias("default:mese_block", "default:mese")
 
@@ -1743,7 +1771,7 @@ minetest.register_node("default:goldblock", {
 	tiles = {"default_gold_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_metal_defaults(),
 })
 
 minetest.register_node("default:diamondblock", {
@@ -1751,7 +1779,7 @@ minetest.register_node("default:diamondblock", {
 	tiles = {"default_diamond_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=3},
-	sounds = default.node_sound_stone_defaults(),
+	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_node("default:obsidian_glass", {

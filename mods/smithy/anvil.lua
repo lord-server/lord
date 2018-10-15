@@ -54,6 +54,7 @@ minetest.register_node(":castle:anvil", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	node_box = nodebox,
+	sounds = default.node_sound_metal_defaults(),
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos);
@@ -111,41 +112,83 @@ minetest.register_node(":castle:anvil", {
 					minetest.pos_to_string(pos))
 			return 0
 		end
-		if listname=='hammer' and stack and stack:get_name() ~= 'tools:warhammer_steel' 
-		and stack:get_name() ~= 'tools:warhammer_bronze'
-		and stack:get_name() ~= 'tools:warhammer_copper'
-		and stack:get_name() ~= 'tools:warhammer_tin'
-		and stack:get_name() ~= 'tools:warhammer_silver'
-		and stack:get_name() ~= 'tools:warhammer_gold'
-		and stack:get_name() ~= 'tools:warhammer_galvorn'
-		and stack:get_name() ~= 'tools:warhammer_mithril'then
+
+		local name = stack:get_name()
+
+		if listname=='hammer' and stack and name ~= 'tools:warhammer_steel' 
+		and name ~= 'tools:warhammer_bronze'
+		and name ~= 'tools:warhammer_copper'
+		and name ~= 'tools:warhammer_tin'
+		and name ~= 'tools:warhammer_silver'
+		and name ~= 'tools:warhammer_gold'
+		and name ~= 'tools:warhammer_galvorn'
+		and name ~= 'tools:warhammer_mithril'then
 			return 0;
 		end
+		
+		if listname=='input' and stack 
+		--wooden tools
+		and name == 'tools:pick_wood'
+		or name == 'tools:shovel_wood'
+		or name == 'tools:axe_wood'
+		or name == 'tools:sword_wood'
+		or name == 'tools:battleaxe_wood'
+		or name == 'tools:warhammer_wood'
+		or name == 'tools:spear_wood'
+		or name == 'tools:dagger_wood'
+		--stone tools
+		or name == 'tools:pick_stone'
+		or name == 'tools:shovel_stone'
+		or name == 'tools:axe_stone'
+		or name == 'tools:sword_stone'
+		or name == 'tools:battleaxe_stone'
+		or name == 'tools:warhammer_stone'
+		or name == 'tools:spear_stone'
+		or name == 'tools:dagger_stone'
+		--rings
+		or name == 'lottother:dwarf_ring'
+		or name == 'lottother:vilya'
+		or name == 'lottother:narya'
+		or name == 'lottother:nenya'
+		or name == 'lottother:lottother:beast_ring'
+		-- new rings
+		--[[
+		or name == 'lottother:dwarf_ring_new'
+		or name == 'lottother:vilya_new'
+		or name == 'lottother:narya_new'
+		or name == 'lottother:nenya_new'
+		or name == 'lottother:lottother:beast_ring_new'
+		]]
+		--armor
+		or name == 'lottarmor:helmet_wood'
+		or name == 'lottarmor:chestplate_wood'
+		or name == 'lottarmor:leggings_wood'
+		or name == 'lottarmor:boots_wood'
+		or name == 'lottarmor:shield_wood'
+		--new armor
+		--[[
+		or name == 'lottarmor:dragon_warrior_helmet'
+		or name == 'lottarmor:dragon_warrior_chestplate'
+		or name == 'lottarmor:dragon_warrior_leggings'
+		or name == 'lottarmor:dragon_warrior_boots'
+		or name == 'lottarmor:dragon_warrior_shield'
+		]]
+		--special tools/items
+		or name == 'tools:sword_elven'
+		or name == 'tools:sword_orc'
+		or name == 'defaults:ghost_tool'
+		--or name == 'tools:melkor_pick'
+		--or name == 'tools:dragon_warrior_sword'
+		--or name == 'lottother:gem_pick'
+		--[[optional: or name == 'lottother:chisel']] then
+			minetest.chat_send_player(player:get_player_name(), SL('You can not repair this item!'));
+			return 0;
+		end
+
 		if listname=='input' and stack:get_wear() == 0 then
 			minetest.chat_send_player( player:get_player_name(), SL('The workpiece slot is for damaged tools only.'));
 			return 0;
 		end
-		if listname=='input' and stack:get_name() == "lottother:dwarf_ring" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-		if listname=='input' and stack:get_name() == "lottother:vilya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-		if listname=='input' and stack:get_name() == "lottother:narya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end		
-		if listname=='input' and stack:get_name() == "lottother:nenya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-		if listname=='input' and stack:get_name() == "lottother:beast_ring" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-
 		return stack:get_count()
 	end,
 
@@ -259,36 +302,36 @@ minetest.register_node(":castle:anvil", {
 		
 		-- damage the hammer slightly
 		if wielded:get_name() == 'tools:warhammer_steel' then
-			wielded:add_wear(300);
-			input:add_wear( -800 );
+			wielded:add_wear(600);
+			input:add_wear( -400 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_bronze' then
-			wielded:add_wear(300);
-			input:add_wear( -800 );
+			wielded:add_wear(600);
+			input:add_wear( -400 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_copper' then
-			wielded:add_wear(340);
-			input:add_wear( -500 );
+			wielded:add_wear(680);
+			input:add_wear( -250 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_tin' then
-			wielded:add_wear(340);
-			input:add_wear( -500 );
+			wielded:add_wear(680);
+			input:add_wear( -250 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_silver' then
-			wielded:add_wear(300);
-			input:add_wear( -800 );
+			wielded:add_wear(600);
+			input:add_wear( -400 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_gold' then
-			wielded:add_wear(400);
-			input:add_wear( -300 );
+			wielded:add_wear(800);
+			input:add_wear( -150 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_galvorn' then
-			wielded:add_wear(200);
-			input:add_wear( -1200 );
+			wielded:add_wear(400);
+			input:add_wear( -600 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_mithril' then
-			wielded:add_wear(100);
-			input:add_wear( -1200 );
+			wielded:add_wear(200);
+			input:add_wear( -600 );
 			inv:set_stack("input", 1, input)
 		end
 		puncher:set_wielded_item(wielded);

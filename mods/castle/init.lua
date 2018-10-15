@@ -209,29 +209,6 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_tool("castle:battleaxe", {
-	description = SL("Battleaxe"),
-	inventory_image = "castle_battleaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 2.0,
-		max_drop_level=1,
-		groupcaps={
-			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=20, maxlevel=3},
-			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=20, maxlevel=3},
-		},
-		damage_groups = {fleshy=7},
-	},
-	groups = {steel_item = 1},
-})
-minetest.register_craft({
-	output = "castle:battleaxe",
-	recipe = {
-		{"default:steel_ingot", "default:mese_crystal","default:steel_ingot"},
-		{"default:steel_ingot", "group:stick","default:steel_ingot"},
-                  {"", "group:stick",""}
-	}
-})
-
 stairs.register_stair_and_slab("dungeon_stone", "castle:dungeon_stone",
 		{cracky=3},
 		{"castle_dungeon_stone.png"},

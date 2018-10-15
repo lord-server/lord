@@ -28,6 +28,21 @@ minetest.register_tool("tools:sword_orc", {
 	groups = {steel_item = 1},
 })
 
+minetest.register_tool("tools:battleaxe_dwarven", {
+	description = SL("Dwarven Battleaxe"),
+	inventory_image = "castle_battleaxe.png",
+	tool_capabilities = {
+		full_punch_interval = 2.0,
+		max_drop_level=1,
+		groupcaps={
+			choppy={times={[1]=2.10, [2]=0.90, [3]=0.50}, uses=20, maxlevel=3},
+			snappy={times={[1]=1.90, [2]=0.90, [3]=0.30}, uses=20, maxlevel=3},
+		},
+		damage_groups = {fleshy=7},
+	},
+	groups = {steel_item = 1},
+})
+
 minetest.register_craft({
 	output = 'tools:sword_elven',
 	recipe = {
@@ -43,5 +58,14 @@ minetest.register_craft({
 		{'', 'default:steel_ingot', 'default:steel_ingot'},
 		{'', 'default:steel_ingot', ''},
 		{'', 'group:stick', ''},
+	}
+})
+
+minetest.register_craft({
+	output = "tools:battleaxe_dwarven",
+	recipe = {
+		{"default:steel_ingot", "default:mese_crystal","default:steel_ingot"},
+		{"default:steel_ingot", "group:stick","default:steel_ingot"},
+                  {"", "group:stick",""}
 	}
 })
