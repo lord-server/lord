@@ -93,14 +93,13 @@ for i = 1, 15 do
 end
 
 minetest.register_node("castle:jailbars", {
-    description = SL("Jailbars"),
-    tiles = {"castle_space.png"},
-    inventory_image = "castle_jailbars.png",
-    wield_image = "castle_jailbars.png",
-    groups = {steel_item = 1},
-    node_placement_prediction = "",
-    on_construct = update_jailbars,
-    sounds = default.node_sound_metal_defaults()
+	description = SL("Jailbars"),
+	tiles = {"castle_space.png"},
+	inventory_image = "castle_jailbars.png",
+	wield_image = "castle_jailbars.png",
+	groups = {steel_item = 1},
+	node_placement_prediction = "",
+	on_construct = update_jailbars
 })
 
 minetest.register_on_placenode(update_nearby)
