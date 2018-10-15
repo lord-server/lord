@@ -1762,7 +1762,7 @@ minetest.register_node("default:mese", {
 	tiles = {"default_mese_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_glass_defaults(),
 })
 minetest.register_alias("default:mese_block", "default:mese")
 
