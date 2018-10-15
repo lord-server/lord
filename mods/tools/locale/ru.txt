@@ -87,5 +87,4 @@ Galvorn Dagger	=	Галворновый кинжал
 Mithril Dagger	=	Мифриловый кинжал
 
 Elven Sword	=	Эльфийский меч
-Orcish Sword	=	Ятаган Урук-Хая
-Dwarven Battleaxe	=	Гномья секира
+Orcish Sword	=	Оркский меч

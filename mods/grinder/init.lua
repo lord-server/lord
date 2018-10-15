@@ -194,7 +194,7 @@ minetest.register_node("grinder:grinder", {
 	groups = {cracky=2},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", grinder.grinder_inactive_formspec)
@@ -334,7 +334,7 @@ minetest.register_node("grinder:grinder_active", {
 	groups = {cracky=2, not_in_creative_inventory=1,hot=1},
 	legacy_facedir_simple = true,
 	is_ground_content = false,
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", grinder.grinder_inactive_formspec)
