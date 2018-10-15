@@ -51,9 +51,9 @@ minetest.register_node("castle:anvil",{
 minetest.register_craft({
 	output = "castle:anvil",
 	recipe = {
-		{"lottores:galvorn_block","lottores:galvorn_block","lottores:galvorn_block"},
-		{"","lottores:galvorn_ingot", ""},
-		{"lottores:galvorn_ingot", "lottores:galvorn_block","lottores:galvorn_ingot"},
+		{"default:steel_ingot","default:steel_ingot","default:steel_ingot"},
+		{"","default:steel_ingot", ""},
+		{"default:steel_ingot", "default:steel_ingot","default:steel_ingot"},
 	}
 })
 
