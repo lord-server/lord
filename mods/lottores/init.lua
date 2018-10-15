@@ -374,7 +374,7 @@ minetest.register_craftitem("lottores:white_gem", {
 minetest.register_node("lottores:tilkal", {
 	description = SL("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_defaults(),
 	groups = {forbidden=1},
 })
 
@@ -524,7 +524,7 @@ minetest.register_node("lottores:silver_block", {
 	tiles = {"lottores_silver_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:tin_block", {
@@ -532,7 +532,7 @@ minetest.register_node("lottores:tin_block", {
 	tiles = {"lottores_tin_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:lead_block", {
@@ -540,7 +540,7 @@ minetest.register_node("lottores:lead_block", {
 	tiles = {"lottores_lead_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:mithril_block", {
@@ -548,7 +548,7 @@ minetest.register_node("lottores:mithril_block", {
 	tiles = {"lottores_mithril_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:galvorn_block", {
@@ -556,7 +556,7 @@ minetest.register_node("lottores:galvorn_block", {
 	tiles = {"lottores_galvorn_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2,forbidden=1},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_stone_defaults(),
 })
 
 -- Ithildin
@@ -772,64 +772,56 @@ stairs.register_stair_and_slab("tilkal", "lottores:tilkal",
 		{"lottores_tilkal.png"},
 		SL("Tilkal Stair"),
 		SL("Tilkal Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("limestone", "lottores:limestone",
         {cracky=3, stone=2},
 		{"lottores_limestone_ore.png"},
 		SL("Limestone Stair"),
 		SL("Limestone Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("marble", "lottores:marble",
         {cracky=3},
 		{"lottores_marble.png"},
 		SL("Marble Stair"),
 		SL("Marble Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("silver_block", "lottores:silver_block",
         {cracky=1,level=2},
 		{"lottores_silver_block.png"},
 		SL("Silver Stair"),
 		SL("Silver Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("tin_block", "lottores:tin_block",
         {cracky=1},
 		{"lottores_tin_block.png"},
 		SL("Tin Stair"),
 		SL("Tin Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("lead_block", "lottores:lead_block",
         {cracky=1},
 		{"lottores_lead_block.png"},
 		SL("Lead Stair"),
 		SL("Lead Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("mithril_block", "lottores:mithril_block",
         {cracky=1,level=2},
 		{"lottores_mithril_block.png"},
 		SL("Mithril Stair"),
 		SL("Mithril Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 stairs.register_stair_and_slab("galvorn_block", "lottores:galvorn_block",
         {cracky=1,level=2,forbidden=1},
 		{"lottores_galvorn_block.png"},
 		SL("Galvorn Stair"),
 		SL("Galvorn Slab"),
-		default.node_sound_metal_defaults()
-)
+		default.node_sound_stone_defaults())
 
 -- Crafting
 
