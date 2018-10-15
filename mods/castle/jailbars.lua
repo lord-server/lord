@@ -100,7 +100,7 @@ minetest.register_node("castle:jailbars", {
     groups = {steel_item = 1},
     node_placement_prediction = "",
     on_construct = update_jailbars,
-    default.node_sound_metal_defaults()
+    sounds = default.node_sound_metal_defaults()
 })
 
 minetest.register_on_placenode(update_nearby)
