@@ -2,7 +2,6 @@
 
 local random = math.random
 
-
 -- проверка на возможность роста деревьев
 function default.can_grow(pos)
 	local n
