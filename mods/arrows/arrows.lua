@@ -34,7 +34,7 @@ local arrow_node_box = {
 	}
 }
 
-local register_arrow = function(material, dc)
+local register_arrow = function(material, material_group, dc)
 	local name = "arrows:arrow_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." arrow"),
@@ -44,7 +44,7 @@ local register_arrow = function(material, dc)
 	minetest.register_craft({
 		output = name..' 16',
 		recipe = {
-			{'default:stick', 'default:stick', 'default:'..material..'_ingot'},
+			{'default:stick', 'default:stick', material_group..':'..material..'_ingot'},
 		}
 	})
 
@@ -70,8 +70,8 @@ local register_arrow = function(material, dc)
 			velocity = ARROW_VELOCITY})
 end
 
-register_arrow("steel", STEEL_DC)
-register_arrow("mithril", MITHRIL_DC)
+register_arrow("steel", "default", STEEL_DC)
+register_arrow("mithril", "lottores", MITHRIL_DC)
 
 -- Bolt nodebox --
 local bolt_node_box = {
@@ -95,7 +95,7 @@ local bolt_node_box = {
 	}
 }
 
-local register_bolt = function(material, dc)
+local register_bolt = function(material, material_group, dc)
 	local name = "arrows:bolt_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." bolt"),
@@ -105,7 +105,7 @@ local register_bolt = function(material, dc)
 	minetest.register_craft({
 		output = name..' 16',
 		recipe = {
-			{'default:steel_ingot', 'default:'..material..'_ingot'},
+			{'default:steel_ingot', material_group..':'..material..'_ingot'},
 		}
 	})
 
@@ -131,6 +131,6 @@ local register_bolt = function(material, dc)
 			velocity = BOLT_VELOCITY})
 end
 
-register_bolt("steel", STEEL_DC)
-register_bolt("mithril", MITHRIL_DC)
+register_bolt("steel", "default", STEEL_DC)
+register_bolt("mithril", "lottores", MITHRIL_DC)
 
