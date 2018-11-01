@@ -1,5 +1,7 @@
 -- Mob Attacks
 
+local SL = lord.require_intllib()
+
 local flame_node = function(pos)
 	local n = minetest.get_node(pos).name
 	local fbd = minetest.registered_nodes[n].groups.forbidden
@@ -90,7 +92,7 @@ throwing:register_arrow("arrows:darkball", {
 })
 
 minetest.register_craftitem("arrows:darkball", {
-	description = "Darkball",
+	description = SL("Darkball"),
 	inventory_image = "lottmobs_darkball.png",
 })
 
