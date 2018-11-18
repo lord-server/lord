@@ -1,12 +1,5 @@
 local SL = lord.require_intllib()
 
-local function has_anvil_privilege(meta, player)
-	if player:get_player_name() ~= meta:get_string("owner") then
-		return false
-	end
-	return true
-end
-
 local smithy_anvil_formspec =
 	"size[8,7]"..
 	"background[0,0;8.5,8.5;gui_anvilbg.png;true]"..
@@ -77,13 +70,11 @@ minetest.register_node(":castle:anvil", {
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory();
 		local owner = meta:get_string('owner');
-		if not inv:is_empty("input")
-			or not inv:is_empty("hammer")
-			or not player then
-				minetest.chat_send_player( player:get_player_name(), SL('Can not break. Something is inside.'));
-			return false;
-		elseif owner and owner ~= '' and player:get_player_name() ~= owner  then
-			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", owner))
+		if( not( inv:is_empty("input"))
+			or not( inv:is_empty("hammer"))
+			or not( player )
+			or ( owner and owner ~= '' and player:get_player_name() ~= owner )) then
+			minetest.chat_send_player( player:get_player_name(), SL('Can not break. Something is inside.'));
 			return false;
 		end
 		return true;
@@ -91,25 +82,16 @@ minetest.register_node(":castle:anvil", {
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
+		if( player and player:get_player_name() ~= meta:get_string('owner' ) and from_list~="input") then
 			return 0
 		end
-		
 		return count;
 	end,
 
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
-			return 0
+		if( player and player:get_player_name() ~= meta:get_string('owner' ) and listname~="input") then
+			return 0;
 		end
 		if listname=='hammer' and stack and stack:get_name() ~= 'tools:warhammer_steel' 
 		and stack:get_name() ~= 'tools:warhammer_bronze'
@@ -129,33 +111,13 @@ minetest.register_node(":castle:anvil", {
 			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
 			return 0;
 		end
-		if listname=='input' and stack:get_name() == "lottother:vilya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-		if listname=='input' and stack:get_name() == "lottother:narya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end		
-		if listname=='input' and stack:get_name() == "lottother:nenya" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
-		if listname=='input' and stack:get_name() == "lottother:beast_ring" then
-			minetest.chat_send_player(player:get_player_name(), SL('You can not repair rings!'));
-			return 0;
-		end
 
 		return stack:get_count()
 	end,
 
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
-		if not has_locked_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
+		if( player and player:get_player_name() ~= meta:get_string('owner' ) and listname~="input") then
 			return 0
 		end
 		return stack:get_count()
@@ -210,7 +172,7 @@ minetest.register_node(":castle:anvil", {
 
 		local hud1 = puncher:hud_add({
 				hud_elem_type = "image",
-				scale = {x = 10, y = 10},
+				scale = {x = 15, y = 15},
 				text = hud_image,
 				position = {x = 0.5, y = 0.5},
 				alignment = {x = 0, y = 0}
@@ -226,8 +188,8 @@ minetest.register_node(":castle:anvil", {
 				direction = 0, -- left to right
 				position = {x=0.5, y=0.65},
 				alignment = {x = 0, y = 0},
-				offset = {x = -160, y = 0},
-				size = {x=16, y=16},
+				offset = {x = -320, y = 0},
+				size = {x=32, y=32},
 			})
 
 			hud3 = puncher:hud_add({
@@ -237,8 +199,8 @@ minetest.register_node(":castle:anvil", {
 				direction = 0, -- left to right
 				position = {x=0.5, y=0.65},
 				alignment = {x = 0, y = 0},
-				offset = {x = -160, y = 0},
-				size = {x=16, y=16},
+				offset = {x = -320, y = 0},
+				size = {x=32, y=32},
 			});
 		end
 
