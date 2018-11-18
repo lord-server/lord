@@ -103,11 +103,6 @@ lord_homedecor.register("wall_lamp", {
 	walkable = false
 })
 
-minetest.register_alias("3dforniture:bars", "lord_homedecor:bars")
-minetest.register_alias("3dforniture:L_binding_bars", "lord_homedecor:L_binding_bars")
-minetest.register_alias("3dforniture:chains", "lord_homedecor:chains")
-minetest.register_alias("3dforniture:torch_wall", "lord_homedecor:torch_wall")
-
 minetest.register_alias('bars', 'lord_homedecor:bars')
 minetest.register_alias('binding_bars', 'lord_homedecor:L_binding_bars')
 minetest.register_alias('chains', 'lord_homedecor:chains')
