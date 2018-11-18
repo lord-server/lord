@@ -65,10 +65,10 @@ end
 races.list_str = table.concat(tmp_races_list, ", ")
 
 -- All data will be stored in this table
--- races.cache.players[player_name] = {"shadow", "female"}
--- races.cache.granted_privs[player_name] = {"fly", "fast"}
--- races.cache.revoked_privs[player_name] = {"shout", "interact"}
-races.cache = {
+-- cache.players[player_name] = {"shadow", "female"}
+-- cache.granted_privs[player_name] = {"fly", "fast"}
+-- cache.revoked_privs[player_name] = {"shout", "interact"}
+local cache = {
 	players = {},
 	granted_privs = {},  -- Contains privileges given by this mod.
 	revoked_privs = {},
@@ -84,7 +84,7 @@ minetest.register_privilege("race", {
 --[[
   Boilerplate functions
 --]]
-local function mktable(p)
+local function ensure_table(p)
 	if not p then
 		return {}
 	else
@@ -92,13 +92,12 @@ local function mktable(p)
 	end
 end
 
--- Minetest will completely overwrite table structure, and we must restore it
 local function ensure_table_struct()
-	races.cache.players = mktable(races.cache.players)
-	races.cache.granted_privs = mktable(races.cache.granted_privs)
-	races.cache.revoked_privs = mktable(races.cache.revoked_privs)
-	races.cache.can_change = mktable(races.cache.can_change)
-	races.cache.skins = mktable(races.cache.skins)
+	cache.players = ensure_table(cache.players)
+	cache.granted_privs = ensure_table(cache.granted_privs)
+	cache.revoked_privs = ensure_table(cache.revoked_privs)
+	cache.can_change = ensure_table(cache.can_change)
+	cache.skins = ensure_table(cache.skins)
 end
 
 -- Load serialized classes from file
@@ -109,7 +108,7 @@ function races.load()
 		return false
 	end
     local content = input:read("*all")
-    races.cache = minetest.deserialize(content)
+    cache = minetest.deserialize(content)
     input:close()
 	return true
 end
@@ -124,7 +123,7 @@ function races.save()
 	if not output then
 		return false
 	end
-	local content = minetest.serialize(races.cache)
+	local content = minetest.serialize(cache)
     output:write(content)
     output:close()
     return true
@@ -166,7 +165,15 @@ end
 
 -- Returns the race and the gender of specified player
 function races.get_race_and_gender(name)
-	return races.cache.players[name] or races.default
+	return cache.players[name] or races.default
+end
+
+function races.get_race(name)
+	return races.get_race_and_gender()[1]
+end
+
+function races.get_gender(name)
+	return races.get_race_and_gender()[2]
 end
 
 function races.set_race_and_gender(name, race_and_gender, show_message)
@@ -180,7 +187,7 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 	races.update_privileges(name, races.list[race].granted_privs,
 		races.list[race].revoked_privs)
 
-	races.cache.players[name] = race_and_gender
+	cache.players[name] = race_and_gender
 	races.update_player(name, race_and_gender, races.default_skin)
 
 	-- Notify player
@@ -192,11 +199,11 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 end
 
 function races.get_skin(name)
-	return races.cache.skins[name] or races.default_skin
+	return cache.skins[name] or races.default_skin
 end
 
 function races.set_skin(name, skin)
-	races.cache.skins[name] = skin
+	cache.skins[name] = skin
 	races.update_player(name, races.get_race_and_gender(name), skin)
 end
 
@@ -205,19 +212,19 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	local privs = minetest.get_player_privs(name)
 
 	-- Create tables if they don't exist
-	races.cache.granted_privs[name] = races.cache.granted_privs[name] or {}
-	races.cache.revoked_privs[name] = races.cache.revoked_privs[name] or {}
+	cache.granted_privs[name] = cache.granted_privs[name] or {}
+	cache.revoked_privs[name] = cache.revoked_privs[name] or {}
 
 	-- Step #1: Restore normal privileges
 	for priv_name, _ in pairs(privs) do
-		if races.cache.granted_privs[name][priv_name] then
-			races.cache.granted_privs[name][priv_name] = nil
+		if cache.granted_privs[name][priv_name] then
+			cache.granted_privs[name][priv_name] = nil
 			privs[priv_name] = nil
 		end
 	end
 
-	for priv_name, _ in pairs(races.cache.revoked_privs[name]) do
-		races.cache.revoked_privs[name][priv_name] = nil
+	for priv_name, _ in pairs(cache.revoked_privs[name]) do
+		cache.revoked_privs[name][priv_name] = nil
 		privs[priv_name] = true
 	end
 
@@ -226,7 +233,7 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 		for _, priv_name in pairs(granted_privs) do
 			if not privs[priv_name] then  -- Player hasn't this privilege
 				privs[priv_name] = true
-				races.cache.granted_privs[name][priv_name] = true
+				cache.granted_privs[name][priv_name] = true
 			end
 		end
 	end
@@ -234,7 +241,7 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	if revoked_privs then
 		for _, priv_name in pairs(revoked_privs) do
 			privs[priv_name] = nil
-			races.cache.revoked_privs[name][priv_name] = true
+			cache.revoked_privs[name][priv_name] = true
 		end
 	end
 
@@ -357,7 +364,7 @@ end)
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
-	if table.contains(races.cache.players, name) then  -- Player is registered already
+	if table.contains(cache.players, name) then  -- Player is registered already
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
@@ -367,12 +374,12 @@ minetest.register_on_joinplayer(function(player)
 		races.set_race_and_gender(name, r, false)
 		races.update_player(name, r, races.get_skin(name))
 		-- Player is registered, but has no skin
-		if races.cache.skins[name] == nil then
-			races.cache.skins[name] = races.default_skin
+		if cache.skins[name] == nil then
+			cache.skins[name] = races.default_skin
 		end
 	else
 		races.show_change_form(name)
-		races.cache.can_change[name] = true
+		cache.can_change[name] = true
 	end
 end)
 
@@ -381,14 +388,14 @@ minetest.register_chatcommand("second_chance", {
 	privs = {},
 	description = SL("Second chance"),
 	func = function(name, params)
-		if races.cache.can_change[name] == nil then
-			races.cache.can_change[name] = true
+		if cache.can_change[name] == nil then
+			cache.can_change[name] = true
 		end
-		if not races.cache.can_change[name] then
+		if not cache.can_change[name] then
 			return false, SL("Won't give another chance")
 		end
 		races.show_change_form(name)
-		races.cache.can_change[name] = false
+		cache.can_change[name] = false
 	end
 })
 
@@ -411,7 +418,7 @@ minetest.register_chatcommand("give_chance", {
 		end
 
 		-- Check if player exists
-		if not races.cache.players[args[1]] then
+		if not cache.players[args[1]] then
 			return false, string.format(SL("Player '%s' does not exist"), args[1])
 		end
 

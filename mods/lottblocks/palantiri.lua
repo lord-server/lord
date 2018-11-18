@@ -168,7 +168,7 @@ minetest.register_node("lottblocks:palantir", {
 		local meta = minetest.get_meta(pos)
 		local configured = meta:get_int("configured")
 		local player_name = sender:get_player_name()
-		local player_race = races.cache.players[player_name][1]
+		local player_race = races.get_race(player_name)
 		--print("имя "..player_name)
 		--print("раса "..dump(player_race))
 
