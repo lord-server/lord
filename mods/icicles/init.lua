@@ -62,7 +62,7 @@ local function generate(minp, maxp, seed, chunks_per_volume, icicles_per_chunk, 
 	local inverse_chance = math.floor(chunk_size*chunk_size*chunk_size / icicles_per_chunk)
 	for i=1,num_chunks do
 		local y0 = pr:next(y_min, y_max-chunk_size+1)
-		if y0 >= height_min and y0 <= height_max then
+		if y0 >= height_min and y0 <= height_max and (y0+2)%16 ~= 0 then
 			local x0 = pr:next(minp.x, maxp.x-chunk_size+1)
 			local z0 = pr:next(minp.z, maxp.z-chunk_size+1)
 			local p0 = {x=x0, y=y0, z=z0}
