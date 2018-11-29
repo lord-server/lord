@@ -1033,9 +1033,7 @@ end
 -- monster find someone to attack
 local monster_attack = function(self)
 
-	if self.type ~= "monster"
-	or not damage_enabled
-	or self.state == "attack"
+	if self.state == "attack"
 	or day_docile(self) then
 		return
 	end
@@ -1073,7 +1071,7 @@ local monster_attack = function(self)
 		if specific_attack(self.specific_attack, name)
 		and (type == "player" or type == "npc"
 			or (type == "animal" and self.attack_animals == true)) then
-
+			
 			s = self.object:getpos()
 			p = player:getpos()
 			sp = s

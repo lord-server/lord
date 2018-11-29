@@ -45,12 +45,12 @@ mobs:register_arrow("lottmobs:egg_entity", {
 -- Kitten by Jordach / BFD
 
 mobs:register_mob("lottmobs:kitten", {
-stepheight = 0.6,
+	stepheight = 0.6,
 	type = "animal",
-	specific_attack = {"lottmobs:chicken"},
+	specific_attack = {"lottmobs:rat"},
 	damage = 1,
 	attack_type = "dogfight",
-	attack_animals = true, -- so it can attack chickens
+	attack_animals = true, -- so it can attack rats
 	attack_players = false,
 	reach = 1,
 	passive = false,
@@ -73,13 +73,13 @@ stepheight = 0.6,
 	},
 	walk_velocity = 0.6,
 	walk_chance = 15,
-	run_velocity = 2,
+	run_velocity = 4,
 	runaway = true,
 	jump = true,
 	drops = {
 		{name = "farming:string", chance = 1, min = 0, max = 1},
 	},
-	water_damage = 1,
+	water_damage = 0,
 	lava_damage = 5,
 	fear_height = 3,
 	animation = {
@@ -91,10 +91,11 @@ stepheight = 0.6,
 		stoodup_start = 0,
 		stoodup_end = 0,
 	},
-	follow = {"lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw", "lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
+	follow = {"lottmobs:rat",
+		  "lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw", "lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
 		  "lottmobs:meat", "lottmobs:fish_cooked", "lottmobs:horsemeat_cooked", "lottmobs:chicken_cooked", "lottmobs:pork_cooked", "lottmobs:rabbit_cooked"},
 
-	view_range = 8,
+	view_range = 12,
 
 	on_rightclick = function(self, clicker)
 
@@ -428,7 +429,7 @@ mobs:register_mob("lottmobs:bunny", {
 	replace_what = { {"lottfarming:carrot", "air", 0}, {"lottfarming:cabbage_1", "air", 0}}
 })
 
---[[mobs:register_mob("lottmobs:rat", {
+mobs:register_mob("lottmobs:rat", {
 	type = "animal",
 	passive = true,
 	hp_min = 1,
@@ -449,9 +450,8 @@ mobs:register_mob("lottmobs:bunny", {
 	run_velocity = 2,
 	runaway = true,
 	jump = true,
-	water_damage = 0,
+	water_damage = 1,
 	lava_damage = 4,
 	light_damage = 0,
 	fear_height = 2,
 })
-mobs:register_spawn("lottmobs:rat", {"default:stone"}, 20, 5, 15000, 2, 0)]]--
