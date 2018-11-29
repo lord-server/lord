@@ -91,25 +91,51 @@ stepheight = 0.6,
 		stoodup_start = 0,
 		stoodup_end = 0,
 	},
-	follow = {"lottmobs:chicken", "ethereal:fish_raw", "mobs_fish:clownfish", "mobs_fish:tropical"},
+	follow = {"lottmobs:meat_raw"},
+
 	view_range = 8,
 
 	on_rightclick = function(self, clicker)
 
-		if mobs:feed_tame(self, clicker, 4, true, true) then return end
-		if mobs:protect(self, clicker) then return end
-		if mobs:capture_mob(self, clicker, 50, 50, 90, false, nil) then return end
+		local item = clicker:get_wielded_item()
+		local user = clicker:get_player_name()
 
-		-- by right-clicking owner can pet the cat
-		if self.owner and self.owner == clicker:get_player_name() then
+		if self.owner and self.owner == user then
+			if mobs:feed_tame(self, clicker, 4, true, true) then
+				minetest.log("User "..user.." has feeded kitten!")
+			else
+				mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
+			end
+		else
+			if mobs:protect(self, clicker) then
+				return
+			end
+			if mobs:feed_tame(self, clicker, 4, true, true) then
+				minetest.log("User "..user.." has feeded kitten!")
+				self.owner = clicker:get_player_name()
+			else
+				local vel = self.object:get_velocity()
+				self.object:set_velocity({x = vel.x * 10, y = vel.y * 10, z = vel.z * 10})
+			end
+
+		end
+	end,
+
+	on_punch = function(self, hitter, tflp, tool_capabilities, dir)
+
+		local user = hitter:get_player_name()
+
+		if self.owner and self.owner == user then
+			minetest.log("User "..user.." has pet the kitten!")
 			self.object:set_velocity({x = 0, y = 0, z = 0})
 			minetest.sound_play("mobs_kitten", {
 				pos = pos,
 				gain = 1.0,
 				max_hear_distance = 5,
 			})
-
-
+		else
+			minetest.log("User "..user.." has punched kitten!")
+			mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 		end
 	end,
 
