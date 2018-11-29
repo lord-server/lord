@@ -50,7 +50,6 @@ dofile(minetest.get_modpath("lottmobs").."/trader_goods.lua")
 dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
 dofile(minetest.get_modpath("lottmobs").."/animals.lua")
-dofile(minetest.get_modpath("lottmobs").."/kitten.lua")
 dofile(minetest.get_modpath("lottmobs").."/fishes.lua")
 --dofile(minetest.get_modpath("lottmobs").."/dragons.lua")
 
