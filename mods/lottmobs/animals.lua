@@ -132,9 +132,7 @@ stepheight = 0.6,
 
 		local pos = self.object:get_pos()
 
-		if minetest.get_node(pos).name == "air" then
-			minetest.set_node(pos, {name = "stairs:slab_woolwhite"})
-		end
+		minetest.add_item(pos, "wool:white")
 		
 		minetest.sound_play("mobs_kitten", {
 				pos = pos,

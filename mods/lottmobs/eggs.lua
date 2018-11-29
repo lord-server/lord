@@ -15,3 +15,5 @@ mobs:register_egg("lottmobs:uruk_hai", "Uruk Hai", "building_blocks_grate.png", 
 mobs:register_egg("lottmobs:raiding_orc", "Raiding Orc", "building_blocks_Roofing.png", 1)
 mobs:register_egg("lottmobs:orc", "Orc", "building_blocks_tar.png", 1)
 mobs:register_egg("lottmobs:raiding_orc", "Raiding Orc", "homedecor_curtain.png", 1)
+mobs:register_egg("lottmobs:kitten", "Kitten", "mobs_kitten_inv.png", 0)
+
