@@ -1863,7 +1863,7 @@ end
 
 
 -- deal damage and effects when mob punched
-mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
+function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 	-- mob health check
 	if self.health <= 0 then
@@ -2350,6 +2350,10 @@ end
 
 mobs.spawning_mobs = {}
 
+function punch(self, hitter, tflp, tool_capabilities, dir)
+	mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+end
+
 -- register mob entity
 function mobs:register_mob(name, def)
 
@@ -2449,7 +2453,7 @@ minetest.register_entity(name, {
 
 	on_step = mob_step,
 
-	on_punch = def.on_punch or mob_punch,
+	on_punch = def.on_punch or punch,
 
 	on_activate = function(self, staticdata)
 		return mob_activate(self, staticdata, def)
