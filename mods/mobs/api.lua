@@ -3145,15 +3145,19 @@ local mob_sta = {}
 -- feeding, taming and breeding (thanks blert2112)
 function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
-	if not self.follow then
+	beast_ring = "lottother:beast_ring"
+	local item = clicker:get_wielded_item()
+	local itemname = item:get_name() or ""
+	local ring_used = itemname == beast_ring
+
+	if not self.follow and not ring_used then
 		return false
 	end
 
 	-- can eat/tame with item in hand
 	if follow_holding(self, clicker) then
-
 		-- if not in creative then take item
-		if not creative then
+		if not creative and not ring_used then
 
 			local item = clicker:get_wielded_item()
 
@@ -3163,7 +3167,9 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 		end
 
 		-- increase health
-		self.health = self.health + 4
+		if not ring_used then
+			self.health = self.health + 4
+		end
 
 		if self.health >= self.hp_max then
 
@@ -3193,11 +3199,11 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
 		-- feed and tame
 		self.food = (self.food or 0) + 1
-		if self.food >= feed_count then
+		if self.food >= feed_count or ring_used then
 
 			self.food = 0
 
-			if breed and self.hornytimer == 0 then
+			if breed and self.hornytimer == 0 and not ring_used then
 				self.horny = true
 			end
 

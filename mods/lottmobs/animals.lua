@@ -91,7 +91,7 @@ mobs:register_mob("lottmobs:kitten", {
 		stoodup_start = 0,
 		stoodup_end = 0,
 	},
-	follow = {"lottmobs:rat",
+	follow = {"lottother:beast_ring", "lottmobs:rat",
 		  "lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw", "lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
 		  "lottmobs:meat", "lottmobs:fish_cooked", "lottmobs:horsemeat_cooked", "lottmobs:chicken_cooked", "lottmobs:pork_cooked", "lottmobs:rabbit_cooked"},
 
