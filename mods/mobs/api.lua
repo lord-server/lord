@@ -1071,7 +1071,7 @@ local monster_attack = function(self)
 		if specific_attack(self.specific_attack, name)
 		and (type == "player" or type == "npc"
 			or (type == "animal" and self.attack_animals == true)) then
-			
+
 			s = self.object:getpos()
 			p = player:getpos()
 			sp = s

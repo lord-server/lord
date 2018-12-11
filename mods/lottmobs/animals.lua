@@ -139,18 +139,13 @@ mobs:register_mob("lottmobs:kitten", {
 
 	do_custom = function(self, dtime)
 
-		if hairball == "false" then
-			return
-		end
-
 		self.hairball_timer = (self.hairball_timer or 0) + dtime
 		if self.hairball_timer < 10 then
 			return
 		end
 		self.hairball_timer = 0
 
-		if self.child
-		or math.random(1, 250) > 2 then
+		if self.child or math.random(1, 250) > 2 then
 			return
 		end
 
@@ -159,10 +154,10 @@ mobs:register_mob("lottmobs:kitten", {
 		minetest.add_item(pos, "wool:white")
 		
 		minetest.sound_play("mobs_kitten", {
-				pos = pos,
-				gain = 1.0,
-				max_hear_distance = 5,
-			})
+			pos = pos,
+			gain = 1.0,
+			max_hear_distance = 5,
+		})
 	end,
 })
 

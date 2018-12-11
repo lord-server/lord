@@ -33,7 +33,6 @@ mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20
 mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
-mobs:spawn_specific("default:stone",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
 
 mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
