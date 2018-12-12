@@ -434,8 +434,6 @@ minetest.register_abm({
 		--print("fuel_totaltime="..meta:get_float("fuel_totaltime"))
 		--print("-------------------------------------")
 		local result = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
-		local num_in = 1
-		local num_out = 1
 		local was_active = false
 		--print("fuel_time="..meta:get_float("fuel_time"))
 		--print("fuel_totaltime="..meta:get_float("fuel_totaltime"))
