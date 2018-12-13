@@ -3,11 +3,10 @@ local SL = lord.require_intllib()
 
 local Processor = {}
 
-Processor.act =  function(pos)
+--- @param pos table<number,number,number>
+--- @return NodeMetaRef
+local function getInitedMeta(pos)
     local meta = minetest.get_meta(pos)
-    local inv  = meta:get_inventory()
-
-    local recipe = nil
     for i, name in pairs({
         "fuel_totaltime",
         "fuel_time",
@@ -15,10 +14,18 @@ Processor.act =  function(pos)
         "src_time"}) do
         if not meta:get_float(name) then
             meta:set_float(name, 0.0)
-        else
-            --print(name.." не обнулено для ")
         end
     end
+    return meta
+end
+
+Processor.act =  function(pos)
+    minetest.chat_send_all(dump(pos))
+    local meta = getInitedMeta(pos)
+    local inv  = meta:get_inventory()
+
+    local recipe = nil
+
     --minetest.chat_send_all("fuel_time="..meta:get_float("fuel_time"))
     --minetest.chat_send_all("fuel_totaltime="..meta:get_float("fuel_totaltime"))
     --print("-------------------------------------")
