@@ -145,7 +145,6 @@ minetest.register_craft({
 		{'default:obsidian', 'carts:steam_mechanism', 'default:obsidian'},
 	}
 })
-local machine_name = "Grinder"
 
 function grinder.get_grinder_active_formspec(pos, percent, item_percent)
 	local formspec =

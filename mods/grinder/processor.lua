@@ -3,6 +3,10 @@ local SL = lord.require_intllib()
 
 local Processor = {}
 
+
+
+local machine_name = "Grinder"
+
 --- @param pos table<number,number,number>
 --- @return NodeMetaRef
 local function getInitedMeta(pos)
