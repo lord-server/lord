@@ -9,13 +9,14 @@ local machine_name = "Grinder"
 
 --- @param pos table<number,number,number>
 --- @return NodeMetaRef
-local function getInitedMeta(pos)
+local function getInitiatedMeta(pos)
     local meta = minetest.get_meta(pos)
     for i, name in pairs({
         "fuel_totaltime",
         "fuel_time",
         "src_totaltime",
         "src_time"}) do
+        -- init with 0.0 if var not set
         if not meta:get_float(name) then
             meta:set_float(name, 0.0)
         end
@@ -25,7 +26,7 @@ end
 
 Processor.act =  function(pos)
     minetest.chat_send_all(dump(pos))
-    local meta = getInitedMeta(pos)
+    local meta = getInitiatedMeta(pos)
     local inv  = meta:get_inventory()
 
     local recipe = nil
