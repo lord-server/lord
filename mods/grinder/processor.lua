@@ -19,21 +19,14 @@ function Processor.act (pos)
 
 	local recipe
 
-	--minetest.chat_send_all("fuel_time="..meta:get_float("fuel_time"))
-	--minetest.chat_send_all("fuel_totaltime="..meta:get_float("fuel_totaltime"))
-	--print("-------------------------------------")
 	local result     = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
 	local was_active = false
-	--print("fuel_time="..meta:get_float("fuel_time"))
-	--print("fuel_totaltime="..meta:get_float("fuel_totaltime"))
+
 	if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
 		was_active = true
-		--print("Дробилка активна")
 		meta:set_int("fuel_time", meta:get_int("fuel_time") + 1)
 		if result then
 			meta:set_int("src_time", meta:get_int("src_time") + 1)
-			--print("Name="..result.new_input:get_name())
-			--print(dump(result))
 			if meta:get_int("src_time") >= result.time then
 				meta:set_int("src_time", 0)
 				local result_stack = ItemStack(result.output)
@@ -61,7 +54,6 @@ function Processor.act (pos)
 		if was_active then
 			g:deactivate("%s is empty")
 		end
-		--print("Выход, поскольку нет рецепта")
 		return
 	end
 

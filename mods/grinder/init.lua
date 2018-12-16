@@ -24,7 +24,6 @@ local function get_recipe_index(items)
 	for i, stack in ipairs(items) do
 		l = stack:get_name()
 	end
-	--table.sort(l)
 	return l
 end
 
@@ -35,7 +34,6 @@ local function register_recipe(typename, data)
 			data.input[i] = ItemStack(data.input[i]):to_string()
 		end
 	else
-		--print(data.input)
 		data.input = ItemStack(data.input):to_string()
 	end
 
@@ -48,10 +46,7 @@ local function register_recipe(typename, data)
 	end
 
 	local recipe = {time = data.time, input = data.input, output = data.output}
-	--print(tostring(data.input))
-	--local index = data.input:match("%S+")
 	local index = ItemStack(data.input):get_name()
-	--print(index)
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
 	grinder.grinding_recipes[typename].recipes[index] = recipe
 end
@@ -81,20 +76,17 @@ function grinder.get_grinding_recipe(typename, items)
 	end
 
 	local index = get_recipe_index(items)
-	--print("index="..tostring(index))
 	local recipe = grinder.grinding_recipes[typename].recipes[index]
 
 	if recipe then
 		local new_input = {}
-		--print(ItemStack(recipe.input):get_count())
-		--print(tonumber(recipe.input))
 		local num_item = ItemStack(recipe.input):get_count() or 1
 		for i, stack in ipairs(items) do
 			if stack:get_count() < num_item then
-				--prunt("В стеке не хватает предметов")
+				-- В стеке не хватает предметов
 				return nil
 			else
-				--print("Будет изъято "..num_item)
+				-- Будет изъято num_item
 				new_input = ItemStack(stack)
 				new_input:take_item(num_item)
 			end
@@ -124,8 +116,6 @@ local recipes = {
 for _, data in pairs(recipes) do
 	grinder.register_grinding_recipe({input = data[1], output = data[2], time = data[3]})
 end
-
---print(dump(grinder.grinding_recipes))
 
 --- register crafting mechanism ---
 minetest.register_craft({
@@ -265,7 +255,7 @@ minetest.register_node("grinder:grinder", {
 		return stack:get_count()
 	end,
 
-  	--backwards compatibility: punch to set formspec
+  	-- backwards compatibility: punch to set formspec
   	on_punch = function(pos,player)
   	    local meta = minetest.get_meta(pos)
         meta:set_string("infotext", SL("Grinder"))
