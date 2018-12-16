@@ -409,7 +409,7 @@ function grinder.swap_node(pos,name)
 	return node.name
 end
 
-
+--- @type Processor
 local Processor = dofile(minetest.get_modpath(minetest.get_current_modname()).."/processor.lua")
 minetest.register_abm({
 	nodenames = {"grinder:grinder", "grinder:grinder_active"},

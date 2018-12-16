@@ -1,32 +1,22 @@
 local SL = lord.require_intllib()
+--- @type Grinder
+local Grinder = dofile(minetest.get_modpath(minetest.get_current_modname()).."/grinder.lua")
 
 
+---
+--- @class Processor
+---
 local Processor = {}
 
 
 
 local machine_name = "Grinder"
 
---- @param pos table<number,number,number>
---- @return NodeMetaRef
-local function getInitiatedMeta(pos)
-    local meta = minetest.get_meta(pos)
-    for i, name in pairs({
-        "fuel_totaltime",
-        "fuel_time",
-        "src_totaltime",
-        "src_time"}) do
-        -- init with 0.0 if var not set
-        if not meta:get_float(name) then
-            meta:set_float(name, 0.0)
-        end
-    end
-    return meta
-end
-
+--- @static
 Processor.act =  function(pos)
-    minetest.chat_send_all(dump(pos))
-    local meta = getInitiatedMeta(pos)
+
+    local g = Grinder:new(pos)
+    local meta = g:getMeta()
     local inv  = meta:get_inventory()
 
     local recipe = nil
