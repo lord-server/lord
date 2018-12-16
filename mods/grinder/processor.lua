@@ -78,8 +78,8 @@ function Processor.act (pos)
 		return
 	end
 
-	meta:set_string("fuel_totaltime", fuel.time)
-	meta:set_string("fuel_time", 0)
+	meta:set_int("fuel_totaltime", fuel.time)
+	meta:set_int("fuel_time", 0)
 
 	inv:set_stack("fuel", 1, afterfuel.items[1])
 end
