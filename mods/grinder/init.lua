@@ -400,14 +400,6 @@ minetest.register_node("grinder:grinder_active", {
 	end,
 })
 
-function grinder.swap_node(pos,name)
-	local node = minetest.get_node(pos)
-	if node.name ~= name then
-		node.name = name
-		minetest.swap_node(pos, node)
-	end
-	return node.name
-end
 
 --- @type Processor
 local Processor = dofile(minetest.get_modpath(minetest.get_current_modname()).."/processor.lua")

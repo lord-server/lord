@@ -2,18 +2,38 @@ local SL = lord.require_intllib()
 --- @type Grinder
 local Grinder = dofile(minetest.get_modpath(minetest.get_current_modname()).."/grinder.lua")
 
+--- @type string
+local machine_name = "Grinder"
 
 ---
 --- @class Processor
 ---
 local Processor = {}
 
+-- -----------------------------------------------------------------------------------------------
+-- Private functions:
 
+--- Swaps node if node is not same and return old node name
+--- @see minetest.swap_node (https://dev.minetest.net/minetest.swap_node)
+---
+--- @param pos table {x,y,z}
+--- @param name string
+--- @return string
+local function swapNode(pos, name)
+    local node = minetest.get_node(pos)
+    if node.name ~= name then
+        node.name = name
+        minetest.swap_node(pos, node)
+    end
+    return node.name
+end
 
-local machine_name = "Grinder"
+-- -----------------------------------------------------------------------------------------------
+-- Public functions:
 
 --- @static
-Processor.act =  function(pos)
+--- @param pos table {x,y,z}
+function Processor.act (pos)
 
     local g = Grinder:new(pos)
     local meta = g:getMeta()
@@ -57,7 +77,7 @@ Processor.act =  function(pos)
         local percent = math.floor(meta:get_float("fuel_time") / meta:get_float("fuel_totaltime") * 100)
         local item_percent = math.floor(meta:get_float("src_time") / cooked * 100)
         meta:set_string("infotext", SL(("%s Grinding"):format(machine_name)).." ("..percent.."%)")
-        grinder.swap_node(pos, "grinder:grinder_active")
+        swapNode(pos, "grinder:grinder_active")
         meta:set_string("formspec",grinder.get_grinder_active_formspec(pos, percent, item_percent))
         return
     end
@@ -66,7 +86,7 @@ Processor.act =  function(pos)
     if not recipe then
         if was_active then
             meta:set_string("infotext", SL(("%s is empty"):format(machine_name)))
-            grinder.swap_node(pos, "grinder:grinder")
+            swapNode(pos, "grinder:grinder")
             meta:set_string("formspec", grinder.grinder_inactive_formspec)
         end
         --print("Выход, поскольку нет рецепта")
@@ -83,7 +103,7 @@ Processor.act =  function(pos)
 
     if fuel.time <= 0 then
         meta:set_string("infotext", SL(("%s Out Of Heat"):format(machine_name)))
-        grinder.swap_node(pos, "grinder:grinder")
+        swap_node(pos, "grinder:grinder")
         meta:set_string("formspec", grinder.grinder_inactive_formspec)
         return
     end
