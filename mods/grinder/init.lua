@@ -5,7 +5,7 @@ if not iEnv then
 	error('Please add `' .. minetest.get_current_modname() .. '` to secure.trusted_mods in minetest.conf')
 end
 local modpath     = minetest.get_modpath(minetest.get_current_modname())
-iEnv.package.path = modpath .. "/?.lua;" .. iEnv.package.path
+iEnv.package.path = modpath .. "/src/?.lua;" .. iEnv.package.path
 local old_require = require
 require           = iEnv.require
 
@@ -402,7 +402,7 @@ minetest.register_node("grinder:grinder_active", {
 
 
 --- @type Processor
-local Processor = require('processor')
+local Processor = require('grinder.Processor')
 minetest.register_abm({
 	nodenames = {"grinder:grinder", "grinder:grinder_active"},
 	interval = 1,

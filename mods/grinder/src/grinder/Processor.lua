@@ -1,5 +1,5 @@
 --- @type Grinder
-local Grinder   = dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/grinder.lua")
+local Grinder   = require("grinder.Grinder")
 
 ---
 --- @class Processor
