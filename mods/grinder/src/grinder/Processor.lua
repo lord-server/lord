@@ -1,5 +1,7 @@
 --- @type Grinder
 local Grinder   = require("grinder.Grinder")
+--- @type Recipe
+local Recipe    = require("grinder.Recipe")
 
 ---
 --- @class Processor
@@ -19,7 +21,7 @@ function Processor.act (pos)
 
 	local recipe
 
-	local result     = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
+	local result     = Recipe.get_grinding_recipe("grinding", inv:get_list("src"))
 	local was_active = false
 
 	if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
@@ -49,7 +51,7 @@ function Processor.act (pos)
 		return
 	end
 
-	recipe = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
+	recipe = Recipe.get_grinding_recipe("grinding", inv:get_list("src"))
 	if not recipe then
 		if was_active then
 			g:deactivate("%s is empty")

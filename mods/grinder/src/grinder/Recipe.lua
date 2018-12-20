@@ -1,6 +1,15 @@
 local SL = lord.require_intllib()
 
+---
+--- @class Recipe
+---
+local Recipe = {}
+
+--- @type table let save here grinding recipes
 local registeredRecipes = { cooking = { input_size = 1, output_size = 1 } }
+
+-- -----------------------------------------------------------------------------------------------
+-- Private functions:
 
 local function register_recipe_type(typename, origdata)
 	local data = {}
@@ -50,7 +59,14 @@ local function register_grinding_recipe(data)
 	minetest.after(0.01, register_recipe, "grinding", data) -- Handle aliases
 end
 
-function grinder.get_grinding_recipe(typename, items)
+-- -----------------------------------------------------------------------------------------------
+-- Public functions:
+
+--- @static
+--- @param typename string
+--- @param items    ?table?
+--- @return table|nil
+function Recipe.get_grinding_recipe(typename, items)
 
 	if typename == "cooking" then -- Already builtin in Minetest, so use that
 		local result, new_input = minetest.get_craft_result({
@@ -87,6 +103,9 @@ function grinder.get_grinding_recipe(typename, items)
 	end
 end
 
+-- -----------------------------------------------------------------------------------------------
+-- Init recipes:
+
 register_recipe_type("grinding", {
 	description = SL("Grinding"),
 	input_size = 1,
@@ -112,3 +131,4 @@ for _, data in pairs(recipes) do
 	register_grinding_recipe({input = data[1], output = data[2], time = data[3]})
 end
 
+return Recipe
