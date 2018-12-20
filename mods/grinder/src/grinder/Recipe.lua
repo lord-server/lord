@@ -1,7 +1,7 @@
 local SL = lord.require_intllib()
 
 grinder.grinding_recipes = { cooking = { input_size = 1, output_size = 1 } }
-function grinder.register_recipe_type(typename, origdata)
+local function register_recipe_type(typename, origdata)
 	local data = {}
 	for k, v in pairs(origdata) do data[k] = v
 	end
@@ -11,7 +11,7 @@ function grinder.register_recipe_type(typename, origdata)
 	grinder.grinding_recipes[typename] = data
 end
 
-grinder.register_recipe_type("grinding", {
+register_recipe_type("grinding", {
 	description = SL("Grinding"),
 	input_size = 1,
 })
@@ -48,13 +48,10 @@ local function register_recipe(typename, data)
 	grinder.grinding_recipes[typename].recipes[index] = recipe
 end
 
-function grinder.register_recipe(typename, data)
-	minetest.after(0.01, register_recipe, typename, data) -- Handle aliases
-end
 
-function grinder.register_grinding_recipe(data)
+local function register_grinding_recipe(data)
 	data.time = data.time or 120
-	grinder.register_recipe("grinding", data)
+	minetest.after(0.01, register_recipe, "grinding", data) -- Handle aliases
 end
 
 function grinder.get_grinding_recipe(typename, items)
@@ -111,6 +108,6 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	grinder.register_grinding_recipe({input = data[1], output = data[2], time = data[3]})
+	register_grinding_recipe({input = data[1], output = data[2], time = data[3]})
 end
 
