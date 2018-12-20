@@ -6,7 +6,7 @@ local SL = lord.require_intllib()
 local Recipe = {}
 
 --- @type table let save here grinding recipes
-local registeredRecipes = { cooking = { input_size = 1, output_size = 1 } }
+local registeredRecipes = {}
 
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
