@@ -11,14 +11,14 @@ local registeredRecipes = { cooking = { input_size = 1, output_size = 1 } }
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
 
-local function register_recipe_type(typename, origdata)
+local function register_recipe_type(origdata)
 	local data = {}
 	for k, v in pairs(origdata) do data[k] = v
 	end
 	data.input_size = data.input_size or 1
 	data.output_size = data.output_size or 1
 	data.recipes = {}
-	registeredRecipes[typename] = data
+	registeredRecipes["grinding"] = data
 end
 
 local function get_recipe_index(items)
@@ -29,7 +29,7 @@ local function get_recipe_index(items)
 	return l
 end
 
-local function register_recipe(typename, data)
+local function register_recipe(data)
 	-- Handle aliases
 	if type(data.input) == "table" then
 		for i, v in ipairs(data.input) do
@@ -50,13 +50,13 @@ local function register_recipe(typename, data)
 	local recipe = {time = data.time, input = data.input, output = data.output}
 	local index = ItemStack(data.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	registeredRecipes[typename].recipes[index] = recipe
+	registeredRecipes["grinding"].recipes[index] = recipe
 end
 
 
 local function register_grinding_recipe(data)
 	data.time = data.time or 120
-	minetest.after(0.01, register_recipe, "grinding", data) -- Handle aliases
+	minetest.after(0.01, register_recipe, data) -- Handle aliases
 end
 
 -- -----------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ end
 -- -----------------------------------------------------------------------------------------------
 -- Init recipes:
 
-register_recipe_type("grinding", {
+register_recipe_type({
 	description = SL("Grinding"),
 	input_size = 1,
 })
