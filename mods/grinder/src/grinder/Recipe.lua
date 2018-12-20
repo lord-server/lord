@@ -63,26 +63,11 @@ end
 -- Public functions:
 
 --- @static
---- @param typename string
---- @param items    ?table?
+--- @param items ?table?
 --- @return table|nil
-function Recipe.get(typename, items)
-
-	if typename == "cooking" then -- Already builtin in Minetest, so use that
-		local result, new_input = minetest.get_craft_result({
-			method = "cooking",
-			width = 1,
-			items = items})
-		-- Compatibility layer
-		if not result or result.time == 0 then
-			return nil
-		else
-			return {time = result.time,	new_input = new_input.items, output = result.item}
-		end
-	end
-
+function Recipe.get(items)
 	local index = get_recipe_index(items)
-	local recipe = registeredRecipes[typename].recipes[index]
+	local recipe = registeredRecipes["grinding"].recipes[index]
 
 	if recipe then
 		local new_input = {}
