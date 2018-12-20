@@ -1,6 +1,7 @@
 local SL = lord.require_intllib()
 
-grinder.grinding_recipes = { cooking = { input_size = 1, output_size = 1 } }
+local registeredRecipes = { cooking = { input_size = 1, output_size = 1 } }
+
 local function register_recipe_type(typename, origdata)
 	local data = {}
 	for k, v in pairs(origdata) do data[k] = v
@@ -8,7 +9,7 @@ local function register_recipe_type(typename, origdata)
 	data.input_size = data.input_size or 1
 	data.output_size = data.output_size or 1
 	data.recipes = {}
-	grinder.grinding_recipes[typename] = data
+	registeredRecipes[typename] = data
 end
 
 local function get_recipe_index(items)
@@ -40,7 +41,7 @@ local function register_recipe(typename, data)
 	local recipe = {time = data.time, input = data.input, output = data.output}
 	local index = ItemStack(data.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	grinder.grinding_recipes[typename].recipes[index] = recipe
+	registeredRecipes[typename].recipes[index] = recipe
 end
 
 
@@ -65,7 +66,7 @@ function grinder.get_grinding_recipe(typename, items)
 	end
 
 	local index = get_recipe_index(items)
-	local recipe = grinder.grinding_recipes[typename].recipes[index]
+	local recipe = registeredRecipes[typename].recipes[index]
 
 	if recipe then
 		local new_input = {}
