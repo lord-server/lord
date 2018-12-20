@@ -33,7 +33,7 @@ minetest.register_craft({
 	}
 })
 
-function grinder.get_grinder_active_formspec(pos, percent, item_percent)
+function grinder.get_grinder_active_formspec(percent, item_percent)
 	local formspec =
 		"size[8,9]"..
 		"image[5.25,1.1;1,1;default_furnace_inv.png^default_furnace_fire_bg.png^[lowpart:"..(100-percent)..":default_furnace_fire_fg.png]"..

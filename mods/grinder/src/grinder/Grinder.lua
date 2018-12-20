@@ -79,7 +79,7 @@ function Grinder:activate(hint_en, cooked)
 	local item_percent = math.floor(meta:get_float("src_time") / cooked * 100)
 	self:getMeta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
 	swapNode(self.position, "grinder:grinder_active")
-	self:getMeta():set_string("formspec", grinder.get_grinder_active_formspec(pos, percent, item_percent))
+	self:getMeta():set_string("formspec", grinder.get_grinder_active_formspec(percent, item_percent))
 end
 
 --- Sets Node into inactive grinder with new hint.
