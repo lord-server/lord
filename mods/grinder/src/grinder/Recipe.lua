@@ -11,11 +11,6 @@ local function register_recipe_type(typename, origdata)
 	grinder.grinding_recipes[typename] = data
 end
 
-register_recipe_type("grinding", {
-	description = SL("Grinding"),
-	input_size = 1,
-})
-
 local function get_recipe_index(items)
 	local l
 	for i, stack in ipairs(items) do
@@ -90,6 +85,11 @@ function grinder.get_grinding_recipe(typename, items)
 		return nil
 	end
 end
+
+register_recipe_type("grinding", {
+	description = SL("Grinding"),
+	input_size = 1,
+})
 
 local recipes = {
 	{"default:stone", "default:cobble", 5},
