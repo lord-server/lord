@@ -1,4 +1,3 @@
-local SL = lord.require_intllib()
 
 ---
 --- @class Recipe
