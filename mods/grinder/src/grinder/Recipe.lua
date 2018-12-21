@@ -18,7 +18,7 @@ local function register_recipe_type(origdata)
 	data.input_size = data.input_size or 1
 	data.output_size = data.output_size or 1
 	data.recipes = {}
-	registeredRecipes["grinding"] = data
+	registeredRecipes = data
 end
 
 local function get_recipe_index(items)
@@ -50,7 +50,7 @@ local function register_recipe(data)
 	local recipe = {time = data.time, input = data.input, output = data.output}
 	local index = ItemStack(data.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	registeredRecipes["grinding"].recipes[index] = recipe
+	registeredRecipes.recipes[index] = recipe
 end
 
 
@@ -67,7 +67,7 @@ end
 --- @return table|nil
 function Recipe.get(items)
 	local index = get_recipe_index(items)
-	local recipe = registeredRecipes["grinding"].recipes[index]
+	local recipe = registeredRecipes.recipes[index]
 
 	if recipe then
 		local new_input = {}
