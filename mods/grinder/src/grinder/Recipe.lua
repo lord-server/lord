@@ -9,10 +9,7 @@ local Recipe = {}
 local registeredRecipes = {
 	recipes = {
 
-	},
-	output_size = 1,
-	input_size = 1,
-	description = SL("Grinding")
+	}
 }
 
 -- -----------------------------------------------------------------------------------------------
