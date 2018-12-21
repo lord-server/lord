@@ -6,20 +6,17 @@ local SL = lord.require_intllib()
 local Recipe = {}
 
 --- @type table let save here grinding recipes
-local registeredRecipes = {}
+local registeredRecipes = {
+	recipes = {
+
+	},
+	output_size = 1,
+	input_size = 1,
+	description = SL("Grinding")
+}
 
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
-
-local function register_recipe_type(origdata)
-	local data = {}
-	for k, v in pairs(origdata) do data[k] = v
-	end
-	data.input_size = data.input_size or 1
-	data.output_size = data.output_size or 1
-	data.recipes = {}
-	registeredRecipes = data
-end
 
 local function get_recipe_index(items)
 	local l
@@ -91,10 +88,6 @@ end
 -- -----------------------------------------------------------------------------------------------
 -- Init recipes:
 
-register_recipe_type({
-	description = SL("Grinding"),
-	input_size = 1,
-})
 
 local recipes = {
 	{"default:stone", "default:cobble", 5},
