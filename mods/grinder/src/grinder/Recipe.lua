@@ -12,7 +12,7 @@ local registeredRecipes = {}
 
 local function get_recipe_index(items)
 	local l
-	for i, stack in ipairs(items) do
+	for _, stack in ipairs(items) do
 		l = stack:get_name()
 	end
 	return l
@@ -21,7 +21,7 @@ end
 local function register_recipe(data)
 	-- Handle aliases
 	if type(data.input) == "table" then
-		for i, v in ipairs(data.input) do
+		for i, _ in ipairs(data.input) do
 			data.input[i] = ItemStack(data.input[i]):to_string()
 		end
 	else
@@ -29,7 +29,7 @@ local function register_recipe(data)
 	end
 
 	if type(data.output) == "table" then
-		for i, v in ipairs(data.output) do
+		for i, _ in ipairs(data.output) do
 			data.output[i] = ItemStack(data.output[i]):to_string()
 		end
 	else
@@ -58,23 +58,25 @@ function Recipe.get(items)
 	local index = get_recipe_index(items)
 	local recipe = registeredRecipes[index]
 
-	if recipe then
-		local new_input = {}
-		local num_item = ItemStack(recipe.input):get_count() or 1
-		for i, stack in ipairs(items) do
-			if stack:get_count() < num_item then
-				-- В стеке не хватает предметов
-				return nil
-			else
-				-- Будет изъято num_item
-				new_input = ItemStack(stack)
-				new_input:take_item(num_item)
-			end
-		end
-		return {time = recipe.time,	new_input = new_input, output = recipe.output}
-	else
+	-- Recipe not found
+	if not recipe then
 		return nil
 	end
+
+	local new_input = {}
+	local num_item = ItemStack(recipe.input):get_count() or 1
+	for _, stack in ipairs(items) do
+		if stack:get_count() < num_item then
+			-- В стеке не хватает предметов
+			return nil
+		else
+			-- Будет изъято num_item
+			new_input = ItemStack(stack)
+			new_input:take_item(num_item)
+		end
+	end
+
+	return {time = recipe.time,	new_input = new_input, output = recipe.output}
 end
 
 -- -----------------------------------------------------------------------------------------------
