@@ -19,6 +19,8 @@ local function get_recipe_index(items)
 end
 
 local function register_recipe(data)
+	data.time = data.time or 120
+
 	-- Handle aliases
 	if type(data.input) == "table" then
 		for i, _ in ipairs(data.input) do
@@ -42,11 +44,6 @@ local function register_recipe(data)
 	registeredRecipes[index] = recipe
 end
 
-
-local function register_grinding_recipe(data)
-	data.time = data.time or 120
-	register_recipe(data)
-end
 
 -- -----------------------------------------------------------------------------------------------
 -- Public functions:
@@ -100,7 +97,7 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	register_grinding_recipe({input = data[1], output = data[2], time = data[3]})
+	register_recipe({input = data[1], output = data[2], time = data[3]})
 end
 
 return Recipe
