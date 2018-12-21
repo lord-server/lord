@@ -6,11 +6,7 @@ local SL = lord.require_intllib()
 local Recipe = {}
 
 --- @type table let save here grinding recipes
-local registeredRecipes = {
-	recipes = {
-
-	}
-}
+local registeredRecipes = {}
 
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
@@ -44,7 +40,7 @@ local function register_recipe(data)
 	local recipe = {time = data.time, input = data.input, output = data.output}
 	local index = ItemStack(data.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	registeredRecipes.recipes[index] = recipe
+	registeredRecipes[index] = recipe
 end
 
 
@@ -61,7 +57,7 @@ end
 --- @return table|nil
 function Recipe.get(items)
 	local index = get_recipe_index(items)
-	local recipe = registeredRecipes.recipes[index]
+	local recipe = registeredRecipes[index]
 
 	if recipe then
 		local new_input = {}
