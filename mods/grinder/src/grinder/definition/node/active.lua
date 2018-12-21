@@ -1,6 +1,6 @@
 local SL = lord.require_intllib()
 
-local form = require('grinder.node.form')
+local form = require('grinder.definition.node.form')
 
 return {
 	description = SL("Grinder"),

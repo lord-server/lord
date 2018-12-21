@@ -1,5 +1,5 @@
 local SL           = lord.require_intllib()
-local form         = require('grinder.node.form')
+local form         = require('grinder.definition.node.form')
 
 --- @type string
 local machine_name = "Grinder"

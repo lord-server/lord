@@ -1,6 +1,6 @@
-local craft     = require('grinder.craft')
-local node      = require('grinder.node')
-local recipes   = require('grinder.recipes')
+local craft     = require('grinder.definition.craft')
+local node      = require('grinder.definition.node')
+local recipes   = require('grinder.definition.recipes')
 
 local Recipe    = require('grinder.Recipe')
 local Processor = require('grinder.Processor')
