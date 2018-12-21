@@ -1,6 +1,13 @@
 
 
 return {
+	--- Returns form specification for Grinder.
+	---
+	--- @param type         string one of 'active'|'inactive' strings
+	--- @param percent      number|nil pass only for active grinder
+	--- @param item_percent number|nil pass only for active grinder
+	---
+	--- @return string form specification
 	get = function(type, percent, item_percent)
 		local imageSpec =
 			type == 'active'
