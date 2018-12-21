@@ -1,29 +1,20 @@
-local SL = lord.require_intllib()
 
 
 grinder = {}
 
 require('grinder.Recipe')
+local craft = require('grinder.craft')
 local node = require('grinder.node')
 
---- register crafting mechanism ---
-minetest.register_craft({
-	output = 'grinder:roll',
-	recipe = {
-		{'default:steel_ingot', 'default:diamond', 'default:steel_ingot'},
-		{'carts:gear', 'default:steel_ingot', 'carts:gear'},
-		{'default:diamond', 'default:steel_ingot', 'default:diamond'},
-	}
-})
 
-minetest.register_craft({
-	output = 'grinder:grinder',
-	recipe = {
-		{'grinder:roll', '', 'grinder:roll'},
-		{'default:steel_ingot', 'carts:gear', 'default:steel_ingot'},
-		{'default:obsidian', 'carts:steam_mechanism', 'default:obsidian'},
-	}
-})
+for _, craftRecipe in pairs(craft.recipes) do
+	minetest.register_craft(craftRecipe)
+end
+
+for _, item in pairs(craft.items) do
+	minetest.register_craftitem(item.name, item.definition)
+end
+
 
 minetest.register_node("grinder:grinder", node.inactive)
 
@@ -37,21 +28,4 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = Processor.act,
-})
-
-minetest.register_craftitem("grinder:coal_dust", {
-	description = SL("Coal dust"),
-	inventory_image = "grinder_coal_dust.png",
-	groups = {fuel=1,coal=1},
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "grinder:coal_dust",
-	burntime = 50,
-})
-
-minetest.register_craftitem("grinder:roll", {
-	description = SL("Roll"),
-	inventory_image = "grinder_roll.png",
 })
