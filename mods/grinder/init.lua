@@ -8,7 +8,8 @@ local old_require = require
 require           = iEnv.require
 
 
-require('grinder')
+local grinder = require('grinder')
+grinder.init()
 
 
 require = old_require
