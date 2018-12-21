@@ -19,9 +19,14 @@ local Grinder      = {
 --- @param pos table<number,number,number>
 --- @return Grinder
 function Grinder:new(pos)
-	self.position = pos
+	local newObject    = {}
 
-	return self
+	newObject.position = pos
+	newObject.meta     = nil
+
+	setmetatable(newObject, { __index = self })
+
+	return newObject
 end
 
 -- -----------------------------------------------------------------------------------------------
