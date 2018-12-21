@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
 
+local form = require('grinder.node.form')
+
 return {
 	description = SL("Grinder"),
 	tiles = {"grinder_top.png", "carts_steam_mechanismn.png",
@@ -12,7 +14,7 @@ return {
 	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", grinder.grinder_inactive_formspec)
+		meta:set_string("formspec", form.get('inactive'))
 		meta:set_string("infotext", SL("Grinder"))
 		local inv = meta:get_inventory()
 		inv:set_size("fuel", 1)
@@ -85,6 +87,6 @@ return {
 	on_punch = function(pos,player)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", SL("Grinder"))
-		meta:set_string("formspec",grinder.grinder_inactive_formspec)
+		meta:set_string("formspec", form.get('inactive'))
 	end
 }

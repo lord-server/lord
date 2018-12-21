@@ -1,4 +1,5 @@
 local SL           = lord.require_intllib()
+local form         = require('grinder.node.form')
 
 --- @type string
 local machine_name = "Grinder"
@@ -79,7 +80,7 @@ function Grinder:activate(hint_en, cooked)
 	local item_percent = math.floor(meta:get_float("src_time") / cooked * 100)
 	self:getMeta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
 	swapNode(self.position, "grinder:grinder_active")
-	self:getMeta():set_string("formspec", grinder.get_grinder_active_formspec(percent, item_percent))
+	self:getMeta():set_string("formspec", form.get('active', percent, item_percent))
 end
 
 --- Sets Node into inactive grinder with new hint.
@@ -88,7 +89,7 @@ end
 function Grinder:deactivate(hint_en)
 	self:getMeta():set_string("infotext", SL((hint_en):format(machine_name)))
 	swapNode(self.position, "grinder:grinder")
-	self:getMeta():set_string("formspec", grinder.grinder_inactive_formspec)
+	self:getMeta():set_string("formspec", form.get('inactive'))
 end
 
 return Grinder

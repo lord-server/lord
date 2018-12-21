@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
 
+local form = require('grinder.node.form')
+
 return {
 	description = SL("Grinder"),
 	tiles = {
@@ -63,7 +65,7 @@ return {
 	sounds = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec", grinder.grinder_inactive_formspec)
+		meta:set_string("formspec", form.get('inactive')) -- почему 'inactive' ?
 		meta:set_string("infotext", "Grinder");
 		local inv = meta:get_inventory()
 		inv:set_size("fuel", 1)
