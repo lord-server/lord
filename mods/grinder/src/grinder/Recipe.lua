@@ -45,7 +45,7 @@ end
 
 local function register_grinding_recipe(data)
 	data.time = data.time or 120
-	minetest.after(0.01, register_recipe, data) -- Handle aliases
+	register_recipe(data)
 end
 
 -- -----------------------------------------------------------------------------------------------
