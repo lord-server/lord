@@ -986,7 +986,7 @@ minetest.register_craft({
 	recipe = {"lottores:ithildin_lamp_1", "group:stone"}
 })
 
-minetest.register_craft({
+--[[minetest.register_craft({
 	output = 'lottores:copperpick',
 	recipe = {
 		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
@@ -1224,7 +1224,7 @@ minetest.register_craft({
 		{'group:stick'},
 		{'group:stick'},
 	}
-})
+})]]--
 
 --Blocks
 
