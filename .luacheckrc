@@ -1,17 +1,19 @@
-unused_args = false
+unused_args       = false
 allow_defined_top = true
 
-globals = {
+globals           = {
 	"minetest", "core"
 }
 
-read_globals = {
-	string = {fields = {"split"}},
-	table = {fields = {"copy", "getn"}},
+read_globals      = {
+	string = { fields = { "split" } },
+	table  = { fields = { "copy", "getn" } },
 
 	-- Builtin
-	"vector", "ItemStack",
-	"dump", "DIR_DELIM", "VoxelArea", "Settings",
+	"vector", "nodeupdate", "PseudoRandom",
+	"VoxelManip", "VoxelArea",
+	"ItemStack", "Settings",
+	"dump", "DIR_DELIM",
 
 	-- MTG
 	"default", "sfinv", "creative",
@@ -23,9 +25,12 @@ read_globals = {
 	"doors",
 	"intllib",
 	"stairs",
+
+	-- Legacy
+	"spawn_falling_node",
 }
 
-exclude_files = {
+exclude_files     = {
 	-- External mods
 	"mods/areas",
 	"mods/intllib",
