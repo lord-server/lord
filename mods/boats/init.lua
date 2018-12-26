@@ -135,8 +135,8 @@ function row_boat.on_step(self, dtime)
 
 	local p = self.object:getpos()
 	p.y = p.y - 0.5
-	local new_velo = {x = 0, y = 0, z = 0}
-	local new_acce = {x = 0, y = 0, z = 0}
+	local new_velo
+	local new_acce
 	if not is_water(p) then
 		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
 		if (not nodedef) or nodedef.walkable then
@@ -317,8 +317,8 @@ function sail_boat.on_step(self, dtime)
 
 	local p = self.object:getpos()
 	p.y = p.y - 0.5
-	local new_velo = {x = 0, y = 0, z = 0}
-	local new_acce = {x = 0, y = 0, z = 0}
+	local new_velo
+	local new_acce
 	if not is_water(p) then
 		local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
 		if (not nodedef) or nodedef.walkable then
@@ -391,4 +391,6 @@ minetest.register_craft({
 	},
 })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
