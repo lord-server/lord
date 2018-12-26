@@ -15,6 +15,9 @@ read_globals = {
 
 	-- MTG
 	"default", "sfinv", "creative",
+
+	-- Lord specific
+	"lord",
 }
 
 exclude_files = {
