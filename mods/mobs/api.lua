@@ -430,19 +430,14 @@ end
 
 -- get node but use fallback for nil or unknown
 local function node_ok(pos, fallback)
-
 	fallback = fallback or "default:dirt"
-
 	local node = minetest.get_node_or_nil(pos)
-
 	if not node then
 		return minetest.registered_nodes[fallback]
 	end
-
 	if minetest.registered_nodes[node.name] then
 		return node
 	end
-
 	return minetest.registered_nodes[fallback]
 end
 
@@ -1777,23 +1772,13 @@ local do_states = function(self, dtime)
 
 				p.y = p.y + (self.collisionbox[2] + self.collisionbox[5]) / 2
 
-				local obj = minetest.add_entity(p, self.arrow)
-				local ent = obj:get_luaentity()
+				local dir = {
+					x = vec.x,
+					y = vec.y + self.shoot_offset,
+					z = vec.z,
+				}
 
-				if ent then
-					local amount = (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) ^ 0.5
-					local v = ent.velocity or 1 -- or set to default
-					ent.switch = 1
-					ent.owner_id = tostring(self.object) -- add unique owner id to arrow
-
-					 -- offset makes shoot aim accurate
-					vec.y = vec.y + self.shoot_offset
-					vec.x = vec.x * (v / amount)
-					vec.y = vec.y * (v / amount)
-					vec.z = vec.z * (v / amount)
-
-					obj:setvelocity(vec)
-				end
+				throwing:shoot(self.object, self.arrow, p, dir, 0.5)
 			end
 		end
 	end
@@ -2044,8 +2029,8 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	if self.passive == false
 	and self.state ~= "flop"
 	and self.child == false
-	and hitter:get_player_name() ~= self.owner
-	and not mobs.invis[ hitter:get_player_name() ] then
+	and (hitter.is_player == nil or hitter:is_player() == false or (hitter:get_player_name() ~= self.owner
+	and not mobs.invis[ hitter:get_player_name() ])) then
 
 		-- attack whoever punched mob / нападать на того, кто ударил моба
 		self.state = ""
@@ -2761,122 +2746,6 @@ function mobs:explosion(pos, radius, fire, smoke, sound)
 end
 
 
--- register arrow for shoot attack
-function mobs:register_arrow(name, def)
-
-	if not name or not def then return end -- errorcheck
-
-	minetest.register_entity(name, {
-
-		physical = false,
-		visual = def.visual,
-		visual_size = def.visual_size,
-		textures = def.textures,
-		velocity = def.velocity,
-		hit_player = def.hit_player,
-		hit_node = def.hit_node,
-		hit_mob = def.hit_mob,
-		drop = def.drop or false, -- drops arrow as registered item when true
-		collisionbox = {0, 0, 0, 0, 0, 0}, -- remove box around arrows
-		timer = 0,
-		switch = 0,
-		owner_id = def.owner_id,
-		rotate = def.rotate,
-		automatic_face_movement_dir = def.rotate
-			and (def.rotate - (pi / 180)) or false,
-
-		on_step = def.on_step or function(self, dtime)
-
-			self.timer = self.timer + 1
-
-			local pos = self.object:getpos()
-
-			if self.switch == 0
-			or self.timer > 150
-			or not within_limits(pos, 0) then
-
-				self.object:remove() ; -- print ("removed arrow")
-
-				return
-			end
-
-			-- does arrow have a tail (fireball)
-			if def.tail
-			and def.tail == 1
-			and def.tail_texture then
-
-				minetest.add_particle({
-					pos = pos,
-					velocity = {x = 0, y = 0, z = 0},
-					acceleration = {x = 0, y = 0, z = 0},
-					expirationtime = def.expire or 0.25,
-					collisiondetection = false,
-					texture = def.tail_texture,
-					size = def.tail_size or 5,
-					glow = def.glow or 0,
-				})
-			end
-
-			if self.hit_node then
-
-				local node = node_ok(pos).name
-
-				if minetest.registered_nodes[node].walkable then
-
-					self.hit_node(self, pos, node)
-
-					if self.drop == true then
-
-						pos.y = pos.y + 1
-
-						self.lastpos = (self.lastpos or pos)
-
-						minetest.add_item(self.lastpos, self.object:get_luaentity().name)
-					end
-
-					self.object:remove() ; -- print ("hit node")
-
-					return
-				end
-			end
-
-			if self.hit_player or self.hit_mob then
-
-				for _,player in pairs(minetest.get_objects_inside_radius(pos, 1.0)) do
-
-					if self.hit_player
-					and player:is_player() then
-
-						self.hit_player(self, player)
-						self.object:remove() ; -- print ("hit player")
-						return
-					end
-
-					local entity = player:get_luaentity()
-						and player:get_luaentity().name or ""
-
-					if self.hit_mob
-					and tostring(player) ~= self.owner_id
-					and entity ~= self.object:get_luaentity().name
-					and entity ~= "__builtin:item"
-					and entity ~= "__builtin:falling_node"
-					and entity ~= "gauges:hp_bar"
-					and entity ~= "signs:text"
-					and entity ~= "itemframes:item" then
-
-						self.hit_mob(self, player)
-
-						self.object:remove() ;  --print ("hit mob")
-
-						return
-					end
-				end
-			end
-
-			self.lastpos = pos
-		end
-	})
-end
 
 
 -- register spawn eggs
