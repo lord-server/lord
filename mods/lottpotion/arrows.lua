@@ -1,57 +1,35 @@
 local SL = lord.require_intllib()
 
+local KFR=0.01
+local DC=0.01
+local MASS=0.5
+local VELOCITY=30
+
 lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct, desc, img)
-	minetest.register_craftitem(potion_name.."_arrow", {
+	minetest.log("action", "regisering potion arrow")
+	local arrow_name = potion_name.."_arrow"
+	local inventory_img = img.."^lottthrowing_arrow_steel.png"
+	minetest.register_craftitem(arrow_name, {
 		description = SL("Potion Arrow").." ("..desc..")",
-		inventory_image = img.."^lottthrowing_arrow.png",
+		inventory_image = inventory_img,
 		groups = {},
 	})
 	
-	local THROWING_ARROW_ENTITY={
-		physical = false,
-		timer=0,
-		visual = "wielditem",
-		visual_size = {x=0.1, y=0.1},
-		textures = {"lottthrowing:arrow_box"},
-		lastpos={},
-		collisionbox = {0,0,0,0,0,0},
-	}
-	
-	THROWING_ARROW_ENTITY.on_step = function(self, dtime)
-		self.timer=self.timer+dtime
-		local pos = self.object:getpos()
-		local node = minetest.get_node(pos)
-	
-		if self.timer>0.2 then
-			local objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y,z=pos.z}, 2)
-			for k, obj in pairs(objs) do
-				if obj:get_luaentity() ~= nil then
-					if obj:get_luaentity().name ~= potion_name.."_arrow_entity" and obj:get_luaentity().name ~= "__builtin:item" then
-						self.object:remove()
-					end
-				else
-					local damage = 3
-					potion_use_funct({take_item = function()end}, obj)
-					self.object:remove()
-				end
-			end
-		end
-	
-		if self.lastpos.x~=nil then
-			if node.name ~= "air" then
-				self.object:remove()
-			end
-		end
-		self.lastpos={x=pos.x, y=pos.y, z=pos.z}
-	end
-	
-	minetest.register_entity(potion_name.."_arrow_entity", THROWING_ARROW_ENTITY)
-	
+	arrows:register_arrow(arrow_name, {
+		arrow_type = "arrow",
+		mass = MASS,
+		kfr = KFR,
+		damage_coefficient = DC,
+		velocity = VELOCITY,
+		texture = inventory_img,
+		hit_player = function(arrow, player)
+			potion_use_funct({take_item = function()end}, player)
+		end,
+	})
+
 	minetest.register_craft({
 		type = "shapeless",
 		output = potion_name.."_arrow",
-		recipe = {"lottthrowing:arrow", potion_name}
+		recipe = {"arrows:arrow_steel", potion_name}
 	})
-	
-	arrows[#arrows+1] = {potion_name.."_arrow", potion_name.."_arrow_entity"}
 end
