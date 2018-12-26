@@ -1028,9 +1028,7 @@ end
 -- monster find someone to attack
 local monster_attack = function(self)
 
-	if self.type ~= "monster"
-	or not damage_enabled
-	or self.state == "attack"
+	if self.state == "attack"
 	or day_docile(self) then
 		return
 	end
@@ -1850,7 +1848,7 @@ end
 
 
 -- deal damage and effects when mob punched
-local mob_punch = function(self, hitter, tflp, tool_capabilities, dir)
+function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 	-- mob health check
 	if self.health <= 0 then
@@ -2337,6 +2335,10 @@ end
 
 mobs.spawning_mobs = {}
 
+function punch(self, hitter, tflp, tool_capabilities, dir)
+	mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+end
+
 -- register mob entity
 function mobs:register_mob(name, def)
 
@@ -2436,7 +2438,7 @@ minetest.register_entity(name, {
 
 	on_step = mob_step,
 
-	on_punch = mob_punch,
+	on_punch = def.on_punch or punch,
 
 	on_activate = function(self, staticdata)
 		return mob_activate(self, staticdata, def)
@@ -3012,15 +3014,19 @@ local mob_sta = {}
 -- feeding, taming and breeding (thanks blert2112)
 function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
-	if not self.follow then
+	beast_ring = "lottother:beast_ring"
+	local item = clicker:get_wielded_item()
+	local itemname = item:get_name() or ""
+	local ring_used = itemname == beast_ring
+
+	if not self.follow and not ring_used then
 		return false
 	end
 
 	-- can eat/tame with item in hand
 	if follow_holding(self, clicker) then
-
 		-- if not in creative then take item
-		if not creative then
+		if not creative and not ring_used then
 
 			local item = clicker:get_wielded_item()
 
@@ -3030,7 +3036,9 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 		end
 
 		-- increase health
-		self.health = self.health + 4
+		if not ring_used then
+			self.health = self.health + 4
+		end
 
 		if self.health >= self.hp_max then
 
@@ -3060,11 +3068,11 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
 		-- feed and tame
 		self.food = (self.food or 0) + 1
-		if self.food >= feed_count then
+		if self.food >= feed_count or ring_used then
 
 			self.food = 0
 
-			if breed and self.hornytimer == 0 then
+			if breed and self.hornytimer == 0 and not ring_used then
 				self.horny = true
 			end
 
