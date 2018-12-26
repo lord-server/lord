@@ -77,6 +77,7 @@ minetest.register_craft({
 	recipe = {"castle:jail_door", "default:steel_ingot"}
 })
 
+-- luacheck: globals default
 function default.get_ironbound_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec =

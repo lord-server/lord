@@ -18,6 +18,11 @@ read_globals = {
 
 	-- Lord specific
 	"lord",
+
+	-- Mods APIs
+	"doors",
+	"intllib",
+	"stairs",
 }
 
 exclude_files = {
