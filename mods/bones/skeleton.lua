@@ -40,15 +40,15 @@ minetest.register_node("bones:skeleton_body", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.0625,-0.0625,-0.0625,0.125,0.5,0.0625},
-			{-0.25,-0.3125,-0.25,0.3125,-0.0625,0.25},
-			{-0.25,-0.5,-0.0625,-0.125,-0.0625,0.125},
-			{0.3125,-0.5,-0.0625,0.1875,-0.0625,0.125},
-			{-0.3125,0,-0.375,0.375,0.125,0.375},
-			{-0.3125,0.375,-0.375,0.375,0.5,0.375},
-			{-0.3125,0.1875,-0.375,0.375,0.3125,0.375},
-			   		{0.375,-0.0625,-0.0625,0.5,0.5,0.1875},
-			   		{-0.3125,-0.0625,-0.0625,-0.4375,0.5,0.1875},
+			{ -0.0625, -0.0625, -0.0625, 0.125, 0.5, 0.0625 },
+			{ -0.25, -0.3125, -0.25, 0.3125, -0.0625, 0.25 },
+			{ -0.25, -0.5, -0.0625, -0.125, -0.0625, 0.125 },
+			{ 0.3125, -0.5, -0.0625, 0.1875, -0.0625, 0.125 },
+			{ -0.3125, 0, -0.375, 0.375, 0.125, 0.375 },
+			{ -0.3125, 0.375, -0.375, 0.375, 0.5, 0.375 },
+			{ -0.3125, 0.1875, -0.375, 0.375, 0.3125, 0.375 },
+			{ 0.375, -0.0625, -0.0625, 0.5, 0.5, 0.1875 },
+			{ -0.3125, -0.0625, -0.0625, -0.4375, 0.5, 0.1875 },
 		},
 	},
 	sounds = default.node_sound_dirt_defaults({
@@ -75,7 +75,7 @@ minetest.register_node("bones:skeleton_body", {
 		local fdir = 0
 		local placer_pos = placer:getpos()
 		if placer_pos then
-			dir = {
+			local dir = {
 				x = above.x - placer_pos.x,
 				y = above.y - placer_pos.y,
 				z = above.z - placer_pos.z
@@ -95,4 +95,6 @@ minetest.register_node("bones:skeleton_body", {
 	end
 })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
