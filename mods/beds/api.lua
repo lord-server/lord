@@ -29,8 +29,8 @@ function beds.register_bed(name, def)
 			local dir = minetest.facedir_to_dir(n.param2)
 			local p = vector.add(pos, dir)
 			local n2 = minetest.get_node_or_nil(p)
-			local defined = n2 and minetest.registered_items[n2.name]
-			if not defined or not defined.buildable_to then
+			local definition = n2 and minetest.registered_items[n2.name]
+			if not definition or not definition.buildable_to then
 				minetest.remove_node(pos)
 				return true
 			end
