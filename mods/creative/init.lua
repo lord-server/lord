@@ -48,10 +48,11 @@ minetest.after(0, function()
 		on_put     = function(inv, listname, index, stack, player)
 		end,
 		on_take    = function(inv, listname, index, stack, player)
-			--print(player:get_player_name().." takes item from creative inventory; listname="..dump(listname)..", index="..dump(index)..", stack="..dump(stack))
 			if stack then
-				minetest.log("action", player:get_player_name() .. " takes " .. dump(stack:get_name()) .. " from creative inventory")
-				--print("stack:get_name()="..dump(stack:get_name())..", stack:get_count()="..dump(stack:get_count()))
+				local log_msg = player:get_player_name() ..
+					" takes " .. dump(stack:get_name()) .. " from creative inventory"
+				;
+				minetest.log("action", log_msg)
 			end
 		end,
 	})
@@ -72,10 +73,7 @@ minetest.after(0, function()
 
 	end
 	creative_inventory.creative_inventory_size = #creative_list
-	--print("creative inventory size: "..dump(creative_inventory.creative_inventory_size))
 end)
-
---dofile(minetest.get_modpath("lottarmor").."/armor.lua")
 
 creative_inventory.set_creative_formspec = function(player, start_i, pagenum)
 	pagenum       = math.floor(pagenum)
@@ -111,7 +109,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 	-- Figure out current page from formspec
-	local current_page = 0
 	local formspec     = player:get_inventory_formspec()
 	local start_i      = string.match(formspec, "list%[detached:creative;main;[%d.]+,[%d.]+;[%d.]+,[%d.]+;(%d+)%]")
 	start_i            = tonumber(start_i) or 0
