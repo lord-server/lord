@@ -33,7 +33,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			local p3 = placer:getpos()
 			local param2 = 0
 			local p1_={x=p1.x,y=p1.y+1,z=p1.z} -- узел над местом установки
-			
+
 			-- проверим на заприваченность территории
 			if minetest.is_protected(p1, placer:get_player_name()) or
 			minetest.is_protected(p1_, placer:get_player_name()) then
@@ -51,46 +51,46 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			-- 1 - игрок западнее	надо 19
 			-- 3 - игрок восточнее	надо 13
 			-- 0 - игрок южнее		надо 10
-			
+
 			-- стороны света и координаты
 			-- +z север, -z юг
 			-- +x восток, -x запад
-			
+
 			--         С
 			--        +z
 			--   З -x    +x В
 			--        -z
 			--         Ю
-			
-			local y1 = (p0.y - p1.y)  
+
+			local y1 = (p0.y - p1.y)
 			if y1>0 then 			-- ставим на потолок
 				if param2==0 then
 					param2=20
 				elseif param2==1 then
-					param2=23 
+					param2=23
 				elseif param2==2 then
-					param2=22 
+					param2=22
 				else
-					param2=21 
+					param2=21
 				end
 			end
-			
+
 			if y1==0 then 			-- ставим на стену
 				if param2==0 then
 					param2=10
 				elseif param2==1 then
-					param2=19 
+					param2=19
 				elseif param2==2 then
-					param2=4 
+					param2=4
 				else
-					param2=13 
+					param2=13
 				end
 			end
-			
+
 			--print("param2="..tostring(param2))
-			
+
 			minetest.set_node(p1,{name = "stairs:stair_" .. subname, param2 = param2})
-			if not minetest.settings:get_bool("creative_mode") then	
+			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -217,14 +217,14 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local p3 = placer:getpos()
 			local param2 = 0
 			local p1_={x=p1.x,y=p1.y+1,z=p1.z} -- узел над местом установки
-			
+
 			-- проверим на заприваченность территории
 			if minetest.is_protected(p1, placer:get_player_name()) or
 			minetest.is_protected(p1_, placer:get_player_name()) then
 				minetest.record_protection_violation(p1, placer:get_player_name())
 				return itemstack
 			end
-			
+
 			local dir1={
 				x = (p1.x - p3.x),
 				y = (p1.y - p3.y),
@@ -234,7 +234,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			--print("param2 = "..tostring(param2))
 			if pressed.sneak then
 				dir.y = 1
-			end	
+			end
 			-- определим положение установки
 			-- 0,1,2,3 - 4,5,6,7 - 8,9,10,11 - 12,13,14,15 - 16,17,18,19 - 20,21,22,23
 			print("dir.y = "..tostring(dir.y))
@@ -245,13 +245,13 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 					param2=8
 				elseif param2==1 then
 					-- восток
-					param2=17 
+					param2=17
 				elseif param2==2 then
 					-- юг
-					param2=6 
+					param2=6
 				else
 					-- запад
-					param2=15 
+					param2=15
 				end
 			--param2=minetest.dir_to_wallmounted(dir)
 			elseif dir.y < 0 then
@@ -263,11 +263,11 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				if param2==0 then
 					param2=20
 				elseif param2==1 then
-					param2=23 
+					param2=23
 				elseif param2==2 then
-					param2=22 
+					param2=22
 				else
-					param2=21 
+					param2=21
 				end
 			end
 			print("param2="..tostring(param2))
@@ -276,7 +276,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			elseif pressed.aux1 then
 				-- обычная установка полублока без склеивания
 				return minetest.item_place(itemstack, placer, pointed_thing, 20)
-			else	
+			else
 				if (minetest.get_node(pointed_thing.under).name == name
 					and minetest.get_node(pointed_thing.under).param2 == param2) or
 						(minetest.get_node(pointed_thing.under).name == name
@@ -313,4 +313,6 @@ function stairs.register_stair_and_slab(subname, recipeitem, groups, images, des
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

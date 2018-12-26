@@ -87,7 +87,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	type = "shapeless", 
+	type = "shapeless",
 	output = 'lottinventory:cooking_book',
 	recipe = {'lottinventory:crafts_book',  'default:furnace'},
 	replacements = {{"default:furnace", "default:furnace"}}
@@ -102,16 +102,16 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({ 
-	type = "shapeless", 
-	output = "lottinventory:brewing_book", 
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottinventory:brewing_book",
 	recipe = {'lottpotion:brewer', 'lottinventory:cooking_book'},
 	replacements = {{"lottpotion:brewer", "lottpotion:brewer"}}
 })
 
-minetest.register_craft({ 
-	type = "shapeless", 
-	output = "lottinventory:potions_book", 
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottinventory:potions_book",
 	recipe = {'lottpotion:potion_brewer', 'lottinventory:cooking_book'},
 	replacements = {{"lottpotion:potion_brewer", "lottpotion:potion_brewer"}}
 })
@@ -132,4 +132,6 @@ minetest.register_craft({
 	recipe = {'lottinventory:cooking_book', 'lottinventory:potions_book', 'lottores:tilkal_ingot','lottinventory:protection_book', 'lottinventory:forbidden_crafts_book', 'lottores:mithril_ingot','lottinventory:crafts_book', 'lottinventory:brewing_book', 'lottores:tilkal_ingot'}
 })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

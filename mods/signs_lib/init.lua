@@ -91,7 +91,7 @@ function Utf8ToAnsi(s)
 			if utf8_decode[j][b] then
 				a, r = a - 1, r..utf8_decode[j][b]
 			end
-		end		
+		end
     elseif b == 226 then
       a = 2
     elseif b == 194 or b == 208 or b == 209 or b == 210 then
@@ -322,9 +322,9 @@ local function build_char_db()
 		local f
 		f = io.open(FONT_FMT:format(TP, c),"r+");
 		-- Если файл не существует
-		if f == nil then 
+		if f == nil then
 			-- Создает файл в режиме "записи"
-			f = io.open(FONT_FMT:format(TP, c),"w"); 
+			f = io.open(FONT_FMT:format(TP, c),"w");
 			-- Закрывает файл
 			f:close();
 			-- Открывает уже существующий файл в режиме "чтения/записи"
@@ -333,7 +333,7 @@ local function build_char_db()
 			f:close();
 		end;
 		-- ***** badger *****
-		
+
 		local w, h = read_image_size(FONT_FMT:format(TP, c))
 		if w and h then
 			local ch = string.char(c)
@@ -406,8 +406,8 @@ local function make_line_texture(line, lineno)
 	local words = { }
 
 	local cur_color = 0
-	
-	
+
+
 	-- We check which chars are available here.
 	for word_i, word in ipairs(line) do
 		local chars = { }
@@ -537,12 +537,12 @@ local function make_infotext(text)
 	text = trim_input(text)
 	--local text_ansi = Utf8ToAnsi(text)
 	--print(text)
-	
+
 	-- проверка кодов символов в строке
 	--for i=1, string.len(text) do
 	--	print(string.byte(text, i))
 	--end
-	
+
 	local lines = split_lines_and_words(text) or {}
 	local lines2 = { }
 	for _, line in ipairs(lines) do
@@ -590,7 +590,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 
 		meta:set_string("infotext", ownstr..string.gsub(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
 		meta:set_string("text", fields.text)
-		
+
 		meta:set_int("__signslib_new_format", 1)
 		new = true
 	else
@@ -623,7 +623,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 	elseif signnode.name == "signs:sign_hanging" then
 		sign_info = signs_lib.hanging_sign_model.textpos[minetest.get_node(pos).param2 + 1]
 	elseif string.find(signnode.name, "sign_wall") then
-		if signnode.name == "default:sign_wall" 
+		if signnode.name == "default:sign_wall"
 		  or signnode.name == "locked_sign:sign_wall_locked" then
 			sign_info = signs_lib.regular_wall_sign_model.textpos[minetest.get_node(pos).param2 + 1]
 		else
@@ -1209,4 +1209,6 @@ minetest.register_craft( {
         --~ },
 --~ })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

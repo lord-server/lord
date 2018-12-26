@@ -49,4 +49,6 @@ worldedit.alias_chatcommand("/l", "/lua")
 worldedit.alias_chatcommand("/lt", "/luatransform")
 worldedit.alias_chatcommand("/clro", "/clearobjects")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

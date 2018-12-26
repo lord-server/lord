@@ -38,20 +38,20 @@ mail.get_input_formspec = function(meta,pos,name)
 		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
 		"list[nodemeta:".. spos .. ";drop;3.5,2;1,1;]"..
 		"list[current_player;main;0,5;8,4;]"
-		
+
 		if minetest.check_player_privs(name, {privs = true}) then
 			formspec = formspec .. "field[2.34,4.34;3,1;mail_change_owner;;".. name .."]"..
 			"button_exit[5,4;1,1;btn_ok;OK]"
 		end
-			
+
 	return formspec
 end
 
 -- Обработка событий формы
-minetest.register_on_player_receive_fields(function(player, formname, fields)	
-	
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+
 	local name = player:get_player_name()
-	
+
 	if string.sub(formname, 0, string.len("lord_mail:mail_chest_")) == "lord_mail:mail_chest_" then
 
 		local pos_s = string.sub(formname, string.len("lord_mail:mail_chest_") + 7)
@@ -62,7 +62,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if fields.btn_ok then -- кнопка Ok
 				local owner = fields.mail_change_owner
 				--print(owner)
-				
+
 				if fields.mail_change_owner then
 					mail.change_owner(meta, owner)
 				end
@@ -302,4 +302,6 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
