@@ -16,3 +16,12 @@ read_globals = {
 	-- MTG
 	"default", "sfinv", "creative",
 }
+
+exclude_files = {
+	-- External mods
+	"mods/areas",
+	"mods/intllib",
+	"mods/mobs",
+	"mods/lottmapgen",
+	"mods/mp_world_edit",
+}
