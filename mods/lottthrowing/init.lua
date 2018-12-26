@@ -1,61 +1,47 @@
+lottthrowing = {
+}
+
 local SL = lord.require_intllib()
 
-arrows = {
-	{"lottthrowing:arrow", "lottthrowing:arrow_entity"},
-     {"lottthrowing:arrow_mithril", "lottthrowing:arrow_mithril_entity"},
-     {"lottthrowing:arrow_magical", "lottthrowing:arrow_magical_entity"},
-}
 
-bolts = {
-	{"lottthrowing:bolt", "lottthrowing:bolt_entity"},
-     {"lottthrowing:bolt_mithril", "lottthrowing:bolt_mithril_entity"},
-	{"lottthrowing:bolt", "lottthrowing:bolt"},
-}
+local lottthrowing_player_shoot = function(player, arrow_name)
+	local dir = player:get_look_dir()
+	local p = player:getpos()
+	local offset = {x = 0, y = 1.5, z = 0}
+	p.x = p.x + offset.x
+	p.y = p.y + offset.y
+	p.z = p.z + offset.z
+	return throwing:shoot(player, arrow_name, p, dir, 0.5)
+end
+
+local lottthrowing_shoot = function(player, arrow_name)
+	local stack_index = player:get_wield_index() + 1
+	local creative = minetest.settings:get_bool("creative_mode")
+	local stack = player:get_inventory():get_stack("main", stack_index)
+
+	if (not creative) then
+		stack:take_item(1);
+		player:get_inventory():set_stack("main", stack_index, stack)
+	end
+
+	minetest.log("action", "Player \""..player:get_player_name().."\" shoots "..arrow_name)
+	return lottthrowing_player_shoot(player, arrow_name)
+end
 
 local lottthrowing_shoot_arrow = function(itemstack, player)
-	for _,arrow in ipairs(arrows) do
-		if player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name() == arrow[1] then
-			if not minetest.settings:get_bool("creative_mode") then
-				player:get_inventory():remove_item("main", arrow[1])
-			end
-			local playerpos = player:getpos()
-			local obj = minetest.add_entity({x=playerpos.x,y=playerpos.y+1.5,z=playerpos.z}, arrow[2])
-			local dir = player:get_look_dir()
-			obj:setvelocity({x=dir.x*19, y=dir.y*19, z=dir.z*19})
-			obj:setacceleration({x=dir.x*-3, y=-10, z=dir.z*-3})
-			obj:setyaw(player:get_look_yaw()+math.pi)
-			minetest.sound_play("lottthrowing_sound", {pos=playerpos})
-			if obj:get_luaentity().player == "" then
-				obj:get_luaentity().player = player
-			end
-			obj:get_luaentity().node = player:get_inventory():get_stack("main", 1):get_name()
-			return true
-		end
+	local itemname = player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name()
+	if throwing:arrow_type(itemname) ~= "arrow" then
+		return false
 	end
-	return false
+	return lottthrowing_shoot(player, itemname)
 end
 
 local lottthrowing_shoot_bolt = function(itemstack, player)
-	for _,arrow in ipairs(bolts) do
-		if player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name() == arrow[1] then
-			if not minetest.settings:get_bool("creative_mode") then
-				player:get_inventory():remove_item("main", arrow[1])
-			end
-			local playerpos = player:getpos()
-			local obj = minetest.add_entity({x=playerpos.x,y=playerpos.y+1.5,z=playerpos.z}, arrow[2])
-			local dir = player:get_look_dir()
-			obj:setvelocity({x=dir.x*25, y=dir.y*25, z=dir.z*25})
-			obj:setacceleration({x=dir.x*-1, y=-5, z=dir.z*-1})
-			obj:setyaw(player:get_look_yaw()+math.pi)
-			minetest.sound_play("lottthrowing_sound", {pos=playerpos})
-			if obj:get_luaentity().player == "" then
-				obj:get_luaentity().player = player
-			end
-			obj:get_luaentity().node = player:get_inventory():get_stack("main", 1):get_name()
-			return true
-		end
+	local itemname = player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name()
+	if throwing:arrow_type(itemname) ~= "bolt" then
+		return false
 	end
-	return false
+	return lottthrowing_shoot(player, itemname)
 end
 
 minetest.register_tool("lottthrowing:bow_wood", {
@@ -177,6 +163,22 @@ minetest.register_craft({
 		{'farming:string', 'lottplants:mallornwood', ''},
 	}
 })
+
+minetest.register_tool("lottthrowing:crossbow_magical", {
+	description = SL("Magical Crossbow"),
+	groups = {wooden = 1},
+	inventory_image = "lottthrowing_crossbow_magical.png",
+    stack_max = 1,
+	on_use = function(itemstack, user, pointed_thing)
+		if lottthrowing_player_shoot(user, "arrows:darkball") then
+			if not minetest.settings:get_bool("creative_mode") then
+				itemstack:add_wear(65535/150)
+			end
+		end
+		return itemstack
+	end,
+})
+
 
 minetest.register_tool("lottthrowing:crossbow_wood", {
 	description = SL("Wooden Crossbow"),
@@ -347,14 +349,6 @@ minetest.register_craft({
 	}
 })
 
-dofile(minetest.get_modpath("lottthrowing").."/arrow.lua")
-dofile(minetest.get_modpath("lottthrowing").."/mithril_arrow.lua")
-
-dofile(minetest.get_modpath("lottthrowing").."/bolt.lua")
-dofile(minetest.get_modpath("lottthrowing").."/mithril_bolt.lua")
-
-dofile(minetest.get_modpath("lottthrowing").."/axe.lua")
-
 if minetest.settings:get("log_mods") then
 	minetest.log("action", "lottthrowing loaded")
 end
@@ -362,3 +356,4 @@ end
 if minetest.settings:get_bool("msg_loading_mods") then
 	minetest.log("action", minetest.get_current_modname().." mod LOADED")
 end
+

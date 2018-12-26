@@ -1,112 +1,172 @@
 local SL = lord.require_intllib()
 
-mobs:register_arrow("lottmobs:egg_entity", {
-	visual = "sprite",
-	visual_size = {x=.5, y=.5},
-	textures = {"lottmobs_egg.png"},
-	velocity = 9,
+-- Kitten by Jordach / BFD
 
-	hit_player = function(self, player)
-		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
-			full_punch_interval = 0.7,
-			damage_groups = {fleshy = 1},
-		}, nil)
+mobs:register_mob("lottmobs:kitten", {
+	stepheight = 0.6,
+	type = "animal",
+	specific_attack = {"lottmobs:rat"},
+	damage = 1,
+	attack_type = "dogfight",
+	attack_animals = true, -- so it can attack rats
+	attack_players = false,
+	reach = 1,
+	passive = false,
+	hp_min = 5,
+	hp_max = 10,
+	armor = 200,
+	collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.1, 0.3},
+	visual = "mesh",
+	visual_size = {x = 0.5, y = 0.5},
+	mesh = "mobs_kitten.b3d",
+	textures = {
+		{"mobs_kitten_striped.png"},
+		{"mobs_kitten_splotchy.png"},
+		{"mobs_kitten_ginger.png"},
+		{"mobs_kitten_sandy.png"},
+	},
+	makes_footstep_sound = false,
+	sounds = {
+		random = "mobs_kitten",
+	},
+	walk_velocity = 0.6,
+	walk_chance = 15,
+	run_velocity = 4,
+	runaway = true,
+	jump = true,
+	drops = {
+		{name = "farming:string", chance = 1, min = 0, max = 1},
+	},
+	water_damage = 0,
+	lava_damage = 5,
+	fear_height = 3,
+	animation = {
+		speed_normal = 42,
+		stand_start = 97,
+		stand_end = 192,
+		walk_start = 0,
+		walk_end = 96,
+		stoodup_start = 0,
+		stoodup_end = 0,
+	},
+	follow = {"lottother:beast_ring", "lottmobs:rat",
+		  "lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw", "lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
+		  "lottmobs:meat", "lottmobs:fish_cooked", "lottmobs:horsemeat_cooked", "lottmobs:chicken_cooked", "lottmobs:pork_cooked", "lottmobs:rabbit_cooked"},
+
+	view_range = 12,
+
+	on_rightclick = function(self, clicker)
+
+		local item = clicker:get_wielded_item()
+		local user = clicker:get_player_name()
+
+		if self.owner and self.owner == user then
+			if mobs:feed_tame(self, clicker, 4, true, true) then
+			else
+				mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
+			end
+		else
+			if mobs:protect(self, clicker) then
+				return
+			end
+			if mobs:feed_tame(self, clicker, 4, true, true) then
+				self.owner = clicker:get_player_name()
+			else
+				local vel = self.object:get_velocity()
+				self.object:set_velocity({x = vel.x * 10, y = vel.y * 10, z = vel.z * 10})
+			end
+
+		end
 	end,
 
-	hit_mob = function(self, player)
-		player:punch(minetest.get_player_by_name(self.playername) or self.object, 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups = {fleshy = 1},
-		}, nil)
+	on_punch = function(self, hitter, tflp, tool_capabilities, dir)
+
+		local user = hitter:get_player_name()
+
+		if self.owner and self.owner == user then
+			self.object:set_velocity({x = 0, y = 0, z = 0})
+			minetest.sound_play("mobs_kitten", {
+				pos = pos,
+				gain = 1.0,
+				max_hear_distance = 5,
+			})
+		else
+			mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+		end
 	end,
 
-	hit_node = function(self, pos, node)
-		if math.random(1, 10) > 1 then
+	do_custom = function(self, dtime)
+
+		self.hairball_timer = (self.hairball_timer or 0) + dtime
+		if self.hairball_timer < 10 then
+			return
+		end
+		self.hairball_timer = 0
+
+		if self.child or math.random(1, 250) > 2 then
 			return
 		end
 
-		pos.y = pos.y + 1
+		local pos = self.object:get_pos()
 
-		local node = minetest.get_node_or_nil(pos)
-		if not node then
-			return
-		end
-
-		local node_def = minetest.registered_nodes[node.name]
-
-		if not node_def or node_def.walkable then
-			return
-		end
-
-		minetest.add_entity(pos, "lottmobs:chicken")
-	end
+		minetest.add_item(pos, "wool:white")
+		
+		minetest.sound_play("mobs_kitten", {
+			pos = pos,
+			gain = 1.0,
+			max_hear_distance = 5,
+		})
+	end,
 })
-
 
 -- egg throwing item
 
-local EGG_GRAVITY = 9
-local EGG_VELOCITY = 19
+local EGG_MASS = 0.05
+local EGG_VELOCITY = 10
+local EGG_DC = 0.5
+local EGG_KFR = 0.01
 
-local mobs_shoot_egg = function(item, player, pointed_thing)
-	local playerpos = player:getpos()
+arrows:register_throwing_weapon("lottmobs:egg", {
+	arrow = {
+		visual = "sprite",
+		visual_size = {x=.5, y=.5},
+		texture = "lottmobs_egg.png",
+		velocity = EGG_VELOCITY,
+		mass = EGG_MASS,
+		kfr = EGG_KFR,
+		damage_coefficient = EGG_DC,
+		drop = false,
 
-	minetest.sound_play("default_place_node_hard", {
-		pos = playerpos,
-		gain = 1.0,
-		max_hear_distance = 5,
-	})
+		hit_node = function(self, pos, node)
+			if math.random(1, 10) > 1 then
+				return
+			end
 
-	local obj = minetest.add_entity({
-		x = playerpos.x,
-		y = playerpos.y + 1.5,
-		z = playerpos.z
-	}, "lottmobs:egg_entity")
+			pos.y = pos.y + 1
 
-	local ent = obj:get_luaentity()
-	local dir = player:get_look_dir()
+			local node = minetest.get_node_or_nil(pos)
+			if not node then
+				return
+			end
 
-	ent.velocity = EGG_VELOCITY -- needed for api internal timing
-	ent.switch = 1 -- needed so that egg doesn't despawn straight away
+			local node_def = minetest.registered_nodes[node.name]
 
-	obj:setvelocity({
-		x = dir.x * EGG_VELOCITY,
-		y = dir.y * EGG_VELOCITY,
-		z = dir.z * EGG_VELOCITY
-	})
+			if not node_def or node_def.walkable then
+				return
+			end
 
-	obj:setacceleration({
-		x = dir.x * -3,
-		y = -EGG_GRAVITY,
-		z = dir.z * -3
-	})
-
-	-- pass player name to egg for chick ownership
-	local ent2 = obj:get_luaentity()
-	ent2.playername = player:get_player_name()
-
-	item:take_item()
-
-	return item
-end
-
-minetest.register_node("lottmobs:egg", {
-	description = SL("Chicken Egg"),
-	tiles = {"lottmobs_egg.png"},
-	inventory_image  = "lottmobs_egg.png",
-	visual_scale = 0.7,
-	drawtype = "plantlike",
-	wield_image = "lottmobs_egg.png",
-	paramtype = "light",
-	walkable = false,
-	is_ground_content = true,
-	sunlight_propagates = true,
-	selection_box = {
-		type = "fixed",
-		fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}
+			minetest.add_entity(pos, "lottmobs:chicken")
+		end,
 	},
-	groups = {snappy = 2, dig_immediate = 3},
-	on_use = mobs_shoot_egg
+	craftitem = {
+		shoot_sound = {
+			sound = "default_place_node_hard",
+			distance = 5,
+		},
+
+		description = SL("Chicken Egg"),
+		inventory_image = "lottmobs_egg.png",
+	},
 })
 
 mobs:register_mob("lottmobs:chicken", {
@@ -301,7 +361,7 @@ mobs:register_mob("lottmobs:bunny", {
 	replace_what = { {"lottfarming:carrot", "air", 0}, {"lottfarming:cabbage_1", "air", 0}}
 })
 
---[[mobs:register_mob("lottmobs:rat", {
+mobs:register_mob("lottmobs:rat", {
 	type = "animal",
 	passive = true,
 	hp_min = 1,
@@ -322,9 +382,8 @@ mobs:register_mob("lottmobs:bunny", {
 	run_velocity = 2,
 	runaway = true,
 	jump = true,
-	water_damage = 0,
+	water_damage = 1,
 	lava_damage = 4,
 	light_damage = 0,
 	fear_height = 2,
 })
-mobs:register_spawn("lottmobs:rat", {"default:stone"}, 20, 5, 15000, 2, 0)]]--

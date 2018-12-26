@@ -9,6 +9,7 @@ mobs:spawn_specific("lottmobs:dwarf1",	{"lottmapgen:ironhill_grass"},	{"air"}, -
 mobs:spawn_specific("lottmobs:dwarf2",	{"lottmapgen:ironhill_grass"},	{"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 
 --elves.lua
+mobs:spawn_specific("lottmobs:elf_archer",     {"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf",     {"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf1",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf2",	{"lottmapgen:lorien_grass"},	{"air"}, 0, 20, 30, 9000, 2, 0, 31000)
@@ -28,6 +29,16 @@ mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:gondor_grass"},	{"air"}, -1
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
+
+mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:rat",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
+
+mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:rohan_grass"},	    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:kitten",	{"lottmapgen:shire_grass"},	    {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
 
 --mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:gondor_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
 --mobs:spawn_specific("lottmobs:sheep",	{"lottmapgen:dunland_grass"},	{"air"}, -1, 20, 10, 10000, 1, 0, 31000)
@@ -57,6 +68,16 @@ mobs:spawn_specific("lottmobs:orc",	{"lottmapgen:mordor_stone"},	{"air"}, -1, 20
 mobs:spawn_specific("lottmobs:orc",	{"default:snowblock"},		{"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc",	{"default:dirt_with_snow"},	{"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc",	{"lottmapgen:angsnowblock"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+
+mobs:spawn_specific("lottmobs:orc_crossbowman",	{"lottmapgen:mordor_stone"},	{"air"}, -1, 20, 30, 300, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_crossbowman",	{"default:snowblock"},		{"air"}, -1, 15, 30, 3000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_crossbowman",	{"default:dirt_with_snow"},	{"air"}, -1, 15, 30, 3000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_crossbowman",	{"lottmapgen:angsnowblock"},	{"air"}, -1, 20, 30, 2000, 2, 0, 31000)
+
+mobs:spawn_specific("lottmobs:orc_archer", {"lottmapgen:mordor_stone"},	{"air"}, -1, 20, 30, 800, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_archer", {"default:snowblock"},		{"air"}, -1, 15, 30, 12000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_archer", {"default:dirt_with_snow"},	{"air"}, -1, 15, 30, 12000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_archer", {"lottmapgen:angsnowblock"},	{"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 
 mobs:spawn_specific("lottmobs:raiding_orc",	{"lottmapgen:ithilien_grass"},	{"air"}, -1, 2, 30, 6000, 3, 0, 31000)
 mobs:spawn_specific("lottmobs:raiding_orc",	{"lottmapgen:rohan_grass"},	{"air"}, -1, 2, 30, 6000, 3, 0, 31000)
