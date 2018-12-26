@@ -53,7 +53,7 @@ local SL = lord.require_intllib()
     on_construct = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
-      local pos = pos.x..','..pos.y..','..pos.z
+      local pos_str = pos.x..','..pos.y..','..pos.z
       inv:set_size('frames_filled'  ,1)
       inv:set_size('frames_emptied' ,1)
       inv:set_size('bottles_empty'  ,1)
@@ -64,12 +64,12 @@ local SL = lord.require_intllib()
         --input
         'image[1,1;1,1;bees_frame_full.png]'..
         'image[1,3;1,1;vessels_glass_bottle_inv.png]'..
-        'list[nodemeta:'..pos..';frames_filled;2,1;1,1;]'..
-        'list[nodemeta:'..pos..';bottles_empty;2,3;1,1;]'..
+        'list[nodemeta:'.. pos_str ..';frames_filled;2,1;1,1;]'..
+        'list[nodemeta:'.. pos_str ..';bottles_empty;2,3;1,1;]'..
         --output
-        'list[nodemeta:'..pos..';frames_emptied;5,0.5;1,1;]'..
-        'list[nodemeta:'..pos..';wax;5,2;1,1;]'..
-        'list[nodemeta:'..pos..';bottles_full;5,3.5;1,1;]'..
+        'list[nodemeta:'.. pos_str ..';frames_emptied;5,0.5;1,1;]'..
+        'list[nodemeta:'.. pos_str ..';wax;5,2;1,1;]'..
+        'list[nodemeta:'.. pos_str ..';bottles_full;5,3.5;1,1;]'..
         --player inventory
         'list[current_player;main;0,5;8,4;]'
       )
