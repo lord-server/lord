@@ -18,7 +18,7 @@ function beds.register_bed(name, def)
 		selection_box = {
 			type = "fixed",
 			fixed = def.selectionbox,
-				
+
 		},
 		after_place_node = function(pos, placer, itemstack)
 			local n = minetest.get_node_or_nil(pos)
@@ -29,14 +29,14 @@ function beds.register_bed(name, def)
 			local dir = minetest.facedir_to_dir(n.param2)
 			local p = vector.add(pos, dir)
 			local n2 = minetest.get_node_or_nil(p)
-			local def = n2 and minetest.registered_items[n2.name]
-			if not def or not def.buildable_to then
+			local defined = n2 and minetest.registered_items[n2.name]
+			if not defined or not defined.buildable_to then
 				minetest.remove_node(pos)
 				return true
 			end
 			minetest.set_node(p, {name = n.name:gsub("%_bottom", "_top"), param2 = n.param2})
 			return false
-		end,	
+		end,
 		on_destruct = function(pos)
 			local n = minetest.get_node_or_nil(pos)
 			if not n then return end
@@ -67,8 +67,8 @@ function beds.register_bed(name, def)
 			end
 			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
 			local node3 = minetest.get_node_or_nil(newp)
-			local def = node3 and minetest.registered_nodes[node3.name]
-			if not def or not def.buildable_to then
+			local defined = node3 and minetest.registered_nodes[node3.name]
+			if not defined or not defined.buildable_to then
 				return false
 			end
 			if minetest.is_protected(newp, user:get_player_name()) then
