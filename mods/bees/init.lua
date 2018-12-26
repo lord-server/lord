@@ -47,7 +47,14 @@ local SL = lord.require_intllib()
 --NODES
   minetest.register_node('bees:extractor', {
     description = SL('honey extractor'),
-    tiles = {"bees_extractor_top.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png", "bees_extractor.png"},
+    tiles = {
+	  "bees_extractor_top.png",
+	  "bees_extractor.png",
+	  "bees_extractor.png",
+	  "bees_extractor.png",
+	  "bees_extractor.png",
+	  "bees_extractor.png"
+	},
     paramtype2 = "facedir",
     groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
     on_construct = function(pos, node)
@@ -77,7 +84,10 @@ local SL = lord.require_intllib()
     on_timer = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
-      if not inv:contains_item('frames_filled','bees:frame_full') or not inv:contains_item('bottles_empty','vessels:glass_bottle') then
+      if
+	    not inv:contains_item('frames_filled','bees:frame_full') or
+		not inv:contains_item('bottles_empty','vessels:glass_bottle')
+	  then
         return
       end
       if inv:room_for_item('frames_emptied', 'bees:frame_empty')
@@ -90,7 +100,7 @@ local SL = lord.require_intllib()
         --remove from input
         inv:remove_item('bottles_empty','vessels:glass_bottle')
         inv:remove_item('frames_filled','bees:frame_full')
-        local p = {x=pos.x+math.random()-0.5, y=pos.y+math.random()-0.5, z=pos.z+math.random()-0.5}
+
         --wax flying all over the place
         minetest.add_particle({
           pos = {x=pos.x, y=pos.y, z=pos.z},
@@ -149,9 +159,12 @@ local SL = lord.require_intllib()
     end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if minetest.is_protected(pos, player:get_player_name()) then
-  			return 0
-  		end
-      if (listname == 'bottles_empty' and stack:get_name() == 'vessels:glass_bottle') or (listname == 'frames_filled' and stack:get_name() == 'bees:frame_full') then
+		return 0
+	  end
+      if
+	    (listname == 'bottles_empty' and stack:get_name() == 'vessels:glass_bottle') or
+		(listname == 'frames_filled' and stack:get_name() == 'bees:frame_full')
+	  then
         return stack:get_count()
       else
         return 0
@@ -161,11 +174,12 @@ local SL = lord.require_intllib()
       return 0
     end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-  		if minetest.is_protected(pos, player:get_player_name()) then
-  			return 0
-  		end
-  		return stack:get_count()
-  	end,
+      if minetest.is_protected(pos, player:get_player_name()) then
+        return 0
+	  end
+
+	  return stack:get_count()
+    end,
   })
 
   minetest.register_node('bees:bees', {
@@ -192,7 +206,13 @@ local SL = lord.require_intllib()
 -- дикий улей
   minetest.register_node('bees:hive_wild', {
     description = SL('wild bee hive'),
-    tiles = {'bees_hive_wild.png','bees_hive_wild.png','bees_hive_wild.png', 'bees_hive_wild.png', 'bees_hive_wild_bottom.png'}, --Neuromancer's base texture
+    tiles = {
+      'bees_hive_wild.png',
+	  'bees_hive_wild.png',
+	  'bees_hive_wild.png',
+	  'bees_hive_wild.png',
+	  'bees_hive_wild_bottom.png'
+	}, --Neuromancer's base texture
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'wallmounted',
@@ -228,12 +248,16 @@ local SL = lord.require_intllib()
         return
       end --not any flowers nearby The queen dies!
 
-      if #flowers < 3 then return end --requires 2 or more flowers before can make honey / Требуется 2 или более цветов, еще можно сделать мед
+      -- Requires 2 or more flowers before can make honey
+      -- Требуется 2 или более цветов, чтобы можно было сделать мед
+      if #flowers < 3 then return end
       local flower = flowers[math.random(#flowers)]
       bees.polinate_flower(flower, minetest.get_node(flower).name)
       local stacks = inv:get_list('combs')
       for k, v in pairs(stacks) do
-        if inv:get_stack('combs', k):is_empty() then --then replace that with a full one and reset pro.. / затем заменить, что с полной и сбросить про ..
+        if inv:get_stack('combs', k):is_empty() then
+          -- then replace that with a full one and reset pro..
+          -- то заменяем на полную и сбрасываем про .. (таймер?)
           inv:set_stack('combs',k,'bees:honey_comb')
           timer:start(1000/#flowers)
           return
@@ -338,7 +362,14 @@ local SL = lord.require_intllib()
 -- улей
   minetest.register_node('bees:hive_artificial', {
     description = SL('bee hive'),
-    tiles = {'default_wood.png','default_wood.png','default_wood.png', 'default_wood.png','default_wood.png','bees_hive_artificial.png'},
+    tiles = {
+      'default_wood.png',
+      'default_wood.png',
+	  'default_wood.png',
+	  'default_wood.png',
+	  'default_wood.png',
+	  'bees_hive_artificial.png'
+	},
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'facedir',
@@ -356,7 +387,6 @@ local SL = lord.require_intllib()
       }
     },
     on_construct = function(pos)
-      local timer = minetest.get_node_timer(pos)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
       meta:set_int('agressive', 1)
@@ -420,10 +450,11 @@ local SL = lord.require_intllib()
     end,
 
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-    	if minetest.is_protected(pos, player:get_player_name()) then
-    		return 0
-    	end
-    	return stack:get_count()
+      if minetest.is_protected(pos, player:get_player_name()) then
+        return 0
+      end
+
+      return stack:get_count()
     end,
 
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
@@ -438,8 +469,8 @@ local SL = lord.require_intllib()
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
       local inv = minetest.get_meta(pos):get_inventory()
       if minetest.is_protected(pos, player:get_player_name()) then
-    		return 0
-    	end
+        return 0
+      end
       if from_list == to_list then
         if inv:get_stack(to_list, to_index):is_empty() then
           return 1
@@ -456,8 +487,8 @@ local SL = lord.require_intllib()
       local inv = meta:get_inventory()
       local timer = minetest.get_node_timer(pos)
       if minetest.is_protected(pos, player:get_player_name()) then
-    		return 0
-    	end
+        return 0
+	  end
       if listname == 'queen' or listname == 'frames' then
         meta:set_string('queen', stack:get_name())
         meta:set_string('infotext',SL('queen is inserted, now for the empty frames'));
@@ -510,7 +541,6 @@ local SL = lord.require_intllib()
     chance = 10,
     action = function(pos, node, _, active_object_count_wider)
 		if active_object_count_wider > 0 then
-			--print("Здесь уже есть улей")
 			return
 		end
       local p = {x=pos.x, y=pos.y-1, z=pos.z}
@@ -518,14 +548,9 @@ local SL = lord.require_intllib()
 		return
 	  end
 
-      --if (minetest.find_node_near(p, 5, 'group:flora') ~= nil and minetest.find_node_near(p, 40, 'mobs:beehive') == nil) then
-        --minetest.add_node(p, {name='mobs:beehive'})
-      --end
-      --print("начало спавна улья - "..tostring(os.clock()))
       if minetest.find_node_near(p, 40, 'bees:hive_wild') == nil then
         minetest.add_node(p, {name='bees:hive_wild'})
       end
-      --print("окончание спавна улья - "..tostring(os.clock()))
 
     end,
   })
@@ -758,7 +783,6 @@ local SL = lord.require_intllib()
           connect_sides = {left=1, right=1, back=1, front=1, bottom=1, top=1}
         },
         on_construct = function(pos)
-          local timer = minetest.get_node_timer(pos)
           local meta = minetest.get_meta(pos)
           local inv = meta:get_inventory()
           meta:set_int('agressive', 1)
