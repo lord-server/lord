@@ -105,16 +105,16 @@ function doors.register_door(name, def)
 	local tt = def.tiles_top
 	local tb = def.tiles_bottom
 
-	local function after_dig_node(pos, name, digger)
+	local function after_dig_node(pos, node_name, digger)
 		local node = minetest.get_node(pos)
-		if node.name == name then
+		if node.name == node_name then
 			minetest.node_dig(pos, node, digger)
 		end
 	end
 
-	local function check_and_blast(pos, name)
+	local function check_and_blast(pos, node_name)
 		local node = minetest.get_node(pos)
-		if node.name == name then
+		if node.name == node_name then
 			minetest.remove_node(pos)
 		end
 	end

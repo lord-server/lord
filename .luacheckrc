@@ -25,6 +25,7 @@ read_globals      = {
 	"doors",
 	"intllib",
 	"stairs",
+	"screwdriver",
 
 	-- Legacy
 	"spawn_falling_node",
