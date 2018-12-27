@@ -15,9 +15,6 @@ local flame_node = function(pos)
 end
 
 local flame_area = function(p1, p2)
-	local x
-	local y
-	local z
 	for y=p1.y,p2.y do
 	for z=p1.z,p2.z do
 		minetest.punch_node({x=p1.x-1, y=y, z=z})
