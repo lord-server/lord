@@ -31,6 +31,7 @@ read_globals      = {
 	"armor", -- lottarmor
 	"multiskin", -- lottarmor
 	"mobs",
+	"worldedit",
 
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
