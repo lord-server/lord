@@ -291,6 +291,7 @@ function lottplants_firtree(pos)
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
+		local j
 		if absi >= absk then
 			j = t - absi
 		else
@@ -472,6 +473,7 @@ function lottplants_oaktree(pos)
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
+		local j
 		if absi >= absk then
 			j = t - absi
 		else
@@ -502,6 +504,7 @@ function lottplants_pinetree(pos)
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
+		local j
 		if absi >= absk then
 			j = t - absi
 		else

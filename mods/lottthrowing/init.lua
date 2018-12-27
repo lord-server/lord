@@ -48,7 +48,7 @@ minetest.register_tool("lottthrowing:bow_wood", {
 	description = SL("Normal Wood Bow"),
 	groups = {wooden = 1},
 	inventory_image = "lottthrowing_bow_wood.png",
-   stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
@@ -63,9 +63,9 @@ minetest.register_tool("lottthrowing:bow_wood_alder", {
 	description = SL("Alder Wood Bow"),
 	groups = {wooden = 1},
 	inventory_image = "lottthrowing_bow_wood_alder.png",
-   stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
+		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/70)
 			end
@@ -78,9 +78,9 @@ minetest.register_tool("lottthrowing:bow_wood_birch", {
 	description = SL("Birch Wood Bow"),
 	groups = {wooden = 1},
 	inventory_image = "lottthrowing_bow_wood_birch.png",
-   stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
+		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/100)
 			end
@@ -93,9 +93,9 @@ minetest.register_tool("lottthrowing:bow_wood_lebethron", {
 	description = SL("Lebethron Wood Bow"),
 	groups = {wooden = 1},
 	inventory_image = "lottthrowing_bow_wood_lebethron.png",
-   stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
+		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/150)
 			end
@@ -108,9 +108,9 @@ minetest.register_tool("lottthrowing:bow_wood_mallorn", {
 	description = SL("Mallorn Bow"),
 	groups = {wooden = 1},
 	inventory_image = "lottthrowing_bow_wood_mallorn.png",
-   stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_arrow(item, user, pointed_thing) then
+		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/300)
 			end
@@ -216,7 +216,7 @@ minetest.register_tool("lottthrowing:crossbow_tin", {
 	inventory_image = "lottthrowing_crossbow_tin.png",
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/100)
 			end
@@ -231,7 +231,7 @@ minetest.register_tool("lottthrowing:crossbow_silver", {
 	inventory_image = "lottthrowing_crossbow_silver.png",
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/150)
 			end
@@ -244,9 +244,9 @@ minetest.register_tool("lottthrowing:crossbow_gold", {
 	description = SL("Gold Crossbow"),
 	groups = {gold_item = 1},
 	inventory_image = "lottthrowing_crossbow_gold.png",
-    stack_max = 1,
+	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/200)
 			end
@@ -259,10 +259,10 @@ minetest.register_tool("lottthrowing:crossbow_galvorn", {
 	description = SL("Galvorn Crossbow"),
 	groups = {galvorn_item = 1},
 	inventory_image = "lottthrowing_crossbow_galvorn.png",
-     groups = {forbidden=1},
+	groups = {forbidden=1},
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/300)
 			end
@@ -277,7 +277,7 @@ minetest.register_tool("lottthrowing:crossbow_mithril", {
 	inventory_image = "lottthrowing_crossbow_mithril.png",
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
-		if lottthrowing_shoot_bolt(item, user, pointed_thing) then
+		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
 			if not minetest.settings:get_bool("creative_mode") then
 				itemstack:add_wear(65535/500)
 			end

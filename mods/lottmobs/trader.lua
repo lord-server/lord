@@ -124,7 +124,7 @@ function lottmobs.check_pay(inv,paynow)
 end
 lottmobs.trader_inventories = {}
 
-function lottmobs.add_goods(entity, race)
+function lottmobs.add_goods(same_race, race)
 	for i=1,15 do
 		if same_race == true then
 			if math.random(0, 100) > race.items_race[i][3] then
@@ -221,7 +221,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"price",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"payment",1)
-		lottmobs.add_goods(entity, race)
+		lottmobs.add_goods(same_race, race)
 	end
 	minetest.chat_send_player(
 		player,

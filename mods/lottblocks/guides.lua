@@ -7,6 +7,7 @@ local function guide_on_use(itemstack, user)
 	local page_info = minetest.deserialize(itemstack:get_metadata())
 	local title, text, owner = "", "", player_name
 	local page, page_max, lines, string = 1, 1, {}, ""
+	local background
 
 	title = data.title
 	text = data.text

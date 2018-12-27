@@ -33,6 +33,13 @@ read_globals      = {
 	"mobs",
 	"worldedit",
 
+	-- Опциональная поддержка этих апи модов некоторыми из тех модов, что у нас
+	"unified_inventory",
+	"skins", -- моды: skins, simple_skins
+	"u_skins", -- u_skins
+	"wardrobe", -- wardrobe
+
+
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
 

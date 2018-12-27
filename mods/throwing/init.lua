@@ -255,7 +255,7 @@ function throwing:register_arrow(name, def)
 		switch                      = 0,
 		owner_id                    = def.owner_id,
 		rotate                      = def.rotate,
-		automatic_face_movement_dir = def.rotate and (def.rotate - (pi / 180)) or false,
+		automatic_face_movement_dir = def.rotate and (def.rotate - (math.pi / 180)) or false,
 
 		on_step                     = def.on_step or arrow_step,
 		on_punch                    = dop and (def.on_punch or arrow_on_punch) or nil,

@@ -78,7 +78,7 @@ for _, row in ipairs(tapestry.colours) do
 			local fdir       = 0
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				dir  = {
+				local dir  = {
 					x = above.x - placer_pos.x,
 					y = above.y - placer_pos.y,
 					z = above.z - placer_pos.z

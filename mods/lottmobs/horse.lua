@@ -143,7 +143,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 			end
 		end
 
-		underattack = self.underattack or false
+		local underattack = self.underattack or false
 
 		if self.v == 0 then
 			if underattack ~= true then
@@ -224,9 +224,9 @@ function lottmobs:register_horse(name, craftitem, horse)
 				if self.riders[no] == races.get_race_and_gender(player)[1] or
 					clicker:get_inventory():get_stack("main", clicker:get_wield_index()):get_name() == "lottother:beast_ring" then
 
-					self.driver = clicker
-					attach_h    = self.attach_h or 15
-					attach_r    = self.attach_r or 90
+					self.driver    = clicker
+					local attach_h = self.attach_h or 15
+					local attach_r = self.attach_r or 90
 					clicker:set_attach(self.object, "", { x = 0, y = attach_h, z = 0 }, { x = 0, y = attach_r, z = 0 })
 
 					default.player_attached[clicker:get_player_name()] = true
@@ -234,15 +234,16 @@ function lottmobs:register_horse(name, craftitem, horse)
 					self.ridername = clicker:get_player_name()
 
 					if self.offset == true then
-						offset_h              = self.offset_h or 0
-						offset_r              = self.offset_r or 0
+						local offset_h        = self.offset_h or 0
+						local offset_r        = self.offset_r or 0
 						self.driver_attach_at = { x = 0, y = -20, z = 0 }
 						clicker:set_eye_offset({ x = 0, y = offset_h, z = 0 }, { x = 0, y = offset_r, z = 0 })
 					end
 				end
 			end
 			if default.player_attached[clicker:get_player_name()] then
-				return value
+				-- Было так
+				-- return value
 			else
 				minetest.chat_send_player(player, core.colorize("#ff8ea1", SL("You can't ride this beast!!!")))
 			end
@@ -265,6 +266,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 
 	function horse:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
 		local ridername = self.ridername
+		local rider
 		if ridername ~= nil then
 			rider = minetest.get_player_by_name(ridername)
 		end
