@@ -43,12 +43,12 @@ function lottblocks.register_lamp(material, description, inv_texture, post1_text
 			}
 		},
 		on_place = function(itemstack, placer, pointed_thing)
-	    	local pos = pointed_thing.above;
-	    	if(minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air") or (minetest.get_node({x=pos.x, y=pos.y+2, z=pos.z}).name ~= "air") then
-	    		minetest.chat_send_player( placer:get_player_name(), SL('Not enough space for lamppost to be placed') )
-	    		return;
-	    	end
-	    	return minetest.item_place(itemstack, placer, pointed_thing);
+			local pos = pointed_thing.above;
+			if (minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or (minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air") then
+				minetest.chat_send_player(placer:get_player_name(), SL('Not enough space for lamppost to be placed'))
+				return ;
+			end
+			return minetest.item_place(itemstack, placer, pointed_thing);
 		end,
 		after_place_node = function(pos,placer,itemstack)
 			minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = node_middle})
@@ -83,7 +83,7 @@ function lottblocks.register_lamp(material, description, inv_texture, post1_text
 						aspect_h = 16,
 						length = 1.5
 					},
-	        	}
+				}
 			},
 		paramtype = "light",
 		drawtype = "nodebox",
@@ -120,7 +120,7 @@ function lottblocks.register_lamp(material, description, inv_texture, post1_text
 					aspect_h = 16,
 					length = 1.5
 				},
-	       	},
+			},
 		},
 		paramtype = "light",
 		drawtype = "nodebox",

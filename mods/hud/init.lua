@@ -73,7 +73,7 @@ end
  if minetest.settings:get_bool("enable_damage") then
  --hunger
 	if HUD_ENABLE_HUNGER then
-       	 player:hud_add({
+		player:hud_add({
 		hud_elem_type = "statbar",
 		position = HUD_HUNGER_POS,
 		scale = {x=1, y=1},
