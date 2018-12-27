@@ -19,7 +19,7 @@ minetest.register_craftitem(":default:torch", {
 			return itemstack
 		end
 		local fakestack = itemstack
-		local retval = false
+		local retval
 		if wdir <= 1 then
 			retval = fakestack:set_name("torches:floor")
 		else
@@ -29,7 +29,7 @@ minetest.register_craftitem(":default:torch", {
 			return itemstack
 		end
 		-- Использовалась пер. dir, но она не объявлена
-		itemstack, retval = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
+		itemstack = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
 		itemstack:set_name("default:torch")
 
 		return itemstack
@@ -134,7 +134,7 @@ minetest.register_craftitem(":lottother:blue_torch", {
 			return itemstack
 		end
 		local fakestack = itemstack
-		local retval = false
+		local retval
 		if wdir <= 1 then
 			retval = fakestack:set_name("torches:blue_floor")
 		else
@@ -144,7 +144,7 @@ minetest.register_craftitem(":lottother:blue_torch", {
 			return itemstack
 		end
 		-- Использовалась пер. dir, но она не объявлена
-		itemstack, retval = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
+		itemstack = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
 		itemstack:set_name("lottother:blue_torch")
 
 		return itemstack
@@ -241,7 +241,7 @@ minetest.register_craftitem(":lottother:orc_torch", {
 			return itemstack
 		end
 		local fakestack = itemstack
-		local retval = false
+		local retval
 		if wdir <= 1 then
 			retval = fakestack:set_name("torches:orc_floor")
 		else
@@ -251,7 +251,7 @@ minetest.register_craftitem(":lottother:orc_torch", {
 			return itemstack
 		end
 		-- Использовалась пер. dir, но она не объявлена
-		itemstack, retval = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
+		itemstack = minetest.item_place(fakestack, placer, pointed_thing, nil --[[dir]])
 		itemstack:set_name("lottother:orc_torch")
 		return itemstack
 	end
