@@ -1,6 +1,8 @@
 unused_args       = false
 allow_defined_top = true
 
+std = "lua51"
+
 globals           = {
 	"minetest", "core"
 }
