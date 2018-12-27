@@ -29,6 +29,7 @@ read_globals      = {
 	"stairs",
 	"screwdriver",
 	"armor", -- lottarmor
+	"multiskin", -- lottarmor
 
 	-- Legacy
 	"spawn_falling_node",
