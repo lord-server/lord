@@ -1,0 +1,5 @@
+steel arrow	=	Arrow
+mithril arrow	=	Mithril Arrow
+steel bolt	=	Bolt
+mithril bolt	=	Mithril Bolt
+

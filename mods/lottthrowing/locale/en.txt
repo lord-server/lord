@@ -18,14 +18,3 @@ Elven Throwing Axe	=	Elven Throwing Axe
 Steel Throwing Axe	=	Steel Throwing Axe
 Galvorn Throwing Axe	=	Galvorn Throwing Axe
 
-### arrow.lua ###
-Arrow	=	Arrow
-
-### mithril_arrow.lua ###
-Mithril Arrow	=	Mithril Arrow
-
-### bolt.lua ###
-Bolt	=	Bolt
-
-### mithril_bolt.lua ###
-Mithril Bolt	=	Mithril Bolt

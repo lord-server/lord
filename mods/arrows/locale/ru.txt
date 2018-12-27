@@ -1,0 +1,5 @@
+steel arrow	=	Стрела
+mithril arrow	=	Мифриловая стрела
+steel bolt	=	Болт
+mithril bolt	=	Мифриловый болт
+
