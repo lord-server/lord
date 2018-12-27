@@ -421,8 +421,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_homedecor:window_flowerbox",
 	recipe = {
-		{ "lord_homedecor:roof_tile_terracotta", "default:dirt", "lord_homedecor:roof_tile_terracotta" },
-		{ "lord_homedecor:roof_tile_terracotta", "lord_homedecor:roof_tile_terracotta", "lord_homedecor:roof_tile_terracotta" },
+		{ "lord_homedecor:roof_tile_terracotta", "default:dirt",                        "lord_homedecor:roof_tile_terracotta" }, -- luacheck: ignore
+		{ "lord_homedecor:roof_tile_terracotta", "lord_homedecor:roof_tile_terracotta", "lord_homedecor:roof_tile_terracotta" }, -- luacheck: ignore
 	},
 })
 

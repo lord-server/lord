@@ -850,7 +850,14 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottores:tilkal_ingot",
-	recipe = {"default:copper_ingot", "lottores:silver_ingot", "lottores:tin_ingot", "lottores:lead_ingot", "default:steel_ingot", "default:gold_ingot"}
+	recipe = {
+		"default:copper_ingot",
+		"lottores:silver_ingot",
+		"lottores:tin_ingot",
+		"lottores:lead_ingot",
+		"default:steel_ingot",
+		"default:gold_ingot",
+	}
 })
 
 minetest.register_craft({

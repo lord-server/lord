@@ -148,7 +148,10 @@ local function hit_mob(mob, arrow, callback, owner_id)
 end
 
 local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabilities, dir)
-	if arrow.can_drop_on_punch and (arrow:can_drop_on_punch(puncher, time_from_last_punch, tool_capabilities, dir) == false) then
+	if
+		arrow.can_drop_on_punch and
+		(arrow:can_drop_on_punch(puncher, time_from_last_punch, tool_capabilities, dir) == false)
+	then
 		return
 	end
 	local pos     = arrow.object:getpos()

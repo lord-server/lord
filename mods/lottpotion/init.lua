@@ -162,7 +162,9 @@ lottpotion = {
 				local sdata = def.types[i]
 				local item_def = {
 					description = SL(name.." (Strength: "..tps[t]..sdata.type..")"),
-					inventory_image = "lottpotion_bottle.png^lottpotion_"..(def.texture or sname)..".png^lottpotion_"..tps[t]..sdata.type..".png",
+					inventory_image = "lottpotion_bottle.png^" ..
+						"lottpotion_"..(def.texture or sname)..".png^" ..
+						"lottpotion_"..tps[t]..sdata.type..".png",
 					drawtype = "plantlike",
 					paramtype = "light",
 					walkable = false,
@@ -189,8 +191,14 @@ lottpotion = {
                     minetest.register_node(fname.."_"..tps[t]..sdata.type, item_def)
 				--potions.register_liquid(i..tps[t]..sname, name.." ("..tps[t].." "..i..")", item_def.on_use)
 				if minetest.get_modpath("lottthrowing")~=nil then
-					lottpotion.register_arrow(fname.."_"..tps[t]..sdata.type, i..tps[t]..sname, name.." ("..tps[t].." "..i..")", item_def.on_use,
-							item_def.description, item_def.inventory_image)
+					lottpotion.register_arrow(
+						fname.."_"..tps[t]..sdata.type,
+						i..tps[t]..sname,
+						name.." ("..tps[t].." "..i..")",
+						item_def.on_use,
+						item_def.description,
+						item_def.inventory_image
+					)
 				end
 			end
 		end

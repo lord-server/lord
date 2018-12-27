@@ -18,8 +18,10 @@ minetest.register_craft({
 
 minetest.register_node("lottblocks:hobbit_chest", {
 	description           = SL("Hobbit Chest"),
-	tiles                 = { "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_side.png",
-							  "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_front.png" },
+	tiles                 = {
+		"lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_side.png",
+		"lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -66,8 +68,10 @@ minetest.register_node("lottblocks:hobbit_chest", {
 
 minetest.register_node("lottblocks:gondor_chest", {
 	description           = SL("Gondorian Chest"),
-	tiles                 = { "lottblocks_gondor_chest_top.png", "lottblocks_gondor_chest_bottom.png", "lottblocks_gondor_chest_side.png",
-							  "lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_front.png" },
+	tiles                 = {
+		"lottblocks_gondor_chest_top.png", "lottblocks_gondor_chest_bottom.png", "lottblocks_gondor_chest_side.png",
+		"lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -116,8 +120,10 @@ minetest.register_node("lottblocks:gondor_chest", {
 
 minetest.register_node("lottblocks:rohan_chest", {
 	description           = SL("Rohirrim Chest"),
-	tiles                 = { "lottblocks_rohan_chest_top.png", "lottblocks_rohan_chest_bottom.png", "lottblocks_rohan_chest_side.png",
-							  "lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_front.png" },
+	tiles                 = {
+		"lottblocks_rohan_chest_top.png", "lottblocks_rohan_chest_bottom.png", "lottblocks_rohan_chest_side.png",
+		"lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -166,8 +172,10 @@ minetest.register_node("lottblocks:rohan_chest", {
 
 minetest.register_node("lottblocks:elfloth_chest", {
 	description           = SL("Elven (Lorien) Chest"),
-	tiles                 = { "lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
-							  "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png" },
+	tiles                 = {
+		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
+		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -216,8 +224,10 @@ minetest.register_node("lottblocks:elfloth_chest", {
 
 minetest.register_node("lottblocks:elfmirk_chest", {
 	description           = SL("Elven (Mirkwood) Chest"),
-	tiles                 = { "lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
-							  "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png" },
+	tiles                 = {
+		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
+		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -266,8 +276,10 @@ minetest.register_node("lottblocks:elfmirk_chest", {
 
 minetest.register_node("lottblocks:mordor_chest", {
 	description           = SL("Mordor Chest"),
-	tiles                 = { "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_side.png",
-							  "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_front.png" },
+	tiles                 = {
+		"lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_side.png",
+		"lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,
@@ -316,8 +328,10 @@ minetest.register_node("lottblocks:mordor_chest", {
 
 minetest.register_node("lottblocks:angmar_chest", {
 	description           = SL("Angmar Chest"),
-	tiles                 = { "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_side.png",
-							  "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_front.png" },
+	tiles                 = {
+		"lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_side.png",
+		"lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_front.png",
+	},
 	paramtype2            = "facedir",
 	groups                = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	legacy_facedir_simple = true,

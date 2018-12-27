@@ -69,8 +69,8 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode, uses)
 
 	local new_param2 = preservePart + rotationPart
 	local should_rotate = true
-	--print("new_param2 = "..tostring(new_param2))
-	if ndef and ndef.on_rotate then -- Node provides a handler, so let the handler decide instead if the node can be rotated
+	-- Node provides a handler, so let the handler decide instead if the node can be rotated
+	if ndef and ndef.on_rotate then
 		-- Copy pos and node because callback can modify it
 		local result = ndef.on_rotate(vector.new(pos),
 				{name = node.name, param1 = node.param1, param2 = node.param2},

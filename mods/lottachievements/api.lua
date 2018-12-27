@@ -421,8 +421,9 @@ function lottachievements.getFormspec(name, to, sid)
 				if perc > 1 then
 					perc = 1
 				end
-				formspec = formspec .. "background[0,4.675;" .. barwidth ..",0.425;lottachievements_progress_gray.png;false]"
-				formspec = formspec .. "background[0,4.675;" .. (barwidth * perc) ..",0.425;lottachievements_progress_green.png;false]"
+				formspec = formspec ..
+					"background[0,4.675;" .. barwidth .. ",0.425;lottachievements_progress_gray.png;false]" ..
+					"background[0,4.675;" .. (barwidth * perc) .. ",0.425;lottachievements_progress_green.png;false]"
 				if label then
 					formspec = formspec .. "label[1.75,4.63;" .. minetest.formspec_escape(label) .. "]"
 				end

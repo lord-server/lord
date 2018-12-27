@@ -56,7 +56,7 @@ lottmobs.dwarf = {
 		SL("What are you doing here? What do you want from us?"),
 		SL("Be careful when you enter our homes, a fall from the ladder could well prove deadly."),
 		SL("If you want to mine, do so. There's plenty of iron to go around!"),
-		SL("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."),
+		SL("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."), -- luacheck: no_max_line_length
 	}
 }
 
@@ -66,7 +66,7 @@ lottmobs.elf = {
 		{"lord_money:silver_coin 1",		"lord_money:copper_coin 10", 5},
 		{"lord_money:silver_coin 10",		"lord_money:gold_coin 1", 5},
 		{"lord_money:copper_coin 10",		"lord_money:silver_coin 1", 5},
-		{"lottplants:mallorntree 10",		"lord_money:silver_coin 4",	5}, 
+		{"lottplants:mallorntree 10",		"lord_money:silver_coin 4",	5},
 		{"lottores:rough_rock 4",			"lord_money:silver_coin 30", 17},
 		{"lottother:blue_torch 10",			"lord_money:silver_coin 20", 15},
 		{"tools:spear_galvorn 1",			"lord_money:silver_coin 25", 20},
@@ -113,7 +113,7 @@ lottmobs.elf = {
 		SL("We are a peace loving people, but if we are angered, our wrath is terrible!"),
 		SL("Rest among us and prepare yourself, for war is imminent."),
 		SL("If you wish to buy goods from us, there are certain traders who wander our land."),
-		SL("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."),
+		SL("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."), -- luacheck: no_max_line_length
 	}
 }
 
@@ -170,7 +170,7 @@ lottmobs.hobbit = {
 		SL("If you are in need of any food, there are traders who wander around and they usually have a good stock."),
 		SL("If you are thinking that you'll find adventures here, think again! Good day!"),
 		SL("We hear tales of war, but they cannot be more than tales - like that of the Oliphaunt."),
-		SL("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."),
+		SL("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."), -- luacheck: no_max_line_length
 	}
 }
 

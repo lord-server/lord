@@ -130,7 +130,13 @@ zmc.formspec = function(pn)
 				local x = 3
 				local y = 0
 				for i, item in pairs(c.items) do
-					formspec = formspec .. "item_image_button["..((i-1)%c.width+x)..","..(math.floor((i-1)/c.width+y))..";1,1;"..item..";zmc:"..item..";]"
+					formspec = formspec ..
+						"item_image_button[" ..
+							((i - 1) % c.width + x) .. "," .. (math.floor((i - 1) / c.width + y)) .. ";" ..
+							"1,1;" ..
+							item .. ";" ..
+							"zmc:" .. item .. ";" ..
+						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
 					formspec = formspec .. "image[6,2;1,1;zcg_method_"..c.type..".png]"
@@ -150,7 +156,13 @@ zmc.formspec = function(pn)
 	for _, name in ipairs(zmc.itemlist) do
 		if s < page*npp then s = s+1 else
 			if i >= npp then break end
-			formspec = formspec .. "item_image_button["..(i%8)..","..(math.floor(i/8)+3.5)..";1,1;"..name..";zmc:"..name..";]"
+			formspec = formspec ..
+				"item_image_button[" ..
+					(i % 8) .. "," .. (math.floor(i / 8) + 3.5) .. ";" ..
+					"1,1;" ..
+					name .. ";" ..
+					"zmc:" .. name .. ";" ..
+				"]"
 			i = i+1
 		end
 	end
@@ -160,11 +172,12 @@ zmc.formspec = function(pn)
 	if i >= npp then
 		formspec = formspec .. "button[1,7;1,.5;zmc_page:"..(page+1)..";>>]"
 	end
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zmc.itemlist/npp+1)).."]" -- The Y is approximatively the good one to have it centered vertically...
-     formspec = formspec .. "button[0,2.8;2,0.5;potions;"..SL("Potions").."]"
-     formspec = formspec .. "button[0,2.1;2,0.5;brews;"..SL("Brewing").."]"
-     formspec = formspec .. "label[0,0;"..SL("Master Book of Crafts").."]"
-     formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+	-- The Y is approximatively the good one to have it centered vertically...
+	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zmc.itemlist/npp+1)).."]"
+	formspec = formspec .. "button[0,2.8;2,0.5;potions;"..SL("Potions").."]"
+	formspec = formspec .. "button[0,2.1;2,0.5;brews;"..SL("Brewing").."]"
+	formspec = formspec .. "label[0,0;"..SL("Master Book of Crafts").."]"
+	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
 	return formspec
 end
 

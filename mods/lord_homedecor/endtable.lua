@@ -3,7 +3,14 @@ local SL = lord.require_intllib()
 minetest.register_node("lord_homedecor:endtable", {
 	description = SL("End Table"),
 	drawtype = "nodebox",
-	tiles = {"lrfurn_coffeetable_back.png", "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png"},
+	tiles = {
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png"
+	},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},

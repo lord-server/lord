@@ -738,7 +738,12 @@ mobs:register_mob("lottmobs:hobbit", {
 })
 --mobs:register_spawn("lottmobs:hobbit", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
 
-local orc_armor = "lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_helmet_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png^[colorize:#00000055"
+local orc_armor = "lottarmor_chestplate_steel.png^" ..
+	"lottarmor_leggings_steel.png^" ..
+	"lottarmor_helmet_steel.png^" ..
+	"lottarmor_boots_steel.png^" ..
+	"lottarmor_shield_steel.png^" ..
+	"[colorize:#00000055"
 
 mobs:register_mob("lottmobs:orc", {
 	type = "monster",

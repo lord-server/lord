@@ -223,7 +223,12 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"payment",1)
 		lottmobs.add_goods(entity, race)
 	end
-	minetest.chat_send_player(player, "[NPC] <"..SL("Trader").." "..SL(self.game_name).."> "..SL("Hello")..", "..player..", \n"..SL(tostring(race.messages[math.random(1,#race.messages)])))
+	minetest.chat_send_player(
+		player,
+		"[NPC] <" .. SL("Trader") .. " " .. SL(self.game_name) .. "> " ..
+			SL("Hello") .. ", " .. player .. ", \n" ..
+			SL(tostring(race.messages[math.random(1, #race.messages)]))
+	)
 	minetest.show_formspec(player, "trade",
 		"size[8,10;]" ..
 		 "background[5,5;1,1;" .. image .. ";true]" ..

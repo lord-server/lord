@@ -727,7 +727,10 @@ lottachievements.register_achievement("magic", {
 				print(privs_unknown)
 				return false
 			end
-			minetest.chat_send_player(grant_name, minetest.colorize("purple", "Теперь вы можете совершать перемещения с помощью палантиров"))
+			minetest.chat_send_player(
+				grant_name,
+				minetest.colorize("purple", "Теперь вы можете совершать перемещения с помощью палантиров")
+			)
 			minetest.set_player_privs(grant_name, privs)
 		end,
 		item   = "lottblocks:palantir_guide",

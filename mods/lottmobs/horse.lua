@@ -104,10 +104,17 @@ function lottmobs:register_horse(name, craftitem, horse)
 
 			-- rotation (the faster we go, the less we rotate)
 			if ctrl.left then
-				self.object:setyaw(self.object:getyaw() + 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90 + dtime * math.pi / 90)
+				self.object:setyaw(
+					self.object:getyaw()
+						+ 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90
+						+ dtime * math.pi / 90
+				)
 			end
 			if ctrl.right then
-				self.object:setyaw(self.object:getyaw() - 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90 - dtime * math.pi / 90)
+				self.object:setyaw(
+					self.object:getyaw()
+						- 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90
+						- dtime * math.pi / 90)
 			end
 			-- jumping (only if on ground)
 			if ctrl.jump and on_ground then
@@ -508,7 +515,10 @@ mobs:register_mob("lottmobs:horse", {
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:sheaf_wheat" or item:get_name() == "lottother:beast_ring" then
 			if math.random(1, 3) ~= 1 then
-				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				minetest.chat_send_player(
+					clicker:get_player_name(),
+					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+				)
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
@@ -569,7 +579,10 @@ mobs:register_mob("lottmobs:horsepeg", {
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:sheaf_wheat" or item:get_name() == "lottother:beast_ring" then
 			if math.random(1, 3) ~= 1 then
-				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				minetest.chat_send_player(
+					clicker:get_player_name(),
+					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+				)
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
@@ -630,7 +643,10 @@ mobs:register_mob("lottmobs:horseara", {
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:sheaf_wheat" or item:get_name() == "lottother:beast_ring" then
 			if math.random(1, 3) ~= 1 then
-				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				minetest.chat_send_player(
+					clicker:get_player_name(),
+					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+				)
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
@@ -686,13 +702,18 @@ mobs:register_mob("lottmobs:shirepony", {
 		{ "farming:wheat_5", "air", 0 }, { "farming:wheat_4", "air", 0 }, { "farming:wheat_3", "air", 0 },
 		{ "lottfarming:barley_3", "air", 0 }, { "lottfarming:barley_wild", "air", 0 }
 	},
-	follow               = { "farming:sheaf_wheat", "lottother:beast_ring", "lottfarming:sheaf_barley", "lottfarming:carrot_item" },
+	follow               = {
+		"farming:sheaf_wheat", "lottother:beast_ring", "lottfarming:sheaf_barley", "lottfarming:carrot_item"
+	},
 	view_range           = 5,
 	on_rightclick        = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:sheaf_barley" or item:get_name() == "lottother:beast_ring" then
 			if math.random(1, 3) ~= 1 then
-				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				minetest.chat_send_player(
+					clicker:get_player_name(),
+					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+				)
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
@@ -748,13 +769,18 @@ mobs:register_mob("lottmobs:shireponyblack", {
 		{ "farming:wheat_5", "air", 0 }, { "farming:wheat_4", "air", 0 }, { "farming:wheat_3", "air", 0 },
 		{ "lottfarming:barley_3", "air", 0 }, { "lottfarming:barley_wild", "air", 0 }
 	},
-	follow               = { "farming:sheaf_wheat", "lottother:beast_ring", "lottfarming:sheaf_barley", "lottfarming:carrot_item" },
+	follow               = {
+		"farming:sheaf_wheat", "lottother:beast_ring", "lottfarming:sheaf_barley", "lottfarming:carrot_item"
+	},
 	view_range           = 5,
 	on_rightclick        = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "farming:sheaf_barley" or item:get_name() == "lottother:beast_ring" then
 			if math.random(1, 3) ~= 1 then
-				minetest.chat_send_player(clicker:get_player_name(), core.colorize("#ff8ea1", SL("You could not tame this beast!!!")))
+				minetest.chat_send_player(
+					clicker:get_player_name(),
+					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+				)
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")

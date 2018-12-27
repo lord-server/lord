@@ -573,7 +573,8 @@ minetest.register_node("lottplants:pinetree", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -626,7 +627,8 @@ minetest.register_node("lottplants:birchtree", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -679,7 +681,8 @@ minetest.register_node("lottplants:aldertree", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -732,7 +735,8 @@ minetest.register_node("lottplants:lebethrontree", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -785,7 +789,8 @@ minetest.register_node("lottplants:mallorntree", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -856,7 +861,8 @@ minetest.register_node("lottplants:mallorntree_young", {
 			local placer_pos = placer:getpos()
 			if placer_pos then
 				local x = math.abs(placer_pos.x - p1.x)
-				local y = math.abs(placer_pos.y - p1.y + 1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
+				local y = math.abs(placer_pos.y - p1.y + 1)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z > x then param2 = 6 else param2 = 13 end
@@ -1086,7 +1092,9 @@ minetest.register_node("lottplants:plum", {
 		type  = "fixed",
 		fixed = { -0.2, -0.5, -0.2, 0.2, 0, 0.2 }
 	},
-	groups              = { fleshy = 3, dig_immediate = 3, flammable = 2, leafdecay = 3, leafdecay_drop = 1, color_violet = 1 },
+	groups              = {
+		fleshy = 3, dig_immediate = 3, flammable = 2, leafdecay = 3, leafdecay_drop = 1, color_violet = 1
+	},
 	on_use              = minetest.item_eat(2),
 	sounds              = default.node_sound_leaves_defaults(),
 	after_place_node    = function(pos, placer, itemstack)
@@ -1174,7 +1182,9 @@ minetest.register_node("lottplants:lorien_grass_1", {
 	walkable          = false,
 	is_ground_content = true,
 	buildable_to      = true,
-	groups            = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, grass = 1, color_green = 1 },
+	groups            = {
+		snappy = 3, flammable = 3, flora = 1, attached_node = 1, grass = 1, color_green = 1
+	},
 	sounds            = default.node_sound_leaves_defaults(),
 	selection_box     = {
 		type  = "fixed",
@@ -1198,7 +1208,9 @@ minetest.register_node("lottplants:lorien_grass_2", {
 	buildable_to      = true,
 	is_ground_content = true,
 	drop              = "lottplants:lorien_grass_1",
-	groups            = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1 },
+	groups            = {
+		snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1
+	},
 	sounds            = default.node_sound_leaves_defaults(),
 	selection_box     = {
 		type  = "fixed",
@@ -1216,7 +1228,9 @@ minetest.register_node("lottplants:lorien_grass_3", {
 	buildable_to      = true,
 	is_ground_content = true,
 	drop              = "lottplants:lorien_grass_1",
-	groups            = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1 },
+	groups            = {
+		snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1
+	},
 	sounds            = default.node_sound_leaves_defaults(),
 	selection_box     = {
 		type  = "fixed",
@@ -1234,7 +1248,9 @@ minetest.register_node("lottplants:lorien_grass_4", {
 	buildable_to      = true,
 	is_ground_content = true,
 	drop              = "lottplants:lorien_grass_1",
-	groups            = { snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1 },
+	groups            = {
+		snappy = 3, flammable = 3, flora = 1, attached_node = 1, not_in_creative_inventory = 1, grass = 1
+	},
 	sounds            = default.node_sound_leaves_defaults(),
 	selection_box     = {
 		type  = "fixed",

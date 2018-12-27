@@ -73,7 +73,10 @@ minetest.register_chatcommand("grant", {
 			end
 			i = i + 1
 		end
-		minetest.log("action", name..' granted ' .. minetest.privs_to_string(grantprivs, ', ') .. ' privileges to '.. grant_name)
+		minetest.log(
+			"action",
+			name..' granted ' .. minetest.privs_to_string(grantprivs, ', ') .. ' privileges to '.. grant_name
+		)
 		if grant_name ~= name then
 			minetest.chat_send_player(grant_name, name
 					.. " granted you privileges: "

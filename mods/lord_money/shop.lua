@@ -111,8 +111,12 @@ minetest.register_node("lord_money:shop", {
 	end,
 	can_dig = function(pos, player)
 		local meta = minetest.get_meta(pos)
-		local inv = meta:get_inventory()
-		return inv:is_empty("stock") and inv:is_empty("customers_gave") and inv:is_empty("owner_wants") and inv:is_empty("owner_gives")
+		local inv  = meta:get_inventory()
+
+		return inv:is_empty("stock") and
+			inv:is_empty("customers_gave") and
+			inv:is_empty("owner_wants") and
+			inv:is_empty("owner_gives")
 	end
 })
 
@@ -166,7 +170,11 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended goods.")
 					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
 				end
-				minetest.log("action", "магазин "..minetest.pos_to_string(pos).." - игрок "..name.." пытался совершить обмен, но товара нет на складе")
+				minetest.log(
+					"action",
+					"магазин " .. minetest.pos_to_string(pos) ..
+						" - игрок " .. name .. " пытался совершить обмен, но товара нет на складе"
+				)
 				minetest.chat_send_player(name, SL("Exchange can not be done, ended goods."))
 				return
 			end
@@ -174,7 +182,8 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			size = minv:get_size("owner_wants")
 			minv:set_size(temp, size) -- делаем инвентарь-буфер;
 			for _, stack in pairs(wants) do -- проверяем все стеки цены
-				if pinv:contains_item("customer_gives", stack) then -- если такой можно достать с оплаты, перекидываем его из оплаты в буфер
+				-- если такой можно достать с оплаты, перекидываем его из оплаты в буфер
+				if pinv:contains_item("customer_gives", stack) then
 					pinv:remove_item("customer_gives", stack)
 					minv:add_item(temp, stack)
 				else -- если же нет, переключаем возможность обмена и выходим из цикла
@@ -186,8 +195,13 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 				pinv:add_item("customer_gives", stack)
 			end
 			minv:set_size(temp, 0) -- закрываем буфер
-			if not can_exchange then -- если обмен не возможен, пишем отчёт "оплата не соответствует цене" и выходим из функции.
-				minetest.log("action", "магазин "..minetest.pos_to_string(pos).." - игрок "..name.." пытался совершить обмен, но его оплата не соответствует цене")
+			-- если обмен не возможен, пишем отчёт "оплата не соответствует цене" и выходим из функции.
+			if not can_exchange then
+				minetest.log(
+					"action",
+					"магазин " .. minetest.pos_to_string(pos) ..
+						" - игрок " .. name .. " пытался совершить обмен, но его оплата не соответствует цене"
+				)
 				minetest.chat_send_player(name, SL("Exchange can not be done, check if you put all items!"))
 				return
 			end
@@ -195,7 +209,8 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			size = minv:get_size("owner_wants")
 			minv:set_size(temp, size) -- делаем инвентарь-буфер;
 			for _, stack in pairs(wants) do -- проверяем все стеки цены
-				if minv:room_for_item("customers_gave", stack) then -- если такой можно поместить на склад, добавляем его на склад и в буфер
+				-- если такой можно поместить на склад, добавляем его на склад и в буфер
+				if minv:room_for_item("customers_gave", stack) then
 					minv:add_item("customers_gave", stack)
 					minv:add_item(temp, stack)
 				else -- если же нет, переключаем возможность обмена и выходим из цикла
@@ -212,7 +227,11 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended place.")
 					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
 				end
-				minetest.log("action", "магазин "..minetest.pos_to_string(pos).." - игрок "..name.." пытался совершить обмен, но на складе не оказалось места")
+				minetest.log(
+					"action",
+					"магазин " .. minetest.pos_to_string(pos) ..
+						" - игрок " .. name .. " пытался совершить обмен, но на складе не оказалось места"
+				)
 				minetest.chat_send_player(name, SL("Exchange can not be done, ended place."))
 				return
 			end
@@ -220,7 +239,8 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			size = minv:get_size("owner_wants")
 			minv:set_size(temp, size) -- делаем инвентарь-буфер;
 			for _, stack in pairs(gives) do -- проверяем все стеки на продажу
-				if pinv:room_for_item("customer_gets", stack) then -- если такой можно поместить к игроку, добавляем его на склад и к игроку
+				-- если такой можно поместить к игроку, добавляем его на склад и к игроку
+				if pinv:room_for_item("customer_gets", stack) then
 					pinv:add_item("customer_gets", stack)
 					minv:add_item(temp, stack)
 				else -- если же нет, переключаем возможность обмена и выходим из цикла
@@ -233,7 +253,11 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			end
 			minv:set_size(temp, 0) -- закрываем буфер
 			if not can_exchange then -- если обмен не возможен, пишем отчёт "нет места у игрока" и выходим из функции.
-				minetest.log("action", "магазин "..minetest.pos_to_string(pos).." - игрок "..name.." пытался совершить обмен, но у него не оказалось места")
+				minetest.log(
+					"action",
+					"магазин " .. minetest.pos_to_string(pos) ..
+						" - игрок " .. name .. " пытался совершить обмен, но у него не оказалось места"
+				)
 				minetest.chat_send_player(name, SL("Exchange can not be done, check if you have place!"))
 				return
 			end

@@ -28,7 +28,8 @@ local rules = {
 	},
 }
 
-local function is_correct_name(name) -- возвращает true, если name удовлетворяет всем условиям, и false в противном случае
+-- возвращает true, если name удовлетворяет всем условиям, и false в противном случае
+local function is_correct_name(name)
 	for _, rule in pairs(rules) do
 		if not rule.match(name) then
 			return false
@@ -38,7 +39,8 @@ local function is_correct_name(name) -- возвращает true, если name
 	return true
 end
 
-local function registered_player(name) -- если игрок уже зарегистрирован, возвращает true
+-- если игрок уже зарегистрирован, возвращает true
+local function registered_player(name)
 	local file = minetest.get_worldpath() .. "/players/" .. name
 	return os.rename(file, file)
 end

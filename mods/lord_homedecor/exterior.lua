@@ -194,7 +194,10 @@ lord_homedecor.register("swing", {
 				itemstack:take_item()
 			end
 		else
-			minetest.chat_send_player(placer:get_player_name(), "You have to point at the bottom side of an overhanging object to place a swing.")
+			minetest.chat_send_player(
+				placer:get_player_name(),
+				"You have to point at the bottom side of an overhanging object to place a swing."
+			)
 		end
 		return itemstack
 	end,

@@ -57,9 +57,15 @@ function lrfurn.check_forward(pos, fdir, long, placer)
 		return false
 	elseif minetest.is_protected(pos2, placer:get_player_name()) then
 		if not long then
-			minetest.chat_send_player(placer:get_player_name(), SL("Someone else owns the spot where other end goes!"))
+			minetest.chat_send_player(
+				placer:get_player_name(),
+				SL("Someone else owns the spot where other end goes!")
+			)
 		else
-			minetest.chat_send_player(placer:get_player_name(), SL("Someone else owns the spot where the middle or far end goes!"))
+			minetest.chat_send_player(
+				placer:get_player_name(),
+				SL("Someone else owns the spot where the middle or far end goes!")
+			)
 		end
 		return false
 	end

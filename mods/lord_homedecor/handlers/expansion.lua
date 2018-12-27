@@ -112,7 +112,8 @@ function lord_homedecor.stack_vertically(itemstack, placer, pointed_thing, node1
 end
 
 -- Stack one door node above another
--- like  homedecor.stack_vertically but tests first if it was placed as a right wing, then uses node1_right and node2_right instead
+-- like  homedecor.stack_vertically but tests first
+--    if it was placed as a right wing, then uses node1_right and node2_right instead
 
 function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node2, node1_right, node2_right)
 	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
@@ -124,7 +125,11 @@ function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node
 	local forceright = placer:get_player_control()["sneak"]
 	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
 
-	local is_right_wing = node1 == minetest.get_node({ x = pos.x + lord_homedecor.fdir_to_left[fdir+1][1], y=pos.y, z = pos.z + lord_homedecor.fdir_to_left[fdir+1][2] }).name
+	local is_right_wing = node1 == minetest.get_node({
+			x = pos.x + lord_homedecor.fdir_to_left[fdir+1][1],
+			y = pos.y,
+			z = pos.z + lord_homedecor.fdir_to_left[fdir+1][2],
+	}).name
 	if forceright or is_right_wing then
 		node1, node2 = node1_right, node2_right
 	end

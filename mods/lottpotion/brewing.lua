@@ -189,10 +189,18 @@ minetest.register_node("lottpotion:brewer", {
 	tiles                         = { "default_wood.png" },
 	node_box                      = {
 		type  = "fixed",
-		fixed = lottpotion.make_pipe({ { f = 0.9, h1 = -0.2, h2 = 0.2, b = 0 }, { f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 }, { f = 0.75, h1 = 0.35, h2 = 0.5, b = 0 },
-									   { f = 0.82, h1 = -0.35, h2 = -0.2, b = 0 }, { f = 0.82, h1 = 0.2, h2 = 0.35, b = 0 },
-									   { f = 0.75, h1 = 0.37, h2 = 0.42, b = 1 },
-									   { f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 } }, 0),
+		fixed = lottpotion.make_pipe(
+			{
+				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
+				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
+				{ f = 0.75, h1 = 0.35,  h2 = 0.5,   b = 0 },
+				{ f = 0.82, h1 = -0.35, h2 = -0.2,  b = 0 },
+				{ f = 0.82, h1 = 0.2,   h2 = 0.35,  b = 0 },
+				{ f = 0.75, h1 = 0.37,  h2 = 0.42,  b = 1 },
+				{ f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 },
+			},
+			0
+		),
 	},
 	paramtype                     = "light",
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2 },
@@ -256,10 +264,18 @@ minetest.register_node("lottpotion:brewer_active", {
 	tiles                         = { "default_wood.png" },
 	node_box                      = {
 		type  = "fixed",
-		fixed = lottpotion.make_pipe({ { f = 0.9, h1 = -0.2, h2 = 0.2, b = 0 }, { f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 }, { f = 0.75, h1 = 0.35, h2 = 0.5, b = 0 },
-									   { f = 0.82, h1 = -0.35, h2 = -0.2, b = 0 }, { f = 0.82, h1 = 0.2, h2 = 0.35, b = 0 },
-									   { f = 0.75, h1 = 0.37, h2 = 0.42, b = 1 },
-									   { f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 } }, 0),
+		fixed = lottpotion.make_pipe(
+			{
+				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
+				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
+				{ f = 0.75, h1 = 0.35,  h2 = 0.5,   b = 0 },
+				{ f = 0.82, h1 = -0.35, h2 = -0.2,  b = 0 },
+				{ f = 0.82, h1 = 0.2,   h2 = 0.35,  b = 0 },
+				{ f = 0.75, h1 = 0.37,  h2 = 0.42,  b = 1 },
+				{ f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 }
+			},
+			0
+		),
 	},
 	paramtype                     = "light",
 	groups                        = { cracky = 2 },

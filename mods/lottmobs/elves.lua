@@ -134,9 +134,35 @@ lottmobs.register_elf("", 20, 35, textures1, 2.5, 5, 4, 200, drops1)
 --Elves in full armor
 
 local textures2 = {
-    {"lottmobs_lorien_elf_1.png", "lottarmor_chestplate_galvorn.png^lottarmor_leggings_galvorn.png^lottarmor_helmet_galvorn.png^lottarmor_boots_galvorn.png", "tools_sword_galvorn.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_2.png", "lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_helmet_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png", "tools_battleaxe_steel.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_3.png", "lottarmor_chestplate_silver.png^lottarmor_leggings_silver.png^lottarmor_helmet_silver.png^lottarmor_boots_silver.png^lottarmor_shield_silver.png", "tools_sword_silver.png", "lottarmor_trans.png"},
+    {
+		"lottmobs_lorien_elf_1.png",
+		"lottarmor_chestplate_galvorn.png^" ..
+			"lottarmor_leggings_galvorn.png^" ..
+			"lottarmor_helmet_galvorn.png^" ..
+			"lottarmor_boots_galvorn.png",
+		"tools_sword_galvorn.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_2.png",
+		"lottarmor_chestplate_steel.png^" ..
+			"lottarmor_leggings_steel.png^" ..
+			"lottarmor_helmet_steel.png^" ..
+			"lottarmor_boots_steel.png^" ..
+			"lottarmor_shield_steel.png",
+		"tools_battleaxe_steel.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_3.png",
+		"lottarmor_chestplate_silver.png^" ..
+			"lottarmor_leggings_silver.png^" ..
+			"lottarmor_helmet_silver.png^" ..
+			"lottarmor_boots_silver.png^" ..
+			"lottarmor_shield_silver.png",
+		"tools_sword_silver.png",
+		"lottarmor_trans.png",
+	},
 }
 
 local drops2 = {
@@ -157,9 +183,24 @@ lottmobs.register_elf(1, 20, 35, textures2, 2, 4.5, 6, 100, drops2)
 --Evels with chestplates and powerfull weapons!
 
 local textures3 = {
-    {"lottmobs_lorien_elf_1.png", "lottarmor_chestplate_galvorn.png", "tools_sword_elven.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_2.png", "lottarmor_chestplate_gold.png^lottarmor_shield_gold.png", "tools_spear_gold.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_3.png", "lottarmor_shield_steel.png", "tools_warhammer_steel.png", "lottarmor_trans.png"},
+    {
+		"lottmobs_lorien_elf_1.png",
+		"lottarmor_chestplate_galvorn.png",
+		"tools_sword_elven.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_2.png",
+		"lottarmor_chestplate_gold.png^lottarmor_shield_gold.png",
+		"tools_spear_gold.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_3.png",
+		"lottarmor_shield_steel.png",
+		"tools_warhammer_steel.png",
+		"lottarmor_trans.png",
+	},
 }
 
 local drops3 = {
@@ -180,9 +221,24 @@ lottmobs.register_elf(2, 20, 35, textures3, 2.25, 4.75, 8, 150, drops3)
 --Evels with chestplates and bow!
 
 local textures4 = {
-    {"lottmobs_lorien_elf_1.png", "lottarmor_chestplate_galvorn.png", "lottthrowing_bow_wood_mallorn.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_2.png", "lottarmor_chestplate_gold.png^lottarmor_shield_gold.png", "lottthrowing_bow_wood_mallorn.png", "lottarmor_trans.png"},
-    {"lottmobs_lorien_elf_3.png", "lottarmor_shield_steel.png", "lottthrowing_bow_wood_mallorn.png", "lottarmor_trans.png"},
+    {
+		"lottmobs_lorien_elf_1.png",
+		"lottarmor_chestplate_galvorn.png",
+		"lottthrowing_bow_wood_mallorn.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_2.png",
+		"lottarmor_chestplate_gold.png^lottarmor_shield_gold.png",
+		"lottthrowing_bow_wood_mallorn.png",
+		"lottarmor_trans.png",
+	},
+    {
+		"lottmobs_lorien_elf_3.png",
+		"lottarmor_shield_steel.png",
+		"lottthrowing_bow_wood_mallorn.png",
+		"lottarmor_trans.png",
+	},
 }
 
 local drops4 = {
