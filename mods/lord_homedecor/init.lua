@@ -89,9 +89,6 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 				itemstack, pointed_thing)
 		return
 	end
-	local pitch = placer:get_look_pitch()
-	local fdir = core.dir_to_facedir(placer:get_look_dir())
-	local wield_name = itemstack:get_name()
 
 	local above = pointed_thing.above
 	local under = pointed_thing.under

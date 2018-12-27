@@ -322,9 +322,7 @@ minetest.register_abm({
 			inv:set_size("src2", 0)
 		end
 
-		local recipe = nil
-
-		for i, name in pairs({
+		for _, name in pairs({
 				"fuel_totaltime",
 				"fuel_time",
 				"src_totaltime",

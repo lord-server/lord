@@ -66,7 +66,6 @@ end
 end
 
 zfc.load_crafts = function(name)
-     local c = {}
 	zfc.crafts[name] = {}
 	local _recipes = minetest.get_all_craft_recipes(name)
 	if _recipes then

@@ -39,7 +39,7 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 	dir.x = dir.x / dl
 	dir.y = dir.y / dl
 	dir.z = dir.z / dl
-	
+
 	pos.x = pos.x + dir.x * distance
 	pos.y = pos.y + dir.y * distance
 	pos.z = pos.z + dir.z * distance
@@ -102,7 +102,7 @@ local function hit_node(pos, arrow, callback)
 	return false
 end
 
-local function hit_player(player, arrow, callback, owner_id)	
+local function hit_player(player, arrow, callback, owner_id)
 	if player:get_player_name() ~= owner_id then
 		if callback then
 			callback(arrow, player)
@@ -121,10 +121,10 @@ local function hit_player(player, arrow, callback, owner_id)
 	return false
 end
 
-local function hit_mob(mob, arrow, callback, owner_id)	
+local function hit_mob(mob, arrow, callback, owner_id)
 	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
 
-	if tostring(mob) ~= owner_id 
+	if tostring(mob) ~= owner_id
 	   and entity ~= "__builtin:item"
 	   and entity ~= "__builtin:falling_node"
 	   and entity ~= "gauges:hp_bar"
@@ -204,7 +204,6 @@ local function arrow_step(self, dtime)
 		self.object:remove();
 	else
 		local k = self.k
-		local vel = self.object:getvelocity()
 		local node = minetest.registered_nodes[minetest.get_node(pos).name]
 		if node and node.liquid_viscosity then
 			k = k * BASE_LIQUID_VISCOSITY * node.liquid_viscosity

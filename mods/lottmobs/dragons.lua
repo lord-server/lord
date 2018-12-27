@@ -1,4 +1,3 @@
-local SL = lord.require_intllib()
 
 if not lottmobs.dragon then
         lottmobs.dragon = {}

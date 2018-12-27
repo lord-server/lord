@@ -57,7 +57,6 @@ mobs:register_mob("lottmobs:kitten", {
 
 	on_rightclick = function(self, clicker)
 
-		local item = clicker:get_wielded_item()
 		local user = clicker:get_player_name()
 
 		if self.owner and self.owner == user then
@@ -110,7 +109,7 @@ mobs:register_mob("lottmobs:kitten", {
 		local pos = self.object:get_pos()
 
 		minetest.add_item(pos, "wool:white")
-		
+
 		minetest.sound_play("mobs_kitten", {
 			pos = pos,
 			gain = 1.0,
@@ -216,7 +215,7 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
-	
+
 	sounds = {
 	},
 })

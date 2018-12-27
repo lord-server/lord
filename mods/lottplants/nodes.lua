@@ -559,7 +559,6 @@ minetest.register_node("lottplants:pinetree", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -573,16 +572,12 @@ minetest.register_node("lottplants:pinetree", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:pinetrunk", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then
@@ -617,7 +612,6 @@ minetest.register_node("lottplants:birchtree", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -631,16 +625,12 @@ minetest.register_node("lottplants:birchtree", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:birchtrunk", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then
@@ -675,7 +665,6 @@ minetest.register_node("lottplants:aldertree", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -689,16 +678,12 @@ minetest.register_node("lottplants:aldertree", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:aldertrunk", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then
@@ -733,7 +718,6 @@ minetest.register_node("lottplants:lebethrontree", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -747,16 +731,12 @@ minetest.register_node("lottplants:lebethrontree", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:lebethrontrunk", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then
@@ -791,7 +771,6 @@ minetest.register_node("lottplants:mallorntree", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -805,16 +784,12 @@ minetest.register_node("lottplants:mallorntree", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:mallorntrunk", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then
@@ -867,7 +842,6 @@ minetest.register_node("lottplants:mallorntree_young", {
 		if pointed_thing.type == "node" and
 			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
 
-			local p0 = pointed_thing.under
 			local p1 = pointed_thing.above
 			local param2 = 0
 			local p3 = {x = p1.x, y = p1.y, z = p1.z}
@@ -881,16 +855,12 @@ minetest.register_node("lottplants:mallorntree_young", {
 
 			local placer_pos = placer:getpos()
 			if placer_pos then
-				local dir = {}
 				local x = math.abs(placer_pos.x - p1.x)
 				local y = math.abs(placer_pos.y - p1.y +1)  -- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
 				local z = math.abs(placer_pos.z - p1.z)
 
 				if z>x then param2 = 6 else param2 = 13 end
 				if y>math.max(x,z) then param2 = 0 end
-
-				--print(tostring(x)..","..tostring(y)..","..tostring(z))
-				--print(tostring(param2))
 			end
 			minetest.set_node(p1,{name = "lottplants:mallorntrunk_young", param2 = param2})
 			if not minetest.settings:get_bool("creative_mode") then

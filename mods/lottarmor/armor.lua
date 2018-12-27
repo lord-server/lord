@@ -425,7 +425,6 @@ minetest.register_on_joinplayer(function(player)
 			lottachievements.equip(stack, player, -1)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			local plaver_inv = player:get_inventory()
 			local stack = inv:get_stack(to_list, to_index)
 			player_inv:set_stack(to_list, to_index, stack)
 			player_inv:set_stack(from_list, from_index, nil)

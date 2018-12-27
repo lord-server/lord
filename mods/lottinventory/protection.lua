@@ -69,7 +69,6 @@ end
 end
 
 zpc.load_crafts = function(name)
-     local c = {}
 	zpc.crafts[name] = {}
 	local _recipes = minetest.get_all_craft_recipes(name)
 	if _recipes then

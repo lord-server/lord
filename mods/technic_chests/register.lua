@@ -72,7 +72,6 @@ end
 
 local function set_formspec(pos, data, page)
 	local meta = minetest.get_meta(pos)
-	local node = minetest.get_node(pos)
 	local formspec = data.base_formspec
 	if data.autosort then
 		local status = meta:get_int("autosort")

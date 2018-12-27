@@ -276,7 +276,6 @@ function lottmobs:register_horse(name, craftitem, horse)
 				self.object:remove()
 			elseif self.aggressive == true then
 				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
-				local _, obj
 				for _, obj in ipairs(objs) do
 					if obj:is_player() and puncher:get_player_name() == obj:get_player_name() then
 						self.underattack = true
@@ -294,7 +293,6 @@ function lottmobs:register_horse(name, craftitem, horse)
 		else
 			if puncher and self.aggressive == true then
 				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
-				local _, obj
 				for _, obj in ipairs(objs) do
 					if puncher:get_luaentity() == obj:get_luaentity() then
 						self.underattack = true

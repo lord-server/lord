@@ -15,8 +15,6 @@
 --
 local SL = lord.require_intllib()
 
-local S = lottachievements.gettext
-
 dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
 
 -- Table Save Load Functions

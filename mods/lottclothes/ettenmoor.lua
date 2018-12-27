@@ -1,11 +1,9 @@
 local SL = lord.require_intllib()
 
 -- outfit from the ettenmoor region. wizard style (as possible).
--- made from grey and brown felt & gold ingot. 
+-- made from grey and brown felt & gold ingot.
 -- it's difficult to make because dye:brown, dye:grey and lottores:gold.
 -- hasn't got boots.
-
-local level=4
 
 -- hood (head)
 minetest.register_tool("lottclothes:hood_ettenmoor", {

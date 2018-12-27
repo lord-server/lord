@@ -1,10 +1,5 @@
 local SL = lord.require_intllib()
 
-local bbq_cbox = {
-	type = "fixed",
-	fixed = { -0.5, -0.5, -0.3125, 0.5, 0.53125, 0.3125 }
-}
-
 local bl1_sbox = {
 	type = "fixed",
 	fixed = { -0.5, -0.5, -0.25, 1.5, 0.5, 0.5 }
@@ -65,11 +60,6 @@ lord_homedecor.register("bench_large_2", {
 
 minetest.register_alias("lord_homedecor:bench_large_2_left", "lord_homedecor:bench_large_2")
 minetest.register_alias("lord_homedecor:bench_large_2_right", "air")
-
-local dc_cbox = {
-	type = "fixed",
-	fixed = { -0.5, -0.5, -0.5, 0.5, 0, 1 }
-}
 
 lord_homedecor.register("simple_bench", {
 	tiles = { "homedecor_generic_wood_old.png" },
@@ -195,8 +185,6 @@ lord_homedecor.register("swing", {
 			local fdir = minetest.dir_to_facedir(placer:get_look_dir())
 			for j = 0, height do -- then fill that space with ropes...
 				local testpos = { x=pos.x, y=pos.y-j, z=pos.z }
-				local testnode = minetest.get_node(testpos)
-				local testreg = core.registered_nodes[testnode.name]
 				minetest.set_node(testpos, { name = "lord_homedecor:swing_rope", param2 = fdir })
 			end
 

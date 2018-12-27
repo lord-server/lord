@@ -1,5 +1,3 @@
-local SL = lord.require_intllib()
-
 -- Minetest 0.4 mod: stairs
 -- See README.txt for licensing and other information.
 

@@ -125,7 +125,6 @@ end
 lottmobs.trader_inventories = {}
 
 function lottmobs.add_goods(entity, race)
-	local goods_to_add = nil
 	for i=1,15 do
 		if same_race == true then
 			if math.random(0, 100) > race.items_race[i][3] then
@@ -188,8 +187,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 					-- update the real amount of items in the slot now
 					elements = count
 				end
-				local good = nil
-				local good = nil
+				local good
 				if same_race == true then
 					for i = 1,#race.items_race,1 do
 						local stackstring = goodname .." " .. count
