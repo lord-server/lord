@@ -28,6 +28,7 @@ read_globals      = {
 	"intllib",
 	"stairs",
 	"screwdriver",
+	"armor", -- lottarmor
 
 	-- Legacy
 	"spawn_falling_node",
