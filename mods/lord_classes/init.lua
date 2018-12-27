@@ -405,7 +405,7 @@ minetest.register_chatcommand("give_chance", {
 	description = string.format(SL("Give another chance to a player."), races.list_str),
 	func = function(name, params)
 		-- Parse arguments
-		args = {}
+		local args = {}
 		for arg in params:gmatch("[^%s]+") do
 			table.insert(args, arg)
 		end

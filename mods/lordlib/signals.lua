@@ -3,7 +3,7 @@ lord = lord or {}
 local subscribers = {}
 
 function lord.emit(signal, context)
-	local subs_for_this_signal = subscribers[name]
+	local subs_for_this_signal = subscribers[signal]
 	if not subs_for_this_signal then
 		return
 	end

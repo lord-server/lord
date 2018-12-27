@@ -32,6 +32,9 @@ read_globals      = {
 	"multiskin", -- lottarmor
 	"mobs",
 
+	-- Functions:
+	"get_mail", -- mail_list из lord-server/lord_ext
+
 	-- Legacy
 	"spawn_falling_node",
 }
