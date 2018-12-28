@@ -26,7 +26,7 @@ local function get_v(v)
 	return math.sqrt(v.x ^ 2 + v.z ^ 2)
 end
 
-function lottmobs:register_horse(name, craftitem, horse)
+function lottmobs.register_horse(name, craftitem, horse)
 
 	if craftitem ~= nil then
 		function craftitem.on_place(itemstack, placer, pointed_thing)
@@ -162,8 +162,8 @@ function lottmobs:register_horse(name, craftitem, horse)
 			self.v = self.max_speed * get_sign(self.v)
 		end
 
-		local p = self.object:getpos()
-		p.y     = p.y + 1
+		p   = self.object:getpos()
+		p.y = p.y + 1
 		if not is_ground(p) then
 			if minetest.registered_nodes[minetest.get_node(p).name].walkable then
 				self.v = 0
@@ -241,10 +241,7 @@ function lottmobs:register_horse(name, craftitem, horse)
 					end
 				end
 			end
-			if default.player_attached[clicker:get_player_name()] then
-				-- Было так
-				-- return value
-			else
+			if not default.player_attached[clicker:get_player_name()] then
 				minetest.chat_send_player(player, core.colorize("#ff8ea1", SL("You can't ride this beast!!!")))
 			end
 		end
@@ -333,7 +330,7 @@ end
 
 ---------------------
 
-lottmobs:register_horse("lottmobs:horseh1", {
+lottmobs.register_horse("lottmobs:horseh1", {
 	description     = SL("Brown Horse"),
 	inventory_image = "lottmobs_horse_inventory.png",
 }, {
@@ -361,7 +358,7 @@ lottmobs:register_horse("lottmobs:horseh1", {
 
 --horse white
 
-lottmobs:register_horse("lottmobs:horsepegh1", {
+lottmobs.register_horse("lottmobs:horsepegh1", {
 	description     = SL("White Horse"),
 	inventory_image = "lottmobs_horsepeg_inventory.png",
 }, {
@@ -388,7 +385,7 @@ lottmobs:register_horse("lottmobs:horsepegh1", {
 
 --horse arabik
 
-lottmobs:register_horse("lottmobs:horsearah1", {
+lottmobs.register_horse("lottmobs:horsearah1", {
 	description     = SL("Black Horse"),
 	inventory_image = "lottmobs_horseara_inventory.png",
 }, {
@@ -413,7 +410,7 @@ lottmobs:register_horse("lottmobs:horsearah1", {
 	jump_boost    = 4
 })
 
-lottmobs:register_horse("lottmobs:shireponyblackh1", {
+lottmobs.register_horse("lottmobs:shireponyblackh1", {
 	description     = SL("Shire Pony"),
 	inventory_image = "lottmobs_shireponyblack_inventory.png",
 }, {
@@ -441,7 +438,7 @@ lottmobs:register_horse("lottmobs:shireponyblackh1", {
 	jump_boost    = 3
 })
 
-lottmobs:register_horse("lottmobs:shireponyh1", {
+lottmobs.register_horse("lottmobs:shireponyh1", {
 	description     = SL("Shire Pony"),
 	inventory_image = "lottmobs_shirepony_inventory.png",
 }, {

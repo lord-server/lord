@@ -1310,9 +1310,6 @@ mobs:register_mob("lottmobs:nazgul", {
 	attack_type = "shoot",
 	arrow = "arrows:darkball",
 	shoot_interval = 4,
-	sounds = {
-		attack = "arrows:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,
@@ -1368,9 +1365,6 @@ mobs:register_mob("lottmobs:witch_king", {
 	attack_type = "shoot",
 	arrow = "arrows:darkball",
 	shoot_interval = 2,
-	sounds = {
-		attack = "arrows:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,

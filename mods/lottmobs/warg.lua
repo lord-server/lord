@@ -1,6 +1,6 @@
 local SL = lord.require_intllib()
 
-lottmobs:register_horse("lottmobs:warg_mount", {
+lottmobs.register_horse("lottmobs:warg_mount", {
 	description     = SL("Warg"),
 	inventory_image = "lottmobs_warg_inv.png",
 }, {

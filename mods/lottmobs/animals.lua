@@ -64,8 +64,7 @@ mobs:register_mob("lottmobs:kitten", {
 		local user = clicker:get_player_name()
 
 		if self.owner and self.owner == user then
-			if mobs:feed_tame(self, clicker, 4, true, true) then
-			else
+			if not mobs:feed_tame(self, clicker, 4, true, true) then
 				mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
 			end
 		else
@@ -140,7 +139,7 @@ arrows:register_throwing_weapon("lottmobs:egg", {
 		damage_coefficient = EGG_DC,
 		drop = false,
 
-		hit_node = function(self, pos, node)
+		hit_node = function(self, pos, node_name)
 			if math.random(1, 10) > 1 then
 				return
 			end
@@ -181,7 +180,8 @@ mobs:register_mob("lottmobs:chicken", {
 		{"lottmobs_chicken.png"},
 	},
 	sounds = {
-		random = "mobs_chicken",
+		-- файлов нет
+		-- random = "mobs_chicken",
 	},
 	visual = "mesh",
 	mesh = "chicken_model.x",
@@ -219,9 +219,6 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
-
-	sounds = {
-	},
 })
 
 --[[mobs:register_mob("lottmobs:sheep", {
