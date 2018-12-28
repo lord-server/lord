@@ -28,13 +28,13 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 		drawtype = "nodebox",
 		node_box = axe_node_box,
 		tiles = {
-                        "lottthrowing_axe_top.png",
-                        "lottthrowing_axe_top.png",
-                        "lottthrowing_axe_back.png",
-                        "lottthrowing_axe_" .. axe .. "_front.png",
-                        "lottthrowing_axe_" .. axe .. ".png",
-                        "lottthrowing_axe_" .. axe .. "2.png"
-                },
+			"lottthrowing_axe_top.png",
+			"lottthrowing_axe_top.png",
+			"lottthrowing_axe_back.png",
+			"lottthrowing_axe_" .. axe .. "_front.png",
+			"lottthrowing_axe_" .. axe .. ".png",
+			"lottthrowing_axe_" .. axe .. "2.png"
+		},
 		groups = {not_in_creative_inventory=1},
 	})
 
