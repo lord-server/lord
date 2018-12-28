@@ -295,7 +295,6 @@ minetest.register_node("lottpotion:potion_brewer", {
 	inventory_image               = { "lottpotion_potion_brewer.png" },
 	wield_image                   = { "lottpotion_potion_brewer.png" },
 	paramtype                     = "light",
-	sounds                        = default.node_sound_stone_defaults(),
 	selection_box                 = {
 		type  = "fixed",
 		fixed = { -0.3, -0.5, -0.3, 0.3, 0.35, 0.3 }
@@ -334,7 +333,6 @@ minetest.register_node("lottpotion:potion_brewer", {
 		else
 			return 0
 		end
-		return 1
 	end,
 
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)

@@ -14,7 +14,7 @@ lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct,
 		inventory_image = inventory_img,
 		groups = {},
 	})
-	
+
 	arrows:register_arrow(arrow_name, {
 		arrow_type = "arrow",
 		mass = MASS,

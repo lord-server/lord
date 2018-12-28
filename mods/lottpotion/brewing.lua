@@ -278,8 +278,6 @@ minetest.register_node("lottpotion:brewer_active", {
 		),
 	},
 	paramtype                     = "light",
-	groups                        = { cracky = 2 },
-	sounds                        = default.node_sound_stone_defaults(),
 	selection_box                 = {
 		type  = "fixed",
 		fixed = { -0.3, -0.5, -0.3, 0.3, 0.35, 0.3 }

@@ -179,14 +179,14 @@ lottpotion = {
 				if t == 2 then
 					flags.inv = true
 				end
-				for name, val in pairs(lottpotion.effects[def.effect](sname, name, fname, time, sdata, flags)) do
-					item_def[name] = val
+				for effect_name, val in pairs(lottpotion.effects[def.effect](sname, name, fname, time, sdata, flags)) do
+					item_def[effect_name] = val
 				end
-				for name, val in pairs(sdata.set) do
-					item_def[name] = val
+				for set_name, val in pairs(sdata.set) do
+					item_def[set_name] = val
 				end
-				for name, val in pairs(sdata.effects) do
-					item_def.lottpotion[name] = val
+				for effect_name, val in pairs(sdata.effects) do
+					item_def.lottpotion[effect_name] = val
 				end
                     minetest.register_node(fname.."_"..tps[t]..sdata.type, item_def)
 				--potions.register_liquid(i..tps[t]..sname, name.." ("..tps[t].." "..i..")", item_def.on_use)
