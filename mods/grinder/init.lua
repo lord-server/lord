@@ -150,7 +150,8 @@ local machine_name = "Grinder"
 function grinder.get_grinder_active_formspec(pos, percent, item_percent)
 	local formspec =
 		"size[8,9]"..
-		"image[5.25,1.1;1,1;default_furnace_inv.png^default_furnace_fire_bg.png^[lowpart:"..(100-percent)..":default_furnace_fire_fg.png]"..
+		"image[5.25,1.1;1,1;default_furnace_inv.png^default_furnace_fire_bg.png^[lowpart:"..
+			(100-percent)..":default_furnace_fire_fg.png]"..
 		"image[1.5,1.6;1,1;gui_furnace_arrow_bg.png^[lowpart:"..(item_percent)..":gui_furnace_arrow_fg.png^[transformR180]"..
 		"list[current_name;fuel;5.25,2.1;1,1;]"..
 		"list[current_name;src;1.5,0.5;1,1;]"..
@@ -266,12 +267,12 @@ minetest.register_node("grinder:grinder", {
 		return stack:get_count()
 	end,
 
-  	--backwards compatibility: punch to set formspec
-  	on_punch = function(pos,player)
-  	    local meta = minetest.get_meta(pos)
-        meta:set_string("infotext", SL("Grinder"))
-        meta:set_string("formspec",grinder.grinder_inactive_formspec)
-    end
+	--backwards compatibility: punch to set formspec
+	on_punch = function(pos,player)
+	local meta = minetest.get_meta(pos)
+		meta:set_string("infotext", SL("Grinder"))
+	meta:set_string("formspec",grinder.grinder_inactive_formspec)
+	end
 })
 
 minetest.register_node("grinder:grinder_active", {
@@ -418,7 +419,6 @@ minetest.register_abm({
 		local meta = minetest.get_meta(pos)
 		local inv  = meta:get_inventory()
 
-		local recipe = nil
 		for i, name in pairs({
 				"fuel_totaltime",
 				"fuel_time",
@@ -426,16 +426,12 @@ minetest.register_abm({
 				"src_time"}) do
 			if not meta:get_float(name) then
 				meta:set_float(name, 0.0)
-			else
-				--print(name.." не обнулено для ")
 			end
 		end
 		--print("fuel_time="..meta:get_float("fuel_time"))
 		--print("fuel_totaltime="..meta:get_float("fuel_totaltime"))
 		--print("-------------------------------------")
 		local result = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
-		local num_in = 1
-		local num_out = 1
 		local was_active = false
 		--print("fuel_time="..meta:get_float("fuel_time"))
 		--print("fuel_totaltime="..meta:get_float("fuel_totaltime"))
@@ -473,7 +469,7 @@ minetest.register_abm({
 			return
 		end
 
-		recipe = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
+		local recipe = grinder.get_grinding_recipe("grinding", inv:get_list("src"))
 		if not recipe then
 			if was_active then
 				meta:set_string("infotext", SL(("%s is empty"):format(machine_name)))

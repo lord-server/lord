@@ -33,6 +33,33 @@ local function check_protection(pos, name, text)
 	return false
 end
 
+local function place_liquid(user, pos, node, source, flowing, fullness)
+	if
+		check_protection(
+			pos, user and user:get_player_name() or "", "place "..source
+		)
+	then
+		return
+	end
+	if
+		math.floor(fullness/128) == 1 or
+		not minetest.settings:get_bool("liquid_finite")
+	then
+		minetest.add_node(pos, {name=source, param2=fullness})
+		return
+	elseif node.name == flowing then
+		fullness = fullness + node.param2
+	elseif node.name == source then
+		fullness = LIQUID_MAX
+	end
+
+	if fullness >= LIQUID_MAX then
+		minetest.add_node(pos, {name=source, param2=LIQUID_MAX})
+	else
+		minetest.add_node(pos, {name=flowing, param2=fullness})
+	end
+end
+
 -- Register a new liquid
 --   source = name of the source node
 --   flowing = name of the flowing node
@@ -74,46 +101,19 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 						itemstack) or itemstack
 				end
 
-				local place_liquid = function(pos, node, _source, _flowing, fullness)
-					if
-						check_protection(
-							pos, user and user:get_player_name() or "", "place ".. _source
-						)
-					then
-						return
-					end
-					if
-						math.floor(fullness/128) == 1 or
-						not minetest.settings:get_bool("liquid_finite")
-					then
-						minetest.add_node(pos, { name = _source, param2 = fullness})
-						return
-					elseif node.name == _flowing then
-						fullness = fullness + node.param2
-					elseif node.name == _source then
-						fullness = LIQUID_MAX
-					end
-
-					if fullness >= LIQUID_MAX then
-						minetest.add_node(pos, { name = _source, param2 = LIQUID_MAX})
-					else
-						minetest.add_node(pos, { name = _flowing, param2 = fullness})
-					end
-				end
-
 				-- Check if pointing to a buildable node
 				local fullness = tonumber(itemstack:get_metadata())
 				if not fullness then fullness = LIQUID_MAX end
 
 				if ndef and ndef.buildable_to then
 					-- buildable; replace the node
-					place_liquid(pointed_thing.under, node_under, source, flowing, fullness)
+					place_liquid(user, pointed_thing.under, node_under, source, flowing, fullness)
 				else
 					-- not buildable to; place the liquid above
 					-- check if the node above can be replaced
 					local node_above = minetest.get_node_or_nil(pointed_thing.above)
 					if node_above and minetest.registered_nodes[node_above.name].buildable_to then
-						place_liquid(pointed_thing.above, node_above, source, flowing, fullness)
+						place_liquid(user, pointed_thing.above, node_above, source, flowing, fullness)
 					else
 						-- do not remove the bucket with the liquid
 						return
