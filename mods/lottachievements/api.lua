@@ -48,8 +48,8 @@ end
 function lottachievements.register_trigger(name, func)
 	lottachievements.trigger_types[name] = func
 	lottachievements.on[name] = {}
-	lottachievements['register_on_'..name] = function(func)
-		table.insert(lottachievements.on[name], func)
+	lottachievements['register_on_'..name] = function(handler)
+		table.insert(lottachievements.on[name], handler)
 	end
 end
 
