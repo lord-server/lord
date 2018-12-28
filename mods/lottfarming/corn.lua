@@ -88,7 +88,6 @@ minetest.register_node("lottfarming:corn_23", {
 	paramtype = "light",
 	walkable  = false,
 	drawtype  = "plantlike",
-	drop      = "",
 	tiles     = { "lottfarming_corn_23.png" },
 	drop      = {
 		max_items = 6,
@@ -114,7 +113,6 @@ minetest.register_node("lottfarming:corn_32", {
 	paramtype = "light",
 	walkable  = false,
 	drawtype  = "plantlike",
-	drop      = "",
 	tiles     = { "lottfarming_corn_32.png" },
 	drop      = {
 		max_items = 6,
@@ -128,10 +126,8 @@ minetest.register_node("lottfarming:corn_32", {
 	sounds    = default.node_sound_leaves_defaults(),
 })
 
-chance   = 10
-interval = 45
-whereon  = "farming:soil_wet"
-wherein  = "air"
+local chance   = 10
+local interval = 45
 
 minetest.register_abm({
 	nodenames = "lottfarming:corn_1",
@@ -150,7 +146,7 @@ minetest.register_abm({
 			return
 		end
 		pos.y = pos.y + 1
-		if minetest.get_node(pos).name ~= wherein then
+		if minetest.get_node(pos).name ~= "air" then
 			return
 		end
 		pos.y = pos.y - 1
