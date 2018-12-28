@@ -74,10 +74,10 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 						itemstack) or itemstack
 				end
 
-				local place_liquid = function(pos, node, source, flowing, fullness)
+				local place_liquid = function(pos, node, _source, _flowing, fullness)
 					if
 						check_protection(
-							pos, user and user:get_player_name() or "", "place "..source
+							pos, user and user:get_player_name() or "", "place ".. _source
 						)
 					then
 						return
@@ -86,18 +86,18 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 						math.floor(fullness/128) == 1 or
 						not minetest.settings:get_bool("liquid_finite")
 					then
-						minetest.add_node(pos, {name=source, param2=fullness})
+						minetest.add_node(pos, { name = _source, param2 = fullness})
 						return
-					elseif node.name == flowing then
+					elseif node.name == _flowing then
 						fullness = fullness + node.param2
-					elseif node.name == source then
+					elseif node.name == _source then
 						fullness = LIQUID_MAX
 					end
 
 					if fullness >= LIQUID_MAX then
-						minetest.add_node(pos, {name=source, param2=LIQUID_MAX})
+						minetest.add_node(pos, { name = _source, param2 = LIQUID_MAX})
 					else
-						minetest.add_node(pos, {name=flowing, param2=fullness})
+						minetest.add_node(pos, { name = _flowing, param2 = fullness})
 					end
 				end
 
