@@ -67,10 +67,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_on_joinplayer(function(player)
-	multiskin:init(player)
-	local name = player:get_player_name()
-	local player_inv = player:get_inventory()
+minetest.register_on_joinplayer(function(joined_player)
+	multiskin:init(joined_player)
+	local name = joined_player:get_player_name()
+	local player_inv = joined_player:get_inventory()
 	local clothing_inv = minetest.create_detached_inventory(name.."_clothing",{
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
@@ -115,6 +115,6 @@ minetest.register_on_joinplayer(function(player)
 			if inventory_plus == nil and unified_inventory == nil then
 				clothing:update_inventory(player)
 			end
-		end, player)
+		end, joined_player)
 	end
 end)
