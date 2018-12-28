@@ -41,12 +41,14 @@ function lottplants_aldertree(pos)
 				for k = -r, r do
 					local absi = math.abs(i)
 					local absk = math.abs(k)
-					if (absk == r)and(absi+1 > (r+1)/2)or(absi == r)and(absk+1 > (r+1)/2) then
-						-- ничего
-					else
+					if not (
+						(absk == r) and (absi + 1 > (r + 1) / 2)
+						or
+						(absi == r) and (absk + 1 > (r + 1) / 2)
+					) then
 						if math.random() > (absi + absk) / 24 then
 							--minetest.add_node({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},{name="lottplants:alderleaf"})
-							add_tree_branch({x = pos.x + i, y = pos.y + j + math.random(0, 1), z = pos.z + k}, "lottplants:alderleaf")
+							add_tree_branch({ x = pos.x + i, y = pos.y + j + math.random(0, 1), z = pos.z + k }, "lottplants:alderleaf")
 						end
 					end
 				end
@@ -70,9 +72,11 @@ function lottplants_appletree(pos)
 				for k = -r, r do
 					local absi = math.abs(i)
 					local absk = math.abs(k)
-					if (absk == r)and(absi + 1 > (r + 1) / 2)or(absi == r)and(absk + 1 > (r + 1) / 2) then
-						-- ничего
-					else
+					if not (
+						(absk == r) and (absi + 1 > (r + 1) / 2)
+						or
+						(absi == r) and (absk + 1 > (r + 1) / 2)
+					) then
 						if math.random() > (absi + absk) / 12 then
 							--minetest.add_node({x=pos.x+i,y=pos.y+j+math.random(0, 1),z=pos.z+k},{name="default:apple"})
 							add_tree_branch({x = pos.x + i, y = pos.y + j + math.random(0, 1), z = pos.z + k}, "default:apple")
@@ -109,7 +113,8 @@ function lottplants_birchtree(pos)
 			--end
 		--end
 	--end
-	local j = math.floor(t * 0.4)
+	local j
+	j = math.floor(t * 0.4)
 	for i = -3, 3 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -120,7 +125,7 @@ function lottplants_birchtree(pos)
 	end
 	end
 
-	local j = math.floor(t * 0.6)
+	j = math.floor(t * 0.6)
 	for i = -2, 2 do
 	for k = -3, 3 do
 		local absi = math.abs(i)
@@ -131,7 +136,7 @@ function lottplants_birchtree(pos)
 	end
 	end
 
-	local j = math.floor(t * 0.8)
+	j = math.floor(t * 0.8)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -242,7 +247,8 @@ function lottplants_elmtree(pos)
 		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
 	end
 
-	local j = math.floor(t * 0.4)
+	local j
+	j = math.floor(t * 0.4)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -253,7 +259,7 @@ function lottplants_elmtree(pos)
 	end
 	end
 
-	local j = math.floor(t * 0.7)
+	j = math.floor(t * 0.7)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -458,37 +464,6 @@ function lottplants_young_mallorn(pos)
 			end
 			end
 		end
-	end
-end
-
--- Oaks / Дуб
-
-function lottplants_oaktree(pos)
-	local t = 10 + math.random(3) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:pinetree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:pinetree")
-	end
-	for i = -2, 2 do
-	for k = -2, 2 do
-		local absi = math.abs(i)
-		local absk = math.abs(k)
-		local j
-		if absi >= absk then
-			j = t - absi
-		else
-			j = t - absk
-		end
-		if math.random() > (absi + absk) / 24 then
-			add_tree_branch({x=pos.x+i,y=pos.y+j+3,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i+1,y=pos.y+j-1,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-2,z=pos.z+k+1},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-3,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-4,z=pos.z+k},"lottplants:firleaf")
-			add_tree_branch({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},"lottplants:firleaf")
-		end
-	end
 	end
 end
 
