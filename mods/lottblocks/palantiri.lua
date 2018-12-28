@@ -1,24 +1,18 @@
 local SL             = lord.require_intllib()
 
-lottblocks.palantiri = {}
-local tmp
-local file           = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "r")
-if file then
-	tmp = minetest.deserialize(file:read("*all"))
-	file:close()
+local function load_palantiri()
+	local tmp
+	local file           = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "r")
+	if file then
+		tmp = minetest.deserialize(file:read("*all"))
+		file:close()
+	end
+
+	return tmp ~= nil and tmp[1] or {}
 end
 
-if tmp ~= nil then
-	lottblocks.palantiri = tmp[1]
-end
+lottblocks.palantiri = load_palantiri()
 
--- local races_p = {
--- 	{ "dwarf", SL("dwarves")},
--- 	{ "elf", SL("elves")},
--- 	{ "man", SL("men")},
--- 	{ "orc", SL("orcs")},
--- 	{ "hobbit", SL("hobbits")}
--- }
 local races_p     = {}
 races_p["dwarf"]  = SL("dwarves")
 races_p["elf"]    = SL("elves")

@@ -114,7 +114,6 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			wield_image               = "lottblocks_" .. name .. "_ladder.png",
 			paramtype                 = "light",
 			paramtype2                = "facedir",
-			is_ground_content         = true,
 			--paramtype2 = "wallmounted",
 			walkable                  = true,
 			climbable                 = true,

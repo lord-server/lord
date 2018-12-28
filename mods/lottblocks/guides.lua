@@ -5,15 +5,13 @@ local function guide_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.registered_items[itemstack:get_name()].text
 	local page_info = minetest.deserialize(itemstack:get_metadata())
-	local title, text, owner = "", "", player_name
-	local page, page_max, lines, string = 1, 1, {}, ""
-	local background
+	local page, lines, string = 1, {}, ""
 
-	title = data.title
-	text = data.text
-	owner = data.owner
-	page_max = data.page_max
-	background = data.background or "gui_elfbg.png"
+	local title = data.title
+	local text = data.text
+	local owner = data.owner
+	local page_max = data.page_max
+	local background = data.background or "gui_elfbg.png"
 
 	for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
 		lines[#lines+1] = str
