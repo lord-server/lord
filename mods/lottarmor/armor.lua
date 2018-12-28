@@ -4,7 +4,7 @@ local SL = lord.require_intllib()
 
 ARMOR_INIT_DELAY = 1
 ARMOR_INIT_TIMES = 1
-ARMOR_BONES_DELAY = 1
+-- ARMOR_BONES_DELAY = 1
 ARMOR_UPDATE_TIME = 1
 ARMOR_DROP = minetest.get_modpath("bones") ~= nil
 ARMOR_DESTROY = false
@@ -32,20 +32,23 @@ ARMOR_FIRE_NODES = {
 
 -- Load Armor Configs
 
-local modpath = minetest.get_modpath("lottarmor")
-local worldpath = minetest.get_worldpath()
-local input = io.open(modpath.."/armor.conf", "r")
-if input then
-	dofile(modpath.."/armor.conf")
-	input:close()
-	input = nil
+--- @param path string
+local function load_config(path)
+	local function file_exists(name)
+		local f = io.open(name,"r")
+		if f~=nil then f:close() return true else return false end
+	end
+
+	local config = path .. "/armor.conf"
+	if not file_exists(config) then return end
+
+	dofile(config)
 end
-input = io.open(worldpath.."/armor.conf", "r")
-if input then
-	dofile(worldpath.."/armor.conf")
-	input:close()
-	input = nil
-end
+
+load_config(minetest.get_modpath("lottarmor"))
+load_config(minetest.get_worldpath())
+
+
 if not minetest.get_modpath("moreores") then
 	ARMOR_MATERIALS.mithril = nil
 end
@@ -407,10 +410,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_on_joinplayer(function(player)
-	multiskin:init(player)
-	local name = player:get_player_name()
-	local player_inv = player:get_inventory()
+minetest.register_on_joinplayer(function(joined_player)
+	multiskin:init(joined_player)
+	local name = joined_player:get_player_name()
+	local player_inv = joined_player:get_inventory()
 	local armor_inv = minetest.create_detached_inventory(name.."_armor", {
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
@@ -472,7 +475,7 @@ minetest.register_on_joinplayer(function(player)
 		end,
 	})
 	if inv_mod == "inventory_plus" then
-		inventory_plus.register_button(player,"armor", "Armor")
+		inventory_plus.register_button(joined_player,"armor", "Armor")
 	end
 	armor_inv:set_size("armor", 5)
 	player_inv:set_size("armor", 5)
@@ -482,7 +485,7 @@ minetest.register_on_joinplayer(function(player)
 	end
 
 	--Bags
-     local bags_inv = minetest.create_detached_inventory(player:get_player_name().."_bags",{
+     local bags_inv = minetest.create_detached_inventory(joined_player:get_player_name().."_bags",{
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
 			player:get_inventory():set_size(listname.."contents", stack:get_definition().groups.bagslots)
@@ -536,7 +539,7 @@ minetest.register_on_joinplayer(function(player)
 			if not inv_mod then
 				armor:update_inventory(player)
 			end
-		end, player)
+		end, joined_player)
 	end
 end)
 
