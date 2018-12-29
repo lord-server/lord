@@ -1,0 +1,5 @@
+Dwarvern Throwing Axe  =       Dwarvern Throwing Axe
+Elven Throwing Axe     =       Elven Throwing Axe
+Steel Throwing Axe     =       Steel Throwing Axe
+Galvorn Throwing Axe   =       Galvorn Throwing Axe
+

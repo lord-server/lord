@@ -12,12 +12,6 @@ Gold Crossbow	=	Gold Crossbow
 Galvorn Crossbow	=	Galvorn Crossbow
 Mithril Crossbow	=	Mithril Crossbow
 
-### axe.lua ###
-Dwarvern Throwing Axe	=	Dwarvern Throwing Axe
-Elven Throwing Axe	=	Elven Throwing Axe
-Steel Throwing Axe	=	Steel Throwing Axe
-Galvorn Throwing Axe	=	Galvorn Throwing Axe
-
 ### arrow.lua ###
 Arrow	=	Arrow
 
