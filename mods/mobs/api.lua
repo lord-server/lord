@@ -2887,18 +2887,12 @@ function mobs:capture_mob(self, clicker, chance_hand, chance_net, chance_lasso, 
 	-- is mob tamed?
 	if self.tamed == false
 	and force_take == false then
-
-		minetest.chat_send_player(name, S("Not tamed!"))
-
 		return false
 	end
 
 	-- cannot pick up if not owner
 	if self.owner ~= name
 	and force_take == false then
-
-		minetest.chat_send_player(name, S("@1 is owner!", self.owner))
-
 		return false
 	end
 
@@ -3046,11 +3040,6 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
 			if self.htimer < 1 then
 
-				minetest.chat_send_player(
-					clicker:get_player_name(),
-					S("@1 at full health (@2)", self.name:split(":")[2], tostring(self.health))
-				)
-
 				self.htimer = 5
 			end
 		end
@@ -3080,13 +3069,6 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 			self.gotten = false
 
 			if tame then
-
-				if self.tamed == false then
-					minetest.chat_send_player(
-						clicker:get_player_name(),
-						S("@1 has been tamed!", self.name:split(":")[2])
-					)
-				end
 
 				self.tamed = true
 

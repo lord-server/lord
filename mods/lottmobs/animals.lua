@@ -123,7 +123,7 @@ mobs:register_mob("lottmobs:kitten", {
 
 -- egg throwing item
 
-local EGG_MASS = 0.05
+local EGG_MASS = 0.1
 local EGG_VELOCITY = 10
 local EGG_DC = 0.5
 local EGG_KFR = 0.01
