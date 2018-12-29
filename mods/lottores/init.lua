@@ -246,6 +246,7 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
+
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:red_gem_ore",
@@ -256,6 +257,7 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
+
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:white_gem_ore",
@@ -266,7 +268,6 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
-
 
 minetest.register_ore({
 	ore_type       = "scatter",
@@ -869,7 +870,6 @@ minetest.register_craft({
 	}
 })
 
-
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:marble",
@@ -1122,28 +1122,53 @@ stairs.register_stair_and_slab("salt", "lottores:salt_block",
 		SL("Salt Slab"),
 		default.node_sound_stone_defaults())
 
+-- Cooking
+-- Серебро и изделия
 minetest.register_craft({
 	type = "cooking",
-	output = "lottores:tin_ingot",
-	recipe = "group:tin_item",
+	output = "lottores:silver_ingot",
+	recipe = "lottores:silver_lump",
 })
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:lead_ingot",
-	recipe = "group:lead_item",
-})
-
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:silver_ingot",
 	recipe = "group:silver_item",
 })
 
+-- Мифрил и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:mithril_ingot",
+	recipe = "lottores:mithril_lump",
+})
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:mithril_ingot",
 	recipe = "group:mithril_item",
+})
+
+-- Олово и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:tin_ingot",
+	recipe = "lottores:tin_lump",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:tin_ingot",
+	recipe = "group:tin_item",
+})
+
+-- Свинец и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:lead_ingot",
+	recipe = "lottores:lead_lump",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:lead_ingot",
+	recipe = "group:lead_item",
 })
 
 minetest.register_craft({
