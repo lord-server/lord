@@ -11,15 +11,3 @@ Silver Crossbow	=	Серебряный арбалет
 Gold Crossbow	=	Золотой арбалет
 Galvorn Crossbow	=	Галворновый арбалет
 Mithril Crossbow	=	Мифриловый арбалет
-
-### arrow.lua ###
-Arrow	=	Стрела
-
-### mithril_arrow.lua ###
-Mithril Arrow	=	Мифриловая стрела
-
-### bolt.lua ###
-Bolt	=	Болт
-
-### mithril_bolt.lua ###
-Mithril Bolt	=	Мифриловый болт

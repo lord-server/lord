@@ -11,15 +11,3 @@ Silver Crossbow	=	Silver Crossbow
 Gold Crossbow	=	Gold Crossbow
 Galvorn Crossbow	=	Galvorn Crossbow
 Mithril Crossbow	=	Mithril Crossbow
-
-### arrow.lua ###
-Arrow	=	Arrow
-
-### mithril_arrow.lua ###
-Mithril Arrow	=	Mithril Arrow
-
-### bolt.lua ###
-Bolt	=	Bolt
-
-### mithril_bolt.lua ###
-Mithril Bolt	=	Mithril Bolt
