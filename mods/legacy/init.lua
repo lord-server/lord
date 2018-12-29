@@ -238,11 +238,7 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." mod LOADED")
-end
-
-minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
+lord.mod_loaded()minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
 minetest.register_alias("lottthrowing:arrow_mithril", "arrows:arrow_mithril")
 minetest.register_alias("lottthrowing:bolt", "arrows:bolt_steel")
 minetest.register_alias("lottthrowing:bolt_mithril", "arrows:bol_mithril")
