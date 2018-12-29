@@ -1,6 +1,3 @@
-lottthrowing = {
-}
-
 local SL = lord.require_intllib()
 
 
@@ -257,9 +254,8 @@ minetest.register_tool("lottthrowing:crossbow_gold", {
 
 minetest.register_tool("lottthrowing:crossbow_galvorn", {
 	description = SL("Galvorn Crossbow"),
-	groups = {galvorn_item = 1},
 	inventory_image = "lottthrowing_crossbow_galvorn.png",
-	groups = {forbidden=1},
+	groups = {forbidden=1, galvorn_item = 1},
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then

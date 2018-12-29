@@ -1,3 +1,10 @@
+--- @param table table
+---@return boolean
+local function table_is_empty(table)
+	for _,_ in pairs(table) do return false end -- luacheck: ignore
+	return true
+end
+
 minetest.register_chatcommand ("S", {
 	description = "Сохранитьданные в файл",
 	params = "<file_name>",
@@ -30,24 +37,16 @@ minetest.register_chatcommand ("S", {
 					local node = minetest.get_node(pos)
 					if node.name ~= "air" and node.name ~= "ignore" then
 						local meta = minetest.get_meta(pos):to_table()
-						local meta_empty = true
 						-- Convert metadata item stacks to item strings
-						for name, inventory in pairs(meta.inventory) do
+						for _, inventory in pairs(meta.inventory) do
 							for index, stack in ipairs(inventory) do
-								meta_empty = false
 								inventory[index] = stack.to_string and stack:to_string() or stack
 							end
 						end
-						for k in pairs(meta) do
-							if k ~= "inventory" then
-								meta_empty = false
-								break
-							end
-						end
-						local N = 0
-						for i,j in pairs(meta.fields) do N=N+1 break end
-						for i,j in pairs(meta.inventory) do N=N+1 break end
-						if N > 0 then
+						if
+							not table_is_empty(meta.fields) or
+							not table_is_empty(meta.inventory)
+						then
 							table.insert(data, {
 								pos = minetest.pos_to_string({x = x-pos1.x, y = y-pos1.y, z = z-pos1.z}),
 								fields = meta.fields,
