@@ -5,7 +5,7 @@ AXE_VEL = 20
 AXE_BASE_DC = 0.1
 AXE_KFR = 0.05
 
---[[local axe_node_box = {
+local axe_node_box = {
 	type = "fixed",
 	fixed = {
 		{0.375, -0.5, -0.0625, 0.5, -0.375, 0.0625}, -- NodeBox1
@@ -17,7 +17,7 @@ AXE_KFR = 0.05
 		{-0.375, 0, -0.0625, -0.25, 0.375, 0.0625}, -- NodeBox7
 		{-0.5, 0, -0.0625, -0.375, 0.5, 0.0625}, -- NodeBox8
 	}
-}]]
+}
 
 local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 	local name = "arrows:axe_"..axe
