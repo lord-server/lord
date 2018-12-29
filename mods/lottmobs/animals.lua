@@ -86,7 +86,7 @@ mobs:register_mob("lottmobs:kitten", {
 		if self.owner and self.owner == user then
 			self.object:set_velocity({x = 0, y = 0, z = 0})
 			minetest.sound_play("mobs_kitten", {
-				pos = pos,
+				pos = self.object:get_pos(),
 				gain = 1.0,
 				max_hear_distance = 5,
 			})
@@ -121,7 +121,7 @@ mobs:register_mob("lottmobs:kitten", {
 
 -- egg throwing item
 
-local EGG_MASS = 0.05
+local EGG_MASS = 0.1
 local EGG_VELOCITY = 10
 local EGG_DC = 0.5
 local EGG_KFR = 0.01
