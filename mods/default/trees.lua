@@ -65,8 +65,9 @@ minetest.register_abm({
 
 -- Apple tree and jungle tree trunk and leaves function
 
-local function add_trunk_and_leaves(data, a, pos, tree_cid, leaves_cid,
-									height, size, iters, is_apple_tree)
+local function add_trunk_and_leaves(
+	data, a, pos, tree_cid, leaves_cid, height, size, iters, is_apple_tree
+)
 	-- data : исходные данные узла в форме массива
 	-- a	: VoxelArea:new({MinEdge = minp, MaxEdge = maxp}) обычно minp == maxp
 	-- pos	: координаты ростка

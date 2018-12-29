@@ -48,13 +48,13 @@ local SL = lord.require_intllib()
   minetest.register_node('bees:extractor', {
     description = SL('honey extractor'),
     tiles = {
-	  "bees_extractor_top.png",
-	  "bees_extractor.png",
-	  "bees_extractor.png",
-	  "bees_extractor.png",
-	  "bees_extractor.png",
-	  "bees_extractor.png"
-	},
+      "bees_extractor_top.png",
+      "bees_extractor.png",
+      "bees_extractor.png",
+      "bees_extractor.png",
+      "bees_extractor.png",
+      "bees_extractor.png"
+    },
     paramtype2 = "facedir",
     groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
     on_construct = function(pos, node)
@@ -85,9 +85,9 @@ local SL = lord.require_intllib()
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
       if
-	    not inv:contains_item('frames_filled','bees:frame_full') or
-		not inv:contains_item('bottles_empty','vessels:glass_bottle')
-	  then
+        not inv:contains_item('frames_filled','bees:frame_full') or
+        not inv:contains_item('bottles_empty','vessels:glass_bottle')
+      then
         return
       end
       if inv:room_for_item('frames_emptied', 'bees:frame_empty')
@@ -159,12 +159,12 @@ local SL = lord.require_intllib()
     end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if minetest.is_protected(pos, player:get_player_name()) then
-		return 0
-	  end
+        return 0
+      end
       if
-	    (listname == 'bottles_empty' and stack:get_name() == 'vessels:glass_bottle') or
-		(listname == 'frames_filled' and stack:get_name() == 'bees:frame_full')
-	  then
+        (listname == 'bottles_empty' and stack:get_name() == 'vessels:glass_bottle') or
+        (listname == 'frames_filled' and stack:get_name() == 'bees:frame_full')
+      then
         return stack:get_count()
       else
         return 0

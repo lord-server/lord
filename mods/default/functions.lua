@@ -265,8 +265,8 @@ end
 -- If the node is in the leafdecay_drop group then the it will always be dropped
 -- as an item
 
-default.leafdecay_trunk_cache                  = {}
-default.leafdecay_enable_cache                 = true
+default.leafdecay_trunk_cache = {}
+default.leafdecay_enable_cache = true
 -- Spread the load of finding trunks
 default.leafdecay_trunk_find_allow_accumulator = 0
 
