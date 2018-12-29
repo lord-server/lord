@@ -64,6 +64,4 @@ minetest.register_on_joinplayer(function(player)
 	end
 end)
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." mod LOADED")
-end
+lord.mod_loaded()
