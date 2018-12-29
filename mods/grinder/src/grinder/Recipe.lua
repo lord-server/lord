@@ -2,10 +2,10 @@
 ---
 --- @class Recipe
 ---
-local Recipe = {}
+local Recipe             = {}
 
 --- @type table let save here grinding recipes
-local registeredRecipes = {}
+local registered_recipes = {}
 
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
@@ -41,7 +41,7 @@ local function register_recipe(data)
 	local recipe = {time = data.time, input = data.input, output = data.output}
 	local index = ItemStack(data.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	registeredRecipes[index] = recipe
+	registered_recipes[index] = recipe
 end
 
 
@@ -53,7 +53,7 @@ end
 --- @return table|nil
 function Recipe.get(items)
 	local index = get_recipe_index(items)
-	local recipe = registeredRecipes[index]
+	local recipe = registered_recipes[index]
 
 	-- Recipe not found
 	if not recipe then
@@ -80,7 +80,7 @@ end
 ---
 --- @static
 --- @param recipes table<table>
-function Recipe.registerRecipes(recipes)
+function Recipe.register_recipes(recipes)
 	for _, data in pairs(recipes) do
 		register_recipe({input = data[1], output = data[2], time = data[3]})
 	end

@@ -6,7 +6,7 @@ local Recipe    = require('grinder.Recipe')
 local Processor = require('grinder.Processor')
 
 
-local function registerCraft()
+local function register_craft()
 	for _, craftRecipe in pairs(craft.recipes) do
 		minetest.register_craft(craftRecipe)
 	end
@@ -15,11 +15,11 @@ local function registerCraft()
 	end
 end
 
-local function registerRecipes()
-	Recipe.registerRecipes(recipes)
+local function register_recipes()
+	Recipe.register_recipes(recipes)
 end
 
-local function registerNodes()
+local function register_nodes()
 	minetest.register_node("grinder:grinder", node.inactive)
 	minetest.register_node("grinder:grinder_active", node.active)
 	minetest.register_abm({
@@ -30,12 +30,11 @@ local function registerNodes()
 	})
 end
 
-local package = {
+
+return {
 	init = function()
-		registerCraft()
-		registerRecipes()
-		registerNodes()
+		register_craft()
+		register_recipes()
+		register_nodes()
 	end
 }
-
-return package

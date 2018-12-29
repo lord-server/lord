@@ -19,14 +19,14 @@ local Grinder      = {
 --- @param pos table<number,number,number>
 --- @return Grinder
 function Grinder:new(pos)
-	local newObject    = {}
+	local new_object    = {}
 
-	newObject.position = pos
-	newObject.meta     = nil
+	new_object.position = pos
+	new_object.meta     = nil
 
-	setmetatable(newObject, { __index = self })
+	setmetatable(new_object, { __index = self })
 
-	return newObject
+	return new_object
 end
 
 -- -----------------------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ end
 --- @private
 --- @param pos table<number,number,number>
 --- @return NodeMetaRef
-local function getInitiatedMeta(pos)
+local function get_initiated_meta(pos)
 	local meta = minetest.get_meta(pos)
 	for _, name in pairs({
 		"fuel_totaltime",
@@ -57,7 +57,7 @@ end
 --- @param pos table {x,y,z}
 --- @param name string
 --- @return string
-local function swapNode(pos, name)
+local function swap_node(pos, name)
 	local node = minetest.get_node(pos)
 	if node.name ~= name then
 		node.name = name
@@ -71,8 +71,8 @@ end
 
 --- @public
 --- @return NodeMetaRef
-function Grinder:getMeta()
-	return self.meta or getInitiatedMeta(self.position)
+function Grinder:get_meta()
+	return self.meta or get_initiated_meta(self.position)
 end
 
 --- Sets Node into active grinder with new hint.
@@ -80,21 +80,21 @@ end
 --- @param hint_en string A template for hinting in English. Use "%s" for machine name placeholder.
 --- @param cooked number !Deprecated
 function Grinder:activate(hint_en, cooked)
-	local meta         = self:getMeta()
+	local meta         = self:get_meta()
 	local percent      = math.floor(meta:get_float("fuel_time") / meta:get_float("fuel_totaltime") * 100)
 	local item_percent = math.floor(meta:get_float("src_time") / cooked * 100)
-	self:getMeta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
-	swapNode(self.position, "grinder:grinder_active")
-	self:getMeta():set_string("formspec", form.get('active', percent, item_percent))
+	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
+	swap_node(self.position, "grinder:grinder_active")
+	self:get_meta():set_string("formspec", form.get('active', percent, item_percent))
 end
 
 --- Sets Node into inactive grinder with new hint.
 --- @public
 --- @param hint_en string A template for hinting in English. Use "%s" for machine name placeholder.
 function Grinder:deactivate(hint_en)
-	self:getMeta():set_string("infotext", SL((hint_en):format(machine_name)))
-	swapNode(self.position, "grinder:grinder")
-	self:getMeta():set_string("formspec", form.get('inactive'))
+	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)))
+	swap_node(self.position, "grinder:grinder")
+	self:get_meta():set_string("formspec", form.get('inactive'))
 end
 
 return Grinder

@@ -16,7 +16,7 @@ local Processor = {}
 function Processor.act (pos)
 
 	local g          = Grinder:new(pos)
-	local meta       = g:getMeta()
+	local meta       = g:get_meta()
 	local inv        = meta:get_inventory()
 
 	local recipe
