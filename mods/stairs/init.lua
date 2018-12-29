@@ -29,7 +29,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			local p0 = pointed_thing.under  -- куда смотрим
 			local p1 = pointed_thing.above  -- куда ставим
 			local p3 = placer:getpos()
-			local param2 = 0
+			local param2
 			local p1_={x=p1.x,y=p1.y+1,z=p1.z} -- узел над местом установки
 
 			-- проверим на заприваченность территории
@@ -213,7 +213,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 			local dir = {x=p1.x-p2.x,y=p1.y-p2.y,z=p1.z-p2.z}
 			local pressed = placer:get_player_control()
 			local p3 = placer:getpos()
-			local param2 = 0
+			local param2
 			local p1_={x=p1.x,y=p1.y+1,z=p1.z} -- узел над местом установки
 
 			-- проверим на заприваченность территории
@@ -227,7 +227,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				x = (p1.x - p3.x),
 				y = (p1.y - p3.y),
 				z = (p1.z - p3.z)
-				}
+			}
 			param2 = minetest.dir_to_facedir(dir)  -- определяем направление по сторонам света
 			--print("param2 = "..tostring(param2))
 			if pressed.sneak then

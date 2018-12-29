@@ -892,9 +892,9 @@ local SL = lord.require_intllib()
       minetest.register_craft({
         output = 'bees:hive_industrial',
         recipe = {
-          {'default:steel_ingot','homedecor:plastic_sheeting','default:steel_ingot'},
+          {'default:steel_ingot','lord_homedecor:plastic_sheeting','default:steel_ingot'},
           {'pipeworks:tube_1','bees:hive_artificial','pipeworks:tube_1'},
-          {'default:steel_ingot','homedecor:plastic_sheeting','default:steel_ingot'},
+          {'default:steel_ingot','lord_homedecor:plastic_sheeting','default:steel_ingot'},
         }
       })
     end

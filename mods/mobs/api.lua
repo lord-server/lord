@@ -2788,21 +2788,21 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 			and within_limits(pos, 0)
 			and not minetest.is_protected(pos, placer:get_player_name()) then
 
-				pos.y = pos.y + 1
+				pos.y            = pos.y + 1
 
-				local data = itemstack:get_metadata()
-				local mob = minetest.add_entity(pos, mob, data)
-				local ent = mob:get_luaentity()
+				local data       = itemstack:get_metadata()
+				local entity     = minetest.add_entity(pos, mob, data)
+				local lua_entity = entity:get_luaentity()
 
-				if not ent then
-					mob:remove()
+				if not lua_entity then
+					entity:remove()
 					return
 				end
 
-				if ent.type ~= "monster" then
+				if lua_entity.type ~= "monster" then
 					-- set owner and tame if not monster
-					ent.owner = placer:get_player_name()
-					ent.tamed = true
+					lua_entity.owner = placer:get_player_name()
+					lua_entity.tamed = true
 				end
 
 				-- since mob is unique we remove egg once spawned
@@ -2836,20 +2836,20 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 			and within_limits(pos, 0)
 			and not minetest.is_protected(pos, placer:get_player_name()) then
 
-				pos.y = pos.y + 1
+				pos.y            = pos.y + 1
 
-				local mob = minetest.add_entity(pos, mob)
-				local ent = mob:get_luaentity()
+				local entity     = minetest.add_entity(pos, mob)
+				local lua_entity = entity:get_luaentity()
 
-				if not ent then
-					mob:remove()
+				if not lua_entity then
+					entity:remove()
 					return
 				end
 
-				if ent.type ~= "monster" then
+				if lua_entity.type ~= "monster" then
 					-- set owner and tame if not monster
-					ent.owner = placer:get_player_name()
-					ent.tamed = true
+					lua_entity.owner = placer:get_player_name()
+					lua_entity.tamed = true
 				end
 
 				-- if not in creative then take item

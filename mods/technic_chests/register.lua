@@ -219,7 +219,7 @@ function technic.chests:definition(name, data)
 	data.lotop = data.height + 2
 	data.ovheight = data.lotop + 4
 
-	local locked_after_place = nil
+	local locked_after_place
 	local front = {"technic_"..lname.."_chest_front.png"}
 	data.base_formspec = "size["..data.ovwidth..","..data.ovheight.."]"..
 			"label[0,0;"..S("%s Chest"):format(name).."]"..

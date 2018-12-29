@@ -48,7 +48,7 @@ local nmdc = {
   [124] = '|'
 }
 
-function AnsiToUtf8(s)
+function AnsiToUtf8(s) -- luacheck: ignore unused global variable AnsiToUtf8
   local r, b = ''
   for i = 1, s and s:len() or 0 do
     b = s:byte(i)
@@ -636,10 +636,15 @@ signs_lib.update_sign = function(pos, fields, owner)
 	if sign_info == nil then
 		return
 	end
-	local text = minetest.add_entity({x = pos.x + sign_info.delta.x,
-										y = pos.y + sign_info.delta.y,
-										z = pos.z + sign_info.delta.z}, "signs:text")
-	text:setyaw(sign_info.yaw)
+
+	minetest.add_entity(
+		{
+			x = pos.x + sign_info.delta.x,
+			y = pos.y + sign_info.delta.y,
+			z = pos.z + sign_info.delta.z
+		},
+		"signs:text"
+	):setyaw(sign_info.yaw)
 end
 
 -- What kind of sign do we need to place, anyway?
@@ -983,7 +988,7 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
     def_sign = signs_lib.table_copy(def_sign)
     fences_with_sign[fencename] = fencewithsignname
 
-    def.on_place = function(itemstack, placer, pointed_thing, ...)
+    def.on_place               = function(itemstack, placer, pointed_thing, ...)
 		local node_above = minetest.get_node(pointed_thing.above)
 		local node_under = minetest.get_node(pointed_thing.under)
 		local def_above = minetest.registered_nodes[node_above.name]
@@ -1019,33 +1024,33 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
 			return itemstack
 		end
 	end
-	def_sign.on_construct = function(pos, ...)
+	def_sign.on_construct      = function(pos, ...)
 		signs_lib.construct_sign(pos)
 	end
-	def_sign.on_destruct = function(pos, ...)
+	def_sign.on_destruct       = function(pos, ...)
 		signs_lib.destruct_sign(pos)
 	end
 	def_sign.on_receive_fields = function(pos, formname, fields, sender)
 		signs_lib.receive_fields(pos, formname, fields, sender)
 	end
-	def_sign.on_punch = function(pos, node, puncher, ...)
+	def_sign.on_punch          = function(pos, node, puncher, ...)
 		signs_lib.update_sign(pos)
 	end
-	local fencename = fencename
-	def_sign.after_dig_node = function(pos, node, ...)
-	    node.name = fencename
+	local name                 = fencename
+	def_sign.after_dig_node    = function(pos, node, ...)
+	    node.name = name
 	    minetest.add_node(pos, node)
 	end
-    def_sign.drop = "default:sign_wall"
-	minetest.register_node(":"..fencename, def)
+    def_sign.drop              = "default:sign_wall"
+	minetest.register_node(":".. name, def)
 	minetest.register_node(":"..fencewithsignname, def_sign)
 	table.insert(signs_lib.sign_node_list, fencewithsignname)
-	print(SL("Registered %s and %s"):format(fencename, fencewithsignname))
+	print(SL("Registered %s and %s"):format(name, fencewithsignname))
 end
 
 build_char_db()
 
-minetest.register_alias("homedecor:fence_wood_with_sign", "signs:sign_post")
+minetest.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
 minetest.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
 
 signs_lib.register_fence_with_sign("default:fence_wood", "signs:sign_post")

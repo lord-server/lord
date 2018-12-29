@@ -42,6 +42,7 @@ read_globals      = {
 
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
+	"within_limits", -- mobs api
 
 	-- Legacy
 	"spawn_falling_node",

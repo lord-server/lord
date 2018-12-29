@@ -110,7 +110,6 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 	if undef and undef.buildable_to then
 		pos = pointed_thing.under
 		node = unode
-		iswall = false
 	end
 
 	if core.is_protected(pos, placer:get_player_name()) then

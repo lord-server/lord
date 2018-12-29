@@ -65,7 +65,7 @@ end
 local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 	local placer_name = placer:get_player_name() or ""
 	if is_buildable_to(placer_name, pos, pos2) then
-		local fdir = fdir or minetest.dir_to_facedir(placer:get_look_dir())
+		fdir = fdir or minetest.dir_to_facedir(placer:get_look_dir())
 		minetest.set_node(pos, { name = node1, param2 = fdir })
 		node2 = node2 or "air" -- this can be used to clear buildable_to nodes even though we are using a multinode mesh
 		-- do not assume by default, as we still might want to allow overlapping in some cases
@@ -112,7 +112,7 @@ function lord_homedecor.stack_vertically(itemstack, placer, pointed_thing, node1
 end
 
 -- Stack one door node above another
--- like  homedecor.stack_vertically but tests first
+-- like  lord_homedecor.stack_vertically but tests first
 --    if it was placed as a right wing, then uses node1_right and node2_right instead
 
 function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node2, node1_right, node2_right)
