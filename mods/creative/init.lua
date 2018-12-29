@@ -7,7 +7,7 @@ minetest.register_privilege("creative", {
 creative_inventory                         = {}
 creative_inventory.creative_inventory_size = 0
 
-local trash                                = minetest.create_detached_inventory("creative_trash", {
+local trash = minetest.create_detached_inventory("creative_trash", {
 	-- Allow the stack to be placed and remove it in on_put()
 	-- This allows the creative inventory to restore the stack
 	allow_put = function(inv, listname, index, stack, player)

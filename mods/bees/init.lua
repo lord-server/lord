@@ -176,9 +176,9 @@ local SL = lord.require_intllib()
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
       if minetest.is_protected(pos, player:get_player_name()) then
         return 0
-	  end
+      end
 
-	  return stack:get_count()
+      return stack:get_count()
     end,
   })
 
@@ -208,11 +208,11 @@ local SL = lord.require_intllib()
     description = SL('wild bee hive'),
     tiles = {
       'bees_hive_wild.png',
-	  'bees_hive_wild.png',
-	  'bees_hive_wild.png',
-	  'bees_hive_wild.png',
-	  'bees_hive_wild_bottom.png'
-	}, --Neuromancer's base texture
+      'bees_hive_wild.png',
+      'bees_hive_wild.png',
+      'bees_hive_wild.png',
+      'bees_hive_wild_bottom.png'
+    }, --Neuromancer's base texture
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'wallmounted',
@@ -302,7 +302,7 @@ local SL = lord.require_intllib()
       end
     end,
 
-	--restart the colony by adding a queen / перезагрузите колонии, добавив королеву
+    --restart the colony by adding a queen / перезагрузите колонии, добавив королеву
     on_metadata_inventory_put = function(pos, listname, index, stack, taker)
       local timer = minetest.get_node_timer(pos)
       if not timer:is_started() then
@@ -365,11 +365,11 @@ local SL = lord.require_intllib()
     tiles = {
       'default_wood.png',
       'default_wood.png',
-	  'default_wood.png',
-	  'default_wood.png',
-	  'default_wood.png',
-	  'bees_hive_artificial.png'
-	},
+      'default_wood.png',
+      'default_wood.png',
+      'default_wood.png',
+      'bees_hive_artificial.png'
+    },
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'facedir',
@@ -488,7 +488,7 @@ local SL = lord.require_intllib()
       local timer = minetest.get_node_timer(pos)
       if minetest.is_protected(pos, player:get_player_name()) then
         return 0
-	  end
+      end
       if listname == 'queen' or listname == 'frames' then
         meta:set_string('queen', stack:get_name())
         meta:set_string('infotext',SL('queen is inserted, now for the empty frames'));
@@ -540,13 +540,13 @@ local SL = lord.require_intllib()
     interval = 3000,
     chance = 10,
     action = function(pos, node, _, active_object_count_wider)
-		if active_object_count_wider > 0 then
-			return
-		end
+        if active_object_count_wider > 0 then
+            return
+        end
       local p = {x=pos.x, y=pos.y-1, z=pos.z}
       if minetest.get_node(p).walkable == false then
-		return
-	  end
+        return
+      end
 
       if minetest.find_node_near(p, 40, 'bees:hive_wild') == nil then
         minetest.add_node(p, {name='bees:hive_wild'})
@@ -582,7 +582,7 @@ local SL = lord.require_intllib()
 --ITEMS
   minetest.register_craftitem('bees:frame_empty', {
     description = SL('empty hive frame'),
-	groups = {wooden=1},
+    groups = {wooden=1},
     inventory_image = 'bees_frame_empty.png',
   })
 
@@ -664,7 +664,7 @@ local SL = lord.require_intllib()
 --TOOLS
   minetest.register_tool('bees:smoker', {
     description = SL('smoker'),
-	groups = {steel_item = 1},
+    groups = {steel_item = 1},
     inventory_image = 'bees_smoker.png',
     tool_capabilities = {
       full_punch_interval = 3.0,
@@ -697,7 +697,7 @@ local SL = lord.require_intllib()
 
   minetest.register_tool('bees:grafting_tool', {
     description = SL('grafting tool'),
-	groups = {steel_item = 1},
+    groups = {steel_item = 1},
     inventory_image = 'bees_grafting_tool.png',
     tool_capabilities = {
       full_punch_interval = 3.0,

@@ -65,10 +65,10 @@ function beds.register_bed(name, def)
 			if mode ~= screwdriver.ROTATE_FACE then
 				return false
 			end
-			local newp = vector.add(pos, minetest.facedir_to_dir(new_param2))
-			local node3 = minetest.get_node_or_nil(newp)
-			local defined = node3 and minetest.registered_nodes[node3.name]
-			if not defined or not defined.buildable_to then
+			local newp       = vector.add(pos, minetest.facedir_to_dir(new_param2))
+			local node3      = minetest.get_node_or_nil(newp)
+			local definition = node3 and minetest.registered_nodes[node3.name]
+			if not definition or not definition.buildable_to then
 				return false
 			end
 			if minetest.is_protected(newp, user:get_player_name()) then

@@ -148,11 +148,6 @@ minetest.register_on_punchnode(on_punchnode)
 
 
 --
--- Grow trees (moved to trees.lua)
---
-
-
---
 -- Lavacooling
 --
 
