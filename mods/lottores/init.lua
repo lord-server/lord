@@ -246,6 +246,7 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
+
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:red_gem_ore",
@@ -256,6 +257,7 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
+
 minetest.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:white_gem_ore",
@@ -266,7 +268,6 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
-
 
 minetest.register_ore({
 	ore_type       = "scatter",
@@ -869,7 +870,6 @@ minetest.register_craft({
 	}
 })
 
-
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:marble",
@@ -985,246 +985,6 @@ minetest.register_craft({
 	output = "lottores:ithildin_stonelamp_1",
 	recipe = {"lottores:ithildin_lamp_1", "group:stone"}
 })
-
---[[minetest.register_craft({
-	output = 'lottores:copperpick',
-	recipe = {
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:tinpick',
-	recipe = {
-		{'lottores:tin_ingot', 'lottores:tin_ingot', 'lottores:tin_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:silverpick',
-	recipe = {
-		{'lottores:silver_ingot', 'lottores:silver_ingot', 'lottores:silver_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:goldpick',
-	recipe = {
-		{'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:galvornpick',
-	recipe = {
-		{'lottores:galvorn_ingot', 'lottores:galvorn_ingot', 'lottores:galvorn_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:mithrilpick',
-	recipe = {
-		{'lottores:mithril_ingot', 'lottores:mithril_ingot', 'lottores:mithril_ingot'},
-		{'', 'group:stick', ''},
-		{'', 'group:stick', ''},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:copperaxe',
-	recipe = {
-		{'default:copper_ingot', 'default:copper_ingot'},
-		{'default:copper_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:tinaxe',
-	recipe = {
-		{'lottores:tin_ingot', 'lottores:tin_ingot'},
-		{'lottores:tin_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:silveraxe',
-	recipe = {
-		{'lottores:silver_ingot', 'lottores:silver_ingot'},
-		{'lottores:silver_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:goldaxe',
-	recipe = {
-		{'default:gold_ingot', 'default:gold_ingot'},
-		{'default:gold_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:galvornaxe',
-	recipe = {
-		{'lottores:galvorn_ingot', 'lottores:galvorn_ingot'},
-		{'lottores:galvorn_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:mithrilaxe',
-	recipe = {
-		{'lottores:mithril_ingot', 'lottores:mithril_ingot'},
-		{'lottores:mithril_ingot', 'group:stick'},
-		{'', 'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:silver_ingot",
-	recipe = "lottores:silver_lump",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:tin_ingot",
-	recipe = "lottores:tin_lump",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:lead_ingot",
-	recipe = "lottores:lead_lump",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:mithril_ingot",
-	recipe = "lottores:mithril_lump",
-})
-
-minetest.register_craft({
-	output = 'lottores:coppersword',
-	recipe = {
-		{'default:copper_ingot'},
-		{'default:copper_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:tinsword',
-	recipe = {
-		{'lottores:tin_ingot'},
-		{'lottores:tin_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:silversword',
-	recipe = {
-		{'lottores:silver_ingot'},
-		{'lottores:silver_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:goldsword',
-	recipe = {
-		{'default:gold_ingot'},
-		{'default:gold_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:galvornsword',
-	recipe = {
-		{'lottores:galvorn_ingot'},
-		{'lottores:galvorn_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:mithrilsword',
-	recipe = {
-		{'lottores:mithril_ingot'},
-		{'lottores:mithril_ingot'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:coppershovel',
-	recipe = {
-		{'default:copper_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:tinshovel',
-	recipe = {
-		{'lottores:tin_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:silvershovel',
-	recipe = {
-		{'lottores:silver_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:goldshovel',
-	recipe = {
-		{'default:gold_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:galvornshovel',
-	recipe = {
-		{'lottores:galvorn_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})
-
-minetest.register_craft({
-	output = 'lottores:mithrilshovel',
-	recipe = {
-		{'lottores:mithril_ingot'},
-		{'group:stick'},
-		{'group:stick'},
-	}
-})]]--
 
 --Blocks
 
@@ -1362,28 +1122,53 @@ stairs.register_stair_and_slab("salt", "lottores:salt_block",
 		SL("Salt Slab"),
 		default.node_sound_stone_defaults())
 
+-- Cooking
+-- Серебро и изделия
 minetest.register_craft({
 	type = "cooking",
-	output = "lottores:tin_ingot",
-	recipe = "group:tin_item",
+	output = "lottores:silver_ingot",
+	recipe = "lottores:silver_lump",
 })
-
-minetest.register_craft({
-	type = "cooking",
-	output = "lottores:lead_ingot",
-	recipe = "group:lead_item",
-})
-
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:silver_ingot",
 	recipe = "group:silver_item",
 })
 
+-- Мифрил и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:mithril_ingot",
+	recipe = "lottores:mithril_lump",
+})
 minetest.register_craft({
 	type = "cooking",
 	output = "lottores:mithril_ingot",
 	recipe = "group:mithril_item",
+})
+
+-- Олово и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:tin_ingot",
+	recipe = "lottores:tin_lump",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:tin_ingot",
+	recipe = "group:tin_item",
+})
+
+-- Свинец и изделия
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:lead_ingot",
+	recipe = "lottores:lead_lump",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:lead_ingot",
+	recipe = "group:lead_item",
 })
 
 minetest.register_craft({
