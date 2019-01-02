@@ -11,22 +11,3 @@ Silver Crossbow	=	Серебряный арбалет
 Gold Crossbow	=	Золотой арбалет
 Galvorn Crossbow	=	Галворновый арбалет
 Mithril Crossbow	=	Мифриловый арбалет
-
-### axe.lua ###
-Dwarvern Throwing Axe	=	Гномий метательный топор
-Elven Throwing Axe	=	Эльфийский метательный топор
-Steel Throwing Axe	=	Стальной метательный топор
-Galvorn Throwing Axe	=	Галворновый метательный топор
-
-
-### arrow.lua ###
-Arrow	=	Стрела
-
-### mithril_arrow.lua ###
-Mithril Arrow	=	Мифриловая стрела
-
-### bolt.lua ###
-Bolt	=	Болт
-
-### mithril_bolt.lua ###
-Mithril Bolt	=	Мифриловый болт
