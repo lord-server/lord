@@ -540,40 +540,14 @@ minetest.register_node("default:leaves", {
 
 minetest.register_node("default:cactus", {
 	description = SL("Cactus"),
-	drawtype = "nodebox",
-	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png","default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
+	tiles = {"default_cactus_top.png", "default_cactus_top.png", "default_cactus_side.png"},
+	paramtype2 = "facedir",
 	is_ground_content = true,
-	groups = {snappy=1, choppy=3, flammable=2, plant=1, oddly_breakable_by_hand=1},
-	sounds = default.node_sound_leaves_defaults(),
-	paramtype = "light",
-	sunlight_propagates = true,
+	groups = {snappy=1,choppy=3,flammable=2},
 	drop = "flowers:cactus_decor",
-	node_placement_prediction = "",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-7/16, -8/16, -7/16,  7/16, 8/16,  7/16}, -- Main body
-			{-8/16, -8/16, -7/16,  8/16, 8/16, -7/16}, -- Spikes
-			{-8/16, -8/16,  7/16,  8/16, 8/16,  7/16}, -- Spikes
-			{-7/16, -8/16, -8/16, -7/16, 8/16,  8/16}, -- Spikes
-			{7/16,  -8/16,  8/16,  7/16, 8/16, -8/16}, -- Spikes
-		},
-	},
-	collision_box = {
-		type = "fixed",
-		fixed = {-7/16, -8/16, -7/16,  7/16, 7/16,  7/16}, -- Main body. slightly lower than node box
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{-7/16, -8/16, -7/16, 7/16, 8/16, 7/16},
-		},
-	},
-	after_dig_node = function(pos, node, metadata, digger)
-		default.dig_up(pos, node, digger)
-	end,
+	sounds = default.node_sound_wood_defaults(),
+	on_place = minetest.rotate_node,
 })
-
 
 minetest.register_node("default:papyrus", {
 	description = SL("Papyrus"),
@@ -582,18 +556,14 @@ minetest.register_node("default:papyrus", {
 	inventory_image = "default_papyrus.png",
 	wield_image = "default_papyrus.png",
 	paramtype = "light",
-	sunlight_propagates = true,
 	walkable = false,
+	is_ground_content = true,
 	selection_box = {
 		type = "fixed",
-		fixed = {-6 / 16, -0.5, -6 / 16, 6 / 16, 0.5, 6 / 16},
+		fixed = {-0.3, -0.5, -0.3, 0.3, 0.5, 0.3}
 	},
-	groups = {snappy = 3, flammable = 2, grass = 1},
+	groups = {snappy=3,flammable=2,grass=1},
 	sounds = default.node_sound_leaves_defaults(),
-
-	after_dig_node = function(pos, node, metadata, digger)
-		default.dig_up(pos, node, digger)
-	end,
 })
 
 default.bookshelf_formspec =
