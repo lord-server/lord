@@ -522,4 +522,3 @@ minetest.register_craftitem("grinder:roll", {
 	description = SL("Roll"),
 	inventory_image = "grinder_roll.png",
 })
-
