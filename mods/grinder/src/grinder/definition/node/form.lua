@@ -12,8 +12,17 @@ return {
 		local imageSpec =
 			type == 'active'
 				and
-					"image[5.25,1.1;1,1;default_furnace_inv.png^default_furnace_fire_bg.png^[lowpart:" .. (100 - percent) .. ":default_furnace_fire_fg.png]" ..
-					"image[1.5,1.6;1,1;gui_furnace_arrow_bg.png^[lowpart:" .. (item_percent) .. ":gui_furnace_arrow_fg.png^[transformR180]"
+					"image[" ..
+						"5.25,1.1;" ..
+						"1,1;" ..
+						"default_furnace_inv.png^" ..
+						"default_furnace_fire_bg.png^" ..
+						"[lowpart:" .. (100 - percent) .. ":default_furnace_fire_fg.png]" ..
+					"image[" ..
+						"1.5,1.6;" ..
+						"1,1;" ..
+						"gui_furnace_arrow_bg.png^" ..
+						"[lowpart:" .. (item_percent) .. ":gui_furnace_arrow_fg.png^[transformR180]"
 				or
 					"image[5.25,1.1;1,1;default_furnace_inv.png^default_furnace_fire_bg.png]"
 		;
