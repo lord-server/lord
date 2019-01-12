@@ -49,20 +49,22 @@ mobs:register_mob("lottmobs:kitten", {
 		stoodup_start = 0,
 		stoodup_end = 0,
 	},
-	follow = {"lottother:beast_ring", "lottmobs:rat",
-		  "lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw", "lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
-		  "lottmobs:meat", "lottmobs:fish_cooked", "lottmobs:horsemeat_cooked", "lottmobs:chicken_cooked", "lottmobs:pork_cooked", "lottmobs:rabbit_cooked"},
+	follow = {
+		"lottother:beast_ring", "lottmobs:rat",
+		"lottmobs:meat_raw", "lottmobs:horsemeat_raw", "lottmobs:fish_raw",
+		"lottmobs:chicken_raw", "lottmobs:pork_raw", "lottmobs:rabbit_raw",
+		"lottmobs:meat", "lottmobs:fish_cooked", "lottmobs:horsemeat_cooked",
+		"lottmobs:chicken_cooked", "lottmobs:pork_cooked", "lottmobs:rabbit_cooked"
+	},
 
 	view_range = 12,
 
 	on_rightclick = function(self, clicker)
 
-		local item = clicker:get_wielded_item()
 		local user = clicker:get_player_name()
 
 		if self.owner and self.owner == user then
-			if mobs:feed_tame(self, clicker, 4, true, true) then
-			else
+			if not mobs:feed_tame(self, clicker, 4, true, true) then
 				mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
 			end
 		else
@@ -110,7 +112,7 @@ mobs:register_mob("lottmobs:kitten", {
 		local pos = self.object:get_pos()
 
 		minetest.add_item(pos, "wool:white")
-		
+
 		minetest.sound_play("mobs_kitten", {
 			pos = pos,
 			gain = 1.0,
@@ -137,7 +139,7 @@ arrows:register_throwing_weapon("lottmobs:egg", {
 		damage_coefficient = EGG_DC,
 		drop = false,
 
-		hit_node = function(self, pos, node)
+		hit_node = function(self, pos, node_name)
 			if math.random(1, 10) > 1 then
 				return
 			end
@@ -178,7 +180,8 @@ mobs:register_mob("lottmobs:chicken", {
 		{"lottmobs_chicken.png"},
 	},
 	sounds = {
-		random = "mobs_chicken",
+		-- файлов нет
+		-- random = "mobs_chicken",
 	},
 	visual = "mesh",
 	mesh = "chicken_model.x",
@@ -216,9 +219,6 @@ mobs:register_mob("lottmobs:chicken", {
 	jump = true,
 	step=1,
 	passive = true,
-	
-	sounds = {
-	},
 })
 
 --[[mobs:register_mob("lottmobs:sheep", {

@@ -4,7 +4,7 @@ screwdriver = {}
 
 --
 -- следующий диапазон
--- 
+--
 local function nextrange(x, max)
 	x = x + 1
 	if x > max then
@@ -69,8 +69,8 @@ local function screwdriver_handler(itemstack, user, pointed_thing, mode, uses)
 
 	local new_param2 = preservePart + rotationPart
 	local should_rotate = true
-	--print("new_param2 = "..tostring(new_param2))
-	if ndef and ndef.on_rotate then -- Node provides a handler, so let the handler decide instead if the node can be rotated
+	-- Node provides a handler, so let the handler decide instead if the node can be rotated
+	if ndef and ndef.on_rotate then
 		-- Copy pos and node because callback can modify it
 		local result = ndef.on_rotate(vector.new(pos),
 				{name = node.name, param1 = node.param1, param2 = node.param2},
@@ -155,4 +155,6 @@ minetest.register_alias("screwdriver:screwdriver2", "screwdriver:screwdriver")
 minetest.register_alias("screwdriver:screwdriver3", "screwdriver:screwdriver")
 minetest.register_alias("screwdriver:screwdriver4", "screwdriver:screwdriver")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

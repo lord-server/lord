@@ -39,7 +39,7 @@ for color, dye in pairs(fabric_colors) do
 		description = SL(color:gsub("^%l", string.upper).." Flax"),
 		inventory_image = "lottclothes_flax_"..color..".png"
 	})
-	
+
 	if color == "brown" then
 		-- default to brown
 		minetest.register_craft({
@@ -49,7 +49,7 @@ for color, dye in pairs(fabric_colors) do
 				{"lottclothes:flaxthread","lottclothes:flaxthread","lottclothes:flaxthread"},
 				{"lottclothes:flaxthread","lottclothes:flaxthread","lottclothes:flaxthread"},
 			}
-		})	
+		})
 	else
 		-- all other colors require little dye
 		minetest.register_craft({
@@ -82,7 +82,7 @@ for color, dye in pairs(fabric_colors) do
 		description = SL(color:gsub("^%l", string.upper).." Felt"),
 		inventory_image = "lottclothes_felt_"..color..".png"
 	})
-	
+
 	if color == "green" then
 		-- green is default color, all felt (no dye)
 		minetest.register_craft({
@@ -92,7 +92,7 @@ for color, dye in pairs(fabric_colors) do
 				{"lottclothes:feltthread","lottclothes:feltthread","lottclothes:feltthread"},
 				{"lottclothes:feltthread","lottclothes:feltthread","lottclothes:feltthread"},
 			}
-		})	
+		})
 	else
 		-- all other colors require little dye
 		minetest.register_craft({

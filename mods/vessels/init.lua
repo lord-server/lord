@@ -99,7 +99,7 @@ minetest.register_craft( {
 	type = "shapeless",
 	output = "vessels:glass_fragments",
 	recipe = {
-		"vessels:drinking_glass", 
+		"vessels:drinking_glass",
 		"vessels:drinking_glass",
 	},
 })
@@ -116,4 +116,6 @@ minetest.register_craft( {
 	recipe = "vessels:steel_bottle",
 })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

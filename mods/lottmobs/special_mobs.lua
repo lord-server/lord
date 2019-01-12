@@ -16,7 +16,6 @@ mobs:register_mob("lottmobs:elf_trader", {
 	run_velocity = 5,
 	damage = 6,
 	armor = 200,
-	drops = { },
 	light_resistant = true,
 	drawtype = "front",
 	water_damage = 1,
@@ -60,7 +59,7 @@ mobs:register_mob("lottmobs:elf_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, entity, lottmobs.elf, "gui_elfbg.png", "GAMEelf")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.elf, "gui_elfbg.png", "GAMEelf")
 	end,
 })
 --mobs:register_spawn("lottmobs:elf_trader", {"lottmapgen:lorien_grass"}, 20, 0, 60000, 3, 31000)
@@ -82,7 +81,6 @@ mobs:register_mob("lottmobs:human_trader", {
 	run_velocity = 3,
 	armor = 100,
 	damage = 5,
-	drops = { },
 	light_resistant = true,
 	drawtype = "front",
 	water_damage = 1,
@@ -127,7 +125,7 @@ mobs:register_mob("lottmobs:human_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, entity, lottmobs.human, "gui_gondorbg.png", "GAMEman")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.human, "gui_gondorbg.png", "GAMEman")
 	end,
 })
 --mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:rohan_grass"}, 20, -1, 60000, 3, 31000)
@@ -148,7 +146,6 @@ mobs:register_mob("lottmobs:hobbit_trader", {
 	makes_footstep_sound = true,
 	walk_velocity = 1,
 	armor = 300,
-	drops = { },
 	light_resistant = true,
 	drawtype = "front",
 	water_damage = 1,
@@ -186,7 +183,7 @@ mobs:register_mob("lottmobs:hobbit_trader", {
 	sounds = {
 	},
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, entity, lottmobs.hobbit, "gui_hobbitbg.png", "GAMEhobbit")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.hobbit, "gui_hobbitbg.png", "GAMEhobbit")
 	end,
 })
 --mobs:register_spawn("lottmobs:hobbit_trader", {"lottmapgen:shire_grass"}, 20, -1, 60000, 3, 31000)
@@ -209,7 +206,6 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 	run_velocity = 2,
 	armor = 200,
 	damage = 4,
-	drops = {},
 	light_resistant = true,
 	drawtype = "front",
 	water_damage = 0,
@@ -254,7 +250,7 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, entity, lottmobs.dwarf, "gui_angmarbg.png", "GAMEdwarf")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.dwarf, "gui_angmarbg.png", "GAMEdwarf")
 	end,
 })
 --mobs:register_spawn("lottmobs:dwarf_trader", {"lottmapgen:ironhill_grass"}, 20, -1, 60000, 3, 31000)

@@ -621,7 +621,7 @@ stairs.register_stair_and_slab("obsidian", "default:obsidian",
 		SL("Obsidian Stair"),
 		SL("Obsidian Slab"),
 		default.node_sound_stone_defaults())
-		
+
 stairs.register_stair_and_slab("mossycobble", "default:mossycobble",
 		{cracky=3},
 		{"default_mossycobble.png"},

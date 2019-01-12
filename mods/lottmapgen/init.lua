@@ -533,4 +533,6 @@ dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 dofile(minetest.get_modpath("lottmapgen").."/deco.lua")
 dofile(minetest.get_modpath("lottmapgen").."/chests.lua")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

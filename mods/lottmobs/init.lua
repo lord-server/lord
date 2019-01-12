@@ -51,7 +51,6 @@ dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
 dofile(minetest.get_modpath("lottmobs").."/animals.lua")
 dofile(minetest.get_modpath("lottmobs").."/fishes.lua")
---dofile(minetest.get_modpath("lottmobs").."/dragons.lua")
 
 dofile(minetest.get_modpath("lottmobs").."/eggs.lua")
 -- Mobs
@@ -738,7 +737,12 @@ mobs:register_mob("lottmobs:hobbit", {
 })
 --mobs:register_spawn("lottmobs:hobbit", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
 
-local orc_armor = "lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_helmet_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png^[colorize:#00000055"
+local orc_armor = "lottarmor_chestplate_steel.png^" ..
+	"lottarmor_leggings_steel.png^" ..
+	"lottarmor_helmet_steel.png^" ..
+	"lottarmor_boots_steel.png^" ..
+	"lottarmor_shield_steel.png^" ..
+	"[colorize:#00000055"
 
 mobs:register_mob("lottmobs:orc", {
 	type = "monster",
@@ -1306,9 +1310,6 @@ mobs:register_mob("lottmobs:nazgul", {
 	attack_type = "shoot",
 	arrow = "arrows:darkball",
 	shoot_interval = 4,
-	sounds = {
-		attack = "arrows:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,
@@ -1364,9 +1365,6 @@ mobs:register_mob("lottmobs:witch_king", {
 	attack_type = "shoot",
 	arrow = "arrows:darkball",
 	shoot_interval = 2,
-	sounds = {
-		attack = "arrows:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,
@@ -1569,4 +1567,6 @@ mobs:register_mob("lottmobs:troll", {
 
 dofile(minetest.get_modpath("lottmobs").."/spawn.lua")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

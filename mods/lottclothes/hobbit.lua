@@ -15,8 +15,6 @@ local fabric_colors = {
 	yellow = "lottclothes:flax_yellow"
 }
 
-local level=2
-
 --per color crafting :)
 for color, fabric in pairs(fabric_colors) do
 

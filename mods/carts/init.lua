@@ -246,7 +246,13 @@ function cart:on_step(dtime)
 			-- Start the cart if placed on an active accelerating rail
 			local a = tonumber(minetest.get_meta(pos):get_string("cart_acceleration"))
 			if a and a ~= 0 then
-				if self.pre_stop_dir and cart_func.v3:equal(self:get_rail_direction(self.object:getpos(), self.pre_stop_dir), self.pre_stop_dir) then
+				if
+					self.pre_stop_dir and
+					cart_func.v3:equal(
+						self:get_rail_direction(self.object:getpos(),
+						self.pre_stop_dir), self.pre_stop_dir
+					)
+				then
 					self.velocity = {
 						x = self.pre_stop_dir.x * 0.2,
 						y = self.pre_stop_dir.y * 0.2,
@@ -257,7 +263,10 @@ function cart:on_step(dtime)
 				end
 				for _,y in ipairs({0,-1,1}) do
 					for _,z in ipairs({1,-1}) do
-						if cart_func.v3:equal(self:get_rail_direction(self.object:getpos(), {x=0, y=y, z=z}), {x=0, y=y, z=z}) then
+						if cart_func.v3:equal(
+							self:get_rail_direction(self.object:getpos(),
+							{x=0, y=y, z=z}), {x=0, y=y, z=z}
+						) then
 							self.velocity = {
 								x = 0,
 								y = 0.2*y,
@@ -268,7 +277,10 @@ function cart:on_step(dtime)
 						end
 					end
 					for _,x in ipairs({1,-1}) do
-						if cart_func.v3:equal(self:get_rail_direction(self.object:getpos(), {x=x, y=y, z=0}), {x=x, y=y, z=0}) then
+						if cart_func.v3:equal(
+							self:get_rail_direction(self.object:getpos(),
+							{x=x, y=y, z=0}), {x=x, y=y, z=0}
+						) then
 							self.velocity = {
 								x = 0.2*x,
 								y = 0.2*y,

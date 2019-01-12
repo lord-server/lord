@@ -3,7 +3,10 @@ local SL = lord.require_intllib()
 -- Other mods can use these for looping through available colors
 dye = {}
 dye.basecolors = {"white", "grey", "black", "red", "yellow", "green", "cyan", "blue", "magenta"}
-dye.excolors = {"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow", "lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"}
+dye.excolors = {
+	"white", "lightgrey", "grey", "darkgrey", "black", "red", "orange", "yellow",
+	"lime", "green", "aqua", "cyan", "sky_blue", "blue", "violet", "magenta", "red_violet"
+}
 
 -- Local stuff
 local dyelocal = {}
@@ -77,6 +80,7 @@ minetest.register_craft({
 -- Mix recipes
 -- Just mix everything to everything somehow sanely
 
+-- luacheck: push no_max_line_length
 dyelocal.mixbases = {"magenta", "red", "orange", "brown", "yellow", "green", "dark_green", "cyan", "blue", "violet", "black", "dark_grey", "grey", "white"}
 
 dyelocal.mixes = {
@@ -96,6 +100,7 @@ dyelocal.mixes = {
 	red   = {"magenta","red"},
 	magenta={"magenta"},
 }
+-- luacheck: pop
 
 for one,results in pairs(dyelocal.mixes) do
 	for i,result in ipairs(results) do
@@ -108,4 +113,6 @@ for one,results in pairs(dyelocal.mixes) do
 	end
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

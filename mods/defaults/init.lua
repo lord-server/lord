@@ -1,5 +1,3 @@
-local SL = lord.require_intllib()
-
 ghost = {}
 
 ghost.original_materials = {

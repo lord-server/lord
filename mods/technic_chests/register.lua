@@ -9,7 +9,11 @@ if not minetest.get_modpath("pipeworks") then
 	local dummy = function()
 		end
 	pipeworks_meta.__index = function(table, key)
-			print("[technic_chests] WARNING: variable or method '"..key.."' not present in dummy pipeworks table - assuming it is a method...")
+			print(
+				"[technic_chests] WARNING: " ..
+					"variable or method '" .. key ..
+					"' not present in dummy pipeworks table - assuming it is a method..."
+			)
 			pipeworks[key] = dummy
 			return dummy
 		end
@@ -72,11 +76,16 @@ end
 
 local function set_formspec(pos, data, page)
 	local meta = minetest.get_meta(pos)
-	local node = minetest.get_node(pos)
 	local formspec = data.base_formspec
 	if data.autosort then
 		local status = meta:get_int("autosort")
-		formspec = formspec.."button["..(data.hileft+2)..","..(data.height+1.1)..";3,0.8;autosort_to_"..(1-status)..";"..S("Auto-sort is %s"):format(status == 1 and S("On") or S("Off")).."]"
+		formspec = formspec ..
+			"button[" ..
+				(data.hileft + 2) .. "," .. (data.height + 1.1) .. ";" ..
+				"3,0.8;" ..
+				"autosort_to_" .. (1 - status) .. ";" ..
+				S("Auto-sort is %s"):format(status == 1 and S("On") or S("Off")) ..
+			"]"
 	end
 	if data.infotext then
 		local formspec_infotext = minetest.formspec_escape(meta:get_string("infotext"))
@@ -100,7 +109,11 @@ local function set_formspec(pos, data, page)
 		else
 			colorName = S("None")
 		end
-		formspec = formspec.."label["..(data.coleft+0.2)..","..(data.lotop+3)..";"..S("Color Filter: %s"):format(colorName).."]"
+		formspec = formspec ..
+			"label[" ..
+				(data.coleft + 0.2) .. "," .. (data.lotop + 3) .. ";" ..
+				S("Color Filter: %s"):format(colorName) ..
+			"]"
 	end
 	meta:set_string("formspec", formspec)
 end
@@ -206,7 +219,7 @@ function technic.chests:definition(name, data)
 	data.lotop = data.height + 2
 	data.ovheight = data.lotop + 4
 
-	local locked_after_place = nil
+	local locked_after_place
 	local front = {"technic_"..lname.."_chest_front.png"}
 	data.base_formspec = "size["..data.ovwidth..","..data.ovheight.."]"..
 			"label[0,0;"..S("%s Chest"):format(name).."]"..
@@ -217,7 +230,8 @@ function technic.chests:definition(name, data)
 			"background["..data.loleft..","..data.lotop..";8,4;technic_main_inventory.png]"..
 			"listring[]"
 	if data.sort then
-		data.base_formspec = data.base_formspec.."button["..data.hileft..","..(data.height+1.1)..";2,0.8;sort;"..S("Sort").."]"
+		data.base_formspec = data.base_formspec..
+			"button["..data.hileft..","..(data.height+1.1)..";2,0.8;sort;"..S("Sort").."]"
 	end
 	if data.color then
 		data.base_formspec = data.base_formspec..get_color_buttons(data.coleft, data.lotop)
@@ -299,7 +313,14 @@ function technic.chests:register(name, data)
 			end
 			colordef.drop = nn
 			colordef.groups = self.groups_noinv
-			colordef.tiles = { def.tiles[1], def.tiles[2], def.tiles[3], def.tiles[4], def.tiles[5], mk_front("technic_chest_overlay"..postfix..".png") }
+			colordef.tiles = {
+				def.tiles[1],
+				def.tiles[2],
+				def.tiles[3],
+				def.tiles[4],
+				def.tiles[5],
+				mk_front("technic_chest_overlay"..postfix..".png")
+			}
 			minetest.register_node(":"..nn..postfix, colordef)
 		end
 	end

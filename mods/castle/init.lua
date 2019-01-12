@@ -77,6 +77,7 @@ minetest.register_craft({
 	recipe = {"castle:jail_door", "default:steel_ingot"}
 })
 
+-- luacheck: globals default
 function default.get_ironbound_chest_formspec(pos)
 	local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 	local formspec =
@@ -247,4 +248,6 @@ stairs.register_stair_and_slab("pavement", "castle:pavement",
 		default.node_sound_stone_defaults())
 
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

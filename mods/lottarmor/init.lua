@@ -215,28 +215,36 @@ minetest.register_tool("lottarmor:boots_gold", {
 minetest.register_tool("lottarmor:helmet_galvorn", {
 	description = SL("Galvorn Helmet"),
 	inventory_image = "lottarmor_inv_helmet_galvorn.png",
-	groups = {armor_head=15, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1},
+	groups = {
+		armor_head=15, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1
+	},
 	wear = 0,
 })
 
 minetest.register_tool("lottarmor:chestplate_galvorn", {
 	description = SL("Galvorn Chestplate"),
 	inventory_image = "lottarmor_inv_chestplate_galvorn.png",
-	groups = {armor_torso=20, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1},
+	groups = {
+		armor_torso=20, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1
+	},
 	wear = 0,
 })
 
 minetest.register_tool("lottarmor:leggings_galvorn", {
 	description = SL("Galvorn Leggings"),
 	inventory_image = "lottarmor_inv_leggings_galvorn.png",
-	groups = {armor_legs=20, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1},
+	groups = {
+		armor_legs=20, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1
+	},
 	wear = 0,
 })
 
 minetest.register_tool("lottarmor:boots_galvorn", {
 	description = SL("Galvorn Boots"),
 	inventory_image = "lottarmor_inv_boots_galvorn.png",
-	groups = {armor_feet=15, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1},
+	groups = {
+		armor_feet=15, armor_heal=12, armor_use=100, armor_healing=0, physics_speed=-0.1, forbidden=1, galvorn_item=1
+	},
 	wear = 0,
 })
 
@@ -317,4 +325,6 @@ for k, v in pairs(craft_ingreds) do
 	})
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

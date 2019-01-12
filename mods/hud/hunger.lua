@@ -8,7 +8,7 @@ end
 
 -- Poison player
 local function poisenp(tick, poisen, time_left, player)
-	time_full = math.abs(poisen)
+	local time_full = math.abs(poisen)
 	time_left = time_left + tick
 	if time_left < time_full then
 		minetest.after(tick, poisenp, tick, poisen, time_left, player)

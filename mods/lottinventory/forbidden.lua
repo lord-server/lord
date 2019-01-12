@@ -11,10 +11,10 @@ zfc.itemlist = {}
 
 zfc.items_in_group = function(group)
 	local items = {}
-	local ok = true
+
 	for name, item in pairs(minetest.registered_items) do
 		-- the node should be in all groups
-		ok = true
+		local ok = true
 		for _, g in ipairs(group:split(',')) do
 			if not item.groups[g] then
 				ok = false
@@ -22,6 +22,7 @@ zfc.items_in_group = function(group)
 		end
 		if ok then table.insert(items,name) end
 	end
+
 	return items
 end
 
@@ -66,7 +67,6 @@ end
 end
 
 zfc.load_crafts = function(name)
-     local c = {}
 	zfc.crafts[name] = {}
 	local _recipes = minetest.get_all_craft_recipes(name)
 	if _recipes then
@@ -133,7 +133,13 @@ zfc.formspec = function(pn)
 				local x = 3
 				local y = 0
 				for i, item in pairs(c.items) do
-					formspec = formspec .. "item_image_button["..((i-1)%c.width+x)..","..(math.floor((i-1)/c.width+y))..";1,1;"..item..";zfc:"..item..";]"
+					formspec = formspec ..
+						"item_image_button[" ..
+							((i - 1) % c.width + x) .. "," .. (math.floor((i - 1) / c.width + y)) .. ";" ..
+							"1,1;" ..
+							item .. ";" ..
+							"zfc:" .. item .. ";" ..
+						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
 					formspec = formspec .. "image[6,2;1,1;zcg_method_"..c.type..".png]"
@@ -153,7 +159,8 @@ zfc.formspec = function(pn)
 	for _, name in ipairs(zfc.itemlist) do
 		if s < page*npp then s = s+1 else
 			if i >= npp then break end
-			formspec = formspec .. "item_image_button["..(i%8)..","..(math.floor(i/8)+3.5)..";1,1;"..name..";zfc:"..name..";]"
+			formspec = formspec ..
+				"item_image_button["..(i%8)..","..(math.floor(i/8)+3.5)..";1,1;"..name..";zfc:"..name..";]"
 			i = i+1
 		end
 	end
@@ -163,9 +170,11 @@ zfc.formspec = function(pn)
 	if i >= npp then
 		formspec = formspec .. "button[1,7;1,.5;zfc_page:"..(page+1)..";>>]"
 	end
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zfc.itemlist/npp+1)).."]" -- The Y is approximatively the good one to have it centered vertically...
-     formspec = formspec .. "label[0,0;"..SL("Book of Forbidden Crafts").."]"
-     formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+	-- The Y is approximatively the good one to have it centered vertically...
+	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zfc.itemlist/npp+1)).."]"
+	formspec = formspec .. "label[0,0;"..SL("Book of Forbidden Crafts").."]"
+	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+
 	return formspec
 end
 

@@ -99,7 +99,8 @@ local function info_form(name)
 	else
 		form = form.."label[0.3,2.0;"..SL("Damage:").." "..SL("Off").."]"
 	end
-	form = form.."label[0.3,2.5;"..SL("Default privileges:").." "..minetest.settings:get("default_privs").."]" --базовые права
+	--базовые права
+	form = form.."label[0.3,2.5;"..SL("Default privileges:").." "..minetest.settings:get("default_privs").."]"
 	form = form.."textarea[0.6,3.5;7.4,4.83;txt_info;"..SL("Info:")..";"..minetest.formspec_escape(read_info()).."]"
 	if privs["info"] then
 		form = form..
@@ -224,7 +225,14 @@ local function list_form(name, select_id, find)
 
 	local list = {}
 	for i, j in pairs(minetest.registered_items) do
-		if (i ~= '')and((find == "")or(string.find(string.lower(i), string.lower(find)))or(string.find(string.lower(j.description), string.lower(find)))) then
+		if
+			(i ~= '') and
+			(
+				(find == "") or
+				(string.find(string.lower(i), string.lower(find))) or
+				(string.find(string.lower(j.description), string.lower(find)))
+			)
+		then
 			table.insert(list, i)
 		end
 	end
@@ -362,5 +370,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
 

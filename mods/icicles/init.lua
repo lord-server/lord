@@ -65,7 +65,6 @@ local function generate(minp, maxp, seed, chunks_per_volume, icicles_per_chunk, 
 		if y0 >= height_min and y0 <= height_max and (y0+2)%16 ~= 0 then
 			local x0 = pr:next(minp.x, maxp.x-chunk_size+1)
 			local z0 = pr:next(minp.z, maxp.z-chunk_size+1)
-			local p0 = {x=x0, y=y0, z=z0}
 			for x1=0,chunk_size-1 do
 				for y1=0,chunk_size-1 do
 					for z1=0,chunk_size-1 do

@@ -3,8 +3,6 @@ local SL = lord.require_intllib()
 -- basic outfit from the chetwood forest.
 -- made from green and brown felt & tin ingot.
 
-local level=2
-
 -- cap (head)
 minetest.register_tool("lottclothes:cap_chetwood", {
 	description = SL("Chetwood Cap"),

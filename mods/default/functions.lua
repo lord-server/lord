@@ -1,23 +1,20 @@
 -- mods/default/functions.lua
 
-local random = math.random
-
-
 -- проверка на возможность роста деревьев
 function default.can_grow(pos)
 	local n
-    for p = pos.y + 1, pos.y + 20 do
-		n = minetest.get_node({x = pos.x, y = p, z = pos.z})
-		if (n.name~="air") then
+	for p = pos.y + 1, pos.y + 20 do
+		n = minetest.get_node({ x = pos.x, y = p, z = pos.z })
+		if (n.name ~= "air") then
 			return false
 		end
 	end
-	local node_under = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
+	local node_under = minetest.get_node_or_nil({ x = pos.x, y = pos.y - 1, z = pos.z })
 	if not node_under then
 		return false
 	end
 	local name_under = node_under.name
-	local is_soil = minetest.get_item_group(name_under, "soil")
+	local is_soil    = minetest.get_item_group(name_under, "soil")
 	if is_soil == 0 then
 		return false
 	end
@@ -34,47 +31,43 @@ end
 --
 
 function default.node_sound_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="", gain=1.0}
-	table.dug = table.dug or
-			{name="default_dug_node", gain=0.25}
-	table.place = table.place or
-			{name="default_place_node_hard", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "", gain = 1.0 }
+	table.dug      = table.dug or { name = "default_dug_node", gain = 0.25 }
+	table.place    = table.place or { name = "default_place_node_hard", gain = 1.0 }
+
 	return table
 end
 
 function default.node_sound_stone_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_hard_footstep", gain=0.5}
-	table.dug = table.dug or
-			{name="default_hard_footstep", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_hard_footstep", gain = 0.5 }
+	table.dug      = table.dug or { name = "default_hard_footstep", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
 function default.node_sound_dirt_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_dirt_footstep", gain=1.0}
-	table.dug = table.dug or
-			{name="default_dirt_footstep", gain=1.5}
-	table.place = table.place or
-			{name="default_place_node", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_dirt_footstep", gain = 1.0 }
+	table.dug      = table.dug or { name = "default_dirt_footstep", gain = 1.5 }
+	table.place    = table.place or { name = "default_place_node", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
 function default.node_sound_sand_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_sand_footstep", gain=0.5}
-	table.dug = table.dug or
-			{name="default_sand_footstep", gain=1.0}
-	table.place = table.place or
-			{name="default_place_node", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_sand_footstep", gain = 0.5 }
+	table.dug      = table.dug or { name = "default_sand_footstep", gain = 1.0 }
+	table.place    = table.place or { name = "default_place_node", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
@@ -91,36 +84,34 @@ function default.node_sound_gravel_defaults(table)
 end
 
 function default.node_sound_wood_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_wood_footstep", gain=0.5}
-	table.dug = table.dug or
-			{name="default_wood_footstep", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_wood_footstep", gain = 0.5 }
+	table.dug      = table.dug or { name = "default_wood_footstep", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
 function default.node_sound_leaves_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_grass_footstep", gain=0.35}
-	table.dug = table.dug or
-			{name="default_grass_footstep", gain=0.85}
-	table.dig = table.dig or
-			{name="default_dig_crumbly", gain=0.4}
-	table.place = table.place or
-			{name="default_place_node", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_grass_footstep", gain = 0.35 }
+	table.dug      = table.dug or { name = "default_grass_footstep", gain = 0.85 }
+	table.dig      = table.dig or { name = "default_dig_crumbly", gain = 0.4 }
+	table.place    = table.place or { name = "default_place_node", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
 function default.node_sound_glass_defaults(table)
-	table = table or {}
-	table.footstep = table.footstep or
-			{name="default_glass_footstep", gain=0.5}
-	table.dug = table.dug or
-			{name="default_break_glass", gain=1.0}
+	table          = table or {}
+	table.footstep = table.footstep or { name = "default_glass_footstep", gain = 0.5 }
+	table.dug      = table.dug or { name = "default_break_glass", gain = 1.0 }
+
 	default.node_sound_defaults(table)
+
 	return table
 end
 
@@ -183,85 +174,35 @@ minetest.register_on_punchnode(on_punchnode)
 
 
 --
--- Grow trees
---
-
---minetest.register_abm({
-	--nodenames = {"default:sapling"},
-	--interval = 10,
-	--chance = 50,
-	--action = function(pos, node)
-		--local nu =  minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name
-		--local is_soil = minetest.get_item_group(nu, "soil")
-		--if is_soil == 0 then
-			--return
-		--end
-
-		--minetest.log("action", "A sapling grows into a tree at "..minetest.pos_to_string(pos))
-		--local vm = minetest.get_voxel_manip()
-		--local minp, maxp = vm:read_from_map({x=pos.x-16, y=pos.y, z=pos.z-16}, {x=pos.x+16, y=pos.y+16, z=pos.z+16})
-		--local a = VoxelArea:new{MinEdge=minp, MaxEdge=maxp}
-		--local data = vm:get_data()
-		--default.grow_tree(data, a, pos, math.random(1, 4) == 1, math.random(1,100000))
-		--vm:set_data(data)
-		--vm:write_to_map(data)
-		--vm:update_map()
-	--end
---})
-
---minetest.register_abm({
-	--nodenames = {"default:junglesapling"},
-	--interval = 10,
-	--chance = 50,
-	--action = function(pos, node)
-		--local nu =  minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name
-		--local is_soil = minetest.get_item_group(nu, "soil")
-		--if is_soil == 0 then
-			--return
-		--end
-
-		--minetest.log("action", "A jungle sapling grows into a tree at "..minetest.pos_to_string(pos))
-		--local vm = minetest.get_voxel_manip()
-		--local minp, maxp = vm:read_from_map({x=pos.x-16, y=pos.y-1, z=pos.z-16}, {x=pos.x+16, y=pos.y+16, z=pos.z+16})
-		--local a = VoxelArea:new{MinEdge=minp, MaxEdge=maxp}
-		--local data = vm:get_data()
-		--default.grow_jungletree(data, a, pos, math.random(1,100000))
-		--vm:set_data(data)
-		--vm:write_to_map(data)
-		--vm:update_map()
-	--end
---})
-
---
 -- Lavacooling
 --
 
-default.cool_lava_source = function(pos)
-	minetest.set_node(pos, {name="default:obsidian"})
-	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.25})
+default.cool_lava_source  = function(pos)
+	minetest.set_node(pos, { name = "default:obsidian" })
+	minetest.sound_play("default_cool_lava", { pos = pos, gain = 0.25 })
 end
 
 default.cool_lava_flowing = function(pos)
-	minetest.set_node(pos, {name="default:stone"})
-	minetest.sound_play("default_cool_lava", {pos = pos,  gain = 0.25})
+	minetest.set_node(pos, { name = "default:stone" })
+	minetest.sound_play("default_cool_lava", { pos = pos, gain = 0.25 })
 end
 
 minetest.register_abm({
-	nodenames = {"default:lava_flowing"},
-	neighbors = {"group:water"},
-	interval = 1,
-	chance = 1,
-	action = function(pos, node, active_object_count, active_object_count_wider)
+	nodenames = { "default:lava_flowing" },
+	neighbors = { "group:water" },
+	interval  = 1,
+	chance    = 1,
+	action    = function(pos, node, active_object_count, active_object_count_wider)
 		default.cool_lava_flowing(pos, node, active_object_count, active_object_count_wider)
 	end,
 })
 
 minetest.register_abm({
-	nodenames = {"default:lava_source"},
-	neighbors = {"group:water"},
-	interval = 1,
-	chance = 1,
-	action = function(pos, node, active_object_count, active_object_count_wider)
+	nodenames = { "default:lava_source" },
+	neighbors = { "group:water" },
+	interval  = 1,
+	chance    = 1,
+	action    = function(pos, node, active_object_count, active_object_count_wider)
 		default.cool_lava_source(pos, node, active_object_count, active_object_count_wider)
 	end,
 })
@@ -271,23 +212,23 @@ minetest.register_abm({
 --
 
 minetest.register_abm({
-	nodenames = {"default:cactus"},
-	neighbors = {"group:sand"},
-	interval = 50,
-	chance = 20,
-	action = function(pos, node)
-		pos.y = pos.y-1
+	nodenames = { "default:cactus" },
+	neighbors = { "group:sand" },
+	interval  = 50,
+	chance    = 20,
+	action    = function(pos, node)
+		pos.y      = pos.y - 1
 		local name = minetest.get_node(pos).name
 		if minetest.get_item_group(name, "sand") ~= 0 then
-			pos.y = pos.y+1
+			pos.y        = pos.y + 1
 			local height = 0
 			while minetest.get_node(pos).name == "default:cactus" and height < 4 do
-				height = height+1
-				pos.y = pos.y+1
+				height = height + 1
+				pos.y  = pos.y + 1
 			end
 			if height < 4 then
 				if minetest.get_node(pos).name == "air" then
-					minetest.set_node(pos, {name="default:cactus"})
+					minetest.set_node(pos, { name = "default:cactus" })
 				end
 			end
 		end
@@ -295,26 +236,26 @@ minetest.register_abm({
 })
 
 minetest.register_abm({
-	nodenames = {"default:papyrus"},
-	neighbors = {"group:soil", "default:sand"},
-	interval = 50,
-	chance = 20,
-	action = function(pos, node)
-		pos.y = pos.y-1
+	nodenames = { "default:papyrus" },
+	neighbors = { "group:soil", "default:sand" },
+	interval  = 50,
+	chance    = 20,
+	action    = function(pos, node)
+		pos.y      = pos.y - 1
 		local name = minetest.get_node(pos).name
-		if (minetest.registered_nodes[name].groups["soil"])or(name == "default:sand") then
-			if minetest.find_node_near(pos, 3, {"group:water"}) == nil then
+		if (minetest.registered_nodes[name].groups["soil"]) or (name == "default:sand") then
+			if minetest.find_node_near(pos, 3, { "group:water" }) == nil then
 				return
 			end
-			pos.y = pos.y+1
+			pos.y        = pos.y + 1
 			local height = 0
 			while minetest.get_node(pos).name == "default:papyrus" and height < 4 do
-				height = height+1
-				pos.y = pos.y+1
+				height = height + 1
+				pos.y  = pos.y + 1
 			end
 			if height < 4 then
 				if minetest.get_node(pos).name == "air" then
-					minetest.set_node(pos, {name="default:papyrus"})
+					minetest.set_node(pos, { name = "default:papyrus" })
 				end
 			end
 		end
@@ -327,7 +268,7 @@ minetest.register_abm({
 
 function default.dig_up(pos, node, digger)
 	if digger == nil then return end
-	local np = {x = pos.x, y = pos.y + 1, z = pos.z}
+	local np = { x = pos.x, y = pos.y + 1, z = pos.z }
 	local nn = minetest.get_node(np)
 	if nn.name == node.name then
 		minetest.node_dig(np, nn, digger)
@@ -356,22 +297,21 @@ default.leafdecay_enable_cache = true
 default.leafdecay_trunk_find_allow_accumulator = 0
 
 minetest.register_globalstep(function(dtime)
-	local finds_per_second = 5000
-	default.leafdecay_trunk_find_allow_accumulator =
-			math.floor(dtime * finds_per_second)
+	local finds_per_second                         = 5000
+	default.leafdecay_trunk_find_allow_accumulator = math.floor(dtime * finds_per_second)
 end)
 
 minetest.register_abm({
-	nodenames = {"group:leafdecay"},
-	neighbors = {"air", "group:liquid"},
+	nodenames = { "group:leafdecay" },
+	neighbors = { "air", "group:liquid" },
 	-- A low interval and a high inverse chance spreads the load
-	interval = 2,
-	chance = 5,
+	interval  = 2,
+	chance    = 5,
 
-	action = function(p0, node, _, _)
+	action    = function(p0, node, _, _)
 		--print("leafdecay ABM at "..p0.x..", "..p0.y..", "..p0.z..")")
 		local do_preserve = false
-		local d = minetest.registered_nodes[node.name].groups.leafdecay
+		local d           = minetest.registered_nodes[node.name].groups.leafdecay
 		if not d or d == 0 then
 			--print("not groups.leafdecay")
 			return
@@ -383,17 +323,16 @@ minetest.register_abm({
 		end
 		local p0_hash = nil
 		if default.leafdecay_enable_cache then
-			p0_hash = minetest.hash_node_position(p0)
+			p0_hash      = minetest.hash_node_position(p0)
 			local trunkp = default.leafdecay_trunk_cache[p0_hash]
 			if trunkp then
-				local n = minetest.get_node(trunkp)
+				local n   = minetest.get_node(trunkp)
 				local reg = minetest.registered_nodes[n.name]
 				-- Assume ignore is a trunk, to make the thing work at the border of the active area
 				if n.name == "ignore" or (reg and reg.groups.tree and reg.groups.tree ~= 0) then
 					--print("cached trunk still exists")
 					return
 				end
-				--print("cached trunk is invalid")
 				-- Cache is invalid
 				table.remove(default.leafdecay_trunk_cache, p0_hash)
 			end
@@ -401,14 +340,12 @@ minetest.register_abm({
 		if default.leafdecay_trunk_find_allow_accumulator <= 0 then
 			return
 		end
-		default.leafdecay_trunk_find_allow_accumulator =
-				default.leafdecay_trunk_find_allow_accumulator - 1
+		default.leafdecay_trunk_find_allow_accumulator = default.leafdecay_trunk_find_allow_accumulator - 1
 		-- Assume ignore is a trunk, to make the thing work at the border of the active area
-		local p1 = minetest.find_node_near(p0, d, {"ignore", "group:tree"})
+		local p1                                       = minetest.find_node_near(p0, d, { "ignore", "group:tree" })
 		if p1 then
 			do_preserve = true
 			if default.leafdecay_enable_cache then
-				--print("caching trunk")
 				-- Cache the trunk
 				default.leafdecay_trunk_cache[p0_hash] = p1
 			end
@@ -418,7 +355,7 @@ minetest.register_abm({
 			local itemstacks = minetest.get_node_drops(n0.name)
 			for _, itemname in ipairs(itemstacks) do
 				if minetest.get_item_group(n0.name, "leafdecay_drop") ~= 0 or
-						itemname ~= n0.name then
+					itemname ~= n0.name then
 					local p_drop = {
 						x = p0.x - 0.5 + math.random(),
 						y = p0.y - 0.5 + math.random(),
@@ -456,27 +393,27 @@ if falling_trees == true then
 
 		local base_y = pos.y
 		for i = 1, (height + 5) do
-			pos.y = base_y + i
-			local node = minetest.get_node(pos)
-			if node.name ~= name or i == (height + 5) then
-				minetest.remove_node({x = pos.x, y = pos.y-1, z = pos.z})
+			pos.y        = base_y + i
+			local node_i = minetest.get_node(pos)
+			if node_i.name ~= name or i == (height + 5) then
+				minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
 				for k = -radius, radius do
-				for l = -radius, radius do
-				for j = 0, 1 do
-					local tree_bellow = minetest.get_node({x = pos.x+k, y = pos.y-1, z = pos.z+l})
-					if tree_bellow.name ~= name then
-						local pos1 = {x = pos.x+k, y = pos.y+j, z = pos.z+l}
-						if minetest.get_node(pos1).name == name then
-							minetest.spawn_item(pos1, drop)
-							minetest.remove_node(pos1)
+					for l = -radius, radius do
+						for j = 0, 1 do
+							local tree_bellow = minetest.get_node({ x = pos.x + k, y = pos.y - 1, z = pos.z + l })
+							if tree_bellow.name ~= name then
+								local pos1 = { x = pos.x + k, y = pos.y + j, z = pos.z + l }
+								if minetest.get_node(pos1).name == name then
+									minetest.spawn_item(pos1, drop)
+									minetest.remove_node(pos1)
+								end
+							end
 						end
 					end
 				end
-				end
-				end
 				return
-			elseif node.name == name then
-				minetest.set_node({x = pos.x, y = pos.y-1, z = pos.z}, {name = name})
+			elseif node_i.name == name then
+				minetest.set_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = name })
 			end
 		end
 	end
@@ -490,7 +427,7 @@ end
 minetest.register_on_punchplayer(function(player, hitter, time_from_last_punch, tool_capabilities)
 	local weapon = hitter:get_wielded_item()
 	if tool_capabilities ~= nil then
-		local wear = ((tool_capabilities.full_punch_interval or 1.4) / 75 ) * 9000
+		local wear = ((tool_capabilities.full_punch_interval or 1.4) / 75) * 9000
 		weapon:add_wear(wear)
 		hitter:set_wielded_item(weapon)
 	end

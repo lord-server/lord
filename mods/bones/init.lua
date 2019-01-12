@@ -86,14 +86,13 @@ local function register_corpse(race, gender, skin)
 			if not player_inv then
 				return
 			end
-			local has_space = true
+
 			for i=1,inv:get_size("main") do
 				local stk = inv:get_stack("main", i)
 				if player_inv:room_for_item("main", stk) then
 					inv:set_stack("main", i, nil)
 					player_inv:add_item("main", stk)
 				else
-					has_space = false
 					break
 				end
 			end
@@ -185,4 +184,6 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."items.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."skeleton.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."crafting.lua")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end

@@ -21,122 +21,127 @@ minetest.register_alias("lottother:lamp_middle_wood_mallorn", "lottblocks:lamp_m
 minetest.register_alias("lottother:lamp_top_wood_mallorn", "lottblocks:lamp_top_mallorn")
 minetest.register_alias("lottother:tiny_lamp_wood_mallorn", "lottblocks:small_lamp_mallorn")
 
-function lottblocks.register_lamp(material, description, inv_texture, post1_texture, post2_texture, top_texture, texture, material_code_name, race)
+function lottblocks.register_lamp(
+	material, description, inv_texture, post1_texture, post2_texture, top_texture, texture, material_code_name, race
+)
 	local node_bottom = "lottblocks:lamp_" .. material
 	local node_middle = "lottblocks:lamp_middle_" .. material
-	local node_top = "lottblocks:lamp_top_" .. material
-	local node_small = "lottblocks:small_lamp_" .. material
+	local node_top    = "lottblocks:lamp_top_" .. material
+	local node_small  = "lottblocks:small_lamp_" .. material
 	minetest.register_node(node_bottom, {
-		drop = "",
-		description = SL(description .. " Lamppost"),
-		tiles = {post1_texture},
-		inventory_image = inv_texture,
-		wield_image = inv_texture,
-		groups = {choppy=2,oddly_breakable_by_hand=1,flammable=2},
-		paramtype = "light",
-		drawtype = "nodebox",
-		node_box = {
-			type = "fixed",
+		drop             = "",
+		description      = SL(description .. " Lamppost"),
+		tiles            = { post1_texture },
+		inventory_image  = inv_texture,
+		wield_image      = inv_texture,
+		groups           = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
+		paramtype        = "light",
+		drawtype         = "nodebox",
+		node_box         = {
+			type  = "fixed",
 			fixed = {
-				{-0.15,-0.5,-0.15,0.15,0.4,0.15},
-				{-0.1,0.4,-0.1,0.1,0.5,0.1}
+				{ -0.15, -0.5, -0.15, 0.15, 0.4, 0.15 },
+				{ -0.1, 0.4, -0.1, 0.1, 0.5, 0.1 }
 			}
 		},
-		on_place = function(itemstack, placer, pointed_thing)
-	    	local pos = pointed_thing.above;
-	    	if(minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z}).name ~= "air") or (minetest.get_node({x=pos.x, y=pos.y+2, z=pos.z}).name ~= "air") then
-	    		minetest.chat_send_player( placer:get_player_name(), SL('Not enough space for lamppost to be placed') )
-	    		return;
-	    	end
-	    	return minetest.item_place(itemstack, placer, pointed_thing);
+		on_place         = function(itemstack, placer, pointed_thing)
+			local pos = pointed_thing.above;
+			if
+			(minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or
+				(minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
+			then
+				minetest.chat_send_player(placer:get_player_name(), SL('Not enough space for lamppost to be placed'))
+				return ;
+			end
+			return minetest.item_place(itemstack, placer, pointed_thing);
 		end,
-		after_place_node = function(pos,placer,itemstack)
-			minetest.set_node({x = pos.x, y = pos.y + 1, z = pos.z},{name = node_middle})
-			minetest.set_node({x = pos.x, y = pos.y + 2, z = pos.z},{name = node_top})
+		after_place_node = function(pos, placer, itemstack)
+			minetest.set_node({ x = pos.x, y = pos.y + 1, z = pos.z }, { name = node_middle })
+			minetest.set_node({ x = pos.x, y = pos.y + 2, z = pos.z }, { name = node_top })
 		end,
 	})
 	minetest.register_node(node_middle, {
-		drop = "",
-		groups = {choppy=2,oddly_breakable_by_hand=1,flammable=2, not_in_creative_inventory = 1},
-		tiles = {post2_texture},
+		drop      = "",
+		groups    = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, not_in_creative_inventory = 1 },
+		tiles     = { post2_texture },
 		paramtype = "light",
-		drawtype = "nodebox",
+		drawtype  = "nodebox",
 		pointable = false,
-		node_box = {
-			type = "fixed",
+		node_box  = {
+			type  = "fixed",
 			fixed = {
-				{-0.1,-0.5,-0.1,0.1,0.5,0.1}
+				{ -0.1, -0.5, -0.1, 0.1, 0.5, 0.1 }
 			}
 		}
 	})
 	minetest.register_node(node_top, {
-		drop = "lottblocks:lamp_" .. material,
-		groups = {choppy=2,oddly_breakable_by_hand=1,flammable=2, not_in_creative_inventory = 1},
-			tiles = {
-				top_texture, top_texture,
-				{
-					image = texture,
-					backface_culling = false,
-					animation = {
-						type = "vertical_frames",
-						aspect_w = 16,
-						aspect_h = 16,
-						length = 1.5
-					},
-	        	}
-			},
-		paramtype = "light",
-		drawtype = "nodebox",
-		light_source = 14,
-		node_box = {
-			type = "fixed",
-			fixed = {
-				{-0.1,-0.5,-0.1,0.1,-0.4,0.1},
-				{-0.3,-0.4,-0.3,0.3,0.5,0.3}
+		drop           = "lottblocks:lamp_" .. material,
+		groups         = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, not_in_creative_inventory = 1 },
+		tiles          = {
+			top_texture, top_texture,
+			{
+				image            = texture,
+				backface_culling = false,
+				animation        = {
+					type     = "vertical_frames",
+					aspect_w = 16,
+					aspect_h = 16,
+					length   = 1.5
+				},
 			}
 		},
-		selection_box = 	{
-			type = "fixed",
+		paramtype      = "light",
+		drawtype       = "nodebox",
+		light_source   = 14,
+		node_box       = {
+			type  = "fixed",
 			fixed = {
-				{-0.3,0.5,-0.3,0.3,-2.5,0.3},
+				{ -0.1, -0.5, -0.1, 0.1, -0.4, 0.1 },
+				{ -0.3, -0.4, -0.3, 0.3, 0.5, 0.3 }
+			}
+		},
+		selection_box  = {
+			type  = "fixed",
+			fixed = {
+				{ -0.3, 0.5, -0.3, 0.3, -2.5, 0.3 },
 			}
 		},
 		after_dig_node = function(pos)
-			minetest.remove_node({x = pos.x, y = pos.y - 1, z = pos.z})
-			minetest.remove_node({x = pos.x, y = pos.y - 2, z = pos.z})
+			minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+			minetest.remove_node({ x = pos.x, y = pos.y - 2, z = pos.z })
 		end
 	})
 	minetest.register_node(node_small, {
-		description = SL(description .. " Small Lamp"),
-		groups = {choppy=2,oddly_breakable_by_hand=1,flammable=2},
-		tiles = {
+		description   = SL(description .. " Small Lamp"),
+		groups        = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
+		tiles         = {
 			top_texture, top_texture,
 			{
-				image = texture,
+				image            = texture,
 				backface_culling = false,
-				animation = {
-					type = "vertical_frames",
+				animation        = {
+					type     = "vertical_frames",
 					aspect_w = 16,
 					aspect_h = 16,
-					length = 1.5
+					length   = 1.5
 				},
-	       	},
+			},
 		},
-		paramtype = "light",
-		drawtype = "nodebox",
-		light_source = 14,
-		node_box = {
-			type = "fixed",
+		paramtype     = "light",
+		drawtype      = "nodebox",
+		light_source  = 14,
+		node_box      = {
+			type  = "fixed",
 			fixed = {
-				{-0.1,-0.5,-0.1,0.1,-0.4,0.1},
-				{-0.3,-0.4,-0.3,0.3,0.5,0.3}
+				{ -0.1, -0.5, -0.1, 0.1, -0.4, 0.1 },
+				{ -0.3, -0.4, -0.3, 0.3, 0.5, 0.3 }
 			}
 		},
-		selection_box = 	{
-			type = "fixed",
+		selection_box = {
+			type  = "fixed",
 			fixed = {
-				{-0.1,-0.5,-0.1,0.1,-0.4,0.1},
-				{-0.3,-0.4,-0.3,0.3,0.5,0.3}
+				{ -0.1, -0.5, -0.1, 0.1, -0.4, 0.1 },
+				{ -0.3, -0.4, -0.3, 0.3, 0.5, 0.3 }
 			}
 		},
 	})
@@ -144,52 +149,53 @@ function lottblocks.register_lamp(material, description, inv_texture, post1_text
 		minetest.register_craft({
 			output = node_bottom,
 			recipe = {
-				{node_small},
-				{material_code_name},
-				{"castle:pillars_stonebrick_middle"},
+				{ node_small },
+				{ material_code_name },
+				{ "castle:pillars_stonebrick_middle" },
 			}
 		})
 		minetest.register_craft({
 			output = node_small,
 			recipe = {
-				{material_code_name, material_code_name, material_code_name},
-				{material_code_name, "lottother:blue_torch", material_code_name},
-				{material_code_name, material_code_name, material_code_name},
+				{ material_code_name, material_code_name, material_code_name },
+				{ material_code_name, "lottother:blue_torch", material_code_name },
+				{ material_code_name, material_code_name, material_code_name },
 			}
 		})
 	elseif race == "orc" then
 		minetest.register_craft({
 			output = node_bottom,
 			recipe = {
-				{node_small},
-				{material_code_name},
-				{"castle:pillars_orc_brick_middle"},
+				{ node_small },
+				{ material_code_name },
+				{ "castle:pillars_orc_brick_middle" },
 			}
 		})
 		minetest.register_craft({
 			output = node_small,
 			recipe = {
-				{material_code_name, material_code_name, material_code_name},
-				{material_code_name, "lottother:orc_torch", material_code_name},
-				{material_code_name, material_code_name, material_code_name},
+				{ material_code_name, material_code_name, material_code_name },
+				{ material_code_name, "lottother:orc_torch", material_code_name },
+				{ material_code_name, material_code_name, material_code_name },
 			}
 		})
 	end
 end
 
-lottblocks.register_lamp("wood", "Wood", "lottblocks_lamp_inv_wood.png", "default_stone_brick.png", "default_wood.png", "default_wood.png", "lottblocks_lamp_active_wood.png",  "default:stick", "elf")
-lottblocks.register_lamp("alder", "Alder", "lottblocks_lamp_inv_alder.png", "default_stone_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_lamp_active_alder.png",  "lottblocks:stick_alder", "elf")
-lottblocks.register_lamp("junglewood", "Junglewood", "lottblocks_lamp_inv_junglewood.png", "default_stone_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_lamp_active_junglewood.png",  "lottblocks:stick_junglewood", "elf")
-lottblocks.register_lamp("birch", "Birch", "lottblocks_lamp_inv_birch.png", "default_stone_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_lamp_active_birch.png",  "lottblocks:stick_birch", "elf")
-lottblocks.register_lamp("pine", "Pine", "lottblocks_lamp_inv_pine.png", "default_stone_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_lamp_active_pine.png",  "lottblocks:stick_pine", "elf")
-lottblocks.register_lamp("lebethron", "Lebethron", "lottblocks_lamp_inv_lebethron.png", "default_stone_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_lamp_active_lebethron.png",  "lottblocks:stick_lebethron", "elf")
-lottblocks.register_lamp("mallorn", "Mallorn", "lottblocks_lamp_inv_mallorn.png", "default_stone_brick.png", "lottplants_mallornwood.png", "lottplants_mallornwood.png", "lottblocks_lamp_active_mallorn.png",  "lottblocks:stick_mallorn", "elf")
+-- luacheck: no_max_line_length
+lottblocks.register_lamp("wood", "Wood", "lottblocks_lamp_inv_wood.png", "default_stone_brick.png", "default_wood.png", "default_wood.png", "lottblocks_lamp_active_wood.png", "default:stick", "elf")
+lottblocks.register_lamp("alder", "Alder", "lottblocks_lamp_inv_alder.png", "default_stone_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_lamp_active_alder.png", "lottblocks:stick_alder", "elf")
+lottblocks.register_lamp("junglewood", "Junglewood", "lottblocks_lamp_inv_junglewood.png", "default_stone_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_lamp_active_junglewood.png", "lottblocks:stick_junglewood", "elf")
+lottblocks.register_lamp("birch", "Birch", "lottblocks_lamp_inv_birch.png", "default_stone_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_lamp_active_birch.png", "lottblocks:stick_birch", "elf")
+lottblocks.register_lamp("pine", "Pine", "lottblocks_lamp_inv_pine.png", "default_stone_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_lamp_active_pine.png", "lottblocks:stick_pine", "elf")
+lottblocks.register_lamp("lebethron", "Lebethron", "lottblocks_lamp_inv_lebethron.png", "default_stone_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "elf")
+lottblocks.register_lamp("mallorn", "Mallorn", "lottblocks_lamp_inv_mallorn.png", "default_stone_brick.png", "lottplants_mallornwood.png", "lottplants_mallornwood.png", "lottblocks_lamp_active_mallorn.png", "lottblocks:stick_mallorn", "elf")
 
 --Orc lamps
 
-lottblocks.register_lamp("wood_orc", "Mordor Wooden", "lottblocks_orc_lamp_inv.png", "lottblocks_orc_brick.png", "default_wood.png", "default_wood.png", "lottblocks_orc_lamp_active.png",  "default:stick", "orc")
-lottblocks.register_lamp("alder_orc", "Mordor Alder", "lottblocks_orc_lamp_inv_alder.png", "lottblocks_orc_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_orc_lamp_active_alder.png",  "lottblocks:stick_alder", "orc")
-lottblocks.register_lamp("junglewood_orc", "Mordor Junglewood", "lottblocks_orc_lamp_inv_junglewood.png", "lottblocks_orc_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_orc_lamp_active_junglewood.png",  "lottblocks:stick_junglewood", "orc")
-lottblocks.register_lamp("birch_orc", "Mordor Birch", "lottblocks_orc_lamp_inv_birch.png", "lottblocks_orc_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_orc_lamp_active_birch.png",  "lottblocks:stick_birch", "orc")
-lottblocks.register_lamp("pine_orc", "Mordor Pine", "lottblocks_orc_lamp_inv_pine.png", "lottblocks_orc_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_orc_lamp_active_pine.png",  "lottblocks:stick_pine", "orc")
-lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_lamp_inv_lebethron.png", "lottblocks_orc_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_orc_lamp_active_lebethron.png",  "lottblocks:stick_lebethron", "orc")
+lottblocks.register_lamp("wood_orc", "Mordor Wooden", "lottblocks_orc_lamp_inv.png", "lottblocks_orc_brick.png", "default_wood.png", "default_wood.png", "lottblocks_orc_lamp_active.png", "default:stick", "orc")
+lottblocks.register_lamp("alder_orc", "Mordor Alder", "lottblocks_orc_lamp_inv_alder.png", "lottblocks_orc_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_orc_lamp_active_alder.png", "lottblocks:stick_alder", "orc")
+lottblocks.register_lamp("junglewood_orc", "Mordor Junglewood", "lottblocks_orc_lamp_inv_junglewood.png", "lottblocks_orc_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_orc_lamp_active_junglewood.png", "lottblocks:stick_junglewood", "orc")
+lottblocks.register_lamp("birch_orc", "Mordor Birch", "lottblocks_orc_lamp_inv_birch.png", "lottblocks_orc_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_orc_lamp_active_birch.png", "lottblocks:stick_birch", "orc")
+lottblocks.register_lamp("pine_orc", "Mordor Pine", "lottblocks_orc_lamp_inv_pine.png", "lottblocks_orc_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_orc_lamp_active_pine.png", "lottblocks:stick_pine", "orc")
+lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_lamp_inv_lebethron.png", "lottblocks_orc_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_orc_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "orc")

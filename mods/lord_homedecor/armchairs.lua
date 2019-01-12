@@ -2,7 +2,7 @@ local SL = lord.require_intllib()
 
 local armchair_cbox = {
 	type = "fixed",
-	fixed = { 
+	fixed = {
 		{-0.5, -0.5, -0.5, 0.5, 0, 0.5 },
 		{-0.5, -0.5, 0.4, 0.5, 0.5, 0.5 }
 	}

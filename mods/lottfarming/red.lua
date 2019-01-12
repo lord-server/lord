@@ -180,7 +180,7 @@ minetest.register_abm({
 				pos.z = pos.z+1
 			end
 		end
-		local name = ""
+		local name
 		if minetest.get_node(pos).name=="air" then
 			pos.y = pos.y-1
 			name = minetest.get_node(pos).name

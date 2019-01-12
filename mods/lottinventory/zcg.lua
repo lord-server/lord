@@ -11,10 +11,10 @@ zcg.itemlist = {}
 
 zcg.items_in_group = function(group)
 	local items = {}
-	local ok = true
+
 	for name, item in pairs(minetest.registered_items) do
 		-- the node should be in all groups
-		ok = true
+		local ok = true
 		for _, g in ipairs(group:split(',')) do
 			if not item.groups[g] then
 				ok = false
@@ -22,6 +22,7 @@ zcg.items_in_group = function(group)
 		end
 		if ok then table.insert(items,name) end
 	end
+
 	return items
 end
 
@@ -149,7 +150,13 @@ zcg.formspec = function(pn)
 				local x = 3
 				local y = 0
 				for i, item in pairs(c.items) do
-					formspec = formspec .. "item_image_button["..((i-1)%c.width+x)..","..(math.floor((i-1)/c.width+y))..";1,1;"..item..";zcg:"..item..";]"
+					formspec = formspec ..
+						"item_image_button[" ..
+							((i - 1) % c.width + x) .. "," .. (math.floor((i - 1) / c.width + y)) .. ";" ..
+							"1,1;" ..
+							item .. ";" ..
+							"zcg:" .. item .. ";" ..
+						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
 					formspec = formspec .. "image[6,2;1,1;zcg_method_"..c.type..".png]"
@@ -161,7 +168,7 @@ zcg.formspec = function(pn)
 			end
 		end
 	end
-	
+
 	-- Node list
 	local npp = 8*3 -- nodes per page
 	local i = 0 -- for positionning buttons
@@ -169,7 +176,13 @@ zcg.formspec = function(pn)
 	for _, name in ipairs(zcg.itemlist) do
 		if s < page*npp then s = s+1 else
 			if i >= npp then break end
-			formspec = formspec .. "item_image_button["..(i%8)..","..(math.floor(i/8)+3.5)..";1,1;"..name..";zcg:"..name..";]"
+			formspec = formspec ..
+				"item_image_button[" ..
+					(i % 8) .. "," .. (math.floor(i / 8) + 3.5) .. ";" ..
+					"1,1;" ..
+					name .. ";" ..
+					"zcg:" .. name .. ";" ..
+				"]"
 			i = i+1
 		end
 	end
@@ -179,9 +192,10 @@ zcg.formspec = function(pn)
 	if i >= npp then
 		formspec = formspec .. "button[1,7;1,.5;zcg_page:"..(page+1)..";>>]"
 	end
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zcg.itemlist/npp+1)).."]" -- The Y is approximatively the good one to have it centered vertically...
-     formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
-     formspec = formspec .. "label[0,0;"..SL("Book of Crafts").."]"
+	-- The Y is approximatively the good one to have it centered vertically...
+	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zcg.itemlist/npp+1)).."]"
+	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+	formspec = formspec .. "label[0,0;"..SL("Book of Crafts").."]"
 	return formspec
 end
 
@@ -225,11 +239,11 @@ end)
 
 minetest.register_tool("lottinventory:crafts_book",{
     description = SL("Book of Crafts"),
-    groups = {book=1, paper=1}, 
+    groups = {book=1, paper=1},
     inventory_image = "lottinventory_crafts_book.png",
     wield_image = "",
     wield_scale = {x=1,y=1,z=1},
-    stack_max = 1, 
+    stack_max = 1,
     tool_capabilities = {
         full_punch_interval = 1.0,
         max_drop_level=0,

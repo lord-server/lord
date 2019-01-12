@@ -42,7 +42,6 @@ function lottachievements._order_lottachievements(name)
 	local retval = {}
 	local retval2 = {}
 	local player = lottachievements.player(name)
-	local c = 0
 	if player and player.unlocked then
 		for _,got in pairs(player.unlocked) do
 			if lottachievements.def[got] then

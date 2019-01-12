@@ -150,7 +150,7 @@ minetest.register_alias("lord_homedecor:stair_hardwood", "stairs:stair_hardwood"
 minetest.register_alias("lord_homedecor:slab_Adobe", "stairs:slab_adobe")
 minetest.register_alias("lord_homedecor:slab_Roofing", "stairs:slab_roofing")
 minetest.register_alias("lord_homedecor:slab_grate", "stairs:slab_grate")
-minetest.register_alias("lord homedecor:slab_hardwood", "stairs:slab_hardwood")
+minetest.register_alias("lord_homedecor:slab_hardwood", "stairs:slab_hardwood")
 
 minetest.register_alias("lottthrowing:arrow_fire", "lottpotion:athelasbrew_power1_arrow")
 minetest.register_alias("lottthrowing:arrow_fire_entity", "lottpotion:limpe_power3_arrow")
@@ -238,7 +238,9 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname().." mod LOADED")
+end
 
 minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
 minetest.register_alias("lottthrowing:arrow_mithril", "arrows:arrow_mithril")

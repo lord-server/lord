@@ -3,8 +3,10 @@ local SL = lord.require_intllib()
 local SPRITE_VERSION = false	-- set to true to use upright sprites instead of meshes
 
 -- local variables
-	local l_spawn_in		= {"default:water_source", "default:water_flowing", "default:river_water_source", "default:river_water_flowing"}
-	local l_spawn_near		= {"default:sand","default:dirt","group:seaplants","group:seacoral"}
+	local l_spawn_in		= {
+		"default:water_source", "default:water_flowing", "default:river_water_source", "default:river_water_flowing"
+	}
+	local l_spawn_near		= { "default:sand", "default:dirt", "group:seaplants", "group:seacoral" }
 	local l_spawn_chance	= 10000
 	local l_cc_hand			= 25
 	local l_cc_net			= 80
@@ -18,7 +20,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 	local l_visual = "mesh"
 	local l_visual_size = {x=.75, y=.75}
 	local l_clown_mesh = "animal_clownfish.b3d"
-	local l_trop_mesh = "fish_blue_white.b3d"	
+	local l_trop_mesh = "fish_blue_white.b3d"
 	local l_clown_textures = {
 		{"clownfish.png"},
 		{"clownfish2.png"}
@@ -33,7 +35,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		l_visual = "upright_sprite"
 		l_visual_size = {x=.5, y=.5}
 		l_clown_mesh = nil
-		l_trop_mesh = nil		
+		l_trop_mesh = nil
 		l_clown_textures = {{"animal_clownfish_clownfish_item.png"}}
 		l_trop_textures = {{"animal_fish_blue_white_fish_blue_white_item.png"}}
 	end
@@ -69,7 +71,9 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		end
 	})
 	--name, nodes, neighbours, minlight, maxlight, interval, chance, active_object_count, min_height, max_height
-	mobs:spawn_specific("lottmobs:clownfish", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level)
+	mobs:spawn_specific(
+		"lottmobs:clownfish", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level
+	)
 	mobs:register_egg("lottmobs:clownfish", SL("Clownfish"), "animal_clownfish_clownfish_item.png", 0)
 
 -- Tropical fish

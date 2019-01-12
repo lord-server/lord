@@ -43,7 +43,7 @@ local old_upper = string.upper
 
 
 -- переопределяем старые функции для работы с русским алфавитом
-function string.lower(str)
+function string.lower(str) -- luacheck: ignore setting read-only field of global string
 	local new_str = old_lower(str)
 	for S, s in pairs(Alphabet) do
 		new_str = string.gsub(new_str, S, s)
@@ -51,7 +51,7 @@ function string.lower(str)
 	return new_str
 end
 
-function string.upper(str)
+function string.upper(str) -- luacheck: ignore setting read-only field of global string
 	local new_str = old_upper(str)
 	for S, s in pairs(Alphabet) do
 		new_str = string.gsub(new_str, s, S)
