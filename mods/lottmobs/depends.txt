@@ -5,3 +5,6 @@ bones
 lottores
 lord_money
 lordlib
+throwing
+lottthrowing
+arrows

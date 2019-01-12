@@ -13,7 +13,6 @@ clothing.set_player_clothing = function(self, player)
 		return
 	end
 	local clothing_texture = "lottarmor_trans.png"
-	local elements = {}
 	local textures = {}
 	local preview = multiskin:get_skin_name(name) or "clothing_preview"
 	preview = preview..".png"
@@ -68,10 +67,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_on_joinplayer(function(player)
-	multiskin:init(player)
-	local name = player:get_player_name()
-	local player_inv = player:get_inventory()
+minetest.register_on_joinplayer(function(joined_player)
+	multiskin:init(joined_player)
+	local name = joined_player:get_player_name()
+	local player_inv = joined_player:get_inventory()
 	local clothing_inv = minetest.create_detached_inventory(name.."_clothing",{
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
@@ -84,7 +83,6 @@ minetest.register_on_joinplayer(function(player)
 			clothing:update_inventory(player)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			local plaver_inv = player:get_inventory()
 			local stack = inv:get_stack(to_list, to_index)
 			player_inv:set_stack(to_list, to_index, stack)
 			player_inv:set_stack(from_list, from_index, nil)
@@ -117,6 +115,6 @@ minetest.register_on_joinplayer(function(player)
 			if inventory_plus == nil and unified_inventory == nil then
 				clothing:update_inventory(player)
 			end
-		end, player)
+		end, joined_player)
 	end
 end)

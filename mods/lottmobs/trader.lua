@@ -97,13 +97,13 @@ end
 
 function lottmobs.check_pay(inv,paynow)
 	local now_at_pay = inv.get_stack(inv,"payment",1)
-	local count = now_at_pay.get_count(now_at_pay)
-	local name  = now_at_pay.get_name(now_at_pay)
+	local count      = now_at_pay.get_count(now_at_pay)
+	local name       = now_at_pay.get_name(now_at_pay)
 
-	local price = inv.get_stack(inv,"price", 1)
+	local price_inv  = inv.get_stack(inv,"price", 1)
 
-	if price:get_name() == name then
-		local price = price:get_count()
+	if price_inv:get_name() == name then
+		local price = price_inv:get_count()
 		if price > 0 and
 			price <= count then
 			if paynow then
@@ -124,8 +124,7 @@ function lottmobs.check_pay(inv,paynow)
 end
 lottmobs.trader_inventories = {}
 
-function lottmobs.add_goods(entity, race)
-	local goods_to_add = nil
+function lottmobs.add_goods(same_race, race)
 	for i=1,15 do
 		if same_race == true then
 			if math.random(0, 100) > race.items_race[i][3] then
@@ -172,7 +171,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		allow_move = lottmobs.allow_move,
 		allow_put = lottmobs.allow_put,
 		allow_take = lottmobs.allow_take,
-		on_move = function(inventory, from_list, from_index, to_list, to_index, count, player)
+		on_move = function(inventory, from_list, from_index, to_list, to_index, count, _)
 			if from_list == "goods" and
 			to_list == "selection" then
 				local inv = inventory
@@ -186,10 +185,10 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 					inv.set_stack(inv,"goods",from_index,
 						goodname.." "..tostring( elements - count ))
 					-- update the real amount of items in the slot now
-					elements = count
+					-- закоментрона бессмысленная строка: (а вот коммент выше нужно реализовать)
+					-- elements = count
 				end
-				local good = nil
-				local good = nil
+				local good
 				if same_race == true then
 					for i = 1,#race.items_race,1 do
 						local stackstring = goodname .." " .. count
@@ -223,9 +222,14 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"price",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"payment",1)
-		lottmobs.add_goods(entity, race)
+		lottmobs.add_goods(same_race, race)
 	end
-	minetest.chat_send_player(player, "[NPC] <"..SL("Trader").." "..SL(self.game_name).."> "..SL("Hello")..", "..player..", \n"..SL(tostring(race.messages[math.random(1,#race.messages)])))
+	minetest.chat_send_player(
+		player,
+		"[NPC] <" .. SL("Trader") .. " " .. SL(self.game_name) .. "> " ..
+			SL("Hello") .. ", " .. player .. ", \n" ..
+			SL(tostring(race.messages[math.random(1, #race.messages)]))
+	)
 	minetest.show_formspec(player, "trade",
 		"size[8,10;]" ..
 		 "background[5,5;1,1;" .. image .. ";true]" ..

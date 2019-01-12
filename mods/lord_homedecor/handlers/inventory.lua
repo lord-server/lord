@@ -74,21 +74,24 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 	end
 
 	def.can_dig = def.can_dig or default_can_dig
-	def.on_metadata_inventory_move = def.on_metadata_inventory_move or function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", S("%s moves stuff in %s at %s"):format(
-			player:get_player_name(), name, minetest.pos_to_string(pos)
-		))
-	end
-	def.on_metadata_inventory_put = def.on_metadata_inventory_put or function(pos, listname, index, stack, player)
-		minetest.log("action", S("%s moves stuff to %s at %s"):format(
-			player:get_player_name(), name, minetest.pos_to_string(pos)
-		))
-	end
-	def.on_metadata_inventory_take = def.on_metadata_inventory_take or function(pos, listname, index, stack, player)
-		minetest.log("action", S("%s takes stuff from %s at %s"):format(
-			player:get_player_name(), name, minetest.pos_to_string(pos)
-		))
-	end
+	def.on_metadata_inventory_move = def.on_metadata_inventory_move or
+		function(pos, from_list, from_index, to_list, to_index, count, player)
+			minetest.log("action", S("%s moves stuff in %s at %s"):format(
+				player:get_player_name(), name, minetest.pos_to_string(pos)
+			))
+		end
+	def.on_metadata_inventory_put = def.on_metadata_inventory_put or
+		function(pos, listname, index, stack, player)
+			minetest.log("action", S("%s moves stuff to %s at %s"):format(
+				player:get_player_name(), name, minetest.pos_to_string(pos)
+			))
+		end
+	def.on_metadata_inventory_take = def.on_metadata_inventory_take or
+		function(pos, listname, index, stack, player)
+			minetest.log("action", S("%s takes stuff from %s at %s"):format(
+				player:get_player_name(), name, minetest.pos_to_string(pos)
+			))
+		end
 
 	local locked = inventory.locked
 	if locked then

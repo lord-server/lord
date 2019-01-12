@@ -197,4 +197,4 @@ dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 -- ========= OTHER =========
 dofile(minetest.get_modpath("lottfarming").."/other.lua")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+lord.mod_loaded()

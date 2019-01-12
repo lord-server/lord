@@ -15,8 +15,6 @@
 --
 local SL = lord.require_intllib()
 
-local S = lottachievements.gettext
-
 dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
 
 -- Table Save Load Functions
@@ -50,8 +48,8 @@ end
 function lottachievements.register_trigger(name, func)
 	lottachievements.trigger_types[name] = func
 	lottachievements.on[name] = {}
-	lottachievements['register_on_'..name] = function(func)
-		table.insert(lottachievements.on[name], func)
+	lottachievements['register_on_'..name] = function(handler)
+		table.insert(lottachievements.on[name], handler)
 	end
 end
 
@@ -423,8 +421,9 @@ function lottachievements.getFormspec(name, to, sid)
 				if perc > 1 then
 					perc = 1
 				end
-				formspec = formspec .. "background[0,4.675;" .. barwidth ..",0.425;lottachievements_progress_gray.png;false]"
-				formspec = formspec .. "background[0,4.675;" .. (barwidth * perc) ..",0.425;lottachievements_progress_green.png;false]"
+				formspec = formspec ..
+					"background[0,4.675;" .. barwidth .. ",0.425;lottachievements_progress_gray.png;false]" ..
+					"background[0,4.675;" .. (barwidth * perc) .. ",0.425;lottachievements_progress_green.png;false]"
 				if label then
 					formspec = formspec .. "label[1.75,4.63;" .. minetest.formspec_escape(label) .. "]"
 				end

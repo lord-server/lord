@@ -10,15 +10,15 @@ minetest.register_chatcommand("privs", {
 		local privs_table = minetest.get_player_privs(param)
 		local privs = ""
 		local i = 1
-		for key,value in pairs(privs_table) do
-			if key:match("GAME", 1) then
-				key, value = nil
-			elseif i == 1 then
-				privs = privs .. key
-			else
-				privs = privs .. ", " .. key
+		for key,_ in pairs(privs_table) do
+			if not key:match("GAME", 1) then
+				if i == 1 then
+					privs = privs .. key
+				else
+					privs = privs .. ", " .. key
+				end
+				i = i + 1
 			end
-			i = i + 1
 		end
 		return true, "Privileges of " .. param .. ": " .. privs
 	end,
@@ -63,17 +63,20 @@ minetest.register_chatcommand("grant", {
 		local privs_table = minetest.get_player_privs(grant_name)
 		local privs_string = ""
 		local i = 1
-		for key,value in pairs(privs_table) do
-			if key:match("GAME", 1) then
-				key, value = nil
-			elseif i == 1 then
-				privs_string = privs_string .. key
-			else
-				privs_string = privs_string .. ", " .. key
+		for key,_ in pairs(privs_table) do
+			if not key:match("GAME", 1) then
+				if i == 1 then
+					privs = privs .. key
+				else
+					privs = privs .. ", " .. key
+				end
+				i = i + 1
 			end
-			i = i + 1
 		end
-		minetest.log("action", name..' granted ' .. minetest.privs_to_string(grantprivs, ', ') .. ' privileges to '.. grant_name)
+		minetest.log(
+			"action",
+			name..' granted ' .. minetest.privs_to_string(grantprivs, ', ') .. ' privileges to '.. grant_name
+		)
 		if grant_name ~= name then
 			minetest.chat_send_player(grant_name, name
 					.. " granted you privileges: "
@@ -123,15 +126,15 @@ minetest.register_chatcommand("revoke", {
         local privs_table = minetest.get_player_privs(revoke_name)
 		local privs_string = ""
 		local i = 1
-		for key,value in pairs(privs_table) do
-			if key:match("GAME", 1) then
-				key, value = nil
-			elseif i == 1 then
-				privs_string = privs_string .. key
-			else
-				privs_string = privs_string .. ", " .. key
+		for key,_ in pairs(privs_table) do
+			if not key:match("GAME", 1) then
+				if i == 1 then
+					privs = privs .. key
+				else
+					privs = privs .. ", " .. key
+				end
+				i = i + 1
 			end
-			i = i + 1
 		end
 		minetest.log("action", name..' revoked ('
 				..minetest.privs_to_string(revoke_privs, ', ')

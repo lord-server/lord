@@ -91,11 +91,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	for field, _ in pairs(fields) do
 		if string.find(field, "skins_set") then
-			minetest.after(0, function(player)
+			minetest.after(0, function(updated_player)
 				local skin = multiskin:get_skin_name(name)
 				if skin then
 					multiskin[name].skin = skin..".png"
-					multiskin:update_player_visuals(player)
+					multiskin:update_player_visuals(updated_player)
 				end
 			end, player)
 		end

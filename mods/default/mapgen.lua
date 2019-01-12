@@ -206,14 +206,16 @@ minetest.register_ore({
 	y_min     = -10,
 })
 
-function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, y_min, y_max)
+function default.generate_ore(
+	name, wherein, minp, maxp, seed, chunks_per_volume, chunk_size, ore_per_chunk, y_min, y_max
+)
 	minetest.log('action', "WARNING: default.generate_ore is deprecated")
 
 	if maxp.y < y_min or minp.y > y_max then
 		return
 	end
-	local y_min = math.max(minp.y, y_min)
-	local y_max = math.min(maxp.y, y_max)
+	y_min = math.max(minp.y, y_min)
+	y_max = math.min(maxp.y, y_max)
 	if chunk_size >= y_max - y_min + 1 then
 		return
 	end
@@ -221,13 +223,13 @@ function default.generate_ore(name, wherein, minp, maxp, seed, chunks_per_volume
 	local pr = PseudoRandom(seed)
 	local num_chunks = math.floor(chunks_per_volume * volume)
 	local inverse_chance = math.floor(chunk_size*chunk_size*chunk_size / ore_per_chunk)
-	--print("generate_ore num_chunks: "..dump(num_chunks))
+
 	for i=1,num_chunks do
 		local y0 = pr:next(y_min, y_max-chunk_size+1)
 		if y0 >= y_min and y0 <= y_max then
 			local x0 = pr:next(minp.x, maxp.x-chunk_size+1)
 			local z0 = pr:next(minp.z, maxp.z-chunk_size+1)
-			local p0 = {x=x0, y=y0, z=z0}
+
 			for x1=0,chunk_size-1 do
 			for y1=0,chunk_size-1 do
 			for z1=0,chunk_size-1 do
@@ -306,8 +308,8 @@ function generate_nyancats(seed, minp, maxp)
 	if maxp.y < y_min or minp.y > y_max then
 		return
 	end
-	local y_min = math.max(minp.y, y_min)
-	local y_max = math.min(maxp.y, y_max)
+	y_min = math.max(minp.y, y_min)
+	y_max = math.min(maxp.y, y_max)
 	local volume = (maxp.x-minp.x+1)*(y_max-y_min+1)*(maxp.z-minp.z+1)
 	local pr = PseudoRandom(seed + 9324342)
 	local max_num_nyancats = math.floor(volume / (16*16*16))
@@ -324,11 +326,12 @@ end
 
 minetest.register_on_generated(function(minp, maxp, seed)
 	if maxp.y >= 2 and minp.y <= 0 then
+		local perlin1, divlen, divs
 		-- Generate papyrus
-		local perlin1 = minetest.get_perlin(354, 3, 0.7, 100)
+		perlin1 = minetest.get_perlin(354, 3, 0.7, 100)
 		-- Assume X and Z lengths are equal
-		local divlen = 8
-		local divs = (maxp.x-minp.x)/divlen+1;
+		divlen = 8
+		divs = (maxp.x-minp.x)/divlen+1;
 		for divx=0,divs-1 do
 		for divz=0,divs-1 do
 			local x0 = minp.x + math.floor((divx+0)*divlen)
@@ -350,10 +353,10 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 		end
 		-- Generate cactuses
-		local perlin1 = minetest.get_perlin(230, 3, 0.6, 100)
+		perlin1 = minetest.get_perlin(230, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
-		local divlen = 16
-		local divs = (maxp.x-minp.x)/divlen+1;
+		divlen = 16
+		divs = (maxp.x-minp.x)/divlen+1;
 		for divx=0,divs-1 do
 		for divz=0,divs-1 do
 			local x0 = minp.x + math.floor((divx+0)*divlen)
@@ -383,10 +386,10 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		end
 		end
 		-- Generate grass
-		local perlin1 = minetest.get_perlin(329, 3, 0.6, 100)
+		perlin1 = minetest.get_perlin(329, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
-		local divlen = 16
-		local divs = (maxp.x-minp.x)/divlen+1;
+		divlen = 16
+		divs = (maxp.x-minp.x)/divlen+1;
 		for divx=0,divs-1 do
 		for divz=0,divs-1 do
 			local x0 = minp.x + math.floor((divx+0)*divlen)

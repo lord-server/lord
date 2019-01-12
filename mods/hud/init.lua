@@ -43,7 +43,7 @@ end
 
 --load custom settings
 local set = io.open(minetest.get_modpath("hud").."/hud.conf", "r")
-if set then 
+if set then
 	dofile(minetest.get_modpath("hud").."/hud.conf")
 	set:close()
 else
@@ -73,7 +73,7 @@ end
  if minetest.settings:get_bool("enable_damage") then
  --hunger
 	if HUD_ENABLE_HUNGER then
-       	 player:hud_add({
+		player:hud_add({
 		hud_elem_type = "statbar",
 		position = HUD_HUNGER_POS,
 		scale = {x=1, y=1},
@@ -221,7 +221,7 @@ hud.set_hunger = function(player)
 	if not inv  or not value then return nil end
 	if value > 30 then value = 30 end
 	if value < 0 then value = 0 end
-	
+
 	inv:set_stack("hunger", 1, ItemStack({name=":", count=value+1}))
 
 	return true
@@ -298,11 +298,11 @@ minetest.after(2.5, function()
 			 update_hud(player)
 			end
 		 end
-		
+
 		end
 		if timer > 4 then timer = 0 end
 		if timer2 > HUD_HUNGER_TICK then timer2 = 0 end
 	end)
 end)
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+lord.mod_loaded()

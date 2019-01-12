@@ -1,5 +1,7 @@
 function lord_homedecor.sit(pos, node, clicker)
+	-- luacheck: ignore
 	do return end -- delete it when the engine is stabler for the player's physics
+
 	local meta = minetest.get_meta(pos)
 	local param2 = node.param2
 	local name = clicker:get_player_name()

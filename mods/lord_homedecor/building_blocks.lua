@@ -236,10 +236,7 @@ minetest.register_node("lord_homedecor:gravel_spread", {
 	sunlight_propagates = true,
 	is_ground_content = true,
 	groups = {crumbly=2},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_gravel_footstep", gain=0.5},
-		dug = {name="default_gravel_footstep", gain=1.0},
-	}),
+	sounds = default.node_sound_gravel_defaults(),
 })
 minetest.register_node("lord_homedecor:hardwood", {
 	tiles = {"building_blocks_hardwood.png"},

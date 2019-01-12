@@ -2,7 +2,7 @@ local SL = lord.require_intllib()
 
 lottblocks = {}
 
-dofile(minetest.get_modpath("lottblocks").."/wooden_stuff.lua") --This has trapdoors, doors, tables and chairs in all the kinds of wood.
+dofile(minetest.get_modpath("lottblocks").."/wooden_stuff.lua") --trapdoors, doors, tables and chairs in all woods.
 dofile(minetest.get_modpath("lottblocks").."/misc.lua")
 dofile(minetest.get_modpath("lottblocks").."/music.lua") --This has musical insturments, and the music they play.
 dofile(minetest.get_modpath("lottblocks").."/decoration.lua") --This has various decoration nodes, by catninja.
@@ -58,4 +58,4 @@ minetest.register_craft({
 	}
 })
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+lord.mod_loaded()

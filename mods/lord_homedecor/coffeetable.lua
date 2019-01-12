@@ -3,7 +3,14 @@ local SL = lord.require_intllib()
 minetest.register_node("lord_homedecor:coffeetable_back", {
 	description = SL("Coffee Table"),
 	drawtype = "nodebox",
-	tiles = {"lrfurn_coffeetable_back.png", "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png",  "lrfurn_coffeetable_back.png"},
+	tiles = {
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+		"lrfurn_coffeetable_back.png",
+	},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
@@ -70,7 +77,7 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 
 		if minetest.is_protected(pos, digger:get_player_name()) then return true end
 
-		if (minetest.get_node({x=pos.x, y=pos.y, z=pos.z}).name == "lord_homedecor:coffeetable_front") 
+		if (minetest.get_node({x=pos.x, y=pos.y, z=pos.z}).name == "lord_homedecor:coffeetable_front")
 		  and (minetest.get_node({x=pos.x, y=pos.y, z=pos.z}).param2 == param2) then
 				minetest.remove_node(pos)
 		end
@@ -79,7 +86,14 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 
 minetest.register_node("lord_homedecor:coffeetable_front", {
 	drawtype = "nodebox",
-	tiles = {"lrfurn_coffeetable_front.png", "lrfurn_coffeetable_front.png",  "lrfurn_coffeetable_front.png",  "lrfurn_coffeetable_front.png",  "lrfurn_coffeetable_front.png",  "lrfurn_coffeetable_front.png"},
+	tiles = {
+		"lrfurn_coffeetable_front.png",
+		"lrfurn_coffeetable_front.png",
+		"lrfurn_coffeetable_front.png",
+		"lrfurn_coffeetable_front.png",
+		"lrfurn_coffeetable_front.png",
+		"lrfurn_coffeetable_front.png",
+	},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},

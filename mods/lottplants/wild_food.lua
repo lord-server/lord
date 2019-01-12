@@ -94,7 +94,14 @@ minetest.register_node("lottplants:corn_wild", {
 minetest.register_node("lottplants:cabbage_wild", {
 	description = SL("Wild Cabbage"),
 	paramtype2 = "facedir",
-	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
+	tiles = {
+		"lottfarming_cabbage_top.png",
+		"lottfarming_cabbage_top.png",
+		"lottfarming_cabbage_side.png",
+		"lottfarming_cabbage_side.png",
+		"lottfarming_cabbage_side.png",
+		"lottfarming_cabbage_side.png",
+	},
 	sunlight_propagates = true,
 	paramtype = "light",
 	drawtype = "nodebox",
@@ -127,7 +134,14 @@ minetest.register_node("lottplants:cabbage_wild", {
 minetest.register_node("lottplants:melon_wild", {
 	description = SL("Wild Melon"),
 	paramtype2 = "facedir",
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
+	tiles = {
+		"lottfarming_melon_top.png",
+		"lottfarming_melon_top.png",
+		"lottfarming_melon_side.png",
+		"lottfarming_melon_side.png",
+		"lottfarming_melon_side.png",
+		"lottfarming_melon_side.png",
+	},
 	sunlight_propagates = true,
 	paramtype = "light",
 	drawtype = "nodebox",

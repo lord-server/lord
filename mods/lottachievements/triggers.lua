@@ -313,9 +313,9 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 				local tnodedug = string.split(entry.node, ":")
 				local tmod = tnodedug[1]
 				local titem = tnodedug[2]
-				if not tmod or not titem or not data.count[tmod] or not data.count[tmod][titem] then
-					-- table running failed!
-				elseif data.count[tmod][titem] > entry.target-1 then
+				if tmod and titem and data.count[tmod] and data.count[tmod][titem] and
+					data.count[tmod][titem] > entry.target - 1
+				then
 					return entry.award
 				end
 			elseif lottachievements.get_total_item_count(data, "count") > entry.target-1 then
@@ -340,9 +340,9 @@ minetest.register_on_placenode(function(pos, node, digger)
 				local tnodedug = string.split(entry.node, ":")
 				local tmod = tnodedug[1]
 				local titem = tnodedug[2]
-				if not tmod or not titem or not data.place[tmod] or not data.place[tmod][titem] then
-					-- table running failed!
-				elseif data.place[tmod][titem] > entry.target-1 then
+				if tmod and titem and data.place[tmod] and data.place[tmod][titem] and
+					data.place[tmod][titem] > entry.target - 1
+				then
 					return entry.award
 				end
 			elseif lottachievements.get_total_item_count(data, "place") > entry.target-1 then
@@ -370,9 +370,9 @@ minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack,
 				local titemstring = string.split(entry.item, ":")
 				local tmod = titemstring[1]
 				local titem = titemstring[2]
-				if not tmod or not titem or not data.eat[tmod] or not data.eat[tmod][titem] then
-					-- table running failed!
-				elseif data.eat[tmod][titem] > entry.target-1 then
+				if tmod and titem and data.eat[tmod] and data.eat[tmod][titem] and
+					data.eat[tmod][titem] > entry.target - 1
+				then
 					return entry.award
 				end
 			elseif lottachievements.get_total_item_count(data, "eat") > entry.target-1 then
@@ -398,10 +398,9 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 				local titemcrafted = string.split(entry.item, ":")
 				local tmod = titemcrafted[1]
 				local titem = titemcrafted[2]
-				if not tmod or not titem or not data.craft[tmod] or not data.craft[tmod][titem] then
-					-- table running failed!
-				elseif data.craft[tmod][titem] > entry.target-1 then
-					--print("вызов функции run_trigger_callbacks")
+				if tmod and titem and data.craft[tmod] and data.craft[tmod][titem] and
+					data.craft[tmod][titem] > entry.target - 1
+				then
 					if entry.effect and type(entry.effect) == "function" then
 						entry.effect(player)
 					end
@@ -504,9 +503,9 @@ function lottachievements.equip(stack, player, count)
 			local titemequipped = string.split(entry.item, ":")
 			local tmod = titemequipped[1]
 			local titem = string.split(titemequipped[2], "_", false, 1)[2]
-			if not tmod or not titem or not data.equip[tmod] or not data.equip[tmod][titem] then
-				-- table running failed!
-			elseif data.equip[tmod][titem] > 3 then
+			if tmod and titem and data.equip[tmod] and data.equip[tmod][titem] and
+				data.equip[tmod][titem] > 3
+			then
 				return entry.award
 			end
 		end
@@ -535,9 +534,9 @@ function lottachievements.kill(name, player)
 			local tmobkilled = string.split(entry.mob, ":")
 			local tmod = tmobkilled[1]
 			local tmob = tmobkilled[2]
-			if not tmod or not tmob or not data.kill[tmod] or not data.kill[tmod][tmob] then
-				-- table running failed!
-			elseif data.kill[tmod][tmob] > entry.target-1 then
+			if tmod and tmob and data.kill[tmod] and data.kill[tmod][tmob] and
+				data.kill[tmod][tmob] > entry.target - 1
+			then
 				return entry.award
 			end
 		end

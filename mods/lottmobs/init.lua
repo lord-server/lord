@@ -51,7 +51,6 @@ dofile(minetest.get_modpath("lottmobs").."/trader.lua")
 dofile(minetest.get_modpath("lottmobs").."/special_mobs.lua")
 dofile(minetest.get_modpath("lottmobs").."/animals.lua")
 dofile(minetest.get_modpath("lottmobs").."/fishes.lua")
---dofile(minetest.get_modpath("lottmobs").."/dragons.lua")
 
 dofile(minetest.get_modpath("lottmobs").."/eggs.lua")
 -- Mobs
@@ -738,7 +737,12 @@ mobs:register_mob("lottmobs:hobbit", {
 })
 --mobs:register_spawn("lottmobs:hobbit", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
 
-local orc_armor = "lottarmor_chestplate_steel.png^lottarmor_leggings_steel.png^lottarmor_helmet_steel.png^lottarmor_boots_steel.png^lottarmor_shield_steel.png^[colorize:#00000055"
+local orc_armor = "lottarmor_chestplate_steel.png^" ..
+	"lottarmor_leggings_steel.png^" ..
+	"lottarmor_helmet_steel.png^" ..
+	"lottarmor_boots_steel.png^" ..
+	"lottarmor_shield_steel.png^" ..
+	"[colorize:#00000055"
 
 mobs:register_mob("lottmobs:orc", {
 	type = "monster",
@@ -832,6 +836,207 @@ mobs:register_mob("lottmobs:orc", {
 	group_attack = true,
 	step = 1,
 })
+
+mobs:register_mob("lottmobs:orc_crossbowman", {
+	type = "monster",
+	hp_min = 15,
+	hp_max = 35,
+	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
+	visual = "mesh",
+	mesh = "lottarmor_character.b3d",
+	textures = {
+		{"lottmobs_orc.png", "lottarmor_trans.png", "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottclothes_cloak_mordor.png"},
+		{"lottmobs_orc_1.png", "lottarmor_trans.png", "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_1.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_1.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottclothes_cloak_mordor.png"},
+		{"lottmobs_orc_2.png", "lottarmor_trans.png", "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_2.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_2.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottclothes_cloak_mordor.png"},
+	},
+	makes_footstep_sound = true,
+	view_range = 15,
+	walk_velocity = 1.5,
+	armor = 200,
+	run_velocity = 3,
+	damage = 2,
+	drops = {
+		{name = "bones:bone",
+		chance = 5,
+		min = 1,
+		max = 2,},
+		{name = "lottmobs:rotten_meat",
+		chance = 7,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:orc_food",
+		chance = 17,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:orc_medicine",
+		chance = 17,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:potato",
+		chance = 14,
+		min = 1,
+		max = 2,},
+		{name = "lottfarming:turnip",
+		chance = 14,
+		min = 1,
+		max = 2,},
+		{name = "lottfarming:red_mushroom",
+		chance = 10,
+		min = 1,
+		max = 8,},
+		{name = "lottclothes:cloak_mordor",
+		chance = 17,
+		min = 1,
+		max = 1,},
+		{name = "lottpotion:wine",
+		chance = 26,
+		min = 1,
+		max = 2,},
+	},
+	light_resistant = true,
+	drawtype = "front",
+	water_damage = 5,
+	lava_damage = 10,
+	light_damage = 0,
+	on_rightclick = nil,
+	attack_type = "dogshoot",
+	dogshoot_switch = 1,
+	dogshoot_count_max = 21, -- shoot for 21 seconds - 2 bolts
+	dogshoot_count2_max = 5, -- dogfight for 5 seconds
+	reach = 3,
+	shoot_interval = 10,
+	shoot_offset = 2.1,
+	arrow = "arrows:bolt_steel",
+	animation = {
+		speed_normal = 15,
+		speed_run = 15,
+		stand_start = 0,
+		stand_end = 79,
+		walk_start = 168,
+		walk_end = 187,
+		run_start = 168,
+		run_end = 187,
+		punch_start = 189,
+		punch_end = 198,
+	},
+	jump = true,
+	sounds = {
+		war_cry = "mobs_barbarian_yell1",
+		death = "mobs_death1",
+		attack = "default_punch2",
+	},
+	attacks_monsters = true,
+	peaceful = true,
+	group_attack = true,
+	step = 1,
+})
+
+mobs:register_mob("lottmobs:orc_archer", {
+	type = "monster",
+	hp_min = 15,
+	hp_max = 35,
+	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
+	visual = "mesh",
+	mesh = "lottarmor_character.b3d",
+	textures = {
+		{"lottmobs_orc.png", "lottarmor_trans.png", "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc.png", orc_armor, "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc.png", orc_armor, "lottthrowing_bow_wood.png", "lottclothes_cloak_mordor.png"},
+		{"lottmobs_orc_1.png", "lottarmor_trans.png", "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_1.png", orc_armor, "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_1.png", orc_armor, "lottthrowing_bow_wood.png", "lottclothes_cloak_mordor.png"},
+		{"lottmobs_orc_2.png", "lottarmor_trans.png", "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_2.png", orc_armor, "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
+		{"lottmobs_orc_2.png", orc_armor, "lottthrowing_bow_wood.png", "lottclothes_cloak_mordor.png"},
+	},
+	makes_footstep_sound = true,
+	view_range = 15,
+	walk_velocity = 1.5,
+	armor = 200,
+	run_velocity = 3,
+	damage = 2,
+	drops = {
+		{name = "bones:bone",
+		chance = 5,
+		min = 1,
+		max = 2,},
+		{name = "lottmobs:rotten_meat",
+		chance = 7,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:orc_food",
+		chance = 17,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:orc_medicine",
+		chance = 17,
+		min = 1,
+		max = 3,},
+		{name = "lottfarming:potato",
+		chance = 14,
+		min = 1,
+		max = 2,},
+		{name = "lottfarming:turnip",
+		chance = 14,
+		min = 1,
+		max = 2,},
+		{name = "lottfarming:red_mushroom",
+		chance = 10,
+		min = 1,
+		max = 8,},
+		{name = "lottclothes:cloak_mordor",
+		chance = 17,
+		min = 1,
+		max = 1,},
+		{name = "lottpotion:wine",
+		chance = 26,
+		min = 1,
+		max = 2,},
+	},
+	light_resistant = true,
+	drawtype = "front",
+	water_damage = 5,
+	lava_damage = 10,
+	light_damage = 0,
+	on_rightclick = nil,
+	attack_type = "dogshoot",
+	dogshoot_switch = 1,
+	dogshoot_count_max = 12, -- shoot for 10 seconds
+	dogshoot_count2_max = 3, -- dogfight for 3 seconds
+	reach = 3,
+	shoot_interval = 2.5,
+	shoot_offset = 2.1,
+	arrow = "arrows:arrow_steel",
+	animation = {
+		speed_normal = 15,
+		speed_run = 15,
+		stand_start = 0,
+		stand_end = 79,
+		walk_start = 168,
+		walk_end = 187,
+		run_start = 168,
+		run_end = 187,
+		punch_start = 189,
+		punch_end = 198,
+	},
+	jump = true,
+	sounds = {
+		war_cry = "mobs_barbarian_yell1",
+		death = "mobs_death1",
+		attack = "default_punch2",
+	},
+	attacks_monsters = true,
+	peaceful = true,
+	group_attack = true,
+	step = 1,
+})
+
 
 mobs:register_mob("lottmobs:raiding_orc", {
 	type = "monster",
@@ -1103,11 +1308,8 @@ mobs:register_mob("lottmobs:nazgul", {
 	light_damage = 0,
 	on_rightclick = nil,
 	attack_type = "shoot",
-	arrow = "lottmobs:darkball",
+	arrow = "arrows:darkball",
 	shoot_interval = 4,
-	sounds = {
-		attack = "lottmobs:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,
@@ -1161,11 +1363,8 @@ mobs:register_mob("lottmobs:witch_king", {
 	light_damage = 0,
 	on_rightclick = nil,
 	attack_type = "shoot",
-	arrow = "lottmobs:darkball",
+	arrow = "arrows:darkball",
 	shoot_interval = 2,
-	sounds = {
-		attack = "lottmobs:darkball",
-	},
 	animation = {
 		speed_normal = 15,
 		speed_run = 15,
@@ -1234,7 +1433,7 @@ mobs:register_mob("lottmobs:balrog", {
 	dogshoot_count2_max = 3, -- dogfight for 3 seconds
 	reach = 3,
 	shoot_interval = 2.5,
-	arrow = "lottmobs:fireball",
+	arrow = "arrows:fireball",
 	shoot_offset = 1,
 	jump = true,
 	sounds = {
@@ -1365,130 +1564,7 @@ mobs:register_mob("lottmobs:troll", {
 	step = 1,
 })
 
--- Arrows
-
-local flame_node = function(pos)
-	local n = minetest.get_node(pos).name
-	local fbd = minetest.registered_nodes[n].groups.forbidden
-	if fbd == nil then
-		if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
-			minetest.set_node(pos, {name="fire:basic_flame"})
-		else
-			minetest.remove_node(pos)
-		end
-	end
-end
-
-local flame_area = function(p1, p2)
-	local x
-	local y
-	local z
-	for y=p1.y,p2.y do
-	for z=p1.z,p2.z do
-		minetest.punch_node({x=p1.x-1, y=y, z=z})
-		minetest.punch_node({x=p2.x+1, y=y, z=z})
-	end
-	end
-
-	for x=p1.x,p2.x do
-	for z=p1.z,p2.z do
-		minetest.punch_node({x=x, y=p1.y-1, z=z})
-		minetest.punch_node({x=x, y=p2.y+1, z=z})
-	end
-	end
-
-	for x=p1.x,p2.x do
-	for y=p1.y,p2.y do
-		minetest.punch_node({x=x, y=y, z=p1.z-1})
-		minetest.punch_node({x=x, y=y, z=p2.z+1})
-	end
-	end
-
-	for x=p1.x,p2.x do
-		for y=p1.y,p2.y do
-			for z=p1.z,p2.z do
-				flame_node({x=x, y=y, z=z})
-			end
-		end
-	end
-end
-
-mobs:register_arrow("lottmobs:darkball", {
-	visual = "sprite",
-	visual_size = {x=1, y=1},
-	textures = {"lottmobs_darkball.png"},
-	velocity = 5,
-	hit_player = function(self, player)
-		local s = self.object:getpos()
-		local p = player:getpos()
-		local vec = {x=s.x-p.x, y=s.y-p.y, z=s.z-p.z}
-		player:punch(self.object, 1.0,  {
-			full_punch_interval=1.0,
-			damage_groups = {fleshy=4},
-		}, vec)
-		local pos = self.object:getpos()
-		local p1 = {x=pos.x-1, y=pos.y-1, z=pos.z-1}
-		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
-		flame_area(p1, p2)
-	end,
-	hit_node = function(self, pos, node)
-		local p1 = {x=pos.x-1, y=pos.y-2, z=pos.z-1}
-		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
-		flame_area(p1, p2)
-	end
-})
-
--- fireball (weapon)
-mobs:register_arrow("lottmobs:fireball", {
-	visual = "sprite",
-	visual_size = {x = 1, y = 1},
-	textures = {"mobs_fireball.png"},
-	velocity = 6,
-	tail = 1,
-	tail_texture = "mobs_fireball.png",
-	tail_size = 10,
-	glow = 5,
-	expire = 0.1,
-
-	-- direct hit, no fire... just plenty of pain
-	--hit_player = function(self, player)
-		--player:punch(self.object, 1.0, {
-	--		full_punch_interval = 1.0,
-	--		damage_groups = {fleshy = 8},
-	--	}, nil)
-	--end,
-	hit_player = function(self, player)
-		local s = self.object:getpos()
-		local p = player:getpos()
-		local vec = {x=s.x-p.x, y=s.y-p.y, z=s.z-p.z}
-		player:punch(self.object, 1.0,  {
-			full_punch_interval=1.0,
-			damage_groups = {fleshy=4},
-		}, vec)
-		local pos = self.object:getpos()
-		local p1 = {x=pos.x-1, y=pos.y-1, z=pos.z-1}
-		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
-		flame_area(p1, p2)
-	end,
-
-	hit_mob = function(self, player)
-		player:punch(self.object, 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups = {fleshy = 8},
-		}, nil)
-	end,
-
-	-- node hit, bursts into flame
-	--hit_node = function(self, pos, node)
-	--	mobs:explosion(pos, 1, 1, 0)
-	--end
-	hit_node = function(self, pos, node)
-		local p1 = {x=pos.x-1, y=pos.y-2, z=pos.z-1}
-		local p2 = {x=pos.x+1, y=pos.y+1, z=pos.z+1}
-		flame_area(p1, p2)
-	end
-})
 
 dofile(minetest.get_modpath("lottmobs").."/spawn.lua")
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+lord.mod_loaded()
