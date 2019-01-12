@@ -6,3 +6,4 @@ lottmobs
 lottores
 lottplants
 lottpotion
+lordlib

@@ -297,6 +297,4 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." mod LOADED")
-end
+lord.mod_loaded()

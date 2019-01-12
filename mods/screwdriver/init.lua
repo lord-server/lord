@@ -155,6 +155,4 @@ minetest.register_alias("screwdriver:screwdriver2", "screwdriver:screwdriver")
 minetest.register_alias("screwdriver:screwdriver3", "screwdriver:screwdriver")
 minetest.register_alias("screwdriver:screwdriver4", "screwdriver:screwdriver")
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." mod LOADED")
-end
+lord.mod_loaded()

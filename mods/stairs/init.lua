@@ -311,6 +311,4 @@ function stairs.register_stair_and_slab(subname, recipeitem, groups, images, des
 	stairs.register_slab(subname, recipeitem, groups, images, desc_slab, sounds)
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." mod LOADED")
-end
+lord.mod_loaded()
