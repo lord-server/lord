@@ -13,7 +13,7 @@ local Processor = {}
 
 --- @static
 --- @param pos table {x,y,z}
-function Processor.act (pos)
+function Processor.act(pos)
 
 	local g          = Grinder:new(pos)
 	local meta       = g:get_meta()
