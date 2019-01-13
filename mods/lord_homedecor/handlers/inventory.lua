@@ -1,4 +1,4 @@
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 local default_can_dig = function(pos,player)
 	local meta = minetest.get_meta(pos)

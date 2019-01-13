@@ -1,5 +1,5 @@
 
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 lord_homedecor.register("bars", {
 	description = S("Bars"),

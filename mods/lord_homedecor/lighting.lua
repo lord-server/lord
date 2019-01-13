@@ -1,7 +1,7 @@
 -- This file supplies glowlights
 
 
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 
 local tc_cbox = {

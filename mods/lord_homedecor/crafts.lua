@@ -2,7 +2,7 @@
 --
 -- Mostly my own code; overall template borrowed from game default
 
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 -- misc craftitems
 
