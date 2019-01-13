@@ -1,4 +1,4 @@
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 minetest.register_node("lord_homedecor:skylight", {
 	description = S("Glass Skylight"),

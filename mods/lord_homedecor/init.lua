@@ -10,9 +10,6 @@ lord_homedecor = {}
 lord_homedecor = {
 	modpath = modpath,
 
-	-- Boilerplate to support localized strings if intllib mod is installed.
-	gettext = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end,
-
 	-- infinite stacks
 	expect_infinite_stacks = minetest.settings:get_bool("creative_mode") and not minetest.get_modpath("unified_inventory")
 }

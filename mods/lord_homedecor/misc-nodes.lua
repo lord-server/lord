@@ -1,4 +1,4 @@
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 local pot_colors = {"terracotta"}
 
