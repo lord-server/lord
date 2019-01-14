@@ -1,4 +1,4 @@
-local S = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local S = lord.require_intllib()
 
 local pipeworks = rawget(_G, "pipeworks")
 if not minetest.get_modpath("pipeworks") then
