@@ -555,38 +555,7 @@ minetest.register_node("lottplants:pinetree", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 3, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:pinetrunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:pinetree", digger, 13, 2, "lottplants:pinetree")
 	end,
@@ -609,38 +578,7 @@ minetest.register_node("lottplants:birchtree", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 3, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:birchtrunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:birchtree", digger, 12, 3, "lottplants:birchtree")
 	end,
@@ -663,38 +601,7 @@ minetest.register_node("lottplants:aldertree", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 2, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:aldertrunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:aldertree", digger, 10, 2, "lottplants:aldertree")
 	end,
@@ -717,38 +624,7 @@ minetest.register_node("lottplants:lebethrontree", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 1, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:lebethrontrunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:lebethrontree", digger, 10, 2, "lottplants:lebethrontree")
 	end,
@@ -771,38 +647,7 @@ minetest.register_node("lottplants:mallorntree", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 1, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:mallorntrunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:mallorntree", digger, 30, 5, "lottplants:mallorntree")
 	end,
@@ -843,38 +688,7 @@ minetest.register_node("lottplants:mallorntree_young", {
 	paramtype2  = "facedir",
 	groups      = { tree = 1, choppy = 1, flammable = 2, fuel = 1 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_place    = function(itemstack, placer, pointed_thing)
-		if pointed_thing.type == "node" and
-			minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
-
-			local p1     = pointed_thing.above
-			local param2 = 0
-			local p3     = { x = p1.x, y = p1.y, z = p1.z }
-			p3.y         = p3.y + 1
-
-			if minetest.is_protected(p1, placer:get_player_name()) or
-				minetest.is_protected(p3, placer:get_player_name()) then
-				minetest.record_protection_violation(p1, placer:get_player_name())
-				return itemstack
-			end
-
-			local placer_pos = placer:getpos()
-			if placer_pos then
-				local x = math.abs(placer_pos.x - p1.x)
-				-- единичку добавляем что бы получить смещение относительно головы игрока (более реально)
-				local y = math.abs(placer_pos.y - p1.y + 1)
-				local z = math.abs(placer_pos.z - p1.z)
-
-				if z > x then param2 = 6 else param2 = 13 end
-				if y > math.max(x, z) then param2 = 0 end
-			end
-			minetest.set_node(p1, { name = "lottplants:mallorntrunk_young", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
-				itemstack:take_item()
-			end
-			return itemstack
-		end
-	end,
+	on_place    = minetest.rotate_node,
 	on_dig      = function(pos, node, digger)
 		default.dig_tree(pos, node, "lottplants:mallorntree_young", digger, 10, 1, "lottplants:mallorntree_young")
 	end,
