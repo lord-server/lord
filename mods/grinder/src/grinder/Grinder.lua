@@ -78,11 +78,10 @@ end
 --- Sets Node into active grinder with new hint.
 --- @public
 --- @param hint_en string A template for hinting in English. Use "%s" for machine name placeholder.
---- @param cooked number !Deprecated
-function Grinder:activate(hint_en, cooked)
+function Grinder:activate(hint_en)
 	local meta         = self:get_meta()
 	local percent      = math.floor(meta:get_float("fuel_time") / meta:get_float("fuel_totaltime") * 100)
-	local item_percent = math.floor(meta:get_float("src_time") / cooked * 100)
+	local item_percent = math.floor(meta:get_float("src_time") / meta:get_float("src_totaltime") * 100)
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
 	swap_node(self.position, "grinder:grinder_active")
 	self:get_meta():set_string("formspec", form.get('active', percent, item_percent))
