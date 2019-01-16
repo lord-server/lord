@@ -59,7 +59,7 @@ minetest.register_chatcommand("grant", {
 			end
 			if not priv:match("GAME", 1) then
 				privs[priv] = true
-            end
+			end
 		end
 		if privs_unknown ~= "" then
 			return false, privs_unknown
@@ -104,20 +104,20 @@ minetest.register_chatcommand("revoke", {
 			end
 		end
 		if revoke_priv_str == "all" then
-            for priv, _ in pairs(privs) do
-                if priv:find("GAME", 1) == nil then
-                    privs[priv] = nil
-                end
+			for priv, _ in pairs(privs) do
+				if priv:find("GAME", 1) == nil then
+					privs[priv] = nil
+				end
 			end
 		else
 			for priv, _ in pairs(revoke_privs) do
-                if priv:find("GAME", 1) == nil then
-                    privs[priv] = nil
-                end
+				if priv:find("GAME", 1) == nil then
+					privs[priv] = nil
+				end
 			end
 		end
 		minetest.set_player_privs(revoke_name, privs)
-        local privs_table = minetest.get_player_privs(revoke_name)
+		local privs_table = minetest.get_player_privs(revoke_name)
 		local privs_string = get_privs_string(privs_table)
 		minetest.log("action", name..' revoked ('
 				..minetest.privs_to_string(revoke_privs, ', ')
