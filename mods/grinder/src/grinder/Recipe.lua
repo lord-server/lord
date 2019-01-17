@@ -44,17 +44,20 @@ local function register_recipe(data)
 	registered_recipes[index] = recipe
 end
 
+local function find_recipe(items)
+	return registered_recipes[get_recipe_index(items)]
+end
 
 -- -----------------------------------------------------------------------------------------------
 -- Public functions:
 
+--- Returns `table {time = recipe.time, new_input = new_input, output = recipe.output}`
+--- or returns `nil` if recipe not found or there is not enough items
 --- @static
---- @param items ?table?
+--- @param items ItemStack
 --- @return table|nil
-function Recipe.get(items)
-	local index = get_recipe_index(items)
-	local recipe = registered_recipes[index]
-
+function Recipe.get_grinding_result(items)
+	local recipe = find_recipe(items)
 	-- Recipe not found
 	if not recipe then
 		return nil
@@ -73,7 +76,7 @@ function Recipe.get(items)
 		end
 	end
 
-	return {time = recipe.time,	new_input = new_input, output = recipe.output}
+	return {time = recipe.time, new_input = new_input, output = recipe.output}
 end
 
 --- Registers grinding recipes
