@@ -10,6 +10,7 @@ carts.punch_speed_max = 5
 
 
 dofile(carts.modpath.."/functions.lua")
+dofile(carts.modpath.."/steam.lua")
 dofile(carts.modpath.."/rails.lua")
 
 -- Support for non-default games
