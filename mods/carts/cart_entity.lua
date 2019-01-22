@@ -20,12 +20,11 @@ function cart_entity:on_rightclick(clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
-	local player_name = clicker:get_player_name()
-	if self.driver and player_name == self.driver then
+	if self.driver and clicker == self.driver then
 		self.driver = nil
 		carts:manage_attachment(clicker, nil)
 	elseif not self.driver then
-		self.driver = player_name
+		self.driver = clicker
 		carts:manage_attachment(clicker, self.object)
 	end
 end
@@ -63,6 +62,12 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		local node = minetest.get_node(pos).name
 		self.railtype = minetest.get_item_group(node, "connect_to_raillike")
 	end
+
+	-- Can not punch cart, while sit in it	
+	if puncher == self.driver then
+                return
+        end
+
 	-- Punched by non-player
 	if not puncher or not puncher:is_player() then
 		local cart_dir = carts:get_rail_direction(pos, self.old_dir, nil, nil, self.railtype)
@@ -83,7 +88,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 			if self.old_pos then
 				self.object:setpos(self.old_pos)
 			end
-			local player = minetest.get_player_by_name(self.driver)
+			local player = self.driver
 			carts:manage_attachment(player, nil)
 		end
 		for _,obj_ in ipairs(self.attached_items) do
@@ -207,7 +212,7 @@ local function rail_on_step(self, dtime)
 
 	-- Get player controls
 	if self.driver then
-		player = minetest.get_player_by_name(self.driver)
+		player = self.driver
 		if player then
 			ctrl = player:get_player_control()
 		end
