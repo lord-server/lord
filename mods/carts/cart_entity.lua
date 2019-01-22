@@ -252,7 +252,6 @@ local function rail_on_step(self, dtime)
 	end
 
 	local cart_dir = carts:velocity_to_dir(vel)
-	local railparams
 
 	-- dir:         New moving direction of the cart
 	-- switch_keys: Currently pressed L/R key, used to ignore the key on the next rail node
@@ -340,7 +339,7 @@ local function rail_on_step(self, dtime)
 		update.vel = true
 	end
 
-	railparams = railparams or get_railparams(pos)
+	local railparams = get_railparams(pos)
 
 	if not (update.vel or update.pos) then
 		rail_on_step_event(railparams.on_step, self, dtime)
