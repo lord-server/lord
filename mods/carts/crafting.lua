@@ -19,8 +19,8 @@ local function register_rail_craft(item, special)
 end
 
 register_rail_craft("carts:rail", "")
-register_rail_craft("carts:powerrail", "carts:gear")
-register_rail_craft("carts:brakerail", "default:coal_lump")
+register_rail_craft("carts:accelerating_rail", "carts:gear")
+register_rail_craft("carts:stoppingrail", "default:coal_lump")
 
 minetest.register_craft({
         type = "cooking",

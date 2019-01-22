@@ -1,9 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
-minetest.register_alias("carts:stopping_rail", "carts:brakerail")
-
-
 carts:register_rail("carts:rail", {
 	description = SL("Rail"),
 	tiles = {
@@ -15,8 +11,8 @@ carts:register_rail("carts:rail", {
 	groups = carts:get_rail_groups(),
 }, {})
 
-carts:register_rail("carts:powerrail", {
-	description = SL("Powered rail"),
+carts:register_rail("carts:accelerating_rail", {
+	description = SL("Accelerating rail"),
 	tiles = {
 		"carts_rail_straight_pwr.png", "carts_rail_curved_pwr.png",
 		"carts_rail_t_junction_pwr.png", "carts_rail_crossing_pwr.png"
@@ -24,8 +20,8 @@ carts:register_rail("carts:powerrail", {
 	groups = carts:get_rail_groups(),
 }, {acceleration = 5})
 
-carts:register_rail("carts:brakerail", {
-	description = SL("Brake rail"),
+carts:register_rail("carts:stopping_rail", {
+	description = SL("Stopping rail"),
 	tiles = {
 		"carts_rail_straight_brk.png", "carts_rail_curved_brk.png",
 		"carts_rail_t_junction_brk.png", "carts_rail_crossing_brk.png"
