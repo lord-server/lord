@@ -1,3 +1,6 @@
+minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
+minetest.register_alias("carts:stopping_rail", "carts:brakerail")
+
 carts:register_rail("carts:rail", {
 	description = "Rail",
 	tiles = {
