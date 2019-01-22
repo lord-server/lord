@@ -1,3 +1,5 @@
+local SL = lord.require_intllib()
+
 local cart_entity = {
 	physical = false, -- otherwise going uphill breaks
 	collisionbox = {-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
@@ -385,7 +387,7 @@ end
 minetest.register_entity("carts:cart", cart_entity)
 
 minetest.register_craftitem("carts:cart", {
-	description = "Cart (Sneak+Click to pick up)",
+	description = SL("Cart"),
 	inventory_image = minetest.inventorycube("carts_cart_top.png", "carts_cart_side.png", "carts_cart_side.png"),
 	wield_image = "carts_cart_side.png",
 	on_place = function(itemstack, placer, pointed_thing)
