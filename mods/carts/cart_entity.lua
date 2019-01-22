@@ -169,9 +169,32 @@ local function rail_sound(self, dtime)
 	end
 end
 
+local function is_accelerator(p)
+        local nn = minetest.get_node(p).name
+        return minetest.get_item_group(nn, "accelerator") ~= 0
+end
+
+
 local function get_railparams(pos)
 	local node = minetest.get_node(pos)
 	return carts.railparams[node.name] or {}
+end
+
+local function get_acceleration(pos)
+	local params = get_railparams(pos)
+	local acceleration = 0
+	if params.acceleration ~= nil then
+		acceleration = params.acceleration
+		if acceleration > 0 then
+			-- require steam engine
+			local accel_pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+			if not is_accelerator(accel_pos) then
+				acceleration = 0
+			end
+		end
+	end
+
+	return acceleration
 end
 
 local function rail_on_step(self, dtime)
@@ -270,11 +293,9 @@ local function rail_on_step(self, dtime)
 		local acc = dir.y * -4.0
 
 		-- Get rail for corrected position
-		railparams = get_railparams(pos)
+		local speed_mod = get_acceleration(pos)
 
-		-- no need to check for railparams == nil since we always make it exist.
-		local speed_mod = railparams.acceleration
-		if speed_mod and speed_mod ~= 0 then
+		if speed_mod ~= 0 then
 			-- Try to make it similar to the original carts mod
 			acc = acc + speed_mod
 		else
