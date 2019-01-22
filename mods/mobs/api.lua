@@ -71,6 +71,24 @@ local stuck_timeout = 3 -- how long before mob gets stuck in place and starts se
 local stuck_path_timeout = 10 -- how long will mob follow path before giving up
 
 
+-- compatibility - register monster/animal/player/npc as fractions
+
+fractions:register_fraction("animal", {})
+
+fractions:register_fraction("player", {
+	friends = {"npc"},
+})
+
+fractions:register_fraction("npc", {
+	friends = {"npc", "player"},
+	hostiles = {"monster"},
+})
+
+fractions:register_fraction("monster", {
+	friends = {"monster"},
+	hostiles = {"player", "npc"},
+})
+
 -- play sound
 mob_sound = function(self, sound)
 
@@ -1034,24 +1052,18 @@ end
 local is_target = function(self, name, type)
 	if specific_attack(self.specific_attack, name) then
 		return true
-	elseif self.specific_attack == nil then
-		if self.type == "monster" then
-			if (type == "player" or type == "npc" or (type == "animal" and self.attack_animals == true)) then
-				return true
-			end
-		else
-			-- do nothing here. "good" mobs look for their targets in other way
-			-- TODO: rewrite this to make common attacking system
-		end
+
+	if fractions:is_hostile(type, self.type) then
+		return true
 	end
+
 	return false
 end
 
--- monster find someone to attack
-local monster_attack = function(self)
+-- mob find someone to attack
+local mob_attack = function(self)
 
-	if self.state == "attack"
-	or day_docile(self) then
+	if self.state == "attack" or day_docile(self) then
 		return
 	end
 
@@ -1109,43 +1121,6 @@ local monster_attack = function(self)
 	end
 
 	-- attack player
-	if min_player then
-		do_attack(self, min_player)
-	end
-end
-
-
--- npc, find closest monster to attack
-local npc_attack = function(self)
-
-	if self.type ~= "npc"
-	or not self.attacks_monsters
-	or self.state == "attack" then
-		return
-	end
-
-	local s = self.object:getpos()
-	local min_dist = self.view_range + 1
-	local obj, min_player = nil, nil
-	local objs = minetest.get_objects_inside_radius(s, self.view_range)
-
-	for n = 1, #objs do
-
-		obj = objs[n]:get_luaentity()
-
-		if obj and obj.type == "monster" then
-
-			p = obj.object:getpos()
-
-			dist = get_distance(p, s)
-
-			if dist < min_dist then
-				min_dist = dist
-				min_player = obj.object
-			end
-		end
-	end
-
 	if min_player then
 		do_attack(self, min_player)
 	end
@@ -2324,9 +2299,7 @@ local mob_step = function(self, dtime)
 		do_env_damage(self)
 	end
 
-	monster_attack(self)
-
-	npc_attack(self)
+	mob_attack(self)
 
 	breed(self)
 
