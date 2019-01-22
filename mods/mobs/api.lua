@@ -89,6 +89,7 @@ do_attack = function(self, player)
 
 	if self.state == "attack" then
 		return
+
 	end
 
 	self.attack = player
@@ -1010,7 +1011,7 @@ local specific_attack = function(list, what)
 
 	-- no list so attack default (player, animals etc.)
 	if list == nil then
-		return true
+		return false
 	end
 
 	-- is found entity on list to attack?
@@ -1024,6 +1025,11 @@ local specific_attack = function(list, what)
 	return false
 end
 
+local common_attack = function(list)
+	if list == nil then
+		return true
+	end
+end
 
 -- monster find someone to attack
 local monster_attack = function(self)
@@ -1063,10 +1069,22 @@ local monster_attack = function(self)
 		end
 
 		-- find specific mob to attack, failing that attack player/npc/animal
-		if specific_attack(self.specific_attack, name)
-		and (type == "player" or type == "npc"
-			or (type == "animal" and self.attack_animals == true)) then
+		local is_target = false
+		if specific_attack(self.specific_attack, name) then
+			is_target = true
+		elseif common_attack(self.specific_attack) then
+			if self.type == "monster" then
+				if (type == "player" or type == "npc" or (type == "animal" and self.attack_animals == true)) then
+					is_target = true
+				end
+			else
+				-- do nothing here. "good" mobs searching their targets in other way
+				-- TODO: rewrite this to make common attacking system
+			end
+		end
 
+		-- 
+		if is_target then
 			s = self.object:getpos()
 			p = player:getpos()
 			sp = s
@@ -1083,6 +1101,7 @@ local monster_attack = function(self)
 				-- choose closest player to attack
 				if line_of_sight(self, sp, p, 2) == true
 				and dist < min_dist then
+					minetest.log("select target")
 					min_dist = dist
 					min_player = player
 				end
