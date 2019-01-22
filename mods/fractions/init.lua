@@ -42,3 +42,5 @@ function fractions:is_friend(target, fraction)
 	return false
 end
 
+dofile(minetest.get_modpath("fractions").."/fractions.lua")
+

@@ -71,23 +71,6 @@ local stuck_timeout = 3 -- how long before mob gets stuck in place and starts se
 local stuck_path_timeout = 10 -- how long will mob follow path before giving up
 
 
--- compatibility - register monster/animal/player/npc as fractions
-
-fractions:register_fraction("animal", {})
-
-fractions:register_fraction("player", {
-	friends = {"npc"},
-})
-
-fractions:register_fraction("npc", {
-	friends = {"npc", "player"},
-	hostiles = {"monster"},
-})
-
-fractions:register_fraction("monster", {
-	friends = {"monster"},
-	hostiles = {"player", "npc"},
-})
 
 -- play sound
 mob_sound = function(self, sound)
@@ -1070,13 +1053,12 @@ local mob_attack = function(self)
 	for n = 1, #objs do
 
 		if objs[n]:is_player() then
-
-			if mobs.invis[ objs[n]:get_player_name() ] then
-
+			player = objs[n]
+			local player_name = player:get_player_name()
+			if mobs.invis[ player_name ] then
 				type = ""
 			else
-				player = objs[n]
-				type = "player"
+				type = races.get_fraction(player_name)
 				name = "player"
 			end
 		else

@@ -24,31 +24,37 @@ races.list = {
 		no_corpse = true,
 		male_skins = 1,
 		female_skins = 1,
+		fraction = "monster",
 	},
 	orc = {
 		name = SL("Orc"),
 		male_skins = 5,
 		female_skins = 5,
+		fraction = "monster",
 	},
 	man = {
 		name = SL("Man"),
 		male_skins = 8,
 		female_skins = 5,
+		fraction = "npc",
 	},
 	dwarf = {
 		name = SL("Dwarf"),
 		male_skins = 5,
 		female_skins = 5,
+		fraction = "npc",
 	},
 	hobbit = {
 		name = SL("Hobbit"),
 		male_skins = 5,
 		female_skins = 5,
+		fraction = "npc",
 	},
 	elf = {
 		name = SL("Elf"),
 		male_skins = 6,
 		female_skins = 5,
+		fraction = "npc",
 	},
 }
 
@@ -59,6 +65,12 @@ races.default_skin = 1
 local tmp_races_list = {}
 for name, _ in pairs(races.list) do
 	table.insert(tmp_races_list, name)
+end
+
+races.fractions = {}
+
+for name, desc in pairs(races.list) do
+	races.fractions[name] = desc.fraction
 end
 
 -- A string contaning possible race values
@@ -168,12 +180,18 @@ function races.get_race_and_gender(name)
 	return cache.players[name] or races.default
 end
 
+-- Now fraction is binded to race
+function races.get_fraction(name)
+	local race = races.get_race_and_gender(name)[1]
+	return races.fractions[race]
+end
+
 function races.get_race(name)
-	return races.get_race_and_gender()[1]
+	return races.get_race_and_gender(name)[1]
 end
 
 function races.get_gender(name)
-	return races.get_race_and_gender()[2]
+	return races.get_race_and_gender(name)[2]
 end
 
 function races.set_race_and_gender(name, race_and_gender, show_message)
