@@ -65,11 +65,6 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		self.railtype = minetest.get_item_group(node, "connect_to_raillike")
 	end
 
-	-- Can not punch cart, while sit in it	
-	if puncher == self.driver then
-                return
-        end
-
 	-- Punched by non-player
 	if not puncher or not puncher:is_player() then
 		local cart_dir = carts:get_rail_direction(pos, self.old_dir, nil, nil, self.railtype)
@@ -113,7 +108,7 @@ function cart_entity:on_punch(puncher, time_from_last_punch, tool_capabilities, 
 		return
 	end
 	-- Player punches cart to alter velocity
-	if puncher:get_player_name() == self.driver then
+	if puncher == self.driver then
 		if math.abs(vel.x + vel.z) > carts.punch_speed_max then
 			return
 		end
