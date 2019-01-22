@@ -1,0 +1,8 @@
+### init.lua ###
+Cart = Вагонетка
+Rail = Обычные рельсы
+Gear = Шестерня
+Steam mechanism = Паровой механизм
+Powered rail = Разгонные рельсы
+Brake rail = Останавливающие рельсы
+

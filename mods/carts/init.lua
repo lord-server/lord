@@ -20,3 +20,5 @@ if not default.player_attached then
 end
 
 dofile(carts.modpath.."/cart_entity.lua")
+dofile(carts.modpath.."/crafting.lua")
+
