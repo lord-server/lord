@@ -2009,16 +2009,22 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 		local obj = nil
 
 		for n = 1, #objs do
+			if not objs[n]:is_player() then
+				obj = objs[n]:get_luaentity()
+				if obj then
+					local player = obj.object
+					local type = obj.type
+					
+					local is_friend = fractions:is_friend(type, self.type)
 
-			obj = objs[n]:get_luaentity()
-
-			if obj then
-
-				if obj.group_attack == true
-				and obj.state ~= "attack" then
-					do_attack(obj, hitter)
+					if is_friend then
+						if obj.group_attack == true and obj.state ~= "attack" then
+							do_attack(obj, hitter)
+						end
+					end
 				end
 			end
+
 		end
 	end
 end
