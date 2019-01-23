@@ -169,33 +169,51 @@ local function rail_sound(self, dtime)
 	end
 end
 
+-- Acceleration
 local function is_accelerator(p)
         local nn = minetest.get_node(p).name
         return minetest.get_item_group(nn, "accelerator") ~= 0
 end
-
 
 local function get_railparams(pos)
 	local node = minetest.get_node(pos)
 	return carts.railparams[node.name] or {}
 end
 
-local function get_acceleration(pos)
+local function get_acceleration(self, dir, pos)
+	local vel = self.object:getvelocity()
 	local params = get_railparams(pos)
 	local acceleration = 0
+    
+	-- Gravity force
+	local gravity_acceleration = -dir.y * 4
+
+	-- Rail acceleration
+	local rail_acceleration = 0
 	if params.acceleration ~= nil then
-		acceleration = params.acceleration
-		if acceleration > 0 then
+		rail_acceleration = params.acceleration
+		if rail_acceleration > 0 then
 			-- require steam engine
 			local accel_pos = {x = pos.x, y = pos.y - 1, z = pos.z}
 			if not is_accelerator(accel_pos) then
-				acceleration = 0
+				rail_acceleration = 0
 			end
 		end
 	end
 
-	return acceleration
+	-- Steam engine acceleration
+	local engine_acceleration = 0
+	if self.powered ~= nil and self.powered then
+		engine_acceleration = 5
+	end
+
+	-- Air friction = velocity * k
+	local v = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
+	local air_friction_acceleration = -v*0.05
+
+	return gravity_acceleration + rail_acceleration + engine_acceleration + air_friction_acceleration
 end
+-- Acceleration
 
 local function rail_on_step(self, dtime)
 	local vel = self.object:getvelocity()
@@ -288,22 +306,12 @@ local function rail_on_step(self, dtime)
 			update.pos = true
 		end
 
-		-- Slow down or speed up..
-		local acc = dir.y * -4.0
-
 		-- Get rail for corrected position
-		local speed_mod = get_acceleration(pos)
+		local acc = get_acceleration(self, dir, pos)
 
-		if speed_mod ~= 0 then
-			-- Try to make it similar to the original carts mod
-			acc = acc + speed_mod
-		else
-			-- Handbrake or coast
-			if ctrl and ctrl.down then
-				acc = acc - 3
-			else
-				acc = acc - 0.4
-			end
+		-- Handbrake or coast
+		if ctrl and ctrl.down then
+			acc = acc - 3
 		end
 
 		new_acc = vector.multiply(dir, acc)

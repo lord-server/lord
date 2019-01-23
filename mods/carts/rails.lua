@@ -9,7 +9,7 @@ carts:register_rail("carts:rail", {
 	inventory_image = "carts_rail_straight.png",
 	wield_image = "carts_rail_straight.png",
 	groups = carts:get_rail_groups(),
-}, {})
+}, {acceleration = -0.3})
 
 carts:register_rail("carts:accelerating_rail", {
 	description = SL("Accelerating rail"),
@@ -18,7 +18,7 @@ carts:register_rail("carts:accelerating_rail", {
 		"carts_rail_t_junction_pwr.png", "carts_rail_crossing_pwr.png"
 	},
 	groups = carts:get_rail_groups(),
-}, {acceleration = 5})
+}, {acceleration = 6})
 
 carts:register_rail("carts:stopping_rail", {
 	description = SL("Stopping rail"),
