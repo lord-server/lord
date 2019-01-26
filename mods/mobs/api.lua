@@ -89,7 +89,6 @@ do_attack = function(self, player)
 
 	if self.state == "attack" then
 		return
-
 	end
 
 	self.attack = player
@@ -1009,7 +1008,7 @@ end
 -- specific attacks
 local specific_attack = function(list, what)
 
-	-- no list so attack default (player, animals etc.)
+	-- no specific attack
 	if list == nil then
 		return false
 	end
@@ -1026,9 +1025,7 @@ local specific_attack = function(list, what)
 end
 
 local common_attack = function(list)
-	if list == nil then
-		return true
-	end
+	return list == nil
 end
 
 -- monster find someone to attack
@@ -1078,7 +1075,7 @@ local monster_attack = function(self)
 					is_target = true
 				end
 			else
-				-- do nothing here. "good" mobs searching their targets in other way
+				-- do nothing here. "good" mobs look for their targets in other way
 				-- TODO: rewrite this to make common attacking system
 			end
 		end
@@ -1101,7 +1098,6 @@ local monster_attack = function(self)
 				-- choose closest player to attack
 				if line_of_sight(self, sp, p, 2) == true
 				and dist < min_dist then
-					minetest.log("select target")
 					min_dist = dist
 					min_player = player
 				end
