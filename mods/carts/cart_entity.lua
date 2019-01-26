@@ -183,8 +183,7 @@ end
 local function get_acceleration(self, dir, pos)
 	local vel = self.object:getvelocity()
 	local params = get_railparams(pos)
-	local acceleration = 0
-    
+
 	-- Gravity force
 	local gravity_acceleration = -dir.y * 4
 
