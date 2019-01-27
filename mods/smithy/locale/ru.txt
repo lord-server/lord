@@ -1,0 +1,12 @@
+### anvil.lua ###
+Owner: %s = Владелец: %s
+Anvil = Наковальня
+Workspace: = Починка:
+Optional = Место для
+storage for = молота
+your hammer = (необяз.)
+The workpiece slot is for damaged tools only. = Чинить можно только сломанные инструменты.
+You can not repair this item! = Этот предмет чинить нельзя!
+Can not break. Something is inside. = Не поднять. На наковальне что-то есть.
+Anvil (owned by %s) = Наковальня (владелец: %s)
+Only for @1 = Только для @1

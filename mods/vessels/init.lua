@@ -66,7 +66,7 @@ minetest.register_node("vessels:steel_bottle", {
 		fixed = {-0.25, -0.5, -0.25, 0.25, 0.4, 0.25}
 	},
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
-	sounds = default.node_sound_metal_defaults(),
+	sounds = default.node_sound_defaults(),
 })
 
 minetest.register_craft( {
@@ -99,7 +99,7 @@ minetest.register_craft( {
 	type = "shapeless",
 	output = "vessels:glass_fragments",
 	recipe = {
-		"vessels:drinking_glass",
+		"vessels:drinking_glass", 
 		"vessels:drinking_glass",
 	},
 })

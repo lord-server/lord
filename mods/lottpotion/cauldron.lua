@@ -3,24 +3,25 @@ local SL = lord.require_intllib()
 minetest.register_node("lottpotion:cauldron_full",{
 	drawtype="nodebox",
 	description= SL("Filled Cauldron"),
-	tiles = {"lottpotion_cauldron_top.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png",
-		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
+	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2},
+	sounds = default.node_sound_metal_defaults(),
 	legacy_facedir_simple = true,
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,0.312500,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+    		{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, 
+    		{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+    		{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+    		{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+    		{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+    		{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+    		{-0.375, 0.25, -0.375, 0.375, 0.3125, 0.375},
 		}
 	}
 })
@@ -28,23 +29,24 @@ minetest.register_node("lottpotion:cauldron_full",{
 minetest.register_node("lottpotion:cauldron_two_third_full",{
 	drawtype="nodebox",
 	description= SL("Two Third Filled Cauldron"),
-	tiles = {"lottpotion_cauldron_top.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png",
-		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
+	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,0.125000,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+		    {-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+ 		 	{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, 
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+ 		 	{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+    		{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+    		{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+    		{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+    		{-0.375, 0.0625, -0.375, 0.375, 0.125, 0.375},
 		}
 	}
 })
@@ -52,23 +54,24 @@ minetest.register_node("lottpotion:cauldron_two_third_full",{
 minetest.register_node("lottpotion:cauldron_one_third_full",{
 	drawtype="nodebox",
 	description= SL("One Third Filled Cauldron"),
-	tiles = {"lottpotion_cauldron_top.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png",
-		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
+	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,-0.062500,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, 
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, -0.125, -0.375, 0.375, -0.0625, 0.375},
 		}
 	}
 })
@@ -76,22 +79,24 @@ minetest.register_node("lottpotion:cauldron_one_third_full",{
 minetest.register_node("lottpotion:cauldron_empty",{
 	drawtype="nodebox",
 	description= SL("Empty Cauldron"),
-	tiles = {"lottpotion_cauldron_side.png"},
+	tiles = {"default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=1,level=2},
+	sounds = default.node_sound_metal_defaults(),
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,-0.312500,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, 
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, -0.125, -0.375, 0.375, -0.25, 0.375},
 		},
 	},
 	on_rightclick = function(pos, node, clicker, itemstack)
@@ -117,8 +122,8 @@ minetest.register_node(":vessels:glass_bottle", {
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
-		local res
-		local pos = pointed_thing.above
+		local res = nil
+		pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_full") then
@@ -185,7 +190,7 @@ minetest.register_node(":vessels:drinking_glass", {
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
-		local res
+		local res = nil
 		local pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
@@ -248,6 +253,7 @@ minetest.register_craft( {
 	},
 })
 ]]--
+
 minetest.register_craft({
 	output = 'lottpotion:cauldron_empty',
 	recipe = {
@@ -255,4 +261,11 @@ minetest.register_craft({
 		{'default:steel_ingot', '', 'default:steel_ingot'},
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
 	}
+})
+
+minetest.register_craft( {
+	type = "shapeless",
+	output = "lottpotion:cauldron_full",
+	recipe = {"lottpotion:cauldron_empty", "bucket:bucket_water",},
+	replacements = {{"bucket:bucket_water", "bucket:bucket_empty"}},
 })
