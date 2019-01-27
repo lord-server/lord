@@ -1,9 +1,12 @@
 local SL = lord.require_intllib()
 
 minetest.register_node("lottpotion:cauldron_full",{
-	drawtype="nodebox",
-	description= SL("Filled Cauldron"),
-	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
+	drawtype = "nodebox",
+	description = SL("Filled Cauldron"),
+	tiles =
+	{"smithy_cauldron_top.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2},
@@ -11,25 +14,28 @@ minetest.register_node("lottpotion:cauldron_full",{
 	legacy_facedir_simple = true,
 	node_box = {
 		type = "fixed",
-		fixed = {
+			fixed = {
 			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
-    		{0.375, -0.5, -0.5, 0.5, 0.5, -0.375}, 
-    		{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
-    		{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
-    		{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
 			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
 			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
-    		{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
-    		{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
-    		{-0.375, 0.25, -0.375, 0.375, 0.3125, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, 0.25, -0.375, 0.375, 0.3125, 0.375},
 		}
 	}
 })
 
 minetest.register_node("lottpotion:cauldron_two_third_full",{
-	drawtype="nodebox",
-	description= SL("Two Third Filled Cauldron"),
-	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
+	drawtype = "nodebox",
+	description = SL("Two Third Filled Cauldron"),
+	tiles =
+	{"smithy_cauldron_top.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
@@ -52,9 +58,12 @@ minetest.register_node("lottpotion:cauldron_two_third_full",{
 })
 
 minetest.register_node("lottpotion:cauldron_one_third_full",{
-	drawtype="nodebox",
-	description= SL("One Third Filled Cauldron"),
-	tiles={"smithy_cauldron_top.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png", "default_furnace_bottom.png"},
+	drawtype = "nodebox",
+	description = SL("One Third Filled Cauldron"),
+	tiles =
+	{"smithy_cauldron_top.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png",
+	"default_furnace_bottom.png", "default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=2, not_in_creative_inventory=1},
@@ -77,8 +86,8 @@ minetest.register_node("lottpotion:cauldron_one_third_full",{
 })
 
 minetest.register_node("lottpotion:cauldron_empty",{
-	drawtype="nodebox",
-	description= SL("Empty Cauldron"),
+	drawtype ="nodebox",
+	description = SL("Empty Cauldron"),
 	tiles = {"default_furnace_bottom.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
