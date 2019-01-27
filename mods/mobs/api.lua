@@ -1024,8 +1024,20 @@ local specific_attack = function(list, what)
 	return false
 end
 
-local common_attack = function(list)
-	return list == nil
+local is_target = function(self, name, type)
+	if specific_attack(self.specific_attack, name) then
+		return true
+	elseif self.specific_attack == nil then
+		if self.type == "monster" then
+			if (type == "player" or type == "npc" or (type == "animal" and self.attack_animals == true)) then
+				return true
+			end
+		else
+			-- do nothing here. "good" mobs look for their targets in other way
+			-- TODO: rewrite this to make common attacking system
+		end
+	end
+	return false
 end
 
 -- monster find someone to attack
@@ -1065,23 +1077,7 @@ local monster_attack = function(self)
 			end
 		end
 
-		-- find specific mob to attack, failing that attack player/npc/animal
-		local is_target = false
-		if specific_attack(self.specific_attack, name) then
-			is_target = true
-		elseif common_attack(self.specific_attack) then
-			if self.type == "monster" then
-				if (type == "player" or type == "npc" or (type == "animal" and self.attack_animals == true)) then
-					is_target = true
-				end
-			else
-				-- do nothing here. "good" mobs look for their targets in other way
-				-- TODO: rewrite this to make common attacking system
-			end
-		end
-
-		-- 
-		if is_target then
+		if is_target(self, name, type) then
 			s = self.object:getpos()
 			p = player:getpos()
 			sp = s
