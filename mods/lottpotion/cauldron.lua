@@ -132,7 +132,7 @@ minetest.register_node(":vessels:glass_bottle", {
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
 		local res = nil
-		pos = pointed_thing.above
+		local pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
 		if (minetest.get_node(pos).name == "lottpotion:cauldron_full") then
@@ -199,7 +199,7 @@ minetest.register_node(":vessels:drinking_glass", {
 	groups = {vessel=1,dig_immediate=3,attached_node=1},
 	sounds = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
-		local res = nil
+		--local res = nil
 		local pos = pointed_thing.above
 		if pos == nil then return itemstack end
 		pos.y = pos.y - 1
