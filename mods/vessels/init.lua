@@ -99,7 +99,7 @@ minetest.register_craft( {
 	type = "shapeless",
 	output = "vessels:glass_fragments",
 	recipe = {
-		"vessels:drinking_glass", 
+		"vessels:drinking_glass",
 		"vessels:drinking_glass",
 	},
 })
