@@ -124,7 +124,7 @@ minetest.register_node(":castle:anvil", {
 			return 0;
 		end
 
-		if listname=='input' and stack 
+		if listname=='input' and stack
 		--wooden tools
 		and name == 'tools:pick_wood'
 		or name == 'tools:shovel_wood'
@@ -209,7 +209,7 @@ minetest.register_node(":castle:anvil", {
 		-- only punching with the hammer is supposed to work
 		local wielded = puncher:get_wielded_item();
 
-		if not (wielded or wielded:get_name()) or (wielded:get_name() ~= 'tools:warhammer_steel' 
+		if not (wielded or wielded:get_name()) or (wielded:get_name() ~= 'tools:warhammer_steel'
 		and wielded:get_name() ~= 'tools:warhammer_bronze'
 		and wielded:get_name() ~= 'tools:warhammer_copper'
 		and wielded:get_name() ~= 'tools:warhammer_tin'
@@ -226,7 +226,7 @@ minetest.register_node(":castle:anvil", {
 		local input = inv:get_stack('input',1);
 
 		-- only tools can be repaired
-		if not input 
+		if not input
 			or input:is_empty() then
 			meta:set_string("formspec",
 			smithy_anvil_formspec,
@@ -249,7 +249,7 @@ minetest.register_node(":castle:anvil", {
 			type(minetest.registered_items[ tool_name ].textures)=='string' then
 				hud_image = minetest.registered_items[tool_name].textures;
 			end
-		end	
+		end
 
 		local hud1 = puncher:hud_add({
 				hud_elem_type = "image",
@@ -285,7 +285,7 @@ minetest.register_node(":castle:anvil", {
 			});
 		end
 
-		minetest.after(2, 
+		minetest.after(2,
 			function()
 				if puncher  then
 					puncher:hud_remove(hud1);
