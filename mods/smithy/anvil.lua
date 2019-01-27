@@ -18,7 +18,7 @@ local smithy_anvil_formspec =
 	"label[6.25,1.6;"..SL("your hammer").."]"..
 	"list[current_player;main;0,3;8,4;]";
 
-local nodebox = 
+local nodebox =
 {
 	type = "fixed",
 	fixed = {
@@ -107,17 +107,13 @@ minetest.register_node(":castle:anvil", {
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if not has_anvil_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
 			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", owner))
 			return 0
 		end
 
 		local name = stack:get_name()
-
-		if listname=='hammer' and stack and name ~= 'tools:warhammer_steel' 
+		
+		if listname=='hammer' and stack and name ~= 'tools:warhammer_steel'
 		and name ~= 'tools:warhammer_bronze'
 		and name ~= 'tools:warhammer_copper'
 		and name ~= 'tools:warhammer_tin'
@@ -127,7 +123,7 @@ minetest.register_node(":castle:anvil", {
 		and name ~= 'tools:warhammer_mithril'then
 			return 0;
 		end
-		
+			
 		if listname=='input' and stack 
 		--wooden tools
 		and name == 'tools:pick_wood'
@@ -224,7 +220,7 @@ minetest.register_node(":castle:anvil", {
 			return 0
 		end
 
-		local name = puncher:get_player_name();
+		--local name = puncher:get_player_name();
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory();
 		local input = inv:get_stack('input',1);
