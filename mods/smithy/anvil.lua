@@ -246,9 +246,11 @@ minetest.register_node(":castle:anvil", {
 		if tool_name and minetest.registered_items[tool_name] then
 			if minetest.registered_items[tool_name].inventory_image then
 				hud_image = minetest.registered_items[tool_name].inventory_image;
-			elseif minetest.registered_items[tool_name].textures and type(minetest.registered_items[ tool_name ].textures)=='table' then
+			elseif minetest.registered_items[tool_name].textures and
+			type(minetest.registered_items[ tool_name ].textures)=='table' then
 				hud_image = minetest.registered_items[tool_name].textures[1];
-			elseif minetest.registered_items[tool_name].textures and type(minetest.registered_items[ tool_name ].textures)=='string' then
+			elseif minetest.registered_items[tool_name].textures and
+			type(minetest.registered_items[ tool_name ].textures)=='string' then
 				hud_image = minetest.registered_items[tool_name].textures;
 			end
 		end	
