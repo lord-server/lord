@@ -94,25 +94,25 @@ minetest.register_node(":castle:anvil", {
 		local meta = minetest.get_meta(pos)
 		if not has_anvil_privilege(meta, player) then
 			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
+					" tried to access an anvil belonging to "..
 					meta:get_string("owner").." at "..
 					minetest.pos_to_string(pos))
-			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", owner))
+			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", meta:get_string("owner")))
 			return 0
 		end
-		
+
 		return count;
 	end,
 
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if not has_anvil_privilege(meta, player) then
-			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", owner))
+			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", meta:get_string("owner")))
 			return 0
 		end
 
 		local name = stack:get_name()
-		
+
 		if listname=='hammer' and stack and name ~= 'tools:warhammer_steel'
 		and name ~= 'tools:warhammer_bronze'
 		and name ~= 'tools:warhammer_copper'
@@ -123,7 +123,7 @@ minetest.register_node(":castle:anvil", {
 		and name ~= 'tools:warhammer_mithril'then
 			return 0;
 		end
-			
+
 		if listname=='input' and stack 
 		--wooden tools
 		and name == 'tools:pick_wood'
@@ -299,7 +299,7 @@ minetest.register_node(":castle:anvil", {
 			return;
 		end
 		-- do the actual repair
-		
+
 		-- damage the hammer slightly
 		if wielded:get_name() == 'tools:warhammer_steel' then
 			wielded:add_wear(600);
