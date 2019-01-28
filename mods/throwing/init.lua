@@ -148,7 +148,8 @@ local function hit_mob(mob, arrow, callback, owner_id)
 end
 
 local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabilities, dir)
-	if arrow.can_drop_on_punch and (arrow:can_drop_on_punch(puncher, time_from_last_punch, tool_capabilities, dir) == false)
+	if arrow.can_drop_on_punch and
+		(arrow:can_drop_on_punch(puncher, time_from_last_punch, tool_capabilities, dir) == false)
 	then
 		return
 	end
@@ -188,7 +189,6 @@ local function arrow_step(self, dtime)
 	end
 
 	local mobs = {}
-	local spos = pos
 	local vel = self.object:getvelocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
