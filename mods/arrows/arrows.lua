@@ -3,13 +3,15 @@ local SL = lord.require_intllib()
 
 local KFR = 0.01
 
-local STEEL_DC = 0.02
+local STEEL_DC = 0.01
 local MITHRIL_DC = 0.1
 
-local ARROW_MASS = 0.5
+local STEEL_ARROW_MASS = 0.5
+local MITHRIL_ARROW_MASS = 0.25
 local ARROW_VELOCITY = 30
 
-local BOLT_MASS = 1.0
+local STEEL_BOLT_MASS = 1.0
+local MITHRIL_BOLT_MASS = 0.33
 local BOLT_VELOCITY = 40
 
 -- Arrow nodebox
@@ -34,7 +36,7 @@ local arrow_node_box = {
 	}
 }
 
-local register_arrow = function(material, material_group, dc)
+local register_arrow = function(material, material_group, dc, mass)
 	local name = "arrows:arrow_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." arrow"),
@@ -66,15 +68,15 @@ local register_arrow = function(material, material_group, dc)
 		texture = name.."_box",
 		visual = "wielditem",
 		arrow_type = "arrow",
-		mass = ARROW_MASS,
+		mass = mass,
 		kfr = KFR,
 		damage_coefficient = dc,
 		velocity = ARROW_VELOCITY
 	})
 end
 
-register_arrow("steel", "default", STEEL_DC)
-register_arrow("mithril", "lottores", MITHRIL_DC)
+register_arrow("steel", "default", STEEL_DC, STEEL_ARROW_MASS)
+register_arrow("mithril", "lottores", MITHRIL_DC, MITHRIL_ARROW_MASS)
 
 -- Bolt nodebox --
 local bolt_node_box = {
@@ -98,7 +100,7 @@ local bolt_node_box = {
 	}
 }
 
-local register_bolt = function(material, material_group, dc)
+local register_bolt = function(material, material_group, dc, mass)
 	local name = "arrows:bolt_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." bolt"),
@@ -130,13 +132,13 @@ local register_bolt = function(material, material_group, dc)
 		texture = name.."_box",
 		visual = "wielditem",
 		arrow_type = "bolt",
-		mass = BOLT_MASS,
+		mass = mass,
 		kfr = KFR,
 		damage_coefficient = dc,
 		velocity = BOLT_VELOCITY
 	})
 end
 
-register_bolt("steel", "default", STEEL_DC)
-register_bolt("mithril", "lottores", MITHRIL_DC)
+register_bolt("steel", "default", STEEL_DC, STEEL_BOLT_MASS)
+register_bolt("mithril", "lottores", MITHRIL_DC, MITHRIL_BOLT_MASS)
 
