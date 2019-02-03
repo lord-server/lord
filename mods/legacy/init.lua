@@ -242,7 +242,7 @@ lord.mod_loaded()
 minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
 minetest.register_alias("lottthrowing:arrow_mithril", "arrows:arrow_mithril")
 minetest.register_alias("lottthrowing:bolt", "arrows:bolt_steel")
-minetest.register_alias("lottthrowing:bolt_mithril", "arrows:bol_mithril")
+minetest.register_alias("lottthrowing:bolt_mithril", "arrows:bolt_mithril")
 
 minetest.register_alias("lottthrowing:axe_dwarf", "arrows:axe_dwarf")
 minetest.register_alias("lottthrowing:axe_elf", "arrows:axe_elf")
