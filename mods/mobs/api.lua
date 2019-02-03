@@ -1028,8 +1028,9 @@ end
 local is_target = function(self, name, type)
 	if specific_attack(self.specific_attack, name) then
 		return true
+	end
 
-	if fractions:is_hostile(type, self.type) then
+	if factions:is_hostile(type, self.type) then
 		return true
 	end
 
@@ -1058,7 +1059,7 @@ local mob_attack = function(self)
 			if mobs.invis[ player_name ] then
 				type = ""
 			else
-				type = races.get_fraction(player_name)
+				type = races.get_faction(player_name)
 				name = "player"
 			end
 		else
@@ -2015,7 +2016,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 					local player = obj.object
 					local type = obj.type
 					
-					local is_friend = fractions:is_friend(type, self.type)
+					local is_friend = factions:is_friend(type, self.type)
 
 					if is_friend then
 						if obj.group_attack == true and obj.state ~= "attack" then
