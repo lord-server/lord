@@ -1,7 +1,5 @@
 local SL = lord.require_intllib()
 
---Modified from builtin/game/chatcommands.lua to hide privs starting with GAME
-
 local function get_privs_string(privs)
 	local privs_string = ""
 	local i = 1

@@ -1,8 +1,5 @@
 local SL = lord.require_intllib()
 
--- Minetest 0.4 mod: bones
--- See README.txt for licensing and other information.
-
 local publish = tonumber(minetest.settings:get("share_bones_time")) or 60*5
 
 local bones_formspec =
@@ -109,7 +106,6 @@ for race, _ in pairs(races.list) do
 		end
 	end
 end
-minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
 minetest.register_on_dieplayer(function(player)
 	if minetest.settings:get_bool("creative_mode") then return end

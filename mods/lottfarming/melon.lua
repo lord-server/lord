@@ -99,7 +99,6 @@ minetest.register_node("lottfarming:melon_3", {
 	sounds      = default.node_sound_wood_defaults(),
 })
 
-minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 minetest.register_craftitem("lottfarming:melon", {
 	description     = SL("Melon"),
 	inventory_image = "lottfarming_melon.png",

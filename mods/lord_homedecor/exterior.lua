@@ -29,9 +29,6 @@ lord_homedecor.register("bench_large_1", {
 	on_rotate = screwdriver.disallow
 })
 
-minetest.register_alias("lord_homedecor:bench_large_1_left", "lord_homedecor:bench_large_1")
-minetest.register_alias("lord_homedecor:bench_large_1_right", "air")
-
 local bl2_sbox = {
 	type = "fixed",
 	fixed = { -0.5, -0.5, -0.25, 1.5, 0.5, 0.5 }
@@ -57,9 +54,6 @@ lord_homedecor.register("bench_large_2", {
 	sounds = default.node_sound_wood_defaults(),
 	on_rotate = screwdriver.disallow
 })
-
-minetest.register_alias("lord_homedecor:bench_large_2_left", "lord_homedecor:bench_large_2")
-minetest.register_alias("lord_homedecor:bench_large_2_right", "air")
 
 lord_homedecor.register("simple_bench", {
 	tiles = { "homedecor_generic_wood_old.png" },
@@ -308,9 +302,3 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 		collision_box = shrub_cbox,
 	})
 end
-
-minetest.register_alias("lord_homedecor:well_top", "air")
-minetest.register_alias("lord_homedecor:well_base", "lord_homedecor:well")
-
-minetest.register_alias("gloopblocks:shrubbery", "lord_homedecor:shrubbery_green")
-minetest.register_alias("gloopblocks:shrubbery_large", "lord_homedecor:shrubbery_large_green")

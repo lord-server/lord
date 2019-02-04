@@ -30,7 +30,6 @@ minetest.register_chatcommand("protect", {
 	end
 })
 
-
 minetest.register_chatcommand("set_owner", {
 	params = "<PlayerName> <AreaName>",
 	description = SL("Protect an area beetween two positions and give"
@@ -65,7 +64,6 @@ minetest.register_chatcommand("set_owner", {
 		return true, SL("Area protected.").." ID: "..id
 	end
 })
-
 
 minetest.register_chatcommand("add_owner", {
 	params = "<ParentID> <Player> <AreaName>",
@@ -111,7 +109,6 @@ minetest.register_chatcommand("add_owner", {
 	end
 })
 
-
 minetest.register_chatcommand("rename_area", {
 	params = "<ID> <newName>",
 	description = SL("Rename a area that you own"),
@@ -136,7 +133,6 @@ minetest.register_chatcommand("rename_area", {
 		return true, SL("Area renamed.")
 	end
 })
-
 
 minetest.register_chatcommand("find_areas", {
 	params = "<regexp>",
@@ -170,7 +166,6 @@ minetest.register_chatcommand("find_areas", {
 	end
 })
 
-
 minetest.register_chatcommand("list_areas", {
 	description = SL("List your areas, or all areas if you are an admin"),
 	privs = {[areas.config.self_protection_privilege]=true},
@@ -188,7 +183,6 @@ minetest.register_chatcommand("list_areas", {
 		return true, table.concat(areaStrings, "\n")
 	end
 })
-
 
 minetest.register_chatcommand("recursive_remove_areas", {
 	params = "<id>",
@@ -210,7 +204,6 @@ minetest.register_chatcommand("recursive_remove_areas", {
 	end
 })
 
-
 minetest.register_chatcommand("remove_area", {
 	params = "<id>",
 	description = SL("Remove an area using an id"),
@@ -230,7 +223,6 @@ minetest.register_chatcommand("remove_area", {
 		return true, SL("Removed area").." "..id
 	end
 })
-
 
 minetest.register_chatcommand("change_owner", {
 	params = "<ID> <NewOwner>",
@@ -259,7 +251,6 @@ minetest.register_chatcommand("change_owner", {
 	end
 })
 
-
 minetest.register_chatcommand("area_open", {
 	params = "<ID>",
 	description = SL("Toggle an area open (anyone can interact) or closed"),
@@ -280,7 +271,6 @@ minetest.register_chatcommand("area_open", {
 		return true, (SL("Area").." %s."):format(open and SL("opened") or SL("closed"))
 	end
 })
-
 
 minetest.register_chatcommand("move_area", {
 	params = "<ID>",

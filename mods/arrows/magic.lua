@@ -154,4 +154,3 @@ minetest.register_craft({
 	recipe   = "arrows:fireball",
 	burntime = 40,
 })
-

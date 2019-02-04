@@ -7,7 +7,6 @@ if enable_respawn == nil then
 	enable_respawn = true
 end
 
-
 -- helper functions
 
 local function get_look_yaw(pos)
@@ -164,7 +163,6 @@ function beds.on_rightclick(pos, player)
 		end)
 	end
 end
-
 
 -- callbacks
 

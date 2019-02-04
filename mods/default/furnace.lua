@@ -1,4 +1,5 @@
 local SL = lord.require_intllib()
+
 --
 -- Formspecs
 --

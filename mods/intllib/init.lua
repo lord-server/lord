@@ -1,4 +1,3 @@
-
 -- Old multi-load method compatibility
 if rawget(_G, "intllib") then return end
 
@@ -7,11 +6,9 @@ intllib = {
 	strings = {},
 }
 
-
 local MP = minetest.get_modpath("intllib")
 
 dofile(MP.."/lib.lua")
-
 
 local LANG = minetest.settings:get("language")
 if not (LANG and (LANG ~= "")) then LANG = os.getenv("LANG") end
@@ -53,7 +50,6 @@ local function make_getter(msgstrs)
 	end
 end
 
-
 local function Getter(modname)
 	modname = modname or minetest.get_current_modname()
 	if not intllib.getters[modname] then
@@ -63,16 +59,13 @@ local function Getter(modname)
 	return intllib.getters[modname]
 end
 
-
 function intllib.Getter(modname)
 	minetest.log("deprecated", "intllib.Getter is deprecated."
 			.."Please use intllib.make_gettext_pair instead.")
 	return Getter(modname)
 end
 
-
 local gettext = dofile(minetest.get_modpath("intllib").."/gettext.lua")
-
 
 local function catgettext(catalogs, msgid)
 	for _, cat in ipairs(catalogs) do
@@ -97,7 +90,6 @@ local function catngettext(catalogs, msgid, msgid_plural, n)
 	return n==1 and msgid or msgid_plural
 end
 
-
 local gettext_getters = { }
 function intllib.make_gettext_pair(modname)
 	modname = modname or minetest.get_current_modname()
@@ -121,7 +113,6 @@ function intllib.make_gettext_pair(modname)
 	return gettext, ngettext
 end
 
-
 local function get_locales(code)
 	local ll, cc = code:match("^(..)_(..)")
 	if ll then
@@ -130,7 +121,6 @@ local function get_locales(code)
 		return { code, code~="en" and "en" or nil }
 	end
 end
-
 
 function intllib.get_strings(modname, langcode)
 	langcode = langcode or LANG
@@ -150,3 +140,4 @@ function intllib.get_strings(modname, langcode)
 	return msgstr
 end
 
+lord.mod_loaded()

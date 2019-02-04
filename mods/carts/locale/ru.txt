@@ -1,5 +1,5 @@
 ### init.lua ###
-Minecart = Тележка
+Minecart = Вагонетка
 Rail = Обычные рельсы
 Gear = Шестерня
 Steam mechanism = Паровой механизм

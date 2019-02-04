@@ -18,7 +18,6 @@ function beds.register_bed(name, def)
 		selection_box = {
 			type = "fixed",
 			fixed = def.selectionbox,
-
 		},
 		after_place_node = function(pos, placer, itemstack)
 			local n = minetest.get_node_or_nil(pos)

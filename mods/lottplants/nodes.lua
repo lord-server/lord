@@ -498,7 +498,6 @@ minetest.register_node("lottplants:yavannamireleaf", {
 	sounds                     = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_alias("lottmapgen:mirkleaves", "lottplants:mirkleaf")
 minetest.register_node("lottplants:mirkleaf", {
 	description                = SL("Mirkwood Leaves"),
 	drawtype                   = "mesh",

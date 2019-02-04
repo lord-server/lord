@@ -84,17 +84,3 @@ beds.register_bed("beds:bed", {
 	},
 
 })
-
--- aliases for PA's beds mod
-minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
-minetest.register_alias("beds:bed_top_red", "beds:bed_top")
--- aliases for beds from lottblocks mod
-minetest.register_alias("lottblocks:bed_red",			"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_bottom_red",	"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_top_red",		"beds:bed_top")
-minetest.register_alias("lottblocks:bed_blue",			"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_bottom_blue",	"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_top_blue",		"beds:bed_top")
-minetest.register_alias("lottblocks:bed_green",			"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_bottom_green",	"beds:bed_bottom")
-minetest.register_alias("lottblocks:bed_top_green",		"beds:bed_top")

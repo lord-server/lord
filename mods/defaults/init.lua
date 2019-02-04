@@ -1,7 +1,8 @@
+local SL = lord.require_intllib()
+
 ghost = {}
 
-ghost.original_materials = {
-}
+ghost.original_materials = {}
 
 function ghost.deepcopy(orig)
 	local orig_type = type(orig)
@@ -44,12 +45,10 @@ function ghost.register_ghost_material(name)
 
 	local node = ghost.deepcopy(orig_node)
 
-	--minetest.log("action", "registering ghost variant of \""..node.name.."\"")
-
 	node.name = ghost_name
 	node.walkable = false
 	if node.description ~= nil then
-		node.description = "Ghost "..node.description
+		node.description = "Ghost Block: "..node.description
 	end
 	if node.groups == nil then
 		node.groups = {}
@@ -81,7 +80,6 @@ function ghost.register_ghost_material(name)
 	minetest.register_node(ghost_name, node)
 end
 
-
 ghost.has_crystals = function(crystalstack)
 	if (crystalstack:get_count() < 8) then
 		return false
@@ -93,9 +91,8 @@ ghost.has_crystals = function(crystalstack)
 	return true
 end
 
-
 minetest.register_tool("defaults:ghost_tool", {
-	description = "Призрачный посох",
+	description = SL("Ghost Staff"),
 	inventory_image = "ghost_tool.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
@@ -147,8 +144,6 @@ minetest.register_craft({
 	},
 })
 
-
-
 for i,material in ipairs(ghost.original_materials) do
 	ghost.register_ghost_material(material)
 end
@@ -181,6 +176,5 @@ for name,material in pairs(minetest.registered_nodes) do
 		end
 	end
 end
-
 
 lord.mod_loaded()

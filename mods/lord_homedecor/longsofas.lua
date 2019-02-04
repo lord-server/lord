@@ -57,10 +57,6 @@ for i in ipairs(lrfurn.colors) do
 		end
 	})
 
-	minetest.register_alias("lord_homedecor:longsofa_left_"..colour, "air")
-	minetest.register_alias("lord_homedecor:longsofa_middle_"..colour, "air")
-	minetest.register_alias("lord_homedecor:longsofa_right_"..colour, "lord_homedecor:longsofa_"..colour)
-
 	minetest.register_craft({
 		output = "lord_homedecor:longsofa_"..colour,
 		recipe = {

@@ -26,6 +26,4 @@ function hud.set_armor(player, ges_state, items)
 	end
 
 	hud.armor[player:get_player_name()] = lvl*(items*(20/max_items))
-
-
 end

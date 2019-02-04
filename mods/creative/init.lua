@@ -4,7 +4,8 @@ minetest.register_privilege("creative", {
 	description          = SL("Creative Mode"),
 	give_to_singleplayer = false,
 })
-creative_inventory                         = {}
+
+creative_inventory = {}
 creative_inventory.creative_inventory_size = 0
 
 local trash = minetest.create_detached_inventory("creative_trash", {
@@ -21,6 +22,7 @@ local trash = minetest.create_detached_inventory("creative_trash", {
 		inv:set_stack(listname, index, "")
 	end,
 })
+
 trash:set_size("main", 1)
 
 -- Create detached creative inventory after loading all mods
@@ -203,6 +205,4 @@ if minetest.settings:get_bool("creative_mode") then
 
 end
 
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname() .. " mod LOADED")
-end
+lord.mod_loaded()

@@ -38,7 +38,6 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 		groups = {not_in_creative_inventory=1},
 	})
 
-
 	arrows:register_throwing_weapon(name, {
 		arrow = {
 			visual = "wielditem",
@@ -60,6 +59,7 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 		},
 
 	})
+	
 	if not craft2 then
 		minetest.register_craft({
 			output = name.." 4",

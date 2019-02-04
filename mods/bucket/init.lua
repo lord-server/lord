@@ -5,10 +5,6 @@ local SL = lord.require_intllib()
 
 local LIQUID_MAX = 8  --The number of water levels when liquid_finite is enabled
 
-minetest.register_alias("bucket", "bucket:bucket_empty")
-minetest.register_alias("bucket_water", "bucket:bucket_water")
-minetest.register_alias("bucket_lava", "bucket:bucket_lava")
-
 minetest.register_craft({
 	output = 'bucket:bucket_empty 1',
 	recipe = {
@@ -80,7 +76,7 @@ function bucket.register_liquid(source, flowing, itemname, inventory_image, name
 			inventory_image = inventory_image,
 			stack_max = 1,
 			liquids_pointable = true,
-			groups = {not_in_creative_inventory=1},
+			groups = {},
 			on_place = function(itemstack, user, pointed_thing)
 				-- Must be pointing to node
 				if pointed_thing.type ~= "node" then

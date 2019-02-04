@@ -14,9 +14,18 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'bones:bone_scythe',
 	recipe = {
-		{'bones:bone', 'bones:bone', ''},
-		{'', 'group:stick', ''},
-		{'', 'group:stick',''},
+		{'bones:bone', 'bones:bone'},
+		{'', 'group:stick'},
+		{'', 'group:stick'},
+	}
+})
+
+minetest.register_craft({
+	output = 'bones:bone_scythe',
+	recipe = {
+		{'bones:bone', 'bones:bone'},
+		{'group:stick', ''},
+		{'group:stick',''},
 	}
 })
 
@@ -28,4 +37,3 @@ minetest.register_craft({
 		{'bones:bone', 'bones:bone', 'bones:bone'},
 	}
 })
-

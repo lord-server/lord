@@ -1,4 +1,3 @@
-
 local SL = lord.require_intllib()
 
 local KFR = 0.01
@@ -141,4 +140,3 @@ end
 
 register_bolt("steel", "default", STEEL_DC, STEEL_BOLT_MASS)
 register_bolt("mithril", "lottores", MITHRIL_DC, MITHRIL_BOLT_MASS)
-

@@ -70,7 +70,7 @@ register_rail_craft("carts:accelerating_rail", "carts:gear")
 register_rail_craft("carts:rail", "")
 
 --**************************************************************************
--- cooking
+-- Cooking
 --**************************************************************************
 
 minetest.register_craft({

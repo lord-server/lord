@@ -1,7 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("protector_lott:protect", "protector_lott:protect_stone")
-
 local function reg_prot_node(subname, desc, base_node_name, texture)
 	local groups = {}
 	groups.protector = 1

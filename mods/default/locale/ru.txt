@@ -108,7 +108,7 @@ Item = Предмет
 Not cookable = Не для печи
 
 ### chatcommands.lua ###
-print out privileges of player	=	Вывести привилегии игрока
+Print out privileges of player	=	Вывести привилегии игрока
 Give privilege to player	=	Дать привилегии игроку
 Remove privilege from player	=	Забрать привилегии у игрока
 

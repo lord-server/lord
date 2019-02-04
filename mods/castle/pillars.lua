@@ -1,9 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
-minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
-minetest.register_alias("castle:pillars_middle", "castle:pillars_stonewall_middle")
-
 local pillar = {}
 
 pillar.types = {

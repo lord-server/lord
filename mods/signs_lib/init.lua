@@ -1050,9 +1050,6 @@ end
 
 build_char_db()
 
-minetest.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
-minetest.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
-
 signs_lib.register_fence_with_sign("default:fence_wood", "signs:sign_post")
 
 -- restore signs' text after /clearobjects and the like

@@ -1,4 +1,3 @@
-
 arrows = {}
 
 function arrows:register_arrow(name, definition)
@@ -62,4 +61,3 @@ end
 dofile(minetest.get_modpath("arrows").."/arrows.lua")
 dofile(minetest.get_modpath("arrows").."/magic.lua")
 dofile(minetest.get_modpath("arrows").."/axe.lua")
-

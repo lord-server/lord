@@ -1,9 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall")
-minetest.register_alias("castle:arrowslit_hole", "castle:arrowslit_stonewall_hole")
-minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall_cross")
-
 local arrowslit = {}
 
 arrowslit.types = {

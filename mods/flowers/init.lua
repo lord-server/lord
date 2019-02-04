@@ -6,15 +6,6 @@ local SL = lord.require_intllib()
 -- Map Generation
 dofile(minetest.get_modpath("flowers").."/mapgen.lua")
 
--- Aliases for original flowers mod
-minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
-minetest.register_alias("flowers:flower_dandelion_yellow", "flowers:dandelion_yellow")
-minetest.register_alias("flowers:flower_geranium", "flowers:geranium")
-minetest.register_alias("flowers:flower_rose", "flowers:rose")
-minetest.register_alias("flowers:flower_tulip", "flowers:tulip")
-minetest.register_alias("flowers:flower_viola", "flowers:viola")
-minetest.register_alias("flowers:flower_cactus_decor", "flowers:cactus_decor")
-
 minetest.register_node("flowers:dandelion_white", {
 	description = SL("White Dandelion"),
 	drawtype = "plantlike",

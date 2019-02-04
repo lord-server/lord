@@ -1,7 +1,9 @@
 local SL = lord.require_intllib()
+
 --
 -- Helper functions
 --
+
 local function is_water(pos)
 	local nn = minetest.get_node(pos).name
 	return minetest.get_item_group(nn, "water") ~= 0
@@ -204,7 +206,6 @@ minetest.register_craftitem("boats:row_boat", {
 minetest.register_craft({
 	output = "boats:row_boat",
 	recipe = {
-		{"",           "",           ""          },
 		{"group:wood", "",           "group:wood"},
 		{"group:wood", "group:wood", "group:wood"},
 	},

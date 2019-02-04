@@ -1,4 +1,3 @@
-
 intllib = intllib or {}
 
 local INS_CHAR = "@"

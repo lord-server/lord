@@ -328,13 +328,6 @@ minetest.register_craftitem("lord_homedecor:sticks", {
 	on_place_on_ground = minetest.craftitem_place_item,
 })
 
-minetest.register_alias("fakegrass", "lord_homedecor:fakegrass")
-minetest.register_alias("adobe", "lord_homedecor:Adobe")
-minetest.register_alias("building_blocks_roofing", "lord_homedecor:Roofing")
-minetest.register_alias("hardwood", "lord_homedecor:hardwood")
-minetest.register_alias("sticks", "lord_homedecor:sticks")
-minetest.register_alias("lord_homedecor:faggot", "lord_homedecor:sticks")
-
 minetest.register_craft({
 	type = "fuel",
 	recipe = "lord_homedecor:sticks",

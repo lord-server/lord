@@ -7,6 +7,7 @@ farming = {}
 --
 -- Soil
 --
+
 minetest.register_node("farming:soil", {
 	description = SL("Soil"),
 	tiles = {"farming_soil.png", "default_dirt.png"},
@@ -64,6 +65,7 @@ minetest.register_abm({
 --
 -- Hoes
 --
+
 -- turns nodes with group soil=1 into soil
 function farming.hoe_on_use(itemstack, user, pointed_thing, uses)
 	local pt = pointed_thing
@@ -156,11 +158,29 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "farming:hoe_wood",
+	recipe = {
+		{"group:wood", "group:wood"},
+		{"group:stick", ""},
+		{"group:stick", ""},
+	}
+})
+
+minetest.register_craft({
 	output = "farming:hoe_stone",
 	recipe = {
 		{"group:stone", "group:stone"},
 		{"", "group:stick"},
 		{"", "group:stick"},
+	}
+})
+
+minetest.register_craft({
+	output = "farming:hoe_stone",
+	recipe = {
+		{"group:stone", "group:stone"},
+		{"group:stick", ""},
+		{"group:stick", ""},
 	}
 })
 
@@ -174,6 +194,15 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "farming:hoe_steel",
+	recipe = {
+		{"default:steel_ingot", "default:steel_ingot"},
+		{"group:stick", ""},
+		{"group:stick", ""},
+	}
+})
+
+minetest.register_craft({
 	output = "farming:hoe_bronze",
 	recipe = {
 		{"default:bronze_ingot", "default:bronze_ingot"},
@@ -182,9 +211,19 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "farming:hoe_bronze",
+	recipe = {
+		{"default:bronze_ingot", "default:bronze_ingot"},
+		{"group:stick", ""},
+		{"group:stick", ""},
+	}
+})
+
 --
 -- Override grass for drops
 --
+
 minetest.register_node(":default:grass_1", {
 	description = SL("Grass"),
 	drawtype = "plantlike",
@@ -277,6 +316,7 @@ minetest.register_node(":default:junglegrass", {
 --
 -- Place seeds
 --
+
 local function place_seed(itemstack, placer, pointed_thing, plantname)
 	local pt = pointed_thing
 	-- check if pointing at a node
@@ -324,6 +364,7 @@ end
 --
 -- Wheat
 --
+
 minetest.register_craftitem("farming:wheat0", {
 	description = SL("Wheat"),
 	inventory_image = "farming_wheat.png",
@@ -434,6 +475,7 @@ minetest.register_abm({
 --
 -- Cotton
 --
+
 minetest.register_craftitem("farming:seed_cotton", {
 	description = SL("Cotton Seed"),
 	inventory_image = "farming_cotton_seed.png",

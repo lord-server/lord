@@ -1,13 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("darkage:box", "castle:crate")
-minetest.register_alias("cottages:straw", "farming:straw")
-minetest.register_alias("castle:straw", "farming:straw")
-minetest.register_alias("darkage:straw", "farming:straw")
-minetest.register_alias("cottages:straw_bale", "castle:bound_straw")
-minetest.register_alias("darkage:straw_bale", "castle:bound_straw")
-minetest.register_alias("darkage:lamp", "castle:street_light")
-
 minetest.register_node("castle:anvil", {
 	drawtype    = "nodebox",
 	description = SL("Anvil"),

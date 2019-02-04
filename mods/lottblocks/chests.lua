@@ -441,11 +441,3 @@ minetest.register_craft({
 		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
 	}
 })
-
-minetest.register_alias("lottmapgen:hobbit_chest", "lottblocks:hobbit_chest")
-minetest.register_alias("lottmapgen:gondor_chest", "lottblocks:gondor_chest")
-minetest.register_alias("lottmapgen:rohan_chest", "lottblocks:rohan_chest")
-minetest.register_alias("lottmapgen:elfloth_chest", "lottblocks:elfloth_chest")
-minetest.register_alias("lottmapgen:elfmirk_chest", "lottblocks:elfmirk_chest")
-minetest.register_alias("lottmapgen:mordor_chest", "lottblocks:mordor_chest")
-minetest.register_alias("lottmapgen:angmar_chest", "lottblocks:angmar_chest")

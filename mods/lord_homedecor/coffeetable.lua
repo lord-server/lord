@@ -117,8 +117,6 @@ minetest.register_node("lord_homedecor:coffeetable_front", {
 	},
 })
 
-minetest.register_alias("lord_homedecor:coffeetable", "lord_homedecor:coffeetable_back")
-
 minetest.register_craft({
 	output = "lord_homedecor:coffeetable",
 	recipe = {

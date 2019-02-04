@@ -136,16 +136,3 @@ minetest.register_node("lottother:angmarms", {
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
-
-minetest.register_alias("lottother:gondorms_on", "lottother:gondorms")
-minetest.register_alias("lottother:gondorms_off", "lottother:gondorms")
-minetest.register_alias("lottother:rohanms_on", "lottother:rohanms")
-minetest.register_alias("lottother:rohanms_off", "lottother:rohanms")
-minetest.register_alias("lottother:angmarms_on", "lottother:angmarms")
-minetest.register_alias("lottother:angmarms_off", "lottother:angmarms")
-minetest.register_alias("lottother:hobbitms_on", "lottother:hobbitms")
-minetest.register_alias("lottother:hobbitms_off", "lottother:hobbitms")
-minetest.register_alias("lottother:elfms_on", "lottother:elfms")
-minetest.register_alias("lottother:elfms_off", "lottother:elfms")
-minetest.register_alias("lottother:mordorms_on", "lottother:mordorms")
-minetest.register_alias("lottother:mordorms_off", "lottother:mordorms")

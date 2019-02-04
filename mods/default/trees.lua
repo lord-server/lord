@@ -4,7 +4,6 @@
 
 local random = math.random
 
-
 -- Sapling ABM
 
 minetest.register_abm({
@@ -57,7 +56,6 @@ minetest.register_abm({
 		end
 	end
 })
-
 
 --
 -- Tree generation

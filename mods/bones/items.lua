@@ -3,8 +3,6 @@ local SL = lord.require_intllib()
 minetest.register_craftitem("bones:bonedust", {
 	description = SL("Bone Dust"),
 	inventory_image = "bones_bonedust.png",
-	liquids_pointable = false,
-	stack_max = 99,
 })
 
 minetest.register_craftitem("bones:bone", {

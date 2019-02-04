@@ -85,7 +85,6 @@ minetest.register_chatcommand("area_pos2", {
 	end,
 })
 
-
 minetest.register_chatcommand("area_pos", {
 	params = "set/set1/set2/get",
 	description = SL("Set area protection region, position 1, or position 2"
@@ -140,7 +139,6 @@ function areas:setPos2(playerName, pos)
 	areas.pos2[playerName] = pos
 	areas.markPos2(playerName)
 end
-
 
 minetest.register_on_punchnode(function(pos, node, puncher)
 	local name = puncher:get_player_name()

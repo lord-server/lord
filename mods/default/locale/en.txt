@@ -114,6 +114,6 @@ Steel Sword	=	Steel Sword
 Bronze Sword	=	Bronze Sword
 
 ### chatcommands.lua ###
-print out privileges of player	=	print out privileges of player
+Print out privileges of player	=	print out privileges of player
 Give privilege to player	=	Give privilege to player
 Remove privilege from player	=	Remove privilege from player

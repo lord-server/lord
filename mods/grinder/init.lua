@@ -7,9 +7,7 @@ iEnv.package.path = modpath .. "/src/?.lua;" .. iEnv.package.path
 local old_require = require
 require           = iEnv.require
 
-
 local grinder = require('grinder')
 grinder.init()
-
 
 require = old_require

@@ -183,6 +183,9 @@ minetest.register_alias("defaults:st0ne",              "defaults:default_stone")
 
 
 -- Corpses
+
+minetest.register_alias("bones:bones", "bones:corpse_man_male")
+
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do
 		local n = "bones:corpse_"..race.."_"..gender
@@ -249,3 +252,170 @@ minetest.register_alias("lottthrowing:axe_elf", "arrows:axe_elf")
 minetest.register_alias("lottthrowing:axe_steel", "arrows:axe_steel")
 minetest.register_alias("lottthrowing:axe_galvorn", "arrows:axe_galvorn")
 
+minetest.register_alias('bees:honey_extractor', 'bees:extractor')
+minetest.register_alias('bees:honey_bottle', 'bees:bottle_honey')
+
+minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
+minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
+minetest.register_alias("castle:pillars_middle", "castle:pillars_stonewall_middle")
+
+minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall")
+minetest.register_alias("castle:arrowslit_hole", "castle:arrowslit_stonewall_hole")
+minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall_cross")
+
+minetest.register_alias("darkage:box", "castle:crate")
+minetest.register_alias("cottages:straw", "farming:straw")
+minetest.register_alias("castle:straw", "farming:straw")
+minetest.register_alias("darkage:straw", "farming:straw")
+minetest.register_alias("cottages:straw_bale", "castle:bound_straw")
+minetest.register_alias("darkage:straw_bale", "castle:bound_straw")
+minetest.register_alias("darkage:lamp", "castle:street_light")
+
+--Default
+minetest.register_alias("mapgen_stone", "default:stone")
+minetest.register_alias("mapgen_tree", "default:tree")
+minetest.register_alias("mapgen_leaves", "default:leaves")
+minetest.register_alias("mapgen_jungletree", "default:jungletree")
+minetest.register_alias("mapgen_jungleleaves", "default:jungleleaves")
+minetest.register_alias("mapgen_apple", "default:apple")
+minetest.register_alias("mapgen_water_source", "default:water_source")
+minetest.register_alias("mapgen_river_water_source", "default:river_water_source")
+minetest.register_alias("mapgen_dirt", "default:dirt")
+minetest.register_alias("mapgen_sand", "default:sand")
+minetest.register_alias("mapgen_gravel", "default:gravel")
+minetest.register_alias("mapgen_clay", "default:clay")
+minetest.register_alias("mapgen_lava_source", "default:lava_source")
+minetest.register_alias("mapgen_cobble", "default:cobble")
+minetest.register_alias("mapgen_mossycobble", "default:mossycobble")
+minetest.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
+minetest.register_alias("mapgen_junglegrass", "default:junglegrass")
+minetest.register_alias("mapgen_stone_with_coal", "default:stone_with_coal")
+minetest.register_alias("mapgen_stone_with_iron", "default:stone_with_iron")
+minetest.register_alias("mapgen_mese", "default:mese")
+minetest.register_alias("mapgen_desert_sand", "default:desert_sand")
+minetest.register_alias("mapgen_desert_stone", "default:desert_stone")
+minetest.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
+
+minetest.register_alias("default:mese_block", "default:mese")
+minetest.register_alias("snow", "default:snow")
+
+--Flowes
+minetest.register_alias("flowers:flower_dandelion_white", "flowers:dandelion_white")
+minetest.register_alias("flowers:flower_dandelion_yellow", "flowers:dandelion_yellow")
+minetest.register_alias("flowers:flower_geranium", "flowers:geranium")
+minetest.register_alias("flowers:flower_rose", "flowers:rose")
+minetest.register_alias("flowers:flower_tulip", "flowers:tulip")
+minetest.register_alias("flowers:flower_viola", "flowers:viola")
+minetest.register_alias("flowers:flower_cactus_decor", "flowers:cactus_decor")
+
+--Beds
+-- aliases for PA's beds mod
+minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
+minetest.register_alias("beds:bed_top_red", "beds:bed_top")
+-- aliases for beds from lottblocks mod
+minetest.register_alias("lottblocks:bed_red",			"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_bottom_red",	"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_top_red",		"beds:bed_top")
+minetest.register_alias("lottblocks:bed_blue",			"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_bottom_blue",	"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_top_blue",		"beds:bed_top")
+minetest.register_alias("lottblocks:bed_green",			"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_bottom_green",	"beds:bed_bottom")
+minetest.register_alias("lottblocks:bed_top_green",		"beds:bed_top")
+
+--Bucket
+minetest.register_alias("bucket", "bucket:bucket_empty")
+minetest.register_alias("bucket_water", "bucket:bucket_water")
+minetest.register_alias("bucket_lava", "bucket:bucket_lava")
+
+--Lord Homedecor
+minetest.register_alias("fakegrass", "lord_homedecor:fakegrass")
+minetest.register_alias("adobe", "lord_homedecor:Adobe")
+minetest.register_alias("building_blocks_roofing", "lord_homedecor:Roofing")
+minetest.register_alias("hardwood", "lord_homedecor:hardwood")
+minetest.register_alias("sticks", "lord_homedecor:sticks")
+minetest.register_alias("lord_homedecor:faggot", "lord_homedecor:sticks")
+minetest.register_alias("lord_homedecor:coffeetable", "lord_homedecor:coffeetable_back")
+minetest.register_alias("lord_homedecor:bench_large_1_left", "lord_homedecor:bench_large_1")
+minetest.register_alias("lord_homedecor:bench_large_1_right", "air")
+minetest.register_alias("lord_homedecor:bench_large_2_left", "lord_homedecor:bench_large_2")
+minetest.register_alias("lord_homedecor:bench_large_2_right", "air")
+minetest.register_alias("lord_homedecor:well_top", "air")
+minetest.register_alias("lord_homedecor:well_base", "lord_homedecor:well")
+minetest.register_alias("gloopblocks:shrubbery", "lord_homedecor:shrubbery_green")
+minetest.register_alias("gloopblocks:shrubbery_large", "lord_homedecor:shrubbery_large_green")
+minetest.register_alias('bars', 'lord_homedecor:bars')
+minetest.register_alias('binding_bars', 'lord_homedecor:L_binding_bars')
+minetest.register_alias('chains', 'lord_homedecor:chains')
+minetest.register_alias('torch_wall', 'lord_homedecor:torch_wall')
+--Переместить обратно (в longsofa.lua)!!!
+--minetest.register_alias("lord_homedecor:longsofa_left_"..colour, "air")
+--minetest.register_alias("lord_homedecor:longsofa_middle_"..colour, "air")
+--minetest.register_alias("lord_homedecor:longsofa_right_"..colour, "lord_homedecor:longsofa_"..colour)
+
+--Lottblocks
+minetest.register_alias("lottmapgen:hobbit_chest", "lottblocks:hobbit_chest")
+minetest.register_alias("lottmapgen:gondor_chest", "lottblocks:gondor_chest")
+minetest.register_alias("lottmapgen:rohan_chest", "lottblocks:rohan_chest")
+minetest.register_alias("lottmapgen:elfloth_chest", "lottblocks:elfloth_chest")
+minetest.register_alias("lottmapgen:elfmirk_chest", "lottblocks:elfmirk_chest")
+minetest.register_alias("lottmapgen:mordor_chest", "lottblocks:mordor_chest")
+minetest.register_alias("lottmapgen:angmar_chest", "lottblocks:angmar_chest")
+minetest.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
+minetest.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")
+minetest.register_alias("lottother:lamp_top_wood", "lottblocks:lamp_top_wood")
+minetest.register_alias("lottother:tiny_lamp_wood", "lottblocks:small_lamp_wood")
+minetest.register_alias("lottother:lamp_wood_alder", "lottblocks:lamp_alder")
+minetest.register_alias("lottother:lamp_middle_wood_alder", "lottblocks:lamp_middle_alder")
+minetest.register_alias("lottother:lamp_top_wood_alder", "lottblocks:lamp_top_alder")
+minetest.register_alias("lottother:tiny_lamp_wood_alder", "lottblocks:small_lamp_alder")
+minetest.register_alias("lottother:lamp_wood_birch", "lottblocks:lamp_birch")
+minetest.register_alias("lottother:lamp_middle_wood_birch", "lottblocks:lamp_middle_birch")
+minetest.register_alias("lottother:lamp_top_wood_birch", "lottblocks:lamp_top_birch")
+minetest.register_alias("lottother:tiny_lamp_wood_birch", "lottblocks:small_lamp_birch")
+minetest.register_alias("lottother:lamp_wood_lebethron", "lottblocks:lamp_lebethron")
+minetest.register_alias("lottother:lamp_middle_wood_lebethron", "lottblocks:lamp_middle_lebethron")
+minetest.register_alias("lottother:lamp_top_wood_lebethron", "lottblocks:lamp_top_lebethron")
+minetest.register_alias("lottother:tiny_lamp_wood_lebethron", "lottblocks:small_lamp_lebethron")
+minetest.register_alias("lottother:lamp_wood_mallorn", "lottblocks:lamp_mallorn")
+minetest.register_alias("lottother:lamp_middle_wood_mallorn", "lottblocks:lamp_middle_mallorn")
+minetest.register_alias("lottother:lamp_top_wood_mallorn", "lottblocks:lamp_top_mallorn")
+minetest.register_alias("lottother:tiny_lamp_wood_mallorn", "lottblocks:small_lamp_mallorn")
+
+--Lottfarming
+minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
+
+--Lottother
+minetest.register_alias("lottother:gondorms_on", "lottother:gondorms")
+minetest.register_alias("lottother:gondorms_off", "lottother:gondorms")
+minetest.register_alias("lottother:rohanms_on", "lottother:rohanms")
+minetest.register_alias("lottother:rohanms_off", "lottother:rohanms")
+minetest.register_alias("lottother:angmarms_on", "lottother:angmarms")
+minetest.register_alias("lottother:angmarms_off", "lottother:angmarms")
+minetest.register_alias("lottother:hobbitms_on", "lottother:hobbitms")
+minetest.register_alias("lottother:hobbitms_off", "lottother:hobbitms")
+minetest.register_alias("lottother:elfms_on", "lottother:elfms")
+minetest.register_alias("lottother:elfms_off", "lottother:elfms")
+minetest.register_alias("lottother:mordorms_on", "lottother:mordorms")
+minetest.register_alias("lottother:mordorms_off", "lottother:mordorms")
+
+--Lottplants
+minetest.register_alias("lottmapgen:mirkleaves", "lottplants:mirkleaf")
+
+--Protector Lott
+minetest.register_alias("protector_lott:protect", "protector_lott:protect_stone")
+
+--Screwdriver
+minetest.register_alias("screwdriver:screwdriver1", "screwdriver:screwdriver")
+minetest.register_alias("screwdriver:screwdriver2", "screwdriver:screwdriver")
+minetest.register_alias("screwdriver:screwdriver3", "screwdriver:screwdriver")
+minetest.register_alias("screwdriver:screwdriver4", "screwdriver:screwdriver")
+
+--Signs Lib
+minetest.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
+minetest.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
+
+--Wool
+-- Backwards compatibility with jordach's 16-color wool mod
+minetest.register_alias("wool:dark_blue", "wool:blue")
+minetest.register_alias("wool:gold", "wool:yellow")

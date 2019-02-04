@@ -1,26 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
-minetest.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")
-minetest.register_alias("lottother:lamp_top_wood", "lottblocks:lamp_top_wood")
-minetest.register_alias("lottother:tiny_lamp_wood", "lottblocks:small_lamp_wood")
-minetest.register_alias("lottother:lamp_wood_alder", "lottblocks:lamp_alder")
-minetest.register_alias("lottother:lamp_middle_wood_alder", "lottblocks:lamp_middle_alder")
-minetest.register_alias("lottother:lamp_top_wood_alder", "lottblocks:lamp_top_alder")
-minetest.register_alias("lottother:tiny_lamp_wood_alder", "lottblocks:small_lamp_alder")
-minetest.register_alias("lottother:lamp_wood_birch", "lottblocks:lamp_birch")
-minetest.register_alias("lottother:lamp_middle_wood_birch", "lottblocks:lamp_middle_birch")
-minetest.register_alias("lottother:lamp_top_wood_birch", "lottblocks:lamp_top_birch")
-minetest.register_alias("lottother:tiny_lamp_wood_birch", "lottblocks:small_lamp_birch")
-minetest.register_alias("lottother:lamp_wood_lebethron", "lottblocks:lamp_lebethron")
-minetest.register_alias("lottother:lamp_middle_wood_lebethron", "lottblocks:lamp_middle_lebethron")
-minetest.register_alias("lottother:lamp_top_wood_lebethron", "lottblocks:lamp_top_lebethron")
-minetest.register_alias("lottother:tiny_lamp_wood_lebethron", "lottblocks:small_lamp_lebethron")
-minetest.register_alias("lottother:lamp_wood_mallorn", "lottblocks:lamp_mallorn")
-minetest.register_alias("lottother:lamp_middle_wood_mallorn", "lottblocks:lamp_middle_mallorn")
-minetest.register_alias("lottother:lamp_top_wood_mallorn", "lottblocks:lamp_top_mallorn")
-minetest.register_alias("lottother:tiny_lamp_wood_mallorn", "lottblocks:small_lamp_mallorn")
-
 function lottblocks.register_lamp(
 	material, description, inv_texture, post1_texture, post2_texture, top_texture, texture, material_code_name, race
 )
