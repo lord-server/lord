@@ -59,7 +59,7 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 		},
 
 	})
-	
+
 	if not craft2 then
 		minetest.register_craft({
 			output = name.." 4",
