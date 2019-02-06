@@ -33,7 +33,7 @@ function formspecs.hive_artificial(pos)
   return formspec
 end
 
--- FLOWER SPAWNER 
+-- FLOWER SPAWNER
 function bees.polinate_flower(pos, flower)
   local spawn_pos = { x=pos.x+math.random(-3,3) , y=pos.y+math.random(-3,3) , z=pos.z+math.random(-3,3) }
   local floor_pos = { x=spawn_pos.x , y=spawn_pos.y-1 , z=spawn_pos.z }
@@ -251,8 +251,8 @@ minetest.register_node('bees:hive_wild', {
 
     -- Requires 2 or more flowers before can make honey
     -- Требуется 2 или более цветов, чтобы можно было сделать мед
-    if #flowers < 3 then 
-      return 
+    if #flowers < 3 then
+      return
     end
 
     local flower = flowers[math.random(#flowers)]
