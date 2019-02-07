@@ -139,5 +139,3 @@ function intllib.get_strings(modname, langcode)
 	end
 	return msgstr
 end
-
-lord.mod_loaded()
