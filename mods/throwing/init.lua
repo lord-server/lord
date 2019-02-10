@@ -198,20 +198,20 @@ local function arrow_step(self, dtime)
 			local lpos = {x = pos.x + dir.x * l / 2, y = pos.y + dir.y * l/2, z = pos.z + dir.z * l/2}
 			local lmobs = minetest.get_objects_inside_radius(lpos, 1.0)
 			for _, player in pairs(lmobs) do
-				table.insert(mobs, player)
+				mobs[player] = true
 			end
 		end
 	else
 		local lmobs = minetest.get_objects_inside_radius(pos, 1.0)
 		for _, player in pairs(lmobs) do
-			table.insert(mobs, player)
+			mobs[player] = true
 		end
 	end
 
 
 	local res  = hit_node(pos, self, self.hit_node)
 
-	for _, player in pairs(mobs) do
+	for player, _ in pairs(mobs) do
 		local itself = (player == self.object)
 		if not itself and player:is_player() then
 			res = hit_player(player, self, self.hit_player, self.owner_id) or res
