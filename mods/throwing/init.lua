@@ -44,6 +44,8 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 	pos.y     = pos.y + dir.y * distance
 	pos.z     = pos.z + dir.z * distance
 
+	--minetest.log("action", "pos = "..pos.x.." "..pos.y.." "..pos.z)
+
 	local obj = minetest.add_entity(pos, arrow_name)
 	obj:set_armor_groups({ immortal = 1 })
 	local ent = obj:get_luaentity()
@@ -71,6 +73,7 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 		obj:setyaw(yaw + math.pi)
 		obj:setacceleration(acceleration(vec, ent.kfr, ent.mass))
 		ent.owner = owner
+		ent.launched = false
 	end
 	return true
 end
@@ -211,13 +214,19 @@ local function arrow_step(self, dtime)
 
 	local res  = hit_node(pos, self, self.hit_node)
 
+	if mobs[self.object] == nil
+	then
+		-- arrow has leaved player, who shoot
+		self.launched = true
+	end
+
 	for player, _ in pairs(mobs) do
-		local itself = (player == self.object)
-		if not itself and player:is_player() then
-			res = hit_player(player, self, self.hit_player, self.owner_id) or res
-		end
-		if not itself and not player:is_player() then
-			res = hit_mob(player, self, self.hit_mob, self.owner_id) or res
+		if player ~= self.object or self.launched then
+			if player:is_player() then
+				res = hit_player(player, self, self.hit_player, self.owner_id) or res
+			else
+				res = hit_mob(player, self, self.hit_mob, self.owner_id) or res
+			end
 		end
 	end
 
