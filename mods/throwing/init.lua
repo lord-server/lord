@@ -205,6 +205,9 @@ local function arrow_step(self, dtime)
 			-- hit node
 			-- hit only first node
 			res_node = res_node or hit_node(lpos, self, self.hit_node)
+			if not res_node then
+				self.lastpos = lpos
+			end
 
 			-- hit players
 			local lmobs = minetest.get_objects_inside_radius(lpos, 1.0)
@@ -215,8 +218,9 @@ local function arrow_step(self, dtime)
 		res = res_node or res
 	else
 		-- hit node
-		res = hit_node(pos, self, self.hit_node) or res
+		res_node = hit_node(pos, self, self.hit_node)
 
+		res = res_node or res
 		-- hit players
 		local lmobs = minetest.get_objects_inside_radius(pos, 1.0)
 		for _, player in pairs(lmobs) do
