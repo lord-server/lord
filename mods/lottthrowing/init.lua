@@ -21,7 +21,6 @@ local lottthrowing_shoot = function(player, arrow_name)
 		player:get_inventory():set_stack("main", stack_index, stack)
 	end
 
-	minetest.log("action", "Player \""..player:get_player_name().."\" shoots "..arrow_name)
 	return lottthrowing_player_shoot(player, arrow_name)
 end
 
