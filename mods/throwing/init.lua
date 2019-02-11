@@ -191,28 +191,38 @@ local function arrow_step(self, dtime)
 		})
 	end
 
+	local res = false
 	local mobs = {}
 	local vel = self.object:getvelocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
 	if vel_len > 0 then
 		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
+		local res_node = false
 		for l = 0, (step_len * 2) do
 			local lpos = {x = pos.x + dir.x * l / 2, y = pos.y + dir.y * l/2, z = pos.z + dir.z * l/2}
+
+			-- hit node
+			-- hit only first node
+			res_node = res_node or hit_node(lpos, self, self.hit_node)
+
+			-- hit players
 			local lmobs = minetest.get_objects_inside_radius(lpos, 1.0)
 			for _, player in pairs(lmobs) do
 				mobs[player] = true
 			end
 		end
+		res = res_node or res
 	else
+		-- hit node
+		res = hit_node(pos, self, self.hit_node) or res
+
+		-- hit players
 		local lmobs = minetest.get_objects_inside_radius(pos, 1.0)
 		for _, player in pairs(lmobs) do
 			mobs[player] = true
 		end
 	end
-
-
-	local res  = hit_node(pos, self, self.hit_node)
 
 	if mobs[self.object] == nil
 	then
