@@ -237,6 +237,17 @@ local function arrow_step(self, dtime)
 	if self.inited == false then
 		self.inited = true
 		self.object:setvelocity(self.launch_velocity)
+
+		-- arrow sound
+		-- TODO: should be on the all arrow path
+		local fly_sound = self.definition.fly_sound
+		if fly_sound and fly_sound.sound then
+			minetest.sound_play(fly_sound.sound, {
+				pos = pos,
+				gain = 1.0,
+				max_hear_distance = fly_sound.sound_distance or 5,
+			})
+		end
 	end
 
 	if self.switch == 0

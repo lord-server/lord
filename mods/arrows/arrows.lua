@@ -71,7 +71,11 @@ local register_arrow = function(material, material_group, dc, mass)
 		mass = mass,
 		kfr = KFR,
 		damage_coefficient = dc,
-		velocity = ARROW_VELOCITY
+		velocity = ARROW_VELOCITY,
+		fly_sound = {
+			sound = "lottthrowing_sound",
+			sound_distance = 5,
+		},
 	})
 end
 
@@ -135,7 +139,11 @@ local register_bolt = function(material, material_group, dc, mass)
 		mass = mass,
 		kfr = KFR,
 		damage_coefficient = dc,
-		velocity = BOLT_VELOCITY
+		velocity = BOLT_VELOCITY,
+		fly_sound = {
+			sound = "lottthrowing_sound",
+			sound_distance = 5,
+		},
 	})
 end
 

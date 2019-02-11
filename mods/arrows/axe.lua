@@ -49,12 +49,12 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 			kfr = AXE_KFR,
 			damage_coefficient = AXE_BASE_DC * damage,
 			drop = true,
-		},
-		craftitem = {
-			shoot_sound = {
+			fly_sound = {
 				sound = "lottthrowing_sound",
 				sound_distance = 5,
 			},
+		},
+		craftitem = {
 			description = description,
 			inventory_image = inventory_image,
 		},

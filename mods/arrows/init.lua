@@ -25,26 +25,16 @@ function arrows:register_arrow(name, definition)
 		hit_player = definition.hit_player,
 		hit_node = definition.hit_node,
 		ttl = definition.ttl or 400,
+		fly_sound = definition.fly_sound,
 	})
 end
 
-local shoot_weapon = function(item, player, pointed_thing)
+local shoot_throwing_weapon = function(item, player, pointed_thing)
 
 	local playerpos = player:getpos()
 	local dir = player:get_look_dir()
 
-	local shoot_sound = item:get_definition().shoot_sound
-
-	if shoot_sound and shoot_sound.sound then
-		minetest.sound_play(shoot_sound.sound, {
-			pos = playerpos,
-			gain = 1.0,
-			max_hear_distance = shoot_sound.distance or 5,
-		})
-	end
-
-	minetest.log("action", "Shooting "..item:get_name())
-	throwing:shoot(player, item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0.5)
+	throwing:shoot(player, item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, -0.1)
 
 	if not minetest.settings:get_bool("creative_mode") then
 		item:take_item()
@@ -55,7 +45,7 @@ end
 function arrows:register_throwing_weapon(name, definition)
 	arrows:register_arrow(name, definition.arrow)
 	local def = definition.craftitem
-	def.on_use = shoot_weapon
+	def.on_use = shoot_throwing_weapon
 	minetest.register_craftitem(name, def)
 end
 
