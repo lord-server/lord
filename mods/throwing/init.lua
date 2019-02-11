@@ -65,7 +65,11 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 			ownvel       = owner:getvelocity() or ownvel
 		end
 		vec = { x = vec.x + ownvel.x, y = vec.y + ownvel.y, z = vec.z + ownvel.z }
-		obj:setvelocity(vec)
+
+		-- arrow velocity will be setted on first step
+		ent.inited = false
+		ent.launch_velocity = vec
+		obj:setvelocity({ x = 0, y = 0, z = 0 })
 		local yaw = 0
 		if vec.x ~= 0 or vec.z ~= 0 then
 			yaw = math.atan2(vec.z, vec.x)
@@ -167,6 +171,12 @@ local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
 
 	local pos  = self.object:getpos()
+
+	-- start arrow move
+	if self.inited == false then
+		self.inited = true
+		self.object:setvelocity(self.launch_velocity)
+	end
 
 	if self.switch == 0
 		or self.timer > self.ttl
