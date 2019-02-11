@@ -228,7 +228,7 @@ local function arrow_step(self, dtime)
 		res = res_node or res
 	else
 		-- hit node
-		res_node = hit_node(pos, self, self.hit_node)
+		local res_node = hit_node(pos, self, self.hit_node)
 
 		res = res_node or res
 		-- hit players
