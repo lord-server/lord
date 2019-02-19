@@ -48,36 +48,36 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 
 	local obj = minetest.add_entity(pos, arrow_name)
 	obj:set_armor_groups({ immortal = 1 })
-	local ent = obj:get_luaentity()
-	if ent then
+	local entity = obj:get_luaentity()
+	if entity then
 		local ownvel = { x = 0, y = 0, z = 0 }
 		local vec    = {}
-		local v      = ent.velocity or 1 -- or set to default
+		local v      = entity.velocity or 1 -- or set to default
 		vec.x        = v * dir.x
 		vec.y        = v * dir.y
 		vec.z        = v * dir.z
-		ent.switch   = 1
+		entity.switch   = 1
 		if (owner.is_player and owner:is_player()) then
-			ent.owner_id = owner:get_player_name() -- add unique owner id to arrow
-			ownvel       = owner:get_player_velocity()
+			entity.owner_id = owner:get_player_name() -- add unique owner id to arrow
+			ownvel          = owner:get_player_velocity()
 		else
-			ent.owner_id = tostring(owner) -- add unique owner id to arrow
-			ownvel       = owner:getvelocity() or ownvel
+			entity.owner_id = tostring(owner) -- add unique owner id to arrow
+			ownvel          = owner:getvelocity() or ownvel
 		end
 		vec = { x = vec.x + ownvel.x, y = vec.y + ownvel.y, z = vec.z + ownvel.z }
 
 		-- arrow velocity will be setted on first step
-		ent.inited = false
-		ent.launch_velocity = vec
+		entity.inited = false
+		entity.launch_velocity = vec
 		obj:setvelocity({ x = 0, y = 0, z = 0 })
 		local yaw = 0
 		if vec.x ~= 0 or vec.z ~= 0 then
 			yaw = math.atan2(vec.z, vec.x)
 		end
 		obj:setyaw(yaw + math.pi)
-		obj:setacceleration(acceleration(vec, ent.kfr, ent.mass))
-		ent.owner = owner
-		ent.launched = false
+		obj:setacceleration(acceleration(vec, entity.kfr, entity.mass))
+		entity.owner = owner
+		entity.launched = false
 	end
 	return true
 end
@@ -238,8 +238,7 @@ local function arrow_step(self, dtime)
 		end
 	end
 
-	if mobs[self.object] == nil
-	then
+	if mobs[self.object] == nil then
 		-- arrow has leaved player, who shoot
 		self.launched = true
 	end
