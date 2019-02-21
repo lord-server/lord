@@ -42,7 +42,7 @@ end
 
 local function growgen(pos)
 	if pos == nil then return false end
-	name = minetest.get_node(pos).name
+	local name = minetest.get_node(pos).name
 	local farm_list = {
 		["lottfarming:turnips_1"] = "lottfarming:turnips_2",
 		["lottfarming:turnips_2"] = "lottfarming:turnips_3",

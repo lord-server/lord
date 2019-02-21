@@ -1,5 +1,5 @@
 
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 lord_homedecor.register("bars", {
 	description = S("Bars"),
@@ -93,7 +93,7 @@ local wl_cbox = {
 lord_homedecor.register("wall_lamp", {
 	description = S("Wall Lamp"),
 	mesh = "homedecor_wall_lamp.obj",
-	tiles = {"homedecor_generic_metal_black.png^[brighten", "homedecor_generic_wood_luxury.png^[colorize:#000000:30", 
+	tiles = {"homedecor_generic_metal_black.png^[brighten", "homedecor_generic_wood_luxury.png^[colorize:#000000:30",
 			"homedecor_light.png", "homedecor_generic_metal_wrought_iron.png"},
 	use_texture_alpha = true,
 	inventory_image = "homedecor_wall_lamp_inv.png",

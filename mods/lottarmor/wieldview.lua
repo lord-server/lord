@@ -57,8 +57,8 @@ end
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 	lottarmor.wielded_item[name] = ""
-	minetest.after(0, function(player)
-		lottarmor:update_wielded_item(player)
+	minetest.after(0, function(updated_player)
+		lottarmor:update_wielded_item(updated_player)
 	end, player)
 end)
 

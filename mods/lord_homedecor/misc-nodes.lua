@@ -1,13 +1,5 @@
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
-
-local rug_types = {
-	{ "small",   "homedecor_small_rug.obj" },
-	{ "large", lord_homedecor.box.slab_y(0.0625)},
-	{ "persian", lord_homedecor.box.slab_y(0.0625)}
-}
-
---local pot_colors = {"black", "green", "terracotta"}
 local pot_colors = {"terracotta"}
 
 for _, p in ipairs(pot_colors) do

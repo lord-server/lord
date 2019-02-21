@@ -10,7 +10,8 @@ lord_homedecor.box = {
 	slab_y = function(height, shift) return { -0.5, -0.5+(shift or 0), -0.5, 0.5, -0.5+height+(shift or 0), 0.5 } end,
 	-- slab starting from -z (+z with negative depth)
 	slab_z = function(depth)
-		-- for consistency with the other functions here, we have to assume that a "z" slab starts from -z and extends by depth,
+		-- for consistency with the other functions here,
+		-- we have to assume that a "z" slab starts from -z and extends by depth,
 		-- but since conventionally a lot of nodes place slabs against +z for player convenience, we define
 		-- a "negative" depth as a depth extending from the other side, i.e. +z
 		if depth > 0 then
@@ -22,7 +23,9 @@ lord_homedecor.box = {
 		end
 	end,
 	bar_y = function(radius) return {-radius, -0.5, -radius, radius, 0.5, radius} end,
-	cuboid = function(radius_x, radius_y, radius_z) return {-radius_x, -radius_y, -radius_z, radius_x, radius_y, radius_z} end,
+	cuboid = function(radius_x, radius_y, radius_z)
+		return {-radius_x, -radius_y, -radius_z, radius_x, radius_y, radius_z}
+	end,
 }
 
 lord_homedecor.nodebox = {

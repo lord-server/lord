@@ -5,14 +5,13 @@ local function guide_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local data = minetest.registered_items[itemstack:get_name()].text
 	local page_info = minetest.deserialize(itemstack:get_metadata())
-	local title, text, owner = "", "", player_name
-	local page, page_max, lines, string = 1, 1, {}, ""
+	local page, lines, string = 1, {}, ""
 
-	title = data.title
-	text = data.text
-	owner = data.owner
-	page_max = data.page_max
-	background = data.background or "gui_elfbg.png"
+	local title = data.title
+	local text = data.text
+	local owner = data.owner
+	local page_max = data.page_max
+	local background = data.background or "gui_elfbg.png"
 
 	for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
 		lines[#lines+1] = str
@@ -44,7 +43,6 @@ end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "lottother:guide" then return end
-	local inv = player:get_inventory()
 	local stack = player:get_wielded_item()
 
 	if fields.book_next or fields.book_prev then
@@ -94,19 +92,3 @@ minetest.register_craft({
 	recipe = {"default:book", "lottblocks:palantir"},
 	replacements = {{"lottblocks:palantir", "lottblocks:palantir"}}
 })
-
-local ring_guide = dofile(minetest.get_modpath("lottblocks")
-	.. "/guide_text/ring_guide.lua")
-
---[[minetest.register_craftitem("lottblocks:ring_guide", {
-	description = "Ring Guidebook",
-	inventory_image = "default_book.png^[colorize:pink:100",
-	groups = {book = 1, forbidden = 1},
-	stack_max = 1,
-	text = minetest.deserialize(ring_guide),
-	on_use = function(itemstack, user)
-		guide_on_use(itemstack, user)
-	end,
-})
-]]
--- No craft for the ring guide, can only be found in generated structures.

@@ -4,8 +4,6 @@ local SL = lord.require_intllib()
 -- made from blue flax and copper ingot.
 -- hasn't got headwear.
 
-local level=2
-
 -- shirt (torso)
 minetest.register_tool("lottclothes:shirt_brandybuck", {
 	description = SL("Brandybuck Shirt"),

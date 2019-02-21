@@ -3,13 +3,15 @@ local SL = lord.require_intllib()
 
 local KFR = 0.01
 
-local STEEL_DC = 0.02
+local STEEL_DC = 0.01
 local MITHRIL_DC = 0.1
 
-local ARROW_MASS = 0.5
+local STEEL_ARROW_MASS = 0.5
+local MITHRIL_ARROW_MASS = 0.25
 local ARROW_VELOCITY = 30
 
-local BOLT_MASS = 1.0
+local STEEL_BOLT_MASS = 1.0
+local MITHRIL_BOLT_MASS = 0.33
 local BOLT_VELOCITY = 40
 
 -- Arrow nodebox
@@ -18,15 +20,15 @@ local arrow_node_box = {
 	fixed = {
 		-- Shaft
 		{-6.5/17, -1.5/17, -1.5/17, 6.5/17, 1.5/17, 1.5/17},
-		--Spitze
+		-- Spitze
 		{-4.5/17, 2.5/17, 2.5/17, -3.5/17, -2.5/17, -2.5/17},
 		{-8.5/17, 0.5/17, 0.5/17, -6.5/17, -0.5/17, -0.5/17},
-		--Federn
+		-- Federn
 		{6.5/17, 1.5/17, 1.5/17, 7.5/17, 2.5/17, 2.5/17},
 		{7.5/17, -2.5/17, 2.5/17, 6.5/17, -1.5/17, 1.5/17},
 		{7.5/17, 2.5/17, -2.5/17, 6.5/17, 1.5/17, -1.5/17},
 		{6.5/17, -1.5/17, -1.5/17, 7.5/17, -2.5/17, -2.5/17},
-		
+
 		{7.5/17, 2.5/17, 2.5/17, 8.5/17, 3.5/17, 3.5/17},
 		{8.5/17, -3.5/17, 3.5/17, 7.5/17, -2.5/17, 2.5/17},
 		{8.5/17, 3.5/17, -3.5/17, 7.5/17, 2.5/17, -2.5/17},
@@ -34,7 +36,7 @@ local arrow_node_box = {
 	}
 }
 
-local register_arrow = function(material, material_group, dc)
+local register_arrow = function(material, material_group, dc, mass)
 	local name = "arrows:arrow_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." arrow"),
@@ -51,27 +53,30 @@ local register_arrow = function(material, material_group, dc)
 	minetest.register_node(name.."_box", {
 		drawtype = "nodebox",
 		node_box = arrow_node_box,
-		tiles = {"lottthrowing_arrow_"..material..".png",
-			 "lottthrowing_arrow_"..material..".png",
-			 "lottthrowing_arrow_"..material.."_back.png",
-			 "lottthrowing_arrow_"..material.."_front.png",
-			 "lottthrowing_arrow_"..material.."_2.png",
-			 "lottthrowing_arrow_"..material..".png"},
+		tiles = {
+			"lottthrowing_arrow_"..material..".png",
+			"lottthrowing_arrow_"..material..".png",
+			"lottthrowing_arrow_"..material.."_back.png",
+			"lottthrowing_arrow_"..material.."_front.png",
+			"lottthrowing_arrow_"..material.."_2.png",
+			"lottthrowing_arrow_"..material..".png"
+		},
 		groups = {not_in_creative_inventory=1},
 	})
 
 	arrows:register_arrow(name, {
-			texture = name.."_box",
-			visual = "wielditem",
-			arrow_type = "arrow",
-			mass = ARROW_MASS,
-			kfr = KFR,
-			damage_coefficient = dc,
-			velocity = ARROW_VELOCITY})
+		texture = name.."_box",
+		visual = "wielditem",
+		arrow_type = "arrow",
+		mass = mass,
+		kfr = KFR,
+		damage_coefficient = dc,
+		velocity = ARROW_VELOCITY
+	})
 end
 
-register_arrow("steel", "default", STEEL_DC)
-register_arrow("mithril", "lottores", MITHRIL_DC)
+register_arrow("steel", "default", STEEL_DC, STEEL_ARROW_MASS)
+register_arrow("mithril", "lottores", MITHRIL_DC, MITHRIL_ARROW_MASS)
 
 -- Bolt nodebox --
 local bolt_node_box = {
@@ -87,7 +92,7 @@ local bolt_node_box = {
 		{7.5/17, -2.5/17, 2.5/17, 6.5/17, -1.5/17, 1.5/17},
 		{7.5/17, 2.5/17, -2.5/17, 6.5/17, 1.5/17, -1.5/17},
 		{6.5/17, -1.5/17, -1.5/17, 7.5/17, -2.5/17, -2.5/17},
-		
+
 		{7.5/17, 2.5/17, 2.5/17, 8.5/17, 3.5/17, 3.5/17},
 		{8.5/17, -3.5/17, 3.5/17, 7.5/17, -2.5/17, 2.5/17},
 		{8.5/17, 3.5/17, -3.5/17, 7.5/17, 2.5/17, -2.5/17},
@@ -95,7 +100,7 @@ local bolt_node_box = {
 	}
 }
 
-local register_bolt = function(material, material_group, dc)
+local register_bolt = function(material, material_group, dc, mass)
 	local name = "arrows:bolt_"..material
 	minetest.register_craftitem(name, {
 		description = SL(material.." bolt"),
@@ -112,25 +117,28 @@ local register_bolt = function(material, material_group, dc)
 	minetest.register_node(name.."_box", {
 		drawtype = "nodebox",
 		node_box = bolt_node_box,
-		tiles = {"lottthrowing_bolt_"..material..".png",
-			 "lottthrowing_bolt_"..material..".png",
-			 "lottthrowing_bolt_"..material.."_back.png",
-			 "lottthrowing_bolt_"..material.."_front.png",
-			 "lottthrowing_bolt_"..material.."_2.png",
-			 "lottthrowing_bolt_"..material..".png"},
+		tiles = {
+			"lottthrowing_bolt_"..material..".png",
+			"lottthrowing_bolt_"..material..".png",
+			"lottthrowing_bolt_"..material.."_back.png",
+			"lottthrowing_bolt_"..material.."_front.png",
+			"lottthrowing_bolt_"..material.."_2.png",
+			"lottthrowing_bolt_"..material..".png"
+		},
 		groups = {not_in_creative_inventory=1},
 	})
 
 	arrows:register_arrow(name, {
-			texture = name.."_box",
-			visual = "wielditem",
-			arrow_type = "bolt",
-			mass = BOLT_MASS,
-			kfr = KFR,
-			damage_coefficient = dc,
-			velocity = BOLT_VELOCITY})
+		texture = name.."_box",
+		visual = "wielditem",
+		arrow_type = "bolt",
+		mass = mass,
+		kfr = KFR,
+		damage_coefficient = dc,
+		velocity = BOLT_VELOCITY
+	})
 end
 
-register_bolt("steel", "default", STEEL_DC)
-register_bolt("mithril", "lottores", MITHRIL_DC)
+register_bolt("steel", "default", STEEL_DC, STEEL_BOLT_MASS)
+register_bolt("mithril", "lottores", MITHRIL_DC, MITHRIL_BOLT_MASS)
 

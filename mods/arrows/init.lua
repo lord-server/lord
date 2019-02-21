@@ -29,14 +29,12 @@ function arrows:register_arrow(name, definition)
 end
 
 local shoot_weapon = function(item, player, pointed_thing)
-	local playerpos = nil
-	local dir = nil
 
 	local playerpos = player:getpos()
 	local dir = player:get_look_dir()
 
 	local shoot_sound = item:get_definition().shoot_sound
-	
+
 	if shoot_sound and shoot_sound.sound then
 		minetest.sound_play(shoot_sound.sound, {
 			pos = playerpos,

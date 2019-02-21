@@ -3,8 +3,6 @@ local SL = lord.require_intllib()
 -- the simplest outfit available.
 -- made from green felt & wood (just cut down the nearest tree).
 
-local level=1
-
 -- cap (head)
 minetest.register_tool("lottclothes:cap_midgewater", {
 	description = SL("Midgewater Cap"),

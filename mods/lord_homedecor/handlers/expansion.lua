@@ -1,5 +1,3 @@
-local S = lord_homedecor.gettext
-
 -- vectors to place one node next to or behind another
 
 lord_homedecor.fdir_to_right = {
@@ -67,7 +65,7 @@ end
 local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 	local placer_name = placer:get_player_name() or ""
 	if is_buildable_to(placer_name, pos, pos2) then
-		local fdir = fdir or minetest.dir_to_facedir(placer:get_look_dir())
+		fdir = fdir or minetest.dir_to_facedir(placer:get_look_dir())
 		minetest.set_node(pos, { name = node1, param2 = fdir })
 		node2 = node2 or "air" -- this can be used to clear buildable_to nodes even though we are using a multinode mesh
 		-- do not assume by default, as we still might want to allow overlapping in some cases
@@ -114,7 +112,8 @@ function lord_homedecor.stack_vertically(itemstack, placer, pointed_thing, node1
 end
 
 -- Stack one door node above another
--- like  homedecor.stack_vertically but tests first if it was placed as a right wing, then uses node1_right and node2_right instead
+-- like  lord_homedecor.stack_vertically but tests first
+--    if it was placed as a right wing, then uses node1_right and node2_right instead
 
 function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node2, node1_right, node2_right)
 	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
@@ -126,7 +125,11 @@ function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node
 	local forceright = placer:get_player_control()["sneak"]
 	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
 
-	local is_right_wing = node1 == minetest.get_node({ x = pos.x + lord_homedecor.fdir_to_left[fdir+1][1], y=pos.y, z = pos.z + lord_homedecor.fdir_to_left[fdir+1][2] }).name
+	local is_right_wing = node1 == minetest.get_node({
+			x = pos.x + lord_homedecor.fdir_to_left[fdir+1][1],
+			y = pos.y,
+			z = pos.z + lord_homedecor.fdir_to_left[fdir+1][2],
+	}).name
 	if forceright or is_right_wing then
 		node1, node2 = node1_right, node2_right
 	end
@@ -170,7 +173,7 @@ function lord_homedecor.bed_expansion(pos, placer, itemstack, pointed_thing, col
 		return true
 	end
 
-	if minetest.is_protected(forwardpos, placer_name) then 
+	if minetest.is_protected(forwardpos, placer_name) then
 		minetest.chat_send_player( placer:get_player_name(), "Someone already owns the spot where the headboard goes." )
 		return true
 	end
@@ -196,7 +199,7 @@ function lord_homedecor.bed_expansion(pos, placer, itemstack, pointed_thing, col
 		minetest.set_node(rightpos, {name = "air"})
 		minetest.set_node(pos, { name = newname, param2 = fdir})
 	end
-	
+
 	local topnode = minetest.get_node({x=pos.x, y=pos.y+1.0, z=pos.z})
 	local bottomnode = minetest.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
 
@@ -228,7 +231,7 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
 	if rightclick_result then return rightclick_result end
 
-	local pos, def = select_node(pointed_thing)
+	local pos = select_node(pointed_thing)
 	if not pos then return itemstack end
 
 	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
@@ -244,7 +247,7 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 		return itemstack
 	end
 
-	if minetest.is_protected(abovepos, placer_name) then 
+	if minetest.is_protected(abovepos, placer_name) then
 		minetest.chat_send_player(placer_name, "Someone already owns that spot." )
 		return itemstack
 	end
@@ -269,21 +272,17 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	local right_fwd_below_pos = { x=pos.x+rxd+fxd, y=pos.y-1, z=pos.z+rzd+fzd }
 	local left_fwd_below_pos =  { x=pos.x+lxd+fxd, y=pos.y-1, z=pos.z+lzd+fzd }
 
-	local below_node =           minetest.get_node(below_pos) 
-	local fwd_node =             minetest.get_node(fwd_pos)
+	local below_node =           minetest.get_node(below_pos)
 	local left_node =            minetest.get_node(left_pos)
 	local right_node =           minetest.get_node(right_pos)
 	local left_fwd_node =        minetest.get_node(left_fwd_pos)
 	local right_fwd_node =        minetest.get_node(right_fwd_pos)
 	local left_below_node =      minetest.get_node({x=left_pos.x, y=left_pos.y-1, z=left_pos.z})
 	local right_below_node =     minetest.get_node({x=right_pos.x, y=right_pos.y-1, z=right_pos.z})
-	local right_fwd_above_node = minetest.get_node(right_fwd_above_pos)
-	local left_fwd_above_node =  minetest.get_node(left_fwd_above_pos)
 	local right_fwd_below_node = minetest.get_node(right_fwd_below_pos)
 	local left_fwd_below_node =  minetest.get_node(left_fwd_below_pos)
 
 	local new_place_name = itemstack:get_name()
-	local n = 0
 
 	-- try to place a diagonal one on the side of blocks stacked like stairs
 	-- or follow an existing diagonal with another.
@@ -326,7 +325,7 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 		new_place_name = string.gsub(right_node.name, "_diagonal_.-$", "_horizontal")
 
 	-- try to place a horizontal in-line with the nearest diagonal, at the bottom
-	elseif left_fwd_node and string.find(left_fwd_node.name, "lord_homedecor:banister_.*_diagonal") 
+	elseif left_fwd_node and string.find(left_fwd_node.name, "lord_homedecor:banister_.*_diagonal")
 	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
 		fdir = left_fwd_node.param2
 		pos = fwd_pos

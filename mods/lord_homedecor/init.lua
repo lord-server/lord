@@ -10,9 +10,6 @@ lord_homedecor = {}
 lord_homedecor = {
 	modpath = modpath,
 
-	-- Boilerplate to support localized strings if intllib mod is installed.
-	gettext = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end,
-
 	-- infinite stacks
 	expect_infinite_stacks = minetest.settings:get_bool("creative_mode") and not minetest.get_modpath("unified_inventory")
 }
@@ -29,17 +26,17 @@ lrfurn.fdir_to_fwd = {
 }
 
 lrfurn.colors = { -- mod changed to use colorize feature of minetest engine (cg72)
-	{ "black",       "#000000:230" }, 
+	{ "black",       "#000000:230" },
 	{ "brown",       "#251005:225" },
 	{ "blue",        "#0000d0:225" },
-	{ "cyan",        "#009fa7:250" }, 
+	{ "cyan",        "#009fa7:250" },
 	{ "dark_grey",   "#101010:175" },
 	{ "dark_green",  "#007000:230" },
 	{ "green",       "#00d000:250" },
 	{ "grey",        "#101010:100" },
 	{ "magenta",     "#e0048b:250" },
 	{ "orange",      "#ff6600:240" },
-	{ "pink",        "#ff90b0:250" },	
+	{ "pink",        "#ff90b0:250" },
 	{ "red",         "#800000:240" },
 	{ "violet",      "#9000d0:250" },
 	{ "white",       "#000000:000" },
@@ -57,9 +54,15 @@ function lrfurn.check_forward(pos, fdir, long, placer)
 		return false
 	elseif minetest.is_protected(pos2, placer:get_player_name()) then
 		if not long then
-			minetest.chat_send_player(placer:get_player_name(), SL("Someone else owns the spot where other end goes!"))
+			minetest.chat_send_player(
+				placer:get_player_name(),
+				SL("Someone else owns the spot where other end goes!")
+			)
 		else
-			minetest.chat_send_player(placer:get_player_name(), SL("Someone else owns the spot where the middle or far end goes!"))
+			minetest.chat_send_player(
+				placer:get_player_name(),
+				SL("Someone else owns the spot where the middle or far end goes!")
+			)
 		end
 		return false
 	end
@@ -89,9 +92,6 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 				itemstack, pointed_thing)
 		return
 	end
-	local pitch = placer:get_look_pitch()
-	local fdir = core.dir_to_facedir(placer:get_look_dir())
-	local wield_name = itemstack:get_name()
 
 	local above = pointed_thing.above
 	local under = pointed_thing.under
@@ -107,7 +107,6 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 	if undef and undef.buildable_to then
 		pos = pointed_thing.under
 		node = unode
-		iswall = false
 	end
 
 	if core.is_protected(pos, placer:get_player_name()) then
@@ -146,4 +145,4 @@ dofile(modpath.."/crafts.lua")
 dofile(modpath.."/roofing.lua")
 
 
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+lord.mod_loaded()

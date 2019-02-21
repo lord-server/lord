@@ -17,7 +17,7 @@
 -- soundname is the filename (without .ogg) of the sound file
 -- to be played along with the particle stream
 
-function homedecor.start_particle_spawner(pos, node, particledef, soundname)
+function lord_homedecor.start_particle_spawner(pos, node, particledef, soundname)
 
 	local this_spawner_meta = minetest.get_meta(pos)
 	local id = this_spawner_meta:get_int("active")
@@ -25,8 +25,8 @@ function homedecor.start_particle_spawner(pos, node, particledef, soundname)
 
 	if id ~= 0 then
 		if s_handle then
-			minetest.after(0, function(s_handle)
-				minetest.sound_stop(s_handle)
+			minetest.after(0, function(handle)
+				minetest.sound_stop(handle)
 			end, s_handle)
 		end
 		minetest.delete_particlespawner(id)
@@ -94,7 +94,7 @@ function homedecor.start_particle_spawner(pos, node, particledef, soundname)
 	end
 end
 
-function homedecor.stop_particle_spawner(pos)
+function lord_homedecor.stop_particle_spawner(pos)
 	local this_spawner_meta = minetest.get_meta(pos)
 	local id = this_spawner_meta:get_int("active")
 	local s_handle = this_spawner_meta:get_int("sound")
@@ -104,8 +104,8 @@ function homedecor.stop_particle_spawner(pos)
 	end
 
 	if s_handle then
-		minetest.after(0, function(s_handle)
-			minetest.sound_stop(s_handle)
+		minetest.after(0, function(handle)
+			minetest.sound_stop(handle)
 		end, s_handle)
 	end
 

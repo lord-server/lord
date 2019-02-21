@@ -8,7 +8,7 @@ mobs.mod = "redo"
 local S
 
 if minetest.get_modpath("intllib") then
-	S = intllib.Getter()
+	S = intllib.make_gettext_pair()
 else
 	S = function(s, a, ...) a = {a, ...}
 		return s:gsub("@(%d+)", function(n)
@@ -1008,9 +1008,9 @@ end
 -- specific attacks
 local specific_attack = function(list, what)
 
-	-- no list so attack default (player, animals etc.)
+	-- no specific attack
 	if list == nil then
-		return true
+		return false
 	end
 
 	-- is found entity on list to attack?
@@ -1024,6 +1024,21 @@ local specific_attack = function(list, what)
 	return false
 end
 
+local is_target = function(self, name, type)
+	if specific_attack(self.specific_attack, name) then
+		return true
+	elseif self.specific_attack == nil then
+		if self.type == "monster" then
+			if (type == "player" or type == "npc" or (type == "animal" and self.attack_animals == true)) then
+				return true
+			end
+		else
+			-- do nothing here. "good" mobs look for their targets in other way
+			-- TODO: rewrite this to make common attacking system
+		end
+	end
+	return false
+end
 
 -- monster find someone to attack
 local monster_attack = function(self)
@@ -1062,11 +1077,7 @@ local monster_attack = function(self)
 			end
 		end
 
-		-- find specific mob to attack, failing that attack player/npc/animal
-		if specific_attack(self.specific_attack, name)
-		and (type == "player" or type == "npc"
-			or (type == "animal" and self.attack_animals == true)) then
-
+		if is_target(self, name, type) then
 			s = self.object:getpos()
 			p = player:getpos()
 			sp = s
@@ -2788,21 +2799,21 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 			and within_limits(pos, 0)
 			and not minetest.is_protected(pos, placer:get_player_name()) then
 
-				pos.y = pos.y + 1
+				pos.y            = pos.y + 1
 
-				local data = itemstack:get_metadata()
-				local mob = minetest.add_entity(pos, mob, data)
-				local ent = mob:get_luaentity()
+				local data       = itemstack:get_metadata()
+				local entity     = minetest.add_entity(pos, mob, data)
+				local lua_entity = entity:get_luaentity()
 
-				if not ent then
-					mob:remove()
+				if not lua_entity then
+					entity:remove()
 					return
 				end
 
-				if ent.type ~= "monster" then
+				if lua_entity.type ~= "monster" then
 					-- set owner and tame if not monster
-					ent.owner = placer:get_player_name()
-					ent.tamed = true
+					lua_entity.owner = placer:get_player_name()
+					lua_entity.tamed = true
 				end
 
 				-- since mob is unique we remove egg once spawned
@@ -2836,20 +2847,20 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 			and within_limits(pos, 0)
 			and not minetest.is_protected(pos, placer:get_player_name()) then
 
-				pos.y = pos.y + 1
+				pos.y            = pos.y + 1
 
-				local mob = minetest.add_entity(pos, mob)
-				local ent = mob:get_luaentity()
+				local entity     = minetest.add_entity(pos, mob)
+				local lua_entity = entity:get_luaentity()
 
-				if not ent then
-					mob:remove()
+				if not lua_entity then
+					entity:remove()
 					return
 				end
 
-				if ent.type ~= "monster" then
+				if lua_entity.type ~= "monster" then
 					-- set owner and tame if not monster
-					ent.owner = placer:get_player_name()
-					ent.tamed = true
+					lua_entity.owner = placer:get_player_name()
+					lua_entity.tamed = true
 				end
 
 				-- if not in creative then take item

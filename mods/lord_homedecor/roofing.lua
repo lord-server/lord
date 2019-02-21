@@ -1,4 +1,4 @@
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 minetest.register_node("lord_homedecor:skylight", {
 	description = S("Glass Skylight"),
@@ -124,7 +124,7 @@ lord_homedecor.register_slope = function(modname, subname, recipeitem, groups, s
 	if type(slope_image) ~= "table" then
 		tiles = { "homedecor_slope_outer_corner_"..slope_image..".png" }
 	end
-	
+
 	minetest.register_node(modname..":shingle_side_" .. subname, {
 		description = S(description),
 		drawtype = "mesh",

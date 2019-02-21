@@ -290,7 +290,7 @@ minetest.register_on_craft(function(is, player, old_grid, inv)
 			local name = itemstack:to_string()
 			-- We know that there's an ore
 			if not starts_with(name, "lottother:dwarf_ring") and name ~= "" then
-				lump_name, trash = name:match("([%w:_]+)(.*)")
+				local lump_name = name:match("([%w:_]+)(.*)")
 				lump = lump_name
 			elseif starts_with(name, "lottother:dwarf_ring") then
 				ring_itemstack = itemstack

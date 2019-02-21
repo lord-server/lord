@@ -16,6 +16,7 @@ local SL = lord.require_intllib()
 local current_keyword = minetest.settings:get("interact_keyword") or "iaccept"
 
 --**********************************************************************
+-- luacheck: push no_max_line_length
 local ansi_decode={
   [128]='\208\130',[129]='\208\131',[130]='\226\128\154',[131]='\209\147',[132]='\226\128\158',[133]='\226\128\166',
   [134]='\226\128\160',[135]='\226\128\161',[136]='\226\130\172',[137]='\226\128\176',[138]='\208\137',[139]='\226\128\185',
@@ -41,13 +42,13 @@ local utf8_decode={
   [209]={[128]='\240',[129]='\241',[130]='\242',[131]='\243',[132]='\244',[133]='\245',[134]='\246',[135]='\247',[136]='\248',[137]='\249',[138]='\250',[139]='\251',[140]='\252',[141]='\253',[142]='\254',[143]='\255',[144]='\161',[145]='\184',
     [146]='\144',[147]='\131',[148]='\186',[149]='\190',[150]='\179',[151]='\191',[152]='\188',[153]='\154',[154]='\156',[155]='\158',[156]='\157',[158]='\162',[159]='\159'},[210]={[144]='\165',[145]='\180'}
 }
-
+-- luacheck: pop
 local nmdc = {
   [36] = '$',
   [124] = '|'
 }
 
-function AnsiToUtf8(s)
+function AnsiToUtf8(s) -- luacheck: ignore unused global variable AnsiToUtf8
   local r, b = ''
   for i = 1, s and s:len() or 0 do
     b = s:byte(i)
@@ -91,7 +92,7 @@ function Utf8ToAnsi(s)
 			if utf8_decode[j][b] then
 				a, r = a - 1, r..utf8_decode[j][b]
 			end
-		end		
+		end
     elseif b == 226 then
       a = 2
     elseif b == 194 or b == 208 or b == 209 or b == 210 then
@@ -322,9 +323,9 @@ local function build_char_db()
 		local f
 		f = io.open(FONT_FMT:format(TP, c),"r+");
 		-- Если файл не существует
-		if f == nil then 
+		if f == nil then
 			-- Создает файл в режиме "записи"
-			f = io.open(FONT_FMT:format(TP, c),"w"); 
+			f = io.open(FONT_FMT:format(TP, c),"w");
 			-- Закрывает файл
 			f:close();
 			-- Открывает уже существующий файл в режиме "чтения/записи"
@@ -333,7 +334,7 @@ local function build_char_db()
 			f:close();
 		end;
 		-- ***** badger *****
-		
+
 		local w, h = read_image_size(FONT_FMT:format(TP, c))
 		if w and h then
 			local ch = string.char(c)
@@ -406,8 +407,8 @@ local function make_line_texture(line, lineno)
 	local words = { }
 
 	local cur_color = 0
-	
-	
+
+
 	-- We check which chars are available here.
 	for word_i, word in ipairs(line) do
 		local chars = { }
@@ -537,12 +538,12 @@ local function make_infotext(text)
 	text = trim_input(text)
 	--local text_ansi = Utf8ToAnsi(text)
 	--print(text)
-	
+
 	-- проверка кодов символов в строке
 	--for i=1, string.len(text) do
 	--	print(string.byte(text, i))
 	--end
-	
+
 	local lines = split_lines_and_words(text) or {}
 	local lines2 = { }
 	for _, line in ipairs(lines) do
@@ -590,7 +591,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 
 		meta:set_string("infotext", ownstr..string.gsub(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
 		meta:set_string("text", fields.text)
-		
+
 		meta:set_int("__signslib_new_format", 1)
 		new = true
 	else
@@ -623,7 +624,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 	elseif signnode.name == "signs:sign_hanging" then
 		sign_info = signs_lib.hanging_sign_model.textpos[minetest.get_node(pos).param2 + 1]
 	elseif string.find(signnode.name, "sign_wall") then
-		if signnode.name == "default:sign_wall" 
+		if signnode.name == "default:sign_wall"
 		  or signnode.name == "locked_sign:sign_wall_locked" then
 			sign_info = signs_lib.regular_wall_sign_model.textpos[minetest.get_node(pos).param2 + 1]
 		else
@@ -635,10 +636,15 @@ signs_lib.update_sign = function(pos, fields, owner)
 	if sign_info == nil then
 		return
 	end
-	local text = minetest.add_entity({x = pos.x + sign_info.delta.x,
-										y = pos.y + sign_info.delta.y,
-										z = pos.z + sign_info.delta.z}, "signs:text")
-	text:setyaw(sign_info.yaw)
+
+	minetest.add_entity(
+		{
+			x = pos.x + sign_info.delta.x,
+			y = pos.y + sign_info.delta.y,
+			z = pos.z + sign_info.delta.z
+		},
+		"signs:text"
+	):setyaw(sign_info.yaw)
 end
 
 -- What kind of sign do we need to place, anyway?
@@ -780,7 +786,9 @@ minetest.register_node(":signs:sign_yard", {
 		type = "fixed",
 		fixed = {-0.4375, -0.5, -0.0625, 0.4375, 0.375, 0}
 	},
-    tiles = {"signs_top.png", "signs_bottom.png", "signs_side.png", "signs_side.png", "signs_back.png", "signs_front.png"},
+    tiles = {
+		"signs_top.png", "signs_bottom.png", "signs_side.png", "signs_side.png", "signs_back.png", "signs_front.png"
+	},
     groups = {choppy=2, dig_immediate=2},
     drop = "default:sign_wall",
 
@@ -980,7 +988,7 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
     def_sign = signs_lib.table_copy(def_sign)
     fences_with_sign[fencename] = fencewithsignname
 
-    def.on_place = function(itemstack, placer, pointed_thing, ...)
+    def.on_place               = function(itemstack, placer, pointed_thing, ...)
 		local node_above = minetest.get_node(pointed_thing.above)
 		local node_under = minetest.get_node(pointed_thing.under)
 		local def_above = minetest.registered_nodes[node_above.name]
@@ -1016,33 +1024,33 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
 			return itemstack
 		end
 	end
-	def_sign.on_construct = function(pos, ...)
+	def_sign.on_construct      = function(pos, ...)
 		signs_lib.construct_sign(pos)
 	end
-	def_sign.on_destruct = function(pos, ...)
+	def_sign.on_destruct       = function(pos, ...)
 		signs_lib.destruct_sign(pos)
 	end
 	def_sign.on_receive_fields = function(pos, formname, fields, sender)
 		signs_lib.receive_fields(pos, formname, fields, sender)
 	end
-	def_sign.on_punch = function(pos, node, puncher, ...)
+	def_sign.on_punch          = function(pos, node, puncher, ...)
 		signs_lib.update_sign(pos)
 	end
-	local fencename = fencename
-	def_sign.after_dig_node = function(pos, node, ...)
-	    node.name = fencename
+	local name                 = fencename
+	def_sign.after_dig_node    = function(pos, node, ...)
+	    node.name = name
 	    minetest.add_node(pos, node)
 	end
-    def_sign.drop = "default:sign_wall"
-	minetest.register_node(":"..fencename, def)
+    def_sign.drop              = "default:sign_wall"
+	minetest.register_node(":".. name, def)
 	minetest.register_node(":"..fencewithsignname, def_sign)
 	table.insert(signs_lib.sign_node_list, fencewithsignname)
-	print(SL("Registered %s and %s"):format(fencename, fencewithsignname))
+	print(SL("Registered %s and %s"):format(name, fencewithsignname))
 end
 
 build_char_db()
 
-minetest.register_alias("homedecor:fence_wood_with_sign", "signs:sign_post")
+minetest.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
 minetest.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
 
 signs_lib.register_fence_with_sign("default:fence_wood", "signs:sign_post")
@@ -1072,141 +1080,79 @@ minetest.register_craft({
 --Alternate recipe.
 
 minetest.register_craft({
-    	output = "locked_sign:sign_wall_locked",
-    	recipe = {
-        	{"default:sign_wall"},
-        	{"default:steel_ingot"},
-    },
+	output = "locked_sign:sign_wall_locked",
+	recipe = {
+		{ "default:sign_wall" },
+		{ "default:steel_ingot" },
+	},
 })
 
 -- craft recipes for the metal signs
 
-minetest.register_craft( {
-        output = "signs:sign_wall_green 4",
-        recipe = {
-			{ "dye:dark_green", "dye:white", "dye:dark_green" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_green 4",
+	recipe = {
+		{ "dye:dark_green", "dye:white", "dye:dark_green" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_green 2",
-        --~ recipe = {
-			--~ { "dye:dark_green", "dye:white", "dye:dark_green" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_yellow 4",
-        recipe = {
-			{ "dye:yellow", "dye:black", "dye:yellow" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_yellow 4",
+	recipe = {
+		{ "dye:yellow", "dye:black", "dye:yellow" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_yellow 2",
-        --~ recipe = {
-			--~ { "dye:yellow", "dye:black", "dye:yellow" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_red 4",
-        recipe = {
-			{ "dye:red", "dye:white", "dye:red" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_red 4",
+	recipe = {
+		{ "dye:red", "dye:white", "dye:red" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_red 2",
-        --~ recipe = {
-			--~ { "dye:red", "dye:white", "dye:red" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_white_red 4",
-        recipe = {
-			{ "dye:white", "dye:red", "dye:white" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_white_red 4",
+	recipe = {
+		{ "dye:white", "dye:red", "dye:white" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_white_red 2",
-        --~ recipe = {
-			--~ { "dye:white", "dye:red", "dye:white" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_white_black 4",
-        recipe = {
-			{ "dye:white", "dye:black", "dye:white" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_white_black 4",
+	recipe = {
+		{ "dye:white", "dye:black", "dye:white" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_white_black 2",
-        --~ recipe = {
-			--~ { "dye:white", "dye:black", "dye:white" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_orange 4",
-        recipe = {
-			{ "dye:orange", "dye:black", "dye:orange" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_orange 4",
+	recipe = {
+		{ "dye:orange", "dye:black", "dye:orange" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_orange 2",
-        --~ recipe = {
-			--~ { "dye:orange", "dye:black", "dye:orange" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_blue 4",
-        recipe = {
-			{ "dye:blue", "dye:white", "dye:blue" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_blue 4",
+	recipe = {
+		{ "dye:blue", "dye:white", "dye:blue" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_blue 2",
-        --~ recipe = {
-			--~ { "dye:blue", "dye:white", "dye:blue" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-minetest.register_craft( {
-        output = "signs:sign_wall_brown 4",
-        recipe = {
-			{ "dye:brown", "dye:white", "dye:brown" },
-			{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
-        },
+minetest.register_craft({
+	output = "signs:sign_wall_brown 4",
+	recipe = {
+		{ "dye:brown", "dye:white", "dye:brown" },
+		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
+	},
 })
 
---~ minetest.register_craft( {
-        --~ output = "signs:sign_wall_brown 2",
-        --~ recipe = {
-			--~ { "dye:brown", "dye:white", "dye:brown" },
-			--~ { "steel:sheet_metal", "steel:sheet_metal", "steel:sheet_metal" }
-        --~ },
---~ })
-
-if minetest.settings:get_bool("msg_loading_mods") then minetest.log("action", minetest.get_current_modname().." mod LOADED") end
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname() .. " mod LOADED")
+end

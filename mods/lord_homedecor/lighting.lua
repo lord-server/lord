@@ -1,9 +1,7 @@
 -- This file supplies glowlights
 
-local dirs1 = { 20, 23, 22, 21 }
-local dirs2 = { 9, 18, 7, 12 }
 
-local S = lord_homedecor.gettext
+local S = lord.require_intllib()
 
 
 local tc_cbox = {
