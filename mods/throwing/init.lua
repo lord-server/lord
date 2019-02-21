@@ -2,6 +2,8 @@ throwing                    = {}
 
 throwing.arrows             = {}
 
+local HIT_RADIUS = 0.9
+
 local BASE_LIQUID_VISCOSITY = 50
 
 local function node_ok(pos, fallback)
@@ -110,29 +112,24 @@ local function hit_node(pos, arrow, callback)
 end
 
 local function hit_player(player, arrow, callback, owner_id)
-	if player:get_player_name() ~= owner_id then
-		if callback then
-			callback(arrow, player)
-		end
-		local s   = arrow.object:getpos()
-		local p   = player:getpos()
-		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
-
-		player:punch(arrow.owner, 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups       = { fleshy = calculate_damage(arrow) },
-		}, vec)
-
-		return true
+	if callback then
+		callback(arrow, player)
 	end
-	return false
+	local s   = arrow.object:getpos()
+	local p   = player:getpos()
+	local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
+	player:punch(arrow.owner, 1.0, {
+		full_punch_interval = 1.0,
+		damage_groups       = { fleshy = calculate_damage(arrow) },
+	}, vec)
+
+	return true
 end
 
 local function hit_mob(mob, arrow, callback, owner_id)
 	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
 
-	if tostring(mob) ~= owner_id
-		and entity ~= "__builtin:item"
+	if entity ~= "__builtin:item"
 		and entity ~= "__builtin:falling_node"
 		and entity ~= "gauges:hp_bar"
 		and entity ~= "signs:text"
@@ -206,50 +203,55 @@ local function arrow_step(self, dtime)
 	local vel = self.object:getvelocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
+	local intersect_owner = false
+
 	if vel_len > 0 then
 		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
 		local res_node = false
 		for l = 0, (step_len * 2) do
 			local lpos = {x = pos.x + dir.x * l / 2, y = pos.y + dir.y * l/2, z = pos.z + dir.z * l/2}
 
-			-- hit node
-			-- hit only first node
-			res_node = res_node or hit_node(lpos, self, self.hit_node)
-			if not res_node then
-				self.lastpos = lpos
+			local hit = false
+
+			if not hit then
+				res_node = res_node or hit_node(lpos, self, self.hit_node)
+				if not res_node then
+					self.lastpos = lpos
+				else
+					hit = true
+				end
 			end
 
-			-- hit players
-			local lmobs = minetest.get_objects_inside_radius(lpos, 1.0)
-			for _, player in pairs(lmobs) do
-				mobs[player] = true
+			if not hit then
+				local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
+				for _, player in pairs(lmobs) do
+					if player ~= self.object and (self.launched or self.owner ~= player) then
+						mobs[player] = true
+						hit = true
+					end
+					if player == self.owner then
+						intersect_owner = true
+					end
+				end
 			end
-		end
-		res = res_node or res
-	else
-		-- hit node
-		local res_node = hit_node(pos, self, self.hit_node)
-
-		res = res_node or res
-		-- hit players
-		local lmobs = minetest.get_objects_inside_radius(pos, 1.0)
-		for _, player in pairs(lmobs) do
-			mobs[player] = true
+		
+			if hit then
+				res = true
+				break
+			end
 		end
 	end
 
-	if mobs[self.object] == nil then
+	if not self.launched and not intersect_owner then
 		-- arrow has leaved player, who shoot
 		self.launched = true
 	end
 
 	for player, _ in pairs(mobs) do
-		if player ~= self.object or self.launched then
-			if player:is_player() then
-				res = hit_player(player, self, self.hit_player, self.owner_id) or res
-			else
-				res = hit_mob(player, self, self.hit_mob, self.owner_id) or res
-			end
+		if player:is_player() then
+			res = hit_player(player, self, self.hit_player, self.owner_id) or res
+		else
+			res = hit_mob(player, self, self.hit_mob, self.owner_id) or res
 		end
 	end
 
