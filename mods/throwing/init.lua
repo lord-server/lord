@@ -6,6 +6,8 @@ local HIT_RADIUS = 0.9
 
 local BASE_LIQUID_VISCOSITY = 50
 
+local STEP = 4
+
 local function node_ok(pos, fallback)
 	fallback   = fallback or "default:dirt"
 	local node = minetest.get_node_or_nil(pos)
@@ -98,6 +100,7 @@ end
 local function hit_node(pos, arrow, callback)
 	local node = node_ok(pos).name
 	if minetest.registered_nodes[node].walkable then
+		--minetest.log("Hitting "..tostring(node))
 		if callback then
 			callback(arrow, pos, node)
 		end
@@ -129,11 +132,14 @@ end
 local function hit_mob(mob, arrow, callback, owner_id)
 	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
 
+
 	if entity ~= "__builtin:item"
 		and entity ~= "__builtin:falling_node"
 		and entity ~= "gauges:hp_bar"
 		and entity ~= "signs:text"
 		and entity ~= "itemframes:item" then
+
+		--minetest.log("Hitting "..tostring(entity))
 		if callback then
 			callback(arrow, mob)
 		end
@@ -208,33 +214,35 @@ local function arrow_step(self, dtime)
 	if vel_len > 0 then
 		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
 		local res_node = false
-		for l = 0, (step_len * 2) do
-			local lpos = {x = pos.x + dir.x * l / 2, y = pos.y + dir.y * l/2, z = pos.z + dir.z * l/2}
+
+		for l = 0, (step_len * STEP) do
+			local lpos = {x = pos.x + dir.x * l / STEP, y = pos.y + dir.y * l/STEP, z = pos.z + dir.z * l/STEP}
 
 			local hit = false
 
 			if not hit then
-				res_node = res_node or hit_node(lpos, self, self.hit_node)
-				if not res_node then
+				hit = hit_node(lpos, self, self.hit_node)
+				if not hit then
 					self.lastpos = lpos
-				else
-					hit = true
 				end
 			end
 
 			if not hit then
 				local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
 				for _, player in pairs(lmobs) do
-					if player ~= self.object and (self.launched or self.owner ~= player) then
-						mobs[player] = true
-						hit = true
-					end
 					if player == self.owner then
 						intersect_owner = true
 					end
+					if player ~= self.object and (self.launched or self.owner ~= player) then
+						if player:is_player() then
+							hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
+						else
+							hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
+						end
+					end
 				end
 			end
-		
+
 			if hit then
 				res = true
 				break
@@ -245,14 +253,6 @@ local function arrow_step(self, dtime)
 	if not self.launched and not intersect_owner then
 		-- arrow has leaved player, who shoot
 		self.launched = true
-	end
-
-	for player, _ in pairs(mobs) do
-		if player:is_player() then
-			res = hit_player(player, self, self.hit_player, self.owner_id) or res
-		else
-			res = hit_mob(player, self, self.hit_mob, self.owner_id) or res
-		end
 	end
 
 	if res == true then
