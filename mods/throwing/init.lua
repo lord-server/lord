@@ -205,7 +205,6 @@ local function arrow_step(self, dtime)
 	end
 
 	local res = false
-	local mobs = {}
 	local vel = self.object:getvelocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
@@ -213,7 +212,6 @@ local function arrow_step(self, dtime)
 
 	if vel_len > 0 then
 		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
-		local res_node = false
 
 		for l = 0, (step_len * STEP) do
 			local lpos = {x = pos.x + dir.x * l / STEP, y = pos.y + dir.y * l/STEP, z = pos.z + dir.z * l/STEP}
