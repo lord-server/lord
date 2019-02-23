@@ -170,30 +170,6 @@ local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabil
 	arrow.object:remove()
 end
 
-
-function rPrint(s, l, i) -- recursive Print (structure, limit, indent)
-	l = (l) or 100;
-	i = i or "";	-- default item limit, indent string
-	if (l<1) then
-		 minetest.log("ERROR: Item limit reached.");
-		 return l-1
-	end;
-	local ts = type(s);
-	if (ts ~= "table") then
-		minetest.log(i.." "..ts.." "..tostring(s));
-		return l-1
-	end
-	minetest.log(tostring(i).." "..tostring(ts));           -- print "table"
-	for k,v in pairs(s) do  -- print "[KEY] VALUE"
-		l = rPrint(v, l, i.."\t["..tostring(k).."]");
-		if (l < 0) then
-			break
-		end
-	end
-	return l
-end	
-
-
 local function hits(pos, target_pos, colbox)
 	if colbox == nil then
 		return false
