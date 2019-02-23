@@ -2,7 +2,7 @@ throwing                    = {}
 
 throwing.arrows             = {}
 
-local HIT_RADIUS = 0.9
+local HIT_RADIUS = 4
 
 local BASE_LIQUID_VISCOSITY = 50
 
@@ -170,6 +170,43 @@ local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabil
 	arrow.object:remove()
 end
 
+
+function rPrint(s, l, i) -- recursive Print (structure, limit, indent)
+	l = (l) or 100;
+	i = i or "";	-- default item limit, indent string
+	if (l<1) then
+		 minetest.log("ERROR: Item limit reached.");
+		 return l-1
+	end;
+	local ts = type(s);
+	if (ts ~= "table") then
+		minetest.log(i.." "..ts.." "..tostring(s));
+		return l-1
+	end
+	minetest.log(tostring(i).." "..tostring(ts));           -- print "table"
+	for k,v in pairs(s) do  -- print "[KEY] VALUE"
+		l = rPrint(v, l, i.."\t["..tostring(k).."]");
+		if (l < 0) then
+			break
+		end
+	end
+	return l
+end	
+
+
+local function hits(pos, target_pos, colbox)
+	if colbox == nil then
+		return false
+	end
+	if pos.x - target_pos.x < colbox[1] or pos.y - target_pos.y < colbox[2] or pos.z - target_pos.z < colbox[3] then
+		return false
+	end
+	if pos.x - target_pos.x > colbox[4] or pos.y - target_pos.y > colbox[5] or pos.z - target_pos.z > colbox[6] then
+		return false
+	end
+	return true
+end
+
 local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
 
@@ -227,15 +264,23 @@ local function arrow_step(self, dtime)
 
 			if not hit then
 				local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
+				-- now check that arrow hits their collisionbox
 				for _, player in pairs(lmobs) do
 					if player == self.owner then
 						intersect_owner = true
 					end
 					if player ~= self.object and (self.launched or self.owner ~= player) then
 						if player:is_player() then
-							hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
+							local ppos = player:getpos()
+							if hits(lpos, ppos, player:get_properties().collisionbox) then
+								hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
+							end
 						else
-							hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
+							local entity = player:get_luaentity()
+							local ppos = player:getpos()
+							if hits(lpos, ppos, entity.collisionbox) then
+								hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
+							end
 						end
 					end
 				end
