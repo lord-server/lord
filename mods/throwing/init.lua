@@ -170,7 +170,7 @@ local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabil
 	arrow.object:remove()
 end
 
-local function hits(pos, target_pos, colbox)
+local function hits_mob(pos, target_pos, colbox)
 	if colbox == nil then
 		return false
 	end
@@ -183,9 +183,23 @@ local function hits(pos, target_pos, colbox)
 	return true
 end
 
+local function hits_player(pos, target_pos, colbox)
+	if colbox == nil then
+		return false
+	end
+	if pos.x - target_pos.x < colbox[1] or pos.y - target_pos.y < colbox[2] + 1 or pos.z - target_pos.z < colbox[3] then
+		return false
+	end
+	if pos.x - target_pos.x > colbox[4] or pos.y - target_pos.y > colbox[5] + 1 or pos.z - target_pos.z > colbox[6] then
+		return false
+	end
+	return true
+end
+
 local function hit_players(self, lpos)
 	local hit = false
 	local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
+	local intersect_owner = false
 	-- now check that arrow hits their collisionbox
 	for _, player in pairs(lmobs) do
 		if player == self.owner then
@@ -194,17 +208,21 @@ local function hit_players(self, lpos)
 		if player ~= self.object and (self.launched or self.owner ~= player) then
 			if player:is_player() then
 				local ppos = player:getpos()
-				if hits(lpos, ppos, player:get_properties().collisionbox) then
+				if hits_player(lpos, ppos, player:get_properties().collisionbox) then
 					hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
 				end
 			else
 				local entity = player:get_luaentity()
 				local ppos = player:getpos()
-				if hits(lpos, ppos, entity.collisionbox) then
+				if hits_mob(lpos, ppos, entity.collisionbox) then
 					hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
 				end
 			end
 		end
+	end
+	if not self.launched and not intersect_owner then
+		-- arrow has leaved player, who shoot
+		self.launched = true
 	end
 	return hit
 end
@@ -248,7 +266,6 @@ local function arrow_step(self, dtime)
 	local vel = self.object:getvelocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
-	local intersect_owner = false
 
 	if vel_len > 0 then
 		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
@@ -265,11 +282,6 @@ local function arrow_step(self, dtime)
 				self.lastpos = lpos
 			end
 		end
-	end
-
-	if not self.launched and not intersect_owner then
-		-- arrow has leaved player, who shoot
-		self.launched = true
 	end
 
 	if res == true then
