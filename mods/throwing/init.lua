@@ -183,6 +183,33 @@ local function hits(pos, target_pos, colbox)
 	return true
 end
 
+local function hit_players(self, lpos)
+	local hit = false
+	local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
+	-- now check that arrow hits their collisionbox
+	for _, player in pairs(lmobs) do
+		if player == self.owner then
+			intersect_owner = true
+		end
+		if player ~= self.object and (self.launched or self.owner ~= player) then
+			if player:is_player() then
+				local ppos = player:getpos()
+				if hits(lpos, ppos, player:get_properties().collisionbox) then
+					hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
+				end
+			else
+				local entity = player:get_luaentity()
+				local ppos = player:getpos()
+				if hits(lpos, ppos, entity.collisionbox) then
+					hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
+				end
+			end
+		end
+	end
+	return hit
+end
+
+
 local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
 
@@ -229,42 +256,13 @@ local function arrow_step(self, dtime)
 		for l = 0, (step_len * STEP) do
 			local lpos = {x = pos.x + dir.x * l / STEP, y = pos.y + dir.y * l/STEP, z = pos.z + dir.z * l/STEP}
 
-			local hit = false
-
-			if not hit then
-				hit = hit_node(lpos, self, self.hit_node)
-				if not hit then
-					self.lastpos = lpos
-				end
-			end
-
-			if not hit then
-				local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
-				-- now check that arrow hits their collisionbox
-				for _, player in pairs(lmobs) do
-					if player == self.owner then
-						intersect_owner = true
-					end
-					if player ~= self.object and (self.launched or self.owner ~= player) then
-						if player:is_player() then
-							local ppos = player:getpos()
-							if hits(lpos, ppos, player:get_properties().collisionbox) then
-								hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
-							end
-						else
-							local entity = player:get_luaentity()
-							local ppos = player:getpos()
-							if hits(lpos, ppos, entity.collisionbox) then
-								hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
-							end
-						end
-					end
-				end
-			end
+			local hit = hit_node(lpos, self, self.hit_node) or hit_players(self, lpos)
 
 			if hit then
 				res = true
 				break
+			else
+				self.lastpos = lpos
 			end
 		end
 	end
