@@ -1,18 +1,18 @@
 
 local SL = lord.require_intllib()
 
-local KFR = 0.01
+local KFR = 0.0002
 
-local STEEL_DC = 0.01
-local MITHRIL_DC = 0.1
+local STEEL_DC = 0.1
+local MITHRIL_DC = 0.4
 
-local STEEL_ARROW_MASS = 0.5
-local MITHRIL_ARROW_MASS = 0.25
-local ARROW_VELOCITY = 30
+local STEEL_ARROW_MASS = 0.03
+local MITHRIL_ARROW_MASS = 0.025
+local ARROW_VELOCITY = 50
 
-local STEEL_BOLT_MASS = 1.0
-local MITHRIL_BOLT_MASS = 0.33
-local BOLT_VELOCITY = 40
+local STEEL_BOLT_MASS = 0.2
+local MITHRIL_BOLT_MASS = 0.1
+local BOLT_VELOCITY = 60
 
 -- Arrow nodebox
 local arrow_node_box = {
