@@ -10,8 +10,8 @@ local STEEL_ARROW_MASS = 0.03
 local MITHRIL_ARROW_MASS = 0.025
 local ARROW_VELOCITY = 50
 
-local STEEL_BOLT_MASS = 0.2
-local MITHRIL_BOLT_MASS = 0.1
+local STEEL_BOLT_MASS = 0.1
+local MITHRIL_BOLT_MASS = 0.05
 local BOLT_VELOCITY = 60
 
 -- Arrow nodebox
