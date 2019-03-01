@@ -17,6 +17,6 @@ end
 
 function lord.mod_loaded()
 	if minetest.settings:get_bool("msg_loading_mods") then
-		minetest.log("action", minetest.get_current_modname() .. " mod loaded")
+		minetest.log("action", minetest.get_current_modname() .. " mod loaded in " .. os.clock() .. ' s.')
 	end
 end
