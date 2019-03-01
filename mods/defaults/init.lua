@@ -1,8 +1,5 @@
 ghost = {}
 
-ghost.original_materials = {
-}
-
 function ghost.deepcopy(orig)
 	local orig_type = type(orig)
 	local copy
@@ -43,8 +40,6 @@ function ghost.register_ghost_material(name)
 	end
 
 	local node = ghost.deepcopy(orig_node)
-
-	--minetest.log("action", "registering ghost variant of \""..node.name.."\"")
 
 	node.name = ghost_name
 	node.walkable = false
@@ -148,15 +143,8 @@ minetest.register_craft({
 })
 
 
-
-for i,material in ipairs(ghost.original_materials) do
-	ghost.register_ghost_material(material)
-end
-
---minetest.log("action", "add groups to ghost")
-
-for name,material in pairs(minetest.registered_nodes) do
-	--minetest.log("action", "checking "..name)
+local now_registered_nodes = ghost.deepcopy(minetest.registered_nodes)
+for name, material in pairs(now_registered_nodes) do
 	if (material.groups ~= nil and material.groups.ghostly == nil) then
 		if (material.groups.stone ~= nil) then
 			ghost.register_ghost_material(name)
