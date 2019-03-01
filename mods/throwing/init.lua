@@ -6,7 +6,7 @@ local HIT_RADIUS = 4
 
 local BASE_LIQUID_VISCOSITY = 50
 
-local STEP = 4
+local STEP = 10
 
 local function node_ok(pos, fallback)
 	fallback   = fallback or "default:dirt"
