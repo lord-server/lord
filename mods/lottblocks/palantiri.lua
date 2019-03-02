@@ -52,6 +52,9 @@ local purple = "#6d54dd"
 
 local function formspec_update(meta)
 	local network  = meta:get_string("network")
+	if not network then
+		return
+	end
 	local palantir = meta:get_string("name")
 	local form     = "size[6,5]" ..
 		"background[5,5;1,1;gui_elfbg.png;true]" ..
@@ -214,6 +217,9 @@ minetest.register_node("lottblocks:palantir", {
 		elseif meta:get_int("configured") == 1 then
 			--print("configured == 1")
 			local network = meta:get_string("network")
+			if not network then
+				return
+			end
 			--print(dump(fields))
 			if player_name == meta:get_string("owner") then
 				for i, race in pairs(races_p) do
@@ -248,6 +254,9 @@ minetest.register_node("lottblocks:palantir", {
 
 			local can_tp  = false
 			local network = meta:get_string("network")
+			if not network then
+				return
+			end
 			-- local allowed_races = {}
 			-- --print(dump(lottblocks.palantiri[network].options))
 			-- for race, allowed in pairs(lottblocks.palantiri[network].options) do
@@ -340,6 +349,9 @@ minetest.register_node("lottblocks:palantir", {
 		local meta = minetest.get_meta(pos)
 		local i
 		if meta:get_int("configured") >= 1 then
+			if not lottblocks.palantiri[meta:get_string("network")] then
+				return
+			end
 			lottblocks.palantiri[meta:get_string("network")][meta:get_string("name")] = nil
 			--print(dump(lottblocks.palantiri[meta:get_string("network")]))
 			i                                                                         = 0
