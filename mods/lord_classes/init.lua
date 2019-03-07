@@ -169,11 +169,11 @@ function races.get_race_and_gender(name)
 end
 
 function races.get_race(name)
-	return races.get_race_and_gender()[1]
+	return races.get_race_and_gender(name)[1]
 end
 
 function races.get_gender(name)
-	return races.get_race_and_gender()[2]
+	return races.get_race_and_gender(name)[2]
 end
 
 function races.set_race_and_gender(name, race_and_gender, show_message)
