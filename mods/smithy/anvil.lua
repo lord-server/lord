@@ -93,10 +93,6 @@ minetest.register_node(":castle:anvil", {
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta = minetest.get_meta(pos)
 		if not has_anvil_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access an anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
 			minetest.chat_send_player(player:get_player_name(), SL("Only for @1", meta:get_string("owner")))
 			return 0
 		end
@@ -113,7 +109,7 @@ minetest.register_node(":castle:anvil", {
 
 		local name = stack:get_name()
 
-		if listname=='hammer' and stack and name ~= 'tools:warhammer_steel'
+		if listname == 'hammer' and stack and name ~= 'tools:warhammer_steel'
 		and name ~= 'tools:warhammer_bronze'
 		and name ~= 'tools:warhammer_copper'
 		and name ~= 'tools:warhammer_tin'
@@ -124,9 +120,9 @@ minetest.register_node(":castle:anvil", {
 			return 0;
 		end
 
-		if listname=='input' and stack
-		--wooden tools
-		and name == 'tools:pick_wood'
+		if listname == 'input' and stack and
+		(--wooden tools
+		name == 'tools:pick_wood'
 		or name == 'tools:shovel_wood'
 		or name == 'tools:axe_wood'
 		or name == 'tools:sword_wood'
@@ -157,6 +153,14 @@ minetest.register_node(":castle:anvil", {
 		or name == 'lottother:nenya_new'
 		or name == 'lottother:lottother:beast_ring_new'
 		]]
+		--hammers
+		or name == 'tools:warhammer_bronze'
+		or name == 'tools:warhammer_copper'
+		or name == 'tools:warhammer_tin'
+		or name == 'tools:warhammer_silver'
+		or name == 'tools:warhammer_gold'
+		or name == 'tools:warhammer_galvorn'
+		or name == 'tools:warhammer_mithril'
 		--armor
 		or name == 'lottarmor:helmet_wood'
 		or name == 'lottarmor:chestplate_wood'
@@ -178,13 +182,13 @@ minetest.register_node(":castle:anvil", {
 		--or name == 'tools:melkor_pick'
 		--or name == 'tools:dragon_warrior_sword'
 		--or name == 'lottother:gem_pick'
-		--[[optional: or name == 'lottother:chisel']] then
+		--[[optional: or name == 'lottother:chisel']]) then
 			minetest.chat_send_player(player:get_player_name(), SL('You can not repair this item!'));
 			return 0;
 		end
 
-		if listname=='input' and stack:get_wear() == 0 then
-			minetest.chat_send_player( player:get_player_name(), SL('The workpiece slot is for damaged tools only.'));
+		if listname == 'input' and stack:get_wear() == 0 then
+			minetest.chat_send_player(player:get_player_name(), SL('The workpiece slot is for damaged tools only.'));
 			return 0;
 		end
 		return stack:get_count()
@@ -193,10 +197,6 @@ minetest.register_node(":castle:anvil", {
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
 		if not has_anvil_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
-					" tried to access a anvil belonging to "..
-					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
 			return 0
 		end
 		return stack:get_count()
@@ -206,6 +206,7 @@ minetest.register_node(":castle:anvil", {
 		if not (pos or node or puncher) then
 			return;
 		end
+
 		-- only punching with the hammer is supposed to work
 		local wielded = puncher:get_wielded_item();
 
@@ -243,10 +244,10 @@ minetest.register_node(":castle:anvil", {
 			if minetest.registered_items[tool_name].inventory_image then
 				hud_image = minetest.registered_items[tool_name].inventory_image;
 			elseif minetest.registered_items[tool_name].textures and
-			type(minetest.registered_items[ tool_name ].textures)=='table' then
+			type(minetest.registered_items[ tool_name ].textures) == 'table' then
 				hud_image = minetest.registered_items[tool_name].textures[1];
 			elseif minetest.registered_items[tool_name].textures and
-			type(minetest.registered_items[ tool_name ].textures)=='string' then
+			type(minetest.registered_items[ tool_name ].textures) == 'string' then
 				hud_image = minetest.registered_items[tool_name].textures;
 			end
 		end
@@ -303,35 +304,35 @@ minetest.register_node(":castle:anvil", {
 		-- damage the hammer slightly
 		if wielded:get_name() == 'tools:warhammer_steel' then
 			wielded:add_wear(600);
-			input:add_wear( -400 );
+			input:add_wear( -80 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_bronze' then
 			wielded:add_wear(600);
-			input:add_wear( -400 );
+			input:add_wear( -80 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_copper' then
 			wielded:add_wear(680);
-			input:add_wear( -250 );
+			input:add_wear( -50 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_tin' then
 			wielded:add_wear(680);
-			input:add_wear( -250 );
+			input:add_wear( -50 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_silver' then
 			wielded:add_wear(600);
-			input:add_wear( -400 );
+			input:add_wear( -80 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_gold' then
 			wielded:add_wear(800);
-			input:add_wear( -150 );
+			input:add_wear( -30 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_galvorn' then
 			wielded:add_wear(400);
-			input:add_wear( -600 );
+			input:add_wear( -120 );
 			inv:set_stack("input", 1, input)
 		elseif wielded:get_name() == 'tools:warhammer_mithril' then
 			wielded:add_wear(200);
-			input:add_wear( -600 );
+			input:add_wear( -120 );
 			inv:set_stack("input", 1, input)
 		end
 		puncher:set_wielded_item(wielded);
