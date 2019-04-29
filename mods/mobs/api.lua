@@ -317,7 +317,7 @@ function check_for_death(self)
 		if show_health then
 
 			self.htimer = 2
-			self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
+			self.nametag = "♥ " .. self.health .. " / " .. self.health_orig
 
 			update_tag(self)
 		end
@@ -2186,7 +2186,8 @@ local mob_activate = function(self, staticdata, def)
 	end
 
 	if self.health == 0 then
-		self.health = random (self.hp_min, self.hp_max)
+        self.health = random (self.hp_min, self.hp_max)
+        self.health_orig = self.health
 	end
 
 	-- rnd: pathfinding init
