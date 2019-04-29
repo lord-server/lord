@@ -288,43 +288,7 @@ function update_tag(self)
 
 end
 
-
--- check if mob is dead or only hurt
-function check_for_death(self)
-
-	-- has health actually changed?
-	if self.health == self.old_health then
-		return
-	end
-
-	self.old_health = self.health
-
-	-- still got some health? play hurt sound
-	if self.health > 0 then
-
-		mob_sound(self, self.sounds.damage)
-
-		-- make sure health isn't higher than max
-		if self.health > self.hp_max then
-			self.health = self.hp_max
-		end
-
-		-- backup nametag so we can show health stats
-		if not self.nametag2 then
-			self.nametag2 = self.nametag or ""
-		end
-
-		if show_health then
-
-			self.htimer = 2
-			self.nametag = "♥ " .. self.health .. " / " .. self.health_orig
-
-			update_tag(self)
-		end
-
-		return false
-	end
-
+local function mob_die(self)
 	-- drop items when dead
 	local obj
 	local pos = self.object:getpos()
@@ -384,6 +348,45 @@ function check_for_death(self)
 	effect(pos, 20, "tnt_smoke.png")
 
 	return true
+end
+
+local function mob_damaged(self)
+	mob_sound(self, self.sounds.damage)
+
+	-- make sure health isn't higher than max
+	if self.health > self.hp_max then
+		self.health = self.hp_max
+	end
+
+	-- backup nametag so we can show health stats
+	if not self.nametag2 then
+		self.nametag2 = self.nametag or ""
+	end
+
+	if show_health then
+		self.htimer = 2
+		self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
+		update_tag(self)
+	end
+
+	return false
+end
+
+-- check if mob is dead or only hurt
+function check_for_death(self)
+	-- has health actually changed?
+	if self.health == self.old_health then
+		return
+	end
+
+	self.old_health = self.health
+
+	-- still got some health? play hurt sound
+	if self.health > 0 then
+		return mob_damaged(self)
+	else
+		return mob_die(self)
+	end
 end
 
 
@@ -1860,9 +1863,10 @@ end
 
 -- deal damage and effects when mob punched
 function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
-
 	-- mob health check
 	if self.health <= 0 then
+		-- kill mob
+		mob_die(self)
 		return
 	end
 
