@@ -365,7 +365,11 @@ local function mob_damaged(self)
 
 	if show_health then
 		self.htimer = 2
-		self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
+		if self.health_orig ~= nil then
+			self.nametag = "♥ " .. self.health .. " / " .. self.health_orig
+		else
+			self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
+		end
 		update_tag(self)
 	end
 
