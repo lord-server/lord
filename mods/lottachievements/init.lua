@@ -35,7 +35,7 @@ dofile(minetest.get_modpath("lottachievements") .. "/triggers.lua")
 
 minetest.register_craftitem("lottachievements:achievement_book", {
 	description     = SL("Achievements Book"),
-	inventory_image = "lottachievements_achievement_book.png",
+	inventory_image = "lottblocks_book_gold.png",
 	groups          = { book = 1 },
 	stack_max       = 1,
 	on_place        = function(_, player)
@@ -61,7 +61,7 @@ minetest.register_craft({
 lottachievements.register_achievement("master_craftsman", {
 	title       = SL("Master Craftsman"),
 	description = SL("Craft a Master Book of Crafts"),
-	icon        = "lottinventory_master_book.png",
+	icon        = "lottblocks_book_gold.png",
 	id          = 1,
 	trigger     = {
 		type   = "craft",
