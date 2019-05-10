@@ -290,9 +290,9 @@ function lottachievements.unlock(name, award)
 		local one = player:hud_add({
 			hud_elem_type = "image",
 			name = "award_bg",
-			scale = {x = 2, y = 1},
+			scale = {x = 1.5, y = 0.5},
 			text = background,
-			position = {x = 0.5, y = 0},
+			position = {x = 0.15, y = 0.8},
 			offset = {x = 0, y = 138},
 			alignment = {x = 0, y = -1}
 		})
@@ -306,28 +306,28 @@ function lottachievements.unlock(name, award)
 			hud_elem_type = "text",
 			name = "award_au",
 			number = 0xFFFFFF,
-			scale = {x = 100, y = 20},
+			scale = {x = 45, y = 10},
 			text = hud_announce,
-			position = {x = 0.5, y = 0},
-			offset = {x = 0, y = 40},
-			alignment = {x = 0, y = -1}
+			position = {x = 0.154, y = 0.9},
+			offset = {x = 0, y = 20},
+			alignment = {x = 0, y = -0.5}
 		})
 		local three = player:hud_add({
 			hud_elem_type = "text",
 			name = "award_title",
 			number = 0xFFFFFF,
-			scale = {x = 100, y = 20},
+			scale = {x = 40, y = 8},
 			text = title,
-			position = {x = 0.5, y = 0},
-			offset = {x = 30, y = 100},
-			alignment = {x = 0, y = -1}
+			position = {x = 0.154, y = 0.9},
+			offset = {x = 15, y = 50},
+			alignment = {x = 0, y = -0.5}
 		})
 		local four = player:hud_add({
 			hud_elem_type = "image",
 			name = "award_icon",
-			scale = {x = 4, y = 4},
+			scale = {x = 1.85, y = 1.85},
 			text = icon,
-			position = {x = 0.4, y = 0},
+			position = {x = 0.091, y = 0.8},
 			offset = {x = -81.5, y = 126},
 			alignment = {x = 0, y = -1}
 		})
