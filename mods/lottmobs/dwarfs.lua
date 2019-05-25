@@ -7,7 +7,7 @@ function lottmobs.register_dwarf(n, hpmin, hpmax, textures, wv, rv, damg, arm, d
 		textures             = textures,
 		visual               = "mesh",
 		visual_size          = { x = 1.1, y = 0.85 },
-		mesh                 = "lottarmor_character.b3d",
+		mesh                 = "lottarmor_character_old.b3d",
 		view_range           = 12,
 		makes_footstep_sound = true,
 		walk_velocity        = wv,

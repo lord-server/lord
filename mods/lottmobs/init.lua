@@ -441,7 +441,7 @@ mobs:register_mob("lottmobs:ithilien_ranger", {
 		{"lottmobs_ithilien_ranger_1.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottclothes_cloak_ranger.png"},
 	},
 	visual = "mesh",
-	mesh = "lottarmor_character.b3d",
+	mesh = "lottarmor_character_old.b3d",
 	makes_footstep_sound = true,
 	view_range = 16,
 	walk_velocity = 2.5,
@@ -750,7 +750,7 @@ mobs:register_mob("lottmobs:orc", {
 	hp_max = 35,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character.b3d",
+	mesh = "lottarmor_character_old.b3d",
 	textures = {
 		{"lottmobs_orc.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
 		{"lottmobs_orc.png", orc_armor, "tools_sword_orc.png", "lottarmor_trans.png"},
@@ -843,7 +843,7 @@ mobs:register_mob("lottmobs:orc_crossbowman", {
 	hp_max = 35,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character.b3d",
+	mesh = "lottarmor_character_old.b3d",
 	textures = {
 		{"lottmobs_orc.png", "lottarmor_trans.png", "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
 		{"lottmobs_orc.png", orc_armor, "lottthrowing_crossbow_steel.png", "lottarmor_trans.png"},
@@ -943,7 +943,7 @@ mobs:register_mob("lottmobs:orc_archer", {
 	hp_max = 35,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character.b3d",
+	mesh = "lottarmor_character_old.b3d",
 	textures = {
 		{"lottmobs_orc.png", "lottarmor_trans.png", "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
 		{"lottmobs_orc.png", orc_armor, "lottthrowing_bow_wood.png", "lottarmor_trans.png"},
@@ -1044,7 +1044,7 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	hp_max = 35,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character.b3d",
+	mesh = "lottarmor_character_old.b3d",
 	textures = {
 		{"lottmobs_orc.png", orc_armor, "tools_sword_orc.png", "lottarmor_trans.png"},
 		{"lottmobs_orc_1.png", orc_armor, "tools_sword_orc.png", "lottarmor_trans.png"},
