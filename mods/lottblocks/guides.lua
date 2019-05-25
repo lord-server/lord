@@ -77,7 +77,7 @@ local palantir_guide = dofile(minetest.get_modpath("lottblocks")
 
 minetest.register_craftitem("lottblocks:palantir_guide", {
 	description = SL("Palantir Guidebook"),
-	inventory_image = "lottblocks_book_blue.png",
+	inventory_image = "default_book.png^[colorize:darkblue:100",
 	groups = {book = 1, forbidden = 1},
 	stack_max = 1,
 	text = minetest.deserialize(palantir_guide),
