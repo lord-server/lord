@@ -10,7 +10,7 @@ LOTT Modifications and Additions by:
 Authors of media files
 -----------------------
 
-lottachievements_got_generic.ogg - CC BY 3.0 - https://freesound.org/people/InspectorJ/sounds/403010/
+lottachievements_got_generic.ogg - CC0 - https://www.freesound.org/people/Kastenfrosch/sounds/162482/
 
 Bad_Command_ (CC BY-SA 3.0)
 	lottachievements_skull.png
