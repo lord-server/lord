@@ -1,6 +1,18 @@
 local S = minetest.get_translator("hudbars")
 local N = function(s) return s end
 
+hotbar_transparency = true
+
+local function custom_hud(player)
+	local name = player:get_player_name()
+	if hotbar_transparency == false then
+		player:hud_set_hotbar_image("hud_hotbar.png")
+	else
+		player:hud_set_hotbar_image("hud_hotbar_transparent.png")
+	end
+	player:hud_set_hotbar_selected_image("hud_hotbar_selected.png")
+end
+
 hb = {}
 
 hb.hudtables = {}
