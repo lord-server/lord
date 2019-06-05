@@ -73,7 +73,8 @@ hb.register_hudbar(
 	{ order = 
 		{ "label", "value" }, 
 		textdomain = "hbarmor" 
-	} 
+	},
+	3
 )
 
 function hbarmor.get_armor(player)

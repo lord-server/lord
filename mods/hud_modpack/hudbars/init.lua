@@ -123,7 +123,7 @@ function hb.get_hudbar_position_index(identifier)
 end
 
 function hb.register_hudbar(identifier, text_color, label, textures, default_start_value,
- default_start_max, default_start_hidden, format_string, format_string_config)
+ default_start_max, default_start_hidden, format_string, format_string_config, force_index)
 
 	local hudtable = {}
 	local pos, offset
@@ -145,7 +145,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 			x = hb.settings.start_offset_left.x,
 			y = hb.settings.start_offset_left.y + hb.settings.vmargin * index
 		}
-	else
+	elseif hb.settings.alignment_pattern == "zigzag" then
 		if index % 2 == 0 then
 			pos = hb.settings.pos_left
 			offset = {
@@ -157,6 +157,20 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 			offset = {
 				x = hb.settings.start_offset_right.x,
 				y = hb.settings.start_offset_right.y - hb.settings.vmargin * ((index-1)/2)
+			}
+		end
+	elseif hb.settings.alignment_pattern == "manual" then
+		if force_index % 2 == 0 then
+			pos = hb.settings.pos_left
+			offset = {
+				x = hb.settings.start_offset_left.x,
+				y = hb.settings.start_offset_left.y - hb.settings.vmargin * (force_index/2)
+			}
+		else
+			pos = hb.settings.pos_right
+			offset = {
+				x = hb.settings.start_offset_right.x,
+				y = hb.settings.start_offset_right.y - hb.settings.vmargin * ((force_index-1)/2)
 			}
 		end
 	end
@@ -206,13 +220,13 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 				alignment = {x=-1,y=-1},
 				offset = { x = offset.x, y = offset.y },
 				direction = 0,
-				size = {x=24, y=24},
+				size = {x=22, y=22},
 			})
 		end
 
 		local bar_image, bar_size
 		bar_image = textures.icon
-		bar_size = {x=24, y=24}
+		bar_size = {x=22, y=22}
 		
 		ids.bar = player:hud_add({
 			hud_elem_type = "statbar",
@@ -394,7 +408,10 @@ if minetest.settings:get_bool("enable_damage") or hb.settings.forceload_default_
 		{ bar = "hudbars_bar_health.png", icon = "hudbars_icon_health.png", bgicon = "hudbars_bgicon_health.png" }, 
 		20, 
 		20, 
-		false
+		false,
+		nil,
+		nil,
+		0
 	)
 
 	hb.register_hudbar(
@@ -404,7 +421,10 @@ if minetest.settings:get_bool("enable_damage") or hb.settings.forceload_default_
 		{ bar = "hudbars_bar_breath.png", icon = "hudbars_icon_breath.png", bgicon = "hudbars_bgicon_breath.png" }, 
 		20, 
 		10, 
-		true
+		true,
+		nil,
+		nil,
+		2
 	)
 end
 

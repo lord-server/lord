@@ -48,7 +48,10 @@ hb.register_hudbar(
 	{icon = "hbhunger_icon.png", bgicon = "hbhunger_bgicon.png",  bar = "hbhunger_bar.png"}, 
 	10, 
 	30, 
-	false
+	false,
+	nil,
+	nil,
+	1
 )
 
 -- update hud elemtens if value has changed
