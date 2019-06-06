@@ -328,8 +328,8 @@ function hb.change_hudbar(player, identifier, new_value, new_max_value,
 	local main_error_text =
 		"[hudbars] Bad call to hb.change_hudbar, identifier: “"..tostring(identifier).."”, player name: “"..name.."”. "
 	if new_max_value < new_value then
-		minetest.log("error", main_error_text.."new_max_value 
-		 ("..new_max_value..") is smaller than new_value ("..new_value..")!")
+		minetest.log("error", 
+		main_error_text.."new_max_value ("..new_max_value..") is smaller than new_value ("..new_value..")!")
 	end
 	if new_max_value < 0 then
 		minetest.log("error", main_error_text.."new_max_value ("..new_max_value..") is smaller than 0!")
