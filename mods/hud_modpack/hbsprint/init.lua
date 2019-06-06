@@ -78,7 +78,7 @@ local function create_particles(player, name, pos, ground)
     if type(tile) == "string" then
       for i = 1, particles do
         minetest.add_particle({
-          pos = {x = pos.x + math.random(-1,1) * math.random() / 2, y = pos.y + 0.1, 
+          pos = {x = pos.x + math.random(-1,1) * math.random() / 2, y = pos.y + 0.1,
            z = pos.z + math.random(-1,1) * math.random() / 2},
           velocity = {x = 0, y = 5, z = 0},
           acceleration = {x = 0, y = -13, z = 0},
@@ -141,18 +141,11 @@ minetest.register_globalstep(function(dtime)
         local hunger = 30
         local pos = player:get_pos()
         local ground = minetest.get_node_or_nil({x=pos.x, y=pos.y-1, z=pos.z})
-        local walkable = false
         local player_stamina = tonumber(player:get_meta():get("hbsprint:stamina"))
         if starve == "hbhunger" then
           hunger = tonumber(hbhunger.hunger[name])
         end
-        if ground ~= nil then
-          local ground_def = minetest.registered_nodes[ground.name]
-          if ground_def then
-            walkable = minetest.registered_nodes[ground.name].walkable
-          end
-        end
-        if player_stamina > 0 and hunger > starve_limit --[[and walkable]] then
+        if player_stamina > 0 and hunger > starve_limit then
           start_sprint(player)
           player:get_meta():set_string("hbsprint:sprinting", "true")
           if stamina then drain_stamina(player) end

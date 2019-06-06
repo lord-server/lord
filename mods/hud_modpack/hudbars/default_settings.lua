@@ -24,7 +24,9 @@ hb.settings.tick = hb.load_setting("hudbars_tick", "number", 0.1)
 hb.settings.forceload_default_hudbars = hb.load_setting("hudbars_forceload_default_hudbars", "bool", true)
 
 -- Misc. settings
-hb.settings.alignment_pattern = hb.load_setting("hudbars_alignment_pattern", "string", "manual", {"zigzag", "stack_up", "stack_down", "manual"})
+hb.settings.alignment_pattern = hb.load_setting(
+	"hudbars_alignment_pattern", "string", "manual", {"zigzag", "stack_up", "stack_down", "manual"}
+)
 hb.settings.autohide_breath = hb.load_setting("hudbars_autohide_breath", "bool", true)
 
 local sorting = minetest.settings:get("hudbars_sorting")
