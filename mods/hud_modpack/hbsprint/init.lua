@@ -11,8 +11,8 @@ local particles     = tonumber(minetest.settings:get ("sprint_particles")) or 2
 local stamina       = minetest.settings:get_bool("sprint_stamina") ~= false
 local stamina_drain = tonumber(minetest.settings:get ("sprint_stamina_drain")) or 0.5
 local replenish     = tonumber(minetest.settings:get ("sprint_stamina_replenish")) or 1
-local starve        = minetest.settings:get_bool("sprint_starve") ~= false
-local starve_drain  = tonumber(minetest.settings:get ("sprint_starve_drain")) or 590
+--local starve        = minetest.settings:get_bool("sprint_starve") ~= false
+--local starve_drain  = tonumber(minetest.settings:get ("sprint_starve_drain")) or 590
 local starve_limit  = tonumber(minetest.settings:get ("sprint_starve_limit")) or 6
 local autohide      = minetest.settings:get_bool("hudbars_autohide_stamina") ~= false
 
@@ -78,7 +78,8 @@ local function create_particles(player, name, pos, ground)
     if type(tile) == "string" then
       for i = 1, particles do
         minetest.add_particle({
-          pos = {x = pos.x + math.random(-1,1) * math.random() / 2, y = pos.y + 0.1, z = pos.z + math.random(-1,1) * math.random() / 2},
+          pos = {x = pos.x + math.random(-1,1) * math.random() / 2, y = pos.y + 0.1, 
+           z = pos.z + math.random(-1,1) * math.random() / 2},
           velocity = {x = 0, y = 5, z = 0},
           acceleration = {x = 0, y = -13, z = 0},
           expirationtime = math.random(),
@@ -144,8 +145,6 @@ minetest.register_globalstep(function(dtime)
         local player_stamina = tonumber(player:get_meta():get("hbsprint:stamina"))
         if starve == "hbhunger" then
           hunger = tonumber(hbhunger.hunger[name])
-        elseif starve == "hunger_ng" then
-          hunger = hunger_ng.get_hunger_information(name).hunger.exact
         end
         if ground ~= nil then
           local ground_def = minetest.registered_nodes[ground.name]

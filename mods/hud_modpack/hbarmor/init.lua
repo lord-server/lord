@@ -62,17 +62,17 @@ end
 
 --register and define armor HUD bar
 hb.register_hudbar(
-	"armor", 
-	0xFFFFFF, 
-	S("Armor"), 
-	{ icon = "hbarmor_icon.png", bgicon = "hbarmor_bgicon.png", bar = "hbarmor_bar.png" }, 
-	0, 
-	100, 
-	hbarmor.autohide, 
-	N("@1: @2%"), 
-	{ order = 
-		{ "label", "value" }, 
-		textdomain = "hbarmor" 
+	"armor",
+	0xFFFFFF,
+	S("Armor"),
+	{ icon = "hbarmor_icon.png", bgicon = "hbarmor_bgicon.png", bar = "hbarmor_bar.png" },
+	0,
+	100,
+	hbarmor.autohide,
+	N("@1: @2%"),
+	{ order =
+		{ "label", "value" },
+		textdomain = "hbarmor"
 	},
 	3
 )

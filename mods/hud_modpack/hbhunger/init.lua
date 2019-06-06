@@ -13,7 +13,6 @@ hbhunger.hunger_out = {}
 hbhunger.poisonings = {}
 
 -- HUD item ids
-local hunger_hud = {}
 
 hbhunger.HUD_TICK = 0.1
 
@@ -32,7 +31,7 @@ hbhunger.EXHAUST_LVL = 160 -- at what exhaustion player satiation gets lowerd
 
 --load custom settings
 local set = io.open(minetest.get_modpath("hbhunger").."/hbhunger.conf", "r")
-if set then 
+if set then
 	dofile(minetest.get_modpath("hbhunger").."/hbhunger.conf")
 	set:close()
 end
@@ -45,12 +44,12 @@ dofile(minetest.get_modpath("hbhunger").."/hunger.lua")
 
 -- register satiation hudbar
 hb.register_hudbar(
-	"satiation", 
-	0xFFFFFF, 
-	SL("Satiation"), 
-	{icon = "hbhunger_icon.png", bgicon = "hbhunger_bgicon.png",  bar = "hbhunger_bar.png"}, 
-	10, 
-	30, 
+	"satiation",
+	0xFFFFFF,
+	SL("Satiation"),
+	{icon = "hbhunger_icon.png", bgicon = "hbhunger_bgicon.png",  bar = "hbhunger_bar.png"},
+	10,
+	30,
 	false,
 	nil,
 	nil,
@@ -89,7 +88,7 @@ hbhunger.set_hunger_raw = function(player)
 	if not inv  or not value then return nil end
 	if value > 30 then value = 30 end
 	if value < 0 then value = 0 end
-	
+
 	inv:set_stack("hunger", 1, ItemStack({name=":", count=value+1}))
 
 	return true
@@ -149,7 +148,7 @@ minetest.register_globalstep(function(dtime)
 
 			-- update all hud elements
 			update_hud(player)
-			
+
 			local controls = player:get_player_control()
 			-- Determine if the player is walking
 			if controls.up or controls.down or controls.left or controls.right then

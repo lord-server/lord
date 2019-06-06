@@ -7,7 +7,6 @@ function hbhunger.load_hunger(player)
 end
 
 -- wrapper for minetest.item_eat (this way we make sure other mods can't break this one)
-local org_eat = core.do_item_eat
 core.do_item_eat = function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	local old_itemstack = itemstack
 	itemstack = hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thing)
@@ -85,7 +84,7 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 			elseif hunger_change < 0 then
 				h = h + hunger_change
 				if h > 30 then h = 30 end
-				if h < 0 then h = 0 end --Позволяет юзать отрицательное значение hunger_change 
+				if h < 0 then h = 0 end --Позволяет юзать отрицательное значение hunger_change
 				hbhunger.hunger[name] = h
 				hbhunger.set_hunger_raw(user)
 			end
@@ -99,9 +98,9 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 			if poisen then
 				-- Set poison bar
 				local hotbar_poisen_texture
-				if poisen < 0 then 
-					hotbar_poisen_texture = "hbhunger_icon_health_poison.png" 
-				else 
+				if poisen < 0 then
+					hotbar_poisen_texture = "hbhunger_icon_health_poison.png"
+				else
 					hotbar_poisen_texture = "hbhunger_icon_health_regen.png"
 				end
 				hb.change_hudbar(user, "health", nil, nil, hotbar_poisen_texture, nil, hotbar_poisen_texture)
