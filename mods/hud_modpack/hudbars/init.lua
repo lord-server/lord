@@ -17,7 +17,6 @@ hb.settings = {}
 
 --Fancy Hotbar
 function set_fancy_hud(player, transparency, hbtexture, hbtransparent, hbselected)
-	local name = player:get_player_name()
 	if transparency == false then
 		player:hud_set_hotbar_image(hbtexture)
 	else
@@ -37,7 +36,7 @@ local function player_exists(player)
 end
 
 function hb.load_setting(sname, stype, defaultval, valid_values)
-	
+
 	local sval
 
 	if stype == "string" then
