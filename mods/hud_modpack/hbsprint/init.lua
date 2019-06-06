@@ -1,7 +1,7 @@
-local enable_stamina = false --Can be true
+local enable_stamina = false --Set to "true" to enable stamina
 if enable_stamina == true then
 
-  
+local SL = lord.require_intllib()
 -- Vars
 
 local speed         = tonumber(minetest.settings:get ("sprint_speed")) or 2
@@ -97,7 +97,7 @@ if mod_hudbars and stamina then
   hb.register_hudbar(
     "stamina",
     0xFFFFFF,
-    "Stamina",
+    SL("Stamina"),
     {
       bar = "sprint_stamina_bar.png",
       icon = "sprint_stamina_icon.png",
@@ -174,5 +174,7 @@ minetest.register_globalstep(function(dtime)
     sprint_timer = 0
   end
 end)
+
+lord.mod_loaded()
 
 end

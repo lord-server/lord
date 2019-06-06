@@ -98,7 +98,13 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 			-- Poison
 			if poisen then
 				-- Set poison bar
-				hb.change_hudbar(user, "health", nil, nil, "hbhunger_icon_health_poison.png", nil, "hbhunger_bar_health_poison.png")
+				local hotbar_poisen_texture
+				if poisen < 0 then 
+					hotbar_poisen_texture = "hbhunger_icon_health_poison.png" 
+				else 
+					hotbar_poisen_texture = "hbhunger_icon_health_regen.png"
+				end
+				hb.change_hudbar(user, "health", nil, nil, hotbar_poisen_texture, nil, hotbar_poisen_texture)
 				hbhunger.poisonings[name] = hbhunger.poisonings[name] + 1
 				poisenp(1, poisen, 0, user)
 			end

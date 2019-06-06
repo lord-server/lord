@@ -1,6 +1,6 @@
-local S = lord.require_intllib()
-
 if minetest.settings:get_bool("enable_damage") then
+
+local SL = lord.require_intllib()
 
 hbhunger = {}
 hbhunger.food = {}
@@ -47,7 +47,7 @@ dofile(minetest.get_modpath("hbhunger").."/hunger.lua")
 hb.register_hudbar(
 	"satiation", 
 	0xFFFFFF, 
-	S("Satiation"), 
+	SL("Satiation"), 
 	{icon = "hbhunger_icon.png", bgicon = "hbhunger_bgicon.png",  bar = "hbhunger_bar.png"}, 
 	10, 
 	30, 
@@ -161,5 +161,6 @@ minetest.register_globalstep(function(dtime)
 	if timer2 > hbhunger.HUNGER_TICK then timer2 = 0 end
 end)
 
-end
+lord.mod_loaded()
 
+end
