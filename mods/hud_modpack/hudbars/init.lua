@@ -197,7 +197,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 		else
 			bgscale = { x=1, y=1 }
 		end
-		
+
 		if start_hidden then
 			iconscale = { x=0, y=0 }
 			barnumber = 0
@@ -226,7 +226,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 		local bar_image, bar_size
 		bar_image = textures.icon
 		bar_size = {x=22, y=22}
-		
+
 		ids.bar = player:hud_add({
 			hud_elem_type = "statbar",
 			position = pos,
@@ -249,7 +249,8 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 			"[hudbars] Bad initial values of HUD bar identifier “"..tostring(identifier).."” for player "..name..". "
 
 		if start_max < start_value then
-			minetest.log("error", main_error_text.."start_max ("..start_max..") is smaller than start_value ("..start_value..")!")
+			minetest.log("error",
+			 main_error_text.."start_max ("..start_max..") is smaller than start_value ("..start_value..")!")
 		end
 		if start_max < 0 then
 			minetest.log("error", main_error_text.."start_max ("..start_max..") is smaller than 0!")
@@ -286,7 +287,7 @@ function hb.init_hudbar(player, identifier, start_value, start_max, start_hidden
 	return true
 end
 
-function hb.change_hudbar(player, identifier, new_value, new_max_value, 
+function hb.change_hudbar(player, identifier, new_value, new_max_value,
  new_icon, new_bgicon, new_bar, new_label, new_text_color)
 	if new_value == nil and new_max_value == nil and new_icon == nil and new_bgicon == nil and
 	 new_bar == nil and new_label == nil and new_text_color == nil then
@@ -328,7 +329,7 @@ function hb.change_hudbar(player, identifier, new_value, new_max_value,
 	local main_error_text =
 		"[hudbars] Bad call to hb.change_hudbar, identifier: “"..tostring(identifier).."”, player name: “"..name.."”. "
 	if new_max_value < new_value then
-		minetest.log("error", 
+		minetest.log("error",
 		main_error_text.."new_max_value ("..new_max_value..") is smaller than new_value ("..new_value..")!")
 	end
 	if new_max_value < 0 then
