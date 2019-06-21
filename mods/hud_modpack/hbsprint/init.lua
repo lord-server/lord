@@ -59,15 +59,13 @@ end
 
 local function replenish_stamina(player)
   local hunger = tonumber(hbhunger.hunger[player:get_player_name()])
-  if hunger >= 19 then
+  if hunger >= 18 then
     local player_stamina = tonumber(player:get_meta():get("hbsprint:stamina"))
     if player_stamina < 20 then
       player:get_meta():set_float("hbsprint:stamina", player_stamina + stamina_drain)
     end
-    if mod_hudbars then
-      hb.change_hudbar(player, "stamina", player_stamina)
-      if autohide and player_stamina == 20 then hb.hide_hudbar(player, "stamina") end
-    end
+    hb.change_hudbar(player, "stamina", player_stamina)
+    if autohide and player_stamina == 20 then hb.hide_hudbar(player, "stamina") end
   end
 end
 
