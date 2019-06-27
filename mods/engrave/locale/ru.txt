@@ -1,0 +1,7 @@
+Engraving Table = Гравировальный столик
+Please wield the item you want to name, and then click the engraving table again. = Пожалуйста, возьмите в руку предмет, который вы хотите назвать и кликните по гравировальному столику.
+You can't name an unknown item! = Нельзя назвать нейзвестный предмет!
+Enter a new name for this = Введите новое имя
+OK = Готово
+Name is too long. = Слишком длинное имя.
+For some reason, the stack metadata couldn't be acquired. Try again! = Метаданные предмета не были получены. Пожалуйста, попробуйте снова!

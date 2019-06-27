@@ -1,0 +1,1 @@
+Adds an "Engraving Table" that allows to change the description of items
