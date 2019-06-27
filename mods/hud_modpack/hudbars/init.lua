@@ -190,8 +190,6 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 		local ids = {}
 		local state = {}
 		local name = player:get_player_name()
-		bgscale = {}
-		iconscale = {}
 		local text
 		local barnumber
 		local bgiconnumber
