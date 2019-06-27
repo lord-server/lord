@@ -57,3 +57,5 @@ exclude_files     = {
 	"mods/mp_world_edit",
 	"mods/default/chatcommands.lua",
 }
+
+ignore = {"431"}
