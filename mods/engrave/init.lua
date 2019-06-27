@@ -1,7 +1,5 @@
 SL = lord.require_intllib()
 
-minetest.register_privilege("engrave_long_names", "When using the Engraving Table, Player can set names that contain more than 40 characters and/or newlines")
-
 minetest.register_node("engrave:table", {
 	description = SL("Engraving Table"),
 	drawtype = "nodebox",
@@ -34,10 +32,6 @@ minetest.register_node("engrave:table", {
 			if metaname~="" then
 				name=metaname
 			end
-		end
-		local fieldtype = "field"
-		if minetest.check_player_privs(pname, {engrave_long_names=true}) then
-			fieldtype = "textarea"
 		end
 		minetest.show_formspec(
 			pname,
