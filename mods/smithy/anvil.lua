@@ -7,10 +7,13 @@ local function has_anvil_privilege(meta, player)
 	return true
 end
 
+local tmp = {}
+local itemtexture = {}
+
 minetest.register_entity("smithy:item_on_anvil",{
 	hp_max = 1,
 	visual = "wielditem",
-	visual_size = {x=.33,y=.33},
+	visual_size = {x=.13,y=.13},
 	collisionbox = {0,0,0,0,0,0},
 	physical = false,
 	textures = {"air"},
@@ -20,20 +23,15 @@ minetest.register_entity("smithy:item_on_anvil",{
 			tmp.nodename = nil
 			self.texture = tmp.texture
 			tmp.texture = nil
-		else
-			if staticdata ~= nil and staticdata ~= "" then
-				local data = staticdata:split(';')
-				if data and data[1] and data[2] then
-					self.nodename = data[1]
-					self.texture = data[2]
-				end
+		elseif staticdata ~= nil and staticdata ~= "" then
+			local data = staticdata:split(';')
+			if data and data[1] and data[2] then
+				self.nodename = data[1]
+				self.texture = data[2]
 			end
 		end
 		if self.texture ~= nil then
 			self.object:set_properties({textures={self.texture}})
-		end
-		if self.nodename ~= "itemframes:frame" then
-			self.object:set_properties({automatic_rotate=1})
 		end
 	end,
 	get_staticdata = function(self)
@@ -111,7 +109,7 @@ minetest.register_node(":castle:anvil", {
 		"label[2.5,-0.5;"..SL("Owner: %s"):format(meta:get_string('owner') or "").."]");
 	end,
 
-	can_dig = function(pos,player)
+	can_dig = function(pos, player)
 		local meta = minetest.get_meta(pos);
 		local inv = meta:get_inventory();
 		local owner = meta:get_string('owner');
@@ -146,80 +144,92 @@ minetest.register_node(":castle:anvil", {
 
 		local name = stack:get_name()
 
+		itemtexture = minetest.registered_items[name].inventory_image
+		
+		local px = pos.x
+		local py = pos.y + 0.8
+		local pz = pos.z
+
 		if listname == 'hammer' and stack and name ~= 'tools:warhammer_steel'
-		and name ~= 'tools:warhammer_bronze'
-		and name ~= 'tools:warhammer_copper'
-		and name ~= 'tools:warhammer_tin'
-		and name ~= 'tools:warhammer_silver'
-		and name ~= 'tools:warhammer_gold'
-		and name ~= 'tools:warhammer_galvorn'
-		and name ~= 'tools:warhammer_mithril'then
+		 and name ~= 'tools:warhammer_bronze'
+		 and name ~= 'tools:warhammer_copper'
+		 and name ~= 'tools:warhammer_tin'
+		 and name ~= 'tools:warhammer_silver'
+		 and name ~= 'tools:warhammer_gold'
+		 and name ~= 'tools:warhammer_galvorn'
+		 and name ~= 'tools:warhammer_mithril'then
 			return 0;
+		else
+			obj = minetest.add_entity({x=px, y=py, z=pz}, "smithy:item_on_anvil")
+			--[[remove = {}
+			if remove == "do" then
+				obj:remove()
+			end]]
 		end
 
 		if listname == 'input' and stack and
-		(--wooden tools
-		name == 'tools:pick_wood'
-		or name == 'tools:shovel_wood'
-		or name == 'tools:axe_wood'
-		or name == 'tools:sword_wood'
-		or name == 'tools:battleaxe_wood'
-		or name == 'tools:warhammer_wood'
-		or name == 'tools:spear_wood'
-		or name == 'tools:dagger_wood'
-		--stone tools
-		or name == 'tools:pick_stone'
-		or name == 'tools:shovel_stone'
-		or name == 'tools:axe_stone'
-		or name == 'tools:sword_stone'
-		or name == 'tools:battleaxe_stone'
-		or name == 'tools:warhammer_stone'
-		or name == 'tools:spear_stone'
-		or name == 'tools:dagger_stone'
-		--rings
-		or name == 'lottother:dwarf_ring'
-		or name == 'lottother:vilya'
-		or name == 'lottother:narya'
-		or name == 'lottother:nenya'
-		or name == 'lottother:lottother:beast_ring'
-		-- new rings
-		--[[
-		or name == 'lottother:dwarf_ring_new'
-		or name == 'lottother:vilya_new'
-		or name == 'lottother:narya_new'
-		or name == 'lottother:nenya_new'
-		or name == 'lottother:lottother:beast_ring_new'
-		]]
-		--hammers
-		or name == 'tools:warhammer_bronze'
-		or name == 'tools:warhammer_copper'
-		or name == 'tools:warhammer_tin'
-		or name == 'tools:warhammer_silver'
-		or name == 'tools:warhammer_gold'
-		or name == 'tools:warhammer_galvorn'
-		or name == 'tools:warhammer_mithril'
-		--armor
-		or name == 'lottarmor:helmet_wood'
-		or name == 'lottarmor:chestplate_wood'
-		or name == 'lottarmor:leggings_wood'
-		or name == 'lottarmor:boots_wood'
-		or name == 'lottarmor:shield_wood'
-		--new armor
-		--[[
-		or name == 'lottarmor:dragon_warrior_helmet'
-		or name == 'lottarmor:dragon_warrior_chestplate'
-		or name == 'lottarmor:dragon_warrior_leggings'
-		or name == 'lottarmor:dragon_warrior_boots'
-		or name == 'lottarmor:dragon_warrior_shield'
-		]]
-		--special tools/items
-		or name == 'tools:sword_elven'
-		or name == 'tools:sword_orc'
-		or name == 'defaults:ghost_tool'
-		--or name == 'tools:melkor_pick'
-		--or name == 'tools:dragon_warrior_sword'
-		--or name == 'lottother:gem_pick'
-		--[[optional: or name == 'lottother:chisel']]) then
+		 (--wooden tools
+		 name == 'tools:pick_wood'
+		 or name == 'tools:shovel_wood'
+		 or name == 'tools:axe_wood'
+		 or name == 'tools:sword_wood'
+		 or name == 'tools:battleaxe_wood'
+		 or name == 'tools:warhammer_wood'
+		 or name == 'tools:spear_wood'
+		 or name == 'tools:dagger_wood'
+		 --stone tools
+		 or name == 'tools:pick_stone'
+		 or name == 'tools:shovel_stone'
+		 or name == 'tools:axe_stone'
+		 or name == 'tools:sword_stone'
+		 or name == 'tools:battleaxe_stone'
+		 or name == 'tools:warhammer_stone'
+		 or name == 'tools:spear_stone'
+		 or name == 'tools:dagger_stone'
+		 --rings
+		 or name == 'lottother:dwarf_ring'
+		 or name == 'lottother:vilya'
+		 or name == 'lottother:narya'
+		 or name == 'lottother:nenya'
+		 or name == 'lottother:lottother:beast_ring'
+		 -- new rings
+		 --[[
+		 or name == 'lottother:dwarf_ring_new'
+		 or name == 'lottother:vilya_new'
+		 or name == 'lottother:narya_new'
+		 or name == 'lottother:nenya_new'
+		 or name == 'lottother:lottother:beast_ring_new'
+		 ]]
+		 --hammers
+		 or name == 'tools:warhammer_bronze'
+		 or name == 'tools:warhammer_copper'
+		 or name == 'tools:warhammer_tin'
+		 or name == 'tools:warhammer_silver'
+		 or name == 'tools:warhammer_gold'
+		 or name == 'tools:warhammer_galvorn'
+		 or name == 'tools:warhammer_mithril'
+		 --armor
+		 or name == 'lottarmor:helmet_wood'
+		 or name == 'lottarmor:chestplate_wood'
+		 or name == 'lottarmor:leggings_wood'
+		 or name == 'lottarmor:boots_wood'
+		 or name == 'lottarmor:shield_wood'
+		 --new armor
+		 --[[
+		 or name == 'lottarmor:dragon_warrior_helmet'
+		 or name == 'lottarmor:dragon_warrior_chestplate'
+		 or name == 'lottarmor:dragon_warrior_leggings'
+		 or name == 'lottarmor:dragon_warrior_boots'
+		 or name == 'lottarmor:dragon_warrior_shield'
+		 ]]
+		 --special tools/items
+		 or name == 'tools:sword_elven'
+		 or name == 'tools:sword_orc'
+		 or name == 'defaults:ghost_tool'
+		 --or name == 'tools:melkor_pick'
+		 --or name == 'tools:dragon_warrior_sword'
+		 --or name == 'lottother:gem_pick'
+		 --[[optional: or name == 'lottother:chisel']]) then
 			minetest.chat_send_player(player:get_player_name(), SL('You can not repair this item!'));
 			return 0;
 		end
@@ -236,6 +246,7 @@ minetest.register_node(":castle:anvil", {
 		if not has_anvil_privilege(meta, player) then
 			return 0
 		end
+		obj:remove()
 		return stack:get_count()
 	end,
 
@@ -248,13 +259,13 @@ minetest.register_node(":castle:anvil", {
 		local wielded = puncher:get_wielded_item();
 
 		if not (wielded or wielded:get_name()) or (wielded:get_name() ~= 'tools:warhammer_steel'
-		and wielded:get_name() ~= 'tools:warhammer_bronze'
-		and wielded:get_name() ~= 'tools:warhammer_copper'
-		and wielded:get_name() ~= 'tools:warhammer_tin'
-		and wielded:get_name() ~= 'tools:warhammer_silver'
-		and wielded:get_name() ~= 'tools:warhammer_gold'
-		and wielded:get_name() ~= 'tools:warhammer_galvorn'
-		and wielded:get_name() ~= 'tools:warhammer_mithril') then
+		 and wielded:get_name() ~= 'tools:warhammer_bronze'
+		 and wielded:get_name() ~= 'tools:warhammer_copper'
+		 and wielded:get_name() ~= 'tools:warhammer_tin'
+		 and wielded:get_name() ~= 'tools:warhammer_silver'
+		 and wielded:get_name() ~= 'tools:warhammer_gold'
+		 and wielded:get_name() ~= 'tools:warhammer_galvorn'
+		 and wielded:get_name() ~= 'tools:warhammer_mithril') then
 			return 0
 		end
 
