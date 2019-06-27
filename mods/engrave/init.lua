@@ -25,7 +25,7 @@ minetest.register_node("engrave:table", {
 			return
 		end
 		local name=idef.description or stack:get_name()
-		
+
 		local meta=stack:get_meta()
 		if meta then
 			local metaname=meta:get_string("description")
@@ -33,6 +33,7 @@ minetest.register_node("engrave:table", {
 				name=metaname
 			end
 		end
+		local fieldtype = "field"
 		minetest.show_formspec(
 			pname,
 			"engrave",
@@ -51,7 +52,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			minetest.chat_send_player(pname, SL("Name is too long."))
 			return
 		end
-		
+
 		local stack=player:get_wielded_item()
 		if stack:get_count()==0 then
 			minetest.chat_send_player(pname, SL("Please wield the item you want to name, and then click the engraving table again."))
@@ -63,13 +64,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			return
 		end
 		local name=idef.description or stack:get_name()
-		
+
 		local meta=stack:get_meta()
 		if not meta then
 			minetest.chat_send_player(pname, SL("For some reason, the stack metadata couldn't be acquired. Try again!"))
 			return
 		end
-		
+
 		if fields.name==name then
 			meta:set_string("description", "")
 		else
