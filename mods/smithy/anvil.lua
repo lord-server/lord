@@ -7,6 +7,43 @@ local function has_anvil_privilege(meta, player)
 	return true
 end
 
+minetest.register_entity("smithy:item_on_anvil",{
+	hp_max = 1,
+	visual = "wielditem",
+	visual_size = {x=.33,y=.33},
+	collisionbox = {0,0,0,0,0,0},
+	physical = false,
+	textures = {"air"},
+	on_activate = function(self, staticdata)
+		if tmp.nodename ~= nil and tmp.texture ~= nil then
+			self.nodename = tmp.nodename
+			tmp.nodename = nil
+			self.texture = tmp.texture
+			tmp.texture = nil
+		else
+			if staticdata ~= nil and staticdata ~= "" then
+				local data = staticdata:split(';')
+				if data and data[1] and data[2] then
+					self.nodename = data[1]
+					self.texture = data[2]
+				end
+			end
+		end
+		if self.texture ~= nil then
+			self.object:set_properties({textures={self.texture}})
+		end
+		if self.nodename ~= "itemframes:frame" then
+			self.object:set_properties({automatic_rotate=1})
+		end
+	end,
+	get_staticdata = function(self)
+		if self.nodename ~= nil and self.texture ~= nil then
+			return self.nodename .. ';' .. self.texture
+		end
+		return ""
+	end,
+})
+
 local smithy_anvil_formspec =
 	"size[8,7]"..
 	"background[0,0;8.5,8.5;gui_anvilbg.png;true]"..
