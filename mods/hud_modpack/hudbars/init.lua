@@ -190,14 +190,16 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 		local ids = {}
 		local state = {}
 		local name = player:get_player_name()
-		local bgscale, iconscale, text, barnumber, bgiconnumber
+		local bgscale
+		local iconscale
+		local text
+		local barnumber
+		local bgiconnumber
 
 		if start_max == 0 or start_hidden then
 			bgscale = { x=0, y=0 }
-			return bgscale
 		else
 			bgscale = { x=1, y=1 }
-			return bgscale
 		end
 
 		if start_hidden then
@@ -205,13 +207,11 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 			barnumber = 0
 			bgiconnumber = 0
 			text = ""
-			return iconscale
 		else
 			iconscale = { x=1, y=1 }
 			barnumber = hb.value_to_barlength(start_value, start_max)
 			bgiconnumber = hb.settings.statbar_length
 			text = make_label(format_string, format_string_config, label, start_value, start_max)
-			return iconscale
 		end
 
 		if textures.bgicon ~= nil then
