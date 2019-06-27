@@ -58,4 +58,4 @@ exclude_files     = {
 	"mods/default/chatcommands.lua",
 }
 
-ignore = {"431,631"}
+ignore = {"431","631"}
