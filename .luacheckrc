@@ -21,7 +21,7 @@ read_globals      = {
 	"default", "sfinv", "creative",
 
 	-- Lord specific
-	"lord",
+	"lord", "hb",
 
 	-- Mods APIs
 	"doors",
@@ -56,4 +56,6 @@ exclude_files     = {
 	"mods/lottmapgen",
 	"mods/mp_world_edit",
 	"mods/default/chatcommands.lua",
+	-- Internal mods
+	"mods/hud_modpack/hudbars"
 }

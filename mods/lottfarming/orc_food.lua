@@ -5,8 +5,8 @@ minetest.register_craftitem("lottfarming:orc_food", {
 	inventory_image = "lottfarming_orc_food.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local name = user:get_player_name()
-		hud.hunger[name] = 20
-		hud.set_hunger(user)
+		hbhunger.hunger[name] = 20
+		hbhunger.set_hunger_raw(user)
 		local first_screen = user:hud_add({
 			hud_elem_type = "image",
 			position = {x=0, y=0},
