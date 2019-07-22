@@ -56,6 +56,5 @@ exclude_files     = {
 	"mods/lottmapgen",
 	"mods/mp_world_edit",
 	"mods/default/chatcommands.lua",
+	"mods/hud_modpack/hudbars"
 }
-
-ignore = {"431"}
