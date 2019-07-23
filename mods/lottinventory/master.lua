@@ -97,13 +97,36 @@ zmc.load_all = function()
 	print("All crafts loaded !")
 end
 
-zmc.formspec = function(pn)
+---@param find string
+---@return table
+local function filter_by_search(find)
+	if find == "" then
+		return zmc.itemlist
+	end
+	find = string.lower(find)
+	local filtered_list = {}
+	for _, name in pairs(zmc.itemlist) do
+		local description = string.lower(minetest.registered_items[name].description)
+		if
+		string.find(name, find) or
+			string.find(description, find)
+		then
+			table.insert(filtered_list, name)
+		end
+	end
+
+	return filtered_list
+end
+
+zmc.formspec = function(pn,find)
+	find = find or ""
 	if zmc.need_load_all then zmc.load_all() end
 	local page = zmc.users[pn].page
 	local alt = zmc.users[pn].alt
 	local current_item = zmc.users[pn].current_item
-	local formspec = "size[8,7.5]"
-	.. "button_exit[6,7;2,0.5;;"..SL("Exit").."]"
+	local formspec =
+		"size[8,8.5]" ..
+		"button_exit[6,8;2,0.5;;"..SL("Exit").."]"
 	if zmc.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zmc_previous;;false;false;zcg_previous_press.png]"
 	else
@@ -114,6 +137,7 @@ zmc.formspec = function(pn)
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
 	end
+
 	-- Show craft recipe
 	if current_item ~= "" then
 		if zmc.crafts[current_item] then
@@ -150,16 +174,22 @@ zmc.formspec = function(pn)
 		end
 	end
 
+	-- Filter items by `filter` field value
+	formspec = formspec ..
+		"field[0.3,4.25;4,0.5;zmc_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field_close_on_enter[zmc_filter;false]"
+	local filtered_list = filter_by_search(find)
+
 	-- Node list
 	local npp = 8*3 -- nodes per page
 	local i = 0 -- for positionning buttons
 	local s = 0 -- for skipping pages
-	for _, name in ipairs(zmc.itemlist) do
+	for _, name in ipairs(filtered_list) do
 		if s < page*npp then s = s+1 else
 			if i >= npp then break end
 			formspec = formspec ..
 				"item_image_button[" ..
-					(i % 8) .. "," .. (math.floor(i / 8) + 3.5) .. ";" ..
+					(i % 8) .. "," .. (math.floor(i / 8) + 4.75) .. ";" ..
 					"1,1;" ..
 					name .. ";" ..
 					"zmc:" .. name .. ";" ..
@@ -168,13 +198,13 @@ zmc.formspec = function(pn)
 		end
 	end
 	if page > 0 then
-		formspec = formspec .. "button[0,7;1,.5;zmc_page:"..(page-1)..";<<]"
+		formspec = formspec .. "button[0,8;1,.5;zmc_page:"..(page-1)..";<<]"
 	end
 	if i >= npp then
-		formspec = formspec .. "button[1,7;1,.5;zmc_page:"..(page+1)..";>>]"
+		formspec = formspec .. "button[1,8;1,.5;zmc_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zmc.itemlist/npp+1)).."]"
+	formspec = formspec .. "label[2,8;"..SL("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
 	formspec = formspec .. "button[0,2.8;2,0.5;potions;"..SL("Potions").."]"
 	formspec = formspec .. "button[0,2.1;2,0.5;brews;"..SL("Brewing").."]"
 	formspec = formspec .. "label[0,0;"..SL("Master Book of Crafts").."]"
@@ -185,20 +215,25 @@ end
 minetest.register_on_player_receive_fields(function(player,formname,fields)
 	local pn = player:get_player_name();
 	if zmc.users[pn] == nil then zmc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-	if fields.zmc then
-		inventory_plus.set_inventory_formspec(player, zmc.formspec(pn))
+	local search_phrase = fields.zmc_filter or "";
+	local new_filter =false
+	if fields.key_enter and fields.key_enter_field == "zmc_filter" and fields.zmc_filter then
+		new_filter = true
+	end
+	if fields.zmc or new_filter then
+		inventory_plus.set_inventory_formspec(player, zmc.formspec(pn, search_phrase))
 		return
 	elseif fields.zmc_previous then
 		if zmc.users[pn].history.index > 1 then
 			zmc.users[pn].history.index = zmc.users[pn].history.index - 1
 			zmc.users[pn].current_item = zmc.users[pn].history.list[zmc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn, search_phrase))
 		end
 	elseif fields.zmc_next then
 		if zmc.users[pn].history.index < #zmc.users[pn].history.list then
 			zmc.users[pn].history.index = zmc.users[pn].history.index + 1
 			zmc.users[pn].current_item = zmc.users[pn].history.list[zmc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn, search_phrase))
 		end
 	end
 	for k, v in pairs(fields) do
@@ -208,14 +243,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zmc.users[pn].current_item = ni
 				table.insert(zmc.users[pn].history.list, ni)
 				zmc.users[pn].history.index = #zmc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zmc.formspec(pn))
+				inventory_plus.set_inventory_formspec(player,zmc.formspec(pn, search_phrase))
 			end
 		elseif (k:sub(0,9)=="zmc_page:") then
 			zmc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn, search_phrase))
 		elseif (k:sub(0,8)=="zmc_alt:") then
 			zmc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zmc.formspec(pn, search_phrase))
 		end
 	end
 end)

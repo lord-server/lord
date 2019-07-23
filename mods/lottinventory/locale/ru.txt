@@ -60,3 +60,4 @@ Brewing	=	Алкоголь
 ### common ###
 Exit	=	Закрыть
 Page	=	Страница
+Search  =   Поиск
