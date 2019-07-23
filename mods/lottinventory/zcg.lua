@@ -80,10 +80,6 @@ zcg.add_craft = function(input, output, groups)
 end
 
 zcg.load_crafts = function(name)
-     local c = {}
-     if c.type == "cooking" then
-          return
-     end
 	zcg.crafts[name] = {}
 	local _recipes = minetest.get_all_craft_recipes(name)
 	if _recipes then
@@ -116,13 +112,36 @@ zcg.load_all = function()
 	print("All crafts loaded !")
 end
 
-zcg.formspec = function(pn)
+---@param find string
+---@return table
+local function filter_by_search(find)
+	if find == "" then
+		return zcg.itemlist
+	end
+	find = string.lower(find)
+	local filtered_list = {}
+	for _, name in pairs(zcg.itemlist) do
+		local description = string.lower(minetest.registered_items[name].description)
+		if
+			string.find(name, find) or
+			string.find(description, find)
+		then
+			table.insert(filtered_list, name)
+		end
+	end
+
+	return filtered_list
+end
+
+zcg.formspec = function(pn, find)
+	find = find or "";
 	if zcg.need_load_all then zcg.load_all() end
 	local page = zcg.users[pn].page
 	local alt = zcg.users[pn].alt
 	local current_item = zcg.users[pn].current_item
-	local formspec = "size[8,7.5]"
-	.. "button_exit[6,7;2,0.5;;"..SL("Exit").."]"
+	local formspec =
+		"size[8,7.75]" ..
+		"button_exit[6,7.25;2,0.5;;"..SL("Exit").."]"
 	if zcg.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zcg_previous;;false;false;zcg_previous_press.png]"
 	else
@@ -133,6 +152,7 @@ zcg.formspec = function(pn)
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
 	end
+
 	-- Show craft recipe
 	if current_item ~= "" then
 		if zcg.crafts[current_item] then
@@ -169,16 +189,22 @@ zcg.formspec = function(pn)
 		end
 	end
 
+	-- Filter items by `filter` field value
+	formspec = formspec ..
+		"field[0.3,3.5;4,0.5;zcg_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field_close_on_enter[zcg_filter;false]"
+	local filtered_list = filter_by_search(find)
+
 	-- Node list
 	local npp = 8*3 -- nodes per page
 	local i = 0 -- for positionning buttons
 	local s = 0 -- for skipping pages
-	for _, name in ipairs(zcg.itemlist) do
+	for _, name in ipairs(filtered_list) do
 		if s < page*npp then s = s+1 else
 			if i >= npp then break end
 			formspec = formspec ..
 				"item_image_button[" ..
-					(i % 8) .. "," .. (math.floor(i / 8) + 3.5) .. ";" ..
+					(i % 8) .. "," .. (math.floor(i / 8) + 4) .. ";" ..
 					"1,1;" ..
 					name .. ";" ..
 					"zcg:" .. name .. ";" ..
@@ -187,13 +213,13 @@ zcg.formspec = function(pn)
 		end
 	end
 	if page > 0 then
-		formspec = formspec .. "button[0,7;1,.5;zcg_page:"..(page-1)..";<<]"
+		formspec = formspec .. "button[0,7.25;1,.5;zcg_page:"..(page-1)..";<<]"
 	end
 	if i >= npp then
-		formspec = formspec .. "button[1,7;1,.5;zcg_page:"..(page+1)..";>>]"
+		formspec = formspec .. "button[1,7.25;1,.5;zcg_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zcg.itemlist/npp+1)).."]"
+	formspec = formspec .. "label[2,7.25;"..SL("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
 	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
 	formspec = formspec .. "label[0,0;"..SL("Book of Crafts").."]"
 	return formspec
@@ -202,20 +228,25 @@ end
 minetest.register_on_player_receive_fields(function(player,formname,fields)
 	local pn = player:get_player_name();
 	if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-	if fields.zcg then
-		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn))
+	local search_phrase = fields.zcg_filter or "";
+	local new_filter =false
+	if fields.key_enter and fields.key_enter_field == "zcg_filter" and fields.zcg_filter then
+		new_filter = true
+	end
+	if fields.zcg or new_filter then
+		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn, search_phrase))
 		return
 	elseif fields.zcg_previous then
 		if zcg.users[pn].history.index > 1 then
 			zcg.users[pn].history.index = zcg.users[pn].history.index - 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	elseif fields.zcg_next then
 		if zcg.users[pn].history.index < #zcg.users[pn].history.list then
 			zcg.users[pn].history.index = zcg.users[pn].history.index + 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	end
 	for k, v in pairs(fields) do
@@ -225,14 +256,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zcg.users[pn].current_item = ni
 				table.insert(zcg.users[pn].history.list, ni)
 				zcg.users[pn].history.index = #zcg.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zcg.formspec(pn))
+				inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 			end
 		elseif (k:sub(0,9)=="zcg_page:") then
 			zcg.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		elseif (k:sub(0,8)=="zcg_alt:") then
 			zcg.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn))
+			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	end
 end)
