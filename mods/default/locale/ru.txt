@@ -115,6 +115,8 @@ Remove privilege from player	=	Забрать привилегии у игрок
 ### crafting.lua ###
 Wooden Stair	=	Ступенька из яблони
 Wooden Slab	=	Плита из яблони
+Glass Stair =   Ступенька из стекла
+Glass Slab  =   Плита из стекла
 Stone Stair	=	Ступенька из камня
 Stone Slab	=	Плита из камня
 Cobble Stair	=	Ступенька из булыжника
