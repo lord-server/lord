@@ -545,6 +545,13 @@ stairs.register_stair_and_slab("wood", "default:wood",
 		SL("Wooden Slab"),
 		default.node_sound_wood_defaults())
 
+stairs.register_stair_and_slab("glass", "default:glass",
+		{ cracky = 3, oddly_breakable_by_hand = 3 },
+		{"default_glass.png"},
+		SL("Glass Stair"),
+		SL("Glass Slab"),
+		default.node_sound_glass_defaults())
+
 stairs.register_stair_and_slab("stone", "default:stone",
 		{cracky=3},
 		{"default_stone.png"},
