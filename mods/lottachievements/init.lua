@@ -751,3 +751,5 @@ lottachievements.register_achievement("daggins_surname", {
 		target = 8
 	}
 })
+
+lord.mod_loaded()
