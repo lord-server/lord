@@ -227,7 +227,7 @@ mobs:register_mob("lottmobs:rohan_guard", {
 		{"lottmobs_rohan_guard_3.png"},
 	},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	makes_footstep_sound = true,
 	view_range = 12,
 	walk_velocity = 2,
@@ -326,7 +326,7 @@ mobs:register_mob("lottmobs:gondor_guard", {
 		{"lottmobs_gondor_guard_3.png"},
 	},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	makes_footstep_sound = true,
 	view_range = 12,
 	walk_velocity = 2,
@@ -530,7 +530,7 @@ mobs:register_mob("lottmobs:dunlending", {
 	hp_max = 27,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	textures = {
 		{"lottmobs_dunlending.png"},
 		{"lottmobs_dunlending_1.png"},
@@ -1107,7 +1107,7 @@ mobs:register_mob("lottmobs:uruk_hai", {
 	hp_max = 40,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	textures = {
 		{"lottmobs_uruk_hai.png"},
 		{"lottmobs_uruk_hai_1.png"},
@@ -1224,7 +1224,7 @@ mobs:register_mob("lottmobs:half_troll", {
 	hp_max = 30,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	textures = {
 		{"lottmobs_half_troll.png"},
 	},
@@ -1339,7 +1339,7 @@ mobs:register_mob("lottmobs:witch_king", {
 	hp_max = 350,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	textures = {
 		{"lottmobs_witch_king.png"},
 	},
@@ -1464,7 +1464,7 @@ mobs:register_mob("lottmobs:dead_men", {
 	hp_max = 1,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
+	mesh = "human_model.x",
 	textures = {
 		{"lottmobs_dead_men.png"},
 	},
