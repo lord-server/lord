@@ -1,6 +1,6 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Сообщить об ошибке
+about: Создайте отчёт об ошибке, чтобы помочь нам улучшить игру
 title: ''
 labels: bug
 assignees: ''
