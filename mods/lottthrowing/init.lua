@@ -13,7 +13,7 @@ end
 
 local lottthrowing_shoot = function(player, arrow_name)
 	local stack_index = player:get_wield_index() + 1
-	local creative = minetest.settings:get_bool("creative_mode")
+	local creative = default.creative
 	local stack = player:get_inventory():get_stack("main", stack_index)
 
 	if (not creative) then
@@ -47,7 +47,7 @@ minetest.register_tool("lottthrowing:bow_wood", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/50)
 			end
 		end
@@ -62,7 +62,7 @@ minetest.register_tool("lottthrowing:bow_wood_alder", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/70)
 			end
 		end
@@ -77,7 +77,7 @@ minetest.register_tool("lottthrowing:bow_wood_birch", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/100)
 			end
 		end
@@ -92,7 +92,7 @@ minetest.register_tool("lottthrowing:bow_wood_lebethron", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/150)
 			end
 		end
@@ -107,7 +107,7 @@ minetest.register_tool("lottthrowing:bow_wood_mallorn", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_arrow(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/300)
 			end
 		end
@@ -167,7 +167,7 @@ minetest.register_tool("lottthrowing:crossbow_magical", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_player_shoot(user, "arrows:darkball") then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/150)
 			end
 		end
@@ -183,7 +183,7 @@ minetest.register_tool("lottthrowing:crossbow_wood", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/50)
 			end
 		end
@@ -198,7 +198,7 @@ minetest.register_tool("lottthrowing:crossbow_steel", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/70)
 			end
 		end
@@ -213,7 +213,7 @@ minetest.register_tool("lottthrowing:crossbow_tin", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/100)
 			end
 		end
@@ -228,7 +228,7 @@ minetest.register_tool("lottthrowing:crossbow_silver", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/150)
 			end
 		end
@@ -243,7 +243,7 @@ minetest.register_tool("lottthrowing:crossbow_gold", {
 	stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/200)
 			end
 		end
@@ -258,7 +258,7 @@ minetest.register_tool("lottthrowing:crossbow_galvorn", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/300)
 			end
 		end
@@ -273,7 +273,7 @@ minetest.register_tool("lottthrowing:crossbow_mithril", {
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
 		if lottthrowing_shoot_bolt(itemstack, user, pointed_thing) then
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:add_wear(65535/500)
 			end
 		end

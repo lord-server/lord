@@ -53,7 +53,7 @@ end
 local damage_enabled = minetest.settings:get_bool("enable_damage")
 local peaceful_only = minetest.settings:get_bool("only_peaceful_mobs")
 local disable_blood = minetest.settings:get_bool("mobs_disable_blood")
-local creative = minetest.settings:get_bool("creative_mode")
+local creative = default.creative
 local spawn_protected = tonumber(minetest.settings:get("mobs_spawn_protected")) or 1
 local remove_far = minetest.settings:get_bool("remove_far_mobs")
 local difficulty = tonumber(minetest.settings:get("mob_difficulty")) or 1.0

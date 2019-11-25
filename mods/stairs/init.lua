@@ -88,7 +88,7 @@ function stairs.register_stair(subname, recipeitem, groups, images, description,
 			--print("param2="..tostring(param2))
 
 			minetest.set_node(p1,{name = "stairs:stair_" .. subname, param2 = param2})
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -287,7 +287,7 @@ function stairs.register_slab(subname, recipeitem, groups, images, description, 
 				end
 			end
 
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack

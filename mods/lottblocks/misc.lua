@@ -3,7 +3,7 @@ local SL = lord.require_intllib()
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua
 
-local creative = minetest.settings:get_bool("creative_mode")
+local creative = default.creative
 local function place_rope(pos, itemstack)
 	if itemstack == nil and itemstack:get_count() <= 1 then
 		return

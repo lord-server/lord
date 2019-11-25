@@ -94,7 +94,7 @@ minetest.register_tool("defaults:ghost_tool", {
 	inventory_image = "ghost_tool.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local pt = pointed_thing
-		local creative = minetest.settings:get_bool("creative_mode")
+		local creative = default.creative
 		local USES=152
 
 		if (pt.type == "node") then

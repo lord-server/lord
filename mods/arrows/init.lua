@@ -36,7 +36,7 @@ local shoot_throwing_weapon = function(item, player, pointed_thing)
 
 	throwing:shoot(player, item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, -0.1)
 
-	if not minetest.settings:get_bool("creative_mode") then
+	if not default.creative then
 		item:take_item()
 	end
 	return item

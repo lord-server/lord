@@ -319,7 +319,7 @@ minetest.register_node("default:tree", {
 
 			end
 			minetest.set_node(p1, { name = "default:tree_trunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -391,7 +391,7 @@ minetest.register_node("default:jungletree", {
 
 			end
 			minetest.set_node(p1, { name = "default:jungletree_trunk", param2 = param2 })
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack
@@ -737,7 +737,7 @@ minetest.register_node("default:ladder", {
 
 --if param2 then
 --minetest.set_node(pointed_thing.above,{name = "default:ladder", param2 = param2})
---if not minetest.settings:get_bool("creative_mode") then
+--if not default.creative then
 --itemstack:take_item()
 --end
 --end

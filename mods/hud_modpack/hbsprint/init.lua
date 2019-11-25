@@ -27,7 +27,7 @@ if minetest.get_modpath("hbhunger") then
 else
   starve = false
 end
-if minetest.settings:get_bool("creative_mode") then
+if default.creative then
   starve = false
 end
 

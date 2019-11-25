@@ -6,7 +6,7 @@ local MASS=0.5
 local VELOCITY=30
 
 lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct, desc, img)
-	minetest.log("action", "regisering potion arrow")
+--	minetest.log("action", "regisering potion arrow")
 	local arrow_name = potion_name.."_arrow"
 	local inventory_img = img.."^lottthrowing_arrow_steel.png"
 	minetest.register_craftitem(arrow_name, {

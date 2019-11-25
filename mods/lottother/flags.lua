@@ -90,7 +90,7 @@ for _, row in ipairs(tapestry.colours) do
 				{ x = above.x, y = above.y + 1, z = above.z },
 				{ name = "lottother:tapestry_top_" .. name, param2 = fdir }
 			)
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack

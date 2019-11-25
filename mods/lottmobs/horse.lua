@@ -33,7 +33,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			if pointed_thing.above then
 				minetest.add_entity(pointed_thing.above, name)
 
-				if not minetest.settings:get_bool("creative_mode") then
+				if not default.creative then
 					itemstack:take_item()
 				end
 			end
@@ -521,7 +521,7 @@ mobs:register_mob("lottmobs:horse", {
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
-			if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
@@ -585,7 +585,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
-			if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
@@ -649,7 +649,7 @@ mobs:register_mob("lottmobs:horseara", {
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
-			if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
@@ -716,7 +716,7 @@ mobs:register_mob("lottmobs:shirepony", {
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
-			if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
@@ -783,7 +783,7 @@ mobs:register_mob("lottmobs:shireponyblack", {
 				return
 			end
 			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
-			if not minetest.settings:get_bool("creative_mode") and item:get_name() ~= "lottother:beast_ring" then
+			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end

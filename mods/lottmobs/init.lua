@@ -15,12 +15,12 @@ lottmobs.guard = function(self, clicker, payment)
 		hp = hp + 4
 		if hp > self.hp_max then hp = self.hp_max end
 		self.object:set_hp(hp)
-		if not minetest.settings:get_bool("creative_mode") then
+		if not default.creative then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end
 	elseif item:get_name() == payment then
-		if not minetest.settings:get_bool("creative_mode") then
+		if not default.creative then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end

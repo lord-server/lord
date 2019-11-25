@@ -95,7 +95,7 @@ function doors.register_door(name, def)
 				meta:set_string("infotext", SL("Owned by").." "..pn)
 			end
 
-			if not minetest.settings:get_bool("creative_mode") then
+			if not default.creative then
 				itemstack:take_item()
 			end
 			return itemstack

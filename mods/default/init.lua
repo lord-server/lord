@@ -13,6 +13,9 @@ SAVEDIR = "LORD"
 default = {}
 default.LIGHT_MAX = 14
 
+default.creative = minetest.settings:get_bool("creative_mode")
+
+
 -- GUI related stuff
 default.gui_bg = "bgcolor[#080808BB;true]"
 default.gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"

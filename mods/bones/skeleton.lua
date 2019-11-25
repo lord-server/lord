@@ -84,7 +84,7 @@ minetest.register_node("bones:skeleton_body", {
 		end
 		minetest.add_node(above, {name = "bones:skeleton_body", param2 = fdir})
 		minetest.add_node(above_2, {name = "bones:skeleton", param2 = fdir})
-		if not minetest.settings:get_bool("creative_mode") then
+		if not default.creative then
 			itemstack:take_item()
 		end
 		return itemstack

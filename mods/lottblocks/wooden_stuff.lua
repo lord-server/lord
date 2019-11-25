@@ -176,7 +176,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 					if param2 then
 						minetest.set_node(pointed_thing.above, { name = "lottblocks:ladder_" .. name, param2 = param2 })
-						if not minetest.settings:get_bool("creative_mode") then
+						if not default.creative then
 							itemstack:take_item()
 						end
 					end
