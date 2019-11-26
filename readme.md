@@ -28,7 +28,7 @@ Minetest - это аналог игры Minecraft с открытым исход
  - придумайте себе ник, не забудьте задать пароль
 
 
-## Contributors (Участники)
+## Contributors / Участники
 
  - [@Badger](https://github.com/albel4) - infrastructure administration / development / game admin
  - [@weqqr](https://github.com/weqqr) (Sc) - development / game admin / moderation
@@ -50,4 +50,24 @@ Minetest - это аналог игры Minecraft с открытым исход
  - @HALINA
  - @Tanushka
 
-Если мы мы кого-то забыли или вы нехотите, чтобы вас упоминали в этом списке, присылайте pull-request или попросите нас в [Discord](https://www.discord.gg/uTX3mbb).
+Идеи, замечания, помощь в строительстве объектов:
+ - @Rodion
+ - @Vasiliy_Rus
+ - @Nataraj
+
+Если мы кого-то забыли или вы нехотите, чтобы вас упоминали в этом списке,
+присылайте pull-request или попросите нас в [Discord](https://www.discord.gg/uTX3mbb).
+
+## Contributing / Помощь проекту
+
+Если у вас есть немного времени и желание помочь - добро пожаловать!<br>
+Мы всегда рады любой помощи, а работы по проекту всегда хвататет.
+
+Не обязательно уметь программировать или работать с Git'ом.<br>
+Вы можете [сообщить об ошибке](https://github.com/lord-server/lord/issues/new?assignees=&labels=bug&template=bug_report.md) на сервере
+  или [проголосовать за идею](https://github.com/lord-server/lord/issues?q=is%3Aissue+is%3Aopen+label%3Aidea) о доработках нового функционала.<br>
+Вы можете помочь в тестировании нового релиза или проработать текстуры.<br>
+А может в Вас скрыт талант журналиста и вы будете отыскивать интересные материалы для новостей в группе в [ВКонтакте](https://vk.com/minetest_lord).<br>
+Возможно Вам ближе дух архитектора и Вы примите участие в новых постройках на сервере.<br>
+
+Пишите в [Discord](https://www.discord.gg/uTX3mbb).
