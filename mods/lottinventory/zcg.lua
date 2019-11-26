@@ -232,6 +232,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 	local new_filter =false
 	if fields.key_enter and fields.key_enter_field == "zcg_filter" and fields.zcg_filter then
 		new_filter = true
+		zcg.users[pn].page = 0
 	end
 	if fields.zcg or new_filter then
 		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn, search_phrase))

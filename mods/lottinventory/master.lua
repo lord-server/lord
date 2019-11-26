@@ -108,7 +108,7 @@ local function filter_by_search(find)
 	for _, name in pairs(zmc.itemlist) do
 		local description = string.lower(minetest.registered_items[name].description)
 		if
-		string.find(name, find) or
+			string.find(name, find) or
 			string.find(description, find)
 		then
 			table.insert(filtered_list, name)
@@ -212,13 +212,16 @@ zmc.formspec = function(pn,find)
 	return formspec
 end
 
+---@param fields table
+---@param player Player
 minetest.register_on_player_receive_fields(function(player,formname,fields)
 	local pn = player:get_player_name();
 	if zmc.users[pn] == nil then zmc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
 	local search_phrase = fields.zmc_filter or "";
-	local new_filter =false
+	local new_filter = false
 	if fields.key_enter and fields.key_enter_field == "zmc_filter" and fields.zmc_filter then
 		new_filter = true
+		zmc.users[pn].page = 0
 	end
 	if fields.zmc or new_filter then
 		inventory_plus.set_inventory_formspec(player, zmc.formspec(pn, search_phrase))
