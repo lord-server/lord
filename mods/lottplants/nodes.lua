@@ -1,5 +1,6 @@
 local SL = lord.require_intllib()
 
+
 -- LEAVES
 
 minetest.register_node("lottplants:alderleaf", {
@@ -187,6 +188,7 @@ minetest.register_node("lottplants:yellowflowers", {
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
 })
+
 
 minetest.register_node("lottplants:elmleaf", {
 	description                = SL("Elm Leaf"),
@@ -538,7 +540,7 @@ minetest.register_node("lottplants:mirkleaf", {
 -- TREE
 --
 
--- сосна
+-- сосна (pine
 minetest.register_node("lottplants:pinetrunk", {
 	description = SL("Pine Trank"),
 	tiles       = { "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
@@ -560,6 +562,30 @@ minetest.register_node("lottplants:pinetree", {
 		default.dig_tree(pos, node, "lottplants:pinetree", digger, 13, 2, "lottplants:pinetree")
 	end,
 })
+
+-- ель (fir)
+minetest.register_node("lottplants:firtrunk", {
+	description = SL("Fir Trank"),
+	tiles       = { "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
+	paramtype2  = "facedir",
+	drop        = "lottplants:firtree",
+	groups      = { tree = 1, choppy = 3, flammable = 2 },
+	sounds      = default.node_sound_wood_defaults(),
+	on_place    = minetest.rotate_node,
+})
+
+minetest.register_node("lottplants:firtree", {
+	description = SL("Fir Tree"),
+	tiles       = { "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
+	paramtype2  = "facedir",
+	groups      = { tree = 1, choppy = 3, flammable = 2 },
+	sounds      = default.node_sound_wood_defaults(),
+	on_place    = minetest.rotate_node,
+	on_dig      = function(pos, node, digger)
+		default.dig_tree(pos, node, "lottplants:firtree", digger, 13, 2, "lottplants:firtree")
+	end,
+})
+
 
 -- берёза
 minetest.register_node("lottplants:birchtrunk", {
@@ -705,6 +731,10 @@ minetest.register_node("lottplants:aldersapling", {
 	wield_image     = "lottplants_aldersapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -718,6 +748,10 @@ minetest.register_node("lottplants:applesapling", {
 	wield_image     = "lottplants_applesapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -731,6 +765,10 @@ minetest.register_node("lottplants:birchsapling", {
 	wield_image     = "lottplants_birchsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -744,6 +782,10 @@ minetest.register_node("lottplants:beechsapling", {
 	wield_image     = "lottplants_beechsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -757,6 +799,10 @@ minetest.register_node("lottplants:culumaldasapling", {
 	wield_image     = "lottplants_culumaldasapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -770,6 +816,10 @@ minetest.register_node("lottplants:elmsapling", {
 	wield_image     = "lottplants_elmsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -783,6 +833,10 @@ minetest.register_node("lottplants:firsapling", {
 	wield_image     = "lottplants_firsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -796,6 +850,10 @@ minetest.register_node("lottplants:lebethronsapling", {
 	wield_image     = "lottplants_lebethronsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -809,6 +867,10 @@ minetest.register_node("lottplants:mallornsapling", {
 	wield_image     = "lottplants_mallornsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -822,6 +884,10 @@ minetest.register_node("lottplants:pinesapling", {
 	wield_image     = "lottplants_pinesapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -835,6 +901,10 @@ minetest.register_node("lottplants:plumsapling", {
 	wield_image     = "lottplants_plumsapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -848,6 +918,10 @@ minetest.register_node("lottplants:rowansapling", {
 	wield_image     = "lottplants_rowansapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -861,6 +935,10 @@ minetest.register_node("lottplants:whitesapling", {
 	wield_image     = "lottplants_whitesapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -874,6 +952,10 @@ minetest.register_node("lottplants:yavannamiresapling", {
 	wield_image     = "lottplants_yavannamiresapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -887,6 +969,10 @@ minetest.register_node("lottplants:mirksapling", {
 	wield_image     = "lottplants_mirksapling.png",
 	paramtype       = "light",
 	walkable        = false,
+	selection_box     = {
+		type  = "fixed",
+		fixed = { -0.2, -0.5, -0.2, 0.2, 0.3, 0.2 },
+	},
 	groups          = { snappy = 2, dig_immediate = 3, flammable = 2, sapling = 1 },
 	sounds          = default.node_sound_defaults(),
 })
@@ -946,6 +1032,14 @@ minetest.register_node("lottplants:yavannamirefruit", {
 minetest.register_node("lottplants:pinewood", {
 	description = SL("Pine Planks"),
 	tiles       = { "lottplants_pinewood.png" },
+	groups      = { choppy = 3, flammable = 3, wood = 1 },
+	sounds      = default.node_sound_wood_defaults(),
+	paramtype2  = "facedir",
+})
+
+minetest.register_node("lottplants:firwood", {
+	description = SL("Fir Planks"),
+	tiles       = { "lottplants_fir_wood.png" },
 	groups      = { choppy = 3, flammable = 3, wood = 1 },
 	sounds      = default.node_sound_wood_defaults(),
 	paramtype2  = "facedir",
@@ -1088,6 +1182,13 @@ stairs.register_stair_and_slab("pinewood", "lottplants:pinewood",
 	SL("Pine Wood Slab"),
 	default.node_sound_wood_defaults())
 
+stairs.register_stair_and_slab("firwood", "lottplants:firwood",
+	{ snappy = 2, choppy = 3, flammable = 3, wooden = 1 },
+	{ "lottplants_pinewood.png" },
+	SL("Fir Wood Stair"),
+	SL("Fir Wood Slab"),
+	default.node_sound_wood_defaults())
+
 stairs.register_stair_and_slab("alderwood", "lottplants:alderwood",
 	{ snappy = 2, choppy = 2, flammable = 3, wooden = 1 },
 	{ "lottplants_alderwood.png" },
@@ -1124,6 +1225,13 @@ minetest.register_craft({
 	output = 'lottplants:pinewood 4',
 	recipe = {
 		{ 'lottplants:pinetree' },
+	}
+})
+
+minetest.register_craft({
+	output = 'lottplants:firwood 4',
+	recipe = {
+		{ 'lottplants:firtree' },
 	}
 })
 
