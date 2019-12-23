@@ -189,6 +189,35 @@ minetest.register_node("lord_homedecor:terrycloth_towel", {
 	is_ground_content = true,
 	groups = {crumbly=3},
 })
+--********************************************************
+-- Canopy - Навес
+--
+minetest.register_node("lord_homedecor:canopy", {
+	drawtype = "raillike",
+	description = SL("Canopy"),
+	tiles = {"building_blocks_canopy.png"},
+	inventory_image = "building_blocks_canopy_inv.png",
+	paramtype = "light",
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+                -- but how to specify the dimensions for curved and sideways rails?
+                fixed = {-1/2, -1/2, -1/2, 1/2, -1/2+1/16, 1/2},
+	},
+	sunlight_propagates = true,
+	is_ground_content = true,
+	groups = {crumbly=3},
+})
+minetest.register_craft({
+	output = 'lord_homedecor:canopy 2',
+	recipe = {
+		{"wool:red", "wool:white", "wool:red"},
+	}
+})
+
+--********************************************************
+-- Chess board tiling
+--
 minetest.register_node("lord_homedecor:BWtile", {
 	drawtype = "raillike",
 	description = SL("Chess board tiling"),
