@@ -199,7 +199,37 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			}
 		})
 
+		-- STANCHION | СТОЙКИ
+		minetest.register_node("lottblocks:" .. name .. "_stanchion", {
+			description         = SL(description .. " Stanchion"),
+			tiles               = { texture },
+			drawtype            = "nodebox",
+			sunlight_propagates = true,
+			paramtype           = 'light',
+			paramtype2          = "facedir",
+			node_box            = {
+				type  = "fixed",
+				fixed = {
+					{ -0.5,	-0.5,	-0.5,	-0.4,	0.5,	-0.4 },
+					{  0.4,	-0.5,	-0.5,	 0.5,	0.5,	-0.4 },
+					{ -0.5,	-0.5,	 0.4,	-0.4,	0.5,	 0.5 },
+					{  0.4,	-0.5,	 0.4,	 0.5,	0.5,	 0.5 },
+				},
+			},
+			groups              = node_groups
+		})
+		minetest.register_craft({
+			output = "lottblocks:" .. name .. "_stanchion",
+			recipe = {
+				{ stick_name, '', stick_name },
+				{ '', '', '' },
+				{ stick_name, '', stick_name },
+			}
+		})
+
 	end
+
+	-- TABLE | СТОЛ
 	minetest.register_node("lottblocks:" .. name .. "_table", {
 		description         = SL(description .. " Table"),
 		tiles               = { texture },
@@ -223,6 +253,16 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		},
 		groups              = node_groups
 	})
+	minetest.register_craft({
+		output = "lottblocks:" .. name .. "_table",
+		recipe = {
+			{ wood_name, wood_name, wood_name },
+			{ 'group:stick', 'group:stick', 'group:stick' },
+			{ 'group:stick', '', 'group:stick' },
+		}
+	})
+
+	-- CHAIR | КРЕСЛА
 	minetest.register_node("lottblocks:" .. name .. "_chair", {
 		description         = SL(description .. " Chair"),
 		tiles               = { texture },
@@ -246,14 +286,6 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			fixed = { -0.3, -0.5, -0.3, 0.3, 0.5, 0.3 },
 		},
 		groups              = node_groups
-	})
-	minetest.register_craft({
-		output = "lottblocks:" .. name .. "_table",
-		recipe = {
-			{ wood_name, wood_name, wood_name },
-			{ 'group:stick', 'group:stick', 'group:stick' },
-			{ 'group:stick', '', 'group:stick' },
-		}
 	})
 	minetest.register_craft({
 		output = "lottblocks:" .. name .. "_chair",
@@ -280,3 +312,33 @@ lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "
 lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
+
+--***********************************************************
+--**          WOODEN STANCHION | СТОЙКИ ИЗ ЯБЛОНИ          **
+--***********************************************************
+minetest.register_node("lottblocks:wooden_stanchion", {
+	description         = SL("Wooden Stanchion"),
+	tiles               = { "default_wood.png" },
+	drawtype            = "nodebox",
+	sunlight_propagates = true,
+	paramtype           = 'light',
+	paramtype2          = "facedir",
+	node_box            = {
+		type  = "fixed",
+		fixed = {
+			{ -0.5,	-0.5,	-0.5,	-0.4,	0.5,	-0.4 },
+			{  0.4,	-0.5,	-0.5,	 0.5,	0.5,	-0.4 },
+			{ -0.5,	-0.5,	 0.4,	-0.4,	0.5,	 0.5 },
+			{  0.4,	-0.5,	 0.4,	 0.5,	0.5,	 0.5 },
+		},
+	},
+	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1}
+})
+minetest.register_craft({
+	output = "lottblocks:wooden_stanchion",
+	recipe = {
+		{ 'default:stick', '', 'default:stick' },
+		{ '', '', '' },
+		{ 'default:stick', '', 'default:stick' },
+	}
+})
