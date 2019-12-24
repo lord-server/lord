@@ -306,7 +306,7 @@ minetest.register_craft({
 	}
 })
 
---[[Dwarf Tombs, by Amaz.
+--[[Dwarf Tombs, by Amaz. | Гробница гнома
 minetest.register_node("lottblocks:dwarf_tomb_top", {
 	description = "Dwarf Tomb",
 	drawtype = "nodebox",

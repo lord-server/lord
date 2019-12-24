@@ -14,6 +14,7 @@ Grate slab		= Плита из решетки
 Fireplace		= Камин
 Wood Framed Glass 	= Стекло в деревянной рамке
 Terrycloth towel	= Махровый половичок
+Canopy              = Навес
 Tarmac Spread		= Асфальтовая дорожка
 Chess board tiling 	= Черепица "Шахматная доска"
 Brobble Spread		= Дорожка из обожженной глины
