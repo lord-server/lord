@@ -26,36 +26,37 @@ local cart_entity = {
 --**********************************************************
 --* либо в тележку либо из неё
 --*
--- function cart_entity:on_rightclick(clicker)
--- 	if not clicker or not clicker:is_player() then
--- 		return
--- 	end
--- 	local player_name = clicker:get_player_name()
--- 	if self.driver and player_name == self.driver then
--- 		self.driver = nil
--- 		carts:manage_attachment(clicker, nil)
--- 	elseif not self.driver then
--- 		self.driver = player_name
--- 		carts:manage_attachment(clicker, self.object)
---
--- 		player_api does not update the animation
--- 		when the player is attached, reset to default animation
--- 		player_api.set_animation(clicker, "stand")
--- 	end
--- end
 function cart_entity:on_rightclick(clicker)
-	local player_name = clicker:get_player_name()
 	if not clicker or not clicker:is_player() then
 		return
 	end
+	local player_name = clicker:get_player_name()
 	if self.driver and player_name == self.driver then
 		self.driver = nil
-		clicker:set_detach()
+		carts:manage_attachment(clicker, nil)
 	elseif not self.driver then
 		self.driver = player_name
-		clicker:set_attach(self.object, "", {x=0,y=5,z=0}, {x=0,y=0,z=0})
+		carts:manage_attachment(clicker, self.object)
+
+-- 		player_api does not update the animation
+-- 		when the player is attached, reset to default animation
+		player_api.set_animation(clicker, "stand")
 	end
 end
+
+-- function cart_entity:on_rightclick(clicker)
+-- 	local player_name = clicker:get_player_name()
+-- 	if not clicker or not clicker:is_player() then
+-- 		return
+-- 	end
+-- 	if self.driver and player_name == self.driver then
+-- 		self.driver = nil
+-- 		clicker:set_detach()
+-- 	elseif not self.driver then
+-- 		self.driver = player_name
+-- 		clicker:set_attach(self.object, "", {x=0,y=5,z=0}, {x=0,y=0,z=0})
+-- 	end
+-- end
 
 --**********************************************************
 --*

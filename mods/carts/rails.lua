@@ -46,7 +46,7 @@ carts:register_rail("carts:accelerating_rail", {
 
 		local accel_pos = {x = pos.x, y = pos.y - 1, z = pos.z}
 		if not cart_func:is_accelerator(accel_pos) then
-			minetest.chat_send_player(placer:get_player_name(), "Низзя ставить ускоряющий рельс")
+			minetest.chat_send_player(placer:get_player_name(), "Ускоряющий рельс можно ставить только на паровой механизм")
 			minetest.set_node(pos, { name = "air" })
 		end
 		return itemstack
