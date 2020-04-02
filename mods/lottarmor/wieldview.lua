@@ -31,6 +31,7 @@ lottarmor.get_item_texture = function(self, item)
 			texture = texture.."^[transform"..lottarmor.transform[item]
 		end
 	end
+	--print(dump(texture))
 	return texture
 end
 
@@ -48,7 +49,9 @@ lottarmor.update_wielded_item = function(self, player)
 		if self.wielded_item[name] == item then
 			return
 		end
-		armor.textures[name].wielditem = self:get_item_texture(item)
+		--print(dump(
+		--armor.textures[name].wielditem = self:get_item_texture(item)
+		multiskin[name].wielditem = self:get_item_texture(item)
 		armor:update_player_visuals(player)
 	end
 	self.wielded_item[name] = item

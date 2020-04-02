@@ -31,7 +31,9 @@ clothing.set_player_clothing = function(self, player)
 		end
 	end
 	if #textures > 0 then
+		--print(dump(textures))
 		clothing_texture = table.concat(textures, "^")
+		--print(dump(clothing_texture))
 	end
 	self.textures[name].clothing = clothing_texture
 	self.textures[name].preview = preview

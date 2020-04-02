@@ -50,14 +50,14 @@ function row_boat.on_rightclick(self, clicker)
 	if self.driver and clicker == self.driver then
 		self.driver = nil
 		clicker:set_detach()
-		default.player_attached[name] = false
-		default.player_set_animation(clicker, "stand" , 30)
+		player_api.player_attached[name] = false
+		player_api.set_animation(clicker, "stand" , 30)
 	elseif not self.driver then
 		self.driver = clicker
-		clicker:set_attach(self.object, "", {x=0,y=11,z=0}, {x=0,y=0,z=0})
-		default.player_attached[name] = true
+		clicker:set_attach(self.object, "", {x=0,y=3,z=-4}, {x=0,y=0,z=0})
+		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
-			default.player_set_animation(clicker, "sit" , 30)
+			player_api.set_animation(clicker, "sit" , 30)
 		end)
 		self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
 	end
@@ -80,7 +80,7 @@ function row_boat.on_punch(self, puncher, time_from_last_punch, tool_capabilitie
 		return
 	end
 	puncher:set_detach()
-	default.player_attached[puncher:get_player_name()] = false
+	player_api.player_attached[puncher:get_player_name()] = false
 
 	self.removed = true
 	-- delay remove to ensure player is detached
@@ -232,14 +232,14 @@ function sail_boat.on_rightclick(self, clicker)
 	if self.driver and clicker == self.driver then
 		self.driver = nil
 		clicker:set_detach()
-		default.player_attached[name] = false
-		default.player_set_animation(clicker, "stand" , 30)
+		player_api.player_attached[name] = false
+		player_api.set_animation(clicker, "stand" , 30)
 	elseif not self.driver then
 		self.driver = clicker
 		clicker:set_attach(self.object, "", {x=0,y=11,z=0}, {x=0,y=0,z=0})
-		default.player_attached[name] = true
+		player_api.player_attached[name] = true
 		minetest.after(0.2, function()
-			default.player_set_animation(clicker, "sit" , 30)
+			player_api.set_animation(clicker, "sit" , 30)
 		end)
 		self.object:setyaw(clicker:get_look_yaw() - math.pi / 2)
 	end
@@ -262,7 +262,7 @@ function sail_boat.on_punch(self, puncher, time_from_last_punch, tool_capabiliti
 		return
 	end
 	puncher:set_detach()
-	default.player_attached[puncher:get_player_name()] = false
+	player_api.player_attached[puncher:get_player_name()] = false
 
 	self.removed = true
 	-- delay remove to ensure player is detached

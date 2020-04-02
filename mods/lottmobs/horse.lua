@@ -214,11 +214,11 @@ function lottmobs.register_horse(name, craftitem, horse)
 			self.driver    = nil
 			self.ridername = nil
 			clicker:set_detach()
-			default.player_attached[clicker:get_player_name()] = false
+			player_api.player_attached[clicker:get_player_name()] = false
 			if self.offset == true then
 				clicker:set_eye_offset({ x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 })
 			end
-		elseif not self.driver and not default.player_attached[player] then
+		elseif not self.driver and not player_api.player_attached[player] then
 
 			for no = 1, #self.riders do -- who can drive
 				if self.riders[no] == races.get_race_and_gender(player)[1] or
@@ -229,7 +229,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 					local attach_r = self.attach_r or 90
 					clicker:set_attach(self.object, "", { x = 0, y = attach_h, z = 0 }, { x = 0, y = attach_r, z = 0 })
 
-					default.player_attached[clicker:get_player_name()] = true
+					player_api.player_attached[clicker:get_player_name()] = true
 					self.object:setyaw(clicker:get_look_yaw())
 					self.ridername = clicker:get_player_name()
 
@@ -241,7 +241,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 					end
 				end
 			end
-			if not default.player_attached[clicker:get_player_name()] then
+			if not player_api.player_attached[clicker:get_player_name()] then
 				minetest.chat_send_player(player, core.colorize("#ff8ea1", SL("You can't ride this beast!!!")))
 			end
 		end
@@ -271,7 +271,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 		if puncher and puncher:is_player() then
 			if puncher:get_player_name() == ridername then
 				puncher:get_inventory():add_item("main", name)
-				default.player_attached[puncher:get_player_name()] = false
+				player_api.player_attached[puncher:get_player_name()] = false
 				puncher:set_detach()
 				self.object:remove()
 				if self.offset == true then
@@ -315,8 +315,8 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 		end
 
-		if self.object:get_hp() <= 0 and default.player_attached[ridername] then
-			default.player_attached[ridername] = false
+		if self.object:get_hp() <= 0 and player_api.player_attached[ridername] then
+			player_api.player_attached[ridername] = false
 			rider:set_detach()
 			self.object:remove()
 			if self.offset == true then
