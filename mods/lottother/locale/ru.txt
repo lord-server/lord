@@ -4,7 +4,7 @@ Orc Torch	=	Оркский факел
 Blue Flame	=	Синее пламя
 Dirt Substitute	=	Заменитель земли
 Snow Substitute	=	Заменитель снега
-Mordor Stone Substitute	=	Заменитель мордерского камня
+Mordor Stone Substitute	=	Заменитель мордорского камня
 Air Substitute	=	Заменитель воздуха
 
 ### flags.lua ###
