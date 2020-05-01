@@ -129,6 +129,29 @@ function default.node_sound_metal_defaults(table)
 	return table
 end
 
+function default.node_sound_water_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_water_footstep", gain = 0.2}
+	default.node_sound_defaults(table)
+	return table
+end
+
+function default.node_sound_snow_defaults(table)
+	table = table or {}
+	table.footstep = table.footstep or
+			{name = "default_snow_footstep", gain = 0.2}
+	table.dig = table.dig or
+			{name = "default_snow_footstep", gain = 0.3}
+	table.dug = table.dug or
+			{name = "default_snow_footstep", gain = 0.3}
+	table.place = table.place or
+			{name = "default_place_node", gain = 1.0}
+	default.node_sound_defaults(table)
+	return table
+end
+
+
 --
 -- Legacy
 --
