@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update repo & Restart Minetest
-        uses: fifsky/ssh-action@release
+        uses: fifsky/ssh-action@v0.0.4
         with:
           host: ${{ secrets.LORD_TEST_HOST }}
           port: ${{ secrets.LORD_TEST_PORT }}
