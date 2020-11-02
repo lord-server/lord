@@ -1,0 +1,22 @@
+# Выкладка на тестовый сервер (он же Polygon)
+
+name: Deploy to Test Server
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy-to-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update repo & Restart Minetest
+        uses: fifsky/ssh-action@release
+        with:
+          host: ${{ secrets.LORD_TEST_HOST }}
+          port: ${{ secrets.LORD_TEST_PORT }}
+          user: ${{ secrets.LORD_TEST_USER }}
+          key: ${{ secrets.LORD_TEST_KEY }}
+          command: |
+            cd mt_master/minetest/games/lord/
+            git pull
+            mt_master restart
