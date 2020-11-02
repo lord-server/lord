@@ -19,4 +19,4 @@ jobs:
           command: |
             cd mt_master/minetest/games/lord/
             git pull
-            mt_master restart
+            $HOME/bin/mt_master restart
