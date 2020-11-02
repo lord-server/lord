@@ -20,3 +20,4 @@ jobs:
             cd mt_master/minetest/games/lord/
             git pull
             $HOME/bin/mt_master restart
+          args: -tt
