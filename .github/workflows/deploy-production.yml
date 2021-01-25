@@ -1,0 +1,24 @@
+# Выкладка на боевой сервер (game.lord-server.ru)
+
+name: Deploy to Production Server
+on:
+  push:
+    tags:
+      - 20[0-9]+.[0-9]+
+
+jobs:
+  deploy-to-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update repo & Restart Minetest
+        uses: fifsky/ssh-action@v0.0.4
+        with:
+          host: ${{ secrets.LORD_PROD_HOST }}
+          port: ${{ secrets.LORD_PROD_PORT }}
+          user: ${{ secrets.LORD_PROD_USER }}
+          key: ${{ secrets.LORD_PROD_KEY }}
+          command: |
+            cd minetest-master/games/lord
+            git pull
+            /etc/init.d/mt_server restart
+          args: -tt
