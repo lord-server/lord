@@ -66,20 +66,20 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 			ownvel          = owner:get_player_velocity()
 		else
 			entity.owner_id = tostring(owner) -- add unique owner id to arrow
-			ownvel          = owner:getvelocity() or ownvel
+			ownvel          = owner:get_velocity() or ownvel
 		end
 		vec = { x = vec.x + ownvel.x, y = vec.y + ownvel.y, z = vec.z + ownvel.z }
 
 		-- arrow velocity will be setted on first step
 		entity.inited = false
 		entity.launch_velocity = vec
-		obj:setvelocity({ x = 0, y = 0, z = 0 })
+		obj:set_velocity({ x = 0, y = 0, z = 0 })
 		local yaw = 0
 		if vec.x ~= 0 or vec.z ~= 0 then
 			yaw = math.atan2(vec.z, vec.x)
 		end
-		obj:setyaw(yaw + math.pi)
-		obj:setacceleration(acceleration(vec, entity.kfr, entity.mass))
+		obj:set_yaw(yaw + math.pi)
+		obj:set_acceleration(acceleration(vec, entity.kfr, entity.mass))
 		entity.owner = owner
 		entity.launched = false
 	end
@@ -118,8 +118,8 @@ local function hit_player(player, arrow, callback, owner_id)
 	if callback then
 		callback(arrow, player)
 	end
-	local s   = arrow.object:getpos()
-	local p   = player:getpos()
+	local s   = arrow.object:get_pos()
+	local p   = player:get_pos()
 	local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 	player:punch(arrow.owner, 1.0, {
 		full_punch_interval = 1.0,
@@ -143,8 +143,8 @@ local function hit_mob(mob, arrow, callback, owner_id)
 		if callback then
 			callback(arrow, mob)
 		end
-		local s   = arrow.object:getpos()
-		local p   = mob:getpos()
+		local s   = arrow.object:get_pos()
+		local p   = mob:get_pos()
 		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 
 		mob:punch(arrow.owner, 1.0, {
@@ -163,7 +163,7 @@ local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabil
 	then
 		return
 	end
-	local pos     = arrow.object:getpos()
+	local pos     = arrow.object:get_pos()
 	pos.y         = pos.y + 1
 	arrow.lastpos = (arrow.lastpos or pos)
 	minetest.add_item(arrow.lastpos, arrow.object:get_luaentity().name)
@@ -207,13 +207,13 @@ local function hit_players(self, lpos)
 		end
 		if player ~= self.object and (self.launched or self.owner ~= player) then
 			if player:is_player() then
-				local ppos = player:getpos()
+				local ppos = player:get_pos()
 				if hits_player(lpos, ppos, player:get_properties().collisionbox) then
 					hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
 				end
 			else
 				local entity = player:get_luaentity()
-				local ppos = player:getpos()
+				local ppos = player:get_pos()
 				if hits_mob(lpos, ppos, entity.collisionbox) then
 					hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
 				end
@@ -231,12 +231,12 @@ end
 local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
 
-	local pos  = self.object:getpos()
+	local pos  = self.object:get_pos()
 
 	-- start arrow move
 	if self.inited == false then
 		self.inited = true
-		self.object:setvelocity(self.launch_velocity)
+		self.object:set_velocity(self.launch_velocity)
 
 		-- arrow sound
 		-- TODO: should be on the all arrow path
@@ -274,7 +274,7 @@ local function arrow_step(self, dtime)
 	end
 
 	local res = false
-	local vel = self.object:getvelocity()
+	local vel = self.object:get_velocity()
 	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
 	local step_len = vel_len * dtime
 
@@ -304,7 +304,7 @@ local function arrow_step(self, dtime)
 			k = k * BASE_LIQUID_VISCOSITY * node.liquid_viscosity
 		end
 		local acc = acceleration(vel, k, self.definition.mass)
-		self.object:setacceleration(acc)
+		self.object:set_acceleration(acc)
 	end
 	self.lastpos = pos
 end

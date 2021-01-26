@@ -54,7 +54,7 @@ for i in ipairs(lrfurn.colors) do
 				return
 			end
 			pos.y = pos.y-0.5
-			clicker:setpos(pos)
+			clicker:set_pos(pos)
 			clicker:set_hp(20)
 		end
 	})

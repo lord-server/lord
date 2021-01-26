@@ -278,14 +278,14 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			for i = 1, inv:get_size("customer_gives") do -- для всех стеков в customer_gives
 				local stack = inv:get_stack("customer_gives", i)
 				if inv:room_for_item("main", stack) then inv:add_item("main", stack) -- если помещается, кидаем в main,
-				else minetest.item_drop(stack, sender, sender:getpos()) -- если нет - кидаем на пол
+				else minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
 				end
 			end
 			inv:set_size("customer_gives", 0) -- удаляем customer_gives
 			for i = 1, inv:get_size("customer_gets") do -- для всех стеков в customer_gets
 				local stack = inv:get_stack("customer_gets", i)
 				if inv:room_for_item("main", stack) then inv:add_item("main", stack) -- если помещается, кидаем в main,
-				else minetest.item_drop(stack, sender, sender:getpos()) -- если нет - кидаем на пол
+				else minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
 				end
 			end
 			inv:set_size("customer_gets", 0) -- удаляем customer_gets

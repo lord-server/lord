@@ -644,7 +644,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 			z = pos.z + sign_info.delta.z
 		},
 		"signs:text"
-	):setyaw(sign_info.yaw)
+	):set_yaw(sign_info.yaw)
 end
 
 -- What kind of sign do we need to place, anyway?
@@ -684,7 +684,7 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 
 		local wdir = minetest.dir_to_wallmounted(dir)
 
-		local placer_pos = placer:getpos()
+		local placer_pos = placer:get_pos()
 		if placer_pos then
 			dir = {
 				x = above.x - placer_pos.x,
@@ -958,7 +958,7 @@ end
 local signs_text_on_activate
 
 signs_text_on_activate = function(self)
-	local meta = minetest.get_meta(self.object:getpos())
+	local meta = minetest.get_meta(self.object:get_pos())
 	local text = meta:get_string("text")
 	local new = (meta:get_int("__signslib_new_format") ~= 0)
 	if text then
