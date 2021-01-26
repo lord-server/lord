@@ -55,7 +55,7 @@ exclude_files     = {
 	"mods/mobs",
 	"mods/lottmapgen",
 	"mods/mp_world_edit",
-	"mods/default/chatcommands.lua",
+	"mods/_minetest_game/default/chatcommands.lua",
 	-- Internal mods
 	"mods/hud_modpack/hudbars"
 }
