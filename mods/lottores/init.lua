@@ -1030,7 +1030,7 @@ minetest.register_node("lottores:mineral_salt", {
 			}
 		}
 	},
-	sounds = default.node_sound_dirt_defaults,
+	sounds = default.node_sound_dirt_defaults(),
 })
 
 minetest.register_node( "lottores:pearl_block", {
