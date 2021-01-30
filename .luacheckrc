@@ -50,12 +50,13 @@ read_globals      = {
 
 exclude_files     = {
 	-- External mods
-	"mods/areas",
-	"mods/intllib",
-	"mods/mobs",
-	"mods/lottmapgen",
-	"mods/mp_world_edit",
+	"mods/_lott/lottmapgen",
+
 	"mods/_minetest_game/default/chatcommands.lua",
-	-- Internal mods
-	"mods/hud_modpack/hudbars"
+
+	"mods/_various/areas",
+	"mods/_various/hud_modpack/hudbars",
+	"mods/_various/intllib",
+	"mods/_various/mobs",
+	"mods/_various/mp_world_edit",
 }
