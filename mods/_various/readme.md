@@ -1,8 +1,6 @@
+Сторонние разрозненные моды
+===========================
 
-
-### `defaults`
- - похоже из [ghostblocks](https://github.com/pchickn/ghostblocks)
- - но что-то много переработано... (перенести в `/mods/lord`)
 
 ### `areas`
  - [minetest-mods/areas](https://github.com/minetest-mods/areas)
