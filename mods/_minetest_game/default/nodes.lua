@@ -679,9 +679,9 @@ minetest.register_node("default:fence_wood", {
 minetest.register_node("default:ladder", {
 	description        = SL("Ladder"),
 	drawtype           = "signlike",
-	tiles              = { "default_ladder.png" },
-	inventory_image    = "default_ladder.png",
-	wield_image        = "default_ladder.png",
+	tiles              = { "default_ladder_wood.png" },
+	inventory_image    = "default_ladder_wood.png",
+	wield_image        = "default_ladder_wood.png",
 	paramtype          = "light",
 	paramtype2         = "wallmounted",
 	walkable           = false,
@@ -697,87 +697,6 @@ minetest.register_node("default:ladder", {
 	legacy_wallmounted = true,
 	sounds             = default.node_sound_wood_defaults(),
 })
-
--- новый вариант (но проблемы с ориентацией при замене старого варианта)
---minetest.register_node("default:ladder", {
---description = SL("Ladder"),
-----drawtype = "signlike",
---drawtype = "nodebox",
---tiles = {"default_planks.png"},
---particle_image = {"default_planks.png"},
---inventory_image = "default_ladder.png",
---wield_image = "default_ladder.png",
---paramtype = "light",
---paramtype2 = "facedir",
---is_ground_content = true,
-----paramtype2 = "wallmounted",
---walkable = true,
---climbable = true,
---is_ground_content = false,
-----selection_box = {
-----type = "wallmounted",
-------wall_top = = <default>
-------wall_bottom = = <default>
-------wall_side = = <default>
-----},
---node_box = {
---type = "fixed",
---fixed = {
---{-0.5, -0.5, 0.5-1/7, -0.5+1/7, 0.5, 0.5},
---{0.5-1/7, -0.5, 0.5-1/7, 0.5, 0.5, 0.5},
---{-0.5+1/7, 0.5-1/6-1/12, 0.5-1/16, 0.5-1/7, 0.5-1/12, 0.5},
---{-0.5+1/7, 0.5-1/12-1/6*3, 0.5-1/16, 0.5-1/7, 0.5-1/12-1/6*2, 0.5},
---{-0.5+1/7, 0.5-1/12-1/6*5, 0.5-1/16, 0.5-1/7, 0.5-1/12-1/6*4, 0.5},
---},
---},
---selection_box = {
---type = "fixed",
---fixed = {
---{-0.5, -0.5, 0.5-1/7, -0.5+1/7, 0.5, 0.5},
---{0.5-1/7, -0.5, 0.5-1/7, 0.5, 0.5, 0.5},
---{-0.5+1/7, 0.5-1/6-1/12, 0.5-1/16, 0.5-1/7, 0.5-1/12, 0.5},
---{-0.5+1/7, 0.5-1/12-1/6*3, 0.5-1/16, 0.5-1/7, 0.5-1/12-1/6*2, 0.5},
---{-0.5+1/7, 0.5-1/12-1/6*5, 0.5-1/16, 0.5-1/7, 0.5-1/12-1/6*4, 0.5},
---},
---},
---on_place = function(itemstack, placer, pointed_thing)
---if pointed_thing.type == "node" and
---minetest.registered_nodes[minetest.get_node(pointed_thing.above).name].buildable_to == true then
---local param2 = nil
---local above = pointed_thing.above
---local above_2 = {x = above.x, y = above.y, z = above.z}
---above_2.y = above_2.y + 1
-
---if minetest.is_protected(above, placer:get_player_name()) or
---minetest.is_protected(above_2, placer:get_player_name()) then
---minetest.record_protection_violation(above, placer:get_player_name())
---return itemstack
---end
-
---if pointed_thing.above.x < pointed_thing.under.x then
---param2 = 1
---elseif pointed_thing.above.x > pointed_thing.under.x then
---param2 = 3
---elseif pointed_thing.above.z < pointed_thing.under.z then
---param2 = 0
---elseif pointed_thing.above.z > pointed_thing.under.z then
---param2 = 2
---end
-
---if param2 then
---minetest.set_node(pointed_thing.above,{name = "default:ladder", param2 = param2})
---if not default.creative then
---itemstack:take_item()
---end
---end
---return itemstack
---end
---end,
---node_placement_prediction = "",
---groups = {choppy=2,oddly_breakable_by_hand=3,flammable=2, wooden = 1},
---legacy_wallmounted = true,
---sounds = default.node_sound_wood_defaults(),
---})
 
 minetest.register_node("default:cloud", {
 	description = SL("Cloud"),
@@ -1032,7 +951,6 @@ minetest.register_node("default:lava_source", {
 minetest.register_node("default:torch", {
 	description         = SL("Torch"),
 	drawtype            = "torchlike",
-	--tiles = {"default_torch_on_floor.png", "default_torch_on_ceiling.png", "default_torch.png"},
 	tiles               = {
 		{
 			name      = "default_torch_on_floor_animated.png",

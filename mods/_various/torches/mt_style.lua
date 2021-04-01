@@ -38,8 +38,8 @@ minetest.register_craftitem(":default:torch", {
 
 minetest.register_node("torches:floor", {
 	description = "Torch",
-	inventory_image = "default_torch.png",
-	wield_image = "default_torch.png",
+	inventory_image = "default_torch_on_floor.png",
+	wield_image = "default_torch_on_floor.png",
 	wield_scale = {x = 1, y = 1, z = 1 + 1/16},
 	drawtype = "mesh",
 	mesh = "torch_floor.obj",
@@ -64,8 +64,8 @@ minetest.register_node("torches:floor", {
 })
 
 minetest.register_node("torches:wall", {
-	inventory_image = "default_torch.png",
-	wield_image = "default_torch.png",
+	inventory_image = "default_torch_on_floor.png",
+	wield_image = "default_torch_on_floor.png",
 	wield_scale = {x = 1, y = 1, z = 1 + 1/16},
 	drawtype = "mesh",
 	mesh = "torch_wall.obj",
