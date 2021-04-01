@@ -1,0 +1,2 @@
+# textdomain: lord_blocks
+Blackout =

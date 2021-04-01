@@ -7,7 +7,6 @@ WATER_ALPHA = 160
 WATER_VISC = 1
 LAVA_VISC = 7
 LIGHT_MAX = 14
-SAVEDIR = "LORD"
 
 -- Definitions made by this mod that other mods can use too
 default = {}
@@ -51,7 +50,6 @@ dofile(minetest.get_modpath("default").."/mapgen.lua")
 dofile(minetest.get_modpath("default").."/nodes.lua")
 dofile(minetest.get_modpath("default").."/player.lua")
 dofile(minetest.get_modpath("default").."/trees.lua")
-dofile(minetest.get_modpath("default").."/moreblocks.lua")
 dofile(minetest.get_modpath("default").."/furnace.lua")
 
 lord.mod_loaded()

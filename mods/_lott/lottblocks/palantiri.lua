@@ -1,5 +1,7 @@
 local SL             = lord.require_intllib()
 
+local SAVEDIR = "LORD"
+
 local function load_palantiri()
 	local tmp
 	local file           = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "r")
