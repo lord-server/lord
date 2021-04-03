@@ -1,5 +1,9 @@
 local SL = lord.require_intllib()
 
+-- Эти команды были переопределены в изначальном LOTT, подключались в их `default`-мод, который они скопировали из MTG
+dofile(minetest.get_modpath(minetest.get_current_modname()).."/chatcommands.lua")
+
+
 local function redefinition(chatcommand, new_description)
 	if minetest.chatcommands[chatcommand] then
 		if new_description then
