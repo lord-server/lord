@@ -62,15 +62,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:furnace',
-	recipe = {
-		{'group:stone', 'group:stone', 'group:stone'},
-		{'group:stone', '', 'group:stone'},
-		{'group:stone', 'group:stone', 'group:stone'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:coalblock',
 	recipe = {
 		{'default:coal_lump', 'default:coal_lump', 'default:coal_lump'},
