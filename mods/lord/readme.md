@@ -9,6 +9,10 @@
 Моды:
 -----
 
+### [`_overwrites`](_overwrites/readme.md)
+ - это modpack с различными нашими переопределениями
+ - подробнее в [_overwrites/readme.md](_overwrites/readme.md)
+
 ### `arrows`
  - вынесено из [`lottthrowing`]((https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottthrowing)): разделено на движок/api(`throwing`) и бросабельные-итемы/ака-стрелы(`arrows`))
 
