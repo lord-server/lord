@@ -1,7 +1,10 @@
 -- Minetest 0.4 mod: default
 -- See README.txt for licensing and other information.
 
--- The API documentation in here was moved into doc/lua_api.txt
+-- The API documentation in here was moved into game_api.txt
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("default")
 
 WATER_ALPHA = 160
 WATER_VISC = 1
@@ -10,7 +13,9 @@ LIGHT_MAX = 14
 
 -- Definitions made by this mod that other mods can use too
 default = {}
+
 default.LIGHT_MAX = 14
+default.get_translator = S
 
 default.creative = minetest.settings:get_bool("creative_mode")
 
@@ -42,14 +47,17 @@ default.gui_survival_form = "size[8,8.5]"..
 			default.get_hotbar_bg(0,4.25)
 
 -- Load files
+local default_path = minetest.get_modpath("default")
 
-dofile(minetest.get_modpath("default").."/functions.lua")
-dofile(minetest.get_modpath("default").."/crafting.lua")
-dofile(minetest.get_modpath("default").."/craftitems.lua")
-dofile(minetest.get_modpath("default").."/mapgen.lua")
-dofile(minetest.get_modpath("default").."/nodes.lua")
-dofile(minetest.get_modpath("default").."/player.lua")
-dofile(minetest.get_modpath("default").."/trees.lua")
-dofile(minetest.get_modpath("default").."/furnace.lua")
+dofile(default_path.."/functions.lua")
+dofile(default_path.."/crafting.lua")
+dofile(default_path.."/craftitems.lua")
+dofile(default_path.."/mapgen.lua")
+dofile(default_path.."/nodes.lua")
+dofile(default_path.."/player.lua")
+dofile(default_path.."/trees.lua")
+dofile(default_path.."/furnace.lua")
+
+dofile(default_path.."/chests.lua")
 
 lord.mod_loaded()
