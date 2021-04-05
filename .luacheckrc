@@ -52,7 +52,7 @@ exclude_files     = {
 	-- External mods
 	"mods/_lott/lottmapgen",
 
-	"mods/_minetest_game/default/chatcommands.lua",
+	"mods/lord/lord_base_commands/chatcommands.lua",
 
 	"mods/_various/areas",
 	"mods/_various/hud_modpack/hudbars",

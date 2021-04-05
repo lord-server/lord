@@ -56,8 +56,8 @@ dofile(default_path.."/mapgen.lua")
 dofile(default_path.."/nodes.lua")
 dofile(default_path.."/player.lua")
 dofile(default_path.."/trees.lua")
-dofile(default_path.."/furnace.lua")
 
 dofile(default_path.."/chests.lua")
+dofile(default_path.."/furnace.lua")
 
 lord.mod_loaded()
