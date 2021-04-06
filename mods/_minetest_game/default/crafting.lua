@@ -47,21 +47,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:chest',
-	recipe = {
-		{'default:wood', 'default:wood', 'default:wood'},
-		{'default:wood', '', 'default:wood'},
-		{'default:wood', 'default:wood', 'default:wood'},
-	}
-})
-
-minetest.register_craft({
-	type = "shapeless",
-	output = "default:chest_locked",
-	recipe = {"default:chest", "default:steel_ingot"}
-})
-
-minetest.register_craft({
 	output = 'default:coalblock',
 	recipe = {
 		{'default:coal_lump', 'default:coal_lump', 'default:coal_lump'},
