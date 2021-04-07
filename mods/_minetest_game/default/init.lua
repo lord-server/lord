@@ -59,5 +59,6 @@ dofile(default_path.."/trees.lua")
 
 dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")
+dofile(default_path.."/torch.lua")
 
 lord.mod_loaded()
