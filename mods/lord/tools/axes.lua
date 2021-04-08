@@ -24,7 +24,7 @@ tools.axe = {
 			maxlevel = 1
 		},
 		damage_groups = {fleshy=2},
-		groups = {wooden=1},
+		groups = {wooden = 1, axe = 1, flammable = 2},
 	},
 	stone = {
 		description = SL("Stone Axe"),
@@ -36,6 +36,7 @@ tools.axe = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=3},
+		groups = {axe = 1},
 	},
 	steel = {
 		description = SL("Steel Axe"),
@@ -47,7 +48,7 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {steel_item=1},
+		groups = {steel_item = 1, axe = 1},
 	},
 	bronze = {
 		description = SL("Bronze Axe"),
@@ -59,7 +60,7 @@ tools.axe = {
 			uses=30, maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {bronze_item=1},
+		groups = {bronze_item = 1, axe = 1},
 	},
 	copper = {
 		description = SL("Copper Axe"),
@@ -71,7 +72,7 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {copper_item = 1},
+		groups = {copper_item = 1, axe = 1},
 	},
 	tin = {
 		description = SL("Tin Axe"),
@@ -83,7 +84,7 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {tin_item = 1},
+		groups = {tin_item = 1, axe = 1},
 	},
 	silver = {
 		description = SL("Silver Axe"),
@@ -95,7 +96,7 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {silver_item = 1},
+		groups = {silver_item = 1, axe = 1},
 	},
 	gold = {
 		description = SL("Gold Axe"),
@@ -107,7 +108,7 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {gold_item = 1},
+		groups = {gold_item = 1, axe = 1},
 	},
 	galvorn = {
 		description = SL("Galvorn Axe"),
@@ -119,7 +120,7 @@ tools.axe = {
 			maxlevel=3
 		},
 		damage_groups = {forbidden=1, fleshy=6},
-		groups = {galvorn_item = 1},
+		groups = {galvorn_item = 1, axe = 1},
 	},
 	mithril = {
 		description = SL("Mithril Axe"),
@@ -131,6 +132,6 @@ tools.axe = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=7},
-		groups = {mithril_item = 1},
+		groups = {mithril_item = 1, axe = 1},
 	}
 }

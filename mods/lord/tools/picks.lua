@@ -18,7 +18,7 @@ tools.pick = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=2},
-		groups = {wooden=1},
+		groups = {wooden = 1, pickaxe = 1, flammable = 2},
 	},
 	stone = {
 		description = SL("Stone Pickaxe"),
@@ -29,7 +29,8 @@ tools.pick = {
 			uses=20,
 			maxlevel=1
 		},
-		damage_groups = {fleshy=3},
+		damage_groups = {fleshy = 3},
+		groups = {pickaxe = 1},
 	},
 	steel = {
 		description = SL("Steel Pickaxe"),
@@ -41,7 +42,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {steel_item=1},
+		groups = {steel_item = 1, pickaxe = 1},
 	},
 	bronze = {
 		description = SL("Bronze Pickaxe"),
@@ -53,7 +54,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {bronze_item=1},
+		groups = {bronze_item = 1, pickaxe = 1},
 	},
 	copper = {
 		description = SL("Copper Pickaxe"),
@@ -65,7 +66,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {copper_item = 1},
+		groups = {copper_item = 1, pickaxe = 1},
 	},
 	tin = {
 		description = SL("Tin Pickaxe"),
@@ -77,7 +78,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {tin_item = 1},
+		groups = {tin_item = 1, pickaxe = 1},
 	},
 	silver = {
 		description = SL("Silver Pickaxe"),
@@ -89,7 +90,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {silver_item = 1},
+		groups = {silver_item = 1, pickaxe = 1},
 	},
 	gold = {
 		description = SL("Gold Pickaxe"),
@@ -101,7 +102,7 @@ tools.pick = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=4},
-		groups = {gold_item = 1},
+		groups = {gold_item = 1, pickaxe = 1},
 	},
 	galvorn = {
 		description = SL("Galvorn Pickaxe"),
@@ -113,7 +114,7 @@ tools.pick = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=5},
-		groups = {forbidden=1, galvorn_item = 1},
+		groups = {forbidden = 1, galvorn_item = 1, pickaxe = 1},
 	},
 	mithril = {
 		description = SL("Mithril Pickaxe"),
@@ -125,6 +126,6 @@ tools.pick = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=5},
-		groups = {mithril_item = 1},
+		groups = {mithril_item = 1, pickaxe = 1},
 	}
 }
