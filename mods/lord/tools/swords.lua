@@ -18,7 +18,7 @@ tools.sword = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=2},
-		groups = {wooden=1},
+		groups = {wooden = 1, sword = 1, flammable = 2},
 	},
 	stone = {
 		description = SL("Stone Sword"),
@@ -30,6 +30,7 @@ tools.sword = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=4},
+		groups = {sword = 1},
 	},
 	steel = {
 		description = SL("Steel Sword"),
@@ -41,7 +42,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {steel_item=1},
+		groups = {steel_item = 1, sword = 1},
 	},
 	bronze = {
 		description = SL("Bronze Sword"),
@@ -53,7 +54,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {bronze_item=1},
+		groups = {bronze_item = 1, sword = 1},
 	},
 	copper = {
 		description = SL("Copper Sword"),
@@ -65,7 +66,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {copper_item = 1},
+		groups = {copper_item = 1, sword = 1},
 	},
 	tin = {
 		description = SL("Tin Sword"),
@@ -77,7 +78,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {tin_item = 1},
+		groups = {tin_item = 1, sword = 1},
 	},
 	silver = {
 		description = SL("Silver Sword"),
@@ -89,7 +90,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {silver_item = 1},
+		groups = {silver_item = 1, sword = 1},
 	},
 	gold = {
 		description = SL("Gold Sword"),
@@ -101,7 +102,7 @@ tools.sword = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=6},
-		groups = {gold_item = 1},
+		groups = {gold_item = 1, sword = 1},
 	},
 	galvorn = {
 		description = SL("Galvorn Sword"),
@@ -113,7 +114,7 @@ tools.sword = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=7},
-		groups = {forbidden=1, galvorn_item = 1},
+		groups = {forbidden=1, galvorn_item = 1, sword = 1},
 	},
 	mithril = {
 		description = SL("Mithril Sword"),
@@ -125,6 +126,6 @@ tools.sword = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=8},
-		groups = {mithril_item = 1},
+		groups = {mithril_item = 1, sword = 1},
 	}
 }

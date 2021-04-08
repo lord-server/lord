@@ -19,7 +19,7 @@ tools.shovel = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=2},
-		groups = {wooden=1},
+		groups = {wooden = 1, shovel = 1, flammable = 2},
 	},
 	stone = {
 		description = SL("Stone Shovel"),
@@ -32,6 +32,7 @@ tools.shovel = {
 			maxlevel=1
 		},
 		damage_groups = {fleshy=2},
+		groups = {shovel = 1},
 	},
 	steel = {
 		description = SL("Steel Shovel"),
@@ -43,7 +44,7 @@ tools.shovel = {
 			uses=30, maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {steel_item=1},
+		groups = {steel_item = 1, shovel = 1},
 	},
 	bronze = {
 		description = SL("Bronze Shovel"),
@@ -56,7 +57,7 @@ tools.shovel = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {bronze_item=1},
+		groups = {bronze_item = 1, shovel = 1},
 	},
 	copper = {
 		description = SL("Copper Shovel"),
@@ -69,7 +70,7 @@ tools.shovel = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {copper_item = 1},
+		groups = {copper_item = 1, shovel = 1},
 	},
 	tin = {
 		description = SL("Tin Shovel"),
@@ -82,7 +83,7 @@ tools.shovel = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {tin_item = 1},
+		groups = {tin_item = 1, shovel = 1},
 	},
 	silver = {
 		description = SL("Silver Shovel"),
@@ -95,7 +96,7 @@ tools.shovel = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {silver_item = 1},
+		groups = {silver_item = 1, shovel = 1},
 	},
 	gold = {
 		description = SL("Gold Shovel"),
@@ -108,7 +109,7 @@ tools.shovel = {
 			maxlevel=2
 		},
 		damage_groups = {fleshy=3},
-		groups = {gold_item = 1},
+		groups = {gold_item = 1, shovel = 1},
 	},
 	galvorn = {
 		description = SL("Galvorn Shovel"),
@@ -121,7 +122,7 @@ tools.shovel = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=4},
-		groups = {forbidden=1, galvorn_item = 1},
+		groups = {forbidden=1, galvorn_item = 1, shovel = 1},
 	},
 	mithril = {
 		description = SL("Mithril Shovel"),
@@ -134,6 +135,6 @@ tools.shovel = {
 			maxlevel=3
 		},
 		damage_groups = {fleshy=4},
-		groups = {mithril_item = 1},
+		groups = {mithril_item = 1, shovel = 1},
 	}
 }
