@@ -61,5 +61,6 @@ dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")
 dofile(default_path.."/torch.lua")
 dofile(default_path.."/tools.lua")
+dofile(default_path.."/item_entity.lua")
 
 lord.mod_loaded()
