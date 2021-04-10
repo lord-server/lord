@@ -3,7 +3,6 @@ Stick	=	Палочка
 Paper	=	Бумага
 Book	=	Книга
 Coal Lump	=	Каменный уголь
-Charcoal Lump	=	Древесный уголь
 Iron Lump	=	Железо
 Copper Lump	=	Медь
 Mese Crystal	=	MESE-кристалл
@@ -16,7 +15,6 @@ Bronze Ingot	=	Слиток бронзы
 Gold Ingot	=	Слиток золота
 Mese Crystal Fragment	=	Осколок MESE-кристалла
 Clay Brick	=	Кирпич
-Scorched Stuff	=	Обгоревший мусор
 Obsidian Shard	=	Осколок обсидиана
 
 ### nodes.lua ###

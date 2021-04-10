@@ -51,16 +51,16 @@ local default_path = minetest.get_modpath("default")
 
 dofile(default_path.."/functions.lua")
 dofile(default_path.."/crafting.lua")
-dofile(default_path.."/craftitems.lua")
 dofile(default_path.."/mapgen.lua")
 dofile(default_path.."/nodes.lua")
 dofile(default_path.."/player.lua")
 dofile(default_path.."/trees.lua")
-
+-- обновлены до идентичного состояния как в MTG:
 dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")
 dofile(default_path.."/torch.lua")
 dofile(default_path.."/tools.lua")
 dofile(default_path.."/item_entity.lua")
+dofile(default_path.."/craftitems.lua")
 
 lord.mod_loaded()
