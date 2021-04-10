@@ -3,7 +3,6 @@ Stick	=	Stick
 Paper	=	Paper
 Book	=	Book
 Coal Lump	=	Coal Lump
-Charcoal Lump	=	Charcoal Lump
 Iron Lump	=	Iron Lump
 Copper Lump	=	Copper Lump
 Mese Crystal	=	Mese Crystal
@@ -16,11 +15,10 @@ Bronze Ingot	=	Bronze Ingot
 Gold Ingot	=	Gold Ingot
 Mese Crystal Fragment	=	Mese Crystal Fragment
 Clay Brick	=	Clay Brick
-Scorched Stuff	=	Scorched Stuff
 Obsidian Shard	=	Obsidian Shard
 
 ### nodes.lua ###
-Stone 	=	Stone 
+Stone 	=	Stone
 Desert Stone	=	Desert Stone
 Coal Ore	=	Coal Ore
 Iron Ore	=	Iron Ore

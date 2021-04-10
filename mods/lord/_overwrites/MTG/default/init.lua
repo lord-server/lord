@@ -30,54 +30,77 @@ end
 --
 -- (!) сделано без циклов, чтобы выдавалось в поиске по проекту
 
-minetest.unregister_item("default:pick_wood")
-minetest.unregister_item("default:pick_stone")
-minetest.unregister_item("default:pick_bronze")
-minetest.unregister_item("default:pick_steel")
-minetest.unregister_item("default:pick_mese")
-minetest.unregister_item("default:pick_diamond")
 minetest.clear_craft({output = "default:pick_wood"})
 minetest.clear_craft({output = "default:pick_stone"})
 minetest.clear_craft({output = "default:pick_bronze"})
 minetest.clear_craft({output = "default:pick_steel"})
 minetest.clear_craft({output = "default:pick_mese"})
 minetest.clear_craft({output = "default:pick_diamond"})
+minetest.unregister_item("default:pick_wood")
+minetest.unregister_item("default:pick_stone")
+minetest.unregister_item("default:pick_bronze")
+minetest.unregister_item("default:pick_steel")
+minetest.unregister_item("default:pick_mese")
+minetest.unregister_item("default:pick_diamond")
 
-minetest.unregister_item("default:shovel_wood")
-minetest.unregister_item("default:shovel_stone")
-minetest.unregister_item("default:shovel_bronze")
-minetest.unregister_item("default:shovel_steel")
-minetest.unregister_item("default:shovel_mese")
-minetest.unregister_item("default:shovel_diamond")
 minetest.clear_craft({output = "default:shovel_wood"})
 minetest.clear_craft({output = "default:shovel_stone"})
 minetest.clear_craft({output = "default:shovel_bronze"})
 minetest.clear_craft({output = "default:shovel_steel"})
 minetest.clear_craft({output = "default:shovel_mese"})
 minetest.clear_craft({output = "default:shovel_diamond"})
+minetest.unregister_item("default:shovel_wood")
+minetest.unregister_item("default:shovel_stone")
+minetest.unregister_item("default:shovel_bronze")
+minetest.unregister_item("default:shovel_steel")
+minetest.unregister_item("default:shovel_mese")
+minetest.unregister_item("default:shovel_diamond")
 
-minetest.unregister_item("default:axe_wood")
-minetest.unregister_item("default:axe_stone")
-minetest.unregister_item("default:axe_bronze")
-minetest.unregister_item("default:axe_steel")
-minetest.unregister_item("default:axe_mese")
-minetest.unregister_item("default:axe_diamond")
 minetest.clear_craft({output = "default:axe_wood"})
 minetest.clear_craft({output = "default:axe_stone"})
 minetest.clear_craft({output = "default:axe_bronze"})
 minetest.clear_craft({output = "default:axe_steel"})
 minetest.clear_craft({output = "default:axe_mese"})
 minetest.clear_craft({output = "default:axe_diamond"})
+minetest.unregister_item("default:axe_wood")
+minetest.unregister_item("default:axe_stone")
+minetest.unregister_item("default:axe_bronze")
+minetest.unregister_item("default:axe_steel")
+minetest.unregister_item("default:axe_mese")
+minetest.unregister_item("default:axe_diamond")
 
-minetest.unregister_item("default:sword_wood")
-minetest.unregister_item("default:sword_stone")
-minetest.unregister_item("default:sword_bronze")
-minetest.unregister_item("default:sword_steel")
-minetest.unregister_item("default:sword_mese")
-minetest.unregister_item("default:sword_diamond")
 minetest.clear_craft({output = "default:sword_wood"})
 minetest.clear_craft({output = "default:sword_stone"})
 minetest.clear_craft({output = "default:sword_bronze"})
 minetest.clear_craft({output = "default:sword_steel"})
 minetest.clear_craft({output = "default:sword_mese"})
 minetest.clear_craft({output = "default:sword_diamond"})
+minetest.unregister_item("default:sword_wood")
+minetest.unregister_item("default:sword_stone")
+minetest.unregister_item("default:sword_bronze")
+minetest.unregister_item("default:sword_steel")
+minetest.unregister_item("default:sword_mese")
+minetest.unregister_item("default:sword_diamond")
+
+
+
+-- default/craftitems.lua
+-- в `lord/lord_mail/` мы создаём свою "книгу с текстом"
+minetest.clear_craft({type = "fuel", recipe = "default:book_written"})
+minetest.unregister_item("default:book_written")
+-- у нас другой крафт бронзы
+minetest.clear_craft({recipe = {
+	{"default:copper_ingot", "default:copper_ingot", "default:copper_ingot"},
+	{"default:copper_ingot", "default:tin_ingot", "default:copper_ingot"},
+	{"default:copper_ingot", "default:copper_ingot", "default:copper_ingot"},
+}});
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:bronze_ingot",
+	recipe = {"lottores:tin_ingot", "default:copper_ingot"},
+})
+-- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
+minetest.clear_craft({type = "cooking", recipe = "default:tin_lump"})
+minetest.clear_craft({recipe = {{"default:tinblock"}}})
+minetest.unregister_item("default:tin_ingot")
+minetest.unregister_item("default:tin_lump")

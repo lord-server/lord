@@ -1,5 +1,7 @@
 local SL = lord.require_intllib()
 
+local text_color = "#111"
+
 mail = {}
 
 mail.change_owner = function(meta, name)
@@ -161,6 +163,7 @@ local function paper_on_use(itemstack, user, pointed_thing)
 	local formspec
 	if owner == player_name then
 		formspec = "size[8,3]"..gui_paperbg..
+			"style[paper_text;textcolor="..text_color.."]"..
 			"field[0.5,0.5;7.5,1.0;paper_text;;"..minetest.formspec_escape(text).."]"..
 			"button_exit[2.5,2.0;3.0,1.0;paper_save;"..SL("Save").."]"
 	else
@@ -200,9 +203,10 @@ local function book_on_use(itemstack, user, pointed_thing)
 	local formspec
 	if owner == player_name then
 		formspec = "size[8,8]"..gui_bookbg..
-			"field[0.5,1;7.5,0;book_title;"..SL("Title")..":;"..
+			"style[book_title,book_text;textcolor="..text_color.."]"..
+			"field[0.5,1;7.5,0;book_title;"..minetest.colorize(text_color, SL("Title")..":")..";"..
 				minetest.formspec_escape(title).."]"..
-			"textarea[0.5,1.5;7.5,7;book_text;"..SL("Contents")..":;"..
+			"textarea[0.5,1.5;7.5,7;book_text;"..minetest.colorize(text_color, SL("Contents")..":")..";"..
 				minetest.formspec_escape(text).."]"..
 			"button_exit[4.7,7.5;3,1;book_save;"..SL("Save").."]"
 	else
@@ -217,14 +221,14 @@ end
 minetest.register_craftitem(":default:book", {
 	description = SL("Book"),
 	inventory_image = "default_book.png",
-	groups = {book=1, paper=1},
+	groups = {book=1, flammable=1},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("lord_mail:book_with_text", {
 	description = SL("Book With Text"),
 	inventory_image = "mail_book_with_text.png",
-	groups = {not_in_creative_inventory=1, book=1, paper=1},
+	groups = {not_in_creative_inventory=1, book=1, flammable=1},
 	stack_max = 1,
 	on_use = book_on_use,
 })
