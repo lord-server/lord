@@ -42,9 +42,10 @@ lottpotion = {
 					local h = lottpotion.players[user:get_player_name()].hp
 					lottpotion.players[user:get_player_name()].hp = h + hp_change
 					minetest.after(sdata.time, function()
-						if user ~= nil then
-							h = lottpotion.players[user:get_player_name()].hp
-							lottpotion.players[user:get_player_name()].hp = h - hp_change
+						local act_player = lottpotion.players[user:get_player_name()]
+						if user ~= nil and act_player ~= nil then
+							h = act_player.hp
+							act_player.hp = h - hp_change
 						end
 					end)
 					itemstack:take_item()
@@ -67,9 +68,10 @@ lottpotion = {
 					lottpotion.players[user:get_player_name()].air = br_change
 
 					minetest.after(sdata.time, function()
-						if user ~= nil then
-							b = lottpotion.players[user:get_player_name()].air
-							lottpotion.players[user:get_player_name()].air = b - br_change
+						local act_player = lottpotion.players[user:get_player_name()]
+						if user ~= nil and act_player ~= nil then
+							b = act_player.air
+							act_player.air = b - br_change
 						end
 					end)
 					itemstack:take_item()
