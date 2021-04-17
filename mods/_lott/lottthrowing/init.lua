@@ -8,8 +8,9 @@ local lottthrowing_player_shoot = function(player, arrow_name)
 	p.x = p.x + offset.x
 	p.y = p.y + offset.y
 	p.z = p.z + offset.z
-	return throwing:shoot(player, arrow_name, p, dir, -0.1)
+	return throwing:shoot(player, "player", arrow_name, p, dir, -0.1)
 end
+
 
 local lottthrowing_shoot = function(player, arrow_name)
 	local stack_index = player:get_wield_index() + 1
@@ -22,6 +23,10 @@ local lottthrowing_shoot = function(player, arrow_name)
 	end
 
 	return lottthrowing_player_shoot(player, arrow_name)
+end
+
+local lottthrowing_node_shoot = function(pos, dir, arrow_name)
+	return throwing:shoot(pos, "node", arrow_name, p, dir, -0.1)
 end
 
 local lottthrowing_shoot_arrow = function(itemstack, player)
@@ -112,6 +117,23 @@ minetest.register_tool("lottthrowing:bow_wood_mallorn", {
 			end
 		end
 		return itemstack
+	end,
+})
+
+minetest.register_node("lottthrowing:arrownode", {
+	description = SL("Automatic shooting node"),
+        tiles = {"lottblocks_snowycobble.png"},
+	on_construct = function(pos)
+		local timer = minetest.get_node_timer(pos)
+		timer:start(1)
+	end,
+	on_timer = function(pos, elapsed)
+		local timer = minetest.get_node_timer(pos)
+--		minetest.log("timeout")
+		timer:start(1)
+		dir = {x = -1, y=0, z=0}
+		arrow = "arrows:arrow_steel"
+		throwing:shoot(pos, "node", arrow, pos, dir, 0.5)
 	end,
 })
 

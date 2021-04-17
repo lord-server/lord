@@ -1754,7 +1754,7 @@ local do_states = function(self, dtime)
 					z = vec.z,
 				}
 
-				throwing:shoot(self.object, self.arrow, p, dir, 0.5)
+				throwing:shoot(self.object, "entity", self.arrow, p, dir, 0.5)
 			end
 		end
 	end
