@@ -19,7 +19,7 @@ cd ~/projects
 mkdir lord-server
 cd lord-server
 # не забудьте предварительно добавить на GitHub свой публичный ssh-ключ
-gh repo fork lord-server/lord --clone
+gh repo fork lord-server/lord --clone # --recursive
 cd ~/.minetest/games/
 ln -s ~/projects/lord-server/lord
 ```

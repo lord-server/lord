@@ -7,22 +7,35 @@ minetest.register_node("lottpotion:cauldron_full",{
 		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky=2},
+	groups = {cracky=1},
 	legacy_facedir_simple = true,
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,0.312500,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, 0.25, -0.375, 0.375, 0.3125, 0.375},
 		}
-	}
+	},
+	on_punch = function(pos, node, player)
+		local player_inv = player:get_inventory()
+		local itemstack = player:get_wielded_item()
+		if itemstack:get_name() == "vessels:glass_bottle" then
+			minetest.set_node(pos, {name="lottpotion:cauldron_two_third_full"})
+			if player_inv:room_for_item("main", 1) then
+				itemstack:take_item(1)
+				player_inv:add_item("main", "lottpotion:glass_bottle_water")
+			end
+			player:set_wielded_item(itemstack)
+		end
+	end,
 })
 
 minetest.register_node("lottpotion:cauldron_two_third_full",{
@@ -32,21 +45,34 @@ minetest.register_node("lottpotion:cauldron_two_third_full",{
 		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky=2, not_in_creative_inventory=1},
+	groups = {cracky=1, not_in_creative_inventory=1},
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,0.125000,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, 0.0625, -0.375, 0.375, 0.125, 0.375},
 		}
-	}
+	},
+	on_punch = function(pos, node, player)
+		local player_inv = player:get_inventory()
+		local itemstack = player:get_wielded_item()
+		if itemstack:get_name() == "vessels:glass_bottle" then
+			minetest.set_node(pos, {name="lottpotion:cauldron_one_third_full"})
+			if player_inv:room_for_item("main", 1) then
+				itemstack:take_item(1)
+				player_inv:add_item("main", "lottpotion:glass_bottle_water")
+			end
+			player:set_wielded_item(itemstack)
+		end
+	end,
 })
 
 minetest.register_node("lottpotion:cauldron_one_third_full",{
@@ -56,21 +82,34 @@ minetest.register_node("lottpotion:cauldron_one_third_full",{
 		"lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png", "lottpotion_cauldron_side.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
-	groups = {cracky=2, not_in_creative_inventory=1},
+	groups = {cracky=1, not_in_creative_inventory=1},
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.312500,-0.500000,0.500000,-0.062500,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, -0.125, -0.375, 0.375, -0.0625, 0.375},
 		}
-	}
+	},
+	on_punch = function(pos, node, player)
+		local player_inv = player:get_inventory()
+		local itemstack = player:get_wielded_item()
+		if itemstack:get_name() == "vessels:glass_bottle" then
+			minetest.set_node(pos, {name="lottpotion:cauldron_empty"})
+			if player_inv:room_for_item("main", 1) then
+				itemstack:take_item(1)
+				player_inv:add_item("main", "lottpotion:glass_bottle_water")
+			end
+			player:set_wielded_item(itemstack)
+		end
+	end,
 })
 
 minetest.register_node("lottpotion:cauldron_empty",{
@@ -83,15 +122,16 @@ minetest.register_node("lottpotion:cauldron_empty",{
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.500000,-0.375000,-0.500000,-0.375000,0.500000,0.500000},
-			{0.375000,-0.375000,-0.500000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,0.500000,-0.375000},
-			{-0.500000,-0.375000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,-0.500000,-0.375000,0.500000,-0.375000},
-			{0.375000,-0.500000,-0.500000,0.500000,0.500000,-0.375000},
-			{0.375000,-0.500000,0.375000,0.500000,0.500000,0.500000},
-			{-0.500000,-0.500000,0.375000,-0.375000,0.500000,0.500000},
-			{-0.500000,-0.375000,-0.500000,0.500000,-0.312500,0.500000},
+			{-0.5, -0.5, -0.5, -0.375, 0.5, -0.375},
+			{0.375, -0.5, -0.5, 0.5, 0.5, -0.375},
+			{0.375, -0.5, 0.375, 0.5, 0.5, 0.5},
+			{-0.5, -0.5, 0.375, -0.375, 0.5, 0.5},
+			{-0.375, -0.375, -0.375, 0.375, -0.3125, 0.375},
+			{-0.5, -0.375, -0.375, -0.375, 0.4375, 0.375},
+			{0.375, -0.375, -0.375, 0.5, 0.4375, 0.375},
+			{-0.375, -0.375, 0.375, 0.375, 0.4375, 0.5},
+			{-0.375, -0.375, -0.5, 0.375, 0.4375, -0.375},
+			{-0.375, -0.125, -0.375, 0.375, -0.25, 0.375},
 		},
 	},
 	on_rightclick = function(pos, node, clicker, itemstack)

@@ -69,8 +69,10 @@ end
 
 local function get_recipe_index(items)
 	local l = {}
-	for i, stack in ipairs(items) do
-		l[i] = ItemStack(stack):get_name()
+	if items ~= nil then
+		for i, stack in ipairs(items) do
+			l[i] = ItemStack(stack):get_name()
+		end
 	end
 	table.sort(l)
 	return table.concat(l, "/")
@@ -326,8 +328,15 @@ minetest.register_abm({
 		local meta = minetest.get_meta(pos)
 		local inv  = meta:get_inventory()
 
-		if inv:get_size("src") == 1 then
-			-- Old furnace -> convert it
+		if meta:get_string("infotext") == "" then
+			meta:set_string("formspec", formspec)
+			meta:set_string("infotext", machine_name)
+			inv:set_size("fuel", 1)
+			inv:set_size("src", 2)
+			inv:set_size("dst", 1)
+		end
+
+		if inv:get_size("src") == 1 then -- Old furnace -> convert it
 			inv:set_size("src", 2)
 			inv:set_stack("src", 2, inv:get_stack("src2", 1))
 			inv:set_size("src2", 0)
