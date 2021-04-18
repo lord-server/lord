@@ -25,10 +25,6 @@ local lottthrowing_shoot = function(player, arrow_name)
 	return lottthrowing_player_shoot(player, arrow_name)
 end
 
-local lottthrowing_node_shoot = function(pos, dir, arrow_name)
-	return throwing:shoot(pos, "node", arrow_name, p, dir, -0.1)
-end
-
 local lottthrowing_shoot_arrow = function(itemstack, player)
 	local itemname = player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name()
 	if throwing:arrow_type(itemname) ~= "arrow" then
@@ -129,11 +125,11 @@ minetest.register_node("lottthrowing:arrownode", {
 	end,
 	on_timer = function(pos, elapsed)
 		local timer = minetest.get_node_timer(pos)
---		minetest.log("timeout")
 		timer:start(1)
-		dir = {x = -1, y=0, z=0}
-		arrow = "arrows:arrow_steel"
-		throwing:shoot(pos, "node", arrow, pos, dir, 0.5)
+		local dir = {x = -1, y=0, z=0}
+		local arrow = "arrows:arrow_steel"
+		minetest.log("shoot at "..pos.x.." "..pos.y.." "..pos.z)
+		throwing:shoot({x=pos.x, y=pos.y, z=pos.z}, "node", arrow, pos, dir, 0.5)
 	end,
 })
 
