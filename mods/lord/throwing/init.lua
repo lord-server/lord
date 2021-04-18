@@ -3,7 +3,7 @@ throwing                    = {}
 throwing.arrows             = {}
 
 local HIT_RADIUS = 4
-
+local DONT_PUNCH_SAME_MOBS = true
 local BASE_LIQUID_VISCOSITY = 50
 
 local function node_ok(pos, fallback)
@@ -384,7 +384,22 @@ local function hit_objects(pos1, pos2, arrow)
 		hit = hit_player(nearest.obj, arrow, arrow.hit_player, arrow.owner_id, collision_point)
 	elseif nearest.objtype == "entity" then
 		-- hit entity
-		hit = hit_mob(nearest.obj, arrow, arrow.hit_mob, arrow.owner_id, collision_point)
+		local hit_same_mob = true
+
+		if DONT_PUNCH_SAME_MOBS and arrow.owner_type == "entity" then
+			local target = nearest.obj:get_entity_name()
+			local archer = arrow.owner:get_entity_name()
+--			minetest.log("target = "..target.." archer "..archer)
+			if target == archer then
+				hit_same_mob = false
+			end
+		end
+
+		if hit_same_mob then
+			hit = hit_mob(nearest.obj, arrow, arrow.hit_mob, arrow.owner_id, collision_point)
+		else
+			hit = true
+		end
 	elseif nearest.objtype == "node" then
 		-- hit node
 		hit = hit_node(nearest.obj, arrow, arrow.hit_node, collision_point)
@@ -403,7 +418,14 @@ local function inside_owner(arrow)
 	if owner_type == "player" then
 		collision_box = arrow.owner:get_properties().collisionbox
 	elseif owner_type == "entity" then
-		collision_box = arrow.owner.collisionbox
+		local entity = arrow.owner:get_luaentity()
+		if entity == nil then
+			minetest.log("entity is nil!")
+			minetest.log("is_player = "..tostring(arrow.owner:is_player()))
+			minetest.log(tostring(arrow.owner))
+			return false
+		end
+		collision_box = entity.collisionbox
 	elseif owner_type == "node" then
 		box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
 	else

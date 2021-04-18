@@ -1746,7 +1746,7 @@ local do_states = function(self, dtime)
 
 				local p = self.object:getpos()
 
-				p.y = p.y + (self.collisionbox[2] + self.collisionbox[5]) / 2
+				p.y = p.y + (self.collisionbox[2]*0.2 + self.collisionbox[5]*0.8)
 
 				local dir = {
 					x = vec.x,
