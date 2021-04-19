@@ -2,6 +2,7 @@ local ANGLE=45*3.141/180
 local Y0 = 0
 local SNOW_LINE = 50
 local SNOW_LINE_RAND = 4
+local GRASS = true
 
 local function is_inside(pos, top, angle)
 	local dx = pos.x - top.x
@@ -13,6 +14,13 @@ end
 
 local function is_top(pos, top, angle)
 	return is_inside(pos, top, angle) and not is_inside({x=pos.x, y=pos.y+1, z=pos.z}, top, angle)
+end
+
+local function place_grass(pos)
+	local id = math.random(2,5)
+	local name = "default:grass_"..tostring(id)
+--	minetest.log(name)
+	minetest.set_node(pos, {name=name})
 end
 
 minetest.register_tool("mountgen:mount_tool", {
@@ -54,6 +62,11 @@ minetest.register_tool("mountgen:mount_tool", {
 						minetest.set_node(pos, {name="default:snowblock"})
 					else
 						minetest.set_node(pos, {name="lottmapgen:dunland_grass"})
+						if GRASS then
+							if math.random(1,10) > 7 then
+								place_grass({x=x,y=y+1,z=z})
+							end
+						end
 					end
 				else
 					minetest.set_node(pos, {name="default:stone"})
