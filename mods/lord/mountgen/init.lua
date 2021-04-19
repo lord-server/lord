@@ -74,10 +74,10 @@ minetest.register_tool("mountgen:mount_tool", {
 		for z = z1,z2+1 do
 			local pos = {x=x,y=y,z=z}
 			local inside = is_inside(pos, top, ANGLE)
-			local top    = is_top(pos, top, ANGLE)
+			local istop    = is_top(pos, top, ANGLE)
 
 			if inside then
-				if top then
+				if istop then
 					local place_snow = false
 					if SNOW_LINE ~= nil then
 						local sl = SNOW_LINE - math.random(0, SNOW_LINE_RAND)
@@ -93,7 +93,7 @@ minetest.register_tool("mountgen:mount_tool", {
 						if math.random(0,100) < GRASS_PERCENT then
 							place_grass(upper)
 						end
-						
+
 						if y <= FLOWERS_LINE then
 							if math.random(0,100) < FLOWERS_PERCENT then
 								place_flower(upper)
