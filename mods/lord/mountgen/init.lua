@@ -49,6 +49,65 @@ local function place_sapling(pos)
 	--default.grow_tree({x=pos.x, y=pos.y-1,z=pos.z}, math.random(1, 4) == 1)
 end
 
+local function cone_mountgen(top)
+	local H = top.y - Y0
+	local W = H * math.tan(ANGLE)
+
+	local x1 = top.x - W
+	local x2 = top.x + W
+
+	local z1 = top.z - W
+	local z2 = top.z + W
+
+	local y1 = Y0
+	local y2 = top.y
+
+	for y = y1,y2+1 do
+	for x = x1,x2+1 do
+	for z = z1,z2+1 do
+		local pos = {x=x,y=y,z=z}
+		local inside = is_inside(pos, top, ANGLE)
+		local istop    = is_top(pos, top, ANGLE)
+
+		if inside then
+			if istop then
+				local place_snow = false
+				if SNOW_LINE ~= nil then
+					local sl = SNOW_LINE - math.random(0, SNOW_LINE_RAND)
+					if y >= sl then
+						place_snow = true
+					end
+				end
+				if place_snow then
+					minetest.set_node(pos, {name="default:snowblock"})
+				else
+					local upper = {x=x,y=y+1,z=z}
+					minetest.set_node(pos, {name="lottmapgen:dunland_grass"})
+					if math.random(0,100) < GRASS_PERCENT then
+						place_grass(upper)
+					end
+
+					if y <= FLOWERS_LINE then
+						if math.random(0,100) < FLOWERS_PERCENT then
+							place_flower(upper)
+						end
+					end
+
+					if y <= TREE_LINE then
+						if math.random(0,1000) < TREE_PROMILLE then
+							place_sapling(upper)
+						end
+					end
+
+				end
+			else
+				minetest.set_node(pos, {name="default:stone"})
+			end
+		end
+	end
+	end
+	end
+end
 
 minetest.register_tool("mountgen:mount_tool", {
         description = "Горный посох",
@@ -57,63 +116,7 @@ minetest.register_tool("mountgen:mount_tool", {
 		local top = user:get_pos()
 		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
 
-		local H = top.y - Y0
-		local W = H * math.tan(ANGLE)
-
-		local x1 = top.x - W
-		local x2 = top.x + W
-
-		local z1 = top.z - W
-		local z2 = top.z + W
-
-		local y1 = Y0
-		local y2 = top.y
-
-		for y = y1,y2+1 do
-		for x = x1,x2+1 do
-		for z = z1,z2+1 do
-			local pos = {x=x,y=y,z=z}
-			local inside = is_inside(pos, top, ANGLE)
-			local istop    = is_top(pos, top, ANGLE)
-
-			if inside then
-				if istop then
-					local place_snow = false
-					if SNOW_LINE ~= nil then
-						local sl = SNOW_LINE - math.random(0, SNOW_LINE_RAND)
-						if y >= sl then
-							place_snow = true
-						end
-					end
-					if place_snow then
-						minetest.set_node(pos, {name="default:snowblock"})
-					else
-						local upper = {x=x,y=y+1,z=z}
-						minetest.set_node(pos, {name="lottmapgen:dunland_grass"})
-						if math.random(0,100) < GRASS_PERCENT then
-							place_grass(upper)
-						end
-
-						if y <= FLOWERS_LINE then
-							if math.random(0,100) < FLOWERS_PERCENT then
-								place_flower(upper)
-							end
-						end
-
-						if y <= TREE_LINE then
-							if math.random(0,1000) < TREE_PROMILLE then
-								place_sapling(upper)
-							end
-						end
-
-					end
-				else
-					minetest.set_node(pos, {name="default:stone"})
-				end
-			end
-		end
-		end
-		end
+--		cone_mountgen()
 
 		return itemstack
 	end
