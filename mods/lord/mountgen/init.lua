@@ -123,10 +123,10 @@ local function get_value(map, z, x)
 	local w = table.getn(map[1])
 
 
---	if x < 0 or z < 0 or x >= w or z >= h then
---		return Y0
---	end
-	while z < 0 do
+	if x < 0 or z < 0 or x >= w or z >= h then
+		return Y0
+	end
+--[[	while z < 0 do
 		z = z + h
 	end
 
@@ -141,12 +141,20 @@ local function get_value(map, z, x)
 	while x >= w do
 		x = x - w
 	end
-
+]]--
 	return map[z+1][x+1]
 end
 
 local function set_value(map, z, x, val)
 	map[z+1][x+1] = val
+end
+
+local function cut_peak(map, z, x)
+	local v1 = get_value(map, z-1, x)
+	local v2 = get_value(map, z+1, x)
+	local v3 = get_value(map, z, x-1)
+	local v4 = get_value(map, z, x+1)
+	set_value(map, z, x, (v1+v2+v3+v4)/4)
 end
 
 local function diamond_square(top)
@@ -258,8 +266,11 @@ local function diamond_square(top)
 	end
 
 	-- fix center of mountain
-	local avc = (get_value(map, r-1, r) + get_value(map, r+1, r) + get_value(map, r, r+1) + get_value(map, r, r-1))/4
-	set_value(map, r, r, avc)
+	cut_peak(map, r, r)
+	cut_peak(map, 0, r)
+	cut_peak(map, r, 0)
+	cut_peak(map, r, 2*r)
+	cut_peak(map, 2*r, r)
 
 	for z = 1, w do
 	for x = 1, w do
@@ -274,7 +285,9 @@ local function diamond_square(top)
 		local y = map[z][x]
 
 		local py = Y0 + y
-		place_top(px, py, pz)
+		if y >= 0 then
+			place_top(px, py, pz)
+		end
 	end
 	end
 end
