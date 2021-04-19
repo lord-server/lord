@@ -1,11 +1,16 @@
 local ANGLE=45*3.141/180
 local Y0 = 0
+
 local SNOW_LINE = 50
 local SNOW_LINE_RAND = 4
+
 local GRASS_PERCENT = 10
 
-local FLOWERS_LINE = 20
+local FLOWERS_LINE = 35
 local FLOWERS_PERCENT = 10
+
+local TREE_LINE = 20
+local TREE_PROMILLE = 4
 
 local function is_inside(pos, top, angle)
 	local dx = pos.x - top.x
@@ -37,6 +42,13 @@ local function place_flower(pos)
 	local name = names[id]
 	minetest.set_node(pos, {name=name})
 end
+
+local function place_sapling(pos)
+	local name = "default:sapling"
+	minetest.set_node(pos, {name=name})
+	--default.grow_tree({x=pos.x, y=pos.y-1,z=pos.z}, math.random(1, 4) == 1)
+end
+
 
 minetest.register_tool("mountgen:mount_tool", {
         description = "Горный посох",
@@ -87,6 +99,13 @@ minetest.register_tool("mountgen:mount_tool", {
 								place_flower(upper)
 							end
 						end
+
+						if y <= TREE_LINE then
+							if math.random(0,1000) < TREE_PROMILLE then
+								place_sapling(upper)
+							end
+						end
+
 					end
 				else
 					minetest.set_node(pos, {name="default:stone"})
