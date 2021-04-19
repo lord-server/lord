@@ -2,7 +2,10 @@ local ANGLE=45*3.141/180
 local Y0 = 0
 local SNOW_LINE = 50
 local SNOW_LINE_RAND = 4
-local GRASS = true
+local GRASS_PERCENT = 10
+
+local FLOWERS_LINE = 20
+local FLOWERS_PERCENT = 10
 
 local function is_inside(pos, top, angle)
 	local dx = pos.x - top.x
@@ -19,7 +22,19 @@ end
 local function place_grass(pos)
 	local id = math.random(2,5)
 	local name = "default:grass_"..tostring(id)
---	minetest.log(name)
+	minetest.set_node(pos, {name=name})
+end
+
+local function place_flower(pos)
+	local names = {	"flowers:dandelion_white",
+			"flowers:dandelion_yellow",
+			"flowers:geranium",
+			"flowers:rose",
+			"flowers:tulip",
+			"flowers:viola"
+			}
+	local id = math.random(1,#names)
+	local name = names[id]
 	minetest.set_node(pos, {name=name})
 end
 
@@ -61,10 +76,15 @@ minetest.register_tool("mountgen:mount_tool", {
 					if place_snow then
 						minetest.set_node(pos, {name="default:snowblock"})
 					else
+						local upper = {x=x,y=y+1,z=z}
 						minetest.set_node(pos, {name="lottmapgen:dunland_grass"})
-						if GRASS then
-							if math.random(1,10) > 7 then
-								place_grass({x=x,y=y+1,z=z})
+						if math.random(0,100) < GRASS_PERCENT then
+							place_grass(upper)
+						end
+						
+						if y <= FLOWERS_LINE then
+							if math.random(0,100) < FLOWERS_PERCENT then
+								place_flower(upper)
 							end
 						end
 					end
