@@ -118,46 +118,63 @@ local function cone_mountgen(top)
 	end
 end
 
-local function get_value(map, z, x)
+local function get_height(z, x, r, y1, y2, zbase, xbase)
+	local py = y1
+	local px = xbase + x - r - 1
+	local pz = zbase + z - r - 1
+	while py <= y2 do
+		local pos = {x=px, y=py, z=pz}
+		local node = minetest.get_node(pos)
+		if node.name == "ignore" then
+			minetest.get_voxel_manip():read_from_map(pos, pos)
+			node = minetest.get_node(pos)
+		end
+		minetest.log("x = "..px.." y = "..py.." z = "..pz.." node = "..node.name)
+		if node.name == "air" then
+			return math.max(py-1, y1)
+		end
+		py = py + 1
+	end
+	minetest.log("end at top!!!!")
+	return y2
+end
+
+
+local function get_value(map, z, x, r, y1, y2, zbase, xbase)
 	local h = table.getn(map)
 	local w = table.getn(map[1])
 
-
 	if x < 0 or z < 0 or x >= w or z >= h then
-		return Y0
-	end
---[[	while z < 0 do
-		z = z + h
+		return get_height(z, x, r, y1, y2, zbase, xbase)
 	end
 
-	while z >= h do
-		z = z - h
-	end
-
-	while x < 0 do
-		x = x + w
-	end
-
-	while x >= w do
-		x = x - w
-	end
-]]--
 	return map[z+1][x+1]
 end
 
 local function set_value(map, z, x, val)
+	local h = table.getn(map)
+	local w = table.getn(map[1])
+	if x < 0 or z < 0 or x >= w or z >= h then
+		return
+	end
 	map[z+1][x+1] = val
 end
 
-local function cut_peak(map, z, x)
-	local v1 = get_value(map, z-1, x)
-	local v2 = get_value(map, z+1, x)
-	local v3 = get_value(map, z, x-1)
-	local v4 = get_value(map, z, x+1)
+
+local function cut_peak(map, z, x, r, y1, y2, zbase, xbase)
+	local v1 = get_value(map, z-1, x, r, y1, y2, zbase, xbase)
+	local v2 = get_value(map, z+1, x, r, y1, y2, zbase, xbase)
+	local v3 = get_value(map, z, x-1, r, y1, y2, zbase, xbase)
+	local v4 = get_value(map, z, x+1, r, y1, y2, zbase, xbase)
 	set_value(map, z, x, (v1+v2+v3+v4)/4)
 end
 
 local function diamond_square(top)
+	top.x = math.floor(top.x+0.5)
+	top.y = math.floor(top.y+0.5)
+	top.z = math.floor(top.z+0.5)
+
+
 	local W = (top.y - Y0)*math.tan(ANGLE)
 	local n = math.ceil(math.log(W) / math.log(2))
 
@@ -174,17 +191,27 @@ local function diamond_square(top)
 	end
 
 	local map = {}
-	for i = 1, w+1 do
+	for i = 1, w do
 		map[i] = {}
-		for j = 1, w+1 do
+		for j = 1, w do
 			map[i][j] = 0
 		end
 	end
 --	init
-	set_value(map, 0, 0, Y0)
-	set_value(map, 0, w-1, Y0)
-	set_value(map, w-1, 0, Y0)
-	set_value(map, w-1, w-1, Y0)
+
+	local y1 = Y0
+	local y2 = top.y
+
+	local h1 = get_height(0, 0, r,   y1, y2, top.z, top.x)
+	local h2 = get_height(0, w-1, r, y1, y2, top.z, top.x)
+	local h3 = get_height(w-1,0,r,   y1, y2, top.z, top.x)
+	local h4 = get_height(w-1,w-1,r, y1, y2, top.z, top.x)
+
+	minetest.log("initial "..h1.." "..h2.." "..h3.." "..h4)
+	set_value(map, 0, 0,     (y1+h1)/2)
+	set_value(map, 0, w-1,   (y1+h2)/2)
+	set_value(map, w-1, 0,   (y1+h3)/2)
+	set_value(map, w-1, w-1, (y1+h4)/2)
 
 	local rnd = 2
 
@@ -194,67 +221,56 @@ local function diamond_square(top)
 		local step2 = math.pow(2, i-1)
 
 		local num = math.pow(2, n-i)
+		local rand
 
+--		minetest.log("----------")
+--		minetest.log("step = "..step.." step2 = "..step2)
 		-- diamond
+--		minetest.log("diamond")
 		if i < n then
 			local z = 0
 			for _ = 1, num do
 				local x = 0
 				for _ = 1, num do
-					local val1 = get_value(map, z, x)
-					local val2 = get_value(map, z+step, x)
-					local val3 = get_value(map, z, x+step)
-					local val4 = get_value(map, z+step, x+step)
-					local val = (val1 + val2 + val3 + val4)/4 + math.random(-step2/rnd, step2/rnd)
+					local val1 = get_value(map, z, x, r, y1, y2, top.z, top.x)
+					local val2 = get_value(map, z+step, x, r, y1, y2, top.z, top.x)
+					local val3 = get_value(map, z, x+step, r, y1, y2, top.z, top.x)
+					local val4 = get_value(map, z+step, x+step, r, y1, y2, top.z, top.x)
+					rand = math.random(-step2/rnd, step2/rnd)
+					local val = (val1 + val2 + val3 + val4)/4 + rand
 					set_value(map, z+step2, x+step2, val)
 					x = x + step
 				end
 				z = z + step
 			end
 		else
-			set_value(map, step2, step2, top.y)
+			set_value(map, step2, step2, y2)
 		end
 
 		-- square
+--		minetest.log("square")
 		local z = 0
-		for _ = 1, num do
+		for _ = 1, num+1 do
 			local x = 0
-			for _ = 1, num do
+			for _ = 1, num+1 do
 				local val1, val2, val3, val4
 				local val
-				local rand
 
 				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z-step2, x+step2)
-				val2 = get_value(map, z+step2, x+step2)
-				val3 = get_value(map, z, x)
-				val4 = get_value(map, z, x+step)
+				val1 = get_value(map, z-step2, x+step2, r, y1, y2, top.z, top.x)
+				val2 = get_value(map, z+step2, x+step2, r, y1, y2, top.z, top.x)
+				val3 = get_value(map, z, x, r, y1, y2, top.z, top.x)
+				val4 = get_value(map, z, x+step, r, y1, y2, top.z, top.x)
 				val = (val1 + val2 + val3 + val4)/4 + rand
 				set_value(map, z, x+step2, val)
 
 				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z+step-step2, x+step2)
-				val2 = get_value(map, z+step+step2, x+step2)
-				val3 = get_value(map, z+step, x)
-				val4 = get_value(map, z+step, x+step)
-				val = (val1 + val2 + val3 + val4)/4 + rand
-				set_value(map, z+step, x+step2, val)
-
-				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z+step2, x-step2)
-				val2 = get_value(map, z+step2, x+step2)
-				val3 = get_value(map, z, x)
-				val4 = get_value(map, z+step, x)
+				val1 = get_value(map, z+step2, x-step2, r, y1, y2, top.z, top.x)
+				val2 = get_value(map, z+step2, x+step2, r, y1, y2, top.z, top.x)
+				val3 = get_value(map, z, x, r, y1, y2, top.z, top.x)
+				val4 = get_value(map, z+step, x, r, y1, y2, top.z, top.x)
 				val = (val1 + val2 + val3 + val4)/4 + rand
 				set_value(map, z+step2, x, val)
-
-				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z+step2, x+step2)
-				val2 = get_value(map, z+step2, x+step+step2)
-				val3 = get_value(map, z, x+step)
-				val4 = get_value(map, z+step, x+step)
-				val = (val1 + val2 + val3 + val4)/4 + rand
-				set_value(map, z+step2, x+step, val)
 
 				x = x + step
 			end
@@ -266,11 +282,12 @@ local function diamond_square(top)
 	end
 
 	-- fix center of mountain
-	cut_peak(map, r, r)
-	cut_peak(map, 0, r)
-	cut_peak(map, r, 0)
-	cut_peak(map, r, 2*r)
-	cut_peak(map, 2*r, r)
+--	minetest.log("cut peaks")
+	cut_peak(map, r, r, r, y1, y2, top.z, top.x)
+	cut_peak(map, 0, r, r, y1, y2, top.z, top.x)
+	cut_peak(map, r, 0, r, y1, y2, top.z, top.x)
+	cut_peak(map, r, 2*r, r, y1, y2, top.z, top.x)
+	cut_peak(map, 2*r, r, r, y1, y2, top.z, top.x)
 
 	for z = 1, w do
 	for x = 1, w do
