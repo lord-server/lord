@@ -160,6 +160,11 @@ local function diamond_square(top)
 
 	minetest.log("n = "..tostring(n).." w = "..w)
 
+	if top.y <= Y0 then
+		minetest.log("Trying to build negative mountain")
+		return
+	end
+
 	local map = {}
 	for i = 1, w+1 do
 		map[i] = {}
