@@ -21,8 +21,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 	local c_air = minetest.get_content_id("air")
 	local c_mossycobble = minetest.get_content_id("default:mossycobble")
-	local c_tomb_1 = minetest.get_content_id("lottblocks:dwarf_bottom")
-	local c_tomb_2 = minetest.get_content_id("lottblocks:dwarf_head")
+	--local c_tomb_1 = minetest.get_content_id("lottblocks:dwarf_bottom")
+	--local c_tomb_2 = minetest.get_content_id("lottblocks:dwarf_head")
 	local c_gold = minetest.get_content_id("default:goldblock")
 
 	local nixz = 1
