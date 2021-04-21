@@ -65,6 +65,14 @@ shop.formspec = {
 	end,
 }
 
+shop.player_has_access = function(player, shop_pos)
+	local owner_name = minetest.get_meta(shop_pos):get_string("owner")
+	local player_name = player:get_player_name()
+	local is_admin = minetest.get_player_privs(player_name).server
+
+	return player_name == owner_name or is_admin
+end
+
 minetest.register_node("lord_money:shop", {
 	description = SL("Shop Chest"),
 	tiles = {"shop_chest_top.png", "default_chest_top.png", "default_chest_side.png",
@@ -86,28 +94,31 @@ minetest.register_node("lord_money:shop", {
 	on_rightclick = function(pos, node, clicker, itemstack)
 		clicker:get_inventory():set_size("customer_gives", 5*2)
 		clicker:get_inventory():set_size("customer_gets", 5*2)
-		shop.current_shop[clicker:get_player_name()] = pos
-		local meta = minetest.get_meta(pos)
-		if clicker:get_player_name() == meta:get_string("owner") and not clicker:get_player_control().aux1 then
-			minetest.show_formspec(clicker:get_player_name(),"lord_money:shop_formspec",shop.formspec.owner(pos))
+		local user_name = clicker:get_player_name()
+		shop.current_shop[user_name] = pos
+		if shop.player_has_access(clicker, pos) and not clicker:get_player_control().aux1 then
+			minetest.show_formspec(user_name,"lord_money:shop_formspec",shop.formspec.owner(pos))
 		else
-			minetest.show_formspec(clicker:get_player_name(),"lord_money:shop_formspec",shop.formspec.customer(pos))
+			minetest.show_formspec(user_name,"lord_money:shop_formspec",shop.formspec.customer(pos))
 		end
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
-		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
-		return count
+		if shop.player_has_access(player, pos) then
+			return count
+		end
+		return 0
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
-		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
-		return stack:get_count()
+		if shop.player_has_access(player, pos) then
+			return stack:get_count()
+		end
+		return 0
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
-		if player:get_player_name() ~= meta:get_string("owner") then return 0 end
-		return stack:get_count()
+		if shop.player_has_access(player, pos) then
+			return stack:get_count()
+		end
+		return 0
 	end,
 	can_dig = function(pos, player)
 		local meta = minetest.get_meta(pos)
