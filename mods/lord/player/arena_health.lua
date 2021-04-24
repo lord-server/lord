@@ -1,4 +1,3 @@
-
 local ARENA_AREA_ID = 2316
 
 local function player_display_hp(player)
@@ -24,7 +23,7 @@ minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local pos = vector.round(player:getpos())
 		local in_arena = false
-		for id, area in pairs(areas:getAreasAtPos(pos)) do
+		for id, _ in pairs(areas:getAreasAtPos(pos)) do
 			if id == ARENA_AREA_ID then
 				in_arena = true
 				break

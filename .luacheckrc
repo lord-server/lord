@@ -32,6 +32,7 @@ read_globals      = {
 	"multiskin", -- lottarmor
 	"mobs",
 	"worldedit",
+	"areas",
 
 	-- Опциональная поддержка этих апи модов некоторыми из тех модов, что у нас
 	"unified_inventory",
