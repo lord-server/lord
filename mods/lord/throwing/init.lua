@@ -13,8 +13,11 @@ local function node_ok(pos, fallback)
 	if not node then
 		return minetest.registered_nodes[fallback]
 	end
-	if minetest.registered_nodes[node.name] then
-		return node
+	local name = node.name
+	if name ~= nil then
+		if minetest.registered_nodes[name] then
+			return node
+		end
 	end
 	return minetest.registered_nodes[fallback]
 end
@@ -115,6 +118,9 @@ end
 -- hit different types of targets
 local function hit_node(pos, arrow, callback, collision)
 	local node = node_ok(pos).name
+	if node == nil then
+		return false
+	end
 	if arrow.owner_type == "node" then
 		if arrow.owner.x == math.floor(pos.x) and
 		   arrow.owner.y == math.floor(pos.y) and
@@ -305,11 +311,14 @@ local function hit_objects(pos1, pos2, arrow)
 		local isowner = (arrow.owner_type == "node" and arrow.owner.x == x and arrow.owner.y == y and arrow.owner.z == z)
 		if (not isowner) or arrow.launched then
 			local node = minetest.get_node_or_nil({x=x,y=y,z=z})
-			if node ~= nil and minetest.registered_nodes[node.name].walkable then
-				local collision_box = {x-0.5, y-0.5, z-0.5, x+0.5, y+0.5, z+0.5}
-				local d = find_collision(pos1, dir, dl, collision_box)
-				if d ~= nil then
-					table.insert(collisions, {d=d, obj={x=x,y=y,z=z}, objtype="node"})
+			if node ~= nil then
+				local definition = minetest.registered_nodes[node.name]
+				if definition ~= nil and definition.walkable then
+					local collision_box = {x-0.5, y-0.5, z-0.5, x+0.5, y+0.5, z+0.5}
+					local d = find_collision(pos1, dir, dl, collision_box)
+					if d ~= nil then
+						table.insert(collisions, {d=d, obj={x=x,y=y,z=z}, objtype="node"})
+					end
 				end
 			end
 		end
@@ -532,9 +541,12 @@ local function arrow_step(self, dtime)
 	else
 		-- if not hit - accelerate arrow with gravity and viscosity
 		local k    = self.k
-		local node = minetest.registered_nodes[minetest.get_node(pos).name]
-		if node and node.liquid_viscosity then
-			k = k * BASE_LIQUID_VISCOSITY * node.liquid_viscosity
+		local name = minetest.get_node(pos).name
+		if name ~= nil then
+			local node = minetest.registered_nodes[name]
+			if node ~= nil and node.liquid_viscosity then
+				k = k * BASE_LIQUID_VISCOSITY * node.liquid_viscosity
+			end
 		end
 		local acc = acceleration(vel, k, self.definition.mass)
 		self.object:set_acceleration(acc)
