@@ -11,7 +11,6 @@ local lottthrowing_player_shoot = function(player, arrow_name)
 	return throwing:shoot(player, "player", arrow_name, p, dir, -0.1)
 end
 
-
 local lottthrowing_shoot = function(player, arrow_name)
 	local stack_index = player:get_wield_index() + 1
 	local creative = default.creative
