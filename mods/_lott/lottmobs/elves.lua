@@ -77,7 +77,7 @@ function lottmobs.register_elf_archer(n, hpmin, hpmax, textures, wv, rv, damg, a
 		dogshoot_count2_max  = 3, -- dogfight for 3 seconds
 		reach                = 3,
 		shoot_interval       = 1.25,
-		shoot_offset         = 0.7,
+		shoot_offset         = 0.75,
 		arrow                = "arrows:arrow_steel",
 
 		follow               = "lottother:narya",

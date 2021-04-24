@@ -912,7 +912,7 @@ mobs:register_mob("lottmobs:orc_crossbowman", {
 	dogshoot_count2_max = 5, -- dogfight for 5 seconds
 	reach = 3,
 	shoot_interval = 10,
-	shoot_offset = 2.1,
+	shoot_offset = 0.75,
 	arrow = "arrows:bolt_steel",
 	animation = {
 		speed_normal = 15,
@@ -1012,7 +1012,7 @@ mobs:register_mob("lottmobs:orc_archer", {
 	dogshoot_count2_max = 3, -- dogfight for 3 seconds
 	reach = 3,
 	shoot_interval = 2.5,
-	shoot_offset = 2.1,
+	shoot_offset = 0.75,
 	arrow = "arrows:arrow_steel",
 	animation = {
 		speed_normal = 15,
