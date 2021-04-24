@@ -3,10 +3,9 @@ throwing                    = {}
 throwing.arrows             = {}
 
 local HIT_RADIUS = 4
-
+local DONT_PUNCH_SAME_MOBS = true
 local BASE_LIQUID_VISCOSITY = 50
-
-local STEP = 10
+local PUNCH_ARROWS = false
 
 local function node_ok(pos, fallback)
 	fallback   = fallback or "default:dirt"
@@ -38,7 +37,14 @@ local function acceleration(velocity, k, mass)
 	return { x = -velocity.x * k, y = -9.81 - velocity.y * k, z = -velocity.z * k }
 end
 
-function throwing:shoot(owner, arrow_name, pos, dir, distance)
+-- owner	: player or entity or node position
+-- owner_type	: "player" or "entity" or "node"
+-- arrow_name	: registered arrow name
+-- pos		: launch position
+-- dir		: launch direction
+-- distance	: initial offset from launch position
+
+function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
 	local dl  = (dir.x ^ 2 + dir.y ^ 2 + dir.z ^ 2) ^ 0.5;
 	dir.x     = dir.x / dl
 	dir.y     = dir.y / dl
@@ -47,8 +53,6 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 	pos.x     = pos.x + dir.x * distance
 	pos.y     = pos.y + dir.y * distance
 	pos.z     = pos.z + dir.z * distance
-
-	--minetest.log("action", "pos = "..pos.x.." "..pos.y.." "..pos.z)
 
 	local obj = minetest.add_entity(pos, arrow_name)
 	obj:set_armor_groups({ immortal = 1 })
@@ -61,12 +65,20 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 		vec.y        = v * dir.y
 		vec.z        = v * dir.z
 		entity.switch   = 1
-		if (owner.is_player and owner:is_player()) then
+
+		if owner_type == "player" then
 			entity.owner_id = owner:get_player_name() -- add unique owner id to arrow
 			ownvel          = owner:get_player_velocity()
-		else
+		elseif owner_type == "entity" then
 			entity.owner_id = tostring(owner) -- add unique owner id to arrow
 			ownvel          = owner:get_velocity() or ownvel
+		elseif owner_type == "node"  then
+			entity.owner_id = tostring(owner)
+			ownvel          = {x=0, y=0, z=0}
+		else
+			-- INVALID!
+			minetest.log("Invalid arrow owner: "..owner_type)
+			return false
 		end
 		vec = { x = vec.x + ownvel.x, y = vec.y + ownvel.y, z = vec.z + ownvel.z }
 
@@ -81,7 +93,9 @@ function throwing:shoot(owner, arrow_name, pos, dir, distance)
 		obj:set_yaw(yaw + math.pi)
 		obj:set_acceleration(acceleration(vec, entity.kfr, entity.mass))
 		entity.owner = owner
+		entity.owner_type = owner_type
 		entity.launched = false
+		entity.lastpos = pos
 	end
 	return true
 end
@@ -93,35 +107,49 @@ local function calculate_damage(arrow)
 	local dc     = arrow.definition.damage_coefficient or 0.1
 	local mass   = arrow.definition.mass or 0
 	local damage = mass * v2 / 2 * dc
-	--minetest.log("action", "damage = "..tostring(damage))
 	return damage
 end
 
-local function hit_node(pos, arrow, callback)
+
+-- hit different types of targets
+local function hit_node(pos, arrow, callback, collision)
 	local node = node_ok(pos).name
+	if arrow.owner_type == "node" then
+		if arrow.owner.x == math.floor(pos.x) and
+		   arrow.owner.y == math.floor(pos.y) and
+		   arrow.owner.z == math.floor(pos.z) then
+			return false
+		end
+	end
 	if minetest.registered_nodes[node].walkable then
-		--minetest.log("Hitting "..tostring(node))
 		if callback then
 			callback(arrow, pos, node)
 		end
 		if arrow.drop == true then
 			pos.y         = pos.y + 1
 			arrow.lastpos = (arrow.lastpos or pos)
-			minetest.add_item(arrow.lastpos, arrow.object:get_luaentity().name)
+			minetest.add_item(collision, arrow.object:get_luaentity().name)
 		end
 		return true
 	end
 	return false
 end
 
-local function hit_player(player, arrow, callback, owner_id)
+local function hit_player(player, arrow, callback, owner_id, collision)
 	if callback then
 		callback(arrow, player)
 	end
-	local s   = arrow.object:get_pos()
+	local s   = collision
 	local p   = player:get_pos()
 	local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
-	player:punch(arrow.owner, 1.0, {
+
+	local puncher
+	if arrow.owner_type == "player" or arrow.owner_type == "entity" then
+		puncher = arrow.owner
+	else
+		puncher = arrow.object
+	end
+	player:punch(puncher, 1.0, {
 		full_punch_interval = 1.0,
 		damage_groups       = { fleshy = calculate_damage(arrow) },
 	}, vec)
@@ -129,34 +157,7 @@ local function hit_player(player, arrow, callback, owner_id)
 	return true
 end
 
-local function hit_mob(mob, arrow, callback, owner_id)
-	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
-
-
-	if entity ~= "__builtin:item"
-		and entity ~= "__builtin:falling_node"
-		and entity ~= "gauges:hp_bar"
-		and entity ~= "signs:text"
-		and entity ~= "itemframes:item" then
-
-		--minetest.log("Hitting "..tostring(entity))
-		if callback then
-			callback(arrow, mob)
-		end
-		local s   = arrow.object:get_pos()
-		local p   = mob:get_pos()
-		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
-
-		mob:punch(arrow.owner, 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups       = { fleshy = calculate_damage(arrow) },
-		}, vec)
-
-		return true
-	end
-	return false
-end
-
+-- when arrow is punched
 local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabilities, dir)
 	if arrow.can_drop_on_punch and
 		(arrow:can_drop_on_punch(puncher, time_from_last_punch, tool_capabilities, dir) == false)
@@ -170,63 +171,297 @@ local function arrow_on_punch(arrow, puncher, time_from_last_punch, tool_capabil
 	arrow.object:remove()
 end
 
-local function hits_mob(pos, target_pos, colbox)
-	if colbox == nil then
-		return false
-	end
-	if pos.x - target_pos.x < colbox[1] or pos.y - target_pos.y < colbox[2] or pos.z - target_pos.z < colbox[3] then
-		return false
-	end
-	if pos.x - target_pos.x > colbox[4] or pos.y - target_pos.y > colbox[5] or pos.z - target_pos.z > colbox[6] then
-		return false
-	end
-	return true
-end
+local function hit_mob(mob, arrow, callback, owner_id, collision)
+	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
 
-local function hits_player(pos, target_pos, colbox)
-	if colbox == nil then
-		return false
-	end
-	if pos.x - target_pos.x < colbox[1] or pos.y - target_pos.y < colbox[2] + 1 or pos.z - target_pos.z < colbox[3] then
-		return false
-	end
-	if pos.x - target_pos.x > colbox[4] or pos.y - target_pos.y > colbox[5] + 1 or pos.z - target_pos.z > colbox[6] then
-		return false
-	end
-	return true
-end
+	if entity ~= "__builtin:item"
+		and entity ~= "__builtin:falling_node"
+		and entity ~= "gauges:hp_bar"
+		and entity ~= "signs:text"
+		and entity ~= "itemframes:item" then
 
-local function hit_players(self, lpos)
-	local hit = false
-	local lmobs = minetest.get_objects_inside_radius(lpos, HIT_RADIUS)
-	local intersect_owner = false
-	-- now check that arrow hits their collisionbox
-	for _, player in pairs(lmobs) do
-		if player == self.owner then
-			intersect_owner = true
+		minetest.log("hit mob "..tostring(entity).." at "..collision.x.." "..collision.y.." "..collision.z)
+		if callback then
+			callback(arrow, mob)
 		end
-		if player ~= self.object and (self.launched or self.owner ~= player) then
-			if player:is_player() then
-				local ppos = player:get_pos()
-				if hits_player(lpos, ppos, player:get_properties().collisionbox) then
-					hit = hit_player(player, self, self.hit_player, self.owner_id) or hit
-				end
-			else
-				local entity = player:get_luaentity()
-				local ppos = player:get_pos()
-				if hits_mob(lpos, ppos, entity.collisionbox) then
-					hit = hit_mob(player, self, self.hit_mob, self.owner_id) or hit
+		local s   = collision
+		local p   = mob:get_pos()
+		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
+
+		local puncher
+		if arrow.owner_type == "player" or arrow.owner_type == "entity" then
+			puncher = arrow.owner
+		else
+			puncher = arrow.object
+		end
+
+		mob:punch(puncher, 1.0, {
+			full_punch_interval = 1.0,
+			damage_groups       = { fleshy = calculate_damage(arrow) },
+		}, vec)
+
+		return true
+	end
+	return false
+end
+
+
+local function find_collision(pos, dir, linelen, cbox)
+	local x1 = cbox[1]
+	local x2 = cbox[4]
+
+	local y1 = cbox[2]
+	local y2 = cbox[5]
+
+	local z1 = cbox[3]
+	local z2 = cbox[6]
+
+	-- we are inside box
+	if pos.x >= x1 and pos.x <= x2 and pos.y >= y1 and pos.y <= y2 and pos.z >= z1 and pos.z <= z2 then
+		return 0
+	end
+
+	local ts = {}
+	local t
+
+	t = (x1 - pos.x)/dir.x
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
+			table.insert(ts, t)
+		end
+	end
+	t = (x2 - pos.x)/dir.x
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
+			table.insert(ts, t)
+		end
+	end
+
+	t = (y1 - pos.y)/dir.y
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
+			table.insert(ts, t)
+		end
+	end
+	t = (y2 - pos.y)/dir.y
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
+			table.insert(ts, t)
+		end
+	end
+
+	t = (z1 - pos.z)/dir.z
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
+			table.insert(ts, t)
+		end
+	end
+	t = (z2 - pos.z)/dir.z
+	if t >= 0 and t <= linelen then
+		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+		if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
+			table.insert(ts, t)
+		end
+	end
+
+	if table.getn(ts) == 0 then
+		return nil
+	end
+
+	table.sort(ts)
+	return ts[1]
+end
+
+local function hit_objects(pos1, pos2, arrow)
+	local area = {
+		x1=math.min(pos1.x, pos2.x),
+		y1=math.min(pos1.y, pos2.y),
+		z1=math.min(pos1.z, pos2.z),
+		x2=math.max(pos1.x, pos2.x),
+		y2=math.max(pos1.y, pos2.y),
+		z2=math.max(pos1.z, pos2.z),
+	}
+
+	-- find collisions with entities and playes
+	local entities = minetest.get_objects_inside_radius(pos1, HIT_RADIUS)
+	local collisions = {}
+
+	local dir = {x=pos2.x-pos1.x, y=pos2.y-pos1.y, z=pos2.z-pos1.z}
+	local dl = math.sqrt(dir.x*dir.x + dir.y*dir.y + dir.z*dir.z)
+	dir.x = dir.x / dl
+	dir.y = dir.y / dl
+	dir.z = dir.z / dl
+
+	-- find collisions with nodes
+	for x = math.floor(area.x1), math.floor(area.x2)+1 do
+	for y = math.floor(area.y1), math.floor(area.y2)+1 do
+	for z = math.floor(area.z1), math.floor(area.z2)+1 do
+		local isowner = (arrow.owner_type == "node" and arrow.owner.x == x and arrow.owner.y == y and arrow.owner.z == z)
+		if (not isowner) or arrow.launched then
+			local node = minetest.get_node_or_nil({x=x,y=y,z=z})
+			if node ~= nil and minetest.registered_nodes[node.name].walkable then
+				local collision_box = {x-0.5, y-0.5, z-0.5, x+0.5, y+0.5, z+0.5}
+				local d = find_collision(pos1, dir, dl, collision_box)
+				if d ~= nil then
+					table.insert(collisions, {d=d, obj={x=x,y=y,z=z}, objtype="node"})
 				end
 			end
 		end
 	end
-	if not self.launched and not intersect_owner then
-		-- arrow has leaved player, who shoot
-		self.launched = true
 	end
+	end
+
+	for _, player in pairs(entities) do
+		local isowner = (player == arrow.owner)
+		local isself = (player == arrow.object)
+		if (not isself) and ((not isowner) or arrow.launched) then
+			local ppos
+			local collision_box
+			local ptype
+			if player:is_player() then
+				collision_box = player:get_properties().collisionbox
+				ppos = player:getpos()
+				ptype = "player"
+			else
+				collision_box = player:get_luaentity().collisionbox
+				ppos = player:getpos()
+				ptype = "entity"
+			end
+
+			if collision_box ~= nil then
+				local box = {}
+				box[1] = collision_box[1] + ppos.x
+				box[4] = collision_box[4] + ppos.x
+
+				box[2] = collision_box[2] + ppos.y
+				box[5] = collision_box[5] + ppos.y
+
+				box[3] = collision_box[3] + ppos.z
+				box[6] = collision_box[6] + ppos.z
+				local d = find_collision(pos1, dir, dl, box)
+				if d ~= nil then
+					table.insert(collisions, {d=d, obj=player, objtype=ptype})
+				end
+			end
+		end
+	end
+
+
+	-- check if collision present
+	if table.getn(collisions) == 0 then
+		return false
+	end
+
+	-- find nearest collisions
+	local nearest = nil
+	local mind = nil
+	local collision_point
+	for _, collision in pairs(collisions) do
+		if mind == nil or mind > collision.d then
+			nearest = collision
+			mind = collision.d
+			collision_point = {x=pos1.x+dir.x*mind, y=pos1.y+dir.y*mind, z=pos1.z+dir.z*mind}
+		end
+	end
+
+	local hit
+	-- hit nearest collision
+	if nearest.objtype == "player" then
+		-- hit player
+		hit = hit_player(nearest.obj, arrow, arrow.hit_player, arrow.owner_id, collision_point)
+	elseif nearest.objtype == "entity" then
+		-- hit entity
+		local hit_same_mob = true
+
+		if DONT_PUNCH_SAME_MOBS and arrow.owner_type == "entity" then
+			local target = nearest.obj:get_entity_name()
+			local archer = arrow.owner:get_entity_name()
+			if target == archer then
+				hit_same_mob = false
+			end
+		end
+
+		if hit_same_mob then
+			hit = hit_mob(nearest.obj, arrow, arrow.hit_mob, arrow.owner_id, collision_point)
+		else
+			hit = true
+		end
+	elseif nearest.objtype == "node" then
+		-- hit node
+		hit = hit_node(nearest.obj, arrow, arrow.hit_node, collision_point)
+	else
+		minetest.log("Invalid collision type")
+		return false
+	end
+
 	return hit
 end
 
+local function near_owner(arrow)
+	local owner_type = arrow.owner_type
+	local box = {}
+	local collision_box
+	if owner_type == "player" then
+		collision_box = arrow.owner:get_properties().collisionbox
+	elseif owner_type == "entity" then
+		local entity = arrow.owner:get_luaentity()
+		if entity == nil then
+			minetest.log("entity is nil!")
+			minetest.log("is_player = "..tostring(arrow.owner:is_player()))
+			minetest.log(tostring(arrow.owner))
+			return false
+		end
+		collision_box = entity.collisionbox
+	elseif owner_type == "node" then
+		box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
+	else
+		return false
+	end
+
+	if box == nil then
+		minetest.log("Collision box == nil")
+		return false
+	end
+
+	local max_dist = 2
+	local pos = arrow.object:get_pos()
+
+	if owner_type == "player" or owner_type == "entity" then
+		local ppos = arrow.owner:getpos()
+		if math.abs(ppos.x-pos.x) > max_dist or math.abs(ppos.y-pos.y) > max_dist or math.abs(ppos.z-pos.z) > max_dist then
+			return false
+		end
+
+		box[1] = collision_box[1] + ppos.x
+		box[4] = collision_box[4] + ppos.x
+
+		box[2] = collision_box[2] + ppos.y
+		box[5] = collision_box[5] + ppos.y
+
+		box[3] = collision_box[3] + ppos.z
+		box[6] = collision_box[6] + ppos.z
+	end
+
+
+	if pos.x < box[1] or pos.x > box[4] then
+		return false
+	end
+
+	if pos.y < box[2] or pos.y > box[5] then
+		return false
+	end
+
+	if pos.z < box[3] or pos.z > box[6] then
+		return false
+	end
+
+	return true
+end
 
 local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
@@ -273,31 +508,22 @@ local function arrow_step(self, dtime)
 		})
 	end
 
+	-- calculate movement
 	local res = false
 	local vel = self.object:get_velocity()
-	local vel_len = math.sqrt(vel.x*vel.x + vel.y*vel.y + vel.z*vel.z)
-	local step_len = vel_len * dtime
 
-	if vel_len > 0 then
-		local dir = {x = vel.x/vel_len, y = vel.y/vel_len, z = vel.z/vel_len}
-
-		for l = 0, (step_len * STEP) do
-			local lpos = {x = pos.x + dir.x * l / STEP, y = pos.y + dir.y * l/STEP, z = pos.z + dir.z * l/STEP}
-
-			local hit = hit_node(lpos, self, self.hit_node) or hit_players(self, lpos)
-
-			if hit then
-				res = true
-				break
-			else
-				self.lastpos = lpos
-			end
-		end
+	-- check for nodes, mobs and players hit
+	if  vel.x ~= 0 or vel.y ~= 0 or vel.z ~= 0  then
+		local pos1 = self.lastpos
+		local pos2 = pos
+		res = hit_objects(pos1, pos2, self)
 	end
 
 	if res == true then
+		-- if hit node - remove arrow entity
 		self.object:remove();
 	else
+		-- if not hit - accelerate arrow with gravity and viscosity
 		local k    = self.k
 		local node = minetest.registered_nodes[minetest.get_node(pos).name]
 		if node and node.liquid_viscosity then
@@ -307,6 +533,10 @@ local function arrow_step(self, dtime)
 		self.object:set_acceleration(acc)
 	end
 	self.lastpos = pos
+
+	if (not self.launched) and (not near_owner(self)) then
+		self.launched = true
+	end
 end
 
 
@@ -323,7 +553,7 @@ function throwing:register_arrow(name, def)
 		dop = false
 	end
 
-	local k               = def.kfr and def.mass and def.mass > 0 and def.kfr / def.mass or 0
+	local k = def.kfr and def.mass and def.mass > 0 and def.kfr / def.mass or 0
 
 	throwing.arrows[name] = def
 	minetest.register_entity(name, {
@@ -350,7 +580,6 @@ function throwing:register_arrow(name, def)
 		automatic_face_movement_dir = def.rotate and (def.rotate - (math.pi / 180)) or false,
 
 		on_step                     = def.on_step or arrow_step,
-		on_punch                    = dop and (def.on_punch or arrow_on_punch) or nil,
+		on_punch                    = PUNCH_ARROWS and dop and (def.on_punch or arrow_on_punch) or nil,
 	})
 end
-

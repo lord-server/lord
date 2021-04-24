@@ -1746,7 +1746,7 @@ local do_states = function(self, dtime)
 
 				local p = self.object:getpos()
 
-				p.y = p.y + (self.collisionbox[2] + self.collisionbox[5]) / 2
+				p.y = p.y + (self.collisionbox[2]*0.2 + self.collisionbox[5]*0.8)
 
 				local dir = {
 					x = vec.x,
@@ -1754,7 +1754,7 @@ local do_states = function(self, dtime)
 					z = vec.z,
 				}
 
-				throwing:shoot(self.object, self.arrow, p, dir, 0.5)
+				throwing:shoot(self.object, "entity", self.arrow, p, dir, 0.5)
 			end
 		end
 	end

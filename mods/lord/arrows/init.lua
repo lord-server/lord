@@ -29,12 +29,12 @@ function arrows:register_arrow(name, definition)
 	})
 end
 
-local shoot_throwing_weapon = function(item, player, pointed_thing)
+local player_shoot_throwing_weapon = function(item, player, pointed_thing)
 
 	local playerpos = player:getpos()
 	local dir = player:get_look_dir()
 
-	throwing:shoot(player, item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, -0.1)
+	throwing:shoot(player, "player", item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0)
 
 	if not default.creative then
 		item:take_item()
@@ -45,7 +45,7 @@ end
 function arrows:register_throwing_weapon(name, definition)
 	arrows:register_arrow(name, definition.arrow)
 	local def = definition.craftitem
-	def.on_use = shoot_throwing_weapon
+	def.on_use = player_shoot_throwing_weapon
 	minetest.register_craftitem(name, def)
 end
 
