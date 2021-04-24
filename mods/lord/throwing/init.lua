@@ -5,6 +5,7 @@ throwing.arrows             = {}
 local HIT_RADIUS = 4
 local DONT_PUNCH_SAME_MOBS = true
 local BASE_LIQUID_VISCOSITY = 50
+local PUNCH_ARROWS = false
 
 local function node_ok(pos, fallback)
 	fallback   = fallback or "default:dirt"
@@ -206,7 +207,6 @@ end
 
 
 local function find_collision(pos, dir, linelen, cbox)
---	minetest.log(cbox[1].." "..cbox[2].." "..cbox[3].." "..cbox[4].." "..cbox[5].." "..cbox[6])
 	local x1 = cbox[1]
 	local x2 = cbox[4]
 
@@ -272,7 +272,7 @@ local function find_collision(pos, dir, linelen, cbox)
 	if table.getn(ts) == 0 then
 		return nil
 	end
---	minetest.log("found "..tostring(cbox))
+
 	table.sort(ts)
 	return ts[1]
 end
@@ -301,8 +301,6 @@ local function hit_objects(pos1, pos2, arrow)
 	for x = math.floor(area.x1), math.floor(area.x2)+1 do
 	for y = math.floor(area.y1), math.floor(area.y2)+1 do
 	for z = math.floor(area.z1), math.floor(area.z2)+1 do
---		minetest.log("owner = "..arrow.owner.x.." "..arrow.owner.y.." "..arrow.owner.z)
---		minetest.log("current = "..x.." "..y.." "..z)
 		local isowner = (arrow.owner_type == "node" and arrow.owner.x == x and arrow.owner.y == y and arrow.owner.z == z)
 		if (not isowner) or arrow.launched then
 			local node = minetest.get_node_or_nil({x=x,y=y,z=z})
@@ -337,7 +335,6 @@ local function hit_objects(pos1, pos2, arrow)
 
 			if collision_box ~= nil then
 				local box = {}
---				minetest.log("cb "..tostring(collision_box[0]).." pos "..tostring(ppos.x))
 				box[1] = collision_box[1] + ppos.x
 				box[4] = collision_box[4] + ppos.x
 
@@ -384,7 +381,6 @@ local function hit_objects(pos1, pos2, arrow)
 		if DONT_PUNCH_SAME_MOBS and arrow.owner_type == "entity" then
 			local target = nearest.obj:get_entity_name()
 			local archer = arrow.owner:get_entity_name()
---			minetest.log("target = "..target.." archer "..archer)
 			if target == archer then
 				hit_same_mob = false
 			end
@@ -557,7 +553,7 @@ function throwing:register_arrow(name, def)
 		dop = false
 	end
 
-	local k               = def.kfr and def.mass and def.mass > 0 and def.kfr / def.mass or 0
+	local k = def.kfr and def.mass and def.mass > 0 and def.kfr / def.mass or 0
 
 	throwing.arrows[name] = def
 	minetest.register_entity(name, {
@@ -584,7 +580,6 @@ function throwing:register_arrow(name, def)
 		automatic_face_movement_dir = def.rotate and (def.rotate - (math.pi / 180)) or false,
 
 		on_step                     = def.on_step or arrow_step,
---		on_punch                    = dop and (def.on_punch or arrow_on_punch) or nil,
+		on_punch                    = PUNCH_ARROWS and dop and (def.on_punch or arrow_on_punch) or nil,
 	})
 end
-
