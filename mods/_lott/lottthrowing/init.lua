@@ -118,7 +118,7 @@ minetest.register_tool("lottthrowing:bow_wood_mallorn", {
 
 minetest.register_node("lottthrowing:arrownode", {
 	description = SL("Automatic shooting node"),
-        tiles = {"lottblocks_snowycobble.png"},
+	tiles = {"lottblocks_snowycobble.png"},
 	on_construct = function(pos)
 		local timer = minetest.get_node_timer(pos)
 		timer:start(1)

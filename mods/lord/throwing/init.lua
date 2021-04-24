@@ -53,8 +53,6 @@ function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
 	pos.y     = pos.y + dir.y * distance
 	pos.z     = pos.z + dir.z * distance
 
-	--minetest.log("action", "pos = "..pos.x.." "..pos.y.." "..pos.z)
-
 	local obj = minetest.add_entity(pos, arrow_name)
 	obj:set_armor_groups({ immortal = 1 })
 	local entity = obj:get_luaentity()
@@ -108,7 +106,6 @@ local function calculate_damage(arrow)
 	local dc     = arrow.definition.damage_coefficient or 0.1
 	local mass   = arrow.definition.mass or 0
 	local damage = mass * v2 / 2 * dc
-	--minetest.log("action", "damage = "..tostring(damage))
 	return damage
 end
 
@@ -124,7 +121,6 @@ local function hit_node(pos, arrow, callback, collision)
 		end
 	end
 	if minetest.registered_nodes[node].walkable then
-		--minetest.log("Hitting "..tostring(node))
 		if callback then
 			callback(arrow, pos, node)
 		end
@@ -177,14 +173,13 @@ end
 local function hit_mob(mob, arrow, callback, owner_id, collision)
 	local entity = mob:get_luaentity() and mob:get_luaentity().name or ""
 
---	minetest.log("hit mob at "..collision.x.." "..collision.y.." "..collision.z)
 	if entity ~= "__builtin:item"
 		and entity ~= "__builtin:falling_node"
 		and entity ~= "gauges:hp_bar"
 		and entity ~= "signs:text"
 		and entity ~= "itemframes:item" then
 
-		--minetest.log("Hitting "..tostring(entity))
+		minetest.log("hit mob "..tostring(entity).." at "..collision.x.." "..collision.y.." "..collision.z)
 		if callback then
 			callback(arrow, mob)
 		end
@@ -411,7 +406,7 @@ local function hit_objects(pos1, pos2, arrow)
 	return hit
 end
 
-local function inside_owner(arrow)
+local function near_owner(arrow)
 	local owner_type = arrow.owner_type
 	local box = {}
 	local collision_box
@@ -437,8 +432,15 @@ local function inside_owner(arrow)
 		return false
 	end
 
+	local max_dist = 2
+	local pos = arrow.object:get_pos()
+
 	if owner_type == "player" or owner_type == "entity" then
 		local ppos = arrow.owner:getpos()
+		if math.abs(ppos.x-pos.x) > max_dist or math.abs(ppos.y-pos.y) > max_dist or math.abs(ppos.z-pos.z) > max_dist then
+			return false
+		end
+
 		box[1] = collision_box[1] + ppos.x
 		box[4] = collision_box[4] + ppos.x
 
@@ -449,11 +451,6 @@ local function inside_owner(arrow)
 		box[6] = collision_box[6] + ppos.z
 	end
 
-	local pos = arrow.object:get_pos()
-
---	minetest.log("******************")
---	minetest.log(pos.x.." "..pos.y.." "..pos.z)
---	minetest.log(box[1].." "..box[2].." "..box[3].." "..box[4].." "..box[5].." "..box[6])
 
 	if pos.x < box[1] or pos.x > box[4] then
 		return false
@@ -474,7 +471,6 @@ local function arrow_step(self, dtime)
 	self.timer = self.timer + dtime
 
 	local pos  = self.object:get_pos()
---	minetest.log("pos = "..pos.x.." "..pos.y.." "..pos.z)
 
 	-- start arrow move
 	if self.inited == false then
@@ -542,7 +538,7 @@ local function arrow_step(self, dtime)
 	end
 	self.lastpos = pos
 
-	if not inside_owner(self) then
+	if (not self.launched) and (not near_owner(self)) then
 		self.launched = true
 	end
 end
