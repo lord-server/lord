@@ -310,9 +310,13 @@ local function diamond_square(top)
 end
 
 minetest.register_tool("mountgen:mount_tool", {
-        description = "Горный посох",
-        inventory_image = "ghost_tool.png",
-        on_use = function(itemstack, user, pointed_thing)
+	description = "Горный посох",
+	inventory_image = "ghost_tool.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local can_access = minetest.get_player_privs(user_name).admin_pick
+		if not can_access then
+			return
+		end
 		local top = user:get_pos()
 		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
 
@@ -323,6 +327,10 @@ minetest.register_tool("mountgen:mount_tool", {
 		end
 
 		return itemstack
-	end
+	end,
+	group = {},
+	on_drop = function(itemstack, dropper, pos)
+		return
+	end,
 })
 
