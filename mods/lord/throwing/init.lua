@@ -96,6 +96,7 @@ function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
 		entity.owner_type = owner_type
 		entity.launched = false
 		entity.lastpos = pos
+		entity.launch_pos = pos
 	end
 	return true
 end
@@ -428,15 +429,22 @@ local function near_owner(arrow)
 		return false
 	end
 
-	local max_dist = 2
+	local max_dist = 6
 	local pos = arrow.object:get_pos()
+	local ppos = arrow.owner:getpos()
+	local lpos = arrow.launch_pos
 
 	if owner_type == "player" or owner_type == "entity" then
-		local ppos = arrow.owner:getpos()
-		if math.abs(ppos.x-pos.x) > max_dist or math.abs(ppos.y-pos.y) > max_dist or math.abs(ppos.z-pos.z) > max_dist then
-			return false
+		if math.abs(ppos.x-pos.x) < max_dist and math.abs(ppos.y-pos.y) < max_dist and math.abs(ppos.z-pos.z) < max_dist then
+			return true
 		end
 
+		if math.abs(lpos.x-pos.x) < max_dist and math.abs(lpos.y-pos.y) < max_dist and math.abs(lpos.z-pos.z) < max_dist then
+			return true
+		end
+
+		return false
+	else
 		box[1] = collision_box[1] + ppos.x
 		box[4] = collision_box[4] + ppos.x
 
@@ -445,22 +453,21 @@ local function near_owner(arrow)
 
 		box[3] = collision_box[3] + ppos.z
 		box[6] = collision_box[6] + ppos.z
+
+		if pos.x < box[1] or pos.x > box[4] then
+			return false
+		end
+
+		if pos.y < box[2] or pos.y > box[5] then
+			return false
+		end
+
+		if pos.z < box[3] or pos.z > box[6] then
+			return false
+		end
+
+		return true
 	end
-
-
-	if pos.x < box[1] or pos.x > box[4] then
-		return false
-	end
-
-	if pos.y < box[2] or pos.y > box[5] then
-		return false
-	end
-
-	if pos.z < box[3] or pos.z > box[6] then
-		return false
-	end
-
-	return true
 end
 
 local function arrow_step(self, dtime)
