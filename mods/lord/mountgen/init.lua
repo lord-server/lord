@@ -313,6 +313,7 @@ minetest.register_tool("mountgen:mount_tool", {
 	description = "Горный посох",
 	inventory_image = "ghost_tool.png",
 	on_use = function(itemstack, user, pointed_thing)
+		local user_name = user:get_player_name()
 		local can_access = minetest.get_player_privs(user_name).admin_pick
 		if not can_access then
 			return
