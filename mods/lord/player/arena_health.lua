@@ -4,14 +4,14 @@ local function player_display_hp(player)
 	local name = player:get_player_name()
 	local hp = player:get_hp()
 	local color
-	if hp > 10 then
-		color = "#FFFFFF"
-	elseif hp > 5 then
+	if hp > 13 then
+		color = "#00FF00"
+	elseif hp > 6 then
 		color = "#FFFF00"
 	else
 		color = "#FF0000"
 	end
-	player:set_properties({nametag = name.." HP: "..hp, nametag_color = color,})
+	player:set_properties({nametag = name.." ♥ "..hp, nametag_color = color,})
 end
 
 local function player_undisplay_hp(player)
