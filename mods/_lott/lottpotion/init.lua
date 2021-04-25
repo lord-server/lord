@@ -97,7 +97,9 @@ lottpotion = {
 
 		-- limit effects
 		local test = lottpotion.players[playername]
-		if test.speed + def.speed > limit.speed or test.jump + def.jump > limit.jump then return end
+		if (test ~= nil) and ((test.speed + def.speed > limit.speed) or (test.jump + def.jump > limit.jump)) then
+			return
+		end
 
 		itemstack:take_item()
 		local image_potion = nil
@@ -147,6 +149,9 @@ lottpotion = {
 	end,
 	addPrefs = function(playername, speed, jump, gravity)
 		local prefs = lottpotion.players[playername]
+		if prefs == nil then
+			return
+		end
 		prefs.speed = prefs.speed + speed
 		if prefs.speed > 5 then
 			prefs.speed = 5
@@ -169,6 +174,9 @@ lottpotion = {
 	refresh = function(playername)
 		if minetest.get_player_by_name(playername)~=nil then
 			local prefs = lottpotion.players[playername]
+			if prefs == nil then
+				return
+			end
 			minetest.get_player_by_name(playername):set_physics_override(prefs.speed, prefs.jump, prefs.gravity)
 		end
 	end,
