@@ -129,7 +129,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 	description = SL("Empty Bucket"),
 	inventory_image = "bucket.png",
 	liquids_pointable = true,
-	on_use = function(itemstack, user, pointed_thing)
+	on_place = function(itemstack, placer, pointed_thing)
 		-- Must be pointing to node
 		if pointed_thing.type ~= "node" then
 			return
@@ -142,7 +142,7 @@ minetest.register_craftitem("bucket:bucket_empty", {
 			(node.name == liquiddef.flowing and
 				minetest.settings:get_bool("liquid_finite"))) then
 			if check_protection(pointed_thing.under,
-					user:get_player_name(),
+					placer:get_player_name(),
 					"take ".. node.name) then
 				return
 			end
@@ -157,10 +157,10 @@ minetest.register_craftitem("bucket:bucket_empty", {
 				return ItemStack({name = liquiddef.itemname, metadata = tostring(node.param2)})
 			else
 				itemstack:take_item()
-				local pos = user:getpos()
-				local res = user:get_inventory():add_item("main", liquiddef.itemname)
+				local pos = placer:getpos()
+				local res = placer:get_inventory():add_item("main", liquiddef.itemname)
 				if res then
-					minetest.item_drop(res, user, pos)
+					minetest.item_drop(res, placer, pos)
 				end
 				return itemstack
 			end
