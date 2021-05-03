@@ -1,0 +1,3 @@
+### init.lua ###
+Clownfish		= Рыба клоун
+Tropical fish	= Тропическая рыбка

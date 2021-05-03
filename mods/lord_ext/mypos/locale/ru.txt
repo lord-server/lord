@@ -1,0 +1,5 @@
+### init.lua ###
+Show your position for all or same player. = Показывает свое положение всем или указанному игроку.
+Player not found!  =  Такой игорок не существует!
+Player for private message not found! = Игрок не в игре!
+Done.  =  Выполнено.

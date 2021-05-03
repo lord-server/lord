@@ -1,0 +1,19 @@
+### init.lua ###
+Permission to override teleport to other players. UNFINISHED	=	Permission to override teleport to other players. UNFINISHED
+
+Request teleport to another player	=	Request teleport to another player
+Request player to teleport to you	=	Request player to teleport to you
+Accept teleport requests from another player	=	Accept teleport requests from another player
+Deny teleport requests from another player	=	Deny teleport requests from another player
+
+Request Accepted!	=	Request Accepted!
+You are teleporting to	=	You are teleporting to
+is teleporting to you.	=	is teleporting to you.
+Usage: /tpy allows you to accept teleport requests sent to you by other players	=	Usage: /tpy allows you to accept teleport requests sent to you by other players
+Teleport request denied.	=	Teleport request denied.
+Teleport request sent! It will time out in	=	Teleport request sent! It will time out in
+seconds.	=	seconds.
+is requesting that you teleport to them. /tpy to accept; /tpn to deny	=	is requesting that you teleport to them. /tpy to accept; /tpn to deny
+Usage: /tphr <Player name>	=	Usage: /tphr <Player name>
+is requesting to teleport to you. /tpy to accept.	=	is requesting to teleport to you. /tpy to accept.
+Usage: /tpr <Player name>	=	Usage: /tpr <Player name>
