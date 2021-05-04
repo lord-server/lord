@@ -1,3 +1,8 @@
 ### init.lua ###
-Teleport to the spawn location	=	Переместиться на точку спавна
-Teleport to the hall life = Переместиться в Зал Жизни
+Teleport to the spawn location = Переместиться на точку спауна
+Teleport to the Hall of Life = Переместиться в Зал Жизни
+Teleport to the Hall of Death = Переместиться в Зал Жизни
+Teleporting to spawn... = Производится перемещение на спаун...
+Teleporting to Hall of Life... = Производится перемещение в Зал Жизни...
+Teleporting to Hall of Death... = Производится перемещение в Зал Смерти...
+Teleport failed = Не удалось переместиться
