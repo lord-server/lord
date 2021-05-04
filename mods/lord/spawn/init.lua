@@ -1,4 +1,4 @@
-local SL = rawget(_G, "intllib") and intllib.Getter() or function(s) return s end
+local SL = lord.require_intllib()
 
 -- Some modified from: Minetest: builtin/static_spawn.lua
 
@@ -16,9 +16,7 @@ local function check_spawnpoint(config_setting)
 	return true
 end
 
-
 local function put_player_at_spawn(obj)
-
 	local config_setting
 
 	-- players with interact spawn at the location specified by
@@ -46,28 +44,64 @@ local function put_player_at_spawn(obj)
 	return true
 end
 
+--Spawn
 
 minetest.register_chatcommand("spawn", {
 	description = SL("Teleport to the spawn location"),
 	func = function(name, _)
 		local ok = put_player_at_spawn(minetest.get_player_by_name(name))
 		if ok then
-			return true, "Teleporting to spawn..."
+			return true, SL("Teleporting to spawn...")
 		end
-		return false, "Teleport failed"
+		return false, SL("Teleport failed")
 	end
 })
 
+--Hall of Life
+
 minetest.register_chatcommand("life", {
-	description = SL("Teleport to the hall life"),
+	description = SL("Teleport to the Hall of Life"),
 	func = function(name, _)
 		local ok = put_player_at_spawn(minetest.get_player_by_name(name))
 		if ok then
-			return true, "Teleporting to hall life..."
+			return true, SL("Teleporting to Hall of Life...")
 		end
-		return false, "Teleport failed"
+		return false, SL("Teleport failed")
 	end
 })
+
+--Hall of Death
+
+local death = "hall_of_death_pos"
+
+local function tp_to_hall_of_death(obj)
+	if not check_spawnpoint(death) then
+		return false
+	end
+
+	local hall_of_death = minetest.setting_get_pos(death)
+
+	minetest.log('action', "Moving "..obj:get_player_name()..
+			" to "..death.." at "..
+			minetest.pos_to_string(hall_of_death))
+
+	obj:setpos(hall_of_death)
+
+	return true
+end
+
+if check_spawnpoint(death) then
+	minetest.register_chatcommand("death", {
+		description = SL("Teleport to the Hall of Death"),
+		func = function(name, _)
+			local ok = tp_to_hall_of_death(minetest.get_player_by_name(name))
+			if ok then
+				return true, SL("Teleporting to Hall of Death...")
+			end
+			return false, SL("Teleport failed")
+		end
+	})
+end
 
 minetest.register_on_newplayer(function(obj)
 	return put_player_at_spawn(obj)
