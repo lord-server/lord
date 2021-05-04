@@ -1,0 +1,3 @@
+### init.lua ###
+Teleport to the spawn location	=	Переместиться на точку спавна
+Teleport to the hall life = Переместиться в Зал Жизни

@@ -78,6 +78,10 @@
  - `string.lower()` и `string.upper()` для русского
  - используются ли ? и нужны ли для новых версий Minetest'а ?
 
+### `spawn`
+ - команды /life, /spawn
+ - перемещение на статическую точку спауна
+
 ### `throwing`
  - вынесено из [`lottthrowing`](https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottthrowing) и допилено: разделено на движок/api(`throwing`) и бросабельные-итемы/ака-стрелы(`arrows`))
  - завезена физика притяжения (полёт/падение "стрелы" по дуге)
