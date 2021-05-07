@@ -174,15 +174,21 @@ end)
 
 -- respawn player at bed if enabled and valid position is found
 minetest.register_on_respawnplayer(function(player)
-	if not enable_respawn then
-		return false
-	end
 	local name = player:get_player_name()
-	local pos = beds.spawn[name] or nil
-	if pos then
-		player:setpos(pos)
-		return true
+	if enable_respawn then
+		local pos = beds.spawn[name] or nil
+		if pos then
+			player:setpos(pos)
+			return true
+		end
 	end
+	local a
+	if spawn.check_spawnpoint(races.get_race(name).."_spawn_pos") then
+		a = spawn.put_player_at_spawn(player, races.get_race(name).."_spawn_pos")
+	else
+		a = spawn.put_player_at_spawn(player, "common_spawn_pos")
+	end
+	return a
 end)
 
 minetest.register_on_leaveplayer(function(player)
