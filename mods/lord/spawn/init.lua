@@ -2,38 +2,42 @@ local SL = lord.require_intllib()
 
 -- Some modified from: Minetest: builtin/static_spawn.lua
 
+spawn = {}
+
+function spawn.pos_from_conf(conf)
+	local t = {}
+
+	t.x = tonumber(string.split(minetest.settings:get(conf), ",")[1])
+	t.y = tonumber(string.split(minetest.settings:get(conf), ",")[2])
+	t.z = tonumber(string.split(minetest.settings:get(conf), ",")[3])
+
+	if t.x and t.y and t.z then
+		return t
+	else
+		return false
+	end
+end
+
 local function check_spawnpoint(config_setting)
-	if not minetest.setting_get(config_setting) then
-		minetest.log('error', "The \"" .. config_setting .. "\" setting is not set")
+	if not minetest.settings:get(config_setting) then
+		minetest.log('action', "The \"" .. config_setting .. "\" setting is not set")
 		return false
 	end
 
-	if not minetest.setting_get_pos(config_setting) then
-		minetest.log('error', "The " .. config_setting .. " setting is invalid: \""..
+	if not spawn.pos_from_conf(config_setting) then
+		minetest.log('action', "The " .. config_setting .. " setting is invalid: \""..
 				core.setting_get(config_setting).."\"")
 		return false
 	end
 	return true
 end
 
-local function put_player_at_spawn(obj)
-	local config_setting
-
-	-- players with interact spawn at the location specified by
-	-- "alt_spawnpoint" in the .conf file. Those *without* interact go to
-	-- "static_spawnpoint".
-
-	if not minetest.get_player_privs(obj:get_player_name()).interact then
-		config_setting  = "static_spawnpoint"
-	else
-		config_setting  = "alt_spawnpoint"
-	end
-
+local function put_player_at_spawn(obj, config_setting)
 	if not check_spawnpoint(config_setting) then
 		return false
 	end
 
-	local spawnpoint = minetest.setting_get_pos(config_setting)
+	local spawnpoint = spawn.pos_from_conf(config_setting)
 
 	minetest.log('action', "Moving " .. obj:get_player_name() ..
 			" to " .. config_setting .. " at "..
@@ -44,9 +48,44 @@ local function put_player_at_spawn(obj)
 	return true
 end
 
---Spawn
 
 minetest.register_chatcommand("spawn", {
+	description = SL("Teleport to Spawn"),
+	func = function(name, _)
+		local player = minetest.get_player_by_name(name)
+		local setting = races.get_race(name).."_spawn_pos"
+		if (minetest.settings:get_bool("dynamic_spawn") ~= true) or (not check_spawnpoint(setting)) then
+			local ok = put_player_at_spawn(player, "common_spawn_pos")
+			if ok then
+				return true, SL("Teleporting to common Spawn...")
+			end
+		end
+		if put_player_at_spawn(player, setting) then
+			return true,
+			SL("Teleporting to "..races.get_race(name).." Spawn...")
+		end
+		return false, SL("Teleport failed")
+	end
+})
+
+minetest.register_chatcommand("choose_spawn", {
+	params = "<race>",
+	privs = "server",
+	description = SL("Teleport to specified Spawn"),
+	func = function(name, race)
+		local player = minetest.get_player_by_name(name)
+		local setting = race.."_spawn_pos"
+		if put_player_at_spawn(player, setting) then
+			return true,
+			SL("Teleporting to "..race.." Spawn...")
+		end
+		return false, SL("Teleport failed")
+	end
+})
+
+--Spawn
+
+--[[minetest.register_chatcommand("spawn", {
 	description = SL("Teleport to the spawn location"),
 	func = function(name, _)
 		local ok = put_player_at_spawn(minetest.get_player_by_name(name))
@@ -55,14 +94,14 @@ minetest.register_chatcommand("spawn", {
 		end
 		return false, SL("Teleport failed")
 	end
-})
+})]]
 
 --Hall of Life
 
 minetest.register_chatcommand("life", {
 	description = SL("Teleport to the Hall of Life"),
 	func = function(name, _)
-		local ok = put_player_at_spawn(minetest.get_player_by_name(name))
+		local ok = put_player_at_spawn(minetest.get_player_by_name(name), "hall_of_life_pos")
 		if ok then
 			return true, SL("Teleporting to Hall of Life...")
 		end
@@ -79,7 +118,7 @@ local function tp_to_hall_of_death(obj)
 		return false
 	end
 
-	local hall_of_death = minetest.setting_get_pos(death)
+	local hall_of_death = spawn.pos_from_conf(death)
 
 	minetest.log('action', "Moving "..obj:get_player_name()..
 			" to "..death.." at "..
