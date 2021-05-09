@@ -35,19 +35,19 @@ end
 
 local function edit_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,8]"
+	local formspec = "size[8,9]"
 	formspec = formspec.."field[0.2,0.0;0,0;old_label;;"..item["label"]..";]"
 	formspec = formspec.."field[0.2,0.5;5,1;edit_label;;"..item["label"]..";]"
 	formspec = formspec.."field[0.2,1.5;5,1;edit_question;;"..item["question"]..";]"
 	formspec = formspec.."textarea[0.2,2.5;5,3;edit_answer;;"..item["answer"]..";]"
-	formspec = formspec.."button[0,5;5,1;save_question;Сохранить]"
-	formspec = formspec.."button[0,6;5,1;delete_question;Удалить]"
+	formspec = formspec.."button[0,5;5,1;return_to_main;Назад]"
+	formspec = formspec.."button[0,6;5,1;save_question;Сохранить]"
+	formspec = formspec.."button[0,7;5,1;delete_question;Удалить]"
 	if item["enabled"] then
-		formspec = formspec.."button[0,7;5,1;hide_question;Скрыть]"
+		formspec = formspec.."button[0,8;5,1;hide_question;Скрыть]"
 	else
-		formspec = formspec.."button[0,7;5,1;show_question;Показать]"
+		formspec = formspec.."button[0,8;5,1;show_question;Показать]"
 	end
-	--label[0,0;"..answer.."]button[0,4;5,1;return_to_main;Назад]"
 	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
 
@@ -125,6 +125,8 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 					break
 				end
 			end
+		elseif fields["return_to_main"] ~= nil then
+			show_main(self, clicker)
 		end
 	end
 end)
