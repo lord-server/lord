@@ -1,3 +1,6 @@
+local S = minetest.get_translator("npc")
+local esc = minetest.formspec_escape
+
 local message = "Сервер L.O.R.D. приветствует тебя! Будь как дома, путник."
 local mobname = "Меродок"
 
@@ -29,7 +32,7 @@ local function build_main_form_editable(self)
 	end
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
 	pos = pos + 1
-	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;Save]"
+	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;"..esc(S("Save")).."]"
 	return formspec
 end
 
@@ -45,7 +48,7 @@ end
 
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,5]label[0.25,0;"..item.answer.."]button[0.25,4;7.5,1;return_to_main;Назад]"
+	local formspec = "size[8,5]label[0.25,0;"..item.answer.."]button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
@@ -56,13 +59,13 @@ local function edit_answer(clicker, item)
 	formspec = formspec.."field[0.5,0.5;7.5,1;edit_label;;"..item["label"]..";]"
 	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..item["question"]..";]"
 	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..item["answer"]..";]"
-	formspec = formspec.."button[0.25,5;7.5,1;return_to_main;Назад]"
-	formspec = formspec.."button[0.25,6;7.5,1;save_question;Сохранить]"
-	formspec = formspec.."button[0.25,7;7.5,1;delete_question;Удалить]"
+	formspec = formspec.."button[0.25,5;7.5,1;return_to_main;"..esc(S("Back")).."]"
+	formspec = formspec.."button[0.25,6;7.5,1;save_question;"..esc(S("Save")).."]"
+	formspec = formspec.."button[0.25,7;7.5,1;delete_question;"..esc(S("Delete")).."]"
 	if item["enabled"] then
-		formspec = formspec.."button[0.25,8;7.5,1;hide_question;Скрыть]"
+		formspec = formspec.."button[0.25,8;7.5,1;hide_question;"..esc(S("Hide")).."]"
 	else
-		formspec = formspec.."button[0.25,8;7.5,1;show_question;Показать]"
+		formspec = formspec.."button[0.25,8;7.5,1;show_question;"..esc(S("Show")).."]"
 	end
 	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
