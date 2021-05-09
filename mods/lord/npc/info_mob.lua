@@ -24,11 +24,11 @@ end
 local function build_main_form_editable(self)
 	local h = table.getn(self.questions)+4.5
 	local formspec = "size[8,"..h.."]"
-	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..self.mobname.."]"
-	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..self.greeting.."]"
+	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..esc(self.mobname).."]"
+	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..esc(self.greeting).."]"
 	local pos = 2.5
 	for _, item in ipairs(self.questions) do
-		formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
+		formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..esc(item["question"]).."]"
 		pos = pos + 1
 	end
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
@@ -49,7 +49,7 @@ end
 
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,5]label[0.25,0;"..item.answer.."]button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
+	local formspec = "size[8,5]label[0.25,0;"..esc(item.answer).."]button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
@@ -58,8 +58,8 @@ local function edit_answer(clicker, item)
 	local formspec = "size[8,9]"
 	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"]..";]"
 	formspec = formspec.."field[0.5,0.5;7.5,1;edit_label;;"..item["label"]..";]"
-	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..item["question"]..";]"
-	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..item["answer"]..";]"
+	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..esc(item["question"])..";]"
+	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..esc(item["answer"])..";]"
 	formspec = formspec.."button[0.25,5;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	formspec = formspec.."button[0.25,6;7.5,1;save_question;"..esc(S("Save")).."]"
 	formspec = formspec.."button[0.25,7;7.5,1;delete_question;"..esc(S("Delete")).."]"
