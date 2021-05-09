@@ -229,6 +229,7 @@ minetest.register_entity("npc:info_mob", {
 			self.greeting = message
 		end
 
+		self.object:set_armor_groups({immortal = 1})
 		self.object:set_properties({
 			nametag = self.mobname,
 			nametag_color = self.color,
