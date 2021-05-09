@@ -1,61 +1,130 @@
 local message = "Сервер L.O.R.D. приветствует тебя! Будь как дома, путник."
 local mobname = "Меродок"
 
-local questions =
-{
-	{
-		["enabled"]		= true,
-		["label"]		= "howto_craft",
-		["question"]	= "Как узнать рецепты крафта?",
-		["answer"]		= "Нужно собрать книгу крафта.\n"..
-						  "Рецепт сборки книги нарисован на табло."
-	},
-	{
-		["enabled"]		= true,
-		["label"]		= "where_components",
-		["question"]	= "Я не знаю, где мне взять компоненты.",
-		["answer"]		= "Часть компонентов можно срубить неподалеку.\n\n"..
-						  "Что до других...\n"..
-						  "Я слышал, моему товарищу нужна помощь.\n"..
-						  "Может быть у него взамен найдутся нужные вам компоненты."
-	}
-}
+local player_mobs = {}
 
-local function build_form()
-	local formspec = "size[8,4]"..
-					 "label[0,0;"..message.."]"
+local function build_main_form(self, can_edit)
+	h = table.getn(self.questions)+1.5
+	local formspec = "size[8,"..h.."]"..
+					 "label[0,0;"..self.greeting.."]"
 	local pos = 0.5
-	for _, item in ipairs(questions) do
-		if item["enabled"] then
+	for _, item in ipairs(self.questions) do
+		if item["enabled"] or can_edit then
 			formspec = formspec.."button[0,"..pos..";5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
+	if can_edit then
+		formspec = formspec.."button[0,"..pos..";5,1;new_question;+]"
+		pos = pos + 1
+	end
 	return formspec
 end
 
-local function show_main(clicker)
+local function show_main(self, clicker)
 	local player = clicker:get_player_name()
-	minetest.show_formspec(player, "npc:static_guide_select", build_form())
+	local can_edit = minetest.get_player_privs(player).admin_pick
+	minetest.show_formspec(player, "npc:static_guide_select", build_main_form(self, can_edit))
 end
 
-local function show_answer(clicker, answer)
+local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,5]label[0,0;"..answer.."]button[0,4;5,1;return_to_main;Назад]"
+	local formspec = "size[8,5]label[0,0;"..item.answer.."]button[0,4;5,1;return_to_main;Назад]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
+local function edit_answer(clicker, item)
+	local player = clicker:get_player_name()
+	local formspec = "size[8,8]"
+	formspec = formspec.."field[0.2,0.0;0,0;old_label;;"..item["label"]..";]"
+	formspec = formspec.."field[0.2,0.5;5,1;edit_label;;"..item["label"]..";]"
+	formspec = formspec.."field[0.2,1.5;5,1;edit_question;;"..item["question"]..";]"
+	formspec = formspec.."textarea[0.2,2.5;5,3;edit_answer;;"..item["answer"]..";]"
+	formspec = formspec.."button[0,5;5,1;save_question;Сохранить]"
+	formspec = formspec.."button[0,6;5,1;delete_question;Удалить]"
+	if item["enabled"] then
+		formspec = formspec.."button[0,7;5,1;hide_question;Скрыть]"
+	else
+		formspec = formspec.."button[0,7;5,1;show_question;Показать]"
+	end
+	--label[0,0;"..answer.."]button[0,4;5,1;return_to_main;Назад]"
+	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
+end
+
 minetest.register_on_player_receive_fields(function(clicker, formname, fields)
+	local player = clicker:get_player_name()
+	local self = player_mobs[player]
+	if self == nil then
+		return
+	end
+
 	if formname == "npc:static_guide_select" then
-		for _, item in ipairs(questions) do
-			if fields[item["label"]] ~= nil then
-				show_answer(clicker, item["answer"])
-				break
+		if fields["new_question"] ~= nil then
+			table.insert(self.questions, {
+				["enabled"]		= true,
+				["label"]		= "new_label_"..self.new_question_index,
+				["question"]	= "Новый вопрос",
+				["answer"]		= "Ответ",
+			})
+			self.new_question_index = self.new_question_index + 1
+			show_main(self, clicker)
+		else
+			local can_edit = minetest.get_player_privs(player).admin_pick
+			for _, item in ipairs(self.questions) do
+				if fields[item["label"]] ~= nil then
+					if can_edit then
+						edit_answer(clicker, item)
+					else
+						show_answer(clicker, item)
+					end
+					break
+				end
 			end
 		end
 	elseif formname == "npc:static_guide_answer" then
 		if fields["return_to_main"] ~= nil then
-			show_main(clicker)
+			show_main(self, clicker)
+		end
+	elseif formname == "npc:edit_guide_answer" then
+		local oldlabel = fields["old_label"]
+		local label = fields["edit_label"]
+		local question = fields["edit_question"]
+		local answer = fields["edit_answer"]
+		if fields["save_question"] ~= nil then
+			for _, item in ipairs(self.questions) do
+				if item["label"] == oldlabel then
+					item["label"] = label
+					item["question"] = question
+					item["answer"] = answer
+					--minetest.log("setting question")
+				end
+			end
+			show_main(self, clicker)
+		elseif fields["delete_question"] ~= nil then
+			local oldlabel = fields["old_label"]
+			for index, item in ipairs(self.questions) do
+				if item["label"] == oldlabel then
+					table.remove(self.questions, index)
+					show_main(self, clicker)
+					break
+				end
+			end
+		elseif fields["hide_question"] ~= nil then
+			for _, item in ipairs(self.questions) do
+				if item["label"] == oldlabel then
+					item["enabled"] = false
+					show_main(self, clicker)
+					break
+				end
+			end
+		elseif fields["show_question"] ~= nil then
+			for _, item in ipairs(self.questions) do
+				if item["label"] == oldlabel then
+					item["enabled"] = true
+					show_main(self, clicker)
+					break
+				end
+			end
 		end
 	end
 end)
@@ -79,15 +148,61 @@ minetest.register_entity("npc:info_mob", {
 	mesh = "human_model.x",
 	mobname = mobname,
 	color = "#FFBB00",
+	questions = {},
 
 	on_rightclick = function(self, clicker)
+		local player = clicker:get_player_name()
+		local entity = self.object:get_luaentity()
 		face_pos(self, clicker:getpos())
-		show_main(clicker)
+		player_mobs[player] = self
+		show_main(self, clicker)
 	end,
 	on_activate = function(self, staticdata)
+		local data = minetest.deserialize(staticdata)
+		if data ~= nil then
+			if data["questions"] ~= nil then
+				self.questions = data["questions"]
+			else
+				self.questions = {}
+			end
+
+			if data["new_question_index"] ~= nil then
+				self.new_question_index = data["new_question_index"]
+			else
+				self.new_question_index = 0
+			end
+
+			if data["mobname"] ~= nil then
+				self.mobname = data["mobname"]
+			else
+				self.mobname = mobname
+			end
+
+			if data["greeting"] ~= nil then
+				self.greeting = data["greeting"]
+			else
+				self.greeting = message
+			end
+
+		else
+			self.questions = {}
+			self.new_question_index = 0
+			self.mobname = mobname
+			self.greeting = message
+		end
+
 		self.object:set_properties({
 			nametag = self.mobname,
 			nametag_color = self.color,
 		})
+	end,
+	get_staticdata = function(self)
+		local data = {
+			["questions"] = self.questions,
+			["new_question_index"] = self.new_question_index,
+			["mobname"] = self.mobname,
+			["greeting"] = self.greeting,
+		}
+		return minetest.serialize(data)
 	end,
 })
