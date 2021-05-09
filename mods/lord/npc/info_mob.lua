@@ -4,7 +4,7 @@ local mobname = "Меродок"
 local player_mobs = {}
 
 local function build_main_form(self)
-	h = table.getn(self.questions)+0.5
+	local h = table.getn(self.questions)+0.5
 	local formspec = "size[8,"..h.."]"..
 					 "label[0,0;"..self.greeting.."]"
 	local pos = 0.5
@@ -18,7 +18,7 @@ local function build_main_form(self)
 end
 
 local function build_main_form_editable(self)
-	h = table.getn(self.questions)+4.5
+	local h = table.getn(self.questions)+4.5
 	local formspec = "size[8,"..h.."]"
 	formspec = formspec.."field[0.5,0.5;5,0.5;edit_name;;"..self.mobname.."]"
 	formspec = formspec.."textarea[0.5,1;5,1.5;edit_greeting;;"..self.greeting.."]"
@@ -30,7 +30,6 @@ local function build_main_form_editable(self)
 	formspec = formspec.."button[0,"..pos..";5,1;new_question;+]"
 	pos = pos + 1
 	formspec = formspec.."button[0,"..pos..";5,1;save_main;Save]"
-	pos = pos + 1
 	return formspec
 end
 
@@ -126,7 +125,6 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			end
 			show_main(self, clicker)
 		elseif fields["delete_question"] ~= nil then
-			local oldlabel = fields["old_label"]
 			for index, item in ipairs(self.questions) do
 				if item["label"] == oldlabel then
 					table.remove(self.questions, index)
@@ -179,7 +177,6 @@ minetest.register_entity("npc:info_mob", {
 
 	on_rightclick = function(self, clicker)
 		local player = clicker:get_player_name()
-		local entity = self.object:get_luaentity()
 		face_pos(self, clicker:getpos())
 		player_mobs[player] = self
 		show_main(self, clicker)
