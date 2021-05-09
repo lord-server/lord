@@ -60,6 +60,17 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 	end
 end)
 
+local function face_pos(self, pos)
+	local s = self.object:getpos()
+	local vec = {x=pos.x-s.x, y=pos.y-s.y, z=pos.z-s.z}
+	local yaw = math.atan2(vec.z,vec.x)-math.pi/2
+	if self.drawtype == "side" then
+		yaw = yaw+(math.pi/2)
+	end
+	self.object:setyaw(yaw)
+	return yaw
+end
+
 minetest.register_entity("npc:info_mob", {
 	physical = true,
 	textures = {"lottmobs_rohan_guard_2.png"},
@@ -70,6 +81,7 @@ minetest.register_entity("npc:info_mob", {
 	color = "#FFBB00",
 
 	on_rightclick = function(self, clicker)
+		face_pos(self, clicker:getpos())
 		show_main(clicker)
 	end,
 	on_activate = function(self, staticdata)
