@@ -56,10 +56,10 @@ end
 local function edit_answer(clicker, item)
 	local player = clicker:get_player_name()
 	local formspec = "size[8,9]"
-	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"]..";]"
-	formspec = formspec.."field[0.5,0.5;7.5,1;edit_label;;"..item["label"]..";]"
-	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..esc(item["question"])..";]"
-	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..esc(item["answer"])..";]"
+	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"].."]"
+	formspec = formspec.."field[0.5,0.5;7.5,1;edit_label;;"..item["label"].."]"
+	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..esc(item["question"]).."]"
+	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..esc(item["answer"]).."]"
 	formspec = formspec.."button[0.25,5;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	formspec = formspec.."button[0.25,6;7.5,1;save_question;"..esc(S("Save")).."]"
 	formspec = formspec.."button[0.25,7;7.5,1;delete_question;"..esc(S("Delete")).."]"
