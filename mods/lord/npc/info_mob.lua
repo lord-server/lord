@@ -49,7 +49,9 @@ end
 
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,5]label[0.25,0;"..esc(item.answer).."]button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
+	local formspec = "size[8,5]"
+	formspec = formspec.."label[0.25,0;"..esc(item.answer).."]"
+	formspec = formspec.."button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
