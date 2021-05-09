@@ -3,28 +3,45 @@ local mobname = "Меродок"
 
 local player_mobs = {}
 
-local function build_main_form(self, can_edit)
-	h = table.getn(self.questions)+1.5
+local function build_main_form(self)
+	h = table.getn(self.questions)+0.5
 	local formspec = "size[8,"..h.."]"..
 					 "label[0,0;"..self.greeting.."]"
 	local pos = 0.5
 	for _, item in ipairs(self.questions) do
-		if item["enabled"] or can_edit then
+		if item["enabled"] then
 			formspec = formspec.."button[0,"..pos..";5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
-	if can_edit then
-		formspec = formspec.."button[0,"..pos..";5,1;new_question;+]"
+	return formspec
+end
+
+local function build_main_form_editable(self)
+	h = table.getn(self.questions)+4.5
+	local formspec = "size[8,"..h.."]"
+	formspec = formspec.."field[0.5,0.5;5,0.5;edit_name;;"..self.mobname.."]"
+	formspec = formspec.."textarea[0.5,1;5,1.5;edit_greeting;;"..self.greeting.."]"
+	local pos = 2.5
+	for _, item in ipairs(self.questions) do
+		formspec = formspec.."button[0,"..pos..";5,1;"..item["label"]..";"..item["question"].."]"
 		pos = pos + 1
 	end
+	formspec = formspec.."button[0,"..pos..";5,1;new_question;+]"
+	pos = pos + 1
+	formspec = formspec.."button[0,"..pos..";5,1;save_main;Save]"
+	pos = pos + 1
 	return formspec
 end
 
 local function show_main(self, clicker)
 	local player = clicker:get_player_name()
 	local can_edit = minetest.get_player_privs(player).admin_pick
-	minetest.show_formspec(player, "npc:static_guide_select", build_main_form(self, can_edit))
+	if can_edit then
+		minetest.show_formspec(player, "npc:static_guide_select", build_main_form_editable(self))
+	else
+		minetest.show_formspec(player, "npc:static_guide_select", build_main_form(self))
+	end
 end
 
 local function show_answer(clicker, item)
@@ -67,6 +84,14 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				["answer"]		= "Ответ",
 			})
 			self.new_question_index = self.new_question_index + 1
+			show_main(self, clicker)
+		elseif fields["save_main"] ~= nil then
+			self.mobname = fields["edit_name"]
+			self.greeting = fields["edit_greeting"]
+			self.object:set_properties({
+				nametag = self.mobname,
+				nametag_color = self.color,
+			})
 			show_main(self, clicker)
 		else
 			local can_edit = minetest.get_player_privs(player).admin_pick
