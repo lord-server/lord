@@ -10,7 +10,7 @@ local function build_main_form(self)
 	local pos = 0.5
 	for _, item in ipairs(self.questions) do
 		if item["enabled"] then
-			formspec = formspec.."button[0,"..pos..";5,1;"..item["label"]..";"..item["question"].."]"
+			formspec = formspec.."button[0,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
@@ -20,16 +20,16 @@ end
 local function build_main_form_editable(self)
 	local h = table.getn(self.questions)+4.5
 	local formspec = "size[8,"..h.."]"
-	formspec = formspec.."field[0.5,0.5;5,0.5;edit_name;;"..self.mobname.."]"
-	formspec = formspec.."textarea[0.5,1;5,1.5;edit_greeting;;"..self.greeting.."]"
+	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..self.mobname.."]"
+	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..self.greeting.."]"
 	local pos = 2.5
 	for _, item in ipairs(self.questions) do
-		formspec = formspec.."button[0,"..pos..";5,1;"..item["label"]..";"..item["question"].."]"
+		formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
 		pos = pos + 1
 	end
-	formspec = formspec.."button[0,"..pos..";5,1;new_question;+]"
+	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
 	pos = pos + 1
-	formspec = formspec.."button[0,"..pos..";5,1;save_main;Save]"
+	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;Save]"
 	return formspec
 end
 
@@ -45,24 +45,24 @@ end
 
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
-	local formspec = "size[8,5]label[0,0;"..item.answer.."]button[0,4;5,1;return_to_main;Назад]"
+	local formspec = "size[8,5]label[0.25,0;"..item.answer.."]button[0.25,4;7.5,1;return_to_main;Назад]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
 local function edit_answer(clicker, item)
 	local player = clicker:get_player_name()
 	local formspec = "size[8,9]"
-	formspec = formspec.."field[0.2,0.0;0,0;old_label;;"..item["label"]..";]"
-	formspec = formspec.."field[0.2,0.5;5,1;edit_label;;"..item["label"]..";]"
-	formspec = formspec.."field[0.2,1.5;5,1;edit_question;;"..item["question"]..";]"
-	formspec = formspec.."textarea[0.2,2.5;5,3;edit_answer;;"..item["answer"]..";]"
-	formspec = formspec.."button[0,5;5,1;return_to_main;Назад]"
-	formspec = formspec.."button[0,6;5,1;save_question;Сохранить]"
-	formspec = formspec.."button[0,7;5,1;delete_question;Удалить]"
+	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"]..";]"
+	formspec = formspec.."field[0.5,0.5;7.5,1;edit_label;;"..item["label"]..";]"
+	formspec = formspec.."field[0.5,1.5;7.5,1;edit_question;;"..item["question"]..";]"
+	formspec = formspec.."textarea[0.5,2.5;7.5,2.75;edit_answer;;"..item["answer"]..";]"
+	formspec = formspec.."button[0.25,5;7.5,1;return_to_main;Назад]"
+	formspec = formspec.."button[0.25,6;7.5,1;save_question;Сохранить]"
+	formspec = formspec.."button[0.25,7;7.5,1;delete_question;Удалить]"
 	if item["enabled"] then
-		formspec = formspec.."button[0,8;5,1;hide_question;Скрыть]"
+		formspec = formspec.."button[0.25,8;7.5,1;hide_question;Скрыть]"
 	else
-		formspec = formspec.."button[0,8;5,1;show_question;Показать]"
+		formspec = formspec.."button[0.25,8;7.5,1;show_question;Показать]"
 	end
 	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
@@ -75,7 +75,9 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 	end
 
 	if formname == "npc:static_guide_select" then
+		-- handling main form
 		if fields["new_question"] ~= nil then
+			-- create new question
 			table.insert(self.questions, {
 				["enabled"]		= true,
 				["label"]		= "new_label_"..self.new_question_index,
@@ -85,6 +87,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			self.new_question_index = self.new_question_index + 1
 			show_main(self, clicker)
 		elseif fields["save_main"] ~= nil then
+			-- save mob name and greeting
 			self.mobname = fields["edit_name"]
 			self.greeting = fields["edit_greeting"]
 			self.object:set_properties({
@@ -93,6 +96,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			})
 			show_main(self, clicker)
 		else
+			-- goto question show or edit
 			local can_edit = minetest.get_player_privs(player).admin_pick
 			for _, item in ipairs(self.questions) do
 				if fields[item["label"]] ~= nil then
@@ -106,25 +110,28 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			end
 		end
 	elseif formname == "npc:static_guide_answer" then
+		-- return to main menu from question show
 		if fields["return_to_main"] ~= nil then
 			show_main(self, clicker)
 		end
 	elseif formname == "npc:edit_guide_answer" then
+		-- edit question
 		local oldlabel = fields["old_label"]
 		local label = fields["edit_label"]
 		local question = fields["edit_question"]
 		local answer = fields["edit_answer"]
 		if fields["save_question"] ~= nil then
+			-- save question
 			for _, item in ipairs(self.questions) do
 				if item["label"] == oldlabel then
 					item["label"] = label
 					item["question"] = question
 					item["answer"] = answer
-					--minetest.log("setting question")
 				end
 			end
 			show_main(self, clicker)
 		elseif fields["delete_question"] ~= nil then
+			-- delete question
 			for index, item in ipairs(self.questions) do
 				if item["label"] == oldlabel then
 					table.remove(self.questions, index)
@@ -133,6 +140,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				end
 			end
 		elseif fields["hide_question"] ~= nil then
+			-- hide question from players
 			for _, item in ipairs(self.questions) do
 				if item["label"] == oldlabel then
 					item["enabled"] = false
@@ -141,6 +149,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				end
 			end
 		elseif fields["show_question"] ~= nil then
+			-- show question to players
 			for _, item in ipairs(self.questions) do
 				if item["label"] == oldlabel then
 					item["enabled"] = true
@@ -149,6 +158,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				end
 			end
 		elseif fields["return_to_main"] ~= nil then
+			-- return to main menu from question edit
 			show_main(self, clicker)
 		end
 	end
