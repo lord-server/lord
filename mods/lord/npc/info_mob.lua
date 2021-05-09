@@ -1,6 +1,7 @@
 local S = minetest.get_translator("npc")
 local esc = minetest.formspec_escape
 
+local required_priv = "server"
 local message = "Сервер L.O.R.D. приветствует тебя! Будь как дома, путник."
 local mobname = "Меродок"
 
@@ -38,7 +39,7 @@ end
 
 local function show_main(self, clicker)
 	local player = clicker:get_player_name()
-	local can_edit = minetest.get_player_privs(player).admin_pick
+	local can_edit = minetest.get_player_privs(player)[required_priv]
 	if can_edit then
 		minetest.show_formspec(player, "npc:static_guide_select", build_main_form_editable(self))
 	else
@@ -100,7 +101,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			show_main(self, clicker)
 		else
 			-- goto question show or edit
-			local can_edit = minetest.get_player_privs(player).admin_pick
+			local can_edit = minetest.get_player_privs(player)[required_priv]
 			for _, item in ipairs(self.questions) do
 				if fields[item["label"]] ~= nil then
 					if can_edit then
