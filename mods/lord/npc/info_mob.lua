@@ -181,6 +181,16 @@ local function face_pos(self, pos)
 	return yaw
 end
 
+local function interact_infomob(self, clicker)
+	local player = clicker:get_player_name()
+	local can_edit = minetest.get_player_privs(player)[required_priv]
+	if can_edit then
+		face_pos(self, clicker:getpos())
+	end
+	player_mobs[player] = self
+	show_main(self, clicker)
+end
+
 minetest.register_entity("npc:info_mob", {
 	physical = true,
 	textures = {"lottmobs_rohan_guard_2.png"},
@@ -191,15 +201,9 @@ minetest.register_entity("npc:info_mob", {
 	color = "#FFBB00",
 	questions = {},
 
-	on_rightclick = function(self, clicker)
-		local player = clicker:get_player_name()
-		local can_edit = minetest.get_player_privs(player)[required_priv]
-		if can_edit then
-			face_pos(self, clicker:getpos())
-		end
-		player_mobs[player] = self
-		show_main(self, clicker)
-	end,
+	on_rightclick = interact_infomob,
+	on_punch = interact_infomob,
+
 	on_activate = function(self, staticdata)
 		local data = minetest.deserialize(staticdata)
 		if data ~= nil then
