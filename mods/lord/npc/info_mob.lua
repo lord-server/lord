@@ -193,7 +193,10 @@ minetest.register_entity("npc:info_mob", {
 
 	on_rightclick = function(self, clicker)
 		local player = clicker:get_player_name()
-		face_pos(self, clicker:getpos())
+		local can_edit = minetest.get_player_privs(player)[required_priv]
+		if can_edit then
+			face_pos(self, clicker:getpos())
+		end
 		player_mobs[player] = self
 		show_main(self, clicker)
 	end,
