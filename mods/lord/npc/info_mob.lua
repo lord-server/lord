@@ -14,7 +14,7 @@ local function build_main_form(self)
 	local pos = 0.5
 	for _, item in ipairs(self.questions) do
 		if item["enabled"] then
-			formspec = formspec.."button[0,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
+			formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
