@@ -8,12 +8,10 @@ local mobname = "Меродок"
 local player_mobs = {}
 
 local function build_main_form(self)
-	local greeting_lines = math.ceil(string.len(self.greeting) / 60)
 	local pos = 0
 	local formspec = ""
-
-	formspec = formspec.."label[0.5,"..pos..";"..self.greeting.."]"
-	pos = pos + greeting_lines*0.5
+	formspec = formspec.."textarea[0.5,"..pos..";7.5,1.5;;;"..esc(self.greeting).."]"
+	pos = pos + 1.5
 	for _, item in ipairs(self.questions) do
 		if item["enabled"] then
 			formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
@@ -61,7 +59,7 @@ end
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
 	local formspec = "size[8,5]"
-	formspec = formspec.."label[0.25,0;"..esc(item.answer).."]"
+	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
 	formspec = formspec.."button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
