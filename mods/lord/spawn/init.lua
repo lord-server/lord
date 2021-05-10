@@ -48,7 +48,6 @@ function spawn.put_player_at_spawn(obj, config_setting)
 	return true
 end
 
-
 minetest.register_chatcommand("spawn", {
 	description = SL("Teleport to Spawn"),
 	func = function(name, _)
@@ -68,7 +67,7 @@ minetest.register_chatcommand("spawn", {
 	end
 })
 
-minetest.register_chatcommand("choose_spawn", {
+minetest.register_chatcommand("spawn_to", {
 	params = "<race>",
 	privs = "server",
 	description = SL("Teleport to specified Spawn"),
@@ -82,19 +81,6 @@ minetest.register_chatcommand("choose_spawn", {
 		return false, SL("Teleport failed")
 	end
 })
-
---Spawn
-
---[[minetest.register_chatcommand("spawn", {
-	description = SL("Teleport to the spawn location"),
-	func = function(name, _)
-		local ok = spawn.put_player_at_spawn(minetest.get_player_by_name(name))
-		if ok then
-			return true, SL("Teleporting to spawn...")
-		end
-		return false, SL("Teleport failed")
-	end
-})]]
 
 --Hall of Life
 
@@ -137,7 +123,7 @@ if spawn.check_spawnpoint(death) then
 			if ok then
 				return true, SL("Teleporting to Hall of Death...")
 			end
-			return false, SL("Teleport failed")
+		return false, SL("Teleport failed")
 		end
 	})
 end
@@ -146,9 +132,19 @@ minetest.register_on_newplayer(function(obj)
 	return spawn.put_player_at_spawn(obj, "common_spawn_pos")
 end)
 
---[[minetest.register_on_respawnplayer(function(obj)
-	return
-end)]]
+minetest.register_on_respawnplayer(function(obj)
+	local name = obj:get_player_name()
+	local a
+	if beds.spawn[name] == nil then
+		if minetest.settings:get_bool("dynamic_spawn")
+		and spawn.check_spawnpoint(races.get_race(name).."_spawn_pos") then
+			a = spawn.put_player_at_spawn(obj, races.get_race(name).."_spawn_pos")
+		else
+			a = spawn.put_player_at_spawn(obj, "common_spawn_pos")
+		end
+	end
+	return a
+end)
 
 if minetest.setting_getbool("msg_loading_mods") then minetest.log("action",
 	minetest.get_current_modname().." mod LOADED") end

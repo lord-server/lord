@@ -1,3 +1,2 @@
-lord_classes
 lordlib
-intllib?
+beds
