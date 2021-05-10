@@ -5,6 +5,7 @@ local required_priv = "server"
 local message = "Сервер L.O.R.D. приветствует тебя! Будь как дома, путник."
 local mobname = "Меродок"
 
+local name = "npc:info_mob"
 local player_mobs = {}
 
 local function build_main_form(self)
@@ -40,6 +41,8 @@ local function build_main_form_editable(self)
 	pos = pos + 1
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;"..esc(S("Save")).."]"
 	pos = pos + 1.2
+	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;take_infomob;"..esc(S("Take")).."]"
+	pos = pos + 1
 	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
 	pos = pos + 1
 	formspec = "size[8,"..pos.."]"..formspec
@@ -110,6 +113,27 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				nametag_color = self.color,
 			})
 			show_main(self, clicker)
+		elseif fields["take_infomob"] ~= nil then
+			-- take mob to inventory
+			local inventory = clicker:get_inventory()
+			if inventory:room_for_item("main", self.name) then
+				local new_stack = ItemStack(self.name.."_egg")
+
+				local data_str = self:get_staticdata()
+				new_stack:set_metadata(data_str)
+
+				local inv = clicker:get_inventory()
+				if inv:room_for_item("main", new_stack) then
+					inv:add_item("main", new_stack)
+				else
+					minetest.add_item(clicker:getpos(), new_stack)
+				end
+
+				self.object:remove()
+			end
+		elseif fields["close_form"] ~= nil then
+			-- do nothing, form will close automatically
+			return
 		else
 			-- goto question show or edit
 			local can_edit = minetest.get_player_privs(player)[required_priv]
@@ -200,7 +224,7 @@ local function interact_infomob(self, clicker)
 	show_main(self, clicker)
 end
 
-minetest.register_entity("npc:info_mob", {
+minetest.register_entity(name, {
 	physical = true,
 	textures = {"lottmobs_rohan_guard_2.png"},
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
@@ -261,5 +285,46 @@ minetest.register_entity("npc:info_mob", {
 			["greeting"] = self.greeting,
 		}
 		return minetest.serialize(data)
+	end,
+})
+
+minetest.register_craftitem(name.."_egg", {
+
+	description = "Info mob egg",
+	inventory_image = "npc_info_mob.png",
+	groups = {not_in_creative_inventory = 1},
+	stack_max = 1,
+
+	on_place = function(itemstack, placer, pointed_thing)
+
+		local pos = pointed_thing.above
+
+		-- am I clicking on something with existing on_rightclick function?
+		local under = minetest.get_node(pointed_thing.under)
+		local def = minetest.registered_nodes[under.name]
+		if def and def.on_rightclick then
+			return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
+		end
+
+		if pos
+		and within_limits(pos, 0)
+		and not minetest.is_protected(pos, placer:get_player_name()) then
+
+			pos.y            = pos.y + 0.5
+
+			local data       = itemstack:get_metadata()
+			local entity     = minetest.add_entity(pos, name, data)
+			local lua_entity = entity:get_luaentity()
+
+			if not lua_entity then
+				entity:remove()
+				return
+			end
+
+			-- since mob is unique we remove egg once spawned
+			itemstack:take_item()
+		end
+
+		return itemstack
 	end,
 })
