@@ -8,21 +8,22 @@ local mobname = "Меродок"
 local player_mobs = {}
 
 local function build_main_form(self)
-	local h = table.getn(self.questions)+0.5
+	local h = table.getn(self.questions)+1.7
 	local formspec = "size[8,"..h.."]"..
 					 "label[0,0;"..self.greeting.."]"
 	local pos = 0.5
 	for _, item in ipairs(self.questions) do
 		if item["enabled"] then
-			formspec = formspec.."button[0,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
+			formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
+	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
 	return formspec
 end
 
 local function build_main_form_editable(self)
-	local h = table.getn(self.questions)+4.5
+	local h = table.getn(self.questions)+5.7
 	local formspec = "size[8,"..h.."]"
 	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..esc(self.mobname).."]"
 	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..esc(self.greeting).."]"
@@ -34,6 +35,8 @@ local function build_main_form_editable(self)
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
 	pos = pos + 1
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;"..esc(S("Save")).."]"
+	pos = pos + 1
+	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
 	return formspec
 end
 
@@ -181,6 +184,16 @@ local function face_pos(self, pos)
 	return yaw
 end
 
+local function interact_infomob(self, clicker)
+	local player = clicker:get_player_name()
+	local can_edit = minetest.get_player_privs(player)[required_priv]
+	if can_edit then
+		face_pos(self, clicker:getpos())
+	end
+	player_mobs[player] = self
+	show_main(self, clicker)
+end
+
 minetest.register_entity("npc:info_mob", {
 	physical = true,
 	textures = {"lottmobs_rohan_guard_2.png"},
@@ -191,12 +204,9 @@ minetest.register_entity("npc:info_mob", {
 	color = "#FFBB00",
 	questions = {},
 
-	on_rightclick = function(self, clicker)
-		local player = clicker:get_player_name()
-		face_pos(self, clicker:getpos())
-		player_mobs[player] = self
-		show_main(self, clicker)
-	end,
+	on_rightclick = interact_infomob,
+	on_punch = interact_infomob,
+
 	on_activate = function(self, staticdata)
 		local data = minetest.deserialize(staticdata)
 		if data ~= nil then
