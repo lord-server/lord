@@ -8,26 +8,32 @@ local mobname = "Меродок"
 local player_mobs = {}
 
 local function build_main_form(self)
-	local h = table.getn(self.questions)+1.7
-	local formspec = "size[8,"..h.."]"..
-					 "label[0,0;"..self.greeting.."]"
-	local pos = 0.5
+	local greeting_lines = math.ceil(string.len(self.greeting) / 60)
+	local pos = 0
+	local formspec = ""
+
+	formspec = formspec.."label[0.5,"..pos..";"..self.greeting.."]"
+	pos = pos + greeting_lines*0.5
 	for _, item in ipairs(self.questions) do
 		if item["enabled"] then
 			formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..item["question"].."]"
 			pos = pos + 1
 		end
 	end
+	pos = pos + 0.2
 	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
+	pos = pos + 1
+	formspec = "size[8,"..pos.."]"..formspec
 	return formspec
 end
 
 local function build_main_form_editable(self)
-	local h = table.getn(self.questions)+5.7
-	local formspec = "size[8,"..h.."]"
-	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..esc(self.mobname).."]"
-	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..esc(self.greeting).."]"
-	local pos = 2.5
+	local pos = 0.5
+	local formspec = ""
+	formspec = formspec.."field[0.5,"..pos..";7.5,0.5;edit_name;;"..esc(self.mobname).."]"
+	pos = pos + 0.5
+	formspec = formspec.."textarea[0.5,"..pos..";7.5,1.5;edit_greeting;;"..esc(self.greeting).."]"
+	pos = pos + 1.5
 	for _, item in ipairs(self.questions) do
 		formspec = formspec.."button[0.25,"..pos..";7.5,1;"..item["label"]..";"..esc(item["question"]).."]"
 		pos = pos + 1
@@ -35,8 +41,10 @@ local function build_main_form_editable(self)
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
 	pos = pos + 1
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;"..esc(S("Save")).."]"
-	pos = pos + 1
+	pos = pos + 1.2
 	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
+	pos = pos + 1
+	formspec = "size[8,"..pos.."]"..formspec
 	return formspec
 end
 
