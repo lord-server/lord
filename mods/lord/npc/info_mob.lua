@@ -8,7 +8,7 @@ local mobname = "Меродок"
 local player_mobs = {}
 
 local function build_main_form(self)
-	local h = table.getn(self.questions)+0.5
+	local h = table.getn(self.questions)+1.7
 	local formspec = "size[8,"..h.."]"..
 					 "label[0,0;"..self.greeting.."]"
 	local pos = 0.5
@@ -18,11 +18,12 @@ local function build_main_form(self)
 			pos = pos + 1
 		end
 	end
+	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
 	return formspec
 end
 
 local function build_main_form_editable(self)
-	local h = table.getn(self.questions)+4.5
+	local h = table.getn(self.questions)+5.7
 	local formspec = "size[8,"..h.."]"
 	formspec = formspec.."field[0.5,0.5;7.5,0.5;edit_name;;"..esc(self.mobname).."]"
 	formspec = formspec.."textarea[0.5,1;7.5,1.5;edit_greeting;;"..esc(self.greeting).."]"
@@ -34,6 +35,8 @@ local function build_main_form_editable(self)
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;new_question;+]"
 	pos = pos + 1
 	formspec = formspec.."button[0.25,"..pos..";7.5,1;save_main;"..esc(S("Save")).."]"
+	pos = pos + 1
+	formspec = formspec.."button_exit[0.25,"..pos..";7.5,1;close_form;"..esc(S("Close")).."]"
 	return formspec
 end
 
