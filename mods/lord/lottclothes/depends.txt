@@ -2,3 +2,4 @@ lottarmor
 default
 dye
 lordlib
+lord_classes
