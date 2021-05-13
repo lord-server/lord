@@ -353,7 +353,8 @@ lottmobs.register_horse("lottmobs:horseh1", {
 	},
 	max_speed     = 7,
 	forward_boost = 2.33,
-	jump_boost    = 4
+	jump_boost    = 4,
+	attach_h = 6,
 })
 
 --horse white
@@ -380,7 +381,8 @@ lottmobs.register_horse("lottmobs:horsepegh1", {
 	},
 	max_speed     = 7,
 	forward_boost = 2.33,
-	jump_boost    = 4
+	jump_boost    = 4,
+	attach_h = 6,
 })
 
 --horse arabik
@@ -407,7 +409,8 @@ lottmobs.register_horse("lottmobs:horsearah1", {
 	},
 	max_speed     = 7,
 	forward_boost = 2.33,
-	jump_boost    = 4
+	jump_boost    = 4,
+	attach_h = 6,
 })
 
 lottmobs.register_horse("lottmobs:shireponyblackh1", {
@@ -425,7 +428,7 @@ lottmobs.register_horse("lottmobs:shireponyblackh1", {
 	textures      = { "lottmobs_shireponyblack.png" },
 	offset        = true,
 	offset_h      = 2,
-	attach_h      = 10,
+	attach_h      = 2,
 	animation     = {
 		speed_normal = 15,
 		stand_start  = 0,
@@ -453,7 +456,7 @@ lottmobs.register_horse("lottmobs:shireponyh1", {
 	textures      = { "lottmobs_shirepony.png" },
 	offset        = true,
 	offset_h      = 2,
-	attach_h      = 10,
+	attach_h      = 2,
 	animation     = {
 		speed_normal = 15,
 		stand_start  = 0,
