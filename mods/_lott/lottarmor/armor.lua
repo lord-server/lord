@@ -110,6 +110,10 @@ armor = {
 	version = "0.4.4",
 }
 
+if minetest.setting_getbool("creative_mode") then
+	armor.formspec = armor.formspec .. "tabheader[-0.12,-0.12;creative_tabs;Main,Creative;1;true;false"
+end
+
 local get_formspec = function(player,page)
 	if page=="bags" then
 		return "size[8,7.5]"
@@ -244,11 +248,19 @@ armor.set_player_armor = function(self, player)
 		armor_texture = table.concat(textures, "^")
 	end
 	local armor_groups = {fleshy=100}
+	local immortal = player:get_armor_groups().immortal
+	if immortal and immortal ~= 0 then
+		armor_groups.immortal = 1
+	end
 	if armor_level > 0 then
 		armor_groups.level = math.floor(armor_level / 20)
 		armor_groups.fleshy = 100 - armor_level
 	end
-	player:set_armor_groups(armor_groups)
+	if player:get_attribute("lott:immunity") ~= nil and (not immortal or immortal == 0) then
+		player:set_armor_groups({fleshy = 1})
+	else
+		player:set_armor_groups(armor_groups)
+	end
 	player:set_physics_override(physics_o)
 	self.textures[name].armor = armor_texture
 	self.textures[name].preview = preview
@@ -428,9 +440,10 @@ minetest.register_on_joinplayer(function(joined_player)
 			lottachievements.equip(stack, player, -1)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
+			local p_inv = player:get_inventory()
 			local stack = inv:get_stack(to_list, to_index)
-			player_inv:set_stack(to_list, to_index, stack)
-			player_inv:set_stack(from_list, from_index, nil)
+			p_inv:set_stack(to_list, to_index, stack)
+			p_inv:set_stack(from_list, from_index, nil)
 			armor:set_player_armor(player)
 			armor:update_inventory(player)
 		end,
@@ -473,7 +486,7 @@ minetest.register_on_joinplayer(function(joined_player)
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
 			return count
 		end,
-	})
+	}, name)
 	if inv_mod == "inventory_plus" then
 		inventory_plus.register_button(joined_player,"armor", "Armor")
 	end
@@ -485,7 +498,7 @@ minetest.register_on_joinplayer(function(joined_player)
 	end
 
 	--Bags
-     local bags_inv = minetest.create_detached_inventory(joined_player:get_player_name().."_bags",{
+	local bags_inv = minetest.create_detached_inventory(name.."_bags",{
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
 			player:get_inventory():set_size(listname.."contents", stack:get_definition().groups.bagslots)
@@ -510,7 +523,7 @@ minetest.register_on_joinplayer(function(joined_player)
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
 			return 0
 		end,
-	})
+	}, name)
 	for i=1,4 do
 		local bag = "bag"..i
 		player_inv:set_size(bag, 1)
@@ -536,7 +549,7 @@ minetest.register_on_joinplayer(function(joined_player)
 	for i=1, ARMOR_INIT_TIMES do
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			armor:set_player_armor(player)
-			if not inv_mod then
+			if not inv_mod and not minetest.setting_getbool("creative_mode") then
 				armor:update_inventory(player)
 			end
 		end, joined_player)
@@ -553,7 +566,7 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 --[[
 	minetest.register_on_dieplayer(function(player)
 		local name, player_inv, armor_inv, pos = armor:get_valid_player(player, "[on_dieplayer]")
-		if not name then
+		if not name or minetest.setting_getbool("creative_mode") == true then
 			return
 		end
 		local drop = {}
