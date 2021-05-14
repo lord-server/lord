@@ -1401,7 +1401,7 @@ mobs:register_mob("lottmobs:balrog", {
 		{"lottmobs_balrog.png"},
 	},
 	makes_footstep_sound = true,
-	view_range = 15,
+	view_range = 50,
 	armor = 100,
 	walk_velocity = 1,
 	run_velocity = 3,
