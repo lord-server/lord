@@ -105,7 +105,7 @@ throwing:register_arrow("arrows:fireball", {
 	visual_size       = { x = 1, y = 1 },
 	textures          = { "mobs_fireball.png" },
 	drop_on_punch     = true,
-	velocity          = 6,
+	velocity          = 18,
 	arrow_type        = "magic",
 	tail              = 1,
 	tail_texture      = "mobs_fireball.png",
