@@ -1,0 +1,4 @@
+# textdomain: dice
+<MAX_NUM>=Максимальное число
+print out random number=выводит случайное число от 1 до MAX_NUM
+dice=результат броска

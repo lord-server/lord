@@ -1,9 +1,19 @@
+local S = minetest.get_translator("dice")
+
 minetest.register_chatcommand("dice", {
-    params = "",
-    description = "print out random number",
+    params = S("<MAX_NUM>"),
+    description = S("print out random number"),
     func = function(name, param)
-        local num = math.random(1,6)
-        return true, name .." dice: " .. num
+        if (param ~= "") then
+            t = tonumber(param)
+            if (t == nil) then
+                t = 6
+            end
+        else
+            t = 6
+        end
+        local num = math.random(1,t)
+        return true, name .. " ".. S("dice") .. ": " .. num
     end,
 })
 
