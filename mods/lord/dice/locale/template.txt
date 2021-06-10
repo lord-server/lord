@@ -1,4 +1,4 @@
 # textdomain: dice
 <MAX_NUM>=
-print out random number=
+prints out random number=
 dice=
