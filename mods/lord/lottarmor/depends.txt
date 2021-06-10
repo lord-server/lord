@@ -1,5 +1,0 @@
-default
-player_api
-lottores
-lottinventory
-lordlib
