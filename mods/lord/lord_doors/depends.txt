@@ -1,3 +1,0 @@
-doors
-default
-lordlib

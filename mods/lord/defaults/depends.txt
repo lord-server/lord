@@ -1,9 +1,0 @@
-default
-lord_overwrites_mtg_default
-lordlib
-castle
-lottores
-lottblocks
-lottmapgen
-lord_homedecor
-lord_doors
