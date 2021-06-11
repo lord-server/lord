@@ -17,7 +17,7 @@ jobs:
           user: ${{ secrets.LORD_TEST_USER }}
           key: ${{ secrets.LORD_TEST_KEY }}
           command: |
-            cd mt_master/minetest/games/lord/
+            cd mt/games/lord/
             git pull
-            $HOME/bin/mt_master restart
+            $HOME/bin/mt_server-lord restart
           args: -tt
