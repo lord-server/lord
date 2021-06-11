@@ -1,7 +1,7 @@
 local S = minetest.get_translator("dice")
 
 minetest.register_chatcommand("dice", {
-	max_num = "<MAX_NUM>",
+	params = "[MAX_NUM]",
 	description = S("prints out random number"),
 	func = function(name, param)
 		local max_limit = 6

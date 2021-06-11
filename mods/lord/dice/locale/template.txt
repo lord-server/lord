@@ -1,4 +1,3 @@
 # textdomain: dice
-<MAX_NUM>=
 prints out random number=
 dice=
