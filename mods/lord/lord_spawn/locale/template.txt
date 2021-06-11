@@ -1,0 +1,9 @@
+# textdomain: lord_spawn
+Teleport to Spawn=
+Teleporting to common Spawn...=
+Teleport failed=
+Teleport to specified Spawn=
+Teleport to the Hall of Life=
+Teleporting to Hall of Life...=
+Teleport to the Hall of Death=
+Teleporting to Hall of Death...=
