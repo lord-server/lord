@@ -3,6 +3,7 @@
 
  - [Разворачивание локально](#Разворачивание-локально)
  - [Установка и настройка LuaCheck](#Установка-и-настройка-LuaCheck)
+ - [Обновление своего форка](#Обновление-своего-форка)
 
 Разворачивание локально:
 ------------------------
@@ -40,4 +41,27 @@ minetest # Вкладка "Начать игру" -> выбрать внизу "
    ```shell
    luarocks install --local luacheck
    ```
- - добавьте
+
+Обновление своего форка:
+------------------------
+ - Добавьте дополнительный remote на оригинальный репозиторий:
+   - для начала проверьте, нет ли его уже:
+     ```shell
+     $ git remote -v
+     ```
+     должно вывести что-то вроде этого:
+     ```shell
+     origin  git@github.com:<your_account>/lord.git (fetch)
+     origin  git@github.com:<your_account>/lord.git (push)
+     upstream        git@github.com:lord-server/lord.git (fetch)
+     upstream        git@github.com:lord-server/lord.git (push)
+     ```
+   - если нет, добавляем новый remote на оригинальный репозиторий:
+     ```shell
+     $ git remote add upstream git@github.com:lord-server/lord.git
+     ```
+     проверьте, что получилось: `git remote -v`
+ - Теперь, когда нужно для своего форка обновить, например, ветку `master`:
+   - не забываем переключиться на эту ветку: `git checkout master`
+   - стягиваем её с upstream локально: `git pull upstream master`
+   - обновляем в своём форке на GitHub: `git push` (или `git push origin`)
