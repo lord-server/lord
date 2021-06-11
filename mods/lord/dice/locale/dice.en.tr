@@ -1,4 +1,3 @@
 # textdomain: dice
-<MAX_NUM>=maxinum number
-prints out random number=prints out random number
+prints out random number=prints out random number from 1 to MAX_NUM, default MAX_NUM = 6
 dice=result
