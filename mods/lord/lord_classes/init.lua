@@ -376,7 +376,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local r = races.get_race_and_gender(name)
 			minetest.after(0.1, races.show_skin_change_form, r[1], r[2], tonumber(fields.skin), name)
 		end
-		if spawn.check_spawnpoint(races.get_race(name).."_spawn_pos") then
+		if spawn.check_conf(races.get_race(name).."_spawn_pos") then
 			spawn.put_player_at_spawn(player, races.get_race(name).."_spawn_pos")
 		else
 			spawn.put_player_at_spawn(player, "common_spawn_pos")

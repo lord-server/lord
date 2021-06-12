@@ -18,7 +18,7 @@ function spawn.pos_from_conf(conf)
 	end
 end
 
-function spawn.check_spawnpoint(config_setting)
+function spawn.check_conf(config_setting)
 	if not minetest.settings:get(config_setting) then
 		minetest.log('action', "The \"" .. config_setting .. "\" setting is not set")
 		return false
@@ -33,7 +33,7 @@ function spawn.check_spawnpoint(config_setting)
 end
 
 function spawn.put_player_at_spawn(obj, config_setting)
-	if not spawn.check_spawnpoint(config_setting) then
+	if not spawn.check_conf(config_setting) then
 		return false
 	end
 
@@ -53,7 +53,7 @@ minetest.register_chatcommand("spawn", {
 	func = function(name, _)
 		local player = minetest.get_player_by_name(name)
 		local setting = races.get_race(name).."_spawn_pos"
-		if (minetest.settings:get_bool("dynamic_spawn") ~= true) or (not spawn.check_spawnpoint(setting)) then
+		if (minetest.settings:get_bool("dynamic_spawn") ~= true) or (not spawn.check_conf(setting)) then
 			local ok = spawn.put_player_at_spawn(player, "common_spawn_pos")
 			if ok then
 				return true, SL("Teleporting to common Spawn...")
@@ -82,51 +82,43 @@ minetest.register_chatcommand("spawn_to", {
 	end
 })
 
---Hall of Life
+--Halls
 
-minetest.register_chatcommand("life", {
-	description = SL("Teleport to the Hall of Life"),
-	func = function(name, _)
-		local ok = spawn.put_player_at_spawn(minetest.get_player_by_name(name), "hall_of_life_pos")
-		if ok then
-			return true, SL("Teleporting to Hall of Life...")
-		end
-		return false, SL("Teleport failed")
-	end
-})
-
---Hall of Death
-
-local death = "hall_of_death_pos"
-
-local function tp_to_hall_of_death(obj)
-	if not spawn.check_spawnpoint(death) then
+local function tp_to_hall(hall, obj)
+	if not spawn.check_conf("hall_of_"..hall.."_pos") then
 		return false
 	end
 
-	local hall_of_death = spawn.pos_from_conf(death)
+	local hall_pos = spawn.pos_from_conf("hall_of_"..hall.."_pos")
 
 	minetest.log('action', "Moving "..obj:get_player_name()..
-			" to "..death.." at "..
-			minetest.pos_to_string(hall_of_death))
+			" to "..hall.." at "..
+			minetest.pos_to_string(hall_pos))
 
-	obj:setpos(hall_of_death)
+	obj:setpos(hall_pos)
 
 	return true
 end
 
-if spawn.check_spawnpoint(death) then
-	minetest.register_chatcommand("death", {
-		description = SL("Teleport to the Hall of Death"),
-		func = function(name, _)
-			local ok = tp_to_hall_of_death(minetest.get_player_by_name(name))
-			if ok then
-				return true, SL("Teleporting to Hall of Death...")
+function spawn.register_hall(hall, desc)
+	if spawn.check_conf("hall_of_"..hall.."_pos") then
+		minetest.register_chatcommand(hall, {
+			description = SL("Teleport to the Hall of "..desc),
+			func = function(name, _)
+				local ok = tp_to_hall(hall, minetest.get_player_by_name(name))
+				if ok then
+					return true, SL("Teleporting to Hall of "..desc.."...")
+				end
+			return false, SL("Teleport failed")
 			end
-		return false, SL("Teleport failed")
-		end
-	})
+		})
+	end
 end
+
+
+
+spawn.register_hall("death", "Death")
+spawn.register_hall("life", "Life")
 
 minetest.register_on_newplayer(function(obj)
 	return spawn.put_player_at_spawn(obj, "common_spawn_pos")
@@ -137,7 +129,7 @@ minetest.register_on_respawnplayer(function(obj)
 	local a
 	if beds.spawn[name] == nil then
 		if minetest.settings:get_bool("dynamic_spawn")
-		and spawn.check_spawnpoint(races.get_race(name).."_spawn_pos") then
+		and spawn.check_conf(races.get_race(name).."_spawn_pos") then
 			a = spawn.put_player_at_spawn(obj, races.get_race(name).."_spawn_pos")
 		else
 			a = spawn.put_player_at_spawn(obj, "common_spawn_pos")
