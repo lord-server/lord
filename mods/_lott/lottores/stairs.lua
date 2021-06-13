@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottores")
 
 stairs.register_stair_and_slab("tilkal", "lottores:tilkal",
 {forbidden=1},

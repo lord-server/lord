@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottores")
 
 minetest.register_node("lottores:limestone_ore", {
 	description = SL("Limestone Ore"),
