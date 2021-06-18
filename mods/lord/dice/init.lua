@@ -12,7 +12,7 @@ minetest.register_chatcommand("dice", {
 			end
 		end
 		local num = math.random(1, max_limit)
-		minetest.chat_send_all(name .. " ".. S("dice") .. ": " .. num)
+		minetest.chat_send_all(name .. " - ".. S("dice") .. ": " .. num)
 		return true
 	end,
 })
