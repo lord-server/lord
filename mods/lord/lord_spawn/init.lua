@@ -115,8 +115,6 @@ function spawn.register_hall(hall, desc)
 	end
 end
 
-
-
 spawn.register_hall("death", "Death")
 spawn.register_hall("life", "Life")
 

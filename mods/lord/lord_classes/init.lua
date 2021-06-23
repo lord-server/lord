@@ -354,11 +354,29 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "change_race" then
 		if fields.ok then -- OK button pressed
 			local r = races.to_internal(fields.race, fields.gender)
-			races.set_race_and_gender(name, r, true)
-			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
-			races.show_skin_change_form(r[1], r[2], 1, name)
-
-			races.save()
+			if races.get_race_and_gender(name) == races.default then
+				races.set_race_and_gender(name, r, true)
+				minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
+				races.save()
+				if minetest.settings:get_bool("dynamic_spawn") == true then
+					minetest.chat_send_player(name, SL("Teleporting to the Spawn of your race..."))
+				end
+				minetest.after(1, function()
+					if spawn.check_conf(r[1].."_spawn_pos") then
+						spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
+					else
+						spawn.put_player_at_spawn(player, "common_spawn_pos")
+					end
+					minetest.after(1, function()
+						races.show_skin_change_form(r[1], r[2], 1, name)
+					end)
+				end)
+			else
+				races.set_race_and_gender(name, r, true)
+				minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
+				races.show_skin_change_form(r[1], r[2], 1, name)
+				races.save()
+			end
 		elseif fields.quit then
 			races.set_race_and_gender(name, races.default, true)
 			minetest.log("action", name .. " became a " .. races.default[1]..
@@ -375,11 +393,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		elseif fields.skin then
 			local r = races.get_race_and_gender(name)
 			minetest.after(0.1, races.show_skin_change_form, r[1], r[2], tonumber(fields.skin), name)
-		end
-		if spawn.check_conf(races.get_race(name).."_spawn_pos") then
-			spawn.put_player_at_spawn(player, races.get_race(name).."_spawn_pos")
-		else
-			spawn.put_player_at_spawn(player, "common_spawn_pos")
 		end
 	end
 end)
