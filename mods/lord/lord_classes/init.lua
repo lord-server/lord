@@ -59,7 +59,7 @@ races.list = {
 }
 
 -- TODO: Get these values via minetest.settings:get()
-races.default = {"shadow", "female"}
+races.default = {"shadow", "male"}
 races.default_skin = 1
 
 local tmp_races_list = {}
@@ -305,10 +305,11 @@ function races.show_change_form(name)
 		"label[0,0;%s]"..  -- Information label
 		"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
 		"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+		"checkbox[4.0,1.3;teleport;%s;true]".. --Teleportation
 		"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
 		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
 		minetest.formspec_escape(SL("Please select the race you wish to be:")),
-		races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
+		races_list, SL("Male"), SL("Female"), SL("Teleport to spawn"), SL("Cancel"), SL("OK")
 	)
 	minetest.show_formspec(name, "change_race", form)
 end
@@ -349,39 +350,37 @@ function races.show_skin_change_form(race, gender, skin, name)
 	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
 end
 
+tp_process = {}
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
+		if fields.race and not fields.ok then
+			local r = races.to_internal(fields.race, fields.gender)
+			if r then races.set_race_and_gender(name, r, true) end
+
+			if minetest.settings:get_bool("dynamic_spawn") == true then
+				if tp_process[name] ~= true then
+					--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
+					tp_process[name] = true
+					minetest.after(1, function()
+						if spawn.check_conf(r[1].."_spawn_pos") then
+							spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
+						else
+							spawn.put_player_at_spawn(player, "common_spawn_pos")
+						end
+						tp_process[name] = false
+						--minetest.after(1, function()
+							--races.show_skin_change_form(r[1], r[2], 1, name)
+						--end)
+					end)
+				end
+			end
+		end
 		if fields.ok then -- OK button pressed
 			local r = races.to_internal(fields.race, fields.gender)
-			if races.get_race_and_gender(name) == races.default then
-				races.set_race_and_gender(name, r, true)
-				minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
-				races.save()
-				if minetest.settings:get_bool("dynamic_spawn") == true then
-					minetest.chat_send_player(name, SL("Teleporting to the Spawn of your race..."))
-				end
-				minetest.after(1, function()
-					if spawn.check_conf(r[1].."_spawn_pos") then
-						spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
-					else
-						spawn.put_player_at_spawn(player, "common_spawn_pos")
-					end
-					minetest.after(1, function()
-						races.show_skin_change_form(r[1], r[2], 1, name)
-					end)
-				end)
-			else
-				races.set_race_and_gender(name, r, true)
-				minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
-				races.show_skin_change_form(r[1], r[2], 1, name)
-				races.save()
-			end
-		elseif fields.quit then
-			races.set_race_and_gender(name, races.default, true)
-			minetest.log("action", name .. " became a " .. races.default[1]..
-				" " .. races.default[2])
-			races.save()
+			races.set_race_and_gender(name, r, false)
+			races.show_skin_change_form(r[1], r[2], 1, name)
 		end
 	end
 	if formname == "change_skin" then

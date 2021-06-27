@@ -13,7 +13,7 @@ Cancel = Отмена
 Back = Назад
 OK = Применить
 
-Teleporting to the Spawn of your race... = Производится перемещение на Спаун вашей расы...
+Teleporting to Spawn... = Производится перемещение на Спаун...
 
 Ability to change race and gender of a player. = Возможность изменять расу и пол игроку.
 
