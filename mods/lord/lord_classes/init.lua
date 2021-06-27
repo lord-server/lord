@@ -301,16 +301,31 @@ function races.show_change_form(name)
 
 	local races_list = table.concat(list, ",")
 
-	form = form .. string.format(
-		"label[0,0;%s]"..  -- Information label
-		"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
-		"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
-		"checkbox[4.0,1.3;teleport;%s;true]".. --Teleportation
-		"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
-		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
-		minetest.formspec_escape(SL("Please select the race you wish to be:")),
-		races_list, SL("Male"), SL("Female"), SL("Teleport to spawn"), SL("Cancel"), SL("OK")
-	)
+	if not minetest.settings:get_bool("dynamic_spawn") == true then
+		form = form .. string.format(
+			"label[0,0;%s]"..  -- Information label
+			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+			minetest.formspec_escape(SL("Please select the race you wish to be:")),
+			races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
+		)
+	else
+		form = form .. string.format(
+			"label[0,0;%s]"..  -- Information label
+			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+			"label[0,0.5;%s]"..
+			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+			minetest.formspec_escape(SL("Please select the race you wish to be:")),
+			races_list, SL("Male"), SL("Female"),
+			minetest.colorize("#ff033e", SL("(Warning: choosing the race will teleport \n"..
+			"you at the race spawn!)")),
+			SL("Cancel"), SL("OK")
+		)
+	end
 	minetest.show_formspec(name, "change_race", form)
 end
 
