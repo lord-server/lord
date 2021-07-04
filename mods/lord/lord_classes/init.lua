@@ -59,7 +59,7 @@ races.list = {
 }
 
 -- TODO: Get these values via minetest.settings:get()
-races.default = {"shadow", "female"}
+races.default = {"shadow", "male"}
 races.default_skin = 1
 
 local tmp_races_list = {}
@@ -301,15 +301,31 @@ function races.show_change_form(name)
 
 	local races_list = table.concat(list, ",")
 
-	form = form .. string.format(
-		"label[0,0;%s]"..  -- Information label
-		"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
-		"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
-		"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
-		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
-		minetest.formspec_escape(SL("Please select the race you wish to be:")),
-		races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
-	)
+	if not minetest.settings:get_bool("dynamic_spawn") == true then
+		form = form .. string.format(
+			"label[0,0;%s]"..  -- Information label
+			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+			minetest.formspec_escape(SL("Please select the race you wish to be:")),
+			races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
+		)
+	else
+		form = form .. string.format(
+			"label[0,0;%s]"..  -- Information label
+			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
+			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
+			"label[0,0.5;%s]"..
+			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
+			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
+			minetest.formspec_escape(SL("Please select the race you wish to be:")),
+			races_list, SL("Male"), SL("Female"),
+			minetest.colorize("#ff033e", SL("(Warning: choosing the race will teleport \n"..
+			"you at the race spawn!)")),
+			SL("Cancel"), SL("OK")
+		)
+	end
 	minetest.show_formspec(name, "change_race", form)
 end
 
@@ -349,21 +365,37 @@ function races.show_skin_change_form(race, gender, skin, name)
 	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
 end
 
+tp_process = {}
+
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
+		if fields.race and not fields.ok then
+			local r = races.to_internal(fields.race, fields.gender)
+			if r then races.set_race_and_gender(name, r, true) end
+
+			if minetest.settings:get_bool("dynamic_spawn") == true then
+				if tp_process[name] ~= true then
+					--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
+					tp_process[name] = true
+					minetest.after(1, function()
+						if spawn.check_conf(r[1].."_spawn_pos") then
+							spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
+						else
+							spawn.put_player_at_spawn(player, "common_spawn_pos")
+						end
+						tp_process[name] = false
+						--minetest.after(1, function()
+							--races.show_skin_change_form(r[1], r[2], 1, name)
+						--end)
+					end)
+				end
+			end
+		end
 		if fields.ok then -- OK button pressed
 			local r = races.to_internal(fields.race, fields.gender)
-			races.set_race_and_gender(name, r, true)
-			minetest.log("action", name .. " became a " .. r[1] .. " " .. r[2])
+			races.set_race_and_gender(name, r, false)
 			races.show_skin_change_form(r[1], r[2], 1, name)
-
-			races.save()
-		elseif fields.quit then
-			races.set_race_and_gender(name, races.default, true)
-			minetest.log("action", name .. " became a " .. races.default[1]..
-				" " .. races.default[2])
-			races.save()
 		end
 	end
 	if formname == "change_skin" then
@@ -375,11 +407,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		elseif fields.skin then
 			local r = races.get_race_and_gender(name)
 			minetest.after(0.1, races.show_skin_change_form, r[1], r[2], tonumber(fields.skin), name)
-		end
-		if spawn.check_spawnpoint(races.get_race(name).."_spawn_pos") then
-			spawn.put_player_at_spawn(player, races.get_race(name).."_spawn_pos")
-		else
-			spawn.put_player_at_spawn(player, "common_spawn_pos")
 		end
 	end
 end)
@@ -448,6 +475,8 @@ minetest.register_chatcommand("give_chance", {
 		races.show_change_form(args[1])
 	end
 })
+
+dofile(minetest.get_modpath('lord_classes')..'/effects.lua')
 
 if minetest.settings:get_bool("msg_loading_mods") then
 	minetest.log("action", minetest.get_current_modname().." loaded")
