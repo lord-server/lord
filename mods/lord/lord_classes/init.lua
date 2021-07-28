@@ -365,26 +365,26 @@ function races.show_skin_change_form(race, gender, skin, name)
 	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
 end
 
-tp_process = {}
+races.tp_process = {}
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
-		if fields.race and not fields.ok then
+		if fields.race and not fields.ok and not fields.quit and not fields.cancel then
 			local r = races.to_internal(fields.race, fields.gender)
 			if r then races.set_race_and_gender(name, r, true) end
 
 			if minetest.settings:get_bool("dynamic_spawn") == true then
-				if tp_process[name] ~= true then
+				if races.tp_process[name] ~= true then
 					--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
-					tp_process[name] = true
+					races.tp_process[name] = true
 					minetest.after(1, function()
 						if spawn.check_conf(r[1].."_spawn_pos") then
 							spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
 						else
 							spawn.put_player_at_spawn(player, "common_spawn_pos")
 						end
-						tp_process[name] = false
+						races.tp_process[name] = false
 						--minetest.after(1, function()
 							--races.show_skin_change_form(r[1], r[2], 1, name)
 						--end)
@@ -396,6 +396,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local r = races.to_internal(fields.race, fields.gender)
 			races.set_race_and_gender(name, r, false)
 			races.show_skin_change_form(r[1], r[2], 1, name)
+		end
+		if fields.quit or fields.cancel then
+			local r = races.default
+			races.set_race_and_gender(name, r, true)
 		end
 	end
 	if formname == "change_skin" then
