@@ -201,7 +201,6 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 	end
 
 	local race = race_and_gender[1]
-
 	races.update_privileges(name, races.list[race].granted_privs,
 		races.list[race].revoked_privs)
 
@@ -394,10 +393,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		if fields.ok then -- OK button pressed
 			local r = races.to_internal(fields.race, fields.gender)
-			races.set_race_and_gender(name, r, false)
+			races.set_race_and_gender(name, r, true)
 			races.show_skin_change_form(r[1], r[2], 1, name)
-		end
-		if fields.quit or fields.cancel then
+		elseif fields.cancel then
 			local r = races.default
 			races.set_race_and_gender(name, r, true)
 		end
