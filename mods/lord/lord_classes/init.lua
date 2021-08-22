@@ -24,7 +24,7 @@ races.list = {
 		no_corpse = true,
 		male_skins = 1,
 		female_skins = 1,
-		faction = "monster",
+		faction = "neutral",
 	},
 	orc = {
 		name = SL("Orc"),
