@@ -395,7 +395,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			local r = races.to_internal(fields.race, fields.gender)
 			races.set_race_and_gender(name, r, true)
 			races.show_skin_change_form(r[1], r[2], 1, name)
-		elseif fields.cancel then
+		else -- Cancel button pressed, or escape pressed
 			local r = races.default
 			races.set_race_and_gender(name, r, true)
 		end
