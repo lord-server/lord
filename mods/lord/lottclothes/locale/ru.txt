@@ -87,3 +87,13 @@ Elven Shirt	=	Эльфийская рубашка
 Elven Trousers	=	Эльфийские штаны
 Elven Shoes	=	Эльфийская обувь
 Elven Cloak	=	Эльфийский плащ
+
+### wizard.lua ###
+Dwarven Boots     = Гномьи ботинки
+Grey Wizard Cloak = Плащ серого мага
+Blue Wizard Hood  = Капюшон синего мага
+Grey Wizard Robe  = Мантия серого мага
+White Wizard Hood = Капюшон белого мага
+White Wizard Robe = Мантия белого мага
+White Wizard Trousers = Штаны белого мага
+White Wizard Cloak = Плащ белого мага
