@@ -60,4 +60,5 @@ exclude_files     = {
 	"mods/_various/intllib",
 	"mods/_various/mobs",
 	"mods/_various/mp_world_edit",
+	"mods/lord/lottclothes",
 }
