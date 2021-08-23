@@ -19,5 +19,6 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/brandybuck.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/ettenmoor.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/cloaks.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/elven.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()).."/wizard.lua")
 
 lord.mod_loaded()
