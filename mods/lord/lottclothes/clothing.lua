@@ -68,9 +68,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_on_joinplayer(function(player)
-	multiskin:init(player)
-	local name = player:get_player_name()
+races.register_init_callback(function(name, race, gender, skin, texture, face)
+	local player = minetest.get_player_by_name(name)
+    multiskin:init(player, texture)
 	local player_inv = player:get_inventory()
 	local clothing_inv = minetest.create_detached_inventory(name.."_clothing",{
 		on_put = function(inv, listname, index, stack, player)

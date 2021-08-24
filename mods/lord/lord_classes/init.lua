@@ -12,7 +12,9 @@ local form_header = "size[7,4]"..
 					"background[7,4;1,1;gui_formbg.png;true]"
 
 races = {
-	save_path = minetest.get_worldpath() .. "/races.txt"
+	save_path = minetest.get_worldpath() .. "/races.txt",
+	update_cbs = {},
+	init_cbs = {},
 }
 
 races.list = {
@@ -171,8 +173,43 @@ function races.update_player(name, race_and_gender, skin)
 
 	-- TODO: caching
 	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	multiskin[name].skin = texture
-	multiskin:update_player_visuals(minetest.get_player_by_name(name))
+	local face = races.get_face_preview_name(race, gender, skin)
+
+	for _, cb in ipairs(races.update_cbs) do
+		cb(name, race, gender, skin, texture, face)
+	end
+end
+
+function races.init_player(name, race_and_gender, skin)
+	local race = race_and_gender[1]
+	local gender = race_and_gender[2]
+
+	-- TODO: caching
+	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
+	local face = races.get_face_preview_name(race, gender, skin)
+
+	for _, cb in ipairs(races.init_cbs) do
+		cb(name, race, gender, skin, texture, face)
+	end
+end
+
+
+function races.register_update_callback(cb)
+	if cb == nil then
+		-- fool proof
+		minetest.log("Trying to register nil callback")
+		return
+	end
+	table.insert(races.update_cbs, cb)
+end
+
+function races.register_init_callback(cb)
+	if cb == nil then
+		-- fool proof
+		minetest.log("Trying to register nil callback")
+		return
+	end
+	table.insert(races.init_cbs, cb)
 end
 
 -- Returns the race and the gender of specified player
@@ -205,7 +242,7 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 		races.list[race].revoked_privs)
 
 	cache.players[name] = race_and_gender
-	races.update_player(name, race_and_gender, races.default_skin)
+--	races.update_player(name, race_and_gender, races.default_skin)
 
 	-- Notify player
 	if show_message then
@@ -329,7 +366,19 @@ function races.show_change_form(name)
 end
 
 function races.get_texture_name(race, gender, skin)
-	return string.format("%s_%s%d.png", race, gender, skin)
+	if race ~= "shadow" then
+		return string.format("%s_%s%d.png", race, gender, skin)
+	else
+		return nil
+	end
+end
+
+function races.get_face_preview_name(race, gender, skin)
+	if race ~= "shadow" then
+		return string.format("preview_%s_%s%d_face.png", race, gender, skin)
+	else
+		return nil
+	end
 end
 
 -- Generates number sequence starting with 1 and ending with `max`
@@ -420,18 +469,22 @@ minetest.register_on_joinplayer(function(player)
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
+			races.init_player(name, r, races.get_skin(name))
 			return
 		end
 		r = races.get_race_and_gender(name)
 		races.set_race_and_gender(name, r, false)
-		races.update_player(name, r, races.get_skin(name))
 		-- Player is registered, but has no skin
 		if cache.skins[name] == nil then
 			cache.skins[name] = races.default_skin
 		end
+
+		races.init_player(name, r, races.get_skin(name))
 	else
 		races.show_change_form(name)
 		cache.can_change[name] = true
+		local r = races.get_race_and_gender(name)
+		races.init_player(name, r, races.get_skin(name))
 	end
 end)
 
