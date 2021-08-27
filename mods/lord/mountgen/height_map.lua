@@ -12,7 +12,6 @@ end
 mountgen.set_value = function(map, z, x, val)
 	local h = table.getn(map)
 	local w = table.getn(map[1])
-	print(x, z, w, h)
 	if x < 0 or z < 0 or x >= w or z >= h then
 		return
 	end
