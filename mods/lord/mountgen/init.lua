@@ -1,4 +1,8 @@
 local ANGLE=60*3.141/180
+local HEAD_ANGLE = 120*3.141/180
+
+local TOP_H = 0.3
+
 local Y0 = 0
 local USE_DIAMOND_SQUARE = true
 
@@ -12,6 +16,8 @@ local FLOWERS_PERCENT = 10
 
 local TREE_LINE = 20
 local TREE_PROMILLE = 4
+
+local RAND_K = 2
 
 local function is_inside(pos, top, angle)
 	local dx = pos.x - top.x
@@ -86,36 +92,51 @@ local function place_top(x, y, z)
 
 end
 
-local function cone_mountgen(top)
-	local H = top.y - Y0
-	local W = H * math.tan(ANGLE)
+local function get_value(map, z, x)
+	local h = table.getn(map)
+	local w = table.getn(map[1])
 
-	local x1 = top.x - W
-	local x2 = top.x + W
+	if x < 0 or z < 0 or x >= w or z >= h then
+		return 0
+	end
 
-	local z1 = top.z - W
-	local z2 = top.z + W
+	return map[z+1][x+1]
+end
 
-	local y1 = Y0
-	local y2 = top.y
+local function set_value(map, z, x, val)
+	local h = table.getn(map)
+	local w = table.getn(map[1])
+	print(x, z, w, h)
+	if x < 0 or z < 0 or x >= w or z >= h then
+		return
+	end
+	map[z+1][x+1] = val
+end
 
-	for y = y1,y2+1 do
-	for x = x1,x2+1 do
-	for z = z1,z2+1 do
-		local pos = {x=x,y=y,z=z}
-		local inside = is_inside(pos, top, ANGLE)
-		local istop    = is_top(pos, top, ANGLE)
 
-		if inside then
-			if istop then
-				place_top(x, y, z)
-			else
-				minetest.set_node(pos, {name="default:stone"})
-			end
+local function cone(W, H, rk_big, rk_small, n_size_thr)
+        local angle = math.atan(W/2/H)
+  
+	local map = {}
+	for i = 1, W do
+		map[i] = {}
+		for j = 1, W do
+			map[i][j] = 0
 		end
 	end
+
+	local l0 = math.sqrt(W/2*W/2 + W/2*W/2)
+
+	for z = 0,W-1 do
+	for x = 0,W-1 do
+		local px = x - W/2
+		local pz = z - W/2
+		local l = math.sqrt(px*px+pz*pz)
+		local h = H*(1-l/l0)
+		set_value(map, z, x, h)
 	end
 	end
+	return map, W, math.floor(W/2)+1
 end
 
 local function get_height(z, x, r, y1, y2, zbase, xbase)
@@ -140,55 +161,19 @@ local function get_height(z, x, r, y1, y2, zbase, xbase)
 end
 
 
-local function get_value(map, z, x, r, y1, y2, zbase, xbase)
-	local h = table.getn(map)
-	local w = table.getn(map[1])
 
-	if x < 0 or z < 0 or x >= w or z >= h then
-		return get_height(z, x, r, y1, y2, zbase, xbase)
-	end
-
-	return map[z+1][x+1]
-end
-
-local function set_value(map, z, x, val)
-	local h = table.getn(map)
-	local w = table.getn(map[1])
-	if x < 0 or z < 0 or x >= w or z >= h then
-		return
-	end
-	map[z+1][x+1] = val
-end
-
-
-local function cut_peak(map, z, x, r, y1, y2, zbase, xbase)
-	local v1 = get_value(map, z-1, x, r, y1, y2, zbase, xbase)
-	local v2 = get_value(map, z+1, x, r, y1, y2, zbase, xbase)
-	local v3 = get_value(map, z, x-1, r, y1, y2, zbase, xbase)
-	local v4 = get_value(map, z, x+1, r, y1, y2, zbase, xbase)
+local function cut_peak(map, z, x)
+	local v1 = get_value(map, z-1, x)
+	local v2 = get_value(map, z+1, x)
+	local v3 = get_value(map, z, x-1)
+	local v4 = get_value(map, z, x+1)
 	set_value(map, z, x, (v1+v2+v3+v4)/4)
 end
 
-local function diamond_square(top)
-	top.x = math.floor(top.x+0.5)
-	top.y = math.floor(top.y+0.5)
-	top.z = math.floor(top.z+0.5)
-
-
-	local W = (top.y - Y0)*math.tan(ANGLE)
+local function diamond_square(W, H, rk_big, rk_small, n_size_thr)
 	local n = math.ceil(math.log(W) / math.log(2))
-
-
---	local n = 7
 	local r = math.pow(2, n-1)
 	local w = 2*r + 1
-
-	minetest.log("n = "..tostring(n).." w = "..w)
-
-	if top.y <= Y0 then
-		minetest.log("Trying to build negative mountain")
-		return
-	end
 
 	local map = {}
 	for i = 1, w do
@@ -197,23 +182,6 @@ local function diamond_square(top)
 			map[i][j] = 0
 		end
 	end
---	init
-
-	local y1 = Y0
-	local y2 = top.y
-
-	local h1 = get_height(0, 0, r,   y1, y2, top.z, top.x)
-	local h2 = get_height(0, w-1, r, y1, y2, top.z, top.x)
-	local h3 = get_height(w-1,0,r,   y1, y2, top.z, top.x)
-	local h4 = get_height(w-1,w-1,r, y1, y2, top.z, top.x)
-
-	minetest.log("initial "..h1.." "..h2.." "..h3.." "..h4)
-	set_value(map, 0, 0,     (y1+h1)/2)
-	set_value(map, 0, w-1,   (y1+h2)/2)
-	set_value(map, w-1, 0,   (y1+h3)/2)
-	set_value(map, w-1, w-1, (y1+h4)/2)
-
-	local rnd = 2
 
 	local i = n
 	while i >= 1 do
@@ -221,22 +189,27 @@ local function diamond_square(top)
 		local step2 = math.pow(2, i-1)
 
 		local num = math.pow(2, n-i)
+		local rk = RAND_K
+
 		local rand
 
---		minetest.log("----------")
---		minetest.log("step = "..step.." step2 = "..step2)
+		if i < n_size_thr then
+			rk = rk_small
+		else
+			rk = rk_big
+		end
+
 		-- diamond
---		minetest.log("diamond")
 		if i < n then
 			local z = 0
 			for _ = 1, num do
 				local x = 0
 				for _ = 1, num do
-					local val1 = get_value(map, z, x, r, y1, y2, top.z, top.x)
-					local val2 = get_value(map, z+step, x, r, y1, y2, top.z, top.x)
-					local val3 = get_value(map, z, x+step, r, y1, y2, top.z, top.x)
-					local val4 = get_value(map, z+step, x+step, r, y1, y2, top.z, top.x)
-					rand = math.random(-step2/rnd, step2/rnd)
+					local val1 = get_value(map, z, x)
+					local val2 = get_value(map, z+step, x)
+					local val3 = get_value(map, z, x+step)
+					local val4 = get_value(map, z+step, x+step)
+					rand = math.random(-step2/rk, step2/rk)
 					local val = (val1 + val2 + val3 + val4)/4 + rand
 					set_value(map, z+step2, x+step2, val)
 					x = x + step
@@ -244,11 +217,10 @@ local function diamond_square(top)
 				z = z + step
 			end
 		else
-			set_value(map, step2, step2, y2)
+			set_value(map, step2, step2, H)
 		end
 
 		-- square
---		minetest.log("square")
 		local z = 0
 		for _ = 1, num+1 do
 			local x = 0
@@ -256,19 +228,19 @@ local function diamond_square(top)
 				local val1, val2, val3, val4
 				local val
 
-				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z-step2, x+step2, r, y1, y2, top.z, top.x)
-				val2 = get_value(map, z+step2, x+step2, r, y1, y2, top.z, top.x)
-				val3 = get_value(map, z, x, r, y1, y2, top.z, top.x)
-				val4 = get_value(map, z, x+step, r, y1, y2, top.z, top.x)
+				rand = math.random(-step2/rk, step2/rk)
+				val1 = get_value(map, z-step2, x+step2)
+				val2 = get_value(map, z+step2, x+step2)
+				val3 = get_value(map, z, x)
+				val4 = get_value(map, z, x+step)
 				val = (val1 + val2 + val3 + val4)/4 + rand
 				set_value(map, z, x+step2, val)
 
-				rand = math.random(-step2/rnd, step2/rnd)
-				val1 = get_value(map, z+step2, x-step2, r, y1, y2, top.z, top.x)
-				val2 = get_value(map, z+step2, x+step2, r, y1, y2, top.z, top.x)
-				val3 = get_value(map, z, x, r, y1, y2, top.z, top.x)
-				val4 = get_value(map, z+step, x, r, y1, y2, top.z, top.x)
+				rand = math.random(-step2/rk, step2/rk)
+				val1 = get_value(map, z+step2, x-step2)
+				val2 = get_value(map, z+step2, x+step2)
+				val3 = get_value(map, z, x)
+				val4 = get_value(map, z+step, x)
 				val = (val1 + val2 + val3 + val4)/4 + rand
 				set_value(map, z+step2, x, val)
 
@@ -278,29 +250,53 @@ local function diamond_square(top)
 		end
 
 		i = i - 1
---		break
 	end
 
-	-- fix center of mountain
---	minetest.log("cut peaks")
-	cut_peak(map, r, r, r, y1, y2, top.z, top.x)
-	cut_peak(map, 0, r, r, y1, y2, top.z, top.x)
-	cut_peak(map, r, 0, r, y1, y2, top.z, top.x)
-	cut_peak(map, r, 2*r, r, y1, y2, top.z, top.x)
-	cut_peak(map, 2*r, r, r, y1, y2, top.z, top.x)
+	cut_peak(map, r, r)
+
+	return map, w, r+1
+end
+
+local function mountgen(top, fun)
+	top.x = math.floor(top.x+0.5)
+	top.y = math.floor(top.y+0.5)
+	top.z = math.floor(top.z+0.5)
+
+	local y1 = Y0
+	local y2 = top.y
+	local H = y2 - y1
+	local coneH = (H * 1.4)/(1-TOP_H)
+	local yb = H*(1-1.4)
+
+	local W = 2*coneH*math.tan(ANGLE/2)
+
+	if top.y <= Y0 then
+		minetest.log("Trying to build negative mountain")
+		return
+	end
+
+	local main_map, w, c = fun(W, coneH, RAND_K, RAND_K*3, 3)
+
+	local head_coneH = (w/2)/math.tan(HEAD_ANGLE/2)
+	local head_map, _, _ = fun(W, head_coneH, RAND_K, RAND_K*3, 3)
+
 
 	for z = 1, w do
 	for x = 1, w do
-		local px = top.x+x-r-1
-		local pz = top.z+z-r-1
+		local px = top.x + x-c
+		local pz = top.z + z-c
 
-		for y=0,map[z][x] do
-			local py = Y0 + y
+		local height_main = main_map[z][x]
+		local height_top  = head_map[z][x]+(coneH - head_coneH)-coneH*TOP_H
+		local height = math.min(height_main, height_top)+yb
+
+		for y=0,height do
+			local py = y1 + y
 			local pos = {x=px, y=py, z=pz}
 			minetest.set_node(pos, {name="default:stone"})
 		end
-		local y = map[z][x]
 
+		local y = height
 		local py = Y0 + y
 		if y >= 0 then
 			place_top(px, py, pz)
@@ -320,11 +316,11 @@ minetest.register_tool("mountgen:mount_tool", {
 		end
 		local top = user:get_pos()
 		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
-
+ 
 		if USE_DIAMOND_SQUARE then
-			diamond_square(top)
+			mountgen(top, diamond_square)
 		else
-			cone_mountgen()
+			mountgen(top, cone)
 		end
 
 		return itemstack
