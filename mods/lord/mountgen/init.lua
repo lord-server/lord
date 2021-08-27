@@ -20,6 +20,8 @@ mountgen = {
 		rk_big = 2,
 		rk_small = 6,
 		rk_thr = 4,
+
+		top_cover = "lottmapgen:dunland_grass",
 	},
 }
 
@@ -29,54 +31,60 @@ mountgen.show_config_menu = function(user_name, config)
         local bw = 5 - 0.5
         local pos = 0.5
 
-        formspec = formspec.."label[3.5,"..(pos-0.3)..";"..S("Mountain creation tool").."]"
+	formspec = formspec.."label[3.5,"..(pos-0.3)..";"..S("Mountain creation tool").."]"
 	pos = pos + 0.5
-        formspec = formspec.."label[3.5,"..(pos-0.3)..";"..S("USE WITH CAUTION!").."]"
+	formspec = formspec.."label[3.5,"..(pos-0.3)..";"..S("USE WITH CAUTION!").."]"
 	pos = pos + 1
 
 	-- угол основной части горы
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Angle")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_angle;;"..esc(config.ANGLE).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Angle")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_angle;;"..esc(config.ANGLE).."]"
 	pos = pos + 0.8
 
 	-- угол вершины
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Head angle")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_head_angle;;"..esc(config.HEAD_ANGLE).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Head angle")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_head_angle;;"..esc(config.HEAD_ANGLE).."]"
 	pos = pos + 0.8
 
 	-- основание
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Base height")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_base;;"..esc(config.Y0).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Base height")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_base;;"..esc(config.Y0).."]"
 	pos = pos + 0.8
 
 	-- доля вершины
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Head fraction")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_head_fraction;;"..esc(config.TOP_H).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Head fraction")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_head_fraction;;"..esc(config.TOP_H).."]"
 	pos = pos + 0.8
 
 	-- снежная линия
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Snow line")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_snow_line;;"..esc(config.SNOW_LINE).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Snow line")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_snow_line;;"..esc(config.SNOW_LINE).."]"
 	pos = pos + 0.8
 
 	-- сглаживание на крупном масштабе
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Smooth big scale")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_big;;"..esc(config.rk_big).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Smooth big scale")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_big;;"..esc(config.rk_big).."]"
 	pos = pos + 0.8
 
 	-- сглаживание на малом масштабе
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Smooth small scale")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_small;;"..esc(config.rk_small).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Smooth small scale")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_small;;"..esc(config.rk_small).."]"
 	pos = pos + 0.8
 
 	-- граница мелкого масштаба (лог2)
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Small scale (log2)")).."]"
-        formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_thr;;"..esc(config.rk_thr).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Small scale (log2)")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_rk_thr;;"..esc(config.rk_thr).."]"
 	pos = pos + 0.8
 
+	-- грунт сверху
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Top dirt")).."]"
+	formspec = formspec.."field[3,"..pos..";"..bw..",0.5;edit_top_cover;;"..esc(config.top_cover).."]"
+	pos = pos + 0.8
+
+
 	-- алгоритм генерации
-        formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Use diamond-square")).."]"
-        formspec = formspec.."checkbox[2.75,"..(pos-0.5)..";edit_use_diamond_square;;"..tostring(config.USE_DIAMOND_SQUARE).."]"
+	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Use diamond-square")).."]"
+	formspec = formspec.."checkbox[2.75,"..(pos-0.5)..";edit_use_diamond_square;;"..tostring(config.USE_DIAMOND_SQUARE).."]"
 	pos = pos + 0.5
 
 	formspec = formspec.."button[2.75,"..pos..";"..bw..",1;save_main;"..esc(S("Save")).."]"
@@ -85,7 +93,6 @@ mountgen.show_config_menu = function(user_name, config)
 	formspec = "size["..width..","..pos.."]"..formspec
 
 	minetest.show_formspec(user_name, "mountgen:configure", formspec)
-	print(formspec)
 end
 
 minetest.register_tool("mountgen:mount_tool", {

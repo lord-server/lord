@@ -37,23 +37,26 @@ mountgen.place_top = function(x, y, z, config)
 		minetest.set_node(pos, {name="default:snowblock"})
 	else
 		local upper = {x=x,y=y+1,z=z}
-		minetest.set_node(pos, {name="lottmapgen:dunland_grass"})
-		if math.random(0,100) < config.GRASS_PERCENT then
-			place_grass(upper)
-		end
+		minetest.set_node(pos, {name=config.top_cover})
 
-		if y <= config.FLOWERS_LINE then
-			if math.random(0,100) < config.FLOWERS_PERCENT then
-				place_flower(upper)
+		local node = minetest.get_node(upper)
+		if node.name == "air" then
+			if math.random(0,100) < config.GRASS_PERCENT then
+				place_grass(upper)
+			end
+
+			if y <= config.FLOWERS_LINE then
+				if math.random(0,100) < config.FLOWERS_PERCENT then
+					place_flower(upper)
+				end
+			end
+
+			if y <= config.TREE_LINE then
+				if math.random(0,1000) < config.TREE_PROMILLE then
+					place_sapling(upper)
+				end
 			end
 		end
-
-		if y <= config.TREE_LINE then
-			if math.random(0,1000) < config.TREE_PROMILLE then
-				place_sapling(upper)
-			end
-		end
-
 	end
 
 end
