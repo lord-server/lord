@@ -1,6 +1,4 @@
-local function cone(W, H, config)
-        local angle = math.atan(W/2/H)
-  
+mountgen.cone = function(W, H, config)
 	local map = {}
 	for i = 1, W do
 		map[i] = {}

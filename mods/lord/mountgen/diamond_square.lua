@@ -25,9 +25,8 @@ mountgen.diamond_square = function(W, H, config)
 		local step2 = math.pow(2, i-1)
 
 		local num = math.pow(2, n-i)
-		local rk = RAND_K
 
-		local rand
+		local rk
 
 		if i < config.rk_thr then
 			rk = config.rk_small
@@ -45,7 +44,7 @@ mountgen.diamond_square = function(W, H, config)
 					local val2 = mountgen.get_value(map, z+step, x)
 					local val3 = mountgen.get_value(map, z, x+step)
 					local val4 = mountgen.get_value(map, z+step, x+step)
-					rand = math.random(-step2/rk, step2/rk)
+					local rand = math.random(-step2/rk, step2/rk)
 					local val = (val1 + val2 + val3 + val4)/4 + rand
 					mountgen.set_value(map, z+step2, x+step2, val)
 					x = x + step
@@ -63,6 +62,7 @@ mountgen.diamond_square = function(W, H, config)
 			for _ = 1, num+1 do
 				local val1, val2, val3, val4
 				local val
+				local rand
 
 				rand = math.random(-step2/rk, step2/rk)
 				val1 = mountgen.get_value(map, z-step2, x+step2)

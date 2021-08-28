@@ -82,11 +82,6 @@ mountgen.show_config_menu = function(user_name, config)
 	pos = pos + 0.8
 
 
-	-- алгоритм генерации
---	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Use diamond-square")).."]"
---	formspec = formspec.."checkbox[2.75,"..(pos-0.5)..";edit_use_diamond_square;;"..tostring(config.USE_DIAMOND_SQUARE).."]"
---	pos = pos + 0.5
-
 	formspec = formspec.."button[2.75,"..pos..";"..bw..",1;save_main;"..esc(S("Save")).."]"
 	pos = pos + 1
 
@@ -124,7 +119,6 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			config.rk_small			= tonumber(fields["edit_rk_big"])
 			config.rk_thr			= tonumber(fields["edit_rk_thr"])
 			config.top_cover		= fields["edit_top_cover"]
---			config.USE_DIAMOND_SQUARE	= fields["edit_use_diamond_square"] == true
 			if validate_config(config) then
 				mountgen.config.ANGLE			= config.ANGLE 
 				mountgen.config.HEAD_ANGLE		= config.HEAD_ANGLE
@@ -134,8 +128,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				mountgen.config.rk_big			= config.rk_big
 				mountgen.config.rk_small		= config.rk_small
 				mountgen.config.rk_thr			= config.rk_thr
-				mountgen.config.top_cover		= config.top_cover	 
---				mountgen.config.USE_DIAMOND_SQUARE	= config.USE_DIAMOND_SQUARE
+				mountgen.config.top_cover		= config.top_cover
 			end
 		end
 	end
@@ -153,7 +146,8 @@ minetest.register_tool("mountgen:mount_tool", {
 		local top = user:get_pos()
 		local config = mountgen.config
 		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
- 
+
+		local fun 
 		if config.USE_DIAMOND_SQUARE then
 			fun = mountgen.diamond_square
 		else
