@@ -3,18 +3,17 @@ mountgen.mountgen = function(top, fun, config)
 	top.y = math.floor(top.y+0.5)
 	top.z = math.floor(top.z+0.5)
 
+	if top.y <= config.Y0 then
+		minetest.log("Trying to build negative mountain")
+		return
+	end
+
 	local y1 = config.Y0
 	local y2 = top.y
 	local H = y2 - y1
 	local coneH = (H * 1.4)/(1-config.TOP_H)
 	local yb = H*(1-1.4)
-
-	local W = 2*coneH*math.tan(config.ANGLE*3.141/180/2)
-
-	if top.y <= config.Y0 then
-		minetest.log("Trying to build negative mountain")
-		return
-	end
+	local W = math.ceil(2*coneH*math.tan(config.ANGLE*3.141/180/2))+3
 
 	local main_map, w, c = fun(W, coneH, config)
 	local head_coneH = (w/2)/math.tan(config.HEAD_ANGLE*3.141/180/2)

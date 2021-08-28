@@ -96,6 +96,12 @@ local function validate_config(config)
 			return false
 		end
 	end
+	if config["HEAD_ANGLE"] > config["ANGLE"] then
+		return false
+	end
+	if config.TOP_H < 0 or config.TOP_H >= 1 then
+		return false
+	end
 	return true
 end
 

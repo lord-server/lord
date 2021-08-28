@@ -1,5 +1,7 @@
 mountgen.cone = function(W, H, config)
 	local map = {}
+
+	W = math.max(W, 1)
 	for i = 1, W do
 		map[i] = {}
 		for j = 1, W do

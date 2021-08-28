@@ -8,6 +8,7 @@ end
 
 mountgen.diamond_square = function(W, H, config)
 	local n = math.ceil(math.log(W) / math.log(2))
+	n = math.max(n, 1)
 	local r = math.pow(2, n-1)
 	local w = 2*r + 1
 
