@@ -83,9 +83,9 @@ mountgen.show_config_menu = function(user_name, config)
 
 
 	-- алгоритм генерации
-	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Use diamond-square")).."]"
-	formspec = formspec.."checkbox[2.75,"..(pos-0.5)..";edit_use_diamond_square;;"..tostring(config.USE_DIAMOND_SQUARE).."]"
-	pos = pos + 0.5
+--	formspec = formspec.."label[0.5,"..(pos-0.3)..";"..esc(S("Use diamond-square")).."]"
+--	formspec = formspec.."checkbox[2.75,"..(pos-0.5)..";edit_use_diamond_square;;"..tostring(config.USE_DIAMOND_SQUARE).."]"
+--	pos = pos + 0.5
 
 	formspec = formspec.."button[2.75,"..pos..";"..bw..",1;save_main;"..esc(S("Save")).."]"
 	pos = pos + 1
@@ -94,6 +94,52 @@ mountgen.show_config_menu = function(user_name, config)
 
 	minetest.show_formspec(user_name, "mountgen:configure", formspec)
 end
+
+local function validate_config(config)
+	for k, v in pairs(config) do
+		if v == nil then
+			return false
+		end
+	end
+	return true
+end
+
+minetest.register_on_player_receive_fields(function(clicker, formname, fields)
+        local player = clicker:get_player_name()
+        local can_edit = minetest.get_player_privs(player)[mountgen.required_priv]
+	if not can_edit then
+		return
+	end
+
+	if formname == "mountgen:configure" then
+		-- handling main form
+		if fields["save_main"] ~= nil then
+			local config = {}
+			config.ANGLE			= tonumber(fields["edit_angle"])
+			config.HEAD_ANGLE		= tonumber(fields["edit_head_angle"])
+			config.Y0			= tonumber(fields["edit_base"])
+			config.TOP_H			= tonumber(fields["edit_head_fraction"])
+			config.SNOW_LINE		= tonumber(fields["edit_snow_line"])
+			config.rk_big			= tonumber(fields["edit_rk_big"])
+			config.rk_small			= tonumber(fields["edit_rk_big"])
+			config.rk_thr			= tonumber(fields["edit_rk_thr"])
+			config.top_cover		= fields["edit_top_cover"]
+--			config.USE_DIAMOND_SQUARE	= fields["edit_use_diamond_square"] == true
+			if validate_config(config) then
+				mountgen.config.ANGLE			= config.ANGLE 
+				mountgen.config.HEAD_ANGLE		= config.HEAD_ANGLE
+				mountgen.config.Y0			= config.Y0	 
+				mountgen.config.TOP_H			= config.TOP_H
+				mountgen.config.SNOW_LINE		= config.SNOW_LINE
+				mountgen.config.rk_big			= config.rk_big
+				mountgen.config.rk_small		= config.rk_small
+				mountgen.config.rk_thr			= config.rk_thr
+				mountgen.config.top_cover		= config.top_cover	 
+--				mountgen.config.USE_DIAMOND_SQUARE	= config.USE_DIAMOND_SQUARE
+			end
+		end
+	end
+end)
 
 minetest.register_tool("mountgen:mount_tool", {
 	description = "Горный посох",
