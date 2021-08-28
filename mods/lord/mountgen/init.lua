@@ -116,7 +116,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			config.TOP_H			= tonumber(fields["edit_head_fraction"])
 			config.SNOW_LINE		= tonumber(fields["edit_snow_line"])
 			config.rk_big			= tonumber(fields["edit_rk_big"])
-			config.rk_small			= tonumber(fields["edit_rk_big"])
+			config.rk_small			= tonumber(fields["edit_rk_small"])
 			config.rk_thr			= tonumber(fields["edit_rk_thr"])
 			config.top_cover		= fields["edit_top_cover"]
 			if validate_config(config) then
