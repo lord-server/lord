@@ -120,9 +120,9 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			config.rk_thr			= tonumber(fields["edit_rk_thr"])
 			config.top_cover		= fields["edit_top_cover"]
 			if validate_config(config) then
-				mountgen.config.ANGLE			= config.ANGLE 
+				mountgen.config.ANGLE			= config.ANGLE
 				mountgen.config.HEAD_ANGLE		= config.HEAD_ANGLE
-				mountgen.config.Y0			= config.Y0	 
+				mountgen.config.Y0			= config.Y0
 				mountgen.config.TOP_H			= config.TOP_H
 				mountgen.config.SNOW_LINE		= config.SNOW_LINE
 				mountgen.config.rk_big			= config.rk_big
@@ -147,7 +147,7 @@ minetest.register_tool("mountgen:mount_tool", {
 		local config = mountgen.config
 		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
 
-		local fun 
+		local fun
 		if config.USE_DIAMOND_SQUARE then
 			fun = mountgen.diamond_square
 		else
