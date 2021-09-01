@@ -369,7 +369,7 @@ function races.get_texture_name(race, gender, skin)
 	if race ~= "shadow" then
 		return string.format("%s_%s%d.png", race, gender, skin)
 	else
-		return nil
+		return string.format("shadow_%s1.png", gender)
 	end
 end
 
