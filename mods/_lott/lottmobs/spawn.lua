@@ -1,9 +1,9 @@
 --name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height)
 
 --dwarfs.lua
-mobs:spawn_specific("lottmobs:dwarf",  {"default:stone"},             {"air"}, -1, 15, 30, 9000, 2, -31000, -10)
-mobs:spawn_specific("lottmobs:dwarf1", {"default:stone"},             {"air"}, -1, 15, 30, 9000, 2, -31000, -10)
-mobs:spawn_specific("lottmobs:dwarf2", {"default:stone"},             {"air"}, -1, 15, 30, 9000, 2, -31000, -10)
+mobs:spawn_specific("lottmobs:dwarf",  {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
+mobs:spawn_specific("lottmobs:dwarf1", {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
+mobs:spawn_specific("lottmobs:dwarf2", {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
 mobs:spawn_specific("lottmobs:dwarf",  {"lottmapgen:ironhill_grass"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:dwarf1", {"lottmapgen:ironhill_grass"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:dwarf2", {"lottmapgen:ironhill_grass"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
