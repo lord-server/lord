@@ -182,7 +182,8 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 				local size = minv:get_size("owner_gives")
 				minv:set_size(temp, size) -- делаем инвентарь-буфер;
 				for _, stack in pairs(gives) do -- проверяем все стеки на продажу
-					if minv:contains_item("stock", stack) then -- если такой можно достать со склада, перекидываем его из склада в буфер
+					-- если такой можно достать со склада, перекидываем его из склада в буфер
+					if minv:contains_item("stock", stack) then
 						minv:remove_item("stock", stack)
 						minv:add_item(temp, stack)
 					else -- если же нет, переключаем возможность обмена и выходим из цикла
@@ -209,7 +210,7 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 				end
 			end
 			-- ПРОВЕРКА СООТВЕТСТВИЯ ОПЛАТЫ ЦЕНЕ
-			size = minv:get_size("owner_wants")
+			local size = minv:get_size("owner_wants")
 			minv:set_size(temp, size) -- делаем инвентарь-буфер;
 			for _, stack in pairs(wants) do -- проверяем все стеки цены
 				-- если такой можно достать с оплаты, перекидываем его из оплаты в буфер
