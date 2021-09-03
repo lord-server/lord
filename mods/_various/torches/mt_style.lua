@@ -159,7 +159,7 @@ minetest.register_node("torches:orc_floor", {
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
 	walkable = false,
-	light_source = 11,
+	light_source = 7,
 	groups = {choppy=2, dig_immediate=3, flammable=1, not_in_creative_inventory=1, attached_node=1, torch=1},
 	drop = "lottother:orc_torch",
 	selection_box = {
@@ -182,7 +182,7 @@ minetest.register_node("torches:orc_wall", {
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
 	walkable = false,
-	light_source = 11,
+	light_source = 7,
 	groups = {choppy=2, dig_immediate=3, flammable=1, not_in_creative_inventory=1, attached_node=1, torch=1},
 	drop = "lottother:orc_torch",
 	selection_box = {
