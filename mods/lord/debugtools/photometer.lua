@@ -14,6 +14,6 @@ minetest.register_tool("debugtools:photometer", {
 		minetest.chat_send_player(user_name, S("Light at").." "..pos.x.." "..pos.y.." "..pos.z.." = "..light)
 		return itemstack
 	end,
- 	group = {},
+	group = {},
 })
 
