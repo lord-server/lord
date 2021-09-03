@@ -57,6 +57,7 @@ mobs:spawn_specific("lottmobs:bunny", {"default:dirt_with_snow"},    {"air"}, -1
 
 mobs:spawn_specific("lottmobs:ent", {"lottmapgen:fangorn_grass"},     {"air"}, -1, 20, 300, 9000, 1, 0, 31000)
 mobs:spawn_specific("lottmobs:spider", {"lottmapgen:mirkwood_grass"}, {"air"}, -10, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:spider", {"default:stone"},             {"air"}, -1,   4, 30, 12000, 2, -31000, -10)
 
 mobs:spawn_specific("lottmobs:rohan_guard",     {"lottmapgen:rohan_grass"},    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:gondor_guard",    {"lottmapgen:gondor_grass"},   {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
@@ -64,6 +65,7 @@ mobs:spawn_specific("lottmobs:ithilien_ranger", {"lottmapgen:ithilien_grass"}, {
 mobs:spawn_specific("lottmobs:dunlending",      {"lottmapgen:dunland_grass"},  {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:hobbit",          {"lottmapgen:shire_grass"},    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 
+mobs:spawn_specific("lottmobs:orc", {"default:stone"},           {"air"}, -1, 6,  30, 4000,  3, -31000, -10)
 mobs:spawn_specific("lottmobs:orc", {"lottmapgen:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:snowblock"},       {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
@@ -106,7 +108,7 @@ mobs:spawn_specific("lottmobs:balrog", {"default:stone"}, {"air"}, -1, 2, 30, 10
 
 mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 2, 30, 9000, 7, -31000, -100)
 
-mobs:spawn_specific("lottmobs:troll", {"default:stone"},           {"air"}, -1, 2, 30, 12000, 3, -31000,   -10)
+mobs:spawn_specific("lottmobs:troll", {"default:stone"},           {"air"}, -1, 5, 30, 12000, 3, -31000,   -10)
 mobs:spawn_specific("lottmobs:troll", {"default:snow"},            {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"default:snowblock"},       {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"lottmapgen:angsnowblock"}, {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
