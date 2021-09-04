@@ -62,7 +62,7 @@ shop.formspec = {
 		"listring[current_player;main]"
 
 		if admin then
-			formspec = formspec.."checkbox[5,4.35;is_endless;Endless store;" .. tostring( is_endless ) .. "]"
+			formspec = formspec.."checkbox[5,4.35;is_endless;"..SL("Endless Store")..";" .. tostring( is_endless ) .. "]"
 		end
 
 		return formspec

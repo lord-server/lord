@@ -69,7 +69,9 @@ minetest.register_chatcommand("spawn", {
 
 minetest.register_chatcommand("spawn_to", {
 	params = "<race>",
-	privs = "server",
+	privs = {
+		server = true
+	},
 	description = SL("Teleport to specified Spawn"),
 	func = function(name, race)
 		local player = minetest.get_player_by_name(name)
