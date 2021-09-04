@@ -28,7 +28,7 @@ mountgen.mountgen = function(top, fun, config)
 
 	local wx = cp2.x - cp1.x + 1
 	local wy = cp2.y - cp1.y + 1
-	local wz = cp2.z - cp1.z + 1
+--	local wz = cp2.z - cp1.z + 1 -- it is unused now
 
 	local dx = p1.x - cp1.x
 	local dz = p1.z - cp1.z
@@ -51,14 +51,14 @@ mountgen.mountgen = function(top, fun, config)
 			data[i] = stone_id
 		elseif y == height then
 			if data[i] == air_id then
-				local top = mountgen.top_node({x=x,y=y,z=z}, config)
-				data[i] = minetest.get_content_id(top)
+				local top_node = mountgen.top_node({x=x,y=y,z=z}, config)
+				data[i] = minetest.get_content_id(top_node)
 			end
 		elseif y == height + 1 then
 			if data[i] == air_id then
-				local upper = mountgen.upper_node({x=x,y=y,z=z}, config)
-				if upper ~= nil then
-					data[i] = minetest.get_content_id(upper)
+				local upper_node = mountgen.upper_node({x=x,y=y,z=z}, config)
+				if upper_node ~= nil then
+					data[i] = minetest.get_content_id(upper_node)
 				end
 			end
 		end
