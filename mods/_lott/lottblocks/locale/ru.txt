@@ -55,8 +55,6 @@ Black Dwarf Stone	=	Чёрный гномий камень
 Black Dwarf Stone Stair	=	Ступенька из чёрного гномьего камня
 Black Dwarf Stone Slab	=	Плита из чёрного гномьего камня
 Stripe Dwarf Stone	=	Полосатый гномий камень
-Stripe Dwarf Stone (Single Dot)	=	Полосатый гномий камень (один угол)
-Stripe Dwarf Stone (One Sided) = Полосатый гномий камень (односторонний)
 
 ### lamps.lua ###
 Not enough space for lamppost to be placed	=	Не хватает места!
