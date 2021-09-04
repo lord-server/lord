@@ -12,7 +12,9 @@ local form_header = "size[7,4]"..
 					"background[7,4;1,1;gui_formbg.png;true]"
 
 races = {
-	save_path = minetest.get_worldpath() .. "/races.txt"
+	save_path = minetest.get_worldpath() .. "/races.txt",
+	update_cbs = {},
+	init_cbs = {},
 }
 
 races.list = {
@@ -24,7 +26,7 @@ races.list = {
 		no_corpse = true,
 		male_skins = 1,
 		female_skins = 1,
-		faction = "monster",
+		faction = "neutral",
 	},
 	orc = {
 		name = SL("Orc"),
@@ -171,8 +173,43 @@ function races.update_player(name, race_and_gender, skin)
 
 	-- TODO: caching
 	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	multiskin[name].skin = texture
-	multiskin:update_player_visuals(minetest.get_player_by_name(name))
+	local face = races.get_face_preview_name(race, gender, skin)
+
+	for _, cb in ipairs(races.update_cbs) do
+		cb(name, race, gender, skin, texture, face)
+	end
+end
+
+function races.init_player(name, race_and_gender, skin)
+	local race = race_and_gender[1]
+	local gender = race_and_gender[2]
+
+	-- TODO: caching
+	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
+	local face = races.get_face_preview_name(race, gender, skin)
+
+	for _, cb in ipairs(races.init_cbs) do
+		cb(name, race, gender, skin, texture, face)
+	end
+end
+
+
+function races.register_update_callback(cb)
+	if cb == nil then
+		-- fool proof
+		minetest.log("Trying to register nil callback")
+		return
+	end
+	table.insert(races.update_cbs, cb)
+end
+
+function races.register_init_callback(cb)
+	if cb == nil then
+		-- fool proof
+		minetest.log("Trying to register nil callback")
+		return
+	end
+	table.insert(races.init_cbs, cb)
 end
 
 -- Returns the race and the gender of specified player
@@ -201,12 +238,11 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 	end
 
 	local race = race_and_gender[1]
-
 	races.update_privileges(name, races.list[race].granted_privs,
 		races.list[race].revoked_privs)
 
 	cache.players[name] = race_and_gender
-	races.update_player(name, race_and_gender, races.default_skin)
+--	races.update_player(name, race_and_gender, races.default_skin)
 
 	-- Notify player
 	if show_message then
@@ -330,7 +366,19 @@ function races.show_change_form(name)
 end
 
 function races.get_texture_name(race, gender, skin)
-	return string.format("%s_%s%d.png", race, gender, skin)
+	if race ~= "shadow" then
+		return string.format("%s_%s%d.png", race, gender, skin)
+	else
+		return string.format("shadow_%s1.png", gender)
+	end
+end
+
+function races.get_face_preview_name(race, gender, skin)
+	if race ~= "shadow" then
+		return string.format("preview_%s_%s%d_face.png", race, gender, skin)
+	else
+		return nil
+	end
 end
 
 -- Generates number sequence starting with 1 and ending with `max`
@@ -365,26 +413,26 @@ function races.show_skin_change_form(race, gender, skin, name)
 	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
 end
 
-tp_process = {}
+races.tp_process = {}
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if formname == "change_race" then
-		if fields.race and not fields.ok then
+		if fields.race and not fields.ok and not fields.quit and not fields.cancel then
 			local r = races.to_internal(fields.race, fields.gender)
 			if r then races.set_race_and_gender(name, r, true) end
 
 			if minetest.settings:get_bool("dynamic_spawn") == true then
-				if tp_process[name] ~= true then
+				if races.tp_process[name] ~= true then
 					--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
-					tp_process[name] = true
+					races.tp_process[name] = true
 					minetest.after(1, function()
 						if spawn.check_conf(r[1].."_spawn_pos") then
 							spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
 						else
 							spawn.put_player_at_spawn(player, "common_spawn_pos")
 						end
-						tp_process[name] = false
+						races.tp_process[name] = false
 						--minetest.after(1, function()
 							--races.show_skin_change_form(r[1], r[2], 1, name)
 						--end)
@@ -394,8 +442,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		if fields.ok then -- OK button pressed
 			local r = races.to_internal(fields.race, fields.gender)
-			races.set_race_and_gender(name, r, false)
+			races.set_race_and_gender(name, r, true)
 			races.show_skin_change_form(r[1], r[2], 1, name)
+		else -- Cancel button pressed, or escape pressed
+			local r = races.default
+			races.set_race_and_gender(name, r, true)
 		end
 	end
 	if formname == "change_skin" then
@@ -418,18 +469,22 @@ minetest.register_on_joinplayer(function(player)
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
+			races.init_player(name, r, races.get_skin(name))
 			return
 		end
 		r = races.get_race_and_gender(name)
 		races.set_race_and_gender(name, r, false)
-		races.update_player(name, r, races.get_skin(name))
 		-- Player is registered, but has no skin
 		if cache.skins[name] == nil then
 			cache.skins[name] = races.default_skin
 		end
+
+		races.init_player(name, r, races.get_skin(name))
 	else
 		races.show_change_form(name)
 		cache.can_change[name] = true
+		local r = races.get_race_and_gender(name)
+		races.init_player(name, r, races.get_skin(name))
 	end
 end)
 

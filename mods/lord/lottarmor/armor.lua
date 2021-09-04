@@ -422,9 +422,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_on_joinplayer(function(joined_player)
-	multiskin:init(joined_player)
-	local name = joined_player:get_player_name()
+races.register_init_callback(function(name, race, gender, skin, texture, face)
+	minetest.log("Join player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
+	local joined_player = minetest.get_player_by_name(name)
+	multiskin:init(joined_player, texture)
 	local player_inv = joined_player:get_inventory()
 	local armor_inv = minetest.create_detached_inventory(name.."_armor", {
 		on_put = function(inv, listname, index, stack, player)
@@ -554,6 +555,7 @@ minetest.register_on_joinplayer(function(joined_player)
 			end
 		end, joined_player)
 	end
+	races.update_player(name, {race, gender}, skin)
 end)
 
 if ARMOR_DROP == true or ARMOR_DESTROY == true then
@@ -563,55 +565,6 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 			obj:setvelocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
 		end
 	end
---[[
-	minetest.register_on_dieplayer(function(player)
-		local name, player_inv, armor_inv, pos = armor:get_valid_player(player, "[on_dieplayer]")
-		if not name or minetest.setting_getbool("creative_mode") == true then
-			return
-		end
-		local drop = {}
-		for i=1, player_inv:get_size("armor") do
-			local stack = armor_inv:get_stack("armor", i)
-			if stack:get_count() > 0 then
-				table.insert(drop, stack)
-				armor_inv:set_stack("armor", i, nil)
-				player_inv:set_stack("armor", i, nil)
-			end
-		end
-		armor:set_player_armor(player)
-		if inv_mod == "unified_inventory" then
-			unified_inventory.set_inventory_formspec(player, "craft")
-		elseif inv_mod == "inventory_plus" then
-			local formspec = inventory_plus.get_formspec(player,"main")
-			inventory_plus.set_inventory_formspec(player, formspec)
-		else
-			armor:update_inventory(player)
-		end
-		if ARMOR_DESTROY == false then
-			minetest.after(ARMOR_BONES_DELAY, function()
-				local node = minetest.get_node(vector.round(pos))
-				if node then
-					if node.name == "bones:bones" then
-						local meta = minetest.get_meta(vector.round(pos))
-						local owner = meta:get_string("owner")
-						local inv = meta:get_inventory()
-						for _,stack in ipairs(drop) do
-							if name == owner and inv:room_for_item("main", stack) then
-								inv:add_item("main", stack)
-							else
-								armor.drop_armor(pos, stack)
-							end
-						end
-					end
-				else
-					for _,stack in ipairs(drop) do
-						armor.drop_armor(pos, stack)
-					end
-				end
-			end)
-		end
-	end)
-]]--
 end
 
 minetest.register_globalstep(function(dtime)
@@ -623,3 +576,14 @@ minetest.register_globalstep(function(dtime)
 		time = 0
 	end
 end)
+
+races.register_update_callback(function(name, race, gender, skin, texture, face)
+	local player = minetest.get_player_by_name(name)
+	print("LOTTARMOR UPDATE")
+	minetest.log("Updating player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
+	multiskin[name].skin = texture
+	armor:set_player_armor(player)
+	armor:update_inventory(player)
+	multiskin:update_player_visuals(player)
+end)
+

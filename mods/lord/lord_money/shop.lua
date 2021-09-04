@@ -31,7 +31,7 @@ shop.formspec = {
 
 		return formspec
 	end,
-	owner = function(pos)
+	configurator = function(pos, admin, is_endless)
 		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
 		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
@@ -61,8 +61,13 @@ shop.formspec = {
 		"listring["..list_name..";customers_gave]"..
 		"listring[current_player;main]"
 
+		if admin then
+			formspec = formspec.."checkbox[5,4.35;is_endless;Endless store;" .. tostring( is_endless ) .. "]"
+		end
+
 		return formspec
 	end,
+
 }
 
 shop.player_has_access = function(player, shop_pos)
@@ -70,7 +75,7 @@ shop.player_has_access = function(player, shop_pos)
 	local player_name = player:get_player_name()
 	local is_admin = minetest.get_player_privs(player_name).server
 
-	return player_name == owner_name or is_admin
+	return player_name == owner_name or is_admin, is_admin
 end
 
 minetest.register_node("lord_money:shop", {
@@ -85,6 +90,7 @@ minetest.register_node("lord_money:shop", {
 		local meta = minetest.get_meta(pos)
 		meta:set_string("infotext", SL("Exchange shop (owned by").." "..owner..")")
 		meta:set_string("owner",owner)
+		meta:set_string("is_endless","false")
 		local inv = meta:get_inventory()
 		inv:set_size("customers_gave", 5*2)
 		inv:set_size("stock", 5*2)
@@ -92,12 +98,15 @@ minetest.register_node("lord_money:shop", {
 		inv:set_size("owner_gives", 2*2)
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
+		local meta = minetest.get_meta(pos)
 		clicker:get_inventory():set_size("customer_gives", 5*2)
 		clicker:get_inventory():set_size("customer_gets", 5*2)
 		local user_name = clicker:get_player_name()
 		shop.current_shop[user_name] = pos
-		if shop.player_has_access(clicker, pos) and not clicker:get_player_control().aux1 then
-			minetest.show_formspec(user_name,"lord_money:shop_formspec",shop.formspec.owner(pos))
+		local has_access, is_admin = shop.player_has_access(clicker, pos)
+		local is_endless = (meta:get_string("is_endless") == "true")
+		if has_access and not clicker:get_player_control().aux1 then
+			minetest.show_formspec(user_name,"lord_money:shop_formspec",shop.formspec.configurator(pos, is_admin, is_endless))
 		else
 			minetest.show_formspec(user_name,"lord_money:shop_formspec",shop.formspec.customer(pos))
 		end
@@ -146,9 +155,15 @@ minetest.register_craft({
 minetest.register_on_player_receive_fields(function(sender, formname, fields)
 	if formname == "lord_money:shop_formspec" then -- форма от магазина
 		local name = sender:get_player_name() -- имя покупателя
+		if fields.is_endless then
+			local pos = shop.current_shop[name] -- расположение магазина
+			local meta = minetest.get_meta(pos) -- метаданные магазина
+			meta:set_string("is_endless", fields.is_endless)
+		end
 		if fields.exchange then -- нажата кнопка "купить"
 			local pos = shop.current_shop[name] -- расположение магазина
 			local meta = minetest.get_meta(pos) -- метаданные магазина
+			local is_endless = (meta:get_string("is_endless") == "true")
 			local mail = ""
 			if minetest.get_modpath("mail_list") then -- если есть мод взаимодействия с e-mail
 				mail = get_mail(meta:get_string("owner")) -- адрес владельца
@@ -159,38 +174,43 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			local gives = minv:get_list("owner_gives") -- товар
 			if wants == nil or gives == nil then return end -- предохранитель
 			local can_exchange = true -- ставим возможность обмена "да"
-			-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
+
 			local temp = "temp_"..name
-			local size = minv:get_size("owner_gives")
-			minv:set_size(temp, size) -- делаем инвентарь-буфер;
-			for _, stack in pairs(gives) do -- проверяем все стеки на продажу
-				if minv:contains_item("stock", stack) then -- если такой можно достать со склада, перекидываем его из склада в буфер
-					minv:remove_item("stock", stack)
-					minv:add_item(temp, stack)
-				else -- если же нет, переключаем возможность обмена и выходим из цикла
-					can_exchange = false
-					break
+
+			if not is_endless then
+				-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
+				local size = minv:get_size("owner_gives")
+				minv:set_size(temp, size) -- делаем инвентарь-буфер;
+				for _, stack in pairs(gives) do -- проверяем все стеки на продажу
+					-- если такой можно достать со склада, перекидываем его из склада в буфер
+					if minv:contains_item("stock", stack) then
+						minv:remove_item("stock", stack)
+						minv:add_item(temp, stack)
+					else -- если же нет, переключаем возможность обмена и выходим из цикла
+						can_exchange = false
+						break
+					end
 				end
-			end
-			for _, stack in pairs(minv:get_list(temp)) do -- возвращаем всё из буфера на склад
-				minv:add_item("stock", stack)
-			end
-			minv:set_size(temp, 0) -- закрываем буфер
-			if not can_exchange then -- если обмен не возможен, пишем отчёт "товара нет на складе" и выходим из функции.
-				if mail ~= nil and mail ~= "" then
-					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended goods.")
-					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
+				for _, stack in pairs(minv:get_list(temp)) do -- возвращаем всё из буфера на склад
+					minv:add_item("stock", stack)
 				end
-				minetest.log(
-					"action",
-					"магазин " .. minetest.pos_to_string(pos) ..
-						" - игрок " .. name .. " пытался совершить обмен, но товара нет на складе"
-				)
-				minetest.chat_send_player(name, SL("Exchange can not be done, ended goods."))
-				return
+				minv:set_size(temp, 0) -- закрываем буфер
+				if not can_exchange then -- если обмен не возможен, пишем отчёт "товара нет на складе" и выходим из функции.
+					if mail ~= nil and mail ~= "" then
+						local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended goods.")
+						os.execute("echo '"..report.."' | mail -s 'store' "..mail)
+					end
+					minetest.log(
+						"action",
+						"магазин " .. minetest.pos_to_string(pos) ..
+							" - игрок " .. name .. " пытался совершить обмен, но товара нет на складе"
+					)
+					minetest.chat_send_player(name, SL("Exchange can not be done, ended goods."))
+					return
+				end
 			end
 			-- ПРОВЕРКА СООТВЕТСТВИЯ ОПЛАТЫ ЦЕНЕ
-			size = minv:get_size("owner_wants")
+			local size = minv:get_size("owner_wants")
 			minv:set_size(temp, size) -- делаем инвентарь-буфер;
 			for _, stack in pairs(wants) do -- проверяем все стеки цены
 				-- если такой можно достать с оплаты, перекидываем его из оплаты в буфер
@@ -216,35 +236,37 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 				minetest.chat_send_player(name, SL("Exchange can not be done, check if you put all items!"))
 				return
 			end
-			-- ПРОВЕРКА НАЛИЧИЯ МЕСТА НА СКЛАДЕ
-			size = minv:get_size("owner_wants")
-			minv:set_size(temp, size) -- делаем инвентарь-буфер;
-			for _, stack in pairs(wants) do -- проверяем все стеки цены
-				-- если такой можно поместить на склад, добавляем его на склад и в буфер
-				if minv:room_for_item("customers_gave", stack) then
-					minv:add_item("customers_gave", stack)
-					minv:add_item(temp, stack)
-				else -- если же нет, переключаем возможность обмена и выходим из цикла
-					can_exchange = false
-					break
+			if not is_endless then
+				-- ПРОВЕРКА НАЛИЧИЯ МЕСТА НА СКЛАДЕ
+				size = minv:get_size("owner_wants")
+				minv:set_size(temp, size) -- делаем инвентарь-буфер;
+				for _, stack in pairs(wants) do -- проверяем все стеки цены
+					-- если такой можно поместить на склад, добавляем его на склад и в буфер
+					if minv:room_for_item("customers_gave", stack) then
+						minv:add_item("customers_gave", stack)
+						minv:add_item(temp, stack)
+					else -- если же нет, переключаем возможность обмена и выходим из цикла
+						can_exchange = false
+						break
+					end
 				end
-			end
-			for _, stack in pairs(minv:get_list(temp)) do -- убираем всё, что есть в буфере, из склада
-				minv:remove_item("customers_gave", stack)
-			end
-			minv:set_size(temp, 0) -- закрываем буфер
-			if not can_exchange then -- если обмен не возможен, пишем отчёт "нет места на складе" и выходим из функции.
-				if mail ~= nil and mail ~= "" then
-					local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended place.")
-					os.execute("echo '"..report.."' | mail -s 'store' "..mail)
+				for _, stack in pairs(minv:get_list(temp)) do -- убираем всё, что есть в буфере, из склада
+					minv:remove_item("customers_gave", stack)
 				end
-				minetest.log(
-					"action",
-					"магазин " .. minetest.pos_to_string(pos) ..
-						" - игрок " .. name .. " пытался совершить обмен, но на складе не оказалось места"
-				)
-				minetest.chat_send_player(name, SL("Exchange can not be done, ended place."))
-				return
+				minv:set_size(temp, 0) -- закрываем буфер
+				if not can_exchange then -- если обмен не возможен, пишем отчёт "нет места на складе" и выходим из функции.
+					if mail ~= nil and mail ~= "" then
+						local report = SL("In your store").." "..minetest.pos_to_string(pos).." "..SL("ended place.")
+						os.execute("echo '"..report.."' | mail -s 'store' "..mail)
+					end
+					minetest.log(
+						"action",
+						"магазин " .. minetest.pos_to_string(pos) ..
+							" - игрок " .. name .. " пытался совершить обмен, но на складе не оказалось места"
+					)
+					minetest.chat_send_player(name, SL("Exchange can not be done, ended place."))
+					return
+				end
 			end
 			-- ПРОВЕРКА НАЛИЧИЯ МЕСТА У ПОКУПАТЕЛЯ
 			size = minv:get_size("owner_wants")
@@ -275,10 +297,14 @@ minetest.register_on_player_receive_fields(function(sender, formname, fields)
 			-- ВРОДЕ ВСЁ НОРМАЛЬНО, ПРОИЗВОДИМ ОБМЕН
 			for _, stack in pairs(wants) do -- для всех стеков цены
 				pinv:remove_item("customer_gives", stack) -- забираем у игрока
-				minv:add_item("customers_gave", stack) -- помещаем на склад
+				if not is_endless then
+					minv:add_item("customers_gave", stack) -- помещаем на склад
+				end
 			end
 			for _, stack in pairs(gives) do -- для всех стеков на продажу
-				minv:remove_item("stock", stack) -- забираем со склада
+				if not is_endless then
+					minv:remove_item("stock", stack) -- забираем со склада
+				end
 				pinv:add_item("customer_gets", stack) -- добавляем к игроку
 			end
 			-- пишем отчёт "всё в порядке" и выходим из функции.

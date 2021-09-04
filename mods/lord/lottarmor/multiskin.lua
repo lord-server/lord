@@ -3,47 +3,17 @@ MULTISKIN_TRANS = "lottarmor_trans.png"
 
 multiskin = {}
 
-local skin_mod = nil
-if minetest.get_modpath("skins") then
-	skin_mod = "skins"
-elseif minetest.get_modpath("simple_skins") then
-	skin_mod = "simple_skins"
-elseif minetest.get_modpath("u_skins") then
-	skin_mod = "u_skins"
-elseif minetest.get_modpath("wardrobe") then
-	skin_mod = "wardrobe"
-end
-
-function multiskin:init(player)
+function multiskin:init(player, texture)
 	player_api.set_model(player, "lottarmor_character.b3d")
+	print(debug.traceback())
+	print("TEXTURE = "..tostring(texture))
 	local name = player:get_player_name()
 	multiskin[name] = {
-		skin = MULTISKIN_DEFAULT_SKIN,
+		skin = texture,
 		armor = MULTISKIN_TRANS,
 		wielditem = MULTISKIN_TRANS,
 		clothing = MULTISKIN_TRANS,
 	}
-	if skin_mod == "skins" then
-		local skin = skins.skins[name]
-		if skin and skins.get_type(skin) == skins.type.MODEL then
-			multiskin[name].skin = skin..".png"
-		end
-	elseif skin_mod == "simple_skins" then
-		local skin = skins.skins[name]
-		if skin then
-		    multiskin[name].skin = skin..".png"
-		end
-	elseif skin_mod == "u_skins" then
-		local skin = u_skins.u_skins[name]
-		if skin and u_skins.get_type(skin) == u_skins.type.MODEL then
-			multiskin[name].skin = skin..".png"
-		end
-	elseif skin_mod == "wardrobe" then
-		local skin = wardrobe.playerSkins[name]
-		if skin then
-			multiskin[name].skin = skin
-		end
-	end
 	if minetest.get_modpath("player_textures") then
 		local filename = minetest.get_modpath("player_textures").."/textures/player_"..name
 		local f = io.open(filename..".png")
@@ -70,21 +40,18 @@ function multiskin:update_player_visuals(player)
 end
 
 function multiskin:get_skin_name(name)
-	local skin = nil
-	if skin_mod == "skins" or skin_mod == "simple_skins" then
-		skin = skins.skins[name]
-	elseif skin_mod == "u_skins" then
-		skin = u_skins.u_skins[name]
-	elseif skin_mod == "wardrobe" then
-		skin = string.gsub(wardrobe.playerSkins[name], "%.png$","")
+	if multiskin[name] then
+		return multiskin[name].skin or MULTISKIN_DEFAULT_SKIN
+	else
+		return MULTISKIN_DEFAULT_SKIN
 	end
-	return skin or MULTISKIN_DEFAULT_SKIN
 end
 
 function multiskin:get_preview(name)
-	if skin_mod == "u_skins" then
-		return multiskin:get_skin_name(name).."_preview.png"
-	end
+	local race = races.get_race(name)
+	local gender = races.get_gender(name)
+	local skin = races.get_skin(name)
+	return races.get_face_preview_name(race, gender, skin)
 end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)

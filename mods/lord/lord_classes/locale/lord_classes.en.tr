@@ -1,8 +1,29 @@
 # textdomain: lord_classes
-change_shadow=Now you're a shadow
-change_orc=Now you're an orc
-change_man=Now you're a human
-change_dwarf=Now you're a dwarf
-change_hobbit=Now you're a hobbit
-change_elf=Now you're an elf
+Shadow=Shadow
+Dwarf=Dwarf
+Elf=Elf
+Man=Man
+Orc=Orc
+Hobbit=Hobbit
+Male=Male
+Female=Female
+Cancel=Cancel
+Back=Back
+OK=OK
+(Warning: choosing the race will teleport \nyou at the race spawn!)=(Warning: choosing the race will teleport \nyou at the race spawn!)
+Ability to change race and gender of a player.=Ability to change race and gender of a player.
+Please select the race you wish to be:=Please select the race you wish to be:
+Choose a skin for your character:=Choose a skin for your character:
+change_shadow=Now you are the Shadow
+change_orc=Now you are the Orc
+change_man=Now you are the Human
+change_dwarf=Now you are the Dwarf
+change_hobbit=Now you are the Hobbit
+change_elf=Now you are the Elf
+Too few arguments. Try %s to show the correct usage=Too few arguments. Try %s to show the correct usage
+Player '%s' does not exist=Player '%s' does not exist
+<player name>=<player name>
+Won't give another chance=Won't give another chance
+Second chance=Second chance
+Give another chance to a player.=Give another chance to a player.
 

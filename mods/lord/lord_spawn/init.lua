@@ -107,7 +107,7 @@ function spawn.register_hall(hall, desc)
 			func = function(name, _)
 				local ok = tp_to_hall(hall, minetest.get_player_by_name(name))
 				if ok then
-					return true, SL("Teleporting to Hall of "..desc.."...")
+					return true, SL("Teleporting to the Hall of "..desc.."...")
 				end
 			return false, SL("Teleport failed")
 			end
