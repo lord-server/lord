@@ -46,28 +46,34 @@ minetest.register_node(":lottblocks:dwarfstone_stripe_onesided", {
 	groups            = { cracky = 3 },
 })
 
+
 minetest.register_craft({
-	output = 'lottblocks:dwarfstone_stripe_singledot 4',
+	output = 'lottblocks:dwarfstone_stripe 4',
 	recipe = {
-		{ 'default:stone', 'default:stone', 'default:coal_lump' },
-		{ 'default:stone', 'default:stone', 'default:coal_lump' },
-		{ 'default:stone', 'default:stone', 'default:coal_lump' },
+		{ 'default:coal_lump', 'default:stone' },
+		{ 'default:coal_lump', 'default:stone' },
 	}
 })
 
 minetest.register_craft({
-	output = 'lottblocks:dwarfstone_stripe_singledot 4',
+	output = 'lottblocks:dwarfstone_stripe_singledot 8',
+	recipe = {
+		{ 'default:stone', 'default:stone', 'default:coal_lump' },
+		{ 'default:stone', 'default:stone', '' },
+	}
+})
+
+minetest.register_craft({
+	output = 'lottblocks:dwarfstone_stripe_singledot 8',
 	recipe = {
 		{ 'default:coal_lump', 'default:stone', 'default:stone' },
-		{ 'default:coal_lump', 'default:stone', 'default:stone' },
-		{ 'default:coal_lump', 'default:stone', 'default:stone' },
+		{ '', 'default:stone', 'default:stone' },
 	}
 })
 
 minetest.register_craft({
 	output = 'lottblocks:dwarfstone_stripe_onesided 4',
 	recipe = {
-		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
 		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
 		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
 	}

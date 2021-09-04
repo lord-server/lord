@@ -301,18 +301,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottblocks:dwarfstone_stripe 4',
 	recipe = {
-		{ 'default:stone', 'default:stone', 'default:coal_lump' },
-		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
-		{ 'default:coal_lump', 'default:stone', 'default:stone' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottblocks:dwarfstone_stripe 4',
-	recipe = {
-		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
-		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
-		{ 'default:stone', 'default:stone', 'default:coal_lump' },
+		{ 'default:stone', 'default:coal_lump' },
+		{ 'default:stone', 'default:coal_lump' },
 	}
 })
 
