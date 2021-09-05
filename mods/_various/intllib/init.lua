@@ -140,7 +140,7 @@ function intllib.get_strings(modname, langcode)
 		local modpath = minetest.get_modpath(modname)
 		msgstr = { }
 		for _, l in ipairs(get_locales(langcode)) do
-			local t = intllib.load_strings(modpath.."/locale/"..l..".txt") or { }
+			local t = intllib.load_strings(modpath.."/locale/"..l..".txt") or intllib.load_strings(modpath.."/locale/"..modname..'.'..l..".tr") or { }
 			for k, v in pairs(t) do
 				msgstr[k] = msgstr[k] or v
 			end
@@ -150,3 +150,29 @@ function intllib.get_strings(modname, langcode)
 	return msgstr
 end
 
+if minetest.get_translated_string == nil then
+	minetest.get_translated_string = function (lang_code, str)
+		if string.find(str, '@', 1, true) ~= 4 then
+			return str
+		end
+
+		local cleaned = string.sub(str, 5) -- впереди 4 непонятных символа (видать такой формат хранения для переводов)
+		cleaned = string.sub(cleaned, 1, #cleaned - 2) -- в конце перевод строки
+		local domain_and_text = string.split(cleaned, ')', false, 2);
+		local domain = domain_and_text[1]
+		local text = domain_and_text[2]
+		local translator = intllib.make_gettext_pair(domain)
+		local translated = translator(text)
+
+		return translated
+	end
+end
+
+if minetest.get_player_information == nil then
+	-- в 5.0 похоже нет этой функции, а появляется только в 5.1
+	minetest.get_player_information = function(player_name)
+		return {
+			lang_code = LANG
+		}
+	end
+end

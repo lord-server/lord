@@ -4,6 +4,10 @@
 
 local SL = lord.require_intllib()
 
+local DEFAULT_LANG = minetest.settings:get("language")
+if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
+if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = "en" end
+
 zcg = {}
 zcg.users = {}
 zcg.crafts = {}
@@ -114,17 +118,20 @@ end
 
 ---@param find string
 ---@return table
-local function filter_by_search(find)
+local function filter_by_search(find, lang_code)
 	if find == "" then
 		return zcg.itemlist
 	end
 	find = string.lower(find)
 	local filtered_list = {}
 	for _, name in pairs(zcg.itemlist) do
-		local description = string.lower(minetest.registered_items[name].description)
+		local description_en = minetest.registered_items[name].description
+		local description_player_lang = minetest.get_translated_string(lang_code, description_en)
+
 		if
 			string.find(name, find) or
-			string.find(description, find)
+			string.find(string.lower(description_en), find) or
+			string.find(string.lower(description_player_lang), find)
 		then
 			table.insert(filtered_list, name)
 		end
@@ -193,7 +200,9 @@ zcg.formspec = function(pn, find)
 	formspec = formspec ..
 		"field[0.3,3.5;4,0.5;zcg_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zcg_filter;false]"
-	local filtered_list = filter_by_search(find)
+
+	local lang_code = minetest.get_player_information(pn).lang_code or DEFAULT_LANG
+	local filtered_list = filter_by_search(find, lang_code)
 
 	-- Node list
 	local npp = 8*3 -- nodes per page
