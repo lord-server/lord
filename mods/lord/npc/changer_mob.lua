@@ -5,8 +5,8 @@ local function user_mob_content(self, width, pos)
 	formspec = formspec.."list[detached:"..self.id..";receive;0.25,"..pos..";1,1]"
 	formspec = formspec.."list[detached:"..self.id..";give;1.25,"..pos..";1,1]"
 	pos = pos + 1.5
-	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,1;]"
-	pos = pos + 1
+	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,4;]"
+	pos = pos + 4
 	return formspec, pos
 end
 
@@ -29,21 +29,21 @@ end
 
 -- inventory functions
 local function allow_put(inv, listname, index, stack, player)
-	if listname ~= "give" then
-		return 99999
+	if listname == "give" then
+		return 0
 	end
-	return 0
+	return stack:get_count()
 end
 
 local function allow_take(inv, listname, index, stack, player)
-	return 99999
+	return stack:get_count()
 end
 
 local function allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if to_list == "give" then
 		return 0
 	end
-	return 99999
+	return count
 end
 
 local function update_changer(self, inv)
