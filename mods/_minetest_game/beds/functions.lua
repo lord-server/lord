@@ -70,6 +70,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 			player:set_physics_override(beds.save_player_physics)
 		else
 			player:set_physics_override(1, 1, 1)
+		end
 		hud_flags.wielditem = true
 		player_api.set_animation(player, "stand" , 30)
 
