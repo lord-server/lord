@@ -1,7 +1,7 @@
 Stonebrick road = Дорога из каменных кирпичей
 Sandstone road = Дорога из песчаника
 Stonebrick border = Бордюр из каменных кирпичей
-Sandstone border = Бордюр из песчансика
+Sandstone border = Бордюр из песчаника
 Stonebrick inner corner border = Внутренний угол бордюра из каменных кирпичей
 Sandstone inner corner border = Внутренний угол бордюра из песчаника
 Stonebrick outer corner border = Внешний угол бордюра из каменных кирпичей
