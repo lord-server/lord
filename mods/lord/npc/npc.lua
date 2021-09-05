@@ -65,7 +65,7 @@ end
 local function show_main(self, clicker)
 	local player = clicker:get_player_name()
 	local can_edit = minetest.get_player_privs(player)[npc.required_priv]
-	if can_edit then
+	if can_edit and not clicker:get_player_control().aux1 then
 		minetest.show_formspec(player, "npc:main_form", build_main_form_editable(self))
 	else
 		minetest.show_formspec(player, "npc:main_form", build_main_form(self))
