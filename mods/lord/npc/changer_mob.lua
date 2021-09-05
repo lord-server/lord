@@ -30,20 +30,20 @@ end
 -- inventory functions
 local function allow_put(inv, listname, index, stack, player)
 	if listname ~= "give" then
-		return 99
+		return 99999
 	end
 	return 0
 end
 
 local function allow_take(inv, listname, index, stack, player)
-	return 99
+	return 99999
 end
 
 local function allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if to_list == "give" then
 		return 0
 	end
-	return 99
+	return 99999
 end
 
 local function update_changer(self, inv)
