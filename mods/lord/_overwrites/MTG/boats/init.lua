@@ -1,7 +1,7 @@
--- boats/init.lua
-
--- Load support for MT game translation.
 local S = minetest.get_translator("boats")
+
+
+minetest.register_alias("boats:rowboat","boats:boat")
 
 --
 -- Helper functions
@@ -28,15 +28,15 @@ end
 -- Boat entity
 --
 
-local boat = {
+local sail_boat = {
 	initial_properties = {
 		physical = true,
 		-- Warning: Do not change the position of the collisionbox top surface,
 		-- lowering it causes the boat to fall through the world if underwater
 		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
 		visual = "mesh",
-		mesh = "boats_boat.obj",
-		textures = {"default_wood.png"},
+		mesh = "boats_sail_boat.obj",
+		textures = {"boats_sail_boat.png"},
 	},
 
 	driver = nil,
@@ -47,7 +47,7 @@ local boat = {
 }
 
 
-function boat.on_rightclick(self, clicker)
+function sail_boat.on_rightclick(self, clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
@@ -85,13 +85,13 @@ end
 
 
 -- If driver leaves server while driving boat
-function boat.on_detach_child(self, child)
+function sail_boat.on_detach_child(self, child)
 	self.driver = nil
 	self.auto = false
 end
 
 
-function boat.on_activate(self, staticdata, dtime_s)
+function sail_boat.on_activate(self, staticdata, dtime_s)
 	self.object:set_armor_groups({immortal = 1})
 	if staticdata then
 		self.v = tonumber(staticdata)
@@ -100,12 +100,12 @@ function boat.on_activate(self, staticdata, dtime_s)
 end
 
 
-function boat.get_staticdata(self)
+function sail_boat.get_staticdata(self)
 	return tostring(self.v)
 end
 
 
-function boat.on_punch(self, puncher)
+function sail_boat.on_punch(self, puncher)
 	if not puncher or not puncher:is_player() or self.removed then
 		return
 	end
@@ -120,9 +120,9 @@ function boat.on_punch(self, puncher)
 		self.removed = true
 		local inv = puncher:get_inventory()
 		if not minetest.is_creative_enabled(name)
-				or not inv:contains_item("main", "boats:boat") then
-			local leftover = inv:add_item("main", "boats:boat")
-			-- if no room in inventory add a replacement boat to the world
+				or not inv:contains_item("main", "boats:sail_boat") then
+			local leftover = inv:add_item("main", "boats:sail_boat")
+			-- if no room in inventory add a replacement sail_boat to the world
 			if not leftover:is_empty() then
 				minetest.add_item(self.object:get_pos(), leftover)
 			end
@@ -135,7 +135,7 @@ function boat.on_punch(self, puncher)
 end
 
 
-function boat.on_step(self, dtime)
+function sail_boat.on_step(self, dtime)
 	self.v = get_v(self.object:get_velocity()) * math.sign(self.v)
 	if self.driver then
 		local driver_objref = minetest.get_player_by_name(self.driver)
@@ -233,13 +233,13 @@ function boat.on_step(self, dtime)
 end
 
 
-minetest.register_entity("boats:boat", boat)
+minetest.register_entity(":boats:sail_boat", sail_boat)
 
 
-minetest.register_craftitem("boats:boat", {
-	description = S("Boat"),
-	inventory_image = "boats_inventory.png",
-	wield_image = "boats_wield.png",
+minetest.register_craftitem(":boats:sail_boat", {
+	description = S("Sail Boat"),
+	inventory_image = "boats_sail_boat_inventory.png",
+	wield_image = "boats_sail_boat_wield.png",
 	wield_scale = {x = 2, y = 2, z = 1},
 	liquids_pointable = true,
 	groups = {flammable = 2},
@@ -262,10 +262,10 @@ minetest.register_craftitem("boats:boat", {
 			return itemstack
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
-		boat = minetest.add_entity(pointed_thing.under, "boats:boat")
-		if boat then
+		sail_boat = minetest.add_entity(pointed_thing.under, "boats:sail_boat")
+		if sail_boat then
 			if placer then
-				boat:set_yaw(placer:get_look_horizontal())
+				sail_boat:set_yaw(placer:get_look_horizontal())
 			end
 			local player_name = placer and placer:get_player_name() or ""
 			if not minetest.is_creative_enabled(player_name) then
@@ -278,16 +278,10 @@ minetest.register_craftitem("boats:boat", {
 
 
 minetest.register_craft({
-	output = "boats:boat",
+	output = "boats:sail_boat",
 	recipe = {
-		{"",           "",           ""          },
-		{"group:wood", "",           "group:wood"},
-		{"group:wood", "group:wood", "group:wood"},
+		{"", "wool:white", ""},
+		{"group:wood", "wool:white", "group:wood"},
+		{"group:tree", "boats:boat", "group:tree"},
 	},
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "boats:boat",
-	burntime = 20,
 })
