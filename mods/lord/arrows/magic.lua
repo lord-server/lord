@@ -6,7 +6,7 @@ local flame_node = function(pos)
 	local n = minetest.get_node(pos).name
 	local node_desc = minetest.registered_nodes[n]
 	if node_desc == nil then
-		minetest.log("Attempt to flame unknown node: "..n..
+		minetest.log("error", "Attempt to flame unknown node: "..n..
 				" ("..pos.x..","..pos.y..","..pos.z..")")
 		return
 	end
