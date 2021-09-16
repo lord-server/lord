@@ -63,9 +63,6 @@ local function update_takeout(self, inv)
 	local received     = inv:get_stack("receive", 1):get_name()
 	local received_qty = inv:get_stack("receive", 1):get_count()
 
-	local gives = inv:get_list("admin_give")
-	local give = inv:get_list("give")
-
 	local name = self.give
 	local count = self.give_qty
 	inv:remove_item("give", {name=name, count=count})
@@ -78,7 +75,6 @@ end
 
 local function take_fee(self, inv)
 	local received     = inv.get_stack(inv, "receive", 1):get_name()
-	local received_qty = inv.get_stack(inv, "receive", 1):get_count()
 	if received ~= self.receive then
 		return
 	end
