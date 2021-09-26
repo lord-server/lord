@@ -5,8 +5,12 @@ local function user_mob_content(self, width, pos)
 	formspec = formspec.."list[detached:"..self.id..";receive;0.25,"..pos..";1,1]"
 	formspec = formspec.."list[detached:"..self.id..";give;1.25,"..pos..";1,1]"
 	pos = pos + 1.5
-	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,4;]"
-	pos = pos + 4
+
+	formspec = formspec.."list[current_player;main;0,"..pos..";8,1;]"
+	pos = pos + 1.2
+	formspec = formspec.."list[current_player;main;0,"..pos..";8,3;8]"
+	pos = pos + 3
+
 	return formspec, pos
 end
 
@@ -56,30 +60,26 @@ local function update_changer(self, inv)
 end
 
 local function update_takeout(self, inv)
-	local received     = inv.get_stack(inv, "receive", 1):get_name()
-	local received_qty = inv.get_stack(inv, "receive", 1):get_count()
+	local received     = inv:get_stack("receive", 1):get_name()
+	local received_qty = inv:get_stack("receive", 1):get_count()
+
+	local name = self.give
+	local count = self.give_qty
+	inv:remove_item("give", {name=name, count=count})
 
 	if received == self.receive and received_qty >= self.receive_qty then
 		-- put good
-		inv.set_stack(inv, "give", 1, self.give.." "..self.give_qty)
-	else
-		inv.set_stack(inv, "give", 1, nil)
+		inv:add_item("give", {name=self.give, count=self.give_qty})
 	end
 end
 
 local function take_fee(self, inv)
 	local received     = inv.get_stack(inv, "receive", 1):get_name()
-	local received_qty = inv.get_stack(inv, "receive", 1):get_count()
 	if received ~= self.receive then
 		return
 	end
 
-	local newamount = received_qty-self.receive_qty
-	if newamount > 0 then
-		inv.set_stack(inv, "receive", 1, self.receive.." "..newamount)
-	else
-		inv.set_stack(inv, "receive", 1, nil)
-	end
+	inv:remove_item("receive", {name=self.receive, count=self.receive_qty})
 end
 
 local function on_put(inv, listname, index, stack, player)
@@ -95,6 +95,8 @@ local function on_put(inv, listname, index, stack, player)
 		update_changer(self, inv)
 	elseif listname == "receive" then
 		update_takeout(self, inv)
+	elseif listname == "give" then
+		minetest.log("error", "put to GIVE!")
 	end
 end
 
@@ -113,7 +115,6 @@ local function on_take(inv, listname, index, stack, player)
 		update_takeout(self, inv)
 	elseif listname == "give" then
 		take_fee(self, inv)
-		update_takeout(self, inv)
 	end
 end
 
