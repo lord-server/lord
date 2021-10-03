@@ -1,7 +1,13 @@
 local S = minetest.get_translator("boats")
 
 
-minetest.register_alias("boats:row_boat","boats:boat")
+minetest.clear_craft({output = "boats:boat"})
+minetest.register_craft({
+	output = "boats:boat",
+	recipe = {
+		{"group:tree", "group:tree", "group:tree"},
+	},
+})
 
 --
 -- Helper functions
@@ -28,26 +34,10 @@ end
 -- Boat entity
 --
 
-local sail_boat = {
-	initial_properties = {
-		physical = true,
-		-- Warning: Do not change the position of the collisionbox top surface,
-		-- lowering it causes the boat to fall through the world if underwater
-		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
-		visual = "mesh",
-		mesh = "boats_sail_boat.obj",
-		textures = {"boats_sail_boat.png"},
-	},
-
-	driver = nil,
-	v = 0,
-	last_v = 0,
-	removed = false,
-	auto = false
-}
+local common_boat = {}
 
 
-function sail_boat.on_rightclick(self, clicker)
+function common_boat.on_rightclick(self, clicker)
 	if not clicker or not clicker:is_player() then
 		return
 	end
@@ -85,13 +75,13 @@ end
 
 
 -- If driver leaves server while driving boat
-function sail_boat.on_detach_child(self, child)
+function common_boat.on_detach_child(self, child)
 	self.driver = nil
 	self.auto = false
 end
 
 
-function sail_boat.on_activate(self, staticdata, dtime_s)
+function common_boat.on_activate(self, staticdata, dtime_s)
 	self.object:set_armor_groups({immortal = 1})
 	if staticdata then
 		self.v = tonumber(staticdata)
@@ -100,42 +90,12 @@ function sail_boat.on_activate(self, staticdata, dtime_s)
 end
 
 
-function sail_boat.get_staticdata(self)
+function common_boat.get_staticdata(self)
 	return tostring(self.v)
 end
 
 
-function sail_boat.on_punch(self, puncher)
-	if not puncher or not puncher:is_player() or self.removed then
-		return
-	end
-
-	local name = puncher:get_player_name()
-	if self.driver and name == self.driver then
-		self.driver = nil
-		puncher:set_detach()
-		player_api.player_attached[name] = false
-	end
-	if not self.driver then
-		self.removed = true
-		local inv = puncher:get_inventory()
-		if not minetest.is_creative_enabled(name)
-				or not inv:contains_item("main", "boats:sail_boat") then
-			local leftover = inv:add_item("main", "boats:sail_boat")
-			-- if no room in inventory add a replacement sail_boat to the world
-			if not leftover:is_empty() then
-				minetest.add_item(self.object:get_pos(), leftover)
-			end
-		end
-		-- delay remove to ensure player is detached
-		minetest.after(0.1, function()
-			self.object:remove()
-		end)
-	end
-end
-
-
-function sail_boat.on_step(self, dtime)
+function common_boat.on_step(self, dtime)
 	self.v = get_v(self.object:get_velocity()) * math.sign(self.v)
 	if self.driver then
 		local driver_objref = minetest.get_player_by_name(self.driver)
@@ -232,7 +192,57 @@ function sail_boat.on_step(self, dtime)
 	self.object:set_acceleration(new_acce)
 end
 
+--
+-- Sail boat
+--
 
+local sail_boat = {
+	initial_properties = {
+		physical = true,
+		-- Warning: Do not change the position of the collisionbox top surface,
+		-- lowering it causes the boat to fall through the world if underwater
+		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
+		visual = "mesh",
+		mesh = "boats_sail_boat.obj",
+		textures = {"boats_sail_boat.png"},
+	},
+	on_punch = function(self, puncher)
+		if not puncher or not puncher:is_player() or self.removed then
+			return
+		end
+
+		local name = puncher:get_player_name()
+		if self.driver and name == self.driver then
+			self.driver = nil
+			puncher:set_detach()
+			player_api.player_attached[name] = false
+		end
+		if not self.driver then
+			self.removed = true
+			local inv = puncher:get_inventory()
+			if not minetest.is_creative_enabled(name)
+					or not inv:contains_item("main", "boats:sail_boat") then
+				local leftover = inv:add_item("main", "boats:sail_boat")
+				-- if no room in inventory add a replacement sail_boat to the world
+				if not leftover:is_empty() then
+					minetest.add_item(self.object:get_pos(), leftover)
+				end
+			end
+			-- delay remove to ensure player is detached
+			minetest.after(0.1, function()
+				self.object:remove()
+			end)
+		end
+	end,
+
+	driver = nil,
+	v = 0,
+	last_v = 0,
+	removed = false,
+	auto = false
+}
+
+for k,v in pairs(common_boat) do sail_boat[k] = v end
 minetest.register_entity(":boats:sail_boat", sail_boat)
 
 
@@ -283,5 +293,108 @@ minetest.register_craft({
 		{"", "wool:white", ""},
 		{"group:wood", "wool:white", "group:wood"},
 		{"group:tree", "boats:boat", "group:tree"},
+	},
+})
+
+--
+-- Row boat
+--
+
+local row_boat = {
+	initial_properties = {
+		physical = true,
+		-- Warning: Do not change the position of the collisionbox top surface,
+		-- lowering it causes the boat to fall through the world if underwater
+		collisionbox = {-0.5, -0.35, -0.5, 0.5, 0.3, 0.5},
+		visual = "mesh",
+		mesh = "boats_row_boat.obj",
+		textures = {"default_wood.png"},
+	},
+	on_punch = function(self, puncher)
+		if not puncher or not puncher:is_player() or self.removed then
+			return
+		end
+
+		local name = puncher:get_player_name()
+		if self.driver and name == self.driver then
+			self.driver = nil
+			puncher:set_detach()
+			player_api.player_attached[name] = false
+		end
+		if not self.driver then
+			self.removed = true
+			local inv = puncher:get_inventory()
+			if not minetest.is_creative_enabled(name)
+					or not inv:contains_item("main", "boats:row_boat") then
+				local leftover = inv:add_item("main", "boats:row_boat")
+				-- if no room in inventory add a replacement row_boat to the world
+				if not leftover:is_empty() then
+					minetest.add_item(self.object:get_pos(), leftover)
+				end
+			end
+			-- delay remove to ensure player is detached
+			minetest.after(0.1, function()
+				self.object:remove()
+			end)
+		end
+	end,
+
+	driver = nil,
+	v = 0,
+	last_v = 0,
+	removed = false,
+	auto = false
+}
+
+for k,v in pairs(common_boat) do row_boat[k] = v end
+minetest.register_entity(":boats:row_boat", row_boat)
+
+
+minetest.register_craftitem(":boats:row_boat", {
+	description = S("Row Boat"),
+	inventory_image = "boats_row_boat_inventory.png",
+	wield_image = "boats_row_boat_wield.png",
+	wield_scale = {x = 2, y = 2, z = 1},
+	liquids_pointable = true,
+	groups = {flammable = 2},
+
+	on_place = function(itemstack, placer, pointed_thing)
+		local under = pointed_thing.under
+		local node = minetest.get_node(under)
+		local udef = minetest.registered_nodes[node.name]
+		if udef and udef.on_rightclick and
+				not (placer and placer:is_player() and
+				placer:get_player_control().sneak) then
+			return udef.on_rightclick(under, node, placer, itemstack,
+				pointed_thing) or itemstack
+		end
+
+		if pointed_thing.type ~= "node" then
+			return itemstack
+		end
+		if not is_water(pointed_thing.under) then
+			return itemstack
+		end
+		pointed_thing.under.y = pointed_thing.under.y + 0.5
+		row_boat = minetest.add_entity(pointed_thing.under, "boats:row_boat")
+		if row_boat then
+			if placer then
+				row_boat:set_yaw(placer:get_look_horizontal())
+			end
+			local player_name = placer and placer:get_player_name() or ""
+			if not minetest.is_creative_enabled(player_name) then
+				itemstack:take_item()
+			end
+		end
+		return itemstack
+	end,
+})
+
+
+minetest.register_craft({
+	output = "boats:row_boat",
+	recipe = {
+		{"group:wood", "", "group:wood"},
+		{"group:wood", "group:wood", "group:wood"},
 	},
 })
