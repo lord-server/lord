@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 local S = minetest.get_translator("lottfarming")
 
 <<<<<<< HEAD
@@ -35,6 +36,9 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 =======
 function place_seed(itemstack, placer, pointed_thing, plantname, param2)
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+function place_seed(itemstack, placer, pointed_thing, plantname)
+>>>>>>> 45e081b (Closes #276. Update MTG/farming)
 	local pt = pointed_thing
 	-- check if pointing at a node
 	if not pt then

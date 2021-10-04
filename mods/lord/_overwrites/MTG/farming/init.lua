@@ -1,4 +1,5 @@
 minetest.register_alias("farming:sheaf_wheat","farming:wheat")
+<<<<<<< HEAD
 minetest.register_alias("farming:wheat0","farming:seed_wheat")
 
 
@@ -89,3 +90,6 @@ minetest.clear_craft({output = "farming:hoe_mese"})
 minetest.unregister_item("farming:hoe_mese")
 minetest.clear_craft({output = "farming:hoe_diamond"})
 minetest.unregister_item("farming:hoe_diamond")
+=======
+minetest.register_alias("farming:wheat0","farming:seed_wheat")
+>>>>>>> 45e081b (Closes #276. Update MTG/farming)
