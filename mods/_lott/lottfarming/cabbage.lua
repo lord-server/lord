@@ -1,17 +1,12 @@
-minetest.register_craftitem("lottfarming:cabbage_seed", {
-	description = "Cabbage Seed",
-	inventory_image = "lottfarming_cabbage_seed.png",
-	on_place = function(itemstack, placer, pointed_thing)
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:cabbage_1")
-	end,
-})
+local S = lottfarming.get_translator
 
 minetest.register_node("lottfarming:cabbage_1", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	drawtype = "nodebox",
 	drop = "",
-	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
+	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png",
+	"lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -24,7 +19,10 @@ minetest.register_node("lottfarming:cabbage_1", {
 			{-0.2, -0.5, -0.2, 0.2, -0.1, 0.2}
 		},
 	},
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
+	minlight = 11,
+	maxlight = lottfarming.MAX_LIGHT,
+	next_plant = {{node = "lottfarming:cabbage_2"}},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -33,7 +31,8 @@ minetest.register_node("lottfarming:cabbage_2", {
 	sunlight_propagates = true,
 	drawtype = "nodebox",
 	drop = "",
-	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
+	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png",
+	"lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -46,39 +45,52 @@ minetest.register_node("lottfarming:cabbage_2", {
 			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
 		},
 	},
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
+	minlight = 11,
+	maxlight = lottfarming.MAX_LIGHT,
+	next_plant = {{node = "lottfarming:cabbage_3"}},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
 minetest.register_node("lottfarming:cabbage_3", {
-	description = "Cabbage",
+	description = S("Cabbage"),
 	paramtype2 = "facedir",
-	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
-		drop = {
+	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png",
+	"lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
+	drop = {
 		max_items = 6,
 		items = {
 			{ items = {'lottfarming:cabbage_seed'} },
 			{ items = {'lottfarming:cabbage_seed'}, rarity = 2},
 			{ items = {'lottfarming:cabbage_seed'}, rarity = 5},
-			{ items = {'lottfarming:cabbage'} },
-			{ items = {'lottfarming:cabbage'}, rarity = 2 },
-			{ items = {'lottfarming:cabbage'}, rarity = 5 }
+			{ items = {'lottfarming:cabbage'} }
 		}
 	},
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, plant=1},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
 
 minetest.register_node("lottfarming:cabbage", {
-	description = "Cabbage",
+	description = S("Cabbage"),
 	paramtype2 = "facedir",
-	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, plant=1, salad=1},
+	tiles = {"lottfarming_cabbage_top.png", "lottfarming_cabbage_top.png", "lottfarming_cabbage_side.png",
+	"lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png", "lottfarming_cabbage_side.png"},
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, plant = 1, salad = 1},
 	sounds = default.node_sound_wood_defaults(),
-     on_use = minetest.item_eat(4)
+    on_use = minetest.item_eat(4)
 })
 
-farming:add_plant("lottfarming:cabbage_3", {"lottfarming:cabbage_1", "lottfarming:cabbage_2"}, 80, 20)
+farming.register_plant("lottfarming:cabbage", {
+	description = S("Cabbage Seed"),
+	harvest_name = "lottfarming:cabbage",
+	seed_inv_img = "lottfarming_seed_cabbage.png",
+	planttype = 3,
+	paramtype2 = "meshoptions",
+	minlight = 11,
+	maxlight = 15,
+	fertility = {"soil"},
+	place_param2 = 1,
+})
 
 minetest.register_craft({
 	output = 'lottfarming:salad',
@@ -89,7 +101,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:salad", {
-	description = "Salad",
+	description = S("Salad"),
 	inventory_image = "lottfarming_salad.png",
 	on_use = minetest.item_eat(10),
 })

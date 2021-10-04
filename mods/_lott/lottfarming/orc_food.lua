@@ -1,12 +1,16 @@
+local S = lottfarming.get_translator
+
 minetest.register_craftitem("lottfarming:orc_food", {
-	description = "Orc Food",
+	description = S("Orc Food"),
 	inventory_image = "lottfarming_orc_food.png",
 	on_use = function(itemstack, user, pointed_thing)
-		if minetest.setting_getbool("creative_mode") ~= true then
+		local name = user:get_player_name()
+		if minetest.is_creative_enabled(name) ~= true then
 			itemstack:take_item()
 		end
-		stamina.change(user, 20)
-		if not minetest.get_player_privs(user:get_player_name()).GAMEorc then
+		hbhunger.hunger[name] = 20
+		hbhunger.set_hunger_raw(user)
+		if not races.get_race(name) then
 			local first_screen = user:hud_add({
 				hud_elem_type = "image",
 				position = {x=0, y=0},
@@ -28,35 +32,20 @@ minetest.register_craftitem("lottfarming:orc_food", {
 				end)
 			end)
 		end
-		itemstack:take_item(1)
-		local inv = user:get_inventory()
-		if inv:room_for_item("main", "lottfarming:bowl") then
-			inv:add_item("main", "lottfarming:bowl")
-		else
-			minetest.item_drop(ItemStack("lottfarming:bowl"), user, user:get_pos())
-		end
 		return itemstack
 	end,
 })
 
-minetest.register_craft({
-	output = "lottfarming:orc_food 4",
-	recipe = {
-		{"default:dirt", "lottfarming:potato_cooked", "default:dirt"},
-		{"lottmobs:meat_raw", "farming:bread", "lottmobs:meat_raw"},
-		{"default:dirt", "default:dirt", "default:dirt"},
-	}
-})
-
 minetest.register_craftitem("lottfarming:orc_medicine", {
-	description = "Orc medicine",
+	description = S("Orc Medicine"),
 	inventory_image = "lottfarming_orc_medicine.png",
 	on_use = function(itemstack, user, pointed_thing)
-		if minetest.setting_getbool("creative_mode") ~= true then
+		local name = user:get_player_name()
+		if minetest.is_creative_enabled(name) ~= true then
 			itemstack:take_item()
 		end
 		user:set_hp(20)
-		if not minetest.get_player_privs(user:get_player_name()).GAMEorc then
+		if not races.get_race(name) then
 			local first_screen = user:hud_add({
 				hud_elem_type = "image",
 				position = {x=0, y=0},
@@ -78,22 +67,6 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 				end)
 			end)
 		end
-		itemstack:take_item(1)
-		local inv = user:get_inventory()
-		if inv:room_for_item("main", "vessels:drinking_glass") then
-			inv:add_item("main", "vessels:drinking_glass")
-		else
-			minetest.item_drop(ItemStack("vessels:drinking_glass"), user, user:get_pos())
-		end
 		return itemstack
 	end,
-})
-
-minetest.register_craft({
-	output = "lottfarming:orc_medicine 2",
-	recipe = {
-		{"", "lottfarming:berries", ""},
-		{"lottfarming:berries", "lottfarming:orc_food", "lottfarming:berries"},
-		{"", "vessels:drinking_glass", ""},
-	}
 })
