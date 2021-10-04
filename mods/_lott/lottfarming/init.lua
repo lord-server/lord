@@ -1,5 +1,3 @@
-farming = {}
-
 function place_seed(itemstack, placer, pointed_thing, plantname)
 	local pt = pointed_thing
 	if not pt then

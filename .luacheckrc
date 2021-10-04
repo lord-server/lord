@@ -21,7 +21,7 @@ read_globals      = {
 	"dump", "DIR_DELIM",
 
 	-- MTG
-	"default", "sfinv", "creative", "dungeon_loot",
+	"default", "sfinv", "creative", "dungeon_loot", "farming",
 
 	-- Lord specific
 	"lord", "hb",
