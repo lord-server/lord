@@ -2,11 +2,21 @@ local esc = minetest.formspec_escape
 
 local function user_mob_content(self, width, pos)
 	local formspec = ""
-	formspec = formspec.."list[detached:"..self.id..";receive;0.25,"..pos..";1,1]"
-	formspec = formspec.."list[detached:"..self.id..";give;1.25,"..pos..";1,1]"
+
+	formspec = formspec.."list[detached:"..self.id..";show_price;0.25,"..pos..";1,1]"
+	formspec = formspec.."image[1.25,"..pos..";1,1;gui_arrow.png]"
+	formspec = formspec.."list[detached:"..self.id..";show_goods;2.25,"..pos..";1,1]"
 	pos = pos + 1.5
-	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,4;]"
-	pos = pos + 4
+
+	formspec = formspec.."list[detached:"..self.id..";receive;0.25,"..pos..";1,1]"
+	formspec = formspec.."list[detached:"..self.id..";give;2.25,"..pos..";1,1]"
+	pos = pos + 1.5
+
+	formspec = formspec.."list[current_player;main;0,"..pos..";8,1;]"
+	pos = pos + 1.2
+	formspec = formspec.."list[current_player;main;0,"..pos..";8,3;8]"
+	pos = pos + 3
+
 	return formspec, pos
 end
 
@@ -32,15 +42,27 @@ local function allow_put(inv, listname, index, stack, player)
 	if listname == "give" then
 		return 0
 	end
+	if listname == "show_goods" or listname == "show_price" then
+		return 0
+	end
 	return stack:get_count()
 end
 
 local function allow_take(inv, listname, index, stack, player)
+	if listname == "show_goods" or listname == "show_price" then
+		return 0
+	end
 	return stack:get_count()
 end
 
 local function allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if to_list == "give" then
+		return 0
+	end
+	if to_list == "show_goods" or to_list == "show_price" then
+		return 0
+	end
+	if from_list == "show_goods" or from_list == "show_price" then
 		return 0
 	end
 	return count
@@ -51,35 +73,34 @@ local function update_changer(self, inv)
 	self.give_qty = inv.get_stack(inv, "admin_give", 1):get_count()
 	self.receive = inv.get_stack(inv, "admin_receive", 1):get_name()
 	self.receive_qty = inv.get_stack(inv, "admin_receive", 1):get_count()
+	inv:set_stack("show_goods", 1, inv:get_stack("admin_give", 1))
+	inv:set_stack("show_price", 1, inv:get_stack("admin_receive", 1))
+
 	minetest.log("Changer receive: "..self.receive.." "..self.receive_qty)
 	minetest.log("Changer give: "..self.give.." "..self.give_qty)
 end
 
 local function update_takeout(self, inv)
-	local received     = inv.get_stack(inv, "receive", 1):get_name()
-	local received_qty = inv.get_stack(inv, "receive", 1):get_count()
+	local received     = inv:get_stack("receive", 1):get_name()
+	local received_qty = inv:get_stack("receive", 1):get_count()
+
+	local name = self.give
+	local count = self.give_qty
+	inv:remove_item("give", {name=name, count=count})
 
 	if received == self.receive and received_qty >= self.receive_qty then
 		-- put good
-		inv.set_stack(inv, "give", 1, self.give.." "..self.give_qty)
-	else
-		inv.set_stack(inv, "give", 1, nil)
+		inv:add_item("give", {name=self.give, count=self.give_qty})
 	end
 end
 
 local function take_fee(self, inv)
 	local received     = inv.get_stack(inv, "receive", 1):get_name()
-	local received_qty = inv.get_stack(inv, "receive", 1):get_count()
 	if received ~= self.receive then
 		return
 	end
 
-	local newamount = received_qty-self.receive_qty
-	if newamount > 0 then
-		inv.set_stack(inv, "receive", 1, self.receive.." "..newamount)
-	else
-		inv.set_stack(inv, "receive", 1, nil)
-	end
+	inv:remove_item("receive", {name=self.receive, count=self.receive_qty})
 end
 
 local function on_put(inv, listname, index, stack, player)
@@ -95,6 +116,8 @@ local function on_put(inv, listname, index, stack, player)
 		update_changer(self, inv)
 	elseif listname == "receive" then
 		update_takeout(self, inv)
+	elseif listname == "give" then
+		minetest.log("error", "put to GIVE!")
 	end
 end
 
@@ -113,7 +136,6 @@ local function on_take(inv, listname, index, stack, player)
 		update_takeout(self, inv)
 	elseif listname == "give" then
 		take_fee(self, inv)
-		update_takeout(self, inv)
 	end
 end
 
@@ -133,11 +155,16 @@ local function create_inventory(self, id)
 	self.inventory = minetest.create_detached_inventory(id, move_put_take)
 	self.inventory:set_size("admin_receive", 1)
 	self.inventory:set_size("admin_give", 1)
+
 	self.inventory:set_size("receive", 1)
 	self.inventory:set_size("give", 1)
 
+	self.inventory:set_size("show_goods", 1)
+	self.inventory:set_size("show_price", 1)
+
 	self.inventory:set_stack("admin_give", 1, self.give.." "..self.give_qty)
 	self.inventory:set_stack("admin_receive", 1, self.receive.." "..self.receive_qty)
+	update_changer(self, self.inventory)
 end
 
 local function init_from_staticdata(self, mobdata)

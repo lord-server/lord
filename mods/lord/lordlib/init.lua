@@ -20,3 +20,11 @@ function lord.mod_loaded()
 		minetest.log("action", minetest.get_current_modname() .. " mod loaded in " .. os.clock() .. ' s.')
 	end
 end
+
+------------------------------------
+---Remove after updating to 5.4.1---
+------------------------------------
+local creative_mode_cache = minetest.settings:get_bool("creative_mode")
+function minetest.is_creative_enabled(name)
+	return creative_mode_cache
+end
