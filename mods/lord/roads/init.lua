@@ -1,4 +1,5 @@
 local SL = lord.require_intllib()
+local S = minetest.get_translator(roads)
 
 local function register_road(name, mainMaterial, desc, fill) -- функция регистрации всех нодов дороги
 
@@ -20,11 +21,11 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   local spGroups = {not_in_creative_inventory = 1} -- специальная группа
   table_concat(spGroups, desc.groups)
 
-  -- textures: filling, border_x, border_z, border_top, step_border_x,
+  -- textures: border_x, border_z, border_top, step_border_x,
   -- step_border_z, incorn_border_top, outcorn_border_top
 
   minetest.register_node(roadName, {
-    description = SL(desc.description.." road"),
+    description = S(desc.description.." road"),
     tiles = {fill},
     groups = desc.groups,
     drawtype = "nodebox",
@@ -40,7 +41,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- бордюр
 
   minetest.register_node(borderName, {
-    description = SL(desc.description.." border"),
+    description = S(desc.description.." border"),
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_x.png",
@@ -146,7 +147,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   })
 
     minetest.register_node(borderName.."D", {
-    description = SL(desc.description.." border D"),
+    description = desc.description.." border D",
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_x.png",
@@ -169,7 +170,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- внутренний угол
 
   minetest.register_node(innerCornerBorderName, {
-    description = SL(desc.description.." inner corner border"),
+    description = S(desc.description.." inner corner border"),
     tiles = {fill.."^roads_"..name.."_incorn_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_z.png",
@@ -281,7 +282,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   })
 
   minetest.register_node(innerCornerBorderName.."D", {
-    description = SL(desc.description.." inner corner border D"),
+    description = desc.description.." inner corner border D",
     tiles = {fill.."^roads_"..name.."_incorn_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_z.png",
@@ -306,7 +307,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- внешний угол
 
   minetest.register_node(outerCornerBorderName, {
-    description = SL(desc.description.." outer corner border"),
+    description = S(desc.description.." outer corner border"),
     tiles = {fill.."^roads_"..name.."_outcorn_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_x.png",
@@ -414,7 +415,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
    })
 
    minetest.register_node(outerCornerBorderName.."D", {
-    description = SL(desc.description.." outer corner border D"),
+    description = desc.description.." outer corner border D",
     tiles = {fill.."^roads_"..name.."_outcorn_border_top.png",
              fill,
              fill.."^roads_"..name.."_border_x.png",
@@ -438,7 +439,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- ступенька
 
   minetest.register_node(stepRoadName, {
-    description = SL(desc.description.." step road"),
+    description = S(desc.description.." step road"),
     tiles = {fill},
     groups = desc.groups,
     drawtype = "nodebox",
@@ -455,7 +456,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- ступенька-бордюр
 
   minetest.register_node(stepBorderName, {
-    description = SL(desc.description.." step border"),
+    description = S(desc.description.." step border"),
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
              fill.."^roads_"..name.."_step_border_x.png",
@@ -561,7 +562,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   })
 
   minetest.register_node(stepBorderName.."D", {
-    description = SL(desc.description.." step border D"),
+    description = desc.description.." step border D",
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
              fill.."^roads_"..name.."_step_border_x.png",
@@ -584,7 +585,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- бордюр(итем)
 
   minetest.register_craftitem(borderItemName, {
-  description = SL(desc.description.." border"),
+  description = S(desc.description.." border"),
   inventory_image = "roads_"..name.."_border_item.png"
   })
 

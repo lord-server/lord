@@ -1,0 +1,3 @@
+# textdomain: roads
+Stonebrick road=
+Sandstone road=
