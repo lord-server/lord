@@ -1,5 +1,4 @@
-local SL = lord.require_intllib()
-local S = minetest.get_translator(roads)
+local S = minetest.get_translator("roads")
 
 local function register_road(name, mainMaterial, desc, fill) -- функция регистрации всех нодов дороги
 
