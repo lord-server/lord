@@ -4,9 +4,19 @@ local SL = minetest.get_translator("arrows")
 
 local flame_node = function(pos)
 	local n = minetest.get_node(pos).name
-	local fbd = minetest.registered_nodes[n].groups.forbidden
-	if fbd == nil then
-		if minetest.registered_nodes[n].groups.flammable or math.random(1, 100) <= 30 then
+	local node_desc = minetest.registered_nodes[n]
+	if node_desc == nil then
+		minetest.log("error", "Attempt to flame unknown node: "..n..
+				" ("..pos.x..","..pos.y..","..pos.z..")")
+		return
+	end
+
+	if node_desc.groups == nil then
+		node_desc.groups = {}
+	end
+
+	if node_desc.groups.forbidden == nil then
+		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
 			minetest.set_node(pos, { name = "fire:basic_flame" })
 		else
 			minetest.remove_node(pos)
