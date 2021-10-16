@@ -1,6 +1,6 @@
 local S = minetest.get_translator("roads")
 
-local function register_road(name, mainMaterial, desc, fill) -- функция регистрации всех нодов дороги
+local function register_road(name, main_material, desc, fill) -- функция регистрации всех нодов дороги
 
   local function table_concat(s,t) -- функция объединение таблиц
     for i, v in pairs(t) do
@@ -17,8 +17,8 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   local step_border_name = mn.."_step_border" -- ступнька с бордюром
   local border_item_name = mn.."_border_item" -- бордюр(итем)
 
-  local spGroups = {not_in_creative_inventory = 1} -- специальная группа
-  table_concat(spGroups, desc.groups)
+  local sp_groups = {not_in_creative_inventory = 1} -- специальная группа
+  table_concat(sp_groups, desc.groups)
 
   -- textures: border_x, border_z, border_top, step_border_x,
   -- step_border_z, incorn_border_top, outcorn_border_top
@@ -88,7 +88,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_z.png",
              fill.."^(roads_"..name.."_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_border_x.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -109,7 +109,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^(roads_"..name.."_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_border_x.png",
              fill.."^roads_"..name.."_border_z.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -131,7 +131,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_z.png",
              fill.."^roads_"..name.."_border_x.png",
              fill.."^(roads_"..name.."_border_x.png^[transformFX)"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -219,7 +219,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_z.png^roads_"..name.."_border_x.png",
              fill.."^roads_"..name.."_border_z.png^(roads_"..name.."_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_border_z.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -242,7 +242,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_z.png",
              fill.."^roads_"..name.."_border_z.png^roads_"..name.."_border_x.png",
              fill.."^roads_"..name.."_border_z.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -265,7 +265,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_z.png",
              fill.."^roads_"..name.."_border_z.png",
              fill.."^roads_"..name.."_border_z.png^(roads_"..name.."_border_x.png^[transformFX)"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -355,7 +355,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_x.png",
              fill.."^roads_"..name.."_border_x.png",
              fill.."^(roads_"..name.."_border_x.png^[transformFX)"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -377,7 +377,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^(roads_"..name.."_border_x.png^[transformFX)",
              fill.."^(roads_"..name.."_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_border_x.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -399,7 +399,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_border_x.png",
              fill.."^roads_"..name.."_border_x.png",
              fill.."^(roads_"..name.."_border_x.png^[transformFX)"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -503,7 +503,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_step_border_z.png",
              fill.."^(roads_"..name.."_step_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_step_border_x.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -524,7 +524,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^(roads_"..name.."_step_border_x.png^[transformFX)",
              fill.."^roads_"..name.."_step_border_x.png",
              fill.."^roads_"..name.."_step_border_z.png"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -546,7 +546,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
              fill.."^roads_"..name.."_step_border_z.png",
              fill.."^roads_"..name.."_step_border_x.png",
              fill.."^(roads_"..name.."_step_border_x.png^[transformFX)"},
-    groups = spGroups,
+    groups = sp_groups,
     drawtype = "nodebox",
     paramtype = "light",
     paramtype2 = "facedir",
@@ -592,13 +592,13 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
 
   minetest.register_craft({
     output = border_item_name.." 8",
-    recipe = {{mainMaterial, mainMaterial}},
+    recipe = {{main_material, main_material}},
   })
 
   minetest.register_craft({
     output = road_name.." 8",
-    recipe = {{mainMaterial, mainMaterial,mainMaterial},
-              {mainMaterial, mainMaterial,mainMaterial}},
+    recipe = {{main_material, main_material,main_material},
+              {main_material, main_material,main_material}},
   })
 
   minetest.register_craft({
