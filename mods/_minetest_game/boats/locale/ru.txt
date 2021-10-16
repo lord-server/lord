@@ -1,0 +1,3 @@
+### init.lua ###
+Boat	=	Плот
+Sail Boat	=	Лодка с парусом
