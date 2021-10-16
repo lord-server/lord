@@ -47,9 +47,6 @@ read_globals      = {
 
 	-- Legacy
 	"spawn_falling_node",
-
-	-- Silence warnings about accessing undefined fields of global 'math'
-	math = { fields = { "sign" } }
 }
 
 exclude_files     = {
