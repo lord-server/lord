@@ -1,7 +1,7 @@
 local S = minetest.get_translator("boats")
 
 
-minetest.register_alias("boats:row_boat","boats:boat")
+minetest.register_alias("boats:rowboat","boats:boat")
 
 --
 -- Helper functions
