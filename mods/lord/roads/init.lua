@@ -9,13 +9,13 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   end
 
   local mn = "roads:"..name -- имя мода с материалом
-  local roadName = mn.."_road" -- дорога
-  local borderName = mn.."_border" -- бордюр
-  local innerCornerBorderName = mn.."_inner_corner_border" -- бордюр (внутренний угол)
-  local outerCornerBorderName = mn.."_outer_corner_border" -- бордюр (внешний угол)
-  local stepRoadName = mn.."_step_road" -- ступенька дороги
-  local stepBorderName = mn.."_step_border" -- ступнька с бордюром
-  local borderItemName = mn.."_border_item" -- бордюр(итем)
+  local road_name = mn.."_road" -- дорога
+  local border_name = mn.."_border" -- бордюр
+  local inner_corner_border_name = mn.."_inner_corner_border" -- бордюр (внутренний угол)
+  local outer_corner_border_name = mn.."_outer_corner_border" -- бордюр (внешний угол)
+  local step_road_name = mn.."_step_road" -- ступенька дороги
+  local step_border_name = mn.."_step_border" -- ступнька с бордюром
+  local border_item_name = mn.."_border_item" -- бордюр(итем)
 
   local spGroups = {not_in_creative_inventory = 1} -- специальная группа
   table_concat(spGroups, desc.groups)
@@ -23,7 +23,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- textures: border_x, border_z, border_top, step_border_x,
   -- step_border_z, incorn_border_top, outcorn_border_top
 
-  minetest.register_node(roadName, {
+  minetest.register_node(road_name, {
     description = S(desc.description.." road"),
     tiles = {fill},
     groups = desc.groups,
@@ -39,7 +39,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
 
   -- бордюр
 
-  minetest.register_node(borderName, {
+  minetest.register_node(border_name, {
     description = S(desc.description.." border"),
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
@@ -60,27 +60,27 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
     on_place = function(itemstack, placer, pointed_thing)
       local dir = minetest.dir_to_facedir(placer:get_look_dir())
       if dir == 0 then
-        itemstack:set_name(borderName.."D")
+        itemstack:set_name(border_name.."D")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 1 then
-        itemstack:set_name(borderName.."A")
+        itemstack:set_name(border_name.."A")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 2 then
-        itemstack:set_name(borderName.."B")
+        itemstack:set_name(border_name.."B")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 3 then
-        itemstack:set_name(borderName.."C")
+        itemstack:set_name(border_name.."C")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
       end
-      itemstack:set_name(borderName)
+      itemstack:set_name(border_name)
       return itemstack
   end
   })
 
-  minetest.register_node(borderName.."A", {
+  minetest.register_node(border_name.."A", {
     description = desc.description.." border A",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR270)",
              fill,
@@ -99,10 +99,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {0.25, 0.25, -0.5, 0.5, 0.5, 0.5},
         },
     },
-    drop = borderName,
+    drop = border_name,
   })
 
-  minetest.register_node(borderName.."B", {
+  minetest.register_node(border_name.."B", {
     description = desc.description.." border B",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR180)",
              fill,
@@ -120,10 +120,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, -0.5, 0.5, 0.5, -0.25},
         },
     },
-    drop = borderName,
+    drop = border_name,
   })
 
-  minetest.register_node(borderName.."C", {
+  minetest.register_node(border_name.."C", {
     description = desc.description.." border C",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR90)",
              fill,
@@ -142,10 +142,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, -0.5, -0.25, 0.5, 0.5},
         },
     },
-    drop = borderName,
+    drop = border_name,
   })
 
-    minetest.register_node(borderName.."D", {
+    minetest.register_node(border_name.."D", {
     description = desc.description.." border D",
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
@@ -163,12 +163,12 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-.5, 0.25, 0.25, 0.5, 0.5, 0.5},
         },
     },
-    drop = borderName,
+    drop = border_name,
   })
 
   -- внутренний угол
 
-  minetest.register_node(innerCornerBorderName, {
+  minetest.register_node(inner_corner_border_name, {
     description = S(desc.description.." inner corner border"),
     tiles = {fill.."^roads_"..name.."_incorn_border_top.png",
              fill,
@@ -191,27 +191,27 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
     on_place = function(itemstack, placer, pointed_thing)
       local dir = minetest.dir_to_facedir(placer:get_look_dir())
       if dir == 0 then
-        itemstack:set_name(innerCornerBorderName.."D")
+        itemstack:set_name(inner_corner_border_name.."D")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 1 then
-        itemstack:set_name(innerCornerBorderName.."A")
+        itemstack:set_name(inner_corner_border_name.."A")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 2 then
-        itemstack:set_name(innerCornerBorderName.."B")
+        itemstack:set_name(inner_corner_border_name.."B")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 3 then
-        itemstack:set_name(innerCornerBorderName.."C")
+        itemstack:set_name(inner_corner_border_name.."C")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
       end
-      itemstack:set_name(innerCornerBorderName)
+      itemstack:set_name(inner_corner_border_name)
       return itemstack
   end
   })
 
-  minetest.register_node(innerCornerBorderName.."A", {
+  minetest.register_node(inner_corner_border_name.."A", {
     description = desc.description.." inner corner border A",
     tiles = {fill.."^(roads_"..name.."_incorn_border_top.png^[transformR270)",
              fill,
@@ -231,10 +231,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, -0.5, 0.25, 0.5, -0.25}
         },
     },
-    drop = innerCornerBorderName,
+    drop = inner_corner_border_name,
   })
 
-  minetest.register_node(innerCornerBorderName.."B", {
+  minetest.register_node(inner_corner_border_name.."B", {
     description = desc.description.." inner corner border B",
     tiles = {fill.."^(roads_"..name.."_incorn_border_top.png^[transformR180)",
              fill,
@@ -254,10 +254,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, -0.25, -0.25, 0.5, 0.5}
         },
     },
-    drop = innerCornerBorderName,
+    drop = inner_corner_border_name,
   })
 
-  minetest.register_node(innerCornerBorderName.."C", {
+  minetest.register_node(inner_corner_border_name.."C", {
     description = desc.description.." inner corner border C",
     tiles = {fill.."^(roads_"..name.."_incorn_border_top.png^[transformR90)",
              fill,
@@ -277,10 +277,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.25, 0.25, 0.25, 0.5, 0.5, 0.5}
         },
     },
-    drop = innerCornerBorderName,
+    drop = inner_corner_border_name,
   })
 
-  minetest.register_node(innerCornerBorderName.."D", {
+  minetest.register_node(inner_corner_border_name.."D", {
     description = desc.description.." inner corner border D",
     tiles = {fill.."^roads_"..name.."_incorn_border_top.png",
              fill,
@@ -300,12 +300,12 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {0.25, 0.25, -0.5, 0.5, 0.5, 0.25}
         },
     },
-    drop = innerCornerBorderName,
+    drop = inner_corner_border_name,
   })
 
   -- внешний угол
 
-  minetest.register_node(outerCornerBorderName, {
+  minetest.register_node(outer_corner_border_name, {
     description = S(desc.description.." outer corner border"),
     tiles = {fill.."^roads_"..name.."_outcorn_border_top.png",
              fill,
@@ -327,27 +327,27 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
     on_place = function(itemstack, placer, pointed_thing)
       local dir = minetest.dir_to_facedir(placer:get_look_dir())
       if dir == 0 then
-        itemstack:set_name(outerCornerBorderName.."D")
+        itemstack:set_name(outer_corner_border_name.."D")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 1 then
-        itemstack:set_name(outerCornerBorderName.."A")
+        itemstack:set_name(outer_corner_border_name.."A")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 2 then
-        itemstack:set_name(outerCornerBorderName.."B")
+        itemstack:set_name(outer_corner_border_name.."B")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 3 then
-        itemstack:set_name(outerCornerBorderName.."C")
+        itemstack:set_name(outer_corner_border_name.."C")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
       end
-      itemstack:set_name(outerCornerBorderName)
+      itemstack:set_name(outer_corner_border_name)
       return itemstack
   end
    })
 
-  minetest.register_node(outerCornerBorderName.."A", {
+  minetest.register_node(outer_corner_border_name.."A", {
     description = desc.description.." outer corner border A",
     tiles = {fill.."^(roads_"..name.."_outcorn_border_top.png^[transformR270)",
              fill,
@@ -366,10 +366,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {0.25, 0.25, -0.5, 0.5, 0.5, -0.25},
         },
     },
-    drop = outerCornerBorderName,
+    drop = outer_corner_border_name,
    })
 
-   minetest.register_node(outerCornerBorderName.."B", {
+   minetest.register_node(outer_corner_border_name.."B", {
     description = desc.description.." outer corner border B",
     tiles = {fill.."^(roads_"..name.."_outcorn_border_top.png^[transformR180)",
              fill,
@@ -388,10 +388,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, -0.5, -0.25, 0.5, -0.25},
         },
     },
-    drop = outerCornerBorderName,
+    drop = outer_corner_border_name,
    })
 
-  minetest.register_node(outerCornerBorderName.."C", {
+  minetest.register_node(outer_corner_border_name.."C", {
     description = desc.description.." outer corner border C",
     tiles = {fill.."^(roads_"..name.."_outcorn_border_top.png^[transformR90)",
              fill,
@@ -410,10 +410,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, 0.25, 0.25, -0.25, 0.5, 0.5},
         },
     },
-    drop = outerCornerBorderName,
+    drop = outer_corner_border_name,
    })
 
-   minetest.register_node(outerCornerBorderName.."D", {
+   minetest.register_node(outer_corner_border_name.."D", {
     description = desc.description.." outer corner border D",
     tiles = {fill.."^roads_"..name.."_outcorn_border_top.png",
              fill,
@@ -432,12 +432,12 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {0.25, 0.25, 0.25, 0.5, 0.5, 0.5},
         },
     },
-    drop = outerCornerBorderName,
+    drop = outer_corner_border_name,
    })
 
   -- ступенька
 
-  minetest.register_node(stepRoadName, {
+  minetest.register_node(step_road_name, {
     description = S(desc.description.." step road"),
     tiles = {fill},
     groups = desc.groups,
@@ -454,7 +454,7 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
 
   -- ступенька-бордюр
 
-  minetest.register_node(stepBorderName, {
+  minetest.register_node(step_border_name, {
     description = S(desc.description.." step border"),
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
@@ -475,27 +475,27 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
     on_place = function(itemstack, placer, pointed_thing)
       local dir = minetest.dir_to_facedir(placer:get_look_dir())
       if dir == 0 then
-        itemstack:set_name(stepBorderName.."D")
+        itemstack:set_name(step_border_name.."D")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 1 then
-        itemstack:set_name(stepBorderName.."A")
+        itemstack:set_name(step_border_name.."A")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 2 then
-        itemstack:set_name(stepBorderName.."B")
+        itemstack:set_name(step_border_name.."B")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
 
       elseif dir == 3 then
-        itemstack:set_name(stepBorderName.."C")
+        itemstack:set_name(step_border_name.."C")
         minetest.item_place_node(itemstack, placer, pointed_thing, 0)
       end
-      itemstack:set_name(stepBorderName)
+      itemstack:set_name(step_border_name)
       return itemstack
     end
   })
 
-  minetest.register_node(stepBorderName.."A", {
+  minetest.register_node(step_border_name.."A", {
     description = desc.description.." step border A",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR270)",
              fill,
@@ -514,10 +514,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {0.25, -0.25, -0.5, 0.5, 0, 0.5}
         },
     },
-    drop = stepBorderName,
+    drop = step_border_name,
   })
 
-  minetest.register_node(stepBorderName.."B", {
+  minetest.register_node(step_border_name.."B", {
     description = desc.description.." step border B",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR180)",
              fill,
@@ -535,10 +535,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, -0.25, -0.5, 0.5, 0, -0.25}
         },
     },
-    drop = stepBorderName,
+    drop = step_border_name,
   })
 
-  minetest.register_node(stepBorderName.."C", {
+  minetest.register_node(step_border_name.."C", {
     description = desc.description.." step border C",
     tiles = {fill.."^(roads_"..name.."_border_top.png^[transformR90)",
              fill,
@@ -557,10 +557,10 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, -0.25, -0.5, -0.25, 0, 0.5}
         },
     },
-    drop = stepBorderName,
+    drop = step_border_name,
   })
 
-  minetest.register_node(stepBorderName.."D", {
+  minetest.register_node(step_border_name.."D", {
     description = desc.description.." step border D",
     tiles = {fill.."^roads_"..name.."_border_top.png",
              fill,
@@ -578,12 +578,12 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
             {-0.5, -0.25, 0.25, 0.5, 0, 0.5}
         },
     },
-    drop = stepBorderName,
+    drop = step_border_name,
   })
 
   -- бордюр(итем)
 
-  minetest.register_craftitem(borderItemName, {
+  minetest.register_craftitem(border_item_name, {
   description = S(desc.description.." border"),
   inventory_image = "roads_"..name.."_border_item.png"
   })
@@ -591,43 +591,43 @@ local function register_road(name, mainMaterial, desc, fill) -- функция �
   -- крафты
 
   minetest.register_craft({
-    output = borderItemName.." 8",
+    output = border_item_name.." 8",
     recipe = {{mainMaterial, mainMaterial}},
   })
 
   minetest.register_craft({
-    output = roadName.." 8",
+    output = road_name.." 8",
     recipe = {{mainMaterial, mainMaterial,mainMaterial},
               {mainMaterial, mainMaterial,mainMaterial}},
   })
 
   minetest.register_craft({
-    output = borderName,
-    recipe = {{borderItemName},
-              {roadName}},
+    output = border_name,
+    recipe = {{border_item_name},
+              {road_name}},
   })
 
   minetest.register_craft({
-    output = innerCornerBorderName,
-    recipe = {{borderItemName, ""},
-              {roadName, borderItemName}},
+    output = inner_corner_border_name,
+    recipe = {{border_item_name, ""},
+              {road_name, border_item_name}},
   })
 
   minetest.register_craft({
-    output = outerCornerBorderName,
-    recipe = {{"", borderItemName},
-              {roadName, ""}},
+    output = outer_corner_border_name,
+    recipe = {{"", border_item_name},
+              {road_name, ""}},
   })
 
   minetest.register_craft({
-    output = stepRoadName.." 6",
-    recipe = {{roadName, roadName}},
+    output = step_road_name.." 6",
+    recipe = {{road_name, road_name}},
   })
 
   minetest.register_craft({
-    output = stepBorderName,
-    recipe = {{borderItemName},
-              {stepRoadName}},
+    output = step_border_name,
+    recipe = {{border_item_name},
+              {step_road_name}},
   })
 
   return true
