@@ -211,7 +211,7 @@ local function cooking(pos, itemstack)
 end
 
 -- NODES
-minetest.register_node('fire:fireplace', {
+minetest.register_node('campfire:fireplace', {
 	description         = SL("Fireplace"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire_empty.obj',
@@ -234,7 +234,7 @@ minetest.register_node('fire:fireplace', {
 	end,
 })
 
-minetest.register_node('fire:campfire', {
+minetest.register_node('campfire:campfire', {
 	description         = SL("Campfire"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire.obj',
@@ -261,7 +261,7 @@ minetest.register_node('fire:campfire', {
 	on_rightclick       = function(pos, node, player, itemstack, pointed_thing)
 		if itemstack:get_name() == "default:torch" then
 			minetest.sound_play("fire_flint_and_steel", { pos = pos, gain = 0.5, max_hear_distance = 8 })
-			minetest.set_node(pos, { name = 'fire:campfire_active' })
+			minetest.set_node(pos, { name = 'campfire:campfire_active' })
 			minetest.add_particle({
 				pos                = { x = pos.x, y = pos.y, z = pos.z },
 				velocity           = { x = 0, y = 0.1, z = 0 },
@@ -278,7 +278,7 @@ minetest.register_node('fire:campfire', {
 	end,
 })
 
-minetest.register_node('fire:campfire_active', {
+minetest.register_node('campfire:campfire_active', {
 	description         = SL("Active campfire"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire.obj',
@@ -293,7 +293,7 @@ minetest.register_node('fire:campfire_active', {
 	paramtype           = 'none',
 	light_source        = 13,
 	damage_per_second   = 3,
-	drop                = "fire:campfire",
+	drop                = "campfire:campfire",
 	--    sounds = default.node_sound_stone_defaults(),
 	selection_box       = {
 		type  = 'fixed',
@@ -347,7 +347,7 @@ minetest.register_node('fire:campfire_active', {
 
 -- ABM
 minetest.register_abm({
-	nodenames = { "fire:campfire_active" },
+	nodenames = { "campfire:campfire_active" },
 	--  neighbors = {"group:puts_out_fire"},
 	interval  = 1.0, -- Run every 1 seconds
 	chance    = 1, -- Select every 1 in 1 nodes
@@ -359,7 +359,7 @@ minetest.register_abm({
 			{ "group:water" }
 		)
 		if #fpos > 0 then
-			minetest.set_node(pos, { name = 'fire:campfire' })
+			minetest.set_node(pos, { name = 'campfire:campfire' })
 			minetest.sound_play("fire_extinguish_flame", { pos = pos, max_hear_distance = 16, gain = 0.15 })
 		else
 			local meta   = minetest.get_meta(pos)
@@ -368,8 +368,8 @@ minetest.register_abm({
 			if campfire_limit and campfire_ttl > 0 then
 				if it_val <= 0 then
 					minetest.remove_node(pos)
-					minetest.set_node(pos, { name = 'fire:fireplace' })
-					minetest.add_item(pos, "fire:ash")
+					minetest.set_node(pos, { name = 'campfire:fireplace' })
+					minetest.add_item(pos, "campfire:ash")
 					return
 				end
 				meta:set_int('it_val', it_val);
@@ -391,7 +391,7 @@ minetest.register_abm({
 
 -- CRAFTS
 minetest.register_craft({
-	output = "fire:campfire",
+	output = "campfire:campfire",
 	recipe = {
 		{ 'stairs:slab_cobble', 'lord_homedecor:sticks', 'stairs:slab_cobble' },
 		{ '', 'stairs:slab_cobble', '' },
@@ -399,7 +399,7 @@ minetest.register_craft({
 })
 
 -- ITEMS
-minetest.register_craftitem("fire:ash", {
+minetest.register_craftitem("campfire:ash", {
 	description     = SL("Ash"),
 	inventory_image = "campfire_ash.png"
 })
