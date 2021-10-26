@@ -145,10 +145,10 @@ if minetest.get_modpath("lottfarming") ~= nil then
 	hbhunger.register_food("lottfarming:red_mushroom", -8, "", -8)
 	hbhunger.register_food("lottfarming:salad", 4, "lottfarming:bowl")
 	hbhunger.register_food("lottfarming:tomato_soup", 4, "lottfarming:bowl")
-	hbhunger.register_food("lottfarming:tomatoes", 1)
-	hbhunger.register_food("lottfarming:tomatoes_cooked", 3)
-	hbhunger.register_food("lottfarming:turnips", 1)
-	hbhunger.register_food("lottfarming:turnips_cooked", 2)
+	hbhunger.register_food("lottfarming:tomato", 1)
+	hbhunger.register_food("lottfarming:tomato_cooked", 3)
+	hbhunger.register_food("lottfarming:turnip", 1)
+	hbhunger.register_food("lottfarming:turnip_cooked", 2)
 end
 
 if minetest.get_modpath("lottmobs") ~= nil then

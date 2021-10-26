@@ -262,23 +262,23 @@ minetest.register_node("lottplants:potato_wild", {
 	},
 })
 
--- TOMATOES
+-- TOMATO
 
-minetest.register_node("lottplants:tomatoes_wild", {
-	description = SL("Wild Tomatoes"),
+minetest.register_node("lottplants:tomato_wild", {
+	description = SL("Wild Tomato"),
 	drawtype = "plantlike",
 	waving = 1,
-	tiles = { "lottplants_tomatoes_wild.png" },
-	inventory_image = "lottplants_tomatoes_wild.png",
-	wield_image = "lottplants_tomatoes_wild.png",
+	tiles = { "lottplants_tomato_wild.png" },
+	inventory_image = "lottplants_tomato_wild.png",
+	wield_image = "lottplants_tomato_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
 	drop = {
 		max_items = 3,
 		items = {
-			{ items = {'lottfarming:tomatoes'} },
-			{ items = {'lottfarming:tomatoes'}, rarity = 5},
-			{ items = {'lottfarming:tomatoes'}, rarity = 10}
+			{ items = {'lottfarming:tomato'} },
+			{ items = {'lottfarming:tomato'}, rarity = 5},
+			{ items = {'lottfarming:tomato'}, rarity = 10}
 		}
 	},
 	walkable = false,
@@ -291,23 +291,23 @@ minetest.register_node("lottplants:tomatoes_wild", {
 	},
 })
 
--- TURNIPS
+-- TURNIP
 
-minetest.register_node("lottplants:turnips_wild", {
-	description = SL("Wild Turnips"),
+minetest.register_node("lottplants:turnip_wild", {
+	description = SL("Wild Turnip"),
 	drawtype = "plantlike",
 	waving = 1,
-	tiles = { "lottfarming_turnips_4.png" },
-	inventory_image = "lottfarming_turnips_4.png",
-	wield_image = "lottfarming_turnips_4.png",
+	tiles = { "lottfarming_turnip_4.png" },
+	inventory_image = "lottfarming_turnip_4.png",
+	wield_image = "lottfarming_turnip_4.png",
 	sunlight_propagates = true,
 	paramtype = "light",
 	drop = {
 		max_items = 3,
 		items = {
-			{ items = {'lottfarming:turnips'} },
-			{ items = {'lottfarming:turnips'}, rarity = 10 },
-			{ items = {'lottfarming:turnips'}, rarity = 5}
+			{ items = {'lottfarming:turnip'} },
+			{ items = {'lottfarming:turnip'}, rarity = 10 },
+			{ items = {'lottfarming:turnip'}, rarity = 5}
 		}
 	},
 	walkable = false,

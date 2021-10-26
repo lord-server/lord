@@ -50,19 +50,27 @@ local function growgen(pos)
 	local next_plant = minetest.registered_nodes[name].next_plant
 	if next_plant then
 		farming.grow_plant(pos)
+<<<<<<< HEAD
 		return true
 	end
 	return nil
+=======
+	end
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 end
 
 minetest.register_tool("lottfarming:bacteria_fertiliser", {
 	description = S("Bacteria Fertiliser"),
 	inventory_image = "vessels_glass_bottle_inv.png^lottfarming_bacteria_fertiliser.png",
-	on_use = function(itemstack, user, pointed_thing)
+	on_use = function(itemstack, _, pointed_thing)
 		if decaying_wood(pointed_thing.under) or growgen(pointed_thing.under) then
+<<<<<<< HEAD
 			if not minetest.is_creative_enabled(user) then
 				itemstack:add_wear(65536/50)
 			end
+=======
+			itemstack:add_wear(65535/80)
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 			return itemstack
 		end
 	end

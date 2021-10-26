@@ -2,8 +2,11 @@ local S = minetest.get_translator("lottfarming")
 
 lottfarming = {}
 
+<<<<<<< HEAD
 lottfarming.MAX_LIGHT = 15
 
+=======
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 lottfarming.get_translator = S
 
 -- how often node timers for plants will tick, +/- some random value
@@ -15,6 +18,7 @@ local function tick_again(pos)
 	minetest.get_node_timer(pos):start(math.random(40, 80))
 end
 
+<<<<<<< HEAD
 local function check_fertility(t, nodename)
 	for _, k in pairs(t) do
 		if minetest.get_item_group(nodename, k) >= 2 then
@@ -24,6 +28,8 @@ local function check_fertility(t, nodename)
 	return false
 end
 
+=======
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	local pt = pointed_thing
 	-- check if pointing at a node
@@ -36,6 +42,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
+<<<<<<< HEAD
 
 	local player_name = placer and placer:get_player_name() or ""
 
@@ -284,6 +291,264 @@ farming.register_plant = function(name, def)
 		maxlight = def.maxlight or 15,
 	})
 
+=======
+
+	local player_name = placer and placer:get_player_name() or ""
+
+	if minetest.is_protected(pt.under, player_name) then
+		minetest.record_protection_violation(pt.under, player_name)
+		return
+	end
+	if minetest.is_protected(pt.above, player_name) then
+		minetest.record_protection_violation(pt.above, player_name)
+		return
+	end
+
+	-- return if any of the nodes is not registered
+	if not minetest.registered_nodes[under.name] then
+		return itemstack
+	end
+	if not minetest.registered_nodes[above.name] then
+		return itemstack
+	end
+
+	-- check if pointing at the top of the node
+	if pt.above.y ~= pt.under.y+1 then
+		return itemstack
+	end
+
+	-- check if you can replace the node above the pointed node
+	if not minetest.registered_nodes[above.name].buildable_to then
+		return itemstack
+	end
+
+	local item = minetest.registered_items[itemstack:get_name()]
+
+	-- check if pointing at node with given group
+	local function check_fertility(t)
+		for _, k in pairs(t) do
+			if minetest.get_item_group(under.name, k) >= 1 then
+				return true
+			end
+		end
+	end
+
+	if not (check_fertility(item.fertility) == true) then
+		return itemstack
+	end
+
+	-- add the node and remove 1 item from the itemstack
+	minetest.log("action", player_name .. " places node " .. plantname .. " at " ..
+		minetest.pos_to_string(pt.above))
+	minetest.add_node(pt.above, {name = plantname, param2 = 1})
+	tick(pt.above)
+	if not minetest.is_creative_enabled(player_name) then
+		itemstack:take_item()
+	end
+	return itemstack
+end
+
+farming.grow_plant = function(pos, _)
+	local node = minetest.get_node(pos)
+	local name = node.name
+	local def = minetest.registered_nodes[name]
+
+	if not def.next_plant then
+		-- disable timer for fully grown plant
+		return
+	end
+
+	if def.stop_trigger and (def.stop_trigger() == true) then
+		tick_again(pos)
+		return
+	end
+
+	if type(def.next_plant) == "function" then
+		def.next_plant = def.next_plant()
+	end
+
+	-- grow seed
+	if minetest.get_item_group(node.name, "seed") and def.fertility then
+		local soil_node = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
+		if not soil_node then
+			tick_again(pos)
+			return
+		end
+		-- omitted is a check for light, we assume seeds can germinate in the dark.
+		for _, v in pairs(def.fertility) do
+			if minetest.get_item_group(soil_node.name, v) ~= 0 then
+				local placenode = {name = def.next_plant[1].node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if def.next_plant[1].pos then
+					local lpos = def.next_plant[1].pos
+					placepos = {x = pos.x + lpos.x, y = pos.y + lpos.y, z = pos.z + lpos.z}
+				end
+				minetest.swap_node(placepos, placenode)
+				if minetest.registered_nodes[def.next_plant[1].node].next_plant then
+					tick(pos)
+					return
+				end
+			end
+		end
+
+		return
+	end
+
+	-- check light
+	local light = minetest.get_node_light(pos)
+	if not light or light < def.minlight or light > def.maxlight then
+		tick_again(pos)
+		return
+	end
+
+	-- ground check and grow
+	if def.planttype == 1 then
+		-- ground check
+		local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+		if not ((minetest.get_item_group(below.name, "soil") > 2)
+		or (minetest.get_item_group(below.name, def.fertility) > 0)) then
+			tick_again(pos)
+			return
+		end
+
+		-- grow
+		for _, k in pairs(def.next_plant) do
+			if k ~= nil then
+				local placenode = {name = k.node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if k.pos then
+					placepos = {x = pos.x + k.pos.x, y = pos.y + k.pos.y, z = pos.z + k.pos.z}
+				end
+				minetest.set_node(placepos, placenode)
+			end
+		end
+
+		-- new timer needed?
+		if def.next_plant[1] then
+			if minetest.registered_nodes[def.next_plant[1].node].next_plant then
+				tick(pos)
+			end
+		end
+		return
+	else
+		-- ground check
+		if not def.on_ground_check then
+			return
+		end
+		local ground_check = def.on_ground_check() or false
+		if not ground_check then
+			tick_again(pos)
+		end
+
+		-- grow
+		for _, k in pairs(def.next_plant) do
+			if k ~= nil then
+				local placenode = {name = k.node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if k.pos then
+					placepos = {x = pos.x + k.pos.x, y = pos.y + k.pos.y, z = pos.z + k.pos.z}
+				end
+				minetest.swap_node(placepos, placenode)
+
+				-- new timer needed?
+				if minetest.registered_nodes[placenode].next_plant then
+					tick(placepos)
+				end
+			end
+		end
+		return
+	end
+end
+
+farming.register_plant = function(name, def)
+	local mname = name:split(":")[1]
+	local pname = name:split(":")[2]
+
+	-- Check def table
+	if (not def.planttype) or (type(def.planttype) ~= "number") or (def.planttype < 1)
+	or (def.planttype - math.floor(def.planttype) ~= 0) then
+		def.planttype = 1
+	end
+	if not def.description then
+		def.description = S("Seed")
+	end
+	if not def.harvest_description then
+		def.harvest_description = pname:gsub("^%l", string.upper)
+	end
+	if not def.seed_inv_img then
+		def.seed_inv_img = "unknown_item.png"
+	end
+	if not def.minlight then
+		def.minlight = 1
+	end
+	if not def.maxlight then
+		def.maxlight = 14
+	end
+	if not def.fertility then
+		def.fertility = {}
+	end
+
+	farming.registered_plants[pname] = def
+
+	-- Register seed
+	local lbm_nodes = {mname .. ":seed_" .. pname}
+	local g = {seed = 1, snappy = 3, attached_node = 1, flammable = 2}
+	for _, v in pairs(def.fertility) do
+		g[v] = 1
+	end
+	minetest.register_node(def.seed_name or (":" .. mname .. ":seed_" .. pname), {
+		description = def.description,
+		tiles = def.planted_tiles or {"lottfarming_seed_planted.png"},
+		inventory_image = def.seed_inv_img,
+		wield_image = def.seed_inv_img,
+		drawtype = "signlike",
+		groups = g,
+		planttype = def.planttype,
+		paramtype = "light",
+		paramtype2 = "wallmounted",
+		place_param2 = def.place_param2 or nil, -- this isn't actually used for placement
+		walkable = false,
+		sunlight_propagates = true,
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
+		},
+		fertility = def.fertility,
+		sounds = default.node_sound_dirt_defaults({
+			dig = {name = "", gain = 0},
+			dug = {name = "default_grass_footstep", gain = 0.2},
+			place = {name = "default_place_node", gain = 0.25},
+		}),
+
+		on_place = function(itemstack, placer, pointed_thing)
+			local under = pointed_thing.under
+			local node = minetest.get_node(under)
+			local udef = minetest.registered_nodes[node.name]
+			if udef and udef.on_rightclick and
+					not (placer and placer:is_player() and
+					placer:get_player_control().sneak) then
+				return udef.on_rightclick(under, node, placer, itemstack,
+					pointed_thing) or itemstack
+			end
+
+			return farming.place_seed(itemstack, placer, pointed_thing, mname .. ":seed_" .. pname)
+		end,
+		next_plant = def.next_plant or {{node = mname .. ":" .. pname .. "_1"}},
+		on_timer = farming.grow_plant,
+		minlight = def.minlight,
+		maxlight = def.maxlight,
+	})
+
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	-- Register harvest
 	if def.harvest_name then
 		if not minetest.registered_items[def.harvest_name] then
@@ -328,7 +593,11 @@ farming.register_plant = function(name, def)
 			local next_plant = nil
 
 			if i < def.steps then
+<<<<<<< HEAD
 				next_plant = {{node = mname .. ":" .. pname .. "_" .. (i + 1)}}
+=======
+				next_plant = {{name = mname .. ":" .. pname .. "_" .. (i + 1)}}
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 				lbm_nodes[#lbm_nodes + 1] = mname .. ":" .. pname .. "_" .. i
 			end
 
@@ -348,12 +617,20 @@ farming.register_plant = function(name, def)
 					fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 				},
 				groups = nodegroups,
+<<<<<<< HEAD
 				fertility = def.fertility,
 				sounds = default.node_sound_leaves_defaults(),
 				next_plant = next_plant,
 				on_timer = farming.grow_plant,
 				minlight = def.minlight or 13,
 				maxlight = def.maxlight or lottfarming.MAX_LIGHT,
+=======
+				sounds = default.node_sound_leaves_defaults(),
+				next_plant = next_plant,
+				on_timer = farming.grow_plant,
+				minlight = def.minlight,
+				maxlight = def.maxlight,
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 			})
 		end
 

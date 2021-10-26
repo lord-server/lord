@@ -4,6 +4,7 @@ Pilinehtar=Pilinehtar
 Honey=Honey
 
 ### wild_food.lua ###
+<<<<<<< HEAD
 Wild Barley=Wild Barley
 Wild Berries=Wild Berries
 Wild Corn plant=Wild Corn plant
@@ -14,6 +15,18 @@ Pipeweed Wild=Pipeweed Wild
 Potato Wild=Potato Wild
 Wild Tomatoes=Wild Tomatoes
 Wild Turnips=Wild Turnips
+=======
+Wild Barley	=	Wild Barley
+Wild Berries	=	Wild Berries
+Wild Corn plant	=	Wild Corn plant
+Wild Cabbage	=	Wild Cabbage
+Wild Melon	=	Wild Melon
+Mushroom Wild	=	Mushroom Wild
+Pipeweed Wild	=	Pipeweed Wild
+Potato Wild	=	Potato Wild
+Wild Tomato	=	Wild Tomato
+Wild Turnip	=	Wild Turnip
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 
 ### nodes.lua ###
 Alder Leaf=Alder Leaf

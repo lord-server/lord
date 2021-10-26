@@ -79,7 +79,7 @@ mobs:register_mob("lottmobs:boar", {
 		punch_end    = 100,
 	},
 	replace_rate         = 1,
-	replace_what         = { { "lottfarming:potato_3", "air", 0 }, { "lottfarming:turnips_4", "air", 0 } },
+	replace_what         = { { "lottfarming:potato_3", "air", 0 }, { "lottfarming:turnip_4", "air", 0 } },
 	on_rightclick        = function(self, clicker)
 		local item = clicker:get_wielded_item()
 		if item:get_name() == "default:apple" or item:get_name() == "lottother:beast_ring" then

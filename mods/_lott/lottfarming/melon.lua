@@ -1,4 +1,5 @@
 local S = lottfarming.get_translator
+<<<<<<< HEAD
 
 minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 
@@ -7,6 +8,8 @@ minetest.register_craftitem("lottfarming:melon", {
 	inventory_image = "lottfarming_melon.png",
 	on_use = minetest.item_eat(2),
 })
+=======
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 
 minetest.register_node("lottfarming:melon_1", {
 	paramtype = "light",
@@ -27,9 +30,13 @@ minetest.register_node("lottfarming:melon_1", {
 			{-0.2, -0.5, -0.2, 0.2, -0.1, 0.2}
 		},
 	},
+<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_2"}},
+=======
+	next_plant = {{name = "lottfarming:melon_2"}},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -53,9 +60,13 @@ minetest.register_node("lottfarming:melon_2", {
 			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
 		},
 	},
+<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_3"}},
+=======
+	next_plant = {{name = "lottfarming:melon_3"}},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -78,6 +89,7 @@ minetest.register_node("lottfarming:melon_3", {
 	sounds = default.node_sound_wood_defaults(),
 })
 
+<<<<<<< HEAD
 farming.register_plant("lottfarming:melon", {
 	description = S("Melon Seed"),
 	harvest_name = "lottfarming:melon_3",
@@ -89,3 +101,24 @@ farming.register_plant("lottfarming:melon", {
 	fertility = {"soil"},
 	place_param2 = 1,
 })
+=======
+minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
+
+minetest.register_craftitem("lottfarming:melon", {
+	description = S("Melon Slice"),
+	inventory_image = "lottfarming_melon.png",
+	on_use = minetest.item_eat(2),
+})
+
+farming.register_plant("lottfarming:melon", {
+	description = S("Melon Seed"),
+	harvest_name = "lottfarming:melon_3",
+	seed_inv_img = "lottfarming_seed_melon.png",
+	planttype = 3,
+	paramtype2 = "meshoptions",
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+	place_param2 = 1,
+})
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)

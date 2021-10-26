@@ -19,9 +19,13 @@ minetest.register_node("lottfarming:cabbage_1", {
 			{-0.2, -0.5, -0.2, 0.2, -0.1, 0.2}
 		},
 	},
+<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:cabbage_2"}},
+=======
+	next_plant = {{name = "lottfarming:cabbage_2"}},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -45,9 +49,13 @@ minetest.register_node("lottfarming:cabbage_2", {
 			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
 		},
 	},
+<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:cabbage_3"}},
+=======
+	next_plant = {{name = "lottfarming:cabbage_3"}},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -66,6 +74,10 @@ minetest.register_node("lottfarming:cabbage_3", {
 			{ items = {'lottfarming:cabbage'} }
 		}
 	},
+<<<<<<< HEAD
+=======
+	next_plant = {{name = "lottfarming:cabbage"}},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -86,9 +98,15 @@ farming.register_plant("lottfarming:cabbage", {
 	seed_inv_img = "lottfarming_seed_cabbage.png",
 	planttype = 3,
 	paramtype2 = "meshoptions",
+<<<<<<< HEAD
 	minlight = 11,
 	maxlight = 15,
 	fertility = {"soil"},
+=======
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+>>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	place_param2 = 1,
 })
 
