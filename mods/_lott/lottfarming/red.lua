@@ -1,8 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
 farming.register_plant("lottfarming:red_mushroom", {
 	seed_name = "lottfarming:spore_red_mushroom",
+=======
+local S = minetest.get_translator("lottfarming")
+
+farming.register_plant("lottfarming:red_mushroom", {
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	harvest_name = "lottfarming:red_mushroom",
 	description = S("Red Mushroom Spore"),
 	harvest_description = S("Red Mushroom"),
@@ -17,6 +23,7 @@ farming.register_plant("lottfarming:red_mushroom", {
 	fertility = {"fungi"},
 	place_param2 = 1,
 	on_use = minetest.item_eat(1),
+<<<<<<< HEAD
 })
 =======
 minetest.register_craftitem("lottfarming:red_mushroom_spore", {
@@ -227,3 +234,6 @@ minetest.register_abm({
 	end
 })
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+})
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)

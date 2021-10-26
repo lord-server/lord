@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = minetest.get_translator("lottfarming")
 
 <<<<<<< HEAD
@@ -39,6 +40,11 @@ function place_seed(itemstack, placer, pointed_thing, plantname, param2)
 =======
 function place_seed(itemstack, placer, pointed_thing, plantname)
 >>>>>>> 45e081b (Closes #276. Update MTG/farming)
+=======
+local S = minetest.get_translator("lottfarming")
+
+farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	local pt = pointed_thing
 	-- check if pointing at a node
 	if not pt then
@@ -51,6 +57,9 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 	local under = minetest.get_node(pt.under)
 	local above = minetest.get_node(pt.above)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 	local player_name = placer and placer:get_player_name() or ""
 
@@ -81,12 +90,19 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 		return itemstack
 	end
 
+<<<<<<< HEAD
 	local item = minetest.registered_items[itemstack:get_name()]
 
 	if not (check_fertility(item.fertility, under.name) == true) then
 		return itemstack
 	end
 <<<<<<< HEAD
+=======
+	-- check if pointing at node with given group
+	if minetest.get_item_group(under.name, itemstack.fertility) < 2 then
+		return itemstack
+	end
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 	-- add the node and remove 1 item from the itemstack
 	minetest.log("action", player_name .. " places node " .. plantname .. " at " ..
@@ -94,23 +110,31 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not minetest.is_creative_enabled(player_name) then
+<<<<<<< HEAD
 =======
 	minetest.add_node(pt.above, {name=plantname, param2=param2})
 	if not minetest.setting_getbool("creative_mode") then
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 		itemstack:take_item()
 	end
 	return itemstack
 end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 farming.grow_plant = function(pos, _)
+=======
+farming.grow_plant = function(pos, elapsed)
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	local node = minetest.get_node(pos)
 	local name = node.name
 	local def = minetest.registered_nodes[name]
 
 	if not def.next_plant then
 		-- disable timer for fully grown plant
+<<<<<<< HEAD
 =======
 function place_spore(itemstack, placer, pointed_thing, plantname, p2)
 	local pt = pointed_thing
@@ -555,6 +579,182 @@ farming.register_plant = function(name, def)
 			place = {name = "default_place_node", gain = 0.25},
 		}),
 
+=======
+		return
+	end
+
+	if def.stop_trigger() == true then
+		tick_again(pos)
+		return
+	end
+
+	if type(def.next_plant) == "function" then
+		def.next_plant = def.next_plant()
+	end
+
+	-- grow seed
+	if minetest.get_item_group(node.name, "seed") and def.fertility then
+		local soil_node = minetest.get_node_or_nil({x = pos.x, y = pos.y - 1, z = pos.z})
+		if not soil_node then
+			tick_again(pos)
+			return
+		end
+		-- omitted is a check for light, we assume seeds can germinate in the dark.
+		for _, v in pairs(def.fertility) do
+			if minetest.get_item_group(soil_node.name, v) ~= 0 then
+				local placenode = {name = def.next_plant[1].node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if def.next_plant[1].pos then
+					local lpos = def.next_plant[1].pos
+					placepos = {x = pos.x + lpos.x, y = pos.y + lpos.y, z = pos.z + lpos.z}
+				end
+				minetest.swap_node(placepos, placenode)
+				if minetest.registered_nodes[def.next_plant[1].node].next_plant then
+					tick(pos)
+					return
+				end
+			end
+		end
+
+		return
+	end
+
+	-- check light
+	local light = minetest.get_node_light(pos)
+	if not light or light < def.minlight or light > def.maxlight then
+		tick_again(pos)
+		return
+	end
+
+	-- ground check and grow
+	if def.planttype == 1 then
+		-- ground check
+		local below = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
+		if not ((minetest.get_item_group(below.name, "soil") > 2)
+		or (minetest.get_item_group(below.name, def.fertility) > 0)) then
+			tick_again(pos)
+			return
+		end
+
+		-- grow
+		for _, k in pairs(def.next_plant) do
+			if k ~= nil then
+				local placenode = {name = k.node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if k.pos then
+					placepos = {x = pos.x + k.pos.x, y = pos.y + k.pos.y, z = pos.z + k.pos.z}
+				end
+				minetest.swap_node(placepos, placenode)
+			end
+		end
+
+		-- new timer needed?
+		if def.next_plant[1] then
+			if minetest.registered_nodes[def.next_plant[1].node].next_plant then
+				tick(pos)
+			end
+		end
+		return
+	else
+		-- ground check
+		if not def.on_ground_check then
+			return
+		end
+		local ground_check = def.on_ground_check() or false
+		if not ground_check then
+			tick_again(pos)
+		end
+
+		-- grow
+		for _, k in pairs(def.next_plant) do
+			if k ~= nil then
+				local placenode = {name = k.node}
+				if def.place_param2 then
+					placenode.param2 = def.place_param2
+				end
+				local placepos = pos
+				if k.pos then
+					placepos = {x = pos.x + k.pos.x, y = pos.y + k.pos.y, z = pos.z + k.pos.z}
+				end
+				minetest.swap_node(placepos, placenode)
+
+				-- new timer needed?
+				if minetest.registered_nodes[placenode].next_plant then
+					tick(placepos)
+				end
+			end
+		end
+		return
+	end
+end
+
+farming.register_plant = function(name, def)
+	local mname = name:split(":")[1]
+	local pname = name:split(":")[2]
+
+	-- Check def table
+	if (not def.planttype) or (type(def.planttype) ~= "number") or (def.planttype < 1)
+	or (def.planttype - math.floor(def.planttype) ~= 0) then
+		def.planttype = 1
+	end
+	if not def.description then
+		def.description = S("Seed")
+	end
+	if not def.harvest_description then
+		def.harvest_description = pname:gsub("^%l", string.upper)
+	end
+	if not def.seed_inv_img then
+		def.seed_inv_img = "unknown_item.png"
+	end
+	if not def.minlight then
+		def.minlight = 1
+	end
+	if not def.maxlight then
+		def.maxlight = 14
+	end
+	if not def.fertility then
+		def.fertility = {}
+	end
+
+	farming.registered_plants[pname] = def
+
+	-- Register seed
+	local lbm_nodes = {mname .. ":seed_" .. pname}
+	local g = {seed = 1, snappy = 3, attached_node = 1, flammable = 2}
+	for k, v in pairs(def.fertility) do
+		g[v] = 1
+	end
+	minetest.register_node(def.seed_name or (":" .. mname .. ":seed_" .. pname), {
+		description = def.description,
+		tiles = {""..mname.."_"..pname.."_planted.png"},
+		seed_inv_img = def.seed_inv_img,
+		wield_image = def.seed_inv_img,
+		drawtype = "signlike",
+		groups = g,
+		planttype = def.planttype,
+		paramtype = "light",
+		paramtype2 = "wallmounted",
+		place_param2 = def.place_param2 or nil, -- this isn't actually used for placement
+		walkable = false,
+		sunlight_propagates = true,
+		selection_box = {
+			type = "fixed",
+			fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5},
+		},
+		fertility = def.fertility,
+		sounds = default.node_sound_dirt_defaults({
+			dig = {name = "", gain = 0},
+			dug = {name = "default_grass_footstep", gain = 0.2},
+			place = {name = "default_place_node", gain = 0.25},
+		}),
+
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 		on_place = function(itemstack, placer, pointed_thing)
 			local under = pointed_thing.under
 			local node = minetest.get_node(under)
@@ -574,6 +774,7 @@ farming.register_plant = function(name, def)
 		maxlight = def.maxlight,
 	})
 
+<<<<<<< HEAD
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	-- Register harvest
 	if def.harvest_name then
@@ -589,6 +790,13 @@ farming.register_plant = function(name, def)
 		minetest.register_craftitem(":" .. mname .. ":" .. pname, {
 			description = def.harvest_description,
 			inventory_image = def.harvest_inv_img or (mname .. "_" .. pname .. ".png"),
+=======
+	-- Register harvest
+	if not (def.harvest_name or minetest.registered_items[def.harvest_name]) then
+		minetest.register_craftitem(def.harvest_name or (":" .. mname .. ":" .. pname), {
+			description = def.harvest_description,
+			harvest_inv_img = mname .. "_" .. pname .. ".png",
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 			groups = def.groups or {flammable = 2},
 			on_use = def.on_use,
 		})
@@ -620,10 +828,14 @@ farming.register_plant = function(name, def)
 
 			if i < def.steps then
 <<<<<<< HEAD
+<<<<<<< HEAD
 				next_plant = {{node = mname .. ":" .. pname .. "_" .. (i + 1)}}
 =======
 				next_plant = {{name = mname .. ":" .. pname .. "_" .. (i + 1)}}
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+				next_plant = {{name = mname .. ":" .. pname .. "_" .. (i + 1)}}
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 				lbm_nodes[#lbm_nodes + 1] = mname .. ":" .. pname .. "_" .. i
 			end
 
@@ -644,6 +856,7 @@ farming.register_plant = function(name, def)
 				},
 				groups = nodegroups,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				fertility = def.fertility,
 				sounds = default.node_sound_leaves_defaults(),
 				next_plant = next_plant,
@@ -651,11 +864,14 @@ farming.register_plant = function(name, def)
 				minlight = def.minlight or 13,
 				maxlight = def.maxlight or lottfarming.MAX_LIGHT,
 =======
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 				sounds = default.node_sound_leaves_defaults(),
 				next_plant = next_plant,
 				on_timer = farming.grow_plant,
 				minlight = def.minlight,
 				maxlight = def.maxlight,
+<<<<<<< HEAD
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 			})
 		end
@@ -713,6 +929,27 @@ function farming:add_plant(full_grown, names, interval, chance, p2)
 		end
 })
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+			})
+
+			-- replacement LBM for pre-nodetimer plants
+			minetest.register_lbm({
+				name = ":" .. mname .. ":start_nodetimer_" .. pname,
+				nodenames = lbm_nodes,
+				action = function(pos, node)
+					tick_again(pos)
+				end,
+			})
+		end
+	end
+
+	-- Return
+	local r = {
+		seed = mname .. ":seed_" .. pname,
+		harvest = mname .. ":" .. pname
+	}
+	return r
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 end
 
 minetest.register_lbm({
@@ -726,11 +963,16 @@ minetest.register_lbm({
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 -- ========= ATHELAS =========
 dofile(minetest.get_modpath("lottfarming").."/athelas.lua")
 
 -- ========= BARLEY =========
 dofile(minetest.get_modpath("lottfarming").."/barley.lua")
+=======
+-- ========= CARROT =========
+dofile(minetest.get_modpath("lottfarming").."/carrot.lua")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 =======
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
@@ -746,6 +988,7 @@ dofile(minetest.get_modpath("lottfarming").."/carrot.lua")
 -- ========= CORN =========
 dofile(minetest.get_modpath("lottfarming").."/corn.lua")
 
+<<<<<<< HEAD
 -- ========= CRAFTS =========
 dofile(minetest.get_modpath("lottfarming").."/crafting.lua")
 
@@ -757,6 +1000,13 @@ dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 
 -- ========= OTHER =========
 dofile(minetest.get_modpath("lottfarming").."/other.lua")
+=======
+-- ========= TOMATO =========
+dofile(minetest.get_modpath("lottfarming").."/tomato.lua")
+
+-- ========= TURNIP =========
+dofile(minetest.get_modpath("lottfarming").."/turnip.lua")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 -- ========= PIPEWEED =========
 dofile(minetest.get_modpath("lottfarming").."/pipeweed.lua")
@@ -788,7 +1038,10 @@ dofile(minetest.get_modpath("lottfarming").."/green.lua")
 -- ========= WHITE MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/white.lua")
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 -- ========= ORC FOOD =========
 dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")

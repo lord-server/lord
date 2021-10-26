@@ -1,15 +1,24 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 farming.register_plant("lottfarming:pipeweed", {
 	harvest_name = "lottfarming:pipeweed",
 	description = S("Pipeweed Seed"),
 	harvest_description = S("Pipeweed"),
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_seed_pipeweed.png",
+=======
+	seed_inv_img = "lottfarming_pipeweed_seed.png",
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	groups = {},
 	planttype = 1,
 	steps = 4,
 	paramtype2 = "meshoptions",
+<<<<<<< HEAD
 <<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
@@ -127,10 +136,22 @@ minetest.register_craft({
 minetest.register_craftitem("lottfarming:pipeweed_cooked", {
 	description = "Cooked Pipeweed",
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+	place_param2 = 1,
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craftitem("lottfarming:pipeweed_cooked", {
+	description = S("Cooked Pipeweed"),
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	inventory_image = "lottfarming_pipeweed_cooked.png",
 	groups = {flammable = 2},
 })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 local pipeweed = {
 =======
@@ -145,11 +166,17 @@ minetest.register_craft({
 
 pipeweed = {
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+local pipeweed = {
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	{"lottfarming:pipeweed_cooked"},
 }
 
 minetest.register_tool("lottfarming:pipe", {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	description = S("Pipe"),
 	inventory_image = "lottfarming_pipe.png",
     on_use = function(itemstack, player)

@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 minetest.register_craftitem("lottfarming:orc_food", {
 	description = S("Orc Food"),
@@ -12,6 +16,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		hbhunger.hunger[name] = 20
 		hbhunger.set_hunger_raw(user)
 		if not races.get_race(name) then
+<<<<<<< HEAD
 =======
 minetest.register_craftitem("lottfarming:orc_food", {
 	description = "Orc Food",
@@ -23,6 +28,8 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		stamina.change(user, 20)
 		if not minetest.get_player_privs(user:get_player_name()).GAMEorc then
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 			local first_screen = user:hud_add({
 				hud_elem_type = "image",
 				position = {x=0, y=0},
@@ -48,6 +55,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 	end,
 })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 minetest.register_craftitem("lottfarming:orc_medicine", {
 	description = S("Orc Medicine"),
@@ -79,6 +87,18 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 		user:set_hp(20)
 		if not minetest.get_player_privs(user:get_player_name()).GAMEorc then
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+minetest.register_craftitem("lottfarming:orc_medicine", {
+	description = S("Orc medicine"),
+	inventory_image = "lottfarming_orc_medicine.png",
+	on_use = function(itemstack, user, pointed_thing)
+		local name = user:get_player_name()
+		if minetest.is_creative_enabled(name) ~= true then
+			itemstack:take_item()
+		end
+		user:set_hp(20)
+		if not races.get_race(name) then
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 			local first_screen = user:hud_add({
 				hud_elem_type = "image",
 				position = {x=0, y=0},
@@ -104,6 +124,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 	end,
 })
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 minetest.register_craft({
@@ -115,3 +136,5 @@ minetest.register_craft({
 	}
 })
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)

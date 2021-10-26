@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_transator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 minetest.register_craftitem("lottfarming:cookie_cracker", {
 	description = S("Cracker"),

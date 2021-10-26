@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 =======
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
@@ -11,29 +15,40 @@ minetest.register_craft({
 <<<<<<< HEAD
 		{"group:wood", "", "group:wood"},
 		{"", "group:wood", ""},
+<<<<<<< HEAD
 =======
 		{"default:wood", "", "default:wood"},
 		{"", "default:wood", ""},
 		{"", "", ""},
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	}
 })
 
 minetest.register_craftitem("lottfarming:bowl", {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	description = S("Bowl"),
 =======
 	description = "Bowl",
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	description = S("Bowl"),
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	inventory_image = "lottfarming_bowl.png",
 })
 
 minetest.register_node("lottfarming:decay_tree", {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	description = S("Decaying Wood"),
 =======
 	description = "Decaying Wood",
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	description = S("Decaying Wood"),
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	tiles = {'default_tree_top.png^lottfarming_decay_tree.png', 'default_tree.png', 	'default_tree.png'},
     is_ground_content = true,
 	groups = {crumbly = 3, fungi = 3},
@@ -42,10 +57,14 @@ minetest.register_node("lottfarming:decay_tree", {
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 local function decaying_wood(pos, _, _)
 =======
 local function decaying_wood(pos, inv, p)
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+local function decaying_wood(pos, _, _)
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	if pos == nil then
 		return false
 	end
@@ -53,11 +72,16 @@ local function decaying_wood(pos, inv, p)
 	local name = node.name
 	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (name == "default:tree") or (name == "default:jungletree")
 	or (name == "default:tree_trunk") or (name == "default:jungletree_trunk") then
 =======
 	if name == "default:tree" or name == "default:jungletree" then
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	if (name == "default:tree") or (name == "default:jungletree")
+	or (name == "default:tree_trunk") or (name == "default:jungletree_trunk") then
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 		if above.name == "air" then
 			node.name = "lottfarming:decay_tree"
 			minetest.set_node(pos, node)
@@ -77,16 +101,21 @@ local function growgen(pos)
 	if next_plant then
 		farming.grow_plant(pos)
 <<<<<<< HEAD
+<<<<<<< HEAD
 		return true
 	end
 	return nil
 =======
 	end
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+	end
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 end
 
 minetest.register_tool("lottfarming:bacteria_fertiliser", {
 	description = S("Bacteria Fertiliser"),
+<<<<<<< HEAD
 	inventory_image = "vessels_glass_bottle_inv.png^lottfarming_bacteria_fertiliser.png",
 	on_use = function(itemstack, _, pointed_thing)
 		if decaying_wood(pointed_thing.under) or growgen(pointed_thing.under) then
@@ -105,6 +134,12 @@ minetest.register_tool("lottfarming:bacteria_fertiliser", {
 		if decaying_wood(pointed_thing.under, user:get_inventory(), 10) then
 			itemstack:add_wear(65535/80)
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	inventory_image = "lottfarming_bacteria_fertiliser.png",
+	on_use = function(itemstack, _, pointed_thing)
+		if decaying_wood(pointed_thing.under) or growgen(pointed_thing.under) then
+			itemstack:add_wear(65535/80)
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 			return itemstack
 		end
 	end
@@ -114,6 +149,7 @@ minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:bacteria_fertiliser",
 <<<<<<< HEAD
+<<<<<<< HEAD
 	recipe = {"lottpotion:glass_bottle_water", "bones:bonedust"}
 =======
 	recipe = {
@@ -122,6 +158,9 @@ minetest.register_craft({
 		{"default:glass", "default:glass", "default:glass"},
 	}
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	recipe = {"lottpotion:glass_bottle_water", "bones:bonedust"}
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 })
 
 minetest.register_craft({
@@ -191,10 +230,14 @@ minetest.register_craft({
 
 minetest.register_craft({
 <<<<<<< HEAD
+<<<<<<< HEAD
 	output = 'lottfarming:corn_kernel 2',
 =======
 	output = 'lottfarming:corn_seed 2',
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	output = 'lottfarming:corn_kernel 2',
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	recipe = {
 		{'lottfarming:corn'},
 	}
@@ -223,10 +266,14 @@ minetest.register_craft({
 
 minetest.register_craft({
 <<<<<<< HEAD
+<<<<<<< HEAD
 	output = 'lottfarming:half_of_potato 2',
 =======
 	output = 'lottfarming:potato_seed 2',
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	output = 'lottfarming:half_of_potato 2',
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	recipe = {
 		{'lottfarming:potato'},
 	}
@@ -307,6 +354,7 @@ minetest.register_craft({
 	cooktime = 15,
 	output = "lottfarming:turnip_cooked",
 	recipe = "lottfarming:turnip"
+<<<<<<< HEAD
 =======
 	output = 'lottfarming:melon',
 	recipe = {
@@ -315,4 +363,6 @@ minetest.register_craft({
 		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
 	}
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 })

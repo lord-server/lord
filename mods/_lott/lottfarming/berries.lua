@@ -1,9 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 farming.register_plant("lottfarming:berries", {
 	description = S("Berries Seed"),
 	harvest_description = S("Berries"),
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_seed_berries.png",
 	paramtype2 = "meshoptions",
 	steps = 4,
@@ -113,3 +118,15 @@ minetest.register_craftitem("lottfarming:berries", {
 
 farming:add_plant("lottfarming:berries_4", {"lottfarming:berries_1", "lottfarming:berries_2", "lottfarming:berries_3"}, 50, 20, 34)
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	seed_inv_img = "lottfarming_berries_seed.png",
+	paramtype2 = "meshoptions",
+	steps = 4,
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+	groups = {},
+	place_param2 = 1,
+	on_use = minetest.item_eat(2),
+})
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)

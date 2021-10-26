@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 farming.register_plant("lottfarming:carrot", {
 	description = S("Carrot Seed"),
 	harvest_description = S("Carrot"),
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_seed_carrot.png",
 	paramtype2 = "meshoptions",
 	steps = 4,
@@ -15,6 +20,14 @@ farming.register_plant("lottfarming:carrot", {
 	maxlight = default.LIGHT_MAX,
 	fertility = {"grassland"},
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+	seed_inv_img = "lottfarming_carrot_seed.png",
+	paramtype2 = "meshoptions",
+	steps = 4,
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	groups = {},
 	place_param2 = 1,
 	on_use = minetest.item_eat(2),

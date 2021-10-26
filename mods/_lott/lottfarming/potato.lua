@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
+=======
+local S = minetest.get_translator("lottfarming")
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
 farming.register_plant("lottfarming:potato", {
 	seed_name = "lottfarming:half_of_potato",
@@ -11,6 +15,7 @@ farming.register_plant("lottfarming:potato", {
 	planttype = 1,
 	steps = 3,
 	paramtype2 = "meshoptions",
+<<<<<<< HEAD
 <<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
@@ -111,6 +116,17 @@ minetest.register_craft({
 minetest.register_craftitem("lottfarming:potato_cooked", {
 	description = "Cooked Potato",
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+	minlight = 13,
+	maxlight = default.LIGHT_MAX,
+	fertility = {"grassland"},
+	place_param2 = 1,
+	on_use = minetest.item_eat(1),
+})
+
+minetest.register_craftitem("lottfarming:potato_cooked", {
+	description = S("Cooked Potato"),
+>>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	inventory_image = "lottfarming_potato_cooked.png",
 	on_use = minetest.item_eat(5),
 })
