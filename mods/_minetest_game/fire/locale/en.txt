@@ -1,8 +1,0 @@
-### init.lua ###
-Fire	=	Fire
-### campfire.lua ###
-Campfire 	= Campfire
-Active campfire = Active campfire
-Cooking		= Cooking
-Ash		= Ash
-Fireplace	= Fireplace
