@@ -1,6 +1,6 @@
 local S = minetest.get_translator("lamps")
 
-local function register_candle_lamp(material, desc)
+local function register_candle_lamp(material, desc, ingot)
   local upTx = "lamps_candle_lamp_"..material.."_up.png"
   local sideTx = "lamps_candle_lamp_"..material.."_side.png^lamps_light_candle_lamp.png"
   local chainA = "lamps_chain_"..material.."_a.png"
@@ -74,10 +74,16 @@ local function register_candle_lamp(material, desc)
     light_source = 10,
     drop = "lamps:"..material.."_item_candle_lamp",
   })
+  minetest.register_craft({
+    output = "lamps:"..material.."_item_candle_lamp",
+    recipe = {{"", ingot, ""},
+              {ingot, "lord_homedecor:candle", ingot},
+              {"", ingot, ""}},
+  })
 end
 
 --register_candle_lamp("steel", "Steel")
-register_candle_lamp("gold", "Gold")
+register_candle_lamp("gold", "Gold", "default:gold_ingot")
 --register_candle_lamp("tin", "Tin")
-register_candle_lamp("bronze", "Bronze")
+register_candle_lamp("bronze", "Bronze", "default:bronze_ingot")
 --register_candle_lamp("silver", "Silver")
