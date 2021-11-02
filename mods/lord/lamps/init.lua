@@ -12,7 +12,7 @@ local function register_candle_lamp(material, desc, ingot)
 		inventory_image = sideTx,
 		on_place = function(itemstack, placer, pointed_thing)
 			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
-			if pointed_thing.above.y ~= pointed_thing.under.y-1 then 
+			if pointed_thing.above.y ~= pointed_thing.under.y-1 then
 				-- Если блок, который поставил игрок не ниже блока,
 				-- который он выделил, то напольная лампа.
 				itemstack:set_name("lamps:"..material.."_candle_lamp")
@@ -55,7 +55,7 @@ local function register_candle_lamp(material, desc, ingot)
 
 	minetest.register_node("lamps:"..material.."_hanging_candle_lamp", {
 		description = desc.." hanging candle lamp",
-		tiles = { 
+		tiles = {
 			upTx,
 			upTx,
 			sideTx.."^"..chainA,
@@ -83,8 +83,8 @@ local function register_candle_lamp(material, desc, ingot)
 
 	minetest.register_craft({
 	output = "lamps:"..material.."_item_candle_lamp",
-	recipe = 
-		{{"", ingot, ""},
+	recipe = {
+		{"", ingot, ""},
 		{"default:glass", "lord_homedecor:candle", "default:glass"},
 		{"", ingot, ""}},
 	})
