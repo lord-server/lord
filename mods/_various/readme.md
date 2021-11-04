@@ -65,6 +65,7 @@
 
 ### `headanim`
 - анимация головы
+- добавлена правка: голова повернута на 180 градусов (коммит `df3c5ea`)
 - [readme](headanim/README.md)
 - [github](https://github.com/LoneWolfHT/headanim/) (commit `fce3015`)
 - [contentDB](https://content.minetest.net/packages/Lone_Wolf/headanim/)
