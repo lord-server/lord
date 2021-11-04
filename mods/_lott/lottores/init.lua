@@ -1,5 +1,7 @@
 local SL = minetest.get_translator("lottores")
 
+-- Ores
+
 minetest.register_node("lottores:limestone_ore", {
 	description = SL("Limestone Ore"),
 	tiles = {"default_stone.png^lottores_limestone_ore.png"},
@@ -299,112 +301,6 @@ minetest.register_node("lottores:galvorn_block", {
 	sounds = default.node_sound_metal_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_0", {
-	description = SL("Ithildin"),
-	tiles = {"ithildin_0.png"},
-	drawtype = "glasslike",
-	paramtype = "light",
-	walkable = false,
-	pointable = false,
-	sunlight_propagates = true,
-	drop = "lottores:ithildin_1",
-	groups = {snappy=2,cracky=3, not_in_creative_inventory=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_1", {
-	description = SL("Ithildin"),
-	tiles = {"ithildin_1.png"},
-	inventory_image = {"ithildin_1.png"},
-	wield_image = {"ithildin_1.png"},
-	paramtype = "light",
-	drawtype = 'glasslike',
-	walkable = false,
-	pointable = true,
-	sunlight_propagates = true,
-	light_source = 8,
-	drop = "lottores:ithildin_1",
-	groups = {snappy=2,cracky=3,forbidden=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_stone_0", {
-	description = SL("Ithildin Stone"),
-	tiles = {"default_stone.png"},
-	drawtype = 'normal',
-	walkable = true,
-	pointable = true,
-	sunlight_propagates = false,
-	drop = "lottores:ithildin_stone_1",
-	groups = {snappy=2,cracky=3, not_in_creative_inventory=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_stone_1", {
-	description = SL("Ithildin Stone"),
-	tiles = {"ithildin_1.png"},
-	drawtype = 'glasslike',
-	walkable = false,
-	pointable = true,
-	sunlight_propagates = false,
-	light_source = 8,
-	drop = "lottores:ithildin_stone_1",
-	groups = {snappy=2,cracky=3,forbidden=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_stonelamp_0", {
-	description = SL("Ithildin Stonelamp"),
-	tiles = {"default_stone.png"},
-	drawtype = 'normal',
-	walkable = true,
-	pointable = true,
-	sunlight_propagates = false,
-	drop = "lottores:ithildin_stonelamp_1",
-	groups = {snappy=2,cracky=3, not_in_creative_inventory=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_stonelamp_1", {
-	description = SL("Ithildin Stonelamp"),
-	tiles = {"default_stone.png^ithildin_lamp_1.png"},
-	drawtype = 'normal',
-	walkable = true,
-	pointable = true,
-	sunlight_propagates = false,
-	light_source = 8,
-	drop = "lottores:ithildin_stonelamp_1",
-	groups = {snappy=2,cracky=3,forbidden=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_lamp_0", {
-	description = SL("Ithildin Lamp"),
-	tiles = {"ithildin_lamp_0.png"},
-	paramtype = "light",
-	drawtype = 'glasslike',
-	walkable = false,
-	pointable = false,
-	sunlight_propagates = true,
-	drop = "lottores:ithildin_lamp_1",
-	groups = {snappy=2,cracky=3, not_in_creative_inventory=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
-minetest.register_node("lottores:ithildin_lamp_1", {
-	description = SL("Ithildin Lamp"),
-	tiles = {"default_stone.png^ithildin_lamp_1.png"},
-	paramtype = "light",
-	drawtype = 'glasslike',
-	walkable = true,
-	pointable = true,
-	sunlight_propagates = true,
-	light_source = 8,
-	drop = "lottores:ithildin_lamp_1",
-	groups = {snappy=2,cracky=3,forbidden=1},
-	sounds = default.node_sound_glass_defaults(),
-})
-
 minetest.register_node("lottores:mineral_pearl", {
 	description = SL("Pearl Ore"),
 	tiles = {"default_sand.png^lottores_mineral_pearl.png"},
@@ -558,8 +454,8 @@ minetest.register_craftitem("lottores:pearl", {
 })
 
 dofile(minetest.get_modpath("lottores") .. "/mapgen.lua")
-dofile(minetest.get_modpath("lottores") .. "/functions.lua")
 dofile(minetest.get_modpath("lottores") .. "/stairs.lua")
 dofile(minetest.get_modpath("lottores") .. "/crafting.lua")
+dofile(minetest.get_modpath("lottores") .. "/ithildin.lua")
 
 lord.mod_loaded()
