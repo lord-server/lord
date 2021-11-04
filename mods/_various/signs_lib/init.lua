@@ -133,10 +133,10 @@ signs_lib.regular_wall_sign_model = {
 	textpos = {
 		nil,
 		nil,
-		{delta = {x =  0.43,  y = 0.07, z =  0     }, yaw = math.pi / -2},
-		{delta = {x = -0.43,  y = 0.07, z =  0     }, yaw = math.pi / 2},
-		{delta = {x =  0,     y = 0.07, z =  0.43  }, yaw = 0},
-		{delta = {x =  0,     y = 0.07, z = -0.43  }, yaw = math.pi},
+		{delta = {x =  0.425,  y = 0.07, z =  0     }, yaw = math.pi / -2},
+		{delta = {x = -0.425,  y = 0.07, z =  0     }, yaw = math.pi / 2},
+		{delta = {x =  0,     y = 0.07, z =  0.425  }, yaw = 0},
+		{delta = {x =  0,     y = 0.07, z = -0.425  }, yaw = math.pi},
 	}
 }
 
