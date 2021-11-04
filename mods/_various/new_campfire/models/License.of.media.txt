@@ -1,0 +1,10 @@
+==========================
+Minetest 0.4 mod: more_fire
+--------------------------------------
+Authors of model file:
+Nathan Salapat
+
+contained_campfire.obj
+
+License of media (models): CC BY-SA
+==========================
