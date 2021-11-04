@@ -6,8 +6,8 @@ local function register_candle_lamp(material, desc, ingot)
 	local chainA = "lamps_chain_"..material.."_a.png"
 	local chainB = "lamps_chain_"..material.."_b.png"
 
-	minetest.register_craftitem("lamps:"..material.."_item_candle_lamp",
-		{
+	-- Лампа-итем.
+	minetest.register_craftitem("lamps:"..material.."_item_candle_lamp", {
 		description = S(desc.." candle lamp"),
 		inventory_image = sideTx,
 		on_place = function(itemstack, placer, pointed_thing)
@@ -28,6 +28,7 @@ local function register_candle_lamp(material, desc, ingot)
 		end
 	})
 
+	-- Напольная лампа.
 	minetest.register_node("lamps:"..material.."_candle_lamp", {
 		description = desc.." candle lamp",
 		tiles = {
@@ -53,6 +54,7 @@ local function register_candle_lamp(material, desc, ingot)
 		drop = "lamps:"..material.."_item_candle_lamp",
 	})
 
+	-- Потолочная лампа.
 	minetest.register_node("lamps:"..material.."_hanging_candle_lamp", {
 		description = desc.." hanging candle lamp",
 		tiles = {
@@ -90,8 +92,5 @@ local function register_candle_lamp(material, desc, ingot)
 	})
 end
 
---register_candle_lamp("steel", "Steel")
 register_candle_lamp("gold", "Gold", "default:gold_ingot")
---register_candle_lamp("tin", "Tin")
 register_candle_lamp("bronze", "Bronze", "default:bronze_ingot")
---register_candle_lamp("silver", "Silver")
