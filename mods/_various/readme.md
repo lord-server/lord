@@ -47,6 +47,9 @@
 ### `mp_world_edit`
  - [readme](mp_world_edit/README.md)
 
+### `new_campfire`
+ - https://content.minetest.net/packages/VanessaE/new_campfire/
+
 ### `protector_lott`
  - ? https://forum.minetest.net/viewtopic.php?f=11&t=9376 ?
  - ? https://content.minetest.net/packages/sorcerykid/protector/ ?
