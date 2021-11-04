@@ -62,3 +62,9 @@
 
 ### `torches`
  - ??? это было примерно в 2015 году, искал 3D факелы вместо плоских. Думаю и мода этого уже не осталось. (Badger)
+
+### `headanim`
+- анимация головы
+- [readme](headanim/README.md)
+- [github](https://github.com/LoneWolfHT/headanim/)
+- [contentDB](https://content.minetest.net/packages/Lone_Wolf/headanim/)
