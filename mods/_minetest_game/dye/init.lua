@@ -112,5 +112,3 @@ for one,results in pairs(dyelocal.mixes) do
 		})
 	end
 end
-
-lord.mod_loaded()

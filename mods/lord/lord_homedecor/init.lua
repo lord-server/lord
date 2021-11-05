@@ -143,6 +143,3 @@ dofile(modpath.."/misc-nodes.lua")
 dofile(modpath.."/window_treatments.lua")
 dofile(modpath.."/crafts.lua")
 dofile(modpath.."/roofing.lua")
-
-
-lord.mod_loaded()

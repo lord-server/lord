@@ -94,5 +94,3 @@ minetest.register_node("bones:skeleton_body", {
 		minetest.remove_node(p)
 	end
 })
-
-lord.mod_loaded()

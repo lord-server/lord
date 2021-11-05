@@ -521,5 +521,3 @@ minetest.register_abm({
 		minetest.set_node(pos, {name="farming:cotton_"..height})
 	end
 })
-
-lord.mod_loaded()

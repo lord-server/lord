@@ -369,5 +369,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		minetest.show_formspec(name, "list_form", list_form(name, 1, fields.txt_filter))
 	end
 end)
-
-lord.mod_loaded()

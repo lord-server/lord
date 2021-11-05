@@ -347,5 +347,3 @@ minetest.register_craft({
 if minetest.settings:get("log_mods") then
 	minetest.log("action", "lottthrowing loaded")
 end
-
-lord.mod_loaded()
