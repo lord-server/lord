@@ -1,6 +1,0 @@
-### init.lua ###
-Empty Bucket	=	Ведро
-Water Bucket	=	Ведро с водой
-Lava Bucket	=	Ведро с лавой
-Bucket With Ice	=	Ведро со льдом
-Bucket With Snow	=	Ведро со снегом
