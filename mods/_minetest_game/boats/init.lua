@@ -390,5 +390,3 @@ minetest.register_craft({
 		{"group:tree", "boats:row_boat", "group:tree"},
 	},
 })
-
-lord.mod_loaded()

@@ -50,5 +50,3 @@ redefinition("svol")
 redefinition("teleport")
 redefinition("time")
 redefinition("unban")
-
-lord.mod_loaded()

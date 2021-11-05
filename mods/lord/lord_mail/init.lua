@@ -300,5 +300,3 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		player:set_wielded_item(stack)
 	end
 end)
-
-lord.mod_loaded()

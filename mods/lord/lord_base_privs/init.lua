@@ -25,5 +25,3 @@ minetest.register_privilege("noclip", {
 	description = SL("Can fly through walls"),
 	give_to_singleplayer = false,
 })
-
-lord.mod_loaded()

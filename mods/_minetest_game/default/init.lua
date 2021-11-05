@@ -62,5 +62,3 @@ dofile(default_path.."/torch.lua")
 dofile(default_path.."/tools.lua")
 dofile(default_path.."/item_entity.lua")
 dofile(default_path.."/craftitems.lua")
-
-lord.mod_loaded()

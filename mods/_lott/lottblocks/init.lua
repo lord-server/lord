@@ -57,5 +57,3 @@ minetest.register_craft({
 		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
 	}
 })
-
-lord.mod_loaded()

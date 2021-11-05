@@ -1567,5 +1567,3 @@ mobs:register_mob("lottmobs:troll", {
 
 
 dofile(minetest.get_modpath("lottmobs").."/spawn.lua")
-
-lord.mod_loaded()

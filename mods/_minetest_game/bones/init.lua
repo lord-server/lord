@@ -183,5 +183,3 @@ end)
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."items.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."skeleton.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."crafting.lua")
-
-lord.mod_loaded()

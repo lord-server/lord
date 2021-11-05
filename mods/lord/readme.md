@@ -72,8 +72,7 @@
  - правила формирования имени игрока (при регистрации)
 
 ### `lordlib`
- - вспомогательные функции (`lord.load()`, `lord.require_intllib()`, `lord.mod_loaded()`,..)
- - система event'ов(событий) и listener'ов/обработчиков/подписчиков (`lord.emit()`, `lord.on()`)
+ - вспомогательные функции (`lord.require_intllib()`)
 
 ### `lamps`
  - мод для ламп [см.](https://github.com/lord-server/lord/pull/465)

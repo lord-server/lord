@@ -16,5 +16,3 @@ dofile(modpath.."/functions.lua")
 dofile(modpath.."/api.lua")
 dofile(modpath.."/beds.lua")
 dofile(modpath.."/spawns.lua")
-
-lord.mod_loaded()

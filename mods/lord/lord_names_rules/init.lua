@@ -63,5 +63,3 @@ minetest.register_on_joinplayer(function(player)
 		minetest.chat_send_player(name, SL("Invalid character name. Contact to the administration."))
 	end
 end)
-
-lord.mod_loaded()

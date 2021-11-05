@@ -246,6 +246,3 @@ stairs.register_stair_and_slab("pavement", "castle:pavement",
 		SL("Castle Pavement Stair"),
 		SL("Castle Pavement Slab"),
 		default.node_sound_stone_defaults())
-
-
-lord.mod_loaded()

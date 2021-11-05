@@ -53,5 +53,3 @@ for _, row in ipairs(wool.dyes) do
 		})
 	end
 end
-
-lord.mod_loaded()

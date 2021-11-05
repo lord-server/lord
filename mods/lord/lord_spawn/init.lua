@@ -137,6 +137,3 @@ minetest.register_on_respawnplayer(function(obj)
 	end
 	return a
 end)
-
-if minetest.setting_getbool("msg_loading_mods") then minetest.log("action",
-	minetest.get_current_modname().." mod LOADED") end

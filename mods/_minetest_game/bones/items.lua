@@ -24,5 +24,3 @@ minetest.register_tool("bones:bone_scythe", {
 		damage_groups = {fleshy=7},
 	}
 })
-
-lord.mod_loaded()

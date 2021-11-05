@@ -324,5 +324,3 @@ for k, v in pairs(craft_ingreds) do
 		},
 	})
 end
-
-lord.mod_loaded()

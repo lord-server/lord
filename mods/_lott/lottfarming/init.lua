@@ -196,5 +196,3 @@ dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 
 -- ========= OTHER =========
 dofile(minetest.get_modpath("lottfarming").."/other.lua")
-
-lord.mod_loaded()

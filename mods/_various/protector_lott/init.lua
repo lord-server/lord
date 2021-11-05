@@ -440,5 +440,3 @@ end
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."blocks.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."doors.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."chests.lua")
-
-lord.mod_loaded()
