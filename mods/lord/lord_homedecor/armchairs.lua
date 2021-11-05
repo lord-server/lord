@@ -54,7 +54,3 @@ for i in ipairs(lrfurn.colors) do
 	})
 
 end
-
-if minetest.settings:get("log_mods") then
-	minetest.log("action", "armchairs loaded")
-end

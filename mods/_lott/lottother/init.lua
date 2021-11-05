@@ -441,7 +441,3 @@ minetest.register_abm({
 		minetest.remove_node(pos)
 	end,
 })
-
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname() .. " mod LOADED")
-end
