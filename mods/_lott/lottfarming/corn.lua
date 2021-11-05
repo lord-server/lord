@@ -1,11 +1,15 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
 <<<<<<< HEAD
 =======
 =======
 local S = minetest.get_translator("lottfarming")
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 local stop_trigger = function(_, pos)
@@ -31,11 +35,15 @@ farming.register_plant("lottfarming:corn",{
 farming.register_plant("lottfarming:corn",{
 	seed_name = "lottfarming:corn_kernel",
 	description = S("Corn Kernel"),
-	seed_inv_img = "farming_corn_kernel.png",
+	seed_inv_img = "lottfarming_corn_kernel.png",
 	harvest_name = "lottfarming:ear_of_corn",
 	harvest_description = S("Ear of Corn"),
+<<<<<<< HEAD
 	harvest_inv_img = "farming_ear_of_corn.png",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	harvest_inv_img = "lottfarming_ear_of_corn.png",
+>>>>>>> 2efad20 (2-nd part)
 	paramtype2 = "meshoptions",
 	groups = {salad = 1},
 	place_param2 = 3,
@@ -668,6 +676,7 @@ minetest.register_abm({
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 =======
 })
+<<<<<<< HEAD
 
 minetest.register_lbm({
 	name = "lottfarming:start_nodetimer_corn",
@@ -679,3 +688,5 @@ minetest.register_lbm({
 	end,
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 })
+=======
+>>>>>>> 2efad20 (2-nd part)

@@ -1,9 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 farming.register_plant("lottfarming:potato", {
 	seed_name = "lottfarming:half_of_potato",

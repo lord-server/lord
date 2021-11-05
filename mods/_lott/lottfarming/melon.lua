@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 <<<<<<< HEAD
 
@@ -23,6 +24,9 @@ minetest.register_craftitem("lottfarming:melon_seed", {
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 minetest.register_node("lottfarming:melon_1", {
 	paramtype = "light",
@@ -123,10 +127,14 @@ minetest.register_node("lottfarming:melon_2", {
 minetest.register_node("lottfarming:melon_3", {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	description = S("Melon"),
 =======
 	description = "Melon",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	description = S("Melon"),
+>>>>>>> 2efad20 (2-nd part)
 	paramtype2 = "facedir",
 	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
 	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
@@ -180,6 +188,7 @@ minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 minetest.register_craftitem("lottfarming:melon", {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	description = S("Melon Slice"),
 =======
 	description = "Melon",
@@ -187,6 +196,9 @@ minetest.register_craftitem("lottfarming:melon", {
 =======
 	description = "Melon",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	description = S("Melon Slice"),
+>>>>>>> 2efad20 (2-nd part)
 	inventory_image = "lottfarming_melon.png",
 	on_use = minetest.item_eat(2),
 })
@@ -201,8 +213,12 @@ farming.register_plant("lottfarming:melon", {
 farming.register_plant("lottfarming:melon", {
 	description = S("Melon Seed"),
 	harvest_name = "lottfarming:melon_3",
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_melon_seed.png",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	seed_inv_img = "lottfarming_seed_melon.png",
+>>>>>>> 2efad20 (2-nd part)
 	planttype = 3,
 	paramtype2 = "meshoptions",
 	minlight = 13,

@@ -26,7 +26,10 @@ Pipeweed Wild	=	Дикий табак
 Potato Wild	=	Дикий картофель
 Wild Tomato	=	Дикий помидор
 Wild Turnip	=	Дикая репа
+<<<<<<< HEAD
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+>>>>>>> 2efad20 (2-nd part)
 
 ### nodes.lua ###
 Alder Leaf=Ветки ольхи

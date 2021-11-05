@@ -1,9 +1,13 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 minetest.register_craftitem("lottfarming:orc_food", {
 	description = S("Orc Food"),
@@ -89,7 +93,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 =======
 minetest.register_craftitem("lottfarming:orc_medicine", {
-	description = S("Orc medicine"),
+	description = S("Orc Medicine"),
 	inventory_image = "lottfarming_orc_medicine.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local name = user:get_player_name()

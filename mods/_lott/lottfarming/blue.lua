@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
 farming.register_plant("lottfarming:blue_mushroom", {
@@ -9,6 +10,12 @@ local S = minetest.get_translator("lottfarming")
 
 farming.register_plant("lottfarming:blue_mushroom", {
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+
+farming.register_plant("lottfarming:blue_mushroom", {
+	seed_name = "lottfarming:spore_blue_mushroom",
+>>>>>>> 2efad20 (2-nd part)
 	harvest_name = "lottfarming:blue_mushroom",
 	description = S("Blue Mushroom Spore"),
 	harvest_description = S("Blue Mushroom"),
@@ -257,4 +264,13 @@ minetest.register_craft({
 =======
 	on_use = minetest.item_eat(2),
 })
+<<<<<<< HEAD
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+
+minetest.register_craftitem("lottfarming:mushroom_soup", {
+	description = S("Cream of Mushroom Soup"),
+	inventory_image = "lottfarming_mushroom_soup.png",
+	on_use = minetest.item_eat(6),
+})
+>>>>>>> 2efad20 (2-nd part)

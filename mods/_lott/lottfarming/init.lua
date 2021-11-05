@@ -43,6 +43,19 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 =======
 local S = minetest.get_translator("lottfarming")
 
+lottfarming = {}
+
+lottfarming.get_translator = S
+
+-- how often node timers for plants will tick, +/- some random value
+local function tick(pos)
+	minetest.get_node_timer(pos):start(math.random(166, 286))
+end
+-- how often a growth failure tick is retried (e.g. too dark)
+local function tick_again(pos)
+	minetest.get_node_timer(pos):start(math.random(40, 80))
+end
+
 farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	local pt = pointed_thing
@@ -91,6 +104,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	local item = minetest.registered_items[itemstack:get_name()]
 
 	if not (check_fertility(item.fertility, under.name) == true) then
@@ -98,8 +112,20 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	end
 <<<<<<< HEAD
 =======
+=======
+	local item = minetest.registered_items[itemstack:get_name()]
+
+>>>>>>> 2efad20 (2-nd part)
 	-- check if pointing at node with given group
-	if minetest.get_item_group(under.name, itemstack.fertility) < 2 then
+	local function check_fertility(t)
+		for _, k in pairs(t) do
+			if minetest.get_item_group(under.name, k) >= 1 then
+				return true
+			end
+		end
+	end
+
+	if not (check_fertility(item.fertility) == true) then
 		return itemstack
 	end
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
@@ -124,10 +150,14 @@ end
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 farming.grow_plant = function(pos, _)
 =======
 farming.grow_plant = function(pos, elapsed)
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+farming.grow_plant = function(pos, _)
+>>>>>>> 2efad20 (2-nd part)
 	local node = minetest.get_node(pos)
 	local name = node.name
 	local def = minetest.registered_nodes[name]
@@ -583,7 +613,7 @@ farming.register_plant = function(name, def)
 		return
 	end
 
-	if def.stop_trigger() == true then
+	if def.stop_trigger and (def.stop_trigger() == true) then
 		tick_again(pos)
 		return
 	end
@@ -650,7 +680,7 @@ farming.register_plant = function(name, def)
 				if k.pos then
 					placepos = {x = pos.x + k.pos.x, y = pos.y + k.pos.y, z = pos.z + k.pos.z}
 				end
-				minetest.swap_node(placepos, placenode)
+				minetest.set_node(placepos, placenode)
 			end
 		end
 
@@ -727,13 +757,13 @@ farming.register_plant = function(name, def)
 	-- Register seed
 	local lbm_nodes = {mname .. ":seed_" .. pname}
 	local g = {seed = 1, snappy = 3, attached_node = 1, flammable = 2}
-	for k, v in pairs(def.fertility) do
+	for _, v in pairs(def.fertility) do
 		g[v] = 1
 	end
 	minetest.register_node(def.seed_name or (":" .. mname .. ":seed_" .. pname), {
 		description = def.description,
-		tiles = {""..mname.."_"..pname.."_planted.png"},
-		seed_inv_img = def.seed_inv_img,
+		tiles = def.planted_tiles or {"lottfarming_seed_planted.png"},
+		inventory_image = def.seed_inv_img,
 		wield_image = def.seed_inv_img,
 		drawtype = "signlike",
 		groups = g,
@@ -745,7 +775,7 @@ farming.register_plant = function(name, def)
 		sunlight_propagates = true,
 		selection_box = {
 			type = "fixed",
-			fixed = {-0.5, -0.5, -0.5, 0.5, -0.4, 0.5},
+			fixed = {-0.5, -0.5, -0.5, 0.5, -0.49, 0.5},
 		},
 		fertility = def.fertility,
 		sounds = default.node_sound_dirt_defaults({
@@ -792,11 +822,24 @@ farming.register_plant = function(name, def)
 			inventory_image = def.harvest_inv_img or (mname .. "_" .. pname .. ".png"),
 =======
 	-- Register harvest
-	if not (def.harvest_name or minetest.registered_items[def.harvest_name]) then
-		minetest.register_craftitem(def.harvest_name or (":" .. mname .. ":" .. pname), {
+	if def.harvest_name then
+		if not minetest.registered_items[def.harvest_name] then
+			minetest.register_craftitem(def.harvest_name or (":" .. mname .. ":" .. pname), {
+				description = def.harvest_description,
+				inventory_image = def.harvest_inv_img or (mname .. "_" .. pname .. ".png"),
+				groups = def.groups or {flammable = 2},
+				on_use = def.on_use,
+			})
+		end
+	else
+		minetest.register_craftitem(":" .. mname .. ":" .. pname, {
 			description = def.harvest_description,
+<<<<<<< HEAD
 			harvest_inv_img = mname .. "_" .. pname .. ".png",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+			inventory_image = def.harvest_inv_img or (mname .. "_" .. pname .. ".png"),
+>>>>>>> 2efad20 (2-nd part)
 			groups = def.groups or {flammable = 2},
 			on_use = def.on_use,
 		})
@@ -931,16 +974,16 @@ function farming:add_plant(full_grown, names, interval, chance, p2)
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 =======
 			})
-
-			-- replacement LBM for pre-nodetimer plants
-			minetest.register_lbm({
-				name = ":" .. mname .. ":start_nodetimer_" .. pname,
-				nodenames = lbm_nodes,
-				action = function(pos, node)
-					tick_again(pos)
-				end,
-			})
 		end
+
+		-- replacement LBM for pre-nodetimer plants
+		minetest.register_lbm({
+			name = ":" .. mname .. ":start_nodetimer_" .. pname,
+			nodenames = lbm_nodes,
+			action = function(pos, _)
+				tick_again(pos)
+			end,
+		})
 	end
 
 	-- Return
@@ -961,6 +1004,7 @@ minetest.register_lbm({
 		tick_again(pos)
 	end,
 })
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -973,6 +1017,14 @@ dofile(minetest.get_modpath("lottfarming").."/barley.lua")
 -- ========= CARROT =========
 dofile(minetest.get_modpath("lottfarming").."/carrot.lua")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+
+-- ========= ATHELAS =========
+dofile(minetest.get_modpath("lottfarming").."/athelas.lua")
+
+-- ========= BARLEY =========
+dofile(minetest.get_modpath("lottfarming").."/barley.lua")
+>>>>>>> 2efad20 (2-nd part)
 
 =======
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
@@ -984,6 +1036,27 @@ dofile(minetest.get_modpath("lottfarming").."/cabbage.lua")
 
 -- ========= CARROT =========
 dofile(minetest.get_modpath("lottfarming").."/carrot.lua")
+<<<<<<< HEAD
+=======
+
+-- ========= CORN =========
+dofile(minetest.get_modpath("lottfarming").."/corn.lua")
+
+-- ========= CRAFTS =========
+dofile(minetest.get_modpath("lottfarming").."/crafting.lua")
+
+-- ========= MELON =========
+dofile(minetest.get_modpath("lottfarming").."/melon.lua")
+
+-- ========= ORC FOOD =========
+dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
+
+-- ========= OTHER =========
+dofile(minetest.get_modpath("lottfarming").."/other.lua")
+
+-- ========= PIPEWEED =========
+dofile(minetest.get_modpath("lottfarming").."/pipeweed.lua")
+>>>>>>> 2efad20 (2-nd part)
 
 -- ========= CORN =========
 dofile(minetest.get_modpath("lottfarming").."/corn.lua")
@@ -1008,6 +1081,7 @@ dofile(minetest.get_modpath("lottfarming").."/tomato.lua")
 dofile(minetest.get_modpath("lottfarming").."/turnip.lua")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
+<<<<<<< HEAD
 -- ========= PIPEWEED =========
 dofile(minetest.get_modpath("lottfarming").."/pipeweed.lua")
 
@@ -1021,6 +1095,9 @@ dofile(minetest.get_modpath("lottfarming").."/tomato.lua")
 dofile(minetest.get_modpath("lottfarming").."/turnip.lua")
 
 
+=======
+
+>>>>>>> 2efad20 (2-nd part)
 -- MUSHROOMS
 
 -- ========= BROWN MUSHROOM =========
@@ -1043,6 +1120,10 @@ dofile(minetest.get_modpath("lottfarming").."/white.lua")
 =======
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 
+<<<<<<< HEAD
 -- ========= ORC FOOD =========
 dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
+=======
+lord.mod_loaded()
+>>>>>>> 2efad20 (2-nd part)

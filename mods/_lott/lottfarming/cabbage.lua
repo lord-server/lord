@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 =======
 minetest.register_craftitem("lottfarming:cabbage_seed", {
@@ -13,6 +14,9 @@ minetest.register_craftitem("lottfarming:cabbage_seed", {
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 minetest.register_node("lottfarming:cabbage_1", {
 	paramtype = "light",
@@ -211,7 +215,7 @@ farming:add_plant("lottfarming:cabbage_3", {"lottfarming:cabbage_1", "lottfarmin
 farming.register_plant("lottfarming:cabbage", {
 	description = S("Cabbage Seed"),
 	harvest_name = "lottfarming:cabbage",
-	seed_inv_img = "lottfarming_cabbage_seed.png",
+	seed_inv_img = "lottfarming_seed_cabbage.png",
 	planttype = 3,
 	paramtype2 = "meshoptions",
 	minlight = 13,
@@ -232,6 +236,7 @@ minetest.register_craft({
 minetest.register_craftitem("lottfarming:salad", {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	description = S("Salad"),
 	inventory_image = "lottfarming_salad.png",
 	on_use = minetest.item_eat(10),
@@ -240,6 +245,9 @@ minetest.register_craftitem("lottfarming:salad", {
 =======
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	description = "Salad",
+=======
+	description = S("Salad"),
+>>>>>>> 2efad20 (2-nd part)
 	inventory_image = "lottfarming_salad.png",
 	on_use = minetest.item_eat(10),
 })

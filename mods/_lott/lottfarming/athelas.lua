@@ -1,13 +1,18 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 farming.register_plant("lottfarming:athelas", {
 	description = S("Athelas Seed"),
 	harvest_description = S("Athelas"),
+<<<<<<< HEAD
 <<<<<<< HEAD
 	seed_inv_img = "lottfarming_seed_athelas.png",
 	paramtype2 = "meshoptions",
@@ -99,6 +104,9 @@ farming:add_plant("lottfarming:athelas_3", {"lottfarming:athelas_1", "lottfarmin
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 =======
 	seed_inv_img = "lottfarming_athelas_seed.png",
+=======
+	seed_inv_img = "lottfarming_seed_athelas.png",
+>>>>>>> 2efad20 (2-nd part)
 	paramtype2 = "meshoptions",
 	steps = 3,
 	minlight = 13,

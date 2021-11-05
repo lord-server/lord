@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
 farming.register_plant("lottfarming:red_mushroom", {
@@ -9,6 +10,12 @@ local S = minetest.get_translator("lottfarming")
 
 farming.register_plant("lottfarming:red_mushroom", {
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+
+farming.register_plant("lottfarming:red_mushroom", {
+	seed_name = "lottfarming:spore_red_mushroom",
+>>>>>>> 2efad20 (2-nd part)
 	harvest_name = "lottfarming:red_mushroom",
 	description = S("Red Mushroom Spore"),
 	harvest_description = S("Red Mushroom"),

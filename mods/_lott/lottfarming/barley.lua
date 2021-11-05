@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
 farming.register_plant("lottfarming:barley", {
@@ -11,13 +12,22 @@ farming.register_plant("lottfarming:barley", {
 	seed_inv_img = "lottfarming_barley.png",
 =======
 local S = minetest.get_translator("lottfarming")
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 farming.register_plant("lottfarming:barley", {
 	harvest_name = "lottfarming:sheaf_barley",
-	description = S("Barley Seed"),
+	seed_name = "lottfarming:barley",
+	description = S("Barley"),
 	harvest_description = S("Sheaf Barley"),
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_barley_seed.png",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	harvest_inv_img = "lottfarming_sheaf_barley.png",
+	seed_inv_img = "lottfarming_barley.png",
+>>>>>>> 2efad20 (2-nd part)
 	groups = {},
 	planttype = 1,
 	steps = 3,
@@ -127,11 +137,15 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:barley_cooked", {
+<<<<<<< HEAD
 	description = "Cooked Barley",
 <<<<<<< HEAD
 >>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 =======
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	description = S("Cooked Barley"),
+>>>>>>> 2efad20 (2-nd part)
 	inventory_image = "lottfarming_barley_cooked.png",
 	on_use = minetest.item_eat(2),
 })

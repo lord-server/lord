@@ -26,7 +26,10 @@ Pipeweed Wild	=	Pipeweed Wild
 Potato Wild	=	Potato Wild
 Wild Tomato	=	Wild Tomato
 Wild Turnip	=	Wild Turnip
+<<<<<<< HEAD
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+>>>>>>> 2efad20 (2-nd part)
 
 ### nodes.lua ###
 Alder Leaf=Alder Leaf

@@ -1,19 +1,27 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 =======
 local S = minetest.get_translator("lottfarming")
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+local S = lottfarming.get_translator
+>>>>>>> 2efad20 (2-nd part)
 
 farming.register_plant("lottfarming:pipeweed", {
 	harvest_name = "lottfarming:pipeweed",
 	description = S("Pipeweed Seed"),
 	harvest_description = S("Pipeweed"),
 <<<<<<< HEAD
+<<<<<<< HEAD
 	seed_inv_img = "lottfarming_seed_pipeweed.png",
 =======
 	seed_inv_img = "lottfarming_pipeweed_seed.png",
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
+=======
+	seed_inv_img = "lottfarming_seed_pipeweed.png",
+>>>>>>> 2efad20 (2-nd part)
 	groups = {},
 	planttype = 1,
 	steps = 4,

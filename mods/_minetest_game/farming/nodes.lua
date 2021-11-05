@@ -20,10 +20,14 @@ minetest.override_item("default:dirt_with_grass", {
 })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 --[[minetest.override_item("default:dirt_with_dry_grass", {
 =======
 minetest.override_item("default:dirt_with_dry_grass", {
 >>>>>>> 45e081b (Closes #276. Update MTG/farming)
+=======
+--[[minetest.override_item("default:dirt_with_dry_grass", {
+>>>>>>> 2efad20 (2-nd part)
 	soil = {
 		base = "default:dirt_with_dry_grass",
 		dry = "farming:soil",
@@ -62,10 +66,14 @@ minetest.override_item("default:dry_dirt_with_dry_grass", {
 		wet = "farming:dry_soil_wet"
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 })]]
 =======
 })
 >>>>>>> 45e081b (Closes #276. Update MTG/farming)
+=======
+})]]
+>>>>>>> 2efad20 (2-nd part)
 
 minetest.register_node("farming:soil", {
 	description = S("Soil"),
