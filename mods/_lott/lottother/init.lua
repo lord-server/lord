@@ -91,11 +91,13 @@ minetest.register_node("lottother:blue_flame", {
 	damage_per_second = 4,
 
 	after_place_node  = function(pos, placer)
-		fire.on_flame_add_at(pos)
+		-- Removed in new MTG/fire : issue 479
+		--fire.on_flame_add_at(pos)
 	end,
 
 	after_dig_node    = function(pos, oldnode, oldmetadata, digger)
-		fire.on_flame_remove_at(pos)
+		-- Removed in new MTG/fire : issue 479
+		--fire.on_flame_remove_at(pos)
 	end,
 })
 
