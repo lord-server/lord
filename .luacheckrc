@@ -59,7 +59,6 @@ exclude_files     = {
 	"mods/_various/hud_modpack/hudbars",
 	"mods/_various/intllib",
 	"mods/_various/mobs",
-	"mods/_various/new_campfire",
 	"mods/_various/mp_world_edit",
 	"mods/lord/lottclothes",
 }
