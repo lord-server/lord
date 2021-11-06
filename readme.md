@@ -31,12 +31,16 @@ Minetest - это аналог игры Minecraft с открытым исход
 ## Contributors / Участники
 
  - [@Badger](https://github.com/albel4) - infrastructure administration / development / game admin
- - [@weqqr](https://github.com/weqqr) (Sc) - development / game admin / moderation
- - [@Mikola](https://github.com/Mikola314) - moderation / social content / testing / development
- - [@Elrick](https://github.com/googolgl) - development / infrastructure development
- - [@VladTcvs](https://github.com/vladtcvs) (VladTs) - development / testing
  - [@alek13](https://github.com/alek13) (Alek) - development / testing / release management / site dev
+ - [@weqqr](https://github.com/weqqr) (Sc) - development / game admin / moderation
+ - [@VladTcvs](https://github.com/vladtcvs) (VladTs) - development / testing / ideas
  - [@Doloment](https://github.com/Doloment) - development / testing
+ - [@VanicGame](https://github.com/VanicGame) (Van) - development / testing / texturing / ideas
+ - [@Dlinnosheee](https://github.com/kevicky9) (Dlinnosheee) - development help
+ - [@Strannik](https://github.com/LordStrannik) (Strannik) - development help / building
+ - @Vasiliy_Rus - social content / ideas
+ - [@Elrick](https://github.com/googolgl) - development / infrastructure development
+ - [@Mikola](https://github.com/Mikola314) - moderation / social content / testing / development
  - [@narrnika](https://github.com/narrnika) - development / moderation
  - @Sachiel (Сахиель Корчмастер) - moderation
  - @Dimon - moderation / social content
@@ -51,8 +55,8 @@ Minetest - это аналог игры Minecraft с открытым исход
  - @Tanushka
 
 Идеи, замечания, помощь в строительстве объектов:
+ - @Strannik
  - @Rodion
- - @Vasiliy_Rus
  - @Nataraj
 
 Если мы кого-то забыли или вы нехотите, чтобы вас упоминали в этом списке,
