@@ -248,8 +248,8 @@ minetest.register_alias("lottthrowing:axe_elf", "arrows:axe_elf")
 minetest.register_alias("lottthrowing:axe_steel", "arrows:axe_steel")
 minetest.register_alias("lottthrowing:axe_galvorn", "arrows:axe_galvorn")
 
-minetest.register_alias("fire:campfire", "new_campfire:campfire")
-minetest.register_alias("fire:fireplace", "new_campfire:fireplace")
-minetest.register_alias("fire:campfire_active", "new_campfire:campfire_active")
-minetest.register_alias("fire:ash", "new_campfire:ash")
+minetest.register_alias("fire:campfire", "campfire:campfire")
+minetest.register_alias("fire:fireplace", "campfire:fireplace")
+minetest.register_alias("fire:campfire_active", "campfire:campfire_active")
+minetest.register_alias("fire:ash", "campfire:ash")
 
