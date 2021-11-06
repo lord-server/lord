@@ -1,0 +1,64 @@
+{
+    "lint": {
+        // luau-analyze treats globals defined below as built-in, but that's
+        // not exactly true
+        "BuiltinGlobalWrite": false
+    },
+    "globals": [
+        // Luau expressly doesn't provide any APIs that can potentially escape
+        // the sandbox, so dofile, os.*, and io.* are out.
+        "dofile",
+        "io",
+        "os",
+        // Globals provided by Minetest
+        "minetest",
+        "core",
+        "vector",
+        "nodeupdate",
+        "PseudoRandom",
+        "VoxelManip",
+        "VoxelArea",
+        "ItemStack",
+        "Settings",
+        "dump",
+        "DIR_DELIM",
+        // Mod APIs
+        "default",
+        "sfinv",
+        "creative",
+        "dungeon_loot",
+        "lord",
+        "hb",
+        "doors",
+        "intllib",
+        "stairs",
+        "screwdriver",
+        "armor",
+        "multiskin",
+        "mobs",
+        "worldedit",
+        "areas",
+        "beds",
+        "races",
+        "lottblocks",
+        "mountgen",
+        "tools",
+        "arrows",
+        "throwing",
+        "factions",
+        "lord_homedecor",
+        "inventory_plus",
+        "lottachievements",
+        "player_api",
+        "npc",
+        "lrfurn",
+        "unified_inventory",
+        "skins",
+        "u_skins",
+        "wardrobe"
+    ],
+    // We use Lua 5.1, typechecking it isn't really useful
+    "languageMode": "nocheck",
+    // Treat lints as errors
+    "lintErrors": true
+}

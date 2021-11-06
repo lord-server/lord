@@ -1,0 +1,28 @@
+# Linting via luau-analyze
+
+name: Lint (luau-analyze)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Luau
+        run: |
+          pushd /usr/local/bin
+          sudo wget https://github.com/Roblox/luau/releases/download/0.503/luau-ubuntu.zip
+          sudo unzip luau-ubuntu
+          sudo chmod +x luau-analyze
+          popd
+
+      - name: Run linter
+        run: |
+          luau-analyze mods/lord
