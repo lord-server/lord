@@ -1,6 +1,7 @@
 
 
 -- default/chests.lua
+
 -- Нам нужно только подсунуть свой фон (background), но для этого приходится переопределить ф-цию:
 local old_chest_get_chest_formspec = default.chest.get_chest_formspec
 default.chest.get_chest_formspec = function(pos)
@@ -9,7 +10,9 @@ end
 
 
 
+
 -- default/furnace.lua
+
 -- Нам нужно только подсунуть свой фон
 local old_get_furnace_active_formspec = default.get_furnace_active_formspec
 local old_get_furnace_inactive_formspec = default.get_furnace_inactive_formspec
@@ -24,7 +27,9 @@ end
 
 
 
+
 -- default/tools.lua
+
 -- свои кирки, лопаты, топоры, мечи и пр. мы определяем в моде `lord/tools/`,
 -- поэтому тут мы подчищаем все эти тулзы из `MTG/default`
 --
@@ -84,7 +89,9 @@ minetest.unregister_item("default:sword_diamond")
 
 
 
+
 -- default/craftitems.lua
+
 -- в `lord/lord_mail/` мы создаём свою "книгу с текстом"
 minetest.clear_craft({type = "fuel", recipe = "default:book_written"})
 minetest.unregister_item("default:book_written")
@@ -101,13 +108,15 @@ minetest.register_craft({
 })
 -- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
 minetest.clear_craft({type = "cooking", recipe = "default:tin_lump"})
-minetest.clear_craft({recipe = {{"default:tinblock"}}})
+minetest.clear_craft({recipe = {{"default:tinblock"}}}) -- `lottores:tin_block`
 minetest.unregister_item("default:tin_ingot")
 minetest.unregister_item("default:tin_lump")
 
 
 
+
 -- default/crafting.lua
+
 -- в LOTT (`lottplants/nodes.lua`) была изначально своя сосна (`lottplants:pinewood`)
 minetest.clear_craft({recipe = {{"default:pine_tree"}}})
 
@@ -117,3 +126,9 @@ minetest.clear_craft({recipe = {{"default:aspen_tree"}}})
 --minetest.clear_craft({recipe = {{"default:bush_stem"}}})
 minetest.clear_craft({recipe = {{"default:acacia_bush_stem"}}})
 minetest.clear_craft({recipe = {{"default:pine_bush_stem"}}})
+
+-- наши знаки намного лучше
+minetest.clear_craft({output = "default:sign_wall_steel"})
+
+-- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
+minetest.clear_craft({output = "default:tinblock"}) -- `lottores:tin_block`

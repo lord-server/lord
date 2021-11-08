@@ -55,21 +55,22 @@ minetest.register_craft({
 		{"default:pine_bush_stem"},
 	}
 })
-------------------------------------------------------------------------------------
+
 minetest.register_craft({
-	output = "default:sign_wall",
+	output = "default:sign_wall_steel 3",
 	recipe = {
-		{"group:wood", "group:wood", "group:wood"},
-		{"group:wood", "group:wood", "group:wood"},
+		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
 		{"", "group:stick", ""},
 	}
 })
 
 minetest.register_craft({
-	output = "default:torch 4",
+	output = "default:sign_wall_wood 3",
 	recipe = {
-		{"default:coal_lump"},
-		{"group:stick"},
+		{"group:wood", "group:wood", "group:wood"},
+		{"group:wood", "group:wood", "group:wood"},
+		{"", "group:stick", ""},
 	}
 })
 
@@ -97,6 +98,15 @@ minetest.register_craft({
 		{"default:copper_ingot", "default:copper_ingot", "default:copper_ingot"},
 		{"default:copper_ingot", "default:copper_ingot", "default:copper_ingot"},
 		{"default:copper_ingot", "default:copper_ingot", "default:copper_ingot"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:tinblock",
+	recipe = {
+		{"default:tin_ingot", "default:tin_ingot", "default:tin_ingot"},
+		{"default:tin_ingot", "default:tin_ingot", "default:tin_ingot"},
+		{"default:tin_ingot", "default:tin_ingot", "default:tin_ingot"},
 	}
 })
 
@@ -134,6 +144,7 @@ minetest.register_craft({
 	}
 })
 
+------------------------------------------------------------------------------------
 minetest.register_craft({
 	output = "default:sandstone",
 	recipe = {
@@ -247,13 +258,16 @@ minetest.register_craft({
 	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
 })
 
+
 --
 -- Crafting (tool repair)
 --
+
 minetest.register_craft({
 	type = "toolrepair",
 	additional_wear = -0.02,
 })
+
 
 --
 -- Cooking recipes
