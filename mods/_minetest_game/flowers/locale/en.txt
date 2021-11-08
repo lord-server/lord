@@ -1,7 +1,0 @@
-### init.lua ###
-White Dandelion	=	White Dandelion
-Yellow Dandelion	=	Yellow Dandelion
-Blue Geranium	=	Blue Geranium
-Rose	=	Rose
-Tulip	=	Tulip
-Viola	=	Viola
