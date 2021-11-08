@@ -84,6 +84,9 @@ minetest.register_alias("lump_of_iron", "default:iron_lump")
 minetest.register_alias("lump_of_clay", "default:clay_lump")
 minetest.register_alias("steel_ingot", "default:steel_ingot")
 minetest.register_alias("clay_brick", "default:clay_brick")
+
+minetest.register_alias("default:sign_wall", "default:sign_wall_wood")
+
 minetest.register_alias("scorched_stuff", "default:dirt")
 minetest.register_alias("rat", "default:dirt")
 minetest.register_alias("cooked_rat", "default:dirt")
