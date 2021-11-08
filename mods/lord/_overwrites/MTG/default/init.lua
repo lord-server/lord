@@ -104,3 +104,16 @@ minetest.clear_craft({type = "cooking", recipe = "default:tin_lump"})
 minetest.clear_craft({recipe = {{"default:tinblock"}}})
 minetest.unregister_item("default:tin_ingot")
 minetest.unregister_item("default:tin_lump")
+
+
+
+-- default/crafting.lua
+-- в LOTT (`lottplants/nodes.lua`) была изначально своя сосна (`lottplants:pinewood`)
+minetest.clear_craft({recipe = {{"default:pine_tree"}}})
+
+-- Были добавлены, но у нас не используются (пока выпиливаем):
+minetest.clear_craft({recipe = {{"default:acacia_tree"}}})
+minetest.clear_craft({recipe = {{"default:aspen_tree"}}})
+--minetest.clear_craft({recipe = {{"default:bush_stem"}}})
+minetest.clear_craft({recipe = {{"default:acacia_bush_stem"}}})
+minetest.clear_craft({recipe = {{"default:pine_bush_stem"}}})

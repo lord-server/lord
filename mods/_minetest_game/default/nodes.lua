@@ -675,6 +675,16 @@ minetest.register_node("default:fence_wood", {
 	groups            = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wooden = 1 },
 	sounds            = default.node_sound_wood_defaults(),
 })
+-- временно перенесено сюда при обновлении `crafting.lua`.
+-- в `nodes.lua` находится примерно тут
+minetest.register_craft({
+	output = "default:fence_wood 6",
+	recipe = {
+		{"default:wood", "default:wood", "default:wood"},
+		{"default:wood", "default:wood", "default:wood"},
+	}
+})
+
 
 minetest.register_node("default:ladder", {
 	description        = SL("Ladder"),
