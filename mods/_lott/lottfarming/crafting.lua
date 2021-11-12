@@ -1,22 +1,39 @@
+<<<<<<< HEAD
 local S = lottfarming.get_translator
 
+=======
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 -- ITEMS and TOOLS
 
 minetest.register_craft({
 	output = "lottfarming:bowl",
 	recipe = {
+<<<<<<< HEAD
 		{"group:wood", "", "group:wood"},
 		{"", "group:wood", ""},
+=======
+		{"default:wood", "", "default:wood"},
+		{"", "default:wood", ""},
+		{"", "", ""},
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	}
 })
 
 minetest.register_craftitem("lottfarming:bowl", {
+<<<<<<< HEAD
 	description = S("Bowl"),
+=======
+	description = "Bowl",
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	inventory_image = "lottfarming_bowl.png",
 })
 
 minetest.register_node("lottfarming:decay_tree", {
+<<<<<<< HEAD
 	description = S("Decaying Wood"),
+=======
+	description = "Decaying Wood",
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	tiles = {'default_tree_top.png^lottfarming_decay_tree.png', 'default_tree.png', 	'default_tree.png'},
     is_ground_content = true,
 	groups = {crumbly = 3, fungi = 3},
@@ -24,15 +41,23 @@ minetest.register_node("lottfarming:decay_tree", {
 	drop = "default:dirt",
 })
 
+<<<<<<< HEAD
 local function decaying_wood(pos, _, _)
+=======
+local function decaying_wood(pos, inv, p)
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	if pos == nil then
 		return false
 	end
 	local node = minetest.get_node(pos)
 	local name = node.name
 	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+<<<<<<< HEAD
 	if (name == "default:tree") or (name == "default:jungletree")
 	or (name == "default:tree_trunk") or (name == "default:jungletree_trunk") then
+=======
+	if name == "default:tree" or name == "default:jungletree" then
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 		if above.name == "air" then
 			node.name = "lottfarming:decay_tree"
 			minetest.set_node(pos, node)
@@ -42,6 +67,7 @@ local function decaying_wood(pos, _, _)
 	return false
 end
 
+<<<<<<< HEAD
 local function growgen(pos)
 	if pos == nil then
 		return false
@@ -71,6 +97,14 @@ minetest.register_tool("lottfarming:bacteria_fertiliser", {
 =======
 			itemstack:add_wear(65535/80)
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
+=======
+minetest.register_tool("lottfarming:bacteria_fertiliser", {
+	description = "Bacteria Fertiliser",
+	inventory_image = "lottfarming_bacteria_fertiliser.png",
+	on_use = function(itemstack, user, pointed_thing)
+		if decaying_wood(pointed_thing.under, user:get_inventory(), 10) then
+			itemstack:add_wear(65535/80)
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 			return itemstack
 		end
 	end
@@ -79,7 +113,15 @@ minetest.register_tool("lottfarming:bacteria_fertiliser", {
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:bacteria_fertiliser",
+<<<<<<< HEAD
 	recipe = {"lottpotion:glass_bottle_water", "bones:bonedust"}
+=======
+	recipe = {
+		{"default:glass", "", "default:glass"},
+		{"default:glass", "bones:bones", "default:glass"},
+		{"default:glass", "default:glass", "default:glass"},
+	}
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 })
 
 minetest.register_craft({
@@ -148,7 +190,11 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+<<<<<<< HEAD
 	output = 'lottfarming:corn_kernel 2',
+=======
+	output = 'lottfarming:corn_seed 2',
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	recipe = {
 		{'lottfarming:corn'},
 	}
@@ -176,7 +222,11 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+<<<<<<< HEAD
 	output = 'lottfarming:half_of_potato 2',
+=======
+	output = 'lottfarming:potato_seed 2',
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	recipe = {
 		{'lottfarming:potato'},
 	}
@@ -198,6 +248,7 @@ minetest.register_craft({
 -- FOOD
 
 minetest.register_craft({
+<<<<<<< HEAD
 	output = 'lottfarming:melon 9',
 	recipe = {{'lottfarming:melon_3'}},
 })
@@ -256,4 +307,12 @@ minetest.register_craft({
 	cooktime = 15,
 	output = "lottfarming:turnip_cooked",
 	recipe = "lottfarming:turnip"
+=======
+	output = 'lottfarming:melon',
+	recipe = {
+		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
+		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
+		{'lottfarming:melon_slice', 'lottfarming:melon_slice', 'lottfarming:melon_slice'},
+	}
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 })

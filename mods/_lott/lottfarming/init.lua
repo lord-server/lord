@@ -1,5 +1,6 @@
 local S = minetest.get_translator("lottfarming")
 
+<<<<<<< HEAD
 lottfarming = {}
 
 <<<<<<< HEAD
@@ -31,6 +32,9 @@ end
 =======
 >>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
+=======
+function place_seed(itemstack, placer, pointed_thing, plantname, param2)
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	local pt = pointed_thing
 	-- check if pointing at a node
 	if not pt then
@@ -78,6 +82,7 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	if not (check_fertility(item.fertility, under.name) == true) then
 		return itemstack
 	end
+<<<<<<< HEAD
 
 	-- add the node and remove 1 item from the itemstack
 	minetest.log("action", player_name .. " places node " .. plantname .. " at " ..
@@ -85,11 +90,16 @@ farming.place_seed = function(itemstack, placer, pointed_thing, plantname)
 	minetest.add_node(pt.above, {name = plantname, param2 = 1})
 	tick(pt.above)
 	if not minetest.is_creative_enabled(player_name) then
+=======
+	minetest.add_node(pt.above, {name=plantname, param2=param2})
+	if not minetest.setting_getbool("creative_mode") then
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 		itemstack:take_item()
 	end
 	return itemstack
 end
 
+<<<<<<< HEAD
 farming.grow_plant = function(pos, _)
 	local node = minetest.get_node(pos)
 	local name = node.name
@@ -97,6 +107,11 @@ farming.grow_plant = function(pos, _)
 
 	if not def.next_plant then
 		-- disable timer for fully grown plant
+=======
+function place_spore(itemstack, placer, pointed_thing, plantname, p2)
+	local pt = pointed_thing
+	if not pt then
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 		return
 	end
 
@@ -224,6 +239,7 @@ farming.register_plant = function(name, def)
 	or (def.planttype - math.floor(def.planttype) ~= 0) then
 		def.planttype = 1
 	end
+<<<<<<< HEAD
 	if not def.description then
 		def.description = S("Seed")
 	end
@@ -241,6 +257,11 @@ farming.register_plant = function(name, def)
 	end
 	if not def.fertility then
 		def.fertility = {}
+=======
+	minetest.add_node(pt.above, {name=plantname, param2 = p2})
+	if not minetest.setting_getbool("creative_mode") then
+		itemstack:take_item()
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 	end
 
 	farming.registered_plants[pname] = def
@@ -348,6 +369,7 @@ farming.register_plant = function(name, def)
 	return itemstack
 end
 
+<<<<<<< HEAD
 farming.grow_plant = function(pos, _)
 	local node = minetest.get_node(pos)
 	local name = node.name
@@ -650,6 +672,43 @@ farming.register_plant = function(name, def)
 		harvest = mname .. ":" .. pname
 	}
 	return r
+=======
+function farming:add_plant(full_grown, names, interval, chance, p2)
+	minetest.register_abm({
+		nodenames = names,
+		interval = interval,
+		chance = chance,
+		action = function(pos, node)
+			pos.y = pos.y-1
+			if minetest.get_node(pos).name ~= "farming:soil_wet" then
+				return
+			end
+			pos.y = pos.y+1
+			local light_level = minetest.get_node_light(pos)
+			if not light_level then
+				return
+			end
+			local c = math.ceil(2 * (light_level - 13) ^ 2 + 1)
+			if light_level > 7 and (math.random(1, c) == 1 or light_level >= 13) then
+				local step
+				for i,name in ipairs(names) do
+					if name == node.name then
+						step = i
+						break
+					end
+				end
+				if not step then
+					return
+				end
+				local new_node = {name=names[step+1], param2=p2}
+				if new_node.name == nil then
+					new_node.name = full_grown
+				end
+				minetest.set_node(pos, new_node)
+			end
+		end
+})
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 end
 
 minetest.register_lbm({
@@ -662,12 +721,15 @@ minetest.register_lbm({
 	end,
 })
 
+<<<<<<< HEAD
 -- ========= ATHELAS =========
 dofile(minetest.get_modpath("lottfarming").."/athelas.lua")
 
 -- ========= BARLEY =========
 dofile(minetest.get_modpath("lottfarming").."/barley.lua")
 
+=======
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 -- ========= BERRIES =========
 dofile(minetest.get_modpath("lottfarming").."/berries.lua")
 
@@ -721,3 +783,9 @@ dofile(minetest.get_modpath("lottfarming").."/green.lua")
 
 -- ========= WHITE MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming").."/white.lua")
+<<<<<<< HEAD
+=======
+
+-- ========= ORC FOOD =========
+dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
+>>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
