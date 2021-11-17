@@ -9,3 +9,4 @@
 ------
 
 - [MTG/default](minetest_game/default/readme.md) - переопр. для `minetest_game/default`
+- MTG/flowers - удалены ненужные цветы
