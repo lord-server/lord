@@ -290,6 +290,9 @@ minetest.register_alias("fire:campfire", "campfire:campfire")
 minetest.register_alias("fire:fireplace", "campfire:fireplace")
 minetest.register_alias("fire:campfire_active", "campfire:campfire_active")
 minetest.register_alias("fire:ash", "campfire:ash")
+<<<<<<< HEAD
 
 minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
 minetest.register_alias("carts:stopping_rail", "carts:brakerail")
+=======
+>>>>>>> a0ef901 (Closes #321. Lottfarming refactoring)

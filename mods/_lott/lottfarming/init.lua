@@ -1116,6 +1116,7 @@ dofile(minetest.get_modpath("lottfarming").."/green.lua")
 dofile(minetest.get_modpath("lottfarming").."/white.lua")
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
@@ -1127,3 +1128,5 @@ dofile(minetest.get_modpath("lottfarming").."/orc_food.lua")
 =======
 lord.mod_loaded()
 >>>>>>> 2efad20 (2-nd part)
+=======
+>>>>>>> a0ef901 (Closes #321. Lottfarming refactoring)
