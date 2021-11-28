@@ -550,5 +550,3 @@ end
 
 dofile(minetest.get_modpath("lottpotion").."/potionbrewing.lua")
 dofile(minetest.get_modpath("lottpotion").."/brewing.lua")
-
-lord.mod_loaded()

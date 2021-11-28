@@ -1183,5 +1183,3 @@ minetest.register_craft({
 	output = "lottores:galvorn_ingot",
 	recipe = "group:galvorn_item",
 })
-
-lord.mod_loaded()

@@ -33,10 +33,3 @@ if not minetest.registered_privileges[areas.config.self_protection_privilege] th
 		description = SL("Can protect areas.")
 	})
 end
-
-if minetest.settings:get_bool("log_mod") then
-	local diffTime = os.clock() - areas.startTime
-	minetest.log("action", "areas loaded in "..diffTime.."s.")
-end
-
-lord.mod_loaded()

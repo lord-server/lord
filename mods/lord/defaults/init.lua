@@ -169,6 +169,3 @@ for name, material in pairs(now_registered_nodes) do
 		end
 	end
 end
-
-
-lord.mod_loaded()

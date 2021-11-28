@@ -165,6 +165,4 @@ minetest.register_globalstep(function(dtime)
   end
 end)
 
-lord.mod_loaded()
-
 end

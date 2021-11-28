@@ -1,0 +1,13 @@
+# textdomain: roads
+Stonebrick road=
+Sandstone road=
+Stonebrick border=
+Sandstone border=
+Stonebrick inner corner border=
+Sandstone inner corner border=
+Stonebrick outer corner border=
+Sandstone outer corner border=
+Stonebrick step road=
+Sandstone step road=
+Stonebrick step border=
+Sandstone step border=

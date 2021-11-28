@@ -1153,5 +1153,3 @@ minetest.register_chatcommand("/clearobjects", {
 		worldedit.player_notify(name, count .. " objects cleared")
 	end),
 })
-
-lord.mod_loaded()

@@ -238,7 +238,6 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
-lord.mod_loaded()
 minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
 minetest.register_alias("lottthrowing:arrow_mithril", "arrows:arrow_mithril")
 minetest.register_alias("lottthrowing:bolt", "arrows:bolt_steel")
@@ -248,4 +247,9 @@ minetest.register_alias("lottthrowing:axe_dwarf", "arrows:axe_dwarf")
 minetest.register_alias("lottthrowing:axe_elf", "arrows:axe_elf")
 minetest.register_alias("lottthrowing:axe_steel", "arrows:axe_steel")
 minetest.register_alias("lottthrowing:axe_galvorn", "arrows:axe_galvorn")
+
+minetest.register_alias("fire:campfire", "campfire:campfire")
+minetest.register_alias("fire:fireplace", "campfire:fireplace")
+minetest.register_alias("fire:campfire_active", "campfire:campfire_active")
+minetest.register_alias("fire:ash", "campfire:ash")
 

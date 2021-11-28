@@ -155,5 +155,3 @@ minetest.register_craftitem("lottplants:honey", {
 	inventory_image = "lottplants_honey.png",
 	on_use = minetest.item_eat(1),
 })
-
-lord.mod_loaded()

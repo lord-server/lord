@@ -118,5 +118,3 @@ do
 		end,
 	}
 end
-
-lord.mod_loaded()

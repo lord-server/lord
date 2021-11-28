@@ -18,7 +18,7 @@ read_globals      = {
 	"dump", "DIR_DELIM",
 
 	-- MTG
-	"default", "sfinv", "creative",
+	"default", "sfinv", "creative", "dungeon_loot",
 
 	-- Lord specific
 	"lord", "hb",
@@ -47,9 +47,6 @@ read_globals      = {
 
 	-- Legacy
 	"spawn_falling_node",
-
-	-- Silence warnings about accessing undefined fields of global 'math'
-	math = { fields = { "sign" } }
 }
 
 exclude_files     = {

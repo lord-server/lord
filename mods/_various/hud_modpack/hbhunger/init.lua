@@ -160,6 +160,4 @@ minetest.register_globalstep(function(dtime)
 	if timer2 > hbhunger.HUNGER_TICK then timer2 = 0 end
 end)
 
-lord.mod_loaded()
-
 end

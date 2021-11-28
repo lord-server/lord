@@ -162,5 +162,3 @@ minetest.register_globalstep(function(dtime)
 	end
 	if timer > 4 then timer = 0 end
 end)
-
-lord.mod_loaded()

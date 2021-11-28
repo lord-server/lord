@@ -204,5 +204,3 @@ minetest.register_abm({
 		end
 	end,
 })
-
-lord.mod_loaded()

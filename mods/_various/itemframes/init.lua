@@ -350,5 +350,3 @@ minetest.register_abm({
 		update_item(pos, node)
 	end
 })
-
-lord.mod_loaded()

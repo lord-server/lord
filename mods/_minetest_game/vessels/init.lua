@@ -115,5 +115,3 @@ minetest.register_craft( {
 	output = "default:steel_ingot",
 	recipe = "vessels:steel_bottle",
 })
-
-lord.mod_loaded()

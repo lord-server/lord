@@ -18,9 +18,8 @@ beds.formspec = "size[8,11;true]" ..
 
 local modpath = minetest.get_modpath("beds")
 
--- Load files
-
-dofile(modpath .. "/functions.lua")
-dofile(modpath .. "/api.lua")
-dofile(modpath .. "/beds.lua")
-dofile(modpath .. "/spawns.lua")
+-- load files
+dofile(modpath.."/functions.lua")
+dofile(modpath.."/api.lua")
+dofile(modpath.."/beds.lua")
+dofile(modpath.."/spawns.lua")
