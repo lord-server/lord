@@ -1054,22 +1054,6 @@ minetest.register_node("default:coalblock", {
 	end,
 })
 
-minetest.register_node("default:charcoalblock", {
-	description       = SL("Charcoal Block"),
-	tiles             = { "default_charcoal_block.png" },
-	is_ground_content = true,
-	groups            = { cracky = 3, flammable = 10 },
-	sounds            = default.node_sound_stone_defaults(),
-	on_punch          = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
-			local pos_above = { x = pos.x, y = pos.y + 1, z = pos.z }
-			if minetest.get_node(pos_above).name == "air" then
-				minetest.set_node(pos_above, { name = "fire:basic_flame" })
-			end
-		end
-	end,
-})
-
 minetest.register_node("default:steelblock", {
 	description       = SL("Steel Block"),
 	tiles             = { "default_steel_block.png" },

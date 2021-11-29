@@ -6,3 +6,4 @@
 
  - `default:scorched_stuff`
  - `default:charcoal_lump`
+ - `default:charcoalblock`
