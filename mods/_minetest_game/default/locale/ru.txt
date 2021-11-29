@@ -72,7 +72,6 @@ Cobblestone	=	Булыжник
 Desert Cobble	=	Пустынный булыжник
 Mossy Cobblestone	=	Замшелый булыжник
 Coal Block	=	Блок каменного угля
-Charcoal Block	=	Блок древесного угля
 Steel Block	=	Стальной блок
 Copper Block	=	Медный блок
 Bronze Block	=	Бронзовый блок

@@ -49,22 +49,6 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'default:charcoalblock',
-	recipe = {
-		{'default:charcoal_lump', 'default:charcoal_lump', 'default:charcoal_lump'},
-		{'default:charcoal_lump', 'default:charcoal_lump', 'default:charcoal_lump'},
-		{'default:charcoal_lump', 'default:charcoal_lump', 'default:charcoal_lump'},
-	}
-})
-
-minetest.register_craft({
-	output = 'default:charcoal_lump 9',
-	recipe = {
-		{'default:charcoalblock'},
-	}
-})
-
-minetest.register_craft({
 	output = 'default:steelblock',
 	recipe = {
 		{'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot'},
@@ -273,24 +257,6 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:charcoal_lump 3",
-	recipe = "group:tree",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:charcoal_lump 2",
-	recipe = "group:wood",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:charcoal_lump",
-	recipe = "group:wooden",
-})
-
-minetest.register_craft({
-	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "group:steel_item",
 })
@@ -368,20 +334,8 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:charcoal_lump",
-	burntime = 30,
-})
-
-minetest.register_craft({
-	type = "fuel",
 	recipe = "default:coalblock",
 	burntime = 370,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "default:charcoalblock",
-	burntime = 280,
 })
 
 minetest.register_craft({
