@@ -132,3 +132,9 @@ minetest.clear_craft({output = "default:sign_wall_steel"})
 
 -- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
 minetest.clear_craft({output = "default:tinblock"}) -- `lottores:tin_block`
+
+-- `silver_sand` не генерируется нашим map-генератором (`mods/_lott/lottmapgen`)
+minetest.clear_craft({output = "default:silver_sand"})
+minetest.clear_craft({output = "default:silver_sandstone"})
+minetest.clear_craft({output = "default:silver_sandstone_brick"})
+minetest.clear_craft({output = "default:silver_sandstone_block"})
