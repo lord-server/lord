@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  minetest:
+    build:
+      context: .
+      dockerfile: docker/minetest/Dockerfile
+    depends_on:
+      - postgres
+    ports:
+      - "30000:30000/udp"
+    volumes:
+      - "minetest:/var/lib/minetest"
+
+volumes:
+  minetest:
+  postgres:

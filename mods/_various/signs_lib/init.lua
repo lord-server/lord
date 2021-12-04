@@ -327,7 +327,9 @@ local function build_char_db()
 			-- Создает файл в режиме "записи"
 			f = io.open(FONT_FMT:format(TP, c),"w");
 			-- Закрывает файл
-			f:close();
+			if f then
+				f:close();
+			end
 			-- Открывает уже существующий файл в режиме "чтения/записи"
 			--f = io.open("Test.txt","r+");
 		else
