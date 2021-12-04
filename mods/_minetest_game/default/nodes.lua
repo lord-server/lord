@@ -91,6 +91,31 @@ minetest.register_node("default:desert_stonebrick", {
 	sounds      = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:desert_sandstone", {
+	description = SL("Desert Sandstone"),
+	tiles = {"default_desert_sandstone.png"},
+	groups = {crumbly = 1, cracky = 3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:desert_sandstone_brick", {
+	description = SL("Desert Sandstone Brick"),
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"default_desert_sandstone_brick.png"},
+	is_ground_content = false,
+	groups = {cracky = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:desert_sandstone_block", {
+	description = SL("Desert Sandstone Block"),
+	tiles = {"default_desert_sandstone_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 2},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 
 -- Dirt / Земля (мягкие породы)
 minetest.register_node("default:dirt_with_grass", {
@@ -244,6 +269,14 @@ minetest.register_node("default:sandstonebrick", {
 	is_ground_content = true,
 	groups            = { cracky = 2 },
 	sounds            = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("default:sandstone_block", {
+	description = SL("Sandstone Block"),
+	tiles = {"default_sandstone_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 2},
+	sounds = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("default:clay", {
