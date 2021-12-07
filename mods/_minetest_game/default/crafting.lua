@@ -240,7 +240,6 @@ minetest.register_craft({
 	}
 })
 
-------------------------------------------------------------------------------------
 minetest.register_craft({
 	output = "default:clay",
 	recipe = {
@@ -267,13 +266,14 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "default:ladder 7",
+	output = "default:ladder_wood 5",
 	recipe = {
-		{"default:stick", "", "default:stick"},
-		{"default:stick", "default:stick", "default:stick"},
-		{"default:stick", "", "default:stick"},
+		{"group:stick", "", "group:stick"},
+		{"group:stick", "group:stick", "group:stick"},
+		{"group:stick", "", "group:stick"},
 	}
 })
+------------------------------------------------------------------------------------
 
 minetest.register_craft({
 	output = "default:mese",
