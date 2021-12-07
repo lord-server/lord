@@ -719,7 +719,7 @@ minetest.register_craft({
 })
 
 
-minetest.register_node("default:ladder", {
+minetest.register_node("default:ladder_wood", {
 	description        = SL("Ladder"),
 	drawtype           = "signlike",
 	tiles              = { "default_ladder_wood.png" },

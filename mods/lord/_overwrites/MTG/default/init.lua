@@ -138,3 +138,14 @@ minetest.clear_craft({output = "default:silver_sand"})
 minetest.clear_craft({output = "default:silver_sandstone"})
 minetest.clear_craft({output = "default:silver_sandstone_brick"})
 minetest.clear_craft({output = "default:silver_sandstone_block"})
+
+-- мы не можем делать лестницу из любой палочки, т.к. в `lottblocks` добавляются разные лестницы из разных палочек
+minetest.clear_craft({output = "default:ladder_wood"})
+minetest.register_craft({
+	output = "default:ladder_wood 7", -- у нас выдаёт 7 штук, вместо 5-ти как в MTG
+	recipe = {
+		{"default:stick", "", "default:stick"},
+		{"default:stick", "default:stick", "default:stick"},
+		{"default:stick", "", "default:stick"},
+	}
+})
