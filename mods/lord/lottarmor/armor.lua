@@ -256,7 +256,7 @@ armor.set_player_armor = function(self, player)
 		armor_groups.level = math.floor(armor_level / 20)
 		armor_groups.fleshy = 100 - armor_level
 	end
-	if player:get_attribute("lott:immunity") ~= nil and (not immortal or immortal == 0) then
+	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
 		player:set_armor_groups({fleshy = 1})
 	else
 		player:set_armor_groups(armor_groups)
@@ -586,4 +586,3 @@ races.register_update_callback(function(name, race, gender, skin, texture, face)
 	armor:update_inventory(player)
 	multiskin:update_player_visuals(player)
 end)
-
