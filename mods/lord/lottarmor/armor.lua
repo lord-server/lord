@@ -392,7 +392,7 @@ armor.get_valid_player = function(self, player, msg)
 		minetest.log("error", "lottarmor: Player name is nil "..msg)
 		return
 	end
-	local pos = player:getpos()
+	local pos = player:get_pos()
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not pos then
@@ -550,7 +550,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	for i=1, ARMOR_INIT_TIMES do
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			armor:set_player_armor(player)
-			if not inv_mod and not minetest.setting_getbool("creative_mode") then
+			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
 				armor:update_inventory(player)
 			end
 		end, joined_player)
@@ -562,7 +562,7 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 	armor.drop_armor = function(pos, stack)
 		local obj = minetest.add_item(pos, stack)
 		if obj then
-			obj:setvelocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
+			obj:set_velocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
 		end
 	end
 end
