@@ -392,7 +392,7 @@ armor.get_valid_player = function(self, player, msg)
 		minetest.log("error", "lottarmor: Player name is nil "..msg)
 		return
 	end
-	local pos = player:get_pos()
+	local pos = player:getpos()
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not pos then
@@ -562,7 +562,7 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 	armor.drop_armor = function(pos, stack)
 		local obj = minetest.add_item(pos, stack)
 		if obj then
-			obj:set_velocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
+			obj:setvelocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
 		end
 	end
 end
