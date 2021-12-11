@@ -1,5 +1,0 @@
-### init.lua ###
-Glass Bottle (empty)	=	Glass Bottle (empty)
-Drinking Glass (empty)	=	Drinking Glass (empty)
-Heavy Steel Bottle (empty)	=	Heavy Steel Bottle (empty)
-Pile of Glass Fragments	=	Pile of Glass Fragments
