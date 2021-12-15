@@ -2,110 +2,32 @@
 
 -- У нас краски можно получать из листвы
 -- (!) сделано без циклов, чтобы выдавалось в поиске по проекту
-minetest.register_craft({
-	output = "dye:white 4",
-	recipe = {
-		{"group:leaves,color_white"}
-	},
-})
+local leaves_color = {
+	{"dye:white",      "color_white"},
+	{"dye:grey",       "color_grey"},
+	{"dye:dark_grey",  "color_dark_grey"},
+	{"dye:black",      "color_black"},
+	{"dye:violet",     "color_violet"},
+	{"dye:blue",       "color_blue"},
+	{"dye:cyan",       "color_cyan"},
+	{"dye:dark_green", "color_dark_green"},
+	{"dye:green",      "color_green"},
+	{"dye:yellow",     "color_yellow"},
+	{"dye:brown",      "color_brown"},
+	{"dye:orange",     "color_orange"},
+	{"dye:red",        "color_red"},
+	{"dye:magenta",    "color_magenta"},
+	{"dye:pink",       "color_pink"},
+}
 
-minetest.register_craft({
-	output = "dye:grey 4",
-	recipe = {
-		{"group:leaves,color_grey"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:dark_grey 4",
-	recipe = {
-		{"group:leaves,color_dark_grey"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:black 4",
-	recipe = {
-		{"group:leaves,color_black"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:violet 4",
-	recipe = {
-		{"group:leaves,color_violet"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:blue 4",
-	recipe = {
-		{"group:leaves,color_blue"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:cyan 4",
-	recipe = {
-		{"group:leaves,color_cyan"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:dark_green 4",
-	recipe = {
-		{"group:leaves,color_dark_green"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:green 4",
-	recipe = {
-		{"group:leaves,color_green"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:yellow 4",
-	recipe = {
-		{"group:leaves,color_yellow"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:brown 4",
-	recipe = {
-		{"group:leaves,color_brown"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:orange 4",
-	recipe = {
-		{"group:leaves,color_orange"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:red 4",
-	recipe = {
-		{"group:leaves,color_red"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:magenta 4",
-	recipe = {
-		{"group:leaves,color_magenta"}
-	},
-})
-
-minetest.register_craft({
-	output = "dye:pink 4",
-	recipe = {
-		{"group:leaves,color_pink"}
-	},
-})
+for _, row in ipairs(leaves_color) do
+	minetest.register_craft({
+		output = row[1] .. " 4",
+		recipe = {
+			{"group:leaves," .. row[2]}
+		},
+	})
+end
 
 -- Крафт коричневой краски из земли (`default:dirt`)
 minetest.register_craft({
