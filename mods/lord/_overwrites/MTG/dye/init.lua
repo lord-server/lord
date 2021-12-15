@@ -1,7 +1,6 @@
 -- dye/init.lua
 
 -- У нас краски можно получать из листвы
--- (!) сделано без циклов, чтобы выдавалось в поиске по проекту
 local leaves_color = {
 	{"dye:white",      "color_white"},
 	{"dye:grey",       "color_grey"},
