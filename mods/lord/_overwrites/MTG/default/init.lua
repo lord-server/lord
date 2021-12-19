@@ -223,3 +223,20 @@ minetest.clear_craft({type = "fuel", recipe = "default:pine_sapling"}) -- доб
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_sapling"}) -- добавлены в MTG, у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:junglesapling"}) -- добавлены в MTG, у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:emergent_jungle_sapling"}) -- добавлены в MTG, у нас нет
+-- fence:
+-- в lottblocks свои заборы, а остальных у нас нет, придётся выпилить все
+minetest.clear_craft({type = "fuel", recipe = "default:fence_aspen_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_pine_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_wood"}) -- является wooden
+minetest.clear_craft({type = "fuel", recipe = "default:fence_acacia_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_junglewood"})
+-- fence rail:
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_aspen_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_pine_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_acacia_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_junglewood"})
+-- bush:
+minetest.clear_craft({type = "fuel", recipe = "default:bush_stem"})
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_stem"})
+minetest.clear_craft({type = "fuel", recipe = "default:pine_bush_stem"})

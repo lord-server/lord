@@ -567,6 +567,84 @@ minetest.register_craft({
 	burntime = 7,
 })
 
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_aspen_wood",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_pine_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_wood",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_acacia_wood",
+	burntime = 8,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_junglewood",
+	burntime = 9,
+})
+
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_rail_aspen_wood",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_rail_pine_wood",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_rail_wood",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_rail_acacia_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fence_rail_junglewood",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:bush_stem",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_bush_stem",
+	burntime = 8,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_bush_stem",
+	burntime = 6,
+})
 ------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
