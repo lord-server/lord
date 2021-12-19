@@ -398,3 +398,12 @@ function default.grow_new_aspen_tree(pos)
 	local path = minetest.get_modpath("default") .. "/schematics/aspen_tree_from_sapling.mts"
 	minetest.place_schematic({ x = pos.x - 2, y = pos.y - 1, z = pos.z - 2 }, path, 0, nil, false)
 end
+
+-- Large cactus
+
+function default.grow_large_cactus(pos)
+	local path = minetest.get_modpath("default") ..
+		"/schematics/large_cactus.mts"
+	minetest.place_schematic({x = pos.x - 2, y = pos.y - 1, z = pos.z - 2},
+		path, "random", nil, false)
+end
