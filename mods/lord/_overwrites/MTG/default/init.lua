@@ -123,7 +123,7 @@ minetest.clear_craft({recipe = {{"default:pine_tree"}}})
 -- Были добавлены в MTG, но у нас не используются (пока выпиливаем):
 minetest.clear_craft({recipe = {{"default:acacia_tree"}}})
 minetest.clear_craft({recipe = {{"default:aspen_tree"}}})
---minetest.clear_craft({recipe = {{"default:bush_stem"}}})
+minetest.clear_craft({recipe = {{"default:bush_stem"}}})
 minetest.clear_craft({recipe = {{"default:acacia_bush_stem"}}})
 minetest.clear_craft({recipe = {{"default:pine_bush_stem"}}})
 
@@ -191,23 +191,35 @@ minetest.register_craft({
 
 -- Оставляем наше время горения дабы не нарушить баланс
 -- (позже можно перебалансировать, учесть остальное топливо, напр. charcoal):
+-- tree:
 minetest.clear_craft({type = "fuel", recipe = "group:tree"})
-minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используются
-minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"})
-minetest.clear_craft({type = "fuel", recipe = "default:acacia_tree"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_tree"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:jungletree"})
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:tree",
 	burntime = 15,
 })
+-- wood:
 minetest.clear_craft({type = "fuel", recipe = "group:wood"})
-minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используются
-minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"})
-minetest.clear_craft({type = "fuel", recipe = "default:acacia_wood"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_wood"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:junglewood"})
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:wood",
 	burntime = 10,
 })
+-- saplings:
+-- сами саженцы не выглядят не сбалансировано, но их у нас нет (пока выпиливаем):
+minetest.clear_craft({type = "fuel", recipe = "default:bush_sapling"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_bush_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:junglesapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:emergent_jungle_sapling"}) -- добавлены в MTG, у нас нет
