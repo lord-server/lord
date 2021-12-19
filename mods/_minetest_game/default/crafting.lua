@@ -438,12 +438,48 @@ minetest.register_craft({
 	output = "default:desert_stone",
 	recipe = "default:desert_cobble",
 })
-------------------------------------------------------------------------------------  <-- текущее место обновления
 
 
 --
 -- Fuels
 --
+
+-- Support use of group:tree, includes default:tree which has the same burn time
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:tree",
+	burntime = 30,
+})
+
+-- Burn time for all woods are in order of wood density,
+-- which is also the order of wood colour darkness:
+-- aspen, pine, apple, acacia, jungle
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_tree",
+	burntime = 22,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_tree",
+	burntime = 26,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_tree",
+	burntime = 34,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:jungletree",
+	burntime = 38,
+})
+
+------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
 	type = "fuel",
@@ -485,12 +521,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "group:wood",
 	burntime = 10,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "group:tree",
-	burntime = 15,
 })
 
 minetest.register_craft({
