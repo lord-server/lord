@@ -511,6 +511,62 @@ minetest.register_craft({
 	burntime = 9,
 })
 
+
+-- Support use of group:sapling, includes default:sapling which has the same burn time
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:sapling",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:bush_sapling",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_bush_sapling",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_bush_sapling",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_sapling",
+	burntime = 4,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_sapling",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_sapling",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:junglesapling",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:emergent_jungle_sapling",
+	burntime = 7,
+})
+
 ------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
@@ -528,12 +584,6 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:leaves",
-	burntime = 1,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "group:sapling",
 	burntime = 1,
 })
 
