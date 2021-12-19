@@ -479,6 +479,38 @@ minetest.register_craft({
 	burntime = 38,
 })
 
+
+-- Support use of group:wood, includes default:wood which has the same burn time
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wood",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:aspen_wood",
+	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:pine_wood",
+	burntime = 6,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:acacia_wood",
+	burntime = 8,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:junglewood",
+	burntime = 9,
+})
+
 ------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
@@ -515,12 +547,6 @@ minetest.register_craft({
 	type = "fuel",
 	recipe = "group:wooden",
 	burntime = 5,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "group:wood",
-	burntime = 10,
 })
 
 minetest.register_craft({
