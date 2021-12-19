@@ -376,11 +376,22 @@ minetest.register_craft({
 	}
 })
 
-------------------------------------------------------------------------------------
 minetest.register_craft({
-	type = "shapeless",
-	output = "default:dirt",
-	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
+	output = "default:emergent_jungle_sapling",
+	recipe = {
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+		{"default:junglesapling", "default:junglesapling", "default:junglesapling"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:large_cactus_seedling",
+	recipe = {
+		{"", "default:cactus", ""},
+		{"default:cactus", "default:cactus", "default:cactus"},
+		{"", "default:cactus", ""},
+	}
 })
 
 
@@ -415,6 +426,7 @@ minetest.register_craft({
 	output = "default:stone",
 	recipe = "default:cobble",
 })
+------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
 	type = "cooking",

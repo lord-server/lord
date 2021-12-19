@@ -151,3 +151,13 @@ minetest.register_craft({
 })
 -- `castle:jailbars` имеют такой же крафт, как `default:ladder_steel`
 minetest.clear_craft({output = "default:ladder_steel"})
+
+-- не известно как выглядит дерево из этого саженца, скорее всего не подходит по стилистике, пока удаляем
+minetest.clear_craft({output = "default:emergent_jungle_sapling"}) -- в MTG можно только скрафтить
+
+-- наш вариант как скрафтить землю (видать попытка сделать землю воспроизводимой нодой)
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:dirt",
+	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
+})
