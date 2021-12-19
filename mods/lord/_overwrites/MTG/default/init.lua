@@ -120,7 +120,7 @@ minetest.unregister_item("default:tin_lump")
 -- в LOTT (`lottplants/nodes.lua`) была изначально своя сосна (`lottplants:pinewood`)
 minetest.clear_craft({recipe = {{"default:pine_tree"}}})
 
--- Были добавлены, но у нас не используются (пока выпиливаем):
+-- Были добавлены в MTG, но у нас не используются (пока выпиливаем):
 minetest.clear_craft({recipe = {{"default:acacia_tree"}}})
 minetest.clear_craft({recipe = {{"default:aspen_tree"}}})
 --minetest.clear_craft({recipe = {{"default:bush_stem"}}})
@@ -168,27 +168,36 @@ minetest.register_craft({
 	output = "default:cobble",
 	recipe = "default:gravel",
 })
-
 minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "group:steel_item",
 })
-
 minetest.register_craft({
 	type = "cooking",
 	output = "default:copper_ingot",
 	recipe = "group:copper_item",
 })
-
 minetest.register_craft({
 	type = "cooking",
 	output = "default:bronze_ingot",
 	recipe = "group:bronze_item",
 })
-
 minetest.register_craft({
 	type = "cooking",
 	output = "default:gold_ingot",
 	recipe = "group:gold_item",
+})
+
+-- Оставляем наше время горения дабы не нарушить баланс
+-- (позже можно перебалансировать, учесть остальное топливо, напр. charcoal):
+minetest.clear_craft({type = "fuel", recipe = "group:tree"})
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"})
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_tree"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:jungletree"})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:tree",
+	burntime = 15,
 })
