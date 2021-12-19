@@ -645,36 +645,59 @@ minetest.register_craft({
 	recipe = "default:pine_bush_stem",
 	burntime = 6,
 })
-------------------------------------------------------------------------------------  <-- текущее место обновления
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "group:paper",
-	burntime = 1,
-})
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "group:grass",
-	burntime = 1,
+	recipe = "default:junglegrass",
+	burntime = 3,
 })
 
 minetest.register_craft({
 	type = "fuel",
 	recipe = "group:leaves",
-	burntime = 1,
+	burntime = 4,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "group:wool",
-	burntime = 1,
+	recipe = "default:cactus",
+	burntime = 15,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "group:wooden",
+	recipe = "default:large_cactus_seedling",
 	burntime = 5,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:papyrus",
+	burntime = 3,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:bookshelf",
+	burntime = 30,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:ladder_wood",
+	burntime = 7,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:lava_source",
+	burntime = 60,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:sign_wall_wood",
+	burntime = 10,
 })
 
 minetest.register_craft({
@@ -685,7 +708,30 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "default:lava_source",
-	burntime = 60,
+	recipe = "default:grass_1",
+	burntime = 2,
 })
 
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:dry_grass_1",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:fern_1",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:marram_grass_1",
+	burntime = 2,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "default:dry_shrub",
+	burntime = 2,
+})

@@ -49,13 +49,11 @@ default.gui_survival_form = "size[8,8.5]"..
 -- Load files
 local default_path = minetest.get_modpath("default")
 
+-- не обновлены:
 dofile(default_path.."/functions.lua")
-dofile(default_path.."/mapgen.lua")
-dofile(default_path.."/nodes.lua")
-dofile(default_path.."/player.lua")
 dofile(default_path.."/trees.lua")
--- в процессе обновления
-dofile(default_path.."/crafting.lua")
+dofile(default_path.."/nodes.lua")
+dofile(default_path.."/player.lua") -- выпилен (перенесён в отдельный мод?)
 -- обновлены до идентичного состояния как в MTG (42baede13fdf855773cc44ce10f4a3ea4e239404):
 dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")
@@ -63,4 +61,6 @@ dofile(default_path.."/torch.lua")
 dofile(default_path.."/tools.lua")
 dofile(default_path.."/item_entity.lua")
 dofile(default_path.."/craftitems.lua")
-
+dofile(default_path.."/crafting.lua")
+-- не обновлены:
+dofile(default_path.."/mapgen.lua")
