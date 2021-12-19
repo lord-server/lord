@@ -191,7 +191,7 @@ minetest.register_craft({
 
 -- Оставляем наше время горения дабы не нарушить баланс
 -- (позже можно перебалансировать, учесть остальное топливо, напр. charcoal):
--- tree:
+-- tree fuels:
 minetest.clear_craft({type = "fuel", recipe = "group:tree"})
 minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"}) -- в lottplants своя
@@ -202,7 +202,7 @@ minetest.register_craft({
 	recipe = "group:tree",
 	burntime = 15,
 })
--- wood:
+-- wood fuels:
 minetest.clear_craft({type = "fuel", recipe = "group:wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"}) -- в lottplants своя
@@ -213,7 +213,7 @@ minetest.register_craft({
 	recipe = "group:wood",
 	burntime = 10,
 })
--- saplings:
+-- sapling fuels:
 -- сами саженцы не выглядят не сбалансировано, но их у нас нет (пока выпиливаем):
 minetest.clear_craft({type = "fuel", recipe = "default:bush_sapling"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_sapling"}) -- добавлены в MTG, у нас не используется
@@ -223,20 +223,44 @@ minetest.clear_craft({type = "fuel", recipe = "default:pine_sapling"}) -- доб
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_sapling"}) -- добавлены в MTG, у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:junglesapling"}) -- добавлены в MTG, у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:emergent_jungle_sapling"}) -- добавлены в MTG, у нас нет
--- fence:
+-- fence fuels:
 -- в lottblocks свои заборы, а остальных у нас нет, придётся выпилить все
 minetest.clear_craft({type = "fuel", recipe = "default:fence_aspen_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_pine_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_wood"}) -- является wooden
 minetest.clear_craft({type = "fuel", recipe = "default:fence_acacia_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_junglewood"})
--- fence rail:
+-- fence rail fuels:
 minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_aspen_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_pine_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_acacia_wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_junglewood"})
--- bush:
+-- bush fuels:
 minetest.clear_craft({type = "fuel", recipe = "default:bush_stem"})
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_stem"})
 minetest.clear_craft({type = "fuel", recipe = "default:pine_bush_stem"})
+-- other fuels:
+minetest.clear_craft({type = "fuel", recipe = "default:junglegrass"}) -- нигде не генерится ? или ?
+
+-- наше дополнительное топливо:
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:paper",
+	burntime = 2,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:grass",
+	burntime = 3,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wool",
+	burntime = 1,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wooden",
+	burntime = 5,
+})
