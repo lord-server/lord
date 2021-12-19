@@ -161,3 +161,34 @@ minetest.register_craft({
 	output = "default:dirt",
 	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
 })
+
+-- наши дополнительные крафты:
+minetest.register_craft({
+	type = "cooking",
+	output = "default:cobble",
+	recipe = "default:gravel",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:steel_ingot",
+	recipe = "group:steel_item",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:copper_ingot",
+	recipe = "group:copper_item",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:bronze_ingot",
+	recipe = "group:bronze_item",
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:gold_ingot",
+	recipe = "group:gold_item",
+})

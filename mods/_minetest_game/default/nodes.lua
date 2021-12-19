@@ -601,7 +601,7 @@ minetest.register_node("default:cactus", {
 })
 
 minetest.register_node("default:large_cactus_seedling", {
-	description = S("Large Cactus Seedling"),
+	description = SL("Large Cactus Seedling"),
 	drawtype = "plantlike",
 	tiles = {"default_large_cactus_seedling.png"},
 	inventory_image = "default_large_cactus_seedling.png",

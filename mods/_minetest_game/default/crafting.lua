@@ -426,43 +426,19 @@ minetest.register_craft({
 	output = "default:stone",
 	recipe = "default:cobble",
 })
-------------------------------------------------------------------------------------  <-- текущее место обновления
+
+minetest.register_craft({
+	type = "cooking",
+	output = "default:stone",
+	recipe = "default:mossycobble",
+})
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:desert_stone",
 	recipe = "default:desert_cobble",
 })
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:cobble",
-	recipe = "default:gravel",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:steel_ingot",
-	recipe = "group:steel_item",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:copper_ingot",
-	recipe = "group:copper_item",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:bronze_ingot",
-	recipe = "group:bronze_item",
-})
-
-minetest.register_craft({
-	type = "cooking",
-	output = "default:gold_ingot",
-	recipe = "group:gold_item",
-})
+------------------------------------------------------------------------------------  <-- текущее место обновления
 
 
 --
