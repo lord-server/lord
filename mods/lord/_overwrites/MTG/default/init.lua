@@ -201,3 +201,13 @@ minetest.register_craft({
 	recipe = "group:tree",
 	burntime = 15,
 })
+minetest.clear_craft({type = "fuel", recipe = "group:wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_wood"}) -- добавлены в MTG, но у нас не используются
+minetest.clear_craft({type = "fuel", recipe = "default:junglewood"})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wood",
+	burntime = 10,
+})
