@@ -71,6 +71,9 @@
 ### `lord_names_rules`
  - правила формирования имени игрока (при регистрации)
 
+ ### `lord_wool`
+  - ступени и плиты из шерсти `stairs:{stair,slab}_wool<colorname>`
+
 ### `lordlib`
  - вспомогательные функции (`lord.require_intllib()`)
 
