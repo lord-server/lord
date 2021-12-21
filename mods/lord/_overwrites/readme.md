@@ -8,5 +8,8 @@
 Папки:
 ------
 
-- [MTG/default](minetest_game/default/readme.md) - переопр. для `minetest_game/default`
-- [MTG/default](minetest_game/vessels/readme.md) - переопр. для `minetest_game/vessels`
+- [MTG/default](MTG/default/readme.md) - переопр. для `minetest_game/default`
+- [MTG/vessels](MTG/vessels/readme.md) - переопр. для `minetest_game/vessels`
+- [MTG/dye](MTG/dye/readme.md) - переопр. для `minetest_game/dye`
+- [MTG/wool](MTG/wool/readme.md) - переопр. для `minetest_game/wool`
+- [MTG/stairs](MTG/stairs/readme.md) - переопр. для `minetest_game/stairs`
