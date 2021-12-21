@@ -5,6 +5,7 @@ local S = minetest.get_translator("lord_wool")
 
 for _, row in ipairs(dye.dyes) do
 	local name = row[1]
+<<<<<<< HEAD
 	local desc = row[2]
 
 	stairs.register_stair_and_slab(
@@ -15,6 +16,18 @@ for _, row in ipairs(dye.dyes) do
 		S(desc.." Wool Stair"), --desc_stair
 		S(desc.." Wool Slab"), --desc_slab
 		default.node_sound_wood_defaults(),
+=======
+  local desc = row[2]
+
+  stairs.register_stair_and_slab(
+    "wool"..name,
+    "wool:"..name,
+    {snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    {"wool_"..name..".png"},
+    S(desc.." Wool Stair"), --desc_stair
+		S(desc.." Wool Slab"), --desc_slab
+    default.node_sound_wood_defaults(),
+>>>>>>> c42033faef0cef7a43d910ed507bb91a6b4bd736
 		false, --worldaligntex
 		S("Inner "..desc.." Wool Stair"), --desc_stair_inner
 		S("Outer "..desc.." Wool Stair") --desc_stair_outer
