@@ -1168,47 +1168,83 @@ minetest.register_node("lottplants:lorien_grass_4", {
 
 --Stairs & Slabs
 
-stairs.register_stair_and_slab("birchwood", "lottplants:birchwood",
-	{ snappy = 2, choppy = 3, flammable = 3, wooden = 1 },
-	{ "lottplants_birchwood.png" },
+stairs.register_stair_and_slab(
+	"birchwood",
+	"lottplants:birchwood",
+	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
+	{"lottplants_birchwood.png"},
 	SL("Birch Wood Stair"),
 	SL("Birch Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Birch Wood Stair"),
+	SL("Outer Birch Wood Stair")
+)
 
-stairs.register_stair_and_slab("pinewood", "lottplants:pinewood",
-	{ snappy = 2, choppy = 3, flammable = 3, wooden = 1 },
-	{ "lottplants_pinewood.png" },
+stairs.register_stair_and_slab(
+	"pinewood",
+	"lottplants:pinewood",
+	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
+	{"lottplants_pinewood.png"},
 	SL("Pine Wood Stair"),
 	SL("Pine Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Pine Wood Stair"),
+	SL("Outer Pine Wood Stair")
+)
 
-stairs.register_stair_and_slab("firwood", "lottplants:firwood",
-	{ snappy = 2, choppy = 3, flammable = 3, wooden = 1 },
-	{ "lottplants_pinewood.png" },
+stairs.register_stair_and_slab(
+	"firwood",
+	"lottplants:firwood",
+	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
+	{"lottplants_pinewood.png"},
 	SL("Fir Wood Stair"),
 	SL("Fir Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Fir Wood Stair"),
+	SL("Outer Fir Wood Stair")
+)
 
-stairs.register_stair_and_slab("alderwood", "lottplants:alderwood",
-	{ snappy = 2, choppy = 2, flammable = 3, wooden = 1 },
-	{ "lottplants_alderwood.png" },
+stairs.register_stair_and_slab(
+	"alderwood",
+	"lottplants:alderwood",
+	{snappy = 2, choppy = 2, flammable = 3, wooden = 1},
+	{"lottplants_alderwood.png"},
 	SL("Alder Wood Stair"),
 	SL("Alder Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Alder Wood Stair"),
+	SL("Outer Alder Wood Stair")
+)
 
-stairs.register_stair_and_slab("lebethronwood", "lottplants:lebethronwood",
-	{ snappy = 2, choppy = 1, flammable = 3, wooden = 1 },
-	{ "lottplants_lebethronwood.png" },
+stairs.register_stair_and_slab(
+	"lebethronwood",
+	"lottplants:lebethronwood",
+	{snappy = 2, choppy = 1, flammable = 3, wooden = 1},
+	{"lottplants_lebethronwood.png"},
 	SL("Lebethron Wood Stair"),
 	SL("Lebethron Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Lebethron Wood Stair"),
+	SL("Outer Lebethron Wood Stair")
+)
 
-stairs.register_stair_and_slab("mallornwood", "lottplants:mallornwood",
-	{ snappy = 2, choppy = 1, flammable = 3, wooden = 1 },
-	{ "lottplants_mallornwood.png" },
+stairs.register_stair_and_slab(
+	"mallornwood",
+	"lottplants:mallornwood",
+	{snappy = 2, choppy = 1, flammable = 3, wooden = 1},
+	{"lottplants_mallornwood.png"},
 	SL("Mallorn Wood Stair"),
 	SL("Mallorn Wood Slab"),
-	default.node_sound_wood_defaults())
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Mallorn Wood Stair"),
+	SL("Outer Mallorn Wood Stair")
+)
 
 
 
