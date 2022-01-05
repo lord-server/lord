@@ -2,6 +2,8 @@ local SL             = lord.require_intllib()
 
 local SAVEDIR = "LORD"
 
+local admin_privilege = "server"
+
 local function load_palantiri()
 	local tmp
 	local file           = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "r")
@@ -71,7 +73,9 @@ local function formspec_update(meta)
 	form    = form .. ";1]"
 	local n = 1
 	local h = 3.5
-	for i, v in pairs(lottblocks.palantiri[network]["options"]) do
+
+	local options = lottblocks.palantiri[network]["options"]
+	for i, v in pairs(options) do
 		local c = "red"
 		--print(dump(v))
 		if v == "true" then
@@ -90,28 +94,83 @@ local function formspec_update(meta)
 	return form
 end
 
+local function formspec_update_admin_setup(meta)
+	local network  = meta:get_string("network")
+	if not network then
+		network = ""
+	end
+
+	local name = meta:get_string("name")
+	if not name then
+		name = ""
+	end
+
+	local owner = meta:get_string("owner")
+	if not owner then
+		owner = ""
+	end
+
+	local pos = 1
+	local fields = ""
+
+	fields = fields.."field[1.75,"..pos..";3,1;owner;" .. SL("Owner") .. ";" .. owner .. "]"
+	pos = pos + 1.5
+
+	fields = fields.."field[1.75,"..pos..";3,1;network;" .. SL("Network Name") .. ";" .. network .. "]"
+	pos = pos + 1.5
+
+	fields = fields.."field[1.75,"..pos..";3,1;palantir;" .. SL("Palantir Name") .. ";" .. name .. "]"
+	pos = pos + 1.5
+
+	fields = fields.."button[1.5,"..pos..";3,1;admin_save;" .. SL("Save") .. "]"
+	pos = pos + 1.5
+
+	local form = "size[6,"..(pos+1).."]".."background[5,5;1,1;gui_elfbg.png;true]"..fields
+
+
+	return form
+end
+
 --print(dump(races))
 
 local function options_form(network)
-	local checkbox_pos = 1
+
+	local pos = 1
 	-- checkbox[,;;;;] ^ show a checkbox
 	-- 1. x and y position of checkbox
 	-- 2. name fieldname data is transferred to Lua
 	-- 3. label to be shown left of checkbox
 	-- 4. selected (optional) true/false
 	-- 5. tooltip (optional)
-	local options      = "size[5,5]" ..
+	local form      = "size[5,5]" ..
 		"background[5,5;1,1;gui_elfbg.png;true]" ..
 		"label[1,0.5;" .. SL("Allowed races") .. ":]" ..
 		"button[1,4;2,1;exit;" .. SL("Proceed") .. "]"
 	--print(dump(races_p))
+
+	local options = lottblocks.palantiri[network].options
 	for i, race in pairs(races_p) do
-		options      = options .. "checkbox[1," .. checkbox_pos .. ";" .. i ..
+		local option = options[i]
+
+		if option == nil then
+			option = true
+		end
+
+		form = form .. "checkbox[1," .. pos .. ";" .. i ..
 			";" .. race:gsub("^%l", string.upper) .. ";" ..
-			tostring(lottblocks.palantiri[network].options[i]) .. "]"
-		checkbox_pos = checkbox_pos + 0.5
+			tostring(option) .. "]"
+		pos = pos + 0.5
 	end
-	return options
+	return form
+end
+
+local function initial_config_formspec()
+	local form = "size[8,5]" ..
+			"background[8,5;1,1;gui_elfbg.png;true]" ..
+			"button[2.75,3.5;3,1;exit;" .. SL("Proceed") .. "]" ..
+			"field[3,1;3,1;network;" .. SL("Network Name") .. ";]" ..
+			"field[3,2.5;3,1;palantir;" .. SL("Palantir Name") .. ";]"
+	return form
 end
 
 minetest.register_privilege("palantiri", {
@@ -132,10 +191,26 @@ minetest.register_node("lottblocks:palantir", {
 			meta:set_string("formspec", formspec_update(meta))
 		end
 	end,
-	on_rightclick             = function(pos)
+	on_rightclick             = function(pos, node, clicker, itemstack)
 		local meta = minetest.get_meta(pos)
-		if meta:get_int("configured") == 2 then
-			meta:set_string("formspec", formspec_update(meta))
+
+		local user_name = clicker:get_player_name()
+		local is_admin = minetest.get_player_privs(user_name)[admin_privilege]
+
+		if is_admin and clicker:get_player_control().aux1 then
+			print("Admin access to palantir!")
+			meta:set_string("formspec", formspec_update_admin_setup(meta))
+		else
+			local cfg_status = meta:get_int("configured")
+			local network  = meta:get_string("network")
+
+			if cfg_status == 0 then
+				meta:set_string("formspec", initial_config_formspec())
+			elseif cfg_status == 1 then
+				meta:set_string("formspec", options_form(network))
+			elseif cfg_status == 2 then
+				meta:set_string("formspec", formspec_update(meta))
+			end
 		end
 	end,
 	on_place                  = function(itemstack, placer, pointed_thing)
@@ -155,11 +230,7 @@ minetest.register_node("lottblocks:palantir", {
 		local meta = minetest.get_meta(pos)
 		meta:set_int("configured", 0)
 		meta:set_string("owner", placer:get_player_name())
-		meta:set_string("formspec", "size[8,5]" ..
-			"background[8,5;1,1;gui_elfbg.png;true]" ..
-			"button[2.75,3.5;3,1;exit;" .. SL("Proceed") .. "]" ..
-			"field[3,1;3,1;network;" .. SL("Network Name") .. ";]" ..
-			"field[3,2.5;3,1;palantir;" .. SL("Palantir Name") .. ";]")
+		meta:set_string("formspec", initial_config_formspec())
 	end,
 	on_receive_fields         = function(pos, formname, fields, sender)
 		--print(dump(fields))
@@ -167,8 +238,41 @@ minetest.register_node("lottblocks:palantir", {
 		local configured  = meta:get_int("configured")
 		local player_name = sender:get_player_name()
 		local player_race = races.get_race(player_name)
-		--print("имя "..player_name)
-		--print("раса "..dump(player_race))
+
+		if fields.admin_save ~= nil then
+			minetest.log("Player "..player_name.." configures palantir at "..pos.x..","..pos.y..","..pos.z.." with admin interface")
+
+			local old_network = meta:get_string("network")
+			local old_owner   = meta:get_string("owner")
+			local old_name    = meta:get_string("name")
+
+			-- remove palantir from network
+			if old_network ~= nil and old_name ~= nil then
+				lottblocks.palantiri[old_network][old_name] = nil
+			end
+
+			local network = fields.network
+			local owner = fields.owner
+			local name = fields.palantir
+
+			if network ~= nil and name ~= nil and owner ~= nil then
+				if not lottblocks.palantiri[network] then
+					lottblocks.palantiri[network]       = {}
+					lottblocks.palantiri[network]["owner"] = owner
+					lottblocks.palantiri[network]["options"] = {}
+				end
+
+				lottblocks.palantiri[network][name] = pos
+
+				meta:set_string("network", network)
+				meta:set_string("name", name)
+				meta:set_string("owner", owner)
+				meta:set_string("formspec", options_form(network))
+				save_palantiri()
+				meta:set_int("configured", 1)
+			end
+			return
+		end
 
 		if configured == 0 then
 			if not fields.network or not fields.palantir
