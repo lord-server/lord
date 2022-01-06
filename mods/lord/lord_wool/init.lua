@@ -18,23 +18,5 @@ for _, row in ipairs(dye.dyes) do
 		false, --worldaligntex
 		S("Inner "..desc.." Wool Stair"), --desc_stair_inner
 		S("Outer "..desc.." Wool Stair") --desc_stair_outer
-  )
+	)
 end
-
---[[ для справки, взято из minetest_game/stairs/init.lua
--- Stair/slab registration function.
--- Nodes will be called stairs:{stair,slab}_<subname>
-
-function stairs.register_stair_and_slab(subname, recipeitem, groups, images,
-		desc_stair, desc_slab, sounds, worldaligntex,
-		desc_stair_inner, desc_stair_outer)
-	stairs.register_stair(subname, recipeitem, groups, images, desc_stair,
-		sounds, worldaligntex)
-	stairs.register_stair_inner(subname, recipeitem, groups, images,
-		desc_stair, sounds, worldaligntex, desc_stair_inner)
-	stairs.register_stair_outer(subname, recipeitem, groups, images,
-		desc_stair, sounds, worldaligntex, desc_stair_outer)
-	stairs.register_slab(subname, recipeitem, groups, images, desc_slab,
-		sounds, worldaligntex)
-end
---]]
