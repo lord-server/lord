@@ -280,12 +280,17 @@ minetest.register_craft({
 	}
 })
 
-stairs.register_stair_and_slab("straw", "castle:straw",
-	{ choppy = 3, flammable = 1, oddly_breakable_by_hand = 3, grass = 1 },
-	{ "castle_straw.png" },
+stairs.register_stair_and_slab(
+	"straw",
+	"castle:straw",
+	{choppy = 3, flammable = 1, oddly_breakable_by_hand = 3, grass = 1},
+	{"castle_straw.png"},
 	SL("Castle Straw Stair"),
 	SL("Castle Straw Slab"),
-	default.node_sound_leaves_defaults()
+	default.node_sound_leaves_defaults(),
+	false,
+	SL("Inner Castle Straw Stair"),
+	SL("Outer Castle Straw Stair")
 )
 
 minetest.register_node("castle:pavement", {

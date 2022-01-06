@@ -51,7 +51,11 @@ stairs.register_stair_and_slab("mordor_stone", "lottmapgen:mordor_stone",
 		{"lottmapgen_mordor_stone.png"},
 		SL("Mordor Stone Stair"),
 		SL("Mordor Stone Slab"),
-		default.node_sound_stone_defaults())
+		default.node_sound_stone_defaults(),
+		false,
+		SL("Inner Mordor Stone Stair"),
+		SL("Outer Mordor Stone Stair")
+)
 
 minetest.register_node(":default:ice", {
 	description = SL("Ice"),

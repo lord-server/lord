@@ -233,16 +233,28 @@ minetest.register_craft({
 	}
 })
 
-stairs.register_stair_and_slab("dungeon_stone", "castle:dungeon_stone",
-		{cracky=3},
-		{"castle_dungeon_stone.png"},
-		SL("Dungeon Stone Stair"),
-		SL("Dungeon Stone Slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"dungeon_stone",
+	"castle:dungeon_stone",
+	{cracky=3},
+	{"castle_dungeon_stone.png"},
+	SL("Dungeon Stone Stair"),
+	SL("Dungeon Stone Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Dungeon Stone Stair"),
+	SL("Outer Dungeon Stone Stair")
+)
 
-stairs.register_stair_and_slab("pavement", "castle:pavement",
-		{cracky=3},
-		{"castle_pavement_brick.png"},
-		SL("Castle Pavement Stair"),
-		SL("Castle Pavement Slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"pavement",
+	"castle:pavement",
+	{cracky=3},
+	{"castle_pavement_brick.png"},
+	SL("Castle Pavement Stair"),
+	SL("Castle Pavement Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Castle Pavement Stair"),
+	SL("Outer Castle Pavement Stair")
+)
