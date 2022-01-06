@@ -240,10 +240,10 @@ minetest.register_node("lottblocks:palantir", {
 		local player_race = races.get_race(player_name)
 
 		if fields.admin_save ~= nil then
-			minetest.log("Player "..player_name.." configures palantir at "..pos.x..","..pos.y..","..pos.z.." with admin interface")
+			local p = "("..pos.x..","..pos.y..","..pos.z..")"
+			minetest.log("Player "..player_name.." configures palantir at "..p.." with admin interface")
 
 			local old_network = meta:get_string("network")
-			local old_owner   = meta:get_string("owner")
 			local old_name    = meta:get_string("name")
 
 			-- remove palantir from network
