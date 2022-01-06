@@ -24,6 +24,63 @@ races_p["man"]    = SL("men")
 races_p["orc"]    = SL("orcs")
 races_p["hobbit"] = SL("hobbits")
 
+
+local function network_exists(network)
+	if lottblocks.palantiri[network] then
+		return true
+	end
+	return false
+end
+
+local function add_network(network, owner)
+	if network_exists(network) then
+		return
+	end
+	lottblocks.palantiri[network]       = {}
+	lottblocks.palantiri[network]["owner"] = owner
+	lottblocks.palantiri[network]["options"] = {}
+	for i, v in pairs(races_p) do
+		lottblocks.palantiri[network]["options"][i] = "true"
+	end
+end
+
+local function add_palantir(network, palantir, position)
+	if not network_exists(network) then
+		return
+	end
+
+	lottblocks.palantiri[network][palantir] = position
+end
+
+local function remove_palantir(network, palantir)
+	if not network_exists(network) then
+		return
+	end
+
+	lottblocks.palantiri[network][palantir] = nil
+end
+
+local function change_network_owner(network, owner)
+	if not network_exists(network) then
+		return
+	end
+	
+	lottblocks.palantiri[network]["owner"] = owner
+end
+
+local function rename_network(old_network, new_network)
+	if not network_exists(old_network) then
+		return
+	end
+
+	if network_exists(new_network) then
+		return
+	end
+
+	lottblocks.palantiri[new_network] = lottblocks.palantiri[old_network]
+	lottblocks.palantiri[old_network] = nil
+end
+
 local function save_palantiri()
 	minetest.mkdir(minetest.get_worldpath() .. "/" .. SAVEDIR)
 	local file = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "w")
@@ -246,23 +303,24 @@ minetest.register_node("lottblocks:palantir", {
 			local old_network = meta:get_string("network")
 			local old_name    = meta:get_string("name")
 
-			-- remove palantir from network
-			if old_network ~= nil and old_name ~= nil then
-				lottblocks.palantiri[old_network][old_name] = nil
-			end
-
 			local network = fields.network
 			local owner = fields.owner
 			local name = fields.palantir
 
+			print("Old: "..old_network.."/"..old_name)
+			print("New: "..network.."/"..name)
+			print(dump(lottblocks.palantiri))
+
 			if network ~= nil and name ~= nil and owner ~= nil then
-				if not lottblocks.palantiri[network] then
-					lottblocks.palantiri[network]       = {}
-					lottblocks.palantiri[network]["owner"] = owner
-					lottblocks.palantiri[network]["options"] = {}
+				if network_exists(old_network) and old_name ~= nil then
+					remove_palantir(old_network, old_name)
 				end
 
-				lottblocks.palantiri[network][name] = pos
+				if not network_exists(network) then
+					add_network(network, owner)
+				end
+
+				add_palantir(network, name, pos)
 
 				meta:set_string("network", network)
 				meta:set_string("name", name)
