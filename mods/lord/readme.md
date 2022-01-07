@@ -71,8 +71,13 @@
 ### `lord_names_rules`
  - правила формирования имени игрока (при регистрации)
 
- ### `lord_wool`
-  - ступени и плиты из шерсти `stairs:{stair,slab}_wool<colorname>`
+### `lord_screwdriver`
+ - Отвёртки `lord_screwdriver:screwdriver`, `lord_screwdriver:screwdriver_galvorn`
+ - Оптимизирована текстура `screwdriver_galvorn.png` 9406 bytes -> 257 bytes
+ - Зависит от `MTG/screwdriver`
+
+### `lord_wool`
+ - ступени и плиты из шерсти `stairs:{stair,slab}_wool<colorname>`
 
 ### `lordlib`
  - вспомогательные функции (`lord.require_intllib()`)

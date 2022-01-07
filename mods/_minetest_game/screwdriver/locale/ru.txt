@@ -1,3 +1,0 @@
-### init.lua ###
-Screwdriver (left-click rotates face, right-click rotates axis)	=	Отвёртка\n(ЛКМ - поворот вокруг основной оси, ПКМ - поворот основной оси)
-Galvorn Screwdriver (left-click rotates face, right-click rotates axis) = Галворновая отвёртка\n(ЛКМ - поворот вокруг основной оси, ПКМ - поворот основной оси)

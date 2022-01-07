@@ -13,3 +13,4 @@
 - [MTG/dye](MTG/dye/readme.md) - переопр. для `minetest_game/dye`
 - [MTG/wool](MTG/wool/readme.md) - переопр. для `minetest_game/wool`
 - [MTG/stairs](MTG/stairs/readme.md) - переопр. для `minetest_game/stairs`
+- [MTG/screwdriver](MTG/screwdriver/readme.md) - переопр. для `minetest_game/screwdriver`
