@@ -72,7 +72,7 @@
  - правила формирования имени игрока (при регистрации)
 
 ### `lord_screwdriver`
- - Отвёртки `lord_screwdriver:screwdriver_galvorn`, `lord_screwdriver:screwdriver_galvorn`
+ - Отвёртки `lord_screwdriver:screwdriver`, `lord_screwdriver:screwdriver_galvorn`
  - Оптимизирована текстура `screwdriver_galvorn.png` 9406 bytes -> 257 bytes
  - Зависит от `MTG/screwdriver`
 

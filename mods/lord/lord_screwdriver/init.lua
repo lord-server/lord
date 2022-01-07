@@ -3,7 +3,7 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("lord_screwdriver")
 
--- Standart Screwdriver based on MTG
+-- Standard Screwdriver based on MTG
 minetest.register_tool("lord_screwdriver:screwdriver", {
 	description = S("Screwdriver") .. "\n" .. S("(left-click rotates face, right-click rotates axis)"),
 	inventory_image = "screwdriver.png",
