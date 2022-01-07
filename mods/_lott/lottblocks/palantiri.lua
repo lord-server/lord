@@ -64,10 +64,12 @@ local function change_network_owner(network, owner)
 	if not network_exists(network) then
 		return
 	end
-	
+
 	lottblocks.palantiri[network]["owner"] = owner
 end
 
+--[[
+-- Will be used later
 local function rename_network(old_network, new_network)
 	if not network_exists(old_network) then
 		return
@@ -79,7 +81,7 @@ local function rename_network(old_network, new_network)
 
 	lottblocks.palantiri[new_network] = lottblocks.palantiri[old_network]
 	lottblocks.palantiri[old_network] = nil
-end
+end]]--
 
 local function save_palantiri()
 	minetest.mkdir(minetest.get_worldpath() .. "/" .. SAVEDIR)
@@ -318,6 +320,8 @@ minetest.register_node("lottblocks:palantir", {
 
 				if not network_exists(network) then
 					add_network(network, owner)
+				else
+					change_network_owner(network, owner)
 				end
 
 				add_palantir(network, name, pos)
