@@ -140,6 +140,7 @@ end
 
 register_jailbars("steel", { cracky = 2}, "default:steel_ingot")
 register_jailbars("tilkal", { forbidden = 1}, "lottores:tilkal_ingot")
+register_jailbars("galvorn", { forbidden = 1, cracky=1, level=2}, "lottores:galvorn_ingot")
 
 minetest.register_on_placenode(update_nearby)
 minetest.register_on_dignode(update_nearby)
