@@ -181,6 +181,10 @@ minetest.register_alias("defaults:c0bble",             "defaults:default_cobble"
 minetest.register_alias("defaults:desert_st0ne",       "defaults:default_desert_stone")
 minetest.register_alias("defaults:st0ne",              "defaults:default_stone")
 
+minetest.register_alias("castle:jailbars",             "jailbars:jailbars_steel")
+for i = 1,15 do
+	minetest.register_alias("castle:jailbars_"..i,             "jailbars:jailbars_steel_"..i)
+end
 
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
