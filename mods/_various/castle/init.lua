@@ -3,7 +3,6 @@ local SL = lord.require_intllib()
 dofile(minetest.get_modpath("castle").."/pillars.lua") --колонны
 dofile(minetest.get_modpath("castle").."/arrowslit.lua") --бойницы
 dofile(minetest.get_modpath("castle").."/tapestry.lua") --гобелены
-dofile(minetest.get_modpath("castle").."/jailbars.lua") --решётки
 dofile(minetest.get_modpath("castle").."/town_item.lua") --всяко-разно
 dofile(minetest.get_modpath("castle").."/murder_hole.lua") --дыры-убийцы
 dofile(minetest.get_modpath("castle").."/shields_decor.lua") --декор.щиты
