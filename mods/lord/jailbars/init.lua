@@ -73,7 +73,7 @@ local full_blocks = {
 	{ -0.06, -0.5, -0.5, 0.06, 0.5, 0.5 }
 }
 
-local function register_jailbars(material, groups)
+local function register_jailbars(material, groups, source_material)
 	for i = 1, 15 do
 		local need = {}
 		local cnt  = 0
@@ -131,15 +131,15 @@ local function register_jailbars(material, groups)
 	minetest.register_craft({
 		output = "jailbars:jailbars_"..material.." 12",
 		recipe = {
-			{ "default:"..material.."_ingot", "", "default:"..material.."_ingot" },
-			{ "default:"..material.."_ingot", "default:"..material.."_ingot", "default:"..material.."_ingot" },
-			{ "default:"..material.."_ingot", "", "default:"..material.."_ingot" },
+			{ source_material, "", source_material },
+			{ source_material, source_material, source_material },
+			{ source_material, "", source_material },
 		}
 	})
 end
 
-register_jailbars("steel", { cracky = 2})
-register_jailbars("tilkal", { forbidden = 1})
+register_jailbars("steel", { cracky = 2}, "default:steel_ingot")
+register_jailbars("tilkal", { forbidden = 1}, "lottores:tilkal_ingot")
 
 minetest.register_on_placenode(update_nearby)
 minetest.register_on_dignode(update_nearby)
