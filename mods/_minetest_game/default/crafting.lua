@@ -273,7 +273,15 @@ minetest.register_craft({
 		{"group:stick", "", "group:stick"},
 	}
 })
-------------------------------------------------------------------------------------
+
+minetest.register_craft({
+	output = "default:ladder_steel 15",
+	recipe = {
+		{"default:steel_ingot", "", "default:steel_ingot"},
+		{"default:steel_ingot", "default:steel_ingot", "default:steel_ingot"},
+		{"default:steel_ingot", "", "default:steel_ingot"},
+	}
+})
 
 minetest.register_craft({
 	output = "default:mese",
@@ -281,6 +289,14 @@ minetest.register_craft({
 		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
 		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
 		{"default:mese_crystal", "default:mese_crystal", "default:mese_crystal"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:meselamp",
+	recipe = {
+		{"default:glass"},
+		{"default:mese_crystal"},
 	}
 })
 
@@ -294,6 +310,23 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "default:obsidianbrick 4",
+	recipe = {
+		{"default:obsidian", "default:obsidian"},
+		{"default:obsidian", "default:obsidian"}
+	}
+})
+
+minetest.register_craft({
+	output = "default:obsidian_block 9",
+	recipe = {
+		{"default:obsidian", "default:obsidian", "default:obsidian"},
+		{"default:obsidian", "default:obsidian", "default:obsidian"},
+		{"default:obsidian", "default:obsidian", "default:obsidian"},
+	}
+})
+
+minetest.register_craft({
 	output = "default:stonebrick 4",
 	recipe = {
 		{"default:stone", "default:stone"},
@@ -302,10 +335,28 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "default:stone_block 9",
+	recipe = {
+		{"default:stone", "default:stone", "default:stone"},
+		{"default:stone", "default:stone", "default:stone"},
+		{"default:stone", "default:stone", "default:stone"},
+	}
+})
+
+minetest.register_craft({
 	output = "default:desert_stonebrick 4",
 	recipe = {
 		{"default:desert_stone", "default:desert_stone"},
 		{"default:desert_stone", "default:desert_stone"},
+	}
+})
+
+minetest.register_craft({
+	output = "default:desert_stone_block 9",
+	recipe = {
+		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
+		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
+		{"default:desert_stone", "default:desert_stone", "default:desert_stone"},
 	}
 })
 
@@ -325,6 +376,7 @@ minetest.register_craft({
 	}
 })
 
+------------------------------------------------------------------------------------
 minetest.register_craft({
 	type = "shapeless",
 	output = "default:dirt",
