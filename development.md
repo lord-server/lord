@@ -81,4 +81,4 @@ https://dev.minetest.net/Lua_code_style_guidelines
  - python3
  - утилита dot, входит в graphviz
  - питон-модуль поддержки graphviz
-   python3 -m pip install graphviz
+   `python3 -m pip install graphviz`
