@@ -149,3 +149,5 @@ minetest.register_craft({
 		{"default:stick", "", "default:stick"},
 	}
 })
+-- `castle:jailbars` имеют такой же крафт, как `default:ladder_steel`
+minetest.clear_craft({output = "default:ladder_steel"})

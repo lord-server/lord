@@ -84,6 +84,14 @@ minetest.register_node("default:stonebrick", {
 	sounds      = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:stone_block", {
+	description = SL("Stone Block"),
+	tiles = {"default_stone_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 2, stone = 1},
+	sounds = default.node_sound_stone_defaults(),
+})
+
 minetest.register_node("default:desert_stonebrick", {
 	description = SL("Desert Brick"),
 	tiles       = { "default_desert_stone_brick.png" },
@@ -91,6 +99,13 @@ minetest.register_node("default:desert_stonebrick", {
 	sounds      = default.node_sound_stone_defaults(),
 })
 
+minetest.register_node("default:desert_stone_block", {
+	description = SL("Desert Stone Block"),
+	tiles = {"default_desert_stone_block.png"},
+	is_ground_content = false,
+	groups = {cracky = 2, stone = 1},
+	sounds = default.node_sound_stone_defaults(),
+})
 minetest.register_node("default:desert_sandstone", {
 	description = SL("Desert Sandstone"),
 	tiles = {"default_desert_sandstone.png"},
@@ -1165,6 +1180,24 @@ minetest.register_node("default:obsidian", {
 	groups            = { cracky = 1, level = 2 },
 })
 
+minetest.register_node("default:obsidianbrick", {
+	description = SL("Obsidian Brick"),
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	tiles = {"default_obsidian_brick.png"},
+	is_ground_content = false,
+	sounds = default.node_sound_stone_defaults(),
+	groups = {cracky = 1, level = 2},
+})
+
+minetest.register_node("default:obsidian_block", {
+	description = SL("Obsidian Block"),
+	tiles = {"default_obsidian_block.png"},
+	is_ground_content = false,
+	sounds = default.node_sound_stone_defaults(),
+	groups = {cracky = 1, level = 2},
+})
+
 minetest.register_node("default:nyancat", {
 	description           = SL("Nyan Cat"),
 	tiles                 = { "default_nc_side.png", "default_nc_side.png", "default_nc_side.png",
@@ -1423,4 +1456,17 @@ minetest.register_node("default:snowblock", {
 		footstep = { name = "default_snow_footstep", gain = 0.25 },
 		dug      = { name = "default_snow_footstep", gain = 0.75 },
 	}),
+})
+
+
+minetest.register_node("default:meselamp", {
+	description = SL("Mese Lamp"),
+	drawtype = "glasslike",
+	tiles = {"default_meselamp.png"},
+	paramtype = "light",
+	sunlight_propagates = true,
+	is_ground_content = false,
+	groups = {cracky = 3, oddly_breakable_by_hand = 3},
+	sounds = default.node_sound_glass_defaults(),
+	light_source = default.LIGHT_MAX,
 })
