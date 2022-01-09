@@ -75,3 +75,10 @@ https://dev.minetest.net/Lua_code_style_guidelines
    - не забываем переключиться на эту ветку: `git checkout master`
    - стягиваем её с upstream локально: `git pull upstream master`
    - обновляем в своём форке на GitHub: `git push` (или `git push origin`)
+
+Дополнительные пакеты:
+----------------------
+ - python3
+ - утилита dot, входит в graphviz
+ - питон-модуль поддержки graphviz
+   `python3 -m pip install graphviz`
