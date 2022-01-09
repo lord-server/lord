@@ -186,6 +186,25 @@ for i = 1,15 do
 	minetest.register_alias("castle:jailbars_"..i,             "jailbars:jailbars_steel_"..i)
 end
 
+minetest.register_alias("castle:jail_door_lock",       "jailbars:jail_door_lock_steel")
+minetest.register_alias("castle:jail_door",            "jailbars:jail_door_steel")
+
+minetest.register_alias("castle:jail_door_t_1",         "jailbars:jail_door_steel_t_1")
+minetest.register_alias("castle:jail_door_t_2",         "jailbars:jail_door_steel_t_2")
+minetest.register_alias("castle:jail_door_b_1",         "jailbars:jail_door_steel_b_1")
+minetest.register_alias("castle:jail_door_b_2",         "jailbars:jail_door_steel_b_2")
+
+minetest.register_alias("castle:jail_door_lock_t_1",         "jailbars:jail_door_steel_lock_t_1")
+minetest.register_alias("castle:jail_door_lock_t_2",         "jailbars:jail_door_steel_lock_t_2")
+minetest.register_alias("castle:jail_door_lock_b_1",         "jailbars:jail_door_steel_lock_b_1")
+minetest.register_alias("castle:jail_door_lock_b_2",         "jailbars:jail_door_steel_lock_b_2")
+
+minetest.register_alias("protector_lott:jail_door", "protector_lott:jail_door_steel")
+minetest.register_alias("protector_lott:jail_door_t_1", "protector_lott:jail_door_steel_t_1")
+minetest.register_alias("protector_lott:jail_door_t_2", "protector_lott:jail_door_steel_t_2")
+minetest.register_alias("protector_lott:jail_door_b_1", "protector_lott:jail_door_steel_b_1")
+minetest.register_alias("protector_lott:jail_door_b_2", "protector_lott:jail_door_steel_b_2")
+
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
 	for _, race in pairs({"dwarf", "orc", "man", "elf", "hobbit"}) do

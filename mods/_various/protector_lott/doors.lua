@@ -37,6 +37,10 @@ local function reg_prot_door(desc, name, door, mat, texture_i, texture_a, textur
 		gd = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, door = 1, unbreakable = 1, wooden = 1}
 	elseif mat == "steel" then
 		gd = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, door = 1, unbreakable = 1, steel_item = 1}
+	elseif mat == "galvorn" then
+		gd = {door = 1, forbidden = 1, cracky = 1, level = 2}
+	elseif mat == "tilkal" then
+		gd = {door = 1, forbidden = 1}
 	else
 		gd = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, door = 1, unbreakable = 1}
 	end
@@ -183,9 +187,26 @@ reg_prot_door(
 )
 
 reg_prot_door(
-	"Protected Jail Door", "protector_lott:jail_door", "castle:jail_door", "steel",
-	"castle_jail_door_inv.png",
-	"castle_jail_door_top.png",
-	"castle_jail_door_bottom.png",
+	"Protected Steel Jail Door", "protector_lott:jail_door_steel", "jailbars:jail_door_steel", "steel",
+	"castle_jail_door_steel_inv.png",
+	"castle_jail_door_steel_top.png",
+	"castle_jail_door_steel_bottom.png",
 	"door_jail.png"
 )
+
+reg_prot_door(
+	"Protected Tilkal Jail Door", "protector_lott:jail_door_tilkal", "jailbars:jail_door_tilkal", "tilkal",
+	"castle_jail_door_tilkal_inv.png",
+	"castle_jail_door_tilkal_top.png",
+	"castle_jail_door_tilkal_bottom.png",
+	"door_jail.png"
+)
+
+reg_prot_door(
+	"Protected Galvorn Jail Door", "protector_lott:jail_door_galvorn", "jailbars:jail_door_galvorn", "galvorn",
+	"castle_jail_door_galvorn_inv.png",
+	"castle_jail_door_galvorn_top.png",
+	"castle_jail_door_galvorn_bottom.png",
+	"door_jail.png"
+)
+

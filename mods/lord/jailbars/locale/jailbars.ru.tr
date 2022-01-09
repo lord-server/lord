@@ -3,3 +3,10 @@ steel jailbars=Стальная решётка
 tilkal jailbars=Тилкаловая решётка
 galvorn jailbars=Галворновая решётка
 
+steel jail door=Стальная решетчатая дверь
+tilkal jail door=Тилкаловая решетчатая дверь
+galvorn jail door=Галворновая решетчатая дверь
+
+steel jail door with lock=Стальная решетчатая дверь с замком
+tilkal jail door with lock=Тилкаловая решетчатая дверь с замком
+galvorn jail door with lock=Галворновая решетчатая дверь с замком

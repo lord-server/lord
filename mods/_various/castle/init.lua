@@ -27,6 +27,7 @@ doors.register_door("castle:oak_door_lock", {
 	sunlight = true,
 })
 
+--[[
 doors.register_door("castle:jail_door", {
 	description = SL("Jail Door"),
 	inventory_image = "castle_jail_door_inv.png",
@@ -45,6 +46,7 @@ doors.register_door("castle:jail_door_lock", {
 	only_placer_can_open = true,
 	sunlight = true,
 })
+]]--
 
 minetest.register_craft({
 	output = "castle:oak_door",
@@ -55,6 +57,7 @@ minetest.register_craft({
 	}
 })
 
+--[[
 minetest.register_craft({
 	output = "castle:jail_door",
 	recipe = {
@@ -63,6 +66,7 @@ minetest.register_craft({
 		{"castle:jailbars", "castle:jailbars"}
 	}
 })
+]]--
 
 minetest.register_craft({
 	type = "shapeless",
@@ -70,11 +74,13 @@ minetest.register_craft({
 	recipe = {"castle:oak_door", "default:steel_ingot"}
 })
 
+--[[
 minetest.register_craft({
 	type = "shapeless",
 	output = "castle:jail_door_lock",
 	recipe = {"castle:jail_door", "default:steel_ingot"}
 })
+]]--
 
 -- luacheck: globals default
 function default.get_ironbound_chest_formspec(pos)

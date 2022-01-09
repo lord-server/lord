@@ -6,3 +6,4 @@ lottblocks
 lottmapgen
 mobs?
 lordlib
+jailbars
