@@ -413,6 +413,13 @@ local function hit_objects(pos1, pos2, arrow)
 end
 
 local function near_owner(arrow)
+	if not arrow.object:get_pos() then
+		return false
+	end
+	if not arrow.owner:get_pos() then
+		return false
+	end
+
 	local owner_type = arrow.owner_type
 	local box = {}
 	local collision_box
