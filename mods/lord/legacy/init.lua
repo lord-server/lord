@@ -87,6 +87,7 @@ minetest.register_alias("clay_brick", "default:clay_brick")
 
 minetest.register_alias("default:ladder", "default:ladder_wood")
 minetest.register_alias("default:sign_wall", "default:sign_wall_wood")
+minetest.register_alias("default:sign_wall_wood", "default:sign_wall")
 
 minetest.register_alias("scorched_stuff", "default:dirt")
 minetest.register_alias("rat", "default:dirt")
