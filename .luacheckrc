@@ -11,6 +11,9 @@ read_globals      = {
 	string = { fields = { "split" } },
 	table  = { fields = { "copy", "getn" } },
 
+	-- Silence warnings about accessing undefined fields 'sign' of global 'math'
+	math = { fields = { "sign" } },
+
 	-- Builtin
 	"vector", "nodeupdate", "PseudoRandom",
 	"VoxelManip", "VoxelArea",
