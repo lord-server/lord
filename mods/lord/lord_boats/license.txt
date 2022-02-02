@@ -1,0 +1,27 @@
+Authors of source code:
+-----------------------
+Original Author(s):
+	PlizAdam [boats] (LGPL v2.1)
+		https://github.com/PilzAdam/boats
+Modifications By:
+	deasanta [ds_sailboat / ds_rowboat] (WTFPL)
+		https://github.com/deasanta/minetest-deasanta
+	NeXt [ds_sailboat / ds_rowboat] (WTFPL)
+		https://github.com/deasanta/minetest-deasanta
+LOTT Modifications By:
+	Amaz (LGPL v2.1)
+Cruise mode is based on minetest_game/boats
+	https://github.com/minetest/minetest_game/tree/master/mods/boats
+
+
+Authors of media files
+-----------------------
+deasanta (WTFPL)
+	rowboat.b3d (converted to rowboat.obj)
+	sailboat.b3d (converted to sailboat.obj)
+
+	rowboat_inventory.png
+	rowboat_wield.png
+	sailboat.png
+	sailboat_inventory.png
+	sailboat_wield.png
