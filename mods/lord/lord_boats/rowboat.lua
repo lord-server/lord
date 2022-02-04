@@ -264,7 +264,6 @@ minetest.register_craftitem("lord_boats:row_boat", {
 			return itemstack
 		end
 		pointed_thing.under.y = pointed_thing.under.y + 0.5
-		minetest.chat_send_all(dump(pointed_thing.under))
 		row_boat = minetest.add_entity(pointed_thing.under, "lord_boats:row_boat")
 		if row_boat then
 			if placer then

@@ -18,16 +18,16 @@ local migrate_entities = {
 }
 
 for i, entity_name in ipairs(migrate_entities) do
-  local old_entitie = entity_name[1]
-  local new_entitie = entity_name[2]
+  local old_entity = entity_name[1]
+  local new_entity = entity_name[2]
 
-  minetest.register_entity(":" .. old_entitie, {
+  minetest.register_entity(":" .. old_entity, {
       on_activate = function(self, staticdata)
           local pos = self.object:get_pos()
           local pos_log = minetest.pos_to_string(pos)
           self.object:remove()
-          minetest.add_entity(pos, new_entitie)
-          minetest.log("none", pos_log .. " " .. old_entitie .. " was replaced with " .. new_entitie)
+          minetest.add_entity(pos, new_entity)
+          minetest.log("none", pos_log .. " " .. old_entity .. " was replaced with " .. new_entity)
       end,
   })
 
