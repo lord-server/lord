@@ -7,6 +7,13 @@ mobs.mod = "redo"
 -- Intllib
 local S
 
+local function mob_is_dead(self)
+	if not self.object:get_pos() then
+		return true
+	end
+	return false
+end
+
 if minetest.get_modpath("intllib") then
 	S = intllib.make_gettext_pair()
 else
@@ -452,8 +459,7 @@ end
 
 -- environmental damage (water, lava, fire, light)
 do_env_damage = function(self)
-	if not self.object:get_pos() then
-		-- mob is dead
+	if mob_is_dead(self) then
 		return
 	end
 
@@ -546,10 +552,8 @@ end
 
 -- jump if facing a solid node (not fences or gates)
 do_jump = function(self)
-
-	if not self.object:get_pos() then
-		-- mob is dead
-		return false
+	if mob_is_dead(self) then
+		return
 	end
 
 	if not self.jump
@@ -823,6 +827,9 @@ end
 
 -- find and replace what mob is looking for (grass, wheat etc.)
 function replace(self, pos)
+	if mob_is_dead(self) then
+		return
+	end
 
 	if not self.replace_rate
 	or not self.replace_what
@@ -882,6 +889,9 @@ end
 
 -- path finding and smart mob routine by rnd
 function smart_mobs(self, s, p, dist, dtime)
+	if mob_is_dead(self) then
+		return
+	end
 
 	local s1 = self.path.lastpos
 
@@ -1055,9 +1065,7 @@ end
 
 -- mob find someone to attack
 local mob_attack = function(self)
-
-	if not self.object:get_pos() then
-		-- mob is dead
+	if mob_is_dead(self) then
 		return
 	end
 
@@ -1126,9 +1134,7 @@ end
 
 -- follow player if owner or holding item, if fish outta water then flop
 local follow_flop = function(self)
-
-	if not self.object:get_pos() then
-		-- mob is dead
+	if mob_is_dead(self) then
 		return
 	end
 
@@ -1277,12 +1283,11 @@ end
 
 -- execute current state (stand, walk, run, attacks)
 local do_states = function(self, dtime)
-
-	local yaw = 0
-	if not self.object:get_pos() then
-		-- mob is dead
+	if mob_is_dead(self) then
 		return
 	end
+
+	local yaw = 0
 
 	if self.state == "stand" then
 
@@ -1786,6 +1791,9 @@ end
 
 -- falling and fall damage
 local falling = function(self, pos)
+	if mob_is_dead(self) then
+		return
+	end
 
 	if self.fly then
 		return
@@ -2108,6 +2116,9 @@ end
 
 -- activate mob and reload settings
 local mob_activate = function(self, staticdata, def)
+	if mob_is_dead(self) then
+		return
+	end
 
 	-- remove monsters in peaceful mode, or when no data
 	if (self.type == "monster" and peaceful_only) then
@@ -2213,6 +2224,9 @@ end
 
 -- main mob function
 local mob_step = function(self, dtime)
+	if mob_is_dead(self) then
+		return
+	end
 
 	local pos = self.object:get_pos()
 	local yaw = 0
