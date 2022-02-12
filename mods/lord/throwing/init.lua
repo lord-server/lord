@@ -416,11 +416,14 @@ local function near_owner(arrow)
 	if not arrow.object:get_pos() then
 		return false
 	end
-	if not arrow.owner:get_pos() then
-		return false
-	end
 
 	local owner_type = arrow.owner_type
+	if owner_type == "player" or owner_type == "entity" then
+		if not arrow.owner:get_pos() then
+			return false
+		end
+	end
+
 	local box = {}
 	local collision_box
 	if owner_type == "player" then
