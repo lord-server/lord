@@ -438,12 +438,12 @@ local function near_owner(arrow)
 		end
 		collision_box = entity.collisionbox
 	elseif owner_type == "node" then
-		collision_box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
+		box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
 	else
 		return false
 	end
 
-	if collision_box == nil then
+	if box == nil then
 		minetest.log("Collision box == nil")
 		return false
 	end
@@ -463,16 +463,6 @@ local function near_owner(arrow)
 
 		return false
 	else
-		local lpos = arrow.launch_pos
-		box[1] = collision_box[1] + lpos.x
-		box[4] = collision_box[4] + lpos.x
-
-		box[2] = collision_box[2] + lpos.y
-		box[5] = collision_box[5] + lpos.y
-
-		box[3] = collision_box[3] + lpos.z
-		box[6] = collision_box[6] + lpos.z
-
 		if pos.x < box[1] or pos.x > box[4] then
 			return false
 		end
