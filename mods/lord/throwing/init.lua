@@ -453,6 +453,7 @@ local function near_owner(arrow)
 
 	if owner_type == "player" or owner_type == "entity" then
 		local ppos = arrow.owner:get_pos()
+		local lpos = arrow.launch_pos
 		if math.abs(ppos.x-pos.x) < max_dist and math.abs(ppos.y-pos.y) < max_dist and math.abs(ppos.z-pos.z) < max_dist then
 			return true
 		end
