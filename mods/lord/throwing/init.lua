@@ -438,22 +438,21 @@ local function near_owner(arrow)
 		end
 		collision_box = entity.collisionbox
 	elseif owner_type == "node" then
-		box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
+		collision_box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
 	else
 		return false
 	end
 
-	if box == nil then
+	if collision_box == nil then
 		minetest.log("Collision box == nil")
 		return false
 	end
 
 	local max_dist = 6
 	local pos = arrow.object:get_pos()
-	local ppos = arrow.owner:getpos()
-	local lpos = arrow.launch_pos
 
 	if owner_type == "player" or owner_type == "entity" then
+		local ppos = arrow.owner:get_pos()
 		if math.abs(ppos.x-pos.x) < max_dist and math.abs(ppos.y-pos.y) < max_dist and math.abs(ppos.z-pos.z) < max_dist then
 			return true
 		end
@@ -464,14 +463,15 @@ local function near_owner(arrow)
 
 		return false
 	else
-		box[1] = collision_box[1] + ppos.x
-		box[4] = collision_box[4] + ppos.x
+		local lpos = arrow.launch_pos
+		box[1] = collision_box[1] + lpos.x
+		box[4] = collision_box[4] + lpos.x
 
-		box[2] = collision_box[2] + ppos.y
-		box[5] = collision_box[5] + ppos.y
+		box[2] = collision_box[2] + lpos.y
+		box[5] = collision_box[5] + lpos.y
 
-		box[3] = collision_box[3] + ppos.z
-		box[6] = collision_box[6] + ppos.z
+		box[3] = collision_box[3] + lpos.z
+		box[6] = collision_box[6] + lpos.z
 
 		if pos.x < box[1] or pos.x > box[4] then
 			return false
