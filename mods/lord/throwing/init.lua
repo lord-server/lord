@@ -418,52 +418,12 @@ local function near_owner(arrow)
 	end
 
 	local owner_type = arrow.owner_type
-	if owner_type == "player" or owner_type == "entity" then
-		if not arrow.owner:get_pos() then
-			return false
-		end
-	end
-
-	local box = {}
-	local collision_box
-	if owner_type == "player" then
-		collision_box = arrow.owner:get_properties().collisionbox
-	elseif owner_type == "entity" then
-		local entity = arrow.owner:get_luaentity()
-		if entity == nil then
-			minetest.log("entity is nil!")
-			minetest.log("is_player = "..tostring(arrow.owner:is_player()))
-			minetest.log(tostring(arrow.owner))
-			return false
-		end
-		collision_box = entity.collisionbox
-	elseif owner_type == "node" then
-		box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
-	else
-		return false
-	end
-
-	if box == nil then
-		minetest.log("Collision box == nil")
-		return false
-	end
-
-	local max_dist = 6
 	local pos = arrow.object:get_pos()
 
-	if owner_type == "player" or owner_type == "entity" then
-		local ppos = arrow.owner:get_pos()
-		local lpos = arrow.launch_pos
-		if math.abs(ppos.x-pos.x) < max_dist and math.abs(ppos.y-pos.y) < max_dist and math.abs(ppos.z-pos.z) < max_dist then
-			return true
-		end
+	if owner_type == "node" then
+		local box = {arrow.owner.x-0.5,arrow.owner.y-0.5,arrow.owner.z-0.5,
+			     arrow.owner.x+0.5,arrow.owner.y+0.5,arrow.owner.z+0.5}
 
-		if math.abs(lpos.x-pos.x) < max_dist and math.abs(lpos.y-pos.y) < max_dist and math.abs(lpos.z-pos.z) < max_dist then
-			return true
-		end
-
-		return false
-	else
 		if pos.x < box[1] or pos.x > box[4] then
 			return false
 		end
@@ -477,6 +437,24 @@ local function near_owner(arrow)
 		end
 
 		return true
+	else
+		local max_dist = 6
+
+		local ppos = arrow.owner:get_pos()
+		if not ppos then
+			return false
+		end
+
+		local lpos = arrow.launch_pos
+		if math.abs(ppos.x-pos.x) < max_dist and math.abs(ppos.y-pos.y) < max_dist and math.abs(ppos.z-pos.z) < max_dist then
+			return true
+		end
+
+		if math.abs(lpos.x-pos.x) < max_dist and math.abs(lpos.y-pos.y) < max_dist and math.abs(lpos.z-pos.z) < max_dist then
+			return true
+		end
+
+		return false
 	end
 end
 
