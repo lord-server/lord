@@ -291,20 +291,20 @@ minetest.register_on_player_receive_fields(
 
 		elseif fields.quit then -- выход с формы, возвращаем остатки игроку в инвентарь
 			for _,list in pairs({"customer_gives", "customer_gets"}) do
-			  if not pinv:is_empty(list) then
-			    for i, stack in ipairs(pinv:get_list(list)) do
-			      if pinv:room_for_item("main", stack) then
-			        pinv:add_item("main", stack) -- если помещается, кидаем в main,
-			      else
-			        minetest.log(
-			          "action",
-			          "магазин " .. pos .. " - игрок " .. name ..
-			          " инвентарь полон, товар " .. stack:get_name() .. " бросили рядом")
-			        minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
-			      end
-			      pinv:set_stack(list, i, nil) -- Удаляем элемент i из list
-			    end
-			  end
+				if not pinv:is_empty(list) then
+					for i, stack in ipairs(pinv:get_list(list)) do
+						if pinv:room_for_item("main", stack) then
+							pinv:add_item("main", stack) -- если помещается, кидаем в main,
+						else
+							minetest.log(
+								"action",
+								"магазин " .. pos .. " - игрок " .. name ..
+								" инвентарь полон, товар " .. stack:get_name() .. " бросили рядом")
+							minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
+						end
+						pinv:set_stack(list, i, nil) -- Удаляем элемент i из list
+					end
+				end
 			end
 		end
 
