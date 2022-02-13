@@ -114,9 +114,9 @@ local function filter_by_search(find, lang_code)
 		local description_player_lang = minetest.get_translated_string(lang_code, description_en)
 
 		if
-			string.find(name, find) or
-			string.find(string.lower(description_en), find) or
-			string.find(string.lower(description_player_lang), find)
+			string.find(name, find, nil, true) or
+			string.find(string.lower(description_en), find, nil, true) or
+			string.find(string.lower(description_player_lang), find, nil, true)
 		then
 			table.insert(filtered_list, name)
 		end
