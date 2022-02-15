@@ -94,3 +94,6 @@ end
 
 register_candle_lamp("gold", "Gold", "default:gold_ingot")
 register_candle_lamp("bronze", "Bronze", "default:bronze_ingot")
+register_candle_lamp("steel", "Steel", "default:steel_ingot")
+register_candle_lamp("silver", "Silver", "lottores:silver_ingot")
+register_candle_lamp("tin", "Tin", "lottores:tin_ingot")
