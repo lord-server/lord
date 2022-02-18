@@ -25,7 +25,7 @@ lord_homedecor.register("stained_glass", {
 	tiles = {"homedecor_stained_glass.png"},
 	inventory_image = "homedecor_stained_glass.png",
 	groups = {snappy=3},
-	use_texture_alpha = true,
+	use_texture_alpha = "blend",
 	light_source = 3,
 	sounds = default.node_sound_glass_defaults(),
 	node_box = {

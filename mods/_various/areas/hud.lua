@@ -7,7 +7,7 @@ areas.hud = {}
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
-		local pos = vector.round(player:getpos())
+		local pos = vector.round(player:get_pos())
 		local areaStrings = {}
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
 			table.insert(areaStrings, ("%s [%u] (%s%s)")

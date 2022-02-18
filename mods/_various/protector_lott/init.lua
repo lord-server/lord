@@ -196,7 +196,7 @@ function protector.drop_wielded_item(digger)
 		player:set_wielded_item("")
 	else
 		local itemstack = player:get_wielded_item()
-		minetest.item_drop(itemstack, player, player:getpos()) -- Drop entire itemstack
+		minetest.item_drop(itemstack, player, player:get_pos()) -- Drop entire itemstack
 		player:set_wielded_item("") -- Remove itemstack from inventory
 	end
 end
@@ -368,7 +368,7 @@ minetest.register_entity("protector_lott:display", {
 local x = protector.radius
 minetest.register_node("protector_lott:display_node", {
 	tiles = {"protector_display.png"},
-	use_texture_alpha = true,
+	use_texture_alpha = "clip",
 	walkable = false,
 	drawtype = "nodebox",
 	node_box = {
@@ -412,7 +412,7 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 			end
 
 			-- no pvp at spawn area
-			local pos = player:getpos()
+			local pos = player:get_pos()
 			if pos.x < statspawn.x + protector.spawn
 			and pos.x > statspawn.x - protector.spawn
 			and pos.y < statspawn.y + protector.spawn

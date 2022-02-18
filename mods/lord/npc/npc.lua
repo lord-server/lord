@@ -107,7 +107,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				if inv:room_for_item("main", new_stack) then
 					inv:add_item("main", new_stack)
 				else
-					minetest.add_item(clicker:getpos(), new_stack)
+					minetest.add_item(clicker:get_pos(), new_stack)
 				end
 
 				self.object:remove()
@@ -127,13 +127,13 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 end)
 
 local function face_pos(self, pos)
-	local s = self.object:getpos()
+	local s = self.object:get_pos()
 	local vec = {x=pos.x-s.x, y=pos.y-s.y, z=pos.z-s.z}
 	local yaw = math.atan2(vec.z,vec.x)-math.pi/2
 	if self.drawtype == "side" then
 		yaw = yaw+(math.pi/2)
 	end
-	self.object:setyaw(yaw)
+	self.object:set_yaw(yaw)
 	return yaw
 end
 
@@ -141,7 +141,7 @@ local function interact_infomob(self, clicker)
 	local player = clicker:get_player_name()
 	local can_edit = minetest.get_player_privs(player)[npc.required_priv]
 	if can_edit or self.face_user then
-		face_pos(self, clicker:getpos())
+		face_pos(self, clicker:get_pos())
 	end
 	npc.player_mobs[player] = self
 	self:show_main(clicker)

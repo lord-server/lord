@@ -92,11 +92,11 @@ function lottmobs.register_horse(name, craftitem, horse)
 	end
 
 	function horse:on_step(dtime)
-		local p         = self.object:getpos()
+		local p         = self.object:get_pos()
 		p.y             = p.y - 0.1
 		local on_ground = is_ground(p)
 
-		self.v          = get_v(self.object:getvelocity()) * get_sign(self.v)
+		self.v          = get_v(self.object:get_velocity()) * get_sign(self.v)
 
 		-- driver controls
 		if self.driver then
@@ -104,21 +104,21 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 			-- rotation (the faster we go, the less we rotate)
 			if ctrl.left then
-				self.object:setyaw(
-					self.object:getyaw()
+				self.object:set_yaw(
+					self.object:get_yaw()
 						+ 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90
 						+ dtime * math.pi / 90
 				)
 			end
 			if ctrl.right then
-				self.object:setyaw(
-					self.object:getyaw()
+				self.object:set_yaw(
+					self.object:get_yaw()
 						- 2 * (1.5 - math.abs(self.v / self.max_speed)) * math.pi / 90
 						- dtime * math.pi / 90)
 			end
 			-- jumping (only if on ground)
 			if ctrl.jump and on_ground then
-				local v = self.object:getvelocity()
+				local v = self.object:get_velocity()
 				v.y     = (self.jump_speed or 3)
 				self.object:setvelocity(v)
 			end
@@ -162,44 +162,44 @@ function lottmobs.register_horse(name, craftitem, horse)
 			self.v = self.max_speed * get_sign(self.v)
 		end
 
-		p   = self.object:getpos()
+		p   = self.object:get_pos()
 		p.y = p.y + 1
 		if not is_ground(p) then
 			if minetest.registered_nodes[minetest.get_node(p).name].walkable then
 				self.v = 0
 			end
-			self.object:setacceleration({ x = 0, y = -10, z = 0 })
-			self.object:setvelocity(get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y))
+			self.object:set_acceleration({ x = 0, y = -10, z = 0 })
+			self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
 		else
-			self.object:setacceleration({ x = 0, y = 0, z = 0 })
+			self.object:set_acceleration({ x = 0, y = 0, z = 0 })
 			-- falling
-			if math.abs(self.object:getvelocity().y) < 1 then
-				local pos = self.object:getpos()
+			if math.abs(self.object:get_velocity().y) < 1 then
+				local pos = self.object:get_pos()
 				pos.y     = math.floor(pos.y) + 0.5
 				self.object:setpos(pos)
-				self.object:setvelocity(get_velocity(self.v, self.object:getyaw(), 0))
+				self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), 0))
 			else
-				self.object:setvelocity(get_velocity(self.v, self.object:getyaw(), self.object:getvelocity().y))
+				self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
 			end
 		end
 
-		if self.object:getvelocity().y > 0.1 then
-			local yaw = self.object:getyaw()
+		if self.object:get_velocity().y > 0.1 then
+			local yaw = self.object:get_yaw()
 			if self.drawtype == "side" then
 				yaw = yaw + (math.pi / 2)
 			end
 			local x = math.sin(yaw) * -2
 			local z = math.cos(yaw) * 2
-			if minetest.get_item_group(minetest.get_node(self.object:getpos()).name, "water") ~= 0 then
-				self.object:setacceleration({ x = x, y = 2, z = z })
+			if minetest.get_item_group(minetest.get_node(self.object:get_pos()).name, "water") ~= 0 then
+				self.object:set_acceleration({ x = x, y = 2, z = z })
 			else
-				self.object:setacceleration({ x = x, y = -5, z = z })
+				self.object:set_acceleration({ x = x, y = -5, z = z })
 			end
 		else
-			if minetest.get_item_group(minetest.get_node(self.object:getpos()).name, "water") ~= 0 then
-				self.object:setacceleration({ x = 0, y = 2, z = 0 })
+			if minetest.get_item_group(minetest.get_node(self.object:get_pos()).name, "water") ~= 0 then
+				self.object:set_acceleration({ x = 0, y = 2, z = 0 })
 			else
-				self.object:setacceleration({ x = 0, y = -5, z = 0 })
+				self.object:set_acceleration({ x = 0, y = -5, z = 0 })
 			end
 		end
 
@@ -230,7 +230,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 					clicker:set_attach(self.object, "", { x = 0, y = attach_h, z = 0 }, { x = 0, y = attach_r, z = 0 })
 
 					player_api.player_attached[clicker:get_player_name()] = true
-					self.object:setyaw(clicker:get_look_yaw())
+					self.object:set_yaw(clicker:get_look_yaw())
 					self.ridername = clicker:get_player_name()
 
 					if self.offset == true then
@@ -281,7 +281,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 				puncher:get_inventory():add_item("main", name)
 				self.object:remove()
 			elseif self.aggressive == true then
-				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
+				local objs = minetest.get_objects_inside_radius(self.object:get_pos(), 4)
 				for _, obj in ipairs(objs) do
 					if obj:is_player() and puncher:get_player_name() == obj:get_player_name() then
 						self.underattack = true
@@ -298,7 +298,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 		else
 			if puncher and self.aggressive == true then
-				local objs = minetest.get_objects_inside_radius(self.object:getpos(), 4)
+				local objs = minetest.get_objects_inside_radius(self.object:get_pos(), 4)
 				for _, obj in ipairs(objs) do
 					if puncher:get_luaentity() == obj:get_luaentity() then
 						self.underattack = true
@@ -523,7 +523,7 @@ mobs:register_mob("lottmobs:horse", {
 				)
 				return
 			end
-			minetest.add_entity(self.object:getpos(), "lottmobs:horseh1")
+			minetest.add_entity(self.object:get_pos(), "lottmobs:horseh1")
 			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
@@ -587,7 +587,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 				)
 				return
 			end
-			minetest.add_entity(self.object:getpos(), "lottmobs:horsepegh1")
+			minetest.add_entity(self.object:get_pos(), "lottmobs:horsepegh1")
 			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
@@ -651,7 +651,7 @@ mobs:register_mob("lottmobs:horseara", {
 				)
 				return
 			end
-			minetest.add_entity(self.object:getpos(), "lottmobs:horsearah1")
+			minetest.add_entity(self.object:get_pos(), "lottmobs:horsearah1")
 			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
@@ -718,7 +718,7 @@ mobs:register_mob("lottmobs:shirepony", {
 				)
 				return
 			end
-			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyh1")
+			minetest.add_entity(self.object:get_pos(), "lottmobs:shireponyh1")
 			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
@@ -785,7 +785,7 @@ mobs:register_mob("lottmobs:shireponyblack", {
 				)
 				return
 			end
-			minetest.add_entity(self.object:getpos(), "lottmobs:shireponyblackh1")
+			minetest.add_entity(self.object:get_pos(), "lottmobs:shireponyblackh1")
 			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)

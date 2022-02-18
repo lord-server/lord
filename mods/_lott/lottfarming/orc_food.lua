@@ -32,7 +32,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		if inv:room_for_item("main", "lottfarming:bowl") then
 			inv:add_item("main", "lottfarming:bowl")
 		else
-			minetest.item_drop(ItemStack("lottfarming:bowl"), user, user:getpos())
+			minetest.item_drop(ItemStack("lottfarming:bowl"), user, user:get_pos())
 		end
 		return itemstack
 	end,
@@ -77,7 +77,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 		if inv:room_for_item("main", "vessels:drinking_glass") then
 			inv:add_item("main", "vessels:drinking_glass")
 		else
-			minetest.item_drop(ItemStack("vessels:drinking_glass"), user, user:getpos())
+			minetest.item_drop(ItemStack("vessels:drinking_glass"), user, user:get_pos())
 		end
 		return itemstack
 	end,

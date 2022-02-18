@@ -168,9 +168,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local chulens = {x=sidelen, y=sidelen, z=sidelen}
 	local minposxz = {x=x0, y=z0}
 
-	local nvals_temp = minetest.get_perlin_map(np_temp, chulens):get2dMap_flat(minposxz)
-	local nvals_humid = minetest.get_perlin_map(np_humid, chulens):get2dMap_flat(minposxz)
-	local nvals_random = minetest.get_perlin_map(np_random, chulens):get2dMap_flat(minposxz)
+	local nvals_temp = minetest.get_perlin_map(np_temp, chulens):get_2d_map_flat(minposxz)
+	local nvals_humid = minetest.get_perlin_map(np_humid, chulens):get_2d_map_flat(minposxz)
+	local nvals_random = minetest.get_perlin_map(np_random, chulens):get_2d_map_flat(minposxz)
 
 	local nixz = 1
 	for z = z0, z1 do

@@ -87,7 +87,7 @@ worldedit.mark_region = function(name)
 				visual_size={x=sizez * 2, y=sizey * 2},
 				collisionbox = {-thickness, -sizey, -sizez, thickness, sizey, sizez},
 			})
-			marker:setyaw(math.pi / 2)
+			marker:set_yaw(math.pi / 2)
 			marker:get_luaentity().player_name = name
 			table.insert(markers, marker)
 		end
