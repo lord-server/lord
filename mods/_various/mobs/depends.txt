@@ -1,5 +1,0 @@
-default
-lordlib
-throwing
-factions
-lord_classes

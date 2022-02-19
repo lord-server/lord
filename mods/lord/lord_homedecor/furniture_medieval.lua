@@ -95,7 +95,7 @@ lord_homedecor.register("wall_lamp", {
 	mesh = "homedecor_wall_lamp.obj",
 	tiles = {"homedecor_generic_metal_black.png^[brighten", "homedecor_generic_wood_luxury.png^[colorize:#000000:30",
 			"homedecor_light.png", "homedecor_generic_metal_wrought_iron.png"},
-	use_texture_alpha = true,
+	use_texture_alpha ="clip",
 	inventory_image = "homedecor_wall_lamp_inv.png",
 	groups = {snappy=3},
 	light_source = 11,

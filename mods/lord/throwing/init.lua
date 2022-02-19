@@ -335,11 +335,11 @@ local function hit_objects(pos1, pos2, arrow)
 			local ptype
 			if player:is_player() then
 				collision_box = player:get_properties().collisionbox
-				ppos = player:getpos()
+				ppos = player:get_pos()
 				ptype = "player"
 			else
 				collision_box = player:get_luaentity().collisionbox
-				ppos = player:getpos()
+				ppos = player:get_pos()
 				ptype = "entity"
 			end
 

@@ -291,7 +291,7 @@ mobs:register_mob("lottmobs:chicken", {
 			end
 			self.gotten = true -- shaved
 			local obj = minetest.add_item(
-				self.object:getpos(),
+				self.object:get_pos(),
 				ItemStack( "wool:" .. col[1] .. " " .. math.random(1, 3) )
 			)
 			if obj then

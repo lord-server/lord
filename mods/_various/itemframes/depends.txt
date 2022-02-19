@@ -1,6 +1,0 @@
-default
-lottmapgen
-castle
-lottores
-lottblocks
-lordlib

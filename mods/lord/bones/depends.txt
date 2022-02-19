@@ -1,4 +1,0 @@
-default
-lord_classes
-lottarmor
-lordlib

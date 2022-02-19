@@ -111,11 +111,11 @@ end
 -- move mob in facing direction
 set_velocity = function(self, v)
 
-	local yaw = self.object:getyaw() + self.rotate
+	local yaw = self.object:get_yaw() + self.rotate
 
 	self.object:set_velocity({
 		x = sin(yaw) * -v,
-		y = self.object:getvelocity().y,
+		y = self.object:get_velocity().y,
 		z = cos(yaw) * v
 	})
 end
@@ -124,7 +124,7 @@ end
 -- get overall speed of mob
 get_velocity = function(self)
 
-	local v = self.object:getvelocity()
+	local v = self.object:get_velocity()
 
 	return (v.x * v.x + v.z * v.z) ^ 0.5
 end
@@ -425,7 +425,7 @@ local function is_at_cliff(self)
 		return false
 	end
 
-	local yaw = self.object:getyaw()
+	local yaw = self.object:get_yaw()
 	local dir_x = -sin(yaw) * (self.collisionbox[4] + 0.5)
 	local dir_z = cos(yaw) * (self.collisionbox[4] + 0.5)
 	local pos = self.object:get_pos()
@@ -566,7 +566,7 @@ do_jump = function(self)
 	-- something stopping us while moving?
 	if self.state ~= "stand"
 	and get_velocity(self) > 0.5
-	and self.object:getvelocity().y ~= 0 then
+	and self.object:get_velocity().y ~= 0 then
 		return false
 	end
 
@@ -607,7 +607,7 @@ do_jump = function(self)
 	and not nod.name:find("gate"))
 	or self.walk_chance == 0 then
 
-		local v = self.object:getvelocity()
+		local v = self.object:get_velocity()
 
 		v.y = self.jump_height -- + 1
 
@@ -834,7 +834,7 @@ function replace(self, pos)
 	if not self.replace_rate
 	or not self.replace_what
 	or self.child == true
-	or self.object:getvelocity().y ~= 0
+	or self.object:get_velocity().y ~= 0
 	or random(1, self.replace_rate) > 1 then
 		return
 	end
@@ -984,7 +984,7 @@ function smart_mobs(self, s, p, dist, dtime)
 
 				else -- dig 2 blocks to make door toward player direction
 
-					local yaw1 = self.object:getyaw() + pi / 2
+					local yaw1 = self.object:get_yaw() + pi / 2
 					local p1 = {
 						x = s.x + cos(yaw1),
 						y = s.y,
@@ -1213,7 +1213,7 @@ local follow_flop = function(self)
 
 				if p.x > s.x then yaw = yaw + pi end
 
-				self.object:setyaw(yaw)
+				self.object:set_yaw(yaw)
 
 				-- anyone but standing npc's can move along
 				if dist > self.reach
@@ -1320,7 +1320,7 @@ local do_states = function(self, dtime)
 				yaw = (random(0, 360) - 180) / 180 * pi
 			end
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 		end
 
 		set_velocity(self, 0)
@@ -1341,7 +1341,7 @@ local do_states = function(self, dtime)
 				-- fly up/down randombly for flying mobs
 				if self.fly and random(1, 100) <= self.walk_chance then
 
-					local v = self.object:getvelocity()
+					local v = self.object:get_velocity()
 					local ud = random(-1, 2) / 9
 
 					self.object:set_velocity({x = v.x, y = ud, z = v.z})
@@ -1393,7 +1393,7 @@ local do_states = function(self, dtime)
 					if lp.x > s.x then yaw = yaw + pi end
 
 						-- look towards land and jump/move in that direction
-						self.object:setyaw(yaw)
+						self.object:set_yaw(yaw)
 						do_jump(self)
 						set_velocity(self, self.walk_velocity)
 				else
@@ -1412,14 +1412,14 @@ local do_states = function(self, dtime)
 				if lp.x > s.x then yaw = yaw + pi end
 			end
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 
 		-- otherwise randomly turn
 		elseif random(1, 100) <= 30 then
 
 			yaw = random() * 2 * pi
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 		end
 
 		-- stand for great fall in front
@@ -1499,7 +1499,7 @@ local do_states = function(self, dtime)
 
 			if p.x > s.x then yaw = yaw + pi end
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 
 			if dist > self.reach then
 
@@ -1581,7 +1581,7 @@ local do_states = function(self, dtime)
 				local me_y = floor(p1.y)
 				local p2 = p
 				local p_y = floor(p2.y + 1)
-				local v = self.object:getvelocity()
+				local v = self.object:get_velocity()
 
 				if flight_check(self, s) then
 
@@ -1659,7 +1659,7 @@ local do_states = function(self, dtime)
 
 			if p.x > s.x then yaw = yaw + pi end
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 
 			-- move towards enemy if beyond mob reach
 			if dist > self.reach then
@@ -1758,7 +1758,7 @@ local do_states = function(self, dtime)
 
 			if p.x > s.x then yaw = yaw + pi end
 
-			self.object:setyaw(yaw)
+			self.object:set_yaw(yaw)
 
 			set_velocity(self, 0)
 
@@ -1800,12 +1800,12 @@ local falling = function(self, pos)
 	end
 
 	-- floating in water (or falling)
-	local v = self.object:getvelocity()
+	local v = self.object:get_velocity()
 
 	-- going up then apply gravity
 	if v.y > 0.1 then
 
-		self.object:setacceleration({
+		self.object:set_acceleration({
 			x = 0,
 			y = self.fall_speed,
 			z = 0
@@ -1817,7 +1817,7 @@ local falling = function(self, pos)
 
 		if self.floats == 1 then
 
-			self.object:setacceleration({
+			self.object:set_acceleration({
 				x = 0,
 				y = -self.fall_speed / (max(1, v.y) ^ 2),
 				z = 0
@@ -1825,7 +1825,7 @@ local falling = function(self, pos)
 		end
 	else
 		-- fall downwards
-		self.object:setacceleration({
+		self.object:set_acceleration({
 			x = 0,
 			y = self.fall_speed,
 			z = 0
@@ -1833,7 +1833,7 @@ local falling = function(self, pos)
 
 		-- fall damage
 		if self.fall_damage == 1
-		and self.object:getvelocity().y == 0 then
+		and self.object:get_velocity().y == 0 then
 
 			local d = (self.old_y or 0) - self.object:get_pos().y
 
@@ -1985,7 +1985,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 		if self.knock_back > 0
 		and tflp > punch_interval then
 
-			local v = self.object:getvelocity()
+			local v = self.object:get_velocity()
 			local r = 1.4 - min(punch_interval, 1.4)
 			local kb = r * 5
 			local up = 2
@@ -2027,7 +2027,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 			yaw = yaw + pi
 		end
 
-		self.object:setyaw(yaw)
+		self.object:set_yaw(yaw)
 		self.state = "runaway"
 		self.runaway_timer = 0
 		self.following = nil
@@ -2217,7 +2217,7 @@ local mob_activate = function(self, staticdata, def)
 
 	-- set anything changed above
 	self.object:set_properties(self)
-	self.object:setyaw((random(0, 360) - 180) / 180 * pi)
+	self.object:set_yaw((random(0, 360) - 180) / 180 * pi)
 	update_tag(self)
 end
 

@@ -121,7 +121,7 @@ minetest.register_on_dieplayer(function(player)
 
 	if races.list[race].no_corpse then return end
 
-	local pos = player:getpos()
+	local pos = player:get_pos()
 	pos.x = math.floor(pos.x+0.5)
 	pos.y = math.floor(pos.y+0.5)
 	pos.z = math.floor(pos.z+0.5)

@@ -31,7 +31,7 @@ end
 
 local player_shoot_throwing_weapon = function(item, player, pointed_thing)
 
-	local playerpos = player:getpos()
+	local playerpos = player:get_pos()
 	local dir = player:get_look_dir()
 
 	throwing:shoot(player, "player", item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0)

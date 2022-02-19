@@ -1,9 +1,0 @@
-stairs
-doors
-lottplants
-default
-dye
-lord_overwrites_mtg_default
-lord_classes
-lordlib
-worldedit

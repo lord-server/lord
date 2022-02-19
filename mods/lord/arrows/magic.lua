@@ -63,27 +63,27 @@ throwing:register_arrow("arrows:darkball", {
 	arrow_type        = "magic",
 	drop_on_punch     = true,
 	hit_player        = function(self, player)
-		local s   = self.object:getpos()
-		local p   = player:getpos()
+		local s   = self.object:get_pos()
+		local p   = player:get_pos()
 		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 		player:punch(self.object, 1.0, {
 			full_punch_interval = 1.0,
 			damage_groups       = { fleshy = 4 },
 		}, vec)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
 		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
 		flame_area(p1, p2)
 	end,
 	hit_mob           = function(self, mob)
-		local s   = self.object:getpos()
-		local p   = mob:getpos()
+		local s   = self.object:get_pos()
+		local p   = mob:get_pos()
 		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 		mob:punch(self.object, 1.0, {
 			full_punch_interval = 1.0,
 			damage_groups       = { fleshy = 4 },
 		}, vec)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
 		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
 		flame_area(p1, p2)
@@ -124,14 +124,14 @@ throwing:register_arrow("arrows:fireball", {
 	expire            = 0.1,
 
 	hit_player        = function(self, player)
-		local s   = self.object:getpos()
-		local p   = player:getpos()
+		local s   = self.object:get_pos()
+		local p   = player:get_pos()
 		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 		player:punch(self.object, 1.0, {
 			full_punch_interval = 1.0,
 			damage_groups       = { fleshy = 4 },
 		}, vec)
-		local pos = self.object:getpos()
+		local pos = self.object:get_pos()
 		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
 		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
 		flame_area(p1, p2)

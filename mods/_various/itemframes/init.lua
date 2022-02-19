@@ -82,7 +82,7 @@ local update_item = function(pos, node)
 		local e = minetest.add_entity(pos,"itemframes:item")
 		if node.name == "itemframes:frame" then
 			local yaw = math.pi*2 - node.param2 * math.pi/2
-			e:setyaw(yaw)
+			e:set_yaw(yaw)
 		end
 	end
 end

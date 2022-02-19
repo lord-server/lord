@@ -169,7 +169,7 @@ minetest.register_chatcommand("/pos1", {
 	description = SL("Set WorldEdit region position 1 to the player's location"),
 	privs = {worldedit=true},
 	func = function(name, param)
-		local pos = minetest.get_player_by_name(name):getpos()
+		local pos = minetest.get_player_by_name(name):get_pos()
 		pos.x, pos.y, pos.z = math.floor(pos.x + 0.5), math.floor(pos.y + 0.5), math.floor(pos.z + 0.5)
 		worldedit.pos1[name] = pos
 		worldedit.mark_pos1(name)
@@ -182,7 +182,7 @@ minetest.register_chatcommand("/pos2", {
 	description = SL("Set WorldEdit region position 2 to the player's location"),
 	privs = {worldedit=true},
 	func = function(name, param)
-		local pos = minetest.get_player_by_name(name):getpos()
+		local pos = minetest.get_player_by_name(name):get_pos()
 		pos.x, pos.y, pos.z = math.floor(pos.x + 0.5), math.floor(pos.y + 0.5), math.floor(pos.z + 0.5)
 		worldedit.pos2[name] = pos
 		worldedit.mark_pos2(name)
