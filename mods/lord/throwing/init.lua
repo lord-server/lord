@@ -551,11 +551,11 @@ local function arrow_step(self, dtime)
 		end
 		local acc = acceleration(vel, k, self.definition.mass)
 		self.object:set_acceleration(acc)
-	end
-	self.lastpos = pos
+		self.lastpos = pos
 
-	if (not self.launched) and (not near_owner(self)) then
-		self.launched = true
+		if (not self.launched) and (not near_owner(self)) then
+			self.launched = true
+		end
 	end
 end
 
