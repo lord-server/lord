@@ -148,20 +148,24 @@ local function hit_player(player, arrow, callback, owner_id, collision)
 	end
 	local s   = collision
 	local p   = player:get_pos()
-	local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 
-	local puncher
-	if arrow.owner_type == "player" or arrow.owner_type == "entity" then
-		puncher = arrow.owner
-	else
-		puncher = arrow.object
+	if p then
+		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
+
+		local puncher
+		if arrow.owner_type == "player" or arrow.owner_type == "entity" then
+			puncher = arrow.owner
+		else
+			puncher = arrow.object
+		end
+		player:punch(puncher, 1.0, {
+			full_punch_interval = 1.0,
+			damage_groups       = { fleshy = calculate_damage(arrow) },
+		}, vec)
+
+		return true
 	end
-	player:punch(puncher, 1.0, {
-		full_punch_interval = 1.0,
-		damage_groups       = { fleshy = calculate_damage(arrow) },
-	}, vec)
-
-	return true
+	return false
 end
 
 -- when arrow is punched
@@ -193,25 +197,26 @@ local function hit_mob(mob, arrow, callback, owner_id, collision)
 		end
 		local s   = collision
 		local p   = mob:get_pos()
-		local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
 
-		local puncher
-		if arrow.owner_type == "player" or arrow.owner_type == "entity" then
-			puncher = arrow.owner
-		else
-			puncher = arrow.object
+		if p then
+			local vec = { x = s.x - p.x, y = s.y - p.y, z = s.z - p.z }
+
+			local puncher
+			if arrow.owner_type == "player" or arrow.owner_type == "entity" then
+				puncher = arrow.owner
+			else
+				puncher = arrow.object
+			end
+
+			mob:punch(puncher, 1.0, {
+				full_punch_interval = 1.0,
+				damage_groups       = { fleshy = calculate_damage(arrow) },
+			}, vec)
+			return true
 		end
-
-		mob:punch(puncher, 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups       = { fleshy = calculate_damage(arrow) },
-		}, vec)
-
-		return true
 	end
 	return false
 end
-
 
 local function find_collision(pos, dir, linelen, cbox)
 	local x1 = cbox[1]
