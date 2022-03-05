@@ -319,9 +319,7 @@ local function hit_objects(pos1, pos2, arrow)
 
 	local center_pos = {x=round((pos1.x+pos2.x)/2), y=round((pos1.y+pos2.y)/2), z=round((pos1.z+pos2.z)/2)}
 
-	-- maxdist should be >= W * sqrt(3) / 2, where W - maximal side
-	local W = math.ceil(math.max(math.max(math.abs(dir.x), math.abs(dir.y)), math.abs(dir.z)))
-	local maxdist = W + 4
+	local maxdist = math.ceil(vector.length(dir)/2) + 1
 
 	-- find collisions with entities and playes
 	local entities = minetest.get_objects_inside_radius(center_pos, maxdist)
