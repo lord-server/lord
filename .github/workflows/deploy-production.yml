@@ -19,6 +19,7 @@ jobs:
           key: ${{ secrets.LORD_PROD_KEY }}
           command: |
             cd minetest-master/games/lord
+            git checkout master
             git pull
             /etc/init.d/mt_server restart
           args: -tt
