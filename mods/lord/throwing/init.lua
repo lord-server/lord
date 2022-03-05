@@ -70,7 +70,7 @@ function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
 
 		if owner_type == "player" then
 			entity.owner_id = owner:get_player_name() -- add unique owner id to arrow
-			ownvel          = owner:get_player_velocity()
+			ownvel          = owner:get_velocity()
 		elseif owner_type == "entity" then
 			entity.owner_id = tostring(owner) -- add unique owner id to arrow
 			ownvel          = owner:get_velocity() or ownvel
@@ -294,9 +294,7 @@ local function is_owner(arrow, object, object_type)
 
 	if object_type == "node" then
 		return (arrow.owner.x == object.x and arrow.owner.y == object.y and arrow.owner.z == object.z)
-	elseif object_type == "entity" then
-		return (arrow.owner == object)
-	elseif object_type == "player" then
+	else
 		return (arrow.owner == object)
 	end
 end
@@ -325,7 +323,6 @@ local function hit_objects(pos1, pos2, arrow)
 	local entities = minetest.get_objects_inside_radius(center_pos, maxdist)
 	local collisions = {}
 
-
 	-- find collisions with nodes
 	for x = math.floor(area.x1)-1, math.floor(area.x2)+1 do
 	for y = math.floor(area.y1)-1, math.floor(area.y2)+1 do
@@ -350,21 +347,20 @@ local function hit_objects(pos1, pos2, arrow)
 	end
 
 	for _, player in pairs(entities) do
-		local isowner = is_owner(arrow, player, "entity")
+		local ptype
+		local collision_box
+		if player:is_player() then
+			ptype = "player"
+			collision_box = player:get_properties().collisionbox
+		else
+			ptype = "entity"
+			collision_box = player:get_luaentity().collisionbox
+		end
+
+		local isowner = is_owner(arrow, player, ptype)
 		local isself = (player == arrow.object)
 		if (not isself) and ((not isowner) or arrow.launched) then
-			local ppos
-			local collision_box
-			local ptype
-			if player:is_player() then
-				collision_box = player:get_properties().collisionbox
-				ppos = player:get_pos()
-				ptype = "player"
-			else
-				collision_box = player:get_luaentity().collisionbox
-				ppos = player:get_pos()
-				ptype = "entity"
-			end
+			local ppos = player:get_pos()
 
 			if collision_box ~= nil then
 				local box = {}
