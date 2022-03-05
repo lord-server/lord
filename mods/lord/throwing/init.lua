@@ -2,7 +2,6 @@ throwing                    = {}
 
 throwing.arrows             = {}
 
-local HIT_RADIUS = 4
 local DONT_PUNCH_SAME_MOBS = true
 local BASE_LIQUID_VISCOSITY = 50
 local PUNCH_ARROWS = false
@@ -71,7 +70,7 @@ function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
 
 		if owner_type == "player" then
 			entity.owner_id = owner:get_player_name() -- add unique owner id to arrow
-			ownvel          = owner:get_player_velocity()
+			ownvel          = owner:get_velocity()
 		elseif owner_type == "entity" then
 			entity.owner_id = tostring(owner) -- add unique owner id to arrow
 			ownvel          = owner:get_velocity() or ownvel
@@ -120,13 +119,6 @@ local function hit_node(pos, arrow, callback, collision)
 	local node = node_ok(pos).name
 	if node == nil then
 		return false
-	end
-	if arrow.owner_type == "node" then
-		if arrow.owner.x == math.floor(pos.x) and
-		   arrow.owner.y == math.floor(pos.y) and
-		   arrow.owner.z == math.floor(pos.z) then
-			return false
-		end
 	end
 	if minetest.registered_nodes[node].walkable then
 		if callback then
@@ -218,7 +210,7 @@ local function hit_mob(mob, arrow, callback, owner_id, collision)
 	return false
 end
 
-local function find_collision(pos, dir, linelen, cbox)
+local function find_collision(pos, dir, cbox)
 	local x1 = cbox[1]
 	local x2 = cbox[4]
 
@@ -236,48 +228,54 @@ local function find_collision(pos, dir, linelen, cbox)
 	local ts = {}
 	local t
 
-	t = (x1 - pos.x)/dir.x
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
-			table.insert(ts, t)
+	if math.abs(dir.x) > 1e-3 then
+		t = (x1 - pos.x)/dir.x
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
+				table.insert(ts, t)
+			end
 		end
-	end
-	t = (x2 - pos.x)/dir.x
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
-			table.insert(ts, t)
-		end
-	end
-
-	t = (y1 - pos.y)/dir.y
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
-			table.insert(ts, t)
-		end
-	end
-	t = (y2 - pos.y)/dir.y
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
-			table.insert(ts, t)
+		t = (x2 - pos.x)/dir.x
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.y >= y1 and p.y <= y2 and p.z >= z1 and p.z <= z2 then
+				table.insert(ts, t)
+			end
 		end
 	end
 
-	t = (z1 - pos.z)/dir.z
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
-			table.insert(ts, t)
+	if math.abs(dir.y) > 1e-3 then
+		t = (y1 - pos.y)/dir.y
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
+				table.insert(ts, t)
+			end
+		end
+		t = (y2 - pos.y)/dir.y
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.x >= x1 and p.x <= x2 and p.z >= z1 and p.z <= z2 then
+				table.insert(ts, t)
+			end
 		end
 	end
-	t = (z2 - pos.z)/dir.z
-	if t >= 0 and t <= linelen then
-		local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
-		if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
-			table.insert(ts, t)
+
+	if math.abs(dir.z) > 1e-3 then
+		t = (z1 - pos.z)/dir.z
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
+				table.insert(ts, t)
+			end
+		end
+		t = (z2 - pos.z)/dir.z
+		if t >= 0 and t <= 1 then
+			local p = {x=pos.x + dir.x*t, y=pos.y+dir.y*t, z=pos.z+dir.z*t}
+			if p.x >= x1 and p.x <= x2 and p.y >= y1 and p.y <= y2 then
+				table.insert(ts, t)
+			end
 		end
 	end
 
@@ -287,6 +285,22 @@ local function find_collision(pos, dir, linelen, cbox)
 
 	table.sort(ts)
 	return ts[1]
+end
+
+local function is_owner(arrow, object, object_type)
+	if arrow.owner_type ~= object_type then
+		return false
+	end
+
+	if object_type == "node" then
+		return (arrow.owner.x == object.x and arrow.owner.y == object.y and arrow.owner.z == object.z)
+	else
+		return (arrow.owner == object)
+	end
+end
+
+local function round(x)
+	return math.floor(x+0.5)
 end
 
 local function hit_objects(pos1, pos2, arrow)
@@ -299,30 +313,31 @@ local function hit_objects(pos1, pos2, arrow)
 		z2=math.max(pos1.z, pos2.z),
 	}
 
+	local dir = {x=pos2.x-pos1.x, y=pos2.y-pos1.y, z=pos2.z-pos1.z}
+
+	local center_pos = {x=round((pos1.x+pos2.x)/2), y=round((pos1.y+pos2.y)/2), z=round((pos1.z+pos2.z)/2)}
+
+	local maxdist = math.ceil(vector.length(dir)/2) + 1
+
 	-- find collisions with entities and playes
-	local entities = minetest.get_objects_inside_radius(pos1, HIT_RADIUS)
+	local entities = minetest.get_objects_inside_radius(center_pos, maxdist)
 	local collisions = {}
 
-	local dir = {x=pos2.x-pos1.x, y=pos2.y-pos1.y, z=pos2.z-pos1.z}
-	local dl = math.sqrt(dir.x*dir.x + dir.y*dir.y + dir.z*dir.z)
-	dir.x = dir.x / dl
-	dir.y = dir.y / dl
-	dir.z = dir.z / dl
-
 	-- find collisions with nodes
-	for x = math.floor(area.x1), math.floor(area.x2)+1 do
-	for y = math.floor(area.y1), math.floor(area.y2)+1 do
-	for z = math.floor(area.z1), math.floor(area.z2)+1 do
-		local isowner = (arrow.owner_type == "node" and arrow.owner.x == x and arrow.owner.y == y and arrow.owner.z == z)
+	for x = math.floor(area.x1)-1, math.floor(area.x2)+1 do
+	for y = math.floor(area.y1)-1, math.floor(area.y2)+1 do
+	for z = math.floor(area.z1)-1, math.floor(area.z2)+1 do
+		local node_pos = {x=x,y=y,z=z}
+		local isowner = is_owner(arrow, node_pos, "node")
 		if (not isowner) or arrow.launched then
-			local node = minetest.get_node_or_nil({x=x,y=y,z=z})
+			local node = minetest.get_node_or_nil(node_pos)
 			if node ~= nil then
 				local definition = minetest.registered_nodes[node.name]
 				if definition ~= nil and definition.walkable then
 					local collision_box = {x-0.5, y-0.5, z-0.5, x+0.5, y+0.5, z+0.5}
-					local d = find_collision(pos1, dir, dl, collision_box)
+					local d = find_collision(pos1, dir, collision_box)
 					if d ~= nil then
-						table.insert(collisions, {d=d, obj={x=x,y=y,z=z}, objtype="node"})
+						table.insert(collisions, {d=d, obj=node_pos, objtype="node"})
 					end
 				end
 			end
@@ -332,21 +347,20 @@ local function hit_objects(pos1, pos2, arrow)
 	end
 
 	for _, player in pairs(entities) do
-		local isowner = (player == arrow.owner)
+		local ptype
+		local collision_box
+		if player:is_player() then
+			ptype = "player"
+			collision_box = player:get_properties().collisionbox
+		else
+			ptype = "entity"
+			collision_box = player:get_luaentity().collisionbox
+		end
+
+		local isowner = is_owner(arrow, player, ptype)
 		local isself = (player == arrow.object)
 		if (not isself) and ((not isowner) or arrow.launched) then
-			local ppos
-			local collision_box
-			local ptype
-			if player:is_player() then
-				collision_box = player:get_properties().collisionbox
-				ppos = player:get_pos()
-				ptype = "player"
-			else
-				collision_box = player:get_luaentity().collisionbox
-				ppos = player:get_pos()
-				ptype = "entity"
-			end
+			local ppos = player:get_pos()
 
 			if collision_box ~= nil then
 				local box = {}
@@ -358,7 +372,7 @@ local function hit_objects(pos1, pos2, arrow)
 
 				box[3] = collision_box[3] + ppos.z
 				box[6] = collision_box[6] + ppos.z
-				local d = find_collision(pos1, dir, dl, box)
+				local d = find_collision(pos1, dir, box)
 				if d ~= nil then
 					table.insert(collisions, {d=d, obj=player, objtype=ptype})
 				end
@@ -391,17 +405,17 @@ local function hit_objects(pos1, pos2, arrow)
 		hit = hit_player(nearest.obj, arrow, arrow.hit_player, arrow.owner_id, collision_point)
 	elseif nearest.objtype == "entity" then
 		-- hit entity
-		local hit_same_mob = true
+		local hit_this_mob = true
 
 		if DONT_PUNCH_SAME_MOBS and arrow.owner_type == "entity" then
 			local target = nearest.obj:get_entity_name()
 			local archer = arrow.owner:get_entity_name()
 			if target == archer then
-				hit_same_mob = false
+				hit_this_mob = false
 			end
 		end
 
-		if hit_same_mob then
+		if hit_this_mob then
 			hit = hit_mob(nearest.obj, arrow, arrow.hit_mob, arrow.owner_id, collision_point)
 		else
 			hit = true
@@ -418,10 +432,6 @@ local function hit_objects(pos1, pos2, arrow)
 end
 
 local function near_owner(arrow)
-	if not arrow.object:get_pos() then
-		return false
-	end
-
 	local owner_type = arrow.owner_type
 	local pos = arrow.object:get_pos()
 
@@ -464,9 +474,12 @@ local function near_owner(arrow)
 end
 
 local function arrow_step(self, dtime)
-	self.timer = self.timer + dtime
+	local pos = self.object:get_pos()
+	if not pos then
+		return false
+	end
 
-	local pos  = self.object:get_pos()
+	self.timer = self.timer + dtime
 
 	-- start arrow move
 	if self.inited == false then
@@ -534,11 +547,11 @@ local function arrow_step(self, dtime)
 		end
 		local acc = acceleration(vel, k, self.definition.mass)
 		self.object:set_acceleration(acc)
-	end
-	self.lastpos = pos
+		self.lastpos = pos
 
-	if (not self.launched) and (not near_owner(self)) then
-		self.launched = true
+		if (not self.launched) and (not near_owner(self)) then
+			self.launched = true
+		end
 	end
 end
 
