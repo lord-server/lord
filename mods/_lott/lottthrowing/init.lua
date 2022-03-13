@@ -13,7 +13,11 @@ end
 
 local lottthrowing_shoot = function(player, arrow_name)
 	local stack_index = player:get_wield_index() + 1
-	local creative = default.creative
+
+	local creative_mode = default.creative
+	local creative_priv = minetest.get_player_privs(player:get_player_name())["creative"]
+	local creative = creative_mode or creative_priv
+
 	local stack = player:get_inventory():get_stack("main", stack_index)
 
 	if (not creative) then
