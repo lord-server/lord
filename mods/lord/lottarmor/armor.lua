@@ -110,10 +110,6 @@ armor = {
 	version = "0.4.4",
 }
 
-if minetest.settings:get_bool("creative_mode") then
-	armor.formspec = armor.formspec .. "tabheader[-0.12,-0.12;creative_tabs;Main,Creative;1;true;false"
-end
-
 local get_formspec = function(player,page)
 	if page=="bags" then
 		return "size[8,7.5]"
