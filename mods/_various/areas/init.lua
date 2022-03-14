@@ -6,6 +6,8 @@ local SL = lord.require_intllib()
 
 areas = {}
 
+areas.violation_cbs = {}
+
 areas.adminPrivs = {areas=true}
 areas.startTime = os.clock()
 

@@ -82,3 +82,10 @@ function areas:canInteractInArea(pos1, pos2, name, allow_open)
 	end
 	return true
 end
+
+--- Register handler for area violation
+-- @param handler Handler of violation. It must have arguments: `pos` - position of violation, `player_name` - name of violator, `owners` - list of owners of node
+function areas:registerViolationHandler(handler)
+	table.insert(self.violation_cbs, handler)
+end
+
