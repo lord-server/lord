@@ -372,7 +372,6 @@ for i=1,4 do
 	sfinv.register_page("inventory:bag"..i, {
 		title = SL("Bag"..i),
 		get = function(self, player, context)
-			local name = player:get_player_name()
 			local image = player:get_inventory():get_stack("bag"..i, 1):get_definition().inventory_image
 			local content = "list[current_player;main;0,4.5;8,4;]"
 				.."button[0,0;2,0.5;main;"..SL("Main").."]"
