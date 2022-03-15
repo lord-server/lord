@@ -355,27 +355,17 @@ armor.get_armor_formspec = function(self, name)
 	return formspec
 end
 
-armor.update_inventory = function(self, player)
-	local name = armor:get_valid_player(player, "[set_player_armor]")
-	if not name or inv_mod == "inventory_enhanced" then
-		return
-	end
-	if inv_mod == "unified_inventory" then
-		if unified_inventory.current_page[name] == "armor" then
-			unified_inventory.set_inventory_formspec(player, "armor")
+sfinv.register_page("lottarmor:main", {
+	title = SL("Inventory"),
+	get = function(self, player, context)
+		local name = armor:get_valid_player(player, "[set_player_armor]")
+		if not name then
+			return ""
 		end
-	else
-		local formspec = armor:get_armor_formspec(name)
-		if inv_mod == "inventory_plus" then
-			local page = player:get_inventory_formspec()
-			if page:find("detached:"..name.."_armor") then
-				inventory_plus.set_inventory_formspec(player, formspec)
-			end
-		else
-			player:set_inventory_formspec(formspec)
-		end
+
+		return armor:get_armor_formspec(name)
 	end
-end
+})
 
 armor.get_valid_player = function(self, player, msg)
 	msg = msg or ""
@@ -427,13 +417,13 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
 			armor:set_player_armor(player)
-			armor:update_inventory(player)
+			sfinv.invalidate_page(player, "lottarmor:main")
 			lottachievements.equip(stack, player, 1)
 		end,
 		on_take = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, nil)
 			armor:set_player_armor(player)
-			armor:update_inventory(player)
+			sfinv.invalidate_page(player, "lottarmor:main")
 			lottachievements.equip(stack, player, -1)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
@@ -442,7 +432,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 			p_inv:set_stack(to_list, to_index, stack)
 			p_inv:set_stack(from_list, from_index, nil)
 			armor:set_player_armor(player)
-			armor:update_inventory(player)
+			sfinv.invalidate_page(player, "lottarmor:main")
 		end,
 		allow_put = function(inv, listname, index, stack, player)
 			if index == 1 then
@@ -547,7 +537,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			armor:set_player_armor(player)
 			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
-				armor:update_inventory(player)
+				sfinv.invalidate_page(player, "lottarmor:main")
 			end
 		end, joined_player)
 	end
@@ -575,10 +565,9 @@ end)
 
 races.register_update_callback(function(name, race, gender, skin, texture, face)
 	local player = minetest.get_player_by_name(name)
-	print("LOTTARMOR UPDATE")
 	minetest.log("Updating player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
 	multiskin[name].skin = texture
 	armor:set_player_armor(player)
-	armor:update_inventory(player)
+	sfinv.invalidate_page(player, "lottarmor:main")
 	multiskin:update_player_visuals(player)
 end)

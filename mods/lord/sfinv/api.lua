@@ -2,7 +2,7 @@ sfinv = {
 	pages = {},
 	pages_unordered = {},
 	contexts = {},
-	enabled = true
+	enabled = true,
 }
 
 function sfinv.register_page(name, def)
@@ -10,6 +10,8 @@ function sfinv.register_page(name, def)
 	assert(def, "Invalid sfinv page. Requires a def[inition] table")
 	assert(def.get, "Invalid sfinv page. Def requires a get function.")
 	assert(not sfinv.pages[name], "Attempt to register already registered sfinv page " .. dump(name))
+
+	minetest.log("Registering inventory page \""..name.."\"")
 
 	sfinv.pages[name] = def
 	def.name = name
@@ -24,6 +26,11 @@ function sfinv.override_page(name, def)
 	for key, value in pairs(def) do
 		page[key] = value
 	end
+end
+
+function sfinv.unregister_page(name)
+	assert(name, "Invalid sfinv page. Requires a name")
+	sfinf.pages[name] = nil
 end
 
 function sfinv.get_nav_fs(player, context, nav, current_idx)
@@ -59,10 +66,6 @@ function sfinv.make_formspec(player, context, content, show_inv, size)
 	return table.concat(tmp, "")
 end
 
-function sfinv.get_homepage_name(player)
-	return "sfinv:crafting"
-end
-
 function sfinv.get_formspec(player, context)
 	-- Generate navigation tabs
 	local nav = {}
@@ -82,27 +85,15 @@ function sfinv.get_formspec(player, context)
 	context.nav_idx = current_idx
 
 	-- Generate formspec
-	local page = sfinv.pages[context.page] or sfinv.pages["404"]
-	if page then
-		return page:get(player, context)
-	else
-		local old_page = context.page
-		local home_page = sfinv.get_homepage_name(player)
+	local page = sfinv.pages[context.page]
+	return page:get(player, context)
+end
 
-		if old_page == home_page then
-			minetest.log("error", "[sfinv] Couldn't find " .. dump(old_page) ..
-					", which is also the old page")
-
-			return ""
-		end
-
-		context.page = home_page
-		assert(sfinv.pages[context.page], "[sfinv] Invalid homepage")
-		minetest.log("warning", "[sfinv] Couldn't find " .. dump(old_page) ..
-				" so switching to homepage")
-
-		return sfinv.get_formspec(player, context)
+function sfinv.get_mainpage_name(player)
+	for name, def in pairs(sfinv.pages) do
+		return name
 	end
+	return nil
 end
 
 function sfinv.get_or_create_context(player)
@@ -110,7 +101,7 @@ function sfinv.get_or_create_context(player)
 	local context = sfinv.contexts[name]
 	if not context then
 		context = {
-			page = sfinv.get_homepage_name(player)
+			page = sfinv.get_mainpage_name(player)
 		}
 		sfinv.contexts[name] = context
 	end
@@ -141,15 +132,22 @@ function sfinv.set_page(player, pagename)
 	sfinv.set_player_inventory_formspec(player, context)
 end
 
+function sfinv.invalidate_page(player, pagename)
+	local context = sfinv.get_or_create_context(player)
+	local current_page = context.page
+
+	if pagename == current_page then
+		sfinv.set_player_inventory_formspec(player, context)
+	end
+end
+
 function sfinv.get_page(player)
 	local context = sfinv.contexts[player:get_player_name()]
 	return context and context.page or sfinv.get_homepage_name(player)
 end
 
 minetest.register_on_joinplayer(function(player)
-	if sfinv.enabled then
-		sfinv.set_player_inventory_formspec(player)
-	end
+	sfinv.contexts[player:get_player_name()] = nil
 end)
 
 minetest.register_on_leaveplayer(function(player)
