@@ -77,8 +77,8 @@ armor = {
 	player_hp = {},
 	elements = {"head", "torso", "legs", "feet"},
 	physics = {"jump","speed","gravity"},
-	formspec = "size[8,8.5]"
-		..gui_bg_img
+	size="size[8,8.5]",
+	inventory_formspec = gui_bg_img
 		..gui_slots
 		.."image[0,0;1,1;lottarmor_helmet.png]"
 		.."image[0,1;1,1;lottarmor_chestplate.png]"
@@ -110,54 +110,7 @@ armor = {
 	version = "0.4.4",
 }
 
-local get_formspec = function(player,page)
-	if page=="bags" then
-		return "size[8,7.5]"
-			.."list[current_player;main;0,3.5;8,4;]"
-			.."button[0,0;2,0.5;main;"..SL("Back").."]"
-			.."button[0,2;2,0.5;bag1;"..SL("Bag").." 1]"
-			.."button[2,2;2,0.5;bag2;"..SL("Bag").." 2]"
-			.."button[4,2;2,0.5;bag3;"..SL("Bag").." 3]"
-			.."button[6,2;2,0.5;bag4;"..SL("Bag").." 4]"
-			.."list[detached:"..player:get_player_name().."_bags;bag1;0.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag2;2.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag3;4.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag4;6.5,1;1,1;]"
-               .."background[5,5;1,1;gui_formbg.png;true]"
-	end
-	for i=1,4 do
-		if page=="bag"..i then
-			local image = player:get_inventory():get_stack("bag"..i, 1):get_definition().inventory_image
-			return "size[8,8.5]"
-				.."list[current_player;main;0,4.5;8,4;]"
-				.."button[0,0;2,0.5;main;"..SL("Main").."]"
-				.."button[2,0;2,0.5;bags;"..SL("Bags").."]"
-				.."image[7,0;1,1;"..image.."]"
-				.."list[current_player;bag"..i.."contents;0,1;8,3;]"
-				.."listring[current_player;bag"..i.."contents]"
-				.."listring[current_player;main]"
-				.."background[5,5;1,1;gui_formbg.png;true]"
-		end
-	end
-end
 
---- Bags
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if fields.bags then
-		inventory_plus.set_inventory_formspec(player, get_formspec(player,"bags"))
-		return
-	end
-	for i=1,4 do
-		local page = "bag"..i
-		if fields[page] then
-			if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil then
-				page = "bags"
-			end
-			inventory_plus.set_inventory_formspec(player, get_formspec(player,page))
-			return
-		end
-	end
-end)
 
 --Trash
 local trash = minetest.create_detached_inventory("armor_trash", {
@@ -347,25 +300,107 @@ armor.get_armor_formspec = function(self, name)
 		minetest.log("error", "lottarmor: Armor def["..name.."] is nil [get_armor_formspec]")
 		return ""
 	end
-	local formspec = armor.formspec:gsub("player_name", name)
+	local formspec = armor.inventory_formspec:gsub("player_name", name)
 	formspec = formspec:gsub("armor_preview", armor.textures[name].preview)
 	formspec = formspec:gsub("armor_level", armor.def[name].level)
 	formspec = formspec:gsub("armor_heal", armor.def[name].heal)
 	formspec = formspec:gsub("armor_fire", armor.def[name].fire)
-	return formspec
+	return "size[5,5]"..formspec
 end
 
-sfinv.register_page("lottarmor:main", {
+sfinv.register_page("inventory:main", {
 	title = SL("Inventory"),
+	mainpage = true,
 	get = function(self, player, context)
 		local name = armor:get_valid_player(player, "[set_player_armor]")
 		if not name then
-			return ""
+			return sfinv.make_formspec(player, context, "", false, armor.size)
 		end
 
-		return armor:get_armor_formspec(name)
-	end
+		local content = armor:get_armor_formspec(name)
+		return sfinv.make_formspec(player, context, content, false, armor.size)
+	end,
+	is_in_nav = function(self, player, context)
+		return true
+	end,
+	on_player_receive_fields = function(self, player, context, fields)
+		if fields.bags then
+			sfinv.set_page(player, "inventory:bags")
+		end
+	end,
 })
+
+sfinv.register_page("inventory:bags", {
+	title = SL("Bags"),
+	get = function(self, player, context)
+		local name = player:get_player_name()
+		local content = "list[current_player;main;0,3.5;8,4;]"
+			.."button[0,0;2,0.5;main;"..SL("Back").."]"
+			.."button[0,2;2,0.5;bag1;"..SL("Bag").." 1]"
+			.."button[2,2;2,0.5;bag2;"..SL("Bag").." 2]"
+			.."button[4,2;2,0.5;bag3;"..SL("Bag").." 3]"
+			.."button[6,2;2,0.5;bag4;"..SL("Bag").." 4]"
+			.."list[detached:"..name.."_bags;bag1;0.5,1;1,1;]"
+			.."list[detached:"..name.."_bags;bag2;2.5,1;1,1;]"
+			.."list[detached:"..name.."_bags;bag3;4.5,1;1,1;]"
+			.."list[detached:"..name.."_bags;bag4;6.5,1;1,1;]"
+			.."background[5,5;1,1;gui_formbg.png;true]"
+		return sfinv.make_formspec(player, context, content, false, armor.size)
+	end,
+	is_in_nav = function(self, player, context)
+		return false
+	end,
+	on_player_receive_fields = function(self, player, context, fields)
+		if fields.main then
+			sfinv.set_page(player, "inventory:main")
+			return
+		end
+
+		for i=1,4 do
+			local page = "bag"..i
+			if fields[page] then
+				if not (player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil) then
+					sfinv.set_page(player, "inventory:bag"..i)
+					return
+				end
+			end
+		end
+	end,
+})
+
+for i=1,4 do
+	sfinv.register_page("inventory:bag"..i, {
+		title = SL("Bag"..i),
+		get = function(self, player, context)
+			local name = player:get_player_name()
+			local image = player:get_inventory():get_stack("bag"..i, 1):get_definition().inventory_image
+			local content = "list[current_player;main;0,4.5;8,4;]"
+				.."button[0,0;2,0.5;main;"..SL("Main").."]"
+				.."button[2,0;2,0.5;bags;"..SL("Bags").."]"
+				.."image[7,0;1,1;"..image.."]"
+				.."list[current_player;bag"..i.."contents;0,1;8,3;]"
+				.."listring[current_player;bag"..i.."contents]"
+				.."listring[current_player;main]"
+				.."background[5,5;1,1;gui_formbg.png;true]"
+			return sfinv.make_formspec(player, context, content, false, armor.size)
+		end,
+		is_in_nav = function(self, player, context)
+			return false
+		end,
+		on_player_receive_fields = function(self, player, context, fields)
+			if fields.main then
+				sfinv.set_page(player, "inventory:main")
+				return
+			end
+
+			if fields.bags then
+				sfinv.set_page(player, "inventory:bags")
+				return
+			end
+		end,
+	})
+end
+
 
 armor.get_valid_player = function(self, player, msg)
 	msg = msg or ""
@@ -395,18 +430,6 @@ armor.get_valid_player = function(self, player, msg)
 end
 
 -- Register Callbacks
-
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	local name = armor:get_valid_player(player, "[on_player_receive_fields]")
-	if not name or inv_mod == "inventory_enhanced" then
-		return
-	end
-	if inv_mod == "inventory_plus" and fields.armor then
-		local formspec = armor:get_armor_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
-		return
-	end
-end)
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
 	minetest.log("Join player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
@@ -537,7 +560,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			armor:set_player_armor(player)
 			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
-				sfinv.invalidate_page(player, "lottarmor:main")
+				sfinv.invalidate_page(player, "inventory:main")
 			end
 		end, joined_player)
 	end
@@ -568,6 +591,6 @@ races.register_update_callback(function(name, race, gender, skin, texture, face)
 	minetest.log("Updating player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
 	multiskin[name].skin = texture
 	armor:set_player_armor(player)
-	sfinv.invalidate_page(player, "lottarmor:main")
+	sfinv.invalidate_page(player, "inventory:main")
 	multiskin:update_player_visuals(player)
 end)
