@@ -305,7 +305,7 @@ armor.get_armor_formspec = function(self, name)
 	formspec = formspec:gsub("armor_level", armor.def[name].level)
 	formspec = formspec:gsub("armor_heal", armor.def[name].heal)
 	formspec = formspec:gsub("armor_fire", armor.def[name].fire)
-	return "size[5,5]"..formspec
+	return formspec
 end
 
 sfinv.register_page("inventory:main", {

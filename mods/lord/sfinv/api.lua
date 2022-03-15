@@ -39,13 +39,12 @@ end
 
 function sfinv.get_nav_fs(player, context, nav, current_idx)
 	-- Only show tabs if there is more than one page
-	print("tabheaders = "..dump(nav))
-	--if #nav > 1 then
+	if #nav > 1 then
 		return "tabheader[0,0;sfinv_nav_tabs;" .. table.concat(nav, ",") ..
 				";" .. current_idx .. ";true;false]"
-	--else
-	--	return ""
-	--end
+	else
+		return ""
+	end
 end
 
 local theme_inv = [[
@@ -68,9 +67,7 @@ function sfinv.make_formspec(player, context, content, show_inv, size)
 		show_inv and theme_inv or "",
 		content
 	}
-	local res = table.concat(tmp, "")
-	print(res)
-	return res
+	return table.concat(tmp, "")
 end
 
 function sfinv.get_formspec(player, context)
@@ -147,7 +144,6 @@ function sfinv.set_page(player, pagename)
 		page:on_enter(player, context)
 	end
 
-	print("SELECT PAGE "..pagename)
 	sfinv.set_player_inventory_formspec(player, context)
 end
 
@@ -158,6 +154,17 @@ function sfinv.invalidate_page(player, pagename)
 	if pagename == current_page then
 		sfinv.set_player_inventory_formspec(player, context)
 	end
+end
+
+function sfinv.invalidate_available(player)
+	local name = player:get_player_name()
+	local context = sfinv.contexts[name]
+	local pdef = sfinv.pages[context.page]
+
+	if pdef.is_in_nav and not pdef:is_in_nav(player, context) then
+		context.page = sfinv.get_mainpage_name(player)
+	end
+	sfinv.set_page(player, context.page)
 end
 
 function sfinv.get_page(player)
