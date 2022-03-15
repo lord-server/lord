@@ -9,6 +9,7 @@ minetest.register_tool("worldedit:admin_stick", {
 	description = "Admins Magic Stick",
 	inventory_image = "tool_magic_stick.png",
 	range = 7,
+	groups = {not_in_creative_inventory = 1},
    on_use = function(itemstack, user, pointed_thing)
 	    -- Must be pointing to facedir applicable node
 	    if pointed_thing.type~="node" then return end
@@ -93,6 +94,7 @@ minetest.register_tool("worldedit:pick_admin", {
 	privs = {admin_pick=true},
 	inventory_image = "tool_admin_pick.png",
 	range = 10,
+	groups = {not_in_creative_inventory = 1},
 	tool_capabilities = {
 		full_punch_interval = 2.0,
 		max_drop_level=1,

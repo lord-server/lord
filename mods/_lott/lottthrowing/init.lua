@@ -166,7 +166,7 @@ minetest.register_craft({
 
 minetest.register_tool("lottthrowing:crossbow_magical", {
 	description = SL("Magical Crossbow"),
-	groups = {wooden = 1},
+	groups = {wooden = 1, not_in_creative_inventory = 1},
 	inventory_image = "lottthrowing_crossbow_magical.png",
     stack_max = 1,
 	on_use = function(itemstack, user, pointed_thing)
