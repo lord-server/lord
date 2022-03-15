@@ -33,7 +33,7 @@ function creative.init_creative_inventory(player)
 	minetest.create_detached_inventory("creative_" .. player_name, {
 		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
 			local name = player2 and player2:get_player_name() or ""
-			if not minetest.is_creative_enabled(name) or
+			if not creative.is_enabled_for(name) or
 					to_list == "main" then
 				return 0
 			end
@@ -44,7 +44,7 @@ function creative.init_creative_inventory(player)
 		end,
 		allow_take = function(inv, listname, index, stack, player2)
 			local name = player2 and player2:get_player_name() or ""
-			if not minetest.is_creative_enabled(name) then
+			if not creative.is_enabled_for(name) then
 				return 0
 			end
 			return -1
