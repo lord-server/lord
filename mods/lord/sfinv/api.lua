@@ -34,7 +34,7 @@ end
 
 function sfinv.unregister_page(name)
 	assert(name, "Invalid sfinv page. Requires a name")
-	sfinf.pages[name] = nil
+	sfinv.pages[name] = nil
 end
 
 function sfinv.get_nav_fs(player, context, nav, current_idx)

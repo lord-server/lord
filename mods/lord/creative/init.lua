@@ -9,7 +9,7 @@ creative.get_translator = S
 local function update_sfinv(name)
 	minetest.after(0, function()
 		local player = minetest.get_player_by_name(name)
-    	if player then
+		if player then
 			sfinv.invalidate_available(player)
 		end
 	end)
