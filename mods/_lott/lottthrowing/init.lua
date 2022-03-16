@@ -3,7 +3,7 @@ local SL = lord.require_intllib()
 
 local lottthrowing_player_shoot = function(player, arrow_name)
 	local dir = player:get_look_dir()
-	local p = player:getpos()
+	local p = player:get_pos()
 	local offset = {x = 0, y = 1.5, z = 0}
 	p.x = p.x + offset.x
 	p.y = p.y + offset.y
@@ -347,5 +347,3 @@ minetest.register_craft({
 if minetest.settings:get("log_mods") then
 	minetest.log("action", "lottthrowing loaded")
 end
-
-lord.mod_loaded()

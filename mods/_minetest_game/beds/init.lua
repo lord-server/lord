@@ -1,13 +1,20 @@
-local SL = lord.require_intllib()
+-- beds/init.lua
+
+-- Load support for MT game translation.
+local S = minetest.get_translator("beds")
+local esc = minetest.formspec_escape
 
 beds = {}
 beds.player = {}
+beds.bed_position = {}
 beds.pos = {}
 beds.spawn = {}
+beds.get_translator = S
 
-beds.formspec = "size[8,15;true]"..
-		"bgcolor[#080808BB; true]"..
-		"button_exit[2,12;4,0.75;leave;"..SL("Leave Bed").."]"
+beds.formspec = "size[8,11;true]" ..
+	"no_prepend[]" ..
+	"bgcolor[#080808BB;true]" ..
+	"button_exit[2,10;4,0.75;leave;" .. esc(S("Leave Bed")) .. "]"
 
 local modpath = minetest.get_modpath("beds")
 
@@ -16,5 +23,3 @@ dofile(modpath.."/functions.lua")
 dofile(modpath.."/api.lua")
 dofile(modpath.."/beds.lua")
 dofile(modpath.."/spawns.lua")
-
-lord.mod_loaded()

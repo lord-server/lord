@@ -11,6 +11,9 @@ read_globals      = {
 	string = { fields = { "split" } },
 	table  = { fields = { "copy", "getn" } },
 
+	-- Silence warnings about accessing undefined fields 'sign' of global 'math'
+	math = { fields = { "sign" } },
+
 	-- Builtin
 	"vector", "nodeupdate", "PseudoRandom",
 	"VoxelManip", "VoxelArea",
@@ -18,7 +21,7 @@ read_globals      = {
 	"dump", "DIR_DELIM",
 
 	-- MTG
-	"default", "sfinv", "creative",
+	"default", "sfinv", "creative", "dungeon_loot",
 
 	-- Lord specific
 	"lord", "hb",

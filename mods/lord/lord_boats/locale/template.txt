@@ -1,0 +1,5 @@
+# textdomain: boats
+Boat cruise mode on=
+Boat cruise mode off=
+Row Boat=
+Sail Boat=

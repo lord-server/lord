@@ -1,2 +1,0 @@
-lordlib
-lord_homedecor

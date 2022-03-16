@@ -2,3 +2,4 @@
 
 Scorched Stuff=
 Charcoal Lump=
+Charcoal Block=

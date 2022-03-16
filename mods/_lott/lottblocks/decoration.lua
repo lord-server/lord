@@ -24,12 +24,17 @@ minetest.register_node("lottblocks:tree_vine", {
 	groups            = { choppy = 2, snappy = 2, tree = 1 },
 })
 
-stairs.register_stair_and_slab("tree_vine", "lottblocks:tree_vine",
+stairs.register_stair_and_slab(
+	"tree_vine",
+	"lottblocks:tree_vine",
 	{ choppy = 2, snappy = 2, tree = 1 },
 	{ "lottblocks_tree_vine.png" },
 	SL("Tree With Vines Stair"),
 	SL("Tree With Vines Slab"),
-	default.node_sound_wood_defaults()
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Tree With Vines Stair"),
+	SL("Outer Tree With Vines Stair")
 )
 
 -- Mossy tree
@@ -49,12 +54,17 @@ minetest.register_node("lottblocks:tree_mossy", {
 	groups            = { choppy = 2, tree = 1 },
 })
 
-stairs.register_stair_and_slab("tree_mossy", "lottblocks:tree_mossy",
+stairs.register_stair_and_slab(
+	"tree_mossy",
+	"lottblocks:tree_mossy",
 	{ choppy = 2, tree = 1 },
 	{ "lottblocks_tree_mossy.png" },
 	SL("Tree With Moss Stair"),
 	SL("Tree With Moss Slab"),
-	default.node_sound_wood_defaults()
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Tree With Moss Stair"),
+	SL("Outer Tree With Moss Stair")
 )
 
 -- Leafroof dark
@@ -69,12 +79,17 @@ minetest.register_node("lottblocks:leafroof_dark", {
 	groups            = { snappy = 2, oddly_breakable_by_hand = 2, leaves = 1 },
 })
 
-stairs.register_stair_and_slab("leafroof_dark", "lottblocks:leafroof_dark",
+stairs.register_stair_and_slab(
+	"leafroof_dark",
+	"lottblocks:leafroof_dark",
 	{ oddly_breakable_by_hand = 2, leaves = 1 },
 	{ "lottblocks_leafroof.png" },
 	SL("Dark Leaf Roof Stair"),
 	SL("Dark Leaf Roof Slab"),
-	default.node_sound_stone_defaults()
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Dark Leaf Roof Stair"),
+	SL("Outer Dark Leaf Roof Stair")
 )
 
 
@@ -91,12 +106,17 @@ minetest.register_node("lottblocks:leafroof_mallorn", {
 	groups            = { oddly_breakable_by_hand = 2, leaves = 1 },
 })
 
-stairs.register_stair_and_slab("leafroof_mallorn", "lottblocks:leafroof_mallorn",
+stairs.register_stair_and_slab(
+	"leafroof_mallorn",
+	"lottblocks:leafroof_mallorn",
 	{ oddly_breakable_by_hand = 2, leaves = 1 },
 	{ "lottblocks_mallornroof.png" },
 	SL("Mallorn Leaf Roof Stair"),
 	SL("Mallorn Leaf Roof Slab"),
-	default.node_sound_leaves_defaults()
+	default.node_sound_leaves_defaults(),
+	false,
+	SL("Inner Mallorn Leaf Roof Stair"),
+	SL("Outer Mallorn Leaf Roof Stair")
 )
 
 -- mallorn pillar
@@ -110,12 +130,17 @@ minetest.register_node("lottblocks:mallorn_pillar", {
 	groups            = { snappy = 2, choppy = 2, wooden = 1 },
 })
 
-stairs.register_stair_and_slab("mallorn_pillar", "lottblocks:mallorn_pillar",
+stairs.register_stair_and_slab(
+	"mallorn_pillar",
+	"lottblocks:mallorn_pillar",
 	{ snappy = 2, choppy = 2, wooden = 1 },
 	{ "lottblocks_mallorn_pillar.png" },
 	SL("Mallorn Pillar Stair"),
 	SL("Mallorn Pillar Slab"),
-	default.node_sound_wood_defaults()
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Mallorn Pillar Stair"),
+	SL("Outer Mallorn Pillar Stair")
 )
 
 -- mallorn White
@@ -129,12 +154,17 @@ minetest.register_node("lottblocks:mallorn_white", {
 	groups            = { snappy = 2, choppy = 2, wooden = 1 },
 })
 
-stairs.register_stair_and_slab("mallorn_white", "lottblocks:mallorn_white",
+stairs.register_stair_and_slab(
+	"mallorn_white",
+	"lottblocks:mallorn_white",
 	{ snappy = 2, choppy = 2, wooden = 1 },
 	{ "lottblocks_mallorn_white.png" },
 	SL("White Mallorn Stair"),
 	SL("White Mallorn Slab"),
-	default.node_sound_wood_defaults()
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner White Mallorn Stair"),
+	SL("Outer White Mallorn Stair")
 )
 
 -- DWARFSTONE
@@ -155,12 +185,17 @@ minetest.register_node("lottblocks:dwarfstone_white", {
 	groups            = { cracky = 3 },
 })
 
-stairs.register_stair_and_slab("dwarfstone_white", "lottblocks:dwarfstone_white",
+stairs.register_stair_and_slab(
+	"dwarfstone_white",
+	"lottblocks:dwarfstone_white",
 	{ cracky = 2 },
 	{ "lottblocks_dwarfstone_white_top.png" },
 	SL("White Dwarf Stone Stair"),
 	SL("White Dwarf Stone Slab"),
-	default.node_sound_stone_defaults()
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner White Dwarf Stone Stair"),
+	SL("Outer White Dwarf Stone Stair")
 )
 
 -- black
@@ -180,12 +215,17 @@ minetest.register_node("lottblocks:dwarfstone_black", {
 	groups            = { cracky = 3 },
 })
 
-stairs.register_stair_and_slab("dwarfstone_black", "lottblocks:dwarfstone_black",
+stairs.register_stair_and_slab(
+	"dwarfstone_black",
+	"lottblocks:dwarfstone_black",
 	{ cracky = 2 },
 	{ "lottblocks_dwarfstone_black_top.png" },
 	SL("Black Dwarf Stone Stair"),
 	SL("Black Dwarf Stone Slab"),
-	default.node_sound_stone_defaults()
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Black Dwarf Stone Stair"),
+	SL("Outer Black Dwarf Stone Stair")
 )
 
 -- stripe

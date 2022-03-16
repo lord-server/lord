@@ -1,8 +1,0 @@
-stairs
-doors
-lottplants
-default
-dye
-lord_classes
-lordlib
-worldedit

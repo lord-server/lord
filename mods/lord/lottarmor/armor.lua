@@ -110,7 +110,7 @@ armor = {
 	version = "0.4.4",
 }
 
-if minetest.setting_getbool("creative_mode") then
+if minetest.settings:get_bool("creative_mode") then
 	armor.formspec = armor.formspec .. "tabheader[-0.12,-0.12;creative_tabs;Main,Creative;1;true;false"
 end
 
@@ -256,7 +256,7 @@ armor.set_player_armor = function(self, player)
 		armor_groups.level = math.floor(armor_level / 20)
 		armor_groups.fleshy = 100 - armor_level
 	end
-	if player:get_attribute("lott:immunity") ~= nil and (not immortal or immortal == 0) then
+	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
 		player:set_armor_groups({fleshy = 1})
 	else
 		player:set_armor_groups(armor_groups)
@@ -392,7 +392,7 @@ armor.get_valid_player = function(self, player, msg)
 		minetest.log("error", "lottarmor: Player name is nil "..msg)
 		return
 	end
-	local pos = player:getpos()
+	local pos = player:get_pos()
 	local player_inv = player:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not pos then
@@ -550,7 +550,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	for i=1, ARMOR_INIT_TIMES do
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			armor:set_player_armor(player)
-			if not inv_mod and not minetest.setting_getbool("creative_mode") then
+			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
 				armor:update_inventory(player)
 			end
 		end, joined_player)
@@ -586,4 +586,3 @@ races.register_update_callback(function(name, race, gender, skin, texture, face)
 	armor:update_inventory(player)
 	multiskin:update_player_visuals(player)
 end)
-

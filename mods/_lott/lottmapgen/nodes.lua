@@ -51,14 +51,18 @@ stairs.register_stair_and_slab("mordor_stone", "lottmapgen:mordor_stone",
 		{"lottmapgen_mordor_stone.png"},
 		SL("Mordor Stone Stair"),
 		SL("Mordor Stone Slab"),
-		default.node_sound_stone_defaults())
+		default.node_sound_stone_defaults(),
+		false,
+		SL("Inner Mordor Stone Stair"),
+		SL("Outer Mordor Stone Stair")
+)
 
 minetest.register_node(":default:ice", {
 	description = SL("Ice"),
 	drawtype = "glasslike",
 	tiles = {"lottmapgen_ice.png"},
 	is_ground_content = true,
-    alpha = 200,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	freezemelt = "default:water_source",
 	groups = {cracky=3, melts=1},
@@ -78,7 +82,7 @@ minetest.register_node("lottmapgen:blacksource", {
 			backface_culling = false,
 		}
 	},
-	alpha = 240,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -108,7 +112,7 @@ minetest.register_node("lottmapgen:blackflowing", {
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=1}
 		},
 	},
-	alpha = 245,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -127,7 +131,7 @@ minetest.register_node("lottmapgen:black_river_source", {
 	drawtype = "liquid",
 	inventory_image = minetest.inventorycube("lottmapgen_black_water.png"),
 	tiles = {"lottmapgen_black_water.png"},
-	alpha = 240,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,
@@ -159,7 +163,7 @@ minetest.register_node("lottmapgen:black_river_flowing", {
 			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=1}
 		},
 	},
-	alpha = 245,
+	use_texture_alpha = "blend",
 	paramtype = "light",
 	walkable = false,
 	pointable = false,

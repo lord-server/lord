@@ -318,30 +318,57 @@ minetest.register_craft({
 })
 
 
-stairs.register_stair_and_slab("hardwood", "lord_homedecor:hardwood",
-		{choppy=1,flammable=1},
-		{"building_blocks_hardwood.png"},
-		SL("Hardwood stair"),
-		SL("Hardwood slab"),
-		default.node_sound_wood_defaults())
-stairs.register_stair_and_slab("grate", "lord_homedecor:grate",
-		{cracky=1},
-		{"building_blocks_grate.png"},
-		SL("Grate stair"),
-		SL("Grate slab"),
-		default.node_sound_leaves_defaults())
-stairs.register_stair_and_slab("adobe", "lord_homedecor:Adobe",
-		{cracky=3},
-		{"building_blocks_Adobe.png"},
-		SL("Adobe stair"),
-		SL("Adobe slab"),
-		default.node_sound_stone_defaults())
-stairs.register_stair_and_slab("roofing", "lord_homedecor:Roofing",
-		{cracky=3},
-		{"building_blocks_Roofing.png"},
-		SL("Roofing stair"),
-		SL("Roofing slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"hardwood",
+	"lord_homedecor:hardwood",
+	{choppy=1,flammable=1},
+	{"building_blocks_hardwood.png"},
+	SL("Hardwood stair"),
+	SL("Hardwood slab"),
+	default.node_sound_wood_defaults(),
+	false,
+	SL("Inner Hardwood stair"),
+	SL("Outer Hardwood stair")
+)
+
+stairs.register_stair_and_slab(
+	"grate",
+	"lord_homedecor:grate",
+	{cracky=1},
+	{"building_blocks_grate.png"},
+	SL("Grate stair"),
+	SL("Grate slab"),
+	default.node_sound_leaves_defaults(),
+	false,
+	SL("Inner Grate stair"),
+	SL("Outer Grate stair")
+)
+
+stairs.register_stair_and_slab(
+	"adobe",
+	"lord_homedecor:Adobe",
+	{cracky=3},
+	{"building_blocks_Adobe.png"},
+	SL("Adobe stair"),
+	SL("Adobe slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Adobe stair"),
+	SL("Outer Adobe stair")
+)
+
+stairs.register_stair_and_slab(
+	"roofing",
+	"lord_homedecor:Roofing",
+	{cracky=3},
+	{"building_blocks_Roofing.png"},
+	SL("Roofing stair"),
+	SL("Roofing slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Roofing stair"),
+	SL("Outer Roofing stair")
+)
 
 
 minetest.register_craft({

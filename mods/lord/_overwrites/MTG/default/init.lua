@@ -1,6 +1,7 @@
 
 
 -- default/chests.lua
+
 -- Нам нужно только подсунуть свой фон (background), но для этого приходится переопределить ф-цию:
 local old_chest_get_chest_formspec = default.chest.get_chest_formspec
 default.chest.get_chest_formspec = function(pos)
@@ -9,7 +10,9 @@ end
 
 
 
+
 -- default/furnace.lua
+
 -- Нам нужно только подсунуть свой фон
 local old_get_furnace_active_formspec = default.get_furnace_active_formspec
 local old_get_furnace_inactive_formspec = default.get_furnace_inactive_formspec
@@ -24,7 +27,9 @@ end
 
 
 
+
 -- default/tools.lua
+
 -- свои кирки, лопаты, топоры, мечи и пр. мы определяем в моде `lord/tools/`,
 -- поэтому тут мы подчищаем все эти тулзы из `MTG/default`
 --
@@ -84,7 +89,9 @@ minetest.unregister_item("default:sword_diamond")
 
 
 
+
 -- default/craftitems.lua
+
 -- в `lord/lord_mail/` мы создаём свою "книгу с текстом"
 minetest.clear_craft({type = "fuel", recipe = "default:book_written"})
 minetest.unregister_item("default:book_written")
@@ -101,6 +108,159 @@ minetest.register_craft({
 })
 -- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
 minetest.clear_craft({type = "cooking", recipe = "default:tin_lump"})
-minetest.clear_craft({recipe = {{"default:tinblock"}}})
+minetest.clear_craft({recipe = {{"default:tinblock"}}}) -- `lottores:tin_block`
 minetest.unregister_item("default:tin_ingot")
 minetest.unregister_item("default:tin_lump")
+
+
+
+
+-- default/crafting.lua
+
+-- в LOTT (`lottplants/nodes.lua`) была изначально своя сосна (`lottplants:pinewood`)
+minetest.clear_craft({recipe = {{"default:pine_tree"}}})
+
+-- Были добавлены в MTG, но у нас не используются (пока выпиливаем):
+minetest.clear_craft({recipe = {{"default:acacia_tree"}}})
+minetest.clear_craft({recipe = {{"default:aspen_tree"}}})
+minetest.clear_craft({recipe = {{"default:bush_stem"}}})
+minetest.clear_craft({recipe = {{"default:acacia_bush_stem"}}})
+minetest.clear_craft({recipe = {{"default:pine_bush_stem"}}})
+
+-- наши знаки намного лучше
+minetest.clear_craft({output = "default:sign_wall_steel"})
+
+-- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
+minetest.clear_craft({output = "default:tinblock"}) -- `lottores:tin_block`
+
+-- `silver_sand` не генерируется нашим map-генератором (`mods/_lott/lottmapgen`)
+minetest.clear_craft({output = "default:silver_sand"})
+minetest.clear_craft({output = "default:silver_sandstone"})
+minetest.clear_craft({output = "default:silver_sandstone_brick"})
+minetest.clear_craft({output = "default:silver_sandstone_block"})
+
+-- мы не можем делать лестницу из любой палочки, т.к. в `lottblocks` добавляются разные лестницы из разных палочек
+minetest.clear_craft({output = "default:ladder_wood"})
+minetest.register_craft({
+	output = "default:ladder_wood 7", -- у нас выдаёт 7 штук, вместо 5-ти как в MTG
+	recipe = {
+		{"default:stick", "", "default:stick"},
+		{"default:stick", "default:stick", "default:stick"},
+		{"default:stick", "", "default:stick"},
+	}
+})
+-- `castle:jailbars` имеют такой же крафт, как `default:ladder_steel`
+minetest.clear_craft({output = "default:ladder_steel"})
+
+-- не известно как выглядит дерево из этого саженца, скорее всего не подходит по стилистике, пока удаляем
+minetest.clear_craft({output = "default:emergent_jungle_sapling"}) -- в MTG можно только скрафтить
+
+-- наш вариант как скрафтить землю (видать попытка сделать землю воспроизводимой нодой)
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:dirt",
+	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
+})
+
+-- наши дополнительные крафты:
+minetest.register_craft({
+	type = "cooking",
+	output = "default:cobble",
+	recipe = "default:gravel",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:steel_ingot",
+	recipe = "group:steel_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:copper_ingot",
+	recipe = "group:copper_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:bronze_ingot",
+	recipe = "group:bronze_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:gold_ingot",
+	recipe = "group:gold_item",
+})
+
+-- Оставляем наше время горения дабы не нарушить баланс
+-- (позже можно перебалансировать, учесть остальное топливо, напр. charcoal):
+-- tree fuels:
+minetest.clear_craft({type = "fuel", recipe = "group:tree"})
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_tree"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:jungletree"})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:tree",
+	burntime = 15,
+})
+-- wood fuels:
+minetest.clear_craft({type = "fuel", recipe = "group:wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_wood"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:junglewood"})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wood",
+	burntime = 10,
+})
+-- sapling fuels:
+-- сами саженцы не выглядят не сбалансировано, но их у нас нет (пока выпиливаем):
+minetest.clear_craft({type = "fuel", recipe = "default:bush_sapling"}) -- добавлены в MTG, но у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_bush_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:aspen_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:pine_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_sapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:junglesapling"}) -- добавлены в MTG, у нас не используется
+minetest.clear_craft({type = "fuel", recipe = "default:emergent_jungle_sapling"}) -- добавлены в MTG, у нас нет
+-- fence fuels:
+-- в lottblocks свои заборы, а остальных у нас нет, придётся выпилить все
+minetest.clear_craft({type = "fuel", recipe = "default:fence_aspen_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_pine_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_wood"}) -- является wooden
+minetest.clear_craft({type = "fuel", recipe = "default:fence_acacia_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_junglewood"})
+-- fence rail fuels:
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_aspen_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_pine_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_acacia_wood"})
+minetest.clear_craft({type = "fuel", recipe = "default:fence_rail_junglewood"})
+-- bush fuels:
+minetest.clear_craft({type = "fuel", recipe = "default:bush_stem"})
+minetest.clear_craft({type = "fuel", recipe = "default:acacia_bush_stem"})
+minetest.clear_craft({type = "fuel", recipe = "default:pine_bush_stem"})
+-- other fuels:
+minetest.clear_craft({type = "fuel", recipe = "default:junglegrass"}) -- нигде не генерится ? или ?
+
+-- наше дополнительное топливо:
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:paper",
+	burntime = 2,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:grass",
+	burntime = 3,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wool",
+	burntime = 1,
+})
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:wooden",
+	burntime = 5,
+})

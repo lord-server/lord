@@ -399,10 +399,10 @@ minetest.register_node("lottores:geodes_crystal_1", {
 	description = SL("Geodes Crystal"),
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
-     paramtype = "light",
+	paramtype = "light",
 	sunlight_propagates = true,
-     light_source = 8,
-     alpha = 200,
+	light_source = 8,
+	use_texture_alpha = "blend",
 	is_ground_content = false,
 	groups = {cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
@@ -426,10 +426,10 @@ minetest.register_node("lottores:geodes_crystal_1", {
 minetest.register_node("lottores:geodes_crystal_2", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
-     paramtype = "light",
+	paramtype = "light",
 	sunlight_propagates = true,
-     light_source = 8,
-     alpha = 200,
+	light_source = 8,
+	use_texture_alpha = "blend",
 	is_ground_content = false,
 	groups = {cracky=3,oddly_breakable_by_hand=3,not_in_creative_inventory=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -450,10 +450,10 @@ minetest.register_node("lottores:geodes_crystal_2", {
 minetest.register_node("lottores:geodes_crystal_3", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
-     paramtype = "light",
+	paramtype = "light",
 	sunlight_propagates = true,
-     light_source = 8,
-     alpha = 200,
+	light_source = 8,
+	use_texture_alpha = "blend",
 	is_ground_content = false,
 	groups = {cracky=3,oddly_breakable_by_hand=3,not_in_creative_inventory=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -475,10 +475,10 @@ minetest.register_node("lottores:geodes_crystal_3", {
 minetest.register_node("lottores:geodes_crystal_4", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
-     paramtype = "light",
+	paramtype = "light",
 	sunlight_propagates = true,
-     light_source = 8,
-     alpha = 200,
+	light_source = 8,
+	use_texture_alpha = "blend",
 	is_ground_content = false,
 	groups = {cracky=3,oddly_breakable_by_hand=3,not_in_creative_inventory=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -499,10 +499,10 @@ minetest.register_node("lottores:geodes_crystal_4", {
 minetest.register_node("lottores:geodes_crystal_5", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
-     paramtype = "light",
+	paramtype = "light",
 	sunlight_propagates = true,
-     light_source = 8,
-     alpha = 200,
+	light_source = 8,
+	use_texture_alpha = "blend",
 	is_ground_content = false,
 	groups = {cracky=3,oddly_breakable_by_hand=3,not_in_creative_inventory=1},
 	sounds = default.node_sound_glass_defaults(),
@@ -578,8 +578,8 @@ minetest.register_node("lottores:ithildin_0", {
 minetest.register_node("lottores:ithildin_1", {
 	description = SL("Ithildin"),
 	tiles = {"ithildin_1.png"},
-	inventory_image = {"ithildin_1.png"},
-	wield_image = {"ithildin_1.png"},
+	inventory_image = "ithildin_1.png",
+	wield_image = "ithildin_1.png",
 	paramtype = "light",
 	drawtype = 'glasslike',
 	walkable = false,
@@ -768,61 +768,109 @@ minetest.register_abm(
 
 -- Stairs & Slabs
 
-stairs.register_stair_and_slab("tilkal", "lottores:tilkal",
-        {forbidden=1},
-		{"lottores_tilkal.png"},
-		SL("Tilkal Stair"),
-		SL("Tilkal Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"tilkal",
+	"lottores:tilkal",
+  {forbidden=1},
+	{"lottores_tilkal.png"},
+	SL("Tilkal Stair"),
+	SL("Tilkal Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Tilkal Stair"),
+	SL("Outer Tilkal Stair")
+)
 
-stairs.register_stair_and_slab("limestone", "lottores:limestone",
-        {cracky=3, stone=2},
-		{"lottores_limestone_ore.png"},
-		SL("Limestone Stair"),
-		SL("Limestone Slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"limestone",
+	"lottores:limestone",
+  {cracky=3, stone=2},
+	{"lottores_limestone_ore.png"},
+	SL("Limestone Stair"),
+	SL("Limestone Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Limestone Stair"),
+	SL("Outer Limestone Stair")
+)
 
-stairs.register_stair_and_slab("marble", "lottores:marble",
-        {cracky=3},
-		{"lottores_marble.png"},
-		SL("Marble Stair"),
-		SL("Marble Slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"marble",
+	"lottores:marble",
+  {cracky=3},
+	{"lottores_marble.png"},
+	SL("Marble Stair"),
+	SL("Marble Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Marble Stair"),
+	SL("Outer Marble Stair")
+)
 
-stairs.register_stair_and_slab("silver_block", "lottores:silver_block",
-        {cracky=1,level=2},
-		{"lottores_silver_block.png"},
-		SL("Silver Stair"),
-		SL("Silver Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"silver_block",
+	"lottores:silver_block",
+  {cracky=1,level=2},
+	{"lottores_silver_block.png"},
+	SL("Silver Stair"),
+	SL("Silver Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Silver Stair"),
+	SL("Outer Silver Stair")
+)
 
-stairs.register_stair_and_slab("tin_block", "lottores:tin_block",
-        {cracky=1},
-		{"lottores_tin_block.png"},
-		SL("Tin Stair"),
-		SL("Tin Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"tin_block",
+	"lottores:tin_block",
+  {cracky=1},
+	{"lottores_tin_block.png"},
+	SL("Tin Stair"),
+	SL("Tin Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Tin Stair"),
+	SL("Outer Tin Stair")
+)
 
-stairs.register_stair_and_slab("lead_block", "lottores:lead_block",
-        {cracky=1},
-		{"lottores_lead_block.png"},
-		SL("Lead Stair"),
-		SL("Lead Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"lead_block",
+	"lottores:lead_block",
+  {cracky=1},
+	{"lottores_lead_block.png"},
+	SL("Lead Stair"),
+	SL("Lead Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Lead Stair"),
+	SL("Outer Lead Stair")
+)
 
-stairs.register_stair_and_slab("mithril_block", "lottores:mithril_block",
-        {cracky=1,level=2},
-		{"lottores_mithril_block.png"},
-		SL("Mithril Stair"),
-		SL("Mithril Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"mithril_block",
+	"lottores:mithril_block",
+  {cracky=1,level=2},
+	{"lottores_mithril_block.png"},
+	SL("Mithril Stair"),
+	SL("Mithril Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Mithril Stair"),
+	SL("Outer Mithril Stair")
+)
 
-stairs.register_stair_and_slab("galvorn_block", "lottores:galvorn_block",
-        {cracky=1,level=2,forbidden=1},
-		{"lottores_galvorn_block.png"},
-		SL("Galvorn Stair"),
-		SL("Galvorn Slab"),
-		default.node_sound_metal_defaults())
+stairs.register_stair_and_slab(
+	"galvorn_block",
+	"lottores:galvorn_block",
+  {cracky=1,level=2,forbidden=1},
+	{"lottores_galvorn_block.png"},
+	SL("Galvorn Stair"),
+	SL("Galvorn Slab"),
+	default.node_sound_metal_defaults(),
+	false,
+	SL("Inner Galvorn Stair"),
+	SL("Outer Galvorn Stair")
+)
 
 -- Crafting
 
@@ -1035,11 +1083,11 @@ minetest.register_node("lottores:mineral_salt", {
 
 minetest.register_node( "lottores:pearl_block", {
 	description = SL("Pearl Block"),
-     alpha = 200,
+	use_texture_alpha = "clip",
 	tiles = { "default_sand.png^lottores_pearl_block.png" },
 	is_ground_content = true,
 	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
-     sounds = default.node_sound_glass_defaults(),
+	sounds = default.node_sound_glass_defaults(),
 })
 
 minetest.register_node( "lottores:salt_block", {
@@ -1115,19 +1163,31 @@ minetest.register_craft({
 	}
 })
 
-stairs.register_stair_and_slab("pearl", "lottores:pearl_block",
-		{cracky=3,oddly_breakable_by_hand=3},
-		{"lottores_pearl_block.png"},
-		SL("Pearl Stair"),
-		SL("Pearl Slab"),
-		default.node_sound_glass_defaults())
+stairs.register_stair_and_slab(
+	"pearl",
+	"lottores:pearl_block",
+	{cracky=3,oddly_breakable_by_hand=3},
+	{"lottores_pearl_block.png"},
+	SL("Pearl Stair"),
+	SL("Pearl Slab"),
+	default.node_sound_glass_defaults(),
+	false,
+	SL("Inner Pearl Stair"),
+	SL("Outer Pearl Stair")
+)
 
-stairs.register_stair_and_slab("salt", "lottores:salt_block",
-		{cracky=3,oddly_breakable_by_hand=3},
-		{"lottores_salt_block.png"},
-		SL("Salt Stair"),
-		SL("Salt Slab"),
-		default.node_sound_stone_defaults())
+stairs.register_stair_and_slab(
+	"salt",
+	"lottores:salt_block",
+	{cracky=3,oddly_breakable_by_hand=3},
+	{"lottores_salt_block.png"},
+	SL("Salt Stair"),
+	SL("Salt Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	SL("Inner Salt Stair"),
+	SL("Outer Salt Stair")
+)
 
 -- Cooking
 -- Серебро и изделия
@@ -1183,5 +1243,3 @@ minetest.register_craft({
 	output = "lottores:galvorn_ingot",
 	recipe = "group:galvorn_item",
 })
-
-lord.mod_loaded()

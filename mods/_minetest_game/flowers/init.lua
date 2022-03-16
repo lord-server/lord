@@ -333,4 +333,3 @@ waterlily_waving_def.groups.not_in_creative_inventory = 1
 
 minetest.register_node("flowers:waterlily", waterlily_def)
 minetest.register_node("flowers:waterlily_waving", waterlily_waving_def)
-

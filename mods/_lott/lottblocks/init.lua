@@ -23,12 +23,17 @@ minetest.register_node("lottblocks:orc_brick", {
 	is_ground_content = false,
 	groups = {cracky=2},
 })
-stairs.register_stair_and_slab("orc_brick", "lottblocks:orc_brick",
+stairs.register_stair_and_slab(
+		"orc_brick",
+		"lottblocks:orc_brick",
 		{cracky=2},
 		{"lottblocks_orc_brick.png"},
 		SL("Orc Brick Stair"),
 		SL("Orc Brick Slab"),
-		default.node_sound_stone_defaults()
+		default.node_sound_stone_defaults(),
+		false,
+		SL("Inner Orc Brick Stair"),
+		SL("Outer Orc Brick Stair")
 )
 minetest.register_node("lottblocks:marble_brick", {
 	description = SL("Marble Brick"),
@@ -36,12 +41,17 @@ minetest.register_node("lottblocks:marble_brick", {
 	is_ground_content = false,
 	groups = {cracky=2},
 })
-stairs.register_stair_and_slab("marble_brick", "lottblocks:marble_brick",
+stairs.register_stair_and_slab(
+		"marble_brick",
+		"lottblocks:marble_brick",
 		{cracky=2},
 		{"lottblocks_marble_brick.png"},
 		SL("Marble Brick Stair"),
 		SL("Marble Brick Slab"),
-		default.node_sound_stone_defaults()
+		default.node_sound_stone_defaults(),
+		false,
+		SL("Inner Marble Brick Stair"),
+		SL("Outer Marble Brick Stair")
 )
 minetest.register_craft({
 	output = 'lottblocks:marble_brick 4',
@@ -57,5 +67,3 @@ minetest.register_craft({
 		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
 	}
 })
-
-lord.mod_loaded()

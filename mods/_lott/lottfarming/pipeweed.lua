@@ -124,7 +124,7 @@ minetest.register_tool("lottfarming:pipe", {
 				if not default.creative then
 					player:get_inventory():remove_item("main", arrow[1])
 				end
-				local pos = player:getpos()
+				local pos = player:get_pos()
 				local dir = player:get_look_dir()
 				minetest.add_particle({
 					pos                = { x = pos.x, y = pos.y + 1.5, z = pos.z },

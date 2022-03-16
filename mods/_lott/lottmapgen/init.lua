@@ -87,14 +87,14 @@ local np_random = {
 
 -- Stuff
 lottmapgen = {}
-local mapgen_params = minetest.get_mapgen_params()
+local water_level = minetest.get_mapgen_setting("water_level")
 
 dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
 dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
 
 -- On generated function
 minetest.register_on_generated(function(minp, maxp, seed)
-	if minp.y < (mapgen_params.water_level-1000) or minp.y > 5000 then
+	if minp.y < (water_level-1000) or minp.y > 5000 then
 		return
 	end
 
@@ -168,9 +168,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local chulens = {x=sidelen, y=sidelen, z=sidelen}
 	local minposxz = {x=x0, y=z0}
 
-	local nvals_temp = minetest.get_perlin_map(np_temp, chulens):get2dMap_flat(minposxz)
-	local nvals_humid = minetest.get_perlin_map(np_humid, chulens):get2dMap_flat(minposxz)
-	local nvals_random = minetest.get_perlin_map(np_random, chulens):get2dMap_flat(minposxz)
+	local nvals_temp = minetest.get_perlin_map(np_temp, chulens):get_2d_map_flat(minposxz)
+	local nvals_humid = minetest.get_perlin_map(np_humid, chulens):get_2d_map_flat(minposxz)
+	local nvals_random = minetest.get_perlin_map(np_random, chulens):get_2d_map_flat(minposxz)
 
 	local nixz = 1
 	for z = z0, z1 do
@@ -213,8 +213,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				end
 			end
 
-			local sandy = (mapgen_params.water_level+2) + math.random(-1, 1) -- sandline
-			local sandmin = (mapgen_params.water_level-15) + math.random(-5, 0) -- lowest sand
+			local sandy = (water_level+2) + math.random(-1, 1) -- sandline
+			local sandmin = (water_level-15) + math.random(-5, 0) -- lowest sand
 			local open = true -- open to sky?
 			local solid = true -- solid node above?
 			local water = false -- water node above?
@@ -231,7 +231,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				or nodid == c_stonecopper
 				or nodid == c_stoneiron
 				or nodid == c_stonecoal then
-					if y > mapgen_params.water_level-32 then
+					if y > water_level-32 then
 						if biome == 4 or biome == 12 then
 							data[vi] = c_desertstone
 						elseif biome == 8 then
@@ -255,20 +255,20 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								end
 							elseif y <= sandy and y >= sandmin then -- sand
 								if biome ~= 8 then
-									if open and water and y == (mapgen_params.water_level-1) and biome > 4 and math.random(PAPCHA) == 2 then -- papyrus
-										lottmapgen_papyrus(x, (mapgen_params.water_level+1), z, area, data)
+									if open and water and y == (water_level-1) and biome > 4 and math.random(PAPCHA) == 2 then -- papyrus
+										lottmapgen_papyrus(x, (water_level+1), z, area, data)
 										data[vi] = c_dirt
-									elseif math.abs(n_temp) < 0.05 and y == (mapgen_params.water_level-1) then -- clay
+									elseif math.abs(n_temp) < 0.05 and y == (water_level-1) then -- clay
 										data[vi] = c_clay
-									elseif math.abs(n_temp) < 0.05 and y == (mapgen_params.water_level-5) then -- salt
+									elseif math.abs(n_temp) < 0.05 and y == (water_level-5) then -- salt
 										data[vi] = c_salt
-									elseif math.abs(n_temp) < 0.05 and y == (mapgen_params.water_level-20) then -- pearl
+									elseif math.abs(n_temp) < 0.05 and y == (water_level-20) then -- pearl
 										data[vi] = c_pearl
 									else
 										data[vi] = c_sand
 									end
 								end
-								if open and y > (mapgen_params.water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= 8 and biome ~= 7 then -- dune grass
+								if open and y > (water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= 8 and biome ~= 7 then -- dune grass
 									local vi = area:index(x, y + 1, z)
 										data[vi] = c_dryshrub
 									end
@@ -513,7 +513,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								data[vi] = c_morwat
 							end
 						end
-						if n_temp < ICETET and y >= mapgen_params.water_level - math.floor((ICETET - n_temp) * 10) then --ice
+						if n_temp < ICETET and y >= water_level - math.floor((ICETET - n_temp) * 10) then --ice
 							data[vi] = c_ice
 						end
 					end
@@ -532,5 +532,3 @@ end)
 dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 dofile(minetest.get_modpath("lottmapgen").."/deco.lua")
 dofile(minetest.get_modpath("lottmapgen").."/chests.lua")
-
-lord.mod_loaded()

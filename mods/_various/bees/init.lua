@@ -898,5 +898,3 @@ local SL = lord.require_intllib()
         }
       })
     end
-
-print('[Mod]Bees Loaded!')

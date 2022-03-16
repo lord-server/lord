@@ -1,8 +1,0 @@
-default
-doors
-castle
-lottores
-lottblocks
-lottmapgen
-mobs?
-lordlib

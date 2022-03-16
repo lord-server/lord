@@ -21,7 +21,7 @@ end
 
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
-		local pos = vector.round(player:getpos())
+		local pos = vector.round(player:get_pos())
 		local in_arena = false
 		for id, _ in pairs(areas:getAreasAtPos(pos)) do
 			if id == ARENA_AREA_ID then

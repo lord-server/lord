@@ -1,7 +1,7 @@
-local mapgen_params = minetest.get_mapgen_params()
+local water_level = minetest.get_mapgen_setting("water_level")
 
 minetest.register_on_generated(function(minp, maxp, seed)
-	if minp.y < (mapgen_params.water_level-1000) or minp.y > 5000 then
+	if minp.y < (water_level-1000) or minp.y > 5000 then
 		return
 	end
 
@@ -33,7 +33,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				local vi = area:index(x, y, z)
 				local nodid = data[vi]
 
-				if y < (mapgen_params.water_level-500) and nodid == c_mossycobble then
+				if y < (water_level-500) and nodid == c_mossycobble then
 					local vi = area:index(x, y+1, z)
 					if data[vi] == c_air and data[area:index(x, y+1, z+1)] == c_air then
 						if math.random(1,500) == 10 then

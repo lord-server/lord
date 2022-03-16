@@ -136,7 +136,3 @@ minetest.register_craft({
 		{"group:stick", "", "group:stick", }
 	}
 })
-
-if minetest.settings:get("log_mods") then
-	minetest.log("action", "coffeetable loaded")
-end

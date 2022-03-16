@@ -532,7 +532,3 @@ minetest.register_chatcommand("give_chance", {
 })
 
 dofile(minetest.get_modpath('lord_classes')..'/effects.lua')
-
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname().." loaded")
-end

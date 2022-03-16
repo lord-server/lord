@@ -71,9 +71,20 @@
 ### `lord_names_rules`
  - правила формирования имени игрока (при регистрации)
 
+### `lord_screwdriver`
+ - Отвёртки `lord_screwdriver:screwdriver`, `lord_screwdriver:screwdriver_galvorn`
+ - Оптимизирована текстура `screwdriver_galvorn.png` 9406 bytes -> 257 bytes
+ - Зависит от `MTG/screwdriver`
+
+### `lord_wool`
+ - ступени и плиты из шерсти `stairs:{stair,slab}_wool<colorname>`
+
 ### `lordlib`
- - вспомогательные функции (`lord.load()`, `lord.require_intllib()`, `lord.mod_loaded()`,..)
- - система event'ов(событий) и listener'ов/обработчиков/подписчиков (`lord.emit()`, `lord.on()`)
+ - вспомогательные функции (`lord.require_intllib()`)
+
+### `lamps`
+ - мод для ламп [см.](https://github.com/lord-server/lord/pull/465)
+ - мод разработан нами (by VanicGame)
 
 ### `mega_sl`
  - Сохранение и загрузка области карты (команды `/S` и `/L`)
@@ -81,6 +92,10 @@
 ### `ru_lower_upper`
  - `string.lower()` и `string.upper()` для русского
  - используются ли ? и нужны ли для новых версий Minetest'а ?
+
+### `roads`
+ - мод для дорог с бордюрами [см.](https://github.com/lord-server/lord/pull/381)
+ - мод разработан нами (by VanicGame)
 
 ### `spawn`
  - команды /life, /spawn
