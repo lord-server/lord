@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lord_overwrites_mtg_carts")
 
 --
 -- crafting
@@ -18,7 +18,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lord_overwrites_mtg_carts:gear", {
-	description = SL("Gear"),
+	description = S("Gear"),
 	inventory_image = "carts_gear.png",
 })
 
@@ -32,7 +32,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("lord_overwrites_mtg_carts:steam_mechanism", {
-	description = SL("Steam mechanism"),
+	description = S("Steam mechanism"),
 	tiles = {"carts_steam_mechanismv.png", "carts_steam_mechanismn.png",
 		"carts_steam_mechanism1.png", "carts_steam_mechanism3.png",
 		"carts_steam_mechanism2.png", "carts_steam_mechanism4.png"},
