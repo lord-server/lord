@@ -258,3 +258,5 @@ minetest.register_alias("fire:fireplace", "campfire:fireplace")
 minetest.register_alias("fire:campfire_active", "campfire:campfire_active")
 minetest.register_alias("fire:ash", "campfire:ash")
 
+minetest.register_alias("carts:accelerating_rail", "lord_overwrites_mtg_carts:powerrail")
+minetest.register_alias("carts:stopping_rail", "carts:brakerail")
