@@ -47,6 +47,9 @@
  - ? https://forum.minetest.net/viewtopic.php?t=9917 ?
  - ? https://notabug.org/tenplus1/mobs_redo ? (https://content.minetest.net/packages/TenPlus1/mobs/) ???
 
+### `mobs_fish`
+ - первоначальный источник сходу не удалось найти
+
 ### `mp_world_edit`
  - [readme](mp_world_edit/README.md)
 
