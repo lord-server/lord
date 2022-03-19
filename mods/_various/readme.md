@@ -47,6 +47,9 @@
 ### `mp_world_edit`
  - [readme](mp_world_edit/README.md)
 
+### `painting`
+ - https://github.com/HybridDog/painting
+
 ### `new_campfire`
  - https://content.minetest.net/packages/VanessaE/new_campfire/
 
