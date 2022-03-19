@@ -1,0 +1,8 @@
+### init.lua ###
+Can register e-mail.	=	Возможность зарегестрировать e-mail.
+Register your e-mail	=	Зарегестрировать e-mail
+Show your e-mail	=	Отобразить текущий e-mail
+
+No <mail>!	=	Нужно указать <e-mail>!
+No mail!	=	e-mail пока не зарегистрирован, используйте /setmail
+Your mail:	=	Ваш e-mail:
