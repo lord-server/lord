@@ -1,6 +1,9 @@
 Сторонние разрозненные моды
 ===========================
 
+### `ambience`
+ - https://github.com/Neuromancer56/MinetestAmbience
+ - но есть ещё вот такой вариант: https://notabug.org/TenPlus1/ambience (может стоит взглянуть)
 
 ### `areas`
  - [minetest-mods/areas](https://github.com/minetest-mods/areas)
