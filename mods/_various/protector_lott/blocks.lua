@@ -73,7 +73,7 @@ reg_prot_node("sandstone", "Sandstone", "default:sandstone", "default_sandstone.
 reg_prot_node("sandstonebrick", "Sandstone Brick", "default:sandstonebrick", "default_sandstone_brick.png")
 
 reg_prot_node("dungeon_stone", "Dungeon Stone", "castle:dungeon_stone", "castle_dungeon_stone_m.png")
-reg_prot_node("pavement", "Paving Stone", "castle:pavement", "castle_pavement_brick_m.png")
+reg_prot_node("pavement", "Paving Stone", "castle:pavement", "castle_pavement_brick.png")
 reg_prot_node("marble", "Marble", "lottores:marble", "lottores_marble.png")
 reg_prot_node("marble_brick", "Marble Brick", "lottblocks:marble_brick", "lottblocks_marble_brick.png")
 reg_prot_node("orc_brick", "Orc Brick", "lottblocks:orc_brick", "lottblocks_orc_brick.png")
