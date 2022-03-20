@@ -2,3 +2,7 @@
 Blackout=
 Stripe Dwarf Stone (Single Dot)=
 Stripe Dwarf Stone (One Sided)=
+Marble With Gold=
+Marble With Redgem=
+Marble With Bluegem=
+Marble With Purplegem=
