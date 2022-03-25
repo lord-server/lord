@@ -3,8 +3,9 @@ right_mobs_ai = {
 		stroll = 1,
 		rest = 2,
 		runaway = 3,
-		goto_target = 4,
-		attack = 5,
+		aggression = 4,
+		goto_target = 5,
+		attack = 6,
 	},
 	attacks = {
 		dogfight = 1,
@@ -19,6 +20,8 @@ local function serialize_state(state)
 		return "rest"
 	elseif state == right_mobs_ai.states.runaway then
 		return "runaway"
+	elseif state == right_mobs_ai.states.aggression then
+		return "aggression"
 	elseif state == right_mobs_ai.states.goto_target then
 		return "goto_target"
 	elseif state == right_mobs_ai.states.attack then
@@ -33,6 +36,8 @@ local function deserialize_state(state)
 		return right_mobs_ai.states.rest
 	elseif state == "runaway" then
 		return right_mobs_ai.states.runaway
+	elseif state == "aggression" then
+		return right_mobs_ai.states.aggression
 	elseif state == "goto_target" then
 		return right_mobs_ai.states.goto_target
 	elseif state == "attack" then
@@ -80,6 +85,12 @@ local function process_stay(context, position, velocity)
 	end
 end
 
+local function process_aggression(context, position, velocity, target)
+	if context.definition.aggression then
+		context.definition.aggression(context, context.target, context.userdata)
+	end
+end
+
 local update_target_position = function(context)
 	if context.target then
 		context.target_position = context.target:get_pos()
@@ -108,7 +119,38 @@ end
 local function default_think(context, position, velocity, dtime)
 end
 
+local function has_dogfight(context)
+	local available = context.definition.available_attacks
+	for _, item in available do
+		if item == right_mobs_ai.attacks.dogfight then
+			return true
+		end
+	end
+	return false
+end
+
+local function has_remote(context)
+	local available = context.definition.available_attacks
+	for _, item in available do
+		if item == right_mobs_ai.attacks.remote_attack then
+			return true
+		end
+	end
+	return false
+end
+
 local function default_select_attack(context, position, velocity)
+	local delta = {	x=context.target_position.x - position.x,
+					y=context.target_position.y - position.y,
+					z=context.target_position.z - position.z,
+				}
+	local len = vector.length(delta)
+	
+	if has_dogfight(context) and len < context.definition.dogfight_distance then
+		return right_mobs_ai.attacks.dogfight
+	elseif has_remote(context) then
+		return right_mobs_ai.attacks.remote_attack
+	end
 	return nil
 end
 
@@ -123,6 +165,8 @@ right_mobs_ai.process = function(self, context, position, velocity, dtime)
 		process_targeting(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.attack then
 		process_attack(context, position, velocity)
+	elseif context.state == right_mobs_ai.states.aggression then
+		process_aggression(context, position, velocity)
 	end
 
 	if context.definition.think then
@@ -159,6 +203,7 @@ right_mobs_ai.register_mob = function(self, name, def)
 		attack = def.attack,
 		walk = def.walk,
 		stay = def.stay,
+		aggression = def.aggression,
 
 		-- reactions on external actions
 		on_punched = def.on_punched or default_on_punched,
@@ -189,7 +234,10 @@ end
 
 right_mobs_ai.serialize = function(self, context)
 	-- сохранение целей сложно реализовать, поэтому при засыпании моб забывает цели
-	if context.state == self.states.attack or context.state == self.states.goto_target then
+	if context.state == self.states.attack or
+		context.state == self.states.goto_target or
+		context.state == self.states.aggression then
+
 		context.state = self.states.rest
 		context.target = nil
 		context.target_position = nil

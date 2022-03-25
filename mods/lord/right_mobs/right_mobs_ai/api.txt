@@ -3,8 +3,9 @@
 * stroll - прогулка
 * rest - отдых
 * runaway - бегство
+* aggression - проявление агрессии к цели
 * goto_target - движение к цели
-* attack - атака
+* attack - атака цели
 
 -- right_mobs_ai:register_mob(name, definition)
 
