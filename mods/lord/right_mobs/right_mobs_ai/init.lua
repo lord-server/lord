@@ -91,23 +91,6 @@ local function process_aggression(context, position, velocity, target)
 	end
 end
 
-local update_target_position = function(context)
-	if context.target then
-		context.target_position = context.target:get_pos()
-	end
-end
-
--- handlers
-local function default_on_punched(context, puncher, attributes)
-	context.state = right_mobs_ai.states.goto_target
-	context.target = puncher
-	update_target_position(context)
-end
-
-local function default_on_target_lost(context)
-	context.state = right_mobs_ai.states.rest
-end
-
 local function process_target_lost(context)
 	context.target = nil
 	context.target_position = nil
@@ -116,8 +99,58 @@ local function process_target_lost(context)
 	end
 end
 
-local function default_think(context, position, velocity, dtime)
+local update_target_position = function(context)
+	if context.target then
+		context.target_position = context.target:get_pos()
+	end
 end
+
+-- default actions
+local function default_on_punched(context, puncher, attributes)
+	context.state = right_mobs_ai.states.aggression
+	context.target = puncher
+	update_target_position(context)
+end
+
+local function default_on_target_lost(context)
+	context.state = right_mobs_ai.states.rest
+	context.aggression = nil
+end
+
+local function default_think(context, position, velocity, dtime)
+	-- aggression
+	if context.state == right_mobs_ai.states.aggression then
+		if context.aggression == nil then
+			context.aggression = {
+				time = 0
+			}
+		end
+
+		context.aggression.time += dtime
+
+		if context.aggression.dtime > 10 then
+			context.state = right_mobs_ai.states.rest
+			context.aggression = nil
+		end
+	end
+end
+
+local function default_select_attack(context, position, velocity)
+	local delta = {	x=context.target_position.x - position.x,
+					y=context.target_position.y - position.y,
+					z=context.target_position.z - position.z,
+				}
+	local len = vector.length(delta)
+	
+	if has_dogfight(context) and len < context.definition.dogfight_distance then
+		return right_mobs_ai.attacks.dogfight
+	elseif has_remote(context) then
+		return right_mobs_ai.attacks.remote_attack
+	end
+	return nil
+end
+
+-- end of default actions
 
 local function has_dogfight(context)
 	local available = context.definition.available_attacks
@@ -137,21 +170,6 @@ local function has_remote(context)
 		end
 	end
 	return false
-end
-
-local function default_select_attack(context, position, velocity)
-	local delta = {	x=context.target_position.x - position.x,
-					y=context.target_position.y - position.y,
-					z=context.target_position.z - position.z,
-				}
-	local len = vector.length(delta)
-	
-	if has_dogfight(context) and len < context.definition.dogfight_distance then
-		return right_mobs_ai.attacks.dogfight
-	elseif has_remote(context) then
-		return right_mobs_ai.attacks.remote_attack
-	end
-	return nil
 end
 
 right_mobs_ai.process = function(self, context, position, velocity, dtime)
