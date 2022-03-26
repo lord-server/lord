@@ -237,10 +237,12 @@ right_mobs_ai.register_mob = function(self, name, def)
 		targeting_speed = def.targeting_speed or right_mobs_ai.defaults.speed,
 	}
 
-	self.mob_definitions[name] = config
+	self.mob_definitions[name] = definition
 end
 
 right_mobs_ai.init_new_mob = function(self, name, userdata)
+	-- TODO: проверить что моб с таким именем зарегистрирован
+
 	local context = {
 		definition = self.mob_definitions[name],
 		state = self.states.rest,
@@ -269,6 +271,8 @@ right_mobs_ai.serialize = function(self, context)
 end
 
 right_mobs_ai.init_from_serialized = function(self, serialized, userdata)
+	-- TODO: проверить что моб с таким именем зарегистрирован
+
 	local deserialized = minetest.deserialize(data)
 	local name = deserialized.name
 	local state = deserialize_state(deserialized.state)
