@@ -49,7 +49,7 @@ end
 local function process_attack(context, position, velocity)
 	local attack = nil
 	if context.definition.select_attack then
-		attack = context.definition.select_attack(context, position, velocity)	
+		attack = context.definition.select_attack(context, position, velocity, context.userdata)	
 	end
 
 	if attack and context.target then

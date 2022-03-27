@@ -23,14 +23,14 @@ local function deserialize_state(state)
 end
 
 
-right_mobs_health.heal(self, context, health)
+right_mobs_health.heal = function(self, context, health)
     context.health += health
     if context.health > context.max_health then
         context.health = context.max_health
     end
 end
 
-right_mobs_health.punch(self, context, force)
+right_mobs_health.punch = function(self, context, force)
     context.health -= force
 end
 
@@ -41,7 +41,7 @@ right_mobs_health.process = function(self, context, dtime)
 
     if context.health <= 0 then
         if context.definition.on_die then
-            context.definition.on_die(context)
+            context.definition.on_die(context, context.userdata)
         end
     end
 end
