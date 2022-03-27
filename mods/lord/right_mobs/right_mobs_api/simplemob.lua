@@ -56,7 +56,7 @@ minetest.register_entity("right_mobs:simplemob", {
     visual = "mesh",
     mesh = "human_model.x",
 
-    texture = definition.texture or "lottmobs_rohan_guard_2.png",
+    texture = "lottmobs_rohan_guard_2.png",
 
     on_rightclick = interact_simplemob,
     on_punch = punch_simplemob,

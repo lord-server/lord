@@ -11,6 +11,10 @@ right_mobs_ai = {
 		dogfight = 1,
 		remote_attack = 2,
 	},
+	defaults = {
+		speed = 1,
+	},
+	mob_definitions = {},
 }
 
 local function serialize_state(state)
@@ -126,7 +130,7 @@ local function default_think(context, position, velocity, dtime)
 			}
 		end
 
-		context.aggression.time += dtime
+		context.aggression.time = context.aggression.time + dtime
 
 		if context.aggression.dtime > 10 then
 			context.state = right_mobs_ai.states.rest

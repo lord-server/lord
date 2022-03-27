@@ -24,14 +24,11 @@ end
 
 
 right_mobs_health.heal = function(self, context, health)
-    context.health += health
-    if context.health > context.max_health then
-        context.health = context.max_health
-    end
+    context.health = math.min(context.health + health, context.max_health)
 end
 
 right_mobs_health.punch = function(self, context, force)
-    context.health -= force
+    context.health = math.max(context.health - force, 0)
 end
 
 right_mobs_health.process = function(self, context, dtime)
