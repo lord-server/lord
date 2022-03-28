@@ -90,8 +90,11 @@ local function process_stay(context, position, velocity)
 end
 
 local function process_aggression(context, position, velocity, target)
-	if context.definition.aggression then
-		context.definition.aggression(context, context.target, context.userdata)
+	if context.aggression and context.aggression.perform then
+		if context.definition.aggression then
+			context.definition.aggression(context, context.target, context.userdata)
+		end
+		context.aggression.perform = false
 	end
 end
 
@@ -126,13 +129,21 @@ local function default_think(context, position, velocity, dtime)
 	if context.state == right_mobs_ai.states.aggression then
 		if context.aggression == nil then
 			context.aggression = {
-				time = 0
+				time = 0,
+				periodic = 0,
+				perform = false,
 			}
 		end
 
 		context.aggression.time = context.aggression.time + dtime
+		context.aggression.periodic = context.aggression.periodic + dtime
 
-		if context.aggression.dtime > 10 then
+		if context.aggression.periodic > context.definition.aggression_period then
+			context.aggression.perform = true
+			context.aggression.periodic = 0		
+		end
+
+		if context.aggression.time > context.definition.aggression_time then
 			context.state = right_mobs_ai.states.rest
 			context.aggression = nil
 		end
@@ -239,6 +250,9 @@ right_mobs_ai.register_mob = function(self, name, def)
 		stroll_speed = def.stroll_speed or right_mobs_ai.defaults.speed,
 		runaway_speed = def.runaway_speed or right_mobs_ai.defaults.speed,
 		targeting_speed = def.targeting_speed or right_mobs_ai.defaults.speed,
+
+		aggression_time = def.aggression_time or 10,
+		aggression_period = def.aggression_period or 1,
 	}
 
 	self.mob_definitions[name] = definition
@@ -277,7 +291,7 @@ end
 right_mobs_ai.init_from_serialized = function(self, serialized, userdata)
 	-- TODO: проверить что моб с таким именем зарегистрирован
 
-	local deserialized = minetest.deserialize(data)
+	local deserialized = minetest.deserialize(serialized)
 	local name = deserialized.name
 	local state = deserialize_state(deserialized.state)
 	local context = {

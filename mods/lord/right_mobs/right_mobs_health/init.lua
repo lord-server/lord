@@ -22,21 +22,21 @@ local function deserialize_state(state)
     end
 end
 
-
-right_mobs_health.heal = function(self, context, health)
+right_mobs_health.heal = function(self, context, healer, health)
     context.health = math.min(context.health + health, context.max_health)
 end
 
-right_mobs_health.punch = function(self, context, force)
+right_mobs_health.punch = function(self, context, puncher, force)
     context.health = math.max(context.health - force, 0)
 end
 
-right_mobs_health.process = function(self, context, dtime)
-    if context.dead then
+right_mobs_health.process = function(self, context, position, velocity, dtime)
+    if context.state == self.states.dead then
         return
     end
 
     if context.health <= 0 then
+        context.state = self.states.dead
         if context.definition.on_die then
             context.definition.on_die(context, context.userdata)
         end
@@ -59,7 +59,7 @@ right_mobs_health.init_new_mob = function(self, name, max_health, userdata)
     local context = {
         name = name,
         max_health = max_health,
-        health = health,
+        health = max_health,
         userdata = userdata,
         state = self.states.alive,
 
