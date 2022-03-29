@@ -11,13 +11,6 @@
 
 Регистрация нового типа моба
 
-definition может содержать поля
-
-* available_attacks - список возможных атак (ближний, дальний бой)
-* stroll_speed - скорость при прогулке
-* runaway_speed - скорость бегства
-* targeting_speed - скорость при следовании к цели
-
 функции
 
 * on_punched(context, puncher, attributes) - обработка удара по мобу
@@ -31,9 +24,18 @@ definition может содержать поля
 * walk(context, current_position, target_position, speed, userdata) - идти в указанную точку
 * stay(context, userdata) - стоять на месте
 
--- right_mobs_ai:init_new_mob(name, userdata)
+-- right_mobs_ai:init_new_mob(name, userdata, parameters)
 
 Создать нового моба с типом `name`
+
+parameters может содержать поля
+
+* available_attacks - список возможных атак (ближний, дальний бой)
+* stroll_speed - скорость при прогулке
+* runaway_speed - скорость бегства
+* targeting_speed - скорость при следовании к цели
+* aggression_time - сколько продолжается агрессия моба
+* aggression_period - период проявления агрессивности пока моб находится в состоянии агрессии 
 
 -- right_mobs_ai:punch(context, puncher, attributes)
 

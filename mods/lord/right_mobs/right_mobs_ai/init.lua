@@ -77,7 +77,7 @@ end
 local function process_targeting(context, current_position, current_velocity)
 	update_target_position(context)
 	if context.definition.walk then
-		context.definition.walk(context, context.target_position, context.definition.targeting_speed, context.userdata)
+		context.definition.walk(context, context.target_position, context.parameters.targeting_speed, context.userdata)
 	end
 end
 
@@ -138,12 +138,12 @@ local function default_think(context, position, velocity, dtime)
 		context.aggression.time = context.aggression.time + dtime
 		context.aggression.periodic = context.aggression.periodic + dtime
 
-		if context.aggression.periodic > context.definition.aggression_period then
+		if context.aggression.periodic > context.parameters.aggression_period then
 			context.aggression.perform = true
 			context.aggression.periodic = 0		
 		end
 
-		if context.aggression.time > context.definition.aggression_time then
+		if context.aggression.time > context.parameters.aggression_time then
 			context.state = right_mobs_ai.states.rest
 			context.aggression = nil
 		end
@@ -157,7 +157,7 @@ local function default_select_attack(context, position, velocity)
 				}
 	local len = vector.length(delta)
 	
-	if has_dogfight(context) and len < context.definition.dogfight_distance then
+	if has_dogfight(context) and len < context.parameters.dogfight_distance then
 		return right_mobs_ai.attacks.dogfight
 	elseif has_remote(context) then
 		return right_mobs_ai.attacks.remote_attack
@@ -168,7 +168,7 @@ end
 -- end of default actions
 
 local function has_dogfight(context)
-	local available = context.definition.available_attacks
+	local available = context.parameters.available_attacks
 	for _, item in available do
 		if item == right_mobs_ai.attacks.dogfight then
 			return true
@@ -178,7 +178,7 @@ local function has_dogfight(context)
 end
 
 local function has_remote(context)
-	local available = context.definition.available_attacks
+	local available = context.parameters.available_attacks
 	for _, item in available do
 		if item == right_mobs_ai.attacks.remote_attack then
 			return true
@@ -189,11 +189,11 @@ end
 
 right_mobs_ai.process = function(self, context, position, velocity, dtime)
 	if context.state == right_mobs_ai.states.stroll then
-		process_walk(context, position, velocity, context.stroll_speed)
+		process_walk(context, position, velocity, context.parameters.stroll_speed)
 	elseif context.state == right_mobs_ai.states.rest then
 		process_stay(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.runaway then
-		process_walk(context, position, velocity, context.runaway_speed)
+		process_walk(context, position, velocity, context.parametes.runaway_speed)
 	elseif context.state == right_mobs_ai.states.goto_target then
 		process_targeting(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.attack then
@@ -230,7 +230,6 @@ end
 right_mobs_ai.register_mob = function(self, name, def)
 	local definition = {
 		aux = def.aux,
-		available_attacks = def.available_attacks or {},
 
 		-- actions
 		attack = def.attack,
@@ -245,23 +244,16 @@ right_mobs_ai.register_mob = function(self, name, def)
 		-- decision function
 		think = def.think or default_think,
 		select_attack = def.select_attack or default_select_attack,
-
-		-- parameters
-		stroll_speed = def.stroll_speed or right_mobs_ai.defaults.speed,
-		runaway_speed = def.runaway_speed or right_mobs_ai.defaults.speed,
-		targeting_speed = def.targeting_speed or right_mobs_ai.defaults.speed,
-
-		aggression_time = def.aggression_time or 10,
-		aggression_period = def.aggression_period or 1,
 	}
 
 	self.mob_definitions[name] = definition
 end
 
-right_mobs_ai.init_new_mob = function(self, name, userdata)
+right_mobs_ai.init_new_mob = function(self, name, userdata, parameters)
 	-- TODO: проверить что моб с таким именем зарегистрирован
 
 	local context = {
+		parameters = parameters,
 		definition = self.mob_definitions[name],
 		state = self.states.rest,
 		name = name,
@@ -283,6 +275,7 @@ right_mobs_ai.serialize = function(self, context)
 
 	local data = {
 		name = context.name,
+		parameters = context.parameters,
 		state = serialize_state(context.state),
 	}
 	return minetest.serialize(data)
@@ -293,11 +286,13 @@ right_mobs_ai.init_from_serialized = function(self, serialized, userdata)
 
 	local deserialized = minetest.deserialize(serialized)
 	local name = deserialized.name
+	local parameters = deserialized.parameters
 	local state = deserialize_state(deserialized.state)
 	local context = {
 		name = name,
 		state = state,
 		definition = self.mob_definitions[name],
+		parameters = parameters,
 		userdata = userdata,
 	}
 	return context

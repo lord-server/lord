@@ -7,7 +7,7 @@ local function on_activate(self, staticdata)
     else
         -- создание нового моба
         self.object:set_armor_groups({immortal = 1,})
-        self.ai = right_mobs_ai:init_new_mob(self.ai_name, self)
+        self.ai = right_mobs_ai:init_new_mob(self.ai_name, self, self.parameters)
         self.health = right_mobs_health:init_new_mob(self.health_name, self.max_health, self)
     end
 end
@@ -58,6 +58,15 @@ right_mobs_api.register_mob = function(name, def)
     
         on_activate = on_activate,
         get_staticdata = get_staticdata,
+
+        parameters = {
+            available_attacks = def.available_attacks or {},
+            stroll_speed = def.stroll_speed or 1,
+            runaway_speed = def.runaway_speed or 1,
+            targeting_speed = def.targeting_speed or 1,
+            aggression_time = def.aggression_time or 10,
+            aggression_period = def.aggression_period or 1,
+        },
     })
 
     minetest.register_craftitem(name.."_egg", {
