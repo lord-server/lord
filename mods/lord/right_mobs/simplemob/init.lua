@@ -1,4 +1,4 @@
-local function aggression(ai_context, target, self)
+local function simplemob_aggression(ai_context, target, self)
     print("AGGRESSION!")
 end
 
@@ -6,7 +6,7 @@ right_mobs_ai:register_mob("simple_ai", {
     attack = nil,
     walk = nil,
     stay = nil,
-    aggression = aggression,
+    aggression = simplemob_aggression,
 })
 
 local function simplemob_die(health_context, self)
@@ -15,6 +15,7 @@ end
 
 right_mobs_health:register_mob("simple_health", {
     on_die = simplemob_die,
+    factors = {"fleshy" : 10},
 })
 
 right_mobs_api.register_mob("simplemob:simplemob", {
@@ -29,7 +30,9 @@ right_mobs_api.register_mob("simplemob:simplemob", {
             aggression_time = 10,
         },
         health = {
-            fleshy = 20,
+            factors = {
+                fleshy = 20,
+            },
         },
     },
 })

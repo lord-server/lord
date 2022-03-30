@@ -59,6 +59,7 @@ right_mobs_health.register_mob = function(self, name, def)
 	local definition = {
 		aux = def.aux,
         on_die = def.on_die,
+        factors = def.factors,
     }
 
     self.mob_definitions[name] = definition
@@ -78,7 +79,7 @@ right_mobs_health.init_new_mob = function(self, name, userdata, parameters)
         definition = self.mob_definitions[name],
     }
 
-    for name, value in pairs(parameters) do
+    for name, value in pairs(parameters.factors) do
         context.health[name] = value
         context.full_health[name] = value
     end
@@ -96,6 +97,14 @@ right_mobs_health.serialize = function(self, context)
     return minetest.serialize(data)
 end
 
+local factors_check(factors, vals)
+    local res = {}
+    for name, default in pairs(factors) do
+        res[name] = vals[name] or default
+    end
+    return res
+end
+
 right_mobs_health.init_from_serialized = function(self, serialized, userdata)
     local deserialized = minetest.deserialize(serialized)
     local name = deserialized.name
@@ -103,14 +112,14 @@ right_mobs_health.init_from_serialized = function(self, serialized, userdata)
     if not self.mob_definitions[name] then
         return nil
     end
-
+    local def = self.mob_definitions[name]
     local context = {
         name = name,
-        health = deserialized.health,
-        full_health = deserialized.full_health,
+        health = factors_check(def.factors, deserialized.health),
+        full_health =  factors_check(def.factors, deserialized.full_health),
         state = deserialize_state(deserialized.state),
         userdata = userdata,
-        definition = self.mob_definitions[name],
+        definition = def,
     }
     return context
 end
