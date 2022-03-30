@@ -1,16 +1,17 @@
 local function on_activate(self, staticdata)
     local data = minetest.deserialize(staticdata)
-	if data ~= nil then
+    if data ~= nil then
         -- это активация существующего моба
-        self.object:set_armor_groups({immortal = 1, fleshy = 100,})
+        self.object:set_armor_groups({immortal = 1,})
         self.ai = right_mobs_ai:init_from_serialized(data.ai, self)
         self.health = right_mobs_health:init_from_serialized(data.health, self)
     else
         -- создание нового моба
-        self.object:set_armor_groups({immortal = 1, fleshy = 100,})
-        self.ai = right_mobs_ai:init_new_mob(self.ai_name, self, self.parameters)
-        self.health = right_mobs_health:init_new_mob(self.health_name, self.max_health, self)
+        self.object:set_armor_groups({immortal = 1,})
+        self.ai = right_mobs_ai:init_new_mob(self.ai_name, self, self.parameters.ai)
+        self.health = right_mobs_health:init_new_mob(self.health_name, self, self.parameters.health)
     end
+    self.inited = true
 end
 
 local function get_staticdata(self)
@@ -25,17 +26,16 @@ local function interact_mob(self, clicker)
 end
 
 local function punch_mob(self, hitter, tflp, tool_capabilities, dir)
-    local armor = self.object:get_armor_groups() or {}
-
     right_mobs_ai:punch(self.ai, hitter, {})
-    local damage = right_mobs_api.calculate_damage(armor, tool_capabilities, tflp)
-    print("damage = "..damage)
+    local damage = right_mobs_api.calculate_damage(tool_capabilities, tflp)
     right_mobs_health:punch(self.health, hitter, damage)
 end
 
 local function mob_step(self, dtime)
-    right_mobs_ai:process(self.ai, self.object:get_pos(), self.object:get_velocity(), dtime)
-    right_mobs_health:process(self.health, self.object:get_pos(), self.object:get_velocity(), dtime)
+    if self.inited then
+        right_mobs_ai:process(self.ai, self.object:get_pos(), self.object:get_velocity(), dtime)
+        right_mobs_health:process(self.health, self.object:get_pos(), self.object:get_velocity(), dtime)
+    end
 end
 
 right_mobs_api.mob_death = function(health_context, self)
@@ -65,12 +65,8 @@ right_mobs_api.register_mob = function(name, def)
         get_staticdata = get_staticdata,
 
         parameters = {
-            available_attacks = def.available_attacks or {},
-            stroll_speed = def.stroll_speed or 1,
-            runaway_speed = def.runaway_speed or 1,
-            targeting_speed = def.targeting_speed or 1,
-            aggression_time = def.aggression_time or 10,
-            aggression_period = def.aggression_period or 1,
+            ai = def.parameters.ai,
+            health = def.parameters.health,
         },
     })
 

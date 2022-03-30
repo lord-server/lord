@@ -23,9 +23,13 @@ right_mobs_api.register_mob("simplemob:simplemob", {
     textures = {"simplemob.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
     ai = "simple_ai",
     health = "simple_health",
-    max_health = 20,
     parameters = {
-        aggression_period = 1,
-        aggression_time = 10,
+        ai = {
+            aggression_period = 1,
+            aggression_time = 10,
+        },
+        health = {
+            fleshy = 20,
+        },
     },
 })

@@ -68,8 +68,10 @@ local function process_walk(context, current_position, current_velocity, speed)
 	local rx = 0
 	local ry = 0
 	local rz = 0
+
+	speed = speed or right_mobs_api.defaults.speed
  	local target_position = {x = current_position.x + rx, y = current_position.y + ry, z = current_position.z + rz}
-	 if context.definition.walk then
+	if context.definition.walk then
 		context.definition.walk(context, target_position, speed, context.userdata)
 	end
 end
@@ -168,7 +170,7 @@ end
 -- end of default actions
 
 local function has_dogfight(context)
-	local available = context.parameters.available_attacks
+	local available = context.parameters.available_attacks or {}
 	for _, item in available do
 		if item == right_mobs_ai.attacks.dogfight then
 			return true
@@ -282,10 +284,13 @@ right_mobs_ai.serialize = function(self, context)
 end
 
 right_mobs_ai.init_from_serialized = function(self, serialized, userdata)
-	-- TODO: проверить что моб с таким именем зарегистрирован
-
-	local deserialized = minetest.deserialize(serialized)
+    local deserialized = minetest.deserialize(serialized)
 	local name = deserialized.name
+
+	if not self.mob_definitions[name] then
+        return nil
+    end
+
 	local parameters = deserialized.parameters
 	local state = deserialize_state(deserialized.state)
 	local context = {

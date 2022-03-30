@@ -22,23 +22,35 @@ local function deserialize_state(state)
     end
 end
 
-right_mobs_health.heal = function(self, context, healer, health)
-    context.health = math.min(context.health + health, context.max_health)
+right_mobs_health.heal = function(self, context, healer, force)
+    for name, value in pairs(force) do
+        value = math.max(value, 0)
+        if context.health[name] then
+            context.health[name] = math.min(context.health[name] + value, context.max_health[name])
+        end
+    end
 end
 
 right_mobs_health.punch = function(self, context, puncher, force)
-    context.health = math.max(context.health - force, 0)
+    for name, value in pairs(force) do
+        value = math.max(value, 0)
+        if context.health[name] then
+            context.health[name] = math.max(context.health[name] - value, 0)
+        end
+    end
 end
 
 right_mobs_health.process = function(self, context, position, velocity, dtime)
     if context.state == self.states.dead then
         return
     end
-
-    if context.health <= 0 then
-        context.state = self.states.dead
-        if context.definition.on_die then
-            context.definition.on_die(context, context.userdata)
+    for _, value in pairs(context.health) do
+        if value <= 0 then
+            context.state = self.states.dead
+            if context.definition.on_die then
+                context.definition.on_die(context, context.userdata)
+            end
+            break
         end
     end
 end
@@ -46,26 +58,31 @@ end
 right_mobs_health.register_mob = function(self, name, def)
 	local definition = {
 		aux = def.aux,
-
         on_die = def.on_die,
     }
 
     self.mob_definitions[name] = definition
 end
 
-right_mobs_health.init_new_mob = function(self, name, max_health, userdata)
+right_mobs_health.init_new_mob = function(self, name, userdata, parameters)
     -- TODO: проверить что моб с таким именем зарегистрирован
-    
     local context = {
         name = name,
-        max_health = max_health,
-        health = max_health,
         userdata = userdata,
         state = self.states.alive,
+        parameters = parameters,
+
+        full_health = {},
+        health = {},
 
         definition = self.mob_definitions[name],
     }
 
+    for name, value in pairs(parameters) do
+        context.health[name] = value
+        context.full_health[name] = value
+    end
+    
     return context
 end
 
@@ -73,7 +90,7 @@ right_mobs_health.serialize = function(self, context)
     local data = {
         name = context.name,
         health = context.health,
-        max_health = context.max_health,
+        full_health = context.full_health,
         state = serialize_state(context.state),
     }
     return minetest.serialize(data)
@@ -83,12 +100,14 @@ right_mobs_health.init_from_serialized = function(self, serialized, userdata)
     local deserialized = minetest.deserialize(serialized)
     local name = deserialized.name
 
-    -- TODO: проверить что моб с таким именем зарегистрирован
+    if not self.mob_definitions[name] then
+        return nil
+    end
 
     local context = {
         name = name,
         health = deserialized.health,
-        max_health = deserialized.max_health,
+        full_health = deserialized.full_health,
         state = deserialize_state(deserialized.state),
         userdata = userdata,
         definition = self.mob_definitions[name],
