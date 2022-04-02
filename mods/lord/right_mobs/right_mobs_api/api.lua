@@ -68,6 +68,7 @@ right_mobs_api.register_mob = function(name, def)
             ai = def.parameters.ai,
             health = def.parameters.health,
         },
+        weapon = def.weapon,
     })
 
     minetest.register_craftitem(name.."_egg", {

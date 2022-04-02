@@ -97,7 +97,7 @@ right_mobs_health.serialize = function(self, context)
     return minetest.serialize(data)
 end
 
-local factors_check(factors, vals)
+local function factors_check(factors, vals)
     local res = {}
     for name, default in pairs(factors) do
         res[name] = vals[name] or default

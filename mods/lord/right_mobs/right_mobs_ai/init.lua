@@ -51,15 +51,19 @@ end
 
 -- processing actions
 local function process_attack(context, position, velocity)
-	local attack = nil
-	if context.definition.select_attack then
-		attack = context.definition.select_attack(context, position, velocity, context.userdata)	
-	end
-
-	if attack and context.target then
-		if context.definition.attack then
-			context.definition.attack(context, context.target, attack, context.userdata)
+	if context.attack and context.attack.perform then	
+		local attack = nil
+		if context.definition.select_attack then
+			attack = context.definition.select_attack(context, position, velocity, context.userdata)	
 		end
+
+		if attack and context.target then
+			if context.definition.attack then
+				context.definition.attack(context, context.target, attack, context.userdata)
+			end
+		end
+
+		context.attack.perform = false
 	end
 end
 
@@ -114,6 +118,26 @@ local update_target_position = function(context)
 	end
 end
 
+local function has_dogfight(context)
+	local available = context.parameters.available_attacks or {}
+	for _, item in pairs(available) do
+		if item == right_mobs_ai.attacks.dogfight then
+			return true
+		end
+	end
+	return false
+end
+
+local function has_remote(context)
+	local available = context.parameters.available_attacks
+	for _, item in pairs(available) do
+		if item == right_mobs_ai.attacks.remote_attack then
+			return true
+		end
+	end
+	return false
+end
+
 -- default actions
 local function default_on_punched(context, puncher, attributes)
 	context.state = right_mobs_ai.states.aggression
@@ -127,27 +151,45 @@ local function default_on_target_lost(context)
 end
 
 local function default_think(context, position, velocity, dtime)
+	print(dump(context))
+	
 	-- aggression
 	if context.state == right_mobs_ai.states.aggression then
 		if context.aggression == nil then
 			context.aggression = {
-				time = 0,
-				periodic = 0,
+				switch_timer = 0,
 				perform = false,
 			}
 		end
 
-		context.aggression.time = context.aggression.time + dtime
-		context.aggression.periodic = context.aggression.periodic + dtime
+		context.aggression.switch_timer = context.aggression.switch_timer + dtime
 
-		if context.aggression.periodic > context.parameters.aggression_period then
+		if context.aggression.switch_timer > context.parameters.aggression.switch_time then
 			context.aggression.perform = true
-			context.aggression.periodic = 0		
+			context.aggression.switch_time = 0
+			context.state = right_mobs_ai.states.attack
+		end
+	elseif context.state == right_mobs_ai.states.attack then
+		if context.attack == nil then
+			context.attack = {
+				switch_timer = 0,
+				attack_timer = 0,
+				perform = false,
+			}
 		end
 
-		if context.aggression.time > context.parameters.aggression_time then
+		context.attack.switch_timer = context.attack.switch_timer + dtime
+		context.attack.attack_timer = context.attack.attack_timer + dtime
+
+		if context.attack.switch_timer > context.parameters.attack.switch_time then
+			context.attack.switch_timer = 0
+			context.attack.attack_timer = 0
 			context.state = right_mobs_ai.states.rest
-			context.aggression = nil
+		end
+
+		if context.attack.attack_timer > context.parameters.attack.attack_period then
+			context.attack.perform = true
+			context.attack.attack_timer = 0
 		end
 	end
 end
@@ -168,26 +210,6 @@ local function default_select_attack(context, position, velocity)
 end
 
 -- end of default actions
-
-local function has_dogfight(context)
-	local available = context.parameters.available_attacks or {}
-	for _, item in available do
-		if item == right_mobs_ai.attacks.dogfight then
-			return true
-		end
-	end
-	return false
-end
-
-local function has_remote(context)
-	local available = context.parameters.available_attacks
-	for _, item in available do
-		if item == right_mobs_ai.attacks.remote_attack then
-			return true
-		end
-	end
-	return false
-end
 
 right_mobs_ai.process = function(self, context, position, velocity, dtime)
 	if context.state == right_mobs_ai.states.stroll then
