@@ -55,7 +55,7 @@ right_mobs_api.register_mob("simplemob:simplemob", {
     parameters = {
         ai = {
             aggression = {
-                switch_time = 1,
+                switch_time = 0.3,
             },
             attack = {
                 switch_time = 20,

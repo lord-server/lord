@@ -31,6 +31,7 @@ local function serialize_state(state)
 	elseif state == right_mobs_ai.states.attack then
 		return "attack"
 	end
+	return "rest"
 end
 
 local function deserialize_state(state)
@@ -47,6 +48,7 @@ local function deserialize_state(state)
 	elseif state == "attack" then
 		return right_mobs_ai.states.attack
 	end
+	return right_mobs_ai.states.rest
 end
 
 local update_target_position = function(context)
