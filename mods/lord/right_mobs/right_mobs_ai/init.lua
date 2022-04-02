@@ -49,12 +49,19 @@ local function deserialize_state(state)
 	end
 end
 
+local update_target_position = function(context)
+	if context.target then
+		context.target_position = context.target:get_pos()
+	end
+end
+
 -- processing actions
 local function process_attack(context, position, velocity)
+	update_target_position(context)
 	if context.attack and context.attack.perform then	
 		local attack = nil
 		if context.definition.select_attack then
-			attack = context.definition.select_attack(context, position, velocity, context.userdata)	
+			attack = context.definition.select_attack(context, position, velocity, context.userdata)
 		end
 
 		if attack and context.target then
@@ -96,6 +103,7 @@ local function process_stay(context, position, velocity)
 end
 
 local function process_aggression(context, position, velocity, target)
+	update_target_position(context)
 	if context.aggression and context.aggression.perform then
 		if context.definition.aggression then
 			context.definition.aggression(context, context.target, context.userdata)
@@ -109,12 +117,6 @@ local function process_target_lost(context)
 	context.target_position = nil
 	if context.definition.on_target_lost then
 		context.definition.on_target_lost(context)
-	end
-end
-
-local update_target_position = function(context)
-	if context.target then
-		context.target_position = context.target:get_pos()
 	end
 end
 
@@ -151,8 +153,6 @@ local function default_on_target_lost(context)
 end
 
 local function default_think(context, position, velocity, dtime)
-	print(dump(context))
-	
 	-- aggression
 	if context.state == right_mobs_ai.states.aggression then
 		if context.aggression == nil then
