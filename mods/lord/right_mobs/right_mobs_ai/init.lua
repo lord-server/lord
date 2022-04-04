@@ -12,7 +12,11 @@ right_mobs_ai = {
 		remote_attack = 2,
 	},
 	defaults = {
-		speed = 1,
+	},
+	movements = {
+		stroll = 1,
+		goto_target = 2,
+		runaway = 3,
 	},
 	mob_definitions = {},
 }
@@ -76,23 +80,22 @@ local function process_attack(context, position, velocity)
 	end
 end
 
-local function process_walk(context, current_position, current_velocity, speed)
+local function process_walk(context, current_position, current_velocity)
 	-- TODO: use random delta
 	local rx = 0
 	local ry = 0
 	local rz = 0
 
-	speed = speed or right_mobs_api.defaults.speed
  	local target_position = {x = current_position.x + rx, y = current_position.y + ry, z = current_position.z + rz}
 	if context.definition.walk then
-		context.definition.walk(context, target_position, speed, context.userdata)
+		context.definition.walk(context, target_position, right_mobs_ai.movements.stroll, context.userdata)
 	end
 end
 
 local function process_targeting(context, current_position, current_velocity)
 	update_target_position(context)
 	if context.definition.walk then
-		context.definition.walk(context, context.target_position, context.parameters.targeting_speed, context.userdata)
+		context.definition.walk(context, context.target_position, right_mobs_ai.movements.goto_target, context.userdata)
 	end
 end
 
@@ -169,7 +172,11 @@ local function default_think(context, position, velocity, dtime)
 		if context.aggression.switch_timer > context.parameters.aggression.switch_time then
 			context.aggression.perform = true
 			context.aggression.switch_time = 0
-			context.state = right_mobs_ai.states.attack
+			if math.random() > 0.5 then
+				context.state = right_mobs_ai.states.attack
+			else
+				context.state = right_mobs_ai.states.goto_target
+			end
 		end
 	elseif context.state == right_mobs_ai.states.attack then
 		if context.attack == nil then
@@ -186,12 +193,25 @@ local function default_think(context, position, velocity, dtime)
 		if context.attack.switch_timer > context.parameters.attack.switch_time then
 			context.attack.switch_timer = 0
 			context.attack.attack_timer = 0
-			context.state = right_mobs_ai.states.rest
+			context.state = right_mobs_ai.states.aggression
 		end
 
 		if context.attack.attack_timer > context.parameters.attack.attack_period then
 			context.attack.perform = true
 			context.attack.attack_timer = 0
+		end
+	elseif context.state == right_mobs_ai.states.goto_target then
+		if context.goto_target == nil then
+			context.goto_target = {
+				switch_timer = 0,
+			}
+		end
+
+		context.goto_target.switch_timer = context.goto_target.switch_timer + dtime
+
+		if context.goto_target.switch_timer > context.parameters.goto_target.switch_time then
+			context.goto_target.switch_timer = 0
+			context.state = right_mobs_ai.states.aggression
 		end
 	end
 end
@@ -215,11 +235,11 @@ end
 
 right_mobs_ai.process = function(self, context, position, velocity, dtime)
 	if context.state == right_mobs_ai.states.stroll then
-		process_walk(context, position, velocity, context.parameters.stroll_speed)
+		process_walk(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.rest then
 		process_stay(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.runaway then
-		process_walk(context, position, velocity, context.parametes.runaway_speed)
+		process_walk(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.goto_target then
 		process_targeting(context, position, velocity)
 	elseif context.state == right_mobs_ai.states.attack then
