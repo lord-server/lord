@@ -58,10 +58,13 @@ exclude_files     = {
 
 	"mods/lord/lord_base_commands/chatcommands.lua",
 
+	"mods/_various/ambience",
 	"mods/_various/areas",
 	"mods/_various/hud_modpack/hudbars",
 	"mods/_various/intllib",
 	"mods/_various/mobs",
+	"mods/_various/mobs_fish",
 	"mods/_various/mp_world_edit",
+	"mods/_various/painting",
 	"mods/lord/lottclothes",
 }
