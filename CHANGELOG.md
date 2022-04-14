@@ -1,5 +1,27 @@
 # Change Log
 
+## [2022.02.p1](https://github.com/lord-server/lord/releases/tag/2022.02.p1)
+ - Исправления багов:
+   - Check that mob is not nil when punch #555 (#556)
+   - Fix arrow collision calculation #542 (#545)
+ - Релизный процесс:
+   - Always switch back to master on deploy
+   - Reconfigure ci: `dev` branch to polygon; version tags to prod & tags can have patch segment
+   - reconfigure ci: add merge master to dev on deploy to prod; add release description
+ - Перенос модов с сервера в репозиторий (#305)
+   - Copy mod `skybox` from prod server. Relates to #305.
+   - Copy mod `arena` from prod server. Relates to #305
+   - Copy mod `alarm` from prod server. Relates to #305
+   - Copy mod `painting` from prod server. Relates to #305
+   - Copy mod `ping` from prod server. Relates #305
+   - Copy mod `server_message` from prom server. Relates to #305
+   - Copy mod `ambience` from prod server. Relates to #305
+   - Copy mod `lists` from prod server. Relates to #305
+   - Copy mod `mail_list` from prod server. Relates to #305
+   - Copy mod `mobs_fish` from prod server. Relates to #305
+   - Copy mod `mypos` from prod server. Relates to #305
+   - Copy mod `sethome` from prod server. Relates to #305
+
 ## [2022.02](https://github.com/lord-server/lord/releases/tag/2022.02)
  - Обновлён мод `MTG/beds`. Исправлен #312 сброс скорости после сна (#429)
  - Обновлён мод `MTG/vessels` #281 (#506)
@@ -35,6 +57,7 @@
  - Перенесено всё, что относится к `charcoal` в наш внутренний мод `lord_default`. (требуется для #267) (#491)
  - Переход на minetest `5.4.1`:
    - Исправления по устаревшему API #499, #498, #286, #285, #505, #409 (#501, #503, #412, #549)
+ - Hotfix: Fix screwdriver #554
 
 ## [2021.11](https://github.com/lord-server/lord/releases/tag/2021.11)
  - Добавлены новые блоки для дорог с бордюром (#381)
