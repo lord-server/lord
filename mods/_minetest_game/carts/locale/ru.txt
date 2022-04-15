@@ -1,7 +1,0 @@
-### init.lua ###
-Minecart = Тележка
-Rail = Обычные рельсы
-Gear = Шестерня
-Steam mechanism = Паровой механизм
-Accelerating rail = Разгонные рельсы
-Stopping rail = Останавливающие рельсы

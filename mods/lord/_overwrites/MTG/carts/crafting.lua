@@ -1,8 +1,12 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lord_overwrites_mtg_carts")
 
 --
 -- crafting
 --
+
+minetest.clear_craft({output = "carts:brakerail"})
+minetest.clear_craft({output = "carts:powerrail"})
+minetest.clear_craft({output = "carts:rail"})
 
 minetest.register_craft({
 	output = "carts:cart",
@@ -13,8 +17,8 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craftitem("carts:gear", {
-	description = SL("Gear"),
+minetest.register_craftitem(":carts:gear", {
+	description = S("Gear"),
 	inventory_image = "carts_gear.png",
 })
 
@@ -27,8 +31,8 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("carts:steam_mechanism", {
-	description = SL("Steam mechanism"),
+minetest.register_node(":carts:steam_mechanism", {
+	description = S("Steam mechanism"),
 	tiles = {"carts_steam_mechanismv.png", "carts_steam_mechanismn.png",
 		"carts_steam_mechanism1.png", "carts_steam_mechanism3.png",
 		"carts_steam_mechanism2.png", "carts_steam_mechanism4.png"},
@@ -65,8 +69,8 @@ local function register_rail_craft(item, special)
 	})
 end
 
-register_rail_craft("carts:stopping_rail", "default:coal_lump")
-register_rail_craft("carts:accelerating_rail", "carts:gear")
+register_rail_craft("carts:brakerail", "default:coal_lump")
+register_rail_craft("carts:powerrail", "carts:gear")
 register_rail_craft("carts:rail", "")
 
 --**************************************************************************
@@ -76,13 +80,13 @@ register_rail_craft("carts:rail", "")
 minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
-	recipe = "carts:stopping_rail",
+	recipe = "carts:brakerail",
 })
 
 minetest.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
-	recipe = "carts:accelerating_rail",
+	recipe = "carts:powerrail",
 })
 
 minetest.register_craft({
