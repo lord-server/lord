@@ -337,7 +337,7 @@ function races.show_change_form(name)
 
 	local races_list = table.concat(list, ",")
 
-	if not minetest.settings:get_bool("dynamic_spawn") == true then
+	if not minetest.settings:get_bool("dynamic_spawn") then
 		form = form .. string.format(
 			"label[0,0;%s]"..  -- Information label
 			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
