@@ -17,13 +17,13 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craftitem("lord_overwrites_mtg_carts:gear", {
+minetest.register_craftitem(":carts:gear", {
 	description = S("Gear"),
 	inventory_image = "carts_gear.png",
 })
 
 minetest.register_craft({
-	output = "lord_overwrites_mtg_carts:gear 4",
+	output = "carts:gear 4",
 	recipe = {
 		{"", "default:steel_ingot", ""},
 		{"default:steel_ingot", "", "default:steel_ingot"},
@@ -31,7 +31,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("lord_overwrites_mtg_carts:steam_mechanism", {
+minetest.register_node(":carts:steam_mechanism", {
 	description = S("Steam mechanism"),
 	tiles = {"carts_steam_mechanismv.png", "carts_steam_mechanismn.png",
 		"carts_steam_mechanism1.png", "carts_steam_mechanism3.png",
@@ -42,10 +42,10 @@ minetest.register_node("lord_overwrites_mtg_carts:steam_mechanism", {
 })
 
 minetest.register_craft({
-	output = "lord_overwrites_mtg_carts:steam_mechanism",
+	output = "carts:steam_mechanism",
 	recipe = {
 		{"default:steel_ingot", "group:stick", "default:steel_ingot"},
-		{"lord_overwrites_mtg_carts:gear", "lottpotion:cauldron_full", "default:torch"},
+		{"carts:gear", "lottpotion:cauldron_full", "default:torch"},
 		{"default:steel_ingot", "default:coalblock", "default:steel_ingot"},
 	}
 })
@@ -70,7 +70,7 @@ local function register_rail_craft(item, special)
 end
 
 register_rail_craft("carts:brakerail", "default:coal_lump")
-register_rail_craft("carts:powerrail", "lord_overwrites_mtg_carts:gear")
+register_rail_craft("carts:powerrail", "carts:gear")
 register_rail_craft("carts:rail", "")
 
 --**************************************************************************
@@ -94,6 +94,3 @@ minetest.register_craft({
 	output = "default:steel_ingot",
 	recipe = "carts:rail",
 })
-
-minetest.register_alias("carts:gear", "lord_overwrites_mtg_carts:gear")
-minetest.register_alias("carts:steam_mechanism", "lord_overwrites_mtg_carts:steam_mechanism")
