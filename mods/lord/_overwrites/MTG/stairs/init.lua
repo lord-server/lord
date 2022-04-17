@@ -1,4 +1,6 @@
 
+local S = minetest.get_translator("lord_overwrites_mtg_stairs")
+
 
 -- stairs/init.lua
 -- Т.к. в LOTT (`lottplants/nodes.lua) была изначально своя сосна (`lottplants:pinewood`),
@@ -40,3 +42,17 @@ minetest.unregister_item("stairs:slab_silver_sandstone_brick")
 minetest.unregister_item("stairs:stair_inner_silver_sandstone_brick")
 minetest.unregister_item("stairs:stair_outer_silver_sandstone_brick")
 minetest.unregister_item("stairs:stair_silver_sandstone_brick")
+
+
+stairs.register_stair_and_slab(
+	"diamondblock",
+	"default:diamondblock",
+	{ cracky = 1, level = 3 },
+	{"default_diamond_block.png"},
+	S("Diamond Block Stair"),
+	S("Diamond Block Slab"),
+	default.node_sound_glass_defaults(),
+	true,
+	S("Inner Diamond Block Stair"),
+	S("Outer Diamond Block Stair")
+)
