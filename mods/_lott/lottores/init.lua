@@ -1083,8 +1083,8 @@ minetest.register_node("lottores:mineral_salt", {
 
 minetest.register_node( "lottores:pearl_block", {
 	description = SL("Pearl Block"),
-	use_texture_alpha = "clip",
-	tiles = { "default_sand.png^lottores_pearl_block.png" },
+	use_texture_alpha = "blend",
+	tiles = { "lottores_pearl_block.png" },
 	is_ground_content = true,
 	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
 	sounds = default.node_sound_glass_defaults(),
