@@ -1,0 +1,5 @@
+# textdomain: lord_overwrites_mtg_stairs
+Diamond Block Slab=
+Diamond Block Stair=
+Inner Diamond Block Stair=
+Outer Diamond Block Stair=

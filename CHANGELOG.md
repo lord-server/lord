@@ -1,5 +1,13 @@
 # Change Log
 
+## [2022.02.p2](https://github.com/lord-server/lord/releases/tag/2022.02.p2)
+ - Fix LuaCheck build. (Fixes #578)
+ - Fix pearl transparency #559 (#579)
+ - Fix crosshair.png symmetry. Add object_crosshair.png (#581)
+ - Fix wooden axe #461 (#583)
+ - Add Diamond Block stairs & slabs #437 (#584)
+ - Fix new player hunger #383 (#585)
+
 ## [2022.02.p1](https://github.com/lord-server/lord/releases/tag/2022.02.p1)
  - Исправления багов:
    - Check that mob is not nil when punch #555 (#556)
