@@ -73,12 +73,12 @@ hbhunger.get_hunger_raw = function(player)
 	if not inv then return nil end
 	local hgp = inv:get_stack("hunger", 1):get_count()
 	if hgp == 0 then
-		hgp = 21
+		hgp = 30
 		inv:set_stack("hunger", 1, ItemStack({name=":", count=hgp}))
 	else
 		hgp = hgp
 	end
-	return hgp-1
+	return hgp
 end
 
 hbhunger.set_hunger_raw = function(player)
