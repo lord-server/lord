@@ -1,0 +1,3 @@
+[submodule "mods/lord/panorama_api"]
+	path = mods/lord/panorama_api
+	url = https://github.com/lord-server/panorama_api
