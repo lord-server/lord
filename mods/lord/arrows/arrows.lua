@@ -86,6 +86,7 @@ local register = function(type, material, material_mod, dc, mass, velocity)
 	minetest.register_craftitem(name, {
 		description = SL(material.." "..type),
 		inventory_image = "lottthrowing_"..type.."_"..material..".png",
+		_tt_help = SL('Max damage: @1', arrows.get_max_damage(dc, mass, velocity))
 	})
 
 	minetest.register_craft({

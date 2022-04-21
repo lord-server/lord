@@ -1,4 +1,6 @@
+local S = minetest.get_translator("arrows")
 
+--- @generic
 arrows = {}
 
 function arrows:register_arrow(name, definition)
@@ -29,7 +31,7 @@ function arrows:register_arrow(name, definition)
 	})
 end
 
-local player_shoot_throwing_weapon = function(item, player, pointed_thing)
+local player_shoot_throwing_weapon = function(item, player, _)
 
 	local playerpos = player:get_pos()
 	local dir = player:get_look_dir()
@@ -42,11 +44,25 @@ local player_shoot_throwing_weapon = function(item, player, pointed_thing)
 	return item
 end
 
+--- @param dc number damage coefficient
+--- @param mass number
+--- @param initial_velocity number
+function arrows.get_max_damage(dc, mass, initial_velocity)
+	return mass * initial_velocity ^ 2 / 2 * dc
+end
+
 function arrows:register_throwing_weapon(name, definition)
-	arrows:register_arrow(name, definition.arrow)
-	local def = definition.craftitem
-	def.on_use = player_shoot_throwing_weapon
-	minetest.register_craftitem(name, def)
+	local arrow_def        = definition.arrow
+	local craftitem_def    = definition.craftitem
+
+	craftitem_def._tt_help = S(
+		'Max damage: @1',
+		arrows.get_max_damage(arrow_def.damage_coefficient, arrow_def.mass, arrow_def.velocity)
+	)
+	craftitem_def.on_use   = player_shoot_throwing_weapon
+
+	arrows:register_arrow(name, arrow_def)
+	minetest.register_craftitem(name, craftitem_def)
 end
 
 dofile(minetest.get_modpath("arrows").."/arrows.lua")
