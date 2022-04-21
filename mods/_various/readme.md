@@ -21,6 +21,14 @@
  - возможно из [Philipbenr/castles](https://github.com/Philipbenr/castles), теперь есть: [minetest-mods/castle](https://github.com/minetest-mods/castle)
  - изменения, фиксы, ...
 
+### `help_modpack`
+  - собрано из:
+    - `tt`: [ContentDB](https://content.minetest.net/packages/Wuzzy/tt/), [git](https://repo.or.cz/minetest_tt.git)
+    - `tt_base`: [ContentDB](https://content.minetest.net/packages/Wuzzy/tt_base/), [git](https://repo.or.cz/minetest_tt_base.git)
+  - доп. переводы взяты из: [MCL2/tt](https://git.minetest.land/MineClone2/MineClone2/src/branch/master/mods/HELP/mcl_tt/locale)
+  - т.к. нет нормально вынесенных (на GH, например) модов — чтобы просто подключить submodule'м,  
+    а приходится собирать из разных мест и скрещивать, то возможно стоит перенести к нам и поддерживать самим
+
 ### `hud_modpack`
  - модпак создан из следующих модов:
    - hbhunger (https://repo.or.cz/w/minetest_hbhunger.git)
