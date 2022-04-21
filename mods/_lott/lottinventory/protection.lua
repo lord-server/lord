@@ -107,8 +107,10 @@ zpc.formspec = function(pn)
 	local page = zpc.users[pn].page
 	local alt = zpc.users[pn].alt
 	local current_item = zpc.users[pn].current_item
-	local formspec = "size[8,7.5]"
-	.. "button_exit[6,7;2,0.5;;"..SL("Exit").."]"
+	local formspec =
+		"size[8,7.5]" ..
+		"button_exit[6,7;2,0.5;;"..SL("Exit").."]" ..
+		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 	if zpc.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zpc_previous;;false;false;zcg_previous_press.png]"
 	else

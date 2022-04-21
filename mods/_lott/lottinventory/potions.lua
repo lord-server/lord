@@ -3,6 +3,7 @@ local SL = lord.require_intllib()
 local get_formspec = function(player,page)
 	if page=="potions" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."background[5,5;1,1;craft_formbg.png;true]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
@@ -30,6 +31,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potions2" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potions3;;false;false;zcg_next_press.png]"
@@ -57,6 +59,7 @@ local get_formspec = function(player,page)
      end
      if page=="potions3" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potions4;;false;false;zcg_next_press.png]"
@@ -84,6 +87,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potions4" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potions5;;false;false;zcg_next_press.png]"
@@ -111,6 +115,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potions5" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potions6;;false;false;zcg_next_press.png]"
@@ -138,6 +143,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potions6" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potions7;;false;false;zcg_next_press.png]"
@@ -165,6 +171,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potions7" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN;;false;false;zcg_next_press.png]"
@@ -192,6 +199,7 @@ local get_formspec = function(player,page)
 	end
 	if page=="potionsN" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."background[5,5;1,1;craft_formbg.png;true]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
@@ -219,6 +227,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potionsN2" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN3;;false;false;zcg_next_press.png]"
@@ -246,6 +255,7 @@ local get_formspec = function(player,page)
      end
      if page=="potionsN3" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN4;;false;false;zcg_next_press.png]"
@@ -273,6 +283,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potionsN4" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN5;;false;false;zcg_next_press.png]"
@@ -300,6 +311,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potionsN5" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN6;;false;false;zcg_next_press.png]"
@@ -327,6 +339,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potionsN6" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image_button[7,1;1,1;zcg_next.png;potionsN7;;false;false;zcg_next_press.png]"
@@ -354,6 +367,7 @@ local get_formspec = function(player,page)
 	end
      if page=="potionsN7" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."label[0,0;"..SL("Book of Potions").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
                .."image[7,1;1,1;zcg_next_inactive.png]"

@@ -133,7 +133,8 @@ zmc.formspec = function(pn,find)
 	local current_item = zmc.users[pn].current_item
 	local formspec =
 		"size[8,8.5]" ..
-		"button_exit[6,8;2,0.5;;"..SL("Exit").."]"
+		"button_exit[6,8;2,0.5;;"..SL("Exit").."]" ..
+		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 	if zmc.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zmc_previous;;false;false;zcg_previous_press.png]"
 	else

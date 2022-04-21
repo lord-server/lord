@@ -114,6 +114,7 @@ zcc.formspec       = function(pn)
 	local alt          = zcc.users[pn].alt
 	local current_item = zcc.users[pn].current_item
 	local formspec     = "size[8,7.5]"
+		.."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 		.. "button_exit[6,7;2,0.5;;" .. SL("Exit") .. "]"
 	if zcc.users[pn].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zcc_previous;;false;false;zcg_previous_press.png]"

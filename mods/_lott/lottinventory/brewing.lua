@@ -3,6 +3,7 @@ local SL = lord.require_intllib()
 local get_formspec = function(player,page)
 	if page=="brews" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."background[5,5;1,1;craft_formbg.png;true]"
                .."label[0,0;"..SL("Book of Brewing").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
@@ -29,6 +30,7 @@ local get_formspec = function(player,page)
      end
      if page=="brews2" then
 		return "size[8,5.5]"
+			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
                .."background[5,5;1,1;craft_formbg.png;true]"
                .."label[0,0;"..SL("Book of Brewing").."]"
                .."button_exit[6,0;2,0.5;quit;"..SL("Exit").."]"
