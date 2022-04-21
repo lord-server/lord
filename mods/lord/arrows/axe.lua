@@ -1,9 +1,9 @@
 local SL = minetest.get_translator("arrows")
 
-AXE_MASS = 3.0
-AXE_VEL = 20
-AXE_BASE_DC = 0.1
-AXE_KFR = 0.05
+AXE_MASS = 3.0    -- MASS - Масса топора
+AXE_VEL = 20      -- VEL  - Velocity - начальная скорость
+AXE_BASE_DC = 0.1 -- DC   - Damage Coeficient
+AXE_KFR = 0.05    -- KFR  - коэффициент трения о воздух
 
 local axe_node_box = {
 	type = "fixed",
