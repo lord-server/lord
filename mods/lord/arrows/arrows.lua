@@ -14,8 +14,14 @@ local STEEL_BOLT_MASS = 0.1
 local MITHRIL_BOLT_MASS = 0.03
 local BOLT_VELOCITY = 60
 
+local TYPE = {
+	ARROW = "arrow",
+	BOLT = "bolt",
+}
+
+local node_box = {}
 -- Arrow nodebox
-local arrow_node_box = {
+node_box[TYPE.ARROW] = {
 	type = "fixed",
 	fixed = {
 		-- Shaft
@@ -35,56 +41,8 @@ local arrow_node_box = {
 		{7.5/17, -2.5/17, -2.5/17, 8.5/17, -3.5/17, -3.5/17},
 	}
 }
-
-local register_arrow = function(material, material_group, dc, mass)
-	local name = "arrows:arrow_"..material
-	minetest.register_craftitem(name, {
-		description = SL(material.." arrow"),
-		inventory_image = "lottthrowing_arrow_"..material..".png",
-	})
-
-	minetest.register_craft({
-		output = name..' 16',
-		recipe = {
-			{'default:stick', 'default:stick', material_group..':'..material..'_ingot'},
-		}
-	})
-
-	minetest.register_node(name.."_box", {
-		drawtype = "nodebox",
-		node_box = arrow_node_box,
-		tiles = {
-			"lottthrowing_arrow_"..material..".png",
-			"lottthrowing_arrow_"..material..".png",
-			"lottthrowing_arrow_"..material.."_back.png",
-			"lottthrowing_arrow_"..material.."_front.png",
-			"lottthrowing_arrow_"..material.."_2.png",
-			"lottthrowing_arrow_"..material..".png"
-		},
-		use_texture_alpha = "clip",
-		groups = {not_in_creative_inventory=1},
-	})
-
-	arrows:register_arrow(name, {
-		texture = name.."_box",
-		visual = "wielditem",
-		arrow_type = "arrow",
-		mass = mass,
-		kfr = KFR,
-		damage_coefficient = dc,
-		velocity = ARROW_VELOCITY,
-		fly_sound = {
-			sound = "lottthrowing_sound",
-			sound_distance = 5,
-		},
-	})
-end
-
-register_arrow("steel", "default", STEEL_DC, STEEL_ARROW_MASS)
-register_arrow("mithril", "lottores", MITHRIL_DC, MITHRIL_ARROW_MASS)
-
--- Bolt nodebox --
-local bolt_node_box = {
+-- Bolt nodebox
+node_box[TYPE.BOLT] = {
 	type = "fixed",
 	fixed = {
 		-- Shaft
@@ -105,30 +63,46 @@ local bolt_node_box = {
 	}
 }
 
-local register_bolt = function(material, material_group, dc, mass)
-	local name = "arrows:bolt_"..material
+--- @param type string one of 'arrow'|'bolt'
+--- @param material string name of material
+--- @param material_mod string name of mod where material defined
+--- @return table
+local get_recipe_by_type = function(type, material, material_mod)
+	if type == TYPE.ARROW then
+		return {{ 'default:stick', 'default:stick', material_mod ..':'..material..'_ingot'},}
+	elseif type == TYPE.BOLT then
+		return {{ 'default:steel_ingot', material_mod ..':'..material..'_ingot'},}
+	else
+		error("Unknown type '" .. type .. "'")
+	end
+end
+
+
+--- @param type string one of TYPE::{constant}'s
+--- @param material string name of material
+--- @param material_mod string name of mod where material defined
+local register = function(type, material, material_mod, dc, mass, velocity)
+	local name = "arrows:"..type.."_"..material
 	minetest.register_craftitem(name, {
-		description = SL(material.." bolt"),
-		inventory_image = "lottthrowing_bolt_"..material..".png",
+		description = SL(material.." "..type),
+		inventory_image = "lottthrowing_"..type.."_"..material..".png",
 	})
 
 	minetest.register_craft({
 		output = name..' 16',
-		recipe = {
-			{'default:steel_ingot', material_group..':'..material..'_ingot'},
-		}
+		recipe = get_recipe_by_type(type, material, material_mod)
 	})
 
 	minetest.register_node(name.."_box", {
 		drawtype = "nodebox",
-		node_box = bolt_node_box,
+		node_box = node_box[type],
 		tiles = {
-			"lottthrowing_bolt_"..material..".png",
-			"lottthrowing_bolt_"..material..".png",
-			"lottthrowing_bolt_"..material.."_back.png",
-			"lottthrowing_bolt_"..material.."_front.png",
-			"lottthrowing_bolt_"..material.."_2.png",
-			"lottthrowing_bolt_"..material..".png"
+			"lottthrowing_"..type.."_"..material..".png",
+			"lottthrowing_"..type.."_"..material..".png",
+			"lottthrowing_"..type.."_"..material.."_back.png",
+			"lottthrowing_"..type.."_"..material.."_front.png",
+			"lottthrowing_"..type.."_"..material.."_2.png",
+			"lottthrowing_"..type.."_"..material..".png"
 		},
 		use_texture_alpha = "clip",
 		groups = {not_in_creative_inventory=1},
@@ -137,11 +111,11 @@ local register_bolt = function(material, material_group, dc, mass)
 	arrows:register_arrow(name, {
 		texture = name.."_box",
 		visual = "wielditem",
-		arrow_type = "bolt",
+		arrow_type = type,
 		mass = mass,
 		kfr = KFR,
 		damage_coefficient = dc,
-		velocity = BOLT_VELOCITY,
+		velocity = velocity,
 		fly_sound = {
 			sound = "lottthrowing_sound",
 			sound_distance = 5,
@@ -149,6 +123,9 @@ local register_bolt = function(material, material_group, dc, mass)
 	})
 end
 
-register_bolt("steel", "default", STEEL_DC, STEEL_BOLT_MASS)
-register_bolt("mithril", "lottores", MITHRIL_DC, MITHRIL_BOLT_MASS)
+register(TYPE.ARROW, "steel", "default", STEEL_DC, STEEL_ARROW_MASS, ARROW_VELOCITY)
+register(TYPE.ARROW, "mithril", "lottores", MITHRIL_DC, MITHRIL_ARROW_MASS, ARROW_VELOCITY)
+
+register(TYPE.BOLT, "steel", "default", STEEL_DC, STEEL_BOLT_MASS, BOLT_VELOCITY)
+register(TYPE.BOLT, "mithril", "lottores", MITHRIL_DC, MITHRIL_BOLT_MASS, BOLT_VELOCITY)
 
