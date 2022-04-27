@@ -76,4 +76,5 @@ exclude_files     = {
 	"mods/_various/mobs_fish",
 	"mods/_various/mp_world_edit",
 	"mods/_various/painting",
+	"mods/_various/testtools",
 }
