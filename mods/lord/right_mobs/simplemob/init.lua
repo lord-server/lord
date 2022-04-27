@@ -40,8 +40,15 @@ local function near(p1, p2, delta)
     return true
 end
 
+local function line_completed(p1, p2, p)
+    local d1 = {x=p2.x-p1.x, y=p2.y-p1.y, z=p2.z-p1.z}
+    local d2 = {x=p.x-p1.x, y=p.y-p1.y, z=p.z-p1.z}
+    return vector.length(d2) >= vector.length(d1)
+end
+
 local function simplemob_walk(ai_context, target_position, movement, self)
     local pos = self.object:get_pos()
+    pos.y = pos.y - 0.5
     if near(pos, target_position, 2) then
         self.path.way = nil
         self.object:set_velocity({x=0,y=0,z=0})
@@ -72,6 +79,12 @@ local function simplemob_walk(ai_context, target_position, movement, self)
         local p1 = {x=math.floor(pos.x+0.5), y=math.floor(pos.y+0.5), z=math.floor(pos.z+0.5)}
         local p2 = {x=math.floor(target_position.x+0.5), y=math.floor(target_position.y+0.5), z=math.floor(target_position.z+0.5)}
         self.path.way = minetest.find_path(p1, p2, 20, 1, 1, "Dijkstra")
+        if self.path.way and #self.path.way >= 2 then
+            self.path.last_point = table.remove(self.path.way, 1)
+            self.path.next_point = table.remove(self.path.way, 1)
+        end
+        print("pos = "..dump(pos))
+        print(dump(self.path))
     end
 
     if not self.path.way then
@@ -79,38 +92,35 @@ local function simplemob_walk(ai_context, target_position, movement, self)
         return
     end
 
-    while #self.path.way > 0 do
-        local p = self.path.way[1]
-        if near(p, pos, 0.8) then
-            table.remove(self.path.way, 1)
-        else
-            break
+    if line_completed(self.path.last_point, self.path.next_point, pos) then
+        self.path.last_point = self.path.next_point
+        self.path.next_point = table.remove(self.path.way, 1)
+
+        if self.path.next_point == nil then
+            self.path.way = nil
+            self.path.last_point = nil
+            self.object:set_velocity({x=0,y=0,z=0})
+            return
         end
-    end
 
-    if #self.path.way == 0 then
-        self.path.way = nil
-        self.object:set_velocity({x=0,y=0,z=0})
-        return
-    end
-
-    local p = self.path.way[1]
-    if not near(p, pos, 0.5) then
-        local yaw = -math.atan2(p.x-pos.x, p.z - pos.z)
+        local yaw = -math.atan2(self.path.next_point.x-self.path.last_point.x, self.path.next_point.z-self.path.last_point.z)
         self.object:set_yaw(yaw)
 
-        local vel = {x=p.x-pos.x, y=p.y-pos.y, z=p.z-pos.z}
-        local v = vector.length(vel)
+        local dir = {
+            x = self.path.next_point.x-self.path.last_point.x,
+            y = self.path.next_point.y-self.path.last_point.y,
+            z = self.path.next_point.z-self.path.last_point.z
+        }
+
+        local v = vector.length(dir)
         local speed = 1
         if movement == right_mobs_ai.movements.stroll then
             speed = 2
         elseif movement == right_mobs_ai.movements.goto_target then
             speed = 4
         end
-        vel = {x=vel.x/v*speed, y=vel.y/v*speed, z=vel.z/v*speed}
+        local vel = {x=dir.x/v*speed, y=dir.y/v*speed, z=dir.z/v*speed}
         self.object:set_velocity(vel)
-    else
-        self.object:set_velocity({x=0,y=0,z=0})
     end
 end
 
