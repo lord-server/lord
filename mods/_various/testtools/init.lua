@@ -1,6 +1,21 @@
 local S = minetest.get_translator("testtools")
 local F = minetest.formspec_escape
 
+local require_priv = "server"
+
+local validate_player = function(player)
+	if not player then
+		return false
+	end
+
+	local privs = minetest.get_player_privs(player:get_player_name())
+	if not privs[require_priv] then
+		return false
+	else
+		return true
+	end
+end
+
 dofile(minetest.get_modpath("testtools") .. "/light.lua")
 
 minetest.register_tool("testtools:param2tool", {
@@ -11,8 +26,12 @@ minetest.register_tool("testtools:param2tool", {
 		S("Place: -1") .."\n"..
 		S("Sneak+Place: -8"),
 	inventory_image = "testtools_param2tool.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
@@ -29,6 +48,10 @@ minetest.register_tool("testtools:param2tool", {
 		minetest.swap_node(pos, node)
 	end,
 	on_place = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
@@ -53,8 +76,12 @@ minetest.register_tool("testtools:node_setter", {
 		S("Place on node: Replace node with selected node") .."\n"..
 		S("Place in air: Manually select a node"),
 	inventory_image = "testtools_node_setter.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type == "nothing" then
 			local meta = itemstack:get_meta()
@@ -77,6 +104,10 @@ minetest.register_tool("testtools:node_setter", {
 		return itemstack
 	end,
 	on_secondary_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local meta = itemstack:get_meta()
 		local nodename = meta:get_string("node") or ""
 		local param2 = meta:get_int("node_param2") or 0
@@ -89,6 +120,10 @@ minetest.register_tool("testtools:node_setter", {
 		)
 	end,
 	on_place = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		local meta = itemstack:get_meta()
 		local nodename = meta:get_string("node")
@@ -113,8 +148,12 @@ minetest.register_tool("testtools:remover", {
 	description = S("Remover") .."\n"..
 		S("Punch: Remove pointed node or object"),
 	inventory_image = "testtools_remover.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type == "node" and pos ~= nil then
 			minetest.remove_node(pos)
@@ -134,8 +173,12 @@ minetest.register_tool("testtools:falling_node_tool", {
 		S("Punch: Make pointed node fall") .."\n"..
 		S("Place: Move pointed node 2 units upwards, then make it fall"),
 	inventory_image = "testtools_falling_node_tool.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_place = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		-- Teleport node 1-2 units upwards (if possible) and make it fall
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type ~= "node" or (not pos) then
@@ -169,6 +212,10 @@ minetest.register_tool("testtools:falling_node_tool", {
 		end
 	end,
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local pos = minetest.get_pointed_thing_position(pointed_thing)
 		if pointed_thing.type ~= "node" or (not pos) then
 			return
@@ -187,8 +234,12 @@ minetest.register_tool("testtools:rotator", {
 		S("Sneak+Punch: Pitch") .."\n"..
 		S("Aux1+Punch: Roll"),
 	inventory_image = "testtools_entity_rotator.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if pointed_thing.type ~= "object" then
 			return
 		end
@@ -245,10 +296,14 @@ minetest.register_tool("testtools:object_mover", {
 		S("Place: Increase distance").."\n"..
 		S("Sneak+Place: Decrease distance"),
 	inventory_image = "testtools_object_mover.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_place = mover_config,
 	on_secondary_use = mover_config,
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if pointed_thing.type ~= "object" then
 			return
 		end
@@ -291,8 +346,12 @@ minetest.register_tool("testtools:entity_scaler", {
 		S("Punch: Increase size") .."\n"..
 		S("Sneak+Punch: Decrease scale"),
 	inventory_image = "testtools_entity_scaler.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if pointed_thing.type ~= "object" then
 			return
 		end
@@ -349,8 +408,12 @@ minetest.register_tool("testtools:entity_spawner", {
 		S("Punch: Select entity to spawn") .."\n"..
 		S("Place: Spawn selected entity"),
 	inventory_image = "testtools_entity_spawner.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_place = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		local name = user:get_player_name()
 		if pointed_thing.type == "node" then
 			if selections[name] then
@@ -362,6 +425,10 @@ minetest.register_tool("testtools:entity_spawner", {
 		end
 	end,
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if pointed_thing.type == "object" then
 			return
 		end
@@ -449,8 +516,12 @@ minetest.register_tool("testtools:object_editor", {
 		S("Punch object: Edit object") .."\n"..
 		S("Punch air: Edit yourself"),
 	inventory_image = "testtools_object_editor.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if user and user:is_player() then
 			local name = user:get_player_name()
 
@@ -536,10 +607,14 @@ minetest.register_tool("testtools:object_attacher", {
 		S("Aux1+Place: Incease attachment rotation") .."\n"..
 		S("Aux1+Sneak+Place: Decrease attachment rotation"),
 	inventory_image = "testtools_object_attacher.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_place = attacher_config,
 	on_secondary_use = attacher_config,
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if user and user:is_player() then
 			local name = user:get_player_name()
 			local selected_object
@@ -629,8 +704,12 @@ minetest.register_tool("testtools:children_getter", {
 		S("Punch object to show its 'children'") .."\n"..
 		S("Punch air to show your own 'children'"),
 	inventory_image = "testtools_children_getter.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_use = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if user and user:is_player() then
 			local name = user:get_player_name()
 			local selected_object
@@ -665,9 +744,8 @@ minetest.register_tool("testtools:children_getter", {
 local function use_loadstring(param, player)
 	-- For security reasons, require 'server' priv, just in case
 	-- someone is actually crazy enough to run this on a public server.
-	local privs = minetest.get_player_privs(player:get_player_name())
-	if not privs.server then
-		return false, "You need 'server' privilege to change object properties!"
+	if not validate_player(player) then
+		return false, "You need '"..require_priv.."' privilege to change object properties!"
 	end
 	if not param then
 		return false, "Failed: parameter is nil"
@@ -738,8 +816,12 @@ minetest.register_tool("testtools:node_meta_editor", {
 	description = S("Node Meta Editor") .. "\n" ..
 		S("Place: Edit node metadata"),
 	inventory_image = "testtools_node_meta_editor.png",
-	groups = { testtool = 1, disable_repair = 1 },
+	groups = { testtool = 1, disable_repair = 1, not_in_creative_inventory = 1 },
 	on_place = function(itemstack, user, pointed_thing)
+		if not validate_player(user) then
+			return
+		end
+
 		if pointed_thing.type ~= "node" then
 			return itemstack
 		end
