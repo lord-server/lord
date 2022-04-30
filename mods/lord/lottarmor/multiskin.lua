@@ -84,5 +84,7 @@ player_api.register_model("lottarmor_character.b3d", {
 		mine = {x=189, y=198},
 		walk_mine = {x=200, y=219},
 		sit = {x=81, y=160},
+		sneak_stand = {x = 225,  y = 240},
+		sneak_walk = {x = 251,  y = 272},
 	},
 })
