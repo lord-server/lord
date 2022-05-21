@@ -359,7 +359,7 @@ sfinv.register_page("inventory:bags", {
 		for i=1,4 do
 			local page = "bag"..i
 			if fields[page] then
-				if not (player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil) then
+				if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots ~= nil then
 					sfinv.set_page(player, "inventory:bag"..i)
 					return
 				end
