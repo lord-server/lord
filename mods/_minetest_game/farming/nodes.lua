@@ -21,6 +21,7 @@ minetest.override_item("default:dirt_with_grass", {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 --[[minetest.override_item("default:dirt_with_dry_grass", {
 =======
 minetest.override_item("default:dirt_with_dry_grass", {
@@ -28,6 +29,9 @@ minetest.override_item("default:dirt_with_dry_grass", {
 =======
 --[[minetest.override_item("default:dirt_with_dry_grass", {
 >>>>>>> 2efad20 (2-nd part)
+=======
+minetest.override_item("default:dirt_with_dry_grass", {
+>>>>>>> 60de875 (Closes #344. Closes #321. Manual rebase on farming_upd.)
 	soil = {
 		base = "default:dirt_with_dry_grass",
 		dry = "farming:soil",
@@ -67,6 +71,7 @@ minetest.override_item("default:dry_dirt_with_dry_grass", {
 	}
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 })]]
 =======
 })
@@ -74,6 +79,9 @@ minetest.override_item("default:dry_dirt_with_dry_grass", {
 =======
 })]]
 >>>>>>> 2efad20 (2-nd part)
+=======
+})
+>>>>>>> 60de875 (Closes #344. Closes #321. Manual rebase on farming_upd.)
 
 minetest.register_node("farming:soil", {
 	description = S("Soil"),

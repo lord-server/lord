@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 ### init.lua ###
 Clownfish		= Рыба клоун
 Tropical fish	= Тропическая рыбка
+=======
+### init.lua ###
+Clownfish		= Рыба клоун
+Tropical fish	= Тропическая рыбка
+>>>>>>> 60de875 (Closes #344. Closes #321. Manual rebase on farming_upd.)

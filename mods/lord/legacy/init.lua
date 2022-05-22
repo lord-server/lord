@@ -147,7 +147,7 @@ minetest.register_alias("lottfarming:barley_seed", "lottfarming:barley")
 minetest.register_alias("lottfarming:barley0", "lottfarming:barley")
 minetest.register_alias("lottfarming:berries_seed", "lottfarming:seed_berries")
 minetest.register_alias("lottfarming:cabbage_seed", "lottfarming:seed_cabbage")
-minetest.register_alias("lottfarming:carrot", "lottfarming:carrot_4")
+--minetest.register_alias("lottfarming:carrot", "lottfarming:carrot_4")
 minetest.register_alias("lottfarming:carrot_item", "lottfarming:carrot")
 minetest.register_alias("lottfarming:corn", "lottfarming:ear_of_corn")
 minetest.register_alias("lottfarming:corn_seed", "lottfarming:corn_kernel")
@@ -291,8 +291,14 @@ minetest.register_alias("fire:fireplace", "campfire:fireplace")
 minetest.register_alias("fire:campfire_active", "campfire:campfire_active")
 minetest.register_alias("fire:ash", "campfire:ash")
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
 minetest.register_alias("carts:stopping_rail", "carts:brakerail")
 =======
 >>>>>>> a0ef901 (Closes #321. Lottfarming refactoring)
+=======
+
+minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
+minetest.register_alias("carts:stopping_rail", "carts:brakerail")
+>>>>>>> 60de875 (Closes #344. Closes #321. Manual rebase on farming_upd.)

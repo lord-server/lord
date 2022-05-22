@@ -658,7 +658,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		chance = 5,
 		min = 3,
 		max = 10,},
-		{name = "lottfarming:barley0",
+		{name = "lottfarming:barley",
 		chance = 5,
 		min = 3,
 		max = 10,},
