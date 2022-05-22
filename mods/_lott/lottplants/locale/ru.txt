@@ -4,7 +4,6 @@ Pilinehtar=Пилинехтар
 Honey=Мёд
 
 ### wild_food.lua ###
-<<<<<<< HEAD
 Wild Barley=Дикий ячмень
 Wild Berries=Дикие ягоды
 Wild Corn plant=Дикая кукуруза
@@ -15,21 +14,6 @@ Pipeweed Wild=Дикий табак
 Potato Wild=Дикий картофель
 Wild Tomatoes=Дикий помидор
 Wild Turnips=Дикая репа
-=======
-Wild Barley	=	Дикий ячмень
-Wild Berries	=	Дикие ягоды
-Wild Corn plant	=	Дикая кукуруза
-Wild Cabbage	=	Дикая капуста
-Wild Melon	=	Дикая дыня
-Mushroom Wild	=	Дикий гриб
-Pipeweed Wild	=	Дикий табак
-Potato Wild	=	Дикий картофель
-Wild Tomato	=	Дикий помидор
-Wild Turnip	=	Дикая репа
-<<<<<<< HEAD
->>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
-=======
->>>>>>> 2efad20 (2-nd part)
 
 ### nodes.lua ###
 Alder Leaf=Ветки ольхи

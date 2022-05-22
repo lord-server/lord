@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 local S = lottfarming.get_translator
-<<<<<<< HEAD
 
 minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 
@@ -10,40 +6,15 @@ minetest.register_craftitem("lottfarming:melon", {
 	description = S("Melon Slice"),
 	inventory_image = "lottfarming_melon.png",
 	on_use = minetest.item_eat(2),
-=======
-minetest.register_craftitem("lottfarming:melon_seed", {
-	description = "Melon Seed",
-	inventory_image = "lottfarming_melon_seed.png",
-	on_place = function(itemstack, placer, pointed_thing)
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:melon_1")
-	end,
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
 })
-=======
->>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
-=======
-local S = minetest.get_translator("lottfarming")
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
-=======
-local S = lottfarming.get_translator
->>>>>>> 2efad20 (2-nd part)
 
 minetest.register_node("lottfarming:melon_1", {
 	paramtype = "light",
 	sunlight_propagates = true,
 	drawtype = "nodebox",
 	drop = "",
-<<<<<<< HEAD
-<<<<<<< HEAD
 	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
 	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
-=======
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
-	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -56,23 +27,10 @@ minetest.register_node("lottfarming:melon_1", {
 			{-0.2, -0.5, -0.2, 0.2, -0.1, 0.2}
 		},
 	},
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_2"}},
-=======
-	next_plant = {{name = "lottfarming:melon_2"}},
->>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
-=======
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	next_plant = {{name = "lottfarming:melon_2"}},
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	sounds = default.node_sound_wood_defaults(),
 })
 
@@ -81,17 +39,8 @@ minetest.register_node("lottfarming:melon_2", {
 	sunlight_propagates = true,
 	drawtype = "nodebox",
 	drop = "",
-<<<<<<< HEAD
-<<<<<<< HEAD
 	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
 	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
-=======
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
-	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -104,37 +53,15 @@ minetest.register_node("lottfarming:melon_2", {
 			{-0.35, -0.5, -0.35, 0.35, 0.2, 0.35}
 		},
 	},
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_3"}},
-=======
-	next_plant = {{name = "lottfarming:melon_3"}},
->>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
-=======
-	groups = {choppy=2, oddly_breakable_by_hand=2, flammable=2, not_in_creative_inventory=1, plant=1},
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	next_plant = {{name = "lottfarming:melon_3"}},
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	sounds = default.node_sound_wood_defaults(),
 })
 
 minetest.register_node("lottfarming:melon_3", {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 	description = S("Melon"),
-=======
-	description = "Melon",
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
-=======
-	description = S("Melon"),
->>>>>>> 2efad20 (2-nd part)
 	paramtype2 = "facedir",
 	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png",
 	"lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
@@ -146,31 +73,11 @@ minetest.register_node("lottfarming:melon_3", {
 			{ items = {'lottfarming:melon_seed'}, rarity = 5},
 			{ items = {'lottfarming:melon_3'} }
 		}
-<<<<<<< HEAD
 	},
 	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, plant = 1},
-=======
-	description = "Melon",
-	paramtype2 = "facedir",
-	tiles = {"lottfarming_melon_top.png", "lottfarming_melon_top.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png", "lottfarming_melon_side.png"},
-		drop = {
-		max_items = 6,
-		items = {
-			{ items = {'lottfarming:melon_seed'} },
-			{ items = {'lottfarming:melon_seed'}, rarity = 20},
-			{ items = {'lottfarming:melon 8'} },
-		}
-	},
-	groups = {choppy=2, oddly_breakable_by_hand=1, flammable=2, plant=1},
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	},
-	groups = {choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, plant = 1},
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
 	sounds = default.node_sound_wood_defaults(),
 })
 
-<<<<<<< HEAD
 farming.register_plant("lottfarming:melon", {
 	description = S("Melon Seed"),
 	harvest_name = "lottfarming:melon_3",
@@ -182,54 +89,3 @@ farming.register_plant("lottfarming:melon", {
 	fertility = {"soil"},
 	place_param2 = 1,
 })
-=======
-minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
-
-minetest.register_craftitem("lottfarming:melon", {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	description = S("Melon Slice"),
-=======
-	description = "Melon",
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
-	description = "Melon",
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
-=======
-	description = S("Melon Slice"),
->>>>>>> 2efad20 (2-nd part)
-	inventory_image = "lottfarming_melon.png",
-	on_use = minetest.item_eat(2),
-})
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-farming.register_plant("lottfarming:melon", {
-	description = S("Melon Seed"),
-	harvest_name = "lottfarming:melon_3",
-	seed_inv_img = "lottfarming_seed_melon.png",
-=======
-farming.register_plant("lottfarming:melon", {
-	description = S("Melon Seed"),
-	harvest_name = "lottfarming:melon_3",
-<<<<<<< HEAD
-	seed_inv_img = "lottfarming_melon_seed.png",
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
-=======
-	seed_inv_img = "lottfarming_seed_melon.png",
->>>>>>> 2efad20 (2-nd part)
-	planttype = 3,
-	paramtype2 = "meshoptions",
-	minlight = 13,
-	maxlight = default.LIGHT_MAX,
-	fertility = {"grassland"},
-	place_param2 = 1,
-})
-<<<<<<< HEAD
->>>>>>> 01f005f (Closes #344. Closes #321. Redo lottfarming.)
-=======
-farming:add_plant("lottfarming:melon_3", {"lottfarming:melon_1", "lottfarming:melon_2"}, 80, 20)
->>>>>>> 93c13f4 (Closes #344. Just update lottfarming. Shouldn't be used in stable release)
-=======
->>>>>>> 5237f07 (Closes #344. Closes #321. Update LOTT/lottfarming. Move to timer-based growing system)
