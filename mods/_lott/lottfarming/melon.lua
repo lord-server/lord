@@ -30,6 +30,7 @@ minetest.register_node("lottfarming:melon_1", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_2"}},
+	on_timer = farming.grow_plant,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })
@@ -56,6 +57,7 @@ minetest.register_node("lottfarming:melon_2", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:melon_3"}},
+	on_timer = farming.grow_plant,
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, not_in_creative_inventory = 1, plant = 1},
 	sounds = default.node_sound_wood_defaults(),
 })

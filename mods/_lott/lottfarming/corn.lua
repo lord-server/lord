@@ -124,6 +124,7 @@ minetest.register_node("lottfarming:corn_5", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:corn_6"}},
+	on_timer = farming.grow_plant,
 	groups = {snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
@@ -145,6 +146,7 @@ minetest.register_node("lottfarming:corn_6", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:corn_7"}},
+	on_timer = farming.grow_plant,
 	groups = {snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
@@ -166,6 +168,7 @@ minetest.register_node("lottfarming:corn_7", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:corn_8"}},
+	on_timer = farming.grow_plant,
 	groups = {snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })
@@ -187,6 +190,7 @@ minetest.register_node("lottfarming:corn_8", {
 	minlight = 11,
 	maxlight = lottfarming.MAX_LIGHT,
 	next_plant = {{node = "lottfarming:corn_9"}},
+	on_timer = farming.grow_plant,
 	groups = {snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 })

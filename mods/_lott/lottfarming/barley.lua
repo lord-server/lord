@@ -23,3 +23,8 @@ minetest.register_craftitem("lottfarming:barley_cooked", {
 	inventory_image = "lottfarming_barley_cooked.png",
 	on_use = minetest.item_eat(2),
 })
+
+minetest.register_craft({
+	output = "lottfarming:barley 2",
+	recipe = {{"lottfarming:sheaf_barley"}}
+})

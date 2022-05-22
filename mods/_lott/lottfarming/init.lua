@@ -171,7 +171,8 @@ farming.grow_plant = function(pos, _)
 		return
 	else
 		-- ground check
-		local ground_check = true
+
+		local ground_check = true --implement fertility check by default
 		if def.on_ground_check then
 			ground_check = def.on_ground_check()
 		end
