@@ -86,19 +86,6 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				sounds = default.node_sound_wood_defaults()
 			})
 		end
-		minetest.register_alias("default:fence_junglewood","lottblocks:fence_junglewood")
-		minetest.override_item("default:fence_junglewood", {
-			description = S("Junglewood Fence")
-		})
-		minetest.override_item("default:fence_rail_junglewood", {
-			description = S("Junglewood Fence Rail")
-		})
-		minetest.override_item("default:fence_wood", {
-			description = S("Wooden Fence")
-		})
-		minetest.override_item("default:fence_rail_wood", {
-			description = S("Wooden Fence Rail")
-		})
 
 		-- STICK | ПАЛОЧКА
 		minetest.register_craftitem("lottblocks:stick_" .. name, {
@@ -323,6 +310,20 @@ lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "
 lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
+
+minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
+minetest.override_item("default:fence_junglewood", {
+	description = S("Junglewood Fence")
+})
+minetest.override_item("default:fence_rail_junglewood", {
+	description = S("Junglewood Fence Rail")
+})
+minetest.override_item("default:fence_wood", {
+	description = S("Wooden Fence")
+})
+minetest.override_item("default:fence_rail_wood", {
+	description = S("Wooden Fence Rail")
+})
 
 --***********************************************************
 --**          WOODEN STANCHION | СТОЙКИ ИЗ ЯБЛОНИ          **
