@@ -7,11 +7,3 @@ function lord.require_intllib()
 		return function(q) return q end
 	end
 end
-
-------------------------------------
----Remove after updating to 5.4.1---
-------------------------------------
-local creative_mode_cache = minetest.settings:get_bool("creative_mode")
-function minetest.is_creative_enabled(name)
-	return creative_mode_cache
-end
