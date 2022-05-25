@@ -22,6 +22,22 @@ mountgen.list_chunks = function(p1, p2)
 	return chunks
 end
 
+local can_place_dirt = function(data, stone_id)
+	if data ~= stone_id then
+		return true
+	end
+
+	return false
+end
+
+local can_place_plant = function(data, air_id)
+	if data == air_id then
+		return true
+	end
+
+	return false
+end
+
 mountgen.mountgen = function(top, fun, config)
 	top.x = math.floor(top.x+0.5)
 	top.y = math.floor(top.y+0.5)
@@ -102,12 +118,12 @@ mountgen.mountgen = function(top, fun, config)
 				if global_y < height then
 					data[i] = stone_id
 				elseif global_y == height then
-					if data[i] == air_id then
+					if can_place_dirt(data[i], stone_id) then
 						local top_node = mountgen.top_node({x=global_x,y=global_y,z=global_z}, config)
 						data[i] = minetest.get_content_id(top_node)
 					end
 				elseif global_y == height + 1 then
-					if data[i] == air_id then
+					if can_place_plant(data[i], air_id) then
 						local upper_node = mountgen.upper_node({x=global_x,y=global_y,z=global_z}, config)
 						if upper_node ~= nil then
 							data[i] = minetest.get_content_id(upper_node)
