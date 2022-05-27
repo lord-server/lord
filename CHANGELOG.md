@@ -1,5 +1,12 @@
 # Change Log
 
+## [2022.02.p3](https://github.com/lord-server/lord/releases/tag/2022.02.p3)
+- New coal and charcoal textures (#591)
+- Classic textures (#592)
+- marble texture (#593)
+- Fixes mountain tool (#537, Closes #425)
+- Update mount tool (#606, relates to #547)
+
 ## [2022.02.p2](https://github.com/lord-server/lord/releases/tag/2022.02.p2)
  - Fix LuaCheck build. (Fixes #578)
  - Fix pearl transparency #559 (#579)
