@@ -1,7 +1,7 @@
 local S = lord.require_intllib()
 local N = function(s) return s end
 
-if (not armor) or (not armor.def) then
+if (not armor) or (not lord_armor.prot.def) then
 	minetest.log("error", "[hbarmor] Outdated lottarmor version. Please update your version of lottarmor!")
 end
 
@@ -33,7 +33,7 @@ end
 
 
 local must_hide = function(playername, arm)
-	return ((not armor.def[playername].count or armor.def[playername].count == 0) and arm == 0)
+	return ((not lord_armor.prot.def[playername].count or lord_armor.prot.def[playername].count == 0) and arm == 0)
 end
 
 local arm_printable = function(arm)
@@ -78,11 +78,11 @@ hb.register_hudbar(
 )
 
 function hbarmor.get_armor(player)
-	if not player or not armor.def then
+	if not player or not lord_armor.prot.def then
 		return false
 	end
 	local name = player:get_player_name()
-	local def = armor.def[name] or nil
+	local def = lord_armor.prot.def[name] or nil
 	if def and def.state and def.count then
 		hbarmor.set_armor(name, def.state, def.count)
 	else

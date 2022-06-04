@@ -1,4 +1,4 @@
-local S = minetest.get_translator(minetest.get_current_modname)
+local S = minetest.get_translator(minetest.get_current_modname())
 
 -- Tables set up
 lord_armor.types = {}
@@ -20,6 +20,9 @@ end
 -- Adds the item of certain type to the items table
 -- of certain type.
 function lord_armor.register_item_in_type(type, item)
+	if not lord_armor.types[type].items then
+		lord_armor.types[type].items = {}
+	end
 	table.insert(lord_armor.types[type].items, item)
 	return true
 end
@@ -32,11 +35,11 @@ end
 -- description	- untraslated description,
 -- 				  used to construct item  descriptions.
 function lord_armor.register_material(material, item, description)
-	table.insert(lord_armor.materials, material, {
+	lord_armor.materials[material] = {
 		material = material,
 		item = item,
 		description = description,
-	})
+	}
 	return true
 end
 
@@ -69,7 +72,7 @@ end
 -- Local function "multiply_table":
 -- Multiplies the table values by the given number.
 local function multiply_table(t, m)
-	for i, k in t do
+	for i, k in pairs(t) do
 		table[i] = k * m
 	end
 	return table
@@ -90,8 +93,8 @@ local function register_craft(type, material, modname)
 	end
 
 	recipe.output = output
-	for _, i in recipe.recipe do
-		for _, v in i do
+	for _, i in pairs(recipe.recipe) do
+		for _, v in pairs(i) do
 			if v == "material" then
 				recipe.recipe[i[v]] = material
 			else
@@ -118,18 +121,24 @@ end
 function lord_armor.register_armor_set(types, materials, prot_mult, durab_mult)
 	if not prot_mult then prot_mult = 1 end
 	if not durab_mult then durab_mult = 1 end
-
-	for _, material in materials do
-		for _, type in types do
+	for _, material in pairs(materials) do
+		if not get_material(material) then
+			minetest.log("error", "Not registering "..material.." armor set: material is not registered.")
+			return false
+		end
+		for _, type in pairs(types) do
 			local material_desc = get_material(material).description
 			local type_desc = get_type_def(type).description
 			local item_name = "lord_armor:%s_%s"
+			local groups = {}
+			groups[material.."_item"] = 1
+			groups[type] = 1
 			minetest.register_tool(string.format("lord_armor:%s_%s", material, type), {
 				description = S(string.format("%s %s", material_desc, type_desc)),
 				inventory_image = string.format("lord_armor_%s_%s.png", material, type),
 				protection = multiply_table(get_type_def(type).protection_level, prot_mult),
 				durability = get_type_def(type).basic_durability * durab_mult,
-				groups = table.insert(table.insert({}, material.."_item", 1), type, 1),
+				groups = groups,
 			})
 			lord_armor.register_item_in_type(type, item_name)
 			register_craft(type, material)
@@ -140,18 +149,3 @@ end
 function lord_armor.register_special_armor(name, type, recipe)
 	lord_armor.register_type(type.name, type.def)
 end
-
-lord_armor.register_type("helmet", {
-	description = "Helmet", -- no need to tranlsate this
-	protection_level = {physical = 2},
-	basic_durability = 64,
-	compatible_slots = {"helmet"},
-})
-
-lord_armor.set_type_recipe("helmet", {
-	output = "helmet",
-	recipe = {
-		{"material", "material", "material"},
-		{"material", "", "material"},
-	},
-})

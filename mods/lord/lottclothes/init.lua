@@ -6,7 +6,7 @@
 -- basics
 --------------------------------------------------------------------------------
 
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/clothing.lua")
+--[[dofile(minetest.get_modpath(minetest.get_current_modname()).."/clothing.lua")
 
 -- crafting ingredients
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/fabrics.lua")
@@ -19,4 +19,4 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/brandybuck.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/ettenmoor.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/cloaks.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/elven.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/wizard.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()).."/wizard.lua")]]
