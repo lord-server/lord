@@ -77,6 +77,7 @@
 
 ### `headanim`
 - анимация головы
+- правка: голова развернута в нужную сторону
 - [readme](headanim/README.md)
 - [github](https://github.com/LoneWolfHT/headanim/) (commit `fce3015`)
 - [contentDB](https://content.minetest.net/packages/Lone_Wolf/headanim/)

@@ -7,11 +7,11 @@ local lastdir = {}
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(get_connected_players()) do
 		local pname = player:get_player_name()
-		local ldeg = -deg(player:get_look_vertical())
+		local ldeg = deg(player:get_look_vertical())
 
 		if abs((lastdir[pname] or 0) - ldeg) > 4 then
 			lastdir[pname] = ldeg
-			player:set_bone_position("Head", basepos, {x = ldeg, y = 0, z = 0})
+			player:set_bone_position("Head", basepos, {x = ldeg, y = 180, z = 0})
 		end
 	end
 end)
