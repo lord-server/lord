@@ -72,6 +72,7 @@ stairs.register_stair_and_slab(
 minetest.register_node("lottblocks:leafroof_dark", {
 	description       = SL("Dark Leaf Roof"),
 	tiles             = { "lottblocks_leafroof.png" },
+	use_texture_alpha = "clip",
 	paramtype         = "light",
 	drawtype          = "allfaces_optional",
 	is_ground_content = false,
@@ -99,6 +100,7 @@ stairs.register_stair_and_slab(
 minetest.register_node("lottblocks:leafroof_mallorn", {
 	description       = SL("Mallorn Leaf Roof"),
 	tiles             = { "lottblocks_mallornroof.png" },
+	use_texture_alpha = "clip",
 	paramtype         = "light",
 	drawtype          = "allfaces_optional",
 	is_ground_content = false,

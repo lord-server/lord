@@ -28,6 +28,7 @@ local function register_corpse(race, gender, skin)
 		drawtype = "mesh",
 		mesh = "bones.obj",
 		tiles = {races.get_texture_name(race, gender, skin)},
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		sunlight_propagates = true,
 		walkable = false,

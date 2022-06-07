@@ -7,6 +7,7 @@ lord_homedecor.register("window_flowerbox", {
 		"homedecor_flowerbox_bottom.png",
 		"homedecor_flowerbox_sides.png"
 	},
+	use_texture_alpha = "clip",
 	inventory_image = "homedecor_flowerbox_inv.png",
 	sounds = default.node_sound_stone_defaults(),
 	groups = { snappy = 3 },
