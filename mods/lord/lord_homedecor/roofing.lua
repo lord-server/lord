@@ -294,6 +294,7 @@ minetest.register_node("lord_homedecor:shingle_side_glass", {
 	drawtype = "mesh",
 	mesh = "homedecor_slope.obj",
 	tiles = { "homedecor_shingles_glass.png", "homedecor_shingles_wood.png" },
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	selection_box = slope_cbox,

@@ -61,6 +61,7 @@ local register_arrow = function(material, material_group, dc, mass)
 			"lottthrowing_arrow_"..material.."_2.png",
 			"lottthrowing_arrow_"..material..".png"
 		},
+		use_texture_alpha = "clip",
 		groups = {not_in_creative_inventory=1},
 	})
 
@@ -129,6 +130,7 @@ local register_bolt = function(material, material_group, dc, mass)
 			"lottthrowing_bolt_"..material.."_2.png",
 			"lottthrowing_bolt_"..material..".png"
 		},
+		use_texture_alpha = "clip",
 		groups = {not_in_creative_inventory=1},
 	})
 

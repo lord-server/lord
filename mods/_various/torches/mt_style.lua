@@ -49,6 +49,7 @@ minetest.register_node("torches:blue_floor", {
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 		}
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -72,6 +73,7 @@ minetest.register_node("torches:blue_wall", {
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 		}
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -155,6 +157,7 @@ minetest.register_node("torches:orc_floor", {
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 		}
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,
@@ -178,6 +181,7 @@ minetest.register_node("torches:orc_wall", {
 		    animation = {type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 3.3}
 		}
 	},
+	use_texture_alpha = "clip",
 	paramtype = "light",
 	paramtype2 = "wallmounted",
 	sunlight_propagates = true,

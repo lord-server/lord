@@ -80,12 +80,13 @@ for i = 1, 15 do
 		texture = "castle_jailbars.png"
 	end
 	minetest.register_node("castle:jailbars_" .. i, {
-		drawtype      = "nodebox",
-		tiles         = { "castle_grey.png", "castle_grey.png", texture },
-		paramtype     = "light",
-		groups        = { cracky = 2 },
-		drop          = "castle:jailbars",
-		node_box      = {
+		drawtype          = "nodebox",
+		tiles             = { "castle_grey.png", "castle_grey.png", texture },
+		use_texture_alpha = "clip",
+		paramtype         = "light",
+		groups            = { cracky = 2 },
+		drop              = "castle:jailbars",
+		node_box          = {
 			type  = "fixed",
 			fixed = take
 		},

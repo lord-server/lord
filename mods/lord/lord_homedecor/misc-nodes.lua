@@ -39,6 +39,7 @@ for i in ipairs(flowers_list) do
 			"default_dirt.png^[colorize:#000000:175",
 			"flowers_"..flower..".png"
 		},
+		use_texture_alpha = "clip",
 		walkable = false,
 		groups = {snappy = 3},
 		sounds = default.node_sound_glass_defaults(),
