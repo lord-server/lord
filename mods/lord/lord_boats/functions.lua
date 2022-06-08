@@ -8,7 +8,7 @@ end
 local function get_velocity(v, yaw, y)
 	local x = -math.sin(yaw) * v
 	local z =  math.cos(yaw) * v
-	return {x = x, y = y, z = z}
+	return { x = x, y = y, z = z, }
 end
 
 local function get_v(v)
@@ -61,7 +61,7 @@ function lord_boats.register_boat(boat_name, def)
 			end
 			self.driver = name
 			clicker:set_attach(self.object, "",
-				def.driver_bone_position, {x = 0, y = 0, z = 0})
+				def.driver_bone_position, { x = 0, y = 0, z = 0, })
 			player_api.player_attached[name] = true
 			minetest.after(0.2, function()
 				player_api.set_animation(clicker, "sit" , 30)
@@ -76,7 +76,7 @@ function lord_boats.register_boat(boat_name, def)
 	end
 
 	function boat_entity.on_activate(self, staticdata, dtime_s)
-		self.object:set_armor_groups({immortal = 1, fleshy = 100})
+		self.object:set_armor_groups({ immortal = 1, fleshy = 100, })
 		if staticdata then
 			self.v = tonumber(staticdata)
 		end
@@ -171,14 +171,14 @@ function lord_boats.register_boat(boat_name, def)
 		local p = self.object:get_pos()
 		p.y = p.y - 0.5
 		local new_velo
-		local new_acce = {x = 0, y = 0, z = 0}
+		local new_acce = { x = 0, y = 0, z = 0, }
 		if not is_water(p) then
 			local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
 			if (not nodedef) or nodedef.walkable then
 				self.v = 0
-				new_acce = {x = 0, y = 1, z = 0}
+				new_acce = { x = 0, y = 1, z = 0, }
 			else
-				new_acce = {x = 0, y = -9.8, z = 0} -- freefall in air -9.81
+				new_acce = { x = 0, y = -9.8, z = 0, } -- freefall in air -9.81
 			end
 			new_velo = get_velocity(self.v, self.object:get_yaw(),
 				self.object:get_velocity().y)
@@ -191,14 +191,14 @@ function lord_boats.register_boat(boat_name, def)
 				if y >= vert_acce.fast_condition then
 					y = vert_acce.fast_up
 				elseif y < 0 then
-					new_acce = {x = 0, y = vert_acce.down, z = 0}
+					new_acce = { x = 0, y = vert_acce.down, z = 0, }
 				else
-					new_acce = {x = 0, y = vert_acce.up, z = 0}
+					new_acce = { x = 0, y = vert_acce.up, z = 0, }
 				end
 				new_velo = get_velocity(self.v, self.object:get_yaw(), y)
 				self.object:set_pos(self.object:get_pos())
 			else
-				new_acce = {x = 0, y = 0, z = 0}
+				new_acce = { x = 0, y = 0, z = 0, }
 				if math.abs(self.object:get_velocity().y) < 1 then
 					local pos = self.object:get_pos()
 					pos.y = math.floor(pos.y) + 0.5
@@ -221,9 +221,9 @@ function lord_boats.register_boat(boat_name, def)
 		description = def.description,
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
-		wield_scale = {x = 2, y = 2, z = 1},
+		wield_scale = { x = 2, y = 2, z = 1, },
 		liquids_pointable = true,
-		groups = {flammable = 2, wooden = 1},
+		groups = { flammable = 2, wooden = 1, },
 
 		on_place = function(itemstack, placer, pointed_thing)
 			local under = pointed_thing.under

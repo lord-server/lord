@@ -29,9 +29,9 @@ lord_boats.register_boat("lord_boats:row_boat", {
 	inventory_image = "rowboat_inventory.png",
 	wield_image = "rowboat_wield.png",
 	recipe = {
-		{"",           "",           ""          },
-		{"group:wood", "",           "group:wood"},
-		{"group:wood", "group:wood", "group:wood"},
+		{ "",           "",           "",          },
+		{ "group:wood", "",           "group:wood", },
+		{ "group:wood", "group:wood", "group:wood", },
 	},
 	fuel_burntime = 20,
 })
@@ -59,9 +59,9 @@ lord_boats.register_boat("lord_boats:sail_boat", {
 	inventory_image = "sailboat_inventory.png",
 	wield_image = "sailboat_wield.png",
 	recipe = {
-		{"",           "wool:white",     ""          },
-		{"group:wood", "wool:white",     "group:wood"},
-		{"group:tree", "boats:row_boat", "group:tree"},
+		{ "",           "wool:white",     "",           },
+		{ "group:wood", "wool:white",     "group:wood", },
+		{ "group:tree", "boats:row_boat", "group:tree", },
 	},
 	fuel_burntime = 30,
 })
@@ -74,8 +74,8 @@ minetest.register_alias("boats:sail_boat", "lord_boats:sail_boat")
 
 -- Migration `MTG/boats` to `lord_boats`
 local migrate_entities = {
-	{"boats:row_boat", "lord_boats:row_boat"},
-	{"boats:sail_boat", "lord_boats:sail_boat"},
+	{ "boats:row_boat", "lord_boats:row_boat", },
+	{ "boats:sail_boat", "lord_boats:sail_boat", },
 }
 
 for i, entity_name in ipairs(migrate_entities) do
