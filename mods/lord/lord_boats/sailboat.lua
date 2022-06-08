@@ -44,8 +44,8 @@ local sail_boat = {
 	last_v = 0,
 	removed = false,
 	auto = false,
-  stepcount = 0,
-  unattended = 0
+	stepcount = 0,
+	unattended = 0
 }
 
 
