@@ -29,7 +29,7 @@ function lord_boats.register_boat(boat_name, def)
 		stepcount = 0,
 		unattended = 0
 	}
-	
+
 	function boat_entity.on_rightclick(self, clicker)
 		if not clicker or not clicker:is_player() then
 			return
