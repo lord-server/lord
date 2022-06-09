@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.02.p4](https://github.com/lord-server/lord/releases/tag/2022.02.p4)
+- Check nodes for their existence in areas (#617)
+
 ## [2022.02.p3](https://github.com/lord-server/lord/releases/tag/2022.02.p3)
 - New coal and charcoal textures (#591)
 - Classic textures (#592)
