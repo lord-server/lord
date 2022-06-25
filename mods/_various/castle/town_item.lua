@@ -1,5 +1,20 @@
 local SL = lord.require_intllib()
 
+local workbench_formspec = 'size[8,9;]' ..
+	"background[-0.5,-0.65;9,10.35;gui_chestbg.png]" ..
+	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]" ..
+	'label[0,0;' .. SL('Source Material') .. ']' ..
+	'list[context;src;0,0.5;2,4;]' ..
+	'label[3.5,0.5;' .. SL('Recipe to Use') .. ']' ..
+	'list[context;rec;2.5,1;3,3;]' ..
+	'label[6,0;' .. SL('Craft Output') .. ']' ..
+	'list[context;dst;6,0.5;2,4;]' ..
+	'list[current_player;main;0,5;8,4;]'..
+	'listring[current_player;main]'..
+	'listring[context;src]'..
+	'listring[current_player;main]'..
+	'listring[context;dst]'
+
 minetest.register_alias("darkage:box", "castle:crate")
 minetest.register_alias("cottages:straw", "farming:straw")
 minetest.register_alias("castle:straw", "farming:straw")
@@ -57,6 +72,17 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_lbm({
+    label = "workbench formspec replacement",
+    name = "castle:workbench_formspec_replacement",
+    nodenames = {"castle:workbench"},
+    run_at_every_load = false,
+    action = function(pos, node)
+		local meta = minetest.get_meta(pos)
+		meta:set_string('formspec', workbench_formspec)
+    end
+})
+
 minetest.register_node("castle:workbench", {
 	description                   = SL("Workbench"),
 	tiles                         = {
@@ -73,16 +99,7 @@ minetest.register_node("castle:workbench", {
 	drawtype                      = "normal",
 	on_construct                  = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string('formspec', 'size[8,9;]' ..
-			"background[-0.5,-0.65;9,10.35;gui_chestbg.png]" ..
-			"listcolors[#606060AA;#888;#141318;#30434C;#FFF]" ..
-			'label[0,0;' .. SL('Source Material') .. ']' ..
-			'list[context;src;0,0.5;2,4;]' ..
-			'label[3.5,0.5;' .. SL('Recipe to Use') .. ']' ..
-			'list[context;rec;2.5,1;3,3;]' ..
-			'label[6,0;' .. SL('Craft Output') .. ']' ..
-			'list[context;dst;6,0.5;2,4;]' ..
-			'list[current_player;main;0,5;8,4;]')
+		meta:set_string('formspec', workbench_formspec)
 		meta:set_string('infotext', SL('Workbench'))
 		local inv = meta:get_inventory()
 		inv:set_size('src', 2 * 4)
