@@ -426,7 +426,9 @@ local SL = lord.require_intllib()
           local maxp = {x=pos.x+rad, y=pos.y+rad, z=pos.z+rad}
           local flowers = minetest.find_nodes_in_area(minp, maxp, 'group:flower')
           local progress = meta:get_int('progress')
+          print("1 - ", progress)
           progress = progress + #flowers
+          print("2 - ", progress)
           meta:set_int('progress', progress)
           if progress > 1000 then
             local flower = flowers[math.random(#flowers)]
@@ -434,9 +436,14 @@ local SL = lord.require_intllib()
             local stacks = inv:get_list('frames')
             for k, v in pairs(stacks) do
               if inv:get_stack('frames', k):get_name() == 'bees:frame_empty' then
-                meta:set_int('progress', 0)
+                print("3 - ", progress)
+                meta:set_int('progress', (meta:get_int('progress')-1000))
+                print("4 - ", meta:get_int('progress'))
                 inv:set_stack('frames',k,'bees:frame_full')
-                return
+                if meta:get_int('progress') < 1000 then
+                  meta:set_string('infotext', 'Progress: '..meta:get_int('progress')..'+'..#flowers..'/1000')
+                  return
+                end
               end
             end
           else
@@ -494,6 +501,7 @@ local SL = lord.require_intllib()
         meta:set_string('infotext',SL('queen is inserted, now for the empty frames'));
         if inv:contains_item('frames', 'bees:frame_empty') then
           timer:start(30)
+          meta:set_int('progress', 0)
           meta:set_string('infotext',SL('bees are acclimating'));
         end
       end
