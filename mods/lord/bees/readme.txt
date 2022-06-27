@@ -9,13 +9,17 @@ FEATURES
 -- Wax block
 -- Honey comb block
 
-- New textures
+- Update hives and extractor:
+-- Adding backgrounds to formspec
+
+- New textures (from Van)
 
 - Code fixes
 
 FUTURE
 ------
 - Relinquishing addiction to "mobs"
+- Switching to another localization
 
 README BEES v2.2:
 
