@@ -220,12 +220,13 @@ local SL = lord.require_intllib()
   minetest.register_node('bees:hive_wild', {
     description = SL('wild bee hive'),
     tiles = {
+      'bees_hive_wild_up.png',
+      'bees_hive_wild_up.png',
       'bees_hive_wild.png',
       'bees_hive_wild.png',
       'bees_hive_wild.png',
-      'bees_hive_wild.png',
-      'bees_hive_wild_bottom.png'
-    }, --Neuromancer's base texture
+      'bees_hive_wild.png^bees_hive_wild_hole.png'
+    },
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'wallmounted',
@@ -554,8 +555,8 @@ local SL = lord.require_intllib()
   minetest.register_abm({
     nodenames = {'group:leaves'},
     neighbors = {'group:flora'},
-    interval = 3000,
-    chance = 10,
+    interval = 30, -- Тут было 3k
+    chance = 1, -- Тут было 10
     action = function(pos, node, _, active_object_count_wider)
         if active_object_count_wider > 0 then
             return
