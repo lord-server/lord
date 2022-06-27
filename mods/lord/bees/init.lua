@@ -16,6 +16,7 @@ local SL = lord.require_intllib()
     local spos = pos.x .. ',' .. pos.y .. ',' ..pos.z
     local formspec =
       'size[8,9]'..
+      'background[0,0;0.1,0.1;bees_hive_artificial_background.png;true]'..
       'list[nodemeta:'.. spos .. ';combs;1.5,3;5,1;]'..
       'list[current_player;main;0,5;8,4;]'
     if grafting then
@@ -273,7 +274,7 @@ local SL = lord.require_intllib()
           -- then replace that with a full one and reset pro..
           -- то заменяем на полную и сбрасываем про .. (таймер?)
           inv:set_stack('combs',k,'bees:honey_comb')
-          timer:start(1000/#flowers)
+          timer:start((1000/#flowers))
           return
         end
       end
@@ -287,7 +288,7 @@ local SL = lord.require_intllib()
       local inv  = meta:get_inventory()
       local timer = minetest.get_node_timer(pos)
       meta:set_int('agressive', 1)
-      timer:start(100+math.random(100))
+      timer:start(5)
       inv:set_size('queen', 1)
       inv:set_size('combs', 5)
       inv:set_stack('queen', 1, 'mobs:bee')
@@ -318,7 +319,9 @@ local SL = lord.require_intllib()
 
     --restart the colony by adding a queen / перезагрузите колонии, добавив королеву
     on_metadata_inventory_put = function(pos, listname, index, stack, taker)
+      local meta = minetest.get_meta(pos)
       local timer = minetest.get_node_timer(pos)
+      meta:set_string('infotext', '')
       if not timer:is_started() then
         timer:start(10)
       end
@@ -555,8 +558,8 @@ local SL = lord.require_intllib()
   minetest.register_abm({
     nodenames = {'group:leaves'},
     neighbors = {'group:flora'},
-    interval = 30, -- Тут было 3k
-    chance = 1, -- Тут было 10
+    interval = 3000,
+    chance = 10,
     action = function(pos, node, _, active_object_count_wider)
         if active_object_count_wider > 0 then
             return
