@@ -1,5 +1,23 @@
-BEES MOD V2.2
--------------
+LORD BEES MOD V0.1
+(based on bees v2.2)
+--------------------
+
+FEATURES
+--------
+0.1
+- New blocks:
+-- Wax block
+-- Honey comb block
+
+- New textures
+
+- Code fixes
+
+FUTURE
+------
+- Relinquishing addiction to "mobs"
+
+README BEES v2.2:
 
 FEATURES
 --------

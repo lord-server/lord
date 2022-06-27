@@ -1,8 +1,9 @@
---Bees
+--Lord Bees
 ------
---Author	Bas080
---Version	2.2
---License	WTFPL
+--Author (Bees)	Bas080
+--Edits			Van (VanicGame)
+--Version		2.2
+--License		WTFPL
 
 local SL = lord.require_intllib()
 
@@ -45,6 +46,18 @@ local SL = lord.require_intllib()
   end
 
 --NODES
+  minetest.register_node('bees:honey_comb_block', {
+    description = SL('honey comb block'),
+    tiles = {"bees_honey_comb_block.png"},
+    groups = {oddly_breakable_by_hand=2, choppy=2},
+  })
+
+  minetest.register_node('bees:wax_block', {
+    description = SL('wax block'),
+    tiles = {"bees_wax_block.png"},
+    groups = {oddly_breakable_by_hand=2, choppy=2},
+  })
+
   minetest.register_node('bees:extractor', {
     description = SL('honey extractor'),
     tiles = {
@@ -620,6 +633,36 @@ local SL = lord.require_intllib()
   --})
 
 --CRAFTS
+  minetest.register_craft({
+    output = 'bees:honey_comb_block',
+    recipe = {
+      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
+      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
+      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
+    }
+  })
+
+  minetest.register_craft({
+    type = 'shapeless',
+    output = 'bees:honey_comb 9',
+    recipe = {'bees:honey_comb_block'},
+  })
+
+  minetest.register_craft({
+    output = 'bees:wax_block',
+    recipe = {
+      {'bees:wax','bees:wax','bees:wax'},
+      {'bees:wax','bees:wax','bees:wax'},
+      {'bees:wax','bees:wax','bees:wax'},
+    }
+  })
+
+  minetest.register_craft({
+    type = 'shapeless',
+    output = 'bees:wax 9',
+    recipe = {'bees:wax_block'},
+  })
+
   minetest.register_craft({
     output = 'bees:extractor',
     recipe = {
