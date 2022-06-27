@@ -30,9 +30,11 @@ local SL = lord.require_intllib()
     local spos = pos.x..','..pos.y..','..pos.z
     local formspec =
       'size[8,9]'..
+      'background[0,0;0.1,0.1;bees_hive_artificial_background.png;true]'..
       'list[nodemeta:'..spos..';queen;3.5,1;1,1;]'..
       'list[nodemeta:'..spos..';frames;0,3;8,1;]'..
-      'list[current_player;main;0,5;8,4;]'
+      'list[current_player;main;0,5;8,4;]'..
+      'listcolors[#603c1888;#bc936888;#201408]'
     return formspec
   end
 
@@ -386,7 +388,7 @@ local SL = lord.require_intllib()
       'default_wood.png',
       'default_wood.png',
       'default_wood.png',
-      'bees_hive_artificial.png'
+      'default_wood.png^bees_hive_artificial_hole.png'
     },
     drawtype = 'nodebox',
     paramtype = 'light',
