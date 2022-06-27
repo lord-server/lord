@@ -34,7 +34,7 @@ local SL = lord.require_intllib()
       'list[nodemeta:'..spos..';queen;3.5,1;1,1;]'..
       'list[nodemeta:'..spos..';frames;0,3;8,1;]'..
       'list[current_player;main;0,5;8,4;]'..
-      'listcolors[#603c1888;#bc936888;#201408]'
+      'listcolors[#e5a73588;#f2d39a88;#201408]'
     return formspec
   end
 
@@ -65,13 +65,10 @@ local SL = lord.require_intllib()
   minetest.register_node('bees:extractor', {
     description = SL('honey extractor'),
     tiles = {
-      "bees_extractor_top.png",
-      "bees_extractor.png",
-      "bees_extractor.png",
-      "bees_extractor.png",
-      "bees_extractor.png",
-      "bees_extractor.png"
-    },
+      'bees_extractor_top.png',
+      'bees_extractor_bottom.png',
+      'default_wood.png^[transformR90^bees_extractor.png'
+      },
     paramtype2 = "facedir",
     groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
     on_construct = function(pos, node)
@@ -85,6 +82,8 @@ local SL = lord.require_intllib()
       inv:set_size('wax',1)
       meta:set_string('formspec',
         'size[8,9]'..
+        'background[0,0;0.1,0.1;bees_extractor_background.png;true]'..
+        'listcolors[#b3835288;#cfb29388;#201408]'..
         --input
         'image[1,1;1,1;bees_frame_full.png]'..
         'image[1,3;1,1;vessels_glass_bottle_inv.png]'..
@@ -224,8 +223,8 @@ local SL = lord.require_intllib()
   minetest.register_node('bees:hive_wild', {
     description = SL('wild bee hive'),
     tiles = {
-      'bees_hive_wild_up.png',
-      'bees_hive_wild_up.png',
+      'bees_hive_wild_top.png',
+      'bees_hive_wild_top.png',
       'bees_hive_wild.png',
       'bees_hive_wild.png',
       'bees_hive_wild.png',
