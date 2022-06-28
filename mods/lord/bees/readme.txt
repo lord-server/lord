@@ -16,10 +16,11 @@ FEATURES
 
 - Code fixes
 
+- Switching to another localization
+
 FUTURE
 ------
 - Relinquishing addiction to "mobs"
-- Switching to another localization
 
 README BEES v2.2:
 

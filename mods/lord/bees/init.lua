@@ -5,7 +5,7 @@
 --Version		2.2
 --License		WTFPL
 
-local SL = lord.require_intllib()
+local S = minetest.get_translator("bees")
 
 --VARIABLES
   local bees = {}
@@ -51,19 +51,19 @@ local SL = lord.require_intllib()
 
 --NODES
   minetest.register_node('bees:honey_comb_block', {
-    description = SL('honey comb block'),
+    description = S('honey comb block'),
     tiles = {"bees_honey_comb_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
   })
 
   minetest.register_node('bees:wax_block', {
-    description = SL('wax block'),
+    description = S('wax block'),
     tiles = {"bees_wax_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
   })
 
   minetest.register_node('bees:extractor', {
-    description = SL('honey extractor'),
+    description = S('honey extractor'),
     tiles = {
       'bees_extractor_top.png',
       'bees_extractor_bottom.png',
@@ -199,7 +199,7 @@ local SL = lord.require_intllib()
   })
 
   minetest.register_node('bees:bees', {
-    description = SL('flying bees'),
+    description = S('flying bees'),
     drawtype = 'plantlike',
     paramtype = 'light',
     groups = { not_in_creative_inventory=1 },
@@ -221,7 +221,7 @@ local SL = lord.require_intllib()
 
 -- дикий улей
   minetest.register_node('bees:hive_wild', {
-    description = SL('wild bee hive'),
+    description = S('wild bee hive'),
     tiles = {
       'bees_hive_wild_top.png',
       'bees_hive_wild_top.png',
@@ -261,7 +261,7 @@ local SL = lord.require_intllib()
       -- если нет цветов в радиусе "r" королева умирает и колония погибает
       if #flowers == 0 then
         inv:set_stack('queen', 1, '')
-        meta:set_string('infotext', SL('this colony died, not enough flowers in area'))
+        meta:set_string('infotext', S('this colony died, not enough flowers in area'))
         return
       end --not any flowers nearby The queen dies!
 
@@ -380,7 +380,7 @@ local SL = lord.require_intllib()
 
 -- улей
   minetest.register_node('bees:hive_artificial', {
-    description = SL('bee hive'),
+    description = S('bee hive'),
     tiles = {
       'default_wood.png',
       'default_wood.png',
@@ -411,7 +411,7 @@ local SL = lord.require_intllib()
       meta:set_int('agressive', 1)
       inv:set_size('queen', 1)
       inv:set_size('frames', 8)
-      meta:set_string('infotext',SL('requires queen bee to function'))
+      meta:set_string('infotext',S('requires queen bee to function'))
     end,
 
     on_rightclick = function(pos, node, clicker, itemstack)
@@ -465,7 +465,7 @@ local SL = lord.require_intllib()
             meta:set_string('infotext', 'Progress: '..progress..'+'..#flowers..'/1000')
           end
         else
-          meta:set_string('infotext', SL('does not have empty frame(s)'))
+          meta:set_string('infotext', S('does not have empty frame(s)'))
           timer:stop()
         end
       end
@@ -483,7 +483,7 @@ local SL = lord.require_intllib()
       if listname == 'queen' then
         local timer = minetest.get_node_timer(pos)
         local meta = minetest.get_meta(pos)
-        meta:set_string('infotext',SL('requires queen bee to function'))
+        meta:set_string('infotext',S('requires queen bee to function'))
         timer:stop()
       end
     end,
@@ -513,11 +513,11 @@ local SL = lord.require_intllib()
       end
       if listname == 'queen' or listname == 'frames' then
         meta:set_string('queen', stack:get_name())
-        meta:set_string('infotext',SL('queen is inserted, now for the empty frames'));
+        meta:set_string('infotext',S('queen is inserted, now for the empty frames'));
         if inv:contains_item('frames', 'bees:frame_empty') then
           timer:start(30)
           meta:set_int('progress', 0)
-          meta:set_string('infotext',SL('bees are acclimating'));
+          meta:set_string('infotext',S('bees are acclimating'));
         end
       end
     end,
@@ -604,29 +604,29 @@ local SL = lord.require_intllib()
 
 --ITEMS
   minetest.register_craftitem('bees:frame_empty', {
-    description = SL('empty hive frame'),
+    description = S('empty hive frame'),
     groups = {wooden=1},
     inventory_image = 'bees_frame_empty.png',
   })
 
   minetest.register_craftitem('bees:frame_full', {
-    description = SL('filled hive frame'),
+    description = S('filled hive frame'),
     inventory_image = 'bees_frame_full.png',
   })
 
   minetest.register_craftitem('bees:bottle_honey', {
-    description = SL('honey bottle'),
+    description = S('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
     on_use = minetest.item_eat(1),
   })
 
   minetest.register_craftitem('bees:wax', {
-    description = SL('bees wax'),
+    description = S('bees wax'),
     inventory_image = 'bees_wax.png',
   })
 
   minetest.register_craftitem('bees:honey_comb', {
-    description = SL('honey comb'),
+    description = S('honey comb'),
     inventory_image = 'bees_comb.png',
     on_use = minetest.item_eat(2),
   })
@@ -716,7 +716,7 @@ local SL = lord.require_intllib()
 
 --TOOLS
   minetest.register_tool('bees:smoker', {
-    description = SL('smoker'),
+    description = S('smoker'),
     groups = {steel_item = 1},
     inventory_image = 'bees_smoker.png',
     tool_capabilities = {
@@ -749,7 +749,7 @@ local SL = lord.require_intllib()
   })
 
   minetest.register_tool('bees:grafting_tool', {
-    description = SL('grafting tool'),
+    description = S('grafting tool'),
     groups = {steel_item = 1},
     inventory_image = 'bees_grafting_tool.png',
     tool_capabilities = {
@@ -789,7 +789,7 @@ local SL = lord.require_intllib()
   --PIPEWORKS
     if minetest.get_modpath("pipeworks") then
       minetest.register_node('bees:hive_industrial', {
-        description = SL('industrial bee hive'),
+        description = S('industrial bee hive'),
         tiles = { 'bees_hive_industrial.png'},
         paramtype2 = 'facedir',
         groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1},
@@ -899,7 +899,7 @@ local SL = lord.require_intllib()
           if listname == 'queen' then
             local timer = minetest.get_node_timer(pos)
             local meta = minetest.get_meta(pos)
-            meta:set_string('infotext',SL('requires queen bee to function'))
+            meta:set_string('infotext',S('requires queen bee to function'))
             timer:stop()
           end
         end,
