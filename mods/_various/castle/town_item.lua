@@ -73,14 +73,14 @@ minetest.register_craft({
 })
 
 minetest.register_lbm({
-    label = "workbench formspec replacement",
-    name = "castle:workbench_formspec_replacement",
-    nodenames = {"castle:workbench"},
-    run_at_every_load = false,
-    action = function(pos, node)
+	label = "workbench formspec replacement",
+	name = "castle:workbench_formspec_replacement",
+	nodenames = {"castle:workbench"},
+	run_at_every_load = false,
+	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
-    end
+	end
 })
 
 minetest.register_node("castle:workbench", {
