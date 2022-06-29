@@ -2,7 +2,9 @@
 honey extractor=
 flying bees=
 wild bee hive=
+filled wild bee hive=
 bee hive=
+filled bee hive=
 empty hive frame=
 filled hive frame=
 honey bottle=

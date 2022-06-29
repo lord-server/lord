@@ -27,8 +27,6 @@ local S = minetest.get_translator("bees")
     minetest.swap_node(pos, node)
   end
 
-
-
   local function hive_wild_on_punch(pos, node, puncher)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
@@ -97,8 +95,6 @@ local S = minetest.get_translator("bees")
       local minp = {x=pos.x-r, y=pos.y-r, z=pos.z-r}
       local maxp = {x=pos.x+r, y=pos.y+r, z=pos.z+r}
       local flowers = minetest.find_nodes_in_area(minp, maxp, 'group:flower')
-
-      swap_node(pos, 'bees:hive_wild')
 
       -- если нет цветов в радиусе "r" королева умирает и колония погибает
       if #flowers == 0 then
@@ -220,7 +216,7 @@ local S = minetest.get_translator("bees")
         { items = {'bees:honey_comb'}, rarity = 5}
       }
     },
-    groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,attached_node=1},
+    groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,attached_node=1,not_in_creative_inventory=1},
     node_box = { --VanessaE's wild hive nodebox contribution
       type = 'fixed',
       fixed = {
@@ -230,6 +226,21 @@ local S = minetest.get_translator("bees")
         {-0.062500,-0.500000,-0.062500,0.062500,0.500000,0.062500}, --NodeBox 6
       }
     },
+
+    on_construct = function(pos)
+      minetest.get_node(pos).param2 = 0
+      local meta = minetest.get_meta(pos)
+      local inv  = meta:get_inventory()
+      local timer = minetest.get_node_timer(pos)
+      meta:set_int('agressive', 1)
+      timer:start(5)
+      inv:set_size('queen', 1)
+      inv:set_size('combs', 5)
+      inv:set_stack('queen', 1, 'mobs:bee')
+      for i=1, inv:get_size('combs') do
+        inv:set_stack('combs', i, 'bees:honey_comb')
+      end
+    end,
 
     on_punch = hive_wild_on_punch,
 
