@@ -11,7 +11,9 @@ local S = minetest.get_translator("bees")
       'background[0,0;0.1,0.1;bees_hive_wild_background.png;true]'..
       'list[nodemeta:'.. spos .. ';combs;1.5,3;5,1;]'..
       'list[current_player;main;0,5;8,4;]'..
-      'listcolors[#a0742588;#efca8588;#72531a]'
+      'listcolors[#a0742588;#efca8588;#72531a]'..
+      'listring[nodemeta:'..spos..';combs]'..
+      'listring[current_player;main]'
     if grafting then
       formspec = formspec..'list[nodemeta:'.. spos .. ';queen;3.5,1;1,1;]'
     end

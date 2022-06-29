@@ -12,7 +12,9 @@ local S = minetest.get_translator("bees")
       'list[nodemeta:'..spos..';queen;3.5,1;1,1;]'..
       'list[nodemeta:'..spos..';frames;0,3;8,1;]'..
       'list[current_player;main;0,5;8,4;]'..
-      'listcolors[#e5a73588;#f2d39a88;#201408]'
+      'listcolors[#e5a73588;#f2d39a88;#201408]'..
+      'listring[nodemeta:'..spos..';frames]'..
+      'listring[current_player;main]'
     return formspec
   end
 
@@ -238,6 +240,13 @@ local S = minetest.get_translator("bees")
     on_rightclick = hive_artificial_on_rightclick,
 
     allow_metadata_inventory_take = hive_artificial_allow_metadata_inventory_take,
+
+    on_metadata_inventory_take = function(pos, listname, index, stack, player)
+      local inv = minetest.get_meta(pos):get_inventory()
+      if inv:is_empty('frames') then
+        swap_node(pos, 'bees:hive_artificial')
+      end
+    end,
 
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
       local inv = minetest.get_meta(pos):get_inventory()

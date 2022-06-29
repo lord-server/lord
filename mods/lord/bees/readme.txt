@@ -11,6 +11,7 @@ FEATURES
 
 - Update hives and extractor:
 -- Adding backgrounds to formspec
+-- Adding filled hives
 
 - New textures (from Van)
 
