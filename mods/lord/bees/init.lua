@@ -206,22 +206,24 @@ local S = minetest.get_translator("bees")
 
 --ABMS
   --particles / частицы (имитация вылета пчел из улья)
-  -- Нужны правки:
-  -- Вылет только из улья с маткой
   minetest.register_abm({
     nodenames = {'bees:hive_artificial', 'bees:hive_wild'},
     interval  = 10,
     chance    = 2,
     action = function(pos)
-      minetest.add_particle({
-        pos = {x=pos.x, y=pos.y, z=pos.z},
-        vel = {x=(math.random()-0.5)*5,y=(math.random()-0.5)*5,z=(math.random()-0.5)*5},
-        acc = {x=math.random()-0.5,y=math.random()-0.5,z=math.random()-0.5},
-        expirationtime = math.random(2.5),
-        size = math.random(3),
-        collisiondetection = true,
-        texture = 'bees_particle_bee.png',
-      })
+      local meta = minetest.get_meta(pos)
+      local inv  = meta:get_inventory()
+      if inv:contains_item('queen', 'mobs:bee') then
+        minetest.add_particle({
+            pos = {x=pos.x, y=pos.y, z=pos.z},
+          vel = {x=(math.random()-0.5)*5,y=(math.random()-0.5)*5,z=(math.random()-0.5)*5},
+          acc = {x=math.random()-0.5,y=math.random()-0.5,z=math.random()-0.5},
+          expirationtime = math.random(2.5),
+          size = math.random(3),
+          collisiondetection = true,
+          texture = 'bees_particle_bee.png',
+        })
+      end
     end,
   })
 
