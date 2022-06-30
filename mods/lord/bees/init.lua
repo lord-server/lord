@@ -13,6 +13,26 @@ local S = minetest.get_translator("bees")
 
 --FUNCTIONS
 
+  function formspecs.extractor(pos)
+    local spos = pos.x .. ',' .. pos.y .. ',' ..pos.z
+    local formspec =
+      'size[8,9]'..
+        'background[0,0;0.1,0.1;bees_extractor_background.png;true]'..
+        'listcolors[#b3835288;#cfb29388;#201408]'..
+        --input
+        'image[1,1;1,1;bees_frame_full.png]'..
+        'image[1,3;1,1;vessels_glass_bottle_inv.png]'..
+        'list[nodemeta:'.. spos ..';frames_filled;2,1;1,1;]'..
+        'list[nodemeta:'.. spos ..';bottles_empty;2,3;1,1;]'..
+        --output
+        'list[nodemeta:'.. spos ..';frames_emptied;5,0.5;1,1;]'..
+        'list[nodemeta:'.. spos ..';wax;5,2;1,1;]'..
+        'list[nodemeta:'.. spos ..';bottles_full;5,3.5;1,1;]'..
+        --player inventory
+        'list[current_player;main;0,5;8,4;]'
+    return formspec
+  end
+
   -- спавнер цветов
   -- Прим. Van: надо править:
   -- Спавнятся только на dirt_with_grass
@@ -51,28 +71,12 @@ local S = minetest.get_translator("bees")
     on_construct = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
-      local pos_str = pos.x..','..pos.y..','..pos.z
       inv:set_size('frames_filled'  ,1)
       inv:set_size('frames_emptied' ,1)
       inv:set_size('bottles_empty'  ,1)
       inv:set_size('bottles_full' ,1)
       inv:set_size('wax',1)
-      meta:set_string('formspec',
-        'size[8,9]'..
-        'background[0,0;0.1,0.1;bees_extractor_background.png;true]'..
-        'listcolors[#b3835288;#cfb29388;#201408]'..
-        --input
-        'image[1,1;1,1;bees_frame_full.png]'..
-        'image[1,3;1,1;vessels_glass_bottle_inv.png]'..
-        'list[nodemeta:'.. pos_str ..';frames_filled;2,1;1,1;]'..
-        'list[nodemeta:'.. pos_str ..';bottles_empty;2,3;1,1;]'..
-        --output
-        'list[nodemeta:'.. pos_str ..';frames_emptied;5,0.5;1,1;]'..
-        'list[nodemeta:'.. pos_str ..';wax;5,2;1,1;]'..
-        'list[nodemeta:'.. pos_str ..';bottles_full;5,3.5;1,1;]'..
-        --player inventory
-        'list[current_player;main;0,5;8,4;]'
-      )
+      meta:set_string('formspec', formspecs.extractor(pos))
     end,
     on_timer = function(pos, node)
       local meta = minetest.get_meta(pos)
@@ -266,6 +270,18 @@ local S = minetest.get_translator("bees")
       minetest.remove_node(pos)
     end,
   })
+
+-- LBMS
+   minetest.register_lbm({
+     label = " formspec extractor replacement",
+     name = "bees:extractor_formspec_replacement",
+     nodenames = {"bees:extractor"},
+     run_at_every_load = false,
+     action = function(pos, node)
+	 local meta = minetest.get_meta(pos)
+	   meta:set_string('formspec', formspecs.extractor(pos))
+     end
+})
 
 --ITEMS
   minetest.register_craftitem('bees:frame_empty', {
