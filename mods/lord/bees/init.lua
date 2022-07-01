@@ -12,7 +12,6 @@ local S = minetest.get_translator("bees")
   formspecs = {}
 
 --FUNCTIONS
-
   function formspecs.extractor(pos)
     local spos = pos.x .. ',' .. pos.y .. ',' ..pos.z
     local formspec =
@@ -51,12 +50,14 @@ local S = minetest.get_translator("bees")
     description = S('honey comb block'),
     tiles = {"bees_honey_comb_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
+    sounds = default.node_sound_wood_defaults(),
   })
 
   minetest.register_node('bees:wax_block', {
     description = S('wax block'),
     tiles = {"bees_wax_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
+    sounds = default.node_sound_wood_defaults(),
   })
 
   minetest.register_node('bees:extractor', {
@@ -68,6 +69,7 @@ local S = minetest.get_translator("bees")
       },
     paramtype2 = "facedir",
     groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
+    sounds = default.node_sound_wood_defaults(),
     on_construct = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
@@ -275,7 +277,7 @@ local S = minetest.get_translator("bees")
 
 -- LBMS
    minetest.register_lbm({
-     label = " formspec extractor replacement",
+     label = "formspec extractor replacement",
      name = "bees:extractor_formspec_replacement",
      nodenames = {"bees:extractor"},
      run_at_every_load = false,
@@ -422,7 +424,6 @@ local S = minetest.get_translator("bees")
               texture = 'bees_smoke_particle.png',
             })
           end
-          --tool:add_wear(2)
           local meta = minetest.get_meta(pos)
           meta:set_int('agressive', 0)
           return nil
