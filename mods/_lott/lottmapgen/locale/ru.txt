@@ -20,3 +20,8 @@ Mordor Stone Stair=Ступенька из камня Мордора
 Inner Mordor Stone Stair=Угловая ступенька из камня Мордора (Внутренний Угол)
 Outer Mordor Stone Stair=Угловая ступенька из камня Мордора (Внешний Угол)
 Mordor Stone Slab=Плита из камня Мордора
+
+Ice Stair=Ледяная ступенька
+Inner Ice Stair=Угловая ледяная ступенька (Внутренний Угол)
+Outer Ice Stair=Угловая ледяная ступенька (Внешний Угол)
+Ice Slab=Ледяная плита
