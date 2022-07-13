@@ -64,8 +64,7 @@ minetest.register_node(":default:ice", {
 	is_ground_content = true,
 	use_texture_alpha = "blend",
 	paramtype = "light",
-	freezemelt = "default:water_source",
-	groups = {cracky=3, melts=1},
+	groups = {cracky = 3, cools_lava = 1, slippery = 3},
 	sounds = default.node_sound_ice_defaults(),
 })
 
