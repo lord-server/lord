@@ -64,10 +64,20 @@ minetest.register_node(":default:ice", {
 	is_ground_content = true,
 	use_texture_alpha = "blend",
 	paramtype = "light",
-	freezemelt = "default:water_source",
-	groups = {cracky=3, melts=1},
-	sounds = default.node_sound_glass_defaults(),
+	groups = {cracky = 3, cools_lava = 1, slippery = 3},
+	sounds = default.node_sound_ice_defaults(),
 })
+
+stairs.register_stair_and_slab("ice", "default:ice",
+	{cracky = 3, cools_lava = 1, slippery = 3},
+	{"lottmapgen_ice.png"},
+	SL("Ice Stair"),
+	SL("Ice Slab"),
+	default.node_sound_ice_defaults(),
+	true,
+	SL("Inner Ice Stair"),
+	SL("Outer Ice Slab")
+)
 
 minetest.register_node("lottmapgen:blacksource", {
 	description = SL("Black Water Source"),
