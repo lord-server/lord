@@ -47,20 +47,22 @@ function hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thi
 	return func(itemstack, user, pointed_thing)
 end
 
-local function poisenp(tick, poisen, time_left, player)
+local function poisenp(tick, poisen, time_left, player, player_name)
 	local time_full = math.abs(poisen)
 	time_left = time_left + tick
 	if time_left < time_full then
-		minetest.after(tick, poisenp, tick, poisen, time_left, player)
+		minetest.after(tick, poisenp, tick, poisen, time_left, player, player_name)
 	else
-		hbhunger.poisonings[player:get_player_name()] = hbhunger.poisonings[player:get_player_name()] - 1
-		if hbhunger.poisonings[player:get_player_name()] <= 0 then
+		hbhunger.poisonings[player_name] = hbhunger.poisonings[player_name] - 1
+		if hbhunger.poisonings[player_name] <= 0 then
 			-- Reset HUD bar color
 			hb.change_hudbar(player, "health", nil, nil, "hudbars_icon_health.png", nil, "hudbars_bar_health.png")
 		end
 	end
-	if (player:get_hp()-1 > 0)and(poisen < 0) then
-		player:set_hp(player:get_hp() - 1)
+
+	local hp = player:get_hp()
+	if hp and (hp-1 > 0) and (poisen < 0) then
+		player:set_hp(hp - 1)
 	end
 end
 
@@ -105,7 +107,7 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 				end
 				hb.change_hudbar(user, "health", nil, nil, hotbar_poisen_texture, nil, hotbar_poisen_texture)
 				hbhunger.poisonings[name] = hbhunger.poisonings[name] + 1
-				poisenp(1, poisen, 0, user)
+				poisenp(1, poisen, 0, user, user:get_player_name())
 			end
 
 			if itemstack:get_count() == 0 then
