@@ -1,6 +1,5 @@
 local SL = lord.require_intllib()
 
-
 -- LEAVES
 
 minetest.register_node("lottplants:alderleaf", {
@@ -11,6 +10,7 @@ minetest.register_node("lottplants:alderleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_alderleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -44,6 +44,7 @@ minetest.register_node("lottplants:appleleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_appleleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -77,6 +78,7 @@ minetest.register_node("lottplants:birchleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_birchleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -110,6 +112,7 @@ minetest.register_node("lottplants:beechleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_beechleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -143,6 +146,7 @@ minetest.register_node("lottplants:culumaldaleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_culumaldaleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -176,6 +180,7 @@ minetest.register_node("lottplants:yellowflowers", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_yellowflowers_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -204,6 +209,7 @@ minetest.register_node("lottplants:elmleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_elmleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -237,6 +243,7 @@ minetest.register_node("lottplants:firleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_firleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -270,6 +277,7 @@ minetest.register_node("lottplants:lebethronleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_lebethronleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -303,6 +311,7 @@ minetest.register_node("lottplants:mallornleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_mallornleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -335,6 +344,7 @@ minetest.register_node("lottplants:pineleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_pineleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -368,6 +378,7 @@ minetest.register_node("lottplants:plumleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_plumleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -410,6 +421,7 @@ minetest.register_node("lottplants:rowanleaf", {
 	liquid_range               = 0,
 
 	paramtype                  = "light",
+	waving                     = 2,
 	groups                     = { snappy = 3, leafdecay = 3, flammable = 2, leaves = 1, color_yellow = 1 },
 	drop                       = {
 		max_items = 1,
@@ -430,6 +442,7 @@ minetest.register_node("lottplants:rowanberry", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_rowanberry_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -458,6 +471,7 @@ minetest.register_node("lottplants:whiteleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_whiteleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -491,6 +505,7 @@ minetest.register_node("lottplants:yavannamireleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_yavannamireleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	walkable                   = false,
 	--climbable=true,
 	liquid_viscosity           = 8,
@@ -525,6 +540,7 @@ minetest.register_node("lottplants:mirkleaf", {
 	use_texture_alpha          = "clip",
 	inventory_image            = "lottplants_mirkleaf_inv.png",
 	paramtype                  = "light",
+	waving                     = 2,
 	sunlight_propagates        = false,
 	waving                     = 1,
 	is_ground_content          = false,
@@ -747,6 +763,7 @@ minetest.register_node("lottplants:aldersapling", {
 	inventory_image = "lottplants_aldersapling.png",
 	wield_image     = "lottplants_aldersapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -764,6 +781,7 @@ minetest.register_node("lottplants:applesapling", {
 	inventory_image = "lottplants_applesapling.png",
 	wield_image     = "lottplants_applesapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -781,6 +799,7 @@ minetest.register_node("lottplants:birchsapling", {
 	inventory_image = "lottplants_birchsapling.png",
 	wield_image     = "lottplants_birchsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -798,6 +817,7 @@ minetest.register_node("lottplants:beechsapling", {
 	inventory_image = "lottplants_beechsapling.png",
 	wield_image     = "lottplants_beechsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -815,6 +835,7 @@ minetest.register_node("lottplants:culumaldasapling", {
 	inventory_image = "lottplants_culumaldasapling.png",
 	wield_image     = "lottplants_culumaldasapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -832,6 +853,7 @@ minetest.register_node("lottplants:elmsapling", {
 	inventory_image = "lottplants_elmsapling.png",
 	wield_image     = "lottplants_elmsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -849,6 +871,7 @@ minetest.register_node("lottplants:firsapling", {
 	inventory_image = "lottplants_firsapling.png",
 	wield_image     = "lottplants_firsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -866,6 +889,7 @@ minetest.register_node("lottplants:lebethronsapling", {
 	inventory_image = "lottplants_lebethronsapling.png",
 	wield_image     = "lottplants_lebethronsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -883,6 +907,7 @@ minetest.register_node("lottplants:mallornsapling", {
 	inventory_image = "lottplants_mallornsapling.png",
 	wield_image     = "lottplants_mallornsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -900,6 +925,7 @@ minetest.register_node("lottplants:pinesapling", {
 	inventory_image = "lottplants_pinesapling.png",
 	wield_image     = "lottplants_pinesapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -917,6 +943,7 @@ minetest.register_node("lottplants:plumsapling", {
 	inventory_image = "lottplants_plumsapling.png",
 	wield_image     = "lottplants_plumsapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -934,6 +961,7 @@ minetest.register_node("lottplants:rowansapling", {
 	inventory_image = "lottplants_rowansapling.png",
 	wield_image     = "lottplants_rowansapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -951,6 +979,7 @@ minetest.register_node("lottplants:whitesapling", {
 	inventory_image = "lottplants_whitesapling.png",
 	wield_image     = "lottplants_whitesapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -968,6 +997,7 @@ minetest.register_node("lottplants:yavannamiresapling", {
 	inventory_image = "lottplants_yavannamiresapling.png",
 	wield_image     = "lottplants_yavannamiresapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -985,6 +1015,7 @@ minetest.register_node("lottplants:mirksapling", {
 	inventory_image = "lottplants_mirksapling.png",
 	wield_image     = "lottplants_mirksapling.png",
 	paramtype       = "light",
+	waving          = 1,
 	walkable        = false,
 	selection_box     = {
 		type  = "fixed",
@@ -1104,6 +1135,7 @@ minetest.register_node("lottplants:lorien_grass_1", {
 	inventory_image   = "lottplants_lorien_grass_3.png",
 	wield_image       = "lottplants_lorien_grass_3.png",
 	paramtype         = "light",
+	waving            = 1,
 	walkable          = false,
 	is_ground_content = true,
 	buildable_to      = true,
@@ -1129,6 +1161,7 @@ minetest.register_node("lottplants:lorien_grass_2", {
 	inventory_image   = "lottplants_lorien_grass_2.png",
 	wield_image       = "lottplants_lorien_grass_2.png",
 	paramtype         = "light",
+	waving            = 1,
 	walkable          = false,
 	buildable_to      = true,
 	is_ground_content = true,
@@ -1149,6 +1182,7 @@ minetest.register_node("lottplants:lorien_grass_3", {
 	inventory_image   = "lottplants_lorien_grass_3.png",
 	wield_image       = "lottplants_lorien_grass_3.png",
 	paramtype         = "light",
+	waving            = 1,
 	walkable          = false,
 	buildable_to      = true,
 	is_ground_content = true,
@@ -1169,6 +1203,7 @@ minetest.register_node("lottplants:lorien_grass_4", {
 	inventory_image   = "lottplants_lorien_grass_4.png",
 	wield_image       = "lottplants_lorien_grass_4.png",
 	paramtype         = "light",
+	waving            = 1,
 	walkable          = false,
 	buildable_to      = true,
 	is_ground_content = true,
