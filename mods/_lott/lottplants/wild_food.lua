@@ -198,7 +198,7 @@ minetest.register_node("lottplants:mushroom_wild", {
 			{ items = {'lottfarming:blue_mushroom'}, rarity = 10},
 			{ items = {'lottfarming:green_mushroom'}, rarity = 20},
 			{ items = {'lottfarming:white_mushroom'}, rarity = 20},
- 			{ items = {'lottfarming:brown_mushroom_spore'}, rarity = 5},
+			{ items = {'lottfarming:brown_mushroom_spore'}, rarity = 5},
 			{ items = {'lottfarming:red_mushroom_spore'}, rarity = 10},
 			{ items = {'lottfarming:blue_mushroom_spore'}, rarity = 20},
 			{ items = {'lottfarming:green_mushroom_spore'}, rarity = 20},
@@ -313,7 +313,6 @@ minetest.register_node("lottplants:tomatoes_wild", {
 minetest.register_node("lottplants:turnips_wild", {
 	description = SL("Wild Turnips"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottfarming_turnips_4.png" },
 	inventory_image = "lottfarming_turnips_4.png",
 	wield_image = "lottfarming_turnips_4.png",
