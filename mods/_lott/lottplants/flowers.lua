@@ -6,11 +6,20 @@ minetest.register_node("lottplants:athelas", {
 	description = SL("Athelas"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_athelas.png" },
-	drop = "lottfarming:athelas",
 	inventory_image = "lottplants_athelas.png",
 	wield_image = "lottplants_athelas.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 2,
+	waving = 1,
+	drop = {
+		max_items = 3,
+		items = {
+			{ items = {'lottfarming:athelas'} },
+			{ items = {'lottfarming:athelas'}, rarity = 5},
+		}
+	},
 	walkable = false,
 	buildable_to = true,
 	groups = {snappy=3,flammable=2,flora=1,attached_node=1},
@@ -29,8 +38,17 @@ minetest.register_node("lottplants:anemones", {
 	wield_image = "lottplants_anemones.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:anemones'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_blue=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -47,8 +65,17 @@ minetest.register_node("lottplants:asphodel", {
 	wield_image = "lottplants_asphodel.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:asphodel'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_white=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -65,8 +92,17 @@ minetest.register_node("lottplants:eglantive", {
 	wield_image = "lottplants_eglantive.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:eglantive'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_pink=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -83,8 +119,17 @@ minetest.register_node("lottplants:elanor", {
 	wield_image = "lottplants_elanor.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 10,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:elanor'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_yellow=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -101,11 +146,19 @@ minetest.register_node("lottplants:iris", {
 	wield_image = "lottplants_iris.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:iris'}}
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_yellow=1},
 	sounds = default.node_sound_leaves_defaults(),
-
 	selection_box = {
 		type = "fixed",
 		fixed = { -0.15, -0.5, -0.15, 0.15, 0.2, 0.15 },
@@ -120,8 +173,17 @@ minetest.register_node("lottplants:lissuin", {
 	wield_image = "lottplants_lissuin.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 41,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:lissuin'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_orange=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -138,8 +200,17 @@ minetest.register_node("lottplants:mallos", {
 	wield_image = "lottplants_mallos.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 42,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:mallos'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_yellow=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -156,8 +227,17 @@ minetest.register_node("lottplants:niphredil", {
 	wield_image = "lottplants_niphredil.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 8,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 1,
+		items = {
+			{ items = {'lottplants:niphredil'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_white=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
@@ -174,8 +254,17 @@ minetest.register_node("lottplants:seregon", {
 	wield_image = "lottplants_seregon.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
+	drop = {
+		max_items = 2,
+		items = {
+			{ items = {'lottplants:seregon'} },
+		}
+	},
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_red=1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
