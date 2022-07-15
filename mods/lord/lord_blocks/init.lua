@@ -78,3 +78,11 @@ minetest.register_craft({
 		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
 	}
 })
+
+minetest.register_node("lord_blocks:green_marble", {
+	description = S("Green Marble"),
+	tiles = {"lord_blocks_green_marble.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
