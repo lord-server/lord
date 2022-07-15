@@ -7,13 +7,15 @@ local SL = lord.require_intllib()
 minetest.register_node("lottplants:barley_wild", {
 	description = SL("Wild Barley"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottfarming_sheaf_barley.png" },
 	inventory_image = "lottfarming_sheaf_barley.png",
 	wield_image = "lottfarming_sheaf_barley.png",
 	sunlight_propagates = true,
 	paramtype = "light",
-drop = {
+	paramtype2 = "meshoptions",
+	place_param2 = 3,
+	waving = 1,
+	drop = {
 		max_items = 3,
 		items = {
 			{ items = {'lottfarming:sheaf_barley'} },
@@ -36,12 +38,14 @@ drop = {
 minetest.register_node("lottplants:berries_wild", {
 	description = SL("Wild Berries"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottplants_berries_wild.png" },
 	inventory_image = "lottplants_berries_wild.png",
 	wield_image = "lottplants_berries_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 34,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
@@ -65,12 +69,14 @@ minetest.register_node("lottplants:berries_wild", {
 minetest.register_node("lottplants:corn_wild", {
 	description = SL("Wild Corn plant"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottplants_corn_wild.png" },
 	inventory_image = "lottplants_corn_wild.png",
 	wield_image = "lottplants_corn_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 3,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
@@ -181,17 +187,22 @@ minetest.register_node("lottplants:mushroom_wild", {
 	wield_image = "lottplants_mushroom_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 9,
+	waving = 1,
 	drop = {
-		max_items = 4,
+		max_items = 5,
 		items = {
-			{ items = {'lottfarming:brown_mushroom'}, rarity = 2},
-			{ items = {'lottfarming:brown_mushroom_spore'}, rarity = 2},
-			{ items = {'lottfarming:red_mushroom'}, rarity = 4},
-			{ items = {'lottfarming:red_mushroom_spore'}, rarity = 4},
-			{ items = {'lottfarming:blue_mushroom'}, rarity = 6},
-			{ items = {'lottfarming:blue_mushroom_spore'}, rarity = 6},
-			{ items = {'lottfarming:green_mushroom'}, rarity = 8},
-			{ items = {'lottfarming:green_mushroom_spore'}, rarity = 8}
+			{ items = {'lottfarming:brown_mushroom'} },
+			{ items = {'lottfarming:red_mushroom'}, rarity = 5},
+			{ items = {'lottfarming:blue_mushroom'}, rarity = 10},
+			{ items = {'lottfarming:green_mushroom'}, rarity = 20},
+			{ items = {'lottfarming:white_mushroom'}, rarity = 20},
+ 			{ items = {'lottfarming:brown_mushroom_spore'}, rarity = 5},
+			{ items = {'lottfarming:red_mushroom_spore'}, rarity = 10},
+			{ items = {'lottfarming:blue_mushroom_spore'}, rarity = 20},
+			{ items = {'lottfarming:green_mushroom_spore'}, rarity = 20},
+			{ items = {'lottfarming:white_mushroom_spore'}, rarity = 20}
 		}
 	},
 	walkable = false,
@@ -209,12 +220,14 @@ minetest.register_node("lottplants:mushroom_wild", {
 minetest.register_node("lottplants:pipeweed_wild", {
 	description = SL("Pipeweed Wild"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottplants_pipeweed_wild.png" },
 	inventory_image = "lottplants_pipeweed_wild.png",
 	wield_image = "lottplants_pipeweed_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 34,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
@@ -238,12 +251,14 @@ minetest.register_node("lottplants:pipeweed_wild", {
 minetest.register_node("lottplants:potato_wild", {
 	description = SL("Potato Wild"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottplants_potato_wild.png" },
 	inventory_image = "lottplants_potato_wild.png",
 	wield_image = "lottplants_potato_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
@@ -267,12 +282,14 @@ minetest.register_node("lottplants:potato_wild", {
 minetest.register_node("lottplants:tomatoes_wild", {
 	description = SL("Wild Tomatoes"),
 	drawtype = "plantlike",
-	waving = 1,
 	tiles = { "lottplants_tomatoes_wild.png" },
 	inventory_image = "lottplants_tomatoes_wild.png",
 	wield_image = "lottplants_tomatoes_wild.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 10,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
@@ -302,6 +319,9 @@ minetest.register_node("lottplants:turnips_wild", {
 	wield_image = "lottfarming_turnips_4.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 40,
+	waving = 1,
 	drop = {
 		max_items = 3,
 		items = {
