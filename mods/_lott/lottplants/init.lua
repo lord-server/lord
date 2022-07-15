@@ -99,6 +99,7 @@ minetest.register_node("lottplants:pilinehtar", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	place_param2 = 2,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_green=1, grass=1},

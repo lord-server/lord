@@ -542,7 +542,6 @@ minetest.register_node("lottplants:mirkleaf", {
 	paramtype                  = "light",
 	waving                     = 2,
 	sunlight_propagates        = false,
-	waving                     = 1,
 	is_ground_content          = false,
 	walkable                   = false,
 	--climbable=true,
