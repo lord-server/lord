@@ -1,11 +1,11 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottplants")
 
 -- The wild plants drop food that can be eaten or crafted to get seeds
 
 -- BARLEY
 
 minetest.register_node("lottplants:barley_wild", {
-	description = SL("Wild Barley"),
+	description = S("Wild Barley"),
 	drawtype = "plantlike",
 	tiles = { "lottfarming_sheaf_barley.png" },
 	inventory_image = "lottfarming_sheaf_barley.png",
@@ -36,7 +36,7 @@ minetest.register_node("lottplants:barley_wild", {
 -- BERRIES
 
 minetest.register_node("lottplants:berries_wild", {
-	description = SL("Wild Berries"),
+	description = S("Wild Berries"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_berries_wild.png" },
 	inventory_image = "lottplants_berries_wild.png",
@@ -67,7 +67,7 @@ minetest.register_node("lottplants:berries_wild", {
 --CORN
 
 minetest.register_node("lottplants:corn_wild", {
-	description = SL("Wild Corn plant"),
+	description = S("Wild Corn plant"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_corn_wild.png" },
 	inventory_image = "lottplants_corn_wild.png",
@@ -98,7 +98,7 @@ minetest.register_node("lottplants:corn_wild", {
 -- CABBAGE
 
 minetest.register_node("lottplants:cabbage_wild", {
-	description = SL("Wild Cabbage"),
+	description = S("Wild Cabbage"),
 	paramtype2 = "facedir",
 	tiles = {
 		"lottfarming_cabbage_top.png",
@@ -138,7 +138,7 @@ minetest.register_node("lottplants:cabbage_wild", {
 -- MELON
 
 minetest.register_node("lottplants:melon_wild", {
-	description = SL("Wild Melon"),
+	description = S("Wild Melon"),
 	paramtype2 = "facedir",
 	tiles = {
 		"lottfarming_melon_top.png",
@@ -180,7 +180,7 @@ minetest.register_node("lottplants:melon_wild", {
 -- MUSHROOMS
 
 minetest.register_node("lottplants:mushroom_wild", {
-	description = SL("Mushroom Wild"),
+	description = S("Mushroom Wild"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_mushroom_wild.png" },
 	inventory_image = "lottplants_mushroom_wild.png",
@@ -218,7 +218,7 @@ minetest.register_node("lottplants:mushroom_wild", {
 -- PIPEWEED
 
 minetest.register_node("lottplants:pipeweed_wild", {
-	description = SL("Pipeweed Wild"),
+	description = S("Pipeweed Wild"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_pipeweed_wild.png" },
 	inventory_image = "lottplants_pipeweed_wild.png",
@@ -249,7 +249,7 @@ minetest.register_node("lottplants:pipeweed_wild", {
 -- POTATO
 
 minetest.register_node("lottplants:potato_wild", {
-	description = SL("Potato Wild"),
+	description = S("Potato Wild"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_potato_wild.png" },
 	inventory_image = "lottplants_potato_wild.png",
@@ -280,7 +280,7 @@ minetest.register_node("lottplants:potato_wild", {
 -- TOMATOES
 
 minetest.register_node("lottplants:tomatoes_wild", {
-	description = SL("Wild Tomatoes"),
+	description = S("Wild Tomatoes"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_tomatoes_wild.png" },
 	inventory_image = "lottplants_tomatoes_wild.png",
@@ -311,7 +311,7 @@ minetest.register_node("lottplants:tomatoes_wild", {
 -- TURNIPS
 
 minetest.register_node("lottplants:turnips_wild", {
-	description = SL("Wild Turnips"),
+	description = S("Wild Turnips"),
 	drawtype = "plantlike",
 	tiles = { "lottfarming_turnips_4.png" },
 	inventory_image = "lottfarming_turnips_4.png",

@@ -1,9 +1,9 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottplants")
 
 -- FLOWERS
 
 minetest.register_node("lottplants:athelas", {
-	description = SL("Athelas"),
+	description = S("Athelas"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_athelas.png" },
 	inventory_image = "lottplants_athelas.png",
@@ -31,7 +31,7 @@ minetest.register_node("lottplants:athelas", {
 })
 
 minetest.register_node("lottplants:anemones", {
-	description = SL("Anemones"),
+	description = S("Anemones"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_anemones.png" },
 	inventory_image = "lottplants_anemones.png",
@@ -58,7 +58,7 @@ minetest.register_node("lottplants:anemones", {
 })
 
 minetest.register_node("lottplants:asphodel", {
-	description = SL("Asphodel"),
+	description = S("Asphodel"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_asphodel.png" },
 	inventory_image = "lottplants_asphodel.png",
@@ -85,7 +85,7 @@ minetest.register_node("lottplants:asphodel", {
 })
 
 minetest.register_node("lottplants:eglantive", {
-	description = SL("Eglantive"),
+	description = S("Eglantive"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_eglantive.png" },
 	inventory_image = "lottplants_eglantive.png",
@@ -112,7 +112,7 @@ minetest.register_node("lottplants:eglantive", {
 })
 
 minetest.register_node("lottplants:elanor", {
-	description = SL("Elanor"),
+	description = S("Elanor"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_elanor.png" },
 	inventory_image = "lottplants_elanor.png",
@@ -139,7 +139,7 @@ minetest.register_node("lottplants:elanor", {
 })
 
 minetest.register_node("lottplants:iris", {
-	description = SL("Iris"),
+	description = S("Iris"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_iris.png" },
 	inventory_image = "lottplants_iris.png",
@@ -166,7 +166,7 @@ minetest.register_node("lottplants:iris", {
 })
 
 minetest.register_node("lottplants:lissuin", {
-	description = SL("Lissuin"),
+	description = S("Lissuin"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_lissuin.png" },
 	inventory_image = "lottplants_lissuin.png",
@@ -193,7 +193,7 @@ minetest.register_node("lottplants:lissuin", {
 })
 
 minetest.register_node("lottplants:mallos", {
-	description = SL("Mallos"),
+	description = S("Mallos"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_mallos.png" },
 	inventory_image = "lottplants_mallos.png",
@@ -220,7 +220,7 @@ minetest.register_node("lottplants:mallos", {
 })
 
 minetest.register_node("lottplants:niphredil", {
-	description = SL("Niphredil"),
+	description = S("Niphredil"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_niphredil.png" },
 	inventory_image = "lottplants_niphredil.png",
@@ -247,7 +247,7 @@ minetest.register_node("lottplants:niphredil", {
 })
 
 minetest.register_node("lottplants:seregon", {
-	description = SL("Seregon"),
+	description = S("Seregon"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_seregon.png" },
 	inventory_image = "lottplants_seregon.png",
