@@ -1,21 +1,5 @@
 local SL = lord.require_intllib()
 
-minetest.register_node("lottmapgen:fog", {
-	description = SL("Fog"),
-	drawtype = "glasslike",
-	tiles = {"lottmapgen_fog.png"},
-	paramtype = "light",
-	is_ground_content = false,
-	sunlight_propagates = true,
-	walkable = false,
-	pointable = false,
-	diggable = false,
-	buildable_to = true,
-	is_ground_content = false,
-	post_effect_color = {a=128, r=241, g=248, b=255},
-	groups = {not_in_creative_inventory=1},
-})
-
 minetest.register_node("lottmapgen:angsnowblock", {
 	description = SL("Snow Block"),
 	tiles = {"default_snow.png"},

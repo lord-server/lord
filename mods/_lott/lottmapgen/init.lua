@@ -9,9 +9,6 @@
 -- clay at mid-temp
 -- 'is ground content' false for leaves only
 
--- TODO
--- fog
-
 -- Parameters
 
 local HITET = 0.4 -- High temperature threshold
