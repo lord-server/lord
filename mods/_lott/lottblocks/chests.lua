@@ -38,7 +38,7 @@ minetest.register_node("lottblocks:hobbit_chest", {
 		local item   = itemstack:get_name()
 		if races.get_race_and_gender(player)[1] == "hobbit" then
 			minetest.show_formspec(
-				player, "lottblocks:hobbit_chest", default.get_chest_formspec(pos, "gui_hobbitbg.png")
+				player, "lottblocks:hobbit_chest", default.chest.get_chest_formspec(pos, "gui_hobbitbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -47,7 +47,7 @@ minetest.register_node("lottblocks:hobbit_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:hobbit_chest", default.get_chest_formspec(pos, "gui_hobbitbg.png")
+					player, "lottblocks:hobbit_chest", default.chest.get_chest_formspec(pos, "gui_hobbitbg.png")
 				)
 			end
 		else
@@ -90,7 +90,7 @@ minetest.register_node("lottblocks:gondor_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:gondor_chest",
-				default.get_chest_formspec(pos, "gui_gondorbg.png")
+				default.chest.get_chest_formspec(pos, "gui_gondorbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -99,7 +99,7 @@ minetest.register_node("lottblocks:gondor_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:gondor_chest", default.get_chest_formspec(pos, "gui_gondorbg.png")
+					player, "lottblocks:gondor_chest", default.chest.get_chest_formspec(pos, "gui_gondorbg.png")
 				)
 			end
 		else
@@ -142,7 +142,7 @@ minetest.register_node("lottblocks:rohan_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:rohan_chest",
-				default.get_chest_formspec(pos, "gui_rohanbg.png")
+				default.chest.get_chest_formspec(pos, "gui_rohanbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -151,7 +151,7 @@ minetest.register_node("lottblocks:rohan_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:rohan_chest", default.get_chest_formspec(pos, "gui_rohanbg.png")
+					player, "lottblocks:rohan_chest", default.chest.get_chest_formspec(pos, "gui_rohanbg.png")
 				)
 			end
 		else
@@ -194,7 +194,7 @@ minetest.register_node("lottblocks:elfloth_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:elfloth_chest",
-				default.get_chest_formspec(pos, "gui_elfbg.png")
+				default.chest.get_chest_formspec(pos, "gui_elfbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -203,7 +203,7 @@ minetest.register_node("lottblocks:elfloth_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:elfloth_chest", default.get_chest_formspec(pos, "gui_elfbg.png")
+					player, "lottblocks:elfloth_chest", default.chest.get_chest_formspec(pos, "gui_elfbg.png")
 				)
 			end
 		else
@@ -246,7 +246,7 @@ minetest.register_node("lottblocks:elfmirk_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:elfmirk_chest",
-				default.get_chest_formspec(pos, "gui_elfbg.png")
+				default.chest.get_chest_formspec(pos, "gui_elfbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -255,7 +255,7 @@ minetest.register_node("lottblocks:elfmirk_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:elfmirk_chest", default.get_chest_formspec(pos, "gui_elfbg.png")
+					player, "lottblocks:elfmirk_chest", default.chest.get_chest_formspec(pos, "gui_elfbg.png")
 				)
 			end
 		else
@@ -298,7 +298,7 @@ minetest.register_node("lottblocks:mordor_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:mordor_chest",
-				default.get_chest_formspec(pos, "gui_mordorbg.png")
+				default.chest.get_chest_formspec(pos, "gui_mordorbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -307,7 +307,7 @@ minetest.register_node("lottblocks:mordor_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:mordor_chest", default.get_chest_formspec(pos, "gui_mordorbg.png")
+					player, "lottblocks:mordor_chest", default.chest.get_chest_formspec(pos, "gui_mordorbg.png")
 				)
 			end
 		else
@@ -350,7 +350,7 @@ minetest.register_node("lottblocks:angmar_chest", {
 			minetest.show_formspec(
 				player,
 				"lottblocks:angmar_chest",
-				default.get_chest_formspec(pos, "gui_angmarbg.png")
+				default.chest.get_chest_formspec(pos, "gui_angmarbg.png")
 			)
 		elseif item == "lottblocks:lockpick" then
 			if math.random(1, 4) ~= 3 then
@@ -359,7 +359,7 @@ minetest.register_node("lottblocks:angmar_chest", {
 			else
 				itemstack:add_wear(65535 / 18)
 				minetest.show_formspec(
-					player, "lottblocks:angmar_chest", default.get_chest_formspec(pos, "gui_angmarbg.png")
+					player, "lottblocks:angmar_chest", default.chest.get_chest_formspec(pos, "gui_angmarbg.png")
 				)
 			end
 		else
