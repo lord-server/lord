@@ -586,27 +586,6 @@ end
 
 -- Trees Big
 
---function add_tree_branch_mallorn(pos)
-	--minetest.add_node(pos, {name="lottplants:mallorntree"})
-	--for i = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
-		--for k = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
-			--local p = {x=pos.x+i, y=pos.y, z=pos.z+k}
-			--local n = minetest.get_node(p)
-			--if (n.name=="air") then
-				--minetest.add_node(p, {name="lottplants:mallornleaf"})
-			--end
-			--local chance = math.abs(i+k)
-			--if (chance < 1) then
-				--p = {x=pos.x+i, y=pos.y+1, z=pos.z+k}
-				--n = minetest.get_node(p)
-				--if (n.name=="air") then
-					--minetest.add_node(p, {name="lottplants:mallornleaf"})
-				--end
-			--end
-		--end
-	--end
---end
-
 function lottmapgen_mallorntree(pos)
     local height = 25 + math.random(5)
 		if height < 10 then
@@ -665,28 +644,6 @@ function lottmapgen_mallorntree(pos)
 			end
 		end
 end
-
---function add_tree_branch_mirktree(pos)
-	--minetest.add_node(pos, {name="default:jungletree"})
-	--for i = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
-		--for k = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
-			--local p = {x=pos.x+i, y=pos.y, z=pos.z+k}
-			--local n = minetest.get_node(p)
-			--if (n.name=="air") then
-				--minetest.add_node(p, {name="lottplants:mirkleaf"})
-			--end
-			--local chance = math.abs(i+k)
-			--if (chance < 1) then
-				--p = {x=pos.x+i, y=pos.y+1, z=pos.z+k}
-				--n = minetest.get_node(p)
-				--if (n.name=="air") then
-					--minetest.add_node(p, {name="lottplants:mirkleaf"})
-				--end
-			--end
-		--end
-	--end
---end
-
 
 -- бук
 function lottmapgen_beechtree(pos)
