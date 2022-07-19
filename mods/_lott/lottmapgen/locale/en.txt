@@ -5,6 +5,7 @@ Frozen Stone=Frozen Stone
 Mordor Stone=Mordor Stone
 Black Water Source=Black Water Source
 Black River Source=Black River Source
+Mordor Water Bucket=Mordor Water Bucket
 Dunland Grass=Dunland Grass
 Iron Hills Grass=Iron Hills Grass
 Gondor Grass=Gondor Grass
