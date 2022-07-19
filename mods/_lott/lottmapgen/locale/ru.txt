@@ -6,6 +6,7 @@ Mordor Stone=Камень Мордора
 Ice=Лёд
 Black Water Source=Чёрная вода
 Black River Source=Речная чёрная вода
+Mordor Water Bucket=Ведро с чёрной водой
 Dunland Grass=Трава Дунланда
 Iron Hills Grass=Трава железных гор
 Gondor Grass=Трава Гондора
