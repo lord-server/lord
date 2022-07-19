@@ -527,5 +527,4 @@ minetest.register_on_generated(function(minp, maxp, seed)
 end)
 
 dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
-dofile(minetest.get_modpath("lottmapgen").."/deco.lua")
 dofile(minetest.get_modpath("lottmapgen").."/chests.lua")
