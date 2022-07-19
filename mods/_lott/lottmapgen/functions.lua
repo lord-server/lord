@@ -390,14 +390,14 @@ function lottmapgen_jungletree2(x, y, z, area, data)
 				end
 			end
 			end
-      for i = -1, 1 do
+	  for i = -1, 1 do
 			for k = -1, 1 do
-          if math.abs(i) + math.abs(k) == 2 then
-            local vit = area:index(x + i, y + j, z + k)
-            data[vit] = c_tree
-          end
-      end
-      end
+		  if math.abs(i) + math.abs(k) == 2 then
+			local vit = area:index(x + i, y + j, z + k)
+			data[vit] = c_tree
+		  end
+	  end
+	  end
 		elseif j == 7 then
 			for i = -2, 2, 4 do
 			for k = -2, 2, 4 do
@@ -539,7 +539,7 @@ end
 -- Trees Big
 
 function lottmapgen_mallorntree(pos)
-    local height = 25 + math.random(5)
+	local height = 25 + math.random(5)
 		if height < 10 then
 			for i = height, -2, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
@@ -610,9 +610,9 @@ function lottmapgen_beechtree(pos)
 			j = t - absk
 		end
 		if math.random() > (absi + absk) / 24 then
-		    minetest.add_node({x=pos.x+i,y=pos.y+j+7,z=pos.z+k},{name="lottplants:beechleaf"})
+			minetest.add_node({x=pos.x+i,y=pos.y+j+7,z=pos.z+k},{name="lottplants:beechleaf"})
 			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k},{name="lottplants:beechleaf"})
-		    minetest.add_node({x=pos.x+i+2,y=pos.y+j+4,z=pos.z+k},{name="lottplants:beechleaf"})
+			minetest.add_node({x=pos.x+i+2,y=pos.y+j+4,z=pos.z+k},{name="lottplants:beechleaf"})
 			minetest.add_node({x=pos.x+i-2,y=pos.y+j+4,z=pos.z+k},{name="lottplants:beechleaf"})
 			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k+2},{name="lottplants:beechleaf"})
 			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k-2},{name="lottplants:beechleaf"})
@@ -645,7 +645,7 @@ function lottmapgen_beechtree(pos)
 end
 
 function lottmapgen_mirktree(pos)
-    local height = 5 + math.random(1)
+	local height = 5 + math.random(1)
 		if height < 1 then
 			for i = height, -2, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
@@ -736,8 +736,8 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node)
-          lottmapgen_mallorntree(pos)
-     end,
+		  lottmapgen_mallorntree(pos)
+	 end,
 })
 
 minetest.register_abm({
@@ -745,17 +745,17 @@ minetest.register_abm({
 	interval = 1,
 	chance = 1,
 	action = function(pos, node)
-          lottmapgen_mirktree(pos)
-     end,
+		  lottmapgen_mirktree(pos)
+	 end,
 })
 
 minetest.register_abm({
-    nodenames = {"lottmapgen:beechgen"},
-    	interval = 1,
+	nodenames = {"lottmapgen:beechgen"},
+		interval = 1,
 	chance = 1,
-    action = function(pos, node, active_object_count, active_object_count_wider)
+	action = function(pos, node, active_object_count, active_object_count_wider)
 		lottmapgen_beechtree(pos)
-    end,
+	end,
 })
 
 function add_tree_branch_mirktreetest(pos)
@@ -780,7 +780,7 @@ function add_tree_branch_mirktreetest(pos)
 end
 
 function lottmapgen_mirktreetest(pos)
-    local height = 13 + math.random(1)
+	local height = 13 + math.random(1)
 		if height < 1 then
 			for i = height, -2, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
@@ -839,12 +839,12 @@ function lottmapgen_mirktreetest(pos)
 end
 
 minetest.register_abm({
-    nodenames = {"lottmapgen:mirktest"},
-    	interval = 1,
+	nodenames = {"lottmapgen:mirktest"},
+		interval = 1,
 	chance = 1,
-    action = function(pos, node, active_object_count, active_object_count_wider)
+	action = function(pos, node, active_object_count, active_object_count_wider)
 		lottmapgen_mirktreetest(pos)
-    end,
+	end,
 })
 
 minetest.register_node("lottmapgen:mirktest", {
