@@ -75,6 +75,7 @@ lord_homedecor.register("torch_wall", {
 		"homedecor_generic_metal_black.png^[brighten",
 		"forniture_coal.png",
 	},
+	use_texture_alpha = "clip",
 	inventory_image="forniture_torch_inv.png",
 	walkable = false,
 	light_source = 14,

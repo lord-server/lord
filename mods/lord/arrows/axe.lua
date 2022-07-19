@@ -35,6 +35,7 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 			"lottthrowing_axe_" .. axe .. ".png",
 			"lottthrowing_axe_" .. axe .. "2.png"
 		},
+		use_texture_alpha = "clip",
 		groups = {not_in_creative_inventory=1},
 	})
 

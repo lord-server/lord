@@ -64,10 +64,20 @@ minetest.register_node(":default:ice", {
 	is_ground_content = true,
 	use_texture_alpha = "blend",
 	paramtype = "light",
-	freezemelt = "default:water_source",
-	groups = {cracky=3, melts=1},
-	sounds = default.node_sound_glass_defaults(),
+	groups = {cracky = 3, cools_lava = 1, slippery = 3},
+	sounds = default.node_sound_ice_defaults(),
 })
+
+stairs.register_stair_and_slab("ice", "default:ice",
+	{cracky = 3, cools_lava = 1, slippery = 3},
+	{"lottmapgen_ice.png"},
+	SL("Ice Stair"),
+	SL("Ice Slab"),
+	default.node_sound_ice_defaults(),
+	true,
+	SL("Inner Ice Stair"),
+	SL("Outer Ice Slab")
+)
 
 minetest.register_node("lottmapgen:blacksource", {
 	description = SL("Black Water Source"),
@@ -185,7 +195,7 @@ minetest.register_node("lottmapgen:dunland_grass", {
 	description = SL("Dunland Grass"),
 	tiles = {"lottmapgen_dunland_grass.png", "default_dirt.png", {name = "default_dirt.png^lottmapgen_dunland_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -196,7 +206,7 @@ minetest.register_node("lottmapgen:ironhill_grass", {
 	description = SL("Iron Hills Grass"),
 	tiles = {"lottmapgen_dunland_grass.png", "default_dirt.png", {name =  "default_dirt.png^lottmapgen_dunland_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -207,7 +217,7 @@ minetest.register_node("lottmapgen:gondor_grass", {
 	description = SL("Gondor Grass"),
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -218,7 +228,7 @@ minetest.register_node("lottmapgen:lorien_grass", {
 	description = SL("Lorien Grass"),
 	tiles = {"lottmapgen_lorien_grass.png", "default_dirt.png", {name =  "default_dirt.png^lottmapgen_lorien_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -229,7 +239,7 @@ minetest.register_node("lottmapgen:fangorn_grass", {
 	description = SL("Fangorn Grass"),
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -240,7 +250,7 @@ minetest.register_node("lottmapgen:mirkwood_grass", {
 	description = SL("Mirkwood Grass"),
 	tiles = {"lottmapgen_mirkwood_grass.png", "default_dirt.png", {name =  "default_dirt.png^lottmapgen_mirkwood_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -251,7 +261,7 @@ minetest.register_node("lottmapgen:rohan_grass", {
 	description = SL("Rohan Grass"),
 	tiles = {"lottmapgen_rohan_grass.png", "default_dirt.png", {name =  "default_dirt.png^lottmapgen_rohan_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,lottmapgen_grass=1},
+	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -262,7 +272,7 @@ minetest.register_node("lottmapgen:shire_grass", {
 	description = SL("Shire Grass"),
 	tiles = {"lottmapgen_shire_grass.png", "default_dirt.png", {name =  "default_dirt.png^lottmapgen_shire_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, lottmapgen_grass=1, not_in_creative_inventory =1},
+	groups = {crumbly=3,soil=1, grass=1, not_in_creative_inventory=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -273,7 +283,7 @@ minetest.register_node("lottmapgen:ithilien_grass", {
 	description = SL("Ithilien Grass"),
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3,soil=1, lottmapgen_grass=1, not_in_creative_inventory =1},
+	groups = {crumbly=3,soil=1, grass=1, not_in_creative_inventory=1, spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults({
 		footstep = {name="default_grass_footstep", gain=0.25},
@@ -283,23 +293,7 @@ minetest.register_node("lottmapgen:ithilien_grass", {
 minetest.register_node("lottmapgen:default_grass", {
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
-	groups = {crumbly=3, soil=1,lottmapgen_grass=1,not_in_creative_inventory=1},
+	groups = {crumbly=3, soil=1,grass=1,not_in_creative_inventory=1,spreading_dirt_type=1},
 	drop = 'default:dirt',
 	sounds = default.node_sound_dirt_defaults()
-})
-
-minetest.register_abm({
-	nodenames = {"group:lottmapgen_grass"},
-	interval = 2,
-	chance = 20,
-	action = function(pos, node)
-		local above = {x=pos.x, y=pos.y+1, z=pos.z}
-		local name = minetest.get_node(above).name
-		local nodedef = minetest.registered_nodes[name]
-		if name ~= "ignore" and nodedef
-				and not ((nodedef.sunlight_propagates or nodedef.paramtype == "light")
-				and nodedef.liquidtype == "none") then
-			minetest.set_node(pos, {name = "default:dirt"})
-		end
-	end
 })

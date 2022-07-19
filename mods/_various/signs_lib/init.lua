@@ -824,6 +824,7 @@ minetest.register_node(":signs:sign_hanging", {
 		"signs_hanging_back.png",
 		"signs_hanging_front.png"
 	},
+	use_texture_alpha = "clip",
     groups = {choppy=2, dig_immediate=2},
     drop = "default:sign_wall",
 
