@@ -70,7 +70,7 @@ function lottmapgen_farmingrareplants(data, vi)
 		minetest.get_content_id("lottplants:athelas"),
 		minetest.get_content_id("lottplants:melon_wild"),
 	}
-	data[vi] = crplants[math.random(#crplants)]
+	data[vi] = c_rplants[math.random(#c_rplants)]
 end
 
 function lottmapgen_burnedtree(x, y, z, area, data)
