@@ -1,5 +1,4 @@
-### nodes.lua ###
-Fog=Fog
+# textdomain: lottmapgen
 Snow Block=Snow Block
 Frozen Stone=Frozen Stone
 Mordor Stone=Mordor Stone
