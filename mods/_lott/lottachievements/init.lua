@@ -181,7 +181,7 @@ lottachievements.register_achievement("marksman_of_lorien", {
 lottachievements.register_achievement("merry_shire", {
 	title       = SL("Merry Shire"),
 	description = SL("Visit Shire and get his soil"),
-	icon        = "default_dirt.png^lottmapgen_shire_grass_side.png",
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#86ad06:105)", -- lottmapgen:shire_grass side
 	id          = 11,
 	trigger     = {
 		type   = "dig",
@@ -193,7 +193,7 @@ lottachievements.register_achievement("merry_shire", {
 lottachievements.register_achievement("the_golden_lorien", {
 	title       = SL("The Golden Lorien"),
 	description = SL("Visit the forests of Lorien and get their soil"),
-	icon        = "default_dirt.png^lottmapgen_lorien_grass_side.png",
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#5bf7ea:75)", -- lottmapgen:lorien_grass side
 	id          = 12,
 	trigger     = {
 		type   = "dig",
@@ -205,7 +205,8 @@ lottachievements.register_achievement("the_golden_lorien", {
 lottachievements.register_achievement("damaged_greenwood", {
 	title       = SL("Damaged Greenwood"),
 	description = SL("Visit the forests of Liholsye and get their soil"),
-	icon        = "default_dirt.png^lottmapgen_mirkwood_grass_side.png",
+	-- lottmapgen:mirkwood_grass side:
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#331507:120)",
 	id          = 13,
 	trigger     = {
 		type   = "dig",
@@ -217,7 +218,8 @@ lottachievements.register_achievement("damaged_greenwood", {
 lottachievements.register_achievement("iron_hills", {
 	title       = SL("Iron Hills"),
 	description = SL("Visit the Iron Hills and get his soil"),
-	icon        = "default_dirt.png^lottmapgen_dunland_grass_side.png",
+	-- lottmapgen:ironhill_grass side:
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#1cbca7:60)",
 	id          = 14,
 	trigger     = {
 		type   = "dig",
@@ -241,7 +243,7 @@ lottachievements.register_achievement("frozen_angmar", {
 lottachievements.register_achievement("lands_of_rohan", {
 	title       = SL("Lands of Rohan"),
 	description = SL("Visit Rohan and get his soil"),
-	icon        = "default_dirt.png^lottmapgen_rohan_grass_side.png",
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#af5301:95)", -- lottmapgen:rohan_grass side
 	id          = 16,
 	trigger     = {
 		type   = "dig",
@@ -277,7 +279,8 @@ lottachievements.register_achievement("live_fangorn", {
 lottachievements.register_achievement("anxious_dunland", {
 	title       = SL("Anxious Dunland"),
 	description = SL("Visit Dunland and get its soil"),
-	icon        = "default_dirt.png^lottmapgen_dunland_grass_side.png",
+	-- lottmapgen:dunland_grass side:
+	icon        = "default_dirt.png^(default_grass_side.png^[colorize:#35ba3c:50)",
 	id          = 19,
 	trigger     = {
 		type   = "dig",
