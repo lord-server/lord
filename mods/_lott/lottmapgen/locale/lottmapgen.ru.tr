@@ -1,5 +1,4 @@
-﻿### nodes.lua ###
-Fog=Туман
+# textdomain: lottmapgen
 Snow Block=Блок снега
 Frozen Stone=Обледеневший камень
 Mordor Stone=Камень Мордора

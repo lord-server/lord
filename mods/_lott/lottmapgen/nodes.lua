@@ -1,7 +1,7 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottmapgen")
 
 minetest.register_node("lottmapgen:angsnowblock", {
-	description = SL("Snow Block"),
+	description = S("Snow Block"),
 	tiles = {"default_snow.png"},
 	is_ground_content = true,
 	drop = 'default:snowblock',
@@ -14,7 +14,7 @@ minetest.register_node("lottmapgen:angsnowblock", {
 })
 
 minetest.register_node("lottmapgen:frozen_stone", {
-	description = SL("Frozen Stone"),
+	description = S("Frozen Stone"),
 	tiles = {"default_stone.png^lottmapgen_frozen.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
@@ -23,7 +23,7 @@ minetest.register_node("lottmapgen:frozen_stone", {
 })
 
 minetest.register_node("lottmapgen:mordor_stone", {
-	description = SL("Mordor Stone"),
+	description = S("Mordor Stone"),
 	tiles = {"lottmapgen_mordor_stone.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
@@ -33,16 +33,16 @@ minetest.register_node("lottmapgen:mordor_stone", {
 stairs.register_stair_and_slab("mordor_stone", "lottmapgen:mordor_stone",
 		{cracky=3, stone=1},
 		{"lottmapgen_mordor_stone.png"},
-		SL("Mordor Stone Stair"),
-		SL("Mordor Stone Slab"),
+		S("Mordor Stone Stair"),
+		S("Mordor Stone Slab"),
 		default.node_sound_stone_defaults(),
 		false,
-		SL("Inner Mordor Stone Stair"),
-		SL("Outer Mordor Stone Stair")
+		S("Inner Mordor Stone Stair"),
+		S("Outer Mordor Stone Stair")
 )
 
 minetest.register_node(":default:ice", {
-	description = SL("Ice"),
+	description = S("Ice"),
 	drawtype = "glasslike",
 	tiles = {"lottmapgen_ice.png"},
 	is_ground_content = true,
@@ -55,16 +55,16 @@ minetest.register_node(":default:ice", {
 stairs.register_stair_and_slab("ice", "default:ice",
 	{cracky = 3, cools_lava = 1, slippery = 3},
 	{"lottmapgen_ice.png"},
-	SL("Ice Stair"),
-	SL("Ice Slab"),
+	S("Ice Stair"),
+	S("Ice Slab"),
 	default.node_sound_ice_defaults(),
 	true,
-	SL("Inner Ice Stair"),
-	SL("Outer Ice Slab")
+	S("Inner Ice Stair"),
+	S("Outer Ice Slab")
 )
 
 minetest.register_node("lottmapgen:blacksource", {
-	description = SL("Black Water Source"),
+	description = S("Black Water Source"),
 	drawtype = "liquid",
 	inventory_image = minetest.inventorycube("lottmapgen_black_water.png"),
 	tiles = {"lottmapgen_black_water.png"},
@@ -122,7 +122,7 @@ minetest.register_node("lottmapgen:blackflowing", {
 })
 
 minetest.register_node("lottmapgen:black_river_source", {
-	description = SL("Black River Source"),
+	description = S("Black River Source"),
 	drawtype = "liquid",
 	inventory_image = minetest.inventorycube("lottmapgen_black_water.png"),
 	tiles = {"lottmapgen_black_water.png"},
@@ -180,13 +180,13 @@ bucket.register_liquid(
 	"lottmapgen:blackflowing",
 	"lottmapgen:bucket_mordor",
 	"lottmapgen_bucket_mordor_water.png",
-	SL("Mordor Water Bucket")
+	S("Mordor Water Bucket")
 )
 
 -- Grasses
 
 minetest.register_node("lottmapgen:dunland_grass", {
-	description = SL("Dunland Grass"),
+	description = S("Dunland Grass"),
 	tiles = {"default_grass.png^[colorize:#35ba3c:50", "default_dirt.png",
 		{name = "default_dirt.png^(default_grass_side.png^[colorize:#35ba3c:50)", tileable_vertical = false}
 	},
@@ -199,7 +199,7 @@ minetest.register_node("lottmapgen:dunland_grass", {
 })
 
 minetest.register_node("lottmapgen:ironhill_grass", {
-	description = SL("Iron Hills Grass"),
+	description = S("Iron Hills Grass"),
 	tiles = {"default_grass.png^[colorize:#1cbca7:60", "default_dirt.png",
 		{name =  "default_dirt.png^(default_grass_side.png^[colorize:#1cbca7:60)", tileable_vertical = false}
 	},
@@ -212,7 +212,7 @@ minetest.register_node("lottmapgen:ironhill_grass", {
 })
 
 minetest.register_node("lottmapgen:gondor_grass", {
-	description = SL("Gondor Grass"),
+	description = S("Gondor Grass"),
 	tiles = {"default_grass.png", "default_dirt.png", {name = "default_dirt.png^default_grass_side.png", tileable_vertical = false}},
 	is_ground_content = true,
 	groups = {crumbly=3,soil=1, not_in_creative_inventory =1,grass=1,spreading_dirt_type=1},
@@ -223,7 +223,7 @@ minetest.register_node("lottmapgen:gondor_grass", {
 })
 
 minetest.register_node("lottmapgen:lorien_grass", {
-	description = SL("Lorien Grass"),
+	description = S("Lorien Grass"),
 	tiles = {"default_grass.png^[colorize:#5bf7ea:75", "default_dirt.png",
 		{name =  "default_dirt.png^(default_grass_side.png^[colorize:#5bf7ea:75)", tileable_vertical = false}
 	},
@@ -236,7 +236,7 @@ minetest.register_node("lottmapgen:lorien_grass", {
 })
 
 minetest.register_node("lottmapgen:fangorn_grass", {
-	description = SL("Fangorn Grass"),
+	description = S("Fangorn Grass"),
 	tiles = {"default_grass.png^[colorize:#720e6f:30", "default_dirt.png",
 		{name = "default_dirt.png^(default_grass_side.png^[colorize:#720e6f:30)", tileable_vertical = false}
 	},
@@ -249,7 +249,7 @@ minetest.register_node("lottmapgen:fangorn_grass", {
 })
 
 minetest.register_node("lottmapgen:mirkwood_grass", {
-	description = SL("Mirkwood Grass"),
+	description = S("Mirkwood Grass"),
 	tiles = {"default_grass.png^[colorize:#331507:120", "default_dirt.png",
 		{name =  "default_dirt.png^(default_grass_side.png^[colorize:#331507:120)", tileable_vertical = false}
 	},
@@ -262,7 +262,7 @@ minetest.register_node("lottmapgen:mirkwood_grass", {
 })
 
 minetest.register_node("lottmapgen:rohan_grass", {
-	description = SL("Rohan Grass"),
+	description = S("Rohan Grass"),
 	tiles = {"default_grass.png^[colorize:#af5301:95", "default_dirt.png",
 		{name =  "default_dirt.png^(default_grass_side.png^[colorize:#af5301:95)", tileable_vertical = false}
 	},
@@ -275,7 +275,7 @@ minetest.register_node("lottmapgen:rohan_grass", {
 })
 
 minetest.register_node("lottmapgen:shire_grass", {
-	description = SL("Shire Grass"),
+	description = S("Shire Grass"),
 	tiles = {"default_grass.png^[colorize:#86ad06:105", "default_dirt.png",
 		{name =  "default_dirt.png^(default_grass_side.png^[colorize:#86ad06:105)", tileable_vertical = false}
 	},
@@ -288,7 +288,7 @@ minetest.register_node("lottmapgen:shire_grass", {
 })
 
 minetest.register_node("lottmapgen:ithilien_grass", {
-	description = SL("Ithilien Grass"),
+	description = S("Ithilien Grass"),
 	tiles = {"default_grass.png^[colorize:#ba6f35:50", "default_dirt.png",
 		{name = "default_dirt.png^(default_grass_side.png^[colorize:#ba6f35:50)", tileable_vertical = false}
 	},
