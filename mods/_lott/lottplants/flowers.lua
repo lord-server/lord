@@ -14,7 +14,7 @@ minetest.register_node("lottplants:athelas", {
 	place_param2 = 2,
 	waving = 1,
 	drop = {
-		max_items = 3,
+		max_items = 2,
 		items = {
 			{ items = {'lottfarming:athelas'} },
 			{ items = {'lottfarming:athelas'}, rarity = 5},
@@ -260,7 +260,7 @@ minetest.register_node("lottplants:seregon", {
 	walkable = false,
 	buildable_to = true,
 	drop = {
-		max_items = 2,
+		max_items = 1,
 		items = {
 			{ items = {'lottplants:seregon'} },
 		}
