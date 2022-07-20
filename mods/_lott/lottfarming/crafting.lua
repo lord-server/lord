@@ -30,8 +30,9 @@ local function decaying_wood(pos)
 	local node = minetest.get_node(pos)
 	local name = node.name
 	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
-	if name == "default:tree" or name == "default:jungletree" or
-	name == "default:tree_trunk" or name == "default:jungletree_trunk" then
+	local is_tree = name == "default:tree" or name == "default:jungletree"
+	local is_trunk = name == "default:tree_trunk" or name == "default:jungletree_trunk"
+	if is_tree or is_trunk then
 		if above.name == "air" then
 			node.name = "lottfarming:decay_tree"
 			minetest.set_node(pos, node)
