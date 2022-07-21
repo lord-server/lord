@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.07.p1](https://github.com/lord-server/lord/releases/tag/2022.07.p1)
+ - Enable tree decay on both types of trunks (#657)
+
 ## [2022.07](https://github.com/lord-server/lord/releases/tag/2022.07)
  - Добавлен новый блок: зелёный мрамор. Доступен только на официальных прилавках (#571)
  - Новая иконка игры L.O.R.D. #518 (#604)
