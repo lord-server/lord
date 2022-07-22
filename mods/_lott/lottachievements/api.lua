@@ -153,7 +153,7 @@ function lottachievements.register_achievement(name, def)
 		end
 	end
 
-	-- Add Award (награда)  если нет триггера отрабатывает только это присвоение
+	-- Add Award (награда) если нет триггера отрабатывает только это присвоение
 	lottachievements.def[name] = def
 
 	local tdef = lottachievements.def[name]
@@ -189,7 +189,7 @@ end
 -- award - the name of the award to give
 function lottachievements.unlock(name, award)
 	-- Access Player Data
-	local data  = lottachievements.players[name]
+	local data = lottachievements.players[name]
 	local awdef = lottachievements.def[award]
 
 	-- Perform checks
@@ -479,7 +479,7 @@ function lottachievements.show_to(name, to, sid, text)
 		if #listoflottachievements == 0 then
 			minetest.chat_send_player(to, SL("Error: No lottachievements available."))
 			return
-		elseif not lottachievements.players[name] or not lottachievements.players[name].unlocked  then
+		elseif not lottachievements.players[name] or not lottachievements.players[name].unlocked then
 			minetest.chat_send_player(to, SL("You have not unlocked any lottachievements."))
 			return
 		end

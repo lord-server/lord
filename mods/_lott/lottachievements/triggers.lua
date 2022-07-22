@@ -18,8 +18,8 @@ local S, NS = lottachievements.gettext, lottachievements.ngettext
 
 lottachievements.register_trigger("dig", function(def)
 	local tmp = {
-		award  = def.name,
-		node   = def.trigger.node,
+		award = def.name,
+		node = def.trigger.node,
 		target = def.trigger.target,
 	}
 	table.insert(lottachievements.on.dig, tmp)
@@ -55,8 +55,8 @@ end)
 
 lottachievements.register_trigger("place", function(def)
 	local tmp = {
-		award  = def.name,
-		node   = def.trigger.node,
+		award = def.name,
+		node = def.trigger.node,
 		target = def.trigger.target,
 	}
 	table.insert(lottachievements.on.place, tmp)
@@ -92,7 +92,7 @@ end)
 
 lottachievements.register_trigger("eat", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		item = def.trigger.item,
 		target = def.trigger.target,
 	}
@@ -129,7 +129,7 @@ end)
 
 lottachievements.register_trigger("death", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		target = def.trigger.target,
 	}
 	table.insert(lottachievements.on.death, tmp)
@@ -151,7 +151,7 @@ end)
 
 lottachievements.register_trigger("chat", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		target = def.trigger.target,
 	}
 	table.insert(lottachievements.on.chat, tmp)
@@ -173,7 +173,7 @@ end)
 
 lottachievements.register_trigger("join", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		target = def.trigger.target,
 	}
 	table.insert(lottachievements.on.join, tmp)
@@ -197,7 +197,7 @@ lottachievements.register_trigger("craft", function(def)
 	-- функция вызываемая при регистрации достижения
 	-- def это таблица-параметр регистрации достижения
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		item = def.trigger.item,
 		target = def.trigger.target,
 		effect = def.trigger.effect,
@@ -235,7 +235,7 @@ end)
 
 lottachievements.register_trigger("equip", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		item = def.trigger.item,
 	}
 	table.insert(lottachievements.on.equip, tmp)
@@ -255,7 +255,7 @@ end)
 
 lottachievements.register_trigger("kill", function(def)
 	local tmp = {
-		award  = def.name,
+		award = def.name,
 		mob = def.trigger.mob,
 		target = def.trigger.target,
 	}
@@ -290,11 +290,11 @@ lottachievements.register_trigger("kill", function(def)
 end)
 
 -- Backwards compatibility
-lottachievements.register_onDig   = lottachievements.register_on_dig
+lottachievements.register_onDig = lottachievements.register_on_dig
 lottachievements.register_onPlace = lottachievements.register_on_place
 lottachievements.register_onDeath = lottachievements.register_on_death
-lottachievements.register_onChat  = lottachievements.register_on_chat
-lottachievements.register_onJoin  = lottachievements.register_on_join
+lottachievements.register_onChat = lottachievements.register_on_chat
+lottachievements.register_onJoin = lottachievements.register_on_join
 lottachievements.register_onCraft = lottachievements.register_on_craft
 
 -- Trigger Handles
@@ -460,7 +460,7 @@ end)
 minetest.register_on_chat_message(function(name, message)
 	-- Run checks
 	local idx = string.find(message,"/")
-	if not name or (idx ~= nil and idx <= 1)  then
+	if not name or (idx ~= nil and idx <= 1) then
 		return
 	end
 
