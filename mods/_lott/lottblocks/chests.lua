@@ -42,7 +42,7 @@ local function register_race_chest(name, desc, tiles, owner_race, background, fa
 		on_rightclick         = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
 			local item   = itemstack:get_name()
-			if races.get_race_and_gender(player)[1] == owner_race then
+			if races.get_race_and_gender(player)[1] == owner_race or minetest.is_creative_enabled(player) then
 				minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
 			elseif item == "lottblocks:lockpick" then
 				if math.random(1, 4) ~= 3 then
