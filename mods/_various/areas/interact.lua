@@ -1,7 +1,19 @@
 local SL = lord.require_intllib()
 
+-- nodes to ignore
+local ignorelist = {
+	"fire:basic_flame",
+}
+
 local old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, name)
+	-- checking node in ignorelist
+	for _, ignored_node in ipairs(ignorelist) do
+		if minetest.get_node(pos).name == ignored_node then
+			return old_is_protected(pos, name)
+		end
+	end
+
 	if not areas:canInteract(pos, name) then
 		return true
 	end
