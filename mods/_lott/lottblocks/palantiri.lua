@@ -182,6 +182,11 @@ minetest.register_node("lottblocks:palantir", {
 					minetest.colorize("red", SL("Palantir cannot use reserved name!")))
 				return
 			end
+			if string.find(fields.palantir, ",") then
+				minetest.chat_send_player(player_name, minetest.colorize("red",
+					SL("Palantir cannot have commas in its name!")))
+				return
+			end
 			if not lottblocks.palantiri[fields.network] then
 				lottblocks.palantiri[fields.network]       = {}
 				lottblocks.palantiri[fields.network].owner = player_name
