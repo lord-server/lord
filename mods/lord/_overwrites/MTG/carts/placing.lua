@@ -12,8 +12,8 @@ local function validate_powerrail_place(pos, placer, itemstack, pointed_thing)
 	if not is_accelerator(accel_pos) then
 		minetest.chat_send_player(placer:get_player_name(), "Ускоряющий рельс можно ставить только на паровой механизм")
 		minetest.set_node(pos, { name = "air" })
+		return true
 	end
-	return itemstack
 end
 
 minetest.override_item("carts:powerrail", {
