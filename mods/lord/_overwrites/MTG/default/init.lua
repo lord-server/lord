@@ -580,3 +580,55 @@ else
 		return nil
 	end
 end
+
+local function grow_papyrus_but_on_soils(pos, node)
+	pos.y = pos.y - 1
+	local name = minetest.get_node(pos).name
+
+	-- HACK: There's another, non-overridable ABM in minetest_game that grows
+	-- papyrus on these nodes. They're explicitly excluded from this ABM to
+	-- keep growth chances equal.
+	local is_growing_in_mtg =
+		name == "default:dirt" or
+		name == "default:dirt_with_grass" or
+		name == "default:dirt_with_dry_grass" or
+		name == "default:dirt_with_rainforest_litter" or
+		name == "default:dry_dirt" or
+		name == "default:dry_dirt_with_dry_grass"
+
+	local is_soil = minetest.get_item_group(name, "soil") ~= 0
+
+	-- Technically sand isn't soil, but it's required to keep compatibility
+	if (not is_soil and name ~= "default:sand") or is_growing_in_mtg then
+		return
+	end
+	if not minetest.find_node_near(pos, 3, {"group:water"}) then
+		return
+	end
+	pos.y = pos.y + 1
+	local height = 0
+	while node.name == "default:papyrus" and height < 4 do
+		height = height + 1
+		pos.y = pos.y + 1
+		node = minetest.get_node(pos)
+	end
+	if height == 4 or node.name ~= "air" then
+		return
+	end
+	if minetest.get_node_light(pos) < 13 then
+		return
+	end
+	minetest.set_node(pos, {name = "default:papyrus"})
+	return true
+end
+
+minetest.register_abm({
+	label = "Grow papyrus, but on the rest of soils",
+	nodenames = {"default:papyrus"},
+	neighbors = {"group:soil", "default:sand"},
+	interval = 14,
+	chance = 71,
+	action = function(...)
+		grow_papyrus_but_on_soils(...)
+	end
+})
