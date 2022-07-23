@@ -201,9 +201,19 @@ function protector.drop_wielded_item(digger)
 	end
 end
 
-protector.old_is_protected = minetest.is_protected
+-- nodes that can always be broken regardless of access
+local protector_allowlist = {
+	"fire:basic_flame",
+}
 
+protector.old_is_protected = minetest.is_protected
 function minetest.is_protected(pos, digger)
+	-- checking for unprotected nodes from allowlist
+	for _, unprotected_node in ipairs(protector_allowlist) do
+		if minetest.get_node(pos).name == unprotected_node then
+			return protector.old_is_protected(pos, digger)
+		end
+	end
 
 	if not protector.can_dig(protector.radius, pos, digger, false, 1) then
 -- hurt here
