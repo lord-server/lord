@@ -467,6 +467,7 @@ minetest.override_item("default:leaves", {
 	tiles = {"default_leaves.png"},
 	use_texture_alpha = "clip",
 	inventory_image = "default_leaves_inv.png",
+	waving = 2,
 	walkable = false,
 	climbable = true,
 })
@@ -477,6 +478,7 @@ minetest.override_item("default:jungleleaves", {
 	tiles = {"default_jungleleaves.png"},
 	use_texture_alpha = "clip",
 	inventory_image = "default_jungleleaves_inv.png",
+	waving = 2,
 	walkable = false,
 	climbable = true,
 })
