@@ -34,6 +34,7 @@ minetest.register_node("lottplants:alderleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:appleleaf", {
@@ -68,6 +69,7 @@ minetest.register_node("lottplants:appleleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:birchleaf", {
@@ -102,6 +104,7 @@ minetest.register_node("lottplants:birchleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:beechleaf", {
@@ -136,6 +139,7 @@ minetest.register_node("lottplants:beechleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:culumaldaleaf", {
@@ -170,6 +174,7 @@ minetest.register_node("lottplants:culumaldaleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:yellowflowers", {
@@ -198,6 +203,7 @@ minetest.register_node("lottplants:yellowflowers", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 
@@ -233,6 +239,7 @@ minetest.register_node("lottplants:elmleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:firleaf", {
@@ -267,6 +274,7 @@ minetest.register_node("lottplants:firleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:lebethronleaf", {
@@ -301,6 +309,7 @@ minetest.register_node("lottplants:lebethronleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:mallornleaf", {
@@ -334,6 +343,7 @@ minetest.register_node("lottplants:mallornleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:pineleaf", {
@@ -368,6 +378,7 @@ minetest.register_node("lottplants:pineleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:plumleaf", {
@@ -402,6 +413,7 @@ minetest.register_node("lottplants:plumleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:rowanleaf", {
@@ -432,6 +444,7 @@ minetest.register_node("lottplants:rowanleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:rowanberry", {
@@ -461,6 +474,7 @@ minetest.register_node("lottplants:rowanberry", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:whiteleaf", {
@@ -495,6 +509,7 @@ minetest.register_node("lottplants:whiteleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:yavannamireleaf", {
@@ -529,6 +544,7 @@ minetest.register_node("lottplants:yavannamireleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 minetest.register_alias("lottmapgen:mirkleaves", "lottplants:mirkleaf")
@@ -566,6 +582,7 @@ minetest.register_node("lottplants:mirkleaf", {
 		}
 	},
 	sounds                     = default.node_sound_leaves_defaults(),
+	after_place_node           = default.after_place_leaves,
 })
 
 --
@@ -1044,11 +1061,7 @@ minetest.register_node("lottplants:plum", {
 	},
 	on_use              = minetest.item_eat(2),
 	sounds              = default.node_sound_leaves_defaults(),
-	after_place_node    = function(pos, placer, itemstack)
-		if placer:is_player() then
-			minetest.set_node(pos, { name = "lottplants:plum", param2 = 1 })
-		end
-	end,
+	after_place_node    = default.after_place_leaves,
 })
 
 minetest.register_node("lottplants:yavannamirefruit", {
@@ -1067,11 +1080,129 @@ minetest.register_node("lottplants:yavannamirefruit", {
 	groups              = { fleshy = 3, dig_immediate = 3, flammable = 2, leafdecay = 3, leafdecay_drop = 1 },
 	on_use              = minetest.item_eat(4),
 	sounds              = default.node_sound_leaves_defaults(),
-	after_place_node    = function(pos, placer, itemstack)
-		if placer:is_player() then
-			minetest.set_node(pos, { name = "lottplants:yavannamirefruit", param2 = 1 })
-		end
-	end,
+	after_place_node    = default.after_place_leaves,
+})
+
+-- LEAFDECAY
+-- Регистрация опадающей листвы и др.
+
+-- Alders / Ольха
+default.register_leafdecay({
+	trunks = {"lottplants:aldertrunk"},
+	leaves = {"lottplants:alderleaf"},
+	radius = 2,
+})
+
+-- Apple Tree / Яблоня
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:appleleaf", "default:apple"},
+	radius = 2,
+})
+
+-- Birches / Береза
+default.register_leafdecay({
+	trunks = {"lottplants:birchtree"},
+	leaves = {"lottplants:birchleaf"},
+	radius = 3,
+})
+
+-- Beeches / Бук
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:beechleaf"},
+	radius = 3,
+})
+
+-- Culumalda / Кулумальда
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:culumaldaleaf", "lottplants:yellowflowers"},
+	radius = 2,
+})
+
+-- Elms / Вяз
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:elmleaf"},
+	radius = 2,
+})
+
+-- Firs / Ель
+default.register_leafdecay({
+	trunks = {"lottplants:firtree"},
+	leaves = {"lottplants:firleaf"},
+	radius = 2,
+})
+
+-- Lebethron / Лебетрон
+default.register_leafdecay({
+	trunks = {"lottplants:lebethrontree"},
+	leaves = {"lottplants:lebethronleaf"},
+	radius = 2,
+})
+
+-- Mallorn / Маллорн
+default.register_leafdecay({
+	trunks = {"lottplants:mallorntree"},
+	leaves = {"lottplants:mallornleaf"},
+	radius = 2,
+})
+
+-- Young Mallorn / Молодой маллорн
+default.register_leafdecay({
+	trunks = {"lottplants:mallorntree_young"},
+	leaves = {"lottplants:mallornleaf"},
+	radius = 2,
+})
+
+-- Pines / Сосна
+default.register_leafdecay({
+	trunks = {"lottplants:pinetree"},
+	leaves = {"lottplants:pineleaf"},
+	radius = 2,
+})
+
+-- Plum Tree / Слива
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:plumleaf", "lottplants:plum"},
+	radius = 2,
+})
+
+-- Rowans / Рябина
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:rowanleaf", "lottplants:rowanberry"},
+	radius = 2,
+})
+
+-- White Tree / Белое дерево
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:whiteleaf"},
+	radius = 2,
+})
+
+-- Yavannamire / Йаванамирэ
+default.register_leafdecay({
+	trunks = {"default:tree"},
+	leaves = {"lottplants:yavannamireleaf", "lottplants:yavannamirefruit"},
+	radius = 2,
+})
+
+-- Mirk Large / Большое дерево Лихолесья
+default.register_leafdecay({
+	trunks = {"default:jungletree"},
+	leaves = {"lottplants:mirkleaf"},
+	radius = 2,
+})
+
+-- Mirk Small / Малое дерево Лихолесья
+default.register_leafdecay({
+	trunks = {"default:jungletree"},
+	leaves = {"lottplants:mirkleaf"},
+	radius = 2,
 })
 
 --Wood
