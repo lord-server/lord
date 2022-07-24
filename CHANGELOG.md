@@ -1,5 +1,10 @@
 # Change Log
 
+## [2022.07.p2](https://github.com/lord-server/lord/releases/tag/2022.07.p2)
+ - Fix leaf decay with using default.register_leafdecay (fixes #662) (#677)
+ - Fix bug with endless rails (fixes #627) (#672)
+ - Fix papyrus growth (fixes #670) (#671)
+
 ## [2022.07.p1](https://github.com/lord-server/lord/releases/tag/2022.07.p1)
  - Enable tree decay on both types of trunks (#657)
 
