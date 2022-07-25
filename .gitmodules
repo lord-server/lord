@@ -10,3 +10,6 @@
 [submodule "mods/_minetest_game/screwdriver"]
 	path = mods/_minetest_game/screwdriver
 	url = https://github.com/minetest-game-mod/screwdriver
+[submodule "mods/_minetest_game/sethome"]
+	path = mods/_minetest_game/sethome
+	url = https://github.com/minetest-game-mod/sethome
