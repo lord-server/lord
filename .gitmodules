@@ -7,3 +7,6 @@
 [submodule "mods/_minetest_game/sfinv"]
 	path = mods/_minetest_game/sfinv
 	url = https://github.com/minetest-game-mod/sfinv
+[submodule "mods/_minetest_game/screwdriver"]
+	path = mods/_minetest_game/screwdriver
+	url = https://github.com/minetest-game-mod/screwdriver
