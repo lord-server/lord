@@ -13,12 +13,17 @@ end
 -- Принимает:
 -- - player - объект игрока;
 -- - stack - объект ItemStack (не itemstring!).
+-- Возвращает
+-- true, если предмет положен в инвентарь, и
+-- false, если предмет выброшен.
 function lord.give_or_drop(player, stack)
 	local inv = player:get_inventory()
 	if inv:room_for_item("main", stack) then
 		inv:add_item("main", stack)
+		return true
 	else
 		minetest.item_drop(stack, player, player:get_pos())
+		return false
 	end
 end
 
