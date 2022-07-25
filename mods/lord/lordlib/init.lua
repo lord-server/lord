@@ -8,6 +8,25 @@ function lord.require_intllib()
 	end
 end
 
+-- Вспомогательная функция give_or_drop
+-- Даёт предмет данному игроку или кидает на землю рядом при недостатке места в инвентаре.
+-- Принимает:
+-- - player - объект игрока;
+-- - stack - объект ItemStack (не itemstring!).
+-- Возвращает
+-- true, если предмет положен в инвентарь, и
+-- false, если предмет выброшен.
+function lord.give_or_drop(player, stack)
+	local inv = player:get_inventory()
+	if inv:room_for_item("main", stack) then
+		inv:add_item("main", stack)
+		return true
+	else
+		minetest.item_drop(stack, player, player:get_pos())
+		return false
+	end
+end
+
 ------------------------------------
 ---Remove after updating to 5.4.1---
 ------------------------------------
