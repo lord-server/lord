@@ -1,3 +1,6 @@
 [submodule "mods/lord/nodes_dump"]
 	path = mods/lord/nodes_dump
 	url = https://github.com/lord-server/nodes_dump
+[submodule "mods/_various/ambience"]
+	path = mods/_various/ambience
+	url = https://notabug.org/TenPlus1/ambience.git
