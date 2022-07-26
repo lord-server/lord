@@ -30,7 +30,9 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		local name = user:get_player_name()
 		hbhunger.hunger[name] = 20
 		hbhunger.set_hunger_raw(user)
-		make_negative_visual_effect(user)
+		if races.get_race(name) ~= "orc" then
+			make_negative_visual_effect(user)
+		end
 		itemstack:take_item(1)
 		lord.give_or_drop(user, ItemStack("lottfarming:bowl"))
 		return itemstack
@@ -51,7 +53,10 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 	inventory_image = "lottfarming_orc_medicine.png",
 	on_use = function(itemstack, user, pointed_thing)
 		user:set_hp(20)
-		make_negative_visual_effect(user)
+		local name = user:get_player_name()
+		if races.get_race(name) ~= "orc" then
+			make_negative_visual_effect(user)
+		end
 		itemstack:take_item(1)
 		lord.give_or_drop(user, ItemStack("vessels:drinking_glass"))
 		return itemstack
