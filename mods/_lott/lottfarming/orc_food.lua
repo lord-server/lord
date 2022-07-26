@@ -32,12 +32,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		hbhunger.set_hunger_raw(user)
 		make_negative_visual_effect(user)
 		itemstack:take_item(1)
-		local inv = user:get_inventory()
-		if inv:room_for_item("main", "lottfarming:bowl") then
-			inv:add_item("main", "lottfarming:bowl")
-		else
-			minetest.item_drop(ItemStack("lottfarming:bowl"), user, user:get_pos())
-		end
+		lord.give_or_drop(user, ItemStack("lottfarming:bowl"))
 		return itemstack
 	end,
 })
@@ -58,12 +53,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 		user:set_hp(20)
 		make_negative_visual_effect(user)
 		itemstack:take_item(1)
-		local inv = user:get_inventory()
-		if inv:room_for_item("main", "vessels:drinking_glass") then
-			inv:add_item("main", "vessels:drinking_glass")
-		else
-			minetest.item_drop(ItemStack("vessels:drinking_glass"), user, user:get_pos())
-		end
+		lord.give_or_drop(user, ItemStack("vessels:drinking_glass"))
 		return itemstack
 	end,
 })
