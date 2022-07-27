@@ -161,7 +161,6 @@ Error: No lottachievements available. = Ошибка: Книга Достиже�
 OK = ОК
 To see this achievement, complete \" = Чтобы увидеть это достижение выполните \"
 (completed) = (выполнено)
-You've disabled lottachievements. Type /lottachievements enable to reenable. = Вы отключили lottachievements. Чтобы включить, выполните команду /lottachievements enable
 You have not unlocked any lottachievements. = Вы не открыли lottachievements.
 %s’s lottachievements: = Достижения %s:
 %s: %s = %s: %s
@@ -169,8 +168,6 @@ You have not unlocked any lottachievements. = Вы не открыли lottachie
 ### chat_commands.lua ###
 Show, clear, disable or enable your achievements = Показать, очистить, отключить или включить ваши достижения
 All your achievements and statistics have been cleared. You can now start again. = Все ваши достижения и статистика были устранены. Теперь вы можете начать снова.
-You have disabled your achievements. = Вы отключили свои достижения.
-You have enabled your achievements. = Вы включили свои достижения
 Show details of an achievement = Показать сведения о достижении
 Achievement not found. = Достижения не найдено.
 Get the achievements statistics for the given player or yourself = Получите статистику достижений для данного игрока или себя

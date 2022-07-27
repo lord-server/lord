@@ -246,20 +246,6 @@ function lottachievements.register_achievement(name, def)
 	end
 end
 
-function lottachievements.enable(name)
-	local data = lottachievements.player(name)
-	if data then
-		data.disabled = nil
-	end
-end
-
-function lottachievements.disable(name)
-	local data = lottachievements.player(name)
-	if data then
-		data.disabled = true
-	end
-end
-
 function lottachievements.clear_player(name)
 	lottachievements.players[name] = {}
 end
@@ -281,9 +267,6 @@ function lottachievements.unlock(name, award)
 		return
 	end
 	if not awdef then
-		return
-	end
-	if data.disabled then
 		return
 	end
 	lottachievements_tbv(data,"unlocked")
@@ -553,10 +536,6 @@ end
 function lottachievements.show_to(name, to, sid, text)
 	if name == "" or name == nil then
 		name = to
-	end
-	if name == to and lottachievements.player(to).disabled then
-		minetest.chat_send_player(SL("You've disabled lottachievements. Type /lottachievements enable to reenable."))
-		return
 	end
 	if text then
 		local listoflottachievements = lottachievements_order_lottachievements(name)
