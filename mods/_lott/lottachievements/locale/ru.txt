@@ -174,3 +174,6 @@ You have enabled your achievements. = Вы включили свои дости�
 Show details of an achievement = Показать сведения о достижении
 Achievement not found. = Достижения не найдено.
 Get the achievements statistics for the given player or yourself = Получите статистику достижений для данного игрока или себя
+
+### triggers.lua ###
+Mined %u/%u=Добыто %u/%u

@@ -21,11 +21,6 @@ lottachievements = {
 	show_mode = "hud"
 }
 
--- Internationalization support.
-local S, NS = dofile(minetest.get_modpath("lottachievements").."/intllib.lua")
-
-lottachievements.gettext, lottachievements.ngettext = S, NS
-
 dofile(minetest.get_modpath("lottachievements").."/api.lua")
 dofile(minetest.get_modpath("lottachievements").."/triggers.lua")
 
