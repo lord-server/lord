@@ -216,11 +216,6 @@ function lottachievements.register_on_unlock(func)
 end
 
 -- API Functions
-function lottachievements._additional_triggers(name, def)
-	-- Depreciated!
-end
-
-
 -- регистрация достижений
 function lottachievements.register_achievement(name, def)
 	-- наименование запихивается внутрь таблицы достижения
@@ -407,18 +402,7 @@ function lottachievements.unlock(name, award)
 	end
 end
 
--- Backwards compatibility
-lottachievements.give_achievement = lottachievements.unlock
-
---[[minetest.register_chatcommand("gawd", {
-	params = "award name",
-	description = "gawd: give award to self",
-	func = function(name, param)
-		lottachievements.unlock(name,param)
-	end
-})]]--
-
-function lottachievements.getFormspec(name, to, sid)
+local function lottachievements_getFormspec(name, to, sid)
 	local formspec = ""
 	local listoflottachievements = lottachievements_order_lottachievements(name)
 	local completed = lottachievements_completed_achievements(name)
@@ -570,10 +554,9 @@ function lottachievements.show_to(name, to, sid, text)
 		minetest.show_formspec(to,"lottachievements:lottachievements",
 			"size[11,5]" ..
 			"background[5,5;1,1;gui_formbg.png;true]" ..
-			lottachievements.getFormspec(name, to, sid))
+			lottachievements_getFormspec(name, to, sid))
 	end
 end
-lottachievements.showto = lottachievements.show_to
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "lottachievements:lottachievements" then
