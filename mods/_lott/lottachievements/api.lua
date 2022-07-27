@@ -15,7 +15,91 @@
 --
 local SL = lord.require_intllib()
 
-dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
+
+
+local function lottachievements_tbv(tb,value,default)
+	if not default then
+		default = {}
+	end
+	if not tb or type(tb) ~= "table" then
+		if not value then
+			value = "[NULL]"
+		end
+		minetest.log("error", "lottachievements_tbv - table "..dump(value).." is null, or not a table! Dump: "..dump(tb))
+		return
+	end
+	if not value then
+		error("[ERROR] lottachievements_tbv was not used correctly!\n"..
+			"Value: '"..dump(value).."'\n"..
+			"Dump:"..dump(tb))
+		return
+	end
+	if not tb[value] then
+		tb[value] = default
+	end
+end
+
+function lottachievements.assertPlayer(playern)
+	lottachievements_tbv(lottachievements.players, playern)
+	lottachievements_tbv(lottachievements.players[playern], "name", playern)
+	lottachievements_tbv(lottachievements.players[playern], "unlocked")
+	lottachievements_tbv(lottachievements.players[playern], "place")
+	lottachievements_tbv(lottachievements.players[playern], "count")
+	lottachievements_tbv(lottachievements.players[playern], "craft")
+	lottachievements_tbv(lottachievements.players[playern], "eat")
+	lottachievements_tbv(lottachievements.players[playern], "deaths", 0)
+	lottachievements_tbv(lottachievements.players[playern], "joins", 0)
+	lottachievements_tbv(lottachievements.players[playern], "chats", 0)
+end
+
+function lottachievements.player(name)
+	return lottachievements.players[name]
+end
+
+local function lottachievements_order_lottachievements(name)
+	local done = {}
+	local retval = {}
+	local retval2 = {}
+	local player = lottachievements.player(name)
+	if player and player.unlocked then
+		for _,got in pairs(player.unlocked) do
+			if lottachievements.def[got] then
+				done[got] = true
+				table.insert(retval,{name=got,got=true})
+			end
+		end
+	end
+	table.sort(retval, function(a,b)
+		return (lottachievements.def[b.name].id > lottachievements.def[a.name].id)
+	end)
+	for _,def in pairs(lottachievements.def) do
+		if not done[def.name] then
+			table.insert(retval2,{name=def.name,got=false})
+		end
+	end
+	table.sort(retval2, function(a,b)
+		return (lottachievements.def[b.name].id > lottachievements.def[a.name].id)
+	end)
+	for i,v in pairs(retval2) do
+		table.insert(retval,v)
+	end
+	return retval
+end
+
+local function lottachievements_completed_achievements(name)
+	local completed = {}
+	local player = lottachievements.player(name)
+	if player and player.unlocked then
+		for _, got in pairs(player.unlocked) do
+			if lottachievements.def[got] then
+				completed[got] = true
+			end
+		end
+	end
+	return completed
+end
+
+
 
 -- Table Save Load Functions
 function lottachievements.save()
@@ -80,9 +164,9 @@ function lottachievements.increment_item_counter(data, field, itemname, count)
 
 	if data and field and mod and item then
 		lottachievements.assertPlayer(data)
-		lottachievements.tbv(data, field)
-		lottachievements.tbv(data[field], mod)
-		lottachievements.tbv(data[field][mod], item, 0)
+		lottachievements_tbv(data, field)
+		lottachievements_tbv(data[field], mod)
+		lottachievements_tbv(data[field][mod], item, 0)
 
 		if data[field][mod][item] + (count or 1) < 0 then
 			count = 0
@@ -104,9 +188,9 @@ function lottachievements.get_item_count(data, field, itemname)
 
 	if data and field and mod and item then
 		lottachievements.assertPlayer(data)
-		lottachievements.tbv(data, field)
-		lottachievements.tbv(data[field], mod)
-		lottachievements.tbv(data[field][mod], item, 0)
+		lottachievements_tbv(data, field)
+		lottachievements_tbv(data[field], mod)
+		lottachievements_tbv(data[field][mod], item, 0)
 		return data[field][mod][item]
 	end
 end
@@ -115,11 +199,11 @@ function lottachievements.get_total_item_count(data, field)
 	local i = 0
 	if data and field then
 		lottachievements.assertPlayer(data)
-		lottachievements.tbv(data, field)
+		lottachievements_tbv(data, field)
 		for mod,_ in pairs(data[field]) do
-			lottachievements.tbv(data[field], mod)
+			lottachievements_tbv(data[field], mod)
 			for item,_ in pairs(data[field][mod]) do
-				lottachievements.tbv(data[field][mod], item, 0)
+				lottachievements_tbv(data[field][mod], item, 0)
 				i = i + data[field][mod][item]
 			end
 		end
@@ -202,7 +286,7 @@ function lottachievements.unlock(name, award)
 	if data.disabled then
 		return
 	end
-	lottachievements.tbv(data,"unlocked")
+	lottachievements_tbv(data,"unlocked")
 
 	-- Don't give the achievement if it has already been given
 	if data.unlocked[award] and data.unlocked[award] == award then
@@ -353,8 +437,8 @@ lottachievements.give_achievement = lottachievements.unlock
 
 function lottachievements.getFormspec(name, to, sid)
 	local formspec = ""
-	local listoflottachievements = lottachievements._order_lottachievements(name)
-	local completed = lottachievements.completed_achievements(name)
+	local listoflottachievements = lottachievements_order_lottachievements(name)
+	local completed = lottachievements_completed_achievements(name)
 	local playerdata = lottachievements.players[name]
 
 	if #listoflottachievements == 0 then
@@ -475,7 +559,7 @@ function lottachievements.show_to(name, to, sid, text)
 		return
 	end
 	if text then
-		local listoflottachievements = lottachievements._order_lottachievements(name)
+		local listoflottachievements = lottachievements_order_lottachievements(name)
 		if #listoflottachievements == 0 then
 			minetest.chat_send_player(to, SL("Error: No lottachievements available."))
 			return
