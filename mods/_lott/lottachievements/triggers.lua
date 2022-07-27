@@ -14,7 +14,7 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottachievements")
 
 lottachievements.register_trigger("dig", function(def)
 	local tmp = {
@@ -35,7 +35,7 @@ lottachievements.register_trigger("dig", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Добыто @1/@2", itemcount, tmp.target),
+			label = S("Добыто @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -46,9 +46,9 @@ lottachievements.register_trigger("dig", function(def)
 				nname = self.trigger.node
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Mine: @2", "Mine: @1×@2", n, n, nname)
+			return S("Mine: @2", "Mine: @1×@2", n, n, nname)
 		else
-			return SL("Mine @1 block.", "Mine @1 blocks.", n, n)
+			return S("Mine @1 block.", "Mine @1 blocks.", n, n)
 		end
 	end
 end)
@@ -72,7 +72,7 @@ lottachievements.register_trigger("place", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Установленно @1/@2", itemcount, tmp.target),
+			label = S("Установленно @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -83,9 +83,9 @@ lottachievements.register_trigger("place", function(def)
 				nname = self.trigger.node
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Place: @2", "Place: @1×@2", n, n, nname)
+			return S("Place: @2", "Place: @1×@2", n, n, nname)
 		else
-			return SL("Place a block.", "Place @1 blocks.", n, n)
+			return S("Place a block.", "Place @1 blocks.", n, n)
 		end
 	end
 end)
@@ -109,7 +109,7 @@ lottachievements.register_trigger("eat", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Съедено @1/@2", itemcount, tmp.target),
+			label = S("Съедено @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -120,9 +120,9 @@ lottachievements.register_trigger("eat", function(def)
 				iname = self.trigger.iode
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Eat: @2", "Eat: @1×@2", n, n, iname)
+			return S("Eat: @2", "Eat: @1×@2", n, n, iname)
 		else
-			return SL("Eat an item.", "Eat @1 items.", n, n)
+			return S("Eat an item.", "Eat @1 items.", n, n)
 		end
 	end
 end)
@@ -140,12 +140,12 @@ lottachievements.register_trigger("death", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("@1/@2 смертей", itemcount, tmp.target),
+			label = S("@1/@2 смертей", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
-		return SL("Die.", "Die @1 times.", n, n)
+		return S("Die.", "Die @1 times.", n, n)
 	end
 end)
 
@@ -162,12 +162,12 @@ lottachievements.register_trigger("chat", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Написано сообщений @1/@2", itemcount, tmp.target),
+			label = S("Написано сообщений @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
-		return SL("Write something in chat.", "Write @1 chat messages.", n, n)
+		return S("Write something in chat.", "Write @1 chat messages.", n, n)
 	end
 end)
 
@@ -184,12 +184,12 @@ lottachievements.register_trigger("join", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Заходов на сервер @1/@2", itemcount, tmp.target),
+			label = S("Заходов на сервер @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
-		return SL("Join the game.", "Join the game @1 times.", n, n)
+		return S("Join the game.", "Join the game @1 times.", n, n)
 	end
 end)
 
@@ -215,7 +215,7 @@ lottachievements.register_trigger("craft", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Создано @1/@2", itemcount, tmp.target),
+			label = S("Создано @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -226,9 +226,9 @@ lottachievements.register_trigger("craft", function(def)
 				iname = self.trigger.item
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Craft: @2", "Craft: @1×@2", n, n, iname)
+			return S("Craft: @2", "Craft: @1×@2", n, n, iname)
 		else
-			return SL("Craft an item.", "Craft @1 items.", n)
+			return S("Craft an item.", "Craft @1 items.", n)
 		end
 	end
 end)
@@ -246,9 +246,9 @@ lottachievements.register_trigger("equip", function(def)
 				iname = self.trigger.iode
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Eat: @2", "Eat: @1×@2", 4, 4, iname)
+			return S("Eat: @2", "Eat: @1×@2", 4, 4, iname)
 		else
-			return SL("Eat an item.", "Eat @1 items.", 4, 4)
+			return S("Eat an item.", "Eat @1 items.", 4, 4)
 		end
 	end
 end)
@@ -272,7 +272,7 @@ lottachievements.register_trigger("kill", function(def)
 		end
 		return {
 			perc = itemcount / tmp.target,
-			label = SL("Убито @1/@2", itemcount, tmp.target),
+			label = S("Убито @1/@2", itemcount, tmp.target),
 		}
 	end
 	def.getDefaultDescription = function(self)
@@ -284,7 +284,7 @@ lottachievements.register_trigger("kill", function(def)
 				iname = self.trigger.mob
 			end
 			-- Translators: @1 is count, @2 is description.
-			return SL("Kill: @2", "Kill: @1×@2", n, n, iname)
+			return S("Kill: @2", "Kill: @1×@2", n, n, iname)
 		end
 	end
 end)

@@ -1,7 +1,7 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottachievements")
 
 minetest.register_craftitem("lottachievements:achievement_book", {
-	description = SL("Achievements Book"),
+	description = S("Achievements Book"),
 	inventory_image = "lottachievements_achievement_book.png",
 	groups = { book = 1 },
 	stack_max = 1,
