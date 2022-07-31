@@ -27,6 +27,22 @@ function lord.give_or_drop(player, stack)
 	end
 end
 
+-- Вспомогательная функция each_value_equals
+-- Циклично сравнивает значение каждого элемента таблицы table с value (по умолчанию true). Если какое-то из значений
+-- таблицы не равно value — функция завершается, возвращая false. В ином случае, успешно дойдя до конца таблицы,
+-- возвращает true.
+function lord.each_value_equals(table, value)
+	if not value then
+		value = true
+	end
+	for _, v in pairs(table) do
+		if v ~= value then
+			return false
+		end
+	end
+	return true
+end
+
 ------------------------------------
 ---Remove after updating to 5.4.1---
 ------------------------------------
