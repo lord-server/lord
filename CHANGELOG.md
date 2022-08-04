@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.07.p3](https://github.com/lord-server/lord/releases/tag/2022.07.p3)
+ - Fix iron chest craft with default:chest (fixes #690) (#691)
+
 ## [2022.07.p2](https://github.com/lord-server/lord/releases/tag/2022.07.p2)
  - Fix leaf decay with using default.register_leafdecay (fixes #662) (#677)
  - Fix bug with endless rails (fixes #627) (#672)
