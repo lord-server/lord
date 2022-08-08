@@ -99,3 +99,127 @@ register_candle_lamp("bronze", "Bronze", "default:bronze_ingot")
 register_candle_lamp("steel", "Steel", "default:steel_ingot")
 register_candle_lamp("silver", "Silver", "lottores:silver_ingot")
 register_candle_lamp("tin", "Tin", "lottores:tin_ingot")
+
+-- Цепи
+minetest.register_node("lamps:chains", {
+	description = S("Chains"),
+	inventory_image = "lamps_chains_item.png",
+	wield_image = "lamps_chains_item.png",
+	use_texture_alpha = "blend",
+	drawtype = "mesh",
+	mesh = "lamps_chains.obj",
+	tiles = {"lamps_chains.png"},
+	groups = {cracky = 3},
+	sunlight_propagates = true,
+	paramtype2 = "facedir",
+	place_param2 = 0,
+	selection_box = {
+		type = "fixed",
+		fixed = {
+		{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125},
+		},
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {
+		{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125},
+		},
+	},
+	paramtype = "light"
+})
+
+minetest.register_node("lamps:dungeon_lamp", {
+	description = S("Dungeon lamp"),
+	use_texture_alpha = "clip",
+	mesh = "lamps_dungeon_lamp.obj",
+	tiles = {"lamps_dungeon_lamp_top.png", "lamps_dungeon_lamp_side.png", "lamps_dungeon_lamp_candle.png"},
+	groups = {cracky = 2},
+	drawtype = "mesh",
+	paramtype = "light",
+	light_source = 9,
+	paramtype2 = "facedir",
+	selection_box = {
+		type = "fixed",
+		fixed = {
+		{-1/16*3, -0.5, -1/16*3, 1/16*3, 1/16, 1/16*3},
+		{-1/16*2, 1/16, -1/16*2, 1/16*2, 1/16*2, 1/16*2},
+		},
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {
+		{-1/16*3, -0.5, -1/16*3, 1/16*3, 1/16, 1/16*3},
+		{-1/16*2, 1/16, -1/16*2, 1/16*2, 1/16*2, 1/16*2},
+		},
+	},
+	on_place = function(itemstack, placer, pointed_thing)
+		if pointed_thing.above.y ~= pointed_thing.under.y-1 then
+			-- Если блок, который поставил игрок не ниже блока,
+			-- который он выделил, то обычная лампа.
+			itemstack:set_name("lamps:dungeon_lamp")
+			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
+		else
+			-- Если блок, который поставил игрок ниже блока,
+			-- который он выделил, то потолочная лампа.
+			itemstack:set_name("lamps:dungeon_lamp_hanging")
+			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
+		end
+		itemstack:set_name("lamps:dungeon_lamp")
+		return itemstack
+	end,
+})
+
+minetest.register_node("lamps:dungeon_lamp_hanging", {
+	description = S("Dungeon hanging lamp"),
+	use_texture_alpha = "clip",
+	mesh = "lamps_dungeon_lamp_hanging.obj",
+	tiles = {"lamps_dungeon_lamp_top.png",
+		"lamps_dungeon_lamp_side.png",
+		"lamps_dungeon_lamp_candle.png",
+		"lamps_chains.png"},
+	groups = {cracky = 2, not_in_creative_inventory = 1},
+	drawtype = "mesh",
+	paramtype = "light",
+	light_source = 9,
+	paramtype2 = "facedir",
+	selection_box = {
+		type = "fixed",
+		fixed = {
+		{-1/16*3, -0.5, -1/16*3, 1/16*3, 1/16, 1/16*3},
+		{-1/16*2, 1/16, -1/16*2, 1/16*2, 0.5, 1/16*2},
+		},
+	},
+	collision_box = {
+		type = "fixed",
+		fixed = {
+		{-1/16*3, -0.5, -1/16*3, 1/16*3, 1/16, 1/16*3},
+		{-1/16*2, 1/16, -1/16*2, 1/16*2, 0.5, 1/16*2},
+		},
+	},
+	drop = "lamps:dungeon_lamp",
+})
+
+minetest.register_craft({
+	output = "lamps:dungeon_lamp",
+	recipe = {
+		{"default:steel_ingot"},
+		{"lord_homedecor:candle"},
+		{"default:steel_ingot"}},
+})
+
+minetest.register_craft({
+	output = "lamps:chains",
+	recipe = {
+		{"default:steel_ingot", ""},
+		{"", "default:steel_ingot"},
+		{"default:steel_ingot", ""}},
+})
+
+minetest.register_craft({
+	output = "lamps:chains",
+	recipe = {
+		{"", "default:steel_ingot"},
+		{"default:steel_ingot", ""},
+		{"", "default:steel_ingot"}},
+})
+

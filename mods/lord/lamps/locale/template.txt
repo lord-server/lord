@@ -4,3 +4,6 @@ Bronze candle lamp=
 Steel candle lamp=
 Silver candle lamp=
 Tin candle lamp=
+Dungeon lamp=
+Dungeon hanging lamp=
+Chains=
