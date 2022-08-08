@@ -28,6 +28,22 @@ minetest.register_node("lottother:blue_torch", {
 	sunlight_propagates = true,
 	is_ground_content   = false,
 	walkable            = false,
+	floodable           = true,
+	on_flood = function(pos, oldnode, newnode) -- Взято из default/torch.lua
+		minetest.add_item(pos, ItemStack("lottother:blue_torch 1"))
+		-- Play flame-extinguish sound if liquid is not an 'igniter'
+		local nodedef = minetest.registered_items[newnode.name]
+		if not (nodedef and nodedef.groups and
+				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
+			minetest.sound_play(
+				"default_cool_lava",
+				{pos = pos, max_hear_distance = 16, gain = 0.1},
+				true
+			)
+		end
+		-- Remove the torch node
+		return false
+	end,
 	light_source        = LIGHT_MAX - 1,
 	selection_box       = {
 		type        = "wallmounted",
@@ -63,6 +79,22 @@ minetest.register_node("lottother:orc_torch", {
 	sunlight_propagates = true,
 	is_ground_content   = false,
 	walkable            = false,
+	floodable           = true,
+	on_flood = function(pos, oldnode, newnode) -- Взято из default/torch.lua
+		minetest.add_item(pos, ItemStack("lottother:orc_torch 1"))
+		-- Play flame-extinguish sound if liquid is not an 'igniter'
+		local nodedef = minetest.registered_items[newnode.name]
+		if not (nodedef and nodedef.groups and
+				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
+			minetest.sound_play(
+				"default_cool_lava",
+				{pos = pos, max_hear_distance = 16, gain = 0.1},
+				true
+			)
+		end
+		-- Remove the torch node
+		return false
+	end,
 	light_source        = LIGHT_MAX - 3,
 	selection_box       = {
 		type        = "wallmounted",
