@@ -6,7 +6,7 @@ local function table_is_empty(table)
 end
 
 minetest.register_chatcommand ("S", {
-	description = "Сохранитьданные в файл",
+	description = "Сохранить данные в файл",
 	params = "<file_name>",
 	privs = {worldedit = true},
 	func = function(name, param)
@@ -15,7 +15,7 @@ minetest.register_chatcommand ("S", {
 		local path = minetest.get_worldpath() .. "/schems"
 		local file_mts = path .. "/" .. param .. ".mts"
 		local file_meta = path .. "/" .. param .. ".meta"
-		os.execute('mkdir "' .. path .. '"')
+		minetest.mkdir(path)
 
 		local pos1, pos2 = worldedit.pos1[name], worldedit.pos2[name]
 		if pos1 == nil then minetest.chat_send_player(name, "Не задана первая координата") return
