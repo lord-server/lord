@@ -52,3 +52,4 @@ function minetest.is_creative_enabled(name)
 end
 
 dofile(minetest.get_modpath("lordlib").."/ru_lower_upper.lua") -- string.upper and string.lower russian symbols support
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/core_functions.lua")
