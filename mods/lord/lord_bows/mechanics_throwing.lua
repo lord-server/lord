@@ -5,11 +5,8 @@
 local players_physics = {}
 
 local throwing = {}
-local СONTROL_CHARGE = "RMB"
+local CONTROL_CHARGE = "RMB"
 local PLAYER_SLOWDOWN_SPEED = 0.25
-local PLAYER_DEFAULT_SPEED = 1
--- Время зарядки одной стадии
-local TIME_CHARGE = 1
 -- acceleration of gravity
 local GRAVITY = 10
 
@@ -110,9 +107,9 @@ function there_is_arrows(player)
 end
 
 -- Зарядка лука по удержанию
-core_callback.register_on_hold(function(player, control_name, hold_time)
+lord.register_on_hold(function(player, control_name, hold_time)
 	-- Зарядка на клавишу СONTROL_CHARGE
-	if control_name ~= СONTROL_CHARGE then return end
+	if control_name ~= CONTROL_CHARGE then return end
 
 	local stack = player:get_wielded_item()
 
@@ -129,8 +126,8 @@ core_callback.register_on_hold(function(player, control_name, hold_time)
 end)
 
 -- Разрядка лука при отпуске клавиши
-core_callback.register_on_release(function(player, control_name)
-	if control_name ~= СONTROL_CHARGE then return end
+lord.register_on_release(function(player, control_name)
+	if control_name ~= CONTROL_CHARGE then return end
 
 	local stack = player:get_wielded_item()
 
@@ -148,7 +145,7 @@ core_callback.register_on_release(function(player, control_name)
 end)
 
 -- Если лук заряжался, а итем в руке сменился, то надо разрядить лук (без выстрела)
-core_callback.register_on_wield_index_change(function(player, player_wield_index, player_last_wield_index)
+lord.register_on_wield_index_change(function(player, player_wield_index, player_last_wield_index)
 	local inv = player:get_inventory()
 	local stack = inv:get_stack("main", player_last_wield_index)
 

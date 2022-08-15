@@ -32,13 +32,13 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 		-- Таймер жизни:
 		life_timer = 20,
 		timer_is_start = false,
-		
+
 		-- Зависящие от def параметры
 		textures = def.textures,
-		
+
 		-- Функции
 		on_step = function(self, dtime, moveresult)
-			
+
 			if moveresult.collides or moveresult.standing_on_object then
 				self.object:set_velocity({x = 0, y = 0, z = 0})
 				self.object:set_acceleration({x = 0, y = 0, z = 0})
@@ -62,12 +62,11 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 						self.object:set_acceleration({x = 0, y = GRAVITY*-1, z = 0})
 						target:set_acceleration({x = 0, y = GRAVITY*-1, z = 0})
 					elseif	target:get_luaentity().name == "__builtin:item"
-						and entity == "__builtin:falling_node"
-						and entity == "gauges:hp_bar"
-						and entity == "signs:text"
-						and entity == "itemframes:item" then return
+						and target:get_luaentity().name == "__builtin:falling_node"
+						and target:get_luaentity().name == "gauges:hp_bar"
+						and target:get_luaentity().name == "signs:text"
+						and target:get_luaentity().name == "itemframes:item" then return
 					else
-						minetest.log(target:get_luaentity().name)
 						target:punch(self.object, 1.0, {
 							full_punch_interval = 1.0,
 							damage_groups = {fleshy = def.damage},
