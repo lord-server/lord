@@ -7,6 +7,10 @@ local MICROSECONDS = 1000000
 -- Нажатие
 lord.registered_on_press = {}
 
+--- register_on_press(player, control_name)
+--- Срабатывает, когда игрок нажимает кнопку
+--- * player - игрок
+--- * control_name - кнопка из списка controls
 lord.register_on_press = function(func)
 	table.insert(lord.registered_on_press, func)
 end
@@ -14,6 +18,11 @@ end
 -- Отпуск
 lord.registered_on_release = {}
 
+--- register_on_release(player, control_name, release_time)
+--- Срабатывает, когда игрок отпускает кнопку
+--- * player - игрок
+--- * control_name - кнопка из списка controls
+--- * release_time - время удержания кнопки до того, как её отпустили
 lord.register_on_release = function(func)
 	table.insert(lord.registered_on_release, func)
 end
@@ -21,6 +30,12 @@ end
 -- Удержание
 lord.registered_on_hold = {}
 
+--- register_on_hold(player, control_name, hold_time, dtime)
+--- Срабатывает, когда игрок удерживает какую-то кнопку из списка controls
+--- * player - игрок
+--- * control_name - кнопка из списка controls
+--- * hold_time - время удержания кнопки
+--- * dtime - время между прошлым и нынешним вызовом
 lord.register_on_hold = function(func)
 	table.insert(lord.registered_on_hold, func)
 end
@@ -28,6 +43,11 @@ end
 -- Смена индекса предмета в руке
 lord.registered_on_wield_index_change = {}
 
+--- register_on_wield_index_change(player, player_wield_index, player_last_wield_index)
+--- Вызывается, когда индекс предмета в руке изменяется
+--- * player - игрок
+--- * player_wield_index - текущий индекс предмета в руке
+--- * player_last_wield_index - прошлый индекс предмета в руке
 lord.register_on_wield_index_change = function(func)
 	table.insert(lord.registered_on_wield_index_change, func)
 end
@@ -101,7 +121,7 @@ function call_hold(player, player_last_controls, control_name, dtime)
 	end
 end
 
--- Вызов каллбэков смены индекса предмета в руке
+-- Вызов каллбэков отпуска кнопки
 function call_release(player, player_last_controls, control_name)
 	-- Время, сколько была нажата кнопка
 	local release_time = minetest.get_us_time()/MICROSECONDS-player_last_controls[control_name][2]
