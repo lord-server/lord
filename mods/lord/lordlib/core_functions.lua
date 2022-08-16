@@ -7,8 +7,8 @@ local MICROSECONDS = 1000000
 -- Нажатие
 lord.registered_on_press = {}
 
---- register_on_press(player, control_name)
---- Срабатывает, когда игрок нажимает кнопку
+--- register_on_press(func(player, control_name))
+--- Регистрирует обратный вызов на нажатие кнопки из списка controls
 --- * player - игрок
 --- * control_name - кнопка из списка controls
 lord.register_on_press = function(func)
@@ -18,8 +18,8 @@ end
 -- Отпуск
 lord.registered_on_release = {}
 
---- register_on_release(player, control_name, release_time)
---- Срабатывает, когда игрок отпускает кнопку
+--- register_on_release(func(player, control_name, release_time))
+--- Регистрирует обратный вызов на отпуск кнопки из списка controls
 --- * player - игрок
 --- * control_name - кнопка из списка controls
 --- * release_time - время удержания кнопки до того, как её отпустили
@@ -30,8 +30,8 @@ end
 -- Удержание
 lord.registered_on_hold = {}
 
---- register_on_hold(player, control_name, hold_time, dtime)
---- Срабатывает, когда игрок удерживает какую-то кнопку из списка controls
+--- register_on_hold(func(player, control_name, hold_time, dtime))
+--- Регистрирует обратный вызов на удержании кнопки из списка controls
 --- * player - игрок
 --- * control_name - кнопка из списка controls
 --- * hold_time - время удержания кнопки
@@ -43,8 +43,8 @@ end
 -- Смена индекса предмета в руке
 lord.registered_on_wield_index_change = {}
 
---- register_on_wield_index_change(player, player_wield_index, player_last_wield_index)
---- Вызывается, когда индекс предмета в руке изменяется
+--- register_on_wield_index_change(func(player, player_wield_index, player_last_wield_index))
+--- Регистрирует обратный вызов на смену индекса предмета в руке
 --- * player - игрок
 --- * player_wield_index - текущий индекс предмета в руке
 --- * player_last_wield_index - прошлый индекс предмета в руке
@@ -52,7 +52,10 @@ lord.register_on_wield_index_change = function(func)
 	table.insert(lord.registered_on_wield_index_change, func)
 end
 
--- Сброс времени удержания для кнопки
+--- reset_hold_time(player, control_name)
+--- Сбрасывает время удержания кнопки из списка controls
+--- * player - игрок
+--- * control_name - кнопка из списка controls
 lord.reset_hold_time = function(player, control_name)
 	if not player then return end
 
