@@ -3,6 +3,7 @@
 
  - [Разворачивание локально](#Разворачивание-локально)
  - [Code-Style](#Code-Style)
+ - [Doc-Blocks](#Doc-Blocks)
  - [Установка и настройка LuaCheck](#Установка-и-настройка-LuaCheck)
  - [Обновление своего форка](#Обновление-своего-форка)
  - [Релизный процесс](#Релизный-процесс)
@@ -41,6 +42,12 @@ https://dev.minetest.net/Lua_code_style_guidelines
 - длина строки до 120 символов
 - константы капсом
 (возможно более актуальный code-style и его обсуждение есть в [ветке Discord](https://discord.com/channels/268093825975713793/842734469336793108/905237586610647151))
+
+Doc-Blocks
+----------
+В качестве аннотаций (doc-block'ов) мы используем вариант EmmyDoc.  
+Подробнее тут: https://emmylua.github.io/annotation.html  
+Плагин EmmyLua доступен [для IntelliJ IDEA](https://github.com/EmmyLua/IntelliJ-EmmyLua), [для VSCode](https://github.com/EmmyLua/VSCode-EmmyLua) и может уже для других IDE: https://github.com/EmmyLua
 
 Установка и настройка LuaCheck:
 -------------------------------
