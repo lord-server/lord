@@ -1,5 +1,4 @@
 local S = default.get_translator
-local S2 = minetest.get_translator(minetest.get_current_modname()) -- для фикса локализации
 
 -- default/chests.lua
 
@@ -504,7 +503,7 @@ minetest.register_node(":default:tree_trunk", {
 })
 
 minetest.register_node(":default:jungletree_trunk", {
-	description = S2("Jungle Tree Trunk"),
+	description = S("Jungle Tree Trunk"),
 	tiles = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -635,12 +634,4 @@ minetest.register_abm({
 	action = function(...)
 		grow_papyrus_but_on_soils(...)
 	end
-})
-
--- Фикс локализации эвкалипта
-minetest.override_item("default:jungletree", {
-	description = S2("Jungle Tree"),
-})
-minetest.override_item("default:junglewood", {
-	description = S2("Jungle Wood"),
 })
