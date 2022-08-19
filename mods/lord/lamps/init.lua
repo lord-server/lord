@@ -1,10 +1,22 @@
 local S = minetest.get_translator("lamps")
 
+local chains = {}
+
+local candle_lamp_node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.25, -0.5, -0.25, 0.25, -0.4375, 0.25},
+			{-0.1875, -0.4375, -0.1875, 0.1875, 0.0625, 0.1875},
+			{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25},
+			{-0.1875, 0.125, -0.1875, 0.1875, 0.1875, 0.1875},
+			{-0.0625, 0.1875, -0.0625, 0.0625, 0.25, .0625},
+		},
+	}
+
 local function register_candle_lamp(material, desc, ingot)
 	local upTx = "lamps_candle_lamp_"..material.."_up.png"
 	local sideTx = "lamps_light_candle_lamp.png^lamps_candle_lamp_"..material.."_side.png"
-	local chainA = "lamps_chain_"..material.."_a.png"
-	local chainB = "lamps_chain_"..material.."_b.png"
+	local chain = "lamps_chains_"..material..".png"
 
 	-- Лампа-итем.
 	minetest.register_craftitem("lamps:"..material.."_item_candle_lamp", {
@@ -33,23 +45,16 @@ local function register_candle_lamp(material, desc, ingot)
 		description = desc.." candle lamp",
 		tiles = {
 			upTx,
-			upTx,
 			sideTx},
 		use_texture_alpha = "clip",
 		groups = {cracky = 2, not_in_creative_inventory = 1},
-		drawtype = "nodebox",
+		drawtype = "mesh",
 		paramtype = "light",
 		paramtype2 = "facedir",
-		node_box = {
-			type = "fixed",
-			fixed = {
-				{-0.25, -0.5, -0.25, 0.25, -0.4375, 0.25},
-				{-0.1875, -0.4375, -0.1875, 0.1875, 0.0625, 0.1875},
-				{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25},
-				{-0.1875, 0.125, -0.1875, 0.1875, 0.1875, 0.1875},
-				{-0.0625, 0.1875, -0.0625, 0.0625, 0.25, .0625},
-			},
-		},
+		mesh = "lamps_candle_lamp.obj",
+		visual_scale = 6.25,
+		collision_box = candle_lamp_node_box,
+		selection_box = candle_lamp_node_box,
 		light_source = 10,
 		{not_in_creative_inventory = 1, choppy = 2},
 		drop = "lamps:"..material.."_item_candle_lamp",
@@ -60,27 +65,17 @@ local function register_candle_lamp(material, desc, ingot)
 		description = desc.." hanging candle lamp",
 		tiles = {
 			upTx,
-			upTx,
-			sideTx.."^"..chainA,
-			sideTx.."^"..chainA,
-			sideTx.."^"..chainB},
+			sideTx,
+			chain},
 		use_texture_alpha = "clip",
 		groups = {cracky = 2, not_in_creative_inventory = 1},
-		drawtype = "nodebox",
+		drawtype = "mesh",
 		paramtype = "light",
 		paramtype2 = "facedir",
-		node_box = {
-			type = "fixed",
-			fixed = {
-				{-0.25, -0.5, -0.25, 0.25, -0.4375, 0.25},
-				{-0.1875, -0.4375, -0.1875, 0.1875, 0.0625, 0.1875},
-				{-0.25, 0.0625, -0.25, 0.25, 0.125, 0.25},
-				{-0.1875, 0.125, -0.1875, 0.1875, 0.1875, 0.1875},
-				{-0.0625, 0.1875, -0.0625, 0.0625, 0.25, .0625},
-				{-0.125, 0.25, 0, 0.125, 0.5, 0},
-				{0, 0.25, -0.125, 0, 0.5, 0.125},
-			},
-		},
+		mesh = "lamps_hanging_candle_lamp.obj",
+		visual_scale = 6.25,
+		collision_box = candle_lamp_node_box,
+		selection_box = candle_lamp_node_box,
 		light_source = 10,
 		drop = "lamps:"..material.."_item_candle_lamp",
 	})
@@ -101,8 +96,16 @@ local function register_chains(material, desc, ingot)
 	local diagonal2Tx = "lamps_chains_diagonal_2_"..material..".png"
 	local itemTx = "lamps_chains_item_"..material..".png"
 
+	local vertical_name = "lamps:chains_vertical_"..material
+	local diagonal_name = "lamps:chains_diagonal_"..material
+	local diagonal_2_name = "lamps:chains_diagonal_2_"..material
+
+	chains[vertical_name] = diagonal_name
+	chains[diagonal_name] = diagonal_2_name
+	chains[diagonal_2_name] = vertical_name
+
 	-- Вертикальная цепь
-	minetest.register_node("lamps:chains_vertical_"..material, {
+	minetest.register_node(vertical_name, {
 		description = S(desc.." chains"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -130,7 +133,7 @@ local function register_chains(material, desc, ingot)
 	})
 
 	-- Диагональная по грани цепь
-	minetest.register_node("lamps:chains_diagonal_"..material, {
+	minetest.register_node(diagonal_name, {
 		description = S(desc.." diagonal chains"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -154,10 +157,11 @@ local function register_chains(material, desc, ingot)
 				{-0.5, -0.5, -0.125, 0.5, 0.5, 0.125},
 			},
 		},
+		drop = vertical_name,
 	})
 
 	-- Диагональная по кубу цепь
-	minetest.register_node("lamps:chains_diagonal_2_"..material, {
+	minetest.register_node(diagonal_2_name, {
 		description = S(desc.." diagonal chains type 2"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -181,10 +185,11 @@ local function register_chains(material, desc, ingot)
 				{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
 			},
 		},
+		drop = vertical_name,
 	})
 
 	minetest.register_craft({
-		output = "lamps:chains_vertical_"..material,
+		output = vertical_name,
 		recipe = {
 			{ingot, ""},
 			{"", ingot},
@@ -192,26 +197,11 @@ local function register_chains(material, desc, ingot)
 	})
 
 	minetest.register_craft({
-		output = "lamps:chains_vertical_"..material,
+		output = vertical_name,
 		recipe = {
 			{"", ingot},
 			{ingot, ""},
 			{"", ingot}},
-	})
-
-	minetest.register_craft({
-		output = "lamps:chains_diagonal_"..material.." 2",
-		recipe = {
-			{"", "lamps:chains_vertical_"..material},
-			{"lamps:chains_vertical_"..material, ""}},
-	})
-
-	minetest.register_craft({
-		output = "lamps:chains_diagonal_2_"..material.." 3",
-		recipe = {
-			{"", "", "lamps:chains_vertical_"..material},
-			{"", "lamps:chains_vertical_"..material, ""},
-			{"lamps:chains_vertical_"..material, "", ""}},
 	})
 end
 
@@ -221,7 +211,48 @@ register_candle_lamp("steel", "Steel", "default:steel_ingot")
 register_candle_lamp("silver", "Silver", "lottores:silver_ingot")
 register_candle_lamp("tin", "Tin", "lottores:tin_ingot")
 
+register_chains("gold", "Gold", "default:gold_ingot")
+register_chains("bronze", "Bronze", "default:bronze_ingot")
 register_chains("steel", "Steel", "default:steel_ingot")
+register_chains("silver", "Silver", "lottores:silver_ingot")
+register_chains("tin", "Tin", "lottores:tin_ingot")
+
+-- Гаечный ключ
+minetest.register_tool("lamps:wrench", {
+	description = S("Wrench") .. "\n" .. S("(left click to tilt the chain)"),
+	inventory_image = "lamps_wrench.png",
+	groups = {tool = 1},
+	on_use = function(itemstack, user, pointed_thing)
+		if not user then return end
+
+		if not pointed_thing.under then return end
+
+		local node = minetest.get_node(pointed_thing.under)
+
+		if not node then return end
+
+		-- Имя для нового блока, если блок не является цепью, то nill
+		local name = chains[node.name]
+
+		if not name then return end
+
+		node.name = name
+
+		minetest.swap_node(pointed_thing.under, node)
+
+		itemstack:add_wear(500)
+
+		return itemstack
+	end,
+})
+
+minetest.register_craft({
+	output = "lamps:wrench",
+	recipe = {
+		{"default:steel_ingot"},
+		{"default:steel_ingot"}
+	}
+})
 
 minetest.register_node("lamps:dungeon_lamp", {
 	description = S("Dungeon lamp"),
@@ -271,7 +302,7 @@ minetest.register_node("lamps:dungeon_lamp_hanging", {
 	tiles = {"lamps_dungeon_lamp_top.png",
 		"lamps_dungeon_lamp_side.png",
 		"lamps_dungeon_lamp_candle.png",
-		"lamps_chains.png"},
+		"lamps_chains_steel.png"},
 	groups = {cracky = 2, not_in_creative_inventory = 1},
 	drawtype = "mesh",
 	paramtype = "light",
