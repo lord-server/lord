@@ -305,6 +305,7 @@ minetest.unregister_item("default:stone_with_tin")
 minetest.unregister_item("default:tinblock")
 minetest.unregister_item("default:bush_stem")
 minetest.unregister_item("default:bush_sapling")
+minetest.unregister_item("default:bush_leaves")
 minetest.unregister_item("default:acacia_bush_stem")
 minetest.unregister_item("default:acacia_bush_leaves")
 minetest.unregister_item("default:acacia_bush_sapling")
@@ -323,9 +324,11 @@ minetest.unregister_item("default:coral_orange")
 minetest.unregister_item("default:coral_skeleton")
 minetest.unregister_item("default:sign_wall_wood")
 minetest.unregister_item("default:sign_wall_steel")
+minetest.unregister_item("default:fence_junglewood")
 minetest.unregister_item("default:fence_acacia_wood")
 minetest.unregister_item("default:fence_pine_wood")
 minetest.unregister_item("default:fence_aspen_wood")
+minetest.unregister_item("default:fence_rail_junglewood")
 minetest.unregister_item("default:fence_rail_acacia_wood")
 minetest.unregister_item("default:fence_rail_pine_wood")
 minetest.unregister_item("default:fence_rail_aspen_wood")
@@ -393,6 +396,7 @@ minetest.override_item("default:cactus", {
 	drawtype = "nodebox",
 	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png",
 	"default_cactus_side.png","default_cactus_side.png","default_cactus_side.png"},
+	use_texture_alpha = "clip",
 	groups = {snappy = 1, choppy = 3, flammable = 2, plant = 1, oddly_breakable_by_hand = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	paramtype = "light",
@@ -463,7 +467,9 @@ minetest.override_item("default:leaves", {
 	drawtype = "mesh",
 	mesh = "leaves_model.obj",
 	tiles = {"default_leaves.png"},
+	use_texture_alpha = "clip",
 	inventory_image = "default_leaves_inv.png",
+	waving = 2,
 	walkable = false,
 	climbable = true,
 })
@@ -472,7 +478,9 @@ minetest.override_item("default:jungleleaves", {
 	drawtype = "mesh",
 	mesh = "leaves_model.obj",
 	tiles = {"default_jungleleaves.png"},
+	use_texture_alpha = "clip",
 	inventory_image = "default_jungleleaves_inv.png",
+	waving = 2,
 	walkable = false,
 	climbable = true,
 })
@@ -576,6 +584,58 @@ else
 		return nil
 	end
 end
+
+local function grow_papyrus_but_on_soils(pos, node)
+	pos.y = pos.y - 1
+	local name = minetest.get_node(pos).name
+
+	-- HACK: There's another, non-overridable ABM in minetest_game that grows
+	-- papyrus on these nodes. They're explicitly excluded from this ABM to
+	-- keep growth chances equal.
+	local is_growing_in_mtg =
+		name == "default:dirt" or
+		name == "default:dirt_with_grass" or
+		name == "default:dirt_with_dry_grass" or
+		name == "default:dirt_with_rainforest_litter" or
+		name == "default:dry_dirt" or
+		name == "default:dry_dirt_with_dry_grass"
+
+	local is_soil = minetest.get_item_group(name, "soil") ~= 0
+
+	-- Technically sand isn't soil, but it's required to keep compatibility
+	if (not is_soil and name ~= "default:sand") or is_growing_in_mtg then
+		return
+	end
+	if not minetest.find_node_near(pos, 3, {"group:water"}) then
+		return
+	end
+	pos.y = pos.y + 1
+	local height = 0
+	while node.name == "default:papyrus" and height < 4 do
+		height = height + 1
+		pos.y = pos.y + 1
+		node = minetest.get_node(pos)
+	end
+	if height == 4 or node.name ~= "air" then
+		return
+	end
+	if minetest.get_node_light(pos) < 13 then
+		return
+	end
+	minetest.set_node(pos, {name = "default:papyrus"})
+	return true
+end
+
+minetest.register_abm({
+	label = "Grow papyrus, but on the rest of soils",
+	nodenames = {"default:papyrus"},
+	neighbors = {"group:soil", "default:sand"},
+	interval = 14,
+	chance = 71,
+	action = function(...)
+		grow_papyrus_but_on_soils(...)
+	end
+})
 
 -- Фикс локализации эвкалипта
 minetest.override_item("default:jungletree", {

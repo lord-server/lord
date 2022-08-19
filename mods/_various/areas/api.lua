@@ -18,7 +18,8 @@ function areas:canInteract(pos, name)
 	if minetest.check_player_privs(name, self.adminPrivs) then
 		return true
 	end
-	if minetest.registered_nodes[minetest.get_node(pos).name].groups["corpse"] then
+	local node = minetest.registered_nodes[minetest.get_node(pos).name]
+	if node and node.groups["corpse"] then
 		return true
 	end
 	local owned = false

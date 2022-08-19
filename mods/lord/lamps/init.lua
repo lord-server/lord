@@ -35,6 +35,7 @@ local function register_candle_lamp(material, desc, ingot)
 			upTx,
 			upTx,
 			sideTx},
+		use_texture_alpha = "clip",
 		groups = {cracky = 2, not_in_creative_inventory = 1},
 		drawtype = "nodebox",
 		paramtype = "light",
@@ -63,6 +64,7 @@ local function register_candle_lamp(material, desc, ingot)
 			sideTx.."^"..chainA,
 			sideTx.."^"..chainA,
 			sideTx.."^"..chainB},
+		use_texture_alpha = "clip",
 		groups = {cracky = 2, not_in_creative_inventory = 1},
 		drawtype = "nodebox",
 		paramtype = "light",
@@ -94,3 +96,6 @@ end
 
 register_candle_lamp("gold", "Gold", "default:gold_ingot")
 register_candle_lamp("bronze", "Bronze", "default:bronze_ingot")
+register_candle_lamp("steel", "Steel", "default:steel_ingot")
+register_candle_lamp("silver", "Silver", "lottores:silver_ingot")
+register_candle_lamp("tin", "Tin", "lottores:tin_ingot")

@@ -125,6 +125,7 @@ Network Name = Клан палантиров
 Palantir Name = Имя палантира
 Both the network and the palantir must have a name!! = Клан и Палантир должны иметь имя!!
 Palantir cannot use reserved name! = Палантир не может иметь зарезервированное имя!
+Palantir cannot have commas in its name!=Палантир не должен содержать запятые в имени!
 Someone else has a network with this name! = Кто-то уже создал такой клан!
 A palantir already exists on this network with the same name! = В этом клане уже есть палантир с таким именем!
 The palantiri is no longer anchored to the world! = Палантир больше не привязан к миру!

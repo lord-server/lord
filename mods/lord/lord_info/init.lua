@@ -230,7 +230,8 @@ local function list_form(name, select_id, find)
 			(
 				(find == "") or
 				(string.find(string.lower(i), string.lower(find))) or
-				(string.find(string.lower(j.description), string.lower(find)))
+				(string.find(string.lower(j.description), string.lower(find))) or
+				(string.find(string.lower(minetest.get_translated_string("ru", j.description)), string.lower(find)))
 			)
 		then
 			table.insert(list, i)

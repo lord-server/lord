@@ -867,8 +867,7 @@ my_register_stair_and_slab(
 	{"default_ice.png"},
 	"Ice Stair",
 	"Ice Slab",
-	--default.node_sound_ice_defaults(),
-	default.node_sound_glass_defaults(), -- Вернуть, когда обновится MTG/default/functions.lua
+	default.node_sound_ice_defaults(),
 	true
 )
 
