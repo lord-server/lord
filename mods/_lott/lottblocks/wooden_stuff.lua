@@ -62,30 +62,28 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{ wood_name, wood_name },
 			}
 		})
-		if name ~= "junglewood" then
-			default.register_fence("lottblocks:fence_" .. name, {
-				description = S(description .. " Fence"),
-				texture = "lottblocks_fence_"..name.."_wood.png",
-				inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
-							"default_fence_overlay.png^[makealpha:255,126,126",
-				wield_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
-							"default_fence_overlay.png^[makealpha:255,126,126",
-				material = wood_name,
-				groups = node_groups,
-				sounds = default.node_sound_wood_defaults()
-			})
-			default.register_fence_rail("lottblocks:fence_rail_" .. name, {
-				description = S(description .. " Fence Rail"),
-				texture = "lottplants_"..name.."wood.png",
-				inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
-							"default_fence_rail_overlay.png^[makealpha:255,126,126",
-				wield_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
-							"default_fence_rail_overlay.png^[makealpha:255,126,126",
-				material = wood_name,
-				groups = node_groups,
-				sounds = default.node_sound_wood_defaults()
-			})
-		end
+		default.register_fence("lottblocks:fence_" .. name, {
+			description = S(description .. " Fence"),
+			texture = "lottblocks_fence_"..name.."_wood.png",
+			inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
+						"default_fence_overlay.png^[makealpha:255,126,126",
+			wield_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
+						"default_fence_overlay.png^[makealpha:255,126,126",
+			material = wood_name,
+			groups = node_groups,
+			sounds = default.node_sound_wood_defaults()
+		})
+		default.register_fence_rail("lottblocks:fence_rail_" .. name, {
+			description = S(description .. " Fence Rail"),
+			texture = "lottplants_"..name.."wood.png",
+			inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
+						"default_fence_rail_overlay.png^[makealpha:255,126,126",
+			wield_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
+						"default_fence_rail_overlay.png^[makealpha:255,126,126",
+			material = wood_name,
+			groups = node_groups,
+			sounds = default.node_sound_wood_defaults()
+		})
 
 		-- STICK | ПАЛОЧКА
 		minetest.register_craftitem("lottblocks:stick_" .. name, {
@@ -311,13 +309,7 @@ lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lot
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
 
-minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
-minetest.override_item("default:fence_junglewood", {
-	description = S("Junglewood Fence")
-})
-minetest.override_item("default:fence_rail_junglewood", {
-	description = S("Junglewood Fence Rail")
-})
+minetest.register_alias("default:fence_junglewood", "lottblocks:fence_junglewood")
 minetest.override_item("default:fence_wood", {
 	description = S("Wooden Fence")
 })
