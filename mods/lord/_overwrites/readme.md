@@ -16,3 +16,4 @@
 - [MTG/stairs](MTG/stairs/readme.md) - переопр. для `minetest_game/stairs`
 - [MTG/screwdriver](MTG/screwdriver/readme.md) - переопр. для `minetest_game/screwdriver`
 - MTG/flowers - переопр. для `minetest_game/flowers`
+- [various/replacer] - переопр. для `_various/replacer`
