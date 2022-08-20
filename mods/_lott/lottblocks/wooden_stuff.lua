@@ -11,41 +11,29 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	groups_door.door      = 1
 	if name ~= "wood" then
 		doors.register_door("lottblocks:door_" .. name, {
+			tiles           = {{ name = "lottblocks_door_" .. name .. "_uv.png", backface_culling = true }},
 			description     = S(description .. " Door"),
 			inventory_image = "lottblocks_door_" .. name .. ".png",
-			groups          = groups_door,
-			tiles_bottom    = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
-			tiles_top       = { "lottblocks_door_" .. name .. "_a.png", "lottblocks_edge_" .. name .. ".png" },
-			sounds          = default.node_sound_wood_defaults(),
 			sound_open      = "doors_door_open",
 			sound_close     = "doors_door_close",
-			sunlight        = true,
-		})
-		minetest.register_craft({
-			output = "lottblocks:door_" .. name,
+			groups          = groups_door,
 			recipe = {
 				{ wood_name, wood_name },
 				{ wood_name, wood_name },
-				{ wood_name, wood_name }
-			}
+				{ wood_name, wood_name },
+			},
 		})
 		doors.register_door("lottblocks:door_" .. name .. "_lock", {
-			description          = S(description .. " Door With Lock"),
-			inventory_image      = "lottblocks_door_" .. name .. ".png^doors_lock.png",
-			groups               = groups_door,
-			tiles_bottom         = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
-			tiles_top            = { "lottblocks_door_" .. name .. "_a.png", "lottblocks_edge_" .. name .. ".png" },
-			sounds               = default.node_sound_wood_defaults(),
-			sound_open           = "doors_door_open",
-			sound_close          = "doors_door_close",
-			sunlight             = true,
-			only_placer_can_open = true,
-		})
-		minetest.register_craft({
-			output = "lottblocks:door_" .. name .. "_lock",
-			recipe = {
-				{ "lottblocks:door_" .. name, "default:steel_ingot" }
-			}
+			tiles           = {{ name = "lottblocks_door_" .. name .. "_uv.png", backface_culling = true }},
+			description     = S(description .. " Door With Lock"),
+			inventory_image = "lottblocks_door_" .. name .. ".png",
+			sound_open      = "doors_door_open",
+			sound_close     = "doors_door_close",
+			groups          = groups_door,
+			recipe          = {
+				{ "lottblocks:door_" .. name, "default:steel_ingot" },
+			},
+			protected       = true,
 		})
 		node_groups.not_in_creative_inventory = 0
 		doors.register_trapdoor("lottblocks:hatch_" .. name, {
@@ -55,9 +43,6 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			tile_front      = "lottblocks_hatch_" .. name .. ".png",
 			tile_side       = "doors_trapdoor_side.png",
 			groups          = node_groups,
-			sounds          = default.node_sound_wood_defaults(),
-			sound_open      = "doors_door_open",
-			sound_close     = "doors_door_close"
 		})
 		minetest.register_craft({
 			output = "lottblocks:hatch_" .. name,
