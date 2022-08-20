@@ -6,4 +6,26 @@ Silver candle lamp=
 Tin candle lamp=
 Dungeon lamp=
 Dungeon hanging lamp=
-Chains=
+
+Gold chains=
+Gold diagonal chains=
+Gold diagonal chains type 2=
+
+Bronze chains=
+Bronze diagonal chains=
+Bronze diagonal chains type 2=
+
+Steel chains=
+Steel diagonal chains=
+Steel diagonal chains type 2=
+
+Silver chains=
+Silver diagonal chains=
+Silver diagonal chains type 2=
+
+Tin chains=
+Tin diagonal chains=
+Tin diagonal chains type 2=
+
+Wrench=
+(left click to tilt the chain)=
