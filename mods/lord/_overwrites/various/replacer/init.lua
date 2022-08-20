@@ -9,11 +9,3 @@ replacer.blacklist["lottblocks:palantir"] = true
 -- Надо вырезать крафты
 minetest.clear_craft({output = "replacer:inspect"})
 minetest.clear_craft({output = "replacer:replacer"})
-
--- B добавить для реплейсера новый
-minetest.register_craft({
-	output = "replacer:replacer",
-	recipe = {
-		{ "default:steel_ingot", "default:stick"},
-	}
-})
