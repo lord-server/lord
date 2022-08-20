@@ -10,45 +10,10 @@ dofile(minetest.get_modpath("castle").."/shields_decor.lua") --декор.щит
 dofile(minetest.get_modpath("castle").."/rope.lua") --блок с троссом
 
 doors.register_door("castle:oak_door", {
+	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
 	description = SL("Oak Door"),
-	inventory_image = "castle_oak_door_inv.png",
-	groups = {choppy=2,door=1, wooden = 1},
-	tiles_bottom = {"castle_oak_door_bottom.png", "door_oak.png"},
-	tiles_top = {"castle_oak_door_top.png", "door_oak.png"},
-	sunlight = true,
-})
-
-doors.register_door("castle:oak_door_lock", {
-	description = SL("Oak Door With Lock"),
-	inventory_image = "castle_oak_door_inv.png^doors_lock.png",
-	groups = {choppy=2,door=1, wooden = 1},
-	tiles_bottom = {"castle_oak_door_bottom_lock.png", "door_oak.png"},
-	tiles_top = {"castle_oak_door_top.png", "door_oak.png"},
-	only_placer_can_open = true,
-	sunlight = true,
-})
-
-doors.register_door("castle:jail_door", {
-	description = SL("Jail Door"),
-	inventory_image = "castle_jail_door_inv.png",
-	groups = {cracky=2,door=1, steel_item=1},
-	tiles_bottom = {"castle_jail_door_bottom.png", "door_jail.png"},
-	tiles_top = {"castle_jail_door_top.png", "door_jail.png"},
-	sunlight = true,
-})
-
-doors.register_door("castle:jail_door_lock", {
-	description = SL("Jail Door With Lock"),
-	inventory_image = "castle_jail_door_inv.png^doors_lock.png",
-	groups = {cracky=2,door=1, steel_item=1},
-	tiles_bottom = {"castle_jail_door_bottom.png", "door_jail.png"},
-	tiles_top = {"castle_jail_door_top.png", "door_jail.png"},
-	only_placer_can_open = true,
-	sunlight = true,
-})
-
-minetest.register_craft({
-	output = "castle:oak_door",
+	inventory_image = "castle_oak_door.png",
+	groups = { choppy=2, door=1, wooden = 1, },
 	recipe = {
 		{"default:tree", "default:tree"},
 		{"default:tree", "default:tree"},
@@ -56,13 +21,32 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "castle:jail_door",
+doors.register_door("castle:oak_door_lock", {
+	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
+	description = SL("Oak Door With Lock"),
+	inventory_image = "castle_oak_door.png",
+	groups = { choppy=2, door=1, wooden = 1, },
+	protected = true,
+})
+
+doors.register_door("castle:jail_door", {
+	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
+	description = SL("Jail Door"),
+	inventory_image = "castle_jail_door.png",
+	groups = { cracky=2, door=1, steel_item=1, },
 	recipe = {
 		{"castle:jailbars", "castle:jailbars"},
 		{"castle:jailbars", "castle:jailbars"},
 		{"castle:jailbars", "castle:jailbars"}
 	}
+})
+
+doors.register_door("castle:jail_door_lock", {
+	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
+	description = SL("Jail Door With Lock"),
+	inventory_image = "castle_jail_door.png",
+	groups = { cracky=2, door=1, steel_item=1, },
+	protected = true,
 })
 
 minetest.register_craft({
