@@ -213,7 +213,7 @@ local function help_form(name, select_id, page)
 	form = form.."button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
 	return form
 end
-local function list_form(name, select_id, find)
+local function list_form(name, select_id, search_query)
 	local form = form_prop
 	form = form..
 		"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
@@ -221,21 +221,20 @@ local function list_form(name, select_id, find)
 		"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"..
 		"label[0.3,1.0;"..SL("Objects:").."]"..
 		"field_close_on_enter[txt_filter;false]"..
-		"field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(find).."]"..
+		"field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
 		"button[5.2,0.7;2.5,1;btn_find;"..SL("Find").."]"
 
-	local list = {}
-	for i, j in pairs(minetest.registered_items) do
-		if
-			(i ~= '') and
-			(
-				(find == "") or
-				(string.find(string.lower(i), string.lower(find))) or
-				(string.find(string.lower(j.description), string.lower(find))) or
-				(string.find(string.lower(minetest.get_translated_string("ru", j.description)), string.lower(find)))
-			)
+	local search_index = minetest.registered_items
+	search_index[''] = nil
+	local list = {} -- filtered result
+	search_query = string.lower(search_query)
+	for id, def in pairs(search_index) do
+		if (search_query == "") or
+			(string.find(string.lower(id), search_query)) or
+			(string.find(string.lower(def.description), search_query)) or
+			(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query))
 		then
-			table.insert(list, i)
+			table.insert(list, id)
 		end
 	end
 	if #list == 0 then
@@ -247,26 +246,23 @@ local function list_form(name, select_id, find)
 	else
 		table.sort(list)
 		local item_name = list[select_id]
-		local stack_max = minetest.registered_items[list[select_id]].stack_max
+		form = form.."field[3,3;0,0;txt_select;;"..item_name.."]" -- скрыто
+		form = form.."textlist[0.3,1.5;7.2,3.0;lst_objs;"..table.concat(list, ",")..";"..tostring(select_id)..";]"
+		form = form.."label[0.3,4.5;"..SL("Groups:").."]"
 		local groups = {}
 		for i, j in pairs(minetest.registered_items[list[select_id]].groups) do
 			table.insert(groups, i.." = "..tostring(j))
 		end
 		groups = table.concat(groups, ",")
-		local description = minetest.registered_items[list[select_id]].description
-		if (description == nil)or(description == "") then
-			description = SL("no description")
-		end
-		description = minetest.formspec_escape(description)
-		list = table.concat(list, ",")
-		form = form.."field[3,3;0,0;txt_select;;"..item_name.."]" -- скрыто
-		form = form.."textlist[0.3,1.5;7.2,3.0;lst_objs;"..list..";"..tostring(select_id)..";]"
-		form = form.."label[0.3,4.5;"..SL("Groups:").."]"
 		form = form.."textlist[0.3,5.0;7.2,1.0;lst_groups;"..groups..";;]"
+		local description = minetest.registered_items[list[select_id]].description
+		if (description == nil)or(description == "") then description = SL("no description") end
+		description = minetest.formspec_escape(description)
 		form = form.."textarea[0.6,6.5;7.4,1.5;txt_description;"..SL("Description:")..";"..description.."]"
 		form = form.."button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
 		form = form.."label[4.0,7.9;"..SL("To invenory:").."]"
 		form = form.."item_image_button[5.7,7.7;1,1;"..item_name..";btn_giveme;1]"
+		local stack_max = minetest.registered_items[list[select_id]].stack_max
 		form = form.."item_image_button[6.7,7.7;1,1;"..item_name..";btn_giveme_m;"..tostring(stack_max).."]"
 	end
 	return form
