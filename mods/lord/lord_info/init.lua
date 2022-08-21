@@ -218,10 +218,11 @@ local function list_form(name, select_id, find)
 	form = form..
 		"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
 		"button[2.75,0;2.5,1;btn_news;"..SL("News").."]"..
-		"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
-	form = form.."label[0.3,1.0;"..SL("Objects:").."]"
-	form = form.."field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(find).."]"
-	form = form.."button[5.2,0.7;2.5,1;btn_find;"..SL("Find").."]"
+		"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"..
+		"label[0.3,1.0;"..SL("Objects:").."]"..
+		"field_close_on_enter[txt_filter;false]"..
+		"field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(find).."]"..
+		"button[5.2,0.7;2.5,1;btn_find;"..SL("Find").."]"
 
 	local list = {}
 	for i, j in pairs(minetest.registered_items) do
@@ -366,7 +367,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			minetest.chat_send_player(player:get_player_name(), SL("Error: Inventory is full!"))
 		end
 	end
-	if (formname == "list_form")and(fields.btn_find) then
+	if (formname == "list_form")and((fields.btn_find)or(fields.key_enter_field == "txt_filter")) then
 		minetest.show_formspec(name, "list_form", list_form(name, 1, fields.txt_filter))
 	end
 end)
