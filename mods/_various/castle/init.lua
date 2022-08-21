@@ -9,7 +9,7 @@ dofile(minetest.get_modpath("castle").."/murder_hole.lua") --дыры-убийц
 dofile(minetest.get_modpath("castle").."/shields_decor.lua") --декор.щиты
 dofile(minetest.get_modpath("castle").."/rope.lua") --блок с троссом
 
-doors.register_door("castle:oak_door", {
+doors.register("castle:oak_door", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
 	description = SL("Oak Door"),
 	inventory_image = "castle_oak_door.png",
@@ -21,7 +21,7 @@ doors.register_door("castle:oak_door", {
 	}
 })
 
-doors.register_door("castle:oak_door_lock", {
+doors.register("castle:oak_door_lock", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
 	description = SL("Oak Door With Lock"),
 	inventory_image = "castle_oak_door.png",
@@ -29,7 +29,7 @@ doors.register_door("castle:oak_door_lock", {
 	protected = true,
 })
 
-doors.register_door("castle:jail_door", {
+doors.register("castle:jail_door", {
 	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
 	description = SL("Jail Door"),
 	inventory_image = "castle_jail_door.png",
@@ -41,7 +41,7 @@ doors.register_door("castle:jail_door", {
 	}
 })
 
-doors.register_door("castle:jail_door_lock", {
+doors.register("castle:jail_door_lock", {
 	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
 	description = SL("Jail Door With Lock"),
 	inventory_image = "castle_jail_door.png",

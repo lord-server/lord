@@ -1,6 +1,6 @@
 local SL = minetest.get_translator("lord_doors")
 
-doors.register_door("lord_doors:door_gondor", {
+doors.register("lord_doors:door_gondor", {
 	tiles = {{ name = "lord_doors_gondor.png", backface_culling = true }},
 	description =  SL("Gondor Door"),
 	inventory_image = "lord_doors_item_gondor.png",

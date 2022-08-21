@@ -11,7 +11,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		local door_reg_name = "lottblocks:door_" .. name
 		local door_inv_texture       = "lottblocks_door_" .. name .. ".png"
 		local door_uv_texture        = "lottblocks_door_" .. name .. "_uv.png"
-		doors.register_door(door_reg_name, {
+		doors.register(door_reg_name, {
 			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door"),
 			inventory_image = door_inv_texture,
@@ -24,7 +24,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{ wood_name, wood_name },
 			},
 		})
-		doors.register_door(door_reg_name .. "_lock", {
+		doors.register(door_reg_name .. "_lock", {
 			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door With Lock"),
 			inventory_image = door_inv_texture,

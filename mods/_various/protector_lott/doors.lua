@@ -11,7 +11,7 @@ local function reg_prot_door(desc, name, door, mat, texture_i, texture_uv)
 	else
 		gd = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, door = 1, unbreakable = 1}
 	end
-	doors.register_door(name, {
+	doors.register(name, {
 		tiles = {{ name = texture_uv.."^protector_logo_door_uv.png", backface_culling = true }},
 		description = SL(desc),
 		inventory_image = texture_i.."^protector_logo_i.png",
