@@ -70,6 +70,7 @@ local S = minetest.get_translator("bees")
       'bees_hive_wild.png',
       'bees_hive_wild.png^bees_hive_wild_hole.png'
     },
+	use_texture_alpha = "clip",
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'wallmounted',
@@ -209,6 +210,7 @@ local S = minetest.get_translator("bees")
       'bees_hive_wild.png',
       'bees_hive_wild.png^bees_hive_wild_honey_hole.png'
     },
+	use_texture_alpha = "clip",
     drawtype = 'nodebox',
     paramtype = 'light',
     paramtype2 = 'wallmounted',
