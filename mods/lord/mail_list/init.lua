@@ -49,7 +49,7 @@ minetest.register_chatcommand("getmail", {
 })
 
 if
-	minetest.setting_getbool("msg_loading_mods")
+	minetest.settings:get_bool("msg_loading_mods")
 then
 	minetest.log("action", minetest.get_current_modname().." mod LOADED")
 end
