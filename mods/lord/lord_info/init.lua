@@ -244,7 +244,26 @@ local function list_form(name, select_id, search_query)
 		form = form.."textarea[0.6,6.5;7.4,1.5;txt_description;"..SL("Description:")..";]"
 		form = form.."button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
 	else
+		-- sorting
 		table.sort(list)
+
+		-- moving ghost items to the end of the result list:
+		local ghost_prefix = "defaults:"
+		local ghosts_list = {}
+		local iter = 1; while iter <= #list do -- `while` loop used instead of `for` for dynamic loop variable
+			local item = list[iter]
+			if string.sub(item, 1, string.len(ghost_prefix)) == ghost_prefix then -- startswith check
+				table.remove(list, iter)
+				table.insert(ghosts_list, item)
+				iter = iter - 1 -- HACK: to re-read the same cell due to a shift after table.remove
+			end
+			iter = iter + 1
+		end
+		for i, item in ipairs(ghosts_list) do
+			table.insert(list, item)
+		end
+
+		-- form construction step-by-step
 		local item_name = list[select_id]
 		form = form.."field[3,3;0,0;txt_select;;"..item_name.."]" -- скрыто
 		form = form.."textlist[0.3,1.5;7.2,3.0;lst_objs;"..table.concat(list, ",")..";"..tostring(select_id)..";]"
