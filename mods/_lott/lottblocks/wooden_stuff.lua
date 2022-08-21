@@ -1,19 +1,20 @@
 local S = minetest.get_translator("lottblocks")
 
 function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
-	local node_groups = {}
-	for i, k in pairs(minetest.registered_nodes[wood_name].groups) do
-		if i ~= 'wood' then node_groups[i] = k end
-	end
+	local node_groups     = table.copy(minetest.registered_nodes[wood_name].groups)
+	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
-	local groups_door     = node_groups
+	local groups_door     = table.copy(node_groups)
 	groups_door.door      = 1
-	if name ~= "wood" then
-		doors.register_door("lottblocks:door_" .. name, {
-			tiles           = {{ name = "lottblocks_door_" .. name .. "_uv.png", backface_culling = true }},
+	if name ~= "wood" then -- to not overwrite registrations from minetest_game
+		local door_reg_name = "lottblocks:door_" .. name
+		local door_inv_texture       = "lottblocks_door_" .. name .. ".png"
+		local door_uv_texture        = "lottblocks_door_" .. name .. "_uv.png"
+		doors.register_door(door_reg_name, {
+			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door"),
-			inventory_image = "lottblocks_door_" .. name .. ".png",
+			inventory_image = door_inv_texture,
 			sound_open      = "doors_door_open",
 			sound_close     = "doors_door_close",
 			groups          = groups_door,
@@ -23,34 +24,38 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{ wood_name, wood_name },
 			},
 		})
-		doors.register_door("lottblocks:door_" .. name .. "_lock", {
-			tiles           = {{ name = "lottblocks_door_" .. name .. "_uv.png", backface_culling = true }},
+		doors.register_door(door_reg_name .. "_lock", {
+			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door With Lock"),
-			inventory_image = "lottblocks_door_" .. name .. ".png",
+			inventory_image = door_inv_texture,
 			sound_open      = "doors_door_open",
 			sound_close     = "doors_door_close",
 			groups          = groups_door,
 			recipe          = {
-				{ "lottblocks:door_" .. name, "default:steel_ingot" },
+				{ door_reg_name, "default:steel_ingot", }
 			},
 			protected       = true,
 		})
+
+		local hatch_reg_name = "lottblocks:hatch_" .. name
+		local hatch_inv_texture = "lottblocks_hatch_" .. name .. ".png"
 		node_groups.not_in_creative_inventory = 0
-		doors.register_trapdoor("lottblocks:hatch_" .. name, {
+		doors.register_trapdoor(hatch_reg_name, {
 			description     = S(description .. " Trapdoor"),
-			inventory_image = "lottblocks_hatch_" .. name .. ".png",
-			wield_image     = "lottblocks_hatch_" .. name .. ".png",
-			tile_front      = "lottblocks_hatch_" .. name .. ".png",
+			inventory_image = hatch_inv_texture,
+			wield_image     = hatch_inv_texture,
+			tile_front      = hatch_inv_texture,
 			tile_side       = "doors_trapdoor_side.png",
 			groups          = node_groups,
 		})
 		minetest.register_craft({
-			output = "lottblocks:hatch_" .. name,
+			output = hatch_reg_name,
 			recipe = {
 				{ wood_name, wood_name },
 				{ wood_name, wood_name },
 			}
 		})
+
 		if name ~= "junglewood" then
 			default.register_fence("lottblocks:fence_" .. name, {
 				description = S(description .. " Fence"),
@@ -77,40 +82,35 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		end
 
 		-- STICK | ПАЛОЧКА
-		minetest.register_craftitem("lottblocks:stick_" .. name, {
+		local stick_reg_name = "lottblocks:stick_" .. name
+		minetest.register_craftitem(stick_reg_name, {
 			description     = S(description .. " Stick"),
 			inventory_image = "lottblocks_" .. name .. "_stick.png",
 			groups          = { stick = 1 },
 		})
-
 		minetest.register_craft({
-			output = "lottblocks:stick_" .. name .. " 4",
+			output = stick_reg_name .. " 4",
 			recipe = {
 				{ wood_name },
 			}
 		})
 
 		-- LADDER | ЛЕСТНИЦА
-		minetest.register_node("lottblocks:ladder_" .. name, {
+		local ladder_reg_name = "lottblocks:ladder_" .. name
+		local ladder_tile_texture = "lottblocks_" .. name .. "_planks.png"
+		local ladder_inv_texture = "lottblocks_" .. name .. "_ladder.png"
+		minetest.register_node(ladder_reg_name, {
 			description               = S(description .. " Ladder"),
-			--drawtype = "signlike",
 			drawtype                  = "nodebox",
-			tiles                     = { "lottblocks_" .. name .. "_planks.png" },
-			particle_image            = { "lottblocks_" .. name .. "_planks.png" },
-			inventory_image           = "lottblocks_" .. name .. "_ladder.png",
-			wield_image               = "lottblocks_" .. name .. "_ladder.png",
+			tiles                     = { ladder_tile_texture },
+			particle_image            = { ladder_tile_texture },
+			inventory_image           = ladder_inv_texture,
+			wield_image               = ladder_inv_texture,
 			paramtype                 = "light",
 			paramtype2                = "facedir",
-			--paramtype2 = "wallmounted",
 			walkable                  = true,
 			climbable                 = true,
 			is_ground_content         = false,
-			--selection_box = {
-			--type = "wallmounted",
-			----wall_top = = <default>
-			----wall_bottom = = <default>
-			----wall_side = = <default>
-			--},
 			node_box                  = {
 				type  = "fixed",
 				fixed = {
@@ -175,19 +175,18 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			legacy_wallmounted        = true,
 			sounds                    = default.node_sound_wood_defaults(),
 		})
-
-		local stick_name = "lottblocks:stick_" .. name
 		minetest.register_craft({
-			output = "lottblocks:ladder_" .. name .. " 7",
+			output = ladder_reg_name .. " 7",
 			recipe = {
-				{ stick_name, "", stick_name },
-				{ stick_name, stick_name, stick_name },
-				{ stick_name, "", stick_name },
+				{ stick_reg_name, "",             stick_reg_name },
+				{ stick_reg_name, stick_reg_name, stick_reg_name },
+				{ stick_reg_name, "",             stick_reg_name },
 			}
 		})
 
 		-- STANCHION | СТОЙКИ
-		minetest.register_node("lottblocks:" .. name .. "_stanchion", {
+		local stanchion_reg_name = "lottblocks:" .. name .. "_stanchion"
+		minetest.register_node(stanchion_reg_name, {
 			description         = S(description .. " Stanchion"),
 			tiles               = { texture },
 			drawtype            = "nodebox",
@@ -206,18 +205,18 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			groups              = node_groups
 		})
 		minetest.register_craft({
-			output = "lottblocks:" .. name .. "_stanchion",
+			output = stanchion_reg_name,
 			recipe = {
-				{ stick_name, '', stick_name },
-				{ '', '', '' },
-				{ stick_name, '', stick_name },
+				{ stick_reg_name, '', stick_reg_name },
+				{ '',             '', ''             },
+				{ stick_reg_name, '', stick_reg_name },
 			}
 		})
-
 	end
 
 	-- TABLE | СТОЛ
-	minetest.register_node("lottblocks:" .. name .. "_table", {
+	local table_reg_name = "lottblocks:" .. name .. "_table"
+	minetest.register_node(table_reg_name, {
 		description         = S(description .. " Table"),
 		tiles               = { texture },
 		drawtype            = "nodebox",
@@ -241,16 +240,17 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		groups              = node_groups
 	})
 	minetest.register_craft({
-		output = "lottblocks:" .. name .. "_table",
+		output = table_reg_name,
 		recipe = {
-			{ wood_name, wood_name, wood_name },
+			{ wood_name,     wood_name,     wood_name     },
 			{ 'group:stick', 'group:stick', 'group:stick' },
-			{ 'group:stick', '', 'group:stick' },
+			{ 'group:stick', '',            'group:stick' },
 		}
 	})
 
 	-- CHAIR | КРЕСЛА
-	minetest.register_node("lottblocks:" .. name .. "_chair", {
+	local chair_reg_name = "lottblocks:" .. name .. "_chair"
+	minetest.register_node(chair_reg_name, {
 		description         = S(description .. " Chair"),
 		tiles               = { texture },
 		drawtype            = "nodebox",
@@ -275,18 +275,18 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		groups              = node_groups
 	})
 	minetest.register_craft({
-		output = "lottblocks:" .. name .. "_chair",
+		output = chair_reg_name,
 		recipe = {
-			{ 'group:stick', '' },
-			{ wood_name, wood_name },
+			{ 'group:stick', ''            },
+			{ wood_name,     wood_name     },
 			{ 'group:stick', 'group:stick' },
 		}
 	})
 	minetest.register_craft({
-		output = "lottblocks:" .. name .. "_chair",
+		output = chair_reg_name,
 		recipe = {
-			{ '', 'group:stick' },
-			{ wood_name, wood_name },
+			{ '',            'group:stick' },
+			{ wood_name,     wood_name },
 			{ 'group:stick', 'group:stick' },
 		}
 	})
