@@ -95,6 +95,9 @@ minetest.register_tool("lord_replacer:replacer", {
 	on_use = function(itemstack, placer, pointed_thing)
 		local player_name = placer:get_player_name()
 		local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
+		if pointed_pos == nil then
+			return nil
+		end
 
 		if minetest.is_protected(pointed_pos, player_name) then
 			minetest.chat_send_player(player_name, S("Error: this node is protected."))
