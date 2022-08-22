@@ -61,7 +61,7 @@ minetest.register_tool("lord_replacer:replacer", {
 			local selected_node = minetest.get_node_or_nil(pointed_pos)
 			if selected_node == nil then
 				minetest.chat_send_player(player_name,
-					S("Error: you have selected unloaded node, please wait a moment."))
+					S("Error: you have selected an unloaded node, please wait for server."))
 				return nil
 			end
 
