@@ -3,7 +3,13 @@ local S = minetest.get_translator("lord_replacer")
 local DEFAULT_SELECTED_NODE = "default:dirt"
 local REPLACER_BLACKLIST = {
 	"lottores:tilkal",
+	"stairs:slab_tilkal",
+	"stairs:stair_tilkal",
+	"stairs:stair_inner_tilkal",
+	"stairs:stair_outer_tilkal",
+	"lottblocks:palantir",
 }
+
 
 local function table_has_value(table, value)
 	for _, v in ipairs(table) do
