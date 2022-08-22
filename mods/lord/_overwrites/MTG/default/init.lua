@@ -655,3 +655,15 @@ minetest.override_item("default:fence_wood", {
 minetest.override_item("default:fence_rail_wood", {
 	description = S("Wooden Fence Rail")
 })
+
+-- заменяем исходную текстуру на свою с прозрачностью
+minetest.register_node(":default:ice", {
+	description = S("Ice"),
+	drawtype = "glasslike",
+	tiles = {"default_ice.png"},
+	is_ground_content = true,
+	use_texture_alpha = "blend",
+	paramtype = "light",
+	groups = {cracky = 3, cools_lava = 1, slippery = 3},
+	sounds = default.node_sound_ice_defaults(),
+})
