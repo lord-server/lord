@@ -82,6 +82,10 @@ minetest.register_tool("lord_replacer:replacer", {
 
 		return itemstack
 	end,
+	on_drop = function(itemstack, dropper, pos)
+		-- don't drop!
+		return itemstack
+	end,
 	on_use = function(itemstack, placer, pointed_thing)
 		local player_name = placer:get_player_name()
 		local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
