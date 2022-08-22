@@ -644,3 +644,17 @@ minetest.override_item("default:jungletree", {
 minetest.override_item("default:junglewood", {
 	description = S2("Jungle Wood"),
 })
+
+-- Фикс локализации заборов
+minetest.override_item("default:fence_junglewood", {
+	description = S2("Junglewood Fence")
+})
+minetest.override_item("default:fence_rail_junglewood", {
+	description = S2("Junglewood Fence Rail")
+})
+minetest.override_item("default:fence_wood", {
+	description = S2("Wooden Fence")
+})
+minetest.override_item("default:fence_rail_wood", {
+	description = S2("Wooden Fence Rail")
+})
