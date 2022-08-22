@@ -28,6 +28,22 @@ local function set_replacer_selection(itemstack, selected_node)
 	return itemstack
 end
 
+local function replacer_get_node(itemstack, pointed_thing, player_name)
+	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
+	local selected_node = minetest.get_node_or_nil(pointed_pos)
+	if selected_node == nil then
+		minetest.chat_send_player(player_name,
+			S("Error: you have selected an unloaded node, please wait for server."))
+		return nil
+	end
+
+	set_replacer_selection(itemstack, selected_node)
+	minetest.chat_send_player(player_name,
+		string.format(S("Node replacer set to: %s"), selected_node.name))
+
+	return itemstack
+end
+
 local function get_replacer_selection(itemstack)
 	local itemstack_meta = itemstack:get_meta()
 	local selected_node = {
@@ -43,6 +59,28 @@ local function get_replacer_selection(itemstack)
 	return selected_node
 end
 
+local function replacer_set_node(itemstack, pointed_thing, player_name, place_above)
+	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing, place_above)
+	if pointed_pos == nil then
+		return false
+	end
+
+	if minetest.is_protected(pointed_pos, player_name) then
+		minetest.chat_send_player(player_name, S("Error: this node is protected."))
+		return false
+	end
+
+	local selected_node = get_replacer_selection(itemstack)
+	if table_has_value(REPLACER_BLACKLIST, selected_node.name) then
+		minetest.chat_send_player(player_name, S("Error: this node is in blacklist."))
+		return false
+	end
+
+	minetest.set_node(pointed_pos, selected_node)
+	return true
+end
+
+
 minetest.register_tool("lord_replacer:replacer", {
 	description = S("Node Replacer"),
 	groups = {},
@@ -57,33 +95,9 @@ minetest.register_tool("lord_replacer:replacer", {
 
 		local keys = placer:get_player_control()
 		if keys.aux1 or keys.sneak then
-			local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
-			local selected_node = minetest.get_node_or_nil(pointed_pos)
-			if selected_node == nil then
-				minetest.chat_send_player(player_name,
-					S("Error: you have selected an unloaded node, please wait for server."))
-				return nil
-			end
-
-			set_replacer_selection(itemstack, selected_node)
-			minetest.chat_send_player(player_name,
-				string.format(S("Node replacer set to: %s"), selected_node.name))
-			print("Игрок выбрал:", selected_node.name, selected_node.param1, selected_node.param2)
-
+			itemstack = replacer_get_node(itemstack, pointed_thing, player_name)
 		else
-			local pointed_pos = minetest.get_pointed_thing_position(pointed_thing, true)
-			if minetest.is_protected(pointed_pos, player_name) then
-				minetest.chat_send_player(player_name, S("Error: this node is protected."))
-				return nil
-			end
-
-			local selected_node = get_replacer_selection(itemstack)
-			if table_has_value(REPLACER_BLACKLIST, selected_node.name) then
-				minetest.chat_send_player(player_name, S("Error: this node is in blacklist."))
-				return nil
-			end
-
-			minetest.set_node(pointed_pos, selected_node)
+			replacer_set_node(itemstack, pointed_thing, player_name, true)
 		end
 
 		return itemstack
@@ -93,24 +107,7 @@ minetest.register_tool("lord_replacer:replacer", {
 		return itemstack
 	end,
 	on_use = function(itemstack, placer, pointed_thing)
-		local player_name = placer:get_player_name()
-		local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
-		if pointed_pos == nil then
-			return nil
-		end
-
-		if minetest.is_protected(pointed_pos, player_name) then
-			minetest.chat_send_player(player_name, S("Error: this node is protected."))
-			return nil
-		end
-
-		local selected_node = get_replacer_selection(itemstack)
-		if table_has_value(REPLACER_BLACKLIST, selected_node.name) then
-			minetest.chat_send_player(player_name, S("Error: this node is in blacklist."))
-			return nil
-		end
-
-		minetest.set_node(pointed_pos, selected_node)
+		replacer_set_node(itemstack, pointed_thing, placer:get_player_name(), false)
 		return nil
 	end,
 })
