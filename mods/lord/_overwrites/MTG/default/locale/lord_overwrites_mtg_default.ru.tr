@@ -1,4 +1,6 @@
 # textdomain: lord_overwrites_mtg_default
+
+Tree Trunk=Ствол Яблони
 Jungle Tree=Ствол Эвкалипта
 Jungle Tree Trunk=Ствол Эвкалипта
 Jungle Wood=Доски из Эвкалипта
@@ -8,3 +10,7 @@ Junglewood Fence Rail=Эвкалиптовый Реечный Забор
 
 Wooden Fence=Яблоневый Забор
 Wooden Fence Rail=Яблоневый Реечный Забор
+
+Bookshelf=Книжная Полка
+Nyan Cat=Ньян-Кэт
+Nyan Cat Rainbow=Радуга Ньян-Кэт

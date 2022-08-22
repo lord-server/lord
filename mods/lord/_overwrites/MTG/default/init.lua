@@ -1,5 +1,4 @@
-local S = default.get_translator
-local S2 = minetest.get_translator(minetest.get_current_modname()) -- для фикса локализации
+local S = minetest.get_translator(minetest.get_current_modname())
 
 -- default/chests.lua
 
@@ -502,7 +501,7 @@ minetest.register_node(":default:tree_trunk", {
 })
 
 minetest.register_node(":default:jungletree_trunk", {
-	description = S2("Jungle Tree Trunk"),
+	description = S("Jungle Tree Trunk"),
 	tiles = {"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
@@ -637,22 +636,22 @@ minetest.register_abm({
 
 -- Фикс локализации эвкалипта
 minetest.override_item("default:jungletree", {
-	description = S2("Jungle Tree"),
+	description = S("Jungle Tree"),
 })
 minetest.override_item("default:junglewood", {
-	description = S2("Jungle Wood"),
+	description = S("Jungle Wood"),
 })
 
 -- Фикс локализации заборов
 minetest.override_item("default:fence_junglewood", {
-	description = S2("Junglewood Fence")
+	description = S("Junglewood Fence")
 })
 minetest.override_item("default:fence_rail_junglewood", {
-	description = S2("Junglewood Fence Rail")
+	description = S("Junglewood Fence Rail")
 })
 minetest.override_item("default:fence_wood", {
-	description = S2("Wooden Fence")
+	description = S("Wooden Fence")
 })
 minetest.override_item("default:fence_rail_wood", {
-	description = S2("Wooden Fence Rail")
+	description = S("Wooden Fence Rail")
 })
