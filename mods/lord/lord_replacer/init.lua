@@ -65,6 +65,16 @@ local function replacer_set_node(itemstack, pointed_thing, player_name, place_ab
 		return false
 	end
 
+	local pointed_inventory = minetest.get_inventory({ type = "node", pos = pointed_pos, })
+	if pointed_inventory then
+		for listname, _ in pairs(pointed_inventory:get_lists()) do
+			if not pointed_inventory:is_empty(listname) then
+				minetest.chat_send_player(player_name, S("Error: non-empty node inventory found. Unload it first."))
+				return false
+			end
+		end
+	end
+
 	if minetest.is_protected(pointed_pos, player_name) then
 		minetest.chat_send_player(player_name, S("Error: this node is protected."))
 		return false
