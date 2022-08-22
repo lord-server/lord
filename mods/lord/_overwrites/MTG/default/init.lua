@@ -1,4 +1,4 @@
-local S = default.get_translator
+local S = minetest.get_translator(minetest.get_current_modname())
 
 -- default/chests.lua
 
@@ -323,11 +323,9 @@ minetest.unregister_item("default:coral_orange")
 minetest.unregister_item("default:coral_skeleton")
 minetest.unregister_item("default:sign_wall_wood")
 minetest.unregister_item("default:sign_wall_steel")
-minetest.unregister_item("default:fence_junglewood")
 minetest.unregister_item("default:fence_acacia_wood")
 minetest.unregister_item("default:fence_pine_wood")
 minetest.unregister_item("default:fence_aspen_wood")
-minetest.unregister_item("default:fence_rail_junglewood")
 minetest.unregister_item("default:fence_rail_acacia_wood")
 minetest.unregister_item("default:fence_rail_pine_wood")
 minetest.unregister_item("default:fence_rail_aspen_wood")
@@ -634,4 +632,26 @@ minetest.register_abm({
 	action = function(...)
 		grow_papyrus_but_on_soils(...)
 	end
+})
+
+-- Фикс локализации эвкалипта
+minetest.override_item("default:jungletree", {
+	description = S("Jungle Tree"),
+})
+minetest.override_item("default:junglewood", {
+	description = S("Jungle Wood"),
+})
+
+-- Фикс локализации заборов
+minetest.override_item("default:fence_junglewood", {
+	description = S("Junglewood Fence")
+})
+minetest.override_item("default:fence_rail_junglewood", {
+	description = S("Junglewood Fence Rail")
+})
+minetest.override_item("default:fence_wood", {
+	description = S("Wooden Fence")
+})
+minetest.override_item("default:fence_rail_wood", {
+	description = S("Wooden Fence Rail")
 })
