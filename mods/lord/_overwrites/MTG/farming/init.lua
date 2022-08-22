@@ -89,3 +89,11 @@ minetest.clear_craft({output = "farming:hoe_mese"})
 minetest.unregister_item("farming:hoe_mese")
 minetest.clear_craft({output = "farming:hoe_diamond"})
 minetest.unregister_item("farming:hoe_diamond")
+
+-- Удаляем farming:straw (вместо него castle:straw)
+minetest.unregister_item("farming:straw")
+minetest.unregister_item("stairs:stair_straw")
+minetest.unregister_item("stairs:stair_inner_straw")
+minetest.unregister_item("stairs:stair_outer_straw")
+minetest.unregister_item("stairs:slab_straw")
+minetest.register_alias("farming:straw", "castle:straw") -- на всякий случай

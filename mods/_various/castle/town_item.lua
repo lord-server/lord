@@ -297,9 +297,7 @@ minetest.register_craft({
 	}
 })
 
-stairs.register_stair_and_slab(
-	"straw",
-	"castle:straw",
+stairs.register_stair_and_slab("straw", "castle:straw",
 	{choppy = 3, flammable = 1, oddly_breakable_by_hand = 3, grass = 1},
 	{"castle_straw.png"},
 	SL("Castle Straw Stair"),
