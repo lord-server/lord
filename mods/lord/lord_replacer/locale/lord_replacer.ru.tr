@@ -1,0 +1,6 @@
+# textdomain: lord_replacer
+Node Replacer=Нодозаменитель
+Error: you have selected unloaded node, please wait a moment.=Ошибка: вы выбрали незагруженную ноду, подождите, пожалуйста.
+Node replacer set to: %s=Нодозаменитель установлен на: %s
+Error: this node is protected.=Ошибка: эта нода защищена.
+Error: this node is in blacklist.=Ошибка: эта нода находится черном списке.
