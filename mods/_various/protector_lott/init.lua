@@ -404,7 +404,7 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 		function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
 
 			if not player or not hitter then
-				print("[Protector] on_punchplayer called with nil objects")
+				minetest.log("warning", "[Protector] on_punchplayer called with nil objects")
 			end
 
 			if not hitter:is_player() then
@@ -430,11 +430,10 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 
 		end)
 	else
-		print("[Protector] pvp_protect not active, update your version of Minetest")
-
+		minetest.log("warning", "[Protector] pvp_protect not active, update your version of Minetest")
 	end
 else
-	print("[Protector] pvp_protect is disabled")
+	minetest.log("info", "[Protector] pvp_protect is disabled")
 end
 
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."blocks.lua")

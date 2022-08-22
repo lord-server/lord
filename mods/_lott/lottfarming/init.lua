@@ -63,7 +63,6 @@ function place_spore(itemstack, placer, pointed_thing, plantname)
 end
 
 function farming:add_plant(full_grown, names, interval, chance)
-	print(full_grown)
 	minetest.register_abm({
 		nodenames = names,
 		interval = interval,

@@ -5,8 +5,6 @@ multiskin = {}
 
 function multiskin:init(player, texture)
 	player_api.set_model(player, "lottarmor_character.b3d")
-	print(debug.traceback())
-	print("TEXTURE = "..tostring(texture))
 	local name = player:get_player_name()
 	multiskin[name] = {
 		skin = texture,
