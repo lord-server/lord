@@ -104,7 +104,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 -- Вызов каллбэков нажатия клавиши
-function call_press(player, player_last_controls, control_name)
+local function call_press(player, player_last_controls, control_name)
 	-- Время, когда была нажата кнопка
 	local press_time = minetest.get_us_time()/MICROSECONDS
 
@@ -115,7 +115,7 @@ function call_press(player, player_last_controls, control_name)
 end
 
 -- Вызов каллбэков удержания клавиши
-function call_hold(player, player_last_controls, control_name, dtime)
+local function call_hold(player, player_last_controls, control_name, dtime)
 	-- Время, когда была нажата кнопка вычитается из текущего, чтобы получить длительность нажатия
 	local hold_time = minetest.get_us_time()/MICROSECONDS-player_last_controls[control_name][2]
 
@@ -125,7 +125,7 @@ function call_hold(player, player_last_controls, control_name, dtime)
 end
 
 -- Вызов каллбэков отпуска кнопки
-function call_release(player, player_last_controls, control_name)
+local function call_release(player, player_last_controls, control_name)
 	-- Время, сколько была нажата кнопка
 	local release_time = minetest.get_us_time()/MICROSECONDS-player_last_controls[control_name][2]
 
