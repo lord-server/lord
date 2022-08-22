@@ -17,4 +17,6 @@ minetest.register_globalstep(function(DTime)
 	end
 end)
 
-minetest.log("action", minetest.get_current_modname().." mod LOADED")
+if minetest.settings:get_bool("msg_loading_mods") then
+	minetest.log("action", minetest.get_current_modname() .. " mod LOADED")
+end

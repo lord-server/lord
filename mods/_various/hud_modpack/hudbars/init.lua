@@ -128,7 +128,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 	local pos, offset
 	local index = math.floor(hb.get_hudbar_position_index(identifier))
 
-	minetest.log("action", "hb.register_hudbar: "..tostring(identifier))
+	minetest.log("info", "hb.register_hudbar: "..tostring(identifier))
 
 	hb.registered_slots[index] = true
 
