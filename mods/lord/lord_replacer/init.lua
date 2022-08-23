@@ -11,6 +11,10 @@ local REPLACER_BLACKLIST = {
 }
 
 
+--- Checks if a table has value.
+---@param table table
+---@param value any
+---@return boolean @does table has given value
 local function table_has_value(table, value)
 	for _, v in ipairs(table) do
 		if v == value then
@@ -20,6 +24,10 @@ local function table_has_value(table, value)
 	return false
 end
 
+--- Sets replacer's selection using its metadata.
+---@param itemstack ItemStack
+---@param selected_node NodeTable @`minetest.get_node` format
+---@return ItemStack
 local function set_replacer_selection(itemstack, selected_node)
 	local itemstack_meta = itemstack:get_meta()
 	itemstack_meta:set_string("selected_node", selected_node.name)
@@ -28,6 +36,11 @@ local function set_replacer_selection(itemstack, selected_node)
 	return itemstack
 end
 
+--- Gets node to replacer.
+---@param itemstack ItemStack
+---@param pointed_thing pointed_thing
+---@param player_name string
+---@return ItemStack
 local function replacer_get_node(itemstack, pointed_thing, player_name)
 	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing)
 	local selected_node = minetest.get_node_or_nil(pointed_pos)
@@ -44,6 +57,9 @@ local function replacer_get_node(itemstack, pointed_thing, player_name)
 	return itemstack
 end
 
+--- Gets replacer's selection from its metadata.
+---@param itemstack ItemStack
+---@return NodeTable @`minetest.get_node` format
 local function get_replacer_selection(itemstack)
 	local itemstack_meta = itemstack:get_meta()
 	local selected_node = {
@@ -59,6 +75,12 @@ local function get_replacer_selection(itemstack)
 	return selected_node
 end
 
+--- Sets node from replacer.
+---@param itemstack ItemStack
+---@param pointed_thing pointed_thing
+---@param player_name string
+---@param place_above boolean @is `above` param in `minetest.get_pointed_thing_position`
+---@return boolean @result of putting the node
 local function replacer_set_node(itemstack, pointed_thing, player_name, place_above)
 	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing, place_above)
 	if pointed_pos == nil then
