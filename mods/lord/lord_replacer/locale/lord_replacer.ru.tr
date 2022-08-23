@@ -5,3 +5,4 @@ Node replacer set to: %s=Нодозаменитель установлен на:
 Error: non-empty node inventory found. Unload it first.=Ошибка: инвентарь ноды не пуст. Сначала разгрузите его.
 Error: this node is protected.=Ошибка: эта нода защищена.
 Error: this node is in blacklist.=Ошибка: эта нода находится черном списке.
+Error: not enough materials.=Ошибка: недостаточно материалов.

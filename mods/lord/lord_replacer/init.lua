@@ -78,15 +78,16 @@ end
 --- Sets node from replacer.
 ---@param itemstack ItemStack
 ---@param pointed_thing pointed_thing
----@param player_name string
+---@param player Player
 ---@param place_above boolean @is `above` param in `minetest.get_pointed_thing_position`
 ---@return boolean @result of putting the node
-local function replacer_set_node(itemstack, pointed_thing, player_name, place_above)
+local function replacer_set_node(itemstack, pointed_thing, player, place_above)
 	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing, place_above)
 	if pointed_pos == nil then
 		return false
 	end
 
+	local player_name = player:get_player_name()
 	local pointed_inventory = minetest.get_inventory({ type = "node", pos = pointed_pos, })
 	if pointed_inventory then
 		for listname, _ in pairs(pointed_inventory:get_lists()) do
@@ -108,7 +109,23 @@ local function replacer_set_node(itemstack, pointed_thing, player_name, place_ab
 		return false
 	end
 
+	if not minetest.check_player_privs(player, "server") and not minetest.is_creative_enabled(player_name) then
+		local player_inv = player:get_inventory()
+
+		if not player_inv:contains_item("main", selected_node.name) then
+			minetest.chat_send_player(player_name, S("Error: not enough materials."))
+			return false
+		end
+		player_inv:remove_item("main", selected_node.name)
+
+		local node_being_replaced = minetest.get_node_or_nil(pointed_pos)
+		if node_being_replaced ~= nil and node_being_replaced.name ~= "air" then
+			lord.give_or_drop(player, ItemStack(node_being_replaced.name))
+		end
+	end
+
 	minetest.set_node(pointed_pos, selected_node)
+
 	return true
 end
 
@@ -129,7 +146,7 @@ minetest.register_tool("lord_replacer:replacer", {
 		if keys.aux1 or keys.sneak then
 			itemstack = replacer_get_node(itemstack, pointed_thing, player_name)
 		else
-			replacer_set_node(itemstack, pointed_thing, player_name, true)
+			replacer_set_node(itemstack, pointed_thing, placer, true)
 		end
 
 		return itemstack
@@ -139,7 +156,7 @@ minetest.register_tool("lord_replacer:replacer", {
 		return itemstack
 	end,
 	on_use = function(itemstack, placer, pointed_thing)
-		replacer_set_node(itemstack, pointed_thing, placer:get_player_name(), false)
+		replacer_set_node(itemstack, pointed_thing, placer, false)
 		return nil
 	end,
 })
