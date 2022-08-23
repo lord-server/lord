@@ -20,3 +20,8 @@ Mordor Stone Stair=Mordor Stone Stair
 Inner Mordor Stone Stair=Inner Mordor Stone Stair
 Outer Mordor Stone Stair=Outer Mordor Stone Stair
 Mordor Stone Slab=Mordor Stone Slab
+
+Ice Stair=Ice Stair
+Inner Ice Stair=Inner Ice Stair
+Outer Ice Stair=Outer Ice Stair
+Ice Slab=Ice Slab

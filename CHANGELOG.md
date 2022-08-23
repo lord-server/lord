@@ -1,5 +1,87 @@
 # Change Log
 
+## [2022.07.p3](https://github.com/lord-server/lord/releases/tag/2022.07.p3)
+ - Fix iron chest craft with default:chest (fixes #690) (#691)
+
+## [2022.07.p2](https://github.com/lord-server/lord/releases/tag/2022.07.p2)
+ - Fix leaf decay with using default.register_leafdecay (fixes #662) (#677)
+ - Fix bug with endless rails (fixes #627) (#672)
+ - Fix papyrus growth (fixes #670) (#671)
+
+## [2022.07.p1](https://github.com/lord-server/lord/releases/tag/2022.07.p1)
+ - Enable tree decay on both types of trunks (#657)
+
+## [2022.07](https://github.com/lord-server/lord/releases/tag/2022.07)
+ - Добавлен новый блок: зелёный мрамор. Доступен только на официальных прилавках (#571)
+ - Новая иконка игры L.O.R.D. #518 (#604)
+ - Обновление текстур:
+   - Брусчатки (#567)
+   - Кристалов и драг. камней (#577)
+   - Руд в инвентаре (#570)
+   - Бумаги, бумаги с текстом, лицензии магазина (#618)
+ - Обновления модов:
+   - `MTG/flowers` #278 (#488)
+   - `MTG/carts` #273 (#531) + #642 (#645)
+   - `MTG/sethome` #573 (#580)
+   - `MTG/default`: upd nodes.lua, functions.lua & trees.lua #267 (#563) + #631 (#632) + #636 (#644)
+   - `MTG/farming` #276 (#453) + #630 (#655, #643)
+   - Добавлен `MTG/sfinv` #634 (#635)
+ - Исправление ошибок:
+   - Восстановлен декоративный кактус #488 (#566)
+   - Fix Mount-gen fill: Place dirt where air or plantlike #607 (#608)
+   - Fix warnings in logs #362 (#612)
+   - Доработка работы формы рабочего стола (#622)
+   - `lottmobs`: add previously skipped tnt texture. fix (#372) (#616)
+   - Fix crash when player leaves after drinking wine (fixes #291) (#649)
+   - Fix sound & textures for ice. Closes #626 (#633)
+   - Use `default.chest.get_chest_formspec()` in LOTT chests (fixes #653) (#654)
+ - А также:
+   - Removing temporary changes in `MTG/stairs`. Fixes #510 (#603)
+   - Add nodes_dump as a submodule #588 (Closes  #586)
+   - New PR template (#638, #639, #641)
+   - Move luacheck from Travis CI to GitHub Actions (fixes #526) (#648)
+
+
+## [2022.02.p4](https://github.com/lord-server/lord/releases/tag/2022.02.p4)
+ - Check nodes for their existence in areas (#617)
+
+## [2022.02.p3](https://github.com/lord-server/lord/releases/tag/2022.02.p3)
+ - New coal and charcoal textures (#591)
+ - Classic textures (#592)
+ - marble texture (#593)
+ - Fixes mountain tool (#537, Closes #425)
+ - Update mount tool (#606, relates to #547)
+
+## [2022.02.p2](https://github.com/lord-server/lord/releases/tag/2022.02.p2)
+ - Fix LuaCheck build. (Fixes #578)
+ - Fix pearl transparency #559 (#579)
+ - Fix crosshair.png symmetry. Add object_crosshair.png (#581)
+ - Fix wooden axe #461 (#583)
+ - Add Diamond Block stairs & slabs #437 (#584)
+ - Fix new player hunger #383 (#585)
+
+## [2022.02.p1](https://github.com/lord-server/lord/releases/tag/2022.02.p1)
+ - Исправления багов:
+   - Check that mob is not nil when punch #555 (#556)
+   - Fix arrow collision calculation #542 (#545)
+ - Релизный процесс:
+   - Always switch back to master on deploy
+   - Reconfigure ci: `dev` branch to polygon; version tags to prod & tags can have patch segment
+   - reconfigure ci: add merge master to dev on deploy to prod; add release description
+ - Перенос модов с сервера в репозиторий (#305)
+   - Copy mod `skybox` from prod server. Relates to #305.
+   - Copy mod `arena` from prod server. Relates to #305
+   - Copy mod `alarm` from prod server. Relates to #305
+   - Copy mod `painting` from prod server. Relates to #305
+   - Copy mod `ping` from prod server. Relates #305
+   - Copy mod `server_message` from prom server. Relates to #305
+   - Copy mod `ambience` from prod server. Relates to #305
+   - Copy mod `lists` from prod server. Relates to #305
+   - Copy mod `mail_list` from prod server. Relates to #305
+   - Copy mod `mobs_fish` from prod server. Relates to #305
+   - Copy mod `mypos` from prod server. Relates to #305
+   - Copy mod `sethome` from prod server. Relates to #305
+
 ## [2022.02](https://github.com/lord-server/lord/releases/tag/2022.02)
  - Обновлён мод `MTG/beds`. Исправлен #312 сброс скорости после сна (#429)
  - Обновлён мод `MTG/vessels` #281 (#506)
@@ -35,6 +117,7 @@
  - Перенесено всё, что относится к `charcoal` в наш внутренний мод `lord_default`. (требуется для #267) (#491)
  - Переход на minetest `5.4.1`:
    - Исправления по устаревшему API #499, #498, #286, #285, #505, #409 (#501, #503, #412, #549)
+ - Hotfix: Fix screwdriver #554
 
 ## [2021.11](https://github.com/lord-server/lord/releases/tag/2021.11)
  - Добавлены новые блоки для дорог с бордюром (#381)

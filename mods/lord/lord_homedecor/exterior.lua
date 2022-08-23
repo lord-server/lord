@@ -114,6 +114,7 @@ for _, m in ipairs(lattice_colors) do
 lord_homedecor.register("lattice_"..m[1], {
 	description = SL("Garden Lattice ("..m[1]..")"),
 	tiles = {"homedecor_lattice"..m[2]},
+	use_texture_alpha = "clip",
 	inventory_image = "homedecor_lattice"..m[2],
 	groups = { snappy=3 },
 	node_box = {
@@ -141,6 +142,7 @@ lord_homedecor.register("swing", {
 		"homedecor_swing_top.png^[transformR180",
 		"homedecor_swing_top.png"
 	},
+	use_texture_alpha = "clip",
 	inventory_image = "homedecor_swing_inv.png",
 	groups = { snappy=3, oddly_breakable_by_hand=3 },
 	sounds = default.node_sound_wood_defaults(),
@@ -239,6 +241,7 @@ lord_homedecor.register("well", {
 		"default_wood.png",
 		"homedecor_shingles_wood.png"
 	},
+	use_texture_alpha = "clip",
 	inventory_image = "homedecor_well_inv.png",
 	description = SL("Water well"),
 	groups = { snappy = 3 },
@@ -285,6 +288,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 		drawtype = "mesh",
 		mesh = "homedecor_cube.obj",
 		tiles = {"homedecor_shrubbery_"..color..".png"},
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		is_ground_content = false,
 		groups = {snappy=3, flammable=2},
@@ -300,6 +304,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 			"homedecor_shrubbery_"..color.."_bottom.png",
 			"homedecor_shrubbery_roots.png"
 		},
+		use_texture_alpha = "clip",
 		paramtype = "light",
 		is_ground_content = false,
 		groups = {snappy=3, flammable=2},

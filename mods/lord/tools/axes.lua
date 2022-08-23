@@ -19,7 +19,7 @@ tools.axe = {
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
 		choppy = {
-			times = {[3]=2.00},
+			times = {[2]=2.50, [3]=2.00},
 			uses = 10,
 			maxlevel = 1
 		},

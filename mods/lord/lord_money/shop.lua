@@ -204,10 +204,8 @@ minetest.register_on_player_receive_fields(
 
 			-- ПРОВЕРКА НАЛИЧИЯ ЦЕНЫ И ПРЕДЛОЖЕНИЯ
 			if minv:is_empty("owner_wants") or minv:is_empty("owner_gives") then -- защита от бесплатного прилавка
-				minetest.log(
-					"action",
-					"магазин " .. pos .. " - игрок " .. name .. " пытался совершить обмен, но пустые цена или предложение"
-				)
+				minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но в магазине " ..
+					"пусты ячейки цены или предложения.", pos, name))
 				minetest.chat_send_player(name, S("Exchange shop is not working, please contact the seller"))
 				return
 			end
@@ -215,10 +213,8 @@ minetest.register_on_player_receive_fields(
 			-- ПРОВЕРКА СООТВЕТСТВИЯ ОПЛАТЫ ЦЕНЕ
 			for _, stack in pairs(wants) do
 				if not pinv:contains_item("customer_gives", stack, true) then --If false, only the items' names are compared
-					minetest.log(
-						"action",
-						"магазин " .. pos .. " - игрок " .. name .. " пытался совершить обмен, но его оплата не соответствует цене"
-					)
+					minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но его " ..
+						"оплата не соответствует цене.", pos, name))
 					minetest.chat_send_player(name, S("Exchange can not be done, check if you put all items!"))
 					return
 				end
@@ -227,10 +223,8 @@ minetest.register_on_player_receive_fields(
 			-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА В СТЭКЕ "Приобретённый товар"
 			for _, stack in pairs(gives) do
 				if not pinv:room_for_item("customer_gets", stack) then
-					minetest.log(
-						"action",
-						"магазин " .. pos .. " - игрок " .. name .. " пытался совершить обмен, но у него не оказалось места"
-					)
+					minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но у него " ..
+						"не оказалось свободного места.", pos, name))
 					minetest.chat_send_player(name, S("Exchange can not be done, check if you have place!"))
 					return
 				end
@@ -241,10 +235,8 @@ minetest.register_on_player_receive_fields(
 				-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
 				for _, stack in pairs(gives) do
 					if not minv:contains_item("stock", stack, true) then --If false, only the items' names are compared
-						minetest.log(
-							"action",
-							"магазин " .. pos .. " - игрок " .. name .. " пытался совершить обмен, но товара нет на складе"
-						)
+						minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но " ..
+							"но товар на складе кончился.", pos, name))
 						minetest.chat_send_player(name, S("Exchange can not be done, ended goods."))
 						if mail ~= nil and mail ~= "" then
 							local report = S("In your store").." "..pos.." "..S("ended goods.")
@@ -260,10 +252,8 @@ minetest.register_on_player_receive_fields(
 							local report = S("In your store").." "..pos.." "..S("ended place.")
 							os.execute("echo '"..report.."' | mail -s 'store' "..mail)
 						end
-						minetest.log(
-							"action",
-							"магазин " .. pos .. " - игрок " .. name .. " пытался совершить обмен, но на складе не оказалось места"
-						)
+						minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но на " ..
+							"складе недостаточно свободного места.", pos, name))
 						minetest.chat_send_player(name, S("Exchange can not be done, ended place."))
 						return
 					end
@@ -283,9 +273,7 @@ minetest.register_on_player_receive_fields(
 					end
 					pinv:add_item("customer_gets", stack) -- добавляем игроку в "Приобретённый товар"
 				end
-				minetest.log(
-					"action",
-					"магазин " .. pos .. " - игрок " .. name .. " произвёл обмен - всё в порядке")
+				minetest.log("action", string.format("магазин %s - игрок %s успешно произвёл обмен.", pos, name))
 				minetest.chat_send_player(name, S("Exchanged!"))
 
 
@@ -296,10 +284,8 @@ minetest.register_on_player_receive_fields(
 						if pinv:room_for_item("main", stack) then
 							pinv:add_item("main", stack) -- если помещается, кидаем в main,
 						else
-							minetest.log(
-								"action",
-								"магазин " .. pos .. " - игрок " .. name ..
-								" инвентарь полон, товар " .. stack:get_name() .. " бросили рядом")
+							minetest.log("action", string.format("магазин %s - игрок %s инвентарь полон, товар %s " ..
+								"бросили рядом", pos, name, stack:get_name()))
 							minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
 						end
 						pinv:set_stack(list, i, nil) -- Удаляем элемент i из list

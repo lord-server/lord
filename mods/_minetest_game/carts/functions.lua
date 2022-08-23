@@ -1,6 +1,3 @@
---**********************************************************
---*
---*
 function carts:get_sign(z)
 	if z == 0 then
 		return 0
@@ -9,9 +6,6 @@ function carts:get_sign(z)
 	end
 end
 
---**********************************************************
---*
---*
 function carts:manage_attachment(player, obj)
 	if not player then
 		return
@@ -32,9 +26,6 @@ function carts:manage_attachment(player, obj)
 	end
 end
 
---**********************************************************
---*
---*
 function carts:velocity_to_dir(v)
 	if math.abs(v.x) > math.abs(v.z) then
 		return {x=carts:get_sign(v.x), y=carts:get_sign(v.y), z=0}
@@ -43,9 +34,6 @@ function carts:velocity_to_dir(v)
 	end
 end
 
---**********************************************************
---*
---*
 function carts:is_rail(pos, railtype)
 	local node = minetest.get_node(pos).name
 	if node == "ignore" then
@@ -68,9 +56,6 @@ function carts:is_rail(pos, railtype)
 	return minetest.get_item_group(node, "connect_to_raillike") == railtype
 end
 
---**********************************************************
---*
---*
 function carts:check_front_up_down(pos, dir_, check_up, railtype)
 	local dir = vector.new(dir_)
 	local cur
@@ -98,9 +83,6 @@ function carts:check_front_up_down(pos, dir_, check_up, railtype)
 	return nil
 end
 
---**********************************************************
---*
---*
 function carts:get_rail_direction(pos_, dir, ctrl, old_switch, railtype)
 	local pos = vector.round(pos_)
 	local cur
@@ -188,9 +170,6 @@ function carts:get_rail_direction(pos_, dir, ctrl, old_switch, railtype)
 	return {x=0, y=0, z=0}
 end
 
---**********************************************************
---*
---*
 function carts:pathfinder(pos_, old_pos, old_dir, distance, ctrl,
 		pf_switch, railtype)
 
@@ -224,9 +203,6 @@ function carts:pathfinder(pos_, old_pos, old_dir, distance, ctrl,
 	return pf_pos, pf_dir
 end
 
---**********************************************************
---*
---*
 function carts:register_rail(name, def_overwrite, railparams)
 	local def = {
 		drawtype = "raillike",
@@ -255,9 +231,6 @@ function carts:register_rail(name, def_overwrite, railparams)
 	minetest.register_node(name, def)
 end
 
---**********************************************************
---*
---*
 function carts:get_rail_groups(additional_groups)
 	-- Get the default rail groups and add more when a table is given
 	local groups = {

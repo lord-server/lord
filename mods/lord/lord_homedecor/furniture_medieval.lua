@@ -75,8 +75,25 @@ lord_homedecor.register("torch_wall", {
 		"homedecor_generic_metal_black.png^[brighten",
 		"forniture_coal.png",
 	},
+	use_texture_alpha = "clip",
 	inventory_image="forniture_torch_inv.png",
 	walkable = false,
+	floodable = true,
+	on_flood = function(pos, oldnode, newnode)
+		minetest.add_item(pos, ItemStack("lord_homedecor:torch_wall 1"))
+		-- Play flame-extinguish sound if liquid is not an 'igniter'
+		local nodedef = minetest.registered_items[newnode.name]
+		if not (nodedef and nodedef.groups and
+				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
+			minetest.sound_play(
+				"default_cool_lava",
+				{pos = pos, max_hear_distance = 16, gain = 0.1},
+				true
+			)
+		end
+		-- Remove the torch node
+		return false
+	end,
 	light_source = 14,
 	selection_box = {
 		type = "fixed",

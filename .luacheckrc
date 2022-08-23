@@ -21,7 +21,7 @@ read_globals      = {
 	"dump", "DIR_DELIM",
 
 	-- MTG
-	"default", "sfinv", "creative", "dungeon_loot",
+	"default", "sfinv", "creative", "dungeon_loot", "farming",
 
 	-- Lord specific
 	"lord", "hb",
@@ -53,15 +53,27 @@ read_globals      = {
 }
 
 exclude_files     = {
-	-- External mods
+	-- External mods:
+
+    -- не ясно почему они тут оказались:
+	"mods/lord/lord_base_commands/chatcommands.lua",
+	"mods/lord/lottclothes",
+
+    -- MTG:
+    -- (в большинстве случаев ошибки уже исправлены в оригинале, нужно убрать после обновления)
+    "mods/_minetest_game/carts/cart_entity.lua",
+    "mods/_minetest_game/doors/api.lua",
+
+    -- LOTT:
 	"mods/_lott/lottmapgen",
 
-	"mods/lord/lord_base_commands/chatcommands.lua",
-
+    -- Остальное:
+	"mods/_various/ambience",
 	"mods/_various/areas",
 	"mods/_various/hud_modpack/hudbars",
 	"mods/_various/intllib",
 	"mods/_various/mobs",
+	"mods/_various/mobs_fish",
 	"mods/_various/mp_world_edit",
-	"mods/lord/lottclothes",
+	"mods/_various/painting",
 }

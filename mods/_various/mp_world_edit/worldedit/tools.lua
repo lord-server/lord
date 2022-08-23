@@ -83,6 +83,7 @@ minetest.register_tool("worldedit:admin_stick", {
 		end
 		return itemstack
 	end,
+	on_drop = function(itemstack, dropper, pos) end, -- невозможность выбросить
 	stack_max = 1,
 	liquids_pointable = true,
 

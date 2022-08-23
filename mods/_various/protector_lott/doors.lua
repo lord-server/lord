@@ -4,7 +4,7 @@ local SL = lord.require_intllib()
 
 local function on_rightclick(pos, dir, check_name, replace, replace_dir, params)
 	pos.y = pos.y+dir
-	if not minetest.get_node(pos).name == check_name then
+	if minetest.get_node(pos).name ~= check_name then
 		return
 	end
 	local p2 = minetest.get_node(pos).param2

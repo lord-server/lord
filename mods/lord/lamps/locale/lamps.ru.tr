@@ -1,3 +1,31 @@
 # textdomain: lamps
 Gold candle lamp=Золотая лампа со свечой
 Bronze candle lamp=Бронзовая лампа со свечой
+Steel candle lamp=Стальная лампа со свечой
+Silver candle lamp=Серебряная лампа со свечой
+Tin candle lamp=Оловянная лампа со свечой
+Dungeon lamp=Лампа подземелья
+Dungeon hanging lamp=Настенная лампа подземелья
+
+Gold chains=Золотая цепь
+Gold diagonal chains=Золотая диагональная цепь
+Gold diagonal chains type 2=Золотая диагональная цепь 2 тип
+
+Bronze chains=Бронзовая цепь
+Bronze diagonal chains=Бронзовая диагональная цепь
+Bronze diagonal chains type 2=Бронзовая диагональная цепь 2 тип
+
+Steel chains=Железная цепь
+Steel diagonal chains=Железная диагональная цепь
+Steel diagonal chains type 2=Железная диагональная цепь 2 тип
+
+Silver chains=Серебряная цепь
+Silver diagonal chains=Серебряная диагональная цепь
+Silver diagonal chains type 2=Серебряная диагональная цепь 2 тип
+
+Tin chains=Оловянная цепь
+Tin diagonal chains=Оловянная диагональная цепь
+Tin diagonal chains type 2=Оловянная диагональная цепь 2 тип
+
+Wrench=Гаечный ключ
+(left click to tilt the chain)=(ЛКМ для наклона цепи)

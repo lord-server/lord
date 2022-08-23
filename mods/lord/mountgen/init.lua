@@ -5,7 +5,7 @@ mountgen = {
 	required_priv = "server",
 	config = {
 		ANGLE=60,
-		HEAD_ANGLE = 120,
+		HEAD_ANGLE = 130,
 		TOP_H = 0.3,
 		Y0 = 0,
 		USE_DIAMOND_SQUARE = true,
@@ -17,9 +17,9 @@ mountgen = {
 		TREE_LINE = 20,
 		TREE_PROMILLE = 4,
 
-		rk_big = 2,
-		rk_small = 6,
-		rk_thr = 4,
+		rk_big = 7,
+		rk_small = 30,
+		rk_thr = 5,
 
 		top_cover = "lottmapgen:dunland_grass",
 	},
@@ -84,6 +84,8 @@ mountgen.show_config_menu = function(user_name, config)
 
 	formspec = formspec.."button[2.75,"..pos..";"..bw..",1;save_main;"..esc(S("Save")).."]"
 	pos = pos + 1
+	formspec = formspec.."button[2.75,"..pos..";"..bw..",1;generate;"..esc(S("Generate")).."]"
+	pos = pos + 1
 
 	formspec = "size["..width..","..pos.."]"..formspec
 
@@ -114,7 +116,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 
 	if formname == "mountgen:configure" then
 		-- handling main form
-		if fields["save_main"] ~= nil then
+		if fields["save_main"] ~= nil or fields["generate"] ~= nil then
 			local config = {}
 			config.ANGLE			= tonumber(fields["edit_angle"])
 			config.HEAD_ANGLE		= tonumber(fields["edit_head_angle"])
@@ -137,33 +139,29 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				mountgen.config.top_cover		= config.top_cover
 			end
 		end
+
+		if fields["generate"] ~= nil then
+			local top = clicker:get_pos()
+			local config = mountgen.config
+			minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
+			minetest.log("parameters: "..dump(mountgen.config))
+
+			local fun
+			if config.USE_DIAMOND_SQUARE then
+				fun = mountgen.diamond_square
+			else
+				fun = mountgen.cone
+			end
+
+			mountgen.mountgen(top, fun, config)
+		end
 	end
 end)
 
 minetest.register_tool("mountgen:mount_tool", {
 	description = "Горный посох",
 	inventory_image = "ghost_tool.png",
-	on_use = function(itemstack, user, pointed_thing)
-		local user_name = user:get_player_name()
-		local can_access = minetest.get_player_privs(user_name)[mountgen.required_priv]
-		if not can_access then
-			return
-		end
-		local top = user:get_pos()
-		local config = mountgen.config
-		minetest.log("use mount stick at "..top.x.." "..top.y.." "..top.z)
-
-		local fun
-		if config.USE_DIAMOND_SQUARE then
-			fun = mountgen.diamond_square
-		else
-			fun = mountgen.cone
-		end
-
-		mountgen.mountgen(top, fun, config)
-		return itemstack
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
+	on_use = function(itemstack, placer, pointed_thing)
 		-- show configure menu
 		local user_name = placer:get_player_name()
 		local can_access = minetest.get_player_privs(user_name)[mountgen.required_priv]

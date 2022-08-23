@@ -1,0 +1,3 @@
+[submodule "mods/lord/nodes_dump"]
+	path = mods/lord/nodes_dump
+	url = https://github.com/lord-server/nodes_dump

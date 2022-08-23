@@ -62,32 +62,30 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{ wood_name, wood_name },
 			}
 		})
-		minetest.register_node("lottblocks:fence_" .. name, {
-			description       = SL(description .. " Fence"),
-			drawtype          = "fencelike",
-			tiles             = { texture },
-			inventory_image   = "lottblocks_" .. name .. "_fence.png",
-			wield_image       = "lottblocks_" .. name .. "_fence.png",
-			paramtype         = "light",
-			is_ground_content = false,
-			selection_box     = {
-				type  = "fixed",
-				fixed = { -1 / 7, -1 / 2, -1 / 7, 1 / 7, 1 / 2, 1 / 7 },
-			},
-			collision_box     = {
-				type  = "fixed",
-				fixed = { -1 / 2, -1 / 2, -1 / 2, 1 / 2, 1, 1 / 2 },
-			},
-			--groups = {choppy=2,flammable=2},
-			groups            = node_groups,
-		})
-		minetest.register_craft({
-			output = "lottblocks:fence_" .. name .. " 6",
-			recipe = {
-				{ wood_name, wood_name, wood_name, },
-				{ wood_name, wood_name, wood_name, },
-			}
-		})
+		if name ~= "junglewood" then
+			default.register_fence("lottblocks:fence_" .. name, {
+				description = SL(description .. " Fence"),
+				texture = "lottblocks_fence_"..name.."_wood.png",
+				inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
+							"default_fence_overlay.png^[makealpha:255,126,126",
+				wield_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
+							"default_fence_overlay.png^[makealpha:255,126,126",
+				material = wood_name,
+				groups = node_groups,
+				sounds = default.node_sound_wood_defaults()
+			})
+			default.register_fence_rail("lottblocks:fence_rail_" .. name, {
+				description = SL(description .. " Fence Rail"),
+				texture = "lottplants_"..name.."wood.png",
+				inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
+							"default_fence_rail_overlay.png^[makealpha:255,126,126",
+				wield_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
+							"default_fence_rail_overlay.png^[makealpha:255,126,126",
+				material = wood_name,
+				groups = node_groups,
+				sounds = default.node_sound_wood_defaults()
+			})
+		end
 
 		-- STICK | ПАЛОЧКА
 		minetest.register_craftitem("lottblocks:stick_" .. name, {
@@ -312,6 +310,9 @@ lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "
 lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
+
+minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
+
 
 --***********************************************************
 --**          WOODEN STANCHION | СТОЙКИ ИЗ ЯБЛОНИ          **

@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottplants")
 
 dofile(minetest.get_modpath("lottplants").."/nodes.lua")
 dofile(minetest.get_modpath("lottplants").."/wild_food.lua")
@@ -69,14 +69,17 @@ YAVCHA = 11
 dofile(minetest.get_modpath("lottplants").."/functions.lua")
 
 minetest.register_node("lottplants:brambles_of_mordor", {
-	description = SL("Brambles Of Mordor"),
+	description = S("Brambles Of Mordor"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_brambles_of_mordor.png" },
 	inventory_image = "lottplants_brambles_of_mordor.png",
 	wield_image = "lottplants_brambles_of_mordor.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 42,
 	walkable = false,
+	waving = 1,
 	buildable_to = true,
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_grey=1, grass=1},
 	sounds = default.node_sound_leaves_defaults(),
@@ -87,13 +90,16 @@ minetest.register_node("lottplants:brambles_of_mordor", {
 })
 
 minetest.register_node("lottplants:pilinehtar", {
-	description = SL("Pilinehtar"),
+	description = S("Pilinehtar"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_pilinehtar.png" },
 	inventory_image = "lottplants_pilinehtar.png",
 	wield_image = "lottplants_pilinehtar.png",
 	sunlight_propagates = true,
 	paramtype = "light",
+	paramtype2 = "meshoptions",
+	place_param2 = 2,
+	waving = 1,
 	walkable = false,
 	buildable_to = true,
 	groups = {snappy=3,flammable=2,flower=1,flora=1,attached_node=1,color_green=1, grass=1},
@@ -151,7 +157,7 @@ minetest.register_abm({
 })
 
 minetest.register_craftitem("lottplants:honey", {
-	description = SL("Honey"),
+	description = S("Honey"),
 	inventory_image = "lottplants_honey.png",
 	on_use = minetest.item_eat(1),
 })

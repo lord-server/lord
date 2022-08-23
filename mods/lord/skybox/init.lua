@@ -3,7 +3,7 @@ Y2 = -50 -- нижняя граница
 
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
-		local y = player:getpos().y
+		local y = player:get_pos().y
 		if y > Y1 then -- космос
 			player:set_sky({
 				base_color = {r=0x13, g=0x01, b=0x24},

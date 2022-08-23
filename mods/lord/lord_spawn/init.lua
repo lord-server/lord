@@ -20,12 +20,12 @@ end
 
 function spawn.check_conf(config_setting)
 	if not minetest.settings:get(config_setting) then
-		minetest.log('action', "The \"" .. config_setting .. "\" setting is not set")
+		minetest.log('warning', "The \"" .. config_setting .. "\" setting is not set")
 		return false
 	end
 
 	if not spawn.pos_from_conf(config_setting) then
-		minetest.log('action', "The " .. config_setting .. " setting is invalid: \""..
+		minetest.log('warning', "The " .. config_setting .. " setting is invalid: \""..
 				core.setting_get(config_setting).."\"")
 		return false
 	end

@@ -579,7 +579,6 @@ end)
 
 races.register_update_callback(function(name, race, gender, skin, texture, face)
 	local player = minetest.get_player_by_name(name)
-	print("LOTTARMOR UPDATE")
 	minetest.log("Updating player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
 	multiskin[name].skin = texture
 	armor:set_player_armor(player)
