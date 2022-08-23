@@ -79,6 +79,68 @@ minetest.register_craft({
 	}
 })
 
+
+-- Marble with gold and gems
+
+minetest.register_node("lord_blocks:marble_with_gold", {
+	description = S("Marble With Gold"),
+	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("lord_blocks:marble_with_redgem", {
+	description = S("Marble With Redgem"),
+	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_redgem.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("lord_blocks:marble_with_bluegem", {
+	description = S("Marble With Bluegem"),
+	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_bluegem.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_node("lord_blocks:marble_with_purplegem", {
+	description = S("Marble With Purplegem"),
+	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_purplegem.png"},
+	is_ground_content = true,
+	groups = {cracky=3},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+minetest.register_craft({
+	output = 'lord_blocks:marble_with_gold',
+	recipe = {
+		{ 'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot' },
+		{ 'default:gold_ingot', 'lottores:marble', 'default:gold_ingot' },
+		{ 'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot' },
+	}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'lord_blocks:marble_with_redgem',
+	recipe = {'lord_blocks:marble_with_gold', 'lottores:red_gem'}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'lord_blocks:marble_with_bluegem',
+	recipe = {'lord_blocks:marble_with_gold', 'lottores:blue_gem'}
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'lord_blocks:marble_with_purplegem',
+	recipe = {'lord_blocks:marble_with_gold', 'lottother:purple_gem'}
+})
+
 minetest.register_node("lord_blocks:green_marble", {
 	description = S("Green Marble"),
 	tiles = {"lord_blocks_green_marble.png"},
