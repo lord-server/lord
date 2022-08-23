@@ -49,6 +49,7 @@ function ghost.register_ghost_material(name)
 	if node.groups == nil then
 		node.groups = {}
 	end
+	node.groups.not_in_creative_inventory = 1
 	node.groups.ghostly = 1
 	if type(node.drop) == "string" then
 		node.drop = {
