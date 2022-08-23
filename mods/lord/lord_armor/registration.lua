@@ -72,6 +72,7 @@ end
 -- Local function "multiply_table":
 -- Multiplies the table values by the given number.
 local function multiply_table(t, m)
+	local table = false
 	for i, k in pairs(t) do
 		table[i] = k * m
 	end

@@ -24,7 +24,7 @@ read_globals      = {
 	"default", "sfinv", "creative", "dungeon_loot", "farming",
 
 	-- Lord specific
-	"lord", "hb",
+	"lord", "hb", "lord_armor",
 
 	-- Mods APIs
 	"doors",

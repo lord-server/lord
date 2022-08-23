@@ -316,7 +316,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	for i = 1, ARMOR_INIT_TIMES do
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			lord_armor.set_player_armor(player)
-			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
+			if not minetest.settings:get_bool("creative_mode") then
 				lord_armor.upd_inv(player)
 			end
 		end, joined_player)
