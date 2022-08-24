@@ -1,7 +1,11 @@
 local S = minetest.get_translator("lord_replacer")
 
 local DEFAULT_SELECTED_NODE = "default:dirt"
-local REPLACER_BLACKLIST = {
+local REPLACER_PLACE_BLACKLIST = {
+	"lottores:tilkal",
+	"lottblocks:palantir",
+}
+local REPLACER_IRREPLACEABLE = {
 	"lottores:tilkal",
 	"stairs:slab_tilkal",
 	"stairs:stair_tilkal",
@@ -50,6 +54,11 @@ local function replacer_get_node(itemstack, pointed_thing, player_name)
 		return nil
 	end
 
+	if table_has_value(REPLACER_PLACE_BLACKLIST, selected_node.name) then
+		minetest.chat_send_player(player_name, S("Error: this node is in blacklist."))
+		return nil
+	end
+
 	set_replacer_selection(itemstack, selected_node)
 	minetest.chat_send_player(player_name,
 		string.format(S("Node replacer set to: %s"), selected_node.name))
@@ -82,6 +91,10 @@ end
 ---@param place_above boolean @is `above` param in `minetest.get_pointed_thing_position`
 ---@return boolean @result of putting the node
 local function replacer_set_node(itemstack, pointed_thing, player, place_above)
+	if pointed_thing.type ~= "node" then
+		return false
+	end
+
 	local pointed_pos = minetest.get_pointed_thing_position(pointed_thing, place_above)
 	if pointed_pos == nil then
 		return false
@@ -104,8 +117,9 @@ local function replacer_set_node(itemstack, pointed_thing, player, place_above)
 	end
 
 	local selected_node = get_replacer_selection(itemstack)
-	if table_has_value(REPLACER_BLACKLIST, selected_node.name) then
-		minetest.chat_send_player(player_name, S("Error: this node is in blacklist."))
+
+	if table_has_value(REPLACER_IRREPLACEABLE, minetest.get_node(pointed_pos).name) then
+		minetest.chat_send_player(player_name, S("Error: this node is irreplaceable."))
 		return false
 	end
 
