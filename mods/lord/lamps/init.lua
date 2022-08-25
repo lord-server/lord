@@ -238,6 +238,13 @@ minetest.register_tool("lamps:wrench", {
 
 		node.name = name
 
+		local player_name = user:get_player_name()
+
+		if minetest.is_protected(pointed_thing.under, player_name) then
+			minetest.record_protection_violation(pointed_thing.under, player_name)
+			return
+		end
+
 		minetest.swap_node(pointed_thing.under, node)
 
 		itemstack:add_wear(500)
