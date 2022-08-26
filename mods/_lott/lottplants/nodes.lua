@@ -574,7 +574,7 @@ minetest.register_node("lottplants:mirkleaf", {
 
 -- сосна (pine
 minetest.register_node("lottplants:pinetrunk", {
-	description = S("Pine Trank"),
+	description = S("Pine Trunk"),
 	tiles       = { "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
 	paramtype2  = "facedir",
 	drop        = "lottplants:pinetree",
@@ -597,7 +597,7 @@ minetest.register_node("lottplants:pinetree", {
 
 -- ель (fir)
 minetest.register_node("lottplants:firtrunk", {
-	description = S("Fir Trank"),
+	description = S("Fir Trunk"),
 	tiles       = { "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
 	paramtype2  = "facedir",
 	drop        = "lottplants:firtree",
@@ -1364,6 +1364,87 @@ stairs.register_stair_and_slab(
 	S("Outer Mallorn Wood Stair")
 )
 
+-- trunk slabs
+stairs.register_slab(
+	"pinetrunk",
+	"lottplants:pinetrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
+	S("Pine Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"firtrunk",
+	"lottplants:firtrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
+	S("Fir Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"birchtrunk",
+	"lottplants:birchtrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_birchtree_top.png", "lottplants_birchtree_top.png", "lottplants_birchtree.png" },
+	S("Birch Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"aldertrunk",
+	"lottplants:aldertrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_aldertree_top.png", "lottplants_aldertree_top.png", "lottplants_aldertree.png" },
+	S("Alder Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"lebethrontrunk",
+	"lottplants:lebethrontrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_lebethrontree_top.png", "lottplants_lebethrontree_top.png", "default_tree.png" },
+	S("Lebethron Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"mallorntrunk",
+	"lottplants:mallorntrunk",
+	{ tree_slab = 1, choppy = 3, flammable = 2 },
+	{ "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
+	S("Mallorn Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"treetrunk",
+	"default:tree_trunk",
+	{ tree_slab = 1, choppy = 2, flammable = 2 },
+	{ "default_tree_top.png", "default_tree_top.png", "default_tree.png"},
+	S("Tree Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"jungletreetrunk",
+	"default:jungle_tree_trunk",
+	{ tree_slab = 1, choppy = 2, flammable = 2 },
+	{"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
+	S("Jungle Tree Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
 
 
 --Crafting
@@ -1415,6 +1496,12 @@ minetest.register_craft({
 	recipe = {
 		{ 'lottplants:mallorntree_young' },
 	}
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "group:tree_slab",
+	burntime = 15,
 })
 
 --Fireflies / Светлячки

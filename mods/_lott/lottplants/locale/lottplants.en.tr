@@ -36,7 +36,7 @@ Yavannamire Leaf=Yavannamire Leaf
 Mirkwood Leaves=Mirkwood Leaves
 Pine Tree=Pine Tree
 Fir Tree=Fir Tree
-Fir Trank=Fir Trank
+Fir Trunk=Fir Trunk
 Birch Tree=Birch Tree
 Alder Tree=Alder Tree
 Lebethron Tree=Lebethron Tree
@@ -89,6 +89,14 @@ Mallorn Wood Stair=Mallorn Wood Stair
 Inner Mallorn Wood Stair=Inner Mallorn Wood Stair
 Outer Mallorn Wood Stair=Outer Mallorn Wood Stair
 Mallorn Wood Slab=Mallorn Wood Slab
+Pine Trunk Slab=Pine Trunk Slab
+Fir Trunk Slab=Fir Trunk Slab
+Birch Trunk Slab=Birch Trunk Slab
+Alder Trunk Slab=Alder Trunk Slab
+Lebethron Trunk Slab=Lebethron Trunk Slab
+Mallorn Trunk Slab=Mallorn Trunk Slab
+Tree Trunk Slab=Tree Trunk Slab
+Jungle Tree Trunk Slab=Jungle Tree Trunk Slab
 Fireflies=Fireflies
 
 ### flowers.lua ###
