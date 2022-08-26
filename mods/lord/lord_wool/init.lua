@@ -10,7 +10,7 @@ for _, row in ipairs(dye.dyes) do
 	stairs.register_stair_and_slab(
 		"wool"..name,
 		"wool:"..name,
-		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3,wool=1},
 		{"wool_"..name..".png"},
 		S(desc.." Wool Stair"), --desc_stair
 		S(desc.." Wool Slab"), --desc_slab

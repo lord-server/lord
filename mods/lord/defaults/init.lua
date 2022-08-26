@@ -164,6 +164,9 @@ for name, material in pairs(now_registered_nodes) do
 		if (material.groups.crumbly ~= nil) then
 			ghost.register_ghost_material(name)
 		end
+		if (material.groups.wool ~= nil) then
+			ghost.register_ghost_material(name)
+		end
 		if (material.groups.need_ghost_variant ~= nil) then
 			ghost.register_ghost_material(name)
 		end
