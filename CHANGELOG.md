@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.08](https://github.com/lord-server/lord/releases/tag/2022.08.p1)
+ - Исправление исчезнувших ступенек сена (#742) fixes #741.
+
 ## [2022.08](https://github.com/lord-server/lord/releases/tag/2022.08)
  - добавлены серебряные, стальные и оловянные лампы (#548);
  - заменена текстура берёзы (#692);
