@@ -89,10 +89,6 @@
 ### `mega_sl`
  - Сохранение и загрузка области карты (команды `/S` и `/L`)
 
-### `ru_lower_upper`
- - `string.lower()` и `string.upper()` для русского
- - используются ли ? и нужны ли для новых версий Minetest'а ?
-
 ### `roads`
  - мод для дорог с бордюрами [см.](https://github.com/lord-server/lord/pull/381)
  - мод разработан нами (by VanicGame)
