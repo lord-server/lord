@@ -3,7 +3,6 @@ Fog=Fog
 Snow Block=Snow Block
 Frozen Stone=Frozen Stone
 Mordor Stone=Mordor Stone
-Ice=Ice
 Black Water Source=Black Water Source
 Black River Source=Black River Source
 Dunland Grass=Dunland Grass
