@@ -3,7 +3,6 @@ Fog=Туман
 Snow Block=Блок снега
 Frozen Stone=Обледеневший камень
 Mordor Stone=Камень Мордора
-Ice=Лёд
 Black Water Source=Чёрная вода
 Black River Source=Речная чёрная вода
 Dunland Grass=Трава Дунланда
