@@ -50,3 +50,5 @@ local creative_mode_cache = minetest.settings:get_bool("creative_mode")
 function minetest.is_creative_enabled(name)
 	return creative_mode_cache
 end
+
+dofile(minetest.get_modpath("lordlib").."/ru_lower_upper.lua") -- string.upper and string.lower russian symbols support
