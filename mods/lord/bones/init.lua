@@ -39,6 +39,9 @@ local function register_corpse(race, gender, skin)
 		paramtype2 = "facedir",
 		groups = {dig_immediate=3, corpse = 1},
 		can_dig = function(pos, player)
+			if player == nil then
+				return
+			end
 			local inv = minetest.get_meta(pos):get_inventory()
 			return is_owner(pos, player:get_player_name()) and inv:is_empty("main")
 		end,
