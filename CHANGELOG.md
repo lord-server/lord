@@ -1,6 +1,11 @@
 # Change Log
 
-## [2022.08](https://github.com/lord-server/lord/releases/tag/2022.08.p1)
+
+## [2022.08.p2](https://github.com/lord-server/lord/releases/tag/2022.08.p2)
+ - Исправлено падение сервера при разрушении трупа
+ - Исправлен перевод блока льда
+
+## [2022.08.p1](https://github.com/lord-server/lord/releases/tag/2022.08.p1)
  - Исправление исчезнувших ступенек сена (#742) fixes #741.
 
 ## [2022.08](https://github.com/lord-server/lord/releases/tag/2022.08)
