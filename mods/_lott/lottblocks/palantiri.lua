@@ -1,19 +1,25 @@
 local SL             = lord.require_intllib()
 
-local SAVEDIR = "LORD"
-
-local function load_palantiri()
-	local tmp
-	local file           = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "r")
-	if file then
-		tmp = minetest.deserialize(file:read("*all"))
-		file:close()
+local function deprecated_load_palantiri()
+	local file = io.open(minetest.get_worldpath() .. "/LORD/palantiri", "r")
+	if file == nil then
+		return nil
 	end
-
-	return tmp ~= nil and tmp[1] or {}
+	local tmp = minetest.deserialize(file:read("*all"))
+	file:close()
+	return tmp[1]
 end
 
-lottblocks.palantiri = load_palantiri()
+local mod_storage = minetest.get_mod_storage()
+local function load_palantiri()
+	local tmp = mod_storage:get("serialized_palantiri")
+	if tmp then
+		return minetest.deserialize(tmp)
+	end
+	return nil
+end
+
+lottblocks.palantiri = load_palantiri() or deprecated_load_palantiri() or {}
 
 local races_p     = {}
 races_p["dwarf"]  = SL("dwarves")
@@ -23,13 +29,7 @@ races_p["orc"]    = SL("orcs")
 races_p["hobbit"] = SL("hobbits")
 
 local function save_palantiri()
-	minetest.mkdir(minetest.get_worldpath() .. "/" .. SAVEDIR)
-	local file = io.open(minetest.get_worldpath() .. "/" .. SAVEDIR .. "/palantiri", "w")
-	--print(dump(lottblocks.palantiri))
-	if file then
-		file:write(minetest.serialize({ lottblocks.palantiri }))
-		file:close()
-	end
+	mod_storage:set_string("serialized_palantiri", minetest.serialize(lottblocks.palantiri))
 end
 
 local function check_blocks(pos)
