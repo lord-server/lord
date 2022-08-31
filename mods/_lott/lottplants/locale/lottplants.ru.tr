@@ -35,9 +35,9 @@ White Leaf=Ветки белого дерева
 Yavannamire Leaf=Ветки йаваннамирэ
 Mirkwood Leaves=Ветки лихолесья
 Pine Tree=Сосна
-Pine Trank=Ствол сосны
+Pine Trunk=Ствол сосны
 Fir Tree=Ель
-Fir Trank=Ствол ели
+Fir Trunk=Ствол ели
 Birch Tree=Берёза
 Birch Trunk=Ствол берёзы
 Alder Tree=Ольха
@@ -95,6 +95,14 @@ Mallorn Wood Stair=Ступенька из маллорна
 Inner Mallorn Wood Stair=Угловая ступенька из маллорна (Внутренний Угол)
 Outer Mallorn Wood Stair=Угловая ступенька из маллорна (Внешний Угол)
 Mallorn Wood Slab=Плита из маллорна
+Pine Trunk Slab=Плита из ствола сосны
+Fir Trunk Slab=Плита из ствола ели
+Birch Trunk Slab=Плита из ствола берёзы
+Alder Trunk Slab=Плита из ствола ольхи
+Lebethron Trunk Slab=Плита из ствола лебетрона
+Mallorn Trunk Slab=Плита из ствола маллорна
+Tree Trunk Slab=Плита из ствола яблони
+Jungle Tree Trunk Slab=Плита из ствола эвкалипта
 Fireflies=Светлячки
 
 ### flowers.lua ###
