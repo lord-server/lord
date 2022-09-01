@@ -69,13 +69,19 @@ end
 --- @param player ObjRef - игрок
 --- @param control_name string - кнопка из списка controls
 lord.reset_hold_time = function(player, control_name)
-	if not player then return end
+	if not player then
+		return
+	end
 
-	if not control_name then return end
+	if not control_name then
+		return
+	end
 
 	local player_name = player:get_player_name()
 
-	if not player_name then return end
+	if not player_name then
+		return
+	end
 
 	lord.players[player_name].controls[control_name][2] = minetest.get_us_time()/MICROSECONDS
 end
@@ -85,7 +91,9 @@ lord.players = {}
 minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
 
-	if not player_name then return end
+	if not player_name then
+		return
+	end
 
 	lord.players[player_name] = {
 		controls = {
@@ -110,7 +118,9 @@ end)
 minetest.register_on_leaveplayer(function(player)
 	local player_name = player:get_player_name()
 
-	if not player_name then return end
+	if not player_name then
+		return
+	end
 
 	lord.players[player_name] = nil
 end)
