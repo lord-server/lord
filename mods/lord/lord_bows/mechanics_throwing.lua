@@ -15,6 +15,11 @@ throwing.charges = {}
 
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
+
+	if not name then
+		return
+	end
+
 	if not throwing.charges[name] then
 		throwing.charges[name] = 0
 	end
@@ -37,8 +42,13 @@ throwing.projectile_arrow = {
 }
 
 -- Зарядка лука одного вида
-function bow_charge(stack, hold_time, bow_stages, player)
+local function bow_charge(stack, hold_time, bow_stages, player)
 	local name = player:get_player_name()
+
+	if not name then
+		return
+	end
+
 	for key, value in pairs(bow_stages.stages) do
 		if stack:get_name() == value then
 			if (hold_time >= bow_stages.charging_time[key]) and (#bow_stages.stages >= key+1) then
@@ -52,14 +62,18 @@ function bow_charge(stack, hold_time, bow_stages, player)
 end
 
 -- Разрядка лука одного вида
-function bow_discharge(stack, bow_stages)
+local function bow_discharge(stack, bow_stages)
 	stack:set_name(bow_stages.stages[1])
 	return stack
 end
 
 -- Замедление игрока
-function player_slowdown(player)
+local function player_slowdown(player)
 	local physics = player:get_physics_override()
+
+	if not physics then
+		return
+	end
 
 	if physics.speed ~= PLAYER_SLOWDOWN_SPEED then
 		players_physics[player:get_player_name()] = physics.speed
@@ -70,14 +84,19 @@ function player_slowdown(player)
 end
 
 -- Сброс замедления игрока
-function player_reset_slowdown(player)
+local function player_reset_slowdown(player)
 	local physics = player:get_physics_override()
+
+	if not physics then
+		return
+	end
+
 	physics.speed = players_physics[player:get_player_name()]
 	player:set_physics_override(physics)
 end
 
 -- Выстрел
-function arrow_shot(player)
+local function arrow_shot(player)
 	local inv = player:get_inventory()
 	local look_dir = player:get_look_dir()
 	local player_pos = player:get_pos()
@@ -99,7 +118,7 @@ function arrow_shot(player)
 end
 
 -- Есть ли в инвентаре стрелы?
-function there_is_arrows(player)
+local function there_is_arrows(player)
 	local inv = player:get_inventory()
 	for key, _ in pairs(throwing.projectile_arrow) do
 		if inv:contains_item("main", key) then return true end
@@ -109,14 +128,20 @@ end
 -- Зарядка лука по удержанию
 lord.register_on_hold(function(player, control_name, hold_time)
 	-- Зарядка на клавишу СONTROL_CHARGE
-	if control_name ~= CONTROL_CHARGE then return end
+	if control_name ~= CONTROL_CHARGE then
+		return
+	end
 
 	local stack = player:get_wielded_item()
 
 	-- Если предмет не лук
-	if not stack:get_definition().groups.bow then return end
+	if not stack:get_definition().groups.bow then
+		return
+	end
 
-	if not there_is_arrows(player) then return end
+	if not there_is_arrows(player) then
+		return
+	end
 
 	player_slowdown(player)
 	local new_stack = bow_charge(stack, hold_time, throwing.bow_wooden_stages, player)
@@ -127,11 +152,15 @@ end)
 
 -- Разрядка лука при отпуске клавиши
 lord.register_on_release(function(player, control_name)
-	if control_name ~= CONTROL_CHARGE then return end
+	if control_name ~= CONTROL_CHARGE then
+		return
+	end
 
 	local stack = player:get_wielded_item()
 
-	if not stack:get_definition().groups.bow then return end
+	if not stack:get_definition().groups.bow then
+		return
+	end
 
 	arrow_shot(player)
 
