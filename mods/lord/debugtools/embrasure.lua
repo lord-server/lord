@@ -1,7 +1,5 @@
-local SL = lord.require_intllib()
-
-minetest.register_node("embrasure:arrownode", {
-	description = SL("Automatic shooting node"),
+minetest.register_node("debugtools:arrownode", {
+	description = "Automatic shooting node",
 	tiles = {"lottblocks_snowycobble.png"},
 	on_construct = function(pos)
 		local timer = minetest.get_node_timer(pos)
