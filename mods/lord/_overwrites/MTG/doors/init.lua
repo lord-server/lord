@@ -184,3 +184,16 @@ doors.register_trapdoor("lord_overwrites_mtg_doors:trapdoor_steel", { -- removed
 	groups = {cracky = 1, level = 2, door = 1},
 })
 minetest.register_alias("doors:trapdoor_steel", "lord_overwrites_mtg_doors:trapdoor_steel")
+
+
+local function doors_unregister_gate(name)
+	minetest.unregister_item(name.."_closed")
+	minetest.unregister_item(name.."_open")
+end
+
+-- unregistering ugly gates
+doors_unregister_gate("doors:gate_wood")
+doors_unregister_gate("doors:gate_acacia_wood")
+doors_unregister_gate("doors:gate_junglewood")
+doors_unregister_gate("doors:gate_pine_wood")
+doors_unregister_gate("doors:gate_aspen_wood")
