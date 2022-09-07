@@ -1366,8 +1366,8 @@ stairs.register_stair_and_slab(
 
 -- trunk slabs
 stairs.register_slab(
-	"pinetrunk",
-	"lottplants:pinetrunk",
+	"pinetree",
+	"lottplants:pinetree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
 	S("Pine Trunk Slab"),
@@ -1376,8 +1376,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"firtrunk",
-	"lottplants:firtrunk",
+	"firtree",
+	"lottplants:firtree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
 	S("Fir Trunk Slab"),
@@ -1386,8 +1386,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"birchtrunk",
-	"lottplants:birchtrunk",
+	"birchtree",
+	"lottplants:birchtree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_birchtree_top.png", "lottplants_birchtree_top.png", "lottplants_birchtree.png" },
 	S("Birch Trunk Slab"),
@@ -1396,8 +1396,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"aldertrunk",
-	"lottplants:aldertrunk",
+	"aldertree",
+	"lottplants:aldertree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_aldertree_top.png", "lottplants_aldertree_top.png", "lottplants_aldertree.png" },
 	S("Alder Trunk Slab"),
@@ -1406,8 +1406,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"lebethrontrunk",
-	"lottplants:lebethrontrunk",
+	"lebethrontree",
+	"lottplants:lebethrontree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_lebethrontree_top.png", "lottplants_lebethrontree_top.png", "default_tree.png" },
 	S("Lebethron Trunk Slab"),
@@ -1416,8 +1416,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"mallorntrunk",
-	"lottplants:mallorntrunk",
+	"mallorntree",
+	"lottplants:mallorntree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
 	{ "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
 	S("Mallorn Trunk Slab"),
@@ -1426,8 +1426,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"treetrunk",
-	"default:tree_trunk",
+	"tree",
+	"default:tree",
 	{ tree_slab = 1, choppy = 2, flammable = 2 },
 	{ "default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	S("Tree Trunk Slab"),
@@ -1436,8 +1436,8 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
-	"jungletreetrunk",
-	"default:jungle_tree_trunk",
+	"jungletreetree",
+	"default:jungletree",
 	{ tree_slab = 1, choppy = 2, flammable = 2 },
 	{"default_jungletree_top.png", "default_jungletree_top.png", "default_jungletree.png"},
 	S("Jungle Tree Trunk Slab"),
