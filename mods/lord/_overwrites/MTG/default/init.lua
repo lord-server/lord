@@ -517,11 +517,17 @@ minetest.override_item("default:tree", {
 	on_dig = function(pos, node, digger)
 		default.dig_tree(pos, node, "default:tree", digger, 20, 2, "default:tree")
 	end,
+	on_place = function(itemstack, placer, pointed_thing)
+		return default.place_tree(itemstack, placer, pointed_thing, "default:tree_trunk")
+	end,
 })
 
 minetest.override_item("default:jungletree", {
 	on_dig = function(pos, node, digger)
 		default.dig_tree(pos, node, "default:jungletree", digger, 20, 2, "default:jungletree")
+	end,
+	on_place = function(itemstack, placer, pointed_thing)
+		return default.place_tree(itemstack, placer, pointed_thing, "default:jungletree_trunk")
 	end,
 })
 
@@ -529,8 +535,18 @@ minetest.override_item("default:jungletree", {
 -- default/functions.lua
 
 
--- Падение ствола деревьев вниз при ломании
+--- Устанавливает trunk вместо tree (обработчик для on_place в tree).
+---@param itemstack ItemStack @stack в руках игрока (tree)
+---@param placer Player @объект игрока
+---@param pointed_thing pointed_thing @объект направления
+---@param trunk_name string @название соответствующего дереву (tree) блока trunk
+---@return ItemStack @обновлённый stack в руках игрока (tree)
+function default.place_tree(itemstack, placer, pointed_thing, trunk_name)
+	minetest.rotate_node(ItemStack(trunk_name), placer, pointed_thing)
+	return itemstack:take_item()
+end
 
+-- Падение ствола деревьев вниз при ломании
 function default.dig_tree(pos, node, name, digger, height, radius, drop)
 	minetest.node_dig(pos, node, digger)
 
