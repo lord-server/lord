@@ -7,3 +7,7 @@ Marble With Redgem=
 Marble With Bluegem=
 Marble With Purplegem=
 Green Marble=
+Green Marble Stair=
+Green Marble Slab=
+Inner Green Marble Stair=
+Outer Green Marble Stair=

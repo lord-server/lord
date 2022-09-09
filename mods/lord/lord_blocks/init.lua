@@ -148,3 +148,16 @@ minetest.register_node("lord_blocks:green_marble", {
 	groups = {cracky=3},
 	sounds = default.node_sound_stone_defaults(),
 })
+
+stairs.register_stair_and_slab(
+	"green_marble",
+	"lord_blocks:green_marble",
+	{cracky=3},
+	{"lord_blocks_green_marble.png"},
+	S("Green Marble Stair"),
+	S("Green Marble Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	S("Inner Green Marble Stair"),
+	S("Outer Green Marble Stair")
+)
