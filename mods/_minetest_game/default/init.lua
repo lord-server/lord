@@ -6,8 +6,6 @@
 -- Load support for MT game translation.
 local S = minetest.get_translator("default")
 
-LIGHT_MAX = 14
-
 -- Definitions made by this mod that other mods can use too
 default = {}
 
@@ -46,12 +44,10 @@ default.gui_survival_form = "size[8,8.5]"..
 -- Load files
 local default_path = minetest.get_modpath("default")
 
--- не обновлены:
+-- обновлены до идентичного состояния как в MTG (42baede13fdf855773cc44ce10f4a3ea4e239404):
 dofile(default_path.."/functions.lua")
 dofile(default_path.."/trees.lua")
 dofile(default_path.."/nodes.lua")
-dofile(default_path.."/player.lua") -- выпилен (перенесён в отдельный мод?)
--- обновлены до идентичного состояния как в MTG (42baede13fdf855773cc44ce10f4a3ea4e239404):
 dofile(default_path.."/chests.lua")
 dofile(default_path.."/furnace.lua")
 dofile(default_path.."/torch.lua")
@@ -59,5 +55,9 @@ dofile(default_path.."/tools.lua")
 dofile(default_path.."/item_entity.lua")
 dofile(default_path.."/craftitems.lua")
 dofile(default_path.."/crafting.lua")
--- не обновлены:
+-- не обновлён, т.к. генерация своя(убогая, но какая досталась), пока нет возможности обновить её:
 dofile(default_path.."/mapgen.lua")
+-- добавились, но пока что не подключаем, т.к. есть аналогичные наши
+--dofile(default_path.."/aliases.lua")
+-- нужно повнимательнее посмотреть на код внутри (нет ли конфликтов с нашим кодом:
+--dofile(default_path.."/legacy.lua")
