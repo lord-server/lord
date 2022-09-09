@@ -49,6 +49,7 @@ lottpotion = {
 						end
 					end)
 					itemstack:take_item()
+					lord.give_or_drop(user, ItemStack("vessels:glass_bottle"))
 					return itemstack
 				end,
 			}
@@ -75,6 +76,7 @@ lottpotion = {
 						end
 					end)
 					itemstack:take_item()
+					lord.give_or_drop(user, ItemStack("vessels:glass_bottle"))
 					return itemstack
 				end,
 			}
@@ -102,6 +104,7 @@ lottpotion = {
 		end
 
 		itemstack:take_item()
+		lord.give_or_drop(user, ItemStack("vessels:glass_bottle"))
 		local image_potion = nil
 		--if itemstack:get_definition then
 		--  image_potion = itemstack:get_definition().inventory_image
