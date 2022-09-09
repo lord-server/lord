@@ -1,5 +1,7 @@
 # Change Log
 
+## [2022.08.p3](https://github.com/lord-server/lord/releases/tag/2022.08.p3)
+- Added green marble stairs and slabs (fixes #762) (#764)
 
 ## [2022.08.p2](https://github.com/lord-server/lord/releases/tag/2022.08.p2)
  - Исправлено падение сервера при разрушении трупа
