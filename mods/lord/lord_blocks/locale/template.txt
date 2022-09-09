@@ -3,3 +3,7 @@ Blackout=
 Stripe Dwarf Stone (Single Dot)=
 Stripe Dwarf Stone (One Sided)=
 Green Marble=
+Green Marble Stair=
+Green Marble Slab=
+Inner Green Marble Stair=
+Outer Green Marble Stair=
