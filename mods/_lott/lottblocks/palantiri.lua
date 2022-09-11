@@ -122,8 +122,8 @@ minetest.register_privilege("palantiri", {
 minetest.register_node("lottblocks:palantir", {
 	description               = SL("Palantir"),
 	tiles                     = { "default_obsidian.png" },
-	wield_image = "lottblocks_palantir_item.png",
-	inventory_image = "lottblocks_palantir_item.png",
+	wield_image               = "lottblocks_palantir_item.png",
+	inventory_image           = "lottblocks_palantir_item.png",
 	paramtype                 = "light",
 	drawtype                  = "mesh",
 	mesh                      = "lottblocks_palantir.obj",
