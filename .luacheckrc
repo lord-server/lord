@@ -61,6 +61,7 @@ exclude_files     = {
 
     -- MTG:
     -- (в большинстве случаев ошибки уже исправлены в оригинале, нужно убрать после обновления)
+    "mods/_minetest_game/default/legacy.lua",
     "mods/_minetest_game/carts/cart_entity.lua",
     "mods/_minetest_game/doors/api.lua",
 

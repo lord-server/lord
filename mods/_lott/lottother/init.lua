@@ -44,7 +44,7 @@ minetest.register_node("lottother:blue_torch", {
 		-- Remove the torch node
 		return false
 	end,
-	light_source        = LIGHT_MAX - 1,
+	light_source        = default.LIGHT_MAX - 1,
 	selection_box       = {
 		type        = "wallmounted",
 		wall_top    = { -0.1, 0.5 - 0.6, -0.1, 0.1, 0.5, 0.1 },
@@ -95,7 +95,7 @@ minetest.register_node("lottother:orc_torch", {
 		-- Remove the torch node
 		return false
 	end,
-	light_source        = LIGHT_MAX - 3,
+	light_source        = default.LIGHT_MAX - 3,
 	selection_box       = {
 		type        = "wallmounted",
 		wall_top    = { -0.1, 0.5 - 0.6, -0.1, 0.1, 0.5, 0.1 },
