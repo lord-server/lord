@@ -21,6 +21,7 @@ minetest.register_node("lottblocks:tree_vine", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
+	sounds            = default.node_sound_wood_defaults()
 	groups            = { choppy = 2, snappy = 2, tree = 1 },
 })
 
@@ -51,6 +52,7 @@ minetest.register_node("lottblocks:tree_mossy", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
+	sounds            = default.node_sound_wood_defaults()
 	groups            = { choppy = 2, tree = 1 },
 })
 
