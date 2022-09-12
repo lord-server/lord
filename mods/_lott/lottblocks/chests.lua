@@ -16,14 +16,13 @@ minetest.register_craft({
 	}
 })
 
--- Регистрация "расового" сундука
--- Принимает:
--- - name - название ноды;
--- - desc - описание ноды;
--- - tiles - тайлы ноды;
--- - owner_race - раса, которая может открывать сундук;
--- - background - текстура фона сундука;
--- - fail_text - текст, печатающийся при несоответствии расы сундуку.
+--- Регистрация "расового" сундука
+---@param name string @название ноды;
+---@param desc string @описание ноды;
+---@param tiles table @тайлы ноды;
+---@param owner_race string @раса, которая может открывать сундук;
+---@param background string @текстура фона сундука;
+---@param fail_text string @текст, печатающийся при несоответствии расы сундуку.
 local function register_race_chest(name, desc, tiles, owner_race, background, fail_text)
 	minetest.register_node(name, {
 		description           = desc,
