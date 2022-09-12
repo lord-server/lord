@@ -117,6 +117,14 @@ register_race_chest("lottblocks:angmar_chest", SL("Angmar Chest"),
 	},
 	"orc", "gui_angmarbg.png", SL("Only Orcs can open this kind of chest!"))
 
+register_race_chest("lottblocks:dwarf_chest", SL("Dwarf Chest"),
+	{
+        "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_side.png",
+		"lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_front.png"
+	},
+	"dwarf", "gui_dwarfbg.png", SL("Only Dwarfs can open this kind of chest!")
+)
+
 minetest.register_craft({
 	output = "lottblocks:hobbit_chest",
 	recipe = {
@@ -177,6 +185,15 @@ minetest.register_craft({
 		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
 		{ "lottplants:pinewood", "", "lottplants:pinewood" },
 		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
+	}
+})
+
+minetest.register_craft({
+	output = "lottblocks:dwarf_chest",
+	recipe = {
+		{"default:stone", "default:stone", "default:stone"},
+		{"default:stone", "default:chest", "default:stone"},
+		{"default:stone", "default:stone", "default:stone"},
 	}
 })
 

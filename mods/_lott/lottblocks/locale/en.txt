@@ -27,11 +27,13 @@ Elven (Lorien) Chest=Elven (Lorien) Chest
 Elven (Mirkwood) Chest=Elven (Mirkwood) Chest
 Mordor Chest=Mordor Chest
 Angmar Chest=Angmar Chest
+Dwarf Chest=Dwarf Chest
 
 Only Hobbits can open this kind of chest!=Only Hobbits can open this kind of chest!
 Only Humans can open this kind of chest!=Only Humans can open this kind of chest!
 Only Elves can open this kind of chest!=Only Elves can open this kind of chest!
 Only Orcs can open this kind of chest!=Only Orcs can open this kind of chest!
+Only Dwarfs can open this kind of chest!=Only Dwarfs can open this kind of chest!
 
 ### decoration.lua ###
 Tree With Vines=Tree With Vines
