@@ -73,13 +73,9 @@ local function formspec_update(meta)
 	local h = 3.5
 	for i, v in pairs(lottblocks.palantiri[network]["options"]) do
 		local c = "red"
-		--print(dump(v))
 		if v == "true" then
 			c = "green"
 		end
-		--print("key="..i)
-		--print(dump(races_p))
-		--print(dump(races_p))
 		form = form .. "label[" .. n .. "," .. h .. ";" .. minetest.colorize(c, races_p[i]) .. "]"
 		n    = n + 1.5
 		if n == 5.5 then
@@ -89,8 +85,6 @@ local function formspec_update(meta)
 	end
 	return form
 end
-
---print(dump(races))
 
 local function options_form(network)
 	local checkbox_pos = 1
@@ -104,7 +98,6 @@ local function options_form(network)
 		"background[5,5;1,1;gui_elfbg.png;true]" ..
 		"label[1,0.5;" .. SL("Allowed races") .. ":]" ..
 		"button[1,4;2,1;exit;" .. SL("Proceed") .. "]"
-	--print(dump(races_p))
 	for i, race in pairs(races_p) do
 		options      = options .. "checkbox[1," .. checkbox_pos .. ";" .. i ..
 			";" .. race:gsub("^%l", string.upper) .. ";" ..
@@ -162,13 +155,10 @@ minetest.register_node("lottblocks:palantir", {
 			"field[3,2.5;3,1;palantir;" .. SL("Palantir Name") .. ";]")
 	end,
 	on_receive_fields         = function(pos, formname, fields, sender)
-		--print(dump(fields))
 		local meta        = minetest.get_meta(pos)
 		local configured  = meta:get_int("configured")
 		local player_name = sender:get_player_name()
 		local player_race = races.get_race(player_name)
-		--print("имя "..player_name)
-		--print("раса "..dump(player_race))
 
 		if configured == 0 then
 			if not fields.network or not fields.palantir
@@ -205,34 +195,25 @@ minetest.register_node("lottblocks:palantir", {
 				return
 			end
 			if not lottblocks.palantiri[fields.network].options then
-				--print("Первичная инициализация рас после установки палантира")
 				lottblocks.palantiri[fields.network].options = {}
 				local options                                = lottblocks.palantiri[fields.network].options
 				for i, race in pairs(races_p) do
-					--print(i)
 					options[i] = "true"
 				end
-				--print(dump(options))
 			end
-			--print(dump(lottblocks.palantiri[fields.network]))
 			meta:set_string("network", fields.network)
 			meta:set_string("name", fields.palantir)
 			meta:set_string("formspec", options_form(fields.network))
-			--print(dump(lottblocks.palantiri))
 			save_palantiri()
 			meta:set_int("configured", 1)
 		elseif meta:get_int("configured") == 1 then
-			--print("configured == 1")
 			local network = meta:get_string("network")
 			if not network then
 				return
 			end
-			--print(dump(fields))
 			if player_name == meta:get_string("owner") then
 				for i, race in pairs(races_p) do
-					--print("key=".._.." val="..dump(race))
 					if fields[i] ~= nil then
-						--print(dump(lottblocks.palantiri[network].options))
 						lottblocks.palantiri[network].options[i] = tostring(fields[i])
 					end
 				end
@@ -264,50 +245,16 @@ minetest.register_node("lottblocks:palantir", {
 			if not network then
 				return
 			end
-			-- local allowed_races = {}
-			-- --print(dump(lottblocks.palantiri[network].options))
-			-- for race, allowed in pairs(lottblocks.palantiri[network].options) do
-			-- 	if allowed == "true" then
-			-- 		--print(race)
-			-- 		allowed_races[race] = true
-			-- 	end
-			-- end
 
-			--print(meta:get_string("owner"))
-			--print(dump(allowed_races))
 			if player_name == meta:get_string("owner") then
 				can_tp = true
 			elseif minetest.check_player_privs(player_name, { palantiri = true }) then
-				--print(dump(lottblocks.palantiri[network].options[player_race]))
 				can_tp = lottblocks.palantiri[network].options[player_race] == "true"
-				-- --print(dump(races_p))
-				-- for _, race in pairs(races_p) do
-				-- 	--print(dump(allowed_races[race]))
-				-- 	if allowed_races[race[2]] == true then
-				-- 		--print(race[2])
-				-- 		--print(player_race)
-				-- 		--can_tp = minetest.check_player_privs(player_name, {[race[2]] = true})
-				-- 		--if player_race == race[2] then can_tp = true end
-				-- 		can_tp = player_race == race[1]
-				-- 		--print(can_tp)
-				-- 		if can_tp == true then
-				-- 			break
-				-- 		end
-				-- 	end
-				-- end
-				-- local c = 0
-				-- for i,v in pairs(allowed_races) do c = c + 1 end
-				-- --print(c)
-				-- if c == 0 then
-				-- 	can_tp = false
-				-- end
 			end
 
 
 			-- teleportation / собственно телепортация
-			--print()
 			if can_tp == true then
-				--print(dump(fields))
 				if fields.teleports == SL("Teleport to...") then
 					if
 						minetest.registered_nodes[minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name].walkable or
@@ -319,7 +266,6 @@ minetest.register_node("lottblocks:palantir", {
 						)
 						return
 					end
-					--print(player_name)
 					sender:setpos({ x = pos.x, y = pos.y + 1, z = pos.z })
 					minetest.close_formspec(player_name, formname)
 					return
@@ -360,14 +306,11 @@ minetest.register_node("lottblocks:palantir", {
 				return
 			end
 			lottblocks.palantiri[meta:get_string("network")][meta:get_string("name")] = nil
-			--print(dump(lottblocks.palantiri[meta:get_string("network")]))
 			i                                                                         = 0
 			-- count element in table / считаем колисечтво элементов в таблице
 			for key, value in pairs(lottblocks.palantiri[meta:get_string("network")]) do
-				--print(key, dump(value))
 				i = i + 1
 			end
-			--print(i)
 			-- delete network if not palantir / удалим сеть если в ней не осталось палантиров
 			if i <= 2 then
 				lottblocks.palantiri[meta:get_string("network")] = nil
