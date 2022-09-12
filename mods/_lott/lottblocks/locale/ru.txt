@@ -106,6 +106,7 @@ Mordor Pine Lamppost=Сосновый фонарь Мордора
 Mordor Pine Small Lamp=Сосновая лампа Мордора
 Mordor Lebethron Lamppost=Лебетроновый фонарь Мордора
 Mordor Lebethron Small Lamp=Лебетроновая лампа Мордора
+Mithril Stonelamp=Мифриловая лампа
 
 ### misc.lua ###
 Elven Rope=Эльфийская верёвка

@@ -106,6 +106,7 @@ Mordor Pine Lamppost=Mordor Pine Lamppost
 Mordor Pine Small Lamp=Mordor Pine Small Lamp
 Mordor Lebethron Lamppost=Mordor Lebethron Lamppost
 Mordor Lebethron Small Lamp=Mordor Lebethron Small Lamp
+Mithril Stonelamp=Mithril Stonelamp
 
 ### misc.lua ###
 Elven Rope=Elven Rope
