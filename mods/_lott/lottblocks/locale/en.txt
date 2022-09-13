@@ -121,6 +121,7 @@ Lebethron (Note A) Whistle=Lebethron (Note A) Whistle
 Mallorn (Note Eb) Whistle=Mallorn (Note Eb) Whistle
 Pine (Note Bb) Whistle=Pine (Note Bb) Whistle
 Wood (Note C) Whistle=Wood (Note C) Whistle
+Gong=Gong
 
 ### wooden_stuff.lua ###
 Wooden Door=Wooden Door
