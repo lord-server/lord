@@ -17,6 +17,8 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			tiles_bottom    = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
 			tiles_top       = { "lottblocks_door_" .. name .. "_a.png", "lottblocks_edge_" .. name .. ".png" },
 			sounds          = default.node_sound_wood_defaults(),
+			sound_open      = "doors_door_open",
+			sound_close     = "doors_door_close",
 			sunlight        = true,
 		})
 		minetest.register_craft({
@@ -34,6 +36,8 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			tiles_bottom         = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
 			tiles_top            = { "lottblocks_door_" .. name .. "_a.png", "lottblocks_edge_" .. name .. ".png" },
 			sounds               = default.node_sound_wood_defaults(),
+			sound_open           = "doors_door_open",
+			sound_close          = "doors_door_close",
 			sunlight             = true,
 			only_placer_can_open = true,
 		})
