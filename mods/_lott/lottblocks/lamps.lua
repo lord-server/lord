@@ -51,7 +51,7 @@ function lottblocks.register_lamp(
 				(minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
 			then
 				minetest.chat_send_player(placer:get_player_name(), SL('Not enough space for lamppost to be placed'))
-				return 
+				return
 			end
 			return minetest.item_place(itemstack, placer, pointed_thing)
 		end,
