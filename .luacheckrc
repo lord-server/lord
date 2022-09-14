@@ -63,7 +63,8 @@ exclude_files     = {
     -- (в большинстве случаев ошибки уже исправлены в оригинале, нужно убрать после обновления)
     "mods/_minetest_game/default/legacy.lua",
     "mods/_minetest_game/carts/cart_entity.lua",
-    "mods/_minetest_game/doors/api.lua",
+    "mods/lord/_overwrites/MTG/doors/init.lua", -- changing readonly fields to unregister doors
+    "mods/_minetest_game/doors/init.lua",
 
     -- LOTT:
 	"mods/_lott/lottmapgen",
