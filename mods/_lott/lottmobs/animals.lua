@@ -221,7 +221,7 @@ mobs:register_mob("lottmobs:chicken", {
 	passive = true,
 })
 
---[[mobs:register_mob("lottmobs:sheep", {
+mobs:register_mob("lottmobs:sheep", {
 	type = "animal",
 	passive = true,
 	hp_min = 8,
@@ -229,7 +229,7 @@ mobs:register_mob("lottmobs:chicken", {
 	armor = 200,
 	collisionbox = {-0.5, -1, -0.5, 0.5, 0.3, 0.5},
 	visual = "mesh",
-	mesh = "mobs_sheep.b3d",
+	mesh = "mobs_sheep.b3d", -- from mods/_various/mobs
 	textures = {
 		{"mobs_sheep_base.png^mobs_sheep_wool.png"}, --White
 		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#663300a0)"}, --Black
@@ -237,7 +237,7 @@ mobs:register_mob("lottmobs:chicken", {
 		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#5b5b5bb0)"}, --Grey
 	},
 	gotten_texture = {"mobs_sheep_shaved.png"},
-	gotten_mesh = "mobs_sheep_shaved.b3d",
+	gotten_mesh = "mobs_sheep_shaved.b3d", -- from mods/_various/mobs
 	makes_footstep_sound = true,
 	sounds = {
 		random = "mobs_sheep",
@@ -283,7 +283,7 @@ mobs:register_mob("lottmobs:chicken", {
 		local item = clicker:get_wielded_item()
 		local itemname = item:get_name()
 
-		if itemname == "mobs:shears" then
+		if string.match(itemname, "^tools:dagger_") then
 			if self.gotten ~= false
 			or self.child ~= false
 			or not minetest.get_modpath("wool") then
@@ -292,7 +292,7 @@ mobs:register_mob("lottmobs:chicken", {
 			self.gotten = true -- shaved
 			local obj = minetest.add_item(
 				self.object:get_pos(),
-				ItemStack( "wool:" .. col[1] .. " " .. math.random(1, 3) )
+				ItemStack( "wool:white " .. math.random(1, 3) )
 			)
 			if obj then
 				obj:setvelocity({
@@ -310,12 +310,12 @@ mobs:register_mob("lottmobs:chicken", {
 			return
 		end
 	end
-})]]--
+})
 
---[[mobs:register_spawn("lottmobs:sheep",
+mobs:register_spawn("lottmobs:sheep",
     {"lottmapgen:shire_grass", "lottmapgen:gondor_grass", "lottmapgen:dunland_grass",
 	"lottmapgen:ithilien_grass"},
-    20, 10, 10000, 1, 31000)]]--
+    20, 10, 10000, 1, 31000)
 
 mobs:register_mob("lottmobs:bunny", {
 	type = "animal",
