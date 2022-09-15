@@ -111,3 +111,50 @@ for _, row in ipairs(whistle) do
 		}
 	})
 end
+
+
+minetest.register_node("lottblocks:gong", {
+	description = SL("Gong"),
+	tiles = {"default_bronze_block.png"},
+	drawtype = "nodebox",
+	paramtype = "light",
+	paramtype2 = "facedir",
+	on_punch = function(pos)
+		minetest.sound_play("gong", {
+			pos = pos,
+			max_hear_distance = 48,
+			gain = 1,
+		})
+	end,
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{ -0.5, 0.4375, -0.0625, 0.5, 0.5, 0.0625, }, -- NodeBox1
+			{ 0.4375, -0.5, -0.0625, 0.5, 0.5, 0.0625, }, -- NodeBox2
+			{ -0.5, -0.5, -0.0625, -0.4375, 0.5, 0.0625, }, -- NodeBox3
+			{ -0.1875, -0.1875, -0.0625, 0.1875, 0.1875, 0, }, -- NodeBox5
+			{ -0.375, -0.3125, 0, -0.1875, 0.3125, 0.0625, }, -- NodeBox6
+			{ 0.125, -0.3125, 0, 0.3125, 0.3125, 0.0625, }, -- NodeBox7
+			{ -0.3125, 0.125, 0, 0.3125, 0.3125, 0.0625, }, -- NodeBox8
+			{ -0.375, -0.3125, 0, 0.3125, -0.125, 0.0625, }, -- NodeBox9
+			{ -0.3125, 0.25, 0, -0.25, 0.5, 0.0625, }, -- NodeBox10
+			{ 0.1875, 0.25, 0, 0.25, 0.5, 0.0625, }, -- NodeBox11
+		}
+	},
+	selection_box = {
+		type = "fixed",
+		fixed = {
+			{ -0.5, -0.5, -0.0625, 0.5, 0.5, 0.125, }, -- NodeBox1
+		}
+	},
+	groups = { instrument=1, cracky=1, }
+})
+
+minetest.register_craft({
+	output = "lottblocks:gong",
+	recipe = {
+		{ "group:stick",          "default:bronze_ingot", "group:stick" },
+		{ "default:bronze_ingot", "default:bronze_ingot", "default:bronze_ingot" },
+		{ "group:stick",          "default:bronze_ingot", "group:stick" },
+	}
+})

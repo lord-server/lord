@@ -45,15 +45,15 @@ function lottblocks.register_lamp(
 			}
 		},
 		on_place         = function(itemstack, placer, pointed_thing)
-			local pos = pointed_thing.above;
+			local pos = pointed_thing.above
 			if
 			(minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or
 				(minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
 			then
 				minetest.chat_send_player(placer:get_player_name(), SL('Not enough space for lamppost to be placed'))
-				return ;
+				return
 			end
-			return minetest.item_place(itemstack, placer, pointed_thing);
+			return minetest.item_place(itemstack, placer, pointed_thing)
 		end,
 		after_place_node = function(pos, placer, itemstack)
 			minetest.set_node({ x = pos.x, y = pos.y + 1, z = pos.z }, { name = node_middle })
@@ -199,3 +199,24 @@ lottblocks.register_lamp("junglewood_orc", "Mordor Junglewood", "lottblocks_orc_
 lottblocks.register_lamp("birch_orc", "Mordor Birch", "lottblocks_orc_lamp_inv_birch.png", "lottblocks_orc_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_orc_lamp_active_birch.png", "lottblocks:stick_birch", "orc")
 lottblocks.register_lamp("pine_orc", "Mordor Pine", "lottblocks_orc_lamp_inv_pine.png", "lottblocks_orc_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_orc_lamp_active_pine.png", "lottblocks:stick_pine", "orc")
 lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_lamp_inv_lebethron.png", "lottblocks_orc_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_orc_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "orc")
+
+-- Made by lumidify - lottblocks_mithril_stonelamp.png
+-- created by modifying darkage_lamp.png
+minetest.register_node("lottblocks:mithril_stonelamp", {
+	description = SL("Mithril Stonelamp"),
+	tiles = { "lottblocks_mithril_stonelamp.png" },
+	paramtype = "light",
+	sunlight_propagates = true,
+	light_source = 14,
+	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
+	sounds = default.node_sound_glass_defaults(),
+})
+
+minetest.register_craft({
+	output = "lottblocks:mithril_stonelamp 2",
+	recipe = {
+		{"default:stone", "default:stone","default:stone"},
+		{"default:stone", "lottores:mithril_ingot", "default:stone"},
+		{"default:stone", "default:torch", "default:stone"},
+	}
+})

@@ -27,11 +27,13 @@ Elven (Lorien) Chest=Elven (Lorien) Chest
 Elven (Mirkwood) Chest=Elven (Mirkwood) Chest
 Mordor Chest=Mordor Chest
 Angmar Chest=Angmar Chest
+Dwarf Chest=Dwarf Chest
 
 Only Hobbits can open this kind of chest!=Only Hobbits can open this kind of chest!
 Only Humans can open this kind of chest!=Only Humans can open this kind of chest!
 Only Elves can open this kind of chest!=Only Elves can open this kind of chest!
 Only Orcs can open this kind of chest!=Only Orcs can open this kind of chest!
+Only Dwarfs can open this kind of chest!=Only Dwarfs can open this kind of chest!
 
 ### decoration.lua ###
 Tree With Vines=Tree With Vines
@@ -104,6 +106,7 @@ Mordor Pine Lamppost=Mordor Pine Lamppost
 Mordor Pine Small Lamp=Mordor Pine Small Lamp
 Mordor Lebethron Lamppost=Mordor Lebethron Lamppost
 Mordor Lebethron Small Lamp=Mordor Lebethron Small Lamp
+Mithril Stonelamp=Mithril Stonelamp
 
 ### misc.lua ###
 Elven Rope=Elven Rope
@@ -118,6 +121,7 @@ Lebethron (Note A) Whistle=Lebethron (Note A) Whistle
 Mallorn (Note Eb) Whistle=Mallorn (Note Eb) Whistle
 Pine (Note Bb) Whistle=Pine (Note Bb) Whistle
 Wood (Note C) Whistle=Wood (Note C) Whistle
+Gong=Gong
 
 ### wooden_stuff.lua ###
 Wooden Door=Wooden Door

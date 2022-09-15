@@ -16,14 +16,13 @@ minetest.register_craft({
 	}
 })
 
--- Регистрация "расового" сундука
--- Принимает:
--- - name - название ноды;
--- - desc - описание ноды;
--- - tiles - тайлы ноды;
--- - owner_race - раса, которая может открывать сундук;
--- - background - текстура фона сундука;
--- - fail_text - текст, печатающийся при несоответствии расы сундуку.
+--- Регистрация "расового" сундука
+---@param name string @название ноды;
+---@param desc string @описание ноды;
+---@param tiles table @тайлы ноды;
+---@param owner_race string @раса, которая может открывать сундук;
+---@param background string @текстура фона сундука;
+---@param fail_text string @текст, печатающийся при несоответствии расы сундуку.
 local function register_race_chest(name, desc, tiles, owner_race, background, fail_text)
 	minetest.register_node(name, {
 		description           = desc,
@@ -118,6 +117,14 @@ register_race_chest("lottblocks:angmar_chest", SL("Angmar Chest"),
 	},
 	"orc", "gui_angmarbg.png", SL("Only Orcs can open this kind of chest!"))
 
+register_race_chest("lottblocks:dwarf_chest", SL("Dwarf Chest"),
+	{
+        "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_side.png",
+		"lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_front.png"
+	},
+	"dwarf", "gui_dwarfbg.png", SL("Only Dwarfs can open this kind of chest!")
+)
+
 minetest.register_craft({
 	output = "lottblocks:hobbit_chest",
 	recipe = {
@@ -178,6 +185,15 @@ minetest.register_craft({
 		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
 		{ "lottplants:pinewood", "", "lottplants:pinewood" },
 		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
+	}
+})
+
+minetest.register_craft({
+	output = "lottblocks:dwarf_chest",
+	recipe = {
+		{"default:stone", "default:stone", "default:stone"},
+		{"default:stone", "default:chest", "default:stone"},
+		{"default:stone", "default:stone", "default:stone"},
 	}
 })
 
