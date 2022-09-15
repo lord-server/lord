@@ -3,12 +3,22 @@
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/entities_projectiles.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/mechanics_throwing.lua")
 
+local function table_concat(t1,t2)
+		for k, v in pairs(t2) do
+		t1[k] = v
+	end
+	return t1
+end
+
+local stage_groups = {not_in_creative_inventory = 1}
 
 local function register_bow(name, def)
 	local wield_scale = {x = 2, y = 2, z = 0.75}
 
+	local all_stage_groups = table_concat(stage_groups, def.groups)
+
 	minetest.register_tool(name, {
-	range = 1,
+		range = 1,
 		description = def.desc,
 		wield_scale = wield_scale,
 		inventory_image = def.inventory_image..".png",
@@ -17,16 +27,18 @@ local function register_bow(name, def)
 		groups = def.groups,
 	})
 
-	minetest.register_tool(name.."_2", {
-		description = def.desc,
-		range = 0,
-		wield_scale = wield_scale,
-		inventory_image = def.inventory_image.."_2.png",
-		wield_image = def.inventory_image.."_2.png",
-		tool_capabilities = def.tool_capabilities,
-		groups = def.groups,
-	})
-
+	for i=2, 4 do 
+		minetest.register_tool(name.."_"..i, {
+			description = def.desc,
+			range = 0,
+			wield_scale = wield_scale,
+			inventory_image = def.inventory_image.."_"..i..".png",
+			wield_image = def.inventory_image.."_"..i..".png",
+			tool_capabilities = def.tool_capabilities,
+			groups = all_stage_groups,
+		})
+	end
+--[[
 	minetest.register_tool(name.."_3", {
 		description = def.desc,
 		range = 0,
@@ -45,7 +57,7 @@ local function register_bow(name, def)
 		wield_image = def.inventory_image.."_4.png",
 		tool_capabilities = def.tool_capabilities,
 		groups = def.groups,
-	})
+	})--]]
 end
 
 register_bow("lord_bows:bow_wooden", {
