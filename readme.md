@@ -1,14 +1,16 @@
+<a href="https://lord-server.ru/">
+    <img src="https://avatars.githubusercontent.com/u/20862851?s=100" alt="Lord Server logo" title="L.O.R.D." align="right"/>
+</a>
+
 # Официальный репозиторий сервера L.O.R.D.
 
-Можно копать... Можно не копать....
+[![VK](https://img.shields.io/badge/VK-%230077ff.svg?style=for-the-badge&logo=vk&logoColor=white)](https://vk.com/minetest_lord)
+[![Discord](https://img.shields.io/badge/Discord-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white)](https://www.discord.gg/uTX3mbb)
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/channel/UCVULgQLzFwXdwG02zoJOfIg)
+
+*Можно копать... Можно не копать...*
 
 L.O.R.D. - это сервер Minetest с миром в стиле [Властелина колец](https://ru.wikipedia.org/wiki/%D0%92%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D0%BB%D0%B8%D0%BD_%D0%BA%D0%BE%D0%BB%D0%B5%D1%86).
-
-<table>
-    <tr><th align="left">Наш сайт:</th><td>https://lord-server.ru/</td></tr>
-    <tr><th align="left">Группа VK:</th><td>https://vk.com/minetest_lord</td></tr>
-    <tr><th align="left">Discord:</th><td>https://www.discord.gg/uTX3mbb</td></tr>
-</table>
 
 #### Что такое Minetest ?
 
