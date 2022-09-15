@@ -27,7 +27,7 @@ local function register_bow(name, def)
 		groups = def.groups,
 	})
 
-	for i=2, 4 do 
+	for i=2, 4 do
 		minetest.register_tool(name.."_"..i, {
 			description = def.desc,
 			range = 0,
