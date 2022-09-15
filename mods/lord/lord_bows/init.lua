@@ -38,26 +38,6 @@ local function register_bow(name, def)
 			groups = all_stage_groups,
 		})
 	end
---[[
-	minetest.register_tool(name.."_3", {
-		description = def.desc,
-		range = 0,
-		wield_scale = wield_scale,
-		inventory_image = def.inventory_image.."_3.png",
-		wield_image = def.inventory_image.."_3.png",
-		tool_capabilities = def.tool_capabilities,
-		groups = def.groups,
-		})
-
-	minetest.register_tool(name.."_4", {
-		description = def.desc,
-		range = 0,
-		wield_scale = wield_scale,
-		inventory_image = def.inventory_image.."_4.png",
-		wield_image = def.inventory_image.."_4.png",
-		tool_capabilities = def.tool_capabilities,
-		groups = def.groups,
-	})--]]
 end
 
 register_bow("lord_bows:bow_wooden", {
