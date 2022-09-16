@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 --Thanks for all the things in this file, and the related textures goes to catninja!--
 
@@ -10,7 +10,7 @@ local SL = lord.require_intllib()
 -- Vine tree
 
 minetest.register_node("lottblocks:tree_vine", {
-	description       = SL("Tree With Vines"),
+	description       = S("Tree With Vines"),
 	tiles             = {
 		"lottblocks_tree_vine_top.png",
 		"lottblocks_tree_vine_top.png",
@@ -30,18 +30,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:tree_vine",
 	{ choppy = 2, snappy = 2, tree = 1 },
 	{ "lottblocks_tree_vine.png" },
-	SL("Tree With Vines Stair"),
-	SL("Tree With Vines Slab"),
+	S("Tree With Vines Stair"),
+	S("Tree With Vines Slab"),
 	default.node_sound_wood_defaults(),
 	false,
-	SL("Inner Tree With Vines Stair"),
-	SL("Outer Tree With Vines Stair")
+	S("Inner Tree With Vines Stair"),
+	S("Outer Tree With Vines Stair")
 )
 
 -- Mossy tree
 
 minetest.register_node("lottblocks:tree_mossy", {
-	description       = SL("Tree With Moss"),
+	description       = S("Tree With Moss"),
 	tiles             = {
 		"lottblocks_tree_mossy_top.png",
 		"lottblocks_tree_mossy_top.png",
@@ -61,18 +61,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:tree_mossy",
 	{ choppy = 2, tree = 1 },
 	{ "lottblocks_tree_mossy.png" },
-	SL("Tree With Moss Stair"),
-	SL("Tree With Moss Slab"),
+	S("Tree With Moss Stair"),
+	S("Tree With Moss Slab"),
 	default.node_sound_wood_defaults(),
 	false,
-	SL("Inner Tree With Moss Stair"),
-	SL("Outer Tree With Moss Stair")
+	S("Inner Tree With Moss Stair"),
+	S("Outer Tree With Moss Stair")
 )
 
 -- Leafroof dark
 
 minetest.register_node("lottblocks:leafroof_dark", {
-	description       = SL("Dark Leaf Roof"),
+	description       = S("Dark Leaf Roof"),
 	tiles             = { "lottblocks_leafroof.png" },
 	use_texture_alpha = "clip",
 	paramtype         = "light",
@@ -87,12 +87,12 @@ stairs.register_stair_and_slab(
 	"lottblocks:leafroof_dark",
 	{ oddly_breakable_by_hand = 2, leaves = 1 },
 	{ "lottblocks_leafroof.png" },
-	SL("Dark Leaf Roof Stair"),
-	SL("Dark Leaf Roof Slab"),
+	S("Dark Leaf Roof Stair"),
+	S("Dark Leaf Roof Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Dark Leaf Roof Stair"),
-	SL("Outer Dark Leaf Roof Stair")
+	S("Inner Dark Leaf Roof Stair"),
+	S("Outer Dark Leaf Roof Stair")
 )
 
 
@@ -100,7 +100,7 @@ stairs.register_stair_and_slab(
 -- Leafroof mallorn
 
 minetest.register_node("lottblocks:leafroof_mallorn", {
-	description       = SL("Mallorn Leaf Roof"),
+	description       = S("Mallorn Leaf Roof"),
 	tiles             = { "lottblocks_mallornroof.png" },
 	use_texture_alpha = "clip",
 	paramtype         = "light",
@@ -115,18 +115,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:leafroof_mallorn",
 	{ oddly_breakable_by_hand = 2, leaves = 1 },
 	{ "lottblocks_mallornroof.png" },
-	SL("Mallorn Leaf Roof Stair"),
-	SL("Mallorn Leaf Roof Slab"),
+	S("Mallorn Leaf Roof Stair"),
+	S("Mallorn Leaf Roof Slab"),
 	default.node_sound_leaves_defaults(),
 	false,
-	SL("Inner Mallorn Leaf Roof Stair"),
-	SL("Outer Mallorn Leaf Roof Stair")
+	S("Inner Mallorn Leaf Roof Stair"),
+	S("Outer Mallorn Leaf Roof Stair")
 )
 
 -- mallorn pillar
 
 minetest.register_node("lottblocks:mallorn_pillar", {
-	description       = SL("Mallorn Pillar"),
+	description       = S("Mallorn Pillar"),
 	tiles             = { "lottblocks_mallorn_pillar.png" },
 	paramtype         = "light",
 	paramtype2        = "facedir",
@@ -139,18 +139,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:mallorn_pillar",
 	{ snappy = 2, choppy = 2, wooden = 1 },
 	{ "lottblocks_mallorn_pillar.png" },
-	SL("Mallorn Pillar Stair"),
-	SL("Mallorn Pillar Slab"),
+	S("Mallorn Pillar Stair"),
+	S("Mallorn Pillar Slab"),
 	default.node_sound_wood_defaults(),
 	false,
-	SL("Inner Mallorn Pillar Stair"),
-	SL("Outer Mallorn Pillar Stair")
+	S("Inner Mallorn Pillar Stair"),
+	S("Outer Mallorn Pillar Stair")
 )
 
 -- mallorn White
 
 minetest.register_node("lottblocks:mallorn_white", {
-	description       = SL("White Mallorn"),
+	description       = S("White Mallorn"),
 	tiles             = { "lottblocks_mallorn_white.png" },
 	paramtype         = "light",
 	paramtype2        = "facedir",
@@ -163,19 +163,19 @@ stairs.register_stair_and_slab(
 	"lottblocks:mallorn_white",
 	{ snappy = 2, choppy = 2, wooden = 1 },
 	{ "lottblocks_mallorn_white.png" },
-	SL("White Mallorn Stair"),
-	SL("White Mallorn Slab"),
+	S("White Mallorn Stair"),
+	S("White Mallorn Slab"),
 	default.node_sound_wood_defaults(),
 	false,
-	SL("Inner White Mallorn Stair"),
-	SL("Outer White Mallorn Stair")
+	S("Inner White Mallorn Stair"),
+	S("Outer White Mallorn Stair")
 )
 
 -- DWARFSTONE
 -- white
 
 minetest.register_node("lottblocks:dwarfstone_white", {
-	description       = SL("White Dwarf Stone"),
+	description       = S("White Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_white_top.png",
 		"lottblocks_dwarfstone_white_top.png",
@@ -194,18 +194,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:dwarfstone_white",
 	{ cracky = 2 },
 	{ "lottblocks_dwarfstone_white_top.png" },
-	SL("White Dwarf Stone Stair"),
-	SL("White Dwarf Stone Slab"),
+	S("White Dwarf Stone Stair"),
+	S("White Dwarf Stone Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner White Dwarf Stone Stair"),
-	SL("Outer White Dwarf Stone Stair")
+	S("Inner White Dwarf Stone Stair"),
+	S("Outer White Dwarf Stone Stair")
 )
 
 -- black
 
 minetest.register_node("lottblocks:dwarfstone_black", {
-	description       = SL("Black Dwarf Stone"),
+	description       = S("Black Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_black_top.png",
 		"lottblocks_dwarfstone_black_top.png",
@@ -224,18 +224,18 @@ stairs.register_stair_and_slab(
 	"lottblocks:dwarfstone_black",
 	{ cracky = 2 },
 	{ "lottblocks_dwarfstone_black_top.png" },
-	SL("Black Dwarf Stone Stair"),
-	SL("Black Dwarf Stone Slab"),
+	S("Black Dwarf Stone Stair"),
+	S("Black Dwarf Stone Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Black Dwarf Stone Stair"),
-	SL("Outer Black Dwarf Stone Stair")
+	S("Inner Black Dwarf Stone Stair"),
+	S("Outer Black Dwarf Stone Stair")
 )
 
 -- stripe
 
 minetest.register_node("lottblocks:dwarfstone_stripe", {
-	description       = SL("Stripe Dwarf Stone"),
+	description       = S("Stripe Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_stripe_top.png",
 		"lottblocks_dwarfstone_stripe_bottom.png",

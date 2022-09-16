@@ -1,4 +1,4 @@
-local SL             = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 local function deprecated_load_palantiri()
 	local file = io.open(minetest.get_worldpath() .. "/LORD/palantiri", "r")
@@ -22,11 +22,11 @@ end
 lottblocks.palantiri = load_palantiri() or deprecated_load_palantiri() or {}
 
 local races_p     = {}
-races_p["dwarf"]  = SL("dwarves")
-races_p["elf"]    = SL("elves")
-races_p["man"]    = SL("men")
-races_p["orc"]    = SL("orcs")
-races_p["hobbit"] = SL("hobbits")
+races_p["dwarf"]  = S("dwarves")
+races_p["elf"]    = S("elves")
+races_p["man"]    = S("men")
+races_p["orc"]    = S("orcs")
+races_p["hobbit"] = S("hobbits")
 
 local function save_palantiri()
 	mod_storage:set_string("serialized_palantiri", minetest.serialize(lottblocks.palantiri))
@@ -60,9 +60,9 @@ local function formspec_update(meta)
 	local palantir = meta:get_string("name")
 	local form     = "size[6,5]" ..
 		"background[5,5;1,1;gui_elfbg.png;true]" ..
-		"label[1.5,1;" .. SL("Network Name") .. ": " .. network .. "]" ..
-		"label[1.5,1.5;" .. SL("Palantir Name") .. ": " .. palantir .. "]" ..
-		"dropdown[1.5,2.5;3;teleports;" .. SL("Teleport to...")
+		"label[1.5,1;" .. S("Network Name") .. ": " .. network .. "]" ..
+		"label[1.5,1.5;" .. S("Palantir Name") .. ": " .. palantir .. "]" ..
+		"dropdown[1.5,2.5;3;teleports;" .. S("Teleport to...")
 	for i, v in pairs(lottblocks.palantiri[network]) do
 		if i ~= palantir and i ~= "options" and i ~= "owner" then
 			form = form .. "," .. i
@@ -96,8 +96,8 @@ local function options_form(network)
 	-- 5. tooltip (optional)
 	local options      = "size[5,5]" ..
 		"background[5,5;1,1;gui_elfbg.png;true]" ..
-		"label[1,0.5;" .. SL("Allowed races") .. ":]" ..
-		"button[1,4;2,1;exit;" .. SL("Proceed") .. "]"
+		"label[1,0.5;" .. S("Allowed races") .. ":]" ..
+		"button[1,4;2,1;exit;" .. S("Proceed") .. "]"
 	for i, race in pairs(races_p) do
 		options      = options .. "checkbox[1," .. checkbox_pos .. ";" .. i ..
 			";" .. race:gsub("^%l", string.upper) .. ";" ..
@@ -108,12 +108,12 @@ local function options_form(network)
 end
 
 minetest.register_privilege("palantiri", {
-	description          = SL("Allows editing palantiri"),
+	description          = S("Allows editing palantiri"),
 	give_to_singleplayer = false,
 })
 
 minetest.register_node("lottblocks:palantir", {
-	description               = SL("Palantir"),
+	description               = S("Palantir"),
 	tiles                     = { "default_obsidian.png" },
 	paramtype                 = "light",
 	drawtype                  = "mesh",
@@ -134,12 +134,12 @@ minetest.register_node("lottblocks:palantir", {
 	on_place                  = function(itemstack, placer, pointed_thing)
 		if not minetest.check_player_privs(placer, "palantiri") then
 			minetest.chat_send_player(placer:get_player_name(),
-				minetest.colorize("red", SL("You have no skill use the palantir!")))
+				minetest.colorize("red", S("You have no skill use the palantir!")))
 			return
 		end
 		if check_blocks(pointed_thing.above) == false then
 			minetest.chat_send_player(placer:get_player_name(),
-				minetest.colorize(purple, SL("One does not simply set down a palantir...")))
+				minetest.colorize(purple, S("One does not simply set down a palantir...")))
 			return
 		end
 		return minetest.item_place(itemstack, placer, pointed_thing)
@@ -150,9 +150,9 @@ minetest.register_node("lottblocks:palantir", {
 		meta:set_string("owner", placer:get_player_name())
 		meta:set_string("formspec", "size[8,5]" ..
 			"background[8,5;1,1;gui_elfbg.png;true]" ..
-			"button[2.75,3.5;3,1;exit;" .. SL("Proceed") .. "]" ..
-			"field[3,1;3,1;network;" .. SL("Network Name") .. ";]" ..
-			"field[3,2.5;3,1;palantir;" .. SL("Palantir Name") .. ";]")
+			"button[2.75,3.5;3,1;exit;" .. S("Proceed") .. "]" ..
+			"field[3,1;3,1;network;" .. S("Network Name") .. ";]" ..
+			"field[3,2.5;3,1;palantir;" .. S("Palantir Name") .. ";]")
 	end,
 	on_receive_fields         = function(pos, formname, fields, sender)
 		local meta        = minetest.get_meta(pos)
@@ -164,17 +164,17 @@ minetest.register_node("lottblocks:palantir", {
 			if not fields.network or not fields.palantir
 				or fields.network == "" or fields.palantir == "" then
 				minetest.chat_send_player(player_name,
-					minetest.colorize("red", SL("Both the network and the palantir must have a name!!")))
+					minetest.colorize("red", S("Both the network and the palantir must have a name!!")))
 				return
 			end
 			if fields.palantir == "owner" or fields.palantir == "options" then
 				minetest.chat_send_player(player_name,
-					minetest.colorize("red", SL("Palantir cannot use reserved name!")))
+					minetest.colorize("red", S("Palantir cannot use reserved name!")))
 				return
 			end
 			if string.find(fields.palantir, ",") then
 				minetest.chat_send_player(player_name, minetest.colorize("red",
-					SL("Palantir cannot have commas in its name!")))
+					S("Palantir cannot have commas in its name!")))
 				return
 			end
 			if not lottblocks.palantiri[fields.network] then
@@ -183,7 +183,7 @@ minetest.register_node("lottblocks:palantir", {
 			else
 				if lottblocks.palantiri[fields.network].owner ~= player_name then
 					minetest.chat_send_player(player_name,
-						minetest.colorize("red", SL("Someone else has a network with this name!")))
+						minetest.colorize("red", S("Someone else has a network with this name!")))
 					return
 				end
 			end
@@ -191,7 +191,7 @@ minetest.register_node("lottblocks:palantir", {
 				lottblocks.palantiri[fields.network][fields.palantir] = pos
 			else
 				minetest.chat_send_player(player_name,
-					minetest.colorize("red", SL("A palantir already exists on this network with the same name!")))
+					minetest.colorize("red", S("A palantir already exists on this network with the same name!")))
 				return
 			end
 			if not lottblocks.palantiri[fields.network].options then
@@ -228,13 +228,13 @@ minetest.register_node("lottblocks:palantir", {
 			-- check privs / проверка привилегий
 			if not minetest.check_player_privs(sender, "palantiri") then
 				minetest.chat_send_player(player_name,
-					minetest.colorize("red", SL("You have no skill use the palantir!")))
+					minetest.colorize("red", S("You have no skill use the palantir!")))
 				return
 			end
 
 			if check_blocks(pos) == false then
 				minetest.chat_send_player(player_name,
-					minetest.colorize(purple, SL("The palantiri is no longer anchored to the world!")))
+					minetest.colorize(purple, S("The palantiri is no longer anchored to the world!")))
 				minetest.remove_node(pos)
 				minetest.add_item(pos, "lottblocks:palantir")
 				return
@@ -255,14 +255,14 @@ minetest.register_node("lottblocks:palantir", {
 
 			-- teleportation / собственно телепортация
 			if can_tp == true then
-				if fields.teleports == SL("Teleport to...") then
+				if fields.teleports == S("Teleport to...") then
 					if
 						minetest.registered_nodes[minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name].walkable or
 						minetest.registered_nodes[minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name].walkable
 					then
 						minetest.chat_send_player(
 							sender:get_player_name(),
-							minetest.colorize(purple, SL("Sorry, at the point of teleport wall"))
+							minetest.colorize(purple, S("Sorry, at the point of teleport wall"))
 						)
 						return
 					end
@@ -280,14 +280,14 @@ minetest.register_node("lottblocks:palantir", {
 					minetest.registered_nodes[minetest.get_node({ x = p.x + 1, y = p.y + 1, z = p.z }).name].walkable then
 					minetest.chat_send_player(
 						sender:get_player_name(),
-						minetest.colorize(purple, SL("Sorry, at the point of teleport wall"))
+						minetest.colorize(purple, S("Sorry, at the point of teleport wall"))
 					)
 					return
 				end
 				sender:setpos({ x = p.x + 1, y = p.y, z = p.z })
 				minetest.close_formspec(player_name, formname)
 			elseif can_tp == false then
-				if fields.teleports and fields.teleports ~= SL("Teleport to...") then
+				if fields.teleports and fields.teleports ~= S("Teleport to...") then
 					sender:setpos({
 						x = pos.x + math.random(-50, 50),
 						y = pos.y + math.random(20, 50),

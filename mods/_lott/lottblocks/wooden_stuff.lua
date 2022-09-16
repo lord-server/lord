@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	local node_groups = {}
@@ -11,7 +11,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	groups_door.door      = 1
 	if name ~= "wood" then
 		doors.register_door("lottblocks:door_" .. name, {
-			description     = SL(description .. " Door"),
+			description     = S(description .. " Door"),
 			inventory_image = "lottblocks_door_" .. name .. ".png",
 			groups          = groups_door,
 			tiles_bottom    = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
@@ -30,7 +30,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			}
 		})
 		doors.register_door("lottblocks:door_" .. name .. "_lock", {
-			description          = SL(description .. " Door With Lock"),
+			description          = S(description .. " Door With Lock"),
 			inventory_image      = "lottblocks_door_" .. name .. ".png^doors_lock.png",
 			groups               = groups_door,
 			tiles_bottom         = { "lottblocks_door_" .. name .. "_b.png", "lottblocks_edge_" .. name .. ".png" },
@@ -49,7 +49,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		})
 		node_groups.not_in_creative_inventory = 0
 		doors.register_trapdoor("lottblocks:hatch_" .. name, {
-			description     = SL(description .. " Trapdoor"),
+			description     = S(description .. " Trapdoor"),
 			inventory_image = "lottblocks_hatch_" .. name .. ".png",
 			wield_image     = "lottblocks_hatch_" .. name .. ".png",
 			tile_front      = "lottblocks_hatch_" .. name .. ".png",
@@ -68,7 +68,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		})
 		if name ~= "junglewood" then
 			default.register_fence("lottblocks:fence_" .. name, {
-				description = SL(description .. " Fence"),
+				description = S(description .. " Fence"),
 				texture = "lottblocks_fence_"..name.."_wood.png",
 				inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
 							"default_fence_overlay.png^[makealpha:255,126,126",
@@ -79,7 +79,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				sounds = default.node_sound_wood_defaults()
 			})
 			default.register_fence_rail("lottblocks:fence_rail_" .. name, {
-				description = SL(description .. " Fence Rail"),
+				description = S(description .. " Fence Rail"),
 				texture = "lottplants_"..name.."wood.png",
 				inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
 							"default_fence_rail_overlay.png^[makealpha:255,126,126",
@@ -93,7 +93,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 		-- STICK | ПАЛОЧКА
 		minetest.register_craftitem("lottblocks:stick_" .. name, {
-			description     = SL(description .. " Stick"),
+			description     = S(description .. " Stick"),
 			inventory_image = "lottblocks_" .. name .. "_stick.png",
 			groups          = { stick = 1 },
 		})
@@ -107,7 +107,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 		-- LADDER | ЛЕСТНИЦА
 		minetest.register_node("lottblocks:ladder_" .. name, {
-			description               = SL(description .. " Ladder"),
+			description               = S(description .. " Ladder"),
 			--drawtype = "signlike",
 			drawtype                  = "nodebox",
 			tiles                     = { "lottblocks_" .. name .. "_planks.png" },
@@ -203,7 +203,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 		-- STANCHION | СТОЙКИ
 		minetest.register_node("lottblocks:" .. name .. "_stanchion", {
-			description         = SL(description .. " Stanchion"),
+			description         = S(description .. " Stanchion"),
 			tiles               = { texture },
 			drawtype            = "nodebox",
 			sunlight_propagates = true,
@@ -233,7 +233,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 	-- TABLE | СТОЛ
 	minetest.register_node("lottblocks:" .. name .. "_table", {
-		description         = SL(description .. " Table"),
+		description         = S(description .. " Table"),
 		tiles               = { texture },
 		drawtype            = "nodebox",
 		sunlight_propagates = true,
@@ -266,7 +266,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 
 	-- CHAIR | КРЕСЛА
 	minetest.register_node("lottblocks:" .. name .. "_chair", {
-		description         = SL(description .. " Chair"),
+		description         = S(description .. " Chair"),
 		tiles               = { texture },
 		drawtype            = "nodebox",
 		sunlight_propagates = true,
@@ -322,7 +322,7 @@ minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood
 --**          WOODEN STANCHION | СТОЙКИ ИЗ ЯБЛОНИ          **
 --***********************************************************
 minetest.register_node("lottblocks:wooden_stanchion", {
-	description         = SL("Wooden Stanchion"),
+	description         = S("Wooden Stanchion"),
 	tiles               = { "default_wood.png" },
 	drawtype            = "nodebox",
 	sunlight_propagates = true,
