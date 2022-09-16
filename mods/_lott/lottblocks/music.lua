@@ -1,7 +1,7 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 minetest.register_node("lottblocks:dwarf_harp", {
-	description   = SL("Dwarvern Harp"),
+	description   = S("Dwarvern Harp"),
 	tiles         = {
 		"lottblocks_harp1.png",
 		"lottblocks_harp2.png",
@@ -55,7 +55,7 @@ minetest.register_node("lottblocks:dwarf_harp", {
 })
 
 minetest.register_craftitem("lottblocks:dwarf_harp_strings", {
-	description     = SL("Dwarvern Harp Strings"),
+	description     = S("Dwarvern Harp Strings"),
 	inventory_image = "lottblocks_harp_strings.png",
 })
 
@@ -92,7 +92,7 @@ for _, row in ipairs(whistle) do
 	local note      = row[2]
 	local craftwood = row[3]
 	minetest.register_craftitem("lottblocks:whistle_" .. wood, {
-		description     = SL(wood:gsub("^%l", string.upper) .. " (Note " .. note .. ") Whistle"),
+		description     = S(wood:gsub("^%l", string.upper) .. " (Note " .. note .. ") Whistle"),
 		inventory_image = "lottblocks_" .. wood .. "_whistle.png",
 		on_use          = function(itemstack, user)
 			minetest.sound_play(note, {
@@ -114,7 +114,7 @@ end
 
 
 minetest.register_node("lottblocks:gong", {
-	description = SL("Gong"),
+	description = S("Gong"),
 	tiles = {"default_bronze_block.png"},
 	drawtype = "nodebox",
 	paramtype = "light",

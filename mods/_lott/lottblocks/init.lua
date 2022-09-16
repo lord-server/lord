@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 lottblocks = {}
 
@@ -12,13 +12,13 @@ dofile(minetest.get_modpath("lottblocks").."/palantiri.lua")
 dofile(minetest.get_modpath("lottblocks").."/guides.lua")
 
 minetest.register_node("lottblocks:snowycobble", {
-	description = SL("Snowy Cobblestone"),
+	description = S("Snowy Cobblestone"),
 	tiles = {"lottblocks_snowycobble.png"},
 	is_ground_content = false,
 	groups = {cracky=3},
 })
 minetest.register_node("lottblocks:orc_brick", {
-	description = SL("Orc Brick"),
+	description = S("Orc Brick"),
 	tiles = {"lottblocks_orc_brick.png"},
 	is_ground_content = false,
 	groups = {cracky=2},
@@ -28,15 +28,15 @@ stairs.register_stair_and_slab(
 		"lottblocks:orc_brick",
 		{cracky=2},
 		{"lottblocks_orc_brick.png"},
-		SL("Orc Brick Stair"),
-		SL("Orc Brick Slab"),
+		S("Orc Brick Stair"),
+		S("Orc Brick Slab"),
 		default.node_sound_stone_defaults(),
 		false,
-		SL("Inner Orc Brick Stair"),
-		SL("Outer Orc Brick Stair")
+		S("Inner Orc Brick Stair"),
+		S("Outer Orc Brick Stair")
 )
 minetest.register_node("lottblocks:marble_brick", {
-	description = SL("Marble Brick"),
+	description = S("Marble Brick"),
 	tiles = {"lottblocks_marble_brick.png"},
 	is_ground_content = false,
 	groups = {cracky=2},
@@ -46,12 +46,12 @@ stairs.register_stair_and_slab(
 		"lottblocks:marble_brick",
 		{cracky=2},
 		{"lottblocks_marble_brick.png"},
-		SL("Marble Brick Stair"),
-		SL("Marble Brick Slab"),
+		S("Marble Brick Stair"),
+		S("Marble Brick Slab"),
 		default.node_sound_stone_defaults(),
 		false,
-		SL("Inner Marble Brick Stair"),
-		SL("Outer Marble Brick Stair")
+		S("Inner Marble Brick Stair"),
+		S("Outer Marble Brick Stair")
 )
 minetest.register_craft({
 	output = 'lottblocks:marble_brick 4',

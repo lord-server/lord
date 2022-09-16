@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 local lpp = 13
 local function guide_on_use(itemstack, user)
@@ -76,7 +76,7 @@ local palantir_guide = dofile(minetest.get_modpath("lottblocks")
 	.. "/guide_text/palantir_guide.lua")
 
 minetest.register_craftitem("lottblocks:palantir_guide", {
-	description = SL("Palantir Guidebook"),
+	description = S("Palantir Guidebook"),
 	inventory_image = "default_book.png^[colorize:darkblue:100",
 	groups = {book = 1, forbidden = 1},
 	stack_max = 1,

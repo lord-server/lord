@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua
@@ -84,7 +84,7 @@ minetest.register_node("lottblocks:elven_rope", {
     --https://github.com/foot-on-teh-hill/cavetools/blob/master/textures/cavetools_rope.png
     inventory_image = "lottblocks_elven_rope.png",
     wield_image = "lottblocks_elven_rope.png",
-	description = SL("Elven Rope"),
+	description = S("Elven Rope"),
 	drawtype = "plantlike",
 	paramtype = "light",
 	light_source = 1,

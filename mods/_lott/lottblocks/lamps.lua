@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("lottblocks")
 
 minetest.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
 minetest.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")
@@ -30,7 +30,7 @@ function lottblocks.register_lamp(
 	local node_small  = "lottblocks:small_lamp_" .. material
 	minetest.register_node(node_bottom, {
 		drop             = "",
-		description      = SL(description .. " Lamppost"),
+		description      = S(description .. " Lamppost"),
 		tiles            = { post1_texture },
 		inventory_image  = inv_texture,
 		wield_image      = inv_texture,
@@ -50,7 +50,7 @@ function lottblocks.register_lamp(
 			(minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or
 				(minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
 			then
-				minetest.chat_send_player(placer:get_player_name(), SL('Not enough space for lamppost to be placed'))
+				minetest.chat_send_player(placer:get_player_name(), S('Not enough space for lamppost to be placed'))
 				return
 			end
 			return minetest.item_place(itemstack, placer, pointed_thing)
@@ -112,7 +112,7 @@ function lottblocks.register_lamp(
 		end
 	})
 	minetest.register_node(node_small, {
-		description   = SL(description .. " Small Lamp"),
+		description   = S(description .. " Small Lamp"),
 		groups        = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
 		tiles         = {
 			top_texture, top_texture,
@@ -203,7 +203,7 @@ lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_la
 -- Made by lumidify - lottblocks_mithril_stonelamp.png
 -- created by modifying darkage_lamp.png
 minetest.register_node("lottblocks:mithril_stonelamp", {
-	description = SL("Mithril Stonelamp"),
+	description = S("Mithril Stonelamp"),
 	tiles = { "lottblocks_mithril_stonelamp.png" },
 	paramtype = "light",
 	sunlight_propagates = true,
