@@ -12,6 +12,7 @@ function sfinv.set_page(player, pagename)
 		oldpage:on_leave(player, context)
 	end
 	context.page = pagename
+	context.page = sfinv.select_consistent_page(player, context)
 	local page = sfinv.pages[pagename]
 	if page.on_enter then
 		page:on_enter(player, context)
@@ -36,7 +37,7 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 function sfinv.update_player(player)
-    context = context or sfinv.get_or_create_context(player)
+    local context = sfinv.get_or_create_context(player)
 	local fs = sfinv.build_sfinv_formspec(player, context)
 	player:set_inventory_formspec(fs)
 end
@@ -44,4 +45,8 @@ end
 -- for compatibility purposes
 function sfinv.make_formspec(_player, _context, content, _show_inv)
 	return content
+end
+
+function sfinv.get_homepage_name(player)
+	return nil
 end

@@ -15,11 +15,11 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.sfinv_nav_tabs then
 		local tid = tonumber(fields.sfinv_nav_tabs)
 		if tid and tid > 0 then
-			local name = context.page_names[tid]
-            if name then
-			    local page = sfinv.pages[name]
+			local page_name = context.page_names[tid]
+            if page_name then
+			    local page = sfinv.pages[page_name]
 			    if page then
-				    sfinv.set_page(player, name)
+				    sfinv.set_page(player, page_name)
                 end
 			end
 		end
