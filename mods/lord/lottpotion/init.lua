@@ -241,7 +241,7 @@ minetest.register_globalstep(function(dtime)
 		time = 0
 		for _, player in pairs(minetest.get_connected_players()) do
 			local name = player:get_player_name()
-			local hp_change = lottpotion.players[name].hp or 0
+			local hp_change = lottpotion.players[name] and lottpotion.players[name].hp or 0
 			if hp_change ~= 0 then
 				local hp = player:get_hp()
 				hp = hp + hp_change
@@ -249,7 +249,7 @@ minetest.register_globalstep(function(dtime)
 				hp = math.max(0, hp)
 				player:set_hp(hp)
 			end
-			local br_change = lottpotion.players[name].air or 0
+			local br_change = lottpotion.players[name] and lottpotion.players[name].air or 0
 			if br_change ~= 0 then
 				local br = player:get_breath()
 				br = br + br_change
@@ -257,7 +257,7 @@ minetest.register_globalstep(function(dtime)
 				br = math.max(0, br)
 				player:set_breath(br)
 			end
-			if lottpotion.players[name].alive ~= 1 then
+			if lottpotion.players[name] and lottpotion.players[name].alive ~= 1 then
 				lottpotion.players[name].alive = 1
 			end
 		end

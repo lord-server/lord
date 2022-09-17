@@ -77,7 +77,7 @@ armor = {
 	player_hp = {},
 	elements = {"head", "torso", "legs", "feet"},
 	physics = {"jump","speed","gravity"},
-	formspec = "size[8,8.5]"
+	formspec = ""
 		..gui_bg_img
 		..gui_slots
 		.."image[0,0;1,1;lottarmor_helmet.png]"
@@ -148,7 +148,7 @@ end
 --- Bags
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.bags then
-		inventory_plus.set_inventory_formspec(player, get_formspec(player,"bags"))
+		--inventory_plus.set_inventory_formspec(player, get_formspec(player,"bags"))
 		return
 	end
 	for i=1,4 do
@@ -157,7 +157,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil then
 				page = "bags"
 			end
-			inventory_plus.set_inventory_formspec(player, get_formspec(player,page))
+			--inventory_plus.set_inventory_formspec(player, get_formspec(player,page))
 			return
 		end
 	end
@@ -361,24 +361,13 @@ end
 
 armor.update_inventory = function(self, player)
 	local name = armor:get_valid_player(player, "[set_player_armor]")
-	if not name or inv_mod == "inventory_enhanced" then
+	if not name then
 		return
 	end
-	if inv_mod == "unified_inventory" then
-		if unified_inventory.current_page[name] == "armor" then
-			unified_inventory.set_inventory_formspec(player, "armor")
-		end
-	else
-		local formspec = armor:get_armor_formspec(name)
-		if inv_mod == "inventory_plus" then
-			local page = player:get_inventory_formspec()
-			if page:find("detached:"..name.."_armor") then
-				inventory_plus.set_inventory_formspec(player, formspec)
-			end
-		else
-			player:set_inventory_formspec(formspec)
-		end
-	end
+
+	--local formspec = armor:get_armor_formspec(name)
+	--player:set_inventory_formspec(formspec)
+	sfinv.update_player(player)
 end
 
 armor.get_valid_player = function(self, player, msg)
@@ -417,7 +406,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	if inv_mod == "inventory_plus" and fields.armor then
 		local formspec = armor:get_armor_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
+		--inventory_plus.set_inventory_formspec(player, formspec)
 		return
 	end
 end)
@@ -585,3 +574,20 @@ races.register_update_callback(function(name, race, gender, skin, texture, face)
 	armor:update_inventory(player)
 	multiskin:update_player_visuals(player)
 end)
+
+sfinv.register_page("lottarmor:inventory", {
+	title=SL("Inventory"),
+	is_in_nav = function(self, player, context)
+		return true
+	end,
+	get = function(self, player, context)
+		local name = armor:get_valid_player(player, "[set_player_armor]")
+		if not name then
+			minetest.log("error", "Can not get inventory for player "..player:get_player_name())
+			return ""
+		end
+
+		local content = armor:get_armor_formspec(name)
+		return content
+	end,
+})
