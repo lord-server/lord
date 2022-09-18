@@ -27,7 +27,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		doors.register(door_reg_name .. "_lock", {
 			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door With Lock"),
-			inventory_image = door_inv_texture,
+			inventory_image = door_inv_texture .. "^lord_doors_lock.png",
 			sound_open      = "doors_door_open",
 			sound_close     = "doors_door_close",
 			groups          = groups_door,

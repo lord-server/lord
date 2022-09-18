@@ -48,7 +48,7 @@ end
 doors.register("lord_doors:door_wood_lock", {
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
 		description = S("Wooden Door"),
-		inventory_image = "doors_item_wood.png",
+		inventory_image = "doors_item_wood.png^lord_doors_lock.png",
 		protected = true,
 		groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
 		gain_open = 0.06,
@@ -88,7 +88,7 @@ register_replace_mtg_doors_legacy_lbm("doors:door_steel")
 doors.register("lord_doors:door_steel_lock", {
 		tiles = {{name = "doors_door_steel.png", backface_culling = true}},
 		description = S("Steel Door With Lock"),
-		inventory_image = "doors_item_steel.png",
+		inventory_image = "doors_item_steel.png^lord_doors_lock.png",
 		protected = true,
 		groups = {node = 1, cracky = 1, level = 2},
 		sounds = default.node_sound_metal_defaults(),
@@ -112,7 +112,7 @@ register_replace_mtg_doors_legacy_lbm("doors:door_steel_lock")
 doors.register("lord_doors:door_glass_lock", {
 		tiles = {"doors_door_glass.png"},
 		description = S("Glass Door With Lock"),
-		inventory_image = "doors_item_glass.png",
+		inventory_image = "doors_item_glass.png^lord_doors_lock.png",
 		protected = true,
 		groups = {node = 1, cracky=3, oddly_breakable_by_hand=3},
 		sounds = default.node_sound_glass_defaults(),
@@ -136,7 +136,7 @@ register_replace_mtg_doors_legacy_lbm("doors:door_glass_lock")
 doors.register("lord_doors:door_obsidian_glass_lock", {
 		tiles = {"doors_door_obsidian_glass.png"},
 		description = S("Obsidian Glass Door With Lock"),
-		inventory_image = "doors_item_obsidian_glass.png",
+		inventory_image = "doors_item_obsidian_glass.png^lord_doors_lock.png",
 		protected = true,
 		groups = {node = 1, cracky=3},
 		sounds = default.node_sound_glass_defaults(),
