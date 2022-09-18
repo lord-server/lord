@@ -1,3 +1,7 @@
 # textdomain: lord_doors
 Gondor Door=Дверь Гондора
-
+Wooden Door With Lock=Деревянная дверь с замком
+Steel Door=Стальная дверь
+Steel Door With Lock=Стальная дверь с замком
+Glass Door With Lock=Стеклянная дверь с замком
+Obsidian Glass Door With Lock=Дверь из обсидианового стекла с замком
