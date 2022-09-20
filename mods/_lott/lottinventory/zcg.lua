@@ -245,19 +245,19 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 		zcg.users[pn].page = 0
 	end
 	if fields.zcg or new_filter then
-		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn, search_phrase))
+		lottinventory.set_inventory_formspec(player, zcg.formspec(pn, search_phrase))
 		return
 	elseif fields.zcg_previous then
 		if zcg.users[pn].history.index > 1 then
 			zcg.users[pn].history.index = zcg.users[pn].history.index - 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			lottinventory.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	elseif fields.zcg_next then
 		if zcg.users[pn].history.index < #zcg.users[pn].history.list then
 			zcg.users[pn].history.index = zcg.users[pn].history.index + 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			lottinventory.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	end
 	for k, v in pairs(fields) do
@@ -267,14 +267,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zcg.users[pn].current_item = ni
 				table.insert(zcg.users[pn].history.list, ni)
 				zcg.users[pn].history.index = #zcg.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+				lottinventory.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 			end
 		elseif (k:sub(0,9)=="zcg_page:") then
 			zcg.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			lottinventory.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		elseif (k:sub(0,8)=="zcg_alt:") then
 			zcg.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			lottinventory.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
 		end
 	end
 end)
@@ -298,6 +298,6 @@ minetest.register_tool("lottinventory:crafts_book",{
     on_use = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn))
+		lottinventory.set_inventory_formspec(player, zcg.formspec(pn))
     end,
 })

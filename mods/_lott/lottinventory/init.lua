@@ -8,10 +8,9 @@ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/potions.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/brewing.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/master.lua")
 
---Inventory Plus
-inventory_plus                        = {}
+lottinventory                        = {}
 
-inventory_plus.set_inventory_formspec = function(player, formspec)
+lottinventory.set_inventory_formspec = function(player, formspec)
 	minetest.show_formspec(player:get_player_name(), "custom", formspec)
 end
 

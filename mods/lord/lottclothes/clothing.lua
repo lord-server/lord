@@ -48,10 +48,10 @@ clothing.update_inventory = function(self, player)
 		end
 	else
 		local formspec = armor.get_armor_formspec(self, name)
-		if inventory_plus then
+		if lottinventory then
 			local page = player:get_inventory_formspec()
 			if page:find("detached:"..name.."_clothing") then
-				inventory_plus.set_inventory_formspec(player, formspec)
+				lottinventory.set_inventory_formspec(player, formspec)
 			end
 		else
 			player:set_inventory_formspec(formspec)
@@ -61,9 +61,9 @@ end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
-	if inventory_plus and fields.clothing then
+	if lottinventory and fields.clothing then
 		local formspec = clothing:get_clothing_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
+		lottinventory.set_inventory_formspec(player, formspec)
 		return
 	end
 end)
@@ -144,7 +144,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	for i=1, ARMOR_INIT_TIMES do
 		minetest.after(ARMOR_INIT_DELAY * i, function(player)
 			clothing:set_player_clothing(player)
-			if inventory_plus == nil and unified_inventory == nil then
+			if lottinventory == nil and unified_inventory == nil then
 				clothing:update_inventory(player)
 			end
 		end, player)

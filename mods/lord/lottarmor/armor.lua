@@ -148,7 +148,7 @@ end
 --- Bags
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.bags then
-		inventory_plus.set_inventory_formspec(player, get_formspec(player,"bags"))
+		lottinventory.set_inventory_formspec(player, get_formspec(player,"bags"))
 		return
 	end
 	for i=1,4 do
@@ -157,7 +157,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil then
 				page = "bags"
 			end
-			inventory_plus.set_inventory_formspec(player, get_formspec(player,page))
+			lottinventory.set_inventory_formspec(player, get_formspec(player,page))
 			return
 		end
 	end
@@ -373,7 +373,7 @@ armor.update_inventory = function(self, player)
 		if inv_mod == "inventory_plus" then
 			local page = player:get_inventory_formspec()
 			if page:find("detached:"..name.."_armor") then
-				inventory_plus.set_inventory_formspec(player, formspec)
+				lottinventory.set_inventory_formspec(player, formspec)
 			end
 		else
 			player:set_inventory_formspec(formspec)
@@ -417,7 +417,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	if inv_mod == "inventory_plus" and fields.armor then
 		local formspec = armor:get_armor_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
+		lottinventory.set_inventory_formspec(player, formspec)
 		return
 	end
 end)
@@ -489,7 +489,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		end,
 	}, name)
 	if inv_mod == "inventory_plus" then
-		inventory_plus.register_button(joined_player,"armor", "Armor")
+		lottinventory.register_button(joined_player,"armor", "Armor")
 	end
 	armor_inv:set_size("armor", 5)
 	player_inv:set_size("armor", 5)

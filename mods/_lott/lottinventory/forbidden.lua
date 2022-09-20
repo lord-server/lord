@@ -183,19 +183,19 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 	local pn = player:get_player_name();
 	if zfc.users[pn] == nil then zfc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
 	if fields.zfc then
-		inventory_plus.set_inventory_formspec(player, zfc.formspec(pn))
+		lottinventory.set_inventory_formspec(player, zfc.formspec(pn))
 		return
 	elseif fields.zfc_previous then
 		if zfc.users[pn].history.index > 1 then
 			zfc.users[pn].history.index = zfc.users[pn].history.index - 1
 			zfc.users[pn].current_item = zfc.users[pn].history.list[zfc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			lottinventory.set_inventory_formspec(player,zfc.formspec(pn))
 		end
 	elseif fields.zfc_next then
 		if zfc.users[pn].history.index < #zfc.users[pn].history.list then
 			zfc.users[pn].history.index = zfc.users[pn].history.index + 1
 			zfc.users[pn].current_item = zfc.users[pn].history.list[zfc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			lottinventory.set_inventory_formspec(player,zfc.formspec(pn))
 		end
 	end
 	for k, v in pairs(fields) do
@@ -205,14 +205,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zfc.users[pn].current_item = ni
 				table.insert(zfc.users[pn].history.list, ni)
 				zfc.users[pn].history.index = #zfc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+				lottinventory.set_inventory_formspec(player,zfc.formspec(pn))
 			end
 		elseif (k:sub(0,9)=="zfc_page:") then
 			zfc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			lottinventory.set_inventory_formspec(player,zfc.formspec(pn))
 		elseif (k:sub(0,8)=="zfc_alt:") then
 			zfc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			lottinventory.set_inventory_formspec(player,zfc.formspec(pn))
 		end
 	end
 end)
@@ -236,6 +236,6 @@ minetest.register_tool("lottinventory:forbidden_crafts_book",{
     on_use = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zfc.users[pn] == nil then zfc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-		inventory_plus.set_inventory_formspec(player, zfc.formspec(pn))
+		lottinventory.set_inventory_formspec(player, zfc.formspec(pn))
     end,
 })

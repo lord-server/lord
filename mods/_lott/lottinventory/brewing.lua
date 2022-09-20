@@ -59,10 +59,10 @@ end
 
 minetest.register_on_player_receive_fields(function(player,formname,fields)
 	if fields.brews then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"brews"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"brews"))
 	end
      if fields.brews2 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"brews2"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"brews2"))
 	end
 end)
 
@@ -83,7 +83,7 @@ minetest.register_tool("lottinventory:brewing_book",{
         }
     },
     on_use = function(itemstack, player, pointed_thing)
-          inventory_plus.set_inventory_formspec(player, get_formspec(player,"brews"))
+          lottinventory.set_inventory_formspec(player, get_formspec(player,"brews"))
           return itemstack; -- nothing consumed, nothing changed
     end,
 })

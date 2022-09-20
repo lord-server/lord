@@ -238,6 +238,7 @@ function dump(obj, dumped) end
 unified_inventory = nil
 dungeon_loot = nil
 invisibility = nil
+smart_inventory = nil
 
 ---
 --- Implementation-specific Lua libraries

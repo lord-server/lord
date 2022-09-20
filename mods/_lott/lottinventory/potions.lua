@@ -397,47 +397,47 @@ end
 
 minetest.register_on_player_receive_fields(function(player,formname,fields)
 	if fields.potions then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions"))
 	end
      if fields.potions2 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions2"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions2"))
 	end
      if fields.potions3 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions3"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions3"))
 	end
      if fields.potions4 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions4"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions4"))
 	end
      if fields.potions5 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions5"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions5"))
 	end
      if fields.potions6 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions6"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions6"))
 	end
      if fields.potions7 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions7"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potions7"))
 	end
 	--Negative-potions--
      if fields.potionsN then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN"))
 	end
      if fields.potionsN2 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN2"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN2"))
 	end
      if fields.potionsN3 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN3"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN3"))
 	end
      if fields.potionsN4 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN4"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN4"))
 	end
      if fields.potionsN5 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN5"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN5"))
 	end
      if fields.potionsN6 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN6"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN6"))
 	end
      if fields.potionsN7 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN7"))
+	     lottinventory.set_inventory_formspec(player, get_formspec(player,"potionsN7"))
 	end
 end)
 
@@ -458,7 +458,7 @@ minetest.register_tool("lottinventory:potions_book",{
         }
     },
     on_use = function(itemstack, player, pointed_thing)
-          inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions"))
+          lottinventory.set_inventory_formspec(player, get_formspec(player,"potions"))
           return itemstack; -- nothing consumed, nothing changed
     end,
 })

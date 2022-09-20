@@ -199,19 +199,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		zcc.users[pn] = { current_item = "", alt = 1, page = 0, history = { index = 0, list = {} } }
 	end
 	if fields.zcc then
-		inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+		lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 		return
 	elseif fields.zcc_previous then
 		if zcc.users[pn].history.index > 1 then
 			zcc.users[pn].history.index = zcc.users[pn].history.index - 1
 			zcc.users[pn].current_item  = zcc.users[pn].history.list[zcc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 		end
 	elseif fields.zcc_next then
 		if zcc.users[pn].history.index < #zcc.users[pn].history.list then
 			zcc.users[pn].history.index = zcc.users[pn].history.index + 1
 			zcc.users[pn].current_item  = zcc.users[pn].history.list[zcc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 		end
 	end
 	for k, v in pairs(fields) do
@@ -221,14 +221,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				zcc.users[pn].current_item = ni
 				table.insert(zcc.users[pn].history.list, ni)
 				zcc.users[pn].history.index = #zcc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+				lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 			end
 		elseif (k:sub(0, 9) == "zcc_page:") then
 			zcc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 		elseif (k:sub(0, 8) == "zcc_alt:") then
 			zcc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 		end
 	end
 end)
@@ -254,6 +254,6 @@ minetest.register_tool("lottinventory:cooking_book", {
 		if zcc.users[pn] == nil then
 			zcc.users[pn] = { current_item = "", alt = 1, page = 0, history = { index = 0, list = {} } }
 		end
-		inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+		lottinventory.set_inventory_formspec(player, zcc.formspec(pn))
 	end,
 })
