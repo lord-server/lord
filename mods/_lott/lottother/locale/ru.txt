@@ -19,6 +19,7 @@ Mirkwood Tapestry	=	Штандарт Лихолесья
 Mordor Tapestry	=	Штандарт Мордора
 Rohan Tapestry	=	Штандарт Рохана
 Uruk Hai Tapestry	=	Штандарт Урук-хай
+Shire Tapestry	=	Штандарт Шира
 
 Angmar Tapestry Top	=	Штандарт Ангмара (верх)
 Dunland Tapestry Top	=	Штандарт Дунланда (верх)
