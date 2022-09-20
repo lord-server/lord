@@ -4,7 +4,10 @@ allow_defined_top = true
 std = "lua51"
 
 globals           = {
-	"minetest", "core"
+	"minetest", "core",
+
+    -- MTG APIs
+	"doors",
 }
 
 read_globals      = {
@@ -27,7 +30,6 @@ read_globals      = {
 	"lord", "hb",
 
 	-- Mods APIs
-	"doors",
 	"intllib",
 	"stairs",
 	"screwdriver",
@@ -63,7 +65,6 @@ exclude_files     = {
     -- (в большинстве случаев ошибки уже исправлены в оригинале, нужно убрать после обновления)
     "mods/_minetest_game/default/legacy.lua",
     "mods/_minetest_game/carts/cart_entity.lua",
-    "mods/lord/_overwrites/MTG/doors/init.lua", -- changing readonly fields to unregister doors
     "mods/_minetest_game/doors/init.lua",
 
     -- LOTT:
