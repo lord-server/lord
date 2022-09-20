@@ -4,3 +4,6 @@
 [submodule "mods/_various/ambience"]
 	path = mods/_various/ambience
 	url = https://notabug.org/TenPlus1/ambience.git
+[submodule "mods/_various/worldedit"]
+	path = mods/_various/worldedit
+	url = https://github.com/Uberi/Minetest-WorldEdit
