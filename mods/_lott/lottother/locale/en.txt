@@ -19,6 +19,7 @@ Mirkwood Tapestry	=	Mirkwood Tapestry
 Mordor Tapestry	=	Mordor Tapestry
 Rohan Tapestry	=	Rohan Tapestry
 Uruk Hai Tapestry	=	Uruk Hai Tapestry
+Shire Tapestry	=	Shire Tapestry
 
 Angmar Tapestry Top	=	Angmar Tapestry Top
 Dunland Tapestry Top	=	Dunland Tapestry Top
