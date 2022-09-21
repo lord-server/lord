@@ -1,48 +1,48 @@
 minetest.register_node("lottmapgen:hobbit_chest_spawner", {
 	description = "HCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:gondor_chest_spawner", {
 	description = "GCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:rohan_chest_spawner", {
 	description = "RCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:elfloth_chest_spawner", {
 	description = "ELCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:elfmirk_chest_spawner", {
 	description = "EMCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:mordor_chest_spawner", {
 	description = "MCS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
 
 minetest.register_node("lottmapgen:angmar_chest_spawner", {
 	description = "ACS",
-	tiles = {"lottblocks_door_birch_b.png"},
+	tiles = {"lottblocks_elf_chest_bottom.png"},
 	is_ground_content = false,
 	groups = {oddly_breakable_by_hand = 1, not_in_creative_inventory=1},
 })
