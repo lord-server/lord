@@ -8,5 +8,9 @@ Obsidian Glass Door With Lock=Obsidian Glass Door With Lock
 
 # race_doors.lua
 Dwarf Door=Dwarf Door
+Elven Door=Elven Door
+Hobbit Door=Hobbit Door
+Orc Door=Orc Door
+Human Door=Human Door
 
 This door can only be opened by @1!=This door can only be opened by @1!

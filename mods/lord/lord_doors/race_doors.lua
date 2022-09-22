@@ -32,3 +32,67 @@ doors.register("lord_doors:door_dwarf", {
 		race_door_on_rightclick_wrapper("dwarf", ...)
 	end,
 })
+
+doors.register("lord_doors:door_elven", {
+	description = S("Elven Door"),
+	inventory_image = "lord_doors_item_elven.png",
+	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
+	tiles = {{ name = "lord_doors_elven.png", backface_culling = true }},
+	recipe = {
+		{"lottplants:mallornwood", "lottplants:mallornwood"},
+		{"lottplants:mallornwood", "lottores:silver_ingot"},
+		{"lottplants:mallornwood", "lottplants:mallornwood"},
+	},
+	sounds = default.node_sound_wood_defaults(),
+	on_rightclick = function(...)
+		race_door_on_rightclick_wrapper("elf", ...)
+	end,
+})
+
+doors.register("lord_doors:door_hobbit", {
+	description = S("Hobbit Door"),
+	inventory_image = "lord_doors_item_hobbit.png",
+	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
+	tiles = {{ name = "lord_doors_hobbit.png", backface_culling = true }},
+	recipe = {
+		{"lottplants:birchwood", "lottplants:birchwood"},
+		{"lottplants:birchwood", "lottores:silver_ingot"},
+		{"lottplants:birchwood", "lottplants:birchwood"},
+	},
+	sounds = default.node_sound_wood_defaults(),
+	on_rightclick = function(...)
+		race_door_on_rightclick_wrapper("hobbit", ...)
+	end,
+})
+
+doors.register("lord_doors:door_orc", {
+	description = S("Orc Door"),
+	inventory_image = "lord_doors_item_orc.png",
+	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
+	tiles = {{ name = "lord_doors_orc.png", backface_culling = true }},
+	recipe = {
+		{"lottmapgen:mordor_stone", "lottmapgen:mordor_stone"},
+		{"lottmapgen:mordor_stone", "lottores:silver_ingot"},
+		{"lottmapgen:mordor_stone", "lottmapgen:mordor_stone"},
+	},
+	sounds = default.node_sound_stone_defaults(),
+	on_rightclick = function(...)
+		race_door_on_rightclick_wrapper("orc", ...)
+	end,
+})
+
+doors.register("lord_doors:door_human", {
+	description = S("Human Door"),
+	inventory_image = "lord_doors_item_human.png",
+	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
+	tiles = {{ name = "lord_doors_human.png", backface_culling = true }},
+	recipe = {
+		{"lottplants:alderwood", "lottplants:alderwood"},
+		{"lottplants:alderwood", "lottores:silver_ingot"},
+		{"lottplants:alderwood", "lottplants:alderwood"},
+	},
+	sounds = default.node_sound_wood_defaults(),
+	on_rightclick = function(...)
+		race_door_on_rightclick_wrapper("man", ...)
+	end,
+})

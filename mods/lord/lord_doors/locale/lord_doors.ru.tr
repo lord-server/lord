@@ -8,5 +8,9 @@ Obsidian Glass Door With Lock=Дверь из обсидианового сте�
 
 # race_doors.lua
 Dwarf Door=Дверь гномов
+Elven Door=Дверь эльфов
+Hobbit Door=Дверь хоббитов
+Orc Door=Дверь орков
+Human Door=Дверь людей
 
 This door can only be opened by @1!=Эту дверь могут открыть только @1!
