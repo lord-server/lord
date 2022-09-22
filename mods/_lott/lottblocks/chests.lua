@@ -22,8 +22,7 @@ minetest.register_craft({
 ---@param tiles table @тайлы ноды;
 ---@param owner_race string @раса, которая может открывать сундук;
 ---@param background string @текстура фона сундука;
----@param fail_text string @текст, печатающийся при несоответствии расы сундуку.
-local function register_race_chest(name, desc, tiles, owner_race, background, fail_text)
+local function register_race_chest(name, desc, tiles, owner_race, background)
 	minetest.register_node(name, {
 		description           = desc,
 		tiles                 = tiles,
@@ -40,19 +39,11 @@ local function register_race_chest(name, desc, tiles, owner_race, background, fa
 		end,
 		on_rightclick         = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			local item   = itemstack:get_name()
-			if races.get_race_and_gender(player)[1] == owner_race or minetest.is_creative_enabled(player) then
+			local opened, failed_race = races.race_stuff_opener(owner_race, player, itemstack)
+			if opened then
 				minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
-			elseif item == "lottblocks:lockpick" then
-				if math.random(1, 4) ~= 3 then
-					itemstack:add_wear(65535 / 20)
-					minetest.chat_send_player(player, S("Lockpick failed"))
-				else
-					itemstack:add_wear(65535 / 18)
-					minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
-				end
-			else
-				minetest.chat_send_player(player, fail_text)
+			elseif failed_race ~= nil then
+				minetest.chat_send_player(player, S("Only @1 can open this kind of chest!", failed_race))
 			end
 		end,
 		can_dig               = function(pos, player)

@@ -26,3 +26,5 @@ Player '%s' does not exist=Игрока '%s' не существует
 Won't give another chance=Ещё одного шанса не будет
 Second chance=Второй шанс
 Give another chance to a player.=Дать еще один шанс игроку.
+
+Lockpick failed=Взлом не удался!

@@ -413,6 +413,41 @@ function races.show_skin_change_form(race, gender, skin, name)
 	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
 end
 
+--- Обработчик открытия чего-либо расового (сундуков, дверей и др.).
+--- Игрок может открыть сундук, если он принадлежит расе `owner_race` или провёл удачный взлом с помощью отмычки.
+--- Два возвращаемых значения:
+--- 1. булево значение (открыт ли сундук) или nil при ошибке;
+--- 2. локализованное название расы, которой принадлежит сундук/дверь/..., если не удалось открыть (без взлома),
+---    или nil, если взлом не удался или удалось открыть.
+---
+---@param owner_race string    ID расы, которой принадлежит сундук.
+---@param player     string    никнейм игрока.
+---@param itemstack  ItemStack предмет в руке игрока.
+---
+---@return boolean|nil, string|nil
+function races.race_stuff_opener(owner_race, player, itemstack)
+	if races.list[owner_race] == nil then
+		minetest.log("error", "races.race_stuff_opener: unknown race!")
+		return nil, nil
+	end
+
+	if races.get_race(player) == owner_race or minetest.check_player_privs(player, "race") then
+		return true, nil
+	end
+
+	if itemstack:get_name() == "lottblocks:lockpick" then
+		itemstack:add_wear(65535 / 20)
+		if math.random(1, 4) ~= 3 then
+			minetest.chat_send_player(player, SL("Lockpick failed"))
+			return false, nil
+		else
+			return true, nil
+		end
+	else
+		return false, races.list[owner_race].name
+	end
+end
+
 races.tp_process = {}
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)

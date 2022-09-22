@@ -26,3 +26,5 @@ Player '%s' does not exist=
 Won't give another chance=
 Second chance=
 Give another chance to a player.=
+
+Lockpick failed=

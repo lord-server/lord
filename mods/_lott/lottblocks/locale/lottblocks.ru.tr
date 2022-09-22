@@ -19,7 +19,6 @@ Green Bed=Зелёная кровать
 
 ### chests.lua ###
 Lockpick=Отмычка
-Lockpick failed=Взлом не удался!
 
 Hobbit Chest=Сундук хоббитов
 Gondorian Chest=Сундук Гондора
@@ -30,11 +29,7 @@ Mordor Chest=Сундук Мордора
 Angmar Chest=Сундук Ангмара
 Dwarf Chest=Сундук гномов
 
-Only Hobbits can open this kind of chest!=Этот сундук могут открыть только хоббиты!
-Only Humans can open this kind of chest!=Этот сундук могут открыть только люди!
-Only Elves can open this kind of chest!=Этот сундук могут открыть только эльфы!
-Only Orcs can open this kind of chest!=Этот сундук могут открыть только орки!
-Only Dwarfs can open this kind of chest!=Этот сундук могут открыть только гномы!
+Only @1 can open this kind of chest!=Этот сундук могут открыть только @1!
 
 ### decoration.lua ###
 Tree With Vines=Ствол дерева с лианами

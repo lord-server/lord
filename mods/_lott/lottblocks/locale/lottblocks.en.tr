@@ -19,7 +19,6 @@ Green Bed=Green Bed
 
 ### chests.lua ###
 Lockpick=Lockpick
-Lockpick failed=Lockpick failed
 
 Hobbit Chest=Hobbit Chest
 Gondorian Chest=Gondorian Chest
@@ -30,11 +29,7 @@ Mordor Chest=Mordor Chest
 Angmar Chest=Angmar Chest
 Dwarf Chest=Dwarf Chest
 
-Only Hobbits can open this kind of chest!=Only Hobbits can open this kind of chest!
-Only Humans can open this kind of chest!=Only Humans can open this kind of chest!
-Only Elves can open this kind of chest!=Only Elves can open this kind of chest!
-Only Orcs can open this kind of chest!=Only Orcs can open this kind of chest!
-Only Dwarfs can open this kind of chest!=Only Dwarfs can open this kind of chest!
+Only @1 can open this kind of chest!=Only @1 can open this kind of chest!
 
 ### decoration.lua ###
 Tree With Vines=Tree With Vines
