@@ -19,6 +19,6 @@ jobs:
           command: |
             cd mt/games/lord/
             git checkout dev
-            git pull
+            git pull --recurse-submodules
             $HOME/bin/mt_server-lord restart
           args: -tt

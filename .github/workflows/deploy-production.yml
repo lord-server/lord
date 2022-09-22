@@ -23,7 +23,7 @@ jobs:
           command: |
             cd minetest-master/games/lord
             git checkout master
-            git pull
+            git pull --recurse-submodules
             /etc/init.d/mt_server restart
           args: -tt
 
