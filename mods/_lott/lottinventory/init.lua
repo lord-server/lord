@@ -15,6 +15,7 @@ inventory_plus.set_inventory_formspec = function(player, formspec)
 	minetest.show_formspec(player:get_player_name(), "custom", formspec)
 end
 
+--[[
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.main then
 		local name           = player:get_player_name()
@@ -24,6 +25,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
+]]--
 
 --Bags
 minetest.register_tool("lottinventory:small", {
