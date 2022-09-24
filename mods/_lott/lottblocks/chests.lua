@@ -119,7 +119,7 @@ register_race_chest("lottblocks:angmar_chest", S("Angmar Chest"),
 
 register_race_chest("lottblocks:dwarf_chest", S("Dwarf Chest"),
 	{
-        "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_side.png",
+        "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_bottom.png", "lottblocks_dwarf_chest_side.png",
 		"lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_front.png"
 	},
 	"dwarf", "gui_dwarfbg.png", S("Only Dwarfs can open this kind of chest!")
