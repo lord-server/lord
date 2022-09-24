@@ -112,7 +112,7 @@ register_race_chest("lottblocks:mordor_chest", S("Mordor Chest"),
 
 register_race_chest("lottblocks:angmar_chest", S("Angmar Chest"),
 	{
-		"lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_side.png",
+		"lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_bottom.png", "lottblocks_angmar_chest_side.png",
 		"lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_front.png",
 	},
 	"orc", "gui_angmarbg.png", S("Only Orcs can open this kind of chest!"))
