@@ -105,7 +105,7 @@ register_race_chest("lottblocks:elfmirk_chest", S("Elven (Mirkwood) Chest"),
 
 register_race_chest("lottblocks:mordor_chest", S("Mordor Chest"),
 	{
-		"lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_side.png",
+		"lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_bottom.png", "lottblocks_mordor_chest_side.png",
 		"lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_front.png",
 	},
 	"orc", "gui_mordorbg.png", S("Only Orcs can open this kind of chest!"))
