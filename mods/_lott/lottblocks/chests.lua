@@ -64,57 +64,56 @@ register_race_chest("lottblocks:hobbit_chest", S("Hobbit Chest"),
 		"lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_side.png",
 		"lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_front.png",
 	},
-	"hobbit", "gui_hobbitbg.png", S("Only Hobbits can open this kind of chest!"))
+	"hobbit", "gui_hobbitbg.png")
 
 register_race_chest("lottblocks:gondor_chest", S("Gondorian Chest"),
 	{
 		"lottblocks_gondor_chest_top.png", "lottblocks_gondor_chest_bottom.png", "lottblocks_gondor_chest_side.png",
 		"lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_front.png",
 	},
-	"man", "gui_gondorbg.png", S("Only Humans can open this kind of chest!"))
+	"man", "gui_gondorbg.png")
 
 register_race_chest("lottblocks:rohan_chest", S("Rohirrim Chest"),
 	{
 		"lottblocks_rohan_chest_top.png", "lottblocks_rohan_chest_bottom.png", "lottblocks_rohan_chest_side.png",
 		"lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_front.png",
 	},
-	"man", "gui_rohanbg.png", S("Only Humans can open this kind of chest!"))
+	"man", "gui_rohanbg.png")
 
 register_race_chest("lottblocks:elfloth_chest", S("Elven (Lorien) Chest"),
 	{
 		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
 		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
 	},
-	"elf", "gui_elfbg.png", S("Only Elves can open this kind of chest!"))
+	"elf", "gui_elfbg.png")
 
 register_race_chest("lottblocks:elfmirk_chest", S("Elven (Mirkwood) Chest"),
 	{
 		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
 		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
 	},
-	"elf", "gui_elfbg.png", S("Only Elves can open this kind of chest!"))
+	"elf", "gui_elfbg.png")
 
 register_race_chest("lottblocks:mordor_chest", S("Mordor Chest"),
 	{
 		"lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_side.png",
 		"lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_front.png",
 	},
-	"orc", "gui_mordorbg.png", S("Only Orcs can open this kind of chest!"))
+	"orc", "gui_mordorbg.png")
 
 register_race_chest("lottblocks:angmar_chest", S("Angmar Chest"),
 	{
 		"lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_side.png",
 		"lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_front.png",
 	},
-	"orc", "gui_angmarbg.png", S("Only Orcs can open this kind of chest!"))
+	"orc", "gui_angmarbg.png")
 
 register_race_chest("lottblocks:dwarf_chest", S("Dwarf Chest"),
 	{
         "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_side.png",
 		"lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_front.png"
 	},
-	"dwarf", "gui_dwarfbg.png", S("Only Dwarfs can open this kind of chest!")
-)
+	"dwarf", "gui_dwarfbg.png")
 
 minetest.register_craft({
 	output = "lottblocks:hobbit_chest",
