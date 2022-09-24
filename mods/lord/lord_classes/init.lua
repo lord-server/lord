@@ -426,10 +426,7 @@ end
 ---
 ---@return boolean|nil, string|nil
 function races.can_open_stuff(owner_race, player, itemstack)
-	if races.list[owner_race] == nil then
-		minetest.log("error", "races.can_open_stuff: unknown race!")
-		return nil, nil
-	end
+	assert(races.list[owner_race], string.format("unknown race - \"%s\"", owner_race))
 
 	if races.get_race(player) == owner_race or minetest.check_player_privs(player, "race") then
 		return true, nil
