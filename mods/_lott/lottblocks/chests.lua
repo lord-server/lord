@@ -39,11 +39,11 @@ local function register_race_chest(name, desc, tiles, owner_race, background)
 		end,
 		on_rightclick         = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			local opened, failed_race = races.race_stuff_opener(owner_race, player, itemstack)
+			local opened, expected_race = races.can_open_stuff(owner_race, player, itemstack)
 			if opened then
 				minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
-			elseif failed_race ~= nil then
-				minetest.chat_send_player(player, S("Only @1 can open this kind of chest!", failed_race))
+			elseif expected_race ~= nil then
+				minetest.chat_send_player(player, S("Only @1 can open this kind of chest!", expected_race))
 			end
 		end,
 		can_dig               = function(pos, player)

@@ -425,9 +425,9 @@ end
 ---@param itemstack  ItemStack предмет в руке игрока.
 ---
 ---@return boolean|nil, string|nil
-function races.race_stuff_opener(owner_race, player, itemstack)
+function races.can_open_stuff(owner_race, player, itemstack)
 	if races.list[owner_race] == nil then
-		minetest.log("error", "races.race_stuff_opener: unknown race!")
+		minetest.log("error", "races.can_open_stuff: unknown race!")
 		return nil, nil
 	end
 
