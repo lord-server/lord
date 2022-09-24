@@ -129,7 +129,7 @@ minetest.register_craft({
 })
 
 
-local forbidden_groups = { "ghostly", }
+local forbidden_groups = { "ghostly", "door", }
 local accepted_groups = { "stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", }
 local now_registered_nodes = table.copy(minetest.registered_nodes)
 for name, def in pairs(now_registered_nodes) do
