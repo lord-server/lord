@@ -42,9 +42,27 @@ function sfinv.update_player(player)
 	player:set_inventory_formspec(fs)
 end
 
+local theme_inv = [[
+	image[0,5.2;1,1;gui_hb_bg.png]
+	image[1,5.2;1,1;gui_hb_bg.png]
+	image[2,5.2;1,1;gui_hb_bg.png]
+	image[3,5.2;1,1;gui_hb_bg.png]
+	image[4,5.2;1,1;gui_hb_bg.png]
+	image[5,5.2;1,1;gui_hb_bg.png]
+	image[6,5.2;1,1;gui_hb_bg.png]
+	image[7,5.2;1,1;gui_hb_bg.png]
+	list[current_player;main;0,5.2;8,1;]
+	list[current_player;main;0,6.35;8,3;8]
+]]
+
+
 -- for compatibility purposes
-function sfinv.make_formspec(_player, _context, content, _show_inv)
-	return content
+function sfinv.make_formspec(_player, _context, content, show_inv)
+	local inv = ""
+	if show_inv then
+		inv = theme_inv
+	end
+	return content .. inv
 end
 
 function sfinv.get_homepage_name(player)

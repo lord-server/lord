@@ -54,6 +54,11 @@ minetest.register_chatcommand("grant", {
 			if not priv:match("GAME", 1) then
 				privs[priv] = true
             end
+
+			local on_grant = minetest.registered_privileges[priv].on_grant
+			if on_grant then
+				on_grant(grant_name)
+			end
 		end
 		if privs_unknown ~= "" then
 			return false, privs_unknown
@@ -111,6 +116,11 @@ minetest.register_chatcommand("grantme", {
 			if not priv:match("GAME", 1) then
 				privs[priv] = true
             end
+
+			local on_grant = minetest.registered_privileges[priv].on_grant
+			if on_grant then
+				on_grant(name)
+			end
 		end
 		if privs_unknown ~= "" then
 			return false, privs_unknown
@@ -169,6 +179,11 @@ minetest.register_chatcommand("revoke", {
                 if priv:find("GAME", 1) == nil then
                     privs[priv] = nil
                 end
+
+				local on_revoke = minetest.registered_privileges[priv].on_revoke
+				if on_revoke then
+					on_revoke(revoke_name)
+				end
 			end
 		end
 		minetest.set_player_privs(revoke_name, privs)
