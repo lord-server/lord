@@ -433,13 +433,10 @@ function races.can_open_stuff(owner_race, player, itemstack)
 	end
 
 	if itemstack:get_name() == "lottblocks:lockpick" then
-		itemstack:add_wear(65535 / 20)
-		if math.random(1, 4) ~= 3 then
-			minetest.chat_send_player(player, SL("Lockpick failed"))
-			return false, nil
-		else
+		if lottblocks.lockpick_can_break_in(itemstack, player) then
 			return true, nil
 		end
+		return false, nil
 	else
 		return false, races.list[owner_race].name
 	end

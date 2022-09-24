@@ -1,5 +1,6 @@
 local S = minetest.get_translator("lottblocks")
 
+
 minetest.register_tool("lottblocks:lockpick", {
 	description     = S("Lockpick"),
 	inventory_image = "lottblocks_steel_lockpick.png", --Made by HeroOfTheWinds
@@ -15,6 +16,22 @@ minetest.register_craft({
 		{ "", "group:stick", "" }
 	}
 })
+
+--- Обработчик отмычки
+--- Проверяет, срабатывает ли отмычка.
+---@param itemstack ItemStack стак, содержащий отмычку;
+---@param player string имя игрока, использующего отмычку.
+---@return boolean сработало или нет.
+function lottblocks.lockpick_can_break_in(itemstack, player)
+	itemstack:add_wear(65535 / 20)
+	if math.random(1, 4) ~= 3 then
+		minetest.chat_send_player(player, S("Lockpick failed"))
+		return false
+	else
+		return true
+	end
+end
+
 
 --- Регистрация "расового" сундука
 ---@param name string @название ноды;

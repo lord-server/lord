@@ -19,6 +19,7 @@ Green Bed=Зелёная кровать
 
 ### chests.lua ###
 Lockpick=Отмычка
+Lockpick failed=Взлом не удался!
 
 Hobbit Chest=Сундук хоббитов
 Gondorian Chest=Сундук Гондора

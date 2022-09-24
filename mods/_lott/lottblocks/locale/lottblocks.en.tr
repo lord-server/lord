@@ -19,6 +19,7 @@ Green Bed=Green Bed
 
 ### chests.lua ###
 Lockpick=Lockpick
+Lockpick failed=Lockpick failed
 
 Hobbit Chest=Hobbit Chest
 Gondorian Chest=Gondorian Chest
