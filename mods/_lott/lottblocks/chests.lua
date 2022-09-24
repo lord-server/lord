@@ -70,7 +70,7 @@ end
 
 register_race_chest("lottblocks:hobbit_chest", S("Hobbit Chest"),
 	{
-		"lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_side.png",
+		"lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_bottom.png", "lottblocks_hobbit_chest_side.png",
 		"lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_front.png",
 	},
 	"hobbit", "gui_hobbitbg.png", S("Only Hobbits can open this kind of chest!"))
