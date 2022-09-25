@@ -1,20 +1,5 @@
 ghost = {}
 
-function ghost.deepcopy(orig)
-	local orig_type = type(orig)
-	local copy
-	if orig_type == 'table' then
-		copy = {}
-		for orig_key, orig_value in pairs(orig) do
-			copy[ghost.deepcopy(orig_key)] = ghost.deepcopy(orig_value)
-		end
-		-- We don't copy metatable!
-	else
-		copy = orig
-	end
-	return copy
-end
-
 function ghost.make_ghost_name(name)
 	return "defaults:"..string.gsub(name, ":", "_")
 end
@@ -39,7 +24,7 @@ function ghost.register_ghost_material(name)
 		return
 	end
 
-	local node = ghost.deepcopy(orig_node)
+	local node = table.copy(orig_node)
 
 	node.name = ghost_name
 	node.walkable = false
@@ -144,32 +129,25 @@ minetest.register_craft({
 })
 
 
-local now_registered_nodes = ghost.deepcopy(minetest.registered_nodes)
-for name, material in pairs(now_registered_nodes) do
-	if (material.groups ~= nil and material.groups.ghostly == nil) then
-		if (material.groups.stone ~= nil) then
-			ghost.register_ghost_material(name)
+local forbidden_groups = { "ghostly", "door", }
+local accepted_groups = { "stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", }
+local now_registered_nodes = table.copy(minetest.registered_nodes)
+for name, def in pairs(now_registered_nodes) do
+	if def.groups ~= nil then
+		local forbidden = false
+		for _, g in ipairs(forbidden_groups) do
+			if def.groups[g] ~= nil then
+				forbidden = true
+				break
+			end
 		end
-		if (material.groups.tree ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.wood ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.leaves ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.cracky ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.crumbly ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.wool ~= nil) then
-			ghost.register_ghost_material(name)
-		end
-		if (material.groups.need_ghost_variant ~= nil) then
-			ghost.register_ghost_material(name)
+		if not forbidden then
+			for _, g in ipairs(accepted_groups) do
+				if def.groups[g] ~= nil then
+					ghost.register_ghost_material(name)
+					break
+				end
+			end
 		end
 	end
 end
