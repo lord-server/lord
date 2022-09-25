@@ -1,5 +1,6 @@
 local S = minetest.get_translator("lottblocks")
 
+
 minetest.register_tool("lottblocks:lockpick", {
 	description     = S("Lockpick"),
 	inventory_image = "lottblocks_steel_lockpick.png", --Made by HeroOfTheWinds
@@ -16,14 +17,29 @@ minetest.register_craft({
 	}
 })
 
+--- Обработчик отмычки
+--- Проверяет, срабатывает ли отмычка.
+---@param itemstack ItemStack стак, содержащий отмычку;
+---@param player string имя игрока, использующего отмычку.
+---@return boolean сработало или нет.
+function lottblocks.lockpick_can_break_in(itemstack, player)
+	itemstack:add_wear(65535 / 20)
+	if math.random(1, 4) ~= 3 then
+		minetest.chat_send_player(player, S("Lockpick failed"))
+		return false
+	else
+		return true
+	end
+end
+
+
 --- Регистрация "расового" сундука
 ---@param name string @название ноды;
 ---@param desc string @описание ноды;
 ---@param tiles table @тайлы ноды;
 ---@param owner_race string @раса, которая может открывать сундук;
 ---@param background string @текстура фона сундука;
----@param fail_text string @текст, печатающийся при несоответствии расы сундуку.
-local function register_race_chest(name, desc, tiles, owner_race, background, fail_text)
+local function register_race_chest(name, desc, tiles, owner_race, background)
 	minetest.register_node(name, {
 		description           = desc,
 		tiles                 = tiles,
@@ -40,19 +56,11 @@ local function register_race_chest(name, desc, tiles, owner_race, background, fa
 		end,
 		on_rightclick         = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			local item   = itemstack:get_name()
-			if races.get_race_and_gender(player)[1] == owner_race or minetest.is_creative_enabled(player) then
+			local opened, expected_race = races.can_open_stuff(owner_race, player, itemstack)
+			if opened then
 				minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
-			elseif item == "lottblocks:lockpick" then
-				if math.random(1, 4) ~= 3 then
-					itemstack:add_wear(65535 / 20)
-					minetest.chat_send_player(player, S("Lockpick failed"))
-				else
-					itemstack:add_wear(65535 / 18)
-					minetest.show_formspec(player, name, default.chest.get_chest_formspec(pos, background))
-				end
-			else
-				minetest.chat_send_player(player, fail_text)
+			elseif expected_race ~= nil then
+				minetest.chat_send_player(player, S("Only @1 can open this kind of chest!", expected_race))
 			end
 		end,
 		can_dig               = function(pos, player)
@@ -73,57 +81,56 @@ register_race_chest("lottblocks:hobbit_chest", S("Hobbit Chest"),
 		"lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_top.png", "lottblocks_hobbit_chest_side.png",
 		"lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_side.png", "lottblocks_hobbit_chest_front.png",
 	},
-	"hobbit", "gui_hobbitbg.png", S("Only Hobbits can open this kind of chest!"))
+	"hobbit", "gui_hobbitbg.png")
 
 register_race_chest("lottblocks:gondor_chest", S("Gondorian Chest"),
 	{
 		"lottblocks_gondor_chest_top.png", "lottblocks_gondor_chest_bottom.png", "lottblocks_gondor_chest_side.png",
 		"lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_side.png", "lottblocks_gondor_chest_front.png",
 	},
-	"man", "gui_gondorbg.png", S("Only Humans can open this kind of chest!"))
+	"man", "gui_gondorbg.png")
 
 register_race_chest("lottblocks:rohan_chest", S("Rohirrim Chest"),
 	{
 		"lottblocks_rohan_chest_top.png", "lottblocks_rohan_chest_bottom.png", "lottblocks_rohan_chest_side.png",
 		"lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_side.png", "lottblocks_rohan_chest_front.png",
 	},
-	"man", "gui_rohanbg.png", S("Only Humans can open this kind of chest!"))
+	"man", "gui_rohanbg.png")
 
 register_race_chest("lottblocks:elfloth_chest", S("Elven (Lorien) Chest"),
 	{
 		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
 		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
 	},
-	"elf", "gui_elfbg.png", S("Only Elves can open this kind of chest!"))
+	"elf", "gui_elfbg.png")
 
 register_race_chest("lottblocks:elfmirk_chest", S("Elven (Mirkwood) Chest"),
 	{
 		"lottblocks_elf_chest_top.png", "lottblocks_elf_chest_bottom.png", "lottblocks_elf_chest_side.png",
 		"lottblocks_elf_chest_side.png", "lottblocks_elf_chest_side.png", "lottblocks_elf_chest_front.png",
 	},
-	"elf", "gui_elfbg.png", S("Only Elves can open this kind of chest!"))
+	"elf", "gui_elfbg.png")
 
 register_race_chest("lottblocks:mordor_chest", S("Mordor Chest"),
 	{
 		"lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_top.png", "lottblocks_mordor_chest_side.png",
 		"lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_side.png", "lottblocks_mordor_chest_front.png",
 	},
-	"orc", "gui_mordorbg.png", S("Only Orcs can open this kind of chest!"))
+	"orc", "gui_mordorbg.png")
 
 register_race_chest("lottblocks:angmar_chest", S("Angmar Chest"),
 	{
 		"lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_top.png", "lottblocks_angmar_chest_side.png",
 		"lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_side.png", "lottblocks_angmar_chest_front.png",
 	},
-	"orc", "gui_angmarbg.png", S("Only Orcs can open this kind of chest!"))
+	"orc", "gui_angmarbg.png")
 
 register_race_chest("lottblocks:dwarf_chest", S("Dwarf Chest"),
 	{
         "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_top.png", "lottblocks_dwarf_chest_side.png",
 		"lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_side.png", "lottblocks_dwarf_chest_front.png"
 	},
-	"dwarf", "gui_dwarfbg.png", S("Only Dwarfs can open this kind of chest!")
-)
+	"dwarf", "gui_dwarfbg.png")
 
 minetest.register_craft({
 	output = "lottblocks:hobbit_chest",
