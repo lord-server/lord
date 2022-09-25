@@ -9,7 +9,7 @@ local S = minetest.get_translator("lord_doors")
 ---@param itemstack ItemStack
 local function race_door_on_rightclick_wrapper(owner_race, pos, node, clicker, itemstack)
 	local player = clicker:get_player_name()
-	local opened, failed_race = races.race_stuff_opener(owner_race, player, itemstack)
+	local opened, failed_race = races.can_open_stuff(owner_race, player, itemstack)
 	if opened then
 		doors.door_toggle(pos, node, clicker)
 	elseif failed_race ~= nil then
