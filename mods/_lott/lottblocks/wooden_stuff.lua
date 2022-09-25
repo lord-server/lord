@@ -45,7 +45,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			inventory_image = hatch_inv_texture,
 			wield_image     = hatch_inv_texture,
 			tile_front      = hatch_inv_texture,
-			tile_side       = "doors_trapdoor_side.png",
+			tile_side       = "lottblocks_hatch_" .. name .. "_side.png",
 			groups          = node_groups,
 		})
 		minetest.register_craft({
