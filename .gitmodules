@@ -1,6 +1,53 @@
+[submodule "mods/_minetest_game/beds"]
+	path = mods/_minetest_game/beds
+	url = https://github.com/minetest-game-mod/beds
+[submodule "mods/_minetest_game/bucket"]
+	path = mods/_minetest_game/bucket
+	url = https://github.com/minetest-game-mod/bucket
+[submodule "mods/_minetest_game/carts"]
+	path = mods/_minetest_game/carts
+	url = https://github.com/minetest-game-mod/carts
+[submodule "mods/_minetest_game/doors"]
+	path = mods/_minetest_game/doors
+	url = https://github.com/minetest-game-mod/doors
+[submodule "mods/_minetest_game/dye"]
+	path = mods/_minetest_game/dye
+	url = https://github.com/minetest-game-mod/dye
+[submodule "mods/_minetest_game/farming"]
+	path = mods/_minetest_game/farming
+	url = https://github.com/minetest-game-mod/farming
+[submodule "mods/_minetest_game/fire"]
+	path = mods/_minetest_game/fire
+	url = https://github.com/minetest-game-mod/fire
+[submodule "mods/_minetest_game/flowers"]
+	path = mods/_minetest_game/flowers
+	url = https://github.com/minetest-game-mod/flowers
+[submodule "mods/_minetest_game/player_api"]
+	path = mods/_minetest_game/player_api
+	url = https://github.com/minetest-game-mod/player_api
+[submodule "mods/_minetest_game/screwdriver"]
+	path = mods/_minetest_game/screwdriver
+	url = https://github.com/minetest-game-mod/screwdriver
+[submodule "mods/_minetest_game/sethome"]
+	path = mods/_minetest_game/sethome
+	url = https://github.com/minetest-game-mod/sethome
+[submodule "mods/_minetest_game/sfinv"]
+	path = mods/_minetest_game/sfinv
+	url = https://github.com/minetest-game-mod/sfinv
+[submodule "mods/_minetest_game/stairs"]
+	path = mods/_minetest_game/stairs
+	url = https://github.com/minetest-game-mod/stairs
+[submodule "mods/_minetest_game/vessels"]
+	path = mods/_minetest_game/vessels
+	url = https://github.com/minetest-game-mod/vessels
+[submodule "mods/_minetest_game/wool"]
+	path = mods/_minetest_game/wool
+	url = https://github.com/minetest-game-mod/wool
+
 [submodule "mods/lord/nodes_dump"]
 	path = mods/lord/nodes_dump
 	url = https://github.com/lord-server/nodes_dump
+
 [submodule "mods/_various/ambience"]
 	path = mods/_various/ambience
 	url = https://notabug.org/TenPlus1/ambience.git
