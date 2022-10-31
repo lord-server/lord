@@ -1,7 +1,72 @@
 # Change Log
 
+## [2022.10](https://github.com/lord-server/lord/releases/tag/2022.10)
+ - Добавлены призрачные блоки для шерсти (#576, #737)
+ - Добавлены плиты из стволов деревьев (#698, #739, #757, #765, #766)
+ - Добавлены расширенные подсказки в описаниях в инвентаре, книжках и др формах (#589)  
+   Сейчас отображается:
+   - Урон для топоров, мечей, кинжалов и др. оружия
+   - Свечение для факелов, свеч и др. излучающих нод
+   - Макс. урон для стрел и метательных топоров
+ - Добавлены овцы и возможность стричь их (#769)
+ - При обновлении Lottblocks добавлены (#771, #342):
+   - Сундук гномов
+   - Мифриловая лампа
+   - Гонг
+ - Добавлен штандарт Шира. (#358, #781)
+ - Добавлены расовые двери (#789)
+ - Добавлен урон от воды Мордора (#771, #342)
+ - Добавлено "Ведро с водой Мордора" (#771, #342)
+ - Исправления/доработки:
+   - Исправление автоматического срубания дерева. (#756, #758)
+   - Исправление дна расовых сундуков (#791)
+   - Теперь после выпивания зелья остаётся бутылка (fixes #100) (#761)
+   - Добавлены боковые текстуры люков из тех же пород дерева (#792)
+ - Рефакторинг/системное:
+   - Removed ping mod (#746)
+   - Moved overwriting strings.lower, upper to lordlib mod (#745)
+   - Moved palantiri storage from text file to mod meta (fixes #751) (#753)
+   - Moved lottpotion from _lott/ to lord/ :building_construction: (#718) resolves #715
+   - Add core_callbacks (#699)
+   - stale-bot: decrease days until stale
+   - Unify debug tools (#747)
+   - Updated ambience with submodule (fixes #161)
+   - #267 Update MTG/default: insignificant changes (#763)
+   - Lottblocks update (#771) closes #342
+   - Beautify README (#775)
+   - Lottblocks i18n: Migration to built-in translation system (#776) Resolves #772
+   - Add basic definitions for built-in functions and tables (#778)
+   - EditorConfig: same rules as \`*.lua\` for \`.luacheckrc\`
+   - MTG/doors update (#708)
+   - CI: Deploy WFs: add `--recurse-submodules` to fix deploy
+   - Implemented races.can_open_stuff (#787)
+   - Рефакторинг `defaults:` (#790)
+   - lottmapgen_update: refactoring chest spawners
+   - lottmapgen_update: removed mythical fog
+   - lottplants_update: moved overwrites to correct place
+   - lottmapgen_update: changed localization to built-in
+   - Switch some MTG mods to submodules. Relates to #601. All switched mods from 5.4.1 commit (42baede):
+     - beds - downgrade to 5.4.1 (removed: check player attached, locale/beds.eo.tr)
+     - bucket
+     - carts
+     - doors
+     - dye
+     - farming
+     - fire
+     - downgrade to 5.4.1 (locale/fire.eo.tr deleted)
+     - flowers
+     - player_api
+     - screwdriver
+     - sethome
+     - sfinv
+     - stairs
+     - vessels
+     - wool
+   - correct GH-actions for work with submodules
+   - CI: increase `actions/checkout` `fetch-depth` (fix build)
+
 ## [2022.08.p3](https://github.com/lord-server/lord/releases/tag/2022.08.p3)
-- Added green marble stairs and slabs (fixes #762) (#764)
+ - Added green marble stairs and slabs (fixes #762) (#764)
 
 ## [2022.08.p2](https://github.com/lord-server/lord/releases/tag/2022.08.p2)
  - Исправлено падение сервера при разрушении трупа
