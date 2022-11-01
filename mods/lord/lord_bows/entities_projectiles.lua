@@ -1,5 +1,4 @@
 -- entities projectiles
--- Прямиком с lord2
 
 -- acceleration of gravity
 local GRAVITY = 10
