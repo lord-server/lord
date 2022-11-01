@@ -5,7 +5,7 @@ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/entities_projec
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/mechanics_throwing.lua")
 
 local function table_concat(t1,t2)
-		for k, v in pairs(t2) do
+	for k, v in pairs(t2) do
 		t1[k] = v
 	end
 	return t1
