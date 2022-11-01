@@ -6,8 +6,6 @@ local players_physics = {}
 local throwing = {}
 local CONTROL_CHARGE = "RMB"
 local PLAYER_SLOWDOWN_SPEED = 0.25
--- acceleration of gravity
-local GRAVITY = 10
 
 -- Заряд лука у игрока
 throwing.charges = {}

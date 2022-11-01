@@ -1,8 +1,5 @@
 -- entities projectiles
 
--- acceleration of gravity
-local GRAVITY = 10
-
 projectiles = {}
 
 -- Обновление таймера жизни стрелы

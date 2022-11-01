@@ -1,4 +1,5 @@
 -- lord bows
+GRAVITY = 9.81
 
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/entities_projectiles.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/mechanics_throwing.lua")
