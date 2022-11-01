@@ -99,7 +99,6 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 				flight_processing(self)
 			end
 
-			-- Обновление таймера жизни
 			update_life_timer(self, dtime)
 		end,
 
