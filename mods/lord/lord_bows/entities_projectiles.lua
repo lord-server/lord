@@ -1,6 +1,9 @@
 -- entities projectiles
 
 projectiles = {}
+local pi = math.pi
+local arctan = math.atan2
+local sqr = math.sqrt
 
 -- Обновление таймера жизни стрелы
 local function update_life_timer(self, dtime)
@@ -64,8 +67,8 @@ local function flight_processing(self)
 	if vel.y ~= 0 then
 		local rot = {
 			x = 0,
-			y = math.pi + math.atan2(vel.z, vel.x),
-			z = math.atan2(vel.y, math.sqrt(vel.z*vel.z+vel.x*vel.x))}
+			y = pi + arctan(vel.z, vel.x),
+			z = arctan(vel.y, sqr(vel.z*vel.z+vel.x*vel.x))}
 		self.object:set_rotation(rot)
 	end
 end
