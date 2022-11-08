@@ -543,7 +543,8 @@ minetest.override_item("default:jungletree", {
 ---@return ItemStack @обновлённый stack в руках игрока (tree)
 function default.place_tree(itemstack, placer, pointed_thing, trunk_name)
 	minetest.rotate_node(ItemStack(trunk_name), placer, pointed_thing)
-	return itemstack:take_item()
+	itemstack:take_item()
+	return itemstack
 end
 
 -- Падение ствола деревьев вниз при ломании
