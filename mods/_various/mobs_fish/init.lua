@@ -9,7 +9,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 	local l_spawn_chance	= 10000
 	local l_cc_hand			= 25
 	local l_cc_net			= 80
-	local l_water_level		= minetest.setting_get("water_level") - 1
+	local l_water_level		= minetest.settings:get("water_level") - 1
 	local l_anims = {
 		speed_normal = 24,		speed_run = 24,
 		stand_start = 1,		stand_end = 80,

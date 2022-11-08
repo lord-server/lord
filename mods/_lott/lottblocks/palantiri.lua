@@ -266,7 +266,7 @@ minetest.register_node("lottblocks:palantir", {
 						)
 						return
 					end
-					sender:setpos({ x = pos.x, y = pos.y + 1, z = pos.z })
+					sender:set_pos({ x = pos.x, y = pos.y + 1, z = pos.z })
 					minetest.close_formspec(player_name, formname)
 					return
 				elseif fields.teleports == nil or
@@ -284,11 +284,11 @@ minetest.register_node("lottblocks:palantir", {
 					)
 					return
 				end
-				sender:setpos({ x = p.x + 1, y = p.y, z = p.z })
+				sender:set_pos({ x = p.x + 1, y = p.y, z = p.z })
 				minetest.close_formspec(player_name, formname)
 			elseif can_tp == false then
 				if fields.teleports and fields.teleports ~= S("Teleport to...") then
-					sender:setpos({
+					sender:set_pos({
 						x = pos.x + math.random(-50, 50),
 						y = pos.y + math.random(20, 50),
 						z = pos.z + math.random(-50, 50)

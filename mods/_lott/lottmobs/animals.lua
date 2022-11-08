@@ -295,7 +295,7 @@ mobs:register_mob("lottmobs:sheep", {
 				ItemStack( "wool:white " .. math.random(1, 3) )
 			)
 			if obj then
-				obj:setvelocity({
+				obj:set_velocity({
 					x = math.random(-1, 1),
 					y = 5,
 					z = math.random(-1, 1)

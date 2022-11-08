@@ -26,7 +26,7 @@ function spawn.check_conf(config_setting)
 
 	if not spawn.pos_from_conf(config_setting) then
 		minetest.log('warning', "The " .. config_setting .. " setting is invalid: \""..
-				core.setting_get(config_setting).."\"")
+				core.settings:get(config_setting).."\"")
 		return false
 	end
 	return true
@@ -43,7 +43,7 @@ function spawn.put_player_at_spawn(obj, config_setting)
 			" to " .. config_setting .. " at "..
 			minetest.pos_to_string(spawnpoint))
 
-	obj:setpos(spawnpoint)
+	obj:set_pos(spawnpoint)
 
 	return true
 end
@@ -97,7 +97,7 @@ local function tp_to_hall(hall, obj)
 			" to "..hall.." at "..
 			minetest.pos_to_string(hall_pos))
 
-	obj:setpos(hall_pos)
+	obj:set_pos(hall_pos)
 
 	return true
 end
