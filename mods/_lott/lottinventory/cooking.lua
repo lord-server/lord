@@ -240,15 +240,6 @@ minetest.register_tool("lottinventory:cooking_book", {
 	wield_image       = "",
 	wield_scale       = { x = 1, y = 1, z = 1 },
 	stack_max         = 1,
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level      = 0,
-		groupcaps           = {
-			fleshy = { times = { [2] = 0.80, [3] = 0.40 }, uses = 20, maxlevel = 1 },
-			snappy = { times = { [2] = 0.80, [3] = 0.40 }, uses = 20, maxlevel = 1 },
-			choppy = { times = { [3] = 0.90 }, uses = 20, maxlevel = 0 }
-		}
-	},
 	on_use            = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zcc.users[pn] == nil then
