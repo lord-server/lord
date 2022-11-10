@@ -120,7 +120,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			if ctrl.jump and on_ground then
 				local v = self.object:get_velocity()
 				v.y     = (self.jump_speed or 3)
-				self.object:setvelocity(v)
+				self.object:set_velocity(v)
 			end
 
 			-- forwards/backwards
@@ -147,7 +147,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 		if self.v == 0 then
 			if underattack ~= true then
-				self.object:setvelocity({ x = 0, y = 0, z = 0 })
+				self.object:set_velocity({ x = 0, y = 0, z = 0 })
 				self:set_animation("stand")
 				return
 			else
@@ -169,17 +169,17 @@ function lottmobs.register_horse(name, craftitem, horse)
 				self.v = 0
 			end
 			self.object:set_acceleration({ x = 0, y = -10, z = 0 })
-			self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
+			self.object:set_velocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
 		else
 			self.object:set_acceleration({ x = 0, y = 0, z = 0 })
 			-- falling
 			if math.abs(self.object:get_velocity().y) < 1 then
 				local pos = self.object:get_pos()
 				pos.y     = math.floor(pos.y) + 0.5
-				self.object:setpos(pos)
-				self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), 0))
+				self.object:set_pos(pos)
+				self.object:set_velocity(get_velocity(self.v, self.object:get_yaw(), 0))
 			else
-				self.object:setvelocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
+				self.object:set_velocity(get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y))
 			end
 		end
 
