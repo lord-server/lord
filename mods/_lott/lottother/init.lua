@@ -272,7 +272,7 @@ minetest.register_abm({
 					return
 				end
 				minetest.remove_node(p)
-				nodeupdate(p)
+				minetest.check_for_falling(p)
 			end
 		else
 			minetest.remove_node(p0)

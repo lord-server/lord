@@ -562,7 +562,7 @@ if ARMOR_DROP == true or ARMOR_DESTROY == true then
 	armor.drop_armor = function(pos, stack)
 		local obj = minetest.add_item(pos, stack)
 		if obj then
-			obj:setvelocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
+			obj:set_velocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
 		end
 	end
 end

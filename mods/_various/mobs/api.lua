@@ -938,7 +938,7 @@ function smart_mobs(self, s, p, dist, dtime)
 		self.path.way = minetest.find_path(s, p1, 16, 2, 6, "Dijkstra")
 
 		-- attempt to unstick mob that is "daydreaming"
-		self.object:setpos({
+		self.object:set_pos({
 			x = s.x + 0.1 * (random() * 2 - 1),
 			y = s.y + 1,
 			z = s.z + 0.1 * (random() * 2 - 1)
@@ -980,7 +980,7 @@ function smart_mobs(self, s, p, dist, dtime)
 					end
 
 					s.y = s.y - sheight
-					self.object:setpos({x = s.x, y = s.y + 2, z = s.z})
+					self.object:set_pos({x = s.x, y = s.y + 2, z = s.z})
 
 				else -- dig 2 blocks to make door toward player direction
 

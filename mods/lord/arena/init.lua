@@ -70,7 +70,7 @@ local function get_mobs_inside_cuboid(mobs, pos1, pos2)
 	-- Count the objects
 	for _, object in pairs(objects) do
 		local name = object:get_entity_name()
-		local pos = object:getpos()
+		local pos = object:get_pos()
 		-- Filter positions outside the cuboid
 		local valid_pos = is_inside_cuboid(pos, minp, maxp)
 		-- HACK: This is to update arena if a player is somewhere near it.

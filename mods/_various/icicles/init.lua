@@ -32,16 +32,16 @@ icicles = {}
 
 function icicles.make_stalactite(pos, length)
 	for i = length,1,-1 do
-		if minetest.env:get_node({x=pos.x,y=pos.y-i+1,z=pos.z}).name == "air" then
-			minetest.env:set_node({x=pos.x,y=pos.y-i+1,z=pos.z}, {name = "icicles:icicle_"..5-i})
+		if minetest.get_node({x=pos.x,y=pos.y-i+1,z=pos.z}).name == "air" then
+			minetest.set_node({x=pos.x,y=pos.y-i+1,z=pos.z}, {name = "icicles:icicle_"..5-i})
 		else return end
 	end
 end
 
 function icicles.make_stalagmite(pos, length)
 	for i = 1,length do
-		if minetest.env:get_node({x=pos.x,y=pos.y+i-1,z=pos.z}).name == "air" then
-			minetest.env:set_node({x=pos.x,y=pos.y+i-1,z=pos.z}, {name = "icicles:icicle_"..5-i, param2 = 1})
+		if minetest.get_node({x=pos.x,y=pos.y+i-1,z=pos.z}).name == "air" then
+			minetest.set_node({x=pos.x,y=pos.y+i-1,z=pos.z}, {name = "icicles:icicle_"..5-i, param2 = 1})
 		else return end
 	end
 end
@@ -75,10 +75,10 @@ local function generate(minp, maxp, seed, chunks_per_volume, icicles_per_chunk, 
 							local p2 = {x=x2, y=y2, z=z2}
 							local p3 = {x=x2, y=y2+1, z=z2}
 							local p4 = {x=x2, y=y2-1, z=z2}
-							if minetest.env:get_node(p2).name == "air" then
-								if minetest.env:get_node(p3).name == "default:stone" then
+							if minetest.get_node(p2).name == "air" then
+								if minetest.get_node(p3).name == "default:stone" then
 									icicles.make_stalactite(p2, pr:next(2, 4))
-								elseif minetest.env:get_node(p4).name == "default:stone" then
+								elseif minetest.get_node(p4).name == "default:stone" then
 									icicles.make_stalagmite(p2, pr:next(2, 4))
 								end
 							end

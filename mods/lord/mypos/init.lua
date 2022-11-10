@@ -8,7 +8,7 @@ minetest.register_chatcommand("mypos", {
 		if not player then
 			return false, SL("Player not found!")
 		end
-		local mypos = player:getpos()
+		local mypos = player:get_pos()
 		local message = string.format("x=%d, y=%d, z=%d", mypos.x,mypos.y,mypos.z)
 		if param == "" then
 			minetest.chat_send_all("<"..name.."> "..message)
