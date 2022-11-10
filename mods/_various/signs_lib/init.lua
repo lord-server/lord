@@ -317,24 +317,6 @@ local function build_char_db()
 	local char_count = 0
 
 	for c = 32, 255 do
-
-		-- ***** badger ***** создание файлов, чтобы не было ошибки.
-		-- Пытается открыть файл в режиме "чтения/записи"
-		local f
-		f = io.open(FONT_FMT:format(TP, c),"r+");
-		-- Если файл не существует
-		if f == nil then
-			-- Создает файл в режиме "записи"
-			f = io.open(FONT_FMT:format(TP, c),"w");
-			-- Закрывает файл
-			f:close();
-			-- Открывает уже существующий файл в режиме "чтения/записи"
-			--f = io.open("Test.txt","r+");
-		else
-			f:close();
-		end;
-		-- ***** badger *****
-
 		local w, h = read_image_size(FONT_FMT:format(TP, c))
 		if w and h then
 			local ch = string.char(c)
