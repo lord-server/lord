@@ -59,8 +59,11 @@ local function register_chest_spawner(chest_name, possible_items)
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			local items_set = get_items_available_from_possible_items(possible_items)
+			local inv_size = inv:get_size("main")
+			if inv_size < number_of_items then
+				number_of_items = inv_size
+			end
 			for _ = 1, number_of_items do
-				local inv_size = inv:get_size("main")
 				local stack_idx = math.random(inv_size)
 				while not inv:get_stack("main", stack_idx):is_empty() do -- пока не выпадет свободный стак
 					stack_idx = math.random(inv_size)
@@ -295,4 +298,11 @@ register_chest_spawner("lottblocks:angmar_chest", {
 	{ "bones:bones", },
 	{ "lottfarming:orc_food", 4 },
 	{ "lottfarming:orc_medicine", 2 },
+})
+
+-- Chrisrmas tree
+register_chest_spawner("lord_blocks:christmas_tree", {
+	{"default:gold_ingot", 8},
+	{"default:gold_ingot", 4},
+	{"default:gold_ingot", 2}
 })
