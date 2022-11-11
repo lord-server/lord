@@ -7,6 +7,30 @@ minetest.register_craftitem(":default:scorched_stuff", {
 	inventory_image = "default_scorched_stuff.png",
 })
 
+--- Use as `on_punch` callback. Fires node by punching with torch.
+--- @param pos           Position      punched `node` position
+--- @param node          Node          punched `node` NodeTable
+--- @param puncher       Player        who punched the `node`
+--- @param pointed_thing pointed_thing params on which node "cursor" is pointed now
+local function fire_by_torch_punch(pos, node, puncher, pointed_thing)
+	if puncher:get_wielded_item():get_name() == "default:torch" then
+		local pos_above = { x = pos.x, y = pos.y + 1, z = pos.z }
+		if minetest.get_node(pos_above).name == "air" then
+			-- When there is no delay, the player has time to hit the newly appeared fire and put it out
+			-- Когда нет задержки, игрок успевает ударить и по вновь появившемуся костру и потушить его
+			minetest.after(0.25, function()
+				minetest.set_node(pos_above, { name = "fire:basic_flame" })
+			end)
+		end
+	end
+	minetest.node_punch(pos, node, puncher, pointed_thing)
+end
+
+-- Поджигание блока угля (каменного) факелом
+minetest.override_item("default:coalblock", {
+	on_punch = fire_by_torch_punch,
+	_tt_help = S("Ignited by a torch"),
+})
 
 ----------------------------------
 --- Charcoal / Древесный уголь ---
@@ -20,17 +44,11 @@ minetest.register_craftitem(":default:charcoal_lump", {
 minetest.register_node(":default:charcoalblock", {
 	description       = S("Charcoal Block"),
 	tiles             = { "default_charcoal_block.png" },
-	is_ground_content = true,
+	is_ground_content = false,
 	groups            = { cracky = 3, flammable = 10 },
 	sounds            = default.node_sound_stone_defaults(),
-	on_punch          = function(pos, node, puncher)
-		if puncher:get_wielded_item():get_name() == "default:torch" then
-			local pos_above = { x = pos.x, y = pos.y + 1, z = pos.z }
-			if minetest.get_node(pos_above).name == "air" then
-				minetest.set_node(pos_above, { name = "fire:basic_flame" })
-			end
-		end
-	end,
+	on_punch          = fire_by_torch_punch,
+	_tt_help          = S("Ignited by a torch"),
 })
 
 minetest.register_craft({
