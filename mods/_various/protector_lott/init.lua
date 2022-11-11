@@ -86,8 +86,11 @@ protector.generate_formspec = function(meta)
 	end
 
 	if i < npp then
-		formspec = formspec .. "field[" .. (i % 4 * 2 + 1 / 3) .. ","
-		.. (math.floor(i / 4 + 3) + 1 / 3) .. ";1.433,.5;protector_add_member;;]"
+		local pos_x = i % 4 * 2 + 1 / 3
+		local pos_y = math.floor(i / 4 + 3) + 1 / 3
+		formspec = formspec ..
+			"field[" .. pos_x .. "," .. pos_y .. ";1.433,.5;protector_add_member;;]" ..
+			"field_close_on_enter[protector_add_member;false]"
 	end
 
 	formspec = formspec .. "button_exit[2.5,6.2;3,0.5;close_me;"..SL("Close").."]"
@@ -325,7 +328,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 			return
 		end
 
-		if fields.protector_add_member then
+		if fields.key_enter and fields.key_enter_field == "protector_add_member" then
 			for _, i in ipairs(fields.protector_add_member:split(" ")) do
 				protector.add_member(meta, i)
 			end
@@ -337,7 +340,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 			end
 		end
 
-		if not fields.close_me then
+		if not (fields.close_me or fields.quit) then
 			minetest.show_formspec(player:get_player_name(), formname, protector.generate_formspec(meta))
 		end
 
