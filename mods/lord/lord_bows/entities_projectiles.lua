@@ -6,48 +6,48 @@ local arctan = math.atan2
 local sqr = math.sqrt
 
 -- Обновление таймера жизни стрелы
-local function update_life_timer(self, dtime)
-	if not self.timer_is_start then return end
+local function update_life_timer(entity, dtime)
+	if not entity.timer_is_start then return end
 
-	self.life_timer = self.life_timer - dtime
+	entity.life_timer = entity.life_timer - dtime
 
-	if self.life_timer <= 0 then
-		self.object:remove()
+	if entity.life_timer <= 0 then
+		entity.object:remove()
 	end
 end
 
 -- Нанесение урона цели
-local function punch_target(self, target, damage)
-	target:punch(self.object, 1.0, {
+local function punch_target(entity, target, damage)
+	target:punch(entity.object, 1.0, {
 		full_punch_interval = 1.0,
 		damage_groups = {fleshy = damage},
 	})
-	self.object:remove()
+	entity.object:remove()
 end
 
 -- Обработка попадания взависимости от цели
-local function hit_handling(self, target, name, def)
+local function hit_handling(entity, target, name, def)
 	-- Попадание по игроку
 	if target:is_player() then
-		punch_target(self, target, def.damage)
+		punch_target(entity, target, def.damage)
 	else
 		--Столкновение двух стрел
 		if target:get_luaentity().name == name then
-			self.object:set_acceleration({x = 0, y = GRAVITY*-1, z = 0})
+			entity.object:set_acceleration({x = 0, y = GRAVITY*-1, z = 0})
 			target:set_acceleration({x = 0, y = GRAVITY*-1, z = 0})
 		-- Попадание по сущности
 		else
-			punch_target(self, target, def.damage)
+			punch_target(entity, target, def.damage)
 		end
 	end
 end
 
 -- Обработка столкновения
-local function collision_handling(self, moveresult, name, def)
-	self.object:set_velocity({x = 0, y = 0, z = 0})
-	self.object:set_acceleration({x = 0, y = 0, z = 0})
+local function collision_handling(entity, moveresult, name, def)
+	entity.object:set_velocity({x = 0, y = 0, z = 0})
+	entity.object:set_acceleration({x = 0, y = 0, z = 0})
 
-	self.timer_is_start = true
+	entity.timer_is_start = true
 
 	if not moveresult.collisions[1] then
 		return
@@ -59,17 +59,17 @@ local function collision_handling(self, moveresult, name, def)
 
 	local target = moveresult.collisions[1].object
 
-	hit_handling(self, target, name, def)
+	hit_handling(entity, target, name, def)
 end
 
-local function flight_processing(self)
-	local vel = self.object:get_velocity()
+local function flight_processing(entity)
+	local vel = entity.object:get_velocity()
 	if vel.y ~= 0 then
 		local rot = {
 			x = 0,
 			y = pi + arctan(vel.z, vel.x),
 			z = arctan(vel.y, sqr(vel.z*vel.z+vel.x*vel.x))}
-		self.object:set_rotation(rot)
+		entity.object:set_rotation(rot)
 	end
 end
 
