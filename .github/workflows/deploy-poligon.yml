@@ -20,5 +20,6 @@ jobs:
             cd mt/games/lord/
             git checkout dev
             git pull --recurse-submodules
+            cp -f minetest.conf.test minetest.conf
             $HOME/bin/mt_server-lord restart
           args: -tt
