@@ -205,7 +205,7 @@ disable_fire = true
 # ------- MTG/give_initial_stuff -------
 # Gives some stuff to players at the beginning
 give_initial_stuff = true
-initial_stuff = default:gold_ingot 20,farming:bread 20
+initial_stuff = lord_money:copper_coin 100,lottmobs:horsemeat_cooked 99,tools:pick_mithril,tools:axe_mithril
 
 #
 #    LOTT
