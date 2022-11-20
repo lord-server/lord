@@ -28,6 +28,9 @@ skybox.definition = {
 	}
 }
 
+--- @type table stores current height layers of players
+skybox.player_current_layer = {}
+
 --- @param y number the height coordinate
 --- @return string return layer name. One of {"SPACE"|"AIR"|"UNDER_GROUND"}
 local function detect_height_layer(y)
@@ -49,7 +52,16 @@ end
 
 minetest.register_globalstep(function(_)
 	for _, player in pairs(minetest.get_connected_players()) do
+		local player_name = player:get_player_name()
 		local layer = detect_height_layer(player:get_pos().y)
-		change_player_sky(player, skybox.definition[layer])
+		if layer ~= skybox.player_current_layer[player_name] then
+			change_player_sky(player, skybox.definition[layer])
+			skybox.player_current_layer[player_name] = layer
+		end
 	end
+end)
+
+--- @param player Player
+minetest.register_on_leaveplayer(function(player)
+	skybox.player_current_layer[player:get_player_name()] = nil
 end)
