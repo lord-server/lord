@@ -131,7 +131,14 @@ VoxelArea = {}
 ---@param cuboid { MinEdge: any, MaxEdge: any }
 function VoxelArea:new(cuboid) end
 
----@class Player
+--- @class ObjectRef
+ObjectRef = {}
+--- @return Position
+function ObjectRef:get_pos() end
+--- @param pos Position
+function ObjectRef:set_pos(pos) end
+
+---@class Player : ObjectRef
 Player = {}
 
 ---@return string
@@ -2165,6 +2172,7 @@ function minetest.get_mod_storage() end
 
 -- Misc.:
 --- Returns list of `ObjectRefs`
+--- @return Player[]
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5637-L5637)
 function minetest.get_connected_players() end
