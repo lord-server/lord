@@ -46,6 +46,9 @@
 [submodule "mods/_minetest_game/wool"]
 	path = mods/_minetest_game/wool
 	url = https://github.com/minetest-game-mod/wool
+[submodule "mods/_minetest_game/xpanes"]
+	path = mods/_minetest_game/xpanes
+	url = https://github.com/minetest-game-mod/xpanes
 
 [submodule "mods/lord/nodes_dump"]
 	path = mods/lord/nodes_dump
