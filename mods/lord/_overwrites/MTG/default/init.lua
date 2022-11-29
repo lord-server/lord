@@ -134,10 +134,12 @@ minetest.clear_craft({output = "default:sign_wall_steel"})
 minetest.clear_craft({output = "default:tinblock"}) -- `lottores:tin_block`
 
 -- `silver_sand` не генерируется нашим map-генератором (`mods/_lott/lottmapgen`)
-minetest.clear_craft({output = "default:silver_sand"})
-minetest.clear_craft({output = "default:silver_sandstone"})
-minetest.clear_craft({output = "default:silver_sandstone_brick"})
-minetest.clear_craft({output = "default:silver_sandstone_block"})
+-- оставляем ноды, будем продавать в магазинах:
+--minetest.clear_craft({output = "default:silver_sand"})
+-- для этих 3х есть "ограда" ("walls:..."), ступеньки ("stairs:")
+--minetest.clear_craft({output = "default:silver_sandstone"})
+--minetest.clear_craft({output = "default:silver_sandstone_brick"})
+--minetest.clear_craft({output = "default:silver_sandstone_block"})
 
 -- мы не можем делать лестницу из любой палочки, т.к. в `lottblocks` добавляются разные лестницы из разных палочек
 minetest.clear_craft({output = "default:ladder_wood"})
@@ -269,9 +271,12 @@ minetest.register_craft({
 
 -- default/nodes.lua
 
-minetest.unregister_item("default:silver_sandstone")
-minetest.unregister_item("default:silver_sandstone_brick")
-minetest.unregister_item("default:silver_sandstone_block")
+-- оставляем ноды, будем продавать в магазинах:
+-- для этих 3х есть "ограда" ("walls:..."), ступеньки ("stairs:")
+--minetest.unregister_item("default:silver_sandstone")
+--minetest.unregister_item("default:silver_sandstone_brick")
+--minetest.unregister_item("default:silver_sandstone_block")
+
 -- Временно закомментировано. Это неободимо для работы Farming.
 -- Если будет возможно — исправим и восстановим эти строки.
 -- Если нет — удалим "с корнем".
