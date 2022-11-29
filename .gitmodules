@@ -43,6 +43,9 @@
 [submodule "mods/_minetest_game/vessels"]
 	path = mods/_minetest_game/vessels
 	url = https://github.com/minetest-game-mod/vessels
+[submodule "mods/_minetest_game/walls"]
+	path = mods/_minetest_game/walls
+	url = https://github.com/minetest-game-mod/walls
 [submodule "mods/_minetest_game/wool"]
 	path = mods/_minetest_game/wool
 	url = https://github.com/minetest-game-mod/wool
@@ -57,3 +60,6 @@
 [submodule "mods/_various/ambience"]
 	path = mods/_various/ambience
 	url = https://notabug.org/TenPlus1/ambience.git
+[submodule "mods/_various/mywalls"]
+	path = mods/_various/mywalls
+	url = https://github.com/lord-server/mywalls
