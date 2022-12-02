@@ -60,7 +60,6 @@ end
 local damage_enabled = minetest.settings:get_bool("enable_damage")
 local peaceful_only = minetest.settings:get_bool("only_peaceful_mobs")
 local disable_blood = minetest.settings:get_bool("mobs_disable_blood")
-local creative = default.creative
 local spawn_protected = tonumber(minetest.settings:get("mobs_spawn_protected")) or 1
 local remove_far = minetest.settings:get_bool("remove_far_mobs")
 local difficulty = tonumber(minetest.settings:get("mob_difficulty")) or 1.0
@@ -2769,7 +2768,7 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 	local grp = {}
 
 	-- do NOT add this egg to creative inventory (e.g. dungeon master)
-	if creative and no_creative == true then
+	if minetest.is_creative_enabled() and no_creative == true then
 		grp = {not_in_creative_inventory = 1}
 	end
 
@@ -2868,7 +2867,7 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 				end
 
 				-- if not in creative then take item
-				if not creative then
+				if not minetest.is_creative_enabled(placer) then
 					itemstack:take_item()
 				end
 			end
@@ -3035,7 +3034,7 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 	-- can eat/tame with item in hand
 	if follow_holding(self, clicker) then
 		-- if not in creative then take item
-		if not creative and not ring_used then
+		if not minetest.is_creative_enabled(clicker) and not ring_used then
 
 			local item = clicker:get_wielded_item()
 
@@ -3152,7 +3151,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		update_tag(mob_obj[name])
 
 		-- if not in creative then take item
-		if not creative then
+		if not minetest.is_creative_enabled(name) then
 
 			mob_sta[name]:take_item()
 

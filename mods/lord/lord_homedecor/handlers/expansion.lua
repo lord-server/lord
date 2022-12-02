@@ -82,7 +82,7 @@ local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 			ctrl_node_def.after_place_node(pos, placer)
 		end
 
-		if not lord_homedecor.expect_infinite_stacks then
+		if not lord_homedecor.expect_infinite_stacks(placer) then
 			itemstack:take_item()
 		end
 	end

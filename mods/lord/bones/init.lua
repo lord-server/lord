@@ -116,7 +116,7 @@ end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
 minetest.register_on_dieplayer(function(player)
-	if default.creative then return end
+	if minetest.is_creative_enabled(player) then return end
 	local race = races.get_race_and_gender(player:get_player_name())[1]
 	local gender = races.get_race_and_gender(player:get_player_name())[2]
 	local skin = races.get_skin(player:get_player_name())

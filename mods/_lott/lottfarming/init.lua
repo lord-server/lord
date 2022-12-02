@@ -24,7 +24,7 @@ function place_seed(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 	minetest.add_node(pt.above, {name=plantname})
-	if not default.creative then
+	if not minetest.is_creative_enabled(placer) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -56,7 +56,7 @@ function place_spore(itemstack, placer, pointed_thing, plantname)
 		return
 	end
 	minetest.add_node(pt.above, {name=plantname})
-	if not default.creative then
+	if not minetest.is_creative_enabled(placer) then
 		itemstack:take_item()
 	end
 	return itemstack

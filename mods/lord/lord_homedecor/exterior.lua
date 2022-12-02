@@ -192,7 +192,7 @@ lord_homedecor.register("swing", {
 
 			minetest.set_node({ x=pos.x, y=pos.y-height, z=pos.z }, { name = "lord_homedecor:swing", param2 = fdir })
 
-			if not lord_homedecor.expect_infinite_stacks then
+			if not lord_homedecor.expect_infinite_stacks(placer) then
 				itemstack:take_item()
 			end
 		else

@@ -85,7 +85,7 @@ mobs:register_mob("lottmobs:warg", {
 				return
 			end
 			minetest.add_entity(self.object:get_pos(), "lottmobs:warg_mount")
-			if not default.creative and item:get_name() ~= "lottother:beast_ring" then
+			if not minetest.is_creative_enabled(clicker) and item:get_name() ~= "lottother:beast_ring" then
 				item:take_item()
 				clicker:set_wielded_item(item)
 			end
