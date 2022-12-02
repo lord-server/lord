@@ -55,7 +55,8 @@ dofile(default_path.."/tools.lua")
 dofile(default_path.."/item_entity.lua")
 dofile(default_path.."/craftitems.lua")
 dofile(default_path.."/crafting.lua")
--- не обновлён, т.к. генерация своя(убогая, но какая досталась), пока нет возможности обновить её:
+-- обновлён, но не подключаем, т.к. генерация своя(убогая, но какая досталась), пока нет возможности обновить её.
+-- генерация перенесена в `mods/lord/_overwrites/MTG/default/mapgen.lua`
 --dofile(default_path.."/mapgen.lua")
 -- добавились, но пока что не подключаем, т.к. есть аналогичные наши
 --dofile(default_path.."/aliases.lua")
