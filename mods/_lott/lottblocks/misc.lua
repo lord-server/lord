@@ -3,12 +3,13 @@ local S = minetest.get_translator("lottblocks")
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua
 
-local creative = default.creative
-local function place_rope(pos, itemstack)
+
+local function place_rope(pos, itemstack, player)
 	if itemstack == nil and itemstack:get_count() <= 1 then
 		return
 	else
 		local max_nodes = itemstack:get_count()
+		local creative = minetest.is_creative_enabled(player)
         if creative then
             max_nodes = 200
         end
@@ -74,7 +75,7 @@ local function dig_rope(pos, digger)
 	if inventory == nil then
 		return
 	end
-    if not creative then
+    if not minetest.is_creative_enabled(digger) then
 	   inventory:add_item("main", "lottblocks:elven_rope " .. dug_nodes)
     end
 end
@@ -99,7 +100,7 @@ minetest.register_node("lottblocks:elven_rope", {
 	},
 
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		place_rope(pos, itemstack)
+		place_rope(pos, itemstack, placer)
 		return false
 	end,
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
