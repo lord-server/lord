@@ -672,3 +672,6 @@ minetest.register_node(":default:ice", {
 	groups = {cracky = 3, cools_lava = 1, slippery = 3},
 	sounds = default.node_sound_ice_defaults(),
 })
+
+
+dofile(minetest.get_modpath("lord_overwrites_mtg_default").."/mapgen.lua")
