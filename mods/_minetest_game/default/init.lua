@@ -12,8 +12,6 @@ default = {}
 default.LIGHT_MAX = 14
 default.get_translator = S
 
-default.creative = minetest.settings:get_bool("creative_mode")
-
 
 -- GUI related stuff
 default.gui_bg = "bgcolor[#080808BB;true]"

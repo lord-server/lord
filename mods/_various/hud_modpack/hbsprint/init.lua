@@ -27,9 +27,6 @@ if minetest.get_modpath("hbhunger") then
 else
   starve = false
 end
-if default.creative then
-  starve = false
-end
 
 
 -- Functions
@@ -140,7 +137,7 @@ minetest.register_globalstep(function(dtime)
         local pos = player:get_pos()
         local ground = minetest.get_node_or_nil({x=pos.x, y=pos.y-1, z=pos.z})
         local player_stamina = tonumber(player:get_meta():get("hbsprint:stamina"))
-        if starve == "hbhunger" then
+        if starve == "hbhunger" and not minetest.is_creative_enabled(name) then
           hunger = tonumber(hbhunger.hunger[name])
         end
         if player_stamina > 0 and hunger > starve_limit then

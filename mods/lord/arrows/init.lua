@@ -38,7 +38,7 @@ local player_shoot_throwing_weapon = function(item, player, _)
 
 	throwing:shoot(player, "player", item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0)
 
-	if not default.creative then
+	if not minetest.is_creative_enabled(player) then
 		item:take_item()
 	end
 	return item

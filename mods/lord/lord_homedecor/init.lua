@@ -11,7 +11,9 @@ lord_homedecor = {
 	modpath = modpath,
 
 	-- infinite stacks
-	expect_infinite_stacks = default.creative and not minetest.get_modpath("unified_inventory")
+	expect_infinite_stacks = function(player)
+		return minetest.is_creative_enabled(player) and not minetest.get_modpath("unified_inventory")
+	end
 }
 
 

@@ -151,7 +151,7 @@ local function infotext_edit(meta)
 	meta:set_string('infotext', infotext)
 end
 
-local function cooking(pos, itemstack)
+local function cooking(pos, itemstack, player)
 	local meta      = minetest.get_meta(pos)
 	local cooked, _ = minetest.get_craft_result({ method = "cooking", width = 1, items = { itemstack } })
 	local cookable  = cooked.time ~= 0
@@ -202,7 +202,7 @@ local function cooking(pos, itemstack)
 				end
 			end)
 
-			if not default.creative then
+			if not minetest.is_creative_enabled(player) then
 				itemstack:take_item()
 				return itemstack
 			end
@@ -302,7 +302,7 @@ minetest.register_node('campfire:campfire_active', {
 
 	on_rightclick       = function(pos, node, player, itemstack, pointed_thing)
 		local meta = minetest.get_meta(pos)
-		cooking(pos, itemstack)
+		cooking(pos, itemstack, player)
 		if itemstack:get_definition().groups.stick == 1 then
 			local it_val = meta:get_int("it_val") + (campfire_stick_time);
 			meta:set_int('it_val', it_val);
@@ -315,7 +315,7 @@ minetest.register_node('campfire:campfire_active', {
 				6
 			)
 
-			if not default.creative then
+			if not minetest.is_creative_enabled(player) then
 				itemstack:take_item()
 				return itemstack
 			end

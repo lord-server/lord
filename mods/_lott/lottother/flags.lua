@@ -91,7 +91,7 @@ for _, row in ipairs(tapestry.colours) do
 				{ x = above.x, y = above.y + 1, z = above.z },
 				{ name = "lottother:tapestry_top_" .. name, param2 = fdir }
 			)
-			if not default.creative then
+			if not minetest.is_creative_enabled(placer) then
 				itemstack:take_item()
 			end
 			return itemstack
