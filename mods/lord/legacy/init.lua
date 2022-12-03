@@ -19,6 +19,8 @@ minetest.register_abm({
 	end
 })
 
+--- Эти алиасы полностью из MTG/default (5.4.1), наши расположены ниже
+
 minetest.register_alias("stone", "default:stone")
 minetest.register_alias("stone_with_coal", "default:stone_with_coal")
 minetest.register_alias("stone_with_iron", "default:stone_with_iron")
@@ -83,14 +85,28 @@ minetest.register_alias("lump_of_iron", "default:iron_lump")
 minetest.register_alias("lump_of_clay", "default:clay_lump")
 minetest.register_alias("steel_ingot", "default:steel_ingot")
 minetest.register_alias("clay_brick", "default:clay_brick")
+minetest.register_alias("snow", "default:snow")
+
+-- 'mese_block' was used for a while for the block form of mese
+minetest.register_alias("default:mese_block", "default:mese")
+
+-- эти алиасы нам не нужны, т.к. у нас остались из LOTT (lottplants:pinetree lottplants:pinewood
+---- Aliases for corrected pine node names
+--minetest.register_alias("default:pinetree", "default:pine_tree")
+--minetest.register_alias("default:pinewood", "default:pine_wood")
 
 minetest.register_alias("default:ladder", "default:ladder_wood")
 minetest.register_alias("default:sign_wall_wood", "default:sign_wall")
 
-minetest.register_alias("scorched_stuff", "default:dirt")
+
+
+--- Далее идут наши алиасы
+
+
+minetest.register_alias("scorched_stuff", "default:scorched_stuff")
 minetest.register_alias("rat", "default:dirt")
 minetest.register_alias("cooked_rat", "default:dirt")
-minetest.register_alias("firefly", "lottplants:firefly")
+minetest.register_alias("firefly", "lottplants:fireflies")
 
 minetest.register_alias("moreores:mineral_gold", "default:stone_with_gold")
 minetest.register_alias("moreores:gold_block", "default:goldblock")
