@@ -53,7 +53,6 @@ default.gui_survival_form = "size[8,8.5]"..
 -- Load files
 local default_path = minetest.get_modpath("default")
 
--- обновлены до идентичного состояния как в MTG (42baede13fdf855773cc44ce10f4a3ea4e239404):
 dofile(default_path.."/functions.lua")
 dofile(default_path.."/trees.lua")
 dofile(default_path.."/nodes.lua")
@@ -67,7 +66,7 @@ dofile(default_path.."/crafting.lua")
 -- обновлён, но не подключаем, т.к. генерация своя(убогая, но какая досталась), пока нет возможности обновить её.
 -- генерация перенесена в `mods/lord/_overwrites/MTG/default/mapgen.lua`
 --dofile(default_path.."/mapgen.lua")
--- добавились, но пока что не подключаем, т.к. есть аналогичные наши
+-- добавились, но пока что не подключаем, т.к. есть аналогичные наши в нашем моде legacy
 --dofile(default_path.."/aliases.lua")
--- нужно повнимательнее посмотреть на код внутри (нет ли конфликтов с нашим кодом:
+-- обновлён, не подключаем, т.к. у нас свой целый мод legacy, а всё, что в этом файле не используется
 --dofile(default_path.."/legacy.lua")
