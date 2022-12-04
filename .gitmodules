@@ -7,6 +7,10 @@
 [submodule "mods/_minetest_game/carts"]
 	path = mods/_minetest_game/carts
 	url = https://github.com/minetest-game-mod/carts
+[submodule "mods/_minetest_game/default"]
+	path = mods/_minetest_game/default
+	url = https://github.com/minetest-game-mod/default
+	branch = lord
 [submodule "mods/_minetest_game/doors"]
 	path = mods/_minetest_game/doors
 	url = https://github.com/minetest-game-mod/doors
