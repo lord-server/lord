@@ -132,7 +132,7 @@ language = ru
 #    -    info
 #    -    verbose
 #    type: enum values: , none, error, warning, action, info, verbose
-debug_log_level = info
+debug_log_level = action
 #    Minimal level of logging to be written to chat.
 #    type: enum values: , none, error, warning, action, info, verbose
 chat_log_level = warning
