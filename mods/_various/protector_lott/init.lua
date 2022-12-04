@@ -266,6 +266,7 @@ minetest.register_node("protector_lott:protect2", {
 	drawtype = "nodebox",
 	sunlight_propagates = true,
 	walkable = true,
+	use_texture_alpha = "clip",
 	node_box = {
 		type = "wallmounted",
 		wall_top    = {-0.375, 0.4375, -0.5, 0.375, 0.5, 0.5},
