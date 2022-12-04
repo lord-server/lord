@@ -5,11 +5,9 @@
 --
 
 minetest.register_on_mapgen_init(function(params)
-	local mapgen = minetest.get_mapgen_params()
-	if mapgen.mgname == "singlenode" or mapgen.mgname == "v6" then
-		minetest.set_mapgen_params({
-			mgname = "v7",
-		})
+	local mapgen = minetest.get_mapgen_setting
+	if mapgen("mg_name") == "singlenode" or mapgen("mg_name") == "v6" then
+		minetest.set_mapgen_setting("mg_name", "v7")
 	end
 end)
 
