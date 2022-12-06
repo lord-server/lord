@@ -39,20 +39,14 @@ local function is_correct_name(name)
 	return true
 end
 
--- если игрок уже зарегистрирован, возвращает true
-local function registered_player(name)
-	local file = minetest.get_worldpath() .. "/players/" .. name
-	return os.rename(file, file)
-end
-
 minetest.register_on_prejoinplayer(function(name, ip)
 	local list_rules = ""
 	for _, rule in pairs(rules) do
 		list_rules = list_rules .. "\n- " .. rule.description
 	end
-	if not minetest.is_singleplayer() and    -- не синглплеер
-			not is_correct_name(name) and    -- имя некорректное
-			not registered_player(name) then -- игрок не зарегистрирован
+	if not minetest.is_singleplayer() and
+			not is_correct_name(name) and
+			not minetest.player_exists(name) then
 		return "\n"..SL("Invalid character name")..list_rules
 	end
 end)
