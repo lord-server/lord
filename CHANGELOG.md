@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.10.p2](https://github.com/lord-server/lord/releases/tag/2022.10.p2)
+ - Fixes #865. Slightly renew nickname filter algorithm (#870)
+
 ## [2022.10.p1](https://github.com/lord-server/lord/releases/tag/2022.10.p1)
  - Исправлены бесконечные стаки дерева (#813, #814)
 
