@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [[ $# == 0 ]]; then
+    echo "Specify the version"
+    exit 1;
+fi
+
+tag=$1
+
+git submodule foreach "
+  echo \$path | grep ^mods/_minetest_game/ > /dev/null;
+  is_mtg=\$?;
+  if [ \$is_mtg = 1 ]; then
+    echo \"NOT MTG, skipped.\";
+    exit;
+  fi
+
+  git fetch;
+  git checkout $tag-lord
+  git status;
+  git --no-pager log --oneline -n 3;
+"
