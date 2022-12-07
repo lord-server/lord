@@ -1,5 +1,9 @@
 # Change Log
 
+## [2022.10.p3](https://github.com/lord-server/lord/releases/tag/2022.10.p3)
+ - Fixes #873. Replace registered_player -> minetest.player_exists (#875)
+ - Fixes 799. Check if item is registered, if it's not, return nil (#876)
+
 ## [2022.10.p2](https://github.com/lord-server/lord/releases/tag/2022.10.p2)
  - Fixes #865. Slightly renew nickname filter algorithm (#870)
 
