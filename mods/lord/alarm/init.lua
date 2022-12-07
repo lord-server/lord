@@ -1,12 +1,7 @@
-local function registered_player(name) -- если игрок уже зарегистрирован, возвращает true
-	local file = minetest.get_worldpath() .. "/players/" .. name
-	return os.rename(file, file)
-end
-
 minetest.register_on_prejoinplayer(function(name, ip)
 	local alarm_enabled = minetest.settings:get_bool("alarm", false)
 
-	if alarm_enabled and not registered_player(name) then
+	if alarm_enabled and not minetest.player_exists(name) then
 		minetest.log("action", "Alarm: new player "..name.." from "..ip.." not created")
 		return "network connection error"
 	end

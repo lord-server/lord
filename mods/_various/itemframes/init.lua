@@ -122,6 +122,9 @@ minetest.register_node("itemframes:frame",{
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
 		local item_name
+		if not minetest.registered_items[itemstack:get_name()] then
+			return
+		end
 		if itemstack:is_empty() then
 			item_name = " "
 		else
@@ -181,6 +184,9 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 		on_rightclick = function(pos, node, clicker, itemstack)
 			if not itemstack then return end
 			local item_name
+			if not minetest.registered_items[itemstack:get_name()] then
+				return
+			end
 			if itemstack:is_empty() then
 				item_name = " "
 			else
