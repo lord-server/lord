@@ -1,5 +1,12 @@
-local ARENA_AREA_ID = 2316
+local ARENA_AREA_IDS = {}
 
+local arena_ids      = minetest.settings:get("arenas") or ""
+arena_ids            = string.split(arena_ids, ",")
+for _, v in ipairs(arena_ids) do
+	table.insert(ARENA_AREA_IDS, tonumber(v))
+end
+
+--- @param player Player
 local function player_display_hp(player)
 	local name = player:get_player_name()
 	local hp = player:get_hp()
@@ -14,21 +21,35 @@ local function player_display_hp(player)
 	player:set_properties({nametag = name.." ♥ "..hp, nametag_color = color,})
 end
 
+--- @param player Player
 local function player_undisplay_hp(player)
 	local name = player:get_player_name()
 	player:set_properties({nametag = name, nametag_color = "#FFFFFF",})
 end
 
+-- TODO: move this functions into separate mod
+local table_indexOf = table.indexof
+--- @param list table
+--- @param value any
+local function table_has_value(list, value)
+	return table_indexOf(list, value) ~= -1
+end
+--- @param list table
+--- @param values table
+local function table_keys_has_one_of_values(list, values)
+	for key in pairs(list) do
+		if table_has_value(values, key) then
+			return true
+		end
+	end
+	return false
+end
+
 minetest.register_globalstep(function(dtime)
 	for _, player in pairs(minetest.get_connected_players()) do
 		local pos = vector.round(player:get_pos())
-		local in_arena = false
-		for id, _ in pairs(areas:getAreasAtPos(pos)) do
-			if id == ARENA_AREA_ID then
-				in_arena = true
-				break
-			end
-		end
+		local in_arena = table_keys_has_one_of_values(areas:getAreasAtPos(pos), ARENA_AREA_IDS)
+
 		if in_arena then
 			player_display_hp(player)
 		else

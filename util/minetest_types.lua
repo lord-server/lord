@@ -2605,6 +2605,9 @@ minetest.registered_privileges = {}
 ---@param value `T`
 ---@return `T`
 function table.copy(value) end
+--- @param list table
+--- @param value any
+function table.indexof(list, value) end
 
 ---@param obj any
 ---@param dumped table

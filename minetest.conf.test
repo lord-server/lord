@@ -247,3 +247,7 @@ elf_spawn_pos = 440, 22, 98
 orc_spawn_pos = 380, 2, -6
 
 sauron_curse_area = 5
+
+# ------- lord/player -------
+# арены, на которых отображается здоровье:
+arenas = 2
