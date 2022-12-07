@@ -12,7 +12,7 @@ globals           = {
 
 read_globals      = {
 	string = { fields = { "split" } },
-	table  = { fields = { "copy", "getn" } },
+	table  = { fields = { "copy", "getn", "indexof" } },
 
 	-- Silence warnings about accessing undefined fields 'sign' of global 'math'
 	math = { fields = { "sign" } },
