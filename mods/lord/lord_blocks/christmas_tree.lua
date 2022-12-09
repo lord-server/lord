@@ -17,7 +17,12 @@ end
 
 minetest.register_node("lord_blocks:christmas_tree", {
 	description = S("Christmas Tree"),
-	tiles = {"default_stone.png"},
+	drawtype = "mesh",
+	use_texture_alpha = "clip",
+	mesh = "christmas_tree.obj",
+	tiles = {"lord_blocks_christmas_tree.png"},
+	paramtype = "light",
+	light_source = 1,
 	paramtype2 = "facedir",
 	groups = { choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 	is_ground_content = false,
