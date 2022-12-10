@@ -75,13 +75,6 @@ local function register_christmas_tree(def)
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			inv:set_size("main", 10)
-			local count = #gifts
-			if count > 10 then
-				count = 10
-			end
-			for i=1, count do
-				inv:set_stack("main", i, gifts[i])
-			end
 		end,
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
@@ -91,6 +84,41 @@ local function register_christmas_tree(def)
 			local meta = minetest.get_meta(pos)
 			local inv  = meta:get_inventory()
 			return inv:is_empty("main")
+		end,
+	})
+
+	local function gen_gifts(pos)
+		local node = minetest.get_node(pos)
+		node.name = "lord_blocks:christmas_tree_with_gifts"
+		minetest.swap_node(pos, node)
+
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory()
+		local count = #gifts
+		if count > 10 then
+			count = 10
+		end
+		for i=1, count do
+			inv:set_stack("main", i, gifts[i])
+		end
+	end
+
+	minetest.register_abm({
+		label = "Generations gifts in christmas tree",
+		nodenames = {"lord_blocks:christmas_tree"},
+		interval = 10,
+		chance = 1,
+		action = function(pos, node, active_object_count, active_object_count_wider)
+			-- target_data имеет формат списка {месяц, число, часы, минуты}
+			local target_date = string.split(minetest.settings:get("lord_christmas_data"))
+			local date = os.date("*t")
+			print(date)
+			if (tonumber(target_date[1]) <= date.month) and
+				(tonumber(target_date[2]) <= date.day) and
+				(tonumber(target_date[3]) <= date.hour) and
+				(tonumber(target_date[4]) <= date.min) then
+					gen_gifts(pos)
+			end
 		end,
 	})
 end
