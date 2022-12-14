@@ -112,10 +112,10 @@ local function register_christmas_tree(def)
 			-- target_date имеет формат списка {месяц, число, часы, минуты}
 			local target_date = string.split(minetest.settings:get("lord_christmas_date"))
 			local date = os.date("*t")
-			if (date.month => tonumber(target_date[1]) ) and
-				(date.day => tonumber(target_date[2])) and
-				(date.hour => tonumber(target_date[3])) and
-				(date.min => tonumber(target_date[4])) then
+			if (date.month >= tonumber(target_date[1]) ) and
+				(date.day >= tonumber(target_date[2])) and
+				(date.hour >= tonumber(target_date[3])) and
+				(date.min >= tonumber(target_date[4])) then
 					gen_gifts(pos)
 			end
 		end,
