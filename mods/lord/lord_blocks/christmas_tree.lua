@@ -109,14 +109,13 @@ local function register_christmas_tree(def)
 		interval = 10,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			-- target_data имеет формат списка {месяц, число, часы, минуты}
-			local target_date = string.split(minetest.settings:get("lord_christmas_data"))
+			-- target_date имеет формат списка {месяц, число, часы, минуты}
+			local target_date = string.split(minetest.settings:get("lord_christmas_date"))
 			local date = os.date("*t")
-			print(date)
-			if (tonumber(target_date[1]) <= date.month) and
-				(tonumber(target_date[2]) <= date.day) and
-				(tonumber(target_date[3]) <= date.hour) and
-				(tonumber(target_date[4]) <= date.min) then
+			if (date.month => tonumber(target_date[1]) ) and
+				(date.day => tonumber(target_date[2])) and
+				(date.hour => tonumber(target_date[3])) and
+				(date.min => tonumber(target_date[4])) then
 					gen_gifts(pos)
 			end
 		end,
@@ -141,16 +140,12 @@ minetest.register_craftitem("lord_blocks:christmas_tree_no_decorations", {
 	inventory_image = "lord_blocks_christmas_tree_no_decorations_item.png",
 })
 
+local item_deco = "lord_blocks:christmas_decorations"
+
 minetest.register_craft({
 	output = "lord_blocks:christmas_tree",
 	recipe = {
-		{"lord_blocks:christmas_decorations",
-			"lord_blocks:christmas_decorations",
-			"lord_blocks:christmas_decorations"},
-		{"lord_blocks:christmas_decorations",
-			"lord_blocks:christmas_tree_no_decorations",
-			"lord_blocks:christmas_decorations"},
-		{"lord_blocks:christmas_decorations",
-			"lord_blocks:christmas_decorations",
-			"lord_blocks:christmas_decorations"},}
+		{item_deco, item_deco, item_deco},
+		{item_deco, "lord_blocks:christmas_tree_no_decorations", item_deco},
+		{item_deco, item_deco, item_deco},}
 })
