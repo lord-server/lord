@@ -256,3 +256,9 @@ sauron_curse_area = 5
 # ------- lord/player -------
 # арены, на которых отображается здоровье:
 arenas = 2
+
+# ------- lord/christmas -------
+# дата генерации подарков
+christmas_tree_date = 12:21:00:00
+# список подарков
+christmas_tree_gifts = lottores:pearl 12,lottfarming:salad 3,lottpotion:cider 5,lottother:dwarf_ring
