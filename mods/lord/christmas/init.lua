@@ -1,7 +1,13 @@
 -- Christmas tree
 local S = minetest.get_translator("christmas_tree")
 
-local gifts = string.split(minetest.settings:get("christmas_tree_gifts"))
+local gifts = minetest.settings:get("christmas_tree_gifts")
+if gifts then
+	gifts = string.split(gifts)
+else
+	minetest.log("christmas: не определен список подарков!!!")
+	gifts = {"default:dirt"}
+end
 
 local nodebox = {
 	type = "fixed",
@@ -108,7 +114,13 @@ local function register_christmas_tree(def)
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
 			-- target_date имеет формат списка {месяц, число, часы, минуты}
-			local target_date = string.split(minetest.settings:get("christmas_tree_date"), ":")
+			local target_date = minetest.settings:get("christmas_tree_date")
+			if target_date then
+				target_date = string.split(target_date, ":")
+			else
+				minetest.log("christmas: не определена дата генерации подарков!!!")
+				return
+			end
 			local now = os.date("*t")
 			if (now.month >= tonumber(target_date[1]) ) and
 				(now.day >= tonumber(target_date[2])) and
