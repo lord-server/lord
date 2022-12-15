@@ -1,0 +1,4 @@
+# textdomain: christmas_tree
+Christmas Tree=
+Christmas Decorations=
+Fir Tree=

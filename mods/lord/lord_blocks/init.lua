@@ -161,5 +161,3 @@ stairs.register_stair_and_slab(
 	S("Inner Green Marble Stair"),
 	S("Outer Green Marble Stair")
 )
-
-dofile(minetest.get_modpath("lord_blocks").."/christmas_tree.lua")
