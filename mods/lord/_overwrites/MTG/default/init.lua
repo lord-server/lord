@@ -280,6 +280,7 @@ minetest.register_craft({
 -- default/nodes.lua
 
 -- оставляем ноды, будем продавать в магазинах:
+--minetest.unregister_item("default:silver_sand")
 -- для этих 3х есть "ограда" ("walls:..."), ступеньки ("stairs:")
 --minetest.unregister_item("default:silver_sandstone")
 --minetest.unregister_item("default:silver_sandstone_brick")
@@ -298,7 +299,6 @@ minetest.unregister_item("default:dry_dirt_with_dry_grass")
 minetest.unregister_item("default:permafrost")
 minetest.unregister_item("default:permafrost_with_stones")
 minetest.unregister_item("default:permafrost_with_moss")
-minetest.unregister_item("default:silver_sand")
 minetest.unregister_item("default:cave_ice")
 minetest.unregister_item("default:emergent_jungle_sapling")
 minetest.unregister_item("default:pine_tree")
@@ -324,9 +324,10 @@ minetest.unregister_item("default:acacia_bush_sapling")
 minetest.unregister_item("default:pine_bush_stem")
 minetest.unregister_item("default:pine_bush_needles")
 minetest.unregister_item("default:pine_bush_sapling")
-minetest.unregister_item("default:blueberry_bush_leaves_with_berries")
-minetest.unregister_item("default:blueberry_bush_leaves")
-minetest.unregister_item("default:blueberry_bush_sapling")
+-- оставляем ноды, будем продавать в магазинах:
+--minetest.unregister_item("default:blueberry_bush_leaves_with_berries")
+--minetest.unregister_item("default:blueberry_bush_leaves")
+--minetest.unregister_item("default:blueberry_bush_sapling")
 minetest.unregister_item("default:sand_with_kelp")
 minetest.unregister_item("default:coral_green")
 minetest.unregister_item("default:coral_pink")
@@ -342,9 +343,9 @@ minetest.unregister_item("default:fence_aspen_wood")
 minetest.unregister_item("default:fence_rail_acacia_wood")
 minetest.unregister_item("default:fence_rail_pine_wood")
 minetest.unregister_item("default:fence_rail_aspen_wood")
-minetest.unregister_item("default:mese_post_light")
+--minetest.unregister_item("default:mese_post_light")            -- у нас крафт возможен, выглядят неплохо
 minetest.unregister_item("default:mese_post_light_acacia_wood")
-minetest.unregister_item("default:mese_post_light_junglewood")
+--minetest.unregister_item("default:mese_post_light_junglewood") -- у нас крафт возможен, выглядят неплохо
 minetest.unregister_item("default:mese_post_light_pine_wood")
 minetest.unregister_item("default:mese_post_light_aspen_wood")
 
