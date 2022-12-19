@@ -58,9 +58,9 @@ local function register_christmas_tree(def)
 				(now.day >= tonumber(target_date[2])) and
 				(now.hour >= tonumber(target_date[3])) and
 				(now.min >= tonumber(target_date[4])) then
-				local node = minetest.get_node(pos)
-				node.name = "christmas:christmas_tree_with_gifts"
-				minetest.swap_node(pos, node)
+				local tree_node = minetest.get_node(pos)
+				tree_node.name = "christmas:christmas_tree_with_gifts"
+				minetest.swap_node(pos, tree_node)
 			end
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
