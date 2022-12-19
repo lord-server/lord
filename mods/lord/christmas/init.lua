@@ -46,6 +46,22 @@ local function register_christmas_tree(def)
 		groups = def.groups,
 		sounds = default.node_sound_wood_defaults(),
 		on_construct = function(pos, node, active_object_count, active_object_count_wider)
+			local target_date = minetest.settings:get("christmas_tree_date")
+			if target_date then
+				target_date = string.split(target_date, ":")
+			else
+				minetest.log("christmas: не определена дата генерации подарков!!!")
+				return
+			end
+			local now = os.date("*t")
+			if (now.month >= tonumber(target_date[1]) ) and
+				(now.day >= tonumber(target_date[2])) and
+				(now.hour >= tonumber(target_date[3])) and
+				(now.min >= tonumber(target_date[4])) then
+				local node = minetest.get_node(pos)
+				node.name = "christmas:christmas_tree_with_gifts"
+				minetest.swap_node(pos, node)
+			end
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			inv:set_size("main", 10)
@@ -155,7 +171,7 @@ local item_deco = "christmas:christmas_decorations"
 minetest.register_craft({
 	output = "christmas:christmas_tree",
 	recipe = {
-		{item_deco, item_deco, item_deco},
+		{item_deco, "default:goldblock", item_deco},
 		{item_deco, "christmas:christmas_tree_no_decorations", item_deco},
 		{item_deco, item_deco, item_deco},}
 })

@@ -279,4 +279,4 @@ arenas = 2316, 3715
 # дата генерации подарков
 christmas_tree_date = 1:1:00:00
 # список подарков
-christmas_tree_gifts = lottores:pearl 12,lottfarming:salad 3,lottpotion:cider 5,lottother:dwarf_ring
+christmas_tree_gifts = lottfarming:salad 23,lottpotion:cider 23,lottother:blue_gem_ring,lottfarming:cookie_cracker 23,default:coal_lump 23,default:apple 23,lottfarming:carrot_item 23,lottmobs:meat 23,lottores:tin_lump 23,default:silver_sandstone 23
