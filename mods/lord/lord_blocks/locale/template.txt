@@ -11,6 +11,3 @@ Green Marble Stair=
 Green Marble Slab=
 Inner Green Marble Stair=
 Outer Green Marble Stair=
-Christmas Tree=
-Christmas Decorations=
-Fir Tree=
