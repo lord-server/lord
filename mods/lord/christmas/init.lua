@@ -1,4 +1,5 @@
--- Christmas tree
+local os_date = os.date
+
 local S = minetest.get_translator("christmas")
 
 local conf_gifts = minetest.settings:get("christmas_tree_gifts")
@@ -15,6 +16,16 @@ end
 local gifts                 = string.split(conf_gifts)
 local month, day, hour, min = string.match(conf_date, "(%d+)/(%d+) (%d+):(%d+)")
 local christmas_date        = {month = tonumber(month), day = tonumber(day), hour = tonumber(hour), min = tonumber(min)}
+
+--- @return boolean
+christmas_date.has_come = function()
+	local now = os_date("*t")
+	return
+		now.month >= christmas_date.month and
+		now.day >= christmas_date.day and
+		now.hour >= christmas_date.hour and
+		now.min >= christmas_date.min
+end
 
 
 local nodebox = {
@@ -54,13 +65,7 @@ local function register_christmas_tree(def)
 		groups = def.groups,
 		sounds = default.node_sound_wood_defaults(),
 		on_construct = function(pos, node, active_object_count, active_object_count_wider)
-			local now = os.date("*t")
-			if
-				now.month >= christmas_date.month and
-				now.day >= christmas_date.day and
-				now.hour >= christmas_date.hour and
-				now.min >= christmas_date.min
-			then
+			if christmas_date.has_come() then
 				local tree_node = minetest.get_node(pos)
 				tree_node.name = "christmas:tree_with_gifts"
 				minetest.swap_node(pos, tree_node)
@@ -132,13 +137,7 @@ local function register_christmas_tree(def)
 		interval = 10,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			local now = os.date("*t")
-			if
-				now.month >= christmas_date.month and
-				now.day >= christmas_date.day and
-				now.hour >= christmas_date.hour and
-				now.min >= christmas_date.min
-			then
+			if christmas_date.has_come() then
 				gen_gifts(pos)
 			end
 		end,
