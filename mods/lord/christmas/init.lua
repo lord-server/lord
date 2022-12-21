@@ -1,13 +1,21 @@
 -- Christmas tree
 local S = minetest.get_translator("christmas")
 
-local gifts = minetest.settings:get("christmas_tree_gifts")
-if gifts then
-	gifts = string.split(gifts)
-else
-	minetest.log("christmas: не определен список подарков!!!")
-	gifts = {"default:dirt"}
+local conf_gifts = minetest.settings:get("christmas_tree_gifts")
+local conf_date  = minetest.settings:get("christmas_date")
+if not conf_gifts then
+	minetest.log("warning", "christmas: no 'christmas_tree_gifts' setting. Use 'default:dirt'.")
+	conf_gifts = "default:dirt"
 end
+if not conf_date then
+	minetest.log("warning", "christmas: no 'christmas_date' setting. Use '01.01 00:00'.")
+	conf_date = "01.01 00:00"
+end
+
+local gifts                 = string.split(conf_gifts)
+local month, day, hour, min = string.match(conf_date, "(%d+)/(%d+) (%d+):(%d+)")
+local christmas_date        = {month = tonumber(month), day = tonumber(day), hour = tonumber(hour), min = tonumber(min)}
+
 
 local nodebox = {
 	type = "fixed",
@@ -46,18 +54,13 @@ local function register_christmas_tree(def)
 		groups = def.groups,
 		sounds = default.node_sound_wood_defaults(),
 		on_construct = function(pos, node, active_object_count, active_object_count_wider)
-			local target_date = minetest.settings:get("christmas_tree_date")
-			if target_date then
-				target_date = string.split(target_date, ":")
-			else
-				minetest.log("christmas: не определена дата генерации подарков!!!")
-				return
-			end
 			local now = os.date("*t")
-			if (now.month >= tonumber(target_date[1]) ) and
-				(now.day >= tonumber(target_date[2])) and
-				(now.hour >= tonumber(target_date[3])) and
-				(now.min >= tonumber(target_date[4])) then
+			if
+				now.month >= christmas_date.month and
+				now.day >= christmas_date.day and
+				now.hour >= christmas_date.hour and
+				now.min >= christmas_date.min
+			then
 				local tree_node = minetest.get_node(pos)
 				tree_node.name = "christmas:tree_with_gifts"
 				minetest.swap_node(pos, tree_node)
@@ -129,20 +132,14 @@ local function register_christmas_tree(def)
 		interval = 10,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			-- target_date имеет формат списка {месяц, число, часы, минуты}
-			local target_date = minetest.settings:get("christmas_tree_date")
-			if target_date then
-				target_date = string.split(target_date, ":")
-			else
-				minetest.log("christmas: не определена дата генерации подарков!!!")
-				return
-			end
 			local now = os.date("*t")
-			if (now.month >= tonumber(target_date[1]) ) and
-				(now.day >= tonumber(target_date[2])) and
-				(now.hour >= tonumber(target_date[3])) and
-				(now.min >= tonumber(target_date[4])) then
-					gen_gifts(pos)
+			if
+				now.month >= christmas_date.month and
+				now.day >= christmas_date.day and
+				now.hour >= christmas_date.hour and
+				now.min >= christmas_date.min
+			then
+				gen_gifts(pos)
 			end
 		end,
 	})
