@@ -1,4 +1,4 @@
-# textdomain: christmas_tree
+# textdomain: christmas
 Christmas Tree=
 Christmas Decorations=
 Fir Tree=

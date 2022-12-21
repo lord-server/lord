@@ -1,5 +1,5 @@
 -- Christmas tree
-local S = minetest.get_translator("christmas_tree")
+local S = minetest.get_translator("christmas")
 
 local gifts = minetest.settings:get("christmas_tree_gifts")
 if gifts then
@@ -25,13 +25,13 @@ local function get_formspec(pos)
 		"list[current_player;main;0,6.08;8,3;8]"..
 		"listring[nodemeta:" .. spos .. ";main]"..
 		"listring[current_player;main]"..
-		"background[0,0;0.1,0.1;christmas_formspec_background.png;true]"..
+		"background[0,0;0.1,0.1;christmas_tree_formspec_background.png;true]"..
 		"listcolors[#69696988;#80808088;#222222]"
 	return formspec
 end
 
 local function register_christmas_tree(def)
-	minetest.register_node("christmas:christmas_tree", {
+	minetest.register_node("christmas:tree", {
 		description = def.description,
 		drawtype = "mesh",
 		inventory_image = def.inventory_image,
@@ -59,7 +59,7 @@ local function register_christmas_tree(def)
 				(now.hour >= tonumber(target_date[3])) and
 				(now.min >= tonumber(target_date[4])) then
 				local tree_node = minetest.get_node(pos)
-				tree_node.name = "christmas:christmas_tree_with_gifts"
+				tree_node.name = "christmas:tree_with_gifts"
 				minetest.swap_node(pos, tree_node)
 			end
 			local meta = minetest.get_meta(pos)
@@ -68,7 +68,7 @@ local function register_christmas_tree(def)
 		end,
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			minetest.show_formspec(player, "christmas:christmas_tree", get_formspec(pos))
+			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
 		end,
 		can_dig = function(pos, player)
 			local meta = minetest.get_meta(pos)
@@ -77,7 +77,7 @@ local function register_christmas_tree(def)
 		end,
 	})
 
-	minetest.register_node("christmas:christmas_tree_with_gifts", {
+	minetest.register_node("christmas:tree_with_gifts", {
 		description = def.description,
 		drawtype = "mesh",
 		inventory_image = def.inventory_image,
@@ -98,7 +98,7 @@ local function register_christmas_tree(def)
 		end,
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			minetest.show_formspec(player, "christmas:christmas_tree", get_formspec(pos))
+			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
 		end,
 		can_dig = function(pos, player)
 			local meta = minetest.get_meta(pos)
@@ -109,7 +109,7 @@ local function register_christmas_tree(def)
 
 	local function gen_gifts(pos)
 		local node = minetest.get_node(pos)
-		node.name = "christmas:christmas_tree_with_gifts"
+		node.name = "christmas:tree_with_gifts"
 		minetest.swap_node(pos, node)
 
 		local meta = minetest.get_meta(pos)
@@ -125,7 +125,7 @@ local function register_christmas_tree(def)
 
 	minetest.register_abm({
 		label = "Generations gifts in christmas tree",
-		nodenames = {"christmas:christmas_tree"},
+		nodenames = {"christmas:tree"},
 		interval = 10,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
@@ -151,42 +151,42 @@ end
 register_christmas_tree({
 	description = S("Christmas Tree"),
 	mesh = "christmas_tree.obj",
-	tiles = {"christmas_christmas_tree.png"},
-	inventory_image = "christmas_christmas_tree_item.png",
+	tiles = {"christmas_tree.png"},
+	inventory_image = "christmas_tree_item.png",
 	groups = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
 })
 
-minetest.register_craftitem("christmas:christmas_decorations", {
+minetest.register_craftitem("christmas:decorations", {
 	description = S("Christmas Decorations"),
-	inventory_image = "christmas_christmas_decorations.png",
+	inventory_image = "christmas_decorations.png",
 })
 
-minetest.register_craftitem("christmas:christmas_tree_no_decorations", {
+minetest.register_craftitem("christmas:tree_no_decorations", {
 	description = S("Fir Tree"),
-	inventory_image = "christmas_christmas_tree_no_decorations.png",
+	inventory_image = "christmas_tree_no_decorations.png",
 })
 
-local item_deco = "christmas:christmas_decorations"
+local item_deco = "christmas:decorations"
 
 minetest.register_craft({
-	output = "christmas:christmas_tree",
+	output = "christmas:tree",
 	recipe = {
 		{item_deco, "default:goldblock", item_deco},
-		{item_deco, "christmas:christmas_tree_no_decorations", item_deco},
+		{item_deco, "christmas:tree_no_decorations", item_deco},
 		{item_deco, item_deco, item_deco},}
 })
 
 local item_glass = "default:glass"
 
 minetest.register_craft({
-	output = "christmas:christmas_decorations",
+	output = "christmas:decorations",
 	recipe = {
 		{item_glass, "dye:red", item_glass},
 		{"dye:blue", item_glass, "dye:green"},}
 })
 
 minetest.register_craft({
-	output = "christmas:christmas_tree_no_decorations",
+	output = "christmas:tree_no_decorations",
 	recipe = {
 		{"lottplants:firsapling"},
 		{"lord_homedecor:flower_pot_terracotta"},}
