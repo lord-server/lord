@@ -34,7 +34,7 @@ local function get_formspec(pos)
 	return formspec
 end
 
-local function register_christmas_tree()
+local function register_tree_nodes()
 	local nodebox = {
 		type = "fixed",
 		fixed = {
@@ -93,7 +93,9 @@ local function register_christmas_tree()
 
 	minetest.register_node("christmas:tree", tree_def)
 	minetest.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
+end
 
+local function register_tree_nodes_replacement_abm()
 	local function gen_gifts(pos)
 		local node = minetest.get_node(pos)
 		node.name = "christmas:tree_with_gifts"
@@ -123,7 +125,8 @@ local function register_christmas_tree()
 	})
 end
 
-register_christmas_tree()
+register_tree_nodes()
+register_tree_nodes_replacement_abm()
 
 minetest.register_craftitem("christmas:decorations", {
 	description = S("Christmas Decorations"),
