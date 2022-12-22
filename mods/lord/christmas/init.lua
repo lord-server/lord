@@ -34,27 +34,28 @@ local function get_formspec(pos)
 	return formspec
 end
 
-local function register_christmas_tree(def)
+local function register_christmas_tree()
 	local nodebox = {
 		type = "fixed",
 		fixed = {
 			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125},
 		},
 	}
+	local inventory_image = "christmas_tree_item.png"
 
 	local common_definition = {
-		description       = def.description,
+		description       = S("Christmas Tree"),
 		drawtype          = "mesh",
-		inventory_image   = def.inventory_image,
-		wield_image       = def.inventory_image,
+		inventory_image   = inventory_image,
+		wield_image       = inventory_image,
 		use_texture_alpha = "clip",
-		mesh              = def.mesh,
-		tiles             = def.tiles,
+		mesh              = "christmas_tree.obj",
+		tiles             = {"christmas_tree.png"},
 		paramtype         = "light",
 		paramtype2        = "facedir",
 		selection_box     = nodebox,
 		collision_box     = nodebox,
-		groups            = def.groups,
+		groups            = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1},
 		sounds            = default.node_sound_wood_defaults(),
 		--- @param pos Position
 		--- @param clicker Player
@@ -122,13 +123,7 @@ local function register_christmas_tree(def)
 	})
 end
 
-register_christmas_tree({
-	description = S("Christmas Tree"),
-	mesh = "christmas_tree.obj",
-	tiles = {"christmas_tree.png"},
-	inventory_image = "christmas_tree_item.png",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1},
-})
+register_christmas_tree()
 
 minetest.register_craftitem("christmas:decorations", {
 	description = S("Christmas Decorations"),
