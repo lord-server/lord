@@ -42,30 +42,22 @@ local function register_christmas_tree(def)
 		},
 	}
 
-	minetest.register_node("christmas:tree", {
-		description = def.description,
-		drawtype = "mesh",
-		inventory_image = def.inventory_image,
-		wield_image = def.inventory_image,
+	local common_definition = {
+		description       = def.description,
+		drawtype          = "mesh",
+		inventory_image   = def.inventory_image,
+		wield_image       = def.inventory_image,
 		use_texture_alpha = "clip",
-		mesh = def.mesh,
-		tiles = def.tiles,
-		paramtype = "light",
-		paramtype2 = "facedir",
-		selection_box = nodebox,
-		collision_box = nodebox,
-		groups = def.groups,
-		sounds = default.node_sound_wood_defaults(),
-		on_construct = function(pos, node, active_object_count, active_object_count_wider)
-			if christmas_date.has_come() then
-				local tree_node = minetest.get_node(pos)
-				tree_node.name = "christmas:tree_with_gifts"
-				minetest.swap_node(pos, tree_node)
-			end
-			local meta = minetest.get_meta(pos)
-			local inv = meta:get_inventory()
-			inv:set_size("main", 10)
-		end,
+		mesh              = def.mesh,
+		tiles             = def.tiles,
+		paramtype         = "light",
+		paramtype2        = "facedir",
+		selection_box     = nodebox,
+		collision_box     = nodebox,
+		groups            = def.groups,
+		sounds            = default.node_sound_wood_defaults(),
+		--- @param pos Position
+		--- @param clicker Player
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
 			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
@@ -75,37 +67,31 @@ local function register_christmas_tree(def)
 			local inv  = meta:get_inventory()
 			return inv:is_empty("main")
 		end,
-	})
+	}
 
-	minetest.register_node("christmas:tree_with_gifts", {
-		description = def.description,
-		drawtype = "mesh",
-		inventory_image = def.inventory_image,
-		wield_image = def.inventory_image,
-		use_texture_alpha = "clip",
-		mesh = def.mesh,
-		tiles = def.tiles,
-		paramtype = "light",
-		paramtype2 = "facedir",
-		selection_box = nodebox,
-		collision_box = nodebox,
-		groups = def.groups,
-		sounds = default.node_sound_wood_defaults(),
-		on_construct = function(pos, node, active_object_count, active_object_count_wider)
-			local meta = minetest.get_meta(pos)
-			local inv = meta:get_inventory()
-			inv:set_size("main", 10)
-		end,
-		on_rightclick = function(pos, node, clicker, itemstack)
-			local player = clicker:get_player_name()
-			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
-		end,
-		can_dig = function(pos, player)
-			local meta = minetest.get_meta(pos)
-			local inv  = meta:get_inventory()
-			return inv:is_empty("main")
-		end,
-	})
+	local tree_def         = table.copy(common_definition)
+	local tree_w_gifts_def = table.copy(common_definition)
+
+	--- @param pos Position
+	tree_def.on_construct = function(pos, node, active_object_count, active_object_count_wider)
+		if christmas_date.has_come() then
+			local tree_node = minetest.get_node(pos)
+			tree_node.name  = "christmas:tree_with_gifts"
+			minetest.swap_node(pos, tree_node)
+		end
+		local meta = minetest.get_meta(pos)
+		local inv  = meta:get_inventory()
+		inv:set_size("main", 10)
+	end
+	--- @param pos Position
+	tree_w_gifts_def.on_construct = function(pos, node, active_object_count, active_object_count_wider)
+		local meta = minetest.get_meta(pos)
+		local inv  = meta:get_inventory()
+		inv:set_size("main", 10)
+	end,
+
+	minetest.register_node("christmas:tree", tree_def)
+	minetest.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
 
 	local function gen_gifts(pos)
 		local node = minetest.get_node(pos)
