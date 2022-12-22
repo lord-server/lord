@@ -127,7 +127,7 @@ register_christmas_tree({
 	mesh = "christmas_tree.obj",
 	tiles = {"christmas_tree.png"},
 	inventory_image = "christmas_tree_item.png",
-	groups = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1, smallchest = 1 },
+	groups = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1},
 })
 
 minetest.register_craftitem("christmas:decorations", {
