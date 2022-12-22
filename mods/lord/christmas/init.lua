@@ -17,29 +17,31 @@ christmas_date.has_come = function()
 		now.min >= christmas_date.min
 end
 
-
-local nodebox = {
-	type = "fixed",
-	fixed = {
-		{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125},
-	},
-}
-
+--- @param pos Position
+--- @return string
 local function get_formspec(pos)
-	local spos = pos.x .. "," .. pos.y .. "," .. pos.z
+	local pos_str = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec =
 		"size[8,9]"..
-		"list[nodemeta:" .. spos .. ";main;1.5,1.3;5,2;]"..
+		"list[nodemeta:" .. pos_str .. ";main;1.5,1.3;5,2;]"..
 		"list[current_player;main;0,4.85;8,1;]"..
 		"list[current_player;main;0,6.08;8,3;8]"..
-		"listring[nodemeta:" .. spos .. ";main]"..
+		"listring[nodemeta:" .. pos_str .. ";main]"..
 		"listring[current_player;main]"..
 		"background[0,0;0.1,0.1;christmas_tree_formspec_background.png;true]"..
 		"listcolors[#69696988;#80808088;#222222]"
+
 	return formspec
 end
 
 local function register_christmas_tree(def)
+	local nodebox = {
+		type = "fixed",
+		fixed = {
+			{-0.125, -0.5, -0.125, 0.125, 0.5, 0.125},
+		},
+	}
+
 	minetest.register_node("christmas:tree", {
 		description = def.description,
 		drawtype = "mesh",
