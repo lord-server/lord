@@ -6,7 +6,7 @@ local require = function(name) return dofile(mod_path .. "/" .. name:gsub("%.", 
 
 local gifts, christmas_date = require("configure")
 
-
+--- NODES & ITEMS: -------------------------------------------
 local tree_nodes = require("tree_nodes")
 
 tree_nodes.register(christmas_date)
@@ -22,8 +22,8 @@ minetest.register_craftitem("christmas:tree_no_decorations", {
 	inventory_image = "christmas_tree_no_decorations.png",
 })
 
+--- CRAFTS: ----------------------------------------------------
 local item_deco = "christmas:decorations"
-
 minetest.register_craft({
 	output = "christmas:tree",
 	recipe = {
@@ -33,7 +33,6 @@ minetest.register_craft({
 })
 
 local item_glass = "default:glass"
-
 minetest.register_craft({
 	output = "christmas:decorations",
 	recipe = {
