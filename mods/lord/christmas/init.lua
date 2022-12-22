@@ -1,5 +1,3 @@
-local os_date = os.date
-
 --- @type fun(str: string, ...)
 local S = minetest.get_translator("christmas")
 
@@ -7,16 +5,6 @@ local mod_path = minetest.get_modpath(minetest.get_current_modname())
 local require = function(name) return dofile(mod_path .. "/" .. name:gsub("%.", "/") .. ".lua") end
 
 local gifts, christmas_date = require("configure")
-
---- @return boolean
-christmas_date.has_come = function()
-	local now = os_date("*t")
-	return
-		now.month >= christmas_date.month and
-		now.day >= christmas_date.day and
-		now.hour >= christmas_date.hour and
-		now.min >= christmas_date.min
-end
 
 
 local tree_nodes = require("tree_nodes")
