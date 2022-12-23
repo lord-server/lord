@@ -42,10 +42,19 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
-	output = "christmas:tree_no_decorations",
+local recipe = {}
+if minetest.get_modpath("lottplants") and minetest.get_modpath("lord_homedecor") then
 	recipe = {
 		{"lottplants:firsapling"},
 		{"lord_homedecor:flower_pot_terracotta"},
 	}
+else
+	recipe = {
+		{"default:pine_sapling"},
+		{"default:dirt"},
+	}
+end
+minetest.register_craft({
+	output = "christmas:tree_no_decorations",
+	recipe = recipe
 })
