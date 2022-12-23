@@ -36,7 +36,7 @@ local function gen_gifts(pos, gifts)
 	end
 end
 
---- @param christmas_date table
+--- @param christmas_date Christmas
 local function register_tree_nodes(christmas_date)
 	local nodebox = {
 		type = "fixed",
@@ -99,7 +99,7 @@ local function register_tree_nodes(christmas_date)
 	minetest.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
 end
 
---- @param christmas_date table
+--- @param christmas_date Christmas
 --- @param gifts table<number, table>
 local function register_tree_nodes_replacement_abm(christmas_date, gifts)
 	minetest.register_abm({
