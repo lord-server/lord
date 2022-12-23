@@ -36,8 +36,8 @@ local function gen_gifts(pos, gifts)
 	end
 end
 
---- @param christmas_date Christmas
-local function register_tree_nodes(christmas_date)
+--- @param christmas Christmas
+local function register_tree_nodes(christmas)
 	local nodebox = {
 		type = "fixed",
 		fixed = {
@@ -61,6 +61,12 @@ local function register_tree_nodes(christmas_date)
 		groups            = {choppy = 2, oddly_breakable_by_hand = 2, wooden = 1},
 		sounds            = default.node_sound_wood_defaults(),
 		--- @param pos Position
+		on_construct = function(pos, node, active_object_count, active_object_count_wider)
+			local meta = minetest.get_meta(pos)
+			local inv  = meta:get_inventory()
+			inv:set_size("main", 10)
+		end,
+		--- @param pos Position
 		--- @param clicker Player
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
@@ -77,38 +83,43 @@ local function register_tree_nodes(christmas_date)
 	local tree_def         = table.copy(common_definition)
 	local tree_w_gifts_def = table.copy(common_definition)
 
-	--- @param pos Position
-	tree_def.on_construct = function(pos, node, active_object_count, active_object_count_wider)
-		if christmas_date.has_come() then
-			local tree_node = minetest.get_node(pos)
-			tree_node.name  = "christmas:tree_with_gifts"
-			minetest.swap_node(pos, tree_node)
+	--- TREE: ---------------------------------------------------------------------------------
+	--- @param itemstack ItemStack
+	--- @param placer Player
+	--- @param pointed_thing pointed_thing
+	tree_def.on_place = function(itemstack, placer, pointed_thing)
+		if christmas.is_coming() then
+			return minetest.item_place(itemstack, placer, pointed_thing)
 		end
-		local meta = minetest.get_meta(pos)
-		local inv  = meta:get_inventory()
-		inv:set_size("main", 10)
-	end
-	--- @param pos Position
-	tree_w_gifts_def.on_construct = function(pos, node, active_object_count, active_object_count_wider)
-		local meta = minetest.get_meta(pos)
-		local inv  = meta:get_inventory()
-		inv:set_size("main", 10)
+		if christmas.has_come() then
+			minetest.item_place(ItemStack("christmas:tree_with_gifts"), placer, pointed_thing)
+			minetest.chat_send_player(placer:get_player_name(), S("Santa Claus is already gone"))
+			itemstack:take_item()
+			return itemstack
+		end
+
+		minetest.chat_send_player(
+			placer:get_player_name(),
+			S("You can install a Christmas tree not earlier than a month before the holiday")
+		)
+
+		return itemstack
 	end
 
 	minetest.register_node("christmas:tree", tree_def)
 	minetest.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
 end
 
---- @param christmas_date Christmas
+--- @param christmas Christmas
 --- @param gifts table<number, table>
-local function register_tree_nodes_replacement_abm(christmas_date, gifts)
+local function register_tree_nodes_replacement_abm(christmas, gifts)
 	minetest.register_abm({
 		label = "Generations gifts in christmas tree",
 		nodenames = {"christmas:tree"},
 		interval = 10,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			if christmas_date.has_come() then
+			if christmas.has_come() then
 				gen_gifts(pos, gifts)
 			end
 		end,

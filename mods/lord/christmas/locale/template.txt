@@ -2,3 +2,5 @@
 Christmas Tree=
 Christmas Decorations=
 Fir Tree=
+You can install a Christmas tree not earlier than a month before the holiday=
+Santa Claus is already gone=
