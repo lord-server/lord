@@ -66,4 +66,4 @@
 	url = https://notabug.org/TenPlus1/ambience.git
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
-	url = https://github.com/lord-server/mywalls
+	url = https://github.com/minetest-mods/mywalls
