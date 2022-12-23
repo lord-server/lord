@@ -63,8 +63,15 @@ local function register_tree_nodes(christmas)
 		--- @param pos Position
 		on_construct = function(pos, node, active_object_count, active_object_count_wider)
 			local meta = minetest.get_meta(pos)
+			meta:set_string("owner", "")
 			local inv  = meta:get_inventory()
 			inv:set_size("main", 10)
+		end,
+		--- @param pos Position
+		--- @param placer Player
+		after_place_node = function(pos, placer)
+			local meta = minetest.get_meta(pos)
+			meta:set_string("owner", placer:get_player_name() or "")
 		end,
 		--- @param pos Position
 		--- @param clicker Player
@@ -73,17 +80,37 @@ local function register_tree_nodes(christmas)
 			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
 		end,
 		--- @param pos Position
+		--- @param player Player
 		can_dig = function(pos, player)
 			local meta = minetest.get_meta(pos)
 			local inv  = meta:get_inventory()
-			return inv:is_empty("main")
+			return inv:is_empty("main") and player:get_player_name() == meta:get_string("owner")
 		end,
+		--- @param pos Position
+		--- @param count number
+		--- @param player Player
+		allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
+			local meta = minetest.get_meta(pos)
+			if player:get_player_name() == meta:get_string("owner") then
+				return count
+			end
+			return 0
+		end,
+		--- @param pos Position
+		--- @param stack ItemStack
+		--- @param player Player
+		allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+			local meta = minetest.get_meta(pos)
+			if player:get_player_name() == meta:get_string("owner") then
+				return stack:get_count()
+			end
+			return 0
+		end
 	}
 
 	local tree_def         = table.copy(common_definition)
 	local tree_w_gifts_def = table.copy(common_definition)
 
-	--- TREE: ---------------------------------------------------------------------------------
 	--- @param itemstack ItemStack
 	--- @param placer Player
 	--- @param pointed_thing pointed_thing
