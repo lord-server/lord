@@ -274,3 +274,9 @@ hall_of_life_pos = 735, 33, -818
 # ------- lord/player -------
 # арены, на которых отображается здоровье:
 arenas = 2316, 3715
+
+# ------- lord/christmas -------
+# дата праздника / генерации подарков (format: "MM/DD hh:mm")
+christmas_date = 01/01 00:00
+# список подарков
+christmas_tree_gifts = lottfarming:salad 23,lottpotion:cider 23,default:blueberries 23,lottfarming:cookie_cracker 23,default:charcoalblock 23,default:apple 23,lottfarming:carrot_item 23,lottmobs:meat 23,lottores:tin_lump 23,default:silver_sandstone 23
