@@ -141,7 +141,7 @@ end
 --- @param gifts table<number, table>
 local function register_tree_nodes_replacement_abm(christmas, gifts)
 	minetest.register_abm({
-		label = "Generations gifts in christmas tree",
+		label = "Generates gifts in christmas tree",
 		nodenames = {"christmas:tree"},
 		interval = 10,
 		chance = 1,

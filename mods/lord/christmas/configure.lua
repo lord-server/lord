@@ -3,11 +3,11 @@ local os_date, os_time = os.date, os.time
 local conf_gifts = minetest.settings:get("christmas_tree_gifts")
 local conf_date  = minetest.settings:get("christmas_date")
 if not conf_gifts then
-	minetest.log("warning", "christmas: no 'christmas_tree_gifts' setting. Use 'default:dirt'.")
-	conf_gifts = "default:dirt"
+	minetest.log("warning", "christmas: no 'christmas_tree_gifts' setting. Using 'default:dirt 99'.")
+	conf_gifts = "default:dirt 99"
 end
 if not conf_date then
-	minetest.log("warning", "christmas: no 'christmas_date' setting. Use '01.01 00:00'.")
+	minetest.log("warning", "christmas: no 'christmas_date' setting. Using '01.01 00:00'.")
 	conf_date = "01.01 00:00"
 end
 

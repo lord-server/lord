@@ -29,7 +29,8 @@ minetest.register_craft({
 	recipe = {
 		{item_deco, "default:goldblock", item_deco},
 		{item_deco, "christmas:tree_no_decorations", item_deco},
-		{item_deco, item_deco, item_deco},}
+		{item_deco, item_deco, item_deco},
+	}
 })
 
 local item_glass = "default:glass"
@@ -37,12 +38,14 @@ minetest.register_craft({
 	output = "christmas:decorations",
 	recipe = {
 		{item_glass, "dye:red", item_glass},
-		{"dye:blue", item_glass, "dye:green"},}
+		{"dye:blue", item_glass, "dye:green"},
+	}
 })
 
 minetest.register_craft({
 	output = "christmas:tree_no_decorations",
 	recipe = {
 		{"lottplants:firsapling"},
-		{"lord_homedecor:flower_pot_terracotta"},}
+		{"lord_homedecor:flower_pot_terracotta"},
+	}
 })
