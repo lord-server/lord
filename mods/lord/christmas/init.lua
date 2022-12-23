@@ -27,7 +27,7 @@ local item_deco = "christmas:decorations"
 minetest.register_craft({
 	output = "christmas:tree",
 	recipe = {
-		{item_deco, "default:goldblock", item_deco},
+		{item_deco, item_deco, item_deco},
 		{item_deco, "christmas:tree_no_decorations", item_deco},
 		{item_deco, item_deco, item_deco},
 	}
