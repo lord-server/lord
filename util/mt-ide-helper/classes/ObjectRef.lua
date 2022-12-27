@@ -1,6 +1,97 @@
 --- @class ObjectRef
 ObjectRef = {}
+
 --- @return Position
 function ObjectRef:get_pos() end
 --- @param pos Position
 function ObjectRef:set_pos(pos) end
+
+--TODO:
+--* `get_velocity()`: returns the velocity, a vector.
+--* `add_velocity(vel)`
+--* `vel` is a vector, e.g. `{x=0.0, y=2.3, z=1.0}`
+--* In comparison to using get_velocity, adding the velocity and then using
+--set_velocity, add_velocity is supposed to avoid synchronization problems.
+--Additionally, players also do not support set_velocity.
+--* If a player:
+--* Does not apply during free_move.
+--* Note that since the player speed is normalized at each move step,
+--increasing e.g. Y velocity beyond what would usually be achieved
+--(see: physics overrides) will cause existing X/Z velocity to be reduced.
+--* Example: `add_velocity({x=0, y=6.5, z=0})` is equivalent to
+--pressing the jump key (assuming default settings)
+--* `move_to(pos, continuous=false)`
+--* Does an interpolated move for Lua entities for visually smooth transitions.
+--* If `continuous` is true, the Lua entity will not be moved to the current
+--position before starting the interpolated move.
+--* For players this does the same as `set_pos`,`continuous` is ignored.
+--* `punch(puncher, time_from_last_punch, tool_capabilities, direction)`
+--* `puncher` = another `ObjectRef`,
+--* `time_from_last_punch` = time since last punch action of the puncher
+--* `direction`: can be `nil`
+--* `right_click(clicker)`; `clicker` is another `ObjectRef`
+--* `get_hp()`: returns number of health points
+--* `set_hp(hp, reason)`: set number of health points
+--* See reason in register_on_player_hpchange
+--* Is limited to the range of 0 ... 65535 (2^16 - 1)
+--* For players: HP are also limited by `hp_max` specified in object properties
+--* `get_inventory()`: returns an `InvRef` for players, otherwise returns `nil`
+--* `get_wield_list()`: returns the name of the inventory list the wielded item
+--is in.
+--* `get_wield_index()`: returns the index of the wielded item
+--* `get_wielded_item()`: returns an `ItemStack`
+--* `set_wielded_item(item)`: replaces the wielded item, returns `true` if
+--successful.
+--* `set_armor_groups({group1=rating, group2=rating, ...})`
+--* `get_armor_groups()`: returns a table with the armor group ratings
+--* `set_animation(frame_range, frame_speed, frame_blend, frame_loop)`
+--* `frame_range`: table {x=num, y=num}, default: `{x=1, y=1}`
+--* `frame_speed`: number, default: `15.0`
+--* `frame_blend`: number, default: `0.0`
+--* `frame_loop`: boolean, default: `true`
+--* `get_animation()`: returns `range`, `frame_speed`, `frame_blend` and
+--`frame_loop`.
+--* `set_animation_frame_speed(frame_speed)`
+--* `frame_speed`: number, default: `15.0`
+--* `set_attach(parent[, bone, position, rotation, forced_visible])`
+--* `parent`: `ObjectRef` to attach to
+--* `bone`: default `""` (the root bone)
+--* `position`: relative position, default `{x=0, y=0, z=0}`
+--* `rotation`: relative rotation in degrees, default `{x=0, y=0, z=0}`
+--* `forced_visible`: Boolean to control whether the attached entity
+--should appear in first person, default `false`.
+--* Please also read the [Attachments] section above.
+--* This command may fail silently (do nothing) when it would result
+--in circular attachments.
+--* `get_attach()`: returns parent, bone, position, rotation, forced_visible,
+--or nil if it isn't attached.
+--* `get_children()`: returns a list of ObjectRefs that are attached to the
+--    object.
+--* `set_detach()`
+--* `set_bone_position([bone, position, rotation])`
+--    * `bone`: string. Default is `""`, the root bone
+--    * `position`: `{x=num, y=num, z=num}`, relative, `default {x=0, y=0, z=0}`
+--    * `rotation`: `{x=num, y=num, z=num}`, default `{x=0, y=0, z=0}`
+--* `get_bone_position(bone)`: returns position and rotation of the bone
+--* `set_properties(object property table)`
+--* `get_properties()`: returns object property table
+--* `is_player()`: returns true for players, false otherwise
+--* `get_nametag_attributes()`
+--    * returns a table with the attributes of the nametag of an object
+--    * {
+--        text = "",
+--        color = {a=0..255, r=0..255, g=0..255, b=0..255},
+--        bgcolor = {a=0..255, r=0..255, g=0..255, b=0..255},
+--      }
+--* `set_nametag_attributes(attributes)`
+--    * sets the attributes of the nametag of an object
+--    * `attributes`:
+--      {
+--        text = "My Nametag",
+--        color = ColorSpec,
+--        -- ^ Text color
+--        bgcolor = ColorSpec or false,
+--        -- ^ Sets background color of nametag
+--        -- `false` will cause the background to be set automatically based on user settings
+--        -- Default: false
+--      }
