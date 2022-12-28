@@ -73,8 +73,6 @@ register_rail_craft("carts:brakerail", "default:coal_lump")
 register_rail_craft("carts:powerrail", "carts:gear")
 register_rail_craft("carts:rail", "")
 
-carts.railparams["carts:powerrail"] = {acceleration = 23}
-
 --**************************************************************************
 -- cooking
 --**************************************************************************
