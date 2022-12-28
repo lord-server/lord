@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 -- This script is created to convert old races.txt file into SQL file
 -- for import into minetest database
 --
@@ -6,7 +7,7 @@
 --
 -- sqlite3 players.sqlite < races.sql
 --
--- In case of other database read the documentation to database. 
+-- In case of other database read the documentation to database.
 --
 -- How to generate SQL file:
 --
@@ -24,7 +25,7 @@ function read_races(filename)
 end
 
 function escape_str(s)
-    s = s:gsub('\'', '\'\'') 
+    s = s:gsub('\'', '\'\'')
     return "\'"..s.."\'"
 end
 
