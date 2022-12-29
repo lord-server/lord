@@ -1,6 +1,7 @@
 --- @type quest_node.reward_chest.node.Form
 local Form = require("reward_chest.node.Form")
 
+
 --- @type fun(str: string, ...)
 local S = minetest.get_translator('quest_node')
 
@@ -25,6 +26,7 @@ local function drop_items_to_world(chest_pos, player_pos, items)
 		end
 	end
 end
+
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function chest_add_visitor(meta, player_name)
@@ -32,12 +34,14 @@ local function chest_add_visitor(meta, player_name)
 	table.insert(visitors, player_name)
 	meta:set_string("visitors", minetest.serialize(visitors))
 end
+
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function chest_has_visitor(meta, player_name)
 	local visitors = minetest.deserialize(meta:get_string("visitors")) or {}
 	return table.indexof(visitors, player_name) == 1
 end
+
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function congratulate(meta, player_name)
@@ -121,6 +125,7 @@ local definition = {
 		end
 	end,
 }
+
 
 return {
 	definition   = definition,

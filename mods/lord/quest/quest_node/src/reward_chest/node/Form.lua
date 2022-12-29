@@ -1,5 +1,6 @@
 local esc = minetest.formspec_escape
 
+
 --- @type fun(str: string, ...)
 local S = minetest.get_translator('quest_node')
 
@@ -107,6 +108,7 @@ function Form:get_spec()
 	return formspec
 end
 
+--- @param congratulations string
 function Form:saveCongratulations(congratulations)
 	local meta = self.node_meta or minetest.get_meta(self.node_position)
 	meta:set_string("congratulations", congratulations)
