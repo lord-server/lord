@@ -487,7 +487,10 @@ minetest.override_item("default:leaves", {
 	climbable = true,
 })
 
--- Понадобится при переходе с Эвкалипта на Тропическое Дерево
+-- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
+-- В коде присутствует и default:jungleleaves, и lottplants:mirkleaf, что создаёт путанницу
+-- Принято решение пока что оставить только lottplants:mirkleaf
+-- Понадобится при возможном переходе с дерева из lottplants на дерево из default
 --[[minetest.override_item("default:jungleleaves", {
 	drawtype = "mesh",
 	mesh = "leaves_model.obj",
