@@ -102,6 +102,9 @@ minetest.register_alias("default:sign_wall_wood", "default:sign_wall")
 
 --- Далее идут наши алиасы
 
+minetest.register_alias("default:junglesapling", "lottplants:mirksapling")
+minetest.register_alias("default:jungleleaves", "lottplants:mirkleaf")
+
 minetest.register_alias("scorched_stuff", "default:scorched_stuff")
 minetest.register_alias("rat", "default:dirt")
 minetest.register_alias("cooked_rat", "default:dirt")
