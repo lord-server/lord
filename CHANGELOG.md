@@ -1,5 +1,73 @@
 # Change Log
 
+## [2022.12](https://github.com/lord-server/lord/releases/tag/2022.12)
+ - Добавлена новогодняя ёлка (#887)
+ - Добавлены стеклянные соединяющиеся панели (+ из обсидианового стекла) (related to #835) (#837)
+ - Добавлены каменные ограды из булыжника, замшелого булыжника и пустынного булыжника (related to #838) (#841)
+ - На арене Барлогов теперь тоже показывается здоровье игрока (Настройка арен, на которых показывается здоровье игрока (#529))
+ - Добавлены Месе светильники-столбики из яблони и эвкалипта (#885)
+ - Добавлен сундук с наградой за прохождение квеста (для администраторского использования) #755 (#897)
+ - Новый игрок получает небольшой инвентарь для старта. Closes #460 (#826)
+ - Текстуры:
+   - Новые текстуры для пшеницы(#810), хлопка (#811), ягод (#812)
+   - Новые текстуры для HUD'а (#818)
+ - Update MTG mods to `5.6.1`. Closes #848 (#866)
+   - Сбалансирована громкость некоторых звуков, убран бесшумный вариант хождения по воде
+   - Ключики стекаются, если имеют одинаковый "secret"
+   - Вагонетки: исправления в движении
+   - Исправление звуков печи
+   - Улучшено первоначально положение ступенек при установке
+   - Добавлены звуки открытия/закрытия в API дверей
+   - Добавлены и исправлены переводы на разных языках
+   - Множество других исправлений и фиксов
+ - Разблокированы для администраторского использования silver_sand, blueberry (#885)
+ - Исправления:
+    - Замена дверей в схеме хоббитской норы (#806) Fixes #798
+    - Исправлена прозрачность окна в Гондорской двери. (fixes #804) (#808)
+    - Книгами больше нельзя драться и добывать. fixes #800 (#820)
+    - Из формы настройки привата теперь можно выйти по `escape`. fixes #524 (#821)
+    - Исправление поджигания блока угля факелом. Добавлена подсказка Fixes #697, fixes #560 (#825)
+    - Исправление дверей в эльфийского дерева в Лихолесье (#882). Fixes #881
+    - Исправление неизвестных пьедесталов Fixes #878. (#883)
+    - Исправление ошибки с ростом и выпаданием сажецев. Remove 'default:junglesapling', use 'lottplants:mirksapling' instead. Closes #894 (#898)
+ - Системное:
+   - Deprecations:
+     - Replace deprecated `vel` and `acc` attributes in bees. Fixes #828 (#834)
+     - Fixes #853. Define use_texture_alpha for protector sign (set to clip) (#861)
+     - Fixes #849. In game.conf: deprecated 'name' -> 'title'
+     - Fixes #842. Replace deprecated get_mapgen_params -> get_mapgen_setting
+   - Remove empty file creation hack in signs_lib (#816)
+   - Replace deprecated calls with new ones (#819)
+   - include MT configs from servers into repo
+   - cleanup, reorganize & double-check MT configs for servers
+   - just refactoring `skybox` mod. (for #829)
+   - send sky changes to client only if needed. relates to #829
+   - #267 Update MTG/default: move mapgen into overwrites. Closes #855
+   - #267 Update MTG/default: upd mapgen from MTG 5.4.1
+   - #268 #831 Remove creative mod. Closes #831 (#858)
+   - Remove `default.creative` and its usages. Closes #857 (#859)
+   - fix `mods/_minetest_game/readme.md`
+   - #257 Update MTG/default: init.lua: move legacy `default.gui_*`
+   - #257 Update MTG/default: init.lua: small sync code
+   - #267 Update MTG/default: init.lua: move legacy `default.gui_*`. Closes #267 (#860)
+   - Add `MTG/default` as submoudule. Closes #601 (#862)
+   - Fixes #850. Fixes #851. mobs_fish, painting: depends.txt and description.txt -> mod.conf
+   - Fixes #852. Doors: fix warning 'Not registering alias' for door_steel
+   - Fixes #854. lottmapgen/functions.lua: declare local variable 'j'
+   - Move `lottblocks` to `lord`. Relates to #871
+   - Move `lottinventory` to `lord`. Relates to #871
+   - Move `lottmobs` to `lord`. Relates to #871
+   - Update configs from 5.6.1. Closes #874
+   - update `mywalls` from upstream: fix mtg/walls translations (relates to #843)
+   - Move `lottores` into `lord`. Relates to #871
+   - add Code-Style rule for var names & empty lines
+   - IDE hinting:
+     - add `AreaStore:*` and almost all `minetest.*` methods
+     - add `Player` methods
+     - extract several classes into separate files
+     - add MetaDataRef & all it inheritors
+     - add ObjectRef & inheritors
+
 ## [2022.10.p3](https://github.com/lord-server/lord/releases/tag/2022.10.p3)
  - Fixes #873. Replace registered_player -> minetest.player_exists (#875)
  - Fixes 799. Check if item is registered, if it's not, return nil (#876)
