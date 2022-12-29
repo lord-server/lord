@@ -13,7 +13,7 @@
 --
 -- luajit transfer_races.lua races.txt > races.sql
 
-function read_races(filename)
+local function read_races(filename)
     local f = io.open(filename, "rt")
     if f then
         local content = f:read()
@@ -24,9 +24,28 @@ function read_races(filename)
     return nil
 end
 
-function escape_str(s)
+local function escape_str(s)
     s = s:gsub('\'', '\'\'')
     return "\'"..s.."\'"
+end
+
+--- @param player_name string
+--- @param attribute string attribute name
+--- @param value any
+local function generate_insert_stmt(player_name, attribute, value)
+    return "INSERT INTO player_metadata (player, attr, value) " ..
+        "VALUES (" .. escape_str(player_name) .. ", " .. escape_str(attribute) .. ", " .. escape_str(tostring(value)) .. ");"
+end
+--- @param privs table
+local function serialize_privileges(privs)
+    local val = "return {"
+    for priv_name, priv_value in pairs(privs) do
+        if priv_value then
+            val = val..'"'..tostring(priv_name)..'",'
+        end
+    end
+    val = val.."}"
+    return val
 end
 
 function recode_races(races)
@@ -37,58 +56,28 @@ function recode_races(races)
     local skins = races["skins"]
 
     for name, privs in pairs(revoked_privs) do
-        local val = "return {"
-        for priv,revoked in pairs(privs) do
-            if revoked then
-                val = val..'"'..tostring(priv)..'",'
-            end
-        end
-        val = val.."}"
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:revoked_privs',"..
-                    escape_str(tostring(val))..");"
-        print(cmd)
+        local serialized_privileges = serialize_privileges(privs)
+        print(generate_insert_stmt(name, "player:revoked_privs", serialized_privileges))
     end
 
     for name, privs in pairs(granted_privs) do
-        local val = "return {"
-        for priv,granted in pairs(privs) do
-            if granted then
-                val = val..'"'..tostring(priv)..'",'
-            end
-        end
-        val = val.."}"
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:granted_privs',"..
-                    escape_str(tostring(val))..");"
-        print(cmd)
+        local serialized_privileges = serialize_privileges(privs)
+        print(generate_insert_stmt(name, "player:granted_privs", serialized_privileges))
     end
 
     for name, change in pairs(can_change) do
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:has_second_chance','"..
-                    tostring(change).."');"
-        print(cmd)
+        print(generate_insert_stmt(name, "player:has_second_chance", change))
     end
 
     for name, skin in pairs(skins) do
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:skin','"..
-                    tostring(skin).."');"
-        print(cmd)
+        print(generate_insert_stmt(name, "player:skin", skin))
     end
 
     for name, player in pairs(players) do
         local race = player[1]
         local gender = player[2]
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:gender','"..
-                    tostring(gender).."');"
-        print(cmd)
-        local cmd = "INSERT INTO player_metadata (player, metadata, value) "..
-                    "VALUES ("..escape_str(name)..",'player:race','"..
-                    tostring(race).."');"
-        print(cmd)
+        print(generate_insert_stmt(name, "player:gender", gender))
+        print(generate_insert_stmt(name, "player:race", race))
     end
 end
 
