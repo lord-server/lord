@@ -487,7 +487,8 @@ minetest.override_item("default:leaves", {
 	climbable = true,
 })
 
-minetest.override_item("default:jungleleaves", {
+-- Понадобится при переходе с Эвкалипта на Тропическое Дерево
+--[[minetest.override_item("default:jungleleaves", {
 	drawtype = "mesh",
 	mesh = "leaves_model.obj",
 	tiles = {"default_jungleleaves.png"},
@@ -496,7 +497,7 @@ minetest.override_item("default:jungleleaves", {
 	waving = 2,
 	walkable = false,
 	climbable = true,
-})
+})]]
 
 -- Какие-то брёвна...
 -- Честно, понятия не имею, для чего они нужны, когда есть
