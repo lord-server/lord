@@ -1,0 +1,11 @@
+# textdomain: quest_node
+
+Reward Chest=Сундук с наградой
+Settings,Players=Настройки,Прошедшие
+Reward:=Награда:
+Congratulations text for player:=Текст с поздравлением игрока:
+Leave empty to display "Congratulations! You've completed the quest!"=Оставьте пустым, чтобы отобразилось "Поздравляем! Вы прошли квест!"
+Save=Сохранить
+Cancel=Отмена
+The chest is empty! You've already been here!=Сундук пуст! Вы уже были здесь!
+Congratulations! You've completed the quest!=Поздравляем! Вы прошли квест!

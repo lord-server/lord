@@ -10,6 +10,7 @@ function InvRef:is_empty(list_name) end
 function InvRef:get_size(list_name) end
 --- set size of a list, avoid e.g. , 7*3), use , 21) --7*3 instead to avoid confusion with formspec#list
 --- @param list_name string
+--- @param size number
 function InvRef:set_size(list_name, size) end
 --- get width of a list
 --- @param list_name string

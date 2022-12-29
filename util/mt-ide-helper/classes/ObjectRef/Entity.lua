@@ -6,7 +6,7 @@ Entity = {}
 --* The object is removed after returning from Lua. However the `ObjectRef`
 --itself instantly becomes unusable with all further method calls having
 --no effect and returning `nil`.
---* `set_velocity(vel)`
+function Entity:set_velocity(vel) end
 --* `vel` is a vector, e.g. `{x=0.0, y=2.3, z=1.0}`
 --* `set_acceleration(acc)`
 --* `acc` is a vector
