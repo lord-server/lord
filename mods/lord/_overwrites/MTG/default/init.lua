@@ -95,15 +95,9 @@ minetest.unregister_item("default:sword_steel")
 minetest.unregister_item("default:sword_mese")
 minetest.unregister_item("default:sword_diamond")
 
--- Remove junglesapling
+-- Remove junglesapling and jungleleaves
 minetest.unregister_item("default:junglesapling")
-minetest.register_lbm({
-	name = "lord_overwrites_mtg_default:remove_junglesapling",
-	nodenames = {"default:junglesapling"},
-	action = function(pos, node)
-		minetest.set_node(pos, {name = "lottplants:mirksapling"})
-	end
-})
+minetest.unregister_item("default:jungleleaves")
 
 
 -- default/craftitems.lua
