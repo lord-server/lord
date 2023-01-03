@@ -1330,7 +1330,7 @@ stairs.register_stair_and_slab(
 	"firwood",
 	"lottplants:firwood",
 	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
-	{"lottplants_pinewood.png"},
+	{"lottplants_fir_wood.png"},
 	S("Fir Wood Stair"),
 	S("Fir Wood Slab"),
 	default.node_sound_wood_defaults(),
