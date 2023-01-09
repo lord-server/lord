@@ -12,9 +12,9 @@ local function user_mob_content(self, width, pos)
 	formspec = formspec.."list[detached:"..self.id..";give;2.25,"..pos..";1,1]"
 	pos = pos + 1.5
 
-	formspec = formspec.."list[current_player;main;0,"..pos..";8,1;]"
+	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,1;]"
 	pos = pos + 1.2
-	formspec = formspec.."list[current_player;main;0,"..pos..";8,3;8]"
+	formspec = formspec.."list[current_player;main;0.25,"..pos..";8,3;8]"
 	pos = pos + 3
 
 	return formspec, pos
