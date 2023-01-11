@@ -286,15 +286,22 @@ function lottachievements.unlock(name, award)
 			minetest.chat_send_player(name, desc)
 		end
 	else
+		--- @type Player
 		local player = minetest.get_player_by_name(name)
-		local one = player:hud_add({
+		local bg_width = 255 * 2 -- because scale.x == 2
+		--local bg_height = 128
+		local margin_top    = 10
+		local padding_left  = 20
+		local header_offset = 23
+		local title_offset = 84
+		local one        = player:hud_add({
 			hud_elem_type = "image",
 			name = "award_bg",
 			scale = {x = 2, y = 1},
 			text = background,
 			position = {x = 0.5, y = 0},
-			offset = {x = 0, y = 138},
-			alignment = {x = 0, y = -1}
+			offset = {x = 0, y = margin_top},
+			alignment = {x = 0, y = 1}
 		})
 		local hud_announce
 		if awdef.secret == true then
@@ -309,8 +316,7 @@ function lottachievements.unlock(name, award)
 			scale = {x = 100, y = 20},
 			text = hud_announce,
 			position = {x = 0.5, y = 0},
-			offset = {x = 0, y = 40},
-			alignment = {x = 0, y = -1}
+			offset = {x = 0, y = margin_top + header_offset},
 		})
 		local three = player:hud_add({
 			hud_elem_type = "text",
@@ -319,17 +325,17 @@ function lottachievements.unlock(name, award)
 			scale = {x = 100, y = 20},
 			text = title,
 			position = {x = 0.5, y = 0},
-			offset = {x = 30, y = 100},
-			alignment = {x = 0, y = -1}
+			offset = {x = 0, y = margin_top + title_offset},
 		})
 		local four = player:hud_add({
 			hud_elem_type = "image",
 			name = "award_icon",
 			scale = {x = 4, y = 4},
 			text = icon,
-			position = {x = 0.4, y = 0},
-			offset = {x = -81.5, y = 126},
-			alignment = {x = 0, y = -1}
+			position = {x = 0.5, y = 0},
+			offset = {x = -(bg_width/2) + padding_left, y = margin_top + title_offset},
+			alignment = {x = 1, y = 0},
+			z_index = 120,
 		})
 		minetest.after(4, function()
 			player:hud_remove(one)

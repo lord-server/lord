@@ -1,5 +1,15 @@
 # Change Log
 
+## [2022.12.p2](https://github.com/lord-server/lord/releases/tag/2022.12.p2)
+ - Fix infinite signs & fence_wood. Fixes #903.
+ - Reward chest: fix infitite reward for not first player. Also fix congrats translation. Fixes #905.
+ - Fix fir wood slab using pine wood texture. Fixes #906 (#907)
+ - banisters: no consumption when place in node with another banister. Fixes #904
+ - add MTG/keys as submodule. Fixes #910.
+ - NPC Changer: fix player inventory position in form. Fixes #902.
+ - Fix missing `silver_sandstone*` stairs & slabs. Fixes #909
+ - Fix achivement popup form. Closes #658
+
 ## [2022.12.p1](https://github.com/lord-server/lord/releases/tag/2022.12.p1)
  - Исправлено появление неизвестных нод вместо листьев деревьев (#901)
 

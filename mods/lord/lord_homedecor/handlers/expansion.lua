@@ -227,6 +227,27 @@ function lord_homedecor.unextend_bed(pos, color)
 	end
 end
 
+--- @param pos           Position
+--- @param compared_name string
+local function is_same_banister_at(pos, compared_name)
+	local definition = minetest.get_node(pos)
+	local def_name = definition and definition.name or ""
+	local node_name = compared_name or "-----"
+
+	def_name = def_name:gsub("diagonal_left", "")
+	def_name = def_name:gsub("diagonal_right", "")
+	def_name = def_name:gsub("horizontal", "")
+	node_name = node_name:gsub("diagonal_left", "")
+	node_name = node_name:gsub("diagonal_right", "")
+	node_name = node_name:gsub("horizontal", "")
+
+	return def_name == node_name
+end
+
+
+--- @param itemstack     ItemStack
+--- @param placer        Player
+--- @param pointed_thing pointed_thing
 function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
 	if rightclick_result then return rightclick_result end
@@ -354,8 +375,12 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 		end
 	end
 
+	local take_item = not is_same_banister_at(pos, new_place_name)
 	minetest.set_node(pos, {name = new_place_name, param2 = fdir})
-	itemstack:take_item()
+	if take_item then
+		itemstack:take_item()
+	end
+
 	return itemstack
 end
 

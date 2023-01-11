@@ -67,3 +67,6 @@
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
+[submodule "mods/_minetest_game/keys"]
+	path = mods/_minetest_game/keys
+	url = https://github.com/minetest-game-mod/keys

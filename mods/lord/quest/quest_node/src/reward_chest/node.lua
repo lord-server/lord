@@ -39,7 +39,7 @@ end
 --- @param player_name string
 local function chest_has_visitor(meta, player_name)
 	local visitors = minetest.deserialize(meta:get_string("visitors")) or {}
-	return table.indexof(visitors, player_name) == 1
+	return table.indexof(visitors, player_name) > 0
 end
 
 --- @param meta NodeMetaRef
@@ -47,7 +47,7 @@ end
 local function congratulate(meta, player_name)
 	local congratulations = meta:get_string("congratulations")
 	if congratulations == nil or congratulations == "" then
-		congratulations = S("Congratulations! You completed the quest!")
+		congratulations = S("Congratulations! You've completed the quest!")
 	end
 
 	minetest.chat_send_player(player_name, congratulations)

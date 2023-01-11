@@ -237,7 +237,7 @@ end
 -- infinite stacks
 
 signs_lib.expect_infinite_stacks = function(player)
-	return minetest.get_modpath("unified_inventory") or not minetest.is_creative_enabled(player)
+	return minetest.is_creative_enabled(player)
 end
 
 -- CONSTANTS
@@ -697,7 +697,7 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 			end
 		end
 
-		if not signs_lib.expect_infinite_stacks then
+		if not signs_lib.expect_infinite_stacks() then
 			itemstack:take_item()
 		end
 		return itemstack
@@ -991,14 +991,14 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
 			return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack) or itemstack
 		elseif def_under and def_under.buildable_to then
 			minetest.add_node(pointed_thing.under, {name = fencename, param2 = fdir})
-			if not signs_lib.expect_infinite_stacks then
+			if not signs_lib.expect_infinite_stacks() then
 				itemstack:take_item()
 			end
 			placer:set_wielded_item(itemstack)
 			return itemstack
 		elseif not def_above or def_above.buildable_to then
 			minetest.add_node(pointed_thing.above, {name = fencename, param2 = fdir})
-			if not signs_lib.expect_infinite_stacks then
+			if not signs_lib.expect_infinite_stacks() then
 				itemstack:take_item()
 			end
 			placer:set_wielded_item(itemstack)
