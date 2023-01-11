@@ -24,17 +24,17 @@ end)
 
 -- Стадии зарядки деревянного лука
 throwing.bow_wooden_stages = {
-	stages = {
-			"lord_bows:bow_wooden",
-			"lord_bows:bow_wooden_2",
-			"lord_bows:bow_wooden_3",
-			"lord_bows:bow_wooden_4",
+	stages        = {
+		"lord_bows:bow_wooden",
+		"lord_bows:bow_wooden_2",
+		"lord_bows:bow_wooden_3",
+		"lord_bows:bow_wooden_4",
 	},
-	charging_time = { 0, 1, 2, 3 },
+	charging_time = {0, 1, 2, 3},
 }
 
 -- Таблица снарядов итем = сущность, скорость
-throwing.projectile_arrow = {
+throwing.projectile_arrow  = {
 	["lord_bows:arrow"] = {"lord_bows:arrow", 10},
 }
 
@@ -48,9 +48,9 @@ local function bow_charge(stack, hold_time, bow_stages, player)
 
 	for key, value in pairs(bow_stages.stages) do
 		if stack:get_name() == value then
-			if (hold_time >= bow_stages.charging_time[key]) and (#bow_stages.stages >= key+1) then
-				stack:set_name(bow_stages.stages[key+1])
-				throwing.charges[name] = throwing.charges[name]+1
+			if (hold_time >= bow_stages.charging_time[key]) and (#bow_stages.stages >= key + 1) then
+				stack:set_name(bow_stages.stages[key + 1])
+				throwing.charges[name] = throwing.charges[name] + 1
 				return stack
 			end
 		end
@@ -94,20 +94,20 @@ end
 
 -- Выстрел
 local function arrow_shot(player)
-	local inv = player:get_inventory()
-	local look_dir = player:get_look_dir()
+	local inv        = player:get_inventory()
+	local look_dir   = player:get_look_dir()
 	local player_pos = player:get_pos()
-	local arrow_pos = {x = player_pos.x, y = player_pos.y+1.5, z = player_pos.z}
-	local charge = throwing.charges[player:get_player_name()]
+	local arrow_pos  = {x = player_pos.x, y = player_pos.y + 1.5, z = player_pos.z}
+	local charge     = throwing.charges[player:get_player_name()]
 	for key, value in pairs(throwing.projectile_arrow) do
 		if inv:contains_item("main", key) then
 			local arrow = minetest.add_entity(arrow_pos, value[1])
 			arrow:add_velocity({
-				x = look_dir.x*value[2]*charge,
-				y = look_dir.y*value[2]*charge,
-				z = look_dir.z*value[2]*charge,
+				x = look_dir.x * value[2] * charge,
+				y = look_dir.y * value[2] * charge,
+				z = look_dir.z * value[2] * charge,
 			})
-			arrow:set_acceleration({x = 0, y = GRAVITY*(-1), z = 0})
+			arrow:set_acceleration({x = 0, y = GRAVITY * (-1), z = 0})
 			inv:remove_item("main", key)
 			return
 		end
@@ -118,7 +118,9 @@ end
 local function there_is_arrows(player)
 	local inv = player:get_inventory()
 	for key, _ in pairs(throwing.projectile_arrow) do
-		if inv:contains_item("main", key) then return true end
+		if inv:contains_item("main", key) then
+			return true
+		end
 	end
 end
 
@@ -172,10 +174,12 @@ end)
 
 -- Если лук заряжался, а итем в руке сменился, то надо разрядить лук (без выстрела)
 lord.register_on_wield_index_change(function(player, player_wield_index, player_last_wield_index)
-	local inv = player:get_inventory()
+	local inv   = player:get_inventory()
 	local stack = inv:get_stack("main", player_last_wield_index)
 
-	if not stack:get_definition().groups.bow then return end
+	if not stack:get_definition().groups.bow then
+		return
+	end
 
 	throwing.charges[player:get_player_name()] = 0
 
@@ -189,6 +193,6 @@ end)
 -- Регистрация снаряда-стрелы (entities_projectiles)
 projectiles.register_projectile_arrow_type("lord_bows:arrow", "lord_bows:arrow", {
 	textures = {"projectile_arrow.png"},
-	damage = 10,
+	damage   = 10,
 })
 
