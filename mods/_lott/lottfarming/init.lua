@@ -149,6 +149,9 @@ dofile(minetest.get_modpath("lottfarming") .. "/blue.lua")
 -- ========= GREEN MUSHROOM =========
 dofile(minetest.get_modpath("lottfarming") .. "/green.lua")
 
+-- ========= WHITE MUSHROOM =========
+dofile(minetest.get_modpath("lottfarming") .. "/white.lua")
+
 -- ========= ORC FOOD =========
 dofile(minetest.get_modpath("lottfarming") .. "/orc_food.lua")
 
