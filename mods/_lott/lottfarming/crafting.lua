@@ -167,7 +167,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:barley0 6',
+	output = 'lottfarming:barley_seed 6',
 	recipe = {
 		{'lottfarming:sheaf_barley'},
 	}

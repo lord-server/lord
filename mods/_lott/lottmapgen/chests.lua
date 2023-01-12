@@ -11,7 +11,7 @@
 ---		-- ИЛИ
 ---		{ "some_mod:item_name2", [нижняя граница числа предметов], [верхняя] } -- случайная выборка из данных границ
 ---		-- Примеры:
----   	{ "lottfarming:barley0" }, -- всегда 1 предмет в стаке
+---   	{ "lottfarming:barley_seed" }, -- всегда 1 предмет в стаке
 ---   	{ "lottfarming:barley_cooked", 3 }, -- всегда 3 предмета в стаке
 ---   	{ "lottfarming:berries_seed", 2, 6 }, -- от 2 до 6 предметов в стаке
 ---   	...
@@ -214,7 +214,7 @@ register_chest_spawner("lottblocks:elfmirk_chest", {
 	{ "lottweapons:galvorn_dagger", },
 	{ "bucket:bucket_water", },
 	{ "lottfarming:tomatoes_seed", 3 },
-	{ "lottfarming:barley0", 2 },
+	{ "lottfarming:barley_seed", 2 },
 	{ "lottfarming:berries_seed", 6 },
 	{ "lottfarming:cabbage_seed", 4 },
 	{ "lottfarming:mushroom_soup", },
