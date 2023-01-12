@@ -9,7 +9,7 @@ minetest.register_craftitem("lottfarming:corn0", {
 		if minetest.registered_nodes[nu.name].on_rightclick then
 			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:corn_1")
+		return place_seed(itemstack, placer, pointed_thing, "lottfarming:corn_1", 3)
 	end,
 })
 minetest.register_craftitem("lottfarming:ear_of_corn", {
@@ -20,10 +20,12 @@ minetest.register_craftitem("lottfarming:ear_of_corn", {
 })
 minetest.register_node("lottfarming:corn_1", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_corn_1.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -35,10 +37,12 @@ minetest.register_node("lottfarming:corn_1", {
 })
 minetest.register_node("lottfarming:corn_2", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_corn_2.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -49,47 +53,57 @@ minetest.register_node("lottfarming:corn_2", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_3", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	drop      = "",
-	tiles     = { "lottfarming_corn_3.png" },
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	drop       = "",
+	tiles      = { "lottfarming_corn_3.png" },
+	waving     = 1,
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_4", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	drop      = "",
-	tiles     = { "lottfarming_corn_4.png" },
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	drop       = "",
+	tiles      = { "lottfarming_corn_4.png" },
+	waving     = 1,
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_21", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	drop      = "",
-	tiles     = { "lottfarming_corn_21.png" },
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	drop       = "",
+	tiles      = { "lottfarming_corn_21.png" },
+	waving     = 1,
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_22", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	drop      = "",
-	tiles     = { "lottfarming_corn_22.png" },
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	drop       = "",
+	tiles      = { "lottfarming_corn_22.png" },
+	waving     = 1,
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_23", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	tiles     = { "lottfarming_corn_23.png" },
-	drop      = {
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	tiles      = { "lottfarming_corn_23.png" },
+	waving     = 1,
+	drop       = {
 		max_items = 6,
 		items     = {
 			{ items = { 'lottfarming:ear_of_corn' } },
@@ -97,24 +111,28 @@ minetest.register_node("lottfarming:corn_23", {
 			{ items = { 'lottfarming:ear_of_corn' }, rarity = 5 },
 		}
 	},
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_31", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	drop      = "",
-	tiles     = { "lottfarming_corn_31.png" },
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	drop       = "",
+	tiles      = { "lottfarming_corn_31.png" },
+	waving     = 1,
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 minetest.register_node("lottfarming:corn_32", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	tiles     = { "lottfarming_corn_32.png" },
-	drop      = {
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	tiles      = { "lottfarming_corn_32.png" },
+	waving     = 1,
+	drop       = {
 		max_items = 6,
 		items     = {
 			{ items = { 'lottfarming:ear_of_corn' } },
@@ -122,8 +140,8 @@ minetest.register_node("lottfarming:corn_32", {
 			{ items = { 'lottfarming:ear_of_corn' }, rarity = 5 },
 		}
 	},
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 
 local chance   = 10
@@ -151,7 +169,7 @@ minetest.register_abm({
 		end
 		pos.y = pos.y - 1
 
-		minetest.set_node(pos, { name = 'lottfarming:corn_2' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_2', param2 = 3 })
 	end
 })
 minetest.register_abm({
@@ -171,9 +189,9 @@ minetest.register_abm({
 			return
 		end
 		pos.y = pos.y + 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_21' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_21', param2 = 3 })
 		pos.y = pos.y - 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_3' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_3', param2 = 3 })
 
 	end
 })
@@ -195,12 +213,12 @@ minetest.register_abm({
 		end
 		pos.y = pos.y + 1
 		pos.y = pos.y + 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_31' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_31', param2 = 3 })
 		pos.y = pos.y - 1
 
-		minetest.set_node(pos, { name = 'lottfarming:corn_22' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_22', param2 = 3 })
 		pos.y = pos.y - 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_4' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_4', param2 = 3 })
 
 	end
 })
@@ -216,9 +234,9 @@ minetest.register_abm({
 			return
 		end
 		pos.y = pos.y + 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_32' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_32', param2 = 3 })
 		pos.y = pos.y - 1
-		minetest.set_node(pos, { name = 'lottfarming:corn_23' })
+		minetest.set_node(pos, { name = 'lottfarming:corn_23', param2 = 3 })
 
 	end
 })

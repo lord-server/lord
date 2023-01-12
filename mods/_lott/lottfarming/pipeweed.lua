@@ -9,16 +9,18 @@ minetest.register_craftitem("lottfarming:pipeweed_seed", {
 		if minetest.registered_nodes[nu.name].on_rightclick then
 			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:pipeweed_1")
+		return place_seed(itemstack, placer, pointed_thing, "lottfarming:pipeweed_1", 34)
 	end,
 })
 
 minetest.register_node("lottfarming:pipeweed_1", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_pipeweed_1.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -31,11 +33,12 @@ minetest.register_node("lottfarming:pipeweed_1", {
 
 minetest.register_node("lottfarming:pipeweed_2", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
-	waving        = 1,
 	tiles         = { "lottfarming_pipeweed_2.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -48,11 +51,12 @@ minetest.register_node("lottfarming:pipeweed_2", {
 
 minetest.register_node("lottfarming:pipeweed_3", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
-	waving        = 1,
 	tiles         = { "lottfarming_pipeweed_3.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -64,12 +68,13 @@ minetest.register_node("lottfarming:pipeweed_3", {
 })
 
 minetest.register_node("lottfarming:pipeweed_4", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	waving    = 1,
-	tiles     = { "lottfarming_pipeweed_4.png" },
-	drop      = {
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	tiles      = { "lottfarming_pipeweed_4.png" },
+	waving     = 1,
+	drop       = {
 		max_items = 6,
 		items     = {
 			{ items = { 'lottfarming:pipeweed_seed' } },
@@ -80,8 +85,8 @@ minetest.register_node("lottfarming:pipeweed_4", {
 			{ items = { 'lottfarming:pipeweed' }, rarity = 5 }
 		}
 	},
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_craftitem("lottfarming:pipeweed", {
@@ -93,7 +98,8 @@ farming:add_plant(
 	"lottfarming:pipeweed_4",
 	{ "lottfarming:pipeweed_1", "lottfarming:pipeweed_2", "lottfarming:pipeweed_3" },
 	50,
-	20
+	20,
+	34
 )
 
 minetest.register_craftitem("lottfarming:pipeweed_cooked", {
@@ -136,8 +142,7 @@ minetest.register_tool("lottfarming:pipe", {
 					vertical           = false,
 					texture            = "lottfarming_smoke_ring.png",
 				})
-				-- временно отложено здесь будет вызов функции для триггера со счетчиком
-				--lottachievements.unlock(player:get_player_name(), "smoke_rings")
+				lottachievements.unlock(player:get_player_name(), "smoke_rings")
 			end
 		end
 	end
