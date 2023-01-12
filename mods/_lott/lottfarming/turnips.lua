@@ -9,16 +9,18 @@ minetest.register_craftitem("lottfarming:turnips_seed", {
 		if minetest.registered_nodes[nu.name].on_rightclick then
 			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:turnips_1")
+		return place_seed(itemstack, placer, pointed_thing, "lottfarming:turnips_1", 40)
 	end,
 })
 
 minetest.register_node("lottfarming:turnips_1", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_turnips_1.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -31,10 +33,12 @@ minetest.register_node("lottfarming:turnips_1", {
 
 minetest.register_node("lottfarming:turnips_2", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_turnips_2.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -47,10 +51,12 @@ minetest.register_node("lottfarming:turnips_2", {
 
 minetest.register_node("lottfarming:turnips_3", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_turnips_3.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -62,11 +68,13 @@ minetest.register_node("lottfarming:turnips_3", {
 })
 
 minetest.register_node("lottfarming:turnips_4", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	tiles     = { "lottfarming_turnips_4.png" },
-	drop      = {
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	tiles      = { "lottfarming_turnips_4.png" },
+	waving     = 1,
+	drop       = {
 		max_items = 6,
 		items     = {
 			{ items = { 'lottfarming:turnips_seed' } },
@@ -77,8 +85,8 @@ minetest.register_node("lottfarming:turnips_4", {
 			{ items = { 'lottfarming:turnips' }, rarity = 5 }
 		}
 	},
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_craftitem("lottfarming:turnips", {
@@ -91,7 +99,8 @@ farming:add_plant(
 	"lottfarming:turnips_4",
 	{ "lottfarming:turnips_1", "lottfarming:turnips_2", "lottfarming:turnips_3" },
 	50,
-	20
+	20,
+	40
 )
 
 minetest.register_craftitem("lottfarming:turnips_cooked", {

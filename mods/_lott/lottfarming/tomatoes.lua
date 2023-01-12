@@ -9,16 +9,18 @@ minetest.register_craftitem("lottfarming:tomatoes_seed", {
 		if minetest.registered_nodes[nu.name].on_rightclick then
 			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
-		return place_seed(itemstack, placer, pointed_thing, "lottfarming:tomatoes_1")
+		return place_seed(itemstack, placer, pointed_thing, "lottfarming:tomatoes_1", 10)
 	end,
 })
 
 minetest.register_node("lottfarming:tomatoes_1", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_tomatoes_1.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -31,10 +33,12 @@ minetest.register_node("lottfarming:tomatoes_1", {
 
 minetest.register_node("lottfarming:tomatoes_2", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_tomatoes_2.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -47,10 +51,12 @@ minetest.register_node("lottfarming:tomatoes_2", {
 
 minetest.register_node("lottfarming:tomatoes_3", {
 	paramtype     = "light",
+	paramtype2    = "meshoptions",
 	walkable      = false,
 	drawtype      = "plantlike",
 	drop          = "",
 	tiles         = { "lottfarming_tomatoes_3.png" },
+	waving        = 1,
 	selection_box = {
 		type  = "fixed",
 		fixed = {
@@ -62,11 +68,13 @@ minetest.register_node("lottfarming:tomatoes_3", {
 })
 
 minetest.register_node("lottfarming:tomatoes_4", {
-	paramtype = "light",
-	walkable  = false,
-	drawtype  = "plantlike",
-	tiles     = { "lottfarming_tomatoes_4.png" },
-	drop      = {
+	paramtype  = "light",
+	paramtype2 = "meshoptions",
+	walkable   = false,
+	drawtype   = "plantlike",
+	tiles      = { "lottfarming_tomatoes_4.png" },
+	waving     = 1,
+	drop       = {
 		max_items = 6,
 		items     = {
 			{ items = { 'lottfarming:tomatoes_seed' } },
@@ -77,8 +85,8 @@ minetest.register_node("lottfarming:tomatoes_4", {
 			{ items = { 'lottfarming:tomatoes' }, rarity = 5 }
 		}
 	},
-	groups    = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
-	sounds    = default.node_sound_leaves_defaults(),
+	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
+	sounds     = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_craftitem("lottfarming:tomatoes", {
@@ -92,7 +100,8 @@ farming:add_plant(
 	"lottfarming:tomatoes_4",
 	{ "lottfarming:tomatoes_1", "lottfarming:tomatoes_2", "lottfarming:tomatoes_3" },
 	50,
-	20
+	20,
+	10
 )
 
 minetest.register_craft({
@@ -105,11 +114,11 @@ minetest.register_craft({
 minetest.register_craftitem("lottfarming:tomatoes_cooked", {
 	description     = SL("Cooked Tomato"),
 	inventory_image = "lottfarming_tomatoes_cooked.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(5),
 })
 
 minetest.register_craftitem("lottfarming:tomato_soup", {
-	description     = SL("Tomato Soup"),
+	description     = "Tomato Soup",
 	inventory_image = "lottfarming_tomato_soup.png",
 	on_use          = minetest.item_eat(10),
 })
