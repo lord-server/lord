@@ -158,8 +158,12 @@ minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
 minetest.register_alias("farming:wheat", "farming:sheaf_wheat")
 minetest.register_alias("farming:seed_wheat", "farming:wheat0")
+
 minetest.register_alias("lottfarming:barley", "lottfarming:sheaf_barley")
-minetest.register_alias("lottfarming:barley_seed", "lottfarming:barley0")
+-- если будет ещё замена, то в этой строке тоже стоит поменять на новый вариант:
+--minetest.register_alias("lottfarming:barley_seed", "lottfarming:barley0") -- когда-то меняли на barley0
+minetest.register_alias("lottfarming:barley0", "lottfarming:barley_seed")   -- теперь вернули barley_seed
+
 minetest.register_alias("lottfarming:corn", "lottfarming:ear_of_corn")
 minetest.register_alias("lottfarming:corn_seed", "lottfarming:corn0")
 minetest.register_alias("lottfarming:potato_seed", "lottfarming:half_of_potatoe")

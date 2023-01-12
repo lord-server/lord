@@ -3,7 +3,7 @@ Athelas Seeds	=	Семена ателаса
 Athelas	=	Ателас
 
 ### barley.lua ###
-Barley	=	Ячмень
+Barley Seeds	=	Семена ячменя
 Sheaf barley	=	Сноп ячменя
 Cooked Barley	=	Высушенный ячмень
 

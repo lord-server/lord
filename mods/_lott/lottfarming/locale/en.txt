@@ -4,7 +4,7 @@ Athelas	=	Athelas
 
 ### barley.lua ###
 Barley Seeds	=	Barley Seeds
-Barley	=	Barley
+Sheaf barley	=	Sheaf barley
 Cooked Barley	=	Cooked Barley
 
 ### berries.lua ###
