@@ -221,7 +221,7 @@ register_chest_spawner("lottblocks:elfmirk_chest", {
 	{ "lottfarming:salad", },
 	{ "lottfarming:corn_seed", },
 	{ "lottfarming:melon_seed", 2 },
-	{ "lottfarming:half_of_potatoe", 4 },
+	{ "lottfarming:potato_seed", 4 },
 	{ "lottfarming:turnips_seed", 2 },
 	{ "lottfarming:blue_mushroom_spore", 5 },
 	{ "lottfarming:brown_mushroom_spore", 5 },

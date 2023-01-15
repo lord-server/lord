@@ -53,7 +53,7 @@ Cooked Pipeweed	=	Cooked Pipeweed
 Pipe	=	Pipe
 
 ### potato.lua ###
-Potato Seeds	=	Potato Seeds
+Half of potato	=	Half of potato
 Potato	=	Potato
 Cooked Potato	=	Cooked Potato
 

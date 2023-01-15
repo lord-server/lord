@@ -666,7 +666,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		chance = 5,
 		min = 3,
 		max = 10,},
-		{name = "lottfarming:half_of_potatoe",
+		{name = "lottfarming:potato_seed",
 		chance = 5,
 		min = 3,
 		max = 10,},
