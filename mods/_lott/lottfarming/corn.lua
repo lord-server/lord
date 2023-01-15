@@ -1,8 +1,8 @@
 local SL = lord.require_intllib()
 
-minetest.register_craftitem("lottfarming:corn0", {
+minetest.register_craftitem("lottfarming:corn_seed", {
 	description     = SL("Corn"),
-	inventory_image = "lottfarming_corn.png",
+	inventory_image = "lottfarming_corn_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
 		local nu  = minetest.get_node(ptu)

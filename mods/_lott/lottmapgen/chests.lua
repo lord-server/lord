@@ -219,7 +219,7 @@ register_chest_spawner("lottblocks:elfmirk_chest", {
 	{ "lottfarming:cabbage_seed", 4 },
 	{ "lottfarming:mushroom_soup", },
 	{ "lottfarming:salad", },
-	{ "lottfarming:corn0", },
+	{ "lottfarming:corn_seed", },
 	{ "lottfarming:melon_seed", 2 },
 	{ "lottfarming:half_of_potatoe", 4 },
 	{ "lottfarming:turnips_seed", 2 },

@@ -188,7 +188,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:corn0 6',
+	output = 'lottfarming:corn_seed 6',
 	recipe = {
 		{'lottfarming:ear_of_corn'},
 	}
