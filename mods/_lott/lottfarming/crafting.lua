@@ -209,7 +209,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = 'lottfarming:half_of_potatoe 2',
+	output = 'lottfarming:potato_seed 2',
 	recipe = {
 		{'lottfarming:potato'},
 	}

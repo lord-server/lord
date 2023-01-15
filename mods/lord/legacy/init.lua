@@ -168,7 +168,10 @@ minetest.register_alias("lottfarming:corn", "lottfarming:ear_of_corn")
 -- если будет ещё замена, то в этой строке тоже стоит поменять на новый вариант:
 --minetest.register_alias("lottfarming:corn_seed", "lottfarming:corn0")  -- когда-то меняли на corn0 (#46, 16425fd)
 minetest.register_alias("lottfarming:corn0", "lottfarming:corn_seed")    -- теперь вернули corn_seed
-minetest.register_alias("lottfarming:potato_seed", "lottfarming:half_of_potatoe")
+
+-- если будет ещё замена, то в этой строке тоже стоит поменять на новый вариант:                              (7f002949)
+--minetest.register_alias("lottfarming:potato_seed", "lottfarming:half_of_potatoe")-- когда-то меняли на half_of_potatoe
+minetest.register_alias("lottfarming:half_of_potatoe", "lottfarming:potato_seed")  -- теперь вернули potato_seed
 
 minetest.register_alias("lord_homedecor:stair_Adobe", "stairs:stair_adobe")
 minetest.register_alias("lord_homedecor:stair_Roofing", "stairs:stair_roofing")
