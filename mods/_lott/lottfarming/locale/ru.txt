@@ -26,7 +26,7 @@ Cabbage	=	Капуста
 Salad	=	Салат
 
 ### corn.lua ###
-Corn	=	Кукуруза
+Corn Seeds	=	Семена кукурузы
 Ear of corn	=	Початок кукурузы
 
 ### crafting.lua ###
