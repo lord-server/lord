@@ -71,3 +71,11 @@ function InvRef:contains_item(list_name, stack, match_meta) end
 --- @param stack ItemStack
 --- @return ItemStack
 function InvRef:remove_item(list_name, stack) end
+--- returns a location compatible to `minetest.get_inventory(location)`. e.g.
+---    * `{type="player", name="celeron55"}`
+---    * `{type="node", pos={x=, y=, z=}}`
+---    * `{type="detached", name="creative"}`
+--- returns `{type="undefined"}` in case location is not known.
+--- @see minetest.get_inventory
+--- @return table
+function InvRef:get_location() end
