@@ -1,17 +1,21 @@
----@class Player: ObjectRef
+--- @class Player: ObjectRef
 Player = {}
 
----@return string
+--- @return string
 function Player:get_player_name() end
+--- @return InvRef
 function Player:get_inventory() end
 
 --TODO:
 --- returns `""` if is not a player
+--- @return string
 function Player:get_player_name() end
 --- **DEPRECATED**, use get_velocity() instead.
 ---  table {x, y, z} representing the player's instantaneous velocity in nodes/s
+--- @deprecated
 function Player:get_player_velocity() end
 --- **DEPRECATED**, use add_velocity(vel) instead.
+--- @deprecated
 function Player:add_player_velocity(vel) end
 --- get camera direction as a unit vector
 function Player:get_look_dir() end
