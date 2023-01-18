@@ -3,7 +3,7 @@ local SL = lord.require_intllib()
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
 
-local publish = tonumber(minetest.settings:get("share_bones_time")) or 60*5
+local publish_after = tonumber(minetest.settings:get("share_bones_time")) or 60*5
 
 local bones_formspec =
 	"size[8,9]"..
@@ -12,7 +12,7 @@ local bones_formspec =
 	"listring[current_name;main]"..
 	"listring[current_player;main]"..
 	"background[-0.5,-0.65;9,10.35;gui_bonesbg.png]"..
-	"listcolors[#606060AA;#606060;#141318;#30434C;#FFF]"
+	"listcolors[#0002;#0004;#141318;#30434C;#FFF]"
 
 local function is_owner(pos, name)
 	local owner = minetest.get_meta(pos):get_string("owner")
@@ -71,10 +71,10 @@ local function register_corpse(race, gender, skin)
 			meta:set_string("formspec", bones_formspec)
 		end,
 		on_timer = function(pos, elapsed)
-			if publish <= 0 then return false end -- таймер не работает
+			if publish_after <= 0 then return false end -- таймер не работает
 			local meta = minetest.get_meta(pos)
 			local time = meta:get_int("time") + elapsed
-			if time >= publish then
+			if time >= publish_after then
 				meta:set_string("infotext", SL("Unknown corpse"))
 				meta:set_string("owner", "")
 				return false
@@ -115,72 +115,115 @@ for race, _ in pairs(races.list) do
 end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
-minetest.register_on_dieplayer(function(player)
-	if minetest.is_creative_enabled(player) then return end
-	local race = races.get_race_and_gender(player:get_player_name())[1]
-	local gender = races.get_race_and_gender(player:get_player_name())[2]
-	local skin = races.get_skin(player:get_player_name())
-	local player_inv = player:get_inventory()
-	local armor_inv = minetest.get_inventory({type="detached", name=player:get_player_name().."_armor"})
-
-	if races.list[race].no_corpse then return end
-
+--- @param player Player
+local function find_position_for_corpse(player)
 	local pos = player:get_pos()
-	pos.x = math.floor(pos.x+0.5)
-	pos.y = math.floor(pos.y+0.5)
-	pos.z = math.floor(pos.z+0.5)
+	pos.x = math.floor(pos.x + 0.5)
+	pos.y = math.floor(pos.y + 0.5)
+	pos.z = math.floor(pos.z + 0.5)
 
-	if minetest.get_node(pos).name ~= "air" then
-		local new_pos = minetest.find_node_near(pos, 5*3, "air")
-		if new_pos then
-			pos = new_pos
-		else
-			for i = 1, player_inv:get_size("main") do player_inv:set_stack("main", i, nil) end
-			for i = 1, player_inv:get_size("craft") do player_inv:set_stack("craft", i, nil) end
-			for i = 1, player_inv:get_size("armor") do player_inv:set_stack("armor", i, nil) end
-			if armor_inv then
-				for i = 1, armor_inv:get_size("armor") do armor_inv:set_stack("armor", i, nil) end
-			end
-			armor:set_player_armor(player)
-			armor:update_inventory(player)
-			return
+	if minetest.get_node(pos).name == "air" then
+		return pos
+	end
+	pos = minetest.find_node_near(pos, 5 * 3, "air")
+	if pos then
+		return pos
+	end
+
+	return nil
+end
+
+--- @param inventory InvRef
+--- @param list_name string
+local function clear_inventory_list(inventory, list_name)
+	for i = 1, inventory:get_size(list_name) do
+		inventory:set_stack(list_name, i, nil)
+	end
+end
+--- @param inventory InvRef
+--- @param list_names table<number,string>
+local function clear_inventory_lists(inventory, list_names)
+	for _, list_name in list_names do
+		clear_inventory_list(inventory, list_name)
+	end
+end
+--- @param inventory1 InvRef
+--- @param list_name1 string
+--- @param inventory2 InvRef
+--- @param list_name2 string
+local function exchange_inventories_lists(inventory1, list_name1, inventory2, list_name2)
+	list_name2 = list_name2 or list_name1
+	-- TODO: при выносе ф-ции в либу, нужно проверять размеры
+	local temp_list = inventory1:get_list(list_name1)
+	inventory1:set_list(list_name1, inventory2:get_list(list_name2))
+	inventory2:set_list(list_name2, temp_list)
+end
+--- @param from_inventory InvRef
+--- @param from_list      string
+--- @param to_inventory   InvRef
+--- @param to_list        string
+local function move_inventory_list(from_inventory, from_list, to_inventory, to_list)
+	for i = 1, from_inventory:get_size(from_list) do
+		to_inventory:add_item(to_list, from_inventory:get_stack(from_list, i))
+		from_inventory:set_stack(from_list, i, nil)
+	end
+end
+--- @param player Player
+minetest.register_on_dieplayer(function(player)
+	if minetest.is_creative_enabled(player) then
+		return
+	end
+
+	local player_name = player:get_player_name()
+	local race = races.get_race_and_gender(player_name)[1]
+	local gender = races.get_race_and_gender(player_name)[2]
+	local skin = races.get_skin(player_name)
+	local player_inv = player:get_inventory()
+	local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
+
+	if races.list[race].no_corpse then
+		return
+	end
+
+	local corpse_pos = find_position_for_corpse(player)
+	if corpse_pos == nil then
+		clear_inventory_lists(player_inv, {"main", "craft", "armor"})
+		if armor_inv then
+			clear_inventory_list(armor_inv, "armor")
 		end
+		armor:set_player_armor(player)
+		armor:update_inventory(player)
+
+		return
 	end
 
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
-	minetest.set_node(pos, {name=string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2=param2})
+	minetest.set_node(corpse_pos, { name =string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2 =param2})
 
-	local meta = minetest.get_meta(pos)
-	local inv = meta:get_inventory()
-	inv:set_size("main", 8*5)
-	local empty_list = inv:get_list("main")
-	inv:set_list("main", player_inv:get_list("main"))
-	player_inv:set_list("main", empty_list)
-	for i = 1, player_inv:get_size("craft") do
-		inv:add_item("main", player_inv:get_stack("craft", i))
-		player_inv:set_stack("craft", i, nil)
-	end
-	for i = 1, player_inv:get_size("armor") do
-		inv:add_item("main", player_inv:get_stack("armor", i))
-		player_inv:set_stack("armor", i, nil)
-		if armor_inv then
-			armor_inv:set_stack("armor", i, nil)
-		end
+	local corpse_meta = minetest.get_meta(corpse_pos)
+	local corpse_inv  = corpse_meta:get_inventory()
+	corpse_inv:set_size("main", 8*5)
+	exchange_inventories_lists(corpse_inv, "main", player_inv, "main")
+	move_inventory_list(player_inv, "craft", corpse_inv, "main")
+	move_inventory_list(player_inv, "armor", corpse_inv, "main")
+	if armor_inv then
+		clear_inventory_list(armor_inv, "armor")
 	end
 	armor:set_player_armor(player)
 	armor:update_inventory(player)
-	meta:set_string("formspec",bones_formspec)
-	if publish < 0 then -- все трупы - достояние общественности
-		meta:set_string("infotext", SL("Unknown corpse"))
-		meta:set_string("owner", "")
-	elseif publish == 0 then -- труп - собственность хозяина - навсегда
-		meta:set_string("infotext", SL("Corpse of").." "..player:get_player_name())
-		meta:set_string("owner", player:get_player_name())
-	else -- труп - собственность хозяина - на время publish
-		meta:set_string("infotext", SL("Corpse of").." "..player:get_player_name())
-		meta:set_string("owner", player:get_player_name())
-		meta:set_int("time", 0)
-		minetest.get_node_timer(pos):start(10)
+
+	corpse_meta:set_string("formspec", bones_formspec)
+	if publish_after < 0 then -- все трупы - достояние общественности
+		corpse_meta:set_string("infotext", SL("Unknown corpse"))
+		corpse_meta:set_string("owner", "")
+	elseif publish_after == 0 then -- труп - собственность хозяина - навсегда
+		corpse_meta:set_string("infotext", SL("Corpse of").." "..player_name)
+		corpse_meta:set_string("owner", player_name)
+	else -- труп - собственность хозяина - на время publish_after
+		corpse_meta:set_string("infotext", SL("Corpse of").." "..player_name)
+		corpse_meta:set_string("owner", player_name)
+		corpse_meta:set_int("time", 0)
+		minetest.get_node_timer(corpse_pos):start(10)
 	end
 end)
 
