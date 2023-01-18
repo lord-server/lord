@@ -131,23 +131,32 @@ minetest.register_craft({
 
 local forbidden_groups = { "ghostly", "door", }
 local accepted_groups = { "stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", }
+
+-- TODO: move into helpers, use something like "table:containsOneOf()"
+--- @param node_definition NodeDefinition
+local function has_forbidden_group(node_definition)
+	for _, g in ipairs(forbidden_groups) do
+		if node_definition.groups[g] ~= nil then
+			return true
+		end
+	end
+	return false
+end
+--- @param node_definition NodeDefinition
+local function has_accepted_group(node_definition)
+	for _, g in ipairs(accepted_groups) do
+		if node_definition.groups[g] ~= nil then
+			return true
+		end
+	end
+	return false
+end
+
 local now_registered_nodes = table.copy(minetest.registered_nodes)
 for name, def in pairs(now_registered_nodes) do
 	if def.groups ~= nil then
-		local forbidden = false
-		for _, g in ipairs(forbidden_groups) do
-			if def.groups[g] ~= nil then
-				forbidden = true
-				break
-			end
-		end
-		if not forbidden then
-			for _, g in ipairs(accepted_groups) do
-				if def.groups[g] ~= nil then
-					ghost.register_ghost_material(name)
-					break
-				end
-			end
+		if not has_forbidden_group(def) and has_accepted_group(def) then
+			ghost.register_ghost_material(name)
 		end
 	end
 end
