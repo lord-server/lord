@@ -7,7 +7,11 @@ globals           = {
 	"minetest", "core",
 
     -- MTG APIs
-	"doors",
+	"default", "doors", "farming", "player_api",
+	"sethome.set",
+
+	-- Other APIs
+	"hbhunger",
 }
 
 read_globals      = {
@@ -24,14 +28,14 @@ read_globals      = {
 	"dump", "DIR_DELIM",
 
 	-- MTG
-	"default", "sfinv", "creative", "dungeon_loot", "farming",
+	"beds", "sfinv", "creative", "dungeon_loot",
+	"dye", "stairs", "sethome",
 
 	-- Lord specific
 	"lord", "hb",
 
 	-- Mods APIs
 	"intllib",
-	"stairs",
 	"screwdriver",
 	"armor", -- lottarmor
 	"multiskin", -- lottarmor
@@ -41,10 +45,6 @@ read_globals      = {
 
 	-- Опциональная поддержка этих апи модов некоторыми из тех модов, что у нас
 	"unified_inventory",
-	"skins", -- моды: skins, simple_skins
-	"u_skins", -- u_skins
-	"wardrobe", -- wardrobe
-
 
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
@@ -57,27 +57,17 @@ read_globals      = {
 exclude_files     = {
 	-- External mods:
 
-    -- не ясно почему они тут оказались:
+    -- пришлось добавить после того, как обновился LuaRocks:
 	"mods/lord/lord_base_commands/chatcommands.lua",
 	"mods/lord/lottclothes",
 
     -- MTG:
-    -- (в большинстве случаев ошибки уже исправлены в оригинале, нужно убрать после обновления)
-    "mods/_minetest_game/default/legacy.lua",
-    "mods/_minetest_game/carts/cart_entity.lua",
-    "mods/_minetest_game/doors/init.lua",
+    "mods/_minetest_game/",
 
     -- LOTT:
 	"mods/_lott/lottmapgen",
 
     -- Остальное:
-	"mods/_various/ambience",
-	"mods/_various/areas",
-	"mods/_various/hud_modpack/hudbars",
-	"mods/_various/intllib",
-	"mods/_various/mobs",
-	"mods/_various/mobs_fish",
-	"mods/_various/mp_world_edit",
-	"mods/_various/painting",
+	"mods/_various/",
 	"util",
 }
