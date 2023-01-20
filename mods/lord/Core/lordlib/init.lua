@@ -44,5 +44,4 @@ function lord.each_value_equals(table, value)
 end
 
 
-dofile(minetest.get_modpath("lordlib").."/ru_lower_upper.lua") -- string.upper and string.lower russian symbols support
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/core_functions.lua")

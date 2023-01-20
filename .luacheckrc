@@ -16,7 +16,18 @@ globals           = {
 
 read_globals      = {
 	string = { fields = { "split" } },
-	table  = { fields = { "copy", "getn", "indexof" } },
+	table  = { fields = {
+		"getn", -- was in Lua, now deprecated TODO: remove usages
+
+		-- MT Builtin:
+		"copy", "indexof", "insert_all", "key_value_swap",
+
+		-- our Core/helpers:
+		-- table:
+		"contains", "has_value", "has_key", "merge", "is_empty",
+		-- string:
+		-- TODO: "startsWith", "endsWith", ...
+	} },
 
 	-- Silence warnings about accessing undefined fields 'sign' of global 'math'
 	math = { fields = { "sign" } },
@@ -70,4 +81,11 @@ exclude_files     = {
     -- Остальное:
 	"mods/_various/",
 	"util",
+}
+
+-- Lua extending:
+files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
+	globals = { table  = { fields = {
+		"contains", "has_value", "has_key", "merge", "is_empty"
+	} } }
 }
