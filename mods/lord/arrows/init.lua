@@ -12,7 +12,7 @@ function arrows:register_arrow(name, definition)
 	if definition.drop_on_punch ~= nil then
 		dop = definition.drop_on_punch
 	end
-	throwing:register_arrow(name, {
+	throwing.register_arrow(name, {
 		visual = definition.visual,
 		visual_size = {x=0.1, y=0.1},
 		textures = {definition.texture},
@@ -36,7 +36,7 @@ local player_shoot_throwing_weapon = function(item, player, _)
 	local playerpos = player:get_pos()
 	local dir = player:get_look_dir()
 
-	throwing:shoot(player, "player", item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0)
+	throwing.shoot(player, "player", item:get_name(), {x = playerpos.x, y = playerpos.y + 1.5, z = playerpos.z}, dir, 0)
 
 	if not minetest.is_creative_enabled(player) then
 		item:take_item()

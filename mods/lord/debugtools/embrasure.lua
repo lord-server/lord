@@ -11,6 +11,6 @@ minetest.register_node("debugtools:arrownode", {
 		local dir = {x = -1, y=0, z=0}
 		local arrow = "arrows:arrow_steel"
 		minetest.log("shoot at "..pos.x.." "..pos.y.." "..pos.z)
-		throwing:shoot({x=pos.x, y=pos.y, z=pos.z}, "node", arrow, pos, dir, 0.5)
+		throwing.shoot({x=pos.x, y=pos.y, z=pos.z}, "node", arrow, pos, dir, 0.5)
 	end,
 })

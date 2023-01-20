@@ -8,7 +8,7 @@ local lottthrowing_player_shoot = function(player, arrow_name)
 	p.x = p.x + offset.x
 	p.y = p.y + offset.y
 	p.z = p.z + offset.z
-	return throwing:shoot(player, "player", arrow_name, p, dir, -0.1)
+	return throwing.shoot(player, "player", arrow_name, p, dir, -0.1)
 end
 
 local lottthrowing_shoot = function(player, arrow_name)
@@ -26,7 +26,7 @@ end
 
 local lottthrowing_shoot_arrow = function(itemstack, player)
 	local itemname = player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name()
-	if throwing:arrow_type(itemname) ~= "arrow" then
+	if throwing.arrow_type(itemname) ~= "arrow" then
 		return false
 	end
 	return lottthrowing_shoot(player, itemname)
@@ -34,7 +34,7 @@ end
 
 local lottthrowing_shoot_bolt = function(itemstack, player)
 	local itemname = player:get_inventory():get_stack("main", player:get_wield_index()+1):get_name()
-	if throwing:arrow_type(itemname) ~= "bolt" then
+	if throwing.arrow_type(itemname) ~= "bolt" then
 		return false
 	end
 	return lottthrowing_shoot(player, itemname)

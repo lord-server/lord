@@ -55,7 +55,7 @@ local flame_area = function(p1, p2)
 	end
 end
 
-throwing:register_arrow("arrows:darkball", {
+throwing.register_arrow("arrows:darkball", {
 	visual            = "sprite",
 	visual_size       = { x = 1, y = 1 },
 	textures          = { "lottmobs_darkball.png" },
@@ -110,7 +110,7 @@ minetest.register_craft({
 })
 
 -- fireball (weapon)
-throwing:register_arrow("arrows:fireball", {
+throwing.register_arrow("arrows:fireball", {
 	visual            = "sprite",
 	visual_size       = { x = 1, y = 1 },
 	textures          = { "mobs_fireball.png" },
