@@ -1,3 +1,6 @@
+local pairs, string_gsub
+	= pairs, string.gsub
+
 -- правка стандартных функций преобразования регистра
 -- для работы с кириллицей
 
@@ -43,18 +46,26 @@ local old_upper = string.upper
 
 
 -- переопределяем старые функции для работы с русским алфавитом
-function string.lower(str) -- luacheck: ignore setting read-only field of global string
+-- TODO use utf8 module instead
+
+--- string.lower с учётом русского
+--- @param str string
+--- @return string
+function string.lower(str)
 	local new_str = old_lower(str)
 	for S, s in pairs(Alphabet) do
-		new_str = string.gsub(new_str, S, s)
+		new_str = string_gsub(new_str, S, s)
 	end
 	return new_str
 end
 
-function string.upper(str) -- luacheck: ignore setting read-only field of global string
+--- string.upper с учётом русского
+--- @param str string
+--- @return string
+function string.upper(str)
 	local new_str = old_upper(str)
 	for S, s in pairs(Alphabet) do
-		new_str = string.gsub(new_str, s, S)
+		new_str = string_gsub(new_str, s, S)
 	end
 	return new_str
 end
