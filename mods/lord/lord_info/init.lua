@@ -306,13 +306,15 @@ minetest.register_chatcommand("new_help", {
 		minetest.show_formspec(name, "help_form", help_form(name, 1, "comm"))
 	end,
 })
-minetest.register_chatcommand("list", {
+local list_command_definition = {
 	description = SL("Show list of registered objects"),
 	privs = {give = true},
 	func = function(name)
 		minetest.show_formspec(name, "list_form", list_form(name, 1, ""))
 	end,
-})
+}
+minetest.register_chatcommand("list", list_command_definition)
+minetest.register_chatcommand("l", list_command_definition)
 
 -- обработка событий на формах
 minetest.register_on_player_receive_fields(function(player, formname, fields)
