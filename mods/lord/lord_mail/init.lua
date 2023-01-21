@@ -54,6 +54,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 
 	local name = player:get_player_name()
 
+	-- TODO: string:startsWith into Core/helpers
 	if string.sub(formname, 0, string.len("lord_mail:mail_chest_")) == "lord_mail:mail_chest_" then
 
 		local pos_s = string.sub(formname, string.len("lord_mail:mail_chest_") + 7)
@@ -174,6 +175,7 @@ local function paper_on_use(itemstack, user, pointed_thing)
 	minetest.show_formspec(user:get_player_name(), "mail:paper", formspec)
 end
 
+-- TODO: `minetest.override_item` instead register
 minetest.register_craftitem(":default:paper", {
 	description = SL("Paper"),
 	inventory_image = "default_paper.png",
@@ -218,6 +220,7 @@ local function book_on_use(itemstack, user, pointed_thing)
 	minetest.show_formspec(user:get_player_name(), "mail:book", formspec)
 end
 
+-- TODO: `minetest.override_item` instead register
 minetest.register_craftitem(":default:book", {
 	description = SL("Book"),
 	inventory_image = "default_book.png",
@@ -233,70 +236,83 @@ minetest.register_craftitem("lord_mail:book_with_text", {
 	on_use = book_on_use,
 })
 
+-- TODO: the following 2 functions seams identical
+--- @param player Player
+--- @param fields table
+local function paper_form_handler(player, fields)
+	local inv = player:get_inventory()
+	local stack = player:get_wielded_item()
+	local new_stack, data
+	if stack:get_name() ~= "lord_mail:paper_with_text" then
+		local count = stack:get_count()
+		if count == 1 then
+			stack:set_name("lord_mail:paper_with_text")
+		else
+			stack:set_count(count - 1)
+			new_stack = ItemStack("lord_mail:paper_with_text")
+		end
+	else
+		data = minetest.deserialize(stack:get_metadata())
+	end
+	if not data then data = {} end
+	data.text = fields.paper_text
+	data.owner = player:get_player_name()
+	local data_str = minetest.serialize(data)
+	if new_stack then
+		new_stack:set_metadata(data_str)
+		if inv:room_for_item("main", new_stack) then
+			inv:add_item("main", new_stack)
+		else
+			minetest.add_item(player:get_pos(), new_stack)
+		end
+	else
+		stack:set_metadata(data_str)
+	end
+	player:set_wielded_item(stack)
+end
+
+--- @param player Player
+--- @param fields table
+local function book_form_handler(player, fields)
+	local inv = player:get_inventory()
+	local stack = player:get_wielded_item()
+	local new_stack, data
+	if stack:get_name() ~= "lord_mail:book_with_text" then
+		local count = stack:get_count()
+		if count == 1 then
+			stack:set_name("lord_mail:book_with_text")
+		else
+			stack:set_count(count - 1)
+			new_stack = ItemStack("lord_mail:book_with_text")
+		end
+	else
+		data = minetest.deserialize(stack:get_metadata())
+	end
+	if not data then data = {} end
+	data.title = fields.book_title
+	data.text = fields.book_text
+	data.owner = player:get_player_name()
+	local data_str = minetest.serialize(data)
+	if new_stack then
+		new_stack:set_metadata(data_str)
+		if inv:room_for_item("main", new_stack) then
+			inv:add_item("main", new_stack)
+		else
+			minetest.add_item(player:get_pos(), new_stack)
+		end
+	else
+		stack:set_metadata(data_str)
+	end
+	player:set_wielded_item(stack)
+end
+
 -- обработка событий
 minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name == "mail:paper" and fields.paper_save and fields.paper_text ~= "" then
-		local inv = player:get_inventory()
-		local stack = player:get_wielded_item()
-		local new_stack, data
-		if stack:get_name() ~= "lord_mail:paper_with_text" then
-			local count = stack:get_count()
-			if count == 1 then
-				stack:set_name("lord_mail:paper_with_text")
-			else
-				stack:set_count(count - 1)
-				new_stack = ItemStack("lord_mail:paper_with_text")
-			end
-		else
-			data = minetest.deserialize(stack:get_metadata())
-		end
-		if not data then data = {} end
-		data.text = fields.paper_text
-		data.owner = player:get_player_name()
-		local data_str = minetest.serialize(data)
-		if new_stack then
-			new_stack:set_metadata(data_str)
-			if inv:room_for_item("main", new_stack) then
-				inv:add_item("main", new_stack)
-			else
-				minetest.add_item(player:get_pos(), new_stack)
-			end
-		else
-			stack:set_metadata(data_str)
-		end
-		player:set_wielded_item(stack)
+		paper_form_handler(player, fields)
 	end
 
 	if form_name == "mail:book" and fields.book_save and fields.book_title ~= "" and fields.book_text ~= "" then
-		local inv = player:get_inventory()
-		local stack = player:get_wielded_item()
-		local new_stack, data
-		if stack:get_name() ~= "lord_mail:book_with_text" then
-			local count = stack:get_count()
-			if count == 1 then
-				stack:set_name("lord_mail:book_with_text")
-			else
-				stack:set_count(count - 1)
-				new_stack = ItemStack("lord_mail:book_with_text")
-			end
-		else
-			data = minetest.deserialize(stack:get_metadata())
-		end
-		if not data then data = {} end
-		data.title = fields.book_title
-		data.text = fields.book_text
-		data.owner = player:get_player_name()
-		local data_str = minetest.serialize(data)
-		if new_stack then
-			new_stack:set_metadata(data_str)
-			if inv:room_for_item("main", new_stack) then
-				inv:add_item("main", new_stack)
-			else
-				minetest.add_item(player:get_pos(), new_stack)
-			end
-		else
-			stack:set_metadata(data_str)
-		end
-		player:set_wielded_item(stack)
+		book_form_handler(player, fields)
 	end
 end)
