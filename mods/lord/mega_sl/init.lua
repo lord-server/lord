@@ -1,9 +1,5 @@
---- @param table table
----@return boolean
-local function table_is_empty(table)
-	for _,_ in pairs(table) do return false end -- luacheck: ignore
-	return true
-end
+local table_is_empty
+	= table.is_empty
 
 minetest.register_chatcommand ("S", {
 	description = "Сохранить данные в файл",

@@ -1,13 +1,6 @@
 local S = minetest.get_translator("roads")
 
 local function register_road(name, main_material, desc, fill) -- функция регистрации всех нодов дороги
-
-  local function table_concat(s,t) -- функция объединение таблиц
-    for i, v in pairs(t) do
-      s[i] = v
-    end
-  end
-
   local mn = "roads:"..name -- имя мода с материалом
   local road_name = mn.."_road" -- дорога
   local border_name = mn.."_border" -- бордюр
@@ -18,7 +11,7 @@ local function register_road(name, main_material, desc, fill) -- функция 
   local border_item_name = mn.."_border_item" -- бордюр(итем)
 
   local sp_groups = {not_in_creative_inventory = 1} -- специальная группа
-  table_concat(sp_groups, desc.groups)
+  table.overwrite(sp_groups, desc.groups)
 
   -- textures: border_x, border_z, border_top, step_border_x,
   -- step_border_z, incorn_border_top, outcorn_border_top

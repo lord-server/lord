@@ -26,14 +26,6 @@ zpc.items_in_group = function(group)
 	return items
 end
 
-local table_copy = function(table)
-	local out = {}
-	for k,v in pairs(table) do
-		out[k] = v
-	end
-	return out
-end
-
 zpc.add_craft = function(input, output, groups)
 	if minetest.get_item_group(output, "armor_use") > 0 or minetest.get_item_group(output, "armor_crafts") > 0 then
      if minetest.get_item_group(output, "forbidden") > 0 then
@@ -57,7 +49,7 @@ zpc.add_craft = function(input, output, groups)
 					zpc.add_craft({
 						width = c.width,
 						type = c.type,
-						items = table_copy(c.items)
+						items = table.copy(c.items)
 					}, output, g2) -- it is needed to copy the table, else groups won't work right
 				end
 				return

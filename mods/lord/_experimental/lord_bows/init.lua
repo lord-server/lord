@@ -4,19 +4,12 @@ GRAVITY = minetest.settings:get("movement_gravity") or 9.81
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/entities_projectiles.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/mechanics_throwing.lua")
 
-local function table_merge(t1, t2)
-	for k, v in pairs(t2) do
-		t1[k] = v
-	end
-	return t1
-end
-
 local stage_groups = {not_in_creative_inventory = 1}
 
 local function register_bow(name, def)
 	local wield_scale      = {x = 2, y = 2, z = 0.75}
 
-	local all_stage_groups = table_merge(stage_groups, def.groups)
+	local all_stage_groups = table.merge(stage_groups, def.groups)
 
 	minetest.register_tool(name, {
 		range             = 1,

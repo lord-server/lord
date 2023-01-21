@@ -1,3 +1,6 @@
+local table_has_value
+	= table.has_value
+
 local ARENA_AREA_IDS = {}
 
 local arena_ids      = minetest.settings:get("arenas") or ""
@@ -27,13 +30,7 @@ local function player_undisplay_hp(player)
 	player:set_properties({nametag = name, nametag_color = "#FFFFFF",})
 end
 
--- TODO: move this functions into separate mod
-local table_indexOf = table.indexof
---- @param list table
---- @param value any
-local function table_has_value(list, value)
-	return table_indexOf(list, value) ~= -1
-end
+-- TODO: move this function into Core/helpers
 --- @param list table
 --- @param values table
 local function table_keys_has_one_of_values(list, values)

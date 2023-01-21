@@ -1,3 +1,6 @@
+local table_has_value
+	= table.has_value
+
 local S = minetest.get_translator("lord_replacer")
 
 local DEFAULT_SELECTED_NODE = "default:dirt"
@@ -14,19 +17,6 @@ local REPLACER_IRREPLACEABLE = {
 	"lottblocks:palantir",
 }
 
-
---- Checks if a table has value.
----@param table table
----@param value any
----@return boolean @does table has given value
-local function table_has_value(table, value)
-	for _, v in ipairs(table) do
-		if v == value then
-			return true
-		end
-	end
-	return false
-end
 
 --- Sets replacer's selection using its metadata.
 ---@param itemstack ItemStack

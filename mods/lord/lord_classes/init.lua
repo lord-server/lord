@@ -1,3 +1,6 @@
+local table_has_key
+	= table.has_key
+
 local SL = minetest.get_translator("lord_classes")
 
 --[[
@@ -143,22 +146,13 @@ function races.save()
     return true
 end
 
-local function table_contains(t, v)
-	for k, _ in pairs(t) do
-		if k == v then
-			return true
-		end
-	end
-	return false
-end
-
 -- Validates {race, gender} tables
 -- Returns true if the table is valid, false otherwise
 function races.validate(race_and_gender)
 	local race = race_and_gender[1]
 	local gender = race_and_gender[2]
 
-	if table_contains(races.list, race) then
+	if table_has_key(races.list, race) then
 		if gender == "male" or gender == "female" then
 			return true
 		end
@@ -494,7 +488,7 @@ end)
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
-	if table_contains(cache.players, name) then  -- Player is registered already
+	if table_has_key(cache.players, name) then  -- Player is registered already
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
