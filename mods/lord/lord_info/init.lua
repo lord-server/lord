@@ -138,6 +138,49 @@ local function howto_form(name)
 
 	return form
 end
+
+--- @param search_query string
+--- @return table
+local function get_filtered_list(search_query)
+	local list = {} -- filtered result
+	search_query = string.lower(search_query)
+	for id, def in pairs(minetest.registered_items) do
+		if
+			(id ~= '') and -- skip the "hand" item
+			(
+				(search_query == "") or
+				(string.find(string.lower(id), search_query)) or
+				(string.find(string.lower(def.description), search_query)) or
+				(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query))
+			)
+		then
+			table.insert(list, id)
+		end
+	end
+
+	return list
+end
+
+--- Moves ghost items (`defaults:*`) to the end of the `list`
+--- @param list table
+local function move_ghost_to_end(list)
+	local ghost_prefix = "defaults:"
+	local ghosts_list = {}
+	local iter = 1; while iter <= #list do -- `while` loop used instead of `for` for dynamic loop variable
+		local item = list[iter]
+		if string.sub(item, 1, string.len(ghost_prefix)) == ghost_prefix then -- startswith check
+			table.remove(list, iter)
+			table.insert(ghosts_list, item)
+			iter = iter - 1 -- HACK: to re-read the same cell due to a shift after table.remove
+		end
+		iter = iter + 1
+	end
+	for _, item in ipairs(ghosts_list) do
+		table.insert(list, item)
+	end
+end
+
+
 local function list_form(name, select_id, search_query)
 	local form = form_prop
 	form = form..
@@ -146,19 +189,8 @@ local function list_form(name, select_id, search_query)
 		"field[3.0,0.3;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
 		"button[5.2,0;2.5,1;btn_find;"..SL("Find").."]"
 
-	local search_index = minetest.registered_items
-	search_index[''] = nil
-	local list = {} -- filtered result
-	search_query = string.lower(search_query)
-	for id, def in pairs(search_index) do
-		if (search_query == "") or
-			(string.find(string.lower(id), search_query)) or
-			(string.find(string.lower(def.description), search_query)) or
-			(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query))
-		then
-			table.insert(list, id)
-		end
-	end
+	local list = get_filtered_list(search_query)
+
 	if #list == 0 then
 		form = form.."textlist[0.3,0.8;7.2,3.6;lst_objs;;;]"
 		form = form.."label[0.3,4.5;"..SL("Groups:").."]"
@@ -169,21 +201,8 @@ local function list_form(name, select_id, search_query)
 		-- sorting
 		table.sort(list)
 
-		-- moving ghost items to the end of the result list:
-		local ghost_prefix = "defaults:"
-		local ghosts_list = {}
-		local iter = 1; while iter <= #list do -- `while` loop used instead of `for` for dynamic loop variable
-			local item = list[iter]
-			if string.sub(item, 1, string.len(ghost_prefix)) == ghost_prefix then -- startswith check
-				table.remove(list, iter)
-				table.insert(ghosts_list, item)
-				iter = iter - 1 -- HACK: to re-read the same cell due to a shift after table.remove
-			end
-			iter = iter + 1
-		end
-		for i, item in ipairs(ghosts_list) do
-			table.insert(list, item)
-		end
+		-- moving ghost items to the end of the list:
+		move_ghost_to_end(list)
 
 		-- form construction step-by-step
 		local item_name = list[select_id]
