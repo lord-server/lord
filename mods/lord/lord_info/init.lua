@@ -22,6 +22,7 @@ minetest.register_privilege("rules", {
 -- размер и фон формы
 local form_prop = "size[8,8.5]background[5,5;1,1;info_formbg.png;true]"
 
+-- TODO: #925 https://github.com/lord-server/lord/issues/925
 -- чтение/запись txt файлов
 local function read_info()
 	local input = io.open(info_file, "r")
@@ -81,12 +82,10 @@ local function info_form(name)
 	if privs["give"] then
 		form = form..
 			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"..
-			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"..
-			"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
+			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"
 	else
 		form = form..
-			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"..
-			"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
+			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"
 	end
 	form = form.."label[0.3,1.0;"..SL("Admin:").." "..minetest.settings:get("name").."]" --admin
 	if minetest.settings:get_bool("enable_pvp") then --pvp
@@ -117,12 +116,10 @@ local function news_form(name)
 	if privs["give"] then
 		form = form..
 			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"..
-			"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
+			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"
 	else
 		form = form..
-			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-			"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"
+			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"
 	end
 	form = form.."textarea[0.6,1.2;7.4,7.5;txt_news;"..SL("News:")..";"..minetest.formspec_escape(read_news()).."]"
 	if privs["news"] then
@@ -134,7 +131,7 @@ local function news_form(name)
 	end
 	return form
 end
-local function help_form(name, select_id, page)
+local function howto_form(name)
 	local privs = minetest.get_player_privs(name)
 	local form = form_prop
 	if privs["give"] then
@@ -147,70 +144,14 @@ local function help_form(name, select_id, page)
 			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
 			"button[5.2,0;2.5,1;btn_news;"..SL("News").."]"
 	end
-	if page == "comm" then
-		form = form.."label[0.3,1.0;"..SL("Commands:").."]"
-		form = form.."button[2.75,0.7;2.5,1;btn_priv;"..SL("Privileges").."]"
-		form = form.."button[5.2,0.7;2.5,1;btn_how;"..SL("How to play?").."]"
-		local list = {}
-		for i, j in pairs(minetest.chatcommands) do
-			local access = true
-			for a, b in pairs(j.privs) do
-				if privs[a] ~= b then access = false end
-			end
-			if access then table.insert(list, i) end
-		end
-		table.sort(list)
-		local synopsis = minetest.chatcommands[list[select_id]].params
-		if (synopsis == nil)or(synopsis == "") then
-			synopsis = list[select_id]
-		else
-			synopsis = list[select_id].." "..synopsis
-		end
-		synopsis = minetest.formspec_escape(synopsis)
-		local description = minetest.chatcommands[list[select_id]].description
-		if (description == nil)or(description == "") then
-			description = SL("no description")
-		end
-		description = minetest.formspec_escape(description)
-		list = table.concat(list, ",")
-		form = form.."textlist[0.3,1.5;7.2,3.0;lst_comm;"..list..";"..tostring(select_id)..";]"
-		form = form.."textarea[0.6,5.0;7.4,0.7;txt_synopsis;"..SL("Synopsis:")..";"..synopsis.."]"
-		form = form.."textarea[0.6,6.0;7.4,1.9;txt_description;"..SL("Description:")..";"..description.."]"
-	elseif page == "priv" then
-		form = form.."label[0.3,1.0;"..SL("Privileges:").."]"
-		form = form.."button[2.75,0.7;2.5,1;btn_comm;"..SL("Commands").."]"
-		form = form.."button[5.2,0.7;2.5,1;btn_how;"..SL("How to play?").."]"
 
-		local list = {}
-		for i, j in pairs(minetest.registered_privileges) do
-			table.insert(list, i)
-		end
-		table.sort(list)
-		local state = privs[list[select_id]]
-		if state then
-			state = SL("On")
-		else
-			state = SL("Off")
-		end
-		local description = minetest.registered_privileges[list[select_id]].description
-		if (description == nil)or(description == "") then
-			description = SL("no description")
-		end
-		description = minetest.formspec_escape(description)
-		list = table.concat(list, ",")
-		form = form.."textlist[0.3,1.5;7.2,3.0;lst_priv;"..list..";"..tostring(select_id)..";]"
-		form = form.."label[0.3,4.9;"..SL("State:").." "..tostring(state).."]"
-		form = form.."textarea[0.6,6.0;7.4,1.9;txt_description;"..SL("Description:")..";"..description.."]"
-	elseif page == "how" then
-		form = form.."label[0.3,1.0;"..SL("Game's rules:").."]"
-		form = form.."button[2.75,0.7;2.5,1;btn_priv;"..SL("Privileges").."]"
-		form = form.."button[5.2,0.7;2.5,1;btn_comm;"..SL("Commands").."]"
-		form = form.."textarea[0.6,1.5;7.4,7.15;txt_rules;;"..minetest.formspec_escape(read_rules()).."]"
-		if privs["rules"] then
-			form = form.."button[4.7,7.7;3,1;btn_save;"..SL("Save").."]"
-		end
+	form = form.."label[0.3,1.0;"..SL("Game's rules:").."]"
+	form = form.."textarea[0.6,1.5;7.4,7.15;txt_rules;;"..minetest.formspec_escape(read_rules()).."]"
+	if privs["rules"] then
+		form = form.."button[4.7,7.7;3,1;btn_save;"..SL("Save").."]"
 	end
 	form = form.."button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
+
 	return form
 end
 local function list_form(name, select_id, search_query)
@@ -218,7 +159,6 @@ local function list_form(name, select_id, search_query)
 	form = form..
 		"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
 		"button[2.75,0;2.5,1;btn_news;"..SL("News").."]"..
-		"button[5.2,0;2.5,1;btn_help;"..SL("Help").."]"..
 		"label[0.3,1.0;"..SL("Objects:").."]"..
 		"field_close_on_enter[txt_filter;false]"..
 		"field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
@@ -300,12 +240,6 @@ minetest.register_chatcommand("news", {
 		minetest.show_formspec(name, "news_form", news_form(name))
 	end,
 })
-minetest.register_chatcommand("new_help", {
-	description = SL("Show list and description of registered chat-commands"),
-	func = function(name)
-		minetest.show_formspec(name, "help_form", help_form(name, 1, "comm"))
-	end,
-})
 local list_command_definition = {
 	description = SL("Show list of registered objects"),
 	privs = {give = true},
@@ -319,13 +253,11 @@ minetest.register_chatcommand("l", list_command_definition)
 -- обработка событий на формах
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
-	if (formname == "info_form")or(formname == "news_form")or(formname == "help_form")or(formname == "list_form") then
+	if (formname == "info_form")or(formname == "news_form")or(formname == "howto_form")or(formname == "list_form") then
 		if fields.btn_info then
 			minetest.show_formspec(name, "info_form", info_form(name))
 		elseif fields.btn_news then
 			minetest.show_formspec(name, "news_form", news_form(name))
-		elseif fields.btn_help then
-			minetest.show_formspec(name, "help_form", help_form(name, 1, "comm"))
 		elseif fields.btn_list then
 			minetest.show_formspec(name, "list_form", list_form(name, 1, ""))
 		end
@@ -338,32 +270,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		write_news(fields.txt_news)
 		minetest.chat_send_player(player:get_player_name(), SL("News successfully written!"))
 	end
-	if (formname == "help_form")and(fields.btn_save) then
+	if (formname == "howto_form")and(fields.btn_save) then
 		write_rules(fields.txt_rules)
 		minetest.chat_send_player(player:get_player_name(), SL("Rules successfully written!"))
 	end
-	if (formname == "help_form")and(fields.btn_comm) then
-		minetest.show_formspec(name, "help_form", help_form(name, 1, "comm"))
-	end
-	if (formname == "help_form")and(fields.btn_priv) then
-		minetest.show_formspec(name, "help_form", help_form(name, 1, "priv"))
-	end
-	if (formname == "help_form")and(fields.btn_how) then
-		minetest.show_formspec(name, "help_form", help_form(name, 1, "how"))
-	end
-	if (formname == "help_form")and(fields.lst_comm) then
-		local chg = fields.lst_comm
-		chg = string.gsub(chg, "CHG:", "")
-		chg = string.gsub(chg, "DCL:", "")
-		chg = tonumber(chg)
-		minetest.show_formspec(name, "help_form", help_form(name, chg, "comm"))
-	end
-	if (formname == "help_form")and(fields.lst_priv) then
-		local chg = fields.lst_priv
-		chg = string.gsub(chg, "CHG:", "")
-		chg = string.gsub(chg, "DCL:", "")
-		chg = tonumber(chg)
-		minetest.show_formspec(name, "help_form", help_form(name, chg, "priv"))
+	if (formname == "howto_form")and(fields.btn_how) then
+		minetest.show_formspec(name, "howto_form", howto_form(name))
 	end
 	if (formname == "list_form")and(fields.lst_objs) then
 		local chg = fields.lst_objs
