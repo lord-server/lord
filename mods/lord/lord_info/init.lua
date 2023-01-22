@@ -75,18 +75,20 @@ local function write_rules(rules_text)
 	io.close(output)
 end
 
+
+local function form_tabs_spec()
+	local form =
+		"button[0.3 ,0; 2.5,1;btn_info;"..SL("Info").."]"..
+		"button[2.75,0; 2.5,1;btn_news;"..SL("News").."]"..
+		"button[5.2 ,0; 2.5,1;btn_how;" ..SL("How to play?").."]"
+
+	return form
+end
+
 -- описание форм
 local function info_form(name)
 	local privs = minetest.get_player_privs(name)
-	local form = form_prop
-	if privs["give"] then
-		form = form..
-			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"..
-			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"
-	else
-		form = form..
-			"button[0.3,0;2.5,1;btn_news;"..SL("News").."]"
-	end
+	local form = form_prop .. form_tabs_spec()
 	form = form.."label[0.3,1.0;"..SL("Admin:").." "..minetest.settings:get("name").."]" --admin
 	if minetest.settings:get_bool("enable_pvp") then --pvp
 		form = form.."label[0.3,1.5;"..SL("PvP:").." "..SL("On").."]"
@@ -112,15 +114,7 @@ local function info_form(name)
 end
 local function news_form(name)
 	local privs = minetest.get_player_privs(name)
-	local form = form_prop
-	if privs["give"] then
-		form = form..
-			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"
-	else
-		form = form..
-			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"
-	end
+	local form = form_prop .. form_tabs_spec()
 	form = form.."textarea[0.6,1.2;7.4,7.5;txt_news;"..SL("News:")..";"..minetest.formspec_escape(read_news()).."]"
 	if privs["news"] then
 		form = form..
@@ -133,17 +127,7 @@ local function news_form(name)
 end
 local function howto_form(name)
 	local privs = minetest.get_player_privs(name)
-	local form = form_prop
-	if privs["give"] then
-		form = form..
-			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-			"button[2.75,0;2.5,1;btn_list;"..SL("List").."]"..
-			"button[5.2,0;2.5,1;btn_news;"..SL("News").."]"
-	else
-		form = form..
-			"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-			"button[5.2,0;2.5,1;btn_news;"..SL("News").."]"
-	end
+	local form = form_prop .. form_tabs_spec()
 
 	form = form.."label[0.3,1.0;"..SL("Game's rules:").."]"
 	form = form.."textarea[0.6,1.5;7.4,7.15;txt_rules;;"..minetest.formspec_escape(read_rules()).."]"
@@ -157,12 +141,10 @@ end
 local function list_form(name, select_id, search_query)
 	local form = form_prop
 	form = form..
-		"button[0.3,0;2.5,1;btn_info;"..SL("Info").."]"..
-		"button[2.75,0;2.5,1;btn_news;"..SL("News").."]"..
-		"label[0.3,1.0;"..SL("Objects:").."]"..
+		"label[0.3,0.3;"..SL("Objects:").."]"..
 		"field_close_on_enter[txt_filter;false]"..
-		"field[3.04,1.0;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
-		"button[5.2,0.7;2.5,1;btn_find;"..SL("Find").."]"
+		"field[3.0,0.3;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
+		"button[5.2,0;2.5,1;btn_find;"..SL("Find").."]"
 
 	local search_index = minetest.registered_items
 	search_index[''] = nil
@@ -178,7 +160,7 @@ local function list_form(name, select_id, search_query)
 		end
 	end
 	if #list == 0 then
-		form = form.."textlist[0.3,1.5;7.2,3.0;lst_objs;;;]"
+		form = form.."textlist[0.3,0.8;7.2,3.6;lst_objs;;;]"
 		form = form.."label[0.3,4.5;"..SL("Groups:").."]"
 		form = form.."textlist[0.3,5.0;7.2,1.0;lst_groups;;;]"
 		form = form.."textarea[0.6,6.5;7.4,1.5;txt_description;"..SL("Description:")..";]"
@@ -206,7 +188,7 @@ local function list_form(name, select_id, search_query)
 		-- form construction step-by-step
 		local item_name = list[select_id]
 		form = form.."field[3,3;0,0;txt_select;;"..item_name.."]" -- скрыто
-		form = form.."textlist[0.3,1.5;7.2,3.0;lst_objs;"..table.concat(list, ",")..";"..tostring(select_id)..";]"
+		form = form.."textlist[0.3,0.8;7.2,3.6;lst_objs;"..table.concat(list, ",")..";"..tostring(select_id)..";]"
 		form = form.."label[0.3,4.5;"..SL("Groups:").."]"
 		local groups = {}
 		for i, j in pairs(minetest.registered_items[list[select_id]].groups) do
@@ -253,50 +235,55 @@ minetest.register_chatcommand("l", list_command_definition)
 -- обработка событий на формах
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
-	if (formname == "info_form")or(formname == "news_form")or(formname == "howto_form")or(formname == "list_form") then
+	-- Info / News / HowTo Forms:
+	if (formname == "info_form") or (formname == "news_form") or (formname == "howto_form") then
+		-- Tabs switching
 		if fields.btn_info then
 			minetest.show_formspec(name, "info_form", info_form(name))
 		elseif fields.btn_news then
 			minetest.show_formspec(name, "news_form", news_form(name))
-		elseif fields.btn_list then
-			minetest.show_formspec(name, "list_form", list_form(name, 1, ""))
+		elseif fields.btn_how then
+			minetest.show_formspec(name, "howto_form", howto_form(name))
+		end
+
+		-- Save
+		if fields.btn_save then
+			if formname == "info_form" then
+				write_info(fields.txt_info)
+				minetest.chat_send_player(player:get_player_name(), SL("Info successfully written!"))
+			elseif formname == "news_form" then
+				write_news(fields.txt_news)
+				minetest.chat_send_player(player:get_player_name(), SL("News successfully written!"))
+			elseif formname == "howto_form" then
+				write_rules(fields.txt_rules)
+				minetest.chat_send_player(player:get_player_name(), SL("Rules successfully written!"))
+			end
 		end
 	end
-	if (formname == "info_form")and(fields.btn_save) then
-		write_info(fields.txt_info)
-		minetest.chat_send_player(player:get_player_name(), SL("Info successfully written!"))
-	end
-	if (formname == "news_form")and(fields.btn_save) then
-		write_news(fields.txt_news)
-		minetest.chat_send_player(player:get_player_name(), SL("News successfully written!"))
-	end
-	if (formname == "howto_form")and(fields.btn_save) then
-		write_rules(fields.txt_rules)
-		minetest.chat_send_player(player:get_player_name(), SL("Rules successfully written!"))
-	end
-	if (formname == "howto_form")and(fields.btn_how) then
-		minetest.show_formspec(name, "howto_form", howto_form(name))
-	end
-	if (formname == "list_form")and(fields.lst_objs) then
-		local chg = fields.lst_objs
-		chg = string.gsub(chg, "CHG:", "")
-		chg = string.gsub(chg, "DCL:", "")
-		chg = tonumber(chg)
-		minetest.show_formspec(name, "list_form", list_form(name, chg, fields.txt_filter))
-	end
-	if (formname == "list_form")and((fields.btn_giveme)or(fields.btn_giveme_m)) then
-		local count = (fields.btn_giveme)or(fields.btn_giveme_m)
-		local item_name = fields.txt_select
-		local item_stack = item_name.." "..count
-		local inv = player:get_inventory()
-		if inv:room_for_item("main", item_stack) then
-			inv:add_item("main", item_stack)
-			minetest.chat_send_player(player:get_player_name(), SL("Item successfully added!"))
-		else
-			minetest.chat_send_player(player:get_player_name(), SL("Error: Inventory is full!"))
+
+	-- List Form:
+	if formname == "list_form" then
+		if fields.lst_objs then
+			local chg = fields.lst_objs
+			chg = string.gsub(chg, "CHG:", "")
+			chg = string.gsub(chg, "DCL:", "")
+			chg = tonumber(chg)
+			minetest.show_formspec(name, "list_form", list_form(name, chg, fields.txt_filter))
 		end
-	end
-	if (formname == "list_form")and((fields.btn_find)or(fields.key_enter_field == "txt_filter")) then
-		minetest.show_formspec(name, "list_form", list_form(name, 1, fields.txt_filter))
+		if fields.btn_giveme or fields.btn_giveme_m then
+			local count = (fields.btn_giveme)or(fields.btn_giveme_m)
+			local item_name = fields.txt_select
+			local item_stack = item_name.." "..count
+			local inv = player:get_inventory()
+			if inv:room_for_item("main", item_stack) then
+				inv:add_item("main", item_stack)
+				minetest.chat_send_player(player:get_player_name(), SL("Item successfully added!"))
+			else
+				minetest.chat_send_player(player:get_player_name(), SL("Error: Inventory is full!"))
+			end
+		end
+		if fields.btn_find or (fields.key_enter_field == "txt_filter") then
+			minetest.show_formspec(name, "list_form", list_form(name, 1, fields.txt_filter))
+		end
 	end
 end)
