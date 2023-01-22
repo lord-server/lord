@@ -232,58 +232,75 @@ local list_command_definition = {
 minetest.register_chatcommand("list", list_command_definition)
 minetest.register_chatcommand("l", list_command_definition)
 
--- обработка событий на формах
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	local name = player:get_player_name()
-	-- Info / News / HowTo Forms:
-	if (formname == "info_form") or (formname == "news_form") or (formname == "howto_form") then
-		-- Tabs switching
-		if fields.btn_info then
-			minetest.show_formspec(name, "info_form", info_form(name))
-		elseif fields.btn_news then
-			minetest.show_formspec(name, "news_form", news_form(name))
-		elseif fields.btn_how then
-			minetest.show_formspec(name, "howto_form", howto_form(name))
-		end
+--- @param player    Player
+--- @param form_name string
+--- @param fields    table  form fields values received from client
+local function handle_info_forms(player, form_name, fields)
+	local player_name = player:get_player_name()
 
-		-- Save
-		if fields.btn_save then
-			if formname == "info_form" then
-				write_info(fields.txt_info)
-				minetest.chat_send_player(player:get_player_name(), SL("Info successfully written!"))
-			elseif formname == "news_form" then
-				write_news(fields.txt_news)
-				minetest.chat_send_player(player:get_player_name(), SL("News successfully written!"))
-			elseif formname == "howto_form" then
-				write_rules(fields.txt_rules)
-				minetest.chat_send_player(player:get_player_name(), SL("Rules successfully written!"))
-			end
-		end
+	-- Tabs switching
+	if fields.btn_info then
+		minetest.show_formspec(player_name, "info_form", info_form(player_name))
+	elseif fields.btn_news then
+		minetest.show_formspec(player_name, "news_form", news_form(player_name))
+	elseif fields.btn_how then
+		minetest.show_formspec(player_name, "howto_form", howto_form(player_name))
 	end
 
-	-- List Form:
+	-- Save
+	if fields.btn_save then
+		if form_name == "info_form" then
+			write_info(fields.txt_info)
+			minetest.chat_send_player(player_name, SL("Info successfully written!"))
+		elseif form_name == "news_form" then
+			write_news(fields.txt_news)
+			minetest.chat_send_player(player_name, SL("News successfully written!"))
+		elseif form_name == "howto_form" then
+			write_rules(fields.txt_rules)
+			minetest.chat_send_player(player_name, SL("Rules successfully written!"))
+		end
+	end
+end
+
+--- @param player    Player
+--- @param form_name string
+--- @param fields    table  form fields values received from client
+local function handle_list_form(player, form_name, fields)
+	local player_name = player:get_player_name()
+
+	if fields.lst_objs then
+		local chg = fields.lst_objs
+		chg = string.gsub(chg, "CHG:", "")
+		chg = string.gsub(chg, "DCL:", "")
+		chg = tonumber(chg)
+		minetest.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter))
+	end
+	if fields.btn_giveme or fields.btn_giveme_m then
+		local count = (fields.btn_giveme)or(fields.btn_giveme_m)
+		local item_name = fields.txt_select
+		local item_stack = item_name.." "..count
+		local inv = player:get_inventory()
+		if inv:room_for_item("main", item_stack) then
+			inv:add_item("main", item_stack)
+			minetest.chat_send_player(player_name, SL("Item successfully added!"))
+		else
+			minetest.chat_send_player(player_name, SL("Error: Inventory is full!"))
+		end
+	end
+	if fields.btn_find or (fields.key_enter_field == "txt_filter") then
+		minetest.show_formspec(player_name, "list_form", list_form(player_name, 1, fields.txt_filter))
+	end
+end
+
+-- обработка событий на формах
+-- TODO: register separate handlers
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	-- TODO: string:isAny
+	if (formname == "info_form") or (formname == "news_form") or (formname == "howto_form") then
+		handle_info_forms(player, formname, fields)
+	end
+
 	if formname == "list_form" then
-		if fields.lst_objs then
-			local chg = fields.lst_objs
-			chg = string.gsub(chg, "CHG:", "")
-			chg = string.gsub(chg, "DCL:", "")
-			chg = tonumber(chg)
-			minetest.show_formspec(name, "list_form", list_form(name, chg, fields.txt_filter))
-		end
-		if fields.btn_giveme or fields.btn_giveme_m then
-			local count = (fields.btn_giveme)or(fields.btn_giveme_m)
-			local item_name = fields.txt_select
-			local item_stack = item_name.." "..count
-			local inv = player:get_inventory()
-			if inv:room_for_item("main", item_stack) then
-				inv:add_item("main", item_stack)
-				minetest.chat_send_player(player:get_player_name(), SL("Item successfully added!"))
-			else
-				minetest.chat_send_player(player:get_player_name(), SL("Error: Inventory is full!"))
-			end
-		end
-		if fields.btn_find or (fields.key_enter_field == "txt_filter") then
-			minetest.show_formspec(name, "list_form", list_form(name, 1, fields.txt_filter))
-		end
+		handle_list_form(player, formname, fields)
 	end
 end)
