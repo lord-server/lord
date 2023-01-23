@@ -12,7 +12,7 @@ lord_homedecor = {
 
 	-- infinite stacks
 	expect_infinite_stacks = function(player)
-		return minetest.is_creative_enabled(player) and not minetest.get_modpath("unified_inventory")
+		return minetest.is_creative_enabled(player)
 	end
 }
 

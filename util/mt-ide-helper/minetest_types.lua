@@ -2376,7 +2376,6 @@ function dump(obj, dumped) end
 --
 -- Non-existent mods
 --
-unified_inventory = nil
 dungeon_loot = nil
 invisibility = nil
 

@@ -60,9 +60,6 @@ read_globals      = {
 	"worldedit",
 	"areas",
 
-	-- Опциональная поддержка этих апи модов некоторыми из тех модов, что у нас
-	"unified_inventory",
-
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
 	"within_limits", -- mobs api

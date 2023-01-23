@@ -361,24 +361,12 @@ end
 
 armor.update_inventory = function(self, player)
 	local name = armor:get_valid_player(player, "[set_player_armor]")
-	if not name or inv_mod == "inventory_enhanced" then
+	if not name then
 		return
 	end
-	if inv_mod == "unified_inventory" then
-		if unified_inventory.current_page[name] == "armor" then
-			unified_inventory.set_inventory_formspec(player, "armor")
-		end
-	else
-		local formspec = armor:get_armor_formspec(name)
-		if inv_mod == "inventory_plus" then
-			local page = player:get_inventory_formspec()
-			if page:find("detached:"..name.."_armor") then
-				inventory_plus.set_inventory_formspec(player, formspec)
-			end
-		else
-			player:set_inventory_formspec(formspec)
-		end
-	end
+
+	local formspec = armor:get_armor_formspec(name)
+	player:set_inventory_formspec(formspec)
 end
 
 armor.get_valid_player = function(self, player, msg)
@@ -409,18 +397,6 @@ armor.get_valid_player = function(self, player, msg)
 end
 
 -- Register Callbacks
-
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	local name = armor:get_valid_player(player, "[on_player_receive_fields]")
-	if not name or inv_mod == "inventory_enhanced" then
-		return
-	end
-	if inv_mod == "inventory_plus" and fields.armor then
-		local formspec = armor:get_armor_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
-		return
-	end
-end)
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
 	minetest.log("Join player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
@@ -488,9 +464,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 			return count
 		end,
 	}, name)
-	if inv_mod == "inventory_plus" then
-		inventory_plus.register_button(joined_player,"armor", "Armor")
-	end
+
 	armor_inv:set_size("armor", 5)
 	player_inv:set_size("armor", 5)
 	for i = 1, 5 do
