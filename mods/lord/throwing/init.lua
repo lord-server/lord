@@ -21,7 +21,7 @@ local function node_ok(pos, fallback)
 	return minetest.registered_nodes[fallback]
 end
 
-function throwing:arrow_type(arrow_name)
+function throwing.arrow_type(arrow_name)
 	if throwing.arrows[arrow_name] ~= nil then
 		return throwing.arrows[arrow_name].arrow_type or "none"
 	else
@@ -46,7 +46,7 @@ end
 -- dir		: launch direction
 -- distance	: initial offset from launch position
 
-function throwing:shoot(owner, owner_type, arrow_name, pos, dir, distance)
+function throwing.shoot(owner, owner_type, arrow_name, pos, dir, distance)
 	local dl  = (dir.x ^ 2 + dir.y ^ 2 + dir.z ^ 2) ^ 0.5;
 	dir.x     = dir.x / dl
 	dir.y     = dir.y / dl
@@ -557,9 +557,9 @@ end
 
 
 -- register arrow for shoot attack
-function throwing:register_arrow(name, def)
-
-	if not name or not def then return end -- errorcheck
+function throwing.register_arrow(name, def)
+	assert(name, "register_arrow call without name")
+	assert(def, "register_arrow call without definition")
 
 	local dop = def.drop_on_punch
 	if dop == nil then
