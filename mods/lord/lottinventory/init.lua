@@ -1,5 +1,3 @@
-local SL = lord.require_intllib()
-
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/zcg.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/cooking.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/forbidden.lua")
@@ -7,6 +5,10 @@ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/protection.lua"
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/potions.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/brewing.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/master.lua")
+
+-- Bags (Tools & Crafts only)
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/bags.lua')
+
 
 --Inventory Plus
 inventory_plus                        = {}
@@ -24,56 +26,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 	end
 end)
-
---Bags
-minetest.register_tool("lottinventory:small", {
-	description     = SL("Small Bag"),
-	inventory_image = "bags_small.png",
-	groups          = { bagslots = 8 },
-})
-minetest.register_tool("lottinventory:medium", {
-	description     = SL("Medium Bag"),
-	inventory_image = "bags_medium.png",
-	groups          = { bagslots = 16 },
-})
-minetest.register_tool("lottinventory:large", {
-	description     = SL("Large Bag"),
-	inventory_image = "bags_large.png",
-	groups          = { bagslots = 24, forbidden = 1 },
-})
-
-minetest.register_craft({
-	output = 'lottinventory:small',
-	recipe = {
-		{ '', 'group:stick', '' },
-		{ 'group:wool', 'default:steel_ingot', 'group:wool' },
-		{ 'group:wool', 'group:wool', 'group:wool' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottinventory:medium',
-	recipe = {
-		{ 'default:steel_ingot', 'farming:string', 'default:steel_ingot' },
-		{ 'lottinventory:small', 'farming:string', 'lottinventory:small' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottinventory:large',
-	recipe = {
-		{ 'default:steel_ingot', 'lottinventory:medium', 'default:steel_ingot' },
-		{ 'farming:string', 'lottinventory:small', 'farming:string' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottinventory:large',
-	recipe = {
-		{ 'default:steel_ingot', 'lottinventory:small', 'default:steel_ingot' },
-		{ 'farming:string', 'lottinventory:medium', 'farming:string' },
-	}
-})
 
 minetest.register_craft({
 	output = 'lottinventory:crafts_book',
