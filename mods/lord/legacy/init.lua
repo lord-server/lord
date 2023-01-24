@@ -285,3 +285,7 @@ minetest.register_alias("fire:ash", "campfire:ash")
 
 minetest.register_alias("carts:accelerating_rail", "carts:powerrail")
 minetest.register_alias("carts:stopping_rail", "carts:brakerail")
+
+minetest.register_alias("lottinventory:small", "bags:small")
+minetest.register_alias("lottinventory:medium", "bags:medium")
+minetest.register_alias("lottinventory:large", "bags:large")

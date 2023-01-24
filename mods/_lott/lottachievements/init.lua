@@ -747,7 +747,7 @@ lottachievements.register_achievement("daggins_surname", {
 	id          = 54,
 	trigger     = {
 		type   = "craft",
-		item   = "lottinventory:large",
+		item   = "bags:large",
 		target = 8
 	}
 })

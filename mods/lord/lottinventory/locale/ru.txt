@@ -1,7 +1,3 @@
-### init.lua ###
-Small Bag = Маленькая сумка
-Medium Bag = Средняя сумка
-Large Bag = Большая сумка
 
 ### zcg.lua ###
 Book of Crafts = Книга\n"Основы крафта"

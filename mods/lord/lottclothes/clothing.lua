@@ -45,7 +45,7 @@ clothing.update_inventory = function(self, player)
 	local formspec = armor.get_armor_formspec(self, name)
 	local page = player:get_inventory_formspec()
 	if page:find("detached:"..name.."_clothing") then
-		inventory_plus.set_inventory_formspec(player, formspec)
+		minetest.show_formspec(player:get_player_name(), "custom", formspec)
 	end
 end
 
@@ -53,7 +53,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local name = player:get_player_name()
 	if fields.clothing then
 		local formspec = clothing:get_clothing_formspec(name)
-		inventory_plus.set_inventory_formspec(player, formspec)
+		minetest.show_formspec(player:get_player_name(), "custom", formspec)
 		return
 	end
 end)

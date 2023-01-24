@@ -148,7 +148,7 @@ end
 --- Bags
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.bags then
-		inventory_plus.set_inventory_formspec(player, get_formspec(player,"bags"))
+		minetest.show_formspec(player:get_player_name(), "custom", get_formspec(player,"bags"))
 		return
 	end
 	for i=1,4 do
@@ -157,7 +157,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil then
 				page = "bags"
 			end
-			inventory_plus.set_inventory_formspec(player, get_formspec(player,page))
+			minetest.show_formspec(player:get_player_name(), "custom", get_formspec(player,page))
 			return
 		end
 	end

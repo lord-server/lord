@@ -1,7 +1,3 @@
-### init.lua ###
-Small Bag = Small Bag
-Medium Bag = Medium Bag
-Large Bag = Large Bag
 
 ### zcg.lua ###
 Book of Crafts = Book of Crafts

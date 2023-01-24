@@ -6,16 +6,6 @@ dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/potions.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/brewing.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/master.lua")
 
--- Bags (Tools & Crafts only)
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/bags.lua')
-
-
---Inventory Plus
-inventory_plus                        = {}
-
-inventory_plus.set_inventory_formspec = function(player, formspec)
-	minetest.show_formspec(player:get_player_name(), "custom", formspec)
-end
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.main then
