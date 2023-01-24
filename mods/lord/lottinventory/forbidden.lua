@@ -91,20 +91,25 @@ zfc.load_all = function()
 	print("All crafts loaded !")
 end
 
-zfc.formspec = function(pn)
+zfc.form = {}
+--- @type string
+zfc.form.NAME = "forbidden_crafts_book_form"
+--- @param player_name string
+--- @return string
+zfc.form.get_spec = function(player_name)
 	if zfc.need_load_all then zfc.load_all() end
-	local page = zfc.users[pn].page
-	local alt = zfc.users[pn].alt
-	local current_item = zfc.users[pn].current_item
+	local page = zfc.users[player_name].page
+	local alt = zfc.users[player_name].alt
+	local current_item = zfc.users[player_name].current_item
 	local formspec = "size[8,7.5]"
 		.. "listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 		.. "button_exit[6,7;2,0.5;;"..SL("Exit").."]"
-	if zfc.users[pn].history.index > 1 then
+	if zfc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zfc_previous;;false;false;zcg_previous_press.png]"
 	else
 		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
 	end
-	if zfc.users[pn].history.index < #zfc.users[pn].history.list then
+	if zfc.users[player_name].history.index < #zfc.users[player_name].history.list then
 		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zfc_next;;false;false;zcg_next_press.png]"
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
@@ -140,7 +145,7 @@ zfc.formspec = function(pn)
 					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
 				end
 				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;"..zfc.users[pn].current_item..";;]"
+				formspec = formspec .. "item_image_button[7,1;1,1;"..zfc.users[player_name].current_item..";;]"
 			end
 		end
 	end
@@ -170,24 +175,36 @@ zfc.formspec = function(pn)
 
 	return formspec
 end
+--- @param player_name string
+zfc.form.show = function(player_name)
+	minetest.show_formspec(player_name, zfc.form.NAME, zfc.form.get_spec(player_name))
+end
 
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+
+---@param player    Player
+---@param form_name string
+---@param fields    table
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= zfc.form.NAME then
+		return
+	end
+
 	local pn = player:get_player_name();
 	if zfc.users[pn] == nil then zfc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
 	if fields.zfc then
-		inventory_plus.set_inventory_formspec(player, zfc.formspec(pn))
+		zfc.form.show(pn)
 		return
 	elseif fields.zfc_previous then
 		if zfc.users[pn].history.index > 1 then
 			zfc.users[pn].history.index = zfc.users[pn].history.index - 1
 			zfc.users[pn].current_item = zfc.users[pn].history.list[zfc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			zfc.form.show(pn)
 		end
 	elseif fields.zfc_next then
 		if zfc.users[pn].history.index < #zfc.users[pn].history.list then
 			zfc.users[pn].history.index = zfc.users[pn].history.index + 1
 			zfc.users[pn].current_item = zfc.users[pn].history.list[zfc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			zfc.form.show(pn)
 		end
 	end
 	for k, v in pairs(fields) do
@@ -197,14 +214,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zfc.users[pn].current_item = ni
 				table.insert(zfc.users[pn].history.list, ni)
 				zfc.users[pn].history.index = #zfc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+				zfc.form.show(pn)
 			end
 		elseif (k:sub(0,9)=="zfc_page:") then
 			zfc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			zfc.form.show(pn)
 		elseif (k:sub(0,8)=="zfc_alt:") then
 			zfc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zfc.formspec(pn))
+			zfc.form.show(pn)
 		end
 	end
 end)
@@ -219,6 +236,6 @@ minetest.register_tool("lottinventory:forbidden_crafts_book",{
     on_use = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zfc.users[pn] == nil then zfc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-		inventory_plus.set_inventory_formspec(player, zfc.formspec(pn))
+		zfc.form.show(pn)
     end,
 })

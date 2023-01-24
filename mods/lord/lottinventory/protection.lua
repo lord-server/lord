@@ -94,21 +94,26 @@ zpc.load_all = function()
 	print("All crafts loaded !")
 end
 
-zpc.formspec = function(pn)
+zpc.form = {}
+--- @type string
+zpc.form.NAME = "protection_book_form"
+--- @param player_name string
+--- @return string
+zpc.form.get_spec = function(player_name)
 	if zpc.need_load_all then zpc.load_all() end
-	local page = zpc.users[pn].page
-	local alt = zpc.users[pn].alt
-	local current_item = zpc.users[pn].current_item
+	local page = zpc.users[player_name].page
+	local alt = zpc.users[player_name].alt
+	local current_item = zpc.users[player_name].current_item
 	local formspec =
 		"size[8,7.5]" ..
 		"button_exit[6,7;2,0.5;;"..SL("Exit").."]" ..
 		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
-	if zpc.users[pn].history.index > 1 then
+	if zpc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zpc_previous;;false;false;zcg_previous_press.png]"
 	else
 		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
 	end
-	if zpc.users[pn].history.index < #zpc.users[pn].history.list then
+	if zpc.users[player_name].history.index < #zpc.users[player_name].history.list then
 		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zpc_next;;false;false;zcg_next_press.png]"
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
@@ -144,7 +149,7 @@ zpc.formspec = function(pn)
 					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
 				end
 				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;"..zpc.users[pn].current_item..";;]"
+				formspec = formspec .. "item_image_button[7,1;1,1;"..zpc.users[player_name].current_item..";;]"
 			end
 		end
 	end
@@ -178,24 +183,36 @@ zpc.formspec = function(pn)
 	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
 	return formspec
 end
+--- @param player_name string
+zpc.form.show = function(player_name)
+	minetest.show_formspec(player_name, zpc.form.NAME, zpc.form.get_spec(player_name))
+end
 
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+
+---@param player    Player
+---@param form_name string
+---@param fields    table
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= zpc.form.NAME then
+		return
+	end
+
 	local pn = player:get_player_name();
 	if zpc.users[pn] == nil then zpc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
 	if fields.zpc then
-		inventory_plus.set_inventory_formspec(player, zpc.formspec(pn))
+		zpc.form.show(pn)
 		return
 	elseif fields.zpc_previous then
 		if zpc.users[pn].history.index > 1 then
 			zpc.users[pn].history.index = zpc.users[pn].history.index - 1
 			zpc.users[pn].current_item = zpc.users[pn].history.list[zpc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zpc.formspec(pn))
+			zpc.form.show(pn)
 		end
 	elseif fields.zpc_next then
 		if zpc.users[pn].history.index < #zpc.users[pn].history.list then
 			zpc.users[pn].history.index = zpc.users[pn].history.index + 1
 			zpc.users[pn].current_item = zpc.users[pn].history.list[zpc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zpc.formspec(pn))
+			zpc.form.show(pn)
 		end
 	end
 	for k, v in pairs(fields) do
@@ -205,14 +222,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zpc.users[pn].current_item = ni
 				table.insert(zpc.users[pn].history.list, ni)
 				zpc.users[pn].history.index = #zpc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zpc.formspec(pn))
+				zpc.form.show(pn)
 			end
 		elseif (k:sub(0,9)=="zpc_page:") then
 			zpc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zpc.formspec(pn))
+			zpc.form.show(pn)
 		elseif (k:sub(0,8)=="zpc_alt:") then
 			zpc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zpc.formspec(pn))
+			zpc.form.show(pn)
 		end
 	end
 end)
@@ -227,6 +244,6 @@ minetest.register_tool("lottinventory:protection_book",{
     on_use = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zpc.users[pn] == nil then zpc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-		inventory_plus.set_inventory_formspec(player, zpc.formspec(pn))
+		zpc.form.show(pn)
     end,
 })

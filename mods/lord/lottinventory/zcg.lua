@@ -132,22 +132,28 @@ local function filter_by_search(find, lang_code)
 	return filtered_list
 end
 
-zcg.formspec = function(pn, find)
+zcg.form = {}
+--- @type string
+zcg.form.NAME = "master_book_form"
+--- @param player_name string
+--- @param find        string
+--- @return string
+zcg.form.get_spec = function(player_name, find)
 	find = find or "";
 	if zcg.need_load_all then zcg.load_all() end
-	local page = zcg.users[pn].page
-	local alt = zcg.users[pn].alt
-	local current_item = zcg.users[pn].current_item
+	local page = zcg.users[player_name].page
+	local alt = zcg.users[player_name].alt
+	local current_item = zcg.users[player_name].current_item
 	local formspec =
 		"size[8,7.75]" ..
 		"button_exit[6,7.25;2,0.5;;"..SL("Exit").."]" ..
 		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
-	if zcg.users[pn].history.index > 1 then
+	if zcg.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zcg_previous;;false;false;zcg_previous_press.png]"
 	else
 		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
 	end
-	if zcg.users[pn].history.index < #zcg.users[pn].history.list then
+	if zcg.users[player_name].history.index < #zcg.users[player_name].history.list then
 		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zcg_next;;false;false;zcg_next_press.png]"
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
@@ -184,7 +190,7 @@ zcg.formspec = function(pn, find)
 					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
 				end
 				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;"..zcg.users[pn].current_item..";;]"
+				formspec = formspec .. "item_image_button[7,1;1,1;"..zcg.users[player_name].current_item..";;]"
 			end
 		end
 	end
@@ -194,7 +200,7 @@ zcg.formspec = function(pn, find)
 		"field[0.3,3.5;4,0.5;zcg_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zcg_filter;false]"
 
-	local lang_code = minetest.get_player_information(pn).lang_code or DEFAULT_LANG
+	local lang_code = minetest.get_player_information(player_name).lang_code or DEFAULT_LANG
 	local filtered_list = filter_by_search(find, lang_code)
 
 	-- Node list
@@ -226,8 +232,21 @@ zcg.formspec = function(pn, find)
 	formspec = formspec .. "label[0,0;"..SL("Book of Crafts").."]"
 	return formspec
 end
+--- @param player_name string
+--- @param find        string
+zcg.form.show = function(player_name, find)
+	minetest.show_formspec(player_name, zcg.form.NAME, zcg.form.get_spec(player_name, find))
+end
 
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+
+---@param player    Player
+---@param form_name string
+---@param fields    table
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= zcg.form.NAME then
+		return
+	end
+
 	local pn = player:get_player_name();
 	if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
 	local search_phrase = fields.zcg_filter or "";
@@ -237,19 +256,19 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 		zcg.users[pn].page = 0
 	end
 	if fields.zcg or new_filter then
-		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn, search_phrase))
+		zcg.form.show(pn, search_phrase)
 		return
 	elseif fields.zcg_previous then
 		if zcg.users[pn].history.index > 1 then
 			zcg.users[pn].history.index = zcg.users[pn].history.index - 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			zcg.form.show(pn, search_phrase)
 		end
 	elseif fields.zcg_next then
 		if zcg.users[pn].history.index < #zcg.users[pn].history.list then
 			zcg.users[pn].history.index = zcg.users[pn].history.index + 1
 			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			zcg.form.show(pn, search_phrase)
 		end
 	end
 	for k, v in pairs(fields) do
@@ -259,14 +278,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 				zcg.users[pn].current_item = ni
 				table.insert(zcg.users[pn].history.list, ni)
 				zcg.users[pn].history.index = #zcg.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+				zcg.form.show(pn, search_phrase)
 			end
 		elseif (k:sub(0,9)=="zcg_page:") then
 			zcg.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			zcg.form.show(pn, search_phrase)
 		elseif (k:sub(0,8)=="zcg_alt:") then
 			zcg.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player,zcg.formspec(pn, search_phrase))
+			zcg.form.show(pn, search_phrase)
 		end
 	end
 end)
@@ -281,6 +300,6 @@ minetest.register_tool("lottinventory:crafts_book",{
     on_use = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-		inventory_plus.set_inventory_formspec(player, zcg.formspec(pn))
+		zcg.form.show(pn)
     end,
 })

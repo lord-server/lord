@@ -1,6 +1,11 @@
 local SL = lord.require_intllib()
 
-local get_formspec = function(player,page)
+local form    = {}
+--- @type string
+form.NAME     = "potions_book_form"
+--- @param page string
+--- @return string
+form.get_spec = function(page)
 	if page=="potions" then
 		return "size[8,5.5]"
 			   .."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
@@ -395,49 +400,58 @@ local get_formspec = function(player,page)
 	end
 end
 
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+--- @param player Player
+--- @param page string
+form.show     = function(player, page)
+	minetest.show_formspec(player:get_player_name(), form.NAME, form.get_spec(page))
+end
+
+
+---@param player    Player
+---@param form_name string
+---@param fields    table
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= form.NAME then
+		-- HACK: До рефакторинга все формы книг обрабатывали все прилетающие поля со всех форм, не учитывая `form_name`,
+		--       с кучей запутанных вызовов.
+		--       Теперь нет, однако на форме `lottinventory:master_book` есть кнопка `potions`,
+		--       которая открывает эту форму, но обрабатывается она здесь
+		if form_name == zmc.form.NAME and fields.potions then
+			form.show(player, "potions")
+		end
+		return
+	end
+
 	if fields.potions then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions"))
-	end
-     if fields.potions2 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions2"))
-	end
-     if fields.potions3 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions3"))
-	end
-     if fields.potions4 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions4"))
-	end
-     if fields.potions5 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions5"))
-	end
-     if fields.potions6 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions6"))
-	end
-     if fields.potions7 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions7"))
+		form.show(player, "potions")
+	elseif fields.potions2 then
+		form.show(player, "potions2")
+	elseif fields.potions3 then
+		form.show(player, "potions3")
+	elseif fields.potions4 then
+		form.show(player, "potions4")
+	elseif fields.potions5 then
+		form.show(player, "potions5")
+	elseif fields.potions6 then
+		form.show(player, "potions6")
+	elseif fields.potions7 then
+		form.show(player, "potions7")
 	end
 	--Negative-potions--
-     if fields.potionsN then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN"))
-	end
-     if fields.potionsN2 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN2"))
-	end
-     if fields.potionsN3 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN3"))
-	end
-     if fields.potionsN4 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN4"))
-	end
-     if fields.potionsN5 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN5"))
-	end
-     if fields.potionsN6 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN6"))
-	end
-     if fields.potionsN7 then
-	     inventory_plus.set_inventory_formspec(player, get_formspec(player,"potionsN7"))
+	if fields.potionsN then
+		form.show(player, "potionsN")
+	elseif fields.potionsN2 then
+		form.show(player, "potionsN2")
+	elseif fields.potionsN3 then
+		form.show(player, "potionsN3")
+	elseif fields.potionsN4 then
+		form.show(player, "potionsN4")
+	elseif fields.potionsN5 then
+		form.show(player, "potionsN5")
+	elseif fields.potionsN6 then
+		form.show(player, "potionsN6")
+	elseif fields.potionsN7 then
+		form.show(player, "potionsN7")
 	end
 end)
 
@@ -449,7 +463,7 @@ minetest.register_tool("lottinventory:potions_book",{
     stack_max = 1,
     groups = {cook_crafts=1, book=1, paper=1},
     on_use = function(itemstack, player, pointed_thing)
-          inventory_plus.set_inventory_formspec(player, get_formspec(player,"potions"))
+          form.show(player,"potions")
           return itemstack; -- nothing consumed, nothing changed
     end,
 })

@@ -100,20 +100,27 @@ zcc.load_all       = function()
 	print("All crafts loaded !")
 end
 
-zcc.formspec       = function(pn)
-	if zcc.need_load_all then zcc.load_all() end
-	local page         = zcc.users[pn].page
-	local alt          = zcc.users[pn].alt
-	local current_item = zcc.users[pn].current_item
+zcc.form           = {}
+--- @type string
+zcc.form.NAME      = "cooking_book_form"
+--- @param player_name string
+--- @return string
+zcc.form.get_spec  = function(player_name)
+	if zcc.need_load_all then
+		zcc.load_all()
+	end
+	local page         = zcc.users[player_name].page
+	local alt          = zcc.users[player_name].alt
+	local current_item = zcc.users[player_name].current_item
 	local formspec     = "size[8,7.5]"
-		.."listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
+		.. "listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 		.. "button_exit[6,7;2,0.5;;" .. SL("Exit") .. "]"
-	if zcc.users[pn].history.index > 1 then
+	if zcc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zcc_previous;;false;false;zcg_previous_press.png]"
 	else
 		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
 	end
-	if zcc.users[pn].history.index < #zcc.users[pn].history.list then
+	if zcc.users[player_name].history.index < #zcc.users[player_name].history.list then
 		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zcc_next;;false;false;zcg_next_press.png]"
 	else
 		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
@@ -149,7 +156,7 @@ zcc.formspec       = function(pn)
 					formspec = formspec .. "label[0,2;Method: " .. c.type .. "]"
 				end
 				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;" .. zcc.users[pn].current_item .. ";;]"
+				formspec = formspec .. "item_image_button[7,1;1,1;" .. zcc.users[player_name].current_item .. ";;]"
 			end
 		end
 	end
@@ -184,26 +191,37 @@ zcc.formspec       = function(pn)
 		"label[0,0;" .. SL("Book of Cooking") .. "]"
 	return formspec
 end
+--- @param player_name string
+zcc.form.show      = function(player_name)
+	minetest.show_formspec(player_name, zcc.form.NAME, zcc.form.get_spec(player_name))
+end
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+---@param player    Player
+---@param form_name string
+---@param fields    table
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if form_name ~= zcc.form.NAME then
+		return
+	end
+
 	local pn = player:get_player_name();
 	if zcc.users[pn] == nil then
 		zcc.users[pn] = { current_item = "", alt = 1, page = 0, history = { index = 0, list = {} } }
 	end
 	if fields.zcc then
-		inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+		zcc.form.show(pn)
 		return
 	elseif fields.zcc_previous then
 		if zcc.users[pn].history.index > 1 then
 			zcc.users[pn].history.index = zcc.users[pn].history.index - 1
 			zcc.users[pn].current_item  = zcc.users[pn].history.list[zcc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			zcc.form.show(pn)
 		end
 	elseif fields.zcc_next then
 		if zcc.users[pn].history.index < #zcc.users[pn].history.list then
 			zcc.users[pn].history.index = zcc.users[pn].history.index + 1
 			zcc.users[pn].current_item  = zcc.users[pn].history.list[zcc.users[pn].history.index]
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			zcc.form.show(pn)
 		end
 	end
 	for k, v in pairs(fields) do
@@ -213,30 +231,30 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				zcc.users[pn].current_item = ni
 				table.insert(zcc.users[pn].history.list, ni)
 				zcc.users[pn].history.index = #zcc.users[pn].history.list
-				inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+				zcc.form.show(pn)
 			end
 		elseif (k:sub(0, 9) == "zcc_page:") then
 			zcc.users[pn].page = tonumber(k:sub(10))
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			zcc.form.show(pn)
 		elseif (k:sub(0, 8) == "zcc_alt:") then
 			zcc.users[pn].alt = tonumber(k:sub(9))
-			inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+			zcc.form.show(pn)
 		end
 	end
 end)
 
 minetest.register_tool("lottinventory:cooking_book", {
-	description       = SL("Book of Cooking"),
-	groups            = { book = 1, paper = 1 },
-	inventory_image   = "lottinventory_cooks_book.png",
-	wield_image       = "",
-	wield_scale       = { x = 1, y = 1, z = 1 },
-	stack_max         = 1,
-	on_use            = function(itemstack, player, pointed_thing)
+	description     = SL("Book of Cooking"),
+	groups          = { book = 1, paper = 1 },
+	inventory_image = "lottinventory_cooks_book.png",
+	wield_image     = "",
+	wield_scale     = { x = 1, y = 1, z = 1 },
+	stack_max       = 1,
+	on_use          = function(itemstack, player, pointed_thing)
 		local pn = player:get_player_name();
 		if zcc.users[pn] == nil then
 			zcc.users[pn] = { current_item = "", alt = 1, page = 0, history = { index = 0, list = {} } }
 		end
-		inventory_plus.set_inventory_formspec(player, zcc.formspec(pn))
+		zcc.form.show(pn)
 	end,
 })
