@@ -1133,7 +1133,3 @@ minetest.register_craft({
 		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" }
 	},
 })
-
-if minetest.settings:get_bool("msg_loading_mods") then
-	minetest.log("action", minetest.get_current_modname() .. " mod LOADED")
-end
