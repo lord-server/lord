@@ -116,14 +116,14 @@ zcc.form.get_spec  = function(player_name)
 		.. "listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 		.. "button_exit[6,7;2,0.5;;" .. SL("Exit") .. "]"
 	if zcc.users[player_name].history.index > 1 then
-		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zcc_previous;;false;false;zcg_previous_press.png]"
+		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zcc_previous;;false;false;books_previous_press.png]"
 	else
-		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
+		formspec = formspec .. "image[0,1;1,1;books_previous_inactive.png]"
 	end
 	if zcc.users[player_name].history.index < #zcc.users[player_name].history.list then
-		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zcc_next;;false;false;zcg_next_press.png]"
+		formspec = formspec .. "image_button[1,1;1,1;books_next.png;zcc_next;;false;false;books_next_press.png]"
 	else
-		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
+		formspec = formspec .. "image[1,1;1,1;books_next_inactive.png]"
 	end
 	-- Show craft recipe
 	if current_item ~= "" then
@@ -150,12 +150,12 @@ zcc.form.get_spec  = function(player_name)
 						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
-					formspec = formspec .. "image[6,2;1,1;zcg_method_" .. c.type .. ".png]"
+					formspec = formspec .. "image[6,2;1,1;books_method_" .. c.type .. ".png]"
 				else
 					-- we don't have an image for other types of crafting
 					formspec = formspec .. "label[0,2;Method: " .. c.type .. "]"
 				end
-				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
+				formspec = formspec .. "image[6,1;1,1;books_craft_arrow.png]"
 				formspec = formspec .. "item_image_button[7,1;1,1;" .. zcc.users[player_name].current_item .. ";;]"
 			end
 		end
@@ -187,7 +187,7 @@ zcc.form.get_spec  = function(player_name)
 	formspec = formspec ..
 		-- The Y is approximatively the good one to have it centered vertically...
 		"label[2,6.85;" .. SL("Page") .. " " .. (page + 1) .. "/" .. (math.floor(#zcc.itemlist / npp + 1)) .. "]" ..
-		"background[5,5;1,1;craft_formbg.png;true]" ..
+		"background[5,5;1,1;books_formbg.png;true]" ..
 		"label[0,0;" .. SL("Book of Cooking") .. "]"
 	return formspec
 end
@@ -243,10 +243,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lottinventory:cooking_book", {
+minetest.register_tool("lord_books:cooking_book", {
 	description     = SL("Book of Cooking"),
 	groups          = { book = 1, paper = 1 },
-	inventory_image = "lottinventory_cooks_book.png",
+	inventory_image = "cooking_book.png",
 	wield_image     = "",
 	wield_scale     = { x = 1, y = 1, z = 1 },
 	stack_max       = 1,

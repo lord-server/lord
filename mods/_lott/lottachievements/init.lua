@@ -61,11 +61,11 @@ minetest.register_craft({
 lottachievements.register_achievement("master_craftsman", {
 	title       = SL("Master Craftsman"),
 	description = SL("Craft a Master Book of Crafts"),
-	icon        = "lottinventory_master_book.png",
+	icon        = "master_book.png",
 	id          = 1,
 	trigger     = {
 		type   = "craft",
-		item   = "lottinventory:master_book",
+		item   = "lord_books:master_book",
 		target = 1,
 	}
 })

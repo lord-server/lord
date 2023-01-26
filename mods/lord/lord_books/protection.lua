@@ -109,14 +109,14 @@ zpc.form.get_spec = function(player_name)
 		"button_exit[6,7;2,0.5;;"..SL("Exit").."]" ..
 		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 	if zpc.users[player_name].history.index > 1 then
-		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zpc_previous;;false;false;zcg_previous_press.png]"
+		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zpc_previous;;false;false;books_previous_press.png]"
 	else
-		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
+		formspec = formspec .. "image[0,1;1,1;books_previous_inactive.png]"
 	end
 	if zpc.users[player_name].history.index < #zpc.users[player_name].history.list then
-		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zpc_next;;false;false;zcg_next_press.png]"
+		formspec = formspec .. "image_button[1,1;1,1;books_next.png;zpc_next;;false;false;books_next_press.png]"
 	else
-		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
+		formspec = formspec .. "image[1,1;1,1;books_next_inactive.png]"
 	end
 	-- Show craft recipe
 	if current_item ~= "" then
@@ -144,11 +144,11 @@ zpc.form.get_spec = function(player_name)
 						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
-					formspec = formspec .. "image[6,2;1,1;zcg_method_"..c.type..".png]"
+					formspec = formspec .. "image[6,2;1,1;books_method_"..c.type..".png]"
 				else -- we don't have an image for other types of crafting
 					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
 				end
-				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
+				formspec = formspec .. "image[6,1;1,1;books_craft_arrow.png]"
 				formspec = formspec .. "item_image_button[7,1;1,1;"..zpc.users[player_name].current_item..";;]"
 			end
 		end
@@ -180,7 +180,7 @@ zpc.form.get_spec = function(player_name)
 	-- The Y is approximatively the good one to have it centered vertically...
 	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zpc.itemlist/npp+1)).."]"
 	formspec = formspec .. "label[0,0;"..SL("Book of Protection").."]"
-	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
 	return formspec
 end
 --- @param player_name string
@@ -234,10 +234,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lottinventory:protection_book",{
+minetest.register_tool("lord_books:protection_book",{
     description = SL("Book of Protection"),
     groups = {book=1, paper=1},
-    inventory_image = "lottinventory_protection_book.png",
+    inventory_image = "protection_book.png",
     wield_image = "",
     wield_scale = {x=1,y=1,z=1},
     stack_max = 1,

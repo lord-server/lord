@@ -134,14 +134,14 @@ zmc.form.get_spec = function(player_name, find)
 		"button_exit[6,8;2,0.5;;"..SL("Exit").."]" ..
 		"listcolors[#606060AA;#888;#14F318;#30434C;#FFF]"
 	if zmc.users[player_name].history.index > 1 then
-		formspec = formspec .. "image_button[0,1;1,1;zcg_previous.png;zmc_previous;;false;false;zcg_previous_press.png]"
+		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zmc_previous;;false;false;books_previous_press.png]"
 	else
-		formspec = formspec .. "image[0,1;1,1;zcg_previous_inactive.png]"
+		formspec = formspec .. "image[0,1;1,1;books_previous_inactive.png]"
 	end
 	if zmc.users[player_name].history.index < #zmc.users[player_name].history.list then
-		formspec = formspec .. "image_button[1,1;1,1;zcg_next.png;zmc_next;;false;false;zcg_next_press.png]"
+		formspec = formspec .. "image_button[1,1;1,1;books_next.png;zmc_next;;false;false;books_next_press.png]"
 	else
-		formspec = formspec .. "image[1,1;1,1;zcg_next_inactive.png]"
+		formspec = formspec .. "image[1,1;1,1;books_next_inactive.png]"
 	end
 
 	-- Show craft recipe
@@ -170,11 +170,11 @@ zmc.form.get_spec = function(player_name, find)
 						"]"
 				end
 				if c.type == "normal" or c.type == "cooking" then
-					formspec = formspec .. "image[6,2;1,1;zcg_method_"..c.type..".png]"
+					formspec = formspec .. "image[6,2;1,1;books_method_"..c.type..".png]"
 				else -- we don't have an image for other types of crafting
 					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
 				end
-				formspec = formspec .. "image[6,1;1,1;zcg_craft_arrow.png]"
+				formspec = formspec .. "image[6,1;1,1;books_craft_arrow.png]"
 				formspec = formspec .. "item_image_button[7,1;1,1;"..zmc.users[player_name].current_item..";;]"
 			end
 		end
@@ -216,7 +216,7 @@ zmc.form.get_spec = function(player_name, find)
 	formspec = formspec .. "button[0,2.8;2,0.5;potions;"..SL("Potions").."]"
 	formspec = formspec .. "button[0,2.1;2,0.5;brews;"..SL("Brewing").."]"
 	formspec = formspec .. "label[0,0;"..SL("Master Book of Crafts").."]"
-	formspec = formspec .. "background[5,5;1,1;craft_formbg.png;true]"
+	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
 	return formspec
 end
 --- @param player_name string
@@ -235,7 +235,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 
 	-- HACK: обработка кнопок `potions` и `brews` происходит в обработчиках форм книг
-	--       `lottinventory:potions_book` и `lottinventory:brewing_book` соответственно.
+	--       `lord_books:potions_book` и `lord_books:brewing_book` соответственно.
 	--       см. "HACK" в `potions.lua` и `brewing.lua`.
 
 	local pn = player:get_player_name();
@@ -281,9 +281,9 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lottinventory:master_book",{
+minetest.register_tool("lord_books:master_book",{
     description = SL("Master Book of Crafts"),
-    inventory_image = "lottinventory_master_book.png",
+    inventory_image = "master_book.png",
     wield_image = "",
     wield_scale = {x=1,y=1,z=1},
     stack_max = 1,
