@@ -1,6 +1,10 @@
 # textdomain: lottblocks
 ### init.lua ###
 Snowy Cobblestone=Заснеженный булыжник
+Snowy Cobble Stair=Заснеженный булыжник
+Inner Snowy Cobble Stair=Ступенька из заснеженного булыжника
+Outer Snowy Cobble Stair=Ступенька из заснеженного булыжника
+Snowy Cobble Slab=Плита из заснеженного булыжника
 Orc Brick=Оркский кирпич
 Orc Brick Stair=Ступенька из оркского кирпича
 Inner Orc Brick Stair=Угловая ступенька из оркского кирпича (Внутренний Угол)

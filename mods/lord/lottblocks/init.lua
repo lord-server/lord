@@ -17,6 +17,18 @@ minetest.register_node("lottblocks:snowycobble", {
 	is_ground_content = false,
 	groups = {cracky=3},
 })
+stairs.register_stair_and_slab(
+	"snowycobble",
+	"lottblocks:snowycobble",
+	{cracky=2},
+	{"lottblocks_snowycobble.png"},
+	S("Snowy Cobble Stair"),
+	S("Snowy Cobble Slab"),
+	default.node_sound_stone_defaults(),
+	false,
+	S("Inner Snowy Cobble Stair"),
+	S("Outer Snowy Cobble Stair")
+)
 minetest.register_node("lottblocks:orc_brick", {
 	description = S("Orc Brick"),
 	tiles = {"lottblocks_orc_brick.png"},
