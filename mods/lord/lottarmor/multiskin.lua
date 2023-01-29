@@ -12,14 +12,6 @@ function multiskin:init(player, texture)
 		wielditem = MULTISKIN_TRANS,
 		clothing = MULTISKIN_TRANS,
 	}
-	if minetest.get_modpath("player_textures") then
-		local filename = minetest.get_modpath("player_textures").."/textures/player_"..name
-		local f = io.open(filename..".png")
-		if f then
-			f:close()
-			multiskin[name].skin = "player_"..name..".png"
-		end
-	end
 end
 
 function multiskin:update_player_visuals(player)
