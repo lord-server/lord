@@ -19,24 +19,6 @@ ARMOR_MATERIALS = {
 	gold = "default:gold_ingot",
 }
 
--- Load Armor Configs
-
---- @param path string
-local function load_config(path)
-	local function file_exists(name)
-		local f = io.open(name,"r")
-		if f~=nil then f:close() return true else return false end
-	end
-
-	local config = path .. "/armor.conf"
-	if not file_exists(config) then return end
-
-	dofile(config)
-end
-
-load_config(minetest.get_modpath("lottarmor"))
-load_config(minetest.get_worldpath())
-
 -- Armor API
 
 local inv_mod = nil
