@@ -17,17 +17,6 @@ ARMOR_MATERIALS = {
 	bronze = "default:bronze_ingot",
 	diamond = "default:diamond",
 	gold = "default:gold_ingot",
-	mithril = "moreores:mithril_ingot",
-	crystal = "ethereal:crystal_ingot",
-}
-ARMOR_FIRE_PROTECT = minetest.get_modpath("ethereal") ~= nil
-ARMOR_FIRE_NODES = {
-	{"default:lava_source",     5, 4},
-	{"default:lava_flowing",    5, 4},
-	{"fire:basic_flame",        3, 4},
-	{"ethereal:crystal_spike",  2, 1},
-	{"bakedclay:safe_fire",     2, 1},
-	{"default:torch",           1, 1},
 }
 
 -- Load Armor Configs
@@ -47,23 +36,6 @@ end
 
 load_config(minetest.get_modpath("lottarmor"))
 load_config(minetest.get_worldpath())
-
-
-if not minetest.get_modpath("moreores") then
-	ARMOR_MATERIALS.mithril = nil
-end
-if not minetest.get_modpath("ethereal") then
-	ARMOR_MATERIALS.crystal = nil
-end
-
--- override hot nodes so they do not hurt player anywhere but mod
-if ARMOR_FIRE_PROTECT == true then
-	for _, row in ipairs(ARMOR_FIRE_NODES) do
-		if minetest.registered_nodes[row[1]] then
-			minetest.override_item(row[1], {damage_per_second = 0})
-		end
-	end
-end
 
 -- Armor API
 
@@ -289,23 +261,6 @@ armor.update_armor = function(self, player)
 		return
 	end
 	local hp = player:get_hp() or 0
-	if ARMOR_FIRE_PROTECT == true then
-		pos.y = pos.y + 1.4 -- head level
-		local node_head = minetest.get_node(pos).name
-		pos.y = pos.y - 1.2 -- feet level
-		local node_feet = minetest.get_node(pos).name
-		-- is player inside a hot node?
-		for _, row in ipairs(ARMOR_FIRE_NODES) do
-			-- check for fire protection, if not enough then get hurt
-			if row[1] == node_head or row[1] == node_feet then
-				if hp > 0 and armor.def[name].fire < row[2] then
-					hp = hp - row[3] * ARMOR_UPDATE_TIME
-					player:set_hp(hp)
-					break
-				end
-			end
-		end
-	end
 	if hp <= 0 or hp == self.player_hp[name] then
 		return
 	end
