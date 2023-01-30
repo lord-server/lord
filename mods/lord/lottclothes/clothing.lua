@@ -131,10 +131,8 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		clthing = "clothing_trans.png",
 		preview = "clothing_preview.png",
 	}
-	for i=1, ARMOR_INIT_TIMES do
-		minetest.after(ARMOR_INIT_DELAY * i, function(player)
-			clothing:set_player_clothing(player)
-			clothing:update_inventory(player)
-		end, player)
-	end
+	minetest.after(ARMOR_INIT_DELAY, function(player)
+		clothing:set_player_clothing(player)
+		clothing:update_inventory(player)
+	end, player)
 end)

@@ -3,26 +3,9 @@ local SL = minetest.get_translator("lottarmor")
 -- Global Defaults - use armor.conf to override these
 
 ARMOR_INIT_DELAY = 1
-ARMOR_INIT_TIMES = 1
--- ARMOR_BONES_DELAY = 1
 ARMOR_UPDATE_TIME = 1
-ARMOR_DROP = minetest.get_modpath("bones") ~= nil
-ARMOR_DESTROY = false
-ARMOR_LEVEL_MULTIPLIER = 1
-ARMOR_HEAL_MULTIPLIER = 1
-ARMOR_MATERIALS = {
-	wood = "group:wood",
-	cactus = "default:cactus",
-	steel = "default:steel_ingot",
-	bronze = "default:bronze_ingot",
-	diamond = "default:diamond",
-	gold = "default:gold_ingot",
-}
 
 -- Armor API
-
-local inv_mod = nil
-local time = 0
 
 gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"
 gui_slots = "listcolors[#606060AA;#606060;#141318;#30434C;#FFF]"
@@ -203,8 +186,6 @@ armor.set_player_armor = function(self, player)
 	if material.type and material.count == #self.elements then
 		armor_level = armor_level * 1.1
 	end
-	armor_level = armor_level * ARMOR_LEVEL_MULTIPLIER
-	armor_heal = armor_heal * ARMOR_HEAL_MULTIPLIER
 	if #textures > 0 then
 		armor_texture = table.concat(textures, "^")
 	end
@@ -238,7 +219,7 @@ armor.set_player_armor = function(self, player)
 end
 
 armor.update_armor = function(self, player)
-	local name, player_inv, armor_inv, pos = armor:get_valid_player(player, "[update_armor]")
+	local name, player_inv, armor_inv = armor:get_valid_player(player, "[update_armor]")
 	if not name then
 		return
 	end
@@ -277,7 +258,6 @@ armor.update_armor = function(self, player)
 		end
 		self.def[name].state = state
 		self.def[name].count = items
-		heal_max = heal_max * ARMOR_HEAL_MULTIPLIER
 		if heal_max > math.random(100) then
 			player:set_hp(self.player_hp[name])
 			return
@@ -337,7 +317,7 @@ armor.get_valid_player = function(self, player, msg)
 		minetest.log("error", "lottarmor: Detached armor inventory is nil "..msg)
 		return
 	end
-	return name, player_inv, armor_inv, pos
+	return name, player_inv, armor_inv
 end
 
 -- Register Callbacks
@@ -465,26 +445,16 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		armor = "lottarmor_trans.png",
 		preview = "character_preview.png"
 	}
-	for i=1, ARMOR_INIT_TIMES do
-		minetest.after(ARMOR_INIT_DELAY * i, function(player)
-			armor:set_player_armor(player)
-			if not inv_mod and not minetest.settings:get_bool("creative_mode") then
-				armor:update_inventory(player)
-			end
-		end, joined_player)
-	end
+
+	minetest.after(ARMOR_INIT_DELAY, function(player)
+		armor:set_player_armor(player)
+		armor:update_inventory(player)
+	end, joined_player)
+
 	races.update_player(name, {race, gender}, skin)
 end)
 
-if ARMOR_DROP == true or ARMOR_DESTROY == true then
-	armor.drop_armor = function(pos, stack)
-		local obj = minetest.add_item(pos, stack)
-		if obj then
-			obj:set_velocity({x=math.random(-1, 1), y=5, z=math.random(-1, 1)})
-		end
-	end
-end
-
+local time = 0
 minetest.register_globalstep(function(dtime)
 	time = time + dtime
 	if time > ARMOR_UPDATE_TIME then
