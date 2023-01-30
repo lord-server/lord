@@ -7,16 +7,11 @@ ARMOR_UPDATE_TIME = 1
 
 -- Armor API
 
-gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"
-gui_slots = "listcolors[#606060AA;#606060;#141318;#30434C;#FFF]"
-
 armor = {
 	player_hp = {},
 	elements = {"head", "torso", "legs", "feet"},
 	physics = {"jump","speed","gravity"},
 	formspec = "size[8,8.5]"
-		..gui_bg_img
-		..gui_slots
 		.."image[0,0;1,1;lottarmor_helmet.png]"
 		.."image[0,1;1,1;lottarmor_chestplate.png]"
 		.."image[0,2;1,1;lottarmor_leggings.png]"
