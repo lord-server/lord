@@ -46,61 +46,6 @@ if minetest.settings:get_bool("creative_mode") then
 	armor.formspec = armor.formspec .. "tabheader[-0.12,-0.12;creative_tabs;Main,Creative;1;true;false"
 end
 
-local get_formspec = function(player,page)
-	if page=="bags" then
-		return "size[8,7.5]"
-			.."list[current_player;main;0,3.5;8,4;]"
-			.."button[0,0;2,0.5;main;"..SL("Back").."]"
-			.."button[0,2;2,0.5;bag1;"..SL("Bag").." 1]"
-			.."button[2,2;2,0.5;bag2;"..SL("Bag").." 2]"
-			.."button[4,2;2,0.5;bag3;"..SL("Bag").." 3]"
-			.."button[6,2;2,0.5;bag4;"..SL("Bag").." 4]"
-			.."list[detached:"..player:get_player_name().."_bags;bag1;0.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag2;2.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag3;4.5,1;1,1;]"
-			.."list[detached:"..player:get_player_name().."_bags;bag4;6.5,1;1,1;]"
-               .."background[5,5;1,1;gui_formbg.png;true]"
-	end
-	for i=1,4 do
-		if page=="bag"..i then
-			local image = player:get_inventory():get_stack("bag"..i, 1):get_definition().inventory_image
-			return "size[8,8.5]"
-				.."list[current_player;main;0,4.5;8,4;]"
-				.."button[0,0;2,0.5;main;"..SL("Main").."]"
-				.."button[2,0;2,0.5;bags;"..SL("Bags").."]"
-				.."image[7,0;1,1;"..image.."]"
-				.."list[current_player;bag"..i.."contents;0,1;8,3;]"
-				.."listring[current_player;bag"..i.."contents]"
-				.."listring[current_player;main]"
-				.."background[5,5;1,1;gui_formbg.png;true]"
-		end
-	end
-end
-
---- Bags
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if fields.main then
-		local name           = player:get_player_name()
-		local formspec_armor = armor:get_armor_formspec(name)
-		if formspec_armor ~= nil then
-			minetest.show_formspec(player:get_player_name(), "armor", formspec_armor)
-		end
-	end
-	if fields.bags then
-		minetest.show_formspec(player:get_player_name(), "custom", get_formspec(player,"bags"))
-		return
-	end
-	for i=1,4 do
-		local page = "bag"..i
-		if fields[page] then
-			if player:get_inventory():get_stack(page, 1):get_definition().groups.bagslots==nil then
-				page = "bags"
-			end
-			minetest.show_formspec(player:get_player_name(), "custom", get_formspec(player,page))
-			return
-		end
-	end
-end)
 
 --Trash
 local trash = minetest.create_detached_inventory("armor_trash", {
@@ -389,40 +334,6 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	for i = 1, 5 do
 		local stack = player_inv:get_stack("armor", i)
 		armor_inv:set_stack("armor", i, stack)
-	end
-
-	--Bags
-	local bags_inv = minetest.create_detached_inventory(name.."_bags",{
-		on_put = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, stack)
-			player:get_inventory():set_size(listname.."contents", stack:get_definition().groups.bagslots)
-		end,
-		on_take = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, nil)
-		end,
-		allow_put = function(inv, listname, index, stack, player)
-			if stack:get_definition().groups.bagslots then
-				return 1
-			else
-				return 0
-			end
-		end,
-		allow_take = function(inv, listname, index, stack, player)
-			if player:get_inventory():is_empty(listname.."contents")==true then
-				return stack:get_count()
-			else
-				return 0
-			end
-		end,
-		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			return 0
-		end,
-	}, name)
-	for i=1,4 do
-		local bag = "bag"..i
-		player_inv:set_size(bag, 1)
-		bags_inv:set_size(bag, 1)
-		bags_inv:set_stack(bag,1,player_inv:get_stack(bag,1))
 	end
 
 	armor.player_hp[name] = 0

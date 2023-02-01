@@ -7,6 +7,8 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/wieldview.lua")
 --Special Armors
 --dofile(minetest.get_modpath(minetest.get_current_modname()).."/racearmor.lua")
 
+dofile(minetest.get_modpath(minetest.get_current_modname()).."/bags_form.lua")
+
 -- Wood Armor
 minetest.register_tool("lottarmor:helmet_wood", {
 	description = SL("Training Helmet"),
