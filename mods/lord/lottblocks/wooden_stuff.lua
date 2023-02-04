@@ -1,16 +1,58 @@
 local S = minetest.get_translator("lottblocks")
 
+--Твёрдая древесина. Вынесена из lord_homedecor из-за проблем с зависимостями
+minetest.register_node(":lord_homedecor:hardwood", {
+	tiles = {"lottblocks_hardwood.png"},
+	is_ground_content = true,
+	description = S("Hardwood"),
+	groups = {choppy=1,flammable=1,wood=1},
+	sounds = default.node_sound_wood_defaults(),
+})
+minetest.register_craft({
+	output = 'lord_homedecor:hardwood 2',
+	recipe = {
+		{"default:wood", "default:junglewood"},
+		{"default:junglewood", "default:wood"},
+	}
+})
+minetest.register_craft({
+	output = 'lord_homedecor:hardwood 2',
+	recipe = {
+		{"default:junglewood", "default:wood"},
+		{"default:wood", "default:junglewood"},
+	}
+})
+stairs.register_stair_and_slab(
+	"hardwood",
+	"lord_homedecor:hardwood",
+	{choppy=1,flammable=1},
+	{"lottblocks_hardwood.png"},
+	S("Hardwood stair"),
+	S("Hardwood slab"),
+	default.node_sound_wood_defaults(),
+	false,
+	S("Inner Hardwood stair"),
+	S("Outer Hardwood stair")
+)
+minetest.register_craft({
+	type = "fuel",
+	recipe = "lord_homedecor:hardwood",
+	burntime = 28,
+})
+
 function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	local node_groups     = table.copy(minetest.registered_nodes[wood_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
-	local groups_door     = table.copy(node_groups)
-	groups_door.door      = 1
-	if name ~= "wood" then -- to not overwrite registrations from minetest_game
-		local door_reg_name = "lottblocks:door_" .. name
-		local door_inv_texture       = "lottblocks_door_" .. name .. ".png"
-		local door_uv_texture        = "lottblocks_door_" .. name .. "_uv.png"
+	if name ~= "wood" then -- for not to overwrite registrations from minetest_game
+
+		-- DOOR | ДВЕРЬ
+		local groups_door      = table.copy(node_groups)
+		groups_door.door       = 1
+		local door_reg_name    = "lottblocks:door_" .. name
+		local door_inv_texture = "lottblocks_door_" .. name .. ".png"
+		local door_uv_texture  = "lottblocks_door_" .. name .. "_uv.png"
 		doors.register(door_reg_name, {
 			tiles           = {{ name = door_uv_texture, backface_culling = true }},
 			description     = S(description .. " Door"),
@@ -37,6 +79,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			protected       = true,
 		})
 
+		-- HATCHES | ЛЮКИ
 		local hatch_reg_name = "lottblocks:hatch_" .. name
 		local hatch_inv_texture = "lottblocks_hatch_" .. name .. ".png"
 		node_groups.not_in_creative_inventory = 0
@@ -237,7 +280,8 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				{ -0.3, -0.2, 0.3, 0.3, -0.1, 0.4 },
 			},
 		},
-		groups              = node_groups
+		groups              = node_groups,
+		sounds              = default.node_sound_wood_defaults(),
 	})
 	minetest.register_craft({
 		output = table_reg_name,
@@ -248,7 +292,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		}
 	})
 
-	-- CHAIR | КРЕСЛА
+	-- CHAIR | СТУЛ
 	local chair_reg_name = "lottblocks:" .. name .. "_chair"
 	minetest.register_node(chair_reg_name, {
 		description         = S(description .. " Chair"),
@@ -272,7 +316,8 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			type  = "fixed",
 			fixed = { -0.3, -0.5, -0.3, 0.3, 0.5, 0.3 },
 		},
-		groups              = node_groups
+		groups              = node_groups,
+		sounds              = default.node_sound_wood_defaults(),
 	})
 	minetest.register_craft({
 		output = chair_reg_name,
@@ -290,6 +335,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			{ 'group:stick', 'group:stick' },
 		}
 	})
+
 end
 
 lottblocks.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
@@ -299,6 +345,7 @@ lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "
 lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
+lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottblocks_hardwood.png", "lord_homedecor:hardwood")
 
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
 
