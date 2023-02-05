@@ -74,21 +74,6 @@ minetest.register_craft({
 		{"default:glass"},
 	}
 })
-minetest.register_craft({
-	output = 'lord_homedecor:hardwood 2',
-	recipe = {
-		{"default:wood", "default:junglewood"},
-		{"default:junglewood", "default:wood"},
-	}
-})
-
-minetest.register_craft({
-	output = 'lord_homedecor:hardwood 2',
-	recipe = {
-		{"default:junglewood", "default:wood"},
-		{"default:wood", "default:junglewood"},
-	}
-})
 
 -- если есть lottblocks
 if minetest.get_modpath("lottblocks") then
@@ -268,13 +253,6 @@ minetest.register_node("lord_homedecor:gravel_spread", {
 	groups = {crumbly=2},
 	sounds = default.node_sound_gravel_defaults(),
 })
-minetest.register_node("lord_homedecor:hardwood", {
-	tiles = {"building_blocks_hardwood.png"},
-	is_ground_content = true,
-	description = SL("Hardwood"),
-	groups = {choppy=1,flammable=1},
-	sounds = default.node_sound_wood_defaults(),
-})
 
 -- Register scaffolding nodes and crafts
 local texture_plank = "default_wood.png"
@@ -321,19 +299,6 @@ minetest.register_craft({
 
 
 stairs.register_stair_and_slab(
-	"hardwood",
-	"lord_homedecor:hardwood",
-	{choppy=1,flammable=1},
-	{"building_blocks_hardwood.png"},
-	SL("Hardwood stair"),
-	SL("Hardwood slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	SL("Inner Hardwood stair"),
-	SL("Outer Hardwood stair")
-)
-
-stairs.register_stair_and_slab(
 	"grate",
 	"lord_homedecor:grate",
 	{cracky=1},
@@ -371,14 +336,6 @@ stairs.register_stair_and_slab(
 	SL("Inner Roofing stair"),
 	SL("Outer Roofing stair")
 )
-
-
-minetest.register_craft({
-	type = "fuel",
-	recipe = "lord_homedecor:hardwood",
-	burntime = 28,
-})
-
 
 minetest.register_craftitem("lord_homedecor:sticks", {
 	description = SL("Small bundle of sticks"),
