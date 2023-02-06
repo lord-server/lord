@@ -30,12 +30,12 @@ throwing.bow_wooden_stages = {
 		"lord_bows:bow_wooden_3",
 		"lord_bows:bow_wooden_4",
 	},
-	charging_time = {0, 1, 2, 3},
+	charging_time = {0, 0.5, 1, 1.5},
 }
 
 -- Таблица снарядов итем = сущность, скорость
 throwing.projectile_arrow  = {
-	["lord_bows:arrow"] = {"lord_bows:arrow", 10},
+	["lord_bows:arrow"] = {"lord_bows:arrow", 20},
 }
 
 -- Зарядка лука одного вида
