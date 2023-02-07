@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottclothes")
 
 -- outfit from the ettenmoor region. wizard style (as possible).
 -- made from grey and brown felt & gold ingot.
