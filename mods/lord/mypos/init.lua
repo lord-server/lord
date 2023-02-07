@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("mypos")
 
 minetest.register_chatcommand("mypos", {
 	params = "<name>",
