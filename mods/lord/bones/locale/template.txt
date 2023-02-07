@@ -1,0 +1,10 @@
+# textdomain: bones
+Corpse=
+Bone Scythe=
+Bone Dust=
+Bone=
+Corpse of=
+Unknown corpse=
+Skeleton Head=
+Skeleton=
+

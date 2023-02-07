@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("bones")
 
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
