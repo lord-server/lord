@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("mail_list")
 
 local file_name = minetest.get_worldpath().."/mail_list.txt"
 
