@@ -1,6 +1,6 @@
 --Item table format:
 --{thing selling, price (in gold ingots), chance that it won't appear in the trader's inventory}
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottmobs")
 
 
 lottmobs.dwarf = {

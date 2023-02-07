@@ -20,7 +20,7 @@
 --
 -- Contact sapier a t gmx net
 -------------------------------------------------------------------------------
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottmobs")
 
 function lottmobs.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if to_list ~= "selection" or
