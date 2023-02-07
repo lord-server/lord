@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottpotion")
 
 local limit = {	speed = 4,
 				jump =2,

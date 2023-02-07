@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottpotion")
 
 local KFR=0.01
 local DC=0.01

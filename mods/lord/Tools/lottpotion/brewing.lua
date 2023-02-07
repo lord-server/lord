@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottpotion")
 
 lottpotion.make_pipe = function( pipes, horizontal )
    local result = {};
