@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottfarming")
 
 local function make_negative_visual_effect(user)
 	local first_screen = user:hud_add({
