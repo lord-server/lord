@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottother")
 
 dofile(minetest.get_modpath("lottother") .. "/rings.lua")
 dofile(minetest.get_modpath("lottother") .. "/ms.lua")
