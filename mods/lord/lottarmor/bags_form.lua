@@ -34,7 +34,7 @@ end
 minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	if fields.main then
 		local name           = player:get_player_name()
-		local formspec_armor = armor:get_armor_formspec(name)
+		local formspec_armor = armor.get_armor_formspec(name)
 		if formspec_armor ~= nil then
 			minetest.show_formspec(player:get_player_name(), "armor", formspec_armor)
 		end

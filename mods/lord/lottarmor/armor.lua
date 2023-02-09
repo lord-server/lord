@@ -11,59 +11,14 @@ armor = {
 	player_hp = {},
 	elements = {"head", "torso", "legs", "feet"},
 	physics = {"jump","speed","gravity"},
-	formspec = "size[8,8.5]"
-		.."image[0,0;1,1;lottarmor_helmet.png]"
-		.."image[0,1;1,1;lottarmor_chestplate.png]"
-		.."image[0,2;1,1;lottarmor_leggings.png]"
-		.."image[0,3;1,1;lottarmor_boots.png]"
-		.."image[3,0;1,1;lottarmor_helmet.png]"
-		.."image[3,1;1,1;lottarmor_shirt.png]"
-		.."image[3,2;1,1;lottarmor_trousers.png]"
-		.."image[3,3;1,1;lottarmor_shoes.png]"
-		.."image[4,0;1,1;lottarmor_cloak.png]"
-		.."list[detached:player_name_armor;armor;0,0;1,4;]"
-		.."list[detached:player_name_armor;armor;2,2;1,1;4]"
-		.."list[detached:player_name_clothing;clothing;3,0;1,4;]"
-		.."list[detached:player_name_clothing;clothing;4,0;1,1;4]"
-		.."image[1.16,0.25;2,4;armor_preview]"
-		.."image[2,2;1,1;lottarmor_shield.png]"
-		.."list[current_player;main;0,4.25;8,1;]"
-		.."list[current_player;main;0,5.5;8,3;8]"
-		.."image[5.05,0;3.5,1;lottarmor_crafting.png]"
-		.."list[current_player;craft;4,1;3,3;]"
-		.."list[current_player;craftpreview;7,2;1,1;]"
-		.."listring[current_player;main]"
-		.."listring[current_player;craft]"
-		.."image[7,3;1,1;lottarmor_trash.png]"
-		.."list[detached:armor_trash;main;7,3;1,1;]"
-		.."image_button[7,1;1,1;bags.png;bags;]",
 	textures = {},
 	def = {state=0, count = 0},
 	version = "0.4.4",
 }
 
-if minetest.settings:get_bool("creative_mode") then
-	armor.formspec = armor.formspec .. "tabheader[-0.12,-0.12;creative_tabs;Main,Creative;1;true;false"
-end
 
-
---Trash
-local trash = minetest.create_detached_inventory("armor_trash", {
-	allow_put = function(inv, listname, index, stack, player)
-		return stack:get_count()
-	end,
-	on_put = function(inv, listname, index, stack, player)
-		inv:set_stack(listname, index, "")
-	end,
-})
-trash:set_size("main", 1)
-
-armor.update_player_visuals = function(self, player)
-	multiskin:update_player_visuals(player)
-end
-
-armor.set_player_armor = function(self, player)
-	local name, player_inv = armor:get_valid_player(player, "[set_player_armor]")
+function armor:set_player_armor(player)
+	local name, player_inv = armor.get_valid_player(player, "[set_player_armor]")
 	if not name then
 		return
 	end
@@ -158,16 +113,16 @@ armor.set_player_armor = function(self, player)
 	multiskin:update_player_visuals(player)
 end
 
-armor.update_armor = function(self, player)
-	local name, player_inv, armor_inv = armor:get_valid_player(player, "[update_armor]")
+local handle_armor_wear = function(player)
+	local name, player_inv, armor_inv = armor.get_valid_player(player, "[handle_armor_wear]")
 	if not name then
 		return
 	end
 	local hp = player:get_hp() or 0
-	if hp <= 0 or hp == self.player_hp[name] then
+	if hp <= 0 or hp == armor.player_hp[name] then
 		return
 	end
-	if self.player_hp[name] > hp then
+	if armor.player_hp[name] > hp then
 		local heal_max = 0
 		local state = 0
 		local items = 0
@@ -190,50 +145,33 @@ armor.update_armor = function(self, player)
 					if desc then
 						minetest.chat_send_player(name, desc.." "..SL("got destroyed!"))
 					end
-					self:set_player_armor(player)
+					armor:set_player_armor(player)
 					armor:update_inventory(player)
 				end
 				heal_max = heal_max + heal
 			end
 		end
-		self.def[name].state = state
-		self.def[name].count = items
+		armor.def[name].state = state
+		armor.def[name].count = items
 		if heal_max > math.random(100) then
-			player:set_hp(self.player_hp[name])
+			player:set_hp(armor.player_hp[name])
 			return
 		end
 	end
-	self.player_hp[name] = hp
-end
-
-armor.get_armor_formspec = function(self, name)
-	if not armor.textures[name] then
-		minetest.log("error", "lottarmor: Player texture["..name.."] is nil [get_armor_formspec]")
-		return ""
-	end
-	if not armor.def[name] then
-		minetest.log("error", "lottarmor: Armor def["..name.."] is nil [get_armor_formspec]")
-		return ""
-	end
-	local formspec = armor.formspec:gsub("player_name", name)
-	formspec = formspec:gsub("armor_preview", armor.textures[name].preview)
-	formspec = formspec:gsub("armor_level", armor.def[name].level)
-	formspec = formspec:gsub("armor_heal", armor.def[name].heal)
-	formspec = formspec:gsub("armor_fire", armor.def[name].fire)
-	return formspec
+	armor.player_hp[name] = hp
 end
 
 armor.update_inventory = function(self, player)
-	local name = armor:get_valid_player(player, "[set_player_armor]")
+	local name = armor.get_valid_player(player, "[set_player_armor]")
 	if not name then
 		return
 	end
 
-	local formspec = armor:get_armor_formspec(name)
+	local formspec = armor.get_armor_formspec(name)
 	player:set_inventory_formspec(formspec)
 end
 
-armor.get_valid_player = function(self, player, msg)
+function armor.get_valid_player(player, msg)
 	msg = msg or ""
 	if not player then
 		minetest.log("error", "lottarmor: Player reference is nil "..msg)
@@ -263,78 +201,8 @@ end
 -- Register Callbacks
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
-	minetest.log("Join player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
 	local joined_player = minetest.get_player_by_name(name)
 	multiskin:init(joined_player, texture)
-	local player_inv = joined_player:get_inventory()
-	local armor_inv = minetest.create_detached_inventory(name.."_armor", {
-		on_put = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, stack)
-			armor:set_player_armor(player)
-			armor:update_inventory(player)
-			lottachievements.equip(stack, player, 1)
-		end,
-		on_take = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, nil)
-			armor:set_player_armor(player)
-			armor:update_inventory(player)
-			lottachievements.equip(stack, player, -1)
-		end,
-		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			local p_inv = player:get_inventory()
-			local stack = inv:get_stack(to_list, to_index)
-			p_inv:set_stack(to_list, to_index, stack)
-			p_inv:set_stack(from_list, from_index, nil)
-			armor:set_player_armor(player)
-			armor:update_inventory(player)
-		end,
-		allow_put = function(inv, listname, index, stack, player)
-			if index == 1 then
-				if stack:get_definition().groups.armor_head == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 2 then
-				if stack:get_definition().groups.armor_torso == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 3 then
-				if stack:get_definition().groups.armor_legs == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 4 then
-				if stack:get_definition().groups.armor_feet == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 5 then
-				if stack:get_definition().groups.armor_shield == nil then
-					return 0
-				else
-					return 1
-				end
-			end
-		end,
-		allow_take = function(inv, listname, index, stack, player)
-			return stack:get_count()
-		end,
-		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			return count
-		end,
-	}, name)
-
-	armor_inv:set_size("armor", 5)
-	player_inv:set_size("armor", 5)
-	for i = 1, 5 do
-		local stack = player_inv:get_stack("armor", i)
-		armor_inv:set_stack("armor", i, stack)
-	end
 
 	armor.player_hp[name] = 0
 	armor.def[name] = {
@@ -356,8 +224,6 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		armor:set_player_armor(player)
 		armor:update_inventory(player)
 	end, joined_player)
-
-	races.update_player(name, {race, gender}, skin)
 end)
 
 local time = 0
@@ -365,17 +231,8 @@ minetest.register_globalstep(function(dtime)
 	time = time + dtime
 	if time > ARMOR_UPDATE_TIME then
 		for _,player in ipairs(minetest.get_connected_players()) do
-			armor:update_armor(player)
+			handle_armor_wear(player)
 		end
 		time = 0
 	end
-end)
-
-races.register_update_callback(function(name, race, gender, skin, texture, face)
-	local player = minetest.get_player_by_name(name)
-	minetest.log("Updating player "..name..": "..race.." "..gender.." "..skin.." "..tostring(texture).." "..tostring(face))
-	multiskin[name].skin = texture
-	armor:set_player_armor(player)
-	armor:update_inventory(player)
-	multiskin:update_player_visuals(player)
 end)

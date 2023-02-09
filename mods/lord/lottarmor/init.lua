@@ -8,6 +8,7 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/wieldview.lua")
 --dofile(minetest.get_modpath(minetest.get_current_modname()).."/racearmor.lua")
 
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/bags_form.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()).."/inventory_form.lua")
 
 -- Wood Armor
 minetest.register_tool("lottarmor:helmet_wood", {
