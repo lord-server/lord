@@ -1,5 +1,4 @@
 # textdomain: lottpotion
-# textdomain: lottpotion
 ### init.lua ###
 get effect info=
 effects:=
