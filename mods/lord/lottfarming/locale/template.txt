@@ -1,52 +1,84 @@
 # textdomain: lottfarming
-Berries=
-Green Mushroom Spores=
-Tomato Soup=
-Half of potatoe=
-Berries Seeds=
-Cooked Turnips=
-Tomato Seeds=
-Orc Food=
-Cooked Barley=
-Blue Mushroom Spores=
-Brown Mushroom Spores=
-Sheaf barley=
-Salad=
-Pipeweed Seeds=
-Cream of Mushroom Soup=
+### athelas.lua ###
 Athelas Seeds=
-Bowl=
-Ear of corn=
-Ear of Corn=
-Cracker=
-Melon=
-Corn Seeds=
-Turnip Seeds=
-Pipe=
-Salted Dough=
 Athelas=
-Cabbage=
-Carrot=
-Orc medicine=
-Red Mushroom Spores=
-Dough=
-Half of potato=
-Cabbage Seed=
+
+### barley.lua ###
+Barley Seeds=
+Sheaf barley=
+Cooked Barley=
+
+### berries.lua ###
+Berries Seeds=
+Berries=
+
+### blue.lua ###
+Blue Mushroom Spores=
 Blue Mushroom=
+Cream of Mushroom Soup=
+
+### brown.lua ###
+Brown Mushroom Spores=
+Brown Mushroom=
+
+### cabbage.lua ###
+Cabbage Seed=
+Cabbage=
+Salad=
+
+### corn.lua ###
+Corn Seeds=
+Ear of corn=
+
+### crafting.lua ###
+Bowl=
+Decaying Wood=
+Bacteria Fertiliser=
+
+### green.lua ###
+Green Mushroom Spores=
+Green Mushroom=
+
+### melon.lua ###
+Melon Seed=
+Melon=
+
+### orc_food.lua ###
+Orc Food=
+Orc medicine=
+
+### other.lua ###
+Cracker=
+Dough=
+Yeast Dough=
+Salted Dough=
+
+### pipeweed.lua ###
+Pipeweed Seeds=
+Pipeweed=
+Cooked Pipeweed=
+Pipe=
+
+### potato.lua ###
+Half of potatoe=
 Potato=
+Cooked Potato=
+
+### red.lua ###
+Red Mushroom Spores=
+Red Mushroom=
+
+### tomatoes.lua ###
+Tomato Seeds=
 Tomato=
 Cooked Tomato=
-Green Mushroom=
-Bacteria Fertiliser=
-Yeast Dough=
-Red Mushroom=
-Barley Seeds=
-Carrot Seeds=
-Decaying Wood=
-Pipeweed=
-Turnips=
-Brown Mushroom=
-Cooked Potato=
-Cooked Pipeweed=
-Melon Seed=
+Tomato Soup=
 
+### turnips.lua ###
+Turnip Seeds=
+Turnips=
+Cooked Turnips=
+
+### carrots.lua ###
+Carrot Seeds=
+Carrot=
