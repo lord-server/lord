@@ -1,84 +1,101 @@
 # textdomain: lottpotion
-Brewer cannot be removed because it is not empty=
+# textdomain: lottpotion
+### init.lua ###
+get effect info=
 effects:=
-Spider Poison (Strength: power3)=
-Miruvor (Strength: power3)=
-Spider Poison (Strength: corruption2)=
-Orc Draught (Strength: power1)=
+
+You are under the effects of the Orc Draught potion.=
+You are under the effects of the Spider Poison potion.=
+You are under the effects of the Limpe potion.=
+You are under the effects of the Miruvor potion.=
+You are under the effects of the Athelas Brew potion.=
+You are under the effects of the Ent Draught potion.=
+
+The effects of the Orc Draught potion have worn off.=
+The effects of the Spider Poison potion have worn off.=
+The effects of the Limpe potion have worn off.=
+The effects of the Miruvor potion have worn off.=
 The effects of the Athelas Brew potion have worn off.=
-Result:=
-Potion Arrow=
-Ent Draught (Strength: corruption2)=
+The effects of the Ent Draught potion have worn off.=
+
+Wine=
+Beer=
+Ale=
+Mead=
+Cider=
+
+Brewer cannot be removed because it is not empty=
+
+Orc Draught (Strength: power1)=
+Orc Draught (Strength: corruption1)=
+Orc Draught (Strength: power2)=
+Orc Draught (Strength: corruption2)=
+Orc Draught (Strength: power3)=
+Orc Draught (Strength: corruption3)=
+Spider Poison (Strength: power1)=
+Spider Poison (Strength: corruption1)=
+Spider Poison (Strength: power2)=
+Spider Poison (Strength: corruption2)=
+Spider Poison (Strength: power3)=
+Spider Poison (Strength: corruption3)=
 Limpe (Strength: power1)=
-Glass Bottle (Obsidian Water)=
-Drinking Glass (Water)=
-Ingredients:=
-Glass Bottle (Seregon Water)=
-Glass Bottle (Geodes Crystal Water)=
-Potion Brewer Out Of Heat=
+Limpe (Strength: corruption1)=
+Limpe (Strength: power2)=
+Limpe (Strength: corruption2)=
+Limpe (Strength: power3)=
+Limpe (Strength: corruption3)=
+Miruvor (Strength: power1)=
+Miruvor (Strength: corruption1)=
+Miruvor (Strength: power2)=
+Miruvor (Strength: corruption2)=
+Miruvor (Strength: power3)=
+Miruvor (Strength: corruption3)=
+Athelas Brew (Strength: power1)=
+Athelas Brew (Strength: corruption1)=
+Athelas Brew (Strength: power2)=
+Athelas Brew (Strength: corruption2)=
+Athelas Brew (Strength: power3)=
 Athelas Brew (Strength: corruption3)=
 Ent Draught (Strength: power1)=
-Miruvor (Strength: corruption2)=
-Spider Poison (Strength: corruption3)=
-Glass Bottle (Mese Water)=
-You are under the effects of the Athelas Brew potion.=
-Limpe (Strength: corruption3)=
-Ent Draught (Strength: power2)=
-Two Third Filled Cauldron=
-Potion Brewer is empty=
-You are under the effects of the Ent Draught potion.=
-Brewer Out Of Heat=
-get effect info=
 Ent Draught (Strength: corruption1)=
-The effects of the Spider Poison potion have worn off.=
-Glass Bottle (Mordor Water)=
-Athelas Brew (Strength: power1)=
-Limpe (Strength: power3)=
-Orc Draught (Strength: corruption1)=
-Miruvor (Strength: power1)=
-Orc Draught (Strength: corruption2)=
-Potion Brewer Brewing=
-Glass Bottle (empty)=
-The effects of the Orc Draught potion have worn off.=
-The effects of the Miruvor potion have worn off.=
-Ent Draught (Strength: corruption3)=
-Drinking Glass (empty)=
-Wine=
-Miruvor (Strength: corruption1)=
-Limpe (Strength: corruption1)=
-Orc Draught (Strength: corruption3)=
-Glass Bottle (Water)=
-Brewer Brewing=
-Cider=
-Limpe (Strength: power2)=
-Brewer=
-Athelas Brew (Strength: corruption1)=
-The effects of the Ent Draught potion have worn off.=
-Athelas Brew (Strength: corruption2)=
+Ent Draught (Strength: power2)=
+Ent Draught (Strength: corruption2)=
 Ent Draught (Strength: power3)=
-Limpe (Strength: corruption2)=
-Beer=
-Potion Brewer=
-Athelas Brew (Strength: power2)=
-Spider Poison (Strength: power1)=
-Athelas Brew (Strength: power3)=
-Miruvor (Strength: corruption3)=
-Mead=
-Brewer is empty=
-Ale=
-Glass Bottle (Bonedust Water)=
-You are under the effects of the Miruvor potion.=
-Spider Poison (Strength: power2)=
-The effects of the Limpe potion have worn off.=
-You are under the effects of the Spider Poison potion.=
-Orc Draught (Strength: power3)=
-Miruvor (Strength: power2)=
-Filled Cauldron=
-Empty Cauldron=
-Fuel:=
-One Third Filled Cauldron=
-Spider Poison (Strength: corruption1)=
-You are under the effects of the Orc Draught potion.=
-You are under the effects of the Limpe potion.=
-Orc Draught (Strength: power2)=
+Ent Draught (Strength: corruption3)=
 
+### cauldron.lua ###
+Filled Cauldron=
+Two Third Filled Cauldron=
+One Third Filled Cauldron=
+Empty Cauldron=
+
+Glass Bottle (empty)=
+Glass Bottle (Water)=
+Drinking Glass (empty)=
+Drinking Glass (Water)=
+
+### brewing.lua ###
+Brewer=
+Brewer Brewing=
+Brewer Out Of Heat=
+Brewer is empty=
+
+### potionbrewing.lua ###
+Potion Brewer=
+Potion Brewer Brewing=
+Potion Brewer Out Of Heat=
+Potion Brewer is empty=
+Glass Bottle (Mese Water)=
+Glass Bottle (Geodes Crystal Water)=
+Glass Bottle (Seregon Water)=
+Glass Bottle (Obsidian Water)=
+Glass Bottle (Bonedust Water)=
+Glass Bottle (Mordor Water)=
+
+### arrows.lua ###
+Potion Arrow=
+
+### common ###
+Fuel:=
+Ingredients:=
+Result:=
