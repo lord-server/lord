@@ -1,0 +1,84 @@
+# textdomain: lottfarming
+### athelas.lua ###
+Athelas Seeds=
+Athelas=
+
+### barley.lua ###
+Barley Seeds=
+Sheaf barley=
+Cooked Barley=
+
+### berries.lua ###
+Berries Seeds=
+Berries=
+
+### blue.lua ###
+Blue Mushroom Spores=
+Blue Mushroom=
+Cream of Mushroom Soup=
+
+### brown.lua ###
+Brown Mushroom Spores=
+Brown Mushroom=
+
+### cabbage.lua ###
+Cabbage Seed=
+Cabbage=
+Salad=
+
+### corn.lua ###
+Corn Seeds=
+Ear of corn=
+
+### crafting.lua ###
+Bowl=
+Decaying Wood=
+Bacteria Fertiliser=
+
+### green.lua ###
+Green Mushroom Spores=
+Green Mushroom=
+
+### melon.lua ###
+Melon Seed=
+Melon=
+
+### orc_food.lua ###
+Orc Food=
+Orc medicine=
+
+### other.lua ###
+Cracker=
+Dough=
+Yeast Dough=
+Salted Dough=
+
+### pipeweed.lua ###
+Pipeweed Seeds=
+Pipeweed=
+Cooked Pipeweed=
+Pipe=
+
+### potato.lua ###
+Half of potatoe=
+Potato=
+Cooked Potato=
+
+### red.lua ###
+Red Mushroom Spores=
+Red Mushroom=
+
+### tomatoes.lua ###
+Tomato Seeds=
+Tomato=
+Cooked Tomato=
+Tomato Soup=
+
+### turnips.lua ###
+Turnip Seeds=
+Turnips=
+Cooked Turnips=
+
+### carrots.lua ###
+Carrot Seeds=
+Carrot=

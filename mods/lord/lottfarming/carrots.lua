@@ -1,5 +1,5 @@
 -- main `S` code in init.lua
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:carrot_seed", {
 	description     = SL("Carrot Seeds"),

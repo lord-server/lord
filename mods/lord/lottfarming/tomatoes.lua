@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:tomatoes_seed", {
 	description     = SL("Tomato Seeds"),

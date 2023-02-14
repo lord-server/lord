@@ -1,0 +1,84 @@
+# textdomain: lottfarming
+### athelas.lua ###
+Athelas Seeds=Семена ателаса
+Athelas=Ателас
+
+### barley.lua ###
+Barley Seeds=Семена ячменя
+Sheaf barley=Сноп ячменя
+Cooked Barley=Высушенный ячмень
+
+### berries.lua ###
+Berries Seeds=Семена ягод
+Berries=Ягоды
+
+### blue.lua ###
+Blue Mushroom Spores=Споры синих грибов
+Blue Mushroom=Синие грибы
+Cream of Mushroom Soup=Грибной суп
+
+### brown.lua ###
+Brown Mushroom Spores=Споры коричневых грибов
+Brown Mushroom=Коричневые грибы
+
+### cabbage.lua ###
+Cabbage Seed=Семена капусты
+Cabbage=Капуста
+Salad=Салат
+
+### corn.lua ###
+Corn Seeds=Семена кукурузы
+Ear of corn=Початок кукурузы
+
+### crafting.lua ###
+Bowl=Миска
+Decaying Wood=Гниющее дерево
+Bacteria Fertiliser=Удобрения
+
+### green.lua ###
+Green Mushroom Spores=Споры зелёных грибов
+Green Mushroom=Зелёные грибы
+
+### melon.lua ###
+Melon Seed=Семена арбуза
+Melon=Арбуз
+
+### orc_food.lua ###
+Orc Food=Еда орков
+Orc medicine=Лекарство орков
+
+### other.lua ###
+Cracker=Крекер
+Dough=Тесто
+Yeast Dough=Дрожжевое тесто
+Salted Dough=Тесто с солью
+
+### pipeweed.lua ###
+Pipeweed Seeds=Семена табака
+Pipeweed=Табак
+Cooked Pipeweed=Высушенный табак
+Pipe=Трубка
+
+### potato.lua ###
+Half of potatoe=Половина картошки
+Potato=Картошка
+Cooked Potato=Запеченная картошка
+
+### red.lua ###
+Red Mushroom Spores=Споры красных грибов
+Red Mushroom=Красные грибы
+
+### tomatoes.lua ###
+Tomato Seeds=Семена помидоров
+Tomato=Помидор
+Cooked Tomato=Жареный помидор
+Tomato Soup=Томатный суп
+
+### turnips.lua ###
+Turnip Seeds=Семена репы
+Turnips=Репа
+Cooked Turnips=Пареная репа
+
+### carrots.lua ###
+Carrot Seeds=Семена морковки
+Carrot=Морковка
