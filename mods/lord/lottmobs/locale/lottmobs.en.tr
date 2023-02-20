@@ -1,9 +1,14 @@
 # textdomain: lottmobs
+### init.lua ###
 NPC at full health.=NPC at full health.
 Warg=Warg
+
+### craftitems.lua ###
 Spider Poison=Spider Poison
 Cooked Meat=Cooked Meat
 Raw Meat=Raw Meat
+Raw Porkchop=Raw Porkchop
+Cooked Porkchop=Cooked Porkchop
 Dirty Jacket=Dirty Jacket
 Dirty Trousers=Dirty Trousers
 Raw Fish=Raw Fish
@@ -14,6 +19,11 @@ Cooked Fish=Cooked Fish
 Cooked Horsmeat=Cooked Horsmeat
 Cooked Chicken=Cooked Chicken
 Cooked Rabbit=Cooked Rabbit
+Rotten Meat=Rotten Meat
+Chicken Egg=Chicken Egg
+Omelette=Omelette
+
+### horse.lua ###
 Brown Horse=Brown Horse
 White Horse=White Horse
 Black Horse=Black Horse
@@ -21,9 +31,17 @@ Shire Pony 1=Shire Pony
 Shire Pony 2=Shire Pony
 You can't ride this beast!!!=You can't ride this beast!!!
 You could not tame this beast!!!=You could not tame this beast!!!
-Raw Porkchop=Raw Porkchop
-Cooked Porkchop=Cooked Porkchop
+
+### boar.lua ###
 Boar=Boar
+
+### fishes.lua ###
+Fish raw=Fish raw
+Fish cooked=Fish cooked
+Clownfish=Clownfish
+Tropical fish=Tropical fish
+
+### trader.lua ###
 Trader=Trader
 Hello=Hello
 have a look at my wares.=have a look at my wares.
@@ -58,6 +76,9 @@ We suffer raids from orcs, and other evil things, yet we do nothing! We must act
 Life here is far from normal. We wish for peace, yet the only way we can get peace is through war...=Life here is far from normal. We wish for peace, yet the only way we can get peace is through war...
 DIE!!!", "Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!=DIE!!!", "Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!
 Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!", "KILL! KILL! KILL!=Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!", "KILL! KILL! KILL!
+
+### trader_goods.lua ###
+#dwarf
 Azaghâl=Azaghâl
 Balbrin=Balbrin
 Borin=Borin
@@ -70,6 +91,8 @@ Náli=Náli
 Narvi=Narvi
 Telchar=Telchar
 Thion=Thion
+
+#elf
 Annael=Annael
 Anairë=Anairë
 Curufin=Curufin
@@ -82,6 +105,8 @@ Quennar=Quennar
 Rúmil=Rúmil
 Orgof=Orgof
 Voronwë=Voronwë
+
+#hobbit
 Adalgrim=Adalgrim
 Bodo=Bodo
 Cotman=Cotman
@@ -94,6 +119,8 @@ Largo=Largo
 Madoc=Madoc
 Orgulas=Orgulas
 Rorimac=Rorimac
+
+#human
 Aratan=Aratan
 Arvegil=Arvegil
 Belegorn=Belegorn
@@ -106,4 +133,3 @@ Minardil=Minardil
 Oromendil=Oromendil
 Tarcil=Tarcil
 Vorondil=Vorondil
-

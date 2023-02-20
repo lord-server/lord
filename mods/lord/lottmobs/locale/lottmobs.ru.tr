@@ -1,6 +1,9 @@
 # textdomain: lottmobs
+### init.lua ###
 NPC at full health.=NPC здоров.
 Warg=Варг
+
+### craftitems.lua ###
 Spider Poison=Паучий яд
 Cooked Meat=Жареное мясо
 Raw Meat=Сырое мясо
@@ -19,6 +22,8 @@ Cooked Rabbit=Жареная крольчатина
 Rotten Meat=Гнилое мясо
 Chicken Egg=Куриное яйцо
 Omelette=Яичница
+
+### horse.lua ###
 Brown Horse=Гнедая лошадь
 White Horse=Белая лошадь
 Black Horse=Вороной конь
@@ -26,11 +31,17 @@ Shire Pony 1=Чёрный пони
 Shire Pony 2=Серый пони
 You can't ride this beast!!!=Вы не можете оседлать это животное!!!
 You could not tame this beast!!!=Вы не смогли приручить это животное!!!
+
+### boar.lua ###
 Boar=Кабан
+
+### fishes.lua ###
 Fish raw=Сырая рыба
 Fish cooked=Жареная рыба
 Clownfish=Рыба клоун
-Tropical fish=Тропическая рыбка
+Tropical fish=Тропическая рыба
+
+### trader.lua ###
 Trader=Торговец
 Hello=Привет
 have a look at my wares.=взгляни на мои товары.
@@ -65,6 +76,9 @@ We suffer raids from orcs, and other evil things, yet we do nothing! We must act
 Life here is far from normal. We wish for peace, yet the only way we can get peace is through war...=Жизнь здесь далека от идеала. Мы желаем мира, но единственный способ получить мир - это война...
 DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!=УМРИ!!! Убббббллллллюююююдддддооокккккк!!
 Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!=Хрррррррррррррррррррр!, СМЕРТЬ! СМЕРТЬ! СМЕРТЬ!
+
+### trader_goods.lua ###
+#dwarf
 Azaghâl=Azaghâl
 Balbrin=Balbrin
 Borin=Borin
@@ -77,6 +91,8 @@ Náli=Náli
 Narvi=Narvi
 Telchar=Telchar
 Thion=Thion
+
+#elf
 Annael=Annael
 Anairë=Anairë
 Curufin=Curufin
@@ -89,6 +105,8 @@ Quennar=Quennar
 Rúmil=Rúmil
 Orgof=Orgof
 Voronwë=Voronwë
+
+#hobbit
 Adalgrim=Adalgrim
 Bodo=Bodo
 Cotman=Cotman
@@ -101,6 +119,8 @@ Largo=Largo
 Madoc=Madoc
 Orgulas=Orgulas
 Rorimac=Rorimac
+
+#human
 Aratan=Aratan
 Arvegil=Arvegil
 Belegorn=Belegorn
@@ -113,4 +133,3 @@ Minardil=Minardil
 Oromendil=Oromendil
 Tarcil=Tarcil
 Vorondil=Vorondil
-
