@@ -1,4 +1,5 @@
 # textdomain: lottother
+### init.lua ###
 Blue Torch=Blue Torch
 Orc Torch=Orc Torch
 Blue Flame=Blue Flame
@@ -6,7 +7,10 @@ Dirt Substitute=Dirt Substitute
 Snow Substitute=Snow Substitute
 Mordor Stone Substitute=Mordor Stone Substitute
 Air Substitute=Air Substitute
+
+### flags.lua ###
 Tapestry Top=Tapestry Top
+
 Angmar Tapestry=Angmar Tapestry
 Dunland Tapestry=Dunland Tapestry
 Dwarf Tapestry=Dwarf Tapestry
@@ -17,6 +21,7 @@ Mordor Tapestry=Mordor Tapestry
 Rohan Tapestry=Rohan Tapestry
 Uruk Hai Tapestry=Uruk Hai Tapestry
 Shire Tapestry=Shire Tapestry
+
 Angmar Tapestry Top=Angmar Tapestry Top
 Dunland Tapestry Top=Dunland Tapestry Top
 Dwarf Tapestry Top=Dwarf Tapestry Top
@@ -26,12 +31,16 @@ Mirkwood Tapestry Top=Mirkwood Tapestry Top
 Mordor Tapestry Top=Mordor Tapestry Top
 Rohan Tapestry Top=Rohan Tapestry Top
 Uruk Hai Tapestry Top=Uruk Hai Tapestry Top
+
+### ms.lua ###
 Mordor Mob Spawner=Mordor Mob Spawner
 Rohan Mob Spawner=Rohan Mob Spawner
 Elf Mob Spawner=Elf Mob Spawner
 Hobbit Mob Spawner=Hobbit Mob Spawner
 Gondor Mob Spawner=Gondor Mob Spawner
 Angmar Mob Spawner=Angmar Mob Spawner
+
+### rings.lua ###
 Unrefined Ring Silver=Unrefined Ring Silver
 Refined Ring Silver=Refined Ring Silver
 Plain Ring=Plain Ring
@@ -50,4 +59,3 @@ Purple Gem Mithril Ring=Purple Gem Mithril Ring
 Mithril Almost Magic Ring=Mithril Almost Magic Ring
 Dwarf Ring=Dwarf Ring
 Beast Ring=Beast Ring
-
