@@ -1,83 +1,100 @@
 # textdomain: lottclothes
-Red Hobbit Shirt=
-Green Felt=
-Green Flax=
-Green Hobbit Shoes=
-Pink Felt=
-Midgewater Cap=
-Yellow Hobbit Shoes=
-Pink Hobbit Shorts=
-White Hobbit Shirt=
-Green Hobbit Shorts=
-White Hobbit Cloak=
-Elven Shoes=
-Dwarven Boots=
-Black Felt=
-Pink Hobbit Shoes=
-Green Hobbit Cloak=
-Yellow Flax=
-Black Flax=
-Yellow Hobbit Cloak=
-Ettenmoor Hood=
-Midgewater Boots=
-Elven Shirt=
-Pink Flax=
-Pink Hobbit Shirt=
-White Wizard Trousers=
-Yellow Felt=
-Ettenmoor Robe=
-Chetwood Cap=
-Brown Flax=
-Red Hobbit Cloak=
-Green Hobbit Shirt=
-Brandybuck Shirt=
-Chetwood Boots=
+### fabrics.lua ###
 Flax Thread=
-Grey Flax=
-Brandybuck Trousers=
-Chetwood Jacket=
-Grey Wizard Robe=
-White Hobbit Shoes=
-Yellow Hobbit Shorts=
-Elven Trousers=
-Yellow Hobbit Shirt=
-Midgewater Pants=
-Grey Hobbit Cloak=
-Felt Thread=
-Brown Hobbit Shorts=
-Grey Hobbit Shirt=
-Ranger's Cloak=
+Black Flax=
 Blue Flax=
-Brown Hobbit Shoes=
-Grey Felt=
-Elven Hood=
-Pink Hobbit Cloak=
-White Hobbit Shorts=
-Grey Hobbit Shoes=
-Brandybuck Shoes=
-Red Hobbit Shorts=
-Chetwood Pants=
-Grey Wizard Cloak=
+Brown Flax=
+Green Flax=
+Grey Flax=
+Pink Flax=
 Red Flax=
 White Flax=
-Mordor Cloak=
-Red Hobbit Shoes=
-Blue Hobbit Shirt=
-White Felt=
-Blue Hobbit Cloak=
-Brown Felt=
-Blue Wizard Hood=
-Blue Hobbit Shorts=
-Red Felt=
-Brown Hobbit Cloak=
-White Wizard Robe=
-Elven Cloak=
-White Wizard Cloak=
-Blue Hobbit Shoes=
-Brown Hobbit Shirt=
-Grey Hobbit Shorts=
-Blue Felt=
-White Wizard Hood=
-Ettenmoor Trousers=
-Midgewater Jacket=
+Yellow Flax=
 
+Felt Thread=
+Black Felt=
+Blue Felt=
+Brown Felt=
+Green Felt=
+Grey Felt=
+Pink Felt=
+Red Felt=
+White Felt=
+Yellow Felt=
+
+### midgewater.lua ###
+Midgewater Cap=
+Midgewater Jacket=
+Midgewater Pants=
+Midgewater Boots=
+
+### chetwood.lua ###
+Chetwood Cap=
+Chetwood Jacket=
+Chetwood Pants=
+Chetwood Boots=
+
+### hobbit.lua ###
+Blue Hobbit Shirt=
+Blue Hobbit Shorts=
+Blue Hobbit Shoes=
+Blue Hobbit Cloak=
+Brown Hobbit Shirt=
+Brown Hobbit Shorts=
+Brown Hobbit Shoes=
+Brown Hobbit Cloak=
+Green Hobbit Shirt=
+Green Hobbit Shorts=
+Green Hobbit Shoes=
+Green Hobbit Cloak=
+Grey Hobbit Shirt=
+Grey Hobbit Shorts=
+Grey Hobbit Shoes=
+Grey Hobbit Cloak=
+Pink Hobbit Shirt=
+Pink Hobbit Shorts=
+Pink Hobbit Shoes=
+Pink Hobbit Cloak=
+Red Hobbit Shirt=
+Red Hobbit Shorts=
+Red Hobbit Shoes=
+Red Hobbit Cloak=
+White Hobbit Shirt=
+White Hobbit Shorts=
+White Hobbit Shoes=
+White Hobbit Cloak=
+Yellow Hobbit Shirt=
+Yellow Hobbit Shorts=
+Yellow Hobbit Shoes=
+Yellow Hobbit Cloak=
+
+### brandybuck.lua ###
+Brandybuck Shirt=
+Brandybuck Trousers=
+Brandybuck Shoes=
+
+### ettenmoor.lua ###
+Ettenmoor Hood=
+Ettenmoor Robe=
+Ettenmoor Trousers=
+
+### cloaks.lua ###
+Ranger's Cloak=
+Mordor Cloak=
+
+### elven.lua ###
+Elven Hood=
+Elven Shirt=
+Elven Trousers=
+Elven Shoes=
+Elven Cloak=
+
+### wizard.lua ###
+Dwarven Boots=
+Grey Wizard Cloak=
+Blue Wizard Hood=
+Grey Wizard Robe=
+White Wizard Hood=
+White Wizard Robe=
+White Wizard Trousers=
+White Wizard Cloak=

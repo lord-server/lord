@@ -1,4 +1,5 @@
 # textdomain: lottclothes
+### fabrics.lua ###
 Flax Thread=Flax Thread
 Black Flax=Black Flax
 Blue Flax=Blue Flax
@@ -9,6 +10,7 @@ Pink Flax=Pink Flax
 Red Flax=Red Flax
 White Flax=White Flax
 Yellow Flax=Yellow Flax
+
 Felt Thread=Felt Thread
 Black Felt=Black Felt
 Blue Felt=Blue Felt
@@ -19,14 +21,20 @@ Pink Felt=Pink Felt
 Red Felt=Red Felt
 White Felt=White Felt
 Yellow Felt=Yellow Felt
+
+### midgewater.lua ###
 Midgewater Cap=Midgewater Cap
 Midgewater Jacket=Midgewater Jacket
 Midgewater Pants=Midgewater Pants
 Midgewater Boots=Midgewater Boots
+
+### chetwood.lua ###
 Chetwood Cap=Chetwood Cap
 Chetwood Jacket=Chetwood Jacket
 Chetwood Pants=Chetwood Pants
 Chetwood Boots=Chetwood Boots
+
+### hobbit.lua ###
 Blue Hobbit Shirt=Blue Hobbit Shirt
 Blue Hobbit Shorts=Blue Hobbit Shorts
 Blue Hobbit Shoes=Blue Hobbit Shoes
@@ -59,17 +67,34 @@ Yellow Hobbit Shirt=Yellow Hobbit Shirt
 Yellow Hobbit Shorts=Yellow Hobbit Shorts
 Yellow Hobbit Shoes=Yellow Hobbit Shoes
 Yellow Hobbit Cloak=Yellow Hobbit Cloak
+
+### brandybuck.lua ###
 Brandybuck Shirt=Brandybuck Shirt
 Brandybuck Trousers=Brandybuck Trousers
 Brandybuck Shoes=Brandybuck Shoes
+
+### ettenmoor.lua ###
 Ettenmoor Hood=Ettenmoor Hood
 Ettenmoor Robe=Ettenmoor Robe
 Ettenmoor Trousers=Ettenmoor Trousers
+
+### cloaks.lua ###
 Ranger's Cloak=Ranger's Cloak
 Mordor Cloak=Mordor Cloak
+
+### elven.lua ###
 Elven Hood=Elven Hood
 Elven Shirt=Elven Shirt
 Elven Trousers=Elven Trousers
 Elven Shoes=Elven Shoes
 Elven Cloak=Elven Cloak
 
+### wizard.lua ###
+Dwarven Boots=Dwarven Boots
+Grey Wizard Cloak=Grey Wizard Cloak
+Blue Wizard Hood=Blue Wizard Hood
+Grey Wizard Robe=Grey Wizard Robe
+White Wizard Hood=White Wizard Hood
+White Wizard Robe=White Wizard Robe
+White Wizard Trousers=White Wizard Trousers
+White Wizard Cloak=White Wizard Cloak
