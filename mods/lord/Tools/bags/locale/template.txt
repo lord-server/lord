@@ -1,0 +1,5 @@
+# textdomain: bags
+Small Bag=
+Medium Bag=
+Large Bag=
+
