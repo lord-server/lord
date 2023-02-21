@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottclothes")
 
 --------------------------------------------------------------------------------
 -- fabrics.lua: colored fabrics as ingredient for clothes

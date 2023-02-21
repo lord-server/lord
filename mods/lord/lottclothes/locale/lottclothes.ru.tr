@@ -1,0 +1,100 @@
+# textdomain: lottclothes
+### fabrics.lua ###
+Flax Thread=Льняные нити
+Black Flax=Чёрный лён
+Blue Flax=Синий лён
+Brown Flax=Коричневый лён
+Green Flax=Зелёный лён
+Grey Flax=Серый лён
+Pink Flax=Розовый лён
+Red Flax=Красный лён
+White Flax=Белый лён
+Yellow Flax=Жёлтый лён
+
+Felt Thread=Войлочные нити
+Black Felt=Чёрный войлок
+Blue Felt=Синий войлок
+Brown Felt=Коричневый войлок
+Green Felt=Зевойлокый войлок
+Grey Felt=Серый войлок
+Pink Felt=Розовый войлок
+Red Felt=Красный войлок
+White Felt=Белый войлок
+Yellow Felt=Жёлтый войлок
+
+### midgewater.lua ###
+Midgewater Cap=Болотная шапка
+Midgewater Jacket=Болотная куртка
+Midgewater Pants=Болотные штаны
+Midgewater Boots=Болотные ботинки
+
+### chetwood.lua ###
+Chetwood Cap=Лесная шапка
+Chetwood Jacket=Лесная куртка
+Chetwood Pants=Лесные штаны
+Chetwood Boots=Лесные ботинки
+
+### hobbit.lua ###
+Blue Hobbit Shirt=Синяя рубашка
+Blue Hobbit Shorts=Синие шорты
+Blue Hobbit Shoes=Синяя обувь
+Blue Hobbit Cloak=Синий плащ
+Brown Hobbit Shirt=Коричневая рубашка
+Brown Hobbit Shorts=Коричневые шорты
+Brown Hobbit Shoes=Коричневая обувь
+Brown Hobbit Cloak=Коричневый плащ
+Green Hobbit Shirt=Зелёная рубашка
+Green Hobbit Shorts=Зелёные шорты
+Green Hobbit Shoes=Зелёная обувь
+Green Hobbit Cloak=Зелёный плащ
+Grey Hobbit Shirt=Серая рубашка
+Grey Hobbit Shorts=Серые шорты
+Grey Hobbit Shoes=Серая обувь
+Grey Hobbit Cloak=Серый плащ
+Pink Hobbit Shirt=Розовая рубашка
+Pink Hobbit Shorts=Розовые шорты
+Pink Hobbit Shoes=Розовая обувь
+Pink Hobbit Cloak=Розовый плащ
+Red Hobbit Shirt=Красная рубашка
+Red Hobbit Shorts=Красные шорты
+Red Hobbit Shoes=Красная обувь
+Red Hobbit Cloak=Красный плащ
+White Hobbit Shirt=Белая рубашка
+White Hobbit Shorts=Белые шорты
+White Hobbit Shoes=Белая обувь
+White Hobbit Cloak=Белый плащ
+Yellow Hobbit Shirt=Жёлтая рубашка
+Yellow Hobbit Shorts=Жёлтые шорты
+Yellow Hobbit Shoes=Жёлтая обувь
+Yellow Hobbit Cloak=Жёлтый плащ
+
+### brandybuck.lua ###
+Brandybuck Shirt=Рубашка Брендибака
+Brandybuck Trousers=Штаны Брендибака
+Brandybuck Shoes=Обувь Брендибака
+
+### ettenmoor.lua ###
+Ettenmoor Hood=Эттенский капюшон
+Ettenmoor Robe=Эттенская мантия
+Ettenmoor Trousers=Эттенские штаны
+
+### cloaks.lua ###
+Ranger's Cloak=Плащ рейнджера
+Mordor Cloak=Плащ Мордора
+
+### elven.lua ###
+Elven Hood=Эльфийский капюшон
+Elven Shirt=Эльфийская рубашка
+Elven Trousers=Эльфийские штаны
+Elven Shoes=Эльфийская обувь
+Elven Cloak=Эльфийский плащ
+
+### wizard.lua ###
+Dwarven Boots=Гномьи ботинки
+Grey Wizard Cloak=Плащ серого мага
+Blue Wizard Hood=Капюшон синего мага
+Grey Wizard Robe=Мантия серого мага
+White Wizard Hood=Капюшон белого мага
+White Wizard Robe=Мантия белого мага
+White Wizard Trousers=Штаны белого мага
+White Wizard Cloak=Плащ белого мага
