@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottmobs")
 
 local function is_ground(pos)
 	local nn = minetest.get_node(pos).name
