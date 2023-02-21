@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("bones")
 
 minetest.register_node("bones:skeleton", {
 	description = SL("Skeleton Head"),
