@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottother")
 
 -- Mobs spawners for buildings
 -- Mordor

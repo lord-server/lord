@@ -1,0 +1,66 @@
+# textdomain: lottother
+### init.lua ###
+Blue Torch=
+Orc Torch=
+Blue Flame=
+Dirt Substitute=
+Snow Substitute=
+Mordor Stone Substitute=
+Air Substitute=
+
+### flags.lua ###
+Tapestry Top=
+
+Angmar Tapestry=
+Dunland Tapestry=
+Dwarf Tapestry=
+Gondor Tapestry=
+Lorien Tapestry=
+Mirkwood Tapestry=
+Mordor Tapestry=
+Rohan Tapestry=
+Uruk Hai Tapestry=
+Shire Tapestry=
+
+Angmar Tapestry Top=
+Dunland Tapestry Top=
+Dwarf Tapestry Top=
+Gondor Tapestry Top=
+Lorien Tapestry Top=
+Mirkwood Tapestry Top=
+Mordor Tapestry Top=
+Rohan Tapestry Top=
+Uruk Hai Tapestry Top=
+
+### ms.lua ###
+Mordor Mob Spawner=
+Rohan Mob Spawner=
+Elf Mob Spawner=
+Hobbit Mob Spawner=
+Gondor Mob Spawner=
+Angmar Mob Spawner=
+
+### rings.lua ###
+Unrefined Ring Silver=
+Refined Ring Silver=
+
+Plain Ring=
+Purple Gem=
+
+Red Gem Ring=
+Blue Gem Ring=
+White Gem Ring=
+Purple Gem Ring=
+
+Purple Gem Mithril Ring=
+
+Red Almost Magic Ring=
+Blue Almost Magic Ring=
+White Almost Magic Ring=
+Mithril Almost Magic Ring=
+
+Narya=
+Nenya=
+Vilya=
+Dwarf Ring=
+Beast Ring=
