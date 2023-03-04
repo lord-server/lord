@@ -26,6 +26,7 @@ minetest.register_node("lottmapgen:mordor_stone", {
 	description = S("Mordor Stone"),
 	tiles = {"lottmapgen_mordor_stone.png"},
 	is_ground_content = true,
+	drop = "lottmapgen:mordor_cobble",
 	groups = {cracky=3, stone=1},
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -40,6 +41,52 @@ stairs.register_stair_and_slab("mordor_stone", "lottmapgen:mordor_stone",
 		S("Inner Mordor Stone Stair"),
 		S("Outer Mordor Stone Stair")
 )
+
+minetest.register_node("lottmapgen:mordor_cobble", {
+	description = S("Mordor Cobblestone"),
+	tiles = {"lottmapgen_mordor_cobble.png"},
+	is_ground_content = true,
+	groups = {cracky=3, stone=1},
+	sounds = default.node_sound_stone_defaults(),
+})
+
+stairs.register_stair_and_slab("mordor_cobble", "lottmapgen:mordor_cobble",
+		{cracky=3, stone=1},
+		{"lottmapgen_mordor_cobble.png"},
+		S("Mordor Cobblestone Stair"),
+		S("Mordor Cobblestone Slab"),
+		default.node_sound_stone_defaults(),
+		false,
+		S("Inner Mordor Cobblestone Stair"),
+		S("Outer Mordor Cobblestone Stair")
+)
+
+minetest.register_node("lottmapgen:mordor_gravel", {
+	description = S("Mordor Gravel"),
+	tiles = {"lottmapgen_mordor_gravel.png"},
+	groups = {crumbly = 2, falling_node = 1},
+	sounds = default.node_sound_gravel_defaults(),
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:flint"}, rarity = 16},
+			{items = {"lottmapgen:mordor_gravel"}}
+		}
+	}
+})
+
+minetest.register_node("lottmapgen:mordor_sand", {
+	description = S("Mordor Sand"),
+	tiles = {"lottmapgen_mordor_sand.png"},
+	groups = {crumbly = 3, falling_node = 1, sand = 1},
+	sounds = default.node_sound_sand_defaults(),
+})
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottmapgen:mordor_stone",
+	recipe = "lottmapgen:mordor_cobble",
+})
 
 minetest.register_node("lottmapgen:blacksource", {
 	description = S("Black Water Source"),
