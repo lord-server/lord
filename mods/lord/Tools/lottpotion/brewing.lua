@@ -187,30 +187,13 @@ local formspec     = "size[8,9]" ..
 
 minetest.register_node("lottpotion:brewer", {
 	description                   = SL(machine_name),
-	drawtype                      = "nodebox",
-	tiles                         = { "default_wood.png" },
-	node_box                      = {
-		type  = "fixed",
-		fixed = lottpotion.make_pipe(
-			{
-				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
-				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
-				{ f = 0.75, h1 = 0.35,  h2 = 0.5,   b = 0 },
-				{ f = 0.82, h1 = -0.35, h2 = -0.2,  b = 0 },
-				{ f = 0.82, h1 = 0.2,   h2 = 0.35,  b = 0 },
-				{ f = 0.75, h1 = 0.37,  h2 = 0.42,  b = 1 },
-				{ f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 },
-			},
-			0
-		),
-	},
+	tiles                         = { "barrel_wood.png" },
 	paramtype                     = "light",
+	drawtype                      = "mesh",
+	mesh                          = "barrel_wood.obj",
+	node_placement_prediction     = "",
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2 },
-	sounds                        = default.node_sound_stone_defaults(),
-	selection_box                 = {
-		type  = "fixed",
-		fixed = { -0.3, -0.5, -0.3, 0.3, 0.35, 0.3 }
-	},
+	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", formspec)
@@ -262,31 +245,14 @@ minetest.register_node("lottpotion:brewer", {
 
 minetest.register_node("lottpotion:brewer_active", {
 	description                   = SL(machine_name),
-	drawtype                      = "nodebox",
-	tiles                         = { "default_wood.png" },
-	node_box                      = {
-		type  = "fixed",
-		fixed = lottpotion.make_pipe(
-			{
-				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
-				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
-				{ f = 0.75, h1 = 0.35,  h2 = 0.5,   b = 0 },
-				{ f = 0.82, h1 = -0.35, h2 = -0.2,  b = 0 },
-				{ f = 0.82, h1 = 0.2,   h2 = 0.35,  b = 0 },
-				{ f = 0.75, h1 = 0.37,  h2 = 0.42,  b = 1 },
-				{ f = 0.75, h1 = -0.42, h2 = -0.37, b = 1 }
-			},
-			0
-		),
-	},
+	tiles                         = { "barrel_wood.png" },
 	paramtype                     = "light",
-	selection_box                 = {
-		type  = "fixed",
-		fixed = { -0.3, -0.5, -0.3, 0.3, 0.35, 0.3 }
-	},
+	drawtype                      = "mesh",
+	mesh                          = "barrel_wood.obj",
+	node_placement_prediction     = "",
 	drop                          = "lottpotion:brewer",
 	groups                        = { cracky = 2, not_in_creative_inventory = 1 },
-	sounds                        = default.node_sound_stone_defaults(),
+	sounds                        = default.node_sound_wood_defaults(),
 	can_dig                       = lottpotion.can_dig,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
