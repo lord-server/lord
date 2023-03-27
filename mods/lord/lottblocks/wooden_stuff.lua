@@ -45,7 +45,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
-	if name ~= "wood" then -- for not to overwrite registrations from minetest_game
+	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
 
 		-- DOOR | ДВЕРЬ
 		local groups_door      = table.copy(node_groups)
