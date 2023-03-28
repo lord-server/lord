@@ -525,7 +525,7 @@ minetest.override_item("default:leaves", {
 -- с default:tree и default:jungletree.
 
 minetest.register_node(":default:tree_trunk", {
-	description = S("Tree Тrunk"),
+	description = S("Tree Trunk"),
 	tiles = { "default_tree_top.png", "default_tree_top.png", "default_tree.png"},
 	paramtype2 = "facedir",
 	is_ground_content = false,
