@@ -45,7 +45,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
-	if name ~= "wood" then -- for not to overwrite registrations from minetest_game
+	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
 
 		-- DOOR | ДВЕРЬ
 		local groups_door      = table.copy(node_groups)
@@ -99,7 +99,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 			}
 		})
 
-		if name ~= "junglewood" then
+		if name ~= "junglewood" and name ~= "hardwood" then
 			default.register_fence("lottblocks:fence_" .. name, {
 				description = S(description .. " Fence"),
 				texture = "lottblocks_fence_"..name.."_wood.png",
@@ -117,6 +117,31 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 				inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
 							"default_fence_rail_overlay.png^[makealpha:255,126,126",
 				wield_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
+							"default_fence_rail_overlay.png^[makealpha:255,126,126",
+				material = wood_name,
+				groups = node_groups,
+				sounds = default.node_sound_wood_defaults()
+			})
+		end
+
+		if name == "hardwood" then
+			default.register_fence("lottblocks:fence_" .. name, {
+				description = S(description .. " Fence"),
+				texture = "lottblocks_fence_"..name..".png",
+				inventory_image = "default_fence_overlay.png^lottblocks_"..name..".png^" ..
+							"default_fence_overlay.png^[makealpha:255,126,126",
+				wield_image = "default_fence_overlay.png^lottblocks_"..name..".png^" ..
+							"default_fence_overlay.png^[makealpha:255,126,126",
+				material = wood_name,
+				groups = node_groups,
+				sounds = default.node_sound_wood_defaults()
+			})
+			default.register_fence_rail("lottblocks:fence_rail_" .. name, {
+				description = S(description .. " Fence Rail"),
+				texture = "lottblocks_"..name..".png",
+				inventory_image = "default_fence_rail_overlay.png^lottblocks_"..name..".png^" ..
+							"default_fence_rail_overlay.png^[makealpha:255,126,126",
+				wield_image = "default_fence_rail_overlay.png^lottblocks_"..name..".png^" ..
 							"default_fence_rail_overlay.png^[makealpha:255,126,126",
 				material = wood_name,
 				groups = node_groups,
