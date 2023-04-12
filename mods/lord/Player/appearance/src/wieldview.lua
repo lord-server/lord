@@ -10,14 +10,13 @@ if not node_tiles then
 	minetest.settings:set("lottarmor_node_tiles", "true")
 end
 
-lottarmor = {
+local player_appearance = {
 	wielded_item = {},
-	transform = {},
+	transform = require("transform"),
 }
 
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/transform.lua")
 
-lottarmor.get_item_texture = function(self, item)
+player_appearance.get_item_texture = function(self, item)
 	local texture = "lottarmor_trans.png"
 	if item ~= "" then
 		if minetest.registered_items[item] then
@@ -29,15 +28,15 @@ lottarmor.get_item_texture = function(self, item)
 				texture = minetest.inventorycube(minetest.registered_items[item].tiles[1])
 			end
 		end
-		if lottarmor.transform[item] then
-			texture = texture.."^[transform"..lottarmor.transform[item]
+		if player_appearance.transform[item] then
+			texture = texture.."^[transform".. player_appearance.transform[item]
 		end
 	end
-	--print(dump(texture))
+
 	return texture
 end
 
-lottarmor.update_wielded_item = function(self, player)
+player_appearance.update_wielded_item = function(self, player)
 	if not player then
 		return
 	end
@@ -51,8 +50,6 @@ lottarmor.update_wielded_item = function(self, player)
 		if self.wielded_item[name] == item then
 			return
 		end
-		--print(dump(
-		--armor.textures[name].wielditem = self:get_item_texture(item)
 		multiskin[name].wielditem = self:get_item_texture(item)
 		multiskin:update_player_visuals(player)
 	end
@@ -61,17 +58,14 @@ end
 
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
-	lottarmor.wielded_item[name] = ""
-	minetest.after(0, function(updated_player)
-		lottarmor:update_wielded_item(updated_player)
-	end, player)
+	player_appearance.wielded_item[name] = ""
 end)
 
 minetest.register_globalstep(function(dtime)
 	time = time + dtime
 	if time > update_time then
 		for _,player in ipairs(minetest.get_connected_players()) do
-			lottarmor:update_wielded_item(player)
+			player_appearance:update_wielded_item(player)
 		end
 		time = 0
 	end
