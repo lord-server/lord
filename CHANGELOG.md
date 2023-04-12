@@ -1,5 +1,8 @@
 # Change Log
 
+## [2022.12.p3](https://github.com/lord-server/lord/releases/tag/2022.12.p3)
+ - Turn on forgotten initial stuff on PROD. Relates to #460, #826
+
 ## [2022.12.p2](https://github.com/lord-server/lord/releases/tag/2022.12.p2)
  - Fix infinite signs & fence_wood. Fixes #903.
  - Reward chest: fix infitite reward for not first player. Also fix congrats translation. Fixes #905.
