@@ -218,7 +218,7 @@ disable_fire = true
 
 # ------- MTG/give_initial_stuff -------
 # Gives some stuff to players at the beginning
-give_initial_stuff = false
+give_initial_stuff = true
 initial_stuff = lottplants:yavannamirefruit,tools:pick_wood,tools:axe_wood,tools:sword_stone,lottarmor:boots_wood
 
 # ------- MTG/stairs -------
