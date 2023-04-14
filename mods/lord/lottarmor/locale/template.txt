@@ -1,8 +1,4 @@
 # textdomain: lottarmor
 
-Back=
-Bag=
-Main=
-Bags=
 got destroyed!=
 

@@ -1,6 +1,4 @@
-local modpath = minetest.get_modpath(minetest.get_current_modname())
-
-local detached_inv_armor_slots = dofile(modpath .. "/inventory_armor_slots.lua")
+local detached_inv_armor_slots = require("inventory_armor_slots")
 
 local formspec_template = "size[8,8.5]"
 	.. "image[0,0;1,1;lottarmor_helmet.png]"

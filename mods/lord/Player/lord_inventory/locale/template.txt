@@ -1,0 +1,6 @@
+# textdomain: lord_inventory
+
+Back=
+Bag=
+Main=
+Bags=
