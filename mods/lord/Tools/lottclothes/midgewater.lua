@@ -3,7 +3,6 @@ local SL = minetest.get_translator("lottclothes")
 -- the simplest outfit available.
 -- made from green felt & wood (just cut down the nearest tree).
 
-local level=1
 
 -- cap (head)
 minetest.register_tool("lottclothes:cap_midgewater", {

@@ -4,7 +4,6 @@ local SL = minetest.get_translator("lottclothes")
 -- made from blue flax and copper ingot.
 -- hasn't got headwear.
 
-local level=2
 
 -- shirt (torso)
 minetest.register_tool("lottclothes:shirt_brandybuck", {

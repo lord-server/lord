@@ -5,7 +5,6 @@ local SL = minetest.get_translator("lottclothes")
 -- it's difficult to make because dye:brown, dye:grey and lottores:gold.
 -- hasn't got boots.
 
-local level=4
 
 -- hood (head)
 minetest.register_tool("lottclothes:hood_ettenmoor", {
