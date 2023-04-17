@@ -12,7 +12,6 @@ clothing.set_player_clothing = function(self, player)
 		return
 	end
 	local clothing_texture = "lottarmor_trans.png"
-	local elements = {}
 	local textures = {}
 	local preview = multiskin:get_skin_name(name) or "clothing_preview"
 	preview = preview..".png"
@@ -46,9 +45,9 @@ clothing.update_inventory = function(self, player)
 end
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
-	local player = minetest.get_player_by_name(name)
-    multiskin:init(player, texture)
-	local player_inv = player:get_inventory()
+	local joined_player = minetest.get_player_by_name(name)
+    multiskin:init(joined_player, texture)
+	local player_inv = joined_player:get_inventory()
 	local clothing_inv = minetest.create_detached_inventory(name.."_clothing",{
 		on_put = function(inv, listname, index, stack, player)
 			player:get_inventory():set_stack(listname, index, stack)
@@ -61,7 +60,6 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 			clothing:update_inventory(player)
 		end,
 		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			local plaver_inv = player:get_inventory()
 			local stack = inv:get_stack(to_list, to_index)
 			player_inv:set_stack(to_list, to_index, stack)
 			player_inv:set_stack(from_list, from_index, nil)
@@ -121,5 +119,5 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		clothing:set_player_clothing(player)
 		clothing:update_inventory(player)
-	end, player)
+	end, joined_player)
 end)
