@@ -44,21 +44,6 @@ function multiskin:get_preview(name)
 	return races.get_face_preview_name(race, gender, skin)
 end
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	local name = player:get_player_name()
-	for field, _ in pairs(fields) do
-		if string.find(field, "skins_set") then
-			minetest.after(0, function(updated_player)
-				local skin = multiskin:get_skin_name(name)
-				if skin then
-					multiskin[name].skin = skin..".png"
-					multiskin:update_player_visuals(updated_player)
-				end
-			end, player)
-		end
-	end
-end)
-
 player_api.register_model("lottarmor_character.b3d", {
 	animation_speed = 30,
 	textures = {
