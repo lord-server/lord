@@ -1,4 +1,5 @@
 MULTISKIN_DEFAULT_SKIN = "character.png"
+MULTISKIN_DEFAULT_PREVIEW = "character_preview.png"
 MULTISKIN_TRANS = "lottarmor_trans.png"
 
 multiskin = {}
@@ -41,7 +42,7 @@ function multiskin:get_preview(name)
 	local race = races.get_race(name)
 	local gender = races.get_gender(name)
 	local skin = races.get_skin(name)
-	return races.get_face_preview_name(race, gender, skin)
+	return races.get_face_preview_name(race, gender, skin) or MULTISKIN_DEFAULT_PREVIEW
 end
 
 player_api.register_model("lottarmor_character.b3d", {
