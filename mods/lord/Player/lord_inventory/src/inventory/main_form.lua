@@ -1,5 +1,5 @@
-local detached_inv_armor_slots = require("inventory_armor_slots")
-local detached_inv_clothing_slots = require("inventory_clothing_slots")
+local detached_inv_armor_slots = require("inventory.main.armor_slots")
+local detached_inv_clothing_slots = require("inventory.main.clothing_slots")
 
 local formspec_template = "size[8,8.5]"
 	.. "image[0,0;1,1;lottarmor_helmet.png]"
