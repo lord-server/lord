@@ -1,6 +1,4 @@
-clothing = {
-	textures = {},
-}
+clothing = {}
 
 clothing.set_player_clothing = function(self, player)
 	if not player then
@@ -32,8 +30,6 @@ clothing.set_player_clothing = function(self, player)
 	if #textures > 0 then
 		clothing_texture = table.concat(textures, "^")
 	end
-	self.textures[name].clothing = clothing_texture
-	self.textures[name].preview = preview
 	multiskin[name].clothing = clothing_texture
 	multiskin:update_player_visuals(player)
 end
@@ -58,10 +54,6 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		local stack = player_inv:get_stack("clothing", i)
 		clothing_inv:set_stack("clothing", i, stack)
 	end
-	clothing.textures[name] = {
-		clthing = "clothing_trans.png",
-		preview = "clothing_preview.png",
-	}
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		clothing:set_player_clothing(player)
 		clothing:update_inventory(player)
