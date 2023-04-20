@@ -1,4 +1,5 @@
 local detached_inv_armor_slots = require("inventory_armor_slots")
+local detached_inv_clothing_slots = require("inventory_clothing_slots")
 
 local formspec_template = "size[8,8.5]"
 	.. "image[0,0;1,1;lottarmor_helmet.png]"
@@ -57,12 +58,20 @@ trash:set_size("main", 1)
 minetest.register_on_joinplayer(function(joined_player, last_login)
 	local name = joined_player:get_player_name()
 	local player_inv = joined_player:get_inventory()
-	local armor_inv  = minetest.create_detached_inventory(name .. "_armor", detached_inv_armor_slots, name)
 
+	local armor_inv  = minetest.create_detached_inventory(name .. "_armor", detached_inv_armor_slots, name)
 	armor_inv:set_size("armor", 5)
 	player_inv:set_size("armor", 5)
 	for i = 1, 5 do
 		local stack = player_inv:get_stack("armor", i)
 		armor_inv:set_stack("armor", i, stack)
+	end
+
+	local clothing_inv = minetest.create_detached_inventory(name.."_clothing", detached_inv_clothing_slots, name)
+	clothing_inv:set_size("clothing", 5)
+	player_inv:set_size("clothing", 5)
+	for i=1, 5 do
+		local stack = player_inv:get_stack("clothing", i)
+		clothing_inv:set_stack("clothing", i, stack)
 	end
 end)
