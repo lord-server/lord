@@ -44,68 +44,14 @@ clothing.update_inventory = function(self, player)
 	player:set_inventory_formspec(formspec)
 end
 
+
+local modpath = minetest.get_modpath(minetest.get_current_modname())
+local detached_inv_clothes_slots = dofile(modpath.."/inventory_clothing_slots.lua")
 races.register_init_callback(function(name, race, gender, skin, texture, face)
 	local joined_player = minetest.get_player_by_name(name)
     multiskin:init(joined_player, texture)
 	local player_inv = joined_player:get_inventory()
-	local clothing_inv = minetest.create_detached_inventory(name.."_clothing",{
-		on_put = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, stack)
-			clothing:set_player_clothing(player)
-			clothing:update_inventory(player)
-		end,
-		on_take = function(inv, listname, index, stack, player)
-			player:get_inventory():set_stack(listname, index, nil)
-			clothing:set_player_clothing(player)
-			clothing:update_inventory(player)
-		end,
-		on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			local stack = inv:get_stack(to_list, to_index)
-			player_inv:set_stack(to_list, to_index, stack)
-			player_inv:set_stack(from_list, from_index, nil)
-			clothing:set_player_clothing(player)
-			clothing:update_inventory(player)
-		end,
-		allow_put = function(inv, listname, index, stack, player)
-			if index == 1 then
-				if stack:get_definition().groups.clothes_head == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 2 then
-				if stack:get_definition().groups.clothes_torso == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 3 then
-				if stack:get_definition().groups.clothes_legs == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 4 then
-				if stack:get_definition().groups.clothes_feet == nil then
-					return 0
-				else
-					return 1
-				end
-			elseif index == 5 then
-				if stack:get_definition().groups.clothes_cloak == nil then
-					return 0
-				else
-					return 1
-				end
-			end
-		end,
-		allow_take = function(inv, listname, index, stack, player)
-			return stack:get_count()
-		end,
-		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
-			return 0
-		end,
-	}, name)
+	local clothing_inv = minetest.create_detached_inventory(name.."_clothing", detached_inv_clothes_slots, name)
 	clothing_inv:set_size("clothing", 5)
 	player_inv:set_size("clothing", 5)
 	for i=1, 5 do
