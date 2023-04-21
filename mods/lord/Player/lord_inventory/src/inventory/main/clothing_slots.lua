@@ -10,12 +10,12 @@ return {
 	on_put = function(inv, listname, index, stack, player)
 		player:get_inventory():set_stack(listname, index, stack)
 		clothing:set_player_clothing(player)
-		clothing:update_inventory(player)
+		inventory.update(player)
 	end,
 	on_take = function(inv, listname, index, stack, player)
 		player:get_inventory():set_stack(listname, index, nil)
 		clothing:set_player_clothing(player)
-		clothing:update_inventory(player)
+		inventory.update(player)
 	end,
 	allow_put = function(inv, listname, index, stack, player)
 		local group_name = "clothes_" .. SLOT_PURPOSE[index]

@@ -146,7 +146,7 @@ local handle_armor_wear = function(player)
 						minetest.chat_send_player(name, desc.." "..SL("got destroyed!"))
 					end
 					armor:set_player_armor(player)
-					armor:update_inventory(player)
+					inventory.update(player)
 				end
 				heal_max = heal_max + heal
 			end
@@ -159,16 +159,6 @@ local handle_armor_wear = function(player)
 		end
 	end
 	armor.player_hp[name] = hp
-end
-
-armor.update_inventory = function(self, player)
-	local name = armor.get_valid_player(player, "[set_player_armor]")
-	if not name then
-		return
-	end
-
-	local formspec = armor.get_armor_formspec(name)
-	player:set_inventory_formspec(formspec)
 end
 
 function armor.get_valid_player(player, msg)
@@ -222,7 +212,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		armor:set_player_armor(player)
-		armor:update_inventory(player)
+		inventory.update(player)
 	end, joined_player)
 end)
 

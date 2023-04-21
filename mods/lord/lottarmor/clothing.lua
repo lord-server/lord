@@ -34,11 +34,6 @@ clothing.set_player_clothing = function(self, player)
 	multiskin:update_player_visuals(player)
 end
 
-clothing.update_inventory = function(self, player)
-	local name = player:get_player_name()
-	local formspec = armor.get_armor_formspec(name)
-	player:set_inventory_formspec(formspec)
-end
 
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
@@ -47,6 +42,6 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		clothing:set_player_clothing(player)
-		clothing:update_inventory(player)
+		inventory.update(player)
 	end, joined_player)
 end)

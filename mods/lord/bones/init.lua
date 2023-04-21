@@ -192,7 +192,7 @@ minetest.register_on_dieplayer(function(player)
 			clear_inventory_list(armor_inv, "armor")
 		end
 		armor:set_player_armor(player)
-		armor:update_inventory(player)
+		inventory.update(player)
 
 		return
 	end
@@ -210,7 +210,7 @@ minetest.register_on_dieplayer(function(player)
 		clear_inventory_list(armor_inv, "armor")
 	end
 	armor:set_player_armor(player)
-	armor:update_inventory(player)
+	inventory.update(player)
 
 	corpse_meta:set_string("formspec", bones_formspec)
 	if publish_after < 0 then -- все трупы - достояние общественности

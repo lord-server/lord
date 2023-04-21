@@ -10,13 +10,13 @@ return {
 	on_put = function(inv, list_name, index, stack, player)
 		player:get_inventory():set_stack(list_name, index, stack)
 		armor:set_player_armor(player)
-		armor:update_inventory(player)
+		inventory.update(player)
 		lottachievements.equip(stack, player, 1)
 	end,
 	on_take = function(inv, list_name, index, stack, player)
 		player:get_inventory():set_stack(list_name, index, nil)
 		armor:set_player_armor(player)
-		armor:update_inventory(player)
+		inventory.update(player)
 		lottachievements.equip(stack, player, -1)
 	end,
 	allow_put = function(inv, list_name, index, stack, player)
