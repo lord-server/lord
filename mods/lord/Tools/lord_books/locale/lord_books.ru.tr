@@ -1,0 +1,60 @@
+# textdomain: lord_books
+### zcg.lua ###
+Book of Crafts=Книга\n"Основы крафта"
+
+### cooking.lua ###
+Book of Cooking=Книга\n"Использование печки"
+
+### forbidden.lua ###
+Book of Forbidden Crafts=Книга\n"Улучшенный крафт"
+
+### protection.lua ###
+Book of Protection=Книга\n"Крафт доспехов"
+
+### potions.lua ###
+Book of Potions=Книга\n"Приготовление зелий"
+
+Base Potions:=Базовые зелья:
+Base Potions Of Negative:=Базовые зелья негатива:
+
+Orc Draught (Hurting Potion):=Орочье питьё\n(наносит урон):
+Spider Poison (Speed Weakening Potion):=Паучье зелье\n(замедляет):
+Limpe (Breathing Underwater Potion):=Лимп\n(даёт дышать под водой):
+Miruvor (Jump Boost Potion):=Мирувор\n(увеличивает высоту прыжка):
+Athelas Brew (Healing Potion):=Настойка ателаса\n(исцеляет):
+Ent Draught (Healing & Jump Weakening Potion):=Напиток энтов\n(ускоряет, но мешает прыгать):
+
+Orc Draught (Healing Potion):=Орочье питьё\n(исцеляет):
+Spider Poison (Jump And Speed Boost Potion):=Паучье зелье\n(ускоряет и увеличивает высоту прыжка):
+Limpe (Breathing Underwater Block Potion):=Лимп\n(не даёт дышать под водой):
+Miruvor (Jump Block Potion):=Мирувор\n(мешает прыгать):
+Athelas Brew (Hurting Potion):=Настойка ателаса\n(наносит урон):
+Ent Draught (Boost And Control Lose Potion):=Напиток энтов\n(ускоряет и лишает контроля):
+
+Mese Base Potion=MESE-зелье
+Geodes Base Potion=Жеодовое зелье
+Seregon Base Potion=Серегоновое зелье
+
+Obsidian Base Potion=Обсидиановое зелье
+Bonedust Base Potion=Зелье из костей
+Mordor Base Potion=Мордорское зелье
+
+Power Level=Уровень
+
+### brewing.lua ###
+Book of Brewing=Книга\n"Приготовление алкоголя"
+Wine=Вино
+Beer=Пиво
+Mead=Медовуха
+Cider=Сидр
+Ale=Эль
+
+### master.lua ###
+Master Book of Crafts=Книга\n"Все рецепты"
+Potions=Зелья
+Brewing=Алкоголь
+
+### common ###
+Exit=Закрыть
+Page=Страница
+Search=Поиск
