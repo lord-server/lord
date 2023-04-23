@@ -148,7 +148,7 @@ One does not simply set down a palantir...=Здесь нельзя устано�
 You have no skill use the palantir!=У вас мало опыта для использования палантира!
 
 ### guides.lua ###
-Palantir Guidebook=Книга\n"Палантиры"
+Palantir Guidebook=Книга@n"Палантиры"
 
 ### wooden_stuff.lua ###
 Wooden Door=Яблоневая дверь
