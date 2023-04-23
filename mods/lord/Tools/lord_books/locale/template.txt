@@ -1,0 +1,60 @@
+# textdomain: lord_books
+### zcg.lua ###
+Book of Crafts=
+
+### cooking.lua ###
+Book of Cooking=
+
+### forbidden.lua ###
+Book of Forbidden Crafts=
+
+### protection.lua ###
+Book of Protection=
+
+### potions.lua ###
+Book of Potions=
+
+Base Potions:=
+Base Potions Of Negative:=
+
+Orc Draught (Hurting Potion):=
+Spider Poison (Speed Weakening Potion):=
+Limpe (Breathing Underwater Potion):=
+Miruvor (Jump Boost Potion):=
+Athelas Brew (Healing Potion):=
+Ent Draught (Healing & Jump Weakening Potion):=
+
+Orc Draught (Healing Potion):=
+Spider Poison (Jump And Speed Boost Potion):=
+Limpe (Breathing Underwater Block Potion):=
+Miruvor (Jump Block Potion):=
+Athelas Brew (Hurting Potion):=
+Ent Draught (Boost And Control Lose Potion):=
+
+Mese Base Potion=
+Geodes Base Potion=
+Seregon Base Potion=
+
+Obsidian Base Potion=
+Bonedust Base Potion=
+Mordor Base Potion=
+
+Power Level=
+
+### brewing.lua ###
+Book of Brewing=
+Wine=
+Beer=
+Mead=
+Cider=
+Ale=
+
+### master.lua ###
+Master Book of Crafts=
+Potions=
+Brewing=
+
+### common ###
+Exit=
+Page=
+Search=
