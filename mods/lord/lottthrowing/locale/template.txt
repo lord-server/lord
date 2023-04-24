@@ -1,0 +1,15 @@
+# textdomain: lottthrowing
+### init.lua ###
+Normal Wood Bow=
+Alder Wood Bow=
+Birch Wood Bow=
+Lebethron Wood Bow=
+Mallorn Bow=
+Wooden Crossbow=
+Steel Crossbow=
+Tin Crossbow=
+Silver Crossbow=
+Gold Crossbow=
+Galvorn Crossbow=
+Mithril Crossbow=
+
