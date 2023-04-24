@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_translator("lottthrowing")
 
 
 local lottthrowing_player_shoot = function(player, arrow_name)
