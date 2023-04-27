@@ -1548,7 +1548,7 @@ minetest.register_node("lottplants:fireflies", {
 minetest.register_abm({
 	nodenames = { "air" },
 	neighbors = {
-		"lottplants_elanor",
+		"lottplants:elanor",
 		"lottplants:niphredil",
 	},
 	interval  = 15,
