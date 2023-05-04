@@ -6,22 +6,35 @@ local SLOT_PURPOSE = {
 	--[[ 5 --]] "cloak",  -- for items with `groups.clothes_cloak`
 }
 
+-- временно вынесено из кода detached inventory (ниже)
+-- для дальнейшего переноса в соответствующие моды (см. #1012 #1017 #1021)
+equipment.on_change("clothing", function(player, kind, event, slot, item)
+	clothing:set_player_clothing(player)
+	inventory.update(player)
+end)
+
 return {
-	on_put = function(inv, listname, index, stack, player)
-		player:get_inventory():set_stack(listname, index, stack)
-		clothing:set_player_clothing(player)
-		inventory.update(player)
+	--- @param list_name string
+	--- @param index number
+	--- @param stack ItemStack
+	--- @param player Player
+	on_put = function(inv, list_name, index, stack, player)
+		equipment.for_player(player):set(list_name, index, stack)
 	end,
-	on_take = function(inv, listname, index, stack, player)
-		player:get_inventory():set_stack(listname, index, nil)
-		clothing:set_player_clothing(player)
-		inventory.update(player)
+	--- @param list_name string
+	--- @param index number
+	--- @param player Player
+	on_take = function(inv, list_name, index, stack, player)
+		equipment.for_player(player):delete(list_name, index)
 	end,
-	allow_put = function(inv, listname, index, stack, player)
+	--- @param index number
+	--- @param stack ItemStack
+	allow_put = function(inv, list_name, index, stack, player)
 		local group_name = "clothes_" .. SLOT_PURPOSE[index]
 		return (stack:get_definition().groups[group_name] == nil) and 0 or 1
 	end,
-	allow_take = function(inv, listname, index, stack, player)
+	--- @param stack ItemStack
+	allow_take = function(inv, list_name, index, stack, player)
 		return stack:get_count()
 	end,
 	allow_move = function(inv, from_list, from_index, to_list, to_index, count, player)
