@@ -116,21 +116,20 @@ end
 minetest.register_alias("bones:bones", "bones:corpse_man_male")
 
 --- @param player Player
+--- @return Position|nil
 local function find_position_for_corpse(player)
 	local pos = player:get_pos()
 	pos.x = math.floor(pos.x + 0.5)
 	pos.y = math.floor(pos.y + 0.5)
 	pos.z = math.floor(pos.z + 0.5)
 
-	if minetest.get_node(pos).name == "air" then
-		return pos
-	end
-	pos = minetest.find_node_near(pos, 5 * 3, "air")
-	if pos then
-		return pos
-	end
+	pos = minetest.find_node_near(pos, 20, {
+		"air", "default:water_source", "default:water_flowing",
+		"lottmapgen:blacksource", "lottmapgen:blackflowing",
+		"default:river_water_source", "default:river_water_flowing",
+	}, true)
 
-	return nil
+	return pos
 end
 
 --- @param inventory InvRef
@@ -138,13 +137,6 @@ end
 local function clear_inventory_list(inventory, list_name)
 	for i = 1, inventory:get_size(list_name) do
 		inventory:set_stack(list_name, i, nil)
-	end
-end
---- @param inventory InvRef
---- @param list_names table<number,string>
-local function clear_inventory_lists(inventory, list_names)
-	for _, list_name in list_names do
-		clear_inventory_list(inventory, list_name)
 	end
 end
 --- @param inventory1 InvRef
@@ -187,13 +179,6 @@ minetest.register_on_dieplayer(function(player)
 
 	local corpse_pos = find_position_for_corpse(player)
 	if corpse_pos == nil then
-		clear_inventory_lists(player_inv, {"main", "craft", "armor"})
-		if armor_inv then
-			clear_inventory_list(armor_inv, "armor")
-		end
-		armor:set_player_armor(player)
-		inventory.update(player)
-
 		return
 	end
 

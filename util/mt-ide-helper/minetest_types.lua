@@ -1019,14 +1019,16 @@ function minetest.get_gametime() end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4925-L4927)
 function minetest.get_day_count() end
---- Returns
----   pos or `nil`.
---- * `radius`: using a maximum metric
---- * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
---- * `search_center` [Optional] is an optional boolean (default: `false`)
----   If true `pos` is also checked for the nodes
+--- Returns pos or `nil`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4928-L4933)
+---
+--- @param pos Position
+--- @param radius number using a maximum metric
+--- @param nodenames table|string e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+--- @param search_center boolean  [Optional] is an optional boolean (default: `false`). If true `pos` is also checked for the nodes
+---
+--- @return Position|nil
 function minetest.find_node_near(pos, radius, nodenames, search_center) end
 --- * `pos1` and `pos2` are the min and max positions of the area to search.
 --- * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
