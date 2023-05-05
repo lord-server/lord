@@ -74,5 +74,17 @@ function ForPlayer:clear(kind)
 	end
 end
 
+--- @param kind      string    kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>
+--- @param inventory InvRef    inventory to move to
+--- @param list_name string    list name in inventory to moe to
+function ForPlayer:move_to(kind, inventory, list_name)
+	for slot, item in self:items(kind) do
+		if not item:is_empty() then
+			self:delete(kind, slot)
+			inventory:add_item(list_name, item)
+		end
+	end
+end
+
 
 return ForPlayer
