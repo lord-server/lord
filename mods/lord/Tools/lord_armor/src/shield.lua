@@ -99,6 +99,3 @@ for k, v in pairs(craft_ingreds) do
 	})
 end
 
-minetest.after(0, function()
-	table.insert(armor.elements, "shield")
-end)

@@ -9,7 +9,7 @@ ARMOR_UPDATE_TIME = 1
 
 armor = {
 	player_hp = {},
-	elements = {"head", "torso", "legs", "feet"},
+	elements = {"head", "torso", "legs", "feet", "shield"},
 	physics = {"jump","speed","gravity"},
 	textures = {},
 	def = {state=0, count = 0},
