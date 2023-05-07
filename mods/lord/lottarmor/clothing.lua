@@ -1,4 +1,8 @@
-clothing = {}
+local clothing = {}
+
+equipment.on_change("clothing", function(player, kind, event, slot, item)
+	clothing:set_player_clothing(player)
+end)
 
 clothing.set_player_clothing = function(self, player)
 	if not player then
@@ -13,13 +17,11 @@ clothing.set_player_clothing = function(self, player)
 	local textures = {}
 	local preview = multiskin:get_skin_name(name) or "clothing_preview"
 	preview = preview..".png"
-	for i=1, 5 do
-		local stack = player_inv:get_stack("clothing", i)
-		local item = stack:get_name()
+	for _, stack in equipment.for_player(player):items("clothing") do
 		if stack:get_count() == 1 then
 			local def = stack:get_definition()
 			if def.groups["clothes"] == 1 then
-				local texture = item:gsub("%:", "_")
+				local texture = stack:get_name():gsub("%:", "_")
 				table.insert(textures, texture..".png")
 				if not def.groups["no_preview"] then
 					preview = preview.."^"..texture.."_preview.png"

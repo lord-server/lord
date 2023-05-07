@@ -6,21 +6,8 @@ local SLOT_PURPOSE = {
 	--[[ 5 --]] "shield", -- for items with `groups.armor_shield`
 }
 
--- временно вынесено из кода detached inventory (ниже)
--- для дальнейшего переноса в соответствующие моды (см. #1012 #1017 #1021)
-equipment.on_change("armor", function(player, kind, event, slot, item)
-	armor:set_player_armor(player)
-	inventory.update(player)
-end)
-equipment.on_set("armor", function(player, kind, event, slot, item)
-	lottachievements.equip(item, player, 1)
-end)
-equipment.on_delete("armor", function(player, kind, event, slot, item)
-	lottachievements.equip(item, player, -1)
-end)
-
-
 return {
+	--- @param inv InvRef
 	--- @param list_name string
 	--- @param index number
 	--- @param stack ItemStack

@@ -6,12 +6,6 @@ local SLOT_PURPOSE = {
 	--[[ 5 --]] "cloak",  -- for items with `groups.clothes_cloak`
 }
 
--- временно вынесено из кода detached inventory (ниже)
--- для дальнейшего переноса в соответствующие моды (см. #1012 #1017 #1021)
-equipment.on_change("clothing", function(player, kind, event, slot, item)
-	clothing:set_player_clothing(player)
-	inventory.update(player)
-end)
 
 return {
 	--- @param list_name string

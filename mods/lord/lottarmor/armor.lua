@@ -1,7 +1,5 @@
 local SL = minetest.get_translator("lottarmor")
 
--- Global Defaults - use armor.conf to override these
-
 ARMOR_INIT_DELAY = 1
 ARMOR_UPDATE_TIME = 1
 
@@ -15,6 +13,11 @@ armor = {
 	def = {state=0, count = 0},
 	version = "0.4.4",
 }
+
+
+equipment.on_change("armor", function(player, kind, event, slot, item)
+	armor:set_player_armor(player)
+end)
 
 
 function armor:set_player_armor(player)
@@ -126,16 +129,15 @@ local handle_armor_wear = function(player)
 		local heal_max = 0
 		local state = 0
 		local items = 0
-		for i = 1, 5 do
-			local stack = player_inv:get_stack("armor", i)
+		for slot, stack in equipment.for_player(player):items("armor") do
 			if stack:get_count() > 0 then
 				local clothes = stack:get_definition().groups["clothes"] or 0
 				local use = stack:get_definition().groups["armor_use"] or 0
 				local heal = stack:get_definition().groups["armor_heal"] or 0
 				local item = stack:get_name()
 				stack:add_wear(use)
-				armor_inv:set_stack("armor", i, stack)
-				player_inv:set_stack("armor", i, stack)
+				armor_inv:set_stack("armor", slot, stack)
+				player_inv:set_stack("armor", slot, stack)
 				state = state + stack:get_wear()
 				if clothes ~= 1 then
 					items = items + 1

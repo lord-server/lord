@@ -171,7 +171,6 @@ minetest.register_on_dieplayer(function(player)
 	local gender = races.get_race_and_gender(player_name)[2]
 	local skin = races.get_skin(player_name)
 	local player_inv = player:get_inventory()
-	local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
 
 	if races.list[race].no_corpse then
 		return
@@ -187,15 +186,14 @@ minetest.register_on_dieplayer(function(player)
 
 	local corpse_meta = minetest.get_meta(corpse_pos)
 	local corpse_inv  = corpse_meta:get_inventory()
+	local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
 	corpse_inv:set_size("main", 8*5)
 	exchange_inventories_lists(corpse_inv, "main", player_inv, "main")
 	move_inventory_list(player_inv, "craft", corpse_inv, "main")
-	move_inventory_list(player_inv, "armor", corpse_inv, "main")
+	equipment.for_player(player):move_to("armor", corpse_inv, "main")
 	if armor_inv then
 		clear_inventory_list(armor_inv, "armor")
 	end
-	armor:set_player_armor(player)
-	inventory.update(player)
 
 	corpse_meta:set_string("formspec", bones_formspec)
 	if publish_after < 0 then -- все трупы - достояние общественности

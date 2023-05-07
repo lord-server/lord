@@ -57,6 +57,14 @@ minetest.register_craft({
 	}
 })
 -- Different achievements
+if (equipment) then
+	equipment.on_set("armor", function(player, kind, event, slot, item)
+		lottachievements.equip(item, player, 1)
+	end)
+	equipment.on_delete("armor", function(player, kind, event, slot, item)
+		lottachievements.equip(item, player, -1)
+	end)
+end
 
 lottachievements.register_achievement("master_craftsman", {
 	title       = SL("Master Craftsman"),

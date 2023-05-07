@@ -1369,6 +1369,7 @@ function minetest.mod_channel_join(channel_name) end
 ---		{type="player", name="celeron55"}
 ---		{type="node", pos={x=, y=, z=}}
 ---		{type="detached", name="creative"}
+--- @return InvRef
 function minetest.get_inventory(location) end
 --- Returns
 ---   an `InvRef`.
