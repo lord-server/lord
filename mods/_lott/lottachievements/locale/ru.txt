@@ -145,6 +145,7 @@ Polisher = Полировщик
 Polish a gem = Отполируйте драгоценный камень
 Ring Smith = Кольцо Кузнеца
 Forge a ring of power = Выковать кольцо всевластья
+You can now move with palantiri=Теперь вы можете совершать перемещения с помощью палантиров
 
 ### api.lua ###
 Secret Achievement Unlocked: = Секретное достижение разблокировано:
