@@ -485,7 +485,7 @@ lottachievements.register_achievement("brake", {
 	id          = 36,
 	trigger     = {
 		type   = "place",
-		node   = "carts:stopping_rail",
+		node   = "carts:brakerail",
 		target = 40,
 	}
 })
