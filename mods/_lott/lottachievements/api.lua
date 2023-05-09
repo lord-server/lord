@@ -395,7 +395,7 @@ function lottachievements.getFormspec(name, to, sid)
 				else
 					formspec = formspec	.. "textarea[0.25,3.25;4.8,2;;"..
 						minetest.formspec_escape(minetest.colorize("black",
-						SL("To see this achievement, complete \"")
+						SL("To see this achievement, complete").." \""
 						 .. lottachievements.def[def.requires].title .. "\""))..";]"
 				end
 			end
