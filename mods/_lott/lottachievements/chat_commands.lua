@@ -14,12 +14,10 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local SL = lord.require_intllib()
-
-local S = lottachievements.gettext
+local SL = minetest.get_translator("lottachievements")
 
 minetest.register_chatcommand("achievements", {
-	params = S("[c|clear|disable|enable]"),
+	params = SL("[c|clear|disable|enable]"),
 	description = SL("Show, clear, disable or enable your achievements"),
 	func = function(name, param)
 		if param == "clear" then
@@ -41,12 +39,12 @@ minetest.register_chatcommand("achievements", {
 })
 
 minetest.register_chatcommand("achievement-info", {
-	params = S("<achievement ID>"),
+	params = SL("<achievement ID>"),
 	description = SL("Show details of an achievement"),
 	func = function(name, param)
 		local def = lottachievements.def[param]
 		if def then
-			minetest.chat_send_player(name, string.format(S("%s: %s"), def.title, def.description))
+			minetest.chat_send_player(name, string.format(SL("%s: %s"), def.title, def.description))
 		else
 			minetest.chat_send_player(name, SL("Achievement not found."))
 		end
@@ -57,7 +55,7 @@ minetest.register_chatcommand("achievement-stats", {
 	privs = {
 		server = true
 	},
-	params = S("<name>"),
+	params = SL("<name>"),
 	description = SL("Get the achievements statistics for the given player or yourself"),
 	func = function(name, param)
 		if not param or param == "" then

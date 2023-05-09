@@ -14,17 +14,12 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local SL                                            = lord.require_intllib()
+local SL                                            = minetest.get_translator("lottachievements")
 
 -- The global award namespace
 lottachievements                                    = {
 	show_mode = "hud"
 }
-
--- Internationalization support.
-local S, NS                                         = dofile(minetest.get_modpath("lottachievements") .. "/intllib.lua")
-
-lottachievements.gettext, lottachievements.ngettext = S, NS
 
 dofile(minetest.get_modpath("lottachievements") .. "/api.lua")
 dofile(minetest.get_modpath("lottachievements") .. "/chat_commands.lua")
