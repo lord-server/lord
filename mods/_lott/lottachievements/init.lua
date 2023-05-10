@@ -444,7 +444,7 @@ lottachievements.register_achievement("rohirric_king", {
 lottachievements.register_achievement("ringing_wheels", {
 	title       = SL("Ringing wheels"),
 	description = SL("Lay 100 m of conventional rail"),
-	icon        = "carts_rail.png^lottachievements_level1.png",
+	icon        = "carts_rail_straight.png^lottachievements_level1.png",
 	id          = 33,
 	trigger     = {
 		type   = "place",
@@ -456,7 +456,7 @@ lottachievements.register_achievement("ringing_wheels", {
 lottachievements.register_achievement("trail_men", {
 	title       = SL("Trail men"),
 	description = SL("Lay 1000 m of conventional rail"),
-	icon        = "carts_rail.png^lottachievements_level2.png",
+	icon        = "carts_rail_straight.png^lottachievements_level2.png",
 	requires    = "ringing_wheels",
 	id          = 34,
 	trigger     = {
@@ -481,7 +481,7 @@ lottachievements.register_achievement("with_the_wind", {
 lottachievements.register_achievement("brake", {
 	title       = SL("Brake!"),
 	description = SL("Lay 40 m stopping rail"),
-	icon        = "carts_rail_brk.png",
+	icon        = "carts_rail_straight_brk.png",
 	id          = 36,
 	trigger     = {
 		type   = "place",
