@@ -8,22 +8,22 @@ local Event = {}
 -- TODO make registration of equipment kind (`equipment.register_kind` API)
 --- @private
 Event.subscribers = {
-	["armor"] = {
-		["set"] = {},
-		["delete"] = {},
-		["change"] = {},
-	},
-	["clothing"] = {
-		["set"] = {},
-		["delete"] = {},
-		["change"] = {},
-	},
 	["*any*"] = {
 		["set"] = {},
 		["delete"] = {},
 		["change"] = {},
 	},
 }
+
+--- @internal
+--- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>.
+function Event.addSubscribersKind(kind)
+	Event.subscribers[kind] = {
+		["set"] = {},
+		["delete"] = {},
+		["change"] = {},
+	}
+end
 
 --- @param kind     string equipment kind(type)
 --- @param event    string
@@ -47,6 +47,7 @@ function Event.trigger(player, kind, event, slot, item)
 end
 
 return {
-	subscribe = Event.subscribe,
-	trigger   = Event.trigger,
+	addSubscribersKind = Event.addSubscribersKind,
+	subscribe          = Event.subscribe,
+	trigger            = Event.trigger,
 }

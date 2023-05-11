@@ -53,10 +53,10 @@ minetest.register_craft({
 })
 -- Different achievements
 if (equipment) then
-	equipment.on_set("armor", function(player, kind, event, slot, item)
+	equipment.on_set(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
 		lottachievements.equip(item, player, 1)
 	end)
-	equipment.on_delete("armor", function(player, kind, event, slot, item)
+	equipment.on_delete(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
 		lottachievements.equip(item, player, -1)
 	end)
 end

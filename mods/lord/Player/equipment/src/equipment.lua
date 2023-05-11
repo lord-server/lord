@@ -1,7 +1,9 @@
 local Event     = require("equipment.Event")
 local ForPlayer = require("equipment.ForPlayer")
+local Kind      = require("equipment.Kind")
 
 ForPlayer.event = Event
+Kind.event      = Event
 
 --- @return string
 function __FUNC__(depth) return debug.getinfo(2 + (depth or 0), 'n').name end
@@ -60,6 +62,11 @@ local function register_api()
 		on_delete = function(kind, callback)
 			on("delete", kind, callback)
 		end,
+	}
+	equipment.Kind = {
+		register = Kind.register,
+		is_valid = Kind.is_valid,
+		get_size = Kind.get_size,
 	}
 end
 

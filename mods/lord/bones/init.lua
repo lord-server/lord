@@ -190,7 +190,7 @@ minetest.register_on_dieplayer(function(player)
 	corpse_inv:set_size("main", 8*5)
 	exchange_inventories_lists(corpse_inv, "main", player_inv, "main")
 	move_inventory_list(player_inv, "craft", corpse_inv, "main")
-	equipment.for_player(player):move_to("armor", corpse_inv, "main")
+	equipment.for_player(player):move_to(equipment.Kind.ARMOR, corpse_inv, "main")
 	if armor_inv then
 		clear_inventory_list(armor_inv, "armor")
 	end

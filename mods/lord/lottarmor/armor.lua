@@ -15,7 +15,7 @@ armor = {
 }
 
 
-equipment.on_change("armor", function(player, kind, event, slot, item)
+equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
 	armor:set_player_armor(player)
 end)
 
@@ -129,7 +129,7 @@ local handle_armor_wear = function(player)
 		local heal_max = 0
 		local state = 0
 		local items = 0
-		for slot, stack in equipment.for_player(player):items("armor") do
+		for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 			if stack:get_count() > 0 then
 				local clothes = stack:get_definition().groups["clothes"] or 0
 				local use = stack:get_definition().groups["armor_use"] or 0

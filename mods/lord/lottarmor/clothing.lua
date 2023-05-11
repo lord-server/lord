@@ -1,6 +1,6 @@
 local clothing = {}
 
-equipment.on_change("clothing", function(player, kind, event, slot, item)
+equipment.on_change(equipment.Kind.CLOTHING, function(player, kind, event, slot, item)
 	clothing:set_player_clothing(player)
 end)
 
@@ -17,7 +17,7 @@ clothing.set_player_clothing = function(self, player)
 	local textures = {}
 	local preview = multiskin:get_skin_name(name) or "clothing_preview"
 	preview = preview..".png"
-	for _, stack in equipment.for_player(player):items("clothing") do
+	for _, stack in equipment.for_player(player):items(equipment.Kind.CLOTHING) do
 		if stack:get_count() == 1 then
 			local def = stack:get_definition()
 			if def.groups["clothes"] == 1 then
