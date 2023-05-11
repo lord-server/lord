@@ -2,27 +2,24 @@ local pairs
 	= pairs
 
 
+local SUBSCRIBERS_EVENTS_SET_OF_KIND = {
+	["set"] = {},
+	["delete"] = {},
+	["change"] = {},
+}
+
 --- @class equipment.Event
 local Event = {}
 
--- TODO make registration of equipment kind (`equipment.register_kind` API)
 --- @private
 Event.subscribers = {
-	["*any*"] = {
-		["set"] = {},
-		["delete"] = {},
-		["change"] = {},
-	},
+	["*any*"] = table.copy(SUBSCRIBERS_EVENTS_SET_OF_KIND),
 }
 
 --- @internal
 --- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>.
 function Event.addSubscribersKind(kind)
-	Event.subscribers[kind] = {
-		["set"] = {},
-		["delete"] = {},
-		["change"] = {},
-	}
+	Event.subscribers[kind] = table.copy(SUBSCRIBERS_EVENTS_SET_OF_KIND)
 end
 
 --- @param kind     string equipment kind(type)

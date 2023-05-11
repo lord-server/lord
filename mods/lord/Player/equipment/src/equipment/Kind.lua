@@ -16,7 +16,7 @@ local Kind = {
 --- @param size string quantity of slots for this `kind` of equipment.
 function Kind.register(kind, size)
 	if kind == "event" or kind == "sizes" then
-		error("Names \"event\" and \"sizes\" are reserved. You are can't use them for `kind` name.", 2)
+		error("Names \"event\", \"sizes\" and \"*any*\" are reserved. You are can't use them for `kind` name.", 2)
 	end
 	Kind.event.addSubscribersKind(kind)
 	Kind.sizes[kind] = size
