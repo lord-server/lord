@@ -327,9 +327,8 @@ local S = minetest.get_translator("bees")
   minetest.register_craft({
     output = 'bees:honey_comb_block',
     recipe = {
-      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
-      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
-      {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
+      {'bees:honey_comb','bees:honey_comb'},
+      {'bees:honey_comb','bees:honey_comb'},
     }
   })
 
@@ -342,9 +341,8 @@ local S = minetest.get_translator("bees")
   minetest.register_craft({
     output = 'bees:wax_block',
     recipe = {
-      {'bees:wax','bees:wax','bees:wax'},
-      {'bees:wax','bees:wax','bees:wax'},
-      {'bees:wax','bees:wax','bees:wax'},
+      {'bees:wax','bees:wax'},
+      {'bees:wax','bees:wax'},
     }
   })
 
