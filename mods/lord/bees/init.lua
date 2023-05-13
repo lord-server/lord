@@ -334,7 +334,7 @@ local S = minetest.get_translator("bees")
 
   minetest.register_craft({
     type = 'shapeless',
-    output = 'bees:honey_comb 9',
+    output = 'bees:honey_comb 4',
     recipe = {'bees:honey_comb_block'},
   })
 
@@ -348,7 +348,7 @@ local S = minetest.get_translator("bees")
 
   minetest.register_craft({
     type = 'shapeless',
-    output = 'bees:wax 9',
+    output = 'bees:wax 4',
     recipe = {'bees:wax_block'},
   })
 
