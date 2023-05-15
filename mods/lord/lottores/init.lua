@@ -912,14 +912,13 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottores:limestone',
 	recipe = {
-		{'lottores:limestone_lump', 'lottores:limestone_lump', 'lottores:limestone_lump'},
-		{'lottores:limestone_lump', 'lottores:limestone_lump', 'lottores:limestone_lump'},
-		{'lottores:limestone_lump', 'lottores:limestone_lump', 'lottores:limestone_lump'},
+		{'lottores:limestone_lump', 'lottores:limestone_lump',},
+		{'lottores:limestone_lump', 'lottores:limestone_lump'},
 	}
 })
 
 minetest.register_craft({
-	output = 'lottores:limestone_lump 9',
+	output = 'lottores:limestone_lump 4',
 	recipe = {
 		{'lottores:limestone'},
 	}
