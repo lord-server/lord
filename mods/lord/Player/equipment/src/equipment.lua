@@ -62,6 +62,13 @@ local function register_api()
 		on_delete = function(kind, callback)
 			on("delete", kind, callback)
 		end,
+
+		--- Triggers when new player join & equipment of `kind` created
+		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
+		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		on_create = function(kind, callback)
+			on("create", kind, callback)
+		end,
 	}
 	equipment.Kind = {
 		register = Kind.register,

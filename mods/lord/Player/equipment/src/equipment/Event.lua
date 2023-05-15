@@ -36,7 +36,17 @@ function Event.notify(player, kind, event, slot, item)
 	end
 end
 
+--- @overload fun(player:Player,kind:string,event:string)
+--- @param player Player
+--- @param kind   string
+--- @param event  string
+--- @param slot   number
+--- @param item   ItemStack
 function Event.trigger(player, kind, event, slot, item)
+	if event == "create" then
+		Event.notify(player, kind, event)
+		return
+	end
 	Event.notify(player, kind, event, slot, item)
 	Event.notify(player, kind, "change", slot, item)  -- TODO use Event.CHANGE constant
 	Event.notify(player, "*any*", event, slot, item)

@@ -75,7 +75,6 @@ minetest.register_on_joinplayer(function(joined_player, last_login)
 
 	local armor_inv  = minetest.create_detached_inventory(name .. "_armor", detached_inv_armor_slots, name)
 	armor_inv:set_size("armor", 5)
-	player_inv:set_size("armor", 5)
 	for i = 1, 5 do
 		local stack = player_inv:get_stack("armor", i)
 		armor_inv:set_stack("armor", i, stack)
@@ -83,7 +82,6 @@ minetest.register_on_joinplayer(function(joined_player, last_login)
 
 	local clothing_inv = minetest.create_detached_inventory(name.."_clothing", detached_inv_clothing_slots, name)
 	clothing_inv:set_size("clothing", 5)
-	player_inv:set_size("clothing", 5)
 	for i=1, 5 do
 		local stack = player_inv:get_stack("clothing", i)
 		clothing_inv:set_stack("clothing", i, stack)
