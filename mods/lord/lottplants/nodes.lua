@@ -1095,7 +1095,7 @@ minetest.register_node("lottplants:yavannamirefruit", {
 default.register_leafdecay({
 	trunks = {"lottplants:aldertree"},
 	leaves = {"lottplants:alderleaf"},
-	radius = 2,
+	radius = 3,
 })
 
 default.register_leafdecay({
