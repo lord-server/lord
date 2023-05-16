@@ -15,7 +15,7 @@ local Kind = {
 ---                    Except "event" and "sizes" - reserved.
 --- @param size string quantity of slots for this `kind` of equipment.
 function Kind.register(kind, size)
-	if kind == "event" or kind == "sizes" then
+	if kind == "event" or kind == "sizes" or kind == "*any*" then
 		error("Names \"event\", \"sizes\" and \"*any*\" are reserved. You are can't use them for `kind` name.", 2)
 	end
 
