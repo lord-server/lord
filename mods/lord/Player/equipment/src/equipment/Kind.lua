@@ -32,6 +32,8 @@ function Kind.register(kind, size)
 			player:get_inventory():set_size(kind, size)
 			Kind.event.trigger(player, kind, "create")
 		end
+
+		Kind.event.trigger(player, kind, "load")
 	end)
 end
 

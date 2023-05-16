@@ -69,6 +69,12 @@ local function register_api()
 		on_create = function(kind, callback)
 			on("create", kind, callback)
 		end,
+
+		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
+		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		on_load = function(kind, callback)
+			on("load", kind, callback)
+		end
 	}
 	equipment.Kind = {
 		register = Kind.register,

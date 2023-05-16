@@ -68,23 +68,25 @@ Form.get_spec = function(player_name)
 end
 
 
---- @param joined_player Player
-minetest.register_on_joinplayer(function(joined_player, last_login)
-	local name = joined_player:get_player_name()
-	local player_inv = joined_player:get_inventory()
-
-	local armor_inv  = minetest.create_detached_inventory(name .. "_armor", detached_inv_armor_slots, name)
+equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event)
+	local player_name = player:get_player_name()
+	local armor_inv   = minetest.create_detached_inventory(
+		player_name .. "_armor", detached_inv_armor_slots, player_name
+	)
 	armor_inv:set_size("armor", 5)
-	for i = 1, 5 do
-		local stack = player_inv:get_stack("armor", i)
-		armor_inv:set_stack("armor", i, stack)
+	for slot, item in equipment.for_player(player):items(kind) do
+		armor_inv:set_stack("armor", slot, item)
 	end
+end)
 
-	local clothing_inv = minetest.create_detached_inventory(name.."_clothing", detached_inv_clothing_slots, name)
+equipment.on_load(equipment.Kind.CLOTHING, function(player, kind, event)
+	local player_name  = player:get_player_name()
+	local clothing_inv = minetest.create_detached_inventory(
+		player_name .. "_clothing", detached_inv_clothing_slots, player_name
+	)
 	clothing_inv:set_size("clothing", 5)
-	for i=1, 5 do
-		local stack = player_inv:get_stack("clothing", i)
-		clothing_inv:set_stack("clothing", i, stack)
+	for slot, item in equipment.for_player(player):items(kind) do
+		clothing_inv:set_stack("clothing", slot, item)
 	end
 end)
 

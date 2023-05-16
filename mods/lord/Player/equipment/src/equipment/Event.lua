@@ -5,6 +5,8 @@ local pairs
 local SUBSCRIBERS_EVENTS_SET_OF_KIND = {
 	["set"] = {},
 	["delete"] = {},
+	["create"] = {},
+	["load"] = {},
 	["change"] = {},
 }
 
