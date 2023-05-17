@@ -1,12 +1,15 @@
 # textdomain: lottmapgen
-Snow Block=Блок снега
-Frozen Stone=Обледеневший камень
+Snow Block=Блок Снега
+Frozen Stone=Обледеневший Камень
 Mordor Stone=Камень Мордора
-Black Water Source=Чёрная вода
-Black River Source=Речная чёрная вода
-Mordor Water Bucket=Ведро с чёрной водой
+Mordor Cobblestone=Булыжник Мордора
+Mordor Gravel=Гравий Мордора
+Mordor Sand=Песок Мордора
+Black Water Source=Чёрная Вода
+Black River Source=Речная Чёрная Вода
+Mordor Water Bucket=Ведро с Чёрной Водой
 Dunland Grass=Трава Дунланда
-Iron Hills Grass=Трава железных гор
+Iron Hills Grass=Трава Железных Гор
 Gondor Grass=Трава Гондора
 Lorien Grass=Трава Лориена
 Fangorn Grass=Трава Фангорн
@@ -15,12 +18,12 @@ Rohan Grass=Трава Рохана
 Shire Grass=Трава Шира
 Ithilien Grass=Трава Итилиэна
 
-Mordor Stone Stair=Ступенька из камня Мордора
-Inner Mordor Stone Stair=Угловая ступенька из камня Мордора (Внутренний Угол)
-Outer Mordor Stone Stair=Угловая ступенька из камня Мордора (Внешний Угол)
-Mordor Stone Slab=Плита из камня Мордора
+Mordor Stone Stair=Ступень из Камня Мордора
+Mordor Stone Slab=Плита из Камня Мордора
+Inner Mordor Stone Stair=Угловая Ступень из Камня Мордора (Внутренний Угол)
+Outer Mordor Stone Stair=Угловая Ступень из Камня Мордора (Внешний Угол)
 
-Ice Stair=Ледяная ступенька
-Inner Ice Stair=Угловая ледяная ступенька (Внутренний Угол)
-Outer Ice Stair=Угловая ледяная ступенька (Внешний Угол)
-Ice Slab=Ледяная плита
+Mordor Cobblestone Stair=Ступень из Булыжника Мордора
+Mordor Cobblestone Slab=Плита из Булыжника Мордора
+Inner Mordor Cobblestone Stair=Угловая Ступень из Булыжника Мордора (Внутренний Угол)
+Outer Mordor Cobblestone Stair=Угловая Ступень из Булыжника Мордора (Внешний Угол)
