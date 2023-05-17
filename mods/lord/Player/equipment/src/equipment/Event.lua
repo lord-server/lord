@@ -49,6 +49,11 @@ function Event.trigger(player, kind, event, slot, item)
 		Event.notify(player, kind, event)
 		return
 	end
+	if event == "load" then
+		Event.notify(player, kind, event, slot, item)
+		Event.notify(player, "*any*", event, slot, item)
+		return
+	end
 	Event.notify(player, kind, event, slot, item)
 	Event.notify(player, kind, "change", slot, item)  -- TODO use Event.CHANGE constant
 	Event.notify(player, "*any*", event, slot, item)
