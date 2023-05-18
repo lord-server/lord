@@ -32,8 +32,8 @@ function Event.subscribe(kind, event, callback)
 end
 
 --- @private
-function Event.notify(player, kind, event, slot, item)
-	for _, callback in pairs(Event.subscribers[kind][event]) do
+function Event.notify(player, subscribers_kind, kind, event, slot, item)
+	for _, callback in pairs(Event.subscribers[subscribers_kind][event]) do
 		callback(player, kind, event, slot, item)
 	end
 end
@@ -46,18 +46,18 @@ end
 --- @param item   ItemStack
 function Event.trigger(player, kind, event, slot, item)
 	if event == "create" then
-		Event.notify(player, kind, event)
+		Event.notify(player, kind, kind, event)
 		return
 	end
 	if event == "load" then
-		Event.notify(player, kind, event, slot, item)
-		Event.notify(player, "*any*", event, slot, item)
+		Event.notify(player, kind, kind, event, slot, item)
+		Event.notify(player, "*any*", kind, event, slot, item)
 		return
 	end
-	Event.notify(player, kind, event, slot, item)
-	Event.notify(player, kind, "change", slot, item)  -- TODO use Event.CHANGE constant
-	Event.notify(player, "*any*", event, slot, item)
-	Event.notify(player, "*any*", "change", slot, item)
+	Event.notify(player, kind, kind, event, slot, item)
+	Event.notify(player, kind, kind, "change", slot, item)  -- TODO use Event.CHANGE constant
+	Event.notify(player, "*any*", kind, event, slot, item)
+	Event.notify(player, "*any*", kind, "change", slot, item)
 end
 
 return {
