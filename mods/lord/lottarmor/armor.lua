@@ -25,14 +25,12 @@ function armor:set_player_armor(player)
 	if not name then
 		return
 	end
-	local armor_texture = "lottarmor_trans.png"
 	local armor_level = 0
 	local armor_heal = 0
 	local armor_fire = 0
 	local state = 0
 	local items = 0
 	local elements = {}
-	local textures = {}
 	local physics_o = {speed=1,gravity=1,jump=1}
 	local material = {type=nil, count=1}
 	local preview = multiskin:get_preview(name)
@@ -49,7 +47,6 @@ function armor:set_player_armor(player)
 					local level = def.groups["armor_"..k]
 					if level and not def.groups["clothes"] then
 						local texture = item:gsub("%:", "_")
-						table.insert(textures, texture..".png")
 						preview = preview.."^"..texture.."_preview.png"
 						armor_level = armor_level + level
 						state = state + stack:get_wear()
@@ -84,9 +81,6 @@ function armor:set_player_armor(player)
 	if material.type and material.count == #self.elements then
 		armor_level = armor_level * 1.1
 	end
-	if #textures > 0 then
-		armor_texture = table.concat(textures, "^")
-	end
 	local armor_groups = {fleshy=100}
 	local immortal = player:get_armor_groups().immortal
 	if immortal and immortal ~= 0 then
@@ -102,8 +96,9 @@ function armor:set_player_armor(player)
 		player:set_armor_groups(armor_groups)
 	end
 	player:set_physics_override(physics_o)
-	self.textures[name].armor = armor_texture
+
 	self.textures[name].preview = preview
+
 	self.def[name].state = state
 	self.def[name].count = items
 	self.def[name].level = armor_level
@@ -112,8 +107,6 @@ function armor:set_player_armor(player)
 	self.def[name].speed = physics_o.speed
 	self.def[name].gravity = physics_o.gravity
 	self.def[name].fire = armor_fire
-	multiskin[name].armor = armor_texture
-	multiskin:update_player_visuals(player)
 end
 
 local handle_armor_wear = function(player)
@@ -193,9 +186,6 @@ end
 -- Register Callbacks
 
 races.register_init_callback(function(name, race, gender, skin, texture, face)
-	local joined_player = minetest.get_player_by_name(name)
-	multiskin:init(joined_player, texture)
-
 	armor.player_hp[name] = 0
 	armor.def[name] = {
 		state = 0,
@@ -212,6 +202,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		preview = "character_preview.png"
 	}
 
+	local joined_player = minetest.get_player_by_name(name)
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		armor:set_player_armor(player)
 		inventory.update(player)
