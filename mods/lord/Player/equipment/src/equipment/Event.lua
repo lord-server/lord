@@ -3,10 +3,10 @@ local pairs
 
 
 local SUBSCRIBERS_EVENTS_SET_OF_KIND = {
-	["set"] = {},
+	["set"]    = {},
 	["delete"] = {},
 	["create"] = {},
-	["load"] = {},
+	["load"]   = {},
 	["change"] = {},
 }
 
@@ -16,11 +16,19 @@ local Event = {}
 --- @private
 Event.subscribers = {
 	["*any*"] = table.copy(SUBSCRIBERS_EVENTS_SET_OF_KIND),
+	["*all*"] = {
+		["load_all"] = {},
+	},
 }
 
 --- @internal
 --- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>.
 function Event.addSubscribersKind(kind)
+	if kind == "*any*" or kind == "*all*" then
+		-- This function is internal & used only by `Kind.register()`
+		-- So we pass `level == 3` for `error()`, it will point to where the `Kind.register()` was called
+		error("Names \"*all*\" and \"*any*\" are reserved. You are can't use them for `kind` name.", 3)
+	end
 	Event.subscribers[kind] = table.copy(SUBSCRIBERS_EVENTS_SET_OF_KIND)
 end
 
@@ -52,6 +60,10 @@ function Event.trigger(player, kind, event, slot, item)
 	if event == "load" then
 		Event.notify(player, kind, kind, event, slot, item)
 		Event.notify(player, "*any*", kind, event, slot, item)
+		return
+	end
+	if event == "load_all" then
+		Event.notify(player, kind, kind, event)
 		return
 	end
 	Event.notify(player, kind, kind, event, slot, item)

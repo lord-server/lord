@@ -74,7 +74,12 @@ local function register_api()
 		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
 		on_load = function(kind, callback)
 			on("load", kind, callback)
-		end
+		end,
+
+		--- @param callback fun(player:Player, kind:string, event:string)
+		on_load_all = function(callback)
+			on("load_all", "*all*", callback)
+		end,
 	}
 	equipment.Kind = {
 		register = Kind.register,
@@ -86,5 +91,6 @@ end
 return {
 	init = function()
 		register_api()
+		Kind.init()
 	end
 }
