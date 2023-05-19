@@ -39,7 +39,7 @@ end
 
 --- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>.
 function Kind.is_valid(kind)
-	table.has_key(Kind.sizes, kind)
+	return table.has_key(Kind.sizes, kind)
 end
 
 --- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>.

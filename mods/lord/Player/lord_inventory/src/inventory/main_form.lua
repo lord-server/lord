@@ -1,5 +1,8 @@
-local detached_inv_armor_slots = require("inventory.main.armor_slots")
-local detached_inv_clothing_slots = require("inventory.main.clothing_slots")
+local detached_inv_equipment_slots = {
+	armor    = require("inventory.main.armor_slots"),
+	clothing = require("inventory.main.clothing_slots"),
+}
+
 local detached_inv_trash = minetest.create_detached_inventory("armor_trash", {
 	allow_put = function(inv, listname, index, stack, player)
 		return stack:get_count()
@@ -67,27 +70,21 @@ Form.get_spec = function(player_name)
 	return formspec
 end
 
-
-equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event)
+-- When *any* equipment (armor and clothing) loaded (when player joined),
+-- we need to:
+--   - create detached inventories for each equipment (armor&clothing)
+--       to use it on form of main player inventory
+--   - fill each inventory with equipment items
+equipment.on_load(function(player, kind, event)
 	local player_name = player:get_player_name()
-	local armor_inv   = minetest.create_detached_inventory(
-		player_name .. "_armor", detached_inv_armor_slots, player_name
+	local equip_inv   = minetest.create_detached_inventory(
+		player_name .. "_" .. kind, detached_inv_equipment_slots[kind], player_name
 	)
-	armor_inv:set_size("armor", 5)
+	equip_inv:set_size(kind, equipment.Kind.get_size(kind))
 	for slot, item in equipment.for_player(player):items(kind) do
-		armor_inv:set_stack("armor", slot, item)
+		equip_inv:set_stack(kind, slot, item)
 	end
 end)
 
-equipment.on_load(equipment.Kind.CLOTHING, function(player, kind, event)
-	local player_name  = player:get_player_name()
-	local clothing_inv = minetest.create_detached_inventory(
-		player_name .. "_clothing", detached_inv_clothing_slots, player_name
-	)
-	clothing_inv:set_size("clothing", 5)
-	for slot, item in equipment.for_player(player):items(kind) do
-		clothing_inv:set_stack("clothing", slot, item)
-	end
-end)
 
 return Form
