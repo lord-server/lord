@@ -1,3 +1,7 @@
+local table_insert, table_concat
+	= table.insert, table.concat
+
+
 local MULTISKIN_DEFAULT_SKIN = "character.png"
 local MULTISKIN_DEFAULT_PREVIEW = "character_preview.png"
 local MULTISKIN_TRANS = "lottarmor_trans.png"
@@ -8,7 +12,7 @@ function multiskin:init(player, texture)
 	player_api.set_model(player, "lottarmor_character.b3d")
 	local name = player:get_player_name()
 	multiskin[name] = {
-		skin = texture,
+		skin = texture or MULTISKIN_DEFAULT_SKIN,
 		armor = MULTISKIN_TRANS,
 		wielditem = MULTISKIN_TRANS,
 		clothing = MULTISKIN_TRANS,
@@ -70,7 +74,7 @@ local function get_equip_textures(kind, player)
 	local textures = {}
 	for _, item in equipment.for_player(player):items(kind) do
 		if (not item:is_empty()) then
-			table.insert(textures, item:get_name():gsub("%:", "_") .. ".png")
+			table_insert(textures, item:get_name():gsub("%:", "_") .. ".png")
 		end
 	end
 
@@ -86,15 +90,22 @@ local function overlay_equip_textures(kind, player)
 		return MULTISKIN_TRANS
 	end
 
-	return table.concat(textures, "^")
+	return table_concat(textures, "^")
 end
 
 -- moved from lottarmor/armor.lua & lottclothing/clothing.lua
--- TODO: remove using `races.register_init_callback`, instead use `equipment.on_load` & `character.get_texture`
+-- TODO: remove using `races.register_init_callback`, instead use `equipment.on_load_all` & `character.get_texture`
 races.register_init_callback(function(name, race, gender, skin, texture, face)
 	local joined_player = minetest.get_player_by_name(name)
 	multiskin:init(joined_player, texture)
 end)
+equipment.on_load(function(player, kind, event, slot, item)
+	multiskin[player:get_player_name()][kind] = overlay_equip_textures(kind, player)
+end)
+equipment.on_load_all(function(player)
+	multiskin:update_player_visuals(player)
+end)
+-- end TODO
 
 -- When *any* equipment changed (armor or clothing),
 -- we need to update player model appearance to show clothes and/or armor.
