@@ -1,7 +1,7 @@
 local SL = minetest.get_translator("lottarmor")
 
-ARMOR_INIT_DELAY = 1
-ARMOR_UPDATE_TIME = 1
+local ARMOR_INIT_DELAY = 1
+local ARMOR_UPDATE_TIME = 1
 
 -- Armor API
 
@@ -21,7 +21,7 @@ end)
 
 
 function armor:set_player_armor(player)
-	local name, player_inv = armor.get_valid_player(player, "[set_player_armor]")
+	local name = armor.get_valid_player(player, "[set_player_armor]")
 	if not name then
 		return
 	end
@@ -33,21 +33,18 @@ function armor:set_player_armor(player)
 	local elements = {}
 	local physics_o = {speed=1,gravity=1,jump=1}
 	local material = {type=nil, count=1}
-	local preview = multiskin:get_preview(name)
 	for _,v in ipairs(self.elements) do
 		elements[v] = false
 	end
-	for i = 1, 5 do
-		local stack = player_inv:get_stack("armor", i)
+
+	for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		local item = stack:get_name()
 		if stack:get_count() == 1 then
-			local def = stack:get_definition()
 			for k, v in pairs(elements) do
 				if v == false then
+					local def = stack:get_definition()
 					local level = def.groups["armor_"..k]
 					if level and not def.groups["clothes"] then
-						local texture = item:gsub("%:", "_")
-						preview = preview.."^"..texture.."_preview.png"
 						armor_level = armor_level + level
 						state = state + stack:get_wear()
 						items = items + 1
@@ -75,9 +72,6 @@ function armor:set_player_armor(player)
 			end
 		end
 	end
-	if minetest.get_modpath("shields") then
-		armor_level = armor_level * 0.9
-	end
 	if material.type and material.count == #self.elements then
 		armor_level = armor_level * 1.1
 	end
@@ -96,8 +90,6 @@ function armor:set_player_armor(player)
 		player:set_armor_groups(armor_groups)
 	end
 	player:set_physics_override(physics_o)
-
-	self.textures[name].preview = preview
 
 	self.def[name].state = state
 	self.def[name].count = items
@@ -140,8 +132,9 @@ local handle_armor_wear = function(player)
 					if desc then
 						minetest.chat_send_player(name, desc.." "..SL("got destroyed!"))
 					end
+					-- TODO remove item by `equipment.for_player(player):delete()` to trigger all callbacks
 					armor:set_player_armor(player)
-					inventory.update(player)
+					--inventory.update(player) -- see to-do (now inventory preview on wear not updated)
 				end
 				heal_max = heal_max + heal
 			end
@@ -197,15 +190,10 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		gravity = 1,
 		fire = 0,
 	}
-	armor.textures[name] = {
-		armor = "lottarmor_trans.png",
-		preview = "character_preview.png"
-	}
 
 	local joined_player = minetest.get_player_by_name(name)
 	minetest.after(ARMOR_INIT_DELAY, function(player)
 		armor:set_player_armor(player)
-		inventory.update(player)
 	end, joined_player)
 end)
 

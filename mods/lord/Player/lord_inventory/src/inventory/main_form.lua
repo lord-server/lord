@@ -55,17 +55,9 @@ local Form = {
 
 }
 
-Form.get_spec = function(player_name)
-	if not armor.textures[player_name] then
-		minetest.log("error", "lottarmor: Player texture[" .. player_name .. "] is nil [get_armor_formspec]")
-		return ""
-	end
-	if not armor.def[player_name] then
-		minetest.log("error", "lottarmor: Armor def[" .. player_name .. "] is nil [get_armor_formspec]")
-		return ""
-	end
+Form.get_spec = function(player_name, preview)
 	local formspec = formspec_template:gsub("player_name", player_name)
-	formspec       = formspec:gsub("armor_preview", armor.textures[player_name].preview)
+	formspec       = formspec:gsub("armor_preview", preview)
 
 	return formspec
 end
