@@ -29,45 +29,33 @@ function armor:set_player_armor(player)
 	local armor_fire = 0
 	local state = 0
 	local items = 0
-	local elements = {}
 	local physics_o = {speed=1,gravity=1,jump=1}
 	local material = {type=nil, count=1}
-	for _,v in ipairs(self.elements) do
-		elements[v] = false
-	end
 
-	for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
-		local item = stack:get_name()
+	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
-			for k, v in pairs(elements) do
-				if v == false then
-					local def = stack:get_definition()
-					local level = def.groups["armor_"..k]
-					if level and not def.groups["clothes"] then
-						armor_level = armor_level + level
-						state = state + stack:get_wear()
-						items = items + 1
-						local heal = def.groups["armor_heal"] or 0
-						armor_heal = armor_heal + heal
-						local fire = def.groups["armor_fire"] or 0
-						armor_fire = armor_fire + fire
-						for kk,vv in ipairs(self.physics) do
-							local o_value = def.groups["physics_"..vv]
-							if o_value then
-								physics_o[vv] = physics_o[vv] + o_value
-							end
-						end
-						local mat = string.match(item, "%:.+_(.+)$")
-						if material.type then
-							if material.type == mat then
-								material.count = material.count + 1
-							end
-						else
-							material.type = mat
-						end
-						elements[k] = true
-					end
+			local def = stack:get_definition()
+			local level = def.groups["armor_"..self.elements[slot]]
+			armor_level = armor_level + level
+			state = state + stack:get_wear()
+			items = items + 1
+			local heal = def.groups["armor_heal"] or 0
+			armor_heal = armor_heal + heal
+			local fire = def.groups["armor_fire"] or 0
+			armor_fire = armor_fire + fire
+			for kk,vv in ipairs(self.physics) do
+				local o_value = def.groups["physics_"..vv]
+				if o_value then
+					physics_o[vv] = physics_o[vv] + o_value
 				end
+			end
+			local mat = string.match(stack:get_name(), "%:.+_(.+)$")
+			if material.type then
+				if material.type == mat then
+					material.count = material.count + 1
+				end
+			else
+				material.type = mat
 			end
 		end
 	end
