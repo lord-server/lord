@@ -11,7 +11,6 @@ armor = {
 	physics = {"jump","speed","gravity"},
 	textures = {},
 	def = {state=0, count = 0},
-	version = "0.4.4",
 }
 
 
@@ -19,9 +18,9 @@ equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, it
 	armor:set_player_armor(player)
 end)
 
-
+--- @param player Player
 function armor:set_player_armor(player)
-	local name = armor.get_valid_player(player, "[set_player_armor]")
+	local name = player:get_player_name()
 	if not name then
 		return
 	end
@@ -102,7 +101,9 @@ function armor:set_player_armor(player)
 end
 
 local handle_armor_wear = function(player)
-	local name, player_inv, armor_inv = armor.get_valid_player(player, "[handle_armor_wear]")
+	local name = player:get_player_name()
+	local player_inv = player:get_inventory()
+	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not name then
 		return
 	end
@@ -149,32 +150,6 @@ local handle_armor_wear = function(player)
 	armor.player_hp[name] = hp
 end
 
-function armor.get_valid_player(player, msg)
-	msg = msg or ""
-	if not player then
-		minetest.log("error", "lottarmor: Player reference is nil "..msg)
-		return
-	end
-	local name = player:get_player_name()
-	if not name then
-		minetest.log("error", "lottarmor: Player name is nil "..msg)
-		return
-	end
-	local pos = player:get_pos()
-	local player_inv = player:get_inventory()
-	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
-	if not pos then
-		minetest.log("error", "lottarmor: Player position is nil "..msg)
-		return
-	elseif not player_inv then
-		minetest.log("error", "lottarmor: Player inventory is nil "..msg)
-		return
-	elseif not armor_inv then
-		minetest.log("error", "lottarmor: Detached armor inventory is nil "..msg)
-		return
-	end
-	return name, player_inv, armor_inv
-end
 
 -- Register Callbacks
 
