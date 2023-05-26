@@ -3,6 +3,11 @@ local SL = minetest.get_translator("lottarmor")
 local ARMOR_INIT_DELAY = 1
 local ARMOR_UPDATE_TIME = 1
 
+--- @type table<number,string>|string[]
+local PHYSICS_TYPES = { "jump", "speed", "gravity" }
+--- @type table<number,string>|string[]
+local ARMOR_PURPOSE = { "head", "torso", "legs", "feet", "shield" }
+
 -- Armor API
 
 armor = {
@@ -16,8 +21,6 @@ equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, it
 	armor:set_player_armor(player)
 end)
 
---- @type table<number,string>|string[]
-local PHYSICS_TYPES = { "jump", "speed", "gravity" }
 --- @param player        Player
 local function collect_physics(player)
 	local physics = { speed = 1, gravity = 1, jump = 1 }
@@ -36,12 +39,7 @@ local function collect_physics(player)
 	return physics
 end
 
---- @param player Player
-function armor:set_player_armor(player)
-	local name = player:get_player_name()
-	if not name then
-		return
-	end
+local function collect_armor_data(player)
 	local armor_level = 0
 	local armor_heal  = 0
 	local armor_fire  = 0
@@ -52,7 +50,7 @@ function armor:set_player_armor(player)
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
-			armor_level = armor_level + item_groups["armor_" .. self.elements[slot]]
+			armor_level = armor_level + item_groups["armor_" .. ARMOR_PURPOSE[slot]]
 			armor_wear  = armor_wear + stack:get_wear()
 			armor_count = armor_count + 1
 			armor_heal  = armor_heal + (item_groups["armor_heal"] or 0)
@@ -67,9 +65,12 @@ function armor:set_player_armor(player)
 			end
 		end
 	end
-	if material.type and material.count == #self.elements then
-		armor_level = armor_level * 1.1
-	end
+
+	return armor_level, armor_heal, armor_fire, armor_wear, armor_count,
+		(material.type and material.count == #ARMOR_PURPOSE)
+end
+
+local function rebuild_armor_groups(player, armor_level)
 	local armor_groups = {fleshy=100}
 	local immortal = player:get_armor_groups().immortal
 	if immortal and immortal ~= 0 then
@@ -80,10 +81,26 @@ function armor:set_player_armor(player)
 		armor_groups.fleshy = 100 - armor_level
 	end
 	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
-		player:set_armor_groups({fleshy = 1})
-	else
-		player:set_armor_groups(armor_groups)
+		return {fleshy = 1}
 	end
+
+	return armor_groups
+end
+
+--- @param player Player
+function armor:set_player_armor(player)
+	local name = player:get_player_name()
+	if not name then
+		return
+	end
+
+	local armor_level, armor_heal, armor_fire, armor_wear, armor_count, same_material_set = collect_armor_data(player)
+
+	if same_material_set then
+		armor_level = armor_level * 1.1
+	end
+
+	player:set_armor_groups(rebuild_armor_groups(player, armor_level))
 
 	self.def[name].state = armor_wear
 	self.def[name].count = armor_count
