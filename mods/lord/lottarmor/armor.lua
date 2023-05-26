@@ -7,16 +7,34 @@ local ARMOR_UPDATE_TIME = 1
 
 armor = {
 	player_hp = {},
-	elements = {"head", "torso", "legs", "feet", "shield"},
-	physics = {"jump","speed","gravity"},
-	textures = {},
-	def = {state=0, count = 0},
+	elements  = { "head", "torso", "legs", "feet", "shield" },
+	def       = { state = 0, count = 0 },
 }
 
 
 equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
 	armor:set_player_armor(player)
 end)
+
+--- @type table<number,string>|string[]
+local PHYSICS_TYPES = { "jump", "speed", "gravity" }
+--- @param player        Player
+local function collect_physics(player)
+	local physics = { speed = 1, gravity = 1, jump = 1 }
+	for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
+		if stack:get_count() == 1 then
+			local item_groups = stack:get_definition().groups
+			for _, type in ipairs(PHYSICS_TYPES) do
+				local value = item_groups["physics_" .. type]
+				if value then
+					physics[type] = physics[type] + value
+				end
+			end
+		end
+	end
+
+	return physics
+end
 
 --- @param player Player
 function armor:set_player_armor(player)
@@ -25,30 +43,20 @@ function armor:set_player_armor(player)
 		return
 	end
 	local armor_level = 0
-	local armor_heal = 0
-	local armor_fire = 0
-	local state = 0
-	local items = 0
-	local physics_o = {speed=1,gravity=1,jump=1}
-	local material = {type=nil, count=1}
+	local armor_heal  = 0
+	local armor_fire  = 0
+	local armor_wear  = 0
+	local armor_count = 0
+	local material    = { type = nil, count = 1 } -- detection of same material armor-set
 
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
-			local def = stack:get_definition()
-			local level = def.groups["armor_"..self.elements[slot]]
-			armor_level = armor_level + level
-			state = state + stack:get_wear()
-			items = items + 1
-			local heal = def.groups["armor_heal"] or 0
-			armor_heal = armor_heal + heal
-			local fire = def.groups["armor_fire"] or 0
-			armor_fire = armor_fire + fire
-			for kk,vv in ipairs(self.physics) do
-				local o_value = def.groups["physics_"..vv]
-				if o_value then
-					physics_o[vv] = physics_o[vv] + o_value
-				end
-			end
+			local item_groups = stack:get_definition().groups
+			armor_level = armor_level + item_groups["armor_" .. self.elements[slot]]
+			armor_wear  = armor_wear + stack:get_wear()
+			armor_count = armor_count + 1
+			armor_heal  = armor_heal + (item_groups["armor_heal"] or 0)
+			armor_fire = armor_fire + (item_groups["armor_fire"] or 0)
 			local mat = string.match(stack:get_name(), "%:.+_(.+)$")
 			if material.type then
 				if material.type == mat then
@@ -76,16 +84,18 @@ function armor:set_player_armor(player)
 	else
 		player:set_armor_groups(armor_groups)
 	end
-	player:set_physics_override(physics_o)
 
-	self.def[name].state = state
-	self.def[name].count = items
+	self.def[name].state = armor_wear
+	self.def[name].count = armor_count
 	self.def[name].level = armor_level
 	self.def[name].heal = armor_heal
+	self.def[name].fire = armor_fire
+
+	local physics_o = collect_physics(player)
+	player:set_physics_override(physics_o)
 	self.def[name].jump = physics_o.jump
 	self.def[name].speed = physics_o.speed
 	self.def[name].gravity = physics_o.gravity
-	self.def[name].fire = armor_fire
 end
 
 local handle_armor_wear = function(player)
@@ -101,8 +111,8 @@ local handle_armor_wear = function(player)
 	end
 	if armor.player_hp[name] > hp then
 		local heal_max = 0
-		local state = 0
-		local items = 0
+		local wear     = 0
+		local items    = 0
 		for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 			if stack:get_count() > 0 then
 				local clothes = stack:get_definition().groups["clothes"] or 0
@@ -112,7 +122,7 @@ local handle_armor_wear = function(player)
 				stack:add_wear(use)
 				armor_inv:set_stack("armor", slot, stack)
 				player_inv:set_stack("armor", slot, stack)
-				state = state + stack:get_wear()
+				wear = wear + stack:get_wear()
 				if clothes ~= 1 then
 					items = items + 1
 				end
@@ -128,7 +138,7 @@ local handle_armor_wear = function(player)
 				heal_max = heal_max + heal
 			end
 		end
-		armor.def[name].state = state
+		armor.def[name].state = wear
 		armor.def[name].count = items
 		if heal_max > math.random(100) then
 			player:set_hp(armor.player_hp[name])
