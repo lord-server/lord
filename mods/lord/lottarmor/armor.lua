@@ -115,48 +115,48 @@ function armor:set_player_armor(player)
 	self.def[name].gravity = physics_o.gravity
 end
 
+--- @param stack     ItemStack
+--- @param armor_inv InvRef
+--- @param player    Player
+local function item_wear(stack, armor_inv, slot, player)
+	local use = stack:get_definition().groups["armor_use"] or 0
+	stack:add_wear(use)
+
+	if stack:get_count() == 0 then
+		local desc = minetest.registered_items[stack:get_name()].description
+		if desc then
+			minetest.chat_send_player(player:get_player_name(), desc.." "..SL("got destroyed!"))
+		end
+		armor_inv:set_stack("armor", slot, nil)
+		equipment.for_player(player):delete(equipment.Kind.ARMOR, slot)
+	else
+		armor_inv:set_stack("armor", slot, stack)
+		equipment.for_player(player):set(equipment.Kind.ARMOR, slot, stack)
+	end
+end
+
 local handle_armor_wear = function(player)
 	local name = player:get_player_name()
-	local player_inv = player:get_inventory()
-	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	if not name then
 		return
 	end
+
+	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	local hp = player:get_hp() or 0
 	if hp <= 0 or hp == armor.player_hp[name] then
 		return
 	end
+	-- TODO #977
 	if armor.player_hp[name] > hp then
 		local heal_max = 0
-		local wear     = 0
-		local items    = 0
 		for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 			if stack:get_count() > 0 then
-				local clothes = stack:get_definition().groups["clothes"] or 0
-				local use = stack:get_definition().groups["armor_use"] or 0
 				local heal = stack:get_definition().groups["armor_heal"] or 0
-				local item = stack:get_name()
-				stack:add_wear(use)
-				armor_inv:set_stack("armor", slot, stack)
-				player_inv:set_stack("armor", slot, stack)
-				wear = wear + stack:get_wear()
-				if clothes ~= 1 then
-					items = items + 1
-				end
-				if stack:get_count() == 0 then
-					local desc = minetest.registered_items[item].description
-					if desc then
-						minetest.chat_send_player(name, desc.." "..SL("got destroyed!"))
-					end
-					-- TODO remove item by `equipment.for_player(player):delete()` to trigger all callbacks
-					armor:set_player_armor(player)
-					--inventory.update(player) -- see to-do (now inventory preview on wear not updated)
-				end
+				item_wear(stack, armor_inv, slot, player)
 				heal_max = heal_max + heal
 			end
 		end
-		armor.def[name].state = wear
-		armor.def[name].count = items
+
 		if heal_max > math.random(100) then
 			player:set_hp(armor.player_hp[name])
 			return
@@ -187,6 +187,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 	end, joined_player)
 end)
 
+-- TODO see `minetest.register_on_punchplayer()` (#977)
 local time = 0
 minetest.register_globalstep(function(dtime)
 	time = time + dtime
