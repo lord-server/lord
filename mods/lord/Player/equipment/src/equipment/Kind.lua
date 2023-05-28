@@ -52,7 +52,7 @@ function Kind.load_for_player(kind, player, is_new_player)
 	end
 
 	if is_new_player then
-		player:get_inventory():set_size(kind, Kind.size[kind])
+		player:get_inventory():set_size(kind, Kind.sizes[kind])
 		Kind.event.trigger(player, kind, "create")
 	end
 
