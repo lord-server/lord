@@ -1,6 +1,5 @@
 local SL = minetest.get_translator("lottarmor")
 
-local ARMOR_INIT_DELAY = 1
 local ARMOR_UPDATE_TIME = 1
 
 --- @type table<number,string>|string[]
@@ -167,8 +166,8 @@ end
 
 
 -- Register Callbacks
-
-races.register_init_callback(function(name, race, gender, skin, texture, face)
+equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
+	local name = player:get_player_name()
 	armor.player_hp[name] = 0
 	armor.def[name] = {
 		state = 0,
@@ -181,10 +180,7 @@ races.register_init_callback(function(name, race, gender, skin, texture, face)
 		fire = 0,
 	}
 
-	local joined_player = minetest.get_player_by_name(name)
-	minetest.after(ARMOR_INIT_DELAY, function(player)
-		armor:set_player_armor(player)
-	end, joined_player)
+	armor:set_player_armor(player)
 end)
 
 -- TODO see `minetest.register_on_punchplayer()` (#977)
