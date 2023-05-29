@@ -5,11 +5,7 @@
 -- Aliases to support loading 0.3 and old 0.4 worlds and inventories
 --
 
-minetest.register_node("legacy:dirt", {
-	description = "Legacy Dirt",
-	tiles = {"default_dirt.png"},
-	groups = {not_in_creative_inventory = 1, oddly_breakable_by_hand = 1}
-})
+minetest.register_alias("legacy:dirt", "default:dirt")
 minetest.register_abm({
 	nodenames = {"legacy:dirt"},
 	interval = 10,
@@ -222,7 +218,7 @@ end
 
 gaurds = {"dwarven", "elven", "gondor", "orc", "rohan", "uruk_hai"}
 for i, v in pairs(gaurds) do
-    minetest.register_alias("lottnpc:" .. v .. "_guard_spawner", "legacy:dirt")
+    minetest.register_alias("lottnpc:" .. v .. "_guard_spawner", "default:dirt")
     minetest.register_entity(":lottnpc:" .. v .. "_guard", {
         physical = false,
         on_step = function(self)
