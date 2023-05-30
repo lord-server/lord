@@ -82,8 +82,18 @@ lord_homedecor.banister_materials = {
 		"wood",
 		"default_wood.png",
 		"default_wood.png",
-		"group:wood",
-		"group:stick",
+		"default:wood",
+		"default:stick",
+		"",
+		""
+	},
+	{
+		"junglewood",
+		"junglewood",
+		"default_junglewood.png",
+		"default_junglewood.png",
+		"default:junglewood",
+		"lottblocks:stick_junglewood",
 		"",
 		""
 	},
@@ -91,7 +101,7 @@ lord_homedecor.banister_materials = {
 		"wrought iron",
 		"homedecor_generic_metal_wrought_iron.png",
 		"homedecor_generic_metal_wrought_iron.png",
-		"lord_homedecor:pole_wrought_iron",
+		"default:steel_ingot",
 		"lord_homedecor:pole_wrought_iron",
 		"",
 		""
