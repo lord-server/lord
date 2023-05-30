@@ -6,14 +6,6 @@
 --
 
 minetest.register_alias("legacy:dirt", "default:dirt")
-minetest.register_abm({
-	nodenames = {"legacy:dirt"},
-	interval = 10,
-	chance = 1,
-	action = function(pos)
-		minetest.remove_node(pos)
-	end
-})
 
 --- Эти алиасы полностью из MTG/default (5.4.1), наши расположены ниже
 
