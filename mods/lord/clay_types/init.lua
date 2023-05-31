@@ -87,7 +87,7 @@ minetest.register_node("clay_types:mordor_clay_block_dried", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-stairs.register_stair_and_slab("mordor_clay_block_dried", "lord_bricks:mordor_clay_block_dried",
+stairs.register_stair_and_slab("mordor_clay_block_dried", "clay_types:mordor_clay_block_dried",
 		{cracky=2},
 		{"clay_types_mordor_clay_block_dried.png"},
 		S("Dried Mordor Clay Block Stair"),

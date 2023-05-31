@@ -62,9 +62,12 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_bricks:chamotte_block 9",
 	recipe = {
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried"},
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried"},
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried"},
+		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
+				"clay_types:chamotte_clay_block_dried"},
+		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
+				"clay_types:chamotte_clay_block_dried"},
+		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
+				"clay_types:chamotte_clay_block_dried"},
 	},
 })
 
