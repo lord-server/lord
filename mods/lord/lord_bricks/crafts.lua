@@ -23,7 +23,7 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_bricks:chamotte_brick_raw 2",
 	recipe = {
-		{"clay_types:chamotte_clay_lump", "clay_types:chamotte_clay_lump"},
+		{"clay_types:chamotte_lump", "clay_types:chamotte_lump"},
 	},
 })
 
@@ -54,20 +54,20 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_bricks:chamotte_brick 4",
 	recipe = {
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried"},
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried"},
+		{"clay_types:chamotte_block_dried", "clay_types:chamotte_block_dried"},
+		{"clay_types:chamotte_block_dried", "clay_types:chamotte_block_dried"},
 	},
 })
 
 minetest.register_craft({
 	output = "lord_bricks:chamotte_block 9",
 	recipe = {
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
-				"clay_types:chamotte_clay_block_dried"},
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
-				"clay_types:chamotte_clay_block_dried"},
-		{"clay_types:chamotte_clay_block_dried", "clay_types:chamotte_clay_block_dried",
-				"clay_types:chamotte_clay_block_dried"},
+		{"clay_types:chamotte_block_dried", "clay_types:chamotte_block_dried",
+				"clay_types:chamotte_block_dried"},
+		{"clay_types:chamotte_block_dried", "clay_types:chamotte_block_dried",
+				"clay_types:chamotte_block_dried"},
+		{"clay_types:chamotte_block_dried", "clay_types:chamotte_block_dried",
+				"clay_types:chamotte_block_dried"},
 	},
 })
 

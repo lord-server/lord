@@ -1,13 +1,13 @@
 # textdomain: clay_types
 
-Chamotte Clay Lump=Кусок Шамотной Глины
-Raw Chamotte Block=Сырой Блок Шамотной Глины
-Dried Chamotte Block=Высушенный Блок Шамотной Глины
+Chamotte Clay Lump=Кусок Шамота
+Raw Chamotte Block=Сырой Шамот
+Dried Chamotte Block=Высушенный Шамот
 
-Dried Chamotte Block Stair=Ступень из Высушенного Блока Шамотной Глины
-Dried Chamotte Block Slab=Плита из Высушенного Блока Шамотной Глины
-Inner Dried Chamotte Block Stair=Ступень из Высушенного Блока Шамотной Глины (Внутренний Угол)
-Outer Dried Chamotte Block Stair=Ступень из Высушенного Блока Шамотной Глины (Внешний Угол)
+Dried Chamotte Block Stair=Ступень из Высушенного Шамота
+Dried Chamotte Block Slab=Плита из Высушенного Шамота
+Inner Dried Chamotte Block Stair=Ступень из Высушенного Шамота (Внутренний Угол)
+Outer Dried Chamotte Block Stair=Ступень из Высушенного Шамота (Внешний Угол)
 
 Mordor Clay Lump=Кусок Мордорской Глины
 Raw Mordor Clay Block=Сырой Блок Мордорской Глины
