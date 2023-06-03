@@ -187,11 +187,11 @@ local formspec     = "size[8,9]" ..
 
 minetest.register_node("lottpotion:brewer", {
 	description                   = SL(machine_name),
-	tiles                         = { "barrel_wood.png" },
-	paramtype                     = "light",
 	drawtype                      = "mesh",
+	paramtype                     = "light",
+	paramtype2                    = "facedir",
 	mesh                          = "barrel_wood.obj",
-	node_placement_prediction     = "",
+	tiles                         = { "barrel_wood.png" },
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2 },
 	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
@@ -245,11 +245,11 @@ minetest.register_node("lottpotion:brewer", {
 
 minetest.register_node("lottpotion:brewer_active", {
 	description                   = SL(machine_name),
-	tiles                         = { "barrel_wood.png" },
-	paramtype                     = "light",
 	drawtype                      = "mesh",
+	paramtype                     = "light",
+	paramtype2                    = "facedir",
 	mesh                          = "barrel_wood.obj",
-	node_placement_prediction     = "",
+	tiles                         = { "barrel_wood.png" },
 	drop                          = "lottpotion:brewer",
 	groups                        = { cracky = 2, not_in_creative_inventory = 1 },
 	sounds                        = default.node_sound_wood_defaults(),
