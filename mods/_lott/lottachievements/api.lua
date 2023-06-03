@@ -428,10 +428,10 @@ function lottachievements.getFormspec(name, to, sid)
 					perc = 1
 				end
 				formspec = formspec ..
-					"background[0,4.675;" .. barwidth .. ",0.425;lottachievements_progress_gray.png;false]" ..
-					"background[0,4.675;" .. (barwidth * perc) .. ",0.425;lottachievements_progress_green.png;false]"
+					"background[0,5.675;" .. barwidth .. ",0.425;lottachievements_progress_gray.png;false]" ..
+					"background[0,5.675;" .. (barwidth * perc) .. ",0.425;lottachievements_progress_green.png;false]"
 				if label then
-					formspec = formspec .. "label[1.75,4.63;" .. minetest.formspec_escape(label) .. "]"
+					formspec = formspec .. "label[1.75,5.575;" .. minetest.formspec_escape(label) .. "]"
 				end
 			end
 			if def and def.description then
@@ -442,7 +442,7 @@ function lottachievements.getFormspec(name, to, sid)
 	end
 
 	-- Create list box
-	formspec = formspec .. "textlist[4.75,0;6,5;lottachievements;"
+	formspec = formspec .. "textlist[4.75,0;6,6;lottachievements;"
 	local first = true
 	for _,award in pairs(listoflottachievements) do
 		local def = lottachievements.def[award.name]
@@ -511,7 +511,7 @@ function lottachievements.show_to(name, to, sid, text)
 		end
 		-- Show formspec to user
 		minetest.show_formspec(to,"lottachievements:lottachievements",
-			"size[11,5]" ..
+			"size[11,6]" ..
 			"background[5,5;1,1;gui_formbg.png;true]" ..
 			lottachievements.getFormspec(name, to, sid))
 	end
