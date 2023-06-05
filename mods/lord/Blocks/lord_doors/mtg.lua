@@ -47,7 +47,7 @@ end
 -- doors:door_wood_lock registration
 doors.register("lord_doors:door_wood_lock", {
 		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
-		description = S("Wooden Door"),
+		description = S("Wooden Door With Lock"),
 		inventory_image = "doors_item_wood.png^lord_doors_lock.png",
 		protected = true,
 		groups = {node = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 2},
@@ -56,7 +56,7 @@ doors.register("lord_doors:door_wood_lock", {
 })
 minetest.register_craft({
 	type = "shapeless",
-	output = "doors:door_wood_lock",
+	output = "lord_doors:door_wood_lock",
 	recipe = {"doors:door_wood", "default:steel_ingot"}
 })
 -- MTG/doors legacy:
@@ -99,7 +99,7 @@ doors.register("lord_doors:door_steel_lock", {
 })
 minetest.register_craft({
 	type = "shapeless",
-	output = "doors:door_steel_lock",
+	output = "lord_doors:door_steel_lock",
 	recipe = {"doors:door_steel", "default:steel_ingot"}
 })
 -- MTG/doors legacy:
@@ -123,7 +123,7 @@ doors.register("lord_doors:door_glass_lock", {
 })
 minetest.register_craft({
 	type = "shapeless",
-	output = "doors:door_glass_lock",
+	output = "lord_doors:door_glass_lock",
 	recipe = {"doors:door_glass", "default:steel_ingot"}
 })
 -- MTG/doors legacy:
@@ -147,7 +147,7 @@ doors.register("lord_doors:door_obsidian_glass_lock", {
 })
 minetest.register_craft({
 	type = "shapeless",
-	output = "doors:door_obsidian_glass_lock",
+	output = "lord_doors:door_obsidian_glass_lock",
 	recipe = {"doors:door_obsidian_glass", "default:steel_ingot"}
 })
 -- MTG/doors legacy:
