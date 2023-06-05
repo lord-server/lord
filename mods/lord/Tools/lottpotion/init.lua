@@ -180,7 +180,11 @@ lottpotion = {
 			if prefs == nil then
 				return
 			end
-			minetest.get_player_by_name(playername):set_physics_override(prefs.speed, prefs.jump, prefs.gravity)
+			minetest.get_player_by_name(playername):set_physics_override({
+				speed   = prefs.speed,
+				jump    = prefs.jump,
+				gravity = prefs.gravity
+			})
 		end
 	end,
 	register_potion = function(sname, name, fname, time, def)
