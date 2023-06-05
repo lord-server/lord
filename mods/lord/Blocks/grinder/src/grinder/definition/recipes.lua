@@ -17,5 +17,5 @@ return {
 	{"lottmapgen:mordor_stone", "lottmapgen:mordor_cobble", 5},
 	{"lottmapgen:mordor_cobble", "lottmapgen:mordor_gravel", 5},
 	{"lottmapgen:mordor_gravel", "lottmapgen:mordor_sand", 5},
-	{"lottmapgen:mordor_sand", "lord_bricks:mordor_clay", 5},
+	{"lottmapgen:mordor_sand", "clay_types:mordor_clay_block_raw", 5},
 }
