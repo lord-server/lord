@@ -408,8 +408,8 @@ local function hit_objects(pos1, pos2, arrow)
 		local hit_this_mob = true
 
 		if DONT_PUNCH_SAME_MOBS and arrow.owner_type == "entity" then
-			local target = nearest.obj:get_entity_name()
-			local archer = arrow.owner:get_entity_name()
+			local target = nearest.obj.name
+			local archer = arrow.owner.name
 			if target == archer then
 				hit_this_mob = false
 			end
