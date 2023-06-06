@@ -1,5 +1,160 @@
 # Change Log
 
+## [2023.05](https://github.com/lord-server/lord/releases/tag/2023.05)
+ - Add `/l` command as `/list` alias.
+ - Add stairs & slabs for `lottblocks:snowycobble`. Closes #840.
+ - Add Mordor Brick, Orc Stone, change crafts and textures. Closes #999. (#1045)
+ - Add junglewood banister (new inv icon needed). Relates to #1048
+ - Add mod lord_bricks, add 2 types of bricks (and their crafts). Closes #995. (#1002)
+ - Increase achievements form height. Closes #340
+ - Textures:
+   - Новая текстура мраморного кирпича (#965)
+   - Новые текстуры колец (#1035)
+   - New textures for books (#1041)
+   - Desert stone blocks textures fix (#1042)
+   - Change default brick texture (#1056)
+ - Bug Fixing:
+   - Closes #980. Fix fences connection. Add hardwood fences (#981)
+   - Closes #1003. Fix incorrectly referenced hardwood fence texture (#1004)
+   - Исправление Ствол яблони в рамке не на русском (#1009)
+   - Исправление переноса строки в книге палантиров (#1023)
+   - Исправление механизма приручения (#1026) fixes #915
+   - Fix corpse annihilation. Fixes #1027
+   - Исправление целевой ноды достижения Тормоз! (fixes #1033) (#1036)
+   - Исправление названий текстур в иконках достижений (#1037). Fixes #1031
+   - Увеличенение радиуса опадения листвы ольхи с 2 до 3. Fixes #1001 (#1044)
+   - Fir wood slab translation. Fixes #978
+   - remove `legacy:dirt` node, add alias. Relates to #248
+      - remove legacy `lottnpc:rohan_guard_spawner`. Closes #248
+      - Fix removing `default:dirt` after fixing `legacy:dirt`. Relates to #248
+   - Fix locked doors recieps & wooden locked door tranlation. Closes #1000
+   - Closes #1052. Fix 'Raw Mordor Clay Block' grinder craft. Relates to #1002. (#1055)
+   - Junglewood banister localization. Fixes #1053. Relates to #1048
+
+ - Technical:
+   - Experimental:
+     - Lord bows _experimental. Relates to #76 (#700)
+     - Увелечение скорости зарядки и полета стрелы (#982)
+   - Builtin translations:
+     - Переход на встроенные переводы `lottpotion` (#983)
+     - Переход на встроенные переводы `mypos` (#991)
+     - Переход на встроенные переводы `mail_list` (#990)
+     - Переход на встроенные переводы `lottores` (#987)
+     - Переход на встроенные переводы `lottfarming` (#986) Closes #949
+     - Исправление template, добавление упущенных последних букв (#992). Relates to #987 (Переводы `lottores`)
+     - Переводы: Исправление template, разбиение по файлам `lottpotion` (#993). Relates to #983
+     - добавление localization template `bags` (#994)
+     - Переход на встроенные переводы `lottclother` (#985) closes #948
+     - Переход на встроенные переводы `lottother` (#988) closes #953
+     - Переход на встроенные переводы `lottmobs` (#989) closes #951
+     - Переход на встроенные переводы `bones` (#984) closes #328
+     - Переход на встроенные переводы `lord_books` (#1022)
+     - Переход на встроенные переводы `lottthrowing` (#1024) closes #955
+     - Удаление захардкоженных переводов в lottachievements (fixes #1025) (#1030)
+     - Переход на встроенные переводы `lottachievements` (#1032)
+     - Исправление локализации реплики в `lottachievements` (#1014) (#1034)
+   - Dev simplifying:
+     - IDE hinting: add `ItemDefinition` & `NodeDefinition`
+     - stale-bot: decrease `daysUntilStale`
+     - IDE hinting: improve `InvRef`
+     - IDE hinting: add `InvRef:get_location()`
+     - LuaCheck: fully exclude `_minetest` & `_various`
+     - IDE-helper: `ObjectRef.lua`
+   - Refactoring:
+     - Move `lottother` to `lord`. Relates to #871
+     - Move `lottplants` into `lord`. Relates to #871.
+     - Move `lottthrowing` into `lord`. Relates to #871.
+     - #344: upd `lottfarming`: apply `paramtype2 = meshoptions`, `waving` & `light_source`
+     - #344: upd `lottfarming`: add white maushroom
+     - #344: upd `lottfarming`: use `barley_seed` naming insted `barley0`. Relates to #914
+     - #344: upd `lottfarming`: use `corn_seed` naming instead `corn0`. Relates to #914.
+     - #344: upd `lottfarming`: use `potato_seed` naming instead `half_of_potatoe`. Relates to #914.
+     - #344: upd `lottfarming`: update couple textures
+     - Move `lottfarming` into `lord`. Relates to #871
+     - Decrease cyclomatic complexity in `bones`. Fixes #724
+     - Decrease cyclomatic complexity in `defaults`. Fixes #725
+     - move `lordlib` into `Core` folder
+     - `Core/helpers`: add common `table` helpers
+     - move `ru_lower_upper.lua` into `Core/helpers`; fix luacheck. relates to #922
+     - `Core/helpers/string`: use locals, add doc-blocks. relates to #922
+     - Use Core/helpers/table istead local functions. Closes #922
+     - Decrease cyclomatic complexity in `lord_mail`. Closes #730
+     - Decrease cyclomatic complexity in `mega_sl`. Closes #733
+     - Remove: cmd , tabs command & privs. Closes #928
+     - Refactoring `lord_info`: use common code for tabs. Relates to #927
+     - Decrease cyclomatic complexity in `lord_info`. Relates #729
+     - Decrease cyclomatic complexity in `lord_info`. Closes #729. Fixes #916
+     - throwing: Remove unused self receiver on functions. Relates to #921 (#923)
+     - Remove support of mods `inventory_plus`, `unified_inventory` & `inventory_enhanced`. Closes #754
+     - Move bags into separate file. Relates to #934, #935
+     - remove unnecessary debug logging
+     - Drop `inventory_plus.set_inventory_formspec` usages in `lottinventory`. Separate form handlers. Main part of #930
+     - Drop `inventory_plus` & usages in `lottarmor`&`lottclothing`. Closes #930
+     - перенос заблудившегося кусочка кода в нужный обработчик формы сумок
+     - Move files `lottinventory` -> `lord_books`. Relates #931
+     - Rename `lottinventory` -> `lord_books`: items & files. Closes #931
+     - Remove unused support of `player_textures` mod. Relates to #339
+     - Add `Tools` aggregate folder; move mods in it. Relates to #967. Closes #968
+     - `lottarmor`: remove `ethereal` & `moreores` support. Closes #972. Relates to #339.
+     - `lottarmor`: remove configs support. Closes #973. Relates to #339.
+     - `lottarmor`: remove unused vars. Closes #974. Relates to #339.
+     - Use default form styles. Relates to #339
+     - Extract inventory form into separate files. Closes #976   also decrease cyclomatic comlexity in detached armor inv. Relates to #732
+     - Separate bags form from armor. Relates to #976 #339
+     - Add `Player` aggregate folder; rename mod `player` -> `show_health`. Relates to #967, #970
+     - `lottarmor`: extract wielded item into `appearance` mod. Closes #975
+     - `lottarmor`: extract armor items into `lord_armor` mod. Closes #971
+     - `lottarmor`: move inventory forms into `Player/lord_inventory`. Relates to #339. Closes #354.
+     - `lottarmor`: move forgotten armor textures. Relates to #971, #339
+     - `lottarmor`: move forgotten inventory textures. Relates to #354, #339.
+     - move `lottclothes/clothing.lua` -> `lottarmor/clothing.lua`. Relates to #1015, #1016
+     - `lottclothes`: move all items into `Tools`. Relates to #1015. Closes #1016
+     - `lottarmor`: remove nonexistent button handler. Relates to #339, #1011
+     - `lottarmor`: move `multiskin.lua` into `Player/appearance`. Relates to #339, #1011
+     - move preview default into `appearance`. Relates to #339
+     - `lottclothes`: extract detached inventory. Relates to #1015. Closes #1018
+     - `lottclothes`: remove unused `clothing.textures`. Relates to #1015.
+     - `lottclothes`: move clothes inv slots into `Player/lord_inventory`. Relates to #1015. Closes #1019.
+     - move `death_handler` into `Player/`. Relates to #967, #970
+     - `lord_inventory`: restructure files. Relates to #1020
+     - `lord_inventory`: add `inventory.update()` API; class for inv main form. Relates to #1020
+     - `Player/equipment`: API `for_player()::{get|set|delete}()` & `on_{change|set|delete}()`. Relates to #1021
+     - Use `Player/equipment`(#1021). Relates to #1012, #1017
+     - Refactoring `lottarmor`: move "shield" value of `armor.elements` into declaration. Relates to #339
+     - `equipment.ForPlayer`: add `:clear(kind)`, `:items(kind)`, fix `:get()`. Closes #1021. Relates to #1012, #1017, #339
+     - `equipment.ForPlayer`: add `:move_to(kind)`, `:items(kind)`, fix `:get()`. Relates to #1028, #1012, #1017, #339
+     - Decrease armor/clothing/equipment dependencies. Relates to #339, #1012, #1017.
+     - Add `equipment.Kind` & its registration. Relates to #1028
+     - `equipment.Kind.register()`: Fix potential bug. Relates to #1028
+     - `Player/equipment`: add `on_create` event. Relates to #1028
+     - `Player/equipment`: add `on_load()` event. Relates to #1028.
+     - `Player/equipment`: fix `Kind.register()`. Relates to #1028.
+     - `Player/equipment`: fix `on_load()`. Relates to #1028
+     - `Player/equipment`: fix passing `kind` for `Event` subscribers. Relates to #1028
+     - Extract `Player/appearance` from armor & clothing. Relates to #1012 #1017
+     - Refactoring: unify `equipment.on_load` callbacks for inventory. Relates to #1012, #1017
+     - `Player/equipment`: add `on_load_all()` event. Relates to #1028.
+     - `Player/appearance`: init armor & clothing on player join. Relates to #1012 #1017
+     - Extract preview of armor & clothing into `Player/lord_inventory`. Relates to #1012 Closes #1017. Also fixes no clothing preview.
+     - Refactoring `lottarmor`: remove unnecessary code. Relates to #339
+     - Refactoring `lottarmor`: simplify `armor:set_player_armor()`. Relates to #339
+     - Refactoring `lottarmor`: extract `collect_physics()`. Relates to #732, #339, #1012
+     - Refactoring `lottarmor`: extract `rebuild_armor_groups()`. Relates to #732, #339, #1012
+     - Refactoring `lottarmor`: simplify `handle_armor_wear`: extract `item_wear`. Closes #732. Relates to #339, #1012.
+     - Refactoring `lottarmor`: use `equipment.on_load()`; remove delay. Relates to #339, #1012
+     - create `Blocks` subfolder; move obvious mods. Closes #1049
+     - create `World` subfolder; move obvious mods; change readme-s; Relates to #969, #967
+     - Move some mods into `Blocks` folder. Relates to #1049
+     - Move `lottachievements` into `lord/`. Relates to #671
+     - Make human- & git- readable WE-schems
+     - Hack-workaround of `on_take`, `on_put` call sequence. Closes #1029
+     - Change deprecated `:get_entity_name()` -> `.name`. Relates to #1047
+     - Change deprecated `:set_physics_override(num,num,num)` -> `.set_physics_override(table)`. Relates to #1047
+     - Change hourly server message: add links
+     - Move `lottmapgen` into `lord`. Closes #871
+     - Fix nenya ring armor. Fixes #1054. Relates to #339
+
+
 ## [2022.12.p3](https://github.com/lord-server/lord/releases/tag/2022.12.p3)
  - Turn on forgotten initial stuff on PROD. Relates to #460, #826
 
