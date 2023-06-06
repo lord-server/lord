@@ -77,8 +77,8 @@ exclude_files     = {
     -- MTG:
     "mods/_minetest_game/",
 
-    -- LOTT:
-	"mods/_lott/lottmapgen",
+    -- наследие из LOTT (требует переработки):
+	"mods/lord/lottmapgen",
 
     -- Остальное:
 	"mods/_various/",
