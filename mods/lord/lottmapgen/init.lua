@@ -89,6 +89,46 @@ local water_level = minetest.get_mapgen_setting("water_level")
 dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
 dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
 
+
+local function detect_current_biome(n_temp, n_humid, n_ran)
+	local biome = 0
+	if n_temp < LOTET then
+		if n_humid < LOHUT then
+			biome = 1 -- (Angmar)
+		elseif n_humid > HIHUT then
+			biome = 3 -- (Trollshaws)
+		else
+			biome = 2 -- (Snowplains)
+		end
+	elseif n_temp > HITET then
+		if n_humid < LOHUT then
+			biome = 7 -- (Lorien)
+		elseif n_humid > HIHUT then
+			biome = 9 -- (Fangorn)
+		elseif n_ran < LORAN then
+			biome = 10 -- (Mirkwood)
+		elseif n_ran > HIRAN then
+			biome = 11 -- (Iron Hills)
+		else
+			biome = 4 -- (Dunlands)
+		end
+	else
+		if n_humid < LOHUT then
+			biome = 8 -- (Mordor)
+		elseif n_humid > HIHUT then
+			biome = 6 -- (Ithilien)
+		elseif n_ran < LORAN then
+			biome = 13 -- (Shire)
+		elseif n_ran > HIRAN then
+			biome = 12 -- (Rohan)
+		else
+			biome = 5 -- (Gondor)
+		end
+	end
+
+	return biome
+end
+
 -- On generated function
 minetest.register_on_generated(function(minp, maxp, seed)
 	if minp.y < (water_level-1000) or minp.y > 5000 then
@@ -175,40 +215,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local n_temp = nvals_temp[nixz] -- select biome
 			local n_humid = nvals_humid[nixz]
 			local n_ran = nvals_random[nixz]
-			local biome = false
-			if n_temp < LOTET then
-				if n_humid < LOHUT then
-					biome = 1 -- (Angmar)
-				elseif n_humid > HIHUT then
-					biome = 3 -- (Trollshaws)
-				else
-					biome = 2 -- (Snowplains)
-				end
-			elseif n_temp > HITET then
-				if n_humid < LOHUT then
-					biome = 7 -- (Lorien)
-				elseif n_humid > HIHUT then
-					biome = 9 -- (Fangorn)
-				elseif n_ran < LORAN then
-					biome = 10 -- (Mirkwood)
-				elseif n_ran > HIRAN then
-					biome = 11 -- (Iron Hills)
-				else
-					biome = 4 -- (Dunlands)
-				end
-			else
-				if n_humid < LOHUT then
-					biome = 8 -- (Mordor)
-				elseif n_humid > HIHUT then
-					biome = 6 -- (Ithilien)
-				elseif n_ran < LORAN then
-					biome = 13 -- (Shire)
-				elseif n_ran > HIRAN then
-					biome = 12 -- (Rohan)
-				else
-					biome = 5 -- (Gondor)
-				end
-			end
+			local biome = detect_current_biome(n_temp, n_humid, n_ran)
 
 			local sandy = (water_level+2) + math.random(-1, 1) -- sandline
 			local sandmin = (water_level-15) + math.random(-5, 0) -- lowest sand
