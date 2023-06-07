@@ -49,7 +49,7 @@ local function collect_armor_data(player)
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
-			armor_level = armor_level + item_groups["armor_" .. ARMOR_PURPOSE[slot]]
+			armor_level = armor_level + (item_groups["armor_" .. ARMOR_PURPOSE[slot]] or 0)
 			armor_wear  = armor_wear + stack:get_wear()
 			armor_count = armor_count + 1
 			armor_heal  = armor_heal + (item_groups["armor_heal"] or 0)
