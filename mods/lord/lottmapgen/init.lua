@@ -51,6 +51,22 @@ local PLANT11 = 2000
 local PLANT12 = 5000
 local PLANT13 = 10000
 
+-- Biomes:
+local BIOME_ANGMAR     = 1  -- (Angmar)
+local BIOME_SNOWPLAINS = 2  -- (Snow-plains)
+local BIOME_TROLLSHAWS = 3  -- (Trollshaws)
+local BIOME_DUNLANDS   = 4  -- (Dunlands)
+local BIOME_GONDOR     = 5  -- (Gondor)
+local BIOME_ITHILIEN   = 6  -- (Ithilien)
+local BIOME_LORIEN     = 7  -- (Lorien)
+local BIOME_MORDOR     = 8  -- (Mordor)
+local BIOME_FANGORN    = 9  -- (Fangorn)
+local BIOME_MIRKWOOD   = 10 -- (Mirkwood)
+local BIOME_HILLS      = 11 -- (Iron Hills)
+local BIOME_ROHAN      = 12 -- (Rohan)
+local BIOME_SHIRE      = 13 -- (Shire)
+
+
 -- 2D noise for temperature
 
 local np_temp = {
@@ -236,11 +252,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				or nodid == c_stoneiron
 				or nodid == c_stonecoal then
 					if y > water_level-32 then
-						if biome == 4 or biome == 12 then
+						if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
 							data[vi] = c_desertstone
-						elseif biome == 8 then
+						elseif biome == BIOME_MORDOR then
 							data[vi] = c_morstone
-						elseif biome == 11 then
+						elseif biome == BIOME_HILLS then
 							if math.random(3) == 1 then
 								data[vi] = c_stoneiron
 							end
@@ -252,13 +268,13 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							if nodida == c_river_water or data[area:index(x + 1, y, z)] == c_river_water
 							or data[area:index(x, y, z + 1)] == c_river_water or data[area:index(x - 1, y, z)] == c_river_water
 							or data[area:index(x, y, z - 1)] == c_river_water then
-								if biome == 8 then
+								if biome == BIOME_MORDOR then
 									data[vi] = c_morstone
 								else
 									data[vi] = c_sand
 								end
 							elseif y <= sandy and y >= sandmin then -- sand
-								if biome ~= 8 then
+								if biome ~= BIOME_MORDOR then
 									if open and water and y == (water_level-1) and biome > 4 and math.random(PAPCHA) == 2 then -- papyrus
 										lottmapgen_papyrus(x, (water_level+1), z, area, data)
 										data[vi] = c_dirt
@@ -272,14 +288,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										data[vi] = c_sand
 									end
 								end
-								if open and y > (water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= 8 and biome ~= 7 then -- dune grass
+								if open and y > (water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
 									local vi = area:index(x, y + 1, z)
 										data[vi] = c_dryshrub
 									end
 								elseif y <= sandmin then
 									data[vi] = c_stone
 								else -- above sandline
-									if biome == 1 then
+									if biome == BIOME_ANGMAR then
 										if math.random(121) == 2 then
 											data[vi] = c_ice
 										elseif math.random(25) == 2 then
@@ -287,35 +303,35 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										else
 											data[vi] = c_angsnowblock
 										end
-									elseif biome == 2 then
+									elseif biome == BIOME_SNOWPLAINS then
 										data[vi] = c_dirtsnow
-									elseif biome == 3 then
+									elseif biome == BIOME_TROLLSHAWS then
 										data[vi] = c_dirtsnow
-									elseif biome == 4 then
+									elseif biome == BIOME_DUNLANDS then
 										data[vi] = c_dungrass
-									elseif biome == 5 then
+									elseif biome == BIOME_GONDOR then
 										data[vi] = c_gondorgrass
-									elseif biome == 6 then
+									elseif biome == BIOME_ITHILIEN then
 										data[vi] = c_ithilgrass
-									elseif biome == 7 then
+									elseif biome == BIOME_LORIEN then
 										data[vi] = c_loriengrass
-									elseif biome == 8 then
+									elseif biome == BIOME_MORDOR then
 										data[vi] = c_morstone
-									elseif biome == 9 then
+									elseif biome == BIOME_FANGORN then
 										data[vi] = c_fangorngrass
-									elseif biome == 10 then
+									elseif biome == BIOME_MIRKWOOD then
 										data[vi] = c_mirkwoodgrass
-									elseif biome == 11 then
+									elseif biome == BIOME_HILLS then
 										data[vi] = c_ironhillgrass
-									elseif biome == 12 then
+									elseif biome == BIOME_ROHAN then
 										data[vi] = c_rohangrass
-									elseif biome == 13 then
+									elseif biome == BIOME_SHIRE then
 										data[vi] = c_shiregrass
 									end
 								if open then -- if open to sky then flora
 									local y = surfy + 1
 									local vi = area:index(x, y, z)
-									if biome == 1 then
+									if biome == BIOME_ANGMAR then
 										if math.random(PLANT3) == 2 then
 											data[vi] = c_dryshrub
 										elseif math.random(TREE10) == 2 then
@@ -329,9 +345,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 13 then
 											data[vi] = c_angfort
 										end
-									elseif biome == 2 then
+									elseif biome == BIOME_SNOWPLAINS then
 										data[vi] = c_snowblock
-									elseif biome == 3 then
+									elseif biome == BIOME_TROLLSHAWS then
 										if math.random(PLANT3) == 2 then
 											data[vi] = c_dryshrub
 										elseif math.random(TREE10) == 2 then
@@ -341,7 +357,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE3) == 4 then
 											lottmapgen_firtree(x, y, z, area, data)
 										end
-									elseif biome == 4 then
+									elseif biome == BIOME_DUNLANDS then
 										if math.random(TREE5) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE7) == 3 then
@@ -349,7 +365,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random (PLANT3) == 4 then
 											lottmapgen_grass(data, vi)
 										end
-									elseif biome == 5 then
+									elseif biome == BIOME_GONDOR then
 										if math.random(TREE7) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE8) == 6 then
@@ -373,7 +389,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 13 then
 											data[vi] = c_gonfort
 										end
-									elseif biome == 6 then
+									elseif biome == BIOME_ITHILIEN then
 										if math.random(TREE3) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE6) == 6 then
@@ -393,7 +409,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT5) == 11 then
 											lottmapgen_ithildinplants(data, vi)
 										end
-									elseif biome == 7 then
+									elseif biome == BIOME_LORIEN then
 										if math.random(TREE3) == 2 then
 											lottmapgen_mallornsmalltree(x, y, z, area, data)
 										elseif math.random(TREE2) == 2 then
@@ -411,7 +427,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 												data[vi] = c_lorhous
 											end
 										end
-									elseif biome == 8 then
+									elseif biome == BIOME_MORDOR then
 										if math.random(TREE10) == 2 then
 											lottmapgen_burnedtree(x, y, z, area, data)
 										elseif math.random(PLANT4) == 2 then
@@ -419,7 +435,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 13 then
 											data[vi] = c_orcfort
 										end
-									elseif biome == 9 then
+									elseif biome == BIOME_FANGORN then
 										if math.random(TREE3) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE4) == 6 then
@@ -439,7 +455,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT9) == 8 then
 											data[vi] = c_melon
 										end
-									elseif biome == 10 then
+									elseif biome == BIOME_MIRKWOOD then
 										if math.random(TREE2) == 2 then
 											data[vi] = c_mirktreegen
 										elseif math.random(TREE4) == 3 then
@@ -447,7 +463,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 13 then
 											data[vi] = c_mirktre
 										end
-									elseif biome == 11 then
+									elseif biome == BIOME_HILLS then
 										if math.random(TREE10) == 2 then
 											data[vi] = c_beechgen
 										elseif math.random(TREE4) == 3 then
@@ -455,7 +471,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE6) == 4 then
 											lottmapgen_firtree(x, y, z, area, data)
 										end
-									elseif biome == 12 then
+									elseif biome == BIOME_ROHAN then
 										if math.random(TREE7) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE7) == 3 then
@@ -475,7 +491,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 13 then
 											data[vi] = c_rohfort
 										end
-									elseif biome == 13 then
+									elseif biome == BIOME_SHIRE then
 										if math.random(TREE7) == 2 then
 											lottmapgen_defaulttree(x, y, z, area, data)
 										elseif math.random(TREE7) == 3 then
@@ -498,7 +514,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					else -- underground
 						if nodiduu ~= c_air and nodiduu ~= c_water and surfy - y + 1 <= fimadep then
 							if y <= sandy and y >= sandmin then
-								if biome ~= 8 then
+								if biome ~= BIOME_MORDOR then
 									data[vi] = c_sand
 								end
 							end
@@ -510,7 +526,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					solid = false
 					if nodid == c_water or nodid == c_river_water then
 						water = true
-						if biome == 8 then
+						if biome == BIOME_MORDOR then
 							if nodid == c_river_water then
 								data[vi] = c_morrivwat
 							else
