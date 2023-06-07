@@ -1,5 +1,8 @@
 # Change Log
 
+## [2023.05.p1](https://github.com/lord-server/lord/releases/tag/2023.05.p1)
+ -  Fix crash on login with wrong armor in slots. Closes #1060. (#1061)
+
 ## [2023.05](https://github.com/lord-server/lord/releases/tag/2023.05)
  - Add `/l` command as `/list` alias.
  - Add stairs & slabs for `lottblocks:snowycobble`. Closes #840.
