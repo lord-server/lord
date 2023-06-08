@@ -1,5 +1,6 @@
 local SL = minetest.get_translator("grinder")
 
+local timer = require('grinder.definition.node.timer')
 local form = require('grinder.definition.node.form')
 
 return {
@@ -63,6 +64,7 @@ return {
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	sounds = default.node_sound_stone_defaults(),
+	on_timer = timer.on_timer,
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", form.get('inactive')) -- почему 'inactive' ?
@@ -71,6 +73,7 @@ return {
 		inv:set_size("fuel", 1)
 		inv:set_size("src", 1)
 		inv:set_size("dst", 4)
+		timer.on_timer(pos, 0)
 	end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);

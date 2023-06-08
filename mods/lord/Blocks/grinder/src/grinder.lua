@@ -3,7 +3,6 @@ local node      = require('grinder.definition.node')
 local recipes   = require('grinder.definition.recipes')
 
 local Recipe    = require('grinder.Recipe')
-local Processor = require('grinder.Processor')
 
 
 local function register_craft()
@@ -22,12 +21,6 @@ end
 local function register_nodes()
 	minetest.register_node("grinder:grinder", node.inactive)
 	minetest.register_node("grinder:grinder_active", node.active)
-	minetest.register_abm({
-		nodenames = { "grinder:grinder", "grinder:grinder_active" },
-		interval  = 1,
-		chance    = 1,
-		action    = Processor.act,
-	})
 end
 
 

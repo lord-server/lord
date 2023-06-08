@@ -60,20 +60,18 @@ function Recipe.get_grinding_result(items)
 	local recipe = find_recipe(items)
 	-- Recipe not found
 	if not recipe then
-		return nil
+		return {time = 0, new_input = items, output = ""}
 	end
 
 	local new_input = {}
 	local num_item = ItemStack(recipe.input):get_count() or 1
 	for _, stack in ipairs(items) do
-		if stack:get_count() < num_item then
-			-- В стеке не хватает предметов
-			return nil
-		else
+		local new_item = ItemStack(stack)
+		if stack:get_count() >= num_item then
 			-- Будет изъято num_item
-			new_input = ItemStack(stack)
-			new_input:take_item(num_item)
+			new_item:take_item(num_item)
 		end
+		new_input[#new_input+1] = new_item
 	end
 
 	return {time = recipe.time, new_input = new_input, output = recipe.output}
