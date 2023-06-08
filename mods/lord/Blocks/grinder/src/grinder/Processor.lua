@@ -7,6 +7,9 @@ local Recipe    = require("grinder.Recipe")
 --- @param inv InvRef
 local function grinding_possible(inv)
 	local result                      = Recipe.get_grinding_result(inv:get_list("src"))
+	if not result then
+		return false
+	end
 	local result_fuel, remaining_fuel = minetest.get_craft_result({
 		method = "fuel",
 		width = 1,
