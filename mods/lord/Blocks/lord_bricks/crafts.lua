@@ -50,6 +50,20 @@ minetest.register_craft({
 	},
 })
 
+minetest.register_craft({
+	output = "lord_bricks:chamotte_brick_dried 4",
+	recipe = {
+		{"lord_bricks:chamotte_masonry"},
+	},
+})
+
+minetest.register_craft({
+	output = "lord_bricks:chamotte_brick_dried 9",
+	recipe = {
+		{"lord_bricks:chamotte_masonry_large"},
+	},
+})
+
 
 minetest.register_craft({
 	output = "lord_bricks:chamotte_brick 4",
@@ -102,6 +116,21 @@ minetest.register_craft({
 		{"lord_bricks:mordor_clay_brick_dried", "lord_bricks:mordor_clay_brick_dried", "lord_bricks:mordor_clay_brick_dried"},
 	},
 })
+
+minetest.register_craft({
+	output = "lord_bricks:mordor_clay_brick_dried 4",
+	recipe = {
+		{"lord_bricks:mordor_clay_masonry"},
+	},
+})
+
+minetest.register_craft({
+	output = "lord_bricks:mordor_clay_brick_dried 9",
+	recipe = {
+		{"lord_bricks:mordor_clay_masonry_large"},
+	},
+})
+
 
 minetest.register_craft({
 	output = "lord_bricks:mordor_clay_brick 4",
