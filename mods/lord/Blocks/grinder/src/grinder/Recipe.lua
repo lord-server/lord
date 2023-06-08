@@ -57,6 +57,9 @@ end
 --- @param items ItemStack
 --- @return table|nil
 function Recipe.get_grinding_result(items)
+	if (items == nil) then
+		return nil
+	end
 	local recipe = find_recipe(items)
 	-- Recipe not found
 	if not recipe then
