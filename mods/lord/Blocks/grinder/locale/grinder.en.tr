@@ -1,9 +1,12 @@
 # textdomain: grinder
-Grinder is empty=Grinder is empty
-Roll=Roll
-Grinding=Grinding
-Grinder Grinding=Grinder Grinding
-Grinder Out Of Heat=Grinder Out Of Heat
 Grinder=Grinder
+Roll=Roll
 Coal dust=Coal dust
 
+100% (output full)=100% (output full)
+@1%=@1%
+Not grindable=Not grindable
+Empty=Empty
+Grinder active=Grinder active
+Grinder inactive=Grinder inactive
+(Item: @1; Fuel: @2)=(Item: @1; Fuel: @2)

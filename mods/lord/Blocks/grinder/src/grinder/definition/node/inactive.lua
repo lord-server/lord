@@ -1,5 +1,6 @@
 local SL = minetest.get_translator("grinder")
 
+local timer = require('grinder.definition.node.timer')
 local form = require('grinder.definition.node.form')
 
 return {
@@ -12,6 +13,7 @@ return {
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	sounds = default.node_sound_stone_defaults(),
+	on_timer = timer.on_timer,
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", form.get('inactive'))
@@ -20,6 +22,7 @@ return {
 		inv:set_size("fuel", 1)
 		inv:set_size("src", 1)
 		inv:set_size("dst", 4)
+		timer.on_timer(pos, 0)
 	end,
 	can_dig = function(pos,player)
 		local meta = minetest.get_meta(pos);
@@ -32,6 +35,17 @@ return {
 			return false
 		end
 		return true
+	end,
+	on_metadata_inventory_move = function(pos)
+		minetest.get_node_timer(pos):start(1.0)
+	end,
+	on_metadata_inventory_put = function(pos)
+		-- start timer function, it will sort out whether grinder can grind or not.
+		minetest.get_node_timer(pos):start(1.0)
+	end,
+	on_metadata_inventory_take = function(pos)
+		-- check whether the grinder is empty or not.
+		minetest.get_node_timer(pos):start(1.0)
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
 		local meta = minetest.get_meta(pos)
