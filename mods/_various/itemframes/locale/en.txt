@@ -1,5 +1,6 @@
 ### init.lua ###
 Item frame	=	Item frame
+Protected item frame	=   Protected item frame
 Wooden Pedestal	=	Wooden Pedestal
 Stone Pedestal	=	Stone Pedestal
 Cobblestone Pedestal	=	Cobblestone Pedestal
@@ -19,5 +20,6 @@ Marble Brick Pedestal	=	Marble Brick Pedestal
 Orc Brick Pedestal	=	Orc Brick Pedestal
 
 Item frame	=	Item frame
+Protected item frame	=   Protected item frame
 Pedestal	=	Pedestal
 (owned by	=	(owned by
