@@ -80,6 +80,15 @@ local S = minetest.get_translator("bees")
       inv:set_size('wax',1)
       meta:set_string('formspec', formspecs.extractor(pos))
     end,
+	can_dig = function(pos)
+		local meta = minetest.get_meta(pos)
+		local inv = meta:get_inventory()
+		return inv:is_empty("frames_filled") and
+			inv:is_empty("frames_emptied") and
+			inv:is_empty("bottles_empty") and
+			inv:is_empty("bottles_full") and
+			inv:is_empty("wax")
+	end,
     on_timer = function(pos, node)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
