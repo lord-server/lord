@@ -118,14 +118,14 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 		-- handling main form
 		if fields["save_main"] ~= nil or fields["generate"] ~= nil then
 			local config = {}
-			config.ANGLE			= tonumber(fields["edit_angle"])
-			config.HEAD_ANGLE		= tonumber(fields["edit_head_angle"])
-			config.Y0			= tonumber(fields["edit_base"])
-			config.TOP_H			= tonumber(fields["edit_head_fraction"])
-			config.SNOW_LINE		= tonumber(fields["edit_snow_line"])
-			config.rk_big			= tonumber(fields["edit_rk_big"])
-			config.rk_small			= tonumber(fields["edit_rk_small"])
-			config.rk_thr			= tonumber(fields["edit_rk_thr"])
+			config.ANGLE			= tonumber(fields["edit_angle"]) or 0
+			config.HEAD_ANGLE		= tonumber(fields["edit_head_angle"]) or 0
+			config.Y0			= tonumber(fields["edit_base"]) or 0
+			config.TOP_H			= tonumber(fields["edit_head_fraction"]) or 0
+			config.SNOW_LINE		= tonumber(fields["edit_snow_line"]) or 0
+			config.rk_big			= tonumber(fields["edit_rk_big"]) or 0
+			config.rk_small			= tonumber(fields["edit_rk_small"]) or 0
+			config.rk_thr			= tonumber(fields["edit_rk_thr"]) or 0
 			config.top_cover		= fields["edit_top_cover"]
 			if validate_config(config) then
 				mountgen.config.ANGLE			= config.ANGLE
