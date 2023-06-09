@@ -1,5 +1,12 @@
 # Change Log
 
+## [2023.05.p2](https://github.com/lord-server/lord/releases/tag/2023.05.p2)
+ - Forgotten fix from prod. Difficult to reproduce fatal. Was found & fixed on prod. (#1067)
+ - Now you can't dig not empty extractor. Fixes #1072 (#1074)
+ - Fix mountain generation form. Fixes #1010 (#1075)
+ - Книгу достижений теперь можно вставить в рамку. Fixes #1069. (#1076)
+ - Исправление краша из-за формы сумок (fix 1066) (#1068)
+
 ## [2023.05.p1](https://github.com/lord-server/lord/releases/tag/2023.05.p1)
  -  Fix crash on login with wrong armor in slots. Closes #1060. (#1061)
 
