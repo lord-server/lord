@@ -78,3 +78,10 @@ equipment.on_change(function(player, kind, event, slot, item)
 
 	inventory.update(player)
 end)
+
+minetest.register_on_player_receive_fields(function(player, form_name, fields)
+	if fields.main then
+		local name  = player:get_player_name()
+		minetest.show_formspec(name, "main", main_form.get_spec(name, inventory.overlay_previews(name)))
+	end
+end)
