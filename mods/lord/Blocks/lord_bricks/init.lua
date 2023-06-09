@@ -17,7 +17,7 @@ minetest.register_craftitem("lord_bricks:chamotte_brick_raw", {
 })
 
 minetest.register_craftitem("lord_bricks:chamotte_brick_dried", {
-	description = S("Dried Chamotte Brick"),
+	description = S("Chamotte Brick"),
 	inventory_image = "lord_bricks_chamotte_brick_dried.png"
 })
 
@@ -28,6 +28,6 @@ minetest.register_craftitem("lord_bricks:mordor_clay_brick_raw", {
 })
 
 minetest.register_craftitem("lord_bricks:mordor_clay_brick_dried", {
-	description = S("Dried Mordor Clay Brick"),
+	description = S("Mordor Clay Brick"),
 	inventory_image = "lord_bricks_mordor_clay_brick_dried.png"
 })
