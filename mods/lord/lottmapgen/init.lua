@@ -167,7 +167,9 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 	local c_air = minetest.get_content_id("air")
 	local c_sand = minetest.get_content_id("default:sand")
-	local c_desertsand = minetest.get_content_id("default:desert_sand")
+	local c_mordor_sand = minetest.get_content_id("lottmapgen:mordor_sand")
+	local c_desert_sand = minetest.get_content_id("default:desert_sand")
+	local c_silver_sand = minetest.get_content_id("default:silver_sand")
 	local c_snowblock = minetest.get_content_id("default:snowblock")
 	local c_snow = minetest.get_content_id("default:snow")
 	local c_ice = minetest.get_content_id("default:ice")
@@ -274,7 +276,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									data[vi] = c_sand
 								end
 							elseif y <= sandy and y >= sandmin then -- sand
-								if biome ~= BIOME_MORDOR then
+								if biome ~= BIOME_MORDOR and biome ~= BIOME_DUNLANDS and biome ~= BIOME_ROHAN and biome ~= BIOME_SNOWPLAINS and biome ~= BIOME_ANGMAR then
 									if open and water and y == (water_level-1) and biome > 4 and math.random(PAPCHA) == 2 then -- papyrus
 										lottmapgen_papyrus(x, (water_level+1), z, area, data)
 										data[vi] = c_dirt
@@ -286,6 +288,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										data[vi] = c_pearl
 									else
 										data[vi] = c_sand
+									end
+								else
+									if biome == BIOME_MORDOR then
+										data[vi] = c_mordor_sand
+									elseif biome == BIOME_SNOWPLAINS or biome == BIOME_ANGMAR then
+										data[vi] = c_silver_sand
+									elseif biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
+										data[vi] = c_desert_sand
 									end
 								end
 								if open and y > (water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
