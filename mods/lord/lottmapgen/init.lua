@@ -173,7 +173,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local c_snowblock = minetest.get_content_id("default:snowblock")
 	local c_snow = minetest.get_content_id("default:snow")
 	local c_ice = minetest.get_content_id("default:ice")
-	local c_dirtsnow = minetest.get_content_id("default:dirt_with_snow")
+	local c_dirt_w_snow = minetest.get_content_id("default:dirt_with_snow")
 	local c_dirtgrass = minetest.get_content_id("default:dirt_with_grass")
 	local c_dirt = minetest.get_content_id("default:dirt")
 	local c_dryshrub = minetest.get_content_id("default:dry_shrub")
@@ -218,6 +218,31 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local c_lorhous = minetest.get_content_id("lottmapgen:lorienhouse")
 	local c_mirktre = minetest.get_content_id("lottmapgen:mirkhouse")
 	local c_rohfort = minetest.get_content_id("lottmapgen:rohanfort")
+
+	local biome_grass = {
+		[BIOME_ANGMAR] = function()
+			local block_id = c_angsnowblock
+			if math.random(121) == 2 then
+				block_id = c_ice
+			elseif math.random(25) == 2 then
+				block_id = c_frozenstone
+			end
+			return block_id
+		end,
+		[BIOME_SNOWPLAINS] = c_dirt_w_snow,
+		[BIOME_TROLLSHAWS] = c_dirt_w_snow,
+		[BIOME_DUNLANDS] = c_dungrass,
+		[BIOME_GONDOR] = c_gondorgrass,
+		[BIOME_ITHILIEN] = c_ithilgrass,
+		[BIOME_LORIEN] = c_loriengrass,
+		[BIOME_MORDOR] = c_morstone,
+		[BIOME_FANGORN] = c_fangorngrass,
+		[BIOME_MIRKWOOD] = c_mirkwoodgrass,
+		[BIOME_HILLS] = c_ironhillgrass,
+		[BIOME_ROHAN] = c_rohangrass,
+		[BIOME_SHIRE] = c_shiregrass,
+	}
+
 
 	local sidelen = x1 - x0 + 1
 	local chulens = {x=sidelen, y=sidelen, z=sidelen}
@@ -305,39 +330,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								elseif y <= sandmin then
 									data[vi] = c_stone
 								else -- above sandline
-									if biome == BIOME_ANGMAR then
-										if math.random(121) == 2 then
-											data[vi] = c_ice
-										elseif math.random(25) == 2 then
-											data[vi] = c_frozenstone
-										else
-											data[vi] = c_angsnowblock
-										end
-									elseif biome == BIOME_SNOWPLAINS then
-										data[vi] = c_dirtsnow
-									elseif biome == BIOME_TROLLSHAWS then
-										data[vi] = c_dirtsnow
-									elseif biome == BIOME_DUNLANDS then
-										data[vi] = c_dungrass
-									elseif biome == BIOME_GONDOR then
-										data[vi] = c_gondorgrass
-									elseif biome == BIOME_ITHILIEN then
-										data[vi] = c_ithilgrass
-									elseif biome == BIOME_LORIEN then
-										data[vi] = c_loriengrass
-									elseif biome == BIOME_MORDOR then
-										data[vi] = c_morstone
-									elseif biome == BIOME_FANGORN then
-										data[vi] = c_fangorngrass
-									elseif biome == BIOME_MIRKWOOD then
-										data[vi] = c_mirkwoodgrass
-									elseif biome == BIOME_HILLS then
-										data[vi] = c_ironhillgrass
-									elseif biome == BIOME_ROHAN then
-										data[vi] = c_rohangrass
-									elseif biome == BIOME_SHIRE then
-										data[vi] = c_shiregrass
+									local grass = biome_grass[biome]
+									if type(grass) == "function" then
+										grass = grass()
 									end
+									data[vi] = grass
 								if open then -- if open to sky then flora
 									local y = surfy + 1
 									local vi = area:index(x, y, z)
