@@ -336,29 +336,29 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									end
 									data[vi] = grass
 								if open then -- if open to sky then flora
-									local y = surfy + 1
-									local vi = area:index(x, y, z)
+									local y       = surfy + 1
+									local surf_vi = area:index(x, y, z)
 									if biome == BIOME_ANGMAR then
 										if math.random(PLANT3) == 2 then
-											data[vi] = c_dryshrub
+											data[surf_vi] = c_dryshrub
 										elseif math.random(TREE10) == 2 then
-											data[vi] = c_beechgen
+											data[surf_vi] = c_beechgen
 										elseif math.random(TREE7) == 3 then
 											lottmapgen_pinetree(x, y, z, area, data)
 										elseif math.random(TREE8) == 4 then
 											lottmapgen_firtree(x, y, z, area, data)
 										elseif math.random(PLANT6) == 2 then
-											data[vi] = c_seregon
+											data[surf_vi] = c_seregon
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_angfort
+											data[surf_vi] = c_angfort
 										end
 									elseif biome == BIOME_SNOWPLAINS then
-										data[vi] = c_snowblock
+										data[surf_vi] = c_snowblock
 									elseif biome == BIOME_TROLLSHAWS then
 										if math.random(PLANT3) == 2 then
-											data[vi] = c_dryshrub
+											data[surf_vi] = c_dryshrub
 										elseif math.random(TREE10) == 2 then
-											data[vi] = c_beechgen
+											data[surf_vi] = c_beechgen
 										elseif math.random(TREE4) == 3 then
 											lottmapgen_pinetree(x, y, z, area, data)
 										elseif math.random(TREE3) == 4 then
@@ -370,7 +370,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE7) == 3 then
 											lottmapgen_appletree(x, y, z, area, data)
 										elseif math.random (PLANT3) == 4 then
-											lottmapgen_grass(data, vi)
+											lottmapgen_grass(data, surf_vi)
 										end
 									elseif biome == BIOME_GONDOR then
 										if math.random(TREE7) == 2 then
@@ -386,15 +386,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(PLANT13) == 10 then
 											lottmapgen_whitetree(x, y, z, area, data)
 										elseif math.random(PLANT3) == 5 then
-											lottmapgen_grass(data, vi)
+											lottmapgen_grass(data, surf_vi)
 										elseif math.random(PLANT8) == 7 then
-											lottmapgen_farmingplants(data, vi)
+											lottmapgen_farmingplants(data, surf_vi)
 										elseif math.random(PLANT13) == 8 then
-											lottmapgen_farmingrareplants(data, vi)
+											lottmapgen_farmingrareplants(data, surf_vi)
 										elseif math.random(PLANT6) == 2 then
-											data[vi] = c_mallos
+											data[surf_vi] = c_mallos
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_gonfort
+											data[surf_vi] = c_gonfort
 										end
 									elseif biome == BIOME_ITHILIEN then
 										if math.random(TREE3) == 2 then
@@ -410,11 +410,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE9) == 9 then
 											lottmapgen_elmtree(x, y, z, area, data)
 										elseif math.random(PLANT8) == 7 then
-											lottmapgen_farmingplants(data, vi)
+											lottmapgen_farmingplants(data, surf_vi)
 										elseif math.random(PLANT13) == 8 then
-											data[vi] = c_melon
+											data[surf_vi] = c_melon
 										elseif math.random(PLANT5) == 11 then
-											lottmapgen_ithildinplants(data, vi)
+											lottmapgen_ithildinplants(data, surf_vi)
 										end
 									elseif biome == BIOME_LORIEN then
 										if math.random(TREE3) == 2 then
@@ -422,25 +422,25 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE2) == 2 then
 											lottmapgen_young_mallorn(x, y, z, area, data)
 										elseif math.random(PLANT1) == 2 then
-											lottmapgen_lorien_grass(data, vi)
+											lottmapgen_lorien_grass(data, surf_vi)
 										elseif math.random(TREE5) == 3 then
-											data[vi] = c_mallorngen
+											data[surf_vi] = c_mallorngen
 										elseif math.random(PLANT4) == 11 then
-											lottmapgen_lorienplants(data, vi)
+											lottmapgen_lorienplants(data, surf_vi)
 										elseif math.random(PLANT13) == 13 then
 											if math.random(1, 2) == 1 then
-												data[vi] = c_malltre
+												data[surf_vi] = c_malltre
 											else
-												data[vi] = c_lorhous
+												data[surf_vi] = c_lorhous
 											end
 										end
 									elseif biome == BIOME_MORDOR then
 										if math.random(TREE10) == 2 then
 											lottmapgen_burnedtree(x, y, z, area, data)
 										elseif math.random(PLANT4) == 2 then
-											data[vi] = c_bomordor
+											data[surf_vi] = c_bomordor
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_orcfort
+											data[surf_vi] = c_orcfort
 										end
 									elseif biome == BIOME_FANGORN then
 										if math.random(TREE3) == 2 then
@@ -458,21 +458,21 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE6) == 11 then
 											lottmapgen_oaktree(x, y, z, area, data)
 										elseif math.random(PLANT4) == 7 then
-											lottmapgen_farmingplants(data, vi)
+											lottmapgen_farmingplants(data, surf_vi)
 										elseif math.random(PLANT9) == 8 then
-											data[vi] = c_melon
+											data[surf_vi] = c_melon
 										end
 									elseif biome == BIOME_MIRKWOOD then
 										if math.random(TREE2) == 2 then
-											data[vi] = c_mirktreegen
+											data[surf_vi] = c_mirktreegen
 										elseif math.random(TREE4) == 3 then
 											lottmapgen_jungletree(x, y, z, area, data)
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_mirktre
+											data[surf_vi] = c_mirktre
 										end
 									elseif biome == BIOME_HILLS then
 										if math.random(TREE10) == 2 then
-											data[vi] = c_beechgen
+											data[surf_vi] = c_beechgen
 										elseif math.random(TREE4) == 3 then
 											lottmapgen_pinetree(x, y, z, area, data)
 										elseif math.random(TREE6) == 4 then
@@ -488,15 +488,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE10) == 9 then
 											lottmapgen_elmtree(x, y, z, area, data)
 										elseif math.random(PLANT2) == 5 then
-											lottmapgen_grass(data, vi)
+											lottmapgen_grass(data, surf_vi)
 										elseif math.random(PLANT8) == 6 then
-											lottmapgen_farmingplants(data, vi)
+											lottmapgen_farmingplants(data, surf_vi)
 										elseif math.random(PLANT13) == 7 then
-											data[vi] = c_melon
+											data[surf_vi] = c_melon
 										elseif math.random(PLANT6) == 2 then
-											data[vi] = c_pilinehtar
+											data[surf_vi] = c_pilinehtar
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_rohfort
+											data[surf_vi] = c_rohfort
 										end
 									elseif biome == BIOME_SHIRE then
 										if math.random(TREE7) == 2 then
@@ -508,11 +508,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										elseif math.random(TREE7) == 9 then
 											lottmapgen_oaktree(x, y, z, area, data)
 										elseif math.random(PLANT7) == 7 then
-											lottmapgen_farmingplants(data, vi)
+											lottmapgen_farmingplants(data, surf_vi)
 										elseif math.random(PLANT9) == 8 then
-											data[vi] = c_melon
+											data[surf_vi] = c_melon
 										elseif math.random(PLANT13) == 13 then
-											data[vi] = c_hobhole
+											data[surf_vi] = c_hobhole
 										end
 									end
 								end
