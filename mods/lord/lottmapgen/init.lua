@@ -159,8 +159,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local y0 = minp.y
 	local z0 = minp.z
 
-	--print ("[lottmapgen_checking] chunk minp ("..x0.." "..y0.." "..z0..")")
-
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 	local data = vm:get_data()
@@ -336,185 +334,240 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									end
 									data[vi] = grass
 								if open then -- if open to sky then flora
-									local above_surf_y = surfy + 1
-									local surf_vi      = area:index(x, above_surf_y, z)
-									if biome == BIOME_ANGMAR then
-										if math.random(PLANT3) == 2 then
-											data[surf_vi] = c_dryshrub
-										elseif math.random(TREE10) == 2 then
-											data[surf_vi] = c_beechgen
-										elseif math.random(TREE7) == 3 then
-											lottmapgen_pinetree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE8) == 4 then
-											lottmapgen_firtree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT6) == 2 then
-											data[surf_vi] = c_seregon
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_angfort
+									local surf_vi = area:index(x, surfy + 1, z)
+
+									local function biome_fill_air(air, vm_data, index)
+										if type(air) == "number" then
+											vm_data[index] = air
+											return true
 										end
-									elseif biome == BIOME_SNOWPLAINS then
-										data[surf_vi] = c_snowblock
-									elseif biome == BIOME_TROLLSHAWS then
-										if math.random(PLANT3) == 2 then
-											data[surf_vi] = c_dryshrub
-										elseif math.random(TREE10) == 2 then
-											data[surf_vi] = c_beechgen
-										elseif math.random(TREE4) == 3 then
-											lottmapgen_pinetree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE3) == 4 then
-											lottmapgen_firtree(x, above_surf_y, z, area, data)
-										end
-									elseif biome == BIOME_DUNLANDS then
-										if math.random(TREE5) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random (PLANT3) == 4 then
-											lottmapgen_grass(data, surf_vi)
-										end
-									elseif biome == BIOME_GONDOR then
-										if math.random(TREE7) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE8) == 6 then
-											lottmapgen_aldertree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE9) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE8) == 4 then
-											lottmapgen_plumtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE10) == 9 then
-											lottmapgen_elmtree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT13) == 10 then
-											lottmapgen_whitetree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT3) == 5 then
-											lottmapgen_grass(data, surf_vi)
-										elseif math.random(PLANT8) == 7 then
-											lottmapgen_farmingplants(data, surf_vi)
-										elseif math.random(PLANT13) == 8 then
-											lottmapgen_farmingrareplants(data, surf_vi)
-										elseif math.random(PLANT6) == 2 then
-											data[surf_vi] = c_mallos
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_gonfort
-										end
-									elseif biome == BIOME_ITHILIEN then
-										if math.random(TREE3) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE6) == 6 then
-											lottmapgen_lebethrontree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE3) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE5) == 10 then
-											lottmapgen_culumaldatree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE5) == 4 then
-											lottmapgen_plumtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE9) == 9 then
-											lottmapgen_elmtree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT8) == 7 then
-											lottmapgen_farmingplants(data, surf_vi)
-										elseif math.random(PLANT13) == 8 then
-											data[surf_vi] = c_melon
-										elseif math.random(PLANT5) == 11 then
-											lottmapgen_ithildinplants(data, surf_vi)
-										end
-									elseif biome == BIOME_LORIEN then
-										if math.random(TREE3) == 2 then
-											lottmapgen_mallornsmalltree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE2) == 2 then
-											lottmapgen_young_mallorn(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT1) == 2 then
-											lottmapgen_lorien_grass(data, surf_vi)
-										elseif math.random(TREE5) == 3 then
-											data[surf_vi] = c_mallorngen
-										elseif math.random(PLANT4) == 11 then
-											lottmapgen_lorienplants(data, surf_vi)
-										elseif math.random(PLANT13) == 13 then
-											if math.random(1, 2) == 1 then
-												data[surf_vi] = c_malltre
-											else
-												data[surf_vi] = c_lorhous
+
+										for node_id, rarity in pairs(air.flora.plants) do
+											if math.random(rarity) == 1 then
+												if type(node_id) == "function" then
+													node_id(vm_data, index)
+												else
+													vm_data[index] = node_id
+												end
+												return true
 											end
 										end
-									elseif biome == BIOME_MORDOR then
-										if math.random(TREE10) == 2 then
-											lottmapgen_burnedtree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT4) == 2 then
-											data[surf_vi] = c_bomordor
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_orcfort
+
+										for tree, rarity in pairs(air.flora.trees) do
+											if math.random(rarity) == 1 then
+												if type(tree) == "function" then
+													tree(x, surfy + 1, z, area, vm_data)
+												else
+													vm_data[index] = tree
+												end
+												return true
+											end
 										end
-									elseif biome == BIOME_FANGORN then
-										if math.random(TREE3) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE4) == 6 then
-											lottmapgen_rowantree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE4) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE5) == 10 then
-											lottmapgen_birchtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE5) == 4 then
-											lottmapgen_plumtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 9 then
-											lottmapgen_elmtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE6) == 11 then
-											lottmapgen_oaktree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT4) == 7 then
-											lottmapgen_farmingplants(data, surf_vi)
-										elseif math.random(PLANT9) == 8 then
-											data[surf_vi] = c_melon
+
+										for node_id, rarity in pairs(air.buildings) do
+											if math.random(rarity) == 1 then
+												vm_data[index] = node_id
+												return true
+											end
 										end
-									elseif biome == BIOME_MIRKWOOD then
-										if math.random(TREE2) == 2 then
-											data[surf_vi] = c_mirktreegen
-										elseif math.random(TREE4) == 3 then
-											lottmapgen_jungletree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_mirktre
-										end
-									elseif biome == BIOME_HILLS then
-										if math.random(TREE10) == 2 then
-											data[surf_vi] = c_beechgen
-										elseif math.random(TREE4) == 3 then
-											lottmapgen_pinetree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE6) == 4 then
-											lottmapgen_firtree(x, above_surf_y, z, area, data)
-										end
-									elseif biome == BIOME_ROHAN then
-										if math.random(TREE7) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE8) == 4 then
-											lottmapgen_plumtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE10) == 9 then
-											lottmapgen_elmtree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT2) == 5 then
-											lottmapgen_grass(data, surf_vi)
-										elseif math.random(PLANT8) == 6 then
-											lottmapgen_farmingplants(data, surf_vi)
-										elseif math.random(PLANT13) == 7 then
-											data[surf_vi] = c_melon
-										elseif math.random(PLANT6) == 2 then
-											data[surf_vi] = c_pilinehtar
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_rohfort
-										end
-									elseif biome == BIOME_SHIRE then
-										if math.random(TREE7) == 2 then
-											lottmapgen_defaulttree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 3 then
-											lottmapgen_appletree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 4 then
-											lottmapgen_plumtree(x, above_surf_y, z, area, data)
-										elseif math.random(TREE7) == 9 then
-											lottmapgen_oaktree(x, above_surf_y, z, area, data)
-										elseif math.random(PLANT7) == 7 then
-											lottmapgen_farmingplants(data, surf_vi)
-										elseif math.random(PLANT9) == 8 then
-											data[surf_vi] = c_melon
-										elseif math.random(PLANT13) == 13 then
-											data[surf_vi] = c_hobhole
-										end
+
+										return false
 									end
+
+
+									local biome_air = {
+										[BIOME_ANGMAR] = {
+											flora = {
+												plants = {
+													[c_dryshrub] = PLANT3,
+													[c_beechgen] = TREE10,
+													[c_seregon] = PLANT6,
+												},
+												trees = {
+													[lottmapgen_pinetree] = TREE7,
+													[lottmapgen_firtree]  = TREE8,
+												},
+											},
+											buildings = {
+												[c_angfort] = PLANT13,
+											}
+										},
+										[BIOME_SNOWPLAINS] = c_snowblock,
+										[BIOME_TROLLSHAWS] = {
+											flora = {
+												plants = {
+													[c_dryshrub] = PLANT3,
+													[c_beechgen] = TREE10,
+												},
+												trees = {
+													[lottmapgen_pinetree] = TREE4,
+													[lottmapgen_firtree]  = TREE3,
+												},
+											},
+											buildings = {},
+										},
+										[BIOME_DUNLANDS] = {
+											flora = {
+												plants = {
+													[lottmapgen_grass] = PLANT3,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE5,
+													[lottmapgen_appletree]   = TREE7,
+												},
+											},
+											buildings = {},
+										},
+										[BIOME_GONDOR] = {
+											flora = {
+												plants = {
+													[lottmapgen_grass] = PLANT3,
+													[lottmapgen_farmingplants] = PLANT8,
+													[lottmapgen_farmingrareplants] = PLANT13,
+													[c_mallos] = PLANT6,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE7,
+													[lottmapgen_aldertree] = TREE8,
+													[lottmapgen_appletree] = TREE9,
+													[lottmapgen_plumtree] = TREE8,
+													[lottmapgen_elmtree] = TREE10,
+													[lottmapgen_whitetree] = PLANT13,
+												},
+											},
+											buildings = {
+												[c_gonfort] = PLANT13,
+											},
+										},
+										[BIOME_ITHILIEN] = {
+											flora = {
+												plants = {
+													[lottmapgen_farmingplants] = PLANT8,
+													[c_melon] = PLANT13,
+													[lottmapgen_ithildinplants] = PLANT5,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE3,
+													[lottmapgen_lebethrontree] = TREE6,
+													[lottmapgen_appletree] = TREE3,
+													[lottmapgen_culumaldatree] = TREE5,
+													[lottmapgen_plumtree] = TREE5,
+													[lottmapgen_elmtree] = PLANT9,
+												},
+											},
+											buildings = {},
+										},
+										[BIOME_LORIEN] = {
+											flora = {
+												plants = {
+													[lottmapgen_lorien_grass] = PLANT1,
+													[c_mallorngen] = TREE5,
+													[lottmapgen_lorienplants] = PLANT4,
+												},
+												trees = {
+													[lottmapgen_mallornsmalltree] = TREE3,
+													[lottmapgen_young_mallorn] = TREE2,
+												},
+											},
+											buildings = {
+												[c_malltre] = PLANT13 * 2,
+												[c_lorhous] = PLANT13 * 2,
+											},
+										},
+										[BIOME_MORDOR] = {
+											flora = {
+												plants = {
+													[c_bomordor] = PLANT4,
+												},
+												trees = {
+													[lottmapgen_burnedtree] = TREE9,
+												},
+											},
+											buildings = {
+												[c_orcfort] = PLANT13,
+											},
+										},
+										[BIOME_FANGORN] = {
+											flora = {
+												plants = {
+													[lottmapgen_farmingplants] = PLANT4,
+													[c_melon] = PLANT9,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE3,
+													[lottmapgen_rowantree] = TREE4,
+													[lottmapgen_appletree] = TREE4,
+													[lottmapgen_birchtree] = TREE5,
+													[lottmapgen_plumtree] = TREE5,
+													[lottmapgen_elmtree] = TREE7,
+													[lottmapgen_oaktree] = TREE6,
+												},
+											},
+											buildings = {},
+										},
+										[BIOME_MIRKWOOD] = {
+											flora = {
+												plants = {},
+												trees = {
+													[c_mirktreegen] = TREE2,
+													[lottmapgen_jungletree] = TREE4,
+												},
+											},
+											buildings = {
+												[c_mirktre] = PLANT13,
+											},
+										},
+										[BIOME_HILLS] = {
+											flora = {
+												plants = {},
+												trees = {
+													[c_beechgen] = TREE10,
+													[lottmapgen_pinetree] = TREE4,
+													[lottmapgen_firtree] = TREE6,
+												},
+											},
+											buildings = {},
+										},
+										[BIOME_ROHAN] = {
+											flora = {
+												plants = {
+													[lottmapgen_grass] = PLANT2,
+													[lottmapgen_farmingplants] = PLANT8,
+													[c_melon] = PLANT13,
+													[c_pilinehtar] = PLANT6,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE7,
+													[lottmapgen_appletree] = TREE7,
+													[lottmapgen_plumtree] = TREE8,
+													[lottmapgen_elmtree] = TREE10,
+												},
+											},
+											buildings = {
+												[c_rohfort] = PLANT13,
+											},
+										},
+										[BIOME_SHIRE] = {
+											flora = {
+												plants = {
+													[lottmapgen_farmingplants] = PLANT7,
+													[c_melon] = PLANT9,
+												},
+												trees = {
+													[lottmapgen_defaulttree] = TREE7,
+													[lottmapgen_appletree] = TREE7,
+													[lottmapgen_plumtree] = TREE7,
+													[lottmapgen_oaktree] = TREE7,
+												},
+											},
+											buildings = {
+												[c_hobhole] = PLANT13,
+											},
+										},
+									}
+
+									biome_fill_air(biome_air[biome], data, surf_vi)
+
 								end
 							end
 						end
