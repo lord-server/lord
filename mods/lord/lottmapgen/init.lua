@@ -336,7 +336,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								if open then -- if open to sky then flora
 									local surf_vi = area:index(x, surfy + 1, z)
 
-									local function biome_fill_air(air, vm_data, index)
+									local function biome_fill_air(air, vm_area, vm_data, index)
 										if type(air) == "number" then
 											vm_data[index] = air
 											return true
@@ -356,7 +356,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										for tree, rarity in pairs(air.flora.trees) do
 											if math.random(rarity) == 1 then
 												if type(tree) == "function" then
-													tree(x, surfy + 1, z, area, vm_data)
+													local pos = vm_area:position(index)
+													tree(pos.x, pos.y, pos.z, vm_area, vm_data)
 												else
 													vm_data[index] = tree
 												end
@@ -566,7 +567,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										},
 									}
 
-									biome_fill_air(biome_air[biome], data, surf_vi)
+									biome_fill_air(biome_air[biome], area, data, surf_vi)
 
 								end
 							end
