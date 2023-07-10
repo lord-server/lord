@@ -1,3 +1,6 @@
+local math_random, math_floor, math_abs, math_ceil, os_clock, pairs, type, id
+	= math.random, math.floor, math.abs, math.ceil, os.clock, pairs, type, minetest.get_content_id
+
 -- paragenv7 0.3.1 by paramat
 -- For latest stable Minetest and back to 0.4.8
 -- Depends default
@@ -161,7 +164,7 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 	end
 
 	for node_id, rarity in pairs(air.flora.plants) do
-		if math.random(rarity) == 1 then
+		if math_random(rarity) == 1 then
 			if type(node_id) == "function" then
 				node_id(vm_data, index)
 			else
@@ -172,7 +175,7 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 	end
 
 	for tree, rarity in pairs(air.flora.trees) do
-		if math.random(rarity) == 1 then
+		if math_random(rarity) == 1 then
 			if type(tree) == "function" then
 				local pos = vm_area:position(index)
 				tree(pos.x, pos.y, pos.z, vm_area, vm_data)
@@ -184,7 +187,7 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 	end
 
 	for node_id, rarity in pairs(air.buildings) do
-		if math.random(rarity) == 1 then
+		if math_random(rarity) == 1 then
 			vm_data[index] = node_id
 			return true
 		end
@@ -200,7 +203,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 		return
 	end
 
-	local t1 = os.clock()
+	local t1 = os_clock()
 
 	local x1 = maxp.x
 	local y1 = maxp.y
@@ -213,66 +216,67 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 	local data = vm:get_data()
 
-	local c_air = minetest.get_content_id("air")
-	local c_sand = minetest.get_content_id("default:sand")
-	local c_mordor_sand = minetest.get_content_id("lottmapgen:mordor_sand")
-	local c_desert_sand = minetest.get_content_id("default:desert_sand")
-	local c_silver_sand = minetest.get_content_id("default:silver_sand")
-	local c_snowblock = minetest.get_content_id("default:snowblock")
-	local c_snow = minetest.get_content_id("default:snow")
-	local c_ice = minetest.get_content_id("default:ice")
-	local c_dirt_w_snow = minetest.get_content_id("default:dirt_with_snow")
-	local c_dirtgrass = minetest.get_content_id("default:dirt_with_grass")
-	local c_dirt = minetest.get_content_id("default:dirt")
-	local c_dryshrub = minetest.get_content_id("default:dry_shrub")
-	local c_clay = minetest.get_content_id("default:clay")
-	local c_stone = minetest.get_content_id("default:stone")
-	local c_desertstone = minetest.get_content_id("default:desert_stone")
-	local c_stonecopper = minetest.get_content_id("default:stone_with_copper")
-	local c_stoneiron = minetest.get_content_id("default:stone_with_iron")
-	local c_stonecoal = minetest.get_content_id("default:stone_with_coal")
-	local c_water = minetest.get_content_id("default:water_source")
-	local c_river_water = minetest.get_content_id("default:river_water_source")
-	local c_morwat = minetest.get_content_id("lottmapgen:blacksource")
-	local c_morrivwat = minetest.get_content_id("lottmapgen:black_river_source")
+	local c_air = id("air")
+	local c_sand = id("default:sand")
+	local c_mordor_sand = id("lottmapgen:mordor_sand")
+	local c_desert_sand = id("default:desert_sand")
+	local c_silver_sand = id("default:silver_sand")
+	local c_snowblock = id("default:snowblock")
+	local c_snow = id("default:snow")
+	local c_ice = id("default:ice")
+	local c_dirt_w_snow = id("default:dirt_with_snow")
+	local c_dirtgrass = id("default:dirt_with_grass")
+	local c_dirt = id("default:dirt")
+	local c_dryshrub = id("default:dry_shrub")
+	local c_clay = id("default:clay")
+	local c_stone = id("default:stone")
+	local c_desertstone = id("default:desert_stone")
+	local c_stonecopper = id("default:stone_with_copper")
+	local c_stoneiron = id("default:stone_with_iron")
+	local c_stonecoal = id("default:stone_with_coal")
+	local c_water = id("default:water_source")
+	local c_river_water = id("default:river_water_source")
+	local c_morwat = id("lottmapgen:blacksource")
+	local c_morrivwat = id("lottmapgen:black_river_source")
 
-	local c_morstone = minetest.get_content_id("lottmapgen:mordor_stone")
-	local c_frozenstone = minetest.get_content_id("lottmapgen:frozen_stone")
-	local c_dungrass = minetest.get_content_id("lottmapgen:dunland_grass")
-	local c_gondorgrass = minetest.get_content_id("lottmapgen:gondor_grass")
-	local c_loriengrass = minetest.get_content_id("lottmapgen:lorien_grass")
-	local c_fangorngrass = minetest.get_content_id("lottmapgen:fangorn_grass")
-	local c_mirkwoodgrass = minetest.get_content_id("lottmapgen:mirkwood_grass")
-	local c_rohangrass = minetest.get_content_id("lottmapgen:rohan_grass")
-	local c_shiregrass = minetest.get_content_id("lottmapgen:shire_grass")
-	local c_ironhillgrass = minetest.get_content_id("lottmapgen:ironhill_grass")
-	local c_salt = minetest.get_content_id("lottores:mineral_salt")
-	local c_pearl = minetest.get_content_id("lottores:mineral_pearl")
-	local c_mallorngen = minetest.get_content_id("lottmapgen:mallorngen")
-	local c_beechgen = minetest.get_content_id("lottmapgen:beechgen")
-	local c_mirktreegen = minetest.get_content_id("lottmapgen:mirktreegen")
-	local c_angsnowblock = minetest.get_content_id("lottmapgen:angsnowblock")
-	local c_mallos = minetest.get_content_id("lottplants:mallos")
-	local c_seregon = minetest.get_content_id("lottplants:seregon")
-	local c_bomordor = minetest.get_content_id("lottplants:brambles_of_mordor")
-	local c_pilinehtar = minetest.get_content_id("lottplants:pilinehtar")
-	local c_ithilgrass = minetest.get_content_id("lottmapgen:ithilien_grass")
-	local c_melon = minetest.get_content_id("lottplants:melon_wild")
-	local c_angfort = minetest.get_content_id("lottmapgen:angmarfort")
-	local c_gonfort = minetest.get_content_id("lottmapgen:gondorfort")
-	local c_hobhole = minetest.get_content_id("lottmapgen:hobbithole")
-	local c_orcfort = minetest.get_content_id("lottmapgen:orcfort")
-	local c_malltre = minetest.get_content_id("lottmapgen:mallornhouse")
-	local c_lorhous = minetest.get_content_id("lottmapgen:lorienhouse")
-	local c_mirktre = minetest.get_content_id("lottmapgen:mirkhouse")
-	local c_rohfort = minetest.get_content_id("lottmapgen:rohanfort")
+	local c_morstone = id("lottmapgen:mordor_stone")
+	local c_frozenstone = id("lottmapgen:frozen_stone")
+	local c_dungrass = id("lottmapgen:dunland_grass")
+	local c_gondorgrass = id("lottmapgen:gondor_grass")
+	local c_loriengrass = id("lottmapgen:lorien_grass")
+	local c_fangorngrass = id("lottmapgen:fangorn_grass")
+	local c_mirkwoodgrass = id("lottmapgen:mirkwood_grass")
+	local c_rohangrass = id("lottmapgen:rohan_grass")
+	local c_shiregrass = id("lottmapgen:shire_grass")
+	local c_ironhillgrass = id("lottmapgen:ironhill_grass")
+	local c_salt = id("lottores:mineral_salt")
+	local c_pearl = id("lottores:mineral_pearl")
+	local c_mallorngen = id("lottmapgen:mallorngen")
+	local c_beechgen = id("lottmapgen:beechgen")
+	local c_mirktreegen = id("lottmapgen:mirktreegen")
+	local c_angsnowblock = id("lottmapgen:angsnowblock")
+	local c_mallos = id("lottplants:mallos")
+	local c_seregon = id("lottplants:seregon")
+	local c_bomordor = id("lottplants:brambles_of_mordor")
+	local c_pilinehtar = id("lottplants:pilinehtar")
+	local c_ithilgrass = id("lottmapgen:ithilien_grass")
+	local c_melon = id("lottplants:melon_wild")
+
+	local c_angfort = id("lottmapgen:angmarfort")
+	local c_gonfort = id("lottmapgen:gondorfort")
+	local c_hobhole = id("lottmapgen:hobbithole")
+	local c_orcfort = id("lottmapgen:orcfort")
+	local c_malltre = id("lottmapgen:mallornhouse")
+	local c_lorhous = id("lottmapgen:lorienhouse")
+	local c_mirktre = id("lottmapgen:mirkhouse")
+	local c_rohfort = id("lottmapgen:rohanfort")
 
 	local biome_grass = {
 		[BIOME_ANGMAR] = function()
 			local block_id = c_angsnowblock
-			if math.random(121) == 2 then
+			if math_random(121) == 2 then
 				block_id = c_ice
-			elseif math.random(25) == 2 then
+			elseif math_random(25) == 2 then
 				block_id = c_frozenstone
 			end
 			return block_id
@@ -498,14 +502,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			local n_ran = nvals_random[nixz]
 			local biome = detect_current_biome(n_temp, n_humid, n_ran)
 
-			local sandy = (water_level+2) + math.random(-1, 1) -- sandline
-			local sandmin = (water_level-15) + math.random(-5, 0) -- lowest sand
+			local sandy = (water_level+2) + math_random(-1, 1) -- sandline
+			local sandmin = (water_level-15) + math_random(-5, 0) -- lowest sand
 			local open = true -- open to sky?
 			local solid = true -- solid node above?
 			local water = false -- water node above?
 			local surfy = y1 + 80 -- y of last surface detected
 			for y = y1, y0, -1 do -- working down each column for each node do
-				local fimadep = math.floor(6 - y / 512) + math.random(0, 1)
+				local fimadep = math_floor(6 - y / 512) + math_random(0, 1)
 				local vi = area:index(x, y, z)
 				local nodid = data[vi]
 				local viuu = area:index(x, y - 2, z)
@@ -522,7 +526,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 						elseif biome == BIOME_MORDOR then
 							data[vi] = c_morstone
 						elseif biome == BIOME_HILLS then
-							if math.random(3) == 1 then
+							if math_random(3) == 1 then
 								data[vi] = c_stoneiron
 							end
 						end
@@ -540,14 +544,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								end
 							elseif y <= sandy and y >= sandmin then -- sand
 								if biome ~= BIOME_MORDOR and biome ~= BIOME_DUNLANDS and biome ~= BIOME_ROHAN and biome ~= BIOME_SNOWPLAINS and biome ~= BIOME_ANGMAR then
-									if open and water and y == (water_level-1) and biome > 4 and math.random(PAPCHA) == 2 then -- papyrus
+									if open and water and y == (water_level-1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
 										lottmapgen_papyrus(x, (water_level+1), z, area, data)
 										data[vi] = c_dirt
-									elseif math.abs(n_temp) < 0.05 and y == (water_level-1) then -- clay
+									elseif math_abs(n_temp) < 0.05 and y == (water_level-1) then -- clay
 										data[vi] = c_clay
-									elseif math.abs(n_temp) < 0.05 and y == (water_level-5) then -- salt
+									elseif math_abs(n_temp) < 0.05 and y == (water_level-5) then -- salt
 										data[vi] = c_salt
-									elseif math.abs(n_temp) < 0.05 and y == (water_level-20) then -- pearl
+									elseif math_abs(n_temp) < 0.05 and y == (water_level-20) then -- pearl
 										data[vi] = c_pearl
 									else
 										data[vi] = c_sand
@@ -561,7 +565,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 										data[vi] = c_desert_sand
 									end
 								end
-								if open and y > (water_level + 4) + math.random(0, 1) and math.random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
+								if open and y > (water_level + 4) + math_random(0, 1) and math_random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
 									local vi = area:index(x, y + 1, z)
 										data[vi] = c_dryshrub
 									end
@@ -601,7 +605,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								data[vi] = c_morwat
 							end
 						end
-						if n_temp < ICETET and y >= water_level - math.floor((ICETET - n_temp) * 10) then --ice
+						if n_temp < ICETET and y >= water_level - math_floor((ICETET - n_temp) * 10) then --ice
 							data[vi] = c_ice
 						end
 					end
@@ -616,8 +620,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:write_to_map(data)
 
 	if measure then
-		local chunk_gen_time = math.ceil((os.clock() - t1) * 1000)
-		chunk_gen_avg = math.ceil((chunk_gen_avg * chunk_gen_count + chunk_gen_time) / (chunk_gen_count + 1))
+		local chunk_gen_time = math_ceil((os_clock() - t1) * 1000)
+		chunk_gen_avg = math_ceil((chunk_gen_avg * chunk_gen_count + chunk_gen_time) / (chunk_gen_count + 1))
 		print("map-gen: " .. chunk_gen_time .. ", avg: " .. chunk_gen_avg)
 		chunk_gen_count = chunk_gen_count + 1
 	end
