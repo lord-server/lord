@@ -111,6 +111,7 @@ local chunk_gen_avg = 0
 
 dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
 dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
+dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 
 
 local function detect_current_biome(n_temp, n_humid, n_ran)
@@ -196,6 +197,275 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 	return false
 end
 
+local c_air = id("air")
+local c_sand = id("default:sand")
+local c_mordor_sand = id("lottmapgen:mordor_sand")
+local c_desert_sand = id("default:desert_sand")
+local c_silver_sand = id("default:silver_sand")
+local c_snowblock = id("default:snowblock")
+local c_snow = id("default:snow")
+local c_ice = id("default:ice")
+local c_dirt_w_snow = id("default:dirt_with_snow")
+local c_dirtgrass = id("default:dirt_with_grass")
+local c_dirt = id("default:dirt")
+local c_dryshrub = id("default:dry_shrub")
+local c_clay = id("default:clay")
+local c_stone = id("default:stone")
+local c_desertstone = id("default:desert_stone")
+local c_stonecopper = id("default:stone_with_copper")
+local c_stoneiron = id("default:stone_with_iron")
+local c_stonecoal = id("default:stone_with_coal")
+local c_water = id("default:water_source")
+local c_river_water = id("default:river_water_source")
+local c_morwat = id("lottmapgen:blacksource")
+local c_morrivwat = id("lottmapgen:black_river_source")
+
+local c_morstone = id("lottmapgen:mordor_stone")
+local c_frozenstone = id("lottmapgen:frozen_stone")
+local c_dungrass = id("lottmapgen:dunland_grass")
+local c_gondorgrass = id("lottmapgen:gondor_grass")
+local c_loriengrass = id("lottmapgen:lorien_grass")
+local c_fangorngrass = id("lottmapgen:fangorn_grass")
+local c_mirkwoodgrass = id("lottmapgen:mirkwood_grass")
+local c_rohangrass = id("lottmapgen:rohan_grass")
+local c_shiregrass = id("lottmapgen:shire_grass")
+local c_ironhillgrass = id("lottmapgen:ironhill_grass")
+local c_salt = id("lottores:mineral_salt")
+local c_pearl = id("lottores:mineral_pearl")
+local c_mallorngen = id("lottmapgen:mallorngen")
+local c_beechgen = id("lottmapgen:beechgen")
+local c_mirktreegen = id("lottmapgen:mirktreegen")
+local c_angsnowblock = id("lottmapgen:angsnowblock")
+local c_mallos = id("lottplants:mallos")
+local c_seregon = id("lottplants:seregon")
+local c_bomordor = id("lottplants:brambles_of_mordor")
+local c_pilinehtar = id("lottplants:pilinehtar")
+local c_ithilgrass = id("lottmapgen:ithilien_grass")
+local c_melon = id("lottplants:melon_wild")
+
+local c_angfort = id("lottmapgen:angmarfort")
+local c_gonfort = id("lottmapgen:gondorfort")
+local c_hobhole = id("lottmapgen:hobbithole")
+local c_orcfort = id("lottmapgen:orcfort")
+local c_malltre = id("lottmapgen:mallornhouse")
+local c_lorhous = id("lottmapgen:lorienhouse")
+local c_mirktre = id("lottmapgen:mirkhouse")
+local c_rohfort = id("lottmapgen:rohanfort")
+
+local biome_grass = {
+	[BIOME_ANGMAR] = function()
+		local block_id = c_angsnowblock
+		if math_random(121) == 2 then
+			block_id = c_ice
+		elseif math_random(25) == 2 then
+			block_id = c_frozenstone
+		end
+		return block_id
+	end,
+	[BIOME_SNOWPLAINS] = c_dirt_w_snow,
+	[BIOME_TROLLSHAWS] = c_dirt_w_snow,
+	[BIOME_DUNLANDS] = c_dungrass,
+	[BIOME_GONDOR] = c_gondorgrass,
+	[BIOME_ITHILIEN] = c_ithilgrass,
+	[BIOME_LORIEN] = c_loriengrass,
+	[BIOME_MORDOR] = c_morstone,
+	[BIOME_FANGORN] = c_fangorngrass,
+	[BIOME_MIRKWOOD] = c_mirkwoodgrass,
+	[BIOME_HILLS] = c_ironhillgrass,
+	[BIOME_ROHAN] = c_rohangrass,
+	[BIOME_SHIRE] = c_shiregrass,
+}
+local biome_air = {
+	[BIOME_ANGMAR] = {
+		flora = {
+			plants = {
+				[c_dryshrub] = PLANT3,
+				[c_beechgen] = TREE10,
+				[c_seregon] = PLANT6,
+			},
+			trees = {
+				[lottmapgen_pinetree] = TREE7,
+				[lottmapgen_firtree]  = TREE8,
+			},
+		},
+		buildings = {
+			[c_angfort] = PLANT13,
+		}
+	},
+	[BIOME_SNOWPLAINS] = c_snowblock,
+	[BIOME_TROLLSHAWS] = {
+		flora = {
+			plants = {
+				[c_dryshrub] = PLANT3,
+				[c_beechgen] = TREE10,
+			},
+			trees = {
+				[lottmapgen_pinetree] = TREE4,
+				[lottmapgen_firtree]  = TREE3,
+			},
+		},
+		buildings = {},
+	},
+	[BIOME_DUNLANDS] = {
+		flora = {
+			plants = {
+				[lottmapgen_grass] = PLANT3,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE5,
+				[lottmapgen_appletree]   = TREE7,
+			},
+		},
+		buildings = {},
+	},
+	[BIOME_GONDOR] = {
+		flora = {
+			plants = {
+				[lottmapgen_grass] = PLANT3,
+				[lottmapgen_farmingplants] = PLANT8,
+				[lottmapgen_farmingrareplants] = PLANT13,
+				[c_mallos] = PLANT6,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE7,
+				[lottmapgen_aldertree] = TREE8,
+				[lottmapgen_appletree] = TREE9,
+				[lottmapgen_plumtree] = TREE8,
+				[lottmapgen_elmtree] = TREE10,
+				[lottmapgen_whitetree] = PLANT13,
+			},
+		},
+		buildings = {
+			[c_gonfort] = PLANT13,
+		},
+	},
+	[BIOME_ITHILIEN] = {
+		flora = {
+			plants = {
+				[lottmapgen_farmingplants] = PLANT8,
+				[c_melon] = PLANT13,
+				[lottmapgen_ithildinplants] = PLANT5,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE3,
+				[lottmapgen_lebethrontree] = TREE6,
+				[lottmapgen_appletree] = TREE3,
+				[lottmapgen_culumaldatree] = TREE5,
+				[lottmapgen_plumtree] = TREE5,
+				[lottmapgen_elmtree] = PLANT9,
+			},
+		},
+		buildings = {},
+	},
+	[BIOME_LORIEN] = {
+		flora = {
+			plants = {
+				[lottmapgen_lorien_grass] = PLANT1,
+				[c_mallorngen] = TREE5,
+				[lottmapgen_lorienplants] = PLANT4,
+			},
+			trees = {
+				[lottmapgen_mallornsmalltree] = TREE3,
+				[lottmapgen_young_mallorn] = TREE2,
+			},
+		},
+		buildings = {
+			[c_malltre] = PLANT13 * 2,
+			[c_lorhous] = PLANT13 * 2,
+		},
+	},
+	[BIOME_MORDOR] = {
+		flora = {
+			plants = {
+				[c_bomordor] = PLANT4,
+			},
+			trees = {
+				[lottmapgen_burnedtree] = TREE9,
+			},
+		},
+		buildings = {
+			[c_orcfort] = PLANT13,
+		},
+	},
+	[BIOME_FANGORN] = {
+		flora = {
+			plants = {
+				[lottmapgen_farmingplants] = PLANT4,
+				[c_melon] = PLANT9,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE3,
+				[lottmapgen_rowantree] = TREE4,
+				[lottmapgen_appletree] = TREE4,
+				[lottmapgen_birchtree] = TREE5,
+				[lottmapgen_plumtree] = TREE5,
+				[lottmapgen_elmtree] = TREE7,
+				[lottmapgen_oaktree] = TREE6,
+			},
+		},
+		buildings = {},
+	},
+	[BIOME_MIRKWOOD] = {
+		flora = {
+			plants = {},
+			trees = {
+				[c_mirktreegen] = TREE2,
+				[lottmapgen_jungletree] = TREE4,
+			},
+		},
+		buildings = {
+			[c_mirktre] = PLANT13,
+		},
+	},
+	[BIOME_HILLS] = {
+		flora = {
+			plants = {},
+			trees = {
+				[c_beechgen] = TREE10,
+				[lottmapgen_pinetree] = TREE4,
+				[lottmapgen_firtree] = TREE6,
+			},
+		},
+		buildings = {},
+	},
+	[BIOME_ROHAN] = {
+		flora = {
+			plants = {
+				[lottmapgen_grass] = PLANT2,
+				[lottmapgen_farmingplants] = PLANT8,
+				[c_melon] = PLANT13,
+				[c_pilinehtar] = PLANT6,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE7,
+				[lottmapgen_appletree] = TREE7,
+				[lottmapgen_plumtree] = TREE8,
+				[lottmapgen_elmtree] = TREE10,
+			},
+		},
+		buildings = {
+			[c_rohfort] = PLANT13,
+		},
+	},
+	[BIOME_SHIRE] = {
+		flora = {
+			plants = {
+				[lottmapgen_farmingplants] = PLANT7,
+				[c_melon] = PLANT9,
+			},
+			trees = {
+				[lottmapgen_defaulttree] = TREE7,
+				[lottmapgen_appletree] = TREE7,
+				[lottmapgen_plumtree] = TREE7,
+				[lottmapgen_oaktree] = TREE7,
+			},
+		},
+		buildings = {
+			[c_hobhole] = PLANT13,
+		},
+	},
+}
+
 
 -- On generated function
 minetest.register_on_generated(function(minp, maxp, seed)
@@ -215,276 +485,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
 	local data = vm:get_data()
-
-	local c_air = id("air")
-	local c_sand = id("default:sand")
-	local c_mordor_sand = id("lottmapgen:mordor_sand")
-	local c_desert_sand = id("default:desert_sand")
-	local c_silver_sand = id("default:silver_sand")
-	local c_snowblock = id("default:snowblock")
-	local c_snow = id("default:snow")
-	local c_ice = id("default:ice")
-	local c_dirt_w_snow = id("default:dirt_with_snow")
-	local c_dirtgrass = id("default:dirt_with_grass")
-	local c_dirt = id("default:dirt")
-	local c_dryshrub = id("default:dry_shrub")
-	local c_clay = id("default:clay")
-	local c_stone = id("default:stone")
-	local c_desertstone = id("default:desert_stone")
-	local c_stonecopper = id("default:stone_with_copper")
-	local c_stoneiron = id("default:stone_with_iron")
-	local c_stonecoal = id("default:stone_with_coal")
-	local c_water = id("default:water_source")
-	local c_river_water = id("default:river_water_source")
-	local c_morwat = id("lottmapgen:blacksource")
-	local c_morrivwat = id("lottmapgen:black_river_source")
-
-	local c_morstone = id("lottmapgen:mordor_stone")
-	local c_frozenstone = id("lottmapgen:frozen_stone")
-	local c_dungrass = id("lottmapgen:dunland_grass")
-	local c_gondorgrass = id("lottmapgen:gondor_grass")
-	local c_loriengrass = id("lottmapgen:lorien_grass")
-	local c_fangorngrass = id("lottmapgen:fangorn_grass")
-	local c_mirkwoodgrass = id("lottmapgen:mirkwood_grass")
-	local c_rohangrass = id("lottmapgen:rohan_grass")
-	local c_shiregrass = id("lottmapgen:shire_grass")
-	local c_ironhillgrass = id("lottmapgen:ironhill_grass")
-	local c_salt = id("lottores:mineral_salt")
-	local c_pearl = id("lottores:mineral_pearl")
-	local c_mallorngen = id("lottmapgen:mallorngen")
-	local c_beechgen = id("lottmapgen:beechgen")
-	local c_mirktreegen = id("lottmapgen:mirktreegen")
-	local c_angsnowblock = id("lottmapgen:angsnowblock")
-	local c_mallos = id("lottplants:mallos")
-	local c_seregon = id("lottplants:seregon")
-	local c_bomordor = id("lottplants:brambles_of_mordor")
-	local c_pilinehtar = id("lottplants:pilinehtar")
-	local c_ithilgrass = id("lottmapgen:ithilien_grass")
-	local c_melon = id("lottplants:melon_wild")
-
-	local c_angfort = id("lottmapgen:angmarfort")
-	local c_gonfort = id("lottmapgen:gondorfort")
-	local c_hobhole = id("lottmapgen:hobbithole")
-	local c_orcfort = id("lottmapgen:orcfort")
-	local c_malltre = id("lottmapgen:mallornhouse")
-	local c_lorhous = id("lottmapgen:lorienhouse")
-	local c_mirktre = id("lottmapgen:mirkhouse")
-	local c_rohfort = id("lottmapgen:rohanfort")
-
-	local biome_grass = {
-		[BIOME_ANGMAR] = function()
-			local block_id = c_angsnowblock
-			if math_random(121) == 2 then
-				block_id = c_ice
-			elseif math_random(25) == 2 then
-				block_id = c_frozenstone
-			end
-			return block_id
-		end,
-		[BIOME_SNOWPLAINS] = c_dirt_w_snow,
-		[BIOME_TROLLSHAWS] = c_dirt_w_snow,
-		[BIOME_DUNLANDS] = c_dungrass,
-		[BIOME_GONDOR] = c_gondorgrass,
-		[BIOME_ITHILIEN] = c_ithilgrass,
-		[BIOME_LORIEN] = c_loriengrass,
-		[BIOME_MORDOR] = c_morstone,
-		[BIOME_FANGORN] = c_fangorngrass,
-		[BIOME_MIRKWOOD] = c_mirkwoodgrass,
-		[BIOME_HILLS] = c_ironhillgrass,
-		[BIOME_ROHAN] = c_rohangrass,
-		[BIOME_SHIRE] = c_shiregrass,
-	}
-	local biome_air = {
-		[BIOME_ANGMAR] = {
-			flora = {
-				plants = {
-					[c_dryshrub] = PLANT3,
-					[c_beechgen] = TREE10,
-					[c_seregon] = PLANT6,
-				},
-				trees = {
-					[lottmapgen_pinetree] = TREE7,
-					[lottmapgen_firtree]  = TREE8,
-				},
-			},
-			buildings = {
-				[c_angfort] = PLANT13,
-			}
-		},
-		[BIOME_SNOWPLAINS] = c_snowblock,
-		[BIOME_TROLLSHAWS] = {
-			flora = {
-				plants = {
-					[c_dryshrub] = PLANT3,
-					[c_beechgen] = TREE10,
-				},
-				trees = {
-					[lottmapgen_pinetree] = TREE4,
-					[lottmapgen_firtree]  = TREE3,
-				},
-			},
-			buildings = {},
-		},
-		[BIOME_DUNLANDS] = {
-			flora = {
-				plants = {
-					[lottmapgen_grass] = PLANT3,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE5,
-					[lottmapgen_appletree]   = TREE7,
-				},
-			},
-			buildings = {},
-		},
-		[BIOME_GONDOR] = {
-			flora = {
-				plants = {
-					[lottmapgen_grass] = PLANT3,
-					[lottmapgen_farmingplants] = PLANT8,
-					[lottmapgen_farmingrareplants] = PLANT13,
-					[c_mallos] = PLANT6,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE7,
-					[lottmapgen_aldertree] = TREE8,
-					[lottmapgen_appletree] = TREE9,
-					[lottmapgen_plumtree] = TREE8,
-					[lottmapgen_elmtree] = TREE10,
-					[lottmapgen_whitetree] = PLANT13,
-				},
-			},
-			buildings = {
-				[c_gonfort] = PLANT13,
-			},
-		},
-		[BIOME_ITHILIEN] = {
-			flora = {
-				plants = {
-					[lottmapgen_farmingplants] = PLANT8,
-					[c_melon] = PLANT13,
-					[lottmapgen_ithildinplants] = PLANT5,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE3,
-					[lottmapgen_lebethrontree] = TREE6,
-					[lottmapgen_appletree] = TREE3,
-					[lottmapgen_culumaldatree] = TREE5,
-					[lottmapgen_plumtree] = TREE5,
-					[lottmapgen_elmtree] = PLANT9,
-				},
-			},
-			buildings = {},
-		},
-		[BIOME_LORIEN] = {
-			flora = {
-				plants = {
-					[lottmapgen_lorien_grass] = PLANT1,
-					[c_mallorngen] = TREE5,
-					[lottmapgen_lorienplants] = PLANT4,
-				},
-				trees = {
-					[lottmapgen_mallornsmalltree] = TREE3,
-					[lottmapgen_young_mallorn] = TREE2,
-				},
-			},
-			buildings = {
-				[c_malltre] = PLANT13 * 2,
-				[c_lorhous] = PLANT13 * 2,
-			},
-		},
-		[BIOME_MORDOR] = {
-			flora = {
-				plants = {
-					[c_bomordor] = PLANT4,
-				},
-				trees = {
-					[lottmapgen_burnedtree] = TREE9,
-				},
-			},
-			buildings = {
-				[c_orcfort] = PLANT13,
-			},
-		},
-		[BIOME_FANGORN] = {
-			flora = {
-				plants = {
-					[lottmapgen_farmingplants] = PLANT4,
-					[c_melon] = PLANT9,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE3,
-					[lottmapgen_rowantree] = TREE4,
-					[lottmapgen_appletree] = TREE4,
-					[lottmapgen_birchtree] = TREE5,
-					[lottmapgen_plumtree] = TREE5,
-					[lottmapgen_elmtree] = TREE7,
-					[lottmapgen_oaktree] = TREE6,
-				},
-			},
-			buildings = {},
-		},
-		[BIOME_MIRKWOOD] = {
-			flora = {
-				plants = {},
-				trees = {
-					[c_mirktreegen] = TREE2,
-					[lottmapgen_jungletree] = TREE4,
-				},
-			},
-			buildings = {
-				[c_mirktre] = PLANT13,
-			},
-		},
-		[BIOME_HILLS] = {
-			flora = {
-				plants = {},
-				trees = {
-					[c_beechgen] = TREE10,
-					[lottmapgen_pinetree] = TREE4,
-					[lottmapgen_firtree] = TREE6,
-				},
-			},
-			buildings = {},
-		},
-		[BIOME_ROHAN] = {
-			flora = {
-				plants = {
-					[lottmapgen_grass] = PLANT2,
-					[lottmapgen_farmingplants] = PLANT8,
-					[c_melon] = PLANT13,
-					[c_pilinehtar] = PLANT6,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE7,
-					[lottmapgen_appletree] = TREE7,
-					[lottmapgen_plumtree] = TREE8,
-					[lottmapgen_elmtree] = TREE10,
-				},
-			},
-			buildings = {
-				[c_rohfort] = PLANT13,
-			},
-		},
-		[BIOME_SHIRE] = {
-			flora = {
-				plants = {
-					[lottmapgen_farmingplants] = PLANT7,
-					[c_melon] = PLANT9,
-				},
-				trees = {
-					[lottmapgen_defaulttree] = TREE7,
-					[lottmapgen_appletree] = TREE7,
-					[lottmapgen_plumtree] = TREE7,
-					[lottmapgen_oaktree] = TREE7,
-				},
-			},
-			buildings = {
-				[c_hobhole] = PLANT13,
-			},
-		},
-	}
-
 
 	local sidelen = x1 - x0 + 1
 	local chulens = {x=sidelen, y=sidelen, z=sidelen}
@@ -627,6 +627,5 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	end
 end)
 
-dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 dofile(minetest.get_modpath("lottmapgen").."/deco.lua")
 dofile(minetest.get_modpath("lottmapgen").."/chests.lua")
