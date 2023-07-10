@@ -102,6 +102,10 @@ local np_random = {
 lottmapgen = {}
 local water_level = minetest.get_mapgen_setting("water_level")
 
+local measure = minetest.settings:get_bool("mapgen_measure_chunk_gene_time", false)
+local chunk_gen_count = 0
+local chunk_gen_avg = 0
+
 dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
 dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
 
@@ -197,6 +201,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	end
 
 	local t1 = os.clock()
+
 	local x1 = maxp.x
 	local y1 = maxp.y
 	local z1 = maxp.z
@@ -609,7 +614,13 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:set_lighting({day=0, night=0})
 	vm:calc_lighting()
 	vm:write_to_map(data)
-	local chugent = math.ceil((os.clock() - t1) * 1000)
+
+	if measure then
+		local chunk_gen_time = math.ceil((os.clock() - t1) * 1000)
+		chunk_gen_avg = math.ceil((chunk_gen_avg * chunk_gen_count + chunk_gen_time) / (chunk_gen_count + 1))
+		print("map-gen: " .. chunk_gen_time .. ", avg: " .. chunk_gen_avg)
+		chunk_gen_count = chunk_gen_count + 1
+	end
 end)
 
 dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")

@@ -262,3 +262,8 @@ arenas = 2
 christmas_date = 12/24 00:00
 # список подарков
 christmas_tree_gifts = lottfarming:salad 23,lottpotion:cider 23,default:blueberries 23,lottfarming:cookie_cracker 23,default:charcoalblock 23,default:apple 23,lottfarming:carrot_item 23,lottmobs:meat 23,lottores:tin_lump 23,default:silver_sandstone 23
+
+# ------- lord/lottmapgen
+# Земер времени генерации чанка. Default: false
+# Постоянно сыпет в лог, использовать локально при разработке или при крайней необходимости.
+#mapgen_measure_chunk_gene_time = false
