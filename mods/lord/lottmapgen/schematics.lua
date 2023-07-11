@@ -1,4 +1,3 @@
-lottmapgen = {}
 
 local areas_mod = minetest.global_exists("areas")
 local protect_houses = minetest.settings:get_bool("protect_structures") or true
