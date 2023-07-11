@@ -181,7 +181,7 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 				local pos = vm_area:position(index)
 				tree(pos.x, pos.y, pos.z, vm_area, vm_data)
 			else
-				vm_data[index] = tree
+				vm_data[index] = tree -- tree generation node id ()
 			end
 			return true
 		end
@@ -198,15 +198,13 @@ local function biome_fill_air(air, vm_area, vm_data, index)
 end
 
 local c_air = id("air")
+
 local c_sand = id("default:sand")
 local c_mordor_sand = id("lottmapgen:mordor_sand")
 local c_desert_sand = id("default:desert_sand")
 local c_silver_sand = id("default:silver_sand")
-local c_snowblock = id("default:snowblock")
-local c_snow = id("default:snow")
+
 local c_ice = id("default:ice")
-local c_dirt_w_snow = id("default:dirt_with_snow")
-local c_dirtgrass = id("default:dirt_with_grass")
 local c_dirt = id("default:dirt")
 local c_dryshrub = id("default:dry_shrub")
 local c_clay = id("default:clay")
@@ -221,38 +219,14 @@ local c_morwat = id("lottmapgen:blacksource")
 local c_morrivwat = id("lottmapgen:black_river_source")
 
 local c_morstone = id("lottmapgen:mordor_stone")
-local c_frozenstone = id("lottmapgen:frozen_stone")
-local c_dungrass = id("lottmapgen:dunland_grass")
-local c_gondorgrass = id("lottmapgen:gondor_grass")
-local c_loriengrass = id("lottmapgen:lorien_grass")
-local c_fangorngrass = id("lottmapgen:fangorn_grass")
-local c_mirkwoodgrass = id("lottmapgen:mirkwood_grass")
-local c_rohangrass = id("lottmapgen:rohan_grass")
-local c_shiregrass = id("lottmapgen:shire_grass")
-local c_ironhillgrass = id("lottmapgen:ironhill_grass")
+
 local c_salt = id("lottores:mineral_salt")
 local c_pearl = id("lottores:mineral_pearl")
-local c_mallorngen = id("lottmapgen:mallorngen")
-local c_beechgen = id("lottmapgen:beechgen")
-local c_mirktreegen = id("lottmapgen:mirktreegen")
+
+
 local c_angsnowblock = id("lottmapgen:angsnowblock")
-local c_mallos = id("lottplants:mallos")
-local c_seregon = id("lottplants:seregon")
-local c_bomordor = id("lottplants:brambles_of_mordor")
-local c_pilinehtar = id("lottplants:pilinehtar")
-local c_ithilgrass = id("lottmapgen:ithilien_grass")
-local c_melon = id("lottplants:melon_wild")
-
-local c_angfort = id("lottmapgen:angmarfort")
-local c_gonfort = id("lottmapgen:gondorfort")
-local c_hobhole = id("lottmapgen:hobbithole")
-local c_orcfort = id("lottmapgen:orcfort")
-local c_malltre = id("lottmapgen:mallornhouse")
-local c_lorhous = id("lottmapgen:lorienhouse")
-local c_mirktre = id("lottmapgen:mirkhouse")
-local c_rohfort = id("lottmapgen:rohanfort")
-
-local biome_grass = {
+local c_frozenstone  = id("lottmapgen:frozen_stone")
+local biome_grass    = {
 	[BIOME_ANGMAR] = function()
 		local block_id = c_angsnowblock
 		if math_random(121) == 2 then
@@ -262,46 +236,46 @@ local biome_grass = {
 		end
 		return block_id
 	end,
-	[BIOME_SNOWPLAINS] = c_dirt_w_snow,
-	[BIOME_TROLLSHAWS] = c_dirt_w_snow,
-	[BIOME_DUNLANDS] = c_dungrass,
-	[BIOME_GONDOR] = c_gondorgrass,
-	[BIOME_ITHILIEN] = c_ithilgrass,
-	[BIOME_LORIEN] = c_loriengrass,
-	[BIOME_MORDOR] = c_morstone,
-	[BIOME_FANGORN] = c_fangorngrass,
-	[BIOME_MIRKWOOD] = c_mirkwoodgrass,
-	[BIOME_HILLS] = c_ironhillgrass,
-	[BIOME_ROHAN] = c_rohangrass,
-	[BIOME_SHIRE] = c_shiregrass,
+	[BIOME_SNOWPLAINS] = id("default:dirt_with_snow"), -- additionally covers with "default:snowblock" (see below)
+	[BIOME_TROLLSHAWS] = id("default:dirt_with_snow"),
+	[BIOME_DUNLANDS] = id("lottmapgen:dunland_grass"),
+	[BIOME_GONDOR] = id("lottmapgen:gondor_grass"),
+	[BIOME_ITHILIEN] = id("lottmapgen:ithilien_grass"),
+	[BIOME_LORIEN] = id("lottmapgen:lorien_grass"),
+	[BIOME_MORDOR] = id("lottmapgen:mordor_stone"),
+	[BIOME_FANGORN] = id("lottmapgen:fangorn_grass"),
+	[BIOME_MIRKWOOD] = id("lottmapgen:mirkwood_grass"),
+	[BIOME_HILLS] = id("lottmapgen:ironhill_grass"),
+	[BIOME_ROHAN] = id("lottmapgen:rohan_grass"),
+	[BIOME_SHIRE] = id("lottmapgen:shire_grass"),
 }
-local biome_air = {
+local biome_airspace = {
 	[BIOME_ANGMAR] = {
 		flora = {
 			plants = {
-				[c_dryshrub] = PLANT3,
-				[c_beechgen] = TREE10,
-				[c_seregon] = PLANT6,
+				[id("default:dry_shrub")] = PLANT3,
+				[id("lottplants:seregon")] = PLANT6,
 			},
 			trees = {
 				[lottmapgen_pinetree] = TREE7,
 				[lottmapgen_firtree]  = TREE8,
+				[id("lottmapgen:beechgen")] = TREE10,
 			},
 		},
 		buildings = {
-			[c_angfort] = PLANT13,
+			[id("lottmapgen:angmarfort")] = PLANT13,
 		}
 	},
-	[BIOME_SNOWPLAINS] = c_snowblock,
+	[BIOME_SNOWPLAINS] = id("default:snowblock"),
 	[BIOME_TROLLSHAWS] = {
 		flora = {
 			plants = {
-				[c_dryshrub] = PLANT3,
-				[c_beechgen] = TREE10,
+				[id("default:dry_shrub")] = PLANT3,
 			},
 			trees = {
 				[lottmapgen_pinetree] = TREE4,
 				[lottmapgen_firtree]  = TREE3,
+				[id("lottmapgen:beechgen")] = TREE10,
 			},
 		},
 		buildings = {},
@@ -324,7 +298,7 @@ local biome_air = {
 				[lottmapgen_grass] = PLANT3,
 				[lottmapgen_farmingplants] = PLANT8,
 				[lottmapgen_farmingrareplants] = PLANT13,
-				[c_mallos] = PLANT6,
+				[id("lottplants:mallos")] = PLANT6,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,
@@ -336,14 +310,14 @@ local biome_air = {
 			},
 		},
 		buildings = {
-			[c_gonfort] = PLANT13,
+			[id("lottmapgen:gondorfort")] = PLANT13,
 		},
 	},
 	[BIOME_ITHILIEN] = {
 		flora = {
 			plants = {
 				[lottmapgen_farmingplants] = PLANT8,
-				[c_melon] = PLANT13,
+				[id("lottplants:melon_wild")] = PLANT13,
 				[lottmapgen_ithildinplants] = PLANT5,
 			},
 			trees = {
@@ -361,37 +335,37 @@ local biome_air = {
 		flora = {
 			plants = {
 				[lottmapgen_lorien_grass] = PLANT1,
-				[c_mallorngen] = TREE5,
 				[lottmapgen_lorienplants] = PLANT4,
 			},
 			trees = {
 				[lottmapgen_mallornsmalltree] = TREE3,
 				[lottmapgen_young_mallorn] = TREE2,
+				[id("lottmapgen:mallorngen")] = TREE5,
 			},
 		},
 		buildings = {
-			[c_malltre] = PLANT13 * 2,
-			[c_lorhous] = PLANT13 * 2,
+			[id("lottmapgen:mallornhouse")] = PLANT13 * 2,
+			[id("lottmapgen:lorienhouse")] = PLANT13 * 2,
 		},
 	},
 	[BIOME_MORDOR] = {
 		flora = {
 			plants = {
-				[c_bomordor] = PLANT4,
+				[id("lottplants:brambles_of_mordor")] = PLANT4,
 			},
 			trees = {
 				[lottmapgen_burnedtree] = TREE9,
 			},
 		},
 		buildings = {
-			[c_orcfort] = PLANT13,
+			[id("lottmapgen:orcfort")] = PLANT13,
 		},
 	},
 	[BIOME_FANGORN] = {
 		flora = {
 			plants = {
 				[lottmapgen_farmingplants] = PLANT4,
-				[c_melon] = PLANT9,
+				[id("lottplants:melon_wild")] = PLANT9,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE3,
@@ -409,19 +383,19 @@ local biome_air = {
 		flora = {
 			plants = {},
 			trees = {
-				[c_mirktreegen] = TREE2,
+				[id("lottmapgen:mirktreegen")] = TREE2,
 				[lottmapgen_jungletree] = TREE4,
 			},
 		},
 		buildings = {
-			[c_mirktre] = PLANT13,
+			[id("lottmapgen:mirkhouse")] = PLANT13,
 		},
 	},
 	[BIOME_HILLS] = {
 		flora = {
 			plants = {},
 			trees = {
-				[c_beechgen] = TREE10,
+				[id("lottmapgen:beechgen")] = TREE10,
 				[lottmapgen_pinetree] = TREE4,
 				[lottmapgen_firtree] = TREE6,
 			},
@@ -433,8 +407,8 @@ local biome_air = {
 			plants = {
 				[lottmapgen_grass] = PLANT2,
 				[lottmapgen_farmingplants] = PLANT8,
-				[c_melon] = PLANT13,
-				[c_pilinehtar] = PLANT6,
+				[id("lottplants:melon_wild")] = PLANT13,
+				[id("lottplants:pilinehtar")] = PLANT6,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,
@@ -444,14 +418,14 @@ local biome_air = {
 			},
 		},
 		buildings = {
-			[c_rohfort] = PLANT13,
+			[id("lottmapgen:rohanfort")] = PLANT13,
 		},
 	},
 	[BIOME_SHIRE] = {
 		flora = {
 			plants = {
 				[lottmapgen_farmingplants] = PLANT7,
-				[c_melon] = PLANT9,
+				[id("lottplants:melon_wild")] = PLANT9,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,
@@ -461,7 +435,7 @@ local biome_air = {
 			},
 		},
 		buildings = {
-			[c_hobhole] = PLANT13,
+			[id("lottmapgen:hobbithole")] = PLANT13,
 		},
 	},
 }
@@ -579,7 +553,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									data[vi] = grass
 								if open then -- if open to sky then flora
 									local surf_vi = area:index(x, surfy + 1, z)
-									biome_fill_air(biome_air[biome], area, data, surf_vi)
+									biome_fill_air(biome_airspace[biome], area, data, surf_vi)
 								end
 							end
 						end
