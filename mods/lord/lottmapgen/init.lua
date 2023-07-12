@@ -227,29 +227,29 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	local nixz = 1
 	for z = z0, z1 do
 		for x = x0, x1 do -- for each column do
-			local n_temp = nvals_temp[nixz] -- select biome
+			local n_temp  = nvals_temp[nixz] -- select biome
 			local n_humid = nvals_humid[nixz]
-			local n_ran = nvals_random[nixz]
-			local biome = detect_current_biome(n_temp, n_humid, n_ran)
+			local n_ran   = nvals_random[nixz]
+			local biome   = detect_current_biome(n_temp, n_humid, n_ran)
 
-			local sandy = (water_level+2) + math_random(-1, 1) -- sandline
-			local sandmin = (water_level-15) + math_random(-5, 0) -- lowest sand
-			local open = true -- open to sky?
-			local solid = true -- solid node above?
-			local water = false -- water node above?
-			local surfy = y1 + 80 -- y of last surface detected
+			local sandy   = (water_level + 2) + math_random(-1, 1) -- sandline
+			local sandmin = (water_level - 15) + math_random(-5, 0) -- lowest sand
+			local open    = true -- open to sky?
+			local solid   = true -- solid node above?
+			local water   = false -- water node above?
+			local surfy   = y1 + 80 -- y of last surface detected
 			for y = y1, y0, -1 do -- working down each column for each node do
 				local fimadep = math_floor(6 - y / 512) + math_random(0, 1)
-				local vi = area:index(x, y, z)
-				local nodid = data[vi]
-				local viuu = area:index(x, y - 2, z)
+				local vi      = area:index(x, y, z)
+				local nodid   = data[vi]
+				local viuu    = area:index(x, y - 2, z)
 				local nodiduu = data[viuu]
-				local via = area:index(x, y + 1, z)
-				local nodida = data[via]
-				if nodid == c_stone -- if stone
-				or nodid == c_stonecopper
-				or nodid == c_stoneiron
-				or nodid == c_stonecoal then
+				local via     = area:index(x, y + 1, z)
+				local nodida  = data[via]
+
+				-- if stone
+				if nodid == c_stone or nodid == c_stonecopper or nodid == c_stoneiron or nodid == c_stonecoal then
+
 					if y > water_level-32 then
 						if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
 							data[vi] = c_desertstone
@@ -261,12 +261,17 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							end
 						end
 					end
+
 					if not solid then -- if surface
 						surfy = y
 						if nodiduu ~= c_air and nodiduu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
-							if nodida == c_river_water or data[area:index(x + 1, y, z)] == c_river_water
-							or data[area:index(x, y, z + 1)] == c_river_water or data[area:index(x - 1, y, z)] == c_river_water
-							or data[area:index(x, y, z - 1)] == c_river_water then
+
+							if nodida == c_river_water
+								or data[area:index(x + 1, y, z)] == c_river_water
+								or data[area:index(x, y, z + 1)] == c_river_water
+								or data[area:index(x - 1, y, z)] == c_river_water
+								or data[area:index(x, y, z - 1)] == c_river_water
+							then
 								if biome == BIOME_MORDOR then
 									data[vi] = c_morstone
 								else
@@ -274,14 +279,14 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								end
 							elseif y <= sandy and y >= sandmin then -- sand
 								if biome ~= BIOME_MORDOR and biome ~= BIOME_DUNLANDS and biome ~= BIOME_ROHAN and biome ~= BIOME_SNOWPLAINS and biome ~= BIOME_ANGMAR then
-									if open and water and y == (water_level-1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
-										lottmapgen_papyrus(x, (water_level+1), z, area, data)
+									if open and water and y == (water_level - 1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
+										lottmapgen_papyrus(x, (water_level + 1), z, area, data)
 										data[vi] = c_dirt
-									elseif math_abs(n_temp) < 0.05 and y == (water_level-1) then -- clay
+									elseif math_abs(n_temp) < 0.05 and y == (water_level - 1) then -- clay
 										data[vi] = c_clay
-									elseif math_abs(n_temp) < 0.05 and y == (water_level-5) then -- salt
+									elseif math_abs(n_temp) < 0.05 and y == (water_level - 5) then -- salt
 										data[vi] = c_salt
-									elseif math_abs(n_temp) < 0.05 and y == (water_level-20) then -- pearl
+									elseif math_abs(n_temp) < 0.05 and y == (water_level - 20) then -- pearl
 										data[vi] = c_pearl
 									else
 										data[vi] = c_sand
@@ -296,17 +301,16 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									end
 								end
 								if open and y > (water_level + 4) + math_random(0, 1) and math_random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
-									local vi = area:index(x, y + 1, z)
-										data[vi] = c_dryshrub
-									end
-								elseif y <= sandmin then
-									data[vi] = c_stone
-								else -- above sandline
-									local grass = biome_grass[biome]
-									if type(grass) == "function" then
-										grass = grass()
-									end
-									data[vi] = grass
+									data[area:index(x, y + 1, z)] = c_dryshrub
+								end
+							elseif y <= sandmin then
+								data[vi] = c_stone
+							else -- above sandline
+								local grass = biome_grass[biome]
+								if type(grass) == "function" then
+									grass = grass()
+								end
+								data[vi] = grass
 								if open then -- if open to sky then flora
 									local surf_vi = area:index(x, surfy + 1, z)
 									biome_fill_air(biome_airspace[biome], area, data, surf_vi)
@@ -322,8 +326,10 @@ minetest.register_on_generated(function(minp, maxp, seed)
 							end
 						end
 					end
-				open = false
-				solid = true
+
+					open  = false
+					solid = true
+
 				elseif nodid == c_air or nodid == c_water or nodid == c_river_water then
 					solid = false
 					if nodid == c_water or nodid == c_river_water then
@@ -341,7 +347,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					end
 				end
 			end
-		nixz = nixz + 1
+
+			nixz = nixz + 1
 		end
 	end
 	vm:set_data(data)
