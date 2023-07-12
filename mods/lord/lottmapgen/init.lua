@@ -23,8 +23,8 @@ local HIRAN = 0.4
 local LORAN = -0.4
 
 local PAPCHA = 3 -- Papyrus
-local DUGCHA = 5 -- Dune grass
 
+-- /!\ Warning /!\ : duplicated in config.lua (TODO)
 -- Biomes:
 local BIOME_ANGMAR     = 1  -- (Angmar)
 local BIOME_SNOWPLAINS = 2  -- (Snow-plains)
@@ -125,10 +125,10 @@ end
 
 --- @param air table above ground config to filling biome airspace with flora/buildings/...
 --- @param vm_area VoxelArea voxel map part manipulator
---- @param vm_data table array of node content IDs
+--- @param vm_data table array of node's content IDs
 --- @param index number node position index in `vm_data`
 --- @return boolean whether it was filled or not
-local function biome_fill_air(air, vm_area, vm_data, index)
+local function biome_fill_airspace(air, vm_area, vm_data, index)
 	if type(air) == "number" then
 		vm_data[index] = air
 		return true
@@ -176,17 +176,17 @@ local c_silver_sand = id("default:silver_sand")
 
 local c_ice = id("default:ice")
 local c_dirt = id("default:dirt")
-local c_dryshrub = id("default:dry_shrub")
 local c_clay = id("default:clay")
 local c_stone = id("default:stone")
 local c_desertstone = id("default:desert_stone")
 local c_stonecopper = id("default:stone_with_copper")
 local c_stoneiron = id("default:stone_with_iron")
 local c_stonecoal = id("default:stone_with_coal")
-local c_water = id("default:water_source")
+
+local c_water       = id("default:water_source")
 local c_river_water = id("default:river_water_source")
-local c_morwat = id("lottmapgen:blacksource")
-local c_morrivwat = id("lottmapgen:black_river_source")
+local c_mordor_water       = id("lottmapgen:blacksource")
+local c_mordor_river_water = id("lottmapgen:black_river_source")
 
 local c_morstone = id("lottmapgen:mordor_stone")
 
@@ -196,6 +196,90 @@ local c_pearl = id("lottores:mineral_pearl")
 local config = dofile(minetest.get_modpath("lottmapgen").."/config.lua")
 local biome_grass = config.biome_grass
 local biome_airspace = config.biome_airspace
+
+--- @param biome number biome number (biome id)
+--- @return number node content ID
+local function get_biome_grass(biome)
+	--- @type number|fun():number
+	local grass = biome_grass[biome]
+	if type(grass) == "function" then
+		grass = grass()
+	end
+	return grass
+end
+
+--- @param biome number biome number (biome id)
+--- @return number
+local function get_biome_sand(biome)
+	if biome == BIOME_MORDOR then
+		return c_mordor_sand
+	elseif biome == BIOME_SNOWPLAINS or biome == BIOME_ANGMAR then
+		return c_silver_sand
+	elseif biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
+		return c_desert_sand
+	end
+
+	return c_sand
+end
+
+--- @param biome number biome number (biome id)
+--- @return number|nil
+local function get_biome_stone(biome)
+	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
+		return c_desertstone
+	elseif biome == BIOME_MORDOR then
+		return c_morstone
+	elseif biome == BIOME_HILLS then
+		if math_random(3) == 1 then
+			return c_stoneiron
+		end
+	end
+
+	return nil
+end
+
+--- @param cur_water_id number current node content ID
+--- @param biome        number biome number (biome id)
+--- @param data         table  loaded piece of map data: array of node's content IDs
+--- @param index        number linear index in `data` of current position
+local function biome_replace_water(cur_water_id, biome, data, index)
+	if biome == BIOME_MORDOR then
+		if cur_water_id == c_river_water then
+			data[index] = c_mordor_river_water
+		else
+			data[index] = c_mordor_water
+		end
+	end
+end
+
+--- @param temperature number temperature in current coordinates (in x,z)
+--- @param y           number current height
+--- @param data        table  loaded piece of map data: array of node's content IDs
+--- @param index       number linear index in `data` of current position
+local function place_ice_crust(temperature, y, data, index)
+	-- if it's frosty & not so deep
+	if temperature < ICETET and y >= water_level - math_floor((ICETET - temperature) * 10) then
+		data[index] = c_ice
+	end
+end
+
+--- @param temperature number temperature in current coordinates (in x,z)
+--- @param y           number current height
+--- @param data        table  loaded piece of map data: array of node's content IDs
+--- @param index       number linear index in `data` of current position
+local function biome_place_water_bottom(biome, temperature, y, data, index)
+	if biome ~= BIOME_MORDOR then
+		if math_abs(temperature) < 0.05 and y == (water_level - 1) then -- clay
+			data[index] = c_clay
+		elseif math_abs(temperature) < 0.05 and y == (water_level - 5) then -- salt
+			data[index] = c_salt
+		elseif math_abs(temperature) < 0.05 and y == (water_level - 20) then -- pearl
+			data[index] = c_pearl
+		end
+	end
+end
+
+
 
 -- On generated function
 minetest.register_on_generated(function(minp, maxp, seed)
@@ -251,19 +335,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				if nodid == c_stone or nodid == c_stonecopper or nodid == c_stoneiron or nodid == c_stonecoal then
 
 					if y > water_level-32 then
-						if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-							data[vi] = c_desertstone
-						elseif biome == BIOME_MORDOR then
-							data[vi] = c_morstone
-						elseif biome == BIOME_HILLS then
-							if math_random(3) == 1 then
-								data[vi] = c_stoneiron
-							end
+						local biome_stone = get_biome_stone(biome)
+						if biome_stone then
+							data[vi] = biome_stone
 						end
 					end
 
 					if not solid then -- if surface
 						surfy = y
+
 						if nodiduu ~= c_air and nodiduu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
 
 							if nodida == c_river_water
@@ -272,57 +352,29 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								or data[area:index(x - 1, y, z)] == c_river_water
 								or data[area:index(x, y, z - 1)] == c_river_water
 							then
-								if biome == BIOME_MORDOR then
-									data[vi] = c_morstone
-								else
-									data[vi] = c_sand
-								end
+								data[vi] = get_biome_sand(biome)
 							elseif y <= sandy and y >= sandmin then -- sand
-								if biome ~= BIOME_MORDOR and biome ~= BIOME_DUNLANDS and biome ~= BIOME_ROHAN and biome ~= BIOME_SNOWPLAINS and biome ~= BIOME_ANGMAR then
-									if open and water and y == (water_level - 1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
-										lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-										data[vi] = c_dirt
-									elseif math_abs(n_temp) < 0.05 and y == (water_level - 1) then -- clay
-										data[vi] = c_clay
-									elseif math_abs(n_temp) < 0.05 and y == (water_level - 5) then -- salt
-										data[vi] = c_salt
-									elseif math_abs(n_temp) < 0.05 and y == (water_level - 20) then -- pearl
-										data[vi] = c_pearl
-									else
-										data[vi] = c_sand
-									end
-								else
-									if biome == BIOME_MORDOR then
-										data[vi] = c_mordor_sand
-									elseif biome == BIOME_SNOWPLAINS or biome == BIOME_ANGMAR then
-										data[vi] = c_silver_sand
-									elseif biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-										data[vi] = c_desert_sand
-									end
+								data[vi] = get_biome_sand(biome)
+								if open and water and y == (water_level - 1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
+									lottmapgen_papyrus(x, (water_level + 1), z, area, data)
+									data[vi] = c_dirt
 								end
-								if open and y > (water_level + 4) + math_random(0, 1) and math_random(DUGCHA) == 2 and biome ~= BIOME_MORDOR and biome ~= BIOME_LORIEN then -- dune grass
-									data[area:index(x, y + 1, z)] = c_dryshrub
-								end
+								biome_place_water_bottom(biome, n_temp, y, data, vi) -- bottom of river or sea
 							elseif y <= sandmin then
-								data[vi] = c_stone
+								data[vi] = c_stone -- ???????
 							else -- above sandline
-								local grass = biome_grass[biome]
-								if type(grass) == "function" then
-									grass = grass()
-								end
-								data[vi] = grass
-								if open then -- if open to sky then flora
+								data[vi] = get_biome_grass(biome)
+								if open then -- if open to sky then flora & buildings
 									local surf_vi = area:index(x, surfy + 1, z)
-									biome_fill_air(biome_airspace[biome], area, data, surf_vi)
+									biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
 								end
 							end
 						end
+
 					else -- underground
 						if nodiduu ~= c_air and nodiduu ~= c_water and surfy - y + 1 <= fimadep then
 							if y <= sandy and y >= sandmin then
-								if biome ~= BIOME_MORDOR then
-									data[vi] = c_sand
-								end
+								data[vi] = get_biome_sand(biome)
 							end
 						end
 					end
@@ -334,16 +386,8 @@ minetest.register_on_generated(function(minp, maxp, seed)
 					solid = false
 					if nodid == c_water or nodid == c_river_water then
 						water = true
-						if biome == BIOME_MORDOR then
-							if nodid == c_river_water then
-								data[vi] = c_morrivwat
-							else
-								data[vi] = c_morwat
-							end
-						end
-						if n_temp < ICETET and y >= water_level - math_floor((ICETET - n_temp) * 10) then --ice
-							data[vi] = c_ice
-						end
+						biome_replace_water(nodid, biome, data, vi)
+						place_ice_crust(n_temp, y, data, vi) -- if it's frosty & not so deep
 					end
 				end
 			end

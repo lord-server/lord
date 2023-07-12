@@ -1993,6 +1993,8 @@ function minetest.raillike_group(name) end
 --- * Gets the internal content ID of `name`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5662-L5663)
+--- @param name string
+--- @return number
 function minetest.get_content_id(name) end
 --- Returns a string
 --- * Gets the name of the content with that content ID
