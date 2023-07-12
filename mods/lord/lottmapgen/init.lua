@@ -88,35 +88,35 @@ local function detect_current_biome(n_temp, n_humid, n_ran)
 	local biome = 0
 	if n_temp < LOTET then
 		if n_humid < LOHUT then
-			biome = 1 -- (Angmar)
+			biome = BIOME_ANGMAR -- (Angmar)
 		elseif n_humid > HIHUT then
-			biome = 3 -- (Trollshaws)
+			biome = BIOME_TROLLSHAWS -- (Trollshaws)
 		else
-			biome = 2 -- (Snowplains)
+			biome = BIOME_SNOWPLAINS -- (Snowplains)
 		end
 	elseif n_temp > HITET then
 		if n_humid < LOHUT then
-			biome = 7 -- (Lorien)
+			biome = BIOME_LORIEN -- (Lorien)
 		elseif n_humid > HIHUT then
-			biome = 9 -- (Fangorn)
+			biome = BIOME_FANGORN -- (Fangorn)
 		elseif n_ran < LORAN then
-			biome = 10 -- (Mirkwood)
+			biome = BIOME_MIRKWOOD -- (Mirkwood)
 		elseif n_ran > HIRAN then
-			biome = 11 -- (Iron Hills)
+			biome = BIOME_HILLS -- (Iron Hills)
 		else
-			biome = 4 -- (Dunlands)
+			biome = BIOME_DUNLANDS -- (Dunlands)
 		end
 	else
 		if n_humid < LOHUT then
-			biome = 8 -- (Mordor)
+			biome = BIOME_MORDOR -- (Mordor)
 		elseif n_humid > HIHUT then
-			biome = 6 -- (Ithilien)
+			biome = BIOME_ITHILIEN -- (Ithilien)
 		elseif n_ran < LORAN then
-			biome = 13 -- (Shire)
+			biome = BIOME_SHIRE -- (Shire)
 		elseif n_ran > HIRAN then
-			biome = 12 -- (Rohan)
+			biome = BIOME_ROHAN -- (Rohan)
 		else
-			biome = 5 -- (Gondor)
+			biome = BIOME_GONDOR -- (Gondor)
 		end
 	end
 
@@ -355,7 +355,11 @@ minetest.register_on_generated(function(minp, maxp, seed)
 								data[vi] = get_biome_sand(biome)
 							elseif y <= sandy and y >= sandmin then -- sand
 								data[vi] = get_biome_sand(biome)
-								if open and water and y == (water_level - 1) and biome > 4 and math_random(PAPCHA) == 2 then -- papyrus
+								if  -- papyrus
+									open and water and y == (water_level - 1) and
+									biome > 4 and biome ~= BIOME_MORDOR and
+									math_random(PAPCHA) == 2
+								then
 									lottmapgen_papyrus(x, (water_level + 1), z, area, data)
 									data[vi] = c_dirt
 								end
