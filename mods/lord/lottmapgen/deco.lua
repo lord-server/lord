@@ -80,22 +80,27 @@ minetest.register_on_generated(function(minp, maxp, seed)
 	vm:write_to_map(data)
 end)
 
+
+--- Удалено в связи с #1081
+--- В первоначально генерации в итоге не участвует, а при пере-генерации (через //deleteblocks) захламляет карту.
+--- К тому же не особо красивые постройки. Стоит их в будущем переделать/перестроить и внедрить также как остальные.
+---
 -- Buildings
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = "default:snowblock",
-	sidelen = 16,
-	fill_ratio = 0.004,
-	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_fort.mts",
-	flags = "place_center_x, place_center_z",
-})
-
-minetest.register_decoration({
-	deco_type = "schematic",
-	place_on = "default:snowblock",
-	sidelen = 16,
-	fill_ratio = 0.0045,
-	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_tower.mts",
-	flags = "place_center_x, place_center_z",
-})
-
+--minetest.register_decoration({
+--	deco_type = "schematic",
+--	place_on = "default:snowblock",
+--	sidelen = 16,
+--	fill_ratio = 0.004,
+--	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_fort.mts",
+--	flags = "place_center_x, place_center_z",
+--})
+--
+--minetest.register_decoration({
+--	deco_type = "schematic",
+--	place_on = "default:snowblock",
+--	sidelen = 16,
+--	fill_ratio = 0.0045,
+--	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_tower.mts",
+--	flags = "place_center_x, place_center_z",
+--})
+--
