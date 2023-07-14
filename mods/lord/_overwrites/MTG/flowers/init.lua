@@ -1,5 +1,3 @@
-minetest.unregister_item("flowers:chrysanthemum_green")
-minetest.unregister_item("flowers:tulip_black")
 minetest.unregister_item("flowers:mushroom_red")
 minetest.unregister_item("flowers:mushroom_brown")
 minetest.unregister_item("flowers:waterlily")

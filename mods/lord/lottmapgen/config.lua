@@ -82,6 +82,7 @@ local biome_airspace = {
 			plants = {
 				[id("default:dry_shrub")] = PLANT3,
 				[id("lottplants:seregon")] = PLANT6,
+				[id("flowers:tulip_black")] = PLANT8,
 			},
 			trees = {
 				[lottmapgen_pinetree] = TREE7,
@@ -126,6 +127,8 @@ local biome_airspace = {
 				[lottmapgen_farmingplants] = PLANT8,
 				[lottmapgen_farmingrareplants] = PLANT13,
 				[id("lottplants:mallos")] = PLANT6,
+				[id("flowers:tulip")] = PLANT8,
+				[id("flowers:rose")] = PLANT9,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,
@@ -146,6 +149,9 @@ local biome_airspace = {
 				[lottmapgen_farmingplants] = PLANT8,
 				[id("lottplants:melon_wild")] = PLANT13,
 				[lottmapgen_ithildinplants] = PLANT5,
+				[id("flowers:dandelion_white")] = PLANT7,
+				[id("flowers:dandelion_yellow")] = PLANT7,
+				[id("flowers:viola")] = PLANT10,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE3,
@@ -161,8 +167,9 @@ local biome_airspace = {
 	[BIOME_LORIEN] = {
 		flora = {
 			plants = {
-				[lottmapgen_lorien_grass] = PLANT1,
+				[lottmapgen_lorien_grass] = PLANT2,
 				[lottmapgen_lorienplants] = PLANT4,
+				[id("flowers:dandelion_white")] = PLANT5,
 			},
 			trees = {
 				[lottmapgen_mallornsmalltree] = TREE3,
@@ -179,9 +186,10 @@ local biome_airspace = {
 		flora = {
 			plants = {
 				[id("lottplants:brambles_of_mordor")] = PLANT4,
+				[id("default:dry_shrub")] = PLANT5,
 			},
 			trees = {
-				[lottmapgen_burnedtree] = TREE9,
+				[lottmapgen_burnedtree] = TREE8,
 			},
 		},
 		buildings = {
@@ -193,6 +201,7 @@ local biome_airspace = {
 			plants = {
 				[lottmapgen_farmingplants] = PLANT4,
 				[id("lottplants:melon_wild")] = PLANT9,
+				[id("flowers:geranium")] = PLANT10,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE3,
@@ -208,7 +217,9 @@ local biome_airspace = {
 	},
 	[BIOME_MIRKWOOD] = {
 		flora = {
-			plants = {},
+			plants = {
+				[id("flowers:tulip_black")] = PLANT8,
+			},
 			trees = {
 				[id("lottmapgen:mirktreegen")] = TREE2,
 				[lottmapgen_jungletree] = TREE4,
@@ -220,7 +231,10 @@ local biome_airspace = {
 	},
 	[BIOME_HILLS] = {
 		flora = {
-			plants = {},
+			plants = {
+				[id("default:grass_1")] = PLANT8,
+				[id("flowers:chrysanthemum_green")] = PLANT8,
+			},
 			trees = {
 				[id("lottmapgen:beechgen")] = TREE10,
 				[lottmapgen_pinetree] = TREE4,
@@ -232,10 +246,12 @@ local biome_airspace = {
 	[BIOME_ROHAN] = {
 		flora = {
 			plants = {
-				[lottmapgen_grass] = PLANT2,
+				[lottmapgen_dry_grass] = PLANT3,
+				[lottmapgen_grass] = PLANT5,
 				[lottmapgen_farmingplants] = PLANT8,
 				[id("lottplants:melon_wild")] = PLANT13,
 				[id("lottplants:pilinehtar")] = PLANT6,
+				[id("flowers:chrysanthemum_green")] = PLANT9,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,
@@ -251,8 +267,14 @@ local biome_airspace = {
 	[BIOME_SHIRE] = {
 		flora = {
 			plants = {
+				[lottmapgen_grass_1_3] = PLANT4,
 				[lottmapgen_farmingplants] = PLANT7,
 				[id("lottplants:melon_wild")] = PLANT9,
+				[id("flowers:dandelion_white")] = PLANT7,
+				[id("flowers:dandelion_yellow")] = PLANT7,
+				[id("flowers:chrysanthemum_green")] = PLANT9,
+				[id("flowers:geranium")] = PLANT10,
+				[id("flowers:viola")] = PLANT11,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE7,

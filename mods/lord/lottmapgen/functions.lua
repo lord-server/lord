@@ -11,6 +11,26 @@ function lottmapgen_grass(data, vi)
 	data[vi] = c_grasses[math.random(#c_grasses)]
 end
 
+function lottmapgen_grass_1_3(data, vi)
+	local c_grasses = {
+		minetest.get_content_id("default:grass_1"),
+		minetest.get_content_id("default:grass_2"),
+		minetest.get_content_id("default:grass_3"),
+	}
+	data[vi] = c_grasses[math.random(#c_grasses)]
+end
+
+function lottmapgen_dry_grass(data, vi)
+	local c_grasses = {
+		minetest.get_content_id("default:dry_grass_1"),
+		minetest.get_content_id("default:dry_grass_2"),
+		minetest.get_content_id("default:dry_grass_3"),
+		minetest.get_content_id("default:dry_grass_4"),
+		minetest.get_content_id("default:dry_grass_5"),
+	}
+	data[vi] = c_grasses[math.random(#c_grasses)]
+end
+
 function lottmapgen_lorien_grass(data, vi)
 	local c_lorgrasses = {
 		minetest.get_content_id("lottplants:lorien_grass_1"),
