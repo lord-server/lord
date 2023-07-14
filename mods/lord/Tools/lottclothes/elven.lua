@@ -31,7 +31,7 @@ minetest.register_tool("lottclothes:shoes_elven", {
 minetest.register_tool("lottclothes:cloak_elven", {
 	description = SL("Elven Cloak"),
 	inventory_image = "lottclothes_inv_cloak_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_cloak=1},
+	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_cloak=1, no_preview=1},
 	wear = 0
 })
 
