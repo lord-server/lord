@@ -217,11 +217,8 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = 'itemframes:protected_frame',
-	recipe = {
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-		{'default:copper_ingot', 'itemframes:frame', 'default:copper_ingot'},
-		{'default:copper_ingot', 'default:copper_ingot', 'default:copper_ingot'},
-	}
+	type = "shapeless",
+	recipe = {'itemframes:frame', 'protector_lott:protect2'}
 })
 
 function itemframes.register_pedestal(subname, recipeitem, groups, images, description, sounds)
