@@ -1,5 +1,41 @@
 # Change Log
 
+## [2023.06](https://github.com/lord-server/lord/releases/tag/2023.06)
+ - Added mordor, desert & silver sand into map generation. Closes #1080
+ - MapGen: add some mtg flowers to biomes & some grass. Closes #1083
+   - `flowers:tulip_black` (new)
+   - `flowers:chrysanthemum_green` (new)
+   - `flowers:tulip`
+   - `flowers:rose`
+   - `flowers:viola`
+   - `flowers:geranium`
+   - `flowers:dandelion_white`
+   - `flowers:dandelion_yellow`
+ - Защищённая рамка. Closes #1050 (#1078)
+ - Add `stainedglass` mod. Closes #835
+
+ - Bug Fixing:
+   - MapGet: remove `abandoned_fort` & `abandoned_tower` decorations. Closes #1081
+   - Fix inventory preview with elven cloak. Closes #1085
+   - Псевдо-рост растений без игрока (Добавление поля catch_up). Fixes #321 (#1070)
+ - Technical:
+   - Refactoring `lottmapgen`: extract `detect_current_biome()`. Relates to #1058, #1059
+   - Refactoring `lottmapgen`: add biome constants. Relates to #1059
+   - MapGen: Simplify code of grass caverage gen. Relates to #1059, #1058
+   - Rename shadowing var. Relates to #1059, #1058
+   - MapGen: Simplify code of "air" biome generation (flora, buildings). Relates to #1059, #1058
+   - MapGen: `biome_fill_air()`: remove up-value dependency. Relates to #1059, #1058
+   - MapGen: bring out flora/builings config & gen func `biome_fill_air()`. Relates to #1059, #1058
+   - MapGen: add measure chunk gen time. Relates to #1059, #1058
+   - MapGen: replace func names with locals. Relates to #1059
+   - MapGen: bring out config & id vars from gen callback. Relates to #1059, #1058
+   - MapGen: reduce vars quantity. Relates to #1059
+   - MapGen: extract config; remove unused global. Relates to #1059
+   - MapGen: just reformat. Relates to #1059
+   - MapGen: extract functions (improve readability, reduce cyclomatic complexity). Relates to #1059, #1058
+   - MapGen: use constants for biome detection. Relates to #1059
+   - Remove commented deletion silver nodes, since added to mapgen. Relates to #1080
+
 ## [2023.05.p2](https://github.com/lord-server/lord/releases/tag/2023.05.p2)
  - Forgotten fix from prod. Difficult to reproduce fatal. Was found & fixed on prod. (#1067)
  - Now you can't dig not empty extractor. Fixes #1072 (#1074)
