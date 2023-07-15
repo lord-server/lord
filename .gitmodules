@@ -72,4 +72,4 @@
 	url = https://github.com/minetest-game-mod/keys
 [submodule "mods/_various/stainedglass"]
 	path = mods/_various/stainedglass
-	url = git@gitlab.com:alerikaisattera/stainedglass.git
+	url = https://gitlab.com/alerikaisattera/stainedglass.git
