@@ -70,6 +70,7 @@ function farming:add_plant(full_grown, names, interval, chance, param2)
 		nodenames = names,
 		interval = interval,
 		chance = chance,
+		catch_up = true,
 		action = function(pos, node)
 			pos.y = pos.y-1
 			if minetest.get_node(pos).name ~= "farming:soil_wet" then
