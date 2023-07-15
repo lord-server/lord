@@ -29,21 +29,6 @@ minetest.unregister_item("stairs:stair_inner_tinblock")
 minetest.unregister_item("stairs:stair_outer_tinblock")
 minetest.unregister_item("stairs:stair_tinblock")
 
--- `silver_sand` не генерируется нашим map-генератором (`mods/_lott/lottmapgen`)
--- оставляем ноды, будем продавать в магазинах:
---minetest.unregister_item("stairs:slab_silver_sandstone")
---minetest.unregister_item("stairs:stair_inner_silver_sandstone")
---minetest.unregister_item("stairs:stair_outer_silver_sandstone")
---minetest.unregister_item("stairs:stair_silver_sandstone")
---minetest.unregister_item("stairs:slab_silver_sandstone_block")
---minetest.unregister_item("stairs:stair_inner_silver_sandstone_block")
---minetest.unregister_item("stairs:stair_outer_silver_sandstone_block")
---minetest.unregister_item("stairs:stair_silver_sandstone_block")
---minetest.unregister_item("stairs:slab_silver_sandstone_brick")
---minetest.unregister_item("stairs:stair_inner_silver_sandstone_brick")
---minetest.unregister_item("stairs:stair_outer_silver_sandstone_brick")
---minetest.unregister_item("stairs:stair_silver_sandstone_brick")
-
 
 stairs.register_stair_and_slab(
 	"diamondblock",
