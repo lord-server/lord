@@ -22,6 +22,19 @@ minetest.register_node("lottmapgen:frozen_stone", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+stairs.register_stair_and_slab(
+	"frozen_stone",
+	"lottmapgen:frozen_stone",
+	{cracky=3, stone=1},
+	{"default_stone.png^lottmapgen_frozen.png"},
+	S("Frozen Stone Stair"),
+	S("Frozen Stone Slab"),
+	default.node_sound_stone_defaults(),
+	true,
+	S("Inner Frozen Stone Stair"),
+	S("Outer Frozen Stone Stair")
+)
+
 minetest.register_node("lottmapgen:mordor_stone", {
 	description = S("Mordor Stone"),
 	tiles = {"lottmapgen_mordor_stone.png"},
@@ -31,34 +44,38 @@ minetest.register_node("lottmapgen:mordor_stone", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-stairs.register_stair_and_slab("mordor_stone", "lottmapgen:mordor_stone",
-		{cracky=3, stone=1},
-		{"lottmapgen_mordor_stone.png"},
-		S("Mordor Stone Stair"),
-		S("Mordor Stone Slab"),
-		default.node_sound_stone_defaults(),
-		false,
-		S("Inner Mordor Stone Stair"),
-		S("Outer Mordor Stone Stair")
+stairs.register_stair_and_slab(
+	"mordor_stone",
+	"lottmapgen:mordor_stone",
+	{cracky=3, stone=1},
+	{"lottmapgen_mordor_stone.png"},
+	S("Mordor Stone Stair"),
+	S("Mordor Stone Slab"),
+	default.node_sound_stone_defaults(),
+	true,
+	S("Inner Mordor Stone Stair"),
+	S("Outer Mordor Stone Stair")
 )
 
 minetest.register_node("lottmapgen:mordor_cobble", {
-	description = S("Mordor Cobblestone"),
+	description = S("Mordor Cobble"),
 	tiles = {"lottmapgen_mordor_cobble.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
-stairs.register_stair_and_slab("mordor_cobble", "lottmapgen:mordor_cobble",
-		{cracky=3, stone=1},
-		{"lottmapgen_mordor_cobble.png"},
-		S("Mordor Cobblestone Stair"),
-		S("Mordor Cobblestone Slab"),
-		default.node_sound_stone_defaults(),
-		false,
-		S("Inner Mordor Cobblestone Stair"),
-		S("Outer Mordor Cobblestone Stair")
+stairs.register_stair_and_slab(
+	"mordor_cobble",
+	"lottmapgen:mordor_cobble",
+	{cracky=3, stone=1},
+	{"lottmapgen_mordor_cobble.png"},
+	S("Mordor Cobble Stair"),
+	S("Mordor Cobble Slab"),
+	default.node_sound_stone_defaults(),
+	true,
+	S("Inner Mordor Cobble Stair"),
+	S("Outer Mordor Cobble Stair")
 )
 
 minetest.register_node("lottmapgen:mordor_gravel", {

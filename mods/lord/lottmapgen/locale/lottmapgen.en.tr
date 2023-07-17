@@ -2,6 +2,9 @@
 Snow Block=Snow Block
 Frozen Stone=Frozen Stone
 Mordor Stone=Mordor Stone
+Mordor Cobble=Mordor Cobble
+Mordor Gravel=Mordor Gravel
+Mordor Sand=Mordor Sand
 Black Water Source=Black Water Source
 Black River Source=Black River Source
 Mordor Water Bucket=Mordor Water Bucket
@@ -20,7 +23,12 @@ Inner Mordor Stone Stair=Inner Mordor Stone Stair
 Outer Mordor Stone Stair=Outer Mordor Stone Stair
 Mordor Stone Slab=Mordor Stone Slab
 
-Ice Stair=Ice Stair
-Inner Ice Stair=Inner Ice Stair
-Outer Ice Stair=Outer Ice Stair
-Ice Slab=Ice Slab
+Mordor Cobble Stair=Mordor Cobble Stair
+Mordor Cobble Slab=Mordor Cobble Slab
+Inner Mordor Cobble Stair=Inner Mordor Cobble Stair
+Outer Mordor Cobble Stair=Outer Mordor Cobble Stair
+
+Frozen Stone Stair=Frozen Stone Stair
+Frozen Stone Slab=Frozen Stone Slab
+Inner Frozen Stone Stair=Inner Frozen Stone Stair
+Outer Frozen Stone Stair=Outer Frozen Stone Stair

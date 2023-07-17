@@ -2,7 +2,7 @@
 Snow Block=Блок Снега
 Frozen Stone=Обледеневший Камень
 Mordor Stone=Камень Мордора
-Mordor Cobblestone=Булыжник Мордора
+Mordor Cobble=Булыжник Мордора
 Mordor Gravel=Гравий Мордора
 Mordor Sand=Песок Мордора
 Black Water Source=Чёрная Вода
@@ -23,7 +23,12 @@ Mordor Stone Slab=Плита из Камня Мордора
 Inner Mordor Stone Stair=Угловая Ступень из Камня Мордора (Внутренний Угол)
 Outer Mordor Stone Stair=Угловая Ступень из Камня Мордора (Внешний Угол)
 
-Mordor Cobblestone Stair=Ступень из Булыжника Мордора
-Mordor Cobblestone Slab=Плита из Булыжника Мордора
-Inner Mordor Cobblestone Stair=Угловая Ступень из Булыжника Мордора (Внутренний Угол)
-Outer Mordor Cobblestone Stair=Угловая Ступень из Булыжника Мордора (Внешний Угол)
+Mordor Cobble Stair=Ступень из Булыжника Мордора
+Mordor Cobble Slab=Плита из Булыжника Мордора
+Inner Mordor Cobble Stair=Угловая Ступень из Булыжника Мордора (Внутренний Угол)
+Outer Mordor Cobble Stair=Угловая Ступень из Булыжника Мордора (Внешний Угол)
+
+Frozen Stone Stair=Ступень из Обледеневшего Камня
+Frozen Stone Slab=Плита из Обледеневшего Камня
+Inner Frozen Stone Stair=Угловая Ступень из Обледеневшего Камня (Внутренний Угол)
+Outer Frozen Stone Stair=Угловая Ступень из Обледеневшего Камня (Внешний Угол)
