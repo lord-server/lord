@@ -1,26 +1,16 @@
 local math_random, math_floor, math_abs, math_ceil, os_clock, pairs, type, id
 	= math.random, math.floor, math.abs, math.ceil, os.clock, pairs, type, minetest.get_content_id
 
--- paragenv7 0.3.1 by paramat
--- For latest stable Minetest and back to 0.4.8
--- Depends default
--- Licenses: code WTFPL, textures CC BY-SA
+-- This thresholds used for detection of biome in current map position (in 2D -- only x, z coordinates)
+local HI_TEMPERATURE_THRESHOLD =  0.4
+local LO_TEMPERATURE_THRESHOLD = -0.4
+local HI_HUMIDITY_THRESHOLD    =  0.4
+local LO_HUMIDITY_THRESHOLD    = -0.4
+local HI_RANDOM                =  0.4
+local LO_RANDOM                = -0.4
 
--- new in 0.3.1:
--- ice varies thickness with temp
--- dirt as papyrus bed, check for water below papyrus
--- clay at mid-temp
--- 'is ground content' false for leaves only
-
--- Parameters
-
-local HITET = 0.4 -- High temperature threshold
-local LOTET = -0.4 -- Low ..
-local ICETET = -0.8 -- Ice ..
-local HIHUT = 0.4 -- High humidity threshold
-local LOHUT = -0.4 -- Low ..
-local HIRAN = 0.4
-local LORAN = -0.4
+-- When its too cold and water converts into ice, so we see ice crust on the water
+local ICE_TEMPERATURE = -0.8
 
 local PAPCHA = 3 -- Papyrus
 
@@ -43,7 +33,7 @@ local BIOME_SHIRE      = 13 -- (Shire)
 
 -- 2D noise for temperature
 
-local np_temp = {
+local np_temperature = {
 	offset = 0,
 	scale = 1,
 	spread = {x=512, y=512, z=512},
@@ -54,7 +44,7 @@ local np_temp = {
 
 -- 2D noise for humidity
 
-local np_humid = {
+local np_humidity = {
 	offset = 0,
 	scale = 1,
 	spread = {x=512, y=512, z=512},
@@ -86,34 +76,34 @@ dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 
 local function detect_current_biome(n_temp, n_humid, n_ran)
 	local biome = 0
-	if n_temp < LOTET then
-		if n_humid < LOHUT then
+	if n_temp < LO_TEMPERATURE_THRESHOLD then
+		if n_humid < LO_HUMIDITY_THRESHOLD then
 			biome = BIOME_ANGMAR -- (Angmar)
-		elseif n_humid > HIHUT then
+		elseif n_humid > HI_HUMIDITY_THRESHOLD then
 			biome = BIOME_TROLLSHAWS -- (Trollshaws)
 		else
 			biome = BIOME_SNOWPLAINS -- (Snowplains)
 		end
-	elseif n_temp > HITET then
-		if n_humid < LOHUT then
+	elseif n_temp > HI_TEMPERATURE_THRESHOLD then
+		if n_humid < LO_HUMIDITY_THRESHOLD then
 			biome = BIOME_LORIEN -- (Lorien)
-		elseif n_humid > HIHUT then
+		elseif n_humid > HI_HUMIDITY_THRESHOLD then
 			biome = BIOME_FANGORN -- (Fangorn)
-		elseif n_ran < LORAN then
+		elseif n_ran < LO_RANDOM then
 			biome = BIOME_MIRKWOOD -- (Mirkwood)
-		elseif n_ran > HIRAN then
+		elseif n_ran > HI_RANDOM then
 			biome = BIOME_HILLS -- (Iron Hills)
 		else
 			biome = BIOME_DUNLANDS -- (Dunlands)
 		end
 	else
-		if n_humid < LOHUT then
+		if n_humid < LO_HUMIDITY_THRESHOLD then
 			biome = BIOME_MORDOR -- (Mordor)
-		elseif n_humid > HIHUT then
+		elseif n_humid > HI_HUMIDITY_THRESHOLD then
 			biome = BIOME_ITHILIEN -- (Ithilien)
-		elseif n_ran < LORAN then
+		elseif n_ran < LO_RANDOM then
 			biome = BIOME_SHIRE -- (Shire)
-		elseif n_ran > HIRAN then
+		elseif n_ran > HI_RANDOM then
 			biome = BIOME_ROHAN -- (Rohan)
 		else
 			biome = BIOME_GONDOR -- (Gondor)
@@ -177,18 +167,19 @@ local c_silver_sand = id("default:silver_sand")
 local c_ice = id("default:ice")
 local c_dirt = id("default:dirt")
 local c_clay = id("default:clay")
-local c_stone = id("default:stone")
-local c_desertstone = id("default:desert_stone")
-local c_stonecopper = id("default:stone_with_copper")
-local c_stoneiron = id("default:stone_with_iron")
-local c_stonecoal = id("default:stone_with_coal")
+
+local c_stone          = id("default:stone")
+local c_stone_w_copper = id("default:stone_with_copper")
+local c_stone_w_iron   = id("default:stone_with_iron")
+local c_stone_w_coal   = id("default:stone_with_coal")
 
 local c_water       = id("default:water_source")
 local c_river_water = id("default:river_water_source")
 local c_mordor_water       = id("lottmapgen:blacksource")
 local c_mordor_river_water = id("lottmapgen:black_river_source")
 
-local c_morstone = id("lottmapgen:mordor_stone")
+local c_desert_stone = id("default:desert_stone")
+local c_mordor_stone = id("lottmapgen:mordor_stone")
 
 local c_salt = id("lottores:mineral_salt")
 local c_pearl = id("lottores:mineral_pearl")
@@ -226,12 +217,12 @@ end
 --- @return number|nil
 local function get_biome_stone(biome)
 	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-		return c_desertstone
+		return c_desert_stone
 	elseif biome == BIOME_MORDOR then
-		return c_morstone
+		return c_mordor_stone
 	elseif biome == BIOME_HILLS then
 		if math_random(3) == 1 then
-			return c_stoneiron
+			return c_stone_w_iron
 		end
 	end
 
@@ -258,7 +249,7 @@ end
 --- @param index       number linear index in `data` of current position
 local function place_ice_crust(temperature, y, data, index)
 	-- if it's frosty & not so deep
-	if temperature < ICETET and y >= water_level - math_floor((ICETET - temperature) * 10) then
+	if temperature < ICE_TEMPERATURE and y >= water_level - math_floor((ICE_TEMPERATURE - temperature) * 10) then
 		data[index] = c_ice
 	end
 end
@@ -282,116 +273,116 @@ end
 
 
 -- On generated function
-minetest.register_on_generated(function(minp, maxp, seed)
-	if minp.y < (water_level-1000) or minp.y > 5000 then
+minetest.register_on_generated(function(min_pos, max_pos, seed)
+	if min_pos.y < (water_level-1000) or min_pos.y > 5000 then
 		return
 	end
 
 	local t1 = os_clock()
 
-	local x1 = maxp.x
-	local y1 = maxp.y
-	local z1 = maxp.z
-	local x0 = minp.x
-	local y0 = minp.y
-	local z0 = minp.z
+	local x0 = min_pos.x
+	local y0 = min_pos.y
+	local z0 = min_pos.z
+	local x1 = max_pos.x
+	local y1 = max_pos.y
+	local z1 = max_pos.z
 
-	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-	local area = VoxelArea:new{MinEdge=emin, MaxEdge=emax}
-	local data = vm:get_data()
+	local voxel_manipulator, e_min, e_max = minetest.get_mapgen_object("voxelmanip")
+	local area                            = VoxelArea:new{ MinEdge = e_min, MaxEdge = e_max }
+	local data                            = voxel_manipulator:get_data()
 
-	local sidelen = x1 - x0 + 1
-	local chulens = {x=sidelen, y=sidelen, z=sidelen}
-	local minposxz = {x=x0, y=z0}
+	local side_len   = x1 - x0 + 1
+	local chunk_lens = { x = side_len, y = side_len, z = side_len }
+	local xz_min_pos = { x = x0, y = z0 }
 
-	local nvals_temp = minetest.get_perlin_map(np_temp, chulens):get_2d_map_flat(minposxz)
-	local nvals_humid = minetest.get_perlin_map(np_humid, chulens):get_2d_map_flat(minposxz)
-	local nvals_random = minetest.get_perlin_map(np_random, chulens):get_2d_map_flat(minposxz)
+	local nvals_temp   = minetest.get_perlin_map(np_temperature, chunk_lens):get_2d_map_flat(xz_min_pos)
+	local nvals_humid  = minetest.get_perlin_map(np_humidity, chunk_lens):get_2d_map_flat(xz_min_pos)
+	local nvals_random = minetest.get_perlin_map(np_random, chunk_lens):get_2d_map_flat(xz_min_pos)
 
-	local nixz = 1
+	local xz_noise_index = 1
 	for z = z0, z1 do
 		for x = x0, x1 do -- for each column do
-			local n_temp  = nvals_temp[nixz] -- select biome
-			local n_humid = nvals_humid[nixz]
-			local n_ran   = nvals_random[nixz]
-			local biome   = detect_current_biome(n_temp, n_humid, n_ran)
+			local temperature = nvals_temp[xz_noise_index] -- select biome
+			local humidity    = nvals_humid[xz_noise_index]
+			local random      = nvals_random[xz_noise_index]
+			local biome       = detect_current_biome(temperature, humidity, random)
 
-			local sandy   = (water_level + 2) + math_random(-1, 1) -- sandline
-			local sandmin = (water_level - 15) + math_random(-5, 0) -- lowest sand
-			local open    = true -- open to sky?
-			local solid   = true -- solid node above?
-			local water   = false -- water node above?
-			local surfy   = y1 + 80 -- y of last surface detected
+			local sand_y         = (water_level + 2) + math_random(-1, 1) -- sandline
+			local sand_min_y     = (water_level - 15) + math_random(-5, 0) -- lowest sand
+			local is_open        = true -- open to sky?
+			local is_solid       = true -- solid node above?
+			local is_water_above = false -- water node above?
+			local surface_y      = y1 + 80 -- y of last surface detected
 			for y = y1, y0, -1 do -- working down each column for each node do
-				local fimadep = math_floor(6 - y / 512) + math_random(0, 1)
-				local vi      = area:index(x, y, z)
-				local nodid   = data[vi]
-				local viuu    = area:index(x, y - 2, z)
-				local nodiduu = data[viuu]
+				local fimadep    = math_floor(6 - y / 512) + math_random(0, 1)  --- ??????????????
+				local vi         = area:index(x, y, z)
+				local node_id    = data[vi]
+				local vi_uu      = area:index(x, y - 2, z)
+				local node_id_uu = data[vi_uu] -- under-under
 
 				-- if stone
-				if nodid == c_stone or nodid == c_stonecopper or nodid == c_stoneiron or nodid == c_stonecoal then
+				if node_id == c_stone or node_id == c_stone_w_copper or node_id == c_stone_w_iron or node_id == c_stone_w_coal then
 
-					if y > water_level-32 then
+					if y > water_level - 32 then
 						local biome_stone = get_biome_stone(biome)
 						if biome_stone then
 							data[vi] = biome_stone
 						end
 					end
 
-					if not solid then -- if surface
-						surfy = y
+					if not is_solid then -- if surface
+						surface_y = y
 
-						if nodiduu ~= c_air and nodiduu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
+						if node_id_uu ~= c_air and node_id_uu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
 
-							if y <= sandy and y >= sandmin then -- sand
+							if y <= sand_y and y >= sand_min_y then -- sand
 								data[vi] = get_biome_sand(biome)
 								if  -- papyrus
-									open and water and y == (water_level - 1) and
+									is_open and is_water_above and y == (water_level - 1) and
 									biome > 4 and biome ~= BIOME_MORDOR and
 									math_random(PAPCHA) == 2
 								then
 									lottmapgen_papyrus(x, (water_level + 1), z, area, data)
 									data[vi] = c_dirt
 								end
-								biome_place_water_bottom(biome, n_temp, y, data, vi) -- bottom of river or sea
-							elseif y > sandy then -- above sandline
+								biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
+							elseif y > sand_y then -- above sandline
 								data[vi] = get_biome_grass(biome)
-								if open then -- if open to sky then flora & buildings
-									local surf_vi = area:index(x, surfy + 1, z)
+								if is_open then -- if open to sky then flora & buildings
+									local surf_vi = area:index(x, surface_y + 1, z)
 									biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
 								end
 							end
 						end
 
 					else -- underground
-						if nodiduu ~= c_air and nodiduu ~= c_water and surfy - y + 1 <= fimadep then
-							if y <= sandy and y >= sandmin then
+						if node_id_uu ~= c_air and node_id_uu ~= c_water and surface_y - y + 1 <= fimadep then
+							if y <= sand_y and y >= sand_min_y then
 								data[vi] = get_biome_sand(biome)
 							end
 						end
 					end
 
-					open  = false
-					solid = true
+					is_open  = false
+					is_solid = true
 
-				elseif nodid == c_air or nodid == c_water or nodid == c_river_water then
-					solid = false
-					if nodid == c_water or nodid == c_river_water then
-						water = true
-						biome_replace_water(nodid, biome, data, vi)
-						place_ice_crust(n_temp, y, data, vi) -- if it's frosty & not so deep
+				elseif node_id == c_air or node_id == c_water or node_id == c_river_water then
+					is_solid = false
+					if node_id == c_water or node_id == c_river_water then
+						is_water_above = true
+						biome_replace_water(node_id, biome, data, vi)
+						place_ice_crust(temperature, y, data, vi) -- if it's frosty & not so deep
 					end
 				end
 			end
 
-			nixz = nixz + 1
+			xz_noise_index = xz_noise_index + 1
 		end
 	end
-	vm:set_data(data)
-	vm:set_lighting({day=0, night=0})
-	vm:calc_lighting()
-	vm:write_to_map(data)
+	voxel_manipulator:set_data(data)
+	voxel_manipulator:set_lighting({ day =0, night =0})
+	voxel_manipulator:calc_lighting()
+	voxel_manipulator:write_to_map(data)
 
 	if measure then
 		local chunk_gen_time = math_ceil((os_clock() - t1) * 1000)
