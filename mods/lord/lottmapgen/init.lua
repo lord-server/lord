@@ -328,8 +328,6 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				local nodid   = data[vi]
 				local viuu    = area:index(x, y - 2, z)
 				local nodiduu = data[viuu]
-				local via     = area:index(x, y + 1, z)
-				local nodida  = data[via]
 
 				-- if stone
 				if nodid == c_stone or nodid == c_stonecopper or nodid == c_stoneiron or nodid == c_stonecoal then
@@ -346,14 +344,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 						if nodiduu ~= c_air and nodiduu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
 
-							if nodida == c_river_water
-								or data[area:index(x + 1, y, z)] == c_river_water
-								or data[area:index(x, y, z + 1)] == c_river_water
-								or data[area:index(x - 1, y, z)] == c_river_water
-								or data[area:index(x, y, z - 1)] == c_river_water
-							then
-								data[vi] = get_biome_sand(biome)
-							elseif y <= sandy and y >= sandmin then -- sand
+							if y <= sandy and y >= sandmin then -- sand
 								data[vi] = get_biome_sand(biome)
 								if  -- papyrus
 									open and water and y == (water_level - 1) and
@@ -364,9 +355,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 									data[vi] = c_dirt
 								end
 								biome_place_water_bottom(biome, n_temp, y, data, vi) -- bottom of river or sea
-							elseif y <= sandmin then
-								data[vi] = c_stone -- ???????
-							else -- above sandline
+							elseif y > sandy then -- above sandline
 								data[vi] = get_biome_grass(biome)
 								if open then -- if open to sky then flora & buildings
 									local surf_vi = area:index(x, surfy + 1, z)
