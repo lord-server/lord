@@ -1,5 +1,5 @@
-local math_random, math_floor, math_abs, math_ceil, os_clock, pairs, type, id
-	= math.random, math.floor, math.abs, math.ceil, os.clock, pairs, type, minetest.get_content_id
+local math_random, math_floor, math_abs, math_ceil, math_min, math_max, os_clock, pairs, type, id
+	= math.random, math.floor, math.abs, math.ceil, math.min, math.max, os.clock, pairs, type, minetest.get_content_id
 
 -- This thresholds used for detection of biome in current map position (in 2D -- only x, z coordinates)
 local HI_TEMPERATURE_THRESHOLD =  0.4
@@ -11,6 +11,8 @@ local LO_RANDOM                = -0.4
 
 -- When its too cold and water converts into ice, so we see ice crust on the water
 local ICE_TEMPERATURE = -0.8
+
+local SAND_LAYER_THICKNESS = 6
 
 local PAPCHA = 3 -- Papyrus
 
@@ -314,7 +316,6 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 			local is_water_above = false -- water node above?
 			local surface_y      = y1 + 80 -- y of last surface detected
 			for y = y1, y0, -1 do -- working down each column for each node do
-				local fimadep    = math_floor(6 - y / 512) + math_random(0, 1)  --- ??????????????
 				local vi         = area:index(x, y, z)
 				local node_id    = data[vi]
 				local vi_uu      = area:index(x, y - 2, z)
@@ -333,7 +334,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 					if not is_solid then -- if surface
 						surface_y = y
 
-						if node_id_uu ~= c_air and node_id_uu ~= c_water and fimadep >= 1 then -- if supported by 2 stone nodes
+						if node_id_uu ~= c_air and node_id_uu ~= c_water then -- if supported by 2 stone nodes
 
 							if y <= sand_y and y >= sand_min_y then -- sand
 								data[vi] = get_biome_sand(biome)
@@ -356,10 +357,33 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 						end
 
 					else -- underground
-						if node_id_uu ~= c_air and node_id_uu ~= c_water and surface_y - y + 1 <= fimadep then
-							if y <= sand_y and y >= sand_min_y then
+						if node_id_uu ~= c_air and node_id_uu ~= c_water then
+
+							-- The sand layer becomes thinner, if you got closer to the continent.
+							-- Thickness (approximately):
+							--    [where]                                                     [delta]        [value]
+							--  - under the sea/river:              == SAND_LAYER_THICKNESS - 0           == 6
+							--  - under the beach line:             == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
+							--  - under the area after beach line:  == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
+							-- The same "Thickness (approximately)", depending on the `surface_y`:
+							--    [`surface_y` value]                                         [delta]        [value]
+							--  -      `surface_y` <= 0:            == SAND_LAYER_THICKNESS - 0           == 6
+							--  - 1 <= `surface_y` <= 2:            == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
+							--  - 3 <= `surface_y` <= 4:            == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
+							--  - 4 <  `surface_y`     :            (not handled since `under_the_hill`)  == 0
+							local thickness_delta      = math_min(
+								SAND_LAYER_THICKNESS,
+								math_max(surface_y, -SAND_LAYER_THICKNESS)
+							)
+							local sand_layer_thickness = SAND_LAYER_THICKNESS - thickness_delta
+							local sand_layer_bottom    = (surface_y - sand_layer_thickness) + math_random(-1, 1)
+							local under_the_hill       = surface_y > 4
+
+							local s_min_y = math_max(sand_min_y, sand_layer_bottom)
+							if y >= s_min_y and y < surface_y and not under_the_hill then
 								data[vi] = get_biome_sand(biome)
 							end
+
 						end
 					end
 
@@ -367,7 +391,9 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 					is_solid = true
 
 				elseif node_id == c_air or node_id == c_water or node_id == c_river_water then
+
 					is_solid = false
+
 					if node_id == c_water or node_id == c_river_water then
 						is_water_above = true
 						biome_replace_water(node_id, biome, data, vi)
