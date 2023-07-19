@@ -301,6 +301,8 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 	local nvals_humid  = minetest.get_perlin_map(np_humidity, chunk_lens):get_2d_map_flat(xz_min_pos)
 	local nvals_random = minetest.get_perlin_map(np_random, chunk_lens):get_2d_map_flat(xz_min_pos)
 
+	local lua_t1 = os_clock()
+
 	local xz_noise_index = 1
 	for z = z0, z1 do
 		for x = x0, x1 do -- for each column do
@@ -405,6 +407,12 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 			xz_noise_index = xz_noise_index + 1
 		end
 	end
+
+	local lua_gen_time = 0
+	if measure then
+		lua_gen_time = math_ceil((os_clock() - lua_t1) * 1000)
+	end
+
 	voxel_manipulator:set_data(data)
 	voxel_manipulator:set_lighting({ day =0, night =0})
 	voxel_manipulator:calc_lighting()
@@ -413,7 +421,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 	if measure then
 		local chunk_gen_time = math_ceil((os_clock() - t1) * 1000)
 		chunk_gen_avg = math_ceil((chunk_gen_avg * chunk_gen_count + chunk_gen_time) / (chunk_gen_count + 1))
-		print("map-gen: " .. chunk_gen_time .. ", avg: " .. chunk_gen_avg)
+		print("map-gen: " .. chunk_gen_time .. ", ".. lua_gen_time ..", avg: " .. chunk_gen_avg)
 		chunk_gen_count = chunk_gen_count + 1
 	end
 end)
