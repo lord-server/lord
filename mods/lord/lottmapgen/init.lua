@@ -188,6 +188,7 @@ local c_mordor_stone = id("lottmapgen:mordor_stone")
 
 local c_salt = id("lottores:mineral_salt")
 local c_pearl = id("lottores:mineral_pearl")
+local c_waterlily = id("flowers:waterlily_waving")
 
 local config = dofile(minetest.get_modpath("lottmapgen").."/config.lua")
 local biome_grass = config.biome_grass
@@ -388,12 +389,17 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 								elseif is_water_space then
 									local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open
 									if is_shallow_water then
-										if -- papyrus
-											biome > 4 and biome ~= BIOME_MORDOR and
-											math_random(PAPYRUS_CHANCE) == 1
-										then
-											lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-											data[vi] = c_dirt
+										if biome > 4 and biome ~= BIOME_MORDOR then
+											-- papyrus
+											if math_random(PAPYRUS_CHANCE) == 1	then
+												lottmapgen_papyrus(x, (water_level + 1), z, area, data)
+												data[vi] = c_dirt
+											-- waterlily
+											elseif math_random(20) == 1 then
+												local water_level_vi = area:index(x, water_level + 1, z)
+												data[water_level_vi] = c_waterlily
+												data[vi] = c_dirt
+											end
 										end
 									end
 									biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
