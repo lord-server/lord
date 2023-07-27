@@ -56,6 +56,8 @@ pointed_thing = {}
 -- `minetest.` / `core.` functions
 --
 
+minetest = {}
+
 -- Escape sequences:
 
 --- * `color` is a ColorString

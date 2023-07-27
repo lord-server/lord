@@ -13,8 +13,10 @@ local LO_RANDOM                = -0.4
 local ICE_TEMPERATURE = -0.8
 
 local SAND_LAYER_THICKNESS = 6
+local BEACH_LAYERS_COUNT   = 2
+local COAST_LAYERS_COUNT   = 4
 
-local PAPCHA = 3 -- Papyrus
+local PAPYRUS_CHANCE = 3 -- Papyrus
 
 -- /!\ Warning /!\ : duplicated in config.lua (TODO)
 -- Biomes:
@@ -276,7 +278,7 @@ end
 
 -- On generated function
 minetest.register_on_generated(function(min_pos, max_pos, seed)
-	if min_pos.y < (water_level-1000) or min_pos.y > 5000 then
+	if min_pos.y < (water_level-300) or min_pos.y > 1000 then
 		return
 	end
 
@@ -311,7 +313,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 			local random      = nvals_random[xz_noise_index]
 			local biome       = detect_current_biome(temperature, humidity, random)
 
-			local sand_y         = (water_level + 2) + math_random(-1, 1) -- sandline
+			local sand_y         = (water_level + BEACH_LAYERS_COUNT) + math_random(-1, 1) -- sandline
 			local sand_min_y     = (water_level - 15) + math_random(-5, 0) -- lowest sand
 			local is_open        = true -- open to sky?
 			local is_solid       = true -- solid node above?
@@ -323,8 +325,12 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 				local vi_uu      = area:index(x, y - 2, z)
 				local node_id_uu = data[vi_uu] -- under-under
 
+				local node_is_stone = node_id == c_stone or node_id == c_stone_w_copper or node_id == c_stone_w_iron or node_id == c_stone_w_coal
+				local node_is_space = node_id == c_air or node_id == c_water or node_id == c_river_water
+				local node_uu_is_not_space = node_id_uu ~= c_air and node_id_uu ~= c_water
+
 				-- if stone
-				if node_id == c_stone or node_id == c_stone_w_copper or node_id == c_stone_w_iron or node_id == c_stone_w_coal then
+				if node_is_stone then
 
 					if y > water_level - 32 then
 						local biome_stone = get_biome_stone(biome)
@@ -336,14 +342,14 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 					if not is_solid then -- if surface
 						surface_y = y
 
-						if node_id_uu ~= c_air and node_id_uu ~= c_water then -- if supported by 2 stone nodes
+						if node_uu_is_not_space then -- if supported by 2 stone nodes
 
-							if y <= sand_y and y >= sand_min_y then -- sand
+							if y <= sand_y and y >= sand_min_y then -- surface in the sand layer
 								data[vi] = get_biome_sand(biome)
 								if  -- papyrus
 									is_open and is_water_above and y == (water_level - 1) and
 									biome > 4 and biome ~= BIOME_MORDOR and
-									math_random(PAPCHA) == 2
+									math_random(PAPYRUS_CHANCE) == 1
 								then
 									lottmapgen_papyrus(x, (water_level + 1), z, area, data)
 									data[vi] = c_dirt
@@ -359,7 +365,8 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 						end
 
 					else -- underground
-						if node_id_uu ~= c_air and node_id_uu ~= c_water then
+
+						if node_uu_is_not_space then
 
 							-- The sand layer becomes thinner, if you got closer to the continent.
 							-- Thickness (approximately):
@@ -379,7 +386,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 							)
 							local sand_layer_thickness = SAND_LAYER_THICKNESS - thickness_delta
 							local sand_layer_bottom    = (surface_y - sand_layer_thickness) + math_random(-1, 1)
-							local under_the_hill       = surface_y > 4
+							local under_the_hill       = surface_y > COAST_LAYERS_COUNT
 
 							local s_min_y = math_max(sand_min_y, sand_layer_bottom)
 							if y >= s_min_y and y < surface_y and not under_the_hill then
@@ -392,7 +399,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 					is_open  = false
 					is_solid = true
 
-				elseif node_id == c_air or node_id == c_water or node_id == c_river_water then
+				elseif node_is_space then
 
 					is_solid = false
 
