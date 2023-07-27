@@ -15,6 +15,7 @@ local ICE_TEMPERATURE = -0.8
 local SAND_LAYER_THICKNESS = 6
 local BEACH_LAYERS_COUNT   = 2
 local COAST_LAYERS_COUNT   = 4
+local SHALLOW_WATER_DEPTH  = 1
 
 local PAPYRUS_CHANCE = 3 -- Papyrus
 
@@ -67,7 +68,7 @@ local np_random = {
 }
 
 -- Stuff
-local water_level = minetest.get_mapgen_setting("water_level")
+local water_level = tonumber(minetest.get_mapgen_setting("water_level") or 1)
 
 local measure = minetest.settings:get_bool("mapgen_measure_chunk_gene_time", false)
 local chunk_gen_count = 0
@@ -375,17 +376,28 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 
 						if node_uu_is_not_space then -- if supported by 2 stone nodes
 
-							if y <= sand_y and y >= sand_min_y then -- surface in the sand layer
+							if y <= sand_y and y >= sand_min_y then -- surface in the sand bounds
 								data[vi] = get_biome_sand(biome)
-								if  -- papyrus
-									is_open and is_water_above and y == (water_level - 1) and
-									biome > 4 and biome ~= BIOME_MORDOR and
-									math_random(PAPYRUS_CHANCE) == 1
-								then
-									lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-									data[vi] = c_dirt
+
+								local is_beach = y >= water_level and y < (water_level + BEACH_LAYERS_COUNT)
+								local is_water_space = y < water_level and is_water_above
+
+
+								if is_beach then
+									-- place beach stuff
+								elseif is_water_space then
+									local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open
+									if is_shallow_water then
+										if -- papyrus
+											biome > 4 and biome ~= BIOME_MORDOR and
+											math_random(PAPYRUS_CHANCE) == 1
+										then
+											lottmapgen_papyrus(x, (water_level + 1), z, area, data)
+											data[vi] = c_dirt
+										end
+									end
+									biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
 								end
-								biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
 							elseif y > sand_y then -- above sandline
 								data[vi] = get_biome_grass(biome)
 								if is_open then -- if open to sky then flora & buildings
@@ -393,6 +405,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 									biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
 								end
 							end
+
 						end
 
 					else -- underground
