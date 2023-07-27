@@ -275,6 +275,37 @@ local function biome_place_water_bottom(biome, temperature, y, data, index)
 end
 
 
+---is_sand_layer
+---@param y          number current y height
+---@param sand_min_y number lowest height of sand in current vertical column
+---@param surface_y  number height of surface in current vertical column
+---@return boolean
+local function is_sand_layer(y, sand_min_y, surface_y)
+	-- The sand layer becomes thinner, if you got closer to the continent.
+	-- Thickness (approximately):
+	--    [where]                                                     [delta]        [value]
+	--  - under the sea/river:              == SAND_LAYER_THICKNESS - 0           == 6
+	--  - under the beach line:             == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
+	--  - under the area after beach line:  == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
+	-- The same "Thickness (approximately)", depending on the `surface_y`:
+	--    [`surface_y` value]                                         [delta]        [value]
+	--  -      `surface_y` <= 0:            == SAND_LAYER_THICKNESS - 0           == 6
+	--  - 1 <= `surface_y` <= 2:            == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
+	--  - 3 <= `surface_y` <= 4:            == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
+	--  - 4 <  `surface_y`     :            (not handled since `under_the_hill`)  == 0
+	local thickness_delta      = math_min(
+		SAND_LAYER_THICKNESS,
+		math_max(surface_y, -SAND_LAYER_THICKNESS)
+	)
+	local sand_layer_thickness = SAND_LAYER_THICKNESS - thickness_delta
+	local sand_layer_bottom    = (surface_y - sand_layer_thickness) + math_random(-1, 1)
+	local under_the_hill       = surface_y > COAST_LAYERS_COUNT
+
+	local s_min_y = math_max(sand_min_y, sand_layer_bottom)
+
+	return y >= s_min_y and y < surface_y and not under_the_hill
+end
+
 
 -- On generated function
 minetest.register_on_generated(function(min_pos, max_pos, seed)
@@ -368,28 +399,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 
 						if node_uu_is_not_space then
 
-							-- The sand layer becomes thinner, if you got closer to the continent.
-							-- Thickness (approximately):
-							--    [where]                                                     [delta]        [value]
-							--  - under the sea/river:              == SAND_LAYER_THICKNESS - 0           == 6
-							--  - under the beach line:             == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
-							--  - under the area after beach line:  == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
-							-- The same "Thickness (approximately)", depending on the `surface_y`:
-							--    [`surface_y` value]                                         [delta]        [value]
-							--  -      `surface_y` <= 0:            == SAND_LAYER_THICKNESS - 0           == 6
-							--  - 1 <= `surface_y` <= 2:            == SAND_LAYER_THICKNESS - { 1 or 2 }  == 4|5
-							--  - 3 <= `surface_y` <= 4:            == SAND_LAYER_THICKNESS - { 3 or 4 }  == 2|3
-							--  - 4 <  `surface_y`     :            (not handled since `under_the_hill`)  == 0
-							local thickness_delta      = math_min(
-								SAND_LAYER_THICKNESS,
-								math_max(surface_y, -SAND_LAYER_THICKNESS)
-							)
-							local sand_layer_thickness = SAND_LAYER_THICKNESS - thickness_delta
-							local sand_layer_bottom    = (surface_y - sand_layer_thickness) + math_random(-1, 1)
-							local under_the_hill       = surface_y > COAST_LAYERS_COUNT
-
-							local s_min_y = math_max(sand_min_y, sand_layer_bottom)
-							if y >= s_min_y and y < surface_y and not under_the_hill then
+							if is_sand_layer(y, sand_min_y, surface_y) then
 								data[vi] = get_biome_sand(biome)
 							end
 
