@@ -64,6 +64,10 @@
 [submodule "mods/_various/ambience"]
 	path = mods/_various/ambience
 	url = https://notabug.org/TenPlus1/ambience.git
+[submodule "mods/_various/candles_3d"]
+	path = mods/_various/candles_3d
+	url = https://gitlab.com/lord-server/candles_3d.git
+	branch = lord
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
