@@ -96,3 +96,17 @@ minetest.register_craft({
 	output = "default:charcoal_lump",
 	recipe = "group:wooden",
 })
+
+minetest.register_node(":default:desert_gravel", {
+	description = S("Desert Gravel"),
+	tiles = {"default_desert_gravel.png"},
+	groups = {crumbly = 2, falling_node = 1},
+	sounds = default.node_sound_gravel_defaults(),
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {"default:flint"}, rarity = 16},
+			{items = {"default:desert_gravel"}}
+		}
+	}
+})
