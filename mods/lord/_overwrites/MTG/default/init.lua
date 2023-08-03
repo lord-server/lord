@@ -181,33 +181,6 @@ minetest.register_craft({
 	recipe = {"group:leaves", "group:leaves", "default:clay", "default:sand"},
 })
 
--- наши дополнительные крафты:
-minetest.register_craft({
-	type = "cooking",
-	output = "default:cobble",
-	recipe = "default:gravel",
-})
-minetest.register_craft({
-	type = "cooking",
-	output = "default:steel_ingot",
-	recipe = "group:steel_item",
-})
-minetest.register_craft({
-	type = "cooking",
-	output = "default:copper_ingot",
-	recipe = "group:copper_item",
-})
-minetest.register_craft({
-	type = "cooking",
-	output = "default:bronze_ingot",
-	recipe = "group:bronze_item",
-})
-minetest.register_craft({
-	type = "cooking",
-	output = "default:gold_ingot",
-	recipe = "group:gold_item",
-})
-
 -- Оставляем наше время горения дабы не нарушить баланс
 -- (позже можно перебалансировать, учесть остальное топливо, напр. charcoal):
 -- tree fuels:

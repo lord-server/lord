@@ -97,6 +97,9 @@ minetest.register_craft({
 	recipe = "group:wooden",
 })
 
+----------------------------------
+---      Stone-like nodes      ---
+----------------------------------
 minetest.register_node(":default:desert_gravel", {
 	description = S("Desert Gravel"),
 	tiles = {"default_desert_gravel.png"},
@@ -109,4 +112,38 @@ minetest.register_node(":default:desert_gravel", {
 			{items = {"default:desert_gravel"}}
 		}
 	}
+})
+
+----------------------------------------------------------
+--- Our Additional Crafts / наши дополнительные крафты ---
+----------------------------------------------------------
+minetest.register_craft({
+	type = "cooking",
+	output = "default:cobble",
+	recipe = "default:gravel",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:desert_cobble",
+	recipe = "default:desert_gravel",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:steel_ingot",
+	recipe = "group:steel_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:copper_ingot",
+	recipe = "group:copper_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:bronze_ingot",
+	recipe = "group:bronze_item",
+})
+minetest.register_craft({
+	type = "cooking",
+	output = "default:gold_ingot",
+	recipe = "group:gold_item",
 })
