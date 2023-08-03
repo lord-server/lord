@@ -75,9 +75,6 @@
  - Оптимизирована текстура `screwdriver_galvorn.png` 9406 bytes -> 257 bytes
  - Зависит от `MTG/screwdriver`
 
-### `mega_sl`
- - Сохранение и загрузка области карты (команды `/S` и `/L`)
-
 ### `throwing`
  - вынесено из [`lottthrowing`](https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottthrowing) и допилено: разделено на движок/api(`throwing`) и бросабельные-итемы/ака-стрелы(`arrows`))
  - завезена физика притяжения (полёт/падение "стрелы" по дуге)
