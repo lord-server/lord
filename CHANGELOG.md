@@ -1,5 +1,30 @@
 # Change Log
 
+## [2023.07](https://github.com/lord-server/lord/releases/tag/2023.07)
+ - Add "Frozen Stone" stairs & slab. Relates to #997
+ - Add waterlily into shallow water. Closes #1086
+ - Add our fork `candles_3d` as submodule. Closes #1088
+ - Revert "lifetimer on for NPC" (Mobs not die; Gnomocide is possible again)
+ - Add `:default:desert_gravel`
+   - add Grinder recipes. Relates to 1082
+   - add cooking `desert_gravel`. Relates to #1082
+ - Add mason clan cloak
+
+ - Technical:
+   - MapGen: remove dead code. Relates to #1084, 1058
+   - MapGen: rename vars. Relates to #1084
+   - MapGen: remove `fimadep` (make code mo readable). Relates to #1084
+   - MapGen: add measure gen time on lua-side. Relates to #1084
+   - MapGen: simplify conditions; use constants. Relates to #1084
+   - MapGen: extract `is_sand_layer()` detection. Relates to #1084
+   - MapGen: add detection of beach & shallow water. Relates to #1084
+   - Move our additional crafts `_overwrites/MTG/default` -> `lord_default`
+   - Move `lottmapgen` -> `World/Generation/`. Relates to #1079, #969, #967
+   - Move `mega_al` into `World`. Relates to #967, #969
+   - Move `mountgen` into `World`. Relates to #967, #969
+   - Move `lord_money` into `Tools`. Relates to #967, #968
+   - Move `bones` into `Player`. Add `readme.md`. Relates to #967, #970
+
 ## [2023.06](https://github.com/lord-server/lord/releases/tag/2023.06)
  - Added mordor, desert & silver sand into map generation. Closes #1080
  - MapGen: add some mtg flowers to biomes & some grass. Closes #1083
