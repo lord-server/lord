@@ -24,7 +24,7 @@ cd ~/projects
 mkdir lord-server
 cd lord-server
 # не забудьте предварительно добавить на GitHub свой публичный ssh-ключ
-gh repo fork lord-server/lord --clone # --recursive
+gh repo fork lord-server/lord --clone -- --recurse-submodules
 cd ~/.minetest/games/
 ln -s ~/projects/lord-server/lord
 ```
@@ -42,7 +42,7 @@ https://dev.minetest.net/Lua_code_style_guidelines
 Наши исключения и дополнения:
  - Длина строки до 120 символов
  - Константы капсом
- - Переменные, содержащие "классы" с большой буквы, остальные с маленькой
+ - Переменные, содержащие описание "класса" с большой буквы, остальные с маленькой
  - Пустые строки между функциями
    - после `require`-блока -- 2
    - перед `return` из модуля/класса (из файла) -- 2
@@ -114,10 +114,10 @@ Doc-Blocks
      $ git remote add upstream git@github.com:lord-server/lord.git
      ```
      проверьте, что получилось: `git remote -v`
- - Теперь, когда нужно для своего форка обновить, например, ветку `master`:
-   - не забываем переключиться на эту ветку: `git checkout master`
-   - стягиваем её с upstream локально: `git pull upstream master`
-   - обновляем в своём форке на GitHub: `git push` (или `git push origin`)
+ - Теперь, когда нужно для своего форка обновить, например, ветку `dev`:
+   - не забываем переключиться на эту ветку: `git checkout dev`
+   - стягиваем её с upstream локально: `git pull upstream dev --tags --recurse-submodules`
+   - обновляем в своём форке на GitHub: `git push` (или `git push origin dev`)
 
 Релизный процесс:
 -----------------
