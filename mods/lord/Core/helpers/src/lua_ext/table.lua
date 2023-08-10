@@ -43,6 +43,29 @@ function table.overwrite(table1, table2)
 	return table_merge(table1, table2, true)
 end
 
+--- @param table1 table
+--- @param table2 table
+--- @return table
+function table.merge_values(table1, table2)
+	local merged_table = {}
+	local merged_index = 1
+
+	for _, value in pairs(table1) do
+		merged_table[value] = merged_index
+		merged_index = merged_index + 1
+	end
+
+	for _, value in pairs(table2) do
+		if merged_table[value] == nil then
+			merged_table[value] = merged_index
+			merged_index = merged_index + 1
+		end
+	end
+
+	return table.key_value_swap(merged_table)
+end
+
+
 --- @param table table
 --- @return boolean
 function table.is_empty(table)
