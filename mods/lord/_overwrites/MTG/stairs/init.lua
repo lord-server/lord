@@ -42,3 +42,17 @@ stairs.register_stair_and_slab(
 	S("Inner Diamond Block Stair"),
 	S("Outer Diamond Block Stair")
 )
+
+-- Перезапись переводов Тропические -> Эвкалиптовые ступеньки
+minetest.override_item("stairs:stair_junglewood", {
+	description = S("Jungle Wood Stair")
+})
+minetest.override_item("stairs:stair_inner_junglewood", {
+	description = S("Inner Jungle Wood Stair")
+})
+minetest.override_item("stairs:stair_outer_junglewood", {
+	description = S("Outer Jungle Wood Stair")
+})
+minetest.override_item("stairs:slab_junglewood", {
+	description = S("Jungle Wood Slab")
+})
