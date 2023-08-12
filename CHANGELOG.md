@@ -1,5 +1,11 @@
 # Change Log
 
+## [2023.07.p1](https://github.com/lord-server/lord/releases/tag/2023.07.p1)
+ - Update `candles_3d`: Fix dark-{gray|green} candles craft. Fixes #1096
+ - Restore bacteria texture. Fixes #1073
+ - `junglewood` translations: тропический -> эвкалиптовый. Fixes #1006
+ - Change glass stairs & doors textures to our style. Fixes #908
+
 ## [2023.07](https://github.com/lord-server/lord/releases/tag/2023.07)
  - Add "Frozen Stone" stairs & slab. Relates to #997
  - Add waterlily into shallow water. Closes #1086
