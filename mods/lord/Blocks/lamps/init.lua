@@ -13,79 +13,73 @@ local candle_lamp_node_box = {
 	},
 }
 
+--- @param material string
+local on_place = function(material)
+	--- @param itemstack     ItemStack
+	--- @param placer        Player
+	--- @param pointed_thing pointed_thing
+	return function(itemstack, placer, pointed_thing)
+		-- По умолчанию напольная лампа.
+		local node_name_to_place = "lamps:" .. material .. "_candle_lamp"
+		if pointed_thing.above.y == pointed_thing.under.y-1 then
+			-- Если установка происходит в блок(ноду) ниже того, на который игрок навёл, то подвесная лампа.
+			node_name_to_place = "lamps:"..material.."_hanging_candle_lamp"
+		end
+
+		local _, position = minetest.item_place(ItemStack(node_name_to_place), placer, pointed_thing, 0)
+		if position then
+			itemstack:take_item()
+		end
+
+		return itemstack, position
+	end
+end
+
+
 local function register_candle_lamp(material, desc, ingot)
 	local upTx = "lamps_candle_lamp_"..material.."_up.png"
 	local sideTx = "lamps_light_candle_lamp.png^lamps_candle_lamp_"..material.."_side.png"
 	local chain = "lamps_chains_"..material..".png"
 
-	-- Лампа-итем.
-	minetest.register_craftitem("lamps:"..material.."_item_candle_lamp", {
-		description = S(desc.." candle lamp"),
-		inventory_image = sideTx,
-		on_place = function(itemstack, placer, pointed_thing)
-			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
-			if pointed_thing.above.y ~= pointed_thing.under.y-1 then
-				-- Если блок, который поставил игрок не ниже блока,
-				-- который он выделил, то напольная лампа.
-				itemstack:set_name("lamps:"..material.."_candle_lamp")
-				minetest.item_place_node(itemstack, placer, pointed_thing, 0)
-			else
-				-- Если блок, который поставил игрок ниже блока,
-				-- который он выделил, то потолочная лампа.
-				itemstack:set_name("lamps:"..material.."_hanging_candle_lamp")
-				minetest.item_place_node(itemstack, placer, pointed_thing, 0)
-			end
-			itemstack:set_name("lamps:"..material.."_item_candle_lamp")
-		return itemstack
-		end
-	})
+	local common_definition = {
+		use_texture_alpha = "clip",
+		groups = {cracky = 2, not_in_creative_inventory = 1},
+		drawtype = "mesh",
+		paramtype = "light",
+		paramtype2 = "facedir",
+		collision_box = candle_lamp_node_box,
+		selection_box = candle_lamp_node_box,
+		light_source = 10,
+		drop = "lamps:"..material.."_candle_lamp",
+		on_place = on_place(material)
+	}
+
+	minetest.register_alias(
+		"lamps:" .. material .. "_item_candle_lamp",
+		"lamps:" .. material .. "_candle_lamp"
+	)
 
 	-- Напольная лампа.
-	minetest.register_node("lamps:"..material.."_candle_lamp", {
-		description = desc.." candle lamp",
-		tiles = {
-			upTx,
-			sideTx},
-		use_texture_alpha = "clip",
-		groups = {cracky = 2, not_in_creative_inventory = 1},
-		drawtype = "mesh",
-		paramtype = "light",
-		paramtype2 = "facedir",
-		mesh = "lamps_candle_lamp.obj",
-		visual_scale = 6.25,
-		collision_box = candle_lamp_node_box,
-		selection_box = candle_lamp_node_box,
-		light_source = 10,
-		{not_in_creative_inventory = 1, choppy = 2},
-		drop = "lamps:"..material.."_item_candle_lamp",
-	})
+	minetest.register_node("lamps:" .. material .. "_candle_lamp", table.merge(common_definition, {
+		description = desc .. " candle lamp",
+		tiles       = { upTx, sideTx },
+		mesh        = "lamps_candle_lamp.obj",
+	}))
 
-	-- Потолочная лампа.
-	minetest.register_node("lamps:"..material.."_hanging_candle_lamp", {
-		description = desc.." hanging candle lamp",
-		tiles = {
-			upTx,
-			sideTx,
-			chain},
-		use_texture_alpha = "clip",
-		groups = {cracky = 2, not_in_creative_inventory = 1},
-		drawtype = "mesh",
-		paramtype = "light",
-		paramtype2 = "facedir",
-		mesh = "lamps_hanging_candle_lamp.obj",
-		visual_scale = 6.25,
-		collision_box = candle_lamp_node_box,
-		selection_box = candle_lamp_node_box,
-		light_source = 10,
-		drop = "lamps:"..material.."_item_candle_lamp",
-	})
+	-- Подвесная лампа.
+	minetest.register_node("lamps:" .. material .. "_hanging_candle_lamp", table.merge(common_definition, {
+		description = desc .. " hanging candle lamp",
+		tiles       = { upTx, sideTx, chain },
+		mesh        = "lamps_hanging_candle_lamp.obj",
+	}))
 
 	minetest.register_craft({
-	output = "lamps:"..material.."_item_candle_lamp",
-	recipe = {
-		{"", ingot, ""},
-		{"default:glass", "lord_homedecor:candle", "default:glass"},
-		{"", ingot, ""}},
+		output = "lamps:" .. material .. "_candle_lamp",
+		recipe = {
+			{ "", ingot, "" },
+			{ "default:glass", "lord_homedecor:candle", "default:glass" },
+			{ "", ingot, "" }
+		},
 	})
 end
 
