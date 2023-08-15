@@ -590,7 +590,7 @@ minetest.register_node("lottplants:pinetree", {
 	groups      = { tree = 1, choppy = 3, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:pinetree", digger, 13, 2, "lottplants:pinetree")
+		default.dig_tree(pos, node, "lottplants:pinetree", digger, 13, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:pinetrunk")
@@ -615,7 +615,7 @@ minetest.register_node("lottplants:firtree", {
 	groups      = { tree = 1, choppy = 3, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:firtree", digger, 13, 2, "lottplants:firtree")
+		default.dig_tree(pos, node, "lottplants:firtree", digger, 13, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:firtrunk")
@@ -641,7 +641,7 @@ minetest.register_node("lottplants:birchtree", {
 	groups      = { tree = 1, choppy = 3, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:birchtree", digger, 12, 3, "lottplants:birchtree")
+		default.dig_tree(pos, node, "lottplants:birchtree", digger, 12, 3)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:birchtrunk")
@@ -666,7 +666,7 @@ minetest.register_node("lottplants:aldertree", {
 	groups      = { tree = 1, choppy = 2, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:aldertree", digger, 10, 2, "lottplants:aldertree")
+		default.dig_tree(pos, node, "lottplants:aldertree", digger, 10, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:aldertrunk")
@@ -691,7 +691,7 @@ minetest.register_node("lottplants:lebethrontree", {
 	groups      = { tree = 1, choppy = 1, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:lebethrontree", digger, 10, 2, "lottplants:lebethrontree")
+		default.dig_tree(pos, node, "lottplants:lebethrontree", digger, 10, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:lebethrontrunk")
@@ -716,7 +716,7 @@ minetest.register_node("lottplants:mallorntree", {
 	groups      = { tree = 1, choppy = 1, flammable = 2 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:mallorntree", digger, 30, 5, "lottplants:mallorntree")
+		default.dig_tree(pos, node, "lottplants:mallorntree", digger, 30, 5)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:mallorntrunk")
@@ -759,7 +759,7 @@ minetest.register_node("lottplants:mallorntree_young", {
 	groups      = { tree = 1, choppy = 1, flammable = 2, fuel = 1 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:mallorntree_young", digger, 10, 1, "lottplants:mallorntree_young")
+		default.dig_tree(pos, node, "lottplants:mallorntree_young", digger, 10, 1)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:mallorntrunk_young")

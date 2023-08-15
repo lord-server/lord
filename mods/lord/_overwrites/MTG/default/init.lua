@@ -513,7 +513,7 @@ minetest.register_node(":default:jungletree_trunk", {
 
 minetest.override_item("default:tree", {
 	on_dig = function(pos, node, digger)
-		default.dig_tree(pos, node, "default:tree", digger, 20, 2, "default:tree")
+		default.dig_tree(pos, node, "default:tree", digger, 20, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "default:tree_trunk")
@@ -522,7 +522,7 @@ minetest.override_item("default:tree", {
 
 minetest.override_item("default:jungletree", {
 	on_dig = function(pos, node, digger)
-		default.dig_tree(pos, node, "default:jungletree", digger, 20, 2, "default:jungletree")
+		default.dig_tree(pos, node, "default:jungletree", digger, 20, 2)
 	end,
 	on_place = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "default:jungletree_trunk")
@@ -545,39 +545,61 @@ function default.place_tree(itemstack, placer, pointed_thing, trunk_name)
 	return itemstack
 end
 
--- Падение ствола деревьев вниз при ломании
-function default.dig_tree(pos, node, name, digger, height, radius, drop)
-	minetest.node_dig(pos, node, digger)
-
-	if minetest.is_protected(pos, digger:get_player_name()) then
-		return
-	end
-
-	local base_y = pos.y
-	for i = 1, (height + 5) do
-		pos.y        = base_y + i
-		local node_i = minetest.get_node(pos)
-		if node_i.name ~= name or i == (height + 5) then
-			minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
-			for k = -radius, radius do
-				for l = -radius, radius do
-					for j = 0, 1 do
-						local tree_bellow = minetest.get_node({ x = pos.x + k, y = pos.y - 1, z = pos.z + l })
-						if tree_bellow.name ~= name then
-							local pos1 = { x = pos.x + k, y = pos.y + j, z = pos.z + l }
-							if minetest.get_node(pos1).name == name then
-								minetest.spawn_item(pos1, drop)
-								minetest.remove_node(pos1)
-							end
-						end
+--- Removes all specified `name`-nodes
+local function falloff_tree_branches(pos, name, radius)
+	for k = -radius, radius do
+		for l = -radius, radius do
+			for j = 0, 1 do
+				local node_bellow = minetest.get_node({ x = pos.x + k, y = pos.y - 1, z = pos.z + l })
+				if node_bellow.name ~= name then
+					local node_pos = { x = pos.x + k, y = pos.y + j, z = pos.z + l }
+					if minetest.get_node(node_pos).name == name then
+						minetest.spawn_item(node_pos, name)
+						minetest.remove_node(node_pos)
 					end
 				end
 			end
-			return
-		elseif node_i.name == name then
-			minetest.set_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = name })
 		end
 	end
+end
+
+--- Падение(сползание) ствола деревьев вниз при ломании
+--- Fall(slide) all trunk nodes down while digging
+--- @param pos    Position
+--- @param node   Node
+--- @param name   string
+--- @param digger Player
+--- @param height number
+--- @param radius number
+---
+--- @return boolean
+function default.dig_tree(pos, node, name, digger, height, radius)
+	if (not minetest.node_dig(pos, node, digger)) then
+		return false
+	end
+
+	local pos_i        = vector.copy(pos)
+	local previous_pos = vector.copy(pos)
+	for i = 1, (height + 5) do
+		pos_i.y      = pos.y + i
+		local node_i = minetest.get_node(pos_i)
+		if node_i.name ~= name or i == (height + 5) then
+			if i == 1 then
+				return true
+			end
+
+			minetest.remove_node(previous_pos) -- remove last (highest) trunk-node: for move all trunk nodes down
+			minetest.node_punch(previous_pos, node, digger) -- punch for callback mechanics (for ex. torch will fall)
+			minetest.set_node(pos, { name = name }) -- first trunk-node (actually dug): for move all trunk nodes down
+
+			falloff_tree_branches(pos_i, name, radius)
+
+			return true
+		end
+		previous_pos = vector.copy(pos_i)
+	end
+
+	return true
 end
 
 local function grow_papyrus_but_on_soils(pos, node)
