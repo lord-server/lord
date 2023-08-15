@@ -450,14 +450,19 @@ minetest.register_node(":default:nyancat_rainbow", {
 -- Перезапись листвы ради модельки и возможности карабкаться
 
 minetest.override_item("default:leaves", {
-	drawtype = "mesh",
-	mesh = "leaves_model.obj",
-	tiles = {"default_leaves.png"},
-	use_texture_alpha = "clip",
-	inventory_image = "default_leaves_inv.png",
-	waving = 2,
-	walkable = false,
-	climbable = true,
+	drawtype                   = "mesh",
+	mesh                       = "leaves_model.obj",
+	tiles                      = { "default_leaves.png" },
+	use_texture_alpha          = "clip",
+	inventory_image            = "default_leaves_inv.png",
+	waving                     = 2,
+	walkable                   = false,
+	move_resistance            = 6,
+	liquidtype                 = "source",
+	liquid_alternative_flowing = "default:leaves",
+	liquid_alternative_source  = "default:leaves",
+	liquid_renewable           = false,
+	liquid_range               = 0,
 })
 
 -- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
