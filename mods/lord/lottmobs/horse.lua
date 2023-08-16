@@ -27,11 +27,22 @@ local function get_v(v)
 end
 
 --- @param entity luaentity|table
+--- @param player Player
+--- @return boolean
 local function move_horse_to_inventory(entity, player)
 	local horse_item = ItemStack(entity.name)
 	horse_item:get_meta():set_int('hp', entity.object:get_hp())
+	if not player:get_inventory():room_for_item("main", horse_item) then
+		minetest.chat_send_player(
+			player:get_player_name(),
+			minetest.colorize("yellow", SL("Inventory is full!"))
+		)
+		return false
+	end
 	player:get_inventory():add_item("main", horse_item)
 	entity.object:remove()
+
+	return true
 end
 
 
@@ -310,11 +321,12 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 		if puncher and puncher:is_player() then
 			if puncher:get_player_name() == ridername then
-				player_api.player_attached[puncher:get_player_name()] = false
-				puncher:set_detach()
-				move_horse_to_inventory(self, puncher)
-				if self.offset == true then
-					puncher:set_eye_offset({ x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 })
+				if move_horse_to_inventory(self, puncher) then
+					player_api.player_attached[puncher:get_player_name()] = false
+					puncher:set_detach()
+					if self.offset == true then
+						puncher:set_eye_offset({ x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 })
+					end
 				end
 			elseif ridername == nil and puncher:get_player_control().sneak then
 				move_horse_to_inventory(self, puncher)

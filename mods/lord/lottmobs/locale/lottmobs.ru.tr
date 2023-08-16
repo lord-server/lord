@@ -31,6 +31,7 @@ Shire Pony 1=Чёрный пони
 Shire Pony 2=Серый пони
 You can't ride this beast!!!=Вы не можете оседлать это животное!!!
 You could not tame this beast!!!=Вы не смогли приручить это животное!!!
+Inventory is full!=Инвентарь полон!
 
 ### boar.lua ###
 Boar=Кабан
