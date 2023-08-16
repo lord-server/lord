@@ -297,7 +297,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 				if self.offset == true then
 					puncher:set_eye_offset({ x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 })
 				end
-			elseif ridername == nil then
+			elseif ridername == nil and puncher:get_player_control().sneak then
 				puncher:get_inventory():add_item("main", name)
 				self.object:remove()
 			elseif self.aggressive == true then
