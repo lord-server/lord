@@ -29,7 +29,25 @@ end
 function lottmobs.register_horse(name, craftitem, horse)
 
 	if craftitem ~= nil then
+		--- @param itemstack ItemStack
+		--- @param placer    Player
+		--- @param pointed_thing pointed_thing
+		--- @return ItemStack, Position|nil
 		function craftitem.on_place(itemstack, placer, pointed_thing)
+			-- Call on_rightclick if the pointed node defines it
+			if pointed_thing.type == "node" and placer and
+				not placer:get_player_control().sneak then
+				local n = core.get_node(pointed_thing.under)
+				local nn = n.name
+				if core.registered_nodes[nn] and core.registered_nodes[nn].on_rightclick then
+					return
+						core.registered_nodes[nn].on_rightclick(
+							pointed_thing.under, n, placer, itemstack, pointed_thing
+						) or itemstack,
+						nil
+				end
+			end
+
 			if pointed_thing.above then
 				minetest.add_entity(pointed_thing.above, name)
 
@@ -37,8 +55,10 @@ function lottmobs.register_horse(name, craftitem, horse)
 					itemstack:take_item()
 				end
 			end
-			return itemstack
+
+			return itemstack, pointed_thing.above
 		end
+
 		minetest.register_craftitem(name, craftitem)
 	end
 
