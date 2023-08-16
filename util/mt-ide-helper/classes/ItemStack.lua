@@ -25,7 +25,7 @@ function ItemStack:get_definition() end
 --- returns get_stack_max() - get_count()
 function ItemStack:get_free_space() end
 
---- returns a MetaDataRef
+--- @return MetaDataRef
 function ItemStack:get_meta() end
 
 --- returns a string, for compatibility reasons this is equal to get_meta():get_string("")

@@ -981,6 +981,7 @@ function minetest.get_node_timer(pos) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4908-L4910)
 --- `staticdata` [Optional] no info
+--- @return ObjectRef|nil
 function minetest.add_entity(pos, name, staticdata) end
 --- Spawn item
 --- * Returns `ObjectRef`, or `nil` if failed

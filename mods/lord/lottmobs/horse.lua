@@ -26,6 +26,15 @@ local function get_v(v)
 	return math.sqrt(v.x ^ 2 + v.z ^ 2)
 end
 
+--- @param entity luaentity|table
+local function move_horse_to_inventory(entity, player)
+	local horse_item = ItemStack(entity.name)
+	horse_item:get_meta():set_int('hp', entity.object:get_hp())
+	player:get_inventory():add_item("main", horse_item)
+	entity.object:remove()
+end
+
+
 function lottmobs.register_horse(name, craftitem, horse)
 
 	if craftitem ~= nil then
@@ -49,7 +58,10 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 
 			if pointed_thing.above then
-				minetest.add_entity(pointed_thing.above, name)
+				local entity = minetest.add_entity(pointed_thing.above, name)
+				if itemstack:get_meta():contains('hp') then
+					entity:set_hp(itemstack:get_meta():get_int('hp') or horse.hp)
+				end
 
 				if not minetest.is_creative_enabled(placer) then
 					itemstack:take_item()
@@ -64,6 +76,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 	horse.v      = 0
 	horse.driver = nil
+	horse.hp_max = horse.hp_max or horse.hp or 10
 
 	function horse:set_animation(type)
 		if not self.animation then
@@ -281,15 +294,13 @@ function lottmobs.register_horse(name, craftitem, horse)
 		if staticdata then
 			self.v = tonumber(staticdata)
 		end
-
-		local hp = self.hp or 10
-		self.object:set_hp(hp)
 	end
 
 	function horse:get_staticdata()
 		return tostring(self.v)
 	end
 
+	--- @param puncher Player|ObjectRef
 	function horse:on_punch(puncher, time_from_last_punch, tool_capabilities, direction)
 		local ridername = self.ridername
 		local rider
@@ -299,16 +310,14 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 		if puncher and puncher:is_player() then
 			if puncher:get_player_name() == ridername then
-				puncher:get_inventory():add_item("main", name)
 				player_api.player_attached[puncher:get_player_name()] = false
 				puncher:set_detach()
-				self.object:remove()
+				move_horse_to_inventory(self, puncher)
 				if self.offset == true then
 					puncher:set_eye_offset({ x = 0, y = 0, z = 0 }, { x = 0, y = 0, z = 0 })
 				end
 			elseif ridername == nil and puncher:get_player_control().sneak then
-				puncher:get_inventory():add_item("main", name)
-				self.object:remove()
+				move_horse_to_inventory(self, puncher)
 			elseif self.aggressive == true then
 				local objs = minetest.get_objects_inside_radius(self.object:get_pos(), 4)
 				for _, obj in ipairs(objs) do
