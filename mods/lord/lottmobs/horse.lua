@@ -163,6 +163,15 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 		end
 
+		-- show health  (for non driven & damaged)
+		if not horse.driver and self.object:get_hp() < self.hp then
+			local tag = self.object:get_hp() .. " / " .. self.hp
+			if (self.object:get_properties().nametag ~= tag) then -- only if changed (possible reduces network traffic)
+				self.object:set_properties({ nametag = tag, nametag_color = "red" })
+			end
+		end
+
+
 		local underattack = self.underattack or false
 
 		if self.v == 0 then
