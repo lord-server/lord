@@ -31,6 +31,8 @@ Shire Pony 1=Чёрный пони
 Shire Pony 2=Серый пони
 You can't ride this beast!!!=Вы не можете оседлать это животное!!!
 You could not tame this beast!!!=Вы не смогли приручить это животное!!!
+Can only be placed on a hard surface.=Можно поставить только на твёрдую поверхность.
+Sweetly far. Try to get closer.=Слишком далеко. Попробуйте подойти поближе.
 Inventory is full!=Инвентарь полон!
 
 ### boar.lua ###

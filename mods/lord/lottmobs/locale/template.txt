@@ -31,6 +31,8 @@ Shire Pony 1=
 Shire Pony 2=
 You can't ride this beast!!!=
 You could not tame this beast!!!=
+Can only be placed on a hard surface.=
+Sweetly far. Try to get closer.=
 Inventory is full!=
 
 ### boar.lua ###

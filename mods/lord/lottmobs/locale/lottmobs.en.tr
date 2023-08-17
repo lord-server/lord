@@ -31,6 +31,8 @@ Shire Pony 1=Shire Pony
 Shire Pony 2=Shire Pony
 You can't ride this beast!!!=You can't ride this beast!!!
 You could not tame this beast!!!=You could not tame this beast!!!
+Can only be placed on a hard surface.=Can only be placed on a hard surface.
+Sweetly far. Try to get closer.=Sweetly far. Try to get closer.
 Inventory is full!=Inventory is full!
 
 ### boar.lua ###

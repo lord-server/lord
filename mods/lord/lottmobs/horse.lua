@@ -68,15 +68,39 @@ function lottmobs.register_horse(name, craftitem, horse)
 				end
 			end
 
-			if pointed_thing.above then
-				local entity = minetest.add_entity(pointed_thing.above, name)
-				if itemstack:get_meta():contains('hp') then
-					entity:set_hp(itemstack:get_meta():get_int('hp') or horse.hp)
-				end
+			if not pointed_thing.above then
+				return itemstack, nil
+			end
 
-				if not minetest.is_creative_enabled(placer) then
-					itemstack:take_item()
-				end
+			local pos_below  = vector.add(pointed_thing.above, vector.new(0, -1, 0))
+			local node_below = minetest.get_node_or_nil(pos_below)
+			local node_under_def = node_below and minetest.registered_nodes[node_below.name]
+			local walkable = node_under_def and (node_under_def.walkable == nil or node_under_def.walkable == true)
+			if not walkable then
+				minetest.chat_send_player(
+					placer:get_player_name(),
+					minetest.colorize("yellow", SL("Can only be placed on a hard surface."))
+				)
+				return itemstack, nil
+			end
+
+			if not minetest.find_path(placer:get_pos(), pointed_thing.above, 1, 1, 3, "Dijkstra") then
+				minetest.chat_send_player(
+					placer:get_player_name(),
+					minetest.colorize("yellow", SL("Sweetly far. Try to get closer."))
+				)
+				return itemstack, nil
+			end
+
+			local place_to = vector.copy(pointed_thing.above)
+			place_to.y     = place_to.y - 0.5
+			local entity = minetest.add_entity(place_to, name)
+			if itemstack:get_meta():contains('hp') then
+				entity:set_hp(itemstack:get_meta():get_int('hp') or horse.hp)
+			end
+
+			if not minetest.is_creative_enabled(placer) then
+				itemstack:take_item()
 			end
 
 			return itemstack, pointed_thing.above
