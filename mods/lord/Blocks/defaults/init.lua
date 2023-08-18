@@ -36,6 +36,13 @@ function ghost.register_ghost_material(name)
 	end
 	node.groups.not_in_creative_inventory = 1
 	node.groups.ghostly = 1
+	-- for replace ABM
+	-- New stairs has no "upside_down" nodes variant anymore,
+	-- but mod have ABM to replace old ones with group `slabs_replace` to new ones with name `replace_name`.
+	-- So old ghost "upside_down" stairs need to be replaced to new ghost stairs.
+	if node.groups.slabs_replace then
+		node.replace_name = ghost_name:gsub("upside_down", "")
+	end
 	if type(node.drop) == "string" then
 		node.drop = {
 			maxitems = 1,
@@ -130,7 +137,9 @@ minetest.register_craft({
 
 
 local forbidden_groups = { "ghostly", "door", }
-local accepted_groups = { "stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", }
+local accepted_groups = {
+	"stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", "slabs_replace",
+}
 
 -- TODO: move into helpers, use something like "table:containsOneOf()"
 --- @param node_definition NodeDefinition
