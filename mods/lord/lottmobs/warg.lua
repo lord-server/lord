@@ -31,6 +31,10 @@ lottmobs.register_horse("lottmobs:warg_mount", {
 	max_speed     = 7,
 	forward_boost = 2.33,
 	jump_boost    = 7,
+	feed = {
+		["lottmobs:rotten_meat"] = 3,
+		["lottfarming:orc_food"] = 2,
+	},
 })
 ----------------
 

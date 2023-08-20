@@ -45,6 +45,28 @@ local function move_horse_to_inventory(entity, player)
 	return true
 end
 
+--- Tries to feed the horse `horse`(any riding entity) with a `item_stack`.
+--- Ups the health points if this `horse` can eat this `item_stack`, decreases items in stack.
+--- Possible food for horse and health points recovering configures by `feed` field in `register_horse()` func.
+--- @param horse      luaentity|table
+--- @param item_stack ItemStack
+--- @return boolean true if horse was fed & hp was up.
+local function feed_horse(horse, item_stack)
+	local item_name = item_stack:get_name()
+
+	if not item_name or horse.object:get_hp() == horse.hp_max or not horse.feed or not horse.feed[item_name] then
+		return false
+	end
+
+	local hp = horse.object:get_hp() + tonumber(horse.feed[item_name])
+	if hp > horse.hp_max then
+		hp = horse.hp_max
+	end
+	horse.object:set_hp(hp)
+	item_stack:take_item()
+
+	return true
+end
 
 function lottmobs.register_horse(name, craftitem, horse)
 
@@ -212,11 +234,12 @@ function lottmobs.register_horse(name, craftitem, horse)
 		end
 
 		-- show health  (for non driven & damaged)
-		if not horse.driver and self.object:get_hp() < self.hp then
-			local tag = self.object:get_hp() .. " / " .. self.hp
-			if (self.object:get_properties().nametag ~= tag) then -- only if changed (possible reduces network traffic)
-				self.object:set_properties({ nametag = tag, nametag_color = "red" })
-			end
+		local tag = ""
+		if not self.driver and self.object:get_hp() < self.hp then
+			tag = self.object:get_hp() .. " / " .. self.hp
+		end
+		if (self.object:get_properties().nametag ~= tag) then -- only if changed (possible reduces network traffic)
+			self.object:set_properties({ nametag = tag, nametag_color = "red" })
 		end
 
 
@@ -282,11 +305,16 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 	end
 
+	--- @param clicker Player
 	function horse:on_rightclick(clicker)
 		local player = clicker:get_player_name()
 		if not clicker or not clicker:is_player() then
 			return
 		end
+		if feed_horse(self, clicker:get_wielded_item()) then
+			return
+		end
+
 		if self.driver and clicker == self.driver then
 			self.driver    = nil
 			self.ridername = nil
@@ -429,6 +457,9 @@ lottmobs.register_horse("lottmobs:horseh1", {
 	forward_boost = 2.33,
 	jump_boost    = 4,
 	attach_h = 6,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 
 --horse white
@@ -457,6 +488,9 @@ lottmobs.register_horse("lottmobs:horsepegh1", {
 	forward_boost = 2.33,
 	jump_boost    = 4,
 	attach_h = 6,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 
 --horse arabik
@@ -485,6 +519,9 @@ lottmobs.register_horse("lottmobs:horsearah1", {
 	forward_boost = 2.33,
 	jump_boost    = 4,
 	attach_h = 6,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 
 lottmobs.register_horse("lottmobs:shireponyblackh1", {
@@ -512,7 +549,10 @@ lottmobs.register_horse("lottmobs:shireponyblackh1", {
 	},
 	max_speed     = 5,
 	forward_boost = 1.67,
-	jump_boost    = 3
+	jump_boost    = 3,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 
 lottmobs.register_horse("lottmobs:shireponyh1", {
@@ -540,7 +580,10 @@ lottmobs.register_horse("lottmobs:shireponyh1", {
 	},
 	max_speed     = 5,
 	forward_boost = 1.67,
-	jump_boost    = 3
+	jump_boost    = 3,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 
 

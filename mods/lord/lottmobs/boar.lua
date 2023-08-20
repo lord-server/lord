@@ -31,6 +31,9 @@ lottmobs.register_horse("lottmobs:boar_mount", {
 	max_speed     = 7,
 	forward_boost = 1.67,
 	jump_boost    = 5,
+	feed = {
+		["lottfarming:carrot_item"] = 2,
+	},
 })
 ----------------
 
