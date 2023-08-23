@@ -172,6 +172,7 @@ local c_silver_sand = id("default:silver_sand")
 local c_ice = id("default:ice")
 local c_dirt = id("default:dirt")
 local c_clay = id("default:clay")
+local c_mordor_clay = id("clay_types:mordor_clay_block_raw")
 
 local c_stone          = id("default:stone")
 local c_stone_w_copper = id("default:stone_with_copper")
@@ -265,7 +266,11 @@ end
 --- @param data        table  loaded piece of map data: array of node's content IDs
 --- @param index       number linear index in `data` of current position
 local function biome_place_water_bottom(biome, temperature, y, data, index)
-	if biome ~= BIOME_MORDOR then
+	if biome == BIOME_MORDOR then
+		if math_abs(temperature) < 0.05 and y == (water_level - 1) then -- mordor clay
+			data[index] = c_mordor_clay
+		end
+	else
 		if math_abs(temperature) < 0.05 and y == (water_level - 1) then -- clay
 			data[index] = c_clay
 		elseif math_abs(temperature) < 0.05 and y == (water_level - 5) then -- salt

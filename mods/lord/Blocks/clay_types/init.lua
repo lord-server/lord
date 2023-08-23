@@ -74,8 +74,8 @@ minetest.register_craftitem("clay_types:mordor_clay_lump", {
 minetest.register_node("clay_types:mordor_clay_block_raw", {
 	description = S("Raw Mordor Clay Block"),
 	tiles = {"clay_types_mordor_clay_block_raw.png"},
-	is_ground_content = false,
 	groups = {crumbly = 2},
+	drop = "clay_types:mordor_clay_lump 4",
 	sounds = default.node_sound_dirt_defaults(),
 })
 
@@ -99,7 +99,7 @@ stairs.register_stair_and_slab("mordor_clay_block_dried", "clay_types:mordor_cla
 )
 
 minetest.register_craft({
-	output = "clay_types:mordor_clay",
+	output = "clay_types:mordor_clay_block_raw",
 	recipe = {
 		{"clay_types:mordor_clay_lump", "clay_types:mordor_clay_lump"},
 		{"clay_types:mordor_clay_lump", "clay_types:mordor_clay_lump"},
