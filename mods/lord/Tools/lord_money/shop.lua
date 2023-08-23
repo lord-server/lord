@@ -19,9 +19,6 @@ shop.formspec = {
 	customer = function(pos)
 		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
-		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
-		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
-
 		"label[0,-0.35;"..S("Owner gives").."]"..
 		"list["..list_name..";owner_gives;0,0.1;2,2;]"..
 
@@ -47,9 +44,6 @@ shop.formspec = {
 	configurator = function(pos, admin, is_endless)
 		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
-		"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"..
-		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"..
-
 		"label[0,-0.35;"..S("In exchange, you give:").."]"..
 		"list["..list_name..";owner_gives;0,0.1;2,2;]"..
 

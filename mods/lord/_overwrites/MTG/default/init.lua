@@ -8,17 +8,6 @@ default.gui_slots = "listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
 
 
 
--- default/chests.lua
-
--- Нам нужно только подсунуть свой фон (background), но для этого приходится переопределить ф-цию:
-local old_chest_get_chest_formspec = default.chest.get_chest_formspec
-default.chest.get_chest_formspec = function(pos)
-	return old_chest_get_chest_formspec(pos) .. "background[-0.5,-0.65;9,10.35;gui_chestbg.png]"
-end
-
-
-
-
 -- default/furnace.lua
 
 -- Нам нужно только подсунуть свой фон
