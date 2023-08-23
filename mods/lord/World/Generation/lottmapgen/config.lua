@@ -112,6 +112,7 @@ local biome_airspace = {
 		flora = {
 			plants = {
 				[lottmapgen_grass] = PLANT3,
+				[id("farming:cotton_wild")] = PLANT10,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE5,
@@ -202,6 +203,7 @@ local biome_airspace = {
 				[lottmapgen_farmingplants] = PLANT4,
 				[id("lottplants:melon_wild")] = PLANT9,
 				[id("flowers:geranium")] = PLANT10,
+				[id("farming:cotton_wild")] = PLANT10,
 			},
 			trees = {
 				[lottmapgen_defaulttree] = TREE3,

@@ -83,6 +83,14 @@ minetest.override_item("lottmapgen:default_grass", {
 	}
 })
 
+minetest.override_item("farming:cotton_wild", {drop = {
+	max_items = 1,
+	items = {
+		{items = {"farming:cotton_wild"}, rarity = 8},
+		{items = {"farming:seed_cotton"}},
+	}
+}})
+
 
 -- Clear hoes tools and craft registration
 minetest.clear_craft({output = "farming:hoe_mese"})
