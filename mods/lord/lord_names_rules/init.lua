@@ -10,9 +10,9 @@ local rules = {
 	},
 	{
 		match = function(name)
-			return #name < 14
+			return #name <= 24
 		end,
-		description = SL("Your name must be less than 14 symbols;"),
+		description = SL("Your name must be less than 24 symbols;"),
 	},
 	{
 		match = function(name)
