@@ -20,7 +20,10 @@ local function player_display_hp(player)
 		return
 	end
 
-	local previous_nametag = player:get_nametag_attributes().nametag
+	local previous_nametag = player:get_nametag_attributes().text
+	if not previous_nametag or previous_nametag == "" then
+		previous_nametag = name
+	end
 	local hp = player:get_hp()
 	local color
 	if hp > 13 then
@@ -30,7 +33,7 @@ local function player_display_hp(player)
 	else
 		color = "#FF0000"
 	end
-	player:set_properties({nametag = previous_nametag.. minetest.colorize(color, " ♥ "..hp)})
+	player:set_properties({nametag = previous_nametag .. minetest.colorize(color, " ♥ "..hp)})
 	displayed_after_nametag[name] = previous_nametag
 end
 
