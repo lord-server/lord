@@ -1,5 +1,77 @@
 # Change Log
 
+## [2023.08](https://github.com/lord-server/lord/releases/tag/2023.08)
+ - Horses:
+   - Take horse with hold `sneak` 
+   - Show health for damaged non driven horse.
+   - Store hp for teken into inventory horse. Fixes #1100
+   - Check if inventory is full on take horse. Fixes #1101
+   - Place horse only on surface & only near by. Fixes #513
+   - Ability to feed horses. Closes #1104:
+     - horses & pony: by carrot, recovers 5 hp
+     - wargs: by rotten meat (6 hp) & orc food (5 hp)
+ - Use standard bg for chest, workbench, shop & mail box. Relates to #17
+ - Add Vassals clan cloak.
+ - MapGen: add `farming:cotton_wild`. Add rarity drop itself. Resolves #1105
+ - MapGen: add mordor clay. Fix some bugs. Resolves #1077
+ - Login can be up to 24 symbols
+ - Display clan name in player nametag. Resolves #1107
+ - Change road craft. Fixes #1106
+ - Added new crafts for walls (Due to MTG update):
+   - wall for `"default:brick"`
+   - walls for:
+     - `"default:sandstone"`
+     - `"default:sandstonebrick"`
+     - `"default:sandstone_block"`
+   - walls for:
+     - `"default:stone"`
+     - `"default:stonebrick"`
+     - `"default:stone_block"`
+   - walls for:
+     - `"default:desert_stone"`
+     - `"default:desert_stonebrick"`
+     - `"default:desert_stone_block"`
+   - walls for:
+     - `"default:desert_sandstone"`
+     - `"default:desert_sandstone_brick"`
+     - `"default:desert_sandstone_block"`
+   - walls for:
+     - `"default:silver_sandstone"`
+     - `"default:silver_sandstone_brick"`
+     - `"default:silver_sandstone_block"`
+   - walls for:
+     - `"default:obsidian"`
+     - `"default:obsidian_brick"`
+     - `"default:obsidian_block"`
+
+ - Bug Fixing:
+   - Fix insertion lamp into frame & remove it items (use node). Fixes #1097
+   - Move resistance while climbing the `default:leaves`. Fixes #683
+   - Refactor `dig_tree()`: Fixes #64. Now torch fall down when tree dug.
+   - Call `on_rightclick` of node if possible when `on_place` of horse. Fixes #1099
+   - Take horse with hold `sneak`. Fixes take horse by arrow hit. Fixes #302
+   - Allow ghosts for old upside_down stairs for replacing by ABM. Fixes `unknown` in Minas Tirith. Fix #263
+
+ - Technical:
+   - Update `minetest.conf.example` from 5.7.0. Closes #920 Ничего нового для серверной части. Т.о. оновлён только `....example`,   а в наши `....test` и `....prod` ничего не уехало.
+   - Core/helpers: add `table.merge_values()`
+   - Remove tnt textures, use red bg for egg. Closes #625
+   - Change server description & `motd` msg.
+   - Remove unused deprecated `default.generate_ore`. Relates to #1079
+   - Extract ores generation into `World/Generation`. Relates to #1079
+   - Update MTG mods to 5.7.0. Closes #919
+     - Fix `player_api.set_model` not updating the animation
+     - Flip item textures of glass doors (#3009)
+     - Ensure chests close properly (#2965)
+     - creative: Override hand after mods loaded... (#2984)
+     - Fix crash if `/home` is executed with an invalid name (#3000)
+     - Fix wall craft registrations (#3004)
+     - Teach screwdriver to rotate 4dir nodes (#2992)
+     - Beds: Replace hardcoded values of day interval with constants (#2990)
+     - Add color_* groups to wool
+     - Added and fixed translations of different languages
+
+
 ## [2023.07.p1](https://github.com/lord-server/lord/releases/tag/2023.07.p1)
  - Update `candles_3d`: Fix dark-{gray|green} candles craft. Fixes #1096
  - Restore bacteria texture. Fixes #1073
