@@ -584,12 +584,12 @@ local function register_road(name, main_material, desc, fill) -- функция 
   -- крафты
 
   minetest.register_craft({
-    output = border_item_name.." 8",
+    output = border_item_name.." 4",
     recipe = {{main_material, main_material}},
   })
 
   minetest.register_craft({
-    output = road_name.." 8",
+    output = road_name.." 4",
     recipe = {{main_material, main_material,main_material},
               {main_material, main_material,main_material}},
   })
@@ -626,12 +626,12 @@ local function register_road(name, main_material, desc, fill) -- функция 
   return true
 end
 
-register_road("stonebrick", "default:stonebrick", {
+register_road("stonebrick", "stairs:slab_stonebrick", {
   description = "Stonebrick",
   groups = {cracky = 2}
 }, "default_stone_brick.png")
 
-register_road("sandstone",  "default:sandstone", {
+register_road("sandstone",  "stairs:slab_sandstone", {
   description = "Sandstone",
   groups = {crumbly = 3}
 }, "default_sandstone.png")
