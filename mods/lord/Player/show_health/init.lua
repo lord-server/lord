@@ -9,9 +9,18 @@ for _, v in ipairs(arena_ids) do
 	table.insert(ARENA_AREA_IDS, tonumber(v))
 end
 
+--- This table shows for whom of players hp is now displaying. And stores previous nametag.
+--- @type table<string,boolean>
+local displayed_after_nametag = {}
+
 --- @param player Player
 local function player_display_hp(player)
 	local name = player:get_player_name()
+	if displayed_after_nametag[name] then -- if health already displaying
+		return
+	end
+
+	local previous_nametag = player:get_nametag_attributes().nametag
 	local hp = player:get_hp()
 	local color
 	if hp > 13 then
@@ -21,13 +30,19 @@ local function player_display_hp(player)
 	else
 		color = "#FF0000"
 	end
-	player:set_properties({nametag = name.." ♥ "..hp, nametag_color = color,})
+	player:set_properties({nametag = previous_nametag.. minetest.colorize(color, " ♥ "..hp)})
+	displayed_after_nametag[name] = previous_nametag
 end
 
 --- @param player Player
 local function player_undisplay_hp(player)
 	local name = player:get_player_name()
-	player:set_properties({nametag = name, nametag_color = "#FFFFFF",})
+	if not displayed_after_nametag[name] then
+		return
+	end
+	local previous_nametag = displayed_after_nametag[name]
+	player:set_properties({nametag = previous_nametag})
+	displayed_after_nametag[name] = nil
 end
 
 -- TODO: move this function into Core/helpers
