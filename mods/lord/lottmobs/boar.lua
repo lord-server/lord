@@ -32,7 +32,7 @@ lottmobs.register_horse("lottmobs:boar_mount", {
 	forward_boost = 1.67,
 	jump_boost    = 5,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 ----------------

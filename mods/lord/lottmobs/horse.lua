@@ -458,7 +458,7 @@ lottmobs.register_horse("lottmobs:horseh1", {
 	jump_boost    = 4,
 	attach_h = 6,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 
@@ -489,7 +489,7 @@ lottmobs.register_horse("lottmobs:horsepegh1", {
 	jump_boost    = 4,
 	attach_h = 6,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 
@@ -520,7 +520,7 @@ lottmobs.register_horse("lottmobs:horsearah1", {
 	jump_boost    = 4,
 	attach_h = 6,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 
@@ -551,7 +551,7 @@ lottmobs.register_horse("lottmobs:shireponyblackh1", {
 	forward_boost = 1.67,
 	jump_boost    = 3,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 
@@ -582,7 +582,7 @@ lottmobs.register_horse("lottmobs:shireponyh1", {
 	forward_boost = 1.67,
 	jump_boost    = 3,
 	feed = {
-		["lottfarming:carrot_item"] = 2,
+		["lottfarming:carrot_item"] = 5,
 	},
 })
 
