@@ -12,7 +12,7 @@ local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or
 
 --- @param pos position
 nazgul_area.position_in_nazgul_area = function(pos)
-    return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
+	return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
 end
 
 -- copy from mobs mod
@@ -48,36 +48,36 @@ end
 -- spawn nazguls in nazgul areas
 minetest.register_abm({
 
-    label = "nazgul_area_spawning",
-    nodenames = {"lord_blocks:green_marble"},
-    interval = 30,
-    chance = 300,
-    catch_up = false,
+	label = "nazgul_area_spawning",
+	nodenames = {"lord_blocks:green_marble"},
+	interval = 30,
+	chance = 300,
+	catch_up = false,
 
-    action = function(pos, node, active_object_count, active_object_count_wider)
-        if active_object_count_wider >= max_per_block then
-            return
-        end
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		if active_object_count_wider >= max_per_block then
+			return
+		end
 
-        if not nazgul_area.position_in_nazgul_area(pos) then
-            return
-        end
+		if not nazgul_area.position_in_nazgul_area(pos) then
+			return
+		end
 
-        if math.random(9) == 1 then
-            if count_mobs(pos, "lottmobs:witch_king") >= 1 then
-                return
-            end
+		if math.random(9) == 1 then
+			if count_mobs(pos, "lottmobs:witch_king") >= 1 then
+				return
+			end
 
-            pos.y = pos.y + 1
+			pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:witch_king")
-        else
-            if count_mobs(pos, "lottmobs:nazgul") >= 8 then
-                return
-            end
+		else
+			if count_mobs(pos, "lottmobs:nazgul") >= 8 then
+				return
+			end
 
-            pos.y = pos.y + 1
+			pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:nazgul")
-        end
+		end
 
-    end
+	end
 })
