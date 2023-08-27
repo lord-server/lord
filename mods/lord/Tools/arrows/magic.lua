@@ -71,9 +71,11 @@ throwing.register_arrow("arrows:darkball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		flame_area(p1, p2)
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		    flame_area(p1, p2)
+        end
 	end,
 	hit_mob           = function(self, mob)
 		local s   = self.object:get_pos()
@@ -84,14 +86,18 @@ throwing.register_arrow("arrows:darkball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		flame_area(p1, p2)
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		    flame_area(p1, p2)
+        end
 	end,
 	hit_node          = function(self, pos, node)
-		local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
-		local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		flame_area(p1, p2)
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+		    local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
+		    local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		    flame_area(p1, p2)
+        end
 	end,
 	can_drop_on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		return false
@@ -132,9 +138,11 @@ throwing.register_arrow("arrows:fireball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		flame_area(p1, p2)
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		    flame_area(p1, p2)
+        end
 	end,
 
 	hit_mob           = function(self, player)
@@ -145,9 +153,11 @@ throwing.register_arrow("arrows:fireball", {
 	end,
 
 	hit_node          = function(self, pos, node)
-		local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
-		local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		flame_area(p1, p2)
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+		    local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
+		    local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		    flame_area(p1, p2)
+        end
 	end,
 	can_drop_on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		return false
