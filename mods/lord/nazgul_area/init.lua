@@ -1,8 +1,5 @@
 nazgul_area = {}
 
-local table_has_value
-	= table.has_value
-
 local NAZGUL_AREA_IDS = {}
 
 local area_ids      = minetest.settings:get("nazgul_areas") or ""
@@ -53,7 +50,6 @@ minetest.register_abm({
 
     label = "nazgul_area_spawning",
     nodenames = {"lord_blocks:green_marble"},
-    neighbors = neighbors,
     interval = 30,
     chance = 300,
     catch_up = false,
@@ -82,6 +78,6 @@ minetest.register_abm({
             pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:nazgul")
         end
-        
+
     end
 })
