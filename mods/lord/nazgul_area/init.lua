@@ -13,22 +13,6 @@ end
 
 local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or 99)
 
-
-local table_has_value
-	= table.has_value
-
--- TODO: move this function into Core/helpers
---- @param list table
---- @param values table
-local function table_keys_has_one_of_values(list, values)
-	for key in pairs(list) do
-		if table_has_value(values, key) then
-			return true
-		end
-	end
-	return false
-end
-
 --- @param pos position
 nazgul_area.position_in_nazgul_area = function(pos)
     return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)

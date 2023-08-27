@@ -1,6 +1,3 @@
-local table_has_value
-	= table.has_value
-
 local ARENA_AREA_IDS = {}
 
 local arena_ids      = minetest.settings:get("arenas") or ""
@@ -46,18 +43,6 @@ local function player_undisplay_hp(player)
 	local previous_nametag = displayed_after_nametag[name]
 	player:set_properties({nametag = previous_nametag})
 	displayed_after_nametag[name] = nil
-end
-
--- TODO: move this function into Core/helpers
---- @param list table
---- @param values table
-local function table_keys_has_one_of_values(list, values)
-	for key in pairs(list) do
-		if table_has_value(values, key) then
-			return true
-		end
-	end
-	return false
 end
 
 minetest.register_globalstep(function(dtime)
