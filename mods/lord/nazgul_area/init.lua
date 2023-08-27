@@ -1,4 +1,4 @@
-nazgul_areas = {}
+nazgul_area = {}
 
 local table_has_value
 	= table.has_value
@@ -13,8 +13,24 @@ end
 
 local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or 99)
 
+
+local table_has_value
+	= table.has_value
+
+-- TODO: move this function into Core/helpers
+--- @param list table
+--- @param values table
+local function table_keys_has_one_of_values(list, values)
+	for key in pairs(list) do
+		if table_has_value(values, key) then
+			return true
+		end
+	end
+	return false
+end
+
 --- @param pos position
-nazgul_areas.position_in_nazgul_area = function(pos)
+nazgul_area.position_in_nazgul_area = function(pos)
     return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
 end
 
@@ -23,7 +39,7 @@ local count_mobs = function(pos, type)
 
 	local num_type = 0
 	local num_total = 0
-	local objs = minetest.get_objects_inside_radius(pos, aoc_range)
+	local objs = minetest.get_objects_inside_radius(pos, 40)
 
 	for n = 1, #objs do
 
@@ -55,7 +71,7 @@ minetest.register_abm({
     nodenames = {"lord_blocks:green_marble"},
     neighbors = neighbors,
     interval = 30,
-    chance = 100,
+    chance = 300,
     catch_up = false,
 
     action = function(pos, node, active_object_count, active_object_count_wider)
@@ -63,7 +79,7 @@ minetest.register_abm({
             return
         end
 
-        if not nazgul_areas.position_in_nazgul_area(pos) then
+        if not nazgul_area.position_in_nazgul_area(pos) then
             return
         end
 
@@ -72,14 +88,14 @@ minetest.register_abm({
                 return
             end
 
-            pos.y = pos.y - 0.5
+            pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:witch_king")
         else
             if count_mobs(pos, "lottmobs:nazgul") >= 8 then
                 return
             end
 
-            pos.y = pos.y - 0.5
+            pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:nazgul")
         end
         

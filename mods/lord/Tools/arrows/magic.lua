@@ -16,10 +16,16 @@ local flame_node = function(pos)
 	end
 
 	if node_desc.groups.forbidden == nil then
-		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
-			minetest.set_node(pos, { name = "fire:basic_flame" })
+        local in_nazgul_area = nazgul_area.position_in_nazgul_area(pos)
+
+        if node_desc.groups.flammable or math.random(1, 100) <= 30 then
+            if n == "air" or not in_nazgul_area then
+			    minetest.set_node(pos, { name = "fire:basic_flame" })
+            end
 		else
-			minetest.remove_node(pos)
+            if not in_nazgul_area then
+                minetest.remove_node(pos)
+            end
 		end
 	end
 end
@@ -71,11 +77,9 @@ throwing.register_arrow("arrows:darkball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-        if not nazgul_areas.position_in_nazgul_area(pos) then
-		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		    flame_area(p1, p2)
-        end
+		local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+	    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		flame_area(p1, p2)
 	end,
 	hit_mob           = function(self, mob)
 		local s   = self.object:get_pos()
@@ -86,18 +90,14 @@ throwing.register_arrow("arrows:darkball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-        if not nazgul_areas.position_in_nazgul_area(pos) then
-		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		    flame_area(p1, p2)
-        end
+	    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+	    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		flame_area(p1, p2)
 	end,
 	hit_node          = function(self, pos, node)
-        if not nazgul_areas.position_in_nazgul_area(pos) then
-		    local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
-		    local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		    flame_area(p1, p2)
-        end
+        local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
+		local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		flame_area(p1, p2)
 	end,
 	can_drop_on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		return false
@@ -138,11 +138,9 @@ throwing.register_arrow("arrows:fireball", {
 			damage_groups       = { fleshy = 4 },
 		}, vec)
 		local pos = self.object:get_pos()
-        if not nazgul_areas.position_in_nazgul_area(pos) then
-		    local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
-		    local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		    flame_area(p1, p2)
-        end
+        local p1  = { x = pos.x - 1, y = pos.y - 1, z = pos.z - 1 }
+		local p2  = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+		flame_area(p1, p2)
 	end,
 
 	hit_mob           = function(self, player)
@@ -153,11 +151,9 @@ throwing.register_arrow("arrows:fireball", {
 	end,
 
 	hit_node          = function(self, pos, node)
-        if not nazgul_areas.position_in_nazgul_area(pos) then
-		    local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
-		    local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
-		    flame_area(p1, p2)
-        end
+		local p1 = { x = pos.x - 1, y = pos.y - 2, z = pos.z - 1 }
+	    local p2 = { x = pos.x + 1, y = pos.y + 1, z = pos.z + 1 }
+	    flame_area(p1, p2)
 	end,
 	can_drop_on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		return false
