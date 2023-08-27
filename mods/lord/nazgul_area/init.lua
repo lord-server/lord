@@ -63,6 +63,10 @@ minetest.register_abm({
             return
         end
 
+        if not nazgul_areas.position_in_nazgul_area(pos) then
+            return
+        end
+
         if math.random(9) == 1 then
             if count_mobs(pos, "lottmobs:witch_king") >= 1 then
                 return
