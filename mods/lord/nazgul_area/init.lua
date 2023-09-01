@@ -1,7 +1,7 @@
-nazgul_area = {}
-
 local table_keys_has_one_of_values
     = table.keys_has_one_of_values
+
+nazgul_area = {}
 
 local NAZGUL_AREA_IDS = {}
 

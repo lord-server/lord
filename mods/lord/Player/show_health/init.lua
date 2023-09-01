@@ -1,7 +1,7 @@
-local ARENA_AREA_IDS = {}
-
 local table_keys_has_one_of_values
     = table.keys_has_one_of_values
+
+local ARENA_AREA_IDS = {}
 
 local arena_ids      = minetest.settings:get("arenas") or ""
 arena_ids            = string.split(arena_ids, ",")
