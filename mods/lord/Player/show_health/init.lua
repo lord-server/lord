@@ -1,5 +1,8 @@
 local ARENA_AREA_IDS = {}
 
+local table_keys_has_one_of_values
+    = table.keys_has_one_of_values
+
 local arena_ids      = minetest.settings:get("arenas") or ""
 arena_ids            = string.split(arena_ids, ",")
 for _, v in ipairs(arena_ids) do

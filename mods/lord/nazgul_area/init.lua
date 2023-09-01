@@ -1,5 +1,8 @@
 nazgul_area = {}
 
+local table_keys_has_one_of_values
+    = table.keys_has_one_of_values
+
 local NAZGUL_AREA_IDS = {}
 
 local area_ids      = minetest.settings:get("nazgul_areas") or ""
@@ -10,12 +13,15 @@ end
 
 local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or 99)
 
---- @param pos position
+--- @param pos Position position of point
 nazgul_area.position_in_nazgul_area = function(pos)
 	return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
 end
 
--- copy from mobs mod
+-- HACK: copy from mobs mod
+--- @param pos Position position of centre of sphere where we count mobs
+--- @param type string name of mobs to count
+--- @return number amount of mobs of specified type near to position
 local count_mobs = function(pos, type)
 
 	local num_type = 0
