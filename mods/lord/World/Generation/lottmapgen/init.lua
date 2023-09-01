@@ -187,6 +187,8 @@ local c_mordor_river_water = id("lottmapgen:black_river_source")
 local c_desert_stone = id("default:desert_stone")
 local c_mordor_stone = id("lottmapgen:mordor_stone")
 
+local c_desert_gravel = id("default:desert_gravel")
+
 local c_salt = id("lottores:mineral_salt")
 local c_pearl = id("lottores:mineral_pearl")
 local c_waterlily = id("flowers:waterlily_waving")
@@ -235,6 +237,17 @@ local function get_biome_stone(biome)
 
 	return nil
 end
+
+--- @param biome number biome number (biome id)
+--- @return number|nil
+local function get_biome_gravel(biome)
+	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
+		return c_desert_gravel
+	end
+
+	return nil
+end
+
 
 --- @param cur_water_id number current node content ID
 --- @param biome        number biome number (biome id)
@@ -371,9 +384,18 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 				if node_is_stone then
 
 					if y > water_level - 32 then
+                        local biome_gravel = get_biome_gravel(biome)
 						local biome_stone = get_biome_stone(biome)
-						if biome_stone then
-							data[vi] = biome_stone
+                        if biome_stone then
+                            if biome_gravel then
+                                if math.random(100) == 1 then
+                                    data[vi] = biome_gravel
+                                else
+                                    data[vi] = biome_stone
+                                end
+                            else
+							    data[vi] = biome_stone
+                            end
 						end
 					end
 
