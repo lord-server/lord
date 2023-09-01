@@ -87,7 +87,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "cooking",
-	output = "default:charcoal_lump 2",
+	output = "default:charcoal_lump 1",
 	recipe = "group:wood",
 })
 
