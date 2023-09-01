@@ -71,3 +71,18 @@ end
 function table.is_empty(table)
 	return next(table) == nil
 end
+
+
+local table_has_value
+	= table.has_value
+
+--- @param table table
+--- @param values table
+function table.keys_has_one_of_values(table, values)
+	for key in pairs(table) do
+		if table_has_value(values, key) then
+			return true
+		end
+	end
+	return false
+end

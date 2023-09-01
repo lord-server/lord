@@ -16,10 +16,16 @@ local flame_node = function(pos)
 	end
 
 	if node_desc.groups.forbidden == nil then
+		local in_nazgul_area = nazgul_area.position_in_nazgul_area(pos)
+
 		if node_desc.groups.flammable or math.random(1, 100) <= 30 then
-			minetest.set_node(pos, { name = "fire:basic_flame" })
+			if n == "air" or not in_nazgul_area then
+				minetest.set_node(pos, { name = "fire:basic_flame" })
+			end
 		else
-			minetest.remove_node(pos)
+			if not in_nazgul_area then
+				minetest.remove_node(pos)
+			end
 		end
 	end
 end
