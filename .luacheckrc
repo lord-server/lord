@@ -24,6 +24,7 @@ read_globals      = {
 		-- our Core/helpers:
 		-- table:
 		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite",
+        "keys_has_one_of_values"
 		-- string:
 		-- TODO: "startsWith", "endsWith", ...
 	} },

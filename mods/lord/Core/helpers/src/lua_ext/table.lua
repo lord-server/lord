@@ -76,10 +76,10 @@ end
 local table_has_value
 	= table.has_value
 
---- @param list table
+--- @param table table
 --- @param values table
-table.keys_has_one_of_values = function(list, values)
-	for key in pairs(list) do
+function table.keys_has_one_of_values(table, values)
+	for key in pairs(table) do
 		if table_has_value(values, key) then
 			return true
 		end
