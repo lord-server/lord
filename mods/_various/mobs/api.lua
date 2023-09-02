@@ -2798,9 +2798,7 @@ function mobs:register_egg(mob, desc, background, addegg, no_creative)
 				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
 			end
 
-			if pos
-			and within_limits(pos, 0)
-			and not minetest.is_protected(pos, placer:get_player_name()) then
+			if pos and within_limits(pos, 0) then
 
 				pos.y            = pos.y + 1
 
