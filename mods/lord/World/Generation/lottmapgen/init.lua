@@ -20,12 +20,16 @@ local SHALLOW_WATER_DEPTH  = 1
 local PAPYRUS_CHANCE = 3 -- Papyrus
 
 -- Desert gravel generation parameters
--- when y < Y0 - no desert gravel
--- when y > Y1 - desert gravel takes specified percent of desert stone
--- when y0 < y < y1 - percent of desert gravel grows linearly
-local DESERT_GRAVEL_Y0 = 3
-local DESERT_GRAVEL_Y1 = 32
-local DESERT_GRAVEL_MAX_PERCENT = 10
+-- Max depth: gravel can be only near the surface
+-- Grave can be on slopes or near the walls
+-- Slope: gravel can be on slopes with angle from min to max
+-- Slope area: size of area to estimate slope
+-- Wall: gravel can be near the high walls
+local DESERT_GRAVEL_MAX_DEPTH = 3
+local DESERT_GRAVEL_AREA = 4
+local DESERT_GRAVEL_MIN_SLOPE_ANGLE = 30
+local DESERT_GRAVEL_MAX_SLOPE_ANGLE = 70
+
 
 -- /!\ Warning /!\ : duplicated in config.lua (TODO)
 -- Biomes:
