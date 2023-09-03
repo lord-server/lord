@@ -19,8 +19,8 @@ local SHALLOW_WATER_DEPTH  = 1
 
 local PAPYRUS_CHANCE = 3 -- Papyrus
 
--- Desert gravel generation parameters
-local DESERT_GRAVEL_PERCENT = 10
+-- Gravel generation parameters
+local GRAVEL_PERCENT = 10
 
 
 -- /!\ Warning /!\ : duplicated in config.lua (TODO)
@@ -190,6 +190,7 @@ local c_mordor_river_water = id("lottmapgen:black_river_source")
 local c_desert_stone = id("default:desert_stone")
 local c_mordor_stone = id("lottmapgen:mordor_stone")
 
+local c_gravel        = id("default:gravel")
 local c_desert_gravel = id("default:desert_gravel")
 
 local c_salt = id("lottores:mineral_salt")
@@ -242,13 +243,13 @@ local function get_biome_stone(biome)
 end
 
 --- @param biome number biome number (biome id)
---- @return number|nil
+--- @return number
 local function get_biome_gravel(biome)
 	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
 		return c_desert_gravel
 	end
 
-	return nil
+    return c_gravel
 end
 
 
@@ -391,9 +392,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 						local biome_stone = get_biome_stone(biome)
                         if biome_stone then
                             if biome_gravel then
-                                local gravel_percent = DESERT_GRAVEL_PERCENT
-
-                                if math.random(100) <= gravel_percent then
+                                if math.random(100) <= GRAVEL_PERCENT then
                                     data[vi] = biome_gravel
                                 else
                                     data[vi] = biome_stone
