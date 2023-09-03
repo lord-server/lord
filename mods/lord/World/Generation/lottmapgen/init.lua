@@ -20,15 +20,7 @@ local SHALLOW_WATER_DEPTH  = 1
 local PAPYRUS_CHANCE = 3 -- Papyrus
 
 -- Desert gravel generation parameters
--- Max depth: gravel can be only near the surface
--- Grave can be on slopes or near the walls
--- Slope: gravel can be on slopes with angle from min to max
--- Slope area: size of area to estimate slope
--- Wall: gravel can be near the high walls
-local DESERT_GRAVEL_MAX_DEPTH = 3
-local DESERT_GRAVEL_AREA = 4
-local DESERT_GRAVEL_MIN_SLOPE_ANGLE = 30
-local DESERT_GRAVEL_MAX_SLOPE_ANGLE = 70
+local DESERT_GRAVEL_PERCENT = 10
 
 
 -- /!\ Warning /!\ : duplicated in config.lua (TODO)
@@ -89,23 +81,6 @@ local chunk_gen_avg = 0
 dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
 dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
 dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
-
---- @param y0 number lowest height
---- @param y1 number higest height
---- @param percent number maximal percent
---- @param y number height
---- @return number y <= y0 - return 0,
----                y >= y1 - return percent,
----                y0 < y < y1 - return linear interpolation
-local function calculate_percent(y0, y1, percent, y)
-    if y <= 0 then
-        return 0
-    end
-    if y >= y1 then
-        return percent
-    end
-    return percent * (y - y0) / (y1 - y0)
-end
 
 local function detect_current_biome(n_temp, n_humid, n_ran)
 	local biome = 0
@@ -416,10 +391,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 						local biome_stone = get_biome_stone(biome)
                         if biome_stone then
                             if biome_gravel then
-                                local gravel_percent = calculate_percent(DESERT_GRAVEL_Y0,
-                                                                         DESERT_GRAVEL_Y1,
-                                                                         DESERT_GRAVEL_MAX_PERCENT,
-                                                                         y)
+                                local gravel_percent = DESERT_GRAVEL_PERCENT
 
                                 if math.random(100) <= gravel_percent then
                                     data[vi] = biome_gravel
