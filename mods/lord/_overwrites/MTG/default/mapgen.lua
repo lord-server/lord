@@ -26,6 +26,7 @@ minetest.register_alias("mapgen_river_water_source", "default:river_water_source
 minetest.register_alias("mapgen_dirt", "default:dirt")
 minetest.register_alias("mapgen_sand", "default:sand")
 minetest.register_alias("mapgen_gravel", "default:gravel")
+minetest.register_alias("mapgen_desert_gravel", "default:desert_gravel")
 minetest.register_alias("mapgen_clay", "default:clay")
 minetest.register_alias("mapgen_lava_source", "default:lava_source")
 minetest.register_alias("mapgen_cobble", "default:cobble")
