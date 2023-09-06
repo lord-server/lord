@@ -1047,6 +1047,16 @@ minetest.register_abm({
 	end
 })
 
+
+minetest.register_craft({
+	output = "default:sign_wall 3",
+	recipe = {
+		{"group:wood", "group:wood", "group:wood"},
+		{"group:wood", "group:wood", "group:wood"},
+		{"", "group:stick", ""},
+	}
+})
+
 -- locked sign
 
 minetest.register_craft({

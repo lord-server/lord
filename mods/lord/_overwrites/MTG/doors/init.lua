@@ -11,6 +11,7 @@ local function doors_unregister(name)
 	doors.registered_doors[name .. "_d"] = nil
 end
 
+minetest.clear_craft({output = "doors:door_steel"})
 doors_unregister("doors:door_steel") -- unregistering wrong door (should not have lock!)
 
 

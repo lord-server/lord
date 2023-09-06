@@ -142,6 +142,7 @@ minetest.clear_craft({recipe = {{"default:acacia_bush_stem"}}})
 minetest.clear_craft({recipe = {{"default:pine_bush_stem"}}})
 
 -- наши знаки намного лучше
+minetest.clear_craft({output = "default:sign_wall_wood"})
 minetest.clear_craft({output = "default:sign_wall_steel"})
 
 -- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)

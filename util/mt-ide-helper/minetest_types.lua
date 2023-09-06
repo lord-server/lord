@@ -1542,13 +1542,14 @@ function minetest.get_craft_recipe(output) end
 ---     * `items`: indexed [1-9] table with recipe items
 ---     * `output`: string with item name and quantity
 --- * Example query for `"default:gold_ingot"` will return table:
----
+---   ```lua
 ---       {
 ---           [1]={method = "cooking", width = 3, output = "default:gold_ingot",
 ---           items = {1 = "default:gold_lump"}},
 ---           [2]={method = "normal", width = 1, output = "default:gold_ingot 9",
 ---           items = {1 = "default:goldblock"}}
 ---       }
+---   ```
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5304-L5319)
 function minetest.get_all_craft_recipes(query_item) end

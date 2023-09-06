@@ -1,6 +1,19 @@
 local table_indexOf, table_copy, pairs, next
 	= table.indexof, table.copy, pairs, next
 
+--- @param table table
+--- @param value any
+--- @return table|nil returns indexed table of found keys for table `table` or `nil` if nothing found
+function table.keys_of(table, value)
+	local found_keys = {}
+	for key, v in pairs(table) do
+		if v == value then
+			found_keys[#found_keys+1] = key
+		end
+	end
+
+	return #found_keys ~= 0 and found_keys or nil
+end
 
 --- @param table table
 --- @param value any
