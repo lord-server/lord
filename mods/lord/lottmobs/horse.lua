@@ -311,7 +311,9 @@ function lottmobs.register_horse(name, craftitem, horse)
 		if not clicker or not clicker:is_player() then
 			return
 		end
-		if feed_horse(self, clicker:get_wielded_item()) then
+		local wielded_item = clicker:get_wielded_item()
+		if feed_horse(self, wielded_item) then
+			clicker:set_wielded_item(wielded_item)
 			return
 		end
 
