@@ -17,20 +17,17 @@ globals           = {
 read_globals      = {
 	table  = { fields = {
 		"getn", -- was in Lua, now deprecated TODO: remove usages
-
 		-- MT Builtin:
 		"copy", "indexof", "insert_all", "key_value_swap",
-
 		-- our Core/helpers:
-		-- table:
-		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite",
-		-- string:
-		-- TODO: "startsWith", "endsWith", ...
+		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of"
 	} },
 
 	string = { fields = {
 		-- MT Builtin:
 		"split", "trim",
+		-- our Core/helpers:
+		-- TODO: "startsWith", "endsWith", ...
 	} },
 
 	math = { fields = {
