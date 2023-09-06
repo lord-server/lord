@@ -429,6 +429,13 @@ function lottmobs.register_horse(name, craftitem, horse)
 		end
 	end
 
+	function horse:on_death(killer)
+		if not self.driver then return end
+
+		player_api.player_attached[self.driver:get_player_name()] = false
+		self.driver:set_detach()
+	end
+
 	minetest.register_entity(name, horse)
 end
 
