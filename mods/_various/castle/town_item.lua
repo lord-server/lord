@@ -240,6 +240,7 @@ minetest.register_node("castle:dungeon_stone", {
 	tiles       = { "castle_dungeon_stone.png" },
 	groups      = { cracky = 2 },
 	paramtype   = "light",
+	sounds      = default.node_sound_stone_defaults(),
 })
 
 minetest.register_craft({
@@ -288,6 +289,7 @@ minetest.register_node("castle:bound_straw", {
 	tiles       = { "castle_straw_bale.png" },
 	groups      = { choppy = 4, flammable = 1, oddly_breakable_by_hand = 3, grass = 1 },
 	paramtype   = "light",
+	sounds      = default.node_sound_leaves_defaults(),
 })
 
 minetest.register_craft({
