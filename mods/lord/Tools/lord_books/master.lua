@@ -62,9 +62,33 @@ end
 
 zmc.load_crafts = function(name)
 	zmc.crafts[name] = {}
-	local _recipes = minetest.get_all_craft_recipes(name)
-	if _recipes then
-		for i, recipe in ipairs(_recipes) do
+	local recipes = minetest.get_all_craft_recipes(name)
+
+	-- Check if something went wrong.
+	-- For ex., while refactor for using MTG/default as git submodule, recipe for the `default:sign_wall` was gone (#1127),
+	-- but there still was one for `default:sign_wall_wood` alias and its not displayed in book.
+	-- If so, adds recipe to book & writes warning to log.
+	local aliases = table.keys_of(minetest.registered_aliases, name)
+	if aliases then
+		local aliases_recipes = {}
+		for _, alias in pairs(aliases) do
+			local alias_recipes = minetest.get_all_craft_recipes(alias)
+			if alias_recipes then
+				aliases_recipes = table.merge_values(aliases_recipes, alias_recipes)
+			end
+		end
+		if #aliases_recipes ~= 0 then
+			if not recipes then
+				minetest.log("warning", "Recipe exists only for alias: " .. dump(aliases_recipes))
+			else
+				minetest.log("warning", "Extra recipe for alias: " .. dump(aliases_recipes))
+			end
+			recipes = table.merge_values(recipes, aliases_recipes)
+		end
+	end
+
+	if recipes then
+		for _, recipe in pairs(recipes) do
 			if (recipe and recipe.items and recipe.type) then
 				zmc.add_craft(recipe, name)
 			end

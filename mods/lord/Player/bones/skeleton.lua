@@ -2,8 +2,8 @@ local SL = minetest.get_translator("bones")
 
 minetest.register_node("bones:skeleton", {
 	description = SL("Skeleton Head"),
-	drawtype = "nodebox",
-	tiles = {
+	drawtype    = "nodebox",
+	tiles       = {
 		"bones_skeleton_top.png",
 		"bones_skeleton_bottom.png",
 		"bones_skeleton_side.png",
@@ -11,21 +11,21 @@ minetest.register_node("bones:skeleton", {
 		"bones_skeleton_rear.png",
 		"bones_skeleton_front.png"
 	},
-	paramtype2 = "facedir",
-	paramtype = "light",
-	groups = {dig_immediate=2},
-	 drop = "",
-	 node_box = {
-		type = "fixed",
+	paramtype2  = "facedir",
+	paramtype   = "light",
+	groups      = { dig_immediate = 2 },
+	drop        = "",
+	node_box    = {
+		type  = "fixed",
 		fixed = {
-			{-0.3125,0.3125,-0.3125,0.3125,0.5,0.3125},
-			{-0.5,-0.1875,-0.5,0.5,0.415385,0.5},
-			{-0.375,-0.5,-0.3125,0.375,0.125,0.3125},
+			{ -0.3125, 0.3125, -0.3125, 0.3125, 0.5, 0.3125 },
+			{ -0.5, -0.1875, -0.5, 0.5, 0.415385, 0.5 },
+			{ -0.375, -0.5, -0.3125, 0.375, 0.125, 0.3125 },
 		},
 	},
-	sounds = default.node_sound_dirt_defaults({
-		footstep = {name="default_gravel_footstep", gain=0.5},
-		dug = {name="default_gravel_footstep", gain=1.0},
+	sounds      = default.node_sound_dirt_defaults({
+		footstep = { name = "default_gravel_footstep", gain = 0.5 },
+		dug      = { name = "default_gravel_footstep", gain = 1.0 },
 	}),
 })
 
@@ -35,6 +35,7 @@ minetest.register_node("bones:skeleton_body", {
 	tiles = {"bones_skeleton_top.png"},
 	inventory_image = "bones_skeleton.png",
 	wield_image = "bones_skeleton.png",
+	paramtype2  = "facedir",
 	paramtype = "light",
 	groups = {dig_immediate=2},
 	node_box = {
