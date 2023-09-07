@@ -70,6 +70,8 @@ end
 
 function lottmobs.register_horse(name, craftitem, horse)
 
+	horse.makes_footstep_sound = true
+
 	if craftitem ~= nil then
 		--- @param itemstack ItemStack
 		--- @param placer    Player
@@ -354,15 +356,25 @@ function lottmobs.register_horse(name, craftitem, horse)
 		end
 	end
 
-	function horse:on_activate(staticdata, dtime_s)
+	--- @param static_data string
+	function horse:on_activate(static_data, _)
 		self.object:set_armor_groups({ fleshy = 100 })
-		if staticdata then
-			self.v = tonumber(staticdata)
+		if not static_data or static_data == "" then
+			return
+		end
+
+		local data = minetest.deserialize(static_data)
+		if not data then return end
+		if data.hp then
+			self.object:set_hp(data.hp)
 		end
 	end
 
+	--- @return string
 	function horse:get_staticdata()
-		return tostring(self.v)
+		return minetest.serialize({
+			hp = self.object:get_hp()
+		})
 	end
 
 	--- @param puncher Player|ObjectRef
