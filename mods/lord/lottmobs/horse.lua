@@ -73,6 +73,9 @@ function lottmobs.register_horse(name, craftitem, horse)
 	horse.makes_footstep_sound = true
 
 	if craftitem ~= nil then
+
+		craftitem.stack_max = 1
+
 		--- @param itemstack ItemStack
 		--- @param placer    Player
 		--- @param pointed_thing pointed_thing
