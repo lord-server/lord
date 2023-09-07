@@ -1,5 +1,17 @@
 # Change Log
 
+## [2023.08.p1](https://github.com/lord-server/lord/releases/tag/2023.08.p1)
+ - Decrease wielded food when feed the riding animal. Fixes #1113
+ - Add sounds for `castle:dungeon_stone` & `castle:bound_straw`. Fixes #1123
+ - Add lighting for orc torch. Fix #1125
+ - Add checks for alias recipes. Fix sign_wall & door_steel recipes. Fixes #1127
+ - Add `table.keys_of` to `.luacheckrc`; fix lint.
+ - Change throwing axes damsge by mass. Fixes #1128
+ - Skeleton rotation ability. Fixes #1129
+ - Detach player if horse is killed. Fixes #1102
+ - Save horse hp in static data. Fixes #1124
+ - Add new player into mason clan.
+
 ## [2023.08](https://github.com/lord-server/lord/releases/tag/2023.08)
  - Horses:
    - Take horse with hold `sneak` 
