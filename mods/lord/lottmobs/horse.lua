@@ -71,6 +71,7 @@ end
 function lottmobs.register_horse(name, craftitem, horse)
 
 	horse.makes_footstep_sound = true
+	horse.hp_max = horse.hp_max or horse.hp or 10
 
 	if craftitem ~= nil then
 
@@ -136,18 +137,14 @@ function lottmobs.register_horse(name, craftitem, horse)
 		minetest.register_craftitem(name, craftitem)
 	end
 
-	horse.v      = 0
-	horse.driver = nil
-	horse.hp_max = horse.hp_max or horse.hp or 10
-
 	function horse:set_animation(type)
 		if not self.animation then
 			return
 		end
-		if not self.animation.current then
-			self.animation.current = ""
+		if not self.current_animation then
+			self.current_animation = ""
 		end
-		if type == "stand" and self.animation.current ~= "stand" then
+		if type == "stand" and self.current_animation ~= "stand" then
 			if
 				self.animation.stand_start
 				and self.animation.stand_end
@@ -157,9 +154,9 @@ function lottmobs.register_horse(name, craftitem, horse)
 					{ x = self.animation.stand_start, y = self.animation.stand_end },
 					self.animation.speed_normal * 0.6, 0
 				)
-				self.animation.current = "stand"
+				self.current_animation = "stand"
 			end
-		elseif type == "walk" and self.animation.current ~= "walk" then
+		elseif type == "walk" and self.current_animation ~= "walk" then
 			if
 				self.animation.walk_start
 				and self.animation.walk_end
@@ -169,9 +166,9 @@ function lottmobs.register_horse(name, craftitem, horse)
 					{ x = self.animation.walk_start, y = self.animation.walk_end },
 					self.animation.speed_normal * 3, 0
 				)
-				self.animation.current = "walk"
+				self.current_animation = "walk"
 			end
-		elseif type == "punch" and self.animation.current ~= "punch" then
+		elseif type == "punch" and self.current_animation ~= "punch" then
 			if
 			self.animation.punch_start
 				and self.animation.punch_end
@@ -181,7 +178,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 					{ x = self.animation.punch_start, y = self.animation.punch_end },
 					self.animation.speed_normal * 3, 0
 				)
-				self.animation.current = "punch"
+				self.current_animation = "punch"
 			end
 		end
 	end
@@ -362,6 +359,9 @@ function lottmobs.register_horse(name, craftitem, horse)
 	--- @param static_data string
 	function horse:on_activate(static_data, _)
 		self.object:set_armor_groups({ fleshy = 100 })
+		self.v = 0
+		self.driver = nil
+		self.current_animation = "stand"
 		if not static_data or static_data == "" then
 			return
 		end
