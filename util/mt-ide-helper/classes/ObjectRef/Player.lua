@@ -25,6 +25,7 @@ function Player:get_look_dir() end
 function Player:get_look_vertical() end
 --- yaw in radians
 ---    * Angle is counter-clockwise from the +z direction.
+--- @return number
 function Player:get_look_horizontal() end
 --- sets look pitch
 ---    * radians: Angle from looking forward, where positive is downwards.
@@ -40,6 +41,7 @@ function Player:get_look_pitch() end
 --- yaw in radians - Deprecated as broken. Use
 ---  `get_look_horizontal`.
 ---    * Angle is counter-clockwise from the +x direction.
+--- @deprecated
 function Player:get_look_yaw() end
 --- sets look pitch - Deprecated. Use `set_look_vertical`.
 function Player:set_look_pitch(radians) end

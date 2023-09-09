@@ -339,7 +339,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 					clicker:set_attach(self.object, "", { x = 0, y = attach_h, z = 0 }, { x = 0, y = attach_r, z = 0 })
 
 					player_api.player_attached[clicker:get_player_name()] = true
-					self.object:set_yaw(clicker:get_look_yaw())
+					self.object:set_yaw(clicker:get_look_horizontal() + math.pi/2)
 					self.ridername = clicker:get_player_name()
 
 					if self.offset == true then
