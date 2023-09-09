@@ -27,3 +27,28 @@ jobs:
       - name: Run linter
         run: |
           $HOME/.luarocks/bin/luacheck .
+
+      # As for now there is excluded files.
+      # As the project https://github.com/orgs/lord-server/projects/7/views/3 progresses this exclusions will be removed.
+      - name: Check Cyclomatic Complexity
+        run: \
+          $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
+            --globals lottachievements races throwing \
+            --exclude-files \
+              mods/lord/throwing/ \
+              mods/lord/npc/ \
+              mods/lord/lottthrowing/ \
+              mods/lord/lottplants/ \
+              mods/lord/lottmobs/ \
+              mods/lord/lottachievements/ \
+              mods/lord/lord_classes/ \
+              mods/lord/_overwrites/MTG/default/ \
+              mods/lord/World/mountgen/ \
+              mods/lord/Tools/lottpotion/ \
+              mods/lord/Tools/lord_replacer/ \
+              mods/lord/Tools/lord_money/ \
+              mods/lord/Tools/lord_books/ \
+              mods/lord/Tools/lord_boats/ \
+              mods/lord/Core/lordlib/ \
+              mods/lord/Blocks/lottblocks/ \
+              mods/lord/Blocks/lord_homedecor/
