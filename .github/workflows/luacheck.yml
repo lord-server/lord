@@ -31,7 +31,7 @@ jobs:
       # As for now there is excluded files.
       # As the project https://github.com/orgs/lord-server/projects/7/views/3 progresses this exclusions will be removed.
       - name: Check Cyclomatic Complexity
-        run: \
+        run: |
           $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
             --globals lottachievements races throwing \
             --exclude-files \
