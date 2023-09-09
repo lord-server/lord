@@ -314,6 +314,18 @@ minetest.unregister_item("default:mese_post_light_acacia_wood")
 minetest.unregister_item("default:mese_post_light_pine_wood")
 minetest.unregister_item("default:mese_post_light_aspen_wood")
 
+-- Мы на данный момент не используем acacia, aspen и pine деревья из MTG и их саженцы
+-- Выше мы их удаляем, но после этого появляется в логах: https://github.com/lord-server/lord/issues/711
+--     в силу того, что в MTG регистрируется LBM "default:convert_saplings_to_node_timer",
+--     который реагирует на эти саженцы.
+-- Тут мы просто удаляем из этого LBM имена не нужных нам саженцев:
+for _, lbm in pairs(minetest.registered_lbms) do
+	if (lbm.name == "default:convert_saplings_to_node_timer") then
+		table.remove(lbm.nodenames, table.indexof(lbm.nodenames, "default:acacia_sapling"))
+		table.remove(lbm.nodenames, table.indexof(lbm.nodenames, "default:aspen_sapling"))
+		table.remove(lbm.nodenames, table.indexof(lbm.nodenames, "default:pine_sapling"))
+	end
+end
 
 -- Наши моделька и интерфейс книжной полки
 
