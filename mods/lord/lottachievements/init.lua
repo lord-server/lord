@@ -750,3 +750,15 @@ lottachievements.register_achievement("daggins_surname", {
 		target = 8
 	}
 })
+
+lottachievements.register_achievement("dwarven_tomb", {
+	title = SL("Dwarven Tomb"),
+	description = SL("Find (and loot!) a dwarven tomb, deep underground..."),
+	icon = "lottblocks_dh_top.png",
+	id = 55,
+	trigger = {
+		type = "dig",
+		node = "lottblocks:dwarf_tomb_top",
+		target = 1,
+	}
+})
