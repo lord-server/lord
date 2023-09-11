@@ -19,9 +19,6 @@ NodeTable = {}
 
 --- See ./classes/NodeMetaRef.lua
 
----@class VoxelManip
-VoxelManip = {}
-
 --- See ./classes/VoxelArea.lua
 
 --- See ./classes/ObjectRef.lua
@@ -1068,6 +1065,7 @@ function minetest.get_perlin(seeddiff, octaves, persistence, spread) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4955-L4957)
 --- @param positions table array [pos1, pos2]
+--- @return VoxelManip
 function minetest.get_voxel_manip(positions) end
 --- * Set the types of on-generate notifications that should be collected.
 --- * `flags` is a flag field with the available flags:
