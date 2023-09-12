@@ -1094,6 +1094,7 @@ function minetest.get_decoration_id(decoration_name) end
 --- * Return requested mapgen object if available (see [Mapgen objects])
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4975-L4976)
+--- @return VoxelManip, number, number
 function minetest.get_mapgen_object(objectname) end
 --- * Returns the heat at the position, or `nil` on failure.
 ---
