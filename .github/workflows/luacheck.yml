@@ -40,8 +40,8 @@ jobs:
               mods/lord/lottthrowing/ \
               mods/lord/lottplants/ \
               mods/lord/lottmobs/ \
-              mods/lord/lottachievements/ \
-              mods/lord/lord_classes/ \
+              mods/lord/Game/lottachievements/ \
+              mods/lord/Game/lord_classes/ \
               mods/lord/_overwrites/MTG/default/ \
               mods/lord/World/mountgen/ \
               mods/lord/Tools/lottpotion/ \

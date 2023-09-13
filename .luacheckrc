@@ -71,7 +71,7 @@ exclude_files     = {
 	-- External mods:
 
     -- пришлось добавить после того, как обновился LuaRocks:
-	"mods/lord/lord_base_commands/chatcommands.lua",
+	"mods/lord/Game/lord_base_commands/chatcommands.lua",
 
     -- MTG:
     "mods/_minetest_game/",
