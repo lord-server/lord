@@ -57,8 +57,8 @@
 	path = mods/_minetest_game/xpanes
 	url = https://github.com/minetest-game-mod/xpanes
 
-[submodule "mods/lord/nodes_dump"]
-	path = mods/lord/nodes_dump
+[submodule "mods/lord/Core/nodes_dump"]
+	path = mods/lord/Core/nodes_dump
 	url = https://github.com/lord-server/nodes_dump
 
 [submodule "mods/_various/ambience"]
