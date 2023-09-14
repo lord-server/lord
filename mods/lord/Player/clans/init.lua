@@ -18,7 +18,7 @@ local clans = {
 	},
 	vassals = {
 		title = "Vassals",
-		players = { "Pilsner_vassal", "PePe_vassal", "JakeVovaDimas", "SarumanWhite" },
+		players = { "Pilsner_vassal", "PePe_vassal", "JakeVovaDimas", "Semi_vassal" },
 	},
 }
 
