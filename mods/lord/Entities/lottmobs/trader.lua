@@ -23,11 +23,15 @@
 local SL = minetest.get_translator("lottmobs")
 
 function lottmobs.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
-	if to_list ~= "selection" or
+	print('allow_move')
+	if
+		(from_list == "goods" and (to_list ~= "selection" and to_list ~= "goods")) or
+		(from_list == "selection" and to_list ~= "goods") or
 		from_list == "price" or
 		from_list == "payment" or
 		from_list == "takeaway" or
-		from_list == "identifier" then
+		from_list == "identifier"
+	then
 		return 0
 	end
 	-- forbid moving of parts of stacks
@@ -84,6 +88,7 @@ function lottmobs.on_take(inv, listname, count, index, stack, player)
 end
 
 function lottmobs.update_takeaway(inv)
+	print('update_takeaway')
 	if lottmobs.check_pay(inv,false) then
 		local selection = inv.get_stack(inv,"selection", 1)
 
@@ -104,8 +109,7 @@ function lottmobs.check_pay(inv,paynow)
 
 	if price_inv:get_name() == name then
 		local price = price_inv:get_count()
-		if price > 0 and
-			price <= count then
+		if price > 0 and price <= count then
 			if paynow then
 				now_at_pay.take_item(now_at_pay,price)
 				inv.set_stack(inv,"payment",1,now_at_pay)
@@ -148,6 +152,23 @@ function lottmobs.face_pos(self,pos)
 	self.object:set_yaw(yaw)
 	return yaw
 end
+
+--- @param good_stack_string string
+--- @param trader_def        table
+--- @param same_race         boolean
+local function get_price_for(good_stack_string, trader_def, same_race)
+	local prices = same_race == true
+		and trader_def.items_race
+		or  trader_def.items
+
+	for _, price in pairs(prices) do
+		if price[1] == good_stack_string then
+			return price[2]
+		end
+	end
+
+	return nil
+end
 ----
 
 function lottmobs_trader(self, clicker, entity, race, image, priv)
@@ -173,45 +194,24 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		allow_move = lottmobs.allow_move,
 		allow_put = lottmobs.allow_put,
 		allow_take = lottmobs.allow_take,
+		--- @param inventory  InvRef
+		--- @param from_list  string
+		--- @param from_index number
+		--- @param to_list    string
+		--- @param to_index   number
+		--- @param count      number
 		on_move = function(inventory, from_list, from_index, to_list, to_index, count, _)
-			if from_list == "goods" and
-			to_list == "selection" then
-				local inv = inventory
-				local moved = inv.get_stack(inv,to_list, to_index)
-				local goodname = moved.get_name(moved)
-				local elements = moved.get_count(moved)
-				if( elements > count ) then
-					-- remove the surplus parts
-					inv.set_stack(inv,"selection", 1,goodname.." "..tostring( count ))
-					-- the slot we took from is now free
-					inv.set_stack(inv,"goods",from_index,
-						goodname.." "..tostring( elements - count ))
-					-- update the real amount of items in the slot now
-					-- закоментрона бессмысленная строка: (а вот коммент выше нужно реализовать)
-					-- elements = count
-				end
-				local good
-				if same_race == true then
-					for i = 1,#race.items_race,1 do
-						local stackstring = goodname .." " .. count
-						if race.items_race[i][1] == stackstring then
-							good = race.items_race[i]
-						end
-					end
-				else
-					for i = 1,#race.items,1 do
-						local stackstring = goodname .." " .. count
-						if race.items[i][1] == stackstring then
-							good = race.items[i]
-						end
-					end
-				end
-				if good ~= nil then
-					inventory.set_stack(inventory,"price", 1, good[2])
-				else
-					inventory.set_stack(inventory,"price", 1, nil)
-				end
-			lottmobs.update_takeaway(inv)
+			print('on_move')
+			if
+				(from_list == "goods" and to_list == "selection") or
+				(from_list == "selection" and to_list == "goods")
+			then
+				local sel_stack = inventory:get_stack("selection", 1)
+				local sel_stack_string = sel_stack:get_name() .. " " .. sel_stack:get_count()
+
+				local price = get_price_for(sel_stack_string, race, same_race)
+				inventory:set_stack("price", 1, price)
+				lottmobs.update_takeaway(inventory)
 			end
 		end,
 		on_put = lottmobs.on_put,
@@ -234,7 +234,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 	)
 	minetest.show_formspec(player_name, "trade",
 		"size[8,10;]" ..
-		 "background[5,5;1,1;" .. image .. ";true]" ..
+		"background[5,5;1,1;" .. image .. ";true]" ..
 		"label[0,0;"..SL("Trader").." " .. SL(self.game_name) .. SL("'s stock:").."]" ..
 		"list[detached:" .. unique_entity_id .. ";goods;.5,.5;3,5;]" ..
 		"label[4.5,0.5;"..SL("Selection").."]" ..
