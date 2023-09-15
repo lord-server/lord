@@ -152,7 +152,7 @@ end
 
 function lottmobs_trader(self, clicker, entity, race, image, priv)
 	lottmobs.face_pos(self, clicker:get_pos())
-	local player = clicker:get_player_name()
+	local player_name = clicker:get_player_name()
 --	self.messages = tostring(race.messages[math.random(1,#race.messages)])
 	if self.id == 0 then
 		self.id = (math.random(1, 1000) * math.random(1, 10000)) .. self.name .. (math.random(1, 1000) ^ 2)
@@ -161,10 +161,12 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		self.game_name = tostring(race.names[math.random(1,#race.names)])
 		--self.nametag = self.game_name
 	end
-	local unique_entity_id = self.id
+
+	local unique_entity_id = player_name.."_trader_"..self.id:gsub(":", "_")
+
 	local is_inventory = minetest.get_inventory({type="detached", name=unique_entity_id})
 	local same_race = false
-	if minetest.get_player_privs(player)[priv] ~= nil then
+	if minetest.get_player_privs(player_name)[priv] ~= nil then
 		same_race = true
 	end
 	local move_put_take = {
@@ -216,7 +218,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		on_take = lottmobs.on_take
 	}
 	if is_inventory == nil then
-		lottmobs.trader_inventory = minetest.create_detached_inventory(unique_entity_id, move_put_take)
+		lottmobs.trader_inventory = minetest.create_detached_inventory(unique_entity_id, move_put_take, player_name)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"goods",15)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"takeaway",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
@@ -225,12 +227,12 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		lottmobs.add_goods(same_race, race)
 	end
 	minetest.chat_send_player(
-		player,
+		player_name,
 		"[NPC] <" .. SL("Trader") .. " " .. SL(self.game_name) .. "> " ..
-			SL("Hello") .. ", " .. player .. ", \n" ..
+			SL("Hello") .. ", " .. player_name .. ", \n" ..
 			SL(tostring(race.messages[math.random(1, #race.messages)]))
 	)
-	minetest.show_formspec(player, "trade",
+	minetest.show_formspec(player_name, "trade",
 		"size[8,10;]" ..
 		 "background[5,5;1,1;" .. image .. ";true]" ..
 		"label[0,0;"..SL("Trader").." " .. SL(self.game_name) .. SL("'s stock:").."]" ..
