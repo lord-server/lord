@@ -231,13 +231,13 @@ lottmobs.human = {
 	}
 }
 lottmobs.orc = {
-        names = {
-                "Azog", "Balcmeg", "Boldog", "Bolg", "Golfimbul", "Gorbag", "Gorgol",
-                "Grishnákh", "Lagduf", "Lug", "Lugdush", "Mauhúr", "Muzgash", "Orcobal",
-                "Othrod", "Radbug", "Shagrat", "Ufthak", "Uglúk"
-        },
-        messages = {
-                SL("DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!"),
-                SL("Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!")
-        },
+	names    = {
+		"Azog", "Balcmeg", "Boldog", "Bolg", "Golfimbul", "Gorbag", "Gorgol",
+		"Grishnákh", "Lagduf", "Lug", "Lugdush", "Mauhúr", "Muzgash", "Orcobal",
+		"Othrod", "Radbug", "Shagrat", "Ufthak", "Uglúk"
+	},
+	messages = {
+		SL("DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!"),
+		SL("Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!")
+	},
 }

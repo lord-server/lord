@@ -230,7 +230,7 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		player_name,
 		"[NPC] <" .. SL("Trader") .. " " .. SL(self.game_name) .. "> " ..
 			SL("Hello") .. ", " .. player_name .. ", \n" ..
-			SL(tostring(race.messages[math.random(1, #race.messages)]))
+			tostring(race.messages[math.random(1, #race.messages)]) -- messages already translated
 	)
 	minetest.show_formspec(player_name, "trade",
 		"size[8,10;]" ..
