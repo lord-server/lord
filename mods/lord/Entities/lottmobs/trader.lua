@@ -171,7 +171,7 @@ local function get_price_for(good_stack_string, trader_def, same_race)
 end
 ----
 
-function lottmobs_trader(self, clicker, entity, race, image, priv)
+function lottmobs_trader(self, clicker, entity, race, priv)
 	lottmobs.face_pos(self, clicker:get_pos())
 	local player_name = clicker:get_player_name()
 --	self.messages = tostring(race.messages[math.random(1,#race.messages)])
@@ -201,7 +201,6 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 		--- @param to_index   number
 		--- @param count      number
 		on_move = function(inventory, from_list, from_index, to_list, to_index, count, _)
-			print('on_move')
 			if
 				(from_list == "goods" and to_list == "selection") or
 				(from_list == "selection" and to_list == "goods")
@@ -234,7 +233,6 @@ function lottmobs_trader(self, clicker, entity, race, image, priv)
 	)
 	minetest.show_formspec(player_name, "trade",
 		"size[8,10;]" ..
-		"background[5,5;1,1;" .. image .. ";true]" ..
 		"label[0,0;"..SL("Trader").." " .. SL(self.game_name) .. SL("'s stock:").."]" ..
 		"list[detached:" .. unique_entity_id .. ";goods;.5,.5;3,5;]" ..
 		"label[4.5,0.5;"..SL("Selection").."]" ..

@@ -59,7 +59,7 @@ mobs:register_mob("lottmobs:elf_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.elf, "gui_elfbg.png", "GAMEelf")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.elf, "GAMEelf")
 	end,
 })
 --mobs:register_spawn("lottmobs:elf_trader", {"lottmapgen:lorien_grass"}, 20, 0, 60000, 3, 31000)
@@ -125,7 +125,7 @@ mobs:register_mob("lottmobs:human_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.human, "gui_gondorbg.png", "GAMEman")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.human, "GAMEman")
 	end,
 })
 --mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:rohan_grass"}, 20, -1, 60000, 3, 31000)
@@ -183,7 +183,7 @@ mobs:register_mob("lottmobs:hobbit_trader", {
 	sounds = {
 	},
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.hobbit, "gui_hobbitbg.png", "GAMEhobbit")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.hobbit, "GAMEhobbit")
 	end,
 })
 --mobs:register_spawn("lottmobs:hobbit_trader", {"lottmapgen:shire_grass"}, 20, -1, 60000, 3, 31000)
@@ -250,7 +250,7 @@ mobs:register_mob("lottmobs:dwarf_trader", {
 	group_attack = true,
 	step = 1,
 	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.dwarf, "gui_angmarbg.png", "GAMEdwarf")
+		lottmobs_trader(self, clicker, nil --[[entity]], lottmobs.dwarf, "GAMEdwarf")
 	end,
 })
 --mobs:register_spawn("lottmobs:dwarf_trader", {"lottmapgen:ironhill_grass"}, 20, -1, 60000, 3, 31000)
