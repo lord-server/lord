@@ -22,8 +22,14 @@
 -------------------------------------------------------------------------------
 local SL = minetest.get_translator("lottmobs")
 
+---@param inv        InvRef
+---@param from_list  string
+---@param from_index number
+---@param to_list    string
+---@param to_index   number
+---@param count      number
+---@param player     Player
 function lottmobs.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
-	print('allow_move')
 	if
 		(from_list == "goods" and (to_list ~= "selection" and to_list ~= "goods")) or
 		(from_list == "selection" and to_list ~= "goods") or
@@ -35,68 +41,86 @@ function lottmobs.allow_move(inv, from_list, from_index, to_list, to_index, coun
 		return 0
 	end
 	-- forbid moving of parts of stacks
-	local old_stack = inv.get_stack(inv, from_list, from_index)
-	if count ~= old_stack.get_count(old_stack) then
+	local old_stack = inv:get_stack(from_list, from_index)
+	if count ~= old_stack:get_count() then
 		return 0;
 	end
 	return count
 end
 
-function lottmobs.allow_put(inv, listname, index, stack, player)
-	if listname == "payment" then
-		return 99
+---@param inv       InvRef
+---@param list_name string
+---@param index     number
+---@param stack     ItemStack
+---@param player    Player
+function lottmobs.allow_put(inv, list_name, index, stack, player)
+	if list_name == "payment" then
+		return stack:get_count()
 	end
 	return 0
 end
 
-function lottmobs.allow_take(inv, listname, index, stack, player)
-	if listname == "takeaway" or
-		listname == "payment" then
-		return 99
+---@param inv       InvRef
+---@param list_name string
+---@param index     number
+---@param stack     ItemStack
+---@param player    Player
+function lottmobs.allow_take(inv, list_name, index, stack, player)
+	if list_name == "takeaway" or
+		list_name == "payment" then
+		return stack:get_count()
 	else
 		return 0
 	end
 end
 
-function lottmobs.on_put(inv, listname, index, stack)
-	if listname == "payment" then
+---@param inv       InvRef
+---@param list_name string
+---@param index     number
+---@param stack     ItemStack
+---@param player    Player
+function lottmobs.on_put(inv, list_name, index, stack, player)
+	if list_name == "payment" then
 		lottmobs.update_takeaway(inv)
 	end
 end
 
-function lottmobs.on_take(inv, listname, count, index, stack, player)
-	if listname == "takeaway" then
+---@param inv       InvRef
+---@param list_name string
+---@param index     number
+---@param stack     ItemStack
+---@param player    Player
+function lottmobs.on_take(inv, list_name, index, stack, player)
+	if list_name == "takeaway" then
 		local amount = inv:get_stack("payment",1):get_count()
 		local price = inv:get_stack("price",1):get_count()
 		local thing = inv:get_stack("payment",1):get_name()
-		inv.set_stack(inv,"selection",1,nil)
-		inv.set_stack(inv,"price",1,nil)
-		inv.set_stack(inv,"takeaway",1,nil)
-		inv.set_stack(inv,"payment",1,thing .. " " .. amount-price)
+		inv:set_stack("selection", 1, nil)
+		inv:set_stack("price", 1, nil)
+		inv:set_stack("payment", 1, thing .. " " .. amount - price)
 	end
 
-	if listname == "payment" then
-		if lottmobs.check_pay(inv,false) then
-			local selection = inv.get_stack(inv,"selection", 1)
+	if list_name == "payment" then
+		if lottmobs.check_pay(inv, false) then
+			local selection = inv:get_stack("selection", 1)
 			if selection ~= nil then
-				inv.set_stack(inv,"takeaway",1,selection)
+				inv:set_stack("takeaway", 1, selection)
 			end
 		else
-			inv.set_stack(inv,"takeaway",1,nil)
+			inv:set_stack("takeaway", 1, nil)
 		end
 	end
 end
 
 function lottmobs.update_takeaway(inv)
-	print('update_takeaway')
-	if lottmobs.check_pay(inv,false) then
-		local selection = inv.get_stack(inv,"selection", 1)
+	if lottmobs.check_pay(inv, false) then
+		local selection = inv:get_stack("selection", 1)
 
 		if selection ~= nil then
-			inv.set_stack(inv,"takeaway",1,selection)
+			inv:set_stack("takeaway", 1, selection)
 		end
 	else
-		inv.set_stack(inv,"takeaway",1,nil)
+		inv:set_stack("takeaway", 1, nil)
 	end
 end
 
