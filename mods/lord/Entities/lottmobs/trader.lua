@@ -79,7 +79,7 @@ function lottmobs.on_take(inv, list_name, index, stack, player)
 	end
 
 	if list_name == "payment" then
-		if lottmobs.check_pay(inv, false) then
+		if lottmobs.check_pay(inv) then
 			local selection = inv:get_stack("selection", 1)
 			if selection ~= nil then
 				inv:set_stack("takeaway", 1, selection)
@@ -91,7 +91,7 @@ function lottmobs.on_take(inv, list_name, index, stack, player)
 end
 
 function lottmobs.update_takeaway(inv)
-	if lottmobs.check_pay(inv, false) then
+	if lottmobs.check_pay(inv) then
 		local selection = inv:get_stack("selection", 1)
 
 		if selection ~= nil then
@@ -102,31 +102,16 @@ function lottmobs.update_takeaway(inv)
 	end
 end
 
-function lottmobs.check_pay(inv,paynow)
-	local now_at_pay = inv.get_stack(inv,"payment",1)
-	local count      = now_at_pay.get_count(now_at_pay)
-	local name       = now_at_pay.get_name(now_at_pay)
+--- @param inv InvRef
+--- @return boolean
+function lottmobs.check_pay(inv)
+	local payment     = inv:get_stack("payment", 1)
+	local price       = inv:get_stack("price", 1)
+	local price_count = price:get_count()
 
-	local price_inv  = inv.get_stack(inv,"price", 1)
-
-	if price_inv:get_name() == name then
-		local price = price_inv:get_count()
-		if price > 0 and price <= count then
-			if paynow then
-				now_at_pay.take_item(now_at_pay,price)
-				inv.set_stack(inv,"payment",1,now_at_pay)
-				return true
-			else
-				return true
-			end
-		else
-			if paynow then
-				inv.set_stack(inv,"payment",1,nil)
-			end
-		end
-	end
-
-	return false
+	return
+		price:get_name() == payment:get_name() and
+		price_count > 0 and price_count <= payment:get_count()
 end
 
 
