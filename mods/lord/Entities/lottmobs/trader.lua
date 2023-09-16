@@ -1,5 +1,80 @@
 local SL = minetest.get_translator("lottmobs")
 
+
+--- @param inv InvRef
+--- @return boolean
+local function check_pay(inv)
+	local payment     = inv:get_stack("payment", 1)
+	local price       = inv:get_stack("price", 1)
+	local price_count = price:get_count()
+
+	return
+		price:get_name() == payment:get_name() and
+		price_count > 0 and price_count <= payment:get_count()
+end
+
+--- @param inv InvRef
+local function update_takeaway(inv)
+	if check_pay(inv) then
+		local selection = inv:get_stack("selection", 1)
+
+		if selection ~= nil then
+			inv:set_stack("takeaway", 1, selection)
+		end
+	else
+		inv:set_stack("takeaway", 1, nil)
+	end
+end
+
+--- @param trader_inventory InvRef
+--- @param same_race        boolean
+--- @param trader_def       TraderDef
+local function add_goods(trader_inventory, same_race, trader_def)
+	local goods = same_race == true
+		and trader_def.items_race
+		or  trader_def.items
+
+	-- FIXME: Поведение не корректное. goods[i] может и не содержать такого количества элементов
+	for i = 1, trader_inventory:get_size("goods") do
+		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
+		if math.random(0, 100) > goods[i][3] then
+			trader_inventory:set_stack("goods", i, goods[i][1])
+		end
+	end
+end
+
+--- @param self LuaEntity
+--- @param pos  Position
+local function face_pos(self, pos)
+	local s   = self.object:get_pos()
+	local vec = { x = pos.x - s.x, y = pos.y - s.y, z = pos.z - s.z }
+	local yaw = math.atan2(vec.z, vec.x) - math.pi / 2
+	if self.drawtype == "side" then
+		yaw = yaw + (math.pi / 2)
+	end
+	self.object:set_yaw(yaw)
+	return yaw
+end
+
+--- @param good_stack_string string
+--- @param trader_def        table
+--- @param same_race         boolean
+local function get_price_for(good_stack_string, trader_def, same_race)
+	local prices = same_race == true
+		and trader_def.items_race
+		or  trader_def.items
+
+	for _, price in pairs(prices) do
+		if price[1] == good_stack_string then
+			return price[2]
+		end
+	end
+
+	return nil
+end
+
+------------------------------------------------------------------------------------------------------------------------
+
 ---@param inv        InvRef
 ---@param from_list  string
 ---@param from_index number
@@ -59,7 +134,7 @@ end
 ---@param player    Player
 function lottmobs.on_put(inv, list_name, index, stack, player)
 	if list_name == "payment" then
-		lottmobs.update_takeaway(inv)
+		update_takeaway(inv)
 	end
 end
 
@@ -79,7 +154,7 @@ function lottmobs.on_take(inv, list_name, index, stack, player)
 	end
 
 	if list_name == "payment" then
-		if lottmobs.check_pay(inv) then
+		if check_pay(inv) then
 			local selection = inv:get_stack("selection", 1)
 			if selection ~= nil then
 				inv:set_stack("takeaway", 1, selection)
@@ -90,76 +165,7 @@ function lottmobs.on_take(inv, list_name, index, stack, player)
 	end
 end
 
-function lottmobs.update_takeaway(inv)
-	if lottmobs.check_pay(inv) then
-		local selection = inv:get_stack("selection", 1)
-
-		if selection ~= nil then
-			inv:set_stack("takeaway", 1, selection)
-		end
-	else
-		inv:set_stack("takeaway", 1, nil)
-	end
-end
-
---- @param inv InvRef
---- @return boolean
-function lottmobs.check_pay(inv)
-	local payment     = inv:get_stack("payment", 1)
-	local price       = inv:get_stack("price", 1)
-	local price_count = price:get_count()
-
-	return
-		price:get_name() == payment:get_name() and
-		price_count > 0 and price_count <= payment:get_count()
-end
-
-
---- @param trader_inventory InvRef
---- @param same_race        boolean
---- @param trader_def       TraderDef
-local function add_goods(trader_inventory, same_race, trader_def)
-	local goods = same_race == true
-		and trader_def.items_race
-		or  trader_def.items
-
-	-- FIXME: Поведение не корректное. goods[i] может и не содержать такого количества элементов
-	for i = 1, trader_inventory:get_size("goods") do
-		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
-		if math.random(0, 100) > goods[i][3] then
-			trader_inventory:set_stack("goods", i, goods[i][1])
-		end
-	end
-end
-
-function lottmobs.face_pos(self,pos)
-	local s = self.object:get_pos()
-	local vec = {x=pos.x-s.x, y=pos.y-s.y, z=pos.z-s.z}
-	local yaw = math.atan2(vec.z,vec.x)-math.pi/2
-	if self.drawtype == "side" then
-		yaw = yaw+(math.pi/2)
-	end
-	self.object:set_yaw(yaw)
-	return yaw
-end
-
---- @param good_stack_string string
---- @param trader_def        table
---- @param same_race         boolean
-local function get_price_for(good_stack_string, trader_def, same_race)
-	local prices = same_race == true
-		and trader_def.items_race
-		or  trader_def.items
-
-	for _, price in pairs(prices) do
-		if price[1] == good_stack_string then
-			return price[2]
-		end
-	end
-
-	return nil
-end
-----
+------------------------------------------------------------------------------------------------------------------------
 
 --- @type trader.Form
 local Form = dofile(minetest.get_modpath("lottmobs").."/trader_Form.lua")
@@ -169,7 +175,7 @@ local Form = dofile(minetest.get_modpath("lottmobs").."/trader_Form.lua")
 --- @param trader_def     TraderDef
 --- @param race_privilege string
 function lottmobs_trader(entity, clicker, trader_def, race_privilege)
-	lottmobs.face_pos(entity, clicker:get_pos())
+	face_pos(entity, clicker:get_pos())
 	local player_name = clicker:get_player_name()
 --	self.messages = tostring(race.messages[math.random(1,#race.messages)])
 	if entity.id == 0 then
@@ -208,7 +214,7 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 
 				local price = get_price_for(sel_stack_string, trader_def, same_race)
 				inventory:set_stack("price", 1, price)
-				lottmobs.update_takeaway(inventory)
+				update_takeaway(inventory)
 			end
 		end,
 		on_put = lottmobs.on_put,
