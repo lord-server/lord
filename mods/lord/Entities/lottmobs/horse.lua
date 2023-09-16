@@ -26,7 +26,7 @@ local function get_v(v)
 	return math.sqrt(v.x ^ 2 + v.z ^ 2)
 end
 
---- @param entity luaentity|table
+--- @param entity LuaEntity|table
 --- @param player Player
 --- @return boolean
 local function move_horse_to_inventory(entity, player)
@@ -48,7 +48,7 @@ end
 --- Tries to feed the horse `horse`(any riding entity) with a `item_stack`.
 --- Ups the health points if this `horse` can eat this `item_stack`, decreases items in stack.
 --- Possible food for horse and health points recovering configures by `feed` field in `register_horse()` func.
---- @param horse      luaentity|table
+--- @param horse      LuaEntity|table
 --- @param item_stack ItemStack
 --- @return boolean true if horse was fed & hp was up.
 local function feed_horse(horse, item_stack)

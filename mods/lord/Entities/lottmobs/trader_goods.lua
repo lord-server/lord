@@ -2,7 +2,13 @@
 --{thing selling, price (in gold ingots), chance that it won't appear in the trader's inventory}
 local SL = minetest.get_translator("lottmobs")
 
+--- @class TraderDef
+--- @field items      table[]  table: 1 - good (stack_string), 2 - price (stack_string), 3 - chance percent
+--- @field items_race table[]  table: 1 - good (stack_string), 2 - price (stack_string), 3 - chance percent
+--- @field names      string[] random names for traders
+--- @field messages   string[] random messages for traders
 
+--- @type TraderDef
 lottmobs.dwarf = {
 	items = {
 		{"lord_money:gold_coin 1",			"lord_money:silver_coin 10", 5},
@@ -59,7 +65,7 @@ lottmobs.dwarf = {
 		SL("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."), -- luacheck: no_max_line_length
 	}
 }
-
+--- @type TraderDef
 lottmobs.elf = {
 	items = {
 		{"lord_money:gold_coin 1",			"lord_money:silver_coin 10", 5},
@@ -116,7 +122,7 @@ lottmobs.elf = {
 		SL("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."), -- luacheck: no_max_line_length
 	}
 }
-
+--- @type TraderDef
 lottmobs.hobbit = {
 	items = {
 		{"lord_money:gold_coin 1",			"lord_money:silver_coin 10",	5},
@@ -173,7 +179,7 @@ lottmobs.hobbit = {
 		SL("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."), -- luacheck: no_max_line_length
 	}
 }
-
+--- @type TraderDef
 lottmobs.human = {
 	items = {
 		{"lord_money:gold_coin 1",			"lord_money:silver_coin 10",	5},

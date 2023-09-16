@@ -195,23 +195,27 @@ local function get_price_for(good_stack_string, trader_def, same_race)
 end
 ----
 
-function lottmobs_trader(self, clicker, entity, race, priv)
-	lottmobs.face_pos(self, clicker:get_pos())
+--- @param entity         LuaEntity
+--- @param clicker        Player
+--- @param trader_def     TraderDef
+--- @param race_privilege string
+function lottmobs_trader(entity, clicker, trader_def, race_privilege)
+	lottmobs.face_pos(entity, clicker:get_pos())
 	local player_name = clicker:get_player_name()
 --	self.messages = tostring(race.messages[math.random(1,#race.messages)])
-	if self.id == 0 then
-		self.id = (math.random(1, 1000) * math.random(1, 10000)) .. self.name .. (math.random(1, 1000) ^ 2)
+	if entity.id == 0 then
+		entity.id = (math.random(1, 1000) * math.random(1, 10000)) .. entity.name .. (math.random(1, 1000) ^ 2)
 	end
-	if self.game_name == "mob" then
-		self.game_name = tostring(race.names[math.random(1,#race.names)])
+	if entity.game_name == "mob" then
+		entity.game_name = tostring(trader_def.names[math.random(1,#trader_def.names)])
 		--self.nametag = self.game_name
 	end
 
-	local unique_entity_id = player_name.."_trader_"..self.id:gsub(":", "_")
+	local unique_entity_id = player_name.."_trader_".. entity.id:gsub(":", "_")
 
 	local is_inventory = minetest.get_inventory({type="detached", name=unique_entity_id})
 	local same_race = false
-	if minetest.get_player_privs(player_name)[priv] ~= nil then
+	if minetest.get_player_privs(player_name)[race_privilege] ~= nil then
 		same_race = true
 	end
 	local move_put_take = {
@@ -232,7 +236,7 @@ function lottmobs_trader(self, clicker, entity, race, priv)
 				local sel_stack = inventory:get_stack("selection", 1)
 				local sel_stack_string = sel_stack:get_name() .. " " .. sel_stack:get_count()
 
-				local price = get_price_for(sel_stack_string, race, same_race)
+				local price = get_price_for(sel_stack_string, trader_def, same_race)
 				inventory:set_stack("price", 1, price)
 				lottmobs.update_takeaway(inventory)
 			end
@@ -247,17 +251,17 @@ function lottmobs_trader(self, clicker, entity, race, priv)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"price",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"payment",1)
-		lottmobs.add_goods(same_race, race)
+		lottmobs.add_goods(same_race, trader_def)
 	end
 	minetest.chat_send_player(
 		player_name,
-		"[NPC] <" .. SL("Trader") .. " " .. SL(self.game_name) .. "> " ..
+		"[NPC] <" .. SL("Trader") .. " " .. SL(entity.game_name) .. "> " ..
 			SL("Hello") .. ", " .. player_name .. ", \n" ..
-			tostring(race.messages[math.random(1, #race.messages)]) -- messages already translated
+			tostring(trader_def.messages[math.random(1, #trader_def.messages)]) -- messages already translated
 	)
 	minetest.show_formspec(player_name, "trade",
 		"size[8,10;]" ..
-		"label[0,0;"..SL("Trader").." " .. SL(self.game_name) .. SL("'s stock:").."]" ..
+		"label[0,0;"..SL("Trader").." " .. SL(entity.game_name) .. SL("'s stock:").."]" ..
 		"list[detached:" .. unique_entity_id .. ";goods;.5,.5;3,5;]" ..
 		"label[4.5,0.5;"..SL("Selection").."]" ..
 		"list[detached:" .. unique_entity_id .. ";selection;4.5,1;5.5,2;]" ..
