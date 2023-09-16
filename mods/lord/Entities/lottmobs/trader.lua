@@ -75,6 +75,9 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------
 
+--- @type DetachedInventoryCallbacksDef
+local inventory_callbacks = {}
+
 ---@param inv        InvRef
 ---@param from_list  string
 ---@param from_index number
@@ -82,7 +85,7 @@ end
 ---@param to_index   number
 ---@param count      number
 ---@param player     Player
-function lottmobs.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
+function inventory_callbacks.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if
 		(from_list == "goods" and (to_list ~= "selection" and to_list ~= "goods")) or
 		(from_list == "selection" and to_list ~= "goods") or
@@ -106,7 +109,7 @@ end
 ---@param index     number
 ---@param stack     ItemStack
 ---@param player    Player
-function lottmobs.allow_put(inv, list_name, index, stack, player)
+function inventory_callbacks.allow_put(inv, list_name, index, stack, player)
 	if list_name == "payment" then
 		return stack:get_count()
 	end
@@ -118,7 +121,7 @@ end
 ---@param index     number
 ---@param stack     ItemStack
 ---@param player    Player
-function lottmobs.allow_take(inv, list_name, index, stack, player)
+function inventory_callbacks.allow_take(inv, list_name, index, stack, player)
 	if list_name == "takeaway" or
 		list_name == "payment" then
 		return stack:get_count()
@@ -132,7 +135,7 @@ end
 ---@param index     number
 ---@param stack     ItemStack
 ---@param player    Player
-function lottmobs.on_put(inv, list_name, index, stack, player)
+function inventory_callbacks.on_put(inv, list_name, index, stack, player)
 	if list_name == "payment" then
 		update_takeaway(inv)
 	end
@@ -143,7 +146,7 @@ end
 ---@param index     number
 ---@param stack     ItemStack
 ---@param player    Player
-function lottmobs.on_take(inv, list_name, index, stack, player)
+function inventory_callbacks.on_take(inv, list_name, index, stack, player)
 	if list_name == "takeaway" then
 		local amount = inv:get_stack("payment",1):get_count()
 		local price = inv:get_stack("price",1):get_count()
@@ -195,9 +198,9 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 	end
 	--- @type DetachedInventoryCallbacksDef
 	local callbacks = {
-		allow_move = lottmobs.allow_move,
-		allow_put = lottmobs.allow_put,
-		allow_take = lottmobs.allow_take,
+		allow_move = inventory_callbacks.allow_move,
+		allow_put = inventory_callbacks.allow_put,
+		allow_take = inventory_callbacks.allow_take,
 		--- @param inventory  InvRef
 		--- @param from_list  string
 		--- @param from_index number
@@ -217,8 +220,8 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 				update_takeaway(inventory)
 			end
 		end,
-		on_put = lottmobs.on_put,
-		on_take = lottmobs.on_take
+		on_put = inventory_callbacks.on_put,
+		on_take = inventory_callbacks.on_take
 	}
 	if is_inventory == nil then
 		local trader_inventory = minetest.create_detached_inventory(inventory_id, callbacks, player_name)
