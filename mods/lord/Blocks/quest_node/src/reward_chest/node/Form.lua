@@ -1,7 +1,6 @@
 local esc = minetest.formspec_escape
 
 
---- @type fun(str: string, ...)
 local S = minetest.get_translator('quest_node')
 
 ---

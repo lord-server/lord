@@ -194,7 +194,10 @@ function minetest.get_hit_params(groups, tool_capabilities , time_from_last_punc
 ---   As an extra commodity, if `textdomain` is nil, it is assumed to be "" instead.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3329-L3338)
-function minetest.get_translator(textdomain) end
+---
+--- @param text_domain string
+--- @return fun(str: string, ...)
+function minetest.get_translator(text_domain) end
 --- translates the string `str` with
 ---   the given `textdomain` for disambiguation. The textdomain must match the
 ---   textdomain specified in the translation file in order to get the string

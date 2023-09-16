@@ -1,25 +1,3 @@
---This code comes almost exclusively from the trader and inventory of mobf, by Sapier.
---The copyright notice bellow is from mobf:
--------------------------------------------------------------------------------
--- Mob Framework Mod by Sapier
---
--- You may copy, use, modify or do nearly anything except removing this
--- copyright notice.
--- And of course you are NOT allow to pretend you have written it.
---
---! @file inventory.lua
---! @brief component containing mob inventory related functions
---! @copyright Sapier
---! @author Sapier
---! @date 2013-01-02
---
---! @defgroup Inventory Inventory subcomponent
---! @brief Component handling mob inventory
---! @ingroup framework_int
---! @{
---
--- Contact sapier a t gmx net
--------------------------------------------------------------------------------
 local SL = minetest.get_translator("lottmobs")
 
 ---@param inv        InvRef
@@ -195,6 +173,9 @@ local function get_price_for(good_stack_string, trader_def, same_race)
 end
 ----
 
+--- @type trader.Form
+local Form = dofile(minetest.get_modpath("lottmobs").."/trader_Form.lua")
+
 --- @param entity         LuaEntity
 --- @param clicker        Player
 --- @param trader_def     TraderDef
@@ -211,10 +192,10 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 		--self.nametag = self.game_name
 	end
 
-	local unique_entity_id = player_name.."_trader_".. entity.id:gsub(":", "_")
+	local inventory_id = player_name.."_trader_".. entity.id:gsub(":", "_")
 
-	local is_inventory = minetest.get_inventory({type="detached", name=unique_entity_id})
-	local same_race = false
+	local is_inventory = minetest.get_inventory({type="detached", name= inventory_id })
+	local same_race    = false
 	if minetest.get_player_privs(player_name)[race_privilege] ~= nil then
 		same_race = true
 	end
@@ -245,7 +226,7 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 		on_take = lottmobs.on_take
 	}
 	if is_inventory == nil then
-		lottmobs.trader_inventory = minetest.create_detached_inventory(unique_entity_id, move_put_take, player_name)
+		lottmobs.trader_inventory = minetest.create_detached_inventory(inventory_id, move_put_take, player_name)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"goods",15)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"takeaway",1)
 		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
@@ -259,18 +240,7 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 			SL("Hello") .. ", " .. player_name .. ", \n" ..
 			tostring(trader_def.messages[math.random(1, #trader_def.messages)]) -- messages already translated
 	)
-	minetest.show_formspec(player_name, "trade",
-		"size[8,10;]" ..
-		"label[0,0;"..SL("Trader").." " .. SL(entity.game_name) .. SL("'s stock:").."]" ..
-		"list[detached:" .. unique_entity_id .. ";goods;.5,.5;3,5;]" ..
-		"label[4.5,0.5;"..SL("Selection").."]" ..
-		"list[detached:" .. unique_entity_id .. ";selection;4.5,1;5.5,2;]" ..
-		"label[6,0.5;"..SL("Price").."]" ..
-		"list[detached:" .. unique_entity_id .. ";price;6,1;7,2;]" ..
-		"label[4.5,3.5;"..SL("Payment").."]" ..
-		"list[detached:" .. unique_entity_id .. ";payment;4.5,4;5.5,5;]" ..
-		"label[6,3.5;"..SL("Brought items").."]" ..
-		"list[detached:" .. unique_entity_id .. ";takeaway;6,4;7.5,5.5;]" ..
-		"list[current_player;main;0,6;8,4;]"
-	)
+
+	Form:new(clicker, inventory_id, entity.game_name):open()
+
 end

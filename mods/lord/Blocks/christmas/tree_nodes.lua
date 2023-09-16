@@ -1,5 +1,3 @@
-
---- @type fun(str: string, ...)
 local S = minetest.get_translator("christmas")
 
 

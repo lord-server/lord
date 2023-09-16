@@ -2,7 +2,6 @@
 local Form = require("reward_chest.node.Form")
 
 
---- @type fun(str: string, ...)
 local S = minetest.get_translator('quest_node')
 
 --- HELPERS: -----------------------------------------------------------------------------------------------------------

@@ -1,4 +1,3 @@
---- @type fun(str: string, ...)
 local S = minetest.get_translator("christmas")
 
 local mod_path = minetest.get_modpath(minetest.get_current_modname())
