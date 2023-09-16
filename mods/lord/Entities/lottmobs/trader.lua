@@ -128,18 +128,21 @@ function lottmobs.check_pay(inv,paynow)
 
 	return false
 end
-lottmobs.trader_inventories = {}
 
-function lottmobs.add_goods(same_race, race)
-	for i=1,15 do
-		if same_race == true then
-			if math.random(0, 100) > race.items_race[i][3] then
-				lottmobs.trader_inventory.set_stack(lottmobs.trader_inventory,"goods", i, race.items_race[i][1])
-			end
-		else
-			if math.random(0, 100) > race.items[i][3] then
-				lottmobs.trader_inventory.set_stack(lottmobs.trader_inventory,"goods", i, race.items[i][1])
-			end
+
+--- @param trader_inventory InvRef
+--- @param same_race        boolean
+--- @param trader_def       TraderDef
+local function add_goods(trader_inventory, same_race, trader_def)
+	local goods = same_race == true
+		and trader_def.items_race
+		or  trader_def.items
+
+	-- FIXME: Поведение не корректное. goods[i] может и не содержать такого количества элементов
+	for i = 1, trader_inventory:get_size("goods") do
+		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
+		if math.random(0, 100) > goods[i][3] then
+			trader_inventory:set_stack("goods", i, goods[i][1])
 		end
 	end
 end
@@ -199,7 +202,8 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 	if minetest.get_player_privs(player_name)[race_privilege] ~= nil then
 		same_race = true
 	end
-	local move_put_take = {
+	--- @type DetachedInventoryCallbacksDef
+	local callbacks = {
 		allow_move = lottmobs.allow_move,
 		allow_put = lottmobs.allow_put,
 		allow_take = lottmobs.allow_take,
@@ -226,13 +230,13 @@ function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 		on_take = lottmobs.on_take
 	}
 	if is_inventory == nil then
-		lottmobs.trader_inventory = minetest.create_detached_inventory(inventory_id, move_put_take, player_name)
-		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"goods",15)
-		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"takeaway",1)
-		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"selection",1)
-		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"price",1)
-		lottmobs.trader_inventory.set_size(lottmobs.trader_inventory,"payment",1)
-		lottmobs.add_goods(same_race, trader_def)
+		local trader_inventory = minetest.create_detached_inventory(inventory_id, callbacks, player_name)
+		trader_inventory:set_size("goods", 15)
+		trader_inventory:set_size("takeaway", 1)
+		trader_inventory:set_size("selection", 1)
+		trader_inventory:set_size("price", 1)
+		trader_inventory:set_size("payment", 1)
+		add_goods(trader_inventory, same_race, trader_def)
 	end
 	minetest.chat_send_player(
 		player_name,

@@ -1387,6 +1387,10 @@ function minetest.get_inventory(location) end
 --- * Creates a detached inventory. If it already exists, it is cleared.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5190-L5198)
+--- @param name string
+--- @param callbacks DetachedInventoryCallbacksDef
+--- @param player_name string
+--- @return InvRef
 function minetest.create_detached_inventory(name, callbacks, player_name) end
 --- * Returns a `boolean` indicating whether the removal succeeded.
 ---
