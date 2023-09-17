@@ -15,6 +15,14 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
+	output = "lord_homedecor:chains 2",
+	recipe = {
+		{ "default:steel_ingot", "default:steel_ingot" },
+		{ "lamps:chains_vertical_steel", "lamps:chains_vertical_steel" },
+	},
+})
+
+minetest.register_craft({
 	output = "lord_homedecor:torch_wall 10",
 	recipe = {
 		{ "default:coal_lump" },
