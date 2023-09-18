@@ -1,5 +1,12 @@
 # Change Log
 
+## [2023.08.p2](https://github.com/lord-server/lord/releases/tag/2023.08.p2)
+ - Add previews for elven clothes. Fixes #1144
+ - Add craft for big chains. Fixes #1131
+ - Up dwarven axe damage. Relates to #1128
+ - Substituting player in Vassals clan.
+ - Fix clan player name.
+
 ## [2023.08.p1](https://github.com/lord-server/lord/releases/tag/2023.08.p1)
  - Decrease wielded food when feed the riding animal. Fixes #1113
  - Add sounds for `castle:dungeon_stone` & `castle:bound_straw`. Fixes #1123

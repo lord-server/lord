@@ -10,7 +10,7 @@
 local clans = {
 	masons = {
 		title = "Masons",
-		players = {	"Petus_mason", "Swed_mason", "Dormi_mason", "Jiki_mason", "Alek_mason", "Zhekil_mason" },
+		players = {	"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason" },
 	},
 	havit = {
 		title = "Havit-Nakyar",
@@ -18,7 +18,7 @@ local clans = {
 	},
 	vassals = {
 		title = "Vassals",
-		players = { "Pilsner_vassal", "PePe_vassal", "JakeVovaDimas", "SarumanWhite" },
+		players = { "Pilsner_vassal", "PePe_vassal", "JakeVovaDimas", "Semi_vassal" },
 	},
 }
 
