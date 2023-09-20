@@ -113,7 +113,7 @@ local textures2 = {
 }
 
 local drops2 = {
-	{ name = "default:obsidian", chance = 70, min = 1, max = 1, },
+	{ name = "default:obsidian", chance = 90, min = 1, max = 1, },
 	{ name = "default:diamond", chance = 30, min = 1, max = 2, },
 	{ name   = "default:iron_lump", chance = 3, min    = 1, max    = 7, },
 	{ name   = "default:copper_lump", chance = 4, min    = 1, max    = 4, },

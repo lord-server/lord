@@ -1526,7 +1526,7 @@ mobs:register_mob("lottmobs:troll", {
 	armor = 100,
 	drops = {
 		{name = "default:stone",		chance = 5,		min = 1,		max = 7,},
-		{name = "default:coal",			chance = 15,	min = 1,		max = 4,},
+		{name = "default:stone_with_coal",			chance = 15,	min = 1,		max = 4,},
 		{name = "lottweapons:steel_battleaxe",		chance = 10,		min = 1,		max = 1,},
 		{name = "lottweapons:steel_warhammer",		chance = 10,		min = 1,		max = 1,},
 		{name = "lottweapons:bronze_battleaxe",		chance = 10,		min = 1,		max = 1,},
