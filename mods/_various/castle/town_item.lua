@@ -97,6 +97,7 @@ minetest.register_node("castle:workbench", {
 	paramtype                     = "light",
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wooden = 1 },
 	drawtype                      = "normal",
+	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
@@ -337,6 +338,7 @@ minetest.register_node("castle:light", {
 	tiles               = { "castle_street_light.png" },
 	groups              = { cracky = 2 },
 	paramtype           = "light",
+	sounds              = default.node_sound_glass_defaults(),
 })
 
 minetest.register_craft({

@@ -29,6 +29,7 @@ minetest.register_node("castle:shield", {
 			{ -0.500000, -0.500000, 0.375000, 0.500000, 0.500000, 0.500000 }, --NodeBox 1
 		},
 	},
+	sounds        = default.node_sound_defaults(),
 })
 
 minetest.register_craft({
@@ -69,6 +70,7 @@ minetest.register_node("castle:shield_2", {
 			{ -0.500000, -0.500000, 0.375000, 0.500000, 0.500000, 0.500000 }, --NodeBox 1
 		},
 	},
+	sounds        = default.node_sound_defaults(),
 })
 
 minetest.register_craft({
@@ -109,6 +111,7 @@ minetest.register_node("castle:shield_3", {
 			{ -0.500000, -0.500000, 0.375000, 0.500000, 0.500000, 0.500000 }, --NodeBox 1
 		},
 	},
+	sounds        = default.node_sound_defaults(),
 })
 
 minetest.register_craft({

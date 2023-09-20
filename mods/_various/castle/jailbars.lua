@@ -85,6 +85,7 @@ for i = 1, 15 do
 		use_texture_alpha = "clip",
 		paramtype         = "light",
 		groups            = { cracky = 2 },
+		sounds            = default.node_sound_metal_defaults(),
 		drop              = "castle:jailbars",
 		node_box          = {
 			type  = "fixed",
@@ -103,6 +104,7 @@ minetest.register_node("castle:jailbars", {
 	inventory_image           = "castle_jailbars.png",
 	wield_image               = "castle_jailbars.png",
 	groups                    = { steel_item = 1 },
+	sounds                    = default.node_sound_metal_defaults(),
 	node_placement_prediction = "",
 	on_construct              = update_jailbars
 })
