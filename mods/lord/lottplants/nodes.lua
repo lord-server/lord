@@ -1158,51 +1158,57 @@ default.register_leafdecay({
 --Wood
 
 minetest.register_node("lottplants:pinewood", {
-	description = S("Pine Planks"),
-	tiles       = { "lottplants_pinewood.png" },
-	groups      = { choppy = 3, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Pine Planks"),
+	tiles        = { "lottplants_pinewood.png" },
+	groups       = { choppy = 3, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 minetest.register_node("lottplants:firwood", {
-	description = S("Fir Planks"),
-	tiles       = { "lottplants_fir_wood.png" },
-	groups      = { choppy = 3, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Fir Planks"),
+	tiles        = { "lottplants_fir_wood.png" },
+	groups       = { choppy = 3, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 minetest.register_node("lottplants:birchwood", {
-	description = S("Birch Planks"),
-	tiles       = { "lottplants_birchwood.png" },
-	groups      = { choppy = 3, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Birch Planks"),
+	tiles        = { "lottplants_birchwood.png" },
+	groups       = { choppy = 3, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 minetest.register_node("lottplants:alderwood", {
-	description = S("Alder Planks"),
-	tiles       = { "lottplants_alderwood.png" },
-	groups      = { choppy = 2, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Alder Planks"),
+	tiles        = { "lottplants_alderwood.png" },
+	groups       = { choppy = 2, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 minetest.register_node("lottplants:lebethronwood", {
-	description = S("Lebethron Planks"),
-	tiles       = { "lottplants_lebethronwood.png" },
-	groups      = { choppy = 1, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Lebethron Planks"),
+	tiles        = { "lottplants_lebethronwood.png" },
+	groups       = { choppy = 1, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 minetest.register_node("lottplants:mallornwood", {
-	description = S("Mallorn Planks"),
-	tiles       = { "lottplants_mallornwood.png" },
-	groups      = { choppy = 1, flammable = 3, wood = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	paramtype2  = "facedir",
+	description  = S("Mallorn Planks"),
+	tiles        = { "lottplants_mallornwood.png" },
+	groups       = { choppy = 1, flammable = 3, wood = 1 },
+	sounds       = default.node_sound_wood_defaults(),
+	paramtype2   = "facedir",
+	place_param2 = 0,
 })
 
 --Lorien grass
