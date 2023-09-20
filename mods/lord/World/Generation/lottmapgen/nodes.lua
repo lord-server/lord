@@ -108,15 +108,29 @@ minetest.register_craft({
 minetest.register_node("lottmapgen:blacksource", {
 	description = S("Black Water Source"),
 	drawtype = "liquid",
+	waving = 3,
 	inventory_image = minetest.inventorycube("lottmapgen_black_water.png"),
-	tiles = {"lottmapgen_black_water.png"},
-	special_tiles = {
-		-- New-style water source material (mostly unused)
+	tiles = {
 		{
-			name="lottmapgen_black_water_source_animated.png",
-			animation={type="vertical_frames", aspect_w=16, aspect_h=16, length=2.0},
+			name = "lottmapgen_black_water_source_animated.png",
 			backface_culling = false,
-		}
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+		},
+		{
+			name = "lottmapgen_black_water_source_animated.png",
+			backface_culling = true,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2.0,
+			},
+		},
 	},
 	use_texture_alpha = "blend",
 	paramtype = "light",

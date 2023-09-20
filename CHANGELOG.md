@@ -1,5 +1,13 @@
 # Change Log
 
+## [2023.08.p3](https://github.com/lord-server/lord/releases/tag/2023.08.p3)
+ - Add drops of stone with coal and obsidian (#1161)
+ - One charcoal from one wood planks. Fixes #1112
+ - Torch from charcoal.
+ - Sounds for `castle:*` nodes. Fixes #1126
+ - Place planks always to north directed. Fixes #833
+ - Animated mordor water. Fixes #611
+
 ## [2023.08.p2](https://github.com/lord-server/lord/releases/tag/2023.08.p2)
  - Add previews for elven clothes. Fixes #1144
  - Add craft for big chains. Fixes #1131

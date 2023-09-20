@@ -22,6 +22,7 @@ minetest.register_node("castle:ropes",{
 			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16},
 		},
 	},
+	sounds        = default.node_sound_defaults(),
 })
 
 minetest.register_craft({
@@ -55,6 +56,7 @@ minetest.register_node("castle:box_rope", {
 			{-1/16, -8/16, -1/16, 1/16, 8/16, 1/16},
 		},
 	},
+	sounds        = default.node_sound_wood_defaults(),
     after_destruct = function(pos,oldnode)
         local node = minetest.get_node({x=pos.x,y=pos.y-1,z=pos.z})
         if node.name == "castle:box_rope" then
@@ -88,6 +90,7 @@ minetest.register_node("castle:ropebox", {
 			{-1/16, -8/16, -1/16, 1/16, -4/16, 1/16},
 		},
 	},
+	sounds = default.node_sound_wood_defaults(),
     after_destruct = function(pos,oldnode)
         local node = minetest.get_node({x=pos.x,y=pos.y-1,z=pos.z})
         if node.name == "castle:box_rope" then

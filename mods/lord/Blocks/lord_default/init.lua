@@ -97,6 +97,14 @@ minetest.register_craft({
 	recipe = "group:wooden",
 })
 
+minetest.register_craft({
+	output = "default:torch 2",
+	recipe = {
+		{"default:charcoal_lump"},
+		{"group:stick"},
+	}
+})
+
 ----------------------------------
 ---      Stone-like nodes      ---
 ----------------------------------
