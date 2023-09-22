@@ -113,7 +113,7 @@ mobs:spawn_specific("lottmobs:troll", {"default:snow"},            {"air"}, -1, 
 mobs:spawn_specific("lottmobs:troll", {"default:snowblock"},       {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"lottmapgen:angsnowblock"}, {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 
---special_mobs.lua
+--traders.lua
 mobs:spawn_specific("lottmobs:elf_trader",   {"lottmapgen:lorien_grass"},  {"air"},  0, 20, 30, 90000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:rohan_grass"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:gondor_grass"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
