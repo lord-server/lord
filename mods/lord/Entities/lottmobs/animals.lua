@@ -180,8 +180,7 @@ mobs:register_mob("lottmobs:chicken", {
 		{"lottmobs_chicken.png"},
 	},
 	sounds = {
-		-- файлов нет
-		-- random = "mobs_chicken",
+		random = "mobs_chicken",
 	},
 	visual = "mesh",
 	mesh = "chicken_model.x",
