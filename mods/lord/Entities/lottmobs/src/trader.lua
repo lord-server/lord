@@ -171,7 +171,7 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 --- @type trader.Form
-local Form = dofile(minetest.get_modpath("lottmobs").."/trader_Form.lua")
+local Form = dofile(minetest.get_modpath("lottmobs").."/src/trader_Form.lua")
 
 --- @param entity         LuaEntity
 --- @param clicker        Player

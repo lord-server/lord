@@ -1,3 +1,6 @@
+dofile(minetest.get_modpath("lottmobs").."/src/trader_goods.lua")
+dofile(minetest.get_modpath("lottmobs").."/src/trader.lua")
+
 local common_trader_definition = {
 	type                 = "npc",
 	visual               = "mesh",
@@ -119,3 +122,9 @@ register_trader("lottmobs:dwarf_trader", {
 	armor        = 200,
 	damage       = 4,
 })
+
+mobs:spawn_specific("lottmobs:elf_trader",   {"lottmapgen:lorien_grass"},  {"air"},  0, 20, 30, 90000, 2, -31000, 31000)
+mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:rohan_grass"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:gondor_grass"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+mobs:spawn_specific("lottmobs:hobbit_trader",{"lottmapgen:shire_grass"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+mobs:spawn_specific("lottmobs:dwarf_trader", {"lottmapgen:ironhill_grass"},{"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
