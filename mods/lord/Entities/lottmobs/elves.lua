@@ -117,16 +117,16 @@ local textures1 = {
 }
 
 local drops1 = {
-	{ name = "lottplants:mallornsapling", chance = 5, min = 1, max = 3, },
-	{ name = "lottplants:mallornwood", chance = 5, min = 1, max = 6, },
-	{ name = "lottores:silveringot", chance = 20, min = 1, max = 7 },
-	{ name = "tools:sword_silver", chance = 20, min = 1, max = 1 },
-	{ name = "lottarmor:helmet_silver", chance = 30, min = 1, max = 1 },
-	{ name = "lottarmor:chestplate_silver", chance = 30, min = 1, max = 1 },
-	{ name = "tools:spear_silver", chance = 25, min = 1, max = 1, },
-	{ name = "lottores:blue_gem", chance = 200, min = 1, max = 1, },
+	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
+	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
+	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
+	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
+	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
+	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
 	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
-	{ name = "lottores:mithril_lump", chance = 100, min = 1, max = 2, },
+	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
 lottmobs.register_elf("", 20, 35, textures1, 2.5, 5, 4, 200, drops1)
@@ -166,16 +166,16 @@ local textures2 = {
 }
 
 local drops2 = {
-	{ name = "lottplants:mallornsapling", chance = 5, min = 1, max = 3, },
-	{ name = "lottplants:mallornwood", chance = 5, min = 1, max = 6, },
-	{ name = "lottores:silveringot", chance = 20, min = 1, max = 7 },
-	{ name = "tools:sword_silver", chance = 20, min = 1, max = 1 },
-	{ name = "lottarmor:helmet_silver", chance = 30, min = 1, max = 1 },
-	{ name = "lottarmor:chestplate_silver", chance = 30, min = 1, max = 1 },
-	{ name = "tools:spear_silver", chance = 25, min = 1, max = 1, },
-	{ name = "lottores:blue_gem", chance = 200, min = 1, max = 1, },
+	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
+	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
+	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
+	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
+	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
+	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
 	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
-	{ name = "lottores:mithril_lump", chance = 100, min = 1, max = 2, },
+	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
 lottmobs.register_elf(1, 20, 35, textures2, 2, 4.5, 6, 100, drops2)
@@ -204,16 +204,16 @@ local textures3 = {
 }
 
 local drops3 = {
-	{ name = "lottplants:mallornsapling", chance = 5, min = 1, max = 3, },
-	{ name = "lottplants:mallornwood", chance = 5, min = 1, max = 6, },
-	{ name = "lottores:silveringot", chance = 20, min = 1, max = 7 },
-	{ name = "tools:sword_silver", chance = 20, min = 1, max = 1 },
-	{ name = "lottarmor:helmet_silver", chance = 30, min = 1, max = 1 },
-	{ name = "lottarmor:chestplate_silver", chance = 30, min = 1, max = 1 },
-	{ name = "tools:spear_silver", chance = 25, min = 1, max = 1, },
-	{ name = "lottores:blue_gem", chance = 200, min = 1, max = 1, },
+	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
+	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
+	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
+	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
+	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
+	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
 	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
-	{ name = "lottores:mithril_lump", chance = 100, min = 1, max = 2, },
+	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
 lottmobs.register_elf(2, 20, 35, textures3, 2.25, 4.75, 8, 150, drops3)
@@ -242,10 +242,10 @@ local textures4 = {
 }
 
 local drops4 = {
-	{ name = "arrows:arrow", chance = 30, min = 1, max = 10, },
-	{ name = "lottthrowing:bow_wood_mallord", chance = 5, min = 1, max = 1, },
-	{ name = "lottores:silveringot", chance = 20, min = 1, max = 7 },
-	{ name = "lottarmor:chestplate_silver", chance = 30, min = 1, max = 1 },
+	{ name = "arrows:arrow",                  chance = 30, min = 1, max = 10, },
+	{ name = "lottthrowing:bow_wood_mallord", chance = 5,  min = 1, max = 1, },
+	{ name = "lottores:silveringot",          chance = 20, min = 1, max = 7 },
+	{ name = "lottarmor:chestplate_silver",   chance = 30, min = 1, max = 1 },
 }
 
 lottmobs.register_elf_archer("", 20, 35, textures4, 2.25, 4.75, 8, 150, drops4)

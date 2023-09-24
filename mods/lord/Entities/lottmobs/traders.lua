@@ -26,7 +26,7 @@ local common_trader_definition = {
 	drops                = {
 		{ name = "lord_money:copper_coin", chance = 2, min = 1, max = 30, },
 		{ name = "lord_money:silver_coin", chance = 6, min = 1, max = 9, },
-		{ name = "lord_money:gold_coin", chance = 9, min = 1, max = 3, },
+		{ name = "lord_money:gold_coin",   chance = 9, min = 1, max = 3, },
 	},
 	attacks_monsters     = true, -- except hobbits
 	group_attack         = true, -- except hobbits

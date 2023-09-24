@@ -66,13 +66,13 @@ local textures1 = {
 }
 
 local drops1 = {
-	{ name = "default:diamond", chance = 30, min = 1, max = 2, },
-	{ name = "default:iron_lump", chance = 3, min = 1, max = 7, },
-	{ name = "default:copper_lump", chance = 4, min = 1, max = 4, },
-	{ name = "default:iron_ingot", chance = 3, min = 1, max = 7, },
-	{ name = "lottores:tin_lump", chance = 8, min = 1, max = 2, },
-	{ name = "default:copper_lump", chance = 8, min = 1, max = 2, },
-	{ name = "default:bronze_ingot", chance = 5, min = 1, max = 6, },
+	{ name = "default:diamond",       chance = 30, min = 1, max = 2, },
+	{ name = "default:iron_lump",     chance = 3,  min = 1, max = 7, },
+	{ name = "default:copper_lump",   chance = 4,  min = 1, max = 4, },
+	{ name = "default:iron_ingot",    chance = 3,  min = 1, max = 7, },
+	{ name = "lottores:tin_lump",     chance = 8,  min = 1, max = 2, },
+	{ name = "default:copper_lump",   chance = 8,  min = 1, max = 2, },
+	{ name = "default:bronze_ingot",  chance = 5,  min = 1, max = 6, },
 	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 
@@ -113,15 +113,15 @@ local textures2 = {
 }
 
 local drops2 = {
-	{ name = "default:obsidian", chance = 90, min = 1, max = 1, },
-	{ name = "default:diamond", chance = 30, min = 1, max = 2, },
-	{ name   = "default:iron_lump", chance = 3, min    = 1, max    = 7, },
-	{ name   = "default:copper_lump", chance = 4, min    = 1, max    = 4, },
-	{ name   = "default:iron_ingot", chance = 3, min    = 1, max    = 7, },
-	{ name   = "lottores:tin_lump", chance = 8, min    = 1, max    = 2, },
-	{ name   = "default:copper_lump", chance = 8, min    = 1, max    = 2, },
-	{ name   = "default:bronze_ingot", chance = 5, min    = 1, max    = 6, },
-	{ name   = "lottores:mithril_lump", chance = 50, min    = 1, max    = 3, },
+	{ name = "default:obsidian",      chance = 90, min = 1, max = 1, },
+	{ name = "default:diamond",       chance = 30, min = 1, max = 2, },
+	{ name = "default:iron_lump",     chance = 3,  min = 1, max = 7, },
+	{ name = "default:copper_lump",   chance = 4,  min = 1, max = 4, },
+	{ name = "default:iron_ingot",    chance = 3,  min = 1, max = 7, },
+	{ name = "lottores:tin_lump",     chance = 8,  min = 1, max = 2, },
+	{ name = "default:copper_lump",   chance = 8,  min = 1, max = 2, },
+	{ name = "default:bronze_ingot",  chance = 5,  min = 1, max = 6, },
+	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 
 lottmobs.register_dwarf("1", 30, 40, textures2, 2.75, 3.5, 13, 75, drops2)
@@ -161,13 +161,13 @@ local textures3 = {
 }
 
 local drops3 = {
-	{ name = "default:diamond", chance = 30, min = 1, max = 2, },
-	{ name = "default:iron_lump", chance = 3, min = 1, max = 7, },
-	{ name = "default:copper_lump", chance = 4, min = 1, max = 4, },
-	{ name = "default:iron_ingot", chance = 3, min = 1, max = 7, },
-	{ name = "lottores:tin_lump", chance = 8, min = 1, max = 2, },
-	{ name = "default:copper_lump", chance = 8, min = 1, max = 2, },
-	{ name = "default:bronze_ingot", chance = 5, min = 1, max = 6, },
+	{ name = "default:diamond",       chance = 30, min = 1, max = 2, },
+	{ name = "default:iron_lump",     chance = 3,  min = 1, max = 7, },
+	{ name = "default:copper_lump",   chance = 4,  min = 1, max = 4, },
+	{ name = "default:iron_ingot",    chance = 3,  min = 1, max = 7, },
+	{ name = "lottores:tin_lump",     chance = 8,  min = 1, max = 2, },
+	{ name = "default:copper_lump",   chance = 8,  min = 1, max = 2, },
+	{ name = "default:bronze_ingot",  chance = 5,  min = 1, max = 6, },
 	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 

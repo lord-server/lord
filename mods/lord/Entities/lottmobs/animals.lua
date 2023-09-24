@@ -35,7 +35,7 @@ mobs:register_mob("lottmobs:kitten", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "farming:string", chance = 1, min = 0, max = 1},
+		{ name = "farming:string", chance = 1, min = 0, max = 1 },
 	},
 	water_damage = 0,
 	lava_damage = 5,
@@ -189,15 +189,9 @@ mobs:register_mob("lottmobs:chicken", {
 	makes_footstep_sound = true,
 	walk_velocity = 1,
 	armor = 300,
-		drops = {
-		{name = "lottmobs:chicken_raw",
-		chance = 1,
-		min = 0,
-		max = 1,},
-		{name = "lottmobs:egg",
-		chance = 1,
-		min = 0,
-		max = 1,},
+	drops = {
+		{ name = "lottmobs:chicken_raw", chance = 1, min = 0, max = 1, },
+		{ name = "lottmobs:egg",         chance = 1, min = 0, max = 1, },
 	},
 	light_resistant = true,
 	drawtype = "front",
@@ -247,8 +241,8 @@ mobs:register_mob("lottmobs:sheep", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:meat_raw", chance = 1, min = 1, max = 2},
-		{name = "wool:white", chance = 1, min = 1, max = 1},
+		{ name = "lottmobs:meat_raw", chance = 1, min = 1, max = 2 },
+		{ name = "wool:white",        chance = 1, min = 1, max = 1 },
 	},
 	water_damage = 1,
 	lava_damage = 5,
@@ -340,7 +334,7 @@ mobs:register_mob("lottmobs:bunny", {
 	runaway = true,
 	jump = true,
 	drops = {
-		{name = "lottmobs:rabbit_raw", chance = 1, min = 1, max = 1},
+		{ name = "lottmobs:rabbit_raw", chance = 1, min = 1, max = 1 },
 	},
 	water_damage = 1,
 	lava_damage = 4,
