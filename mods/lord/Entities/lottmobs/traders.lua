@@ -1,256 +1,121 @@
-mobs:register_mob("lottmobs:elf_trader", {
-	type = "npc",
-        race = "GAMEelf",
-        hp_min = 20,
-	hp_max = 50,
-	collisionbox = {-0.3,-1.1,-0.3, 0.3,0.91,0.3},
-	textures = {
-		{"lottmobs_elf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
+local common_trader_definition = {
+	type                 = "npc",
+	visual               = "mesh",
+	animation            = {
+		speed_normal = 15,
+		speed_run    = 15,
+		stand_start  = 0,
+		stand_end    = 79,
+		walk_start   = 168,
+		walk_end     = 187,
+		run_start    = 168,
+		run_end      = 187,
+		punch_start  = 189,
+		punch_end    = 198,
 	},
-	visual = "mesh",
-	visual_size = {x=0.95, y=1.15},
-	mesh = "lottarmor_character_old.b3d",
-	view_range = 20,
 	makes_footstep_sound = true,
+	walk_velocity        = 1, -- except elves (1.5)
+	light_resistant      = true,
+	drawtype             = "front",
+	water_damage         = 1,
+	lava_damage          = 10, -- except hobbits (5)
+	light_damage         = 0,
+	attack_type          = "dogfight",
+	follow               = "lottother:narya", -- except hobbits
+	jump                 = true,
+	drops                = {
+		{ name = "lord_money:copper_coin", chance = 2, min = 1, max = 30, },
+		{ name = "lord_money:silver_coin", chance = 6, min = 1, max = 9, },
+		{ name = "lord_money:gold_coin", chance = 9, min = 1, max = 3, },
+	},
+	attacks_monsters     = true, -- except hobbits
+	group_attack         = true, -- except hobbits
+	sounds       = { -- except hobbits (nil)
+		war_cry = "mobs_die_yell",
+		death   = "default_death",
+		attack  = "default_punch2", -- except elves (mobs_slash_attack)
+	}
+}
+
+local function register_trader(name, definition)
+	local def            = table.merge(common_trader_definition, definition)
+	local race_privilege = "GAME" .. def.race -- GAMEelf, GAMEman, GAMEhobbit, GAMEdwarf
+	def.on_rightclick    = function(self, clicker)
+		lottmobs_trader(self, clicker, lottmobs[def.race], race_privilege)
+	end
+
+	mobs:register_mob(name, def)
+end
+
+register_trader("lottmobs:elf_trader", {
+	race          = "elf",
+	hp_min        = 20,
+	hp_max        = 50,
+	collisionbox  = { -0.3, -1.1, -0.3, 0.3, 0.91, 0.3 },
+	textures      = {
+		{ "lottmobs_elf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
+	},
+	visual_size   = { x = 0.95, y = 1.15 },
+	mesh          = "lottarmor_character_old.b3d",
+	view_range    = 20,
 	walk_velocity = 1.5,
-	run_velocity = 5,
-	damage = 6,
-	armor = 200,
-	light_resistant = true,
-	drawtype = "front",
-	water_damage = 1,
-	lava_damage = 10,
-	light_damage = 0,
-	attack_type = "dogfight",
-	follow = "lottother:narya",
-	animation = {
-		speed_normal = 15,
+	run_velocity  = 5,
+	damage        = 6,
+	armor         = 200,
+	animation     = {
 		speed_run = 20,
-		stand_start = 0,
-		stand_end = 79,
-		walk_start = 168,
-		walk_end = 187,
-		run_start = 168,
-		run_end = 187,
-		punch_start = 189,
-		punch_end = 198,
 	},
-	sounds = {
-		war_cry = "mobs_die_yell",
-		death = "default_death",
-		attack = "mobs_slash_attack",
+	sounds        = {
+		attack  = "mobs_slash_attack",
 	},
-	drops = {
-        {name = "lord_money:copper_coin",
-		chance = 2,
-		min = 1,
-		max = 30,},
-        {name = "lord_money:silver_coin",
-		chance = 6,
-		min = 1,
-		max = 9,},
-		{name = "lord_money:gold_coin",
-		chance = 9,
-		min = 1,
-		max = 3,},
-	},
-	attacks_monsters = true,
-	peaceful = true,
-	group_attack = true,
-	step = 1,
-	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, lottmobs.elf, "GAMEelf")
-	end,
 })
---mobs:register_spawn("lottmobs:elf_trader", {"lottmapgen:lorien_grass"}, 20, 0, 60000, 3, 31000)
 
-mobs:register_mob("lottmobs:human_trader", {
-	type = "npc",
-        race = "GAMEman",
-        hp_min = 15,
-	hp_max = 35,
-	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
-	textures = {
-		{"lottmobs_human_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
+register_trader("lottmobs:human_trader", {
+	race         = "man",
+	hp_min       = 15,
+	hp_max       = 35,
+	collisionbox = { -0.3, -1.0, -0.3, 0.3, 0.8, 0.3 },
+	textures     = {
+		{ "lottmobs_human_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual = "mesh",
-	mesh = "lottarmor_character_old.b3d",
-	makes_footstep_sound = true,
-	view_range = 12,
-	walk_velocity = 1,
+	mesh         = "lottarmor_character_old.b3d",
+	view_range   = 12,
 	run_velocity = 3,
-	armor = 100,
-	damage = 5,
-	light_resistant = true,
-	drawtype = "front",
-	water_damage = 1,
-	lava_damage = 10,
-	light_damage = 0,
-	attack_type = "dogfight",
-	follow = "lottother:narya",
-	animation = {
-		speed_normal = 15,
-		speed_run = 15,
-		stand_start = 0,
-		stand_end = 79,
-		walk_start = 168,
-		walk_end = 187,
-		run_start = 168,
-		run_end = 187,
-		punch_start = 189,
-		punch_end = 198,
-	},
-	jump = true,
-	sounds = {
-		war_cry = "mobs_die_yell",
-		death = "default_death",
-		attack = "default_punch2",
-	},
-	drops = {
-        {name = "lord_money:copper_coin",
-		chance = 2,
-		min = 1,
-		max = 30,},
-        {name = "lord_money:silver_coin",
-		chance = 6,
-		min = 1,
-		max = 9,},
-		{name = "lord_money:gold_coin",
-		chance = 9,
-		min = 1,
-		max = 3,},
-	},
-	attacks_monsters = true,
-	peaceful = true,
-	group_attack = true,
-	step = 1,
-	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, lottmobs.human, "GAMEman")
-	end,
+	armor        = 100,
+	damage       = 5,
 })
---mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:rohan_grass"}, 20, -1, 60000, 3, 31000)
---mobs:register_spawn("lottmobs:human_trader", {"lottmapgen:gondor_grass"}, 20, -1, 60000, 3, 31000)
 
-mobs:register_mob("lottmobs:hobbit_trader", {
-	type = "npc",
-        race = "GAMEman",
-        hp_min = 5,
-	hp_max = 15,
-	collisionbox = {-0.3,-0.75,-0.3, 0.3,0.7,0.3},
-	textures = {
-		{"lottmobs_hobbit_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
+register_trader("lottmobs:hobbit_trader", {
+	race             = "hobbit",
+	hp_min           = 5,
+	hp_max           = 15,
+	collisionbox     = { -0.3, -0.75, -0.3, 0.3, 0.7, 0.3 },
+	textures         = {
+		{ "lottmobs_hobbit_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual = "mesh",
-	visual_size = {x=1.1, y=0.75},
-	mesh = "lottarmor_character_old.b3d",
-	makes_footstep_sound = true,
-	walk_velocity = 1,
-	armor = 300,
-	light_resistant = true,
-	drawtype = "front",
-	water_damage = 1,
-	lava_damage = 5,
-	light_damage = 0,
-	animation = {
-		speed_normal = 15,
-		speed_run = 15,
-		stand_start = 0,
-		stand_end = 79,
-		walk_start = 168,
-		walk_end = 187,
-		run_start = 168,
-		run_end = 187,
-		punch_start = 189,
-		punch_end = 198,
-	},
-	drops = {
-        {name = "lord_money:copper_coin",
-		chance = 2,
-		min = 1,
-		max = 30,},
-        {name = "lord_money:silver_coin",
-		chance = 6,
-		min = 1,
-		max = 9,},
-		{name = "lord_money:gold_coin",
-		chance = 9,
-		min = 1,
-		max = 3,},
-	},
-	jump = true,
-	step=1,
-	passive = true,
-	sounds = {
-	},
-	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, lottmobs.hobbit, "GAMEhobbit")
-	end,
+	visual_size      = { x = 1.1, y = 0.75 },
+	mesh             = "lottarmor_character_old.b3d",
+	armor            = 300,
+	lava_damage      = 5,
+	follow           = nil,
+	attacks_monsters = false,
+	group_attack     = false,
+	passive          = true,
+	sounds           = nil,
 })
---mobs:register_spawn("lottmobs:hobbit_trader", {"lottmapgen:shire_grass"}, 20, -1, 60000, 3, 31000)
 
-mobs:register_mob("lottmobs:dwarf_trader", {
-	type = "npc",
-        race = "GAMEdwarf",
-        hp_min = 20,
-	hp_max = 30,
-	collisionbox = {-0.3,-.85,-0.3, 0.3,0.68,0.3},
-	textures = {
-		{"lottmobs_dwarf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png"},
+register_trader("lottmobs:dwarf_trader", {
+	race         = "dwarf",
+	hp_min       = 20,
+	hp_max       = 30,
+	collisionbox = { -0.3, -.85, -0.3, 0.3, 0.68, 0.3 },
+	textures     = {
+		{ "lottmobs_dwarf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual = "mesh",
-	visual_size = {x=1.1, y=0.85},
-	mesh = "lottarmor_character_old.b3d",
-	view_range = 10,
-	makes_footstep_sound = true,
-	walk_velocity = 1,
+	visual_size  = { x = 1.1, y = 0.85 },
+	mesh         = "lottarmor_character_old.b3d",
+	view_range   = 10,
 	run_velocity = 2,
-	armor = 200,
-	damage = 4,
-	light_resistant = true,
-	drawtype = "front",
-	water_damage = 0,
-	lava_damage = 10,
-	light_damage = 0,
-	attack_type = "dogfight",
-	follow = "lottother:narya",
-	animation = {
-		speed_normal = 15,
-		speed_run = 15,
-		stand_start = 0,
-		stand_end = 79,
-		walk_start = 168,
-		walk_end = 187,
-		run_start = 168,
-		run_end = 187,
-		punch_start = 189,
-		punch_end = 198,
-	},
-	jump = true,
-	sounds = {
-		war_cry = "mobs_die_yell",
-		death = "default_death",
-		attack = "default_punch2",
-	},
-	drops = {
-        {name = "lord_money:copper_coin",
-		chance = 2,
-		min = 1,
-		max = 30,},
-        {name = "lord_money:silver_coin",
-		chance = 6,
-		min = 1,
-		max = 9,},
-		{name = "lord_money:gold_coin",
-		chance = 9,
-		min = 1,
-		max = 3,},
-	},
-	attacks_monsters = true,
-	peaceful = true,
-	group_attack = true,
-	step = 1,
-	on_rightclick = function(self, clicker)
-		lottmobs_trader(self, clicker, lottmobs.dwarf, "GAMEdwarf")
-	end,
+	armor        = 200,
+	damage       = 4,
 })
---mobs:register_spawn("lottmobs:dwarf_trader", {"lottmapgen:ironhill_grass"}, 20, -1, 60000, 3, 31000)

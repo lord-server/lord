@@ -44,7 +44,11 @@ function table.merge(table1, table2, overwrite)
 	overwrite = overwrite or false
 	local merged_table = overwrite and table1 or table_copy(table1)
 	for key, value in pairs(table2) do
-		merged_table[key] = value
+		if type(value) == "table" and type(merged_table[key]) == "table" then
+			merged_table[key] = table.merge(merged_table[key], value, overwrite)
+		else
+			merged_table[key] = value
+		end
 	end
 	return merged_table
 end
