@@ -2,13 +2,16 @@
 --{thing selling, price (in gold ingots), chance that it won't appear in the trader's inventory}
 local SL        = minetest.get_translator("lottmobs")
 
---- @class TraderDef
+--- @class TraderConfig
 --- @field items    table<string,{price:string,chance:number}> key: stack_string, price: stack_string, chance: percent
 --- @field names    string[] random names for traders
 --- @field messages string[] random messages for traders
 
---- @type TraderDef
-lottmobs.dwarf  = {
+--- @type TraderConfig[]
+local trader_config = {}
+
+--- @type TraderConfig
+trader_config.dwarf  = {
 	items      = {
 		["lord_money:gold_coin 1"]          = { price = "lord_money:silver_coin 10", chance = 5 },
 		["lord_money:silver_coin 1"]        = { price = "lord_money:copper_coin 10", chance = 5 },
@@ -43,8 +46,8 @@ lottmobs.dwarf  = {
 		SL("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."), -- luacheck: no_max_line_length
 	}
 }
---- @type TraderDef
-lottmobs.elf    = {
+--- @type TraderConfig
+trader_config.elf    = {
 	items      = {
 		["lord_money:gold_coin 1"]         = { price = "lord_money:silver_coin 10", chance = 5 },
 		["lord_money:silver_coin 1"]       = { price = "lord_money:copper_coin 10", chance = 5 },
@@ -79,8 +82,8 @@ lottmobs.elf    = {
 		SL("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."), -- luacheck: no_max_line_length
 	}
 }
---- @type TraderDef
-lottmobs.hobbit = {
+--- @type TraderConfig
+trader_config.hobbit = {
 	items = {
 		["lord_money:gold_coin 1"]         = { price = "lord_money:silver_coin 10", chance = 5 },
 		["lord_money:silver_coin 1"]       = { price = "lord_money:copper_coin 10", chance = 5 },
@@ -115,8 +118,8 @@ lottmobs.hobbit = {
 		SL("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."), -- luacheck: no_max_line_length
 	}
 }
---- @type TraderDef
-lottmobs.human  = {
+--- @type TraderConfig
+trader_config.human  = {
 	items      = {
 		["lord_money:gold_coin 1"]        = { price = "lord_money:silver_coin 10", chance = 5 },
 		["lord_money:silver_coin 1"]      = { price = "lord_money:copper_coin 10", chance = 5 },
@@ -151,7 +154,7 @@ lottmobs.human  = {
 		SL("Life here is far from normal. We wish for peace, yet the only way we can get peace is through war..."),
 	}
 }
-lottmobs.orc    = {
+trader_config.orc    = {
 	names    = {
 		"Azog", "Balcmeg", "Boldog", "Bolg", "Golfimbul", "Gorbag", "Gorgol",
 		"Grishnákh", "Lagduf", "Lug", "Lugdush", "Mauhúr", "Muzgash", "Orcobal",
@@ -162,3 +165,5 @@ lottmobs.orc    = {
 		SL("Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!")
 	},
 }
+
+return trader_config

@@ -23,7 +23,7 @@ end
 
 --- @param entity         LuaEntity
 --- @param clicker        Player
---- @param trader_def     TraderDef
+--- @param trader_def     TraderConfig
 --- @param race_privilege string
 function lottmobs_trader(entity, clicker, trader_def, race_privilege)
 	face_pos(entity, clicker:get_pos())
