@@ -1,4 +1,3 @@
-local trader_config = dofile(minetest.get_modpath("lottmobs").."/src/trader_goods.lua")
 dofile(minetest.get_modpath("lottmobs").."/src/trader.lua")
 
 local common_trader_definition = {
@@ -44,7 +43,7 @@ local function register_trader(name, definition)
 	local def            = table.merge(common_trader_definition, definition)
 	local race_privilege = "GAME" .. def.race -- GAMEelf, GAMEman, GAMEhobbit, GAMEdwarf
 	def.on_rightclick    = function(self, clicker)
-		lottmobs_trader(self, clicker, trader_config[def.race], race_privilege)
+		lottmobs_trader(self, clicker, def.race, race_privilege)
 	end
 
 	mobs:register_mob(name, def)

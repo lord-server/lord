@@ -24,14 +24,12 @@ local function update_takeaway(inv)
 end
 
 --- @param trader_inventory InvRef
---- @param trader_config    TraderConfig
-local function add_goods(trader_inventory, trader_config)
-	local goods = trader_config.items
-
+--- @param goods_config     trader.config.good[]
+local function add_goods(trader_inventory, goods_config)
 	local max_goods = trader_inventory:get_size("goods")
 	local i = 1
 
-	for name, good in pairs(goods) do
+	for name, good in pairs(goods_config) do
 		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
 		if math.random(0, 100) > good.chance then
 			trader_inventory:set_stack("goods", i, name)
@@ -51,10 +49,11 @@ local function get_discount(price, same_race)
 end
 
 --- @param good_stack_string string
---- @param trader_def        TraderConfig
+--- @param goods_config      trader.config.good[]
 --- @param same_race         boolean
-local function get_price_for(good_stack_string, trader_def, same_race)
-	local good = trader_def.items[good_stack_string]
+--- @return string|nil stack string (for ex.: "lord_money:silver_coin 9")
+local function get_price_for(good_stack_string, goods_config, same_race)
+	local good = goods_config[good_stack_string]
 
 	return good and get_discount(good.price, same_race) or nil
 end
@@ -166,8 +165,8 @@ local Inventory = {
 	entity_id = nil,
 	--- @type string
 	detached_inv_id = nil,
-	--- @type TraderConfig
-	trader_config = nil,
+	--- @type trader.config.good[]
+	goods_config = nil,
 	--- @type boolean
 	same_race = false,
 }
@@ -176,16 +175,16 @@ local Inventory = {
 --- @public
 --- @param player         Player
 --- @param entity         LuaEntity
---- @param trader_config  TraderConfig
+--- @param goods_config   trader.config.good[]
 --- @param race_privilege string
 --- @return trader.Inventory
-function Inventory:new(player, entity, trader_config, race_privilege)
+function Inventory:new(player, entity, goods_config, race_privilege)
 	local class = self
 	self = {}
 
-	self.player_name   = player:get_player_name()
-	self.entity_id     = entity.id
-	self.trader_config = trader_config
+	self.player_name  = player:get_player_name()
+	self.entity_id    = entity.id
+	self.goods_config = goods_config
 	if minetest.get_player_privs(self.player_name)[race_privilege] ~= nil then
 		self.same_race = true
 	end
@@ -216,7 +215,7 @@ function Inventory:create_detached_inventory(inventory_id)
 				local sel_stack = inventory:get_stack("selection", 1)
 				local sel_stack_string = sel_stack:get_name() .. " " .. sel_stack:get_count()
 
-				local price = get_price_for(sel_stack_string, self.trader_config, self.same_race)
+				local price = get_price_for(sel_stack_string, self.goods_config, self.same_race)
 				inventory:set_stack("price", 1, price)
 				update_takeaway(inventory)
 			end
@@ -231,7 +230,7 @@ function Inventory:create_detached_inventory(inventory_id)
 	trader_inventory:set_size("selection", 1)
 	trader_inventory:set_size("price", 1)
 	trader_inventory:set_size("payment", 1)
-	add_goods(trader_inventory, self.trader_config)
+	add_goods(trader_inventory, self.goods_config)
 
 	return trader_inventory
 end
