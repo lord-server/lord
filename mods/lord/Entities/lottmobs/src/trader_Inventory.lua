@@ -24,37 +24,39 @@ local function update_takeaway(inv)
 end
 
 --- @param trader_inventory InvRef
---- @param same_race        boolean
 --- @param trader_def       TraderDef
-local function add_goods(trader_inventory, same_race, trader_def)
-	local goods = same_race == true
-		and trader_def.items_race
-		or  trader_def.items
+local function add_goods(trader_inventory, trader_def)
+	local goods = trader_def.items
 
-	-- FIXME: Поведение не корректное. goods[i] может и не содержать такого количества элементов
-	for i = 1, trader_inventory:get_size("goods") do
+	local max_goods = trader_inventory:get_size("goods")
+	local i = 1
+
+	for name, good in pairs(goods) do
 		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
-		if math.random(0, 100) > goods[i][3] then
-			trader_inventory:set_stack("goods", i, goods[i][1])
+		if math.random(0, 100) > good.chance then
+			trader_inventory:set_stack("goods", i, name)
+			i = i + 1
+			if i > max_goods then
+				break
+			end
 		end
 	end
 end
 
+--- @param price     string stack string (for ex.: "lord_money:silver_coin 9")
+--- @param same_race boolean
+local function get_discount(price, same_race)
+	-- TODO: calc same race discount
+	return price
+end
+
 --- @param good_stack_string string
---- @param trader_def        table
+--- @param trader_def        TraderDef
 --- @param same_race         boolean
 local function get_price_for(good_stack_string, trader_def, same_race)
-	local prices = same_race == true
-		and trader_def.items_race
-		or  trader_def.items
+	local good = trader_def.items[good_stack_string]
 
-	for _, price in pairs(prices) do
-		if price[1] == good_stack_string then
-			return price[2]
-		end
-	end
-
-	return nil
+	return good and get_discount(good.price, same_race) or nil
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -229,7 +231,7 @@ function Inventory:create_detached_inventory(inventory_id)
 	trader_inventory:set_size("selection", 1)
 	trader_inventory:set_size("price", 1)
 	trader_inventory:set_size("payment", 1)
-	add_goods(trader_inventory, self.same_race, self.trader_def)
+	add_goods(trader_inventory, self.trader_def)
 
 	return trader_inventory
 end
