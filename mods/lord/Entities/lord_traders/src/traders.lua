@@ -2,10 +2,10 @@ local mod_path = minetest.get_modpath(minetest.get_current_modname())
 local require = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%.", "/") .. ".lua") end
 
 
-local trader = require("trader")
+local trader = require("traders.trader")
 
 
-trader.register("lottmobs:elf_trader", {
+trader.register(":lottmobs:elf_trader", {
 	race          = "elf",
 	hp_min        = 20,
 	hp_max        = 50,
@@ -14,7 +14,6 @@ trader.register("lottmobs:elf_trader", {
 		{ "lottmobs_elf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
 	visual_size   = { x = 0.95, y = 1.15 },
-	mesh          = "lottarmor_character_old.b3d",
 	view_range    = 20,
 	walk_velocity = 1.5,
 	run_velocity  = 5,
@@ -28,7 +27,7 @@ trader.register("lottmobs:elf_trader", {
 	},
 })
 
-trader.register("lottmobs:human_trader", {
+trader.register(":lottmobs:human_trader", {
 	race         = "man",
 	hp_min       = 15,
 	hp_max       = 35,
@@ -36,14 +35,13 @@ trader.register("lottmobs:human_trader", {
 	textures     = {
 		{ "lottmobs_human_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	mesh         = "lottarmor_character_old.b3d",
 	view_range   = 12,
 	run_velocity = 3,
 	armor        = 100,
 	damage       = 5,
 })
 
-trader.register("lottmobs:hobbit_trader", {
+trader.register(":lottmobs:hobbit_trader", {
 	race             = "hobbit",
 	hp_min           = 5,
 	hp_max           = 15,
@@ -52,7 +50,6 @@ trader.register("lottmobs:hobbit_trader", {
 		{ "lottmobs_hobbit_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
 	visual_size      = { x = 1.1, y = 0.75 },
-	mesh             = "lottarmor_character_old.b3d",
 	armor            = 300,
 	lava_damage      = 5,
 	follow           = nil,
@@ -62,7 +59,7 @@ trader.register("lottmobs:hobbit_trader", {
 	sounds           = nil,
 })
 
-trader.register("lottmobs:dwarf_trader", {
+trader.register(":lottmobs:dwarf_trader", {
 	race         = "dwarf",
 	hp_min       = 20,
 	hp_max       = 30,
@@ -71,14 +68,13 @@ trader.register("lottmobs:dwarf_trader", {
 		{ "lottmobs_dwarf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
 	visual_size  = { x = 1.1, y = 0.85 },
-	mesh         = "lottarmor_character_old.b3d",
 	view_range   = 10,
 	run_velocity = 2,
 	armor        = 200,
 	damage       = 4,
 })
 
-mobs:spawn_specific("lottmobs:elf_trader",   {"lottmapgen:lorien_grass"},  {"air"},  0, 20, 30, 90000, 2, -31000, 31000)
+mobs:spawn_specific("lottmobs:elf_trader",   {"lottmapgen:lorien_grass"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:rohan_grass"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:human_trader", {"lottmapgen:gondor_grass"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:hobbit_trader",{"lottmapgen:shire_grass"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)

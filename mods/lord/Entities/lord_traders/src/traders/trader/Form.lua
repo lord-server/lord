@@ -1,7 +1,7 @@
-local S = minetest.get_translator("lottmobs")
+local S = minetest.get_translator("lord_traders")
 
 ---
---- @class trader.Form
+--- @class traders.trader.Form
 ---
 local Form = {
 	--- @const
@@ -20,7 +20,7 @@ local Form = {
 --- @public
 --- @param player       Player
 --- @param inventory_id string
---- @return trader.Form
+--- @return traders.trader.Form
 function Form:new(player, inventory_id, trader_name)
 	local class = self
 	self = {}
@@ -41,15 +41,15 @@ end
 --- @return string
 function Form:get_spec()
 	return "size[8,10;]" ..
-		"label[0,0;"..S("Trader").." " .. S(self.trader_name) .. S("'s stock:").."]" ..
+		"label[0,0;" .. S("Trader") .. " " .. S(self.trader_name) .. S("'s stock:") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";goods;.5,.5;3,5;]" ..
-		"label[4.5,0.5;"..S("Selection").."]" ..
+		"label[4.5,0.5;" .. S("Selection") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";selection;4.5,1;5.5,2;]" ..
-		"label[6,0.5;"..S("Price").."]" ..
+		"label[6,0.5;" .. S("Price") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";price;6,1;7,2;]" ..
-		"label[4.5,3.5;"..S("Payment").."]" ..
+		"label[4.5,3.5;" .. S("Payment") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";payment;4.5,4;5.5,5;]" ..
-		"label[6,3.5;"..S("Brought items").."]" ..
+		"label[6,3.5;" .. S("Brought items") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";takeaway;6,4;7.5,5.5;]" ..
 		"list[current_player;main;0,6;8,4;]"
 end

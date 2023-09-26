@@ -24,7 +24,7 @@ local function update_takeaway(inv)
 end
 
 --- @param trader_inventory InvRef
---- @param goods_config     trader.config.good[]
+--- @param goods_config     traders.config.good[]
 local function add_goods(trader_inventory, goods_config)
 	local max_goods = trader_inventory:get_size("goods")
 	local i = 1
@@ -49,7 +49,7 @@ local function get_discount(price, same_race)
 end
 
 --- @param good_stack_string string
---- @param goods_config      trader.config.good[]
+--- @param goods_config      traders.config.good[]
 --- @param same_race         boolean
 --- @return string|nil stack string (for ex.: "lord_money:silver_coin 9")
 local function get_price_for(good_stack_string, goods_config, same_race)
@@ -156,7 +156,7 @@ end
 
 
 ---
---- @class trader.Inventory
+--- @class traders.trader.Inventory
 ---
 local Inventory = {
 	--- @type string
@@ -165,7 +165,7 @@ local Inventory = {
 	entity_id = nil,
 	--- @type string
 	detached_inv_id = nil,
-	--- @type trader.config.good[]
+	--- @type traders.config.good[]
 	goods_config = nil,
 	--- @type boolean
 	same_race = false,
@@ -175,9 +175,9 @@ local Inventory = {
 --- @public
 --- @param player         Player
 --- @param entity         LuaEntity
---- @param goods_config   trader.config.good[]
+--- @param goods_config   traders.config.good[]
 --- @param race_privilege string
---- @return trader.Inventory
+--- @return traders.trader.Inventory
 function Inventory:new(player, entity, goods_config, race_privilege)
 	local class = self
 	self = {}

@@ -1,11 +1,11 @@
-local SL = minetest.get_translator("lottmobs")
+local SL = minetest.get_translator("lord_traders")
 
---- @type trader.config[]
-local config = dofile(minetest.get_modpath("lottmobs").."/src/trader_config.lua")
---- @type trader.Form
-local Form = dofile(minetest.get_modpath("lottmobs").."/src/trader_Form.lua")
---- @type trader.Inventory
-local Inventory = dofile(minetest.get_modpath("lottmobs").."/src/trader_Inventory.lua")
+--- @type traders.config[]
+local config = require("traders.config")
+--- @type traders.trader.Form
+local Form = require("traders.trader.Form")
+--- @type traders.trader.Inventory
+local Inventory = require("traders.trader.Inventory")
 
 
 --- @param self LuaEntity
@@ -24,6 +24,7 @@ end
 local common_trader_definition = {
 	type                 = "npc",
 	visual               = "mesh",
+	mesh                 = "lottarmor_character_old.b3d",
 	animation            = {
 		speed_normal = 15,
 		speed_run    = 15,
