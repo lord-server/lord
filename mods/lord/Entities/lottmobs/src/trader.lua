@@ -21,13 +21,52 @@ local function face_pos(self, pos)
 	return yaw
 end
 
+local common_trader_definition = {
+	type                 = "npc",
+	visual               = "mesh",
+	animation            = {
+		speed_normal = 15,
+		speed_run    = 15,
+		stand_start  = 0,
+		stand_end    = 79,
+		walk_start   = 168,
+		walk_end     = 187,
+		run_start    = 168,
+		run_end      = 187,
+		punch_start  = 189,
+		punch_end    = 198,
+	},
+	makes_footstep_sound = true,
+	walk_velocity        = 1, -- except elves (1.5)
+	light_resistant      = true,
+	drawtype             = "front",
+	water_damage         = 1,
+	lava_damage          = 10, -- except hobbits (5)
+	light_damage         = 0,
+	attack_type          = "dogfight",
+	follow               = "lottother:narya", -- except hobbits
+	jump                 = true,
+	drops                = {
+		{ name = "lord_money:copper_coin", chance = 2, min = 1, max = 30, },
+		{ name = "lord_money:silver_coin", chance = 6, min = 1, max = 9, },
+		{ name = "lord_money:gold_coin",   chance = 9, min = 1, max = 3, },
+	},
+	attacks_monsters     = true, -- except hobbits
+	group_attack         = true, -- except hobbits
+	sounds       = { -- except hobbits (nil)
+		war_cry = "mobs_die_yell",
+		death   = "default_death",
+		attack  = "default_punch2", -- except elves (mobs_slash_attack)
+	}
+}
+
 ------------------------------------------------------------------------------------------------------------------------
 
 --- @param entity         LuaEntity
 --- @param clicker        Player
 --- @param race           string
 --- @param race_privilege string
-function lottmobs_trader(entity, clicker, race, race_privilege)
+local function on_rightclick(entity, clicker, race, race_privilege)
 	face_pos(entity, clicker:get_pos())
 	local player_name = clicker:get_player_name()
 
@@ -52,3 +91,23 @@ function lottmobs_trader(entity, clicker, race, race_privilege)
 	Form:new(clicker, inventory_id, entity.game_name):open()
 
 end
+
+--- @param name string
+--- @param definition table
+local function register_trader(name, definition)
+	local def            = table.merge(common_trader_definition, definition)
+	-- TODO: clean up privileges like 'GAME*'. See #1157
+	local race_privilege = "GAME" .. def.race -- GAMEelf, GAMEman, GAMEhobbit, GAMEdwarf, GAMEorc
+
+	-- HACK: we can't move this into `common_trader_definition`, because we need `def.race`,
+	--       but `mobs:register_mob()` does not pass all `def` into `minetest.register_entity()`
+	def.on_rightclick    = function(self, clicker)
+		on_rightclick(self, clicker, def.race, race_privilege)
+	end
+
+	mobs:register_mob(name, def)
+end
+
+return {
+	register = register_trader
+}
