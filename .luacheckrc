@@ -16,6 +16,7 @@ globals           = {
 
 read_globals      = {
 	table  = { fields = {
+		--- @deprecated
 		"getn", -- was in Lua, now deprecated TODO: remove usages
 		-- MT Builtin:
 		"copy", "indexof", "insert_all", "key_value_swap",
@@ -29,6 +30,7 @@ read_globals      = {
 		-- MT Builtin:
 		"split", "trim",
 		-- our Core/helpers:
+		"is_one_of"
 		-- TODO: "startsWith", "endsWith", ...
 	} },
 

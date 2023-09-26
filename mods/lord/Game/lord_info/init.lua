@@ -314,8 +314,7 @@ end
 -- обработка событий на формах
 -- TODO: register separate handlers
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	-- TODO: string:isAny
-	if (formname == "info_form") or (formname == "news_form") or (formname == "howto_form") then
+	if formname:is_one_of({"info_form", "news_form", "howto_form"}) then
 		handle_info_forms(player, formname, fields)
 	end
 

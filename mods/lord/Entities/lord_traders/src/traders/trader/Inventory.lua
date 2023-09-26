@@ -75,10 +75,7 @@ function inventory_callbacks.allow_move(inv, from_list, from_index, to_list, to_
 	if
 		(from_list == "goods" and (to_list ~= "selection" and to_list ~= "goods")) or
 		(from_list == "selection" and to_list ~= "goods") or
-		from_list == "price" or
-		from_list == "payment" or
-		from_list == "takeaway" or
-		from_list == "identifier"
+		from_list:is_one_of({"price", "payment", "takeaway"})
 	then
 		return 0
 	end

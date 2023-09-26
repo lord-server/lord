@@ -1,5 +1,5 @@
-local pairs, string_gsub
-	= pairs, string.gsub
+local pairs, string_gsub, table_indexOf
+	= pairs, string.gsub, table.indexof
 
 -- правка стандартных функций преобразования регистра
 -- для работы с кириллицей
@@ -68,4 +68,9 @@ function string.upper(str)
 		new_str = string_gsub(new_str, s, S)
 	end
 	return new_str
+end
+
+--- @param table table
+function string:is_one_of(table)
+	return table_indexOf(table, self) ~= -1
 end
