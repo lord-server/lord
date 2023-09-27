@@ -51,7 +51,15 @@ function Form:get_spec()
 		"list[detached:" .. self.inventory_id .. ";payment;4.5,4;5.5,5;]" ..
 		"label[6,3.5;" .. S("Brought items") .. "]" ..
 		"list[detached:" .. self.inventory_id .. ";takeaway;6,4;7.5,5.5;]" ..
-		"list[current_player;main;0,6;8,4;]"
+		"list[current_player;main;0,6;8,4;]" ..
+		"listring[current_player;main]" ..
+		"listring[detached:" .. self.inventory_id .. ";payment]" ..
+		"listring[current_player;main]" ..
+		"listring[detached:" .. self.inventory_id .. ";takeaway]" ..
+		"listring[current_player;main]" ..
+		"listring[detached:" .. self.inventory_id .. ";goods]" ..
+		"listring[detached:" .. self.inventory_id .. ";selection]" ..
+		"listring[detached:" .. self.inventory_id .. ";goods]"
 end
 
 
