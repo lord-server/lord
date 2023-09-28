@@ -88,7 +88,7 @@ local function on_rightclick(entity, clicker, race, race_privilege)
 			tostring(trader_config.messages[math.random(1, #trader_config.messages)]) -- messages already translated
 	)
 
-	local inventory_id = Inventory:new(clicker, entity, trader_config.items, race_privilege):get_id()
+	local inventory_id = Inventory:new(clicker, entity, trader_config.goods, race_privilege):get_id()
 	Form:new(clicker, inventory_id, entity.game_name):open()
 
 end

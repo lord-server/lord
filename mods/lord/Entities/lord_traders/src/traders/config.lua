@@ -1,7 +1,7 @@
 local SL = minetest.get_translator("lord_traders")
 
 --- @class traders.config
---- @field items    table<string,traders.config.good> key: stack_string, value: {price: stack_string, chance: percent}
+--- @field goods    table<string,traders.config.good> key: stack_string, value: {price: stack_string, chance: percent}
 --- @field names    string[] random names for traders
 --- @field messages string[] random messages for traders
 
@@ -12,13 +12,17 @@ local SL = minetest.get_translator("lord_traders")
 --- @type traders.config[]
 local trader_config = {}
 
+--- @type table<string,traders.config.good>
+trader_config.common_goods = {
+	["lord_money:gold_coin 1"]    = { price = "lord_money:silver_coin 10", chance = 5 },
+	["lord_money:silver_coin 1"]  = { price = "lord_money:copper_coin 10", chance = 5 },
+	["lord_money:silver_coin 10"] = { price = "lord_money:gold_coin 1",    chance = 5 },
+	["lord_money:copper_coin 10"] = { price = "lord_money:silver_coin 1",  chance = 5 },
+}
+
 --- @type traders.config
 trader_config.dwarf  = {
-	items      = {
-		["lord_money:gold_coin 1"]          = { price = "lord_money:silver_coin 10", chance = 5 },
-		["lord_money:silver_coin 1"]        = { price = "lord_money:copper_coin 10", chance = 5 },
-		["lord_money:silver_coin 10"]       = { price = "lord_money:gold_coin 1",    chance = 5 },
-		["lord_money:copper_coin 10"]       = { price = "lord_money:silver_coin 1",  chance = 5 },
+	goods      = table.merge(trader_config.common_goods, {
 		["lottthrowing:crossbow_silver 1"]  = { price = "lord_money:silver_coin 9",  chance = 15 },
 		["lottarmor:chestplate_mithril 1"]  = { price = "lord_money:silver_coin 75", chance = 50 },
 		["default:steel_ingot 99"]          = { price = "lord_money:silver_coin 20", chance = 12 },
@@ -34,7 +38,7 @@ trader_config.dwarf  = {
 		["lottblocks:dwarfstone_black 99"]  = { price = "lord_money:silver_coin 33", chance = 17 },
 		["default:stonebrick 99"]           = { price = "lord_money:silver_coin 25", chance = 14 },
 		["lottblocks:dwarfstone_white 99"]  = { price = "lord_money:silver_coin 33", chance = 17 },
-	},
+	}),
 	names      = {
 		"Azaghâl", "Balbrin", "Borin", "Farin", "Flói", "Frerin",
 		"Grór", "Lóni", "Náli", "Narvi", "Telchar", "Thion"
@@ -50,11 +54,7 @@ trader_config.dwarf  = {
 }
 --- @type traders.config
 trader_config.elf    = {
-	items      = {
-		["lord_money:gold_coin 1"]         = { price = "lord_money:silver_coin 10", chance = 5 },
-		["lord_money:silver_coin 1"]       = { price = "lord_money:copper_coin 10", chance = 5 },
-		["lord_money:silver_coin 10"]      = { price = "lord_money:gold_coin 1",    chance = 5 },
-		["lord_money:copper_coin 10"]      = { price = "lord_money:silver_coin 1",  chance = 5 },
+	goods      = table.merge(trader_config.common_goods, {
 		["lottplants:mallorntree 10"]      = { price = "lord_money:silver_coin 4",  chance = 5 },
 		["lottores:rough_rock 4"]          = { price = "lord_money:silver_coin 30", chance = 17 },
 		["lottother:blue_torch 10"]        = { price = "lord_money:silver_coin 20", chance = 15 },
@@ -70,7 +70,7 @@ trader_config.elf    = {
 		["lottblocks:mallorn_pillar 30"]   = { price = "lord_money:silver_coin 7",  chance = 4 },
 		["lottplants:mallornsapling 3"]    = { price = "lord_money:silver_coin 2",  chance = 17 },
 		["lottplants:mallornwood 99"]      = { price = "lord_money:silver_coin 10", chance = 5 },
-	},
+	}),
 	names      = {
 		"Annael", "Anairë", "Curufin", "Erestor", "Gwindor", "Irimë",
 		"Oropher", "Maglor", "Quennar", "Rúmil", "Orgof", "Voronwë"
@@ -86,11 +86,7 @@ trader_config.elf    = {
 }
 --- @type traders.config
 trader_config.hobbit = {
-	items = {
-		["lord_money:gold_coin 1"]         = { price = "lord_money:silver_coin 10", chance = 5 },
-		["lord_money:silver_coin 1"]       = { price = "lord_money:copper_coin 10", chance = 5 },
-		["lord_money:silver_coin 10"]      = { price = "lord_money:gold_coin 1",    chance = 5 },
-		["lord_money:copper_coin 10"]      = { price = "lord_money:silver_coin 1",  chance = 5 },
+	goods = table.merge(trader_config.common_goods, {
 		["lottfarming:pipe 1"]             = { price = "lord_money:silver_coin 2",  chance = 5 },
 		["lottfarming:pipeweed_cooked 50"] = { price = "lord_money:silver_coin 17", chance = 10 },
 		["lottpotion:beer 10"]             = { price = "lord_money:silver_coin 7",  chance = 8 },
@@ -106,7 +102,7 @@ trader_config.hobbit = {
 		["lottfarming:berries 15"]         = { price = "lord_money:silver_coin 7",  chance = 4 },
 		["lottplants:firsapling 2"]        = { price = "lord_money:silver_coin 2",  chance = 17 },
 		["default:apple 10"]               = { price = "lord_money:silver_coin 10", chance = 5 },
-	},
+	}),
 	names      = {
 		"Adalgrim", "Bodo", "Cotman", "Doderic", "Falco", "Gormadoc",
 		"Hobson", "Ilberic", "Largo", "Madoc", "Orgulas", "Rorimac"
@@ -121,12 +117,8 @@ trader_config.hobbit = {
 	}
 }
 --- @type traders.config
-trader_config.human  = {
-	items      = {
-		["lord_money:gold_coin 1"]        = { price = "lord_money:silver_coin 10", chance = 5 },
-		["lord_money:silver_coin 1"]      = { price = "lord_money:copper_coin 10", chance = 5 },
-		["lord_money:silver_coin 10"]     = { price = "lord_money:gold_coin 1",    chance = 5 },
-		["lord_money:copper_coin 10"]     = { price = "lord_money:silver_coin 1",  chance = 5 },
+trader_config.man  = {
+	goods      = table.merge(trader_config.common_goods, {
 		["default:sandstone 40"]          = { price = "lord_money:silver_coin 10", chance = 12 },
 		["boats:sail_boat 1"]             = { price = "lord_money:silver_coin 4",  chance = 14 },
 		["lottarmor:shield_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 20 },
@@ -142,7 +134,7 @@ trader_config.human  = {
 		["lottarmor:helmet_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 24 },
 		["default:brick 30"]              = { price = "lord_money:silver_coin 10", chance = 17 },
 		["lottarmor:leggings_bronze 1"]   = { price = "lord_money:silver_coin 25", chance = 34 },
-	},
+	}),
 	names      = {
 		"Aratan", "Arvegil", "Belegorn", "Celepharn", "Dúnhere", "Elatan",
 		"Gilraen", "Írimon", "Minardil", "Oromendil", "Tarcil", "Vorondil"
