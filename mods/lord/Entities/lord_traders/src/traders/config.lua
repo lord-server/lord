@@ -14,10 +14,10 @@ local trader_config = {}
 
 --- @type table<string,traders.config.good>
 trader_config.common_goods = {
-	["lord_money:gold_coin 1"]    = { price = "lord_money:silver_coin 10", chance = 5 },
-	["lord_money:silver_coin 1"]  = { price = "lord_money:copper_coin 10", chance = 5 },
-	["lord_money:silver_coin 10"] = { price = "lord_money:gold_coin 1",    chance = 5 },
-	["lord_money:copper_coin 10"] = { price = "lord_money:silver_coin 1",  chance = 5 },
+	["lord_money:gold_coin 1"]    = { price = "lord_money:silver_coin 10", },
+	["lord_money:silver_coin 1"]  = { price = "lord_money:copper_coin 10", },
+	["lord_money:silver_coin 10"] = { price = "lord_money:gold_coin 1", },
+	["lord_money:copper_coin 10"] = { price = "lord_money:silver_coin 1", },
 }
 
 --- @type traders.config

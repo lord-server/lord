@@ -31,7 +31,7 @@ local function add_goods(trader_inventory, goods_config)
 
 	for name, good in pairs(goods_config) do
 		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
-		if math.random(0, 100) > good.chance then
+		if not good.chance or math.random(0, 100) > good.chance then
 			trader_inventory:set_stack("goods", i, name)
 			i = i + 1
 			if i > max_goods then
