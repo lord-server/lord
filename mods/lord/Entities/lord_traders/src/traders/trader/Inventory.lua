@@ -48,14 +48,26 @@ local function get_discount(price, same_race)
 	return price
 end
 
+--- @param price string|number
+--- @return string  stack string (for ex.: "lord_money:silver_coin 9")
+local function price_to_stack_string(price)
+	if type(price) == "string" then return price end
+
+	if price % 1000 == 0 then return "lord_money:diamond_coin " .. (price / 1000) end
+	if price % 100  == 0 then return "lord_money:gold_coin "    .. (price / 100 ) end
+	if price % 10   == 0 then return "lord_money:silver_coin "  .. (price / 10  ) end
+	return                           "lord_money:copper_coin "  ..  price
+end
+
 --- @param good_stack_string string
 --- @param goods_config      traders.config.good[]
 --- @param same_race         boolean
 --- @return string|nil stack string (for ex.: "lord_money:silver_coin 9")
 local function get_price_for(good_stack_string, goods_config, same_race)
 	local good = goods_config[good_stack_string]
+	if not good then return nil end
 
-	return good and get_discount(good.price, same_race) or nil
+	return price_to_stack_string(get_discount(good.price, same_race))
 end
 
 ------------------------------------------------------------------------------------------------------------------------
