@@ -60,6 +60,26 @@ end
 
 ------------------------------------------------------------------------------------------------------------------------
 
+---
+--- @class traders.trader.Inventory
+---
+local Inventory = {
+	--- @type string
+	player_name = nil,
+	--- @type LuaEntity
+	entity_id = nil,
+	--- @type string
+	detached_inv_id = nil,
+	--- @type traders.config.good[]
+	goods_config = nil,
+	--- @type boolean
+	same_race = false,
+}
+
+--- @type table<string,traders.trader.Inventory>
+local inventories_by_id = {}
+
+------------------------------------------------------------------------------------------------------------------------
 
 --- @type DetachedInventoryCallbacksDef
 local inventory_callbacks = {}
@@ -134,9 +154,17 @@ function inventory_callbacks.on_take(inv, list_name, index, stack, player)
 		local amount = inv:get_stack("payment",1):get_count()
 		local price = inv:get_stack("price",1):get_count()
 		local thing = inv:get_stack("payment",1):get_name()
-		inv:set_stack("selection", 1, nil)
-		inv:set_stack("price", 1, nil)
+
+		local good_name = inv:get_stack("selection",1):to_string()
+		local inventory_id = inv:get_location().name
+		local good = Inventory.get_by_id(inventory_id).goods_config[good_name]
+
+		if good and good.stock then
+			inv:set_stack("selection", 1, nil)
+			inv:set_stack("price", 1, nil)
+		end
 		inv:set_stack("payment", 1, thing .. " " .. amount - price)
+		update_takeaway(inv)
 	end
 
 	if list_name == "payment" then
@@ -152,21 +180,6 @@ function inventory_callbacks.on_take(inv, list_name, index, stack, player)
 end
 
 
----
---- @class traders.trader.Inventory
----
-local Inventory = {
-	--- @type string
-	player_name = nil,
-	--- @type LuaEntity
-	entity_id = nil,
-	--- @type string
-	detached_inv_id = nil,
-	--- @type traders.config.good[]
-	goods_config = nil,
-	--- @type boolean
-	same_race = false,
-}
 
 --- Constructor
 --- @public
@@ -187,6 +200,13 @@ function Inventory:new(player, entity, goods_config, race_privilege)
 	end
 
 	return setmetatable(self, { __index = class })
+end
+
+--- @static
+--- @param inventory_id string
+--- @return traders.trader.Inventory|nil
+function Inventory.get_by_id(inventory_id)
+	return inventories_by_id[inventory_id]
 end
 
 --- @private
@@ -236,6 +256,7 @@ end
 --- @return InvRef
 function Inventory:get_or_create_detached_inventory()
 	self.detached_inv_id = self.player_name.."_trader_".. self.entity_id:gsub(":", "_")
+	inventories_by_id[self.detached_inv_id] = self
 
 	local trader_inventory = minetest.get_inventory({ type ="detached", name = self.detached_inv_id })
 	if trader_inventory ~= nil then

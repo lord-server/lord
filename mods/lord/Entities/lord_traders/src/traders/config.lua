@@ -6,8 +6,9 @@ local SL = minetest.get_translator("lord_traders")
 --- @field messages string[] random messages for traders
 
 --- @class traders.config.good
---- @field price string stack_string
---- @field chance number percent
+--- @field price  string     stack_string
+--- @field chance number|nil percent
+--- @field stock  number|nil count of times of trades
 
 --- @type traders.config[]
 local trader_config = {}
@@ -23,21 +24,21 @@ trader_config.common_goods = {
 --- @type traders.config
 trader_config.dwarf  = {
 	goods      = table.merge(trader_config.common_goods, {
-		["lottthrowing:crossbow_silver 1"]  = { price = "lord_money:silver_coin 9",  chance = 15 },
-		["lottarmor:chestplate_mithril 1"]  = { price = "lord_money:silver_coin 75", chance = 50 },
-		["default:steel_ingot 99"]          = { price = "lord_money:silver_coin 20", chance = 12 },
-		["tools:sword_silver 1"]            = { price = "lord_money:silver_coin 7",  chance = 10 },
-		["default:bronze_ingot 25"]         = { price = "lord_money:silver_coin 5",  chance = 15 },
-		["lottblocks:small_lamp_pine 6"]    = { price = "lord_money:silver_coin 2",  chance = 6 },
-		["lottblocks:dwarf_harp 1"]         = { price = "lord_money:silver_coin 15", chance = 10 },
-		["tools:dagger_mithril 1"]          = { price = "lord_money:silver_coin 15", chance = 20 },
-		["tools:sword_mithril 1"]           = { price = "lord_money:silver_coin 35", chance = 30 },
-		["tools:sword_steel 1"]             = { price = "lord_money:silver_coin 5",  chance = 10 },
-		["tools:battleaxe_silver 1"]        = { price = "lord_money:silver_coin 10", chance = 18 },
-		["lottblocks:dwarfstone_stripe 50"] = { price = "lord_money:silver_coin 17", chance = 12 },
-		["lottblocks:dwarfstone_black 99"]  = { price = "lord_money:silver_coin 33", chance = 17 },
-		["default:stonebrick 99"]           = { price = "lord_money:silver_coin 25", chance = 14 },
-		["lottblocks:dwarfstone_white 99"]  = { price = "lord_money:silver_coin 33", chance = 17 },
+		["lottthrowing:crossbow_silver 1"]  = { price = "lord_money:silver_coin 9",  chance = 15, stock = 1 },
+		["lottarmor:chestplate_mithril 1"]  = { price = "lord_money:silver_coin 75", chance = 50, stock = 1 },
+		["default:steel_ingot 99"]          = { price = "lord_money:silver_coin 20", chance = 12, stock = 1 },
+		["tools:sword_silver 1"]            = { price = "lord_money:silver_coin 7",  chance = 10, stock = 1 },
+		["default:bronze_ingot 25"]         = { price = "lord_money:silver_coin 5",  chance = 15, stock = 1 },
+		["lottblocks:small_lamp_pine 6"]    = { price = "lord_money:silver_coin 2",  chance = 6,  stock = 1 },
+		["lottblocks:dwarf_harp 1"]         = { price = "lord_money:silver_coin 15", chance = 10, stock = 1 },
+		["tools:dagger_mithril 1"]          = { price = "lord_money:silver_coin 15", chance = 20, stock = 1 },
+		["tools:sword_mithril 1"]           = { price = "lord_money:silver_coin 35", chance = 30, stock = 1 },
+		["tools:sword_steel 1"]             = { price = "lord_money:silver_coin 5",  chance = 10, stock = 1 },
+		["tools:battleaxe_silver 1"]        = { price = "lord_money:silver_coin 10", chance = 18, stock = 1 },
+		["lottblocks:dwarfstone_stripe 50"] = { price = "lord_money:silver_coin 17", chance = 12, stock = 1 },
+		["lottblocks:dwarfstone_black 99"]  = { price = "lord_money:silver_coin 33", chance = 17, stock = 1 },
+		["default:stonebrick 99"]           = { price = "lord_money:silver_coin 25", chance = 14, stock = 1 },
+		["lottblocks:dwarfstone_white 99"]  = { price = "lord_money:silver_coin 33", chance = 17, stock = 1 },
 	}),
 	names      = {
 		"Azaghâl", "Balbrin", "Borin", "Farin", "Flói", "Frerin",
@@ -55,21 +56,21 @@ trader_config.dwarf  = {
 --- @type traders.config
 trader_config.elf    = {
 	goods      = table.merge(trader_config.common_goods, {
-		["lottplants:mallorntree 10"]      = { price = "lord_money:silver_coin 4",  chance = 5 },
-		["lottores:rough_rock 4"]          = { price = "lord_money:silver_coin 30", chance = 17 },
-		["lottother:blue_torch 10"]        = { price = "lord_money:silver_coin 20", chance = 15 },
-		["tools:spear_galvorn 1"]          = { price = "lord_money:silver_coin 25", chance = 20 },
-		["tools:battleaxe_silver 1"]       = { price = "lord_money:silver_coin 18", chance = 14 },
-		["tools:sword_galvorn 1"]          = { price = "lord_money:silver_coin 25", chance = 25 },
-		["lottplants:elanor 10"]           = { price = "lord_money:silver_coin 2",  chance = 22 },
-		["lottarmor:chestplate_galvorn 1"] = { price = "lord_money:silver_coin 40", chance = 25 },
-		["lottarmor:helmet_galvorn 1"]     = { price = "lord_money:silver_coin 30", chance = 25 },
-		["lottarmor:boots_galvorn 1"]      = { price = "lord_money:silver_coin 25", chance = 25 },
-		["lottarmor:leggings_galvorn 1"]   = { price = "lord_money:silver_coin 35", chance = 25 },
-		["lottplants:niphredil 12"]        = { price = "lord_money:silver_coin 3",  chance = 14 },
-		["lottblocks:mallorn_pillar 30"]   = { price = "lord_money:silver_coin 7",  chance = 4 },
-		["lottplants:mallornsapling 3"]    = { price = "lord_money:silver_coin 2",  chance = 17 },
-		["lottplants:mallornwood 99"]      = { price = "lord_money:silver_coin 10", chance = 5 },
+		["lottplants:mallorntree 10"]      = { price = "lord_money:silver_coin 4",  chance = 5,  stock = 1 },
+		["lottores:rough_rock 4"]          = { price = "lord_money:silver_coin 30", chance = 17, stock = 1 },
+		["lottother:blue_torch 10"]        = { price = "lord_money:silver_coin 20", chance = 15, stock = 1 },
+		["tools:spear_galvorn 1"]          = { price = "lord_money:silver_coin 25", chance = 20, stock = 1 },
+		["tools:battleaxe_silver 1"]       = { price = "lord_money:silver_coin 18", chance = 14, stock = 1 },
+		["tools:sword_galvorn 1"]          = { price = "lord_money:silver_coin 25", chance = 25, stock = 1 },
+		["lottplants:elanor 10"]           = { price = "lord_money:silver_coin 2",  chance = 22, stock = 1 },
+		["lottarmor:chestplate_galvorn 1"] = { price = "lord_money:silver_coin 40", chance = 25, stock = 1 },
+		["lottarmor:helmet_galvorn 1"]     = { price = "lord_money:silver_coin 30", chance = 25, stock = 1 },
+		["lottarmor:boots_galvorn 1"]      = { price = "lord_money:silver_coin 25", chance = 25, stock = 1 },
+		["lottarmor:leggings_galvorn 1"]   = { price = "lord_money:silver_coin 35", chance = 25, stock = 1 },
+		["lottplants:niphredil 12"]        = { price = "lord_money:silver_coin 3",  chance = 14, stock = 1 },
+		["lottblocks:mallorn_pillar 30"]   = { price = "lord_money:silver_coin 7",  chance = 4,  stock = 1 },
+		["lottplants:mallornsapling 3"]    = { price = "lord_money:silver_coin 2",  chance = 17, stock = 1 },
+		["lottplants:mallornwood 99"]      = { price = "lord_money:silver_coin 10", chance = 5,  stock = 1 },
 	}),
 	names      = {
 		"Annael", "Anairë", "Curufin", "Erestor", "Gwindor", "Irimë",
@@ -87,21 +88,21 @@ trader_config.elf    = {
 --- @type traders.config
 trader_config.hobbit = {
 	goods = table.merge(trader_config.common_goods, {
-		["lottfarming:pipe 1"]             = { price = "lord_money:silver_coin 2",  chance = 5 },
-		["lottfarming:pipeweed_cooked 50"] = { price = "lord_money:silver_coin 17", chance = 10 },
-		["lottpotion:beer 10"]             = { price = "lord_money:silver_coin 7",  chance = 8 },
-		["lottpotion:cider 15"]            = { price = "lord_money:silver_coin 11", chance = 13 },
-		["lottpotion:wine 8"]              = { price = "lord_money:silver_coin 18", chance = 14 },
-		["lottfarming:tomatoes 25"]        = { price = "lord_money:silver_coin 23", chance = 25 },
-		["lottfarming:potato 30"]          = { price = "lord_money:silver_coin 10", chance = 22 },
-		["lottfarming:brown_mushroom 40"]  = { price = "lord_money:silver_coin 40", chance = 25 },
-		["lottfarming:corn_seed 12"]       = { price = "lord_money:silver_coin 30", chance = 25 },
-		["farming:hoe_bronze 1"]           = { price = "lord_money:silver_coin 25", chance = 25 },
-		["lord_books:brewing_book 1"]      = { price = "lord_money:silver_coin 35", chance = 25 },
-		["lottfarming:barley_seed 5"]      = { price = "lord_money:silver_coin 3",  chance = 14 },
-		["lottfarming:berries 15"]         = { price = "lord_money:silver_coin 7",  chance = 4 },
-		["lottplants:firsapling 2"]        = { price = "lord_money:silver_coin 2",  chance = 17 },
-		["default:apple 10"]               = { price = "lord_money:silver_coin 10", chance = 5 },
+		["lottfarming:pipe 1"]             = { price = "lord_money:silver_coin 2",  chance = 5,  stock = 1 },
+		["lottfarming:pipeweed_cooked 50"] = { price = "lord_money:silver_coin 17", chance = 10, stock = 1 },
+		["lottpotion:beer 10"]             = { price = "lord_money:silver_coin 7",  chance = 8,  stock = 1 },
+		["lottpotion:cider 15"]            = { price = "lord_money:silver_coin 11", chance = 13, stock = 1 },
+		["lottpotion:wine 8"]              = { price = "lord_money:silver_coin 18", chance = 14, stock = 1 },
+		["lottfarming:tomatoes 25"]        = { price = "lord_money:silver_coin 23", chance = 25, stock = 1 },
+		["lottfarming:potato 30"]          = { price = "lord_money:silver_coin 10", chance = 22, stock = 1 },
+		["lottfarming:brown_mushroom 40"]  = { price = "lord_money:silver_coin 40", chance = 25, stock = 1 },
+		["lottfarming:corn_seed 12"]       = { price = "lord_money:silver_coin 30", chance = 25, stock = 1 },
+		["farming:hoe_bronze 1"]           = { price = "lord_money:silver_coin 25", chance = 25, stock = 1 },
+		["lord_books:brewing_book 1"]      = { price = "lord_money:silver_coin 35", chance = 25, stock = 1 },
+		["lottfarming:barley_seed 5"]      = { price = "lord_money:silver_coin 3",  chance = 14, stock = 1 },
+		["lottfarming:berries 15"]         = { price = "lord_money:silver_coin 7",  chance = 4,  stock = 1 },
+		["lottplants:firsapling 2"]        = { price = "lord_money:silver_coin 2",  chance = 17, stock = 1 },
+		["default:apple 10"]               = { price = "lord_money:silver_coin 10", chance = 5,  stock = 1 },
 	}),
 	names      = {
 		"Adalgrim", "Bodo", "Cotman", "Doderic", "Falco", "Gormadoc",
@@ -119,21 +120,21 @@ trader_config.hobbit = {
 --- @type traders.config
 trader_config.man  = {
 	goods      = table.merge(trader_config.common_goods, {
-		["default:sandstone 40"]          = { price = "lord_money:silver_coin 10", chance = 12 },
-		["boats:sail_boat 1"]             = { price = "lord_money:silver_coin 4",  chance = 14 },
-		["lottarmor:shield_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 20 },
-		["farming:bread 12"]              = { price = "lord_money:silver_coin 2",  chance = 5 },
-		["lottblocks:marble_brick 35"]    = { price = "lord_money:silver_coin 12", chance = 10 },
-		["default:desert_stone 30"]       = { price = "lord_money:silver_coin 8",  chance = 12 },
-		["lottblocks:lamp_alder 5"]       = { price = "lord_money:silver_coin 4",  chance = 8 },
-		["lottarmor:chestplate_bronze 1"] = { price = "lord_money:silver_coin 30", chance = 30 },
-		["lottarmor:boots_bronze 1"]      = { price = "lord_money:silver_coin 12", chance = 18 },
-		["lottblocks:lamp_lebethron 7"]   = { price = "lord_money:silver_coin 6",  chance = 11 },
-		["lottblocks:door_alder 6"]       = { price = "lord_money:silver_coin 2",  chance = 18 },
-		["lottores:marble 99"]            = { price = "lord_money:silver_coin 33", chance = 18 },
-		["lottarmor:helmet_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 24 },
-		["default:brick 30"]              = { price = "lord_money:silver_coin 10", chance = 17 },
-		["lottarmor:leggings_bronze 1"]   = { price = "lord_money:silver_coin 25", chance = 34 },
+		["default:sandstone 40"]          = { price = "lord_money:silver_coin 10", chance = 12, stock = 1 },
+		["boats:sail_boat 1"]             = { price = "lord_money:silver_coin 4",  chance = 14, stock = 1 },
+		["lottarmor:shield_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 20, stock = 1 },
+		["farming:bread 12"]              = { price = "lord_money:silver_coin 2",  chance = 5,  stock = 1 },
+		["lottblocks:marble_brick 35"]    = { price = "lord_money:silver_coin 12", chance = 10, stock = 1 },
+		["default:desert_stone 30"]       = { price = "lord_money:silver_coin 8",  chance = 12, stock = 1 },
+		["lottblocks:lamp_alder 5"]       = { price = "lord_money:silver_coin 4",  chance = 8,  stock = 1 },
+		["lottarmor:chestplate_bronze 1"] = { price = "lord_money:silver_coin 30", chance = 30, stock = 1 },
+		["lottarmor:boots_bronze 1"]      = { price = "lord_money:silver_coin 12", chance = 18, stock = 1 },
+		["lottblocks:lamp_lebethron 7"]   = { price = "lord_money:silver_coin 6",  chance = 11, stock = 1 },
+		["lottblocks:door_alder 6"]       = { price = "lord_money:silver_coin 2",  chance = 18, stock = 1 },
+		["lottores:marble 99"]            = { price = "lord_money:silver_coin 33", chance = 18, stock = 1 },
+		["lottarmor:helmet_bronze 1"]     = { price = "lord_money:silver_coin 20", chance = 24, stock = 1 },
+		["default:brick 30"]              = { price = "lord_money:silver_coin 10", chance = 17, stock = 1 },
+		["lottarmor:leggings_bronze 1"]   = { price = "lord_money:silver_coin 25", chance = 34, stock = 1 },
 	}),
 	names      = {
 		"Aratan", "Arvegil", "Belegorn", "Celepharn", "Dúnhere", "Elatan",
