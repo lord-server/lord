@@ -121,7 +121,7 @@ trader_config.hobbit = {
 trader_config.man  = {
 	goods      = table.merge(trader_config.common_goods, {
 		["default:sandstone 40"]          = { price = 100, chance = 12, stock = 1 },
-		["boats:sail_boat 1"]             = { price = 40,  chance = 14, stock = 1 },
+		["lord_boats:sail_boat 1"]             = { price = 40,  chance = 14, stock = 1 },
 		["lottarmor:shield_bronze 1"]     = { price = 200, chance = 20, stock = 1 },
 		["farming:bread 12"]              = { price = 20,  chance = 5,  stock = 1 },
 		["lottblocks:marble_brick 35"]    = { price = 120, chance = 10, stock = 1 },
