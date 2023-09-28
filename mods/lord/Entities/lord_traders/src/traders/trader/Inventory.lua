@@ -24,20 +24,32 @@ local function update_takeaway(inv)
 end
 
 --- @param trader_inventory InvRef
---- @param goods_config     traders.config.good[]
+--- @param goods_config     table<string,traders.config.good>
 local function add_goods(trader_inventory, goods_config)
 	local max_goods = trader_inventory:get_size("goods")
 	local i = 1
 
-	for name, good in pairs(goods_config) do
+	local registered_items = minetest.registered_items
+	local registered_aliases = minetest.registered_aliases
+
+	for stack_string, good in pairs(goods_config) do
+		local good_name = stack_string:split(" ")[1]
+		if not registered_items[good_name] or registered_aliases[good_name] then
+			minetest.log(
+				"error",
+				"Can't add item to Trader inventory: undefined item `" .. good_name .. "` or its an alias."
+			)
+			goto _continue_
+		end
 		-- FIXME: оказывается это какой-то обратный процент, т.к. ">", а не "<"
 		if not good.chance or math.random(0, 100) > good.chance then
-			trader_inventory:set_stack("goods", i, name)
+			trader_inventory:set_stack("goods", i, stack_string)
 			i = i + 1
 			if i > max_goods then
 				break
 			end
 		end
+		::_continue_::
 	end
 end
 
