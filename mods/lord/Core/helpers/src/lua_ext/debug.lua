@@ -13,11 +13,11 @@ function __LINE__(depth)
 end
 --- @param depth number
 --- @return string
-function __FILE_LINE__(depth)
+function __FILE_LINE__(depth) -- luacheck: ignore unused global variable __FILE_LINE__
 	return __FILE__(depth) .. ':' .. __LINE__(depth)
 end
 --- @param depth number
 --- @return string
-function __FUNC__(depth)
+function __FUNC__(depth)  -- luacheck: ignore unused global variable __FUNC__
 	return debug_getinfo(2 + (depth or 0), 'n').name
 end
