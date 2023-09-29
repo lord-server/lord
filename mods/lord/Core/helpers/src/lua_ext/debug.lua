@@ -4,12 +4,12 @@ local debug_getinfo
 --- @param depth number
 --- @return string
 function __FILE__(depth)
-	return debug_getinfo(2 + (depth or 0), 'S').source
+	return debug_getinfo(3 + (depth or 0), 'S').source
 end
 --- @param depth number
 --- @return number
 function __LINE__(depth)
-	return debug_getinfo(2 + (depth or 0), 'l').currentline
+	return debug_getinfo(3 + (depth or 0), 'l').currentline
 end
 --- @param depth number
 --- @return string
