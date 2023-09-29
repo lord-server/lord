@@ -63,11 +63,10 @@ local common_trader_definition = {
 
 ------------------------------------------------------------------------------------------------------------------------
 
---- @param entity         LuaEntity
---- @param clicker        Player
---- @param race           string
---- @param race_privilege string
-local function on_rightclick(entity, clicker, race, race_privilege)
+--- @param entity  LuaEntity
+--- @param clicker Player
+--- @param race    string
+local function on_rightclick(entity, clicker, race)
 	face_pos(entity, clicker:get_pos())
 	local player_name = clicker:get_player_name()
 
@@ -88,7 +87,8 @@ local function on_rightclick(entity, clicker, race, race_privilege)
 			tostring(trader_config.messages[math.random(1, #trader_config.messages)]) -- messages already translated
 	)
 
-	local inventory_id = Inventory:new(clicker, entity, trader_config.goods, race_privilege):get_id()
+	local same_race = races.get_race(clicker:get_player_name()) == race
+	local inventory_id = Inventory:new(clicker, entity, trader_config.goods, same_race):get_id()
 	Form:new(clicker, inventory_id, entity.game_name):open()
 
 end
@@ -96,14 +96,12 @@ end
 --- @param name string
 --- @param definition table
 local function register_trader(name, definition)
-	local def            = table.merge(common_trader_definition, definition)
-	-- TODO: clean up privileges like 'GAME*'. See #1157
-	local race_privilege = "GAME" .. def.race -- GAMEelf, GAMEman, GAMEhobbit, GAMEdwarf, GAMEorc
+	local def         = table.merge(common_trader_definition, definition)
 
 	-- HACK: we can't move this into `common_trader_definition`, because we need `def.race`,
 	--       but `mobs:register_mob()` does not pass all `def` into `minetest.register_entity()`
-	def.on_rightclick    = function(self, clicker)
-		on_rightclick(self, clicker, def.race, race_privilege)
+	def.on_rightclick = function(self, clicker)
+		on_rightclick(self, clicker, def.race)
 	end
 
 	mobs:register_mob(name, def)

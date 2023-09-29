@@ -207,21 +207,19 @@ end
 
 --- Constructor
 --- @public
---- @param player         Player
---- @param entity         LuaEntity
---- @param goods_config   traders.config.good[]
---- @param race_privilege string
+--- @param player       Player
+--- @param entity       LuaEntity
+--- @param goods_config traders.config.good[]
+--- @param same_race    boolean
 --- @return traders.trader.Inventory
-function Inventory:new(player, entity, goods_config, race_privilege)
+function Inventory:new(player, entity, goods_config, same_race)
 	local class = self
 	self = {}
 
 	self.player_name  = player:get_player_name()
 	self.entity_id    = entity.id
 	self.goods_config = goods_config
-	if minetest.get_player_privs(self.player_name)[race_privilege] ~= nil then
-		self.same_race = true
-	end
+	self.same_race    = same_race
 
 	return setmetatable(self, { __index = class })
 end
