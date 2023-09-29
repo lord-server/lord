@@ -435,7 +435,7 @@ mobs:register_mob("lottmobs:hobbit", {
 	type = "npc",
 	hp_min = 5,
 	hp_max = 15,
-	collisionbox = {-0.3,-0.85,-0.3,0.3,0.68,0.3},
+	collisionbox = { -0.33, -0.75, -0.33, 0.33, 0.6, 0.33 },
 	textures = {
 		{"lottmobs_hobbit.png"},
 		{"lottmobs_hobbit_1.png"},
@@ -443,7 +443,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		{"lottmobs_hobbit_3.png"},
 	},
 	visual = "mesh",
-	visual_size = {x = 0.85, y = 0.85},
+	visual_size = {x = 0.825, y = 0.75},
 	mesh = "dwarf_character.b3d",
 	makes_footstep_sound = true,
 	view_range = 12,

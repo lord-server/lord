@@ -1,16 +1,42 @@
 
 local trader = require("traders.trader")
 
+-- TODO move this into lord_mobs_common & use for other humanlike mobs
+local MODEL_HEIGHT = 1.8
+local lord_mobs = {}
+lord_mobs.humanlike                   = {
+	height  = { man = 1, elf = 1.15, hobbit = 0.75, dwarf = 0.85 },
+	fatness = { man = 1, elf = 0.90, hobbit = 1.1,  dwarf = 1.25 }
+}
+lord_mobs.humanlike.get_collision_box = function(race)
+	local h = lord_mobs.humanlike.height[race]
+	local f = lord_mobs.humanlike.fatness[race]
+	local mh = MODEL_HEIGHT
+
+	return {
+		-0.3 * f,       -h,  -0.3 * f,
+		 0.3 * f, (mh-1)*h,   0.3 * f
+	}
+end
+lord_mobs.humanlike.get_visual_size   = function(race)
+	local h = lord_mobs.humanlike.height[race]
+	local f = lord_mobs.humanlike.fatness[race]
+
+	return { x = h * f, y = h }
+end
+local get_collision_box               = lord_mobs.humanlike.get_collision_box
+local get_visual_size                 = lord_mobs.humanlike.get_visual_size
+-- end TODO-------------------------------------------------------------------
 
 trader.register(":lottmobs:elf_trader", {
 	race          = "elf",
 	hp_min        = 20,
 	hp_max        = 50,
-	collisionbox  = { -0.3, -1.1, -0.3, 0.3, 0.91, 0.3 },
+	collisionbox  = get_collision_box("elf"),
+	visual_size   = get_visual_size("elf"),
 	textures      = {
 		{ "lottmobs_elf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual_size   = { x = 0.95, y = 1.15 },
 	view_range    = 20,
 	walk_velocity = 1.5,
 	run_velocity  = 5,
@@ -28,7 +54,7 @@ trader.register(":lottmobs:human_trader", {
 	race         = "man",
 	hp_min       = 15,
 	hp_max       = 35,
-	collisionbox = { -0.3, -1.0, -0.3, 0.3, 0.8, 0.3 },
+	collisionbox = get_collision_box("man"),
 	textures     = {
 		{ "lottmobs_human_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
@@ -42,11 +68,11 @@ trader.register(":lottmobs:hobbit_trader", {
 	race             = "hobbit",
 	hp_min           = 5,
 	hp_max           = 15,
-	collisionbox     = { -0.3, -0.75, -0.3, 0.3, 0.7, 0.3 },
+	collisionbox     = get_collision_box("hobbit"),
+	visual_size      = get_visual_size("hobbit"),
 	textures         = {
 		{ "lottmobs_hobbit_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual_size      = { x = 1.1, y = 0.75 },
 	armor            = 300,
 	lava_damage      = 5,
 	follow           = nil,
@@ -60,11 +86,11 @@ trader.register(":lottmobs:dwarf_trader", {
 	race         = "dwarf",
 	hp_min       = 20,
 	hp_max       = 30,
-	collisionbox = { -0.3, -.85, -0.3, 0.3, 0.68, 0.3 },
+	collisionbox = get_collision_box("dwarf"),
+	visual_size  = get_visual_size("dwarf"),
 	textures     = {
 		{ "lottmobs_dwarf_trader.png", "lottarmor_trans.png", "lottarmor_trans.png", "lottarmor_trans.png" },
 	},
-	visual_size  = { x = 1.1, y = 0.85 },
 	view_range   = 10,
 	run_velocity = 2,
 	armor        = 200,
