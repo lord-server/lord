@@ -157,6 +157,28 @@ function inventory_callbacks.allow_take(inv, list_name, index, stack, player)
 	end
 end
 
+--- @param inv        InvRef
+--- @param from_list  string
+--- @param from_index number
+--- @param to_list    string
+--- @param to_index   number
+--- @param count      number
+function inventory_callbacks.on_move(inv, from_list, from_index, to_list, to_index, count, _)
+	if
+		(from_list == "goods" and to_list == "selection") or
+		(from_list == "selection" and to_list == "goods")
+	then
+		local sel_stack = inv:get_stack("selection", 1)
+		local sel_stack_string = sel_stack:get_name() .. " " .. sel_stack:get_count()
+
+		local inventory = Inventory.get_by_invRef(inv)
+
+		local price = get_price_for(sel_stack_string, inventory.goods_config, inventory.same_race)
+		inv:set_stack("price", 1, price)
+		update_takeaway(inv)
+	end
+end
+
 ---@param inv       InvRef
 ---@param list_name string
 ---@param index     number
@@ -180,8 +202,7 @@ function inventory_callbacks.on_take(inv, list_name, index, stack, player)
 		local thing = inv:get_stack("payment",1):get_name()
 
 		local good_name = inv:get_stack("selection",1):to_string()
-		local inventory_id = inv:get_location().name
-		local good = Inventory.get_by_id(inventory_id).goods_config[good_name]
+		local good = Inventory.get_by_invRef(inv).goods_config[good_name]
 
 		if good and good.stock then
 			inv:set_stack("selection", 1, nil)
@@ -225,45 +246,17 @@ function Inventory:new(player, entity, goods_config, same_race)
 end
 
 --- @static
---- @param inventory_id string
+--- @param inv InvRef
 --- @return traders.trader.Inventory|nil
-function Inventory.get_by_id(inventory_id)
-	return inventories_by_id[inventory_id]
+function Inventory.get_by_invRef(inv)
+	return inventories_by_id[inv:get_location().name]
 end
 
 --- @private
 --- @param inventory_id string
 --- @return InvRef
 function Inventory:create_detached_inventory(inventory_id)
-	--- @type DetachedInventoryCallbacksDef
-	local callbacks = {
-		allow_move = inventory_callbacks.allow_move,
-		allow_put = inventory_callbacks.allow_put,
-		allow_take = inventory_callbacks.allow_take,
-		--- @param inventory  InvRef
-		--- @param from_list  string
-		--- @param from_index number
-		--- @param to_list    string
-		--- @param to_index   number
-		--- @param count      number
-		on_move = function(inventory, from_list, from_index, to_list, to_index, count, _)
-			if
-				(from_list == "goods" and to_list == "selection") or
-				(from_list == "selection" and to_list == "goods")
-			then
-				local sel_stack = inventory:get_stack("selection", 1)
-				local sel_stack_string = sel_stack:get_name() .. " " .. sel_stack:get_count()
-
-				local price = get_price_for(sel_stack_string, self.goods_config, self.same_race)
-				inventory:set_stack("price", 1, price)
-				update_takeaway(inventory)
-			end
-		end,
-		on_put = inventory_callbacks.on_put,
-		on_take = inventory_callbacks.on_take
-	}
-
-	local trader_inventory = minetest.create_detached_inventory(inventory_id, callbacks, self.player_name)
+	local trader_inventory = minetest.create_detached_inventory(inventory_id, inventory_callbacks, self.player_name)
 	trader_inventory:set_size("goods", 15)
 	trader_inventory:set_size("takeaway", 1)
 	trader_inventory:set_size("selection", 1)
