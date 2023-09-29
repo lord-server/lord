@@ -5,9 +5,6 @@ local Kind      = require("equipment.Kind")
 ForPlayer.event = Event
 Kind.event      = Event
 
---- @return string
-function __FUNC__(depth) return debug.getinfo(2 + (depth or 0), 'n').name end
-
 
 --- @param kind          string|fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
 --- @param callback      fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)|nil
