@@ -36,7 +36,7 @@ read_globals      = {
 
 	math = { fields = {
 		-- MT Builtin:
-		"sign", "hypot", "factorial",
+		"sign", "hypot", "factorial", "round",
 	} },
 
 	-- Builtin

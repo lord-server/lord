@@ -1,3 +1,5 @@
+local SAME_RACE_DISCOUNT_PERCENT = 10
+
 --- @param inv InvRef
 --- @return boolean
 local function check_pay(inv)
@@ -53,18 +55,19 @@ local function add_goods(trader_inventory, goods_config)
 	end
 end
 
---- @param price     string stack string (for ex.: "lord_money:silver_coin 9")
+--- @param price     number  price in lord-coins (copper coins)
 --- @param same_race boolean
-local function get_discount(price, same_race)
-	-- TODO: calc same race discount
-	return price
+local function get_discount_price(price, same_race)
+	local discount = same_race
+		and math.round(price * SAME_RACE_DISCOUNT_PERCENT / 100)
+		or  0
+
+	return price - discount
 end
 
---- @param price string|number
+--- @param price number price in lord-coins (copper coins)
 --- @return string  stack string (for ex.: "lord_money:silver_coin 9")
 local function price_to_stack_string(price)
-	if type(price) == "string" then return price end
-
 	if price % 1000 == 0 then return "lord_money:diamond_coin " .. (price / 1000) end
 	if price % 100  == 0 then return "lord_money:gold_coin "    .. (price / 100 ) end
 	if price % 10   == 0 then return "lord_money:silver_coin "  .. (price / 10  ) end
@@ -77,9 +80,14 @@ end
 --- @return string|nil stack string (for ex.: "lord_money:silver_coin 9")
 local function get_price_for(good_stack_string, goods_config, same_race)
 	local good = goods_config[good_stack_string]
-	if not good then return nil end
+	if not good or not good.price then return nil end
+	if type(good.price) == "string" then
+		return good.price
+	end
 
-	return price_to_stack_string(get_discount(good.price, same_race))
+	return price_to_stack_string(
+		get_discount_price(tonumber(good.price), same_race)
+	)
 end
 
 ------------------------------------------------------------------------------------------------------------------------
