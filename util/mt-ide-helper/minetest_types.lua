@@ -992,6 +992,8 @@ function minetest.add_item(pos, item) end
 --- Get an `ObjectRef` to a player
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4913-L4913)
+--- @param name string
+--- @return Player
 function minetest.get_player_by_name(name) end
 --- Returns a list of
 ---   ObjectRefs.
@@ -1634,6 +1636,10 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2) end
 --- * returns the leftover itemstack
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5376-L5378)
+--- @param itemstack ItemStack
+--- @param dropper   Player|ObjectRef
+--- @param pos       Position
+--- @return ItemStack
 function minetest.item_drop(itemstack, dropper, pos) end
 --- * Returns `function(itemstack, user, pointed_thing)` as a
 ---   function wrapper for `minetest.do_item_eat`.

@@ -1,19 +1,33 @@
 local S = minetest.get_translator("lord_traders")
 
+--- @class traders.trader.Form.Event
+local Event = {
+	CLOSE = "close",
+}
+
 ---
 --- @class traders.trader.Form
 ---
 local Form = {
 	--- @const
 	--- @type string
-	NAME = "trade",
+	NAME         = "lord_traders:trade",
+	--- @static
+	--- @private
+	--- @type table<string,traders.trader.Form>
+	opened_for   = {},
+	--- @static
+	--- @type table <string,fun(form:traders.trader.Form)[]>
+	event_callback = {
+		["on_"..Event.CLOSE] = {}
+	},
 
 	--- @type string
-	player_name   = nil,
+	player_name  = nil,
 	--- @type string
 	inventory_id = nil,
 	--- @type string
-	trader_name = nil,
+	trader_name  = nil,
 }
 
 --- Constructor
@@ -33,8 +47,37 @@ function Form:new(player, inventory_id, trader_name)
 end
 
 --- @public
+--- @static
+--- @param player Player
+function Form.get_opened_for(player)
+	return Form.opened_for[player:get_player_name()]
+end
+
+--- @private
+--- @param event string
+function Form:trigger(event)
+	for _, callback in pairs(self.event_callback["on_"..event]) do
+		callback(self)
+	end
+end
+
+--- @public
+--- @static
+--- @param callback fun(form:traders.trader.Form)
+function Form.on_close(callback)
+	table.insert(Form.event_callback["on_" .. Event.CLOSE], callback)
+end
+
+--- @public
 function Form:open()
+	self.opened_for[self.player_name] = self;
 	minetest.show_formspec(self.player_name, self.NAME, self:get_spec())
+end
+
+--- @public
+function Form:close()
+	self.opened_for[self.player_name] = nil
+	self:trigger(Event.CLOSE)
 end
 
 --- @private
@@ -61,6 +104,34 @@ function Form:get_spec()
 		"listring[detached:" .. self.inventory_id .. ";selection]" ..
 		"listring[detached:" .. self.inventory_id .. ";goods]"
 end
+
+--- @public
+--- @static
+--- @param player    Player
+--- @param form_name string
+--- @param fields    table
+function Form.handler(player, form_name, fields)
+	if form_name ~= Form.NAME then
+		return
+	end
+
+	local form = Form.get_opened_for(player)
+	if not form then return end
+
+	if fields.quit then
+		form:close()
+	end
+end
+
+minetest.register_on_player_receive_fields(Form.handler)
+
+--- @param player Player
+minetest.register_on_leaveplayer(function(player, timed_out)
+	local form = Form.get_opened_for(player);
+	if form then
+		form:close()
+	end
+end)
 
 
 return Form

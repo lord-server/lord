@@ -254,10 +254,19 @@ function Inventory:new(player, entity, goods_config, same_race)
 end
 
 --- @static
+--- @private
 --- @param inv InvRef
 --- @return traders.trader.Inventory|nil
 function Inventory.get_by_invRef(inv)
 	return inventories_by_id[inv:get_location().name]
+end
+
+--- @static
+--- @public
+--- @param id string
+--- @return traders.trader.Inventory|nil
+function Inventory.get_by_id(id)
+	return inventories_by_id[id]
 end
 
 --- @private
@@ -281,7 +290,7 @@ function Inventory:get_or_create_detached_inventory()
 	self.detached_inv_id = self.player_name.."_trader_".. self.entity_id:gsub(":", "_")
 	inventories_by_id[self.detached_inv_id] = self
 
-	local trader_inventory = minetest.get_inventory({ type ="detached", name = self.detached_inv_id })
+	local trader_inventory = minetest.get_inventory({ type = "detached", name = self.detached_inv_id })
 	if trader_inventory ~= nil then
 		return trader_inventory
 	end
@@ -297,6 +306,25 @@ function Inventory:get_id()
 	end
 
 	return self.detached_inv_id
+end
+
+--- Returns forgotten money into player's inventory or drops into world.
+--- @public
+function Inventory:return_forgotten()
+	local player_inventory = minetest.get_inventory({ type = "player", name = self.player_name })
+	local trader_inventory = minetest.get_inventory({ type = "detached", name = self.detached_inv_id })
+
+	if trader_inventory:is_empty("payment") then return end
+
+	local stack = trader_inventory:get_stack("payment", 1)
+	trader_inventory:set_stack("payment", 1, nil)
+	trader_inventory:set_stack("takeaway", 1, nil)
+	if player_inventory:room_for_item("main", stack) then
+		player_inventory:add_item("main", stack)
+	else
+		local player = minetest.get_player_by_name(self.player_name)
+		minetest.item_drop(stack, player, player:get_pos())
+	end
 end
 
 return Inventory

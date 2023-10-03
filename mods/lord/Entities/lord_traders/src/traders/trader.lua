@@ -60,9 +60,6 @@ local common_trader_definition = {
 		attack  = "default_punch2", -- except elves (mobs_slash_attack)
 	}
 }
-
-------------------------------------------------------------------------------------------------------------------------
-
 --- @param entity  LuaEntity
 --- @param clicker Player
 --- @param race    string
@@ -92,6 +89,14 @@ local function on_rightclick(entity, clicker, race)
 	Form:new(clicker, inventory_id, entity.game_name):open()
 
 end
+
+------------------------------------------------------------------------------------------------------------------------
+
+Form.on_close(function(form)
+	Inventory.get_by_id(form.inventory_id):return_forgotten()
+end)
+
+------------------------------------------------------------------------------------------------------------------------
 
 --- @param name string
 --- @param definition table
