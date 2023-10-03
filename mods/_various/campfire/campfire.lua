@@ -20,10 +20,10 @@ Version: 0.3.0
 local SL            = lord.require_intllib()
 
 -- VARIABLES
-campfire_cooking    = 1;       -- nil - not cooked, 1 - cooked
-campfire_limit      = 1;         -- nil - unlimited campfire, 1 - limited
-campfire_ttl        = 90;          -- Time in sec
-campfire_stick_time = campfire_ttl / 2;   -- How long does the stick increase. In sec.
+local campfire_cooking    = 1;                -- nil - not cooked, 1 - cooked
+local campfire_limit      = 1;                -- nil - unlimited campfire, 1 - limited
+local campfire_ttl        = 90;               -- Time in sec
+local campfire_stick_time = campfire_ttl / 2; -- How long does the stick increase. In sec.
 
 -- FUNCTIONS
 local function fire_particles_on(pos)
@@ -33,7 +33,7 @@ local function fire_particles_on(pos)
 	local id
 
 	id = minetest.add_particlespawner({ -- 1 layer big particles fire
-		amount             = 9,
+		amount             = 12,
 		time               = 1.3,
 		minpos             = { x = pos.x - 0.2, y = pos.y - 0.4, z = pos.z - 0.2 },
 		maxpos             = { x = pos.x + 0.2, y = pos.y - 0.1, z = pos.z + 0.2 },
@@ -43,55 +43,52 @@ local function fire_particles_on(pos)
 		maxacc             = { x = 0, y = 0.7, z = 0 },
 		minexptime         = 0.5,
 		maxexptime         = 0.7,
-		minsize            = 2,
+		minsize            = 3,
 		maxsize            = 5,
 		collisiondetection = false,
 		vertical           = true,
-		texture            = "campfire_anim_fire.png",
+		texture            = "campfire_anim_fire.png^[opacity:170",
 		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 0.8, },
-		--      playername = "singleplayer"
 	})
 	meta:set_int("layer_1", id)
 
 	id = minetest.add_particlespawner({ -- 2 layer smol particles fire
-		amount             = 1,
+		amount             = 4,
 		time               = 1.3,
-		minpos             = { x = pos.x - 0.1, y = pos.y, z = pos.z - 0.1 },
+		minpos             = { x = pos.x - 0.1, y = pos.y - 0.1, z = pos.z - 0.1 },
 		maxpos             = { x = pos.x + 0.1, y = pos.y + 0.4, z = pos.z + 0.1 },
-		minvel             = { x = 0, y = 0, z = 0 },
-		maxvel             = { x = 0, y = 0.1, z = 0 },
-		minacc             = { x = 0, y = 0, z = 0 },
-		maxacc             = { x = 0, y = 1, z = 0 },
-		minexptime         = 0.4,
-		maxexptime         = 0.6,
+		minvel             = { x = 0, y = 0.30, z = 0 },
+		maxvel             = { x = 0, y = 0.35, z = 0 },
+		minacc             = { x = 0, y = 0.9, z = 0 },
+		maxacc             = { x = 0, y = 1.5, z = 0 },
+		minexptime         = 1,
+		maxexptime         = 1,
 		minsize            = 0.5,
 		maxsize            = 0.7,
 		collisiondetection = false,
 		vertical           = true,
 		texture            = "campfire_anim_fire.png",
-		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 0.7, },
-		-- playername = "singleplayer"
+		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1.1, },
 	})
 	meta:set_int("layer_2", id)
 
 	id = minetest.add_particlespawner({ --3 layer smoke
-		amount             = 1,
-		time               = 1.3,
-		minpos             = { x = pos.x - 0.1, y = pos.y - 0.2, z = pos.z - 0.1 },
+		amount             = 10,
+		time               = 1,
+		minpos             = { x = pos.x - 0.1, y = pos.y - 0.0, z = pos.z - 0.1 },
 		maxpos             = { x = pos.x + 0.2, y = pos.y + 0.4, z = pos.z + 0.2 },
-		minvel             = { x = 0, y = 0, z = 0 },
-		maxvel             = { x = 0, y = 0.1, z = 0 },
-		minacc             = { x = 0, y = 0, z = 0 },
-		maxacc             = { x = 0, y = 1, z = 0 },
-		minexptime         = 0.6,
-		maxexptime         = 0.8,
-		minsize            = 2,
-		maxsize            = 4,
+		minvel             = { x = 0, y = 0.5, z = 0 },
+		maxvel             = { x = 0, y = 0.5, z = 0 },
+		minacc             = { x = 0, y = 0.5, z = 0 },
+		maxacc             = { x = 0, y = 0.9, z = 0 },
+		minexptime         = 5,
+		maxexptime         = 5,
+		minsize            = 4,
+		maxsize            = 6,
 		collisiondetection = true,
 		vertical           = true,
-		texture            = "campfire_anim_smoke.png",
-		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 0.9, },
-		-- playername = "singleplayer"
+		texture            = "campfire_anim_smoke.png^[opacity:160",
+		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 5.1, },
 	})
 	meta:set_int("layer_3", id)
 end
@@ -272,7 +269,6 @@ minetest.register_node('campfire:campfire', {
 				vertical           = true,
 				texture            = "campfire_anim_smoke.png",
 				animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 2.5, },
-				--             playername = "singleplayer"
 			})
 		end
 	end,
