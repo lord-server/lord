@@ -148,7 +148,7 @@ lottachievements.register_achievement("tourist", {
 	id          = 8,
 	trigger     = {
 		type   = "place",
-		node   = "fire:campfire",
+		node   = "campfire:campfire",
 		target = 1,
 	}
 })
