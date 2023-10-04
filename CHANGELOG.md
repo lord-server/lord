@@ -1,5 +1,73 @@
 # Change Log
 
+## [2023.09](https://github.com/lord-server/lord/releases/tag/2023.09)
+ - Nazguls can spawns in specified areas & not destroy it (#1109) (#1111)
+ - One charcoal from one wood planks. Fixes #1112
+ - Remove protection check for placing mobs. Fixes #1110 (#1114)
+ - MapGen: Add gravel & desert gravel. Closes #1098 (#1115)
+ - Horses:
+   - One "horse" in slot. Fixes #1133
+   - Fix stucked animation: walk when standing or stand when riding. Fixes #1132
+ - Dwarf Tomb:
+   - Add Dwarf Tomb nodes. #773
+   - Dwarven Tomb achievement. Closes #773
+   - MapGen: add dwarf tomb to dungeons rarely. Closese #1139
+ - Add sound for chicken. Relates to #347 #1168
+ - Add smoke for campfire. (You can use campfire as smoke from a chimney). Resolves #1176
+ - Fix "Tourists" achievement
+ - Fix obsidian drop chance.
+ - Traders:
+   - Traders: Different forms for different users. No theft. Fixes #1146
+   - Traders: Ability to return goods for select new one & find out the price. Fixes #1145
+   - Mobs: Traders: Return forgotten money to player or drop int world. Closes #1156
+   - Traders: Use standard background on trading form. Closes #1152
+   - Traders: No fraud: if your stack is almost full, the remaining items will be in your hand. Fixes #168
+   - Mobs: Traders: ability to pass items by shift+click. Closes #1171
+   - Mobs: Traders: persistent goods (money always appears for trading). Relates to #1173
+   - Mods: Traders: endless money exchange. Closes #1173
+   - Mobs: Traders: fix no price for boat from human trader. Fixes #1175
+   - Mobs: Traders: add same race discount calc. Resolves #1159
+   - Mobs: (Traders:) unify model size & collision box calc. Fixes #1172 hobbit fat.
+   - Change prices for dwarf trader. Relates #1150
+   - Fix translation error message on open trader form. Fixes #1151
+
+ - Technical:
+   - stale-bot: decrease `daysUntilStale`
+   - Add "Check Cyclomatic Complexity" step to GitHub Actions.
+   - fix typo in gh-action yml
+   - Remove unused saplings from growing LBM. Fixes #711
+   - Replace deprecated `:get_look_yaw()` calls with new `:get_look_horizontal() + pi/2`. Fixes #1047
+   - IDE Hint: add `VoxelManip` & `VoxelArea` classes.
+   - Refactoring: `Game` folder. (Move all mods). Closes #1142
+   - Refactoring: `Entities` folder. (Move all mads). Closes #1142
+   - Refactoring: move `legacy` & `nodes_dump` into `Core`. Relates to #967
+   - Remove unused `alarm` mod. Relates to #967
+   - Refactoring: move remaining mods into `Blocks`, `Game` & `World`. Closes #969, #970, #967
+   - Mobs: Traders: Refactoring: clear var names & types. Relates to #1147, #1153
+   - Mobs: Traders: Refactoring: extract form. Closes #1147
+   - Mobs: Traders: Refactoring: use local var, simlify `add_goods`. Relates to #1153
+   - Mobs: Traders: Refactoring: simplify `check_pay()` function. Relates to #1153
+   - Mobs: Traders: Refactoring: make all helpers local. Relates to #1153
+   - Mobs: Traders: Refactoring: make inventory callbacks local. Relates to #1153
+   - Mobs: Traders: Refactoring: rename `special_mobs.lua` -> `traders.lua`. Relates to #1148
+   - Mobs: Traders: Refactoring: extract common definition. Relates to #1148
+   - Refactoring: `lottmobs`: reformat drops. Relates to #1162
+   - Mobs: Traders; Move all files into `src/`. Relates to #1148
+   - Mobs: Traders: Refactoring: extract inventory. Closes #1153
+   - Mobs: Traders: Refactoring: change goods table format. Relates to #1159, #1149
+   - Mobs: Traders: Refactoring: rename `TraderDef` -> `TraderConfig` & use local. Relates to #1170
+   - Mobs: Traders: rename `TraderConfig` -> `trader.congig` & use only where required. Closes #1170
+   - Mobs: Traders: REfactoring: move trader common entity & registration. Closes #1169
+   - Mobs: Traders: extract to separate mod. Closes #1148
+   - Add `string.is_one_of()`. Decrease cyclomatic complexity in trader/Inventory::on_move. Closes #933
+   - Mobs: Traders: extract common goods. Relates to #1173.   also rename `items` -> `goods` in `trader_config`   fix bug: different config name & race for human trader
+   - Mods: Traders: ability to configure price as number. Relates to #1159, #1149
+   - Mobs: Traders: add check if item registered & not alias. Relates to #1175
+   - Mobs: Traders: no race priv usage; detect same race for player & trader. Relates to #1159, #1157
+   - Mobs: Traders: refactoring: move `on_move()`. Relates #1159
+   - Add debug helpers `__FILE__()`, `__LINE__()`, `__FILE_LINE__()`, `__FUNC__()` into `Core/helpers`.
+
+
 ## [2023.08.p3](https://github.com/lord-server/lord/releases/tag/2023.08.p3)
  - Add drops of stone with coal and obsidian (#1161)
  - One charcoal from one wood planks. Fixes #1112
