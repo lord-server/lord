@@ -5,42 +5,21 @@ minetest.register_privilege("admin_pick", {
 	give_to_singleplayer = true,
 })
 
-minetest.register_tool("worldedit:admin_stick", {
+minetest.register_tool("admin_tools:admin_stick", {
 	description = "Admins Magic Stick",
 	inventory_image = "tool_magic_stick.png",
 	range = 7,
-   on_use = function(itemstack, user, pointed_thing)
+    on_use = function(itemstack, user, pointed_thing)
 	    -- Must be pointing to facedir applicable node
 	    if pointed_thing.type~="node" then return end
 	    local user_name = user:get_player_name()
 	    local can_access = minetest.get_player_privs(user_name).admin_pick
 	    if not can_access then return end
-	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
-	    local node=minetest.get_node(pos)
-	    local node_name=node.name
-		local pressed = user:get_player_control()
 
 		if pointed_thing.type == "node" then
-			if pressed.aux1 then  -- если нажата клавиша использовать
-
-				--local max_nodes = 200
-				--for i = 2, max_nodes do
-					--pos.y = pos.y - 1
-					--local node_below = minetest.get_node(pos)
-					--if node_below ~= nil then
-						--if node_below.name == "air" then
-							--minetest.set_node(pos, {name = "default:stone"})
-						--else
-							--break
-						--end
-					--end
-				--end
-
-			else
-				minetest.remove_node(pointed_thing.under)
-			end
+			minetest.remove_node(pointed_thing.under)
 		elseif pointed_thing.type == "object" then
-			obj = pointed_thing.ref
+			local obj = pointed_thing.ref
 			if obj ~= nil then
 				if (obj:get_player_name() ~= nil) and (obj:get_player_name() ~= "") then
 					-- Player
@@ -51,7 +30,6 @@ minetest.register_tool("worldedit:admin_stick", {
 				end
 			end
 		end
-	    --minetest.set_node(pos,{name="air"})
     end,
 	on_place = function(itemstack, placer, pointed_thing)
 	    local user_name = placer:get_player_name()
@@ -89,7 +67,7 @@ minetest.register_tool("worldedit:admin_stick", {
 
 })
 
-minetest.register_tool("worldedit:pick_admin", {
+minetest.register_tool("admin_tools:pick_admin", {
 	description = "Admins Pickaxe",
 	privs = {admin_pick=true},
 	inventory_image = "tool_admin_pick.png",
@@ -97,14 +75,14 @@ minetest.register_tool("worldedit:pick_admin", {
 	tool_capabilities = {
 		full_punch_interval = 2.0,
 		max_drop_level=1,
-		groupcaps={
-			cracky = {times={[1]=0.01, [2]=0.01, [3]=0.01}, uses=0, maxlevel=3},
-			crumbly = {times={[1]=0.01, [2]=0.01, [3]=0.01}, uses=0, maxlevel=3},
-			choppy={times={[1]=0.01, [2]=0.01, [3]=0.01}, uses=0, maxlevel=3},
-			snappy={times={[1]=0.05, [2]=0.02, [3]=0.01}, uses=0, maxlevel=3},
-			unbreakable={times={[1]=0, [2]=0, [3]=0}, uses=0, maxlevel=3},
-			fleshy = {times={[1]=0, [2]=0, [3]=0}, uses=100, maxlevel=3},
-			bendy={times={[1]=0, [2]=0, [3]=0}, uses=0, maxlevel=3},
+		groupcaps = {
+			cracky      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			crumbly     = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			choppy      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			snappy      = { times = { [1] = 0.05, [2] = 0.02, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			unbreakable = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 0, maxlevel = 3 },
+			fleshy      = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 100, maxlevel = 3 },
+			bendy       = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 0, maxlevel = 3 },
 		},
 		damage_groups = {fleshy=4},
 	},
