@@ -29,6 +29,9 @@
 [submodule "mods/_minetest_game/give_initial_stuff"]
 	path = mods/_minetest_game/give_initial_stuff
 	url = https://github.com/minetest-game-mod/give_initial_stuff
+[submodule "mods/_minetest_game/keys"]
+	path = mods/_minetest_game/keys
+	url = https://github.com/minetest-game-mod/keys
 [submodule "mods/_minetest_game/player_api"]
 	path = mods/_minetest_game/player_api
 	url = https://github.com/minetest-game-mod/player_api
@@ -71,9 +74,10 @@
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
-[submodule "mods/_minetest_game/keys"]
-	path = mods/_minetest_game/keys
-	url = https://github.com/minetest-game-mod/keys
 [submodule "mods/_various/stainedglass"]
 	path = mods/_various/stainedglass
 	url = https://gitlab.com/alerikaisattera/stainedglass.git
+[submodule "mods/_various/WorldEdit"]
+	path = mods/_various/WorldEdit
+	url = git@github.com:lord-server/Minetest-WorldEdit.git
+	branch = locale

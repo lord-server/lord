@@ -1,9 +1,13 @@
 Сторонние разрозненные моды
 ===========================
 
-### `ambience`
- - https://github.com/Neuromancer56/MinetestAmbience
- - но есть ещё вот такой вариант: https://notabug.org/TenPlus1/ambience (может стоит взглянуть)
+### Submodules
+Подключены submodule'м, url см `.gitmodules`:
+ - `ambience`
+ - `candles_3d` (наш fork) 
+ - `mywalls`
+ - `stainedglass`
+ - `WorldEdit`
 
 ### `areas`
  - [minetest-mods/areas](https://github.com/minetest-mods/areas)
@@ -56,10 +60,7 @@
  - ? https://notabug.org/tenplus1/mobs_redo ? (https://content.minetest.net/packages/TenPlus1/mobs/) ???
 
 ### `mobs_fish`
- - первоначальный источник сходу не удалось найти
-
-### `mp_world_edit`
- - [readme](mp_world_edit/README.md)
+ - https://notabug.org/TenPlus1/mobs_water/src/master/mobs_fish
 
 ### `painting`
  - https://github.com/HybridDog/painting
