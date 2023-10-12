@@ -88,8 +88,9 @@ exclude_files     = {
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = {
-		table  = { fields = {} },
-		string = { fields = {} },
-	}
+	globals = { "table", "string", }
+}
+-- WorldEdit extending:
+files["mods/lord/World/worldedit_ext/**/*.lua"] = {
+	globals = { "worldedit"	}
 }
