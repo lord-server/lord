@@ -68,11 +68,6 @@
 ### `new_campfire`
  - https://content.minetest.net/packages/VanessaE/new_campfire/
 
-### `protector_lott`
- - ? https://forum.minetest.net/viewtopic.php?f=11&t=9376 ?
- - ? https://content.minetest.net/packages/sorcerykid/protector/ ?
- - ???
-
 ### `signs_lib`
  - ? https://content.minetest.net/packages/VanessaE/signs_lib/ ?
  - ? https://forum.minetest.net/viewtopic.php?t=13762 ?

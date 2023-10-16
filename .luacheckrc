@@ -80,6 +80,7 @@ exclude_files     = {
 
     -- наследие из LOTT (требует переработки):
 	"mods/lord/World/Generation/lottmapgen",
+	"mods/lord/Blocks/protector_lott",
 
     -- Остальное:
 	"mods/_various/",
