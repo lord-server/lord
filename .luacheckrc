@@ -72,9 +72,6 @@ read_globals      = {
 exclude_files     = {
 	-- External mods:
 
-    -- пришлось добавить после того, как обновился LuaRocks:
-	"mods/lord/Game/lord_base_commands/chatcommands.lua",
-
     -- MTG:
     "mods/_minetest_game/",
 
