@@ -706,31 +706,18 @@ lottachievements.register_achievement("magic", {
 	id          = 53,
 	trigger     = {
 		effect = function(player)
-			local grantprivs    = minetest.string_to_privs("palantiri")
-			local grant_name    = player:get_player_name()
-			local privs         = minetest.get_player_privs(grant_name)
-			local privs_unknown = ""
-			for priv, _ in pairs(grantprivs) do
-				if minetest.check_player_privs(grant_name, grantprivs) then
-					print("Your privileges are insufficient.")
-					return false
-				end
-				if not minetest.registered_privileges[priv] then
-					privs_unknown = privs_unknown .. "Unknown privilege: " .. priv .. "\n"
-				end
-				if not priv:match("GAME", 1) then
-					privs[priv] = true
-				end
-			end
-			if privs_unknown ~= "" then
-				print(privs_unknown)
+			local player_name = player:get_player_name()
+			if minetest.check_player_privs(player_name, "palantiri") then
+				-- already have "palantiri" privilege
 				return false
 			end
+			local player_privs = minetest.get_player_privs(player_name)
+			player_privs["palantiri"] = true
+			minetest.set_player_privs(player_name, player_privs)
 			minetest.chat_send_player(
-				grant_name,
+				player_name,
 				minetest.colorize("purple", SL("You can now travel with palantiri"))
 			)
-			minetest.set_player_privs(grant_name, privs)
 		end,
 		item   = "lottblocks:palantir_guide",
 		type   = "craft",
