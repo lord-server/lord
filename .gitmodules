@@ -79,5 +79,4 @@
 	url = https://gitlab.com/alerikaisattera/stainedglass.git
 [submodule "mods/_various/WorldEdit"]
 	path = mods/_various/WorldEdit
-	url = git@github.com:lord-server/Minetest-WorldEdit.git
-	branch = locale
+	url = git@github.com:Uberi/Minetest-WorldEdit.git
