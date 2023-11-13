@@ -22,7 +22,7 @@ minetest.unregister_item("stairs:stair_inner_aspen_wood")
 minetest.unregister_item("stairs:stair_outer_aspen_wood")
 minetest.unregister_item("stairs:stair_aspen_wood")
 
--- Т.к. в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
+-- Т.к. в `mods/lord/Blocks/lottores` своё олово (видимо в MTG оно появилось позже)
 -- то и ступеньки из MTG нам не нужны (default:tinblock)
 minetest.unregister_item("stairs:slab_tinblock")
 minetest.unregister_item("stairs:stair_inner_tinblock")

@@ -11,7 +11,7 @@
 https://github.com/orgs/lord-server/projects/6/views/1
 
 Для обновления сначала требуетсся обновить моды в [Minetest-Game-Mod](https://github.com/minetest-game-mod/).  
-см. закреплённый реп [_readme](https://github.com/minetest-game-mod/_readme)
+см. закреплённый реп [_readme](https://github.com/minetest-game-mod/_readme)  
 Далее обновляем здесь, запуском скрипта из этой папки:
 ```shell
 $ ./up <version>
@@ -19,4 +19,4 @@ $ ./up <version>
 
 При дальнейших обновлениях сабмодулей из MTG:
  - просмотреть diff на предмет того, что добавилось, чтобы внести в changelog
- - просмотреть/скопировать `default/aliases.lua` в `lord/legacy/init.lus`, пометить версию
+ - просмотреть/скопировать `default/aliases.lua` в [`lord/Core/legacy/init.lua`](../lord/Core/legacy/init.lua), пометить версию

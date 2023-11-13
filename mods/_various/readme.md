@@ -55,12 +55,20 @@
  - ???
 
 ### `mobs`
- - н нас есть ещё `_lott/lottmobs`
- - ? https://forum.minetest.net/viewtopic.php?t=9917 ?
- - ? https://notabug.org/tenplus1/mobs_redo ? (https://content.minetest.net/packages/TenPlus1/mobs/) ???
+ - это "фреймворк" для создания мобов
+ - сами мобы находятся в:
+   - `mods/lord/Entities/lottmobs`
+   - `mods/lord/Entities/lord_traders`
+   - `mods/_various/mobs_fish`
+ - форум: https://forum.minetest.net/viewtopic.php?t=9917
+ - contentDb: https://content.minetest.net/packages/TenPlus1/mobs/
+ - code: https://codeberg.org/tenplus1/mobs_redo
 
 ### `mobs_fish`
- - https://notabug.org/TenPlus1/mobs_water/src/master/mobs_fish
+ - когда-то скопировано из старой версии
+ - сейчас это часть мод-пака `mobs_water`
+ - code: https://codeberg.org/tenplus1/mobs_water/src/branch/master/mobs_fish
+ - contentDb: https://content.minetest.net/packages/TenPlus1/mobs_water/
 
 ### `painting`
  - https://github.com/HybridDog/painting
