@@ -46,10 +46,10 @@ end
 -- Note that this fails and returns false when the specified area is fully
 -- owned by the player, but with multiple protection zones, none of which
 -- cover the entire checked area.
--- @param name (optional) player name.  If not specified checks for any intersecting areas.
--- @param allow_open Whether open areas should be counted as is they didn't exist.
+-- @param name (optional) Player name. If not specified checks for any intersecting areas.
+-- @param allow_open Whether open areas should be counted as if they didn't exist.
 -- @return Boolean indicating whether the player can interact in that area.
--- @return Un-owned intersecting area id, if found.
+-- @return Un-owned intersecting area ID, if found.
 function areas:canInteractInArea(pos1, pos2, name, allow_open)
 	if name and minetest.check_player_privs(name, self.adminPrivs) then
 		return true

@@ -1,7 +1,5 @@
-local SL = lord.require_intllib()
-
 -- This is inspired by the landrush mod by Bremaweb
-
+local S = minetest.get_translator("areas")
 areas.hud = {}
 
 minetest.register_globalstep(function(dtime)
@@ -12,9 +10,9 @@ minetest.register_globalstep(function(dtime)
 		for id, area in pairs(areas:getAreasAtPos(pos)) do
 			table.insert(areaStrings, ("%s [%u] (%s%s)")
 					:format(area.name, id, area.owner,
-					area.open and SL(":open") or ""))
+					area.open and S(":open") or ""))
 		end
-		local areaString = SL("Areas:")
+		local areaString = S("Areas:")
 		if #areaStrings > 0 then
 			areaString = areaString.."\n"..
 				table.concat(areaStrings, "\n")

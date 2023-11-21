@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("areas")
 
 function areas:player_exists(name)
 	return minetest.get_auth_handler().get_auth(name) ~= nil
@@ -42,15 +42,16 @@ local function findFirstUnusedIndex(t)
 	return i
 end
 
--- Add a area, returning the new area's id.
+--- Add a area.
+-- @return The new area's ID.
 function areas:add(owner, name, pos1, pos2, parent)
 	local id = findFirstUnusedIndex(self.areas)
 	self.areas[id] = {name=name, pos1=pos1, pos2=pos2, owner=owner,
-			parent=parent}
+					  parent=parent}
 	return id
 end
 
--- Remove a area, and optionally it's children recursively.
+--- Remove a area, and optionally its children recursively.
 -- If a area is deleted non-recursively the children will
 -- have the removed area's parent as their new parent.
 function areas:remove(id, recurse)
@@ -76,24 +77,30 @@ function areas:remove(id, recurse)
 	self.areas[id] = nil
 end
 
--- Checks if a area between two points is entirely contained by another area
+-- Checks if a area between two points is entirely contained by another area.
+-- Positions must be sorted.
 function areas:isSubarea(pos1, pos2, id)
 	local area = self.areas[id]
 	if not area then
 		return false
 	end
-	local p1, p2 = area.pos1, area.pos2
-	if (pos1.x >= p1.x and pos1.x <= p2.x) and
-	   (pos2.x >= p1.x and pos2.x <= p2.x) and
-	   (pos1.y >= p1.y and pos1.y <= p2.y) and
-	   (pos2.y >= p1.y and pos2.y <= p2.y) and
-	   (pos1.z >= p1.z and pos1.z <= p2.z) and
-	   (pos2.z >= p1.z and pos2.z <= p2.z) then
+	local ap1, ap2 = area.pos1, area.pos2
+	local ap1x, ap1y, ap1z = ap1.x, ap1.y, ap1.z
+	local ap2x, ap2y, ap2z = ap2.x, ap2.y, ap2.z
+	local p1x, p1y, p1z = pos1.x, pos1.y, pos1.z
+	local p2x, p2y, p2z = pos2.x, pos2.y, pos2.z
+	if
+			(p1x >= ap1x and p1x <= ap2x) and
+			(p2x >= ap1x and p2x <= ap2x) and
+			(p1y >= ap1y and p1y <= ap2y) and
+			(p2y >= ap1y and p2y <= ap2y) and
+			(p1z >= ap1z and p1z <= ap2z) and
+			(p2z >= ap1z and p2z <= ap2z) then
 		return true
 	end
 end
 
--- Returns a table (list) of children of an area given it's identifier
+-- Returns a table (list) of children of an area given its identifier
 function areas:getChildren(id)
 	local children = {}
 	for cid, area in pairs(self.areas) do
@@ -117,8 +124,10 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 
 	-- Check self protection privilege, if it is enabled,
 	-- and if the area is too big.
-	if not self.config.self_protection or not privs[areas.config.self_protection_privilege] then
-		return false, SL("Self protection is disabled or you do not have the necessary privilege.")
+	if not self.config.self_protection or
+			not privs[areas.config.self_protection_privilege] then
+		return false, S("Self protection is disabled or you do not have"
+				.." the necessary privilege.")
 	end
 
 	local max_size = privs.areas_high_limit and
@@ -128,7 +137,7 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			(pos2.x - pos1.x) > max_size.x or
 			(pos2.y - pos1.y) > max_size.y or
 			(pos2.z - pos1.z) > max_size.z then
-		return false, SL("Area is too big.")
+		return false, S("Area is too big.")
 	end
 
 	-- Check number of areas the user has and make sure it not above the max
@@ -142,15 +151,16 @@ function areas:canPlayerAddArea(pos1, pos2, name)
 			self.config.self_protection_max_areas_high or
 			self.config.self_protection_max_areas
 	if count >= max_areas then
-		return false, SL("You have reached the maximum amount of areas that you are allowed to  protect.")
+		return false, S("You have reached the maximum amount of"
+				.." areas that you are allowed to protect.")
 	end
 
 	-- Check intersecting areas
 	local can, id = self:canInteractInArea(pos1, pos2, name)
 	if not can then
 		local area = self.areas[id]
-		return false, (SL("The area intersects with").." %s [%u] (%s).")
-				:format(area.name, id, area.owner)
+		return false, S("The area intersects with @1 [@2] (@3).",
+				area.name, id, area.owner)
 	end
 
 	return true
