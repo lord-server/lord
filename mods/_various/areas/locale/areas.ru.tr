@@ -42,8 +42,8 @@ Players with the "@1" privilege can protect up to @2 areas=Игроки, име�
 Protect an area between two positions and give a player access to it without setting the parent of the area to any existing area=Защитить территорию между двумя позициями и дать игроку доступ к ней без привязки к родительскому региону.
 
 Protect your own area=Защитить территорию и установить себя владельцем
-Recursively remove areas using an ID=Recursively remove areas using an ID
-Remove an area using an ID=Рекурсивное удаление территорий (вместе с дочерними) по его ID
+Recursively remove areas using an ID=Рекурсивное удаление территорий (вместе с дочерними) по его ID
+Remove an area using an ID=Удаление территории по его ID
 Removed area @1=Удалена территория @1
 Removed area @1 and its sub areas.=Удалена территория @1 и её дочерние территории.
 Removes all ownerless areas=Удалить все бесхозные территории (без владельца)
