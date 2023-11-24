@@ -1,6 +1,5 @@
 --[[ This make from Minetest mod "New Campfire"
 ======================
-Version: 0.3.0
 
 # License of source code:
 - Copyright (C) 2017 Pavel Litvinoff <googolgl@gmail.com>
@@ -17,7 +16,7 @@ Version: 0.3.0
 - You can craft and use better campfire.
 ]]--
 
-local SL            = lord.require_intllib()
+local S = minetest.get_translator("campfire")
 
 -- VARIABLES
 local campfire_cooking    = 1;                -- nil - not cooked, 1 - cooked
@@ -132,7 +131,7 @@ local function effect(pos, texture, vlc, acc, time, size)
 end
 
 local function infotext_edit(meta)
-	local infotext = SL("Active campfire")
+	local infotext = S("Active campfire")
 
 	if campfire_limit and campfire_ttl > 0 then
 		local it_val = meta:get_int("it_val");
@@ -142,7 +141,7 @@ local function infotext_edit(meta)
 	local cooked_time = meta:get_int('cooked_time');
 	if campfire_cooking and cooked_time ~= 0 then
 		local cooked_cur_time = meta:get_int('cooked_cur_time');
-		infotext              = infotext .. "\n" .. SL("Cooking") .. indicator(cooked_time, cooked_cur_time)
+		infotext              = infotext .. "\n" .. S("Cooking") .. indicator(cooked_time, cooked_cur_time)
 	end
 
 	meta:set_string('infotext', infotext)
@@ -209,7 +208,7 @@ end
 
 -- NODES
 minetest.register_node('campfire:fireplace', {
-	description         = SL("Fireplace"),
+	description         = S("Fireplace"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire_empty.obj',
 	tiles               = { name = '[combine:16x16:0,0=campfire_cobble.png' },
@@ -227,12 +226,12 @@ minetest.register_node('campfire:fireplace', {
 
 	on_construct        = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string('infotext', SL("Fireplace"));
+		meta:set_string('infotext', S("Fireplace"));
 	end,
 })
 
 minetest.register_node('campfire:campfire', {
-	description         = SL("Campfire"),
+	description         = S("Campfire"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire.obj',
 	--	mesh = 'contained_campfire_empty.obj',
@@ -252,7 +251,7 @@ minetest.register_node('campfire:campfire', {
 
 	on_construct        = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string('infotext', SL("Campfire"));
+		meta:set_string('infotext', S("Campfire"));
 	end,
 
 	on_rightclick       = function(pos, node, player, itemstack, pointed_thing)
@@ -275,7 +274,7 @@ minetest.register_node('campfire:campfire', {
 })
 
 minetest.register_node('campfire:campfire_active', {
-	description         = SL("Active campfire"),
+	description         = S("Active campfire"),
 	drawtype            = 'mesh',
 	mesh                = 'contained_campfire.obj',
 	tiles               = { name = '[combine:16x16:0,0=campfire_cobble.png:0,8=campfire_wood.png' },
@@ -396,6 +395,6 @@ minetest.register_craft({
 
 -- ITEMS
 minetest.register_craftitem("campfire:ash", {
-	description     = SL("Ash"),
+	description     = S("Ash"),
 	inventory_image = "campfire_ash.png"
 })

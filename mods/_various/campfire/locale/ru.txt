@@ -1,6 +1,0 @@
-### campfire.lua ###
-Campfire 	= Костровище
-Active campfire = Костёр
-Ash		= Пепел
-Fireplace	= Сгоревший костер
-Cooking		= Приготовление
