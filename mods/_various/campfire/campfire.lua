@@ -155,7 +155,7 @@ local function cooking(pos, itemstack, player)
 
 	if cookable and campfire_cooking then
 		local eat_y = ItemStack(cooked.item:to_table().name):get_definition().on_use
-		if string.find(minetest.serialize(eat_y), "hunger_change") and meta:get_int("cooked_time") == 0 then
+		if string.find(minetest.serialize(eat_y), "do_item_eat") and meta:get_int("cooked_time") == 0 then
 			meta:set_int('cooked_time', cooked.time);
 			meta:set_int('cooked_cur_time', 0);
 			local name    = itemstack:to_table().name
