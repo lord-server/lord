@@ -20,6 +20,22 @@ local c_air = id("air")
 --- @field floor   RoomWall
 --- @field ceiling RoomWall
 
+
+---@param rc   Position room center
+---@param data table
+---@param area VoxelArea
+local function find_room_walls_positions(rc, data, area)
+	local wx_plus, wx_minus, wz_plus, wz_minus
+	for delta = 1, 8 do
+		if wx_plus == nil  and data[area:index(rc.x + delta, rc.y, rc.z)] ~= c_air then wx_plus  = rc.x + delta end
+		if wx_minus == nil and data[area:index(rc.x - delta, rc.y, rc.z)] ~= c_air then wx_minus = rc.x - delta end
+		if wz_plus == nil  and data[area:index(rc.x, rc.y, rc.z + delta)] ~= c_air then wz_plus  = rc.z + delta end
+		if wz_minus == nil and data[area:index(rc.x, rc.y, rc.z - delta)] ~= c_air then wz_minus = rc.z - delta end
+	end
+
+	return wx_plus, wx_minus, wz_plus, wz_minus
+end
+
 --- @param rc       Position room center
 --- @param wx_minus number
 --- @param wx_plus  number
@@ -49,13 +65,8 @@ end
 --- @return RoomWalls|RoomWall[]|table
 local function find_room_walls(room_center, data, area)
 	local rc = room_center
-	local wx_plus, wx_minus, wz_plus, wz_minus
-	for delta = 1, 8 do
-		if wx_plus == nil  and data[area:index(rc.x + delta, rc.y, rc.z)] ~= c_air then wx_plus  = rc.x + delta end
-		if wx_minus == nil and data[area:index(rc.x - delta, rc.y, rc.z)] ~= c_air then wx_minus = rc.x - delta end
-		if wz_plus == nil  and data[area:index(rc.x, rc.y, rc.z + delta)] ~= c_air then wz_plus  = rc.z + delta end
-		if wz_minus == nil and data[area:index(rc.x, rc.y, rc.z - delta)] ~= c_air then wz_minus = rc.z - delta end
-	end
+
+	local wx_plus, wx_minus, wz_plus, wz_minus = find_room_walls_positions(rc, data, area)
 	if wx_plus == nil or wx_minus == nil or wz_plus == nil or wz_minus == nil then
 		return {}
 	end
