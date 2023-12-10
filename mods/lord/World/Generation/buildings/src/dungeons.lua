@@ -66,30 +66,16 @@ local function find_room_with_space(room_centers, area, data)
 	return nil
 end
 
-minetest.set_gen_notify("dungeon")
 
-minetest.register_on_generated(function(minp, maxp, seed)
+minetest.register_on_dungeon_generated(function(minp, maxp, data, area, room_centers)
 	if maxp.y < TOMB_Y_MIN or minp.y > TOMB_Y_MAX then
 		return
 	end
 
-	local notify = minetest.get_mapgen_object("gennotify")
-	if not notify or not notify.dungeon then
-		return
-	end
-
-	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-	local area           = VoxelArea:new({ MinEdge = emin, MaxEdge = emax })
-	local data           = vm:get_data()
-
-	if #notify.dungeon >= TOMB.MIN_ROOMS and math.random(TOMB.CHANCE) == 1 then
-		local place_to = find_room_with_space(notify.dungeon, area, data)
+	if #room_centers >= TOMB.MIN_ROOMS and math.random(TOMB.CHANCE) == 1 then
+		local place_to = find_room_with_space(room_centers, area, data)
 		if place_to then
 			place_tomb(place_to.x, place_to.y, place_to.z, area, data)
 		end
 	end
-
-	vm:set_data(data)
-	vm:calc_lighting()
-	vm:write_to_map()
 end)
