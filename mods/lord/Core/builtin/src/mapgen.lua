@@ -118,7 +118,7 @@ local function detect_rooms_walls(data, area, room_centers)
 end
 
 -- luacheck: no max line length
---- @param callback fun(minp:Position, maxp:Position, data:table, area:VoxelArea, room_centers:Position[], rooms_walls:RoomWall[][])
+--- @param callback fun(minp:Position, maxp:Position, data:table, param2_data:table, area:VoxelArea, room_centers:Position[], rooms_walls:RoomWall[][])
 minetest.register_on_dungeon_generated = function(callback)
 	table_insert(on_dungeon_generated_handlers, callback)
 
@@ -136,14 +136,16 @@ minetest.register_on_dungeon_generated = function(callback)
 		local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 		local area           = VoxelArea:new({ MinEdge = emin, MaxEdge = emax })
 		local data           = vm:get_data()
+		local param2_data    = vm:get_param2_data()
 
 		local rooms_walls = detect_rooms_walls(data, area, notify.dungeon)
 
 		for _, on_dungeon_generated_handler in pairs(on_dungeon_generated_handlers) do
-			on_dungeon_generated_handler(minp, maxp, data, area, notify.dungeon, rooms_walls)
+			on_dungeon_generated_handler(minp, maxp, data, param2_data, area, notify.dungeon, rooms_walls)
 		end
 
 		vm:set_data(data)
+		vm:set_param2_data(param2_data)
 		vm:calc_lighting()
 		vm:write_to_map()
 	end)
