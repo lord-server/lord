@@ -9,8 +9,8 @@ local c_air = id("air")
 
 
 --- @class RoomWall
---- @field start_pos Position
---- @field end_pos   Position
+--- @field start_pos vector
+--- @field end_pos   vector
 
 --- @class RoomWalls
 --- @field north   RoomWall
@@ -44,7 +44,7 @@ end
 --- @param data     table
 --- @param area     VoxelArea
 --- @return number|nil
-local function find_room_high_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, area)
+local function find_room_ceiling_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, area)
 	for dy = 1, 16 do
 		if
 			data[area:index(wx_plus  - 1, rc.y + dy,  rc.z        )] ~= c_air or
@@ -52,7 +52,7 @@ local function find_room_high_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, 
 			data[area:index(rc.x,         rc.y + dy,  wz_plus  - 1)] ~= c_air or
 			data[area:index(rc.x,         rc.y + dy,  wz_minus + 1)] ~= c_air
 		then
-			return rc.y + dy - 1
+			return rc.y + dy
 		end
 	end
 
@@ -71,35 +71,36 @@ local function find_room_walls(room_center, data, area)
 		return {}
 	end
 
-	local high_y = find_room_high_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, area)
-	if high_y == nil then
+	local ceil_y = find_room_ceiling_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, area)
+	if ceil_y == nil then
 		return {}
 	end
+	local floor_y = rc.y - 1
 
 	return {
 		west    = {
-			start_pos = { x = wx_minus, y = rc.y, z = wz_minus },
-			end_pos   = { x = wx_minus, y = high_y, z = wz_plus },
+			start_pos = vector.new(wx_minus, floor_y, wz_minus),
+			end_pos   = vector.new(wx_minus, ceil_y, wz_plus),
 		},
 		east    = {
-			start_pos = { x = wx_plus, y = rc.y, z = wz_minus },
-			end_pos   = { x = wx_plus, y = high_y, z = wz_plus },
+			start_pos = vector.new(wx_plus, floor_y, wz_minus),
+			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
 		},
 		south   = {
-			start_pos = { x = wx_minus, y = rc.y, z = wz_minus },
-			end_pos   = { x = wx_plus, y = high_y, z = wz_minus },
+			start_pos = vector.new(wx_minus, floor_y, wz_minus),
+			end_pos   = vector.new(wx_plus, ceil_y, wz_minus),
 		},
 		north   = {
-			start_pos = { x = wx_minus, y = rc.y, z = wz_plus },
-			end_pos   = { x = wx_plus, y = high_y, z = wz_plus },
+			start_pos = vector.new(wx_minus, floor_y, wz_plus),
+			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
 		},
 		floor   = {
-			start_pos = { x = wx_minus, y = rc.y - 1, z = wz_minus },
-			end_pos   = { x = wx_plus, y = rc.y - 1, z = wz_plus },
+			start_pos = vector.new(wx_minus, floor_y, wz_minus),
+			end_pos   = vector.new(wx_plus, floor_y, wz_plus),
 		},
 		ceiling = {
-			start_pos = { x = wx_minus, y = high_y + 1, z = wz_minus },
-			end_pos   = { x = wx_plus, y = high_y + 1, z = wz_plus },
+			start_pos = vector.new(wx_minus, ceil_y, wz_minus),
+			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
 		},
 	}
 end
