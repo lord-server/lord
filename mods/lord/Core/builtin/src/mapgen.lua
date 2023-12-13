@@ -1,5 +1,5 @@
-local pairs, table_insert, id
-	= pairs, table.insert, minetest.get_content_id
+local pairs, table_insert, vector_new, id
+	= pairs, table.insert, vector.new, minetest.get_content_id
 
 
 local on_generated_is_registered    = false
@@ -77,31 +77,15 @@ local function find_room_walls(room_center, data, area)
 	end
 	local floor_y = rc.y - 1
 
+	local v = vector_new
+
 	return {
-		west    = {
-			start_pos = vector.new(wx_minus, floor_y, wz_minus),
-			end_pos   = vector.new(wx_minus, ceil_y, wz_plus),
-		},
-		east    = {
-			start_pos = vector.new(wx_plus, floor_y, wz_minus),
-			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
-		},
-		south   = {
-			start_pos = vector.new(wx_minus, floor_y, wz_minus),
-			end_pos   = vector.new(wx_plus, ceil_y, wz_minus),
-		},
-		north   = {
-			start_pos = vector.new(wx_minus, floor_y, wz_plus),
-			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
-		},
-		floor   = {
-			start_pos = vector.new(wx_minus, floor_y, wz_minus),
-			end_pos   = vector.new(wx_plus, floor_y, wz_plus),
-		},
-		ceiling = {
-			start_pos = vector.new(wx_minus, ceil_y, wz_minus),
-			end_pos   = vector.new(wx_plus, ceil_y, wz_plus),
-		},
+		west    = { start_pos = v(wx_minus, floor_y, wz_minus),  end_pos = v(wx_minus, ceil_y,  wz_plus),  },
+		east    = { start_pos = v(wx_plus,  floor_y, wz_minus),  end_pos = v(wx_plus,  ceil_y,  wz_plus),  },
+		south   = { start_pos = v(wx_minus, floor_y, wz_minus),  end_pos = v(wx_plus,  ceil_y,  wz_minus), },
+		north   = { start_pos = v(wx_minus, floor_y, wz_plus),   end_pos = v(wx_plus,  ceil_y,  wz_plus),  },
+		floor   = { start_pos = v(wx_minus, floor_y, wz_minus),  end_pos = v(wx_plus,  floor_y, wz_plus),  },
+		ceiling = { start_pos = v(wx_minus, ceil_y,  wz_minus),  end_pos = v(wx_plus,  ceil_y,  wz_plus),  },
 	}
 end
 
