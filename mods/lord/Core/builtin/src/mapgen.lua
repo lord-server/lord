@@ -91,11 +91,11 @@ end
 
 --- @param data table
 --- @param area VoxelArea
---- @param room_centers Position[]
+--- @param rooms_centers Position[]
 --- @return RoomWalls[]
-local function detect_rooms_walls(data, area, room_centers)
+local function detect_rooms_walls(data, area, rooms_centers)
 	local rooms_walls = {}
-	for _, room_center in pairs(room_centers) do
+	for _, room_center in pairs(rooms_centers) do
 		table_insert(rooms_walls, find_room_walls(room_center, data, area))
 	end
 
@@ -103,7 +103,7 @@ local function detect_rooms_walls(data, area, room_centers)
 end
 
 -- luacheck: no max line length
---- @param callback fun(minp:Position, maxp:Position, data:table, param2_data:table, area:VoxelArea, room_centers:Position[], rooms_walls:RoomWall[][])
+--- @param callback fun(minp:Position, maxp:Position, data:table, param2_data:table, area:VoxelArea, rooms_centers:Position[], rooms_walls:RoomWalls[])
 minetest.register_on_dungeon_generated = function(callback)
 	table_insert(on_dungeon_generated_handlers, callback)
 

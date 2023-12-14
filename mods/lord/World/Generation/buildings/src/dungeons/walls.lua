@@ -47,10 +47,8 @@ local function fill_wall(wall_type, start_pos, end_pos, data, area)
 end
 
 return {
-	on_dungeon_generated = function(minp, maxp, data, area, room_centers, rooms_walls)
-		for i, room_center in pairs(room_centers) do
-			-- data[area:indexp(room_center)] = id("default:torch")
-
+	on_dungeon_generated = function(minp, maxp, data, area, rooms_centers, rooms_walls)
+		for i, room_center in pairs(rooms_centers) do
 			for wall_type, wall in pairs(rooms_walls[i]) do
 				fill_wall(wall_type, wall.start_pos, wall.end_pos, data, area)
 			end

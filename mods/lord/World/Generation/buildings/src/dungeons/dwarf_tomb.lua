@@ -55,12 +55,12 @@ local function is_enough_space(room_center, data, area)
 	return true
 end
 
---- @param room_centers Position[]
+--- @param rooms_centers Position[]
 --- @param data table
 --- @param area VoxelArea
 --- @return Position|nil
-local function find_room_with_space(room_centers, data, area)
-	for _, room_center in pairs(room_centers) do
+local function find_room_with_space(rooms_centers, data, area)
+	for _, room_center in pairs(rooms_centers) do
 		if is_enough_space(room_center, data, area) then
 			return room_center
 		end
@@ -74,14 +74,14 @@ return {
 	--- @param maxp Position
 	--- @param data table
 	--- @param area VoxelArea
-	--- @param room_centers Position[]
-	on_dungeon_generated = function(minp, maxp, data, area, room_centers)
+	--- @param rooms_centers Position[]
+	on_dungeon_generated = function(minp, maxp, data, area, rooms_centers)
 		if maxp.y < TOMB_Y_MIN or minp.y > TOMB_Y_MAX then
 			return
 		end
 
-		if #room_centers >= TOMB.MIN_ROOMS and math.random(TOMB.CHANCE) == 1 then
-			local place_to = find_room_with_space(room_centers, data, area)
+		if #rooms_centers >= TOMB.MIN_ROOMS and math.random(TOMB.CHANCE) == 1 then
+			local place_to = find_room_with_space(rooms_centers, data, area)
 			if place_to then
 				place_tomb(place_to.x, place_to.y, place_to.z, data, area)
 			end
