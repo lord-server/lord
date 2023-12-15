@@ -21,6 +21,7 @@ jobs:
           user: ${{ secrets.LORD_PROD_USER }}
           key: ${{ secrets.LORD_PROD_KEY }}
           command: |
+            set -e
             cd minetest-master/games/lord
             git checkout master
             git pull --recurse-submodules
@@ -39,6 +40,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
       - name: Merge `Master` -> `Dev`
         run: |
+          set -e
           git config user.name github-actions
           git config user.email github-actions@github.com
           git fetch
