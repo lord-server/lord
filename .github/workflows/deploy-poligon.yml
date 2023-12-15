@@ -17,6 +17,7 @@ jobs:
           user: ${{ secrets.LORD_TEST_USER }}
           key: ${{ secrets.LORD_TEST_KEY }}
           command: |
+            set -e
             cd mt/games/lord/
             git checkout dev
             git pull --recurse-submodules
