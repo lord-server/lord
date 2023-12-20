@@ -13,23 +13,43 @@ local candle_lamp_node_box = {
 	},
 }
 
+--- @param material      string
+--- @param pointed_thing pointed_thing
+local function detect_node_name_to_place(material, pointed_thing)
+	-- По умолчанию напольная лампа.
+	local node_name_to_place = "lamps:" .. material .. "_candle_lamp"
+	if pointed_thing.above.y == pointed_thing.under.y - 1 then
+		-- Если установка происходит в блок(ноду) ниже того, на который игрок навёл, то подвесная лампа.
+		node_name_to_place = "lamps:" .. material .. "_hanging_candle_lamp"
+	end
+
+	return node_name_to_place
+end
+
 --- @param material string
 local on_place = function(material)
 	--- @param itemstack     ItemStack
 	--- @param placer        Player
 	--- @param pointed_thing pointed_thing
-	return function(itemstack, placer, pointed_thing)
-		-- По умолчанию напольная лампа.
-		local node_name_to_place = "lamps:" .. material .. "_candle_lamp"
-		if pointed_thing.above.y == pointed_thing.under.y-1 then
-			-- Если установка происходит в блок(ноду) ниже того, на который игрок навёл, то подвесная лампа.
-			node_name_to_place = "lamps:"..material.."_hanging_candle_lamp"
+	--- @param param2        number
+	return function(itemstack, placer, pointed_thing, param2)
+		-- Call on_rightclick if the pointed node defines it
+		if pointed_thing.type == "node" and placer and not placer:get_player_control().sneak then
+			local pointed_node      = core.get_node(pointed_thing.under)
+			local pointed_node_name = pointed_node.name
+			if core.registered_nodes[pointed_node_name] and core.registered_nodes[pointed_node_name].on_rightclick then
+				return core.registered_nodes[pointed_node_name].on_rightclick(
+					pointed_thing.under, pointed_node, placer, itemstack, pointed_thing
+				) or itemstack, nil
+			end
 		end
 
-		local _, position = minetest.item_place(ItemStack(node_name_to_place), placer, pointed_thing, 0)
-		if position then
-			itemstack:take_item()
-		end
+		local current_node_name = itemstack:get_name()
+		local node_name_to_place = detect_node_name_to_place(material, pointed_thing)
+		local position
+		itemstack:set_name(node_name_to_place)
+		itemstack, position = minetest.item_place_node(itemstack, placer, pointed_thing, param2)
+		itemstack:set_name(current_node_name)
 
 		return itemstack, position
 	end
