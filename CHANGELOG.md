@@ -1,5 +1,8 @@
 # Change Log
 
+## [2023.09.p1](https://github.com/lord-server/lord/releases/tag/2023.09.p1)
+ - Fix duplication of lamps when inserting into frame. Closes #1204
+
 ## [2023.09](https://github.com/lord-server/lord/releases/tag/2023.09)
  - Nazguls can spawns in specified areas & not destroy it (#1109) (#1111)
  - One charcoal from one wood planks. Fixes #1112
