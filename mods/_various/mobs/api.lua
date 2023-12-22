@@ -54,6 +54,7 @@ local atan = function(x)
 		return atann(x)
 	end
 end
+local table_copy = table.copy
 
 
 -- Load settings
@@ -2202,9 +2203,19 @@ local mob_activate = function(self, staticdata, def)
 	self.path.stuck = false
 	self.path.following = false -- currently following path?
 	self.path.stuck_timer = 0 -- if stuck for too long search for path
-	-- end init
 
-	self.object:set_armor_groups({immortal = 1, fleshy = self.armor})
+	-- Armor groups (immortal = 1 for custom damage handling)
+	local armor
+
+	if type(self.armor) == "table" then
+		armor = table_copy(self.armor)
+	else
+		armor = {fleshy = self.armor, immortal = 1}
+	end
+
+	self.object:set_armor_groups(armor)
+
+	-- mob defaults
 	self.old_y = self.object:get_pos().y
 	self.old_health = self.health
 	self.sounds.distance = self.sounds.distance or 10
