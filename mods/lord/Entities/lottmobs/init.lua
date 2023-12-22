@@ -1152,7 +1152,7 @@ mobs:register_mob("lottmobs:dead_men", {
 	walk_velocity = 1,
 	run_velocity = 1,
 	damage = 2,
-	armor = 1,
+	armor = {soulful = 200, immortal = 1},
 	water_damage = 0,
 	lava_damage = 0,
 	light_damage = 1,
