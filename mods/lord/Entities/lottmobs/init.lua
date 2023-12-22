@@ -1138,8 +1138,8 @@ mobs:register_mob("lottmobs:balrog", {
 
 mobs:register_mob("lottmobs:dead_men", {
 	type = "monster",
-	hp_min = 1,
-	hp_max = 1,
+	hp_min = 15,
+	hp_max = 15,
 	collisionbox = {-0.3,-1.15,-0.3, 0.3,0.8,0.3}, -- немного над землёй для эффекта левитирования (y1 == -1.15)
 	visual = "mesh",
 	mesh = "human_model.x",
@@ -1150,9 +1150,9 @@ mobs:register_mob("lottmobs:dead_men", {
 	makes_footstep_sound = false,
 	view_range = 10,
 	walk_velocity = 1,
-	run_velocity = 1,
-	damage = 2,
-	armor = {soulful = 200, immortal = 1},
+	run_velocity = 4,
+	damage = 10,
+	armor = {soulful = 100, immortal = 1},
 	water_damage = 0,
 	lava_damage = 0,
 	light_damage = 1,
