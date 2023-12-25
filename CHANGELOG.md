@@ -1,5 +1,8 @@
 # Change Log
 
+## [2023.09.p2](https://github.com/lord-server/lord/releases/tag/2023.09.p2)
+ - Temporary New Year textures for chests. Closes #1212.
+
 ## [2023.09.p1](https://github.com/lord-server/lord/releases/tag/2023.09.p1)
  - Fix duplication of lamps when inserting into frame. Closes #1204
 
