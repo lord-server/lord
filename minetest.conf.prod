@@ -115,12 +115,11 @@ max_objects_per_block = 512
 secure.enable_security = false
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = lp_api
+secure.trusted_mods = grinder, lp_api
 #    Comma-separated list of mods that are allowed to access HTTP APIs, which
 #    allow them to upload and download data to/from the internet.
 
 # For Discord
-#secure.http_mods = subscriber,publisher,lp_api -- ? что из них верно?
 secure.http_mods = lp_api
 
 
@@ -227,10 +226,6 @@ initial_stuff = lottplants:yavannamirefruit,tools:pick_wood,tools:axe_wood,tools
 enable_stairs_replace_abm = true
 
 
-#
-#    LOTT
-#
-
 
 #
 #    Various
@@ -249,7 +244,7 @@ protector_pvp = false
 protector_spawn = 20
 protector_damage = 3
 
-# -------- discord-bot (мод на сервере) ---------
+# -------- _various/discord ---------
 # For Discord
 lp_api.channel_id = 284593326370324481
 lp_api.router.cmd = true
