@@ -1,0 +1,12 @@
+# textdomain: lord_walls
+Orc Stone Wall=
+Orc Brick Wall=
+Orc Block Wall=
+Marble Brick Wall=
+Limestone Wall=
+Marble Wall=
+Frozen Stone Wall=
+Mordor Stone Wall=
+Mordor Cobble Wall=
+Green Marble Wall=
+Dungeon Stone Wall=

@@ -47,7 +47,7 @@ read_globals      = {
 
 	-- MTG
 	"beds", "sfinv", "creative", "dungeon_loot",
-	"dye", "stairs", "sethome",
+	"dye", "stairs", "sethome", "walls",
 
 	-- Lord specific
 	"lord", "hb",

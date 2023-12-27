@@ -239,7 +239,7 @@ minetest.register_node("castle:dungeon_stone", {
 	description = SL("Dungeon Stone"),
 	drawtype    = "normal",
 	tiles       = { "castle_dungeon_stone.png" },
-	groups      = { cracky = 2 },
+	groups      = { cracky = 2, stone = 1 },
 	paramtype   = "light",
 	sounds      = default.node_sound_stone_defaults(),
 })
