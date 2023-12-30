@@ -1,5 +1,61 @@
 # Change Log
 
+## [2023.12](https://github.com/lord-server/lord/releases/tag/2023.12)
+ - Add walls for LOTT stones. Closes #998
+ - Add clan chest
+ - Add banisters for all woods. Closes #1048
+ - MapGen: Dungeons:
+   - add some bricks, stone & mossy cooble into walls. Closes #1140
+   - add minimal interior. Closes #1141
+   - DeadMen:
+     - transparent & some like levitation. Relates to #1207
+     - Ability to kill DeadMen. Closes #25
+     - make dungeon more guarded:
+       - increase DeadMan hp & damage, decrease received damage. Closes #1207
+       - increase DeadMan spawn chance, interval & deep. Relates to #1213
+ - Change pearl-item texture; Make pearl-block more trasparent. Closes #979.
+ - Add `//select_chunks` worldedit command. Closes #1087
+ - Add translations for `campfire`. Relates to #328, #1189
+ - Fix cooking on campfire.
+ - Technical:
+   - Update ambience submodule. Also closes #241
+   - Extract our admin pick & stick into separate mod. Closes #794
+   - WE: delete unused; full update by add submodule from our fork. Closes #783.   Our locale translations lost & needs to be added into fork & then PR to upstream.
+   - Upd WE: readd our translations in our fork. Relates to #783 #794
+   - Change `ambience` submodule url to new one. Fix build. Fix #1183
+   - Move `protector_lott` to our scope (`mods/lord/Blocks/`). Relates to #1185
+   - Translate all builtin prases (`Core/builtin/`). Remove our partial translations. Closes #1186. Relates to #1174, #1186
+   - Simplify "palantiri" achievement code. Remove `"GAME*"` usage. Relates to #1157, #686
+   - Remove last `GAME<race>` privs usage. Drop `lord_base_commands`. Closes #1157, closes #1174
+   - Update  submodule (ru translations)
+   - Upadate builtin translations to latest version. Relates to #1186.
+   - Readd WorldEdit submodule from upstream. Closes #1181
+   - some readme fixes
+   - Upd `areas`: get only translations from upstream. Relates to #1188, #328
+   - Rename locale files. Fixes #1190.
+   - Fix couple translations in `areas`. Relates to #1188, #328
+   - Move `campfire` mod into our folder `lord/Blocks`. Closes #1189
+   - MapGen: extend `minetest` with `.register_on_dungeon_generated()`. Relates to #1140, #1141
+   - MapGen: extract Dwarf Tamb generation into separate file. Relates to #1140, #1141
+   - MapGen: add detection of rooms walls in dungeons. Relates to #1140 #1141
+   - MapGen: fix cyclomatic complexity in `find_room_walls()`
+   - MapGen: add `lottmapgen:dwarf_chest_spawner`. Relates to #1141
+   - MapGen: add ability to set nodes `param2` when generating dungeon. Relates to #1141
+   - MapGen: Dungeons: corrected walls calc/finding. Relates to #1140, #1141
+   - MapGen: Dungeons: more readable code. Relates to #1140, #1141
+   - MapGen: Dungeons: rename var, fix type hint. Relates to #1140, #1141
+   - Up To `5.8`: fix deprecations. Closes #1208
+   - Deploy: add `set -e` to Polygon CI. Hope it will stops the job with error when it failed.
+   - Re-add WorldEdit via https. (fix deploy)
+   - Deploy: stop jobs with error when it fails (for prod).
+   - To `5.8`: update MTG mods. Closes #1211
+   - To `5.8.0`: Update `minetest.conf.example`. No changes in our configs needed. Closes #1209.
+   - Mobs: Ability to specify `armor_groups`. (Copied from upstream). Relates to #25
+   - Mobs: ability to use transparent textures. Relates to #1207
+   - Add Discord LongPoll API mod (as submodule).
+   - Add Discord submodule dir.
+   - Configure Discord notifications for Polygon (test server).
+
 ## [2023.09.p2](https://github.com/lord-server/lord/releases/tag/2023.09.p2)
  - Temporary New Year textures for chests. Closes #1212.
 
