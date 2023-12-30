@@ -47,13 +47,6 @@
 ### `legacy`
  - вынесено из LOTT/`mods/default/`[legacy.lua](https://github.com/minetest-LOTR/Lord-of-the-Test/blob/master/mods/default/legacy.lua)
 
-### `lord_base_commands`
- - только перевод. (команд)
-
-### `lord_base_privs`
- - регистрация базовых привилегий
- - < наш или откуда-то взят ??? >
-
 ### `lord_classes`
  - доработки и переделки из [lottclasses](https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottclasses)
  - все скины здесь

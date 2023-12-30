@@ -1,5 +1,3 @@
-local SL = lord.require_intllib()
-
 -- Areas mod by ShadowNinja
 -- Based on node_ownership
 -- License: LGPLv2+
@@ -21,15 +19,19 @@ dofile(areas.modpath.."/hud.lua")
 
 areas:load()
 
+local S = minetest.get_translator("areas")
+
 minetest.register_privilege("areas", {
-	description = SL("Can administer areas.")
+	description = S("Can administer areas."),
+	give_to_singleplayer = false
 })
 minetest.register_privilege("areas_high_limit", {
-	description = SL("Can can more, bigger areas.")
+	description = S("Can protect more, bigger areas."),
+	give_to_singleplayer = false
 })
 
 if not minetest.registered_privileges[areas.config.self_protection_privilege] then
 	minetest.register_privilege(areas.config.self_protection_privilege, {
-		description = SL("Can protect areas.")
+		description = S("Can protect areas."),
 	})
 end

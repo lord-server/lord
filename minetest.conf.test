@@ -102,7 +102,10 @@ max_objects_per_block = 499
 secure.enable_security = true
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = grinder
+secure.trusted_mods = grinder, lp_api
+
+# For Discord
+secure.http_mods = lp_api
 
 
 ## Advanced
@@ -212,10 +215,6 @@ disable_fire = true
 give_initial_stuff = true
 initial_stuff = lord_money:copper_coin 100,lottmobs:horsemeat_cooked 99,tools:pick_mithril,tools:axe_mithril
 
-#
-#    LOTT
-#
-
 
 #
 #    Various
@@ -233,6 +232,11 @@ mobs_spawn_protected = 0
 protector_pvp = true
 protector_spawn = 10
 #protector_damage = 3
+
+# -------- _various/discord ---------
+# For Discord
+lp_api.channel_id = 284678831866904578
+lp_api.router.cmd = true
 
 
 #

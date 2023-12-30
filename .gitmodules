@@ -29,6 +29,9 @@
 [submodule "mods/_minetest_game/give_initial_stuff"]
 	path = mods/_minetest_game/give_initial_stuff
 	url = https://github.com/minetest-game-mod/give_initial_stuff
+[submodule "mods/_minetest_game/keys"]
+	path = mods/_minetest_game/keys
+	url = https://github.com/minetest-game-mod/keys
 [submodule "mods/_minetest_game/player_api"]
 	path = mods/_minetest_game/player_api
 	url = https://github.com/minetest-game-mod/player_api
@@ -63,7 +66,7 @@
 
 [submodule "mods/_various/ambience"]
 	path = mods/_various/ambience
-	url = https://notabug.org/TenPlus1/ambience.git
+	url = https://codeberg.org/tenplus1/ambience.git
 [submodule "mods/_various/candles_3d"]
 	path = mods/_various/candles_3d
 	url = https://gitlab.com/lord-server/candles_3d.git
@@ -71,9 +74,12 @@
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
-[submodule "mods/_minetest_game/keys"]
-	path = mods/_minetest_game/keys
-	url = https://github.com/minetest-game-mod/keys
 [submodule "mods/_various/stainedglass"]
 	path = mods/_various/stainedglass
 	url = https://gitlab.com/alerikaisattera/stainedglass.git
+[submodule "mods/_various/WorldEdit"]
+	path = mods/_various/WorldEdit
+	url = https://github.com/Uberi/Minetest-WorldEdit.git
+[submodule "mods/_various/discord"]
+	path = mods/_various/discord
+	url = https://github.com/googolgl/lp_api

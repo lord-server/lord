@@ -40,6 +40,12 @@
 #### `lord_wool`
  - ступени и плиты из шерсти `stairs:{stair,slab}_wool<colorname>`
 
+### `protector_lott`
+- когда-то взят здесь: https://forum.minetest.net/viewtopic.php?f=11&t=9376
+- сейчас мод развился(вается): https://content.minetest.net/packages/TenPlus1/protector/ (https://codeberg.org/tenplus1/protector)
+- ничего принципиального не добавлено, поэтому выносить в `_various` и подключать submodule'м нет смысла
+- однако есть переводы на 6 языков, которые стоит подтянуть: [#1185](https://github.com/lord-server/lord/issues/1185)
+
 ### `roads`
  - мод для дорог с бордюрами [см. #381](https://github.com/lord-server/lord/pull/381)
  - мод разработан нами (by VanicGame)

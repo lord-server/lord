@@ -36,7 +36,8 @@ PseudoRandom = {}
 --- @field x number
 --- @field y number
 --- @field z number
-Position = {x,y,z}
+
+--- @class vector: Position
 
 --- @class pointed_thing
 --- @field public type  string one of {"nothing"|"node"|"object"}
@@ -47,7 +48,7 @@ Position = {x,y,z}
 --- @field public box_id number The ID of the pointed selection box (counting starts from 1)
 --- @field public intersection_normal Position Unit vector, points outwards of the selected selection box. This specifies which face is pointed at. Is a null vector `vector.zero()` when the pointer is inside the selection box.
 ---
-pointed_thing = {}
+
 
 --
 -- `minetest.` / `core.` functions

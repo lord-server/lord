@@ -41,7 +41,7 @@ lottmobs.register_horse("lottmobs:warg_mount", {
 mobs:register_mob("lottmobs:warg", {
 	--	type = "npc",
 	type                 = "monster",
-	race                 = "GAMEorc",
+	race                 = "orc",
 	hp_min               = 25,
 	hp_max               = 40,
 	collisionbox         = { -0.6, -0.1, -0.6, 0.6, 1.5, 0.6 },

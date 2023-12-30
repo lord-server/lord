@@ -1,0 +1,120 @@
+-- Admin tools
+
+minetest.register_privilege("admin_pick", {
+	description = "Player can use admin pickaxe",
+	give_to_singleplayer = true,
+})
+
+minetest.register_tool("admin_tools:admin_stick", {
+	description = "Admins Magic Stick",
+	inventory_image = "tool_magic_stick.png",
+	range = 7,
+    on_use = function(itemstack, user, pointed_thing)
+	    -- Must be pointing to facedir applicable node
+	    if pointed_thing.type~="node" then return end
+	    local user_name = user:get_player_name()
+	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    if not can_access then return end
+
+		if pointed_thing.type == "node" then
+			minetest.remove_node(pointed_thing.under)
+		elseif pointed_thing.type == "object" then
+			local obj = pointed_thing.ref
+			if obj ~= nil then
+				if (obj:get_player_name() ~= nil) and (obj:get_player_name() ~= "") then
+					-- Player
+					obj:set_hp(-1)
+				else
+					-- Mob or other entity
+					obj:remove()
+				end
+			end
+		end
+    end,
+	on_place = function(itemstack, placer, pointed_thing)
+	    local user_name = placer:get_player_name()
+	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    if (not can_access) or (pointed_thing.type ~= "node") then
+			return itemstack
+		end
+	    local pos=minetest.get_pointed_thing_position(pointed_thing,true)
+		local max_nodes = 200
+		local item = placer:get_inventory():get_stack("main", placer:get_wield_index()+1)
+		local item_name = item:get_name()
+		local item_type = item:get_definition().type
+
+		if item_type ~= "node" then
+			return itemstack
+		end
+
+		minetest.set_node(pointed_thing.above, {name=item_name})
+		for i = 2, max_nodes do
+			pos.y = pos.y - 1
+			local node_below = minetest.get_node(pos)
+			if node_below ~= nil then
+				if (node_below.name == "air") or (minetest.registered_items[node_below.name].groups["water"]) then
+					minetest.set_node(pos, {name = item_name})
+				else
+					break
+				end
+			end
+		end
+		return itemstack
+	end,
+	on_drop = function(itemstack, dropper, pos) end, -- невозможность выбросить
+	stack_max = 1,
+	liquids_pointable = true,
+
+})
+
+minetest.register_tool("admin_tools:pick_admin", {
+	description = "Admins Pickaxe",
+	privs = {admin_pick=true},
+	inventory_image = "tool_admin_pick.png",
+	range = 10,
+	tool_capabilities = {
+		full_punch_interval = 2.0,
+		max_drop_level=1,
+		groupcaps = {
+			cracky      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			crumbly     = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			choppy      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			snappy      = { times = { [1] = 0.05, [2] = 0.02, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			unbreakable = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 0, maxlevel = 3 },
+			fleshy      = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 100, maxlevel = 3 },
+			bendy       = { times = { [1] = 0, [2] = 0, [3] = 0 }, uses = 0, maxlevel = 3 },
+		},
+		damage_groups = {fleshy=4},
+	},
+	on_use = function(itemstack, user, pointed_thing)
+	    local user_name = user:get_player_name()
+	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    if not can_access then
+			-- itemstack.take_item()
+			return itemstack
+	    end
+	    minetest.log("action","Admins Pickaxe in use "..user_name)
+	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
+	    if pos == nil then return end
+	    local node=minetest.get_node(pos)
+		if pointed_thing.type == "node" and pos ~= nil then
+			minetest.node_dig(pos, node, user)
+		elseif pointed_thing.type == "object" then
+			local obj = pointed_thing.ref
+			if obj ~= nil then
+				if (obj:get_player_name() ~= nil) and (obj:get_player_name() ~= "") then
+					-- Player
+					obj:set_hp(-1)
+				else
+					-- Mob or other entity
+					obj:remove()
+				end
+			end
+		end
+
+		return itemstack
+	end,
+	on_drop = function(itemstack, dropper, pos)
+		return
+	end,
+})

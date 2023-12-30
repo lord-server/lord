@@ -47,7 +47,7 @@ read_globals      = {
 
 	-- MTG
 	"beds", "sfinv", "creative", "dungeon_loot",
-	"dye", "stairs", "sethome",
+	"dye", "stairs", "sethome", "walls",
 
 	-- Lord specific
 	"lord", "hb",
@@ -72,14 +72,12 @@ read_globals      = {
 exclude_files     = {
 	-- External mods:
 
-    -- пришлось добавить после того, как обновился LuaRocks:
-	"mods/lord/Game/lord_base_commands/chatcommands.lua",
-
     -- MTG:
     "mods/_minetest_game/",
 
     -- наследие из LOTT (требует переработки):
 	"mods/lord/World/Generation/lottmapgen",
+	"mods/lord/Blocks/protector_lott",
 
     -- Остальное:
 	"mods/_various/",
@@ -88,8 +86,9 @@ exclude_files     = {
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = {
-		table  = { fields = {} },
-		string = { fields = {} },
-	}
+	globals = { "table", "string", }
+}
+-- WorldEdit extending:
+files["mods/lord/World/worldedit_ext/**/*.lua"] = {
+	globals = { "worldedit"	}
 }

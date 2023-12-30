@@ -107,7 +107,7 @@ minetest.register_node("lottblocks:orc_brick", {
 	description = S("Orc Brick"),
 	tiles = {"lottblocks_orc_brick.png"},
 	is_ground_content = false,
-	groups = {cracky=2},
+	groups = {cracky=2, stone=1},
 })
 stairs.register_stair_and_slab(
 		"orc_brick",
@@ -125,7 +125,7 @@ minetest.register_node("lottblocks:orc_block", {
 	description = S("Orc Block"),
 	tiles = {"lottblocks_orc_block.png"},
 	is_ground_content = false,
-	groups = {cracky=2},
+	groups = {cracky=2, stone=1},
 })
 stairs.register_stair_and_slab(
 		"orc_block",
@@ -177,7 +177,7 @@ minetest.register_node("lottblocks:marble_brick", {
 	description = S("Marble Brick"),
 	tiles = {"lottblocks_marble_brick.png"},
 	is_ground_content = false,
-	groups = {cracky=2},
+	groups = {cracky=2, stone=1},
 })
 stairs.register_stair_and_slab(
 		"marble_brick",

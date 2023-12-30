@@ -106,7 +106,7 @@ mobs:spawn_specific("lottmobs:witch_king", {"default:stone"}, {"air"}, -1, 2, 30
 
 mobs:spawn_specific("lottmobs:balrog", {"default:stone"}, {"air"}, -1, 2, 30, 100000, 1, -31000, -10000)
 
-mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 2, 30, 9000, 7, -31000, -100)
+mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 15, 15, 1, 5, -31000, -50)
 
 mobs:spawn_specific("lottmobs:troll", {"default:stone"},           {"air"}, -1, 5, 30, 12000, 3, -31000,   -10)
 mobs:spawn_specific("lottmobs:troll", {"default:snow"},            {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
