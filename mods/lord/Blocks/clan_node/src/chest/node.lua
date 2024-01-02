@@ -71,12 +71,13 @@ local definition = {
 	--- @param clicker Player
 	on_rightclick     = function(pos, node, clicker)
 		local chest_clan_name = minetest.get_meta(pos):get_string("owned_clan")
-		if not chest_clan_name or not clans.clan_is_online(chest_clan_name) then
+		local is_admin = minetest.check_player_privs(clicker, "server")
+		if (not chest_clan_name or not clans.clan_is_online(chest_clan_name)) and not is_admin then
 			return
 		end
 		local player_clan = clans.get_by_player(clicker)
 		local player_clan_name = player_clan and player_clan.name or nil
-		if player_clan_name ~= chest_clan_name then
+		if player_clan_name ~= chest_clan_name and not is_admin then
 			local chest_clan = clans.get_by_name(chest_clan_name)
 			minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", chest_clan.title)))
 		end

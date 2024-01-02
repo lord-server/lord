@@ -97,7 +97,7 @@ minetest.register_on_leaveplayer(function(player, timed_out)
 		return
 	end
 
-	clan_is_online_cache[clan.name] = check_clan_is_online(clan.name)
+	clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
 end)
 
 --- API ---

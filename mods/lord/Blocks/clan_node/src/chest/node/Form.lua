@@ -1,3 +1,4 @@
+local S = minetest.get_translator('clan_node')
 
 ---
 --- @class clan_node.chest.node.Form
@@ -66,9 +67,20 @@ end
 function Form:get_spec()
 	local pos  = self.node_position
 
+	local clan_info = ""
+	local is_admin = minetest.check_player_privs(self.player_name, "server")
+	if is_admin then
+		local clan_name = minetest.get_meta(self.node_position):get_string("owned_clan")
+		local is_online = clans.clan_is_online(clan_name)
+		clan_info = "label[0,4.3;" .. S("Clan: ") ..
+			clan_name ..
+			" (" .. (is_online and S("online") or S("offline")) .. ")" ..
+		"]"
+	end
 	local str_pos = pos.x .. "," .. pos.y .. "," .. pos.z
 	local formspec = "size[8,9]" ..
 		"list[nodemeta:" .. str_pos .. ";main;0,0.3;8,4;]" ..
+		clan_info ..
 		"list[current_player;main;0,4.85;8,1;]" ..
 		"list[current_player;main;0,6.08;8,3;8]" ..
 		"listring[nodemeta:" .. str_pos .. ";main]" ..
