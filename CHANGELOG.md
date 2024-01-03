@@ -1,5 +1,11 @@
 # Change Log
 
+## [2023.12.p1](https://github.com/lord-server/lord/releases/tag/2023.12.p1)
+ - Fix on/off-line clan detection. Fixes #1215
+ - Add forgotten locale for Clan Chest.
+ - Add "alert bell" when Clan Chest raided
+ - Fix translation typo
+
 ## [2023.12](https://github.com/lord-server/lord/releases/tag/2023.12)
  - Add walls for LOTT stones. Closes #998
  - Add clan chest
