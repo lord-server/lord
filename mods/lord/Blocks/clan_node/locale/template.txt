@@ -1,2 +1,9 @@
-# textdomain: quest_node
+# textdomain: clan_node
 
+Clan Chest=
+You can't place this item. This chest is only for clan players.=
+@1 Clan Chest=
+Clan @1 is under the raid=
+Clan:=
+online=
+offline=

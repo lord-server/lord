@@ -72,8 +72,8 @@ function Form:get_spec()
 	if is_admin then
 		local clan_name = minetest.get_meta(self.node_position):get_string("owned_clan")
 		local is_online = clans.clan_is_online(clan_name)
-		clan_info = "label[0,4.3;" .. S("Clan: ") ..
-			clan_name ..
+		clan_info = "label[0,4.3;" ..
+			S("Clan:") .. " " .. clan_name ..
 			" (" .. (is_online and S("online") or S("offline")) .. ")" ..
 		"]"
 	end
