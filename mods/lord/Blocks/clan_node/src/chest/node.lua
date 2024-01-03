@@ -80,6 +80,10 @@ local definition = {
 		if player_clan_name ~= chest_clan_name and not is_admin then
 			local chest_clan = clans.get_by_name(chest_clan_name)
 			minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", chest_clan.title)))
+			local sound = minetest.sound_play("clan_node_alert_bell", { gain = 0.5 })
+			minetest.after(15, function()
+				minetest.sound_fade(sound, 0.05, 0)
+			end)
 		end
 		Form:new(pos, clicker):open()
 	end,
