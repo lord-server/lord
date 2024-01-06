@@ -225,9 +225,9 @@ mobs:register_mob("lottmobs:sheep", {
 	mesh = "mobs_sheep.b3d", -- from mods/_various/mobs
 	textures = {
 		{"mobs_sheep_base.png^mobs_sheep_wool.png"}, --White
-		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#663300a0)"}, --Black
-		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#000000b0)"}, --Brown
-		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#5b5b5bb0)"}, --Grey
+		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#663300a0)^[noalpha"}, --Brown
+		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#000000b0)^[noalpha"}, --Black
+		{"mobs_sheep_base.png^(mobs_sheep_wool.png^[colorize:#5b5b5bb0)^[noalpha"}, --Grey
 	},
 	gotten_texture = {"mobs_sheep_shaved.png"},
 	gotten_mesh = "mobs_sheep_shaved.b3d", -- from mods/_various/mobs
