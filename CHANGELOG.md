@@ -1,5 +1,9 @@
 # Change Log
 
+## [2023.12.p2](https://github.com/lord-server/lord/releases/tag/2023.12.p2)
+ - Fix transparent sheeps. Fixes #1216
+ - Add WE `//clear_trees` command.
+
 ## [2023.12.p1](https://github.com/lord-server/lord/releases/tag/2023.12.p1)
  - Fix on/off-line clan detection. Fixes #1215
  - Add forgotten locale for Clan Chest.
