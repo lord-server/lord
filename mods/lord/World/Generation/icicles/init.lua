@@ -28,7 +28,7 @@ for i = 1,4 do
 	})
 end
 
-icicles = {}
+local icicles = {}
 
 function icicles.make_stalactite(pos, length)
 	for i = length,1,-1 do

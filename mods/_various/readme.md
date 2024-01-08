@@ -42,9 +42,6 @@
  - изменения:
    - принудительное размещение HUD-баров в нужной последовательности
 
-### `icicles`
- - из [RealTest Game](https://github.com/sda97ghb/realtest/tree/master/mods/icicles) ([форум](https://forum.minetest.net/viewtopic.php?f=50&t=2671))
-
 ### `intllib`
  - из [minetest-mods/intllib](https://github.com/minetest-mods/intllib)
  - [DEPRECATED] нужно переходить на встроенный API (практически все моды уже поддерживают, просто обновиться)
