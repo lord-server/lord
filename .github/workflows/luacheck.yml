@@ -35,7 +35,7 @@ jobs:
           $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
             --globals lottachievements races throwing \
             --exclude-files \
-              mods/lord/World/Generation/icicles/ \    
+              mods/lord/World/Generation/icicles/ \
               mods/lord/Entities/throwing/ \
               mods/lord/Entities/npc/ \
               mods/lord/Entities/lottthrowing/ \
@@ -52,4 +52,5 @@ jobs:
               mods/lord/Tools/lord_boats/ \
               mods/lord/Core/lordlib/ \
               mods/lord/Blocks/lottblocks/ \
-              mods/lord/Blocks/lord_homedecor/
+              mods/lord/Blocks/lord_homedecor/ \
+              mods/lord/Blocks/protector_lott/

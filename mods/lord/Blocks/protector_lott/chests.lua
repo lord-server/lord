@@ -47,8 +47,7 @@ minetest.register_node("protector_lott:chest", {
 		if not minetest.is_protected(pos, clicker:get_player_name()) then
 		local meta = minetest.get_meta(pos)
 		local spos = pos.x .. "," .. pos.y .. "," ..pos.z
-		local formspec = "size[8,9]"..
-			prot.gui_bg..prot.gui_bg_img..prot.gui_slots
+		local formspec = "size[8,9]"
 			.. "list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"
 			.. "button[0,4.5;2,0.25;toup;"..SL("To Chest").."]"
 			.. "field[2.3,4.8;4,0.25;chestname;;"
@@ -58,7 +57,6 @@ minetest.register_node("protector_lott:chest", {
 			.. "list[current_player;main;0,6.08;8,3;8]"
 			.. "listring[nodemeta:" .. spos .. ";main]"
 			.. "listring[current_player;main]"
-			.. prot.get_hotbar_bg(0,5)
 
 			minetest.show_formspec(
 				clicker:get_player_name(),

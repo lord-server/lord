@@ -2,19 +2,6 @@ local SL = lord.require_intllib()
 
 minetest.register_privilege("delprotect", SL("Ignore player protection"))
 
-prot = {}
-
-prot.gui_bg = "bgcolor[#080808BB;true]"
-prot.gui_bg_img = "background[5,5;1,1;gui_formbg.png;true]"
-prot.gui_slots = "listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
-
-function prot.get_hotbar_bg(x,y)
-	local out = ""
-	for i=0,7,1 do
-		out = out .."image["..x+i..","..y..";1,1;gui_hb_bg.png]"
-	end
-	return out
-end
 
 -- get static spawn position
 local statspawn = (minetest.setting_get_pos("static_spawnpoint") or {x = 0, y = 2, z = 0})
@@ -66,7 +53,6 @@ end
 protector.generate_formspec = function(meta)
 
 	local formspec = "size[8,7]"
-		..prot.gui_bg..prot.gui_bg_img..prot.gui_slots
 		.."label[0,1;"..SL("PUNCH node to show protected area or USE for area check").."]"
 		.."label[0,2;"..SL("Members: (type player name then press Enter to add)").."]"
 
