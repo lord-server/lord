@@ -1,5 +1,8 @@
 # Change Log
 
+## [2023.12.p3](https://github.com/lord-server/lord/releases/tag/2023.12.p3)
+ - Restore chest textures after New Year.
+
 ## [2023.12.p2](https://github.com/lord-server/lord/releases/tag/2023.12.p2)
  - Fix transparent sheeps. Fixes #1216
  - Add WE `//clear_trees` command.
