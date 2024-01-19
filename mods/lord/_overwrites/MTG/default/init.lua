@@ -534,6 +534,18 @@ minetest.override_item("default:jungletree", {
 
 -- default/functions.lua
 
+default.cool_lava = function(pos, node)
+	if node.name == "default:lava_source" then
+		minetest.set_node(pos, {name = "default:obsidian"})
+	else -- Lava flowing
+		local stone_name = minetest.find_node_near(pos, 1, {"lottmapgen:blacksource", "lottmapgen:blackflowing"})
+			and "lottmapgen:mordor_stone"
+			or  "default:stone"
+		minetest.set_node(pos, {name = stone_name})
+	end
+	minetest.sound_play("default_cool_lava",
+		{pos = pos, max_hear_distance = 16, gain = 0.2}, true)
+end
 
 --- Устанавливает trunk вместо tree (обработчик для on_place в tree).
 ---@param itemstack ItemStack @stack в руках игрока (tree)
