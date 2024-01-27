@@ -9,7 +9,7 @@ minetest.register_tool("tools:sword_elven", {
 		groupcaps={
 			snappy={times={[1]=1.60, [2]=1.30, [3]=0.90}, uses=50, maxlevel=3},
 		},
-		damage_groups = {fleshy=7.5, soulful = 6},
+		damage_groups = {fleshy=7.5, soulful = 3},
 	},
 	groups = {bronze_item = 1},
 })

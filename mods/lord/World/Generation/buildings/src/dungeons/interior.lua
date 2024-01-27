@@ -1,7 +1,8 @@
 local pairs, math_random, table_is_empty, vector_new, id
 	= pairs, math.random, table.is_empty, vector.new, minetest.get_content_id
 
-local INTERIOR_CHANCE       = 3
+local INTERIOR_CHANCE = 3
+local INTERIOR_Y_MAX  = -50
 
 local c_air    = id("air")
 local c_ignore = id("ignore")
@@ -100,7 +101,8 @@ function Interior:place_south_wall_torches(wall)
 end
 
 --- @param room_walls  RoomWalls list of room walls
-function Interior:place_room_interior(room_walls)
+--- @param room_center Position
+function Interior:place_room_interior(room_walls, room_center)
 	local north_wall = room_walls.north
 	local south_wall = room_walls.south
 
@@ -109,6 +111,8 @@ function Interior:place_room_interior(room_walls)
 
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
+
+	minetest.add_entity(room_center, "lottmobs:dead_men")
 end
 
 --- @param rooms_centers Position[]
@@ -116,7 +120,7 @@ end
 function Interior:generate(rooms_centers, rooms_walls)
 	for i, room_center in pairs(rooms_centers) do
 		if (math_random(INTERIOR_CHANCE) == 1 and not table_is_empty(rooms_walls[i])) then
-			self:place_room_interior(rooms_walls[i])
+			self:place_room_interior(rooms_walls[i], room_center)
 		end
 	end
 end
@@ -124,6 +128,9 @@ end
 
 return {
 	on_dungeon_generated = function(minp, maxp, data, param2_data, area, rooms_centers, rooms_walls)
+		if maxp.y > INTERIOR_Y_MAX then
+			return
+		end
 		Interior:new(data, param2_data, area):generate(rooms_centers, rooms_walls)
 	end
 }
