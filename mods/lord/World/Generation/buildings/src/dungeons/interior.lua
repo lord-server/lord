@@ -1,5 +1,5 @@
-local pairs, math_random, table_is_empty, id
-	= pairs, math.random, table.is_empty, minetest.get_content_id
+local pairs, math_random, table_is_empty, vector_new, id
+	= pairs, math.random, table.is_empty, vector.new, minetest.get_content_id
 
 local INTERIOR_CHANCE       = 3
 
@@ -66,6 +66,25 @@ function Interior:place_torch_if_possible(x, y, z, param2)
 	end
 end
 
+--- @param wall   RoomWall
+--- @param corner string   one of {"left"|"right"}
+function Interior:place_north_wall_bad_and_chest(wall, corner)
+	local sign = corner == "left" and 1 or -1
+	local corner_pos = corner == "left"
+		and wall.start_pos
+		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
+
+	local bed_top_pos    = corner_pos:add(vector_new(sign * 1, 1, -1))
+	local bed_bottom_pos = corner_pos:add(vector_new(sign * 1, 1, -2))
+	local chest_pos      = corner_pos:add(vector_new(sign * 2, 1, -1))
+
+	if is_air(self.data, self.area, bed_top_pos, bed_bottom_pos, chest_pos) then
+		self.data[self.area:indexp(bed_top_pos)]    = c_bed_top
+		self.data[self.area:indexp(bed_bottom_pos)] = c_bed_bottom
+		self.data[self.area:indexp(chest_pos)]      = c_dwarf_chest_spawner
+	end
+end
+
 --- @param wall RoomWall
 function Interior:place_north_wall_torches(wall)
 	local s, e = wall.start_pos, wall.end_pos
@@ -82,20 +101,14 @@ end
 
 --- @param room_walls  RoomWalls list of room walls
 function Interior:place_room_interior(room_walls)
-	local wall = room_walls.north
+	local north_wall = room_walls.north
+	local south_wall = room_walls.south
 
-	local bed_top_pos    = wall.start_pos:add(vector.new(1, 1, -1))
-	local bed_bottom_pos = wall.start_pos:add(vector.new(1, 1, -2))
-	local chest_pos      = wall.start_pos:add(vector.new(2, 1, -1))
+	self:place_north_wall_bad_and_chest(north_wall, "left")
+	self:place_north_wall_bad_and_chest(north_wall, "right")
 
-	if is_air(self.data, self.area, bed_top_pos, bed_bottom_pos, chest_pos) then
-		self.data[self.area:indexp(bed_top_pos)]    = c_bed_top
-		self.data[self.area:indexp(bed_bottom_pos)] = c_bed_bottom
-		self.data[self.area:indexp(chest_pos)]      = c_dwarf_chest_spawner
-	end
-
-	self:place_north_wall_torches(room_walls.north)
-	self:place_south_wall_torches(room_walls.south)
+	self:place_north_wall_torches(north_wall)
+	self:place_south_wall_torches(south_wall)
 end
 
 --- @param rooms_centers Position[]
