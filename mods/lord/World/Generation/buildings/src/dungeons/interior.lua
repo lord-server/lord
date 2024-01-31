@@ -4,13 +4,13 @@ local pairs, math_random, table_is_empty, vector_new, id
 local INTERIOR_CHANCE = 3
 local INTERIOR_Y_MAX  = -50
 
-local c_air    = id("air")
-local c_ignore = id("ignore")
+local id_air    = id("air")
+local id_ignore = id("ignore")
 
-local c_bed_bottom          = id("beds:bed_bottom")
-local c_bed_top             = id("beds:bed_top")
-local c_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
-local c_torch               = id("default:torch_wall")
+local id_bed_bottom          = id("beds:bed_bottom")
+local id_bed_top             = id("beds:bed_top")
+local id_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
+local id_torch               = id("default:torch_wall")
 
 --- @param data table     map data taken from `VoxelManip:get_data()`
 --- @param area VoxelArea map data indexer
@@ -19,7 +19,7 @@ local function is_air(data, area, ...)
 	for _, value in pairs({...}) do
 		local index = type(value) == "table" and area:indexp(value) or value
 		local node_id = data[index]
-		if node_id ~= c_air and node_id ~= c_ignore then
+		if node_id ~= id_air and node_id ~= id_ignore then
 			return false
 		end
 	end
@@ -61,8 +61,8 @@ end
 function Interior:place_torch_if_possible(x, y, z, param2)
 	local torch_pos_index = self.area:index(x, y, z)
 	local current_node_id = self.data[torch_pos_index]
-	if current_node_id == c_air or current_node_id == c_ignore then
-		self.data       [torch_pos_index] = c_torch
+	if current_node_id == id_air or current_node_id == id_ignore then
+		self.data       [torch_pos_index] = id_torch
 		self.param2_data[torch_pos_index] = param2
 	end
 end
@@ -80,9 +80,9 @@ function Interior:place_north_wall_bad_and_chest(wall, corner)
 	local chest_pos      = corner_pos:add(vector_new(sign * 2, 1, -1))
 
 	if is_air(self.data, self.area, bed_top_pos, bed_bottom_pos, chest_pos) then
-		self.data[self.area:indexp(bed_top_pos)]    = c_bed_top
-		self.data[self.area:indexp(bed_bottom_pos)] = c_bed_bottom
-		self.data[self.area:indexp(chest_pos)]      = c_dwarf_chest_spawner
+		self.data[self.area:indexp(bed_top_pos)]    = id_bed_top
+		self.data[self.area:indexp(bed_bottom_pos)] = id_bed_bottom
+		self.data[self.area:indexp(chest_pos)]      = id_dwarf_chest_spawner
 	end
 end
 

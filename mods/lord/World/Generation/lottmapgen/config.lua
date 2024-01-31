@@ -48,16 +48,16 @@ local BIOME_ROHAN      = 12 -- (Rohan)
 local BIOME_SHIRE      = 13 -- (Shire)
 
 
-local c_ice          = id("default:ice")
-local c_angsnowblock = id("lottmapgen:angsnowblock")
-local c_frozenstone  = id("lottmapgen:frozen_stone")
-local biome_grass    = {
+local id_ice          = id("default:ice")
+local id_angsnowblock = id("lottmapgen:angsnowblock")
+local id_frozenstone  = id("lottmapgen:frozen_stone")
+local biome_grass     = {
 	[BIOME_ANGMAR] = function()
-		local block_id = c_angsnowblock
+		local block_id = id_angsnowblock
 		if math_random(121) == 2 then
-			block_id = c_ice
+			block_id = id_ice
 		elseif math_random(25) == 2 then
-			block_id = c_frozenstone
+			block_id = id_frozenstone
 		end
 		return block_id
 	end,

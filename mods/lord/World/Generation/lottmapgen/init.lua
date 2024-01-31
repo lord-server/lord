@@ -165,37 +165,37 @@ local function biome_fill_airspace(air, vm_area, vm_data, index)
 	return false
 end
 
-local c_air = id("air")
+local id_air = id("air")
 
-local c_sand = id("default:sand")
-local c_mordor_sand = id("lottmapgen:mordor_sand")
-local c_desert_sand = id("default:desert_sand")
-local c_silver_sand = id("default:silver_sand")
+local id_sand = id("default:sand")
+local id_mordor_sand = id("lottmapgen:mordor_sand")
+local id_desert_sand = id("default:desert_sand")
+local id_silver_sand = id("default:silver_sand")
 
-local c_ice = id("default:ice")
-local c_dirt = id("default:dirt")
-local c_clay = id("default:clay")
-local c_mordor_clay = id("clay_types:mordor_clay_block_raw")
+local id_ice = id("default:ice")
+local id_dirt = id("default:dirt")
+local id_clay = id("default:clay")
+local id_mordor_clay = id("clay_types:mordor_clay_block_raw")
 
-local c_stone          = id("default:stone")
-local c_stone_w_copper = id("default:stone_with_copper")
-local c_stone_w_iron   = id("default:stone_with_iron")
-local c_stone_w_coal   = id("default:stone_with_coal")
+local id_stone          = id("default:stone")
+local id_stone_w_copper = id("default:stone_with_copper")
+local id_stone_w_iron   = id("default:stone_with_iron")
+local id_stone_w_coal   = id("default:stone_with_coal")
 
-local c_water       = id("default:water_source")
-local c_river_water = id("default:river_water_source")
-local c_mordor_water       = id("lottmapgen:blacksource")
-local c_mordor_river_water = id("lottmapgen:black_river_source")
+local id_water       = id("default:water_source")
+local id_river_water = id("default:river_water_source")
+local id_mordor_water       = id("lottmapgen:blacksource")
+local id_mordor_river_water = id("lottmapgen:black_river_source")
 
-local c_desert_stone = id("default:desert_stone")
-local c_mordor_stone = id("lottmapgen:mordor_stone")
+local id_desert_stone = id("default:desert_stone")
+local id_mordor_stone = id("lottmapgen:mordor_stone")
 
-local c_gravel        = id("default:gravel")
-local c_desert_gravel = id("default:desert_gravel")
+local id_gravel        = id("default:gravel")
+local id_desert_gravel = id("default:desert_gravel")
 
-local c_salt = id("lottores:mineral_salt")
-local c_pearl = id("lottores:mineral_pearl")
-local c_waterlily = id("flowers:waterlily_waving")
+local id_salt = id("lottores:mineral_salt")
+local id_pearl = id("lottores:mineral_pearl")
+local id_waterlily = id("flowers:waterlily_waving")
 
 local config = dofile(minetest.get_modpath("lottmapgen").."/config.lua")
 local biome_grass = config.biome_grass
@@ -216,26 +216,26 @@ end
 --- @return number
 local function get_biome_sand(biome)
 	if biome == BIOME_MORDOR then
-		return c_mordor_sand
+		return id_mordor_sand
 	elseif biome == BIOME_SNOWPLAINS or biome == BIOME_ANGMAR then
-		return c_silver_sand
+		return id_silver_sand
 	elseif biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-		return c_desert_sand
+		return id_desert_sand
 	end
 
-	return c_sand
+	return id_sand
 end
 
 --- @param biome number biome number (biome id)
 --- @return number|nil
 local function get_biome_stone(biome)
 	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-		return c_desert_stone
+		return id_desert_stone
 	elseif biome == BIOME_MORDOR then
-		return c_mordor_stone
+		return id_mordor_stone
 	elseif biome == BIOME_HILLS then
 		if math_random(3) == 1 then
-			return c_stone_w_iron
+			return id_stone_w_iron
 		end
 	end
 
@@ -246,10 +246,10 @@ end
 --- @return number
 local function get_biome_gravel(biome)
 	if biome == BIOME_DUNLANDS or biome == BIOME_ROHAN then
-		return c_desert_gravel
+		return id_desert_gravel
 	end
 
-    return c_gravel
+    return id_gravel
 end
 
 
@@ -259,10 +259,10 @@ end
 --- @param index        number linear index in `data` of current position
 local function biome_replace_water(cur_water_id, biome, data, index)
 	if biome == BIOME_MORDOR then
-		if cur_water_id == c_river_water then
-			data[index] = c_mordor_river_water
+		if cur_water_id == id_river_water then
+			data[index] = id_mordor_river_water
 		else
-			data[index] = c_mordor_water
+			data[index] = id_mordor_water
 		end
 	end
 end
@@ -274,7 +274,7 @@ end
 local function place_ice_crust(temperature, y, data, index)
 	-- if it's frosty & not so deep
 	if temperature < ICE_TEMPERATURE and y >= water_level - math_floor((ICE_TEMPERATURE - temperature) * 10) then
-		data[index] = c_ice
+		data[index] = id_ice
 	end
 end
 
@@ -285,15 +285,15 @@ end
 local function biome_place_water_bottom(biome, temperature, y, data, index)
 	if biome == BIOME_MORDOR then
 		if math_abs(temperature) < 0.05 and y == (water_level - 1) then -- mordor clay
-			data[index] = c_mordor_clay
+			data[index] = id_mordor_clay
 		end
 	else
 		if math_abs(temperature) < 0.05 and y == (water_level - 1) then -- clay
-			data[index] = c_clay
+			data[index] = id_clay
 		elseif math_abs(temperature) < 0.05 and y == (water_level - 5) then -- salt
-			data[index] = c_salt
+			data[index] = id_salt
 		elseif math_abs(temperature) < 0.05 and y == (water_level - 20) then -- pearl
-			data[index] = c_pearl
+			data[index] = id_pearl
 		end
 	end
 end
@@ -380,9 +380,9 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 				local vi_uu      = area:index(x, y - 2, z)
 				local node_id_uu = data[vi_uu] -- under-under
 
-				local node_is_stone = node_id == c_stone or node_id == c_stone_w_copper or node_id == c_stone_w_iron or node_id == c_stone_w_coal
-				local node_is_space = node_id == c_air or node_id == c_water or node_id == c_river_water
-				local node_uu_is_not_space = node_id_uu ~= c_air and node_id_uu ~= c_water
+				local node_is_stone = node_id == id_stone or node_id == id_stone_w_copper or node_id == id_stone_w_iron or node_id == id_stone_w_coal
+				local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
+				local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
 
 				-- if stone
 				if node_is_stone then
@@ -424,12 +424,12 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 											-- papyrus
 											if math_random(PAPYRUS_CHANCE) == 1	then
 												lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-												data[vi] = c_dirt
+												data[vi] = id_dirt
 											-- waterlily
 											elseif math_random(20) == 1 then
 												local water_level_vi = area:index(x, water_level + 1, z)
-												data[water_level_vi] = c_waterlily
-												data[vi] = c_dirt
+												data[water_level_vi] = id_waterlily
+												data[vi] = id_dirt
 											end
 										end
 									end
@@ -463,7 +463,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 
 					is_solid = false
 
-					if node_id == c_water or node_id == c_river_water then
+					if node_id == id_water or node_id == id_river_water then
 						is_water_above = true
 						biome_replace_water(node_id, biome, data, vi)
 						place_ice_crust(temperature, y, data, vi) -- if it's frosty & not so deep

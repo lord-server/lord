@@ -1,11 +1,11 @@
 local pairs, id
 	= pairs, minetest.get_content_id
 
-local c_air          = id("air")
-local c_mossy_cobble = id("default:mossycobble")
-local c_gold         = id("default:goldblock")
-local c_tomb_legs    = id("lottblocks:dwarf_tomb_bottom")
-local c_tomb_head    = id("lottblocks:dwarf_tomb_top")
+local id_air          = id("air")
+local id_mossy_cobble = id("default:mossycobble")
+local id_gold         = id("default:goldblock")
+local id_tomb_legs    = id("lottblocks:dwarf_tomb_bottom")
+local id_tomb_head    = id("lottblocks:dwarf_tomb_top")
 
 local TOMB_Y_MIN = -500
 local TOMB_Y_MAX = -250
@@ -23,18 +23,18 @@ local TOMB       = {
 --- @param data table
 --- @param area VoxelArea
 local function place_tomb(x, y, z, data, area)
-	data[area:index(x, y + 1, z)]     = c_tomb_legs
-	data[area:index(x, y + 1, z + 1)] = c_tomb_head
+	data[area:index(x, y + 1, z)]     = id_tomb_legs
+	data[area:index(x, y + 1, z + 1)] = id_tomb_head
 
-	data[area:index(x, y, z)]         = c_mossy_cobble
-	data[area:index(x, y, z + 1)]     = c_mossy_cobble
+	data[area:index(x, y, z)]         = id_mossy_cobble
+	data[area:index(x, y, z + 1)]     = id_mossy_cobble
 
 	for dz = -1, 2 do
-		data[area:index(x + 1, y, z + dz)] = c_gold
-		data[area:index(x - 1, y, z + dz)] = c_gold
+		data[area:index(x + 1, y, z + dz)] = id_gold
+		data[area:index(x - 1, y, z + dz)] = id_gold
 	end
-	data[area:index(x, y, z + 2)] = c_gold
-	data[area:index(x, y, z - 1)] = c_gold
+	data[area:index(x, y, z + 2)] = id_gold
+	data[area:index(x, y, z - 1)] = id_gold
 end
 
 --- @param room_center Position
@@ -45,7 +45,7 @@ local function is_enough_space(room_center, data, area)
 	for dy = 0, 1 do  -- needs two layers: 1 - for gold & cobble, 2 - for tomb
 		for dx = -1, 1 do  -- width 3: 1 on right, 1 on left (for gold)
 			for dz = -1, 2 do  -- tomb takes 2 blocks, & additional 1 on each side (head/legs)
-				if data[area:index(room_center.x + dx, room_center.y + dy, room_center.z + dz)] ~= c_air then
+				if data[area:index(room_center.x + dx, room_center.y + dy, room_center.z + dz)] ~= id_air then
 					return false
 				end
 			end
