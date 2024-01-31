@@ -11,6 +11,7 @@ local id_bed_bottom          = id("beds:bed_bottom")
 local id_bed_top             = id("beds:bed_top")
 local id_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
 local id_bookshelf           = id("default:bookshelf")
+local id_brewer_barrel       = id("lottpotion:brewer")
 local id_torch               = id("default:torch_wall")
 
 --- @param data table     map data taken from `VoxelManip:get_data()`
@@ -112,6 +113,29 @@ function Interior:place_north_wall_shelves(wall)
 	end
 end
 
+--- @param wall   RoomWall
+--- @param corner string   one of {"left"|"right"}
+function Interior:place_south_wall_barrels(wall, corner)
+	local sign = corner == "left" and 1 or -1
+	--- @type vector
+	local corner_pos = corner == "left"
+		and wall.start_pos
+		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
+
+	local barrels_pos = {
+		corner_pos:add(vector_new(sign * 1, 1, 1)),
+		corner_pos:add(vector_new(sign * 2, 1, 1)),
+		corner_pos:add(vector_new(sign * 1, 2, 1)),
+		corner_pos:add(vector_new(sign * 1, 1, 2)),
+	}
+
+	for i = 1, #barrels_pos do
+		if is_air(self.data, self.area, barrels_pos[i]) then
+			self.data[self.area:indexp(barrels_pos[i])] = id_brewer_barrel
+		end
+	end
+end
+
 --- @param wall RoomWall
 function Interior:place_north_wall_torches(wall)
 	local s, e = wall.start_pos, wall.end_pos
@@ -136,6 +160,8 @@ function Interior:place_room_interior(room_walls, room_center)
 	self:place_north_wall_bad_and_chest(north_wall, "right")
 
 	self:place_north_wall_shelves(north_wall)
+	self:place_south_wall_barrels(south_wall, "left")
+	self:place_south_wall_barrels(south_wall, "right")
 
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
