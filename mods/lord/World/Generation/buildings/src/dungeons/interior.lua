@@ -10,6 +10,7 @@ local id_ignore = id("ignore")
 local id_bed_bottom          = id("beds:bed_bottom")
 local id_bed_top             = id("beds:bed_top")
 local id_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
+local id_bookshelf           = id("default:bookshelf")
 local id_torch               = id("default:torch_wall")
 
 --- @param data table     map data taken from `VoxelManip:get_data()`
@@ -87,6 +88,31 @@ function Interior:place_north_wall_bad_and_chest(wall, corner)
 end
 
 --- @param wall RoomWall
+function Interior:place_north_wall_shelves(wall)
+	local wall_length = (wall.end_pos.x - 1) - (wall.start_pos.x + 1)
+	if wall_length < 3 then
+		return
+	end
+
+	local from_x, to_x
+	if wall_length < 7 then
+		from_x = wall.start_pos.x + 2
+		to_x   = wall.end_pos.x - 2
+	else
+		from_x = math.floor(wall.start_pos.x+1 + (wall_length/2) - 2)
+		to_x   = math.ceil (wall.start_pos.x+1 + (wall_length/2) + 2)
+	end
+
+	for x = from_x, to_x do
+		local shelf_pos  = vector_new(x, wall.start_pos.y + 3, wall.start_pos.z)
+		local data_index = self.area:indexp(shelf_pos)
+		if not is_air(self.data, self.area, data_index) then
+			self.data[data_index] = id_bookshelf
+		end
+	end
+end
+
+--- @param wall RoomWall
 function Interior:place_north_wall_torches(wall)
 	local s, e = wall.start_pos, wall.end_pos
 	self:place_torch_if_possible(s.x + 1, e.y - 1, s.z - 1, 4)
@@ -108,6 +134,8 @@ function Interior:place_room_interior(room_walls, room_center)
 
 	self:place_north_wall_bad_and_chest(north_wall, "left")
 	self:place_north_wall_bad_and_chest(north_wall, "right")
+
+	self:place_north_wall_shelves(north_wall)
 
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
