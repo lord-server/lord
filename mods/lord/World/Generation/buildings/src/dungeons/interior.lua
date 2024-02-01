@@ -11,6 +11,9 @@ local id_bed_bottom          = id("beds:bed_bottom")
 local id_bed_top             = id("beds:bed_top")
 local id_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
 local id_bookshelf           = id("default:bookshelf")
+local id_fence               = id("default:fence_wood")
+local id_hatch               = id("lottblocks:hatch_alder")
+local id_chair               = id("lottblocks:alder_chair")
 local id_brewer_barrel       = id("lottpotion:brewer")
 local id_torch               = id("default:torch_wall")
 
@@ -136,6 +139,34 @@ function Interior:place_south_wall_barrels(wall, corner)
 	end
 end
 
+--- @param side string   one of {"west"|"east"}
+--- @param wall RoomWall
+function Interior:place_diner_zone(side, wall)
+	local sign = side == "west" and 1 or -1
+	local wall_z_center = wall.start_pos.z + math.floor((wall.end_pos.z - wall.start_pos.z) / 2)
+	local wall_center_bottom_pos = vector_new(wall.start_pos.x, wall.start_pos.y, wall_z_center)
+
+	local table_leg_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, 0))
+	local table_top_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 2, 0))
+	if is_air(self.data, self.area, table_leg_pos, table_top_pos) then
+		self.data[self.area:indexp(table_leg_pos)] = id_fence
+		self.data[self.area:indexp(table_top_pos)] = id_hatch
+	end
+
+	local chair1_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, -1))
+	local chair2_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, 1))
+	if is_air(self.data, self.area, chair1_pos) then
+		local pos_index = self.area:indexp(chair1_pos)
+		self.data       [pos_index] = id_chair
+		self.param2_data[pos_index] = 2 -- chair back turned to south
+	end
+	if is_air(self.data, self.area, chair2_pos) then
+		local pos_index = self.area:indexp(chair2_pos)
+		self.data       [pos_index] = id_chair
+		self.param2_data[pos_index] = 0 -- chair back turned to north
+	end
+end
+
 --- @param wall RoomWall
 function Interior:place_north_wall_torches(wall)
 	local s, e = wall.start_pos, wall.end_pos
@@ -155,6 +186,8 @@ end
 function Interior:place_room_interior(room_walls, room_center)
 	local north_wall = room_walls.north
 	local south_wall = room_walls.south
+	local west_wall  = room_walls.west
+	local east_wall  = room_walls.east
 
 	self:place_north_wall_bad_and_chest(north_wall, "left")
 	self:place_north_wall_bad_and_chest(north_wall, "right")
@@ -162,6 +195,9 @@ function Interior:place_room_interior(room_walls, room_center)
 	self:place_north_wall_shelves(north_wall)
 	self:place_south_wall_barrels(south_wall, "left")
 	self:place_south_wall_barrels(south_wall, "right")
+
+	self:place_diner_zone("west", west_wall)
+	self:place_diner_zone("east", east_wall)
 
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
