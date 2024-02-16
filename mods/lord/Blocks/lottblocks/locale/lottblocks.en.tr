@@ -79,6 +79,11 @@ Outer Black Dwarf Stone Stair=Outer Black Dwarf Stone Stair
 Black Dwarf Stone Slab=Black Dwarf Stone Slab
 Stripe Dwarf Stone=Stripe Dwarf Stone
 
+### dwarf_tomb.lus ###
+Dwarf Tomb=Dwarf Tomb
+Dwarf Tomb Bottom (placeholder)=Dwarf Tomb Bottom (placeholder)
+Generated @1=Generated @1
+
 ### lamps.lua ###
 Not enough space for lamppost to be placed=Not enough space for lamppost to be placed
 Wood Lamppost=Wood Lamppost

@@ -74,6 +74,11 @@ Outer Black Dwarf Stone Stair=Угловая ступенька из чёрно�
 Black Dwarf Stone Slab=Плита из чёрного гномьего камня
 Stripe Dwarf Stone=Полосатый гномий камень
 
+### dwarf_tomb.lus ###
+Dwarf Tomb=Гробница гнома
+Dwarf Tomb Bottom (placeholder)=Гробница гнома: низ (placeholder)
+Generated @1=Сгенерированная @1
+
 ### lamps.lua ###
 Not enough space for lamppost to be placed=Не хватает места!
 Wood Lamppost=Яблоневый фонарь

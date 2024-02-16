@@ -1,16 +1,21 @@
+local S = minetest.get_translator("lottblocks")
 
--- Dwarf Tombs, by Amaz.
-minetest.register_node("lottblocks:dwarf_tomb_top", {
-	description = "Dwarf Tomb",
+local common_definition = {
 	drawtype = "nodebox",
+	paramtype2 = "facedir",
+	paramtype = "light",
+	drop = "lottblocks:dwarf_tomb_top",
+	sounds = default.node_sound_stone_defaults(),
+}
+
+local tomb_top = table.merge(common_definition, {
+	description = S("Dwarf Tomb"),
 	tiles = {
 		"lottblocks_dh_top.png", "default_stone.png",
 		"lottblocks_dh_side2.png", "lottblocks_dh_side1.png",
 		"lottblocks_dh_back.png", "lottblocks_dh_front.png",
 	},
-	paramtype = "light",
 	groups = {cracky = 1},
-	paramtype2 = "facedir",
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -37,6 +42,61 @@ minetest.register_node("lottblocks:dwarf_tomb_top", {
 			{-0.5, -0.5, -1.5, 0.5, 0.0625, 0.5}
 		}
 	},
+	on_destruct = function(pos)
+		local node  = minetest.get_node(pos)
+		local dir   = minetest.facedir_to_dir(node.param2)
+		local other = vector.subtract(pos, dir)
+		minetest.remove_node(other)
+	end,
+})
+
+local tomb_bottom = table.merge(common_definition, {
+	description = S("Dwarf Tomb Bottom (placeholder)"),
+	tiles = {
+		"lottblocks_db_top.png", "default_stone.png",
+		"lottblocks_db_side2.png", "lottblocks_db_side1.png",
+		"lottblocks_db_back.png", "lottblocks_db_front.png",
+	},
+	pointable = false,
+	groups = {not_in_creative_inventory = 1},
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.375, 0.5}, -- NodeBox1
+			{0.4375, -0.375, 0.5, -0.4375, -0.3125, -0.375}, -- NodeBox2
+			{0.375, -0.3125, 0.5, -0.375, -0.1875, -0.3125}, -- NodeBox3
+			{0.25, -0.1875, 0.5, -0.25, -0.0625, -0.3125}, -- NodeBox5
+			{-0.0625, -0.0625, 0.5, 0.0625, 0, 0.375}, -- NodeBox6
+			{0.0625, -0.0625, 0.375, -0.0625, 0, -0.1875}, -- NodeBox8
+			{0.25, -0.0625, 0.0625, -0.25, 0, -0.1875}, -- NodeBox8
+		}
+	},
+})
+
+
+-- MapGen only blocks.
+-- Follow two blocks are spawned only on map dungeon generation.
+minetest.register_node("lottblocks:gen_dwarf_tomb_top", table.merge(tomb_top, {
+	description = S("Generated @1", tomb_top.description),
+	drop = {
+		max_items = 3,
+		items = {
+			{items = {"lottother:dwarf_ring"},         rarity = 100/3},  -- 3%
+			{items = {"lottblocks:dwarf_tomb_top"}},
+			{items = {"lottarmor:chestplate_mithril"}, rarity = 100/50}, -- 50%
+			{items = {"lottarmor:helmet_mithril"},     rarity = 100/50}, -- 50%
+		}
+	},
+}))
+
+minetest.register_node("lottblocks:gen_dwarf_tomb_bottom", table.merge(tomb_bottom, {
+	description = S("Generated @1", tomb_bottom.description),
+}))
+
+
+-- Tomb nodes for players.
+-- Follow two blocks are drops from generated ones and used when player place the tomb.
+minetest.register_node("lottblocks:dwarf_tomb_top", table.merge(tomb_top, {
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
 		local pos
@@ -79,39 +139,6 @@ minetest.register_node("lottblocks:dwarf_tomb_top", {
 		end
 		return itemstack
 	end,
-	on_destruct = function(pos)
-		local node = minetest.get_node(pos)
-		local dir = minetest.facedir_to_dir(node.param2)
-		local other = vector.subtract(pos, dir)
-		minetest.remove_node(other)
-	end,
-	sounds = default.node_sound_stone_defaults(),
-})
+}))
 
-minetest.register_node("lottblocks:dwarf_tomb_bottom", {
-	description = "Dwarf Tomb Bottom",
-	tiles = {
-		"lottblocks_db_top.png", "default_stone.png",
-		"lottblocks_db_side2.png", "lottblocks_db_side1.png",
-		"lottblocks_db_back.png", "lottblocks_db_front.png",
-	},
-	pointable = false,
-	groups = {not_in_creative_inventory = 1},
-	paramtype2 = "facedir",
-	drawtype = "nodebox",
-	drop = "lottblocks:dwarf_tomb_top",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.375, 0.5}, -- NodeBox1
-			{0.4375, -0.375, 0.5, -0.4375, -0.3125, -0.375}, -- NodeBox2
-			{0.375, -0.3125, 0.5, -0.375, -0.1875, -0.3125}, -- NodeBox3
-			{0.25, -0.1875, 0.5, -0.25, -0.0625, -0.3125}, -- NodeBox5
-			{-0.0625, -0.0625, 0.5, 0.0625, 0, 0.375}, -- NodeBox6
-			{0.0625, -0.0625, 0.375, -0.0625, 0, -0.1875}, -- NodeBox8
-			{0.25, -0.0625, 0.0625, -0.25, 0, -0.1875}, -- NodeBox8
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
-})
+minetest.register_node("lottblocks:dwarf_tomb_bottom", tomb_bottom)
