@@ -1,30 +1,33 @@
-local pairs, id
-	= pairs, minetest.get_content_id
+local pairs, math_random, id
+    = pairs, math.random, minetest.get_content_id
 
-local id_air          = id("air")
-local id_mossy_cobble = id("default:mossycobble")
-local id_gold         = id("default:goldblock")
-local id_tomb_legs    = id("lottblocks:dwarf_tomb_bottom")
-local id_tomb_head    = id("lottblocks:dwarf_tomb_top")
+local id_air                 = id("air")
+local id_mossy_cobble        = id("default:mossycobble")
+local id_gold                = id("default:goldblock")
+local id_tomb_legs           = id("lottblocks:dwarf_tomb_bottom")
+local id_tomb_head           = id("lottblocks:dwarf_tomb_top")
+local id_tomb_with_drop_legs = id("lottblocks:gen_dwarf_tomb_bottom")
+local id_tomb_with_drop_head = id("lottblocks:gen_dwarf_tomb_top")
 
-local TOMB_Y_MIN = -500
-local TOMB_Y_MAX = -250
 local TOMB       = {
-	MIN_ROOMS = 6, -- ~ 45%                - minimal count of rooms in dungeon, where the tomb can be spawned
-	CHANCE    = 2, -- ~ 45% / 2 == ~ 22%   - of all dungeons in layer y=[-250,-500]
+	Y_MAX           = -250, -- from here and below just tomb for players nodes (without drop)
+	WITH_DROP_Y_MAX = -500, -- from here and below tomb with additional drop
+	MIN_ROOMS       = 6,    -- ~ 45%                - minimal count of rooms in dungeon, where the tomb can be spawned.
+	CHANCE          = 2,    -- ~ 45% / 2 == ~ 22%   - of all dungeons
 	-- Info: By default (perlin noise in config) there is not so much dungeons.
 	--       In addition it's very difficult to find them.
-	--       So ~ 22% - its very very rarely.
+	--       So ~ 22% - it's quite rarely.
 }
 
 --- @param x number
 --- @param y number
 --- @param z number
+--- @param with_drop boolean place nodes with additional drop or not
 --- @param data table
 --- @param area VoxelArea
-local function place_tomb(x, y, z, data, area)
-	data[area:index(x, y + 1, z)]     = id_tomb_legs
-	data[area:index(x, y + 1, z + 1)] = id_tomb_head
+local function place_tomb(x, y, z, with_drop, data, area)
+	data[area:index(x, y + 1, z)]     = with_drop and id_tomb_with_drop_legs or id_tomb_legs
+	data[area:index(x, y + 1, z + 1)] = with_drop and id_tomb_with_drop_head or id_tomb_head
 
 	data[area:index(x, y, z)]         = id_mossy_cobble
 	data[area:index(x, y, z + 1)]     = id_mossy_cobble
@@ -76,14 +79,15 @@ return {
 	--- @param area VoxelArea
 	--- @param rooms_centers Position[]
 	on_dungeon_generated = function(minp, maxp, data, area, rooms_centers)
-		if maxp.y < TOMB_Y_MIN or minp.y > TOMB_Y_MAX then
+		if minp.y > TOMB.Y_MAX then
 			return
 		end
 
-		if #rooms_centers >= TOMB.MIN_ROOMS and math.random(TOMB.CHANCE) == 1 then
+		if #rooms_centers >= TOMB.MIN_ROOMS and math_random(TOMB.CHANCE) == 1 then
 			local place_to = find_room_with_space(rooms_centers, data, area)
 			if place_to then
-				place_tomb(place_to.x, place_to.y, place_to.z, data, area)
+				local with_drop = minp.y < TOMB.WITH_DROP_Y_MAX
+				place_tomb(place_to.x, place_to.y, place_to.z, with_drop, data, area)
 			end
 		end
 	end
