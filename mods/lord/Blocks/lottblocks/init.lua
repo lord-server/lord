@@ -6,6 +6,7 @@ dofile(minetest.get_modpath("lottblocks").."/wooden_stuff.lua") --trapdoors, doo
 dofile(minetest.get_modpath("lottblocks").."/misc.lua")
 dofile(minetest.get_modpath("lottblocks").."/music.lua") --This has musical insturments, and the music they play.
 dofile(minetest.get_modpath("lottblocks").."/decoration.lua") --This has various decoration nodes, by catninja.
+dofile(minetest.get_modpath("lottblocks").."/dwarf_tomb.lua")
 dofile(minetest.get_modpath("lottblocks").."/chests.lua")
 dofile(minetest.get_modpath("lottblocks").."/lamps.lua")
 dofile(minetest.get_modpath("lottblocks").."/palantiri.lua")
