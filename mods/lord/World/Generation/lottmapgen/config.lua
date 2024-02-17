@@ -221,6 +221,8 @@ local biome_airspace = {
 		flora = {
 			plants = {
 				[id("flowers:tulip_black")] = PLANT8,
+				[id("default:junglegrass")] = PLANT3,
+				[lottmapgen_fern] = PLANT1,
 			},
 			trees = {
 				[id("lottmapgen:mirktreegen")] = TREE2,

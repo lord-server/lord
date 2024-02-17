@@ -31,6 +31,15 @@ function lottmapgen_dry_grass(data, vi)
 	data[vi] = ids_grasses[math.random(#ids_grasses)]
 end
 
+function lottmapgen_fern(data, vi)
+	local ids_ferns = {
+		minetest.get_content_id("default:fern_1"),
+		minetest.get_content_id("default:fern_2"),
+		minetest.get_content_id("default:fern_3"),
+	}
+	data[vi] = ids_ferns[math.random(#ids_ferns)]
+end
+
 function lottmapgen_lorien_grass(data, vi)
 	local ids_lorgrasses = {
 		minetest.get_content_id("lottplants:lorien_grass_1"),
