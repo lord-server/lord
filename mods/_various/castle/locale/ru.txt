@@ -103,7 +103,15 @@ Orc Brick Arrowslit with Hole=Т-образная бойница из оркск
 Mordor Stone Arrowslit with Hole=Т-образная бойница из камня Мордора
 
 ### tapestry.lua ###
-Tapestry Top=Основание для гобелена
+@1 Tapestry Top=Основание для гобелена из @1
+Apple=яблони
+Jungle Wood=эвкадипта
+Alder=ольхи
+Birch=берёзы
+Hardwood=твёрдой древесины
+Lebethron=лебетрона
+Mallorn=малорна
+Pine=сосны
 White Tapestry=Белый гобелен
 White Tapestry (Long)=Белый гобелен (длинный)
 White Tapestry (Very Long)=Белый гобелен (очень длинный)

@@ -1,36 +1,51 @@
 local SL = lord.require_intllib()
 
+local function register_tapestry_top(node_name, craft_from, description_material, texture)
+	local node_and_selection_box = {
+		type  = "fixed",
+		fixed = { { -0.600000, -0.500000, 0.375000, 0.600000, -0.375000, 0.500000 }, },
+	}
+	minetest.register_node(node_name, {
+		drawtype            = "nodebox",
+		description         = SL("@1 Tapestry Top", description_material),
+		tiles               = { texture },
+		sunlight_propagates = true,
+		groups              = { flammable = 3, oddly_breakable_by_hand = 1 },
+		sounds              = default.node_sound_defaults(),
+		paramtype           = "light",
+		paramtype2          = "facedir",
+		node_box            = node_and_selection_box,
+		selection_box       = node_and_selection_box,
+	})
+
+	minetest.register_craft({
+		type   = "shapeless",
+		output = node_name,
+		recipe = { craft_from },
+	})
+end
+-- [code-labels]: planks, sticks
+local tapestry_tops = {
+--	  node_name                         craft_from                   description_material   texture
+	{ "castle:tapestry_top",            "default:stick",               SL("Apple"),     "default_wood.png"            },
+	{ "castle:tapestry_top_junglewood", "lottblocks:stick_junglewood", SL("Jungle Wood"),"default_junglewood.png"     },
+	{ "castle:tapestry_top_alder",      "lottblocks:stick_alder",      SL("Alder"),     "lottplants_alderwood.png"    },
+	{ "castle:tapestry_top_birch",      "lottblocks:stick_birch",      SL("Birch"),     "lottplants_birchwood.png"    },
+	{ "castle:tapestry_top_hardwood",   "lottblocks:stick_hardwood",   SL("Hardwood"),  "lottblocks_hardwood.png"     },
+	{ "castle:tapestry_top_lebethron",  "lottblocks:stick_lebethron",  SL("Lebethron"), "lottplants_lebethronwood.png"},
+	{ "castle:tapestry_top_mallorn",    "lottblocks:stick_mallorn",    SL("Mallorn"),   "lottplants_mallornwood.png"  },
+	{ "castle:tapestry_top_pine",       "lottblocks:stick_pine",       SL("Pine"),      "lottplants_pinewood.png"     },
+--	{ "castle:tapestry_top_fir",        "lottblocks:stick_fir",        SL("Fir"),       "lottplants_fir_wood.png"     },
+}
+for _, tapestry_top in pairs(tapestry_tops) do
+	register_tapestry_top(unpack(tapestry_top))
+end
+
+
+----------------
+--- Tapestry ---
+----------------
 local tapestry = {}
-
-minetest.register_node("castle:tapestry_top", {
-	drawtype = "nodebox",
-	description = SL("Tapestry Top"),
-	tiles = {"default_wood.png"},
-	sunlight_propagates = true,
-	groups = {flammable=3,oddly_breakable_by_hand=1},
-	sounds = default.node_sound_defaults(),
-	paramtype = "light",
-	paramtype2 = "facedir",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.600000,-0.500000,0.375000,0.600000,-0.375000,0.500000},
-		},
-	},
-	selection_box = {
-		type = "fixed",
-		fixed = {
-			{-0.600000,-0.500000,0.375000,0.600000,-0.375000,0.500000},
-		},
-	},
-})
-
-minetest.register_craft({
-	type = "shapeless",
-	output = 'castle:tapestry_top',
-	recipe = {'default:stick'},
-})
-
 tapestry.colours = {
 	{"white",      "White",      "white"},
 	{"grey",       "Grey",       "grey"},
