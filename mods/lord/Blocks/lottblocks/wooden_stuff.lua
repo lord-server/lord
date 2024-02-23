@@ -403,6 +403,8 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
+	local stick_reg_name
+
 	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
 
 		-- DOORs | ДВЕРЬ
@@ -414,15 +416,15 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		register_fence(name, description, wood_name, node_groups)
 
 		-- STICK | ПАЛОЧКА
-		local stick_reg_name =
+		stick_reg_name =
 		register_stick(name, description, wood_name)
 
 		-- LADDER | ЛЕСТНИЦА
 		register_ladder(name, description, stick_reg_name)
-
-		-- STANCHION | СТОЙКИ
-		register_stanchion(name, description, texture, node_groups, stick_reg_name)
 	end
+
+	-- STANCHION | СТОЙКИ
+	register_stanchion(name, description, texture, node_groups, stick_reg_name or "default:stick")
 
 	-- TABLE | СТОЛ
 	register_table(name, description, texture, wood_name, node_groups)
@@ -441,35 +443,5 @@ lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethron
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
 lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottblocks_hardwood.png", "lord_homedecor:hardwood")
 
+minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
-
-
---***********************************************************
---**          WOODEN STANCHION | СТОЙКИ ИЗ ЯБЛОНИ          **
---***********************************************************
-minetest.register_node("lottblocks:wooden_stanchion", {
-	description         = S("Wooden Stanchion"),
-	tiles               = { "default_wood.png" },
-	drawtype            = "nodebox",
-	sunlight_propagates = true,
-	paramtype           = 'light',
-	paramtype2          = "facedir",
-	node_box            = {
-		type  = "fixed",
-		fixed = {
-			{ -0.5,	-0.5,	-0.5,	-0.4,	0.5,	-0.4 },
-			{  0.4,	-0.5,	-0.5,	 0.5,	0.5,	-0.4 },
-			{ -0.5,	-0.5,	 0.4,	-0.4,	0.5,	 0.5 },
-			{  0.4,	-0.5,	 0.4,	 0.5,	0.5,	 0.5 },
-		},
-	},
-	groups = {choppy=2,oddly_breakable_by_hand=2,flammable=3,wood=1}
-})
-minetest.register_craft({
-	output = "lottblocks:wooden_stanchion",
-	recipe = {
-		{ 'default:stick', '', 'default:stick' },
-		{ '', '', '' },
-		{ 'default:stick', '', 'default:stick' },
-	}
-})
