@@ -1155,61 +1155,8 @@ default.register_leafdecay({
 	radius = 2,
 })
 
---Wood
 
-minetest.register_node("lottplants:pinewood", {
-	description  = S("Pine Planks"),
-	tiles        = { "lottplants_pinewood.png" },
-	groups       = { choppy = 3, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
-
-minetest.register_node("lottplants:firwood", {
-	description  = S("Fir Planks"),
-	tiles        = { "lottplants_fir_wood.png" },
-	groups       = { choppy = 3, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
-
-minetest.register_node("lottplants:birchwood", {
-	description  = S("Birch Planks"),
-	tiles        = { "lottplants_birchwood.png" },
-	groups       = { choppy = 3, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
-
-minetest.register_node("lottplants:alderwood", {
-	description  = S("Alder Planks"),
-	tiles        = { "lottplants_alderwood.png" },
-	groups       = { choppy = 2, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
-
-minetest.register_node("lottplants:lebethronwood", {
-	description  = S("Lebethron Planks"),
-	tiles        = { "lottplants_lebethronwood.png" },
-	groups       = { choppy = 1, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
-
-minetest.register_node("lottplants:mallornwood", {
-	description  = S("Mallorn Planks"),
-	tiles        = { "lottplants_mallornwood.png" },
-	groups       = { choppy = 1, flammable = 3, wood = 1 },
-	sounds       = default.node_sound_wood_defaults(),
-	paramtype2   = "facedir",
-	place_param2 = 0,
-})
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/planks.lua')
 
 --Lorien grass
 
@@ -1304,85 +1251,6 @@ minetest.register_node("lottplants:lorien_grass_4", {
 	},
 })
 
---Stairs & Slabs
-
-stairs.register_stair_and_slab(
-	"birchwood",
-	"lottplants:birchwood",
-	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
-	{"lottplants_birchwood.png"},
-	S("Birch Wood Stair"),
-	S("Birch Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Birch Wood Stair"),
-	S("Outer Birch Wood Stair")
-)
-
-stairs.register_stair_and_slab(
-	"pinewood",
-	"lottplants:pinewood",
-	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
-	{"lottplants_pinewood.png"},
-	S("Pine Wood Stair"),
-	S("Pine Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Pine Wood Stair"),
-	S("Outer Pine Wood Stair")
-)
-
-stairs.register_stair_and_slab(
-	"firwood",
-	"lottplants:firwood",
-	{snappy = 2, choppy = 3, flammable = 3, wooden = 1},
-	{"lottplants_fir_wood.png"},
-	S("Fir Wood Stair"),
-	S("Fir Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Fir Wood Stair"),
-	S("Outer Fir Wood Stair")
-)
-
-stairs.register_stair_and_slab(
-	"alderwood",
-	"lottplants:alderwood",
-	{snappy = 2, choppy = 2, flammable = 3, wooden = 1},
-	{"lottplants_alderwood.png"},
-	S("Alder Wood Stair"),
-	S("Alder Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Alder Wood Stair"),
-	S("Outer Alder Wood Stair")
-)
-
-stairs.register_stair_and_slab(
-	"lebethronwood",
-	"lottplants:lebethronwood",
-	{snappy = 2, choppy = 1, flammable = 3, wooden = 1},
-	{"lottplants_lebethronwood.png"},
-	S("Lebethron Wood Stair"),
-	S("Lebethron Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Lebethron Wood Stair"),
-	S("Outer Lebethron Wood Stair")
-)
-
-stairs.register_stair_and_slab(
-	"mallornwood",
-	"lottplants:mallornwood",
-	{snappy = 2, choppy = 1, flammable = 3, wooden = 1},
-	{"lottplants_mallornwood.png"},
-	S("Mallorn Wood Stair"),
-	S("Mallorn Wood Slab"),
-	default.node_sound_wood_defaults(),
-	false,
-	S("Inner Mallorn Wood Stair"),
-	S("Outer Mallorn Wood Stair")
-)
 
 -- trunk slabs
 stairs.register_slab(
@@ -1465,58 +1333,6 @@ stairs.register_slab(
 	false
 )
 
-
-
---Crafting
-
-minetest.register_craft({
-	output = 'lottplants:birchwood 4',
-	recipe = {
-		{ 'lottplants:birchtree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:pinewood 4',
-	recipe = {
-		{ 'lottplants:pinetree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:firwood 4',
-	recipe = {
-		{ 'lottplants:firtree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:alderwood 4',
-	recipe = {
-		{ 'lottplants:aldertree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:lebethronwood 4',
-	recipe = {
-		{ 'lottplants:lebethrontree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:mallornwood 4',
-	recipe = {
-		{ 'lottplants:mallorntree' },
-	}
-})
-
-minetest.register_craft({
-	output = 'lottplants:mallornwood 2',
-	recipe = {
-		{ 'lottplants:mallorntree_young' },
-	}
-})
 
 minetest.register_craft({
 	type = "fuel",
