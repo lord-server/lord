@@ -1155,8 +1155,8 @@ default.register_leafdecay({
 	radius = 2,
 })
 
-
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/planks.lua')
+--- @type lottplants.Planks_API
+planks = dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/planks.lua')
 
 --Lorien grass
 

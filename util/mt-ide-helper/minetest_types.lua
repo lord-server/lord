@@ -344,6 +344,8 @@ function minetest.log(level, text) end
 
 -- Environment:
 
+--- @param name            string         technical node name ("<mod>:<node>").
+--- @param node_definition NodeDefinition table with node definition properties.
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4471-L4471)
 function minetest.register_node(name, node_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4472-L4472)
@@ -2286,12 +2288,12 @@ minetest.env = {}
 --- * Map of registered items, indexed by name
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5838-L5839)
---- @type table
+--- @type table|ItemDefinition[]
 minetest.registered_items = {}
 --- * Map of registered node definitions, indexed by name
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5840-L5841)
---- @type table
+--- @type table<string,NodeDefinition>|NodeDefinition[]
 minetest.registered_nodes = {}
 --- * Map of registered craft item definitions, indexed by name
 ---

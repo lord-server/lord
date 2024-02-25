@@ -1,5 +1,5 @@
 --- @class NodeDefinition: ItemDefinition
-NodeDefinition = {
+local NodeDefinition = {
 
 	drawtype                      = "normal", -- See "Node drawtypes"
 

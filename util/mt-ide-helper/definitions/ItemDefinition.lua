@@ -1,5 +1,5 @@
 --- @class ItemDefinition
-ItemDefinition = {
+local ItemDefinition = {
     description = "",
     -- Can contain new lines. "\n" has to be used as new line character.
     -- See also: `get_description` in [`ItemStack`]

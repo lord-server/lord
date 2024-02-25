@@ -1,6 +1,9 @@
 local S = minetest.get_translator("lottplants")
 
-local planks = { nodes = {} }
+local planks = {
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
+	nodes = {}
+}
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
@@ -101,3 +104,12 @@ minetest.register_craft({
 	recipe = "lottplants:hardwood",
 	burntime = 28,
 })
+
+--- @class lottplants.Planks_API
+local Planks_API = {
+	add_existing = add_existing,
+	get_nodes    = function() return planks.nodes end
+}
+
+
+return Planks_API
