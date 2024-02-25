@@ -2,9 +2,20 @@ local S = minetest.get_translator("lottplants")
 
 local planks = { nodes = {} }
 
---- @param node_name string
---- @param title     string
+--- @param node_name string technical node name ("<mod>:<node>").
+local function add_existing(node_name)
+	local definition = minetest.registered_nodes[node_name]
+	minetest.override_item(node_name, {
+		groups = table.overwrite(definition.groups, { planks = 1 }),
+	})
+	planks.nodes[node_name] = definition
+end
+
+--- @param node_name string       technical node name ("<mod>:<node>").
+--- @param title     string       will be added to description of nodes.
+--- @param hardness  number       how difficult to chop.
 --- @param craft     string|table node name to craft from, or table with own recipe.
+--- @param groups    table        additional or overwrite groups (default: {choppy = hardness, flammable = 3, wood = 1})
 local function register_planks(node_name, title, hardness, craft, groups)
 	title = title:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
@@ -12,12 +23,13 @@ local function register_planks(node_name, title, hardness, craft, groups)
 	minetest.register_node(node_name, {
 		description  = S(title .. " Planks"),
 		tiles        = { texture },
-		groups       = table.overwrite({ choppy = hardness, flammable = 3, wood = 1 }, groups or {}),
+		groups       = table.overwrite({ choppy = hardness, flammable = 3, wood = 1, planks = 1 }, groups or {}),
 		sounds       = default.node_sound_wood_defaults(),
 		paramtype2   = "facedir",
 		place_param2 = 0,
 	})
-	table.insert(planks.nodes, minetest.registered_nodes[node_name])
+
+	planks.nodes[node_name] = minetest.registered_nodes[node_name]
 
 	local stairs_subname = node_name:split(":")[2]
 	stairs.register_stair_and_slab(
@@ -47,6 +59,8 @@ end
 --- Also we use:
 ---  - Apple tree planks from MTG (default:wood)
 ---  - Jungle tree planks from MTG (default:junglewood)
+add_existing("default:wood")
+add_existing("default:junglewood")
 
 register_planks("lottplants:alderwood", "Alder", 2, "lottplants:aldertree")
 register_planks("lottplants:birchwood", "Birch", 3, "lottplants:birchtree")
