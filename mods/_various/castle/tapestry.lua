@@ -35,7 +35,7 @@ local tapestry_tops = {
 	{ "castle:tapestry_top_lebethron",  "lottblocks:stick_lebethron",  SL("Lebethron"), "lottplants_lebethronwood.png"},
 	{ "castle:tapestry_top_mallorn",    "lottblocks:stick_mallorn",    SL("Mallorn"),   "lottplants_mallornwood.png"  },
 	{ "castle:tapestry_top_pine",       "lottblocks:stick_pine",       SL("Pine"),      "lottplants_pinewood.png"     },
---	{ "castle:tapestry_top_fir",        "lottblocks:stick_fir",        SL("Fir"),       "lottplants_fir_wood.png"     },
+--	{ "castle:tapestry_top_fir",        "lottblocks:stick_fir",        SL("Fir"),       "lottplants_firwood.png"     },
 }
 for _, tapestry_top in pairs(tapestry_tops) do
 	register_tapestry_top(unpack(tapestry_top))
