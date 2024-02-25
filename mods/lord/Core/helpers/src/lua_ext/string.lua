@@ -71,6 +71,14 @@ function string.upper(str)
 end
 
 --- @param table table
+--- @return boolean
 function string:is_one_of(table)
 	return table_indexOf(table, self) ~= -1
 end
+
+--- @return string
+function string:first_to_upper()
+	return self:sub(1, 1):upper() .. self:sub(2)
+end
+
+string.replace = string.gsub
