@@ -346,7 +346,7 @@ minetest.register_craftitem("lord_homedecor:sticks", {
 minetest.register_alias("fakegrass", "lord_homedecor:fakegrass")
 minetest.register_alias("adobe", "lord_homedecor:Adobe")
 minetest.register_alias("building_blocks_roofing", "lord_homedecor:Roofing")
-minetest.register_alias("hardwood", "lord_homedecor:hardwood")
+minetest.register_alias("hardwood", "lottplants:hardwood")
 minetest.register_alias("sticks", "lord_homedecor:sticks")
 minetest.register_alias("lord_homedecor:faggot", "lord_homedecor:sticks")
 

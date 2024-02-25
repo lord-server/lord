@@ -150,9 +150,9 @@ lord_homedecor.banister_materials = {
 	{
 		"hardwood",
 		"hardwood",
-		"lottblocks_hardwood.png",
-		"lottblocks_hardwood.png",
-		"lord_homedecor:hardwood",
+		"lottplants_hardwood.png",
+		"lottplants_hardwood.png",
+		"lottplants:hardwood",
 		"lottblocks:stick_hardwood",
 		"",
 		"",

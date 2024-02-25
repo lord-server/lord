@@ -31,7 +31,7 @@ local tapestry_tops = {
 	{ "castle:tapestry_top_junglewood", "lottblocks:stick_junglewood", SL("Jungle Wood"),"default_junglewood.png"     },
 	{ "castle:tapestry_top_alder",      "lottblocks:stick_alder",      SL("Alder"),     "lottplants_alderwood.png"    },
 	{ "castle:tapestry_top_birch",      "lottblocks:stick_birch",      SL("Birch"),     "lottplants_birchwood.png"    },
-	{ "castle:tapestry_top_hardwood",   "lottblocks:stick_hardwood",   SL("Hardwood"),  "lottblocks_hardwood.png"     },
+	{ "castle:tapestry_top_hardwood",   "lottblocks:stick_hardwood",   SL("Hardwood"),  "lottplants_hardwood.png"     },
 	{ "castle:tapestry_top_lebethron",  "lottblocks:stick_lebethron",  SL("Lebethron"), "lottplants_lebethronwood.png"},
 	{ "castle:tapestry_top_mallorn",    "lottblocks:stick_mallorn",    SL("Mallorn"),   "lottplants_mallornwood.png"  },
 	{ "castle:tapestry_top_pine",       "lottblocks:stick_pine",       SL("Pine"),      "lottplants_pinewood.png"     },

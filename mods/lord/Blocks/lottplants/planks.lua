@@ -49,13 +49,14 @@ minetest.register_node("lottplants:mallornwood", {
 	place_param2 = 0,
 })
 
-minetest.register_node(":lord_homedecor:hardwood", {
-	tiles = {"lottblocks_hardwood.png"},
+minetest.register_node("lottplants:hardwood", {
+	tiles = {"lottplants_hardwood.png"},
 	is_ground_content = true,
 	description = S("Hardwood"),
-	groups = {choppy=1,flammable=1,wood=1},
+	groups = { choppy = 1, flammable = 1, wood = 1 },
 	sounds = default.node_sound_wood_defaults(),
 })
+minetest.register_alias("lord_homedecor:hardwood", "lottplants:hardwood")
 
 minetest.register_node("lottplants:firwood", {
 	description  = S("Fir Planks"),
@@ -150,9 +151,9 @@ stairs.register_stair_and_slab(
 
 stairs.register_stair_and_slab(
 	"hardwood",
-	"lord_homedecor:hardwood",
+	"lottplants:hardwood",
 	{choppy=1,flammable=1},
-	{"lottblocks_hardwood.png"},
+	{"lottplants_hardwood.png"},
 	S("Hardwood stair"),
 	S("Hardwood slab"),
 	default.node_sound_wood_defaults(),
@@ -216,14 +217,14 @@ minetest.register_craft({
 
 -- different craft for hardwood
 minetest.register_craft({
-	output = 'lord_homedecor:hardwood 2',
+	output = 'lottplants:hardwood 2',
 	recipe = {
 		{"default:wood", "default:junglewood"},
 		{"default:junglewood", "default:wood"},
 	}
 })
 minetest.register_craft({
-	output = 'lord_homedecor:hardwood 2',
+	output = 'lottplants:hardwood 2',
 	recipe = {
 		{"default:junglewood", "default:wood"},
 		{"default:wood", "default:junglewood"},
@@ -233,6 +234,6 @@ minetest.register_craft({
 -- hardwood burned slower
 minetest.register_craft({
 	type = "fuel",
-	recipe = "lord_homedecor:hardwood",
+	recipe = "lottplants:hardwood",
 	burntime = 28,
 })
