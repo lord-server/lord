@@ -38,7 +38,7 @@ local function register_planks(node_name, title, hardness, craft, groups)
 	stairs.register_stair_and_slab(
 		stairs_subname,
 		node_name,
-		{ snappy = 2, choppy = hardness, flammable = 3, wooden = 1 },
+		table.overwrite({ choppy = hardness, flammable = 3, wooden = 1 }, groups or {}),
 		{ texture },
 		S(title .. " Wood Stair"),
 		S(title .. " Wood Slab"),
