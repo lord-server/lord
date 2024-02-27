@@ -1156,7 +1156,7 @@ default.register_leafdecay({
 })
 
 --- @type lottplants.Planks_API
-_G.planks = dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/planks.lua')
+_G.planks = require('planks')
 
 --Lorien grass
 

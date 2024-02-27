@@ -1,8 +1,13 @@
+local mod_path    = minetest.get_modpath(minetest.get_current_modname())
+local old_require = require
+require           = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%.", "/") .. ".lua") end
+
+
 local S = minetest.get_translator("lottplants")
 
-dofile(minetest.get_modpath("lottplants").."/nodes.lua")
-dofile(minetest.get_modpath("lottplants").."/wild_food.lua")
-dofile(minetest.get_modpath("lottplants").."/flowers.lua")
+require("nodes")
+require("wild_crops")
+require("flowers")
 
 -- ===== GROWING TIME =====
 -- 67 11
@@ -66,7 +71,7 @@ WHICHA = 11
 YAVINT = 67
 YAVCHA = 11
 
-dofile(minetest.get_modpath("lottplants").."/functions.lua")
+require("functions")
 
 minetest.register_node("lottplants:brambles_of_mordor", {
 	description = S("Brambles Of Mordor"),
@@ -161,3 +166,6 @@ minetest.register_craftitem("lottplants:honey", {
 	inventory_image = "lottplants_honey.png",
 	on_use = minetest.item_eat(1),
 })
+
+
+require = old_require
