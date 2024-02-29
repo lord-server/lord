@@ -71,6 +71,12 @@
 	path = mods/_various/candles_3d
 	url = https://gitlab.com/lord-server/candles_3d.git
 	branch = lord
+[submodule "mods/_various/discord"]
+	path = mods/_various/discord
+	url = https://github.com/googolgl/lp_api
+[submodule "mods/_various/flowerpot"]
+	path = mods/_various/flowerpot
+	url = https://github.com/minetest-mods/flowerpot
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
@@ -80,6 +86,3 @@
 [submodule "mods/_various/WorldEdit"]
 	path = mods/_various/WorldEdit
 	url = https://github.com/Uberi/Minetest-WorldEdit.git
-[submodule "mods/_various/discord"]
-	path = mods/_various/discord
-	url = https://github.com/googolgl/lp_api
