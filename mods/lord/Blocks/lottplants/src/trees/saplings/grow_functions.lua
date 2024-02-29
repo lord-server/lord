@@ -683,18 +683,20 @@ function lottplants_smallmirktree(pos)
 		end
 	end
 	end
-
-
 end
 
--- SAPLINGS
 
+
+-- SAPLINGS
+-- ===== GROWING TIME =====
+local SAPLING_GROW_ABM_INTERVAL = 67
+local SAPLING_GROW_ABM_CHANCE   = 11
 -- Alders sapling / Ольха
 
 minetest.register_abm({
     nodenames = {"lottplants:aldersapling"},
-    interval = ALDINT,
-    chance = ALDCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -709,8 +711,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:applesapling"},
-    interval = APPINT,
-    chance = APPCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -725,8 +727,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:birchsapling"},
-    interval = BIRINT,
-    chance = BIRCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -741,8 +743,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:beechsapling"},
-    interval = BEEINT,
-    chance = BEECHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -757,8 +759,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:culumaldasapling"},
-    interval = CULINT,
-    chance = CULCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -773,8 +775,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:elmsapling"},
-    interval = ELMINT,
-    chance = ELMCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -789,8 +791,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:firsapling"},
-    interval = FIRINT,
-    chance = FIRCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -805,8 +807,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:lebethronsapling"},
-    interval = LEBINT,
-    chance = LEBCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -821,8 +823,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:mallornsapling"},
-    interval = MALINT,
-    chance = MALCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -843,8 +845,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:pinesapling"},
-    interval = PININT,
-    chance = PINCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -859,8 +861,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:plumsapling"},
-    interval = PLUINT,
-    chance = PLUCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -875,8 +877,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:rowansapling"},
-    interval = ROWINT,
-    chance = ROWCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -891,8 +893,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:whitesapling"},
-    interval = WHIINT,
-    chance = WHICHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -907,8 +909,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:yavannamiresapling"},
-    interval = YAVINT,
-    chance = YAVCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
@@ -923,8 +925,8 @@ minetest.register_abm({
 
 minetest.register_abm({
     nodenames = {"lottplants:mirksapling"},
-    interval = MIRINT,
-    chance = MIRCHA,
+    interval = SAPLING_GROW_ABM_INTERVAL,
+    chance = SAPLING_GROW_ABM_CHANCE,
     action = function(pos, node, active_object_count, active_object_count_wider)
 		if not default.can_grow(pos) then
 			return
