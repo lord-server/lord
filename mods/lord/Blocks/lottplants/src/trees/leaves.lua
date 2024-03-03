@@ -1,7 +1,8 @@
 local S = minetest.get_translator("lottplants")
 
 --- @overload fun(node_name:string, title:string)
---- @overload fun(node_name:string, title:string, additional_groups:table)
+--- @overload fun(node_name:string, title:string, groups:table)
+--- @overload fun(node_name:string, title:string, groups:table, sapling_or_drop:string|table)
 --- @param node_name       string technical node name ("<mod>:<node>").
 --- @param title           string for human; not translated description of node.
 --- @param groups          table  additional or overwrite groups (default: {choppy = hardness, flammable = 3, wood = 1})
