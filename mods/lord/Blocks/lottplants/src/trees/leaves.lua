@@ -22,6 +22,8 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 				{ items = { node_name }, }
 			}
 		}
+	-- bin/minetest --info 2>&1 | grep 'use texture'
+	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
 	minetest.register_node(node_name, {
 		description                = S(title),

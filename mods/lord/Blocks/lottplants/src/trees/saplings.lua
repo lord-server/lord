@@ -4,6 +4,8 @@ local S = minetest.get_translator("lottplants")
 local function register_sapling(node_name, title)
 	title         = title:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
+	-- bin/minetest --info 2>&1 | grep 'use texture'
+	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
 	minetest.register_node(node_name, {
 		description     = S(title),

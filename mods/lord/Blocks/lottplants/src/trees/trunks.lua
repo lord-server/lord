@@ -35,6 +35,9 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 	local tree_type             = node_name:split(":")[2]:replace("tree$", ""):replace("_young_$", "")
 	local is_young_registration = node_name:ends_with("_young_tree")
 	local title                 = (is_young_registration and "Young " or "") .. tree_type:first_to_upper() .. " Trunk"
+	-- bin/minetest --info 2>&1 | grep 'use texture'
+	minetest.log("info", "use texture: " .. texture_side .. " at " .. __FILE_LINE__())
+	minetest.log("info", "use texture: " .. texture_top .. " at " .. __FILE_LINE__())
 
 	local common_definition = table.merge({
 		description = S(title),
