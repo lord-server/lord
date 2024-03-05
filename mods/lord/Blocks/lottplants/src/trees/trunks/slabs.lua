@@ -15,7 +15,7 @@ stairs.register_slab(
 	"firtree",
 	"lottplants:firtree",
 	{ tree_slab = 1, choppy = 3, flammable = 2 },
-	{ "lottplants_fir_tree.png" },
+	{ "lottplants_firtree.png" },
 	S("Fir Trunk Slab"),
 	default.node_sound_wood_defaults(),
 	false

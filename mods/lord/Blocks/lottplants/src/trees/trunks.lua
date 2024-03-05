@@ -1,196 +1,86 @@
 local S = minetest.get_translator("lottplants")
 
 
--- сосна (pine
-minetest.register_node("lottplants:pinetrunk", {
-	description = S("Pine Trunk"),
-	tiles       = { "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:pinetree",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:pinetree", {
-	description = S("Pine Tree"),
-	tiles       = { "lottplants_pinetree_top.png", "lottplants_pinetree_top.png", "lottplants_pinetree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:pinetree", digger, 13, 2)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:pinetrunk")
-	end,
-})
-
--- ель (fir)
-minetest.register_node("lottplants:firtrunk", {
-	description = S("Fir Trunk"),
-	tiles       = { "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:firtree",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:firtree", {
-	description = S("Fir Tree"),
-	tiles       = { "lottplants_fir_tree_top.png", "lottplants_fir_tree_top.png", "lottplants_fir_tree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:firtree", digger, 13, 2)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:firtrunk")
-	end,
-})
-
-
--- берёза
-minetest.register_node("lottplants:birchtrunk", {
-	description = S("Birch Trunk"),
-	tiles       = { "lottplants_birchtree_top.png", "lottplants_birchtree_top.png", "lottplants_birchtree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:birchtree",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:birchtree", {
-	description = S("Birch Tree"),
-	tiles       = { "lottplants_birchtree_top.png", "lottplants_birchtree_top.png", "lottplants_birchtree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 3, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:birchtree", digger, 12, 3)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:birchtrunk")
-	end,
-})
-
--- ольха
-minetest.register_node("lottplants:aldertrunk", {
-	description = S("Alder Trunk"),
-	tiles       = { "lottplants_aldertree_top.png", "lottplants_aldertree_top.png", "lottplants_aldertree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:aldertree",
-	groups      = { tree = 1, choppy = 2, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:aldertree", {
-	description = S("Alder Tree"),
-	tiles       = { "lottplants_aldertree_top.png", "lottplants_aldertree_top.png", "lottplants_aldertree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 2, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:aldertree", digger, 10, 2)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:aldertrunk")
-	end,
-})
-
--- лебетрон
-minetest.register_node("lottplants:lebethrontrunk", {
-	description = S("Lebethron Trunk"),
-	tiles       = { "lottplants_lebethrontree_top.png", "lottplants_lebethrontree_top.png", "default_tree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:lebethrontree",
-	groups      = { tree = 1, choppy = 1, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:lebethrontree", {
-	description = S("Lebethron Tree"),
-	tiles       = { "lottplants_lebethrontree_top.png", "lottplants_lebethrontree_top.png", "default_tree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 1, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:lebethrontree", digger, 10, 2)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:lebethrontrunk")
-	end,
-})
-
--- маллорн
-minetest.register_node("lottplants:mallorntrunk", {
-	description = S("Mallorn Trunk"),
-	tiles       = { "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
-	paramtype2  = "facedir",
-	drop        = "lottplants:mallorntree",
-	groups      = { tree = 1, choppy = 1, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
-
-minetest.register_node("lottplants:mallorntree", {
-	description = S("Mallorn Tree"),
-	tiles       = { "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 1, flammable = 2 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:mallorntree", digger, 30, 5)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:mallorntrunk")
-	end,
-})
-
--- молодой маллорн
-minetest.register_node("lottplants:mallorntrunk_young", {
-	description = S("Young Mallorn Trunk"),
-	tiles       = { "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
-	drawtype    = "nodebox",
-	paramtype   = "light",
-	node_box    = {
+local young_tree_def_overwrite = {
+	drawtype  = "nodebox",
+	paramtype = "light",
+	node_box  = {
 		type  = "fixed",
 		fixed = {
 			{ -0.125, -0.5, -0.1875, 0.125, 0.5, 0.1875 },
 			{ -0.1875, -0.5, -0.125, 0.1875, 0.5, 0.125 },
 		},
 	},
-	paramtype2  = "facedir",
-	drop        = "lottplants:mallorntree_young",
-	groups      = { tree = 1, choppy = 1, flammable = 2, fuel = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_place    = minetest.rotate_node,
-})
+}
 
-minetest.register_node("lottplants:mallorntree_young", {
-	description = S("Young Mallorn Trее"),
-	tiles       = { "lottplants_mallorntree_top.png", "lottplants_mallorntree_top.png", "lottplants_mallorntree.png" },
-	drawtype    = "nodebox",
-	paramtype   = "light",
-	node_box    = {
-		type  = "fixed",
-		fixed = {
-			{ -0.125, -0.5, -0.1875, 0.125, 0.5, 0.1875 },
-			{ -0.1875, -0.5, -0.125, 0.1875, 0.5, 0.125 },
-		},
-	},
-	paramtype2  = "facedir",
-	groups      = { tree = 1, choppy = 1, flammable = 2, fuel = 1 },
-	sounds      = default.node_sound_wood_defaults(),
-	on_dig      = function(pos, node, digger)
-		default.dig_tree(pos, node, "lottplants:mallorntree_young", digger, 10, 1)
-	end,
-	on_place = function(itemstack, placer, pointed_thing)
-		return default.place_tree(itemstack, placer, pointed_thing, "lottplants:mallorntrunk_young")
-	end,
-})
+--- @class trees.young_tree_params
+--- @field tree_height   number
+--- @field leaves_radius number
+
+--- @overload fun(node_name, softness, tree_height, leaves_radius)
+--- @param node_name      string technical node name, which ends with 'tree' ("<mod>:<node>tree").
+--- @param softness       number how easy to chop this tree. Values [1..3].
+--- @param tree_height    number
+--- @param leaves_radius  number
+--- @param def_override   table|NodeDefinition|nil
+--- @param register_young table|trees.young_tree_params|nil
+local function register_trunk(node_name, softness, tree_height, leaves_radius, register_young, def_override)
+	assert(node_name:contains(":"))
+	assert(node_name:ends_with("tree"))
+	def_override   = def_override or {}
+	register_young = register_young or false
+	local texture_side          = node_name:replace(":", "_") .. ".png"
+	local texture_top           = node_name:replace(":", "_") .. "_top.png"
+	local placed_node_name      = node_name:replace("tree$", "trunk")
+	local tree_type             = node_name:split(":")[2]:replace("tree$", ""):replace("_young_$", "")
+	local is_young_registration = node_name:ends_with("_young_tree")
+	local title                 = (is_young_registration and "Young " or "") .. tree_type:first_to_upper() .. " Trunk"
+
+	local common_definition = table.merge({
+		description = S(title),
+		tiles       = { texture_top, texture_top, texture_side },
+		paramtype2  = "facedir",
+		drop        = node_name,
+		groups      = { tree = 1, choppy = softness, flammable = 2 },
+		sounds      = default.node_sound_wood_defaults(),
+		on_place    = minetest.rotate_node,
+	}, def_override)
+
+	-- Placed tree trunk (no affect to leaves decay)
+	minetest.register_node(placed_node_name, table.merge(common_definition, {
+		description = S("Placed " .. title),
+		drop        = node_name,
+		on_place    = minetest.rotate_node,
+	}))
+
+	-- Growing tree, also in inventory, uses for crafting, ...
+	minetest.register_node(node_name, table.merge(common_definition, {
+		on_dig      = function(pos, node, digger)
+			default.dig_tree(pos, node, node_name, digger, tree_height, leaves_radius)
+		end,
+		on_place = function(itemstack, placer, pointed_thing)
+			return default.place_tree(itemstack, placer, pointed_thing, placed_node_name)
+		end,
+	}))
+
+	if register_young then
+		register_trunk(
+			node_name:replace("tree$", "_young_tree"),
+			softness,
+			register_young.tree_height,
+			register_young.leaves_radius,
+			nil,
+			table.merge(young_tree_def_overwrite, {	tiles = { texture_top, texture_top, texture_side } })
+		)
+	end
+end
+
+register_trunk("lottplants:pinetree",      3, 13, 2)
+register_trunk("lottplants:firtree",       3, 13, 2)
+register_trunk("lottplants:birchtree",     3, 12, 3)
+register_trunk("lottplants:aldertree",     2, 10, 2)
+register_trunk("lottplants:lebethrontree", 1, 10, 2)
+register_trunk("lottplants:mallorntree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
+
+minetest.register_alias("lottplants:mallorntrunk_young", "lottplants:mallorn_young_trunk")
+minetest.register_alias("lottplants:mallorntree_young", "lottplants:mallorn_young_tree")
