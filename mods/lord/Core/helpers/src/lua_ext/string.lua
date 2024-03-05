@@ -81,4 +81,21 @@ function string:first_to_upper()
 	return self:sub(1, 1):upper() .. self:sub(2)
 end
 
+--- @param prefix string
+--- @return boolean
+function string:starts_with(prefix)
+	return self:sub(1, #prefix) == prefix
+end
+
+--- @param suffix string
+--- @return boolean
+function string:ends_with(suffix)
+	return self:sub(-#suffix) == suffix
+end
+
+--- @param sub_string string
+function string:contains(sub_string)
+	return self:find(sub_string, 1, true) ~= nil
+end
+
 string.replace = string.gsub
