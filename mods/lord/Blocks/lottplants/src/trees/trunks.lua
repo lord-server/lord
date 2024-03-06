@@ -1,6 +1,21 @@
 local S = minetest.get_translator("lottplants")
 
 
+local trunks = {
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
+	nodes = {}
+}
+
+--- @param node_name string technical node name ("<mod>:<node>").
+local function add_existing(node_name)
+	local definition = minetest.registered_nodes[node_name]
+	minetest.override_item(node_name, {
+		groups = table.overwrite(definition.groups, { tree = 1 }),
+	})
+	trunks.nodes[node_name] = definition
+end
+
+
 local young_tree_def_overwrite = {
 	drawtype  = "nodebox",
 	paramtype = "light",
@@ -66,6 +81,8 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 		end,
 	}))
 
+	trunks.nodes[node_name] = minetest.registered_nodes[node_name]
+
 	if register_young then
 		register_trunk(
 			node_name:replace("tree$", "_young_tree"),
@@ -87,3 +104,9 @@ register_trunk("lottplants:mallorntree",   1, 30, 5, { tree_height = 10, leaves_
 
 minetest.register_alias("lottplants:mallorntrunk_young", "lottplants:mallorn_young_trunk")
 minetest.register_alias("lottplants:mallorntree_young", "lottplants:mallorn_young_tree")
+
+return {
+	add_existing = add_existing,
+	register     = register_trunk,
+	get_nodes    = function() return trunks.nodes end
+}

@@ -1,6 +1,20 @@
 local S = minetest.get_translator("lottplants")
 
 
+local saplings = {
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
+	nodes = {}
+}
+
+--- @param node_name string technical node name ("<mod>:<node>").
+local function add_existing(node_name)
+	local definition = minetest.registered_nodes[node_name]
+	minetest.override_item(node_name, {
+		groups = table.overwrite(definition.groups, { sapling = 1 }),
+	})
+	saplings.nodes[node_name] = definition
+end
+
 local function register_sapling(node_name, title)
 	title         = title:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
@@ -25,6 +39,7 @@ local function register_sapling(node_name, title)
 		sounds          = default.node_sound_defaults(),
 	})
 
+	saplings.nodes[node_name] = minetest.registered_nodes[node_name]
 end
 
 register_sapling("lottplants:aldersapling", "Alder Sapling")
@@ -42,3 +57,9 @@ register_sapling("lottplants:rowansapling", "Rowan Sapling")
 register_sapling("lottplants:whitesapling", "White Tree Sapling")
 register_sapling("lottplants:yavannamiresapling", "Yavannamire Sapling")
 register_sapling("lottplants:mirksapling", "Mirkwood Sapling")
+
+return {
+	add_existing = add_existing,
+	register     = register_sapling,
+	get_nodes    = function() return saplings.nodes end
+}

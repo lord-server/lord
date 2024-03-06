@@ -1,5 +1,20 @@
 local S = minetest.get_translator("lottplants")
 
+
+local leaves = {
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
+	nodes = {}
+}
+
+--- @param node_name string technical node name ("<mod>:<node>").
+local function add_existing(node_name)
+	local definition = minetest.registered_nodes[node_name]
+	minetest.override_item(node_name, {
+		groups = table.overwrite(definition.groups, { leaves = 1 }),
+	})
+	leaves.nodes[node_name] = definition
+end
+
 --- @overload fun(node_name:string, title:string)
 --- @overload fun(node_name:string, title:string, groups:table)
 --- @overload fun(node_name:string, title:string, groups:table, sapling_or_drop:string|table)
@@ -45,10 +60,12 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 		drop                       = drop,
 		sounds                     = default.node_sound_leaves_defaults(),
 	})
+
+	leaves.nodes[node_name] = minetest.registered_nodes[node_name]
 end
 
 register_leaf("lottplants:alderleaf",     "Alder Leaf", { color_green = 1 }) -- also drops lottplants:aldersapling
-register_leaf("lottplants:appleleaf",     "Apple Leaf")
+register_leaf("lottplants:appleleaf",     "Apple Leaf", { color_green = 1 }) -- also drops lottplants:applesapling
 register_leaf("lottplants:birchleaf",     "Birch Leaf", { color_green = 1 }) -- also drops lottplants:birchsapling
 register_leaf("lottplants:beechleaf",     "Beech Leaf", { color_green = 1 }) -- drops lottplants:beechsapling
 register_leaf("lottplants:culumaldaleaf", "Culumalda Leaf", { color_red = 1 }) -- also drops lottplants:culumaldasapling
@@ -74,3 +91,9 @@ register_leaf("lottplants:whiteleaf",       "White", { color_white = 1 }) -- als
 register_leaf("lottplants:yavannamireleaf", "Yavannamire", { color_green = 1 }) -- drops lottplants:yavannamiresapling
 register_leaf("lottplants:mirkleaf",        "Mirkwood", { color_green = 1 }) -- also drops lottplants:mirksapling
 minetest.register_alias("lottmapgen:mirkleaves", "lottplants:mirkleaf")
+
+return {
+	add_existing = add_existing,
+	register     = register_leaf,
+	get_nodes    = function() return leaves.nodes end
+}
