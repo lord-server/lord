@@ -7,23 +7,34 @@ function add_tree_branch(pos,nodename)
 	end
 end
 
-function add_tree_trunk(pos,nodename)
+--- @param pos       Position
+--- @param node_name string
+local function add_trunk_node(pos, node_name)
 	local n = minetest.get_node(pos)
-	if (n.name=="air") or (string.find(n.name,"leaf"))  or (string.find(n.name,"sapling")) then
-		minetest.add_node(pos, {name=nodename})
+	if (n.name=="air") or (string.find(n.name,"leaf")) or (string.find(n.name,"sapling")) then
+		minetest.add_node(pos, {name= node_name })
+	end
+end
+
+--- @param pos       Position
+--- @param height    number
+--- @param node_name string
+local function add_trunk(pos, height, node_name)
+	for dy = 0, height do
+		add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z}, node_name)
 	end
 end
 
 -- Alders / Ольха
 
 function lottplants_aldertree(pos)
-	local t = 6 + math.random(2) -- trunk height
-	local r = 3
-	for j = 0, t do
-		add_tree_trunk({x = pos.x, y = pos.y + j, z = pos.z}, "lottplants:aldertree")
-	end
-	for j = t - 2, t do
-		if j == t or j == t - 2 then
+	local height = 6 + math.random(2)
+	local r      = 3
+
+	add_trunk(pos, height, "lottplants:aldertree")
+
+	for j = height - 2, height do
+		if j == height or j == height - 2 then
 			for i = -r, r do
 				for k = -r, r do
 					local absi = math.abs(i)
@@ -46,13 +57,13 @@ end
 -- Apple tree / Яблоня
 
 function lottplants_appletree(pos)
-	local t = 3 + math.random(2) -- trunk height
-	local r = 3
-	for j = 0, t do
-		add_tree_trunk({x = pos.x, y = pos.y + j, z = pos.z}, "default:tree")
-	end
-	for j = t - 2, t do
-		if j == t or j == t - 2 then
+	local height = 3 + math.random(2)
+	local r      = 3
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height - 2, height do
+		if j == height or j == height - 2 then
 			for i = -r, r do
 				for k = -r, r do
 					local absi = math.abs(i)
@@ -78,13 +89,12 @@ end
 -- Birches / Береза
 
 function lottplants_birchtree(pos)
-	local t = 7 + math.random(5) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:birchtree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:birchtree")
-	end
+	local height = 7 + math.random(5)
+
+	add_trunk(pos, height, "lottplants:birchtree")
+
 	local j
-	j = math.floor(t * 0.4)
+	j = math.floor(height * 0.4)
 	for i = -3, 3 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -95,7 +105,7 @@ function lottplants_birchtree(pos)
 	end
 	end
 
-	j = math.floor(t * 0.6)
+	j = math.floor(height * 0.6)
 	for i = -2, 2 do
 	for k = -3, 3 do
 		local absi = math.abs(i)
@@ -106,7 +116,7 @@ function lottplants_birchtree(pos)
 	end
 	end
 
-	j = math.floor(t * 0.8)
+	j = math.floor(height * 0.8)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -117,7 +127,7 @@ function lottplants_birchtree(pos)
 	end
 	end
 
-	j = t
+	j = height
 	for i = -2, 2 do
 	for k = -1, 1 do
 		local absi = math.abs(i)
@@ -133,20 +143,19 @@ end
 -- Beeches / Бук
 
 function lottplants_beechtree(pos)
-	local t = 10 + math.random(3) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
+	local height = 10 + math.random(3)
+
+	add_trunk(pos, height, "default:tree")
+
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
 		local j
 		if absi >= absk then
-			j = t - absi
+			j = height - absi
 		else
-			j = t - absk
+			j = height - absk
 		end
 		if math.random() > (absi + absk) / 24 then
 		    add_tree_branch({x=pos.x+i,y=pos.y+j+7,z=pos.z+k},"lottplants:beechleaf")
@@ -183,13 +192,12 @@ end
 -- Culumalda
 
 function lottplants_culumaldatree(pos)
-	local t = 4 + math.random(2) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
-	for j = t-2, t do
-		if j == t or j == t - 2 then
+	local height = 4 + math.random(2)
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height -2, height do
+		if j == height or j == height - 2 then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -209,14 +217,12 @@ end
 -- Elms / Вяз
 
 function lottplants_elmtree(pos)
-	local t = 20 + math.random(5) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
+	local height = 20 + math.random(5)
+
+	add_trunk(pos, height, "default:tree")
 
 	local j
-	j = math.floor(t * 0.4)
+	j = math.floor(height * 0.4)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -227,7 +233,7 @@ function lottplants_elmtree(pos)
 	end
 	end
 
-	j = math.floor(t * 0.7)
+	j = math.floor(height * 0.7)
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -238,7 +244,7 @@ function lottplants_elmtree(pos)
 	end
 	end
 
-	j = t
+	j = height
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
@@ -254,12 +260,9 @@ end
 -- Firs / Ель
 
 function lottplants_firtree(pos)
-	local t = 10 + math.random(3) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:firtree"}) -- заменяем саженец на ствол
+	local height = 10 + math.random(3)
 
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:firtree")
-	end
+	add_trunk(pos, height, "lottplants:firtree")
 
 	for i = -2, 2 do
 	for k = -2, 2 do
@@ -267,9 +270,9 @@ function lottplants_firtree(pos)
 		local absk = math.abs(k)
 		local j
 		if absi >= absk then
-			j = t - absi
+			j = height - absi
 		else
-			j = t - absk
+			j = height - absk
 		end
 		if math.random() > (absi + absk) / 24 then
 			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:firleaf")
@@ -296,13 +299,12 @@ end
 -- Lebethron
 
 function lottplants_lebethrontree(pos)
-	local t = 3 + math.random(1) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:lebethrontree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:lebethrontree")
-	end
-	for j = 1, t do
-		if j == math.floor(t * 0.7) or j == t then
+	local height = 3 + math.random(1)
+
+	add_trunk(pos, height, "lottplants:lebethrontree")
+
+	for j = 1, height do
+		if j == math.floor(height * 0.7) or j == height then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -319,7 +321,7 @@ end
 -- Mallorn
 
 function add_tree_branch_mallorn(pos)
-	add_tree_trunk(pos, "lottplants:mallorntree")
+	add_trunk_node(pos, "lottplants:mallorntree")
 	for i = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 		for k = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 			local p = {x=pos.x+i, y=pos.y, z=pos.z+k}
@@ -339,7 +341,7 @@ function lottplants_mallorntree(pos)
 		if height < 10 then
 			for i = height, 0, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
-				add_tree_trunk(p,"lottplants:mallorntree")
+				add_trunk_node(p,"lottplants:mallorntree")
 				if i == height then
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+height+math.random(0, 1), z=pos.z})
 					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z})
@@ -348,10 +350,10 @@ function lottplants_mallorntree(pos)
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1})
 				end
 				if i < 0 then
-					add_tree_trunk({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x+1, y =pos.y+i-math.random(2), z =pos.z},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x, y =pos.y+i-math.random(2), z =pos.z+1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x-1, y =pos.y+i-math.random(2), z =pos.z},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x, y =pos.y+i-math.random(2), z =pos.z-1},"lottplants:mallorntree")
 				end
 				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
 					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
@@ -365,10 +367,10 @@ function lottplants_mallorntree(pos)
 					add_tree_branch_mallorn(branch_pos)
 				end
 				if i < math.random(0,1) then
-					add_tree_trunk({x=pos.x+1, y=pos.y+i, z=pos.z+1},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x+2, y=pos.y+i, z=pos.z-1},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x, y=pos.y+i, z=pos.z-2},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x-1, y=pos.y+i, z=pos.z},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z+1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x+2, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z-2},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x-1, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
 				end
 				if i == height then
 					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z+1})
@@ -384,21 +386,22 @@ function lottplants_mallorntree(pos)
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z-1})
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z})
 				else
-					add_tree_trunk({x=pos.x+1, y=pos.y+i, z=pos.z},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x+1, y=pos.y+i, z=pos.z-1},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x, y=pos.y+i, z=pos.z-1},"lottplants:mallorntree")
-					add_tree_trunk({x=pos.x, y=pos.y+i, z=pos.z},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
+					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
 				end
 			end
 		end
 end
 
 function lottplants_smallmallorntree(pos)
-	for j = 0, 15 do
-		add_tree_trunk({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:mallorntree")
-	end
-	for j = 11, 15 do
-		if j == 11 or j == 15 then
+	local height = 15
+
+	add_trunk(pos, height, "lottplants:mallorntree")
+
+	for j = 11, height do
+		if j == 11 or j == height then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -413,13 +416,12 @@ function lottplants_smallmallorntree(pos)
 end
 
 function lottplants_young_mallorn(pos)
-	local t = 6 + math.random(1) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:mallorntree_young"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:mallorntree_young")
-	end
-	for j = t-2, t do
-		if j == t or j == t - 2 then
+	local height = 6 + math.random(1)
+
+	add_trunk(pos, height, "lottplants:mallorntree_young")
+
+	for j = height -2, height do
+		if j == height or j == height - 2 then
 			for i = -1, 1 do
 			for k = -1, 1 do
 				local absi = math.abs(i)
@@ -436,20 +438,19 @@ end
 -- Pines / Сосна
 
 function lottplants_pinetree(pos)
-	local t = 10 + math.random(3) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="lottplants:pinetree"}) -- заменяем саженец на ствол
-	for j = 0, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"lottplants:pinetree")
-	end
+	local height = 10 + math.random(3)
+
+	add_trunk(pos, height, "lottplants:pinetree")
+
 	for i = -2, 2 do
 	for k = -2, 2 do
 		local absi = math.abs(i)
 		local absk = math.abs(k)
 		local j
 		if absi >= absk then
-			j = t - absi
+			j = height - absi
 		else
-			j = t - absk
+			j = height - absk
 		end
 		if math.random() > (absi + absk) / 24 then
 			add_tree_branch({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},"lottplants:pineleaf")
@@ -463,13 +464,12 @@ end
 -- Plum Trees / Слива
 
 function lottplants_plumtree(pos)
-	local t = 4 + math.random(2) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 1, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
-	for j = t-2, t do
-		if j == t or j == t - 2 then
+	local height = 4 + math.random(2)
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height -2, height do
+		if j == height or j == height - 2 then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -490,13 +490,12 @@ end
 -- Rowans / Рябина
 
 function lottplants_rowantree(pos)
-	local t = 6 + math.random(2) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 1, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
-	for j = t-4, t do
-		if j == t-4 or j == t then
+	local height = 6 + math.random(2)
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height -4, height do
+		if j == height -4 or j == height then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				if math.random(3) ~= 2 then
@@ -521,13 +520,12 @@ end
 -- White Tree / Белое дерево
 
 function lottplants_whitetree(pos)
-	local t = 4 + math.random(2) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 1, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
-	for j = t-2, t do
-		if j == t or j == t - 2 then
+	local height = 4 + math.random(2)
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height -2, height do
+		if j == height or j == height - 2 then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -544,13 +542,12 @@ end
 -- Yavannamire / Йаванамирэ
 
 function lottplants_yavannamiretree(pos)
-	local t = 4 + math.random(2) -- trunk height
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:tree"}) -- заменяем саженец на ствол
-	for j = 1, t do
-		add_tree_branch({x=pos.x,y=pos.y+j,z=pos.z},"default:tree")
-	end
-	for j = t-2, t do
-		if j == t or j == t - 2 then
+	local height = 4 + math.random(2)
+
+	add_trunk(pos, height, "default:tree")
+
+	for j = height -2, height do
+		if j == height or j == height - 2 then
 			for i = -2, 2 do
 			for k = -2, 2 do
 				local absi = math.abs(i)
@@ -570,7 +567,7 @@ end
 --Mirk large / Большое дерево Лихолесья
 
 function add_tree_branch_mirktree(pos)
-	add_tree_trunk(pos, "default:jungletree")
+	add_trunk_node(pos, "default:jungletree")
 	for i = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 		for k = math.floor(math.random(2)), -math.floor(math.random(2)), -1 do
 			local p = {x=pos.x+i, y=pos.y, z=pos.z+k}
