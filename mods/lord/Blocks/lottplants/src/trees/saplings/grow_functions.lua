@@ -336,63 +336,40 @@ function add_tree_branch_mallorn(pos)
 end
 
 function lottplants_mallorntree(pos)
-    local height = 25 + math.random(5)
-	minetest.add_node(pos,{name="lottplants:mallorntree"}) -- заменяем саженец на ствол
-		if height < 10 then
-			for i = height, 0, -1 do
-				local p = {x=pos.x, y=pos.y+i, z=pos.z}
-				add_trunk_node(p,"lottplants:mallorntree")
-				if i == height then
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+height+math.random(0, 1), z=pos.z})
-					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z})
-					add_tree_branch_mallorn({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1})
-				end
-				if i < 0 then
-					add_trunk_node({ x =pos.x+1, y =pos.y+i-math.random(2), z =pos.z},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x, y =pos.y+i-math.random(2), z =pos.z+1},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x-1, y =pos.y+i-math.random(2), z =pos.z},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x, y =pos.y+i-math.random(2), z =pos.z-1},"lottplants:mallorntree")
-				end
-				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
-					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
-					add_tree_branch_mallorn(branch_pos)
-				end
-			end
-		else
-			for i = height, 0, -1 do
-				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
-					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
-					add_tree_branch_mallorn(branch_pos)
-				end
-				if i < math.random(0,1) then
-					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z+1},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x+2, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z-2},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x-1, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
-				end
-				if i == height then
-					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z+1})
-					add_tree_branch_mallorn({x=pos.x+2, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z-2})
-					add_tree_branch_mallorn({x=pos.x-1, y=pos.y+i, z=pos.z})
-					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z+2})
-					add_tree_branch_mallorn({x=pos.x+3, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z-3})
-					add_tree_branch_mallorn({x=pos.x-2, y=pos.y+i, z=pos.z})
-					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z})
-					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z})
-				else
-					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x+1, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z-1},"lottplants:mallorntree")
-					add_trunk_node({ x =pos.x, y =pos.y+i, z =pos.z},"lottplants:mallorntree")
-				end
-			end
+	local height = 25 + math.random(5)
+	minetest.add_node(pos, { name = "lottplants:mallorntree" }) -- заменяем саженец на ствол
+
+	for i = height, 0, -1 do
+		if (math.sin(i / height * i) < 0.2 and i > 3 and math.random(0, 2) < 1.5) then
+			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + i, z = pos.z - math.random(0, 1) }
+			add_tree_branch_mallorn(branch_pos)
 		end
+		if i < math.random(0, 1) then
+			add_trunk_node({ x = pos.x + 1, y = pos.y + i, z = pos.z + 1 }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x + 2, y = pos.y + i, z = pos.z - 1 }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x, y = pos.y + i, z = pos.z - 2 }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x - 1, y = pos.y + i, z = pos.z }, "lottplants:mallorntree")
+		end
+		if i == height then
+			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + i, z = pos.z + 1 })
+			add_tree_branch_mallorn({ x = pos.x + 2, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mallorn({ x = pos.x, y = pos.y + i, z = pos.z - 2 })
+			add_tree_branch_mallorn({ x = pos.x - 1, y = pos.y + i, z = pos.z })
+			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + i, z = pos.z + 2 })
+			add_tree_branch_mallorn({ x = pos.x + 3, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mallorn({ x = pos.x, y = pos.y + i, z = pos.z - 3 })
+			add_tree_branch_mallorn({ x = pos.x - 2, y = pos.y + i, z = pos.z })
+			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + i, z = pos.z })
+			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mallorn({ x = pos.x, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mallorn({ x = pos.x, y = pos.y + i, z = pos.z })
+		else
+			add_trunk_node({ x = pos.x + 1, y = pos.y + i, z = pos.z }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x + 1, y = pos.y + i, z = pos.z - 1 }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x, y = pos.y + i, z = pos.z - 1 }, "lottplants:mallorntree")
+			add_trunk_node({ x = pos.x, y = pos.y + i, z = pos.z }, "lottplants:mallorntree")
+		end
+	end
 end
 
 function lottplants_smallmallorntree(pos)
@@ -588,63 +565,39 @@ function add_tree_branch_mirktree(pos)
 end
 
 function lottplants_mirktree(pos)
-	minetest.add_node({x=pos.x,y=pos.y,z=pos.z},{name="default:jungletree"}) -- заменяем саженец на ствол
-    local height = 5 + math.random(1)
-		if height < 1 then
-			for i = height, 0, -1 do
-				local p = {x=pos.x, y=pos.y+i, z=pos.z}
-				add_tree_branch(p,"default:jungletree")
-				if i == height then
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+height+math.random(0, 1), z=pos.z})
-					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z})
-					add_tree_branch_mirktree({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1})
-				end
-				if i < 0 then
-					add_tree_branch({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z},"default:jungletree")
-					add_tree_branch({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1},"default:jungletree")
-					add_tree_branch({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z},"default:jungletree")
-					add_tree_branch({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1},"default:jungletree")
-				end
-				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
-					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
-					add_tree_branch_mirktree(branch_pos)
-				end
-			end
-		else
-			for i = height, 0, -1 do
-				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
-					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
-					add_tree_branch_mirktree(branch_pos)
-				end
-				if i < math.random(0,1) then
-					add_tree_branch({x=pos.x+1, y=pos.y+i, z=pos.z+1},"default:jungletree")
-					add_tree_branch({x=pos.x+2, y=pos.y+i, z=pos.z-1},"default:jungletree")
-					add_tree_branch({x=pos.x, y=pos.y+i, z=pos.z-2},"default:jungletree")
-					add_tree_branch({x=pos.x-1, y=pos.y+i, z=pos.z},"default:jungletree")
-				end
-				if i == height then
-					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i, z=pos.z+1})
-					add_tree_branch_mirktree({x=pos.x+2, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z-2})
-					add_tree_branch_mirktree({x=pos.x-1, y=pos.y+i, z=pos.z})
-					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i, z=pos.z+2})
-					add_tree_branch_mirktree({x=pos.x+3, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z-3})
-					add_tree_branch_mirktree({x=pos.x-2, y=pos.y+i, z=pos.z})
-					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i, z=pos.z})
-					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z-1})
-					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z})
-				else
-					add_tree_branch({x=pos.x+1, y=pos.y+i, z=pos.z},"default:jungletree")
-					add_tree_branch({x=pos.x+1, y=pos.y+i, z=pos.z-1},"default:jungletree")
-					add_tree_branch({x=pos.x, y=pos.y+i, z=pos.z-1},"default:jungletree")
-					add_tree_branch({x=pos.x, y=pos.y+i, z=pos.z},"default:jungletree")
-				end
-			end
+	minetest.add_node({ x = pos.x, y = pos.y, z = pos.z }, { name = "default:jungletree" }) -- заменяем саженец на ствол
+	local height = 5 + math.random(1)
+	for i = height, 0, -1 do
+		if (math.sin(i / height * i) < 0.2 and i > 3 and math.random(0, 2) < 1.5) then
+			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + i, z = pos.z - math.random(0, 1) }
+			add_tree_branch_mirktree(branch_pos)
 		end
+		if i < math.random(0, 1) then
+			add_tree_branch({ x = pos.x + 1, y = pos.y + i, z = pos.z + 1 }, "default:jungletree")
+			add_tree_branch({ x = pos.x + 2, y = pos.y + i, z = pos.z - 1 }, "default:jungletree")
+			add_tree_branch({ x = pos.x, y = pos.y + i, z = pos.z - 2 }, "default:jungletree")
+			add_tree_branch({ x = pos.x - 1, y = pos.y + i, z = pos.z }, "default:jungletree")
+		end
+		if i == height then
+			add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + i, z = pos.z + 1 })
+			add_tree_branch_mirktree({ x = pos.x + 2, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mirktree({ x = pos.x, y = pos.y + i, z = pos.z - 2 })
+			add_tree_branch_mirktree({ x = pos.x - 1, y = pos.y + i, z = pos.z })
+			add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + i, z = pos.z + 2 })
+			add_tree_branch_mirktree({ x = pos.x + 3, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mirktree({ x = pos.x, y = pos.y + i, z = pos.z - 3 })
+			add_tree_branch_mirktree({ x = pos.x - 2, y = pos.y + i, z = pos.z })
+			add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + i, z = pos.z })
+			add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mirktree({ x = pos.x, y = pos.y + i, z = pos.z - 1 })
+			add_tree_branch_mirktree({ x = pos.x, y = pos.y + i, z = pos.z })
+		else
+			add_tree_branch({ x = pos.x + 1, y = pos.y + i, z = pos.z }, "default:jungletree")
+			add_tree_branch({ x = pos.x + 1, y = pos.y + i, z = pos.z - 1 }, "default:jungletree")
+			add_tree_branch({ x = pos.x, y = pos.y + i, z = pos.z - 1 }, "default:jungletree")
+			add_tree_branch({ x = pos.x, y = pos.y + i, z = pos.z }, "default:jungletree")
+		end
+	end
 end
 
 --Mirk Small / Малое дерево Лихолесья
