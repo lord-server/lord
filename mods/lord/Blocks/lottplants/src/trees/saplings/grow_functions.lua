@@ -39,6 +39,16 @@ local function add_crown_at(sapling_pos, add_at_dy, radius, node_name)
 	end
 end
 
+--- @param abs_dx number how far the current leaf from trunk by x coordinate
+--- @param abs_dz number how far the current leaf from trunk by z coordinate
+--- @param radius number crown radius
+local function is_crown_corners(abs_dx, abs_dz, radius)
+	return
+		(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2) or
+		(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
+end
+
+
 -- Alders / Ольха
 
 function lottplants_aldertree(pos)
@@ -53,11 +63,7 @@ function lottplants_aldertree(pos)
 				for dz = -radius, radius do
 					local abs_dx = math.abs(dx)
 					local abs_dz = math.abs(dz)
-					if not (
-						(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2)
-							or
-							(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
-					) then
+					if not is_crown_corners(abs_dx, abs_dz, radius) then
 						if math.random() > (abs_dx + abs_dz) / 24 then
 							add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:alderleaf")
 						end
@@ -82,10 +88,7 @@ function lottplants_appletree(pos)
 				for dz = -radius, radius do
 					local abs_dx = math.abs(dx)
 					local abs_dz = math.abs(dz)
-					if not (
-						(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2) or
-						(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
-					) then
+					if not is_crown_corners(abs_dx, abs_dz, radius) then
 						if math.random() > (abs_dx + abs_dz) / 12 then
 							add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "default:apple")
 						end
