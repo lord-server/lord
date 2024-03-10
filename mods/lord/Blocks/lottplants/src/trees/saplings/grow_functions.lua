@@ -1,6 +1,6 @@
 -- TREE FUNCTIONS
 
-function add_leaf_node(pos, node_name)
+local function add_leaf_node(pos, node_name)
 	local n = minetest.get_node(pos)
 	if (n.name == "air") then
 		minetest.add_node(pos, { name = node_name })
@@ -22,6 +22,20 @@ end
 local function add_trunk(pos, height, node_name)
 	for dy = 0, height do
 		add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z }, node_name)
+	end
+end
+
+local function add_crown_at(sapling_pos, add_at_dy, radius, node_name)
+	local radius_x = type(radius) == "table" and radius[1] or radius
+	local radius_z = type(radius) == "table" and radius[2] or radius
+	for dx = -radius_x, radius_x do
+		for dz = -radius_z, radius_z do
+			local abs_dx = math.abs(dx)
+			local abs_dz = math.abs(dz)
+			if math.random() > (abs_dx + abs_dz) / 24 then
+				add_leaf_node(vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz)), node_name)
+			end
+		end
 	end
 end
 
@@ -94,49 +108,16 @@ function lottplants_birchtree(pos)
 
 	local dy
 	dy = math.floor(height * 0.4)
-	for dx = -3, 3 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:birchleaf")
-			end
-		end
-	end
+	add_crown_at(pos, dy, {3,2}, "lottplants:birchleaf")
 
 	dy = math.floor(height * 0.6)
-	for dx = -2, 2 do
-		for dz = -3, 3 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:birchleaf")
-			end
-		end
-	end
+	add_crown_at(pos, dy, {2,3}, "lottplants:birchleaf")
 
 	dy = math.floor(height * 0.8)
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:birchleaf")
-			end
-		end
-	end
+	add_crown_at(pos, dy, {2,2}, "lottplants:birchleaf")
 
 	dy = height
-	for dx = -2, 2 do
-		for dz = -1, 1 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:birchleaf")
-			end
-		end
-	end
-
+	add_crown_at(pos, dy, {2,1}, "lottplants:birchleaf")
 end
 
 -- Beeches / Бук
@@ -222,38 +203,13 @@ function lottplants_elmtree(pos)
 
 	local dy
 	dy = math.floor(height * 0.4)
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:elmleaf")
-			end
-		end
-	end
+	add_crown_at(pos, dy, 2, "lottplants:elmleaf")
 
 	dy = math.floor(height * 0.7)
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:elmleaf")
-			end
-		end
-	end
+	add_crown_at(pos, dy, 2, "lottplants:elmleaf")
 
 	dy = height
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:elmleaf")
-			end
-		end
-	end
-
+	add_crown_at(pos, dy, 2, "lottplants:elmleaf")
 end
 
 -- Firs / Ель
@@ -304,15 +260,7 @@ function lottplants_lebethrontree(pos)
 
 	for dy = 1, height do
 		if dy == math.floor(height * 0.7) or dy == height then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:lebethronleaf")
-					end
-				end
-			end
+			add_crown_at(pos, dy, 2, "lottplants:lebethronleaf")
 		end
 	end
 end
@@ -378,15 +326,7 @@ function lottplants_smallmallorntree(pos)
 
 	for dy = 11, height do
 		if dy == 11 or dy == height then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:mallornleaf")
-					end
-				end
-			end
+			add_crown_at(pos, dy, 2, "lottplants:mallornleaf")
 		end
 	end
 end
@@ -398,15 +338,7 @@ function lottplants_young_mallorn(pos)
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -1, 1 do
-				for dz = -1, 1 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:mallornleaf")
-					end
-				end
-			end
+			add_crown_at(pos, dy, 1, "lottplants:mallornleaf")
 		end
 	end
 end
@@ -502,15 +434,7 @@ function lottplants_whitetree(pos)
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:whiteleaf")
-					end
-				end
-			end
+			add_crown_at(pos, dy, 2, "lottplants:whiteleaf")
 		end
 	end
 end
