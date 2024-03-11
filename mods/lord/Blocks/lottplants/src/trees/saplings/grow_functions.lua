@@ -19,9 +19,15 @@ end
 --- @param pos       Position
 --- @param height    number
 --- @param node_name string
-local function add_trunk(pos, height, node_name)
+--- @param thickness number|nil default:1
+local function add_trunk(pos, height, node_name, thickness)
+	thickness = thickness or 1
 	for dy = 0, height do
-		add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z }, node_name)
+		for dx = 0, thickness - 1 do
+			for dz = 0, thickness - 1 do
+				add_trunk_node({ x = pos.x + dx, y = pos.y + dy, z = pos.z + dz }, node_name)
+			end
+		end
 	end
 end
 
@@ -295,7 +301,8 @@ end
 
 function lottplants_mallorntree(pos)
 	local height = 25 + math.random(5)
-	add_trunk_node(pos, "lottplants:mallorntree") -- заменяем саженец на ствол
+
+	add_trunk(pos, height, "lottplants:mallorntree", 2)
 
 	for dy = height, 0, -1 do
 		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
@@ -321,11 +328,6 @@ function lottplants_mallorntree(pos)
 			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mallorn({ x = pos.x, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mallorn({ x = pos.x, y = pos.y + dy, z = pos.z })
-		else
-			add_trunk_node({ x = pos.x + 1, y = pos.y + dy, z = pos.z }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x + 1, y = pos.y + dy, z = pos.z - 1 }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z - 1 }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z }, "lottplants:mallorntree")
 		end
 	end
 end
@@ -471,8 +473,10 @@ function add_tree_branch_mirktree(pos)
 end
 
 function lottplants_mirktree(pos)
-	add_trunk_node(pos, "default:jungletree") -- заменяем саженец на ствол
 	local height = 5 + math.random(1)
+
+	add_trunk(pos, height, "default:jungletree", 2)
+
 	for dy = height, 0, -1 do
 		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
 			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z - math.random(0, 1) }
@@ -497,11 +501,6 @@ function lottplants_mirktree(pos)
 			add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mirktree({ x = pos.x, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mirktree({ x = pos.x, y = pos.y + dy, z = pos.z })
-		else
-			add_trunk_node({ x = pos.x + 1, y = pos.y + dy, z = pos.z }, "default:jungletree")
-			add_trunk_node({ x = pos.x + 1, y = pos.y + dy, z = pos.z - 1 }, "default:jungletree")
-			add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z - 1 }, "default:jungletree")
-			add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z }, "default:jungletree")
 		end
 	end
 end
