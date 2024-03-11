@@ -25,20 +25,6 @@ local function add_trunk(pos, height, node_name)
 	end
 end
 
-local function add_crown_at(sapling_pos, add_at_dy, radius, node_name)
-	local radius_x = type(radius) == "table" and radius[1] or radius
-	local radius_z = type(radius) == "table" and radius[2] or radius
-	for dx = -radius_x, radius_x do
-		for dz = -radius_z, radius_z do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node(vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz)), node_name)
-			end
-		end
-	end
-end
-
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
 --- @param abs_dz number how far the current leaf from trunk by z coordinate
 --- @param radius number crown radius
@@ -46,6 +32,48 @@ local function is_crown_corners(abs_dx, abs_dz, radius)
 	return
 		(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2) or
 		(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
+end
+
+--- @class tree.crown.Properties
+--- @field no_leaves_on_corners boolean
+
+--- @param sapling_pos Position where tree trunk starts (or where sapling was).
+--- @param add_at_dy   number   height where crown to add at.
+--- @param radius      number   radius of whole crown. Or table with {radius_x, radius_z}.
+--- @param node_name   string   technical name of leaf or table with name & name of alternative leaf or fruit.
+--- @param properties  tree.crown.Properties additional properties of crown placement.
+local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, properties)
+	local radius_x = type(radius) == "table" and radius[1] or radius
+	local radius_z = type(radius) == "table" and radius[2] or radius
+	radius = (radius_x + radius_z) / 2
+
+	local alternative_node_name
+	alternative_node_name = type(node_name) == "table" and node_name[2] or nil
+	node_name             = type(node_name) == "table" and node_name[1] or node_name
+
+	properties = properties or {}
+	properties.no_leaves_on_corners = properties.no_leaves_on_corners or false
+
+	for dx = -radius_x, radius_x do
+		for dz = -radius_z, radius_z do repeat -- this `repeat` is for continue statement below
+			local abs_dx = math.abs(dx)
+			local abs_dz = math.abs(dz)
+			if properties.no_leaves_on_corners and is_crown_corners(abs_dx, abs_dz, radius) then
+				break -- continue (breaks only `repeat` statement, not `for`)
+			end
+
+			if math.random() > (abs_dx + abs_dz) / 24 then
+				local position = vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz))
+				add_leaf_node(position, node_name)
+			end
+			if alternative_node_name then
+				if math.random() > (abs_dx + abs_dz) / 12 then
+					local position = vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz))
+					add_leaf_node(position, alternative_node_name)
+				end
+			end
+		until true end
+	end
 end
 
 
@@ -59,17 +87,7 @@ function lottplants_aldertree(pos)
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -radius, radius do
-				for dz = -radius, radius do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if not is_crown_corners(abs_dx, abs_dz, radius) then
-						if math.random() > (abs_dx + abs_dz) / 24 then
-							add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:alderleaf")
-						end
-					end
-				end
-			end
+			add_crown_at(pos, dy, radius, "lottplants:alderleaf", { no_leaves_on_corners = true })
 		end
 	end
 end
@@ -176,23 +194,13 @@ end
 
 function lottplants_culumaldatree(pos)
 	local height = 4 + math.random(2)
+	local radius = 2
 
 	add_trunk(pos, height, "default:tree")
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:culumaldaleaf")
-					end
-					if math.random() > (abs_dx + abs_dz) / 12 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:yellowflowers")
-					end
-				end
-			end
+			add_crown_at(pos, dy, radius, { "lottplants:culumaldaleaf", "lottplants:yellowflowers" })
 		end
 	end
 end
@@ -376,23 +384,13 @@ end
 
 function lottplants_plumtree(pos)
 	local height = 4 + math.random(2)
+	local radius = 2
 
 	add_trunk(pos, height, "default:tree")
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:plumleaf")
-					end
-					if math.random() > (abs_dx + abs_dz) / 12 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:plum")
-					end
-				end
-			end
+			add_crown_at(pos, dy, radius, { "lottplants:plumleaf", "lottplants:plum" })
 		end
 	end
 end
@@ -446,29 +444,13 @@ end
 
 function lottplants_yavannamiretree(pos)
 	local height = 4 + math.random(2)
+	local radius = 2
 
 	add_trunk(pos, height, "default:tree")
 
 	for dy = height - 2, height do
 		if dy == height or dy == height - 2 then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if math.random() > (abs_dx + abs_dz) / 24 then
-						add_leaf_node(
-							{ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz },
-							"lottplants:yavannamireleaf"
-						)
-					end
-					if math.random() > (abs_dx + abs_dz) / 12 then
-						add_leaf_node(
-							{ x = pos.x + dx, y = pos.y + dy + math.random(0,1), z = pos.z + dz },
-							"lottplants:yavannamirefruit"
-						)
-					end
-				end
-			end
+			add_crown_at(pos, dy, radius, { "lottplants:yavannamireleaf", "lottplants:yavannamirefruit" })
 		end
 	end
 end
