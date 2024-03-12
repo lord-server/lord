@@ -14,15 +14,15 @@ local clans_storage = {
 		title   = "Masons",
 		players = {	"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason" },
 	},
-	--havit = {
-	--	name    = "havit",
-	--	title   = "Havit-Nakyar",
-	--	players = { "Doloment", "Sdoh", "Aiex" }
-	--},
 	vassals = {
 		name    = "vassals",
 		title   = "Vassals",
 		players = { "Pilsner_vassal", "PePe_vassal", "JVD_vassal", "Semi_vassal" },
+	},
+	ganza = {
+		name    = "hanza",
+		title   = "Hansa",
+		players = { "Qundark", "Kema" },
 	},
 }
 --- @type table<string,boolean> local cache for clan is online
