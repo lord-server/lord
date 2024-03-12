@@ -260,11 +260,11 @@ lp_api.router.cmd = true
 # добавлено при реализации `/death`
 common_spawn_pos = 735, 33, -818
 hall_of_life_pos = 735, 33, -818
-#hall_of_death_pos =
+hall_of_death_pos = 11773, 54, -10282
 # спауны для рас ( GH: #330 )
-#dynamic_spawn = true
+dynamic_spawn = true
 #elf_spawn_pos =
-#orc_spawn_pos =
+orc_spawn_pos = 11773, 54, -10282
 
 # ------- lord/player -------
 # арены, на которых отображается здоровье:

@@ -1,5 +1,9 @@
 # Change Log
 
+## [2023.12.p4](https://github.com/lord-server/lord/releases/tag/2023.12.p4)
+ - Death Hall: add orc spawn & hall positions config.
+ - add clan "Hansa"
+
 ## [2023.12.p3](https://github.com/lord-server/lord/releases/tag/2023.12.p3)
  - Restore chest textures after New Year.
 
