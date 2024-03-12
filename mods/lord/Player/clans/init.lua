@@ -19,8 +19,8 @@ local clans_storage = {
 		title   = "Vassals",
 		players = { "Pilsner_vassal", "PePe_vassal", "JVD_vassal", "Semi_vassal" },
 	},
-	ganza = {
-		name    = "hanza",
+	hansa = {
+		name    = "hansa",
 		title   = "Hansa",
 		players = { "Qundark", "Kema" },
 	},

@@ -1,5 +1,8 @@
 # Change Log
 
+## [2023.12.p5](https://github.com/lord-server/lord/releases/tag/2023.12.p5)
+ - Fix typo in clan name. Fixes #1249
+
 ## [2023.12.p4](https://github.com/lord-server/lord/releases/tag/2023.12.p4)
  - Death Hall: add orc spawn & hall positions config.
  - add clan "Hansa"
