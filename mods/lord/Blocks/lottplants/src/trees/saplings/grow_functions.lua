@@ -1,5 +1,8 @@
 -- TREE FUNCTIONS
 
+--- Places node only if it was an air in this `pos`
+--- @param pos       Position position to place to.
+--- @param node_name string   technical name of leaf ("<mod_name>:<node_name>").
 local function add_leaf_node(pos, node_name)
 	local n = minetest.get_node(pos)
 	if (n.name == "air") then
@@ -7,8 +10,9 @@ local function add_leaf_node(pos, node_name)
 	end
 end
 
---- @param pos       Position
---- @param node_name string
+--- Places node only if it was an air|leaf|sapling in this `pos`
+--- @param pos       Position position to place to.
+--- @param node_name string   technical name of trunk ("<mod_name>:<node_name>").
 local function add_trunk_node(pos, node_name)
 	local n = minetest.get_node(pos)
 	if (n.name == "air") or (string.find(n.name, "leaf")) or (string.find(n.name, "sapling")) then
@@ -16,10 +20,11 @@ local function add_trunk_node(pos, node_name)
 	end
 end
 
+--- @overload fun(pos:Position,height:number,node_name:string)
 --- @param pos       Position
 --- @param height    number
 --- @param node_name string
---- @param thickness number|nil default:1
+--- @param thickness number   default:1
 local function add_trunk(pos, height, node_name, thickness)
 	thickness = thickness or 1
 	for dy = 0, height do
@@ -29,6 +34,18 @@ local function add_trunk(pos, height, node_name, thickness)
 			end
 		end
 	end
+end
+
+--- @overload fun(pos:Position,node_name:string)
+--- @param pos             Position
+--- @param node_name       string
+--- @param trunk_thickness number   default:1
+local function add_roots(pos, node_name, trunk_thickness)
+	local t = trunk_thickness or 1
+	add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t     }, node_name)
+	add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1     }, node_name)
+	add_trunk_node({ x = pos.x + t    , y = pos.y, z = pos.z + t - 1 }, node_name)
+	add_trunk_node({ x = pos.x - 1    , y = pos.y, z = pos.z         }, node_name)
 end
 
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
@@ -303,27 +320,26 @@ function lottplants_mallorntree(pos)
 	local height = 25 + math.random(5)
 
 	add_trunk(pos, height, "lottplants:mallorntree", 2)
+	if math.random(0, 1) == 1 then
+		add_roots(pos, "lottplants:mallorntree", 2)
+	end
 
 	for dy = height, 0, -1 do
 		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
 			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z - math.random(0, 1) }
 			add_tree_branch_mallorn(branch_pos)
 		end
-		if dy < math.random(0, 1) then
-			add_trunk_node({ x = pos.x + 1, y = pos.y + dy, z = pos.z + 1 }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x + 2, y = pos.y + dy, z = pos.z - 1 }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x, y = pos.y + dy, z = pos.z - 2 }, "lottplants:mallorntree")
-			add_trunk_node({ x = pos.x - 1, y = pos.y + dy, z = pos.z }, "lottplants:mallorntree")
-		end
 		if dy == height then
 			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + dy, z = pos.z + 1 })
 			add_tree_branch_mallorn({ x = pos.x + 2, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mallorn({ x = pos.x, y = pos.y + dy, z = pos.z - 2 })
 			add_tree_branch_mallorn({ x = pos.x - 1, y = pos.y + dy, z = pos.z })
+
 			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + dy, z = pos.z + 2 })
 			add_tree_branch_mallorn({ x = pos.x + 3, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mallorn({ x = pos.x, y = pos.y + dy, z = pos.z - 3 })
 			add_tree_branch_mallorn({ x = pos.x - 2, y = pos.y + dy, z = pos.z })
+
 			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + dy, z = pos.z })
 			add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + dy, z = pos.z - 1 })
 			add_tree_branch_mallorn({ x = pos.x, y = pos.y + dy, z = pos.z - 1 })
