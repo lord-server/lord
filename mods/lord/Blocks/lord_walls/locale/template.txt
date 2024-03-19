@@ -10,3 +10,14 @@ Mordor Stone Wall=
 Mordor Cobble Wall=
 Green Marble Wall=
 Dungeon Stone Wall=
+
+# Clay/chamotte:
+Mordor Clay Block Wall=
+Mordor Clay Brick Wall=
+Mordor Clay Masonry Wall=
+Large Mordor Clay Masonry Wall=
+
+Chamotte Block Wall=
+Chamotte Brick Wall=
+Chamotte Masonry Wall=
+Large Chamotte Masonry Wall=
