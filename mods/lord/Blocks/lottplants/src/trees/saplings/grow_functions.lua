@@ -36,21 +36,42 @@ local function add_trunk(pos, height, node_name, thickness)
 	end
 end
 
+local branch_Type = {
+	SHURIKEN = 1,
+	DIAGONAL = 2,
+}
+
 --- @overload fun(sapling_pos:Position,add_at_dy:number,node_name:string)
 --- @param sapling_pos     Position where tree trunk starts (or where sapling was).
 --- @param add_at_dy       number   height where crown to add at.
 --- @param node_name       string   technical name of leaf or table with name & name of alternative leaf or fruit.
 --- @param trunk_thickness number   default:1
 --- @param length          number   default:1
-local function add_branches_trunks_at(sapling_pos, add_at_dy, node_name, trunk_thickness, length)
-	length = length or 1
+--- @param type            number   type of branch (one of `branch_Type::<CONST>`)
+local function add_branches_trunks_at(sapling_pos, add_at_dy, node_name, trunk_thickness, length, type)
+	type    = type or branch_Type.SHURIKEN
+	length  = length or 1
 	local t = trunk_thickness or 1
+
 	local pos = vector.new(sapling_pos) + vector.new(0, add_at_dy, 0)
-	for i = 0, length - 1 do
-		add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t + i }, node_name)
-		add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1 - i }, node_name)
-		add_trunk_node({ x = pos.x + t + i, y = pos.y, z = pos.z + t - 1 }, node_name)
-		add_trunk_node({ x = pos.x - 1 - i, y = pos.y, z = pos.z         }, node_name)
+
+	if type == branch_Type.SHURIKEN then
+		for i = 0, length - 1 do
+			add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t + i }, node_name)
+			add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1 - i }, node_name)
+			add_trunk_node({ x = pos.x + t + i, y = pos.y, z = pos.z + t - 1 }, node_name)
+			add_trunk_node({ x = pos.x - 1 - i, y = pos.y, z = pos.z         }, node_name)
+		end
+	elseif type == branch_Type.DIAGONAL then
+		t = t - 1
+		for i = 1, length do
+			add_trunk_node({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z + t + i }, "default:jungletree")
+			add_trunk_node({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z     - i }, "default:jungletree")
+			add_trunk_node({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z + t + i }, "default:jungletree")
+			add_trunk_node({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z     - i }, "default:jungletree")
+		end
+	else
+		error("Unknown branch Type: " .. type, 2)
 	end
 end
 
@@ -486,12 +507,7 @@ function lottplants_smallmirktree(pos)
 	add_trunk(pos, height - 2, "default:jungletree")
 
 	local dy = 6
-	for len = 1, 2 do
-		add_trunk_node({ x = pos.x + len, y = pos.y + dy - 1 + len, z = pos.z + len }, "default:jungletree")
-		add_trunk_node({ x = pos.x + len, y = pos.y + dy - 1 + len, z = pos.z - len }, "default:jungletree")
-		add_trunk_node({ x = pos.x - len, y = pos.y + dy - 1 + len, z = pos.z + len }, "default:jungletree")
-		add_trunk_node({ x = pos.x - len, y = pos.y + dy - 1 + len, z = pos.z - len }, "default:jungletree")
-	end
+	add_branches_trunks_at(pos, 6, "default:jungletree", 1, 2, branch_Type.DIAGONAL)
 
 	for dx = -4, 4 do
 		for dz = -4, 4 do
