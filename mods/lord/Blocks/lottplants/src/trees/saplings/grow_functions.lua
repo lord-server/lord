@@ -485,23 +485,14 @@ function lottplants_smallmirktree(pos)
 
 	add_trunk(pos, height - 2, "default:jungletree")
 
-	local dy
-	dy = 6
-	for dx = -1, 1 do
-		for dz = -1, 1 do
-			if math.abs(dx) + math.abs(dz) == 2 then
-				add_trunk_node({ x = pos.x + dx, y = pos.y + dy, z = pos.z + dz }, "default:jungletree")
-			end
-		end
-	end
-	dy = 7
-	for dx = -2, 2, 4 do
-		for dz = -2, 2, 4 do
-			add_trunk_node({ x = pos.x + dx, y = pos.y + dy, z = pos.z + dz }, "default:jungletree")
-		end
+	local dy = 6
+	for len = 1, 2 do
+		add_trunk_node({ x = pos.x + len, y = pos.y + dy - 1 + len, z = pos.z + len }, "default:jungletree")
+		add_trunk_node({ x = pos.x + len, y = pos.y + dy - 1 + len, z = pos.z - len }, "default:jungletree")
+		add_trunk_node({ x = pos.x - len, y = pos.y + dy - 1 + len, z = pos.z + len }, "default:jungletree")
+		add_trunk_node({ x = pos.x - len, y = pos.y + dy - 1 + len, z = pos.z - len }, "default:jungletree")
 	end
 
-	dy = 6
 	for dx = -4, 4 do
 		for dz = -4, 4 do
 			if math.random(20) ~= 10 then
