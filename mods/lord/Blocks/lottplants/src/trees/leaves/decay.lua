@@ -20,7 +20,7 @@ default.register_leafdecay({
 		"lottplants:whiteleaf", -- White Tree / Белое дерево
 		"lottplants:yavannamireleaf", "lottplants:yavannamirefruit", -- Yavannamire / Йаванамирэ
 	},
-	radius = 6, -- такая большая цифра только из-за бука
+	radius = 4, -- только из-за бука, у остальных 3 или 2
 })
 
 -- Lebethron / Лебетрон

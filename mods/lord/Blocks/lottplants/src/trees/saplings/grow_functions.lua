@@ -203,50 +203,16 @@ end
 -- Beeches / Бук
 
 function lottplants_beechtree(pos)
-	local height = 10 + math.random(3)
+	local height = 12 + math.random(3)
 
 	add_trunk(pos, height, "default:tree")
 
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			local dy
-			if abs_dx >= abs_dz then
-				dy = height - abs_dx
-			else
-				dy = height - abs_dz
-			end
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 7, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 4, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 2, y = pos.y + dy + 4, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 2, y = pos.y + dy + 4, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 4, z = pos.z + dz + 2 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 4, z = pos.z + dz - 2 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 1, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 3, y = pos.y + dy + 1, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx - 3, y = pos.y + dy + 1, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 1, z = pos.z + dz + 3 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 1, z = pos.z + dz - 3 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 3, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx - 3, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz + 3 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz - 3 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 4, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx - 4, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz + 4 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz - 4 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx + 4, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx - 4, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz + 4 }, "lottplants:beechleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz - 4 }, "lottplants:beechleaf")
-			end
-		end
-	end
+	add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")
+	add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")
+	add_crown_at(pos, height - 6, 4, "lottplants:beechleaf")
+	add_crown_at(pos, height - 4, 4, "lottplants:beechleaf")
+	add_crown_at(pos, height - 2, 3, "lottplants:beechleaf")
+	add_crown_at(pos, height,     2, "lottplants:beechleaf")
 end
 
 -- Culumalda
