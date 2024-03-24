@@ -36,16 +36,42 @@ local function add_trunk(pos, height, node_name, thickness)
 	end
 end
 
+--- @overload fun(sapling_pos:Position,add_at_dy:number,node_name:string)
+--- @param sapling_pos     Position where tree trunk starts (or where sapling was).
+--- @param add_at_dy       number   height where crown to add at.
+--- @param node_name       string   technical name of leaf or table with name & name of alternative leaf or fruit.
+--- @param trunk_thickness number   default:1
+--- @param length          number   default:1
+local function add_branches_trunks_at(sapling_pos, add_at_dy, node_name, trunk_thickness, length)
+	length = length or 1
+	local t = trunk_thickness or 1
+	local pos = vector.new(sapling_pos) + vector.new(0, add_at_dy, 0)
+	for i = 0, length - 1 do
+		add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t + i }, node_name)
+		add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1 - i }, node_name)
+		add_trunk_node({ x = pos.x + t + i, y = pos.y, z = pos.z + t - 1 }, node_name)
+		add_trunk_node({ x = pos.x - 1 - i, y = pos.y, z = pos.z         }, node_name)
+	end
+end
+
+--- @param pos       Position of branch trunk, around which will leaves be added.
+--- @param node_name string   technical name of leaf ("<mod>:<node>").
+--- @param radius    number   possible radius of crown around branch.
+local function add_branch_crown_in(pos, node_name, radius)
+	radius = radius or 2
+	for dx = -math.random(radius), math.random(radius) do
+		for dz = -math.random(radius), math.random(radius) do
+			add_leaf_node({ x = pos.x + dx, y = pos.y + math.random(0, 1), z = pos.z + dz }, node_name)
+		end
+	end
+end
+
 --- @overload fun(pos:Position,node_name:string)
 --- @param pos             Position
 --- @param node_name       string
 --- @param trunk_thickness number   default:1
 local function add_roots(pos, node_name, trunk_thickness)
-	local t = trunk_thickness or 1
-	add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t     }, node_name)
-	add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1     }, node_name)
-	add_trunk_node({ x = pos.x + t    , y = pos.y, z = pos.z + t - 1 }, node_name)
-	add_trunk_node({ x = pos.x - 1    , y = pos.y, z = pos.z         }, node_name)
+	add_branches_trunks_at(pos, 0, node_name, trunk_thickness or 1)
 end
 
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
@@ -86,12 +112,12 @@ local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, propertie
 			end
 
 			if math.random() > (abs_dx + abs_dz) / 24 then
-				local position = vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz))
+				local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
 				add_leaf_node(position, node_name)
 			end
 			if alternative_node_name then
 				if math.random() > (abs_dx + abs_dz) / 12 then
-					local position = vector.add(sapling_pos, vector.new(dx, add_at_dy + math.random(0, 1), dz))
+					local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
 					add_leaf_node(position, alternative_node_name)
 				end
 			end
@@ -245,22 +271,25 @@ function lottplants_firtree(pos)
 				dy = height - abs_dz
 			end
 			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 1, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz + 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz - 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz + 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz - 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 2, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 2, y = pos.y + dy - 8, z = pos.z + dz }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz + 2 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 8, z = pos.z + dz - 2 }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy + 1, z = pos.z + dz     }, "lottplants:firleaf")
+
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz + 1 }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz - 1 }, "lottplants:firleaf")
+
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz + 1 }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz - 1 }, "lottplants:firleaf")
+
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx + 2, y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx - 2, y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz + 2 }, "lottplants:firleaf")
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz - 2 }, "lottplants:firleaf")
 			end
 		end
 	end
@@ -282,17 +311,7 @@ end
 
 function add_tree_branch_mallorn(pos)
 	add_trunk_node(pos, "lottplants:mallorntree")
-	for dx = -math.random(2), math.random(2) do
-		for dz = -math.random(2), math.random(2) do
-			local p = { x = pos.x + dx, y = pos.y, z = pos.z + dz }
-			add_leaf_node(p, "lottplants:mallornleaf")
-			local chance = math.abs(dx + dz)
-			if (chance < 1) then
-				p = { x = pos.x + dx, y = pos.y + 1, z = pos.z + dz }
-				add_leaf_node(p, "lottplants:mallornleaf")
-			end
-		end
-	end
+	add_branch_crown_in(pos, "lottplants:mallornleaf")
 end
 
 function lottplants_mallorntree(pos)
@@ -305,25 +324,20 @@ function lottplants_mallorntree(pos)
 
 	for dy = height, 0, -1 do
 		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
-			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z - math.random(0, 1) }
+			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z + math.random(0, 1) }
 			add_tree_branch_mallorn(branch_pos)
 		end
 	end
 
-	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z + 1 })
-	add_tree_branch_mallorn({ x = pos.x + 2, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mallorn({ x = pos.x, y = pos.y + height, z = pos.z - 2 })
-	add_tree_branch_mallorn({ x = pos.x - 1, y = pos.y + height, z = pos.z })
-
 	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z + 2 })
-	add_tree_branch_mallorn({ x = pos.x + 3, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mallorn({ x = pos.x, y = pos.y + height, z = pos.z - 3 })
-	add_tree_branch_mallorn({ x = pos.x - 2, y = pos.y + height, z = pos.z })
+	add_tree_branch_mallorn({ x = pos.x + 2, y = pos.y + height, z = pos.z     })
+	add_tree_branch_mallorn({ x = pos.x,     y = pos.y + height, z = pos.z - 1 })
+	add_tree_branch_mallorn({ x = pos.x - 1, y = pos.y + height, z = pos.z + 1 })
 
-	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z })
-	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mallorn({ x = pos.x, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mallorn({ x = pos.x, y = pos.y + height, z = pos.z })
+	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z + 3 })
+	add_tree_branch_mallorn({ x = pos.x + 3, y = pos.y + height, z = pos.z     })
+	add_tree_branch_mallorn({ x = pos.x,     y = pos.y + height, z = pos.z - 2 })
+	add_tree_branch_mallorn({ x = pos.x - 2, y = pos.y + height, z = pos.z + 1 })
 end
 
 function lottplants_smallmallorntree(pos)
@@ -443,15 +457,7 @@ end
 
 function add_tree_branch_mirktree(pos)
 	add_trunk_node(pos, "default:jungletree")
-	for dx = -math.random(2), math.random(2) do
-		for dz = -math.random(2), math.random(2) do
-			add_leaf_node({ x = pos.x + dx, y = pos.y, z = pos.z + dz }, "lottplants:mirkleaf")
-			local chance = math.abs(dx + dz)
-			if (chance < 1) then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + 1, z = pos.z + dz }, "lottplants:mirkleaf")
-			end
-		end
-	end
+	add_branch_crown_in(pos, "lottplants:mirkleaf")
 end
 
 function lottplants_mirktree(pos)
@@ -462,25 +468,14 @@ function lottplants_mirktree(pos)
 		add_roots(pos, "default:jungletree", 2)
 	end
 
-	for dy = height, 0, -1 do
-		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
-			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z - math.random(0, 1) }
-			add_tree_branch_mirktree(branch_pos)
-		end
-	end
-
-	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z + 1 })
-	add_tree_branch_mirktree({ x = pos.x + 2, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mirktree({ x = pos.x, y = pos.y + height, z = pos.z - 2 })
-	add_tree_branch_mirktree({ x = pos.x - 1, y = pos.y + height, z = pos.z })
 	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z + 2 })
-	add_tree_branch_mirktree({ x = pos.x + 3, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mirktree({ x = pos.x, y = pos.y + height, z = pos.z - 3 })
-	add_tree_branch_mirktree({ x = pos.x - 2, y = pos.y + height, z = pos.z })
-	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z })
-	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mirktree({ x = pos.x, y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mirktree({ x = pos.x, y = pos.y + height, z = pos.z })
+	add_tree_branch_mirktree({ x = pos.x + 2, y = pos.y + height, z = pos.z     })
+	add_tree_branch_mirktree({ x = pos.x,     y = pos.y + height, z = pos.z - 1 })
+	add_tree_branch_mirktree({ x = pos.x - 1, y = pos.y + height, z = pos.z + 1 })
+	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z + 3 })
+	add_tree_branch_mirktree({ x = pos.x + 3, y = pos.y + height, z = pos.z     })
+	add_tree_branch_mirktree({ x = pos.x,     y = pos.y + height, z = pos.z - 2 })
+	add_tree_branch_mirktree({ x = pos.x - 2, y = pos.y + height, z = pos.z + 1 })
 end
 
 --Mirk Small / Малое дерево Лихолесья
