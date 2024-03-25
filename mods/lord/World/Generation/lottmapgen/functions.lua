@@ -466,7 +466,7 @@ function lottmapgen_pinetree(x, y, z, area, data)
 end
 
 function lottmapgen_firtree(x, y, z, area, data)
-	local id_pinetree = minetest.get_content_id("lottplants:pinetree")
+	local id_pinetree = minetest.get_content_id("lottplants:firtree")
 	local id_firleaf  = minetest.get_content_id("lottplants:firleaf")
 	local id_snow     = minetest.get_content_id("default:snow")
 	for j = -4, 13 do
