@@ -104,8 +104,15 @@ local function is_crown_corners(abs_dx, abs_dz, radius)
 		(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
 end
 
+local crown_level_Type = {
+	RING = 1,
+	CONE = 2,
+}
+
 --- @class tree.crown.Properties
---- @field no_leaves_on_corners boolean
+--- @field no_leaves_on_corners boolean Default: `false`
+--- @field level_type           number  type of crown part(level) (one of `crown_level_Type::<CONST>`). Default: `RING`
+--- @field cone_solid           boolean not hollow crown for `CONE` crown_level_Type. Default: `false`
 
 --- @param sapling_pos Position where tree trunk starts (or where sapling was).
 --- @param add_at_dy   number   height where crown to add at.
@@ -123,26 +130,54 @@ local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, propertie
 
 	properties = properties or {}
 	properties.no_leaves_on_corners = properties.no_leaves_on_corners or false
+	properties.level_type           = properties.level_type or crown_level_Type.RING
+	properties.cone_solid           = properties.cone_solid or false
 
-	for dx = -radius_x, radius_x do
-		for dz = -radius_z, radius_z do repeat -- this `repeat` is for continue statement below
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			if properties.no_leaves_on_corners and is_crown_corners(abs_dx, abs_dz, radius) then
-				break -- continue (breaks only `repeat` statement, not `for`)
-			end
+	if properties.level_type == crown_level_Type.RING then
 
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
-				add_leaf_node(position, node_name)
-			end
-			if alternative_node_name then
-				if math.random() > (abs_dx + abs_dz) / 12 then
+		for dx = -radius_x, radius_x do
+			for dz = -radius_z, radius_z do repeat -- this `repeat` is for continue statement below
+				local abs_dx = math.abs(dx)
+				local abs_dz = math.abs(dz)
+				if properties.no_leaves_on_corners and is_crown_corners(abs_dx, abs_dz, radius) then
+					break -- continue (breaks only `repeat` statement, not `for`)
+				end
+
+				if math.random() > (abs_dx + abs_dz) / 24 then
 					local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
-					add_leaf_node(position, alternative_node_name)
+					add_leaf_node(position, node_name)
+				end
+				if alternative_node_name then
+					if math.random() > (abs_dx + abs_dz) / 12 then
+						local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
+						add_leaf_node(position, alternative_node_name)
+					end
+				end
+			until true end
+		end
+
+	elseif properties.level_type == crown_level_Type.CONE then
+
+		local pos = sapling_pos
+		for dx = -radius, radius do
+			for dz = -radius, radius do
+				local abs_dx = math.abs(dx)
+				local abs_dz = math.abs(dz)
+				local dy = abs_dx >= abs_dz and add_at_dy - abs_dx or add_at_dy - abs_dz
+				if math.random() > (abs_dx + abs_dz) / 24 then
+					add_leaf_node(    { x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz     }, node_name)
+					if properties.cone_solid then
+						add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy, z = pos.z + dz     }, node_name)
+						add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy, z = pos.z + dz     }, node_name)
+						add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz + 1 }, node_name)
+						add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz - 1 }, node_name)
+					end
 				end
 			end
-		until true end
+		end
+
+	else
+		error("Unknown crown level Type: " .. type, 2)
 	end
 end
 
@@ -230,42 +265,14 @@ end
 
 function lottplants_firtree(pos)
 	local height = 10 + math.random(3)
+	local radius = 2
 
 	add_trunk(pos, height, "lottplants:firtree")
 
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			local dy
-			if abs_dx >= abs_dz then
-				dy = height - abs_dx
-			else
-				dy = height - abs_dz
-			end
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy + 1, z = pos.z + dz     }, "lottplants:firleaf")
-
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 2, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz + 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 2, z = pos.z + dz - 1 }, "lottplants:firleaf")
-
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy - 5, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz + 1 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 5, z = pos.z + dz - 1 }, "lottplants:firleaf")
-
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx + 2, y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx - 2, y = pos.y + dy - 8, z = pos.z + dz     }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz + 2 }, "lottplants:firleaf")
-				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy - 8, z = pos.z + dz - 2 }, "lottplants:firleaf")
-			end
-		end
-	end
+	add_crown_at(pos, height + 1, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE })
+	add_crown_at(pos, height - 2, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
+	add_crown_at(pos, height - 5, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
+	add_crown_at(pos, height - 8, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
 end
 
 -- Lebethron
@@ -337,26 +344,13 @@ end
 
 function lottplants_pinetree(pos)
 	local height = 10 + math.random(3)
+	local radius = 2
 
 	add_trunk(pos, height, "lottplants:pinetree")
 
-	for dx = -2, 2 do
-		for dz = -2, 2 do
-			local abs_dx = math.abs(dx)
-			local abs_dz = math.abs(dz)
-			local dy
-			if abs_dx >= abs_dz then
-				dy = height - abs_dx
-			else
-				dy = height - abs_dz
-			end
-			if math.random() > (abs_dx + abs_dz) / 24 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + 1, z = pos.z + dz }, "lottplants:pineleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 2, z = pos.z + dz }, "lottplants:pineleaf")
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy - 5, z = pos.z + dz }, "lottplants:pineleaf")
-			end
-		end
-	end
+	add_crown_at(pos, height + 1, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
+	add_crown_at(pos, height - 2, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
+	add_crown_at(pos, height - 5, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
 end
 
 -- Plum Trees / Слива
