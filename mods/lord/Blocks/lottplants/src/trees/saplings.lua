@@ -68,7 +68,7 @@ local function register_sapling(node_name, title, grow_function)
 end
 
 register_sapling("lottplants:aldersapling", "Alder", lottplants_aldertree)
-register_sapling("lottplants:applesapling", "Apple Tree", lottplants_appletree)
+register_sapling("lottplants:applesapling", "Fruitful Apple Tree", lottplants_appletree)
 register_sapling("lottplants:birchsapling", "Birch", lottplants_birchtree)
 register_sapling("lottplants:beechsapling", "Beech", lottplants_beechtree)
 register_sapling("lottplants:culumaldasapling", "Culumalda", lottplants_culumaldatree)

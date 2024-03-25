@@ -166,25 +166,11 @@ function lottplants_appletree(pos)
 	local radius = 3
 
 	add_trunk(pos, height, "default:tree")
-
-	for dy = height - 2, height do
-		if dy == height or dy == height - 2 then
-			for dx = -radius, radius do
-				for dz = -radius, radius do
-					local abs_dx = math.abs(dx)
-					local abs_dz = math.abs(dz)
-					if not is_crown_corners(abs_dx, abs_dz, radius) then
-						if math.random() > (abs_dx + abs_dz) / 12 then
-							add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "default:apple")
-						end
-						if math.random() > (abs_dx + abs_dz) / 24 then
-							add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:appleleaf")
-						end
-					end
-				end
-			end
-		end
-	end
+	-- HACK: это адаптированная версия, лучше бы передавать шансы листьев и альтернативной ноды
+	--       но в данном варианте выдаёт примерно то же самое кол-во яблок, что и раньше
+	add_crown_at(pos, height - 2, radius, { "default:apple", "lottplants:appleleaf" })
+	add_crown_at(pos, height,     radius, "lottplants:appleleaf")
+	add_crown_at(pos, height,     radius, "default:apple")
 end
 
 -- Birches / Береза
