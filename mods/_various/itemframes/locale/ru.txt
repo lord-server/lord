@@ -17,7 +17,7 @@ Dungeon Stone Pedestal	=	Пьедестал из малахита
 Paving Stone Pedestal	=	Пьедестал из брусчатки
 Marble Pedestal	=	Мраморный пьедестал
 Marble Brick Pedestal	=	Пьедестал из мраморного кирпича
-Orc Brick Pedestal	=	Пьедестал из оркского камня
+Orc Brick Pedestal	=	Пьедестал из орочьего камня
 
 Item frame	=	Рамка
 Protected item frame	=	Защищённая рамка

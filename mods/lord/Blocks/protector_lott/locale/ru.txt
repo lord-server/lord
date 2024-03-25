@@ -36,7 +36,7 @@ Protection Dungeon Stone	=	Защитный малахит
 Protection Paving Stone	=	Защитная брусчатка
 Protection Marble	=	Защитный мрамор
 Protection Marble Brick	=	Защитный мраморный кирпич
-Protection Orc Brick	=	Защитный оркский камень
+Protection Orc Brick	=	Защитный орочий камень
 Protection Mordor Stone	=	Защитный камень Мордора
 
 ### doors.lua ###
