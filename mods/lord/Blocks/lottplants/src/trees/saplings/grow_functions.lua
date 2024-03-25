@@ -393,27 +393,9 @@ function lottplants_rowantree(pos)
 
 	add_trunk(pos, height, "default:tree")
 
-	for dy = height - 4, height do
-		if dy == height - 4 or dy == height then
-			for dx = -2, 2 do
-				for dz = -2, 2 do
-					if math.random(3) ~= 2 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:rowanleaf")
-					end
-				end
-			end
-		else
-			for dx = -3, 3 do
-				for dz = -3, 3 do
-					if math.random(8) == 8 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:rowanberry")
-					elseif math.random(2) ~= 2 then
-						add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(0, 1), z = pos.z + dz }, "lottplants:rowanleaf")
-					end
-				end
-			end
-		end
-	end
+	add_crown_at(pos, height - 4, 2, "lottplants:rowanleaf")
+	add_crown_at(pos, height - 2, 3, { "lottplants:rowanleaf", "lottplants:rowanberry" })
+	add_crown_at(pos, height,     2, "lottplants:rowanleaf")
 end
 
 -- White Tree / Белое дерево
