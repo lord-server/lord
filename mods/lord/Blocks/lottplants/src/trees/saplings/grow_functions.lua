@@ -41,43 +41,9 @@ local branch_Type = {
 	DIAGONAL = 2,
 }
 
---- @overload fun(sapling_pos:Position,add_at_dy:number,node_name:string)
---- @param sapling_pos     Position where tree trunk starts (or where sapling was).
---- @param add_at_dy       number   height where crown to add at.
---- @param node_name       string   technical name of leaf or table with name & name of alternative leaf or fruit.
---- @param trunk_thickness number   default:1
---- @param length          number   default:1
---- @param type            number   type of branch (one of `branch_Type::<CONST>`)
-local function add_branches_trunks_at(sapling_pos, add_at_dy, node_name, trunk_thickness, length, type)
-	type    = type or branch_Type.SHURIKEN
-	length  = length or 1
-	local t = trunk_thickness or 1
-
-	local pos = vector.new(sapling_pos) + vector.new(0, add_at_dy, 0)
-
-	if type == branch_Type.SHURIKEN then
-		for i = 0, length - 1 do
-			add_trunk_node({ x = pos.x        , y = pos.y, z = pos.z + t + i }, node_name)
-			add_trunk_node({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1 - i }, node_name)
-			add_trunk_node({ x = pos.x + t + i, y = pos.y, z = pos.z + t - 1 }, node_name)
-			add_trunk_node({ x = pos.x - 1 - i, y = pos.y, z = pos.z         }, node_name)
-		end
-	elseif type == branch_Type.DIAGONAL then
-		t = t - 1
-		for i = 1, length do
-			add_trunk_node({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z + t + i }, "default:jungletree")
-			add_trunk_node({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z     - i }, "default:jungletree")
-			add_trunk_node({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z + t + i }, "default:jungletree")
-			add_trunk_node({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z     - i }, "default:jungletree")
-		end
-	else
-		error("Unknown branch Type: " .. type, 2)
-	end
-end
-
 --- @param pos       Position of branch trunk, around which will leaves be added.
 --- @param node_name string   technical name of leaf ("<mod>:<node>").
---- @param radius    number   possible radius of crown around branch.
+--- @param radius    number   max possible radius of crown around branch.
 local function add_branch_crown_in(pos, node_name, radius)
 	radius = radius or 2
 	for dx = -math.random(radius), math.random(radius) do
@@ -87,12 +53,58 @@ local function add_branch_crown_in(pos, node_name, radius)
 	end
 end
 
+--- @param pos             Position of branch trunk, around which will leaves be added, if `leaf_node_name` not `nil`.
+--- @param trunk_node_name string   technical name of trunk node ("<mod>:<node>").
+--- @param leaf_node_name  string   technical name of leaf node ("<mod>:<node>").
+--- @param radius          number   max possible radius of crown around branch.
+local function add_branch_in(pos, trunk_node_name, leaf_node_name, radius)
+	add_trunk_node(pos, trunk_node_name)
+	if leaf_node_name then
+		add_branch_crown_in(pos, leaf_node_name, radius)
+	end
+end
+
+--- @overload fun(sapling_pos:Position,add_at_dy:number,node_name:string)
+--- @param sapling_pos     Position where tree trunk starts (or where sapling was).
+--- @param add_at_dy       number   height where branch to add at.
+--- @param node_name       string   technical name of trunk node ("<mod>:<node>").
+--- @param trunk_thickness number   Default: 1
+--- @param length          number   Default: 1
+--- @param type            number   type of branch (one of `branch_Type::<CONST>`).
+--- @param leaf_node_name  string   technical name of leaf ("<mod>:<node>") or `nil`, if no leaves needed.
+local function add_branches_at(sapling_pos, add_at_dy, node_name, trunk_thickness, length, type, leaf_node_name)
+	type    = type or branch_Type.SHURIKEN
+	length  = length or 1
+	local t = trunk_thickness or 1
+
+	local pos = vector.new(sapling_pos) + vector.new(0, add_at_dy, 0)
+
+	if type == branch_Type.SHURIKEN then
+		for i = 0, length - 1 do
+			add_branch_in({ x = pos.x        , y = pos.y, z = pos.z + t + i }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x + t - 1, y = pos.y, z = pos.z - 1 - i }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x + t + i, y = pos.y, z = pos.z + t - 1 }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x - 1 - i, y = pos.y, z = pos.z         }, node_name, leaf_node_name)
+		end
+	elseif type == branch_Type.DIAGONAL then
+		t = t - 1
+		for i = 1, length do
+			add_branch_in({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z + t + i }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z     - i }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z + t + i }, node_name, leaf_node_name)
+			add_branch_in({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z     - i }, node_name, leaf_node_name)
+		end
+	else
+		error("Unknown branch Type: " .. type, 2)
+	end
+end
+
 --- @overload fun(pos:Position,node_name:string)
 --- @param pos             Position
 --- @param node_name       string
 --- @param trunk_thickness number   default:1
 local function add_roots(pos, node_name, trunk_thickness)
-	add_branches_trunks_at(pos, 0, node_name, trunk_thickness or 1)
+	add_branches_at(pos, 0, node_name, trunk_thickness or 1)
 end
 
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
@@ -288,7 +300,8 @@ function lottplants_lebethrontree(pos)
 end
 
 -- Mallorn
-
+-- FIXME: this function used only in MapGen mod. Remove it during #661
+-- luacheck: ignore unused global variable add_tree_branch_mallorn
 function add_tree_branch_mallorn(pos)
 	add_trunk_node(pos, "lottplants:mallorntree")
 	add_branch_crown_in(pos, "lottplants:mallornleaf")
@@ -305,19 +318,11 @@ function lottplants_mallorntree(pos)
 	for dy = height, 0, -1 do
 		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
 			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z + math.random(0, 1) }
-			add_tree_branch_mallorn(branch_pos)
+			add_branch_crown_in(branch_pos, "lottplants:mallornleaf")
 		end
 	end
 
-	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z + 2 })
-	add_tree_branch_mallorn({ x = pos.x + 2, y = pos.y + height, z = pos.z     })
-	add_tree_branch_mallorn({ x = pos.x,     y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mallorn({ x = pos.x - 1, y = pos.y + height, z = pos.z + 1 })
-
-	add_tree_branch_mallorn({ x = pos.x + 1, y = pos.y + height, z = pos.z + 3 })
-	add_tree_branch_mallorn({ x = pos.x + 3, y = pos.y + height, z = pos.z     })
-	add_tree_branch_mallorn({ x = pos.x,     y = pos.y + height, z = pos.z - 2 })
-	add_tree_branch_mallorn({ x = pos.x - 2, y = pos.y + height, z = pos.z + 1 })
+	add_branches_at(pos, height, "lottplants:mallorntree", 2, 2, branch_Type.SHURIKEN, "lottplants:mallornleaf")
 end
 
 function lottplants_smallmallorntree(pos)
@@ -403,7 +408,8 @@ function lottplants_yavannamiretree(pos)
 end
 
 --Mirk large / Большое дерево Лихолесья
-
+-- FIXME: this function used only in MapGen mod. Remove it during #661
+-- luacheck: ignore unused global variable add_tree_branch_mirktree
 function add_tree_branch_mirktree(pos)
 	add_trunk_node(pos, "default:jungletree")
 	add_branch_crown_in(pos, "lottplants:mirkleaf")
@@ -417,14 +423,7 @@ function lottplants_mirktree(pos)
 		add_roots(pos, "default:jungletree", 2)
 	end
 
-	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z + 2 })
-	add_tree_branch_mirktree({ x = pos.x + 2, y = pos.y + height, z = pos.z     })
-	add_tree_branch_mirktree({ x = pos.x,     y = pos.y + height, z = pos.z - 1 })
-	add_tree_branch_mirktree({ x = pos.x - 1, y = pos.y + height, z = pos.z + 1 })
-	add_tree_branch_mirktree({ x = pos.x + 1, y = pos.y + height, z = pos.z + 3 })
-	add_tree_branch_mirktree({ x = pos.x + 3, y = pos.y + height, z = pos.z     })
-	add_tree_branch_mirktree({ x = pos.x,     y = pos.y + height, z = pos.z - 2 })
-	add_tree_branch_mirktree({ x = pos.x - 2, y = pos.y + height, z = pos.z + 1 })
+	add_branches_at(pos, height, "default:jungletree", 2, 2, branch_Type.SHURIKEN, "lottplants:mirkleaf")
 end
 
 --Mirk Small / Малое дерево Лихолесья
@@ -434,14 +433,5 @@ function lottplants_smallmirktree(pos)
 
 	add_trunk(pos, height - 2, "default:jungletree")
 
-	local dy = 6
-	add_branches_trunks_at(pos, 6, "default:jungletree", 1, 2, branch_Type.DIAGONAL)
-
-	for dx = -4, 4 do
-		for dz = -4, 4 do
-			if math.random(20) ~= 10 then
-				add_leaf_node({ x = pos.x + dx, y = pos.y + dy + math.random(1, 2), z = pos.z + dz }, "lottplants:mirkleaf")
-			end
-		end
-	end
+	add_branches_at(pos, height - 1, "default:jungletree", 1, 2, branch_Type.DIAGONAL, "lottplants:mirkleaf")
 end
