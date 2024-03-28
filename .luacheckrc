@@ -39,6 +39,16 @@ read_globals      = {
 		"sign", "hypot", "factorial", "round",
 	} },
 
+	io = { fields = {
+		-- our Core/helpers:
+		"file_exists",
+	} },
+
+	os = { fields = {
+		-- our Core/helpers:
+		"DIRECTORY_SEPARATOR",
+	} },
+
 	-- Builtin
 	"vector", "nodeupdate", "PseudoRandom",
 	"VoxelManip", "VoxelArea",
@@ -85,7 +95,7 @@ exclude_files     = {
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = { "table", "string", }
+	globals = { "table", "string", "io", "os" }
 }
 -- WorldEdit extending:
 files["mods/lord/World/worldedit_ext/**/*.lua"] = {
