@@ -1,5 +1,15 @@
 local S = minetest.get_translator("lottblocks")
 
+--- @type string
+local DS = os.DIRECTORY_SEPARATOR
+
+--- @param sub_folder string
+--- @return string
+local function textures_folder(sub_folder)
+	sub_folder = sub_folder and (sub_folder .. DS) or ""
+	local mod_path = minetest.get_modpath(minetest.get_current_modname())
+	return mod_path .. DS .. "textures" .. DS .. "wooden_stuff" .. DS .. sub_folder
+end
 
 --- @param name string
 --- @param description_prefix string
@@ -11,6 +21,13 @@ local function register_doors(name, description_prefix, wood_name, node_groups)
 	local door_reg_name    = "lottblocks:door_" .. name
 	local door_inv_texture = "lottblocks_door_" .. name .. ".png"
 	local door_uv_texture  = "lottblocks_door_" .. name .. "_uv.png"
+
+	if
+		not io.file_exists(textures_folder("doors") .. door_inv_texture) or
+		not io.file_exists(textures_folder("doors") .. door_uv_texture)
+	then
+		return
+	end
 
 	local common_definition = {
 		tiles           = {{ name = door_uv_texture, backface_culling = true }},
@@ -37,19 +54,27 @@ local function register_doors(name, description_prefix, wood_name, node_groups)
 	}))
 end
 
---- @param name string
---- @param description_prefix string
---- @param wood_name string
---- @param node_groups table
-local function register_hatch(name, description_prefix, wood_name, node_groups)
+--- @param name               string node name postfix (`"lottblocks:hatch_"..name`). Also used for textures names.
+--- @param description_prefix string used: `S(description_prefix .. " Trapdoor")`
+--- @param wood_name          string technical name of planks node (ex.: `"default:wood"`) for craft.
+--- @param node_groups        table  groups to apply to. Group `{ hatch = 1 }` will be added.
+--- @param texture            string which texture to use, if `"lottblocks_"..name.."_planks.png"` doesn't exists.
+local function register_hatch(name, description_prefix, wood_name, node_groups, texture)
 	local hatch_reg_name = "lottblocks:hatch_" .. name
-	local hatch_inv_texture = "lottblocks_hatch_" .. name .. ".png"
+	local front_texture  = "lottblocks_hatch_" .. name .. ".png"
+	local side_texture   = "lottblocks_hatch_" .. name .. "_side.png"
+	if not io.file_exists(textures_folder("hatches") .. front_texture) then
+		front_texture = texture .. "^[transformR90^lottblocks_hatch__overlay.png"
+	end
+	if not io.file_exists(textures_folder("hatches") .. side_texture) then
+		side_texture = texture
+	end
 	doors.register_trapdoor(hatch_reg_name, {
 		description     = S(description_prefix .. " Trapdoor"),
-		inventory_image = hatch_inv_texture,
-		wield_image     = hatch_inv_texture,
-		tile_front      = hatch_inv_texture,
-		tile_side       = "lottblocks_hatch_" .. name .. "_side.png",
+		inventory_image = front_texture,
+		wield_image     = front_texture,
+		tile_front      = front_texture,
+		tile_side       = side_texture,
 		groups          = table.merge(node_groups, { hatch = 1 }),
 	})
 	minetest.register_craft({
@@ -136,13 +161,20 @@ local function register_stick(name, description_prefix, wood_name)
 	return stick_reg_name
 end
 
---- @param name string
---- @param description_prefix string
---- @param stick_reg_name string
-local function register_ladder(name, description_prefix, stick_reg_name)
+--- @param name               string node name postfix (`"lottblocks:ladder_"..name`). Also used for textures names.
+--- @param description_prefix string used: `S(description_prefix .. " Ladder")`
+--- @param stick_reg_name     string technical name of stick item (ex.: `"default:stick"`) for craft.
+--- @param texture            string which texture to use, if `"lottblocks_"..name.."_planks.png"` doesn't exists.
+local function register_ladder(name, description_prefix, stick_reg_name, texture)
 	local ladder_reg_name = "lottblocks:ladder_" .. name
 	local ladder_tile_texture = "lottblocks_" .. name .. "_planks.png"
 	local ladder_inv_texture = "lottblocks_" .. name .. "_ladder.png"
+	if not io.file_exists(textures_folder("planks") .. ladder_tile_texture) then
+		ladder_tile_texture = texture
+	end
+	if not io.file_exists(textures_folder("ladders") .. ladder_inv_texture) then
+		ladder_inv_texture = nil
+	end
 	minetest.register_node(ladder_reg_name, {
 		description               = S(description_prefix .. " Ladder"),
 		drawtype                  = "nodebox",
@@ -366,32 +398,17 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	local stick_reg_name
 
 	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
-
-		-- DOORs | ДВЕРЬ
 		register_doors(name, description, wood_name, node_groups)
-
-		-- HATCHES | ЛЮКИ
-		register_hatch(name, description, wood_name, node_groups)
-
+		register_hatch(name, description, wood_name, node_groups, texture)
 		register_fence(name, description, wood_name, node_groups)
-
-		-- STICK | ПАЛОЧКА
 		stick_reg_name =
 		register_stick(name, description, wood_name)
-
-		-- LADDER | ЛЕСТНИЦА
-		register_ladder(name, description, stick_reg_name)
+		register_ladder(name, description, stick_reg_name, texture)
 	end
 
-	-- STANCHION | СТОЙКИ
 	register_stanchion(name, description, texture, node_groups, stick_reg_name or "default:stick")
-
-	-- TABLE | СТОЛ
 	register_table(name, description, texture, wood_name, node_groups)
-
-	-- CHAIR | СТУЛ
 	register_chair(name, description, texture, wood_name, node_groups)
-
 end
 
 lottblocks.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
@@ -402,6 +419,7 @@ lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lot
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
 lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottplants_hardwood.png", "lottplants:hardwood")
+lottblocks.register_wooden_stuff("fir", "Fir", "lottplants_firwood.png", "lottplants:firwood")
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
