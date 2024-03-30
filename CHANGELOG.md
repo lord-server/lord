@@ -1,5 +1,9 @@
 # Change Log
 
+## [2023.12.p6](https://github.com/lord-server/lord/releases/tag/2023.12.p6)
+ - Add player to clan Hansa.
+ - Add Hansa Clan Cloack.
+
 ## [2023.12.p5](https://github.com/lord-server/lord/releases/tag/2023.12.p5)
  - Fix typo in clan name. Fixes #1249
 
