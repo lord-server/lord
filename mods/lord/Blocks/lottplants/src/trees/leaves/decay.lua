@@ -14,7 +14,7 @@ default.register_leafdecay({
 		"lottplants:appleleaf", "default:leaves", "default:apple", -- Apple Tree / Яблоня
 		"lottplants:beechleaf", -- Beeches / Бук
 		"lottplants:culumaldaleaf", "lottplants:yellowflowers", -- Culumalda / Кулумальда
-		"lottplants:elmleaf", -- Elms / Вяз
+		"lottplants:elmleaf", -- Elms / Вяз.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
 		"lottplants:plumleaf", "lottplants:plum", -- Plum Tree / Слива
 		"lottplants:rowanleaf", "lottplants:rowanberry", -- Rowans / Рябина
 		"lottplants:whiteleaf", -- White Tree / Белое дерево
@@ -62,5 +62,12 @@ default.register_leafdecay({
 default.register_leafdecay({
 	trunks = {"default:jungletree"},
 	leaves = {"lottplants:mirkleaf"},
+	radius = 2,
+})
+
+-- Elms / Вяз
+default.register_leafdecay({
+	trunks = {"lottplants:elmtree"},
+	leaves = {"lottplants:elmleaf"},
 	radius = 2,
 })

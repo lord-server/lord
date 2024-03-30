@@ -328,7 +328,7 @@ function lottmapgen_birchtree(x, y, z, area, data)
 end
 
 function lottmapgen_elmtree(x, y, z, area, data)
-	local id_tree    = minetest.get_content_id("default:tree")
+	local id_tree    = minetest.get_content_id("lottplants:elmtree")
 	local id_elmleaf = minetest.get_content_id("lottplants:elmleaf")
 	for j = -5, 25 do
 		if j == 11 or j == 18 or j == 24 then

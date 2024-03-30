@@ -266,7 +266,7 @@ function lottplants_elmtree(pos)
 	local height = 20 + math.random(5)
 	local radius = 2
 
-	add_trunk(pos, height, "default:tree")
+	add_trunk(pos, height, "lottplants:elmtree")
 
 	add_crown_at(pos, math.floor(height * 0.4), radius, "lottplants:elmleaf")
 	add_crown_at(pos, math.floor(height * 0.7), radius, "lottplants:elmleaf")

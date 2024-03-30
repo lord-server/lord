@@ -74,6 +74,8 @@ register_planks("lottplants:lebethronwood", "Lebethron", 1, "lottplants:lebethro
 register_planks("lottplants:mallornwood", "Mallorn", 1, "lottplants:mallorntree")
 register_planks("lottplants:hardwood", "Hardwood", 1, nil, { flammable = 1 })
 register_planks("lottplants:firwood", "Fir", 3, "lottplants:firtree")
+register_planks("lottplants:elmwood", "Elm", 2, "lottplants:elmtree")
+
 minetest.register_alias("lord_homedecor:hardwood", "lottplants:hardwood")
 
 -- Crafting

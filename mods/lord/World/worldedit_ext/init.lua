@@ -32,11 +32,12 @@ worldedit.alias_command('sc', 'select_chunks')
 local trees_nodes = {
 	"default:tree", "default:jungletree", "default:leaves", "default:apple", "lottplants:plum",
 	"lottplants:aldertree", "lottplants:birchtree", "lottplants:firtree", "lottplants:lebethrontree",
-	"lottplants:mallorntree", "lottplants:mallorntree_young", "lottplants:pinetree", "lottplants:alderleaf",
-	"lottplants:appleleaf", "lottplants:beechleaf", "lottplants:birchleaf",	"lottplants:culumaldaleaf",
-	"lottplants:elmleaf", "lottplants:firleaf", "lottplants:lebethronleaf", "lottplants:mallornleaf",
-	"lottplants:mirkleaf", "lottplants:pineleaf", "lottplants:plumleaf", "lottplants:rowanberry",
-	"lottplants:rowanleaf", "lottplants:whiteleaf", "lottplants:yavannamireleaf", "lottplants:yellowflowers",
+	"lottplants:mallorntree", "lottplants:mallorntree_young", "lottplants:pinetree", "lottplants:elmtree",
+	"lottplants:alderleaf",	"lottplants:appleleaf", "lottplants:beechleaf", "lottplants:birchleaf",
+	"lottplants:culumaldaleaf",	"lottplants:elmleaf", "lottplants:firleaf", "lottplants:lebethronleaf",
+	"lottplants:mallornleaf", "lottplants:mirkleaf", "lottplants:pineleaf", "lottplants:plumleaf",
+	"lottplants:rowanberry", "lottplants:rowanleaf", "lottplants:whiteleaf", "lottplants:yavannamireleaf",
+	"lottplants:yellowflowers",
 }
 worldedit.register_command('clear_trees', {
 	params      = "",

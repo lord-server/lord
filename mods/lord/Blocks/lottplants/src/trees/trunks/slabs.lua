@@ -62,6 +62,16 @@ stairs.register_slab(
 )
 
 stairs.register_slab(
+	"elmtree",
+	"lottplants:elmtree",
+	{ tree_slab = 1, choppy = 2, flammable = 2 },
+	{ "lottplants_elmtree.png", },
+	S("Elm Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
 	"tree",
 	"default:tree",
 	{ tree_slab = 1, choppy = 2, flammable = 2 },
