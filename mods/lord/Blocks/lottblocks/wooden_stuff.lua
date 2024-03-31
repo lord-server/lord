@@ -94,7 +94,7 @@ local function register_fence(name, description_prefix, wood_name, node_groups)
 	if name ~= "junglewood" and name ~= "hardwood" then
 		default.register_fence("lottblocks:fence_" .. name, {
 			description = S(description_prefix .. " Fence"),
-			texture = "lottblocks_fence_"..name.."_wood.png",
+			texture = "lottplants_"..name.."wood.png",
 			inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
 				"default_fence_overlay.png^[makealpha:255,126,126",
 			wield_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
@@ -119,7 +119,7 @@ local function register_fence(name, description_prefix, wood_name, node_groups)
 	if name == "hardwood" then
 		default.register_fence("lottblocks:fence_" .. name, {
 			description = S(description_prefix .. " Fence"),
-			texture = "lottblocks_fence_"..name..".png",
+			texture = "lottplants_"..name..".png",
 			inventory_image = "default_fence_overlay.png^lottplants_"..name..".png^" ..
 				"default_fence_overlay.png^[makealpha:255,126,126",
 			wield_image = "default_fence_overlay.png^lottplants_"..name..".png^" ..
@@ -420,6 +420,7 @@ lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethron
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
 lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottplants_hardwood.png", "lottplants:hardwood")
 lottblocks.register_wooden_stuff("fir", "Fir", "lottplants_firwood.png", "lottplants:firwood")
+lottblocks.register_wooden_stuff("elm", "Elm", "lottplants_elmwood.png", "lottplants:elmwood")
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
