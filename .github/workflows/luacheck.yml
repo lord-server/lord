@@ -39,7 +39,6 @@ jobs:
               mods/lord/Entities/throwing/ \
               mods/lord/Entities/npc/ \
               mods/lord/Entities/lottthrowing/ \
-              mods/lord/Blocks/lottplants/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/lottachievements/ \
               mods/lord/Game/lord_classes/ \

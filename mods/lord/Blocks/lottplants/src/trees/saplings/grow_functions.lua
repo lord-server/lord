@@ -107,6 +107,14 @@ local function add_roots(pos, node_name, trunk_thickness)
 	add_branches_at(pos, 0, node_name, trunk_thickness or 1)
 end
 
+
+--=== CROWN: ===--
+
+local crown_level_Type = {
+	RING = 1,
+	CONE = 2,
+}
+
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
 --- @param abs_dz number how far the current leaf from trunk by z coordinate
 --- @param radius number crown radius
@@ -116,10 +124,85 @@ local function is_crown_corners(abs_dx, abs_dz, radius)
 		(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
 end
 
-local crown_level_Type = {
-	RING = 1,
-	CONE = 2,
-}
+--- @param radii    table                                      with {radius_x, radius_z}.
+--- @param callback fun(dx:number,dz:number,avg_radius:number) to call on each iteration.
+local function foreach_deltas_in_radii(radii, callback)
+	local radius_x, radius_z = radii[1], radii[2]
+	local avg_radius         = (radius_x + radius_z) / 2
+	for dx = -radius_x, radius_x do
+		for dz = -radius_z, radius_z do
+			callback(dx, dz, avg_radius)
+		end
+	end
+end
+
+--- @param sapling_pos           Position where tree trunk starts (or where sapling was).
+--- @param add_at_dy             number   height where crown to add at.
+--- @param radii                 number   radii of crown: table with {radius_x, radius_z}.
+--- @param leaf_node_name        string   technical name of leaf.
+--- @param alternative_node_name string   technical name of alternative leaf or fruit.
+--- @param properties  tree.crown.Properties additional properties of crown placement. Defaults in tree.crown.Properties
+local function add_ring_crown_at(sapling_pos, add_at_dy, radii, leaf_node_name, alternative_node_name, properties)
+	foreach_deltas_in_radii(radii, function(dx, dz, avg_radius)
+		local abs_dx = math.abs(dx)
+		local abs_dz = math.abs(dz)
+		if properties.no_leaves_on_corners and is_crown_corners(abs_dx, abs_dz, avg_radius) then
+			return -- continue foreach_deltas_in_radii
+		end
+
+		if math.random() > (abs_dx + abs_dz) / 24 then
+			local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
+			add_leaf_node(position, leaf_node_name)
+		end
+		if alternative_node_name then
+			if math.random() > (abs_dx + abs_dz) / 12 then
+				local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
+				add_leaf_node(position, alternative_node_name)
+			end
+		end
+	end)
+end
+
+--- @param sapling_pos    Position where tree trunk starts (or where sapling was).
+--- @param add_at_dy      number   height where crown to add at.
+--- @param radii          number   radii of crown: table with {radius_x, radius_z}.
+--- @param leaf_node_name string   technical name of leaf.
+--- @param properties  tree.crown.Properties additional properties of crown placement. Defaults in tree.crown.Properties
+local function add_cone_crown_at(sapling_pos, add_at_dy, radii, leaf_node_name, properties)
+	local pos = sapling_pos
+	foreach_deltas_in_radii(radii, function(dx, dz, avg_radius)
+		local abs_dx = math.abs(dx)
+		local abs_dz = math.abs(dz)
+		local dy = abs_dx >= abs_dz and add_at_dy - abs_dx or add_at_dy - abs_dz
+		if math.random() > (abs_dx + abs_dz) / 24 then
+			add_leaf_node(    { x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz     }, leaf_node_name)
+			if properties.cone_solid then
+				add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy, z = pos.z + dz     }, leaf_node_name)
+				add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy, z = pos.z + dz     }, leaf_node_name)
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz + 1 }, leaf_node_name)
+				add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz - 1 }, leaf_node_name)
+			end
+		end
+	end)
+end
+
+--- @param radius number|table radius of whole crown. Or table with {radius_x, radius_z}.
+--- @return table with {radius_x, radius_z}.
+local function convert_to_radii_table(radius)
+	local radius_x = type(radius) == "table" and radius[1] or radius
+	local radius_z = type(radius) == "table" and radius[2] or radius
+
+	return { radius_x, radius_z }
+end
+
+--- @param node_name   string|string[] technical name of leaf or table with name & name of alternative leaf or fruit.
+--- @return string, string             with two crown node names: leaf_node_name, alternative_node_name
+local function extract_crown_node_names(node_name)
+	local leaf_node_name        = type(node_name) == "table" and node_name[1] or node_name
+	local alternative_node_name = type(node_name) == "table" and node_name[2] or nil
+
+	return leaf_node_name, alternative_node_name
+end
 
 --- @class tree.crown.Properties
 --- @field no_leaves_on_corners boolean Default: `false`
@@ -130,15 +213,10 @@ local crown_level_Type = {
 --- @param add_at_dy   number   height where crown to add at.
 --- @param radius      number   radius of whole crown. Or table with {radius_x, radius_z}.
 --- @param node_name   string   technical name of leaf or table with name & name of alternative leaf or fruit.
---- @param properties  tree.crown.Properties additional properties of crown placement.
+--- @param properties  tree.crown.Properties additional properties of crown placement. Defaults in tree.crown.Properties
 local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, properties)
-	local radius_x = type(radius) == "table" and radius[1] or radius
-	local radius_z = type(radius) == "table" and radius[2] or radius
-	radius = (radius_x + radius_z) / 2
-
-	local alternative_node_name
-	alternative_node_name = type(node_name) == "table" and node_name[2] or nil
-	node_name             = type(node_name) == "table" and node_name[1] or node_name
+	local radii = convert_to_radii_table(radius)
+	local leaf_node_name, alternative_node_name = extract_crown_node_names(node_name)
 
 	properties = properties or {}
 	properties.no_leaves_on_corners = properties.no_leaves_on_corners or false
@@ -146,48 +224,9 @@ local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, propertie
 	properties.cone_solid           = properties.cone_solid or false
 
 	if properties.level_type == crown_level_Type.RING then
-
-		for dx = -radius_x, radius_x do
-			for dz = -radius_z, radius_z do repeat -- this `repeat` is for continue statement below
-				local abs_dx = math.abs(dx)
-				local abs_dz = math.abs(dz)
-				if properties.no_leaves_on_corners and is_crown_corners(abs_dx, abs_dz, radius) then
-					break -- continue (breaks only `repeat` statement, not `for`)
-				end
-
-				if math.random() > (abs_dx + abs_dz) / 24 then
-					local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
-					add_leaf_node(position, node_name)
-				end
-				if alternative_node_name then
-					if math.random() > (abs_dx + abs_dz) / 12 then
-						local position = vector.new(sapling_pos) + vector.new(dx, add_at_dy + math.random(0, 1), dz)
-						add_leaf_node(position, alternative_node_name)
-					end
-				end
-			until true end
-		end
-
+		add_ring_crown_at(sapling_pos, add_at_dy, radii, leaf_node_name, alternative_node_name, properties)
 	elseif properties.level_type == crown_level_Type.CONE then
-
-		local pos = sapling_pos
-		for dx = -radius, radius do
-			for dz = -radius, radius do
-				local abs_dx = math.abs(dx)
-				local abs_dz = math.abs(dz)
-				local dy = abs_dx >= abs_dz and add_at_dy - abs_dx or add_at_dy - abs_dz
-				if math.random() > (abs_dx + abs_dz) / 24 then
-					add_leaf_node(    { x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz     }, node_name)
-					if properties.cone_solid then
-						add_leaf_node({ x = pos.x + dx + 1, y = pos.y + dy, z = pos.z + dz     }, node_name)
-						add_leaf_node({ x = pos.x + dx - 1, y = pos.y + dy, z = pos.z + dz     }, node_name)
-						add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz + 1 }, node_name)
-						add_leaf_node({ x = pos.x + dx,     y = pos.y + dy, z = pos.z + dz - 1 }, node_name)
-					end
-				end
-			end
-		end
-
+		add_cone_crown_at(sapling_pos, add_at_dy, radii, leaf_node_name, properties)
 	else
 		error("Unknown crown level Type: " .. type, 2)
 	end
