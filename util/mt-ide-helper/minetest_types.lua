@@ -1072,9 +1072,10 @@ function minetest.get_perlin(seeddiff, octaves, persistence, spread) end
 --- * Loads the manipulator from the map if positions are passed.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4955-L4957)
---- @param positions table array [pos1, pos2]
+--- @param position1 Position min position
+--- @param position2 Position max position
 --- @return VoxelManip
-function minetest.get_voxel_manip(positions) end
+function minetest.get_voxel_manip(position1, position2) end
 --- * Set the types of on-generate notifications that should be collected.
 --- * `flags` is a flag field with the available flags:
 ---     * dungeon
@@ -1102,7 +1103,7 @@ function minetest.get_decoration_id(decoration_name) end
 --- * Return requested mapgen object if available (see [Mapgen objects])
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4975-L4976)
---- @return VoxelManip, number, number
+--- @return VoxelManip|number[][]|number[][][], number, number
 function minetest.get_mapgen_object(objectname) end
 --- * Returns the heat at the position, or `nil` on failure.
 ---

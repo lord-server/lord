@@ -118,21 +118,16 @@ minetest.register_on_dungeon_generated = function(callback)
 			return
 		end
 
-		local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-		local area           = VoxelArea:new({ MinEdge = emin, MaxEdge = emax })
-		local data           = vm:get_data()
-		local param2_data    = vm:get_param2_data()
+		local is_on_mapgen, with_param2 = true, true
+		minetest.with_map_part_do(minp, maxp, function(area, data, param2_data)
 
-		local rooms_walls = detect_rooms_walls(data, area, notify.dungeon)
+			local rooms_walls = detect_rooms_walls(data, area, notify.dungeon)
 
-		for _, on_dungeon_generated_handler in pairs(on_dungeon_generated_handlers) do
-			on_dungeon_generated_handler(minp, maxp, data, param2_data, area, notify.dungeon, rooms_walls)
-		end
+			for _, on_dungeon_generated_handler in pairs(on_dungeon_generated_handlers) do
+				on_dungeon_generated_handler(minp, maxp, data, param2_data, area, notify.dungeon, rooms_walls)
+			end
 
-		vm:set_data(data)
-		vm:set_param2_data(param2_data)
-		vm:calc_lighting()
-		vm:write_to_map()
+		end, is_on_mapgen, with_param2)
 	end)
 	on_generated_is_registered = true
 end

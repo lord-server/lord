@@ -346,10 +346,6 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 	local y1 = max_pos.y
 	local z1 = max_pos.z
 
-	local voxel_manipulator, e_min, e_max = minetest.get_mapgen_object("voxelmanip")
-	local area                            = VoxelArea:new{ MinEdge = e_min, MaxEdge = e_max }
-	local data                            = voxel_manipulator:get_data()
-
 	local side_len   = x1 - x0 + 1
 	local chunk_lens = { x = side_len, y = side_len, z = side_len }
 	local xz_min_pos = { x = x0, y = z0 }
@@ -358,132 +354,132 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 	local nvals_humid  = minetest.get_perlin_map(np_humidity, chunk_lens):get_2d_map_flat(xz_min_pos)
 	local nvals_random = minetest.get_perlin_map(np_random, chunk_lens):get_2d_map_flat(xz_min_pos)
 
-	local lua_t1 = os_clock()
+	local lua_gen_time = 0
 
-	local xz_noise_index = 1
-	for z = z0, z1 do
-		for x = x0, x1 do -- for each column do
-			local temperature = nvals_temp[xz_noise_index] -- select biome
-			local humidity    = nvals_humid[xz_noise_index]
-			local random      = nvals_random[xz_noise_index]
-			local biome       = detect_current_biome(temperature, humidity, random)
+	minetest.with_map_part_do(min_pos, max_pos, function(area, data)
 
-			local sand_y         = (water_level + BEACH_LAYERS_COUNT) + math_random(-1, 1) -- sandline
-			local sand_min_y     = (water_level - 15) + math_random(-5, 0) -- lowest sand
-			local is_open        = true -- open to sky?
-			local is_solid       = true -- solid node above?
-			local is_water_above = false -- water node above?
-			local surface_y      = y1 + 80 -- y of last surface detected
-			for y = y1, y0, -1 do -- working down each column for each node do
-				local vi         = area:index(x, y, z)
-				local node_id    = data[vi]
-				local vi_uu      = area:index(x, y - 2, z)
-				local node_id_uu = data[vi_uu] -- under-under
+		local lua_t1 = os_clock()
 
-				local node_is_stone = node_id == id_stone or node_id == id_stone_w_copper or node_id == id_stone_w_iron or node_id == id_stone_w_coal
-				local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
-				local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
+		local xz_noise_index = 1
+		for z = z0, z1 do
+			for x = x0, x1 do -- for each column do
+				local temperature = nvals_temp[xz_noise_index] -- select biome
+				local humidity    = nvals_humid[xz_noise_index]
+				local random      = nvals_random[xz_noise_index]
+				local biome       = detect_current_biome(temperature, humidity, random)
 
-				-- if stone
-				if node_is_stone then
+				local sand_y         = (water_level + BEACH_LAYERS_COUNT) + math_random(-1, 1) -- sandline
+				local sand_min_y     = (water_level - 15) + math_random(-5, 0) -- lowest sand
+				local is_open        = true -- open to sky?
+				local is_solid       = true -- solid node above?
+				local is_water_above = false -- water node above?
+				local surface_y      = y1 + 80 -- y of last surface detected
+				for y = y1, y0, -1 do -- working down each column for each node do
+					local vi         = area:index(x, y, z)
+					local node_id    = data[vi]
+					local vi_uu      = area:index(x, y - 2, z)
+					local node_id_uu = data[vi_uu] -- under-under
 
-					if y > water_level - 32 then
-                        local biome_gravel = get_biome_gravel(biome)
-						local biome_stone = get_biome_stone(biome)
-                        if biome_stone then
-                            if biome_gravel then
-                                if math.random(100) <= GRAVEL_PERCENT then
-                                    data[vi] = biome_gravel
-                                else
-                                    data[vi] = biome_stone
-                                end
-                            else
-							    data[vi] = biome_stone
-                            end
+					local node_is_stone = node_id == id_stone or node_id == id_stone_w_copper or node_id == id_stone_w_iron or node_id == id_stone_w_coal
+					local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
+					local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
+
+					-- if stone
+					if node_is_stone then
+
+						if y > water_level - 32 then
+							local biome_gravel = get_biome_gravel(biome)
+							local biome_stone = get_biome_stone(biome)
+							if biome_stone then
+								if biome_gravel then
+									if math.random(100) <= GRAVEL_PERCENT then
+										data[vi] = biome_gravel
+									else
+										data[vi] = biome_stone
+									end
+								else
+									data[vi] = biome_stone
+								end
+							end
 						end
-					end
 
-					if not is_solid then -- if surface
-						surface_y = y
+						if not is_solid then -- if surface
+							surface_y = y
 
-						if node_uu_is_not_space then -- if supported by 2 stone nodes
+							if node_uu_is_not_space then -- if supported by 2 stone nodes
 
-							if y <= sand_y and y >= sand_min_y then -- surface in the sand bounds
-								data[vi] = get_biome_sand(biome)
+								if y <= sand_y and y >= sand_min_y then -- surface in the sand bounds
+									data[vi] = get_biome_sand(biome)
 
-								local is_beach = y >= water_level and y < (water_level + BEACH_LAYERS_COUNT)
-								local is_water_space = y < water_level and is_water_above
+									local is_beach = y >= water_level and y < (water_level + BEACH_LAYERS_COUNT)
+									local is_water_space = y < water_level and is_water_above
 
 
-								if is_beach then
-									-- place beach stuff
-								elseif is_water_space then
-									local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open
-									if is_shallow_water then
-										if biome > 4 and biome ~= BIOME_MORDOR then
-											-- papyrus
-											if math_random(PAPYRUS_CHANCE) == 1	then
-												lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-												data[vi] = id_dirt
-											-- waterlily
-											elseif math_random(20) == 1 then
-												local water_level_vi = area:index(x, water_level + 1, z)
-												data[water_level_vi] = id_waterlily
-												data[vi] = id_dirt
+									if is_beach then
+										-- place beach stuff
+									elseif is_water_space then
+										local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open
+										if is_shallow_water then
+											if biome > 4 and biome ~= BIOME_MORDOR then
+												-- papyrus
+												if math_random(PAPYRUS_CHANCE) == 1	then
+													lottmapgen_papyrus(x, (water_level + 1), z, area, data)
+													data[vi] = id_dirt
+												-- waterlily
+												elseif math_random(20) == 1 then
+													local water_level_vi = area:index(x, water_level + 1, z)
+													data[water_level_vi] = id_waterlily
+													data[vi] = id_dirt
+												end
 											end
 										end
+										biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
 									end
-									biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
+								elseif y > sand_y then -- above sandline
+									data[vi] = get_biome_grass(biome)
+									if is_open then -- if open to sky then flora & buildings
+										local surf_vi = area:index(x, surface_y + 1, z)
+										biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
+									end
 								end
-							elseif y > sand_y then -- above sandline
-								data[vi] = get_biome_grass(biome)
-								if is_open then -- if open to sky then flora & buildings
-									local surf_vi = area:index(x, surface_y + 1, z)
-									biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
-								end
+
 							end
 
-						end
+						else -- underground
 
-					else -- underground
+							if node_uu_is_not_space then
 
-						if node_uu_is_not_space then
+								if is_sand_layer(y, sand_min_y, surface_y) then
+									data[vi] = get_biome_sand(biome)
+								end
 
-							if is_sand_layer(y, sand_min_y, surface_y) then
-								data[vi] = get_biome_sand(biome)
 							end
-
 						end
-					end
 
-					is_open  = false
-					is_solid = true
+						is_open  = false
+						is_solid = true
 
-				elseif node_is_space then
+					elseif node_is_space then
 
-					is_solid = false
+						is_solid = false
 
-					if node_id == id_water or node_id == id_river_water then
-						is_water_above = true
-						biome_replace_water(node_id, biome, data, vi)
-						place_ice_crust(temperature, y, data, vi) -- if it's frosty & not so deep
+						if node_id == id_water or node_id == id_river_water then
+							is_water_above = true
+							biome_replace_water(node_id, biome, data, vi)
+							place_ice_crust(temperature, y, data, vi) -- if it's frosty & not so deep
+						end
 					end
 				end
+
+				xz_noise_index = xz_noise_index + 1
 			end
-
-			xz_noise_index = xz_noise_index + 1
 		end
-	end
 
-	local lua_gen_time = 0
-	if measure then
-		lua_gen_time = math_ceil((os_clock() - lua_t1) * 1000)
-	end
+		if measure then
+			lua_gen_time = math_ceil((os_clock() - lua_t1) * 1000)
+		end
 
-	voxel_manipulator:set_data(data)
-	voxel_manipulator:set_lighting({ day =0, night =0})
-	voxel_manipulator:calc_lighting()
-	voxel_manipulator:write_to_map(data)
+	end, true)
 
 	if measure then
 		local chunk_gen_time = math_ceil((os_clock() - t1) * 1000)
