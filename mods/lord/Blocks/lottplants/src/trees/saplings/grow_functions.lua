@@ -39,6 +39,7 @@ end
 local branch_Type = {
 	SHURIKEN = 1,
 	DIAGONAL = 2,
+	TRUNKED  = 3,
 }
 
 --- @param pos       Position of branch trunk, around which will leaves be added.
@@ -93,6 +94,12 @@ local function add_branches_at(sapling_pos, add_at_dy, node_name, trunk_thicknes
 			add_branch_in({ x = pos.x + t + i, y = pos.y - 1 + i, z = pos.z     - i }, node_name, leaf_node_name)
 			add_branch_in({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z + t + i }, node_name, leaf_node_name)
 			add_branch_in({ x = pos.x     - i, y = pos.y - 1 + i, z = pos.z     - i }, node_name, leaf_node_name)
+		end
+	elseif type == branch_Type.TRUNKED then
+		t = t - 1
+		for i = 0, length - 1 do
+			local branch_pos = { x = pos.x + math.random(0, t), y = pos.y + i, z = pos.z + math.random(0, t) }
+			add_branch_in(branch_pos, node_name, leaf_node_name)
 		end
 	else
 		error("Unknown branch Type: " .. type, 2)
@@ -354,11 +361,8 @@ function lottplants_mallorntree(pos)
 		add_roots(pos, "lottplants:mallorntree", 2)
 	end
 
-	for dy = height, 0, -1 do
-		if (math.sin(dy / height * dy) < 0.2 and dy > 3 and math.random(0, 2) < 1.5) then
-			local branch_pos = { x = pos.x + math.random(0, 1), y = pos.y + dy, z = pos.z + math.random(0, 1) }
-			add_branch_crown_in(branch_pos, "lottplants:mallornleaf")
-		end
+	for dy = 9 + math.random(3), height - 2, 5 do
+		add_branches_at(pos, dy, "lottplants:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lottplants:mallornleaf")
 	end
 
 	add_branches_at(pos, height, "lottplants:mallorntree", 2, 2, branch_Type.SHURIKEN, "lottplants:mallornleaf")
