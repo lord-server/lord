@@ -1,8 +1,8 @@
 ---
 --- Регистрация спавнера сундуков
 ---
---- @param chest_name     string                                      название ноды целевого сундука
---- @param possible_items table<table<string,number|nil,number|nil>>  массив c массивами, описывающими лут в сундуках и его возможное кол-во
+--- @param chest_name     string  название ноды целевого сундука
+--- @param possible_items table[] массив c массивами, описывающими лут в сундуках и его возможное кол-во
 ---
 --- `possible_items` имеет следующего вид:
 --- ```
@@ -34,7 +34,7 @@ local function register_chest_spawner(chest_name, possible_items)
 	--- Вспомогательная функция для регистрации ABM
 	--- Преобразует possible_items (см. выше) в массив со stackstring'ами (см. lua_api.txt).
 	--- @param potential_items table
-	--- @return table<string>
+	--- @return table[]
 	local function get_items_available_from_possible_items(potential_items)
 		local items_available = {}
 		for _, item in ipairs(potential_items) do

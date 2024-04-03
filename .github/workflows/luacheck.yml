@@ -35,7 +35,9 @@ jobs:
           $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
             --globals lottachievements races throwing \
             --exclude-files \
+              mods/_minetest_game/ \
               mods/lord/World/Generation/icicles/ \
+              mods/lord/World/Generation/lottmapgen/ \
               mods/lord/Entities/throwing/ \
               mods/lord/Entities/npc/ \
               mods/lord/Entities/lottthrowing/ \

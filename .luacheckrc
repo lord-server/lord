@@ -57,7 +57,7 @@ read_globals      = {
 
 	-- MTG
 	"beds", "sfinv", "creative", "dungeon_loot",
-	"dye", "stairs", "sethome", "walls",
+	"dye", "stairs", "sethome", "walls", "bucket",
 
 	-- Lord specific
 	"lord", "hb",
@@ -82,16 +82,17 @@ read_globals      = {
 exclude_files     = {
 	-- External mods:
 
-    -- MTG:
-    "mods/_minetest_game/",
-
     -- наследие из LOTT (требует переработки):
-	"mods/lord/World/Generation/lottmapgen",
+	--"mods/lord/World/Generation/lottmapgen",
 
     -- Остальное:
 	"mods/_various/",
 	"util",
 }
+
+-- Don't report on legacy definitions of globals.
+files["mods/_minetest_game/default/legacy.lua"].global = false
+
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {

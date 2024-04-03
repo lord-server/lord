@@ -83,7 +83,7 @@ dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
 dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
 
 local function detect_current_biome(n_temp, n_humid, n_ran)
-	local biome = 0
+	local biome
 	if n_temp < LO_TEMPERATURE_THRESHOLD then
 		if n_humid < LO_HUMIDITY_THRESHOLD then
 			biome = BIOME_ANGMAR -- (Angmar)
@@ -181,6 +181,8 @@ local id_stone          = id("default:stone")
 local id_stone_w_copper = id("default:stone_with_copper")
 local id_stone_w_iron   = id("default:stone_with_iron")
 local id_stone_w_coal   = id("default:stone_with_coal")
+
+local stones_ids = { id_stone, id_stone_w_copper, id_stone_w_iron, id_stone_w_coal }
 
 local id_water       = id("default:water_source")
 local id_river_water = id("default:river_water_source")
@@ -380,7 +382,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 					local vi_uu      = area:index(x, y - 2, z)
 					local node_id_uu = data[vi_uu] -- under-under
 
-					local node_is_stone = node_id == id_stone or node_id == id_stone_w_copper or node_id == id_stone_w_iron or node_id == id_stone_w_coal
+					local node_is_stone = table.contains(stones_ids, node_id)
 					local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
 					local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
 
@@ -415,7 +417,7 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 									local is_water_space = y < water_level and is_water_above
 
 
-									if is_beach then
+									if is_beach then -- luacheck: ignore (empty if branch)
 										-- place beach stuff
 									elseif is_water_space then
 										local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open

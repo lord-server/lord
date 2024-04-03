@@ -3,7 +3,7 @@ local math_random, id
 
 --Rarity for Trees
 
-local TREE1 = 30
+local TREE1 = 30    -- luacheck: ignore unused variable TREE1
 local TREE2 = 50
 local TREE3 = 100
 local TREE4 = 200
@@ -27,7 +27,7 @@ local PLANT8 = 500
 local PLANT9 = 750
 local PLANT10 = 1000
 local PLANT11 = 2000
-local PLANT12 = 5000
+local PLANT12 = 5000  -- luacheck: ignore unused variable PLANT12
 local PLANT13 = 10000
 
 

@@ -202,28 +202,6 @@ function lottmapgen_culumaldatree(x, y, z, area, data)
 	end
 end
 
-function lottmapgen_yavannamiretree(x, y, z, area, data)
-	local id_tree             = minetest.get_content_id("default:tree")
-	local id_yavannamirefruit = minetest.get_content_id("lottplants:yavannamirefruit")
-	local id_yavannamireleaf  = minetest.get_content_id("lottplants:yavannamireleaf")
-	for j = -2, 4 do
-		if j >= 1 then
-			for i = -2, 2 do
-			for k = -2, 2 do
-				local vil = area:index(x + i, y + j + 1, z + k)
-				if math.random(48) == 2 then
-					data[vil] = id_yavannamirefruit
-				elseif math.random(3) ~= 2 then
-					data[vil] = id_yavannamireleaf
-				end
-			end
-			end
-		end
-		local vit = area:index(x, y + j, z)
-		data[vit] = id_tree
-	end
-end
-
 function lottmapgen_defaulttree(x, y, z, area, data)
 	local id_tree   = minetest.get_content_id("default:tree")
 	local id_leaves = minetest.get_content_id("default:leaves")
