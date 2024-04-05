@@ -102,10 +102,11 @@ function lottplants_firtree(pos, generator)
 
 	generator.add_trunk(pos, height, "lottplants:firtree")
 
-	generator.add_crown_at(pos, height + 1, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE })
-	generator.add_crown_at(pos, height - 2, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
-	generator.add_crown_at(pos, height - 5, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
-	generator.add_crown_at(pos, height - 8, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
+	local leaf_node = "lottplants:firleaf"
+	generator.add_crown_at(pos, height + 1, radius, leaf_node, { level_type = crown_level_Type.CONE })
+	generator.add_crown_at(pos, height - 2, radius, leaf_node, { level_type = crown_level_Type.CONE, cone_solid = true })
+	generator.add_crown_at(pos, height - 5, radius, leaf_node, { level_type = crown_level_Type.CONE, cone_solid = true })
+	generator.add_crown_at(pos, height - 8, radius, leaf_node, { level_type = crown_level_Type.CONE, cone_solid = true })
 end
 
 -- Lebethron
@@ -132,7 +133,9 @@ function lottplants_mallorntree(pos, generator)
 	end
 
 	for dy = 9 + math.random(3), height - 2, 5 do
-		generator.add_branches_at(pos, dy, "lottplants:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lottplants:mallornleaf")
+		generator.add_branches_at(
+			pos, dy, "lottplants:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lottplants:mallornleaf"
+		)
 	end
 
 	generator.add_branches_at(pos, height, "lottplants:mallorntree", 2, 2, branch_Type.SHURIKEN, "lottplants:mallornleaf")
