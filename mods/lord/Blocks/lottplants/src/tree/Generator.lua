@@ -1,4 +1,9 @@
--- TREE FUNCTIONS
+
+local branch_Type      = require('tree.branch.Type')
+local crown_level_Type = require("tree.crown.level_Type")
+
+
+-- TREE GENERATOR
 
 --- Places node only if it was an air in this `pos`
 --- @param pos       Position position to place to.
@@ -35,12 +40,6 @@ local function add_trunk(pos, height, node_name, thickness)
 		end
 	end
 end
-
-local branch_Type = {
-	SHURIKEN = 1,
-	DIAGONAL = 2,
-	TRUNKED  = 3,
-}
 
 --- @param pos       Position of branch trunk, around which will leaves be added.
 --- @param node_name string   technical name of leaf ("<mod>:<node>").
@@ -117,17 +116,12 @@ end
 
 --=== CROWN: ===--
 
-local crown_level_Type = {
-	RING = 1,
-	CONE = 2,
-}
-
 --- @param abs_dx number how far the current leaf from trunk by x coordinate
 --- @param abs_dz number how far the current leaf from trunk by z coordinate
 --- @param radius number crown radius
 local function is_crown_corners(abs_dx, abs_dz, radius)
 	return
-		(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2) or
+	(abs_dz == radius) and (abs_dx + 1 > (radius + 1) / 2) or
 		(abs_dx == radius) and (abs_dz + 1 > (radius + 1) / 2)
 end
 
@@ -239,242 +233,37 @@ local function add_crown_at(sapling_pos, add_at_dy, radius, node_name, propertie
 	end
 end
 
+--- @class tree.Generator
+local Generator = {
+	--- @private
+	--- @type fun(pos:Position)|table<number,fun(pos:Position)>
+	grow_function = nil,
 
--- Alders / Ольха
+	add_trunk       = add_trunk,
+	add_roots       = add_roots,
+	add_crown_at    = add_crown_at,
+	add_branches_at = add_branches_at,
+}
 
-function lottplants_aldertree(pos)
-	local height = 6 + math.random(2)
-	local radius = 3
+--- Constructor
+--- @param grow_function fun(pos:Position)|table<number,fun(pos:Position)> function how to grow into a tree.
+--- @return tree.Generator
+function Generator:new(grow_function)--, area, data) TODO: #661
+	local class = self
+	self = {}
 
-	add_trunk(pos, height, "lottplants:aldertree")
+	self.grow_function = grow_function
 
-	add_crown_at(pos, height - 2, radius, "lottplants:alderleaf", { no_leaves_on_corners = true })
-	add_crown_at(pos, height,     radius, "lottplants:alderleaf", { no_leaves_on_corners = true })
+	return setmetatable(self, {__index = class})
 end
 
--- Apple tree / Яблоня
-
-function lottplants_appletree(pos)
-	local height = 3 + math.random(2)
-	local radius = 3
-
-	add_trunk(pos, height, "default:tree")
-	-- HACK: это адаптированная версия, лучше бы передавать шансы листьев и альтернативной ноды
-	--       но в данном варианте выдаёт примерно то же самое кол-во яблок, что и раньше
-	add_crown_at(pos, height - 2, radius, { "default:apple", "lottplants:appleleaf" })
-	add_crown_at(pos, height,     radius, "lottplants:appleleaf")
-	add_crown_at(pos, height,     radius, "default:apple")
-end
-
--- Birches / Береза
-
-function lottplants_birchtree(pos)
-	local height = 7 + math.random(5)
-
-	add_trunk(pos, height, "lottplants:birchtree")
-
-	add_crown_at(pos, math.floor(height * 0.4), {3,2}, "lottplants:birchleaf")
-	add_crown_at(pos, math.floor(height * 0.6), {2,3}, "lottplants:birchleaf")
-	add_crown_at(pos, math.floor(height * 0.8), {2,2}, "lottplants:birchleaf")
-	add_crown_at(pos, height,                   {2,1}, "lottplants:birchleaf")
-end
-
--- Beeches / Бук
-
-function lottplants_beechtree(pos)
-	local height = 12 + math.random(3)
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")
-	add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")
-	add_crown_at(pos, height - 6, 4, "lottplants:beechleaf")
-	add_crown_at(pos, height - 4, 4, "lottplants:beechleaf")
-	add_crown_at(pos, height - 2, 3, "lottplants:beechleaf")
-	add_crown_at(pos, height,     2, "lottplants:beechleaf")
-end
-
--- Culumalda
-
-function lottplants_culumaldatree(pos)
-	local height = 4 + math.random(2)
-	local radius = 2
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 2, radius, { "lottplants:culumaldaleaf", "lottplants:yellowflowers" })
-	add_crown_at(pos, height,     radius, { "lottplants:culumaldaleaf", "lottplants:yellowflowers" })
-end
-
--- Elms / Вяз
-
-function lottplants_elmtree(pos)
-	local height = 20 + math.random(5)
-	local radius = 2
-
-	add_trunk(pos, height, "lottplants:elmtree")
-
-	add_crown_at(pos, math.floor(height * 0.4), radius, "lottplants:elmleaf")
-	add_crown_at(pos, math.floor(height * 0.7), radius, "lottplants:elmleaf")
-	add_crown_at(pos, height,                   radius, "lottplants:elmleaf")
-end
-
--- Firs / Ель
-
-function lottplants_firtree(pos)
-	local height = 10 + math.random(3)
-	local radius = 2
-
-	add_trunk(pos, height, "lottplants:firtree")
-
-	add_crown_at(pos, height + 1, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE })
-	add_crown_at(pos, height - 2, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
-	add_crown_at(pos, height - 5, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
-	add_crown_at(pos, height - 8, radius, "lottplants:firleaf", { level_type = crown_level_Type.CONE, cone_solid = true })
-end
-
--- Lebethron
-
-function lottplants_lebethrontree(pos)
-	local height = 3 + math.random(1)
-	local radius = 2
-
-	add_trunk(pos, height, "lottplants:lebethrontree")
-
-	add_crown_at(pos, math.floor(height * 0.7), radius, "lottplants:lebethronleaf")
-	add_crown_at(pos, height,                   radius, "lottplants:lebethronleaf")
-end
-
--- Mallorn
--- FIXME: this function used only in MapGen mod. Remove it during #661
--- luacheck: ignore unused global variable add_tree_branch_mallorn
-function add_tree_branch_mallorn(pos)
-	add_trunk_node(pos, "lottplants:mallorntree")
-	add_branch_crown_in(pos, "lottplants:mallornleaf")
-end
-
-function lottplants_mallorntree(pos)
-	local height = 25 + math.random(5)
-
-	add_trunk(pos, height, "lottplants:mallorntree", 2)
-	if math.random(0, 1) == 1 then
-		add_roots(pos, "lottplants:mallorntree", 2)
+--- @param position Position
+function Generator:generate_tree(position)
+	if type(self.grow_function) == "table" then
+		self.grow_function[math.random(#self.grow_function)](position, self)
+	else
+		self.grow_function(position, self)
 	end
-
-	for dy = 9 + math.random(3), height - 2, 5 do
-		add_branches_at(pos, dy, "lottplants:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lottplants:mallornleaf")
-	end
-
-	add_branches_at(pos, height, "lottplants:mallorntree", 2, 2, branch_Type.SHURIKEN, "lottplants:mallornleaf")
 end
 
-function lottplants_smallmallorntree(pos)
-	local height = 15
-	local radius = 2
-
-	add_trunk(pos, height, "lottplants:mallorntree")
-
-	add_crown_at(pos, height - 4, radius, "lottplants:mallornleaf")
-	add_crown_at(pos, height,     radius, "lottplants:mallornleaf")
-end
-
-function lottplants_young_mallorn(pos)
-	local height = 6 + math.random(1)
-	local radius = 1
-
-	add_trunk(pos, height, "lottplants:mallorntree_young")
-
-	add_crown_at(pos, height - 2, radius, "lottplants:mallornleaf")
-	add_crown_at(pos, height,     radius, "lottplants:mallornleaf")
-end
-
--- Pines / Сосна
-
-function lottplants_pinetree(pos)
-	local height = 10 + math.random(3)
-	local radius = 2
-
-	add_trunk(pos, height, "lottplants:pinetree")
-
-	add_crown_at(pos, height + 1, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
-	add_crown_at(pos, height - 2, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
-	add_crown_at(pos, height - 5, radius, "lottplants:pineleaf", { level_type = crown_level_Type.CONE })
-end
-
--- Plum Trees / Слива
-
-function lottplants_plumtree(pos)
-	local height = 4 + math.random(2)
-	local radius = 2
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 2, radius, { "lottplants:plumleaf", "lottplants:plum" })
-	add_crown_at(pos, height,     radius, { "lottplants:plumleaf", "lottplants:plum" })
-end
-
-
--- Rowans / Рябина
-
-function lottplants_rowantree(pos)
-	local height = 6 + math.random(2)
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 4, 2, "lottplants:rowanleaf")
-	add_crown_at(pos, height - 2, 3, { "lottplants:rowanleaf", "lottplants:rowanberry" })
-	add_crown_at(pos, height,     2, "lottplants:rowanleaf")
-end
-
--- White Tree / Белое дерево
-
-function lottplants_whitetree(pos)
-	local height = 4 + math.random(2)
-	local radius = 2
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 2, radius, "lottplants:whiteleaf")
-	add_crown_at(pos, height,     radius, "lottplants:whiteleaf")
-end
-
--- Yavannamire / Йаванамирэ
-
-function lottplants_yavannamiretree(pos)
-	local height = 4 + math.random(2)
-	local radius = 2
-
-	add_trunk(pos, height, "default:tree")
-
-	add_crown_at(pos, height - 2, radius, { "lottplants:yavannamireleaf", "lottplants:yavannamirefruit" })
-	add_crown_at(pos, height,     radius, { "lottplants:yavannamireleaf", "lottplants:yavannamirefruit" })
-end
-
---Mirk large / Большое дерево Лихолесья
--- FIXME: this function used only in MapGen mod. Remove it during #661
--- luacheck: ignore unused global variable add_tree_branch_mirktree
-function add_tree_branch_mirktree(pos)
-	add_trunk_node(pos, "default:jungletree")
-	add_branch_crown_in(pos, "lottplants:mirkleaf")
-end
-
-function lottplants_mirktree(pos)
-	local height = 5 + math.random(1)
-
-	add_trunk(pos, height, "default:jungletree", 2)
-	if math.random(0, 1) == 1 then
-		add_roots(pos, "default:jungletree", 2)
-	end
-
-	add_branches_at(pos, height, "default:jungletree", 2, 2, branch_Type.SHURIKEN, "lottplants:mirkleaf")
-end
-
---Mirk Small / Малое дерево Лихолесья
-
-function lottplants_smallmirktree(pos)
-	local height = 7
-
-	add_trunk(pos, height - 2, "default:jungletree")
-
-	add_branches_at(pos, height - 1, "default:jungletree", 1, 2, branch_Type.DIAGONAL, "lottplants:mirkleaf")
-end
+return Generator

@@ -114,6 +114,53 @@ function lottmapgen_burnedtree(x, y, z, area, data)
 	end
 end
 
+
+
+-- FIXME: Remove this function during #661
+--- Places node only if it was an air in this `pos`
+--- @param pos       Position position to place to.
+--- @param node_name string   technical name of leaf ("<mod_name>:<node_name>").
+local function add_leaf_node(pos, node_name)
+	local n = minetest.get_node(pos)
+	if (n.name == "air") then
+		minetest.add_node(pos, { name = node_name })
+	end
+end
+-- FIXME: Remove this function during #661
+--- Places node only if it was an air|leaf|sapling in this `pos`
+--- @param pos       Position position to place to.
+--- @param node_name string   technical name of trunk ("<mod_name>:<node_name>").
+local function add_trunk_node(pos, node_name)
+	local n = minetest.get_node(pos)
+	if (n.name == "air") or (string.find(n.name, "leaf")) or (string.find(n.name, "sapling")) then
+		minetest.add_node(pos, { name = node_name })
+	end
+end
+-- FIXME: Remove this function during #661
+--- @param pos       Position of branch trunk, around which will leaves be added.
+--- @param node_name string   technical name of leaf ("<mod>:<node>").
+--- @param radius    number   max possible radius of crown around branch.
+local function add_branch_crown_in(pos, node_name, radius)
+	radius = radius or 2
+	for dx = -math.random(radius), math.random(radius) do
+		for dz = -math.random(radius), math.random(radius) do
+			add_leaf_node({ x = pos.x + dx, y = pos.y + math.random(0, 1), z = pos.z + dz }, node_name)
+		end
+	end
+end
+-- FIXME: Remove this function during #661
+local function add_tree_branch_mallorn(pos)
+	add_trunk_node(pos, "lottplants:mallorntree")
+	add_branch_crown_in(pos, "lottplants:mallornleaf")
+end
+-- FIXME: Remove this function during #661
+local function add_tree_branch_mirktree(pos)
+	add_trunk_node(pos, "default:jungletree")
+	add_branch_crown_in(pos, "lottplants:mirkleaf")
+end
+
+
+
 function lottmapgen_appletree(x, y, z, area, data)
 	local id_tree   = minetest.get_content_id("default:tree")
 	local id_apple  = minetest.get_content_id("default:apple")

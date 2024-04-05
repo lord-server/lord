@@ -1,5 +1,6 @@
 local S = minetest.get_translator("lottplants")
 
+local Generator = require("tree.Generator")
 
 local SAPLING_GROW_ABM_INTERVAL = 67
 local SAPLING_GROW_ABM_CHANCE   = 11
@@ -56,11 +57,16 @@ local function register_sapling(node_name, title, grow_function)
 				return
 			end
 
-			if type(grow_function) == "table" then
-				grow_function[math.random(#grow_function)](pos)
-			else
-				grow_function(pos)
-			end
+			-- TODO # 661
+			--local max_radius = 10
+			--local max_height = 50
+			--
+			--local pos1 = vector.offset(pos, -max_radius,          0, max_radius)
+			--local pos2 = vector.offset(pos, -max_radius, max_height, max_radius)
+			--minetest.with_map_part_do(pos1, pos2, function(area, data)
+				local tree_gen = Generator:new(grow_function)--, area, data)
+				tree_gen:generate_tree(pos)
+			--end)
 
 			print("[lottplants] " .. title .. " Grows")
 		end,
