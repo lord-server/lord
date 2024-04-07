@@ -421,6 +421,7 @@ lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.p
 lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottplants_hardwood.png", "lottplants:hardwood")
 lottblocks.register_wooden_stuff("fir", "Fir", "lottplants_firwood.png", "lottplants:firwood")
 lottblocks.register_wooden_stuff("elm", "Elm", "lottplants_elmwood.png", "lottplants:elmwood")
+lottblocks.register_wooden_stuff("beech", "Beech", "lottplants_beechwood.png", "lottplants:beechwood")
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")

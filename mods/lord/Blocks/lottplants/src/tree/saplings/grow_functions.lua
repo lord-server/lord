@@ -56,7 +56,7 @@ end
 function lottplants_beechtree(pos, generator)
 	local height = 12 + math.random(3)
 
-	generator.add_trunk(pos, height, "default:tree")
+	generator.add_trunk(pos, height, "lottplants:beechtree")
 
 	generator.add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")
 	generator.add_crown_at(pos, height - 8, 4, "lottplants:beechleaf")

@@ -12,7 +12,7 @@ default.register_leafdecay({
 	trunks = {"default:tree"},
 	leaves = {
 		"lottplants:appleleaf", "default:leaves", "default:apple", -- Apple Tree / Яблоня
-		"lottplants:beechleaf", -- Beeches / Бук
+		"lottplants:beechleaf", -- Beeches / Бук.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
 		"lottplants:culumaldaleaf", "lottplants:yellowflowers", -- Culumalda / Кулумальда
 		"lottplants:elmleaf", -- Elms / Вяз.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
 		"lottplants:plumleaf", "lottplants:plum", -- Plum Tree / Слива
@@ -20,7 +20,7 @@ default.register_leafdecay({
 		"lottplants:whiteleaf", -- White Tree / Белое дерево
 		"lottplants:yavannamireleaf", "lottplants:yavannamirefruit", -- Yavannamire / Йаванамирэ
 	},
-	radius = 4, -- только из-за бука, у остальных 3 или 2
+	radius = 3,
 })
 
 -- Lebethron / Лебетрон
@@ -70,4 +70,11 @@ default.register_leafdecay({
 	trunks = {"lottplants:elmtree"},
 	leaves = {"lottplants:elmleaf"},
 	radius = 2,
+})
+
+-- Beeches / Бук
+default.register_leafdecay({
+	trunks = {"lottplants:beechtree"},
+	leaves = {"lottplants:beechleaf"},
+	radius = 4,
 })

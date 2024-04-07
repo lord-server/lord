@@ -102,6 +102,7 @@ register_trunk("lottplants:aldertree",     2, 10, 2)
 register_trunk("lottplants:lebethrontree", 1, 10, 2)
 register_trunk("lottplants:mallorntree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
 register_trunk("lottplants:elmtree",       2, 25, 2)
+register_trunk("lottplants:beechtree",     2, 15, 4)
 
 minetest.register_alias("lottplants:mallorntrunk_young", "lottplants:mallorn_young_trunk")
 minetest.register_alias("lottplants:mallorntree_young", "lottplants:mallorn_young_tree")

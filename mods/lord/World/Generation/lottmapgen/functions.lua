@@ -676,7 +676,7 @@ function lottmapgen_beechtree(pos)
 	end
 	end
 	for j = -3, t do
-		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="default:tree"})
+		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="lottplants:beechtree"})
 	end
 end
 
