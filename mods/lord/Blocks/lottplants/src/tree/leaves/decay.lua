@@ -37,6 +37,13 @@ default.register_leafdecay({
 	radius = 3,
 })
 
+-- Cherry / Сакура
+default.register_leafdecay({
+	trunks = {"lottplants:cherrytree"},
+	leaves = {"lottplants:cherryleaf"},
+	radius = 2,
+})
+
 -- Firs / Ель
 default.register_leafdecay({
 	trunks = {"lottplants:firtree"},

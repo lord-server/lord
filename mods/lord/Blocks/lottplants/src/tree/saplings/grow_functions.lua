@@ -66,6 +66,19 @@ function lottplants_beechtree(pos, generator)
 	generator.add_crown_at(pos, height,     2, "lottplants:beechleaf")
 end
 
+-- Cherry / Сакура
+--- @param pos       Position
+--- @param generator tree.Generator
+function lottplants_cherrytree(pos, generator)
+	local height = 4 + math.random(2)
+	local radius = 2
+
+	generator.add_trunk(pos, height, "lottplants:cherrytree")
+
+	generator.add_crown_at(pos, height - 2, radius, "lottplants:cherryleaf" )
+	generator.add_crown_at(pos, height,     radius, "lottplants:cherryleaf" )
+end
+
 -- Culumalda
 --- @param pos       Position
 --- @param generator tree.Generator
