@@ -417,6 +417,7 @@ lottblocks.register_wooden_stuff("alder", "Alder", "lottplants_alderwood.png", "
 lottblocks.register_wooden_stuff("beech", "Beech", "lottplants_beechwood.png", "lottplants:beechwood")
 lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "lottplants:birchwood")
 lottblocks.register_wooden_stuff("cherry", "Cherry", "lottplants_cherrywood.png", "lottplants:cherrywood")
+lottblocks.register_wooden_stuff("culumalda", "Culumalda", "lottplants_culumaldawood.png", "lottplants:culumaldawood")
 lottblocks.register_wooden_stuff("elm", "Elm", "lottplants_elmwood.png", "lottplants:elmwood")
 lottblocks.register_wooden_stuff("fir", "Fir", "lottplants_firwood.png", "lottplants:firwood")
 lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottplants_hardwood.png", "lottplants:hardwood")

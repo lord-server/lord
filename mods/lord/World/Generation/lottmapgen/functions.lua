@@ -228,7 +228,7 @@ function lottmapgen_rowantree(x, y, z, area, data)
 end
 
 function lottmapgen_culumaldatree(x, y, z, area, data)
-	local id_tree          = minetest.get_content_id("default:tree")
+	local id_tree          = minetest.get_content_id("lottplants:culumaldatree")
 	local id_yellowflowers = minetest.get_content_id("lottplants:yellowflowers")
 	local id_culumaldaleaf = minetest.get_content_id("lottplants:culumaldaleaf")
 	for j = -2, 4 do

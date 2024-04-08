@@ -86,7 +86,7 @@ function lottplants_culumaldatree(pos, generator)
 	local height = 4 + math.random(2)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "default:tree")
+	generator.add_trunk(pos, height, "lottplants:culumaldatree")
 
 	generator.add_crown_at(pos, height - 2, radius, { "lottplants:culumaldaleaf", "lottplants:yellowflowers" })
 	generator.add_crown_at(pos, height,     radius, { "lottplants:culumaldaleaf", "lottplants:yellowflowers" })
