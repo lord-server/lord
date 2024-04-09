@@ -1,5 +1,88 @@
 # Change Log
 
+## [2024.03](https://github.com/lord-server/lord/releases/tag/2024.03)
+ - Lava cooling into mordor stone with mordor water
+ - Interior: add `flowerpot` mod. Relates to #1245
+ - Clay nodes: add walls for mordor clay & chamotte block/brick/masonries. Closes #1250
+ - Weapons: change orcish sword craft. Closes #1221
+ - Dungeons:
+   - Add second bad & chest into right north corner. Relates to #1205
+   - Add Dead Man spawn in rooms with chests. Relates to #1213
+   - Add book shelves generation. Relates to #1205
+   - Add brewer barrel. Relates to #1205
+   - Add diner zone generation. Relates to #1205
+   - Dwarf Tombs with drop below y -500. Closes #1206
+ - MapGen:
+   - Add fern and jungle grass into Mirkwood biome. Closes #1122
+ - Wooden:
+   - Add tapestry top from other woods. Closes #1229
+   - Add Elm own trunk & slab, elm planks & all stairs. Relates to #1224
+   - Add all stuff for Fir except doors. Relates to #1230
+   - Add all stuff for Elm except doors. Relates to #1224
+   - Add Beech own trunk, plank, stick & all wooden stuff. Closes #1251 Closes #832
+   - Add Cherry tree(leaves,sapling,grow), planks & wooden staff. Closes #1253
+   - Add Culumalda own trunk, plank, stick & all wooden stuff. Closes #1254
+   - Change beech tree generation. Relates to #1237 #1238
+ - Bug Fixes:
+   - No chop planks stairs with swords, duggers,.. Fixes #1241
+   - Fix typo 'оркский' -> 'орочий'.
+   - MapGen: fix trunk for generated fir tree. Relates to #661
+
+ - Technical:
+   - Move `icicles` to `Generation`. Closes #1194. Relates #1079
+   - `protector_lott`: Remove unnecessary textures & code. Relates to #1185
+   - Generation: rename vars `c_***` into `id_***`. Relates #1084
+   - Extract Dwarf Tomb in separate file. Relates to #1206
+   - Add `io.file_exits()` & `os.DIRECTORY_SEPARATOR` helpers. Relates to #925
+   - Refactoring: add `string.{starts_with,ens_with,contains}()` functions. Relates to #1247
+   - Refactoring `wooden_stuff.lua`: separate functions for each registrating item. Relates to #1233
+   - Refactoring `wooden_stuff.lua`: unify stanchion registration & names. Relates to #1233
+   - Wooden blocks: Refactoring `lottplants`: move planks into separate file. Relates to #1236 #1238
+   - Wooden blocks: Refactoring `lottplants`: move hardwood into `planks.lua`. Relates to #1236 #1238 #1233
+   - Wooden blocks: Refactoring `lottplants`: move `hardwood` into this mod (and rename). Relates to #1236 #1233
+   - Wooden blocks: Refactoring `lottplants`: extract `regiter_planks` function. Relates to #1236
+   - Wooden blocks: Refactoring `lottplants`: fix fir planks texture name. Relates to #1236
+   - Wooden blocks: Refactoring `lottplants`: add `planks` group. Relates to #1236
+   - Wooden blocks: Refactoring `lottplants`: add `planks` API. Closes #1236
+   - Wooden blocks: Refactoring `lottplants`: group planks textures. Relates to #1236 #1238
+   - Wooden: refactoring `lottplant`: regicter `planks` API via `_G`: fix luacheck warn. Relates to #1236
+   - Wooden: Refactoring `lottplants`: group textures. Relates to #1238, #1237
+   - Wooden: refactoring `lottplants`: rename "wild" file and restruct src files. Relates to #1238
+   - Wooden: refactoring `lottplants`: reorganize code & files. Relates to #1237 #1238
+   - Wooden: refactoring `lottplants`: use `register_sapling()`. Relates to #1237 #1238
+   - Wooden: refactoring `lottplants`: use `register_leaf()`. Relates to #1237 #1238
+   - Wooden: refactoring `lottplants`: Fix doc-block. Relates #1237
+   - Wooden: refactoring `lottplants`: use `register_trunk()`. Relates to #1237 #1238
+   - Wooden: refactoring `lottplants`: log used textures names. Relates to #1237 #1238
+   - Refactoring `lottplants`: functions: extract `add_roots()`. Relates to #1237 #1238
+   - Refactoring `lottplants`: simlify functions code. Relates to #1237 #1238
+   - Refactoring `lottplants`: extract branch functions. Relates to #1237 #1238
+   - Refactoring `lottplants`: simplify diagonal branches generation. Relates to #1237 #1238
+   - Refactoring `lottplants`: extract diagonal branch type gen. Relates to #1237 #1238
+   - Refactoring `lottplants`: adapt rowan tree generation. Relates to #1237 #1238
+   - Refactoring `lottplants`: adapt apple tree generation. Relates to #1237 #1238
+   - Refactoring `lottplants`: add local APIs & iterators for trunks, leaves & saplings. Relates to #1238, #1238
+   - Refactoring `lottplants`: extract `add_trunk()`. Relates to #1237 #1238 #942 #1248
+   - Refactoring `lottplants`: remove dead code. Relates to #1237 #1238 #942
+   - Refactoring `lottplants`: tree-gen: Ensure when places leaf and when trunk. Relates to #1237 #1238 #942. Closes #1248
+   - Refactoring `lottplants`: tree-gen: reformat code & rename vars. Relates to #1237 #1238.
+   - Refactoring `lottplants`: functions: extract sapling grow ABMs & register with sapling. Relates to #1237 #1238.
+   - Refactoring `lottplants`: functions: extract `add_crown_at()`. Relates to #1237 #1238
+   - Refactoring `lottplants`: functions: extract `is_crown_corners()`. Relates to #1237 #1238
+   - Refactoring `lottplants`: tree-gen: use alternative leaf & property `no_leaves_on_corners`. Relates to #1237 #1238
+   - Refactoring `lottplants`: tree-gen: 2x2 trunks. Relates to #1237 #1238
+   - Refactoring `lottplants`: extract crown `CONE` type generation. Relates to #1237 #1238
+   - Refactoring `lottplants`: unify crown for branches. Closes #1237. Relates to #1238
+   - Refactoring `wooden_stuff.lua`: sort textures. Relates to #1233
+   - Refactoring `lottmapgen`: fix luacheck errors. Relates to #1084
+   - Refactoring `lottplants`: add `TRUNKED` branch type; simplify mallorn branches generation. Relates to #1237 #1238
+   - Refactoring `lottplants`: extract `tree.Generator` class. Prepare to #661. Relates to #1238
+   - Refactoring `lottplants`: decrease cyclomatic complexity. Closes #942
+   - Remove our builtin translations. Closes #1187
+   - Extract voxel manipulations wraper `minetest.with_map_part_do()`. Relates to #1084, #1058, #663, #661.
+   - Fix linter warnings about line length. Relates to 1238
+
+
 ## [2023.12.p6](https://github.com/lord-server/lord/releases/tag/2023.12.p6)
  - Add player to clan Hansa.
  - Add Hansa Clan Cloack.
