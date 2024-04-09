@@ -22,7 +22,7 @@ local clans_storage = {
 	hansa = {
 		name    = "hansa",
 		title   = "Hansa",
-		players = { "Qundark", "Kema" },
+		players = { "Qundark", "Kema", "Alges" },
 	},
 }
 --- @type table<string,boolean> local cache for clan is online
