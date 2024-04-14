@@ -199,6 +199,8 @@ minetest.register_alias("defaults:c0bble",             "defaults:default_cobble"
 minetest.register_alias("defaults:desert_st0ne",       "defaults:default_desert_stone")
 minetest.register_alias("defaults:st0ne",              "defaults:default_stone")
 
+-- It was failed attempt to add a weather mod. Mod was deleted.
+minetest.register_alias("regional_weather:ice",        "default:water_source")
 
 -- Corpses
 for _, gender in pairs({"male", "female"}) do
