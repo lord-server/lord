@@ -65,7 +65,7 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 end
 
 register_leaf("lottplants:alderleaf",     "Alder Leaf", { color_green = 1 }) -- also drops lottplants:aldersapling
-register_leaf("lottplants:appleleaf",     "Apple Leaf", { color_green = 1 }) -- also drops lottplants:applesapling
+register_leaf("lottplants:appleleaf",     "Fruitful Apple Leaf", { color_green = 1 }) -- drops lottplants:applesapling
 register_leaf("lottplants:birchleaf",     "Birch Leaf", { color_green = 1 }) -- also drops lottplants:birchsapling
 register_leaf("lottplants:beechleaf",     "Beech Leaf", { color_green = 1 }) -- drops lottplants:beechsapling
 register_leaf("lottplants:cherryleaf",    "Cherry Leaf", { color_pink = 1 }) -- also drops lottplants:cherrysapling

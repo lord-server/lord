@@ -71,7 +71,7 @@ register_planks("lottplants:alderwood", "Alder", 2, "lottplants:aldertree")
 register_planks("lottplants:birchwood", "Birch", 3, "lottplants:birchtree")
 register_planks("lottplants:beechwood", "Beech", 2, "lottplants:beechtree")
 register_planks("lottplants:cherrywood", "Cherry", 3, "lottplants:cherrytree")
-register_planks("lottplants:culumaldawood", "Cherry", 3, "lottplants:culumaldatree")
+register_planks("lottplants:culumaldawood", "Culumalda", 3, "lottplants:culumaldatree")
 register_planks("lottplants:elmwood", "Elm", 2, "lottplants:elmtree")
 register_planks("lottplants:firwood", "Fir", 3, "lottplants:firtree")
 register_planks("lottplants:hardwood", "Hardwood", 1, nil, { flammable = 1 })
@@ -79,7 +79,10 @@ register_planks("lottplants:lebethronwood", "Lebethron", 1, "lottplants:lebethro
 register_planks("lottplants:mallornwood", "Mallorn", 1, "lottplants:mallorntree")
 register_planks("lottplants:pinewood",  "Pine",  3, "lottplants:pinetree")
 
+-- @tags: legacy
+minetest.register_alias("hardwood", "lottplants:hardwood")
 minetest.register_alias("lord_homedecor:hardwood", "lottplants:hardwood")
+minetest.register_alias("defaults:lord_homedecor_hardwood", "defaults:lottplants_hardwood")
 
 -- Crafting
 -- additional craft from young mallorn

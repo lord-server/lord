@@ -81,7 +81,7 @@ mobs:register_mob("lottmobs:ent", {
 		{ name = "lottplants:plumsapling",        chance = 5, min = 1, max = 3, },
 		{ name = "lottplants:rowansapling",       chance = 5, min = 1, max = 3, },
 		{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
-		{ name = "lottplants:cherrysapling",      chance = 250, min = 1, max = 1, },
+		-- { name = "lottplants:cherrysapling",      chance = 250, min = 1, max = 1, },
 	},
 	light_resistant = true,
 	drawtype = "front",

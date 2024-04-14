@@ -1,10 +1,27 @@
 # textdomain: lottplants
-### init.lua ###
+
+### herbs.lua
+Lorien Grass=Lorien Grass
 Brambles Of Mordor=Brambles Of Mordor
 Pilinehtar=Pilinehtar
+
+### nodes.lua ###
+Fireflies=Fireflies
 Honey=Honey
 
-### wild_food.lua ###
+### flowers.lua ###
+Athelas=Athelas
+Anemones=Anemones
+Eglantive=Eglantive
+Iris=Iris
+Lissuin=Lissuin
+Mallos=Mallos
+Niphredil=Niphredil
+Seregon=Seregon
+Asphodel=Asphodel
+Elanor=Elanor
+
+### wild_crops.lua ###
 Wild Barley=Wild Barley
 Wild Berries=Wild Berries
 Wild Corn plant=Wild Corn plant
@@ -16,11 +33,88 @@ Potato Wild=Potato Wild
 Wild Tomatoes=Wild Tomatoes
 Wild Turnips=Wild Turnips
 
-### nodes.lua ###
+### planks.lua ###
+Alder Planks=Alder Planks
+Beech Planks=Beech Planks
+Birch Planks=Birch Planks
+Cherry Planks=Cherry Planks
+Culumalda Planks=Culumalda Planks
+Elm Planks=Elm Planks
+Fir Planks=Fir Planks
+Hardwood Planks=Hardwood Planks
+Lebethron Planks=Lebethron Planks
+Mallorn Planks=Mallorn Planks
+Pine Planks=Pine Planks
+
+## planks.lua stairs: ##
+Alder Wood Stair=Alder Wood Stair
+Alder Wood Slab=Alder Wood Slab
+Inner Alder Wood Stair=Inner Alder Wood Stair
+Outer Alder Wood Stair=Outer Alder Wood Stair
+#
+Beech Wood Stair=Beech Wood Stair
+Beech Wood Slab=Beech Wood Slab
+Inner Beech Wood Stair=Inner Beech Wood Stair
+Outer Beech Wood Stair=Outer Beech Wood Stair
+#
+Birch Wood Stair=Birch Wood Stair
+Birch Wood Slab=Birch Wood Slab
+Inner Birch Wood Stair=Inner Birch Wood Stair
+Outer Birch Wood Stair=Outer Birch Wood Stair
+#
+Cherry Wood Stair=Cherry Wood Stair
+Cherry Wood Slab=Cherry Wood Slab
+Inner Cherry Wood Stair=Inner Cherry Wood Stair
+Outer Cherry Wood Stair=Outer Cherry Wood Stair
+#
+Culumalda Wood Stair=Culumalda Wood Stair
+Culumalda Wood Slab=Culumalda Wood Slab
+Inner Culumalda Wood Stair=Inner Culumalda Wood Stair
+Outer Culumalda Wood Stair=Outer Culumalda Wood Stair
+#
+Elm Wood Stair=Elm Wood Stair
+Elm Wood Slab=Elm Wood Slab
+Inner Elm Wood Stair=Inner Elm Wood Stair
+Outer Elm Wood Stair=Outer Elm Wood Stair
+#
+Fir Wood Stair=Fir Wood Stair
+Fir Wood Slab=Fir Wood Slab
+Inner Fir Wood Stair=Inner Fir Wood Stair
+Outer Fir Wood Stair=Outer Fir Wood Stair
+#
+Hardwood stair=Hardwood stair
+Hardwood Slab=Hardwood Slab
+Inner Hardwood stair=Inner Hardwood stair
+Outer Hardwood stair=Outer Hardwood stair
+#
+Lebethron Wood Stair=Lebethron Wood Stair
+Lebethron Wood Slab=Lebethron Wood Slab
+Inner Lebethron Wood Stair=Inner Lebethron Wood Stair
+Outer Lebethron Wood Stair=Outer Lebethron Wood Stair
+#
+Mallorn Wood Stair=Mallorn Wood Stair
+Mallorn Wood Slab=Mallorn Wood Slab
+Inner Mallorn Wood Stair=Inner Mallorn Wood Stair
+Outer Mallorn Wood Stair=Outer Mallorn Wood Stair
+#
+Pine Wood Stair=Pine Wood Stair
+Pine Wood Slab=Pine Wood Slab
+Inner Pine Wood Stair=Inner Pine Wood Stair
+Outer Pine Wood Stair=Outer Pine Wood Stair
+
+
+### === TREES === ###
+
+### tree/fruits.lua ###
+Plum=Plum
+Yavannamire Fruit=Yavannamire Fruit
+
+### tree/leaves.lua ###
 Alder Leaf=Alder Leaf
-Apple Leaf=Apple Leaf
-Birch Leaf=Birch Leaf
+Fruitful Apple Leaf=Fruitful Apple Leaf
 Beech Leaf=Beech Leaf
+Birch Leaf=Birch Leaf
+Cherry Leaf=Cherry Leaf
 Culumalda Leaf=Culumalda Leaf
 Yellow Flowers on Culumalda Leaf=Yellow Flowers on Culumalda Leaf
 Elm Leaf=Elm Leaf
@@ -34,61 +128,18 @@ Rowan Leaf with Berries=Rowan Leaf with Berries
 White Leaf=White Leaf
 Yavannamire Leaf=Yavannamire Leaf
 Mirkwood Leaves=Mirkwood Leaves
+
+### tree/trunks.lua ###
+Alder Tree=Alder Tree
+Birch Tree=Birch Tree
 Pine Tree=Pine Tree
 Fir Tree=Fir Tree
 Fir Trunk=Fir Trunk
-Birch Tree=Birch Tree
-Alder Tree=Alder Tree
 Lebethron Tree=Lebethron Tree
 Mallorn Tree=Mallorn Tree
 Young Mallorn Trunk=Young Mallorn Trunk
-Alder Sapling=Alder Sapling
-Fruitful Apple Tree Sapling=Fruitful Apple Tree Sapling
-Birch Sapling=Birch Sapling
-Beech Sapling=Beech Sapling
-Culumalda Sapling=Culumalda Sapling
-Elm Sapling=Elm Sapling
-Fir Sapling=Fir Sapling
-Fir Wood Stair=Fir Wood Stair
-Inner Fir Wood Stair=Inner Fir Wood Stair
-Outer Fir Wood Stair=Outer Fir Wood Stair
-Lebethron Sapling=Lebethron Sapling
-Mallorn Sapling=Mallorn Sapling
-Pine Sapling=Pine Sapling
-Plum Tree Sapling=Plum Tree Sapling
-Rowan Sapling=Rowan Sapling
-White Tree Sapling=White Tree Sapling
-Yavannamire Sapling=Yavannamire Sapling
-Mirkwood Sapling=Mirkwood Sapling
-Plum=Plum
-Yavannamire Fruit=Yavannamire Fruit
-Pine Planks=Pine Planks
-Fir Planks=Fir Planks
-Birch Planks=Birch Planks
-Alder Planks=Alder Planks
-Lebethron Planks=Lebethron Planks
-Mallorn Planks=Mallorn Planks
-Lorien Grass=Lorien Grass
-Birch Wood Stair=Birch Wood Stair
-Inner Birch Wood Stair=Inner Birch Wood Stair
-Outer Birch Wood Stair=Outer Birch Wood Stair
-Birch Wood Slab=Birch Wood Slab
-Pine Wood Stair=Pine Wood Stair
-Inner Pine Wood Stair=Inner Pine Wood Stair
-Outer Pine Wood Stair=Outer Pine Wood Stair
-Pine Wood Slab=Pine Wood Slab
-Alder Wood Stair=Alder Wood Stair
-Inner Alder Wood Stair=Inner Alder Wood Stair
-Outer Alder Wood Stair=Outer Alder Wood Stair
-Alder Wood Slab=Alder Wood Slab
-Lebethron Wood Stair=Lebethron Wood Stair
-Inner Lebethron Wood Stair=Inner Lebethron Wood Stair
-Outer Lebethron Wood Stair=Outer Lebethron Wood Stair
-Lebethron Wood Slab=Lebethron Wood Slab
-Mallorn Wood Stair=Mallorn Wood Stair
-Inner Mallorn Wood Stair=Inner Mallorn Wood Stair
-Outer Mallorn Wood Stair=Outer Mallorn Wood Stair
-Mallorn Wood Slab=Mallorn Wood Slab
+
+### tree/trunks/slabs.lua ###
 Pine Trunk Slab=Pine Trunk Slab
 Fir Trunk Slab=Fir Trunk Slab
 Birch Trunk Slab=Birch Trunk Slab
@@ -97,16 +148,20 @@ Lebethron Trunk Slab=Lebethron Trunk Slab
 Mallorn Trunk Slab=Mallorn Trunk Slab
 Tree Trunk Slab=Tree Trunk Slab
 Jungle Tree Trunk Slab=Jungle Tree Trunk Slab
-Fireflies=Fireflies
 
-### flowers.lua ###
-Athelas=Athelas
-Anemones=Anemones
-Eglantive=Eglantive
-Iris=Iris
-Lissuin=Lissuin
-Mallos=Mallos
-Niphredil=Niphredil
-Seregon=Seregon
-Asphodel=Asphodel
-Elanor=Elanor
+### tree/saplings.lua ###
+Alder Sapling=Alder Sapling
+Fruitful Apple Tree Sapling=Fruitful Apple Tree Sapling
+Birch Sapling=Birch Sapling
+Beech Sapling=Beech Sapling
+Culumalda Sapling=Culumalda Sapling
+Elm Sapling=Elm Sapling
+Fir Sapling=Fir Sapling
+Lebethron Sapling=Lebethron Sapling
+Mallorn Sapling=Mallorn Sapling
+Pine Sapling=Pine Sapling
+Plum Tree Sapling=Plum Tree Sapling
+Rowan Sapling=Rowan Sapling
+White Tree Sapling=White Tree Sapling
+Yavannamire Sapling=Yavannamire Sapling
+Mirkwood Sapling=Mirkwood Sapling
