@@ -110,6 +110,7 @@ shop.formspec = {
 		formspec:gsub("size[8,9]", "size[10,9]")
 		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_off;<]"..
 		"field[8.5,0.5;2.5,.5;add_member;"..S("Add member")..";]"..
+		"field_close_on_enter[add_member;false]"..
 		"scroll_container[10.25,1.5;4,9;members;vertical;]"
 
 		for i, member in ipairs(members_list) do
@@ -339,6 +340,8 @@ minetest.register_on_player_receive_fields(
 
 		elseif fields.add_member then -- Добавить игрока в список
 			add_member(meta, fields.add_member)
+			minetest.show_formspec(name,"lord_money:shop_formspec",
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
 
 		elseif fields.quit then -- выход с формы, возвращаем остатки игроку в инвентарь
 			for _,list in pairs({"customer_gives", "customer_gets"}) do
