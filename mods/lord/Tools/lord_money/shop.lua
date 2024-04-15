@@ -98,14 +98,14 @@ shop.formspec = {
 	end,
 
 	configurator = function(pos, admin, is_endless)
-		local formspec = shop.formspec.configurator_base(pos, admin, is_edless)
+		local formspec = shop.formspec.configurator_base(pos, admin, is_endless)
 
 		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_on;>]"
 		return formspec
 	end,
 
 	configurator_whitelist = function(pos, admin, is_endless, members_list)
-		local formspec = shop.formspec.configurator_base(pos, admin, is_edless)
+		local formspec = shop.formspec.configurator_base(pos, admin, is_endless)
 
 		formspec:gsub("size[8,9]", "size[10,9]")
 		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_off;<]"..
@@ -132,7 +132,7 @@ shop.player_has_access = function(player, shop_pos)
 	local owner_name = meta:get_string("owner")
 	local members = meta:get_string("members")
 	local player_name = player:get_player_name()
-	local is_admin = minetest.get_player_privs(player_name).server 
+	local is_admin = minetest.get_player_privs(player_name).server
 	return player_name == owner_name or is_admin or string.find(" "..members.." ", " "..player_name.." ") , is_admin
 end
 
@@ -336,7 +336,7 @@ minetest.register_on_player_receive_fields(
 		elseif fields.whitelist_off then -- Скрыть белый список
 			minetest.show_formspec(name,"lord_money:shop_formspec",
 				shop.formspec.configurator(minetest.string_to_pos(pos), is_admin, is_endless))
-		
+
 		elseif fields.add_member then -- Добавить игрока в список
 			add_member(meta, fields.add_member)
 
