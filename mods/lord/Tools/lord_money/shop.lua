@@ -13,6 +13,28 @@ local function has_wear(listname, stack, player)
 	return false
 end
 
+local function get_members_list(meta)
+	local list = meta:get_string("members")
+	return list:split(" ")
+end
+
+local function add_member(meta, name)
+	local members = meta:get_string("members")
+	if not string.find(" "..members.." ", " "..name.." ") then -- Проверка, не внесено ли имя в список
+		members = members.." "..name
+		meta:set_string("members", members)
+	end
+end
+
+local function remove_member(meta, name)
+	local list = get_members_list(meta)
+	print(dump(list))
+	local swap_list = table.key_value_swap(list)
+	print(dump(swap_list))
+	table.remove(list, swap_list[name])
+	meta:set_string("members", table.concat(list, " "))
+end
+
 local shop = {}
 shop.current_shop = {}
 shop.formspec = {
@@ -41,7 +63,7 @@ shop.formspec = {
 
 		return formspec
 	end,
-	configurator = function(pos, admin, is_endless)
+	configurator_base = function(pos, admin, is_endless)
 		local list_name = "nodemeta:"..pos.x..","..pos.y..","..pos.z
 		local formspec = "size[8,9]"..
 		"label[0,-0.35;"..S("In exchange, you give:").."]"..
@@ -75,13 +97,43 @@ shop.formspec = {
 		return formspec
 	end,
 
+	configurator = function(pos, admin, is_endless)
+		local formspec = shop.formspec.configurator_base(pos, admin, is_edless)
+
+		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_on;>]"
+		return formspec
+	end,
+
+	configurator_whitelist = function(pos, admin, is_endless, members_list)
+		local formspec = shop.formspec.configurator_base(pos, admin, is_edless)
+
+		formspec:gsub("size[8,9]", "size[10,9]")
+		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_off;<]"..
+		"field[8.5,0.5;2.5,.5;add_member;"..S("Add member")..";]"..
+		"scroll_container[10.25,1.5;4,9;members;vertical;]"
+
+		for i, member in ipairs(members_list) do
+			formspec = formspec.."button[0,"..i-1 ..";2,1;member_"..member..";"..member.."]"..
+			"button[1.75,"..i-1 ..";0.75,1;delete_member_"..member..";x]"
+		end
+
+		formspec = formspec.."scroll_container_end[]"..
+		"scrollbaroptions[max="..#members_list * 10 .."]"..
+		"scrollbar[10.7,0;0.2,9;vertical;members;]"
+
+		formspec = string.gsub(formspec, "size%[8,9%]", "size[11,9]")
+		return formspec
+	end,
+
 }
 
 shop.player_has_access = function(player, shop_pos)
-	local owner_name = minetest.get_meta(shop_pos):get_string("owner")
+	local meta = minetest.get_meta(shop_pos)
+	local owner_name = meta:get_string("owner")
+	local members = meta:get_string("members")
 	local player_name = player:get_player_name()
-	local is_admin = minetest.get_player_privs(player_name).server
-	return player_name == owner_name or is_admin, is_admin
+	local is_admin = minetest.get_player_privs(player_name).server 
+	return player_name == owner_name or is_admin or string.find(" "..members.." ", " "..player_name.." ") , is_admin
 end
 
 minetest.register_node("lord_money:shop", {
@@ -97,6 +149,7 @@ minetest.register_node("lord_money:shop", {
 		meta:set_string("infotext", S("Exchange shop (owned by").." "..owner..")")
 		meta:set_string("owner",owner)
 		meta:set_string("is_endless","false")
+		meta:set_string("members")
 		local inv = meta:get_inventory()
 		inv:set_size("customers_gave", 5*2)
 		inv:set_size("stock", 5*2)
@@ -181,13 +234,14 @@ minetest.register_on_player_receive_fields(
 		local pos = minetest.pos_to_string(shop.current_shop[name]) -- координаты магазина для логов type string
 		local meta = minetest.get_meta(shop.current_shop[name]) -- метаданные магазина
 		local pinv = sender:get_inventory() --инвентари покупателя
+		local is_endless = (meta:get_string("is_endless") == "true")
+		local is_admin = minetest.get_player_privs(name).server
 
 		if fields.is_endless then
 			meta:set_string("is_endless", fields.is_endless)
 		end
 
 		if fields.exchange then -- нажата кнопка "купить"
-			local is_endless = (meta:get_string("is_endless") == "true")
 			local mail = ""
 			if minetest.get_modpath("mail_list") then -- если есть мод взаимодействия с e-mail
 				mail = get_mail(meta:get_string("owner")) -- адрес владельца
@@ -270,6 +324,21 @@ minetest.register_on_player_receive_fields(
 				minetest.log("action", string.format("магазин %s - игрок %s успешно произвёл обмен.", pos, name))
 				minetest.chat_send_player(name, S("Exchanged!"))
 
+		elseif fields.whitelist_on then -- Показать белый список
+			if name == meta:get_string("owner") or minetest.get_player_privs(name).server then
+				minetest.show_formspec(name,"lord_money:shop_formspec",
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
+			else
+				minetest.chat_send_player(name, S("You are not the owner of this shop!"))
+			end
+
+
+		elseif fields.whitelist_off then -- Скрыть белый список
+			minetest.show_formspec(name,"lord_money:shop_formspec",
+				shop.formspec.configurator(minetest.string_to_pos(pos), is_admin, is_endless))
+		
+		elseif fields.add_member then -- Добавить игрока в список
+			add_member(meta, fields.add_member)
 
 		elseif fields.quit then -- выход с формы, возвращаем остатки игроку в инвентарь
 			for _,list in pairs({"customer_gives", "customer_gets"}) do
@@ -286,7 +355,16 @@ minetest.register_on_player_receive_fields(
 					end
 				end
 			end
+
 		end
 
+		for field, value in pairs(fields) do
+			if string.find(field, "delete_member_") then
+				local member = string.gsub(field, "delete_member_", "")
+				remove_member(meta, member)
+				minetest.show_formspec(name,"lord_money:shop_formspec",
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
+			end
+		end
 	end
 )
