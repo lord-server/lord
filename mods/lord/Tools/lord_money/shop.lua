@@ -3,6 +3,11 @@
 -- Load support for MT game translation
 local S = minetest.get_translator("lord_money")
 
+--- @param listname string
+--- @param stack ItemStack
+--- @param player ObjectRef
+---
+--- @return bool
 local function has_wear(listname, stack, player)
 	if listname == "owner_gives" or listname == "stock"  then --проверка износа в "Предложение" и "Склад"
 		if stack:get_wear() > 0 then
@@ -13,11 +18,16 @@ local function has_wear(listname, stack, player)
 	return false
 end
 
+--- @param meta NodeMetaRef
+---
+--- @return table
 local function get_members_list(meta)
 	local list = meta:get_string("members")
 	return list:split(" ")
 end
 
+--- @param meta NodeMetaRef
+--- @param name string
 local function add_member(meta, name)
 	local members = meta:get_string("members")
 	if not string.find(" "..members.." ", " "..name.." ") then -- Проверка, не внесено ли имя в список
@@ -26,6 +36,8 @@ local function add_member(meta, name)
 	end
 end
 
+--- @param meta NodeMetaRef
+--- @param name string
 local function remove_member(meta, name)
 	local list = get_members_list(meta)
 	print(dump(list))
@@ -328,7 +340,8 @@ minetest.register_on_player_receive_fields(
 		elseif fields.whitelist_on then -- Показать белый список
 			if name == meta:get_string("owner") or minetest.get_player_privs(name).server then
 				minetest.show_formspec(name,"lord_money:shop_formspec",
-					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+				)
 			else
 				minetest.chat_send_player(name, S("You are not the owner of this shop!"))
 			end
@@ -336,12 +349,18 @@ minetest.register_on_player_receive_fields(
 
 		elseif fields.whitelist_off then -- Скрыть белый список
 			minetest.show_formspec(name,"lord_money:shop_formspec",
-				shop.formspec.configurator(minetest.string_to_pos(pos), is_admin, is_endless))
+				shop.formspec.configurator(minetest.string_to_pos(pos), is_admin, is_endless)
+			)
 
 		elseif fields.add_member then -- Добавить игрока в список
-			add_member(meta, fields.add_member)
-			minetest.show_formspec(name,"lord_money:shop_formspec",
-					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
+			if name == meta:get_string("owner") or minetest.get_player_privs(name).server then
+				add_member(meta, fields.add_member)
+				minetest.show_formspec(name,"lord_money:shop_formspec",
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+				)
+			else
+				minetest.chat_send_player(name, S("You are not the owner of this shop!"))
+			end
 
 		elseif fields.quit then -- выход с формы, возвращаем остатки игроку в инвентарь
 			for _,list in pairs({"customer_gives", "customer_gets"}) do
@@ -366,7 +385,8 @@ minetest.register_on_player_receive_fields(
 				local member = string.gsub(field, "delete_member_", "")
 				remove_member(meta, member)
 				minetest.show_formspec(name,"lord_money:shop_formspec",
-					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta)))
+					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+				)
 			end
 		end
 	end
