@@ -381,7 +381,7 @@ minetest.register_on_player_receive_fields(
 		end
 
 		for field, value in pairs(fields) do
-			if string.find(field, "delete_member_") then
+			if string.find(field, "delete_member_") and ( name == meta:get_string("owner") or minetest.get_player_privs(name).server )then
 				local member = string.gsub(field, "delete_member_", "")
 				remove_member(meta, member)
 				minetest.show_formspec(name,"lord_money:shop_formspec",
