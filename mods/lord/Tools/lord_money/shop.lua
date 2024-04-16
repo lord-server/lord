@@ -381,7 +381,7 @@ minetest.register_on_player_receive_fields(
 		end
 
 		for field, value in pairs(fields) do
-			if string.find(field, "delete_member_") and ( 
+			if string.find(field, "delete_member_") and (
 				name == meta:get_string("owner") or minetest.get_player_privs(name).server
 			) then
 				local member = string.gsub(field, "delete_member_", "")
