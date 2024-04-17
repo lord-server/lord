@@ -3,12 +3,7 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%.", "/") .. ".lua") end
 
 
-require("wild_crops")
-require("flowers")
-require("herbs")
-require("nodes")
---- @type lottplants.Planks_API
-_G.planks = require('planks')
+require("trees")
 
 
 require = old_require
