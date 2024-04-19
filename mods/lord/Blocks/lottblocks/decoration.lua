@@ -6,7 +6,11 @@ local S = minetest.get_translator("lottblocks")
 --- Items ---
 -------------
 
-local function register_leafroof(name, desc, texture_name)
+--- @param name string
+--- @param desc string
+--- @param texture_name string
+--- @param leaves string
+local function register_leafroof(name, desc, texture_name, leaves)
 	minetest.register_node("lottblocks:"..name, {
 		description       = S(desc.." Roof"),
 		tiles             = { texture_name },
@@ -17,7 +21,7 @@ local function register_leafroof(name, desc, texture_name)
 		sounds            = default.node_sound_leaves_defaults(),
 		groups            = { snappy = 2, oddly_breakable_by_hand = 2, leaves = 1 },
 	})
-	
+
 	stairs.register_stair_and_slab(
 		name,
 		"lottblocks:"..name,
@@ -30,6 +34,14 @@ local function register_leafroof(name, desc, texture_name)
 		S("Inner ".. desc.." Roof Stair"),
 		S("Outer "..desc.." Roof Stair")
 	)
+
+	minetest.register_craft({
+	output = "lottblocks:"..name,
+	recipe = {
+		{ leaves, leaves },
+		{ leaves, leaves },
+	}
+})
 end
 
 -- TREES
@@ -97,21 +109,21 @@ stairs.register_stair_and_slab(
 
 -- Leafroof dark
 
-register_leafroof("leafroof_dark", "Dark Leaf", "lottblocks_leafroof.png")
+register_leafroof("leafroof_dark", "Dark Leaf", "lottblocks_leafroof.png", "default:leaves")
 
--- Leadroof white
+-- Leafroof white
 
-register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png")
+register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png", "lottplants:whiteleaf")
 
--- Leadroof cherry
+-- Leafroof cherry
 
-register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png")
+register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png", "lottplants:cherryleaf")
 
 
 -- MALLORN
 -- Leafroof mallorn
 
-register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png")
+register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png", "lottplants:mallornleaf")
 
 -- mallorn pillar
 
@@ -265,27 +277,7 @@ minetest.register_craft({
 	}
 })
 
--- leafroof dark
-
-
-minetest.register_craft({
-	output = 'lottblocks:leafroof_dark',
-	recipe = {
-		{ 'default:leaves', 'default:leaves' },
-		{ 'default:leaves', 'default:leaves' },
-	}
-})
-
 -- MALLORN
--- leafroof mallorn
-
-minetest.register_craft({
-	output = 'lottblocks:leafroof_mallorn',
-	recipe = {
-		{ 'lottplants:mallornleaf', 'lottplants:mallornleaf' },
-		{ 'lottplants:mallornleaf', 'lottplants:mallornleaf' },
-	}
-})
 
 -- White mallorn
 
