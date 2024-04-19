@@ -6,6 +6,32 @@ local S = minetest.get_translator("lottblocks")
 --- Items ---
 -------------
 
+local function register_leafroof(name, desc, texture_name)
+	minetest.register_node("lottblocks:"..name, {
+		description       = S(desc.." Roof"),
+		tiles             = { texture_name },
+		use_texture_alpha = "clip",
+		paramtype         = "light",
+		drawtype          = "allfaces_optional",
+		is_ground_content = false,
+		sounds            = default.node_sound_leaves_defaults(),
+		groups            = { snappy = 2, oddly_breakable_by_hand = 2, leaves = 1 },
+	})
+	
+	stairs.register_stair_and_slab(
+		name,
+		"lottblocks:"..name,
+		{ oddly_breakable_by_hand = 2, leaves = 1 },
+		{ texture_name },
+		S(desc.." Roof Stair"),
+		S(desc.." Roof Slab"),
+		default.node_sound_stone_defaults(),
+		false,
+		S("Inner ".. desc.." Roof Stair"),
+		S("Outer "..desc.." Roof Stair")
+	)
+end
+
 -- TREES
 -- Vine tree
 
@@ -71,57 +97,21 @@ stairs.register_stair_and_slab(
 
 -- Leafroof dark
 
-minetest.register_node("lottblocks:leafroof_dark", {
-	description       = S("Dark Leaf Roof"),
-	tiles             = { "lottblocks_leafroof.png" },
-	use_texture_alpha = "clip",
-	paramtype         = "light",
-	drawtype          = "allfaces_optional",
-	is_ground_content = false,
-	sounds            = default.node_sound_leaves_defaults(),
-	groups            = { snappy = 2, oddly_breakable_by_hand = 2, leaves = 1 },
-})
+register_leafroof("leafroof_dark", "Dark Leaf", "lottblocks_leafroof.png")
 
-stairs.register_stair_and_slab(
-	"leafroof_dark",
-	"lottblocks:leafroof_dark",
-	{ oddly_breakable_by_hand = 2, leaves = 1 },
-	{ "lottblocks_leafroof.png" },
-	S("Dark Leaf Roof Stair"),
-	S("Dark Leaf Roof Slab"),
-	default.node_sound_stone_defaults(),
-	false,
-	S("Inner Dark Leaf Roof Stair"),
-	S("Outer Dark Leaf Roof Stair")
-)
+-- Leadroof white
+
+register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png")
+
+-- Leadroof cherry
+
+register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png")
 
 
 -- MALLORN
 -- Leafroof mallorn
 
-minetest.register_node("lottblocks:leafroof_mallorn", {
-	description       = S("Mallorn Leaf Roof"),
-	tiles             = { "lottblocks_mallornroof.png" },
-	use_texture_alpha = "clip",
-	paramtype         = "light",
-	drawtype          = "allfaces_optional",
-	is_ground_content = false,
-	sounds            = default.node_sound_leaves_defaults(),
-	groups            = { oddly_breakable_by_hand = 2, leaves = 1 },
-})
-
-stairs.register_stair_and_slab(
-	"leafroof_mallorn",
-	"lottblocks:leafroof_mallorn",
-	{ oddly_breakable_by_hand = 2, leaves = 1 },
-	{ "lottblocks_mallornroof.png" },
-	S("Mallorn Leaf Roof Stair"),
-	S("Mallorn Leaf Roof Slab"),
-	default.node_sound_leaves_defaults(),
-	false,
-	S("Inner Mallorn Leaf Roof Stair"),
-	S("Outer Mallorn Leaf Roof Stair")
-)
+register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png")
 
 -- mallorn pillar
 
