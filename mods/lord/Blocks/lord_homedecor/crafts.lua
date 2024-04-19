@@ -519,8 +519,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_homedecor:shrubbery_green 3",
 	recipe = {
-		{ "lottplants:lebethronleaf", "lottplants:lebethronleaf", "lottplants:lebethronleaf" },
-		{ "lottplants:lebethronleaf", "lottplants:lebethronleaf", "lottplants:lebethronleaf" },
+		{ "lord_trees:lebethronleaf", "lord_trees:lebethronleaf", "lord_trees:lebethronleaf" },
+		{ "lord_trees:lebethronleaf", "lord_trees:lebethronleaf", "lord_trees:lebethronleaf" },
 		{ "group:stick", "group:stick", "group:stick" }
 	}
 })

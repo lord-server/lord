@@ -113,17 +113,17 @@ register_leafroof("leafroof_dark", "Dark Leaf", "lottblocks_leafroof.png", "defa
 
 -- Leafroof white
 
-register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png", "lottplants:whiteleaf")
+register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png", "lord_trees:whiteleaf")
 
 -- Leafroof cherry
 
-register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png", "lottplants:cherryleaf")
+register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png", "lord_trees:cherryleaf")
 
 
 -- MALLORN
 -- Leafroof mallorn
 
-register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png", "lottplants:mallornleaf")
+register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png", "lord_trees:mallornleaf")
 
 -- mallorn pillar
 
@@ -294,8 +294,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottblocks:mallorn_pillar',
 	recipe = {
-		{ 'lottplants:mallorntree', 'default:gold_ingot' },
-		{ 'default:gold_ingot', 'lottplants:mallorntree' },
+		{ 'lord_trees:mallorntree', 'default:gold_ingot' },
+		{ 'default:gold_ingot', 'lord_trees:mallorntree' },
 	}
 })
 

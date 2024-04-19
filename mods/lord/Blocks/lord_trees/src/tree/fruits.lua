@@ -1,12 +1,12 @@
-local S = minetest.get_translator("lottplants")
+local S = minetest.get_translator("lord_trees")
 
 
-minetest.register_node("lottplants:plum", {
+minetest.register_node("lord_trees:plum", {
 	description         = S("Plum"),
 	drawtype            = "plantlike",
 	visual_scale        = 1.0,
-	tiles               = { "lottplants_plum.png" },
-	inventory_image     = "lottplants_plum.png",
+	tiles               = { "lord_trees_plum.png" },
+	inventory_image     = "lord_trees_plum.png",
 	paramtype           = "light",
 	sunlight_propagates = true,
 	walkable            = false,
@@ -21,17 +21,17 @@ minetest.register_node("lottplants:plum", {
 	sounds              = default.node_sound_leaves_defaults(),
 	after_place_node    = function(pos, placer, itemstack)
 		if placer:is_player() then
-			minetest.set_node(pos, { name = "lottplants:plum", param2 = 1 })
+			minetest.set_node(pos, { name = "lord_trees:plum", param2 = 1 })
 		end
 	end,
 })
 
-minetest.register_node("lottplants:yavannamirefruit", {
+minetest.register_node("lord_trees:yavannamirefruit", {
 	description         = S("Yavannamire Fruit"),
 	drawtype            = "plantlike",
 	visual_scale        = 1.0,
-	tiles               = { "lottplants_yavannamirefruit.png" },
-	inventory_image     = "lottplants_yavannamirefruit.png",
+	tiles               = { "lord_trees_yavannamirefruit.png" },
+	inventory_image     = "lord_trees_yavannamirefruit.png",
 	paramtype           = "light",
 	sunlight_propagates = true,
 	walkable            = false,
@@ -44,7 +44,7 @@ minetest.register_node("lottplants:yavannamirefruit", {
 	sounds              = default.node_sound_leaves_defaults(),
 	after_place_node    = function(pos, placer, itemstack)
 		if placer:is_player() then
-			minetest.set_node(pos, { name = "lottplants:yavannamirefruit", param2 = 1 })
+			minetest.set_node(pos, { name = "lord_trees:yavannamirefruit", param2 = 1 })
 		end
 	end,
 })

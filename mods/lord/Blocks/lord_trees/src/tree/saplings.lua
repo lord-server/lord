@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottplants")
+local S = minetest.get_translator("lord_trees")
 
 local Generator = require("tree.Generator")
 
@@ -68,29 +68,29 @@ local function register_sapling(node_name, title, grow_function)
 				tree_gen:generate_tree(pos)
 			--end)
 
-			print("[lottplants] " .. title .. " Grows")
+			print("[lord_trees] " .. title .. " Grows")
 		end,
 	})
 end
 
-register_sapling("lottplants:aldersapling", "Alder", lottplants_aldertree)
-register_sapling("lottplants:applesapling", "Fruitful Apple Tree", lottplants_appletree)
-register_sapling("lottplants:birchsapling", "Birch", lottplants_birchtree)
-register_sapling("lottplants:beechsapling", "Beech", lottplants_beechtree)
-register_sapling("lottplants:cherrysapling", "Cherry", lottplants_cherrytree)
-register_sapling("lottplants:culumaldasapling", "Culumalda", lottplants_culumaldatree)
-register_sapling("lottplants:elmsapling", "Elm", lottplants_elmtree)
-register_sapling("lottplants:firsapling", "Fir", lottplants_firtree)
-register_sapling("lottplants:lebethronsapling", "Lebethron", lottplants_lebethrontree)
-register_sapling("lottplants:mallornsapling", "Mallorn", {
+register_sapling("lord_trees:aldersapling", "Alder", lottplants_aldertree)
+register_sapling("lord_trees:applesapling", "Fruitful Apple Tree", lottplants_appletree)
+register_sapling("lord_trees:birchsapling", "Birch", lottplants_birchtree)
+register_sapling("lord_trees:beechsapling", "Beech", lottplants_beechtree)
+register_sapling("lord_trees:cherrysapling", "Cherry", lottplants_cherrytree)
+register_sapling("lord_trees:culumaldasapling", "Culumalda", lottplants_culumaldatree)
+register_sapling("lord_trees:elmsapling", "Elm", lottplants_elmtree)
+register_sapling("lord_trees:firsapling", "Fir", lottplants_firtree)
+register_sapling("lord_trees:lebethronsapling", "Lebethron", lottplants_lebethrontree)
+register_sapling("lord_trees:mallornsapling", "Mallorn", {
 	lottplants_mallorntree, lottplants_smallmallorntree, lottplants_young_mallorn
 })
-register_sapling("lottplants:pinesapling", "Pine", lottplants_pinetree)
-register_sapling("lottplants:plumsapling", "Plum Tree", lottplants_plumtree)
-register_sapling("lottplants:rowansapling", "Rowan", lottplants_rowantree)
-register_sapling("lottplants:whitesapling", "White Tree", lottplants_whitetree)
-register_sapling("lottplants:yavannamiresapling", "Yavannamire", lottplants_yavannamiretree)
-register_sapling("lottplants:mirksapling", "Mirkwood", { lottplants_mirktree, lottplants_smallmirktree })
+register_sapling("lord_trees:pinesapling", "Pine", lottplants_pinetree)
+register_sapling("lord_trees:plumsapling", "Plum Tree", lottplants_plumtree)
+register_sapling("lord_trees:rowansapling", "Rowan", lottplants_rowantree)
+register_sapling("lord_trees:whitesapling", "White Tree", lottplants_whitetree)
+register_sapling("lord_trees:yavannamiresapling", "Yavannamire", lottplants_yavannamiretree)
+register_sapling("lord_trees:mirksapling", "Mirkwood", { lottplants_mirktree, lottplants_smallmirktree })
 
 return {
 	add_existing = add_existing,

@@ -30,15 +30,15 @@ worldedit.alias_command('sc', 'select_chunks')
 
 
 local trees_nodes = {
-	"default:tree", "default:jungletree", "default:leaves", "default:apple", "lottplants:plum",
-	"lottplants:aldertree", "lottplants:beechtree", "lottplants:birchtree", "lottplants:firtree",
-	"lottplants:lebethrontree",	"lottplants:mallorntree", "lottplants:mallorntree_young", "lottplants:pinetree",
-	"lottplants:elmtree",
-	"lottplants:alderleaf",	"lottplants:appleleaf", "lottplants:beechleaf", "lottplants:birchleaf",
-	"lottplants:culumaldaleaf",	"lottplants:elmleaf", "lottplants:firleaf", "lottplants:lebethronleaf",
-	"lottplants:mallornleaf", "lottplants:mirkleaf", "lottplants:pineleaf", "lottplants:plumleaf",
-	"lottplants:rowanberry", "lottplants:rowanleaf", "lottplants:whiteleaf", "lottplants:yavannamireleaf",
-	"lottplants:yellowflowers",
+	"default:tree", "default:jungletree", "default:leaves", "default:apple", "lord_trees:plum",
+	"lord_trees:aldertree", "lord_trees:beechtree", "lord_trees:birchtree", "lord_trees:firtree",
+	"lord_trees:lebethrontree",	"lord_trees:mallorntree", "lord_trees:mallorntree_young", "lord_trees:pinetree",
+	"lord_trees:elmtree",
+	"lord_trees:alderleaf",	"lord_trees:appleleaf", "lord_trees:beechleaf", "lord_trees:birchleaf",
+	"lord_trees:culumaldaleaf",	"lord_trees:elmleaf", "lord_trees:firleaf", "lord_trees:lebethronleaf",
+	"lord_trees:mallornleaf", "lord_trees:mirkleaf", "lord_trees:pineleaf", "lord_trees:plumleaf",
+	"lord_trees:rowanberry", "lord_trees:rowanleaf", "lord_trees:whiteleaf", "lord_trees:yavannamireleaf",
+	"lord_trees:yellowflowers",
 }
 worldedit.register_command('clear_trees', {
 	params      = "",

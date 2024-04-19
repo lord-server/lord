@@ -16,9 +16,9 @@ minetest.register_alias("mapgen_tree", "default:tree")
 minetest.register_alias("mapgen_leaves", "default:leaves")
 minetest.register_alias("mapgen_jungletree", "default:jungletree")
 -- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
--- В коде присутствует и default:jungleleaves, и lottplants:mirkleaf, что создаёт путанницу
--- Принято решение пока что оставить только lottplants:mirkleaf
--- Может понадобиться при возможном переходе с дерева из lottplants на дерево из default
+-- В коде присутствует и default:jungleleaves, и lord_trees:mirkleaf/lottplants:mirkleaf, что создаёт путанницу
+-- Принято решение пока что оставить только lord_trees:mirkleaf
+-- Может понадобиться при возможном переходе с дерева из lord_trees на дерево из default
 --minetest.register_alias("mapgen_jungleleaves", "default:jungleleaves")
 minetest.register_alias("mapgen_apple", "default:apple")
 minetest.register_alias("mapgen_water_source", "default:water_source")

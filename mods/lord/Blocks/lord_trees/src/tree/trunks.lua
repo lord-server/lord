@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottplants")
+local S = minetest.get_translator("lord_trees")
 
 
 local trunks = {
@@ -95,16 +95,16 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 	end
 end
 
-register_trunk("lottplants:aldertree",     2, 10, 2)
-register_trunk("lottplants:beechtree",     2, 15, 4)
-register_trunk("lottplants:birchtree",     3, 12, 3)
-register_trunk("lottplants:cherrytree",    2, 10, 2)
-register_trunk("lottplants:culumaldatree", 2, 10, 2)
-register_trunk("lottplants:elmtree",       2, 25, 2)
-register_trunk("lottplants:firtree",       3, 13, 2)
-register_trunk("lottplants:lebethrontree", 1, 10, 2)
-register_trunk("lottplants:mallorntree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
-register_trunk("lottplants:pinetree",      3, 13, 2)
+register_trunk("lord_trees:aldertree",     2, 10, 2)
+register_trunk("lord_trees:beechtree",     2, 15, 4)
+register_trunk("lord_trees:birchtree",     3, 12, 3)
+register_trunk("lord_trees:cherrytree",    2, 10, 2)
+register_trunk("lord_trees:culumaldatree", 2, 10, 2)
+register_trunk("lord_trees:elmtree",       2, 25, 2)
+register_trunk("lord_trees:firtree",       3, 13, 2)
+register_trunk("lord_trees:lebethrontree", 1, 10, 2)
+register_trunk("lord_trees:mallorntree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
+register_trunk("lord_trees:pinetree",      3, 13, 2)
 
 -- @tags: legacy
 minetest.register_alias("lottplants:mallorntrunk_young", "lottplants:mallorn_young_trunk")

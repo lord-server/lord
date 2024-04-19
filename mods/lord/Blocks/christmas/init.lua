@@ -45,9 +45,9 @@ local recipe = {
 	{"default:pine_sapling"},
 	{"default:dirt"},
 }
-if minetest.get_modpath("lottplants") and minetest.get_modpath("lord_homedecor") then
+if minetest.get_modpath("lord_trees") and minetest.get_modpath("lord_homedecor") then
 	recipe = {
-		{"lottplants:firsapling"},
+		{"lord_trees:firsapling"},
 		{"lord_homedecor:flower_pot_terracotta"},
 	}
 end

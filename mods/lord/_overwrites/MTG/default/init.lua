@@ -92,7 +92,7 @@ minetest.register_lbm({
 	name = "lord_overwrites_mtg_default:remove_junglesapling",
 	nodenames = {"default:junglesapling"},
 	action = function(pos, node)
-		minetest.set_node(pos, {name = "lottplants:mirksapling"})
+		minetest.set_node(pos, {name = "lord_trees:mirksapling"})
 	end
 })
 
@@ -100,7 +100,7 @@ minetest.register_lbm({
 	name = "lord_overwrites_mtg_default:remove_jungleleaves",
 	nodenames = {"default:jungleleaves"},
 	action = function(pos, node)
-		minetest.set_node(pos, {name = "lottplants:mirkleaf"})
+		minetest.set_node(pos, {name = "lord_trees:mirkleaf"})
 	end
 })
 
@@ -131,7 +131,8 @@ minetest.unregister_item("default:tin_lump")
 
 -- default/crafting.lua
 
--- в LOTT (`lottplants/nodes.lua`) была изначально своя сосна (`lottplants:pinewood`)
+-- в LOTT (сейчас `lord_trees/src/trunks.lua`)
+--    была изначально своя сосна (`lottplants:pinetree`, сейчас `lord_trees:pinetree`)
 minetest.clear_craft({recipe = {{"default:pine_tree"}}})
 
 -- Были добавлены в MTG, но у нас не используются (пока выпиливаем):
@@ -176,7 +177,7 @@ minetest.register_craft({
 -- tree fuels:
 minetest.clear_craft({type = "fuel", recipe = "group:tree"})
 minetest.clear_craft({type = "fuel", recipe = "default:aspen_tree"}) -- добавлены в MTG, но у нас не используется
-minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:pine_tree"}) -- в lord_trees своя
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_tree"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:jungletree"})
 minetest.register_craft({
@@ -187,7 +188,7 @@ minetest.register_craft({
 -- wood fuels:
 minetest.clear_craft({type = "fuel", recipe = "group:wood"})
 minetest.clear_craft({type = "fuel", recipe = "default:aspen_wood"}) -- добавлены в MTG, но у нас не используется
-minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"}) -- в lottplants своя
+minetest.clear_craft({type = "fuel", recipe = "default:pine_wood"}) -- в lord_trees своя
 minetest.clear_craft({type = "fuel", recipe = "default:acacia_wood"}) -- добавлены в MTG, но у нас не используется
 minetest.clear_craft({type = "fuel", recipe = "default:junglewood"})
 minetest.register_craft({
@@ -468,9 +469,9 @@ minetest.override_item("default:leaves", {
 })
 
 -- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
--- В коде присутствует и default:jungleleaves, и lottplants:mirkleaf, что создаёт путанницу
--- Принято решение пока что оставить только lottplants:mirkleaf
--- Понадобится при возможном переходе с дерева из lottplants на дерево из default
+-- В коде присутствует и default:jungleleaves, и lord_trees:mirkleaf/lottplants:mirkleaf, что создаёт путанницу
+-- Принято решение пока что оставить только lord_trees:mirkleaf
+-- Понадобится при возможном переходе с дерева из lord_trees на дерево из default
 --[[minetest.override_item("default:jungleleaves", {
 	drawtype = "mesh",
 	mesh = "leaves_model.obj",
