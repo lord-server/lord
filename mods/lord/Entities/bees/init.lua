@@ -28,7 +28,19 @@ local S = minetest.get_translator("bees")
         'list[nodemeta:'.. spos ..';wax;5,2;1,1;]'..
         'list[nodemeta:'.. spos ..';bottles_full;5,3.5;1,1;]'..
         --player inventory
-        'list[current_player;main;0,5;8,4;]'
+        'list[current_player;main;0,5;8,4;]'..
+        --listring
+        'listring[current_player;main]'..
+        'listring[nodemeta:'..spos..';frames_filled]'..
+        'listring[current_player;main]'..
+        'listring[nodemeta:'..spos..';bottles_empty]'..
+        'listring[current_player;main]'..
+        'listring[nodemeta:'..spos..';frames_emptied]'..
+        'listring[current_player;main]'..
+        'listring[nodemeta:'..spos..';wax]'..
+        'listring[current_player;main]'..
+        'listring[nodemeta:'..spos..';bottles_full]'..
+        'listring[current_player;main]'
     return formspec
   end
 
@@ -287,7 +299,7 @@ local S = minetest.get_translator("bees")
 -- LBMS
    minetest.register_lbm({
      label = "formspec extractor replacement",
-     name = "bees:extractor_formspec_replacement",
+     name = "bees:extractor_formspec_replacement_2",
      nodenames = {"bees:extractor"},
      run_at_every_load = false,
      action = function(pos, node)
