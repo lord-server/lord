@@ -100,7 +100,7 @@ minetest.register_lbm({
 	name = "lord_overwrites_mtg_default:remove_jungleleaves",
 	nodenames = {"default:jungleleaves"},
 	action = function(pos, node)
-		minetest.set_node(pos, {name = "lord_trees:mirkleaf"})
+		minetest.set_node(pos, {name = "lord_trees:mirk_leaf"})
 	end
 })
 
@@ -469,8 +469,8 @@ minetest.override_item("default:leaves", {
 })
 
 -- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
--- В коде присутствует и default:jungleleaves, и lord_trees:mirkleaf/lottplants:mirkleaf, что создаёт путанницу
--- Принято решение пока что оставить только lord_trees:mirkleaf
+-- В коде присутствует и default:jungleleaves, и lord_trees:mirk_leaf/lottplants:mirkleaf, что создаёт путанницу
+-- Принято решение пока что оставить только lord_trees:mirk_leaf
 -- Понадобится при возможном переходе с дерева из lord_trees на дерево из default
 --[[minetest.override_item("default:jungleleaves", {
 	drawtype = "mesh",

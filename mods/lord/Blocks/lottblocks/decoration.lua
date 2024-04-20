@@ -113,17 +113,17 @@ register_leafroof("leafroof_dark", "Dark Leaf", "lottblocks_leafroof.png", "defa
 
 -- Leafroof white
 
-register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png", "lord_trees:whiteleaf")
+register_leafroof("leafroof_white", "White Leaf", "lottblocks_white_leafroof.png", "lord_trees:white_leaf")
 
 -- Leafroof cherry
 
-register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png", "lord_trees:cherryleaf")
+register_leafroof("leafroof_cherry", "Cherry Leaf", "lottblocks_cherry_leafroof.png", "lord_trees:cherry_leaf")
 
 
 -- MALLORN
 -- Leafroof mallorn
 
-register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png", "lord_trees:mallornleaf")
+register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.png", "lord_trees:mallorn_leaf")
 
 -- mallorn pillar
 

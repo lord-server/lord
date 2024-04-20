@@ -215,13 +215,13 @@ local recipes = {
 	{ "lottmobs:spiderpoison 2", "lottpotion:spiderpoison_power1", "lottpotion:spiderpoison_power2", 180 },
 	{ "lottmobs:spiderpoison 2", "lottpotion:spiderpoison_power2", "lottpotion:spiderpoison_power3", 240 },
 	--Limpe
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:glass_bottle_mese", "lottpotion:limpe_power1" },
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:limpe_power1", "lottpotion:limpe_power2", 180 },
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:limpe_power2", "lottpotion:limpe_power3", 240 },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:glass_bottle_mese", "lottpotion:limpe_power1" },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:limpe_power1", "lottpotion:limpe_power2", 180 },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:limpe_power2", "lottpotion:limpe_power3", 240 },
 	--Miruvor
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:glass_bottle_mese", "lottpotion:miruvor_power1" },
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:miruvor_power1", "lottpotion:miruvor_power2", 180 },
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:miruvor_power2", "lottpotion:miruvor_power3", 240 },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:glass_bottle_mese", "lottpotion:miruvor_power1" },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:miruvor_power1", "lottpotion:miruvor_power2", 180 },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:miruvor_power2", "lottpotion:miruvor_power3", 240 },
 	--Athelas Brew
 	{ "lottfarming:athelas 3", "lottpotion:glass_bottle_geodes", "lottpotion:athelasbrew_power1" },
 	{ "lottfarming:athelas 3", "lottpotion:athelasbrew_power1", "lottpotion:athelasbrew_power2", 180 },
@@ -245,13 +245,13 @@ local recipes = {
 	{ "lottmobs:spiderpoison 2", "lottpotion:spiderpoison_corruption1", "lottpotion:spiderpoison_corruption2", 180 },
 	{ "lottmobs:spiderpoison 2", "lottpotion:spiderpoison_corruption2", "lottpotion:spiderpoison_corruption3", 240 },
 	--Limpe
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:glass_bottle_obsidian", "lottpotion:limpe_corruption1" },
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:limpe_corruption1", "lottpotion:limpe_corruption2", 180 },
-	{ "lord_trees:yavannamireleaf 10", "lottpotion:limpe_corruption2", "lottpotion:limpe_corruption3", 240 },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:glass_bottle_obsidian", "lottpotion:limpe_corruption1" },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:limpe_corruption1", "lottpotion:limpe_corruption2", 180 },
+	{ "lord_trees:yavannamire_leaf 10", "lottpotion:limpe_corruption2", "lottpotion:limpe_corruption3", 240 },
 	--Miruvor
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:glass_bottle_obsidian", "lottpotion:miruvor_corruption1" },
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:miruvor_corruption1", "lottpotion:miruvor_corruption2", 180 },
-	{ "lord_trees:yavannamirefruit 2", "lottpotion:miruvor_corruption2", "lottpotion:miruvor_corruption3", 240 },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:glass_bottle_obsidian", "lottpotion:miruvor_corruption1" },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:miruvor_corruption1", "lottpotion:miruvor_corruption2", 180 },
+	{ "lord_trees:yavannamire_fruit 2", "lottpotion:miruvor_corruption2", "lottpotion:miruvor_corruption3", 240 },
 	--Athelas Brew
 	{ "lottfarming:athelas 3", "lottpotion:glass_bottle_bonedust", "lottpotion:athelasbrew_corruption1" },
 	{ "lottfarming:athelas 3", "lottpotion:athelasbrew_corruption1", "lottpotion:athelasbrew_corruption2", 180 },

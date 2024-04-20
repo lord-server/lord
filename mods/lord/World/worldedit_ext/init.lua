@@ -34,11 +34,11 @@ local trees_nodes = {
 	"lord_trees:aldertree", "lord_trees:beechtree", "lord_trees:birchtree", "lord_trees:firtree",
 	"lord_trees:lebethrontree",	"lord_trees:mallorntree", "lord_trees:mallorntree_young", "lord_trees:pinetree",
 	"lord_trees:elmtree",
-	"lord_trees:alderleaf",	"lord_trees:appleleaf", "lord_trees:beechleaf", "lord_trees:birchleaf",
-	"lord_trees:culumaldaleaf",	"lord_trees:elmleaf", "lord_trees:firleaf", "lord_trees:lebethronleaf",
-	"lord_trees:mallornleaf", "lord_trees:mirkleaf", "lord_trees:pineleaf", "lord_trees:plumleaf",
-	"lord_trees:rowanberry", "lord_trees:rowanleaf", "lord_trees:whiteleaf", "lord_trees:yavannamireleaf",
-	"lord_trees:yellowflowers",
+	"lord_trees:alder_leaf", "lord_trees:apple_leaf", "lord_trees:beech_leaf", "lord_trees:birch_leaf",
+	"lord_trees:culumalda_leaf", "lord_trees:elm_leaf", "lord_trees:fir_leaf", "lord_trees:lebethron_leaf",
+	"lord_trees:mallorn_leaf", "lord_trees:mirk_leaf", "lord_trees:pine_leaf", "lord_trees:plum_leaf",
+	"lord_trees:rowan_berry", "lord_trees:rowan_leaf", "lord_trees:white_leaf", "lord_trees:yavannamire_leaf",
+	"lord_trees:yellow_flowers",
 }
 worldedit.register_command('clear_trees', {
 	params      = "",

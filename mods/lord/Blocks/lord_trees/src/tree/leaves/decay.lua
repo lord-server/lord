@@ -4,21 +4,21 @@
 -- Alders / Ольха
 default.register_leafdecay({
 	trunks = {"lord_trees:aldertree"},
-	leaves = {"lord_trees:alderleaf"},
+	leaves = {"lord_trees:alder_leaf"},
 	radius = 3,
 })
 
 default.register_leafdecay({
 	trunks = {"default:tree"},
 	leaves = {
-		"lord_trees:appleleaf", "default:leaves", "default:apple", -- Apple Tree / Яблоня
-		"lord_trees:beechleaf", -- Beeches / Бук.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
-		"lord_trees:culumaldaleaf", "lord_trees:yellowflowers", -- Culumalda / Кулумальда     Оставлено, т.к.  ...
-		"lord_trees:elmleaf", -- Elms / Вяз.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
-		"lord_trees:plumleaf", "lord_trees:plum", -- Plum Tree / Слива
-		"lord_trees:rowanleaf", "lord_trees:rowanberry", -- Rowans / Рябина
-		"lord_trees:whiteleaf", -- White Tree / Белое дерево
-		"lord_trees:yavannamireleaf", "lord_trees:yavannamirefruit", -- Yavannamire / Йаванамирэ
+		"lord_trees:apple_leaf", "default:leaves", "default:apple", -- Apple Tree / Яблоня
+		"lord_trees:beech_leaf", -- Beeches / Бук.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
+		"lord_trees:culumalda_leaf", "lord_trees:yellow_flowers", -- Culumalda / Кулумальда     Оставлено, т.к.  ...
+		"lord_trees:elm_leaf", -- Elms / Вяз.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
+		"lord_trees:plum_leaf", "lord_trees:plum", -- Plum Tree / Слива
+		"lord_trees:rowan_leaf", "lord_trees:rowan_berry", -- Rowans / Рябина
+		"lord_trees:white_leaf", -- White Tree / Белое дерево
+		"lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit", -- Yavannamire / Йаванамирэ
 	},
 	radius = 3,
 })
@@ -26,69 +26,69 @@ default.register_leafdecay({
 -- Lebethron / Лебетрон
 default.register_leafdecay({
 	trunks = {"lord_trees:lebethrontree"},
-	leaves = {"lord_trees:lebethronleaf"},
+	leaves = {"lord_trees:lebethron_leaf"},
 	radius = 2,
 })
 
 -- Birches / Береза
 default.register_leafdecay({
 	trunks = {"lord_trees:birchtree"},
-	leaves = {"lord_trees:birchleaf"},
+	leaves = {"lord_trees:birch_leaf"},
 	radius = 3,
 })
 
 -- Cherry / Сакура
 default.register_leafdecay({
 	trunks = {"lord_trees:cherrytree"},
-	leaves = {"lord_trees:cherryleaf"},
+	leaves = {"lord_trees:cherry_leaf"},
 	radius = 2,
 })
 
 -- Culumalda / Кулумальда
 default.register_leafdecay({
 	trunks = {"lord_trees:culumaldatree"},
-	leaves = {"lord_trees:culumaldaleaf", "lord_trees:yellowflowers"},
+	leaves = {"lord_trees:culumalda_leaf", "lord_trees:yellow_flowers"},
 	radius = 2,
 })
 
 -- Firs / Ель
 default.register_leafdecay({
 	trunks = {"lord_trees:firtree"},
-	leaves = {"lord_trees:firleaf"},
+	leaves = {"lord_trees:fir_leaf"},
 	radius = 4,
 })
 
 -- (Young) Mallorn / (Молодой) маллорн
 default.register_leafdecay({
 	trunks = {"lord_trees:mallorntree", "lord_trees:mallorn_young_tree"},
-	leaves = {"lord_trees:mallornleaf"},
+	leaves = {"lord_trees:mallorn_leaf"},
 	radius = 2,
 })
 
 -- Pines / Сосна
 default.register_leafdecay({
 	trunks = {"lord_trees:pinetree"},
-	leaves = {"lord_trees:pineleaf"},
+	leaves = {"lord_trees:pine_leaf"},
 	radius = 2,
 })
 
 -- Mirk Large/Small / Большое/Малое дерево Лихолесья
 default.register_leafdecay({
 	trunks = {"default:jungletree"},
-	leaves = {"lord_trees:mirkleaf"},
+	leaves = {"lord_trees:mirk_leaf"},
 	radius = 2,
 })
 
 -- Elms / Вяз
 default.register_leafdecay({
 	trunks = {"lord_trees:elmtree"},
-	leaves = {"lord_trees:elmleaf"},
+	leaves = {"lord_trees:elm_leaf"},
 	radius = 2,
 })
 
 -- Beeches / Бук
 default.register_leafdecay({
 	trunks = {"lord_trees:beechtree"},
-	leaves = {"lord_trees:beechleaf"},
+	leaves = {"lord_trees:beech_leaf"},
 	radius = 4,
 })

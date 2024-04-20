@@ -182,7 +182,7 @@ end
 
 if minetest.get_modpath("lord_trees") ~= nil then
 	hbhunger.register_food("lord_trees:plum", 1)
-	hbhunger.register_food("lord_trees:yavannamirefruit", 15, "", nil, "4")
+	hbhunger.register_food("lord_trees:yavannamire_fruit", 15, "", nil, "4")
 end
 
 if minetest.get_modpath("lottpotion") ~= nil then

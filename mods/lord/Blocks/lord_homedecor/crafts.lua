@@ -475,7 +475,7 @@ minetest.register_craft({
 	output = "lord_homedecor:lattice_wood_vegetal 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
-		{ "group:wood", "lottplants:lebethronleaf", "group:wood" },
+		{ "group:wood", "lord_trees:lebethron_leaf", "group:wood" },
 		{ "group:stick", "group:wood", "group:stick" },
 	},
 })
@@ -484,7 +484,7 @@ minetest.register_craft({
 	output = "lord_homedecor:lattice_white_wood_vegetal 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
-		{ "group:wood", "lottplants:lebethronleaf", "group:wood" },
+		{ "group:wood", "lord_trees:lebethron_leaf", "group:wood" },
 		{ "group:stick", "dye:white", "group:stick" },
 	},
 })
@@ -519,8 +519,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lord_homedecor:shrubbery_green 3",
 	recipe = {
-		{ "lord_trees:lebethronleaf", "lord_trees:lebethronleaf", "lord_trees:lebethronleaf" },
-		{ "lord_trees:lebethronleaf", "lord_trees:lebethronleaf", "lord_trees:lebethronleaf" },
+		{ "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf" },
+		{ "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf" },
 		{ "group:stick", "group:stick", "group:stick" }
 	}
 })

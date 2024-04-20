@@ -17,8 +17,8 @@ function lottplants_aldertree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:aldertree")
 
-	generator.add_crown_at(pos, height - 2, radius, "lord_trees:alderleaf", { no_leaves_on_corners = true })
-	generator.add_crown_at(pos, height,     radius, "lord_trees:alderleaf", { no_leaves_on_corners = true })
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:alder_leaf", { no_leaves_on_corners = true })
+	generator.add_crown_at(pos, height,     radius, "lord_trees:alder_leaf", { no_leaves_on_corners = true })
 end
 
 -- Apple tree / Яблоня
@@ -31,8 +31,8 @@ function lottplants_appletree(pos, generator)
 	generator.add_trunk(pos, height, "default:tree")
 	-- HACK: это адаптированная версия, лучше бы передавать шансы листьев и альтернативной ноды
 	--       но в данном варианте выдаёт примерно то же самое кол-во яблок, что и раньше
-	generator.add_crown_at(pos, height - 2, radius, { "default:apple", "lord_trees:appleleaf" })
-	generator.add_crown_at(pos, height,     radius, "lord_trees:appleleaf")
+	generator.add_crown_at(pos, height - 2, radius, { "default:apple", "lord_trees:apple_leaf" })
+	generator.add_crown_at(pos, height,     radius, "lord_trees:apple_leaf")
 	generator.add_crown_at(pos, height,     radius, "default:apple")
 end
 
@@ -44,10 +44,10 @@ function lottplants_birchtree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:birchtree")
 
-	generator.add_crown_at(pos, math.floor(height * 0.4), {3,2}, "lord_trees:birchleaf")
-	generator.add_crown_at(pos, math.floor(height * 0.6), {2,3}, "lord_trees:birchleaf")
-	generator.add_crown_at(pos, math.floor(height * 0.8), {2,2}, "lord_trees:birchleaf")
-	generator.add_crown_at(pos, height,                   {2,1}, "lord_trees:birchleaf")
+	generator.add_crown_at(pos, math.floor(height * 0.4), {3,2}, "lord_trees:birch_leaf")
+	generator.add_crown_at(pos, math.floor(height * 0.6), {2,3}, "lord_trees:birch_leaf")
+	generator.add_crown_at(pos, math.floor(height * 0.8), {2,2}, "lord_trees:birch_leaf")
+	generator.add_crown_at(pos, height,                   {2,1}, "lord_trees:birch_leaf")
 end
 
 -- Beeches / Бук
@@ -58,12 +58,12 @@ function lottplants_beechtree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:beechtree")
 
-	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beechleaf")
-	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beechleaf")
-	generator.add_crown_at(pos, height - 6, 4, "lord_trees:beechleaf")
-	generator.add_crown_at(pos, height - 4, 4, "lord_trees:beechleaf")
-	generator.add_crown_at(pos, height - 2, 3, "lord_trees:beechleaf")
-	generator.add_crown_at(pos, height,     2, "lord_trees:beechleaf")
+	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beech_leaf")
+	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beech_leaf")
+	generator.add_crown_at(pos, height - 6, 4, "lord_trees:beech_leaf")
+	generator.add_crown_at(pos, height - 4, 4, "lord_trees:beech_leaf")
+	generator.add_crown_at(pos, height - 2, 3, "lord_trees:beech_leaf")
+	generator.add_crown_at(pos, height,     2, "lord_trees:beech_leaf")
 end
 
 -- Cherry / Сакура
@@ -75,8 +75,8 @@ function lottplants_cherrytree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:cherrytree")
 
-	generator.add_crown_at(pos, height - 2, radius, "lord_trees:cherryleaf" )
-	generator.add_crown_at(pos, height,     radius, "lord_trees:cherryleaf" )
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:cherry_leaf" )
+	generator.add_crown_at(pos, height,     radius, "lord_trees:cherry_leaf" )
 end
 
 -- Culumalda
@@ -88,8 +88,8 @@ function lottplants_culumaldatree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:culumaldatree")
 
-	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:culumaldaleaf", "lord_trees:yellowflowers" })
-	generator.add_crown_at(pos, height,     radius, { "lord_trees:culumaldaleaf", "lord_trees:yellowflowers" })
+	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:culumalda_leaf", "lord_trees:yellow_flowers" })
+	generator.add_crown_at(pos, height,     radius, { "lord_trees:culumalda_leaf", "lord_trees:yellow_flowers" })
 end
 
 -- Elms / Вяз
@@ -101,9 +101,9 @@ function lottplants_elmtree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:elmtree")
 
-	generator.add_crown_at(pos, math.floor(height * 0.4), radius, "lord_trees:elmleaf")
-	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:elmleaf")
-	generator.add_crown_at(pos, height,                   radius, "lord_trees:elmleaf")
+	generator.add_crown_at(pos, math.floor(height * 0.4), radius, "lord_trees:elm_leaf")
+	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:elm_leaf")
+	generator.add_crown_at(pos, height,                   radius, "lord_trees:elm_leaf")
 end
 
 -- Firs / Ель
@@ -115,7 +115,7 @@ function lottplants_firtree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:firtree")
 
-	local leaf_node = "lord_trees:firleaf"
+	local leaf_node = "lord_trees:fir_leaf"
 	generator.add_crown_at(pos, height + 1, radius, leaf_node, { level_type = crown_level_Type.CONE })
 	generator.add_crown_at(pos, height - 2, radius, leaf_node, { level_type = crown_level_Type.CONE, cone_solid = true })
 	generator.add_crown_at(pos, height - 5, radius, leaf_node, { level_type = crown_level_Type.CONE, cone_solid = true })
@@ -131,8 +131,8 @@ function lottplants_lebethrontree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:lebethrontree")
 
-	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:lebethronleaf")
-	generator.add_crown_at(pos, height,                   radius, "lord_trees:lebethronleaf")
+	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:lebethron_leaf")
+	generator.add_crown_at(pos, height,                   radius, "lord_trees:lebethron_leaf")
 end
 
 --- @param pos       Position
@@ -147,11 +147,11 @@ function lottplants_mallorntree(pos, generator)
 
 	for dy = 9 + math.random(3), height - 2, 5 do
 		generator.add_branches_at(
-			pos, dy, "lord_trees:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lord_trees:mallornleaf"
+			pos, dy, "lord_trees:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lord_trees:mallorn_leaf"
 		)
 	end
 
-	generator.add_branches_at(pos, height, "lord_trees:mallorntree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mallornleaf")
+	generator.add_branches_at(pos, height, "lord_trees:mallorntree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mallorn_leaf")
 end
 --- @param pos       Position
 --- @param generator tree.Generator
@@ -161,8 +161,8 @@ function lottplants_smallmallorntree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:mallorntree")
 
-	generator.add_crown_at(pos, height - 4, radius, "lord_trees:mallornleaf")
-	generator.add_crown_at(pos, height,     radius, "lord_trees:mallornleaf")
+	generator.add_crown_at(pos, height - 4, radius, "lord_trees:mallorn_leaf")
+	generator.add_crown_at(pos, height,     radius, "lord_trees:mallorn_leaf")
 end
 --- @param pos       Position
 --- @param generator tree.Generator
@@ -172,8 +172,8 @@ function lottplants_young_mallorn(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:mallorntree_young")
 
-	generator.add_crown_at(pos, height - 2, radius, "lord_trees:mallornleaf")
-	generator.add_crown_at(pos, height,     radius, "lord_trees:mallornleaf")
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:mallorn_leaf")
+	generator.add_crown_at(pos, height,     radius, "lord_trees:mallorn_leaf")
 end
 
 -- Pines / Сосна
@@ -185,9 +185,9 @@ function lottplants_pinetree(pos, generator)
 
 	generator.add_trunk(pos, height, "lord_trees:pinetree")
 
-	generator.add_crown_at(pos, height + 1, radius, "lord_trees:pineleaf", { level_type = crown_level_Type.CONE })
-	generator.add_crown_at(pos, height - 2, radius, "lord_trees:pineleaf", { level_type = crown_level_Type.CONE })
-	generator.add_crown_at(pos, height - 5, radius, "lord_trees:pineleaf", { level_type = crown_level_Type.CONE })
+	generator.add_crown_at(pos, height + 1, radius, "lord_trees:pine_leaf", { level_type = crown_level_Type.CONE })
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:pine_leaf", { level_type = crown_level_Type.CONE })
+	generator.add_crown_at(pos, height - 5, radius, "lord_trees:pine_leaf", { level_type = crown_level_Type.CONE })
 end
 
 -- Plum Trees / Слива
@@ -199,8 +199,8 @@ function lottplants_plumtree(pos, generator)
 
 	generator.add_trunk(pos, height, "default:tree")
 
-	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:plumleaf", "lord_trees:plum" })
-	generator.add_crown_at(pos, height,     radius, { "lord_trees:plumleaf", "lord_trees:plum" })
+	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:plum_leaf", "lord_trees:plum" })
+	generator.add_crown_at(pos, height,     radius, { "lord_trees:plum_leaf", "lord_trees:plum" })
 end
 
 -- Rowans / Рябина
@@ -211,9 +211,9 @@ function lottplants_rowantree(pos, generator)
 
 	generator.add_trunk(pos, height, "default:tree")
 
-	generator.add_crown_at(pos, height - 4, 2, "lord_trees:rowanleaf")
-	generator.add_crown_at(pos, height - 2, 3, { "lord_trees:rowanleaf", "lord_trees:rowanberry" })
-	generator.add_crown_at(pos, height,     2, "lord_trees:rowanleaf")
+	generator.add_crown_at(pos, height - 4, 2, "lord_trees:rowan_leaf")
+	generator.add_crown_at(pos, height - 2, 3, { "lord_trees:rowan_leaf", "lord_trees:rowan_berry" })
+	generator.add_crown_at(pos, height,     2, "lord_trees:rowan_leaf")
 end
 
 -- White Tree / Белое дерево
@@ -225,8 +225,8 @@ function lottplants_whitetree(pos, generator)
 
 	generator.add_trunk(pos, height, "default:tree")
 
-	generator.add_crown_at(pos, height - 2, radius, "lord_trees:whiteleaf")
-	generator.add_crown_at(pos, height,     radius, "lord_trees:whiteleaf")
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:white_leaf")
+	generator.add_crown_at(pos, height,     radius, "lord_trees:white_leaf")
 end
 
 -- Yavannamire / Йаванамирэ
@@ -238,8 +238,8 @@ function lottplants_yavannamiretree(pos, generator)
 
 	generator.add_trunk(pos, height, "default:tree")
 
-	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:yavannamireleaf", "lord_trees:yavannamirefruit" })
-	generator.add_crown_at(pos, height,     radius, { "lord_trees:yavannamireleaf", "lord_trees:yavannamirefruit" })
+	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit" })
+	generator.add_crown_at(pos, height,     radius, { "lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit" })
 end
 
 --Mirk large / Большое дерево Лихолесья
@@ -253,7 +253,7 @@ function lottplants_mirktree(pos, generator)
 		generator.add_roots(pos, "default:jungletree", 2)
 	end
 
-	generator.add_branches_at(pos, height, "default:jungletree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mirkleaf")
+	generator.add_branches_at(pos, height, "default:jungletree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mirk_leaf")
 end
 --Mirk Small / Малое дерево Лихолесья
 --- @param pos       Position
@@ -263,5 +263,5 @@ function lottplants_smallmirktree(pos, generator)
 
 	generator.add_trunk(pos, height - 2, "default:jungletree")
 
-	generator.add_branches_at(pos, height - 1, "default:jungletree", 1, 2, branch_Type.DIAGONAL, "lord_trees:mirkleaf")
+	generator.add_branches_at(pos, height - 1, "default:jungletree", 1, 2, branch_Type.DIAGONAL, "lord_trees:mirk_leaf")
 end
