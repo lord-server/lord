@@ -189,10 +189,10 @@ local function default_admin_mob_content(self, width, pos)
 	return "", pos
 end
 
-local function default_main_form_handle(self, clicker, fields, can_edit)
+local function default_main_form_handle(self, clicker, fields, player_can_edit)
 end
 
-local function default_form_handle(self, clicker, formname, fields, can_edit)
+local function default_form_handle(self, clicker, formname, fields, player_can_edit)
 end
 
 local function default_init_from_staticdata(self, mobdata)

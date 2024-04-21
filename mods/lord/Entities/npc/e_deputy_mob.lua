@@ -66,7 +66,7 @@ local function main_form_handle(self, clicker, fields, can_edit)
 		-- goto question show or edit
 		for _, item in ipairs(self.questions) do
 			if fields[item["label"]] ~= nil then
-				if can_edit then
+				if can_edit and not clicker:get_player_control().aux1 then
 					edit_answer(clicker, item)
 				else
 					show_answer(clicker, item)
@@ -156,9 +156,9 @@ end
 local function configure_placed(self, playername)
     self.creator = playername
     self.mobname = "e-"..playername
-    race = races.get_race(playername)
-    gender = races.get_gender(playername)
-    skin = races.get_skin(playername)
+    local race = races.get_race(playername)
+    local gender = races.get_gender(playername)
+    local skin = races.get_skin(playername)
     self.texture = races.get_texture_name(race, gender, skin)
     self.object:set_properties({
 		nametag       = self.mobname,
