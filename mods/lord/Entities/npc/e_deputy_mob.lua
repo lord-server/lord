@@ -226,10 +226,15 @@ npc:register_mob("npc:e_deputy_mob", {
     header_form_handler = header_form_handler,
 })
 
+minetest.register_craftitem("npc:necromancy_spell", {
+	description = S("Necromancy spell"),
+	inventory_image = "default_paper.png",
+})
+
 minetest.register_craft({
 	output = "npc:e_deputy_mob_egg",
 	recipe = {
-		{"default:torch"},
+		{"npc:necromancy_spell"},
 		{"group:corpse"},
 	},
 })

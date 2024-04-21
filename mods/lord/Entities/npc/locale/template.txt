@@ -8,3 +8,4 @@ Delete=
 Close=
 Take=
 E-Deputy mob=
+Necromancy spell=
