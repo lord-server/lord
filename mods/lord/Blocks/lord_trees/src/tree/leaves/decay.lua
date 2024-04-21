@@ -3,7 +3,7 @@
 
 -- Alders / Ольха
 default.register_leafdecay({
-	trunks = {"lord_trees:aldertree"},
+	trunks = {"lord_trees:alder_tree"},
 	leaves = {"lord_trees:alder_leaf"},
 	radius = 3,
 })
@@ -25,49 +25,49 @@ default.register_leafdecay({
 
 -- Lebethron / Лебетрон
 default.register_leafdecay({
-	trunks = {"lord_trees:lebethrontree"},
+	trunks = {"lord_trees:lebethron_tree"},
 	leaves = {"lord_trees:lebethron_leaf"},
 	radius = 2,
 })
 
 -- Birches / Береза
 default.register_leafdecay({
-	trunks = {"lord_trees:birchtree"},
+	trunks = {"lord_trees:birch_tree"},
 	leaves = {"lord_trees:birch_leaf"},
 	radius = 3,
 })
 
 -- Cherry / Сакура
 default.register_leafdecay({
-	trunks = {"lord_trees:cherrytree"},
+	trunks = {"lord_trees:cherry_tree"},
 	leaves = {"lord_trees:cherry_leaf"},
 	radius = 2,
 })
 
 -- Culumalda / Кулумальда
 default.register_leafdecay({
-	trunks = {"lord_trees:culumaldatree"},
+	trunks = {"lord_trees:culumalda_tree"},
 	leaves = {"lord_trees:culumalda_leaf", "lord_trees:yellow_flowers"},
 	radius = 2,
 })
 
 -- Firs / Ель
 default.register_leafdecay({
-	trunks = {"lord_trees:firtree"},
+	trunks = {"lord_trees:fir_tree"},
 	leaves = {"lord_trees:fir_leaf"},
 	radius = 4,
 })
 
 -- (Young) Mallorn / (Молодой) маллорн
 default.register_leafdecay({
-	trunks = {"lord_trees:mallorntree", "lord_trees:mallorn_young_tree"},
+	trunks = {"lord_trees:mallorn_tree", "lord_trees:mallorn_young_tree"},
 	leaves = {"lord_trees:mallorn_leaf"},
 	radius = 2,
 })
 
 -- Pines / Сосна
 default.register_leafdecay({
-	trunks = {"lord_trees:pinetree"},
+	trunks = {"lord_trees:pine_tree"},
 	leaves = {"lord_trees:pine_leaf"},
 	radius = 2,
 })
@@ -81,14 +81,14 @@ default.register_leafdecay({
 
 -- Elms / Вяз
 default.register_leafdecay({
-	trunks = {"lord_trees:elmtree"},
+	trunks = {"lord_trees:elm_tree"},
 	leaves = {"lord_trees:elm_leaf"},
 	radius = 2,
 })
 
 -- Beeches / Бук
 default.register_leafdecay({
-	trunks = {"lord_trees:beechtree"},
+	trunks = {"lord_trees:beech_tree"},
 	leaves = {"lord_trees:beech_leaf"},
 	radius = 4,
 })

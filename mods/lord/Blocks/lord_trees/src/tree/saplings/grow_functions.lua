@@ -15,7 +15,7 @@ function lottplants_aldertree(pos, generator)
 	local height = 6 + math.random(2)
 	local radius = 3
 
-	generator.add_trunk(pos, height, "lord_trees:aldertree")
+	generator.add_trunk(pos, height, "lord_trees:alder_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:alder_leaf", { no_leaves_on_corners = true })
 	generator.add_crown_at(pos, height,     radius, "lord_trees:alder_leaf", { no_leaves_on_corners = true })
@@ -42,7 +42,7 @@ end
 function lottplants_birchtree(pos, generator)
 	local height = 7 + math.random(5)
 
-	generator.add_trunk(pos, height, "lord_trees:birchtree")
+	generator.add_trunk(pos, height, "lord_trees:birch_tree")
 
 	generator.add_crown_at(pos, math.floor(height * 0.4), {3,2}, "lord_trees:birch_leaf")
 	generator.add_crown_at(pos, math.floor(height * 0.6), {2,3}, "lord_trees:birch_leaf")
@@ -56,7 +56,7 @@ end
 function lottplants_beechtree(pos, generator)
 	local height = 12 + math.random(3)
 
-	generator.add_trunk(pos, height, "lord_trees:beechtree")
+	generator.add_trunk(pos, height, "lord_trees:beech_tree")
 
 	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beech_leaf")
 	generator.add_crown_at(pos, height - 8, 4, "lord_trees:beech_leaf")
@@ -73,7 +73,7 @@ function lottplants_cherrytree(pos, generator)
 	local height = 4 + math.random(2)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:cherrytree")
+	generator.add_trunk(pos, height, "lord_trees:cherry_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:cherry_leaf" )
 	generator.add_crown_at(pos, height,     radius, "lord_trees:cherry_leaf" )
@@ -86,7 +86,7 @@ function lottplants_culumaldatree(pos, generator)
 	local height = 4 + math.random(2)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:culumaldatree")
+	generator.add_trunk(pos, height, "lord_trees:culumalda_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:culumalda_leaf", "lord_trees:yellow_flowers" })
 	generator.add_crown_at(pos, height,     radius, { "lord_trees:culumalda_leaf", "lord_trees:yellow_flowers" })
@@ -99,7 +99,7 @@ function lottplants_elmtree(pos, generator)
 	local height = 20 + math.random(5)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:elmtree")
+	generator.add_trunk(pos, height, "lord_trees:elm_tree")
 
 	generator.add_crown_at(pos, math.floor(height * 0.4), radius, "lord_trees:elm_leaf")
 	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:elm_leaf")
@@ -113,7 +113,7 @@ function lottplants_firtree(pos, generator)
 	local height = 10 + math.random(3)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:firtree")
+	generator.add_trunk(pos, height, "lord_trees:fir_tree")
 
 	local leaf_node = "lord_trees:fir_leaf"
 	generator.add_crown_at(pos, height + 1, radius, leaf_node, { level_type = crown_level_Type.CONE })
@@ -129,7 +129,7 @@ function lottplants_lebethrontree(pos, generator)
 	local height = 3 + math.random(1)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:lebethrontree")
+	generator.add_trunk(pos, height, "lord_trees:lebethron_tree")
 
 	generator.add_crown_at(pos, math.floor(height * 0.7), radius, "lord_trees:lebethron_leaf")
 	generator.add_crown_at(pos, height,                   radius, "lord_trees:lebethron_leaf")
@@ -140,18 +140,20 @@ end
 function lottplants_mallorntree(pos, generator)
 	local height = 25 + math.random(5)
 
-	generator.add_trunk(pos, height, "lord_trees:mallorntree", 2)
+	generator.add_trunk(pos, height, "lord_trees:mallorn_tree", 2)
 	if math.random(0, 1) == 1 then
-		generator.add_roots(pos, "lord_trees:mallorntree", 2)
+		generator.add_roots(pos, "lord_trees:mallorn_tree", 2)
 	end
 
 	for dy = 9 + math.random(3), height - 2, 5 do
 		generator.add_branches_at(
-			pos, dy, "lord_trees:mallorntree", 2, math.random(3), branch_Type.TRUNKED, "lord_trees:mallorn_leaf"
+			pos, dy, "lord_trees:mallorn_tree", 2, math.random(3), branch_Type.TRUNKED, "lord_trees:mallorn_leaf"
 		)
 	end
 
-	generator.add_branches_at(pos, height, "lord_trees:mallorntree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mallorn_leaf")
+	generator.add_branches_at(
+		pos, height, "lord_trees:mallorn_tree", 2, 2, branch_Type.SHURIKEN, "lord_trees:mallorn_leaf"
+	)
 end
 --- @param pos       Position
 --- @param generator tree.Generator
@@ -159,7 +161,7 @@ function lottplants_smallmallorntree(pos, generator)
 	local height = 15
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:mallorntree")
+	generator.add_trunk(pos, height, "lord_trees:mallorn_tree")
 
 	generator.add_crown_at(pos, height - 4, radius, "lord_trees:mallorn_leaf")
 	generator.add_crown_at(pos, height,     radius, "lord_trees:mallorn_leaf")
@@ -170,7 +172,7 @@ function lottplants_young_mallorn(pos, generator)
 	local height = 6 + math.random(1)
 	local radius = 1
 
-	generator.add_trunk(pos, height, "lord_trees:mallorntree_young")
+	generator.add_trunk(pos, height, "lord_trees:mallorn_young_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:mallorn_leaf")
 	generator.add_crown_at(pos, height,     radius, "lord_trees:mallorn_leaf")
@@ -183,7 +185,7 @@ function lottplants_pinetree(pos, generator)
 	local height = 10 + math.random(3)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "lord_trees:pinetree")
+	generator.add_trunk(pos, height, "lord_trees:pine_tree")
 
 	generator.add_crown_at(pos, height + 1, radius, "lord_trees:pine_leaf", { level_type = crown_level_Type.CONE })
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:pine_leaf", { level_type = crown_level_Type.CONE })

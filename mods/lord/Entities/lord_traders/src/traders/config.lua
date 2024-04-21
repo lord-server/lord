@@ -56,7 +56,7 @@ trader_config.dwarf  = {
 --- @type traders.config
 trader_config.elf    = {
 	goods      = table.merge(trader_config.common_goods, {
-		["lord_trees:mallorntree 10"]      = { price = 40,  chance = 5,  stock = 1 },
+		["lord_trees:mallorn_tree 10"]      = { price = 40,  chance = 5,  stock = 1 },
 		["lottores:rough_rock 4"]          = { price = 300, chance = 17, stock = 1 },
 		["lottother:blue_torch 10"]        = { price = 200, chance = 15, stock = 1 },
 		["tools:spear_galvorn 1"]          = { price = 250, chance = 20, stock = 1 },

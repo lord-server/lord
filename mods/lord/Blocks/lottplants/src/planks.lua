@@ -67,17 +67,17 @@ end
 add_existing("default:wood")
 add_existing("default:junglewood")
 
-register_planks("lottplants:alderwood", "Alder", 2, "lottplants:aldertree")
-register_planks("lottplants:birchwood", "Birch", 3, "lottplants:birchtree")
-register_planks("lottplants:beechwood", "Beech", 2, "lottplants:beechtree")
-register_planks("lottplants:cherrywood", "Cherry", 3, "lottplants:cherrytree")
-register_planks("lottplants:culumaldawood", "Culumalda", 3, "lottplants:culumaldatree")
-register_planks("lottplants:elmwood", "Elm", 2, "lottplants:elmtree")
-register_planks("lottplants:firwood", "Fir", 3, "lottplants:firtree")
+register_planks("lottplants:alderwood", "Alder", 2, "lord_trees:alder_tree")
+register_planks("lottplants:birchwood", "Birch", 3, "lord_trees:birch_tree")
+register_planks("lottplants:beechwood", "Beech", 2, "lord_trees:beech_tree")
+register_planks("lottplants:cherrywood", "Cherry", 3, "lord_trees:cherry_tree")
+register_planks("lottplants:culumaldawood", "Culumalda", 3, "lord_trees:culumalda_tree")
+register_planks("lottplants:elmwood", "Elm", 2, "lord_trees:elm_tree")
+register_planks("lottplants:firwood", "Fir", 3, "lord_trees:fir_tree")
 register_planks("lottplants:hardwood", "Hardwood", 1, nil, { flammable = 1 })
-register_planks("lottplants:lebethronwood", "Lebethron", 1, "lottplants:lebethrontree")
-register_planks("lottplants:mallornwood", "Mallorn", 1, "lottplants:mallorntree")
-register_planks("lottplants:pinewood",  "Pine",  3, "lottplants:pinetree")
+register_planks("lottplants:lebethronwood", "Lebethron", 1, "lord_trees:lebethron_tree")
+register_planks("lottplants:mallornwood", "Mallorn", 1, "lord_trees:mallorn_tree")
+register_planks("lottplants:pinewood",  "Pine",  3, "lord_trees:pine_tree")
 
 -- @tags: legacy
 minetest.register_alias("hardwood", "lottplants:hardwood")
@@ -89,7 +89,7 @@ minetest.register_alias("defaults:lord_homedecor_hardwood", "defaults:lottplants
 minetest.register_craft({
 	output = 'lottplants:mallornwood 2',
 	recipe = {
-		{ 'lottplants:mallorntree_young' },
+		{ 'lord_trees:mallorn_young_tree' },
 	}
 })
 -- different crafts for hardwood

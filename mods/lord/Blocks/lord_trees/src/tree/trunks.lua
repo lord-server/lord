@@ -85,7 +85,7 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 
 	if register_young then
 		register_trunk(
-			node_name:replace("tree$", "_young_tree"),
+			node_name:replace("_tree$", "_young_tree"),
 			softness,
 			register_young.tree_height,
 			register_young.leaves_radius,
@@ -95,22 +95,17 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 	end
 end
 
-register_trunk("lord_trees:aldertree",     2, 10, 2)
-register_trunk("lord_trees:beechtree",     2, 15, 4)
-register_trunk("lord_trees:birchtree",     3, 12, 3)
-register_trunk("lord_trees:cherrytree",    2, 10, 2)
-register_trunk("lord_trees:culumaldatree", 2, 10, 2)
-register_trunk("lord_trees:elmtree",       2, 25, 2)
-register_trunk("lord_trees:firtree",       3, 13, 2)
-register_trunk("lord_trees:lebethrontree", 1, 10, 2)
-register_trunk("lord_trees:mallorntree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
-register_trunk("lord_trees:pinetree",      3, 13, 2)
+register_trunk("lord_trees:alder_tree",     2, 10, 2)
+register_trunk("lord_trees:beech_tree",     2, 15, 4)
+register_trunk("lord_trees:birch_tree",     3, 12, 3)
+register_trunk("lord_trees:cherry_tree",    2, 10, 2)
+register_trunk("lord_trees:culumalda_tree", 2, 10, 2)
+register_trunk("lord_trees:elm_tree",       2, 25, 2)
+register_trunk("lord_trees:fir_tree",       3, 13, 2)
+register_trunk("lord_trees:lebethron_tree", 1, 10, 2)
+register_trunk("lord_trees:mallorn_tree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
+register_trunk("lord_trees:pine_tree",      3, 13, 2)
 
--- @tags: legacy
-minetest.register_alias("lottplants:mallorntrunk_young", "lottplants:mallorn_young_trunk")
-minetest.register_alias("lottplants:mallorntree_young", "lottplants:mallorn_young_tree")
-minetest.register_alias("defaults:lottplants_mallorntrunk_young", "defaults:lottplants_mallorn_young_trunk")
-minetest.register_alias("defaults:lottplants_mallorntree_young", "defaults:lottplants_mallorn_young_tree")
 
 return {
 	add_existing = add_existing,

@@ -4,7 +4,7 @@ local S = minetest.get_translator("lord_overwrites_mtg_stairs")
 
 -- stairs/init.lua
 -- Т.к. в LOTT (сейчас `lord_trees/src/nodes.lua)
---    была изначально своя сосна (`lottplants:pinetree`, сейчас `lord_trees:pinetree`),
+--    была изначально своя сосна (`lottplants:pinetree`, сейчас `lord_trees:pine_tree`),
 -- то и её ступеньки нам не нужны (default:pine_wood)
 minetest.unregister_item("stairs:slab_pine_wood")
 minetest.unregister_item("stairs:stair_inner_pine_wood")

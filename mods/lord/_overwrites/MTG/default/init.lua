@@ -132,7 +132,7 @@ minetest.unregister_item("default:tin_lump")
 -- default/crafting.lua
 
 -- в LOTT (сейчас `lord_trees/src/trunks.lua`)
---    была изначально своя сосна (`lottplants:pinetree`, сейчас `lord_trees:pinetree`)
+--    была изначально своя сосна (`lottplants:pinetree`, сейчас `lord_trees:pine_tree`)
 minetest.clear_craft({recipe = {{"default:pine_tree"}}})
 
 -- Были добавлены в MTG, но у нас не используются (пока выпиливаем):

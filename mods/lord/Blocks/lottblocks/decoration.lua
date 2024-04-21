@@ -294,8 +294,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottblocks:mallorn_pillar',
 	recipe = {
-		{ 'lord_trees:mallorntree', 'default:gold_ingot' },
-		{ 'default:gold_ingot', 'lord_trees:mallorntree' },
+		{ 'lord_trees:mallorn_tree', 'default:gold_ingot' },
+		{ 'default:gold_ingot', 'lord_trees:mallorn_tree' },
 	}
 })
 
