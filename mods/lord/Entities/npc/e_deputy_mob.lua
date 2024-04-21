@@ -66,7 +66,7 @@ local function main_form_handle(self, clicker, fields, can_edit)
 		-- goto question show or edit
 		for _, item in ipairs(self.questions) do
 			if fields[item["label"]] ~= nil then
-				if can_edit and not clicker:get_player_control().aux1 then
+				if can_edit then
 					edit_answer(clicker, item)
 				else
 					show_answer(clicker, item)
