@@ -92,7 +92,7 @@ minetest.register_lbm({
 	name = "lord_overwrites_mtg_default:remove_junglesapling",
 	nodenames = {"default:junglesapling"},
 	action = function(pos, node)
-		minetest.set_node(pos, {name = "lord_trees:mirksapling"})
+		minetest.set_node(pos, {name = "lord_trees:mirk_sapling"})
 	end
 })
 

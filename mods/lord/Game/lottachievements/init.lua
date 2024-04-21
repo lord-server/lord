@@ -324,11 +324,11 @@ lottachievements.register_achievement("dungeons_deep_and_caverns_old", {
 lottachievements.register_achievement("a_small_patch_of_lorien", {
 	title       = SL("A small patch of Lorien"),
 	description = SL("Plant 7 seedlings of mallory"),
-	icon        = "lord_trees_mallornsapling.png",
+	icon        = "lord_trees_mallorn_sapling.png",
 	id          = 23,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:mallornsapling",
+		node   = "lord_trees:mallorn_sapling",
 		target = 7,
 	}
 })
@@ -336,11 +336,11 @@ lottachievements.register_achievement("a_small_patch_of_lorien", {
 lottachievements.register_achievement("a_small_patch_of_gondor", {
 	title       = SL("A small patch of Gondor"),
 	description = SL("Plant 7 seedlings of white tree of a gondor"),
-	icon        = "lord_trees_whitesapling.png",
+	icon        = "lord_trees_white_sapling.png",
 	id          = 24,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:whitesapling",
+		node   = "lord_trees:white_sapling",
 		target = 7,
 	}
 })
@@ -348,11 +348,11 @@ lottachievements.register_achievement("a_small_patch_of_gondor", {
 lottachievements.register_achievement("a_small_patch_of_iron_hills", {
 	title       = SL("A small patch of Iron Hills"),
 	description = SL("Plant 7 seedlings of pine"),
-	icon        = "lord_trees_pinesapling.png",
+	icon        = "lord_trees_pine_sapling.png",
 	id          = 25,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:pinesapling",
+		node   = "lord_trees:pine_sapling",
 		target = 7,
 	}
 })
@@ -360,11 +360,11 @@ lottachievements.register_achievement("a_small_patch_of_iron_hills", {
 lottachievements.register_achievement("a_small_patch_of_shire", {
 	title       = SL("A small patch of Shire"),
 	description = SL("Plant 7 seedlings of plums"),
-	icon        = "lord_trees_plumsapling.png",
+	icon        = "lord_trees_plum_sapling.png",
 	id          = 26,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:plumsapling",
+		node   = "lord_trees:plum_sapling",
 		target = 7,
 	}
 })
@@ -372,11 +372,11 @@ lottachievements.register_achievement("a_small_patch_of_shire", {
 lottachievements.register_achievement("a_small_patch_of_immortal", {
 	title       = SL("A small patch of Ititian"),
 	description = SL("Plant 7 seedlings of the elm"),
-	icon        = "lord_trees_elmsapling.png",
+	icon        = "lord_trees_elm_sapling.png",
 	id          = 27,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:elmsapling",
+		node   = "lord_trees:elm_sapling",
 		target = 7,
 	}
 })
@@ -384,11 +384,11 @@ lottachievements.register_achievement("a_small_patch_of_immortal", {
 lottachievements.register_achievement("a_small_patch_of_fangorn", {
 	title       = SL("A small patch of Fangorn"),
 	description = SL("Plant 7 seedlings of culumalda"),
-	icon        = "lord_trees_culumaldasapling.png",
+	icon        = "lord_trees_culumalda_sapling.png",
 	id          = 28,
 	trigger     = {
 		type   = "place",
-		node   = "lord_trees:culumaldasapling",
+		node   = "lord_trees:culumalda_sapling",
 		target = 7,
 	}
 })

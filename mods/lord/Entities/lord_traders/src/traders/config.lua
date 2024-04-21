@@ -69,7 +69,7 @@ trader_config.elf    = {
 		["lottarmor:leggings_galvorn 1"]   = { price = 350, chance = 25, stock = 1 },
 		["lottplants:niphredil 12"]        = { price = 30,  chance = 14, stock = 1 },
 		["lottblocks:mallorn_pillar 30"]   = { price = 70,  chance = 4,  stock = 1 },
-		["lord_trees:mallornsapling 3"]    = { price = 20,  chance = 17, stock = 1 },
+		["lord_trees:mallorn_sapling 3"]    = { price = 20,  chance = 17, stock = 1 },
 		["lottplants:mallornwood 99"]      = { price = 100, chance = 5,  stock = 1 },
 	}),
 	names      = {
@@ -101,7 +101,7 @@ trader_config.hobbit = {
 		["lord_books:brewing_book 1"]      = { price = 350, chance = 25, stock = 1 },
 		["lottfarming:barley_seed 5"]      = { price = 30,  chance = 14, stock = 1 },
 		["lottfarming:berries 15"]         = { price = 70,  chance = 4,  stock = 1 },
-		["lord_trees:firsapling 2"]        = { price = 20,  chance = 17, stock = 1 },
+		["lord_trees:fir_sapling 2"]        = { price = 20,  chance = 17, stock = 1 },
 		["default:apple 10"]               = { price = 100, chance = 5,  stock = 1 },
 	}),
 	names      = {

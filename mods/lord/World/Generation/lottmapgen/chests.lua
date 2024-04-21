@@ -185,7 +185,7 @@ register_chest_spawner("lottblocks:elfloth_chest", {
 	{ "lottfarming:salad", },
 	{ "lottfarming:athelas_seed", },
 	{ "lottfarming:athelas", },
-	{ "lord_trees:mallornsapling", },
+	{ "lord_trees:mallorn_sapling", },
 	{ "lottpotion:mead", 6 },
 	{ "lottplants:honey", 5 },
 	{ "lottpotion:athelasbrew_power1", },

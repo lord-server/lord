@@ -65,23 +65,23 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 	leaves.nodes[node_name] = minetest.registered_nodes[node_name]
 end
 
-register_leaf("lord_trees:alder_leaf",     "Alder Leaf", { color_green = 1 }) -- also drops lord_trees:aldersapling
-register_leaf("lord_trees:apple_leaf",     "Fruitful Apple Leaf", { color_green = 1 }) -- drops lord_trees:applesapling
-register_leaf("lord_trees:birch_leaf",     "Birch Leaf", { color_green = 1 }) -- also drops lord_trees:birchsapling
-register_leaf("lord_trees:beech_leaf",     "Beech Leaf", { color_green = 1 }) -- drops lord_trees:beechsapling
-register_leaf("lord_trees:cherry_leaf",    "Cherry Leaf", { color_pink = 1 }) -- also drops lord_trees:cherrysapling
-register_leaf("lord_trees:culumalda_leaf", "Culumalda Leaf", { color_red = 1 }) -- drops lord_trees:culumaldasapling
+register_leaf("lord_trees:alder_leaf",     "Alder Leaf", { color_green = 1 }) -- also drops lord_trees:alder_sapling
+register_leaf("lord_trees:apple_leaf",     "Fruitful Apple Leaf", { color_green = 1 }) -- drops lord_trees:apple_sapling
+register_leaf("lord_trees:birch_leaf",     "Birch Leaf", { color_green = 1 }) -- also drops lord_trees:birch_sapling
+register_leaf("lord_trees:beech_leaf",     "Beech Leaf", { color_green = 1 }) -- drops lord_trees:beech_sapling
+register_leaf("lord_trees:cherry_leaf",    "Cherry Leaf", { color_pink = 1 }) -- also drops lord_trees:cherry_sapling
+register_leaf("lord_trees:culumalda_leaf", "Culumalda Leaf", { color_red = 1 }) -- drops lord_trees:culumalda_sapling
 register_leaf("lord_trees:yellow_flowers", "Yellow Flowers on Culumalda Leaf", { color_orange = 1 }, {
 	max_items = 3,
 	items     = { { items = { 'lord_trees:yellow_flowers' } }, }
 })
-register_leaf("lord_trees:elm_leaf",       "Elm Leaf", { color_green = 1 }) -- also drops lord_trees:elmsapling
-register_leaf("lord_trees:fir_leaf",       "Fir Leaf", { color_green = 1 }) -- also drops lord_trees:firsapling
-register_leaf("lord_trees:lebethron_leaf", "Lebethron Leaf", { color_green = 1 }) -- drops lord_trees:lebethronsapling
-register_leaf("lord_trees:mallorn_leaf",   "Mallorn Leaf", { color_yellow = 1 }) -- also drops lord_trees:mallornsapling
-register_leaf("lord_trees:pine_leaf",      "Pine Leaf", { color_green = 1 }) -- also drops lord_trees:pinesapling
-register_leaf("lord_trees:plum_leaf",      "Plum Leaf", { color_green = 1 }) -- also drops lord_trees:plumsapling
-register_leaf("lord_trees:rowan_leaf",     "Rowan Leaf", { color_yellow = 1 }) -- also drops lord_trees:rowansapling
+register_leaf("lord_trees:elm_leaf",       "Elm Leaf", { color_green = 1 })   -- also drops lord_trees:elm_sapling
+register_leaf("lord_trees:fir_leaf",       "Fir Leaf", { color_green = 1 })   -- also drops lord_trees:fir_sapling
+register_leaf("lord_trees:lebethron_leaf", "Lebethron Leaf", { color_green = 1 })  -- drops lord_trees:lebethron_sapling
+register_leaf("lord_trees:mallorn_leaf",   "Mallorn Leaf", { color_yellow = 1 })   -- drops lord_trees:mallorn_sapling
+register_leaf("lord_trees:pine_leaf",      "Pine Leaf", { color_green = 1 })  -- also drops lord_trees:pine_sapling
+register_leaf("lord_trees:plum_leaf",      "Plum Leaf", { color_green = 1 })  -- also drops lord_trees:plum_sapling
+register_leaf("lord_trees:rowan_leaf",     "Rowan Leaf", { color_yellow = 1 })-- also drops lord_trees:rowan_sapling
 register_leaf("lord_trees:rowan_berry",    "Rowan Leaf with Berries", {}, {
 	max_items = 2,
 	items     = {
@@ -89,9 +89,9 @@ register_leaf("lord_trees:rowan_berry",    "Rowan Leaf with Berries", {}, {
 		{ items = { 'lottfarming:berries' } },
 	}
 })
-register_leaf("lord_trees:white_leaf",       "White", { color_white = 1 }) -- also drops lord_trees:whitesapling
-register_leaf("lord_trees:yavannamire_leaf", "Yavannamire", { color_green = 1 }) -- drops lord_trees:yavannamiresapling
-register_leaf("lord_trees:mirk_leaf",        "Mirkwood", { color_green = 1 }) -- also drops lord_trees:mirksapling
+register_leaf("lord_trees:white_leaf",       "White", { color_white = 1 }) -- also drops lord_trees:white_sapling
+register_leaf("lord_trees:yavannamire_leaf", "Yavannamire", { color_green = 1 }) -- drops lord_trees:yavannamire_sapling
+register_leaf("lord_trees:mirk_leaf",        "Mirkwood", { color_green = 1 }) -- also drops lord_trees:mirk_sapling
 
 return {
 	add_existing = add_existing,

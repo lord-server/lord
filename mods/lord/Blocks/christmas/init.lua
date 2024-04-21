@@ -47,7 +47,7 @@ local recipe = {
 }
 if minetest.get_modpath("lord_trees") and minetest.get_modpath("lord_homedecor") then
 	recipe = {
-		{"lord_trees:firsapling"},
+		{"lord_trees:fir_sapling"},
 		{"lord_homedecor:flower_pot_terracotta"},
 	}
 end

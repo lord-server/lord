@@ -73,24 +73,24 @@ local function register_sapling(node_name, title, grow_function)
 	})
 end
 
-register_sapling("lord_trees:aldersapling", "Alder", lottplants_aldertree)
-register_sapling("lord_trees:applesapling", "Fruitful Apple Tree", lottplants_appletree)
-register_sapling("lord_trees:birchsapling", "Birch", lottplants_birchtree)
-register_sapling("lord_trees:beechsapling", "Beech", lottplants_beechtree)
-register_sapling("lord_trees:cherrysapling", "Cherry", lottplants_cherrytree)
-register_sapling("lord_trees:culumaldasapling", "Culumalda", lottplants_culumaldatree)
-register_sapling("lord_trees:elmsapling", "Elm", lottplants_elmtree)
-register_sapling("lord_trees:firsapling", "Fir", lottplants_firtree)
-register_sapling("lord_trees:lebethronsapling", "Lebethron", lottplants_lebethrontree)
-register_sapling("lord_trees:mallornsapling", "Mallorn", {
+register_sapling("lord_trees:alder_sapling", "Alder", lottplants_aldertree)
+register_sapling("lord_trees:apple_sapling", "Fruitful Apple Tree", lottplants_appletree)
+register_sapling("lord_trees:birch_sapling", "Birch", lottplants_birchtree)
+register_sapling("lord_trees:beech_sapling", "Beech", lottplants_beechtree)
+register_sapling("lord_trees:cherry_sapling", "Cherry", lottplants_cherrytree)
+register_sapling("lord_trees:culumalda_sapling", "Culumalda", lottplants_culumaldatree)
+register_sapling("lord_trees:elm_sapling", "Elm", lottplants_elmtree)
+register_sapling("lord_trees:fir_sapling", "Fir", lottplants_firtree)
+register_sapling("lord_trees:lebethron_sapling", "Lebethron", lottplants_lebethrontree)
+register_sapling("lord_trees:mallorn_sapling", "Mallorn", {
 	lottplants_mallorntree, lottplants_smallmallorntree, lottplants_young_mallorn
 })
-register_sapling("lord_trees:pinesapling", "Pine", lottplants_pinetree)
-register_sapling("lord_trees:plumsapling", "Plum Tree", lottplants_plumtree)
-register_sapling("lord_trees:rowansapling", "Rowan", lottplants_rowantree)
-register_sapling("lord_trees:whitesapling", "White Tree", lottplants_whitetree)
-register_sapling("lord_trees:yavannamiresapling", "Yavannamire", lottplants_yavannamiretree)
-register_sapling("lord_trees:mirksapling", "Mirkwood", { lottplants_mirktree, lottplants_smallmirktree })
+register_sapling("lord_trees:pine_sapling", "Pine", lottplants_pinetree)
+register_sapling("lord_trees:plum_sapling", "Plum Tree", lottplants_plumtree)
+register_sapling("lord_trees:rowan_sapling", "Rowan", lottplants_rowantree)
+register_sapling("lord_trees:white_sapling", "White Tree", lottplants_whitetree)
+register_sapling("lord_trees:yavannamire_sapling", "Yavannamire", lottplants_yavannamiretree)
+register_sapling("lord_trees:mirk_sapling", "Mirkwood", { lottplants_mirktree, lottplants_smallmirktree })
 
 return {
 	add_existing = add_existing,
