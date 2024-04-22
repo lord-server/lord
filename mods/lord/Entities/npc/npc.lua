@@ -7,6 +7,7 @@ npc = {
 }
 
 local function can_place(definition, playername)
+	--- allow place if admin or mob allows
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if definition.can_place then
 		allowed = allowed or definition.can_place(playername)
@@ -15,6 +16,7 @@ local function can_place(definition, playername)
 end
 
 local function can_edit(self, playername)
+	--- allow edit if admin or mob allows
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if self.definition.can_edit then
 		allowed = allowed or self.definition.can_edit(self, playername)
@@ -23,6 +25,7 @@ local function can_edit(self, playername)
 end
 
 local function build_main_form(self)
+	--- build main form for not admin
 	local width = self.width
 	local bw = width - 0.5
 	local pos = 0
@@ -59,6 +62,7 @@ local function build_edit_header(self, formspec, pos, bw)
 end
 
 local function build_main_form_editable(self)
+	--- build main form for mob owner or admin
 	local width = self.width
 	local bw = width - 0.5
 	local pos = 0.5
