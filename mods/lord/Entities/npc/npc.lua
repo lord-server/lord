@@ -6,8 +6,12 @@ npc = {
 	["player_mobs"] = {},
 }
 
+---allow place if admin or mob allows
+---@param definition table mob definition
+---@param playername string playername
+---@return boolean
 local function can_place(definition, playername)
-	--- allow place if admin or mob allows
+	--- 
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if definition.can_place then
 		allowed = allowed or definition.can_place(playername)
@@ -15,8 +19,12 @@ local function can_place(definition, playername)
 	return allowed
 end
 
+---allow edit if admin or mob allows
+---@param self table mob object
+---@param playername string playername
+---@return boolean
 local function can_edit(self, playername)
-	--- allow edit if admin or mob allows
+	--- 
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if self.definition.can_edit then
 		allowed = allowed or self.definition.can_edit(self, playername)
@@ -48,8 +56,15 @@ local function build_main_form(self)
 	return formspec
 end
 
+---show mobname and greeting editable fields
+---@param self table mob object
+---@param formspec string current formspec
+---@param pos number current position
+---@param bw number width
+---@return string
+---@return number
 local function build_edit_header(self, formspec, pos, bw)
-    -- show mobname and greeting editable fields
+    -- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_name;;"..esc(self.mobname).."]"
 	pos = pos + 1
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"
@@ -61,8 +76,10 @@ local function build_edit_header(self, formspec, pos, bw)
 	return formspec, pos
 end
 
+---build main form for mob owner or admin
+---@param self table mob object
+---@return string
 local function build_main_form_editable(self)
-	--- build main form for mob owner or admin
 	local width = self.width
 	local bw = width - 0.5
 	local pos = 0.5

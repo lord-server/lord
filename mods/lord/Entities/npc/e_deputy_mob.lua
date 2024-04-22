@@ -1,8 +1,11 @@
 local S = minetest.get_translator("npc")
 local esc = minetest.formspec_escape
 
+---show mob answers
+---@param clicker object player
+---@param item table current item we display
 local function show_answer(clicker, item)
-	--- show mob answers
+	--- 
 	local player = clicker:get_player_name()
 	local formspec = "size[8,5]"
 	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
@@ -10,8 +13,11 @@ local function show_answer(clicker, item)
 	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
+---edit mob answers form
+---@param clicker object player
+---@param item table current item which we edit
 local function edit_answer(clicker, item)
-	--- edit mob answers
+	--- 
 	local player = clicker:get_player_name()
 	local formspec = "size[8,9]"
 	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"].."]"
@@ -29,8 +35,14 @@ local function edit_answer(clicker, item)
 	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
 
+---form content when display dialog
+---@param self table mob object
+---@param width number content wifth
+---@param pos number current position
+---@return string
+---@return number
 local function user_mob_content(self, width, pos)
-	--- form content when display dialog
+	--- 
 	local formspec = ""
 	local bw = width - 0.5
 	for _, item in ipairs(self.questions) do
@@ -42,8 +54,14 @@ local function user_mob_content(self, width, pos)
 	return formspec, pos
 end
 
+---form content when edit mob
+---@param self table mob object
+---@param width number width of the content
+---@param pos number current position
+---@return string
+---@return number
 local function admin_mob_content(self, width, pos)
-	--- form content when edit mob
+	--- 
 	local bw = width - 0.5
 	local formspec = ""
 	for _, item in ipairs(self.questions) do
@@ -55,6 +73,11 @@ local function admin_mob_content(self, width, pos)
 	return formspec, pos
 end
 
+---handle main form fields
+---@param self table mob object
+---@param clicker string playername
+---@param fields table form fields
+---@param can_edit boolean player is owner or admin
 local function main_form_handle(self, clicker, fields, can_edit)
 	if fields["new_question"] ~= nil then
 		-- create new question
@@ -81,8 +104,14 @@ local function main_form_handle(self, clicker, fields, can_edit)
 	end
 end
 
+---handle deputy mob form field
+---@param self table mob object
+---@param clicker string player who uses form
+---@param formname string current formname
+---@param fields table form fields
+---@param can_edit boolean player can edit form (admin or owner)
 local function form_handle(self, clicker, formname, fields, can_edit)
-	--- handle deputy mob form field
+	--- 
 	if formname == "npc:static_guide_answer" then
 		-- return to main menu from question show
 		if fields["return_to_main"] ~= nil then
@@ -138,8 +167,10 @@ local function form_handle(self, clicker, formname, fields, can_edit)
 	end
 end
 
+---init mob content from serialized data
+---@param self table mob object
+---@param mobdata string serialized data
 local function init_from_staticdata(self, mobdata)
-	--- init mob content from serialized data
 	local data = minetest.deserialize(mobdata)
 	if data["questions"] ~= nil then
 		self.questions = data["questions"]
@@ -154,14 +185,17 @@ local function init_from_staticdata(self, mobdata)
 	end
 end
 
+---init empty mob content
+---@param self table mob object
 local function init_new(self)
-	--- init empty mob content
 	self.questions = {}
 	self.new_question_index = 0
 end
 
+---configure deputy mob nick and skin when place
+---@param self table mob object
+---@param playername string player name
 local function configure_placed(self, playername)
-	--- configure deputy mob nick and skin when place
 	self.creator = playername
 	self.mobname = "Deputy "..playername
 	local race = races.get_race(playername)
@@ -175,8 +209,10 @@ local function configure_placed(self, playername)
 	})
 end
 
+---serialize mob data
+---@param self table mob object
+---@return string
 local function get_mobdata(self)
-	--- questions and index
 	local data = {
 		["questions"] = self.questions,
 		["new_question_index"] = self.new_question_index,
@@ -184,13 +220,19 @@ local function get_mobdata(self)
 	return minetest.serialize(data)
 end
 
+---check if player can place deputy mob
+---@param playername string player name
+---@return boolean
 local function can_place(playername)
-	--- check if player can place deputy mob
 	return true
 end
 
+---check if player can edit deputy mob
+---@param self table mob object
+---@param playername string player name
+---@return boolean
 local function can_edit(self, playername)
-	--- check if player can edit deputy mob
+	--- 
 	if playername == self.creator then
 		return true
 	end
@@ -200,8 +242,15 @@ local function can_edit(self, playername)
 	return false
 end
 
+---show mobname and greeting editable fields
+---@param self table mob object 
+---@param formspec string form text
+---@param pos number position pointer in form
+---@param bw number width of fields to create
+---@return string
+---@return number
 local function build_edit_header(self, formspec, pos, bw)
-	-- show mobname and greeting editable fields
+	-- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"
 	pos = pos + 1
 	formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
@@ -209,8 +258,10 @@ local function build_edit_header(self, formspec, pos, bw)
 	return formspec, pos
 end
 
+---deputy mob allow edit only greeting and nick color in header
+---@param self table mob object
+---@param fields table form fields
 local function header_form_handler(self, fields)
-	--- deputy mob allow edit only greeting and nick color in header
 	self.color    = fields["edit_color"]
 	self.greeting = fields["edit_greeting"]
 	self.object:set_properties({
