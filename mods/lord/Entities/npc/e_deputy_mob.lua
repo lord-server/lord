@@ -2,6 +2,7 @@ local S = minetest.get_translator("npc")
 local esc = minetest.formspec_escape
 
 local function show_answer(clicker, item)
+	--- show mob answers
 	local player = clicker:get_player_name()
 	local formspec = "size[8,5]"
 	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
@@ -10,6 +11,7 @@ local function show_answer(clicker, item)
 end
 
 local function edit_answer(clicker, item)
+	--- edit mob answers
 	local player = clicker:get_player_name()
 	local formspec = "size[8,9]"
 	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"].."]"
@@ -28,6 +30,7 @@ local function edit_answer(clicker, item)
 end
 
 local function user_mob_content(self, width, pos)
+	--- form content when display dialog
 	local formspec = ""
 	local bw = width - 0.5
 	for _, item in ipairs(self.questions) do
@@ -40,6 +43,7 @@ local function user_mob_content(self, width, pos)
 end
 
 local function admin_mob_content(self, width, pos)
+	--- form content when edit mob
 	local bw = width - 0.5
 	local formspec = ""
 	for _, item in ipairs(self.questions) do
@@ -78,6 +82,7 @@ local function main_form_handle(self, clicker, fields, can_edit)
 end
 
 local function form_handle(self, clicker, formname, fields, can_edit)
+	--- handle deputy mob form field
 	if formname == "npc:static_guide_answer" then
 		-- return to main menu from question show
 		if fields["return_to_main"] ~= nil then
@@ -134,6 +139,7 @@ local function form_handle(self, clicker, formname, fields, can_edit)
 end
 
 local function init_from_staticdata(self, mobdata)
+	--- init mob content from serialized data
 	local data = minetest.deserialize(mobdata)
 	if data["questions"] ~= nil then
 		self.questions = data["questions"]
@@ -149,11 +155,13 @@ local function init_from_staticdata(self, mobdata)
 end
 
 local function init_new(self)
+	--- init empty mob content
 	self.questions = {}
 	self.new_question_index = 0
 end
 
 local function configure_placed(self, playername)
+	--- configure deputy mob nick and skin when place
 	self.creator = playername
 	self.mobname = "Deputy "..playername
 	local race = races.get_race(playername)
@@ -168,6 +176,7 @@ local function configure_placed(self, playername)
 end
 
 local function get_mobdata(self)
+	--- questions and index
 	local data = {
 		["questions"] = self.questions,
 		["new_question_index"] = self.new_question_index,
@@ -176,10 +185,12 @@ local function get_mobdata(self)
 end
 
 local function can_place(playername)
+	--- check if player can place deputy mob
 	return true
 end
 
 local function can_edit(self, playername)
+	--- check if player can edit deputy mob
 	if playername == self.creator then
 		return true
 	end
@@ -199,6 +210,7 @@ local function build_edit_header(self, formspec, pos, bw)
 end
 
 local function header_form_handler(self, fields)
+	--- deputy mob allow edit only greeting and nick color in header
 	self.color    = fields["edit_color"]
 	self.greeting = fields["edit_greeting"]
 	self.object:set_properties({
