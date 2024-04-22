@@ -154,13 +154,13 @@ local function init_new(self)
 end
 
 local function configure_placed(self, playername)
-    self.creator = playername
-    self.mobname = "Deputy "..playername
-    local race = races.get_race(playername)
-    local gender = races.get_gender(playername)
-    local skin = races.get_skin(playername)
-    self.texture = races.get_texture_name(race, gender, skin)
-    self.object:set_properties({
+	self.creator = playername
+	self.mobname = "Deputy "..playername
+	local race = races.get_race(playername)
+	local gender = races.get_gender(playername)
+	local skin = races.get_skin(playername)
+	self.texture = races.get_texture_name(race, gender, skin)
+	self.object:set_properties({
 		nametag       = self.mobname,
 		nametag_color = self.color,
 		textures      = {self.texture},
@@ -176,23 +176,21 @@ local function get_mobdata(self)
 end
 
 local function can_place(playername)
-    return true
+	return true
 end
 
 local function can_edit(self, playername)
-    if playername == self.creator
-    then
-        return true
-    end
-    if minetest.get_player_privs(playername)[npc.required_priv]
-    then
-        return true
-    end
-    return false
+	if playername == self.creator then
+		return true
+	end
+	if minetest.get_player_privs(playername)[npc.required_priv] then
+		return true
+	end
+	return false
 end
 
 local function build_edit_header(self, formspec, pos, bw)
-    -- show mobname and greeting editable fields
+	-- show mobname and greeting editable fields
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"
 	pos = pos + 1
 	formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
@@ -219,22 +217,9 @@ npc:register_mob("npc:e_deputy_mob", {
 	init_from_staticdata = init_from_staticdata,
 	init_new = init_new,
 	get_mobdata = get_mobdata,
-    can_place = can_place,
-    can_edit = can_edit,
-    configure_placed = configure_placed,
-    build_edit_header = build_edit_header,
-    header_form_handler = header_form_handler,
-})
-
-minetest.register_craftitem("npc:necromancy_spell", {
-	description = S("Necromancy spell"),
-	inventory_image = "default_paper.png",
-})
-
-minetest.register_craft({
-	output = "npc:e_deputy_mob_egg",
-	recipe = {
-		{"npc:necromancy_spell"},
-		{"group:corpse"},
-	},
+	can_place = can_place,
+	can_edit = can_edit,
+	configure_placed = configure_placed,
+	build_edit_header = build_edit_header,
+	header_form_handler = header_form_handler,
 })

@@ -53,7 +53,7 @@ local function build_edit_header(self, formspec, pos, bw)
 	pos = pos + 1
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_texture;;"..esc(self.texture).."]"
 	pos = pos + 1
-    formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
+	formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
 	pos = pos + 1.5
 	return formspec, pos
 end
@@ -64,11 +64,11 @@ local function build_main_form_editable(self)
 	local pos = 0.5
 	local formspec = ""
 
-    if self.build_edit_header == nil then
-        formspec, pos = build_edit_header(self, formspec, pos, bw)
-    else
-        formspec, pos = self:build_edit_header(formspec, pos, bw)
-    end
+	if self.build_edit_header == nil then
+		formspec, pos = build_edit_header(self, formspec, pos, bw)
+	else
+		formspec, pos = self:build_edit_header(formspec, pos, bw)
+	end
 
 	-- show mob content (editable)
 	local content, newpos = self:admin_mob_content(width, pos)
@@ -91,10 +91,10 @@ local function show_main(self, clicker)
 	local player = clicker:get_player_name()
 
 	if can_edit(self, player) and not clicker:get_player_control().aux1 then
-        local can_edit_mobname = true
-        if self.definition.can_edit_mobname ~= nil then
-            can_edit_mobname = self.definition.can_edit_mobname
-        end
+		local can_edit_mobname = true
+		if self.definition.can_edit_mobname ~= nil then
+			can_edit_mobname = self.definition.can_edit_mobname
+		end
 		minetest.show_formspec(player, "npc:main_form", build_main_form_editable(self, can_edit_mobname))
 	else
 		minetest.show_formspec(player, "npc:main_form", build_main_form(self))
@@ -114,19 +114,19 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 		-- handling main form
 		if fields["save_main"] ~= nil then
 			-- save mob name and greeting
-            if self.header_form_handler then
-                self:header_form_handler(fields)
-            else
-			    self.mobname  = fields["edit_name"]
-			    self.color    = fields["edit_color"]
-			    self.greeting = fields["edit_greeting"]
-			    self.texture  = fields["edit_texture"]
-			    self.object:set_properties({
+			if self.header_form_handler then
+				self:header_form_handler(fields)
+			else
+				self.mobname  = fields["edit_name"]
+				self.color    = fields["edit_color"]
+				self.greeting = fields["edit_greeting"]
+				self.texture  = fields["edit_texture"]
+				self.object:set_properties({
 				    nametag       = self.mobname,
 				    nametag_color = self.color,
 				    textures      = {self.texture},
-			    })
-            end
+				})
+			end
 			self:show_main(clicker)
 		elseif fields["take_mob"] ~= nil then
 			-- take mob to inventory
@@ -295,18 +295,18 @@ function npc:register_mob(name, definition)
 		init_from_staticdata = definition.init_from_staticdata or default_init_from_staticdata,
 		init_new = definition.init_new or default_init_new,
 		get_mobdata = definition.get_mobdata or default_get_mobdata,
-        configure_placed = definition.configure_placed or default_configure_placed,
-        build_edit_header = definition.build_edit_header,
-        header_form_handler = definition.header_form_handler,
+		configure_placed = definition.configure_placed or default_configure_placed,
+		build_edit_header = definition.build_edit_header,
+		header_form_handler = definition.header_form_handler,
 
 		on_activate = on_activate,
 		get_staticdata = get_staticdata,
 	})
 
-    local description = name.." egg"
-    if definition.description then
-        description = definition.description
-    end
+	local description = name.." egg"
+	if definition.description then
+		description = definition.description
+	end
 
 	minetest.register_craftitem(name.."_egg", {
 
