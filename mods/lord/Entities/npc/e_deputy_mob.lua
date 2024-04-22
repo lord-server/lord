@@ -155,7 +155,7 @@ end
 
 local function configure_placed(self, playername)
     self.creator = playername
-    self.mobname = playername.."'s deputy"
+    self.mobname = "Deputy "..playername
     local race = races.get_race(playername)
     local gender = races.get_gender(playername)
     local skin = races.get_skin(playername)
