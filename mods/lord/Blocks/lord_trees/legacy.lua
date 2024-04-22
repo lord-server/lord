@@ -72,10 +72,54 @@ minetest.register_alias("lottplants:mallorn_young_trunk", "lord_trees:mallorn_yo
 minetest.register_alias("lottplants:pinetrunk",           "lord_trees:pine_trunk")
 
 
-minetest.register_alias("defaults:lottplants_mallorn_young_tree",  "defaults:lord_trees_mallorn_young_tree")
+-- DEFAULTS (Ghost blocks)
+-- leaves.lua
+minetest.register_alias("defaults:lottplants_alderleaf",       "defaults:lord_trees_alder_leaf")
+minetest.register_alias("defaults:lottplants_appleleaf",       "defaults:lord_trees_apple_leaf")
+minetest.register_alias("defaults:lottplants_birchleaf",       "defaults:lord_trees_birch_leaf")
+minetest.register_alias("defaults:lottplants_beechleaf",       "defaults:lord_trees_beech_leaf")
+minetest.register_alias("defaults:lottplants_cherryleaf",      "defaults:lord_trees_cherry_leaf")
+minetest.register_alias("defaults:lottplants_culumaldaleaf",   "defaults:lord_trees_culumalda_leaf")
+minetest.register_alias("defaults:lottplants_yellowflowers",   "defaults:lord_trees_yellow_flowers")
+minetest.register_alias("defaults:lottplants_elmleaf",         "defaults:lord_trees_elm_leaf")
+minetest.register_alias("defaults:lottplants_firleaf",         "defaults:lord_trees_fir_leaf")
+minetest.register_alias("defaults:lottplants_lebethronleaf",   "defaults:lord_trees_lebethron_leaf")
+minetest.register_alias("defaults:lottplants_mallornleaf",     "defaults:lord_trees_mallorn_leaf")
+minetest.register_alias("defaults:lottplants_pineleaf",        "defaults:lord_trees_pine_leaf")
+minetest.register_alias("defaults:lottplants_plumleaf",        "defaults:lord_trees_plum_leaf")
+minetest.register_alias("defaults:lottplants_rowanleaf",       "defaults:lord_trees_rowan_leaf")
+minetest.register_alias("defaults:lottplants_rowanberry",      "defaults:lord_trees_rowan_berry")
+minetest.register_alias("defaults:lottplants_whiteleaf",       "defaults:lord_trees_white_leaf")
+minetest.register_alias("defaults:lottplants_yavannamireleaf", "defaults:lord_trees_yavannamire_leaf")
+minetest.register_alias("defaults:lottplants_mirkleaf",        "defaults:lord_trees_mirk_leaf")
+minetest.register_alias("defaults:lottmapgen_mirkleaves",      "defaults:lord_trees_mirk_leaf") -- extra old alias
+minetest.register_alias("defaults:default_jungleleaves",       "defaults:lord_trees_mirk_leaf")
 
+-- trunks.lua
+minetest.register_alias("defaults:lottplants_aldertree",          "defaults:lord_trees_alder_tree")
+minetest.register_alias("defaults:lottplants_beechtree",          "defaults:lord_trees_beech_tree")
+minetest.register_alias("defaults:lottplants_birchtree",          "defaults:lord_trees_birch_tree")
+minetest.register_alias("defaults:lottplants_cherrytree",         "defaults:lord_trees_cherry_tree")
+minetest.register_alias("defaults:lottplants_culumaldatree",      "defaults:lord_trees_culumalda_tree")
+minetest.register_alias("defaults:lottplants_elmtree",            "defaults:lord_trees_elm_tree")
+minetest.register_alias("defaults:lottplants_firtree",            "defaults:lord_trees_fir_tree")
+minetest.register_alias("defaults:lottplants_lebethrontree",      "defaults:lord_trees_lebethron_tree")
+minetest.register_alias("defaults:lottplants_mallorntree",        "defaults:lord_trees_mallorn_tree")
+minetest.register_alias("defaults:lottplants_mallorn_young_tree", "defaults:lord_trees_mallorn_young_tree")
+minetest.register_alias("defaults:lottplants_pinetree",           "defaults:lord_trees_pine_tree")
 
+minetest.register_alias("defaults:lottplants_aldertrunk",          "defaults:lord_trees_alder_trunk")
+minetest.register_alias("defaults:lottplants_beechtrunk",          "defaults:lord_trees_beech_trunk")
+minetest.register_alias("defaults:lottplants_birchtrunk",          "defaults:lord_trees_birch_trunk")
+minetest.register_alias("defaults:lottplants_cherrytrunk",         "defaults:lord_trees_cherry_trunk")
+minetest.register_alias("defaults:lottplants_culumaldatrunk",      "defaults:lord_trees_culumalda_trunk")
+minetest.register_alias("defaults:lottplants_elmtrunk",            "defaults:lord_trees_elm_trunk")
+minetest.register_alias("defaults:lottplants_firtrunk",            "defaults:lord_trees_fir_trunk")
+minetest.register_alias("defaults:lottplants_lebethrontrunk",      "defaults:lord_trees_lebethron_trunk")
+minetest.register_alias("defaults:lottplants_mallorntrunk",        "defaults:lord_trees_mallorn_trunk")
 minetest.register_alias("defaults:lottplants_mallorn_young_trunk", "defaults:lord_trees_mallorn_young_trunk")
+minetest.register_alias("defaults:lottplants_pinetrunk",           "defaults:lord_trees_pine_trunk")
+
 
 -- previous renaming
 minetest.register_alias("lottplants:mallorntrunk_young", "lord_trees:mallorn_young_trunk")
