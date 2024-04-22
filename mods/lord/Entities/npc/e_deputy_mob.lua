@@ -105,7 +105,6 @@ end
 ---@param fields table form fields
 ---@param can_edit boolean player can edit form (admin or owner)
 local function form_handle(self, clicker, formname, fields, can_edit)
-	--- 
 	if formname == "npc:static_guide_answer" then
 		-- return to main menu from question show
 		if fields["return_to_main"] ~= nil then
@@ -236,7 +235,7 @@ local function can_edit(self, playername)
 end
 
 ---show mobname and greeting editable fields
----@param self table mob object 
+---@param self table mob object
 ---@param formspec string form text
 ---@param pos number position pointer in form
 ---@param bw number width of fields to create
