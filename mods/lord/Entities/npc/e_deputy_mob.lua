@@ -69,7 +69,7 @@ end
 
 ---handle main form fields
 ---@param self table mob object
----@param clicker string playername
+---@param clicker Player player
 ---@param fields table form fields
 ---@param can_edit boolean player is owner or admin
 local function main_form_handle(self, clicker, fields, can_edit)
@@ -100,7 +100,7 @@ end
 
 ---handle deputy mob form field
 ---@param self table mob object
----@param clicker string player who uses form
+---@param clicker Player player who uses form
 ---@param formname string current formname
 ---@param fields table form fields
 ---@param can_edit boolean player can edit form (admin or owner)
