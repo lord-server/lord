@@ -7,5 +7,5 @@ Show=
 Delete=
 Close=
 Take=
-E-Deputy mob=
+Deputy mob=
 Necromancy spell=

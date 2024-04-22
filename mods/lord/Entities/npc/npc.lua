@@ -347,7 +347,7 @@ function npc:register_mob(name, definition)
 				-- since mob is unique we remove egg once spawned
 				itemstack:take_item()
 
-                lua_entity:configure_placed(player)
+				lua_entity:configure_placed(player)
 			end
 
 			return itemstack

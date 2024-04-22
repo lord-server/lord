@@ -155,7 +155,7 @@ end
 
 local function configure_placed(self, playername)
     self.creator = playername
-    self.mobname = "e-"..playername
+    self.mobname = playername.."'s deputy"
     local race = races.get_race(playername)
     local gender = races.get_gender(playername)
     local skin = races.get_skin(playername)
@@ -211,7 +211,7 @@ local function header_form_handler(self, fields)
 end
 
 npc:register_mob("npc:e_deputy_mob", {
-	description = S("E-Deputy mob"),
+	description = S("Deputy mob"),
 	user_mob_content = user_mob_content,
 	admin_mob_content = admin_mob_content,
 	main_form_handle = main_form_handle,
