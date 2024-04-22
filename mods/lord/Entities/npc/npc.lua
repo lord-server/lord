@@ -11,7 +11,6 @@ npc = {
 ---@param playername string playername
 ---@return boolean
 local function can_place(definition, playername)
-	--- 
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if definition.can_place then
 		allowed = allowed or definition.can_place(playername)
@@ -24,7 +23,6 @@ end
 ---@param playername string playername
 ---@return boolean
 local function can_edit(self, playername)
-	--- 
 	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
 	if self.definition.can_edit then
 		allowed = allowed or self.definition.can_edit(self, playername)
@@ -63,7 +61,6 @@ end
 ---@param bw number width
 ---@return string, number
 local function build_edit_header(self, formspec, pos, bw)
-    -- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_name;;"..esc(self.mobname).."]"
 	pos = pos + 1
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"

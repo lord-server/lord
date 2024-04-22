@@ -5,7 +5,6 @@ local esc = minetest.formspec_escape
 ---@param clicker Player player
 ---@param item table current item we display
 local function show_answer(clicker, item)
-	--- 
 	local player = clicker:get_player_name()
 	local formspec = "size[8,5]"
 	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
@@ -17,7 +16,6 @@ end
 ---@param clicker Player player
 ---@param item table current item which we edit
 local function edit_answer(clicker, item)
-	--- 
 	local player = clicker:get_player_name()
 	local formspec = "size[8,9]"
 	formspec = formspec.."field[0.5,0.0;0,0;old_label;;"..item["label"].."]"
@@ -41,7 +39,6 @@ end
 ---@param pos number current position
 ---@return string, number
 local function user_mob_content(self, width, pos)
-	--- 
 	local formspec = ""
 	local bw = width - 0.5
 	for _, item in ipairs(self.questions) do
@@ -59,7 +56,6 @@ end
 ---@param pos number current position
 ---@return string, number
 local function admin_mob_content(self, width, pos)
-	--- 
 	local bw = width - 0.5
 	local formspec = ""
 	for _, item in ipairs(self.questions) do
@@ -230,7 +226,6 @@ end
 ---@param playername string player name
 ---@return boolean
 local function can_edit(self, playername)
-	--- 
 	if playername == self.creator then
 		return true
 	end
@@ -247,7 +242,6 @@ end
 ---@param bw number width of fields to create
 ---@return string, number
 local function build_edit_header(self, formspec, pos, bw)
-	-- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"
 	pos = pos + 1
 	formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
