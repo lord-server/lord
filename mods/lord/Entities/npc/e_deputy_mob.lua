@@ -2,7 +2,7 @@ local S = minetest.get_translator("npc")
 local esc = minetest.formspec_escape
 
 ---show mob answers
----@param clicker object player
+---@param clicker Player player
 ---@param item table current item we display
 local function show_answer(clicker, item)
 	--- 
@@ -14,7 +14,7 @@ local function show_answer(clicker, item)
 end
 
 ---edit mob answers form
----@param clicker object player
+---@param clicker Player player
 ---@param item table current item which we edit
 local function edit_answer(clicker, item)
 	--- 
@@ -39,8 +39,7 @@ end
 ---@param self table mob object
 ---@param width number content wifth
 ---@param pos number current position
----@return string
----@return number
+---@return string, number
 local function user_mob_content(self, width, pos)
 	--- 
 	local formspec = ""
@@ -58,8 +57,7 @@ end
 ---@param self table mob object
 ---@param width number width of the content
 ---@param pos number current position
----@return string
----@return number
+---@return string, number
 local function admin_mob_content(self, width, pos)
 	--- 
 	local bw = width - 0.5
@@ -247,8 +245,7 @@ end
 ---@param formspec string form text
 ---@param pos number position pointer in form
 ---@param bw number width of fields to create
----@return string
----@return number
+---@return string, number
 local function build_edit_header(self, formspec, pos, bw)
 	-- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"

@@ -61,8 +61,7 @@ end
 ---@param formspec string current formspec
 ---@param pos number current position
 ---@param bw number width
----@return string
----@return number
+---@return string, number
 local function build_edit_header(self, formspec, pos, bw)
     -- 
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_name;;"..esc(self.mobname).."]"
