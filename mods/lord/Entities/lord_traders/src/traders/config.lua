@@ -70,7 +70,7 @@ trader_config.elf    = {
 		["lottplants:niphredil 12"]        = { price = 30,  chance = 14, stock = 1 },
 		["lottblocks:mallorn_pillar 30"]   = { price = 70,  chance = 4,  stock = 1 },
 		["lord_trees:mallorn_sapling 3"]    = { price = 20,  chance = 17, stock = 1 },
-		["lottplants:mallornwood 99"]      = { price = 100, chance = 5,  stock = 1 },
+		["lord_planks:mallorn 99"]      = { price = 100, chance = 5,  stock = 1 },
 	}),
 	names      = {
 		"Annael", "Anairë", "Curufin", "Erestor", "Gwindor", "Irimë",

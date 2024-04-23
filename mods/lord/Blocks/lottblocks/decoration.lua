@@ -285,7 +285,7 @@ minetest.register_craft({
 	output = 'lottblocks:mallorn_white',
 	recipe = {
 		{ 'dye:white' },
-		{ 'lottplants:mallornwood' },
+		{ 'lord_planks:mallorn' },
 	}
 })
 

@@ -39,9 +39,9 @@ doors.register("lord_doors:door_elven", {
 	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
 	tiles = {{ name = "lord_doors_elven.png", backface_culling = true }},
 	recipe = {
-		{"lottplants:mallornwood", "lottplants:mallornwood"},
-		{"lottplants:mallornwood", "lottores:silver_ingot"},
-		{"lottplants:mallornwood", "lottplants:mallornwood"},
+		{"lord_planks:mallorn", "lord_planks:mallorn"},
+		{"lord_planks:mallorn", "lottores:silver_ingot"},
+		{"lord_planks:mallorn", "lord_planks:mallorn"},
 	},
 	sounds = default.node_sound_wood_defaults(),
 	on_rightclick = function(...)
@@ -55,9 +55,9 @@ doors.register("lord_doors:door_hobbit", {
 	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
 	tiles = {{ name = "lord_doors_hobbit.png", backface_culling = true }},
 	recipe = {
-		{"lottplants:birchwood", "lottplants:birchwood"},
-		{"lottplants:birchwood", "lottores:silver_ingot"},
-		{"lottplants:birchwood", "lottplants:birchwood"},
+		{"lord_planks:birch", "lord_planks:birch"},
+		{"lord_planks:birch", "lottores:silver_ingot"},
+		{"lord_planks:birch", "lord_planks:birch"},
 	},
 	sounds = default.node_sound_wood_defaults(),
 	on_rightclick = function(...)
@@ -87,9 +87,9 @@ doors.register("lord_doors:door_human", {
 	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
 	tiles = {{ name = "lord_doors_human.png", backface_culling = true }},
 	recipe = {
-		{"lottplants:alderwood", "lottplants:alderwood"},
-		{"lottplants:alderwood", "lottores:silver_ingot"},
-		{"lottplants:alderwood", "lottplants:alderwood"},
+		{"lord_planks:alder", "lord_planks:alder"},
+		{"lord_planks:alder", "lottores:silver_ingot"},
+		{"lord_planks:alder", "lord_planks:alder"},
 	},
 	sounds = default.node_sound_wood_defaults(),
 	on_rightclick = function(...)

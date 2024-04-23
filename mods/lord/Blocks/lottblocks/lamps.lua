@@ -184,21 +184,21 @@ end
 
 -- luacheck: no_max_line_length
 lottblocks.register_lamp("wood", "Wood", "lottblocks_lamp_inv_wood.png", "default_stone_brick.png", "default_wood.png", "default_wood.png", "lottblocks_lamp_active_wood.png", "default:stick", "elf")
-lottblocks.register_lamp("alder", "Alder", "lottblocks_lamp_inv_alder.png", "default_stone_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_lamp_active_alder.png", "lottblocks:stick_alder", "elf")
+lottblocks.register_lamp("alder", "Alder", "lottblocks_lamp_inv_alder.png", "default_stone_brick.png", "lord_planks_alder.png", "lord_planks_alder.png", "lottblocks_lamp_active_alder.png", "lottblocks:stick_alder", "elf")
 lottblocks.register_lamp("junglewood", "Junglewood", "lottblocks_lamp_inv_junglewood.png", "default_stone_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_lamp_active_junglewood.png", "lottblocks:stick_junglewood", "elf")
-lottblocks.register_lamp("birch", "Birch", "lottblocks_lamp_inv_birch.png", "default_stone_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_lamp_active_birch.png", "lottblocks:stick_birch", "elf")
-lottblocks.register_lamp("pine", "Pine", "lottblocks_lamp_inv_pine.png", "default_stone_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_lamp_active_pine.png", "lottblocks:stick_pine", "elf")
-lottblocks.register_lamp("lebethron", "Lebethron", "lottblocks_lamp_inv_lebethron.png", "default_stone_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "elf")
-lottblocks.register_lamp("mallorn", "Mallorn", "lottblocks_lamp_inv_mallorn.png", "default_stone_brick.png", "lottplants_mallornwood.png", "lottplants_mallornwood.png", "lottblocks_lamp_active_mallorn.png", "lottblocks:stick_mallorn", "elf")
+lottblocks.register_lamp("birch", "Birch", "lottblocks_lamp_inv_birch.png", "default_stone_brick.png", "lord_planks_birch.png", "lord_planks_birch.png", "lottblocks_lamp_active_birch.png", "lottblocks:stick_birch", "elf")
+lottblocks.register_lamp("pine", "Pine", "lottblocks_lamp_inv_pine.png", "default_stone_brick.png", "lord_planks_pine.png", "lord_planks_pine.png", "lottblocks_lamp_active_pine.png", "lottblocks:stick_pine", "elf")
+lottblocks.register_lamp("lebethron", "Lebethron", "lottblocks_lamp_inv_lebethron.png", "default_stone_brick.png", "lord_planks_lebethron.png", "lord_planks_lebethron.png", "lottblocks_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "elf")
+lottblocks.register_lamp("mallorn", "Mallorn", "lottblocks_lamp_inv_mallorn.png", "default_stone_brick.png", "lord_planks_mallorn.png", "lord_planks_mallorn.png", "lottblocks_lamp_active_mallorn.png", "lottblocks:stick_mallorn", "elf")
 
 --Orc lamps
 
 lottblocks.register_lamp("wood_orc", "Mordor Wooden", "lottblocks_orc_lamp_inv.png", "lottblocks_orc_brick.png", "default_wood.png", "default_wood.png", "lottblocks_orc_lamp_active.png", "default:stick", "orc")
-lottblocks.register_lamp("alder_orc", "Mordor Alder", "lottblocks_orc_lamp_inv_alder.png", "lottblocks_orc_brick.png", "lottplants_alderwood.png", "lottplants_alderwood.png", "lottblocks_orc_lamp_active_alder.png", "lottblocks:stick_alder", "orc")
+lottblocks.register_lamp("alder_orc", "Mordor Alder", "lottblocks_orc_lamp_inv_alder.png", "lottblocks_orc_brick.png", "lord_planks_alder.png", "lord_planks_alder.png", "lottblocks_orc_lamp_active_alder.png", "lottblocks:stick_alder", "orc")
 lottblocks.register_lamp("junglewood_orc", "Mordor Junglewood", "lottblocks_orc_lamp_inv_junglewood.png", "lottblocks_orc_brick.png", "default_junglewood.png", "default_junglewood.png", "lottblocks_orc_lamp_active_junglewood.png", "lottblocks:stick_junglewood", "orc")
-lottblocks.register_lamp("birch_orc", "Mordor Birch", "lottblocks_orc_lamp_inv_birch.png", "lottblocks_orc_brick.png", "lottplants_birchwood.png", "lottplants_birchwood.png", "lottblocks_orc_lamp_active_birch.png", "lottblocks:stick_birch", "orc")
-lottblocks.register_lamp("pine_orc", "Mordor Pine", "lottblocks_orc_lamp_inv_pine.png", "lottblocks_orc_brick.png", "lottplants_pinewood.png", "lottplants_pinewood.png", "lottblocks_orc_lamp_active_pine.png", "lottblocks:stick_pine", "orc")
-lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_lamp_inv_lebethron.png", "lottblocks_orc_brick.png", "lottplants_lebethronwood.png", "lottplants_lebethronwood.png", "lottblocks_orc_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "orc")
+lottblocks.register_lamp("birch_orc", "Mordor Birch", "lottblocks_orc_lamp_inv_birch.png", "lottblocks_orc_brick.png", "lord_planks_birch.png", "lord_planks_birch.png", "lottblocks_orc_lamp_active_birch.png", "lottblocks:stick_birch", "orc")
+lottblocks.register_lamp("pine_orc", "Mordor Pine", "lottblocks_orc_lamp_inv_pine.png", "lottblocks_orc_brick.png", "lord_planks_pine.png", "lord_planks_pine.png", "lottblocks_orc_lamp_active_pine.png", "lottblocks:stick_pine", "orc")
+lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_lamp_inv_lebethron.png", "lottblocks_orc_brick.png", "lord_planks_lebethron.png", "lord_planks_lebethron.png", "lottblocks_orc_lamp_active_lebethron.png", "lottblocks:stick_lebethron", "orc")
 
 -- Made by lumidify - lottblocks_mithril_stonelamp.png
 -- created by modifying darkage_lamp.png

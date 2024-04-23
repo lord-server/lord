@@ -7,8 +7,6 @@ require("wild_crops")
 require("flowers")
 require("herbs")
 require("nodes")
---- @type lottplants.Planks_API
-_G.planks = require('planks')
 
 
 require = old_require

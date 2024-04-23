@@ -118,7 +118,7 @@ local textures1 = {
 
 local drops1 = {
 	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
@@ -167,7 +167,7 @@ local textures2 = {
 
 local drops2 = {
 	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
@@ -205,7 +205,7 @@ local textures3 = {
 
 local drops3 = {
 	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },

@@ -78,13 +78,13 @@ minetest.register_craft({
 })
 
 local whistle = {
-	{ "birch", "D", "lottplants:birchwood" },
-	{ "mallorn", "Eb", "lottplants:mallornwood" },
+	{ "birch", "D", "lord_planks:birch" },
+	{ "mallorn", "Eb", "lord_planks:mallorn" },
 	{ "wood", "C", "default:wood" },
 	{ "jungle", "G", "default:junglewood" },
-	{ "pine", "Bb", "lottplants:pinewood" },
-	{ "lebethron", "A", "lottplants:lebethronwood" },
-	{ "alder", "F", "lottplants:alderwood" },
+	{ "pine", "Bb", "lord_planks:pine" },
+	{ "lebethron", "A", "lord_planks:lebethron" },
+	{ "alder", "F", "lord_planks:alder" },
 }
 
 for _, row in ipairs(whistle) do

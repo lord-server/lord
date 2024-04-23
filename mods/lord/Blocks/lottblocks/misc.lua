@@ -113,7 +113,7 @@ minetest.register_craft({
 	output = "lottblocks:elven_rope 8",
 	recipe = {
 		{"group:wool"},
-		{"lottplants:mallornwood"},
+		{"lord_planks:mallorn"},
 		{"group:wool"}
 	}
 })

@@ -1,0 +1,73 @@
+# textdomain: lord_planks
+
+
+### planks: ###
+
+Alder Planks=Доски из ольхи
+Beech Planks=Доски из бука
+Birch Planks=Доски из берёзы
+Cherry Planks=Доски из сакуры
+Culumalda Planks=Доски из кулумальды
+Elm Planks=Доски из вяза
+Fir Planks=Доски из ели
+Hardwood Planks=Доски из твёрдой древесины
+Lebethron Planks=Доски из лебетрона
+Mallorn Planks=Доски из маллорна
+Pine Planks=Доски из сосны
+
+
+## planks stairs: ##
+Alder Wood Stair=Ступенька из ольхи
+Alder Wood Slab=Плита из ольхи
+Inner Alder Wood Stair=Угловая ступенька из ольхи (Внутренний Угол)
+Outer Alder Wood Stair=Угловая ступенька из ольхи (Внешний Угол)
+#
+Beech Wood Stair=Ступенька из бука
+Beech Wood Slab=Плита из бука
+Inner Beech Wood Stair=Угловая ступенька из бука (Внутренний Угол)
+Outer Beech Wood Stair=Угловая ступенька из бука (Внешний Угол)
+#
+Birch Wood Stair=Ступенька из берёзы
+Birch Wood Slab=Плита из берёзы
+Inner Birch Wood Stair=Угловая ступенька из берёзы (Внутренний Угол)
+Outer Birch Wood Stair=Угловая ступенька из берёзы (Внешний Угол)
+#
+Cherry Wood Stair=Ступенька из сакуры
+Cherry Wood Slab=Плита из сакуры
+Inner Cherry Wood Stair=Угловая ступенька из сакуры (Внутренний Угол)
+Outer Cherry Wood Stair=Угловая ступенька из сакуры (Внешний Угол)
+#
+Culumalda Wood Stair=Ступенька из кулумальды
+Culumalda Wood Slab=Плита из кулумальды
+Inner Culumalda Wood Stair=Угловая ступенька из кулумальды (Внутренний Угол)
+Outer Culumalda Wood Stair=Угловая ступенька из кулумальды (Внешний Угол)
+#
+Elm Wood Stair=Ступенька из вяза
+Elm Wood Slab=Плита из вяза
+Inner Elm Wood Stair=Угловая ступенька из вяза (Внутренний Угол)
+Outer Elm Wood Stair=Угловая ступенька из вяза (Внешний Угол)
+#
+Fir Wood Stair=Ступенька из ели
+Fir Wood Slab=Плита из досок ели
+Inner Fir Wood Stair=Угловая ступенька из ели (Внутренний Угол)
+Outer Fir Wood Stair=Угловая ступенька из ели (Внешний Угол)
+#
+Hardwood stair=Ступенька из
+Hardwood Slab=Плита из твёрдой древесины
+Inner Hardwood stair=Угловая ступенька из твёрдой древесины (Внутренний Угол)
+Outer Hardwood stair=Угловая ступенька из твёрдой древесины (Внешний Угол)
+#
+Lebethron Wood Stair=Ступенька из лебетрона
+Lebethron Wood Slab=Плита из лебетрона
+Inner Lebethron Wood Stair=Угловая ступенька из лебетрона (Внутренний Угол)
+Outer Lebethron Wood Stair=Угловая ступенька из лебетрона (Внешний Угол)
+#
+Mallorn Wood Stair=Ступенька из маллорна
+Mallorn Wood Slab=Плита из маллорна
+Inner Mallorn Wood Stair=Угловая ступенька из маллорна (Внутренний Угол)
+Outer Mallorn Wood Stair=Угловая ступенька из маллорна (Внешний Угол)
+#
+Pine Wood Stair=Ступенька из сосны
+Pine Wood Slab=Плита из сосны
+Inner Pine Wood Stair=Угловая ступенька из сосны (Внутренний Угол)
+Outer Pine Wood Stair=Угловая ступенька из сосны (Внешний Угол)

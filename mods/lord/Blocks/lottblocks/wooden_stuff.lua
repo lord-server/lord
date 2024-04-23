@@ -91,55 +91,25 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_fence(name, description_prefix, wood_name, node_groups)
-	if name ~= "junglewood" and name ~= "hardwood" then
-		default.register_fence("lottblocks:fence_" .. name, {
-			description = S(description_prefix .. " Fence"),
-			texture = "lottplants_"..name.."wood.png",
-			inventory_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
-				"default_fence_overlay.png^[makealpha:255,126,126",
-			wield_image = "default_fence_overlay.png^lottplants_"..name.."wood.png^" ..
-				"default_fence_overlay.png^[makealpha:255,126,126",
-			material = wood_name,
-			groups = node_groups,
-			sounds = default.node_sound_wood_defaults()
-		})
-		default.register_fence_rail("lottblocks:fence_rail_" .. name, {
-			description = S(description_prefix .. " Fence Rail"),
-			texture = "lottplants_"..name.."wood.png",
-			inventory_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
-				"default_fence_rail_overlay.png^[makealpha:255,126,126",
-			wield_image = "default_fence_rail_overlay.png^lottplants_"..name.."wood.png^" ..
-				"default_fence_rail_overlay.png^[makealpha:255,126,126",
-			material = wood_name,
-			groups = node_groups,
-			sounds = default.node_sound_wood_defaults()
-		})
+	if name == "junglewood" then
+		return
 	end
 
-	if name == "hardwood" then
-		default.register_fence("lottblocks:fence_" .. name, {
-			description = S(description_prefix .. " Fence"),
-			texture = "lottplants_"..name..".png",
-			inventory_image = "default_fence_overlay.png^lottplants_"..name..".png^" ..
-				"default_fence_overlay.png^[makealpha:255,126,126",
-			wield_image = "default_fence_overlay.png^lottplants_"..name..".png^" ..
-				"default_fence_overlay.png^[makealpha:255,126,126",
-			material = wood_name,
-			groups = node_groups,
-			sounds = default.node_sound_wood_defaults()
-		})
-		default.register_fence_rail("lottblocks:fence_rail_" .. name, {
-			description = S(description_prefix .. " Fence Rail"),
-			texture = "lottplants_"..name..".png",
-			inventory_image = "default_fence_rail_overlay.png^lottplants_"..name..".png^" ..
-				"default_fence_rail_overlay.png^[makealpha:255,126,126",
-			wield_image = "default_fence_rail_overlay.png^lottplants_"..name..".png^" ..
-				"default_fence_rail_overlay.png^[makealpha:255,126,126",
-			material = wood_name,
-			groups = node_groups,
-			sounds = default.node_sound_wood_defaults()
-		})
-	end
+	local texture   = "lord_planks_"..name..".png"
+	default.register_fence("lottblocks:fence_" .. name, {
+		description = S(description_prefix .. " Fence"),
+		texture = texture,
+		material = wood_name,
+		groups = node_groups,
+		sounds = default.node_sound_wood_defaults()
+	})
+	default.register_fence_rail("lottblocks:fence_rail_" .. name, {
+		description = S(description_prefix .. " Fence Rail"),
+		texture = texture,
+		material = wood_name,
+		groups = node_groups,
+		sounds = default.node_sound_wood_defaults()
+	})
 end
 
 --- @param name string
@@ -400,7 +370,7 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
 		register_doors(name, description, wood_name, node_groups)
 		register_hatch(name, description, wood_name, node_groups, texture)
-		register_fence(name, description, wood_name, node_groups)
+		register_fence(name, description, wood_name, node_groups) -- except junglewood
 		stick_reg_name =
 		register_stick(name, description, wood_name)
 		register_ladder(name, description, stick_reg_name, texture)
@@ -413,17 +383,17 @@ end
 
 lottblocks.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
 lottblocks.register_wooden_stuff("junglewood", "Junglewood", "default_junglewood.png", "default:junglewood")
-lottblocks.register_wooden_stuff("alder", "Alder", "lottplants_alderwood.png", "lottplants:alderwood")
-lottblocks.register_wooden_stuff("beech", "Beech", "lottplants_beechwood.png", "lottplants:beechwood")
-lottblocks.register_wooden_stuff("birch", "Birch", "lottplants_birchwood.png", "lottplants:birchwood")
-lottblocks.register_wooden_stuff("cherry", "Cherry", "lottplants_cherrywood.png", "lottplants:cherrywood")
-lottblocks.register_wooden_stuff("culumalda", "Culumalda", "lottplants_culumaldawood.png", "lottplants:culumaldawood")
-lottblocks.register_wooden_stuff("elm", "Elm", "lottplants_elmwood.png", "lottplants:elmwood")
-lottblocks.register_wooden_stuff("fir", "Fir", "lottplants_firwood.png", "lottplants:firwood")
-lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lottplants_hardwood.png", "lottplants:hardwood")
-lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lottplants_lebethronwood.png", "lottplants:lebethronwood")
-lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lottplants_mallornwood.png", "lottplants:mallornwood")
-lottblocks.register_wooden_stuff("pine", "Pine", "lottplants_pinewood.png", "lottplants:pinewood")
+lottblocks.register_wooden_stuff("alder", "Alder", "lord_planks_alder.png", "lord_planks:alder")
+lottblocks.register_wooden_stuff("beech", "Beech", "lord_planks_beech.png", "lord_planks:beech")
+lottblocks.register_wooden_stuff("birch", "Birch", "lord_planks_birch.png", "lord_planks:birch")
+lottblocks.register_wooden_stuff("cherry", "Cherry", "lord_planks_cherry.png", "lord_planks:cherry")
+lottblocks.register_wooden_stuff("culumalda", "Culumalda", "lord_planks_culumalda.png", "lord_planks:culumalda")
+lottblocks.register_wooden_stuff("elm", "Elm", "lord_planks_elm.png", "lord_planks:elm")
+lottblocks.register_wooden_stuff("fir", "Fir", "lord_planks_fir.png", "lord_planks:fir")
+lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lord_planks_hardwood.png", "lord_planks:hardwood")
+lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lord_planks_lebethron.png", "lord_planks:lebethron")
+lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lord_planks_mallorn.png", "lord_planks:mallorn")
+lottblocks.register_wooden_stuff("pine", "Pine", "lord_planks_pine.png", "lord_planks:pine")
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")

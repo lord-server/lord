@@ -308,7 +308,7 @@ register_chest_spawner("lottblocks:dwarf_chest", {
 	{ "default:steel_ingot", 5, 15 },
 	{ "lottores:tin_lump", 5, 10 },
 	{ "default:copper_lump", 5, 10 },
-	{ "lottplants:alderwood", 13 },
+	{ "lord_planks:alder", 13 },
 	{ "lottores:ithildin_stone_1", 2, 4 },
 	{ "lottores:ithildin_stonelamp_1", 4, 6 },
 	{ "arrows:axe_dwarf", 1, 4 },
