@@ -347,3 +347,15 @@ minetest.register_ore({
 	y_min     = -31000,
 	y_max     = -256,
 })
+
+minetest.register_ore({
+	ore_type       = "puff",
+	ore            = "lord_rocks:magma",
+	wherein        = "lord_rocks:pyroxenite",
+	biomes         = {"pyroxenite_cave"},
+	clust_scarcity = 5*5*5,
+	clust_num_ores = 12,
+	clust_size     = 5,
+	y_min     = -31000,
+	y_max     = -16000,
+})
