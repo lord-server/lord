@@ -265,6 +265,7 @@ hall_of_death_pos = 11773, 54, -10282
 dynamic_spawn = true
 #elf_spawn_pos =
 orc_spawn_pos = 11773, 54, -10282
+man_spawn_pos = -7201, 3, 7629
 
 # ------- lord/player -------
 # арены, на которых отображается здоровье:
