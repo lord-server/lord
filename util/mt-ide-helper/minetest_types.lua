@@ -775,7 +775,7 @@ function minetest.register_can_bypass_userlimit() end
 function minetest.register_on_modchannel_message() end
 
 -- Setting-related:
---- @type table
+--- @type Settings
 minetest.settings = {}
 
 --- Loads a setting from the main settings and
