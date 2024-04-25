@@ -105,9 +105,9 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 		-- Таймер жизни:
 		life_timer           = 10,
 		timer_is_start       = false,
-		
+
 		-- Стрелок
-		shooter,
+		shooter              = {},
 
 		-- Зависящие от def параметры
 		textures             = def.textures,
