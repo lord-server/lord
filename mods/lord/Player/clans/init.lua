@@ -12,7 +12,9 @@ local clans_storage = {
 	masons = {
 		name    = "masons",
 		title   = "Masons",
-		players = {	"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason" },
+		players = {
+			"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason", "Shishka_mason"
+		},
 	},
 	vassals = {
 		name    = "vassals",
