@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.03.p2](https://github.com/lord-server/lord/releases/tag/2024.03.p2)
+ - Add human spawn point in Bree.
+ - Add `Shishka_mason` into `Massons` clan.
+
 ## [2024.03.p1](https://github.com/lord-server/lord/releases/tag/2024.03.p1)
  - Add aliases for old & deleted nodes. Fixes #1258
  - Add forgotten traslations for new wooden blocks. Fixes #1257
