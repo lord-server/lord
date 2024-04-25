@@ -20,7 +20,7 @@ end
 
 -- Нанесение урона цели
 local function punch_target(entity, target, damage)
-	target:punch(entity.object, 1.0, {
+	target:punch(entity.shooter, 1.0, {
 		full_punch_interval = 1.0,
 		damage_groups       = {fleshy = damage},
 	})
@@ -46,18 +46,32 @@ end
 
 -- Обработка столкновения
 local function collision_handling(entity, moveresult, name, def)
-	entity.object:set_velocity({x = 0, y = 0, z = 0})
-	entity.object:set_acceleration({x = 0, y = 0, z = 0})
-
-	entity.timer_is_start = true
+local vel = entity.object:get_velocity()
+entity.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
 
 	if not moveresult.collisions[1] then
 		return
 	end
 
 	if moveresult.collisions[1].type == "node" then
+		local node_pos = moveresult.collisions[1].node_pos
+		local arrow_pos = entity.object:get_pos()
+
+		local dist = sqr( (node_pos.x - arrow_pos.x)^2 +
+			(node_pos.y - arrow_pos.y)^2 +
+			(node_pos.z - arrow_pos.z)^2
+		)
+
+		if dist < 0.9 then
+			entity.object:set_velocity({x = 0, y = 0, z = 0})
+			entity.object:set_acceleration({x = 0, y = 0, z = 0})
+			entity.timer_is_start = true
+		end
 		return
 	end
+	entity.object:set_velocity({x = 0, y = 0, z = 0})
+	entity.object:set_acceleration({x = 0, y = 0, z = 0})
+	entity.timer_is_start = true
 
 	local target = moveresult.collisions[1].object
 
@@ -89,8 +103,11 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 		collisionbox         = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
 
 		-- Таймер жизни:
-		life_timer           = 20,
+		life_timer           = 10,
 		timer_is_start       = false,
+		
+		-- Стрелок
+		shooter,
 
 		-- Зависящие от def параметры
 		textures             = def.textures,
@@ -111,6 +128,23 @@ projectiles.register_projectile_arrow_type = function(name, item, def)
 			local pos = self.object:get_pos()
 			self.object:remove()
 			minetest.add_item(pos, item)
+		end,
+
+		on_activate = function(self, staticdata, dtime_s)
+			if staticdata == "timer_is_start" then
+				self.timer_is_start = true
+			else
+				return
+			end
+			update_life_timer(self, dtime_s)
+		end,
+
+		get_staticdata = function(self)
+			if self.timer_is_start then
+				return "timer_is_start"
+			else
+				return ""
+			end
 		end,
 	})
 end

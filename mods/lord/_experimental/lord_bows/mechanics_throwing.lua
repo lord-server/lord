@@ -93,7 +93,7 @@ local function player_reset_slowdown(player)
 end
 
 -- Выстрел
-local function arrow_shot(player)
+local function arrow_shot(player, stack)
 	local inv        = player:get_inventory()
 	local look_dir   = player:get_look_dir()
 	local player_pos = player:get_pos()
@@ -108,6 +108,8 @@ local function arrow_shot(player)
 				z = look_dir.z * value[2] * charge,
 			})
 			arrow:set_acceleration({x = 0, y = GRAVITY * (-1), z = 0})
+			arrow:get_luaentity().shooter = player
+			stack:add_wear(5000)
 			inv:remove_item("main", key)
 			return
 		end
@@ -161,7 +163,7 @@ lord.register_on_release(function(player, control_name)
 		return
 	end
 
-	arrow_shot(player)
+	arrow_shot(player, stack)
 
 	throwing.charges[player:get_player_name()] = 0
 
