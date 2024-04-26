@@ -73,7 +73,7 @@
 	branch = lord
 [submodule "mods/_various/discord"]
 	path = mods/_various/discord
-	url = https://github.com/googolgl/lp_api
+	url = https://github.com/lord-server/mt-chat-lp-api.git
 [submodule "mods/_various/flowerpot"]
 	path = mods/_various/flowerpot
 	url = https://github.com/minetest-mods/flowerpot
