@@ -91,7 +91,7 @@ local function register_recipe(typename, data)
 		data.output = ItemStack(data.output):to_string()
 	end
 
-	local recipe = { time = data.time, input = {}, output = data.output }
+	local recipe = { time = data.time, input = {}, output = data.output, output_2 = data.output_2 }
 	local index  = get_recipe_index(data.input)
 	for _, stack in ipairs(data.input) do
 		recipe.input[ItemStack(stack):get_name()] = ItemStack(stack):get_count()
@@ -133,7 +133,8 @@ function lottpotion.get_brew_recipe(typename, items)
 		end
 		return { time      = recipe.time,
 				 new_input = new_input,
-				 output    = recipe.output }
+				 output    = recipe.output,
+				 output_2  = recipe.output_2}
 	else
 		return nil
 	end
@@ -146,6 +147,7 @@ lottpotion.register_recipe_type("brew", {
 
 function lottpotion.register_brew_recipe(data)
 	data.time = data.time or 60
+	data.output_2 = data.output_2 or ""
 	lottpotion.register_recipe("brew", data)
 end
 
@@ -153,13 +155,13 @@ local recipes = {
 	--Base Potion
 	{ "lottfarming:berries 5", "lottpotion:drinking_glass_water", "lottpotion:wine" },
 	{ "farming:wheat0 3", "lottpotion:drinking_glass_water", "lottpotion:beer" },
-	{ "bees:bottle_honey 6", "lottpotion:drinking_glass_water", "lottpotion:mead" },
+	{ "bees:bottle_honey 6", "lottpotion:drinking_glass_water", "lottpotion:mead", "vessels:glass_bottle" },
 	{ "default:apple 5", "lottpotion:drinking_glass_water", "lottpotion:cider" },
 	{ "lottfarming:barley_seed 6", "lottpotion:drinking_glass_water", "lottpotion:ale" },
 }
 
 for _, data in pairs(recipes) do
-	lottpotion.register_brew_recipe({ input = { data[1], data[2] }, output = data[3], time = data[4] })
+	lottpotion.register_brew_recipe({ input = { data[1], data[2] }, output = data[3], output_2 = data[4], time = data[5] })
 end
 
 local machine_name = "Brewer"
@@ -175,12 +177,15 @@ local formspec     = "size[8,9]" ..
 	"list[current_name;src;1,2;2,1;]" ..
 	"label[6,1.5;" .. SL("Result:") .. "]" ..
 	"list[current_name;dst;6,2;1,1;]" ..
+	"list[current_name;dst2;6,3;1,1;]" ..
 	"list[current_player;main;0,5;8,4;]" ..
 	"listring[current_name;fuel]" ..
 	"listring[current_player;main]" ..
 	"listring[current_name;src]" ..
 	"listring[current_player;main]" ..
 	"listring[current_name;dst]" ..
+	"listring[current_player;main]" ..
+	"listring[current_name;dst2]" ..
 	"listring[current_player;main]" ..
 	"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
 	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
@@ -219,6 +224,7 @@ minetest.register_node("lottpotion:brewer", {
 		inv:set_size("fuel", 1)
 		inv:set_size("src", 2)
 		inv:set_size("dst", 1)
+		inv:set_size("dst2", 1)
 	end,
 	can_dig                       = lottpotion.can_dig,
 	--backwards compatibility: punch to set formspec
@@ -230,6 +236,9 @@ minetest.register_node("lottpotion:brewer", {
 
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		if listname == 'dst' or listname == 'dst2' then
 			return 0
 		end
 		return stack:get_count()
@@ -290,6 +299,9 @@ minetest.register_node("lottpotion:brewer_active", {
 	can_dig                       = lottpotion.can_dig,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
+			return 0
+		end
+		if listname == 'dst' or listname == 'dst2' then
 			return 0
 		end
 		return stack:get_count()
@@ -367,6 +379,10 @@ minetest.register_abm({
 					if inv:room_for_item("dst", result_stack) then
 						inv:set_list("src", result.new_input)
 						inv:add_item("dst", result_stack)
+						if result.output_2 ~= "" then
+							inv:add_item("dst2", ItemStack(result.output_2))
+						end
+						minetest.log(result.output_2)
 					end
 				end
 			else
@@ -392,12 +408,15 @@ minetest.register_abm({
 					"list[current_name;src;1,2;2,1;]" ..
 					"label[6,1.5;" .. SL("Result:") .. "]" ..
 					"list[current_name;dst;6,2;1,1;]" ..
+					"list[current_name;dst2;6,3;1,1;]" ..
 					"list[current_player;main;0,5;8,4;]" ..
 					"listring[current_name;fuel]" ..
 					"listring[current_player;main]" ..
 					"listring[current_name;src]" ..
 					"listring[current_player;main]" ..
 					"listring[current_name;dst]" ..
+					"listring[current_player;main]" ..
+					"listring[current_name;dst2]" ..
 					"listring[current_player;main]" ..
 					"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
 					"listcolors[#606060AA;#888;#141318;#30434C;#FFF]")
@@ -435,4 +454,16 @@ minetest.register_abm({
 
 		inv:set_stack("fuel", 1, afterfuel.items[1])
 	end,
+})
+
+-- LBMS
+minetest.register_lbm({
+	label = "formspec brewer replacement",
+	name = "lottpotion:brewer_formspec_replacement_2",
+	nodenames = {"lottpotion:brewer"},
+	run_at_every_load = false,
+	action = function(pos, node)
+	 local meta = minetest.get_meta(pos)
+		meta:set_string('formspec', formspec)
+	end
 })
