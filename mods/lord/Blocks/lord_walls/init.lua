@@ -22,6 +22,27 @@ walls.register(":walls:green_marble", S("Green Marble Wall"), "lord_blocks_green
 	"lord_blocks:green_marble", default.node_sound_stone_defaults())
 walls.register(":walls:dungeon_stone", S("Dungeon Stone Wall"), "castle_dungeon_stone.png",
 	"castle:dungeon_stone", default.node_sound_stone_defaults())
+-- TODO:
+-- previously we need
+--  - exclude magma from stones
+--  - register stones above as 'existing' or move them into `lord_rocks`
+--  - maybe need to add `rocks.get_lord_nodes()` or maybe just configure here which ones to exclude from `rocks.get_nodes()`
+--     to register walls from others then
+--- @type string
+for node_name, definition in pairs(rocks.get_nodes()) do
+	--- @type string
+	local sub_name = node_name:split(":")[2]
+
+	local walls_node = ":walls:" .. sub_name
+	local title = sub_name:remove_underscores():to_headline()
+	local texture = definition.tiles[1]
+	--walls.register(walls_node, S(title), texture, node_name, default.node_sound_stone_defaults())
+	print('---->', node_name)
+	print("walls: " .. walls_node)
+	print("title: " .. title)
+	print("texture: " .. texture)
+end
+
 
 -- Clay/chamotte:
 walls.register(":walls:mordor_clay_block", S("Mordor Clay Block Wall"), "lord_bricks_mordor_clay_block.png",
