@@ -13,5 +13,4 @@ return {
 	["lord_rocks:pink_quartzite"] = { softness = 2, definition = {} },
 	["lord_rocks:shale"]          = { softness = 3, definition = {} },
 	["lord_rocks:pyroxenite"]     = { softness = 1, definition = {} },
-	["lord_rocks:magma"]          = { softness = 2, definition = {} },
 }

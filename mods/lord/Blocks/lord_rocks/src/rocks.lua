@@ -1,11 +1,9 @@
 local api    = require("rocks.api")
 local config = require("rocks.config")
 
--- rocks = {} see TODO below
+rocks = {}
 
 local function register_api()
-	-- TODO: fix WARNING in logs: "Assignment to undeclared global "rocks" inside a function"
-	-- rawset(_G, "rocks", api)
 	_G.rocks = api
 end
 

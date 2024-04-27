@@ -11,7 +11,11 @@ local function add_existing(node_name)
 	minetest.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { rock = 1 }),
 	})
-	rocks.nodes[node_name] = definition
+	rocks.nodes[node_name] = {
+		softness = definition.groups["cracky"],
+		definition = definition,
+		existing = true
+	}
 end
 
 --- @param node_name string technical node name ("<mod>:<node>").

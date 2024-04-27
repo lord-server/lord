@@ -349,8 +349,8 @@ minetest.register_ore({
 })
 
 minetest.register_ore({
-	ore_type       = "puff",
-	ore            = "lord_rocks:magma",
+	ore_type       = "scatter",
+	ore            = "lord_ores:magma",
 	wherein        = "lord_rocks:pyroxenite",
 	biomes         = {"pyroxenite_cave"},
 	clust_scarcity = 5*5*5,
