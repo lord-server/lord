@@ -365,6 +365,8 @@ function minetest.override_item(name, redefinition) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4479-L4482)
 function minetest.unregister_item(name) end
+--- @param name string
+--- @param entity_definition EntityDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4483-L4483)
 function minetest.register_entity(name, entity_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4484-L4484)
@@ -2312,7 +2314,7 @@ minetest.registered_tools = {}
 ---   as they are only read when spawning.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5846-L5850)
---- @type table
+--- @type table|EntityDefinition[]
 minetest.registered_entities = {}
 --- * Map of object references, indexed by active object id
 ---
