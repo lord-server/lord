@@ -463,7 +463,7 @@ minetest.register_lbm({
 	nodenames = {"lottpotion:brewer"},
 	run_at_every_load = false,
 	action = function(pos, node)
-	 local meta = minetest.get_meta(pos)
+		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', formspec)
 	end
 })
