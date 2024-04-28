@@ -25,11 +25,11 @@ local function register_rock(node_name, softness, definition)
 	softness = softness or 2
 	definition = definition or {}
 
-	local title = node_name:replace("lord_rocks:", ""):remove_underscores():to_headline()
+	local description = node_name:replace("lord_rocks:", ""):remove_underscores():to_headline()
 	local tile  = node_name:replace(":", "_") .. ".png"
 
 	minetest.register_node(node_name, table.overwrite({
-		description = S(title),
+		description = S(description),
 		tiles       = { tile },
 		groups      = { rock = 1, stone = 1, cracky = softness, },
 		sounds = default.node_sound_stone_defaults(),
