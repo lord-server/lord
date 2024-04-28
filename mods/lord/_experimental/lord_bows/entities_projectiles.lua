@@ -45,16 +45,16 @@ local function hit_handling(entity, target, name, def)
 end
 
 -- Обработка столкновения
-local function collision_handling(entity, moveresult, name, def)
-local vel = entity.object:get_velocity()
-entity.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
+local function collision_handling(entity, move_result, name, def)
+	local vel = entity.object:get_velocity()
+	entity.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
 
-	if not moveresult.collisions[1] then
+	if not move_result.collisions[1] then
 		return
 	end
 
-	if moveresult.collisions[1].type == "node" then
-		local node_pos = moveresult.collisions[1].node_pos
+	if move_result.collisions[1].type == "node" then
+		local node_pos = move_result.collisions[1].node_pos
 		local arrow_pos = entity.object:get_pos()
 
 		local dist = sqr( (node_pos.x - arrow_pos.x)^2 +
@@ -73,7 +73,7 @@ entity.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
 	entity.object:set_acceleration({x = 0, y = 0, z = 0})
 	entity.timer_is_start = true
 
-	local target = moveresult.collisions[1].object
+	local target = move_result.collisions[1].object
 
 	hit_handling(entity, target, name, def)
 end
