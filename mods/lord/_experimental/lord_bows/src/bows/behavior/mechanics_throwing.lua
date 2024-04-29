@@ -21,7 +21,7 @@ end
 
 --- @param stack      ItemStack          a stack with the bow
 --- @param hold_time  number             the time the player was holding CONTROL_CHARGE down
---- @param bow_stages table              a table {stages = {[0] = <item> ...}, charging_time = {[0] = <seconds> ...}}
+--- @param bow_stages bows.BowStages     the stages and time taken to charge
 --- @param player     Player             a player that charges the bow
 --- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
 local function bow_charge(stack, hold_time, bow_stages, player)

@@ -2,8 +2,6 @@ local api                 = require("bows.api")
 local config              = require("bows.config")
 
 lord_bows                 = {}
-lord_bows.get_bows        = api.get_bows
-lord_bows.get_projectiles = api.get_projectiles
 
 local function register_api()
 	_G.lord_bows = api

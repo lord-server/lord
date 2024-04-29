@@ -2,13 +2,29 @@ require("bows.behavior.mechanics_throwing")
 local entity_projectiles = require("bows.behavior.entity_projectiles")
 
 local bows = {
+	--- @type table<bows.BowRegistration>
 	registered_bows        = {},
+	--- @type table<bows.ProjectileRegistration>
 	registered_projectiles = {},
 }
 
 
---- @param name string  itemstring "<mod>:<bow_name>"
---- @param reg  table   table {definition = {<item settings>}, bow_stages = {charging_time = {[0] = <seconds> ...}}}
+--- @class bows.BowDefinition
+--- @field inventory_image string  texture name without file format (`.png`)
+--- @field description     string  item description shown on hovering on it in an inventory
+--- @field groups          table   minetest item definition groups table
+--- @field uses            number  number of shots available until the bow breaks
+
+--- @class bows.BowStages
+--- @field charging_time table  a numerical table starting from 0 containing charging times for each stage
+--- @field stages        table  a numerical table starting from 0 containing stage names (itemstring)
+
+--- @class bows.BowRegistration
+--- @field definition bows.BowDefinition  definition for creating the base bow and stages
+--- @field bow_stages bows.BowStages      the stages and time taken to charge configuration
+
+--- @param name string                itemstring "<mod>:<bow_name>"
+--- @param reg  bows.BowRegistration  bow registration table
 local function register_bow(name, reg)
 	local def = reg.definition
 	local wield_scale      = { x = 2, y = 2, z = 0.75, }
@@ -56,8 +72,16 @@ local function register_bow(name, reg)
 end
 
 
---- @param name string  itemstring "<mod>:<projectile_name>"
---- @param reg  table   table with fields `definition`, `damage`, `speed`, `entity_name`, `projectile_texture`
+--- @class bows.ProjectileRegistration
+--- @field projectile_texture table           table of textures used for projectile entity
+--- @field definition         ItemDefinition  definition of projectile craftitem
+--- @field entity_name        string          itemstring <mod>:<name>; used to name the projectile entity
+--- @field damage             number          damage base value of projectile that used to calculate resulting damage
+--- @field speed              number          projectile speed multiplier that used to calculate the flight trajectory
+--- @field type               string          a type of projectile
+
+--- @param name string                       itemstring "<mod>:<projectile_name>"
+--- @param reg  bows.ProjectileRegistration  projectile registration table
 local function register_projectile(name, reg)
 	local def       = reg.definition
 	reg.type        = reg.type or "arrow"

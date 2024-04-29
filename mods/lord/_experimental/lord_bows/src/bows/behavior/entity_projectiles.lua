@@ -1,10 +1,8 @@
--- entities projectiles
-
 local projectiles  = {}
 
-local pi     = math.pi
-local arctan = math.atan2
-local sqrt   = math.sqrt
+local math_pi, math_arctan, math_sqrt
+	= math.pi, math.atan2,  math.sqrt
+
 
 -- Update projectile life timer
 --- @param projectile LuaEntity  projectile entity
@@ -83,7 +81,7 @@ local function collision_handling(projectile, move_result, damage)
 		local node_pos = move_result.collisions[1].node_pos
 		local projectile_pos = projectile.object:get_pos()
 
-		local dist = sqrt( (node_pos.x - projectile_pos.x)^2 +
+		local dist = math_sqrt( (node_pos.x - projectile_pos.x)^2 +
 			(node_pos.y - projectile_pos.y)^2 +
 			(node_pos.z - projectile_pos.z)^2
 		)
@@ -115,8 +113,8 @@ local function flight_processing(projectile)
 		})
 		local rot = {
 			x = 0,
-			y = pi + arctan(vel.z, vel.x),
-			z = arctan(vel.y, sqrt(vel.z * vel.z + vel.x * vel.x))}
+			y = math_pi + math_arctan(vel.z, vel.x),
+			z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))}
 			projectile.object:set_rotation(rot)
 	end
 end
