@@ -1,7 +1,7 @@
-local api                 = require("bows.api")
-local config              = require("bows.config")
+local api    = require("bows.api")
+local config = require("bows.config")
 
-lord_bows                 = {}
+lord_bows = {}
 
 local function register_api()
 	_G.lord_bows = api

@@ -1,7 +1,7 @@
-local projectiles  = {}
-
 local math_pi, math_arctan, math_sqrt
 	= math.pi, math.atan2,  math.sqrt
+
+local projectiles  = {}
 
 
 -- Update projectile life timer

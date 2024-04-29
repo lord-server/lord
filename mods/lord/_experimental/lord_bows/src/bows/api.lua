@@ -2,9 +2,9 @@ require("bows.behavior.mechanics_throwing")
 local entity_projectiles = require("bows.behavior.entity_projectiles")
 
 local bows = {
-	--- @type table<bows.BowRegistration>
+	--- @type table<string,bows.BowRegistration>
 	registered_bows        = {},
-	--- @type table<bows.ProjectileRegistration>
+	--- @type table<string,bows.ProjectileRegistration>
 	registered_projectiles = {},
 }
 
