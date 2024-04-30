@@ -30,53 +30,88 @@ Minetest - это аналог игры Minecraft с открытым исход
  - придумайте себе ник, не забудьте задать пароль
 
 
-## Contributors / Участники
-
- - [@Badger](https://github.com/albel4) - infrastructure administration / development / game admin
- - [@alek13](https://github.com/alek13) (Alek) - development / testing / release management / site dev
- - [@weqqr](https://github.com/weqqr) (Sc) - development / game admin / moderation
- - [@VladTcvs](https://github.com/vladtcvs) (VladTs) - development / testing / ideas
- - [@Doloment](https://github.com/Doloment) - development / testing
- - [@VanicGame](https://github.com/VanicGame) (Van) - development / testing / texturing / ideas
- - [@Dlinnosheee](https://github.com/kevicky9) (Dlinnosheee) - development help
- - [@Strannik](https://github.com/LordStrannik) (Strannik) - development help / building
- - @Vasiliy_Rus - social content / ideas
- - [@Elrick](https://github.com/googolgl) - development / infrastructure development
- - [@Mikola](https://github.com/Mikola314) - moderation / social content / testing / development
- - [@narrnika](https://github.com/narrnika) - development / moderation
- - @Sachiel (Сахиель Корчмастер) - moderation
- - @Dimon - moderation / social content
-
-В строительстве [Минас-Тирит](https://vk.com/minetest_lord?z=video-110633545_456239020) принимали участие:
- - @Mikola
- - @Narrnika
- - @Tchibo
- - @Badger
- - @Liza
- - @HALINA
- - @Tanushka
-
-Идеи, замечания, помощь в строительстве объектов:
- - @Strannik
- - @Rodion
- - @Nataraj
-
-Если мы кого-то забыли или вы нехотите, чтобы вас упоминали в этом списке,
-присылайте pull-request или попросите нас в [Discord](https://www.discord.gg/uTX3mbb).
-
 ## Contributing / Помощь проекту
 
 Если у вас есть немного времени и желание помочь - добро пожаловать!<br>
 Мы всегда рады любой помощи, а работы по проекту всегда хватает.
 
+#### Ошибки и предложения
 Необязательно уметь программировать или работать с Git'ом.<br>
 Вы можете [сообщить об ошибке](https://github.com/lord-server/lord/issues/new?assignees=&labels=bug&template=bug_report.md) на сервере
-  или [проголосовать за идею](https://github.com/lord-server/lord/issues?q=is%3Aissue+is%3Aopen+label%3Aidea) о доработках нового функционала.
+или [проголосовать за идею](https://github.com/lord-server/lord/issues?q=is%3Aissue+is%3Aopen+label%3Aidea) о доработках нового функционала.
 
-Вы можете помочь в тестировании нового релиза или проработать текстуры. (Пишите в [Discord](https://www.discord.gg/uTX3mbb) @Alek'у, @Badger'у или @Mikola)
+#### Новости и фоточки
+А может в Вас скрыт талант журналиста и вы будете отыскивать интересные материалы для новостей в группе в [ВКонтакте](https://vk.com/minetest_lord). (Пишите в [Discord](https://www.discord.gg/uTX3mbb))  
+Также присылайте новые найденные (или ваши) постройки в канал [#галерея](https://discord.com/channels/268093825975713793/1133659087930933298)
 
-А может в Вас скрыт талант журналиста и вы будете отыскивать интересные материалы для новостей в группе в [ВКонтакте](https://vk.com/minetest_lord). (Пишите в [Discord](https://www.discord.gg/uTX3mbb) @Mikola или @Alek'у)
+#### Строительство
+Возможно Вам ближе дух архитектора и Вы примите участие в новых постройках на сервере. (Пишите в [Discord](https://www.discord.gg/uTX3mbb))  
+У нас много грандиозных задумок и строящихся объектов!
 
-Возможно Вам ближе дух архитектора и Вы примите участие в новых постройках на сервере. (Пишите в [Discord](https://www.discord.gg/uTX3mbb) @Mikola)
+### Разработка / тестирование / текстуры / модели
+Вы можете помочь в тестировании нового релиза или проработать текстуры, помочь с моделями (Пишите в [Discord](https://www.discord.gg/uTX3mbb))
 
-Если же у вас желание [помочь в разработке](development.md), то это ещё лучше.
+#### Мы сейчас активно ищем:
+ - QA Engineer (Тестировщик)
+ - Texture maker (Художник по текстурам)
+ - 3D-Modeller / Animator
+
+ну и, конечно, разработчиков.
+
+#### Небольшой [гайд по разработке](development.md):
+ - [Разворачивание локально](development.md#Разворачивание-локально)
+ - [Code-Style](development.md#Code-Style)
+ - [Doc-Blocks](development.md#Doc-Blocks)
+ - [Установка и настройка LuaCheck](development.md#Установка-и-настройка-LuaCheck)
+ - [Обновление своего форка](development.md#Обновление-своего-форка)
+ - [Релизный процесс](development.md#Релизный-процесс)
+ - [Изменение конфигов](development.md#Изменение-конфигов)
+
+
+## Contributors / Участники
+#### Project Lead:
+ - [@alek13](https://github.com/alek13) (Alek) - development / release management / site dev / Leading the Project
+#### Development:
+ - [@Doloment](https://github.com/Doloment) - development / testing / ideas / Epics leading
+ - [@VanicGame](https://github.com/VanicGame) (Van) - development / testing / texturing / ideas
+ - [@VladTcvs](https://github.com/vladtcvs) (VladTs) - development / testing / ideas
+ - [@Dlinnosheee](https://github.com/kevicky9) / [Ga/@ssdaniel24](https://github.com/ssdaniel24) (Dlinnosheee) - development
+ - [@weqqr](https://github.com/weqqr) (Sc) - [Panorama](https://github.com/lord-server/panorama) lead (in past: development / game admin)
+#### Texturing:
+ - [@VanicGame](https://github.com/VanicGame) (Van) - texturing leading
+ - everyone helps
+#### Modeling:
+ - actively looking for (feel free to contact us in [Discord](https://www.discord.gg/uTX3mbb) or here)
+#### Testing:
+ - [@Petus228666](https://github.com/Petus228666) (Petus) - QA Lead
+ - actively looking for help (feel free to contact us in [Discord](https://www.discord.gg/uTX3mbb) or here)
+#### DevOps:
+ - [@Badger](https://github.com/albel4) - infrastructure administration (in past: development / game admin)
+ - [@weqqr](https://github.com/weqqr) (Sc) - Cross Apps administration (Panorama/DiscordBot/MT interaction)
+ - [@alek13](https://github.com/alek13) (Alek) - CI / CD  (other minimal help)
+
+#### Social news
+ - @Vasiliy_Rus - release news for social content / ideas
+
+### In Game
+#### Смотрители Зала Смерти (спаун Орков)
+ - SuperKate
+ - Lester_Grazziano
+#### Смотрители города Брии (спаун Людей)
+ - VladTs
+ - в поисках помощника
+
+### Past Contributors
+ - [@Strannik](https://github.com/LordStrannik) (Strannik) - development help / building
+ - [@Elrick](https://github.com/googolgl) - development / infrastructure development
+ - [@Mikola](https://github.com/Mikola314) - moderation / social content / testing / development
+ - [@narrnika](https://github.com/narrnika) - development / moderation
+ - @Sachiel (Сахиель Корчмастер) - moderation
+ - @Dimon - moderation / social content
+ - @Rodion
+
+В строительстве [Минас-Тирит](https://vk.com/minetest_lord?z=video-110633545_456239020) принимали участие:
+ @Mikola, @Narrnika, @Tchibo, @Badger, @Liza, @HALINA, @Tanushka
+
+Если мы кого-то забыли или вы не хотите, чтобы вас упоминали в этом списке,
+присылайте pull-request или попросите нас в [Discord](https://www.discord.gg/uTX3mbb).
