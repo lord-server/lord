@@ -8,8 +8,8 @@ local function register_api()
 end
 
 local function register_damage_types()
-	for type, behavior in pairs(config) do
-		api.register_damage_type(type, behavior)
+	for damage_type, behavior in pairs(config) do
+		api.register_damage_type(damage_type, behavior)
 	end
 end
 
