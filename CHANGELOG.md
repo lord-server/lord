@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.03.p3](https://github.com/lord-server/lord/releases/tag/2024.03.p3)
+ - Add new clan "International"
+ - Open clan chest only for players from any clans, not for regular players.
+
 ## [2024.03.p2](https://github.com/lord-server/lord/releases/tag/2024.03.p2)
  - Add human spawn point in Bree.
  - Add `Shishka_mason` into `Massons` clan.
