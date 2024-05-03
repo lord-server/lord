@@ -1,6 +1,6 @@
 mountgen.get_value = function(map, z, x)
-	local h = table.getn(map)
-	local w = table.getn(map[1])
+	local h = #(map)
+	local w = #(map[1])
 
 	if x <= 0 or z <= 0 or x >= w-1 or z >= h-1 then
 		return 0
@@ -10,8 +10,8 @@ mountgen.get_value = function(map, z, x)
 end
 
 mountgen.set_value = function(map, z, x, val)
-	local h = table.getn(map)
-	local w = table.getn(map[1])
+	local h = #(map)
+	local w = #(map[1])
 	if x <= 0 or z <= 0 or x >= w-1 or z >= h-1 then
 		return
 	end
