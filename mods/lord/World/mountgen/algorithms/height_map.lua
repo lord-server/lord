@@ -3,7 +3,7 @@ mountgen.get_value = function(map, z, x)
 	local w = #(map[1])
 
 	if x <= 0 or z <= 0 or x >= w-1 or z >= h-1 then
-		return 0
+		return nil
 	end
 
 	return map[z+1][x+1]

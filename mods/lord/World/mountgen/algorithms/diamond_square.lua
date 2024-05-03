@@ -10,6 +10,42 @@ local function smooth(map, z, x)
 	mountgen.set_value(map, z, x, (v1+v2+v3+v4)/4)
 end
 
+---Random value from -max_value to max_value
+---@param max_value any
+local function adjust_random(max_value)
+    return (2*math.random()-1)*max_value
+end
+
+---Average of 4 values. Ignore nils
+---@param v1 any
+---@param v2 any
+---@param v3 any
+---@param v4 any
+local function average(v1, v2, v3, v4)
+    local cnt = 0
+    local sum = 0
+    if v1 ~= nil then
+        sum = sum + v1
+        cnt = cnt + 1
+    end
+    if v2 ~= nil then
+        sum = sum + v2
+        cnt = cnt + 1
+    end
+    if v3 ~= nil then
+        sum = sum + v3
+        cnt = cnt + 1
+    end
+    if v4 ~= nil then
+        sum = sum + v4
+        cnt = cnt + 1
+    end
+    if cnt == 0 then
+        return 0
+    end
+    return sum / cnt
+end
+
 ---Generate mountain with diamond-square algorithm
 ---@param map_w integer desired width of the mountain
 ---@param mountain_h integer height of the mountain
@@ -34,6 +70,7 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 		end
 	end
 
+    -- run diamond square
 	local i = n
 	while i >= 1 do
 		local step = 2 ^ i
@@ -50,7 +87,7 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 		end
 
 		-- diamond
-		if i < n then
+		if i <= n-2 then
 			local z = 0
 			for _ = 1, num do
 				local x = 0
@@ -59,15 +96,20 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 					local val2 = mountgen.get_value(map, z+step, x)
 					local val3 = mountgen.get_value(map, z, x+step)
 					local val4 = mountgen.get_value(map, z+step, x+step)
-					local rand = math.random(-step2/rk, step2/rk)
-					local val = (val1 + val2 + val3 + val4)/4 + rand
+					local rand = adjust_random(step2/rk)
+					local val = average(val1, val2, val3, val4) + rand
 					mountgen.set_value(map, z+step2, x+step2, val)
 					x = x + step
 				end
 				z = z + step
 			end
-		else
-			mountgen.set_value(map, step2, step2, H)
+        else
+            -- set central peak and corners
+			mountgen.set_value(map, 2^(n-1), 2^(n-1), H)
+            mountgen.set_value(map, 1, 1, 0)
+            mountgen.set_value(map, 1, 2^n, 0)
+            mountgen.set_value(map, 2^n, 1, 0)
+            mountgen.set_value(map, 2^n, 2^n, 0)
 		end
 
 		-- square
@@ -79,20 +121,20 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 				local val
 				local rand
 
-				rand = math.random(-step2/rk, step2/rk)
+                rand = adjust_random(step2/rk)
 				val1 = mountgen.get_value(map, z-step2, x+step2)
 				val2 = mountgen.get_value(map, z+step2, x+step2)
 				val3 = mountgen.get_value(map, z, x)
 				val4 = mountgen.get_value(map, z, x+step)
-				val = (val1 + val2 + val3 + val4)/4 + rand
+                val = average(val1, val2, val3, val4) + rand
 				mountgen.set_value(map, z, x+step2, val)
 
-				rand = math.random(-step2/rk, step2/rk)
+                rand = adjust_random(step2/rk)
 				val1 = mountgen.get_value(map, z+step2, x-step2)
 				val2 = mountgen.get_value(map, z+step2, x+step2)
 				val3 = mountgen.get_value(map, z, x)
 				val4 = mountgen.get_value(map, z+step, x)
-				val = (val1 + val2 + val3 + val4)/4 + rand
+                val = average(val1, val2, val3, val4) + rand
 				mountgen.set_value(map, z+step2, x, val)
 
 				x = x + step
