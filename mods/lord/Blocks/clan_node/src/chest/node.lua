@@ -72,11 +72,13 @@ local definition = {
 	on_rightclick     = function(pos, node, clicker)
 		local chest_clan_name = minetest.get_meta(pos):get_string("owned_clan")
 		local is_admin = minetest.check_player_privs(clicker, "server")
+		-- open clan chest only if anyone from clan-owner is online
 		if (not chest_clan_name or not clans.clan_is_online(chest_clan_name)) and not is_admin then
 			return
 		end
 		local player_clan = clans.get_by_player(clicker)
 		local player_clan_name = player_clan and player_clan.name or nil
+		if not player_clan then	return end  -- open clan chest only for players from any clans, not for regular players
 		if player_clan_name ~= chest_clan_name and not is_admin then
 			local chest_clan = clans.get_by_name(chest_clan_name)
 			minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", chest_clan.title)))

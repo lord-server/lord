@@ -7,13 +7,13 @@
 -- HACK: this is a quick hardcoded local storage for clans data
 -- TODO: save this data somewhere else (mod-storage?)
 -- TODO: commands for manage
---- @type table<string,clans.Clan>
+--- @type table<string,clans.Clan>|clans.Clan[]
 local clans_storage = {
 	masons = {
 		name    = "masons",
 		title   = "Masons",
 		players = {
-			"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason", "Shishka_mason"
+			"Petus_mason", "Swed_mason", "Dormi_mason", "JikiSo_mason", "Alek_mason", "Zhekil_mason",
 		},
 	},
 	vassals = {
@@ -24,7 +24,12 @@ local clans_storage = {
 	hansa = {
 		name    = "hansa",
 		title   = "Hansa",
-		players = { "Qundark", "Kema", "Alges" },
+		players = { "Qundark", "Kema" },
+	},
+	international = {
+		name = "international",
+		title = "International",
+		players = { "Alges", "Shishka_intern", "Dasada", },
 	},
 }
 --- @type table<string,boolean> local cache for clan is online
