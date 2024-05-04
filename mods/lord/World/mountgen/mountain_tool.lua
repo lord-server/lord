@@ -1,26 +1,23 @@
 local S = minetest.get_translator("mountgen")
 local esc = minetest.formspec_escape
 
-mountgen = {
-	required_priv = "server",
-	config = {
-		ANGLE = 120,
-		Y0 = 0,
-		METHOD = "diamond-square",
-		SNOW_LINE = 50,
-		SNOW_LINE_RAND = 4,
-		GRASS_PERCENT = 10,
-		FLOWERS_LINE = 35,
-		FLOWERS_PERCENT = 10,
-		TREE_LINE = 20,
-		TREE_PROMILLE = 4,
+mountgen.config = {
+	ANGLE = 120,
+	Y0 = 0,
+	METHOD = "diamond-square",
+	SNOW_LINE = 50,
+	SNOW_LINE_RAND = 4,
+	GRASS_PERCENT = 10,
+	FLOWERS_LINE = 35,
+	FLOWERS_PERCENT = 10,
+	TREE_LINE = 20,
+	TREE_PROMILLE = 4,
 
-		rk_big = 5,
-		rk_small = 100,
-		rk_thr = 5,
+	rk_big = 5,
+	rk_small = 100,
+	rk_thr = 5,
 
-		top_cover = "lottmapgen:dunland_grass",
-	},
+	top_cover = "lottmapgen:dunland_grass",
 }
 
 mountgen.show_config_menu = function(user_name, config)
