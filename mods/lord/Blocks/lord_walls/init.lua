@@ -23,23 +23,16 @@ walls.register(":walls:green_marble", S("Green Marble Wall"), "lord_blocks_green
 walls.register(":walls:dungeon_stone", S("Dungeon Stone Wall"), "castle_dungeon_stone.png",
 	"castle:dungeon_stone", default.node_sound_stone_defaults())
 
--- TODO:
---  - exclude magma from stones
 --- @type string
-for node_name, registration in pairs(rocks.get_nodes()) do
+for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	--- @type string
 	local sub_name = node_name:split(":")[2]
 
-	if not registration.existing then
-		local walls_node = ":walls:" .. sub_name
-		local description = sub_name:remove_underscores():to_headline()
-		local texture = registration.definition.tiles
-		walls.register(walls_node, S(description), texture, node_name, default.node_sound_stone_defaults())
-		print('---->', node_name)
-		print("walls: " .. walls_node)
-		print("description: " .. description)
-		print("texture: " .. minetest.serialize(texture))
-	end
+	local walls_node = ":walls:" .. sub_name
+	local description = sub_name:remove_underscores():to_headline()
+	local texture = registration.definition.tiles
+	walls.register(walls_node, S(description), texture, node_name, default.node_sound_stone_defaults())
+
 end
 
 
