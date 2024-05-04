@@ -1,4 +1,4 @@
----Generate mountain as paraboloid
+---Generate mountain as cone
 ---@param map_w integer desired width of the mountain
 ---@param mountain_h integer mountain height
 ---@return table, integer, integer "height map, map size, center_coordinate"
