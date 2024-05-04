@@ -72,8 +72,8 @@ end
 ---@param rk_big integer smoothness coefficient for big scales
 ---@return table, integer, integer "height map, map size, center coordinate"
 mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
-	W = math.max(map_w, 3)
-	H = math.max(mountain_h, 1)
+	local W = math.max(map_w, 3)
+	local H = math.max(mountain_h, 1)
 
 	local n = math.ceil(math.log(W) / math.log(2))
 

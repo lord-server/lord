@@ -5,8 +5,8 @@
 mountgen.cone = function(map_w, mountain_h)
 	local map = {}
 
-	W = math.max(map_w, 1)
-	H = math.max(mountain_h, 1)
+	local W = math.max(map_w, 1)
+	local H = math.max(mountain_h, 1)
 
 	for i = 1, W do
 		map[i] = {}
