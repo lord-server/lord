@@ -1,0 +1,38 @@
+#!/usr/bin/env lua
+local DS = package.config:sub(1,1)
+local Lummander = require("lummander")
+
+local function script_dir()
+	local filename = debug.getinfo(2, "S").source:sub(2)
+	local link = io.popen('readlink "'..filename..'"'):read()
+	filename = link and link or filename
+	local dir = filename:match("(.*"..DS..")")
+
+	return Lummander.lfs.currentdir() .. DS .. dir
+end
+
+local current_dir  = Lummander.lfs.currentdir()
+local mt_maker_dir = script_dir()
+
+local old_require = require
+local require = function(module_name)
+	Lummander.lfs.chdir(mt_maker_dir)
+	local module = old_require(module_name)
+	Lummander.lfs.chdir(current_dir)
+	return module
+end
+
+
+local app = Lummander.new{
+	title = "Minetest Maker CLI Hunky",
+	description = "This App makes your life easier and helps you to makes mods and games for MineTeat Engine faster.",
+	version = "0.1.1",
+	author = "alek13",
+	root_path = mt_maker_dir,
+}
+
+
+app:command("mod <mod_name>", require("commands.mod"))
+
+
+app:parse(arg)
