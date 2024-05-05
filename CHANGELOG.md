@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.03.p4](https://github.com/lord-server/lord/releases/tag/2024.03.p4)
+ - Add members into "International" clan
+
 ## [2024.03.p3](https://github.com/lord-server/lord/releases/tag/2024.03.p3)
  - Add new clan "International"
  - Open clan chest only for players from any clans, not for regular players.
