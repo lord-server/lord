@@ -96,5 +96,6 @@ register_leaf("lord_trees:mirk_leaf",        "Mirkwood", { color_green = 1 }) --
 return {
 	add_existing = add_existing,
 	register     = register_leaf,
+	--- @return NodeDefinition[]
 	get_nodes    = function() return leaves.nodes end
 }

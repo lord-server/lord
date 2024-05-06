@@ -3,7 +3,7 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%.", "/") .. ".lua") end
 
 
-require("trees")
+require("tree").init()
 
 
 require = old_require

@@ -111,5 +111,6 @@ register_trunk("lord_trees:plum_tree",      3, 6,  2)
 return {
 	add_existing = add_existing,
 	register     = register_trunk,
+	--- @return NodeDefinition[]
 	get_nodes    = function() return trunks.nodes end
 }

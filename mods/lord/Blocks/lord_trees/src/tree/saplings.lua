@@ -1,5 +1,7 @@
 local S = minetest.get_translator("lord_trees")
 
+require("tree.saplings.grow_functions")
+
 local Generator = require("tree.Generator")
 
 local SAPLING_GROW_ABM_INTERVAL = 67
@@ -95,5 +97,6 @@ register_sapling("lord_trees:mirk_sapling", "Mirkwood", { lottplants_mirktree, l
 return {
 	add_existing = add_existing,
 	register     = register_sapling,
+	--- @return NodeDefinition
 	get_nodes    = function() return saplings.nodes end
 }
