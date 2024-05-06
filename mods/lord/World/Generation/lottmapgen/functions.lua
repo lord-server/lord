@@ -184,7 +184,7 @@ function lottmapgen_appletree(x, y, z, area, data)
 end
 
 function lottmapgen_plumtree(x, y, z, area, data)
-	local id_tree     = minetest.get_content_id("default:tree")
+	local id_tree     = minetest.get_content_id("lord_trees:plum_tree")
 	local id_plum     = minetest.get_content_id("lord_trees:plum")
 	local id_plumleaf = minetest.get_content_id("lord_trees:plum_leaf")
 	for j = -2, 4 do

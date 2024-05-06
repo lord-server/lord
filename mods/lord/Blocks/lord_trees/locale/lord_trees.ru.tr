@@ -46,10 +46,12 @@ Lebethron Tree=Лебетрон
 Lebethron Trunk=Ствол лебетрона
 Mallorn Tree=Маллорн
 Mallorn Trunk=Ствол маллорна
-Young Mallorn Trее=Молодой маллорн
-Young Mallorn Trunk=Ствол молодого маллорна
 Pine Tree=Сосна
 Pine Trunk=Ствол сосны
+Plum Tree=Слива
+Pine Trunk=Ствол сливы
+Young Mallorn Trее=Молодой маллорн
+Young Mallorn Trunk=Ствол молодого маллорна
 
 ### tree/trunks/slabs.lua ###
 Pine Trunk Slab=Плита из ствола сосны

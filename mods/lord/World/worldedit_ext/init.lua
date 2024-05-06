@@ -33,7 +33,7 @@ local trees_nodes = {
 	"default:tree", "default:jungletree", "default:leaves", "default:apple", "lord_trees:plum",
 	"lord_trees:alder_tree", "lord_trees:beech_tree", "lord_trees:birch_tree", "lord_trees:fir_tree",
 	"lord_trees:lebethron_tree",	"lord_trees:mallorn_tree", "lord_trees:mallorn_young_tree", "lord_trees:pine_tree",
-	"lord_trees:elm_tree",
+	"lord_trees:elm_tree", "lord_trees:plum_tree",
 	"lord_trees:alder_leaf", "lord_trees:apple_leaf", "lord_trees:beech_leaf", "lord_trees:birch_leaf",
 	"lord_trees:culumalda_leaf", "lord_trees:elm_leaf", "lord_trees:fir_leaf", "lord_trees:lebethron_leaf",
 	"lord_trees:mallorn_leaf", "lord_trees:mirk_leaf", "lord_trees:pine_leaf", "lord_trees:plum_leaf",

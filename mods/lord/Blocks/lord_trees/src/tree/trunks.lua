@@ -47,7 +47,7 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 	local texture_side          = node_name:replace(":", "_") .. ".png"
 	local texture_top           = node_name:replace(":", "_") .. "_top.png"
 	local placed_node_name      = node_name:replace("tree$", "trunk")
-	local tree_type             = node_name:split(":")[2]:replace("tree$", ""):replace("_young_$", "")
+	local tree_type             = node_name:split(":")[2]:replace("_tree$", ""):replace("_young$", "")
 	local is_young_registration = node_name:ends_with("_young_tree")
 	local title                 = (is_young_registration and "Young " or "") .. tree_type:first_to_upper() .. " Trunk"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
@@ -105,6 +105,7 @@ register_trunk("lord_trees:fir_tree",       3, 13, 2)
 register_trunk("lord_trees:lebethron_tree", 1, 10, 2)
 register_trunk("lord_trees:mallorn_tree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
 register_trunk("lord_trees:pine_tree",      3, 13, 2)
+register_trunk("lord_trees:plum_tree",      3, 6,  2)
 
 
 return {

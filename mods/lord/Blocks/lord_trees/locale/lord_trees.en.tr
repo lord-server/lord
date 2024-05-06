@@ -30,11 +30,12 @@ Mirkwood Leaves=Mirkwood Leaves
 ### tree/trunks.lua ###
 Alder Tree=Alder Tree
 Birch Tree=Birch Tree
-Pine Tree=Pine Tree
 Fir Tree=Fir Tree
 Fir Trunk=Fir Trunk
 Lebethron Tree=Lebethron Tree
 Mallorn Tree=Mallorn Tree
+Pine Tree=Pine Tree
+Plum Tree=Plum Tree
 Young Mallorn Trunk=Young Mallorn Trunk
 
 ### tree/trunks/slabs.lua ###
