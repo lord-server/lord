@@ -81,7 +81,9 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 		end,
 	}))
 
-	trunks.nodes[node_name] = minetest.registered_nodes[node_name]
+	if not is_young_registration then
+		trunks.nodes[node_name] = minetest.registered_nodes[node_name]
+	end
 
 	if register_young then
 		register_trunk(

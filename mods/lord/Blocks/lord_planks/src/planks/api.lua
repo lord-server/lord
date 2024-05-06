@@ -1,5 +1,6 @@
 local S = minetest.get_translator("lord_planks")
 
+
 local planks = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
 	nodes = {}
@@ -23,6 +24,11 @@ local function register_planks(node_name, hardness, craft, groups, title)
 	local sub_name = node_name:split(":")[2]
 	title = title and title:first_to_upper() or sub_name:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
+	if not io.file_exists(minetest.get_mod_textures_folder() .. texture) then
+		minetest.log("warning", ("Can't find texture: \"%s\". Planks `%s` not registered."):format(texture, node_name))
+		return
+	end
+
 	-- bin/minetest --info 2>&1 | grep 'use texture'
 	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
@@ -66,5 +72,6 @@ end
 return {
 	add_existing    = add_existing,
 	register_planks = register_planks,
+	--- @return NodeDefinition[]
 	get_nodes       = function() return planks.nodes end,
 }

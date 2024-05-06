@@ -6,6 +6,7 @@ require('tree.trunks.slabs')
 require('tree.fruits')
 require('tree.leaves.decay')
 
+tree = {}
 
 local function register_api()
 	_G.tree = {

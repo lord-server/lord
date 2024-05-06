@@ -12,18 +12,14 @@ local function register_lord_planks()
 	api.add_existing("default:wood")
 	api.add_existing("default:junglewood")
 
-	-- TODO: ??? for _, trunk in pairs(tree.trunks.get_nodes()) do ??? if possible
-	api.register_planks("lord_planks:alder",     2, "lord_trees:alder_tree")
-	api.register_planks("lord_planks:birch",     3, "lord_trees:birch_tree")
-	api.register_planks("lord_planks:beech",     2, "lord_trees:beech_tree")
-	api.register_planks("lord_planks:cherry",    3, "lord_trees:cherry_tree")
-	api.register_planks("lord_planks:culumalda", 3, "lord_trees:culumalda_tree")
-	api.register_planks("lord_planks:elm",       2, "lord_trees:elm_tree")
-	api.register_planks("lord_planks:fir",       3, "lord_trees:fir_tree")
+	for trunk_name, trunk in pairs(tree.trunks.get_nodes()) do
+		local planks_name = trunk_name:replace("^lord_trees:", "lord_planks:"):replace("_tree$", "")
+		api.register_planks(planks_name, trunk.groups.choppy or 2, trunk_name)
+		-- bin/minetest --info 2>&1 | grep 'use node'
+		minetest.log("info", "use node: " .. trunk_name .. " at " .. __FILE_LINE__())
+	end
+
 	api.register_planks("lord_planks:hardwood",  1, nil, { flammable = 1 })
-	api.register_planks("lord_planks:lebethron", 1, "lord_trees:lebethron_tree")
-	api.register_planks("lord_planks:mallorn",   1, "lord_trees:mallorn_tree")
-	api.register_planks("lord_planks:pine",      3, "lord_trees:pine_tree")
 end
 
 local function register_additional_crafts()
