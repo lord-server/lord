@@ -392,6 +392,7 @@ lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lord_planks_hardwood.p
 lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lord_planks_lebethron.png", "lord_planks:lebethron")
 lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lord_planks_mallorn.png", "lord_planks:mallorn")
 lottblocks.register_wooden_stuff("pine", "Pine", "lord_planks_pine.png", "lord_planks:pine")
+lottblocks.register_wooden_stuff("plum", "Plum", "lord_planks_plum.png", "lord_planks:plum")
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
