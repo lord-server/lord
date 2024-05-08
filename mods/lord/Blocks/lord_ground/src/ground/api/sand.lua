@@ -17,11 +17,12 @@ local function add_existing(node_name)
 end
 
 --- @param node_name string       technical node name ("<mod>:<node>").
---- @param hardness  number       used for `crumbly`; how difficult to dig/crumble.
+--- @param softness  number       used for `crumbly`; how difficult to dig/crumble.
 --- @param title     string       prefix to description of nodes or will extracted from `node_bane` (`title`.." Grass")
-local function register_sand(node_name, hardness, title)
+local function register_sand(node_name, softness, title)
 	local sub_name = node_name:split(":")[2]
-	title = title and title:first_to_upper() or sub_name:first_to_upper()
+	title = title and title:first_to_upper() or sub_name:first_to_upper():title()
+
 	local texture = node_name:replace(":", "_") .. ".png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
 	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
@@ -29,7 +30,7 @@ local function register_sand(node_name, hardness, title)
 	minetest.register_node(node_name, {
 		description = S(title),
 		tiles       = { texture },
-		groups      = { crumbly = hardness, falling_node = 1, sand = 1 },
+		groups      = { crumbly = softness, falling_node = 1, sand = 1 },
 		sounds      = default.node_sound_sand_defaults(),
 	})
 

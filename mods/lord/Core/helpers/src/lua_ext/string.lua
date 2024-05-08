@@ -81,6 +81,15 @@ function string:first_to_upper()
 	return self:sub(1, 1):upper() .. self:sub(2)
 end
 
+--- @return string
+function string:title()
+	local result = ""
+	for _, word in ipairs(self:split(" ")) do
+		result = string.format("%s%s ", result, word:first_to_upper())
+	end
+	return result:trim()
+end
+
 --- @param prefix string
 --- @return boolean
 function string:starts_with(prefix)

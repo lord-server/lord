@@ -36,7 +36,8 @@ local function register_lord_sands()
 	api.sand.add_existing("default:sand")
 	api.sand.add_existing("default:desert_sand")
 	api.sand.add_existing("default:silver_sand")
-	--api.sand.register_sand("lottmapgen:mordor_sand")
+
+	api.sand.register_sand("lord_ground:mordor_sand", 3)
 end
 
 

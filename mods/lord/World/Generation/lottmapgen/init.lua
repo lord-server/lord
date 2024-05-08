@@ -168,7 +168,7 @@ end
 local id_air = id("air")
 
 local id_sand = id("default:sand")
-local id_mordor_sand = id("lottmapgen:mordor_sand")
+local id_mordor_sand = id("lord_ground:mordor_sand")
 local id_desert_sand = id("default:desert_sand")
 local id_silver_sand = id("default:silver_sand")
 
