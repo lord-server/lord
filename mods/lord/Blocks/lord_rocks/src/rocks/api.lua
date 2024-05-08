@@ -3,6 +3,7 @@ local S = minetest.get_translator("lord_rocks")
 local rocks = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
 	nodes      = {},
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
 	lord_nodes = {},
 }
 
@@ -24,21 +25,43 @@ end
 --- @param node_name string technical node name ("<mod>:<node>").
 --- @param softness number softness value 1-3.
 --- @param definition table NodeDefinition that overrides the default one.
-local function register_rock(node_name, softness, definition)
-	softness   = softness or 2
-	definition = definition or {}
+local function register_rock(node_name, softness, definition, register_stairs)
+	softness        = softness or 2
+	definition      = definition or {}
+	register_stairs = register_stairs or false
 
-	local description = node_name:replace("lord_rocks:", ""):remove_underscores():to_headline()
-	local tile        = node_name:replace(":", "_") .. ".png"
+	local description = definition.description or node_name:replace("lord_rocks:", ""):remove_underscores():to_headline()
+	local tiles       = definition.tiles or { node_name:replace(":", "_") .. ".png" }
 
-	-- minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	definition.description = description
+	definition.tiles       = tiles
+
+	for _, texture in ipairs(tiles) do
+		minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	end
 
 	minetest.register_node(node_name, table.overwrite({
-		description = S(description),
-		tiles       = { tile },
-		groups      = { rock = 1, stone = 1, cracky = softness, },
-		sounds      = default.node_sound_stone_defaults(),
+		description       = S(description),
+		tiles             = tiles,
+		groups            = { rock = 1, stone = 1, cracky = softness, },
+		is_ground_content = true,
+		sounds            = default.node_sound_stone_defaults(),
 	}, definition))
+
+	if register_stairs == true then
+		stairs.register_stair_and_slab(
+			node_name:replace("lord_rocks:", ""),
+			node_name,
+			{ cracky = softness, },
+			tiles,
+			S(description .. " Stair"),
+			S(description .. " Slab"),
+			definition.sounds or default.node_sound_stone_defaults(),
+			true,
+			S("Inner " .. description .. " Stair"),
+			S("Outer " .. description .. " Stair")
+		)
+	end
 
 	rocks.nodes[node_name] = {
 		softness   = softness,

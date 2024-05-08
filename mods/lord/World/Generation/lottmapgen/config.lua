@@ -50,7 +50,7 @@ local BIOME_SHIRE      = 13 -- (Shire)
 
 local id_ice          = id("default:ice")
 local id_angsnowblock = id("lottmapgen:angsnowblock")
-local id_frozenstone  = id("lottmapgen:frozen_stone")
+local id_frozenstone  = id("lord_rocks:frozen_stone")
 local biome_grass     = {
 	[BIOME_ANGMAR] = function()
 		local block_id = id_angsnowblock

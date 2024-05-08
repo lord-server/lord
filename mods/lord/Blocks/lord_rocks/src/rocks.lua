@@ -13,8 +13,9 @@ local function register_lord_rocks()
 	api.add_existing("default:sandstone")
 	api.add_existing("default:desert_sandstone")
 	api.add_existing("default:silver_sandstone")
+	api.add_existing("lottmapgen:mordor_stone")
 	for name, registration in pairs(config) do
-		api.register_rock(name, registration.softness, registration.definition)
+		api.register_rock(name, registration.softness, registration.definition, true)
 	end
 end
 

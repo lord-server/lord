@@ -13,28 +13,6 @@ minetest.register_node("lottmapgen:angsnowblock", {
 	}),
 })
 
-minetest.register_node("lottmapgen:frozen_stone", {
-	description       = S("Frozen Stone"),
-	tiles             = { "default_stone.png^lottmapgen_frozen.png" },
-	is_ground_content = true,
-	groups            = { cracky = 3, stone = 1 },
-	drop              = 'default:cobble', 'default:snow',
-	sounds            = default.node_sound_stone_defaults(),
-})
-
-stairs.register_stair_and_slab(
-	"frozen_stone",
-	"lottmapgen:frozen_stone",
-	{ cracky = 3, stone = 1 },
-	{ "default_stone.png^lottmapgen_frozen.png" },
-	S("Frozen Stone Stair"),
-	S("Frozen Stone Slab"),
-	default.node_sound_stone_defaults(),
-	true,
-	S("Inner Frozen Stone Stair"),
-	S("Outer Frozen Stone Stair")
-)
-
 minetest.register_node("lottmapgen:mordor_stone", {
 	description       = S("Mordor Stone"),
 	tiles             = { "lottmapgen_mordor_stone.png" },
