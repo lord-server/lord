@@ -8,7 +8,7 @@ local function register_api()
 	_G.ground = api
 end
 
-local function register_lord_dirts()
+local function register_dirts()
 	--- Also we use:
 	---  - Simple dirt from MTG (`default:dirt`)
 	---  - ... from MTG (`default:...`)
@@ -21,14 +21,23 @@ local function register_lord_dirts()
 	api.dirt.add_existing("default:dirt_with_coniferous_litter")
 	api.dirt.add_existing("default:dry_dirt")
 	api.dirt.add_existing("default:dry_dirt_with_dry_grass")
+	--- This nodes we remove in `mods/lord/_overwrites/MTG/default`:
 	--api.dirt.add_existing("default:permafrost")
 	--api.dirt.add_existing("default:permafrost_with_stones")
 	--api.dirt.add_existing("default:permafrost_with_moss")
 
-	for name, dirt in pairs(config.dirts) do
+	for name, dirt in pairs(config.dirts.biome) do
 		dirt.softness   = dirt.softness or 3
+		dirt.title      = dirt.title or nil
 		dirt.definition = dirt.definition or {}
-		api.dirt.register_dirt(name, dirt.softness, dirt.definition)
+		api.dirt.register_biome_dirt(name, dirt.softness, dirt.title, dirt.definition)
+	end
+end
+
+local function register_additional_dirts()
+	for name, dirt in pairs(config.dirts.mixed) do
+		dirt.definition = dirt.definition or {}
+		api.dirt.register_mixed_dirt(name, dirt.craft_from, dirt.softness, dirt.title, dirt.definition)
 	end
 end
 
@@ -44,7 +53,8 @@ end
 return {
 	init = function()
 		register_api()
-		register_lord_dirts()
+		register_dirts()
+		register_additional_dirts()
 		register_lord_sands()
 	end,
 }
