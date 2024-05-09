@@ -23,11 +23,14 @@ end
 --- @param title     string       prefix to description of nodes or will extracted from `node_bane` (`title`.." Grass")
 local function register_dirt(node_name, softness, craft, groups, title)
 	local sub_name = node_name:split(":")[2]
-	title = title and title:first_to_upper() or sub_name:first_to_upper()
+	title = title
+		and title:first_to_upper()
+		or  sub_name:replace("_", " "):title():replace("Dirt", "Dirt with") .. " Grass"
+
 	local texture      = node_name:replace(":", "_") .. ".png"
 	local texture_side = node_name:replace(":", "_") .. "_side.png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	minetest.log("info", "use texture: " .. texture .. ", " .. texture_side .. " at " .. __FILE_LINE__())
 
 	minetest.register_node(node_name, {
 		description       = S(title),

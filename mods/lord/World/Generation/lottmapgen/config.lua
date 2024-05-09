@@ -63,16 +63,16 @@ local biome_grass     = {
 	end,
 	[BIOME_SNOWPLAINS] = id("default:dirt_with_snow"), -- additionally covers with "default:snowblock" (see below)
 	[BIOME_TROLLSHAWS] = id("default:dirt_with_snow"),
-	[BIOME_DUNLANDS] = id("lottmapgen:dunland_grass"),
-	[BIOME_GONDOR] = id("lottmapgen:gondor_grass"),
-	[BIOME_ITHILIEN] = id("lottmapgen:ithilien_grass"),
-	[BIOME_LORIEN] = id("lottmapgen:lorien_grass"),
-	[BIOME_MORDOR] = id("lottmapgen:mordor_stone"),
-	[BIOME_FANGORN] = id("lottmapgen:fangorn_grass"),
-	[BIOME_MIRKWOOD] = id("lottmapgen:mirkwood_grass"),
-	[BIOME_HILLS] = id("lottmapgen:ironhill_grass"),
-	[BIOME_ROHAN] = id("lottmapgen:rohan_grass"),
-	[BIOME_SHIRE] = id("lottmapgen:shire_grass"),
+	[BIOME_DUNLANDS]   = id("lottmapgen:dunland_grass"),
+	[BIOME_GONDOR]     = id("lottmapgen:gondor_grass"),
+	[BIOME_ITHILIEN]   = id("lottmapgen:ithilien_grass"),
+	[BIOME_LORIEN]     = id("lottmapgen:lorien_grass"),
+	[BIOME_MORDOR]     = id("lottmapgen:mordor_stone"),
+	[BIOME_FANGORN]    = id("lottmapgen:fangorn_grass"),
+	[BIOME_MIRKWOOD]   = id("lottmapgen:mirkwood_grass"),
+	[BIOME_HILLS]      = id("lottmapgen:ironhill_grass"),
+	[BIOME_ROHAN]      = id("lottmapgen:rohan_grass"),
+	[BIOME_SHIRE]      = id("lottmapgen:shire_grass"),
 }
 
 

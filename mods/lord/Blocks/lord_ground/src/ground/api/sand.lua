@@ -21,7 +21,7 @@ end
 --- @param title     string       prefix to description of nodes or will extracted from `node_bane` (`title`.." Grass")
 local function register_sand(node_name, softness, title)
 	local sub_name = node_name:split(":")[2]
-	title = title and title:first_to_upper() or sub_name:first_to_upper():title()
+	title = title and title:first_to_upper() or sub_name:replace("_", " "):title()
 
 	local texture = node_name:replace(":", "_") .. ".png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
