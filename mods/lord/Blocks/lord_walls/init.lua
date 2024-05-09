@@ -12,8 +12,8 @@ walls.register(":walls:limestone", S("Limestone Wall"), "lottores_limestone_ore.
 	"lottores:limestone", default.node_sound_stone_defaults())
 walls.register(":walls:marble", S("Marble Wall"), "lottores_marble.png",
 	"lottores:marble", default.node_sound_stone_defaults())
-walls.register(":walls:mordor_stone", S("Mordor Stone Wall"), "lottmapgen_mordor_stone.png",
-	"lottmapgen:mordor_stone", default.node_sound_stone_defaults())
+walls.register(":walls:mordor_stone", S("Mordor Stone Wall"), "lord_rocks_mordor_stone.png",
+	"lord_rocks:mordor_stone", default.node_sound_stone_defaults())
 walls.register(":walls:mordor_cobble", S("Mordor Cobble Wall"), "lottmapgen_mordor_cobble.png",
 	"lottmapgen:mordor_cobble", default.node_sound_stone_defaults())
 walls.register(":walls:green_marble", S("Green Marble Wall"), "lord_blocks_green_marble.png",

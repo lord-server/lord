@@ -180,9 +180,9 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lottblocks:mordor_chest",
 	recipe = {
-		{ "lottmapgen:mordor_stone", "lottmapgen:mordor_stone", "lottmapgen:mordor_stone" },
-		{ "lottmapgen:mordor_stone", "", "lottmapgen:mordor_stone" },
-		{ "lottmapgen:mordor_stone", "lottmapgen:mordor_stone", "lottmapgen:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "lord_rocks:mordor_stone", "lord_rocks:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "", "lord_rocks:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "lord_rocks:mordor_stone", "lord_rocks:mordor_stone" },
 	}
 })
 

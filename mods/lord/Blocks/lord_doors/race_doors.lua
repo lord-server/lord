@@ -71,9 +71,9 @@ doors.register("lord_doors:door_orc", {
 	groups = { snappy=1, choppy=2, oddly_breakable_by_hand=2, flammable=2, door=1, },
 	tiles = {{ name = "lord_doors_orc.png", backface_culling = true }},
 	recipe = {
-		{"lottmapgen:mordor_stone", "lottmapgen:mordor_stone"},
-		{"lottmapgen:mordor_stone", "lottores:silver_ingot"},
-		{"lottmapgen:mordor_stone", "lottmapgen:mordor_stone"},
+		{"lord_rocks:mordor_stone", "lord_rocks:mordor_stone"},
+		{"lord_rocks:mordor_stone", "lottores:silver_ingot"},
+		{"lord_rocks:mordor_stone", "lord_rocks:mordor_stone"},
 	},
 	sounds = default.node_sound_stone_defaults(),
 	on_rightclick = function(...)

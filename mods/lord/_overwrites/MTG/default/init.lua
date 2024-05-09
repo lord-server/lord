@@ -540,7 +540,7 @@ default.cool_lava = function(pos, node)
 		minetest.set_node(pos, {name = "default:obsidian"})
 	else -- Lava flowing
 		local stone_name = minetest.find_node_near(pos, 1, {"lottmapgen:blacksource", "lottmapgen:blackflowing"})
-			and "lottmapgen:mordor_stone"
+			and "lord_rocks:mordor_stone"
 			or  "default:stone"
 		minetest.set_node(pos, {name = stone_name})
 	end

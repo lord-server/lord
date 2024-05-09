@@ -18,7 +18,7 @@ return {
 	{"vessels:drinking_glass 3", "default:sand", 6},
 	{"vessels:glass_fragments 3", "default:sand", 6},
 
-	{"lottmapgen:mordor_stone", "lottmapgen:mordor_cobble", 5},
+	{"lord_rocks:mordor_stone", "lottmapgen:mordor_cobble", 5},
 	{"lottmapgen:mordor_cobble", "lottmapgen:mordor_gravel", 5},
 	{"lottmapgen:mordor_gravel", "lord_ground:mordor_sand", 5},
 	{"lord_ground:mordor_sand", "clay_types:mordor_clay_block_raw", 5},

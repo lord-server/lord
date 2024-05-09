@@ -320,9 +320,9 @@ minetest.register_node("lottother:snow", {
 
 minetest.register_node("lottother:mordor_stone", {
 	description       = SL("Mordor Stone Substitute"),
-	tiles             = { "lottmapgen_mordor_stone.png" },
+	tiles             = { "lord_rocks_mordor_stone.png" },
 	is_ground_content = true,
-	drop              = 'lottmapgen:mordor_stone',
+	drop              = 'lord_rocks:mordor_stone',
 	groups            = { cracky = 3, stone = 1, not_in_creative_inventory = 1 },
 	sounds            = default.node_sound_stone_defaults(),
 })
@@ -414,12 +414,12 @@ minetest.register_abm({
 		local down6 = { x = x, y = y - 6, z = z }
 		local down7 = { x = x, y = y - 7, z = z }
 		if minetest.get_node(down).name == "air" then
-			minetest.set_node(down, { name = "lottmapgen:mordor_stone" })
-			minetest.set_node(down2, { name = "lottmapgen:mordor_stone" })
-			minetest.set_node(down3, { name = "lottmapgen:mordor_stone" })
-			minetest.set_node(down4, { name = "lottmapgen:mordor_stone" })
-			minetest.set_node(down5, { name = "lottmapgen:mordor_stone" })
-			minetest.set_node(down6, { name = "lottmapgen:mordor_stone" })
+			minetest.set_node(down, { name = "lord_rocks:mordor_stone" })
+			minetest.set_node(down2, { name = "lord_rocks:mordor_stone" })
+			minetest.set_node(down3, { name = "lord_rocks:mordor_stone" })
+			minetest.set_node(down4, { name = "lord_rocks:mordor_stone" })
+			minetest.set_node(down5, { name = "lord_rocks:mordor_stone" })
+			minetest.set_node(down6, { name = "lord_rocks:mordor_stone" })
 			minetest.set_node(down7, { name = "lottother:mordor_stone" })
 		end
 	end,
@@ -455,7 +455,7 @@ minetest.register_abm({
 
 minetest.register_abm({
 	nodenames = { "lottother:mordor_stone" },
-	neighbors = { "lottmapgen:mordor_stone" },
+	neighbors = { "lord_rocks:mordor_stone" },
 	interval  = 150,
 	chance    = 1,
 	action    = function(pos, node, active_object_count, active_object_count_wider)
@@ -463,7 +463,7 @@ minetest.register_abm({
 		local y    = pos.y
 		local z    = pos.z
 		local here = { x = x, y = y, z = z }
-		minetest.set_node(here, { name = "lottmapgen:mordor_stone" })
+		minetest.set_node(here, { name = "lord_rocks:mordor_stone" })
 	end,
 })
 

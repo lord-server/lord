@@ -67,17 +67,17 @@ mobs:spawn_specific("lottmobs:dunlending",      {"lottmapgen:dunland_grass"},  {
 mobs:spawn_specific("lottmobs:hobbit",          {"lottmapgen:shire_grass"},    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 
 mobs:spawn_specific("lottmobs:orc", {"default:stone"},           {"air"}, -1, 6,  30, 4000,  3, -31000, -10)
-mobs:spawn_specific("lottmobs:orc", {"lottmapgen:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc", {"lord_rocks:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:snowblock"},       {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"lottmapgen:angsnowblock"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
 
-mobs:spawn_specific("lottmobs:orc_crossbowman", {"lottmapgen:mordor_stone"}, {"air"}, -1, 20, 30, 300,  2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_crossbowman", {"lord_rocks:mordor_stone"}, {"air"}, -1, 20, 30, 300,  2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_crossbowman", {"default:snowblock"},       {"air"}, -1, 15, 30, 3000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_crossbowman", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 3000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_crossbowman", {"lottmapgen:angsnowblock"}, {"air"}, -1, 20, 30, 2000, 2, 0, 31000)
 
-mobs:spawn_specific("lottmobs:orc_archer", {"lottmapgen:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
+mobs:spawn_specific("lottmobs:orc_archer", {"lord_rocks:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_archer", {"default:snowblock"},       {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_archer", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc_archer", {"lottmapgen:angsnowblock"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
@@ -87,14 +87,14 @@ mobs:spawn_specific("lottmobs:raiding_orc", {"lottmapgen:rohan_grass"},    {"air
 mobs:spawn_specific("lottmobs:raiding_orc", {"lottmapgen:gondor_grass"},   {"air"}, -1, 2, 30, 6000, 3, 0, 31000)
 
 --warg.lua
-mobs:spawn_specific("lottmobs:warg", {"lottmapgen:mordor_stone"}, {"air"}, -1, 20, 30, 7500,  2, 0, 31000)
+mobs:spawn_specific("lottmobs:warg", {"lord_rocks:mordor_stone"}, {"air"}, -1, 20, 30, 7500,  2, 0, 31000)
 mobs:spawn_specific("lottmobs:warg", {"default:snowblock"},       {"air"}, -1, 15, 30, 11500, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:warg", {"lottmapgen:angsnowblock"}, {"air"}, -1, 20, 30, 7500,  3, 0, 31000)
 
-mobs:spawn_specific("lottmobs:uruk_hai", {"lottmapgen:mordor_stone"},  {"air"}, -1, 15, 30, 3000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:uruk_hai", {"lord_rocks:mordor_stone"},  {"air"}, -1, 15, 30, 3000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:uruk_hai", {"lottmapgen:fangorn_grass"}, {"air"}, -1,  2, 30, 3000, 2, 0, 31000)
 
-mobs:spawn_specific("lottmobs:battle_troll", {"lottmapgen:mordor_stone"}, {"air"}, -1, 10, 30, 15000, 3, 0, 31000)
+mobs:spawn_specific("lottmobs:battle_troll", {"lord_rocks:mordor_stone"}, {"air"}, -1, 10, 30, 15000, 3, 0, 31000)
 
 mobs:spawn_specific("lottmobs:half_troll", {"default:snow"},            {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:half_troll", {"default:snowblock"},       {"air"}, -1, 15, 30, 12000, 2, 0, 31000)

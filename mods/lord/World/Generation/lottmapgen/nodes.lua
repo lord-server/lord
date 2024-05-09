@@ -50,7 +50,7 @@ minetest.register_node("lottmapgen:mordor_gravel", {
 
 minetest.register_craft({
 	type   = "cooking",
-	output = "lottmapgen:mordor_stone",
+	output = "lord_rocks:mordor_stone",
 	recipe = "lottmapgen:mordor_cobble",
 })
 

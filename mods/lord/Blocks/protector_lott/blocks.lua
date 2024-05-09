@@ -77,4 +77,4 @@ reg_prot_node("pavement", "Paving Stone", "castle:pavement", "castle_pavement_br
 reg_prot_node("marble", "Marble", "lottores:marble", "lottores_marble.png")
 reg_prot_node("marble_brick", "Marble Brick", "lottblocks:marble_brick", "lottblocks_marble_brick.png")
 reg_prot_node("orc_brick", "Orc Brick", "lottblocks:orc_brick", "lottblocks_orc_brick.png")
-reg_prot_node("mordor_stone", "Mordor Stone", "lottmapgen:mordor_stone", "lottmapgen_mordor_stone.png")
+reg_prot_node("mordor_stone", "Mordor Stone", "lord_rocks:mordor_stone", "lord_rocks_mordor_stone.png")
