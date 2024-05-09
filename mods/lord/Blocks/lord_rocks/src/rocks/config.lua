@@ -17,4 +17,8 @@ return {
 			tiles = { "default_stone.png^lord_rocks_frozen.png" },
 		}
 	},
+	["lord_rocks:mordor_stone"] = { softness = 3, definition = {
+		drop = "lottmapgen:mordor_cobble",
+	}
+},
 }

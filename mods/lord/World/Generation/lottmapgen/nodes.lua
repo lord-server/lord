@@ -13,28 +13,6 @@ minetest.register_node("lottmapgen:angsnowblock", {
 	}),
 })
 
-minetest.register_node("lottmapgen:mordor_stone", {
-	description       = S("Mordor Stone"),
-	tiles             = { "lottmapgen_mordor_stone.png" },
-	is_ground_content = true,
-	drop              = "lottmapgen:mordor_cobble",
-	groups            = { cracky = 3, stone = 1 },
-	sounds            = default.node_sound_stone_defaults(),
-})
-
-stairs.register_stair_and_slab(
-	"mordor_stone",
-	"lottmapgen:mordor_stone",
-	{ cracky = 3, stone = 1 },
-	{ "lottmapgen_mordor_stone.png" },
-	S("Mordor Stone Stair"),
-	S("Mordor Stone Slab"),
-	default.node_sound_stone_defaults(),
-	true,
-	S("Inner Mordor Stone Stair"),
-	S("Outer Mordor Stone Stair")
-)
-
 minetest.register_node("lottmapgen:mordor_cobble", {
 	description       = S("Mordor Cobble"),
 	tiles             = { "lottmapgen_mordor_cobble.png" },
