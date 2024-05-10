@@ -29,7 +29,7 @@ local clans_storage = {
 	international = {
 		name = "international",
 		title = "International",
-		players = { "Alges", "Shishka_Intern", "Dasada", "Sakamoto", "Stesrr" },
+		players = { "Alges", "Shishka_Intern", "Dasada", "Sakamoto", "Stesrr", "RPNK", "Cheika", "Vvb" },
 	},
 }
 --- @type table<string,boolean> local cache for clan is online
