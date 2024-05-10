@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.03.p5](https://github.com/lord-server/lord/releases/tag/2024.03.p5)
+ - Add members into International clan.
+
 ## [2024.03.p4](https://github.com/lord-server/lord/releases/tag/2024.03.p4)
  - Add members into "International" clan
 
