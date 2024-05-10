@@ -90,6 +90,8 @@ local function register_mixed_dirt(node_name, craft_from, softness, title, defin
 			{ "default:dirt", craft_from },
 		}
 	})
+	dirt.nodes[node_name]       = minetest.registered_nodes[node_name]
+	dirt.mixed_nodes[node_name] = minetest.registered_nodes[node_name]
 end
 
 
