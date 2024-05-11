@@ -1005,6 +1005,9 @@ function minetest.get_player_by_name(name) end
 --- * `radius`: using an euclidean metric
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4914-L4916)
+--- @param pos Position
+--- @param radius number
+--- @return ObjectRef[]
 function minetest.get_objects_inside_radius(pos, radius) end
 --- Returns a list of
 ---   ObjectRefs.

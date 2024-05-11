@@ -268,6 +268,11 @@ dynamic_spawn = true
 orc_spawn_pos = 11773, 54, -10282
 man_spawn_pos = -7201, 3, 7629
 
+# ------- lord_ground -------
+# границы, до которых происходит расползание мордорских земель:
+lord_ground.mordor_lands.from =  4500,  -8000
+lord_ground.mordor_lands.to   = 20000, -15000
+
 # ------- lord/player -------
 # арены, на которых отображается здоровье:
 arenas = 2316, 3715

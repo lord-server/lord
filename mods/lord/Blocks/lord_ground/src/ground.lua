@@ -1,5 +1,6 @@
-local api    = require("ground.api")
-local config = require("ground.config")
+local spreading = require("ground.spreading")
+local api       = require("ground.api")
+local config    = require("ground.config")
 
 
 ground = {} -- luacheck: ignore unused global variable ground
@@ -49,6 +50,14 @@ local function register_lord_sands()
 	api.sand.register_sand("lord_ground:mordor_sand", 3)
 end
 
+local function deferred_register_spreading_abms()
+	--- At this time, when this mod loaded & first executed,
+	--- not all nodes registered yet, because some mods can be loaded later
+	--- and will register theirs ground nodes later, than this code executed.
+	--- So we need deferred registration of ABMs, when all mods already loaded.
+	spreading.deferred_register_mordor_lands_abm(api, config)
+end
+
 
 return {
 	init = function()
@@ -56,5 +65,6 @@ return {
 		register_dirts()
 		register_additional_dirts()
 		register_lord_sands()
+		deferred_register_spreading_abms()
 	end,
 }

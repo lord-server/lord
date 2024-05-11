@@ -1,5 +1,9 @@
+local mordor_from = minetest.settings:get("lord_ground.mordor_lands.from"):split(",")
+local mordor_to   = minetest.settings:get("lord_ground.mordor_lands.to"):split(",")
 
-return {
+
+--- @class ground.Config
+local config = {
 	dirts = {
 		biome = {
 			-- name                         = {softness [= 3], title, definition [= {}] },
@@ -22,4 +26,13 @@ return {
 	--sand = {
 		-- mordor
 	--},
+	mordor_lands = {
+		from          = { x = tonumber(mordor_from[1]), z = tonumber(mordor_from[2]) },
+		to            = { x = tonumber(mordor_to[1]), z = tonumber(mordor_to[2]) },
+		exclude_dirts = { "lord_ground:dirt_dunland", "lord_ground:dirt_mirkwood" },
+		covers_with   = { "lord_rocks:mordor_stone", "lord_ground:coarse_dirt", "lord_ground:stony_dirt" },
+	},
 }
+
+
+return config
