@@ -18,8 +18,7 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 		local x_to   = config.mordor_lands.to.x
 		local z_from = config.mordor_lands.from.z
 		local z_to   = config.mordor_lands.to.z
-		print(dump(config.mordor_lands))
-		print(dump(dirts_to_replace))
+
 		minetest.register_abm({
 			label = "Mordor lands spread",
 			nodenames = dirts_to_replace,
@@ -33,12 +32,11 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 				if not (pos.x > x_from and pos.x < x_to and pos.z > z_from and pos.z < z_to) then
 					return
 				end
-print("in mordor land")
+
 				--- @type Player[]
 				local nearest_objects = minetest.get_objects_inside_radius(pos, 15)
 				for i, object in pairs(nearest_objects) do
 					if object:is_player() and races.get_race(object:get_player_name()) == RACE_ORC then
-						print("orc here!!!")
 						local replace_with = covers_with[math_random(#covers_with)]
 						minetest.set_node(pos, { name = replace_with })
 						break;

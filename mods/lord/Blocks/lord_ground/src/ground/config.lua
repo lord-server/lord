@@ -19,8 +19,14 @@ local config = {
 		},
 		mixed = {
 			-- name                     = { craft_from = "<mod>:<node>",   softness = n, definition [= {}] },
-			["lord_ground:coarse_dirt"] = { craft_from = "default:gravel", softness = 2, },
-			["lord_ground:stony_dirt"]  = { craft_from = "default:cobble", softness = 1, },
+			["lord_ground:coarse_dirt"] = { craft_from = "default:gravel", softness = 2, definition = {
+				groups = { soil = 1 },
+				soil  = { wet = "<fake>", dry = "default:dirt" }
+			} },
+			["lord_ground:stony_dirt"]  = { craft_from = "default:cobble", softness = 1, definition = {
+				groups = { soil = 1 },
+				soil  = { wet = "<fake>", dry = "lord_ground:coarse_dirt" }
+			} },
 		},
 	},
 	--sand = {
