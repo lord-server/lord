@@ -72,7 +72,6 @@ local function register_mixed_dirt(node_name, craft_from, softness, title, defin
 		tiles             = { "default_dirt.png^" .. overlay, },
 		is_ground_content = true,
 		groups            = { crumbly = softness, },
-		drop              = 'default:dirt',
 		sounds            = default.node_sound_dirt_defaults(),
 	}, definition))
 
