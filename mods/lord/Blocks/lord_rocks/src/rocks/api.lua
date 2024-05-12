@@ -33,7 +33,7 @@ local function register_rock(node_name, softness, definition, register_stairs)
 	local description = definition.description or node_name:replace("lord_rocks:", ""):remove_underscores():to_headline()
 	local tiles       = definition.tiles or { node_name:replace(":", "_") .. ".png" }
 
-	definition.description = description
+	definition.description = S(description)
 	definition.tiles       = tiles
 
 	for _, texture in ipairs(tiles) do
