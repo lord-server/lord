@@ -54,10 +54,12 @@ Young Mallorn Trее=Молодой маллорн
 Young Mallorn Trunk=Ствол молодого маллорна
 
 ### tree/trunks/slabs.lua ###
-Pine Trunk Slab=Плита из ствола сосны
-Fir Trunk Slab=Плита из ствола ели
-Birch Trunk Slab=Плита из ствола берёзы
 Alder Trunk Slab=Плита из ствола ольхи
+Beech Trunk Slab=Плита из ствола бука
+Birch Trunk Slab=Плита из ствола берёзы
+Fir Trunk Slab=Плита из ствола ели
+Pine Trunk Slab=Плита из ствола сосны
+Plum Trunk Slab=Плита из ствола сливы
 Lebethron Trunk Slab=Плита из ствола лебетрона
 Mallorn Trunk Slab=Плита из ствола маллорна
 Elm Trunk Slab=Плита из ствола вяза
