@@ -168,7 +168,7 @@ end
 local id_air = id("air")
 
 local id_sand = id("default:sand")
-local id_mordor_sand = id("lottmapgen:mordor_sand")
+local id_mordor_sand = id("lord_ground:mordor_sand")
 local id_desert_sand = id("default:desert_sand")
 local id_silver_sand = id("default:silver_sand")
 
@@ -190,7 +190,7 @@ local id_mordor_water       = id("lottmapgen:blacksource")
 local id_mordor_river_water = id("lottmapgen:black_river_source")
 
 local id_desert_stone = id("default:desert_stone")
-local id_mordor_stone = id("lottmapgen:mordor_stone")
+local id_mordor_stone = id("lord_rocks:mordor_stone")
 
 local id_gravel        = id("default:gravel")
 local id_desert_gravel = id("default:desert_gravel")

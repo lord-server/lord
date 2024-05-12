@@ -27,7 +27,7 @@ arrowslit.types = {
 	{"marble_brick", "Marble Brick", "lottblocks_marble_brick", "lottblocks:marble_brick"},
 	{"orc_brick", "Orc Brick", "lottblocks_orc_brick", "lottblocks:orc_brick"},
 
-	{"mordor_stone", "Mordor Stone", "lottmapgen_mordor_stone", "lottmapgen:mordor_stone"},
+	{"mordor_stone", "Mordor Stone", "lord_rocks_mordor_stone", "lord_rocks:mordor_stone"},
 }
 
 for _, row in ipairs(arrowslit.types) do

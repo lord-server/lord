@@ -1,18 +1,18 @@
 local function get_grass(pos)
-	local id = math.random(2,5)
-	local name = "default:grass_"..tostring(id)
+	local id = math.random(2, 5)
+	local name = "default:grass_" .. tostring(id)
 	return name
 end
 
 local function get_flower(pos)
-	local names = {	"flowers:dandelion_white",
-			"flowers:dandelion_yellow",
-			"flowers:geranium",
-			"flowers:rose",
-			"flowers:tulip",
-			"flowers:viola"
-			}
-	local id = math.random(1,#names)
+	local names = { "flowers:dandelion_white",
+		"flowers:dandelion_yellow",
+		"flowers:geranium",
+		"flowers:rose",
+		"flowers:tulip",
+		"flowers:viola"
+	}
+	local id = math.random(1, #names)
 	local name = names[id]
 	return name
 end
@@ -41,18 +41,17 @@ mountgen.upper_node = function(pos, config)
 	if pos.y >= config.SNOW_LINE - config.SNOW_LINE_RAND then
 		return nil
 	end
-	if math.random(0,100) < config.GRASS_PERCENT then
+	if math.random(0, 100) < config.GRASS_PERCENT then
 		return get_grass()
 	end
 
-	if pos.y <= config.FLOWERS_LINE and math.random(0,100) < config.FLOWERS_PERCENT then
+	if pos.y <= config.FLOWERS_LINE and math.random(0, 100) < config.FLOWERS_PERCENT then
 		return get_flower()
 	end
 
-	if pos.y <= config.TREE_LINE and math.random(0,1000) < config.TREE_PROMILLE then
+	if pos.y <= config.TREE_LINE and math.random(0, 1000) < config.TREE_PROMILLE then
 		return get_sapling()
 	end
 
 	return nil
 end
-

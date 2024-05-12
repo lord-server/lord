@@ -93,7 +93,7 @@ register_chest_spawner("lottblocks:hobbit_chest", {
 	{ "lottfarming:turnips_seed", 3 },
 	{ "lottfarming:turnips", },
 	{ "lottfarming:turnips_cooked", 7 },
-	{ "lottplants:plum", },
+	{ "lord_trees:plum", },
 	{ "lottweapons:bronze_dagger", },
 	{ "lottweapons:steel_dagger", },
 	{ "lottweapons:copper_spear", },
@@ -185,7 +185,7 @@ register_chest_spawner("lottblocks:elfloth_chest", {
 	{ "lottfarming:salad", },
 	{ "lottfarming:athelas_seed", },
 	{ "lottfarming:athelas", },
-	{ "lottplants:mallornsapling", },
+	{ "lord_trees:mallorn_sapling", },
 	{ "lottpotion:mead", 6 },
 	{ "lottplants:honey", 5 },
 	{ "lottpotion:athelasbrew_power1", },
@@ -237,7 +237,7 @@ register_chest_spawner("lottblocks:elfmirk_chest", {
 })
 
 register_chest_spawner("lottblocks:mordor_chest", {
-	{ "lottmapgen:mordor_stone", 6 },
+	{ "lord_rocks:mordor_stone", 6 },
 	{ "lottblocks:orc_brick", 7 },
 	{ "lottother:orc_torch", 4 },
 	{ "lottmobs:meat", 5 },
@@ -308,7 +308,7 @@ register_chest_spawner("lottblocks:dwarf_chest", {
 	{ "default:steel_ingot", 5, 15 },
 	{ "lottores:tin_lump", 5, 10 },
 	{ "default:copper_lump", 5, 10 },
-	{ "lottplants:alderwood", 13 },
+	{ "lord_planks:alder", 13 },
 	{ "lottores:ithildin_stone_1", 2, 4 },
 	{ "lottores:ithildin_stonelamp_1", 4, 6 },
 	{ "arrows:axe_dwarf", 1, 4 },

@@ -365,6 +365,8 @@ function minetest.override_item(name, redefinition) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4479-L4482)
 function minetest.unregister_item(name) end
+--- @param name string
+--- @param entity_definition EntityDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4483-L4483)
 function minetest.register_entity(name, entity_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4484-L4484)
@@ -604,7 +606,7 @@ function minetest.register_on_joinplayer(callback) end
 --- * `timed_out`: True for timeout, false for other reasons.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4641-L4643)
---- @param callback fun(player:ObjectRef, timed_out)
+--- @param callback fun(player:ObjectRef|Player, timed_out)
 function minetest.register_on_leaveplayer(callback) end
 --- * Called when a client attempts to log into an account.
 --- * `name`: The name of the account being authenticated.
@@ -775,7 +777,7 @@ function minetest.register_can_bypass_userlimit() end
 function minetest.register_on_modchannel_message() end
 
 -- Setting-related:
---- @type table
+--- @type Settings
 minetest.settings = {}
 
 --- Loads a setting from the main settings and
@@ -1003,6 +1005,9 @@ function minetest.get_player_by_name(name) end
 --- * `radius`: using an euclidean metric
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4914-L4916)
+--- @param pos Position
+--- @param radius number
+--- @return ObjectRef[]
 function minetest.get_objects_inside_radius(pos, radius) end
 --- Returns a list of
 ---   ObjectRefs.
@@ -1950,6 +1955,7 @@ function minetest.request_http_api() end
 --- * must be called during mod load time
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5630-L5632)
+--- @return StorageRef
 function minetest.get_mod_storage() end
 
 -- Misc.:
@@ -2046,6 +2052,10 @@ function minetest.parse_json(string, nullvalue) end
 ---   returns `"[10, {\"a\": false}]"`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5672-L5685)
+--- @overload fun(data)
+--- @param data table
+--- @param styled boolean
+--- @return string|nil
 function minetest.write_json(data, styled) end
 --- Returns a string
 --- * Convert a table containing tables, strings, numbers, booleans and `nil`s
@@ -2312,7 +2322,7 @@ minetest.registered_tools = {}
 ---   as they are only read when spawning.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5846-L5850)
---- @type table
+--- @type table|EntityDefinition[]
 minetest.registered_entities = {}
 --- * Map of object references, indexed by active object id
 ---

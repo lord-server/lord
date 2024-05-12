@@ -218,7 +218,7 @@ disable_fire = true
 # ------- MTG/give_initial_stuff -------
 # Gives some stuff to players at the beginning
 give_initial_stuff = true
-initial_stuff = lottplants:yavannamirefruit,tools:pick_wood,tools:axe_wood,tools:sword_stone,lottarmor:boots_wood
+initial_stuff = lord_trees:yavannamire_fruit,tools:pick_wood,tools:axe_wood,tools:sword_stone,lottarmor:boots_wood
 
 # ------- MTG/stairs -------
 # Enable the stairs mod ABM that replaces the old 'upside down'
@@ -246,6 +246,7 @@ protector_damage = 3
 
 # -------- _various/discord ---------
 # For Discord
+lp_api.enabled = true
 lp_api.channel_id = 284593326370324481
 lp_api.router.cmd = true
 
@@ -266,6 +267,11 @@ dynamic_spawn = true
 #elf_spawn_pos =
 orc_spawn_pos = 11773, 54, -10282
 man_spawn_pos = -7201, 3, 7629
+
+# ------- lord_ground -------
+# границы, до которых происходит расползание мордорских земель:
+lord_ground.mordor_lands.from =  4500,  -8000
+lord_ground.mordor_lands.to   = 20000, -15000
 
 # ------- lord/player -------
 # арены, на которых отображается здоровье:

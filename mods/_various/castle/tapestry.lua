@@ -27,18 +27,18 @@ end
 -- [code-labels]: planks, sticks
 local tapestry_tops = {
 --	  node_name                         craft_from                   description_material   texture
-	{ "castle:tapestry_top",            "default:stick",               SL("Apple"),     "default_wood.png"            },
-	{ "castle:tapestry_top_junglewood", "lottblocks:stick_junglewood", SL("Jungle Wood"),"default_junglewood.png"     },
-	{ "castle:tapestry_top_alder",      "lottblocks:stick_alder",      SL("Alder"),     "lottplants_alderwood.png"    },
-	{ "castle:tapestry_top_beech",      "lottblocks:stick_beech",      SL("Beech"),     "lottplants_beechwood.png"    },
-	{ "castle:tapestry_top_birch",      "lottblocks:stick_birch",      SL("Birch"),     "lottplants_birchwood.png"    },
-	{ "castle:tapestry_top_cherry",     "lottblocks:stick_cherry",     SL("Cherry"),    "lottplants_cherrywood.png"   },
-	{ "castle:tapestry_top_elm",        "lottblocks:stick_elm",        SL("Elm"),       "lottplants_elmwood.png"      },
-	{ "castle:tapestry_top_fir",        "lottblocks:stick_fir",        SL("Fir"),       "lottplants_firwood.png"      },
-	{ "castle:tapestry_top_hardwood",   "lottblocks:stick_hardwood",   SL("Hardwood"),  "lottplants_hardwood.png"     },
-	{ "castle:tapestry_top_lebethron",  "lottblocks:stick_lebethron",  SL("Lebethron"), "lottplants_lebethronwood.png"},
-	{ "castle:tapestry_top_mallorn",    "lottblocks:stick_mallorn",    SL("Mallorn"),   "lottplants_mallornwood.png"  },
-	{ "castle:tapestry_top_pine",       "lottblocks:stick_pine",       SL("Pine"),      "lottplants_pinewood.png"     },
+	{ "castle:tapestry_top",            "default:stick",               SL("Apple"),     "default_wood.png"          },
+	{ "castle:tapestry_top_junglewood", "lottblocks:stick_junglewood", SL("Jungle Wood"),"default_junglewood.png"   },
+	{ "castle:tapestry_top_alder",      "lottblocks:stick_alder",      SL("Alder"),     "lord_planks_alder.png"     },
+	{ "castle:tapestry_top_beech",      "lottblocks:stick_beech",      SL("Beech"),     "lord_planks_beech.png"     },
+	{ "castle:tapestry_top_birch",      "lottblocks:stick_birch",      SL("Birch"),     "lord_planks_birch.png"     },
+	{ "castle:tapestry_top_cherry",     "lottblocks:stick_cherry",     SL("Cherry"),    "lord_planks_cherry.png"    },
+	{ "castle:tapestry_top_elm",        "lottblocks:stick_elm",        SL("Elm"),       "lord_planks_elm.png"       },
+	{ "castle:tapestry_top_fir",        "lottblocks:stick_fir",        SL("Fir"),       "lord_planks_fir.png"       },
+	{ "castle:tapestry_top_hardwood",   "lottblocks:stick_hardwood",   SL("Hardwood"),  "lord_planks_hardwood.png"  },
+	{ "castle:tapestry_top_lebethron",  "lottblocks:stick_lebethron",  SL("Lebethron"), "lord_planks_lebethron.png" },
+	{ "castle:tapestry_top_mallorn",    "lottblocks:stick_mallorn",    SL("Mallorn"),   "lord_planks_mallorn.png"   },
+	{ "castle:tapestry_top_pine",       "lottblocks:stick_pine",       SL("Pine"),      "lord_planks_pine.png"      },
 }
 for _, tapestry_top in pairs(tapestry_tops) do
 	register_tapestry_top(unpack(tapestry_top))

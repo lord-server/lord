@@ -135,36 +135,36 @@ register_race_chest("lottblocks:dwarf_chest", S("Dwarf Chest"),
 minetest.register_craft({
 	output = "lottblocks:hobbit_chest",
 	recipe = {
-		{ "lottplants:birchwood", "lottplants:birchwood", "lottplants:birchwood" },
-		{ "lottplants:birchwood", "", "lottplants:birchwood" },
-		{ "lottplants:birchwood", "lottplants:birchwood", "lottplants:birchwood" },
+		{ "lord_planks:birch", "lord_planks:birch", "lord_planks:birch" },
+		{ "lord_planks:birch", "", "lord_planks:birch" },
+		{ "lord_planks:birch", "lord_planks:birch", "lord_planks:birch" },
 	}
 })
 
 minetest.register_craft({
 	output = "lottblocks:gondor_chest",
 	recipe = {
-		{ "lottplants:alderwood", "lottplants:alderwood", "lottplants:alderwood" },
-		{ "lottplants:alderwood", "", "lottplants:alderwood" },
-		{ "lottplants:alderwood", "lottplants:alderwood", "lottplants:alderwood" },
+		{ "lord_planks:alder", "lord_planks:alder", "lord_planks:alder" },
+		{ "lord_planks:alder", "", "lord_planks:alder" },
+		{ "lord_planks:alder", "lord_planks:alder", "lord_planks:alder" },
 	}
 })
 
 minetest.register_craft({
 	output = "lottblocks:rohan_chest",
 	recipe = {
-		{ "lottplants:lebethronwood", "lottplants:lebethronwood", "lottplants:lebethronwood" },
-		{ "lottplants:lebethronwood", "", "lottplants:lebethronwood" },
-		{ "lottplants:lebethronwood", "lottplants:lebethronwood", "lottplants:lebethronwood" },
+		{ "lord_planks:lebethron", "lord_planks:lebethron", "lord_planks:lebethron" },
+		{ "lord_planks:lebethron", "", "lord_planks:lebethron" },
+		{ "lord_planks:lebethron", "lord_planks:lebethron", "lord_planks:lebethron" },
 	}
 })
 
 minetest.register_craft({
 	output = "lottblocks:elfloth_chest",
 	recipe = {
-		{ "lottplants:mallornwood", "lottplants:mallornwood", "lottplants:mallornwood" },
-		{ "lottplants:mallornwood", "", "lottplants:mallornwood" },
-		{ "lottplants:mallornwood", "lottplants:mallornwood", "lottplants:mallornwood" },
+		{ "lord_planks:mallorn", "lord_planks:mallorn", "lord_planks:mallorn" },
+		{ "lord_planks:mallorn", "", "lord_planks:mallorn" },
+		{ "lord_planks:mallorn", "lord_planks:mallorn", "lord_planks:mallorn" },
 	}
 })
 
@@ -180,18 +180,18 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "lottblocks:mordor_chest",
 	recipe = {
-		{ "lottmapgen:mordor_stone", "lottmapgen:mordor_stone", "lottmapgen:mordor_stone" },
-		{ "lottmapgen:mordor_stone", "", "lottmapgen:mordor_stone" },
-		{ "lottmapgen:mordor_stone", "lottmapgen:mordor_stone", "lottmapgen:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "lord_rocks:mordor_stone", "lord_rocks:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "", "lord_rocks:mordor_stone" },
+		{ "lord_rocks:mordor_stone", "lord_rocks:mordor_stone", "lord_rocks:mordor_stone" },
 	}
 })
 
 minetest.register_craft({
 	output = "lottblocks:angmar_chest",
 	recipe = {
-		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
-		{ "lottplants:pinewood", "", "lottplants:pinewood" },
-		{ "lottplants:pinewood", "lottplants:pinewood", "lottplants:pinewood" },
+		{ "lord_planks:pine", "lord_planks:pine", "lord_planks:pine" },
+		{ "lord_planks:pine", "", "lord_planks:pine" },
+		{ "lord_planks:pine", "lord_planks:pine", "lord_planks:pine" },
 	}
 })
 

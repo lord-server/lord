@@ -127,36 +127,36 @@ minetest.register_craft({
 minetest.register_craft({
 	output = 'lottthrowing:bow_wood_alder',
 	recipe = {
-		{'farming:string', 'lottplants:alderwood', ''},
-		{'farming:string', '', 'lottplants:alderwood'},
-		{'farming:string', 'lottplants:alderwood', ''},
+		{'farming:string', 'lord_planks:alder', ''},
+		{'farming:string', '', 'lord_planks:alder'},
+		{'farming:string', 'lord_planks:alder', ''},
 	}
 })
 
 minetest.register_craft({
 	output = 'lottthrowing:bow_wood_birch',
 	recipe = {
-		{'farming:string', 'lottplants:birchwood', ''},
-		{'farming:string', '', 'lottplants:birchwood'},
-		{'farming:string', 'lottplants:birchwood', ''},
+		{'farming:string', 'lord_planks:birch', ''},
+		{'farming:string', '', 'lord_planks:birch'},
+		{'farming:string', 'lord_planks:birch', ''},
 	}
 })
 
 minetest.register_craft({
 	output = 'lottthrowing:bow_wood_lebethron',
 	recipe = {
-		{'farming:string', 'lottplants:lebethronwood', ''},
-		{'farming:string', '', 'lottplants:lebethronwood'},
-		{'farming:string', 'lottplants:lebethronwood', ''},
+		{'farming:string', 'lord_planks:lebethron', ''},
+		{'farming:string', '', 'lord_planks:lebethron'},
+		{'farming:string', 'lord_planks:lebethron', ''},
 	}
 })
 
 minetest.register_craft({
 	output = 'lottthrowing:bow_wood_mallorn',
 	recipe = {
-		{'farming:string', 'lottplants:mallornwood', ''},
-		{'farming:string', '', 'lottplants:mallornwood'},
-		{'farming:string', 'lottplants:mallornwood', ''},
+		{'farming:string', 'lord_planks:mallorn', ''},
+		{'farming:string', '', 'lord_planks:mallorn'},
+		{'farming:string', 'lord_planks:mallorn', ''},
 	}
 })
 

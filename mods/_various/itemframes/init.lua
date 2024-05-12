@@ -361,9 +361,9 @@ itemframes.register_pedestal("obsidian", "default:obsidian",
 		default.node_sound_stone_defaults()
 )
 
-itemframes.register_pedestal("mordor_stone", "lottmapgen:mordor_stone",
+itemframes.register_pedestal("mordor_stone", "lord_rocks:mordor_stone",
 		{cracky=3, stone=1, pedestal=1},
-		{"lottmapgen_mordor_stone.png"},
+		{"lord_rocks_mordor_stone.png"},
 		SL("Mordor Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )

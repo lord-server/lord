@@ -6,7 +6,32 @@ npc = {
 	["player_mobs"] = {},
 }
 
+---allow place if admin or mob allows
+---@param definition table mob definition
+---@param playername string playername
+---@return boolean
+local function can_place(definition, playername)
+	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
+	if definition.can_place then
+		allowed = allowed or definition.can_place(playername)
+	end
+	return allowed
+end
+
+---allow edit if admin or mob allows
+---@param self table mob object
+---@param playername string playername
+---@return boolean
+local function can_edit(self, playername)
+	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
+	if self.definition.can_edit then
+		allowed = allowed or self.definition.can_edit(self, playername)
+	end
+	return allowed
+end
+
 local function build_main_form(self)
+	--- build main form for not admin
 	local width = self.width
 	local bw = width - 0.5
 	local pos = 0
@@ -29,13 +54,13 @@ local function build_main_form(self)
 	return formspec
 end
 
-local function build_main_form_editable(self)
-	local width = self.width
-	local bw = width - 0.5
-	local pos = 0.5
-	local formspec = ""
-
-	-- show mobname and greeting editable fields
+---show mobname and greeting editable fields
+---@param self table mob object
+---@param formspec string current formspec
+---@param pos number current position
+---@param bw number width
+---@return string, number
+local function build_edit_header(self, formspec, pos, bw)
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_name;;"..esc(self.mobname).."]"
 	pos = pos + 1
 	formspec = formspec.."field[0.5,"..pos..";"..bw..",0.5;edit_color;;"..esc(self.color).."]"
@@ -44,6 +69,23 @@ local function build_main_form_editable(self)
 	pos = pos + 1
 	formspec = formspec.."textarea[0.5,"..pos..";"..bw..",1.5;edit_greeting;;"..esc(self.greeting).."]"
 	pos = pos + 1.5
+	return formspec, pos
+end
+
+---build main form for mob owner or admin
+---@param self table mob object
+---@return string
+local function build_main_form_editable(self)
+	local width = self.width
+	local bw = width - 0.5
+	local pos = 0.5
+	local formspec = ""
+
+	if self.build_edit_header == nil then
+		formspec, pos = build_edit_header(self, formspec, pos, bw)
+	else
+		formspec, pos = self:build_edit_header(formspec, pos, bw)
+	end
 
 	-- show mob content (editable)
 	local content, newpos = self:admin_mob_content(width, pos)
@@ -64,9 +106,13 @@ end
 
 local function show_main(self, clicker)
 	local player = clicker:get_player_name()
-	local can_edit = minetest.get_player_privs(player)[npc.required_priv]
-	if can_edit and not clicker:get_player_control().aux1 then
-		minetest.show_formspec(player, "npc:main_form", build_main_form_editable(self))
+
+	if can_edit(self, player) and not clicker:get_player_control().aux1 then
+		local can_edit_mobname = true
+		if self.definition.can_edit_mobname ~= nil then
+			can_edit_mobname = self.definition.can_edit_mobname
+		end
+		minetest.show_formspec(player, "npc:main_form", build_main_form_editable(self, can_edit_mobname))
 	else
 		minetest.show_formspec(player, "npc:main_form", build_main_form(self))
 	end
@@ -74,25 +120,30 @@ end
 
 minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 	local player = clicker:get_player_name()
-	local can_edit = minetest.get_player_privs(player)[npc.required_priv]
+
 	local self = npc.player_mobs[player]
 	if self == nil then
 		return
 	end
 
+	local player_can_edit = can_edit(self, player)
 	if formname == "npc:main_form" then
 		-- handling main form
 		if fields["save_main"] ~= nil then
 			-- save mob name and greeting
-			self.mobname  = fields["edit_name"]
-			self.color    = fields["edit_color"]
-			self.greeting = fields["edit_greeting"]
-			self.texture  = fields["edit_texture"]
-			self.object:set_properties({
-				nametag       = self.mobname,
-				nametag_color = self.color,
-				textures      = {self.texture},
-			})
+			if self.header_form_handler then
+				self:header_form_handler(fields)
+			else
+				self.mobname  = fields["edit_name"]
+				self.color    = fields["edit_color"]
+				self.greeting = fields["edit_greeting"]
+				self.texture  = fields["edit_texture"]
+				self.object:set_properties({
+				    nametag       = self.mobname,
+				    nametag_color = self.color,
+				    textures      = {self.texture},
+				})
+			end
 			self:show_main(clicker)
 		elseif fields["take_mob"] ~= nil then
 			-- take mob to inventory
@@ -118,11 +169,11 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 			npc.player_mobs[player] = nil
 		else
 			-- call mob content
-			self:main_form_handle(clicker, fields, can_edit)
+			self:main_form_handle(clicker, fields, player_can_edit)
 		end
 	else
 		-- handle mob content
-		self:form_handle(clicker, formname, fields, can_edit)
+		self:form_handle(clicker, formname, fields, player_can_edit)
 	end
 end)
 
@@ -137,10 +188,10 @@ local function face_pos(self, pos)
 	return yaw
 end
 
+
 local function interact_infomob(self, clicker)
 	local player = clicker:get_player_name()
-	local can_edit = minetest.get_player_privs(player)[npc.required_priv]
-	if can_edit or self.face_user then
+	if can_edit(self, player) or self.face_user then
 		face_pos(self, clicker:get_pos())
 	end
 	npc.player_mobs[player] = self
@@ -155,16 +206,19 @@ local function default_admin_mob_content(self, width, pos)
 	return "", pos
 end
 
-local function default_main_form_handle(self, clicker, fields, can_edit)
+local function default_main_form_handle(self, clicker, fields, player_can_edit)
 end
 
-local function default_form_handle(self, clicker, formname, fields, can_edit)
+local function default_form_handle(self, clicker, formname, fields, player_can_edit)
 end
 
 local function default_init_from_staticdata(self, mobdata)
 end
 
 local function default_init_new(self)
+end
+
+local function default_configure_placed(self, playername)
 end
 
 local function default_get_mobdata(self)
@@ -174,6 +228,12 @@ end
 local function on_activate(self, staticdata)
 	local data = minetest.deserialize(staticdata)
 	if data ~= nil then
+		if data["mobdata"] ~= nil then
+			self:init_from_staticdata(data["mobdata"])
+		else
+			self:init_new()
+		end
+
 		if data["mobname"] ~= nil then
 			self.mobname = data["mobname"]
 		else
@@ -196,12 +256,6 @@ local function on_activate(self, staticdata)
 			self.texture = data["texture"]
 		else
 			self.texture = self.definition.texture
-		end
-
-		if data["mobdata"] ~= nil then
-			self:init_from_staticdata(data["mobdata"])
-		else
-			self:init_new()
 		end
 	else
 		self.mobname  = self.definition.mobname
@@ -258,22 +312,29 @@ function npc:register_mob(name, definition)
 		init_from_staticdata = definition.init_from_staticdata or default_init_from_staticdata,
 		init_new = definition.init_new or default_init_new,
 		get_mobdata = definition.get_mobdata or default_get_mobdata,
+		configure_placed = definition.configure_placed or default_configure_placed,
+		build_edit_header = definition.build_edit_header,
+		header_form_handler = definition.header_form_handler,
 
 		on_activate = on_activate,
 		get_staticdata = get_staticdata,
 	})
 
+	local description = name.." egg"
+	if definition.description then
+		description = definition.description
+	end
+
 	minetest.register_craftitem(name.."_egg", {
 
-		description = name.." egg",
+		description = description,
 		inventory_image = "npc_info_mob.png",
 		groups = {not_in_creative_inventory = 1},
 		stack_max = 1,
 
 		on_place = function(itemstack, placer, pointed_thing)
 			local player = placer:get_player_name()
-			local can_edit = minetest.get_player_privs(player)[npc.required_priv]
-			if not can_edit then
+			if not can_place(definition, player) then
 				return
 			end
 
@@ -302,6 +363,8 @@ function npc:register_mob(name, definition)
 
 				-- since mob is unique we remove egg once spawned
 				itemstack:take_item()
+
+				lua_entity:configure_placed(player)
 			end
 
 			return itemstack

@@ -7,3 +7,5 @@ Show=
 Delete=
 Close=
 Take=
+Deputy mob=
+Necromancy spell=

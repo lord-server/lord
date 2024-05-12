@@ -72,16 +72,16 @@ stairs.register_stair_and_slab(
 minetest.register_craft({
 	output = 'lottblocks:mordor_stone_brick 4',
 	recipe = {
-		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
-		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
+		{'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone'},
+		{'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone'},
 	}
 })
 minetest.register_craft({
 	output = 'lottblocks:mordor_stone_block 9',
 	recipe = {
-		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
-		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
-		{'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone', 'lottmapgen:mordor_stone'},
+		{'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone'},
+		{'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone'},
+		{'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone', 'lord_rocks:mordor_stone'},
 	}
 })
 
@@ -144,7 +144,7 @@ stairs.register_stair_and_slab(
 minetest.register_craft({
 	type = "cooking",
 	output = "lottblocks:orc_stone",
-	recipe = "lottmapgen:mordor_stone",
+	recipe = "lord_rocks:mordor_stone",
 })
 minetest.register_craft({
 	type = "cooking",

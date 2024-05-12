@@ -12,16 +12,27 @@ walls.register(":walls:limestone", S("Limestone Wall"), "lottores_limestone_ore.
 	"lottores:limestone", default.node_sound_stone_defaults())
 walls.register(":walls:marble", S("Marble Wall"), "lottores_marble.png",
 	"lottores:marble", default.node_sound_stone_defaults())
-walls.register(":walls:frozen_stone", S("Frozen Stone Wall"), "default_stone.png^lottmapgen_frozen.png",
-	"lottmapgen:frozen_stone", default.node_sound_stone_defaults())
-walls.register(":walls:mordor_stone", S("Mordor Stone Wall"), "lottmapgen_mordor_stone.png",
-	"lottmapgen:mordor_stone", default.node_sound_stone_defaults())
+walls.register(":walls:mordor_stone", S("Mordor Stone Wall"), "lord_rocks_mordor_stone.png",
+	"lord_rocks:mordor_stone", default.node_sound_stone_defaults())
 walls.register(":walls:mordor_cobble", S("Mordor Cobble Wall"), "lottmapgen_mordor_cobble.png",
 	"lottmapgen:mordor_cobble", default.node_sound_stone_defaults())
 walls.register(":walls:green_marble", S("Green Marble Wall"), "lord_blocks_green_marble.png",
 	"lord_blocks:green_marble", default.node_sound_stone_defaults())
 walls.register(":walls:dungeon_stone", S("Dungeon Stone Wall"), "castle_dungeon_stone.png",
 	"castle:dungeon_stone", default.node_sound_stone_defaults())
+
+--- @type string
+for node_name, registration in pairs(rocks.get_lord_nodes()) do
+	--- @type string
+	local sub_name = node_name:split(":")[2]
+
+	local walls_node = ":walls:" .. sub_name
+	local description = sub_name:remove_underscores():to_headline()
+	local texture = registration.definition.tiles
+	walls.register(walls_node, S(description), texture, node_name, default.node_sound_stone_defaults())
+
+end
+
 
 -- Clay/chamotte:
 walls.register(":walls:mordor_clay_block", S("Mordor Clay Block Wall"), "lord_bricks_mordor_clay_block.png",

@@ -117,15 +117,15 @@ local textures1 = {
 }
 
 local drops1 = {
-	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
 	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
 	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
 	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
-	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
+	{ name = "lord_trees:yavannamire_sapling", chance = 250, min = 1, max = 1, },
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
@@ -166,15 +166,15 @@ local textures2 = {
 }
 
 local drops2 = {
-	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
 	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
 	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
 	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
-	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
+	{ name = "lord_trees:yavannamire_sapling", chance = 250, min = 1, max = 1, },
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
@@ -204,15 +204,15 @@ local textures3 = {
 }
 
 local drops3 = {
-	{ name = "lottplants:mallornsapling",     chance = 5,   min = 1, max = 3, },
-	{ name = "lottplants:mallornwood",        chance = 5,   min = 1, max = 6, },
+	{ name = "lord_trees:mallorn_sapling",     chance = 5,   min = 1, max = 3, },
+	{ name = "lord_planks:mallorn",        chance = 5,   min = 1, max = 6, },
 	{ name = "lottores:silveringot",          chance = 20,  min = 1, max = 7 },
 	{ name = "tools:sword_silver",            chance = 20,  min = 1, max = 1 },
 	{ name = "lottarmor:helmet_silver",       chance = 30,  min = 1, max = 1 },
 	{ name = "lottarmor:chestplate_silver",   chance = 30,  min = 1, max = 1 },
 	{ name = "tools:spear_silver",            chance = 25,  min = 1, max = 1, },
 	{ name = "lottores:blue_gem",             chance = 200, min = 1, max = 1, },
-	{ name = "lottplants:yavannamiresapling", chance = 250, min = 1, max = 1, },
+	{ name = "lord_trees:yavannamire_sapling", chance = 250, min = 1, max = 1, },
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 

@@ -257,6 +257,11 @@ orc_spawn_pos = 380, 2, -6
 
 sauron_curse_area = 5
 
+# ------- lord_ground -------
+# границы, до которых происходит расползание мордорских земель:
+lord_ground.mordor_lands.from = -633, 465
+lord_ground.mordor_lands.to   = -380, 810
+
 # ------- lord/player -------
 # арены, на которых отображается здоровье:
 arenas = 2

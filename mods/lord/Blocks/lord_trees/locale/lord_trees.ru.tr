@@ -1,0 +1,84 @@
+# textdomain: lord_trees
+
+
+### === TREES === ###
+
+### tree/fruits.lua ###
+Plum=Слива
+Yavannamire Fruit=Плод йаваннамирэ
+
+### tree/leaves.lua ###
+Alder Leaf=Ветки ольхи
+Fruitful Apple Leaf=Ветки плодоносной яблони
+Beech Leaf=Ветки бука
+Birch Leaf=Ветки берёзы
+Cherry Leaf=Ветки сакуры
+Culumalda Leaf=Ветки кулумальды
+Yellow Flowers on Culumalda Leaf=Ветки кулумальды с жёлтыми цветами
+Elm Leaf=Ветки вяза
+Fir Leaf=Ветки ели
+Lebethron Leaf=Ветки лебетрона
+Mallorn Leaf=Ветки маллорна
+Pine Leaf=Ветки сосны
+Plum Leaf=Ветки сливы
+Rowan Leaf=Ветки рябины
+Rowan Leaf with Berries=Ветки рябины с ягодами
+White Leaf=Ветки белого дерева
+Yavannamire Leaf=Ветки йаваннамирэ
+Mirkwood Leaves=Ветки Лихолесья (Эвкалиптовые)
+
+### tree/trunks.lua ###
+Alder Tree=Ольха
+Alder Trunk=Ствол ольхи
+Beech Tree=Бук
+Beech Trunk=Ствол бука
+Birch Tree=Берёза
+Birch Trunk=Ствол берёзы
+Cherry Tree=Сакура
+Cherry Trunk=Ствол сакуры
+Culumalda Tree=Кулумальда
+Culumalda Trunk=Ствол кулумальды
+Elm Tree=Вяз
+Elm Trunk=Ствол вяза
+Fir Tree=Ель
+Fir Trunk=Ствол ели
+Lebethron Tree=Лебетрон
+Lebethron Trunk=Ствол лебетрона
+Mallorn Tree=Маллорн
+Mallorn Trunk=Ствол маллорна
+Pine Tree=Сосна
+Pine Trunk=Ствол сосны
+Plum Tree=Слива
+Pine Trunk=Ствол сливы
+Young Mallorn Trее=Молодой маллорн
+Young Mallorn Trunk=Ствол молодого маллорна
+
+### tree/trunks/slabs.lua ###
+Alder Trunk Slab=Плита из ствола ольхи
+Beech Trunk Slab=Плита из ствола бука
+Birch Trunk Slab=Плита из ствола берёзы
+Fir Trunk Slab=Плита из ствола ели
+Pine Trunk Slab=Плита из ствола сосны
+Plum Trunk Slab=Плита из ствола сливы
+Lebethron Trunk Slab=Плита из ствола лебетрона
+Mallorn Trunk Slab=Плита из ствола маллорна
+Elm Trunk Slab=Плита из ствола вяза
+Tree Trunk Slab=Плита из ствола яблони
+Jungle Tree Trunk Slab=Плита из ствола эвкалипта
+
+### tree/saplings.lua ###
+Alder Sapling=Саженец ольхи
+Fruitful Apple Tree Sapling=Саженец плодоносной яблони
+Birch Sapling=Саженец берёзы
+Beech Sapling=Саженец бука
+Culumalda Sapling=Саженец кулумальды
+Elm Sapling=Саженец вяза
+Fir Sapling=Саженец ели
+Lebethron Sapling=Саженец лебетрона
+Mallorn Sapling=Саженец маллорна
+Pine Sapling=Саженец сосны
+Plum Tree Sapling=Саженец сливы
+Rowan Sapling=Саженец рябины
+White Tree Sapling=Саженец белого дерева
+Yavannamire Sapling=Саженец йаваннамирэ
+Mirkwood Sapling=Саженец Лихолесья (Эвкалипта)

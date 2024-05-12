@@ -4,3 +4,4 @@ local require = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%
 
 require("map.manipulations")
 require("map.dungeons_gen")
+require("mod")

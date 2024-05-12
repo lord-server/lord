@@ -78,7 +78,7 @@ minetest.register_alias("snow", "default:snow")
 -- 'mese_block' was used for a while for the block form of mese
 minetest.register_alias("default:mese_block", "default:mese")
 
--- эти алиасы нам не нужны, т.к. у нас остались из LOTT (lottplants:pinetree lottplants:pinewood
+-- эти алиасы нам не нужны, т.к. у нас остались из LOTT (lord_trees:pine_tree lord_planks:pine
 ---- Aliases for corrected pine node names
 --minetest.register_alias("default:pinetree", "default:pine_tree")
 --minetest.register_alias("default:pinewood", "default:pine_wood")
@@ -90,8 +90,7 @@ minetest.register_alias("default:sign_wall_wood", "default:sign_wall")
 
 --- Далее идут наши алиасы
 
-minetest.register_alias("default:junglesapling", "lottplants:mirksapling")
-minetest.register_alias("default:jungleleaves", "lottplants:mirkleaf")
+-- also see mods/lord/Blocks/lord_trees/legacy.lua
 
 minetest.register_alias("scorched_stuff", "default:scorched_stuff")
 minetest.register_alias("rat", "default:dirt")

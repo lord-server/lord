@@ -1,6 +1,18 @@
 local table_indexOf, table_copy, pairs, next
 	= table.indexof, table.copy, pairs, next
 
+
+--- @param table table
+--- @return string[]|any[] returns list of all keys of specified table
+function table.keys(table)
+	local keys = {}
+	for key, _ in pairs(table) do
+		keys[#keys+1] = key
+	end
+
+	return keys
+end
+
 --- @param table table
 --- @param value any
 --- @return table|nil returns indexed table of found keys for table `table` or `nil` if nothing found
@@ -33,6 +45,23 @@ function table.has_key(table, find_key)
 		end
 	end
 	return false
+end
+
+local table_has_key = table.has_key
+
+--- Copies `self` table and remove specified `keys`
+--- @param table table
+--- @param keys  table|string[]|any[]
+--- @return table|string[]|any[]
+function table.except(table, keys)
+	local result = table_copy(table)
+	for _, key in pairs(keys) do
+		if table_has_key(result, key) then
+			result[key] = nil
+		end
+	end
+
+	return result
 end
 
 --- @overload fun(table1:table, table2:table):table
