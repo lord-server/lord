@@ -32,7 +32,8 @@ local cache = storage2cache()
 --- @param name string
 --- @return clans.Clan|nil
 function clan_storage.get(name)
-	-- if cache[name].players == nil then cache[name].players = {} end -- Данной строки не должно быть при штатной работе программы по задумке
+	-- Данной строки не должно быть при штатной работе программы по задумке
+	-- if cache[name].players == nil then cache[name].players = {} end
 	return cache[name]
 end
 
