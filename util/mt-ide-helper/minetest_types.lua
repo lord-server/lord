@@ -606,7 +606,7 @@ function minetest.register_on_joinplayer(callback) end
 --- * `timed_out`: True for timeout, false for other reasons.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4641-L4643)
---- @param callback fun(player:ObjectRef, timed_out)
+--- @param callback fun(player:ObjectRef|Player, timed_out)
 function minetest.register_on_leaveplayer(callback) end
 --- * Called when a client attempts to log into an account.
 --- * `name`: The name of the account being authenticated.
@@ -1955,6 +1955,7 @@ function minetest.request_http_api() end
 --- * must be called during mod load time
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5630-L5632)
+--- @return StorageRef
 function minetest.get_mod_storage() end
 
 -- Misc.:
@@ -2051,6 +2052,10 @@ function minetest.parse_json(string, nullvalue) end
 ---   returns `"[10, {\"a\": false}]"`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5672-L5685)
+--- @overload fun(data)
+--- @param data table
+--- @param styled boolean
+--- @return string|nil
 function minetest.write_json(data, styled) end
 --- Returns a string
 --- * Convert a table containing tables, strings, numbers, booleans and `nil`s
