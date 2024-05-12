@@ -1,5 +1,88 @@
 # Change Log
 
+## [2024.04](https://github.com/lord-server/lord/releases/tag/2024.04)
+ - Добавление белого списка для прилавков (#1259)
+ - Добавление густых веток сакуры и белого дерева (#1266). Closes #1260
+ - Add plum tree own trunk (relates to #1288). Fix trunk trunslations - add trunk and slabs - correct growing from sapling - correct generation in biomes - add to list of WE_ext command //clear_trees
+ - Wooden:
+   - Add plum tree planks and their stairs & slabs. Relates to #1288
+   - Add plum all wooden stuff. Relates #1288
+ - Ground: add mixed dirts:
+   - Coarse & Stony. Closes #1311
+   - make possible cultivate the `lord_ground:coarse_dirt` & `lord_ground:stony_dirt` by hoe. Closes #1319
+   - `lord_ground:coarse_dirt` & `lord_ground:stony_dirt` drops themselves. Relates to #1319
+ - Add new rocks:
+   - Андезит
+   - Базальт
+   - Диорит
+   - Гранит
+   - Серый кварцит
+   - Серый туф
+   - Перидотит
+   - Розовый кварцит
+   - Пироксенит
+   - Красный туф
+   - Глинистый сланец
+   - Add rock biomes generation in deep caves. Relates to #1296 #1273
+ - Ground:
+   - Add Mordor Lands spreading!! Closes #1310
+ - Электронный заместитель смотрителя (#1285)
+ - Небольшие улучшения:
+   - Теперь в центрифуге можно перекладывать предметы с shift+click (#1268)
+   - Сброс пустой бутылки при крафте медовухи (#1300) Closes #41
+ - Текстуры:
+   - Обновление текстуры каменного блока (#1265). Relates to #1263
+   - Обновление текстур лошади и пони (#1264)
+   - Plants: Новая текстура тростника (#1294)
+   - Ground: Dirt: for biomes: change grass colors: each biome have own. Closes #1320
+
+ - Technical:
+   - Delete unused texture zqzu.png (#1267)
+   - [broken code] Refactoring `lottplants`: extract trees: just move everything related. Relates to #1262
+   - [broken code] Refactoring `lottplants`: extract trees: rename nodes & files `lottplants_*` -> `lord_trees_*`. Relates to #1262
+   - [broken code] Refactoring `lottplants`: extract trees: rename leaves & fruits. Relates to #1262
+   - [broken code] Refactoring `lottplants`: extract trees: rename saplings. Relates to #1262
+   - [broken code] Refactoring `lottplants`: extract trees: rename trunks. Relates to #1262
+   - Refactoring `lottplants`: extract trees: finaly commit: add aliases for Ghost blocks. Closes #1262
+   - Refactoring `lottplants`: extract planks into separate mod. Relates to #1238. Closes #1295
+   - Add MT  class docs
+   - Use our fork `lord-server/mt-chat-lp-api` for Discord LP API mod
+   - [lord_bows] Частичное исправление луков (#1297) Relates to #966 #76
+   - Disable http requests from LP-API for test & local
+   - IDE helper: Add `EntityDefinition` & `ObjectProperties`
+   - Refactor lord_bows (#1303)
+   - Upadate `readme.md`: actualize contributors and theirs roles in the project
+   - Add simple mod backbone creator. Relates to #1299
+   - Refactoring `lottplants`: register public API for `lord_treea`. Relates to #1238, #1299
+   - Extract textures folder detection in `Core`. Relates to #1233
+   - Refactor planks: use trees API for regigiser planks. Relates #1238, #1236
+   - Refactoring mountgen (#1306)
+   - Ground: Dirt: add backbone for `lord_dirt` mod. Closes #1308
+   - Ground: add dirt & sand APIs. Closes #1308
+   - Ground: move `lottmapgen:mordor_sand` into `lord_ground`. Relates to #1309
+   - Ground: move biomes gradded into `lord_ground`. Closes #1309
+   - Ground: Dirt: collect `mixed_nodes` (forgotten). Relates to #1311
+   - Rocks: Nodes:  add `lord_rocks` mod backbone. Relates to #1270 #1283
+   - Update lord_rocks_diorite.png
+   - Add Shale and Pyroxenite rocks; format config.lua. Relates to #1270 #1283
+   - Add textures
+   - Update texture granite and pyroxenite. Relates to #1296 #1273
+   - Update texture quartzite & tuff
+   - Add backbone TODO for adding walls for new rocks. Relates to #1298
+   - Fix rock API; add  field to differentiate new oand existing ones; move magma to lord_ores. Relates to #1296 #1273
+   - Rename localization files to match mod name; corrected names of some variables. Relates to #1296 #1273
+   - Change existing detection mechanism. Relates to #1296 #1273
+   - Add stair registration; move frozen_stone to lord_rocks; add mordor_sone via add_existing. Relates to #1296 #1273
+   - Move mordor_stone to lord_rocks; add ore variants and their generation; make magma animated. Relates to #1296 #1273
+   - Change all entries of lottmapgen:mordor_stone and lottmapgen_mordor_stone to the lord_rocks version. Relates to #1296 #1273
+   - Fix small texture construction mistake. Relates to #1296 #1273
+   - Fix localization problems for lord_rocks. Relates to #1296 #1273 (#1322)
+   - Fix plum stuff traslations. Relates to #1288
+   - Moved clans API to mod storage
+   - Clans refactoring
+   - Minetest type hinting enchancements
+   - Fix Coarse/Stony Dirts localization. Relates to #1311
+
 ## [2024.03.p5](https://github.com/lord-server/lord/releases/tag/2024.03.p5)
  - Add members into International clan.
 
