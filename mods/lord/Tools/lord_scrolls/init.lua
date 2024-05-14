@@ -48,13 +48,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 
-    local wield_index = book_writers[player_name].wield_index
+	local wield_index = book_writers[player_name].wield_index
 	local wield_list = player:get_wield_list()
 	local stack = inv:get_stack(wield_list, wield_index)
 	if stack:get_name() ~= "lord_scrolls:scroll" then
 		-- No book in the wield slot, abort & inform the player
 		minetest.chat_send_player(player_name,
-            SL("The scroll you were writing to mysteriously disappeared."))
+			SL("The scroll you were writing to mysteriously disappeared."))
 		return
 	end
 	local data = stack:get_meta():to_table().fields
@@ -72,7 +72,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			short_title = short_title:sub(1, short_title_size) .. "..."
 		end
 		data.description = SL("Scroll")..": "..short_title
-        data.text = fields.text
+		data.text = fields.text
 		data.text = data.text:gsub("\r\n", "\n"):gsub("\r", "\n")
 		data.text = data.text:gsub("[%z\1-\8\11-\31\127]", "") -- strip naughty control characters (keeps \t and \n)
 
@@ -88,14 +88,14 @@ minetest.register_craftitem("lord_scrolls:scroll", {
 	inventory_image = "scroll.png",
 	groups = {book = 1, flammable = 3},
 	on_use = scroll_on_use,
-    stack_max = 1,
+	stack_max = 1,
 })
 
 minetest.register_craft({
 	output = "lord_scrolls:scroll",
 	recipe = {
-        {"default:paper", "default:paper"},
-        {"", "default:paper"},
-        {"default:paper", "default:paper"},
+		{"default:paper", "default:paper"},
+		{"", "default:paper"},
+		{"default:paper", "default:paper"},
 	},
 })
