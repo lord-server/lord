@@ -20,17 +20,11 @@ end)
 local function scroll_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local meta = itemstack:get_meta()
-	local title, text = "", ""
-	local lines = {}
 
 	local data = meta:to_table().fields
 
-	title = data.title or ""
-	text = data.text or ""
-
-	for str in (text .. "\n"):gmatch("([^\n]*)[\n]") do
-		lines[#lines+1] = str
-	end
+	local title = data.title or ""
+	local text = data.text or ""
 
 	local formspec
 	formspec = formspec_write(title, text)
