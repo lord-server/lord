@@ -143,16 +143,19 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 	end
 
 	-- build config from settings
-	local config     = {
-		METHOD    = fields["edit_method"],
-		ANGLE     = tonumber(fields["edit_angle"]) or 0,
-		Y0        = tonumber(fields["edit_base"]) or 0,
-		SNOW_LINE = tonumber(fields["edit_snow_line"]) or 0,
-		rk_big    = tonumber(fields["edit_rk_big"]) or 0,
-		rk_small  = tonumber(fields["edit_rk_small"]) or 0,
-		rk_thr    = tonumber(fields["edit_rk_thr"]) or 0,
-		top_cover = fields["edit_top_cover"],
-	}
+	local config     = {}
+	for k,v in pairs(mountgen.config) do
+		config[k] = v
+	end
+
+	config.METHOD    = fields["edit_method"]
+	config.ANGLE     = tonumber(fields["edit_angle"]) or 0
+	config.Y0        = tonumber(fields["edit_base"]) or 0
+	config.SNOW_LINE = tonumber(fields["edit_snow_line"]) or 0
+	config.rk_big    = tonumber(fields["edit_rk_big"]) or 0
+	config.rk_small  = tonumber(fields["edit_rk_small"]) or 0
+	config.rk_thr    = tonumber(fields["edit_rk_thr"]) or 0
+	config.top_cover = fields["edit_top_cover"]
 
 	if not validate_config(config) then
 		minetest.log("Incorrect mountgen parameters. Exiting")
@@ -234,4 +237,25 @@ minetest.register_node("mountgen:mountain_spawner", {
 			show_abort_menu(user_name, pos)
 		end
     end,
+})
+
+minetest.register_abm({
+	label = "Generate mountain",
+	nodenames = {"mountgen:mountain_spawner"},
+	interval = 5,
+	chance = 1,
+	action = function(pos, node)
+		local meta = minetest.get_meta(pos)
+		local run = meta:get_int("run") or 0
+		if run ~= 1 then
+			return
+		end
+		local config_ser = meta:get_string("config")
+		local config = minetest.deserialize(config_ser)
+		local map = minetest.deserialize(meta:get_string("map"))
+		local completed = minetest.deserialize(meta:get_string("completed_chunks"))
+		print("ABM Config: "..dump(config))
+		mountgen.mountgen(pos, config, map)
+		minetest.set_node(pos, {name="air"})
+	end
 })

@@ -78,8 +78,14 @@ mountgen.generate_height_map = function(config, top)
     }
 end
 
-mountgen.mountgen = function(top, config)
-	
+mountgen.mountgen = function(top, config, map)
+    local height_map = map.height_map
+    local center = map.center
+    local width = map.width
+
+    local y1 = config.Y0
+	local y2 = top.y
+
 	local p1 = { x = top.x + 1 - center, y = y1, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = y2 + 16, z = top.z + width - center }
 
