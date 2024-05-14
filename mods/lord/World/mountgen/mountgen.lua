@@ -1,4 +1,4 @@
-mountgen.list_chunks = function(p1, p2)
+mountgen.list_chunks = function(skip, count, p1, p2)
 	local chunks = {}
 	local size = 64
 
@@ -14,17 +14,30 @@ mountgen.list_chunks = function(p1, p2)
 	local ny = (cp2.y - fp1.y) / size
 	local nz = (cp2.z - fp1.z) / size
 
+	local skip_counter = 0
+	local add_counter = 0
+	local total = nz * ny * nx
 	for z = 1, nz do
 		for y = 1, ny do
 			for x = 1, nx do
-				local lp1 = { x = fp1.x + size * (x - 1), y = fp1.y + size * (y - 1), z = fp1.z + size * (z - 1) }
-				local lp2 = { x = lp1.x + size - 1, y = lp1.y + size - 1, z = lp1.z + size - 1 }
-				table.insert(chunks, { lp1, lp2 })
+				if skip_counter == skip then
+					if add_counter < count then
+						local lp1 = { x = fp1.x + size * (x - 1), y = fp1.y + size * (y - 1), z = fp1.z + size * (z - 1) }
+						local lp2 = { x = lp1.x + size - 1, y = lp1.y + size - 1, z = lp1.z + size - 1 }
+						table.insert(chunks, { lp1, lp2 })
+						add_counter = add_counter + 1
+					end
+				else
+					skip_counter = skip_counter + 1
+				end
 			end
 		end
 	end
 
-	return chunks
+	return {
+		total = total,
+		chunks = chunks,
+	}
 end
 
 local can_place_dirt = function(data, stone_id)
@@ -78,10 +91,11 @@ mountgen.generate_height_map = function(config, top)
     }
 end
 
-local function generate_chunk(config, voxel_manip,
+local function generate_chunk(config,
 							  lp1, lp2,
 							  p1, p2,
 							  height_map, width)
+	local voxel_manip = minetest.get_voxel_manip(lp1, lp2)
     local cp1, cp2 = voxel_manip:read_from_map(lp1, lp2)
 	if cp1 ~= nil and cp2 ~= nil then
 		local area = VoxelArea:new({ MinEdge = cp1, MaxEdge = cp2 })
@@ -97,10 +111,49 @@ local function generate_chunk(config, voxel_manip,
 		local offset_y = lp1.y - p1.y
 		local offset_z = lp1.z - p1.z
 
+		local underground = true
+		local air = true
+		for i in area:iterp(lp1, lp2) do
+			local local_z = math.floor((i - 1) / (wx * wy)) + 1 - dz
+			local local_y = math.floor((i - 1) / wx) % wy + 1 - dy
+			local local_x = (i - 1) % wx + 1 - dx
+
+			local global_z = local_z + offset_z
+			local global_y = local_y + offset_y
+			local global_x = local_x + offset_x
+
+			if global_z >= 1 and global_z <= width and
+				global_x >= 1 and global_x <= width and
+				global_y >= 1 then
+				local height = math.floor(height_map[global_z][global_x] + 0.5)
+				if global_y >= height - 1 then
+					underground = false
+				end
+				if global_y <= height + 1 then
+					air = false
+				end
+				if not air and not underground then
+					break
+				end
+			end
+		end
 		local stone_id = minetest.get_content_id("default:stone")
 		local air_id = minetest.get_content_id("air")
 
 		local data = voxel_manip:get_data()
+		if air then
+			return
+		end
+
+		if underground then
+			for i in area:iterp(lp1, lp2) do
+				data[i] = stone_id
+			end
+			voxel_manip:set_data(data)
+			voxel_manip:write_to_map(true)
+			return
+		end
+
 		for i in area:iterp(lp1, lp2) do
 			local local_z = math.floor((i - 1) / (wx * wy)) + 1 - dz
 			local local_y = math.floor((i - 1) / wx) % wy + 1 - dy
@@ -150,33 +203,22 @@ mountgen.mountgen = function(top, config, map, completed_chunks)
 	local p1 = { x = top.x + 1 - center, y = y1, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = y2 + 16, z = top.z + width - center }
 
-	local chunks = mountgen.list_chunks(p1, p2)
-	local voxel_manip = minetest.get_voxel_manip(p1, p2)
-
-    if completed_chunks.ready == nil then
+	if completed_chunks.ready == nil then
         completed_chunks.ready = false
         completed_chunks.skip = 0
     end
 
-    local skip_counter = 0
-	local counter = 0
 	local max_chunks = 1
-	local ready = true
+	local gen_chunks = mountgen.list_chunks(completed_chunks.skip, max_chunks, p1, p2)
+	local total = gen_chunks.total
+	local chunks = gen_chunks.chunks
+
 	for _, chunk in ipairs(chunks) do
-		if skip_counter >= completed_chunks.skip then
-			local lp1 = chunk[1]
-			local lp2 = chunk[2]
-			generate_chunk(config, voxel_manip, lp1, lp2, p1, p2, height_map, width)
-			counter = counter + 1
-			if counter >= max_chunks then
-				ready = false
-				break
-			end
-		else
-			skip_counter = skip_counter + 1
-		end
+		local lp1 = chunk[1]
+		local lp2 = chunk[2]
+		generate_chunk(config, lp1, lp2, p1, p2, height_map, width)
 	end
 	completed_chunks.skip = completed_chunks.skip + max_chunks
-    completed_chunks.ready = ready
+    completed_chunks.ready = completed_chunks.skip == total
     return completed_chunks
 end
