@@ -58,3 +58,7 @@ Brewing=Brewing
 Exit=Exit
 Page=Page
 Search=Search
+
+### scroll.lua ###
+Scroll=Scroll
+The scroll you were writing to mysteriously disappeared.=The scroll you were writing to mysteriously disappeared.

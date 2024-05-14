@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_scrolls")
+local SL = minetest.get_translator("lord_books")
 local esc = minetest.formspec_escape
 
 local formspec_size = "size[8,8]"
@@ -29,7 +29,7 @@ local function scroll_on_use(itemstack, user)
 	local formspec
 	formspec = formspec_write(title, text)
 
-	minetest.show_formspec(player_name, "lord_scrolls:scroll", formspec_size .. formspec)
+	minetest.show_formspec(player_name, "lord_books:scroll", formspec_size .. formspec)
 	-- Store the wield index in case the user accidentally switches before the formspec is shown
 	book_writers[player_name] = {wield_index = user:get_wield_index()}
 	return itemstack
@@ -38,7 +38,7 @@ end
 local max_title_size = 80
 local short_title_size = 35
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname ~= "lord_scrolls:scroll" then
+	if formname ~= "lord_books:scroll" then
 		return
 	end
 
@@ -51,7 +51,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local wield_index = book_writers[player_name].wield_index
 	local wield_list = player:get_wield_list()
 	local stack = inv:get_stack(wield_list, wield_index)
-	if stack:get_name() ~= "lord_scrolls:scroll" then
+	if stack:get_name() ~= "lord_books:scroll" then
 		-- No book in the wield slot, abort & inform the player
 		minetest.chat_send_player(player_name,
 			SL("The scroll you were writing to mysteriously disappeared."))
@@ -83,19 +83,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	inv:set_stack(wield_list, wield_index, stack)
 end)
 
-minetest.register_craftitem("lord_scrolls:scroll", {
+minetest.register_craftitem("lord_books:scroll", {
 	description = SL("Scroll"),
 	inventory_image = "scroll.png",
 	groups = {book = 1, flammable = 3},
 	on_use = scroll_on_use,
 	stack_max = 1,
-})
-
-minetest.register_craft({
-	output = "lord_scrolls:scroll",
-	recipe = {
-		{"default:paper", "default:paper"},
-		{"", "default:paper"},
-		{"default:paper", "default:paper"},
-	},
 })
