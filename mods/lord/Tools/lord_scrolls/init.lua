@@ -90,3 +90,12 @@ minetest.register_craftitem("lord_scrolls:scroll", {
 	on_use = scroll_on_use,
     stack_max = 1,
 })
+
+minetest.register_craft({
+	output = "lord_scrolls:scroll",
+	recipe = {
+		{"default:paper", "default:paper"},
+		{"", "default:paper"},
+        {"default:paper", "default:paper"},
+	},
+})
