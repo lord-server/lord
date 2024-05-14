@@ -101,7 +101,7 @@ local function generate_chunk(config, voxel_manip,
 		local air_id = minetest.get_content_id("air")
 
 		local data = voxel_manip:get_data()
-		for i in area:iterp(p1, p2) do
+		for i in area:iterp(lp1, lp2) do
 			local local_z = math.floor((i - 1) / (wx * wy)) + 1 - dz
 			local local_y = math.floor((i - 1) / wx) % wy + 1 - dy
 			local local_x = (i - 1) % wx + 1 - dx
