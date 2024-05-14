@@ -232,11 +232,11 @@ minetest.register_node("mountgen:mountain_spawner", {
 
 		-- show menu
 		if run == 0 then
-        	show_config_menu(user_name, config, pos)
+			show_config_menu(user_name, config, pos)
 		else
 			show_abort_menu(user_name, pos)
 		end
-    end,
+	end,
 })
 
 minetest.register_abm({
