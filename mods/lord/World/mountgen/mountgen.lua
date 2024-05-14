@@ -43,15 +43,15 @@ local can_place_plant = function(data, air_id)
 	return false
 end
 
-mountgen.mountgen = function(top, config)
-	local method_name = config.METHOD
+mountgen.generate_height_map = function(config, top)
+    local method_name = config.METHOD
 	top.x = math.floor(top.x + 0.5)
 	top.y = math.floor(top.y + 0.5)
 	top.z = math.floor(top.z + 0.5)
 
 	if top.y <= config.Y0 then
 		minetest.log("Trying to build negative mountain")
-		return
+		return nil
 	end
 
 	local y1 = config.Y0
@@ -69,9 +69,17 @@ mountgen.mountgen = function(top, config)
 			config.rk_big)
 	else
 		minetest.log("error", "unknown method: " .. tostring(method_name))
-		return
+		return nil
 	end
+    return {
+        height_map = height_map,
+        width = width,
+        center = center,
+    }
+end
 
+mountgen.mountgen = function(top, config)
+	
 	local p1 = { x = top.x + 1 - center, y = y1, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = y2 + 16, z = top.z + width - center }
 
