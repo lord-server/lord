@@ -168,7 +168,7 @@ mountgen.mountgen = function(top, config, map, completed_chunks)
 			local lp2 = chunk[2]
 			generate_chunk(config, voxel_manip, lp1, lp2, p1, p2, height_map, width)
 			counter = counter + 1
-			if counter > max_chunks then
+			if counter >= max_chunks then
 				ready = false
 				break
 			end
