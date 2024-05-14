@@ -242,7 +242,7 @@ minetest.register_node("mountgen:mountain_spawner", {
 minetest.register_abm({
 	label = "Generate mountain",
 	nodenames = {"mountgen:mountain_spawner"},
-	interval = 5,
+	interval = 2,
 	chance = 1,
 	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
@@ -255,7 +255,11 @@ minetest.register_abm({
 		local map = minetest.deserialize(meta:get_string("map"))
 		local completed = minetest.deserialize(meta:get_string("completed_chunks"))
 		print("ABM Config: "..dump(config))
-		mountgen.mountgen(pos, config, map)
-		minetest.set_node(pos, {name="air"})
+		completed = mountgen.mountgen(pos, config, map, completed)
+		if completed.ready then
+			minetest.set_node(pos, {name="air"})
+		else
+			meta:set_string("completed_chunks", minetest.serialize(completed))
+		end
 	end
 })

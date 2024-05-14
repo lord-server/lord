@@ -78,7 +78,68 @@ mountgen.generate_height_map = function(config, top)
     }
 end
 
-mountgen.mountgen = function(top, config, map)
+local function generate_chunk(config, voxel_manip,
+							  lp1, lp2,
+							  p1, p2,
+							  height_map, width)
+    local cp1, cp2 = voxel_manip:read_from_map(lp1, lp2)
+	if cp1 ~= nil and cp2 ~= nil then
+		local area = VoxelArea:new({ MinEdge = cp1, MaxEdge = cp2 })
+		local wx = cp2.x - cp1.x + 1
+		local wy = cp2.y - cp1.y + 1
+		--	local wz = cp2.z - cp1.z + 1 -- it is unused now
+
+		local dx = lp1.x - cp1.x
+		local dz = lp1.z - cp1.z
+		local dy = lp1.y - cp1.y
+
+		local offset_x = lp1.x - p1.x
+		local offset_y = lp1.y - p1.y
+		local offset_z = lp1.z - p1.z
+
+		local stone_id = minetest.get_content_id("default:stone")
+		local air_id = minetest.get_content_id("air")
+
+		local data = voxel_manip:get_data()
+		for i in area:iterp(p1, p2) do
+			local local_z = math.floor((i - 1) / (wx * wy)) + 1 - dz
+			local local_y = math.floor((i - 1) / wx) % wy + 1 - dy
+			local local_x = (i - 1) % wx + 1 - dx
+
+			local global_z = local_z + offset_z
+			local global_y = local_y + offset_y
+			local global_x = local_x + offset_x
+
+			if global_z >= 1 and global_z <= width and
+				global_x >= 1 and global_x <= width and
+				global_y >= 1 then
+				local height = math.floor(height_map[global_z][global_x] + 0.5)
+				if height > 0 then
+					if global_y < height then
+						data[i] = stone_id
+					elseif global_y == height then
+						if can_place_dirt(data[i], stone_id) then
+							local top_node = mountgen.top_node({ x = global_x, y = global_y, z = global_z }, config)
+							data[i] = minetest.get_content_id(top_node)
+						end
+					elseif global_y == height + 1 then
+						if can_place_plant(data[i], air_id) then
+							local upper_node = mountgen.upper_node({ x = global_x, y = global_y, z = global_z },
+								config)
+							if upper_node ~= nil then
+								data[i] = minetest.get_content_id(upper_node)
+							end
+						end
+					end
+				end
+			end
+		end
+		voxel_manip:set_data(data)
+		voxel_manip:write_to_map(true)
+	end
+end
+
+mountgen.mountgen = function(top, config, map, completed_chunks)
     local height_map = map.height_map
     local center = map.center
     local width = map.width
@@ -92,64 +153,30 @@ mountgen.mountgen = function(top, config, map)
 	local chunks = mountgen.list_chunks(p1, p2)
 	local voxel_manip = minetest.get_voxel_manip(p1, p2)
 
+    if completed_chunks.ready == nil then
+        completed_chunks.ready = false
+        completed_chunks.skip = 0
+    end
+
+    local skip_counter = 0
+	local counter = 0
+	local max_chunks = 1
+	local ready = true
 	for _, chunk in ipairs(chunks) do
-		local lp1 = chunk[1]
-		local lp2 = chunk[2]
-
-		local cp1, cp2 = voxel_manip:read_from_map(lp1, lp2)
-		if cp1 ~= nil and cp2 ~= nil then
-			local area = VoxelArea:new({ MinEdge = cp1, MaxEdge = cp2 })
-			local wx = cp2.x - cp1.x + 1
-			local wy = cp2.y - cp1.y + 1
-			--	local wz = cp2.z - cp1.z + 1 -- it is unused now
-
-			local dx = lp1.x - cp1.x
-			local dz = lp1.z - cp1.z
-			local dy = lp1.y - cp1.y
-
-			local offset_x = lp1.x - p1.x
-			local offset_y = lp1.y - p1.y
-			local offset_z = lp1.z - p1.z
-
-			local stone_id = minetest.get_content_id("default:stone")
-			local air_id = minetest.get_content_id("air")
-
-			local data = voxel_manip:get_data()
-			for i in area:iterp(p1, p2) do
-				local local_z = math.floor((i - 1) / (wx * wy)) + 1 - dz
-				local local_y = math.floor((i - 1) / wx) % wy + 1 - dy
-				local local_x = (i - 1) % wx + 1 - dx
-
-				local global_z = local_z + offset_z
-				local global_y = local_y + offset_y
-				local global_x = local_x + offset_x
-
-				if global_z >= 1 and global_z <= width and
-					global_x >= 1 and global_x <= width and
-					global_y >= 1 then
-					local height = math.floor(height_map[global_z][global_x] + 0.5)
-					if height > 0 then
-						if global_y < height then
-							data[i] = stone_id
-						elseif global_y == height then
-							if can_place_dirt(data[i], stone_id) then
-								local top_node = mountgen.top_node({ x = global_x, y = global_y, z = global_z }, config)
-								data[i] = minetest.get_content_id(top_node)
-							end
-						elseif global_y == height + 1 then
-							if can_place_plant(data[i], air_id) then
-								local upper_node = mountgen.upper_node({ x = global_x, y = global_y, z = global_z },
-									config)
-								if upper_node ~= nil then
-									data[i] = minetest.get_content_id(upper_node)
-								end
-							end
-						end
-					end
-				end
+        if skip_counter >= completed_chunks.skip then
+        	local lp1 = chunk[1]
+			local lp2 = chunk[2]
+			generate_chunk(config, voxel_manip, lp1, lp2, p1, p2, height_map, width)
+			counter = counter + 1
+			if counter > max_chunks then
+				ready = false
+				break
 			end
-			voxel_manip:set_data(data)
-			voxel_manip:write_to_map(true)
+		else
+			skip_counter = skip_counter + 1
 		end
 	end
+	completed_chunks.skip = completed_chunks.skip + max_chunks
+    completed_chunks.ready = ready
+    return completed_chunks
 end
