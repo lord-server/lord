@@ -2,7 +2,7 @@
 name: Сообщить об ошибке
 about: Создайте отчёт об ошибке, чтобы помочь нам улучшить игру
 title: ''
-labels: bug
+labels: bug, unconfirmed
 assignees: ''
 
 ---
