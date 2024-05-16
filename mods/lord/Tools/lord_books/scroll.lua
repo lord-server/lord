@@ -3,6 +3,10 @@ local esc = minetest.formspec_escape
 
 local formspec_size = "size[8,8]"
 
+---comment
+---@param title string title of the scroll
+---@param text string content of the book
+---@return string formspec
 local function formspec_write(title, text)
 	return "field[0.5,1;7.5,0;title;" .. esc(SL("Title:")) .. ";" ..
 			esc(title) .. "]" ..
@@ -17,6 +21,10 @@ minetest.register_on_leaveplayer(function(player)
 	book_writers[player:get_player_name()] = nil
 end)
 
+---Show scroll window when player uses it
+---@param itemstack ObjectRef player's itemstack
+---@param user Player player
+---@return ObjectRef player's itemstack nothing consumed
 local function scroll_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local meta = itemstack:get_meta()
