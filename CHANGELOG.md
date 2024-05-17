@@ -1,5 +1,11 @@
 # Change Log
 
+## [2024.04.p1](https://github.com/lord-server/lord/releases/tag/2024.04.p1)
+ - Fix prod config for Mordor Lands spreading. Relates to #1310
+ - Fix lord_ores mithril drop. Closes #1352
+ - Add music box
+ - Temporary reduced mithril ingots x 10
+
 ## [2024.04](https://github.com/lord-server/lord/releases/tag/2024.04)
  - Добавление белого списка для прилавков (#1259)
  - Добавление густых веток сакуры и белого дерева (#1266). Closes #1260
