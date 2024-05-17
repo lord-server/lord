@@ -85,7 +85,7 @@ for name, registration in pairs(rocks.get_lord_nodes()) do
 		description = S("Mithril Ore"),
 		tiles       = { rock_texture .. "^lottores_mithril_ore.png" },
 		groups      = { cracky = 1 },
-		drop        = "lottores:lead_lump",
+		drop        = "lottores:mithril_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
 
