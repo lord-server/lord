@@ -973,7 +973,7 @@ mobs:register_mob("lottmobs:nazgul", {
 	run_velocity = 3,
 	damage = 10,
 	drops = {
-		{ name = "lottores:mithril_ingot",    chance = 1, min = 5, max = 15, },
+		{ name = "lottores:mithril_ingot",    chance = 1, min = 0, max = 2, }, -- tmp reduced min = 5, max = 15, },
 		{ name = "lottarmor:chestplate_gold", chance = 3, min = 1, max = 11, },
 		{ name = "lottarmor:leggings_gold",   chance = 3, min = 1, max = 1, },
 		{ name = "lottarmor:helmet_gold",     chance = 3, min = 1, max = 1, },
@@ -1029,7 +1029,7 @@ mobs:register_mob("lottmobs:witch_king", {
 	run_velocity = 3,
 	damage = 12,
 	drops = {
-		{ name = "lottores:mithril_ingot",       chance = 1, min = 20, max = 40, },
+		{ name = "lottores:mithril_ingot",       chance = 1, min = 2,  max = 4, }, -- temporary reduced x 10
 		{ name = "lottarmor:chestplate_mithril", chance = 3, min = 1,  max = 11, },
 		{ name = "lottarmor:leggings_mithril",   chance = 3, min = 1,  max = 1, },
 		{ name = "lottarmor:helmet_mithril",     chance = 3, min = 1,  max = 1, },
@@ -1086,7 +1086,7 @@ mobs:register_mob("lottmobs:balrog", {
 	run_velocity = 3,
 	damage = 30,
 	drops = {
-		{ name = "lottores:mithril_ingot",        chance = 5, min = 10, max = 50, },
+		{ name = "lottores:mithril_ingot",        chance = 5, min = 1,  max = 5, }, -- temporary reduced x 10
 		{ name = "lottores:mithrilsword",         chance = 5, min = 1,  max = 1, },
 		{ name = "lottores:mithrilpickaxe",       chance = 5, min = 1,  max = 1, },
 		{ name = "lottweapons:mithril_battleaxe", chance = 5, min = 1,  max = 1, },
