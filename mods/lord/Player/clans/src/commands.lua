@@ -28,11 +28,17 @@ minetest.register_chatcommand("clans.register", {
 	params = S("<clan name> <clan title> [list of players separated by space]"),
 	description = S("Register clan with given title and given players"),
 	privs = { server = true, },
-	func = function(player_name, param_str)
+	func = function(_, param_str)
 		local params = string.split(param_str, " ")
 
 		local clan_name = params[1]
+		if not clan_name then
+			return false, S("Didn't get any arguments! See help.")
+		end
 		local clan_title = params[2] -- TODO: handle clan title with spaces
+		if not clan_title then
+			return false, S("Didn't get enough arguments! See help.")
+		end
 		local members = {}
 		for i, param in ipairs(params) do
 			if i ~= 1 and i ~= 2 then table.insert(members, param) end
@@ -46,7 +52,7 @@ minetest.register_chatcommand("clans.register", {
 			return false, string.format(S("Clan %s already exists."), clan_name)
 		elseif err == clans.err[2] then
 			return false, string.format(
-				S("A player from given is already assigned to a clan.") .. S(" Can't create clan %s."), clan_name
+				S("A player from given is already assigned to a clan. Can't create clan %s."), clan_name
 			)
 		end
 	end
@@ -56,7 +62,7 @@ minetest.register_chatcommand("clans.delete", {
 	params = S("<clan name>"),
 	description = S("Delete clan with given name"),
 	privs = { server = true, },
-	func = function(player_name, param_str)
+	func = function(_, param_str)
 		local name = param_str
 
 		local is_executed, err = clans.remove_clan(name)
