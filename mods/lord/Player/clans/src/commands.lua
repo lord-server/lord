@@ -1,7 +1,7 @@
 local S = minetest.get_translator("clans")
 
 minetest.register_chatcommand("clans.list", {
-	description = S(""), -- TODO
+	description = S("Lists all existing clans."),
 	privs = { server = true },
 	func = function(_, _)
 		local clans_str = ""
@@ -13,7 +13,7 @@ minetest.register_chatcommand("clans.list", {
 })
 
 minetest.register_chatcommand("clans.show", {
-	description = S(""), -- TODO
+	description = S("Shows given clan information."),
 	privs = { server = true },
 	func = function(_, param_str)
 		local clan = clans.get_by_name(param_str)
