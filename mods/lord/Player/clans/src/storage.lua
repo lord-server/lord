@@ -22,6 +22,10 @@ local function storage2cache()
 		cache[clan_name] = minetest.parse_json(clan_json)
 		-- TODO: handle parse_json error with minetest.error
 		cache[clan_name].name = clan_name
+
+		if not cache[clan_name].players then -- HACK: minetest writes {} in json as null
+			cache[clan_name].players = {}
+		end
 	end
 	return cache
 end
@@ -31,8 +35,6 @@ local cache = storage2cache()
 --- @param name string
 --- @return clans.Clan|nil
 function clan_storage.get(name)
-	-- Данной строки не должно быть при штатной работе программы по задумке
-	-- if cache[name].players == nil then cache[name].players = {} end
 	return cache[name]
 end
 
@@ -50,7 +52,6 @@ function clan_storage.list()
 	return cache
 end
 
---- Клан должен существовать. Проверка на вашей совести!
 --- @param name string
 function clan_storage.delete(name)
 	storage:set_string(name, "")
