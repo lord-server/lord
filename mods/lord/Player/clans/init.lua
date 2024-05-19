@@ -16,7 +16,6 @@ local clan_storage = require("storage")
 --- @return clans.Clan|nil
 function clans.get_by_player_name(player_name)
 	for _, clan in pairs(clan_storage.list()) do
-		print("get_by_player_name: " .. dump(clan))
 		if table.contains(clan.players, player_name) then
 			return clan
 		end

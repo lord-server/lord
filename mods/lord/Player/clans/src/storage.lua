@@ -21,7 +21,6 @@ local function storage2cache()
 	for clan_name, clan_json in pairs(raw_data) do
 		cache[clan_name] = minetest.parse_json(clan_json)
 		-- TODO: handle parse_json error with minetest.error
-		print("storage2cache: " .. clan_name .. ": " .. clan_json .. __FILE_LINE__())
 		cache[clan_name].name = clan_name
 	end
 	return cache
@@ -48,10 +47,10 @@ end
 
 --- @return table<string,clans.Clan>
 function clan_storage.list()
-	print(__FUNC__() .. ": " .. dump(cache) .. __FILE_LINE__())
 	return cache
 end
 
+--- Клан должен существовать. Проверка на вашей совести!
 --- @param name string
 function clan_storage.delete(name)
 	storage:set_string(name, "")
