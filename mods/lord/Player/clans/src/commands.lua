@@ -32,11 +32,8 @@ minetest.register_chatcommand("clans.register", {
 		local params = string.split(param_str, " ")
 
 		local clan_name = params[1]
-		if not clan_name then
-			return false, S("Didn't get any arguments! See help.")
-		end
 		local clan_title = params[2] -- TODO: handle clan title with spaces
-		if not clan_title then
+		if not clan_name or not clan_title then
 			return false, S("Didn't get enough arguments! See help.")
 		end
 		local members = {}
@@ -64,6 +61,9 @@ minetest.register_chatcommand("clans.delete", {
 	privs = { server = true, },
 	func = function(_, param_str)
 		local name = param_str
+		if not name or name == "" then
+			return false, S("Didn't get enough arguments! See help.")
+		end
 
 		local is_executed, err = clans.remove_clan(name)
 		if is_executed then
@@ -82,6 +82,9 @@ minetest.register_chatcommand("clans.add_player", {
 		local params = string.split(param_str, " ")
 
 		local clan_name = params[1]
+		if not clan_name or not params[2] then
+			return false, S("Didn't get enough arguments! See help.")
+		end
 
 		for i, param in ipairs(params) do
 			if i ~= 1 then
@@ -103,15 +106,17 @@ minetest.register_chatcommand("clans.add_player", {
 })
 
 minetest.register_chatcommand("clans.remove_player", {
-	params = S("<clan name> <player name>"), -- TODO: make ability to enter multiple players
-	description = S(""),
+	params = S("<clan name> <player name>"),
+	description = S("Removes given player from given clan."),
 	privs = { server = true, },
 	func = function(_, param_str)
 		local params = string.split(param_str, " ")
-		if not params or #params < 2 then return false, S("Not enough arguments!") end
 
 		local clan_name = params[1]
 		local player_name = params[2]
+		if not clan_name or not player_name then
+			return false, S("Didn't get enough arguments! See help.")
+		end
 
 		local is_executed, err = clans.remove_player_from_clan(clan_name, player_name)
 		if is_executed then
