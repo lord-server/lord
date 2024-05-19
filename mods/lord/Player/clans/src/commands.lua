@@ -8,7 +8,7 @@ minetest.register_chatcommand("clans.list", {
 		for _, clan in pairs(clans.list()) do
 			clans_str = clans_str .. clan.name.." ("..clan.title..")\n"
 		end
-		return true, string.format(S("List of clans:\n %s"), clans_str)
+		return true, string.format(S("List of clans:\n%s"), clans_str)
 	end
 })
 
