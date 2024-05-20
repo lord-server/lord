@@ -8,7 +8,7 @@ minetest.register_chatcommand("clans.list", {
 		for _, clan in pairs(clans.list()) do
 			clans_str = clans_str .. clan.name.." ("..clan.title..")\n"
 		end
-		return true, string.format(S("List of clans:\n%s"), clans_str)
+		return true, S("List of clans:@\n@1", clans_str)
 	end
 })
 
@@ -18,7 +18,7 @@ minetest.register_chatcommand("clans.show", {
 	func = function(_, param_str)
 		local clan = clans.get_by_name(param_str)
 		if not clan then
-			return false, string.format(S("Clan %s does not exist."), param_str)
+			return false, S("Clan @1 does not exist.", param_str)
 		end
 		return true, string.format("%s (%s): %s", clan.title, clan.name, table.concat(clan.players, ", "))
 	end
@@ -44,13 +44,11 @@ minetest.register_chatcommand("clans.register", {
 		local is_executed, err = clans.create_clan(clan_name, clan_title, members)
 		if is_executed then
 			local members_str = table.concat(members, ", ")
-			return true, string.format(S("Clan %s is created successfully. Members: %s"), clan_name, members_str)
+			return true, S("Clan @1 is created successfully. Members: @2", clan_name, members_str)
 		elseif err == clans.err[1] then
-			return false, string.format(S("Clan %s already exists."), clan_name)
+			return false, S("Clan @1 already exists.", clan_name)
 		elseif err == clans.err[2] then
-			return false, string.format(
-				S("A player from given is already assigned to a clan. Can't create clan %s."), clan_name
-			)
+			return false, S("A player from given is already assigned to a clan. Can't create clan @1.", clan_name)
 		end
 	end
 })
@@ -67,9 +65,9 @@ minetest.register_chatcommand("clans.delete", {
 
 		local is_executed, err = clans.remove_clan(name)
 		if is_executed then
-			return true, string.format(S("Clan %s deleted successfully."), name)
+			return true, S("Clan @1 deleted successfully.", name)
 		elseif err == clans.err[3] then
-			return false, string.format(S("Clan %s does not exist."), name)
+			return false, S("Clan @1 does not exist.", name)
 		end
 	end
 })
@@ -91,17 +89,14 @@ minetest.register_chatcommand("clans.add_player", {
 				local is_executed, err = clans.add_player_to_clan(clan_name, param)
 				if not is_executed then
 					if err == clans.err[3] then
-						return false, string.format(S("Clan %s does not exist."), clan_name)
+						return false, S("Clan @1 does not exist.", clan_name)
 					elseif err == clans.err[2] then
-						return false, string.format(
-							S("A player from given is already assigned to a clan."),
-							clan_name
-						)
+						return false, S("A player from given is already assigned to a clan.")
 					end
 				end
 			end
 		end
-		return true, string.format(S("Given player(s) is(are) added to clan %s."), clan_name)
+		return true, S("Given player(s) is(are) added to clan @1.", clan_name)
 	end
 })
 
@@ -120,11 +115,11 @@ minetest.register_chatcommand("clans.remove_player", {
 
 		local is_executed, err = clans.remove_player_from_clan(clan_name, player_name)
 		if is_executed then
-			return true, string.format(S("Player %s was removed from clan %s."), player_name, clan_name)
+			return true, S("Player @1 was removed from clan @2.", player_name, clan_name)
 		elseif err == clans.err[4] then
-			return false, string.format(S("Player %s does not member of the %s clan."), player_name, clan_name)
+			return false, S("Player @1 does not member of the @2 clan.", player_name, clan_name)
 		elseif err == clans.err[3] then
-			return false, string.format(S("Clan %s does not exist."), clan_name)
+			return false, S("Clan @1 does not exist.", clan_name)
 		end
 	end
 })

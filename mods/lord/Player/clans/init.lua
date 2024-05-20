@@ -83,11 +83,12 @@ end
 --- @param player_name string
 --- @return boolean,string|nil
 function clans.remove_player_from_clan(clan_name, player_name)
+	local clan = clans.get_by_name(clan_name)
+	if clan == nil then return false, clans.err[3] end
+
 	if clans.get_by_player_name(player_name) == nil or clans.get_by_player_name(player_name).name ~= clan_name then
 		return false, clans.err[4]
 	end
-	local clan = clans.get_by_name(clan_name)
-	if clan == nil then return false, clans.err[3] end
 
 	local updated_members = {}
 	for _, p in ipairs(clan.players) do
