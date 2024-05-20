@@ -21,8 +21,11 @@ local function storage2cache()
 	for clan_name, clan_json in pairs(raw_data) do
 		cache[clan_name] = minetest.parse_json(clan_json)
 		-- TODO: handle parse_json error with minetest.error
-		print("storage2cache: " .. clan_name .. ": " .. clan_json .. __FILE_LINE__())
 		cache[clan_name].name = clan_name
+
+		if not cache[clan_name].players then -- HACK: minetest writes {} in json as null
+			cache[clan_name].players = {}
+		end
 	end
 	return cache
 end
@@ -32,8 +35,6 @@ local cache = storage2cache()
 --- @param name string
 --- @return clans.Clan|nil
 function clan_storage.get(name)
-	-- Данной строки не должно быть при штатной работе программы по задумке
-	-- if cache[name].players == nil then cache[name].players = {} end
 	return cache[name]
 end
 
@@ -48,7 +49,6 @@ end
 
 --- @return table<string,clans.Clan>
 function clan_storage.list()
-	print(__FUNC__() .. ": " .. dump(cache) .. __FILE_LINE__())
 	return cache
 end
 
