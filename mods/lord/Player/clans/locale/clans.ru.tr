@@ -1,0 +1,22 @@
+# textdomain: clans
+Lists all existing clans.=Показывает список существующих кланов.
+List of clans:@n@1=Список кланов:@n@1
+Shows given clan information.=Показывает информацию о данном клане.
+Clan @1 does not exist.=Клана @1 не существует.
+<clan name> <clan title> [list of players separated by space]=<ID клана> <тайтл клана> [список игроков через пробел]
+Register clan with given title and given players=Регистрация клана с данным тайтлом и данными игроками
+Didn't get enough arguments! See help.=Получено недостаточно аргументов! Смотрите справку (/help).
+Clan @1 is created successfully. Members: @2=Клан @1 успешно создан. Участники: @2
+Clan @1 already exists.=Клан @1 уже существует.
+A player from given is already assigned to a clan. Can't create clan @1.=Один из данных игроков уже состоит в другом клане. Создать клан @1 невозможно.
+<clan name>=<ID клана>
+Delete clan with given name=Удалить клан с данным ID.
+Clan @1 deleted successfully.=Клан @1 успешно удалён.
+<clan name> <list of players separated by space>=<ID клана> <список игроков через пробел>
+Add given players to given clan=Добавить данных игроков в данный клан
+A player from given is already assigned to a clan.=Один из данных игроков уже состоит в другом клане.
+Given player(s) is(are) added to clan @1.=Данные игроки добавлены в клан @1.
+<clan name> <player name>=<ID клана> <ник игрока>
+Removes given player from given clan.=Удаляет данного игрока из данного клана.
+Player @1 was removed from clan @2.=Игрок @1 был удалён из клана @2.
+Player @1 does not member of the @2 clan.=Игрок @1 не состоит в клане @2.
