@@ -740,7 +740,7 @@ function lottmapgen_mirktree(pos)
 end
 
 minetest.register_node("lottmapgen:mallorngen", {
-	tiles = {"lottmapgen_lorien_grass.png", "default_dirt.png", "default_dirt.png^lottmapgen_lorien_grass_side.png"},
+	tiles = {"lord_ground_dirt_lorien.png", "default_dirt.png", "default_dirt.png^lord_ground_dirt_lorien_side.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1, not_in_creative_inventory=1},
 	drop = '',
@@ -756,7 +756,7 @@ minetest.register_node("lottmapgen:beechgen", {
 })
 
 minetest.register_node("lottmapgen:mirktreegen", {
-	tiles = {"lottmapgen_mirkwood_grass.png", "default_dirt.png", "default_dirt.png^lottmapgen_mirkwood_grass_side.png"},
+	tiles = {"lord_ground_dirt_mirkwood.png", "default_dirt.png", "default_dirt.png^lord_ground_dirt_mirkwood_side.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1, not_in_creative_inventory=1},
 	drop = '',
