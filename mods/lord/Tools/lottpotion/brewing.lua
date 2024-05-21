@@ -155,7 +155,7 @@ local recipes = {
 	--Base Potion
 	{ "lottfarming:berries 5", "lottpotion:drinking_glass_water", "lottpotion:wine" },
 	{ "farming:wheat0 3", "lottpotion:drinking_glass_water", "lottpotion:beer" },
-	{ "bees:bottle_honey 6", "lottpotion:drinking_glass_water", "lottpotion:mead", "vessels:glass_bottle" },
+	{ "bees:bottle_honey 6", "lottpotion:drinking_glass_water", "lottpotion:mead", "vessels:glass_bottle 6" },
 	{ "default:apple 5", "lottpotion:drinking_glass_water", "lottpotion:cider" },
 	{ "lottfarming:barley_seed 6", "lottpotion:drinking_glass_water", "lottpotion:ale" },
 }
@@ -376,13 +376,13 @@ minetest.register_abm({
 				if meta:get_int("src_time") >= result.time then
 					meta:set_int("src_time", 0)
 					local result_stack = ItemStack(result.output)
-					if inv:room_for_item("dst", result_stack) then
+					local result_2_stack = ItemStack(result.output_2)
+					if inv:room_for_item("dst", result_stack) and inv:room_for_item("dst2", result_2_stack) then
 						inv:set_list("src", result.new_input)
 						inv:add_item("dst", result_stack)
 						if result.output_2 ~= "" then
 							inv:add_item("dst2", ItemStack(result.output_2))
 						end
-						minetest.log(result.output_2)
 					end
 				end
 			else
