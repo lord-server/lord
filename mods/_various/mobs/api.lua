@@ -2445,7 +2445,7 @@ minetest.register_entity(name, {
 	id = 0,
 	game_name = "mob",
 	texture_list = def.textures,
-	use_texture_alpha = def.use_texture_alpha or true,
+	use_texture_alpha = def.use_texture_alpha or false,
 	child_texture = def.child_texture,
 	docile_by_day = def.docile_by_day or false,
 	time_of_day = 0.5,
