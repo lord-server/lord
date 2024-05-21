@@ -1,3 +1,6 @@
+-- luacheck:ignore 561
+-- Отключена проверка на цикломатическую сложность, поскольку
+-- mods/lord/Blocks/castle/town_item.lua:152:20: cyclomatic complexity of function get_recipe is too high (14 > 10)
 local SL = lord.require_intllib()
 
 local workbench_formspec = 'size[8,9;]' ..
