@@ -1,5 +1,10 @@
-local mordor_from = minetest.settings:get("lord_ground.mordor_lands.from"):split(",")
-local mordor_to   = minetest.settings:get("lord_ground.mordor_lands.to"):split(",")
+local mordor_from = { 4500, -15000, }
+local mordor_from_setting = minetest.settings:get("lord_ground.mordor_lands.from")
+if mordor_from_setting ~= nil then mordor_from = string.split(mordor_from_setting, ",") end
+
+local mordor_to = { 20000,  -8000, }
+local mordor_to_setting = minetest.settings:get("lord_ground.mordor_lands.to")
+if mordor_to_setting ~= nil then mordor_to = string.split(mordor_to_setting, ",") end
 
 
 --- @class ground.Config
