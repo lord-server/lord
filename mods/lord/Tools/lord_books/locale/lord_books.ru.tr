@@ -58,3 +58,7 @@ Brewing=Алкоголь
 Exit=Закрыть
 Page=Страница
 Search=Поиск
+
+### scroll.lua ###
+Scroll=Свиток
+The scroll you were writing to mysteriously disappeared.=Свиток, который вы записывали, исчез по воле злых сил.
