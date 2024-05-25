@@ -4,5 +4,7 @@ require           = function(name) return dofile(mod_path .. "/src/" .. name:gsu
 
 
 require("lord_damage").init()
+require("for_testing")
+
 
 require = old_require
