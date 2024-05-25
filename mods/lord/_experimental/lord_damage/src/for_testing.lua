@@ -21,3 +21,24 @@ minetest.register_craftitem("lord_damage:direct_dealer",{
 		lord_damage.deal_damage(player, 5, "direct")
 	end
 })
+
+minetest.register_craftitem("lord_damage:physical_dealer",{
+	description = "Physical dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "physical")
+	end
+})
+
+minetest.register_craftitem("lord_damage:toxic_dealer",{
+	description = "Toxic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "toxic")
+	end
+})
+
+minetest.register_craftitem("lord_damage:fiery_dealer",{
+	description = "Fiery dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "fiery")
+	end
+})
