@@ -22,9 +22,9 @@ minetest.register_on_leaveplayer(function(player)
 end)
 
 ---Show scroll window when player uses it
----@param itemstack ObjectRef player's itemstack
----@param user Player player
----@return ObjectRef player's itemstack nothing consumed
+---@param  itemstack ObjectRef player's itemstack
+---@param  user      Player    player
+---@return           ObjectRef player's itemstack nothing consumed
 local function scroll_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 	local meta = itemstack:get_meta()
