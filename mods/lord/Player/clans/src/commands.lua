@@ -51,7 +51,7 @@ minetest.register_chatcommand("clans.register", {
 			return false, S("A player from given is already assigned to a clan. Can't create clan @1.", clan_name)
 		elseif err == clans.err[5] then
 			return false, S(
-				"Too much players in clan (max is @1). Can't create clan @2.",
+				"Too many players in clan (max is @1). Can't create clan @2.",
 				clans.max_players_in_clan,
 				clan_name
 			)
@@ -100,7 +100,7 @@ minetest.register_chatcommand("clans.add_player", {
 						return false, S("A player from given is already assigned to a clan.")
 					elseif err == clans.err[5] then
 						return false, S(
-							"Too much players in clan (max is @1). Can't add player(s).",
+							"Too many players in clan (max is @1). Can't add player(s).",
 							clans.max_players_in_clan
 						)
 					end
