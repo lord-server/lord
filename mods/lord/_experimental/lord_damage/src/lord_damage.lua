@@ -1,5 +1,5 @@
-local api    = require("rocks.api")
-local config = require("rocks.config")
+local api    = require("damage.api")
+local config = require("damage.config")
 
 lord_damage = {}
 
