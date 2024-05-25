@@ -94,7 +94,7 @@ end)
 minetest.register_craftitem("lord_books:scroll", {
 	description = S("Scroll"),
 	inventory_image = "scroll.png",
-	groups = {book = 1, flammable = 3},
+	groups = { book = 1, flammable = 3 },
 	on_use = scroll_on_use,
 	stack_max = 1,
 })
