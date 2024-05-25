@@ -4,9 +4,9 @@ local esc = minetest.formspec_escape
 local formspec_size = "size[8,8]"
 
 ---Formspec for editing scroll
----@param title string title of the scroll
----@param text string content of the book
----@return string formspec
+---@param  title  string   title of the scroll
+---@param  text   string   content of the book
+---@return        string formspec
 local function formspec_write(title, text)
 	return "field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
 			esc(title) .. "]" ..
