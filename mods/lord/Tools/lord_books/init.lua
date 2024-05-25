@@ -79,3 +79,12 @@ minetest.register_craft({
 		{"default:paper", "default:paper"},
 	},
 })
+
+minetest.register_craft({
+	output = "lord_books:scroll",
+	recipe = {
+		{"default:paper", "default:paper"},
+		{"default:paper", ""},
+		{"default:paper", "default:paper"},
+	},
+})

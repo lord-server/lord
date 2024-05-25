@@ -1,18 +1,18 @@
-local SL = minetest.get_translator("lord_books")
+local S = minetest.get_translator("lord_books")
 local esc = minetest.formspec_escape
 
 local formspec_size = "size[8,8]"
 
----comment
+---Formspec for editing scroll
 ---@param title string title of the scroll
 ---@param text string content of the book
 ---@return string formspec
 local function formspec_write(title, text)
-	return "field[0.5,1;7.5,0;title;" .. esc(SL("Title:")) .. ";" ..
+	return "field[0.5,1;7.5,0;title;" .. esc(S("Title:")) .. ";" ..
 			esc(title) .. "]" ..
-		"textarea[0.5,1.5;7.5,7;text;" .. esc(SL("Contents:")) .. ";" ..
+		"textarea[0.5,1.5;7.5,7;text;" .. esc(S("Contents:")) .. ";" ..
 			esc(text) .. "]" ..
-		"button_exit[2.5,7.5;3,1;save;" .. esc(SL("Save")) .. "]"
+		"button_exit[2.5,7.5;3,1;save;" .. esc(S("Save")) .. "]"
 end
 
 local book_writers = {}
@@ -38,7 +38,7 @@ local function scroll_on_use(itemstack, user)
 	formspec = formspec_write(title, text)
 
 	minetest.show_formspec(player_name, "lord_books:scroll", formspec_size .. formspec)
-	-- Store the wield index in case the user accidentally switches before the formspec is shown
+	-- Store the wield index in case the user accidentally switches the wield item before the formspec is shown
 	book_writers[player_name] = {wield_index = user:get_wield_index()}
 	return itemstack
 end
@@ -62,7 +62,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if stack:get_name() ~= "lord_books:scroll" then
 		-- No book in the wield slot, abort & inform the player
 		minetest.chat_send_player(player_name,
-			SL("The scroll you were writing to mysteriously disappeared."))
+			S("The scroll you were writing to mysteriously disappeared."))
 		return
 	end
 	local data = stack:get_meta():to_table().fields
@@ -79,7 +79,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		if #short_title > short_title_size + 3 then
 			short_title = short_title:sub(1, short_title_size) .. "..."
 		end
-		data.description = SL("Scroll")..": "..short_title
+		data.description = S("Scroll")..": "..short_title
 		data.text = fields.text
 		data.text = data.text:gsub("\r\n", "\n"):gsub("\r", "\n")
 		data.text = data.text:gsub("[%z\1-\8\11-\31\127]", "") -- strip naughty control characters (keeps \t and \n)
@@ -92,7 +92,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_craftitem("lord_books:scroll", {
-	description = SL("Scroll"),
+	description = S("Scroll"),
 	inventory_image = "scroll.png",
 	groups = {book = 1, flammable = 3},
 	on_use = scroll_on_use,
