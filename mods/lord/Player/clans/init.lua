@@ -41,7 +41,11 @@ clans.err = {
 	[2] = "given player(s) is(are) already assigned to some other clan",
 	[3] = "there is no clan with given name",
 	[4] = "there is no such player in this clan",
+	[5] = "max players reached!",
 }
+
+---@type integer readonly
+clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
 --- @param name string
 --- @param title string
@@ -49,6 +53,7 @@ clans.err = {
 --- @return boolean,string|nil
 function clans.create_clan(name, title, members)
 	if clans.get_by_name(name) ~= nil then return false, clans.err[1] end
+	if #members > clans.max_players_in_clan then return false, clans.err[5] end
 	for _, m in ipairs(members) do
 		if clans.get_by_player_name(m) ~= nil then return false, clans.err[2] end
 	end
@@ -73,6 +78,7 @@ function clans.add_player_to_clan(clan_name, player_name)
 	if clans.get_by_player_name(player_name) ~= nil then return false, clans.err[2] end
 	local clan = clans.get_by_name(clan_name)
 	if clan == nil then return false, clans.err[3] end
+	if #clan.players+1 > clans.max_players_in_clan then return false, clans.err[5] end
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
