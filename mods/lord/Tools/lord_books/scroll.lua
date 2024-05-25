@@ -39,7 +39,7 @@ local function scroll_on_use(itemstack, user)
 
 	minetest.show_formspec(player_name, "lord_books:scroll", formspec_size .. formspec)
 	-- Store the wield index in case the user accidentally switches the wield item before the formspec is shown
-	book_writers[player_name] = {wield_index = user:get_wield_index()}
+	book_writers[player_name] = { wield_index = user:get_wield_index() }
 	return itemstack
 end
 
