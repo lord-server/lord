@@ -20,3 +20,5 @@ Given player(s) is(are) added to clan @1.=
 Removes given player from given clan.=
 Player @1 was removed from clan @2.=
 Player @1 does not member of the @2 clan.=
+Too much players in clan (max is @1). Can't create clan @2.=
+Too much players in clan (max is @1). Can't add player(s).=
