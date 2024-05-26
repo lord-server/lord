@@ -17,13 +17,13 @@ local raid_notification_is_blocked = {
 ---@param clan_name string
 ---@param clan_title string
 local function send_raid_notification(clan_name, clan_title)
+	minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", clan_title)))
 	if raid_notification_is_blocked[clan_name] then return end
 	raid_notification_is_blocked[clan_name] = true
 	minetest.after(raid_notification_cooldown, function()
 		raid_notification_is_blocked[clan_name] = nil
 	end)
 
-	minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", clan_title)))
 	local sound = minetest.sound_play("clan_node_alert_bell", { gain = 0.5 })
 	minetest.after(15, function()
 		minetest.sound_fade(sound, 0.05, 0)
