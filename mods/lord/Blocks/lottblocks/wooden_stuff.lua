@@ -435,3 +435,13 @@ register_reinforced_hatch("lottblocks:hatch_reinforced_wooden",
 	"lottblocks_hatch_reinforced_wooden.png",
 	"default:wood"
 )
+register_reinforced_hatch("lottblocks:hatch_reinforced_mirk",
+	S("Reinforced Mirk Hatch"),
+	"lottblocks_hatch_reinforced_mirk.png",
+	"default:junglewood"
+)
+register_reinforced_hatch("lottblocks:hatch_reinforced_beech",
+	S("Reinforced Beech Hatch"),
+	"lottblocks_hatch_reinforced_beech.png",
+	"lord_planks:beech"
+)
