@@ -9,7 +9,7 @@ local S = minetest.get_translator('clan_node')
 local raid_notification_cooldown = 50
 
 ---@type table<string,boolean>
-local raid_notification_block = {
+local raid_notification_is_blocked = {
 	-- clan_name = true, -- raid notification was sent to clan recently
 	-- clan_name = nil,  --                 ...                long ago
 }
@@ -17,10 +17,10 @@ local raid_notification_block = {
 ---@param clan_name string
 ---@param clan_title string
 local function send_raid_notification(clan_name, clan_title)
-	if raid_notification_block[clan_name] then return end
-	raid_notification_block[clan_name] = true
+	if raid_notification_is_blocked[clan_name] then return end
+	raid_notification_is_blocked[clan_name] = true
 	minetest.after(raid_notification_cooldown, function()
-		raid_notification_block[clan_name] = nil
+		raid_notification_is_blocked[clan_name] = nil
 	end)
 
 	minetest.chat_send_all(minetest.colorize("red", S("Clan @1 is under the raid", clan_title)))
