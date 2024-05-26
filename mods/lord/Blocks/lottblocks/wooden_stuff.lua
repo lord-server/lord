@@ -445,3 +445,9 @@ register_reinforced_hatch("lottblocks:hatch_reinforced_beech",
 	"lottblocks_hatch_reinforced_beech.png",
 	"lord_planks:beech"
 )
+
+register_reinforced_hatch("lottblocks:hatch_reinforced_elm",
+	S("Reinforced Elm Hatch"),
+	"lottblocks_hatch_reinforced_elm.png",
+	"lord_planks:elm"
+)
