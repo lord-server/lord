@@ -106,7 +106,7 @@ function clans.remove_player_from_clan(clan_name, player_name)
 	return true, nil
 end
 
---- @return table
+--- @return table<string,clans.Clan>
 function clans.list()
 	return clan_storage.list()
 end
@@ -166,5 +166,6 @@ end)
 
 
 require("commands")
+require("last_login_kick")
 
 require = old_require
