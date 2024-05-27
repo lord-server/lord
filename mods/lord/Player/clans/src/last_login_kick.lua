@@ -28,6 +28,14 @@ local function kick_inactive_players_from_clan()
 	end
 end
 
-minetest.register_on_mods_loaded(
-	function() minetest.after(30, kick_inactive_players_from_clan) end -- HACK: waiting for auth system loading
-)
+--- Calls given function every day since server start with minetest.after
+---@param func fun()
+local function call_every_day(func)
+	func()
+	minetest.after(day, call_every_day, func)
+end
+
+minetest.register_on_mods_loaded(function()
+	-- HACK: waiting for auth system loading:
+	minetest.after(30, call_every_day, kick_inactive_players_from_clan)
+end)
