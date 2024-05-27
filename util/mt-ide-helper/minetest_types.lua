@@ -150,6 +150,7 @@ function minetest.is_nan(arg) end
 --- * This value might overflow on certain 32-bit systems!
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3269-L3271)
+---@return number
 function minetest.get_us_time() end
 --- returns a position.
 --- * returns the exact position on the surface of a pointed node
@@ -839,6 +840,7 @@ function minetest.get_player_ip(name) end
 ---   `local auth_data = minetest.get_auth_handler().get_auth(playername)`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4807-L4810)
+---@return AuthenticationHandlerDefinition
 function minetest.get_auth_handler() end
 --- * Must be called by the authentication handler for privilege changes.
 --- * `name`: string; if omitted, all auth data should be considered modified
@@ -1703,6 +1705,9 @@ function minetest.sound_fade(handle, step, gain) end
 --- * Optional: Variable number of arguments that are passed to `func`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5420-L5422)
+---@param time number @in seconds
+---@param func fun()
+---@return table @job (job:cancel() to stop)
 function minetest.after(time, func, ...) end
 --- * Cancels the job function from being called
 function job:cancel() end
