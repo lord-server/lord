@@ -86,3 +86,9 @@
 [submodule "mods/_various/WorldEdit"]
 	path = mods/_various/WorldEdit
 	url = https://github.com/Uberi/Minetest-WorldEdit.git
+[submodule "mods/_various/painting"]
+	path = mods/_various/painting
+	url = https://github.com/sfence/painting.git
+[submodule "mods/_various/vector_extras"]
+	path = mods/_various/vector_extras
+	url = https://github.com/HybridDog/vector_extras.git
