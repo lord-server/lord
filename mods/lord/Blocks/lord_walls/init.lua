@@ -27,7 +27,7 @@ for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	local sub_name = node_name:split(":")[2]
 
 	local walls_node = ":walls:" .. sub_name
-	local description = sub_name:remove_underscores():to_headline()
+	local description = registration.original_description
 	local texture = registration.definition.tiles
 	walls.register(walls_node, S(description), texture, node_name, default.node_sound_stone_defaults())
 
