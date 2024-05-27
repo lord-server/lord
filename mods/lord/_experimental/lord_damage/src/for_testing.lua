@@ -36,6 +36,13 @@ minetest.register_craftitem("lord_damage:toxic_dealer",{
 	end
 })
 
+minetest.register_craftitem("lord_damage:toxic_dealer",{
+	description = "Toxic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "toxic")
+	end
+})
+
 minetest.register_craftitem("lord_damage:fiery_dealer",{
 	description = "Fiery dealer",
 	on_use = function(itemstack, player, pointed_thing)
