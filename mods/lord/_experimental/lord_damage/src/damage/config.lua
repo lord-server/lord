@@ -1,36 +1,117 @@
-local physical_behavior = function(player, amount, reason)
-	--TODO: make a separate behavior with some visual effects
-	return lord_damage.base_behavior(player, amount, "physical", reason or { type = "set_hp", damage_type = "physical" })
+local direct_behavior = function(player, amount, reason, source)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "direct")
+	reason = reason or { type = "set_hp", damage_type = "direct", source = source, }
+	return player:set_hp(player:get_hp() - amount, reason)
 end
 
-local toxic_behavior = function(player, amount, reason)
-	--TODO: turn the healthbar green
-	local sum = 0
-	amount = lord_damage.calculate_damage_absorption(player, amount, "toxic")
-	for i = 1, amount do
-		minetest.after(sum, function()
-			--TODO: add cancel check
-			player:set_hp(player:get_hp() - 1, reason or { type = "set_hp", damage_type = "toxic" })
+local direct_periodic_behavior = function(player, amount, reason, source, chunks)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "direct_periodic")
+	reason = reason or { type = "set_hp", damage_type = "direct_periodic", source = source, }
+
+	local max_cycle       = math.floor(amount/chunks)
+	local leftover_damage = amount%chunks
+
+	local cycle_number = 0
+	for i = 1, max_cycle do
+		minetest.after(cycle_number, function()
+			if not lord_damage.get_source_status(player, source) then
+				leftover_damage = 0
+				return
+			end
+
+			player:set_hp(player:get_hp() - chunks, reason)
 		end)
-		sum = sum + 1
+		cycle_number = cycle_number + 1
+	end
+	if leftover_damage ~= 0 then
+		player:set_hp(player:get_hp() - chunks, reason)
 	end
 end
 
-local fiery_behavior = function(player, amount, reason)
-	--TODO: add fire to the player model and the player screen
-	local sum = 0
-	amount = lord_damage.calculate_damage_absorption(player, amount, "fiery")
-	for i = 1, amount do
-		minetest.after(sum, function()
-			--TODO: add cancel check + be on fire after the damage source stopped hitting (except when extinguished)
-			player:set_hp(player:get_hp() - 1, reason or { type = "set_hp", damage_type = "fiery" })
+
+local physical_behavior = function(player, amount, reason, source)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "physical")
+	reason = reason or { type = "set_hp", damage_type = "physical", source = source, }
+	return player:set_hp(player:get_hp() - amount, reason)
+end
+
+local physical_periodic_behavior = function(player, amount, reason, source, chunks)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "physical_periodic")
+	reason = reason or { type = "set_hp", damage_type = "physical_periodic", source = source, }
+
+	local max_cycle       = math.floor(amount/chunks)
+	local leftover_damage = amount%chunks
+
+	local cycle_number = 0
+	for i = 1, max_cycle do
+		minetest.after(cycle_number, function()
+			if not lord_damage.get_source_status(player, source) then
+				leftover_damage = 0
+				return
+			end
+
+			player:set_hp(player:get_hp() - chunks, reason)
 		end)
-		sum = sum + 1
+		cycle_number = cycle_number + 1
+	end
+	if leftover_damage ~= 0 then
+		player:set_hp(player:get_hp() - chunks, reason)
+	end
+end
+
+local toxic_periodic_behavior = function(player, amount, reason, source, chunks)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "toxic_periodic")
+	reason = reason or { type = "set_hp", damage_type = "toxic_periodic", source = source, }
+
+	local max_cycle       = math.floor(amount/chunks)
+	local leftover_damage = amount%chunks
+
+	local cycle_number = 0
+	for i = 1, max_cycle do
+		minetest.after(cycle_number, function()
+			if not lord_damage.get_source_status(player, source) then
+				leftover_damage = 0
+				return
+			end
+
+			player:set_hp(player:get_hp() - chunks, reason)
+		end)
+		cycle_number = cycle_number + 1
+	end
+	if leftover_damage ~= 0 then
+		player:set_hp(player:get_hp() - chunks, reason)
+	end
+end
+
+local fiery_periodic_behavior = function(player, amount, reason, source, chunks)
+	amount = lord_damage.calculate_damage_absorption(player, amount, "fiery_periodic")
+	reason = reason or { type = "set_hp", damage_type = "fiery_periodic", source = source, }
+
+	local max_cycle       = math.floor(amount/chunks)
+	local leftover_damage = amount%chunks
+
+	local cycle_number = 0
+	for i = 1, max_cycle do
+		minetest.after(cycle_number, function()
+			if not lord_damage.get_source_status(player, source) then
+				leftover_damage = 0
+				return
+			end
+
+			player:set_hp(player:get_hp() - chunks, reason)
+		end)
+		cycle_number = cycle_number + 1
+	end
+	if leftover_damage ~= 0 then
+		player:set_hp(player:get_hp() - chunks, reason)
 	end
 end
 
 return {
-	["physical"] = physical_behavior,
-	["toxic"] = toxic_behavior,
-	["fiery"] = fiery_behavior,
+	["direct"]            = direct_behavior,
+	["direct_periodic"]   = direct_periodic_behavior,
+	["physical"]          = physical_behavior,
+	["physical_periodic"] = physical_periodic_behavior,
+	["toxic_periodic"]    = toxic_periodic_behavior,
+	["fiery_periodic"]    = fiery_periodic_behavior,
 }

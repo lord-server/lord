@@ -19,6 +19,17 @@ local damage = {
 	damage_types = {},
 }
 
+local function set_source(player, source, value)
+	local meta = player:get_meta()
+	meta:set_string(source, value)
+	return player, source
+end
+
+local function get_source_status(player, source)
+	local meta = player:get_meta()
+	return meta:get_string(source)
+end
+
 --- @param damage_type string    damage type name
 --- @param behavior    function  function which is called on deal_damage()
 local function register_damage_type(damage_type, behavior)
@@ -26,11 +37,7 @@ local function register_damage_type(damage_type, behavior)
 	return true
 end
 
-register_damage_type("direct", function(player, amount, reason)
-	return base_behavior(player, amount, "direct", reason or { type = "set_hp", damage_type = "direct" })
-end)
-
-local function deal_damage(player, amount, damage_type, reason)
+local function deal_damage(player, amount, damage_type, reason, source, chunks)
 	if not amount then
 		return false
 	end
@@ -39,14 +46,18 @@ local function deal_damage(player, amount, damage_type, reason)
 		damage_type = "direct"
 	end
 
-	return damage.damage_types[damage_type](player, amount, reason)
+	chunks = chunks or 1
+
+	return damage.damage_types[damage_type](player, amount, reason, source, chunks)
 end
 
 
 return {
 	calculate_damage_absorption = calculate_damage_absorption,
 	register_damage_type        = register_damage_type,
+	get_source_status           = get_source_status,
 	base_behavior               = base_behavior,
 	deal_damage                 = deal_damage,
+	set_source                  = set_source,
 	get_nodes                   = function() return damage.damage_types end,
 }
