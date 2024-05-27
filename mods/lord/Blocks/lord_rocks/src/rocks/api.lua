@@ -64,13 +64,15 @@ local function register_rock(node_name, softness, definition, register_stairs)
 	end
 
 	rocks.nodes[node_name] = {
-		softness   = softness,
-		definition = definition,
+		softness             = softness,
+		definition           = definition,
+		original_description = description
 	}
 
 	rocks.lord_nodes[node_name] = {
-		softness   = softness,
-		definition = definition,
+		softness             = softness,
+		definition           = definition,
+		original_description = description
 	}
 
 
