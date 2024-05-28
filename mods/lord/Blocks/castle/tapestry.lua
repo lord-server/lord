@@ -1,5 +1,6 @@
 local SL = lord.require_intllib()
 
+
 local function register_tapestry_top(node_name, craft_from, description_material, texture)
 	local node_and_selection_box = {
 		type  = "fixed",
@@ -43,43 +44,29 @@ local tapestry_tops = {
 for _, tapestry_top in pairs(tapestry_tops) do
 	register_tapestry_top(unpack(tapestry_top))
 end
+-- ^^^ tapestry tops aren't used in tapestry crafting, for building only
 
 
-----------------
---- Tapestry ---
-----------------
-local tapestry = {}
-tapestry.colours = {
-	{"white",      "White",      "white"},
-	{"grey",       "Grey",       "grey"},
-	{"black",      "Black",      "black"},
-	{"red",        "Red",        "red"},
-	{"yellow",     "Yellow",     "yellow"},
-	{"green",      "Green",      "green"},
-	{"cyan",       "Cyan",       "cyan"},
-	{"blue",       "Blue",       "blue"},
-	{"magenta",    "Magenta",    "magenta"},
-	{"orange",     "Orange",     "orange"},
-	{"violet",     "Violet",     "violet"},
-	{"dark_grey",  "Dark Grey",  "dark_grey"},
-	{"dark_green", "Dark Green", "dark_green"},
-	{"pink", "Pink", "pink"},
-	{"brown", "Brown", "brown"},
+
+local tapestry = {} -- namespace
+
+---@type NodeDefinition
+local tapestry_node_def_template = {
+	drawtype = "nodebox",
+	groups = { oddly_breakable_by_hand=3, flammable=3 },
+	sounds = default.node_sound_defaults(),
+	paramtype = "light",
+	paramtype2 = "facedir",
 }
 
-for _, row in ipairs(tapestry.colours) do
-	local name = row[1]
-	local desc = row[2]
-	local craft_color_group = row[3]
-	-- Node Definition
-	minetest.register_node("castle:tapestry_"..name, {
-		drawtype = "nodebox",
-		description = SL(desc.." Tapestry"),
-		tiles = {"wool_"..name..".png"},
-		groups = {oddly_breakable_by_hand=3,flammable=3,not_in_creative_inventory=1},
-		sounds = default.node_sound_defaults(),
-	         paramtype = "light",
-	         paramtype2 = "facedir",
+--- Registers normal tapestry with given params without craft recipe.
+---@param name        string @Example: `"castle:tapestry_violet"`
+---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
+function tapestry.register(name, desc_prefix, tile)
+	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+		description = SL(desc_prefix.." Tapestry"),
+		tiles = { tile, },
 		node_box = {
 		    type = "fixed",
 		    fixed = {
@@ -100,30 +87,17 @@ for _, row in ipairs(tapestry.colours) do
 			    {-0.500000,-0.500000,0.437500,0.500000,1.500000,0.500000},
 		    },
 	    },
-	})
-	if craft_color_group then
-		-- Crafting from wool and a stick
-		minetest.register_craft({
-			type = "shapeless",
-			output = 'castle:tapestry_'..name,
-			recipe = {'wool:'..craft_color_group, 'default:stick'},
-		})
-	end
+	}))
 end
 
-for _, row in ipairs(tapestry.colours) do
-	local name = row[1]
-	local desc = row[2]
-	local craft_color_group = row[3]
-	-- Node Definition
-	minetest.register_node("castle:long_tapestry_"..name, {
-	         drawtype = "nodebox",
-		description = SL(desc.." Tapestry (Long)"),
-		tiles = {"wool_"..name..".png"},
-		groups = {oddly_breakable_by_hand=3,flammable=3,not_in_creative_inventory=1},
-		sounds = default.node_sound_defaults(),
-	         paramtype = "light",
-	         paramtype2 = "facedir",
+--- Registers long tapestry with given params without craft recipe.
+---@param name        string @Example: `"castle:long_tapestry_violet"`
+---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Long)"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
+function tapestry.register_long(name, desc_prefix, tile)
+	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+		description = SL(desc_prefix.." Tapestry (Long)"),
+		tiles = { tile, },
 		node_box = {
 		    type = "fixed",
 		    fixed = {
@@ -144,30 +118,17 @@ for _, row in ipairs(tapestry.colours) do
 			    {-0.500000,-0.500000,0.437500,0.500000,2.500000,0.500000},
 		    },
 	    },
-	})
-	if craft_color_group then
-		-- Crafting from normal tapestry and wool
-		minetest.register_craft({
-			type = "shapeless",
-			output = 'castle:long_tapestry_'..name,
-			recipe = {'wool:'..craft_color_group, 'castle:tapestry_'..name},
-		})
-	end
+	}))
 end
 
-for _, row in ipairs(tapestry.colours) do
-	local name = row[1]
-	local desc = row[2]
-	local craft_color_group = row[3]
-	-- Node Definition
-	minetest.register_node("castle:very_long_tapestry_"..name, {
-	         drawtype = "nodebox",
-		description = SL(desc.." Tapestry (Very Long)"),
-		tiles = {"wool_"..name..".png"},
-		groups = {oddly_breakable_by_hand=3,flammable=3,not_in_creative_inventory=1},
-		sounds = default.node_sound_defaults(),
-	         paramtype = "light",
-	         paramtype2 = "facedir",
+--- Registers very long tapestry with given params without craft recipe.
+---@param name        string @Example: `"castle:very_long_tapestry_violet"`
+---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Very Long)"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
+function tapestry.register_very_long(name, desc_prefix, tile)
+	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+		description = SL(desc_prefix.." Tapestry (Very Long)"),
+		tiles = { tile, },
 		node_box = {
 		    type = "fixed",
 		    fixed = {
@@ -188,13 +149,40 @@ for _, row in ipairs(tapestry.colours) do
 			    {-0.500000,-0.500000,0.437500,0.500000,3.500000,0.500000},
 		    },
 	    },
-	})
-	if craft_color_group then
-		-- Crafting from long tapestry and wool
-		minetest.register_craft({
-			type = "shapeless",
-			output = 'castle:very_long_tapestry_'..name,
-			recipe = {'wool:'..craft_color_group, 'castle:long_tapestry_'..name},
-		})
-	end
+	}))
 end
+
+
+-- registering colored tapestries
+for _, dye in ipairs(dye.dyes) do
+	local desc_prefix = dye[2]
+	local tile = "wool_"..dye[1]..".png"
+	local material = "wool:"..dye[1]
+
+	local name = "castle:tapestry_"..dye[1]
+	tapestry.register(name, desc_prefix, tile)
+	minetest.register_craft({
+		type = "shapeless",
+		output = name,
+		recipe = { material, 'group:stick', },
+	})
+
+	local name_long = "castle:long_tapestry_"..dye[1]
+	tapestry.register_long(name_long, desc_prefix, tile)
+	minetest.register_craft({
+		type = "shapeless",
+		output = name_long,
+		recipe = { material, name, },
+	})
+
+	local name_very_long = "castle:very_long_tapestry_"..dye[1]
+	tapestry.register_very_long(name_very_long, desc_prefix, tile)
+	minetest.register_craft({
+		type = "shapeless",
+		output = name_very_long,
+		recipe = { material, name_long, },
+	})
+end
+
+
+return tapestry

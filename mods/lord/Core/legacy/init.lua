@@ -286,3 +286,5 @@ minetest.register_alias("lottinventory:forbidden_crafts_book", "lord_books:forbi
 minetest.register_alias("lottinventory:master_book", "lord_books:master_book")
 minetest.register_alias("lottinventory:potions_book", "lord_books:potions_book")
 minetest.register_alias("lottinventory:protection_book", "lord_books:protection_book")
+
+minetest.register_alias("lottother:tapestry_top", "castle:tapestry_top")
