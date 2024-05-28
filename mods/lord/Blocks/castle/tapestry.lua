@@ -183,3 +183,6 @@ for _, dye in ipairs(dye.dyes) do
 		recipe = { material, name_long, },
 	})
 end
+
+
+return tapestry
