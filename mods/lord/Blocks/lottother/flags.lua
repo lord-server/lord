@@ -2,29 +2,6 @@ local SL       = minetest.get_translator("lottother")
 
 local tapestry = {}
 
-minetest.register_node("lottother:tapestry_top", {
-	drawtype            = "nodebox",
-	description         = SL("Tapestry Top"),
-	tiles               = { "default_wood.png" },
-	sunlight_propagates = true,
-	groups              = { flammable = 3, oddly_breakable_by_hand = 1 },
-	sounds              = default.node_sound_defaults(),
-	paramtype           = "light",
-	paramtype2          = "facedir",
-	node_box            = {
-		type  = "fixed",
-		fixed = {
-			{ -0.600000, -0.500000, 0.375000, 0.600000, -0.375000, 0.500000 },
-		},
-	},
-	selection_box       = {
-		type  = "fixed",
-		fixed = {
-			{ -0.600000, -0.500000, 0.375000, 0.600000, -0.375000, 0.500000 },
-		},
-	},
-})
-
 tapestry.colours = {
 	{ "angmar", "Angmar", "angmar" },
 	{ "dunland", "Dunland", "dunland" },
