@@ -60,9 +60,9 @@ local tapestry_node_def_template = {
 }
 
 --- Registers normal tapestry with given params without craft recipe.
----@param name string @Example: `"castle:tapestry_violet"`
+---@param name        string @Example: `"castle:tapestry_violet"`
 ---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry"`
----@param tile string @texture. Example: `"wool_blue.png"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
 function tapestry.register(name, desc_prefix, tile)
 	minetest.register_node(name, table.merge(tapestry_node_def_template, {
 		description = SL(desc_prefix.." Tapestry"),
@@ -91,9 +91,9 @@ function tapestry.register(name, desc_prefix, tile)
 end
 
 --- Registers long tapestry with given params without craft recipe.
----@param name string @Example: `"castle:long_tapestry_violet"`
+---@param name        string @Example: `"castle:long_tapestry_violet"`
 ---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Long)"`
----@param tile string @texture. Example: `"wool_blue.png"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
 function tapestry.register_long(name, desc_prefix, tile)
 	minetest.register_node(name, table.merge(tapestry_node_def_template, {
 		description = SL(desc_prefix.." Tapestry (Long)"),
@@ -122,9 +122,9 @@ function tapestry.register_long(name, desc_prefix, tile)
 end
 
 --- Registers very long tapestry with given params without craft recipe.
----@param name string @Example: `"castle:very_long_tapestry_violet"`
+---@param name        string @Example: `"castle:very_long_tapestry_violet"`
 ---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Very Long)"`
----@param tile string @texture. Example: `"wool_blue.png"`
+---@param tile        string @texture. Example: `"wool_blue.png"`
 function tapestry.register_very_long(name, desc_prefix, tile)
 	minetest.register_node(name, table.merge(tapestry_node_def_template, {
 		description = SL(desc_prefix.." Tapestry (Very Long)"),
