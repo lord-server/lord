@@ -75,6 +75,7 @@ function tapestry.register(name, desc, tile)
 			    {-0.500000,-0.500000,0.437500,0.500000,1.500000,0.500000},
 		    },
 	    },
+		use_texture_alpha = "clip",
 	}))
 end
 
