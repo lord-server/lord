@@ -64,23 +64,11 @@ local tapestry_node_def_template = {
 ---@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry"`
 ---@param tile        string @texture. Example: `"wool_blue.png"`
 function tapestry.register(name, desc_prefix, tile)
-	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+	minetest.register_node(name, table.overwrite(tapestry_node_def_template, {
 		description = SL(desc_prefix.." Tapestry"),
 		tiles = { tile, },
-		node_box = {
-		    type = "fixed",
-		    fixed = {
-			    {-0.312500,-0.500000,0.437500,-0.187500,-0.375000,0.500000},
-			    {0.187500,-0.500000,0.437500,0.312500,-0.375000,0.500000},
-			    {-0.375000,-0.375000,0.437500,-0.125000,-0.250000,0.500000},
-			    {0.125000,-0.375000,0.437500,0.375000,-0.250000,0.500000},
-			    {-0.437500,-0.250000,0.437500,-0.062500,-0.125000,0.500000},
-			    {0.062500,-0.250000,0.437500,0.437500,-0.125000,0.500000},
-			    {-0.500000,-0.125000,0.437500,0.000000,0.000000,0.500000},
-			    {0.000000,-0.125000,0.437500,0.500000,0.000000,0.500000},
-			    {-0.500000,0.000000,0.437500,0.500000,1.500000,0.500000},
-		    },
-	    },
+		drawtype = "mesh",
+		mesh = "tapestry.obj",
 	    selection_box = {
 		    type = "fixed",
 		    fixed = {
