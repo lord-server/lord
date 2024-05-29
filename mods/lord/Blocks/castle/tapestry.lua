@@ -60,12 +60,12 @@ local tapestry_node_def_template = {
 }
 
 --- Registers normal tapestry with given params without craft recipe.
----@param name        string @Example: `"castle:tapestry_violet"`
----@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry"`
----@param tile        string @texture. Example: `"wool_blue.png"`
-function tapestry.register(name, desc_prefix, tile)
-	minetest.register_node(name, table.overwrite(tapestry_node_def_template, {
-		description = SL(desc_prefix.." Tapestry"),
+---@param name string @Example: `"castle:tapestry_violet"`
+---@param desc string @Localised full description
+---@param tile string @texture. Example: `"wool_blue.png"`
+function tapestry.register(name, desc, tile)
+	minetest.register_node(name, table.overwrite(table.copy(tapestry_node_def_template), {
+		description = desc,
 		tiles = { tile, },
 		drawtype = "mesh",
 		mesh = "tapestry.obj",
@@ -79,12 +79,12 @@ function tapestry.register(name, desc_prefix, tile)
 end
 
 --- Registers long tapestry with given params without craft recipe.
----@param name        string @Example: `"castle:long_tapestry_violet"`
----@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Long)"`
----@param tile        string @texture. Example: `"wool_blue.png"`
-function tapestry.register_long(name, desc_prefix, tile)
+---@param name string @Example: `"castle:long_tapestry_violet"`
+---@param desc string @Localised full description
+---@param tile string @texture. Example: `"wool_blue.png"`
+function tapestry.register_long(name, desc, tile)
 	minetest.register_node(name, table.merge(tapestry_node_def_template, {
-		description = SL(desc_prefix.." Tapestry (Long)"),
+		description = desc,
 		tiles = { tile, },
 		node_box = {
 		    type = "fixed",
@@ -110,12 +110,12 @@ function tapestry.register_long(name, desc_prefix, tile)
 end
 
 --- Registers very long tapestry with given params without craft recipe.
----@param name        string @Example: `"castle:very_long_tapestry_violet"`
----@param desc_prefix string @Final description will be `desc_prefix .. " Tapestry (Very Long)"`
----@param tile        string @texture. Example: `"wool_blue.png"`
-function tapestry.register_very_long(name, desc_prefix, tile)
+---@param name string @Example: `"castle:very_long_tapestry_violet"`
+---@param desc string @Localised full description
+---@param tile string @texture. Example: `"wool_blue.png"`
+function tapestry.register_very_long(name, desc, tile)
 	minetest.register_node(name, table.merge(tapestry_node_def_template, {
-		description = SL(desc_prefix.." Tapestry (Very Long)"),
+		description = desc,
 		tiles = { tile, },
 		node_box = {
 		    type = "fixed",
@@ -143,12 +143,13 @@ end
 
 -- registering colored tapestries
 for _, dye in ipairs(dye.dyes) do
-	local desc_prefix = dye[2]
 	local tile = "wool_"..dye[1]..".png"
+	local desc_prefix = dye[2]
 	local material = "wool:"..dye[1]
 
 	local name = "castle:tapestry_"..dye[1]
-	tapestry.register(name, desc_prefix, tile)
+	local desc = SL(desc_prefix.." Tapestry")
+	tapestry.register(name, desc, tile)
 	minetest.register_craft({
 		type = "shapeless",
 		output = name,
@@ -156,7 +157,8 @@ for _, dye in ipairs(dye.dyes) do
 	})
 
 	local name_long = "castle:long_tapestry_"..dye[1]
-	tapestry.register_long(name_long, desc_prefix, tile)
+	local desc_long = SL(desc_prefix.." Tapestry (Long)")
+	tapestry.register_long(name_long, desc_long, tile)
 	minetest.register_craft({
 		type = "shapeless",
 		output = name_long,
@@ -164,7 +166,8 @@ for _, dye in ipairs(dye.dyes) do
 	})
 
 	local name_very_long = "castle:very_long_tapestry_"..dye[1]
-	tapestry.register_very_long(name_very_long, desc_prefix, tile)
+	local desc_very_long = SL(desc_prefix.." Tapestry (Very Long)")
+	tapestry.register_very_long(name_very_long, desc_very_long, tile)
 	minetest.register_craft({
 		type = "shapeless",
 		output = name_very_long,
