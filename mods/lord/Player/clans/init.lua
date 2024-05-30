@@ -4,12 +4,6 @@ require           = function(name) return dofile(mod_path .. "/src/" .. name:gsu
 
 clans = {} -- namespace
 
---[[clans = {
-	get_by_player  = get_clan_by_player,
-	get_by_name    = get_clan_from_storage,
-	clan_is_online = clan_is_online,
-}]]
-
 local clan_storage = require("storage")
 
 --- @param player_name string
@@ -130,7 +124,10 @@ local clan_is_online_cache = {}
 --- @param name string
 --- @return boolean|nil
 function clans.clan_is_online(name)
-	if not clans.get_by_name(name) then return nil end
+	local clan = clans.get_by_name(name)
+	if not clan then return nil end
+	if clan.is_blocked then return nil end -- clan is offline if it is blocked
+
 	if clan_is_online_cache[name] == nil then
 		clan_is_online_cache[name] = check_clan_is_online(name)
 	end
@@ -138,26 +135,28 @@ function clans.clan_is_online(name)
 	return clan_is_online_cache[name]
 end
 
-minetest.register_on_joinplayer(function(player, last_login)
+minetest.register_on_joinplayer(function(player, _)
 	if not player or not player:is_player() then return end
+
+	--- @type Player
+	player = player -- HACK: makes VSCode type hints work
 
 	local clan = clans.get_by_player(player)
 
 	if not clan then return end
 
 	clan_is_online_cache[clan.name] = true
-
 	player:set_nametag_attributes({
 		text = player:get_player_name() .. " " .. minetest.colorize("#3d7", "["..clan.title.."]"),
 	})
 end)
 
-minetest.register_on_leaveplayer(function(player, timed_out)
-	if not player or not player:is_player() then
-		return
-	end
+minetest.register_on_leaveplayer(function(player, _)
+	if not player or not player:is_player() then return end
+
 	--- @type Player
-	player = player
+	player = player -- HACK: makes VSCode type hints work
+
 	local clan = clans.get_by_player(player)
 	if not clan then return end
 

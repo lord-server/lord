@@ -1,12 +1,17 @@
 local S = minetest.get_translator("clans")
 
 minetest.register_chatcommand("clans.list", {
-	description = S("Lists all existing clans."),
+	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
 	privs = { server = true },
 	func = function(_, _)
 		local clans_str = ""
 		for _, clan in pairs(clans.list()) do
-			clans_str = clans_str .. clan.name.." ("..clan.title..")\n"
+			local clan1_str = string.format("%s (%s)", clan.name, clan.title)
+			if clan.is_blocked then
+				clan1_str = clan1_str.." "..S("[Blocked]")
+				clan1_str = minetest.colorize("silver", clan1_str)
+			end
+			clans_str = clans_str .. clan1_str
 		end
 		return true, S("List of clans:@n@1", clans_str)
 	end

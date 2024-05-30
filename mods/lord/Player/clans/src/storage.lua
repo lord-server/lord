@@ -11,6 +11,7 @@ local clan_storage = {} -- namespace for storage manipulations
 --- @field public name string
 --- @field public title string
 --- @field public players table<number,string>
+--- @field public is_blocked boolean|nil
 
 local storage = minetest.get_mod_storage()
 
