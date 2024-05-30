@@ -22,10 +22,20 @@ minetest.register_chatcommand("clans.show", {
 	privs = { server = true },
 	func = function(_, param_str)
 		local clan = clans.get_by_name(param_str)
-		if not clan then
-			return false, S("Clan @1 does not exist.", param_str)
+		if not clan then return false, S("Clan @1 does not exist.", param_str) end
+
+		local msg = string.format("%s (%s)", clan.title, clan.name)
+		if clan.is_blocked then
+			msg = minetest.colorize("silver", msg.." "..S("[Blocked]"))
 		end
-		return true, string.format("%s (%s): %s", clan.title, clan.name, table.concat(clan.players, ", "))
+		msg = msg .. ": "
+		if #clan.players ~= 0 then
+			msg = msg .. table.concat(clan.players, ", ")
+		else
+			msg = msg .. S("no players")
+		end
+
+		return true, msg
 	end
 })
 
