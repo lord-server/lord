@@ -151,3 +151,23 @@ minetest.register_chatcommand("clans.remove_player", {
 		end
 	end
 })
+
+minetest.register_chatcommand("clans.toggle_block", {
+	params = S("<clan name>"),
+	description = S("Toggles clan block."),
+	privs = { server = true, },
+	func = function(_, param_str)
+		local name = param_str
+		if not name or name == "" then
+			return false, S("Didn't get enough arguments! See help.")
+		end
+
+		local result = clans.toggle_block(name)
+		if result == nil then return false, S("Clan @1 does not exist.", name) end
+		if result then
+			return true, S("Clan @1 blocked succesfully.", name)
+		else
+			return true, S("Clan @1 unblocked succesfully.", name)
+		end
+	end
+})

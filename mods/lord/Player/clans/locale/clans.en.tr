@@ -25,3 +25,6 @@ Too many players in clan (max is @1). Can't add player(s).=Too many players in c
 [Blocked]=[Blocked]
 no players=no players
 Clan @1 is blocked!=Clan @1 is blocked!
+Toggles clan block.=Toggles clan block.
+Clan @1 unblocked succesfully.=Clan @1 unblocked succesfully.
+Clan @1 blocked succesfully.=Clan @1 blocked succesfully.

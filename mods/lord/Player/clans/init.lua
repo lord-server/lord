@@ -119,11 +119,11 @@ function clans.is_blocked(name)
 end
 
 ---@param name string @clan name (ID)
----@return boolean|nil @`true` if clan is free, `false` if clan is blocked, `nil` if clan does not exist
+---@return boolean|nil @is clan blocked now, `nil` if clan does not exist
 function clans.toggle_block(name)
 	local clan = clans.get_by_name(name)
 	if not clan then return nil end
-	old_is_blocked = clan.is_blocked
+	local old_is_blocked = clan.is_blocked
 	if old_is_blocked then
 		clan.is_blocked = nil
 	else
