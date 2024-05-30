@@ -42,6 +42,30 @@ clans.err = {
 ---@type integer readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
+---@param player Player
+---@return boolean
+local function is_player_online(player)
+	local players = minetest.get_connected_players()
+	return table.contains(players, player)
+end
+--- Note: if function receives PlayerObj it doesn't check is player online.
+---@param player Player|string @Player or player name
+---@param clan_title string
+---@return boolean @completed or not
+local function add_clan_prefix_to_player_name(player, clan_title)
+	if type(player) == "string" then
+		---@type Player
+		player = minetest.get_player_by_name(player)
+		if not is_player_online(player) then
+			return false
+		end
+	end
+	player:set_nametag_attributes({
+		text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
+	})
+	return true
+end
+
 --- @param name string
 --- @param title string
 --- @param members string[]
@@ -54,6 +78,7 @@ function clans.create_clan(name, title, members)
 	end
 
 	clan_storage.set({ name = name, title = title, players = members or {} })
+	for _, m in ipairs(members) do print(add_clan_prefix_to_player_name(m, title)) end
 	return true, nil
 end
 
@@ -78,6 +103,7 @@ function clans.add_player_to_clan(clan_name, player_name)
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
+	add_clan_prefix_to_player_name(player_name, clan.title)
 	return true, nil
 end
 
@@ -171,9 +197,7 @@ minetest.register_on_joinplayer(function(player, _)
 	if not clan then return end
 
 	clan_is_online_cache[clan.name] = true
-	player:set_nametag_attributes({
-		text = player:get_player_name() .. " " .. minetest.colorize("#3d7", "["..clan.title.."]"),
-	})
+	add_clan_prefix_to_player_name(player, clan.title)
 end)
 
 minetest.register_on_leaveplayer(function(player, _)
