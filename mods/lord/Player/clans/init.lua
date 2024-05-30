@@ -42,11 +42,15 @@ clans.err = {
 ---@type integer readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
----@param player Player
----@return boolean
-local function is_player_online(player)
+---@param nick string
+---@return Player|nil @nil if player is offline
+local function nick2player(nick)
+	local player = minetest.get_player_by_name(nick)
 	local players = minetest.get_connected_players()
-	return table.contains(players, player)
+	if not table.contains(players, player) then
+		return nil
+	end
+	return player
 end
 --- Note: if function receives PlayerObj it doesn't check is player online.
 ---@param player Player|string @Player or player name
@@ -54,15 +58,27 @@ end
 ---@return boolean @completed or not
 local function add_clan_prefix_to_player_name(player, clan_title)
 	if type(player) == "string" then
+		local player_or_nil = nick2player(player)
+		if not player_or_nil then return false end -- player is offline
 		---@type Player
-		player = minetest.get_player_by_name(player)
-		if not is_player_online(player) then
-			return false
-		end
+		player = player_or_nil -- HACK: type hints perversion
 	end
 	player:set_nametag_attributes({
 		text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
 	})
+	return true
+end
+--- Note: if function receives PlayerObj it doesn't check is player online.
+---@param player Player|string @Player or player name
+---@return boolean @completed or not
+local function reset_player_name(player)
+	if type(player) == "string" then
+		local player_or_nil = nick2player(player)
+		if not player_or_nil then return false end -- player is offline
+		---@type Player
+		player = player_or_nil -- HACK: type hints perversion
+	end
+	player:set_nametag_attributes({	text = player:get_player_name(), })
 	return true
 end
 
@@ -78,16 +94,18 @@ function clans.create_clan(name, title, members)
 	end
 
 	clan_storage.set({ name = name, title = title, players = members or {} })
-	for _, m in ipairs(members) do print(add_clan_prefix_to_player_name(m, title)) end
+	for _, m in ipairs(members) do add_clan_prefix_to_player_name(m, title) end
 	return true, nil
 end
 
 --- @param name string
 --- @return boolean,string|nil
 function clans.remove_clan(name)
-	if clans.get_by_name(name) == nil then return false, clans.err[3] end
+	local clan = clans.get_by_name(name)
+	if clan == nil then return false, clans.err[3] end
 
 	clan_storage.delete(name)
+	for _, p in ipairs(clan.players) do reset_player_name(p) end
 	return true, nil
 end
 
@@ -124,6 +142,8 @@ function clans.remove_player_from_clan(clan_name, player_name)
 	end
 	clan.players = updated_members
 	clan_storage.set(clan)
+
+	reset_player_name(player_name)
 
 	return true, nil
 end
