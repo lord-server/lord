@@ -166,9 +166,6 @@ end
 minetest.register_on_joinplayer(function(player, _)
 	if not player or not player:is_player() then return end
 
-	--- @type Player
-	player = player -- HACK: makes VSCode type hints work
-
 	local clan = clans.get_by_player(player)
 
 	if not clan then return end
@@ -181,9 +178,6 @@ end)
 
 minetest.register_on_leaveplayer(function(player, _)
 	if not player or not player:is_player() then return end
-
-	--- @type Player
-	player = player -- HACK: makes VSCode type hints work
 
 	local clan = clans.get_by_player(player)
 	if not clan then return end
