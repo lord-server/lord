@@ -36,6 +36,7 @@ clans.err = {
 	[3] = "there is no clan with given name",
 	[4] = "there is no such player in this clan",
 	[5] = "max players reached!",
+	[6] = "clan with this name is blocked",
 }
 
 ---@type integer readonly
@@ -72,6 +73,7 @@ function clans.add_player_to_clan(clan_name, player_name)
 	if clans.get_by_player_name(player_name) ~= nil then return false, clans.err[2] end
 	local clan = clans.get_by_name(clan_name)
 	if clan == nil then return false, clans.err[3] end
+	if clan.is_blocked then return false, clans.err[6] end
 	if #clan.players+1 > clans.max_players_in_clan then return false, clans.err[5] end
 
 	table.insert(clan.players, player_name)
