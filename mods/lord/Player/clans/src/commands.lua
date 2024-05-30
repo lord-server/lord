@@ -1,12 +1,17 @@
 local S = minetest.get_translator("clans")
 
 minetest.register_chatcommand("clans.list", {
-	description = S("Lists all existing clans."),
+	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
 	privs = { server = true },
 	func = function(_, _)
 		local clans_str = ""
 		for _, clan in pairs(clans.list()) do
-			clans_str = clans_str .. clan.name.." ("..clan.title..")\n"
+			local clan1_str = string.format("%s (%s)", clan.name, clan.title)
+			if clan.is_blocked then
+				clan1_str = clan1_str.." "..S("[Blocked]")
+				clan1_str = minetest.colorize("silver", clan1_str)
+			end
+			clans_str = clans_str .. clan1_str
 		end
 		return true, S("List of clans:@n@1", clans_str)
 	end
@@ -17,10 +22,20 @@ minetest.register_chatcommand("clans.show", {
 	privs = { server = true },
 	func = function(_, param_str)
 		local clan = clans.get_by_name(param_str)
-		if not clan then
-			return false, S("Clan @1 does not exist.", param_str)
+		if not clan then return false, S("Clan @1 does not exist.", param_str) end
+
+		local msg = string.format("%s (%s)", clan.title, clan.name)
+		if clan.is_blocked then
+			msg = minetest.colorize("silver", msg.." "..S("[Blocked]"))
 		end
-		return true, string.format("%s (%s): %s", clan.title, clan.name, table.concat(clan.players, ", "))
+		msg = msg .. ": "
+		if #clan.players ~= 0 then
+			msg = msg .. table.concat(clan.players, ", ")
+		else
+			msg = msg .. S("no players")
+		end
+
+		return true, msg
 	end
 })
 
@@ -103,6 +118,8 @@ minetest.register_chatcommand("clans.add_player", {
 							"Too many players in clan (max is @1). Can't add player(s).",
 							clans.max_players_in_clan
 						)
+					elseif err == clans.err[6] then
+						return false, S("Clan @1 is blocked!", clan_name)
 					end
 				end
 			end
@@ -131,6 +148,26 @@ minetest.register_chatcommand("clans.remove_player", {
 			return false, S("Player @1 does not member of the @2 clan.", player_name, clan_name)
 		elseif err == clans.err[3] then
 			return false, S("Clan @1 does not exist.", clan_name)
+		end
+	end
+})
+
+minetest.register_chatcommand("clans.toggle_block", {
+	params = S("<clan name>"),
+	description = S("Toggles clan block."),
+	privs = { server = true, },
+	func = function(_, param_str)
+		local name = param_str
+		if not name or name == "" then
+			return false, S("Didn't get enough arguments! See help.")
+		end
+
+		local result = clans.toggle_block(name)
+		if result == nil then return false, S("Clan @1 does not exist.", name) end
+		if result then
+			return true, S("Clan @1 blocked succesfully.", name)
+		else
+			return true, S("Clan @1 unblocked succesfully.", name)
 		end
 	end
 })

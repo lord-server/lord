@@ -62,6 +62,8 @@ minetest = {}
 --- * The escape sequence sets the text color to `color`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3107-L3109)
+---@param color string @ColorString
+---@return string
 function minetest.get_color_escape_sequence(color) end
 --- * Equivalent to:
 ---   `minetest.get_color_escape_sequence(color) ..
@@ -69,6 +71,9 @@ function minetest.get_color_escape_sequence(color) end
 ---   minetest.get_color_escape_sequence("#ffffff")`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3110-L3114)
+---@param color string @ColorString
+---@param message string
+---@return string
 function minetest.colorize(color, message) end
 --- * `color` is a ColorString
 --- * The escape sequence sets the background of the whole text element to
@@ -378,6 +383,8 @@ function minetest.register_lbm(lbm_definition) end
 ---   mapgens. See [Mapgen aliases] section above.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4486-L4488)
+---@param alias string @itemstring
+---@param original_name string @itemstring
 function minetest.register_alias(alias, original_name) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4489-L4489)
 function minetest.register_alias_force(alias, original_name) end
@@ -2040,6 +2047,8 @@ function minetest.get_name_from_content_id(content_id) end
 --- * Example: `parse_json("[10, {\"a\":false}]")`, returns `{10, {a = false}}`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5666-L5671)
+---@param string string
+---@param nullvalue any
 function minetest.parse_json(string, nullvalue) end
 --- Returns a string or `nil` and an error
 ---   message.

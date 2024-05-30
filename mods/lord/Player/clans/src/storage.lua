@@ -11,6 +11,7 @@ local clan_storage = {} -- namespace for storage manipulations
 --- @field public name string
 --- @field public title string
 --- @field public players table<number,string>
+--- @field public is_blocked boolean|nil
 
 local storage = minetest.get_mod_storage()
 
@@ -20,11 +21,17 @@ local function storage2cache()
 	local raw_data = storage:to_table().fields
 	for clan_name, clan_json in pairs(raw_data) do
 		cache[clan_name] = minetest.parse_json(clan_json)
-		-- TODO: handle parse_json error with minetest.error
-		cache[clan_name].name = clan_name
+		if cache[clan_name] == nil then
+			minetest.log("error", string.format(
+				"[clans] cannot parse %s clan info from json.",
+				clan_name, clan_json
+			))
+		else
+			cache[clan_name].name = clan_name
 
-		if not cache[clan_name].players then -- HACK: minetest writes {} in json as null
-			cache[clan_name].players = {}
+			if not cache[clan_name].players then -- HACK: minetest writes {} in json as null
+				cache[clan_name].players = {}
+			end
 		end
 	end
 	return cache
@@ -35,7 +42,7 @@ local cache = storage2cache()
 --- @param name string
 --- @return clans.Clan|nil
 function clan_storage.get(name)
-	return cache[name]
+	return table.copy(cache[name])
 end
 
 --- @param clan clans.Clan
@@ -44,6 +51,13 @@ function clan_storage.set(clan)
 	local clan_name = clan.name
 	local storage_clan = table.copy(clan)
 	local data = minetest.write_json(storage_clan)
+	if data == nil then
+		minetest.log("error", string.format(
+			"[clans] cannot write json from %s clan table. Dump: %s",
+			clan_name, dump(storage_clan)
+		))
+		return
+	end
 	storage:set_string(clan_name, data)
 end
 
