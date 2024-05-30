@@ -42,6 +42,7 @@ local cache = storage2cache()
 --- @param name string
 --- @return clans.Clan|nil
 function clan_storage.get(name)
+	if cache[name] == nil then return nil end
 	return table.copy(cache[name])
 end
 
