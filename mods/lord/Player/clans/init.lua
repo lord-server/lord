@@ -107,6 +107,32 @@ function clans.list()
 	return clan_storage.list()
 end
 
+---@param name string @clan name (ID)
+---@return boolean|nil @boolean if clan exists or nil else
+function clans.is_blocked(name)
+	local clan = clans.get_by_name(name)
+	if not clan then return nil end
+	if not clan.is_blocked then
+		return false
+	end
+	return true
+end
+
+---@param name string @clan name (ID)
+---@return boolean|nil @`true` if clan is free, `false` if clan is blocked, `nil` if clan does not exist
+function clans.toggle_block(name)
+	local clan = clans.get_by_name(name)
+	if not clan then return nil end
+	old_is_blocked = clan.is_blocked
+	if old_is_blocked then
+		clan.is_blocked = nil
+	else
+		clan.is_blocked = true
+	end
+	clan_storage.set(clan)
+	return not old_is_blocked
+end
+
 --- @param name string
 --- @return boolean|nil
 local function check_clan_is_online(name)
