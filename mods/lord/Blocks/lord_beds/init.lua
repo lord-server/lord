@@ -28,6 +28,6 @@ beds.register_bed("lord_beds:straw_bed", {
 	},
     selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.0625, 1.5},
 	recipe = {
-		{"farming:straw", "farming:straw"}
+		{"stairs:slab_straw", "stairs:slab_straw"}
 	},
 })
