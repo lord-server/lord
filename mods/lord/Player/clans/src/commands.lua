@@ -118,6 +118,8 @@ minetest.register_chatcommand("clans.add_player", {
 							"Too many players in clan (max is @1). Can't add player(s).",
 							clans.max_players_in_clan
 						)
+					elseif err == clans.err[6] then
+						return false, S("Clan @1 is blocked!", clan_name)
 					end
 				end
 			end

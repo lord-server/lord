@@ -24,3 +24,4 @@ Too many players in clan (max is @1). Can't create clan @2.=
 Too many players in clan (max is @1). Can't add player(s).=
 [Blocked]=
 no players=
+Clan @1 is blocked!=
