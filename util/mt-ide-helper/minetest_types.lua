@@ -1007,7 +1007,7 @@ function minetest.add_item(pos, item) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4913-L4913)
 --- @param name string
---- @return Player
+--- @return Player|nil
 function minetest.get_player_by_name(name) end
 --- Returns a list of
 ---   ObjectRefs.

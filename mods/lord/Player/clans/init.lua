@@ -42,44 +42,33 @@ clans.err = {
 ---@type integer readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
----@param nick string
----@return Player|nil @nil if player is offline
-local function nick2player(nick)
-	local player = minetest.get_player_by_name(nick)
-	local players = minetest.get_connected_players()
-	if not table.contains(players, player) then
-		return nil
-	end
-	return player
-end
---- Note: if function receives PlayerObj it doesn't check is player online.
----@param player Player|string @Player or player name
+---@param player Player|string|nil @Player or player name
 ---@param clan_title string
 ---@return boolean @completed or not
 local function add_clan_prefix_to_player_name(player, clan_title)
 	if type(player) == "string" then
-		local player_or_nil = nick2player(player)
-		if not player_or_nil then return false end -- player is offline
-		---@type Player
-		player = player_or_nil -- HACK: type hints perversion
+		player = minetest.get_player_by_name(player)
 	end
-	player:set_nametag_attributes({
-		text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
-	})
-	return true
+	if player then
+		player:set_nametag_attributes({
+			text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
+		})
+		return true
+	end
+	return false
 end
---- Note: if function receives PlayerObj it doesn't check is player online.
----@param player Player|string @Player or player name
+
+---@param player Player|string|nil @Player or player name
 ---@return boolean @completed or not
 local function reset_player_name(player)
 	if type(player) == "string" then
-		local player_or_nil = nick2player(player)
-		if not player_or_nil then return false end -- player is offline
-		---@type Player
-		player = player_or_nil -- HACK: type hints perversion
+		player = minetest.get_player_by_name(player)
 	end
-	player:set_nametag_attributes({	text = player:get_player_name(), })
-	return true
+	if player then
+		player:set_nametag_attributes({	text = player:get_player_name(), })
+		return true
+	end
+	return false
 end
 
 --- @param name string
