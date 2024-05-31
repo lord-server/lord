@@ -1,11 +1,12 @@
-Clan Tapestries / Клановые гобелены
+# Clan Tapestries / Клановые гобелены
 
-Создаются самими игроками и добавляются по запросу.
+Создаются самими игроками и добавляются по запросу. Рекомендуется использовать [libresprite](https://libresprite.github.io/) для рисования.
 
-*Шаблон (16x16)*
+| Формат шаблона | Скачать |
+| -------------- | -------------------------------- |
+| 16x16 | <img alt="Шаблон гобелена 16x16" src="textures/clans_tapestries_example.png"> |
+| 32x32 | <img alt="Шаблон гобелена 32x32" src="textures/clans_tapestries_example32.png"> |
 
-![Шаблон гобелена 16x16](textures/clans_tapestries_example.png "аодфыоа")
+*Вид шаблона 16x16 в игре:*
 
-*Шаблон (32x32)*
-
-![Шаблон гобелена 32x32](textures/clans_tapestries_example.png)
+![Вид гобелена example 16x16 в игре](screenshot.png)
