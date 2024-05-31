@@ -608,13 +608,13 @@ function minetest.register_on_prejoinplayer(callback) end
 --- * `last_login`: The timestamp of the previous login, or nil if player is new
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4638-L4640)
---- @param callback fun(player:ObjectRef|Player, last_login)
+--- @param callback fun(player:Player, last_login:number)
 function minetest.register_on_joinplayer(callback) end
 --- * Called when a player leaves the game
 --- * `timed_out`: True for timeout, false for other reasons.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4641-L4643)
---- @param callback fun(player:ObjectRef|Player, timed_out)
+--- @param callback fun(player:Player, timed_out:boolean)
 function minetest.register_on_leaveplayer(callback) end
 --- * Called when a client attempts to log into an account.
 --- * `name`: The name of the account being authenticated.
@@ -1007,7 +1007,7 @@ function minetest.add_item(pos, item) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4913-L4913)
 --- @param name string
---- @return Player
+--- @return Player|nil
 function minetest.get_player_by_name(name) end
 --- Returns a list of
 ---   ObjectRefs.

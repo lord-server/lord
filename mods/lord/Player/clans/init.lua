@@ -42,6 +42,35 @@ clans.err = {
 ---@type integer readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
+---@param player Player|string|nil @Player or player name
+---@param clan_title string
+---@return boolean @completed or not
+local function add_clan_prefix_to_player_name(player, clan_title)
+	if type(player) == "string" then
+		player = minetest.get_player_by_name(player)
+	end
+	if player then
+		player:set_nametag_attributes({
+			text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
+		})
+		return true
+	end
+	return false
+end
+
+---@param player Player|string|nil @Player or player name
+---@return boolean @completed or not
+local function reset_player_name(player)
+	if type(player) == "string" then
+		player = minetest.get_player_by_name(player)
+	end
+	if player then
+		player:set_nametag_attributes({	text = player:get_player_name(), })
+		return true
+	end
+	return false
+end
+
 --- @param name string
 --- @param title string
 --- @param members string[]
@@ -54,15 +83,18 @@ function clans.create_clan(name, title, members)
 	end
 
 	clan_storage.set({ name = name, title = title, players = members or {} })
+	for _, m in ipairs(members) do add_clan_prefix_to_player_name(m, title) end
 	return true, nil
 end
 
 --- @param name string
 --- @return boolean,string|nil
 function clans.remove_clan(name)
-	if clans.get_by_name(name) == nil then return false, clans.err[3] end
+	local clan = clans.get_by_name(name)
+	if clan == nil then return false, clans.err[3] end
 
 	clan_storage.delete(name)
+	for _, p in ipairs(clan.players) do reset_player_name(p) end
 	return true, nil
 end
 
@@ -78,6 +110,7 @@ function clans.add_player_to_clan(clan_name, player_name)
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
+	add_clan_prefix_to_player_name(player_name, clan.title)
 	return true, nil
 end
 
@@ -98,6 +131,8 @@ function clans.remove_player_from_clan(clan_name, player_name)
 	end
 	clan.players = updated_members
 	clan_storage.set(clan)
+
+	reset_player_name(player_name)
 
 	return true, nil
 end
@@ -171,9 +206,7 @@ minetest.register_on_joinplayer(function(player, _)
 	if not clan then return end
 
 	clan_is_online_cache[clan.name] = true
-	player:set_nametag_attributes({
-		text = player:get_player_name() .. " " .. minetest.colorize("#3d7", "["..clan.title.."]"),
-	})
+	add_clan_prefix_to_player_name(player, clan.title)
 end)
 
 minetest.register_on_leaveplayer(function(player, _)
