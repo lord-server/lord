@@ -71,39 +71,7 @@ local piercing_physical_periodic_behavior = function(player, amount, reason, sou
 end
 
 local toxical_behavior = function(player, amount, reason, source)
-	minetest.add_particlespawner({
-		amount   = 20,
-		time     = 0.02,
-		attached = player,
-		texture  = "lord_damage_toxical_particle.png",
-		glow     = 1,
-		collisiondetection = true,
-		pos = {
-			min = vector.new(-0.5,0.5,-0.5),
-			max = vector.new(0.5,1,0.5),
-			bias = 0,
-		},
-		vel = {
-			min = vector.new(-0.5,0,-0.5),
-			max = vector.new(0.5,1,0.5),
-			bias = 0,
-		},
-		acc = {
-			min = vector.new(-1.5,-1,-1.5),
-			max = vector.new(1.5,2,1.5),
-			bias = 0,
-		},
-		exptime = {
-			min = 0.1,
-			max = 0.5,
-			bias = 0,
-		},
-		jitter = {
-			min = vector.new(-1.5,-1,-1.5),
-			max = vector.new(1.5,2,1.5),
-			bias = 0,
-		},
-	})
+	spawn_particles(player, "toxical")
 
 	return lord_damage.base_behavior(player, amount, "toxical", reason, source)
 end
