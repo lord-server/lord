@@ -139,6 +139,7 @@ lottpotion = {
 		local jump = 0
 		local gravity = 0
 
+		local has_effects = false
 		-- effects are time ordered
     	for _, effect in ipairs(effects) do
 			if effect.jump ~= nil then
@@ -150,6 +151,27 @@ lottpotion = {
 			if effect.gravity ~= nil then
 				gravity = effect.gravity
 			end
+			has_effects = true
+		end
+
+		if has_effects then
+            if lottpotion.players[playername].potion_hud == nil then
+                local player = minetest.get_player_by_name(playername)
+                local huddef = {
+                    hud_elem_type = "image",
+                    position = {x=0.95, y=0.95},
+                    scale = {x=-5, y=-8},
+                    text = "lottpotion_bottle.png",
+                    offset = {x=0, y=1},
+                }
+                lottpotion.players[playername].potion_hud = player:hud_add(huddef)
+            end
+		else
+            if lottpotion.players[playername].potion_hud ~= nil then
+                local player = minetest.get_player_by_name(playername)
+                player:hud_remove(lottpotion.players[playername].potion_hud)
+                lottpotion.players[playername].potion_hud = nil
+            end
 		end
 
 		-- evaluate parameters from basic value and effects
@@ -163,7 +185,6 @@ lottpotion = {
 		gravity = math.max(math.min(gravity, limit.gravity), 0)
 
 		-- apply effects
-		minetest.log("speed = "..speed.." , jump = "..jump.." , gravity = "..gravity)
 		minetest.get_player_by_name(playername):set_physics_override({
 			speed   = speed,
 			jump    = jump,
