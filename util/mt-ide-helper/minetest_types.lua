@@ -1963,6 +1963,8 @@ function minetest.read_schematic(schematic, options) end
 --- * **DO NOT ALLOW ANY OTHER MODS TO ACCESS THE RETURNED TABLE, STORE IT IN
 ---   A LOCAL VARIABLE!**
 ---
+--- @return HTTPApiTable
+---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5606-L5616)
 function minetest.request_http_api() end
 
