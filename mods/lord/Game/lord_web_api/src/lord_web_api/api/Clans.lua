@@ -1,10 +1,8 @@
-local Resource = require("lord_web_api.api.Resource")
-
 local RESOURCE = '/clans'
 
---- @class lord_web_api.api.Clans: lord_web_api.api.Resource
+--- @class lord_web_api.api.Clans: http.Resource
 local Clans = {
-	__index  = Resource,
+	__index  = http.Resource,
 	resource = RESOURCE,
 }
 
