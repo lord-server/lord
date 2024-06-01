@@ -1,5 +1,5 @@
 --- Used by `HTTPApiTable.fetch` and `HTTPApiTable.fetch_async`.
----@class HTTPRequest
+---@class HTTPRequest: table
 local HTTPRequest = {
 	---@type string
     url = "http://example.org",

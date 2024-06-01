@@ -1,5 +1,5 @@
 local Players = require("lord_web_api.api.Players")
-local Clans   = require("lord_web_api.api.Plans")
+local Clans   = require("lord_web_api.api.Clans")
 
 
 --- @class lord_web_api.Api

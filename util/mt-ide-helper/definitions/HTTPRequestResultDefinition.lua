@@ -1,5 +1,5 @@
 --- Passed to `HTTPApiTable.fetch` callback. Returned by `HTTPApiTable.fetch_async_get`.
----@class HTTPRequestResult
+---@class HTTPRequestResult: table
 local HTTPRequestResult = {
 	---@type boolean @If true, the request has finished (either succeeded, failed or timed out)
     completed = true,
