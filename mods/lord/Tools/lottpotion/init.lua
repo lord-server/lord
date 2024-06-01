@@ -97,21 +97,8 @@ lottpotion = {
 			def[name] = val
 		end
 
-		-- limit effects
-		local test = lottpotion.players[playername]
-		if (test ~= nil) and ((test.speed + def.speed > limit.speed) or (test.jump + def.jump > limit.jump)) then
-			return
-		end
-
 		itemstack:take_item()
 		minetest.give_or_drop(user, ItemStack("vessels:glass_bottle"))
-		local image_potion = nil
-		--if itemstack:get_definition then
-		--  image_potion = itemstack:get_definition().inventory_image
-		--end
-		if image_potion == nil then
-			image_potion = "lottpotion_bottle.png"
-		end
 
 		-- for corruption
 		if flags.inv==true then
@@ -120,72 +107,100 @@ lottpotion = {
 			def.jump = 0 - def.jump
 		end
 
-		lottpotion.addPrefs(playername, def.speed, def.jump, def.gravity)
-		lottpotion.refresh(playername)
-		local deaths = lottpotion.deaths or 0
+		lottpotion.player_add_effect(playername, def, time)
 		minetest.chat_send_player(playername, SL("You are under the effects of the "..type.." potion."))
+	end,
+	player_load_effects = function(playername)
+		local player = minetest.get_player_by_name(playername)
+		local pmeta = player:get_meta()
+    	local effects_serialized = pmeta:get_string("lottpotion:effects")
+    	local effects
+		if effects_serialized ~= nil then
+        	effects = minetest.deserialize(effects_serialized)
+		end
 
-		local first_screen = user:hud_add({
-			hud_elem_type = "image",
-			position = {x=0.95, y=0.95},
-			scale = {x=-5, y=-8},
-			text = image_potion,
-			offset = {x=0, y=1},
+		if effects == nil then
+        	effects = {}
+    	end
+		return effects
+	end,
+	player_store_effects = function(playername, effects)
+		local effects_serialized = minetest.serialize(effects)
+		local player = minetest.get_player_by_name(playername)
+		local pmeta = player:get_meta()
+    	pmeta:set_string("lottpotion:effects", effects_serialized)
+	end,
+	player_apply_effects = function(playername, effects)
+    	-- basic values
+		local basic_speed = 1
+		local basic_jump = 1
+		local basic_gravity = 1
+
+		local speed = 0
+		local jump = 0
+		local gravity = 0
+
+		local max_speed = 5
+		local max_jump = 5
+		local max_gravity = 5
+
+		-- effects are time ordered
+    	for _, effect in ipairs(effects) do
+			if effect.jump ~= nil then
+				jump = effect.jump
+			end
+			if effect.speed ~= nil then
+				speed = effect.speed
+			end
+			if effect.gravity ~= nil then
+				gravity = effect.gravity
+			end
+		end
+
+		-- evaluate parameters from basic value and effects
+		speed = basic_speed + speed
+		jump = basic_jump + jump
+		gravity = basic_gravity + gravity
+
+		-- clip parameters
+		speed = math.max(math.min(speed, max_speed), 0)
+		jump = math.max(math.min(jump, max_jump), 0)
+		gravity = math.max(math.min(gravity, max_gravity), 0)
+
+		-- apply effects
+		minetest.log("speed = "..speed.." , jump = "..jump.." , gravity = "..gravity)
+		minetest.get_player_by_name(playername):set_physics_override({
+			speed   = speed,
+			jump    = jump,
+			gravity = gravity
 		})
-
-		minetest.after(time, function()
-			local new_deaths = lottpotion.deaths or 0
-			if new_deaths == deaths then
-				local rest_speed = 0-def.speed
-				local rest_jump = 0-def.jump
-				local rest_gravity = 0-def.gravity
-				rest_speed = math.min(rest_speed,limit.speed)
-				rest_jump = math.min(rest_jump,limit.jump)
-				rest_gravity = math.min(rest_gravity,limit.gravity)
-
-				lottpotion.addPrefs(playername, rest_speed, rest_jump, rest_gravity)
-				lottpotion.refresh(playername)
-				minetest.chat_send_player(playername, SL("The effects of the "..type.." potion have worn off."))
-				user:hud_remove(first_screen)
-			end
-		end)
 	end,
-	addPrefs = function(playername, speed, jump, gravity)
-		local prefs = lottpotion.players[playername]
-		if prefs == nil then
-			return
-		end
-		prefs.speed = prefs.speed + speed
-		if prefs.speed > 5 then
-			prefs.speed = 5
-		elseif prefs.speed < 0 then
-			prefs.speed = 0
-		end
-		prefs.jump = prefs.jump + jump
-		if prefs.jump > 2.5 then
-			prefs.jump = 2.5
-		elseif prefs.jump < 0 then
-			prefs.jump = 0
-		end
-		prefs.gravity = prefs.gravity + gravity
-		if prefs.gravity > 4 then
-			prefs.gravity = 4
-		elseif prefs.gravity < 0 then
-			prefs.gravity = 0
-		end
+	player_add_effect = function(playername, effect, duration)
+		local effects = lottpotion.player_load_effects(playername)
+    	effects = lord_potion_effects.add_effect(effects, effect, duration)
+    	lottpotion.player_store_effects(playername, effects)
+		local current_effects = lord_potion_effects.list_effects(effects)
+    	lottpotion.player_apply_effects(playername, current_effects)
 	end,
-	refresh = function(playername)
-		if minetest.get_player_by_name(playername)~=nil then
-			local prefs = lottpotion.players[playername]
-			if prefs == nil then
-				return
-			end
-			minetest.get_player_by_name(playername):set_physics_override({
-				speed   = prefs.speed,
-				jump    = prefs.jump,
-				gravity = prefs.gravity
-			})
+	player_update_effects = function(playername, now)
+    	local effects = lottpotion.player_load_effects(playername)
+    	effects = lord_potion_effects.check_expiration(effects, now)
+    	if effects ~= nil then
+			lottpotion.player_store_effects(playername, effects)
+        	local current_effects = lord_potion_effects.list_effects(effects)
+        	lottpotion.player_apply_effects(playername, current_effects)
+    	end
+	end,
+	player_init_effects = function(playername)
+		local now = lord_potion_effects.now()
+		local effects = lottpotion.player_load_effects(playername)
+		local updated_effects = lord_potion_effects.check_expiration(effects, now)
+    	if updated_effects ~= nil then
+        	lottpotion.player_store_effects(playername, updated_effects)
+			effects = updated_effects
 		end
+		local current_effects = lord_potion_effects.list_effects(effects)
+        lottpotion.player_apply_effects(playername, current_effects)
 	end,
 	register_potion = function(sname, name, fname, time, def)
 		local tps = {"power", "corruption"}
@@ -238,7 +253,8 @@ lottpotion = {
 }
 dofile(minetest.get_modpath("lottpotion").."/arrows.lua")
 
-minetest.foreach_player_every(1, function(player)
+minetest.register_globalstep(function(player)
+	local now = lord_potion_effects.now()
 	local name = player:get_player_name()
 	local hp_change = lottpotion.players[name].hp or 0
 	if hp_change ~= 0 then
@@ -259,23 +275,23 @@ minetest.foreach_player_every(1, function(player)
 	if lottpotion.players[name].alive ~= 1 then
 		lottpotion.players[name].alive = 1
 	end
+
+	lottpotion.player_update_effects(name, now)
 end)
 
 minetest.register_on_dieplayer(function(player)
 	local name = player:get_player_name()
 	lottpotion.players[name] = {
-		speed = 1,
-		jump = 1,
-		gravity = 1,
 		air = 0,
 		hp = 0,
 		alive = 0,
 	}
-	lottpotion.refresh(name)
 	if lottpotion.deaths[name] == nil then
 		lottpotion.deaths[name] = 1
 	end
 	lottpotion.deaths[name] = lottpotion.deaths[name] + 1
+	lottpotion.player_store_effects(name, {})
+	lottpotion.player_apply_effects(name, {})
 end)
 
 lottpotion.register_potion("athelasbrew", "Athelas Brew", "lottpotion:athelasbrew", 100, {
@@ -460,14 +476,13 @@ lottpotion.register_potion("entdraught", "Ent Draught", "lottpotion:entdraught",
 })
 
 minetest.register_on_joinplayer(function(player)
-	lottpotion.players[player:get_player_name()] = {
-		speed = 1,
-		jump = 1,
-		gravity = 1,
+	local name = player:get_player_name()
+	lottpotion.players[name] = {
 		air = 0,
 		hp = 0,
 		alive = 1,
 	}
+	lottpotion.player_init_effects(name)
 end)
 
 minetest.register_on_leaveplayer(function(player)
