@@ -22,24 +22,66 @@ minetest.register_craftitem("lord_damage:direct_dealer",{
 	end
 })
 
-minetest.register_craftitem("lord_damage:physical_dealer",{
-	description = "Physical dealer",
+minetest.register_craftitem("lord_damage:direct_periodic_dealer",{
+	description = "Direct Periodic dealer",
 	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "physical")
+		lord_damage.deal_damage(player, 13, "direct_periodic", nil, nil, 3)
 	end
 })
 
-minetest.register_craftitem("lord_damage:toxic_dealer",{
-	description = "Toxic dealer",
+minetest.register_craftitem("lord_damage:simple_physical_dealer",{
+	description = "Simple Physical dealer",
 	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "toxic")
+		lord_damage.deal_damage(player, 5, "simple_physical")
 	end
 })
 
-minetest.register_craftitem("lord_damage:toxic_dealer",{
-	description = "Toxic dealer",
+minetest.register_craftitem("lord_damage:simple_physical_periodic_dealer",{
+	description = "Simple Physical Periodic dealer",
 	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "toxic")
+		lord_damage.deal_damage(player, 5, "simple_physical_periodic")
+	end
+})
+
+minetest.register_craftitem("lord_damage:slashing_physical_dealer",{
+	description = "Slashing Physical dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "slashing_physical")
+	end
+})
+
+minetest.register_craftitem("lord_damage:slashing_physical_periodic_dealer",{
+	description = "Slashing Physical Periodic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "slashing_physical_periodic")
+	end
+})
+
+minetest.register_craftitem("lord_damage:piercing_physical_dealer",{
+	description = "Piercing Physical dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "piercing_physical")
+	end
+})
+
+minetest.register_craftitem("lord_damage:piercing_physical_periodic_dealer",{
+	description = "Piercing Physical Periodic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "piercing_physical_periodic")
+	end
+})
+
+minetest.register_craftitem("lord_damage:toxical_dealer",{
+	description = "Toxical dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "toxical")
+	end
+})
+
+minetest.register_craftitem("lord_damage:toxical_periodic_dealer",{
+	description = "Toxical Periodic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 5, "toxical_periodic")
 	end
 })
 
@@ -47,5 +89,12 @@ minetest.register_craftitem("lord_damage:fiery_dealer",{
 	description = "Fiery dealer",
 	on_use = function(itemstack, player, pointed_thing)
 		lord_damage.deal_damage(player, 5, "fiery")
+	end
+})
+
+minetest.register_craftitem("lord_damage:fiery_periodic_dealer",{
+	description = "Fiery Periodic dealer",
+	on_use = function(itemstack, player, pointed_thing)
+		lord_damage.deal_damage(player, 13, "fiery_periodic", nil, nil, 3)
 	end
 })
