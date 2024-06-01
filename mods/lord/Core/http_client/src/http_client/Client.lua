@@ -3,7 +3,7 @@
 local Client = {
 	--- @type string
 	base_url = nil,
-	--- @type table|HTTPRequest https://api.minetest.net/definition-tables/#httprequest-definition
+	--- @type table|HTTPRequest
 	base_options = {}
 }
 
