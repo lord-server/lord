@@ -1,7 +1,7 @@
 local Api    = require("lord_web_api.Api")
 local config = require('lord_web_api.config')
 
-lord_web_api = {}
+web_api = {}
 
 --- @param conf lord_web_api.config
 --- @return http.Client
@@ -11,7 +11,7 @@ end
 
 --- @param client http.Client
 local function register_api(client)
-	_G.lord_web_api = Api:new(client)
+	_G.web_api = Api:new(client)
 end
 
 

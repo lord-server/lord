@@ -1,14 +1,14 @@
 
 --- @param clan clans.Clan
 local function clan_web_create(clan)
-	lord_web_api.clans:create({
+	web_api.clans:create({
 		-- TODO
 	})
 end
 
 ----- @param clan clans.Clan
 --local function clan_web_...(clan)
---	lord_web_api.clans:...({
+--	web_api.clans:...({
 --		-- TODO
 --	})
 --end

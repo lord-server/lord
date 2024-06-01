@@ -2,7 +2,7 @@ local Players = require("lord_web_api.api.Players")
 local Clans   = require("lord_web_api.api.Clans")
 
 
---- @class lord_web_api.Api
+--- @class web_api
 local Api = {
 	--- @type lord_web_api.api.Players
 	players = nil,

@@ -19,9 +19,9 @@ return {
 
 			if last_login then -- player not new
 				local player_web_id = get_player_web_id(player)
-				lord_web_api.players:update(player_web_id, {last_login = last_login})
+				web_api.players:update(player_web_id, {last_login = last_login})
 			else -- player is new
-				local player_web_id = lord_web_api.players:create({
+				local player_web_id = web_api.players:create({
 					name = "", -- TODO
 					race = "", -- TODO
 				})
