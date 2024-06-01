@@ -10,7 +10,7 @@ local Api = {
 	clans   = nil,
 }
 
---- @param client http_client.Client
+--- @param client http.Client
 function Api:new(client)
 	local class = self
 	self = {}

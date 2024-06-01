@@ -1,9 +1,9 @@
-local Client = require("http_client.Client")
+local Client = require("http.Client")
 
-http_client = {}
+http = {}
 
 local function register_api()
-	_G.http_client = {
+	_G.http = {
 		Client = Client,
 	}
 end

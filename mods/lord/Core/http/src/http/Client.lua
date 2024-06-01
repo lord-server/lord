@@ -4,12 +4,12 @@ local HTTPMethod = {
 	PUT    = "PUT",
 	DELETE = "DELETE",
 }
---- @alias http_client.Client.callback fun(result:HTTPRequestResult):void
+--- @alias http.Client.callback fun(result:HTTPRequestResult):void
 
 
 --- **Usage:**
 --- ```lua
----	http_client.Client:new("https://example.com/api/v1/", { timeout = 3 })
+---	http.Client:new("https://example.com/api/v1/", { timeout = 3 })
 ---		:on_success(function(result)
 ---			-- do success stuff
 ---		end)
@@ -22,7 +22,7 @@ local HTTPMethod = {
 ---		})
 --- ```
 ---
---- @class http_client.Client
+--- @class http.Client
 local Client     = {
 	--- @type string
 	base_url         = nil,
@@ -30,16 +30,16 @@ local Client     = {
 	base_options     = {},
 	--- @type HTTPApiTable
 	request_http_api = {},
-	--- @type http_client.Client.callback
+	--- @type http.Client.callback
 	on_success       = nil,
-	--- @type http_client.Client.callback
+	--- @type http.Client.callback
 	on_error         = nil,
 }
 
 --- @param base_url     string
 --- @param base_options HTTPRequest
 ---
---- @return http_client.Client
+--- @return http.Client
 function Client:new(base_url, base_options)
 	local class = self
 	self = {}
@@ -51,28 +51,28 @@ function Client:new(base_url, base_options)
 	return setmetatable(self, { __index = class })
 end
 
---- @param callback http_client.Client.callback
---- @return http_client.Client
+--- @param callback http.Client.callback
+--- @return http.Client
 function Client:on_success(callback)
 	self.on_success = callback
 
 	return self
 end
 
---- @param callback http_client.Client.callback
---- @return http_client.Client
+--- @param callback http.Client.callback
+--- @return http.Client
 function Client:on_error(callback)
 	self.on_error = callback
 
 	return self
 end
 
---- @return http_client.Client.callback
+--- @return http.Client.callback
 function Client:getAsyncCallback()
 	local on_success = self.on_success
 	local on_error   = self.on_error
 
-	--- @type http_client.Client.callback
+	--- @type http.Client.callback
 	local callback = function(result)
 		if result.succeeded and result.code == 200 then
 			if on_success then on_success(result) end
@@ -85,7 +85,7 @@ function Client:getAsyncCallback()
 end
 
 --- @param request HTTPRequest
---- @param callback http_client.Client.callback
+--- @param callback http.Client.callback
 function Client:rawRequest(request, callback)
 	self.request_http_api:fetch(request, callback)
 end

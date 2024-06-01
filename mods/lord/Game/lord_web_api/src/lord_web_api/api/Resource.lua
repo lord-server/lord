@@ -1,13 +1,13 @@
 
 --- @class lord_web_api.api.Resource
 local Resource = {
-	--- @type http_client.Client
+	--- @type http.Client
 	client   = nil,
 	--- @type string url postfix, which appends to `base_url`
 	resource = "",
 }
 
---- @param client   http_client.Client
+--- @param client   http.Client
 function Resource:new(client)
 	local class = self
 	self = {}
@@ -17,10 +17,10 @@ function Resource:new(client)
 	return setmetatable(self, { __index = class })
 end
 
---- @param client     http_client.Client
---- @param on_success http_client.Client.callback
---- @param on_error   http_client.Client.callback
---- @return http_client.Client
+--- @param client     http.Client
+--- @param on_success http.Client.callback
+--- @param on_error   http.Client.callback
+--- @return http.Client
 local function send(client, on_success, on_error)
 	return client
 		:on_success(on_success)

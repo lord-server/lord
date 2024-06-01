@@ -4,7 +4,7 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. DS .. "src" .. DS .. name:gsub("%.", DS) .. ".lua") end
 
 
-require("http_client").init()
+require("http").init()
 
 
 require = old_require

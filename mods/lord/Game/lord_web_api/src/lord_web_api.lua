@@ -4,12 +4,12 @@ local config = require('lord_web_api.config')
 lord_web_api = {}
 
 --- @param conf lord_web_api.config
---- @return http_client.Client
+--- @return http.Client
 local function init_client(conf)
-	return http_client.Client:new(conf.base_url)
+	return http.Client:new(conf.base_url)
 end
 
---- @param client http_client.Client
+--- @param client http.Client
 local function register_api(client)
 	_G.lord_web_api = Api:new(client)
 end
