@@ -1,39 +1,12 @@
+local Resource = require("lord_web_api.api.Resource")
 
---- @class lord_web_api.api.Clans
+local RESOURCE = '/clans'
+
+--- @class lord_web_api.api.Clans: lord_web_api.api.Resource
 local Clans = {
-	--- @type http_client.Client
-	client = nil,
+	__index  = Resource,
+	resource = RESOURCE,
 }
-
---- @param client http_client.Client
-function Clans:new(client)
-	local class = self
-	self = {}
-
-	self.client = client
-
-	return setmetatable(self, {__index = class})
-end
-
-function Clans:list()
-	-- TODO
-end
-
-function Clans:get()
-	-- TODO
-end
-
-function Clans:create()
-	-- TODO
-end
-
-function Clans:update()
-	-- TODO
-end
-
-function Clans:delete()
-	-- TODO
-end
 
 
 return Clans
