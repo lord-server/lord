@@ -5,6 +5,8 @@ require           = function(name) return dofile(mod_path .. "/src/" .. name:gsu
 clans = {} -- namespace
 
 local clan_storage = require("storage")
+local callbacks = require("callbacks")
+
 
 --- @param player_name string
 --- @return clans.Clan|nil
@@ -84,6 +86,7 @@ function clans.create_clan(name, title, members)
 
 	clan_storage.set({ name = name, title = title, players = members or {} })
 	for _, m in ipairs(members) do add_clan_prefix_to_player_name(m, title) end
+	callbacks.run_on_clan_creation_callbacks(name, title, members)
 	return true, nil
 end
 
@@ -95,6 +98,7 @@ function clans.remove_clan(name)
 
 	clan_storage.delete(name)
 	for _, p in ipairs(clan.players) do reset_player_name(p) end
+	callbacks.run_on_clan_deletion_callbacks(name)
 	return true, nil
 end
 
@@ -111,6 +115,7 @@ function clans.add_player_to_clan(clan_name, player_name)
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
 	add_clan_prefix_to_player_name(player_name, clan.title)
+	callbacks.run_on_clan_player_adding_callbacks(clan_name, player_name)
 	return true, nil
 end
 
@@ -133,6 +138,7 @@ function clans.remove_player_from_clan(clan_name, player_name)
 	clan_storage.set(clan)
 
 	reset_player_name(player_name)
+	callbacks.run_on_clan_player_removing_callbacks(clan_name, player_name)
 
 	return true, nil
 end
@@ -218,6 +224,10 @@ minetest.register_on_leaveplayer(function(player, _)
 	clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
 end)
 
+clans.register_on_clan_creation = callbacks.register_on_clan_creation
+clans.register_on_clan_deletion = callbacks.register_on_clan_deletion
+clans.register_on_clan_player_adding = callbacks.register_on_clan_player_adding
+clans.register_on_clan_player_removing = callbacks.register_on_clan_player_removing
 
 require("commands")
 require("last_login_kick")
