@@ -6,7 +6,6 @@ local limit = {	speed = 4,
 				air = 3,
 }
 
-
 lottpotion = {}
 
 dofile(minetest.get_modpath("lottpotion").."/cauldron.lua")
@@ -140,10 +139,6 @@ lottpotion = {
 		local jump = 0
 		local gravity = 0
 
-		local max_speed = 5
-		local max_jump = 5
-		local max_gravity = 5
-
 		-- effects are time ordered
     	for _, effect in ipairs(effects) do
 			if effect.jump ~= nil then
@@ -163,9 +158,9 @@ lottpotion = {
 		gravity = basic_gravity + gravity
 
 		-- clip parameters
-		speed = math.max(math.min(speed, max_speed), 0)
-		jump = math.max(math.min(jump, max_jump), 0)
-		gravity = math.max(math.min(gravity, max_gravity), 0)
+		speed = math.max(math.min(speed, limit.speed), 0)
+		jump = math.max(math.min(jump, limit.jump), 0)
+		gravity = math.max(math.min(gravity, limit.gravity), 0)
 
 		-- apply effects
 		minetest.log("speed = "..speed.." , jump = "..jump.." , gravity = "..gravity)
