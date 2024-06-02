@@ -112,25 +112,25 @@ lottpotion = {
 	player_load_effects = function(playername)
 		local player = minetest.get_player_by_name(playername)
 		local pmeta = player:get_meta()
-    	local effects_serialized = pmeta:get_string("lottpotion:effects")
-    	local effects
+		local effects_serialized = pmeta:get_string("lottpotion:effects")
+		local effects
 		if effects_serialized ~= nil then
-        	effects = minetest.deserialize(effects_serialized)
+			effects = minetest.deserialize(effects_serialized)
 		end
 
 		if effects == nil then
-        	effects = {}
-    	end
+			effects = {}
+		end
 		return effects
 	end,
 	player_store_effects = function(playername, effects)
 		local effects_serialized = minetest.serialize(effects)
 		local player = minetest.get_player_by_name(playername)
 		local pmeta = player:get_meta()
-    	pmeta:set_string("lottpotion:effects", effects_serialized)
+		pmeta:set_string("lottpotion:effects", effects_serialized)
 	end,
 	player_apply_effects = function(playername, effects)
-    	-- basic values
+		-- basic values
 		local basic_speed = 1
 		local basic_jump = 1
 		local basic_gravity = 1
@@ -141,7 +141,7 @@ lottpotion = {
 
 		local has_effects = false
 		-- effects are time ordered
-    	for _, effect in ipairs(effects) do
+		for _, effect in ipairs(effects) do
 			if effect.jump ~= nil then
 				jump = effect.jump
 			end
@@ -155,23 +155,23 @@ lottpotion = {
 		end
 
 		if has_effects then
-            if lottpotion.players[playername].potion_hud == nil then
-                local player = minetest.get_player_by_name(playername)
-                local huddef = {
-                    hud_elem_type = "image",
-                    position = {x=0.95, y=0.95},
-                    scale = {x=-5, y=-8},
-                    text = "lottpotion_bottle.png",
-                    offset = {x=0, y=1},
-                }
-                lottpotion.players[playername].potion_hud = player:hud_add(huddef)
-            end
+			if lottpotion.players[playername].potion_hud == nil then
+				local player = minetest.get_player_by_name(playername)
+				local huddef = {
+					hud_elem_type = "image",
+					position = {x=0.95, y=0.95},
+					scale = {x=-5, y=-8},
+					text = "lottpotion_bottle.png",
+					offset = {x=0, y=1},
+				}
+				lottpotion.players[playername].potion_hud = player:hud_add(huddef)
+			end
 		else
-            if lottpotion.players[playername].potion_hud ~= nil then
-                local player = minetest.get_player_by_name(playername)
-                player:hud_remove(lottpotion.players[playername].potion_hud)
-                lottpotion.players[playername].potion_hud = nil
-            end
+			if lottpotion.players[playername].potion_hud ~= nil then
+				local player = minetest.get_player_by_name(playername)
+				player:hud_remove(lottpotion.players[playername].potion_hud)
+				lottpotion.players[playername].potion_hud = nil
+			end
 		end
 
 		-- evaluate parameters from basic value and effects
@@ -193,30 +193,30 @@ lottpotion = {
 	end,
 	player_add_effect = function(playername, effect, duration)
 		local effects = lottpotion.player_load_effects(playername)
-    	effects = lord_potion_effects.add_effect(effects, effect, duration)
-    	lottpotion.player_store_effects(playername, effects)
+		effects = lord_potion_effects.add_effect(effects, effect, duration)
+		lottpotion.player_store_effects(playername, effects)
 		local current_effects = lord_potion_effects.list_effects(effects)
-    	lottpotion.player_apply_effects(playername, current_effects)
+		lottpotion.player_apply_effects(playername, current_effects)
 	end,
 	player_update_effects = function(playername, now)
-    	local effects = lottpotion.player_load_effects(playername)
-    	effects = lord_potion_effects.check_expiration(effects, now)
-    	if effects ~= nil then
+		local effects = lottpotion.player_load_effects(playername)
+		effects = lord_potion_effects.check_expiration(effects, now)
+		if effects ~= nil then
 			lottpotion.player_store_effects(playername, effects)
-        	local current_effects = lord_potion_effects.list_effects(effects)
-        	lottpotion.player_apply_effects(playername, current_effects)
-    	end
+			local current_effects = lord_potion_effects.list_effects(effects)
+			lottpotion.player_apply_effects(playername, current_effects)
+		end
 	end,
 	player_init_effects = function(playername)
 		local now = lord_potion_effects.now()
 		local effects = lottpotion.player_load_effects(playername)
 		local updated_effects = lord_potion_effects.check_expiration(effects, now)
-    	if updated_effects ~= nil then
-        	lottpotion.player_store_effects(playername, updated_effects)
+		if updated_effects ~= nil then
+			lottpotion.player_store_effects(playername, updated_effects)
 			effects = updated_effects
 		end
 		local current_effects = lord_potion_effects.list_effects(effects)
-        lottpotion.player_apply_effects(playername, current_effects)
+		lottpotion.player_apply_effects(playername, current_effects)
 	end,
 	register_potion = function(sname, name, fname, time, def)
 		local tps = {"power", "corruption"}
