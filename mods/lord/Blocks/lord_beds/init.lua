@@ -1,5 +1,7 @@
 local S = minetest.get_translator("lord_beds")
 
+beds.day_interval.finish = 0.790 -- reduced a bit
+
 beds.register_bed("lord_beds:straw_bed", {
 	description = S("Straw Bed"),
 	inventory_image = "straw_bed.png",

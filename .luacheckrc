@@ -8,7 +8,7 @@ globals           = {
 
     -- MTG APIs
 	"default", "doors", "farming", "player_api",
-	"sethome.set",
+	"sethome.set", "beds",
 
 	-- Other APIs
 	"hbhunger",

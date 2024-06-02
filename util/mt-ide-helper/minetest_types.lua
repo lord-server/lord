@@ -1027,8 +1027,10 @@ function minetest.get_objects_in_area(pos1, pos2) end
 --- * `val` is between `0` and `1`; `0` for midnight, `0.5` for midday
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4920-L4921)
+---@param val number
 function minetest.set_timeofday(val) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4922-L4922)
+---@return number
 function minetest.get_timeofday() end
 --- Returns the time, in seconds, since the world was
 ---   created.
