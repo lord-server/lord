@@ -1,12 +1,12 @@
-local Players = require("lord_web_api.api.Players")
-local Clans   = require("lord_web_api.api.Clans")
+local Players = require("web_api.api.Players")
+local Clans   = require("web_api.api.Clans")
 
 
 --- @class web_api
 local Api = {
-	--- @type lord_web_api.api.Players
+	--- @type web_api.api.Players
 	players = nil,
-	--- @type lord_web_api.api.Clans
+	--- @type web_api.api.Clans
 	clans   = nil,
 }
 

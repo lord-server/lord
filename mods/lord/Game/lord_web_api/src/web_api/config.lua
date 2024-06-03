@@ -6,7 +6,7 @@ if not base_url then
 	return nil
 end
 
---- @class lord_web_api.config
+--- @class web_api.config
 local config = {
 	--- @type string
 	base_url = base_url,
