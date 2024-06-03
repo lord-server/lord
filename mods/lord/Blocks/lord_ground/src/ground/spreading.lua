@@ -9,6 +9,7 @@ local RACE_ORC = "orc"
 --- @param api    ground.API
 --- @param config ground.Config
 local function deferred_register_mordor_lands_spreading_abm(api, config)
+	if config.mordor_lands == nil then return end
 	minetest.register_on_mods_loaded(function()
 		local exclude_dirts    = config.mordor_lands.exclude_dirts
 		local covers_with      = config.mordor_lands.covers_with
