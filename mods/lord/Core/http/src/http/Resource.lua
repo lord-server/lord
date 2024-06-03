@@ -2,9 +2,9 @@
 --- **Usage:**
 --- ```lua
 ---		Users = {
----			__index  = http.Resource,
 ---			resource = "/users",
 ---		}
+---		setmetatable(Players, { __index = http.Resource })
 --- ```
 --- @class http.Resource
 local Resource = {

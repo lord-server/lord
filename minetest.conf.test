@@ -105,7 +105,7 @@ secure.enable_security = true
 secure.trusted_mods = grinder, lp_api
 
 # For Discord
-secure.http_mods = lp_api
+secure.http_mods = lp_api, http
 
 
 ## Advanced

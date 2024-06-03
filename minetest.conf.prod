@@ -135,7 +135,7 @@ secure.trusted_mods = grinder, lp_api
 #    allow them to upload and download data to/from the internet.
 
 # For Discord
-secure.http_mods = lp_api
+secure.http_mods = lp_api, http
 
 
 ## Advanced

@@ -4,6 +4,7 @@ local HTTPMethod = {
 	PUT    = "PUT",
 	DELETE = "DELETE",
 }
+
 --- @alias http.Client.callback fun(result:HTTPRequestResult):void
 
 
@@ -28,8 +29,10 @@ local Client     = {
 	base_url         = nil,
 	--- @type HTTPRequest
 	base_options     = {},
+	--- @static
+	--- @private
 	--- @type HTTPApiTable
-	request_http_api = {},
+	mt_http_api      = {},
 	--- @type http.Client.callback
 	on_success       = nil,
 	--- @type http.Client.callback
@@ -45,8 +48,7 @@ function Client:new(base_url, base_options)
 	self = {}
 
 	self.base_url         = base_url
-	self.base_options     = base_options
-	self.request_http_api = minetest.request_http_api()
+	self.base_options = base_options
 
 	return setmetatable(self, { __index = class })
 end
@@ -74,7 +76,7 @@ function Client:getAsyncCallback()
 
 	--- @type http.Client.callback
 	local callback = function(result)
-		if result.succeeded and result.code == 200 then
+		if result.succeeded and result.code < 300 then
 			if on_success then on_success(result) end
 		else
 			if on_error then on_error(result) end
@@ -87,7 +89,7 @@ end
 --- @param request HTTPRequest
 --- @param callback http.Client.callback
 function Client:rawRequest(request, callback)
-	self.request_http_api:fetch(request, callback)
+	self.mt_http_api.fetch(request, callback)
 end
 
 --- @param method  string      one of HTTPMethod::<CONST>'ants
@@ -99,7 +101,7 @@ function Client:request(method, url, options)
 		self.base_options,
 		table.overwrite(
 			{ url = self.base_url .. url, method = method, },
-			options
+			options or {}
 		)
 	)
 
@@ -112,29 +114,37 @@ end
 --- @param url     string      url postfix (appends to base_url)
 --- @param options HTTPRequest additional request params
 function Client:get(url, options)
-	self:request(HTTPMethod.GET, url, options)
+	self:request(HTTPMethod.GET, url, options or {})
 end
 
 --- @param url     string      url postfix (appends to base_url)
 --- @param data    table       post data fields
 --- @param options HTTPRequest additional request params
 function Client:post(url, data, options)
-	self:request(HTTPMethod.POST, url, table.merge({ data = data, }, options))
+	self:request(HTTPMethod.POST, url, table.merge({ data = data, }, options or {}))
 end
 
 --- @param url     string      url postfix (appends to base_url)
 --- @param data    table       post data fields
 --- @param options HTTPRequest additional request params
 function Client:put(url, data, options)
-	self:request(HTTPMethod.PUT, url, table.merge({ data = data, }, options))
+	self:request(HTTPMethod.PUT, url, table.merge({ data = data, }, options or {}))
 end
 
 --- @param url     string      url postfix (appends to base_url)
 --- @param data    table       post data fields
 --- @param options HTTPRequest additional request params
 function Client:delete(url, data, options)
-	self:request(HTTPMethod.DELETE, url, table.merge({ data = data, }, options))
+	self:request(HTTPMethod.DELETE, url, table.merge({ data = data, }, options or {}))
 end
 
 
-return Client
+return {
+	--- @param http_api HTTPApiTable
+	--- @return http.Client
+	init = function(http_api)
+		Client.mt_http_api = http_api
+
+		return Client
+	end
+}
