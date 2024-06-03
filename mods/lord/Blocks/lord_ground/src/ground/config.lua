@@ -1,7 +1,3 @@
-local mordor_from = minetest.settings:get("lord_ground.mordor_lands.from"):split(",")
-local mordor_to   = minetest.settings:get("lord_ground.mordor_lands.to"):split(",")
-
-
 --- @class ground.Config
 local config = {
 	dirts = {
@@ -32,13 +28,23 @@ local config = {
 	--sand = {
 		-- mordor
 	--},
-	mordor_lands = {
-		from          = { x = tonumber(mordor_from[1]), z = tonumber(mordor_from[2]) },
-		to            = { x = tonumber(mordor_to[1]), z = tonumber(mordor_to[2]) },
+}
+
+local mordor_from_setting = minetest.settings:get("lord_ground.mordor_lands.from")
+local mordor_to_setting = minetest.settings:get("lord_ground.mordor_lands.to")
+
+if mordor_from_setting and mordor_to_setting then
+	local mordor_from = string.split(mordor_from_setting)
+	local mordor_to = string.split(mordor_to_setting)
+	config.mordor_lands = {
+		from = { x = tonumber(mordor_from[1]), z = tonumber(mordor_from[2]) },
+		to   = { x = tonumber(mordor_to[1]), z = tonumber(mordor_to[2]) },
 		exclude_dirts = { "lord_ground:dirt_dunland", "lord_ground:dirt_mirkwood" },
 		covers_with   = { "lord_rocks:mordor_stone", "lord_ground:coarse_dirt", "lord_ground:stony_dirt" },
-	},
-}
+	}
+else
+	minetest.log("warning", "lord_ground.mordor_lands.from/to aren't set, disabling the functionality...")
+end
 
 
 return config
