@@ -21,7 +21,7 @@ minetest.register_chatcommand("clans.show", {
 	description = S("Shows given clan information."),
 	privs = { server = true },
 	func = function(_, param_str)
-		local clan = clans.get_by_name(param_str)
+		local clan = clans.clan_get_by_name(param_str)
 		if not clan then return false, S("Clan @1 does not exist.", param_str) end
 
 		local msg = string.format("%s (%s)", clan.title, clan.name)
@@ -56,7 +56,7 @@ minetest.register_chatcommand("clans.register", {
 			if i ~= 1 and i ~= 2 then table.insert(members, param) end
 		end
 
-		local is_executed, err = clans.create_clan(clan_name, clan_title, members)
+		local is_executed, err = clans.clan_create(clan_name, clan_title, members)
 		if is_executed then
 			local members_str = table.concat(members, ", ")
 			return true, S("Clan @1 is created successfully. Members: @2", clan_name, members_str)
@@ -84,7 +84,7 @@ minetest.register_chatcommand("clans.delete", {
 			return false, S("Didn't get enough arguments! See help.")
 		end
 
-		local is_executed, err = clans.remove_clan(name)
+		local is_executed, err = clans.clan_remove(name)
 		if is_executed then
 			return true, S("Clan @1 deleted successfully.", name)
 		elseif err == clans.err[3] then
@@ -93,7 +93,7 @@ minetest.register_chatcommand("clans.delete", {
 	end
 })
 
-minetest.register_chatcommand("clans.add_player", {
+minetest.register_chatcommand("clans.players.add", {
 	params = S("<clan name> <list of players separated by space>"),
 	description = S("Add given players to given clan"),
 	privs = { server = true, },
@@ -107,7 +107,7 @@ minetest.register_chatcommand("clans.add_player", {
 
 		for i, param in ipairs(params) do
 			if i ~= 1 then
-				local is_executed, err = clans.add_player_to_clan(clan_name, param)
+				local is_executed, err = clans.clan_players_add(clan_name, param)
 				if not is_executed then
 					if err == clans.err[3] then
 						return false, S("Clan @1 does not exist.", clan_name)
@@ -128,7 +128,7 @@ minetest.register_chatcommand("clans.add_player", {
 	end
 })
 
-minetest.register_chatcommand("clans.remove_player", {
+minetest.register_chatcommand("clans.players.remove", {
 	params = S("<clan name> <player name>"),
 	description = S("Removes given player from given clan."),
 	privs = { server = true, },
@@ -141,7 +141,7 @@ minetest.register_chatcommand("clans.remove_player", {
 			return false, S("Didn't get enough arguments! See help.")
 		end
 
-		local is_executed, err = clans.remove_player_from_clan(clan_name, player_name)
+		local is_executed, err = clans.clan_players_remove(clan_name, player_name)
 		if is_executed then
 			return true, S("Player @1 was removed from clan @2.", player_name, clan_name)
 		elseif err == clans.err[4] then
@@ -162,12 +162,12 @@ minetest.register_chatcommand("clans.toggle_block", {
 			return false, S("Didn't get enough arguments! See help.")
 		end
 
-		local result = clans.toggle_block(name)
+		local result = clans.clan_toggle_block(name)
 		if result == nil then return false, S("Clan @1 does not exist.", name) end
 		if result then
-			return true, S("Clan @1 blocked succesfully.", name)
+			return true, S("Clan @1 blocked successfully.", name)
 		else
-			return true, S("Clan @1 unblocked succesfully.", name)
+			return true, S("Clan @1 unblocked successfully.", name)
 		end
 	end
 })

@@ -56,7 +56,7 @@ local definition = {
 	--- @param placer        Player
 	--- @param pointed_thing pointed_thing
 	on_place          = function(itemstack, placer, pointed_thing)
-		if not clans.get_by_player(placer) then
+		if not clans.clan_get_by_player(placer) then
 			minetest.chat_send_player(
 				placer:get_player_name(), S("You can't place this item. This chest is only for clan players.")
 			)
@@ -76,7 +76,7 @@ local definition = {
 	--- @param placer Player
 	after_place_node  = function(pos, placer)
 		local meta = minetest.get_meta(pos)
-		local clan = clans.get_by_player(placer)
+		local clan = clans.clan_get_by_player(placer)
 		if not clan then
 			local node_name = minetest.get_node(pos).name
 			minetest.remove_node(pos)
@@ -89,7 +89,7 @@ local definition = {
 	--- @param player Player
 	can_dig           = function(pos, player)
 		return
-			clans.get_by_player(player) and
+			clans.clan_get_by_player(player) and
 			minetest.get_meta(pos):get_inventory():is_empty("main")
 	end,
 	on_blast = function() end,
@@ -104,7 +104,7 @@ local definition = {
 		end
 
 		-- check if clan exists
-		local chest_clan = clans.get_by_name(chest_clan_name)
+		local chest_clan = clans.clan_get_by_name(chest_clan_name)
 		if not chest_clan then
 			minetest.log(
 				"error",
@@ -117,7 +117,7 @@ local definition = {
 			return
 		end
 
-		local player_clan = clans.get_by_player(clicker)
+		local player_clan = clans.clan_get_by_player(clicker)
 		local player_clan_name = player_clan and player_clan.name or nil
 		if not player_clan then	return end  -- open clan chest only for players from any clans, not for regular players
 		if player_clan_name ~= chest_clan_name and not is_admin then

@@ -6,7 +6,7 @@ clans = {} -- namespace
 
 --- @param player_name string
 --- @return clans.Clan|nil
-function clans.get_by_player_name(player_name)
+function clans.clan_get_by_player_name(player_name)
 	for _, clan in pairs(clan_storage.list()) do
 		if table.contains(clan.players, player_name) then
 			return clan
@@ -17,14 +17,14 @@ end
 
 --- @param player Player
 --- @return clans.Clan|nil
-function clans.get_by_player(player)
+function clans.clan_get_by_player(player)
 	local player_name = player:get_player_name()
-	return clans.get_by_player_name(player_name)
+	return clans.clan_get_by_player_name(player_name)
 end
 
 --- @param name string
 --- @return clans.Clan|nil
-function clans.get_by_name(name)
+function clans.clan_get_by_name(name)
 	return clan_storage.get(name)
 end
 
@@ -37,13 +37,15 @@ clans.err = {
 	[6] = "clan with this name is blocked",
 }
 
----@type number readonly
+--- @private
+--- @readonly
+--- @type number readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
 ---@param player Player|string|nil @Player or player name
 ---@param clan_title string
 ---@return boolean @completed or not
-local function add_clan_prefix_to_player_name(player, clan_title)
+local function player_add_clan_postfix_to_name(player, clan_title)
 	if type(player) == "string" then
 		player = minetest.get_player_by_name(player)
 	end
@@ -58,7 +60,7 @@ end
 
 ---@param player Player|string|nil @Player or player name
 ---@return boolean @completed or not
-local function reset_player_name(player)
+local function player_reset_name(player)
 	if type(player) == "string" then
 		player = minetest.get_player_by_name(player)
 	end
@@ -73,27 +75,27 @@ end
 --- @param title string
 --- @param members string[]
 --- @return boolean,string|nil
-function clans.create_clan(name, title, members)
-	if clans.get_by_name(name) ~= nil then return false, clans.err[1] end
+function clans.clan_create(name, title, members)
+	if clans.clan_get_by_name(name) ~= nil then return false, clans.err[1] end
 	if #members > clans.max_players_in_clan then return false, clans.err[5] end
 	for _, m in ipairs(members) do
-		if clans.get_by_player_name(m) ~= nil then return false, clans.err[2] end
+		if clans.clan_get_by_player_name(m) ~= nil then return false, clans.err[2] end
 	end
 
 	clan_storage.set({ name = name, title = title, players = members or {} })
-	for _, m in ipairs(members) do add_clan_prefix_to_player_name(m, title) end
+	for _, m in ipairs(members) do player_add_clan_postfix_to_name(m, title) end
 	callbacks.run_on_clan_creation_callbacks(name, title, members)
 	return true, nil
 end
 
 --- @param name string
 --- @return boolean,string|nil
-function clans.remove_clan(name)
-	local clan = clans.get_by_name(name)
+function clans.clan_remove(name)
+	local clan = clans.clan_get_by_name(name)
 	if clan == nil then return false, clans.err[3] end
 
 	clan_storage.delete(name)
-	for _, p in ipairs(clan.players) do reset_player_name(p) end
+	for _, p in ipairs(clan.players) do player_reset_name(p) end
 	callbacks.run_on_clan_deletion_callbacks(name)
 	return true, nil
 end
@@ -101,16 +103,16 @@ end
 --- @param clan_name string
 --- @param player_name string
 --- @return boolean,string|nil
-function clans.add_player_to_clan(clan_name, player_name)
-	if clans.get_by_player_name(player_name) ~= nil then return false, clans.err[2] end
-	local clan = clans.get_by_name(clan_name)
+function clans.clan_players_add(clan_name, player_name)
+	if clans.clan_get_by_player_name(player_name) ~= nil then return false, clans.err[2] end
+	local clan = clans.clan_get_by_name(clan_name)
 	if clan == nil then return false, clans.err[3] end
 	if clan.is_blocked then return false, clans.err[6] end
 	if #clan.players+1 > clans.max_players_in_clan then return false, clans.err[5] end
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
-	add_clan_prefix_to_player_name(player_name, clan.title)
+	player_add_clan_postfix_to_name(player_name, clan.title)
 	callbacks.run_on_clan_player_adding_callbacks(clan_name, player_name)
 	return true, nil
 end
@@ -118,11 +120,14 @@ end
 --- @param clan_name string
 --- @param player_name string
 --- @return boolean,string|nil
-function clans.remove_player_from_clan(clan_name, player_name)
-	local clan = clans.get_by_name(clan_name)
+function clans.clan_players_remove(clan_name, player_name)
+	local clan = clans.clan_get_by_name(clan_name)
 	if clan == nil then return false, clans.err[3] end
 
-	if clans.get_by_player_name(player_name) == nil or clans.get_by_player_name(player_name).name ~= clan_name then
+	if
+		clans.clan_get_by_player_name(player_name) == nil or
+		clans.clan_get_by_player_name(player_name).name ~= clan_name
+	then
 		return false, clans.err[4]
 	end
 
@@ -133,7 +138,7 @@ function clans.remove_player_from_clan(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	reset_player_name(player_name)
+	player_reset_name(player_name)
 	callbacks.run_on_clan_player_removing_callbacks(clan_name, player_name)
 
 	return true, nil
@@ -146,8 +151,8 @@ end
 
 ---@param name string @clan name (ID)
 ---@return boolean|nil @boolean if clan exists or nil else
-function clans.is_blocked(name)
-	local clan = clans.get_by_name(name)
+function clans.clan_is_blocked(name)
+	local clan = clans.clan_get_by_name(name)
 	if not clan then return nil end
 	if not clan.is_blocked then
 		return false
@@ -157,8 +162,8 @@ end
 
 ---@param name string @clan name (ID)
 ---@return boolean|nil @is clan blocked now, `nil` if clan does not exist
-function clans.toggle_block(name)
-	local clan = clans.get_by_name(name)
+function clans.clan_toggle_block(name)
+	local clan = clans.clan_get_by_name(name)
 	if not clan then return nil end
 	local old_is_blocked = clan.is_blocked
 	if old_is_blocked then
@@ -173,7 +178,7 @@ end
 --- @param name string
 --- @return boolean|nil
 local function check_clan_is_online(name)
-	local clan = clans.get_by_name(name)
+	local clan = clans.clan_get_by_name(name)
 	if not clan then return nil end
 	for _, player in pairs(minetest.get_connected_players()) do
 		if table.contains(clan.players, player:get_player_name()) then
@@ -189,7 +194,7 @@ local clan_is_online_cache = {}
 --- @param name string
 --- @return boolean|nil
 function clans.clan_is_online(name)
-	local clan = clans.get_by_name(name)
+	local clan = clans.clan_get_by_name(name)
 	if not clan then return nil end
 	if clan.is_blocked then return nil end -- clan is offline if it is blocked
 
@@ -203,18 +208,18 @@ end
 minetest.register_on_joinplayer(function(player, _)
 	if not player or not player:is_player() then return end
 
-	local clan = clans.get_by_player(player)
+	local clan = clans.clan_get_by_player(player)
 
 	if not clan then return end
 
 	clan_is_online_cache[clan.name] = true
-	add_clan_prefix_to_player_name(player, clan.title)
+	player_add_clan_postfix_to_name(player, clan.title)
 end)
 
 minetest.register_on_leaveplayer(function(player, _)
 	if not player or not player:is_player() then return end
 
-	local clan = clans.get_by_player(player)
+	local clan = clans.clan_get_by_player(player)
 	if not clan then return end
 
 	clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
