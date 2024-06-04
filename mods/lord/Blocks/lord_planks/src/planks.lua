@@ -1,6 +1,6 @@
 local api = require("planks.api")
 
-
+planks = {} -- luacheck: ignore planks
 local function register_api()
 	_G.planks = api
 end
