@@ -344,6 +344,10 @@ function minetest.debug(...) end
 ---   `"info"`, or `"verbose"`.  Default is `"none"`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4460-L4462)
+---
+--- @overload fun(text:string)
+--- @param level string
+--- @param text  string
 function minetest.log(level, text) end
 
 -- Registration functions:
