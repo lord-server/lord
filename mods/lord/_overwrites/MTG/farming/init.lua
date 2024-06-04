@@ -93,7 +93,5 @@ minetest.override_item("farming:cotton_wild", {drop = {
 
 
 -- Clear hoes tools and craft registration
-minetest.clear_craft({output = "farming:hoe_mese"})
 minetest.unregister_item("farming:hoe_mese")
-minetest.clear_craft({output = "farming:hoe_diamond"})
 minetest.unregister_item("farming:hoe_diamond")
