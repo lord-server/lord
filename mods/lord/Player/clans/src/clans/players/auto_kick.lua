@@ -35,7 +35,12 @@ local function call_every_day(func)
 	minetest.after(day, call_every_day, func)
 end
 
-minetest.register_on_mods_loaded(function()
-	-- HACK: waiting for auth system loading:
-	minetest.after(30, call_every_day, kick_inactive_players_from_clan)
-end)
+
+return {
+	register = function()
+		minetest.register_on_mods_loaded(function()
+			-- HACK: waiting for auth system loading:
+			minetest.after(30, call_every_day, kick_inactive_players_from_clan)
+		end)
+	end
+}

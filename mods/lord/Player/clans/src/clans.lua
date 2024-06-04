@@ -1,32 +1,8 @@
 local clan_storage = require("clans.storage")
-local callbacks = require("clans.callbacks")
+local callbacks    = require("clans.callbacks")
+
 
 clans = {} -- namespace
-
-
---- @param player_name string
---- @return clans.Clan|nil
-function clans.clan_get_by_player_name(player_name)
-	for _, clan in pairs(clan_storage.list()) do
-		if table.contains(clan.players, player_name) then
-			return clan
-		end
-	end
-	return nil
-end
-
---- @param player Player
---- @return clans.Clan|nil
-function clans.clan_get_by_player(player)
-	local player_name = player:get_player_name()
-	return clans.clan_get_by_player_name(player_name)
-end
-
---- @param name string
---- @return clans.Clan|nil
-function clans.clan_get_by_name(name)
-	return clan_storage.get(name)
-end
 
 clans.err = {
 	[1] = "clan with this name is already created",
@@ -41,6 +17,34 @@ clans.err = {
 --- @readonly
 --- @type number readonly
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
+
+
+function register_general_api_functions()
+	--- @param player_name string
+	--- @return clans.Clan|nil
+	function clans.clan_get_by_player_name(player_name)
+		for _, clan in pairs(clan_storage.list()) do
+			if table.contains(clan.players, player_name) then
+				return clan
+			end
+		end
+		return nil
+	end
+
+	--- @param player Player
+	--- @return clans.Clan|nil
+	function clans.clan_get_by_player(player)
+		local player_name = player:get_player_name()
+		return clans.clan_get_by_player_name(player_name)
+	end
+
+	--- @param name string
+	--- @return clans.Clan|nil
+	function clans.clan_get_by_name(name)
+		return clan_storage.get(name)
+	end
+end
+
 
 ---@param player Player|string|nil @Player or player name
 ---@param clan_title string
@@ -205,30 +209,43 @@ function clans.clan_is_online(name)
 	return clan_is_online_cache[name]
 end
 
-minetest.register_on_joinplayer(function(player, _)
-	if not player or not player:is_player() then return end
+local function register_player_nicknames_change()
+	minetest.register_on_joinplayer(function(player, _)
+		if not player or not player:is_player() then return end
 
-	local clan = clans.clan_get_by_player(player)
+		local clan = clans.clan_get_by_player(player)
 
-	if not clan then return end
+		if not clan then return end
 
-	clan_is_online_cache[clan.name] = true
-	player_add_clan_postfix_to_name(player, clan.title)
-end)
+		clan_is_online_cache[clan.name] = true
+		player_add_clan_postfix_to_name(player, clan.title)
+	end)
 
-minetest.register_on_leaveplayer(function(player, _)
-	if not player or not player:is_player() then return end
+	minetest.register_on_leaveplayer(function(player, _)
+		if not player or not player:is_player() then return end
 
-	local clan = clans.clan_get_by_player(player)
-	if not clan then return end
+		local clan = clans.clan_get_by_player(player)
+		if not clan then return end
 
-	clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
-end)
+		clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
+	end)
+end
 
 clans.register_on_clan_creation = callbacks.register_on_clan_creation
 clans.register_on_clan_deletion = callbacks.register_on_clan_deletion
 clans.register_on_clan_player_adding = callbacks.register_on_clan_player_adding
 clans.register_on_clan_player_removing = callbacks.register_on_clan_player_removing
 
-require("clans.commands")
-require("clans.last_login_kick")
+
+return {
+	init = function()
+		register_general_api_functions()
+
+		register_player_nicknames_change()
+
+		-- Register commands
+		require("clans.commands")
+
+		require("clans.players.auto_kick").register()
+	end
+}
