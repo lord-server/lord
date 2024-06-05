@@ -263,30 +263,6 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("castle:straw", {
-	description       = SL("Straw"),
-	tiles             = { "castle_straw.png" },
-	is_ground_content = false,
-	groups            = { snappy = 3, flammable = 4, grass = 1 },
-	sounds            = default.node_sound_leaves_defaults(),
-})
-
-minetest.register_craft({
-	output = "castle:straw 3",
-	recipe = {
-		{ "farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat" },
-		{ "farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat" },
-		{ "farming:sheaf_wheat", "farming:sheaf_wheat", "farming:sheaf_wheat" },
-	}
-})
-
-minetest.register_craft({
-	output = "farming:sheaf_wheat 3",
-	recipe = {
-		{ "castle:straw" },
-	}
-})
-
 minetest.register_node("castle:bound_straw", {
 	description = SL("Bound Straw"),
 	drawtype    = "normal",
@@ -299,22 +275,9 @@ minetest.register_node("castle:bound_straw", {
 minetest.register_craft({
 	output = "castle:bound_straw",
 	recipe = {
-		{ "castle:straw", "castle:ropes" },
+		{ "farming:straw", "castle:ropes" },
 	}
 })
-
-stairs.register_stair_and_slab(
-	"straw",
-	"castle:straw",
-	{choppy = 3, flammable = 1, oddly_breakable_by_hand = 3, grass = 1},
-	{"castle_straw.png"},
-	SL("Castle Straw Stair"),
-	SL("Castle Straw Slab"),
-	default.node_sound_leaves_defaults(),
-	false,
-	SL("Inner Castle Straw Stair"),
-	SL("Outer Castle Straw Stair")
-)
 
 minetest.register_node("castle:pavement", {
 	description = SL("Paving Stone"),

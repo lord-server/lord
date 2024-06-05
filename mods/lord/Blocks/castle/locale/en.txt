@@ -157,12 +157,6 @@ Jailbars=Jailbars
 Anvil=Anvil
 Workbench=Workbench
 Dungeon Stone=Dungeon Stone
-Straw=Straw
-Bound Straw=Bound Straw
-Castle Straw Stair=Castle Straw Stair
-Inner Castle Straw Stair=Inner Castle Straw Stair
-Outer Castle Straw Stair=Outer Castle Straw Stair
-Castle Straw Slab=Castle Straw Slab
 Light Block=Light Block
 Paving Stone=Paving Stone
 
