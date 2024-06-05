@@ -10,7 +10,7 @@ local AuthenticationHandlerDefinition = {
     --- doesn't exist).
     --- Returns following structure:
     --- `{password=<string>, privileges=<table>, last_login=<number or nil>}`
-	---@type fun(name:string):AuthenticationHandlerGetAuth
+	---@type fun(name:string):AuthenticationHandlerGetAuth|nil
     get_auth = function(name) end,
 
 	--- Create new auth data for player `name`.
