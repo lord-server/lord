@@ -203,7 +203,7 @@ function minetest.get_hit_params(groups, tool_capabilities , time_from_last_punc
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3329-L3338)
 ---
 --- @param text_domain string
---- @return fun(str: string, ...)
+--- @return fun(str: string, ...):string
 function minetest.get_translator(text_domain) end
 --- translates the string `str` with
 ---   the given `textdomain` for disambiguation. The textdomain must match the

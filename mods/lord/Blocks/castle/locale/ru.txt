@@ -169,12 +169,7 @@ Jailbars=Решётка
 Anvil=Наковальня
 Workbench=Рабочий стол
 Dungeon Stone=Малахит
-Straw=Сено
-Bound Straw=Обвязанное сено
-Castle Straw Stair=Ступенька из сена
-Inner Castle Straw Stair=Угловая ступенька из сена (Внутренний Угол)
-Outer Castle Straw Stair=Угловая ступенька из сена (Внешний Угол)
-Castle Straw Slab=Плита из сена
+Bound Straw=Обвязанная солома
 Light Block=Витражный светильник
 Paving Stone=Брусчатка
 

@@ -8,19 +8,19 @@ beds.register_bed("lord_beds:straw_bed", {
 	wield_image = "straw_bed.png",
 	tiles = {
 		bottom = {
-            "castle_straw.png^[transformR90",
-			"castle_straw.png^[transformR90",
-			"castle_straw.png",
-			"castle_straw.png^[transformFX",
+            "farming_straw.png^[transformR90",
+			"farming_straw.png^[transformR90",
+			"farming_straw.png",
+			"farming_straw.png^[transformFX",
 			"beds_transparent.png",
-			"castle_straw.png"
+			"farming_straw.png"
 		},
 		top = {
-            "castle_straw.png^[transformR90",
-			"castle_straw.png^[transformR90",
-			"castle_straw.png",
-			"castle_straw.png^[transformFX",
-			"castle_straw.png",
+            "farming_straw.png^[transformR90",
+			"farming_straw.png^[transformR90",
+			"farming_straw.png",
+			"farming_straw.png^[transformFX",
+			"farming_straw.png",
 			"beds_transparent.png",
 		}
 	},
