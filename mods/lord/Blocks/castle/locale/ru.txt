@@ -169,6 +169,7 @@ Jailbars=Решётка
 Anvil=Наковальня
 Workbench=Рабочий стол
 Dungeon Stone=Малахит
+Bound Straw=Обвязанная солома
 Light Block=Витражный светильник
 Paving Stone=Брусчатка
 

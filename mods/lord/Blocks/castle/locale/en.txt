@@ -157,6 +157,7 @@ Jailbars=Jailbars
 Anvil=Anvil
 Workbench=Workbench
 Dungeon Stone=Dungeon Stone
+Bound Straw=Bound Straw
 Light Block=Light Block
 Paving Stone=Paving Stone
 
