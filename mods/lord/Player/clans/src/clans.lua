@@ -19,7 +19,7 @@ clans.err = {
 clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
 
 
-function register_general_api_functions()
+local function register_general_api_functions()
 	--- @param player_name string
 	--- @return clans.Clan|nil
 	function clans.clan_get_by_player_name(player_name)
@@ -45,6 +45,7 @@ function register_general_api_functions()
 	end
 end
 
+nametag.segments.add("clan", "lime", "[%s]")
 
 ---@param player Player|string|nil @Player or player name
 ---@param clan_title string
@@ -54,9 +55,8 @@ local function player_add_clan_postfix_to_name(player, clan_title)
 		player = minetest.get_player_by_name(player)
 	end
 	if player then
-		player:set_nametag_attributes({
-			text = player:get_player_name() .. " " .. minetest.colorize("lime", "["..clan_title.."]"),
-		})
+		nametag.for_player(player):segment("clan"):update(clan_title)
+
 		return true
 	end
 	return false
@@ -69,7 +69,8 @@ local function player_reset_name(player)
 		player = minetest.get_player_by_name(player)
 	end
 	if player then
-		player:set_nametag_attributes({	text = player:get_player_name(), })
+		nametag.for_player(player):segment("clan"):update("")
+
 		return true
 	end
 	return false
