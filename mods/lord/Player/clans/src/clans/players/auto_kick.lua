@@ -10,17 +10,19 @@ local function kick_inactive_players_from_clan()
 	local auth_handler = minetest.get_auth_handler()
 	local time_now = os.time()
 	for clan_name, clan in pairs(clans.list()) do
-		for _, player in ipairs(clan.players) do
-			local auth = auth_handler.get_auth(player)
-			if auth then
+		for _, player_name in ipairs(clan.players) do
+			local auth = auth_handler.get_auth(player_name)
+			if not auth then
+				minetest.log("error", "[clans]: [auto-kick]: can't find player `" ..  player_name "`")
+			else
 				local last_login = auth.last_login
 				if last_login ~= nil and time_now - last_login > MAX_INACTIVE_PERIOD then
-					clans.clan_players_remove(clan_name, player)
+					clans.clan_players_remove(clan_name, player_name)
 					minetest.log(
 						"info",
 						string.format(
-							"[clans] removed %s player from %s clan for being offline since %d",
-							player,
+							"[clans]: [auto-kick]: removed %s player from %s clan for being offline since %d",
+							player_name,
 							clan_name,
 							last_login
 						)
