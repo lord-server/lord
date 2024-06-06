@@ -46,7 +46,13 @@ function Segment:set_value(text, color)
 end
 
 --- Updates displaying name-tag
-function Segment:update()
+--- @overload fun()
+--- @overload fun(text:string)
+--- @param text  string that will be displayed in this segment of NameTag. You can use `minetest.colorize()` for parts.
+--- @param color string override color for this segment of NameTag. Default sets by `nametag.segments.add()`
+function Segment:update(text, color)
+	if text then self.set_value(text, color) end
+
 	self.name_tag:force_refresh()
 end
 
