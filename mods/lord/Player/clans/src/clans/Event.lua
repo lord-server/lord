@@ -47,30 +47,21 @@ function Event.subscribe(event, callback)
 	table.insert(subscribers[event], callback)
 end
 
-
+--- @private
+--- @param event string name of event (One of `clans.Event.Type::<const>`)
+--- @vararg clans.Clan|string pass args that will be passed to subscribers callbacks. See `clans.callbacks.<func-types>`
 function Event.notify(event, ...)
+	assert(Event.Type[event], "Unknown clans.Event.Type: " .. event)
+
 	for _, func in pairs(subscribers[event]) do
 		func(...)
 	end
 end
 
----@param clan clans.Clan
-function Event.run_on_clan_creation_callbacks(clan)
-	Event.notify(Event.Type.on_clan_created, clan)
-end
----@param clan clans.Clan
-function Event.run_on_clan_deletion_callbacks(clan)
-	Event.notify(Event.Type.on_clan_deleted, clan)
-end
----@param clan        clans.Clan
----@param player_name string
-function Event.run_on_clan_player_adding_callbacks(clan, player_name)
-	Event.notify(Event.Type.on_clan_player_added, clan, player_name)
-end
----@param clan        clans.Clan
----@param player_name string
-function Event.run_on_clan_player_removing_callbacks(clan, player_name)
-	Event.notify(Event.Type.on_clan_player_removed, clan, player_name)
+--- @param event string name of event (One of `clans.Event.Type::<const>`)
+--- @vararg clans.Clan|string pass args that will be passed to subscribers callbacks. See `clans.callbacks.<func-types>`
+function Event.trigger(event, ...)
+	Event.notify(event, ...)
 end
 
 

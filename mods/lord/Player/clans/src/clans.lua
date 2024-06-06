@@ -66,7 +66,7 @@ function clans.clan_create(name, title, members)
 	local clan = { name = name, title = title, players = members or {} }
 	clan_storage.set(clan)
 
-	Event.run_on_clan_creation_callbacks(clan)
+	Event.trigger(Event.Type.on_clan_created, clan)
 
 	return true, nil
 end
@@ -79,7 +79,7 @@ function clans.clan_remove(name)
 
 	clan_storage.delete(name)
 
-	Event.run_on_clan_deletion_callbacks(clan)
+	Event.trigger(Event.Type.on_clan_deleted, clan)
 
 	return true, nil
 end
@@ -97,7 +97,7 @@ function clans.clan_players_add(clan_name, player_name)
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
 
-	Event.run_on_clan_player_adding_callbacks(clan, player_name)
+	Event.trigger(Event.Type.on_clan_player_added, clan, player_name)
 
 	return true, nil
 end
@@ -123,7 +123,7 @@ function clans.clan_players_remove(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	Event.run_on_clan_player_removing_callbacks(clan_name, player_name)
+	Event.trigger(Event.Type.on_clan_player_removed, clan_name, player_name)
 
 	return true, nil
 end
