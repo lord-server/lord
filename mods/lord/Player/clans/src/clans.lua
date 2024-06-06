@@ -45,7 +45,13 @@ local function register_general_api_functions()
 	end
 end
 
-nametag.segments.add("clan", "lime", "[%s]")
+local function register_callbacks()
+	clans.on_clan_created        = callbacks.on_clan_created
+	clans.on_clan_deleted        = callbacks.on_clan_deleted
+	clans.on_clan_player_added   = callbacks.on_clan_player_added
+	clans.on_clan_player_removed = callbacks.on_clan_player_removed
+end
+
 
 ---@param player Player|string|nil @Player or player name
 ---@param clan_title string
@@ -87,9 +93,11 @@ function clans.clan_create(name, title, members)
 		if clans.clan_get_by_player_name(m) ~= nil then return false, clans.err[2] end
 	end
 
-	clan_storage.set({ name = name, title = title, players = members or {} })
-	for _, m in ipairs(members) do player_add_clan_postfix_to_name(m, title) end
-	callbacks.run_on_clan_creation_callbacks(name, title, members)
+	local clan = { name = name, title = title, players = members or {} }
+	clan_storage.set(clan)
+
+	callbacks.run_on_clan_creation_callbacks(clan)
+
 	return true, nil
 end
 
@@ -100,8 +108,9 @@ function clans.clan_remove(name)
 	if clan == nil then return false, clans.err[3] end
 
 	clan_storage.delete(name)
-	for _, p in ipairs(clan.players) do player_reset_name(p) end
-	callbacks.run_on_clan_deletion_callbacks(name)
+
+	callbacks.run_on_clan_deletion_callbacks(clan)
+
 	return true, nil
 end
 
@@ -117,8 +126,9 @@ function clans.clan_players_add(clan_name, player_name)
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
-	player_add_clan_postfix_to_name(player_name, clan.title)
-	callbacks.run_on_clan_player_adding_callbacks(clan_name, player_name)
+
+	callbacks.run_on_clan_player_adding_callbacks(clan, player_name)
+
 	return true, nil
 end
 
@@ -143,7 +153,6 @@ function clans.clan_players_remove(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	player_reset_name(player_name)
 	callbacks.run_on_clan_player_removing_callbacks(clan_name, player_name)
 
 	return true, nil
@@ -210,7 +219,30 @@ function clans.clan_is_online(name)
 	return clan_is_online_cache[name]
 end
 
-local function register_player_nicknames_change()
+local function register_nametag_operations()
+
+	nametag.segments.add("clan", "lime", "[%s]")
+
+	clans.on_clan_created(function(clan)
+		for _, player_name in ipairs(clan.players) do
+			player_add_clan_postfix_to_name(player_name, clan.title)
+		end
+	end)
+
+	clans.on_clan_deleted(function(clan)
+		for _, player_name in ipairs(clan.players) do
+			player_reset_name(player_name)
+		end
+	end)
+
+	clans.on_clan_player_added(function(clan, player_name)
+		player_add_clan_postfix_to_name(player_name, clan.title)
+	end)
+
+	clans.on_clan_player_removed(function(clan, player_name)
+		player_reset_name(player_name)
+	end)
+
 	minetest.register_on_joinplayer(function(player, _)
 		if not player or not player:is_player() then return end
 
@@ -232,17 +264,14 @@ local function register_player_nicknames_change()
 	end)
 end
 
-clans.on_clan_created        = callbacks.on_clan_created
-clans.on_clan_deleted        = callbacks.on_clan_deleted
-clans.on_clan_player_added   = callbacks.on_clan_player_added
-clans.on_clan_player_removed = callbacks.on_clan_player_removed
-
 
 return {
 	init = function()
 		register_general_api_functions()
 
-		register_player_nicknames_change()
+		register_callbacks()
+
+		register_nametag_operations()
 
 		-- Register commands
 		require("clans.commands")
