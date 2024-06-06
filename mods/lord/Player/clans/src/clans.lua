@@ -190,39 +190,8 @@ function clans.clan_is_online(name)
 end
 
 local function register_nametag_operations()
-
-	nametag.segments.add("clan", "lime", "[%s]")
-
-	---@param player_name string
-	---@param clan_title  string|nil
-	local function set_player_nametag(player_name, clan_title)
-		local player = minetest.get_player_by_name(player_name)
-		if not player then return end
-
-		clan_title = clan_title or ""
-		nametag.for_player(player_name):segment("clan"):update(clan_title)
-	end
-
-	clans.on_clan_created(function(clan)
-		for _, player_name in ipairs(clan.players) do
-			set_player_nametag(player_name, clan.title)
-		end
-	end)
-
-	clans.on_clan_deleted(function(clan)
-		for _, player_name in ipairs(clan.players) do
-			set_player_nametag(player_name)
-		end
-	end)
-
-	clans.on_clan_player_added(function(clan, player_name)
-		set_player_nametag(player_name, clan.title)
-	end)
-
-	clans.on_clan_player_removed(function(clan, player_name)
-		set_player_nametag(player_name)
-	end)
-
+	-- TODO: add events `on_clan_player_join` & `on_clan_player_leave`. #1431
+	-- TODO:     move this into `nametag.lua` using that events
 	minetest.register_on_joinplayer(function(player, _)
 		if not player or not player:is_player() then return end
 
