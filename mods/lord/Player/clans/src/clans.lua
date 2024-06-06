@@ -190,6 +190,9 @@ function clans.clan_is_online(name)
 end
 
 local function register_nametag_operations()
+
+	require("clans.players.nametag")
+
 	-- TODO: add events `on_clan_player_join` & `on_clan_player_leave`. #1431
 	-- TODO:     move this into `nametag.lua` using that events
 	minetest.register_on_joinplayer(function(player, _)
