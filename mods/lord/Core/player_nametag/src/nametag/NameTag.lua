@@ -41,15 +41,15 @@ function NameTag:segment(name)
 	return self.segments[name]
 end
 
+--- Returns built nametag ready for display.
+--- Concatenates built segments; Applies colors and templates (string.format()) for them.
 --- @return string
 function NameTag:build()
 	local text = self.player:get_player_name()
 	for _, segment in pairs(self.segments) do
-		print(dump(segment.color))
-		print(dump(segment.value))
-		text = text .. " " .. (segment.color and minetest.colorize(segment.color, segment.value) or segment.value)
+		text = text .. " " .. segment:build()
 	end
-print(dump(text))
+
 	return text
 end
 
@@ -73,6 +73,7 @@ return {
 		local player_name = player:get_player_name()
 		if not storage[player_name] then
 			storage[player_name] = NameTag:new(player)
+		else
 			-- refresh pointer to player, as it could have to gone
 			storage[player_name].player = player
 		end

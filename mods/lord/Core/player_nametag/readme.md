@@ -61,6 +61,10 @@ Full API:
   ```
   nametag.for_player(player:Player):segment(name:string): nametag.NameTag.Segment
   ```
+
+### `NameTag.Segment`
+You can use `minetest.colorize()` for parts of your value for segments.  
+Also yuu can use callback function for calculate your value. yuu can use callback function for calculate your value.
 - Set new text for the segment (*Note: no update of displaying):
   ```
   nametag.for_player(player:Player):segment(name:string):set_value(text:string): self
@@ -73,10 +77,17 @@ Full API:
   ```
   nametag.for_player(player:Player):segment(name:string):set_color(color:string): self
   ```
+  
 - Then update displaying name-tag:
   ```
   nametag.for_player(player:Player):segment(name:string):update() void
   ```
+  
+- Or just Quick "alias" for `:set_value(text:string, color:string):update()` use:
+  ```
+  nametag.for_player(player:Player):segment(name:string):update(text:string[, color:string]) void
+  ```
+  
 - Update displaying NameTag for player:
   ```
   nametag.for_player(player:Player):force_refresh(): void
