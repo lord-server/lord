@@ -1,3 +1,6 @@
+local pairs
+	= pairs
+
 
 --- @static
 --- @class clans.Event
@@ -45,33 +48,29 @@ function Event.subscribe(event, callback)
 end
 
 
----- Trigger handling: ----
+function Event.notify(event, ...)
+	for _, func in pairs(subscribers[event]) do
+		func(...)
+	end
+end
 
 ---@param clan clans.Clan
 function Event.run_on_clan_creation_callbacks(clan)
-	for _, func in ipairs(subscribers.on_clan_created) do
-		func(clan)
-	end
+	Event.notify(Event.Type.on_clan_created, clan)
 end
 ---@param clan clans.Clan
 function Event.run_on_clan_deletion_callbacks(clan)
-	for _, func in ipairs(subscribers.on_clan_deleted) do
-		func(clan)
-	end
+	Event.notify(Event.Type.on_clan_deleted, clan)
 end
 ---@param clan        clans.Clan
 ---@param player_name string
 function Event.run_on_clan_player_adding_callbacks(clan, player_name)
-	for _, func in ipairs(subscribers.on_clan_player_added) do
-		func(clan, player_name)
-	end
+	Event.notify(Event.Type.on_clan_player_added, clan, player_name)
 end
 ---@param clan        clans.Clan
 ---@param player_name string
 function Event.run_on_clan_player_removing_callbacks(clan, player_name)
-	for _, func in ipairs(subscribers.on_clan_player_removed) do
-		func(clan, player_name)
-	end
+	Event.notify(Event.Type.on_clan_player_removed, clan, player_name)
 end
 
 
