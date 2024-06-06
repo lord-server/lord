@@ -1,44 +1,47 @@
 
 --- @static
 --- @class clans.Event
-local Event       = {} -- namespace
+local Event = {} -- namespace
 
+--- @class clans.Event.Type
+Event.Type = {
+	on_clan_created        = "on_clan_created",
+	on_clan_deleted        = "on_clan_deleted",
+	on_clan_player_added   = "on_clan_player_added",
+	on_clan_player_removed = "on_clan_player_removed",
+}
 
----@alias clans.callbacks.OnClanCreated fun(clan:clans.Clan)
----@alias clans.callbacks.OnClanDeleted fun(clan:clans.Clan)
----@alias clans.callbacks.OnClanPlayerAdded fun(clan:clans.Clan, player_name:string)
----@alias clans.callbacks.OnClanPlayerRemoved fun(clan:clans.Clan, player_name:string)
-
+--- @alias clans.callbacks.OnClanOperation fun(clan:clans.Clan)
+--- @alias clans.callbacks.OnClanPlayerOperation fun(clan:clans.Clan, player_name:string)
+--- @alias clans.callback clans.callbacks.OnClanOperation|clans.callbacks.OnClanPlayerOperation
 
 local subscribers = {
-	---@type clans.callbacks.OnClanCreated[]
+	---@type clans.callbacks.OnClanOperation[]
 	on_clan_created = {},
-	---@type clans.callbacks.OnClanDeleted[]
+	---@type clans.callbacks.OnClanOperation[]
 	on_clan_deleted = {},
-	---@type clans.callbacks.OnClanPlayerAdded[]
+	---@type clans.callbacks.OnClanPlayerOperation[]
 	on_clan_player_added = {},
-	---@type clans.callbacks.OnClanPlayerRemoved[]
+	---@type clans.callbacks.OnClanPlayerOperation[]
 	on_clan_player_removed = {},
 }
 
+--- @param event string name of event (One of `clans.Event.Type::<const>`)
+---
+--- @return fun(callback:clans.callback)
+function Event.on(event)
+	return function(callback)
+		Event.subscribe(event, callback)
+	end
+end
 
----- Subscribing: ----
+--- @param event    string name of event (One of `clans.Event.Type::<const>`)
+--- @param callback clans.callback
+function Event.subscribe(event, callback)
+	assert(Event.Type[event], "Unknown clans.Event.Type: " .. event)
+	assert(type(callback) == "function")
 
----@param func clans.callbacks.OnClanCreated
-function Event.on_clan_created(func)
-	table.insert(subscribers.on_clan_created, func)
-end
----@param func clans.callbacks.OnClanDeleted
-function Event.on_clan_deleted(func)
-	table.insert(subscribers.on_clan_deleted, func)
-end
----@param func clans.callbacks.OnClanPlayerAdded
-function Event.on_clan_player_added(func)
-	table.insert(subscribers.on_clan_player_added, func)
-end
----@param func clans.callbacks.OnClanPlayerRemoved
-function Event.on_clan_player_removed(func)
-	table.insert(subscribers.on_clan_player_removed, func)
+	table.insert(subscribers[event], callback)
 end
 
 

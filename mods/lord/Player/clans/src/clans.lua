@@ -46,10 +46,10 @@ local function register_general_api_functions()
 end
 
 local function register_callbacks()
-	clans.on_clan_created        = Event.on_clan_created
-	clans.on_clan_deleted        = Event.on_clan_deleted
-	clans.on_clan_player_added   = Event.on_clan_player_added
-	clans.on_clan_player_removed = Event.on_clan_player_removed
+	clans.on_clan_created        = Event.on(Event.Type.on_clan_created)
+	clans.on_clan_deleted        = Event.on(Event.Type.on_clan_deleted)
+	clans.on_clan_player_added   = Event.on(Event.Type.on_clan_player_added)
+	clans.on_clan_player_removed = Event.on(Event.Type.on_clan_player_removed)
 end
 
 --- @param name string
