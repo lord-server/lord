@@ -8,7 +8,7 @@ local Segment = {
 	--- @type nametag.NameTag
 	name_tag = nil,
 	--- @type string|nametag.NameTag.Segment.value_getter
-	value    = "",
+	value    = nil,
 	--- @type string|nil
 	color    = nil,
 	--- @type string|nil
@@ -61,9 +61,12 @@ end
 --- Applies color and template (`string.format()`).
 --- @return string
 function Segment:build()
+	local value = self:get_value()
+	if not value then return "" end
+
 	local displayed_value = self.format
-		and string.format(self.format, self:get_value())
-		or  self:get_value()
+		and string.format(self.format, value)
+		or  value
 
 	return self.color
 		and minetest.colorize(self.color, displayed_value)

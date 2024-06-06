@@ -7,8 +7,7 @@ local function set_player_nametag(player_name, clan_title)
 	local player = minetest.get_player_by_name(player_name)
 	if not player then return end
 
-	clan_title = clan_title or ""
-	nametag.for_player(player_name):segment("clan"):update(clan_title)
+	nametag.for_player(player):segment("clan"):set_value(clan_title):update()
 end
 
 clans.on_clan_created(function(clan)
