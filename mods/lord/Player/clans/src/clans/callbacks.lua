@@ -1,38 +1,39 @@
 local callbacks = {} -- namespace
 
 
----@alias OnClanCreationCallback fun(clan:clans.Clan)
----@alias OnClanDeletionCallback fun(clan:clans.Clan)
----@alias OnClanPlayerAddingCallback fun(clan:clans.Clan, player_name:string)
----@alias OnClanPlayerRemovingCallback fun(clan:clans.Clan, player_name:string)
+---@alias clans.callbacks.OnClanCreated fun(clan:clans.Clan)
+---@alias clans.callbacks.OnClanDeleted fun(clan:clans.Clan)
+---@alias clans.callbacks.OnClanPlayerAdded fun(clan:clans.Clan, player_name:string)
+---@alias clans.callbacks.OnClanPlayerRemoved fun(clan:clans.Clan, player_name:string)
 
 
-local subscribers = {}
----@type OnClanCreationCallback[]
-subscribers.on_clan_created = {}
----@type OnClanDeletionCallback[]
-subscribers.on_clan_deleted = {}
----@type OnClanPlayerAddingCallback[]
-subscribers.on_clan_player_added = {}
----@type OnClanPlayerRemovingCallback[]
-subscribers.on_clan_player_removed = {}
+local subscribers = {
+	---@type clans.callbacks.OnClanCreated[]
+	on_clan_created = {},
+	---@type clans.callbacks.OnClanDeleted[]
+	on_clan_deleted = {},
+	---@type clans.callbacks.OnClanPlayerAdded[]
+	on_clan_player_added = {},
+	---@type clans.callbacks.OnClanPlayerRemoved[]
+	on_clan_player_removed = {},
+}
 
 
 ---- Subscribing: ----
 
----@param func OnClanCreationCallback
+---@param func clans.callbacks.OnClanCreated
 function callbacks.on_clan_created(func)
 	table.insert(subscribers.on_clan_created, func)
 end
----@param func OnClanDeletionCallback
+---@param func clans.callbacks.OnClanDeleted
 function callbacks.on_clan_deleted(func)
 	table.insert(subscribers.on_clan_deleted, func)
 end
----@param func OnClanPlayerAddingCallback
+---@param func clans.callbacks.OnClanPlayerAdded
 function callbacks.on_clan_player_added(func)
 	table.insert(subscribers.on_clan_player_added, func)
 end
----@param func OnClanPlayerRemovingCallback
+---@param func clans.callbacks.OnClanPlayerRemoved
 function callbacks.on_clan_player_removed(func)
 	table.insert(subscribers.on_clan_player_removed, func)
 end
