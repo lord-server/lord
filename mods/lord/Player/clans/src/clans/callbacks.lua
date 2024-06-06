@@ -7,7 +7,7 @@ local callbacks = {} -- namespace
 local on_clan_create_callbacks = {}
 
 ---@param func OnClanCreationCallback
-function callbacks.register_on_clan_creation(func)
+function callbacks.on_clan_created(func)
 	table.insert(on_clan_create_callbacks, func)
 end
 
@@ -27,7 +27,7 @@ end
 local on_clan_deletion_callbacks = {}
 
 ---@param func OnClanDeletionCallback
-function callbacks.register_on_clan_deletion(func)
+function callbacks.on_clan_deleted(func)
 	table.insert(on_clan_deletion_callbacks, func)
 end
 
@@ -45,7 +45,7 @@ end
 local on_clan_player_adding_callbacks = {}
 
 ---@param func OnClanPlayerAddingCallback
-function callbacks.register_on_clan_player_adding(func)
+function callbacks.on_clan_player_added(func)
 	table.insert(on_clan_player_adding_callbacks, func)
 end
 
@@ -64,7 +64,7 @@ end
 local on_clan_player_removing_callbacks = {}
 
 ---@param func OnClanPlayerRemovingCallback
-function callbacks.register_on_clan_player_removing(func)
+function callbacks.on_clan_player_removed(func)
 	table.insert(on_clan_player_removing_callbacks, func)
 end
 

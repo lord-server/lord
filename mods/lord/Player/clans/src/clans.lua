@@ -232,10 +232,10 @@ local function register_player_nicknames_change()
 	end)
 end
 
-clans.register_on_clan_creation = callbacks.register_on_clan_creation
-clans.register_on_clan_deletion = callbacks.register_on_clan_deletion
-clans.register_on_clan_player_adding = callbacks.register_on_clan_player_adding
-clans.register_on_clan_player_removing = callbacks.register_on_clan_player_removing
+clans.on_clan_created        = callbacks.on_clan_created
+clans.on_clan_deleted        = callbacks.on_clan_deleted
+clans.on_clan_player_added   = callbacks.on_clan_player_added
+clans.on_clan_player_removed = callbacks.on_clan_player_removed
 
 
 return {
