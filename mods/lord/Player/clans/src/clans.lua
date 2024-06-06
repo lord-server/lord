@@ -52,36 +52,6 @@ local function register_callbacks()
 	clans.on_clan_player_removed = callbacks.on_clan_player_removed
 end
 
-
----@param player Player|string|nil @Player or player name
----@param clan_title string
----@return boolean @completed or not
-local function player_add_clan_postfix_to_name(player, clan_title)
-	if type(player) == "string" then
-		player = minetest.get_player_by_name(player)
-	end
-	if player then
-		nametag.for_player(player):segment("clan"):update(clan_title)
-
-		return true
-	end
-	return false
-end
-
----@param player Player|string|nil @Player or player name
----@return boolean @completed or not
-local function player_reset_name(player)
-	if type(player) == "string" then
-		player = minetest.get_player_by_name(player)
-	end
-	if player then
-		nametag.for_player(player):segment("clan"):update("")
-
-		return true
-	end
-	return false
-end
-
 --- @param name string
 --- @param title string
 --- @param members string[]
@@ -223,24 +193,34 @@ local function register_nametag_operations()
 
 	nametag.segments.add("clan", "lime", "[%s]")
 
+	---@param player_name string
+	---@param clan_title  string|nil
+	local function set_player_nametag(player_name, clan_title)
+		local player = minetest.get_player_by_name(player_name)
+		if not player then return end
+
+		clan_title = clan_title or ""
+		nametag.for_player(player_name):segment("clan"):update(clan_title)
+	end
+
 	clans.on_clan_created(function(clan)
 		for _, player_name in ipairs(clan.players) do
-			player_add_clan_postfix_to_name(player_name, clan.title)
+			set_player_nametag(player_name, clan.title)
 		end
 	end)
 
 	clans.on_clan_deleted(function(clan)
 		for _, player_name in ipairs(clan.players) do
-			player_reset_name(player_name)
+			set_player_nametag(player_name)
 		end
 	end)
 
 	clans.on_clan_player_added(function(clan, player_name)
-		player_add_clan_postfix_to_name(player_name, clan.title)
+		set_player_nametag(player_name, clan.title)
 	end)
 
 	clans.on_clan_player_removed(function(clan, player_name)
-		player_reset_name(player_name)
+		set_player_nametag(player_name)
 	end)
 
 	minetest.register_on_joinplayer(function(player, _)
@@ -251,7 +231,7 @@ local function register_nametag_operations()
 		if not clan then return end
 
 		clan_is_online_cache[clan.name] = true
-		player_add_clan_postfix_to_name(player, clan.title)
+		nametag.for_player(player):segment("clan"):update(clan.title)
 	end)
 
 	minetest.register_on_leaveplayer(function(player, _)
