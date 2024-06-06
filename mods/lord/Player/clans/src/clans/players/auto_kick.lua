@@ -13,7 +13,7 @@ local function kick_inactive_players_from_clan()
 		for _, player_name in ipairs(clan.players) do
 			local auth = auth_handler.get_auth(player_name)
 			if not auth then
-				minetest.log("error", "[clans]: [auto-kick]: can't find player `" ..  player_name "`")
+				minetest.log("error", "[clans]: [auto-kick]: can't find player `" ..  player_name .. "`")
 			else
 				local last_login = auth.last_login
 				if last_login ~= nil and time_now - last_login > MAX_INACTIVE_PERIOD then
