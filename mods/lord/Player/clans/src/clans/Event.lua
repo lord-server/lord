@@ -1,4 +1,7 @@
-local callbacks = {} -- namespace
+
+--- @static
+--- @class clans.Event
+local Event       = {} -- namespace
 
 
 ---@alias clans.callbacks.OnClanCreated fun(clan:clans.Clan)
@@ -22,19 +25,19 @@ local subscribers = {
 ---- Subscribing: ----
 
 ---@param func clans.callbacks.OnClanCreated
-function callbacks.on_clan_created(func)
+function Event.on_clan_created(func)
 	table.insert(subscribers.on_clan_created, func)
 end
 ---@param func clans.callbacks.OnClanDeleted
-function callbacks.on_clan_deleted(func)
+function Event.on_clan_deleted(func)
 	table.insert(subscribers.on_clan_deleted, func)
 end
 ---@param func clans.callbacks.OnClanPlayerAdded
-function callbacks.on_clan_player_added(func)
+function Event.on_clan_player_added(func)
 	table.insert(subscribers.on_clan_player_added, func)
 end
 ---@param func clans.callbacks.OnClanPlayerRemoved
-function callbacks.on_clan_player_removed(func)
+function Event.on_clan_player_removed(func)
 	table.insert(subscribers.on_clan_player_removed, func)
 end
 
@@ -42,31 +45,31 @@ end
 ---- Trigger handling: ----
 
 ---@param clan clans.Clan
-function callbacks.run_on_clan_creation_callbacks(clan)
+function Event.run_on_clan_creation_callbacks(clan)
 	for _, func in ipairs(subscribers.on_clan_created) do
 		func(clan)
 	end
 end
 ---@param clan clans.Clan
-function callbacks.run_on_clan_deletion_callbacks(clan)
+function Event.run_on_clan_deletion_callbacks(clan)
 	for _, func in ipairs(subscribers.on_clan_deleted) do
 		func(clan)
 	end
 end
 ---@param clan        clans.Clan
 ---@param player_name string
-function callbacks.run_on_clan_player_adding_callbacks(clan, player_name)
+function Event.run_on_clan_player_adding_callbacks(clan, player_name)
 	for _, func in ipairs(subscribers.on_clan_player_added) do
 		func(clan, player_name)
 	end
 end
 ---@param clan        clans.Clan
 ---@param player_name string
-function callbacks.run_on_clan_player_removing_callbacks(clan, player_name)
+function Event.run_on_clan_player_removing_callbacks(clan, player_name)
 	for _, func in ipairs(subscribers.on_clan_player_removed) do
 		func(clan, player_name)
 	end
 end
 
 
-return callbacks
+return Event

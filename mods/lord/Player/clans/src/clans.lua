@@ -1,5 +1,5 @@
 local clan_storage = require("clans.storage")
-local callbacks    = require("clans.callbacks")
+local Event        = require("clans.Event")
 
 
 clans = {} -- namespace
@@ -46,10 +46,10 @@ local function register_general_api_functions()
 end
 
 local function register_callbacks()
-	clans.on_clan_created        = callbacks.on_clan_created
-	clans.on_clan_deleted        = callbacks.on_clan_deleted
-	clans.on_clan_player_added   = callbacks.on_clan_player_added
-	clans.on_clan_player_removed = callbacks.on_clan_player_removed
+	clans.on_clan_created        = Event.on_clan_created
+	clans.on_clan_deleted        = Event.on_clan_deleted
+	clans.on_clan_player_added   = Event.on_clan_player_added
+	clans.on_clan_player_removed = Event.on_clan_player_removed
 end
 
 --- @param name string
@@ -66,7 +66,7 @@ function clans.clan_create(name, title, members)
 	local clan = { name = name, title = title, players = members or {} }
 	clan_storage.set(clan)
 
-	callbacks.run_on_clan_creation_callbacks(clan)
+	Event.run_on_clan_creation_callbacks(clan)
 
 	return true, nil
 end
@@ -79,7 +79,7 @@ function clans.clan_remove(name)
 
 	clan_storage.delete(name)
 
-	callbacks.run_on_clan_deletion_callbacks(clan)
+	Event.run_on_clan_deletion_callbacks(clan)
 
 	return true, nil
 end
@@ -97,7 +97,7 @@ function clans.clan_players_add(clan_name, player_name)
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
 
-	callbacks.run_on_clan_player_adding_callbacks(clan, player_name)
+	Event.run_on_clan_player_adding_callbacks(clan, player_name)
 
 	return true, nil
 end
@@ -123,7 +123,7 @@ function clans.clan_players_remove(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	callbacks.run_on_clan_player_removing_callbacks(clan_name, player_name)
+	Event.run_on_clan_player_removing_callbacks(clan_name, player_name)
 
 	return true, nil
 end
