@@ -154,8 +154,10 @@ function clans.clan_toggle_block(name)
 	local old_is_blocked = clan.is_blocked
 	if old_is_blocked then
 		clan.is_blocked = nil
+		Event.trigger(Event.Type.on_clan_unblocked, clan)
 	else
 		clan.is_blocked = true
+		Event.trigger(Event.Type.on_clan_blocked, clan)
 	end
 	clan_storage.set(clan)
 	return not old_is_blocked

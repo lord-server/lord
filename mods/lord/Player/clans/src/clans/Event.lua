@@ -10,6 +10,8 @@ local Event = {} -- namespace
 Event.Type = {
 	on_clan_created        = "on_clan_created",
 	on_clan_deleted        = "on_clan_deleted",
+	on_clan_blocked        = "on_clan_blocked",
+	on_clan_unblocked      = "on_clan_unblocked",
 	on_clan_player_added   = "on_clan_player_added",
 	on_clan_player_removed = "on_clan_player_removed",
 	on_clan_player_join    = "on_clan_player_join",
@@ -25,6 +27,10 @@ local subscribers = {
 	on_clan_created = {},
 	---@type clans.callbacks.OnClanOperation[]
 	on_clan_deleted = {},
+	---@type clans.callbacks.OnClanOperation[]
+	on_clan_blocked = {},
+	---@type clans.callbacks.OnClanOperation[]
+	on_clan_unblocked = {},
 	---@type clans.callbacks.OnClanPlayerOperation[]
 	on_clan_player_added = {},
 	---@type clans.callbacks.OnClanPlayerOperation[]
