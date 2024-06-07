@@ -2,7 +2,6 @@ local S = minetest.get_translator("clans")
 
 minetest.register_chatcommand("clans.list", {
 	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
-	privs = { server = true },
 	func = function(_, _)
 		local clans_str = ""
 		for _, clan in pairs(clans.list()) do
@@ -19,7 +18,6 @@ minetest.register_chatcommand("clans.list", {
 
 minetest.register_chatcommand("clans.show", {
 	description = S("Shows given clan information."),
-	privs = { server = true },
 	func = function(_, param_str)
 		local clan = clans.clan_get_by_name(param_str)
 		if not clan then return false, S("Clan @1 does not exist.", param_str) end
