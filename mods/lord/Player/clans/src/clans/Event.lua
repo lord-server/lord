@@ -12,6 +12,8 @@ Event.Type = {
 	on_clan_deleted        = "on_clan_deleted",
 	on_clan_player_added   = "on_clan_player_added",
 	on_clan_player_removed = "on_clan_player_removed",
+	on_clan_player_join    = "on_clan_player_join",
+	on_clan_player_leave   = "on_clan_player_leave",
 }
 
 --- @alias clans.callbacks.OnClanOperation fun(clan:clans.Clan)
@@ -27,6 +29,10 @@ local subscribers = {
 	on_clan_player_added = {},
 	---@type clans.callbacks.OnClanPlayerOperation[]
 	on_clan_player_removed = {},
+	---@type clans.callbacks.OnClanPlayerOperation[]
+	on_clan_player_join = {},
+	---@type clans.callbacks.OnClanPlayerOperation[]
+	on_clan_player_leave = {},
 }
 
 --- @param event string name of event (One of `clans.Event.Type::<const>`)

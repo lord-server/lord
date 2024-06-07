@@ -50,6 +50,8 @@ local function register_callbacks()
 	clans.on_clan_deleted        = Event.on(Event.Type.on_clan_deleted)
 	clans.on_clan_player_added   = Event.on(Event.Type.on_clan_player_added)
 	clans.on_clan_player_removed = Event.on(Event.Type.on_clan_player_removed)
+	clans.on_clan_player_join    = Event.on(Event.Type.on_clan_player_join)
+	clans.on_clan_player_leave   = Event.on(Event.Type.on_clan_player_leave)
 end
 
 --- @param name string
@@ -189,7 +191,7 @@ function clans.clan_is_online(name)
 	return clan_is_online_cache[name]
 end
 
-local function register_nametag_operations()
+local function register_join_or_leave_operations()
 
 	require("clans.players.nametag")
 
@@ -202,6 +204,7 @@ local function register_nametag_operations()
 
 		if not clan then return end
 
+		Event.trigger(Event.Type.on_clan_player_join, clan.name, player:get_player_name())
 		clan_is_online_cache[clan.name] = true
 		nametag.for_player(player):segment("clan"):update(clan.title)
 	end)
@@ -212,6 +215,7 @@ local function register_nametag_operations()
 		local clan = clans.clan_get_by_player(player)
 		if not clan then return end
 
+		Event.trigger(Event.Type.on_clan_player_leave, clan.name, player:get_player_name())
 		clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
 	end)
 end
@@ -223,7 +227,7 @@ return {
 
 		register_callbacks()
 
-		register_nametag_operations()
+		register_join_or_leave_operations()
 
 		-- Register commands
 		require("clans.commands")
