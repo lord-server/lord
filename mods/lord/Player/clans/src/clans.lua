@@ -195,8 +195,6 @@ end
 
 local function register_join_or_leave_operations()
 
-	require("clans.players.nametag")
-
 	-- TODO: add events `on_clan_player_join` & `on_clan_player_leave`. #1431
 	-- TODO:     move this into `nametag.lua` using that events
 	minetest.register_on_joinplayer(function(player, _)
@@ -229,6 +227,7 @@ return {
 
 		register_callbacks()
 
+		require("clans.players.nametag")
 		register_join_or_leave_operations()
 
 		-- Register commands
