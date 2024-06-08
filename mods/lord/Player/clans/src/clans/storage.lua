@@ -10,6 +10,7 @@ local clan_storage = {} -- namespace for storage manipulations
 --- @class clans.Clan
 --- @field public name string
 --- @field public title string
+--- @field public leader string
 --- @field public players string[]
 --- @field public is_blocked boolean|nil
 

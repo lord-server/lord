@@ -3,13 +3,12 @@ local web_player = {
 	--- @private
 	--- @static
 	--- @type web_integration.Storage
-	storage = nil
+	storage = nil,
+	--- @private
+	--- @static
+	--- @type web_integration.Logger
+	logger  = nil,
 }
-
---- @type http.Client.callback
-local log_response_error = function(result)
-	minetest.log("error", dump(result))
-end
 
 
 --- @param player Player minetest player object
@@ -25,13 +24,15 @@ function web_player.create(player)
 		function(result)
 			local created_player = minetest.parse_json(result.data)
 			if created_player == nil then
-				minetest.log("error", "Can't store player web id: unable to parse response json.")
+				web_player.logger.error("Can't store player web id: unable to parse response json: " .. result.data)
+				return
 			end
 
 			web_player.storage.set_player_web_id(player_name, created_player.id)
 		end,
 
-		log_response_error
+		-- TODO #1442: handle `409 Conflict` (duplicate resource record)
+		web_player.logger.log_api_error
 	)
 end
 
@@ -42,7 +43,7 @@ function web_player.update(player_web_id, last_login)
 		player_web_id,
 		{ last_login = os.date("%Y-%m-%d %H:%M:%S", last_login) },
 		nil,
-		log_response_error
+		web_player.logger.log_api_error
 	)
 end
 
@@ -63,8 +64,10 @@ end
 
 return {
 	--- @param storage web_integration.Storage
-	register = function(storage)
+	--- @param logger  web_integration.Logger
+	register = function(storage, logger)
 		web_player.storage = storage
+		web_player.logger  = logger
 
 		minetest.register_on_joinplayer(function(player, last_login)
 			if not player:is_player() then return end

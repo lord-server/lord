@@ -1,4 +1,5 @@
 local Storage     = require("web_integration.Storage")
+local Logger      = require("web_integration.Logger")
 local for_players = require("web_integration.for_players")
 local for_clans   = require("web_integration.for_clans")
 
@@ -14,7 +15,7 @@ return {
 			return
 		end
 
-		for_players.register(Storage)
-		for_clans.register(Storage)
+		for_players.register(Storage, Logger)
+		for_clans.register(Storage, Logger)
 	end,
 }
