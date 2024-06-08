@@ -1986,6 +1986,8 @@ function minetest.is_player(obj) end
 ---   (regardless of online status)
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5639-L5640)
+---@param name string
+---@return boolean
 function minetest.player_exists(name) end
 --- * Replaces definition of a builtin hud element
 --- * `name`: `"breath"` or `"health"`
