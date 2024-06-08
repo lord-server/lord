@@ -4,6 +4,8 @@ local Event        = require("clans.Event")
 
 clans = {} -- namespace
 
+clans.COLOR = "#3db" -- TODO: #1439
+
 clans.err = {
 	[1] = "clan with this name is already created",
 	[2] = "given player(s) is(are) already assigned to some other clan",
@@ -11,6 +13,7 @@ clans.err = {
 	[4] = "there is no such player in this clan",
 	[5] = "max players reached!",
 	[6] = "clan with this name is blocked",
+	[7] = "player not found",
 }
 
 --- @private
@@ -54,18 +57,16 @@ local function register_callbacks()
 	clans.on_clan_player_leave   = Event.on(Event.Type.on_clan_player_leave)
 end
 
---- @param name string
---- @param title string
---- @param members string[]
+--- @param name        string
+--- @param title       string
+--- @param leader_name string
 --- @return boolean,string|nil
-function clans.clan_create(name, title, members)
+function clans.clan_create(name, title, leader_name)
 	if clans.clan_get_by_name(name) ~= nil then return false, clans.err[1] end
-	if #members > clans.max_players_in_clan then return false, clans.err[5] end
-	for _, m in ipairs(members) do
-		if clans.clan_get_by_player_name(m) ~= nil then return false, clans.err[2] end
-	end
+	if clans.clan_get_by_player_name(leader_name) ~= nil then return false, clans.err[2] end
+	if not minetest.player_exists(leader_name) then return false, clans.err[7] end
 
-	local clan = { name = name, title = title, players = members or {} }
+	local clan = { name = name, title = title, players = { leader_name }, leader = leader_name }
 	clan_storage.set(clan)
 
 	Event.trigger(Event.Type.on_clan_created, clan)

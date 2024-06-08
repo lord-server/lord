@@ -1,5 +1,5 @@
 
-nametag.segments.add("clan", "lime", "[%s]")
+nametag.segments.add("clan", clans.COLOR, "[%s]")
 
 ---@param player_name string
 ---@param clan_title  string|nil

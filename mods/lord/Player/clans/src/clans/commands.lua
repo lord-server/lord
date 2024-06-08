@@ -38,36 +38,33 @@ minetest.register_chatcommand("clans.show", {
 })
 
 minetest.register_chatcommand("clans.register", {
-	params = S("<clan name> <clan title> [list of players separated by space]"),
-	description = S("Register clan with given title and given players"),
+	params = S("<leader name> <clan name> <clan title>"),
+	description = S("Register clan with given leader, name and title"),
 	privs = { server = true, },
 	func = function(_, param_str)
-		local params = string.split(param_str, " ")
+		local clan_leader, clan_name, clan_title = param_str:match('^(%S+)%s(%S+)%s(.+)$')
 
-		local clan_name = params[1]
-		local clan_title = params[2] -- TODO: handle clan title with spaces
-		if not clan_name or not clan_title then
+		if not clan_leader or not clan_name or not clan_title then
 			return false, S("Didn't get enough arguments! See help.")
 		end
-		local members = {}
-		for i, param in ipairs(params) do
-			if i ~= 1 and i ~= 2 then table.insert(members, param) end
-		end
 
-		local is_executed, err = clans.clan_create(clan_name, clan_title, members)
+		local is_executed, err = clans.clan_create(clan_name, clan_title, clan_leader)
 		if is_executed then
-			local members_str = table.concat(members, ", ")
-			return true, S("Clan @1 is created successfully. Members: @2", clan_name, members_str)
-		elseif err == clans.err[1] then
-			return false, S("Clan @1 already exists.", clan_name)
-		elseif err == clans.err[2] then
-			return false, S("A player from given is already assigned to a clan. Can't create clan @1.", clan_name)
-		elseif err == clans.err[5] then
-			return false, S(
-				"Too many players in clan (max is @1). Can't create clan @2.",
-				clans.max_players_in_clan,
-				clan_name
+			return true, S(
+				"Clan '@1' successfully created. Leader: @2",
+				minetest.colorize(clans.COLOR, clan_name),
+				minetest.colorize(clans.COLOR, clan_leader)
 			)
+		elseif err == clans.err[1] then
+			return false, S("Clan '@1' already exists.", minetest.colorize(clans.COLOR, clan_name))
+		elseif err == clans.err[2] then
+			return false, S(
+				"Can't create clan '@1': The given leader player '@2' already assigned to another clan.",
+				minetest.colorize(clans.COLOR, clan_name),
+				minetest.colorize(clans.COLOR, clan_leader)
+			)
+		elseif err == clans.err[7] then
+			return false, S("Player with name '@1' does not exists.", minetest.colorize(clans.COLOR, clan_leader))
 		end
 	end
 })
