@@ -1,18 +1,20 @@
 local S = minetest.get_translator("clans")
 
+local colorize = minetest.colorize
+
 minetest.register_chatcommand("clans.list", {
 	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
 	func = function(_, _)
 		local clans_str = ""
 		for _, clan in pairs(clans.list()) do
-			local clan1_str = string.format("%s (%s)", clan.name, clan.title)
+			local clan1_str = string.format("%s \"%s\"", colorize("gray", clan.name), colorize(clans.COLOR, clan.title))
 			if clan.is_blocked then
 				clan1_str = clan1_str.." "..S("[Blocked]")
-				clan1_str = minetest.colorize("silver", clan1_str)
+				clan1_str = colorize("silver", clan1_str)
 			end
-			clans_str = clans_str .. clan1_str
+			clans_str = clans_str .. "\n" .. clan1_str
 		end
-		return true, S("List of clans:@n@1", clans_str)
+		return true, "\n" .. S("List of clans:@n@1", clans_str) .. "\n\n"
 	end
 })
 
@@ -24,7 +26,7 @@ minetest.register_chatcommand("clans.show", {
 
 		local msg = string.format("%s (%s)", clan.title, clan.name)
 		if clan.is_blocked then
-			msg = minetest.colorize("silver", msg.." "..S("[Blocked]"))
+			msg = colorize("silver", msg.." "..S("[Blocked]"))
 		end
 		msg = msg .. ": "
 		if #clan.players ~= 0 then
@@ -52,19 +54,19 @@ minetest.register_chatcommand("clans.register", {
 		if is_executed then
 			return true, S(
 				"Clan '@1' successfully created. Leader: @2",
-				minetest.colorize(clans.COLOR, clan_name),
-				minetest.colorize(clans.COLOR, clan_leader)
+				colorize(clans.COLOR, clan_name),
+				colorize(clans.COLOR, clan_leader)
 			)
 		elseif err == clans.err[1] then
-			return false, S("Clan '@1' already exists.", minetest.colorize(clans.COLOR, clan_name))
+			return false, S("Clan '@1' already exists.", colorize(clans.COLOR, clan_name))
 		elseif err == clans.err[2] then
 			return false, S(
 				"Can't create clan '@1': The given leader player '@2' already assigned to another clan.",
-				minetest.colorize(clans.COLOR, clan_name),
-				minetest.colorize(clans.COLOR, clan_leader)
+				colorize(clans.COLOR, clan_name),
+				colorize(clans.COLOR, clan_leader)
 			)
 		elseif err == clans.err[7] then
-			return false, S("Player with name '@1' does not exists.", minetest.colorize(clans.COLOR, clan_leader))
+			return false, S("Player with name '@1' does not exists.", colorize(clans.COLOR, clan_leader))
 		end
 	end
 })
