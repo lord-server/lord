@@ -13,7 +13,7 @@ clans.err = {
 	[4] = "there is no such player in this clan",
 	[5] = "max players reached!",
 	[6] = "clan with this name is blocked",
-	[7] = "player not found",
+	[7] = "player does not exist",
 }
 
 --- @private
@@ -96,6 +96,7 @@ function clans.clan_players_add(clan_name, player_name)
 	if clan == nil then return false, clans.err[3] end
 	if clan.is_blocked then return false, clans.err[6] end
 	if #clan.players+1 > clans.max_players_in_clan then return false, clans.err[5] end
+	if not minetest.player_exists(player_name) then return false, clans.err[7] end
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)

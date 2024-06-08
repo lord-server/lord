@@ -115,6 +115,8 @@ minetest.register_chatcommand("clans.players.add", {
 						)
 					elseif err == clans.err[6] then
 						return false, S("Clan @1 is blocked!", clan_name)
+					elseif err == clans.err[7] then
+						return false, S("A player from given does not exist.")
 					end
 				end
 			end

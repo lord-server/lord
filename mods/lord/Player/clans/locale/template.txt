@@ -29,3 +29,4 @@ Clan @1 is blocked!=
 Toggles clan block.=
 Clan @1 unblocked succesfully.=
 Clan @1 blocked succesfully.=
+A player from given does not exist.=
