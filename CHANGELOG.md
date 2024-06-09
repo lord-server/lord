@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.04.p2](https://github.com/lord-server/lord/releases/tag/2024.04.p2)
+ - Fixed paintings (#1383) Fixes #1302.
+ - Change deploymet: add submodules update; new restart method for prod.
+
 ## [2024.04.p1](https://github.com/lord-server/lord/releases/tag/2024.04.p1)
  - Fix prod config for Mordor Lands spreading. Relates to #1310
  - Fix lord_ores mithril drop. Closes #1352

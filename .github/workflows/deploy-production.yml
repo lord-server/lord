@@ -25,8 +25,10 @@ jobs:
             cd minetest-master/games/lord
             git checkout master
             git pull --recurse-submodules
+            git submodule init
+            git submodule update
             cp -f minetest.conf.prod minetest.conf
-            /etc/init.d/mt_server restart
+            sudo systemctl restart lord   # can only restart MT
           args: -tt
 
   merge-to-dev:
@@ -47,5 +49,7 @@ jobs:
           git checkout master
           git pull --recurse-submodules
           git checkout dev --recurse-submodules
+          git submodule init
+          git submodule update
           git merge master
           git push
