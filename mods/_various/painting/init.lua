@@ -12,26 +12,30 @@
 -- compositing engine (see tile.cpp).
 local SL = lord.require_intllib()
 
-local textures = {
-	white = "white.png",
-	yellow = "yellow.png",
-	orange = "orange.png",
-	red = "red.png",
-	violet = "violet.png",
-	blue = "blue.png",
-	green = "green.png",
-	magenta = "magenta.png",
-	cyan = "cyan.png",
-	grey = "grey.png",
-	darkgrey = "darkgrey.png",
-	black = "black.png",
-	darkgreen = "darkgreen.png",
-	brown = "brown.png",
-	pink = "pink.png"
+local revcolors = {
+    [1] = "white",
+    [2] = "darkgreen",
+    [3] = "grey",
+    [4] = "red",
+    [5] = "brown",
+    [6] = "cyan",
+    [7] = "orange",
+    [8] = "violet",
+    [9] = "darkgrey",
+    [10] = "pink",
+    [11] = "green",
+    [12] = "magenta",
+    [13] = "yellow",
+    [14] = "black",
+    [15] = "blue",
 }
 
+local textures = {}
+for _, col in ipairs(revcolors) do
+	textures[col] = col..".png"
+end
+
 local colors = {}
-local revcolors = {}
 local thickness = 0.1
 
 -- picture node
@@ -513,8 +517,6 @@ local brush = {
 }
 
 for color, _ in pairs(textures) do
-
-	table.insert(revcolors, color)
 
 	local brush_new = table_copy(brush)
 
