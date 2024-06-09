@@ -1,5 +1,10 @@
 # Change Log
 
+## [2024.04.p3](https://github.com/lord-server/lord/releases/tag/2024.04.p3)
+ - Revert "Fixed paintings (#1383) Fixes #1302."
+ - Fixed randomized palette
+ - pngquant and removed metadata from canvases
+
 ## [2024.04.p2](https://github.com/lord-server/lord/releases/tag/2024.04.p2)
  - Fixed paintings (#1383) Fixes #1302.
  - Change deploymet: add submodules update; new restart method for prod.
