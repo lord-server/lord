@@ -2,26 +2,64 @@ local S = minetest.get_translator("clans")
 
 local colorize = minetest.colorize
 
+--- Formats clan info in beautiful colored string! :3
+---@param clan clans.Clan
+---@return string
+local function get_beautiful_clan_str(clan)
+	local title_str = minetest.colorize(clans.COLOR, clan.title)
+	local id_str = minetest.colorize("grey", clan.name)
+	local status_str = minetest.colorize("green", "online")
+	if not clans.clan_is_online(clan.name) then
+		status_str = "offline"
+		if clan.is_blocked then
+			status_str = "blocked"
+		end
+		status_str = minetest.colorize("red", status_str)
+	end
+	return string.format("%s (%s) — %s", title_str, id_str, status_str)
+end
+
 minetest.register_chatcommand("clans.list", {
 	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
 	func = function(_, _)
-		local clans_str = ""
+		local msg = S("List of clans in format '<clan title> (<clan name>) — <status>':") .. "\n"
 		for _, clan in pairs(clans.list()) do
-			local id_str = clan.name
-			local title_str = minetest.colorize(clans.COLOR, clan.title)
-			local status_str = minetest.colorize("green", "online")
-			if not clans.clan_is_online(clan.name) then
-				status_str = "offline"
-				if clan.is_blocked then
-					status_str = "blocked"
-				end
-				status_str = minetest.colorize("red", status_str)
-			end
-			clans_str = clans_str .. id_str.."\t"..title_str.."\t"..status_str.."\n"
+			msg = msg .. get_beautiful_clan_str(clan) .."\n"
 		end
-		return true, "\n" .. S("List of clans:@n@1", clans_str) .. "\n"
+		return true, "\n"..msg.."\n"
 	end
 })
+
+---@param player_name string
+---@return boolean
+local function is_player_online(player_name)
+	for _, p in ipairs(minetest.get_connected_players()) do
+		if p:get_player_name() == player_name then
+			return true
+		end
+	end
+	return false
+end
+
+local auth_handler = minetest.get_auth_handler()
+--- Returns beautiful and nice string with given player info! :3
+---@param player_name string
+---@return string|nil
+local function get_beautiful_player_str(player_name)
+	local race = races.list[races.get_race(player_name)]
+	local race_name = minetest.colorize("chocolate", race.name)
+	local last_status = minetest.colorize("green", "online")
+	if not is_player_online(player_name) then
+		local auth = auth_handler.get_auth(player_name)
+		if not auth then
+			minetest.log("error", "[clans] can't get player auth for "..player_name)
+			return nil
+		end
+		local seen = os.date("(%H:%M %d.%m.%y)", auth.last_login) -- "(18:49 12.06.24)"
+		last_status = minetest.colorize("red", "offline ") .. minetest.colorize("grey", seen)
+	end
+	return string.format("%s (%s) — %s", player_name, race_name, last_status)
+end
 
 minetest.register_chatcommand("clans.show", {
 	description = S("Shows given clan information."),
@@ -29,18 +67,18 @@ minetest.register_chatcommand("clans.show", {
 		local clan = clans.clan_get_by_name(param_str)
 		if not clan then return false, S("Clan @1 does not exist.", param_str) end
 
-		local msg = string.format("%s (%s)", clan.title, clan.name)
-		if clan.is_blocked then
-			msg = colorize("silver", msg.." "..S("[Blocked]"))
-		end
-		msg = msg .. ": "
-		if #clan.players ~= 0 then
-			msg = msg .. table.concat(clan.players, ", ")
-		else
+		local msg = S("Clan") .. " " .. get_beautiful_clan_str(clan) .. ":\n"
+		if #clan.players < 1 then
 			msg = msg .. S("no players")
+		else
+			for _, player_name in ipairs(clan.players) do
+				local player_str = get_beautiful_player_str(player_name)
+				if player_str then
+					msg = msg .. player_str .. "\n"
+				end
+			end
 		end
-
-		return true, msg
+		return true, "\n" .. msg .. "\n"
 	end
 })
 
