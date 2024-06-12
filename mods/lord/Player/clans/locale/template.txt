@@ -1,6 +1,6 @@
 # textdomain: clans
 Lists all existing clans. Blocked clans are marked with gray color.=
-List of clans:@n@1=
+List of clans in format '<clan title> (<clan name>) — <status>':=
 Shows given clan information.=
 Clan @1 does not exist.=
 <clan name> <clan title> [list of players separated by space]=
@@ -29,3 +29,4 @@ Clan @1 is blocked!=
 Toggles clan block.=
 Clan @1 unblocked succesfully.=
 Clan @1 blocked succesfully.=
+Clan=

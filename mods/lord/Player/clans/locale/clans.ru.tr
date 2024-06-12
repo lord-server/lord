@@ -1,6 +1,6 @@
 # textdomain: clans
 Lists all existing clans. Blocked clans are marked with gray color.=Показывает список существующих кланов. Серым цветом помечены заблокированные кланы.
-List of clans:@n@1=Список кланов:@n@1
+List of clans in format '<clan title> (<clan name>) — <status>':=Список кланов виде '<название клана> (<id клана>) — <статус>':
 Shows given clan information.=Показывает информацию о данном клане.
 Clan @1 does not exist.=Клана @1 не существует.
 <clan name> <clan title> [list of players separated by space]=<ID клана> <тайтл клана> [список игроков через пробел]
@@ -29,3 +29,4 @@ Clan @1 is blocked!=Клан @1 заблокирован!
 Toggles clan block.=Переключает блокировку клана.
 Clan @1 unblocked succesfully.=Клан @1 успешно разблокирован.
 Clan @1 blocked succesfully.=Клан @1 успешно заблокирован.
+Clan=Клан
