@@ -7,14 +7,19 @@ minetest.register_chatcommand("clans.list", {
 	func = function(_, _)
 		local clans_str = ""
 		for _, clan in pairs(clans.list()) do
-			local clan1_str = string.format("%s \"%s\"", colorize("gray", clan.name), colorize(clans.COLOR, clan.title))
-			if clan.is_blocked then
-				clan1_str = clan1_str.." "..S("[Blocked]")
-				clan1_str = colorize("silver", clan1_str)
+			local id_str = clan.name
+			local title_str = minetest.colorize(clans.COLOR, clan.title)
+			local status_str = minetest.colorize("green", "online")
+			if not clans.clan_is_online(clan.name) then
+				status_str = "offline"
+				if clan.is_blocked then
+					status_str = "blocked"
+				end
+				status_str = minetest.colorize("red", status_str)
 			end
-			clans_str = clans_str .. "\n" .. clan1_str
+			clans_str = clans_str .. id_str.."\t"..title_str.."\t"..status_str.."\n"
 		end
-		return true, "\n" .. S("List of clans:@n@1", clans_str) .. "\n\n"
+		return true, "\n" .. S("List of clans:@n@1", clans_str) .. "\n"
 	end
 })
 
