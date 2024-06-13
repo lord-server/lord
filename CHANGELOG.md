@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.04.p4](https://github.com/lord-server/lord/releases/tag/2024.04.p4)
+ - Add command `/center`, reserve command `/life`.
+ - Change server descrioption & max players. Closes #1449
+
 ## [2024.04.p3](https://github.com/lord-server/lord/releases/tag/2024.04.p3)
  - Revert "Fixed paintings (#1383) Fixes #1302."
  - Fixed randomized palette
