@@ -164,7 +164,7 @@ minetest.register_chatcommand("clans.players.add", {
 
 		for i, param in ipairs(params) do
 			if i ~= 1 then
-				local is_executed, err = clans.clan_players_add(clan_name, param)
+				local _, err = clans.clan_players_add(clan_name, param)
 				if err then
 					return false, err2str(err, clan_name)
 				end
