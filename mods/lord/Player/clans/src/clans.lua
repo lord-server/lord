@@ -196,8 +196,6 @@ end
 
 local function register_join_or_leave_operations()
 
-	-- TODO: add events `on_clan_player_join` & `on_clan_player_leave`. #1431
-	-- TODO:     move this into `nametag.lua` using that events
 	minetest.register_on_joinplayer(function(player, _)
 		if not player or not player:is_player() then return end
 
@@ -205,9 +203,8 @@ local function register_join_or_leave_operations()
 
 		if not clan then return end
 
-		Event.trigger(Event.Type.on_clan_player_join, clan.name, player:get_player_name())
+		Event.trigger(Event.Type.on_clan_player_join, clan, player:get_player_name())
 		clan_is_online_cache[clan.name] = true
-		nametag.for_player(player):segment("clan"):update(clan.title)
 	end)
 
 	minetest.register_on_leaveplayer(function(player, _)
@@ -216,7 +213,7 @@ local function register_join_or_leave_operations()
 		local clan = clans.clan_get_by_player(player)
 		if not clan then return end
 
-		Event.trigger(Event.Type.on_clan_player_leave, clan.name, player:get_player_name())
+		Event.trigger(Event.Type.on_clan_player_leave, clan, player:get_player_name())
 		clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
 	end)
 end

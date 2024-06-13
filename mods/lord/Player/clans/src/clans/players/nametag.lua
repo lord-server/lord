@@ -29,3 +29,7 @@ end)
 clans.on_clan_player_removed(function(clan, player_name)
 	set_player_nametag(player_name)
 end)
+
+clans.on_clan_player_join(function(clan, player_name)
+	set_player_nametag(player_name, clan.title)
+end)
