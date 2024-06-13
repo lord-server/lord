@@ -122,7 +122,9 @@ spawn.register_hall("death", "Death")
 --spawn.register_hall("life", "Life")
 minetest.register_chatcommand("life", {
 	description = SL("Teleport to the Hall of Life"),
-	func = function(_, _) return SL("Command reserved. For teleporting to Old Central Spawn use command `/center`") end
+	func = function(_, _)
+		return true, SL("Command reserved. For teleporting to Old Central Spawn use command `/center`")
+	end
 })
 
 minetest.register_on_newplayer(function(obj)
