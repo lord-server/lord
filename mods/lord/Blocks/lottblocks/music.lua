@@ -1,5 +1,27 @@
 local S = minetest.get_translator("lottblocks")
 
+---@readonly
+---@type number
+local SOUND_COOLDOWN = 5
+--- Contains sounds cache. Key is sum of coords (literally) or player name.
+---@type table<number|string,boolean>
+local sound_cooldown_cache = {}
+
+---@param name string
+---@param def table
+---@param player_name? string
+local function play_sound(name, def, player_name)
+	local p = def.pos
+	local hash = player_name or p.x + p.y + p.z -- HACK: rough "unique" hash
+	if not sound_cooldown_cache[hash] then
+		minetest.sound_play(name, def)
+		sound_cooldown_cache[hash] = true
+		minetest.after(SOUND_COOLDOWN, function()
+			sound_cooldown_cache[hash] = nil
+		end)
+	end
+end
+
 minetest.register_node("lottblocks:dwarf_harp", {
 	description   = S("Dwarvern Harp"),
 	tiles         = {
@@ -14,7 +36,7 @@ minetest.register_node("lottblocks:dwarf_harp", {
 	paramtype     = "light",
 	paramtype2    = "facedir",
 	on_punch      = function(pos)
-		minetest.sound_play("lottblocks_harp", {
+		play_sound("lottblocks_harp", {
 			pos               = pos,
 			max_hear_distance = 12,
 			gain              = 1,
@@ -95,11 +117,11 @@ for _, row in ipairs(whistle) do
 		description     = S(wood:gsub("^%l", string.upper) .. " (Note " .. note .. ") Whistle"),
 		inventory_image = "lottblocks_" .. wood .. "_whistle.png",
 		on_use          = function(itemstack, user)
-			minetest.sound_play(note, {
+			play_sound(note, {
 				pos               = user:get_pos(),
 				max_hear_distance = 7,
 				gain              = 1,
-			})
+			}, user:get_player_name())
 		end
 	})
 	minetest.register_craft({
@@ -120,7 +142,7 @@ minetest.register_node("lottblocks:gong", {
 	paramtype = "light",
 	paramtype2 = "facedir",
 	on_punch = function(pos)
-		minetest.sound_play("gong", {
+		play_sound("gong", {
 			pos = pos,
 			max_hear_distance = 48,
 			gain = 1,
