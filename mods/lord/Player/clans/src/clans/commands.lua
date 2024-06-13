@@ -6,15 +6,15 @@ local colorize = minetest.colorize
 ---@param clan clans.Clan
 ---@return string
 local function get_beautiful_clan_str(clan)
-	local title_str = minetest.colorize(clans.COLOR, clan.title)
-	local id_str = minetest.colorize("grey", clan.name)
-	local status_str = minetest.colorize("green", "online")
+	local title_str = colorize(clans.COLOR, clan.title)
+	local id_str = colorize("grey", clan.name)
+	local status_str = colorize("green", "online")
 	if not clans.clan_is_online(clan.name) then
 		status_str = "offline"
 		if clan.is_blocked then
 			status_str = "blocked"
 		end
-		status_str = minetest.colorize("red", status_str)
+		status_str = colorize("red", status_str)
 	end
 	return string.format("%s (%s) — %s", title_str, id_str, status_str)
 end
@@ -24,7 +24,7 @@ minetest.register_chatcommand("clans.list", {
 	func = function(_, _)
 		local msg = S("List of clans in format '<clan title> (<clan name>) — <status>':") .. "\n"
 		for _, clan in pairs(clans.list()) do
-			msg = msg .. get_beautiful_clan_str(clan) .."\n"
+			msg = msg .. "- "..get_beautiful_clan_str(clan).."\n"
 		end
 		return true, "\n"..msg.."\n"
 	end
@@ -47,8 +47,8 @@ local auth_handler = minetest.get_auth_handler()
 ---@return string|nil
 local function get_beautiful_player_str(player_name)
 	local race = races.list[races.get_race(player_name)]
-	local race_name = minetest.colorize("chocolate", race.name)
-	local last_status = minetest.colorize("green", "online")
+	local race_name = colorize("chocolate", race.name)
+	local last_status = colorize("green", "online")
 	if not is_player_online(player_name) then
 		local auth = auth_handler.get_auth(player_name)
 		if not auth then
@@ -56,7 +56,7 @@ local function get_beautiful_player_str(player_name)
 			return nil
 		end
 		local seen = os.date("(%H:%M %d.%m.%y)", auth.last_login) -- "(18:49 12.06.24)"
-		last_status = minetest.colorize("red", "offline ") .. minetest.colorize("grey", seen)
+		last_status = colorize("red", "offline ") .. colorize("grey", seen)
 	end
 	return string.format("%s (%s) — %s", player_name, race_name, last_status)
 end
@@ -74,7 +74,7 @@ minetest.register_chatcommand("clans.show", {
 			for _, player_name in ipairs(clan.players) do
 				local player_str = get_beautiful_player_str(player_name)
 				if player_str then
-					msg = msg .. player_str .. "\n"
+					msg = msg .. "- "..player_str.."\n"
 				end
 			end
 		end
@@ -133,6 +133,23 @@ minetest.register_chatcommand("clans.delete", {
 	end
 })
 
+
+--- Gets localized string for given clans.err from /clans.players.add command
+---@param err string @clans.err[some_num]
+---@param clan_name string
+---@return string @localized str for error
+local function err2str(err, clan_name)
+	local enum = {
+		[2] = S("A player from given is already assigned to a clan."),
+		[3] = S("Clan @1 does not exist.", clan_name),
+		[5] = S("Too many players in clan (max is @1). Can't add player(s).", clans.max_players_in_clan),
+		[6] = S("Clan @1 is blocked!", clan_name),
+		[7] = S("A player from given does not exist."),
+	}
+	local idx = table.indexof(clans.err, err)
+	return enum[idx]
+end
+
 minetest.register_chatcommand("clans.players.add", {
 	params = S("<clan name> <list of players separated by space>"),
 	description = S("Add given players to given clan"),
@@ -147,20 +164,9 @@ minetest.register_chatcommand("clans.players.add", {
 
 		for i, param in ipairs(params) do
 			if i ~= 1 then
-				local is_executed, err = clans.clan_players_add(clan_name, param)
-				if not is_executed then
-					if err == clans.err[3] then
-						return false, S("Clan @1 does not exist.", clan_name)
-					elseif err == clans.err[2] then
-						return false, S("A player from given is already assigned to a clan.")
-					elseif err == clans.err[5] then
-						return false, S(
-							"Too many players in clan (max is @1). Can't add player(s).",
-							clans.max_players_in_clan
-						)
-					elseif err == clans.err[6] then
-						return false, S("Clan @1 is blocked!", clan_name)
-					end
+				local _, err = clans.clan_players_add(clan_name, param)
+				if err then
+					return false, err2str(err, clan_name)
 				end
 			end
 		end
