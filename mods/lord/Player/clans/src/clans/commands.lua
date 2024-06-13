@@ -133,6 +133,23 @@ minetest.register_chatcommand("clans.delete", {
 	end
 })
 
+
+--- Gets localized string for given clans.err from /clans.players.add command
+---@param err string @clans.err[some_num]
+---@param clan_name string
+---@return string @localized str for error
+local function err2str(err, clan_name)
+	local enum = {
+		[2] = S("A player from given is already assigned to a clan."),
+		[3] = S("Clan @1 does not exist.", clan_name),
+		[5] = S("Too many players in clan (max is @1). Can't add player(s).", clans.max_players_in_clan),
+		[6] = S("Clan @1 is blocked!", clan_name),
+		[7] = S("A player from given does not exist."),
+	}
+	local idx = table.indexof(clans.err, err)
+	return enum[idx]
+end
+
 minetest.register_chatcommand("clans.players.add", {
 	params = S("<clan name> <list of players separated by space>"),
 	description = S("Add given players to given clan"),
@@ -148,21 +165,8 @@ minetest.register_chatcommand("clans.players.add", {
 		for i, param in ipairs(params) do
 			if i ~= 1 then
 				local is_executed, err = clans.clan_players_add(clan_name, param)
-				if not is_executed then
-					if err == clans.err[3] then
-						return false, S("Clan @1 does not exist.", clan_name)
-					elseif err == clans.err[2] then
-						return false, S("A player from given is already assigned to a clan.")
-					elseif err == clans.err[5] then
-						return false, S(
-							"Too many players in clan (max is @1). Can't add player(s).",
-							clans.max_players_in_clan
-						)
-					elseif err == clans.err[6] then
-						return false, S("Clan @1 is blocked!", clan_name)
-					elseif err == clans.err[7] then
-						return false, S("A player from given does not exist.")
-					end
+				if err then
+					return false, err2str(err, clan_name)
 				end
 			end
 		end
