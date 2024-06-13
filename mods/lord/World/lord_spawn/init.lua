@@ -111,14 +111,21 @@ function spawn.register_hall(hall, desc)
 				if ok then
 					return true, SL("Teleporting to the Hall of "..desc.."...")
 				end
-			return false, SL("Teleport failed")
+				return false, SL("Teleport failed")
 			end
 		})
 	end
 end
 
+spawn.register_hall("center", "Dol Guldur")
 spawn.register_hall("death", "Death")
-spawn.register_hall("life", "Life")
+--spawn.register_hall("life", "Life")
+minetest.register_chatcommand("life", {
+	description = SL("Teleport to the Hall of Life"),
+	func = function(_, _)
+		return true, SL("Command reserved. For teleporting to Old Central Spawn use command `/center`")
+	end
+})
 
 minetest.register_on_newplayer(function(obj)
 	return spawn.put_player_at_spawn(obj, "common_spawn_pos")
