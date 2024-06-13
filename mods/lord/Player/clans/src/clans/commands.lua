@@ -6,15 +6,15 @@ local colorize = minetest.colorize
 ---@param clan clans.Clan
 ---@return string
 local function get_beautiful_clan_str(clan)
-	local title_str = minetest.colorize(clans.COLOR, clan.title)
-	local id_str = minetest.colorize("grey", clan.name)
-	local status_str = minetest.colorize("green", "online")
+	local title_str = colorize(clans.COLOR, clan.title)
+	local id_str = colorize("grey", clan.name)
+	local status_str = colorize("green", "online")
 	if not clans.clan_is_online(clan.name) then
 		status_str = "offline"
 		if clan.is_blocked then
 			status_str = "blocked"
 		end
-		status_str = minetest.colorize("red", status_str)
+		status_str = colorize("red", status_str)
 	end
 	return string.format("%s (%s) — %s", title_str, id_str, status_str)
 end
@@ -24,7 +24,7 @@ minetest.register_chatcommand("clans.list", {
 	func = function(_, _)
 		local msg = S("List of clans in format '<clan title> (<clan name>) — <status>':") .. "\n"
 		for _, clan in pairs(clans.list()) do
-			msg = msg .. get_beautiful_clan_str(clan) .."\n"
+			msg = msg .. "- "..get_beautiful_clan_str(clan).."\n"
 		end
 		return true, "\n"..msg.."\n"
 	end
@@ -47,8 +47,8 @@ local auth_handler = minetest.get_auth_handler()
 ---@return string|nil
 local function get_beautiful_player_str(player_name)
 	local race = races.list[races.get_race(player_name)]
-	local race_name = minetest.colorize("chocolate", race.name)
-	local last_status = minetest.colorize("green", "online")
+	local race_name = colorize("chocolate", race.name)
+	local last_status = colorize("green", "online")
 	if not is_player_online(player_name) then
 		local auth = auth_handler.get_auth(player_name)
 		if not auth then
@@ -56,7 +56,7 @@ local function get_beautiful_player_str(player_name)
 			return nil
 		end
 		local seen = os.date("(%H:%M %d.%m.%y)", auth.last_login) -- "(18:49 12.06.24)"
-		last_status = minetest.colorize("red", "offline ") .. minetest.colorize("grey", seen)
+		last_status = colorize("red", "offline ") .. colorize("grey", seen)
 	end
 	return string.format("%s (%s) — %s", player_name, race_name, last_status)
 end
@@ -74,7 +74,7 @@ minetest.register_chatcommand("clans.show", {
 			for _, player_name in ipairs(clan.players) do
 				local player_str = get_beautiful_player_str(player_name)
 				if player_str then
-					msg = msg .. player_str .. "\n"
+					msg = msg .. "- "..player_str.."\n"
 				end
 			end
 		end
