@@ -302,6 +302,11 @@ minetest.register_craftitem("painting:paintedcanvas", {
 			return
 		end
 
+		local possibly_replaced_node = minetest.get_node(pos).name
+		if possibly_replaced_node ~= "air" then
+			return
+		end
+
 		local under = pointed_thing.under
 
 		local wm = minetest.dir_to_wallmounted(vector.subtract(under, pos))
