@@ -923,6 +923,8 @@ function minetest.remove_node(pos) end
 ---   returns `{name="ignore", param1=0, param2=0}` for unloaded areas.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4860-L4863)
+---@param pos Position
+---@return Node
 function minetest.get_node(pos) end
 --- * Same as `get_node` but returns `nil` for unloaded areas.
 ---
