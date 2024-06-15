@@ -84,6 +84,32 @@ local function register_hatch(name, description_prefix, wood_name, node_groups, 
 	})
 end
 
+---@param name_postfix string
+---@param desc_prefix string
+---@param wood_name string
+---@param node_groups table<string,number>
+local function register_reinforced_hatch(name_postfix, desc_prefix, wood_name, node_groups)
+	local name = "lottblocks:hatch_reinforced_" .. name_postfix
+	local texture = "lottblocks_hatch_reinforced_" .. name_postfix .. ".png"
+	doors.register_trapdoor(name, {
+		description = string.format("Reinforced %s Hatch", desc_prefix),
+		inventory_image = texture,
+		wield_image = texture,
+		tile_front = texture,
+		tile_side = texture,
+		groups = table.merge(node_groups, { hatch = 1, }),
+	})
+
+	minetest.register_craft({
+		output = name,
+		recipe = {
+			{ "", "lottores:tin_ingot", "", },
+			{ wood_name, wood_name, wood_name, },
+			{ wood_name, wood_name, wood_name, },
+		}
+	})
+end
+
 --- @param name string
 --- @param description_prefix string
 --- @param wood_name string
@@ -358,6 +384,10 @@ end
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
+---@param name string
+---@param description string
+---@param texture string
+---@param wood_name string
 function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	local node_groups     = table.copy(minetest.registered_nodes[wood_name].groups)
 	node_groups["wood"]   = nil
@@ -372,6 +402,10 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 		stick_reg_name =
 		register_stick(name, description, wood_name)
 		register_ladder(name, description, stick_reg_name, texture)
+	end
+
+	if table.contains({ "wood", "junglewood", "beech", "elm"}, name) then
+		register_reinforced_hatch(name, description, wood_name, node_groups)
 	end
 
 	register_stanchion(name, description, texture, node_groups, stick_reg_name or "default:stick")
@@ -396,58 +430,3 @@ lottblocks.register_wooden_stuff("plum", "Plum", "lord_planks_plum.png", "lord_p
 
 minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
 minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
-
-
-
---- Wrapper for reinforced hatch registration
----@param name string @item name
----@param desc string @description for item
----@param img string @texture name for the hatch (front only, front used for side too)
----@param material string @item name of material which used to craft the hatch
-local function register_reinforced_hatch(name, desc, img, material)
-	-- groups getting like in lottblocks.register_wooden_stuff func:
-	local groups = table.copy(minetest.registered_nodes[material].groups)
-	groups.wood = nil
-	groups.wooden = 1
-	groups.hatch = 1
-
-	doors.register_trapdoor(name, {
-		description = desc,
-		inventory_image = img,
-		wield_image = img,
-		tile_front = img,
-		tile_side = img,
-		groups = groups,
-	})
-
-	minetest.register_craft({
-		output = name,
-		recipe = {
-			{ "", "lottores:tin_ingot", "", },
-			{ material, material, material, },
-			{ material, material, material, },
-		}
-	})
-end
-
-register_reinforced_hatch("lottblocks:hatch_reinforced_wooden",
-	S("Reinforced Wooden Hatch"),
-	"lottblocks_hatch_reinforced_wooden.png",
-	"default:wood"
-)
-register_reinforced_hatch("lottblocks:hatch_reinforced_mirk",
-	S("Reinforced Mirk Hatch"),
-	"lottblocks_hatch_reinforced_mirk.png",
-	"default:junglewood"
-)
-register_reinforced_hatch("lottblocks:hatch_reinforced_beech",
-	S("Reinforced Beech Hatch"),
-	"lottblocks_hatch_reinforced_beech.png",
-	"lord_planks:beech"
-)
-
-register_reinforced_hatch("lottblocks:hatch_reinforced_elm",
-	S("Reinforced Elm Hatch"),
-	"lottblocks_hatch_reinforced_elm.png",
-	"lord_planks:elm"
-)
