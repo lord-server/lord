@@ -405,8 +405,7 @@ local function register_wooden_stuff(name, description, texture, wood_name)
 end
 
 
---TODO: fix aliases with "lottblocks:"
-minetest.register_alias("lord_wooden_stuff:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
-minetest.register_alias("lord_wooden_stuff:fence_junglewood", "default:fence_junglewood")
+minetest.register_alias("lottblocks:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
+minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
 
 return { register_wooden_stuff = register_wooden_stuff }
