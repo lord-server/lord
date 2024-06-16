@@ -7,12 +7,8 @@ local function register_api()
 end
 
 local function register_lord_wooden_stuff()
-	for _, wood_def in ipairs(config.wood_defs) do
-		local name_postfix = wood_def[1]
-		local desc_prefix = wood_def[2]
-		local planks_texture = wood_def[3]
-		local planks_name = wood_def[4]
-		api.register_wooden_stuff(name_postfix, desc_prefix, planks_texture, planks_name)
+	for _, def in ipairs(config.wood_defs) do
+		api.register_wooden_stuff(def.name, def.desc, def.texture, def.wood_name)
 	end
 end
 

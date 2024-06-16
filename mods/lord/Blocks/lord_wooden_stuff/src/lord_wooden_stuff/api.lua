@@ -390,8 +390,7 @@ local function register_wooden_stuff(name_postfix, desc_prefix, planks_texture, 
 		register_doors(name_postfix, desc_prefix, planks_name, node_groups)
 		register_hatch(name_postfix, desc_prefix, planks_name, node_groups, planks_texture)
 		register_fence(name_postfix, desc_prefix, planks_name, node_groups) -- except junglewood
-		stick_reg_name =
-		register_stick(name_postfix, desc_prefix, planks_name)
+		stick_reg_name = register_stick(name_postfix, desc_prefix, planks_name)
 		register_ladder(name_postfix, desc_prefix, stick_reg_name, planks_texture)
 	end
 
