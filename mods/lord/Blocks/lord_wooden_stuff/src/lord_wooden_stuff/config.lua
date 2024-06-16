@@ -6,7 +6,6 @@
 
 ---@type LordWoodenStuffDefinition[]
 local wood_defs = {
---    name postfix, desc prefix,  planks texture,              planks nodename
 	{ name="alder",      desc="Alder",      texture="lord_planks_alder.png",     wood_name="lord_planks:alder", },
 	{ name="beech",      desc="Beech",      texture="lord_planks_beech.png",     wood_name="lord_planks:beech", },
 	{ name="birch",      desc="Birch",      texture="lord_planks_birch.png",     wood_name="lord_planks:birch", },
