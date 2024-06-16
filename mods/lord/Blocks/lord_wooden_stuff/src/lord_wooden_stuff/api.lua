@@ -162,17 +162,11 @@ end
 local function register_ladder(name, description_prefix, stick_reg_name, texture)
 	local ladder_reg_name = "lord_wooden_stuff:ladder_" .. name
 	local ladder_tile_texture = "lord_planks" .. name .. "_planks.png"
-	local ladder_inv_texture = "lord_wooden_stuff_" .. name .. "_ladder.png"
-	if not io.file_exists(textures_folder("ladders") .. ladder_inv_texture) then
-		ladder_inv_texture = nil
-	end
 	minetest.register_node(ladder_reg_name, {
 		description               = S(description_prefix .. " Ladder"),
 		drawtype                  = "nodebox",
 		tiles                     = { ladder_tile_texture },
 		particle_image            = { ladder_tile_texture },
-		inventory_image           = ladder_inv_texture,
-		wield_image               = ladder_inv_texture,
 		paramtype                 = "light",
 		paramtype2                = "facedir",
 		walkable                  = true,
