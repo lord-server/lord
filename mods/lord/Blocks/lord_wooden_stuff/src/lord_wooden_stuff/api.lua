@@ -375,33 +375,35 @@ end
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
 
----@param name string
----@param description string
----@param texture string
----@param wood_name string
-local function register_wooden_stuff(name, description, texture, wood_name)
-	local node_groups     = table.copy(minetest.registered_nodes[wood_name].groups)
+--- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood
+--- with some exceptions.
+---@param name_postfix string
+---@param desc_prefix string
+---@param planks_texture string
+---@param planks_name string
+local function register_wooden_stuff(name_postfix, desc_prefix, planks_texture, planks_name)
+	local node_groups     = table.copy(minetest.registered_nodes[planks_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
 	local stick_reg_name
 
-	if name ~= "wood" then --  in order to not overwrite registrations from minetest_game
-		register_doors(name, description, wood_name, node_groups)
-		register_hatch(name, description, wood_name, node_groups, texture)
-		register_fence(name, description, wood_name, node_groups) -- except junglewood
+	if name_postfix ~= "wood" then --  in order to not overwrite registrations from minetest_game
+		register_doors(name_postfix, desc_prefix, planks_name, node_groups)
+		register_hatch(name_postfix, desc_prefix, planks_name, node_groups, planks_texture)
+		register_fence(name_postfix, desc_prefix, planks_name, node_groups) -- except junglewood
 		stick_reg_name =
-		register_stick(name, description, wood_name)
-		register_ladder(name, description, stick_reg_name, texture)
+		register_stick(name_postfix, desc_prefix, planks_name)
+		register_ladder(name_postfix, desc_prefix, stick_reg_name, planks_texture)
 	end
 
-	if table.contains({ "wood", "junglewood", "beech", "elm"}, name) then
-		register_reinforced_hatch(name, description, wood_name, node_groups)
+	if table.contains({ "wood", "junglewood", "beech", "elm"}, name_postfix) then
+		register_reinforced_hatch(name_postfix, desc_prefix, planks_name, node_groups)
 	end
 
-	register_stanchion(name, description, texture, node_groups, stick_reg_name or "default:stick")
-	register_table(name, description, texture, wood_name, node_groups)
-	register_chair(name, description, texture, wood_name, node_groups)
+	register_stanchion(name_postfix, desc_prefix, planks_texture, node_groups, stick_reg_name or "default:stick")
+	register_table(name_postfix, desc_prefix, planks_texture, planks_name, node_groups)
+	register_chair(name_postfix, desc_prefix, planks_texture, planks_name, node_groups)
 end
 
 
