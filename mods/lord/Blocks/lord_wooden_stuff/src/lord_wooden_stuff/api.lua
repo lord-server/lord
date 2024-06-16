@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottblocks")
+local S = minetest.get_translator("lord_wooden_stuff")
 
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
@@ -16,9 +16,9 @@ end
 local function register_doors(name, description_prefix, wood_name, node_groups)
 	local door_groups = table.merge(node_groups, { door = 1 })
 
-	local door_reg_name    = "lottblocks:door_" .. name
-	local door_inv_texture = "lottblocks_door_" .. name .. ".png"
-	local door_uv_texture  = "lottblocks_door_" .. name .. "_uv.png"
+	local door_reg_name    = "lord_wooden_stuff:door_" .. name
+	local door_inv_texture = "lord_wooden_stuff_door_" .. name .. ".png"
+	local door_uv_texture  = "lord_wooden_stuff_door_" .. name .. "_uv.png"
 
 	if
 		not io.file_exists(textures_folder("doors") .. door_inv_texture) or
@@ -52,17 +52,17 @@ local function register_doors(name, description_prefix, wood_name, node_groups)
 	}))
 end
 
---- @param name               string node name postfix (`"lottblocks:hatch_"..name`). Also used for textures names.
+--- @param name               string node name postfix (`"lord_wooden_stuff:hatch_"..name`). Also used for textures names.
 --- @param description_prefix string used: `S(description_prefix .. " Trapdoor")`
 --- @param wood_name          string technical name of planks node (ex.: `"default:wood"`) for craft.
 --- @param node_groups        table  groups to apply to. Group `{ hatch = 1 }` will be added.
---- @param texture            string which texture to use, if `"lottblocks_"..name.."_planks.png"` doesn't exists.
+--- @param texture            string which texture to use, if `"lord_wooden_stuff_"..name.."_planks.png"` doesn't exists.
 local function register_hatch(name, description_prefix, wood_name, node_groups, texture)
-	local hatch_reg_name = "lottblocks:hatch_" .. name
-	local front_texture  = "lottblocks_hatch_" .. name .. ".png"
-	local side_texture   = "lottblocks_hatch_" .. name .. "_side.png"
+	local hatch_reg_name = "lord_wooden_stuff:hatch_" .. name
+	local front_texture  = "lord_wooden_stuff_hatch_" .. name .. ".png"
+	local side_texture   = "lord_wooden_stuff_hatch_" .. name .. "_side.png"
 	if not io.file_exists(textures_folder("hatches") .. front_texture) then
-		front_texture = texture .. "^[transformR90^lottblocks_hatch__overlay.png"
+		front_texture = texture .. "^[transformR90^lord_wooden_stuff_hatch__overlay.png"
 	end
 	if not io.file_exists(textures_folder("hatches") .. side_texture) then
 		side_texture = texture
@@ -89,8 +89,8 @@ end
 ---@param wood_name string
 ---@param node_groups table<string,number>
 local function register_reinforced_hatch(name_postfix, desc_prefix, wood_name, node_groups)
-	local name = "lottblocks:hatch_reinforced_" .. name_postfix
-	local texture = "lottblocks_hatch_reinforced_" .. name_postfix .. ".png"
+	local name = "lord_wooden_stuff:hatch_reinforced_" .. name_postfix
+	local texture = "lord_wooden_stuff_hatch_reinforced_" .. name_postfix .. ".png"
 	doors.register_trapdoor(name, {
 		description = string.format("Reinforced %s Hatch", desc_prefix),
 		inventory_image = texture,
@@ -120,14 +120,14 @@ local function register_fence(name, description_prefix, wood_name, node_groups)
 	end
 
 	local texture   = "lord_planks_"..name..".png"
-	default.register_fence("lottblocks:fence_" .. name, {
+	default.register_fence("lord_wooden_stuff:fence_" .. name, {
 		description = S(description_prefix .. " Fence"),
 		texture = texture,
 		material = wood_name,
 		groups = node_groups,
 		sounds = default.node_sound_wood_defaults()
 	})
-	default.register_fence_rail("lottblocks:fence_rail_" .. name, {
+	default.register_fence_rail("lord_wooden_stuff:fence_rail_" .. name, {
 		description = S(description_prefix .. " Fence Rail"),
 		texture = texture,
 		material = wood_name,
@@ -140,10 +140,10 @@ end
 --- @param description_prefix string
 --- @param wood_name string
 local function register_stick(name, description_prefix, wood_name)
-	local stick_reg_name = "lottblocks:stick_" .. name
+	local stick_reg_name = "lord_wooden_stuff:stick_" .. name
 	minetest.register_craftitem(stick_reg_name, {
 		description     = S(description_prefix .. " Stick"),
-		inventory_image = "lottblocks_" .. name .. "_stick.png",
+		inventory_image = "lord_wooden_stuff_" .. name .. "_stick.png",
 		groups          = { stick = 1 },
 	})
 	minetest.register_craft({
@@ -155,14 +155,14 @@ local function register_stick(name, description_prefix, wood_name)
 	return stick_reg_name
 end
 
---- @param name               string node name postfix (`"lottblocks:ladder_"..name`). Also used for textures names.
+--- @param name               string node name postfix (`"lord_wooden_stuff:ladder_"..name`). Also used for textures names.
 --- @param description_prefix string used: `S(description_prefix .. " Ladder")`
 --- @param stick_reg_name     string technical name of stick item (ex.: `"default:stick"`) for craft.
---- @param texture            string which texture to use, if `"lottblocks_"..name.."_planks.png"` doesn't exists.
+--- @param texture            string which texture to use, if `"lord_wooden_stuff_"..name.."_planks.png"` doesn't exists.
 local function register_ladder(name, description_prefix, stick_reg_name, texture)
-	local ladder_reg_name = "lottblocks:ladder_" .. name
-	local ladder_tile_texture = "lottblocks_" .. name .. "_planks.png"
-	local ladder_inv_texture = "lottblocks_" .. name .. "_ladder.png"
+	local ladder_reg_name = "lord_wooden_stuff:ladder_" .. name
+	local ladder_tile_texture = "lord_wooden_stuff_" .. name .. "_planks.png"
+	local ladder_inv_texture = "lord_wooden_stuff_" .. name .. "_ladder.png"
 	if not io.file_exists(textures_folder("planks") .. ladder_tile_texture) then
 		ladder_tile_texture = texture
 	end
@@ -232,7 +232,7 @@ local function register_ladder(name, description_prefix, stick_reg_name, texture
 				end
 
 				if param2 then
-					minetest.set_node(pointed_thing.above, { name = "lottblocks:ladder_" .. name, param2 = param2 })
+					minetest.set_node(pointed_thing.above, { name = "lord_wooden_stuff:ladder_" .. name, param2 = param2 })
 					if not minetest.is_creative_enabled(placer) then
 						itemstack:take_item()
 					end
@@ -261,7 +261,7 @@ end
 --- @param node_groups table
 --- @param stick_reg_name string
 local function register_stanchion(name, description_prefix, texture, node_groups, stick_reg_name)
-	local stanchion_reg_name = "lottblocks:" .. name .. "_stanchion"
+	local stanchion_reg_name = "lord_wooden_stuff:" .. name .. "_stanchion"
 	minetest.register_node(stanchion_reg_name, {
 		description         = S(description_prefix .. " Stanchion"),
 		tiles               = { texture },
@@ -296,7 +296,7 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_table(name, description_prefix, texture, wood_name, node_groups)
-	local table_reg_name = "lottblocks:" .. name .. "_table"
+	local table_reg_name = "lord_wooden_stuff:" .. name .. "_table"
 	minetest.register_node(table_reg_name, {
 		description         = S(description_prefix .. " Table"),
 		tiles               = { texture },
@@ -337,7 +337,7 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_chair(name, description_prefix, texture, wood_name, node_groups)
-	local chair_reg_name = "lottblocks:" .. name .. "_chair"
+	local chair_reg_name = "lord_wooden_stuff:" .. name .. "_chair"
 	minetest.register_node(chair_reg_name, {
 		description         = S(description_prefix .. " Chair"),
 		tiles               = { texture },
@@ -388,7 +388,7 @@ end
 ---@param description string
 ---@param texture string
 ---@param wood_name string
-function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
+function lord_wooden_stuff.register_wooden_stuff(name, description, texture, wood_name)
 	local node_groups     = table.copy(minetest.registered_nodes[wood_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
@@ -413,20 +413,20 @@ function lottblocks.register_wooden_stuff(name, description, texture, wood_name)
 	register_chair(name, description, texture, wood_name, node_groups)
 end
 
-lottblocks.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
-lottblocks.register_wooden_stuff("junglewood", "Junglewood", "default_junglewood.png", "default:junglewood")
-lottblocks.register_wooden_stuff("alder", "Alder", "lord_planks_alder.png", "lord_planks:alder")
-lottblocks.register_wooden_stuff("beech", "Beech", "lord_planks_beech.png", "lord_planks:beech")
-lottblocks.register_wooden_stuff("birch", "Birch", "lord_planks_birch.png", "lord_planks:birch")
-lottblocks.register_wooden_stuff("cherry", "Cherry", "lord_planks_cherry.png", "lord_planks:cherry")
-lottblocks.register_wooden_stuff("culumalda", "Culumalda", "lord_planks_culumalda.png", "lord_planks:culumalda")
-lottblocks.register_wooden_stuff("elm", "Elm", "lord_planks_elm.png", "lord_planks:elm")
-lottblocks.register_wooden_stuff("fir", "Fir", "lord_planks_fir.png", "lord_planks:fir")
-lottblocks.register_wooden_stuff("hardwood", "Hardwood", "lord_planks_hardwood.png", "lord_planks:hardwood")
-lottblocks.register_wooden_stuff("lebethron", "Lebethron", "lord_planks_lebethron.png", "lord_planks:lebethron")
-lottblocks.register_wooden_stuff("mallorn", "Mallorn", "lord_planks_mallorn.png", "lord_planks:mallorn")
-lottblocks.register_wooden_stuff("pine", "Pine", "lord_planks_pine.png", "lord_planks:pine")
-lottblocks.register_wooden_stuff("plum", "Plum", "lord_planks_plum.png", "lord_planks:plum")
+lord_wooden_stuff.register_wooden_stuff("wood", "Wooden", "default_wood.png", "default:wood")
+lord_wooden_stuff.register_wooden_stuff("junglewood", "Junglewood", "default_junglewood.png", "default:junglewood")
+lord_wooden_stuff.register_wooden_stuff("alder", "Alder", "lord_planks_alder.png", "lord_planks:alder")
+lord_wooden_stuff.register_wooden_stuff("beech", "Beech", "lord_planks_beech.png", "lord_planks:beech")
+lord_wooden_stuff.register_wooden_stuff("birch", "Birch", "lord_planks_birch.png", "lord_planks:birch")
+lord_wooden_stuff.register_wooden_stuff("cherry", "Cherry", "lord_planks_cherry.png", "lord_planks:cherry")
+lord_wooden_stuff.register_wooden_stuff("culumalda", "Culumalda", "lord_planks_culumalda.png", "lord_planks:culumalda")
+lord_wooden_stuff.register_wooden_stuff("elm", "Elm", "lord_planks_elm.png", "lord_planks:elm")
+lord_wooden_stuff.register_wooden_stuff("fir", "Fir", "lord_planks_fir.png", "lord_planks:fir")
+lord_wooden_stuff.register_wooden_stuff("hardwood", "Hardwood", "lord_planks_hardwood.png", "lord_planks:hardwood")
+lord_wooden_stuff.register_wooden_stuff("lebethron", "Lebethron", "lord_planks_lebethron.png", "lord_planks:lebethron")
+lord_wooden_stuff.register_wooden_stuff("mallorn", "Mallorn", "lord_planks_mallorn.png", "lord_planks:mallorn")
+lord_wooden_stuff.register_wooden_stuff("pine", "Pine", "lord_planks_pine.png", "lord_planks:pine")
+lord_wooden_stuff.register_wooden_stuff("plum", "Plum", "lord_planks_plum.png", "lord_planks:plum")
 
-minetest.register_alias("lottblocks:wooden_stanchion", "lottblocks:wood_stanchion")
-minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
+minetest.register_alias("lord_wooden_stuff:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
+minetest.register_alias("lord_wooden_stuff:fence_junglewood", "default:fence_junglewood")
