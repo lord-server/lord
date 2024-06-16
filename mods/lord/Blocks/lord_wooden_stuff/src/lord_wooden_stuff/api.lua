@@ -3,10 +3,12 @@ local S = minetest.get_translator("lord_wooden_stuff")
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 
---- @param sub_folder string
---- @return string
-local function textures_folder(sub_folder)
-	return minetest.get_mod_textures_folder("wooden_stuff" .. DS .. sub_folder)
+---@param texture string
+---@return boolean
+local function is_texture_exists(texture)
+	local mod_path = minetest.get_modpath(minetest.get_current_modname())
+	local mod_textures_path = mod_path .. DS .. "textures" .. DS
+	return io.file_exists(mod_textures_path .. texture)
 end
 
 --- @param name string
@@ -20,10 +22,7 @@ local function register_doors(name, description_prefix, wood_name, node_groups)
 	local door_inv_texture = "lord_wooden_stuff_door_" .. name .. ".png"
 	local door_uv_texture  = "lord_wooden_stuff_door_" .. name .. "_uv.png"
 
-	if
-		not io.file_exists(textures_folder("doors") .. door_inv_texture) or
-		not io.file_exists(textures_folder("doors") .. door_uv_texture)
-	then
+	if not is_texture_exists(door_inv_texture) or not is_texture_exists(door_uv_texture) then
 		return
 	end
 
@@ -61,10 +60,10 @@ local function register_hatch(name, description_prefix, wood_name, node_groups, 
 	local hatch_reg_name = "lord_wooden_stuff:hatch_" .. name
 	local front_texture  = "lord_wooden_stuff_hatch_" .. name .. ".png"
 	local side_texture   = "lord_wooden_stuff_hatch_" .. name .. "_side.png"
-	if not io.file_exists(textures_folder("hatches") .. front_texture) then
+	if not is_texture_exists(front_texture) then
 		front_texture = texture .. "^[transformR90^lord_wooden_stuff_hatch__overlay.png"
 	end
-	if not io.file_exists(textures_folder("hatches") .. side_texture) then
+	if not is_texture_exists(side_texture) then
 		side_texture = texture
 	end
 	doors.register_trapdoor(hatch_reg_name, {
