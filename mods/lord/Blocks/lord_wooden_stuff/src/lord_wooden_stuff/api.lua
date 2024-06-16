@@ -22,10 +22,6 @@ local function register_doors(name, description_prefix, wood_name, node_groups)
 	local door_inv_texture = "lord_wooden_stuff_door_" .. name .. ".png"
 	local door_uv_texture  = "lord_wooden_stuff_door_" .. name .. "_uv.png"
 
-	if not is_texture_exists(door_inv_texture) or not is_texture_exists(door_uv_texture) then
-		return
-	end
-
 	local common_definition = {
 		tiles           = {{ name = door_uv_texture, backface_culling = true }},
 		sound_open      = "doors_door_open",
@@ -114,10 +110,6 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_fence(name, description_prefix, wood_name, node_groups)
-	if name == "junglewood" then
-		return
-	end
-
 	local texture   = "lord_planks_"..name..".png"
 	default.register_fence("lord_wooden_stuff:fence_" .. name, {
 		description = S(description_prefix .. " Fence"),
@@ -389,9 +381,13 @@ local function register_wooden_stuff(def)
 	local stick_reg_name
 
 	if name_postfix ~= "wood" then --  in order to not overwrite registrations from minetest_game
-		register_doors(name_postfix, desc_prefix, planks_name, node_groups)
+		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, name_postfix) then
+			register_doors(name_postfix, desc_prefix, planks_name, node_groups)
+		end
 		register_hatch(name_postfix, desc_prefix, planks_name, node_groups, planks_texture)
-		register_fence(name_postfix, desc_prefix, planks_name, node_groups) -- except junglewood
+		if name_postfix ~= "junglewood" then
+			register_fence(name_postfix, desc_prefix, planks_name, node_groups)
+		end
 		stick_reg_name = register_stick(name_postfix, desc_prefix, planks_name)
 		register_ladder(name_postfix, desc_prefix, stick_reg_name, planks_texture)
 	end
