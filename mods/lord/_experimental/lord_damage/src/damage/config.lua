@@ -96,6 +96,15 @@ local fiery_periodic_behavior = function(player, amount, reason, source, chunks)
 	return lord_damage.periodic_base_behavior(player, amount, "fiery_periodic", reason, source, chunks, do_in_cycle)
 end
 
+
+local mental_behavior = function(player, amount, reason, source)
+	lord_damage.base_behavior(player, amount, "mental", reason, source)
+end
+
+local mental_periodic_behavior = function(player, amount, reason, source, chunks)
+	return lord_damage.periodic_base_behavior(player, amount, "mental_periodic", reason, source, chunks)
+end
+
 return {
 	["direct"]                     = direct_behavior,
 	["direct_periodic"]            = direct_periodic_behavior,
@@ -109,5 +118,7 @@ return {
 	["toxical_periodic"]           = toxical_periodic_behavior,
 	["fiery"]                      = fiery_behavior,
 	["fiery_periodic"]             = fiery_periodic_behavior,
+	["mental"]                     = mental_behavior,
+	["mental_periodic"]            = mental_periodic_behavior,
 }
 

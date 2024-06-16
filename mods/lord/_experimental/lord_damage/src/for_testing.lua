@@ -1,7 +1,9 @@
+-- THis FILE CONTAINS ITEMS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
+
 minetest.register_chatcommand("set_armor", {
     params = "<type> [value]",
     description = "",
-    privs = {},
+    privs = { server = true },
     func = function(name, param)
 		if not param or param == "" then
 			return
@@ -15,86 +17,68 @@ minetest.register_chatcommand("set_armor", {
 	end,
 })
 
-minetest.register_craftitem("lord_damage:direct_dealer",{
-	description = "Direct dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "direct")
+local damage_types = lord_damage.get_registered_damage_types()
+
+minetest.register_tool("lord_damage:armor_type_applicator", {
+	description = "Armor type applicator",
+	on_use = function(itemstack, user, pointed_thing)
+		local player_name = user:get_player_name()
+		if not minetest.check_player_privs(player_name, "server") then
+			minetest.log(player_name.." tried to use an Applicator.")
+			return itemstack:clear()
+		end
+		local object = pointed_thing.ref
+		if not object then
+			minetest.chat_send_player(player_name, "Pointed thing is not an entity nor a player")
+			return
+		end
+		minetest.show_formspec(player_name, "lord_damage:applicator",
+		"size[8,9]"..
+		"field[armor_type;Write in an armor type to apply;]"
+		)
+		minetest.register_on_player_receive_fields(function(player, formname, fields)
+			if formname == "lord_damage:applicator" and fields.armor_type then
+				local armor_type = fields.armor_type:split("=")[1]:gsub(" ", "")
+				local armor_value = tonumber(fields.armor_type:split("=")[2]:gsub(" ", ""), 10) or nil
+				local armor = object:get_armor_groups()
+				armor[armor_type] = armor_value
+				object:set_armor_groups(armor)
+				return
+			end
+		end)
+
 	end
 })
 
-minetest.register_craftitem("lord_damage:direct_periodic_dealer",{
-	description = "Direct Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 13, "direct_periodic", nil, nil, 3)
-	end
-})
 
-minetest.register_craftitem("lord_damage:simple_physical_dealer",{
-	description = "Simple Physical dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "simple_physical")
-	end
-})
+for name, _ in pairs(damage_types) do
+	minetest.register_tool("lord_damage:self_"..name.."_dealer",{
+		description = "Self '".. name .." damage' dealer",
+		on_use = function(itemstack, user, pointed_thing)
+			local player_name = user:get_player_name()
+			if not minetest.check_player_privs(player_name, "server") then
+				minetest.log(player_name.." tried to use a damage dealer.")
+				return itemstack:clear()
+			end
+			lord_damage.deal_damage(user, 13, name, nil, { dealer = user, "lord_damage:self_"..name.."_dealer" }, 3)
+		end
+	})
+	minetest.register_tool("lord_damage:target_"..name.."_dealer",{
+		description = "Target '".. name .." damage' dealer",
+		on_use = function(itemstack, user, pointed_thing)
+			local player_name = user:get_player_name()
+			if not minetest.check_player_privs(player_name, "server") then
+				minetest.log(player_name.." tried to use an damage dealer.")
+				return itemstack:clear()
+			end
 
-minetest.register_craftitem("lord_damage:simple_physical_periodic_dealer",{
-	description = "Simple Physical Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "simple_physical_periodic")
-	end
-})
+			local object = pointed_thing.ref
+			if not object then
+				minetest.chat_send_player(player_name, "Pointed thing is not an entity nor a player")
+				return
+			end
 
-minetest.register_craftitem("lord_damage:slashing_physical_dealer",{
-	description = "Slashing Physical dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "slashing_physical")
-	end
-})
-
-minetest.register_craftitem("lord_damage:slashing_physical_periodic_dealer",{
-	description = "Slashing Physical Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "slashing_physical_periodic")
-	end
-})
-
-minetest.register_craftitem("lord_damage:piercing_physical_dealer",{
-	description = "Piercing Physical dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "piercing_physical")
-	end
-})
-
-minetest.register_craftitem("lord_damage:piercing_physical_periodic_dealer",{
-	description = "Piercing Physical Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "piercing_physical_periodic")
-	end
-})
-
-minetest.register_craftitem("lord_damage:toxical_dealer",{
-	description = "Toxical dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "toxical")
-	end
-})
-
-minetest.register_craftitem("lord_damage:toxical_periodic_dealer",{
-	description = "Toxical Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "toxical_periodic")
-	end
-})
-
-minetest.register_craftitem("lord_damage:fiery_dealer",{
-	description = "Fiery dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 5, "fiery")
-	end
-})
-
-minetest.register_craftitem("lord_damage:fiery_periodic_dealer",{
-	description = "Fiery Periodic dealer",
-	on_use = function(itemstack, player, pointed_thing)
-		lord_damage.deal_damage(player, 13, "fiery_periodic", nil, nil, 3)
-	end
-})
+			lord_damage.deal_damage(object, 13, name, nil, { dealer = user, tool = "lord_damage:target_"..name.."_dealer" }, 3)
+		end
+	})
+end
