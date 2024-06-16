@@ -161,11 +161,8 @@ end
 --- @param texture            string which texture to use, if `"lord_wooden_stuff_"..name.."_planks.png"` doesn't exists.
 local function register_ladder(name, description_prefix, stick_reg_name, texture)
 	local ladder_reg_name = "lord_wooden_stuff:ladder_" .. name
-	local ladder_tile_texture = "lord_wooden_stuff_" .. name .. "_planks.png"
+	local ladder_tile_texture = "lord_planks" .. name .. "_planks.png"
 	local ladder_inv_texture = "lord_wooden_stuff_" .. name .. "_ladder.png"
-	if not io.file_exists(textures_folder("planks") .. ladder_tile_texture) then
-		ladder_tile_texture = texture
-	end
 	if not io.file_exists(textures_folder("ladders") .. ladder_inv_texture) then
 		ladder_inv_texture = nil
 	end
