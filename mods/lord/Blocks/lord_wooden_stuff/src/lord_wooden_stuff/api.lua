@@ -252,7 +252,7 @@ end
 --- @param node_groups table
 --- @param stick_reg_name string
 local function register_stanchion(name, description_prefix, texture, node_groups, stick_reg_name)
-	local stanchion_reg_name = "lord_wooden_stuff:" .. name .. "_stanchion"
+	local stanchion_reg_name = "lord_wooden_stuff:stanchion_" .. name
 	minetest.register_node(stanchion_reg_name, {
 		description         = S(description_prefix .. " Stanchion"),
 		tiles               = { texture },
@@ -287,7 +287,7 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_table(name, description_prefix, texture, wood_name, node_groups)
-	local table_reg_name = "lord_wooden_stuff:" .. name .. "_table"
+	local table_reg_name = "lord_wooden_stuff:table_" .. name
 	minetest.register_node(table_reg_name, {
 		description         = S(description_prefix .. " Table"),
 		tiles               = { texture },
@@ -328,7 +328,7 @@ end
 --- @param wood_name string
 --- @param node_groups table
 local function register_chair(name, description_prefix, texture, wood_name, node_groups)
-	local chair_reg_name = "lord_wooden_stuff:" .. name .. "_chair"
+	local chair_reg_name = "lord_wooden_stuff:chair_" .. name
 	minetest.register_node(chair_reg_name, {
 		description         = S(description_prefix .. " Chair"),
 		tiles               = { texture },
