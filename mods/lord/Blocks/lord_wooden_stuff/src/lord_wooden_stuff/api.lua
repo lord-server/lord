@@ -375,11 +375,13 @@ end
 
 --- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood
 --- with some exceptions.
----@param name_postfix string
----@param desc_prefix string
----@param planks_texture string
----@param planks_name string
-local function register_wooden_stuff(name_postfix, desc_prefix, planks_texture, planks_name)
+---@param def LordWoodenStuffDefinition
+local function register_wooden_stuff(def)
+	local name_postfix = def.name
+	local desc_prefix = def.desc
+	local planks_name = def.wood_name
+	local planks_texture = def.texture
+
 	local node_groups     = table.copy(minetest.registered_nodes[planks_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
