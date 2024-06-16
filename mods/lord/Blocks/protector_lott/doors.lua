@@ -54,39 +54,39 @@ reg_prot_door(
 	"doors_door_obsidian_glass.png"
 )
 
--- from lottblocks mod
+-- from lord_wooden_stuff mod
 
 reg_prot_door(
-	"Protected Junglewood Door", "protector_lott:door_junglewood", "lottblocks:door_junglewood", "wood",
+	"Protected Junglewood Door", "protector_lott:door_junglewood", "lord_wooden_stuff:door_junglewood", "wood",
 	"lottblocks_door_junglewood.png",
 	"lottblocks_door_junglewood_uv.png"
 )
 
 reg_prot_door(
-	"Protected Alder Door", "protector_lott:door_alder", "lottblocks:door_alder", "wood",
+	"Protected Alder Door", "protector_lott:door_alder", "lord_wooden_stuff:door_alder", "wood",
 	"lottblocks_door_alder.png",
 	"lottblocks_door_alder_uv.png"
 )
 
 reg_prot_door(
-	"Protected Birch Door", "protector_lott:door_birch", "lottblocks:door_birch", "wood",
+	"Protected Birch Door", "protector_lott:door_birch", "lord_wooden_stuff:door_birch", "wood",
 	"lottblocks_door_birch.png",
 	"lottblocks_door_birch_uv.png"
 )
 
 reg_prot_door(
-	"Protected Pine Door", "protector_lott:door_pine", "lottblocks:door_pine", "wood",
+	"Protected Pine Door", "protector_lott:door_pine", "lord_wooden_stuff:door_pine", "wood",
 	"lottblocks_door_pine.png", "lottblocks_door_pine_uv.png"
 )
 
 reg_prot_door(
-	"Protected Lebethron Door", "protector_lott:door_lebethron", "lottblocks:door_lebethron", "wood",
+	"Protected Lebethron Door", "protector_lott:door_lebethron", "lord_wooden_stuff:door_lebethron", "wood",
 	"lottblocks_door_lebethron.png",
 	"lottblocks_door_lebethron_uv.png"
 )
 
 reg_prot_door(
-	"Protected Mallorn Door", "protector_lott:door_mallorn", "lottblocks:door_mallorn", "wood",
+	"Protected Mallorn Door", "protector_lott:door_mallorn", "lord_wooden_stuff:door_mallorn", "wood",
 	"lottblocks_door_mallorn.png",
 	"lottblocks_door_mallorn_uv.png"
 )
