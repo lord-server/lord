@@ -143,7 +143,7 @@ local function register_stick(name, description_prefix, wood_name)
 	local stick_reg_name = "lord_wooden_stuff:stick_" .. name
 	minetest.register_craftitem(stick_reg_name, {
 		description     = S(description_prefix .. " Stick"),
-		inventory_image = "lord_wooden_stuff_" .. name .. "_stick.png",
+		inventory_image = "lord_wooden_stuff_stick_" .. name .. ".png",
 		groups          = { stick = 1 },
 	})
 	minetest.register_craft({
