@@ -160,12 +160,11 @@ end
 --- @param texture            string which texture to use, if `"lord_wooden_stuff_"..name.."_planks.png"` doesn't exists.
 local function register_ladder(name, description_prefix, stick_reg_name, texture)
 	local ladder_reg_name = "lord_wooden_stuff:ladder_" .. name
-	local ladder_tile_texture = "lord_planks" .. name .. "_planks.png"
 	minetest.register_node(ladder_reg_name, {
 		description               = S(description_prefix .. " Ladder"),
 		drawtype                  = "nodebox",
-		tiles                     = { ladder_tile_texture },
-		particle_image            = { ladder_tile_texture },
+		tiles                     = { texture },
+		particle_image            = { texture },
 		paramtype                 = "light",
 		paramtype2                = "facedir",
 		walkable                  = true,
