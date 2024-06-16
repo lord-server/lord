@@ -50,9 +50,18 @@ local function register_aliases_with_same_form(wood)
 	end
 end
 
+-- Taken from lottblocks/wooden_stuff.lua.
+-- Legacy of legacy literally. :P
+local function register_old_legacy_aliases()
+	minetest.register_alias("lottblocks:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
+	minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
+end
+
+
 return {
 	register_aliases_by_wood = function(wood)
 		register_aliases_with_new_form(wood)
 		register_aliases_with_same_form(wood)
+		register_old_legacy_aliases()
 	end
 }

@@ -406,7 +406,4 @@ local function register_wooden_stuff(def)
 end
 
 
-minetest.register_alias("lottblocks:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
-minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
-
 return { register_wooden_stuff = register_wooden_stuff }
