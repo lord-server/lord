@@ -367,9 +367,10 @@ end
 
 --- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood
 --- with some exceptions.
+---@param name string
 ---@param def LordWoodenStuffDefinition
-local function register_wooden_stuff(def)
-	local name_postfix = def.name
+local function register_wooden_stuff(name, def)
+	local name_postfix = name
 	local desc_prefix = def.desc
 	local planks_name = def.wood_name
 	local planks_texture = def.texture
@@ -380,7 +381,7 @@ local function register_wooden_stuff(def)
 
 	local stick_reg_name
 
-	if name_postfix ~= "wood" then --  in order to not overwrite registrations from minetest_game
+	if name_postfix ~= "wood" then -- in order to not overwrite registrations from minetest_game
 		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, name_postfix) then
 			register_doors(name_postfix, desc_prefix, planks_name, node_groups)
 		end
