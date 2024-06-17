@@ -7,8 +7,7 @@ local function register_reinforced_hatch(wood, def, groups, _)
 	local name = "lord_wooden_stuff:hatch_reinforced_" .. wood
 	local texture = "lord_wooden_stuff_hatch_reinforced_" .. wood .. ".png"
 	doors.register_trapdoor(name, {
-		-- TODO: fix localization:
-		description = string.format("Reinforced %s Hatch", def.desc),
+		description = S(string.format("Reinforced %s Hatch", def.desc)),
 		inventory_image = texture,
 		wield_image = texture,
 		tile_front = texture,

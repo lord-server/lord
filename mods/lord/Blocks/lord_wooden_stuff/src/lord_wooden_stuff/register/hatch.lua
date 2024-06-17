@@ -3,13 +3,13 @@ local S = require("lord_wooden_stuff.config").translator
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 
+local mod_path = minetest.get_modpath(minetest.get_current_modname())
+local mod_textures_path = mod_path .. DS .. "textures" .. DS
+
 -- TODO: get rid of this function with #1467 issue
 ---@param texture string
 ---@return boolean
 local function is_texture_exists(texture)
-	-- TODO: move static locals from func
-	local mod_path = minetest.get_modpath(minetest.get_current_modname())
-	local mod_textures_path = mod_path .. DS .. "textures" .. DS
 	return io.file_exists(mod_textures_path .. texture)
 end
 
