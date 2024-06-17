@@ -2,9 +2,9 @@ local S = require("lord_wooden_stuff.config").translator
 
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
---- @param groups table<string,number>
-local function register_doors(wood, def, groups, _)
-	local groups = table.merge(groups, { door = 1 })
+--- @param node_groups table<string,number>
+local function register_doors(wood, def, node_groups, _)
+	local groups = table.merge(node_groups, { door = 1 })
 
 	local name    = "lord_wooden_stuff:door_" .. wood
 	local inv_texture = "lord_wooden_stuff_door_" .. wood .. ".png"

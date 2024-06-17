@@ -1,6 +1,3 @@
-local S = minetest.get_translator("lord_wooden_stuff")
-
-
 local register_stick = require("lord_wooden_stuff.register.stick")
 
 --- Contains wooden stuff type to function accordance

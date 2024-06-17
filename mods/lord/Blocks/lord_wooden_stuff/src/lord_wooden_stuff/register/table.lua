@@ -1,10 +1,10 @@
 local S = require("lord_wooden_stuff.config").translator
 
---- @param name string
+--- @param wood string
 --- @param def LordWoodenStuffDefinition
---- @param groups table
-local function register_table(name, def, groups, _)
-	local name = "lord_wooden_stuff:table_" .. name
+--- @param groups table<string,number>
+local function register_table(wood, def, groups, _)
+	local name = "lord_wooden_stuff:table_" .. wood
 	minetest.register_node(name, {
 		description         = S(def.desc .. " Table"),
 		tiles               = { def.texture },
