@@ -7,8 +7,8 @@ local function register_api()
 end
 
 local function register_lord_wooden_stuff()
-	for name, def in pairs(config.wood_defs) do
-		api.register_wooden_stuff(name, def)
+	for wood, def in pairs(config.wood_defs) do
+		api.register_wooden_stuff(wood, def)
 	end
 end
 

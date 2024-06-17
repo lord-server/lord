@@ -367,10 +367,9 @@ end
 
 --- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood
 --- with some exceptions.
----@param name string
+---@param wood string
 ---@param def LordWoodenStuffDefinition
-local function register_wooden_stuff(name, def)
-	local name_postfix = name
+local function register_wooden_stuff(wood, def)
 	local desc_prefix = def.desc
 	local planks_name = def.wood_name
 	local planks_texture = def.texture
@@ -381,25 +380,25 @@ local function register_wooden_stuff(name, def)
 
 	local stick_reg_name
 
-	if name_postfix ~= "wood" then -- in order to not overwrite registrations from minetest_game
-		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, name_postfix) then
-			register_doors(name_postfix, desc_prefix, planks_name, node_groups)
+	if wood ~= "wood" then -- in order to not overwrite registrations from minetest_game
+		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, wood) then
+			register_doors(wood, desc_prefix, planks_name, node_groups)
 		end
-		register_hatch(name_postfix, desc_prefix, planks_name, node_groups, planks_texture)
-		if name_postfix ~= "junglewood" then
-			register_fence(name_postfix, desc_prefix, planks_name, node_groups)
+		register_hatch(wood, desc_prefix, planks_name, node_groups, planks_texture)
+		if wood ~= "junglewood" then
+			register_fence(wood, desc_prefix, planks_name, node_groups)
 		end
-		stick_reg_name = register_stick(name_postfix, desc_prefix, planks_name)
-		register_ladder(name_postfix, desc_prefix, stick_reg_name, planks_texture)
+		stick_reg_name = register_stick(wood, desc_prefix, planks_name)
+		register_ladder(wood, desc_prefix, stick_reg_name, planks_texture)
 	end
 
-	if table.contains({ "wood", "junglewood", "beech", "elm"}, name_postfix) then
-		register_reinforced_hatch(name_postfix, desc_prefix, planks_name, node_groups)
+	if table.contains({ "wood", "junglewood", "beech", "elm"}, wood) then
+		register_reinforced_hatch(wood, desc_prefix, planks_name, node_groups)
 	end
 
-	register_stanchion(name_postfix, desc_prefix, planks_texture, node_groups, stick_reg_name or "default:stick")
-	register_table(name_postfix, desc_prefix, planks_texture, planks_name, node_groups)
-	register_chair(name_postfix, desc_prefix, planks_texture, planks_name, node_groups)
+	register_stanchion(wood, desc_prefix, planks_texture, node_groups, stick_reg_name or "default:stick")
+	register_table(wood, desc_prefix, planks_texture, planks_name, node_groups)
+	register_chair(wood, desc_prefix, planks_texture, planks_name, node_groups)
 end
 
 
