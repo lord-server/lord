@@ -1,16 +1,15 @@
 local S = require("lord_wooden_stuff.config").translator
 
---- @param name               string node name postfix (`"lord_wooden_stuff:ladder_"..name`). Also used for textures names.
---- @param description_prefix string used: `S(description_prefix .. " Ladder")`
---- @param stick_reg_name     string technical name of stick item (ex.: `"default:stick"`) for craft.
---- @param texture            string which texture to use, if `"lord_wooden_stuff_"..name.."_planks.png"` doesn't exists.
-local function register_ladder(name, description_prefix, stick_reg_name, texture)
-	local ladder_reg_name = "lord_wooden_stuff:ladder_" .. name
-	minetest.register_node(ladder_reg_name, {
-		description               = S(description_prefix .. " Ladder"),
+--- @param wood string
+--- @param def LordWoodenStuffDefinition
+--- @param stick string technical name of stick item (ex.: `"default:stick"`) for craft.
+local function register_ladder(wood, def, stick)
+	local name = "lord_wooden_stuff:ladder_" .. wood
+	minetest.register_node(name, {
+		description               = S(def.desc .. " Ladder"),
 		drawtype                  = "nodebox",
-		tiles                     = { texture },
-		particle_image            = { texture },
+		tiles                     = { def.texture },
+		particle_image            = { def.texture },
 		paramtype                 = "light",
 		paramtype2                = "facedir",
 		walkable                  = true,
@@ -67,7 +66,7 @@ local function register_ladder(name, description_prefix, stick_reg_name, texture
 				end
 
 				if param2 then
-					minetest.set_node(pointed_thing.above, { name = "lord_wooden_stuff:ladder_" .. name, param2 = param2 })
+					minetest.set_node(pointed_thing.above, { name = name, param2 = param2 })
 					if not minetest.is_creative_enabled(placer) then
 						itemstack:take_item()
 					end
@@ -81,11 +80,11 @@ local function register_ladder(name, description_prefix, stick_reg_name, texture
 		sounds                    = default.node_sound_wood_defaults(),
 	})
 	minetest.register_craft({
-		output = ladder_reg_name .. " 7",
+		output = name .. " 7",
 		recipe = {
-			{ stick_reg_name, "",             stick_reg_name },
-			{ stick_reg_name, stick_reg_name, stick_reg_name },
-			{ stick_reg_name, "",             stick_reg_name },
+			{ stick, "",    stick },
+			{ stick, stick, stick },
+			{ stick, "",    stick },
 		}
 	})
 end
