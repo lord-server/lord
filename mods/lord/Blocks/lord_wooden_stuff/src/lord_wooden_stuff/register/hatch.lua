@@ -3,6 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 
+-- TODO: get rid of this function with #1467 issue
 ---@param texture string
 ---@return boolean
 local function is_texture_exists(texture)

@@ -21,5 +21,29 @@ local wood_defs = {
 	["wood"]       = { desc="Wooden",     texture="default_wood.png",          wood_name="default:wood", },
 }
 
+--- Stuff types which will not be registered.
+---@type table<string,string[]>
+local wood_stuff_exceptions = {
+--  [wood_type]    = { "doors", "hatch", "fence", "stick", "ladder", "Rhatch", "stanchion", "table", "chair", }
+	["alder"]      = {                                               "Rhatch", },
+	["beech"]      = { "doors", },
+	["birch"]      = {                                               "Rhatch", },
+	["cherry"]     = { "doors",                                      "Rhatch", },
+	["culumalda"]  = { "doors",                                      "Rhatch", },
+	["elm"]        = { "doors", },
+	["fir"]        = { "doors",                                      "Rhatch", },
+	["hardwood"]   = {                                               "Rhatch", },
+	["junglewood"] = {                   "fence", },
+	["lebethron"]  = {                                               "Rhatch", },
+	["mallorn"]    = {                                               "Rhatch", },
+	["pine"]       = {                                               "Rhatch", },
+	["plum"]       = { "doors",                                      "Rhatch", },
+	["wood"]       = { "doors", "hatch", "fence", "stick", "ladder", },
+}
 
-return { wood_defs = wood_defs, translator = minetest.get_translator("lord_wooden_stuff"), }
+
+return {
+	wood_defs = wood_defs,
+	wood_stuff_exceptions = wood_stuff_exceptions,
+	translator = minetest.get_translator("lord_wooden_stuff"),
+}
