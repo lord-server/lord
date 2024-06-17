@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
 --- @param groups table<string,number>
-local function register_chair(wood, def, groups)
+local function register_chair(wood, def, groups, _)
 	local name = "lord_wooden_stuff:chair_" .. wood
 	minetest.register_node(name, {
 		description         = S(def.desc .. " Chair"),
