@@ -2,6 +2,7 @@ local S = require("lord_wooden_stuff.config").translator
 
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
+--- @return string @stick item name
 local function register_stick(wood, def, _, _)
 	local name = "lord_wooden_stuff:stick_" .. wood
 	minetest.register_craftitem(name, {
