@@ -1,15 +1,15 @@
 local S = minetest.get_translator("lord_wooden_stuff")
 
 
-local register_doors = require("lord_wooden_stuff.register.doors")
-local register_hatch = require("lord_wooden_stuff.register.hatch")
+local register_doors            = require("lord_wooden_stuff.register.doors")
+local register_hatch            = require("lord_wooden_stuff.register.hatch")
 local register_reinforced_hatch = require("lord_wooden_stuff.register.reinforced_hatch")
-local register_fence = require("lord_wooden_stuff.register.fence")
-local register_stick = require("lord_wooden_stuff.register.stick")
-local register_ladder = require("lord_wooden_stuff.register.ladder")
-local register_stanchion = require("lord_wooden_stuff.register.stanchion")
-local register_table = require("lord_wooden_stuff.register.table")
-local register_chair = require("lord_wooden_stuff.register.chair")
+local register_fence            = require("lord_wooden_stuff.register.fence")
+local register_stick            = require("lord_wooden_stuff.register.stick")
+local register_ladder           = require("lord_wooden_stuff.register.ladder")
+local register_stanchion        = require("lord_wooden_stuff.register.stanchion")
+local register_table            = require("lord_wooden_stuff.register.table")
+local register_chair            = require("lord_wooden_stuff.register.chair")
 
 
 --- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood

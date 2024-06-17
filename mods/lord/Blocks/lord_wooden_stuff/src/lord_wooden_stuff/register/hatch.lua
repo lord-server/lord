@@ -1,3 +1,5 @@
+local S = require("lord_wooden_stuff.config").translator
+
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 
