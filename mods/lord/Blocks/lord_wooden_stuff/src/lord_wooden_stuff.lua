@@ -12,17 +12,11 @@ local function register_lord_wooden_stuff()
 	end
 end
 
-local function handle_legacy()
-	for _, wood_def in ipairs(config.wood_defs) do
-		local wood = wood_def[1]
-		legacy.register_aliases_by_wood(wood)
-	end
-end
 
 return {
 	init = function()
 		register_api()
 		register_lord_wooden_stuff()
-		handle_legacy()
+		legacy.register_aliases()
 	end,
 }
