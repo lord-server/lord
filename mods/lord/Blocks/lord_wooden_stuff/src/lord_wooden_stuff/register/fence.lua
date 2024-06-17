@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
 --- @param groups table<string,number>
-local function register_fence(wood, def, groups)
+local function register_fence(wood, def, groups, _)
 	default.register_fence("lord_wooden_stuff:fence_" .. wood, {
 		description = S(def.desc .. " Fence"),
 		texture = def.texture,

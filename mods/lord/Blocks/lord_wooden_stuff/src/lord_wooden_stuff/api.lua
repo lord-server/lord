@@ -25,23 +25,23 @@ local function register_wooden_stuff(wood, def)
 
 	if wood ~= "wood" then -- in order to not overwrite registrations from minetest_game
 		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, wood) then
-			register_doors(wood, def, node_groups)
+			register_doors(wood, def, node_groups, stick_reg_name)
 		end
-		register_hatch(wood, def, node_groups)
+		register_hatch(wood, def, node_groups, stick_reg_name)
 		if wood ~= "junglewood" then
-			register_fence(wood, def, node_groups)
+			register_fence(wood, def, node_groups, stick_reg_name)
 		end
-		stick_reg_name = register_stick(wood, def)
-		register_ladder(wood, def, stick_reg_name)
+		stick_reg_name = register_stick(wood, def, node_groups, stick_reg_name)
+		register_ladder(wood, def, node_groups, stick_reg_name)
 	end
 
 	if table.contains({ "wood", "junglewood", "beech", "elm"}, wood) then
-		register_reinforced_hatch(wood, def, node_groups)
+		register_reinforced_hatch(wood, def, node_groups, stick_reg_name)
 	end
 
 	register_stanchion(wood, def, node_groups, stick_reg_name or "default:stick")
-	register_table(wood, def, node_groups)
-	register_chair(wood, def, node_groups)
+	register_table(wood, def, node_groups, stick_reg_name)
+	register_chair(wood, def, node_groups, stick_reg_name)
 end
 
 

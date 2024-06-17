@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
 --- @param groups table<string,number>
-local function register_doors(wood, def, groups)
+local function register_doors(wood, def, groups, _)
 	local groups = table.merge(groups, { door = 1 })
 
 	local name    = "lord_wooden_stuff:door_" .. wood

@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 ---@param wood string
 ---@param def LordWoodenStuffDefinition
 ---@param groups table<string,number>
-local function register_reinforced_hatch(wood, def, groups)
+local function register_reinforced_hatch(wood, def, groups, _)
 	local name = "lord_wooden_stuff:hatch_reinforced_" .. wood
 	local texture = "lord_wooden_stuff_hatch_reinforced_" .. wood .. ".png"
 	doors.register_trapdoor(name, {

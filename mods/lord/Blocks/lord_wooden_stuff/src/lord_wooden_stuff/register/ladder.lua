@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param wood string
 --- @param def LordWoodenStuffDefinition
 --- @param stick string technical name of stick item (ex.: `"default:stick"`) for craft.
-local function register_ladder(wood, def, stick)
+local function register_ladder(wood, def, _, stick)
 	local name = "lord_wooden_stuff:ladder_" .. wood
 	minetest.register_node(name, {
 		description               = S(def.desc .. " Ladder"),
