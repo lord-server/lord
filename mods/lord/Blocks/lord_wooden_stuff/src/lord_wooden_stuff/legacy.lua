@@ -1,67 +1,226 @@
----@type string @old mode name
-local oldmod = "lottblocks"
----@type string @new mod name
-local newmod = "lord_wooden_stuff"
+local function register_doors_aliases()
+	minetest.register_alias( "lottblocks:door_alder",             "lord_wooden_stuff:door_alder"             )
+	minetest.register_alias( "lottblocks:door_alder_a",           "lord_wooden_stuff:door_alder_a"           )
+	minetest.register_alias( "lottblocks:door_alder_b",           "lord_wooden_stuff:door_alder_b"           )
+	minetest.register_alias( "lottblocks:door_alder_c",           "lord_wooden_stuff:door_alder_c"           )
+	minetest.register_alias( "lottblocks:door_alder_d",           "lord_wooden_stuff:door_alder_d"           )
+	minetest.register_alias( "lottblocks:door_alder_lock",        "lord_wooden_stuff:door_alder_lock"        )
+	minetest.register_alias( "lottblocks:door_alder_lock_a",      "lord_wooden_stuff:door_alder_lock_a"      )
+	minetest.register_alias( "lottblocks:door_alder_lock_b",      "lord_wooden_stuff:door_alder_lock_b"      )
+	minetest.register_alias( "lottblocks:door_alder_lock_c",      "lord_wooden_stuff:door_alder_lock_c"      )
+	minetest.register_alias( "lottblocks:door_alder_lock_d",      "lord_wooden_stuff:door_alder_lock_d"      )
+	minetest.register_alias( "lottblocks:door_birch",             "lord_wooden_stuff:door_birch"             )
+	minetest.register_alias( "lottblocks:door_birch_a",           "lord_wooden_stuff:door_birch_a"           )
+	minetest.register_alias( "lottblocks:door_birch_b",           "lord_wooden_stuff:door_birch_b"           )
+	minetest.register_alias( "lottblocks:door_birch_c",           "lord_wooden_stuff:door_birch_c"           )
+	minetest.register_alias( "lottblocks:door_birch_d",           "lord_wooden_stuff:door_birch_d"           )
+	minetest.register_alias( "lottblocks:door_birch_lock",        "lord_wooden_stuff:door_birch_lock"        )
+	minetest.register_alias( "lottblocks:door_birch_lock_a",      "lord_wooden_stuff:door_birch_lock_a"      )
+	minetest.register_alias( "lottblocks:door_birch_lock_b",      "lord_wooden_stuff:door_birch_lock_b"      )
+	minetest.register_alias( "lottblocks:door_birch_lock_c",      "lord_wooden_stuff:door_birch_lock_c"      )
+	minetest.register_alias( "lottblocks:door_birch_lock_d",      "lord_wooden_stuff:door_birch_lock_d"      )
+	minetest.register_alias( "lottblocks:door_hardwood",          "lord_wooden_stuff:door_hardwood"          )
+	minetest.register_alias( "lottblocks:door_hardwood_a",        "lord_wooden_stuff:door_hardwood_a"        )
+	minetest.register_alias( "lottblocks:door_hardwood_b",        "lord_wooden_stuff:door_hardwood_b"        )
+	minetest.register_alias( "lottblocks:door_hardwood_c",        "lord_wooden_stuff:door_hardwood_c"        )
+	minetest.register_alias( "lottblocks:door_hardwood_d",        "lord_wooden_stuff:door_hardwood_d"        )
+	minetest.register_alias( "lottblocks:door_hardwood_lock",     "lord_wooden_stuff:door_hardwood_lock"     )
+	minetest.register_alias( "lottblocks:door_hardwood_lock_a",   "lord_wooden_stuff:door_hardwood_lock_a"   )
+	minetest.register_alias( "lottblocks:door_hardwood_lock_b",   "lord_wooden_stuff:door_hardwood_lock_b"   )
+	minetest.register_alias( "lottblocks:door_hardwood_lock_c",   "lord_wooden_stuff:door_hardwood_lock_c"   )
+	minetest.register_alias( "lottblocks:door_hardwood_lock_d",   "lord_wooden_stuff:door_hardwood_lock_d"   )
+	minetest.register_alias( "lottblocks:door_junglewood",        "lord_wooden_stuff:door_junglewood"        )
+	minetest.register_alias( "lottblocks:door_junglewood_a",      "lord_wooden_stuff:door_junglewood_a"      )
+	minetest.register_alias( "lottblocks:door_junglewood_b",      "lord_wooden_stuff:door_junglewood_b"      )
+	minetest.register_alias( "lottblocks:door_junglewood_c",      "lord_wooden_stuff:door_junglewood_c"      )
+	minetest.register_alias( "lottblocks:door_junglewood_d",      "lord_wooden_stuff:door_junglewood_d"      )
+	minetest.register_alias( "lottblocks:door_junglewood_lock",   "lord_wooden_stuff:door_junglewood_lock"   )
+	minetest.register_alias( "lottblocks:door_junglewood_lock_a", "lord_wooden_stuff:door_junglewood_lock_a" )
+	minetest.register_alias( "lottblocks:door_junglewood_lock_b", "lord_wooden_stuff:door_junglewood_lock_b" )
+	minetest.register_alias( "lottblocks:door_junglewood_lock_c", "lord_wooden_stuff:door_junglewood_lock_c" )
+	minetest.register_alias( "lottblocks:door_junglewood_lock_d", "lord_wooden_stuff:door_junglewood_lock_d" )
+	minetest.register_alias( "lottblocks:door_lebethron",         "lord_wooden_stuff:door_lebethron"         )
+	minetest.register_alias( "lottblocks:door_lebethron_a",       "lord_wooden_stuff:door_lebethron_a"       )
+	minetest.register_alias( "lottblocks:door_lebethron_b",       "lord_wooden_stuff:door_lebethron_b"       )
+	minetest.register_alias( "lottblocks:door_lebethron_c",       "lord_wooden_stuff:door_lebethron_c"       )
+	minetest.register_alias( "lottblocks:door_lebethron_d",       "lord_wooden_stuff:door_lebethron_d"       )
+	minetest.register_alias( "lottblocks:door_lebethron_lock",    "lord_wooden_stuff:door_lebethron_lock"    )
+	minetest.register_alias( "lottblocks:door_lebethron_lock_a",  "lord_wooden_stuff:door_lebethron_lock_a"  )
+	minetest.register_alias( "lottblocks:door_lebethron_lock_b",  "lord_wooden_stuff:door_lebethron_lock_b"  )
+	minetest.register_alias( "lottblocks:door_lebethron_lock_c",  "lord_wooden_stuff:door_lebethron_lock_c"  )
+	minetest.register_alias( "lottblocks:door_lebethron_lock_d",  "lord_wooden_stuff:door_lebethron_lock_d"  )
+	minetest.register_alias( "lottblocks:door_mallorn",           "lord_wooden_stuff:door_mallorn"           )
+	minetest.register_alias( "lottblocks:door_mallorn_a",         "lord_wooden_stuff:door_mallorn_a"         )
+	minetest.register_alias( "lottblocks:door_mallorn_b",         "lord_wooden_stuff:door_mallorn_b"         )
+	minetest.register_alias( "lottblocks:door_mallorn_c",         "lord_wooden_stuff:door_mallorn_c"         )
+	minetest.register_alias( "lottblocks:door_mallorn_d",         "lord_wooden_stuff:door_mallorn_d"         )
+	minetest.register_alias( "lottblocks:door_mallorn_lock",      "lord_wooden_stuff:door_mallorn_lock"      )
+	minetest.register_alias( "lottblocks:door_mallorn_lock_a",    "lord_wooden_stuff:door_mallorn_lock_a"    )
+	minetest.register_alias( "lottblocks:door_mallorn_lock_b",    "lord_wooden_stuff:door_mallorn_lock_b"    )
+	minetest.register_alias( "lottblocks:door_mallorn_lock_c",    "lord_wooden_stuff:door_mallorn_lock_c"    )
+	minetest.register_alias( "lottblocks:door_mallorn_lock_d",    "lord_wooden_stuff:door_mallorn_lock_d"    )
+	minetest.register_alias( "lottblocks:door_pine",              "lord_wooden_stuff:door_pine"              )
+	minetest.register_alias( "lottblocks:door_pine_a",            "lord_wooden_stuff:door_pine_a"            )
+	minetest.register_alias( "lottblocks:door_pine_b",            "lord_wooden_stuff:door_pine_b"            )
+	minetest.register_alias( "lottblocks:door_pine_c",            "lord_wooden_stuff:door_pine_c"            )
+	minetest.register_alias( "lottblocks:door_pine_d",            "lord_wooden_stuff:door_pine_d"            )
+	minetest.register_alias( "lottblocks:door_pine_lock",         "lord_wooden_stuff:door_pine_lock"         )
+	minetest.register_alias( "lottblocks:door_pine_lock_a",       "lord_wooden_stuff:door_pine_lock_a"       )
+	minetest.register_alias( "lottblocks:door_pine_lock_b",       "lord_wooden_stuff:door_pine_lock_b"       )
+	minetest.register_alias( "lottblocks:door_pine_lock_c",       "lord_wooden_stuff:door_pine_lock_c"       )
+	minetest.register_alias( "lottblocks:door_pine_lock_d",       "lord_wooden_stuff:door_pine_lock_d"       )
+end
 
----@param fname string @in format: `"%s:something_%s"`
----@param wood string @name_postfix from config
----@param new_name string? @if given, then it will be used as string to format for new name
-local function register_alias_by_str(fname, wood, new_name)
-	local old = string.format(fname, oldmod, wood)
-	local fname_new = new_name or fname
-	local new = string.format(fname_new, newmod, wood)
-	minetest.register_alias(old, new)
+local function register_hatches_aliases()
+	minetest.register_alias( "lottblocks:hatch_alder",           "lord_wooden_stuff:hatch_alder"           )
+	minetest.register_alias( "lottblocks:hatch_alder_open",      "lord_wooden_stuff:hatch_alder_open"      )
+	minetest.register_alias( "lottblocks:hatch_beech",           "lord_wooden_stuff:hatch_beech"           )
+	minetest.register_alias( "lottblocks:hatch_beech_open",      "lord_wooden_stuff:hatch_beech_open"      )
+	minetest.register_alias( "lottblocks:hatch_birch",           "lord_wooden_stuff:hatch_birch"           )
+	minetest.register_alias( "lottblocks:hatch_birch_open",      "lord_wooden_stuff:hatch_birch_open"      )
+	minetest.register_alias( "lottblocks:hatch_cherry",          "lord_wooden_stuff:hatch_cherry"          )
+	minetest.register_alias( "lottblocks:hatch_cherry_open",     "lord_wooden_stuff:hatch_cherry_open"     )
+	minetest.register_alias( "lottblocks:hatch_culumalda",       "lord_wooden_stuff:hatch_culumalda"       )
+	minetest.register_alias( "lottblocks:hatch_culumalda_open",  "lord_wooden_stuff:hatch_culumalda_open"  )
+	minetest.register_alias( "lottblocks:hatch_elm",             "lord_wooden_stuff:hatch_elm"             )
+	minetest.register_alias( "lottblocks:hatch_elm_open",        "lord_wooden_stuff:hatch_elm_open"        )
+	minetest.register_alias( "lottblocks:hatch_fir",             "lord_wooden_stuff:hatch_fir"             )
+	minetest.register_alias( "lottblocks:hatch_fir_open",        "lord_wooden_stuff:hatch_fir_open"        )
+	minetest.register_alias( "lottblocks:hatch_hardwood",        "lord_wooden_stuff:hatch_hardwood"        )
+	minetest.register_alias( "lottblocks:hatch_hardwood_open",   "lord_wooden_stuff:hatch_hardwood_open"   )
+	minetest.register_alias( "lottblocks:hatch_junglewood",      "lord_wooden_stuff:hatch_junglewood"      )
+	minetest.register_alias( "lottblocks:hatch_junglewood_open", "lord_wooden_stuff:hatch_junglewood_open" )
+	minetest.register_alias( "lottblocks:hatch_lebethron",       "lord_wooden_stuff:hatch_lebethron"       )
+	minetest.register_alias( "lottblocks:hatch_lebethron_open",  "lord_wooden_stuff:hatch_lebethron_open"  )
+	minetest.register_alias( "lottblocks:hatch_mallorn",         "lord_wooden_stuff:hatch_mallorn"         )
+	minetest.register_alias( "lottblocks:hatch_mallorn_open",    "lord_wooden_stuff:hatch_mallorn_open"    )
+	minetest.register_alias( "lottblocks:hatch_pine",            "lord_wooden_stuff:hatch_pine"            )
+	minetest.register_alias( "lottblocks:hatch_pine_open",       "lord_wooden_stuff:hatch_pine_open"       )
+	minetest.register_alias( "lottblocks:hatch_plum",            "lord_wooden_stuff:hatch_plum"            )
+	minetest.register_alias( "lottblocks:hatch_plum_open",       "lord_wooden_stuff:hatch_plum_open"       )
+end
+
+local function register_fences_aliases()
+	minetest.register_alias( "lottblocks:fence_alder",          "lord_wooden_stuff:fence_alder"          )
+	minetest.register_alias( "lottblocks:fence_beech",          "lord_wooden_stuff:fence_beech"          )
+	minetest.register_alias( "lottblocks:fence_birch",          "lord_wooden_stuff:fence_birch"          )
+	minetest.register_alias( "lottblocks:fence_cherry",         "lord_wooden_stuff:fence_cherry"         )
+	minetest.register_alias( "lottblocks:fence_culumalda",      "lord_wooden_stuff:fence_culumalda"      )
+	minetest.register_alias( "lottblocks:fence_elm",            "lord_wooden_stuff:fence_elm"            )
+	minetest.register_alias( "lottblocks:fence_fir",            "lord_wooden_stuff:fence_fir"            )
+	minetest.register_alias( "lottblocks:fence_hardwood",       "lord_wooden_stuff:fence_hardwood"       )
+	minetest.register_alias( "lottblocks:fence_lebethron",      "lord_wooden_stuff:fence_lebethron"      )
+	minetest.register_alias( "lottblocks:fence_mallorn",        "lord_wooden_stuff:fence_mallorn"        )
+	minetest.register_alias( "lottblocks:fence_pine",           "lord_wooden_stuff:fence_pine"           )
+	minetest.register_alias( "lottblocks:fence_plum",           "lord_wooden_stuff:fence_plum"           )
+	minetest.register_alias( "lottblocks:fence_rail_alder",     "lord_wooden_stuff:fence_rail_alder"     )
+	minetest.register_alias( "lottblocks:fence_rail_beech",     "lord_wooden_stuff:fence_rail_beech"     )
+	minetest.register_alias( "lottblocks:fence_rail_birch",     "lord_wooden_stuff:fence_rail_birch"     )
+	minetest.register_alias( "lottblocks:fence_rail_cherry",    "lord_wooden_stuff:fence_rail_cherry"    )
+	minetest.register_alias( "lottblocks:fence_rail_culumalda", "lord_wooden_stuff:fence_rail_culumalda" )
+	minetest.register_alias( "lottblocks:fence_rail_elm",       "lord_wooden_stuff:fence_rail_elm"       )
+	minetest.register_alias( "lottblocks:fence_rail_fir",       "lord_wooden_stuff:fence_rail_fir"       )
+	minetest.register_alias( "lottblocks:fence_rail_hardwood",  "lord_wooden_stuff:fence_rail_hardwood"  )
+	minetest.register_alias( "lottblocks:fence_rail_lebethron", "lord_wooden_stuff:fence_rail_lebethron" )
+	minetest.register_alias( "lottblocks:fence_rail_mallorn",   "lord_wooden_stuff:fence_rail_mallorn"   )
+	minetest.register_alias( "lottblocks:fence_rail_pine",      "lord_wooden_stuff:fence_rail_pine"      )
+	minetest.register_alias( "lottblocks:fence_rail_plum",      "lord_wooden_stuff:fence_rail_plum"      )
+end
+
+local function register_sticks_aliases()
+	minetest.register_alias( "lottblocks:stick_alder",      "lord_wooden_stuff:stick_alder"      )
+	minetest.register_alias( "lottblocks:stick_beech",      "lord_wooden_stuff:stick_beech"      )
+	minetest.register_alias( "lottblocks:stick_birch",      "lord_wooden_stuff:stick_birch"      )
+	minetest.register_alias( "lottblocks:stick_cherry",     "lord_wooden_stuff:stick_cherry"     )
+	minetest.register_alias( "lottblocks:stick_culumalda",  "lord_wooden_stuff:stick_culumalda"  )
+	minetest.register_alias( "lottblocks:stick_elm",        "lord_wooden_stuff:stick_elm"        )
+	minetest.register_alias( "lottblocks:stick_fir",        "lord_wooden_stuff:stick_fir"        )
+	minetest.register_alias( "lottblocks:stick_hardwood",   "lord_wooden_stuff:stick_hardwood"   )
+	minetest.register_alias( "lottblocks:stick_junglewood", "lord_wooden_stuff:stick_junglewood" )
+	minetest.register_alias( "lottblocks:stick_lebethron",  "lord_wooden_stuff:stick_lebethron"  )
+	minetest.register_alias( "lottblocks:stick_mallorn",    "lord_wooden_stuff:stick_mallorn"    )
+	minetest.register_alias( "lottblocks:stick_pine",       "lord_wooden_stuff:stick_pine"       )
+	minetest.register_alias( "lottblocks:stick_plum",       "lord_wooden_stuff:stick_plum"       )
+end
+
+local function register_ladders_aliases()
+	minetest.register_alias( "lottblocks:ladder_alder",      "lord_wooden_stuff:ladder_alder"      )
+	minetest.register_alias( "lottblocks:ladder_beech",      "lord_wooden_stuff:ladder_beech"      )
+	minetest.register_alias( "lottblocks:ladder_birch",      "lord_wooden_stuff:ladder_birch"      )
+	minetest.register_alias( "lottblocks:ladder_cherry",     "lord_wooden_stuff:ladder_cherry"     )
+	minetest.register_alias( "lottblocks:ladder_culumalda",  "lord_wooden_stuff:ladder_culumalda"  )
+	minetest.register_alias( "lottblocks:ladder_elm",        "lord_wooden_stuff:ladder_elm"        )
+	minetest.register_alias( "lottblocks:ladder_fir",        "lord_wooden_stuff:ladder_fir"        )
+	minetest.register_alias( "lottblocks:ladder_hardwood",   "lord_wooden_stuff:ladder_hardwood"   )
+	minetest.register_alias( "lottblocks:ladder_junglewood", "lord_wooden_stuff:ladder_junglewood" )
+	minetest.register_alias( "lottblocks:ladder_lebethron",  "lord_wooden_stuff:ladder_lebethron"  )
+	minetest.register_alias( "lottblocks:ladder_mallorn",    "lord_wooden_stuff:ladder_mallorn"    )
+	minetest.register_alias( "lottblocks:ladder_pine",       "lord_wooden_stuff:ladder_pine"       )
+	minetest.register_alias( "lottblocks:ladder_plum",       "lord_wooden_stuff:ladder_plum"       )
+end
+
+local function register_stanchions_aliases()
+	minetest.register_alias( "lottblocks:alder_stanchion",      "lord_wooden_stuff:stanchion_alder"      )
+	minetest.register_alias( "lottblocks:beech_stanchion",      "lord_wooden_stuff:stanchion_beech"      )
+	minetest.register_alias( "lottblocks:birch_stanchion",      "lord_wooden_stuff:stanchion_birch"      )
+	minetest.register_alias( "lottblocks:cherry_stanchion",     "lord_wooden_stuff:stanchion_cherry"     )
+	minetest.register_alias( "lottblocks:culumalda_stanchion",  "lord_wooden_stuff:stanchion_culumalda"  )
+	minetest.register_alias( "lottblocks:elm_stanchion",        "lord_wooden_stuff:stanchion_elm"        )
+	minetest.register_alias( "lottblocks:fir_stanchion",        "lord_wooden_stuff:stanchion_fir"        )
+	minetest.register_alias( "lottblocks:hardwood_stanchion",   "lord_wooden_stuff:stanchion_hardwood"   )
+	minetest.register_alias( "lottblocks:junglewood_stanchion", "lord_wooden_stuff:stanchion_junglewood" )
+	minetest.register_alias( "lottblocks:lebethron_stanchion",  "lord_wooden_stuff:stanchion_lebethron"  )
+	minetest.register_alias( "lottblocks:mallorn_stanchion",    "lord_wooden_stuff:stanchion_mallorn"    )
+	minetest.register_alias( "lottblocks:pine_stanchion",       "lord_wooden_stuff:stanchion_pine"       )
+	minetest.register_alias( "lottblocks:plum_stanchion",       "lord_wooden_stuff:stanchion_plum"       )
+	minetest.register_alias( "lottblocks:wood_stanchion",       "lord_wooden_stuff:stanchion_wood"       )
+end
+
+local function register_tables_aliases()
+	minetest.register_alias( "lottblocks:alder_table",      "lord_wooden_stuff:table_alder"      )
+	minetest.register_alias( "lottblocks:beech_table",      "lord_wooden_stuff:table_beech"      )
+	minetest.register_alias( "lottblocks:birch_table",      "lord_wooden_stuff:table_birch"      )
+	minetest.register_alias( "lottblocks:cherry_table",     "lord_wooden_stuff:table_cherry"     )
+	minetest.register_alias( "lottblocks:culumalda_table",  "lord_wooden_stuff:table_culumalda"  )
+	minetest.register_alias( "lottblocks:elm_table",        "lord_wooden_stuff:table_elm"        )
+	minetest.register_alias( "lottblocks:fir_table",        "lord_wooden_stuff:table_fir"        )
+	minetest.register_alias( "lottblocks:hardwood_table",   "lord_wooden_stuff:table_hardwood"   )
+	minetest.register_alias( "lottblocks:junglewood_table", "lord_wooden_stuff:table_junglewood" )
+	minetest.register_alias( "lottblocks:lebethron_table",  "lord_wooden_stuff:table_lebethron"  )
+	minetest.register_alias( "lottblocks:mallorn_table",    "lord_wooden_stuff:table_mallorn"    )
+	minetest.register_alias( "lottblocks:pine_table",       "lord_wooden_stuff:table_pine"       )
+	minetest.register_alias( "lottblocks:plum_table",       "lord_wooden_stuff:table_plum"       )
+	minetest.register_alias( "lottblocks:wood_table",       "lord_wooden_stuff:table_wood"       )
+end
+
+local function register_chairs_aliases()
+	minetest.register_alias( "lottblocks:alder_chair",      "lord_wooden_stuff:chair_alder"      )
+	minetest.register_alias( "lottblocks:beech_chair",      "lord_wooden_stuff:chair_beech"      )
+	minetest.register_alias( "lottblocks:birch_chair",      "lord_wooden_stuff:chair_birch"      )
+	minetest.register_alias( "lottblocks:cherry_chair",     "lord_wooden_stuff:chair_cherry"     )
+	minetest.register_alias( "lottblocks:culumalda_chair",  "lord_wooden_stuff:chair_culumalda"  )
+	minetest.register_alias( "lottblocks:elm_chair",        "lord_wooden_stuff:chair_elm"        )
+	minetest.register_alias( "lottblocks:fir_chair",        "lord_wooden_stuff:chair_fir"        )
+	minetest.register_alias( "lottblocks:hardwood_chair",   "lord_wooden_stuff:chair_hardwood"   )
+	minetest.register_alias( "lottblocks:junglewood_chair", "lord_wooden_stuff:chair_junglewood" )
+	minetest.register_alias( "lottblocks:lebethron_chair",  "lord_wooden_stuff:chair_lebethron"  )
+	minetest.register_alias( "lottblocks:mallorn_chair",    "lord_wooden_stuff:chair_mallorn"    )
+	minetest.register_alias( "lottblocks:pine_chair",       "lord_wooden_stuff:chair_pine"       )
+	minetest.register_alias( "lottblocks:plum_chair",       "lord_wooden_stuff:chair_plum"       )
+	minetest.register_alias( "lottblocks:wood_chair",       "lord_wooden_stuff:chair_wood"       )
 end
 
 
-local fnames_with_new_form = {
-	["%s:%s_chair"]     = "%s:chair_%s",
-	["%s:%s_stanchion"] = "%s:stanchion_%s",
-	["%s:%s_table"]     = "%s:table_%s",
-}
----@param wood string @name_postfix from config
-local function register_aliases_with_new_form(wood)
-	for oldn, newn in pairs(fnames_with_new_form) do
-		register_alias_by_str(oldn, wood, newn)
-	end
-end
-
-local fnames_with_same_form = {
-	"%s:door_%s",
-	"%s:door_%s_a",
-	"%s:door_%s_b",
-	"%s:door_%s_c",
-	"%s:door_%s_d",
-	"%s:door_%s_lock_a",
-	"%s:door_%s_lock_b",
-	"%s:door_%s_lock_c",
-	"%s:door_%s_lock_d",
-	"%s:fence_%s",
-	"%s:fence_rail_%s",
-	"%s:hatch_%s",
-	"%s:hatch_%s_open",
-	"%s:ladder_%s",
-	"%s:stick_%s",
-}
----@param wood string @name_postfix from config
-local function register_aliases_with_same_form(wood)
-	for _, fname in ipairs(fnames_with_same_form) do
-		register_alias_by_str(fname, wood)
-	end
-end
-
--- Taken from lottblocks/wooden_stuff.lua.
--- Legacy of legacy literally. :P
-local function register_old_legacy_aliases()
-	minetest.register_alias("lottblocks:wooden_stanchion", "lord_wooden_stuff:wood_stanchion")
-	minetest.register_alias("lottblocks:fence_junglewood", "default:fence_junglewood")
+local function register_aliases()
+	register_doors_aliases()
+	register_hatches_aliases()
+	register_fences_aliases()
+	register_sticks_aliases()
+	register_ladders_aliases()
+	register_stanchions_aliases()
+	register_tables_aliases()
+	register_chairs_aliases()
 end
 
 
-return {
-	register_aliases_by_wood = function(wood)
-		register_aliases_with_new_form(wood)
-		register_aliases_with_same_form(wood)
-		register_old_legacy_aliases()
-	end
-}
+return { register_aliases = register_aliases, }
