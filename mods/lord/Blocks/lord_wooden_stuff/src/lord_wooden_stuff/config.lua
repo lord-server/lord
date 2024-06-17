@@ -21,4 +21,5 @@ local wood_defs = {
 	["wood"]       = { desc="Wooden",     texture="default_wood.png",          wood_name="default:wood", },
 }
 
-return { wood_defs = wood_defs, }
+
+return { wood_defs = wood_defs, translator = minetest.get_translator("lord_wooden_stuff"), }
