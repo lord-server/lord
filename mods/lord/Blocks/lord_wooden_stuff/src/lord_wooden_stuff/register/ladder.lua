@@ -1,3 +1,5 @@
+local S = require("lord_wooden_stuff.config").translator
+
 --- @param name               string node name postfix (`"lord_wooden_stuff:ladder_"..name`). Also used for textures names.
 --- @param description_prefix string used: `S(description_prefix .. " Ladder")`
 --- @param stick_reg_name     string technical name of stick item (ex.: `"default:stick"`) for craft.

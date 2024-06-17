@@ -1,3 +1,5 @@
+local S = require("lord_wooden_stuff.config").translator
+
 ---@param name_postfix string
 ---@param desc_prefix string
 ---@param wood_name string
