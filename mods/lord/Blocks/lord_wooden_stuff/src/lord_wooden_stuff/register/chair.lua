@@ -1,15 +1,13 @@
 local S = require("lord_wooden_stuff.config").translator
 
---- @param name string
---- @param description_prefix string
---- @param texture string
---- @param wood_name string
---- @param node_groups table
-local function register_chair(name, description_prefix, texture, wood_name, node_groups)
-	local chair_reg_name = "lord_wooden_stuff:chair_" .. name
-	minetest.register_node(chair_reg_name, {
-		description         = S(description_prefix .. " Chair"),
-		tiles               = { texture },
+--- @param wood string
+--- @param def LordWoodenStuffDefinition
+--- @param groups table<string,number>
+local function register_chair(wood, def, groups)
+	local name = "lord_wooden_stuff:chair_" .. wood
+	minetest.register_node(name, {
+		description         = S(def.desc .. " Chair"),
+		tiles               = { def.texture },
 		drawtype            = "nodebox",
 		sunlight_propagates = true,
 		paramtype           = 'light',
@@ -29,22 +27,22 @@ local function register_chair(name, description_prefix, texture, wood_name, node
 			type  = "fixed",
 			fixed = { -0.3, -0.5, -0.3, 0.3, 0.5, 0.3 },
 		},
-		groups              = node_groups,
+		groups              = groups,
 		sounds              = default.node_sound_wood_defaults(),
 	})
 	minetest.register_craft({
-		output = chair_reg_name,
+		output = name,
 		recipe = {
 			{ 'group:stick', ''            },
-			{ wood_name,     wood_name     },
+			{ def.wood_name, def.wood_name },
 			{ 'group:stick', 'group:stick' },
 		}
 	})
 	minetest.register_craft({
-		output = chair_reg_name,
+		output = name,
 		recipe = {
 			{ '',            'group:stick' },
-			{ wood_name,     wood_name     },
+			{ def.wood_name, def.wood_name },
 			{ 'group:stick', 'group:stick' },
 		}
 	})

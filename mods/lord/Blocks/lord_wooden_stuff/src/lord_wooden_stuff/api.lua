@@ -17,11 +17,7 @@ local register_chair            = require("lord_wooden_stuff.register.chair")
 ---@param wood string
 ---@param def LordWoodenStuffDefinition
 local function register_wooden_stuff(wood, def)
-	local desc_prefix = def.desc
-	local planks_name = def.wood_name
-	local planks_texture = def.texture
-
-	local node_groups     = table.copy(minetest.registered_nodes[planks_name].groups)
+	local node_groups     = table.copy(minetest.registered_nodes[def.wood_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
@@ -29,23 +25,23 @@ local function register_wooden_stuff(wood, def)
 
 	if wood ~= "wood" then -- in order to not overwrite registrations from minetest_game
 		if not table.contains({ "beech", "cherry", "culumalda", "elm", "fir", "plum", }, wood) then
-			register_doors(wood, desc_prefix, planks_name, node_groups)
+			register_doors(wood, def, node_groups)
 		end
-		register_hatch(wood, desc_prefix, planks_name, node_groups, planks_texture)
+		register_hatch(wood, def, node_groups)
 		if wood ~= "junglewood" then
-			register_fence(wood, desc_prefix, planks_name, node_groups)
+			register_fence(wood, def, node_groups)
 		end
-		stick_reg_name = register_stick(wood, desc_prefix, planks_name)
-		register_ladder(wood, desc_prefix, stick_reg_name, planks_texture)
+		stick_reg_name = register_stick(wood, def)
+		register_ladder(wood, def, stick_reg_name)
 	end
 
 	if table.contains({ "wood", "junglewood", "beech", "elm"}, wood) then
-		register_reinforced_hatch(wood, desc_prefix, planks_name, node_groups)
+		register_reinforced_hatch(wood, def, node_groups)
 	end
 
-	register_stanchion(wood, desc_prefix, planks_texture, node_groups, stick_reg_name or "default:stick")
-	register_table(wood, desc_prefix, planks_texture, planks_name, node_groups)
-	register_chair(wood, desc_prefix, planks_texture, planks_name, node_groups)
+	register_stanchion(wood, def, node_groups, stick_reg_name or "default:stick")
+	register_table(wood, def, node_groups)
+	register_chair(wood, def, node_groups)
 end
 
 
