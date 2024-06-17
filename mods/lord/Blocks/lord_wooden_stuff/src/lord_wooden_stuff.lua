@@ -8,7 +8,8 @@ end
 
 local function register_lord_wooden_stuff()
 	for wood, def in pairs(config.wood_defs) do
-		api.register_wooden_stuff(wood, def)
+		local exceptions = config.wood_stuff_exceptions[wood]
+		api.register_wooden_stuff(wood, def, exceptions)
 	end
 end
 
