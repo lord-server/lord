@@ -4,7 +4,7 @@ local S = require("lord_wooden_stuff.config").translator
 local DS = os.DIRECTORY_SEPARATOR
 
 local mod_path = minetest.get_modpath(minetest.get_current_modname())
-local mod_textures_path = mod_path .. DS .. "textures" .. DS
+local mod_textures_path = mod_path .. DS .. "textures" .. DS .. "hatches" .. DS
 
 -- TODO: get rid of this function with #1467 issue
 ---@param texture string
