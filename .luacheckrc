@@ -61,7 +61,7 @@ read_globals      = {
 	"dye", "stairs", "sethome", "walls", "bucket",
 
 	-- Lord specific
-	"lord", "hb",
+	"lord", "hb", "lord_damage",
 
 	-- Mods APIs
 	"intllib",
