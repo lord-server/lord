@@ -127,7 +127,7 @@ function clans.clan_players_remove(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	Event.trigger(Event.Type.on_clan_player_removed, clan_name, player_name)
+	Event.trigger(Event.Type.on_clan_player_removed, clan, player_name)
 
 	return true, nil
 end

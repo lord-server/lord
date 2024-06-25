@@ -3,7 +3,7 @@ local config = require("web_api.config")
 
 web_api = nil
 
---- @param conf lord_web_api.config
+--- @param conf web_api.config
 --- @return http.Client
 local function register_api()
 	if not config then

@@ -14,12 +14,16 @@ local Resource = {
 	resource = "",
 }
 
---- @param client http.Client
-function Resource:new(client)
+--- @param client       http.Client
+--- @param resource_url string|nil
+function Resource:new(client, resource_url)
 	local class = self
 	self = {}
 
 	self.client   = client
+	if resource_url then
+		self.resource = resource_url
+	end
 
 	return setmetatable(self, { __index = class })
 end

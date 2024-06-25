@@ -28,7 +28,7 @@ end
 --- @static
 --- @param result HTTPRequestResult
 function Logger.log_api_error(result)
-	Logger.error(string.format("API call error: [%s] %s", result.code, dump(result)))
+	Logger.error("API call error: [%s] %s", result.code, dump(result))
 end
 
 
