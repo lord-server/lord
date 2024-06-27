@@ -51,6 +51,8 @@ end
 local function register_callbacks()
 	clans.on_clan_created        = Event.on(Event.Type.on_clan_created)
 	clans.on_clan_deleted        = Event.on(Event.Type.on_clan_deleted)
+	clans.on_clan_blocked        = Event.on(Event.Type.on_clan_blocked)
+	clans.on_clan_unblocked      = Event.on(Event.Type.on_clan_unblocked)
 	clans.on_clan_player_added   = Event.on(Event.Type.on_clan_player_added)
 	clans.on_clan_player_removed = Event.on(Event.Type.on_clan_player_removed)
 	clans.on_clan_player_join    = Event.on(Event.Type.on_clan_player_join)
