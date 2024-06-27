@@ -703,5 +703,7 @@ minetest.register_node(":default:ice", {
 	sounds = default.node_sound_ice_defaults(),
 })
 
+-- Add food points description:
+dofile(minetest.get_modpath("lord_overwrites_mtg_default").."/food.lua")
 
 dofile(minetest.get_modpath("lord_overwrites_mtg_default").."/mapgen.lua")

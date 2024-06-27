@@ -95,3 +95,10 @@ minetest.override_item("farming:cotton_wild", {drop = {
 -- Clear hoes tools
 minetest.unregister_item("farming:hoe_mese")
 minetest.unregister_item("farming:hoe_diamond")
+
+
+-- Add food points description:
+minetest.override_item("farming:bread", {
+	_tt_food    = true,
+	_tt_food_hp = 5,
+})
