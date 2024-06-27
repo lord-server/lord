@@ -112,7 +112,7 @@ function web_clan.set_blocked(clan)
 end
 
 --- @param clan clans.Clan
-function web_clan.set_blocked(clan)
+function web_clan.set_unblocked(clan)
 	local clan_web_id = web_clan.storage.get_clan_web_id(clan.name)
 
 	if not clan_web_id then
