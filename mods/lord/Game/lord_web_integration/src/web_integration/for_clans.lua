@@ -75,6 +75,31 @@ function web_clan.player_del(clan, player_name)
 	web_api.clans:players(clan_web_id):delete(player_web_id, nil, web_clan.logger.log_api_error)
 end
 
+--- @param clan        clans.Clan
+--- @param player_name string
+function web_clan.is_online(clan, player_name)
+	local clan_web_id = web_clan.storage.get_clan_web_id(clan.name)
+
+	if not clan_web_id then
+		return web_clan.logger.error("Can't set clan '%s' is online: failed get web id", clan.name)
+	end
+
+	web_api.clans:is_online(clan_web_id, true, nil, web_clan.logger.log_api_error)
+end
+
+--- @param clan        clans.Clan
+--- @param player_name string
+function web_clan.set_is_online(clan, player_name)
+	local clan_web_id = web_clan.storage.get_clan_web_id(clan.name)
+
+	if not clan_web_id then
+		return web_clan.logger.error("Can't set clan '%s' is {on/off}line: failed get web id", clan.name)
+	end
+
+	local is_online = clans.clan_is_online(clan) or false
+	web_api.clans:is_online(clan_web_id, is_online, nil, web_clan.logger.log_api_error)
+end
+
 
 return {
 	--- @param storage web_integration.Storage
@@ -87,5 +112,7 @@ return {
 		clans.on_clan_deleted(web_clan.delete)
 		clans.on_clan_player_added(web_clan.player_add)
 		clans.on_clan_player_removed(web_clan.player_del)
+		clans.on_clan_player_join(web_clan.is_online)
+		clans.on_clan_player_leave(web_clan.set_is_online)
 	end
 }

@@ -11,7 +11,7 @@ local function register_api()
 		return
 	end
 
-	local client = http.Client:new(config.base_url)
+	local client = http.Client:new(config.base_url, { timeout = 5 })
 
 	_G.web_api = Api:new(client)
 end
