@@ -324,6 +324,8 @@ local S = minetest.get_translator("bees")
     description = S('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
     on_use = minetest.item_eat(1),
+    _tt_food = true,
+    _tt_food_hp = 1,
   })
 
   minetest.register_craftitem('bees:wax', {
@@ -335,6 +337,8 @@ local S = minetest.get_translator("bees")
     description = S('honey comb'),
     inventory_image = 'bees_comb.png',
     on_use = minetest.item_eat(2),
+    _tt_food = true,
+    _tt_food_hp = 2,
   })
 
   --minetest.register_craftitem('bees:queen', {

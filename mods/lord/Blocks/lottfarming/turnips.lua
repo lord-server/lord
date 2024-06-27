@@ -93,6 +93,8 @@ minetest.register_craftitem("lottfarming:turnips", {
 	description     = SL("Turnips"),
 	inventory_image = "lottfarming_turnips.png",
 	on_use          = minetest.item_eat(2),
+	_tt_food        = true,
+	_tt_food_hp     = 2,
 })
 
 farming:add_plant(
@@ -107,4 +109,6 @@ minetest.register_craftitem("lottfarming:turnips_cooked", {
 	description     = SL("Cooked Turnips"),
 	inventory_image = "lottfarming_turnips_cooked.png",
 	on_use          = minetest.item_eat(2),
+	_tt_food        = true,
+	_tt_food_hp     = 2,
 })

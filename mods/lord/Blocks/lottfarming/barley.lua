@@ -83,7 +83,9 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:barley_cooked", {
-	description = SL("Cooked Barley"),
+	description     = SL("Cooked Barley"),
 	inventory_image = "lottfarming_barley_cooked.png",
-	on_use = minetest.item_eat(2),
+	on_use          = minetest.item_eat(2),
+	_tt_food        = true,
+	_tt_food_hp     = 2,
 })

@@ -18,6 +18,8 @@ minetest.register_node("lord_trees:plum", {
 		fleshy = 3, dig_immediate = 3, flammable = 2, leafdecay = 3, leafdecay_drop = 1, color_violet = 1
 	},
 	on_use              = minetest.item_eat(2),
+	_tt_food            = true,
+	_tt_food_hp         = 2,
 	sounds              = default.node_sound_leaves_defaults(),
 	after_place_node    = function(pos, placer, itemstack)
 		if placer:is_player() then
@@ -41,6 +43,8 @@ minetest.register_node("lord_trees:yavannamire_fruit", {
 	},
 	groups              = { fleshy = 3, dig_immediate = 3, flammable = 2, leafdecay = 3, leafdecay_drop = 1 },
 	on_use              = minetest.item_eat(4),
+	_tt_food            = true,
+	_tt_food_hp         = 4,
 	sounds              = default.node_sound_leaves_defaults(),
 	after_place_node    = function(pos, placer, itemstack)
 		if placer:is_player() then

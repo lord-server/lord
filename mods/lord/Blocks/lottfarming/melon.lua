@@ -104,6 +104,8 @@ minetest.register_craftitem("lottfarming:melon", {
 	description     = SL("Melon"),
 	inventory_image = "lottfarming_melon.png",
 	on_use          = minetest.item_eat(2),
+	_tt_food        = true,
+	_tt_food_hp     = 2,
 })
 
 farming:add_plant("lottfarming:melon_3", { "lottfarming:melon_1", "lottfarming:melon_2" }, 80, 20)

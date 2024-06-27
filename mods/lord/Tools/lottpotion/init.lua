@@ -499,38 +499,48 @@ minetest.register_chatcommand("effect", {
 })
 
 minetest.register_craftitem( "lottpotion:wine", {
-	description = SL("Wine"),
+	description     = SL("Wine"),
 	inventory_image = "lottpotion_wine.png",
-	wield_image = "lottpotion_wine.png",
-	on_use = minetest.item_eat(1),
+	wield_image     = "lottpotion_wine.png",
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
 minetest.register_craftitem( "lottpotion:beer", {
-	description = SL("Beer"),
+	description     = SL("Beer"),
 	inventory_image = "lottpotion_beer.png",
-	wield_image = "lottpotion_beer.png",
-	on_use = minetest.item_eat(1),
+	wield_image     = "lottpotion_beer.png",
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
-minetest.register_craftitem( "lottpotion:ale", {
-	description = SL("Ale"),
+minetest.register_craftitem("lottpotion:ale", {
+	description     = SL("Ale"),
 	inventory_image = "lottpotion_ale.png",
-	wield_image = "lottpotion_ale.png",
-	on_use = minetest.item_eat(1),
+	wield_image     = "lottpotion_ale.png",
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
-minetest.register_craftitem( "lottpotion:mead", {
-	description = SL("Mead"),
+minetest.register_craftitem("lottpotion:mead", {
+	description     = SL("Mead"),
 	inventory_image = "lottpotion_mead.png",
-	wield_image = "lottpotion_mead.png",
-	on_use = minetest.item_eat(1),
+	wield_image     = "lottpotion_mead.png",
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
-minetest.register_craftitem( "lottpotion:cider", {
-	description = SL("Cider"),
+minetest.register_craftitem("lottpotion:cider", {
+	description     = SL("Cider"),
 	inventory_image = "lottpotion_cider.png",
-	wield_image = "lottpotion_cider.png",
-	on_use = minetest.item_eat(1),
+	wield_image     = "lottpotion_cider.png",
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
 function lottpotion.can_dig(pos, player)

@@ -17,6 +17,8 @@ minetest.register_craftitem("lottfarming:ear_of_corn", {
 	inventory_image = "lottfarming_ear_of_corn.png",
 	groups          = { salad = 1 },
 	on_use          = minetest.item_eat(4),
+	_tt_food        = true,
+	_tt_food_hp     = 4,
 })
 minetest.register_node("lottfarming:corn_1", {
 	paramtype     = "light",

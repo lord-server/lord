@@ -14,24 +14,26 @@ minetest.register_craftitem("lottfarming:red_mushroom_spore", {
 })
 
 minetest.register_node("lottfarming:red_mushroom", {
-	description = SL("Red Mushroom"),
-	paramtype = "light",
-	paramtype2 = "meshoptions",
-	place_param2 = 9,
-	walkable = false,
-	drawtype = "plantlike",
-	drop = "",
-	tiles = {"lottfarming_red_mushroom_4.png"},
-	selection_box = {
-		type = "fixed",
+	description     = SL("Red Mushroom"),
+	paramtype       = "light",
+	paramtype2      = "meshoptions",
+	place_param2    = 9,
+	walkable        = false,
+	drawtype        = "plantlike",
+	drop            = "",
+	tiles           = { "lottfarming_red_mushroom_4.png" },
+	selection_box   = {
+		type  = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.5+3/16, 0.5}
+			{ -0.5, -0.5, -0.5, 0.5, -0.5 + 3 / 16, 0.5 }
 		},
 	},
-	groups = {snappy=3, flammable=2, mushroom=1, flower=1, color_red=1},
-	sounds = default.node_sound_leaves_defaults(),
+	groups          = { snappy = 3, flammable = 2, mushroom = 1, flower = 1, color_red = 1 },
+	sounds          = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_red_mushroom.png",
-	on_use = minetest.item_eat(2),
+	on_use          = minetest.item_eat(2),
+	_tt_food        = true,
+	_tt_food_hp     = 2,
 })
 minetest.register_node("lottfarming:red_mushroom_1", {
 	paramtype = "light",

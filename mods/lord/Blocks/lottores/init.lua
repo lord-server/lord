@@ -913,26 +913,30 @@ minetest.register_node( "lottores:pearl_block", {
 })
 
 minetest.register_node( "lottores:salt_block", {
-	description = SL("Salt Block"),
-	tiles = { "default_clay.png^lottores_salt_block.png" },
+	description       = SL("Salt Block"),
+	tiles             = { "default_clay.png^lottores_salt_block.png" },
 	is_ground_content = true,
-	groups = {snappy=2,cracky=3,oddly_breakable_by_hand=3},
-	on_use = minetest.item_eat(9),
-	sounds = default.node_sound_stone_defaults(),
+	groups            = { snappy = 2, cracky = 3, oddly_breakable_by_hand = 3 },
+	on_use            = minetest.item_eat(9),
+	_tt_food          = true,
+	_tt_food_hp       = 9,
+	sounds            = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:salt", {
-	description = SL("Salt"),
-	drawtype = "plantlike",
-	visual_scale = 1.0,
-	tiles = {"lottores_salt.png"},
-	inventory_image = "lottores_salt.png",
-	paramtype = "light",
+	description         = SL("Salt"),
+	drawtype            = "plantlike",
+	visual_scale        = 1.0,
+	tiles               = { "lottores_salt.png" },
+	inventory_image     = "lottores_salt.png",
+	paramtype           = "light",
 	sunlight_propagates = true,
-	walkable = false,
-	groups = {fleshy=3,dig_immediate=3,flammable=1},
-	on_use = minetest.item_eat(1),
-	sounds = default.node_sound_defaults(),
+	walkable            = false,
+	groups              = { fleshy = 3, dig_immediate = 3, flammable = 1 },
+	on_use              = minetest.item_eat(1),
+	_tt_food            = true,
+	_tt_food_hp         = 1,
+	sounds              = default.node_sound_defaults(),
 })
 
 -- Craft items

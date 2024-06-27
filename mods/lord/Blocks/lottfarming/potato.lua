@@ -69,15 +69,19 @@ minetest.register_node("lottfarming:potato_3", {
 })
 
 minetest.register_craftitem("lottfarming:potato", {
-	description = SL("Potato"),
+	description     = SL("Potato"),
 	inventory_image = "lottfarming_potato.png",
-	on_use = minetest.item_eat(1),
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
 
 farming:add_plant("lottfarming:potato_3", {"lottfarming:potato_1", "lottfarming:potato_2"}, 50, 20, 40)
 
 minetest.register_craftitem("lottfarming:potato_cooked", {
-	description = SL("Cooked Potato"),
+	description     = SL("Cooked Potato"),
 	inventory_image = "lottfarming_potato_cooked.png",
-	on_use = minetest.item_eat(5),
+	on_use          = minetest.item_eat(5),
+	_tt_food        = true,
+	_tt_food_hp     = 5,
 })

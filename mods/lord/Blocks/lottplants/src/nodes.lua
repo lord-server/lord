@@ -95,7 +95,9 @@ minetest.register_abm({
 })
 
 minetest.register_craftitem("lottplants:honey", {
-	description = S("Honey"),
+	description     = S("Honey"),
 	inventory_image = "lottplants_honey.png",
-	on_use = minetest.item_eat(1),
+	on_use          = minetest.item_eat(1),
+	_tt_food        = true,
+	_tt_food_hp     = 1,
 })
