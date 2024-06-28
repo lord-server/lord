@@ -56,7 +56,7 @@ trader_config.dwarf  = {
 --- @type traders.config
 trader_config.elf    = {
 	goods      = table.merge(trader_config.common_goods, {
-		["lord_trees:mallorn_tree 10"]      = { price = 40,  chance = 5,  stock = 1 },
+		["lord_trees:mallorn_tree 10"]     = { price = 40,  chance = 5,  stock = 1 },
 		["lottores:rough_rock 4"]          = { price = 300, chance = 17, stock = 1 },
 		["lottother:blue_torch 10"]        = { price = 200, chance = 15, stock = 1 },
 		["tools:spear_galvorn 1"]          = { price = 250, chance = 20, stock = 1 },
@@ -69,8 +69,9 @@ trader_config.elf    = {
 		["lottarmor:leggings_galvorn 1"]   = { price = 350, chance = 25, stock = 1 },
 		["lottplants:niphredil 12"]        = { price = 30,  chance = 14, stock = 1 },
 		["lottblocks:mallorn_pillar 30"]   = { price = 70,  chance = 4,  stock = 1 },
-		["lord_trees:mallorn_sapling 3"]    = { price = 20,  chance = 17, stock = 1 },
-		["lord_planks:mallorn 99"]      = { price = 100, chance = 5,  stock = 1 },
+		["lord_trees:mallorn_sapling 3"]   = { price = 20,  chance = 17, stock = 1 },
+		["lord_planks:mallorn 99"]         = { price = 100, chance = 5,  stock = 1 },
+		["lord_food:lembas 1"]             = { price = 400, chance = 10, stock = 1 },
 	}),
 	names      = {
 		"Annael", "Anairë", "Curufin", "Erestor", "Gwindor", "Irimë",
