@@ -306,8 +306,8 @@ mobs:register_mob("lottmobs:sheep", {
 })
 
 mobs:register_spawn("lottmobs:sheep",
-    {"lottmapgen:shire_grass", "lottmapgen:gondor_grass", "lottmapgen:dunland_grass",
-	"lottmapgen:ithilien_grass"},
+    {"lord_ground:dirt_shire", "lord_ground:dirt_gondor", "lord_ground:dirt_dunland",
+	"lord_ground:dirt_ithilien"},
     20, 10, 10000, 1, 31000)
 
 mobs:register_mob("lottmobs:bunny", {

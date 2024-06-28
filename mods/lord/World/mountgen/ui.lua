@@ -19,7 +19,7 @@ mountgen = {
 		rk_small = 100,
 		rk_thr = 5,
 
-		top_cover = "lottmapgen:dunland_grass",
+		top_cover = "lord_ground:dirt_dunland",
 	},
 }
 

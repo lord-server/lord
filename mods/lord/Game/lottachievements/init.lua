@@ -184,7 +184,7 @@ lottachievements.register_achievement("merry_shire", {
 	id          = 11,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:shire_grass",
+		node   = "lord_ground:dirt_shire",
 		target = 1,
 	}
 })
@@ -196,7 +196,7 @@ lottachievements.register_achievement("the_golden_lorien", {
 	id          = 12,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:lorien_grass",
+		node   = "lord_ground:dirt_lorien",
 		target = 1,
 	}
 })
@@ -208,7 +208,7 @@ lottachievements.register_achievement("damaged_greenwood", {
 	id          = 13,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:mirkwood_grass",
+		node   = "lord_ground:dirt_mirkwood",
 		target = 1,
 	}
 })
@@ -220,7 +220,7 @@ lottachievements.register_achievement("iron_hills", {
 	id          = 14,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:ironhill_grass",
+		node   = "lord_ground:dirt_iron_hills",
 		target = 1,
 	}
 })
@@ -244,7 +244,7 @@ lottachievements.register_achievement("lands_of_rohan", {
 	id          = 16,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:rohan_grass",
+		node   = "lord_ground:dirt_rohan",
 		target = 1,
 	}
 })
@@ -256,7 +256,7 @@ lottachievements.register_achievement("lands_of_gondor", {
 	id          = 17,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:gondor_grass",
+		node   = "lord_ground:dirt_gondor",
 		target = 1,
 	}
 })
@@ -268,7 +268,7 @@ lottachievements.register_achievement("live_fangorn", {
 	id          = 18,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:fangorn_grass",
+		node   = "lord_ground:dirt_fangorn",
 		target = 1,
 	}
 })
@@ -280,7 +280,7 @@ lottachievements.register_achievement("anxious_dunland", {
 	id          = 19,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:dunland_grass",
+		node   = "lord_ground:dirt_dunland",
 		target = 1,
 	}
 })
@@ -292,7 +292,7 @@ lottachievements.register_achievement("calm_ithilien", {
 	id          = 20,
 	trigger     = {
 		type   = "dig",
-		node   = "lottmapgen:ithilien_grass",
+		node   = "lord_ground:dirt_ithilien",
 		target = 1,
 	}
 })

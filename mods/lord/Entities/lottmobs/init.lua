@@ -166,7 +166,7 @@ mobs:register_mob("lottmobs:spider", {
 	},
 	step = 1,
 })
---mobs:register_spawn("lottmobs:spider", {"lottmapgen:mirkwood_grass"}, 20, -10, 6000, 3, 31000)
+--mobs:register_spawn("lottmobs:spider", {"lord_ground:dirt_mirkwood"}, 20, -10, 6000, 3, 31000)
 
 mobs:register_mob("lottmobs:rohan_guard", {
 	type = "npc",
@@ -497,7 +497,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		attack = "default_punch2",
 	},
 })
---mobs:register_spawn("lottmobs:hobbit", {"lottmapgen:shire_grass"}, 20, -1, 6000, 3, 31000)
+--mobs:register_spawn("lottmobs:hobbit", {"lord_ground:dirt_shire"}, 20, -1, 6000, 3, 31000)
 
 local orc_armor = "lottarmor_chestplate_steel.png^" ..
 	"lottarmor_leggings_steel.png^" ..

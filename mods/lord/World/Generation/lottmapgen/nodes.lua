@@ -188,17 +188,3 @@ bucket.register_liquid(
 	"lottmapgen_bucket_mordor_water.png",
 	S("Mordor Water Bucket")
 )
-
--- Grasses
-
-minetest.register_node("lottmapgen:default_grass", {
-	tiles             = {
-		"default_grass.png",
-		"default_dirt.png",
-		{ name = "default_dirt.png^default_grass_side.png", tileable_vertical = false }
-	},
-	is_ground_content = true,
-	groups            = { crumbly = 3, soil = 1, grass = 1, not_in_creative_inventory = 1, spreading_dirt_type = 1 },
-	drop              = 'default:dirt',
-	sounds            = default.node_sound_dirt_defaults()
-})

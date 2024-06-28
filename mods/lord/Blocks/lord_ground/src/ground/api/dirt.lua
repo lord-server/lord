@@ -44,6 +44,7 @@ local function register_biome_dirt(node_name, softness, title, definition)
 		groups            = {
 			crumbly = softness, soil = 1, not_in_creative_inventory = 1, dirt = 1, spreading_dirt_type = 1
 		},
+		soil              = { base = node_name, dry = "farming:soil", wet = "farming:soil_wet", },
 		drop              = 'default:dirt',
 		sounds            = default.node_sound_dirt_defaults({
 			footstep = { name = "default_grass_footstep", gain = 0.25 },
