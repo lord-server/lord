@@ -26,3 +26,7 @@ minetest.register_alias("defaults:lottmapgen_rohan_grass", "defaults:lord_ground
 minetest.register_alias("defaults:lottmapgen_shire_grass", "defaults:lord_ground_dirt_shire")
 
 minetest.register_alias("lottmapgen:mordor_sand", "lord_ground:mordor_sand")
+
+
+-- Other:
+minetest.register_alias("lottmapgen:default_grass", "lord_ground:dirt_gondor")
