@@ -126,6 +126,7 @@ minetest.register_chatcommand("life", {
 		return true, SL("Command reserved. For teleporting to Old Central Spawn use command `/center`")
 	end
 })
+spawn.register_hall("bree", "Bree")
 
 minetest.register_on_newplayer(function(obj)
 	return spawn.put_player_at_spawn(obj, "common_spawn_pos")

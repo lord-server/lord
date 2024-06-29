@@ -250,6 +250,7 @@ lp_api.router.cmd = true
 common_spawn_pos = 330, 20, 160
 hall_of_life_pos = 330, 20, 160
 hall_of_death_pos = 380, 2, -6
+hall_of_bree_pos = 417, 23, 193
 # спауны для рас ( GH: #330 )
 dynamic_spawn = true
 elf_spawn_pos = 440, 22, 98
