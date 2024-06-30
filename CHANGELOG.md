@@ -1,5 +1,156 @@
 # Change Log
 
+## [2024.06](https://github.com/lord-server/lord/releases/tag/2024.06)
+ - Колонны теперь можно ставить без блока под ними. Closes #1269 (#1361)
+ - Dirt bloscks: add coarse & stony dirts for desert & mordor. Closes #1321
+ - Add Lembas. Closes #1491
+ - Added reinforced hatches (#1380). Closes #1226
+ - Add lord_books:scroll (#1328)
+ - Add straw bed. And you can sleep on it (#1394)
+ - Clans v2:
+   - feature: max players in clan - 10 (fixes #1346)
+   - Feature: raid bell notification cooldown. Closes #1325 (#1381)
+   - Auto-Kick inactive players from clans (#1385). Closes #1324.
+   - Added clan Tapestries (#1393). Closes #1370.
+     - README for clan tapestries (#1399)
+   - Feature: clan blocking (#1396). Closes #1372.
+   - Refresh player tag-name (add/del clan postfix) on the fly, when player {add|delete}ed to clan (no need to re-login) (#1398)
+   - Commands `clans.list` and `clans.show` available for all (closes #1432)
+ - Reduced time of day end for beds (#1410). Closes #780.
+ - Configure Hobbiton coordinates. Official opening of Hobbits spawn.
+ - Tooltips: for food items now shows food points. Closes #1484
+
+ - Textures:
+   - New textures for mithril, silver, tin, copper, gold, iron ores. Close #1290
+
+ - Bug fixes:
+   - Correction of the number of used bottles when crafting mead. fix #1350
+   - Adding a check for the ability to place bottles (stop brewer barrel if not enough place). fix #1364 (#1365)
+   - No warning of non-existent textures when login. (#1358) Fixes #1354
+   - Fix invisible fishes (Set use_texture_alpha = false for mobs)
+   - Unified straw: Fixed multiple straws: using farming's (#1426). Closes #1414. Closes #1203.
+   - Now pictures and not annihilates blocks. Closes #319
+   - Fixes for painting mod (#1482). Closes #1197.
+   - Extended Tooltips: add "Luminance: N" for Lampposts. Fixes #1483
+
+ - Technical:
+   - Clans enchancements. Add localization (#1357). Closes #1347
+   - Force Linux eol in `.gitattributes`.
+   - Add label `unconfirmed` into bug-issue template.
+   - Fix: english troubles
+   - Refactoring castle (tapestries) (#1389). Relates to #1370
+   - Add straw bed craftitem texture and use textures from castle (#1395)
+   - Add CODE_OF_CONDUCT.md
+   - CODE_OF_CONDUCT.md fixes
+   - Generated mods: fix tabs in `init.lua`; add `mod.conf`; add cmd & arg description.
+   - Added clans callbacks API
+   - Total turning off mechanism if no `lord_ground.mordor_{from|to}` settings found (#1369). Closes #1360.
+   - Removed unnecessary clear craft statements (#1416). Closes #710
+   - Fixed global planks (#1417).  Closes #1415
+   - Clans v2: rectructure files. Relates to #1419
+   - Clans v2: rename some functions and commands. Relates to #1422
+   - Clans v2: minimal restructure `clans` mod as new format. Closes #1419
+   - Add mod `player_nametag` for managing displayed phrase. Closes #1427
+   - Fix crash on clan player auto-kick. Closes #1430
+   - NameTag Manager: add ability to pass params into `Segment:update()`. Relates to #1427
+   - Clans: auto-kick: log error, if no `auth` for player found. Relates to #1430
+   - NameTag Manager: add ability to use `Segment:update()` with values & ability to use function as `value`. Relates to #1427
+   - Clans v2: use `player_nametag` mod. Relates to #1423
+   - Clans v2: rename subscription functions. Relates to #1424
+   - Clans v2: change callbacks signature; use own callbacks for nametags. Relates to #1423
+   - Clans v2: unify change player nametsg; remove redundant functions. Relates to #1423
+   - Clans v2: extract some nametag operations into separate file. Closes #1423
+   - Clans v2: just reorder code in `callbacks.lua`. Relates to #1424
+   - Clans v2: fix fogotten `require("clans.players.nametag")`. Relates to #1423.
+   - Clans v2: rename & collect all subscribers callbacks in one array. Relates to #1424
+   - Clans v2: rename callbacks types. Relates to #1424
+   - Clans v2: rename `callbacks` => `Event`. Relates to #1424
+   - Clans v2: unify `Event` subscription. Relates to #1424
+   - Clans v2: unify `Event` subscribers notification. Relates to #1424
+   - Clans v2: unify `Event` triggering. Closes #1424
+   - Clans v2: fix typo. Relates to #1430
+   - Fix nametag cleaning
+   - Added on_clan_player_join/leave callbacks
+   - Added on_clan_(un)blocked callbacks
+   - Fixed review remark
+   - Clans v2. Change `/clans.register` command. Add color. Closes #1440, #1435
+   - Clans v2:  in several lines; add color for title. #1433
+   - Beautified clans.list chat command
+   - Improved clans.list and beautified clans.list
+   - /lists writes localized strings now (#1447)
+   - Clans: players must exist now (#1458). Closes #1421.
+   - Converted lottblocks/sounds to mono. Fixes #1460. (#1462)
+   - Created new mod lord_wooden_stuff. Relates to #1233
+   - Moved wooden_stuff.lua to lord_wooden_stuff.api
+   - %s/lottblocks/lord_wooden_stuff/g - relates to #1233.
+   - Removed lord_planks textures dups. Relates to #1233
+   - Removed ladder inventory images. Relates to #1233.
+   - Moved textures to new mod. Relates to #1233.
+   - Used optipng on textures and deleted metadata. Relates to #1233.
+   - Renamed stick textures. Related to #1233
+   - Removed wooden_stuff.lua from lottblocks init. Relates to #1233
+   - Removed unknown namespace from api. Relates to #1233
+   - Corrected stuff names. Relates to #1233
+   - Replaced wooden stuff in other mods to new. Relates to #1233
+   - Moved wood types to config. Related to #1233
+   - Fixed some aliases. Relates to #1233
+   - Documented register_wooden_stuff func :memo:
+   - Moved locales to new mod. Relates to #1233
+   - Replaced weird func with normal one
+   - Handling legacy stuff. Relates to #1233
+   - Fixed ladder texture. Relates to #1233
+   - Created new "type" for wooden stuff def
+   - Teached main registering func to work with new def
+   - Fixed protected doors textures
+   - Moved old legacy aliases to legacy.lua
+   - Moved some checks from funcs to registering func
+   - Changed LordWoodenStuffDef (separated name)
+   - Handled legacy in another way :spaghetti:
+   - Some renaming :truck:
+   - Separated functions to files :recycle:
+   - Fixed localization :globe_with_meridians:
+   - Changed func arguments, some renaming :recycle:
+   - Standardization of registration functions :recycle:
+   - Added exceptions for wood stuff types :recycle:
+   - Little enchancements everywhere
+   - Fixed luacheck warnings
+   - Some refactoring to fix cyclomatic complexity
+   - Moved textures to folders.
+   - Updating painting mod (#1482). Closes #1197.
+   - Unregistered painting canvas 64x64 (it causes freezes)
+   - Updated painting submodule
+   - Add `http_client` mod skeleton. Relates to #1401 #1402
+   - Add `lord_web_api` mod skeleton. Relates to #1401 #1333
+   - Game-Web: add add skeleton for `lord_web_integration` mod Closes #1401. Relates to #1234, #1335, #1336, #1337, #1338, #1339
+   - Added type hints for http defs (fixes #1403)
+   - Add `HTTPApiTable` class definition into `mt-ide-helper`. Relates to #1402
+   - Implement HTTP Client. Closes #1402
+   - Game-Web: add `lord_web_api`. Closes #1333
+   - Game-Web: rename mod `http_client` -> `http`. Relates to #1402
+   - Move `Resource` class into `http` mod. Relates to #1402 #1333
+   - Game-Web: rename `lord_web_api` -> `web_api` global ver. Relates to #1333
+   - `http` mod fixes. Relates to #1402.
+   - Game-Web: improve `lord_web_api`: check if `http` not init. Relates to #1333
+   - Game-Web: add integrations for `player` creating & updating `last_login` on player join. Closes #1334. Closes #1335
+   - Game-Web: add integration for `clan` creation & deletion. Closes #1336. Closes #1443
+   - Game-Web: add integration for clan player add & del. Closes #1338, closes #1339
+   - Game-Web: add intergation clan online/offline. Closes #1488
+   - Add publuc access for `on_clan_[un]clocked` events. Relates to #1437, #1438
+   - Game-Web: add intergation clan [un]blocked. Closes #1444
+   - Direct poligon MT to production website
+   - Fix typo in `set_unblocked()` func.
+   - Food points in food items (lord). Relates to #1484
+   - Food points in food items (mtg & various). Closes to #1484
+   - Tmp tool for print food points.
+   - Dirt blocks: replace all old names with new ones. Closes #1348
+   - Dirt blocks: add aliases for ghost bloscks. Relates to #1348. Closes #1428
+   - Temporary command `/bree`
+   - Add alias for legacy `lottmapgen:default_grass`. Closes #1492
+   - Update Lembas texture. Relates to #1491
+   - Web API: fix parent class contructor call. Fixes #1495
+   - Economics: Shops Analytics: add backbone for `web_api.shops`. Relates to #1478
+
+
 ## [2024.04.p4](https://github.com/lord-server/lord/releases/tag/2024.04.p4)
  - Add command `/center`, reserve command `/life`.
  - Change server descrioption & max players. Closes #1449
