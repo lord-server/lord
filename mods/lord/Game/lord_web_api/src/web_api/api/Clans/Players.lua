@@ -7,7 +7,7 @@ setmetatable(Players, { __index = http.Resource })
 --- @param client              http.Client
 --- @param parent_resource_url string
 function Players:new(client, parent_resource_url)
-	return http.Resource:new(client, parent_resource_url .. RESOURCE)
+	return http.Resource.new(self, client, parent_resource_url .. RESOURCE)
 end
 
 --- @param player_web_id number
