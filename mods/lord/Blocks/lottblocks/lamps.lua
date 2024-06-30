@@ -36,6 +36,7 @@ function lottblocks.register_lamp(
 		wield_image      = inv_texture,
 		groups           = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
 		paramtype        = "light",
+		light_source     = 14, -- this param needs only for tt snippet to display "Luminance: N" in item tooltip
 		drawtype         = "nodebox",
 		node_box         = {
 			type  = "fixed",
