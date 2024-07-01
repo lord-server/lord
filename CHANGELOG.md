@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.06.p1](https://github.com/lord-server/lord/releases/tag/2024.06.p1)
+ - Changed painting mod to lord fork
+ - Reduce nazgul spawn in nazgul area.
+
 ## [2024.06](https://github.com/lord-server/lord/releases/tag/2024.06)
  - Колонны теперь можно ставить без блока под ними. Closes #1269 (#1361)
  - Dirt bloscks: add coarse & stony dirts for desert & mordor. Closes #1321
