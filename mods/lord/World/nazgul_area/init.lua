@@ -57,7 +57,7 @@ minetest.register_abm({
 	label = "nazgul_area_spawning",
 	nodenames = {"lord_blocks:green_marble"},
 	interval = 30,
-	chance = 300,
+	chance = 5000,
 	catch_up = false,
 
 	action = function(pos, node, active_object_count, active_object_count_wider)
@@ -77,7 +77,7 @@ minetest.register_abm({
 			pos.y = pos.y + 1
 			minetest.add_entity(pos, "lottmobs:witch_king")
 		else
-			if count_mobs(pos, "lottmobs:nazgul") >= 8 then
+			if count_mobs(pos, "lottmobs:nazgul") >= 3 then
 				return
 			end
 
