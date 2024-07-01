@@ -88,4 +88,5 @@
 	url = https://github.com/Uberi/Minetest-WorldEdit.git
 [submodule "mods/_various/painting"]
 	path = mods/_various/painting
-	url = https://github.com/sfence/painting
+	url = https://github.com/lord-server-forks/painting.git
+	branch = crash-hotfix
