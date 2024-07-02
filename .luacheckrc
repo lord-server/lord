@@ -42,7 +42,7 @@ read_globals      = {
 
 	io = { fields = {
 		-- our Core/helpers:
-		"file_exists",
+		"file_exists", "write_to_file"
 	} },
 
 	os = { fields = {
