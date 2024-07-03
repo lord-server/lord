@@ -3,7 +3,9 @@ local S = minetest.get_translator("lord_planks")
 
 local planks = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
-	nodes = {}
+	nodes = {},
+	--- @type table<string,NodeDefinition>|NodeDefinition[]
+	lord_nodes = {},
 }
 
 --- @param node_name string technical node name ("<mod>:<node>").
@@ -41,7 +43,8 @@ local function register_planks(node_name, hardness, craft, groups, title)
 		place_param2 = 0,
 	})
 
-	planks.nodes[node_name] = minetest.registered_nodes[node_name]
+	planks.nodes[node_name]      = minetest.registered_nodes[node_name]
+	planks.lord_nodes[node_name] = minetest.registered_nodes[node_name]
 
 	local stairs_subname = sub_name
 	stairs.register_stair_and_slab(
@@ -74,4 +77,5 @@ return {
 	register_planks = register_planks,
 	--- @return NodeDefinition[]
 	get_nodes       = function() return planks.nodes end,
+	get_lord_nodes  = function() return planks.lord_nodes end,
 }
