@@ -1,3 +1,6 @@
+local S_tt = minetest.get_translator("tt_base")
+
+
 require("bows.behavior.mechanics_throwing")
 local entity_projectiles = require("bows.behavior.entity_projectiles")
 
@@ -94,7 +97,9 @@ local function register_projectile(name, reg)
 		damage   = reg.damage or 10,
 	})
 
-	minetest.register_craftitem(name, def)
+	minetest.register_craftitem(name, table.overwrite({
+		_tt_help = S_tt("Damage: @1", reg.damage)
+	}, def))
 end
 
 return {
