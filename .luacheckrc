@@ -10,8 +10,8 @@ globals           = {
 	"default", "doors", "farming", "player_api",
 	"sethome.set", "beds",
 
-	-- Other APIs
-	"hbhunger",
+	-- Other APIs (mods/_various)
+	"hbhunger", "tt"
 }
 
 read_globals      = {
