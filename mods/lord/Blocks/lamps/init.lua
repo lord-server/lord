@@ -353,3 +353,13 @@ minetest.register_craft({
 		{"lord_homedecor:candle"},
 		{"default:steel_ingot"}},
 })
+
+for plank_name, plank in pairs(planks.get_lord_nodes()) do
+	local node_name   = "lamps:mese_post_light_" .. plank_name:split(":")[2]
+	local description = plank.description .. " Mese Post Light"
+	default.register_mesepost(node_name, {
+		description = S(description),
+		texture     = plank.tiles[1],
+		material    = plank_name,
+	})
+end
