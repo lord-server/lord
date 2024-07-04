@@ -2,11 +2,13 @@
 local function find_foods_points()
 	local foods_points_lines = ""
 
-	for key, value in pairs(minetest.registered_items) do
-		if value._tt_food then
-			local description = minetest.get_translated_string('ru', value.description)
+	for name, node in pairs(minetest.registered_items) do
+		if node._tt_food then
+			local description = minetest.get_translated_string('ru', node.description)
 			description = description:split("\n")[1]
-			foods_points_lines = foods_points_lines .. key .. "\t" .. description .. "\t" .. value._tt_food_hp .. "\n"
+			local hb_value = hbhunger.food[name] and hbhunger.food[name].saturation or nil
+			foods_points_lines = foods_points_lines ..
+				name .. "\t" .. description .. "\t" .. node._tt_food_hp .. "\t" .. (hb_value or "-") .. "\n"
 		end
 	end
 
