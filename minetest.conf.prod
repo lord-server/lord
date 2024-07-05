@@ -310,3 +310,6 @@ christmas_tree_gifts = lottfarming:salad 23,lottpotion:cider 23,default:blueberr
 # ------- lord/nazgul_area
 # Минас-Моргул, где на зеленом мраморе спавнятся назгулы
 nazgul_areas = 10605
+
+# ------- lord/Game/lord_web_api
+lord_web_api.base_url = https://lord-server.ru/api
