@@ -1,6 +1,6 @@
 # Change Log
 
-## [2024.06.p1](https://github.com/lord-server/lord/releases/tag/2024.06.p1)
+## [2024.06.p2](https://github.com/lord-server/lord/releases/tag/2024.06.p2)
  - Game-Web: turn on integration on production. Relates to lord-server/infrastructure#7
  - Add `spawn_to` privilege. Closes #1511
 
