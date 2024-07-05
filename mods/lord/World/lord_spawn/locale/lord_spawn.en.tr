@@ -1,11 +1,14 @@
 # textdomain: lord_spawn
+
+Can teleports to any race spawn.=Can teleports to any race spawn.
+Teleports to specified Spawn.=Teleports to specified Spawn.
+
 Teleport to Spawn=Teleport to Spawn
 Teleport to orc Spawn=Teleport to Orc Spawn
 Teleport to man Spawn=Teleport to Man Spawn
 Teleport to dwarf Spawn=Teleport to Dwarf Spawn
 Teleport to hobbit Spawn=Teleport to Hobbit Spawn
 Teleport to elf Spawn=Teleport to Elf Spawn
-Teleport to specified Spawn=Teleport to specified Spawn
 Teleport to the Hall of Life=Teleport to the Hall of Life
 Teleport to the Hall of Death=Teleport to the Hall of Death
 Teleport to the Hall of Dol Guldur=Teleport to the Dol Guldur
