@@ -466,6 +466,8 @@ function minetest.register_craft(recipe) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4533-L4542)
 function minetest.clear_craft(recipe) end
+--- @param cmd                    string
+--- @param chatcommand_definition ChatCommandDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4543-L4543)
 function minetest.register_chatcommand(cmd, chatcommand_definition) end
 --- * Overrides fields of a chatcommand registered with `register_chatcommand`.

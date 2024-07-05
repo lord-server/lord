@@ -242,6 +242,7 @@ lp_api.router.cmd = true
 #
 #    Ours (LORD)
 #
+environment = test
 
 # ------- lord/lord_classes, lord/lord_spawn -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
