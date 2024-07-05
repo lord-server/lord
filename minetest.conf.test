@@ -285,4 +285,4 @@ christmas_tree_gifts = lottfarming:salad 23,lottpotion:cider 23,default:blueberr
 nazgul_areas = 140
 
 # ------- lord/Game/lord_web_api
-lord_web_api.base_url = https://lord-server.ru/api
+#lord_web_api.base_url = https://lord-server.ru/api
