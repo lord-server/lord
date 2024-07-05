@@ -1,6 +1,10 @@
 # Change Log
 
 ## [2024.06.p1](https://github.com/lord-server/lord/releases/tag/2024.06.p1)
+ - Game-Web: turn on integration on production. Relates to lord-server/infrastructure#7
+ - Add `spawn_to` privilege. Closes #1511
+
+## [2024.06.p1](https://github.com/lord-server/lord/releases/tag/2024.06.p1)
  - Changed painting mod to lord fork
  - Reduce nazgul spawn in nazgul area.
 
