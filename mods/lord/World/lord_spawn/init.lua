@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_spawn")
+local S = minetest.get_translator("lord_spawn")
 
 -- Some modified from: Minetest: builtin/static_spawn.lua
 
@@ -49,38 +49,42 @@ function spawn.put_player_at_spawn(obj, config_setting)
 end
 
 minetest.register_chatcommand("spawn", {
-	description = SL("Teleport to Spawn"),
+	description = S("Teleport to Spawn"),
 	func = function(name, _)
 		local player = minetest.get_player_by_name(name)
 		local setting = races.get_race(name).."_spawn_pos"
 		if (minetest.settings:get_bool("dynamic_spawn") ~= true) or (not spawn.check_conf(setting)) then
 			local ok = spawn.put_player_at_spawn(player, "common_spawn_pos")
 			if ok then
-				return true, SL("Teleporting to common Spawn...")
+				return true, S("Teleporting to common Spawn...")
 			end
 		end
 		if spawn.put_player_at_spawn(player, setting) then
 			return true,
-			SL("Teleporting to "..races.get_race(name).." Spawn...")
+			S("Teleporting to "..races.get_race(name).." Spawn...")
 		end
-		return false, SL("Teleport failed")
+		return false, S("Teleport failed")
 	end
+})
+
+minetest.register_privilege("spawn_to", {
+	description = S("Can teleports to any race spawn."),
+	give_to_singleplayer = false,
+
 })
 
 minetest.register_chatcommand("spawn_to", {
 	params = "<race>",
-	privs = {
-		server = true
-	},
-	description = SL("Teleport to specified Spawn"),
+	privs = { spawn_to = true, },
+	description = S("Teleports to specified Spawn."),
 	func = function(name, race)
 		local player = minetest.get_player_by_name(name)
 		local setting = race.."_spawn_pos"
 		if spawn.put_player_at_spawn(player, setting) then
 			return true,
-			SL("Teleporting to "..race.." Spawn...")
+			S("Teleporting to "..race.." Spawn...")
 		end
-		return false, SL("Teleport failed")
+		return false, S("Teleport failed")
 	end
 })
 
@@ -105,13 +109,13 @@ end
 function spawn.register_hall(hall, desc)
 	if spawn.check_conf("hall_of_"..hall.."_pos") then
 		minetest.register_chatcommand(hall, {
-			description = SL("Teleport to the Hall of "..desc),
+			description = S("Teleport to the Hall of "..desc),
 			func = function(name, _)
 				local ok = tp_to_hall(hall, minetest.get_player_by_name(name))
 				if ok then
-					return true, SL("Teleporting to the Hall of "..desc.."...")
+					return true, S("Teleporting to the Hall of "..desc.."...")
 				end
-				return false, SL("Teleport failed")
+				return false, S("Teleport failed")
 			end
 		})
 	end
@@ -121,9 +125,9 @@ spawn.register_hall("center", "Dol Guldur")
 spawn.register_hall("death", "Death")
 --spawn.register_hall("life", "Life")
 minetest.register_chatcommand("life", {
-	description = SL("Teleport to the Hall of Life"),
+	description = S("Teleport to the Hall of Life"),
 	func = function(_, _)
-		return true, SL("Command reserved. For teleporting to Old Central Spawn use command `/center`")
+		return true, S("Command reserved. For teleporting to Old Central Spawn use command `/center`")
 	end
 })
 spawn.register_hall("bree", "Bree")

@@ -1,11 +1,14 @@
 # textdomain: lord_spawn
+
+Can teleports to any race spawn.=Может перемещаться на любой Спаун.
+Teleports to specified Spawn.=Перемещает на указанный Спаун.
+
 Teleport to Spawn=Переместиться на Спаун
 Teleport to orc Spawn=Переместиться на Спаун Орков
 Teleport to man Spawn=Переместиться на Спаун Людей
 Teleport to dwarf Spawn=Переместиться на Спаун Гномов
 Teleport to hobbit Spawn=Переместиться на Спаун Хоббитов
 Teleport to elf Spawn=Переместиться на Спаун Эльфов
-Teleport to specified Spawn=Переместиться на выбранный Спаун
 Teleport to the Hall of Life=Переместиться в Зал Жизни
 Teleport to the Hall of Death=Переместиться в Зал Жизни
 Teleport to the Hall of Dol Guldur=Переместиться в Дол Гулдур
