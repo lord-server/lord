@@ -38,25 +38,24 @@ end
 
 --- @param player_web_id number ID of player in the Web DB.
 --- @param last_login    number unix timestamp of the previous player login
-function web_player.update(player_web_id, last_login)
+function web_player.update(player_web_id)
 	web_api.players:update(
 		player_web_id,
-		{ last_login = os.date("%Y-%m-%d %H:%M:%S", last_login) },
+		{ last_login = os.date("%Y-%m-%d %H:%M:%S") },
 		nil,
 		web_player.logger.log_api_error
 	)
 end
 
 --- @param player     Player minetest player object
---- @param last_login number unix timestamp of the previous player login
-function web_player.update_or_create(player, last_login)
+function web_player.update_or_create(player)
 	local player_name = player:get_player_name()
 	local player_web_id = web_player.storage.get_player_web_id(player_name)
 
 	if not player_web_id then
 		web_player.create(player)
 	else
-		web_player.update(player_web_id, last_login)
+		web_player.update(player_web_id)
 	end
 end
 
@@ -75,7 +74,7 @@ return {
 			if not last_login then -- player is new
 				web_player.create(player)
 			else -- player Not new
-				web_player.update_or_create(player, last_login)
+				web_player.update_or_create(player)
 			end
 		end)
 	end
