@@ -237,6 +237,7 @@ protector_spawn = 10
 # For Discord
 lp_api.channel_id = 284678831866904578
 lp_api.router.cmd = true
+lp_api.system_name = lord-test
 
 
 #

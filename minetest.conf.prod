@@ -264,6 +264,7 @@ protector_damage = 3
 lp_api.enabled = true
 lp_api.channel_id = 284593326370324481
 lp_api.router.cmd = true
+lp_api.system_name = lord
 
 
 #
