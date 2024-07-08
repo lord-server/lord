@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
 minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
@@ -38,7 +38,7 @@ for _, row in ipairs(pillar.types) do
 	-- Node Definition
 	minetest.register_node("castle:pillars_"..name.."_bottom", {
 	    drawtype = "nodebox",
-		description = SL(desc.." Pillar Base"),
+		description = S(desc.." Pillar Base"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),
@@ -55,7 +55,7 @@ for _, row in ipairs(pillar.types) do
 	})
 	minetest.register_node("castle:pillars_"..name.."_top", {
 	    drawtype = "nodebox",
-		description = SL(desc.." Pillar Top"),
+		description = S(desc.." Pillar Top"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),
@@ -72,7 +72,7 @@ for _, row in ipairs(pillar.types) do
 	})
 	minetest.register_node("castle:pillars_"..name.."_middle", {
 	    drawtype = "nodebox",
-		description = SL(desc.." Pillar Middle"),
+		description = S(desc.." Pillar Middle"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),

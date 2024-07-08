@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 castle = {} -- namespace
 
@@ -14,7 +14,7 @@ dofile(minetest.get_modpath("castle").."/rope.lua") --блок с троссом
 
 doors.register("castle:oak_door", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
-	description = SL("Oak Door"),
+	description = S("Oak Door"),
 	inventory_image = "castle_oak_door.png",
 	groups = { choppy=2, door=1, wooden = 1, },
 	recipe = {
@@ -26,7 +26,7 @@ doors.register("castle:oak_door", {
 
 doors.register("castle:oak_door_lock", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
-	description = SL("Oak Door With Lock"),
+	description = S("Oak Door With Lock"),
 	inventory_image = "castle_oak_door.png^lord_doors_lock.png",
 	groups = { choppy=2, door=1, wooden = 1, },
 	protected = true,
@@ -34,7 +34,7 @@ doors.register("castle:oak_door_lock", {
 
 doors.register("castle:jail_door", {
 	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
-	description = SL("Jail Door"),
+	description = S("Jail Door"),
 	inventory_image = "castle_jail_door.png",
 	groups = { cracky=2, door=1, steel_item=1, },
 	recipe = {
@@ -46,7 +46,7 @@ doors.register("castle:jail_door", {
 
 doors.register("castle:jail_door_lock", {
 	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
-	description = SL("Jail Door With Lock"),
+	description = S("Jail Door With Lock"),
 	inventory_image = "castle_jail_door.png^lord_doors_lock.png",
 	groups = { cracky=2, door=1, steel_item=1, },
 	protected = true,
@@ -85,7 +85,7 @@ end
 
 minetest.register_node("castle:ironbound_chest",{
 	drawtype = "nodebox",
-	description = SL("Ironbound Chest"),
+	description = S("Ironbound Chest"),
 	tiles = {"castle_ironbound_chest_top.png",
 	                  "castle_ironbound_chest_top.png",
 			"castle_ironbound_chest_side.png",
@@ -115,12 +115,12 @@ minetest.register_node("castle:ironbound_chest",{
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
-		meta:set_string("infotext", SL("Ironbound Chest (owned by").." "..
+		meta:set_string("infotext", S("Ironbound Chest (owned by").." "..
 				meta:get_string("owner")..")")
 	end,
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", SL("Ironbound Chest"))
+		meta:set_string("infotext", S("Ironbound Chest"))
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
@@ -196,7 +196,7 @@ minetest.register_craft({
 })
 
 minetest.register_tool("castle:battleaxe", {
-	description = SL("Battleaxe"),
+	description = S("Battleaxe"),
 	inventory_image = "castle_battleaxe.png",
 	tool_capabilities = {
 		full_punch_interval = 2.0,
@@ -223,12 +223,12 @@ stairs.register_stair_and_slab(
 	"castle:dungeon_stone",
 	{cracky=3},
 	{"castle_dungeon_stone.png"},
-	SL("Dungeon Stone Stair"),
-	SL("Dungeon Stone Slab"),
+	S("Dungeon Stone Stair"),
+	S("Dungeon Stone Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Dungeon Stone Stair"),
-	SL("Outer Dungeon Stone Stair")
+	S("Inner Dungeon Stone Stair"),
+	S("Outer Dungeon Stone Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -236,10 +236,10 @@ stairs.register_stair_and_slab(
 	"castle:pavement",
 	{cracky=3},
 	{"castle_pavement_brick.png"},
-	SL("Castle Pavement Stair"),
-	SL("Castle Pavement Slab"),
+	S("Castle Pavement Stair"),
+	S("Castle Pavement Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Castle Pavement Stair"),
-	SL("Outer Castle Pavement Stair")
+	S("Inner Castle Pavement Stair"),
+	S("Outer Castle Pavement Stair")
 )

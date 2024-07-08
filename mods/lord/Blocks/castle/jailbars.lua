@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 -- xjailbarss mod by xyz
 
@@ -99,7 +99,7 @@ for i = 1, 15 do
 end
 
 minetest.register_node("castle:jailbars", {
-	description               = SL("Jailbars"),
+	description               = S("Jailbars"),
 	tiles                     = { "castle_space.png" },
 	inventory_image           = "castle_jailbars.png",
 	wield_image               = "castle_jailbars.png",

@@ -1,3 +1,5 @@
+# textdomain: castle
+
 ### pillars.lua ###
 Brick Block Pillar Base=Brick Block Pillar Base
 Obsidian Pillar Base=Obsidian Pillar Base
@@ -36,8 +38,8 @@ Mordor Stone Pillar Middle=Mordor Stone Pillar Middle
 Brick Block Pillar Top=Brick Block Pillar Top
 Obsidian Pillar Top=Obsidian Pillar Top
 Stone Pillar Top=Stone Pillar Top
-Cobble Pillar Top=Cobble Pillar Top
 Stonebrick Pillar Top=Stonebrick Pillar Top
+Cobble Pillar Top=Cobble Pillar Top
 Desert Stone Pillar Top=Desert Stone Pillar Top
 Desert Cobble Pillar Top=Desert Cobble Pillar Top
 Desert Stone Brick Pillar Top=Desert Stone Brick Pillar Top
@@ -103,6 +105,19 @@ Orc Brick Arrowslit with Hole=Orc Brick Arrowslit with Hole
 Mordor Stone Arrowslit with Hole=Mordor Stone Arrowslit with Hole
 
 ### tapestry.lua ###
+@1 Tapestry Top=@1 Tapestry Top
+Apple=Apple
+Jungle Wood=Jungle Wood
+Alder=Alder
+Beech=Beech
+Birch=Birch
+Cherry=Cherry
+Elm=Elm
+Fir=Fir
+Hardwood=Hardwood
+Lebethron=Lebethron
+Mallorn=Mallorn
+Pine=Pine
 Tapestry Top=Tapestry Top
 White Tapestry=White Tapestry
 White Tapestry (Long)=White Tapestry (Long)

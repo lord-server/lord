@@ -1,16 +1,16 @@
 -- luacheck:ignore 561
 -- Отключена проверка на цикломатическую сложность, поскольку
 -- mods/lord/Blocks/castle/town_item.lua:152:20: cyclomatic complexity of function get_recipe is too high (14 > 10)
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 local workbench_formspec = 'size[8,9;]' ..
 	"background[-0.5,-0.65;9,10.35;gui_chestbg.png]" ..
 	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]" ..
-	'label[0,0;' .. SL('Source Material') .. ']' ..
+	'label[0,0;' .. S('Source Material') .. ']' ..
 	'list[context;src;0,0.5;2,4;]' ..
-	'label[3.5,0.5;' .. SL('Recipe to Use') .. ']' ..
+	'label[3.5,0.5;' .. S('Recipe to Use') .. ']' ..
 	'list[context;rec;2.5,1;3,3;]' ..
-	'label[6,0;' .. SL('Craft Output') .. ']' ..
+	'label[6,0;' .. S('Craft Output') .. ']' ..
 	'list[context;dst;6,0.5;2,4;]' ..
 	'list[current_player;main;0,5;8,4;]'..
 	'listring[current_player;main]'..
@@ -28,7 +28,7 @@ minetest.register_alias("darkage:lamp", "castle:street_light")
 
 minetest.register_node("castle:anvil", {
 	drawtype    = "nodebox",
-	description = SL("Anvil"),
+	description = S("Anvil"),
 	tiles       = { "castle_steel.png" },
 	groups      = { cracky = 2, falling_node = 1 },
 	paramtype   = "light",
@@ -87,7 +87,7 @@ minetest.register_lbm({
 })
 
 minetest.register_node("castle:workbench", {
-	description                   = SL("Workbench"),
+	description                   = S("Workbench"),
 	tiles                         = {
 		"castle_workbench_top.png",
 		"default_wood.png",
@@ -104,7 +104,7 @@ minetest.register_node("castle:workbench", {
 	on_construct                  = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
-		meta:set_string('infotext', SL('Workbench'))
+		meta:set_string('infotext', S('Workbench'))
 		local inv = meta:get_inventory()
 		inv:set_size('src', 2 * 4)
 		inv:set_size('rec', 3 * 3)
@@ -239,7 +239,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("castle:dungeon_stone", {
-	description = SL("Dungeon Stone"),
+	description = S("Dungeon Stone"),
 	drawtype    = "normal",
 	tiles       = { "castle_dungeon_stone.png" },
 	groups      = { cracky = 2, stone = 1 },
@@ -264,7 +264,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("castle:bound_straw", {
-	description = SL("Bound Straw"),
+	description = S("Bound Straw"),
 	drawtype    = "normal",
 	tiles       = { "castle_straw_bale.png" },
 	groups      = { choppy = 4, flammable = 1, oddly_breakable_by_hand = 3, grass = 1 },
@@ -280,7 +280,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("castle:pavement", {
-	description = SL("Paving Stone"),
+	description = S("Paving Stone"),
 	drawtype    = "normal",
 	tiles       = { "castle_pavement_brick.png" },
 	groups      = { cracky = 2 },
@@ -298,7 +298,7 @@ minetest.register_craft({
 
 minetest.register_node("castle:light", {
 	drawtype            = "glasslike",
-	description         = SL("Light Block"),
+	description         = S("Light Block"),
 	sunlight_propagates = true,
 	light_source        = 14,
 	tiles               = { "castle_street_light.png" },

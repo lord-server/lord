@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 local hole = {}
 
@@ -34,7 +34,7 @@ for _, row in ipairs(hole.types) do
 	-- Node Definition
 	minetest.register_node("castle:hole_"..name, {
 		drawtype = "nodebox",
-		description = SL(desc.." Murder Hole"),
+		description = S(desc.." Murder Hole"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),

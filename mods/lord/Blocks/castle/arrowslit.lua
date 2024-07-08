@@ -1,4 +1,5 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
+
 
 minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall")
 minetest.register_alias("castle:arrowslit_hole", "castle:arrowslit_stonewall_hole")
@@ -38,7 +39,7 @@ for _, row in ipairs(arrowslit.types) do
 	-- Node Definition
 	minetest.register_node("castle:arrowslit_"..name, {
 		drawtype = "nodebox",
-		description = SL(desc.." Arrowslit"),
+		description = S(desc.." Arrowslit"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),
@@ -62,7 +63,7 @@ for _, row in ipairs(arrowslit.types) do
 	})
 	minetest.register_node("castle:arrowslit_"..name.."_cross", {
 		drawtype = "nodebox",
-		description = SL(desc.." Arrowslit with Cross"),
+		description = S(desc.." Arrowslit with Cross"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),
@@ -90,7 +91,7 @@ for _, row in ipairs(arrowslit.types) do
 	})
 	minetest.register_node("castle:arrowslit_"..name.."_hole", {
 		drawtype = "nodebox",
-		description = SL(desc.." Arrowslit with Hole"),
+		description = S(desc.." Arrowslit with Hole"),
 		tiles = {tile..".png"},
 		groups = {cracky=3},
 		sounds = default.node_sound_defaults(),

@@ -1,7 +1,7 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 minetest.register_node("castle:shield", {
-	description   = SL("Mounted Shield"),
+	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side.png",
 		"castle_shield_side.png",
@@ -42,7 +42,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("castle:shield_2", {
-	description   = SL("Mounted Shield"),
+	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side_2.png",
 		"castle_shield_side_2.png",
@@ -83,7 +83,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("castle:shield_3", {
-	description   = SL("Mounted Shield"),
+	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side_3.png",
 		"castle_shield_side_3.png",

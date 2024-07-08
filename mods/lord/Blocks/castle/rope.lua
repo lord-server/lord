@@ -1,7 +1,7 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("castle")
 
 minetest.register_node("castle:ropes",{
-	description = SL("Rope"),
+	description = S("Rope"),
 	drawtype = "nodebox",
 	sunlight_propagates = true,
 	tiles = {"castle_ropes.png"},
@@ -66,7 +66,7 @@ minetest.register_node("castle:box_rope", {
 })
 
 minetest.register_node("castle:ropebox", {
-    description = SL("Ropebox"),
+    description = S("Ropebox"),
     drawtype = "nodebox",
     sunlight_propagates = true,
     tiles = {"castle_ropebox_top.png",

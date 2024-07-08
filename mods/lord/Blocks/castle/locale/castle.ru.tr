@@ -1,3 +1,5 @@
+# textdomain: castle
+
 ### pillars.lua ###
 Brick Block Pillar Base=Основание кирпичной колонны
 Obsidian Pillar Base=Основание обсидиановой колонны
@@ -116,6 +118,7 @@ Hardwood=твёрдой древесины
 Lebethron=лебетрона
 Mallorn=малорна
 Pine=сосны
+Tapestry Top=Tapestry Top
 White Tapestry=Белый гобелен
 White Tapestry (Long)=Белый гобелен (длинный)
 White Tapestry (Very Long)=Белый гобелен (очень длинный)
@@ -181,8 +184,8 @@ Craft Output=Результат:
 Brick Block Murder Hole=Кирпичная дыра-убийца
 Obsidian Murder Hole=Обсидиановая дыра-убийца
 Stone Murder Hole=Каменная дыра-убийца
-Cobble Murder Hole=Дыра-убийца из булыжника
 Stonebrick Murder Hole=Дыра-убийца из каменных блоков
+Cobble Murder Hole=Дыра-убийца из булыжника
 Desert Stone Murder Hole=Дыра-убийца из пустынного камня
 Desert Cobble Murder Hole=Дыра-убийца из пустынного булыжника
 Desert Stone Brick Murder Hole=Дыра-убийца из блоков пустынного камня
