@@ -1,29 +1,37 @@
---name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height)
+-- TODO: #1525 ability to get cave_rocks from API.
+local cave_rocks = {
+	"default:stone",
+	"lord_rocks:diorite",
+	"lord_rocks:granite",
+	"lord_rocks:basalt",
+	"lord_rocks:andesite",
+	"lord_rocks:peridotite",
+	"lord_rocks:grey_tuff",
+	"lord_rocks:red_tuff",
+	"lord_rocks:grey_quartzite",
+	"lord_rocks:pink_quartzite",
+	"lord_rocks:shale",
+	"lord_rocks:pyroxenite",
+}
 
+---------------------------   S U R F A C E   ---------------------------
 --dwarfs.lua
-mobs:spawn_specific("lottmobs:dwarf",  {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
-mobs:spawn_specific("lottmobs:dwarf1", {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
-mobs:spawn_specific("lottmobs:dwarf2", {"default:stone"},             {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
 mobs:spawn_specific("lottmobs:dwarf",  {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:dwarf1", {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
 mobs:spawn_specific("lottmobs:dwarf2", {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 9000, 2, -31000, 31000)
-
 --elves.lua
 mobs:spawn_specific("lottmobs:elf_archer", {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf",        {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf1",       {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf2",       {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
-
 --boar.lua
 mobs:spawn_specific("lottmobs:boar", {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
-
 --horse.lua
 mobs:spawn_specific("lottmobs:horse",          {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
 mobs:spawn_specific("lottmobs:horsepeg",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 10000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:horseara",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 10000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:shirepony",      {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
 mobs:spawn_specific("lottmobs:shireponyblack", {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 13500, 2, 0, 31000)
-
 --animals
 mobs:spawn_specific("lottmobs:chicken", {"lord_ground:dirt_gondor"},  {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken", {"lord_ground:dirt_dunland"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
@@ -34,7 +42,6 @@ mobs:spawn_specific("lottmobs:rat", {"lord_ground:dirt_gondor"},  {"air"}, -1, 2
 mobs:spawn_specific("lottmobs:rat", {"lord_ground:dirt_dunland"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:rat", {"lord_ground:dirt_rohan"},   {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:rat", {"lord_ground:dirt_shire"},   {"air"}, -1, 20, 30, 7500, 2, 0, 31000)
-mobs:spawn_specific("lottmobs:rat", {"default:stone"},            {"air"}, -1,  8, 30, 6000, 2, -31000, 0)
 
 mobs:spawn_specific("lottmobs:kitten", {"lord_ground:dirt_gondor"},  {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:kitten", {"lord_ground:dirt_dunland"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
@@ -58,7 +65,6 @@ mobs:spawn_specific("lottmobs:bunny", {"default:dirt_with_snow"},    {"air"}, -1
 
 mobs:spawn_specific("lottmobs:ent", {"lord_ground:dirt_fangorn"},     {"air"}, -1, 20, 300, 9000, 1, 0, 31000)
 mobs:spawn_specific("lottmobs:spider", {"lord_ground:dirt_mirkwood"}, {"air"}, -10, 20, 30, 9000, 2, 0, 31000)
-mobs:spawn_specific("lottmobs:spider", {"default:stone"},             {"air"}, -1,   4, 30, 12000, 2, -31000, -10)
 
 mobs:spawn_specific("lottmobs:rohan_guard",     {"lord_ground:dirt_rohan"},    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:gondor_guard",    {"lord_ground:dirt_gondor"},   {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
@@ -66,7 +72,6 @@ mobs:spawn_specific("lottmobs:ithilien_ranger", {"lord_ground:dirt_ithilien"}, {
 mobs:spawn_specific("lottmobs:dunlending",      {"lord_ground:dirt_dunland"},  {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:hobbit",          {"lord_ground:dirt_shire"},    {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 
-mobs:spawn_specific("lottmobs:orc", {"default:stone"},           {"air"}, -1, 6,  30, 4000,  3, -31000, -10)
 mobs:spawn_specific("lottmobs:orc", {"lord_rocks:mordor_stone"}, {"air"}, -1, 20, 30, 800,   2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:snowblock"},       {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:orc", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
@@ -101,16 +106,27 @@ mobs:spawn_specific("lottmobs:half_troll", {"default:snowblock"},       {"air"},
 mobs:spawn_specific("lottmobs:half_troll", {"default:dirt_with_snow"},  {"air"}, -1, 15, 30, 12000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:half_troll", {"lottmapgen:angsnowblock"}, {"air"}, -1, 20, 30, 9000,  3, 0, 31000)
 
-mobs:spawn_specific("lottmobs:nazgul",     {"default:stone"}, {"air"}, -1, 2, 30, 30000,  2, -31000, -100)
-
-mobs:spawn_specific("lottmobs:witch_king", {"default:stone"}, {"air"}, -1, 2, 30, 60000,  1, -31000, -1000)
-
-mobs:spawn_specific("lottmobs:balrog",     {"default:stone"}, {"air"}, -1, 2, 30, 100000, 1, -31000, -10000)
-
-mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 7, 15, 2, 5, -31000, -50)
-
-mobs:spawn_specific("lottmobs:troll", {"default:stone"},           {"air"}, -1, 5, 30, 12000, 3, -31000,   -10)
 mobs:spawn_specific("lottmobs:troll", {"default:snow"},            {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"default:snowblock"},       {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 mobs:spawn_specific("lottmobs:troll", {"lottmapgen:angsnowblock"}, {"air"}, -1, 2, 30,  9000, 3, -31000, 31000)
 
+
+---------------------------   C A V E S   ---------------------------
+
+mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 7, 15, 2, 5, -31000, -50)
+
+for _, cave_rock in pairs(cave_rocks) do
+	mobs:spawn_specific("lottmobs:rat",    {cave_rock}, {"air"}, -1,  8, 30, 6000, 2, -31000, 0)
+
+	mobs:spawn_specific("lottmobs:dwarf",  {cave_rock}, {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
+	mobs:spawn_specific("lottmobs:dwarf1", {cave_rock}, {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
+	mobs:spawn_specific("lottmobs:dwarf2", {cave_rock}, {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
+
+	mobs:spawn_specific("lottmobs:orc",    {cave_rock}, {"air"}, -1, 6,  30, 4000,  3, -31000, -10)
+	mobs:spawn_specific("lottmobs:troll",  {cave_rock}, {"air"}, -1, 5, 30, 12000, 3, -31000,   -10)
+	mobs:spawn_specific("lottmobs:spider", {cave_rock}, {"air"}, -1,   4, 30, 12000, 2, -31000, -10)
+
+	mobs:spawn_specific("lottmobs:nazgul",     {cave_rock}, {"air"}, -1, 2, 30, 30000,  2, -31000, -100)
+	mobs:spawn_specific("lottmobs:witch_king", {cave_rock}, {"air"}, -1, 2, 30, 60000,  1, -31000, -1000)
+	mobs:spawn_specific("lottmobs:balrog",     {cave_rock}, {"air"}, -1, 2, 30, 100000, 1, -31000, -10000)
+end
