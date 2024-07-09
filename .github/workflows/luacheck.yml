@@ -51,7 +51,6 @@ jobs:
               mods/lord/Tools/lord_money/ \
               mods/lord/Tools/lord_books/ \
               mods/lord/Tools/lord_boats/ \
-              mods/lord/Core/lordlib/ \
               mods/lord/Blocks/lottblocks/ \
               mods/lord/Blocks/lord_homedecor/ \
               mods/lord/Blocks/protector_lott/ \
