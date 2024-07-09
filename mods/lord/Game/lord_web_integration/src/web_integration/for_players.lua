@@ -39,12 +39,11 @@ function web_player.create(player)
 end
 
 --- @param player_web_id number ID of player in the Web DB.
---- @param last_login    number unix timestamp of the previous player login
-function web_player.update(player_web_id, last_login, player_name)
+function web_player.update(player_web_id, player_name)
 	web_api.players:update(
 		player_web_id,
 		{
-			last_login = os.date("%Y-%m-%d %H:%M:%S", last_login),
+			last_login = os.date("%Y-%m-%d %H:%M:%S"),
 			race       = races.get_race(player_name),
 			gender     = races.get_gender(player_name),
 			is_online  = 1,
@@ -55,15 +54,14 @@ function web_player.update(player_web_id, last_login, player_name)
 end
 
 --- @param player     Player minetest player object
---- @param last_login number unix timestamp of the previous player login
-function web_player.update_or_create(player, last_login)
+function web_player.update_or_create(player)
 	local player_name = player:get_player_name()
 	local player_web_id = web_player.storage.get_player_web_id(player_name)
 
 	if not player_web_id then
 		web_player.create(player)
 	else
-		web_player.update(player_web_id, last_login, player_name)
+		web_player.update(player_web_id, player_name)
 	end
 end
 
@@ -91,11 +89,11 @@ return {
 			if not last_login then -- player is new
 				web_player.create(player)
 			else -- player Not new
-				web_player.update_or_create(player, last_login)
+				web_player.update_or_create(player)
 			end
 		end)
 
-		minetest.register_on_leaveplayer(function(player, timed_out)
+		minetest.register_on_leaveplayer(function(player, _)
 			web_player.offline(player)
 		end)
 	end
