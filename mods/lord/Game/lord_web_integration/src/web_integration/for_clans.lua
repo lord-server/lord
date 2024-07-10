@@ -34,8 +34,16 @@ function web_clan.create(clan)
 			web_clan.storage.set_clan_web_id(clan.name, created_clan.id)
 		end,
 
-		-- TODO #1442: handle `409 Conflict` (duplicate resource record)
-		web_clan.logger.log_api_error
+		function(result)
+			if result.code == 409 then
+				local response = minetest.parse_json(result.data)
+				if response and response.field == "name" and response.entry then
+					web_clan.storage.set_clan_web_id(clan.name, response.entry.id)
+				end
+			end
+
+			web_clan.logger.log_api_error(result)
+		end
 	)
 end
 
