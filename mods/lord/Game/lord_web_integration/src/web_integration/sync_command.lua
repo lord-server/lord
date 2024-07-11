@@ -1,28 +1,25 @@
+--- @type web_integration.Storage
 local Storage
-local Logger
+--- @type web_integration.Player
+local WebPlayer
+--- @type web_integration.Clan
+--local WebClan
 
 local function create_player_on_web(player_name, notify_player_name)
 	minetest.chat_send_player(notify_player_name, player_name .. ": send `::create()`")
-	web_api.players:create(
-		{
-			name       = player_name,
-			race       = races.get_race(player_name),
-			gender     = races.get_gender(player_name),
-			last_login = minetest.get_auth_handler().get_auth(player_name).last_login
-		},
-
-		function(result)
-			local created_player = minetest.parse_json(result.data)
-			if created_player == nil then
-				Logger.error("Can't store player web id: unable to parse response json: " .. result.data)
-				return
-			end
-
-			Storage.set_player_web_id(player_name, created_player.id)
+	WebPlayer.create(
+		player_name,
+		minetest.get_auth_handler().get_auth(player_name).last_login,
+		nil,
+		function(created_player)
 			minetest.chat_send_player(notify_player_name, player_name .. ":web_id: " .. created_player.id)
 		end,
-
-		Logger.log_api_error
+		function(linked_player)
+			minetest.chat_send_player(notify_player_name, player_name .. ":linked web_id: " .. linked_player.id)
+		end,
+		function(result)
+			minetest.chat_send_player(notify_player_name, player_name .. ":failed: " .. dump(result))
+		end
 	)
 end
 
@@ -53,8 +50,10 @@ end
 
 
 return {
-	register = function(storage, logger)
-		Storage, Logger = storage, logger
+	--- @param storage    web_integration.Storage
+	--- @param web_player web_integration.Player
+	register = function(storage, web_player)
+		Storage, WebPlayer = storage, web_player
 		minetest.register_chatcommand('web_sync_clans', {
 			privs = { server = true },
 			func  = sync_clans_handler

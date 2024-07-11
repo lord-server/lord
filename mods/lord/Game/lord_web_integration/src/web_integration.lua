@@ -1,12 +1,12 @@
 local Storage      = require("web_integration.Storage")
 local Logger       = require("web_integration.Logger")
-local WebPlayer    = require("web_integration.WebPlayer")
-local WebClan      = require("web_integration.WebClan")
+local Player       = require("web_integration.Player")
+local Clan         = require("web_integration.Clan")
 local sync_command = require("web_integration.sync_command")
 
 
-WebPlayer.init(Storage, Logger)
-WebClan.init(Storage, Logger)
+Player.init(Storage, Logger)
+Clan.init(Storage, Logger)
 
 
 local register_for_players = function()
@@ -14,27 +14,27 @@ local register_for_players = function()
 		if not player:is_player() then return end
 
 		if not last_login then -- player is new
-			WebPlayer.create(player)
+			Player.create(player:get_player_name(), nil, true)
 		else -- player Not new
-			WebPlayer.update_or_create(player)
+			Player.update_or_create(player:get_player_name(), nil, true)
 		end
 	end)
 
 	minetest.register_on_leaveplayer(function(player, _)
-		WebPlayer.offline(player)
+		Player.offline(player)
 	end)
 
 end
 
 local register_for_clans = function()
-	clans.on_clan_created(WebClan.create)
-	clans.on_clan_deleted(WebClan.delete)
-	clans.on_clan_player_added(WebClan.player_add)
-	clans.on_clan_player_removed(WebClan.player_del)
-	clans.on_clan_player_join(WebClan.is_online)
-	clans.on_clan_player_leave(WebClan.set_is_online)
-	clans.on_clan_blocked(WebClan.set_blocked)
-	clans.on_clan_unblocked(WebClan.set_unblocked)
+	clans.on_clan_created(Clan.create)
+	clans.on_clan_deleted(Clan.delete)
+	clans.on_clan_player_added(Clan.player_add)
+	clans.on_clan_player_removed(Clan.player_del)
+	clans.on_clan_player_join(Clan.is_online)
+	clans.on_clan_player_leave(Clan.set_is_online)
+	clans.on_clan_blocked(Clan.set_blocked)
+	clans.on_clan_unblocked(Clan.set_unblocked)
 end
 
 
@@ -51,6 +51,6 @@ return {
 		register_for_players()
 		register_for_clans()
 
-		sync_command.register(Storage, Logger)
+		sync_command.register(Storage, Player, Clan)
 	end,
 }
