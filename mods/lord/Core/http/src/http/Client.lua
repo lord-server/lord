@@ -24,19 +24,23 @@ local HTTPMethod = {
 --- ```
 ---
 --- @class http.Client
-local Client     = {
-	--- @type string
-	base_url         = nil,
-	--- @type HTTPRequest
-	base_options     = {},
+local Client = {
 	--- @static
 	--- @private
 	--- @type HTTPApiTable
-	mt_http_api      = {},
+	mt_http_api  = {},
+	--- @static
+	--- @private
+	--- @type boolean
+	debug        = false,
+	--- @type string
+	base_url     = nil,
+	--- @type HTTPRequest
+	base_options = {},
 	--- @type http.Client.callback
-	on_success       = nil,
+	on_success   = nil,
 	--- @type http.Client.callback
-	on_error         = nil,
+	on_error     = nil,
 }
 
 --- @param base_url     string
@@ -76,6 +80,7 @@ function Client:getAsyncCallback()
 
 	--- @type http.Client.callback
 	local callback = function(result)
+		if self.debug then print(dump(result)) end
 		if result.succeeded and result.code < 300 then
 			if on_success then on_success(result) end
 		else
@@ -89,6 +94,7 @@ end
 --- @param request HTTPRequest
 --- @param callback http.Client.callback
 function Client:rawRequest(request, callback)
+	if self.debug then print(dump(request)) end
 	self.mt_http_api.fetch(request, callback)
 end
 
@@ -142,8 +148,9 @@ end
 return {
 	--- @param http_api HTTPApiTable
 	--- @return http.Client
-	init = function(http_api)
+	init = function(http_api, debug)
 		Client.mt_http_api = http_api
+		Client.debug       = debug
 
 		return Client
 	end
