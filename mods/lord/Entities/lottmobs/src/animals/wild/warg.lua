@@ -1,42 +1,5 @@
 local SL = minetest.get_translator("lottmobs")
 
-lottmobs.register_horse("lottmobs:warg_mount", {
-	description     = SL("Warg"),
-	inventory_image = "lottmobs_warg_inv.png",
-}, {
-	riders        = { "orc" },
-	physical      = true,
-	collisionbox  = { -0.6, -0.01, -0.6, 0.6, 1.5, 0.6 },
-	visual        = "mesh",
-	stepheight    = 1.1,
-	attach_height = 20,
-	offset        = true,
-	offset_h      = 4,
-	attach_h      = 17,
-	run           = true,
-	hp            = 40,
-	dps           = 8,
-	aggressive    = true,
-	mesh          = "warg_mount.b3d",
-	textures      = { "lottmobs_warg.png" },
-	animation     = {
-		speed_normal = 10,
-		stand_start  = 135,
-		stand_end    = 280,
-		walk_start   = 80,
-		walk_end     = 130,
-		punch_start  = 350,
-		punch_end    = 390,
-	},
-	max_speed     = 7,
-	forward_boost = 2.33,
-	jump_boost    = 7,
-	feed = {
-		["lottmobs:rotten_meat"] = 6,
-		["lottfarming:orc_food"] = 5,
-	},
-})
-----------------
 
 mobs:register_mob("lottmobs:warg", {
 	--	type = "npc",

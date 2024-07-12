@@ -1,41 +1,5 @@
 local SL = minetest.get_translator("lottmobs")
 
-lottmobs.register_horse("lottmobs:boar_mount", {
-	description     = SL("Boar"),
-	inventory_image = "lottmobs_boar.png",
-}, {
-	riders        = { "dwarf" },
-	physical      = true,
-	collisionbox  = { -0.4, -0.01, -0.4, 0.4, 1, 0.4 },
-	visual        = "mesh",
-	stepheight    = 1.1,
-	offset        = true,
-	offset_h      = 2,
-	attach_h      = 14,
-	reach         = 2,
-	run           = true,
-	hp            = 40,
-	dps           = 8,
-	aggressive    = true,
-	mesh          = "mobs_boar_mount.x",
-	textures      = { "mobs_pumba.png" },
-	animation     = {
-		speed_normal = 15,
-		stand_start  = 25,
-		stand_end    = 55,
-		walk_start   = 70,
-		walk_end     = 100,
-		punch_start  = 70,
-		punch_end    = 100,
-	},
-	max_speed     = 7,
-	forward_boost = 1.67,
-	jump_boost    = 5,
-	feed = {
-		["lottfarming:carrot_item"] = 5,
-	},
-})
-----------------
 
 mobs:register_mob("lottmobs:boar", {
 	type                 = "animal",
