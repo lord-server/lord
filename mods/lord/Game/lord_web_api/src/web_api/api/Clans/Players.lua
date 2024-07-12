@@ -14,7 +14,21 @@ end
 --- @param on_success    http.Client.callback
 --- @param on_error      http.Client.callback
 function Players:add(player_web_id, on_success, on_error)
-	return self:update(player_web_id, nil, on_success, on_error)
+	return self:update(player_web_id, {
+		-- TODO: #1542
+		_mt_workaround = "fixme: https://github.com/minetest/minetest/issues/14846"
+	}, on_success, on_error)
+end
+
+-- TODO: #1542 (remove the entire method)
+function Players:delete(player_web_id, on_success, on_error)
+	return self.client
+		:on_success(on_success)
+		:on_error(on_error or function(_)  end)
+		:delete(self.resource .. "/" .. player_web_id, {
+			_mt_workaround = "fixme: https://github.com/minetest/minetest/issues/14846"
+		})
+	;
 end
 
 
