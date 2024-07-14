@@ -125,7 +125,12 @@ minetest.clear_craft({type = "cooking", recipe = "default:tin_lump"})
 minetest.clear_craft({recipe = {{"default:tinblock"}}}) -- `lottores:tin_block`
 minetest.unregister_item("default:tin_ingot")
 minetest.unregister_item("default:tin_lump")
-
+-- у нас из разных пород разные палочки
+minetest.clear_craft({recipe = { {"group:wood"}, }})
+minetest.register_craft({
+	output = "default:stick 4",
+	recipe = { {"default:wood"}, }
+})
 
 
 
