@@ -1,0 +1,27 @@
+### Code of `api.lua`
+
+GNU Lesser General Public License v2.1 or later
+Copyright (C) 2016 - 2023 SaKeL <juraj.vajda@gmail.com>
+
+### Textures
+
+**CC-BY-SA-4.0, by SaKeL**
+
+- lord_spawners_black_skull.png
+- lord_spawners_evil_bunny_egg.png
+- lord_spawners_galvornsword.png
+- lord_spawners_spawner_16.png
+- lord_spawners_spawner_animated.png
+- lord_spawners_spawner_rusty.png
+- lord_spawners_spawner_waiting_animated_16.png
+- lord_spawners_spawner_waiting_animated.png
+- lord_spawners_spawner.png
+- lord_spawners_trans.png
+
+**CC-BY-SA-4.0, Pixel Perfection by XSSheep**, https://minecraft.curseforge.com/projects/pixel-perfection-freshly-updated
+
+- lord_spawners_firebolt.png
+- lord_spawners_flame_particle_2.png
+- lord_spawners_flame_particle.png
+- lord_spawners_smoke_particle_2.png
+- lord_spawners_smoke_particle.png
