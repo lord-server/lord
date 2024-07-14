@@ -1,5 +1,10 @@
 # Change Log
 
+## [2024.06.p3](https://github.com/lord-server/lord/releases/tag/2024.06.p3)
+ - Game-Web: change passed player `last_login` as `now()`. Relates to #1436
+ - Add spawns of cave mobs on `lord_rocks`. Closes #1468
+ - Fix lost mordor blocks|bricks and theirs stairs|slabs. Fixes #1512. Relates to #1233
+
 ## [2024.06.p2](https://github.com/lord-server/lord/releases/tag/2024.06.p2)
  - Game-Web: turn on integration on production. Relates to lord-server/infrastructure#7
  - Add `spawn_to` privilege. Closes #1511
