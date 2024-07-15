@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.07.p1](https://github.com/lord-server/lord/releases/tag/2024.07.p1)
+ - Fix `/web_sync_clans` command. Relates to #1538. Fixes #1549.
+
 ## [2024.07](https://github.com/lord-server/lord/releases/tag/2024.07)
  - Extended Tooltips: add properties description. Closes #1490
  - Lighting: add mese lamps from our woods. Closes #886
