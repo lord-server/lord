@@ -1,5 +1,45 @@
 # Change Log
 
+## [2024.07](https://github.com/lord-server/lord/releases/tag/2024.07)
+ - Extended Tooltips: add properties description. Closes #1490
+ - Lighting: add mese lamps from our woods. Closes #886
+ - Update discord mod for: display info about join/left player race. Closes #1517
+ - Add first version of Mob-Spawners (`lord_spawners`).
+ - Integration with website:
+   - Sync Players: update `race`, `gender`, `is_online`, when `last_login`
+   - Sync Clans:   update on create/del/block, add/del players, update when clan `is_online`
+
+ - Bug fixes:
+   - Remove craft stick by group: fixing crafts of other wood types. Fixes #1546
+
+ - Technical:
+   - Add `io.write_to_file()` helper. Relates to #925. Needs for #1502
+   - Rebalance: Food: take ru titles for analytics document. Closes #1502
+   - Extended Tooltips: add original `tt` & `tt_base` as submodules. Closes #1503
+   - Lord Bows: add damge info to arrows description. Closes #1457
+   - Planks: add `planks.get_lord_nodes()` into API. Now needs for #886
+   - Rebalance: Food: extract `hbhunger` overwrites. Closes #1507
+   - Rebalance: Food: Research: add `/satiety.{get|set}` commands for testing. CLoses #1506
+   - Add/Move `/armor.{get|set}` command(s) into `dev` from `lord_damage` branch. Relates to # 1509
+   - Move `castle` to builtin translations. Closes #1363. Fixes #1514
+   - Move several mods from `_various` into `lord`. Relates to #328
+   - Refactor `core_function`: check if last controls already inited. Extract `notify_subscribers()`. Fixes #1533. Fixes #936.
+   - Game-Web: turn off integration on Poligon. Relates to lord-server/infrastructure#7
+   - Game-Web: Players: update `race`, `gender`, `is_online`. Closes #1530. Fixes #1534
+   - Game-Web: pass as player `last_login` "now()" and not previous last-login. Fixes #1535
+   - Game-Web: add tmp command for register clan players on webside. Closes #1532
+   - Game-Web: add `409 Conflict` handling. Closes #1442
+   - Game-Web: extract sync_command into separate file. Relates to #1538
+   - Game-Web: make `for_players` & `for_clans` returns classes. Relates to #1538
+   - Game-Web: Refatoring classes for player & clan integration. Make then nor consistent. Relates to #1538
+   - Game-Web: add clan id sync. Closes #1538
+   - Add `mod.conf` for mod `lord_food`. Fix warning in logs.
+   - `http.Client`: add `http.debug` setting for dumping `request` & `result`.
+   - Game-Web: add|del player to clan: add workaround for minetest/minetest#14846 . Closes #1539
+   - Mobs: Refactoring: `lottmobs`: initial restructure. Closes #1543
+   - Fix `luacheck` warnings for `lord_spawners`.
+
+
 ## [2024.06.p3](https://github.com/lord-server/lord/releases/tag/2024.06.p3)
  - Game-Web: change passed player `last_login` as `now()`. Relates to #1436
  - Add spawns of cave mobs on `lord_rocks`. Closes #1468
