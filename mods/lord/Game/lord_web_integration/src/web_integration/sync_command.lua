@@ -77,6 +77,8 @@ local function sync_clan(clan, executor_name, iteration)
 			create_clan_on_web(clan, executor_name)
 		end)
 	end
+
+	return iteration
 end
 
 
