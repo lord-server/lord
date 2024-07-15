@@ -1,5 +1,4 @@
 --[[
-    Let the player craft Mob Spawners. Mobs are spawning randomly in a short intervals, giving the option of creating mob farms and grinders.
     Copyright (C) 2016 - 2023 SaKeL <juraj.vajda@gmail.com>
 
     This library is free software; you can redistribute it and/or
@@ -88,7 +87,9 @@ function lord_spawners.register_spawner(name, def)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('owner', placer:get_player_name())
 
-		meta:set_string('infotext', def.mob_name .. ' spawner\nowner: ' .. placer:get_player_name() .. '\nspawner is active')
+		meta:set_string(
+			'infotext', def.mob_name .. ' spawner\nowner: ' .. placer:get_player_name() .. '\nspawner is active'
+		)
 	end
 
 	node_def.on_destruct         = function(pos)
@@ -290,7 +291,10 @@ function lord_spawners.start_spawning(spawn_area_random_pos, mob_name, mod_prefi
 
 	-- use random colors for sheeps
 	if mob_name == 'sheep_white' then
-		local sheep_colors = { 'black', 'blue', 'brown', 'cyan', 'dark_green', 'dark_grey', 'green', 'grey', 'magenta', 'orange', 'pink', 'red', 'violet', 'white', 'yellow' }
+		local sheep_colors = {
+			'black', 'blue', 'brown', 'cyan', 'dark_green', 'dark_grey', 'green',
+			'grey', 'magenta', 'orange', 'pink', 'red', 'violet', 'white', 'yellow'
+		}
 		mob_name           = 'sheep_' .. sheep_colors[math.random(1, #sheep_colors)]
 	end
 
@@ -354,7 +358,9 @@ function lord_spawners.on_timer(pos, elapsed)
 	end
 
 	if not has_dummy and meta:get_string('status') == 'active' then
-		minetest.add_entity({ x = pos.x, y = pos.y + offset, z = pos.z }, 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name)
+		minetest.add_entity(
+			{ x = pos.x, y = pos.y + offset, z = pos.z }, 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name
+		)
 	end
 
 	-- check spawner light
@@ -366,7 +372,9 @@ function lord_spawners.on_timer(pos, elapsed)
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
-		meta:set_string('infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nToo dark for mob to spawn. Waiting for day .. .')
+		meta:set_string(
+			'infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nToo dark for mob to spawn. Waiting for day .. .'
+		)
 		lord_spawners.tick_short(pos)
 		return
 
@@ -376,7 +384,10 @@ function lord_spawners.on_timer(pos, elapsed)
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
-		meta:set_string('infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nToo much light for mob to spawn. Waiting for night .. .')
+		meta:set_string(
+			'infotext',
+			mob_name .. ' spawner\nowner: ' .. owner .. '\nToo much light for mob to spawn. Waiting for night .. .'
+		)
 		lord_spawners.tick_short(pos)
 		return
 	end
@@ -389,7 +400,9 @@ function lord_spawners.on_timer(pos, elapsed)
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
-		meta:set_string('infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nNot enough place to spawn mob. Find more space!')
+		meta:set_string(
+			'infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nNot enough place to spawn mob. Find more space!'
+		)
 		lord_spawners.tick(pos)
 		return
 	end
@@ -403,7 +416,9 @@ function lord_spawners.on_timer(pos, elapsed)
 		while #spawn_area_random_pos < how_many and #spawn_area_pos > 0 do
 
 			local random_pos       = spawn_area_pos[math.random(#spawn_area_pos)]
-			local random_pos_above = minetest.get_node({ x = random_pos.x, y = random_pos.y + 1, z = random_pos.z }).name
+			local random_pos_above = minetest.get_node(
+				{ x = random_pos.x, y = random_pos.y + 1, z = random_pos.z }
+			).name
 
 			if random_pos_above == 'air' and not minetest.is_protected(random_pos, owner) then
 				table.insert(spawn_area_random_pos, random_pos)
@@ -423,7 +438,11 @@ function lord_spawners.on_timer(pos, elapsed)
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
-		meta:set_string('infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nNot enough place to spawn mob. Searching for new location .. .')
+		meta:set_string(
+			'infotext',
+			mob_name .. ' spawner\nowner: ' .. owner .. '\n' ..
+				'Not enough place to spawn mob. Searching for new location .. .'
+		)
 		lord_spawners.tick_short(pos)
 		return
 	end
@@ -436,8 +455,12 @@ function lord_spawners.on_timer(pos, elapsed)
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
-		meta:set_string('infotext',
-			mob_name .. ' spawner\nowner: ' .. owner .. '\nToo many objects in the area (' .. #activation_area .. '/' .. max_objects .. '), clean-up dropped objects first!')
+		meta:set_string(
+			'infotext',
+			mob_name .. ' spawner\nowner: ' .. owner .. '\n' ..
+				'Too many objects in the area (' .. #activation_area .. '/' .. max_objects .. '), ' ..
+				'clean-up dropped objects first!'
+		)
 		lord_spawners.tick_short(pos)
 		return
 	end
@@ -458,7 +481,11 @@ function lord_spawners.on_timer(pos, elapsed)
 
 			if tmp_mob_name ~= nil then
 				-- sheeps have colors in names
-				if string.find(tmp_mob_name, 'sheep') and string.find(mob_name, 'sheep') and not string.find(tmp_mob_name, 'dummy') then
+				if
+					string.find(tmp_mob_name, 'sheep') and
+					string.find(mob_name, 'sheep') and
+					not string.find(tmp_mob_name, 'dummy')
+				then
 					-- print('found entity: ' .. tmp_mob_name)
 					entities_near = entities_near + 1
 
@@ -467,8 +494,11 @@ function lord_spawners.on_timer(pos, elapsed)
 					entities_near = entities_near + 1
 				end
 			else
-				minetest.log('warning',
-					'[lord_spawners] tmp_mob_name was nil, luaentity name was: ' .. object:get_luaentity().name .. ' at: ' .. minetest.pos_to_string(object:get_pos()))
+				minetest.log(
+					'warning',
+					'[lord_spawners] tmp_mob_name was nil, luaentity name was: ' ..
+						object:get_luaentity().name .. ' at: ' .. minetest.pos_to_string(object:get_pos())
+				)
 			end
 		end
 
@@ -489,8 +519,10 @@ function lord_spawners.on_timer(pos, elapsed)
 		--     name = 'sheep'
 		-- end
 
-		meta:set_string('infotext',
-			mob_name .. ' spawner\nowner: ' .. owner .. '\nmax mobs reached: ' .. entities_near .. '/' .. entities_max) -- or player not near
+		meta:set_string(
+			'infotext',
+			mob_name .. ' spawner\nowner: ' .. owner .. '\nmax mobs reached: ' .. entities_near .. '/' .. entities_max
+		) -- or player not near
 		lord_spawners.tick_short(pos)
 		return
 	end
@@ -499,7 +531,10 @@ function lord_spawners.on_timer(pos, elapsed)
 	lord_spawners.start_spawning(spawn_area_random_pos, mob_name, mod_prefix, sound_custom)
 
 	lord_spawners.set_status(pos, 'active')
-	meta:set_string('infotext', mob_name .. ' spawner\nowner: ' .. owner .. '\nspawner is active reached: ' .. entities_near .. '/' .. entities_max)
+	meta:set_string(
+		'infotext',
+		mob_name .. ' spawner\nowner: ' .. owner .. '\nspawner is active reached: ' .. entities_near .. '/' .. entities_max
+	)
 
 	meta:set_int('tick', 0)
 	meta:set_int('tick_short', 0)
@@ -554,7 +589,10 @@ function lord_spawners.set_status(pos, set_status)
 
 		if meta_status ~= set_status then
 			-- add dummy entity
-			minetest.add_entity({ x = pos.x, y = pos.y + offset, z = pos.z }, 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name)
+			minetest.add_entity(
+				{ x = pos.x, y = pos.y + offset, z = pos.z },
+				'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name
+			)
 
 			meta:set_string('status', 'active')
 
@@ -579,7 +617,10 @@ function lord_spawners.set_status(pos, set_status)
 		local objs = minetest.get_objects_inside_radius(pos, 0.5)
 		if objs then
 			for _, obj in ipairs(objs) do
-				if obj and obj:get_luaentity() and obj:get_luaentity().name == 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name then
+				if
+					obj and obj:get_luaentity() and
+					obj:get_luaentity().name == 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name
+				then
 					obj:remove()
 				end
 			end
@@ -607,7 +648,10 @@ function lord_spawners.set_status(pos, set_status)
 		local objs = minetest.get_objects_inside_radius(pos, 0.5)
 		if objs then
 			for _, obj in ipairs(objs) do
-				if obj and obj:get_luaentity() and obj:get_luaentity().name == 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name then
+				if
+					obj and obj:get_luaentity() and
+					obj:get_luaentity().name == 'lord_spawners:dummy_' .. mod_prefix .. '_' .. mob_name
+				then
 					obj:remove()
 				end
 			end
@@ -618,14 +662,17 @@ function lord_spawners.set_status(pos, set_status)
 		minetest.swap_node(pos, { name = 'lord_spawners:' .. mod_prefix .. '_' .. mob_name .. '_spawner_rusty' })
 
 		-- set infotext
-		meta:set_string('infotext',
-			mob_name .. ' spawner\nowner: ' .. owner .. '\nSpawner was searching for too long and got rusted! Dig up the spawner and place it again.')
+		meta:set_string(
+			'infotext',
+			mob_name .. ' spawner\nowner: ' .. owner .. '\n' ..
+				'Spawner was searching for too long and got rusted! Dig up the spawner and place it again.'
+		)
 		return
 	end
 end
 
+
 return {
 	register  = lord_spawners.register_spawner,
 	get_nodes = function() return lord_spawners.nodes end,
-
 }

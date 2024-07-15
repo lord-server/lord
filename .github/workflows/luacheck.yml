@@ -36,26 +36,27 @@ jobs:
             --globals lottachievements races throwing \
             --exclude-files \
               mods/_minetest_game/ \
-              mods/lord/World/Generation/icicles/ \
-              mods/lord/World/Generation/lottmapgen/ \
+              mods/lord/_overwrites/MTG/default/ \
+              mods/lord/Blocks/lottblocks/ \
+              mods/lord/Blocks/lord_homedecor/ \
+              mods/lord/Blocks/lord_spawners/ \
+              mods/lord/Blocks/protector_lott/ \
+              mods/lord/Blocks/signs_lib/ \
+              mods/lord/Blocks/technic_chests/ \
               mods/lord/Entities/throwing/ \
               mods/lord/Entities/npc/ \
               mods/lord/Entities/lottthrowing/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/lottachievements/ \
               mods/lord/Game/lord_classes/ \
-              mods/lord/_overwrites/MTG/default/ \
-              mods/lord/World/mountgen/ \
+              mods/lord/Player/hud_modpack/hbhunger/ \
+              mods/lord/Player/hud_modpack/hbsprint/ \
+              mods/lord/Player/hud_modpack/hudbars/ \
               mods/lord/Tools/lottpotion/ \
               mods/lord/Tools/lord_replacer/ \
               mods/lord/Tools/lord_money/ \
               mods/lord/Tools/lord_books/ \
               mods/lord/Tools/lord_boats/ \
-              mods/lord/Blocks/lottblocks/ \
-              mods/lord/Blocks/lord_homedecor/ \
-              mods/lord/Blocks/protector_lott/ \
-              mods/lord/Blocks/signs_lib/ \
-              mods/lord/Blocks/technic_chests/ \
-              mods/lord/Player/hud_modpack/hbhunger/ \
-              mods/lord/Player/hud_modpack/hbsprint/ \
-              mods/lord/Player/hud_modpack/hudbars/
+              mods/lord/World/Generation/icicles/ \
+              mods/lord/World/Generation/lottmapgen/ \
+              mods/lord/World/mountgen/
