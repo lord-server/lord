@@ -71,9 +71,6 @@
 	path = mods/_various/candles_3d
 	url = https://gitlab.com/lord-server/candles_3d.git
 	branch = lord
-[submodule "mods/_various/controls"]
-	path = mods/_various/controls
-	url = https://github.com/mt-mods/controls.git
 [submodule "mods/_various/discord"]
 	path = mods/_various/discord
 	url = https://github.com/lord-server/mt-chat-lp-api.git
