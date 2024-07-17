@@ -118,68 +118,68 @@ local ItemDefinition = {
         -- When item is used with the 'punch/mine' key pointing at nothing (air)
     },
 
+    --- When the 'place' key was pressed with the item in hand
+    --- and a node was pointed at.
+    --- Shall place item and return the leftover itemstack
+    --- or nil to not modify the inventory.
+    --- The placer may be any ObjectRef or nil.
+    --- default: minetest.item_place
     --- @type fun(itemstack:ItemStack, placer:Player|ObjectRef|nil, pointed_thing:pointed_thing)
     on_place = minetest.item_place,
-    -- When the 'place' key was pressed with the item in hand
-    -- and a node was pointed at.
-    -- Shall place item and return the leftover itemstack
-    -- or nil to not modify the inventory.
-    -- The placer may be any ObjectRef or nil.
-    -- default: minetest.item_place
 
+    --- Same as on_place but called when not pointing at a node.
+    --- Function must return either nil if inventory shall not be modified,
+    --- or an itemstack to replace the original itemstack.
+    --- The user may be any ObjectRef or nil.
+    --- default: nil
     --- @type fun(itemstack:ItemStack, user:Player|ObjectRef|nil, pointed_thing:pointed_thing)
     on_secondary_use = nil,
-    -- Same as on_place but called when not pointing at a node.
-    -- Function must return either nil if inventory shall not be modified,
-    -- or an itemstack to replace the original itemstack.
-    -- The user may be any ObjectRef or nil.
-    -- default: nil
 
+    --- Shall drop item and return the leftover itemstack.
+    --- The dropper may be any ObjectRef or nil.
+    --- default: minetest.item_drop
     --- @type fun(itemstack:ItemStack, dropper:Player|ObjectRef|nil, pos:Position)
     on_drop = minetest.item_drop,
-    -- Shall drop item and return the leftover itemstack.
-    -- The dropper may be any ObjectRef or nil.
-    -- default: minetest.item_drop
 
+    --- Called when a dropped item is punched by a player.
+    --- Shall pick-up the item and return the leftover itemstack or nil to not
+    --- modify the dropped item.
+    --- Parameters:
+    --- * `itemstack`: The `ItemStack` to be picked up.
+    --- * `picker`: Any `ObjectRef` or `nil`.
+    --- * `pointed_thing` (optional): The dropped item (a `"__builtin:item"`
+    ---   luaentity) as `type="object"` `pointed_thing`.
+    --- * `time_from_last_punch, ...` (optional): Other parameters from
+    ---   `luaentity:on_punch`.
+    --- default: `minetest.item_pickup`
     --- @type fun(itemstack:ItemStack, picker:Player|ObjectRef|nil, pointed_thing:pointed_thing, time_from_last_punch, ...)
     on_pickup = minetest.item_pickup,
-    -- Called when a dropped item is punched by a player.
-    -- Shall pick-up the item and return the leftover itemstack or nil to not
-    -- modify the dropped item.
-    -- Parameters:
-    -- * `itemstack`: The `ItemStack` to be picked up.
-    -- * `picker`: Any `ObjectRef` or `nil`.
-    -- * `pointed_thing` (optional): The dropped item (a `"__builtin:item"`
-    --   luaentity) as `type="object"` `pointed_thing`.
-    -- * `time_from_last_punch, ...` (optional): Other parameters from
-    --   `luaentity:on_punch`.
-    -- default: `minetest.item_pickup`
 
+    --- default: nil
+    --- When user pressed the 'punch/mine' key with the item in hand.
+    --- Function must return either nil if inventory shall not be modified,
+    --- or an itemstack to replace the original itemstack.
+    --- e.g. itemstack:take_item(); return itemstack
+    --- Otherwise, the function is free to do what it wants.
+    --- The user may be any ObjectRef or nil.
+    --- The default functions handle regular use cases.
     --- @type fun(itemstack:ItemStack, user:Player|ObjectRef|nil, pointed_thing:pointed_thing)
     on_use = nil,
-    -- default: nil
-    -- When user pressed the 'punch/mine' key with the item in hand.
-    -- Function must return either nil if inventory shall not be modified,
-    -- or an itemstack to replace the original itemstack.
-    -- e.g. itemstack:take_item(); return itemstack
-    -- Otherwise, the function is free to do what it wants.
-    -- The user may be any ObjectRef or nil.
-    -- The default functions handle regular use cases.
 
+    --- default: nil
+    --- If defined, should return an itemstack and will be called instead of
+    --- wearing out the item (if tool). If returns nil, does nothing.
+    --- If after_use doesn't exist, it is the same as:
+    ---   function(itemstack, user, node, digparams)
+    ---     itemstack:add_wear(digparams.wear)
+    ---     return itemstack
+    ---   end
+    --- The user may be any ObjectRef or nil.
     --- @type fun(itemstack:ItemStack, user:Player|ObjectRef|nil, node, digparams)
     after_use = nil,
-    -- default: nil
-    -- If defined, should return an itemstack and will be called instead of
-    -- wearing out the item (if tool). If returns nil, does nothing.
-    -- If after_use doesn't exist, it is the same as:
-    --   function(itemstack, user, node, digparams)
-    --     itemstack:add_wear(digparams.wear)
-    --     return itemstack
-    --   end
-    -- The user may be any ObjectRef or nil.
 
-    _custom_field = whatever,
-    -- Add your own custom fields. By convention, all custom field names
-    -- should start with `_` to avoid naming collisions with future engine
-    -- usage.
+    --- Add your own custom fields. By convention, all custom field names
+    --- should start with `_` to avoid naming collisions with future engine
+    --- usage.
+    _custom_field = "< whatever >",
 }

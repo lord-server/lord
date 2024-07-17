@@ -361,6 +361,8 @@ function minetest.register_node(name, node_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4472-L4472)
 function minetest.register_craftitem(name, item_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4473-L4473)
+--- @param name            string
+--- @param item_definition ItemDefinition
 function minetest.register_tool(name, item_definition) end
 --- * Overrides fields of an item registered with register_node/tool/craftitem.
 --- * Note: Item must already be defined, (opt)depend on the mod defining it.
@@ -368,6 +370,8 @@ function minetest.register_tool(name, item_definition) end
 ---   {light_source=minetest.LIGHT_MAX})`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4474-L4478)
+--- @param name         string
+--- @param redefinition ItemDefinition
 function minetest.override_item(name, redefinition) end
 --- * Unregisters the item from the engine, and deletes the entry with key
 ---   `name` from `minetest.registered_items` and from the associated item table
