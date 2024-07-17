@@ -51,17 +51,14 @@ minetest.register_craftitem("lottother:vilya", {
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_globalstep(function(dtime)
-	for _, player in ipairs(minetest.get_connected_players()) do
-		if math.random() < 0.1 then
-			if player:get_inventory():get_stack("main", player:get_wield_index()):get_name() == "lottother:vilya"
-			and player:get_hp() < 19 then
-				player:set_hp(20)
-			end
 
+minetest.foreach_player_every(0, function(player, delta_time)
+	if math.random() < 0.1 then
+		if player:get_inventory():get_stack("main", player:get_wield_index()):get_name() == "lottother:vilya"
+			and player:get_hp() < 19 then
+			player:set_hp(20)
 		end
 	end
-
 end)
 
 --FUNCTION = Makes (good) mobs follow you.

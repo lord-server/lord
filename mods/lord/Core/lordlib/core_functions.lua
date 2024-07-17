@@ -176,33 +176,31 @@ local function notify_subscribers(player, control_name, control_value, player_la
 	end
 end
 
-minetest.register_globalstep(function(dtime)
-	for _, player in pairs(minetest.get_connected_players()) do
-		local player_name  = player:get_player_name()
-		local player_last_ = lord.players[player_name]
+minetest.foreach_player_every(0, function(player, delta_time)
+	local player_name  = player:get_player_name()
+	local player_last_ = lord.players[player_name]
 
-		if player_name ~= nil and player_last_ ~= nil then
-			local player_last_controls    = player_last_.controls
-			local player_last_wield_index = player_last_.wield_index
-			local player_controls         = player:get_player_control()
-			local player_wield_index      = player:get_wield_index()
+	if player_name ~= nil and player_last_ ~= nil then
+		local player_last_controls    = player_last_.controls
+		local player_last_wield_index = player_last_.wield_index
+		local player_controls         = player:get_player_control()
+		local player_wield_index      = player:get_wield_index()
 
-			for control_name, control_value in pairs(player_controls) do
-				if not player_last_controls then
-					break
-				end
-				notify_subscribers(player, control_name, control_value, player_last_controls, dtime)
+		for control_name, control_value in pairs(player_controls) do
+			if not player_last_controls then
+				break
 			end
-
-			-- Вызов каллбэков смены индекса предмета в руке
-			if player_wield_index ~= player_last_wield_index then
-				for _, func in pairs(lord.registered_on_wield_index_change) do
-					func(player, player_wield_index, player_last_wield_index)
-				end
-				player_last_wield_index = player_wield_index
-			end
-			lord.players[player_name].controls    = player_last_controls
-			lord.players[player_name].wield_index = player_last_wield_index
+			notify_subscribers(player, control_name, control_value, player_last_controls, delta_time)
 		end
+
+		-- Вызов каллбэков смены индекса предмета в руке
+		if player_wield_index ~= player_last_wield_index then
+			for _, func in pairs(lord.registered_on_wield_index_change) do
+				func(player, player_wield_index, player_last_wield_index)
+			end
+			player_last_wield_index = player_wield_index
+		end
+		lord.players[player_name].controls    = player_last_controls
+		lord.players[player_name].wield_index = player_last_wield_index
 	end
 end)

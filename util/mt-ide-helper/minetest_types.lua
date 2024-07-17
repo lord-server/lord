@@ -499,9 +499,9 @@ function minetest.register_authentication_handler(authentication_handler_definit
 
 -- Global callback registration functions:
 --- * Called every server step, usually interval of 0.1s
----
+--- * `delta_time` is the time since last execution in seconds.
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4564-L4565)
---- @param callback fun(dtime:number)
+--- @param callback fun(delta_time:number)
 function minetest.register_globalstep(callback) end
 --- * Called after mods have finished loading and before the media is cached or the
 ---   aliases handled.

@@ -184,13 +184,4 @@ equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item
 end)
 
 -- TODO see `minetest.register_on_punchplayer()` (#977)
-local time = 0
-minetest.register_globalstep(function(dtime)
-	time = time + dtime
-	if time > ARMOR_UPDATE_TIME then
-		for _,player in ipairs(minetest.get_connected_players()) do
-			handle_armor_wear(player)
-		end
-		time = 0
-	end
-end)
+minetest.foreach_player_every(ARMOR_UPDATE_TIME, handle_armor_wear)

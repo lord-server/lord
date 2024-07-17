@@ -1,4 +1,3 @@
-local time = 0
 local update_time = tonumber(minetest.settings:get("lottarmor_update_time"))
 if not update_time then
 	update_time = 2
@@ -10,11 +9,11 @@ if not node_tiles then
 	minetest.settings:set("lottarmor_node_tiles", "true")
 end
 
+
 local player_appearance = {
 	wielded_item = {},
 	transform = require("transform"),
 }
-
 
 player_appearance.get_item_texture = function(self, item)
 	local texture = "lottarmor_trans.png"
@@ -61,13 +60,7 @@ minetest.register_on_joinplayer(function(player)
 	player_appearance.wielded_item[name] = ""
 end)
 
-minetest.register_globalstep(function(dtime)
-	time = time + dtime
-	if time > update_time then
-		for _,player in ipairs(minetest.get_connected_players()) do
-			player_appearance:update_wielded_item(player)
-		end
-		time = 0
-	end
+minetest.foreach_player_every(update_time, function(player)
+	player_appearance:update_wielded_item(player)
 end)
 

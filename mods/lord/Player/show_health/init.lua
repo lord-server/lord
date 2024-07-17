@@ -48,15 +48,13 @@ local function player_undisplay_hp(player)
 	displayed_after_nametag[name] = nil
 end
 
-minetest.register_globalstep(function(dtime)
-	for _, player in pairs(minetest.get_connected_players()) do
-		local pos = vector.round(player:get_pos())
-		local in_arena = table_keys_has_one_of_values(areas:getAreasAtPos(pos), ARENA_AREA_IDS)
+minetest.foreach_player_every(0.2, function(player)
+	local pos = vector.round(player:get_pos())
+	local in_arena = table_keys_has_one_of_values(areas:getAreasAtPos(pos), ARENA_AREA_IDS)
 
-		if in_arena then
-			player_display_hp(player)
-		else
-			player_undisplay_hp(player)
-		end
+	if in_arena then
+		player_display_hp(player)
+	else
+		player_undisplay_hp(player)
 	end
 end)
