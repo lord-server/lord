@@ -35,7 +35,7 @@ zfc.add_craft = function(input, output, groups)
 	c.items = input.items
 	if c.items == nil then return end
 	for i, item in pairs(c.items) do
-		if item:sub(0,6) == "group:" then
+		if item:starts_with("group:") then
 			local groupname = item:sub(7)
 			if groups[groupname] ~= nil then
 				c.items[i] = groups[groupname]
@@ -208,7 +208,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		end
 	end
 	for k, v in pairs(fields) do
-		if (k:sub(0,4)=="zfc:") then
+		if (k:starts_with("zfc:")) then
 			local ni = k:sub(5)
 			if zfc.crafts[ni] then
 				zfc.users[pn].current_item = ni
@@ -216,10 +216,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 				zfc.users[pn].history.index = #zfc.users[pn].history.list
 				zfc.form.show(pn)
 			end
-		elseif (k:sub(0,9)=="zfc_page:") then
+		elseif (k:starts_with("zfc_page:")) then
 			zfc.users[pn].page = tonumber(k:sub(10))
 			zfc.form.show(pn)
-		elseif (k:sub(0,8)=="zfc_alt:") then
+		elseif (k:starts_with("zfc_alt:")) then
 			zfc.users[pn].alt = tonumber(k:sub(9))
 			zfc.form.show(pn)
 		end

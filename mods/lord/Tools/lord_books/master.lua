@@ -38,7 +38,7 @@ zmc.add_craft = function(input, output, groups)
 	c.items = input.items
 	if c.items == nil then return end
 	for i, item in pairs(c.items) do
-		if item:sub(0,6) == "group:" then
+		if item:starts_with("group:") then
 			local groupname = item:sub(7)
 			if groups[groupname] ~= nil then
 				c.items[i] = groups[groupname]
@@ -287,7 +287,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		end
 	end
 	for k, v in pairs(fields) do
-		if (k:sub(0,4)=="zmc:") then
+		if (k:starts_with("zmc:")) then
 			local ni = k:sub(5)
 			if zmc.crafts[ni] then
 				zmc.users[pn].current_item = ni
@@ -295,10 +295,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 				zmc.users[pn].history.index = #zmc.users[pn].history.list
 				zmc.form.show(pn, search_phrase)
 			end
-		elseif (k:sub(0,9)=="zmc_page:") then
+		elseif (k:starts_with("zmc_page:")) then
 			zmc.users[pn].page = tonumber(k:sub(10))
 			zmc.form.show(pn, search_phrase)
-		elseif (k:sub(0,8)=="zmc_alt:") then
+		elseif (k:starts_with("zmc_alt:")) then
 			zmc.users[pn].alt = tonumber(k:sub(9))
 			zmc.form.show(pn, search_phrase)
 		end

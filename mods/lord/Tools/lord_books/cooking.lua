@@ -44,7 +44,7 @@ zcc.add_craft      = function(input, output, groups)
 	if minetest.get_item_group(output, "cook_crafts") > 0 or c.type == "cooking" then
 		if c.items == nil then return end
 		for i, item in pairs(c.items) do
-			if item:sub(0, 6) == "group:" then
+			if item:starts_with("group:") then
 				local groupname = item:sub(7)
 				if groups[groupname] ~= nil then
 					c.items[i] = groups[groupname]
@@ -225,7 +225,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		end
 	end
 	for k, v in pairs(fields) do
-		if (k:sub(0, 4) == "zcc:") then
+		if (k:starts_with("zcc:")) then
 			local ni = k:sub(5)
 			if zcc.crafts[ni] then
 				zcc.users[pn].current_item = ni
@@ -233,10 +233,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 				zcc.users[pn].history.index = #zcc.users[pn].history.list
 				zcc.form.show(pn)
 			end
-		elseif (k:sub(0, 9) == "zcc_page:") then
+		elseif (k:starts_with("zcc_page:")) then
 			zcc.users[pn].page = tonumber(k:sub(10))
 			zcc.form.show(pn)
-		elseif (k:sub(0, 8) == "zcc_alt:") then
+		elseif (k:starts_with("zcc_alt:")) then
 			zcc.users[pn].alt = tonumber(k:sub(9))
 			zcc.form.show(pn)
 		end

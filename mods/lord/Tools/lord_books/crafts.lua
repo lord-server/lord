@@ -50,7 +50,7 @@ zcg.add_craft = function(input, output, groups)
 	c.items = input.items
 	if c.items == nil then return end
 	for i, item in pairs(c.items) do
-		if item:sub(0,6) == "group:" then
+		if item:starts_with("group:") then
 			local groupname = item:sub(7)
 			if groups[groupname] ~= nil then
 				c.items[i] = groups[groupname]
@@ -272,7 +272,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		end
 	end
 	for k, v in pairs(fields) do
-		if (k:sub(0,4)=="zcg:") then
+		if (k:starts_with("zcg:")) then
 			local ni = k:sub(5)
 			if zcg.crafts[ni] then
 				zcg.users[pn].current_item = ni
@@ -280,10 +280,10 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 				zcg.users[pn].history.index = #zcg.users[pn].history.list
 				zcg.form.show(pn, search_phrase)
 			end
-		elseif (k:sub(0,9)=="zcg_page:") then
+		elseif (k:starts_with("zcg_page:")) then
 			zcg.users[pn].page = tonumber(k:sub(10))
 			zcg.form.show(pn, search_phrase)
-		elseif (k:sub(0,8)=="zcg_alt:") then
+		elseif (k:starts_with("zcg_alt:")) then
 			zcg.users[pn].alt = tonumber(k:sub(9))
 			zcg.form.show(pn, search_phrase)
 		end
