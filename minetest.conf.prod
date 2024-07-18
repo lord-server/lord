@@ -278,6 +278,8 @@ lp_api.system_name = lord
 #
 #    Ours (LORD)
 #
+#environment = production
+#debug = false
 
 # ------- lord/lord_classes, lord/lord_spawn -------
 # также см. настройку `static_spawnpoint` в основном разделе выше

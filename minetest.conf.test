@@ -252,6 +252,7 @@ lp_api.system_name = lord-test
 #    Ours (LORD)
 #
 environment = test
+debug = true
 
 # ------- lord/lord_classes, lord/lord_spawn -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
