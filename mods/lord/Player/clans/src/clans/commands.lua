@@ -62,6 +62,7 @@ local function get_beautiful_player_str(player_name)
 end
 
 minetest.register_chatcommand("clans.show", {
+	params = S("<clan ID>"),
 	description = S("Shows given clan information."),
 	func = function(_, param_str)
 		local clan = clans.clan_get_by_name(param_str)
@@ -83,7 +84,7 @@ minetest.register_chatcommand("clans.show", {
 })
 
 minetest.register_chatcommand("clans.register", {
-	params = S("<leader name> <clan name> <clan title>"),
+	params = S("<leader name> <clan ID> <clan title>"),
 	description = S("Register clan with given leader, name and title"),
 	privs = { server = true, },
 	func = function(_, param_str)
@@ -115,7 +116,7 @@ minetest.register_chatcommand("clans.register", {
 })
 
 minetest.register_chatcommand("clans.delete", {
-	params = S("<clan name>"),
+	params = S("<clan ID>"),
 	description = S("Delete clan with given name"),
 	privs = { server = true, },
 	func = function(_, param_str)
@@ -151,7 +152,7 @@ local function err2str(err, clan_name)
 end
 
 minetest.register_chatcommand("clans.players.add", {
-	params = S("<clan name> <list of players separated by space>"),
+	params = S("<clan ID> <list of players separated by space>"),
 	description = S("Add given players to given clan"),
 	privs = { server = true, },
 	func = function(_, param_str)
@@ -175,7 +176,7 @@ minetest.register_chatcommand("clans.players.add", {
 })
 
 minetest.register_chatcommand("clans.players.remove", {
-	params = S("<clan name> <player name>"),
+	params = S("<clan ID> <player name>"),
 	description = S("Removes given player from given clan."),
 	privs = { server = true, },
 	func = function(_, param_str)
@@ -199,7 +200,7 @@ minetest.register_chatcommand("clans.players.remove", {
 })
 
 minetest.register_chatcommand("clans.toggle_block", {
-	params = S("<clan name>"),
+	params = S("<clan ID>"),
 	description = S("Toggles clan block."),
 	privs = { server = true, },
 	func = function(_, param_str)
