@@ -1,13 +1,11 @@
 local S = minetest.get_translator("lottblocks")
 
+-- TODO #1555 remove old code for store in file.
 local function deprecated_load_palantiri()
-	local file = io.open(minetest.get_worldpath() .. "/LORD/palantiri", "r")
-	if file == nil then
-		return nil
-	end
-	local tmp = minetest.deserialize(file:read("*all"))
-	file:close()
-	return tmp[1]
+	local content = io.read_from_file(minetest.get_worldpath() .. "/LORD/palantiri")
+	if not content then return nil end
+
+	return minetest.deserialize(content)[1]
 end
 
 local mod_storage = minetest.get_mod_storage()

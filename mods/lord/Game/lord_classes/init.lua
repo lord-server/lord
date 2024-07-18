@@ -120,13 +120,11 @@ end
 -- Load serialized classes from file
 -- Returns false when failed, true otherwise
 function races.load()
-	local input = io.open(races.save_path, "r")
-    if not input then
-		return false
-	end
-    local content = input:read("*all")
-    cache = minetest.deserialize(content)
-    input:close()
+    local content = io.read_from_file(races.save_path)
+	if not content then	return false end
+
+	cache = minetest.deserialize(content)
+
 	return true
 end
 
@@ -136,13 +134,16 @@ ensure_table_struct()
 -- Serialize and save the races
 -- Returns false when failed, true otherwise
 function races.save()
-	local output = io.open(races.save_path, "w")
-	if not output then
+	local content = minetest.serialize(cache)
+	local wrote, error_code, error_message = io.write_to_file(races.save_path, content)
+	if not wrote then
+		minetest.log("error", string.format(
+			"Can't write to file `%s`: [%s]: %s", races.save_path, error_code, error_message
+		))
+
 		return false
 	end
-	local content = minetest.serialize(cache)
-    output:write(content)
-    output:close()
+
     return true
 end
 

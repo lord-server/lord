@@ -60,10 +60,7 @@ local function save_meta_data(pos1, pos2, filename, player_name)
 	end)
 	data = minetest.serialize(data)
 
-	local file = io.open(filename, "wb")
-	file:write(data)
-	file:flush()
-	file:close()
+	io.write_to_file(filename, data, "wb")
 
 	minetest.chat_send_player(player_name, "META-данные записаны в файл ".. filename)
 end
@@ -118,9 +115,7 @@ minetest.register_chatcommand ("L", {
 			minetest.chat_send_player(name, "Ошибка загрузки ландшафта") return
 		end
 
-		local file = io.open(file_meta, "r")
-		local data = file:read("*a")
-		file:close()
+		local data = io.read_from_file(file_meta, "r")
 		local meta_table = minetest.deserialize(data)
 		for i, m in ipairs(meta_table) do
 			local posl = minetest.string_to_pos(m.pos)

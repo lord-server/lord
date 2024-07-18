@@ -1,5 +1,8 @@
+local string_format
+    = string.format
 
-local areas_mod = minetest.global_exists("areas")
+local mod_path       = minetest.get_modpath(minetest.get_current_modname())
+local areas_mod      = minetest.global_exists("areas")
 local protect_houses = minetest.settings:get_bool("protect_structures") or true
 
 local lottmapgen_list = {
@@ -34,13 +37,10 @@ local function place_building(name, pos, offset1, offset2, area_name, area_owner
 	end
 end
 
-local fmt = string.format
 local function load_building(name)
-	local filename = fmt("%s/schems/%s.we", minetest.get_modpath("lottmapgen"), name)
-	local file = io.open(filename)
-	local content = file:read("*a")
-	file:close()
-	buildings[name] = content
+	local filename = string_format("%s/schems/%s.we", mod_path, name)
+
+	return io.read_from_file(filename)
 end
 
 for i in ipairs(lottmapgen_list) do
@@ -51,7 +51,7 @@ for i in ipairs(lottmapgen_list) do
 	local offset1 = lottmapgen_list[i][5]
 	local offset2 = lottmapgen_list[i][6]
 
-	load_building(name)
+	buildings[name] = load_building(name)
 
 	-- The node being placed by the mapgen
 	minetest.register_node("lottmapgen:"..name, {

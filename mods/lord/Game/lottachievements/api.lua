@@ -19,10 +19,14 @@ dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
 
 -- Table Save Load Functions
 function lottachievements.save()
-	local file = io.open(minetest.get_worldpath().."/lottachievements.txt", "w")
-	if file then
-		file:write(minetest.serialize(lottachievements.players))
-		file:close()
+	local wrote, error_code, error_message = io.write_to_file(
+		minetest.get_worldpath().."/lottachievements.txt",
+		minetest.serialize(lottachievements.players)
+	)
+	if not wrote then
+		minetest.log("error", string.format(
+			"Can't write to file `%s`: [%s]: %s", races.save_path, error_code, error_message
+		))
 	end
 end
 
@@ -35,14 +39,23 @@ function lottachievements.init()
 end
 
 function lottachievements.load()
-	local file = io.open(minetest.get_worldpath().."/lottachievements.txt", "r")
-	if file then
-		local table = minetest.deserialize(file:read("*all"))
-		if type(table) == "table" then
-			return table
-		end
+	local content, _, error_message = io.read_from_file(minetest.get_worldpath().."/lottachievements.txt")
+	if not content then
+		minetest.log(
+			"error",
+			"Can't read file `/lottachievements.txt`" .. (error_message and (": " .. error_message) or "")
+		)
+
+		return {}
 	end
-	return {}
+
+	local table = minetest.deserialize(content)
+	if type(table) ~= "table" then
+		minetest.log("error", "Unable to deserialize `lottachievements.txt` content")
+		return {}
+	end
+
+	return table
 end
 
 function lottachievements.register_trigger(name, func)

@@ -22,57 +22,26 @@ minetest.register_privilege("rules", {
 -- размер и фон формы
 local form_prop = "size[8,8.5]background[5,5;1,1;info_formbg.png;true]"
 
--- TODO: #925 https://github.com/lord-server/lord/issues/925
 -- чтение/запись txt файлов
 local function read_info()
-	local input = io.open(info_file, "r")
-	local info_text
-	if input then
-		info_text = input:read("*a")
-		io.close(input)
-	else
-		info_text = SL("info_text")
-	end
-	return info_text
+	return io.read_from_file(info_file) or SL("info_text")
 end
 local function write_info(info_text)
-	local output = io.open(info_file, "w")
-	output:write(info_text)
-	io.close(output)
+	io.write_to_file(info_file, info_text)
 end
 
 local function read_news()
-	local input = io.open(news_file, "r")
-	local news_text
-	if input then
-		news_text = input:read("*a")
-		io.close(input)
-	else
-		news_text = SL("news_text")
-	end
-	return news_text
+	return io.read_from_file(news_file) or SL("news_text")
 end
 local function write_news(news_text)
-	local output = io.open(news_file, "w")
-	output:write(news_text)
-	io.close(output)
+	io.write_to_file(news_file, news_text)
 end
 
 local function read_rules()
-	local input = io.open(rules_file, "r")
-	local rules_text
-	if input then
-		rules_text = input:read("*a")
-		io.close(input)
-	else
-		rules_text = SL("rules_text")
-	end
-	return rules_text
+	return io.read_from_file(rules_file) or SL("rules_text")
 end
 local function write_rules(rules_text)
-	local output = io.open(rules_file, "w")
-	output:write(rules_text)
-	io.close(output)
+	io.write_to_file(rules_file, rules_text)
 end
 
 
