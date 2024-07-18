@@ -102,7 +102,7 @@ max_objects_per_block = 499
 secure.enable_security = true
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = grinder, lp_api
+secure.trusted_mods = lp_api
 
 # For Discord
 secure.http_mods = lp_api, http

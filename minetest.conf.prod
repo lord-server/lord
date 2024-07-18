@@ -130,7 +130,7 @@ max_objects_per_block = 512
 secure.enable_security = false
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = grinder, lp_api
+secure.trusted_mods = lp_api
 #    Comma-separated list of mods that are allowed to access HTTP APIs, which
 #    allow them to upload and download data to/from the internet.
 

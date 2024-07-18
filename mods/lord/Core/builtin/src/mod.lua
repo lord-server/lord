@@ -36,6 +36,6 @@ function minetest.mod(mod_init_function)
 	require = old_require
 
 	if debug_mode then
-		minetest.log("info", string.format("Mod loaded: [%s]", mod_name))
+		minetest.log(string.format("Mod loaded: [%s]", mod_name))
 	end
 end

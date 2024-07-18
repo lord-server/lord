@@ -6,10 +6,15 @@ if not package_loaded then
 	package.loaded = package_loaded
 end
 
+--- @type string
 local DS = os.DIRECTORY_SEPARATOR
+--- @type fun(name:string):any[]
 local mod_requires = {}
 
 
+--- @param mod_name string
+--- @param mod_path string
+--- @return fun(name:string):any
 local function create_require_for_mod(mod_name, mod_path)
 	--- @param name string
 	--- @return any
