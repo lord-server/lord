@@ -16,10 +16,6 @@ minetest.foreach_player_every = function(every_seconds, callback)
 		callback      = callback,
 	}
 end
-print(__FILE_LINE__())
-print(dump(minetest.foreach_player_every))
-
-
 
 --- @param delta_time number
 --- @return fun(player:Player,delta_time:number)[]
