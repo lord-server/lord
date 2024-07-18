@@ -56,8 +56,8 @@ local Form = {
 }
 
 Form.get_spec = function(player_name, preview)
-	local formspec = formspec_template:gsub("player_name", player_name)
-	formspec       = formspec:gsub("armor_preview", preview)
+	local formspec = formspec_template:replace("player_name", player_name)
+	formspec       = formspec:replace("armor_preview", preview)
 
 	return formspec
 end

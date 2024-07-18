@@ -81,7 +81,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		end
 		data.description = S("Scroll")..": "..short_title
 		data.text = fields.text
-		data.text = data.text:gsub("\r\n", "\n"):gsub("\r", "\n")
+		data.text = data.text:replace("\r\n", "\n"):replace("\r", "\n")
 		data.text = data.text:gsub("[%z\1-\8\11-\31\127]", "") -- strip naughty control characters (keeps \t and \n)
 
 		stack:get_meta():from_table({ fields = data })

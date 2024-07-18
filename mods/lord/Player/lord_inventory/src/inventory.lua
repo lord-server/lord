@@ -54,7 +54,7 @@ local function overlay_equip_previews(player, kind)
 		if not item:is_empty() then
 			local item_groups = item:get_definition().groups
 			if not item_groups["no_preview"] then
-				table.insert(previews, item:get_name():gsub("%:", "_") .. "_preview.png")
+				table.insert(previews, item:get_name():replace("%:", "_") .. "_preview.png")
 			end
 		end
 	end

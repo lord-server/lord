@@ -289,8 +289,8 @@ local function handle_list_form(player, form_name, fields)
 
 	if fields.lst_objs then
 		local chg = fields.lst_objs
-		chg = string.gsub(chg, "CHG:", "")
-		chg = string.gsub(chg, "DCL:", "")
+		chg = string.replace(chg, "CHG:", "")
+		chg = string.replace(chg, "DCL:", "")
 		chg = tonumber(chg)
 		minetest.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter))
 	end

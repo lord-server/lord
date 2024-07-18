@@ -189,7 +189,7 @@ for _, side in ipairs({"diagonal_left", "diagonal_right", "horizontal"}) do
 				fixed = { -8/16, -8/16, 5/16, 8/16, 8/16, 8/16 }
 			}
 		else
-			minetest.register_alias(string.gsub("lord_homedecor:"..nodename, "diagonal_", ""), "lord_homedecor:"..nodename)
+			minetest.register_alias(string.replace("lord_homedecor:"..nodename, "diagonal_", ""), "lord_homedecor:"..nodename)
 		end
 
 		lord_homedecor.register(nodename, {

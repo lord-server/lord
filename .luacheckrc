@@ -31,7 +31,7 @@ read_globals      = {
 		-- MT Builtin:
 		"split", "trim",
 		-- our Core/helpers:
-		"is_one_of"
+		"is_one_of", "replace",
 		-- TODO: "startsWith", "endsWith", ...
 	} },
 

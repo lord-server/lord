@@ -119,7 +119,7 @@ shop.formspec = {
 	configurator_whitelist = function(pos, admin, is_endless, members_list)
 		local formspec = shop.formspec.configurator_base(pos, admin, is_endless)
 
-		formspec:gsub("size[8,9]", "size[10,9]")
+		formspec:replace("size[8,9]", "size[10,9]")
 		formspec = formspec.."button[7.15,4.35;0.75,1;whitelist_off;<]"..
 		"field[8.5,0.5;2.5,.5;add_member;"..S("Add member")..";]"..
 		"field_close_on_enter[add_member;false]"..
@@ -384,7 +384,7 @@ minetest.register_on_player_receive_fields(
 			if string.find(field, "delete_member_") and (
 				name == meta:get_string("owner") or minetest.get_player_privs(name).server
 			) then
-				local member = string.gsub(field, "delete_member_", "")
+				local member = string.replace(field, "delete_member_", "")
 				remove_member(meta, member)
 				minetest.show_formspec(name,"lord_money:shop_formspec",
 					shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))

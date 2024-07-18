@@ -191,11 +191,11 @@ function lord_homedecor.bed_expansion(pos, placer, itemstack, pointed_thing, col
 	local rightnode = minetest.get_node(rightpos)
 
 	if leftnode.name == "lord_homedecor:bed_"..color.."_regular" then
-		local newname = string.gsub(thisnode.name, "_regular", "_kingsize")
+		local newname = string.replace(thisnode.name, "_regular", "_kingsize")
 		minetest.set_node(pos, {name = "air"})
 		minetest.set_node(leftpos, { name = newname, param2 = fdir})
 	elseif rightnode.name == "lord_homedecor:bed_"..color.."_regular" then
-		local newname = string.gsub(thisnode.name, "_regular", "_kingsize")
+		local newname = string.replace(thisnode.name, "_regular", "_kingsize")
 		minetest.set_node(rightpos, {name = "air"})
 		minetest.set_node(pos, { name = newname, param2 = fdir})
 	end
@@ -205,14 +205,14 @@ function lord_homedecor.bed_expansion(pos, placer, itemstack, pointed_thing, col
 
 	if string.find(topnode.name, "lord_homedecor:bed_.*_regular$") then
 		if fdir == topnode.param2 then
-			local newname = string.gsub(thisnode.name, "_regular", "_extended")
+			local newname = string.replace(thisnode.name, "_regular", "_extended")
 			minetest.set_node(pos, { name = newname, param2 = fdir})
 		end
 	end
 
 	if string.find(bottomnode.name, "lord_homedecor:bed_.*_regular$") then
 		if fdir == bottomnode.param2 then
-			local newname = string.gsub(bottomnode.name, "_regular", "_extended")
+			local newname = string.replace(bottomnode.name, "_regular", "_extended")
 			minetest.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
 		end
 	end
@@ -222,7 +222,7 @@ function lord_homedecor.unextend_bed(pos, color)
 	local bottomnode = minetest.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
 	local fdir = bottomnode.param2
 	if string.find(bottomnode.name, "lord_homedecor:bed_.*_extended$") then
-		local newname = string.gsub(bottomnode.name, "_extended", "_regular")
+		local newname = string.replace(bottomnode.name, "_extended", "_regular")
 		minetest.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
 	end
 end
@@ -234,12 +234,12 @@ local function is_same_banister_at(pos, compared_name)
 	local def_name = definition and definition.name or ""
 	local node_name = compared_name or "-----"
 
-	def_name = def_name:gsub("diagonal_left", "")
-	def_name = def_name:gsub("diagonal_right", "")
-	def_name = def_name:gsub("horizontal", "")
-	node_name = node_name:gsub("diagonal_left", "")
-	node_name = node_name:gsub("diagonal_right", "")
-	node_name = node_name:gsub("horizontal", "")
+	def_name = def_name:replace("diagonal_left", "")
+	def_name = def_name:replace("diagonal_right", "")
+	def_name = def_name:replace("horizontal", "")
+	node_name = node_name:replace("diagonal_left", "")
+	node_name = node_name:replace("diagonal_right", "")
+	node_name = node_name:replace("horizontal", "")
 
 	return def_name == node_name
 end
@@ -310,52 +310,52 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	if (left_below_node and string.find(left_below_node.name, "banister_.-_diagonal_right")
 	  and below_node and is_buildable_to(placer_name, below_pos, below_pos))
 	  or not is_buildable_to(placer_name, right_fwd_above_pos, right_fwd_above_pos) then
-		new_place_name = string.gsub(new_place_name, "_horizontal", "_diagonal_right")
+		new_place_name = string.replace(new_place_name, "_horizontal", "_diagonal_right")
 	elseif (right_below_node and string.find(right_below_node.name, "banister_.-_diagonal_left")
 	  and below_node and is_buildable_to(placer_name, below_pos, below_pos))
 	  or not is_buildable_to(placer_name, left_fwd_above_pos, left_fwd_above_pos) then
-		new_place_name = string.gsub(new_place_name, "_horizontal", "_diagonal_left")
+		new_place_name = string.replace(new_place_name, "_horizontal", "_diagonal_left")
 
 	-- try to follow a diagonal with the corresponding horizontal
 	-- from the top of a diagonal...
 	elseif left_below_node and string.find(left_below_node.name, "lord_homedecor:banister_.*_diagonal") then
 		fdir = left_below_node.param2
-		new_place_name = string.gsub(left_below_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(left_below_node.name, "_diagonal_.-$", "_horizontal")
 	elseif right_below_node and string.find(right_below_node.name, "lord_homedecor:banister_.*_diagonal") then
 		fdir = right_below_node.param2
-		new_place_name = string.gsub(right_below_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(right_below_node.name, "_diagonal_.-$", "_horizontal")
 
 	-- try to place a horizontal in-line with the nearest diagonal, at the top
 	elseif left_fwd_below_node and string.find(left_fwd_below_node.name, "lord_homedecor:banister_.*_diagonal")
 	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
 		fdir = left_fwd_below_node.param2
 		pos = fwd_pos
-		new_place_name = string.gsub(left_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(left_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
 	elseif right_fwd_below_node and string.find(right_fwd_below_node.name, "lord_homedecor:banister_.*_diagonal")
 	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
 		fdir = right_fwd_below_node.param2
 		pos = fwd_pos
-		new_place_name = string.gsub(right_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(right_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
 
 	-- try to follow a diagonal with a horizontal, at the bottom of the diagonal
 	elseif left_node and string.find(left_node.name, "lord_homedecor:banister_.*_diagonal") then
 		fdir = left_node.param2
-		new_place_name = string.gsub(left_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(left_node.name, "_diagonal_.-$", "_horizontal")
 	elseif right_node and string.find(right_node.name, "lord_homedecor:banister_.*_diagonal") then
 		fdir = right_node.param2
-		new_place_name = string.gsub(right_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(right_node.name, "_diagonal_.-$", "_horizontal")
 
 	-- try to place a horizontal in-line with the nearest diagonal, at the bottom
 	elseif left_fwd_node and string.find(left_fwd_node.name, "lord_homedecor:banister_.*_diagonal")
 	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
 		fdir = left_fwd_node.param2
 		pos = fwd_pos
-		new_place_name = string.gsub(left_fwd_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(left_fwd_node.name, "_diagonal_.-$", "_horizontal")
 	elseif right_fwd_node and string.find(right_fwd_node.name, "lord_homedecor:banister_.*_diagonal")
 	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
 		fdir = right_fwd_node.param2
 		pos = fwd_pos
-		new_place_name = string.gsub(right_fwd_node.name, "_diagonal_.-$", "_horizontal")
+		new_place_name = string.replace(right_fwd_node.name, "_diagonal_.-$", "_horizontal")
 
 	-- try to follow a horizontal with another of the same
 	elseif left_node and string.find(left_node.name, "lord_homedecor:banister_.*_horizontal") then
@@ -369,9 +369,9 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	-- manually invert left-right orientation
 	if placer:get_player_control()["sneak"] then
 		if string.find(new_place_name, "banister_.*_diagonal") then
-			new_place_name = string.gsub(new_place_name, "_left", "_right")
+			new_place_name = string.replace(new_place_name, "_left", "_right")
 		else
-			new_place_name = string.gsub(new_place_name, "_right", "_left")
+			new_place_name = string.replace(new_place_name, "_right", "_left")
 		end
 	end
 

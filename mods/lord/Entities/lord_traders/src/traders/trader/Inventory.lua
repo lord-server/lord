@@ -287,7 +287,7 @@ end
 --- @private
 --- @return InvRef
 function Inventory:get_or_create_detached_inventory()
-	self.detached_inv_id = self.player_name.."_trader_".. self.entity_id:gsub(":", "_")
+	self.detached_inv_id = self.player_name.."_trader_".. self.entity_id:replace(":", "_")
 	inventories_by_id[self.detached_inv_id] = self
 
 	local trader_inventory = minetest.get_inventory({ type = "detached", name = self.detached_inv_id })

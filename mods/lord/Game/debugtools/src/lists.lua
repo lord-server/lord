@@ -17,7 +17,7 @@ local function def2file(filepath, defs)
 		if name == "air" then name = ":air" end
 		if name == "ignore" then name = ":ignore" end
 		local desc = minetest.get_translated_string("ru", def.description)
-		local escaped_desc = string.gsub(desc, "\n", " ")
+		local escaped_desc = string.replace(desc, "\n", " ")
 		table.insert(list, string.format("%s\t%s", name, escaped_desc))
 	end
 	output:write(table.concat(list, "\n"))

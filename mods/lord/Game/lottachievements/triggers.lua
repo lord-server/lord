@@ -285,7 +285,7 @@ lottachievements.register_trigger("kill", function(def)
 		local n = self.trigger.target
 		if self.trigger.mob then
 			local iname = string.split(self.trigger.mob, ":")[2]
-			iname = string.gsub(iname, "_", " "):gsub("^%l", string.upper)
+			iname = string.replace(iname, "_", " "):gsub("^%l", string.upper)
 			if iname == nil then
 				iname = self.trigger.mob
 			end

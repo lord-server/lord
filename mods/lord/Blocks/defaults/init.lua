@@ -1,7 +1,7 @@
 ghost = {}
 
 function ghost.make_ghost_name(name)
-	return "defaults:"..string.gsub(name, ":", "_")
+	return "defaults:"..string.replace(name, ":", "_")
 end
 
 function ghost.register_ghost_material(name)
@@ -41,7 +41,7 @@ function ghost.register_ghost_material(name)
 	-- but mod have ABM to replace old ones with group `slabs_replace` to new ones with name `replace_name`.
 	-- So old ghost "upside_down" stairs need to be replaced to new ghost stairs.
 	if node.groups.slabs_replace then
-		node.replace_name = ghost_name:gsub("upside_down", "")
+		node.replace_name = ghost_name:replace("upside_down", "")
 	end
 	if type(node.drop) == "string" then
 		node.drop = {

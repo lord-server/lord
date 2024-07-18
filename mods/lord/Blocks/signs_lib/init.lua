@@ -360,7 +360,7 @@ end
 
 local function split_lines_and_words(text)
 	if not text then return end
-	text = string.gsub(text, "@KEYWORD", current_keyword)
+	text = string.replace(text, "@KEYWORD", current_keyword)
 	local lines = { }
 	for _, line in ipairs(text:split("\n")) do
 		table.insert(lines, line:split(" "))
@@ -556,7 +556,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 			meta:set_string("keyword", current_keyword)
 			local ownstr = ""
 			if owner then ownstr = "Locked sign, owned by "..owner.."\n" end
-			meta:set_string("infotext", ownstr..string.gsub(make_infotext(stored_text), "@KEYWORD", current_keyword).." ")
+			meta:set_string("infotext", ownstr..string.replace(make_infotext(stored_text), "@KEYWORD", current_keyword).." ")
 		end
 	end
 
@@ -569,7 +569,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 		local ownstr = ""
 		if owner then ownstr = SL("Locked sign, owned by").." "..owner.."\n" end
 
-		meta:set_string("infotext", ownstr..string.gsub(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
+		meta:set_string("infotext", ownstr..string.replace(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
 		meta:set_string("text", fields.text)
 
 		meta:set_int("__signslib_new_format", 1)

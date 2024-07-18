@@ -7,7 +7,7 @@ local function register_replace_mtg_doors_legacy_lbm(name)
 	-- copied from MTG/doors/init.lua in doors.register function and modified:
 	-- replace old doors of this type automatically
 	minetest.register_lbm({
-		name = ":doors:replace_" .. name:gsub(":", "_"),
+		name = ":doors:replace_" .. name:replace(":", "_"),
 		nodenames = {name.."_b_1", name.."_b_2"},
 		action = function(pos, node)
 			local l = tonumber(node.name:sub(-1))
