@@ -124,7 +124,7 @@ local function replacer_set_node(itemstack, pointed_thing, player, place_above)
 
 		local node_being_replaced = minetest.get_node_or_nil(pointed_pos)
 		if node_being_replaced ~= nil and node_being_replaced.name ~= "air" then
-			lord.give_or_drop(player, ItemStack(node_being_replaced.name))
+			minetest.give_or_drop(player, ItemStack(node_being_replaced.name))
 		end
 	end
 

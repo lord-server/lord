@@ -132,3 +132,18 @@ function table.keys_has_one_of_values(table, values)
 	end
 	return false
 end
+
+--- Checks whether all `table` elements are equal to the specified `value`
+--- @param table table
+--- @param value any
+--- @return boolean
+function table.each_value_equals(table, value)
+	value = value or true
+	for _, v in pairs(table) do
+		if v ~= value then
+			return false
+		end
+	end
+
+	return true
+end

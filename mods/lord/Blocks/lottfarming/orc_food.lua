@@ -34,7 +34,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 			make_negative_visual_effect(user)
 		end
 		itemstack:take_item(1)
-		lord.give_or_drop(user, ItemStack("lottfarming:bowl"))
+		minetest.give_or_drop(user, ItemStack("lottfarming:bowl"))
 		return itemstack
 	end,
 })
@@ -58,7 +58,7 @@ minetest.register_craftitem("lottfarming:orc_medicine", {
 			make_negative_visual_effect(user)
 		end
 		itemstack:take_item(1)
-		lord.give_or_drop(user, ItemStack("vessels:drinking_glass"))
+		minetest.give_or_drop(user, ItemStack("vessels:drinking_glass"))
 		return itemstack
 	end,
 })

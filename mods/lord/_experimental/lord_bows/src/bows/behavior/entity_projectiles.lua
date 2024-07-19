@@ -150,7 +150,7 @@ projectiles.register_projectile_type = function(name, item, def)
 		end,
 		on_punch       = function(self, puncher)
 			self.object:remove()
-			lord.give_or_drop(puncher, ItemStack(item))
+			minetest.give_or_drop(puncher, ItemStack(item))
 		end,
 		on_activate    = function(self, staticdata, dtime_s)
 			if staticdata == "timer_is_started" then

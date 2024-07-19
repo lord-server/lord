@@ -8,6 +8,7 @@ require("map.manipulations")
 require("map.dungeons_gen")
 require("globalstep")
 require("mod")
+require("stack")
 
 
 require = old_require
