@@ -12,9 +12,9 @@ Event.Type        = {
 	on_release = "on_release",
 }
 
---- @alias controls.callbacks.OnPress fun(player:Player, control_name:string)
---- @alias controls.callbacks.OnHold fun(player:Player, control_name:string, hold_time:number, delta_time:number)
---- @alias controls.callbacks.OnRelease fun(player:Player, control_name:string, release_time:number)
+--- @alias controls.callbacks.OnPress fun(player:Player, key:string)
+--- @alias controls.callbacks.OnHold fun(player:Player, key:string, hold_time:number)
+--- @alias controls.callbacks.OnRelease fun(player:Player, key:string, hold_time:number)
 --- @alias controls.callback controls.callbacks.OnPress|controls.callbacks.OnHold|controls.callbacks.OnRelease
 
 local subscribers = {

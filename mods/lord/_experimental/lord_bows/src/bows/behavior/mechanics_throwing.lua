@@ -128,13 +128,9 @@ local function check_projectiles(player, type)
 end
 
 -- Bow charge on hold
-controls.on_hold(function(player, control_name, hold_time)
+controls.on_hold(function(player, key, hold_time)
 	-- Charging on holding CONTROL_CHARGE
-	if control_name ~= CONTROL_CHARGE then
-		return
-	end
-
-	if control_name ~= CONTROL_CHARGE then
+	if key ~= CONTROL_CHARGE then
 		return
 	end
 
@@ -157,8 +153,8 @@ controls.on_hold(function(player, control_name, hold_time)
 end)
 
 -- Bow discharge on release
-controls.on_release(function(player, control_name, release_time)
-	if control_name ~= CONTROL_CHARGE then
+controls.on_release(function(player, key, hold_time)
+	if key ~= CONTROL_CHARGE then
 		return
 	end
 
@@ -168,7 +164,7 @@ controls.on_release(function(player, control_name, release_time)
 		return
 	end
 
-	projectile_shot(player, stack, release_time)
+	projectile_shot(player, stack, hold_time)
 
 	player_reset_slowdown(player)
 	local new_stack = bow_discharge(stack)
