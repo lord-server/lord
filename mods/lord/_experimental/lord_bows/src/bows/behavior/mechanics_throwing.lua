@@ -128,7 +128,7 @@ local function check_projectiles(player, type)
 end
 
 -- Bow charge on hold
-lord.register_on_hold(function(player, control_name, hold_time)
+controls.on_hold(function(player, control_name, hold_time)
 	-- Charging on holding CONTROL_CHARGE
 	if control_name ~= CONTROL_CHARGE then
 		return
@@ -157,7 +157,7 @@ lord.register_on_hold(function(player, control_name, hold_time)
 end)
 
 -- Bow discharge on release
-lord.register_on_release(function(player, control_name, release_time)
+controls.on_release(function(player, control_name, release_time)
 	if control_name ~= CONTROL_CHARGE then
 		return
 	end
