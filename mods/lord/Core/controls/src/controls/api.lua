@@ -1,54 +1,10 @@
+local Event = require("controls.Event")
+
+
 -- Для перевода микросекунд в секунды
 local MICROSECONDS = 1000000
 
-
-local controls = {
-	subscribers = {
-		on_press   = {},
-		on_release = {},
-		on_hold    = {},
-	},
-
-	players = {},
-}
-
-
----
---- Регистрирует обратный вызов на нажатие кнопки из списка controls.
----
---- @param func fun(player:Player, control_name:string)
---- Принимает функцию колбека со след параметрами:
----  * `player` - игрок
----  * `control_name` - кнопка из списка controls
-controls.on_press = function(func)
-	table.insert(controls.subscribers.on_press, func)
-end
-
----
---- Регистрирует обратный вызов на отпуск кнопки из списка controls
----
---- @param func fun(player:Player, control_name:string, release_time)
---- Принимает функцию колбека со след параметрами:
----  * `player` - игрок
----  * `control_name` - кнопка из списка controls
----  * `release_time` - время удержания кнопки до того, как её отпустили
-controls.on_release = function(func)
-	table.insert(controls.subscribers.on_release, func)
-end
-
----
---- Регистрирует обратный вызов на удержании кнопки из списка controls
----
---- @param func fun(player, control_name, hold_time, dtime)
---- Принимает функцию колбека со след параметрами:
----  * `player` - игрок
----  * `control_name` - кнопка из списка controls
----  * `hold_time` - время удержания кнопки
----  * `dtime` - время между прошлым и нынешним вызовом
-controls.on_hold = function(func)
-	table.insert(controls.subscribers.on_hold, func)
-end
-
+local last_player_controls = {}
 
 
 -- Вызов каллбэков нажатия клавиши
@@ -56,9 +12,8 @@ local function call_press(player, player_last_controls, control_name)
 	-- Время, когда была нажата кнопка
 	local press_time = minetest.get_us_time() / MICROSECONDS
 
-	for _, func in pairs(controls.subscribers.on_press) do
-		func(player, control_name)
-	end
+	Event.trigger(Event.Type.on_press, player, control_name)
+
 	player_last_controls[control_name] = { true, press_time }
 end
 
@@ -67,9 +22,7 @@ local function call_hold(player, player_last_controls, control_name, dtime)
 	-- Время, когда была нажата кнопка вычитается из текущего, чтобы получить длительность нажатия
 	local hold_time = minetest.get_us_time() / MICROSECONDS - player_last_controls[control_name][2]
 
-	for _, func in pairs(controls.subscribers.on_hold) do
-		func(player, control_name, hold_time, dtime)
-	end
+	Event.trigger(Event.Type.on_hold, player, control_name, hold_time, dtime)
 end
 
 -- Вызов каллбэков отпуска кнопки
@@ -77,9 +30,8 @@ local function call_release(player, player_last_controls, control_name)
 	-- Время, сколько была нажата кнопка
 	local release_time = minetest.get_us_time() / MICROSECONDS - player_last_controls[control_name][2]
 
-	for _, func in pairs(controls.subscribers.on_release) do
-		func(player, control_name, release_time)
-	end
+	Event.trigger(Event.Type.on_release, player, control_name, release_time)
+
 	player_last_controls[control_name] = { false, 0 }
 end
 
@@ -106,12 +58,11 @@ end
 
 minetest.register_on_leaveplayer(function(player)
 	local player_name = player:get_player_name()
-
 	if not player_name then
 		return
 	end
 
-	controls.players[player_name].controls = nil
+	last_player_controls[player_name] = nil
 end)
 
 minetest.register_on_joinplayer(function(player)
@@ -121,7 +72,7 @@ minetest.register_on_joinplayer(function(player)
 		return
 	end
 
-	controls.players[player_name] = {
+	last_player_controls[player_name] = {
 		jump  = { false, 0 },
 		right = { false, 0 },
 		left  = { false, 0 },
@@ -140,25 +91,25 @@ end)
 
 minetest.foreach_player_every(0, function(player, delta_time)
 	local player_name   = player:get_player_name()
-	local last_controls = controls.players[player_name]
+	local last_controls = last_player_controls[player_name]
 
-	if player_name ~= nil and last_controls ~= nil then
-		local player_controls = player:get_player_control()
-
-		for control_name, control_value in pairs(player_controls) do
-			if not last_controls then
-				break
-			end
-			notify_subscribers(player, control_name, control_value, last_controls, delta_time)
-		end
-
-		-- Вызов каллбэков смены индекса предмета в руке
-		controls.players[player_name] = last_controls
+	if not player_name or not last_controls then
+		return
 	end
+
+	local player_controls = player:get_player_control()
+	for control_name, control_value in pairs(player_controls) do
+		notify_subscribers(player, control_name, control_value, last_controls, delta_time)
+	end
+
+	last_player_controls[player_name] = last_controls
 end)
 
 return {
-	on_press   = controls.on_press,
-	on_hold    = controls.on_hold,
-	on_release = controls.on_release,
+	--- @type fun(callback:controls.callbacks.OnPress)
+	on_press   = Event.on(Event.Type.on_press),
+	--- @type fun(callback:controls.callbacks.OnHold)
+	on_hold    = Event.on(Event.Type.on_hold),
+	--- @type fun(callback:controls.callbacks.OnRelease)
+	on_release = Event.on(Event.Type.on_release),
 }
