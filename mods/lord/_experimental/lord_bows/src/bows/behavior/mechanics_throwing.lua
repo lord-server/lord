@@ -174,7 +174,7 @@ controls.on_release(function(player, key, hold_time)
 end)
 
 -- If the wielded item changed while bow was charging, discharge without shooting the arrow
-lord.register_on_wield_index_change(function(player, player_wield_index, player_last_wield_index)
+wield_item.on_index_change(function(player, player_wield_index, player_last_wield_index)
 	local inv   = player:get_inventory()
 	local stack = inv:get_stack("main", player_last_wield_index)
 

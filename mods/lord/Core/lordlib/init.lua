@@ -42,6 +42,3 @@ function lord.each_value_equals(table, value)
 	end
 	return true
 end
-
-
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/core_functions.lua")
