@@ -23,6 +23,7 @@ minetest.get_mod_require = require_module.get_mod_require
 function minetest.mod(mod_init_function)
 	local mod_name = minetest.get_current_modname()
 	local mod_path = minetest.get_modpath(mod_name)
+	local mod_debug = minetest.settings:get_bool(mod_name .. ".debug", debug_mode)
 
 	local old_require = require
 	require = minetest.get_mod_require(mod_name, mod_path)
@@ -30,6 +31,7 @@ function minetest.mod(mod_init_function)
 	mod_init_function({
 		name    = mod_name,
 		path    = mod_path,
+		debug   = mod_debug,
 		require = require,
 	})
 
