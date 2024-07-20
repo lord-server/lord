@@ -1,28 +1,12 @@
 
 --- @static
---- @class web_integration.Logger
---- @field error   fun(message:string, ...)
---- @field warning fun(message:string, ...)
---- @field action  fun(message:string, ...)
---- @field info    fun(message:string, ...)
---- @field verbose fun(message:string, ...)
-local Logger = {
-	prefix = "[web-integration] ",
-}
-setmetatable(Logger, {
-	prefix = "[lord] ",
-	__index = function(self, level)
-		return function(message, ...)
-			minetest.log(level, self.prefix .. string.format(message, ...))
-		end
-	end
-})
+--- @class web_integration.Logger:helpers.Logger
+local Logger = {}
 
+function Logger.extend(base_logger)
+	Logger = table.overwrite(base_logger, Logger)
 
---- @param level   string
---- @param message string
-function Logger.log(level, message)
-	Logger[level](message)
+	return Logger
 end
 
 --- @static

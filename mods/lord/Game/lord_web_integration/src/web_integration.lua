@@ -5,10 +5,6 @@ local Clan         = require("web_integration.Clan")
 local sync_command = require("web_integration.sync_command")
 
 
-Player.init(Storage, Logger)
-Clan.init(Storage, Logger)
-
-
 local register_for_players = function()
 	minetest.register_on_joinplayer(function(player, last_login)
 		if not player:is_player() then return end
@@ -39,14 +35,21 @@ end
 
 
 return {
-	init = function()
+	--- @param mod minetest.Mod
+	init = function(mod)
 		if not rawget(_G, "web_api") then
+			-- Don't use `mod.logger` here. This will create new Logger instance, but it will not be used.
 			minetest.log(
 				"warning",
-				"Can't initialize `lord_web_integration`: Global variable `web_api` not found: \
-					mod `lord_wed_api` not loaded or not initialized.")
+				"[" .. mod.name .. "] Can't initialize `lord_web_integration`: Global variable `web_api` not found: " ..
+					"mod `lord_wed_api` not loaded or not initialized.")
 			return
 		end
+
+		mod.logger = Logger.extend(mod.logger)
+
+		Player.init(Storage, mod.logger)
+		Clan.init(Storage, mod.logger)
 
 		register_for_players()
 		register_for_clans()
