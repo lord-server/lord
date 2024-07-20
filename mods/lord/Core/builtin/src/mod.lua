@@ -1,4 +1,5 @@
-local require_module = require("require")
+local RequireFactory = require("mod.require")
+local LoggerFactory  = require("mod.logger")
 
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
@@ -12,7 +13,9 @@ function minetest.get_mod_textures_folder(sub_folder)
 	return mod_path .. DS .. "textures" .. DS .. sub_folder
 end
 
-minetest.get_mod_require = require_module.get_mod_require
+minetest.get_mod_require = RequireFactory.get_mod_require
+
+minetest.get_mod_logger  = LoggerFactory.get_mod_logger
 
 --- @class minetest.Mod
 --- @field name    string           name of mod
