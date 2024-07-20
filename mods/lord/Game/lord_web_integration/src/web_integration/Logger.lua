@@ -3,8 +3,8 @@
 --- @class web_integration.Logger:helpers.Logger
 local Logger = {}
 
-function Logger.extend(base_logger)
-	Logger = table.overwrite(base_logger, Logger)
+function Logger.extend(base_logger_instance)
+	Logger = table.overwrite(base_logger_instance, Logger)
 
 	return Logger
 end

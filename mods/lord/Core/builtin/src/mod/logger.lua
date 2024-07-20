@@ -28,12 +28,6 @@ function Logger.log(level, message)
 	Logger[level](message)
 end
 
---- @static
---- @param result HTTPRequestResult
-function Logger.log_api_error(result)
-	Logger.error("API call error: [%s] %s", result.code, dump(result))
-end
-
 --- @param mod_name string
 --- @return helpers.Logger
 local function create_logger_for_mod(mod_name)
