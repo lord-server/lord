@@ -26,7 +26,7 @@ end
 local app = Lummander.new{
 	title = "Minetest Maker CLI Hunky",
 	description = "This App makes your life easier and helps you to makes mods and games for MineTeat Engine faster.",
-	version = "0.1.1",
+	version = "0.1.3",
 	author = "alek13",
 	root_path = mt_maker_dir,
 }
