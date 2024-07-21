@@ -49,14 +49,14 @@ local function register_general_api_functions()
 end
 
 local function register_callbacks()
-	clans.on_clan_created        = Event.on(Event.Type.on_clan_created)
-	clans.on_clan_deleted        = Event.on(Event.Type.on_clan_deleted)
-	clans.on_clan_blocked        = Event.on(Event.Type.on_clan_blocked)
-	clans.on_clan_unblocked      = Event.on(Event.Type.on_clan_unblocked)
-	clans.on_clan_player_added   = Event.on(Event.Type.on_clan_player_added)
-	clans.on_clan_player_removed = Event.on(Event.Type.on_clan_player_removed)
-	clans.on_clan_player_join    = Event.on(Event.Type.on_clan_player_join)
-	clans.on_clan_player_leave   = Event.on(Event.Type.on_clan_player_leave)
+	clans.on_clan_created        = Event:on(Event.Type.on_clan_created)
+	clans.on_clan_deleted        = Event:on(Event.Type.on_clan_deleted)
+	clans.on_clan_blocked        = Event:on(Event.Type.on_clan_blocked)
+	clans.on_clan_unblocked      = Event:on(Event.Type.on_clan_unblocked)
+	clans.on_clan_player_added   = Event:on(Event.Type.on_clan_player_added)
+	clans.on_clan_player_removed = Event:on(Event.Type.on_clan_player_removed)
+	clans.on_clan_player_join    = Event:on(Event.Type.on_clan_player_join)
+	clans.on_clan_player_leave   = Event:on(Event.Type.on_clan_player_leave)
 end
 
 --- @param name        string
@@ -71,7 +71,7 @@ function clans.clan_create(name, title, leader_name)
 	local clan = { name = name, title = title, players = { leader_name }, leader = leader_name }
 	clan_storage.set(clan)
 
-	Event.trigger(Event.Type.on_clan_created, clan)
+	Event:trigger(Event.Type.on_clan_created, clan)
 
 	return true, nil
 end
@@ -84,7 +84,7 @@ function clans.clan_remove(name)
 
 	clan_storage.delete(name)
 
-	Event.trigger(Event.Type.on_clan_deleted, clan)
+	Event:trigger(Event.Type.on_clan_deleted, clan)
 
 	return true, nil
 end
@@ -103,7 +103,7 @@ function clans.clan_players_add(clan_name, player_name)
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
 
-	Event.trigger(Event.Type.on_clan_player_added, clan, player_name)
+	Event:trigger(Event.Type.on_clan_player_added, clan, player_name)
 
 	return true, nil
 end
@@ -129,7 +129,7 @@ function clans.clan_players_remove(clan_name, player_name)
 	clan.players = updated_members
 	clan_storage.set(clan)
 
-	Event.trigger(Event.Type.on_clan_player_removed, clan, player_name)
+	Event:trigger(Event.Type.on_clan_player_removed, clan, player_name)
 
 	return true, nil
 end
@@ -158,10 +158,10 @@ function clans.clan_toggle_block(name)
 	local old_is_blocked = clan.is_blocked
 	if old_is_blocked then
 		clan.is_blocked = nil
-		Event.trigger(Event.Type.on_clan_unblocked, clan)
+		Event:trigger(Event.Type.on_clan_unblocked, clan)
 	else
 		clan.is_blocked = true
-		Event.trigger(Event.Type.on_clan_blocked, clan)
+		Event:trigger(Event.Type.on_clan_blocked, clan)
 	end
 	clan_storage.set(clan)
 	return not old_is_blocked
@@ -206,7 +206,7 @@ local function register_join_or_leave_operations()
 
 		if not clan then return end
 
-		Event.trigger(Event.Type.on_clan_player_join, clan, player:get_player_name())
+		Event:trigger(Event.Type.on_clan_player_join, clan, player:get_player_name())
 		clan_is_online_cache[clan.name] = true
 	end)
 
@@ -216,7 +216,7 @@ local function register_join_or_leave_operations()
 		local clan = clans.clan_get_by_player(player)
 		if not clan then return end
 
-		Event.trigger(Event.Type.on_clan_player_leave, clan, player:get_player_name())
+		Event:trigger(Event.Type.on_clan_player_leave, clan, player:get_player_name())
 		clan_is_online_cache[clan.name] = nil -- reset cache (this will force recalc cache)
 	end)
 end

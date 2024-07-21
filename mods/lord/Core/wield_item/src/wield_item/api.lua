@@ -28,7 +28,7 @@ minetest.foreach_player_every(0, function(player)
 	end
 
 	if wield_index ~= last_wield_index then
-		Event.trigger(Event.Type.on_index_change, player, wield_index, last_wield_index)
+		Event:trigger(Event.Type.on_index_change, player, wield_index, last_wield_index)
 	end
 
 	player_last_wield_index[player_name] = wield_index
@@ -37,5 +37,5 @@ end)
 
 return {
 	--- @type fun(callback:wield_item.callbacks.OnIndexChange)
-	on_index_change = Event.on(Event.Type.on_index_change),
+	on_index_change = Event:on(Event.Type.on_index_change),
 }
