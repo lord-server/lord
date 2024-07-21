@@ -1,9 +1,6 @@
-local pairs
-    = pairs
 
---- @static
---- @class controls.Event
-local Event       = {}
+--- @class controls.Event: base_classes.Event
+local Event = base_classes.Event:extended()
 
 --- @class controls.Event.Type
 Event.Type        = {
@@ -17,7 +14,7 @@ Event.Type        = {
 --- @alias controls.callbacks.OnRelease fun(player:Player, key:string, hold_time:number)
 --- @alias controls.callback controls.callbacks.OnPress|controls.callbacks.OnHold|controls.callbacks.OnRelease
 
-local subscribers = {
+Event.subscribers = {
 	---@type controls.callbacks.OnPress[]
 	on_press   = {},
 	---@type controls.callbacks.OnHold[]
@@ -26,39 +23,5 @@ local subscribers = {
 	on_release = {},
 }
 
---- @param event string name of event (One of `Event.Type::<const>`)
----
---- @return fun(callback:controls.callback)
-function Event.on(event)
-	return function(callback)
-		Event.subscribe(event, callback)
-	end
-end
-
---- @param event    string name of event (One of `Event.Type::<const>`)
---- @param callback controls.callback
-function Event.subscribe(event, callback)
-	assert(Event.Type[event], "Unknown controls.Event.Type: " .. event)
-	assert(type(callback) == "function")
-
-	table.insert(subscribers[event], callback)
-end
-
---- @private
---- @param event string name of event (One of `Event.Type::<const>`)
---- @vararg any pass args that will be passed to subscribers callbacks. See `controls.callbacks.<func-types>`
-function Event.notify(event, ...)
-	assert(Event.Type[event], "Unknown controls.Event.Type: " .. event)
-
-	for _, func in pairs(subscribers[event]) do
-		func(...)
-	end
-end
-
---- @param event string name of event (One of `Event.Type::<const>`)
---- @vararg any pass args that will be passed to subscribers callbacks. See `controls.callbacks.<func-types>`
-function Event.trigger(event, ...)
-	Event.notify(event, ...)
-end
 
 return Event

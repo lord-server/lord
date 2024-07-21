@@ -44,7 +44,7 @@ minetest.foreach_player_every(0, function(player, _)
 		-- Нажатие
 		if is_pressed and not last_controls[key][was_pressed] then
 
-			Event.trigger(Event.Type.on_press, player, key)
+			Event:trigger(Event.Type.on_press, player, key)
 			last_controls[key] = {
 				[was_pressed] = true,
 				[pressed_at]  = now,
@@ -54,13 +54,13 @@ minetest.foreach_player_every(0, function(player, _)
 		elseif is_pressed and last_controls[key][was_pressed] then
 
 			local hold_time = (now - last_controls[key][pressed_at]) / MICROSECONDS
-			Event.trigger(Event.Type.on_hold, player, key, hold_time)
+			Event:trigger(Event.Type.on_hold, player, key, hold_time)
 
 		-- Отпуск
 		elseif not is_pressed and last_controls[key][was_pressed] then
 
 			local hold_time = (now - last_controls[key][pressed_at]) / MICROSECONDS
-			Event.trigger(Event.Type.on_release, player, key, hold_time)
+			Event:trigger(Event.Type.on_release, player, key, hold_time)
 			last_controls[key] = {
 				[was_pressed] = false,
 			}
@@ -73,9 +73,9 @@ end)
 
 return {
 	--- @type fun(callback:controls.callbacks.OnPress)
-	on_press   = Event.on(Event.Type.on_press),
+	on_press   = Event:on(Event.Type.on_press),
 	--- @type fun(callback:controls.callbacks.OnHold)
-	on_hold    = Event.on(Event.Type.on_hold),
+	on_hold    = Event:on(Event.Type.on_hold),
 	--- @type fun(callback:controls.callbacks.OnRelease)
-	on_release = Event.on(Event.Type.on_release),
+	on_release = Event:on(Event.Type.on_release),
 }
