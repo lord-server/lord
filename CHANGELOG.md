@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.07.p2](https://github.com/lord-server/lord/releases/tag/2024.07.p2)
+ - Spawners: fix not enough light & not enough space. Remove `-- print(...)`.
+
 ## [2024.07.p1](https://github.com/lord-server/lord/releases/tag/2024.07.p1)
  - Fix `/web_sync_clans` command. Relates to #1538. Fixes #1549.
 
