@@ -15,6 +15,7 @@ local function register_racial()
 			dummy_offset = 0.2,
 			dummy_mesh = 'lottarmor_character_old.b3d',
 			dummy_texture = { "lottmobs_" .. race .. ".png" },
+			night_only = "disable",
 		})
 	end
 end

@@ -246,8 +246,6 @@ function lord_spawners.tick(pos)
 		meta:set_int('tick', tick_counter)
 	end
 
-	-- print('tick_counter: ' .. tick_counter .. ' at ' .. minetest.pos_to_string(pos))
-
 	-- rusty spawner
 	if tick_counter >= tick_max then
 		lord_spawners.set_status(pos, 'rusty')
@@ -268,7 +266,6 @@ function lord_spawners.tick_short(pos)
 	else
 		tick_short_counter = tick_short_counter + 1
 		meta:set_int('tick_short', tick_short_counter)
-		-- print('tick_short_counter: ' .. tick_short_counter .. ' at ' .. minetest.pos_to_string(pos))
 	end
 	minetest.get_node_timer(pos):start(math.random(5, 10))
 	-- minetest.get_node_timer(pos):start(math.random(10, 20))
@@ -330,7 +327,7 @@ function lord_spawners.on_timer(pos, elapsed)
 	end
 
 	local posmin                = { x = pos.x - 3, y = pos.y - 1, z = pos.z - 3 }
-	local posmax                = { x = pos.x + 4, y = pos.y + 1, z = pos.z + 4 }
+	local posmax                = { x = pos.x + 4, y = pos.y + 4, z = pos.z + 4 }
 	local player_near           = false
 	local entities_near         = 0
 	local entities_max          = 6
@@ -368,7 +365,6 @@ function lord_spawners.on_timer(pos, elapsed)
 
 	-- dark
 	if (not node_light or node_light < node_light_min) and not night_only then
-		-- print('Too dark for mob ( ' .. mob_name .. ' ) to spawn. Waiting for day .. .')
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
@@ -380,7 +376,6 @@ function lord_spawners.on_timer(pos, elapsed)
 
 	elseif node_light >= node_light_min and night_only then
 		-- light
-		-- print('Too much light for mob ( ' .. mob_name .. ' ) to spawn. Waiting for night .. .')
 		lord_spawners.set_status(pos, 'waiting')
 
 		-- set infotext
@@ -420,18 +415,14 @@ function lord_spawners.on_timer(pos, elapsed)
 				{ x = random_pos.x, y = random_pos.y + 1, z = random_pos.z }
 			).name
 
-			if random_pos_above == 'air' and not minetest.is_protected(random_pos, owner) then
+			if random_pos_above == 'air' then
 				table.insert(spawn_area_random_pos, random_pos)
-				-- print('spawn_area_random_pos: ' .. #spawn_area_random_pos)
 			else
 				table.remove(spawn_area_pos, i)
-				-- print('spawn_area_pos: ' .. #spawn_area_pos)
 			end
 
 		end
 	end
-
-	-- print(dump(spawn_area_random_pos))
 
 	-- check if there is still enough place to spawn mob
 	if #spawn_area_random_pos < 1 then
@@ -469,7 +460,6 @@ function lord_spawners.on_timer(pos, elapsed)
 		-- find player inside activation area
 		if object:is_player() then
 			player_near = true
-			-- print('found player: ' .. object:get_player_name())
 		end
 
 		-- find entities inside activation area
@@ -486,11 +476,8 @@ function lord_spawners.on_timer(pos, elapsed)
 					string.find(mob_name, 'sheep') and
 					not string.find(tmp_mob_name, 'dummy')
 				then
-					-- print('found entity: ' .. tmp_mob_name)
 					entities_near = entities_near + 1
-
 				elseif tmp_mob_name == mob_name then
-					-- print('found entity: ' .. tmp_mob_name)
 					entities_near = entities_near + 1
 				end
 			else
@@ -504,7 +491,6 @@ function lord_spawners.on_timer(pos, elapsed)
 
 		-- stop looping when met all conditions
 		if entities_near >= entities_max and player_near then
-			-- print('max entities reached ' .. entities_max .. ' and player_near found, breaking .. ')
 			break
 		end
 	end
@@ -512,12 +498,6 @@ function lord_spawners.on_timer(pos, elapsed)
 	-- don't do anything and try again later when player not near or max entities reached
 	if entities_near >= entities_max or not player_near then
 		lord_spawners.set_status(pos, 'waiting')
-
-		-- sheeps have color in the name
-		-- local name = mob_name
-		-- if string.find(mob_name, 'sheep') then
-		--     name = 'sheep'
-		-- end
 
 		meta:set_string(
 			'infotext',
@@ -571,8 +551,6 @@ function lord_spawners.set_status(pos, set_status)
 		-- remove particles and add them again - keeps particles after server restart
 		-- delete particles
 		if id_flame ~= -1 and id_smoke ~= -1 then
-			-- print('#1 delete id_flame: ' .. id_flame .. ' at ' .. minetest.pos_to_string(pos))
-			-- print('#1 delete id_smoke: ' .. id_smoke .. ' at ' .. minetest.pos_to_string(pos))
 			minetest.delete_particlespawner(id_flame)
 			minetest.delete_particlespawner(id_smoke)
 			meta:set_int('id_flame', -1)
@@ -584,8 +562,6 @@ function lord_spawners.set_status(pos, set_status)
 		id_smoke = lord_spawners.add_smoke_effects(pos)
 		meta:set_int('id_flame', id_flame)
 		meta:set_int('id_smoke', id_smoke)
-		-- print('#1 add id_flame: ' .. id_flame .. ' at ' .. minetest.pos_to_string(pos))
-		-- print('#1 add id_smoke: ' .. id_smoke .. ' at ' .. minetest.pos_to_string(pos))
 
 		if meta_status ~= set_status then
 			-- add dummy entity
@@ -605,8 +581,6 @@ function lord_spawners.set_status(pos, set_status)
 
 		-- delete particles
 		if id_flame ~= -1 and id_smoke ~= -1 then
-			-- print('#2 delete id_flame: ' .. id_flame .. ' at ' .. minetest.pos_to_string(pos))
-			-- print('#2 delete id_smoke: ' .. id_smoke .. ' at ' .. minetest.pos_to_string(pos))
 			minetest.delete_particlespawner(id_flame)
 			minetest.delete_particlespawner(id_smoke)
 			meta:set_int('id_flame', -1)
@@ -636,8 +610,6 @@ function lord_spawners.set_status(pos, set_status)
 
 		-- delete particles
 		if id_flame ~= -1 and id_smoke ~= -1 then
-			-- print('#3 delete id_flame: ' .. id_flame .. ' at ' .. minetest.pos_to_string(pos))
-			-- print('#3 delete id_smoke: ' .. id_smoke .. ' at ' .. minetest.pos_to_string(pos))
 			minetest.delete_particlespawner(id_flame)
 			minetest.delete_particlespawner(id_smoke)
 			meta:set_int('id_flame', -1)
