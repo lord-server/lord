@@ -1,5 +1,5 @@
 
 
 minetest.mod(function(mod)
-	require("lord_spawners").init()
+	require("spawners").init()
 end)

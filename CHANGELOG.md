@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.07.p3](https://github.com/lord-server/lord/releases/tag/2024.07.p3)
+ - Spawners: some refactoring & fix `night_only: {true|false|"disabled"}`
+
 ## [2024.07.p2](https://github.com/lord-server/lord/releases/tag/2024.07.p2)
  - Spawners: fix not enough light & not enough space. Remove `-- print(...)`.
 
