@@ -20,13 +20,20 @@ end
 
 --- @alias base_classes.Event.callback function
 
---- @param event string name of event (One of `Event.Type::<const>`)
----
+--- @generic GenericEvent: base_classes.Event
+--- @param event string       name of event (One of `Event.Type::<const>`)
+--- @param base  GenericEvent if you want to link returned function to this `base` class|object
 --- @return fun(callback:controls.callback)
-function Event:on(event)
-	return function(callback)
-		self:subscribe(event, callback)
-	end
+function Event:on(event, base)
+	return base
+		and
+			function(callback)
+				base:subscribe(event, callback)
+			end
+		or
+			function(callback)
+				self:subscribe(event, callback)
+			end
 end
 
 --- @param event    string name of event (One of `Event.Type::<const>`)
