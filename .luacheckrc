@@ -11,7 +11,12 @@ globals           = {
 	"sethome.set", "beds",
 
 	-- Other APIs (mods/_various)
-	"hbhunger", "tt"
+	"hbhunger", "tt",
+
+	debug  = { fields = {
+		-- our Core/helpers:
+		"get_function_code",
+	} },
 }
 
 read_globals      = {
