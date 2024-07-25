@@ -15,6 +15,7 @@ function ForNode.mix_to(class)
 	table.overwrite(class, ForNode)
 
 	--- @param self base_classes.Form.Mixin.ForNode
+	--- @param _    Player
 	--- @param pos  Position
 	class.on_instance(function(self, _, pos)
 		self.node_position = pos

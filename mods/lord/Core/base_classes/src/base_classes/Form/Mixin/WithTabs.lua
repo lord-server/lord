@@ -27,10 +27,13 @@ function WithTabs.mix_to(class, tabs)
 	class.tabs = tabs
 
 	--- @param self base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
+	--- @param _    Player
+	--- @param _    Position
 	class.on_instance(function(self, _, _)
 		self.tab = 1
 	end)
 	--- @param self   base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
+	--- @param _      Player
 	--- @param fields table|{tab:number}
 	class.on_handle(function(self, _, fields)
 		if fields.tab then

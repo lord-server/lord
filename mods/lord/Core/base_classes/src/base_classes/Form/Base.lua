@@ -13,11 +13,6 @@ local BaseForm  = {
 	--- @type base_classes.Form.Event
 	event      = nil,
 
-	--- @static late
-	--- @protected
-	--- @type table<string,base_classes.Form.Base>
-	opened_for = nil,
-
 	--- @type string
 	player_name   = nil,
 }
@@ -77,7 +72,6 @@ end
 --- @public
 function BaseForm:open()
 	self.event:trigger(self.event.Type.on_open, self)
-	self.opened_for[self.player_name] = self;
 	minetest.show_formspec(self.player_name, self.NAME, self:get_spec())
 end
 
@@ -85,13 +79,6 @@ end
 function BaseForm:close()
 	self.event:trigger(self.event.Type.on_close, self)
 	self.opened_for[self.player_name] = nil
-end
-
---- @public
---- @static late
---- @param player Player
-function BaseForm:get_opened_for(player)
-	return self.opened_for[player:get_player_name()]
 end
 
 --- @protected
@@ -108,39 +95,22 @@ function BaseForm:handler(player, form_name, fields)
 		return
 	end
 
-	local form = self:get_opened_for(player)
-	if not form then return end
-
-	self.event:trigger(self.event.Type.on_handle, form, player, fields)
-	form:handle(fields)
+	self.event:trigger(self.event.Type.on_handle, self, player, fields)
+	self:handle(fields)
 
 
 	if fields.quit then
-		form:close()
-	end
-end
-
---- @protected
---- @param player Player
-function BaseForm:player_leave(player, _)
-	local form = self:get_opened_for(player);
-	if form then
-		form:close()
+		self:close()
 	end
 end
 
 --- @public
 --- @return base_classes.Form.Base
 function BaseForm:register()
-	self.opened_for = {}
-
 	self.event:trigger(self.event.Type.on_register, self)
 
 	minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		self:handler(player, form_name, fields)
-	end)
-	minetest.register_on_leaveplayer(function(player, _)
-		self:player_leave(player)
 	end)
 
 	return self
