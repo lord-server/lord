@@ -49,17 +49,13 @@ end
 function Personal.mix_to(class)
 	table.overwrite(class, Personal)
 
-	--- @param self   base_classes.Form.Mixin.Personal
-	--- @param player Player
-	--- @param _      Position
-	class.on_instance(function(self, player, _)
-		self.player_name = player:get_player_name()
+	--- @param self base_classes.Form.Mixin.Personal
+	class.on_open(function(self)
+		self.opened_for[self.player_name] = self;
 	end)
 	--- @param self base_classes.Form.Mixin.Personal
-	--- @param _    Player
-	--- @param _    Position
-	class.on_open(function(self, _, _)
-		self.opened_for[self.player_name] = self;
+	class.on_close(function(self)
+		self.opened_for[self.player_name] = nil
 	end)
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_register(function(self)

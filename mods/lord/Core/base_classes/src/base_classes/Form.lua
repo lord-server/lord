@@ -14,7 +14,7 @@ local WithTabs = require("base_classes.Form.Mixin.WithTabs")
 --- @field for_node  fun(self:self): self
 --- @field with_tabs fun(self:self, tabs:table<string,number>): self
 local Form = {
-	--- @type base_classes.Form.Mixin[]
+	--- @type table<string,table>
 	will_mixed = {},
 
 	--- @type base_classes.Form.Mixin[]|table<string,base_classes.Form.Mixin>

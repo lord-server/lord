@@ -1,27 +1,32 @@
 local FormEvent = require('base_classes.Form.Event')
 
+
 --- @class base_classes.Form.Mixin
 --- @field mix_to fun(base_class:base_classes.Form.Base)
 
 --- @class base_classes.Form.Base
+--- @field on_register fun(form:self)
+--- @field on_instance fun(form:self, player:Player, ...)
+--- @field on_open     fun(form:self)
+--- @field on_close    fun(form:self)
+--- @field on_handle   fun(form:self, player:Player, fields:table)
 local BaseForm  = {
 	--- @const
 	--- @type string
-	NAME       = '',
+	NAME        = '',
 
 	--- @protected
 	--- @type base_classes.Form.Event
-	event      = nil,
+	event       = nil,
 
 	--- @type string
-	player_name   = nil,
+	player_name = nil,
 }
 
 --- @param mixin base_classes.Form.Mixin
 function BaseForm:mix(mixin, ...)
 	mixin.mix_to(self, ...)
 end
-
 
 --- @static
 --- @generic GenericForm: base_classes.Form.Base
@@ -32,11 +37,11 @@ function BaseForm:extended(child_class)
 
 	self.event = FormEvent:extended()
 
+	self.on_register = self.event:on(self.event.Type.on_register, self.event)
 	self.on_instance = self.event:on(self.event.Type.on_instance, self.event)
 	self.on_open     = self.event:on(self.event.Type.on_open, self.event)
 	self.on_close    = self.event:on(self.event.Type.on_close, self.event)
 	self.on_handle   = self.event:on(self.event.Type.on_handle, self.event)
-	self.on_register = self.event:on(self.event.Type.on_register, self.event)
 
 	return self
 end
@@ -78,7 +83,6 @@ end
 --- @public
 function BaseForm:close()
 	self.event:trigger(self.event.Type.on_close, self)
-	self.opened_for[self.player_name] = nil
 end
 
 --- @protected
