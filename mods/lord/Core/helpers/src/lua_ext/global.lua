@@ -5,8 +5,8 @@
 --- information about the error position at the beginning of the message, if the
 --- message is a string.
 ---@param message string format string for `string.format()`
-function _G.errorf(message, ...)
-	error(string.format(message, ...))
+function errorf(message, ...)  -- luacheck: ignore unused global variable errorf
+	error(string.format(message, ...), 2)
 end
 
 --- Terminates the last protected function called and returns `message` as the
@@ -19,6 +19,6 @@ end
 --- addition of error position information to the message.
 ---@param message string  format string for `string.format()`
 ---@param level   number  traceback depth
-function _G.errorlf(message, level, ...)
-	error(string.format(message, level, ...))
+function errorlf(message, level, ...)  -- luacheck: ignore unused global variable errorlf
+	error(string.format(message, ...), level)
 end
