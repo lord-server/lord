@@ -123,7 +123,7 @@ local definition = {
 		if player_clan_name ~= chest_clan_name and not is_admin then
 			send_raid_notification(chest_clan_name, chest_clan.title)
 		end
-		Form:new(pos, clicker):open()
+		Form:new(clicker, pos):open()
 	end,
 }
 
