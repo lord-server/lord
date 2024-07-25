@@ -105,7 +105,7 @@ local definition = {
 	--- @param clicker Player
 	on_rightclick     = function(pos, node, clicker)
 		if minetest.check_player_privs(clicker, "server") then
-			Form:new(pos, clicker):open()
+			Form:new(clicker, pos):open()
 		else
 			local meta        = minetest.get_meta(pos)
 			local player_name = clicker:get_player_name()
@@ -127,6 +127,5 @@ local definition = {
 
 
 return {
-	definition   = definition,
-	form_handler = Form.handler
+	definition = definition,
 }

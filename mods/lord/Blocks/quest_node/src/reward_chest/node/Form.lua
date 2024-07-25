@@ -4,74 +4,19 @@ local esc = minetest.formspec_escape
 local S = minetest.get_translator('quest_node')
 
 ---
---- @class quest_node.reward_chest.node.Form
+--- @class quest_node.reward_chest.node.Form: base_classes.Form.Base
+--- @field new fun(player:Player, pos:Position)
 ---
-local Form = {
+--- @field protected node_position Position             from `base_classes.Form.Mixin.ForNode`
+--- @field protected node_meta     NodeMetaRef          from `base_classes.Form.Mixin.ForNode`
+--- @field protected tabs          table<string,number> from `base_classes.Form.Mixin.WithTabs`
+--- @field protected tab           number               from `base_classes.Form.Mixin.WithTabs`
+local Form = base_classes.Form:personal():for_node():with_tabs({ SETTINGS = 1, VISITORS = 2 }):extended({
 	--- @const
 	--- @type string
 	NAME = "quest_node:reward_chest",
-	--- @static
-	--- @type table<string,quest_node.reward_chest.node.Form>
-	opened_for = {},
-	--- @static
-	--- @type table<number,string>
-	tabs = {SETTINGS = 1, VISITORS = 2},
+})
 
-	--- @private
-	--- @type Position
-	node_position = nil,
-	--- @private
-	--- @type NodeMetaRef
-	node_meta     = nil,
-	--- @type number
-	tab           = nil,
-	--- @type string
-	player_name   = nil,
-}
-
---- Constructor
---- @public
---- @param pos Position
---- @param player Player
---- @return quest_node.reward_chest.node.Form
-function Form:new(pos, player)
-	local new_object = {}
-
-	new_object.node_position = pos
-	new_object.node_meta     = minetest.get_meta(pos)
-	new_object.player_name   = player:get_player_name()
-	new_object.tab           = 1
-
-	setmetatable(new_object, {__index = self})
-
-	return new_object
-end
-
---- @public
---- @static
---- @param player Player
-function Form.get_opened_for(player)
-	return Form.opened_for[player:get_player_name()]
-end
-
---- @public
-function Form:open()
-	local player_name = self.player_name
-	self.opened_for[player_name] = self;
-	minetest.show_formspec(player_name, self.NAME, self:get_spec())
-end
-
---- @public
---- @param tab_number number
-function Form:switch_tab(tab_number)
-	self.tab = tab_number
-	self:open()
-end
-
---- @public
-function Form:close()
-	self.opened_for[self.player_name] = nil
-end
 
 --- @private
 function Form:get_spec()
@@ -113,36 +58,13 @@ function Form:saveCongratulations(congratulations)
 	meta:set_string("congratulations", congratulations)
 end
 
---- @static
---- @param player Player
---- @param form_name string
 --- @param fields table
-function Form.handler(player, form_name, fields)
-	if form_name ~= Form.NAME then
-		return
-	end
-
-	local form = Form.get_opened_for(player)
-	if not form then return end
-
+function Form:handle(fields)
 	if fields.key_enter or fields.save then
-		-- only congrats, list of rewards saves automatically
-		form:saveCongratulations(fields.congratulations)
-	end
-	if fields.tab then
-		form:switch_tab(tonumber(fields.tab))
-	end
-	if fields.quit then
-		form:close()
+		-- save only congrats, list of rewards saves automatically
+		self:saveCongratulations(fields.congratulations)
 	end
 end
 
-minetest.register_on_leaveplayer(function(player, timed_out)
-	local form = Form.get_opened_for(player);
-	if form then
-		form:close()
-	end
-end)
 
-
-return Form
+return Form:register()
