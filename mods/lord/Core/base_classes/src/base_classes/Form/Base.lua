@@ -58,11 +58,6 @@ function BaseForm:new(player, ...)
 	self = setmetatable(self, { __index = class })
 
 	self:instantiate(player, ...)
-
-for i, v in pairs(self.event.subscribers.on_instance) do
-	print(debug.get_function_code(v))
-end
-
 	self.event:trigger(self.event.Type.on_instance, self, player, ...)
 
 	return self
@@ -102,7 +97,6 @@ end
 --- @protected
 --- @param fields table
 function BaseForm:handle(fields)
-	print(__FILE_LINE__())
 end
 
 --- @protected

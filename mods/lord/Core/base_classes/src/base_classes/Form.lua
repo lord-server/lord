@@ -1,6 +1,6 @@
 local BaseForm = require('base_classes.Form.Base')
---local ForNode  = require("base_classes.Form.Mixin.ForNode")
---local WithTabs = require("base_classes.Form.Mixin.WithTabs")
+local ForNode  = require("base_classes.Form.Mixin.ForNode")
+local WithTabs = require("base_classes.Form.Mixin.WithTabs")
 --local Personal = require("base_classes.Form.Mixin.Personal")
 
 
@@ -10,16 +10,16 @@ local BaseForm = require('base_classes.Form.Base')
 --- Use methods to mix functionality you need and then call `:extended()` method.
 ---
 --- @class base_classes.Form
--- --- @field for_node  fun(self:self): self
--- --- @field with_tabs fun(self:self): self
+ --- @field for_node  fun(self:self): self
+ --- @field with_tabs fun(self:self): self
 local Form = {
 	--- @type base_classes.Form.Mixin[]
 	will_mixed = {},
 
 	--- @type base_classes.Form.Mixin[]|table<string,base_classes.Form.Mixin>
 	mixins = {
-		--for_node  = ForNode,
-		--with_tabs = WithTabs,
+		for_node  = ForNode,
+		with_tabs = WithTabs,
 	}
 }
 setmetatable(Form, {
