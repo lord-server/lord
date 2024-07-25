@@ -1,5 +1,8 @@
 local FormEvent = require('base_classes.Form.Event')
 
+--- @class base_classes.Form.Mixin
+--- @field mix_to fun(base_class:base_classes.Form.Base)
+
 --- @class base_classes.Form.Base
 local BaseForm  = {
 	--- @const
@@ -8,20 +11,39 @@ local BaseForm  = {
 
 	--- @protected
 	--- @type base_classes.Form.Event
-	event      = FormEvent,
+	event      = nil,
 
 	--- @static late
 	--- @protected
 	--- @type table<string,base_classes.Form.Base>
 	opened_for = nil,
+
+	--- @type string
+	player_name   = nil,
 }
 
+--- @param mixin base_classes.Form.Mixin
+function BaseForm:mix(mixin, ...)
+	mixin.mix_to(self, ...)
+end
+
+
 --- @static
---- @return base_classes.Form.Base
-function BaseForm:extended(class)
-	local base_class = self
-	self = class or {}
-	return setmetatable(self, { __index = base_class })
+--- @generic GenericForm: base_classes.Form.Base
+--- @param child_class GenericForm
+--- @return GenericForm
+function BaseForm:extended(child_class)
+	self = setmetatable(child_class or {}, { __index = self })
+
+	self.event = FormEvent:extended()
+
+	self.on_instance = self.event:on(self.event.Type.on_instance, self.event)
+	self.on_open     = self.event:on(self.event.Type.on_open, self.event)
+	self.on_close    = self.event:on(self.event.Type.on_close, self.event)
+	self.on_handle   = self.event:on(self.event.Type.on_handle, self.event)
+	self.on_register = self.event:on(self.event.Type.on_register, self.event)
+
+	return self
 end
 
 --- Constructor
@@ -36,6 +58,11 @@ function BaseForm:new(player, ...)
 	self = setmetatable(self, { __index = class })
 
 	self:instantiate(player, ...)
+
+for i, v in pairs(self.event.subscribers.on_instance) do
+	print(debug.get_function_code(v))
+end
+
 	self.event:trigger(self.event.Type.on_instance, self, player, ...)
 
 	return self
@@ -66,7 +93,7 @@ function BaseForm:close()
 end
 
 --- @public
---- @static
+--- @static late
 --- @param player Player
 function BaseForm:get_opened_for(player)
 	return self.opened_for[player:get_player_name()]
@@ -112,12 +139,6 @@ end
 --- @return base_classes.Form.Base
 function BaseForm:register()
 	self.opened_for = {}
-
-	self.on_instance = self.event:on(self.event.Type.on_instance, self.event)
-	self.on_open     = self.event:on(self.event.Type.on_open, self.event)
-	self.on_close    = self.event:on(self.event.Type.on_close, self.event)
-	self.on_handle   = self.event:on(self.event.Type.on_handle, self.event)
-	self.on_register = self.event:on(self.event.Type.on_register, self.event)
 
 	self.event:trigger(self.event.Type.on_register, self)
 

@@ -1,46 +1,70 @@
---local ForNode  = require("base_classes.Form.ForNode")
---local Personal = require("base_classes.Form.Personal")
---local Shared   = require("base_classes.Form.Shared")
---local WithTabs = require("base_classes.Form.WithTabs")
 local BaseForm = require('base_classes.Form.Base')
+--local ForNode  = require("base_classes.Form.Mixin.ForNode")
+--local WithTabs = require("base_classes.Form.Mixin.WithTabs")
+--local Personal = require("base_classes.Form.Mixin.Personal")
 
---- Form Class Factory class.
+
+
+--- Form Class Factory(Generator) class.
 --- This class constructs for you a base form class.
 --- Use methods to mix functionality you need and then call `:extended()` method.
 ---
 --- @class base_classes.Form
---- @field base      fun(self:self): self
---- @field for_node  fun(self:self): self
---- @field with_tabs fun(self:self): self
+-- --- @field for_node  fun(self:self): self
+-- --- @field with_tabs fun(self:self): self
 local Form = {
-	--- @generic GenericForm: base_classes.Form.Base
-	--- @type GenericForm
-	now_constructing = nil,
+	--- @type base_classes.Form.Mixin[]
+	will_mixed = {},
 
-	--- @param self
+	--- @type base_classes.Form.Mixin[]|table<string,base_classes.Form.Mixin>
+	mixins = {
+		--for_node  = ForNode,
+		--with_tabs = WithTabs,
+	}
+}
+setmetatable(Form, {
+	--- @param self  self
+	--- @param mixin string
 	__index = function(self, mixin)
-		return function(message, ...)
-			-- self.now_constructing = BaseForm:extended(self.now_constructing)
+		if not self.mixins[mixin] then
+			errorlf('Undefined mixin `%s`', 3, mixin)
+		end
 
-			return self[mixin]
+		--- @param _ self
+		--- @vararg any all params passed to mix method (`for_node`, `with_tabs`), that will be passed to `"mixin":mix_to()`
+		return function(_, ...)
+			self.will_mixed[mixin] = { ... }
+
+			return self
 		end
 	end
-}
+})
 
 --- @static
+---
 --- @generic GenericForm: base_classes.Form.Base
 --- @param child_class GenericForm
 ---
 --- @return GenericForm
 function Form:extended(child_class)
-	--- @generic GenericForm: base_classes.Form.Base
-	--- @type GenericForm
-	local class       = child_class or {}
-	local constructed = self.now_constructing or BaseForm
+	local class = BaseForm:extended(child_class or {})
 
-	self.now_constructing = nil
+	for name, params in pairs(self.will_mixed) do
+		class:mix(self.mixins[name], unpack(params))
+	end
 
-	return setmetatable(class, { __index = constructed } )
+	self.will_mixed = {}
+
+	return class
+end
+
+--- @param mix_method_name string
+--- @param mixin           base_classes.Form.Mixin
+--- @return self
+function Form:register_mixin(mix_method_name, mixin)
+	self.mixins[mix_method_name] = mixin
+
+	return self
 end
 
 

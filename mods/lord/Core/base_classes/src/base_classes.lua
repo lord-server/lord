@@ -6,7 +6,9 @@ base_classes = {} -- luacheck: ignore unused global variable base_classes
 
 local function register_api()
 	_G.base_classes = {
+		--- @type base_classes.Event
 		Event = Event,
+		--- @type base_classes.Form
 		Form  = Form,
 	}
 end
