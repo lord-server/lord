@@ -40,5 +40,17 @@ Event.subscribers = {
 	on_handle   = {},
 }
 
+--- @generic GenericEvent: base_classes.Form.Event
+--- @param child_class GenericEvent
+--- @return GenericEvent
+function Event:extended(child_class)
+	child_class = child_class or {}
+
+	child_class.Type        = child_class.Type        or table.copy(Event.Type)
+	child_class.subscribers = child_class.subscribers or table.copy(Event.subscribers)
+
+	return BaseEvent:extended(child_class)
+end
+
 
 return Event
