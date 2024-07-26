@@ -2,28 +2,34 @@ local pairs
     = pairs
 
 
---- @static
+--- @alias base_classes.Event.callback fun(...):void
+
+--- @abstract
 --- @class base_classes.Event
 local Event = {
-	Type        = {},
-	subscribers = {},
+	--- @alias base_classes.Event.Type table<string,string>
+	--- @class base_classes.Event.Type
+	Type        = nil,
+	--- @type table<string,base_classes.Event.callback[]>
+	subscribers = nil,
 }
 
---- @static
---- @return base_classes.Event
-function Event:extended(object_or_class)
-	local class = self
-	self = object_or_class or {}
-	return setmetatable(self, { __index = class} )
+--- @generic GenericEvent: base_classes.Event
+--- @param child_class GenericEvent
+--- @return GenericEvent
+function Event:extended(child_class)
+	self = setmetatable(child_class or {}, { __index = self })
+
+	self.Type        = self.Type or {}
+	self.subscribers = self.subscribers or {}
+
+	return self
 end
-
-
---- @alias base_classes.Event.callback function
 
 --- @generic GenericEvent: base_classes.Event
 --- @param event string       name of event (One of `Event.Type::<const>`)
 --- @param base  GenericEvent if you want to link returned function to this `base` class|object
---- @return fun(callback:controls.callback)
+--- @return fun(callback:base_classes.Event.callback)
 function Event:on(event, base)
 	return base
 		and
@@ -37,9 +43,9 @@ function Event:on(event, base)
 end
 
 --- @param event    string name of event (One of `Event.Type::<const>`)
---- @param callback controls.callback
+--- @param callback base_classes.Event.callback
 function Event:subscribe(event, callback)
-	assert(self.Type[event], "Unknown controls.Event.Type: " .. event)
+	assert(self.Type[event], "Unknown Event.Type: " .. event)
 	assert(type(callback) == "function")
 
 	table.insert(self.subscribers[event], callback)
@@ -47,9 +53,9 @@ end
 
 --- @private
 --- @param event string name of event (One of `Event.Type::<const>`)
---- @vararg any pass args that will be passed to subscribers callbacks. See `controls.callbacks.<func-types>`
+--- @vararg any pass args that will be passed to subscribers callbacks.
 function Event:notify(event, ...)
-	assert(self.Type[event], "Unknown controls.Event.Type: " .. event)
+	assert(self.Type[event], "Unknown Event.Type: " .. event)
 
 	for _, func in pairs(self.subscribers[event]) do
 		func(...)
@@ -57,7 +63,7 @@ function Event:notify(event, ...)
 end
 
 --- @param event string name of event (One of `Event.Type::<const>`)
---- @vararg any pass args that will be passed to subscribers callbacks. See `controls.callbacks.<func-types>`
+--- @vararg any pass args that will be passed to subscribers callbacks.
 function Event:trigger(event, ...)
 	self:notify(event, ...)
 end

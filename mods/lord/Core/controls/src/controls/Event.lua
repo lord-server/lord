@@ -1,5 +1,12 @@
+--- @alias controls.callbacks.OnPress fun(player:Player, key:string)
+--- @alias controls.callbacks.OnHold fun(player:Player, key:string, hold_time:number)
+--- @alias controls.callbacks.OnRelease fun(player:Player, key:string, hold_time:number)
+--- @alias controls.callback controls.callbacks.OnPress|controls.callbacks.OnHold|controls.callbacks.OnRelease
+
 
 --- @class controls.Event: base_classes.Event
+--- @field on      fun(event:string|controls.Event.Type): fun(callback:controls.callback)
+--- @field trigger fun(event:string|controls.Event.Type, ...): void
 local Event = base_classes.Event:extended()
 
 --- @class controls.Event.Type
@@ -8,12 +15,7 @@ Event.Type        = {
 	on_hold    = "on_hold",
 	on_release = "on_release",
 }
-
---- @alias controls.callbacks.OnPress fun(player:Player, key:string)
---- @alias controls.callbacks.OnHold fun(player:Player, key:string, hold_time:number)
---- @alias controls.callbacks.OnRelease fun(player:Player, key:string, hold_time:number)
---- @alias controls.callback controls.callbacks.OnPress|controls.callbacks.OnHold|controls.callbacks.OnRelease
-
+--- @type table<string,controls.callback[]>
 Event.subscribers = {
 	---@type controls.callbacks.OnPress[]
 	on_press   = {},

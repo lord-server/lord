@@ -1,3 +1,7 @@
+--- @alias clans.callbacks.OnClanOperation fun(clan:clans.Clan)
+--- @alias clans.callbacks.OnClanPlayerOperation fun(clan:clans.Clan, player_name:string)
+--- @alias clans.callback clans.callbacks.OnClanOperation|clans.callbacks.OnClanPlayerOperation
+
 
 --- @static
 --- @class clans.Event: base_classes.Event
@@ -14,11 +18,7 @@ Event.Type = {
 	on_clan_player_join    = "on_clan_player_join",
 	on_clan_player_leave   = "on_clan_player_leave",
 }
-
---- @alias clans.callbacks.OnClanOperation fun(clan:clans.Clan)
---- @alias clans.callbacks.OnClanPlayerOperation fun(clan:clans.Clan, player_name:string)
---- @alias clans.callback clans.callbacks.OnClanOperation|clans.callbacks.OnClanPlayerOperation
-
+--- @type table<string,clans.callback[]>
 Event.subscribers = {
 	---@type clans.callbacks.OnClanOperation[]
 	on_clan_created = {},
