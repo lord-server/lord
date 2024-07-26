@@ -1,4 +1,4 @@
-local S = lord.require_intllib()
+local S = minetest.get_translator("hb.armor")
 local N = function(s) return s end
 
 if (not armor) or (not armor.def) then

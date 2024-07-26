@@ -1,6 +1,6 @@
 if minetest.settings:get_bool("enable_damage") then
 
-local SL = lord.require_intllib()
+local S = minetest.get_translator("hb.hunger")
 
 hbhunger = {}
 hbhunger.food = {}
@@ -46,7 +46,7 @@ dofile(minetest.get_modpath("hbhunger").."/hunger.lua")
 hb.register_hudbar(
 	"satiation",
 	0xFFFFFF,
-	SL("Satiation"),
+	S("Satiation"),
 	{icon = "hbhunger_icon.png", bgicon = "hbhunger_bgicon.png",  bar = "hbhunger_bar.png"},
 	10,
 	30,

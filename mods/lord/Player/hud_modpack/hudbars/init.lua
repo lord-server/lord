@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator("hudbars")
 local N = function(s) return s end
 
 hb = {}
@@ -85,7 +85,7 @@ local function make_label(format_string, format_string_config, label, start_valu
 	if format_string_config.textdomain then
 		ret = minetest.translate(format_string_config.textdomain, format_string, unpack(params))
 	else
-		ret = SL(format_string, unpack(params))
+		ret = S(format_string, unpack(params))
 	end
 	return ret
 end
@@ -398,7 +398,7 @@ if minetest.settings:get_bool("enable_damage") or hb.settings.forceload_default_
 	hb.register_hudbar(
 		"health",
 		0xFFFFFF,
-		SL("Health"),
+		S("Health"),
 		{ bar = "hudbars_bar_health.png", icon = "hudbars_icon_health.png", bgicon = "hudbars_bgicon_health.png" },
 		20,
 		20,
@@ -411,7 +411,7 @@ if minetest.settings:get_bool("enable_damage") or hb.settings.forceload_default_
 	hb.register_hudbar(
 		"breath",
 		0xFFFFFF,
-		SL("Breath"),
+		S("Breath"),
 		{ bar = "hudbars_bar_breath.png", icon = "hudbars_icon_breath.png", bgicon = "hudbars_bgicon_breath.png" },
 		20,
 		10,
