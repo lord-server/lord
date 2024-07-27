@@ -1,3 +1,7 @@
+local math_random, math_floor, string_match, ipairs
+    = math.random, math.floor, string.match, ipairs
+
+
 local SL = minetest.get_translator("lottarmor")
 
 local ARMOR_UPDATE_TIME = 1
@@ -11,7 +15,6 @@ local ARMOR_PURPOSE = { "head", "torso", "legs", "feet", "shield" }
 
 armor = {
 	player_hp = {},
-	elements  = { "head", "torso", "legs", "feet", "shield" },
 	def       = { state = 0, count = 0 },
 }
 
@@ -54,7 +57,7 @@ local function collect_armor_data(player)
 			armor_count = armor_count + 1
 			armor_heal  = armor_heal + (item_groups["armor_heal"] or 0)
 			armor_fire = armor_fire + (item_groups["armor_fire"] or 0)
-			local mat = string.match(stack:get_name(), "%:.+_(.+)$")
+			local mat = string_match(stack:get_name(), "%:.+_(.+)$")
 			if material.type then
 				if material.type == mat then
 					material.count = material.count + 1
@@ -76,7 +79,7 @@ local function rebuild_armor_groups(player, armor_level)
 		armor_groups.immortal = 1
 	end
 	if armor_level > 0 then
-		armor_groups.level = math.floor(armor_level / 20)
+		armor_groups.level = math_floor(armor_level / 20)
 		armor_groups.fleshy = 100 - armor_level
 	end
 	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
@@ -115,12 +118,12 @@ function armor:set_player_armor(player)
 end
 
 --- @param stack     ItemStack
---- @param armor_inv InvRef
 --- @param player    Player
-local function item_wear(stack, armor_inv, slot, player)
+local function item_wear(stack, slot, player)
 	local use = stack:get_definition().groups["armor_use"] or 0
 	stack:add_wear(use)
 
+	local armor_inv = minetest.get_inventory({type="detached", name = player:get_player_name().."_armor"})
 	if stack:get_count() == 0 then
 		local desc = minetest.registered_items[stack:get_name()].description
 		if desc then
@@ -134,29 +137,27 @@ local function item_wear(stack, armor_inv, slot, player)
 	end
 end
 
-local handle_armor_wear = function(player)
+
+local handle_armor_heal = function(player)
 	local name = player:get_player_name()
 	if not name then
 		return
 	end
 
-	local armor_inv = minetest.get_inventory({type="detached", name=name.."_armor"})
 	local hp = player:get_hp() or 0
 	if hp <= 0 or hp == armor.player_hp[name] then
 		return
 	end
-	-- TODO #977
+
 	if armor.player_hp[name] > hp then
 		local heal_max = 0
-		for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
+		for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 			if stack:get_count() > 0 then
-				local heal = stack:get_definition().groups["armor_heal"] or 0
-				item_wear(stack, armor_inv, slot, player)
-				heal_max = heal_max + heal
+				heal_max = heal_max + (stack:get_definition().groups["armor_heal"] or 0)
 			end
 		end
 
-		if heal_max > math.random(100) then
+		if heal_max > math_random(100) then
 			player:set_hp(armor.player_hp[name])
 			return
 		end
@@ -183,5 +184,20 @@ equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item
 	armor:set_player_armor(player)
 end)
 
--- TODO see `minetest.register_on_punchplayer()` (#977)
-minetest.foreach_player_every(ARMOR_UPDATE_TIME, handle_armor_wear)
+
+local handle_armor_wear = function(player)
+	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
+		if stack:get_count() > 0 then
+			if math_random(2) == 1 then
+				item_wear(stack, slot, player)
+				break
+			end
+		end
+	end
+end
+
+
+minetest.foreach_player_every(ARMOR_UPDATE_TIME, handle_armor_heal)
+
+
+minetest.register_on_punchplayer(handle_armor_wear)
