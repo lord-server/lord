@@ -1,4 +1,0 @@
-# textdomain: lottarmor
-
-got destroyed!=
-

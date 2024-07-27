@@ -16,11 +16,8 @@ Player
 ### `equipment`
  - базовый (абстракция/api) мод для создания экипировок разных видов
 
-### `equipment_armor`
- - [экипировка вида "Броня"](equipment_armor/src/equipment_armor.lua)
-
-### `equipment_clothing`
- - [экипировка вида "Одежда"](equipment_clothing/src/equipment_clothing.lua)
+### `lord_equipment`
+ - [экипировка вида "Броня" и "Одежда"](lord_equipment/src/equipment.lua)
 
 ### `lord_inventory`
  - формы инвентаря игрока:

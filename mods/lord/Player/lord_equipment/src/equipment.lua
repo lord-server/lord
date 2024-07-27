@@ -1,11 +1,11 @@
 local math_random
     = math.random
 
-local SL = minetest.get_translator("lottarmor")
+local SL = minetest.get_translator("lord_equipment")
 
+local CLOTHING_EQUIPMENT_SIZE = 5
+local ARMOR_EQUIPMENT_SIZE    = 5
 
-local ARMOR_EQUIPMENT_SIZE = 5
-equipment.Kind.ARMOR       = "armor"
 
 --- @param stack     ItemStack
 --- @param player    Player
@@ -27,7 +27,7 @@ local function item_wear(stack, slot, player)
 	end
 end
 
-local handle_armor_wear = function(player)
+local function handle_armor_wear(player)
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() > 0 then
 			-- chance that the hit landed on this slot (on this element of the armor)
@@ -42,7 +42,10 @@ end
 
 return {
 	init = function()
-		equipment.Kind.register(equipment.Kind.ARMOR, ARMOR_EQUIPMENT_SIZE)
+		equipment.Kind.ARMOR    = "armor"
+		equipment.Kind.CLOTHING = "clothing"
+		equipment.Kind.register(equipment.Kind.ARMOR,    ARMOR_EQUIPMENT_SIZE)
+		equipment.Kind.register(equipment.Kind.CLOTHING, CLOTHING_EQUIPMENT_SIZE)
 		minetest.register_on_punchplayer(handle_armor_wear)
 	end
 }
