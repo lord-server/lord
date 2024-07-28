@@ -68,20 +68,33 @@ local function collect_armor_data(player)
 		(material.type and material.count == #ARMOR_PURPOSE)
 end
 
+--- Ensure that `value` is between `min` and `max` and correct it by `min`/`max` limits
+--- @param value number
+--- @param min   number
+--- @param max   number
+---
+--- @return number returns corrected value if it goes out of range
+local function limit(value, min, max)
+	value = value <   0 and   0 or value
+	value = value > 100 and 100 or value
+
+	return value
+end
+
 local function rebuild_armor_groups(player, armor_level)
 	local immortal = player:get_armor_groups().immortal
 	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
-		return {fleshy = 1}
+		return { fleshy = 1 }
 	end
 
-	local armor_groups = {fleshy=100}
+	local armor_groups = {}
 	if immortal and immortal ~= 0 then
 		armor_groups.immortal = 1
 	end
-	if armor_level > 0 then
-		armor_groups.level = math_floor(armor_level / 20)
-		armor_groups.fleshy = 100 - armor_level
-	end
+
+	armor_level = limit(armor_level, 0, 100)
+	armor_groups.level = math_floor(armor_level / 20)
+	armor_groups.fleshy = 100 - armor_level
 
 	return armor_groups
 end
