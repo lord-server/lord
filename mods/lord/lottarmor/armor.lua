@@ -69,17 +69,18 @@ local function collect_armor_data(player)
 end
 
 local function rebuild_armor_groups(player, armor_level)
-	local armor_groups = {fleshy=100}
 	local immortal = player:get_armor_groups().immortal
+	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
+		return {fleshy = 1}
+	end
+
+	local armor_groups = {fleshy=100}
 	if immortal and immortal ~= 0 then
 		armor_groups.immortal = 1
 	end
 	if armor_level > 0 then
 		armor_groups.level = math_floor(armor_level / 20)
 		armor_groups.fleshy = 100 - armor_level
-	end
-	if player:get_meta():get("lott:immunity") ~= nil and (not immortal or immortal == 0) then
-		return {fleshy = 1}
 	end
 
 	return armor_groups
