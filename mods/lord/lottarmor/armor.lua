@@ -10,7 +10,6 @@ local ARMOR_PURPOSE = { "head", "torso", "legs", "feet", "shield" }
 -- Armor API
 
 armor = {
-	player_hp = {},
 	def       = {},
 }
 
@@ -119,7 +118,6 @@ end
 -- Register Callbacks
 equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
 	local name = player:get_player_name()
-	armor.player_hp[name] = 0
 	armor.def[name] = {
 		state     = 0,
 		count     = 0,
