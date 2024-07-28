@@ -13,7 +13,7 @@ local ARMOR_PURPOSE = { "head", "torso", "legs", "feet", "shield" }
 
 armor = {
 	player_hp = {},
-	def       = { state = 0, count = 0 },
+	def       = {},
 }
 
 
