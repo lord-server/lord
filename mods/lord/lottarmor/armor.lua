@@ -2,8 +2,6 @@ local math_random, math_floor, string_match, ipairs
     = math.random, math.floor, string.match, ipairs
 
 
-local ARMOR_UPDATE_TIME = 1
-
 --- @type table<number,string>|string[]
 local PHYSICS_TYPES = { "jump", "speed", "gravity" }
 --- @type table<number,string>|string[]
@@ -125,28 +123,15 @@ local function get_armor_healing_chance(player)
 	end
 end
 
-local handle_armor_heal = function(player)
+local handle_armor_healing = function(player)
 	local name = player:get_player_name()
-	if not name then
+	if not name then return end
+
+	local armor_healing_chance = get_armor_healing_chance(player)
+	if math_random(100) < armor_healing_chance then
+		player:set_hp(armor.player_hp[name])
 		return
 	end
-
-	local hp = player:get_hp() or 0
-	if hp <= 0 or hp == armor.player_hp[name] then
-		return
-	end
-	if armor.player_hp[name] > hp then -- only on punch
-
-
-		local armor_healing_chance = get_armor_healing_chance(player)
-		if math_random(100) < armor_healing_chance then
-			player:set_hp(armor.player_hp[name])
-			return
-		end
-
-
-	end
-	armor.player_hp[name] = hp
 end
 
 
@@ -169,4 +154,4 @@ equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item
 end)
 
 
-minetest.foreach_player_every(ARMOR_UPDATE_TIME, handle_armor_heal)
+minetest.register_on_punchplayer(handle_armor_healing)
