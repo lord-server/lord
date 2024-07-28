@@ -8,7 +8,7 @@ local SL = minetest.get_translator("lottclothes")
 minetest.register_tool("lottclothes:cap_chetwood", {
 	description = SL("Chetwood Cap"),
 	inventory_image = "lottclothes_inv_cap_chetwood.png",
-	groups = {armor_head=0, armor_heal=0, clothes=1, clothes_head=1},
+	groups = {armor_head=0, clothes=1, clothes_head=1},
 	wear = 0
 })
 
@@ -32,7 +32,7 @@ minetest.register_craft({
 minetest.register_tool("lottclothes:jacket_chetwood", {
 	description = SL("Chetwood Jacket"),
 	inventory_image = "lottclothes_inv_jacket_chetwood.png",
-	groups = {armor_torso=0, armor_heal=0, clothes=1, clothes_torso=1},
+	groups = {armor_torso=0, clothes=1, clothes_torso=1},
 	wear = 0
 })
 
@@ -56,7 +56,7 @@ minetest.register_craft({
 minetest.register_tool("lottclothes:pants_chetwood", {
 	description = SL("Chetwood Pants"),
 	inventory_image = "lottclothes_inv_pants_chetwood.png",
-	groups = {armor_legs=0, armor_heal=0, clothes=1, clothes_legs=1},
+	groups = {armor_legs=0, clothes=1, clothes_legs=1},
 	wear = 0
 })
 
@@ -80,7 +80,7 @@ minetest.register_craft({
 minetest.register_tool("lottclothes:boots_chetwood", {
 	description = SL("Chetwood Boots"),
 	inventory_image = "lottclothes_inv_boots_chetwood.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_feet=1},
+	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0
 })
 

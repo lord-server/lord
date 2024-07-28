@@ -3,35 +3,35 @@ local SL = minetest.get_translator("lottclothes")
 minetest.register_tool("lottclothes:hood_elven", {
 	description = SL("Elven Hood"),
 	inventory_image = "lottclothes_inv_hood_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_head=1},
+	groups = {armor_feet=0, clothes=1, clothes_head=1},
 	wear = 0
 })
 
 minetest.register_tool("lottclothes:shirt_elven", {
 	description = SL("Elven Shirt"),
 	inventory_image = "lottclothes_inv_shirt_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_torso=1},
+	groups = {armor_feet=0, clothes=1, clothes_torso=1},
 	wear = 0
 })
 
 minetest.register_tool("lottclothes:trousers_elven", {
 	description = SL("Elven Trousers"),
 	inventory_image = "lottclothes_inv_trousers_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_legs=1},
+	groups = {armor_feet=0, clothes=1, clothes_legs=1},
 	wear = 0
 })
 
 minetest.register_tool("lottclothes:shoes_elven", {
 	description = SL("Elven Shoes"),
 	inventory_image = "lottclothes_inv_shoes_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_feet=1},
+	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0
 })
 
 minetest.register_tool("lottclothes:cloak_elven", {
 	description = SL("Elven Cloak"),
 	inventory_image = "lottclothes_inv_cloak_elven.png",
-	groups = {armor_feet=0, armor_heal=0, clothes=1, clothes_cloak=1, no_preview=1},
+	groups = {armor_feet=0, clothes=1, clothes_cloak=1, no_preview=1},
 	wear = 0
 })
 

@@ -38,21 +38,22 @@ local function collect_physics(player)
 end
 
 local function collect_armor_data(player)
-	local armor_level = 0
-	local armor_heal  = 0
-	local armor_fire  = 0
-	local armor_wear  = 0
-	local armor_count = 0
-	local material    = { type = nil, count = 1 } -- detection of same material armor-set
+	local armor_level     = 0
+	local armor_dmg_avoid = 0
+	local armor_fire      = 0
+	local armor_wear      = 0
+	local armor_count     = 0
+
+	local material = { type = nil, count = 1 } -- detection of same material armor-set
 
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
-			armor_level = armor_level + (item_groups["armor_" .. ARMOR_PURPOSE[slot]] or 0)
-			armor_wear  = armor_wear + stack:get_wear()
-			armor_count = armor_count + 1
-			armor_heal  = armor_heal + (item_groups["armor_heal"] or 0)
-			armor_fire = armor_fire + (item_groups["armor_fire"] or 0)
+			armor_level     = armor_level + (item_groups["armor_" .. ARMOR_PURPOSE[slot]] or 0)
+			armor_wear      = armor_wear + stack:get_wear()
+			armor_count     = armor_count + 1
+			armor_dmg_avoid = armor_dmg_avoid + (item_groups["damage_avoid_chance"] or 0)
+			armor_fire      = armor_fire + (item_groups["armor_fire"] or 0)
 			local mat = string_match(stack:get_name(), "%:.+_(.+)$")
 			if material.type then
 				if material.type == mat then
@@ -64,7 +65,7 @@ local function collect_armor_data(player)
 		end
 	end
 
-	return armor_level, armor_heal, armor_fire, armor_wear, armor_count,
+	return armor_level, armor_dmg_avoid, armor_fire, armor_wear, armor_count,
 		(material.type and material.count == #ARMOR_PURPOSE)
 end
 
@@ -93,7 +94,7 @@ function armor:set_player_armor(player)
 		return
 	end
 
-	local armor_level, armor_heal, armor_fire, armor_wear, armor_count, same_material_set = collect_armor_data(player)
+	local armor_level, armor_dmg_avoid, armor_fire, armor_wear, armor_count, same_material_set = collect_armor_data(player)
 
 	if same_material_set then
 		armor_level = armor_level * 1.1
@@ -101,16 +102,16 @@ function armor:set_player_armor(player)
 
 	player:set_armor_groups(rebuild_armor_groups(player, armor_level))
 
-	self.def[name].state = armor_wear
-	self.def[name].count = armor_count
-	self.def[name].level = armor_level
-	self.def[name].heal = armor_heal
-	self.def[name].fire = armor_fire
+	self.def[name].state     = armor_wear
+	self.def[name].count     = armor_count
+	self.def[name].level     = armor_level
+	self.def[name].dmg_avoid = armor_dmg_avoid
+	self.def[name].fire      = armor_fire
 
 	local physics_o = collect_physics(player)
 	player:set_physics_override(physics_o)
-	self.def[name].jump = physics_o.jump
-	self.def[name].speed = physics_o.speed
+	self.def[name].jump    = physics_o.jump
+	self.def[name].speed   = physics_o.speed
 	self.def[name].gravity = physics_o.gravity
 end
 
@@ -120,14 +121,14 @@ equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item
 	local name = player:get_player_name()
 	armor.player_hp[name] = 0
 	armor.def[name] = {
-		state = 0,
-		count = 0,
-		level = 0,
-		heal = 0,
-		jump = 1,
-		speed = 1,
-		gravity = 1,
-		fire = 0,
+		state     = 0,
+		count     = 0,
+		level     = 0,
+		dmg_avoid = 0,
+		jump      = 1,
+		speed     = 1,
+		gravity   = 1,
+		fire      = 0,
 	}
 
 	armor:set_player_armor(player)
