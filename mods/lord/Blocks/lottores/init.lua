@@ -945,15 +945,6 @@ minetest.register_craftitem("lottores:pearl", {
 
 -- Crafting
 
-minetest.register_craft( {
-	output = 'lottores:pearl_block',
-	recipe = {
-		{ 'craft "lottores:pearl"', 'craft "lottores:pearl"', 'craft "lottores:pearl"' },
-		{ 'craft "lottores:pearl"', 'craft "lottores:pearl"', 'craft "lottores:pearl"' },
-		{ 'craft "lottores:pearl"', 'craft "lottores:pearl"', 'craft "lottores:pearl"' },
-	}
-})
-
 minetest.register_craft({
 	output = 'lottores:salt_block',
 	recipe = {
