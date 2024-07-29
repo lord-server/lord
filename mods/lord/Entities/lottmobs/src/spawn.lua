@@ -25,13 +25,13 @@ mobs:spawn_specific("lottmobs:elf",        {"lord_ground:dirt_lorien"}, {"air"},
 mobs:spawn_specific("lottmobs:elf1",       {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:elf2",       {"lord_ground:dirt_lorien"}, {"air"}, 0, 20, 30, 9000, 2, 0, 31000)
 --boar.lua
-mobs:spawn_specific("lottmobs:boar", {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:boar", {"lord_ground:dirt_iron_hills"}, {"air"}, -1, 20, 30, 30000, 2, 0, 31000)
 --horse.lua
-mobs:spawn_specific("lottmobs:horse",          {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
-mobs:spawn_specific("lottmobs:horsepeg",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 10000, 2, 0, 31000)
-mobs:spawn_specific("lottmobs:horseara",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 10000, 2, 0, 31000)
-mobs:spawn_specific("lottmobs:shirepony",      {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 9000,  2, 0, 31000)
-mobs:spawn_specific("lottmobs:shireponyblack", {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 13500, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:horse",          {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 60000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:horsepeg",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 60000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:horseara",       {"lord_ground:dirt_rohan"}, {"air"}, -1, 20, 30, 60000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:shirepony",      {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 45000, 2, 0, 31000)
+mobs:spawn_specific("lottmobs:shireponyblack", {"lord_ground:dirt_shire"}, {"air"}, -1, 20, 30, 45000, 2, 0, 31000)
 --animals
 mobs:spawn_specific("lottmobs:chicken", {"lord_ground:dirt_gondor"},  {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
 mobs:spawn_specific("lottmobs:chicken", {"lord_ground:dirt_dunland"}, {"air"}, -1, 20, 30, 9000, 2, 0, 31000)
