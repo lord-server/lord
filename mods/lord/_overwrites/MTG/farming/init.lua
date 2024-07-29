@@ -18,6 +18,7 @@ minetest.unregister_item("farming:hoe_diamond")
 
 -- Add food points description:
 minetest.override_item("farming:bread", {
+	on_use      = minetest.item_eat(9),
 	_tt_food    = true,
-	_tt_food_hp = 5,
+	_tt_food_hp = 9,
 })

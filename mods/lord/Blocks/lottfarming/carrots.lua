@@ -1,8 +1,7 @@
--- main `S` code in init.lua
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:carrot_seed", {
-	description     = SL("Carrot Seeds"),
+	description     = S("Carrot Seeds"),
 	inventory_image = "farming_carrot_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -83,11 +82,11 @@ minetest.register_node("lottfarming:carrot", {
 })
 
 minetest.register_craftitem("lottfarming:carrot_item", {
-	description     = SL("Carrot"),
+	description     = S("Carrot"),
 	inventory_image = "farming_carrot.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(4),
 	_tt_food        = true,
-	_tt_food_hp     = 2,
+	_tt_food_hp     = 4,
 })
 
 farming:add_plant(

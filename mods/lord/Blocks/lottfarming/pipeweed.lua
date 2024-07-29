@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:pipeweed_seed", {
-	description     = SL("Pipeweed Seeds"),
+	description     = S("Pipeweed Seeds"),
 	inventory_image = "lottfarming_pipeweed_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -90,7 +90,7 @@ minetest.register_node("lottfarming:pipeweed_4", {
 })
 
 minetest.register_craftitem("lottfarming:pipeweed", {
-	description     = SL("Pipeweed"),
+	description     = S("Pipeweed"),
 	inventory_image = "lottfarming_pipeweed.png",
 })
 
@@ -103,7 +103,7 @@ farming:add_plant(
 )
 
 minetest.register_craftitem("lottfarming:pipeweed_cooked", {
-	description     = SL("Cooked Pipeweed"),
+	description     = S("Cooked Pipeweed"),
 	inventory_image = "lottfarming_pipeweed_cooked.png",
 })
 
@@ -121,7 +121,7 @@ pipeweed = {
 }
 
 minetest.register_tool("lottfarming:pipe", {
-	description     = SL("Pipe"),
+	description     = S("Pipe"),
 	inventory_image = "lottfarming_pipe.png",
 	on_use          = function(itemstack, player)
 		for _, arrow in ipairs(pipeweed) do

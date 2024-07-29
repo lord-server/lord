@@ -37,13 +37,15 @@ arrows:register_throwing_weapon("lottmobs:egg", {
 		end,
 	},
 	craftitem = {
+		description = SL("Chicken Egg"),
+		inventory_image = "lottmobs_egg.png",
 		shoot_sound = {
 			sound = "default_place_node_hard",
 			distance = 5,
 		},
-
-		description = SL("Chicken Egg"),
-		inventory_image = "lottmobs_egg.png",
+		on_use          = minetest.item_eat(2),
+		_tt_food        = true,
+		_tt_food_hp     = 2,
 	},
 })
 

@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 local function make_negative_visual_effect(user)
 	local first_screen = user:hud_add({
@@ -24,7 +24,7 @@ local function make_negative_visual_effect(user)
 end
 
 minetest.register_craftitem("lottfarming:orc_food", {
-	description = SL("Orc Food"),
+	description = S("Orc Food"),
 	inventory_image = "lottfarming_orc_food.png",
 	on_use = function(itemstack, user, pointed_thing)
 		local name = user:get_player_name()
@@ -49,7 +49,7 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:orc_medicine", {
-	description = SL("Orc medicine"),
+	description = S("Orc medicine"),
 	inventory_image = "lottfarming_orc_medicine.png",
 	on_use = function(itemstack, user, pointed_thing)
 		user:set_hp(20)

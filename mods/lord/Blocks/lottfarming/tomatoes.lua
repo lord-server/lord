@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:tomatoes_seed", {
-	description     = SL("Tomato Seeds"),
+	description     = S("Tomato Seeds"),
 	inventory_image = "lottfarming_tomatoes_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -90,11 +90,11 @@ minetest.register_node("lottfarming:tomatoes_4", {
 })
 
 minetest.register_craftitem("lottfarming:tomatoes", {
-	description     = SL("Tomato"),
+	description     = S("Tomato"),
 	inventory_image = "lottfarming_tomatoes.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(4),
 	_tt_food        = true,
-	_tt_food_hp     = 2,
+	_tt_food_hp     = 4,
 	groups          = { salad = 1 },
 })
 
@@ -114,19 +114,19 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:tomatoes_cooked", {
-	description     = SL("Cooked Tomato"),
+	description     = S("Cooked Tomato"),
 	inventory_image = "lottfarming_tomatoes_cooked.png",
-	on_use          = minetest.item_eat(5),
+	on_use          = minetest.item_eat(7),
 	_tt_food        = true,
-	_tt_food_hp     = 5,
+	_tt_food_hp     = 7,
 })
 
 minetest.register_craftitem("lottfarming:tomato_soup", {
-	description     = "Tomato Soup",
+	description     = S("Tomato Soup"),
 	inventory_image = "lottfarming_tomato_soup.png",
-	on_use          = minetest.item_eat(10),
+	on_use          = minetest.item_eat(18),
 	_tt_food        = true,
-	_tt_food_hp     = 10,
+	_tt_food_hp     = 18,
 })
 
 minetest.register_craft({

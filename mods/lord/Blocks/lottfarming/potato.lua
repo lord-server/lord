@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:potato_seed", {
-	description = SL("Half of potato"),
+	description = S("Half of potato"),
 	inventory_image = "lottfarming_potato_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -69,7 +69,7 @@ minetest.register_node("lottfarming:potato_3", {
 })
 
 minetest.register_craftitem("lottfarming:potato", {
-	description     = SL("Potato"),
+	description     = S("Potato"),
 	inventory_image = "lottfarming_potato.png",
 	on_use          = minetest.item_eat(1),
 	_tt_food        = true,
@@ -79,9 +79,9 @@ minetest.register_craftitem("lottfarming:potato", {
 farming:add_plant("lottfarming:potato_3", {"lottfarming:potato_1", "lottfarming:potato_2"}, 50, 20, 40)
 
 minetest.register_craftitem("lottfarming:potato_cooked", {
-	description     = SL("Cooked Potato"),
+	description     = S("Cooked Potato"),
 	inventory_image = "lottfarming_potato_cooked.png",
-	on_use          = minetest.item_eat(5),
+	on_use          = minetest.item_eat(7),
 	_tt_food        = true,
-	_tt_food_hp     = 5,
+	_tt_food_hp     = 7,
 })

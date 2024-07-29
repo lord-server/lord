@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:barley_seed", {
-	description = SL("Barley Seeds"),
+	description = S("Barley Seeds"),
 	inventory_image = "lottfarming_barley_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -69,7 +69,7 @@ minetest.register_node("lottfarming:barley_3", {
 })
 
 minetest.register_craftitem("lottfarming:sheaf_barley", {
-	description = SL("Sheaf barley"),
+	description = S("Sheaf barley"),
 	inventory_image = "lottfarming_sheaf_barley.png",
 })
 
@@ -83,9 +83,10 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:barley_cooked", {
-	description     = SL("Cooked Barley"),
+	description     = S("Cooked Barley"),
 	inventory_image = "lottfarming_barley_cooked.png",
-	on_use          = minetest.item_eat(2),
-	_tt_food        = true,
-	_tt_food_hp     = 2,
+	-- removed while balancing food TODO: add to horse follow & tame #1583
+	--on_use          = minetest.item_eat(2),
+	--_tt_food        = true,
+	--_tt_food_hp     = 2,
 })

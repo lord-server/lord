@@ -1,11 +1,11 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:cookie_cracker", {
-	description     = SL("Cracker"),
+	description     = S("Cracker"),
 	inventory_image = "lottfarming_cookie_cracker.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(14),
 	_tt_food        = true,
-	_tt_food_hp     = 2,
+	_tt_food_hp     = 14,
 })
 
 minetest.register_craft({
@@ -35,27 +35,27 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:dough", {
-	description     = SL("Dough"),
+	description     = S("Dough"),
 	inventory_image = "lottfarming_dough.png",
-	on_use          = minetest.item_eat(1),
+	on_use          = minetest.item_eat(2),
 	_tt_food        = true,
-	_tt_food_hp     = 1,
+	_tt_food_hp     = 2,
 })
 
 minetest.register_craftitem("lottfarming:yeast_dough", {
-	description     = SL("Yeast Dough"),
+	description     = S("Yeast Dough"),
 	inventory_image = "lottfarming_ydough.png",
-	on_use          = minetest.item_eat(1),
+	on_use          = minetest.item_eat(3),
 	_tt_food        = true,
-	_tt_food_hp     = 1,
+	_tt_food_hp     = 3,
 })
 
 minetest.register_craftitem("lottfarming:salted_dough", {
-	description     = SL("Salted Dough"),
+	description     = S("Salted Dough"),
 	inventory_image = "lottfarming_sdough.png",
-	on_use          = minetest.item_eat(1),
+	on_use          = minetest.item_eat(4),
 	_tt_food        = true,
-	_tt_food_hp     = 1,
+	_tt_food_hp     = 4,
 })
 --[[
 minetest.register_craft({

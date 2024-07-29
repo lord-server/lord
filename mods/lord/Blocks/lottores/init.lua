@@ -917,9 +917,6 @@ minetest.register_node( "lottores:salt_block", {
 	tiles             = { "default_clay.png^lottores_salt_block.png" },
 	is_ground_content = true,
 	groups            = { snappy = 2, cracky = 3, oddly_breakable_by_hand = 3 },
-	on_use            = minetest.item_eat(9),
-	_tt_food          = true,
-	_tt_food_hp       = 9,
 	sounds            = default.node_sound_stone_defaults(),
 })
 

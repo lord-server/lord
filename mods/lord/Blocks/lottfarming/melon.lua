@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:melon_seed", {
-	description     = SL("Melon Seed"),
+	description     = S("Melon Seed"),
 	inventory_image = "lottfarming_melon_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -84,7 +84,7 @@ minetest.register_node("lottfarming:melon_2", {
 })
 
 minetest.register_node("lottfarming:melon_3", {
-	description = SL("Melon"),
+	description = S("Melon"),
 	paramtype2  = "facedir",
 	tiles       = {
 		"lottfarming_melon_top.png",
@@ -101,11 +101,11 @@ minetest.register_node("lottfarming:melon_3", {
 
 minetest.register_alias("lottfarming:melon_slice", "lottfarming:melon")
 minetest.register_craftitem("lottfarming:melon", {
-	description     = SL("Melon"),
+	description     = S("Melon"),
 	inventory_image = "lottfarming_melon.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(4),
 	_tt_food        = true,
-	_tt_food_hp     = 2,
+	_tt_food_hp     = 4,
 })
 
 farming:add_plant("lottfarming:melon_3", { "lottfarming:melon_1", "lottfarming:melon_2" }, 80, 20)

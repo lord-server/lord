@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:berries_seed", {
-	description     = SL("Berries Seeds"),
+	description     = S("Berries Seeds"),
 	inventory_image = "lottfarming_berries_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -90,11 +90,11 @@ minetest.register_node("lottfarming:berries_4", {
 })
 
 minetest.register_craftitem("lottfarming:berries", {
-	description     = SL("Berries"),
+	description     = S("Berries"),
 	inventory_image = "lottfarming_berries.png",
-	on_use          = minetest.item_eat(1),
+	on_use          = minetest.item_eat(3),
 	_tt_food        = true,
-	_tt_food_hp     = 1,
+	_tt_food_hp     = 3,
 })
 
 farming:add_plant(

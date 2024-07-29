@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:blue_mushroom_spore", {
-	description = SL("Blue Mushroom Spores"),
+	description = S("Blue Mushroom Spores"),
 	inventory_image = "lottfarming_blue_mushroom_spore.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -14,7 +14,7 @@ minetest.register_craftitem("lottfarming:blue_mushroom_spore", {
 })
 
 minetest.register_node("lottfarming:blue_mushroom", {
-	description = SL("Blue Mushroom"),
+	description = S("Blue Mushroom"),
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	place_param2 = 9,
@@ -32,9 +32,9 @@ minetest.register_node("lottfarming:blue_mushroom", {
 	groups = {snappy=3, flammable=2, mushroom=1, flower=1, color_blue=1},
 	sounds = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_blue_mushroom.png",
-	on_use = minetest.item_eat(2),
+	on_use = minetest.item_eat(1),
 	_tt_food = true,
-	_tt_food_hp = 2,
+	_tt_food_hp = 1,
 })
 minetest.register_node("lottfarming:blue_mushroom_1", {
 	paramtype = "light",
@@ -217,9 +217,9 @@ minetest.register_abm({
 })
 
 minetest.register_craftitem("lottfarming:mushroom_soup", {
-	description     = SL("Cream of Mushroom Soup"),
+	description     = S("Cream of Mushroom Soup"),
 	inventory_image = "lottfarming_mushroom_soup.png",
-	on_use          = minetest.item_eat(6),
+	on_use          = minetest.item_eat(20),
 	_tt_food        = true,
-	_tt_food_hp     = 6,
+	_tt_food_hp     = 20,
 })

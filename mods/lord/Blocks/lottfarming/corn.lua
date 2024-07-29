@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:corn_seed", {
-	description     = SL("Corn"),
+	description     = S("Corn"),
 	inventory_image = "lottfarming_corn_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -13,12 +13,12 @@ minetest.register_craftitem("lottfarming:corn_seed", {
 	end,
 })
 minetest.register_craftitem("lottfarming:ear_of_corn", {
-	description     = SL("Ear of corn"),
+	description     = S("Ear of corn"),
 	inventory_image = "lottfarming_ear_of_corn.png",
 	groups          = { salad = 1 },
-	on_use          = minetest.item_eat(4),
+	on_use          = minetest.item_eat(3),
 	_tt_food        = true,
-	_tt_food_hp     = 4,
+	_tt_food_hp     = 3,
 })
 minetest.register_node("lottfarming:corn_1", {
 	paramtype     = "light",

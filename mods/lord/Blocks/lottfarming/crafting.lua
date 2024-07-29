@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 -- ITEMS and TOOLS
 
@@ -12,12 +12,12 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottfarming:bowl", {
-	description = SL("Bowl"),
+	description = S("Bowl"),
 	inventory_image = "lottfarming_bowl.png",
 })
 
 minetest.register_node("lottfarming:decay_tree", {
-	description = SL("Decaying Wood"),
+	description = S("Decaying Wood"),
 	tiles = {'default_tree_top.png^lottfarming_decay_tree.png', 'default_tree.png', 	'default_tree.png'},
      is_ground_content = true,
 	groups = {crumbly=3, fungi=3},
@@ -112,7 +112,7 @@ end
 
 
 minetest.register_tool("lottfarming:bacteria_fertiliser", {
-	description = SL("Bacteria Fertiliser"),
+	description = S("Bacteria Fertiliser"),
 	tiles = {"vessels_glass_bottle.png^lottfarming_bacteria_fertiliser.png"},
 	inventory_image = "vessels_glass_bottle_inv.png^lottfarming_bacteria_fertiliser.png",
 	on_use = function(itemstack, user, pointed_thing)

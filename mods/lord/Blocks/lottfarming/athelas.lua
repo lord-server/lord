@@ -1,7 +1,7 @@
-local SL = minetest.get_translator("lottfarming")
+local S = minetest.get_translator("lottfarming")
 
 minetest.register_craftitem("lottfarming:athelas_seed", {
-	description = SL("Athelas Seeds"),
+	description = S("Athelas Seeds"),
 	inventory_image = "lottfarming_athelas_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
@@ -72,7 +72,7 @@ minetest.register_node("lottfarming:athelas_3", {
 })
 
 minetest.register_craftitem("lottfarming:athelas", {
-	description = SL("Athelas"),
+	description = S("Athelas"),
 	inventory_image = "lottfarming_athelas.png",
 })
 

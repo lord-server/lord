@@ -1,5 +1,7 @@
+local S = minetest.get_translator("lottfarming")
+
 minetest.register_craftitem("lottfarming:white_mushroom_spore", {
-	description = "White Mushroom Spores",
+	description = S("White Mushroom Spores"),
 	inventory_image = "lottfarming_white_mushroom_spore.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		return place_spore(itemstack, placer, pointed_thing, "lottfarming:white_mushroom_1", 9)
@@ -7,7 +9,7 @@ minetest.register_craftitem("lottfarming:white_mushroom_spore", {
 })
 
 minetest.register_node("lottfarming:white_mushroom", {
-	description     = "White Mushroom",
+	description     = S("White Mushroom"),
 	paramtype       = "light",
 	paramtype2      = "meshoptions",
 	place_param2    = 9,
@@ -25,9 +27,9 @@ minetest.register_node("lottfarming:white_mushroom", {
 	groups          = { snappy = 3, flammable = 2, mushroom = 1, flower = 1, color_white = 1 },
 	sounds          = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_white_mushroom.png",
-	on_use          = minetest.item_eat(2),
+	on_use          = minetest.item_eat(4),
 	_tt_food        = true,
-	_tt_food_hp     = 2,
+	_tt_food_hp     = 4,
 })
 minetest.register_node("lottfarming:white_mushroom_1", {
 	paramtype = "light",
