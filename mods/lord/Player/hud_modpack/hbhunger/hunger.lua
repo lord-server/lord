@@ -47,7 +47,7 @@ function hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thi
 	return func(itemstack, user, pointed_thing)
 end
 
-local function ipoisenp(tick, poisen, time_left, player, player_name)
+local function poisenp(tick, poisen, time_left, player, player_name)
 	local time_full = math.abs(poisen)
 	time_left = time_left + tick
 	if time_left < time_full then
