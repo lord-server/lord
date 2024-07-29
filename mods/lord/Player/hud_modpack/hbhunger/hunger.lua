@@ -40,14 +40,14 @@ function hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thi
 			hp_change = 1
 			core.log("error", "Wrong on_use() definition for item '" .. item .. "'")
 		end
-		def.saturation = hp_change * 1.3
+		def.saturation = hp_change
 		def.replace = replace_with_item
 	end
 	local func = hbhunger.item_eat(def.saturation, def.replace, def.poisen, def.healing, def.sound)
 	return func(itemstack, user, pointed_thing)
 end
 
-local function poisenp(tick, poisen, time_left, player, player_name)
+local function ipoisenp(tick, poisen, time_left, player, player_name)
 	local time_full = math.abs(poisen)
 	time_left = time_left + tick
 	if time_left < time_full then
@@ -125,73 +125,6 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 	end
 end
 
-hbhunger.register_food("bees:bottle_honey", 2, "vessels:glass_bottle", 3)
-
-hbhunger.register_food("default:apple", 1)
-
-hbhunger.register_food("farming:bread", 8)
-
-if minetest.get_modpath("lottfarming") ~= nil then
-	hbhunger.register_food("lottfarming:berries", 1)
-	hbhunger.register_food("lottfarming:blue_mushroom", 1, "", -2)
-	hbhunger.register_food("lottfarming:brown_mushroom", 1)
-	hbhunger.register_food("lottfarming:cabbage", 1)
-	hbhunger.register_food("lottfarming:carrot_item", 1)
-	hbhunger.register_food("lottfarming:cookie_cracker", 7)
-	hbhunger.register_food("lottfarming:ear_of_corn", 2)
-	hbhunger.register_food("lottfarming:green_mushroom", 1, "", -2)
-	hbhunger.register_food("lottfarming:melon", 1)
-	hbhunger.register_food("lottfarming:mushroom_soup", 3, "lottfarming:bowl")
-	hbhunger.register_food("lottfarming:potato", 1)
-	hbhunger.register_food("lottfarming:potato_cooked", 4)
-	hbhunger.register_food("lottfarming:red_mushroom", -8, "", -8)
-	hbhunger.register_food("lottfarming:salad", 4, "lottfarming:bowl")
-	hbhunger.register_food("lottfarming:tomato_soup", 4, "lottfarming:bowl")
-	hbhunger.register_food("lottfarming:tomatoes", 1)
-	hbhunger.register_food("lottfarming:tomatoes_cooked", 3)
-	hbhunger.register_food("lottfarming:turnips", 1)
-	hbhunger.register_food("lottfarming:turnips_cooked", 2)
-end
-
-if minetest.get_modpath("lottmobs") ~= nil then
-	hbhunger.register_food("lottmobs:chicken_cooked", 8)
-	hbhunger.register_food("lottmobs:chicken_raw", 1, "", -4)
-	hbhunger.register_food("lottmobs:egg", 1)
-	hbhunger.register_food("lottmobs:fish_cooked", 6)
-	hbhunger.register_food("lottmobs:fish_raw", 1, "", -2)
-	hbhunger.register_food("lottmobs:fried_egg", 2)
-	hbhunger.register_food("lottmobs:horsemeat_cooked", 17)
-	hbhunger.register_food("lottmobs:horsemeat_raw", 2, "", -3)
-	hbhunger.register_food("lottmobs:meat", 6)
-	hbhunger.register_food("lottmobs:meat_raw", 1, "", -4)
-	hbhunger.register_food("lottmobs:pork_cooked", 19)
-	hbhunger.register_food("lottmobs:pork_raw", 2, "", -4)
-	hbhunger.register_food("lottmobs:rabbit_cooked", 4)
-	hbhunger.register_food("lottmobs:rabbit_raw", 1, "", -4)
-	hbhunger.register_food("lottmobs:rotten_meat", -6, "", -6)
-end
-
-if minetest.get_modpath("lottores") ~= nil then
-	hbhunger.register_food("lottores:salt", 0, "", -2)
-	hbhunger.register_food("lottores:salt_block", 0, "", -24)
-end
-
-if minetest.get_modpath("lottplants") ~= nil then
-	hbhunger.register_food("lottplants:honey", 2)
-end
-
-if minetest.get_modpath("lord_trees") ~= nil then
-	hbhunger.register_food("lord_trees:plum", 1)
-	hbhunger.register_food("lord_trees:yavannamire_fruit", 15, "", nil, "4")
-end
-
-if minetest.get_modpath("lottpotion") ~= nil then
-	hbhunger.register_food("lottpotion:ale", 1, "vessels:drinking_glass", 4)
-	hbhunger.register_food("lottpotion:beer", 2, "vessels:drinking_glass", 2)
-	hbhunger.register_food("lottpotion:cider", 2, "vessels:drinking_glass", 2)
-	hbhunger.register_food("lottpotion:mead", 3, "vessels:drinking_glass", 4)
-	hbhunger.register_food("lottpotion:wine", 2, "vessels:drinking_glass", 5)
-end
 
 -- player-action based hunger changes
 function hbhunger.handle_node_actions(pos, oldnode, player, ext)
