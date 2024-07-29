@@ -18,7 +18,15 @@ minetest.unregister_item("farming:hoe_diamond")
 
 -- Add food points description:
 minetest.override_item("farming:bread", {
-	on_use      = minetest.item_eat(9),
+	on_use      = minetest.item_eat(12),
 	_tt_food    = true,
-	_tt_food_hp = 9,
+	_tt_food_hp = 12,
+})
+-- craft from dough:
+minetest.clear_craft({ type = "cooking", output = "farming:bread" })
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 15,
+	output = "farming:bread",
+	recipe = "lottfarming:dough"
 })
