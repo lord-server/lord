@@ -240,7 +240,7 @@ function lottplants_yavannamiretree(pos, generator)
 
 	generator.add_trunk(pos, height, "default:tree")
 
-	generator.add_crown_at(pos, height - 2, radius, { "lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit" })
+	generator.add_crown_at(pos, height - 2, radius, "lord_trees:yavannamire_leaf")
 	generator.add_crown_at(pos, height,     radius, { "lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit" })
 end
 
