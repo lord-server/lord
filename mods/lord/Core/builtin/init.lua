@@ -9,6 +9,7 @@ require("map.dungeons_gen")
 require("globalstep")
 require("mod")
 require("stack")
+require("recipe")
 
 
 require = old_require
