@@ -6,10 +6,10 @@ minetest.register_chatcommand("satiety.get", {
 		local inventory = player:get_inventory()
 
 		return
-		true,
-		"From inventory: " .. inventory:get_stack("hunger", 1):get_count() .. "\n" ..
-			"From `hbhunger.get_hunger_raw()`: " .. hbhunger.get_hunger_raw(player) .. "\n" ..
-			"From `hbhunger.hunger[name]`: " .. hbhunger.hunger[name]
+			true,
+			"From inventory: " .. inventory:get_stack("hunger", 1):get_count() .. "\n" ..
+				"From `hbhunger.get_hunger_raw()`: " .. hbhunger.get_hunger_raw(player) .. "\n" ..
+				"From `hbhunger.hunger[name]`: " .. hbhunger.hunger[name]
 	end
 })
 
@@ -30,9 +30,9 @@ minetest.register_chatcommand("satiety.set", {
 		hbhunger.set_hunger_raw(player)
 
 		return
-		true,
-		"From inventory: " .. inventory:get_stack("hunger", 1):get_count() .. "\n" ..
-			"From `hbhunger.get_hunger_raw()`: " .. hbhunger.get_hunger_raw(player) .. "\n" ..
-			"From `hbhunger.hunger[name]`: " .. hbhunger.hunger[name]
+			true,
+			"From inventory: " .. inventory:get_stack("hunger", 1):get_count() .. "\n" ..
+				"From `hbhunger.get_hunger_raw()`: " .. hbhunger.get_hunger_raw(player) .. "\n" ..
+				"From `hbhunger.hunger[name]`: " .. hbhunger.hunger[name]
 	end
 })
