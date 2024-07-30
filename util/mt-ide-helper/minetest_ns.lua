@@ -1476,6 +1476,13 @@ function minetest.get_craft_result(input) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5296-L5303)
 function minetest.get_craft_recipe(output) end
+
+--- @class RecipeEntryTable
+--- @field method string   'normal' or 'cooking' or 'fuel'
+--- @field width  number   0-3, 0 means shapeless recipe
+--- @field items  string[] indexed [1-9] table with recipe items
+--- @field output string   string with item name and quantity
+
 --- Returns a table or `nil`
 --- * returns indexed table with all registered recipes for query item (node)
 ---   or `nil` if no recipe was found.
@@ -1487,14 +1494,14 @@ function minetest.get_craft_recipe(output) end
 --- * Example query for `"default:gold_ingot"` will return table:
 ---   ```lua
 ---       {
----           [1]={method = "cooking", width = 3, output = "default:gold_ingot",
----           items = {1 = "default:gold_lump"}},
----           [2]={method = "normal", width = 1, output = "default:gold_ingot 9",
----           items = {1 = "default:goldblock"}}
+---           [1]={method = "cooking", width = 3, output = "default:gold_ingot", items = {1 = "default:gold_lump"}},
+---           [2]={method = "normal", width = 1, output = "default:gold_ingot 9", items = {1 = "default:goldblock"}}
 ---       }
 ---   ```
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5304-L5319)
+---
+--- @return RecipeEntryTable[]|nil
 function minetest.get_all_craft_recipes(query_item) end
 --- * `drops`: list of itemstrings
 --- * Handles drops from nodes after digging: Default action is to put them

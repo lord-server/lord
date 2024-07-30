@@ -2,6 +2,10 @@ local minetest_registered_items
     = minetest.registered_items
 
 
+
+---foreach_items_with_recipes
+---@param items    ItemDefinition[]
+---@param callback fun(name:string,item:ItemDefinition,recipes:RecipeEntryTable[])
 local function foreach_items_with_recipes(items, callback)
 	for name, item in pairs(items) do
 		local recipes = minetest.get_all_craft_recipes(name)
@@ -11,6 +15,10 @@ local function foreach_items_with_recipes(items, callback)
 	end
 end
 
+---foreach_recipe_with_ingredient
+---@param recipes    RecipeEntryTable[]
+---@param ingredient string
+---@param callback   fun(recipe:RecipeEntryTable)
 local function foreach_recipe_with_ingredient(recipes, ingredient, callback)
 	for i, recipe in pairs(recipes) do
 		if recipe.items and table.contains(recipe.items, ingredient) then
