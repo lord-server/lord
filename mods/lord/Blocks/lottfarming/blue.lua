@@ -219,7 +219,7 @@ minetest.register_abm({
 minetest.register_craftitem("lottfarming:mushroom_soup", {
 	description     = S("Cream of Mushroom Soup"),
 	inventory_image = "lottfarming_mushroom_soup.png",
-	on_use          = minetest.item_eat(20),
+	on_use          = minetest.item_eat(18),
 	_tt_food        = true,
-	_tt_food_hp     = 20,
+	_tt_food_hp     = 18,
 })

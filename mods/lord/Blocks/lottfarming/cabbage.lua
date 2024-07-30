@@ -132,7 +132,7 @@ farming:add_plant("lottfarming:cabbage_3", { "lottfarming:cabbage_1", "lottfarmi
 minetest.register_craftitem("lottfarming:salad", {
 	description     = S("Salad"),
 	inventory_image = "lottfarming_salad.png",
-	on_use          = minetest.item_eat(16),
+	on_use          = minetest.item_eat(14),
 	_tt_food        = true,
-	_tt_food_hp     = 16,
+	_tt_food_hp     = 14,
 })

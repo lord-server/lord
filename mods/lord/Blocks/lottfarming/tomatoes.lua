@@ -124,9 +124,9 @@ minetest.register_craftitem("lottfarming:tomatoes_cooked", {
 minetest.register_craftitem("lottfarming:tomato_soup", {
 	description     = S("Tomato Soup"),
 	inventory_image = "lottfarming_tomato_soup.png",
-	on_use          = minetest.item_eat(18),
+	on_use          = minetest.item_eat(16),
 	_tt_food        = true,
-	_tt_food_hp     = 18,
+	_tt_food_hp     = 16,
 })
 
 minetest.register_craft({
