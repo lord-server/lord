@@ -1,5 +1,5 @@
-local table_indexOf, table_copy, pairs, next
-	= table.indexof, table.copy, pairs, next
+local table_copy, table_key_value_swap, pairs, next, type
+	= table.copy, table.key_value_swap, pairs, next, type
 
 
 --- @param table table
@@ -27,14 +27,31 @@ function table.keys_of(table, value)
 	return #found_keys ~= 0 and found_keys or nil
 end
 
+-- TODO: see https://github.com/minetest/minetest/issues/14906 discussion result
+-- --- @param table table
+-- --- @param value any
+-- --- @return boolean
+--function table.contains(table, value)
+--	return table_indexOf(table, value) ~= -1
+--end
+
 --- @param table table
 --- @param value any
 --- @return boolean
 function table.contains(table, value)
-	return table_indexOf(table, value) ~= -1
+	for _, v in pairs(table) do
+		if v == value then
+			return true
+		end
+	end
+
+	return false
 end
 
 table.has_value = table.contains
+
+local table_has_value
+	= table.has_value
 
 --- @param table    table
 --- @param find_key string
@@ -47,7 +64,8 @@ function table.has_key(table, find_key)
 	return false
 end
 
-local table_has_key = table.has_key
+local table_has_key
+    = table.has_key
 
 --- Copies `self` table and remove specified `keys`
 --- @param table table
@@ -81,7 +99,8 @@ function table.merge(table1, table2, overwrite)
 	end
 	return merged_table
 end
-local table_merge = table.merge
+local table_merge
+    = table.merge
 
 --- @param table1 table
 --- @param table2 table
@@ -108,19 +127,14 @@ function table.merge_values(table1, table2)
 		end
 	end
 
-	return table.key_value_swap(merged_table)
+	return table_key_value_swap(merged_table)
 end
-
 
 --- @param table table
 --- @return boolean
 function table.is_empty(table)
 	return next(table) == nil
 end
-
-
-local table_has_value
-	= table.has_value
 
 --- @param table table
 --- @param values table
