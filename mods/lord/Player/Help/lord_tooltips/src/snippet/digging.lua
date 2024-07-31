@@ -4,10 +4,6 @@ local items,                     colorize
 local S = minetest.get_translator(minetest.get_current_modname())
 
 
-local armor_groups = {
-	'armor_head', 'armor_torso', 'armor_legs', 'armor_feet', 'armor_shield'
-}
-
 --- @param caps table
 --- @return number,boolean
 local function get_min_digtime(caps)
