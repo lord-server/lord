@@ -93,7 +93,6 @@ minetest.register_craftitem("lottfarming:tomatoes", {
 	description     = S("Tomato"),
 	inventory_image = "lottfarming_tomatoes.png",
 	on_use          = minetest.item_eat(4),
-	_tt_food        = true,
 	_tt_food_hp     = 4,
 	groups          = { salad = 1 },
 })
@@ -117,7 +116,6 @@ minetest.register_craftitem("lottfarming:tomatoes_cooked", {
 	description     = S("Cooked Tomato"),
 	inventory_image = "lottfarming_tomatoes_cooked.png",
 	on_use          = minetest.item_eat(7),
-	_tt_food        = true,
 	_tt_food_hp     = 7,
 })
 
@@ -125,7 +123,6 @@ minetest.register_craftitem("lottfarming:tomato_soup", {
 	description     = S("Tomato Soup"),
 	inventory_image = "lottfarming_tomato_soup.png",
 	on_use          = minetest.item_eat(16),
-	_tt_food        = true,
 	_tt_food_hp     = 16,
 })
 

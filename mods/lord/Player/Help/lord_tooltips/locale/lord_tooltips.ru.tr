@@ -4,6 +4,7 @@ Properties=Свойства
 Digs=Добывает
 Damage=Урон
 Defense=Защита
+Food=Еда
 Effects=Эффекты
 
 # Properties / Digging:
@@ -47,3 +48,6 @@ armor_shield=телесная
 @1@2% to speed=@1@2% к скорости
 @1@2% to jump=@1@2% к прыжку
 @1@2% to gravity=@1@2% к гравитации
+
+# Food
+@1@2 to satiety=@1@2 к сытости

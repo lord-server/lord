@@ -44,7 +44,6 @@ arrows:register_throwing_weapon("lottmobs:egg", {
 			distance = 5,
 		},
 		on_use          = minetest.item_eat(2),
-		_tt_food        = true,
 		_tt_food_hp     = 2,
 	},
 })

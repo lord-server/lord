@@ -4,6 +4,7 @@ Properties=
 Digs=
 Damage=
 Defense=
+Food=
 Effects=
 
 # Properties
@@ -47,3 +48,6 @@ armor_shield=
 @1@2% to speed=
 @1@2% to jump=
 @1@2% to gravity=
+
+# Food
+@1@2 to satiety=

@@ -93,7 +93,6 @@ minetest.register_craftitem("lottfarming:berries", {
 	description     = S("Berries"),
 	inventory_image = "lottfarming_berries.png",
 	on_use          = minetest.item_eat(3),
-	_tt_food        = true,
 	_tt_food_hp     = 3,
 })
 

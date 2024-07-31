@@ -32,7 +32,6 @@ minetest.register_node("lottfarming:red_mushroom", {
 	sounds          = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_red_mushroom.png",
 	on_use          = minetest.item_eat(-8),
-	_tt_food        = true,
 	_tt_food_hp     = -8,
 })
 minetest.register_node("lottfarming:red_mushroom_1", {

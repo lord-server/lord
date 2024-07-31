@@ -72,7 +72,6 @@ minetest.register_craftitem("lottfarming:potato", {
 	description     = S("Potato"),
 	inventory_image = "lottfarming_potato.png",
 	on_use          = minetest.item_eat(1),
-	_tt_food        = true,
 	_tt_food_hp     = 1,
 })
 
@@ -82,6 +81,5 @@ minetest.register_craftitem("lottfarming:potato_cooked", {
 	description     = S("Cooked Potato"),
 	inventory_image = "lottfarming_potato_cooked.png",
 	on_use          = minetest.item_eat(7),
-	_tt_food        = true,
 	_tt_food_hp     = 7,
 })

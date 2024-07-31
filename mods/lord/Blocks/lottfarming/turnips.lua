@@ -93,7 +93,6 @@ minetest.register_craftitem("lottfarming:turnips", {
 	description     = S("Turnips"),
 	inventory_image = "lottfarming_turnips.png",
 	on_use          = minetest.item_eat(4),
-	_tt_food        = true,
 	_tt_food_hp     = 4,
 })
 
@@ -109,6 +108,5 @@ minetest.register_craftitem("lottfarming:turnips_cooked", {
 	description     = S("Cooked Turnips"),
 	inventory_image = "lottfarming_turnips_cooked.png",
 	on_use          = minetest.item_eat(7),
-	_tt_food        = true,
 	_tt_food_hp     = 7,
 })

@@ -123,7 +123,6 @@ minetest.register_node("lottfarming:cabbage", {
 	groups      = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, plant = 1, salad = 1 },
 	sounds      = default.node_sound_wood_defaults(),
 	on_use      = minetest.item_eat(5),
-	_tt_food    = true,
 	_tt_food_hp = 5,
 })
 
@@ -133,6 +132,5 @@ minetest.register_craftitem("lottfarming:salad", {
 	description     = S("Salad"),
 	inventory_image = "lottfarming_salad.png",
 	on_use          = minetest.item_eat(14),
-	_tt_food        = true,
 	_tt_food_hp     = 14,
 })

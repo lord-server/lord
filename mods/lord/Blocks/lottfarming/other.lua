@@ -4,7 +4,6 @@ minetest.register_craftitem("lottfarming:cookie_cracker", {
 	description     = S("Cracker"),
 	inventory_image = "lottfarming_cookie_cracker.png",
 	on_use          = minetest.item_eat(14),
-	_tt_food        = true,
 	_tt_food_hp     = 14,
 })
 
@@ -38,7 +37,6 @@ minetest.register_craftitem("lottfarming:dough", {
 	description     = S("Dough"),
 	inventory_image = "lottfarming_dough.png",
 	on_use          = minetest.item_eat(2),
-	_tt_food        = true,
 	_tt_food_hp     = 2,
 })
 
@@ -46,7 +44,6 @@ minetest.register_craftitem("lottfarming:yeast_dough", {
 	description     = S("Yeast Dough"),
 	inventory_image = "lottfarming_ydough.png",
 	on_use          = minetest.item_eat(3),
-	_tt_food        = true,
 	_tt_food_hp     = 3,
 })
 
@@ -54,7 +51,6 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 	description     = S("Salted Dough"),
 	inventory_image = "lottfarming_sdough.png",
 	on_use          = minetest.item_eat(4),
-	_tt_food        = true,
 	_tt_food_hp     = 4,
 })
 --[[
@@ -68,7 +64,6 @@ minetest.register_craftitem("lottfarming:dough_with_egg", {
 	description     = SL("Dough"),
 	inventory_image = "lottfarming_eggdough.png",
 	on_use          = minetest.item_eat(1),
-	_tt_food        = true,
 	_tt_food_hp     = 1,
 })
 
@@ -76,7 +71,6 @@ minetest.register_craftitem("lottfarming:dough_for_sbread", {
 	description     = SL("Dough for Shortbread"),
 	inventory_image = "lottfarming_sbreaddough.png",
 	on_use          = minetest.item_eat(1),
-	_tt_food        = true,
 	_tt_food_hp     = 1,
 })
 
@@ -84,7 +78,6 @@ minetest.register_craftitem("lottfarming:sugar", {
 	description     = SL("Sugar"),
 	inventory_image = "lottfarming_suagar.png",
 	on_use          = minetest.item_eat(1),
-	_tt_food        = true,
 	_tt_food_hp     = 1,
 })
 

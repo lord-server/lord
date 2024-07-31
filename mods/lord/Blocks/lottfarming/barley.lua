@@ -87,6 +87,5 @@ minetest.register_craftitem("lottfarming:barley_cooked", {
 	inventory_image = "lottfarming_barley_cooked.png",
 	-- removed while balancing food TODO: add to horse follow & tame #1583
 	--on_use          = minetest.item_eat(2),
-	--_tt_food        = true,
-	--_tt_food_hp     = 2,
+	----_tt_food_hp     = 2,
 })

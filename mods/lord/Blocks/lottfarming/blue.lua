@@ -33,7 +33,6 @@ minetest.register_node("lottfarming:blue_mushroom", {
 	sounds = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_blue_mushroom.png",
 	on_use = minetest.item_eat(1),
-	_tt_food = true,
 	_tt_food_hp = 1,
 })
 minetest.register_node("lottfarming:blue_mushroom_1", {
@@ -220,6 +219,5 @@ minetest.register_craftitem("lottfarming:mushroom_soup", {
 	description     = S("Cream of Mushroom Soup"),
 	inventory_image = "lottfarming_mushroom_soup.png",
 	on_use          = minetest.item_eat(18),
-	_tt_food        = true,
 	_tt_food_hp     = 18,
 })

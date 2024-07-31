@@ -496,7 +496,6 @@ minetest.register_craftitem( "lottpotion:wine", {
 	inventory_image = "lottpotion_wine.png",
 	wield_image     = "lottpotion_wine.png",
 	on_use          = minetest.item_eat(9),
-	_tt_food        = true,
 	_tt_food_hp     = 9,
 })
 
@@ -505,7 +504,6 @@ minetest.register_craftitem( "lottpotion:beer", {
 	inventory_image = "lottpotion_beer.png",
 	wield_image     = "lottpotion_beer.png",
 	on_use          = minetest.item_eat(8),
-	_tt_food        = true,
 	_tt_food_hp     = 8,
 })
 
@@ -514,7 +512,6 @@ minetest.register_craftitem("lottpotion:ale", {
 	inventory_image = "lottpotion_ale.png",
 	wield_image     = "lottpotion_ale.png",
 	on_use          = minetest.item_eat(9),
-	_tt_food        = true,
 	_tt_food_hp     = 9,
 })
 
@@ -523,7 +520,6 @@ minetest.register_craftitem("lottpotion:mead", {
 	inventory_image = "lottpotion_mead.png",
 	wield_image     = "lottpotion_mead.png",
 	on_use          = minetest.item_eat(15),
-	_tt_food        = true,
 	_tt_food_hp     = 15,
 })
 
@@ -532,7 +528,6 @@ minetest.register_craftitem("lottpotion:cider", {
 	inventory_image = "lottpotion_cider.png",
 	wield_image     = "lottpotion_cider.png",
 	on_use          = minetest.item_eat(9),
-	_tt_food        = true,
 	_tt_food_hp     = 9,
 })
 

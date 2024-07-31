@@ -13,6 +13,7 @@ local properties = {
 --- @return string|nil
 return function(item_string)
 	local groups = items[item_string].groups
+	if not groups then return nil end
 
 	local prop_strings = {}
 	for _, property in pairs(properties) do

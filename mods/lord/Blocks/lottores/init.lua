@@ -931,7 +931,6 @@ minetest.register_node("lottores:salt", {
 	walkable            = false,
 	groups              = { fleshy = 3, dig_immediate = 3, flammable = 1 },
 	on_use              = minetest.item_eat(1),
-	_tt_food            = true,
 	_tt_food_hp         = 1,
 	sounds              = default.node_sound_defaults(),
 })

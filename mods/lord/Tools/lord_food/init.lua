@@ -8,6 +8,5 @@ minetest.register_craftitem("lord_food:lembas", {
 	inventory_image = "lord_food_lembas.png",
 	groups          = { food_bread = 1 },
 	on_use          = minetest.item_eat(30),
-	_tt_food        = true,
 	_tt_food_hp     = 30,
 })
