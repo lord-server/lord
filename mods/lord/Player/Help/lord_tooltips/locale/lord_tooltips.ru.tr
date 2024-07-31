@@ -5,7 +5,7 @@ Damage=Урон
 Defense=Защита
 Effects=Эффекты
 
-# Properties / Digging
+# Properties / Digging:
 crumbly=сыпучий
 cracky=разламывающийся
 snappy=непрочный
@@ -13,9 +13,22 @@ choppy=рубящийся
 fleshy=живой/прокалываемый
 explody=взрывающийся
 
-# Damages
+# Damages:
 $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 в @3 сек @4
 (@1/sec)=(@1/сек)
 Punch Speed: @1=Скорость удара: @1
 fleshy_dmg=телесный
 soulful_dmg=душ
+
+# Defense:
+armor_head=телесная
+armor_torso=телесная
+armor_legs=телесная
+armor_feet=телесная
+armor_shield=телесная
+
+# Buffs:
+@1@2% chance to avoid a hit=@1@2% к шансу отразить удар
+@1@2% to speed=@1@2% к скорости
+@1@2% to jump=@1@2% к прыжку
+@1@2% to gravity=@1@2% к гравитации

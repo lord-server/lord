@@ -19,3 +19,16 @@ $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 in @3 sec @4
 Punch Speed: @1=
 fleshy_dmg=
 soulful_dmg=
+
+# Defense:
+armor_head=
+armor_torso=
+armor_legs=
+armor_feet=
+armor_shield=
+
+
+@1@2% chance to avoid a hit=
+@1@2% to speed=
+@1@2% to jump=
+@1@2% to gravity=
