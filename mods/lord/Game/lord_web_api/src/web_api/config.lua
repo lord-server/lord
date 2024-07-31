@@ -3,7 +3,7 @@ local timeout  = minetest.settings:get("lord_web_api.timeout") or 5
 
 if not base_url then
 	minetest.log("warning", "Can't find setting `lord_web_api.base_url`.")
-	return nil
+	return false
 end
 
 --- @class web_api.config
