@@ -16,9 +16,9 @@ minetest.register_craftitem("lottfarming:ear_of_corn", {
 	description     = S("Ear of corn"),
 	inventory_image = "lottfarming_ear_of_corn.png",
 	groups          = { salad = 1 },
-	on_use          = minetest.item_eat(3),
+	on_use          = minetest.item_eat(2),
 	_tt_food        = true,
-	_tt_food_hp     = 3,
+	_tt_food_hp     = 2,
 })
 minetest.register_node("lottfarming:corn_1", {
 	paramtype     = "light",
@@ -145,6 +145,21 @@ minetest.register_node("lottfarming:corn_32", {
 	groups     = { snappy = 3, flammable = 2, not_in_creative_inventory = 1, plant = 1 },
 	sounds     = default.node_sound_leaves_defaults(),
 })
+
+minetest.register_craftitem("lottfarming:corn_baked", {
+	description     = S("Baked Corn"),
+	inventory_image = "lottfarming_corn_baked.png",
+	on_use          = minetest.item_eat(6),
+	_tt_food        = true,
+	_tt_food_hp     = 6,
+})
+minetest.register_craft({
+	type = "cooking",
+	cooktime = 10,
+	output = "lottfarming:corn_baked",
+	recipe = "lottfarming:ear_of_corn"
+})
+
 
 local chance   = 10
 local interval = 45

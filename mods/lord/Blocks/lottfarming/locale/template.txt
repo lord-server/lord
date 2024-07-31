@@ -29,6 +29,7 @@ Salad=
 ### corn.lua ###
 Corn Seeds=
 Ear of corn=
+Baked Corn=
 
 ### crafting.lua ###
 Bowl=
