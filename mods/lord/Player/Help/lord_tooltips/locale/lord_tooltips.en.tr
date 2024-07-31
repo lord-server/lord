@@ -1,6 +1,7 @@
 # textdomain: lord_tooltips
 
 Properties=Properties
+Digs=Digs
 Damage=Damage
 Defense=Defense
 Effects=Effects
@@ -12,6 +13,20 @@ snappy=snappy
 choppy=choppy
 fleshy=fleshy
 explody=explody
+unbreakable=unbreakable
+bendy=bendy
+
+# Digging:
+@1 blocks in @2s (minimal)=@1 блоки за @2s (минимально)
+@1 blocks instantly=@1 блоки немедленно
+crumbly_dig=crumbly
+cracky_dig=cracky
+snappy_dig=snappy
+choppy_dig=choppy
+fleshy_dig=fleshy
+explody_dig=explody
+unbreakable_dig=unbreakable
+bendy_dig=bendy
 
 # Damages
 $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 in @3 sec @4
@@ -27,7 +42,7 @@ armor_legs=fleshly
 armor_feet=fleshly
 armor_shield=fleshly
 
-
+# Buffs:
 @1@2% chance to avoid a hit=@1@2% chance to avoid a hit=
 @1@2% to speed=@1@2% to speed=
 @1@2% to jump=@1@2% to jump=
