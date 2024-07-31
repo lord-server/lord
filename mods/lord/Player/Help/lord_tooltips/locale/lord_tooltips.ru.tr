@@ -1,10 +1,21 @@
 # textdomain: lord_tooltips
 
 Properties=Свойства
+Damage=Урон
+Defense=Защита
+Effects=Эффекты
 
+# Properties / Digging
 crumbly=сыпучий
 cracky=разламывающийся
 snappy=непрочный
 choppy=рубящийся
 fleshy=живой/прокалываемый
 explody=взрывающийся
+
+# Damages
+$dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 в @3 сек @4
+(@1/sec)=(@1/сек)
+Punch Speed: @1=Скорость удара: @1
+fleshy_dmg=телесный
+soulful_dmg=душ

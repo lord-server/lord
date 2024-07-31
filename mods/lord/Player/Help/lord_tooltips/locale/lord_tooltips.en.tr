@@ -1,10 +1,21 @@
 # textdomain: lord_tooltips
 
 Properties=Properties
+Damage=Damage
+Defense=Defense
+Effects=Effects
 
+# Properties / Digging
 crumbly=crumbly
 cracky=cracky
 snappy=snappy
 choppy=choppy
 fleshy=fleshy
 explody=explody
+
+# Damages
+$dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 in @3 sec @4
+(@1/sec)=(@1/сек)
+Punch Speed: @1=Punch Speed: @1
+fleshy_dmg=fleshy
+soulful_dmg=soulful
