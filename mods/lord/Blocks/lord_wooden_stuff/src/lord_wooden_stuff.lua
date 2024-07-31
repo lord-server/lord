@@ -2,6 +2,9 @@ local api    = require("lord_wooden_stuff.api")
 local config = require("lord_wooden_stuff.config")
 local legacy = require("lord_wooden_stuff.legacy")
 
+
+lord_wooden_stuff = {} -- luacheck: ignore unused global variable lord_wooden_stuff
+
 local function register_api()
 	_G.lord_wooden_stuff = api
 end
