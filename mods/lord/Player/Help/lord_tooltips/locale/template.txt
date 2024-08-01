@@ -52,3 +52,18 @@ armor_shield=
 
 # Food
 @1@2 to satiety=
+
+# copy from `tt_base` (`node_info`)
+Contact damage: @1 per second=
+Contact healing: @1 per second=
+Drowning damage: @1=
+Bouncy (@1%)=
+Slippery=
+Climbable=
+Climbable (only downwards)=
+No jumping=
+No swimming upwards=
+No rising=
+Fall damage: @1%=
+Fall damage: +@1%=
+No fall damage=

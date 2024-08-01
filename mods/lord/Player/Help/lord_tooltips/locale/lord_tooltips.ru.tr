@@ -52,3 +52,18 @@ armor_shield=телесная
 
 # Food
 @1@2 to satiety=@1@2 к сытости
+
+# copy from `tt_base` (`node_info`)
+Contact damage: @1 per second=Урон при контакте: @1 в секунду
+Contact healing: @1 per second=Исцеление при контакте: @1 в секунду
+Drowning damage: @1=Урон при падении: @1
+Bouncy (@1%)=Упругость (@1%)
+Slippery=Скользкость
+Climbable=Можно карабкаться
+Climbable (only downwards)=Можно спускаться
+No jumping=Нельзя прыгать
+No swimming upwards=Нельзя плыть вверх
+No rising=Нельзя подниматься
+Fall damage: @1%=Урон при падении: @1%
+Fall damage: +@1%=Урон при падении: +@1%
+No fall damage=Нет урона при падении
