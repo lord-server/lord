@@ -59,4 +59,5 @@ jobs:
               mods/lord/Tools/lord_boats/ \
               mods/lord/World/Generation/icicles/ \
               mods/lord/World/Generation/lottmapgen/ \
-              mods/lord/World/mountgen/
+              mods/lord/World/mountgen/ \
+              mods/lord/Player/Help/lord_tooltips/src/snippet/node_info.lua

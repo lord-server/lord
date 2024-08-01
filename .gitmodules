@@ -81,10 +81,6 @@
 [submodule "mods/_various/help_modpack/tt"]
 	path = mods/_various/help_modpack/tt
 	url = https://codeberg.org/Wuzzy/minetest_tt
-[submodule "mods/_various/help_modpack/tt_base"]
-	path = mods/_various/help_modpack/tt_base
-	url = https://codeberg.org/lord-server-forks/minetest_tt_base
-	branch = lord
 [submodule "mods/_various/mywalls"]
 	path = mods/_various/mywalls
 	url = https://github.com/minetest-mods/mywalls
