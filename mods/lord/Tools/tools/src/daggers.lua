@@ -1,6 +1,6 @@
 local SL = minetest.get_translator("tools")
 
-tools.dagger = {
+return {
 	get_recipes = function(source)
 		return {{
 			{source},

@@ -1,6 +1,6 @@
 local SL = minetest.get_translator("tools")
 
-tools.pick = {
+return {
 	get_recipes = function(source)
 		return {{
 			{source, source, source},

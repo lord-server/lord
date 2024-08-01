@@ -1,6 +1,6 @@
 local SL = minetest.get_translator("tools")
 
-tools.battleaxe = {
+return {
 	get_recipes = function(source)
 		return {{
 			{source, 'group:stick', source},
