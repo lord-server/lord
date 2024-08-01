@@ -22,10 +22,10 @@ return function(item_string)
 	end
 
 	return #damage_strings ~=0
-		and (
-		'\n' .. colorize('#ee8', S('Damage')) .. ':\n' ..
-			table.concat(damage_strings, '\n') .. '\n' ..
+		and ('\n' ..
+			colorize('#ee8', S('Damage')) .. ':\n' ..
+				table.concat(damage_strings, '\n') .. '\n' ..
 			S('Punch Speed: @1', interval)
-	)
+		)
 		or  nil
 end

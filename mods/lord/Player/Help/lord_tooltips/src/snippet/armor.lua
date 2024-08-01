@@ -24,6 +24,9 @@ return function(item_string)
 	end
 
 	return #defense_strings ~= 0
-		and (colorize('#ee8', '\n' .. S('Defense')) .. ':\n' .. table.concat(defense_strings, '\n'))
+		and ('\n' ..
+			colorize('#ee8', S('Defense')) .. ':\n' ..
+				table.concat(defense_strings, '\n')
+		)
 		or nil
 end

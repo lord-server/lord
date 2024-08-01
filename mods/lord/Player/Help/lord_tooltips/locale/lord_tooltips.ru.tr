@@ -16,6 +16,7 @@ fleshy=живой/прокалываемый
 explody=взрывающийся
 unbreakable=неломающийся
 bendy=гнущийся
+luminance=свечение
 
 # Digging:
 @1 blocks in @2s (minimal)=@1 блоки за @2s (минимально)

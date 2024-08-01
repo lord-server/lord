@@ -33,6 +33,9 @@ return function (item_string)
 	end
 
 	return #buffs_strings ~= 0
-		and (colorize('#ee8', '\n' .. S('Effects')) .. ':\n' .. table.concat(buffs_strings, '\n'))
+		and ('\n' ..
+			colorize('#ee8', S('Effects')) .. ':\n' ..
+				table.concat(buffs_strings, '\n')
+		)
 		or nil
 end

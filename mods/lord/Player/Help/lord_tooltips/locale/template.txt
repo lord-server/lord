@@ -16,6 +16,7 @@ fleshy=
 explody=
 unbreakable=
 bendy=
+luminance=
 
 # Digging:
 @1 blocks in @2s (minimal)=

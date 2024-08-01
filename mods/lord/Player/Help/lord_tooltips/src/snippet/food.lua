@@ -17,6 +17,7 @@ return function(item_string)
 	local _tt_food_hp = items[item_string]._tt_food_hp
 	if not _tt_food_hp then return nil end
 
-	return colorize('#ee8', '\n' .. S('Food')) .. ':\n' ..
+	return '\n' ..
+		colorize('#ee8', S('Food')) .. ':\n' ..
 		'  ' .. S('@1@2 to satiety', sign(_tt_food_hp), _tt_food_hp)
 end

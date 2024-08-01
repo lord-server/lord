@@ -78,6 +78,9 @@ return function(item_string)
 	end
 
 	return #digging_strings ~= 0
-		and (colorize('#ee8', '\n' .. S('Digs')) .. ':\n' .. table.concat(digging_strings, '\n'))
+		and ('\n' ..
+			colorize('#ee8', S('Digs')) .. ':\n' ..
+				table.concat(digging_strings, '\n')
+		)
 		or nil
 end
