@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood = {
-		description = SL("Training Battleaxe"),
+		description = SL("Wooden Battleaxe"),
 		full_punch_interval = 2,
 		max_drop_level=1,
 		choppy = {times={[1]=3.75, [2]=2.75, [3]=2.05}, uses=5, maxlevel=1},

@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood = {
-		description = SL("Training Warhammer"),
+		description = SL("Wooden Warhammer"),
 		range = 2,
 		full_punch_interval = 2,
 		max_drop_level=1,

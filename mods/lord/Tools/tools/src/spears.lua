@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood = {
-		description = SL("Training Spear"),
+		description = SL("Wooden Spear"),
 		wield_image_transform = "^[transformFX",
 		range = 7,
 		full_punch_interval = 2,
