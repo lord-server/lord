@@ -1,4 +1,5 @@
 # textdomain: tools
+
 Wooden Pickaxe=Деревянная кирка
 Stone Pickaxe=Каменная кирка
 Steel Pickaxe=Стальная кирка
@@ -9,6 +10,7 @@ Silver Pickaxe=Серебряная кирка
 Gold Pickaxe=Золотая кирка
 Galvorn Pickaxe=Галворновая кирка
 Mithril Pickaxe=Мифриловая кирка
+
 Wooden Shovel=Деревянная лопата
 Stone Shovel=Каменная лопата
 Steel Shovel=Стальная лопата
@@ -19,6 +21,7 @@ Silver Shovel=Серебряная лопата
 Gold Shovel=Золотая лопата
 Galvorn Shovel=Галворновая лопата
 Mithril Shovel=Мифриловая лопата
+
 Wooden Axe=Деревянный топор
 Stone Axe=Каменный топор
 Steel Axe=Стальной топор
@@ -29,6 +32,7 @@ Silver Axe=Серебряный топор
 Gold Axe=Золотой топор
 Galvorn Axe=Галворновый топор
 Mithril Axe=Мифриловый топор
+
 Wooden Sword=Деревянный меч
 Stone Sword=Каменный меч
 Steel Sword=Стальной меч
@@ -39,6 +43,7 @@ Silver Sword=Серебряный меч
 Gold Sword=Золотой меч
 Galvorn Sword=Галворновый меч
 Mithril Sword=Мифриловый меч
+
 Wooden Battleaxe=Деревянный боевой топор
 Stone Battleaxe=Каменный боевой топор
 Copper Battleaxe=Медный боевой топор
@@ -49,6 +54,7 @@ Silver Battleaxe=Серебряный боевой топор
 Gold Battleaxe=Золотой боевой топор
 Galvorn Battleaxe=Галворновый боевой топор
 Mithril Battleaxe=Мифриловый боевой топор
+
 Wooden Warhammer=Деревянный боевой молот
 Stone Warhammer=Каменный боевой молот
 Copper Warhammer=Медный боевой молот
@@ -59,6 +65,7 @@ Silver Warhammer=Серебряный боевой молот
 Gold Warhammer=Золотой боевой молот
 Galvorn Warhammer=Галворновый боевой молот
 Mithril Warhammer=Мифриловый боевой молот
+
 Wooden Spear=Деревянное копьё
 Stone Spear=Каменное копьё
 Copper Spear=Медное копьё
@@ -69,6 +76,7 @@ Silver Spear=Серебряное копьё
 Gold Spear=Золотое копьё
 Galvorn Spear=Галворновое копьё
 Mithril Spear=Мифриловое копьё
+
 Wooden Dagger=Деревянный кинжал
 Stone Dagger=Каменный кинжал
 Copper Dagger=Медный кинжал
@@ -79,6 +87,7 @@ Silver Dagger=Серебряный кинжал
 Gold Dagger=Золотой кинжал
 Galvorn Dagger=Галворновый кинжал
 Mithril Dagger=Мифриловый кинжал
+
 Elven Sword=Эльфийский меч
 Orcish Sword=Орочий меч
-
+Dwarven Battleaxe=Гномий боевой топор
