@@ -1,6 +1,6 @@
 local SL = minetest.get_translator("lottother")
 
-local DWARF_RING_USES = 300
+local DWARF_RING_USES = 250
 
 minetest.register_craftitem("lottother:beast_ring", {
 	description = SL("Beast Ring"),
