@@ -1,0 +1,75 @@
+local items,                     colorize
+    = minetest.registered_items, minetest.colorize
+
+local S = minetest.get_translator(minetest.get_current_modname())
+
+
+
+tt.COLOR_DANGER = '#f84'
+
+
+return {
+	--- @param item_string string
+	--- @return string|nil
+	get_list_items = function(item_string)
+		local definition = items[item_string]
+
+		local list_items = {}
+
+		local luminance  = definition.light_source
+		if luminance and luminance >= 1 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('luminance')) .. ': ' .. luminance
+		end
+
+		-- Health-related node facts
+		if definition.damage_per_second then
+			if definition.damage_per_second > 0 then
+				list_items[#list_items + 1] =
+				colorize(tt.COLOR_DANGER, S('contact damage')) .. ': ' .. S('@1/sec', definition.damage_per_second)
+			elseif definition.damage_per_second < 0 then
+				list_items[#list_items + 1] =
+				colorize(tt.COLOR_GOOD, S('contact healing')) .. ': ' .. S(
+					'@1/sec', math.abs(definition.damage_per_second)
+				)
+			end
+		end
+		if definition.drowning and definition.drowning ~= 0 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DANGER, S('drowning damage')) .. ': ' .. definition.drowning
+		end
+		local tmp = minetest.get_item_group(item_string, 'fall_damage_add_percent')
+		if tmp > 0 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DANGER, S('fall damage')) .. ': +' .. tmp .. '%'
+		elseif tmp == -100 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_GOOD, S('no fall damage'))
+		elseif tmp < 0 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('fall damage')) .. ': ' .. tmp .. '%'
+		end
+
+		-- Movement-related node facts
+		if minetest.get_item_group(item_string, 'disable_jump') == 1 and not definition.climbable then
+			if definition.liquidtype == 'none' then
+				list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('no jumping'))
+			elseif minetest.get_item_group(item_string, 'fake_liquid') == 0 then
+				list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('no swimming upwards'))
+			else
+				list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('no rising'))
+			end
+		end
+		if definition.climbable then
+			if minetest.get_item_group(item_string, 'disable_jump') == 1 then
+				list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('climbable (only downwards)'))
+			else
+				list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('climbable'))
+			end
+		end
+		if minetest.get_item_group(item_string, 'slippery') >= 1 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('slippery'))
+		end
+		tmp = minetest.get_item_group(item_string, 'bouncy')
+		if tmp >= 1 then
+			list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('bouncy (@1%)', tmp))
+		end
+
+		return list_items
+	end
+}

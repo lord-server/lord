@@ -16,7 +16,10 @@ return function(item_string)
 		local damage_in_sec = string.format('%.2f', damage / interval)
 		local list_item = S(
 			'$dmg-item-tpl$ @1: @2 in @3 sec @4',
-			colorize('#bbb', S(type..'_dmg')), damage, interval, colorize('#ddd', S('(@1/sec)', damage_in_sec))
+			colorize('#bbb', S(type..'_dmg')),
+			damage,
+			interval,
+			colorize('#ddd', '(' .. S('@1/sec', damage_in_sec) .. ')')
 		)
 		damage_strings[#damage_strings+1] = '  • ' .. list_item
 	end

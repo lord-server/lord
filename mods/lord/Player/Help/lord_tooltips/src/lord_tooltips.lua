@@ -4,7 +4,6 @@ local damage_snippet     = require('snippet.damage')
 local armor_snippet      = require('snippet.armor')
 local food_snippet       = require('snippet.food')
 local buffs_snippet      = require('snippet.buffs')
-local node_info_snippet  = require('snippet.node_info')
 
 
 return {
@@ -15,7 +14,6 @@ return {
 		tt.register_snippet(armor_snippet)
 		tt.register_snippet(food_snippet)
 		tt.register_snippet(buffs_snippet)
-		tt.register_snippet(node_info_snippet)
 		-- Прочность: armor_use/wear
 	end,
 }
