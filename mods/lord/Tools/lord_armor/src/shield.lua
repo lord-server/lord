@@ -71,7 +71,7 @@ minetest.register_tool(":lottarmor:shield_mithril", {
 	inventory_image = "lottarmor_inv_shield_mithril.png",
 	groups          = {
 		armor_shield  = 14, damage_avoid_chance = 0, armor_use = 100,
-		physics_speed = 0.05, physics_sneak = -1, mithril_item = 1
+		physics_speed = 0.05, physics_sneak = -1, forbidden = 1, mithril_item = 1
 	},
 	wear            = 0,
 })
