@@ -3,15 +3,15 @@ local SL = minetest.get_translator("arrows")
 
 local KFR = 0.0002
 
-local STEEL_DC = 0.1
+local STEEL_DC = 0.2
 local MITHRIL_DC = 0.4
 
 local STEEL_ARROW_MASS = 0.03
 local MITHRIL_ARROW_MASS = 0.025
 local ARROW_VELOCITY = 50
 
-local STEEL_BOLT_MASS = 0.1
-local MITHRIL_BOLT_MASS = 0.03
+local STEEL_BOLT_MASS = 0.035
+local MITHRIL_BOLT_MASS = 0.02
 local BOLT_VELOCITY = 60
 
 local TYPE = {

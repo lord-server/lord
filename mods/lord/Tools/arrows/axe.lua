@@ -82,7 +82,7 @@ local lottthrowing_register_axe = function(axe, desc, damage, craft1, craft2)
 	end
 end
 
-lottthrowing_register_axe("dwarf", "Dwarvern", 1.2, "lottores:mithril_ingot", "default:steel_ingot")
-lottthrowing_register_axe("elf", "Elven", 1.0, "lottores:galvorn_ingot", "default:steel_ingot")
-lottthrowing_register_axe("steel", "Steel", 0.5, "default:steel_ingot")
-lottthrowing_register_axe("galvorn", "Galvorn", 0.7, "lottores:galvorn_ingot")
+lottthrowing_register_axe("steel", "Steel", 0.3, "default:steel_ingot")
+lottthrowing_register_axe("galvorn", "Galvorn", 0.33, "lottores:galvorn_ingot")
+lottthrowing_register_axe("elf", "Elven", 0.37, "lottores:galvorn_ingot", "default:steel_ingot")
+lottthrowing_register_axe("dwarf", "Dwarvern", 0.38, "lottores:mithril_ingot", "default:steel_ingot")
