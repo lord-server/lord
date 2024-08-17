@@ -122,6 +122,10 @@ end
 function Player.offline(player)
 	local player_name = player:get_player_name()
 	local player_web_id = Player.storage.get_player_web_id(player_name)
+	if not player_web_id then
+		return Player.logger.error("Can't get player web id: player_id is nil.")
+	end
+
 	web_api.players:update(player_web_id, {
 		is_online = 0,
 	})
