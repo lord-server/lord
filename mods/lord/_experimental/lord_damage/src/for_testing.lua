@@ -60,7 +60,7 @@ for name, _ in pairs(damage_types) do
 				minetest.log(player_name.." tried to use a damage dealer.")
 				return itemstack:clear()
 			end
-			lord_damage.deal_damage(user, 13, name, nil, { dealer = user, "lord_damage:self_"..name.."_dealer" }, 3)
+			lord_damage.deal_damage(user, 13, name, { dealer = user, "lord_damage:self_"..name.."_dealer" }, nil, 3)
 		end
 	})
 	minetest.register_tool("lord_damage:target_"..name.."_dealer",{
@@ -78,7 +78,54 @@ for name, _ in pairs(damage_types) do
 				return
 			end
 
-			lord_damage.deal_damage(object, 13, name, nil, { dealer = user, tool = "lord_damage:target_"..name.."_dealer" }, 3)
+			lord_damage.deal_damage(object, 13, name, { type = "set_hp", 
+					dealer = user, damage_type = name, tool = "lord_damage:target_"..name.."_dealer" }, nil, 3)
 		end
 	})
 end
+
+minetest.register_tool("lord_damage:target_source_burning_dealer",{
+	description = "Target source 'burning' damage dealer",
+	on_use = function(itemstack, user, pointed_thing)
+		local player_name = user:get_player_name()
+		if not minetest.check_player_privs(player_name, "server") then
+			minetest.log(player_name.." tried to use an damage dealer.")
+			return itemstack:clear()
+		end
+
+		local object = pointed_thing.ref
+		if not object then
+			minetest.chat_send_player(player_name, "Pointed thing is not an entity nor a player")
+			return
+		end
+
+		local source = "burning"
+		
+		lord_damage.set_source(object, source, true)
+		print(minetest.serialize(object:get_properties()))
+
+
+		lord_damage.deal_damage(object, 13, "fiery_periodic", { type = "set_hp", 
+				dealer = user, damage_type = "fiery_periodic", tool = "lord_damage:target_source_burning_dealer", source = source }, source, 3)
+	end
+})
+minetest.register_tool("lord_damage:target_source_burning_remover",{
+	description = "Target source 'burning' state remover",
+	on_use = function(itemstack, user, pointed_thing)
+		local player_name = user:get_player_name()
+		if not minetest.check_player_privs(player_name, "server") then
+			minetest.log(player_name.." tried to use an damage dealer.")
+			return itemstack:clear()
+		end
+
+		local object = pointed_thing.ref
+		if not object then
+			minetest.chat_send_player(player_name, "Pointed thing is not an entity nor a player")
+			return
+		end
+
+		local source = "burning"
+
+		lord_damage.set_source(object, source, nil)
+	end
+})
