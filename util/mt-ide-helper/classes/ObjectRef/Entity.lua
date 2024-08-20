@@ -40,4 +40,9 @@ function Entity:set_velocity(vel) end
 --* Fifth column:  subject viewed from above
 --* Sixth column:  subject viewed from below
 --* `get_entity_name()` (**Deprecated**: Will be removed in a future version, use the field `self.name` instead)
---* `get_luaentity()`
+
+
+--- Returns the object's associated luaentity table, if there is one
+--- Otherwise returns nil (e.g. for players)
+--- @return LuaEntity|nil
+function Entity:get_luaentity() end

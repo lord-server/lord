@@ -1,3 +1,6 @@
+local Storage = require("base_classes.ObjectState.Storage")
+
+
 --- @class base_classes.ObjectState
 local ObjectState = {
 	--- @type table
@@ -5,7 +8,7 @@ local ObjectState = {
 }
 
 --- @param state_table table  Table of all state entries
---- @return ObjectState
+--- @return base_classes.ObjectState
 function ObjectState:new(state_table)
 	local class = self
 	self = {}
@@ -23,5 +26,6 @@ function ObjectState:remove_state_entry(entry_name)
 	self.state[entry_name] = nil
 	return self
 end
+
 
 return ObjectState
