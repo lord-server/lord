@@ -17,14 +17,14 @@ local function set_source(object, source, value)
 	minetest.chat_send_all(source)
 	state:add_state_entry(source, value)
 	minetest.set_object_state(object, state)
-	
+
 	--print(minetest.serialize(state))
 end
 
 local function get_source_status(object, source)
 	local state = minetest.get_object_state(object)
 	--print(minetest.serialize(state))
-	
+
 	--minetest.chat_send_all(state.state[source])
 	return state.state[source]
 end
@@ -81,7 +81,7 @@ local function periodic_base_behavior(object, amount, damage_type, reason, sourc
 	local player_has_left = false
 	local source_removed  = false
 
-			
+
 
 	local cycle_number = 0
 	for i = 1, max_cycle do
@@ -133,7 +133,7 @@ local function periodic_base_behavior(object, amount, damage_type, reason, sourc
 		if not object then
 			return
 		end
-		
+
 		if leftover_damage == 0 then
 			return
 		end
@@ -155,7 +155,7 @@ local function periodic_base_behavior(object, amount, damage_type, reason, sourc
 				object_has_died = true
 			end
 		end
-		
+
 		if caused_by_source and not object_has_died then
 			source_removed = (source and not get_source_status(object, source))
 		end
@@ -175,13 +175,13 @@ end
 
 
 return {
-	calculate_damage_absorption = calculate_damage_absorption,
+	-- calculate_damage_absorption = calculate_damage_absorption,
 	register_damage_type        = register_damage_type,
 	get_registered_damage_types = get_registered_damage_types,
-	get_source_status           = get_source_status,
+	-- get_source_status           = get_source_status,
 	base_behavior               = base_behavior,
 	periodic_base_behavior      = periodic_base_behavior,
 	deal_damage                 = deal_damage,
+	-- THE FOLLOWING LINE IS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
 	set_source                  = set_source,
-	get_types                   = function() return damage.damage_types end,
 }

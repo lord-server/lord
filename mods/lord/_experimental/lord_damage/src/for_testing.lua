@@ -78,7 +78,7 @@ for name, _ in pairs(damage_types) do
 				return
 			end
 
-			lord_damage.deal_damage(object, 13, name, { type = "set_hp", 
+			lord_damage.deal_damage(object, 13, name, { type = "set_hp",
 					dealer = user, damage_type = name, tool = "lord_damage:target_"..name.."_dealer" }, nil, 3)
 		end
 	})
@@ -100,15 +100,17 @@ minetest.register_tool("lord_damage:target_source_burning_dealer",{
 		end
 
 		local source = "burning"
-		
+
 		lord_damage.set_source(object, source, true)
 		print(minetest.serialize(object:get_properties()))
 
 
-		lord_damage.deal_damage(object, 13, "fiery_periodic", { type = "set_hp", 
-				dealer = user, damage_type = "fiery_periodic", tool = "lord_damage:target_source_burning_dealer", source = source }, source, 3)
+		lord_damage.deal_damage(object, 13, "fiery_periodic", { type = "set_hp",
+				dealer = user, damage_type = "fiery_periodic",
+				tool = "lord_damage:target_source_burning_dealer", source = source }, source, 3)
 	end
 })
+
 minetest.register_tool("lord_damage:target_source_burning_remover",{
 	description = "Target source 'burning' state remover",
 	on_use = function(itemstack, user, pointed_thing)

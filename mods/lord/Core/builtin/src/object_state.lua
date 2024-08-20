@@ -7,7 +7,7 @@ function minetest.get_object_state(object)
 	end
 
 	if object:is_player() then
-		local meta = player:get_meta()
+		local meta = object:get_meta()
 		local state_string = meta:get("object_state")
 		local state_table = minetest.deserialize(state_string)
 		local object_state = base_classes.ObjectState:new(state_table)
@@ -32,7 +32,7 @@ function minetest.set_object_state(object, object_state)
 	print(state_string)
 
 	if object:is_player() then
-		local meta = player:get_meta()
+		local meta = object:get_meta()
 		meta:set_string("object_state", state_string)
 	else
 		local entity = object:get_luaentity()

@@ -1,16 +1,16 @@
 --- @class base_classes.ObjectState
 local ObjectState = {
-	--- @type ObjectRef
-	state_table = nil,
+	--- @type table
+	state = nil,
 }
 
 --- @param state_table table  Table of all state entries
 --- @return ObjectState
 function ObjectState:new(state_table)
 	local class = self
-	self = {} 
+	self = {}
 	self.state = state_table or {}
-	
+
 	return setmetatable(self, {__index = class})
 end
 
