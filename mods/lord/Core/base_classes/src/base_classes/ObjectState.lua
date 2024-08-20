@@ -3,29 +3,51 @@ local Storage = require("base_classes.ObjectState.Storage")
 
 --- @class base_classes.ObjectState
 local ObjectState = {
-	--- @type table
-	state = nil,
+	--- @private
+	--- @type table<string,any>
+	state_table = nil,
 }
 
---- @param state_table table  Table of all state entries
+--- @param object table  Table of all state entries
 --- @return base_classes.ObjectState
-function ObjectState:new(state_table)
+function ObjectState:new(object)
 	local class = self
-	self = {}
-	self.state = state_table or {}
 
-	return setmetatable(self, {__index = class})
-end
+	self = setmetatable({}, { __index = class })
+	self:load(object)
 
-function ObjectState:add_state_entry(entry_name, value)
-	self.state[entry_name] = value
 	return self
 end
 
-function ObjectState:remove_state_entry(entry_name)
-	self.state[entry_name] = nil
-	return self
+--- @param name string
+--- @return any
+function ObjectState:get_entry(name)
+	return self.state_table[name]
 end
 
+--- @param name  string
+--- @param value any
+--- @return base_classes.ObjectState
+function ObjectState:set_entry(name, value)
+	self.state_table[name] = value
+
+	return self
+end
+--- @param name string
+--- @return base_classes.ObjectState
+function ObjectState:del_entry(name)
+	return self:set_entry(name, nil)
+end
+
+--- @param object ObjectRef
+--- @return boolean
+function ObjectState:save(object)
+	return Storage.set_state_of(object, self.state_table)
+end
+
+--- @param object Player|Entity
+function ObjectState:load(object)
+	self.state_table = Storage.get_state_of(object)
+end
 
 return ObjectState

@@ -13,20 +13,15 @@ local damage = {
 }
 
 local function set_source(object, source, value)
-	local state = minetest.get_object_state(object)
-	minetest.chat_send_all(source)
-	state:add_state_entry(source, value)
-	minetest.set_object_state(object, state)
-
-	--print(minetest.serialize(state))
+	local state = base_classes.ObjectState:new(object)
+	state:set_entry(source, value)
+	state:save(object)
 end
 
 local function get_source_status(object, source)
-	local state = minetest.get_object_state(object)
-	--print(minetest.serialize(state))
+	local state = base_classes.ObjectState:new(object)
 
-	--minetest.chat_send_all(state.state[source])
-	return state.state[source]
+	return state:get_entry(source)
 end
 
 --- @param damage_type string    damage type name

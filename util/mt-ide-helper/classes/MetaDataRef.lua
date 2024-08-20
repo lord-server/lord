@@ -19,7 +19,6 @@ function MetaDataRef:get(key) end
 
 ---@param key string
 ---@param value string value "" will delete the key
----@return number
 function MetaDataRef:set_string(key, value) end
 
 ---@param key string

@@ -82,6 +82,7 @@ function Player:set_attribute(attribute, value) end
 ---    * Returns `nil` if no attribute found.
 function Player:get_attribute(attribute) end
 --- Returns a PlayerMetaRef.
+--- @return PlayerMetaRef
 function Player:get_meta() end
 ---    * Redefine player's inventory form
 ---    * Should usually be called in `on_joinplayer`
