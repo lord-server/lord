@@ -43,6 +43,8 @@ read_globals      = {
 	math = { fields = {
 		-- MT Builtin:
 		"sign", "hypot", "factorial", "round",
+		-- Core/helpers:
+		"limit", "clamp"
 	} },
 
 	io = { fields = {
@@ -102,7 +104,7 @@ files["mods/_minetest_game/default/legacy.lua"].global = false
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = { "table", "string", "io", "os" }
+	globals = { "table", "string", "math", "io", "os" }
 }
 -- WorldEdit extending:
 files["mods/lord/World/worldedit_ext/**/*.lua"] = {
