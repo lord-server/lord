@@ -7,10 +7,6 @@ local S = minetest.get_translator("hb.armor")
 local N = function(s) return s end
 
 
-if (not armor) or (not armor.def) then
-	minetest.log("error", "[hbarmor] Outdated lottarmor version. Please update your version of lottarmor!")
-end
-
 local hbarmor       = {
 	--- HUD statbar values
 	armor         = {},
@@ -27,38 +23,6 @@ local hbarmor       = {
 	autohide      = minetest.settings:get_bool("hbarmor_autohide", true),
 }
 
---- @param player_name string
---- @return boolean
-local function must_hide(player_name, arm)
-	return ((not armor.def[player_name].count or armor.def[player_name].count == 0) and arm == 0)
-end
-
---- @param arm number
---- @return number
-local function arm_printable(arm)
-	return math.ceil(math.floor(arm + 0.5))
-end
-
---- @param player Player
-local function custom_hud(player)
-	local name = player:get_player_name()
-
-	local ret = hbarmor.get_armor(player)
-	if ret == false then
-		minetest.log("error", "[hbarmor] Call to hbarmor.get_armor in custom_hud returned with false!")
-	end
-	local arm = tonumber(hbarmor.armor[name])
-	if not arm then arm = 0 end
-	local hide
-	if hbarmor.autohide then
-		hide = must_hide(name, arm)
-	else
-		hide = false
-	end
-	hb.init_hudbar(player, "armor", arm_printable(arm), nil, hide)
-end
-
-
 hb.register_hudbar(
 	"armor",
 	0xFFFFFF,
@@ -74,6 +38,19 @@ hb.register_hudbar(
 	},
 	3
 )
+
+
+--- @param player_name string
+--- @return boolean
+local function must_hide(player_name, arm)
+	return ((not armor.def[player_name].count or armor.def[player_name].count == 0) and arm == 0)
+end
+
+--- @param arm number
+--- @return number
+local function arm_printable(arm)
+	return math.ceil(math.floor(arm + 0.5))
+end
 
 --- @param player Player
 --- @return boolean
@@ -108,9 +85,28 @@ function hbarmor.set_armor(player_name, ges_state, items)
 	hbarmor.armor[player_name] = math.max(0, math.min(lvl * (items * (100 / max_items)), 100))
 end
 
+--- @param player Player
+local function init_custom_hud_for(player)
+	local name = player:get_player_name()
+
+	local ret = hbarmor.get_armor(player)
+	if ret == false then
+		minetest.log("error", "[hbarmor] Call to hbarmor.get_armor in custom_hud returned with false!")
+	end
+	local arm = tonumber(hbarmor.armor[name])
+	if not arm then arm = 0 end
+	local hide
+	if hbarmor.autohide then
+		hide = must_hide(name, arm)
+	else
+		hide = false
+	end
+	hb.init_hudbar(player, "armor", arm_printable(arm), nil, hide)
+end
+
 --- update hud elemtens if value has changed
 --- @param player Player
-local function update_hud(player)
+local function update_hud_for(player)
 	local name = player:get_player_name()
 	--armor
 	local arm  = tonumber(hbarmor.armor[name])
@@ -132,8 +128,8 @@ local function update_hud(player)
 end
 
 minetest.register_on_joinplayer(function(player)
+	init_custom_hud_for(player)
 	local name = player:get_player_name()
-	custom_hud(player)
 	hbarmor.player_active[name] = true
 end)
 
@@ -150,6 +146,6 @@ minetest.foreach_player_every(hbarmor.tick, function(player, delta_time)
 			minetest.log("error", "[hbarmor] Call to hbarmor.get_armor in globalstep returned with false!")
 		end
 		-- update all hud elements
-		update_hud(player)
+		update_hud_for(player)
 	end
 end)
