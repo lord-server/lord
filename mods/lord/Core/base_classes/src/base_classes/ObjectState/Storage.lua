@@ -12,7 +12,7 @@ function Storage.get_state_of(object)
 
 	return object:is_player()
 		and minetest.deserialize(object:get_meta():get("object_state") or "return {}")
-		or  object:get_luaentity().object_state
+		or  object:get_luaentity().object_state or {}
 end
 
 --- Obtains `ObjectState` from meta or object properties depending on whether `object` is a player or not
