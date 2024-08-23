@@ -6,37 +6,37 @@ local ipairs
 local PHYSICS_TYPES = { "jump", "speed", "gravity" }
 
 
-armor = {
-	def       = {},
+local physics = {
+	def = {},
 }
 
 
 equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
-	armor:set_player_physics(player)
+	physics:set_player_physics(player)
 end)
 
 --- @param player        Player
 local function collect_physics(player)
-	local physics = { speed = 1, gravity = 1, jump = 1 }
+	local player_physics = { speed = 1, gravity = 1, jump = 1 }
 	for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
 			for _, type in ipairs(PHYSICS_TYPES) do
 				local value = item_groups["physics_" .. type]
 				if value then
-					physics[type] = physics[type] + value
+					player_physics[type] = player_physics[type] + value
 				end
 			end
 		end
 	end
 
-	return physics
+	return player_physics
 end
 
 
 
 --- @param player Player
-function armor:set_player_physics(player)
+function physics:set_player_physics(player)
 	local name = player:get_player_name()
 	if not name then
 		return
@@ -51,19 +51,14 @@ end
 
 
 -- Register Callbacks
-equipment.on_load(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
+equipment.on_load(equipment.Kind.ARMOR, function(player)
 	local name = player:get_player_name()
-	armor.def[name] = {
-		state     = 0,
-		count     = 0,
-		level     = 0,
-		dmg_avoid = 0,
+	physics.def[name] = {
 		jump      = 1,
 		speed     = 1,
 		gravity   = 1,
-		fire      = 0,
 	}
 
-	armor:set_player_physics(player)
+	physics:set_player_physics(player)
 end)
 

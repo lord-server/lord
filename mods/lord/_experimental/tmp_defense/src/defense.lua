@@ -7,6 +7,9 @@ local PlayerDefense = require('defense.PlayerDefense')
 --- @type table<number,string>|string[]
 local ARMOR_PURPOSE = { 'head', 'torso', 'legs', 'feet', 'shield' }
 
+--- @type defense.PlayerDefense[]|table<string,defense.PlayerDefense>
+local player_defense = {}
+
 
 defense = {} -- luacheck: ignore unused global variable defense
 
@@ -14,7 +17,12 @@ local function register_api()
 	_G.defense = {
 		--- @param player Player
 		for_player = function(player)
-			return PlayerDefense:new(player)
+			local name = player:get_player_name()
+			if not player_defense[name] then
+				player_defense[name] = PlayerDefense:new(player)
+			end
+
+			return player_defense[name]
 		end,
 	}
 end
@@ -45,7 +53,12 @@ local function collect_armor_data(player)
 		end
 	end
 
-	return armor_fleshy, armor_fire, armor_dmg_avoid, (material.type and material.count == #ARMOR_PURPOSE)
+	-- if same material set
+	if (material.type and material.count == #ARMOR_PURPOSE) then
+		armor_fleshy = armor_fleshy * 1.1
+	end
+
+	return armor_fleshy, armor_fire, armor_dmg_avoid
 end
 
 --- @param player Player
@@ -72,16 +85,13 @@ local function set_player_defense(player)
 		return
 	end
 
-	local armor_fleshy, armor_fire, armor_dmg_avoid, same_material_set = collect_armor_data(player)
-	if same_material_set then
-		armor_fleshy = armor_fleshy * 1.1
-	end
+	local armor_fleshy, armor_fire, armor_damage_avoid = collect_armor_data(player)
 
 	player:set_armor_groups(rebuild_armor_groups(player, armor_fleshy))
 	local character_defense = defense.for_player(player)
 	character_defense.fleshy              = armor_fleshy
 	character_defense.fire                = armor_fire
-	character_defense.damage_avoid_chance = armor_dmg_avoid
+	character_defense.damage_avoid_chance = armor_damage_avoid
 end
 
 
@@ -90,8 +100,16 @@ return {
 	init = function(mod)
 		register_api()
 
-		equipment.on_change(equipment.Kind.ARMOR, function(player, kind, event, slot, item)
+		equipment.on_load(equipment.Kind.ARMOR, function(player)
 			set_player_defense(player)
+		end)
+
+		equipment.on_change(equipment.Kind.ARMOR, function(player)
+			set_player_defense(player)
+		end)
+
+		minetest.register_on_leaveplayer(function(player, timed_out)
+			player_defense[player:get_player_name()] = nil
 		end)
 
 		require('damage_avoid')
