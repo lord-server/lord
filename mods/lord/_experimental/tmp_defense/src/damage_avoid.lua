@@ -5,6 +5,7 @@ local math_random
 --- @param player Player
 --- @return number
 local function get_damage_avoid_chance(player)
+	-- TODO: don't recalc each time. Use `defense.for_player(player).damage_avoid_chance`.
 	local damage_avoid_chance = 0
 	for _, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() > 0 then

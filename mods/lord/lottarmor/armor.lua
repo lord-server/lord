@@ -1,5 +1,5 @@
-local math_floor, string_match, ipairs
-    = math.floor, string.match, ipairs
+local ipairs
+    = ipairs
 
 
 --- @type table<number,string>|string[]
