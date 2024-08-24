@@ -14,7 +14,7 @@ end
 --- @alias DamageBehavior fun(object:ObjectRef,amount:number,reason:DamageReason,chunks:number|nil,run:function|nil)
 
 --- @type table<string,DamageBehavior>
-local damage_types = {}
+local damage_behaviors = {}
 
 --- @param object Player|Entity  object to set the source onto
 --- @param source string         source name
@@ -37,13 +37,13 @@ end
 --- @param damage_type string    damage type name
 --- @param behavior    function  function which is called on deal_damage()
 local function register_damage_type(damage_type, behavior)
-	damage_types[damage_type] = behavior
+	damage_behaviors[damage_type] = behavior
 	return true
 end
 
 --- @return table<string, function>  a table containing all registered damage types
 local function get_registered_damage_types()
-	return damage_types
+	return damage_behaviors
 end
 
 
@@ -59,7 +59,7 @@ local function deal_damage(object, amount, reason, chunks, run)
 
 	chunks = chunks or 1
 
-	local to_return = damage_types[reason.damage_type or "direct"](object, amount, reason, chunks, run)
+	local to_return = damage_behaviors[reason.damage_type or "direct"](object, amount, reason, chunks, run)
 	return to_return
 end
 
