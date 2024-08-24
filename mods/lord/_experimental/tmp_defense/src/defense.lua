@@ -112,6 +112,6 @@ return {
 			player_defense[player:get_player_name()] = nil
 		end)
 
-		require('damage_avoid')
+		require('defense.damage_avoid')
 	end
 }
