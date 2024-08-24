@@ -7,10 +7,8 @@ local function calculate_damage_absorption(player, amount, damage_type)
 	return amount - protection
 end
 
-local damage = {
-	--- @type table<string,function>
-	damage_types = {},
-}
+--- @type table<string,fun(player:Player, amount:number, reason:PlayerHPChangeReason, source:string, chunks:number)>
+local damage_types = {}
 
 local function set_source(object, source, value)
 	local state = base_classes.ObjectState:new(object)
@@ -27,13 +25,13 @@ end
 --- @param damage_type string    damage type name
 --- @param behavior    function  function which is called on deal_damage()
 local function register_damage_type(damage_type, behavior)
-	damage.damage_types[damage_type] = behavior
+	damage_types[damage_type] = behavior
 	return true
 end
 
 --- @return table<string, function>  a table containing all registered damage types
 local function get_registered_damage_types()
-	return damage.damage_types
+	return damage_types
 end
 
 local function deal_damage(player, amount, damage_type, reason, source, chunks)
@@ -47,7 +45,7 @@ local function deal_damage(player, amount, damage_type, reason, source, chunks)
 
 	chunks = chunks or 1
 
-	local to_return = damage.damage_types[damage_type](player, amount, reason, source, chunks)
+	local to_return = damage_types[damage_type](player, amount, reason, source, chunks)
 	return to_return
 end
 
