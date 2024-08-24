@@ -6,7 +6,7 @@ local ipairs
 local PHYSICS_TYPES = { "jump", "speed", "gravity" }
 
 --- @type table<string,{jump:number,speed:number,gravity:number}>
-local player_physics = {}
+local player_physics = {} -- luacheck: ignore variable player_physics is mutated but never accessed
 
 --- @param player        Player
 local function collect_physics(player)
