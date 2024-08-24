@@ -78,8 +78,12 @@ for name, _ in pairs(damage_types) do
 				return
 			end
 
-			lord_damage.deal_damage(object, 13, name, { type = "set_hp",
-					dealer = user, damage_type = name, tool = "lord_damage:target_"..name.."_dealer" }, nil, 3)
+			lord_damage.deal_damage(object, 13, {
+				type = "set_hp",
+				dealer = user,
+				damage_type = name,
+				tool = "lord_damage:target_"..name.."_dealer",
+			}, 3, function() minetest.chat_send_all("In cycle") end)
 		end
 	})
 end
@@ -105,9 +109,12 @@ minetest.register_tool("lord_damage:target_source_burning_dealer",{
 		print(minetest.serialize(object:get_properties()))
 
 
-		lord_damage.deal_damage(object, 13, "fiery_periodic", { type = "set_hp",
-				dealer = user, damage_type = "fiery_periodic",
-				tool = "lord_damage:target_source_burning_dealer", source = source }, source, 3)
+		lord_damage.deal_damage(object, 13, {
+			type = "set_hp",
+			dealer = user,
+			damage_type = "fiery_periodic", tool = "lord_damage:target_source_burning_dealer",
+			source = source,
+		}, 3, function() minetest.chat_send_all("In cycle") end)
 	end
 })
 

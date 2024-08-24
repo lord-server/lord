@@ -7,15 +7,27 @@ local function calculate_damage_absorption(player, amount, damage_type)
 	return amount - protection
 end
 
---- @type table<string,fun(player:Player, amount:number, reason:PlayerHPChangeReason, source:string, chunks:number)>
+--- @class DamageReason:PlayerHPChangeReason
+--- @field damage_type string
+--- @field source      string
+
+--- @alias DamageBehavior fun(object:ObjectRef,amount:number,reason:DamageReason,chunks:number|nil,run:function|nil)
+
+--- @type table<string,DamageBehavior>
 local damage_types = {}
 
+--- @param object Player|Entity  object to set the source onto
+--- @param source string         source name
+--- @param value  boolean        whether source is active (true) or not (false)
 local function set_source(object, source, value)
 	local state = base_classes.ObjectState:new(object)
 	state:set_entry(source, value)
 	state:save(object)
 end
 
+--- @param object Player|Entity  object to get the source from
+--- @param source string         source name
+--- @return boolean  whether source is active (true) or not (false)
 local function get_source_status(object, source)
 	local state = base_classes.ObjectState:new(object)
 
@@ -34,33 +46,43 @@ local function get_registered_damage_types()
 	return damage_types
 end
 
-local function deal_damage(player, amount, damage_type, reason, source, chunks)
+
+--- @param object Player|Entity
+--- @param amount amount
+--- @param reason DamageReason
+--- @param chunks number
+--- @param run    function
+local function deal_damage(object, amount, reason, chunks, run)
 	if not amount then
 		return false
 	end
 
-	if not damage_type then
-		damage_type = "direct"
-	end
-
 	chunks = chunks or 1
 
-	local to_return = damage_types[damage_type](player, amount, reason, source, chunks)
+	local to_return = damage_types[reason.damage_type or "direct"](object, amount, reason, chunks, run)
 	return to_return
 end
 
-local function base_behavior(object, amount, damage_type, reason, source)
-	amount = calculate_damage_absorption(object, amount, damage_type)
-	reason = reason or { type = "set_hp", damage_type = damage_type, source = source, }
+--- @param object Player|Entity
+--- @param amount amount
+--- @param reason DamageReason
+local function base_behavior(object, amount, reason)
 	-- THE FOLLOWING LINE IS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
 	minetest.chat_send_player(reason.dealer:get_player_name(), "Hit: "..amount.."!")
-	return object:set_hp(object:get_hp() - amount, reason)
+	object:set_hp(object:get_hp() - amount, reason)
 end
 
-local function periodic_base_behavior(object, amount, damage_type, reason, source, chunks, do_in_cycle)
+--- @param object Player|Entity
+--- @param amount amount
+--- @param reason DamageReason
+--- @param chunks number|nil
+--- @param run    function
+local function periodic_base_behavior(object, amount, reason, chunks, run)
+	dump(chunks)
+	local damage_type = reason.damage_type
+	local source = reason.source
 	amount = calculate_damage_absorption(object, amount, damage_type)
-	reason = reason or { type = "set_hp", damage_type = damage_type, source = source, }
-	do_in_cycle = do_in_cycle or function() end
+	run = run or function() end
 	local caused_by_source = false
 	if source then
 		caused_by_source = true
@@ -114,7 +136,7 @@ local function periodic_base_behavior(object, amount, damage_type, reason, sourc
 				return
 			end
 
-			do_in_cycle()
+			run()
 
 			-- THE FOLLOWING LINE IS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
 			minetest.chat_send_player(reason.dealer:get_player_name(), "Hit: "..chunks.."!")
@@ -158,7 +180,7 @@ local function periodic_base_behavior(object, amount, damage_type, reason, sourc
 			return
 		end
 
-		do_in_cycle()
+		run()
 
 		-- THE FOLLOWING LINE IS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
 		minetest.chat_send_player(reason.dealer:get_player_name(), "Hit: "..leftover_damage.."!")
