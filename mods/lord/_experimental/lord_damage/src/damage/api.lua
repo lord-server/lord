@@ -48,7 +48,7 @@ end
 
 
 --- @param object Player|Entity
---- @param amount amount
+--- @param amount number
 --- @param reason DamageReason
 --- @param chunks number
 --- @param run    function
@@ -64,7 +64,7 @@ local function deal_damage(object, amount, reason, chunks, run)
 end
 
 --- @param object Player|Entity
---- @param amount amount
+--- @param amount number
 --- @param reason DamageReason
 local function base_behavior(object, amount, reason)
 	-- THE FOLLOWING LINE IS FOR TESTING PURPOSES ONLY! REMOVE IT WHEN THE DAMAGE SYSTEM IS INTEGRATED INTO THE GAME.
@@ -73,7 +73,7 @@ local function base_behavior(object, amount, reason)
 end
 
 --- @param object Player|Entity
---- @param amount amount
+--- @param amount number
 --- @param reason DamageReason
 --- @param chunks number|nil
 --- @param run    function
