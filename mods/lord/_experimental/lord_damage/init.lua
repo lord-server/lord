@@ -3,7 +3,7 @@ local old_require = require
 require           = function(name) return dofile(mod_path .. "/src/" .. name:gsub("%.", "/") .. ".lua") end
 
 
-require("lord_damage").init()
+require("damage").init()
 require("for_testing")
 
 
