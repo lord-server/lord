@@ -474,6 +474,11 @@ function minetest.register_on_punchplayer(callback) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4603-L4606)
 --- @param callback fun(player, clicker)
 function minetest.register_on_rightclickplayer(callback) end
+
+--- @class PlayerHPChangeReason
+--- @field type string one of `"set_hp"`, `"punch"`, ... See `register_on_player_hpchange` description.
+--- @field from string will be `"mod"` or `"engine"`
+
 --- * Called when the player gets damaged or healed
 --- * `player`: ObjectRef of the player
 --- * `hp_change`: the amount of change. Negative when it is damage.
@@ -495,7 +500,8 @@ function minetest.register_on_rightclickplayer(callback) end
 ---    Non-modifiers receive the final HP change calculated by the modifiers.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4607-L4626)
---- @param callback fun(player, hp_change, reason)
+--- @param callback fun(player:Player, hp_change:number, reason:PlayerHPChangeReason)
+--- @param modifier boolean
 function minetest.register_on_player_hpchange(callback, modifier) end
 --- * Called when a player dies
 --- * `reason`: a PlayerHPChangeReason table, see register_on_player_hpchange
