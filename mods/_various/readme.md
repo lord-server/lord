@@ -73,11 +73,6 @@
 ### `new_campfire`
  - https://content.minetest.net/packages/VanessaE/new_campfire/
 
-### `signs_lib`
- - ? https://content.minetest.net/packages/VanessaE/signs_lib/ ?
- - ? https://forum.minetest.net/viewtopic.php?t=13762 ?
- - ? https://gitlab.com/VanessaE/signs_lib/ ?
-
 ### `technic_chests`
  - выпилено из мода Technic, ссылку привести не могу поскольку сейчас слишком много веток стало. (Badger)
 
