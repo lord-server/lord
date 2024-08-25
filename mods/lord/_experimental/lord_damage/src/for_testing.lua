@@ -60,7 +60,12 @@ for name, _ in pairs(damage_types) do
 				minetest.log(player_name.." tried to use a damage dealer.")
 				return itemstack:clear()
 			end
-			lord_damage.deal_damage(user, 13, name, { dealer = user, "lord_damage:self_"..name.."_dealer" }, nil, 3)
+			lord_damage.deal_damage(user, 13, {
+				type = "set_hp",
+				dealer = user,
+				damage_type = "fiery_periodic",
+				tool = "lord_damage:target_cause_burning_dealer",
+			}, 3)
 		end
 	})
 	minetest.register_tool("lord_damage:target_"..name.."_dealer",{
@@ -112,7 +117,8 @@ minetest.register_tool("lord_damage:target_cause_burning_dealer",{
 		lord_damage.deal_damage(object, 13, {
 			type = "set_hp",
 			dealer = user,
-			damage_type = "fiery_periodic", tool = "lord_damage:target_cause_burning_dealer",
+			damage_type = "fiery_periodic",
+			tool = "lord_damage:target_cause_burning_dealer",
 			cause = cause,
 		}, 3, function() minetest.chat_send_all("In cycle") end)
 	end
