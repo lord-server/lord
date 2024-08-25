@@ -355,10 +355,11 @@ minetest.register_craft({
 })
 
 for plank_name, plank in pairs(planks.get_lord_nodes()) do
-	local node_name   = "lamps:mese_post_light_" .. plank_name:split(":")[2]
-	local description = plank.description .. " Mese Post Light"
+	local plank_wood = plank_name:split(":")[2]
+	local node_name  = "lamps:mese_post_light_" .. plank_wood
+
 	default.register_mesepost(node_name, {
-		description = S(description),
+		description = S("@1 Mese Post Light", S(plank_wood:first_to_upper())),
 		texture     = plank.tiles[1],
 		material    = plank_name,
 	})
