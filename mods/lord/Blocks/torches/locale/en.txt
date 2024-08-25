@@ -1,3 +1,0 @@
-Torch	=	Torch
-Blue Torch	=	Blue Torch
-Orc Torch	=	Orc Torch

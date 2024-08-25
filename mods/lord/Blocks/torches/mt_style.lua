@@ -1,16 +1,15 @@
-local SL = lord.require_intllib()
+local S = lord.require_intllib()
 
 
-
-if minetest.get_modpath("lottother") then
 --elf
 minetest.register_craftitem(":lottother:blue_torch", {
-	description = SL("Blue Torch"),
+	description = S("Elven Torch"),
 	inventory_image = "lottother_blue_torch_floor.png",
 	groups = {wooden = 1},
 	wield_image = "lottother_blue_torch_floor.png",
 	wield_scale = {x = 1, y = 1, z = 1 + 1/16},
 	liquids_pointable = false,
+	light_source = 14,
 	on_place = function(itemstack, placer, pointed_thing)
 		local above = pointed_thing.above
 		local under = pointed_thing.under
@@ -146,13 +145,13 @@ minetest.register_abm({
 
 --orc
 minetest.register_craftitem(":lottother:orc_torch", {
-	description       = SL("Orc Torch"),
+	description       = S("Orcish Torch"),
 	inventory_image   = "lottother_orc_torch_floor.png",
 	wield_image       = "lottother_orc_torch_floor.png",
 	wield_scale       = { x = 1, y = 1, z = 1 + 1 / 16 },
 	groups            = { wooden = 1 },
 	liquids_pointable = false,
-	light_source      = default.LIGHT_MAX - 3,
+	light_source      = 8,
 	on_place          = function(itemstack, placer, pointed_thing)
 		local above = pointed_thing.above
 		local under = pointed_thing.under
@@ -283,4 +282,4 @@ minetest.register_abm({
 		end
 	end
 })
-end
+
