@@ -1,0 +1,39 @@
+# textdomain: technic_chests
+
+@1 Chest=@1 Сундук
+@1 Locked Chest=@1 Запертый сундук
+@1 Locked Chest (owned by @2)=@1 Запертый сундук (владелец @2)
+Color Filter: @1=Цв. фильтр: @1
+Edit chest description:=Редактировать описание сундука:
+
+# Colors
+Black=Черный
+Blue=Синий
+Brown=Коричневый
+Cyan=Бирюзовый
+Dark Green=Тёмно-зелёный
+Dark Grey=Тёмно-серый
+Green=Зелёный
+Grey=Серый
+Magenta=Пурпурный
+Orange=Оранжевый
+Pink=Розовый
+Red=Красный
+Violet=Фиолетовый
+White=Белый
+Yellow=Желтый
+None=Никакой
+
+# Materials
+Copper=Медный
+Gold=Золотой
+Iron=Железный
+Mithril=Мифриловый
+Silver=Серебряный
+Wooden=Деревянный
+
+# Sorting
+Sort=Сортировка
+Auto-sort is @1=Авто-сортировка: @1
+Off=Выкл.
+On=Вкл.
