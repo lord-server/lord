@@ -1,7 +1,17 @@
-#Template
+# textdomain: signs_lib
 
-Reading cached character database. =
-Font seems to have changed. Rebuilding cache. =
-Could not find font line height in cached DB. Trying brute force. =
-Sign =
-%s wrote "%s" to sign at %s =
+### init.lua ###
+Sign Wood=
+Sign locked=
+Write=
+Locked sign, owned by=
+Can edit all locked signs=
+
+Sign (orange, metal)=
+Sign (red, metal)=
+Sign (white_black, metal)=
+Sign (white_red, metal)=
+Sign (yellow, metal)=
+Sign (green, metal)=
+Sign (blue, metal)=
+Sign (brown, metal)=

@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_translator('signs_lib')
 
 -- This mod provides the visible text on signs library used by Home Decor
 -- and perhaps other mods at some point in the future.  Forked from thexyz's/
@@ -405,7 +405,7 @@ signs_lib.construct_sign = function(pos, locked)
 		"formspec",
 		"size[6,4]"..
 		"textarea[0,-0.3;6.5,3;text;;${text}]"..
-		"button_exit[2,3.4;2,1;ok;"..SL("Write").."]"..
+		"button_exit[2,3.4;2,1;ok;".. S("Write").."]"..
 		"background[-0.5,-0.5;7,5;bg_signs_lib.jpg]")
 	meta:set_string("infotext", "")
 end
@@ -466,7 +466,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 		fields.text = str.trim_to(fields.text, MAX_INPUT_CHARS)
 
 		local ownstr = ""
-		if owner then ownstr = SL("Locked sign, owned by").." "..owner.."\n" end
+		if owner then ownstr = S("Locked sign, owned by").." "..owner.."\n" end
 
 		meta:set_string("infotext", ownstr..string.replace(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
 		meta:set_string("text", fields.text)
@@ -611,7 +611,7 @@ function signs_lib.receive_fields(pos, formname, fields, sender, lock)
 	end
 	local lockstr = lock and "locked " or ""
 	if fields and fields.text and fields.ok then
-		minetest.log("action", SL("%s wrote \"%s\" to "..lockstr.."sign at %s"):format(
+		minetest.log("action", ("%s wrote \"%s\" to "..lockstr.."sign at %s"):format(
 			(sender:get_player_name() or ""),
 			fields.text,
 			minetest.pos_to_string(pos)
@@ -625,7 +625,7 @@ function signs_lib.receive_fields(pos, formname, fields, sender, lock)
 end
 
 minetest.register_node(":default:sign_wall", {
-	description = SL("Sign"),
+	description = S("Sign Wood"),
 	inventory_image = "default_sign_wall.png",
 	wield_image = "default_sign_wall.png",
 	node_placement_prediction = "",
@@ -747,10 +747,10 @@ minetest.register_node(":signs:sign_post", {
 
 -- Locked wall sign
 
-minetest.register_privilege("sign_editor", SL("Can edit all locked signs"))
+minetest.register_privilege("sign_editor", S("Can edit all locked signs"))
 
 minetest.register_node(":locked_sign:sign_wall_locked", {
-	description = SL("Sign locked"),
+	description = S("Sign locked"),
 	inventory_image = "signs_locked_inv.png",
 	wield_image = "signs_locked_inv.png",
 	node_placement_prediction = "",
@@ -799,7 +799,7 @@ local sign_colors = { "green", "yellow", "red", "white_red", "white_black", "ora
 
 for _, color in ipairs(sign_colors) do
 	minetest.register_node(":signs:sign_wall_"..color, {
-		description = SL("Sign ("..color..", metal)"),
+		description = S("Sign ("..color..", metal)"),
 		inventory_image = "signs_"..color.."_inv.png",
 		wield_image = "signs_"..color.."_inv.png",
 		node_placement_prediction = "",

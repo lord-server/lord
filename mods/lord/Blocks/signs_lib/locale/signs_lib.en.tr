@@ -1,0 +1,17 @@
+# textdomain: signs_lib
+
+### init.lua ###
+Sign Wood=Sign Wood
+Sign locked=Sign locked
+Write=Write
+Locked sign, owned by=Locked sign, owned by
+Can edit all locked signs=Can edit all locked signs
+
+Sign (orange, metal)=Sign (orange, metal)
+Sign (red, metal)=Sign (red, metal)
+Sign (white_black, metal)=Sign (white_black, metal)
+Sign (white_red, metal)=Sign (white_red, metal)
+Sign (yellow, metal)=Sign (yellow, metal)
+Sign (green, metal)=Sign (green, metal)
+Sign (blue, metal)=Sign (blue, metal)
+Sign (brown, metal)=Sign (brown, metal)
