@@ -88,8 +88,8 @@ for name, _ in pairs(damage_types) do
 	})
 end
 
-minetest.register_tool("lord_damage:target_source_burning_dealer",{
-	description = "Target source 'burning' damage dealer",
+minetest.register_tool("lord_damage:target_cause_burning_dealer",{
+	description = "Target cause 'burning' damage dealer",
 	on_use = function(itemstack, user, pointed_thing)
 		local player_name = user:get_player_name()
 		if not minetest.check_player_privs(player_name, "server") then
@@ -103,23 +103,23 @@ minetest.register_tool("lord_damage:target_source_burning_dealer",{
 			return
 		end
 
-		local source = "burning"
+		local cause = "burning"
 
-		lord_damage.set_source(object, source, true)
+		lord_damage.set_cause(object, cause, true)
 		print(minetest.serialize(object:get_properties()))
 
 
 		lord_damage.deal_damage(object, 13, {
 			type = "set_hp",
 			dealer = user,
-			damage_type = "fiery_periodic", tool = "lord_damage:target_source_burning_dealer",
-			source = source,
+			damage_type = "fiery_periodic", tool = "lord_damage:target_cause_burning_dealer",
+			cause = cause,
 		}, 3, function() minetest.chat_send_all("In cycle") end)
 	end
 })
 
-minetest.register_tool("lord_damage:target_source_burning_remover",{
-	description = "Target source 'burning' state remover",
+minetest.register_tool("lord_damage:target_cause_burning_remover",{
+	description = "Target cause 'burning' state remover",
 	on_use = function(itemstack, user, pointed_thing)
 		local player_name = user:get_player_name()
 		if not minetest.check_player_privs(player_name, "server") then
@@ -133,8 +133,8 @@ minetest.register_tool("lord_damage:target_source_burning_remover",{
 			return
 		end
 
-		local source = "burning"
+		local cause = "burning"
 
-		lord_damage.set_source(object, source, nil)
+		lord_damage.set_cause(object, cause, nil)
 	end
 })
