@@ -158,3 +158,6 @@ dofile(minetest.get_modpath("lottfarming") .. "/orc_food.lua")
 
 -- ========= OTHER =========
 dofile(minetest.get_modpath("lottfarming") .. "/other.lua")
+
+-- ========= OIL =========
+dofile(minetest.get_modpath("lottfarming") .. "/oil.lua")
