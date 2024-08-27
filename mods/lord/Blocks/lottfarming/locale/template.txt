@@ -83,3 +83,6 @@ Cooked Turnips=
 ### carrots.lua ###
 Carrot Seeds=
 Carrot=
+
+### oil.lua ###
+Vegetable Oil=
