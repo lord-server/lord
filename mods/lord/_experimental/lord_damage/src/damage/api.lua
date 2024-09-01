@@ -63,6 +63,26 @@ local function deal_damage(object, amount, reason, chunks, run)
 	return to_return
 end
 
+local function generate_damage_pattern(amount, portions, treat_portions_as_divisions)
+	local pattern = {}
+	local max_entries
+
+	if treat_portions_as_divisions == true then
+		max_entries = portions
+		portions = math.floor(amount/max_entries)
+		
+	else
+		max_entries = math.floor(amount/portions)
+	end
+	local leftover_damage = amount%portions
+
+	for i = 1, max_entries do
+		pattern[i] = 1
+	end
+
+	return pattern
+end
+
 --- @param object Player|Entity
 --- @param amount number
 --- @param reason DamageReason
