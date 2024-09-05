@@ -48,14 +48,19 @@ function DamageType:new(damage_type_def)
 
 	local class = self
 
-    function self:instant(target, amount, reason, on_start)
+    local function instant(obj, target, amount, reason, on_start)
 
     end
 
 
-    function self:periodic(target, amount, reason, on_start)
+    local function periodic(obj, target, amount, reason, on_start)
 
     end
+
+    self.instant  = instant
+    self.periodic = periodic
+
+
 
 	self = setmetatable({}, { __index = class })
 
