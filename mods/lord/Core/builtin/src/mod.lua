@@ -43,7 +43,7 @@ function minetest.mod(mod_init_function)
 			-- Lazy Loading
 			__index = function(self, key)
 				if key == "logger" then
-					self.logger = LoggerFactory.get_mod_logger()
+					self.logger = LoggerFactory.get_mod_logger(mod_name)
 
 					return self.logger
 				end
