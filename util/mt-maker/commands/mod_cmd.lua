@@ -57,7 +57,7 @@ local function create_files(mod_name, app)
 
 	create_file_with(
 		mod_name .. DS .. "init.lua",
-		tpl_compile(templates_dir .. DS .. "src" .. DS .. "[[mod_name]].lua", {
+		tpl_compile(templates_dir .. DS .. "init.lua", {
 			mod_name = mod_name
 		})
 	)
