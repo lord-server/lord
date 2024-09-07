@@ -1,5 +1,6 @@
-local Event = require('damage.Event')
-
+local Event     = require('damage.Event')
+local Type      = require('damage.Type')
+local TypeEvent = require('damage.Type.Event')
 
 --- @param player    Player
 --- @param hp_change number
@@ -12,6 +13,16 @@ end)
 
 
 return {
+	Type = Type,
+
+	register_type = Type.register,
+
 	--- @type fun(callback:damage.callbacks.OnDamage)
-	on_damage = Event:on(Event.Type.on_damage)
+	on_damage = Event:on(Event.Type.on_damage),
+
+	--- @param type     string|damage.Type name of damage type (for ex.: `"fleshy"`, `"fire"`, ...)
+	--- @param callback damage.callbacks.OnDamageOf
+	on_damage_of = function(type, callback)
+		TypeEvent:subscribe(type, callback)
+	end
 }
