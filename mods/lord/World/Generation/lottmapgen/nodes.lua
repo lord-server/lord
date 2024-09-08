@@ -93,6 +93,7 @@ minetest.register_node("lottmapgen:blacksource", {
 	liquid_alternative_source  = "lottmapgen:blacksource",
 	liquid_viscosity           = 1,
 	damage_per_second          = 1,
+	damage_groups              = { poison = true, },
 	post_effect_color          = { a = 192, r = 140, g = 140, b = 140 },
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1 },
 })
@@ -123,6 +124,7 @@ minetest.register_node("lottmapgen:blackflowing", {
 	liquid_alternative_source  = "lottmapgen:blacksource",
 	liquid_viscosity           = 1,
 	damage_per_second          = 1,
+	damage_groups              = { poison = true, },
 	post_effect_color          = { a = 192, r = 140, g = 140, b = 140 }, -- {a=224, r=31, g=56, b=8},
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1, not_in_creative_inventory = 1 },
 })
@@ -146,6 +148,7 @@ minetest.register_node("lottmapgen:black_river_source", {
 	liquid_renewable           = false,
 	liquid_range               = 2,
 	damage_per_second          = 1,
+	damage_groups              = { poison = true, },
 	post_effect_color          = { a = 192, r = 140, g = 140, b = 140 },
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1 },
 })
@@ -177,6 +180,8 @@ minetest.register_node("lottmapgen:black_river_flowing", {
 	liquid_viscosity           = 1,
 	liquid_renewable           = false,
 	liquid_range               = 2,
+	damage_per_second          = 1,
+	damage_groups              = { poison = true, },
 	post_effect_color          = { a = 192, r = 140, g = 140, b = 140 }, -- {a=224, r=31, g=56, b=8},
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1, not_in_creative_inventory = 1 },
 })

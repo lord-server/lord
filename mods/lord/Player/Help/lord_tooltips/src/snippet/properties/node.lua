@@ -5,7 +5,7 @@ local S = minetest.get_translator(minetest.get_current_modname())
 
 
 
-tt.COLOR_DANGER = '#f84'
+tt.COLOR_DANGER = '#f64'
 
 
 return {
@@ -23,18 +23,26 @@ return {
 
 		-- Health-related node facts
 		if definition.damage_per_second then
-			if definition.damage_per_second > 0 then
-				list_items[#list_items + 1] =
-				colorize(tt.COLOR_DANGER, S('contact damage')) .. ': ' .. S('@1/sec', definition.damage_per_second)
-			elseif definition.damage_per_second < 0 then
-				list_items[#list_items + 1] =
-				colorize(tt.COLOR_GOOD, S('contact healing')) .. ': ' .. S(
-					'@1/sec', math.abs(definition.damage_per_second)
+			local amount = definition.damage_per_second
+			if amount > 0 then
+				local damage_groups = definition.damage_groups or (
+					definition.tool_capabilities
+						and (definition.tool_capabilities.damage_groups or {})
+						or {}
 				)
+				local damage_type = damage.Type.get_from_groups(damage_groups)
+				damage_type = damage_type and colorize('#bbb', S(damage_type..'_dmg') .. ' ') or ''
+
+				list_items[#list_items + 1] =
+					damage_type .. colorize(tt.COLOR_DANGER, S('damage on contact')) .. ': ' .. S('@1/sec', amount)
+			elseif amount < 0 then
+				list_items[#list_items + 1] =
+					colorize(tt.COLOR_GOOD, S('contact healing')) .. ': ' .. S('@1/sec', -amount)
 			end
 		end
 		if definition.drowning and definition.drowning ~= 0 then
-			list_items[#list_items + 1] = colorize(tt.COLOR_DANGER, S('drowning damage')) .. ': ' .. definition.drowning
+			list_items[#list_items + 1] = colorize(tt.COLOR_DANGER, S('drowning damage')) .. ': ' ..
+				S('@1/sec', definition.drowning)
 		end
 		local tmp = minetest.get_item_group(item_string, 'fall_damage_add_percent')
 		if tmp > 0 then

@@ -121,7 +121,7 @@ minetest.register_node("lottother:blue_flame", {
 	walkable          = false,
 	buildable_to      = true,
 	damage_per_second = 4,
-
+	damage_groups     = { fire = true, },
 	after_place_node  = function(pos, placer)
 		-- Removed in new MTG/fire : issue 479
 		--fire.on_flame_add_at(pos)

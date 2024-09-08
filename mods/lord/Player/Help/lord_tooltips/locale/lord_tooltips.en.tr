@@ -32,9 +32,11 @@ bendy_dig=bendy
 
 # Damages
 $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 in @3 sec @4
-(@1/sec)=(@1/сек)
+@1/sec=@1/sec
 Punch Speed: @1=Punch Speed: @1
 fleshy_dmg=fleshy
+fire_dmg=fire
+poison_dmg=poison
 soulful_dmg=soulful
 
 # Defense:
@@ -54,8 +56,8 @@ armor_shield=fleshly
 @1@2 to satiety=@1@2 to satiety
 
 # copy from `tt_base` (`node_info`)
-contact damage=Contact damage
-contact healing=Contact healing
+damage on contact=damage on contact
+healing on contact=healing on contact
 drowning damage=drowning damage
 bouncy (@1%)=bouncy (@1%)
 slippery=slippery

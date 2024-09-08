@@ -214,6 +214,7 @@ local S = minetest.get_translator("bees")
       }
     },
     damage_per_second = 1,
+    damage_groups = { poison = true, },
     walkable = false,
     buildable_to = true,
     pointable = false,

@@ -288,6 +288,7 @@ minetest.register_node('campfire:campfire_active', {
 	paramtype           = 'none',
 	light_source        = 13,
 	damage_per_second   = 3,
+	damage_groups       = { fire = true, },
 	drop                = "campfire:campfire",
 	--    sounds = default.node_sound_stone_defaults(),
 	selection_box       = {

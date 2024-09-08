@@ -537,6 +537,9 @@ minetest.override_item("default:jungletree", {
 	end,
 })
 
+minetest.override_item('default:lava_source',  { damage_groups = { fire = true, }, })
+minetest.override_item('default:lava_flowing', { damage_groups = { fire = true, }, })
+
 
 -- default/functions.lua
 

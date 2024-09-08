@@ -32,9 +32,11 @@ bendy_dig=гнущиеся
 
 # Damages:
 $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 в @3 сек @4
-(@1/sec)=(@1/сек)
+@1/sec=@1/сек
 Punch Speed: @1=Скорость удара: @1
 fleshy_dmg=телесный
+fire_dmg=огненный
+poison_dmg=отравляющий
 soulful_dmg=душ
 
 # Defense:
@@ -54,9 +56,9 @@ armor_shield=телесная
 @1@2 to satiety=@1@2 к сытости
 
 # copy from `tt_base` (`node_info`)
-contact damage=урон при контакте
-contact healing=Исцеление при контакте
-drowning damage=урон при падении
+damage on contact=урон при контакте
+healing on contact=исцеление при контакте
+drowning damage=урон при утоплении
 bouncy (@1%)=упругий (@1%)
 slippery=Скользкий
 climbable=можно карабкаться
