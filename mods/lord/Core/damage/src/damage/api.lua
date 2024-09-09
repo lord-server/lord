@@ -8,8 +8,9 @@ local TypeEvent = require('damage.Type.Event')
 --- @param reason    PlayerHPChangeReason
 minetest.register_on_player_hpchange(function(player, hp_change, reason)
 	if hp_change < 0 then
-		Event:trigger(Event.Type.on_damage, player, -hp_change, reason)
-		TypeEvent:trigger(Type.detect(reason), player, -hp_change, reason)
+		local damage_type = Type.detect(reason)
+		Event:trigger(Event.Type.on_damage, player, -hp_change, reason, damage_type)
+		TypeEvent:trigger(damage_type, player, -hp_change, reason)
 	end
 end)
 

@@ -1,4 +1,4 @@
---- @alias damage.callbacks.OnDamage fun(player:Player,amount:number,reason:PlayerHPChangeReason)
+--- @alias damage.callbacks.OnDamage fun(player:Player,amount:number,reason:PlayerHPChangeReason,damage_type:string)
 
 --- @class damage.Event: base_classes.Event
 --- @field on      fun(self:self,event:string|damage.Event.Type): fun(callback:damage.callbacks.OnDamage)
