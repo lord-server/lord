@@ -478,6 +478,7 @@ function minetest.register_on_rightclickplayer(callback) end
 --- @class PlayerHPChangeReason
 --- @field type string one of `"set_hp"`, `"punch"`, ... See `register_on_player_hpchange` description.
 --- @field from string will be `"mod"` or `"engine"`
+--- @field object ObjectRef|Player|Entity
 
 --- * Called when the player gets damaged or healed
 --- * `player`: ObjectRef of the player
