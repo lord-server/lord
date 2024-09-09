@@ -1,7 +1,8 @@
-local assert, table_contains, pairs, typeof
-    = assert, table.contains, pairs, type
+local assert, table_contains, typeof
+    = assert, table.contains, type
 
-local TypeEvent = require('damage.Type.Event')
+local TypeEvent    = require('damage.Type.Event')
+local TypeResolver = require('damage.Type.Resolver')
 
 
 --- @static
@@ -18,6 +19,8 @@ local Type = {
 		-- [1] = 'fleshy'
 	}
 }
+
+TypeResolver.init(Type.registered)
 
 --- @param name string
 --- @return damage.Type
@@ -47,61 +50,28 @@ end
 --- @param damage_groups table<string,number>
 --- @return string|nil
 function Type.get_from_groups(damage_groups)
-	for type, damage in pairs(damage_groups) do
-		if table_contains(Type.registered, type) then
-			return type
-		end
-	end
-
-	return nil
+	return TypeResolver.by_damage_groups(damage_groups)
 end
 
 --- @param definition ItemDefinition
 --- @return string|nil
 function Type.get_by_definition(definition)
-	local damage_groups = definition.damage_groups or (
-		definition.tool_capabilities
-			and (definition.tool_capabilities.damage_groups or {})
-			or {}
-	)
-
-	return Type.get_from_groups(damage_groups)
+	return TypeResolver.by_definition(definition)
 end
 
 --- @param reason PlayerHPChangeReason
 --- @return string
 function Type.detect(reason)
-	local type = Type.get_default()
-	assert(typeof(type) == 'string')
+	local default_type = Type.get_default()
+	assert(typeof(default_type) == 'string')
 
-	if reason.type == 'node_damage' and reason.node then
-
-		return Type.get_by_definition(minetest.registered_nodes[reason.node]) or type
-
-	elseif reason.type == 'punch' and reason.object then
-
-		--- @type Player|Entity
-		local player_or_mob   = reason.object
-		local item_definition = player_or_mob:get_wielded_item():get_definition()
-
-		return Type.get_by_definition(item_definition) or type
-
-	end
-
-	return type
+	return TypeResolver.by_reason(reason) or default_type
 end
 
 --- @return string[]
 function Type.get_registered()
 	return Type.registered
 end
-
-setmetatable(Type, {
-	--- @return fun(registered:string[]): (number, string)
-	__pairs = function()
-		return pairs(Type.registered)
-	end
-})
 
 
 return Type
