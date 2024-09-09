@@ -1725,7 +1725,7 @@ local do_states = function(self, dtime)
 							end
 							self.attack:punch(self.object, 1.0, {
 								full_punch_interval = 1.0,
-								damage_groups = {fleshy = self.damage}
+								damage_groups = {[self.damage_type] = self.damage}
 							}, nil)
 						end
 					end
@@ -2351,8 +2351,6 @@ end
 -- default function when mobs are blown up with TNT
 local do_tnt = function(obj, damage)
 
-	--print ("----- Damage", damage)
-
 	obj.object:punch(obj.object, 1.0, {
 		full_punch_interval = 1.0,
 		damage_groups = {fleshy = damage},
@@ -2401,6 +2399,7 @@ minetest.register_entity(name, {
 	walk_velocity = def.walk_velocity or 1,
 	run_velocity = def.run_velocity or 2,
 	damage = max(1, (def.damage or 0) * difficulty),
+	damage_type = def.damage_type or 'fleshy',
 	light_damage = def.light_damage or 0,
 	water_damage = def.water_damage or 0,
 	lava_damage = def.lava_damage or 0,
