@@ -5,9 +5,14 @@ local setmetatable
 --- @class defense.PlayerDefense
 local PlayerDefense = {
 	--- @type number in percents from 0 to 100
-	fleshy              = nil,
+	fleshy = nil,
 	--- @type number in percents from 0 to 100
-	fire                = nil,
+	fire   = nil,
+	--- @type number in percents from 0 to 100
+	soul   = nil,
+	--- @type number in percents from 0 to 100
+	poison = nil,
+
 	--- @type number in percents from 0 to 100
 	damage_avoid_chance = nil,
 }
@@ -22,8 +27,9 @@ function PlayerDefense:new(player)
 	self = {}
 	self.player = player
 
-	self.fleshy              = 0
-	self.fire                = 0
+	for _, type in pairs(damage.Type.get_registered()) do
+		self[type] = 0
+	end
 	self.damage_avoid_chance = 0
 
 	return setmetatable(self, { __index = class })

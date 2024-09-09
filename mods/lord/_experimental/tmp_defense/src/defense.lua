@@ -29,18 +29,22 @@ end
 
 --- @param player Player
 local function collect_armor_data(player)
-	local armor_fleshy    = 0
-	local armor_dmg_avoid = 0
-	local armor_fire      = 0
+	local armor = {
+		fleshy = 0,
+		fire   = 0,
+		soul   = 0,
+		poison = 0,
+	}
+	local damage_avoid = 0
 
 	local material = { type = nil, count = 1 } -- detection of same material armor-set
 
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
-			armor_fleshy    = armor_fleshy    + (item_groups['armor_' .. ARMOR_PURPOSE[slot]] or 0)
-			armor_fire      = armor_fire      + (item_groups['armor_fire'] or 0)
-			armor_dmg_avoid = armor_dmg_avoid + (item_groups['damage_avoid_chance'] or 0)
+			armor.fleshy = armor.fleshy + (item_groups['armor_' .. ARMOR_PURPOSE[slot]] or 0)
+			armor.fire   = armor.fire   + (item_groups['armor_fire'] or 0)
+			damage_avoid = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
 
 			local mat = string_match(stack:get_name(), '%:.+_(.+)$')
 			if material.type then
@@ -55,14 +59,16 @@ local function collect_armor_data(player)
 
 	-- if same material set
 	if (material.type and material.count == #ARMOR_PURPOSE) then
-		armor_fleshy = armor_fleshy * 1.1
+		armor.fleshy = armor.fleshy * 1.1
 	end
 
-	return armor_fleshy, armor_fire, armor_dmg_avoid
+	return armor, damage_avoid
 end
 
---- @param player Player
-local function rebuild_armor_groups(player, armor_level)
+--- @param player  Player
+--- @param defense {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
+--- @return {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
+local function rebuild_armor_groups(player, defense)
 	local immortal = player:get_armor_groups().immortal
 	if player:get_meta():get('lott:immunity') ~= nil and (not immortal or immortal == 0) then
 		return { fleshy = 1 }
@@ -73,9 +79,11 @@ local function rebuild_armor_groups(player, armor_level)
 		armor_groups.immortal = 1
 	end
 
-	armor_level = math_limit(armor_level, 0, 100)
-	armor_groups.level = math_floor(armor_level / 20)
-	armor_groups.fleshy = 100 - armor_level
+	armor_groups.level  = math_floor(math_limit(defense[damage.Type.get_default()], 0, 100) / 20) -- TODO: is this unused ?
+	for _, damage_type in pairs(damage.Type.get_registered()) do
+		armor_groups[damage_type] = 100 - (defense[damage_type] and math_limit(defense[damage_type], 0, 100) or 0)
+	end
+
 
 	return armor_groups
 end
@@ -85,12 +93,12 @@ local function set_player_defense(player)
 		return
 	end
 
-	local armor_fleshy, armor_fire, armor_damage_avoid = collect_armor_data(player)
+	local armor, armor_damage_avoid = collect_armor_data(player)
 
-	player:set_armor_groups(rebuild_armor_groups(player, armor_fleshy))
+	player:set_armor_groups(rebuild_armor_groups(player, armor))
 	local character_defense = defense.for_player(player)
-	character_defense.fleshy              = armor_fleshy
-	character_defense.fire                = armor_fire
+	character_defense.fleshy              = armor.fleshy
+	character_defense.fire                = armor.fire
 	character_defense.damage_avoid_chance = armor_damage_avoid
 end
 
