@@ -37,7 +37,7 @@ Punch Speed: @1=Скорость удара: @1
 fleshy_dmg=телесный
 fire_dmg=огненный
 poison_dmg=отравляющий
-soulful_dmg=душ
+soul_dmg=душ
 
 # Defense:
 armor_head=телесная

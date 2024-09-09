@@ -7,7 +7,7 @@ minetest.register_tool("tools:sword_elven", {
 	tool_capabilities = {
 		max_drop_level      = 2,
 		groupcaps           = { snappy = { times = { [1] = 1.60, [2] = 1.30, [3] = 0.90 }, uses = 50, maxlevel = 3 }, },
-		damage_groups       = { fleshy = 6.2, soulful = 8 },
+		damage_groups       = { soul = 8, fleshy = 6.2 },
 		full_punch_interval = 1,
 	},
 	groups            = { bronze_item = 1 },

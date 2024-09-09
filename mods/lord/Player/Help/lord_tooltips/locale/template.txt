@@ -37,7 +37,7 @@ Punch Speed: @1=
 fleshy_dmg=
 fire_dmg=
 poison_dmg=
-soulful_dmg=
+soul_dmg=
 
 # Defense:
 armor_head=
