@@ -84,7 +84,7 @@ function Type.detect(reason)
 		local player_or_mob   = reason.object
 		local item_definition = player_or_mob:get_wielded_item():get_definition()
 
-		return Type.get_from_groups(item_definition) or type
+		return Type.get_by_definition(item_definition) or type
 
 	end
 
