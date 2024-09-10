@@ -17,21 +17,21 @@ local function register_api()
 	_G.defense = {
 		--- @param player Player
 		for_player = function(player)
-			local defense = player_defense[player:get_player_name()]
-			if not defense then
-				defense = PlayerDefense:new(player)
+			local name = player:get_player_name()
+			if not player_defense[name] then
+				player_defense[name] = PlayerDefense:new(player)
 			else
-				defense:refresh_player(player)
+				player_defense[name]:refresh_player(player)
 			end
 
-			return defense
+			return player_defense[name]
 		end,
 	}
 end
 
 --- @param player Player
 local function collect_defense_from_armor_equipment(player)
-	local armor = {
+	local defense = {
 		fleshy = 0,
 		fire   = 0,
 		soul   = 0,
@@ -44,9 +44,9 @@ local function collect_defense_from_armor_equipment(player)
 	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
 		if stack:get_count() == 1 then
 			local item_groups = stack:get_definition().groups
-			armor.fleshy = armor.fleshy + (item_groups['armor_' .. ARMOR_PURPOSE[slot]] or 0)
-			armor.fire   = armor.fire   + (item_groups['armor_fire'] or 0)
-			damage_avoid = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
+			defense.fleshy = defense.fleshy + (item_groups['armor_' .. ARMOR_PURPOSE[slot]] or 0)
+			defense.fire   = defense.fire   + (item_groups['armor_fire'] or 0)
+			damage_avoid   = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
 
 			local mat = string_match(stack:get_name(), '%:.+_(.+)$')
 			if material.type then
@@ -61,10 +61,10 @@ local function collect_defense_from_armor_equipment(player)
 
 	-- if same material set
 	if (material.type and material.count == #ARMOR_PURPOSE) then
-		armor.fleshy = armor.fleshy * 1.1
+		defense.fleshy = defense.fleshy * 1.1
 	end
 
-	return armor, damage_avoid
+	return defense, damage_avoid
 end
 
 --- @param player Player
