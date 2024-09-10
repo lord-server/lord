@@ -1,5 +1,5 @@
-local math_limit, math_floor, string_match
-    = math.limit, math.floor, string.match
+local string_match
+    = string.match
 
 local PlayerDefense = require('defense.PlayerDefense')
 
@@ -17,18 +17,20 @@ local function register_api()
 	_G.defense = {
 		--- @param player Player
 		for_player = function(player)
-			local name = player:get_player_name()
-			if not player_defense[name] then
-				player_defense[name] = PlayerDefense:new(player)
+			local defense = player_defense[player:get_player_name()]
+			if not defense then
+				defense = PlayerDefense:new(player)
+			else
+				defense:refresh_player(player)
 			end
 
-			return player_defense[name]
+			return defense
 		end,
 	}
 end
 
 --- @param player Player
-local function collect_armor_data(player)
+local function collect_defense_from_armor_equipment(player)
 	local armor = {
 		fleshy = 0,
 		fire   = 0,
@@ -65,35 +67,10 @@ local function collect_armor_data(player)
 	return armor, damage_avoid
 end
 
---- @param player  Player
---- @param defense {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
---- @return {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
-local function rebuild_armor_groups(player, defense)
-	local armor_groups = {}
-	for _, damage_type in pairs(damage.Type.get_registered()) do
-		armor_groups[damage_type] = 100 - (
-			defense[damage_type]
-				and math_limit(defense[damage_type], 0, 100)
-				or  0
-		)
-	end
-
-
-	return armor_groups
-end
-
+--- @param player Player
 local function set_player_defense(player)
-	if not player then
-		return
-	end
-
-	local armor, armor_damage_avoid = collect_armor_data(player)
-
-	player:set_armor_groups(rebuild_armor_groups(player, armor))
-	local character_defense = defense.for_player(player)
-	character_defense.fleshy              = armor.fleshy
-	character_defense.fire                = armor.fire
-	character_defense.damage_avoid_chance = armor_damage_avoid
+	local defense_groups, damage_avoid_chance = collect_defense_from_armor_equipment(player)
+	defense.for_player(player):set(defense_groups, damage_avoid_chance)
 end
 
 

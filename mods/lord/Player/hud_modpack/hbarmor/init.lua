@@ -43,7 +43,7 @@ end
 
 --- @param player Player
 local function init_custom_hud_for(player)
-	local arm  = defense.for_player(player).fleshy or 0
+	local arm  = defense.for_player(player):default() or 0
 	local hide = hbarmor.auto_hide and arm == 0
 
 	hb.init_hudbar(player, "armor", arm_printable(arm), nil, hide)
@@ -52,7 +52,7 @@ end
 --- update hud elemtens if value has changed
 --- @param player Player
 local function update_hud_for(player)
-	local arm = defense.for_player(player).fleshy or 0
+	local arm = defense.for_player(player):default() or 0
 
 	if hbarmor.auto_hide then
 		-- hide armor bar completely when there is none
