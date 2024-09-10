@@ -8,14 +8,7 @@ local N = function(s) return s end
 
 
 local hbarmor = {
-	--- Time difference in seconds between updates to the HUD armor bar.
-	--- Increase this number for slow servers.
-	tick          = math.limit(
-		tonumber(minetest.settings:get("hbarmor_tick")) or 0.2,
-		0.2,
-		4
-	),
-	--- If true, the armor bar is hidden when the player does not wear any armor
+	--- If true, the armor bar is hidden when the player does not have any defense
 	auto_hide     = minetest.settings:get_bool("hbarmor_autohide", true),
 }
 
@@ -43,16 +36,14 @@ end
 
 --- @param player Player
 local function init_custom_hud_for(player)
-	local arm  = defense.for_player(player):default() or 0
-	local hide = hbarmor.auto_hide and arm == 0
-
-	hb.init_hudbar(player, "armor", arm_printable(arm), nil, hide)
+	hb.init_hudbar(player, "armor", arm_printable(0), nil, hbarmor.auto_hide)
 end
 
 --- update hud elemtens if value has changed
 --- @param player Player
-local function update_hud_for(player)
-	local arm = defense.for_player(player):default() or 0
+--- @param defense defense.PlayerDefense
+local function update_hud_for(player, defense)
+	local arm = defense:default() or 0
 
 	if hbarmor.auto_hide then
 		-- hide armor bar completely when there is none
@@ -67,14 +58,10 @@ local function update_hud_for(player)
 	end
 end
 
-equipment.on_load(equipment.Kind.ARMOR, function(player)
+defense.on_init(function(player, defense)
 	init_custom_hud_for(player)
 end)
 
---- @param player     Player
---- @param delta_time number
-minetest.foreach_player_every(hbarmor.tick, function(player, delta_time)
-	-- TODO: don't refresh each tick. Use callbacks, when defense of player changed.
-	-- update all hud elements
-	update_hud_for(player)
+defense.on_change(function(player, defense)
+	update_hud_for(player, defense)
 end)

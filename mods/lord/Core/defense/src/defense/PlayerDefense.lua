@@ -1,6 +1,8 @@
 local math_limit, setmetatable
 	= math.limit, setmetatable
 
+local Event = require('defense.Event')
+
 
 --- @class defense.PlayerDefense
 local PlayerDefense = {
@@ -77,6 +79,8 @@ function PlayerDefense:set(defense, damage_avoid_chance)
 	self.damage_avoid_chance = damage_avoid_chance
 
 	self.player:set_armor_groups(build_armor_groups(self.defense))
+
+	Event:trigger(Event.Type.on_change, self.player, self)
 end
 
 --- @return number

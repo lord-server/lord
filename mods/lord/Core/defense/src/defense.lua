@@ -1,4 +1,5 @@
 local PlayerDefense = require('defense.PlayerDefense')
+local Event         = require('defense.Event')
 
 
 --- @type defense.PlayerDefense[]|table<string,defense.PlayerDefense>
@@ -14,12 +15,19 @@ local function register_api()
 			local name = player:get_player_name()
 			if not player_defense[name] then
 				player_defense[name] = PlayerDefense:new(player)
+				Event:trigger(Event.Type.on_init, player, player_defense[name])
 			else
 				player_defense[name]:refresh_player(player)
 			end
 
 			return player_defense[name]
 		end,
+
+		--- @type fun(callback:defense.callback)
+		on_change = Event:on(Event.Type.on_change),
+
+		--- @type fun(callback:defense.callback)
+		on_init   = Event:on(Event.Type.on_init),
 	}
 end
 
