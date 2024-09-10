@@ -55,8 +55,10 @@ minetest.register_tool(":lottarmor:shield_silver", {
 	description     = SL("Silver Shield"),
 	inventory_image = "lottarmor_inv_shield_silver.png",
 	groups          = {
-		armor_shield = 1, defense_fleshy = 7, damage_avoid_chance = 5, armor_use = 1000,
-		physics_speed = -0.02, silver_item = 1
+		armor_shield = 1, armor_use = 1000, silver_item = 1,
+		damage_avoid_chance = 5,
+		defense_fleshy = 7, defense_poison = 5.25,
+		physics_speed = -0.02,
 	},
 	wear            = 0,
 })
