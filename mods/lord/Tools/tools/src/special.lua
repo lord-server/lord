@@ -18,7 +18,7 @@ minetest.register_tool("tools:sword_orc", {
 	tool_capabilities = {
 		max_drop_level      = 2,
 		groupcaps           = { snappy = { times = { [1] = 2.25, [2] = 1.80, [3] = 1.30 }, uses = 17, maxlevel = 3 }, },
-		damage_groups       = { fleshy = 7.8 },
+		damage_groups       = { poison = 1.2, fleshy = 7.8 },
 		full_punch_interval = 1.2,
 	},
 	groups            = { steel_item = 1 },
@@ -34,6 +34,17 @@ minetest.register_tool("tools:battleaxe_dwarven", {
 		},
 		damage_groups       = { fleshy = 25 },
 		full_punch_interval = 2.0,
+	},
+	groups            = { steel_item = 1 },
+})
+minetest.register_tool("tools:sword_human", {
+	description       = S("Human Sword"),
+	inventory_image   = "tools_sword_human.png",
+	tool_capabilities = {
+		max_drop_level      = 2,
+		groupcaps           = { snappy = { times = { [1] = 2.25, [2] = 1.80, [3] = 1.30 }, uses = 17, maxlevel = 3 }, },
+		damage_groups       = { fire = 2, fleshy = 7.8 },
+		full_punch_interval = 1.2,
 	},
 	groups            = { steel_item = 1 },
 })
