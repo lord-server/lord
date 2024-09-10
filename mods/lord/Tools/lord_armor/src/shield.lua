@@ -67,8 +67,10 @@ minetest.register_tool(":lottarmor:shield_gold", {
 	description     = SL("Gold Shield"),
 	inventory_image = "lottarmor_inv_shield_gold.png",
 	groups          = {
-		armor_shield = 1, defense_fleshy = 6, damage_avoid_chance = 4, armor_use = 500,
-		physics_speed = -0.04, gold_item = 1
+		armor_shield = 1, armor_use = 500, gold_item = 1,
+		damage_avoid_chance = 4,
+		defense_fleshy = 6, defense_soul=4.5,
+		physics_speed = -0.04,
 	},
 	wear            = 0,
 })

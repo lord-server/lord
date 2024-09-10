@@ -185,25 +185,45 @@ minetest.register_tool(":lottarmor:boots_silver", {
 minetest.register_tool(":lottarmor:helmet_gold", {
 	description = S("Gold Helmet"),
 	inventory_image = "lottarmor_inv_helmet_gold.png",
-	groups = {armor_head=1, defense_fleshy=5, damage_avoid_chance=5, armor_use=250, physics_speed=-0.05, gold_item=1},
+	groups = {
+		armor_head=1, armor_use=250, gold_item=1,
+		damage_avoid_chance=5,
+		defense_fleshy=5, defense_soul=3.75,
+		physics_speed=-0.05,
+	},
 	wear = 0,
 })
 minetest.register_tool(":lottarmor:chestplate_gold", {
 	description = S("Gold Chestplate"),
 	inventory_image = "lottarmor_inv_chestplate_gold.png",
-	groups = {armor_torso=1, defense_fleshy=7, damage_avoid_chance=5, armor_use=250, physics_speed=-0.05, gold_item=1},
+	groups = {
+		armor_torso=1, armor_use=250, gold_item=1,
+		damage_avoid_chance=5,
+		defense_fleshy=7, defense_soul=5.25,
+		physics_speed=-0.05,
+	},
 	wear = 0,
 })
 minetest.register_tool(":lottarmor:leggings_gold", {
 	description = S("Gold Leggings"),
 	inventory_image = "lottarmor_inv_leggings_gold.png",
-	groups = {armor_legs=1, defense_fleshy=4, damage_avoid_chance=3, armor_use=250, physics_speed=-0.07, gold_item=1},
+	groups = {
+		armor_legs=1, armor_use=250, gold_item=1,
+		damage_avoid_chance=3,
+		defense_fleshy=4, defense_soul=3,
+		physics_speed=-0.07,
+	},
 	wear = 0,
 })
 minetest.register_tool(":lottarmor:boots_gold", {
 	description = S("Gold Boots"),
 	inventory_image = "lottarmor_inv_boots_gold.png",
-	groups = {armor_feet=1, defense_fleshy=3, damage_avoid_chance=2, armor_use=250, physics_speed=-0.07, gold_item=1},
+	groups = {
+		armor_feet=1, armor_use=250, gold_item=1,
+		damage_avoid_chance=2,
+		defense_fleshy=3, defense_soul=2.25,
+		physics_speed=-0.07,
+	},
 	wear = 0,
 })
 
