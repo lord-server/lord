@@ -98,7 +98,7 @@ minetest.register_craftitem("lottother:white_am_ring", {
 minetest.register_tool("lottother:nenya", {
 	description = SL("Nenya"),
 	inventory_image = "lottother_nenya_inv.png",
-	groups = { armor_shield = 90, forbidden = 1, armor_use = 30 },
+	groups = { armor_shield = 1, defense_fleshy = 90, forbidden = 1, armor_use = 30 },
 	wear = 0,
 })
 

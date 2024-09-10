@@ -40,11 +40,10 @@ poison_dmg=
 soul_dmg=
 
 # Defense:
-armor_head=
-armor_torso=
-armor_legs=
-armor_feet=
-armor_shield=
+defense_fleshy=fleshly
+defense_fire=from fire
+defense_soul=of soul
+defense_poison=from poison
 
 # Buffs:
 @1@2% chance to avoid a hit=

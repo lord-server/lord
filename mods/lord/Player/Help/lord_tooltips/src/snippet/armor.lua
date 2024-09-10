@@ -4,9 +4,7 @@ local items,                     colorize
 local S = minetest.get_translator(minetest.get_current_modname())
 
 
-local armor_groups = {
-	'armor_head', 'armor_torso', 'armor_legs', 'armor_feet', 'armor_shield'
-}
+local armor_groups = { 'defense_fleshy', 'defense_fire', 'defense_soul', 'defense_poison', }
 
 
 --- @param item_string string

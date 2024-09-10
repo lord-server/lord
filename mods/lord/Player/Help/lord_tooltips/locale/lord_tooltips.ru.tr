@@ -40,11 +40,10 @@ poison_dmg=отравляющий
 soul_dmg=душ
 
 # Defense:
-armor_head=телесная
-armor_torso=телесная
-armor_legs=телесная
-armor_feet=телесная
-armor_shield=телесная
+defense_fleshy=телесная
+defense_fire=от огня
+defense_soul=души
+defense_poison=от отравления
 
 # Buffs:
 @1@2% chance to avoid a hit=@1@2% к шансу отразить удар
