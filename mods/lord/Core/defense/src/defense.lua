@@ -69,19 +69,13 @@ end
 --- @param defense {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
 --- @return {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
 local function rebuild_armor_groups(player, defense)
-	local immortal = player:get_armor_groups().immortal
-	if player:get_meta():get('lott:immunity') ~= nil and (not immortal or immortal == 0) then
-		return { fleshy = 1 }
-	end
-
 	local armor_groups = {}
-	if immortal and immortal ~= 0 then
-		armor_groups.immortal = 1
-	end
-
-	armor_groups.level  = math_floor(math_limit(defense[damage.Type.get_default()], 0, 100) / 20) -- TODO: is this unused ?
 	for _, damage_type in pairs(damage.Type.get_registered()) do
-		armor_groups[damage_type] = 100 - (defense[damage_type] and math_limit(defense[damage_type], 0, 100) or 0)
+		armor_groups[damage_type] = 100 - (
+			defense[damage_type]
+				and math_limit(defense[damage_type], 0, 100)
+				or  0
+		)
 	end
 
 
