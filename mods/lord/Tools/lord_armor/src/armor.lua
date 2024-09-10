@@ -209,8 +209,10 @@ minetest.register_tool(":lottarmor:helmet_galvorn", {
 	description = S("Galvorn Helmet"),
 	inventory_image = "lottarmor_inv_helmet_galvorn.png",
 	groups = {
-		armor_head=1, defense_fleshy=10, damage_avoid_chance=12, armor_use=100, physics_speed = -0.1, forbidden = 1,
-		galvorn_item = 1
+		armor_head=1, armor_use=100, forbidden = 1, galvorn_item = 1,
+		damage_avoid_chance=12,
+		defense_fleshy=10, defense_fire=7.5,
+		physics_speed = -0.1,
 	},
 	wear = 0,
 })
@@ -219,8 +221,10 @@ minetest.register_tool(":lottarmor:chestplate_galvorn", {
 	description = S("Galvorn Chestplate"),
 	inventory_image = "lottarmor_inv_chestplate_galvorn.png",
 	groups = {
-		armor_torso=1, defense_fleshy=12, damage_avoid_chance=13, armor_use=100, physics_speed=-0.08, forbidden=1,
-		galvorn_item=1
+		armor_torso=1, armor_use=100, forbidden=1, galvorn_item=1,
+		damage_avoid_chance=13,
+		defense_fleshy=12, defense_fire=9,
+		physics_speed=-0.08,
 	},
 	wear = 0,
 })
@@ -229,8 +233,10 @@ minetest.register_tool(":lottarmor:leggings_galvorn", {
 	description = S("Galvorn Leggings"),
 	inventory_image = "lottarmor_inv_leggings_galvorn.png",
 	groups = {
-		armor_legs=1, defense_fleshy=9, damage_avoid_chance=9, armor_use=100, physics_speed=-0.1, forbidden=1,
-		galvorn_item=1
+		armor_legs=1, armor_use=100, forbidden=1, galvorn_item=1,
+		damage_avoid_chance=9,
+		defense_fleshy=9, defense_fire=6.75,
+		physics_speed=-0.1,
 	},
 	wear = 0,
 })
@@ -239,8 +245,10 @@ minetest.register_tool(":lottarmor:boots_galvorn", {
 	description = S("Galvorn Boots"),
 	inventory_image = "lottarmor_inv_boots_galvorn.png",
 	groups = {
-		armor_feet=1, defense_fleshy=8, damage_avoid_chance=8, armor_use=100, physics_speed=-0.09, forbidden=1,
-		galvorn_item=1
+		armor_feet=1, armor_use=100, forbidden=1, galvorn_item=1,
+		damage_avoid_chance=8,
+		defense_fleshy=8, defense_fire=6,
+		physics_speed=-0.09,
 	},
 	wear = 0,
 })

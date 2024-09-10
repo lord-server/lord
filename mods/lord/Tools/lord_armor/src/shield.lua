@@ -75,8 +75,10 @@ minetest.register_tool(":lottarmor:shield_galvorn", {
 	description     = SL("Galvorn Shield"),
 	inventory_image = "lottarmor_inv_shield_galvorn.png",
 	groups          = {
-		armor_shield = 1, defense_fleshy = 11, damage_avoid_chance = 10, armor_use = 250,
-		physics_speed = -0.07, physics_sneak = -1, forbidden = 1, galvorn_item = 1
+		armor_shield = 1, armor_use = 250, forbidden = 1, galvorn_item = 1,
+		damage_avoid_chance = 10,
+		defense_fleshy = 11, defense_fire = 8.25,
+		physics_speed = -0.07, physics_sneak = -1,
 	},
 	wear            = 0,
 })
