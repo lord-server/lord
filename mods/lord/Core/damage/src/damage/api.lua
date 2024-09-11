@@ -1,6 +1,7 @@
-local Event     = require('damage.Event')
-local Type      = require('damage.Type')
-local TypeEvent = require('damage.Type.Event')
+local Event      = require('damage.Event')
+local Type       = require('damage.Type')
+local TypeEvent  = require('damage.Type.Event')
+local Periodical = require('damage.Periodical')
 
 
 --- @param player    Player
@@ -19,16 +20,16 @@ end, true)
 
 
 return {
-	Type          = Type,
+	Type         = Type,
 
-	register_type = Type.register,
+	Periodical   = Periodical,
 
 	--- @type fun(callback:damage.callbacks.OnDamage)
-	on_damage     = Event:on(Event.Type.on_damage),
+	on_damage    = Event:on(Event.Type.on_damage),
 
 	--- @param type     string|damage.Type name of damage type (for ex.: `"fleshy"`, `"fire"`, ...)
 	--- @param callback damage.callbacks.OnDamageOf
-	on_damage_of  = function(type, callback)
+	on_damage_of = function(type, callback)
 		TypeEvent:subscribe(type, callback)
 	end
 }

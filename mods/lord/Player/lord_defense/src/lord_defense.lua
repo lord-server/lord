@@ -23,7 +23,7 @@ local function collect_defense_from_armor_equipment(player)
 			for _, type in ipairs(damage.Type.get_registered()) do
 				defense[type] = defense[type] + (item_groups['defense_'..type] or 0)
 			end
-			damage_avoid   = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
+			damage_avoid = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
 
 			local mat = string_match(stack:get_name(), '%:.+_(.+)$')
 			if material.type then

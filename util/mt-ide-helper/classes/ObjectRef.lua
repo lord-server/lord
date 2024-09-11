@@ -42,7 +42,7 @@ function ObjectRef:get_hp() end
 ---  * Is limited to the range of 0 ... 65535 (2^16 - 1)
 ---  * For players: HP are also limited by `hp_max` specified in object properties
 --- @param hp number
---- @param reason string?
+--- @param reason PlayerHPChangeReason
 function ObjectRef:set_hp(hp, reason) end
 --- @return InvRef|nil for players, otherwise returns `nil`
 function ObjectRef:get_inventory() end
