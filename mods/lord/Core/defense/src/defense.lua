@@ -31,11 +31,28 @@ local function register_api()
 	}
 end
 
+local function register_nodes_damage_defense()
+	for _, damage_type in ipairs(damage.Type.get_registered()) do
+		damage.Type:of(damage_type):add_modifier(function(player, hp_change, reason)
+			if reason.type ~= 'node_damage' then  return hp_change  end
+
+			local defense = defense.for_player(player).defense[damage_type] or 0
+			if defense > 0 then
+				hp_change = hp_change * (100 - defense) / 100
+			end
+
+			return hp_change
+		end)
+	end
+end
+
 
 return {
 	--- @param mod minetest.Mod
 	init = function(mod)
 		register_api()
+
+		register_nodes_damage_defense()
 
 		minetest.register_on_leaveplayer(function(player, timed_out)
 			player_defense[player:get_player_name()] = nil
