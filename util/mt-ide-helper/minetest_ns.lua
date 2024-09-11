@@ -501,7 +501,7 @@ function minetest.register_on_rightclickplayer(callback) end
 ---    Non-modifiers receive the final HP change calculated by the modifiers.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4607-L4626)
---- @param callback fun(player:Player, hp_change:number, reason:PlayerHPChangeReason)
+--- @param callback fun(player:Player, hp_change:number, reason:PlayerHPChangeReason)|fun(player:Player, hp_change:number, reason:PlayerHPChangeReason):number,boolean
 --- @param modifier boolean
 function minetest.register_on_player_hpchange(callback, modifier) end
 --- * Called when a player dies

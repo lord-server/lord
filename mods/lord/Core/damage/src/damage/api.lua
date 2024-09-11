@@ -9,10 +9,13 @@ local TypeEvent = require('damage.Type.Event')
 minetest.register_on_player_hpchange(function(player, hp_change, reason)
 	if hp_change < 0 then
 		local damage_type = Type.detect(reason)
+		hp_change = Type:of(damage_type):modify_hp(player, hp_change, reason)
 		Event:trigger(Event.Type.on_damage, player, -hp_change, reason, damage_type)
 		TypeEvent:trigger(damage_type, player, -hp_change, reason)
 	end
-end)
+
+	return hp_change
+end, true)
 
 
 return {
