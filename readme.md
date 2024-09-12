@@ -18,17 +18,19 @@ Minetest - это аналог игры Minecraft с открытым исход
 
 #### Сервер L.O.R.D.
 
-Чтобы начать увлекательное путешествие по миру:
- - [скачайте](https://www.minetest.net/downloads/) и запустите клиет для игры Minetest.
- - переключитесь на вкладку "Join Game" ("Присоединиться к игре")
- - в строке поиска введите `lord` и нажмите "Search" ("Найти")
-
-![Как найти сервер LORD](menu/search-lord.png)
-
- - среди найденных серверов, наш - с названием "\[RU\] L.O.R.D." (кликните на него)
- - справа появится формочка для заполнения
- - придумайте себе ник, не забудьте задать пароль
-
+<h1 style="text-align: center;">
+<a href="https://lord-server.ru/play" title="Play on L.O.R.D."
+    style="
+        background-color: #659b4b;
+        color: #fff;
+        padding: 10px 30px;
+        border: solid #bbb 2px;
+        border-radius: 4px;
+    "
+>
+    Играть!
+</a>
+</h1>
 
 ## Contributing / Помощь проекту
 
