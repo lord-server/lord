@@ -57,13 +57,13 @@ function Resolver.by_reason(reason)
 		local player_or_mob = reason.object
 		local item = player_or_mob:get_wielded_item()
 
-		if player_or_mob:is_player() then                                    -- `damage.Type` of:
+		if player_or_mob:is_player() then                                -- `damage.Type` of:
 			return Resolver.by_definition(item:get_definition())         -- Player wielded item
 				or Resolver.by_definition(minetest.registered_nodes[""]) -- Player hand
 		else
-			return item:get_name() ~= ""                                 -- `damage.Type` of:
+			return item:get_name() ~= ""                             -- `damage.Type` of:
 				and Resolver.by_definition(item:get_definition())    -- Entity wielded item
-				or  player_or_mob:get_luaentity().damage_type            -- Entity hand
+				or  player_or_mob:get_luaentity().damage_type        -- Entity hand
 		end
 
 	end

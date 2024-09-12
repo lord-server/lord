@@ -7,12 +7,12 @@
 --- @field trigger fun(self:self,event:string|damage.Type.Event.Type, ...): void
 local Event = base_classes.Event:extended()
 
---- This array fills when new damage.Type registering
+--- This array fills when new damage.Type` registering
 --- @class damage.Type.Event.Type: string[]
 Event.Type        = {
 	-- fleshy = "fleshy"
 }
---- Initial arrays of subscribers sets when new damage.Type registering
+--- Initial arrays of subscribers sets when new `damage.Type` registering
 --- @type table<string,damage.callbacks.OnDamageOf[]>
 Event.subscribers = {
 	-- fleshy = {}
