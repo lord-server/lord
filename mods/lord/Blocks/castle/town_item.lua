@@ -26,54 +26,6 @@ minetest.register_alias("cottages:straw_bale", "castle:bound_straw")
 minetest.register_alias("darkage:straw_bale", "castle:bound_straw")
 minetest.register_alias("darkage:lamp", "castle:street_light")
 
-minetest.register_node("castle:anvil", {
-	drawtype    = "nodebox",
-	description = S("Anvil"),
-	tiles       = { "castle_steel.png" },
-	groups      = { cracky = 2, falling_node = 1 },
-	paramtype   = "light",
-	paramtype2  = "facedir",
-	node_box    = {
-		type  = "fixed",
-		fixed = {
-			{ -0.5, -0.5, -0.3, 0.5, -0.3, 0.3 },
-			{ -0.4, -0.5, -0.4, 0.4, -0.3, 0.4 },
-			{ -0.3, -0.5, -0.5, 0.3, -0.3, 0.5 },
-			{ -0.4, -0.3, -0.4, -0.1, -0.2, -0.1 },
-			{ -0.4, -0.3, 0.4, -0.1, -0.2, 0.1 },
-			{ 0.4, -0.3, 0.4, 0.1, -0.2, 0.1 },
-			{ 0.4, -0.3, -0.4, 0.1, -0.2, -0.1 },
-			{ -0.3, -0.2, -0.3, 0.3, -0.1, 0.3 },
-			{ -0.2, -0.1, -0.2, 0.2, 0.1, 0.2 },
-			{ -0.3, 0.1, -0.25, 0.3, 0.5, 0.25 },
-			{ -0.4, 0.1, -0.15, -0.3, 0.5, 0.15 },
-			{ -0.4, 0.15, -0.2, -0.3, 0.45, 0.2 },
-			{ -0.5, 0.15, -0.1, -0.4, 0.45, 0.1 },
-			{ -0.5, 0.2, -0.15, -0.4, 0.4, 0.15 },
-			{ -0.6, 0.25, -0.05, -0.5, 0.45, 0.05 },
-			{ -0.6, 0.3, -0.1, -0.5, 0.4, 0.1 },
-			{ -0.7, 0.35, -0.05, -0.6, 0.45, 0.05 },
-			{ 0.3, 0.1, -0.2, 0.4, 0.5, 0.2 },
-			{ 0.4, 0.2, -0.15, 0.5, 0.5, 0.15 },
-			{ 0.5, 0.3, -0.1, 0.6, 0.5, 0.1 },
-			{ 0.6, 0.4, -0.05, 0.7, 0.5, 0.05 },
-			--{-0.500000,-0.500000,-0.500000,0.500000,-0.250000,0.500000},
-			--{-0.187500,-0.500000,-0.375000,0.187500,0.312500,0.375000},
-			--{-0.375000,-0.500000,-0.437500,0.375000,-0.125000,0.437500},
-			--{-0.500000,0.312500,-0.500000,0.500000,0.500000,0.500000},
-			--{-0.375000,0.187500,-0.437500,0.375000,0.425000,0.437500},
-		},
-	},
-})
-
-minetest.register_craft({
-	output = "castle:anvil",
-	recipe = {
-		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },
-		{ "", "default:steel_ingot", "" },
-		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },
-	}
-})
 
 minetest.register_lbm({
 	label = "workbench formspec replacement",
