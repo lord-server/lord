@@ -1,5 +1,81 @@
 # Change Log
 
+## [2024.08](https://github.com/lord-server/lord/releases/tag/2024.08)
+ - New Damage System:
+   - Now dead men attacks with `soul` damage. Closes #1631
+   - Apply defense groups for armors (from `fire`, from `soul`, ...); change tooltips. Closes #1639
+     - add `fire` defense for galvorn armor. Closes #1630
+     - add `poison` defense for silver armor. Closes #1636
+     - add `soul` defense for gold armor. Closes #1638
+   - Weapons:
+     - Add Human Sword with `fire` damage;
+     - Add `poison` damage for Orcish sward. Closes #1629.
+     - Decrease `soul` damage for Elven sword. Closes #1637.
+   - Damaging nodes now damages with specific damage:   Closes #1641
+     - Lava, Fire, CampFire, ... damages with `fire`. Closes #1628
+     - Mordor water, ... with `poison`.
+     - and now we add defense from specific node damage for armors.
+
+ - Media:
+   - Textures:
+     - Armor:
+       - ALL armors were redrawn! Closes #1651
+
+ - Bug Fixing:
+   - Fix painting brushes crafting (#1617). Fixes #1544
+
+ - Translations:
+   - Translations: `signs_lib`: move to native. Closes #1526
+   - Trabslations: `technic_chests`: move to native. Closes #1527. Fixes #1606. Fixes #1223
+   - Add translations for mese-lamps. Also fixes #1547
+   - Translations: `torches`: move to native. Fix luminance in tooltips. Closes #1528. Fixes #1616
+
+ - Technical:
+   - Helpers: add `math.limit`/`math.clamp` function.
+   - Refactoring: `hbarmor`: minimal changes; reformat; doc-blocks. Relates to #1610
+   - Refactoring: `hbarmor`: rename & reorder functions. Relates to #1610
+   - Add ObjectState class. Closes #1515
+   - Refactoring `lottarmor`: extract `defense` mod into `_experimental`. Relates to #1012, #1610
+   - Refactoring `lottarmor`: restruct `defense` mod. Relates to #1012
+   - Refactoring `lottarmor`/`defense`: store calculated values. Relates to #1012, #1610
+   - Refactoring `lottarmor`/`hbarmor`: remove usage global var `armor` of legacy LOTT. Closes #1610, Relates to #1012
+   - Refactoring `lottarmor`: extract `physics` mod. Relates to #1012
+   - `defense`: no recalc `damage_avoid_chance` on each punch; use pre-calc. Closes #1614
+   - Fix luacheck. Relates to #1012
+   - Refactoring `lottarmor`: move models & textures into `appearance` mod. Relates to #1012
+   - Refactoring: REMOVE `LOTTARMOR` !!!!!  Closes #1012, Closes #339
+   - IDE-helper: add `PlayerHPChangeReason` description.
+   - Signs Lib: minimal refactoring. Fixes #1613
+   - Updated painting mod submodule (#1618)
+   - Added areas as submodule (#1619). Fixes #1188.
+   - mt-maker: fix `init.lua` file creation.
+   - Fix `mod.logger` lazy loading.
+   - Damage System: add basic `Core/damage` & `Game/lord_damage`. Closes #1622
+   - Damage System: Basic: add `damage.Type`; and events; add external API. Closes #1620. Closes #1509
+   - Damage System: add usege example into `lord_damage`. Relates to #1623, #1626
+   - Damage System: register our (LORD) `damage.Types`. Closes #1623
+   - Damage System: add `damage.Type` detection for damaging nodes. Relates to #1626
+   - Damage System: add damage types for damaging nodes; add tooltipd sedcription. Closes #1628
+   - Damage System: add particles for each `damage.Type`. Closes #1624
+   - Damage System: pass damage type to `on_damage` subscribers. Relates to #1509, #1620
+   - Damage System: add `damage.Type` detection for hitting tools. Closes to #1626
+   - Damage System: fix typo. Relates to #1626
+   - Damage System: init & use all `damage.Type`s for `defense` mod. Closes #1632
+   - IDE-helper: add descriptions for `Entity` class
+   - Damage System: detect `damage.Type` of Playey|Entity hand. Closes #1634
+   - Refactoring: `Defense`: move into `Core`. Relates to #1635
+   - Refactoring: `Defense`: remove unused; rename mod. Relates to #1635
+   - Refactoring: `Defense`: move `set_armor_groups` into `PlayerDefense`. Relates to #1635
+   - Refactoring: `Defense`: rename var; fix `for_player()`. Relates to #1635
+   - Refactoring: `Defense`: separate `lord_defense` mod. Closes #1635
+   - Refactoring: `Defense`: add Events `on_init()` & `on_change`; use for hud. Closes #1640
+   - Refactoring: `Defense`: apply defense groups for armors; change tooltips. Closes #1639
+   - Damage System: ability to integrate damage modifier. Closes #1642
+   - Damage System: add ability to apply periodical damage. Closes #1625
+   - Update `readme.md` roles.
+   - Update `readme.md`: add `play` button.
+   - Artisan Benches: move `castle:anvil` into separate mod. Closes #1652
+
 ## [2024.07.II](https://github.com/lord-server/lord/releases/tag/2024.07.II)
  - Balance: Food:
    - change all points for all food;
