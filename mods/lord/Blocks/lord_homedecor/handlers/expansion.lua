@@ -1,3 +1,5 @@
+local S = minetest.get_translator("lord_homedecor")
+
 -- vectors to place one node next to or behind another
 
 lord_homedecor.fdir_to_right = {
@@ -244,7 +246,6 @@ local function is_same_banister_at(pos, compared_name)
 	return def_name == node_name
 end
 
-
 --- @param itemstack     ItemStack
 --- @param placer        Player
 --- @param pointed_thing pointed_thing
@@ -254,8 +255,13 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 
 	local pos = select_node(pointed_thing)
 	if not pos then return itemstack end
+	local node = minetest.get_node(pos)
+	local def = minetest.registered_nodes[node.name]
+
 
 	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+	local meta = itemstack:get_meta()
+	local pindex = meta:get_int("palette_index")
 
 	local abovepos  = { x=pos.x, y=pos.y+1, z=pos.z }
 	local abovenode = minetest.get_node(abovepos)
@@ -263,13 +269,18 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	local adef = minetest.registered_nodes[abovenode.name]
 	local placer_name = placer:get_player_name()
 
+	if not  (def and def.buildable_to) and not is_same_banister_at(pos, itemstack:get_name()) then
+		minetest.chat_send_player(placer_name, S("Cannot place - the space is occupied by another block!"))
+		return itemstack
+	end
+
 	if not (adef and adef.buildable_to) then
-		minetest.chat_send_player(placer_name, "Not enough room - the upper space is occupied!" )
+		minetest.chat_send_player(placer_name, S("Not enough room - the upper space is occupied!"))
 		return itemstack
 	end
 
 	if minetest.is_protected(abovepos, placer_name) then
-		minetest.chat_send_player(placer_name, "Someone already owns that spot." )
+		minetest.chat_send_player(placer_name, S("Someone already owns that spot."))
 		return itemstack
 	end
 
@@ -356,14 +367,6 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 		fdir = right_fwd_node.param2
 		pos = fwd_pos
 		new_place_name = string.replace(right_fwd_node.name, "_diagonal_.-$", "_horizontal")
-
-	-- try to follow a horizontal with another of the same
-	elseif left_node and string.find(left_node.name, "lord_homedecor:banister_.*_horizontal") then
-		fdir = left_node.param2
-		new_place_name = left_node.name
-	elseif right_node and string.find(right_node.name, "lord_homedecor:banister_.*_horizontal") then
-		fdir = right_node.param2
-		new_place_name = right_node.name
 	end
 
 	-- manually invert left-right orientation
@@ -376,11 +379,10 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	end
 
 	local take_item = not is_same_banister_at(pos, new_place_name)
-	minetest.set_node(pos, {name = new_place_name, param2 = fdir})
 	if take_item then
 		itemstack:take_item()
 	end
-
+	minetest.set_node(pos, {name = new_place_name, param2 = fdir+pindex})
 	return itemstack
 end
 
