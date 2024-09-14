@@ -22,11 +22,11 @@ end
 -- food functions
 local food = hbhunger.food
 
-function hbhunger.register_food(name, hunger_change, replace_with_item, poisen, heal, sound)
+function hbhunger.register_food(name, hunger_change, replace_with_item, poison, heal, sound)
 	food[name] = {}
 	food[name].saturation = hunger_change	-- hunger points added
 	food[name].replace = replace_with_item	-- what item is given back after eating
-	food[name].poisen = poisen				-- time its poisening
+	food[name].poison = poison				-- time its poisoning
 	food[name].healing = heal				-- amount of HP
 	food[name].sound = sound				-- special sound that is played when eating
 end
@@ -43,15 +43,15 @@ function hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thi
 		def.saturation = hp_change
 		def.replace = replace_with_item
 	end
-	local func = hbhunger.item_eat(def.saturation, def.replace, def.poisen, def.healing, def.sound)
+	local func = hbhunger.item_eat(def.saturation, def.replace, def.poison, def.healing, def.sound)
 	return func(itemstack, user, pointed_thing)
 end
 
-local function poisenp(tick, poisen, time_left, player, player_name)
-	local time_full = math.abs(poisen)
+local function poisonp(tick, poison, time_left, player, player_name)
+	local time_full = math.abs(poison)
 	time_left = time_left + tick
 	if time_left < time_full then
-		minetest.after(tick, poisenp, tick, poisen, time_left, player, player_name)
+		minetest.after(tick, poisonp, tick, poison, time_left, player, player_name)
 	else
 		hbhunger.poisonings[player_name] = hbhunger.poisonings[player_name] - 1
 		if hbhunger.poisonings[player_name] <= 0 then
@@ -61,12 +61,12 @@ local function poisenp(tick, poisen, time_left, player, player_name)
 	end
 
 	local hp = player:get_hp()
-	if hp and (hp-1 > 0) and (poisen < 0) then
+	if hp and (hp-1 > 0) and (poison < 0) then
 		player:set_hp(hp - 1)
 	end
 end
 
-function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound)
+function hbhunger.item_eat(hunger_change, replace_with_item, poison, heal, sound)
 	return function(itemstack, user, pointed_thing)
 		if itemstack:take_item() ~= nil and user ~= nil then
 			local name = user:get_player_name()
@@ -97,17 +97,17 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poisen, heal, sound
 				user:set_hp(hp)
 			end
 			-- Poison
-			if poisen then
+			if poison then
 				-- Set poison bar
-				local hotbar_poisen_texture
-				if poisen < 0 then
-					hotbar_poisen_texture = "hbhunger_icon_health_poison.png"
+				local hotbar_poison_texture
+				if poison < 0 then
+					hotbar_poison_texture = "hbhunger_icon_health_poison.png"
 				else
-					hotbar_poisen_texture = "hbhunger_icon_health_regen.png"
+					hotbar_poison_texture = "hbhunger_icon_health_regen.png"
 				end
-				hb.change_hudbar(user, "health", nil, nil, hotbar_poisen_texture, nil, hotbar_poisen_texture)
+				hb.change_hudbar(user, "health", nil, nil, hotbar_poison_texture, nil, hotbar_poison_texture)
 				hbhunger.poisonings[name] = hbhunger.poisonings[name] + 1
-				poisenp(1, poisen, 0, user, user:get_player_name())
+				poisonp(1, poison, 0, user, user:get_player_name())
 			end
 
 			if itemstack:get_count() == 0 then
