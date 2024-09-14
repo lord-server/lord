@@ -19,5 +19,6 @@ function Effect:new(name, type)
 	return setmetatable(self, { __index = class })
 end
 
+-- TODO: function self.start() / self.stop() github: #1667
 
 return Effect

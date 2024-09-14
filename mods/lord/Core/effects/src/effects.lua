@@ -13,6 +13,7 @@ local function register_api()
 		for_player     = function(player)
 
 		end
+		-- TODO: apply = effects.for_player():apply() (github: #1668)
 	}
 end
 
