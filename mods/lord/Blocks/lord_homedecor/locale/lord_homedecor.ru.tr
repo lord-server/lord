@@ -163,3 +163,6 @@ Wooden Shutter (Grey)=Деревянные ставни @n(Серые)
 Wooden Shutter (White)=Деревянные ставни @n(Белые)
 Stained Glass=Витраж
 Window flowerbox=Цветочный ящик для окна
+Cannot place - the space is occupied by another block!=Невозможно установить: здесь находится другой блок!
+Not enough room - the upper space is occupied!=Недостаточно места: сверху находится блок!
+Someone already owns that spot.=Это место защищено.
