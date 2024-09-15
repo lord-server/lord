@@ -3,6 +3,16 @@ local DS = package.config:sub(1,1)
 local command_dir = debug.getinfo(1, 'S').source:gsub("@./", ""):gsub(".lua$", "")
 
 
+--- @param find    string
+--- @param replace string
+--- @return string
+function string:replace(find, replace)
+	local start_pos, end_pos = self:find(find, 1, true)
+	if not start_pos then return self end
+
+	return self:sub(1, start_pos-1) .. replace .. self:sub(end_pos+1)
+end
+
 --- @param filename string
 --- @param variables table<string,string>
 --- @return string compiled file content
@@ -29,46 +39,39 @@ local function create_file_with(filename, content, mode)
 	file:close()
 end
 
-local function create_dirs(mod_name, app)
-	app.lfs.mkdir(mod_name)
-	app.lfs.mkdir(mod_name .. DS .. "locale")
-	app.lfs.mkdir(mod_name .. DS .. "src")
-	app.lfs.mkdir(mod_name .. DS .. "src" .. DS .. mod_name)
-	app.lfs.mkdir(mod_name .. DS .. "textures")
-
-	-- TODO: recursively walk through `templates`
-	--local templates_dir = app.root_path .. command_dir .. DS .. "templates"
-	--for filename in app.lfs.dir(templates_dir) do
-	--	if filename ~= "." and filename ~= ".." then
-	--		print(filename)
-	--	end
-	--end
+--- @param dir string
+--- @param app Lummander
+--- @param callback fun(is_dir:boolean,filename:string,filepath:string)
+local function scan_directory(dir, app, callback)
+	for filename, file in app.lfs.dir(dir) do
+		if filename ~= "." and filename ~= ".." then
+			local filepath = dir .. DS .. filename
+			local file_type = app.lfs.attributes(filepath).mode
+			if file_type == "directory" then
+				callback(true, filename, filepath)
+				scan_directory(filepath, app, callback)
+			else
+				callback(false, filename, filepath)
+			end
+		end
+	end
 end
 
-local function create_files(mod_name, app)
+local function create_dirs_and_files(mod_name, app)
+	app.lfs.mkdir(mod_name)
 
 	local templates_dir = app.root_path .. command_dir .. DS .. "templates"
-
-
-	create_file_with(mod_name .. DS .. "locale" .. DS .. mod_name .. ".en.tr", "# textdomain: " .. mod_name)
-	create_file_with(mod_name .. DS .. "locale" .. DS .. mod_name .. ".ru.tr", "# textdomain: " .. mod_name)
-
-	create_file_with(mod_name .. DS .. "mod.conf", "name = " .. mod_name)
-
-	create_file_with(
-		mod_name .. DS .. "init.lua",
-		tpl_compile(templates_dir .. DS .. "init.lua", {
-			mod_name = mod_name
-		})
-	)
-
-
-	create_file_with(
-		mod_name .. DS .. "src" .. DS .. mod_name..".lua",
-		tpl_compile(templates_dir .. DS .. "src" .. DS .. "[[mod_name]].lua", {
-			mod_name = mod_name
-		})
-	)
+	scan_directory(templates_dir, app, function(is_dir, tpl_filename, tpl_filepath)
+		local filename = tpl_filepath:replace(templates_dir, mod_name)
+		filename       = filename:replace('[[mod_name]]', mod_name)
+		if is_dir then
+			app.lfs.mkdir(filename)
+		else
+			create_file_with(filename, tpl_compile(tpl_filepath, {
+				mod_name = mod_name
+			}))
+		end
+	end)
 end
 
 
@@ -79,8 +82,7 @@ return {
 		mod_name = "Name of creating mod",
 	},
 	action = function(parsed, command, app)
-		create_dirs(parsed.mod_name, app)
-		create_files(parsed.mod_name, app)
+		create_dirs_and_files(parsed.mod_name, app)
 
 		app.theme.success("Backbone for MT Mod `" .. parsed.mod_name .. "` created!")
 	end,
