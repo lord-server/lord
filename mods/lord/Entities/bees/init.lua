@@ -324,7 +324,10 @@ local S = minetest.get_translator("bees")
   minetest.register_craftitem('bees:bottle_honey', {
     description = S('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
-    on_use = minetest.item_eat(22),
+    on_use = function(itemstack, user, pointed_thing)
+      minetest.give_or_drop(user, ItemStack("vessels:glass_bottle"))
+      return minetest.do_item_eat(22, nil, itemstack, user, pointed_thing)
+    end,
     _tt_food_hp = 22,
   })
 
