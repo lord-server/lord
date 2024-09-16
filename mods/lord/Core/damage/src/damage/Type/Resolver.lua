@@ -59,7 +59,7 @@ function Resolver.by_reason(reason)
 
 		if player_or_mob:is_player() then                                -- `damage.Type` of:
 			return Resolver.by_definition(item:get_definition())         -- Player wielded item
-				or Resolver.by_definition(minetest.registered_nodes[""]) -- Player hand
+				or Resolver.by_definition(minetest.registered_items[""]) -- Player hand
 		else
 			return item:get_name() ~= ""                             -- `damage.Type` of:
 				and Resolver.by_definition(item:get_definition())    -- Entity wielded item
