@@ -12,6 +12,20 @@ function Processor.init()
 	end)
 end
 
+--- @param player   Player
+--- @param effect   effects.Effect
+--- @param amount   number
+--- @param duration number
+--- @param after_stop fun()
+function Processor.run_effect_for(player, effect, amount, duration, after_stop)
+	effect:start(player, amount)
+	-- TODO: effect can be reapplied. #1650
+	minetest.after(duration, function()
+		-- TODO: the `player` could have already left. #1673
+		effect:stop(player)
+		after_stop(player, effect)
+	end)
+end
 
 
 return Processor

@@ -18,5 +18,10 @@ function Registered.all()
 	return registered_effects
 end
 
+--- @param name string
+function Registered.get(name)
+	return registered_effects[name]
+end
+
 
 return Registered
