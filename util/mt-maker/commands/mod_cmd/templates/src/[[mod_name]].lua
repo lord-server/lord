@@ -10,7 +10,8 @@ end
 
 
 return {
-	init = function()
+--- @param mod minetest.Mod
+	init = function(mod)
 		register_api()
 	end,
 }
