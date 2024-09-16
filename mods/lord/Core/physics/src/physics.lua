@@ -1,12 +1,41 @@
 local ipairs
     = ipairs
 
+local PlayerPhysics = require('physics.PlayerPhysics')
+local Event         = require('physics.Event')
+
 
 --- @type table<number,string>|string[]
 local PHYSICS_TYPES = { "jump", "speed", "gravity" }
 
---- @type table<string,{jump:number,speed:number,gravity:number}>
-local player_physics = {} -- luacheck: ignore variable player_physics is mutated but never accessed
+--- @type physics.PlayerPhysics[]|table<string,physics.PlayerPhysics>
+local player_physics = {}
+
+
+physics = {} -- luacheck: ignore unused global variable physics
+
+local function register_api()
+	_G.physics = {
+		--- @param player Player
+		--- @return physics.PlayerPhysics
+		for_player = function(player)
+			local name = player:get_player_name()
+			if not player_physics[name] then
+				player_physics[name] = PlayerPhysics:new(player)
+			else
+				player_physics[name]:refresh_player(player)
+			end
+
+			return player_physics[name]
+		end,
+
+		--- @type fun(callback:physics.callback)
+		on_change = Event:on(Event.Type.on_change),
+
+		--- @type fun(callback:physics.callback)
+		on_init   = Event:on(Event.Type.on_init),
+	}
+end
 
 --- @param player        Player
 local function collect_physics(player)
@@ -17,7 +46,7 @@ local function collect_physics(player)
 			for _, type in ipairs(PHYSICS_TYPES) do
 				local value = item_groups["physics_" .. type]
 				if value then
-					physics[type] = physics[type] + value
+					physics[type] = (physics[type] or 1) + value
 				end
 			end
 		end
@@ -28,29 +57,18 @@ end
 
 --- @param player Player
 local function set_player_physics(player)
-	local name = player:get_player_name()
-	if not name then
-		return
-	end
-
 	local physics_o = collect_physics(player)
-	player:set_physics_override(physics_o)
-	player_physics[name].jump    = physics_o.jump
-	player_physics[name].speed   = physics_o.speed
-	player_physics[name].gravity = physics_o.gravity
+
+	physics.for_player(player):set(physics_o)
 end
 
 
 return {
 	--- @param mod minetest.Mod
 	init = function(mod)
-		equipment.on_load(equipment.Kind.ARMOR, function(player)
-			player_physics[player:get_player_name()] = {
-				jump      = 1,
-				speed     = 1,
-				gravity   = 1,
-			}
+		register_api()
 
+		equipment.on_load(equipment.Kind.ARMOR, function(player)
 			set_player_physics(player)
 		end)
 		equipment.on_change(equipment.Kind.ARMOR, function(player)
