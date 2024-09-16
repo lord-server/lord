@@ -42,9 +42,22 @@ end
 ---	    end
 --- ```
 --- @param kind string    kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>
---- @return fun(tbl:table<number,ItemStack>):number,ItemStack
+--- @return fun(items:table<number,ItemStack>):number,ItemStack
 function ForPlayer:items(kind)
 	return ipairs(self.player:get_inventory():get_list(kind))
+end
+
+--- @return fun(items:ItemStack[]):number,ItemStack
+function ForPlayer:not_empty(kind)
+	--- @param items ItemStack[]
+	---
+	return function(items, slot)
+		slot = slot + 1
+		local item = items[slot]
+		if item and not item:is_empty() then
+			return slot, item
+		end
+	end, self.player:get_inventory():get_list(kind), 0
 end
 
 --- @param kind string    kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>

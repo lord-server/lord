@@ -17,22 +17,20 @@ local function collect_defense_from_armor_equipment(player)
 
 	local material = { type = nil, count = 1 } -- detection of same material armor-set
 
-	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
-		if stack:get_count() == 1 then
-			local item_groups = stack:get_definition().groups
-			for _, type in ipairs(damage.Type.get_registered()) do
-				defense[type] = defense[type] + (item_groups['defense_'..type] or 0)
-			end
-			damage_avoid = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
+	for slot, stack in equipment.for_player(player):not_empty(equipment.Kind.ARMOR) do
+		local item_groups = stack:get_definition().groups
+		for _, type in ipairs(damage.Type.get_registered()) do
+			defense[type] = defense[type] + (item_groups['defense_'..type] or 0)
+		end
+		damage_avoid = damage_avoid + (item_groups['damage_avoid_chance'] or 0)
 
-			local mat = string_match(stack:get_name(), '%:.+_(.+)$')
-			if material.type then
-				if material.type == mat then
-					material.count = material.count + 1
-				end
-			else
-				material.type = mat
+		local mat = string_match(stack:get_name(), '%:.+_(.+)$')
+		if material.type then
+			if material.type == mat then
+				material.count = material.count + 1
 			end
+		else
+			material.type = mat
 		end
 	end
 

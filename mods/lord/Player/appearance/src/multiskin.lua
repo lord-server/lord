@@ -72,10 +72,8 @@ player_api.register_model("lottarmor_character.b3d", {
 --- @return table|string[]
 local function get_equip_textures(kind, player)
 	local textures = {}
-	for _, item in equipment.for_player(player):items(kind) do
-		if (not item:is_empty()) then
-			table_insert(textures, item:get_name():gsub("%:", "_") .. ".png")
-		end
+	for _, item in equipment.for_player(player):not_empty(kind) do
+		table_insert(textures, item:get_name():gsub("%:", "_") .. ".png")
 	end
 
 	return textures

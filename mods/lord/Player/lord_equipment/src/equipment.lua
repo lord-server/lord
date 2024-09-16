@@ -28,13 +28,11 @@ local function item_wear(stack, slot, player)
 end
 
 local function handle_armor_wear(player)
-	for slot, stack in equipment.for_player(player):items(equipment.Kind.ARMOR) do
-		if stack:get_count() > 0 then
-			-- chance that the hit landed on this slot (on this element of the armor)
-			if math_random(2) == 1 then
-				item_wear(stack, slot, player)
-				break -- the hit could get only one element of the armor
-			end
+	for slot, stack in equipment.for_player(player):not_empty(equipment.Kind.ARMOR) do
+		-- chance that the hit landed on this slot (on this element of the armor)
+		if math_random(2) == 1 then
+			item_wear(stack, slot, player)
+			break -- the hit could get only one element of the armor
 		end
 	end
 end

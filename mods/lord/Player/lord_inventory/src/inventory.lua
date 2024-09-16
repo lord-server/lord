@@ -50,12 +50,10 @@ end
 --- @return string
 local function overlay_equip_previews(player, kind)
 	local previews = {}
-	for _, item in equipment.for_player(player):items(kind) do
-		if not item:is_empty() then
-			local item_groups = item:get_definition().groups
-			if not item_groups["no_preview"] then
-				table.insert(previews, item:get_name():replace("%:", "_") .. "_preview.png")
-			end
+	for _, item in equipment.for_player(player):not_empty(kind) do
+		local item_groups = item:get_definition().groups
+		if not item_groups["no_preview"] then
+			table.insert(previews, item:get_name():replace("%:", "_") .. "_preview.png")
 		end
 	end
 
