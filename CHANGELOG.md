@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.08.p2](https://github.com/lord-server/lord/releases/tag/2024.08.p2)
+ - Fix the crash when throwing a potion arrow into player. Closes #1674 (#1675)
+
 ## [2024.08.p1](https://github.com/lord-server/lord/releases/tag/2024.08.p1)
  - Fix tapestry collision_box; convert tapestry.lua to tabs. Closes #1645 (#1661)
  - Fix not returning an empty bottle on drinking honey. Closes #1649 (#1662)
