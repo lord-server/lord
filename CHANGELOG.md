@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.08.p3](https://github.com/lord-server/lord/releases/tag/2024.08.p3)
+ - Fix repair via shop
+
 ## [2024.08.p2](https://github.com/lord-server/lord/releases/tag/2024.08.p2)
  - Fix the crash when throwing a potion arrow into player. Closes #1674 (#1675)
 

@@ -1,21 +1,31 @@
--- lord_money/shop.lua
-
--- Load support for MT game translation
 local S = minetest.get_translator("lord_money")
 
---- @param listname string
+
 --- @param stack ItemStack
 --- @param player ObjectRef
 ---
---- @return bool
-local function has_wear(listname, stack, player)
-	if listname == "owner_gives" or listname == "stock"  then --проверка износа в "Предложение" и "Склад"
-		if stack:get_wear() > 0 then
-			minetest.chat_send_player(player:get_player_name(), S("This item must be wear-free: ") .. stack:get_description())
-			return true
+--- @return boolean
+local function has_wear(stack, player)
+	if stack:get_wear() > 0 then
+		minetest.chat_send_player(player:get_player_name(), S("This item must be wear-free: ") .. stack:get_description())
+		return true
+	end
+
+	return false
+end
+
+--- @param inventory InvRef
+--- @param list_name string
+--- @param player    Player send messages to
+local function inv_list_has_wear_items(inventory, list_name, player)
+	local has_wear_items = false
+	for i, stack in pairs(inventory:get_list(list_name)) do
+		if has_wear(stack, player) then
+			has_wear_items = true
 		end
 	end
-	return false
+
+	return has_wear_items
 end
 
 --- @param meta NodeMetaRef
@@ -40,9 +50,7 @@ end
 --- @param name string
 local function remove_member(meta, name)
 	local list = get_members_list(meta)
-	print(dump(list))
 	local swap_list = table.key_value_swap(list)
-	print(dump(swap_list))
 	table.remove(list, swap_list[name])
 	meta:set_string("members", table.concat(list, " "))
 end
@@ -187,26 +195,28 @@ minetest.register_node("lord_money:shop", {
 	end,
 
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		if shop.player_has_access(player, pos) then
-			local stack_from = minetest.get_meta(pos):get_inventory():get_stack(from_list, from_index)
-			if has_wear(to_list, stack_from, player) then
-				return 0
-			else
-				return count
-			end
+		if not shop.player_has_access(player, pos) then
+			return 0
 		end
-		return 0
+
+		local stack_from = minetest.get_meta(pos):get_inventory():get_stack(from_list, from_index)
+		if has_wear(stack_from, player) then
+			return 0
+		end
+
+		return count
 	end,
 
+	--- @param stack ItemStack
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		if shop.player_has_access(player, pos) then
-			if has_wear(listname, stack, player) then
-				return 0
-			else
-				return stack:get_count()
-			end
+		if not shop.player_has_access(player, pos) or has_wear(stack, player) then
+			return 0
 		end
-		return 0
+		if has_wear(stack, player) then
+			return 0
+		end
+
+		return stack:get_count()
 	end,
 
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
@@ -243,12 +253,12 @@ minetest.register_craft({
 minetest.register_on_player_receive_fields(
 	function(sender, formname, fields)
 		if formname ~= "lord_money:shop_formspec" then return end-- проверка соответсвия формы
-		local name = sender:get_player_name() -- имя покупателя
-		local pos = minetest.pos_to_string(shop.current_shop[name]) -- координаты магазина для логов type string
-		local meta = minetest.get_meta(shop.current_shop[name]) -- метаданные магазина
-		local pinv = sender:get_inventory() --инвентари покупателя
+		local name       = sender:get_player_name() -- имя покупателя
+		local pos        = minetest.pos_to_string(shop.current_shop[name]) -- координаты магазина для логов type string
+		local meta       = minetest.get_meta(shop.current_shop[name]) -- метаданные магазина
+		local player_inv = sender:get_inventory() --инвентари покупателя
 		local is_endless = (meta:get_string("is_endless") == "true")
-		local is_admin = minetest.get_player_privs(name).server
+		local is_admin   = minetest.get_player_privs(name).server
 
 		if fields.is_endless then
 			meta:set_string("is_endless", fields.is_endless)
@@ -259,21 +269,26 @@ minetest.register_on_player_receive_fields(
 			if minetest.get_modpath("mail_list") then -- если есть мод взаимодействия с e-mail
 				mail = get_mail(meta:get_string("owner")) -- адрес владельца
 			end
-			local minv = meta:get_inventory() -- инвентари магазина
-			local wants = minv:get_list("owner_wants") -- цена
-			local gives = minv:get_list("owner_gives") -- товар
+			local shop_inv = meta:get_inventory() -- инвентари магазина
+			local wants    = shop_inv:get_list("owner_wants") -- цена
+			local gives    = shop_inv:get_list("owner_gives") -- товар
 
 			-- ПРОВЕРКА НАЛИЧИЯ ЦЕНЫ И ПРЕДЛОЖЕНИЯ
-			if minv:is_empty("owner_wants") or minv:is_empty("owner_gives") then -- защита от бесплатного прилавка
+			if shop_inv:is_empty("owner_wants") or shop_inv:is_empty("owner_gives") then -- защита от бесплатного прилавка
 				minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но в магазине " ..
 					"пусты ячейки цены или предложения.", pos, name))
 				minetest.chat_send_player(name, S("Exchange shop is not working, please contact the seller"))
 				return
 			end
 
+			if inv_list_has_wear_items(player_inv, "customer_gives", sender) then
+				-- warn: messages about weared items sends to player inside the check function
+				return
+			end
+
 			-- ПРОВЕРКА СООТВЕТСТВИЯ ОПЛАТЫ ЦЕНЕ
 			for _, stack in pairs(wants) do
-				if not pinv:contains_item("customer_gives", stack, true) then --If false, only the items' names are compared
+				if not player_inv:contains_item("customer_gives", stack, true) then --If false, only the items' names are compared
 					minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но его " ..
 						"оплата не соответствует цене.", pos, name))
 					minetest.chat_send_player(name, S("Exchange can not be done, check if you put all items!"))
@@ -283,7 +298,7 @@ minetest.register_on_player_receive_fields(
 
 			-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА В СТЭКЕ "Приобретённый товар"
 			for _, stack in pairs(gives) do
-				if not pinv:room_for_item("customer_gets", stack) then
+				if not player_inv:room_for_item("customer_gets", stack) then
 					minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но у него " ..
 						"не оказалось свободного места.", pos, name))
 					minetest.chat_send_player(name, S("Exchange can not be done, check if you have place!"))
@@ -295,7 +310,7 @@ minetest.register_on_player_receive_fields(
 			if not is_endless then
 				-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
 				for _, stack in pairs(gives) do
-					if not minv:contains_item("stock", stack, true) then --If false, only the items' names are compared
+					if not shop_inv:contains_item("stock", stack, true) then --If false, only the items' names are compared
 						minetest.log("action", string.format("магазин %s - игрок %s пытался совершить обмен, но " ..
 							"но товар на складе кончился.", pos, name))
 						minetest.chat_send_player(name, S("Exchange can not be done, ended goods."))
@@ -308,7 +323,7 @@ minetest.register_on_player_receive_fields(
 				end
 				-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА НА СКЛАДЕ
 				for _, stack in pairs(wants) do
-					if not minv:room_for_item("customers_gave", stack) then
+					if not shop_inv:room_for_item("customers_gave", stack) then
 						if mail ~= nil and mail ~= "" then
 							local report = S("In your store").." "..pos.." "..S("ended place.")
 							os.execute("echo '"..report.."' | mail -s 'store' "..mail)
@@ -323,16 +338,16 @@ minetest.register_on_player_receive_fields(
 
 			-- ВРОДЕ ВСЁ НОРМАЛЬНО, ПРОИЗВОДИМ ОБМЕН
 				for _, stack in pairs(wants) do -- для всех стеков "Цена"
-					pinv:remove_item("customer_gives", stack) -- забираем у игрока из "Оплата"
+					player_inv:remove_item("customer_gives", stack) -- забираем у игрока из "Оплата"
 					if not is_endless then
-						minv:add_item("customers_gave", stack) -- помещаем в "Выручка"
+						shop_inv:add_item("customers_gave", stack) -- помещаем в "Выручка"
 					end
 				end
 				for _, stack in pairs(gives) do -- для всех стеков "Предложение"
 					if not is_endless then
-						minv:remove_item("stock", stack) -- забираем со "Склад"
+						shop_inv:remove_item("stock", stack) -- забираем со "Склад"
 					end
-					pinv:add_item("customer_gets", stack) -- добавляем игроку в "Приобретённый товар"
+					player_inv:add_item("customer_gets", stack) -- добавляем игроку в "Приобретённый товар"
 				end
 				minetest.log("action", string.format("магазин %s - игрок %s успешно произвёл обмен.", pos, name))
 				minetest.chat_send_player(name, S("Exchanged!"))
@@ -364,16 +379,16 @@ minetest.register_on_player_receive_fields(
 
 		elseif fields.quit then -- выход с формы, возвращаем остатки игроку в инвентарь
 			for _,list in pairs({"customer_gives", "customer_gets"}) do
-				if not pinv:is_empty(list) then
-					for i, stack in ipairs(pinv:get_list(list)) do
-						if pinv:room_for_item("main", stack) then
-							pinv:add_item("main", stack) -- если помещается, кидаем в main,
+				if not player_inv:is_empty(list) then
+					for i, stack in ipairs(player_inv:get_list(list)) do
+						if player_inv:room_for_item("main", stack) then
+							player_inv:add_item("main", stack) -- если помещается, кидаем в main,
 						else
 							minetest.log("action", string.format("магазин %s - игрок %s инвентарь полон, товар %s " ..
 								"бросили рядом", pos, name, stack:get_name()))
 							minetest.item_drop(stack, sender, sender:get_pos()) -- если нет - кидаем на пол
 						end
-						pinv:set_stack(list, i, nil) -- Удаляем элемент i из list
+						player_inv:set_stack(list, i, nil) -- Удаляем элемент i из list
 					end
 				end
 			end
