@@ -169,15 +169,10 @@ Pink Tapestry (Very Long)=Pink Tapestry (Very Long)
 Jailbars=Jailbars
 
 ### town_item.lua ###
-Workbench=Workbench
 Dungeon Stone=Dungeon Stone
 Bound Straw=Bound Straw
 Light Block=Light Block
 Paving Stone=Paving Stone
-
-Source Material=Source Material
-Recipe to Use=Recipe to Use
-Craft Output=Craft Output
 
 ### murder_hole.lua ###
 Brick Block Murder Hole=Brick Block Murder Hole

@@ -169,15 +169,10 @@ Pink Tapestry (Very Long)=Розовый гобелен (очень длинны
 Jailbars=Решётка
 
 ### town_item.lua ###
-Workbench=Рабочий стол
 Dungeon Stone=Малахит
 Bound Straw=Обвязанная солома
 Light Block=Витражный светильник
 Paving Stone=Брусчатка
-
-Source Material=Материалы:
-Recipe to Use=Схема:
-Craft Output=Результат:
 
 ### murder_hole.lua ###
 Brick Block Murder Hole=Кирпичная дыра-убийца
