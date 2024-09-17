@@ -3,7 +3,7 @@ local SL = minetest.get_translator("mail_list")
 local file_name = minetest.get_worldpath() .. "/mail_list.txt"
 
 function get_mail(name)
-	local tab = minetest.deserialize(io.read_from_file(file_name))
+	local tab = minetest.deserialize(io.read_from_file(file_name) or '')
 	if not tab then return end
 	if not name then
 		return tab
