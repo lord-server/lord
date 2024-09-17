@@ -17,7 +17,7 @@ function Effect:new(name, type)
 	return setmetatable(self, { __index = class })
 end
 
---- @param start fun(self:effects.Effect,player:Player,amount:number)
+--- @param start fun(self:effects.Effect,player:Player,amount:number,duration:number)
 --- @return effects.Effect
 function Effect:on_start(start)
 	self.start = start

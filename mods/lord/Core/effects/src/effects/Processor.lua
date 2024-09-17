@@ -18,7 +18,7 @@ end
 --- @param duration number
 --- @param after_stop fun()
 function Processor.run_effect_for(player, effect, amount, duration, after_stop)
-	effect:start(player, amount)
+	effect:start(player, amount, duration)
 	-- TODO: effect can be reapplied. #1650
 	minetest.after(duration, function()
 		-- TODO: the `player` could have already left. #1673
