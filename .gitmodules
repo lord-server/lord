@@ -97,3 +97,6 @@
 [submodule "mods/_various/areas"]
 	path = mods/_various/areas
 	url = https://github.com/minetest-mods/areas
+[submodule "mods/_various/j_mute"]
+	path = mods/_various/j_mute
+	url = https://github.com/Minetest-j45/j_mute
