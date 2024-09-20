@@ -227,7 +227,7 @@ function minetest.get_craft_result(input)
 		for i, recipe in pairs(recipes) do
 			if table_equals(recipe.input, shifted_grid) then
 				output.item = ItemStack(recipe.output)
-				input.items = decrement_input(input, recipe)
+				input = decrement_input(input, recipe)
 				return output, input
 			end
 		end
