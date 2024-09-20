@@ -28,8 +28,8 @@ read_globals      = {
 		-- our Core/helpers:
 		-- table:
 		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of",
-		"keys", "except",
-        "keys_has_one_of_values"
+		"keys", "except", "keys_has_one_of_values",
+        "equals"
 	} },
 
 	string = { fields = {

@@ -161,3 +161,25 @@ function table.each_value_equals(table, value)
 
 	return true
 end
+
+--- @param table1 table
+--- @param table2 table
+--- @param recursively boolean
+function table.equals(table1, table2, recursively)
+	for key, value in pairs(table1) do
+		if type(value) == "table" then
+			if not table2[key] or type(table2[key]) ~= "table" then
+				return false
+			end
+			if not table.equals(value, table2[key]) then
+				return false
+			end
+		else
+			if not table2[key] or table2[key] ~= value then
+				return false
+			end
+		end
+	end
+
+	return true
+end

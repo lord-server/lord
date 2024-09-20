@@ -1458,6 +1458,17 @@ function minetest.strip_param2_color(param2, paramtype2) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5280-L5284)
 function minetest.get_node_drops(node, toolname) end
+
+--- @class RecipeInput
+--- @field method string      `"normal"` or `"cooking"` or `"fuel"`
+--- @field width  number      for example `3`
+--- @field items  ItemStack[] for example `{stack1, stack2, stack3, stack4, stack 5, stack 6, stack 7, stack 8, stack 9}`
+
+--- @class RecipeOutput
+--- @field item         ItemStack
+--- @field time         number
+--- @field replacements ItemStack[][]
+
 --- Returns `output, decremented_input`
 --- * `input.method` = `"normal"` or `"cooking"` or `"fuel"`
 --- * `input.width` = for example `3`
@@ -1471,6 +1482,8 @@ function minetest.get_node_drops(node, toolname) end
 --- * `decremented_input` = like `input`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5285-L5295)
+--- @param input RecipeInput
+--- @return RecipeOutput, RecipeInput
 function minetest.get_craft_result(input) end
 --- Returns input
 --- * returns last registered recipe for output item (node)
@@ -1482,6 +1495,8 @@ function minetest.get_craft_result(input) end
 ---     * `input.items` = `nil` if no recipe found
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5296-L5303)
+--- @param output string node or item tech name such as `"default:torch"`
+--- @return RecipeInput
 function minetest.get_craft_recipe(output) end
 
 --- @class RecipeEntryTable
