@@ -4,8 +4,8 @@
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
-local assert, pairs, ipairs, next, table_contains, table_copy, table_insert, table_equals, math_min, typeof
-    = assert, pairs, ipairs, next, table.contains, table.copy, table.insert, table.equals, math.min, type
+local assert, pairs, ipairs, next, table_contains, table_copy, table_insert, math_min, typeof
+    = assert, pairs, ipairs, next, table.contains, table.copy, table.insert, math.min, type
 
 
 
@@ -99,11 +99,11 @@ local function to_grid(items, width)
 end
 
 --- @param grid     string[][]
---- @param callback fun(item:string):boolean  return `true` for stop traverse
+--- @param callback fun(item:string,row:number,col:number):boolean  return `true` for stop traverse
 local function foreach_item_in_grid(grid, callback)
-	for _, row in pairs(grid) do
-		for _, item in pairs(row) do
-			if callback(item) then  break;  end
+	for i, row in pairs(grid) do
+		for j, item in pairs(row) do
+			if callback(item, i, j) then  break;  end
 		end
 	end
 end
@@ -207,6 +207,30 @@ local function decrement_input(input, recipe)
 	return input
 end
 
+--- @param items_grid  string[][]
+--- @param recipe_grid string[][]
+--- @return boolean
+local function items_is_correspond_to_recipe(items_grid, recipe_grid)
+	local correspond = true
+	foreach_item_in_grid(items_grid, function(item, i, j)
+		local recipe_item = recipe_grid[i][j]
+		if recipe_item:starts_with('group:') then
+			local group = recipe_item:split(':')[2]
+			if not minetest.get_item_group(item, group) then
+				correspond = false
+				return true -- break `foreach_item_in_grid()`
+			end
+		else
+			if item ~= recipe_item then
+				correspond = false
+				return true -- break `foreach_item_in_grid()`
+			end
+		end
+	end)
+
+	return correspond
+end
+
 --- @param input RecipeInput you can use your own `input.method`
 --- @return RecipeOutput, RecipeInput
 function minetest.get_craft_result(input)
@@ -225,7 +249,7 @@ function minetest.get_craft_result(input)
 	local output = table_copy(EMPTY_OUTPUT)
 	for output_item, recipes in pairs(method_registered_recipes[input.method]) do
 		for i, recipe in pairs(recipes) do
-			if table_equals(recipe.input, shifted_grid) then
+			if items_is_correspond_to_recipe(shifted_grid, recipe.input) then
 				output.item = ItemStack(recipe.output)
 				input = decrement_input(input, recipe)
 				return output, input
