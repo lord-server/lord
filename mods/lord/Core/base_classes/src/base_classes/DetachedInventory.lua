@@ -13,6 +13,11 @@ local DetachedInventory = {
 	--- @protected
 	--- @type DetachedInventoryCallbacksDef
 	callbacks = nil,
+	--- @overridable
+	--- @static
+	--- @protected
+	--- @type string[]
+	lists_for_return = {}
 }
 
 --- @protected
@@ -63,11 +68,17 @@ function DetachedInventory:create()
 	return self
 end
 
+--- @return InvRef
+function DetachedInventory:get_detached()
+	return minetest.get_inventory({ type = 'detached', name = self.id })
+end
+
+--- @protected
 --- @generic GenericDetachedInventory: base_classes.DetachedInventory
 --- @return GenericDetachedInventory
 function DetachedInventory:get_or_create()
 	self.id = self:generate_id()
-	local exists = minetest.get_inventory({ type = "detached", name = self.id })
+	local exists = self:get_detached()
 
 	return exists and self or self:create()
 end
@@ -76,6 +87,28 @@ end
 --- @return string
 function DetachedInventory:get_id()
 	return self.id or self:get_or_create().id
+end
+
+--- @public
+function DetachedInventory:return_forgotten()
+	if table.is_empty(self.lists_for_return) then  return  end
+
+	local player_inventory = minetest.get_inventory({ type = 'player', name = self.player_name })
+	local detached_inventory = self:get_detached()
+
+	for _, list in pairs(self.lists_for_return) do
+		for i, stack in pairs(detached_inventory:get_list(list)) do
+			if not stack:is_empty() then
+				detached_inventory:set_stack(list, i, nil)
+				if player_inventory:room_for_item('main', stack) then
+					player_inventory:add_item('main', stack)
+				else
+					local player = minetest.get_player_by_name(self.player_name)
+					minetest.item_drop(stack, player, player:get_pos())
+				end
+			end
+		end
+	end
 end
 
 
