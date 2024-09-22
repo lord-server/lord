@@ -1,5 +1,10 @@
 # Change Log
 
+## [2024.08.p4](https://github.com/lord-server/lord/releases/tag/2024.08.p4)
+ - Try to fix `newbie` in chat messages
+ - No clan detection by player for blocked clans. Fixes player `nametag` for blocked clan.
+ - Limit defense value. Closes #1680
+
 ## [2024.08.p3](https://github.com/lord-server/lord/releases/tag/2024.08.p3)
  - Fix repair via shop
 
