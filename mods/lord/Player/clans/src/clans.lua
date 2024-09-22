@@ -27,7 +27,7 @@ local function register_general_api_functions()
 	--- @return clans.Clan|nil
 	function clans.clan_get_by_player_name(player_name)
 		for _, clan in pairs(clan_storage.list()) do
-			if table.contains(clan.players, player_name) then
+			if not clan.is_blocked and table.contains(clan.players, player_name) then
 				return clan
 			end
 		end
