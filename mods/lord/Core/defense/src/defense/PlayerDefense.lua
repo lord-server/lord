@@ -56,6 +56,15 @@ function PlayerDefense:refresh_player(player)
 	return self
 end
 
+--- @param defense table<string,number>
+local function limit_defense(defense)
+	for name, value in pairs(defense) do
+		defense[name] = math_limit(value, 0, 100)
+	end
+
+	return defense
+end
+
 --- @param defense {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
 --- @return {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
 local function build_armor_groups(defense)
@@ -75,7 +84,7 @@ end
 --- @param defense             {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
 --- @param damage_avoid_chance number
 function PlayerDefense:set(defense, damage_avoid_chance)
-	self.defense             = defense
+	self.defense             = limit_defense(defense)
 	self.damage_avoid_chance = damage_avoid_chance
 
 	self.player:set_armor_groups(build_armor_groups(self.defense))
