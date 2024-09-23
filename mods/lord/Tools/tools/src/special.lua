@@ -50,6 +50,7 @@ minetest.register_tool("tools:sword_human", {
 })
 
 minetest.register_craft({
+	method = minetest.CraftMethod.ANVIL,
 	output = 'tools:sword_elven',
 	recipe = {
 		{ '', 'default:steel_ingot', '' },
@@ -58,6 +59,7 @@ minetest.register_craft({
 	}
 })
 minetest.register_craft({
+	method = minetest.CraftMethod.ANVIL,
 	output = 'tools:sword_orc',
 	recipe = {
 		{ '', 'default:steel_ingot', 'default:steel_ingot' },
@@ -66,6 +68,7 @@ minetest.register_craft({
 	}
 })
 minetest.register_craft({
+	method = minetest.CraftMethod.ANVIL,
 	output = "tools:battleaxe_dwarven",
 	recipe = {
 		{ "lottores:mithril_ingot", "default:mese_crystal", "lottores:mithril_ingot" },
