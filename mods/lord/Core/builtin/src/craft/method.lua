@@ -191,18 +191,31 @@ local mt_get_craft_result = minetest.get_craft_result
 --- @return RecipeInput|nil
 local function decrement_input(input, recipe)
 	input = table_copy(input)
-	foreach_item_in_grid(recipe.input, function(item)
-		local item_taken = false
+	local item_not_taken
+	foreach_item_in_grid(recipe.input, function(recipe_item, i, j)
+		item_not_taken = true
 		for _, stack in pairs(input.items) do
-			if stack:get_name() == item then
-				stack:take_item()
-				item_taken = true
+			if recipe_item:starts_with('group:') then
+				local group = recipe_item:split(':')[2]
+				if minetest.get_item_group(stack:get_name(), group) ~= 0 then
+					stack:take_item()
+					item_not_taken = false
+				end
+			else
+				if stack:get_name() == recipe_item then
+					stack:take_item()
+					item_not_taken = false
+				end
 			end
 		end
-		if not item_taken then
-			return nil
+		if item_not_taken then
+			return true -- break `foreach_item_in_grid()`
 		end
 	end)
+
+	if item_not_taken then
+		return nil
+	end
 
 	return input
 end
@@ -216,7 +229,7 @@ local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 		local recipe_item = recipe_grid[i][j]
 		if recipe_item:starts_with('group:') then
 			local group = recipe_item:split(':')[2]
-			if not minetest.get_item_group(item, group) then
+			if minetest.get_item_group(item, group) == 0 then
 				correspond = false
 				return true -- break `foreach_item_in_grid()`
 			end
@@ -250,9 +263,14 @@ function minetest.get_craft_result(input)
 	for output_item, recipes in pairs(method_registered_recipes[input.method]) do
 		for i, recipe in pairs(recipes) do
 			if items_is_correspond_to_recipe(shifted_grid, recipe.input) then
+				local new_input = decrement_input(input, recipe)
+				if not new_input then
+					return output, input
+				end
+
 				output.item = ItemStack(recipe.output)
-				input = decrement_input(input, recipe)
-				return output, input
+
+				return output, new_input
 			end
 		end
 	end
