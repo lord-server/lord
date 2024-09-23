@@ -1,5 +1,12 @@
+local Form = require("artisan_benches.anvil.Form")
+
+
 local S = minetest.get_translator('lord_artisan_benches')
 
+minetest.CraftMethod.ANVIL = 'anvil'
+minetest.register_craft_method(minetest.CraftMethod.ANVIL)
+
+Form:register()
 
 minetest.register_node('lord_artisan_benches:anvil', {
 	drawtype    = 'nodebox',
@@ -34,7 +41,11 @@ minetest.register_node('lord_artisan_benches:anvil', {
 			{ 0.6, 0.4, -0.05, 0.7, 0.5, 0.05 },
 		},
 	},
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		Form:new(clicker, pos):open()
+	end
 })
+
 minetest.register_craft({
 	output = 'lord_artisan_benches:anvil',
 	recipe = {
