@@ -191,26 +191,34 @@ local mt_get_craft_result = minetest.get_craft_result
 --- @return RecipeInput|nil
 local function decrement_input(input, recipe)
 	input = table_copy(input)
-	local item_not_taken
+
+	local item_not_taken = false
+
 	foreach_item_in_grid(recipe.input, function(recipe_item, i, j)
-		item_not_taken = true
+		print(dump(recipe_item))
+		if not recipe_item or recipe_item == '' then
+			print(__FILE_LINE__())
+			return -- skip `foreach_item_in_grid()` iteration with empty item
+		end
 		for _, stack in pairs(input.items) do
 			if recipe_item:starts_with('group:') then
 				local group = recipe_item:split(':')[2]
 				if minetest.get_item_group(stack:get_name(), group) ~= 0 then
 					stack:take_item()
-					item_not_taken = false
+					return -- when find and take, goto next `foreach_item_in_grid()` iteration
 				end
 			else
 				if stack:get_name() == recipe_item then
 					stack:take_item()
-					item_not_taken = false
+					return -- when find and take, goto next `foreach_item_in_grid()` iteration
 				end
 			end
 		end
-		if item_not_taken then
-			return true -- break `foreach_item_in_grid()`
-		end
+
+		-- item `recipe_item` was not found:
+		item_not_taken = true
+
+		return true -- break `foreach_item_in_grid()` cycle
 	end)
 
 	if item_not_taken then
