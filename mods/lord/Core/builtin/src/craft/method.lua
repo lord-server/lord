@@ -227,6 +227,7 @@ local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 	local correspond = true
 	foreach_item_in_grid(items_grid, function(item, i, j)
 		local recipe_item = recipe_grid[i][j]
+		recipe_item = recipe_item or ''
 		if recipe_item:starts_with('group:') then
 			local group = recipe_item:split(':')[2]
 			if minetest.get_item_group(item, group) == 0 then
