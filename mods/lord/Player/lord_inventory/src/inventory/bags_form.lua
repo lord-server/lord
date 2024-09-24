@@ -13,7 +13,6 @@ local get_formspec = function(player, page)
 			.. "list[detached:" .. player:get_player_name() .. "_bags;bag2;2.5,1;1,1;]"
 			.. "list[detached:" .. player:get_player_name() .. "_bags;bag3;4.5,1;1,1;]"
 			.. "list[detached:" .. player:get_player_name() .. "_bags;bag4;6.5,1;1,1;]"
-			.. "background[5,5;1,1;gui_formbg.png;true]"
 	end
 	for i = 1, 4 do
 		if page == "bag" .. i then
@@ -26,7 +25,6 @@ local get_formspec = function(player, page)
 				.. "list[current_player;bag" .. i .. "contents;0,1;8,3;]"
 				.. "listring[current_player;bag" .. i .. "contents]"
 				.. "listring[current_player;main]"
-				.. "background[5,5;1,1;gui_formbg.png;true]"
 		end
 	end
 end

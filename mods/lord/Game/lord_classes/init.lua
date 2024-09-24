@@ -11,8 +11,7 @@ local SL = minetest.get_translator("lord_classes")
   Definitions
 --]]
 
-local form_header = "size[7,4]"..
-					"background[7,4;1,1;gui_formbg.png;true]"
+local form_header = "size[7,4]"
 
 races = {
 	save_path = minetest.get_worldpath() .. "/races.txt",

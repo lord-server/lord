@@ -525,7 +525,6 @@ function lottachievements.show_to(name, to, sid, text)
 		-- Show formspec to user
 		minetest.show_formspec(to,"lottachievements:lottachievements",
 			"size[11,6]" ..
-			"background[5,5;1,1;gui_formbg.png;true]" ..
 			lottachievements.getFormspec(name, to, sid))
 	end
 end
