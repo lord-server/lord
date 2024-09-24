@@ -1,11 +1,23 @@
 local math_random
     = math.random
 
+local detached_inv_equipment_slots = {
+	armor    = require("equipment.armor_slots"),
+	clothing = require("equipment.clothing_slots"),
+}
 local SL = minetest.get_translator("lord_equipment")
+
 
 local CLOTHING_EQUIPMENT_SIZE = 5
 local ARMOR_EQUIPMENT_SIZE    = 5
 
+
+local function register_equipments()
+	equipment.Kind.ARMOR    = "armor"
+	equipment.Kind.CLOTHING = "clothing"
+	equipment.Kind.register(equipment.Kind.ARMOR,    ARMOR_EQUIPMENT_SIZE)
+	equipment.Kind.register(equipment.Kind.CLOTHING, CLOTHING_EQUIPMENT_SIZE)
+end
 
 --- @param stack     ItemStack
 --- @param player    Player
@@ -27,6 +39,7 @@ local function item_wear(stack, slot, player)
 	end
 end
 
+--- @param player Player
 local function handle_armor_wear(player)
 	for slot, stack in equipment.for_player(player):not_empty(equipment.Kind.ARMOR) do
 		-- chance that the hit landed on this slot (on this element of the armor)
@@ -37,13 +50,38 @@ local function handle_armor_wear(player)
 	end
 end
 
+--- @param player Player
+--- @param kind   string
+--- @param event  string
+local function register_detached_slots(player, kind, event)
+	local player_name = player:get_player_name()
+	local equip_inv   = minetest.create_detached_inventory(
+		equipment.get_inventory_name(player_name, kind), detached_inv_equipment_slots[kind], player_name
+	)
+	equip_inv:set_size(kind, equipment.Kind.get_size(kind))
+	for slot, item in equipment.for_player(player):items(kind) do
+		equip_inv:set_stack(kind, slot, item)
+	end
+end
+
 
 return {
 	init = function()
-		equipment.Kind.ARMOR    = "armor"
-		equipment.Kind.CLOTHING = "clothing"
-		equipment.Kind.register(equipment.Kind.ARMOR,    ARMOR_EQUIPMENT_SIZE)
-		equipment.Kind.register(equipment.Kind.CLOTHING, CLOTHING_EQUIPMENT_SIZE)
+		-- When server starts we register which kind of equipment LORD have
+		register_equipments()
+
+		--- @param player_name string
+		equipment.get_inventory_name = function(player_name, kind)
+			return player_name .. "_" .. kind
+		end
+
+		-- When *any* equipment (armor and clothing) loaded (when player joined),
+		-- we need to:
+		--   - create detached inventories for each equipment (armor&clothing)
+		--       to use it on form of main player inventory
+		--   - fill each inventory with equipment items
+		equipment.on_load(register_detached_slots)
+
 		minetest.register_on_punchplayer(handle_armor_wear)
 	end
 }
