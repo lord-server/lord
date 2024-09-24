@@ -50,14 +50,16 @@ end
 --- @return fun(items:ItemStack[]):number,ItemStack
 function ForPlayer:not_empty(kind)
 	--- @param items ItemStack[]
-	---
+	--- @param slot  number
 	return function(items, slot)
-		slot = slot + 1
-		local item = items[slot]
-		if item and not item:is_empty() then
-			return slot, item
-		end
-	end, self.player:get_inventory():get_list(kind), 0
+		repeat
+			slot = slot + 1
+			local item = items[slot]
+			if item and not item:is_empty() then
+				return slot, item
+			end
+		until not item
+	end, self.player:get_inventory():get_list(kind), 1
 end
 
 --- @param kind string    kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>
