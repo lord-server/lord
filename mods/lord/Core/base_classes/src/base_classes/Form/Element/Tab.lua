@@ -17,9 +17,9 @@ local Tab = {
 }
 
 --- @public
---- @generic GenericDetachedInventory: base_classes.DetachedInventory
---- @param child_class GenericDetachedInventory
---- @return GenericDetachedInventory
+--- @generic GenericTab: base_classes.Form.Element.Tab
+--- @param child_class GenericTab
+--- @return GenericTab
 function Tab:extended(child_class)
 	return setmetatable(child_class or {}, { __index = self })
 end

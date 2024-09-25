@@ -1,58 +1,77 @@
+local pairs, table_concat, tonumber
+    = pairs, table.concat, tonumber
+
+local Tab = require('base_classes.Form.Element.Tab')
+
 
 --- @class base_classes.Form.Mixin.WithTabs: base_classes.Form.Mixin
 local WithTabs = {
 	--- @static
 	--- @protected
-	--- @type table<string,number>
-	tab = {},
+	--- @type table<string,number> table with constants of tabs & theirs numbers
+	tab          = nil,
+	--- @protected
+	--- @type base_classes.Form.Element.Tab[]
+	tabs         = nil,
 	--- @protected
 	--- @type number
 	current_tab  = 1,
 }
 
 --- @protected
---- @param tab_number number
+--- @param tab_number number one of self.tab.<CONST>'ants.
 function WithTabs:switch_tab(tab_number)
-	print(__FILE_LINE__())
-	print(dump(tab_number))
 	self.current_tab = tab_number
 	self:open()
 end
 
+--- @public
+--- @param tab base_classes.Form.Element.Tab
+--- @return self|base_classes.Form.Mixin.WithTabs
+function WithTabs:add_tab(tab)
+	tab = (tab.form ~= nil) and tab or Tab:new(self, tab)
+	self.tabs[#self.tabs+1] = tab
+
+	return self
+end
+
 --- @abstract
 --- @protected
+--- @param tab_number number one of self.tab.<CONST>'ants. Default: `self.current_tab`
 function WithTabs:get_tab_spec(tab_number)
-	error('You should override method `:get_tab_spec` in your Form.')
+	tab_number = tab_number or self.current_tab
+	return self.tabs[tab_number]:get_spec()
 end
 
 --- @protected
 --- @return string
 function WithTabs:get_spec()
-	local tabs_names = {}
-	for name, number in pairs(self.tab) do
-		tabs_names[#tabs_names+1] = name:lower():first_to_upper()
+	local tabs_titles = {}
+	for number, tab in pairs(self.tabs) do
+		tabs_titles[#tabs_titles+1] = tab.title
 	end
 
 	local formspec = 'size[8,9]' ..
-		'tabheader[0,0;current_tab;' .. table.concat(tabs_names, ',') .. ';'.. self.current_tab ..']'
-	formspec = formspec .. self:get_tab_spec(self.current_tab)
+		'tabheader[0,0;current_tab;' .. table_concat(tabs_titles, ',') .. ';'.. self.current_tab ..']'
+	formspec = formspec .. self:get_tab_spec()
 
 	return formspec
 end
 
 --- @static
 --- @param class base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
---- @param tabs  table <string, number>
-function WithTabs.mix_to(class, tabs)
+--- @param tabs_numbers  table <string, number>
+function WithTabs.mix_to(class, tabs_numbers)
 	table.overwrite(class, WithTabs)
 
-	class.tab = tabs
+	class.tab = class.tab or tabs_numbers or {} -- constants `[TAB_NAME] = number`
 
 	--- @param self base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 	--- @param _    Player
 	--- @param _    Position
 	class.on_instance(function(self, _, _)
 		self.current_tab = 1
+		self.tabs = self.tabs or class.tabs or {}
 	end)
 	--- @param self   base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 	--- @param _      Player
