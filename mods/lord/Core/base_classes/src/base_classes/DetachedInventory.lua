@@ -20,7 +20,7 @@ local DetachedInventory = {
 	lists_for_return = {}
 }
 
---- @protected
+--- @public
 --- @generic GenericDetachedInventory: base_classes.DetachedInventory
 --- @param child_class GenericDetachedInventory
 --- @return GenericDetachedInventory

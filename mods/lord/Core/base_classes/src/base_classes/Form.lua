@@ -1,12 +1,10 @@
-local BaseForm     = require('base_classes.Form.Base')
-local Personal     = require("base_classes.Form.Mixin.Personal")
-local ForNode      = require("base_classes.Form.Mixin.ForNode")
-local WithDetached = require("base_classes.Form.Mixin.WithDetached")
-local WithTabs     = require("base_classes.Form.Mixin.WithTabs")
+local BaseForm = require('base_classes.Form.Base')
+local Mixin    = require('base_classes.Form.Mixin')
+local Element  = require('base_classes.Form.Element')
 
 
 
---- Form Class Factory(Generator) class.
+--- Facade `Form`: Factory(Generator) for Form Classes & its Elements.
 --- This class constructs for you a base form class.
 --- Use methods to mix functionality you need and then call `:extended()` method.
 ---
@@ -21,11 +19,13 @@ local Form = {
 
 	--- @type base_classes.Form.Mixin[]|table<string,base_classes.Form.Mixin>
 	mixins = {
-		personal      = Personal,
-		for_node      = ForNode,
-		with_detached = WithDetached,
-		with_tabs     = WithTabs,
-	}
+		personal      = Mixin.Personal,
+		for_node      = Mixin.ForNode,
+		with_detached = Mixin.WithDetached,
+		with_tabs     = Mixin.WithTabs,
+	},
+
+	Element = Element,
 }
 setmetatable(Form, {
 	--- @param self  self
@@ -36,7 +36,7 @@ setmetatable(Form, {
 		end
 
 		--- @param _ self
-		--- @vararg any all params passed to mix method (`for_node`, `with_tabs`), that will be passed to `"mixin":mix_to()`
+		--- @vararg any all params passed to mix method (`for_node`, `with_tabs`), that will be passed to `'mixin':mix_to()`
 		return function(_, ...)
 			self.will_mixed[mixin] = { ... }
 
@@ -45,7 +45,7 @@ setmetatable(Form, {
 	end
 })
 
---- @static
+--- @public
 ---
 --- @generic GenericForm: base_classes.Form.Base
 --- @param child_class GenericForm
@@ -63,6 +63,7 @@ function Form:extended(child_class)
 	return class
 end
 
+--- @public
 --- @param mix_method_name string
 --- @param mixin           base_classes.Form.Mixin
 --- @return self

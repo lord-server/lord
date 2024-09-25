@@ -1,9 +1,6 @@
 local FormEvent = require('base_classes.Form.Event')
 
 
---- @class base_classes.Form.Mixin: base_classes.Form.Base
---- @field mix_to fun(base_class:base_classes.Form.Base)
-
 --- @class base_classes.Form.Base
 --- @field on_register fun(form:self)
 --- @field on_instance fun(form:self, player:Player, ...)
@@ -28,7 +25,7 @@ function BaseForm:mix(mixin, ...)
 	mixin.mix_to(self, ...)
 end
 
---- @static
+--- @public
 --- @generic GenericForm: base_classes.Form.Base
 --- @param child_class GenericForm
 --- @return GenericForm
