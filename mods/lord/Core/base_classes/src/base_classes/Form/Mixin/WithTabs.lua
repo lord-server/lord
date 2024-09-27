@@ -62,8 +62,6 @@ end
 --- @param class base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 --- @param tabs_numbers  table <string, number>
 function WithTabs.mix_to(class, tabs_numbers)
-	table.overwrite(class, WithTabs)
-
 	class.tab = class.tab or tabs_numbers or {} -- constants `[TAB_NAME] = number`
 
 	--- @param self base_classes.Form.Base|base_classes.Form.Mixin.WithTabs

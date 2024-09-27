@@ -12,8 +12,6 @@ local ForNode = {
 --- @static
 --- @param class base_classes.Form.Base
 function ForNode.mix_to(class)
-	table.overwrite(class, ForNode)
-
 	--- @param self base_classes.Form.Mixin.ForNode
 	--- @param _    Player
 	--- @param pos  Position

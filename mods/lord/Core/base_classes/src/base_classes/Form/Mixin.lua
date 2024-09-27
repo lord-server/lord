@@ -1,6 +1,6 @@
 
 --- @class base_classes.Form.Mixin: base_classes.Form.Base
---- @field mix_to fun(base_class:base_classes.Form.Base)
+--- @field mix_to fun(base_class:base_classes.Form.Base, ...)
 
 --- @namespace base_classes.Form.Mixin
 return {

@@ -104,8 +104,36 @@ local table_merge
 
 --- @param table1 table
 --- @param table2 table
+--- @return table
 function table.overwrite(table1, table2)
 	return table_merge(table1, table2, true)
+end
+
+
+--- Adds key-value from `table2` into `table1` only if that key does not exists in `table1`.
+--- Values that are tables are copied by `table.copy()`
+---
+--- @overload fun(table1:table, table2:table):table
+---
+--- @generic T: table
+--- @param table1      table|T
+--- @param table2      table
+--- @param recursively boolean Default: false. Go recursively if both values are tables.
+---
+--- @return table|T
+function table.join(table1, table2, recursively)
+	recursively = recursively or false
+	for key, value in pairs(table2) do
+		if not table1[key] then
+			table1[key] = type(value) == 'table' and table_copy(value) or value
+		else
+			if recursively and type(table1[key]) == 'table' and type(value) == 'table' then
+				table.join(table1[key], value, recursively)
+			end
+		end
+	end
+
+	return table1
 end
 
 --- @param table1 table

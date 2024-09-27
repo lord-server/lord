@@ -47,8 +47,6 @@ end
 --- @static
 --- @param class base_classes.Form.Base
 function Personal.mix_to(class)
-	table.overwrite(class, Personal)
-
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_open(function(self)
 		self.opened_for[self.player_name] = self;

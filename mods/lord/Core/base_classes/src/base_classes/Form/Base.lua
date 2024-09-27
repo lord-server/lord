@@ -22,6 +22,10 @@ local BaseForm  = {
 
 --- @param mixin base_classes.Form.Mixin
 function BaseForm:mix(mixin, ...)
+	self = setmetatable(self, { __index = table.overwrite(
+		table.copy(getmetatable(self).__index),
+		mixin
+	)})
 	mixin.mix_to(self, ...)
 end
 
@@ -54,8 +58,8 @@ function BaseForm:new(player, ...)
 	self.player_name = player:get_player_name()
 	self = setmetatable(self, { __index = class })
 
-	self:instantiate(player, ...)
 	self.event:trigger(self.event.Type.on_instance, self, player, ...)
+	self:instantiate(player, ...)
 
 	return self
 end

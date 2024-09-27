@@ -15,8 +15,6 @@ local WithDetached = {
 --- @static
 --- @param class base_classes.Form.Base
 function WithDetached.mix_to(class, Inventory_class)
-	table.overwrite(class, WithDetached)
-
 	class.Inventory_class = Inventory_class
 
 	--- @param self base_classes.Form.Mixin.WithDetached
