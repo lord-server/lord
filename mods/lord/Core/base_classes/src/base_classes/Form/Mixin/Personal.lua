@@ -1,10 +1,12 @@
+local Logger = minetest.get_mod_logger()
+
 
 --- @class base_classes.Form.Mixin.Personal: base_classes.Form.Mixin
 local Personal = {
 	--- @static late
 	--- @protected
 	--- @type table<string,base_classes.Form.Base>
-	opened_for = {},
+	opened_for = nil,
 }
 
 --- @public
@@ -24,7 +26,10 @@ function Personal:handler(player, form_name, fields)
 	end
 
 	local form = self:get_opened_for(player)
-	if not form then return end
+	if not form then
+		Logger.error('[Form.Mixin.Personal]: opened form for player `%s` not found.', player:get_player_name())
+		return
+	end
 
 	self.event:trigger(self.event.Type.on_handle, form, player, fields)
 	form:handle(fields)
@@ -45,8 +50,10 @@ end
 
 
 --- @static
---- @param class base_classes.Form.Base
+--- @param class base_classes.Form.Base|base_classes.Form.Mixin.Personal
 function Personal.mix_to(class)
+	class.opened_for = {}
+
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_open(function(self)
 		self.opened_for[self.player_name] = self;

@@ -15,7 +15,7 @@ local WithTabs = {
 	tabs         = nil,
 	--- @protected
 	--- @type number
-	current_tab  = 1,
+	current_tab  = nil,
 }
 
 --- @protected
@@ -62,7 +62,9 @@ end
 --- @param class base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 --- @param tabs_numbers  table <string, number>
 function WithTabs.mix_to(class, tabs_numbers)
-	class.tab = class.tab or tabs_numbers or {} -- constants `[TAB_NAME] = number`
+	class.tab         = class.tab or tabs_numbers or {} -- constants `[TAB_NAME] = number`
+	class.tabs        = class.tabs or {}
+	class.current_tab = table.is_empty(class.tabs) and 0 or 1
 
 	--- @param self base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 	--- @param _    Player
