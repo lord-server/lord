@@ -41,9 +41,6 @@
 [submodule "mods/_minetest_game/sethome"]
 	path = mods/_minetest_game/sethome
 	url = https://github.com/minetest-game-mod/sethome
-[submodule "mods/_minetest_game/sfinv"]
-	path = mods/_minetest_game/sfinv
-	url = https://github.com/minetest-game-mod/sfinv
 [submodule "mods/_minetest_game/stairs"]
 	path = mods/_minetest_game/stairs
 	url = https://github.com/minetest-game-mod/stairs
