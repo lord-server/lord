@@ -80,5 +80,14 @@ function MainTab:get_spec()
 	return formspec
 end
 
+--- @param fields table
+--- @return nil|boolean return `true` for stop propagation of handling
+function MainTab:handle(fields)
+	if fields.bags then
+		self.form:switch_tab(self.form.tab.BAGS)
+		return true
+	end
+end
+
 
 return MainTab

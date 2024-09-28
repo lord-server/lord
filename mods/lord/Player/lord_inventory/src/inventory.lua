@@ -1,9 +1,9 @@
-
 local PlayerForm = require('inventory.Form')
-require("inventory.Form.bags_form")
+
 
 --- This collection of forms passed into `inventory.Form` & replaces standard `opened_for` var of `Personal` mixin.
 --- @see inventory.Form:on_register()
+---
 --- @type inventory.Form[]|table<string,inventory.Form>
 local player_forms = {}
 
