@@ -76,14 +76,14 @@ function BaseForm:get_spec()
 end
 
 --- @public
-function BaseForm:open()
-	self.event:trigger(self.event.Type.on_open, self)
+function BaseForm:open(...)
+	self.event:trigger(self.event.Type.on_open, self, ...)
 	minetest.show_formspec(self.player_name, self.NAME, self:get_spec())
 end
 
 --- @public
-function BaseForm:close()
-	self.event:trigger(self.event.Type.on_close, self)
+function BaseForm:close(...)
+	self.event:trigger(self.event.Type.on_close, self, ...)
 end
 
 --- @protected
@@ -111,8 +111,8 @@ end
 
 --- @public
 --- @return base_classes.Form.Base
-function BaseForm:register()
-	self.event:trigger(self.event.Type.on_register, self)
+function BaseForm:register(...)
+	self.event:trigger(self.event.Type.on_register, self, ...)
 
 	minetest.register_on_player_receive_fields(function(player, form_name, fields)
 		self:handler(player, form_name, fields)
