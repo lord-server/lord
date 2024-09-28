@@ -35,7 +35,12 @@ function WithTabs:add_tab(tab)
 	return self
 end
 
---- @abstract
+--- @protected
+--- @return string
+function WithTabs:get_spec_head()
+	return 'size[8,9]'
+end
+
 --- @protected
 --- @param tab_number number one of self.tab.<CONST>'ants. Default: `self.current_tab`
 function WithTabs:get_tab_spec(tab_number)
@@ -51,7 +56,7 @@ function WithTabs:get_spec()
 		tabs_titles[#tabs_titles+1] = tab.title
 	end
 
-	local formspec = 'size[8,9]' ..
+	local formspec = self:get_spec_head() ..
 		'tabheader[0,0;current_tab;' .. table_concat(tabs_titles, ',') .. ';'.. self.current_tab ..']'
 	formspec = formspec .. self:get_tab_spec()
 
