@@ -1,0 +1,71 @@
+local MainTab  = require('inventory.Form.MainTab')
+--local AboutTab = require('inventory.Form.BagsTab') TODO #1698
+--local AboutTab = require('inventory.Form.AboutTab') TODO #1701
+
+
+--- @class inventory.Form: base_classes.Form.Mixin.WithTabs
+local Form = base_classes.Form:personal():with_tabs():extended({
+	--- @const
+	--- @type string
+	NAME = "",
+
+	player_name = '',
+
+	--- @type table<string,number>
+	tab = { MAIN = 1, ABOUT = 2, },
+	--- @type number
+	current_tab = 1,
+	--- Replaces by player forms collection in Form.on_register callback
+	--- @see inventory.Form:on_register() @ below.
+	--- @type inventory.Form[]|table<string,inventory.Form>
+	opened_for = {},
+})
+
+function Form:get_spec_head()
+	return 'size[8,8.5]'
+end
+
+--- @param player Player
+function Form:instantiate(player)
+	self
+		:add_tab(MainTab:new(self))
+		--:add_tab(AboutTab:new(self))
+		:refresh()
+end
+
+--- @param preview string
+--- @return inventory.Form
+function Form:set_main_preview(preview)
+	--- @type inventory.Form.MainTab
+	local main_tab = self.tabs[self.tab.MAIN]
+	main_tab:set_preview(preview)
+
+	return self
+end
+
+function Form:refresh()
+	minetest.get_player_by_name(self.player_name):set_inventory_formspec(self:get_spec())
+end
+
+--- @param fields table
+function Form:handle(fields)
+end
+
+--- @param self                    inventory.Form
+--- @param player_forms_collection inventory.Form[]|table<string,inventory.Form>
+Form.on_register(function(self, player_forms_collection)
+	-- To open some-kind our custom inventory for player, MT provides `player:set_inventory_formspec(spec)` function.
+	-- And then MT by itself catch pressed `i` button & opens form with that spec.
+	-- So, we never/nowhere calls `Form:open()`.
+	-- But! Mixin `WithTabs` creates an instance exactly in `Form:open()` and put it into `Form.opened_for[player_name]`
+	-- Then this var used to get the instance of the player to handle.
+	-- But the `Form:open()` is never/nowhere calls.
+	-- So we need to creates this instances manually and somehow put into `Form.opened_for[player_name]`.
+	-- We already do it in `_G.inventory.for_player`. (see `inventory.lua`)
+	-- And here we just replace this `Form.opened_for` array with that `player_forms_collection`.
+	-- So `WithTabs` mixin works with the same collection as `_G.inventory.for_player`
+	Form.opened_for = player_forms_collection
+end)
+
+
+return Form

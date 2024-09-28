@@ -1,5 +1,5 @@
 
 
 minetest.mod(function(mod)
-	require("inventory")
+	require("inventory").init(mod)
 end)
