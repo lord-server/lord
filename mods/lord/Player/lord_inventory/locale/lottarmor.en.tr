@@ -1,8 +1,13 @@
 # textdomain: lord_inventory
 
-crafting_image=lord_inventory_crafting.en.png
-
-Back=Back
-Bag=Bag
+# Tabs:
 Main=Main
 Bags=Bags
+
+
+# Main Tab:
+crafting_image=lord_inventory_crafting.en.png
+
+# Bags Tab:
+All Bags=All Bags
+Bag=Bag

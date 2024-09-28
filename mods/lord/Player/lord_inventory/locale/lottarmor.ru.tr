@@ -1,8 +1,13 @@
 # textdomain: lord_inventory
 
+# Tabs:
+Main=Основное
+Bags=Сумки
+
+
+# Main Tab:
 crafting_image=lord_inventory_crafting.ru.png
 
-Back=На главную
+# Bags Tab:
+All Bags=Все Сумки
 Bag=Сумка
-Main=На главную
-Bags=Сумки

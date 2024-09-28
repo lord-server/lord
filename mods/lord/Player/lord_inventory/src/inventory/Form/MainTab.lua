@@ -44,8 +44,8 @@ local formspec_template = ''
 	.. 'image[7,3;1,1;lord_inventory_trash_slot.png]'
 	.. 'list[detached:trash;main;7,3;1,1;]'
 	-- Player inventory content
-	.. 'list[current_player;main;0,4.25;8,1;]'
-	.. 'list[current_player;main;0,5.5;8,3;8]'
+	.. 'list[current_player;main;0,4.5 ;8,1; ]'
+	.. 'list[current_player;main;0,5.75;8,3;8]'
 	-- options
 	.. 'listring[current_player;main]'
 	.. 'listring[current_player;craft]'
