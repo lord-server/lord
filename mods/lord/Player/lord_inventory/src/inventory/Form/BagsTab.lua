@@ -10,7 +10,7 @@ local BagsTab = {
 	--- @type number currently opened bag or 0 if bags selection is opened
 	current_bag = 0,
 }
-base_classes.Form.Element.Tab:extended(BagsTab)
+BagsTab = base_classes.Form.Element.Tab:extended(BagsTab)
 
 
 function BagsTab:get_spec()

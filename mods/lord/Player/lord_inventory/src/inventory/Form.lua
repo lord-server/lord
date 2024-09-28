@@ -28,6 +28,8 @@ local Form = base_classes.Form:personal():with_tabs():extended({
 	---
 	--- @type boolean
 	no_cleanup_on_close = true,
+	--- @type string
+	player_lang = 'en',
 })
 
 function Form:get_spec_head()
@@ -36,6 +38,8 @@ end
 
 --- @param player Player
 function Form:instantiate(player)
+	self.player_lang = minetest.get_player_information(self.player_name).lang_code or 'en'
+
 	self
 		:add_tab(MainTab:new(self))
 		:add_tab(BagsTab:new(self))

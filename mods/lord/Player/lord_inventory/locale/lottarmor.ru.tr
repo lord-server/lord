@@ -1,5 +1,7 @@
 # textdomain: lord_inventory
 
+crafting_image=lord_inventory_crafting.ru.png
+
 Back=На главную
 Bag=Сумка
 Main=На главную
