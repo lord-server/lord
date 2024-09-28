@@ -7,6 +7,11 @@ local Personal = {
 	--- @protected
 	--- @type table<string,base_classes.Form.Base>
 	opened_for = nil,
+	--- Set `true` if you don't need to cleanup `self.opened_for[player_name]` on each close form.
+	--- In this case it will be removed only on player leave.
+	--- Useful for player inventory specified by `player:set_inventory_formspec()` MT function.
+	--- @type string
+	no_cleanup_on_close = false,
 }
 
 --- @public
@@ -47,6 +52,9 @@ function Personal:player_leave(player, _)
 	local form = self:get_opened_for(player);
 	if form then
 		form:close()
+		if self.no_cleanup_on_close then
+			self.opened_for[self.player_name] = nil
+		end
 	end
 end
 
@@ -62,7 +70,9 @@ function Personal.mix_to(class)
 	end)
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_close(function(self)
-		self.opened_for[self.player_name] = nil
+		if not self.no_cleanup_on_close then
+			self.opened_for[self.player_name] = nil
+		end
 	end)
 	--- @param self base_classes.Form.Mixin.Personal
 	class.on_register(function(self)
