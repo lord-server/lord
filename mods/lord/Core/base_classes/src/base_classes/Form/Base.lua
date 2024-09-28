@@ -2,11 +2,11 @@ local FormEvent = require('base_classes.Form.Event')
 
 
 --- @class base_classes.Form.Base
---- @field on_register fun(form:self)
---- @field on_instance fun(form:self, player:Player, ...)
---- @field on_open     fun(form:self)
---- @field on_close    fun(form:self)
---- @field on_handle   fun(form:self, player:Player, fields:table)
+--- @field on_register fun(callback:base_classes.Form.callback.on_register)
+--- @field on_instance fun(callback:base_classes.Form.callback.on_instance)
+--- @field on_open     fun(callback:base_classes.Form.callback.on_open)
+--- @field on_close    fun(callback:base_classes.Form.callback.on_close)
+--- @field on_handle   fun(callback:base_classes.Form.callback.on_handle)
 local BaseForm  = {
 	--- @const
 	--- @type string
@@ -88,7 +88,9 @@ end
 
 --- @protected
 --- @param fields table
+--- @return nil|boolean return `true` for stop propagation of handling
 function BaseForm:handle(fields)
+	return
 end
 
 --- @protected
@@ -101,7 +103,9 @@ function BaseForm:handler(player, form_name, fields)
 	end
 
 	self.event:trigger(self.event.Type.on_handle, self, player, fields)
-	self:handle(fields)
+	if self:handle(fields) then
+		return
+	end
 
 
 	if fields.quit then

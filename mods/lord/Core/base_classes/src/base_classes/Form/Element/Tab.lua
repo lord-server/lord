@@ -14,6 +14,10 @@ local Tab = {
 	get_spec = function(self)
 		return error('You should override method `Tab:get_spec()` in your tab class.')
 	end,
+	--- @abstract
+	--- @protected
+	--- @type fun(self:base_classes.Form.Element.Tab,fields:table):nil|boolean
+	handle = nil,
 }
 
 --- @public

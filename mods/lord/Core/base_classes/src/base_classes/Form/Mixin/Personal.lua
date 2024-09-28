@@ -32,7 +32,9 @@ function Personal:handler(player, form_name, fields)
 	end
 
 	self.event:trigger(self.event.Type.on_handle, form, player, fields)
-	form:handle(fields)
+	if form:handle(fields) then
+		return
+	end
 
 	if fields.quit then
 		form:close()

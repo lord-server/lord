@@ -63,6 +63,15 @@ function WithTabs:get_spec()
 	return formspec
 end
 
+--- @param fields table
+--- @return nil|boolean return `true` for stop propagation of handling
+function WithTabs:handle(fields)
+	local has_handle = self.tabs[self.current_tab] and self.tabs[self.current_tab].handle
+	if has_handle then
+		return self.tabs[self.current_tab]:handle(fields)
+	end
+end
+
 --- @static
 --- @param class base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 --- @param tabs_numbers  table <string, number>
@@ -84,6 +93,8 @@ function WithTabs.mix_to(class, tabs_numbers)
 	class.on_handle(function(self, _, fields)
 		if fields.current_tab then
 			self:switch_tab(tonumber(fields.current_tab))
+
+			return true -- stop handling propagation
 		end
 	end)
 end
