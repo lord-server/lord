@@ -6,6 +6,7 @@ require           = function(name) return dofile(mod_path .. DS .. "src" .. DS .
 
 require("map.manipulations")
 require("map.dungeons_gen")
+require("FormSpec")
 require("globalstep")
 require("mod")
 require("stack")
