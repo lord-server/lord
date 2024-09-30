@@ -54,7 +54,6 @@ jobs:
               mods/lord/Player/hud_modpack/hudbars/ \
               mods/lord/Tools/lottpotion/ \
               mods/lord/Tools/lord_replacer/ \
-              mods/lord/Tools/lord_money/ \
               mods/lord/Tools/lord_books/ \
               mods/lord/Tools/lord_boats/ \
               mods/lord/World/Generation/icicles/ \
