@@ -8,7 +8,7 @@ local PLAYER_SLOWDOWN_SPEED = 0.25
 --- @param tool_name string name of a stage of bow
 --- @return          string name of the stage 0 bow
 local function to_bow_name(tool_name)
-	for name, bow in pairs(lord_bows.get_bows()) do
+	for name, bow in pairs(lord_archery.get_bows()) do
 		print(minetest.serialize(bow))
 		for _, stage in ipairs(bow.bow_stages.stages) do
 			if stage == tool_name then
@@ -21,7 +21,7 @@ end
 
 --- @param stack      ItemStack          a stack with the bow
 --- @param hold_time  number             the time the player was holding CONTROL_CHARGE down
---- @param bow_stages bows.BowStages     the stages and time taken to charge
+--- @param bow_stages archery.BowStages  the stages and time taken to charge
 --- @param player     Player             a player that charges the bow
 --- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
 local function bow_charge(stack, hold_time, bow_stages, player)
@@ -87,7 +87,7 @@ local function projectile_shot(player, stack, hold_time)
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
 	local projectile_pos      = {x = player_pos.x, y = player_pos.y + 1.5, z = player_pos.z}
-	local charging_time  = lord_bows.get_bows()[to_bow_name(stack:get_name())].bow_stages.charging_time
+	local charging_time  = lord_archery.get_bows()[to_bow_name(stack:get_name())].bow_stages.charging_time
 	local max_holding    = charging_time[#charging_time]
 	local power          = hold_time/max_holding
 	if power >= 1 then
@@ -95,8 +95,8 @@ local function projectile_shot(player, stack, hold_time)
 	elseif hold_time <= 0.1 then
 		power = 0.1/max_holding
 	end
-	local bow_uses = lord_bows.get_bows()[to_bow_name(stack:get_name())].definition.uses
-	for item_name, reg in pairs(lord_bows.get_projectiles()) do
+	local bow_uses = lord_archery.get_bows()[to_bow_name(stack:get_name())].definition.uses
+	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if inv:contains_item("main", item_name) then
 			local projectile = minetest.add_entity(projectile_pos, reg.entity_name)
 			projectile:add_velocity({
@@ -105,7 +105,7 @@ local function projectile_shot(player, stack, hold_time)
 				z = look_dir.z * reg.speed * 3 * power,
 			})
 			projectile:set_acceleration({x = 0, y = GRAVITY * (-1), z = 0})
-			projectile:get_luaentity().shooter = player
+			projectile:get_luaentity()._shooter = player
 			stack:add_wear(65535/bow_uses)
 			inv:remove_item("main", item_name)
 			return
@@ -119,7 +119,7 @@ end
 local function check_projectiles(player, type)
 	type = type or "arrow"
 	local inv = player:get_inventory()
-	for item_name, reg in pairs(lord_bows.get_projectiles()) do
+	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if reg.type == type and inv:contains_item("main", item_name) then
 			return true
 		end
@@ -146,7 +146,8 @@ controls.on_hold(function(player, key, hold_time)
 
 	player_slowdown(player)
 
-	local new_stack = bow_charge(stack, hold_time, lord_bows.get_bows()[to_bow_name(stack:get_name())].bow_stages, player)
+	local new_stack = bow_charge(stack, hold_time,
+			lord_archery.get_bows()[to_bow_name(stack:get_name())].bow_stages, player)
 	if new_stack then
 		player:set_wielded_item(new_stack)
 	end
@@ -163,6 +164,8 @@ controls.on_release(function(player, key, hold_time)
 	if not stack:get_definition().groups.bow then
 		return
 	end
+
+	minetest.sound_play(stack:get_definition()["_sound_on_release"], {object = player})
 
 	projectile_shot(player, stack, hold_time)
 
