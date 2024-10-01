@@ -1,6 +1,6 @@
 local MainTab  = require('inventory.Form.MainTab')
 local BagsTab  = require('inventory.Form.BagsTab')
---local AboutTab = require('inventory.Form.AboutTab') TODO #1701
+local AboutTab = require('inventory.Form.AboutTab')
 
 
 --- @class inventory.Form: base_classes.Form.Mixin.WithTabs
@@ -43,7 +43,7 @@ function Form:instantiate(player)
 	self
 		:add_tab(MainTab:new(self))
 		:add_tab(BagsTab:new(self))
-		--:add_tab(AboutTab:new(self))
+		:add_tab(AboutTab:new(self))
 		:refresh()
 end
 

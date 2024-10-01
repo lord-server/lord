@@ -1,6 +1,7 @@
 
 
 minetest.mod(function(mod)
+	local spec = minetest.formspec
 
 	default.gui_bg =     'bgcolor[#080808BB;true]'
 	default.gui_bg_img = 'background9[5,5;1,1;gui_formbg.png;true;10]'
@@ -10,14 +11,13 @@ minetest.mod(function(mod)
 		default.gui_bg ..
 		default.gui_bg_img ..
 		default.gui_slots ..
-		'style_type[button;' ..
-			'bgimg=button_bg.png;' ..
-			'bgimg_middle=4;' ..
-			'font=bold;' ..
-			'textcolor=#fffb;' ..
-			'padding=0' ..
-		']' ..
-		''
+		spec.style_type('button', {
+			bgimg        = 'button_bg.png',
+			bgimg_middle = 4,
+			font         = 'bold',
+			textcolor    = '#fffc',
+			padding      = '0',
+		})
 
 
 	minetest.register_on_joinplayer(function(player)

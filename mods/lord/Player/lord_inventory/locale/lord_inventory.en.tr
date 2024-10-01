@@ -3,6 +3,7 @@
 # Tabs:
 Main=Main
 Bags=Bags
+About=About
 
 
 # Main Tab:
@@ -11,3 +12,8 @@ crafting_image=lord_inventory_crafting.en.png
 # Bags Tab:
 All Bags=All Bags
 Bag=Bag
+
+# About Tab:
+About.btn=About
+Rules.btn=Rules
+# TODO #1709

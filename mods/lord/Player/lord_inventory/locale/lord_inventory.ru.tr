@@ -3,6 +3,7 @@
 # Tabs:
 Main=Основное
 Bags=Сумки
+About=О сервере
 
 
 # Main Tab:
@@ -11,3 +12,8 @@ crafting_image=lord_inventory_crafting.ru.png
 # Bags Tab:
 All Bags=Все Сумки
 Bag=Сумка
+
+# About Tab:
+About.btn=О сервере
+Rules.btn=Правила
+# TODO #1709

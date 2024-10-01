@@ -1,6 +1,18 @@
 # textdomain: lord_inventory
 
-Back=
-Bag=
+# Tabs:
 Main=
 Bags=
+
+
+# Main Tab:
+crafting_image=
+
+# Bags Tab:
+All Bags=
+Bag=
+
+# About Tab:
+About.btn=
+Rules.btn=
+# TODO #1709
