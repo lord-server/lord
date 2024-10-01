@@ -1,112 +1,5 @@
 local SL = minetest.get_translator("lord_info")
 
--- используемые файлы в каталоге мира
-local info_file = minetest.get_worldpath() .. "/info.txt"
-local news_file = minetest.get_worldpath() .. "/news.txt"
-local rules_file = minetest.get_worldpath() .. "/rules.txt"
-
--- дополнительные привилегии (так же используется give)
-minetest.register_privilege("info", {
-	description = SL("Can edit info"),
-	give_to_singleplayer = false,
-})
-minetest.register_privilege("news", {
-	description = SL("Can edit news"),
-	give_to_singleplayer = false,
-})
-minetest.register_privilege("rules", {
-	description = SL("Can edit rules"),
-	give_to_singleplayer = false,
-})
-
--- размер и фон формы
-local form_prop = "size[8,8.5]background[5,5;1,1;info_formbg.png;true]"
-
--- чтение/запись txt файлов
-local function read_info()
-	return io.read_from_file(info_file) or SL("info_text")
-end
-local function write_info(info_text)
-	io.write_to_file(info_file, info_text)
-end
-
-local function read_news()
-	return io.read_from_file(news_file) or SL("news_text")
-end
-local function write_news(news_text)
-	io.write_to_file(news_file, news_text)
-end
-
-local function read_rules()
-	return io.read_from_file(rules_file) or SL("rules_text")
-end
-local function write_rules(rules_text)
-	io.write_to_file(rules_file, rules_text)
-end
-
-
-local function form_tabs_spec()
-	local form =
-		"button[0.3 ,0; 2.5,1;btn_info;"..SL("Info").."]"..
-		"button[2.75,0; 2.5,1;btn_news;"..SL("News").."]"..
-		"button[5.2 ,0; 2.5,1;btn_how;" ..SL("How to play?").."]"
-
-	return form
-end
-
--- описание форм
-local function info_form(name)
-	local privs = minetest.get_player_privs(name)
-	local form = form_prop .. form_tabs_spec()
-	form = form.."label[0.3,1.0;"..SL("Admin:").." "..minetest.settings:get("name").."]" --admin
-	if minetest.settings:get_bool("enable_pvp") then --pvp
-		form = form.."label[0.3,1.5;"..SL("PvP:").." "..SL("On").."]"
-	else
-		form = form.."label[0.3,1.5;"..SL("PvP:").." "..SL("Off").."]"
-	end
-	if minetest.settings:get_bool("enable_damage") then --урон
-		form = form.."label[0.3,2.0;"..SL("Damage:").." "..SL("On").."]"
-	else
-		form = form.."label[0.3,2.0;"..SL("Damage:").." "..SL("Off").."]"
-	end
-	--базовые права
-	form = form.."label[0.3,2.5;"..SL("Default privileges:").." "..minetest.settings:get("default_privs").."]"
-	form = form.."textarea[0.6,3.5;7.4,4.83;txt_info;"..SL("Info:")..";"..minetest.formspec_escape(read_info()).."]"
-	if privs["info"] then
-		form = form..
-			"button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]button[4.7,7.7;3,1;btn_save;"..SL("Save").."]"
-	else
-		form = form..
-			"button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
-	end
-	return form
-end
-local function news_form(name)
-	local privs = minetest.get_player_privs(name)
-	local form = form_prop .. form_tabs_spec()
-	form = form.."textarea[0.6,1.2;7.4,7.5;txt_news;"..SL("News:")..";"..minetest.formspec_escape(read_news()).."]"
-	if privs["news"] then
-		form = form..
-			"button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]button[4.7,7.7;3,1;btn_save;"..SL("Save").."]"
-	else
-		form = form..
-			"button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
-	end
-	return form
-end
-local function howto_form(name)
-	local privs = minetest.get_player_privs(name)
-	local form = form_prop .. form_tabs_spec()
-
-	form = form.."label[0.3,1.0;"..SL("Game's rules:").."]"
-	form = form.."textarea[0.6,1.5;7.4,7.15;txt_rules;;"..minetest.formspec_escape(read_rules()).."]"
-	if privs["rules"] then
-		form = form.."button[4.7,7.7;3,1;btn_save;"..SL("Save").."]"
-	end
-	form = form.."button_exit[0.3,7.7;3,1;btn_exit;"..SL("Exit").."]"
-
-	return form
-end
 
 --- @param search_query string
 --- @return table
@@ -151,7 +44,7 @@ end
 
 
 local function list_form(name, select_id, search_query)
-	local form = form_prop
+	local form = "size[8,8.5]background[5,5;1,1;info_formbg.png;true]"
 	form = form..
 		"label[0.3,0.3;"..SL("Objects:").."]"..
 		"field_close_on_enter[txt_filter;false]"..
@@ -198,18 +91,6 @@ local function list_form(name, select_id, search_query)
 end
 
 -- чат-команды
-minetest.register_chatcommand("info", {
-	description = SL("Show information about the server"),
-	func = function(name)
-		minetest.show_formspec(name, "info_form", info_form(name))
-	end,
-})
-minetest.register_chatcommand("news", {
-	description = SL("Show the server's news"),
-	func = function(name)
-		minetest.show_formspec(name, "news_form", news_form(name))
-	end,
-})
 local list_command_definition = {
 	description = SL("Show list of registered objects"),
 	privs = {give = true},
@@ -220,35 +101,6 @@ local list_command_definition = {
 minetest.register_chatcommand("list", list_command_definition)
 minetest.register_chatcommand("l", list_command_definition)
 
---- @param player    Player
---- @param form_name string
---- @param fields    table  form fields values received from client
-local function handle_info_forms(player, form_name, fields)
-	local player_name = player:get_player_name()
-
-	-- Tabs switching
-	if fields.btn_info then
-		minetest.show_formspec(player_name, "info_form", info_form(player_name))
-	elseif fields.btn_news then
-		minetest.show_formspec(player_name, "news_form", news_form(player_name))
-	elseif fields.btn_how then
-		minetest.show_formspec(player_name, "howto_form", howto_form(player_name))
-	end
-
-	-- Save
-	if fields.btn_save then
-		if form_name == "info_form" then
-			write_info(fields.txt_info)
-			minetest.chat_send_player(player_name, SL("Info successfully written!"))
-		elseif form_name == "news_form" then
-			write_news(fields.txt_news)
-			minetest.chat_send_player(player_name, SL("News successfully written!"))
-		elseif form_name == "howto_form" then
-			write_rules(fields.txt_rules)
-			minetest.chat_send_player(player_name, SL("Rules successfully written!"))
-		end
-	end
-end
 
 --- @param player    Player
 --- @param form_name string
@@ -283,11 +135,9 @@ end
 -- обработка событий на формах
 -- TODO: register separate handlers
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	if formname:is_one_of({"info_form", "news_form", "howto_form"}) then
-		handle_info_forms(player, formname, fields)
+	if formname ~= "list_form" then
+		return
 	end
 
-	if formname == "list_form" then
-		handle_list_form(player, formname, fields)
-	end
+	handle_list_form(player, formname, fields)
 end)
