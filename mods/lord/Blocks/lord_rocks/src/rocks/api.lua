@@ -13,7 +13,7 @@ local function add_existing(node_name)
 	local softness   = definition.groups["cracky"] or 2
 
 	minetest.override_item(node_name, {
-		groups = table.overwrite(definition.groups, { rock = 1 }),
+		groups = table.overwrite(definition.groups, { rock = 1, stone = 1 }),
 	})
 
 	rocks.nodes[node_name] = {

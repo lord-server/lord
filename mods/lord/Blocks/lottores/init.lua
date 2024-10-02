@@ -205,7 +205,7 @@ minetest.register_node("lottores:limestone", {
 	description = SL("Limestone"),
 	tiles = {"lottores_limestone_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=3, stone=2},
+	groups = {cracky=3, stone=1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -213,7 +213,7 @@ minetest.register_node("lottores:marble", {
 	description = SL("Marble"),
 	tiles = {"lottores_marble.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=1, stone=1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
