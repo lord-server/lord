@@ -57,7 +57,7 @@ minetest.register_tool('tools:dagger_hobbit', {
 		max_drop_level      = 0,
 		groupcaps           = { snappy = { times = { [2] = 2.25, [3] = 1.75 }, uses = 2, maxlevel = 1 }, },
 		damage_groups       = { fleshy = 2 },
-		full_punch_interval = .25
+		full_punch_interval = .2
 	},
 	groups            = { mithril_item = 1, forbidden = 1 },
 })
