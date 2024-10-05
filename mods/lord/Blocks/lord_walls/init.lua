@@ -26,11 +26,24 @@ for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	--- @type string
 	local sub_name = node_name:split(":")[2]
 
-	local walls_node = ":walls:" .. sub_name
+	local wall_name   = ":walls:" .. sub_name
 	local description = registration.original_description
 	local texture = registration.definition.tiles
-	walls.register(walls_node, S(description), texture, node_name, default.node_sound_stone_defaults())
+	walls.register(wall_name, S(description), texture, node_name, default.node_sound_stone_defaults())
 
+	-- For `lord_bricks` nodes.
+	-- TODO: use an API of `lord_bricks` (`bricks.get_lord_nodes()`, not `rocks.get_lord_nodes()`)
+	local brick_name = 'lord_bricks:' .. sub_name .. '_brick'
+	local brick = minetest.registered_nodes[brick_name]
+	wall_name = ':walls:' .. sub_name .. '_brick'
+	texture   = brick.tiles
+	walls.register(wall_name, S(description .. ' Brick'), texture, brick_name, default.node_sound_stone_defaults())
+
+	local block_name = 'lord_bricks:' .. sub_name .. '_block'
+	local block = minetest.registered_nodes[block_name]
+	wall_name = ':walls:' .. sub_name .. '_block'
+	texture   = block.tiles
+	walls.register(wall_name, S(description .. ' Block'), texture, block_name, default.node_sound_stone_defaults())
 end
 
 
