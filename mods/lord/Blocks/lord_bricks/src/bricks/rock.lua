@@ -1,10 +1,6 @@
 local S = minetest.get_translator(minetest.get_current_modname())
 
 
--- TODO: deduplicate `mordor_stone_{brick|block}` & stairs|slab
--- now them duplicates in `lottblocks`
-
-
 for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	local rock = minetest.registered_nodes[node_name]
 	local name = node_name:split(':')[2]
