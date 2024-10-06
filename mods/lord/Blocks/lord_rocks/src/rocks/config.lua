@@ -9,6 +9,7 @@ return {
 		["lord_rocks:peridotite"]     = { softness = 1, definition = {} },
 		["lord_rocks:grey_tuff"]      = { softness = 3, definition = {} },
 		["lord_rocks:red_tuff"]       = { softness = 3, definition = {} },
+		["lord_rocks:white_tuff"]     = { softness = 3, definition = {} },
 		["lord_rocks:grey_quartzite"] = { softness = 2, definition = {} },
 		["lord_rocks:pink_quartzite"] = { softness = 2, definition = {} },
 		["lord_rocks:shale"]          = { softness = 3, definition = {} },

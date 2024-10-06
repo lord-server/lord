@@ -108,6 +108,20 @@ minetest.register_biome({
 })
 
 minetest.register_biome({
+	name = "white_tuff_cave",
+	node_stone = "lord_rocks:white_tuff",
+	node_cave_liquid = "default:water_source",
+	node_dungeon = "default:cobble",
+	node_dungeon_alt = "default:mossycobble",
+	node_dungeon_stair = "stairs:stair_cobble",
+	y_max = -500,
+	y_min = -2500,
+	vertical_blend = 8,
+	heat_point = 10,
+	humidity_point = 50,
+})
+
+minetest.register_biome({
 	name = "red_tuff_cave",
 	node_stone = "lord_rocks:red_tuff",
 	node_cave_liquid = "default:water_source",
