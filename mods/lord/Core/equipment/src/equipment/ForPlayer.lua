@@ -59,7 +59,7 @@ function ForPlayer:not_empty(kind)
 				return slot, item
 			end
 		until not item
-	end, self.player:get_inventory():get_list(kind), 1
+	end, self.player:get_inventory():get_list(kind), 0
 end
 
 --- @param kind string    kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>
