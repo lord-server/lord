@@ -10,8 +10,7 @@ require("FormSpec")
 require("globalstep")
 require("mod")
 require("stack")
-require("craft.method")
-require("craft.recipe")
+require("craft")
 
 
 require = old_require
