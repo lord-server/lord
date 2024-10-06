@@ -359,9 +359,14 @@ end
 --- * Note: `fbgcolor`, leaving parameters empty and values for `fullscreen` that
 ---   are not bools are only available since formspec version 3.
 ---
+--- @overload fun(bgcolor:string):string
+--- @overload fun(bgcolor:string,fullscreen:string):string
+--- @param bgcolor    string  is `ColorString`
+--- @param fullscreen string  one of `"true"`|`"false"`|`"both"`|`"neither"`
+--- @param fbgcolor   string  is `ColorString`
 --- @return string
 function FormSpec.bgcolor(bgcolor,fullscreen,fbgcolor)
-	return 'bgcolor['..bgcolor..';'..fullscreen..';'..fbgcolor..']'
+	return 'bgcolor['..bgcolor..optional(fullscreen)..optional(fbgcolor)..']'
 end
 
 ---
