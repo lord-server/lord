@@ -13,8 +13,14 @@ local function register_lord_rocks()
 	api.add_existing("default:sandstone")
 	api.add_existing("default:desert_sandstone")
 	api.add_existing("default:silver_sandstone")
-	for name, registration in pairs(config) do
+	for name, registration in pairs(config.rocks) do
 		api.register_rock(name, registration.softness, registration.definition, true)
+	end
+end
+
+local function register_additional_crafts()
+	for _, recipe in pairs(config.additional_crafts) do
+		minetest.register_mirrored_crafts(recipe)
 	end
 end
 
@@ -23,5 +29,6 @@ return {
 	init = function()
 		register_api()
 		register_lord_rocks()
+		register_additional_crafts()
 	end,
 }

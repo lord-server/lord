@@ -30,6 +30,13 @@ stairs.register_stair_and_slab(
 	S("Inner Snowy Cobble Stair"),
 	S("Outer Snowy Cobble Stair")
 )
+minetest.register_mirrored_crafts({
+	output = "lottblocks:snowycobble 2",
+	recipe = {
+		{ "default:snowblock", "default:cobble" },
+		{ "default:cobble", "default:snowblock" },
+	},
+})
 
 -- Orc Stone
 minetest.register_node("lottblocks:orc_stone", {

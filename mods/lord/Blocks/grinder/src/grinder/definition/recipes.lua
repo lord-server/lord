@@ -22,4 +22,6 @@ return {
 	{"lottmapgen:mordor_cobble", "lottmapgen:mordor_gravel", 5},
 	{"lottmapgen:mordor_gravel", "lord_ground:mordor_sand", 5},
 	{"lord_ground:mordor_sand", "clay_types:mordor_clay_block_raw", 5},
+
+	{"default:ice", "default:snowblock", 4}
 }
