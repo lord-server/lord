@@ -24,13 +24,13 @@ Spec.label = spec.label
 --- @param element_name string name of element type (`label`, ...). Valid: one of `forms.DefaultStyle.<name>`
 --- @return string
 function Spec.reset_style(element_name)
-	return spec.style_type(element_name, DefaultStyle[element_name])
+	return spec.style_type(element_name, DefaultStyle.get(element_name))
 end
 
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style table  additional style to merge with `{ font = 'bold' }`
+--- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @return string
 function Spec.text(x, y, text, style)
 	return ''
@@ -42,7 +42,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style table  additional style to merge with `{ font = 'bold' }`
+--- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.bold(x, y, text, style)
@@ -54,7 +54,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style table  additional style to merge with `{ font = 'italic' }`
+--- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.italic(x, y, text, style)
@@ -66,7 +66,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style table  additional style to merge with `{ textcolor = '#ccc' }`
+--- @param style minetest.FormSpec.Style  additional style to merge with `{ textcolor = '#ccc' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted(x, y, text, style)
@@ -78,7 +78,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style table
+--- @param style minetest.FormSpec.Style
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small(x, y, text, style)

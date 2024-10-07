@@ -1,12 +1,14 @@
+local DefaultStyle = require('forms.DefaultStyle')
 local FormsPrepend = require('forms.prepend')
-local FormsSpec    = require('forms.spec')
+local FormsSpec    = require('forms.Spec')
 
 
 forms = {}
 
 local function register_api()
 	_G.forms = {
-		spec = FormsSpec
+		DefaultStyle = DefaultStyle,
+		Spec         = FormsSpec,
 	}
 end
 
