@@ -1,5 +1,6 @@
-local S        = minetest.get_translator('lord_inventory')
-local spec     = minetest.formspec
+local S         = minetest.get_translator('lord_inventory')
+local spec      = minetest.formspec
+local lord_spec = forms.spec
 
 
 -- TODO #1709
@@ -48,38 +49,6 @@ local AboutTab = base_classes.Form.Element.Tab:extended({
 	title = S('About'),
 })
 
---- @param x     number
---- @param y     number
---- @param name  string
---- @param title string
-local function icon_button(x, y, name, title, url)
-	return ''
-		.. spec.button_url(x, y, 2, 1, name, title, url)
-		.. spec.image(x+.2, y+.24, 0.4, 0.4, 'lord_inventory_icon_'..name..'.png')
-end
-
---- @param x         number
---- @param y         number
---- @param text      string
---- @param font_size string  see minetest.FormSpec.Style.font_size . Default: `"+7"`
-local function title(x, y, text, font_size)
-	font_size = font_size or '+7'
-
-	return ''
-		.. spec.style_type('label', { font = 'bold', font_size = font_size })
-		.. spec.label(x, y, text)
-		.. spec.style_type('label', { font = 'normal', font_size = '+0' })
-end
-
---- @param x    number
---- @param y    number
---- @param text string
-local function slogan(x, y, text)
-	return ''
-		.. spec.style_type('label', { font = 'italic', textcolor = '#ccc' })
-		.. spec.label(x, y, text)
-		.. spec.style_type('label', { font = 'normal', textcolor = '#fff' })
-end
 
 --- @param x    number
 --- @param y    number
@@ -87,18 +56,15 @@ end
 local function resource(x, y, res)
 	local description = descriptions[res.name]
 	local sdx = description.sub_title_dx
+	local icon = 'lord_inventory_icon_'..res.name..'.png'
 
 	return ''
-		.. spec.style_type('label', { font = 'bold', textcolor = '#fffe' })
-		.. spec.label(x, y + .08, description.title)
+		.. lord_spec.bold(x, y + .08, description.title, { textcolor = '#fffe' })
 		.. (description.sub_title and (
-			spec.style_type('label', { font = 'bold', textcolor = '#d4d4d4', font_size = '-1' }) ..
-			spec.label(x + sdx, y + .07, '(' .. description.sub_title .. ')')
+			lord_spec.small_bold(x + sdx, y + .07, '(' .. description.sub_title .. ')', '#d4d4d4')
 		) or '')
-		.. spec.style_type('label', { font = 'normal', textcolor = '#ddd', font_size = '-1' })
-		.. spec.label(x, y + .34, description.desc)
-		.. spec.style_type('label', { font = 'normal', textcolor = '#fff', font_size = '+0' })
-		.. icon_button(x + 5.2, y, res.name, res.title, res.url)
+		.. lord_spec.small(x, y + .34, description.desc, { textcolor = '#ddd' })
+		.. lord_spec.icon_button(x + 5.2, y, res.name, icon, res.title, res.url)
 end
 
 --- @param x              number
@@ -115,28 +81,33 @@ local function all_resources(x, y, resources_list)
 
 	return ''
 		.. spec.container(x, y)
-		..		spec.style_type('button_url', { padding= '20,0,0,0' })
 		..		table.concat(res_strings)
 		.. spec.container_end()
 end
 
 --- @return string
-function AboutTab:get_spec()
+local function donate_button()
 	return ''
-		.. title(2.75, 0, 'L.O.R.D. Server')
-		.. spec.label(0.3, 0.5, 'по мотивам легендариума Дж. Толкина ("Властелин Колец", "Хоббит", ...)')
-		.. slogan(2.15, 0.9, 'можно копать... можно не копать...')
-
-		.. spec.button_url(2, 1.4, 2, 1, 'about', S('About.btn'), 'https://lord-server.ru/about')
-		.. spec.button_url(4, 1.4, 2, 1, 'rules', S('Rules.btn'), 'https://lord-server.ru/rules')
-
-		.. all_resources(.4, 2.6, resources)
-
-		.. spec.style_type('label', { font = 'bold', textcolor = '#fffd' })
-		.. spec.label(2.25, 7.3, 'Поддержать развитие проекта')
 		.. spec.style('donate', { bgimg = 'lord_inventory_boosty.png', border = 'false' })
 		.. spec.style('donate:hovered', { bgimg = 'lord_inventory_boosty_hovered.png', border = 'false' })
 		.. spec.button_url(2.5, 7.75, 3, 1, 'donate', '', 'https://boosty.to/lord-server')
+end
+
+
+--- @return string
+function AboutTab:get_spec()
+	return ''
+		.. lord_spec.title(2.75, 0, 'L.O.R.D. Server')
+		.. lord_spec.label(0.3, 0.5, 'по мотивам легендариума Дж. Толкина ("Властелин Колец", "Хоббит", ...)')
+		.. lord_spec.muted_italic(2.15, 0.9, 'можно копать... можно не копать...')
+
+		.. lord_spec.button(2, 1.4, 2, 1, 'about', S('About.btn'), 'https://lord-server.ru/about')
+		.. lord_spec.button(4, 1.4, 2, 1, 'rules', S('Rules.btn'), 'https://lord-server.ru/rules')
+
+		.. all_resources(.4, 2.6, resources)
+
+		.. lord_spec.bold(2.25, 7.3, 'Поддержать развитие проекта', { textcolor = '#fffd' })
+		.. donate_button()
 end
 
 
