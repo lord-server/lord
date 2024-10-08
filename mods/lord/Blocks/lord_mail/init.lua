@@ -1,8 +1,12 @@
-local SL = minetest.get_translator("lord_mail")
+local SL        = minetest.get_translator("lord_mail")
+local colorize  = minetest.colorize
+local e         = minetest.formspec.escape
+local spec      = minetest.formspec
+local lord_spec = forms.Spec
 
-local text_color = "#111"
+local text_color = "#000"
 
-mail = {}
+local mail = {}
 
 mail.change_owner = function(meta, name)
 	if name ~= "" and name ~= nil then
@@ -161,11 +165,11 @@ local function paper_on_use(itemstack, user, pointed_thing)
 	if owner == player_name then
 		formspec = "size[8,3]"..gui_paperbg..
 			"style[paper_text;textcolor="..text_color.."]"..
-			"field[0.5,0.5;7.5,1.0;paper_text;;"..minetest.formspec_escape(text).."]"..
+			"field[0.5,0.5;7.5,1.0;paper_text;;"..e(text).."]"..
 			"button_exit[2.5,2.0;3.0,1.0;paper_save;"..SL("Save").."]"
 	else
 		formspec = "size[8,3]"..gui_paperbg..
-			"textarea[0.5,0.3;7.5,2.0;paper_text;;"..minetest.formspec_escape(text).."]"..
+			"textarea[0.5,0.3;7.5,2.0;paper_text;;"..e(text).."]"..
 			"label[0.3,2.5;"..SL("by").." "..owner.."]"
 	end
 	minetest.show_formspec(user:get_player_name(), "mail:paper", formspec)
@@ -189,8 +193,6 @@ minetest.register_craftitem("lord_mail:paper_with_text", {
 
 -- books
 
-local gui_bookbg = "background[5,5;1,1;mail_bookbg.png;true]"
-
 local function book_on_use(itemstack, user, pointed_thing)
 	local player_name = user:get_player_name()
 	local data = minetest.deserialize(itemstack:get_metadata())
@@ -198,22 +200,27 @@ local function book_on_use(itemstack, user, pointed_thing)
 	if data then
 		title, text, owner = data.title, data.text, data.owner
 	end
-	local formspec
+	local formspec = ''
+		.. spec.size(8, 8.5)
+		.. spec.image(-0.2, -0.2, 10.24, 10.4, '(lord_books_book_bg.png^[opacity:50)')
+
 	if owner == player_name then
-		formspec = "size[8,8]"..gui_bookbg..
-			"style[book_title,book_text;textcolor="..text_color.."]"..
-			"field[0.5,1;7.5,0;book_title;"..minetest.colorize(text_color, SL("Title")..":")..";"..
-				minetest.formspec_escape(title).."]"..
-			"textarea[0.5,1.5;7.5,7;book_text;"..minetest.colorize(text_color, SL("Contents")..":")..";"..
-				minetest.formspec_escape(text).."]"..
-			"button_exit[4.7,7.5;3,1;book_save;"..SL("Save").."]"
+		formspec = formspec
+			.. spec.style({ 'book_title', 'book_text' }, { textcolor = text_color})
+			.. lord_spec.bold(0.2, -0.1, SL('Title'))
+			.. spec.field(0.5, 1, 7.5, 0, 'book_title', '', title)
+			.. lord_spec.bold(0.2, 1.1, SL('Contents'))
+			.. spec.box(0.2, 1.53, 7.3, 5.9, '#fff4')
+			.. spec.textarea(0.5, 1.5, 7.5, 7, 'book_text', '', text)
+			.. spec.button_exit(4.7, 7.7, 3, 1, 'book_save', SL('Save'))
 	else
-		formspec = "size[8,8]"..gui_bookbg..
-			"label[0.2,0;"..SL("Title")..": "..minetest.formspec_escape(title).."]"..
-			"label[0.2,0.5;"..SL("by").." "..owner.."]"..
-			"textarea[0.5,1.5;7.5,7.5;book_text;;"..minetest.formspec_escape(text).."]"
+		formspec = formspec
+			.. spec.label(0.2, 0, SL('Title')..': '..title)
+			.. spec.label(0.2, 0.5, SL('by')..' '..owner)
+			.. spec.box(0.125, 1.4, 7.45, 6.6, '#000')
+			.. spec.textarea(0.5, 1.5, 7.5, 7.5, spec.read_only, '', text)
 	end
-	minetest.show_formspec(user:get_player_name(), "mail:book", formspec)
+	minetest.show_formspec(user:get_player_name(), 'mail:book', formspec)
 end
 
 -- TODO: `minetest.override_item` instead register
@@ -291,6 +298,7 @@ local function book_form_handler(player, fields)
 	local data_str = minetest.serialize(data)
 	if new_stack then
 		new_stack:set_metadata(data_str)
+		new_stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
 		if inv:room_for_item("main", new_stack) then
 			inv:add_item("main", new_stack)
 		else
@@ -298,6 +306,7 @@ local function book_form_handler(player, fields)
 		end
 	else
 		stack:set_metadata(data_str)
+		stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
 	end
 	player:set_wielded_item(stack)
 end

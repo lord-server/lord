@@ -11,9 +11,9 @@ local function build_formspec_prepend()
 		.. spec.background9(5, 5, 1, 1, 'gui_formbg.png', 'true', 10)
 		.. spec.listcolors('#0007', '#5a5a5a', '#141318', '#1238', '#fffc')
 
-	for name, style in DefaultStyle.list() do
+	for selectors, style in DefaultStyle.list() do
 		formspec_prepend = formspec_prepend
-			.. spec.style_type('button', DefaultStyle.get('button'))
+			.. spec.style_type(selectors, DefaultStyle.get(selectors))
 	end
 end
 
