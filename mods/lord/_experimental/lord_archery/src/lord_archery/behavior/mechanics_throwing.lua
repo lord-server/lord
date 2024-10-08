@@ -86,7 +86,7 @@ local function projectile_shot(player, stack, hold_time)
 	local inv            = player:get_inventory()
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
-	local projectile_pos      = {x = player_pos.x, y = player_pos.y + 1.5, z = player_pos.z}
+	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
 	local charging_time  = lord_archery.get_bows()[to_bow_name(stack:get_name())].bow_stages.charging_time
 	local max_holding    = charging_time[#charging_time]
 	local power          = hold_time/max_holding
@@ -99,12 +99,12 @@ local function projectile_shot(player, stack, hold_time)
 	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if inv:contains_item("main", item_name) then
 			local projectile = minetest.add_entity(projectile_pos, reg.entity_name)
-			projectile:add_velocity({
-				x = look_dir.x * reg.speed * 3 * power,
-				y = look_dir.y * reg.speed * 3 * power,
-				z = look_dir.z * reg.speed * 3 * power,
-			})
-			projectile:set_acceleration({x = 0, y = GRAVITY * (-1), z = 0})
+			projectile:add_velocity(vector.new(
+				look_dir.x * reg.entity_reg.max_speed * 3 * power,
+				look_dir.y * reg.entity_reg.max_speed * 3 * power,
+				look_dir.z * reg.entity_reg.max_speed * 3 * power
+			))
+			projectile:set_acceleration(vector.new(0, -GRAVITY, 0))
 			projectile:get_luaentity()._shooter = player
 			stack:add_wear(65535/bow_uses)
 			inv:remove_item("main", item_name)

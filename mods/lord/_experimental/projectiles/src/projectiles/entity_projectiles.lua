@@ -28,11 +28,8 @@ local function punch_target(projectile, target, damage_groups, remove_after_punc
 	if remove_after_punch == nil then
 		remove_after_punch = true
 	end
-
-
-
-
-	target:punch(projectile._shooter, 1.0, {
+-- ._shooter
+	target:punch(projectile.object, 1.0, {
 		full_punch_interval = 1.0,
 		damage_groups       = table.multiply_each_value(damage_groups, multipliers),
 	})
@@ -68,13 +65,14 @@ end
 --- @param projectile    LuaEntity  projectile entity
 --- @param target        LuaEntity  target entity
 --- @param damage_groups table      damage groups table (see Minetest API)
---- @param acceleraction vector     acceleraction
-local function hit_handling(projectile, target, damage_groups, acceleraction)
-	local acc = vector.length(acceleraction)/GRAVITY
+--- @param velocity      vector     projectile velocity
+local function hit_handling(projectile, target, damage_groups, velocity)
+	local speed = vector.length(velocity)/GRAVITY
+	minetest.chat_send_all("Speed: "..speed)
 	-- Hit player
 	if target:is_player() then
 		play_sound_on_hit(projectile, "object")
-		punch_target(projectile, target, damage_groups, true, { fleshy = acc })
+		punch_target(projectile, target, damage_groups, true, { fleshy = speed })
 	else
 		-- Hit another projectile
 		if is_entity_projectile(target) then
@@ -84,7 +82,7 @@ local function hit_handling(projectile, target, damage_groups, acceleraction)
 		-- Hit entity
 		else
 			play_sound_on_hit(projectile, "object")
-			punch_target(projectile, target, damage_groups, true, { fleshy = acc })
+			punch_target(projectile, target, damage_groups, true, { fleshy = speed })
 		end
 	end
 end
@@ -95,14 +93,15 @@ end
 --- @param damage_groups table      damage groups table (see Minetest API)
 local function collision_handling(projectile, move_result, damage_groups)
 	local vel = projectile.object:get_velocity()
-	local acc = projectile.object:get_acceleration()
-	projectile.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
+	--local acc = projectile.object:get_acceleration()
+	--projectile.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
 
 	if not move_result.collisions[1] then
 		return
 	end
 
 	if move_result.collisions[1].type == "node" then
+		minetest.chat_send_all("Speed: "..vector.length(vel)/GRAVITY)
 		play_sound_on_hit(projectile, "node")
 		local node_pos = move_result.collisions[1].node_pos
 		local projectile_pos = projectile.object:get_pos()
@@ -125,7 +124,7 @@ local function collision_handling(projectile, move_result, damage_groups)
 
 	local target = move_result.collisions[1].object
 
-	hit_handling(projectile, target, damage_groups, acc)
+	hit_handling(projectile, target, damage_groups, vel)
 end
 
 
@@ -173,9 +172,13 @@ local register_projectile_entity = function(name, item, reg)
 			if self._time_from_last_hit and self._life_timer > 0  then
 				self._time_from_last_hit = self._time_from_last_hit + dtime
 			end
-			if moveresult.collides or moveresult.standing_on_object then
+			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
+				minetest.chat_send_all(dump(moveresult))
+				minetest.chat_send_all("collide: "..tostring(moveresult.collides))
+				minetest.chat_send_all("stand: "..tostring(moveresult.standing_on_object))
 				collision_handling(self, moveresult, reg.damage_groups)
-			else
+			elseif vector.length(self.object:get_velocity()) > 0 then
+				minetest.chat_send_all(vector.length(self.object:get_velocity()))
 				flight_processing(self)
 			end
 
@@ -186,7 +189,7 @@ local register_projectile_entity = function(name, item, reg)
 			end
 		end,
 		on_punch       = function(self, puncher)
-			if self.object:get_velocity() ~= {x = 0, y = 0, z = 0} or self:get_luaentity()._shooter ~= puncher then
+			if vector.length(self.object:get_velocity()) > 0 or self._shooter ~= puncher then
 				return
 			end
 			self.object:remove()
