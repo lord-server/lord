@@ -71,7 +71,7 @@ minetest.register_craft({
 		{ 'default:mese_crystal', 'group:stick',         'default:mese_crystal' },
 	}
 })
-minetest.register_craft({
+minetest.register_mirrored_crafts({
 	method = minetest.CraftMethod.ANVIL,
 	output = 'tools:sword_orc',
 	recipe = {
