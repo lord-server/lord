@@ -119,10 +119,10 @@ minetest.register_node("lord_mail:mail_chest", {
 		if listname == "drop" and inv:room_for_item("main", stack) then
 			inv:remove_item("drop", stack)
 			inv:add_item("main", stack)
-			local mail = get_mail(meta:get_string("owner"))
-			if mail then
+			local owner_mail = get_mail(meta:get_string("owner"))
+			if owner_mail then
 				local report = SL("You have new post").." "..minetest.pos_to_string(pos)
-				os.execute("echo '"..report.."' | mail -s 'post' "..mail)
+				os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
 			end
 		end
 	end,
