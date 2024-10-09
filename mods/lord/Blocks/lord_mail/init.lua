@@ -136,10 +136,10 @@ minetest.register_node("lord_mail:mail_chest", {
 			if inv:room_for_item("main", stack) then
 				return -1
 			else
-				local mail = get_mail(meta:get_string("owner"))
-				if mail then
+				local owner_mail = get_mail(meta:get_string("owner"))
+				if owner_mail then
 					local report = SL("Your post full").." "..minetest.pos_to_string(pos)
-					os.execute("echo '"..report.."' | mail -s 'post' "..mail)
+					os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
 				end
 				return 0
 			end
