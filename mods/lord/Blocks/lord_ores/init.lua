@@ -24,7 +24,7 @@ minetest.mod(function(mod)
 			}
 		},
 		walkable                   = false,
-		liquidtype                 = "source",
+		liquidtype                 = "none",
 		liquid_alternative_source  = "lord_ores:magma",
 		liquid_alternative_flowing = "lord_ores:magma",
 		liquid_range               = 0,
