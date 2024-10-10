@@ -1,5 +1,94 @@
 # Change Log
 
+## [2024.09](https://github.com/lord-server/lord/releases/tag/2024.09)
+ - Ability to give mute privileges for spawn Keepers. Added j_mute mod (fixes #1387) (#1682).
+ - Racial weapons:
+   - Add human & hobbit weapons. Closes #1691
+   - Change racial weapon crafting. Closes #1690
+   - Add symmetrical (mirrored) craft for Orcish Sword. Closes #1721
+ - Player Inventory:
+   - Add "Crafting" image for `en` lang. Closes #1020
+   - Bags: add buttons for each bag on bag content page. Closes #1705
+   - Make bags as tab; Closes #1698. Relates to #1020
+   - Add About tab (v1). Closes #1701
+   - Remember opened tab/subtab.
+ - Shop:
+   - add multi-exchange. Closes #731 (#1707)
+ - Stone/Rocks/Ores Blocks:
+   - `walls` now connects to marble & different sandstones. Relates to #996
+   - Add bricks+blocks for all rocks. Relates to #1304
+   - Add stairs & slabs for bricks & blocks from rocks. Relates to #1304
+   - Add crafts for Frozen-Stone & Snowy-Cobble. Closes #1327
+   - Add White-Tuff. Closes #1342
+   - Add damage from magma. Closes #1343
+   - Update `lord_rocks_shale.png` (#1413)
+ - Forms:
+   - Book:
+     - Improve readability;
+     - Add title into tooltip;
+     - Remake book gui. Closes #1715
+ - Remove commands `/news`|`/info` and theirs forms. Closes #927
+
+ - Bug Fixing:
+   - Fix banister replacing blocks; Fixes #1493 (#1663)
+   - Fix steel torch craft count.
+   - Fix armor missing helmet. Fix equipment `ForPlayer:not_empty(kind)` iterator. Fixes #1694
+
+ - Technical:
+   - Utils: `mt-maker`: recursively walk through `templates` dir.
+   - Utils: `mt-maker`: improve mod template.
+   - Physics: refactoring: move mod from `_experimental` -> `Core`. Relates to #1666
+   - Debug: add `/physics.{get|set}` commands for non `"production"` `environment` setting.
+   - Physics: Refactoring: add API; ability to `:set()|:get()` for player; store locally & merge new values in `:set()`. Relates to #1666
+   - Physics: Refactoring: extract `Game/lord_physics`. Closes #1666
+   - Physics: Refactoring: add forgotten dependency. Relates to #1666
+   - Effects System: add `Core/effects` mod backbone. Closes #1656
+   - Refactoring: `equipment`: add `equipment.ForPlayer:not_empty()` iterator.
+   - Effects System: add ability to register new `Effect` with own `:on_{start|stop}()` functions. Closes #1667
+   - Effects System: ability to register & apply effect. Closes #1667. Closes #1668
+   - Effects System: `lord_effect`: add mod backbone & register our effects for `speed`,`jump`,`health`. Relates to #1676
+   - Technical: fix `get_mail()` from `mail_list` command.
+   - Artisan Benches: move `castle:workbench`. Closes #1653
+   - `Core/base_classes`: add `DetachedInventory` base class. Closes #1683
+   - `Core`: `builtin`: ability to add custom craft methods for `minetest.{register_craft|get_craft_result}()`. Closes #1685
+   - `Core`: `builtin`: fix return value for `minetest.get_craft_result`. Relates to #1685
+   - `Core`: `builtin`: support `group:*` for custom craft recipes. Closes #1686
+   - `Core`: ability to `:return_forgotten()` in `base_classes.DetachedInventory`. Closes #1687
+   - `Core`: `base_classes`: add Form Mixin `WithDetached`. Closes #1684
+   - `Builtin`: custom craft: decrease input with `groups`; make response fully compatible with MT. Relates to #1685, #1686
+   - Artisan Benches: refactor anvil. Closes #1654
+   - `Builtin`: fix search of corresponding recipe. Relates to #1685
+   - `Builtin`: custom craft: fix decrease of input. Relates to #1685
+   - Inventories: extract `lord_forms` for forms styling. Closes #1693
+   - Revert "Hack-workaround of `on_take`, `on_put` call sequence. Closes #1029". Closes #1051.
+   - Player Inv: Refactoring: move detached inv registration into `lord_equipment`. Relates to 1020
+   - `Core`: `base_classes`: refactor `WithTabs` mixin & its usage. Relates to #1695
+   - `Core`: `base_classes`: add `Element.Tab` class. Closes #1695
+   - `Core`: `base_classes`: ability to add tabs in forms with `WithTabs` mixin. Relates to #1696.
+   - `Core`: `base_classes`: change mixer system for Form Mixins. Relates to #1696
+   - Player Inventory: remove `sfinv` submodule. Relates to #1020
+   - `Core`: `base_clases`: improve Form Mixins. Relates to #1696, #1020
+   - `Core`: `base_classes`: ability to pass args into `Form.Base::{register|open|close}()` & catch in `::on_{register|open|close}()`. Closes #1697
+   - `Core`: `base_classes`: `WithTabs` mixin: ability to specify form spec "head". Closes #1700
+   - Player Inventory: Refactoring: refactoring & make Main as Tab. Closes #1699. Relates to #1020
+   - `Core`: `base_classes`: `WithTabs` mixin: ability to specify own handling for each tab. Closes #1702
+   - `Core`: `base_classes`: `Personal` mixin: ability to specify to not clear opened form. Closes #1704
+   - `Builtin`: add `minetest.FormSpec` & `minetest.FormSpec.Style`. Closes #1706
+   - Rework lord_money.shop; fix localization. Closes #731 (#1707)
+   - Increase speed (so damage) of hobbit dagger. Relates to #1691
+   - `ide-helper`: improve `NodeDefinition` & `ObjectProperties`
+   - Add rock bricks+blocks; move chamotte and mordor bricks+blocks into separate files; save untranslated definition for rocks to use it in other blocks registration. Relates to #1304
+   - Stony Blocks: restructure code in `lord_bricks`. Relates to #1304
+   - Stones: add bricks & blocks overlays; refactor node regs. Relates to #1304
+   - Stone Blocks: deduplicate `mordor_stone_{brick|block}` & stairs|slab. Closes #1712
+   - Add helper `minetest.register_mirrored_crafts()`. Closes #492
+   - Fix `equipment.ForPlayer:not_empty()` iterator. Closes #1716.
+   - Forms: remove legacy `default.{gui_bg[_img]|gui_slots}`. Relates to #1708
+   - Forms: extract common form elements from `AboutTab` into `forms.spec` api. Relates to #1708
+   - Forms: General Styles: ability to configure default styles. Closes #1708
+   - Stones/Ores: magma no flowing. Closes #1719
+   - Rocks: add localization for White Tuff. Fixes #1720
+
 ## [2024.08.p4](https://github.com/lord-server/lord/releases/tag/2024.08.p4)
  - Try to fix `newbie` in chat messages
  - No clan detection by player for blocked clans. Fixes player `nametag` for blocked clan.
