@@ -414,7 +414,7 @@ end
 ---
 --- @return string
 function FormSpec.pwdfield(X,Y,W,H,name,label)
-	return 'pwdfield['..X..','..Y..';' ..W..','..H..';'..name..optional(label)..']'
+	return 'pwdfield['..X..','..Y..';' ..W..','..H..';'..name..optional(e(label))..']'
 end
 
 ---
@@ -433,7 +433,7 @@ end
 ---
 --- @return string
 function FormSpec.field(X,Y,W,H,name,label,default)
-	return 'field['..X..','..Y..';' ..W..','..H..';'..name..optional(e(label))..optional(default)..']'
+	return 'field['..X..','..Y..';' ..W..','..H..';'..name..optional(e(label))..optional(e(default))..']'
 end
 
 ---
@@ -447,7 +447,7 @@ end
 ---
 --- @return string
 function FormSpec.field2(name,label,default)
-	return 'field['..name..optional(e(label))..optional(default)..']'
+	return 'field['..name..optional(e(label))..optional(e(default))..']'
 end
 
 ---
@@ -482,7 +482,7 @@ end
 ---
 --- @return string
 function FormSpec.textarea(X,Y,W,H,name,label,default)
-	return 'textarea['..X..','..Y..';' ..W..','..H..';'..name..optional(e(label))..optional(default)..']'
+	return 'textarea['..X..','..Y..';' ..W..','..H..';'..name..optional(e(label))..optional(e(default))..']'
 end
 
 ---
@@ -510,7 +510,7 @@ end
 ---
 --- @return string
 function FormSpec.hypertext(X,Y,W,H,name,text)
-	return 'hypertext['..X..','..Y..';' ..W..','..H..';'..name..';'..text..']'
+	return 'hypertext['..X..','..Y..';' ..W..','..H..';'..name..';'..e(text)..']'
 end
 
 --- * Textual label drawn vertically
@@ -583,7 +583,7 @@ end
 ---
 --- @return string
 function FormSpec.button_exit(X,Y,W,H,name,label)
-	return 'button_exit['..X..','..Y..';' ..W..','..H..';'..name..';'..label..']'
+	return 'button_exit['..X..','..Y..';' ..W..','..H..';'..name..';'..e(label)..']'
 end
 
 ---
@@ -592,7 +592,7 @@ end
 ---
 --- @return string
 function FormSpec.button_url_exit(X,Y,W,H,name,label,url)
-	return 'button_url_exit['..X..','..Y..';' ..W..','..H..';'..name..';'..label..';'..url..']'
+	return 'button_url_exit['..X..','..Y..';' ..W..','..H..';'..name..';'..e(label)..';'..e(url)..']'
 end
 
 ---
@@ -601,7 +601,7 @@ end
 ---
 --- @return string
 function FormSpec.image_button_exit(X,Y,W,H,texture_name,name,label)
-	return 'image_button_exit['..X..','..Y..';' ..W..','..H..';'..texture_name..';'..name..optional(label)..']'
+	return 'image_button_exit['..X..','..Y..';' ..W..','..H..';'..texture_name..';'..name..optional(e(label))..']'
 end
 
 ---
@@ -771,9 +771,10 @@ end
 --- * **Note**: If the new coordinate system is enabled, checkboxes are
 --- positioned from the center of the checkbox, not the top.
 ---
+--- @param selected boolean
 --- @return string
 function FormSpec.checkbox(X,Y,name,label,selected)
-	return 'checkbox['..X..','..Y..';' .. name..optional(e(label))..optional(selected)..']'
+	return 'checkbox['..X..','..Y..';' .. name..optional(e(label))..optional(bool_str(selected))..']'
 end
 
 ---
