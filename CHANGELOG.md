@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.09.p1](https://github.com/lord-server/lord/releases/tag/2024.09.p1)
+ - Hotfix: fix Player Inventory tabs. Fixes #1722
+ - Escape formspec values. Fixes #1723
+
 ## [2024.09](https://github.com/lord-server/lord/releases/tag/2024.09)
  - Ability to give mute privileges for spawn Keepers. Added j_mute mod (fixes #1387) (#1682).
  - Racial weapons:
