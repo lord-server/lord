@@ -21,6 +21,8 @@ local Form = base_classes.Form:personal():with_tabs():extended({
 	--- Replaces by player forms collection in Form.on_register callback
 	--- @see inventory.Form:on_register() @ below.
 	---
+	--- @static late
+	--- @protected
 	--- @type inventory.Form[]|table<string,inventory.Form>
 	opened_for = {},
 	--- We need to not clear `self.opened_for[player_name]`
@@ -76,7 +78,7 @@ Form.on_register(function(self, player_forms_collection)
 	-- Then this var used to get the instance of the player to handle.
 	-- But the `Form:open()` is not calls.
 	-- So we need to creates this instances manually and somehow put into `Form.opened_for[player_name]`.
-	-- We already do it in `_G.inventory.for_player`. (see `inventory.lua`)
+	-- We already do it in `_G.inventory.for_player()`. (see `inventory.lua`)
 	-- And here we just replace this `Form.opened_for` array with that `player_forms_collection`.
 	-- So `WithTabs` mixin works with the same collection as `_G.inventory.for_player`
 	Form.opened_for = player_forms_collection

@@ -85,7 +85,7 @@ function WithTabs.mix_to(class, tabs_numbers)
 	--- @param _    Position
 	class.on_instance(function(self, _, _)
 		self.current_tab = 1
-		self.tabs = self.tabs or class.tabs or {}
+		self.tabs = table.copy(self.tabs or class.tabs)
 	end)
 	--- @param self   base_classes.Form.Base|base_classes.Form.Mixin.WithTabs
 	--- @param _      Player
