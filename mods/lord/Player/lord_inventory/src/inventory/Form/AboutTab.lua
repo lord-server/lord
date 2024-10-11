@@ -9,11 +9,12 @@ local lord_spec = forms.Spec
 
 --- @type lord_inventory.Form.AboutTab.resource[]
 local resources = {
-	{ name = 'site'   , title = 'Website', url = 'https://lord-server.ru/' },
-	{ name = 'discord', title = 'Discord', url = 'https://www.discord.gg/YcT5FuQwUT' },
-	{ name = 'youtube', title = 'YouTube', url = 'https://www.youtube.com/@lord-server' },
-	{ name = 'vk'     , title = 'group  ', url = 'https://vk.com/minetest_lord' },
-	{ name = 'github' , title = 'GitHub ', url = 'https://github.com/lord-server/lord' },
+	{ name = 'site'     , title = 'Website', url = 'https://lord-server.ru/' },
+	{ name = 'telegram' , title = 'Telegram', url = 'https://t.me/lord_server_ru' },
+	{ name = 'discord'  , title = 'Discord', url = 'https://www.discord.gg/YcT5FuQwUT' },
+	{ name = 'youtube'  , title = 'YouTube', url = 'https://www.youtube.com/@lord-server' },
+	{ name = 'vk'       , title = 'group  ', url = 'https://vk.com/minetest_lord' },
+	--{ name = 'github'   , title = 'GitHub ', url = 'https://github.com/lord-server/lord' },
 }
 --- @type { title:string, sub_title:string, sub_title_dx:number, desc:string }[]
 local descriptions = {
@@ -21,6 +22,11 @@ local descriptions = {
 		title     = 'Наш сайт',
 		sub_title = 'Карта мира', sub_title_dx = 1.06,
 		desc      = 'Информация об Игроках, Спаунах и Кланах',
+	},
+	telegram = {
+		title     = 'Наш Telegram',
+		sub_title = 'Оставайтесь на связи', sub_title_dx = 1.48,
+		desc      = 'Постим новости, сообщаем об Ивентах и Стримах',
 	},
 	discord = {
 		title     = 'Наш Discord',
@@ -36,11 +42,11 @@ local descriptions = {
 		title     = 'Страница ВКонтакте',
 		desc      = 'Новости и заметки о жизни сервера',
 	},
-	github  = {
-		title     = 'Репозиторий',
-		sub_title = 'Open source', sub_title_dx = 1.48,
-		desc      = 'Сообщи об ошибке. Присоединяйся к команде',
-	},
+	--github  = {
+	--	title     = 'Репозиторий',
+	--	sub_title = 'Open source', sub_title_dx = 1.48,
+	--	desc      = 'Сообщи об ошибке. Присоединяйся к команде',
+	--},
 }
 
 
