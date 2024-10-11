@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.09.p2](https://github.com/lord-server/lord/releases/tag/2024.09.p2)
+ - Rebalanse spears
+ - Add information about Telegram-channel
+
 ## [2024.09.p1](https://github.com/lord-server/lord/releases/tag/2024.09.p1)
  - Hotfix: fix Player Inventory tabs. Fixes #1722
  - Escape formspec values. Fixes #1723
