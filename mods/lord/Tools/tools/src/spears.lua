@@ -14,8 +14,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 3.70, [2] = 2.70, [3] = 1.70 }, uses = 3, maxlevel = 1 },
-		damage_groups         = { fleshy = 4.5 },
-		full_punch_interval   = 1.5,
+		damage_groups         = { fleshy = 3.00 },
+		full_punch_interval   = 1.00,
 		groups                = { wooden = 1 },
 	},
 	stone       = {
@@ -24,8 +24,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.75, [2] = 1.75, [3] = 0.75 }, uses = 5, maxlevel = 1 },
-		damage_groups         = { fleshy = 5.5 },
-		full_punch_interval   = 1.55,
+		damage_groups         = { fleshy = 4.50 },
+		full_punch_interval   = 1.50,
 	},
 	steel       = {
 		description           = SL("Steel Spear"),
@@ -33,8 +33,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.40, [2] = 1.40, [3] = 0.40 }, uses = 15, maxlevel = 1 },
-		damage_groups         = { fleshy = 6.8 },
-		full_punch_interval   = 1.70,
+		damage_groups         = { fleshy = 7.00 },
+		full_punch_interval   = 1.50,
 		groups                = { steel_item = 1 },
 	},
 	bronze      = {
@@ -43,8 +43,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.40, [2] = 1.40, [3] = 0.40 }, uses = 20, maxlevel = 1 },
-		damage_groups         = { fleshy = 7.92 },
-		full_punch_interval   = 1.80,
+		damage_groups         = { fleshy = 8.75 },
+		full_punch_interval   = 1.75,
 		groups                = { bronze_item = 1 },
 	},
 	copper      = {
@@ -52,8 +52,8 @@ return {
 		wield_image_transform = "^[transformFX",
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
-		damage_groups         = { fleshy = 7.7 },
-		full_punch_interval   = 1.79,
+		damage_groups         = { fleshy = 8.33 },
+		full_punch_interval   = 1.70,
 		groups                = { copper_item = 1 },
 	},
 	tin         = {
@@ -62,8 +62,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
-		damage_groups         = { fleshy = 7.7 },
-		full_punch_interval   = 1.79,
+		damage_groups         = { fleshy = 4.95 },
+		full_punch_interval   = 1.65,
 		groups                = { tin_item = 1 },
 	},
 	silver      = {
@@ -72,8 +72,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.2, [2] = 1.2, [3] = 0.20 }, uses = 15, maxlevel = 1 },
-		damage_groups         = { fleshy = 8.65 },
-		full_punch_interval   = 1.8,
+		damage_groups         = { fleshy = 8.79 },
+		full_punch_interval   = 1.85,
 		groups                = { silver_item = 1 },
 	},
 	gold        = {
@@ -92,8 +92,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.3, [2] = 1.3, [3] = 0.30 }, uses = 25, maxlevel = 1 },
-		damage_groups         = { fleshy = 12 },
-		full_punch_interval   = 2.00,
+		damage_groups         = { fleshy = 11.10 },
+		full_punch_interval   = 1.85,
 		groups                = { forbidden = 1, galvorn_item = 1 },
 	},
 	mithril     = {
@@ -102,8 +102,8 @@ return {
 		range                 = 7,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.00, [2] = 1.00, [3] = 0.20 }, uses = 30, maxlevel = 2 },
-		damage_groups         = { fleshy = 12 },
-		full_punch_interval   = 1.50,
+		damage_groups         = { fleshy = 7.5 },
+		full_punch_interval   = 1.00,
 		groups                = { mithril_item = 1 },
 	}
 }
