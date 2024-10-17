@@ -118,49 +118,51 @@ local function set_formspec(pos, data, page)
 	meta:set_string("formspec", formspec)
 end
 
+--- @param inv InvRef
 local function sort_inventory(inv)
-	local inlist = inv:get_list("main")
-	local typecnt = {}
-	local typekeys = {}
-	for _, st in ipairs(inlist) do
+	local in_list    = inv:get_list("main")
+	local type_count = {}
+	local items_keys = {}
+	for _, st in ipairs(in_list) do
 		if not st:is_empty() then
 			local n = st:get_name()
 			local w = st:get_wear()
 			local m = st:get_metadata()
-			local k = string.format("%s %05d %s", n, w, m)
-			if not typecnt[k] then
-				typecnt[k] = {
+			local item_key = string.format("%s %05d %s", n, w, m)
+			if not type_count[item_key] then
+				type_count[item_key] = {
 					name = n,
 					wear = w,
-					metadata = m,
+					meta = st:get_meta():to_table(),
 					stack_max = st:get_stack_max(),
 					count = 0,
 				}
-				table.insert(typekeys, k)
+				table.insert(items_keys, item_key)
 			end
-			typecnt[k].count = typecnt[k].count + st:get_count()
+			type_count[item_key].count = type_count[item_key].count + st:get_count()
 		end
 	end
-	table.sort(typekeys)
-	local outlist = {}
-	for _, k in ipairs(typekeys) do
-		local tc = typecnt[k]
+	table.sort(items_keys)
+	local out_list = {}
+	for _, k in ipairs(items_keys) do
+		local tc = type_count[k]
 		while tc.count > 0 do
 			local c = math.min(tc.count, tc.stack_max)
-			table.insert(outlist, ItemStack({
+			local stack = ItemStack({
 				name = tc.name,
 				wear = tc.wear,
-				metadata = tc.metadata,
 				count = c,
-			}))
+			})
+			stack:get_meta():from_table(tc.meta)
+			table.insert(out_list, stack)
 			tc.count = tc.count - c
 		end
 	end
-	if #outlist > #inlist then return end
-	while #outlist < #inlist do
-		table.insert(outlist, ItemStack(nil))
+	if #out_list > #in_list then return end
+	while #out_list < #in_list do
+		table.insert(out_list, ItemStack(nil))
 	end
-	inv:set_list("main", outlist)
+	inv:set_list("main", out_list)
 end
 
 local function get_receive_fields(name, data)
