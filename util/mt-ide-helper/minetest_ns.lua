@@ -261,6 +261,7 @@ function minetest.log(level, text) end
 --- @param node_definition NodeDefinition table with node definition properties.
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4471-L4471)
 function minetest.register_node(name, node_definition) end
+--- @param item_definition ItemDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4472-L4472)
 function minetest.register_craftitem(name, item_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4473-L4473)
