@@ -39,6 +39,21 @@ function Spec.text(x, y, text, style)
 		.. Spec.reset_style('label')
 end
 
+--- Styled Read-Only textarea
+--- @param x      number
+--- @param y      number
+--- @param width  number
+--- @param height number
+--- @param text   string
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @return string
+function Spec.area_ro(x, y, width, height, text, style)
+	return ''
+		.. spec.style_type('textarea', style)
+		.. spec.textarea(x, y, width, height, spec.read_only, '', text)
+		.. Spec.reset_style('textarea')
+end
+
 --- @param x     number
 --- @param y     number
 --- @param text  string
@@ -61,6 +76,51 @@ function Spec.italic(x, y, text, style)
 	style = table_merge(ITALIC, style or {})
 
 	return Spec.text(x, y, text, style)
+end
+
+--- Styled Read-Only textarea
+--- @param x      number
+--- @param y      number
+--- @param width  number
+--- @param height number
+--- @param text   string
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @overload fun(x:number,y:number,width:number,height:number,text:string):string
+--- @return string
+function Spec.italic_area_ro(x, y, width, height, text, style)
+	style = table_merge(ITALIC, style or {})
+
+	return Spec.area_ro(x, y, width, height, text, style)
+end
+
+--- Styled Read-Only textarea
+--- @param x      number
+--- @param y      number
+--- @param width  number
+--- @param height number
+--- @param text   string
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @overload fun(x:number,y:number,width:number,height:number,text:string):string
+--- @return string
+function Spec.bold_area_ro(x, y, width, height, text, style)
+	style = table_merge(BOLD, style or {})
+
+	return Spec.area_ro(x, y, width, height, text, style)
+end
+
+--- Styled Read-Only textarea
+--- @param x      number
+--- @param y      number
+--- @param width  number
+--- @param height number
+--- @param text   string
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @overload fun(x:number,y:number,width:number,height:number,text:string):string
+--- @return string
+function Spec.bold_area_ro(x, y, width, height, text, style)
+	style = table_merge(BOLD, style or {})
+
+	return Spec.area_ro(x, y, width, height, text, style)
 end
 
 --- @param x     number

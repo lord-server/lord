@@ -5,7 +5,9 @@
 --- @type forms.DefaultStyle.config
 local config = {
 	--- @type minetest.FormSpec.Style
-	label  = { font = 'normal', font_size = '+0', textcolor = '#fffffff0', --[[noclip = 'false'--]] },
+	label  = {
+		font = 'normal', font_size = '+0', textcolor = '#fffffff0', --[[noclip = 'false'--]]
+	},
 	--- @type minetest.FormSpec.Style
 	button = {
 		bgimg        = 'button_bg.png',
@@ -13,6 +15,10 @@ local config = {
 		font         = 'bold',
 		textcolor    = '#fffc',
 		padding      = '0',
+	},
+	--- @type minetest.FormSpec.Style
+	textarea = {
+		font = 'normal', font_size = '+0', textcolor = '#fffffff0',
 	},
 
 	-- as for now, this styles is not supported by MT
