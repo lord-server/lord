@@ -16,8 +16,12 @@ return {
 
 		local list_items = {}
 
-		local luminance  = definition.light_source
-		if luminance and luminance >= 1 then
+		local luminance  = definition._tt_luminance or (
+			(definition.light_source and definition.light_source >= 1)
+				and definition.light_source
+				or  nil
+		)
+		if luminance then
 			list_items[#list_items + 1] = colorize(tt.COLOR_DEFAULT, S('luminance')) .. ': ' .. luminance
 		end
 
