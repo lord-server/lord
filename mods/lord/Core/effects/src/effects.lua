@@ -16,6 +16,8 @@ local function register_api()
 		register       = Registered.add,
 		get_registered = Registered.all,
 
+		--- @param player Player
+		--- @return effects.ForPlayer
 		for_player     = function(player)
 			local name = player:get_player_name()
 			if not player_effects[name] then
