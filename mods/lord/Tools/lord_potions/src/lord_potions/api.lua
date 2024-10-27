@@ -1,4 +1,5 @@
-local S = minetest.get_translator('lord_potion')
+local S        = minetest.get_translator(minetest.get_current_modname())
+local colorize = minetest.colorize
 
 
 local potions = {
@@ -18,27 +19,36 @@ local function add_existing(node_name)
 end
 
 --- default groups: default: { dig_immediate = 3, attached_node = 1, vessel = 1, potions = 1 }
---- @param item_name_start string technical item/node name (`"<mod>:<node>"`).
---- @param title     string       prefix to description of item or will extracted from `item_name` (`title`.." Potion")
---- @param groups    table        additional or overwrite groups
-local function register_potion(item_name_start, title, color, effect, amount, duration, power, groups)
-	local power_abs             = math.abs(power)
-	local item_name             = item_name_start .. '_' .. power_abs
-	local sub_name              = item_name:split(':')[2]
-	title                       = title and title:first_to_upper() or sub_name:first_to_upper()
+--- @param name_prefix string technical item/node name (`"<mod>:<node>"`) prefix (will be name_prefix..'_'..power_abs).
+--- @param title       string prefix to description of item or will extracted from `item_name` (`title`.." Potion").
+--- @param description string some words you want to displayed in tooltip before properties of power.
+--- @param color       string color of potion liquid (bottle contents).
+--- @param effect      string one of registered `lord_effects.<CONST>` names.
+--- @param power       lord_potions.PotionPower
+--- @param groups      table  additional or overwrite groups for item definition groups.
+local function register_potion(name_prefix, title, description, color, effect, power, level, groups)
+	local power_abs = math.abs(level)
+	local item_name = name_prefix .. '_' .. power_abs
+	local sub_name  = item_name:split(':')[2]
+	title           = title and title:first_to_upper() or sub_name:first_to_upper()
+	level           = level or 0
 
-	local power_overlay_opacity = tonumber(power) > 0
+	local content_opacity_by_level = tonumber(level) >= 0
 		and (120 - power_abs * 40)
-		or (150 - power_abs * 50)
-	local contents_img          = '(' ..
+		or  (150 - power_abs * 50)
+	local bottle_contents_img      = '(' ..
 		'lord_potions_bottle_content_mask.png' ..
 		'^[colorize:' .. color .. ':170' ..
-		'^[colorize:#000:' .. power_overlay_opacity ..
+		'^[colorize:#000:' .. content_opacity_by_level ..
 	')'
-	local texture               = contents_img .. '^(lord_potions_bottle.png)'
+	local texture                  = bottle_contents_img .. '^(lord_potions_bottle.png)'
 
 	minetest.register_node(item_name, {
-		description     = S('Potion of @1 (Power: @2)', title, power),
+		description     = S('Potion "@1"@2',
+			colorize('#ee8', title),
+			level ~= 0 and ' '..S('(Power: @1)', level) or ''
+		),
+		_tt_help        = description and colorize('#aaa',  '\n'..description),
 		inventory_image = texture,
 		tiles           = { texture },
 		selection_box   = { type = 'fixed', fixed = { -0.25, -0.5, -0.25, 0.25, 0.3, 0.25 } },
@@ -48,7 +58,7 @@ local function register_potion(item_name_start, title, color, effect, amount, du
 		drawtype        = 'plantlike',
 		paramtype       = 'light',
 		on_use          = function(itemstack, user, pointed_thing)
-			effects.for_player(user):apply(effect, amount, duration)
+			effects.for_player(user):apply(effect, power.amount, power.duration)
 		end
 	})
 
@@ -58,15 +68,15 @@ end
 
 --- @param group lord_potions.PotionGroup
 local function register_potion_group(group)
-	for power_name, power in pairs(group.powers) do
+	for level, power in pairs(group.powers) do
 		register_potion(
 			group.item_name,
 			group.title,
+			group.description,
 			power.color or group.color,
 			group.effect,
-			power.amount,
-			power.duration,
-			power_name
+			power,
+			level
 		)
 	end
 end
@@ -76,7 +86,6 @@ return {
 	add_existing          = add_existing,
 	register_potion       = register_potion,
 	register_potion_group = register_potion_group,
-	--- @return NodeDefinition[]
 	get_all_items         = function() return potions.all_items end,
 	get_lord_items        = function() return potions.lord_items end,
 }

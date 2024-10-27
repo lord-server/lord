@@ -1,4 +1,35 @@
 # textdomain: lord_potions
 
+Potion "@1"@2=Зелье "@1"@2
+(Power: @1)=(Сила: @1)
+
+
+Elixir of Athelas=Эликсир Ателаса
+An ancient elixir from the West=Древний эликсир Запада,
+    that restores health and heals wounds.=    восстанавливающий здоровье и исцеляющий раны.
+
+Orcish Brew=Орочий Отвар
+Thick toxic brew based on orc pus, corroding both body and spirit.=Густой ядовитый отвар на основе орочьего гноя.
+Corrodes the body from the inside and covers it with wounds from the outside.=Разъедает тело изнутри и покрывает его ранами снаружи.
+
+
+Ent Draught=Напиток Энтов
+An extremely refreshing and invigorating drink=Необычайно освежающее и ободряющее питьё,
+    made from the waters of the Metedras springs.=    сделанное из вод родников Метедраса.
+A unique drink that grants the speed of the ancient trees.=Уникальный напиток, дарующий скорость древних деревьев.
 
 Shelob's Bonds=Путы Шелоб
+Created from the venom of Shelob's web,=Создано на основе яда паутины Шелоб,
+    which she uses to paralyze enemies.=    применяемый ей для парализации врагов.
+A venomous potion that binds the body like Shelob’s web.=Ядовитое зелье, сковывающее тело, как паутина Шелоб.
+
+
+Miruvor=Мирувор
+А strong stimulating drink of the elves.=Сильный стимулирующий напиток эльфов.
+A potion that allows you to jump higher,=Зелье, позволяющее прыгать выше,
+    as if invisible wings were lifting you into the air.=    словно невидимые крылья поднимают тебя в воздух.
+
+Dol Guldur's Fetters=Оковы Дол Гулдура
+A dark potion that binds the body=Мрачное зелье, сковывающее тело,
+    like the heavy chains of the dungeons of Dol Guldur.=    словно тяжёлые цепи темниц Дол Гулдура.
+It weighs down your legs, making jumping impossible.=Утяжеляет ноги, делая прыжки невозможными.

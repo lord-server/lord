@@ -1,3 +1,33 @@
 # textdomain: lord_potions
 
+Potion "@1"@2=Potion "@1"@2
+(Power: @1)=(Power: @1)
+
+
+Elixir of Athelas=Elixir of Athelas
+An ancient elixir from the West=An ancient elixir from the West
+    that restores health and heals wounds.=    that restores health and heals wounds.
+
+Orcish Brew=Orcish Brew
+Thick toxic brew based on orc pus, corroding both body and spirit.=Thick toxic brew based on orc pus, corroding both body and spirit.
+Corrodes the body from the inside and covers it with wounds from the outside.=Corrodes the body from the inside and covers it with wounds from the outside.
+
+
+Ent Draught=Ent Draught
+An extremely refreshing and invigorating drink=An extremely refreshing and invigorating drink
+    made from the waters of the Metedras springs.=    made from the waters of the Metedras springs.
+A unique drink that grants the speed of the ancient trees.=A unique drink that grants the speed of the ancient trees.
+
 Shelob's Bonds=Shelob's Bonds
+Created from the venom of Shelob's web,=Created from the venom of Shelob's web,
+    which she uses to paralyze enemies.=    which she uses to paralyze enemies.
+A venomous potion that binds the body like Shelob’s web.=A venomous potion that binds the body like Shelob’s web.
+
+
+Miruvor=Miruvor
+А strong stimulating drink of the elves.=А strong stimulating drink of the elves.
+A potion that allows you to jump higher,=A potion that allows you to jump higher,
+    as if invisible wings were lifting you into the air.=    as if invisible wings were lifting you into the air.
+
+Dol Guldur\'s Fetters=Dol Guldur\'s Fetters
+
