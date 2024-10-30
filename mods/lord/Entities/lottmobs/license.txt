@@ -1,6 +1,0 @@
-Code: fishyWET & Amaz - LGPL v2.1
-
-Textures: fishyWET & Amaz - CC BY-SA
-
-mobs_sheep_base.png taken from https://notabug.org/TenPlus1/mobs_animal/ which
-was licensed under MIT
