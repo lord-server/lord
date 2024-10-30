@@ -15,7 +15,7 @@ function Form:get_spec()
 	local inventory_id = self.inventory:get_id()
 
 	return 'size[8,9]' ..
-		'image[-0.2,-0.2;10.23,5.5;benches_anvil_form_bg.png]' ..
+		'image[-0.2,-0.2;10.23,5.5;benches_anvil_form_bg.png^[opacity:128]' ..
 		'list[detached:'..inventory_id..';craft;2,1;3,3;]' ..
 		'list[detached:'..inventory_id..';craft_result;5,2;1,1;]' ..
 		'list[current_player;main;0,4.85;8,1;]' ..
