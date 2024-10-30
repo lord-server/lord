@@ -51,6 +51,13 @@ defense_poison=from poison
 @1@2% to jump=@1@2% to jump=
 @1@2% to gravity=@1@2% to gravity=
 
+# Potions:
+@1: @2@3 every second during @4 seconds=@1: @2@3 каждую секунду в течении @4 секунд
+Health=Health
+Speed=Speed
+Jump=Jump
+
+
 # Food
 @1@2 to satiety=@1@2 to satiety
 

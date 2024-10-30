@@ -2,6 +2,11 @@ local S        = minetest.get_translator(minetest.get_current_modname())
 local colorize = minetest.colorize
 
 
+--- @class lord_potions.PotionEffect
+--- @field name          string                   one of registered `lord_effects.<CONST>` names.
+--- @field is_periodical boolean                  whether effect has action every second or not.
+--- @field power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
+
 local potions = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
 	all_items  = {},
@@ -19,14 +24,15 @@ local function add_existing(node_name)
 end
 
 --- default groups: default: { dig_immediate = 3, attached_node = 1, vessel = 1, potions = 1 }
---- @param name_prefix string technical item/node name (`"<mod>:<node>"`) prefix (will be name_prefix..'_'..power_abs).
---- @param title       string prefix to description of item or will extracted from `item_name` (`title`.." Potion").
---- @param description string some words you want to displayed in tooltip before properties of power.
---- @param color       string color of potion liquid (bottle contents).
---- @param effect      string one of registered `lord_effects.<CONST>` names.
---- @param power       lord_potions.PotionPower
---- @param groups      table  additional or overwrite groups for item definition groups.
-local function register_potion(name_prefix, title, description, color, effect, power, level, groups)
+--- @param name_prefix   string  technical item/node name (`<mod>:<node>`) prefix (will be name_prefix..'_'..power_abs).
+--- @param title         string  prefix to description of item or will extracted from `item_name` (`title`.." Potion").
+--- @param description   string  some words you want to displayed in tooltip before properties of power.
+--- @param color         string  color of potion liquid (bottle contents).
+--- @param effect        string  one of registered `lord_effects.<CONST>` names.
+--- @param is_periodical boolean whether effect has action every second or not.
+--- @param power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
+--- @param groups        table  additional or overwrite groups for item definition groups.
+local function register_potion(name_prefix, title, description, color, effect, is_periodical, power, level, groups)
 	local power_abs = math.abs(level)
 	local item_name = name_prefix .. '_' .. power_abs
 	local sub_name  = item_name:split(':')[2]
@@ -59,7 +65,8 @@ local function register_potion(name_prefix, title, description, color, effect, p
 		paramtype       = 'light',
 		on_use          = function(itemstack, user, pointed_thing)
 			effects.for_player(user):apply(effect, power.amount, power.duration)
-		end
+		end,
+		_effect         = { name = effect, is_periodical = is_periodical, power = power, },
 	})
 
 	potions.all_items[item_name]  = minetest.registered_nodes[item_name]
@@ -75,6 +82,7 @@ local function register_potion_group(group)
 			group.description,
 			power.color or group.color,
 			group.effect,
+			group.is_periodical,
 			power,
 			level
 		)

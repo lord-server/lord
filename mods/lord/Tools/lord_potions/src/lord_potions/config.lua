@@ -6,12 +6,13 @@ local S = minetest.get_translator(minetest.get_current_modname())
 --- @field duration number time in seconds.
 
 --- @class lord_potions.PotionGroup
---- @field item_name   string technical item/node name (`"<mod>:<node>"`).
---- @field title       string prefix to description of item.
---- @field description string some words you want to displayed in tooltip before properties.
---- @field color       string color of potion liquid (bottle contents).
---- @field effect      string one of registered `lord_effects.<CONST>` names.
---- @field powers      table<string,lord_potions.PotionPower>
+--- @field item_name     string  technical item/node name (`"<mod>:<node>"`).
+--- @field title         string  prefix to description of item.
+--- @field description   string  some words you want to displayed in tooltip before properties.
+--- @field color         string  color of potion liquid (bottle contents).
+--- @field effect        string  one of registered `lord_effects.<CONST>` names.
+--- @field is_periodical boolean whether effect has action every second or not.
+--- @field powers        table<string,lord_potions.PotionPower> applied power params of Effect. (amount, duration)
 
 
 --- @type lord_potions.PotionGroup[]
@@ -20,6 +21,7 @@ local config = {
 	{
 		item_name = 'lord_potions:athelas_elixir', title = S('Elixir of Athelas'), color = '#bf0',
 		effect = lord_effects.HEALTH,
+		is_periodical = true,
 		powers    = {
 			['+1'] = { amount = 1, duration =  20, },
 			['+2'] = { amount = 2, duration =  50, },
@@ -33,6 +35,7 @@ local config = {
 	{
 		item_name = 'lord_potions:orcish_brew', title = S('Orcish Brew'), color = '#400',
 		effect = lord_effects.HEALTH,
+		is_periodical = true,
 		powers    = {
 			['-1'] = { amount = -1, duration =  20, },
 			['-2'] = { amount = -2, duration =  50, },

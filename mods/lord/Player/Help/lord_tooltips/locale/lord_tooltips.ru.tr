@@ -51,6 +51,14 @@ defense_poison=от отравления
 @1@2% to jump=@1@2% к прыжку
 @1@2% to gravity=@1@2% к гравитации
 
+# Potions:
+@1: @2 every second during @3 seconds=@1: @2 каждую секунду в течение @3 секунд
+@1: @2 during @3 seconds=@1: @2 в течение @3 секунд
+Health=Здоровье
+Speed=Скорость
+Jump=Прыжок
+
+
 # Food
 @1@2 to satiety=@1@2 к сытости
 
