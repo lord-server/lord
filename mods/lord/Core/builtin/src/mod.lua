@@ -1,5 +1,6 @@
 local RequireFactory = require("mod.require")
 local LoggerFactory  = require("mod.logger")
+local Translator     = require("mod.translator")
 
 --- @type string
 local DS             = os.DIRECTORY_SEPARATOR
@@ -18,11 +19,12 @@ minetest.get_mod_require = RequireFactory.get_mod_require
 minetest.get_mod_logger  = LoggerFactory.get_mod_logger
 
 --- @class minetest.Mod
---- @field name    string           name of the mod
---- @field path    string           path of the mad
---- @field debug   boolean          whether debug mode is enabled for this mod
---- @field require fun(name:string) require function for the mod
---- @field logger  helpers.Logger   lazy loaded logger instance for this mod
+--- @field name       string                       name of the mod
+--- @field path       string                       path of the mad
+--- @field debug      boolean                      whether debug mode is enabled for this mod
+--- @field require    fun(name:string)             require function for the mod
+--- @field translator fun(str: string, ...):string translator for this mod
+--- @field logger     helpers.Logger               lazy loaded logger instance for this mod
 
 --- @param mod_init_function fun(mod:minetest.Mod)
 function minetest.mod(mod_init_function)
@@ -35,10 +37,11 @@ function minetest.mod(mod_init_function)
 
 	mod_init_function(setmetatable(
 		{
-			name    = mod_name,
-			path    = mod_path,
-			debug   = mod_debug,
-			require = require,
+			name       = mod_name,
+			path       = mod_path,
+			debug      = mod_debug,
+			require    = require,
+			translator = Translator.get()
 		}, {
 			-- Lazy Loading
 			__index = function(self, key)

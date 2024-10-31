@@ -1,7 +1,7 @@
 -- lord_wool/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator("lord_wool")
+local S = minetest.get_mod_translator()
 
 for _, row in ipairs(dye.dyes) do
 	local name = row[1]

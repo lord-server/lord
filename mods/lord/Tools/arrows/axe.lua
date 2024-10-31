@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("arrows")
+local SL = minetest.get_mod_translator()
 
 local AXE_MASS = 1.8    -- MASS - Масса топора
 local AXE_VEL = 20      -- VEL  - Velocity - начальная скорость

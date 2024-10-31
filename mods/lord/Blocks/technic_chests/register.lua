@@ -1,4 +1,4 @@
-local S = minetest.get_translator("technic_chests")
+local S = minetest.get_mod_translator()
 
 local pipeworks = rawget(_G, "pipeworks")
 if not minetest.get_modpath("pipeworks") then

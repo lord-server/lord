@@ -4,7 +4,7 @@ minetest.mod(function(mod)
 	require('rock_ores')
 
 
-	local S = minetest.get_translator('lord_ores')
+	local S = minetest.get_mod_translator()
 
 	minetest.register_node("lord_ores:magma", {
 		description                = S("Magma"),

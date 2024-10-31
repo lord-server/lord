@@ -5,7 +5,7 @@ local detached_inv_equipment_slots = {
 	armor    = require("equipment.armor_slots"),
 	clothing = require("equipment.clothing_slots"),
 }
-local SL = minetest.get_translator("lord_equipment")
+local SL = minetest.get_mod_translator()
 
 
 local CLOTHING_EQUIPMENT_SIZE = 5

@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_names_rules")
+local SL = minetest.get_mod_translator()
 
 -- правила формирования имени
 local rules = {

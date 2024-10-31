@@ -1,4 +1,4 @@
-local S = minetest.get_translator("clans_tapestries")
+local S = minetest.get_mod_translator()
 
 castle.tapestry.register(
 	"clans_tapestries:example",

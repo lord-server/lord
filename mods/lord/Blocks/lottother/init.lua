@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottother")
+local SL = minetest.get_mod_translator()
 
 dofile(minetest.get_modpath("lottother") .. "/rings.lua")
 dofile(minetest.get_modpath("lottother") .. "/ms.lua")

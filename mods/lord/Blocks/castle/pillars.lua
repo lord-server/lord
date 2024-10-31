@@ -1,4 +1,4 @@
-local S = minetest.get_translator("castle")
+local S = minetest.get_mod_translator()
 
 minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
 minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")

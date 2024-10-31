@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL           = minetest.get_translator("lord_books")
+local SL           = minetest.get_mod_translator()
 
 zcc                = {}
 zcc.users          = {}

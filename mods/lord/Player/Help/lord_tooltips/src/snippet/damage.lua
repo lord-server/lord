@@ -1,7 +1,7 @@
 local items,                     colorize
     = minetest.registered_items, minetest.colorize
 
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = minetest.get_mod_translator()
 
 
 --- @param item_string string

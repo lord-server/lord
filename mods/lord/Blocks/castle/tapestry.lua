@@ -1,4 +1,4 @@
-local S = minetest.get_translator("castle")
+local S = minetest.get_mod_translator()
 
 
 local function register_tapestry_top(node_name, craft_from, description_material, texture)

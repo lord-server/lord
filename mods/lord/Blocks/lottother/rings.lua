@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottother")
+local SL = minetest.get_mod_translator()
 
 local DWARF_RING_USES = 250
 

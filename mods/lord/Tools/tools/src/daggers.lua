@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("tools")
+local SL = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)

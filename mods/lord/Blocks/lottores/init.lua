@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottores")
+local SL = minetest.get_mod_translator()
 
 -- Ores:
 

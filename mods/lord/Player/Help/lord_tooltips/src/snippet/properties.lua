@@ -5,7 +5,7 @@ local properties = {
 	node = require('snippet.properties.node'),
 	item = require('snippet.properties.item'),
 }
-local S = minetest.get_translator(minetest.get_current_modname())
+local S = minetest.get_mod_translator()
 
 
 local dig_properties = {

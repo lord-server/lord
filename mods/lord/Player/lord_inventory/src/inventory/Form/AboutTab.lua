@@ -1,4 +1,4 @@
-local S         = minetest.get_translator('lord_inventory')
+local S         = minetest.get_mod_translator()
 local spec      = minetest.formspec
 local lord_spec = forms.Spec
 

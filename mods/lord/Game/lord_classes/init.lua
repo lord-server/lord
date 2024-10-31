@@ -1,7 +1,7 @@
 local table_has_key
 	= table.has_key
 
-local SL = minetest.get_translator("lord_classes")
+local SL = minetest.get_mod_translator()
 
 --[[
   TODO: Move I/O-related functions into a separate mod (lord_util?)

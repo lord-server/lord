@@ -2,7 +2,7 @@
 --
 -- Mostly my own code; overall template borrowed from game default
 
-local S = minetest.get_translator("lord_homedecor")
+local S = minetest.get_mod_translator()
 
 -- misc craftitems
 

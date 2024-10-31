@@ -1,5 +1,5 @@
 
-local S = minetest.get_translator("sethome")
+local S = minetest.get_mod_translator("sethome")
 
 local original_sethome_set = sethome.set
 

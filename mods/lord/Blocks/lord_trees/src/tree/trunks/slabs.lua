@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_trees")
+local S = minetest.get_mod_translator()
 
 
 stairs.register_slab(

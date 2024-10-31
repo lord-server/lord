@@ -1,4 +1,4 @@
-local S = minetest.get_translator('clan_node')
+local S = minetest.get_mod_translator()
 
 ---
 --- @class clan_node.chest.node.Form: base_classes.Form.Base

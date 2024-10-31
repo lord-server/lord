@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL = minetest.get_translator("lord_books")
+local SL = minetest.get_mod_translator()
 
 local DEFAULT_LANG = minetest.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end

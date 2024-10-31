@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottthrowing")
+local SL = minetest.get_mod_translator()
 
 
 local lottthrowing_player_shoot = function(player, arrow_name)

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("hudbars")
+local S = minetest.get_mod_translator()
 local N = function(s) return s end
 
 hb = {}

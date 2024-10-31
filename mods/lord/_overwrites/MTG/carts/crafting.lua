@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_overwrites_mtg_carts")
+local S = minetest.get_mod_translator()
 
 --
 -- crafting

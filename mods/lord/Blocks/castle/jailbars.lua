@@ -1,4 +1,4 @@
-local S = minetest.get_translator("castle")
+local S = minetest.get_mod_translator()
 
 -- xjailbarss mod by xyz
 

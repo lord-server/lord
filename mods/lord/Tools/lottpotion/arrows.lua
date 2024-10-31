@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottpotion")
+local SL = minetest.get_mod_translator()
 
 local KFR=0.01
 local DC=0.01

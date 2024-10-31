@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lamps")
+local S = minetest.get_mod_translator()
 
 local chains = {}
 

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_homedecor")
+local S = minetest.get_mod_translator()
 
 -- vectors to place one node next to or behind another
 

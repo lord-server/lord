@@ -1,4 +1,4 @@
-local S = minetest.get_translator("roads")
+local S = minetest.get_mod_translator()
 
 local function register_road(name, main_material, desc, fill) -- функция регистрации всех нодов дороги
   local mn = "roads:"..name -- имя мода с материалом

@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_doors")
+local SL = minetest.get_mod_translator()
 
 doors.register("lord_doors:door_gondor", {
 	tiles = {{ name = "lord_doors_gondor.png", backface_culling = true }},

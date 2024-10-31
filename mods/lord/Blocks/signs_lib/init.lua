@@ -1,4 +1,4 @@
-local S = minetest.get_translator('signs_lib')
+local S = minetest.get_mod_translator()
 
 -- This mod provides the visible text on signs library used by Home Decor
 -- and perhaps other mods at some point in the future.  Forked from thexyz's/

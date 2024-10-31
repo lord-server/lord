@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_info")
+local SL = minetest.get_mod_translator()
 
 
 --- @param search_query string

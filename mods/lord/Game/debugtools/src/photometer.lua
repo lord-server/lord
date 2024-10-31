@@ -1,4 +1,4 @@
-local S = minetest.get_translator("debugtools")
+local S = minetest.get_mod_translator()
 
 minetest.register_tool("debugtools:photometer", {
 	description = S("Photometer"),

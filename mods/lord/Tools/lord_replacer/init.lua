@@ -1,7 +1,7 @@
 local table_has_value
 	= table.has_value
 
-local S = minetest.get_translator("lord_replacer")
+local S = minetest.get_mod_translator()
 
 local DEFAULT_SELECTED_NODE = "default:dirt"
 local REPLACER_PLACE_BLACKLIST = {

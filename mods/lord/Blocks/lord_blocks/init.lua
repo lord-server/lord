@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_blocks")
+local S = minetest.get_mod_translator()
 
 minetest.register_node("lord_blocks:blackout", {
 	description = S("Blackout"),

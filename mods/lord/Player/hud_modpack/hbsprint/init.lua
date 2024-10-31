@@ -1,7 +1,7 @@
 local enable_stamina = false --Set to "true" to enable stamina
 if enable_stamina == true then
 
-local S = minetest.get_translator("hb.sprint")
+local S = minetest.get_mod_translator()
 -- Vars
 
 local speed         = tonumber(minetest.settings:get ("sprint_speed")) or 2

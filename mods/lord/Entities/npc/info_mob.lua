@@ -1,4 +1,4 @@
-local S = minetest.get_translator("npc")
+local S = minetest.get_mod_translator()
 local esc = minetest.formspec_escape
 
 local function show_answer(clicker, item)

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_boats")
+local S = minetest.get_mod_translator()
 
 local function is_water(pos)
 	local nn = minetest.get_node(pos).name

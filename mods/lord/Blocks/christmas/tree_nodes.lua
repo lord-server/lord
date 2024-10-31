@@ -1,4 +1,4 @@
-local S = minetest.get_translator("christmas")
+local S = minetest.get_mod_translator()
 
 
 --- @param pos Position

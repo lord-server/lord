@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_doors")
+local S = minetest.get_mod_translator()
 
 
 local function register_replace_mtg_doors_legacy_lbm(name)

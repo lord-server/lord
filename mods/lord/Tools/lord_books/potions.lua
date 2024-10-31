@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_books")
+local SL = minetest.get_mod_translator()
 
 local form    = {}
 --- @type string

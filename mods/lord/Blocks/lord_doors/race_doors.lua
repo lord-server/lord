@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_doors")
+local S = minetest.get_mod_translator()
 
 
 --- Обработчик on_rightclick для расовых дверей.

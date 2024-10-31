@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottclothes")
+local SL = minetest.get_mod_translator()
 
 -- Clothes made for wizards
 

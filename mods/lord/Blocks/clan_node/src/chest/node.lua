@@ -2,7 +2,7 @@
 local Form = require("chest.node.Form")
 
 
-local S = minetest.get_translator('clan_node')
+local S = minetest.get_mod_translator()
 
 
 ---@type number @seconds

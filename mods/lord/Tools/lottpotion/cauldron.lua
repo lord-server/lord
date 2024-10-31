@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottpotion")
+local SL = minetest.get_mod_translator()
 
 minetest.register_node("lottpotion:cauldron_full",{
 	drawtype="nodebox",

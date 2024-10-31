@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottpotion")
+local SL = minetest.get_mod_translator()
 
 -- Base Ingredients
 minetest.register_node("lottpotion:glass_bottle_mese", {

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_planks")
+local S = minetest.get_mod_translator()
 
 
 local planks = {

@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("bones")
+local SL = minetest.get_mod_translator()
 
 minetest.register_node("bones:skeleton", {
 	description = SL("Skeleton Head"),

@@ -1,6 +1,6 @@
 if minetest.settings:get_bool("enable_damage") then
 
-local S = minetest.get_translator("hb.hunger")
+local S = minetest.get_mod_translator()
 
 hbhunger = {}
 hbhunger.food = {}

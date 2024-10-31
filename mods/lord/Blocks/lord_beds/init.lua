@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_beds")
+local S = minetest.get_mod_translator()
 
 beds.day_interval.finish = 0.790 -- reduced a bit
 

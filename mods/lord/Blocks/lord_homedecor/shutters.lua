@@ -1,6 +1,6 @@
 -- Various kinds of window shutters
 
-local S = minetest.get_translator("lord_homedecor")
+local S = minetest.get_mod_translator()
 
 local shutters = {
 	{"oak",          "Unpainted oak", "#bf8a51:200" },

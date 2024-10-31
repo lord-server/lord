@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottmobs")
+local SL = minetest.get_mod_translator()
 
 local SPRITE_VERSION = false	-- set to true to use upright sprites instead of meshes
 

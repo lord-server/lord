@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("grinder")
+local SL = minetest.get_mod_translator()
 
 return {
 	recipes = {

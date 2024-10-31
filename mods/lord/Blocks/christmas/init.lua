@@ -1,4 +1,4 @@
-local S = minetest.get_translator("christmas")
+local S = minetest.get_mod_translator()
 
 local mod_path = minetest.get_modpath(minetest.get_current_modname())
 local require = function(name) return dofile(mod_path .. "/" .. name:gsub("%.", "/") .. ".lua") end

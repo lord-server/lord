@@ -1,4 +1,4 @@
-local S = minetest.get_translator("arrows")
+local S = minetest.get_mod_translator()
 
 --- @generic
 arrows = {}

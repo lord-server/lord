@@ -1,6 +1,6 @@
 -- УЛЕЙ
 
-local S = minetest.get_translator("bees")
+local S = minetest.get_mod_translator()
 
 -- Функции
 

@@ -1,5 +1,5 @@
 
-local SL = minetest.get_translator("arrows")
+local SL = minetest.get_mod_translator()
 
 local KFR = 0.0002
 

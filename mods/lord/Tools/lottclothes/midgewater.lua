@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottclothes")
+local SL = minetest.get_mod_translator()
 
 -- the simplest outfit available.
 -- made from green felt & wood (just cut down the nearest tree).

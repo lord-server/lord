@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_traders")
+local SL = minetest.get_mod_translator()
 
 --- @type traders.config[]
 local config = require("traders.config")

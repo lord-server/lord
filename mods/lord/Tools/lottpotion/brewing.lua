@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottpotion")
+local SL = minetest.get_mod_translator()
 
 lottpotion.make_pipe = function( pipes, horizontal )
    local result = {};

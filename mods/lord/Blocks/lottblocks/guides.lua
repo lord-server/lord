@@ -1,4 +1,4 @@
-local S         = minetest.get_translator('lottblocks')
+local S         = minetest.get_mod_translator()
 local spec      = minetest.formspec
 local lord_spec = forms.Spec
 local mod_path  = minetest.get_modpath(minetest.get_current_modname())

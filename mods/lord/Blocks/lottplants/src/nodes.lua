@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottplants")
+local S = minetest.get_mod_translator()
 
 --Fireflies / Светлячки
 

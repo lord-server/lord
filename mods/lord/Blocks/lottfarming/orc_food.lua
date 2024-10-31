@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottfarming")
+local S = minetest.get_mod_translator()
 
 local function make_negative_visual_effect(user)
 	local first_screen = user:hud_add({

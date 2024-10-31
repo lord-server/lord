@@ -5,7 +5,7 @@
 --Version		2.2
 --License		WTFPL
 
-local S = minetest.get_translator("bees")
+local S = minetest.get_mod_translator()
 
 --VARIABLES
   bees = {}

@@ -1,5 +1,5 @@
 
-local S = minetest.get_translator("lord_default")
+local S = minetest.get_mod_translator()
 
 
 minetest.register_craftitem(":default:scorched_stuff", {

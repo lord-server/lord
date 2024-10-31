@@ -1,4 +1,4 @@
-local S = minetest.get_translator('lord_inventory')
+local S = minetest.get_mod_translator()
 
 local EXISTING_CRAFTING_IMAGE_LANG = { 'ru', 'en' }
 local DEFAULT_CRAFTING_IMAGE_LANG  = 'en'

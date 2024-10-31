@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_spawn")
+local S = minetest.get_mod_translator()
 
 -- Some modified from: Minetest: builtin/static_spawn.lua
 

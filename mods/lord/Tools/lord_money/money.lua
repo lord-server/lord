@@ -1,6 +1,6 @@
 -- lord_money/money.lua
 
-local S = minetest.get_translator("lord_money")
+local S = minetest.get_mod_translator()
 
 minetest.register_craftitem("lord_money:diamond_coin", {
 	description = S("Diamond Coin"),

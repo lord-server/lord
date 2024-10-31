@@ -16,7 +16,7 @@
 - You can craft and use better campfire.
 ]]--
 
-local S = minetest.get_translator("campfire")
+local S = minetest.get_mod_translator()
 
 -- VARIABLES
 local campfire_cooking    = 1;                -- nil - not cooked, 1 - cooked

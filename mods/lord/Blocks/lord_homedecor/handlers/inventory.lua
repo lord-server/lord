@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_homedecor")
+local S = minetest.get_mod_translator()
 
 local default_can_dig = function(pos,player)
 	local meta = minetest.get_meta(pos)

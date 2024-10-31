@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottclothes")
+local SL = minetest.get_mod_translator()
 
 minetest.register_tool("lottclothes:cloak_ranger", {
     description = SL("Ranger's Cloak"),

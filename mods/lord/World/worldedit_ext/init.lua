@@ -1,4 +1,4 @@
-local S = minetest.get_translator("worldedit_ext")
+local S = minetest.get_mod_translator()
 
 worldedit.register_command('select_chunks', {
 	params      = "",

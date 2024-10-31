@@ -3,7 +3,7 @@ if not minetest.settings:get_bool("enable_damage", false) then
 end
 
 
-local S = minetest.get_translator("hb.armor")
+local S = minetest.get_mod_translator()
 local N = function(s) return s end
 
 

@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("mypos")
+local SL = minetest.get_mod_translator()
 
 minetest.register_chatcommand("mypos", {
 	params = "<name>",

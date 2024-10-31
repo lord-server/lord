@@ -45,5 +45,5 @@ local wood_stuff_exceptions = {
 return {
 	wood_defs = wood_defs,
 	wood_stuff_exceptions = wood_stuff_exceptions,
-	translator = minetest.get_translator("lord_wooden_stuff"),
+	translator = minetest.get_mod_translator(),
 }

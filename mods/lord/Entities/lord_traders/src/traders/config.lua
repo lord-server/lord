@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_traders")
+local SL = minetest.get_mod_translator()
 
 --- @class traders.config
 --- @field goods    table<string,traders.config.good> key: stack_string, value: {price: stack_string, chance: percent}

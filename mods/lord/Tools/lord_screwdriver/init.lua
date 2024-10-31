@@ -1,7 +1,7 @@
 -- lord_screwdriver/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_translator("lord_screwdriver")
+local S = minetest.get_mod_translator()
 
 -- Galvorn Screwdriver
 minetest.register_tool(":screwdriver:screwdriver_galvorn", {

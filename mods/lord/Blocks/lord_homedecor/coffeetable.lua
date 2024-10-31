@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_homedecor")
+local SL = minetest.get_mod_translator()
 
 minetest.register_node("lord_homedecor:coffeetable_back", {
 	description = SL("Coffee Table"),

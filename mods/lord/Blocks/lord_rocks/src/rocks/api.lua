@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_rocks")
+local S = minetest.get_mod_translator()
 
 local rocks = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]

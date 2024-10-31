@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_walls")
+local S = minetest.get_mod_translator()
 
 walls.register(":walls:orc_stone", S("Orc Stone Wall"), "lottblocks_orc_stone.png",
 	"lottblocks:orc_stone", default.node_sound_stone_defaults())

@@ -1,5 +1,5 @@
 
-local S = minetest.get_translator("lord_overwrites_mtg_stairs")
+local S = minetest.get_mod_translator()
 
 
 -- stairs/init.lua

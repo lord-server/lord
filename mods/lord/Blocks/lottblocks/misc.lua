@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottblocks")
+local S = minetest.get_mod_translator()
 
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua

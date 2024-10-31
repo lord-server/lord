@@ -1,7 +1,7 @@
 local Form = require("artisan_benches.anvil.Form")
 
 
-local S = minetest.get_translator('lord_artisan_benches')
+local S = minetest.get_mod_translator()
 
 minetest.CraftMethod.ANVIL = 'anvil'
 minetest.register_craft_method(minetest.CraftMethod.ANVIL)

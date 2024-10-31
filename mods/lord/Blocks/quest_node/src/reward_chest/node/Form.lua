@@ -1,7 +1,7 @@
 local esc = minetest.formspec_escape
 
 
-local S = minetest.get_translator('quest_node')
+local S = minetest.get_mod_translator()
 
 ---
 --- @class quest_node.reward_chest.node.Form: base_classes.Form.Base

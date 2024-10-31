@@ -1,5 +1,5 @@
 minetest.mod(function(mod)
-	local S = minetest.get_translator("clans_clothes")
+	local S = mod.translator
 
 
 	-- Кланы, которые запросили плащ, прислали текстуры на GH

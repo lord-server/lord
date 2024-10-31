@@ -1,4 +1,4 @@
-local S = minetest.get_translator("castle")
+local S = minetest.get_mod_translator()
 
 minetest.register_node("castle:shield", {
 	description   = S("Mounted Shield"),

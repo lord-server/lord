@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_ores")
+local S = minetest.get_mod_translator()
 
 
 for name, registration in pairs(rocks.get_lord_nodes()) do

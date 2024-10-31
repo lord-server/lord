@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottclothes")
+local SL = minetest.get_mod_translator()
 
 -- basic outfit from the the brandybuck family.
 -- made from blue flax and copper ingot.

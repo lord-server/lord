@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_homedecor")
+local SL = minetest.get_mod_translator()
 
 local bl1_sbox = {
 	type = "fixed",

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_ground")
+local S = minetest.get_mod_translator()
 
 local dirt = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]

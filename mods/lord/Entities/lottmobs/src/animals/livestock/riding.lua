@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottmobs")
+local SL = minetest.get_mod_translator()
 
 
 local function is_ground(pos)

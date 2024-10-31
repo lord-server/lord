@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("bones")
+local SL = minetest.get_mod_translator()
 
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.

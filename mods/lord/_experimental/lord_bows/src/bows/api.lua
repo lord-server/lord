@@ -1,4 +1,4 @@
-local S_tt = minetest.get_translator("tt_base")
+local S_tt = minetest.get_mod_translator("tt_base")
 
 
 require("bows.behavior.mechanics_throwing")

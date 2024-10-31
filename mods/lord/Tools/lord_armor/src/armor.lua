@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_armor")
+local S = minetest.get_mod_translator()
 
 -- Wood Armor
 minetest.register_tool(":lottarmor:helmet_wood", {

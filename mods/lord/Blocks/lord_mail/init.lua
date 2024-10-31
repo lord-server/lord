@@ -1,4 +1,4 @@
-local SL        = minetest.get_translator("lord_mail")
+local SL        = minetest.get_mod_translator()
 local colorize  = minetest.colorize
 local e         = minetest.formspec.escape
 local spec      = minetest.formspec

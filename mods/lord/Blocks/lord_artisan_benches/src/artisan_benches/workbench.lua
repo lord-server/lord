@@ -1,7 +1,7 @@
 -- luacheck:ignore 561
 -- Отключена проверка на цикломатическую сложность, поскольку
 -- mods/lord/Blocks/castle/town_item.lua:152:20: cyclomatic complexity of function get_recipe is too high (14 > 10)
-local S = minetest.get_translator('lord_artisan_benches')
+local S = minetest.get_mod_translator()
 
 
 minetest.register_alias('castle:workbench', 'lord_artisan_benches:workbench')

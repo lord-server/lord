@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottblocks")
+local S = minetest.get_mod_translator()
 
 --Thanks for all the things in this file, and the related textures goes to catninja!--
 

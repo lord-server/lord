@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottblocks")
+local S = minetest.get_mod_translator()
 
 -- TODO #1555 remove old code for store in file.
 local function deprecated_load_palantiri()

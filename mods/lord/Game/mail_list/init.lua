@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("mail_list")
+local SL = minetest.get_mod_translator()
 
 local file_name = minetest.get_worldpath() .. "/mail_list.txt"
 

@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_boats")
+local S = minetest.get_mod_translator()
 
 -- Load files
 local default_path = minetest.get_modpath("lord_boats")

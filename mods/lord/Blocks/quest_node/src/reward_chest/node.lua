@@ -2,7 +2,7 @@
 local Form = require("reward_chest.node.Form")
 
 
-local S = minetest.get_translator('quest_node')
+local S = minetest.get_mod_translator()
 
 --- HELPERS: -----------------------------------------------------------------------------------------------------------
 

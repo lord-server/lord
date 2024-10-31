@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lottblocks")
+local S = minetest.get_mod_translator()
 
 minetest.register_node("lottblocks:dwarf_harp", {
 	description   = S("Dwarvern Harp"),

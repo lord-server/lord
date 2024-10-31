@@ -1,4 +1,4 @@
-local S = minetest.get_translator('lord_inventory')
+local S = minetest.get_mod_translator()
 
 
 --- @class inventory.Form.BagsTab: base_classes.Form.Element.Tab

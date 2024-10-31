@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lord_armor")
+local SL = minetest.get_mod_translator()
 
 -- Register Shields
 minetest.register_tool(":lottarmor:shield_wood", {

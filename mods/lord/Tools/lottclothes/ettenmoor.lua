@@ -1,4 +1,4 @@
-local SL = minetest.get_translator("lottclothes")
+local SL = minetest.get_mod_translator()
 
 -- outfit from the ettenmoor region. wizard style (as possible).
 -- made from grey and brown felt & gold ingot.

@@ -1,6 +1,6 @@
 -- This code supplies an oven/stove. Basically it's just a copy of the default furnace with different textures.
 
-local SL = minetest.get_translator("lord_homedecor")
+local SL = minetest.get_mod_translator()
 
 local function swap_node(pos, name)
 	local node = minetest.get_node(pos)

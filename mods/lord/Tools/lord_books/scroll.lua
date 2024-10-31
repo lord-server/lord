@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_books")
+local S = minetest.get_mod_translator()
 local esc = minetest.formspec_escape
 
 local formspec_size = "size[8,8]"

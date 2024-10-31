@@ -1,5 +1,5 @@
 minetest.mod(function(mod)
-	local S = minetest.get_translator("lord_bucket")
+	local S = minetest.get_mod_translator()
 
 
 	minetest.register_craftitem(":bucket:bucket_ice", {

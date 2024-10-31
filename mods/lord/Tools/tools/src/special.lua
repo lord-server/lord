@@ -1,4 +1,4 @@
-local S = minetest.get_translator('tools')
+local S = minetest.get_mod_translator()
 
 
 minetest.register_tool('tools:sword_elven', {
