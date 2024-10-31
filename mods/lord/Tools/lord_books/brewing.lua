@@ -16,19 +16,19 @@ form.get_spec = function(page)
 			.. "image[6,1;1,1;books_previous_inactive.png]"
 			--First
 			.. "label[1,2.2; " .. SL("Wine") .. "]"
-			.. "item_image_button[4,2;1,1;lottpotion:drinking_glass_water;zcg:vessels:glass_water;]"
+			.. "item_image_button[4,2;1,1;lord_vessels:drinking_glass_water;zcg:vessels:glass_water;]"
 			.. "item_image_button[5,2;1,1;lottfarming:berries;zcg:berries;5]"
 			.. "image[6,2;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,2;1,1;lottpotion:wine;zcg:wine;]"
 			--Second
 			.. "label[1,3.2; " .. SL("Beer") .. "]"
-			.. "item_image_button[4,3;1,1;lottpotion:drinking_glass_water;zcg:drinking_glass_water;]"
+			.. "item_image_button[4,3;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,3;1,1;farming:wheat0;zcg:wheat;3]"
 			.. "image[6,3;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,3;1,1;lottpotion:beer;zcg:beer;]"
 			--Third
 			.. "label[1,4.2; " .. SL("Mead") .. "]"
-			.. "item_image_button[4,4;1,1;lottpotion:drinking_glass_water;zcg:drinking_glass_water;]"
+			.. "item_image_button[4,4;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,4;1,1;bees:bottle_honey;zcg:honey;6]"
 			.. "image[6,4;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,4;1,1;lottpotion:mead;zcg:mead;]"
@@ -43,13 +43,13 @@ form.get_spec = function(page)
 			.. "image_button[6,1;1,1;books_previous.png;brews;;false;false;books_previous_press.png]"
 			--First
 			.. "label[1,2.2; " .. SL("Cider") .. "]"
-			.. "item_image_button[4,2;1,1;lottpotion:drinking_glass_water;zcg:drinking_glass_water;]"
+			.. "item_image_button[4,2;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,2;1,1;default:apple;zcg:apple; 5]"
 			.. "image[6,2;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,2;1,1;lottpotion:cider;zcg:cider;]"
 			--Second
 			.. "label[1,3.2; " .. SL("Ale") .. "]"
-			.. "item_image_button[4,3;1,1;lottpotion:drinking_glass_water;zcg:drinking_glass_water;]"
+			.. "item_image_button[4,3;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,3;1,1;lottfarming:barley_seed;zcg:barley;6]"
 			.. "image[6,3;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,3;1,1;lottpotion:ale;zcg:ale;]"

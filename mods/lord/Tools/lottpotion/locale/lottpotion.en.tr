@@ -68,10 +68,6 @@ Two Third Filled Cauldron=Two Third Filled Cauldron
 One Third Filled Cauldron=One Third Filled Cauldron
 Empty Cauldron=Empty Cauldron
 
-Glass Bottle (empty)=Glass Bottle (empty)
-Glass Bottle (Water)=Glass Bottle (Water)
-Drinking Glass (empty)=Drinking Glass (empty)
-Drinking Glass (Water)=Drinking Glass (Water)
 
 ### brewing.lua ###
 Brewer=Brewer

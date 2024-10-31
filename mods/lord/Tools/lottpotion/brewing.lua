@@ -153,11 +153,11 @@ end
 
 local recipes = {
 	--Base Potion
-	{ "lottfarming:berries 5", "lottpotion:drinking_glass_water", "lottpotion:wine" },
-	{ "farming:wheat0 3", "lottpotion:drinking_glass_water", "lottpotion:beer" },
-	{ "bees:bottle_honey 6", "lottpotion:drinking_glass_water", "lottpotion:mead", "vessels:glass_bottle 6" },
-	{ "default:apple 5", "lottpotion:drinking_glass_water", "lottpotion:cider" },
-	{ "lottfarming:barley_seed 6", "lottpotion:drinking_glass_water", "lottpotion:ale" },
+	{ "lottfarming:berries 5", "lord_vessels:drinking_glass_water", "lottpotion:wine" },
+	{ "farming:wheat0 3", "lord_vessels:drinking_glass_water", "lottpotion:beer" },
+	{ "bees:bottle_honey 6", "lord_vessels:drinking_glass_water", "lottpotion:mead", "vessels:glass_bottle 6" },
+	{ "default:apple 5", "lord_vessels:drinking_glass_water", "lottpotion:cider" },
+	{ "lottfarming:barley_seed 6", "lord_vessels:drinking_glass_water", "lottpotion:ale" },
 }
 
 for _, data in pairs(recipes) do

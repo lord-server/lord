@@ -20,7 +20,7 @@ local S = minetest.get_mod_translator()
         'listcolors[#b3835288;#cfb29388;#201408]'..
         --input
         'image[1,1;1,1;bees_frame_full.png]'..
-        'image[1,3;1,1;vessels_glass_bottle_inv.png]'..
+        'image[1,3;1,1;vessels_glass_bottle.png]'..
         'list[nodemeta:'.. spos ..';frames_filled;2,1;1,1;]'..
         'list[nodemeta:'.. spos ..';bottles_empty;2,3;1,1;]'..
         --output

@@ -68,11 +68,6 @@ Two Third Filled Cauldron=Котёл, заполненый на 2/3
 One Third Filled Cauldron=Котёл, заполненый на 1/3
 Empty Cauldron=Пустой котёл
 
-Glass Bottle (empty)=Стеклянная бутыль
-Glass Bottle (Water)=Стеклянная бутыль с водой
-Drinking Glass (empty)=Стеклянный стакан
-Drinking Glass (Water)=Стеклянный стакан с водой
-
 ### brewing.lua ###
 Brewer=Бочка
 Brewer Brewing=Бочка: работает
