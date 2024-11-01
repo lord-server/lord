@@ -498,9 +498,25 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craftitem("lord_homedecor:flower_pot_small", {
-	description     = S("Small Flower Pot"),
-	inventory_image = "homedecor_flowerpot_small_inv.png"
+minetest.register_node("lord_homedecor:flower_pot_small", {
+	description       = S("Small Flower Pot"),
+	inventory_image   = "homedecor_flowerpot_small_inv.png",
+	drawtype          = "mesh",
+	mesh              = "homedecor_potted_plant.obj",
+	tiles             = {
+		"homedecor_flower_pot_terracotta.png",
+		"default_dirt.png^[colorize:#000000:175",
+		"transparent_pixel.png",
+	},
+	use_texture_alpha = "blend",
+	selection_box   = {
+		type  = 'fixed',
+		fixed = { -0.25, -0.5, -0.25, 0.25, 0.0, 0.25 }
+	},
+	groups            = { snappy = 3, potting_soil = 1 },
+	sounds            = default.node_sound_stone_defaults(),
+	is_ground_content = false,
+	walkable          = false,
 })
 
 minetest.register_craft({
