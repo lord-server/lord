@@ -491,46 +491,6 @@ minetest.register_chatcommand("effect", {
 	end,
 })
 
-minetest.register_craftitem( "lottpotion:wine", {
-	description     = SL("Wine"),
-	inventory_image = "lottpotion_wine.png",
-	wield_image     = "lottpotion_wine.png",
-	on_use          = minetest.item_eat(9),
-	_tt_food_hp     = 9,
-})
-
-minetest.register_craftitem( "lottpotion:beer", {
-	description     = SL("Beer"),
-	inventory_image = "lottpotion_beer.png",
-	wield_image     = "lottpotion_beer.png",
-	on_use          = minetest.item_eat(8),
-	_tt_food_hp     = 8,
-})
-
-minetest.register_craftitem("lottpotion:ale", {
-	description     = SL("Ale"),
-	inventory_image = "lottpotion_ale.png",
-	wield_image     = "lottpotion_ale.png",
-	on_use          = minetest.item_eat(9),
-	_tt_food_hp     = 9,
-})
-
-minetest.register_craftitem("lottpotion:mead", {
-	description     = SL("Mead"),
-	inventory_image = "lottpotion_mead.png",
-	wield_image     = "lottpotion_mead.png",
-	on_use          = minetest.item_eat(15),
-	_tt_food_hp     = 15,
-})
-
-minetest.register_craftitem("lottpotion:cider", {
-	description     = SL("Cider"),
-	inventory_image = "lottpotion_cider.png",
-	wield_image     = "lottpotion_cider.png",
-	on_use          = minetest.item_eat(9),
-	_tt_food_hp     = 9,
-})
-
 function lottpotion.can_dig(pos, player)
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()

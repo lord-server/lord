@@ -25,7 +25,7 @@ mobs:register_mob("lottmobs:half_troll", {
 		{ name = "lottfarming:potato",       chance = 10, min = 1, max = 2, },
 		{ name = "lottfarming:turnip",       chance = 10, min = 1, max = 2, },
 		{ name = "lottfarming:red_mushroom", chance = 7,  min = 1, max = 8, },
-		{ name = "lottpotion:wine",          chance = 20, min = 1, max = 2, },
+		{ name = "lord_alcohol:wine",          chance = 20, min = 1, max = 2, },
 	},
 	light_resistant = true,
 	drawtype = "front",

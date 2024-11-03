@@ -91,9 +91,9 @@ trader_config.hobbit = {
 	goods = table.merge(trader_config.common_goods, {
 		["lottfarming:pipe 1"]             = { price = 20,  chance = 5,  stock = 1 },
 		["lottfarming:pipeweed_cooked 50"] = { price = 170, chance = 10, stock = 1 },
-		["lottpotion:beer 10"]             = { price = 70,  chance = 8,  stock = 1 },
-		["lottpotion:cider 15"]            = { price = 110, chance = 13, stock = 1 },
-		["lottpotion:wine 8"]              = { price = 180, chance = 14, stock = 1 },
+		["lord_alcohol:beer 10"]             = { price = 70,  chance = 8,  stock = 1 },
+		["lord_alcohol:cider 15"]            = { price = 110, chance = 13, stock = 1 },
+		["lord_alcohol:wine 8"]              = { price = 180, chance = 14, stock = 1 },
 		["lottfarming:tomatoes 25"]        = { price = 230, chance = 25, stock = 1 },
 		["lottfarming:potato 30"]          = { price = 100, chance = 22, stock = 1 },
 		["lottfarming:brown_mushroom 40"]  = { price = 400, chance = 25, stock = 1 },
