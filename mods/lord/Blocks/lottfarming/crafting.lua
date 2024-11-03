@@ -1,20 +1,5 @@
 local S = minetest.get_mod_translator()
 
--- ITEMS and TOOLS
-
-minetest.register_craft({
-	output = "lottfarming:bowl 9",
-	recipe = {
-		{"group:wood", "", "group:wood"},
-		{"", "group:wood", ""},
-		{"", "", ""},
-	}
-})
-
-minetest.register_craftitem("lottfarming:bowl", {
-	description = S("Bowl"),
-	inventory_image = "lottfarming_bowl.png",
-})
 
 minetest.register_node("lottfarming:decay_tree", {
 	description = S("Decaying Wood"),
@@ -144,7 +129,7 @@ minetest.register_craft({
 	recipe = {
 		{'', 'lottores:salt', ''},
 		{'group:mushroom', 'group:mushroom', 'group:mushroom'},
-		{'', 'lottfarming:bowl', ''},
+		{'', 'lord_vessels:bowl_wood', ''},
 	}
 })
 
@@ -153,7 +138,7 @@ minetest.register_craft({
 	recipe = {
 		{'', 'lottores:salt', ''},
 		{'group:salad', 'group:salad', 'group:salad'},
-		{'', 'lottfarming:bowl', ''},
+		{'', 'lord_vessels:bowl_wood', ''},
 	}
 })
 

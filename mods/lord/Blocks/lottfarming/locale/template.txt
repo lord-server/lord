@@ -32,7 +32,6 @@ Ear of corn=
 Baked Corn=
 
 ### crafting.lua ###
-Bowl=
 Decaying Wood=
 Bacteria Fertiliser=
 

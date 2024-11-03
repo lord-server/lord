@@ -131,6 +131,6 @@ minetest.register_craft({
 	recipe = {
 		{ '', 'lottores:salt', '' },
 		{ 'lottfarming:tomatoes_cooked', 'lottfarming:tomatoes_cooked', 'lottfarming:tomatoes_cooked' },
-		{ '', 'lottfarming:bowl', '' },
+		{ '', 'lord_vessels:bowl_wood', '' },
 	}
 })
