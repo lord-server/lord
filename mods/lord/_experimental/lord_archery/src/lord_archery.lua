@@ -16,17 +16,9 @@ local function register_bows()
 	end
 end
 
--- local function register_projectiles()
--- 	for name, registration in pairs(config.projectiles) do
--- 		api.register_projectile(name, registration)
--- 	end
--- end
-
-
 return {
 	init = function()
 		register_api()
 		register_bows()
-		-- register_projectiles()
 	end,
 }
