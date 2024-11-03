@@ -28,10 +28,20 @@ local function punch_target(projectile, target, damage_groups, remove_after_punc
 	if remove_after_punch == nil then
 		remove_after_punch = true
 	end
--- ._shooter
-	target:punch(projectile.object, 1.0, {
-		full_punch_interval = 1.0,
-		damage_groups       = table.multiply_each_value(damage_groups, multipliers),
+
+	local multiplied = table.multiply_each_value(damage_groups, multipliers)
+
+	local function do_ceil_if_number(v)
+		if type(v) ~= "number" then
+			return v
+		end
+		return math.ceil(v)
+	end
+	local new_damage_groups = table.apply_function_to_every_value(multiplied, do_ceil_if_number)
+	minetest.chat_send_all(dump(new_damage_groups))
+	target:punch(projectile.object, 10, {
+		full_punch_interval = 0.0,
+		damage_groups       = new_damage_groups,
 	})
 
 	if remove_after_punch == true then
@@ -67,25 +77,34 @@ end
 --- @param damage_groups table      damage groups table (see Minetest API)
 --- @param velocity      vector     projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
-	local speed = vector.length(velocity)/GRAVITY
-	minetest.chat_send_all("Speed: "..speed)
+	local function hit()
+		local speed = (vector.length(velocity)/GRAVITY)^(1/2)
+		minetest.chat_send_all("Speed: "..speed)
+		punch_target(projectile, target, damage_groups, true, { fleshy = speed })
+	end
 	-- Hit player
 	if target:is_player() then
 		play_sound_on_hit(projectile, "object")
-		punch_target(projectile, target, damage_groups, true, { fleshy = speed })
+		hit()
 	else
 		-- Hit another projectile
 		if is_entity_projectile(target) then
 			projectile.object:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
 			target:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
-
+			play_sound_on_hit(projectile, "object")
 		-- Hit entity
 		else
 			play_sound_on_hit(projectile, "object")
-			punch_target(projectile, target, damage_groups, true, { fleshy = speed })
+			hit()
 		end
 	end
 end
+
+core.register_on_player_hpchange(function(player, hp_change, reason)
+	if hp_change >= 0 then return hp_change end
+	minetest.chat_send_all("HP change: "..hp_change)
+	return hp_change
+end, true)
 
 -- Collision handling
 --- @param projectile    LuaEntity  projectile entity
@@ -93,15 +112,12 @@ end
 --- @param damage_groups table      damage groups table (see Minetest API)
 local function collision_handling(projectile, move_result, damage_groups)
 	local vel = projectile.object:get_velocity()
-	--local acc = projectile.object:get_acceleration()
-	--projectile.object:set_velocity({x = vel.x/15, y = vel.y/15, z = vel.z/15})
 
 	if not move_result.collisions[1] then
 		return
 	end
 
 	if move_result.collisions[1].type == "node" then
-		minetest.chat_send_all("Speed: "..vector.length(vel)/GRAVITY)
 		play_sound_on_hit(projectile, "node")
 		local node_pos = move_result.collisions[1].node_pos
 		local projectile_pos = projectile.object:get_pos()
@@ -129,13 +145,27 @@ end
 
 
 --- @param projectile LuaEntity  projectile entity
-local function flight_processing(projectile)
+local function flight_processing(projectile, environment)
 	local vel = projectile.object:get_velocity()
 	if vel.y ~= 0 then
-		minetest.add_particle({
-			pos = projectile.object:get_pos(),
-			texture = "lord_bows_trajectory_particle.png",
-		})
+		math.randomseed(os.clock())
+		if environment == "water" then
+			minetest.add_particlespawner({
+				attached = projectile.object,
+				size = { min = 2, max = 4.5 },
+				pos = {
+					min = vector.new(-0.5, -0.5, -0.5),
+					max = vector.new( 0.5,  0.5,  0.5),
+					-- when `bias` is 0, all random values are exactly as likely as any
+				},
+				texture = "projectiles_trajectory_"..environment.."_particle.png",
+			})
+		else
+			minetest.add_particlespawner({
+				attached = projectile.object,
+				texture = "projectiles_trajectory_"..environment.."_particle.png",
+			})
+		end
 		local rot = {
 			x = 0,
 			y = math_pi + math_arctan(vel.z, vel.x),
@@ -164,25 +194,32 @@ local register_projectile_entity = function(name, item, reg)
 			glow                   = reg.glow,
 		},
 		_life_timer         = reg.life_timer or 90,
-		_shooter            = {},
+		_shooter            = nil,
 		_timer_is_started   = false,
+		_collision_count    = 0,
 		_sound_hit_node     = reg.sound_hit_node,
 		_sound_hit_object   = reg.sound_hit_object,
 		on_step        = function(self, dtime, moveresult)
 			if self._time_from_last_hit and self._life_timer > 0  then
 				self._time_from_last_hit = self._time_from_last_hit + dtime
 			end
-			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
-				minetest.chat_send_all(dump(moveresult))
-				minetest.chat_send_all("collide: "..tostring(moveresult.collides))
-				minetest.chat_send_all("stand: "..tostring(moveresult.standing_on_object))
-				collision_handling(self, moveresult, reg.damage_groups)
-			elseif vector.length(self.object:get_velocity()) > 0 then
-				minetest.chat_send_all(vector.length(self.object:get_velocity()))
-				flight_processing(self)
+
+			local pos         = self.object:get_pos()
+			local node_groups = minetest.registered_nodes[core.get_node(pos).name].groups
+			local environment = "normal"
+			if node_groups.water ~= nil then
+				environment = "water"
 			end
 
-			local pos = self.object:get_pos()
+			--print(dump(pos))
+			core.emerge_area(vector.subtract(pos, 8), vector.add(pos, 8))
+
+			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
+				self:_on_collision(moveresult)
+			elseif vector.length(self.object:get_velocity()) > 0 then
+				flight_processing(self, environment)
+			end
+
 
 			if update_life_timer(self, dtime) then
 				minetest.add_item(pos, item)
@@ -210,6 +247,20 @@ local register_projectile_entity = function(name, item, reg)
 				return ""
 			end
 		end,
+		_on_collision  = function(self, moveresult)
+			self._collision_count = self._collision_count + 1
+			if reg.on_collision and type(reg.on_collision) == "function" then
+				reg.on_collision()
+			end
+			collision_handling(self, moveresult, reg.damage_groups)
+			if self._collision_count >= 10 then
+				local pos = self.object:get_pos()
+				self.object:remove()
+				if self._shooter and self._shooter:is_player() then
+					minetest.add_item(pos, ItemStack(item))
+				end
+			end
+		end
 	})
 end
 
