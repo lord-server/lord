@@ -107,98 +107,11 @@ minetest.register_craft({
 	}
 })
 
-lottpotion.potion_recipes = { cooking = { input_size = 1, output_size = 1 } }
-function lottpotion.register_recipe_type(typename, origdata)
-	local data = {}
-	for k, v in pairs(origdata) do data[k] = v end
-	data.input_size                     = data.input_size or 1
-	data.output_size                    = data.output_size or 1
-	data.recipes                        = {}
-	lottpotion.potion_recipes[typename] = data
-end
-
-local function get_recipe_index(items)
-	local l = {}
-	if items ~= nil then
-		for i, stack in ipairs(items) do
-			l[i] = ItemStack(stack):get_name()
-		end
-	end
-	table.sort(l)
-	return table.concat(l, "/")
-end
-
-local function register_recipe(typename, data)
-	-- Handle aliases
-	for i, stack in ipairs(data.input) do
-		data.input[i] = ItemStack(stack):to_string()
-	end
-	if type(data.output) == "table" then
-		for i, v in ipairs(data.output) do
-			data.output[i] = ItemStack(data.output[i]):to_string()
-		end
-	else
-		data.output = ItemStack(data.output):to_string()
-	end
-
-	local recipe = { time = data.time, input = {}, output = data.output }
-	local index  = get_recipe_index(data.input)
-	for _, stack in ipairs(data.input) do
-		recipe.input[ItemStack(stack):get_name()] = ItemStack(stack):get_count()
-	end
-
-	lottpotion.potion_recipes[typename].recipes[index] = recipe
-end
-
-function lottpotion.register_recipe(typename, data)
-	minetest.after(0.01, register_recipe, typename, data) -- Handle aliases
-end
-
-function lottpotion.get_potion_recipe(typename, items)
-	if typename == "cooking" then
-		-- Already builtin in Minetest, so use that
-		local result, new_input = minetest.get_craft_result({
-			method = "cooking",
-			width  = 1,
-			items  = items })
-		-- Compatibility layer
-		if not result or result.time == 0 then
-			return nil
-		else
-			return { time      = result.time,
-					 new_input = new_input.items,
-					 output    = result.item }
-		end
-	end
-	local index  = get_recipe_index(items)
-	local recipe = lottpotion.potion_recipes[typename].recipes[index]
-	if recipe then
-		local new_input = {}
-		for i, stack in ipairs(items) do
-			if stack:get_count() < recipe.input[stack:get_name()] then
-				return nil
-			else
-				new_input[i] = ItemStack(stack)
-				new_input[i]:take_item(recipe.input[stack:get_name()])
-			end
-		end
-		return { time      = recipe.time,
-				 new_input = new_input,
-				 output    = recipe.output }
-	else
-		return nil
-	end
-end
-
-lottpotion.register_recipe_type("potionbrew", {
-	description = "Potion Brewing",
-	input_size  = 2,
+lottpotion.register_recipe_type("potion", {
+	description  = "Potion Brewing",
+	input_size   = 2,
+	default_time = 120,
 })
-
-function lottpotion.register_potionbrew_recipe(data)
-	data.time = data.time or 120
-	lottpotion.register_recipe("potionbrew", data)
-end
 
 local recipes = {
 	--Base Potion
@@ -263,7 +176,7 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	lottpotion.register_potionbrew_recipe({ input = { data[1], data[2] }, output = data[3], time = data[4] })
+	lottpotion.register_recipe("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
 end
 
 local machine_name = "Potion Brewer"
@@ -425,7 +338,7 @@ minetest.register_abm({
 			end
 		end
 
-		local result     = lottpotion.get_potion_recipe("potionbrew", inv:get_list("src"))
+		local result     = lottpotion.get_recipe("potion", inv:get_list("src"))
 
 		local was_active = false
 
@@ -477,7 +390,7 @@ minetest.register_abm({
 			return
 		end
 
-		local recipe = lottpotion.get_potion_recipe("potionbrew", inv:get_list("src"))
+		local recipe = lottpotion.get_recipe("potion", inv:get_list("src"))
 
 		if not recipe then
 			if was_active then

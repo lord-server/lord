@@ -513,5 +513,8 @@ function lottpotion.swap_node(pos, name)
 	return node.name
 end
 
+dofile(minetest.get_modpath("lottpotion").."/lottpotion_recipe_system.lua")
+
+
 dofile(minetest.get_modpath("lottpotion").."/potionbrewing.lua")
 dofile(minetest.get_modpath("lottpotion").."/brewing.lua")
