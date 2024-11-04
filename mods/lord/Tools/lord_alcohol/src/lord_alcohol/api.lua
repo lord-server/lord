@@ -51,6 +51,7 @@ local function register(node_name, satiety, groups, title)
 		groups            = table.overwrite({ dig_immediate = 3, attached_node = 1, alcohol = 1 }, groups or {}),
 		on_use            = minetest.item_eat(satiety),
 		_tt_food_hp       = satiety,
+		sounds            = default.node_sound_glass_defaults(),
 	})
 
 	alcohol.nodes[node_name]      = minetest.registered_nodes[node_name]
