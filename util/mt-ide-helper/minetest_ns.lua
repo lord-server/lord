@@ -275,7 +275,7 @@ function minetest.register_tool(name, item_definition) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4474-L4478)
 --- @param name         string
---- @param redefinition ItemDefinition
+--- @param redefinition ItemDefinition|NodeDefinition
 function minetest.override_item(name, redefinition) end
 --- * Unregisters the item from the engine, and deletes the entry with key
 ---   `name` from `minetest.registered_items` and from the associated item table
