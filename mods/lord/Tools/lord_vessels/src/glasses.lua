@@ -14,17 +14,18 @@ minetest.override_item('vessels:drinking_glass', {
 })
 
 minetest.register_node('lord_vessels:drinking_glass_water', {
-	description     = S('Drinking Glass (Water)'),
-	drawtype        = 'plantlike',
-	tiles           = { 'lottpotion_glass_water.png' },
-	inventory_image = 'lottpotion_glass_water.png',
-	wield_image     = 'lottpotion_glass_water.png',
-	paramtype       = 'light',
-	walkable        = false,
-	selection_box   = {
+	description       = S('Drinking Glass (Water)'),
+	inventory_image   = 'lottpotion_glass_water.png',
+	wield_image       = 'lottpotion_glass_water.png',
+	drawtype          = 'plantlike',
+	paramtype         = 'light',
+	tiles             = { 'lottpotion_glass_water.png' },
+	selection_box     = {
 		type  = 'fixed',
 		fixed = { -0.25, -0.5, -0.25, 0.25, 0.4, 0.25 }
 	},
-	groups          = { vessel = 1, dig_immediate = 3, attached_node = 1 },
-	sounds          = default.node_sound_glass_defaults(),
+	groups            = { vessel = 1, dig_immediate = 3, attached_node = 1 },
+	is_ground_content = false,
+	walkable          = false,
+	sounds            = default.node_sound_glass_defaults(),
 })
