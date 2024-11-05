@@ -1,7 +1,7 @@
 
 
 mobs:register_mob("lottmobs:nazgul", {
-	type = "animal",
+	type = "monster",
 	hp_min = 90,
 	hp_max = 110,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
@@ -46,10 +46,11 @@ mobs:register_mob("lottmobs:nazgul", {
 	},
 	jump = true,
 	sounds = {
-		war_cry = "mobs_nazgul_attack_war_cry",
-		death   = "mobs_nazgul_dying",
-		attack  = "default_punch2",
-		random  = "mobs_nazgul_scream_1",
+		war_cry  = "mobs_nazgul_attack_war_cry",
+		death    = "mobs_nazgul_dying",
+		attack   = "default_punch2",
+		random   = "mobs_nazgul_scream_1",
+		distance = 48,
 	},
 	attacks_monsters = true,
 	peaceful = true,
@@ -102,10 +103,11 @@ mobs:register_mob("lottmobs:witch_king", {
 	},
 	jump = true,
 	sounds = {
-		war_cry = "mobs_nazgul_attack_war_cry",
-		death   = "mobs_nazgul_dying",
-		attack  = "default_punch2",
-		random  = "mobs_nazgul_scream_2",
+		war_cry  = "mobs_nazgul_attack_war_cry",
+		death    = "mobs_nazgul_dying",
+		attack   = "default_punch2",
+		random   = "mobs_nazgul_scream_2",
+		distance = 48,
 	},
 	attacks_monsters = true,
 	peaceful = true,
