@@ -96,6 +96,6 @@ default.register_leafdecay({
 -- Pines / Сосна
 default.register_leafdecay({
 	trunks = {"lord_trees:plum_tree"},
-	leaves = {"lord_trees:plum_leaf"},
+	leaves = {"lord_trees:plum_leaf", "lord_trees:plum"},
 	radius = 2,
 })
