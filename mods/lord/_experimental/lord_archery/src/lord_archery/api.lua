@@ -47,7 +47,7 @@ local function register_bow(name, reg)
 	for i = 1, 3 do
 		local stage_name = name .. "_" .. i
 		stages[i]    = stage_name
-		minetest.register_tool(name .. "_" .. i, {
+		minetest.register_tool(stage_name, {
 			description       = def.description,
 			range             = 0,
 			wield_scale       = wield_scale,
@@ -90,8 +90,8 @@ local function register_crossbow(name, reg)
 		range             = 3,
 		description       = def.description,
 		wield_scale       = wield_scale,
-		inventory_image   = def.inventory_image .. ".png^[transformR90",
-		wield_image       = def.inventory_image .. ".png^[transformR90",
+		inventory_image   = def.inventory_image .. ".png",
+		wield_image       = def.inventory_image .. ".png",
 		groups            = def.groups,
 		tool_capabilities = def.tool_capabilities,
 		touch_interaction = {
@@ -108,12 +108,12 @@ local function register_crossbow(name, reg)
 	local stage_name = name .. "_" .. 1
 	stages[1]        = stage_name
 
-	minetest.register_tool(name .. "_" .. 1, {
+	minetest.register_tool(stage_name, {
 		description       = def.description,
 		range             = 0,
 		wield_scale       = wield_scale,
-		inventory_image   = def.inventory_image .. "_" .. 1 .. ".png^[transformR90",
-		wield_image       = def.inventory_image .. "_" .. 1 .. ".png^[transformR90",
+		inventory_image   = def.inventory_image .. "_" .. 1 .. ".png",
+		wield_image       = def.inventory_image .. "_" .. 1 .. ".png",
 		groups            = stage_groups,
 		tool_capabilities = def.tool_capabilities,
 		touch_interaction = {
