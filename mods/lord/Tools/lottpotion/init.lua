@@ -475,21 +475,6 @@ minetest.register_on_leaveplayer(function(player)
 	lottpotion.deaths[player:get_player_name()] = nil
 end)
 
-minetest.register_chatcommand("effect", {
-	params = "none",
-	description = SL("get effect info"),
-	func = function(name, param)
-		minetest.chat_send_player(name, SL("effects:"))
-		local lottpotion_e = lottpotion.players[name]
-		if lottpotion_e~=nil then
-			for potion_name, val in pairs(lottpotion_e) do
-				if potion_name ~= "alive" then
-					minetest.chat_send_player(name, potion_name .. "=" .. val)
-				end
-			end
-		end
-	end,
-})
 
 function lottpotion.can_dig(pos, player)
 	local meta = minetest.get_meta(pos)
