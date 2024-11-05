@@ -1,7 +1,7 @@
 local SL    = minetest.get_mod_translator()
 
 -- moved AS IS from lottpotion/init.lua
--- TODO: REMOVE
+-- TODO: REMOVE; and migrate to our `lord_potions`
 
 local limit = {
 	speed   = 4,
