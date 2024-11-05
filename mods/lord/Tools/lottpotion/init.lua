@@ -5,7 +5,7 @@ lottpotion = {}
 
 dofile(minetest.get_modpath("lottpotion").."/cauldron.lua")
 dofile(minetest.get_modpath("lottpotion").."/potions/aka_api.lua")
-dofile(minetest.get_modpath("lottpotion").."/arrows.lua")
+dofile(minetest.get_modpath("lottpotion").."/potions/arrows.lua")
 dofile(minetest.get_modpath("lottpotion").."/potions/potions.lua")
 
 
