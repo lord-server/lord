@@ -235,3 +235,62 @@ lottpotion  = {
 		end
 	end,
 }
+
+--- --------------------------------------------------------------- ---
+---                          Handling                               ---
+--- --------------------------------------------------------------- ---
+minetest.foreach_player_every(1, function(player)
+	local name = player:get_player_name()
+	local hp_change = lottpotion.players[name].hp or 0
+	if hp_change ~= 0 then
+		local hp = player:get_hp()
+		hp = hp + hp_change
+		hp = math.min(20, hp)
+		hp = math.max(0, hp)
+		player:set_hp(hp)
+	end
+	local br_change = lottpotion.players[name].air or 0
+	if br_change ~= 0 then
+		local br = player:get_breath()
+		br = br + br_change
+		br = math.min(20, br)
+		br = math.max(0, br)
+		player:set_breath(br)
+	end
+	if lottpotion.players[name].alive ~= 1 then
+		lottpotion.players[name].alive = 1
+	end
+end)
+
+minetest.register_on_dieplayer(function(player)
+	local name = player:get_player_name()
+	lottpotion.players[name] = {
+		speed = 1,
+		jump = 1,
+		gravity = 1,
+		air = 0,
+		hp = 0,
+		alive = 0,
+	}
+	lottpotion.refresh(name)
+	if lottpotion.deaths[name] == nil then
+		lottpotion.deaths[name] = 1
+	end
+	lottpotion.deaths[name] = lottpotion.deaths[name] + 1
+end)
+
+minetest.register_on_joinplayer(function(player)
+	lottpotion.players[player:get_player_name()] = {
+		speed = 1,
+		jump = 1,
+		gravity = 1,
+		air = 0,
+		hp = 0,
+		alive = 1,
+	}
+end)
+
+minetest.register_on_leaveplayer(function(player)
+	lottpotion.players[player:get_player_name()] = nil
+	lottpotion.deaths[player:get_player_name()] = nil
+end)
