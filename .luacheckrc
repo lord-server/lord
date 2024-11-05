@@ -29,7 +29,7 @@ read_globals      = {
 		-- table:
 		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of",
 		"keys", "except", "keys_has_one_of_values",
-        "equals"
+        "equals", "multiply_each_value", "apply_function_to_every_value"
 	} },
 
 	string = { fields = {

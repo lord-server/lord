@@ -211,3 +211,36 @@ function table.equals(table1, table2, recursively)
 
 	return true
 end
+
+--- Multiplies every value of `table` by a corresponding value
+--- with the same key in `multiplier_table`.
+--- Doesn't support the preservation of metatables.
+--- @param table            table
+--- @param multiplier_table table
+--- @return table
+function table.multiply_each_value(table, multiplier_table)
+	local result = {}
+	for key, value in pairs(table) do
+		if multiplier_table[key] then
+			result[key] = value * multiplier_table[key]
+		else
+			result[key] = value
+		end
+	end
+
+	return result
+end
+
+---	Runs the input function for each table entry with the entry value as the argument.
+--- Whatever the input function returns will be set instead of the value.
+--- Non-recurcive, doesn't modify the input table.
+--- @param t     table
+--- @param func  function
+--- @return table
+function table.apply_function_to_every_value(t, func)
+	local result = table.copy(t)
+	for k, v in pairs(t) do
+		result[k] = func(v)
+	end
+	return result
+end
