@@ -220,17 +220,6 @@ lottpotion  = {
 					item_def.lottpotion[effect_name] = val
 				end
 				minetest.register_node(fname .. "_" .. tps[t] .. sdata.type, item_def)
-				--potions.register_liquid(i..tps[t]..sname, name.." ("..tps[t].." "..i..")", item_def.on_use)
-				if minetest.get_modpath("lottthrowing") ~= nil then
-					lottpotion.register_arrow(
-						fname .. "_" .. tps[t] .. sdata.type,
-						i .. tps[t] .. sname,
-						name .. " (" .. tps[t] .. " " .. i .. ")",
-						item_def.on_use,
-						item_def.description,
-						item_def.inventory_image
-					)
-				end
 			end
 		end
 	end,

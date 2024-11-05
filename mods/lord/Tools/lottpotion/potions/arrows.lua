@@ -1,35 +1,41 @@
-local SL = minetest.get_mod_translator()
 
-local KFR=0.01
-local DC=0.01
-local MASS=0.5
-local VELOCITY=30
+-- /!\ poisoned arrows are removed
 
-lottpotion.register_arrow = function(potion_name, name, hname, potion_use_funct, desc, img)
---	minetest.log("action", "regisering potion arrow")
-	local arrow_name = potion_name.."_arrow"
-	local inventory_img = img.."^lottthrowing_arrow_steel.png"
-	minetest.register_craftitem(arrow_name, {
-		description = SL("Potion Arrow").." ("..desc..")",
-		inventory_image = inventory_img,
-		groups = {},
-	})
-
-	arrows:register_arrow(arrow_name, {
-		arrow_type = "arrow",
-		mass = MASS,
-		kfr = KFR,
-		damage_coefficient = DC,
-		velocity = VELOCITY,
-		texture = inventory_img,
-		hit_player = function(arrow, player)
-			potion_use_funct({take_item = function()end}, player)
-		end,
-	})
-
-	minetest.register_craft({
-		type = "shapeless",
-		output = potion_name.."_arrow",
-		recipe = {"arrows:arrow_steel", potion_name}
-	})
-end
+-- Temporary aliases.
+-- TODO: remove this ones & uncomment in mods/lord/Tools/lord_potions/legacy.lua:48 (#1736)
+minetest.register_alias('lottpotion:athelasbrew_power1_arrow', 'lottpotion:athelasbrew_power1')
+minetest.register_alias('lottpotion:athelasbrew_power2_arrow', 'lottpotion:athelasbrew_power2')
+minetest.register_alias('lottpotion:athelasbrew_power3_arrow', 'lottpotion:athelasbrew_power3')
+minetest.register_alias('lottpotion:athelasbrew_corruption1_arrow', 'lottpotion:athelasbrew_corruption1')
+minetest.register_alias('lottpotion:athelasbrew_corruption2_arrow', 'lottpotion:athelasbrew_corruption2')
+minetest.register_alias('lottpotion:athelasbrew_corruption3_arrow', 'lottpotion:athelasbrew_corruption3')
+minetest.register_alias('lottpotion:limpe_power1_arrow', 'lottpotion:limpe_power1')
+minetest.register_alias('lottpotion:limpe_power2_arrow', 'lottpotion:limpe_power2')
+minetest.register_alias('lottpotion:limpe_power3_arrow', 'lottpotion:limpe_power3')
+minetest.register_alias('lottpotion:limpe_corruption1_arrow', 'lottpotion:limpe_corruption1')
+minetest.register_alias('lottpotion:limpe_corruption2_arrow', 'lottpotion:limpe_corruption2')
+minetest.register_alias('lottpotion:limpe_corruption3_arrow', 'lottpotion:limpe_corruption3')
+minetest.register_alias('lottpotion:miruvor_power1_arrow', 'lottpotion:miruvor_power1')
+minetest.register_alias('lottpotion:miruvor_power2_arrow', 'lottpotion:miruvor_power2')
+minetest.register_alias('lottpotion:miruvor_power3_arrow', 'lottpotion:miruvor_power3')
+minetest.register_alias('lottpotion:miruvor_corruption1_arrow', 'lottpotion:miruvor_corruption1')
+minetest.register_alias('lottpotion:miruvor_corruption2_arrow', 'lottpotion:miruvor_corruption2')
+minetest.register_alias('lottpotion:miruvor_corruption3_arrow', 'lottpotion:miruvor_corruption3')
+minetest.register_alias('lottpotion:spiderpoison_power1_arrow', 'lottpotion:spiderpoison_power1')
+minetest.register_alias('lottpotion:spiderpoison_power2_arrow', 'lottpotion:spiderpoison_power2')
+minetest.register_alias('lottpotion:spiderpoison_power3_arrow', 'lottpotion:spiderpoison_power3')
+minetest.register_alias('lottpotion:spiderpoison_corruption1_arrow', 'lottpotion:spiderpoison_corruption1')
+minetest.register_alias('lottpotion:spiderpoison_corruption2_arrow', 'lottpotion:spiderpoison_corruption2')
+minetest.register_alias('lottpotion:spiderpoison_corruption3_arrow', 'lottpotion:spiderpoison_corruption3')
+minetest.register_alias('lottpotion:orcdraught_power1_arrow', 'lottpotion:orcdraught_power1')
+minetest.register_alias('lottpotion:orcdraught_power2_arrow', 'lottpotion:orcdraught_power2')
+minetest.register_alias('lottpotion:orcdraught_power3_arrow', 'lottpotion:orcdraught_power3')
+minetest.register_alias('lottpotion:orcdraught_corruption1_arrow', 'lottpotion:orcdraught_corruption1')
+minetest.register_alias('lottpotion:orcdraught_corruption2_arrow', 'lottpotion:orcdraught_corruption2')
+minetest.register_alias('lottpotion:orcdraught_corruption3_arrow', 'lottpotion:orcdraught_corruption3')
+minetest.register_alias('lottpotion:entdraught_power1_arrow', 'lottpotion:entdraught_power1')
+minetest.register_alias('lottpotion:entdraught_power2_arrow', 'lottpotion:entdraught_power2')
+minetest.register_alias('lottpotion:entdraught_power3_arrow', 'lottpotion:entdraught_power3')
+minetest.register_alias('lottpotion:entdraught_corruption1_arrow', 'lottpotion:entdraught_corruption1')
+minetest.register_alias('lottpotion:entdraught_corruption2_arrow', 'lottpotion:entdraught_corruption2')
+minetest.register_alias('lottpotion:entdraught_corruption3_arrow', 'lottpotion:entdraught_corruption3')
