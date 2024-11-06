@@ -4,8 +4,6 @@ lottpotion.register_recipe_type("brew", {
 	input_size   = 2,
 	default_time = 60,
 })
-dofile(minetest.get_modpath("lottpotion").."/benches/barrel/alcohol_recipes.lua")
-
 
 dofile(minetest.get_modpath("lottpotion").."/benches/barrel/nodes.lua")
 

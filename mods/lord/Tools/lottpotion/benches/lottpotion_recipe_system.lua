@@ -47,9 +47,12 @@ local function register_recipe(typename, data)
 	lottpotion.type_recipes[typename].recipes[index] = recipe
 end
 
+print(__FILE_LINE__())
 function lottpotion.register_recipe(typename, data)
 	minetest.after(0.01, register_recipe, typename, data) -- Handle aliases
 end
+print(dump(lottpotion))
+print(__FILE_LINE__())
 
 function lottpotion.get_recipe(typename, items)
 	local index  = get_recipe_index(items)
