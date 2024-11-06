@@ -3240,7 +3240,7 @@
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["y"] = 26, ["z"] = 9, ["name"] = "lord_trees:mallorn_tree"},
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["y"] = 26, ["z"] = 10, ["name"] = "lord_trees:mallorn_tree"},
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["param2"] = 2, ["y"] = 26, ["z"] = 11, ["name"] = "lord_trees:mallorn_tree"},
-{["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["param2"] = 3, ["y"] = 26, ["param1"] = 153, ["z"] = 12, ["name"] = "lottpotion:cauldron_full"},
+{["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["param2"] = 3, ["y"] = 26, ["param1"] = 153, ["z"] = 12, ["name"] = "lord_artisan_benches:cauldron_3_3"},
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["y"] = 26, ["param1"] = 153, ["z"] = 13, ["name"] = "lottother:air"},
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["y"] = 26, ["param1"] = 170, ["z"] = 14, ["name"] = "default:fence_wood"},
 {["x"] = 10, ["meta"] = {["fields"] = {}, ["inventory"] = {}}, ["y"] = 26, ["param1"] = 153, ["z"] = 15, ["name"] = "lord_trees:mallorn_leaf"},

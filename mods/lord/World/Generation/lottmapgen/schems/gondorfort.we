@@ -2443,7 +2443,7 @@ return {
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 105, ["z"] = 13, ["name"] = "lottother:air" },
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 0, ["z"] = 14, ["name"] = "lottblocks:marble_brick" },
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 37, ["z"] = 15, ["name"] = "lottother:air" },
-{["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 0, ["z"] = 16, ["name"] = "lottpotion:cauldron_full" },
+{["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 0, ["z"] = 16, ["name"] = "lord_artisan_benches:cauldron_3_3" },
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 14, ["param1"] = 0, ["z"] = 17, ["name"] = "lottblocks:marble_brick" },
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 15, ["param1"] = 0, ["z"] = 11, ["name"] = "lottblocks:marble_brick" },
 {["x"] = 11, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 15, ["param1"] = 119, ["z"] = 12, ["name"] = "lottother:air" },

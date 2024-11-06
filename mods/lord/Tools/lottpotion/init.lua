@@ -6,7 +6,6 @@ dofile(minetest.get_modpath("lottpotion").."/benches/lottpotion_recipe_system.lu
 
 
 dofile(minetest.get_modpath("lottpotion").."/benches/helpers.lua")
-dofile(minetest.get_modpath("lottpotion").."/benches/cauldron.lua")
 dofile(minetest.get_modpath("lottpotion").."/benches/laboratory.lua")
 dofile(minetest.get_modpath("lottpotion").."/benches/barrel.lua")
 

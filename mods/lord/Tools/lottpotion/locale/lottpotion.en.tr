@@ -62,12 +62,6 @@ Ent Draught (Strength: corruption2)=Ent Draught (Strength: corruption2)
 Ent Draught (Strength: power3)=Ent Draught (Strength: power3)
 Ent Draught (Strength: corruption3)=Ent Draught (Strength: corruption3)
 
-### cauldron.lua ###
-Filled Cauldron=Filled Cauldron
-Two Third Filled Cauldron=Two Third Filled Cauldron
-One Third Filled Cauldron=One Third Filled Cauldron
-Empty Cauldron=Empty Cauldron
-
 
 ### brewing.lua ###
 Brewer=Brewer
