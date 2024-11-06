@@ -61,8 +61,6 @@ local recipes = {
 	{ "default:leaves 10", "lottpotion:entdraught_corruption2", "lottpotion:entdraught_corruption3", 240 },
 }
 
-print(__FILE_LINE__())
-print(dump(lottpotion))
 for _, data in pairs(recipes) do
 	lottpotion.register_recipe("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
 end
