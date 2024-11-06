@@ -1,7 +1,10 @@
 local SL = minetest.get_mod_translator()
 
+-- moved AS IS from lottpotion.
 
-function lottpotion.can_dig(pos, player)
+lottpotion_nodes = {}
+
+function lottpotion_nodes.can_dig(pos, player)
 	local meta = minetest.get_meta(pos)
 	local inv = meta:get_inventory()
 	if not inv:is_empty("src") or not inv:is_empty("dst") or not inv:is_empty("fuel") or
@@ -14,7 +17,7 @@ function lottpotion.can_dig(pos, player)
 	end
 end
 
-function lottpotion.swap_node(pos, name)
+function lottpotion_nodes.swap_node(pos, name)
 	local node = minetest.get_node(pos)
 	if node.name ~= name then
 		node.name = name

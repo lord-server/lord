@@ -1,11 +1,16 @@
+require('artisan_benches.legacy.helpers')
+require('artisan_benches.legacy.lottpotion_recipe_system')
 
-lottpotion.register_recipe_type("potion", {
+-- moved AS IS from lottpotion.
+
+-- TODO: migrate to our crafts system (#1770)
+lottpotion_recipe.register_type("potion", {
 	description  = "Potion Brewing",
 	input_size   = 2,
 	default_time = 120,
 })
 
-dofile(minetest.get_modpath("lottpotion").."/benches/laboratory/nodes.lua")
+require('artisan_benches.laboratory.nodes')
 
 minetest.register_craft({
 	output = 'lottpotion:potion_brewer',

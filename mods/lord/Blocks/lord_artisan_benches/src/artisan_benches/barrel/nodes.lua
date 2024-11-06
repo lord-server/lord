@@ -1,52 +1,8 @@
 local SL = minetest.get_mod_translator()
 
-local make_pipe = function( pipes, horizontal )
-	local result = {};
-	for i, v in pairs( pipes ) do
-		local f  = v.f;
-		local h1 = v.h1;
-		local h2 = v.h2;
-		if( not( v.b ) or v.b == 0 ) then
-			table.insert( result,   {-0.37*f,  h1,-0.37*f, -0.28*f, h2,-0.28*f});
-			table.insert( result,   {-0.37*f,  h1, 0.28*f, -0.28*f, h2, 0.37*f});
-			table.insert( result,   { 0.37*f,  h1,-0.28*f,  0.28*f, h2,-0.37*f});
-			table.insert( result,   { 0.37*f,  h1, 0.37*f,  0.28*f, h2, 0.28*f});
-			table.insert( result,   {-0.30*f,  h1,-0.42*f, -0.20*f, h2,-0.34*f});
-			table.insert( result,   {-0.30*f,  h1, 0.34*f, -0.20*f, h2, 0.42*f});
-			table.insert( result,   { 0.20*f,  h1,-0.42*f,  0.30*f, h2,-0.34*f});
-			table.insert( result,   { 0.20*f,  h1, 0.34*f,  0.30*f, h2, 0.42*f});
-			table.insert( result,   {-0.42*f,  h1,-0.30*f, -0.34*f, h2,-0.20*f});
-			table.insert( result,   { 0.34*f,  h1,-0.30*f,  0.42*f, h2,-0.20*f});
-			table.insert( result,   {-0.42*f,  h1, 0.20*f, -0.34*f, h2, 0.30*f});
-			table.insert( result,   { 0.34*f,  h1, 0.20*f,  0.42*f, h2, 0.30*f});
-			table.insert( result,   {-0.25*f,  h1,-0.45*f, -0.10*f, h2,-0.40*f});
-			table.insert( result,   {-0.25*f,  h1, 0.40*f, -0.10*f, h2, 0.45*f});
-			table.insert( result,   { 0.10*f,  h1,-0.45*f,  0.25*f, h2,-0.40*f});
-			table.insert( result,   { 0.10*f,  h1, 0.40*f,  0.25*f, h2, 0.45*f});
-			table.insert( result,   {-0.45*f,  h1,-0.25*f, -0.40*f, h2,-0.10*f});
-			table.insert( result,   { 0.40*f,  h1,-0.25*f,  0.45*f, h2,-0.10*f});
-			table.insert( result,   {-0.45*f,  h1, 0.10*f, -0.40*f, h2, 0.25*f});
-			table.insert( result,   { 0.40*f,  h1, 0.10*f,  0.45*f, h2, 0.25*f});
-			table.insert( result,   {-0.15*f,  h1,-0.50*f,  0.15*f, h2,-0.45*f});
-			table.insert( result,   {-0.15*f,  h1, 0.45*f,  0.15*f, h2, 0.50*f});
-			table.insert( result,   {-0.50*f,  h1,-0.15*f, -0.45*f, h2, 0.15*f});
-			table.insert( result,   { 0.45*f,  h1,-0.15*f,  0.50*f, h2, 0.15*f});
-		else
-			table.insert( result,   {-0.35*f,  h1,-0.40*f,  0.35*f, h2,0.40*f});
-			table.insert( result,   {-0.40*f,  h1,-0.35*f,  0.40*f, h2,0.35*f});
-			table.insert( result,   {-0.25*f,  h1,-0.45*f,  0.25*f, h2,0.45*f});
-			table.insert( result,   {-0.45*f,  h1,-0.25*f,  0.45*f, h2,0.25*f});
-			table.insert( result,   {-0.15*f,  h1,-0.50*f,  0.15*f, h2,0.50*f});
-			table.insert( result,   {-0.50*f,  h1,-0.15*f,  0.50*f, h2,0.15*f});
-		end
-	end
-	if( horizontal == 1 ) then
-		for i,v in ipairs( result ) do
-			result[ i ] = { v[2], v[1], v[3],   v[5], v[4], v[6] };
-		end
-	end
-	return result;
-end
+-- moved AS IS from lottpotion.
+
+local geometry = require('artisan_benches.barrel.nodes.geometry')
 
 local machine_name = "Brewer"
 
@@ -74,13 +30,13 @@ local formspec     = "size[8,9]" ..
 	"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
 	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
 
-minetest.register_node("lottpotion:brewer", {
+minetest.register_node(":lottpotion:brewer", {
 	description                   = SL(machine_name),
 	drawtype                      = "nodebox",
 	tiles                         = { "default_wood.png" },
 	node_box                      = {
 		type  = "fixed",
-		fixed = make_pipe(
+		fixed = geometry.make_pipe(
 			{
 				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
 				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
@@ -110,7 +66,7 @@ minetest.register_node("lottpotion:brewer", {
 		inv:set_size("dst", 1)
 		inv:set_size("dst2", 1)
 	end,
-	can_dig                       = lottpotion.can_dig,
+	can_dig                       = lottpotion_nodes.can_dig,
 	--backwards compatibility: punch to set formspec
 	on_punch                      = function(pos, player)
 		local meta = minetest.get_meta(pos)
@@ -153,13 +109,13 @@ minetest.register_node("lottpotion:brewer", {
 	end,
 })
 
-minetest.register_node("lottpotion:brewer_active", {
+minetest.register_node(":lottpotion:brewer_active", {
 	description                   = SL(machine_name),
 	drawtype                      = "nodebox",
 	tiles                         = { "default_wood.png" },
 	node_box                      = {
 		type  = "fixed",
-		fixed = make_pipe(
+		fixed = geometry.make_pipe(
 			{
 				{ f = 0.9,  h1 = -0.2,  h2 = 0.2,   b = 0 },
 				{ f = 0.75, h1 = -0.50, h2 = -0.35, b = 0 },
@@ -180,7 +136,7 @@ minetest.register_node("lottpotion:brewer_active", {
 	drop                          = "lottpotion:brewer",
 	groups                        = { cracky = 2, not_in_creative_inventory = 1 },
 	sounds                        = default.node_sound_stone_defaults(),
-	can_dig                       = lottpotion.can_dig,
+	can_dig                       = lottpotion_nodes.can_dig,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
@@ -248,7 +204,7 @@ minetest.register_abm({
 			end
 		end
 
-		local result     = lottpotion.get_recipe("brew", inv:get_list("src"))
+		local result     = lottpotion_recipe.get("brew", inv:get_list("src"))
 
 		local was_active = false
 
@@ -278,7 +234,7 @@ minetest.register_abm({
 			local percent = math.floor(meta:get_float("fuel_time") /
 				meta:get_float("fuel_totaltime") * 100)
 			meta:set_string("infotext", SL(("%s Brewing"):format(machine_name)) .. " (" .. percent .. "%)")
-			lottpotion.swap_node(pos, "lottpotion:brewer_active")
+			lottpotion_nodes.swap_node(pos, "lottpotion:brewer_active")
 			meta:set_string("formspec",
 				"size[8,9]" ..
 					"label[0,0;" .. SL(machine_name) .. "]" ..
@@ -307,12 +263,12 @@ minetest.register_abm({
 			return
 		end
 
-		local recipe = lottpotion.get_recipe("brew", inv:get_list("src"))
+		local recipe = lottpotion_recipe.get("brew", inv:get_list("src"))
 
 		if not recipe then
 			if was_active then
 				meta:set_string("infotext", SL(("%s is empty"):format(machine_name)))
-				lottpotion.swap_node(pos, "lottpotion:brewer")
+				lottpotion_nodes.swap_node(pos, "lottpotion:brewer")
 				meta:set_string("formspec", formspec)
 			end
 			return
@@ -328,7 +284,7 @@ minetest.register_abm({
 
 		if fuel.time <= 0 then
 			meta:set_string("infotext", SL(("%s Out Of Heat"):format(machine_name)))
-			lottpotion.swap_node(pos, "lottpotion:brewer")
+			lottpotion_nodes.swap_node(pos, "lottpotion:brewer")
 			meta:set_string("formspec", formspec)
 			return
 		end
@@ -343,7 +299,7 @@ minetest.register_abm({
 -- LBMS
 minetest.register_lbm({
 	label = "formspec brewer replacement",
-	name = "lottpotion:brewer_formspec_replacement_2",
+	name = ":lottpotion:brewer_formspec_replacement_2",
 	nodenames = {"lottpotion:brewer"},
 	run_at_every_load = false,
 	action = function(pos, node)

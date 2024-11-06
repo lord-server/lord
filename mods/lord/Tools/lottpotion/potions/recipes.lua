@@ -62,5 +62,5 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	lottpotion.register_recipe("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
+	lottpotion_recipe.register("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
 end

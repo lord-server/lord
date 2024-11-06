@@ -1,5 +1,7 @@
 local S = minetest.get_mod_translator()
 
+-- moved AS IS from lottpotion.
+
 local machine_name = "Potion Brewer"
 
 local formspec = "size[8,9]" ..
@@ -23,7 +25,7 @@ local formspec = "size[8,9]" ..
 	"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
 	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
 
-minetest.register_node("lottpotion:potion_brewer", {
+minetest.register_node(":lottpotion:potion_brewer", {
 	description                   = S(machine_name),
 	drawtype                      = "plantlike",
 	visual_scale                  = 1.0,
@@ -46,7 +48,7 @@ minetest.register_node("lottpotion:potion_brewer", {
 		inv:set_size("src", 2)
 		inv:set_size("dst", 1)
 	end,
-	can_dig                       = lottpotion.can_dig,
+	can_dig                       = lottpotion_nodes.can_dig,
 
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
@@ -79,7 +81,7 @@ minetest.register_node("lottpotion:potion_brewer", {
 	end,
 })
 
-minetest.register_node("lottpotion:potion_brewer_active", {
+minetest.register_node(":lottpotion:potion_brewer_active", {
 	description                   = machine_name,
 	drawtype                      = "plantlike",
 	visual_scale                  = 1.0,
@@ -95,7 +97,7 @@ minetest.register_node("lottpotion:potion_brewer_active", {
 	drop                          = "lottpotion:potion_brewer",
 	groups                        = { cracky = 2, not_in_creative_inventory = 1 },
 	sounds                        = default.node_sound_stone_defaults(),
-	can_dig                       = lottpotion.can_dig,
+	can_dig                       = lottpotion_nodes.can_dig,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
@@ -159,7 +161,7 @@ minetest.register_abm({
 			end
 		end
 
-		local result     = lottpotion.get_recipe("potion", inv:get_list("src"))
+		local result     = lottpotion_recipe.get("potion", inv:get_list("src"))
 
 		local was_active = false
 
@@ -185,7 +187,7 @@ minetest.register_abm({
 			local percent = math.floor(meta:get_float("fuel_time") /
 				meta:get_float("fuel_totaltime") * 100)
 			meta:set_string("infotext", S(("%s Brewing"):format(machine_name)) .. " (" .. percent .. "%)")
-			lottpotion.swap_node(pos, "lottpotion:potion_brewer_active")
+			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer_active")
 			meta:set_string("formspec",
 				"size[8,9]" ..
 					"label[0,0;" .. S(machine_name) .. "]" ..
@@ -211,12 +213,12 @@ minetest.register_abm({
 			return
 		end
 
-		local recipe = lottpotion.get_recipe("potion", inv:get_list("src"))
+		local recipe = lottpotion_recipe.get("potion", inv:get_list("src"))
 
 		if not recipe then
 			if was_active then
 				meta:set_string("infotext", S(("%s is empty"):format(machine_name)))
-				lottpotion.swap_node(pos, "lottpotion:potion_brewer")
+				lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
 				meta:set_string("formspec", formspec)
 			end
 			return
@@ -224,7 +226,7 @@ minetest.register_abm({
 
 		if not inv:room_for_item("dst", ItemStack(result.output)) then
 			meta:set_string("infotext", ("%s Out Of Heat"):format(machine_name))
-			lottpotion.swap_node(pos, "lottpotion:potion_brewer")
+			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
 			meta:set_string("formspec", formspec)
 			return
 		end
@@ -239,7 +241,7 @@ minetest.register_abm({
 
 		if fuel.time <= 0 then
 			meta:set_string("infotext", S(("%s Out Of Heat"):format(machine_name)))
-			lottpotion.swap_node(pos, "lottpotion:potion_brewer")
+			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
 			meta:set_string("formspec", formspec)
 			return
 		end

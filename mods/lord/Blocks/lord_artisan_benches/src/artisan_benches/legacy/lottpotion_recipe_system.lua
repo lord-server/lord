@@ -1,8 +1,10 @@
 
-lottpotion.type_recipes = {}
+-- moved AS IS from lottpotion.
+lottpotion_recipe = {}
+lottpotion_recipe.types = {}
 
-function lottpotion.register_recipe_type(typename, origdata)
-	lottpotion.type_recipes[typename] = table.overwrite({
+function lottpotion_recipe.register_type(typename, origdata)
+	lottpotion_recipe.types[typename] = table.overwrite({
 		input_size   = 1,
 		output_size  = 1,
 		recipes      = {},
@@ -38,22 +40,22 @@ local function register_recipe(typename, data)
 	convert_aliases(data)
 
 	local index  = get_recipe_index(data.input)
-	local default_time = lottpotion.type_recipes[typename].default_time
+	local default_time = lottpotion_recipe.types[typename].default_time
 	local recipe = { time = data.time or default_time, input = {}, output = data.output }
 	for _, stack in ipairs(data.input) do
 		recipe.input[ItemStack(stack):get_name()] = ItemStack(stack):get_count()
 	end
 
-	lottpotion.type_recipes[typename].recipes[index] = recipe
+	lottpotion_recipe.types[typename].recipes[index] = recipe
 end
 
-function lottpotion.register_recipe(typename, data)
+function lottpotion_recipe.register(typename, data)
 	minetest.after(0.01, register_recipe, typename, data) -- Handle aliases
 end
 
-function lottpotion.get_recipe(typename, items)
+function lottpotion_recipe.get(typename, items)
 	local index  = get_recipe_index(items)
-	local recipe = lottpotion.type_recipes[typename].recipes[index]
+	local recipe = lottpotion_recipe.types[typename].recipes[index]
 	if not recipe then
 		return nil
 	end

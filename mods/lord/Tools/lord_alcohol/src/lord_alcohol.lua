@@ -26,7 +26,7 @@ local function register_recipes()
 	}
 
 	for _, data in pairs(recipes) do
-		lottpotion.register_recipe("brew", {
+		lottpotion_recipe.register("brew", {
 			input = { data[1], data[2] },
 			output = data[3],
 			time = data[5],
