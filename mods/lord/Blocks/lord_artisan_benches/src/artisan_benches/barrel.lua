@@ -1,4 +1,3 @@
-require('artisan_benches.legacy.helpers')
 require('artisan_benches.legacy.lottpotion_recipe_system')
 
 -- moved AS IS from lottpotion.
