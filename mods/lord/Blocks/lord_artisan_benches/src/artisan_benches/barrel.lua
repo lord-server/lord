@@ -3,8 +3,8 @@ require('artisan_benches.legacy.lottpotion_recipe_system')
 -- moved AS IS from lottpotion.
 
 -- TODO: migrate to our crafts system (#1770)
-lottpotion_recipe.register_type("brew", {
-	description  = "Brewing",
+lottpotion_recipe.register_type('brew', {
+	description  = 'Brewing',
 	input_size   = 2,
 	default_time = 60,
 })
