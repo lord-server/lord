@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = minetest.get_mod_translator("lottpotion")
 
 -- moved AS IS from lottpotion.
 
@@ -129,6 +129,82 @@ minetest.register_node(":lottpotion:potion_brewer_active", {
 	end,
 })
 
+------------------------------ ABM: -----------------------------------
+--- @param meta NodeMetaRef
+--- @param inv  InvRef
+local function init(meta, inv)
+	if meta:get_string("infotext") == "" then
+		meta:set_string("formspec", formspec)
+		meta:set_string("infotext", machine_name)
+		inv:set_size("fuel", 1)
+		inv:set_size("src", 2)
+		inv:set_size("dst", 1)
+	end
+	for _, name in pairs({
+		"fuel_totaltime",
+		"fuel_time",
+		"src_totaltime",
+		"src_time" }) do
+		if not meta:get_float(name) then
+			meta:set_float(name, 0.0)
+		end
+	end
+end
+--- @param percent number
+local function get_active_info(percent)
+	return S(("%s Brewing"):format(machine_name)) .. " (" .. percent .. "%)"
+end
+--- @param percent number
+local function get_active_form(percent)
+	return "size[8,9]" ..
+		"label[0,0;" .. S(machine_name) .. "]" ..
+		"image[4,2;1,1;lottpotion_bubble_off.png^[lowpart:" .. (percent) .. ":lottpotion_bubble.png]" ..
+		"image[3,2;1,1;lottpotion_arrow.png]" ..
+		"image[5,2;1,1;lottpotion_arrow.png]" ..
+		"label[2.9,3.2;" .. S("Fuel:") .. "]" ..
+		"list[current_name;fuel;4,3;1,1;]" ..
+		"label[1,1.5;" .. S("Ingredients:") .. "]" ..
+		"list[current_name;src;1,2;2,1;]" ..
+		"label[6,1.5;" .. S("Result:") .. "]" ..
+		"list[current_name;dst;6,2;1,1;]" ..
+		"list[current_player;main;0,5;8,4;]" ..
+		"listring[current_name;fuel]" ..
+		"listring[current_player;main]" ..
+		"listring[current_name;src]" ..
+		"listring[current_player;main]" ..
+		"listring[current_name;dst]" ..
+		"listring[current_player;main]" ..
+		"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
+		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
+end
+
+--- @param pos       Position
+--- @param meta      NodeMetaRef
+--- @param node_name string
+--- @param info      string
+--- @param spec      string
+local function update_node(pos, meta, node_name, info, spec)
+	lottpotion_nodes.swap_node(pos, node_name)
+	meta:set_string("infotext", info)
+	meta:set_string("formspec", spec)
+end
+
+local function process(meta, inv, result)
+	meta:set_int("fuel_time", meta:get_int("fuel_time") + 1)
+	if result then
+		meta:set_int("src_time", meta:get_int("src_time") + 1)
+		if meta:get_int("src_time") >= result.time then
+			meta:set_int("src_time", 0)
+			local result_stack = ItemStack(result.output)
+			if inv:room_for_item("dst", result_stack) then
+				inv:set_list("src", result.new_input)
+				inv:add_item("dst", result_stack)
+			end
+		end
+	else
+		meta:set_int("src_time", 0)
+	end
+end
 minetest.register_abm({
 	nodenames = { "lottpotion:potion_brewer", "lottpotion:potion_brewer_active" },
 	interval  = 1,
@@ -137,29 +213,7 @@ minetest.register_abm({
 		local meta = minetest.get_meta(pos)
 		local inv  = meta:get_inventory()
 
-		if meta:get_string("infotext") == "" then
-			meta:set_string("formspec", formspec)
-			meta:set_string("infotext", machine_name)
-			inv:set_size("fuel", 1)
-			inv:set_size("src", 2)
-			inv:set_size("dst", 1)
-		end
-
-		if inv:get_size("src") == 1 then -- Old furnace -> convert it
-			inv:set_size("src", 2)
-			inv:set_stack("src", 2, inv:get_stack("src2", 1))
-			inv:set_size("src2", 0)
-		end
-
-		for _, name in pairs({
-			"fuel_totaltime",
-			"fuel_time",
-			"src_totaltime",
-			"src_time" }) do
-			if not meta:get_float(name) then
-				meta:set_float(name, 0.0)
-			end
-		end
+		init(meta, inv)
 
 		local result     = lottpotion_recipe.get("potion", inv:get_list("src"))
 
@@ -167,49 +221,12 @@ minetest.register_abm({
 
 		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
 			was_active = true
-			meta:set_int("fuel_time", meta:get_int("fuel_time") + 1)
-			if result then
-				meta:set_int("src_time", meta:get_int("src_time") + 1)
-				if meta:get_int("src_time") >= result.time then
-					meta:set_int("src_time", 0)
-					local result_stack = ItemStack(result.output)
-					if inv:room_for_item("dst", result_stack) then
-						inv:set_list("src", result.new_input)
-						inv:add_item("dst", result_stack)
-					end
-				end
-			else
-				meta:set_int("src_time", 0)
-			end
+			process(meta, inv, result)
 		end
 
 		if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
-			local percent = math.floor(meta:get_float("fuel_time") /
-				meta:get_float("fuel_totaltime") * 100)
-			meta:set_string("infotext", S(("%s Brewing"):format(machine_name)) .. " (" .. percent .. "%)")
-			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer_active")
-			meta:set_string("formspec",
-				"size[8,9]" ..
-					"label[0,0;" .. S(machine_name) .. "]" ..
-					"image[4,2;1,1;lottpotion_bubble_off.png^[lowpart:" ..
-					(percent) .. ":lottpotion_bubble.png]" ..
-					"image[3,2;1,1;lottpotion_arrow.png]" ..
-					"image[5,2;1,1;lottpotion_arrow.png]" ..
-					"label[2.9,3.2;" .. S("Fuel:") .. "]" ..
-					"list[current_name;fuel;4,3;1,1;]" ..
-					"label[1,1.5;" .. S("Ingredients:") .. "]" ..
-					"list[current_name;src;1,2;2,1;]" ..
-					"label[6,1.5;" .. S("Result:") .. "]" ..
-					"list[current_name;dst;6,2;1,1;]" ..
-					"list[current_player;main;0,5;8,4;]" ..
-					"listring[current_name;fuel]" ..
-					"listring[current_player;main]" ..
-					"listring[current_name;src]" ..
-					"listring[current_player;main]" ..
-					"listring[current_name;dst]" ..
-					"listring[current_player;main]" ..
-					"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
-					"listcolors[#606060AA;#888;#141318;#30434C;#FFF]")
+			local percent = math.floor(meta:get_float("fuel_time") / meta:get_float("fuel_totaltime") * 100)
+			update_node(pos, meta, "lottpotion:potion_brewer_active", get_active_info(percent), get_active_form(percent))
 			return
 		end
 
@@ -217,38 +234,33 @@ minetest.register_abm({
 
 		if not recipe then
 			if was_active then
-				meta:set_string("infotext", S(("%s is empty"):format(machine_name)))
-				lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
-				meta:set_string("formspec", formspec)
+				update_node(pos, meta, "lottpotion:potion_brewer", S(("%s is empty"):format(machine_name)), formspec)
 			end
+
 			return
 		end
 
 		if not inv:room_for_item("dst", ItemStack(result.output)) then
-			meta:set_string("infotext", ("%s Out Of Heat"):format(machine_name))
-			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
-			meta:set_string("formspec", formspec)
+			update_node(pos, meta, "lottpotion:potion_brewer", S(("%s Out Of Heat"):format(machine_name)), formspec)
 			return
 		end
 
-		local fuel     = nil
-		local afterfuel
-		local fuellist = inv:get_list("fuel")
+		local fuel
+		local after_fuel
+		local fuel_list = inv:get_list("fuel")
 
-		if fuellist then
-			fuel, afterfuel = minetest.get_craft_result({ method = "fuel", width = 1, items = fuellist })
+		if fuel_list then
+			fuel, after_fuel = minetest.get_craft_result({ method = "fuel", width = 1, items = fuel_list })
 		end
 
 		if fuel.time <= 0 then
-			meta:set_string("infotext", S(("%s Out Of Heat"):format(machine_name)))
-			lottpotion_nodes.swap_node(pos, "lottpotion:potion_brewer")
-			meta:set_string("formspec", formspec)
+			update_node(pos, meta, "lottpotion:potion_brewer", S(("%s Out Of Heat"):format(machine_name)), formspec)
 			return
 		end
 
 		meta:set_string("fuel_totaltime", fuel.time)
 		meta:set_string("fuel_time", 0)
 
-		inv:set_stack("fuel", 1, afterfuel.items[1])
+		inv:set_stack("fuel", 1, after_fuel.items[1])
 	end,
 })
