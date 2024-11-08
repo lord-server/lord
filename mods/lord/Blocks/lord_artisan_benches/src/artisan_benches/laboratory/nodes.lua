@@ -8,9 +8,9 @@ local machine_name = "Potion Brewer"
 
 local formspec = "size[8,9]" ..
 	"label[0,0;" .. S(machine_name) .. "]" ..
-	"image[4,2;1,1;lottpotion_bubble_off.png]" ..
-	"image[3,2;1,1;lottpotion_arrow.png]" ..
-	"image[5,2;1,1;lottpotion_arrow.png]" ..
+	"image[4,2;1,1;benches_form_bubble_off.png]" ..
+	"image[3,2;1,1;benches_form_arrow.png]" ..
+	"image[5,2;1,1;benches_form_arrow.png]" ..
 	"label[2.9,3.2;" .. S("Fuel:") .. "]" ..
 	"list[current_name;fuel;4,3;1,1;]" ..
 	"label[1,1.5;" .. S("Ingredients:") .. "]" ..
@@ -24,16 +24,16 @@ local formspec = "size[8,9]" ..
 	"listring[current_player;main]" ..
 	"listring[current_name;dst]" ..
 	"listring[current_player;main]" ..
-	"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
+	"background[-0.5,-0.65;9,10.35;benches_form_bg.png]" ..
 	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
 
 minetest.register_node(":lottpotion:potion_brewer", {
 	description                   = S(machine_name),
 	drawtype                      = "plantlike",
 	visual_scale                  = 1.0,
-	tiles                         = { "lottpotion_potion_brewer.png" },
-	inventory_image               = "lottpotion_potion_brewer.png",
-	wield_image                   = "lottpotion_potion_brewer.png",
+	tiles                         = { "benches_laboratory.png" },
+	inventory_image               = "benches_laboratory.png",
+	wield_image                   = "benches_laboratory.png",
 	paramtype                     = "light",
 	selection_box                 = {
 		type  = "fixed",
@@ -87,9 +87,9 @@ minetest.register_node(":lottpotion:potion_brewer_active", {
 	description                   = machine_name,
 	drawtype                      = "plantlike",
 	visual_scale                  = 1.0,
-	tiles                         = { "lottpotion_potion_brewer_active.png" },
-	inventory_image               = "lottpotion_potion_brewer.png",
-	wield_image                   = "lottpotion_potion_brewer.png",
+	tiles                         = { "benches_laboratory_active.png" },
+	inventory_image               = "benches_laboratory.png",
+	wield_image                   = "benches_laboratory.png",
 	paramtype                     = "light",
 	light_source                  = 8,
 	selection_box                 = {
@@ -140,9 +140,9 @@ end
 local function get_active_form(percent)
 	return "size[8,9]" ..
 		"label[0,0;" .. S(machine_name) .. "]" ..
-		"image[4,2;1,1;lottpotion_bubble_off.png^[lowpart:" .. (percent) .. ":lottpotion_bubble.png]" ..
-		"image[3,2;1,1;lottpotion_arrow.png]" ..
-		"image[5,2;1,1;lottpotion_arrow.png]" ..
+		"image[4,2;1,1;benches_form_bubble_off.png^[lowpart:" .. (percent) .. ":benches_form_bubble.png]" ..
+		"image[3,2;1,1;benches_form_arrow.png]" ..
+		"image[5,2;1,1;benches_form_arrow.png]" ..
 		"label[2.9,3.2;" .. S("Fuel:") .. "]" ..
 		"list[current_name;fuel;4,3;1,1;]" ..
 		"label[1,1.5;" .. S("Ingredients:") .. "]" ..
@@ -156,7 +156,7 @@ local function get_active_form(percent)
 		"listring[current_player;main]" ..
 		"listring[current_name;dst]" ..
 		"listring[current_player;main]" ..
-		"background[-0.5,-0.65;9,10.35;gui_brewerbg.png]" ..
+		"background[-0.5,-0.65;9,10.35;benches_form_bg.png]" ..
 		"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
 end
 
@@ -226,4 +226,16 @@ minetest.register_abm({
 
 		inv:set_stack("fuel", 1, after_fuel.items[1])
 	end,
+})
+
+-- LBMS
+minetest.register_lbm({
+	label             = 'Laboratory formspec replacement',
+	name              = ':lottpotion:potion_brewer_formspec_replacement',
+	nodenames         = { 'lottpotion:potion_brewer' },
+	run_at_every_load = false,
+	action            = function(pos, node)
+		local meta = minetest.get_meta(pos)
+		meta:set_string('formspec', formspec)
+	end
 })

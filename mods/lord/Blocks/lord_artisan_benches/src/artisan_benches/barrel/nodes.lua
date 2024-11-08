@@ -9,9 +9,9 @@ local machine_name = 'Brewer'
 
 local formspec     = 'size[8,9]' ..
 	'label[0,0;' .. S(machine_name) .. ']' ..
-	'image[4,2;1,1;default_brewer_inv.png]' ..
-	'image[3,2;1,1;lottpotion_arrow.png]' ..
-	'image[5,2;1,1;lottpotion_arrow.png]' ..
+	'image[4,2;1,1;benches_barrel_form_bubble.png]' ..
+	'image[3,2;1,1;benches_form_arrow.png]' ..
+	'image[5,2;1,1;benches_form_arrow.png]' ..
 	'label[2.9,3.2;' .. S('Fuel:') .. ']' ..
 	'list[current_name;fuel;4,3;1,1;]' ..
 	'label[1,1.5;' .. S('Ingredients:') .. ']' ..
@@ -25,7 +25,7 @@ local formspec     = 'size[8,9]' ..
 	'listring[current_player;main]' ..
 	'listring[current_name;dst]' ..
 	'listring[current_player;main]' ..
-	'background[-0.5,-0.65;9,10.35;gui_brewerbg.png]' ..
+	'background[-0.5,-0.65;9,10.35;benches_form_bg.png]' ..
 	'listcolors[#606060AA;#888;#141318;#30434C;#FFF]'
 
 minetest.register_node(':lottpotion:brewer', {
@@ -179,9 +179,9 @@ end
 local function get_active_form(percent)
 	return 'size[8,9]' ..
 		'label[0,0;' .. S(machine_name) .. ']' ..
-		'image[4,2;1,1;default_brewer_inv.png^[lowpart:' .. (percent) .. ':lottpotion_bubble.png]' ..
-		'image[3,2;1,1;lottpotion_arrow.png]' ..
-		'image[5,2;1,1;lottpotion_arrow.png]' ..
+		'image[4,2;1,1;benches_barrel_form_bubble.png^[lowpart:' .. (percent) .. ':benches_form_bubble.png]' ..
+		'image[3,2;1,1;benches_form_arrow.png]' ..
+		'image[5,2;1,1;benches_form_arrow.png]' ..
 		'label[2.9,3.2;' .. S('Fuel:') .. ']' ..
 		'list[current_name;fuel;4,3;1,1;]' ..
 		'label[1,1.5;' .. S('Ingredients:') .. ']' ..
@@ -195,7 +195,7 @@ local function get_active_form(percent)
 		'listring[current_player;main]' ..
 		'listring[current_name;dst]' ..
 		'listring[current_player;main]' ..
-		'background[-0.5,-0.65;9,10.35;gui_brewerbg.png]' ..
+		'background[-0.5,-0.65;9,10.35;benches_form_bg.png]' ..
 		'listcolors[#606060AA;#888;#141318;#30434C;#FFF]'
 end
 
@@ -262,8 +262,8 @@ minetest.register_abm({
 
 -- LBMS
 minetest.register_lbm({
-	label             = 'formspec brewer replacement',
-	name              = ':lottpotion:brewer_formspec_replacement_2',
+	label             = 'Barrel formspec replacement',
+	name              = ':lottpotion:brewer_formspec_replacement_3',
 	nodenames         = { 'lottpotion:brewer' },
 	run_at_every_load = false,
 	action            = function(pos, node)
