@@ -57,17 +57,7 @@ Ent Draught (Strength: corruption2)=Напиток энтов (сила: -2)
 Ent Draught (Strength: power3)=Напиток энтов (сила: +3)
 Ent Draught (Strength: corruption3)=Напиток энтов (сила: -3)
 
-### brewing.lua ###
-Brewer=Бочка
-Brewer Brewing=Бочка: работает
-Brewer Out Of Heat=Бочка: нет топлива
-Brewer is empty=Бочка: нет материала
-
 ### potionbrewing.lua ###
-Potion Brewer=Лаборатория
-Potion Brewer Brewing=Лаборатория: работает
-Potion Brewer Out Of Heat=Лаборатория: нет топлива
-Potion Brewer is empty=Лаборатория: нет материала
 Glass Bottle (Mese Water)=Стеклянная бутыль с MESE-зельем
 Glass Bottle (Geodes Crystal Water)=Стеклянная бутыль с жеодовым зельем
 Glass Bottle (Seregon Water)=Стеклянная бутыль с серегоновым зельем
@@ -77,8 +67,3 @@ Glass Bottle (Mordor Water)=Стеклянная бутыль с мордорс�
 
 ### arrows.lua ###
 Potion Arrow=Зачарованная стрела@n
-
-### common ###
-Fuel:=Топливо:
-Ingredients:=Ингредиенты:
-Result:=Результат:

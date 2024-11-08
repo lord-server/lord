@@ -57,18 +57,7 @@ Ent Draught (Strength: corruption2)=Ent Draught (Strength: corruption2)
 Ent Draught (Strength: power3)=Ent Draught (Strength: power3)
 Ent Draught (Strength: corruption3)=Ent Draught (Strength: corruption3)
 
-
-### brewing.lua ###
-Brewer=Brewer
-Brewer Brewing=Brewer Brewing
-Brewer Out Of Heat=Brewer Out Of Heat
-Brewer is empty=Brewer is empty
-
 ### potionbrewing.lua ###
-Potion Brewer=Potion Brewer
-Potion Brewer Brewing=Brewer Brewing
-Potion Brewer Out Of Heat=Brewer Out Of Heat
-Potion Brewer is empty=Brewer is empty
 Glass Bottle (Mese Water)=Glass Bottle (Mese Water)
 Glass Bottle (Geodes Crystal Water)=Glass Bottle (Geodes Crystal Water)
 Glass Bottle (Seregon Water)=Glass Bottle (Seregon Water)
@@ -78,8 +67,3 @@ Glass Bottle (Mordor Water)=Glass Bottle (Mordor Water)
 
 ### arrows.lua ###
 Potion Arrow=Potion Arrow
-
-### common ###
-Fuel:=Fuel:
-Ingredients:=Ingredients:
-Result:=Result:

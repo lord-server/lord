@@ -1,5 +1,11 @@
 # textdomain: lord_artisan_benches
 
+### common ###
+Fuel:=Fuel:
+Ingredients:=Ingredients:
+Result:=Result:
+
+
 ### Anvil: ###
 Anvil=Anvil
 
@@ -8,6 +14,18 @@ Filled Cauldron=Filled Cauldron
 Two Third Filled Cauldron=Two Third Filled Cauldron
 One Third Filled Cauldron=One Third Filled Cauldron
 Empty Cauldron=Empty Cauldron
+
+### Barrel ###
+Brewer=Brewer
+Brewer Brewing=Brewer Brewing
+Brewer Out Of Heat=Brewer Out Of Heat
+Brewer is empty=Brewer is empty
+
+### Laboratory ###
+Potion Brewer=Potion Brewer
+Potion Brewer Brewing=Brewer Brewing
+Potion Brewer Out Of Heat=Brewer Out Of Heat
+Potion Brewer is empty=Brewer is empty
 
 ### Workbench ###
 Workbench=Workbench

@@ -1,5 +1,5 @@
 local lottpotion_nodes = require('artisan_benches.legacy.helpers')
-local S = minetest.get_mod_translator("lottpotion")
+local S = minetest.get_mod_translator()
 
 
 -- moved AS IS from lottpotion.
