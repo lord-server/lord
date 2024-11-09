@@ -1,0 +1,19 @@
+# Name of main channel, defaults to 'main'
+beerchat.main_channel_name (Name of main-channel) string main
+# Name of moderators channel, defaults to nil
+beerchat.moderator_channel_name (Name of moderator-channel) string
+# URL used for web-proxy of chat relay
+beerchat.url (web-proxy URL) string http://127.0.0.1:8080
+# Make use of chat-jail channel
+beerchat.enable_jail (Enable chat-jail) bool false
+# Name of channel to use for chat-jail, defaults to 'grounded'
+beerchat.jail.channel_name (Name of chat-jail channel) string grounded
+# Priv needed to put / release players to / from jail, defaults to 'ban'
+beerchat.jail.priv (Priv for jailing) string ban
+# The owner of jail channel, defaults to whatever owner is set for main-channel;
+# Beerholder. Use a name that is not used to log in but to which an account exists
+# to avoid deletion etc.
+beerchat.jail.owner (Owner of jail-channel) string Beerholder
+# Defaults to whatever main-channel colour is.
+beerchat.jail.color (Colour for jail-channel) string #FFFFFF
+

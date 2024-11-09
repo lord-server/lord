@@ -1,0 +1,23 @@
+
+name: mineunit
+
+on: [push, pull_request]
+
+jobs:
+  mineunit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - id: mineunit
+      uses: mt-mods/mineunit-actions@master
+      with:
+        badge-label: Test coverage
+
+    - uses: RubbaBoy/BYOB@v1.3.0
+      if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
+      with:
+        NAME: "${{ steps.mineunit.outputs.badge-name }}"
+        LABEL: "${{ steps.mineunit.outputs.badge-label }}"
+        STATUS: "${{ steps.mineunit.outputs.badge-status }}"
+        COLOR: "${{ steps.mineunit.outputs.badge-color }}"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
