@@ -25,7 +25,7 @@ end
 
 --- default groups: default: { dig_immediate = 3, attached_node = 1, vessel = 1, potions = 1 }
 --- @param name_prefix   string  technical item/node name (`<mod>:<node>`) prefix (will be name_prefix..'_'..power_abs).
---- @param title         string  prefix to description of item or will extracted from `item_name` (`title`.." Potion").
+--- @param title         string  prefix to description of item or will extracted from `item_name` ("Potion:"..`title`).
 --- @param description   string  some words you want to displayed in tooltip before properties of power.
 --- @param color         string  color of potion liquid (bottle contents).
 --- @param effect        string  one of registered `lord_effects.<CONST>` names.
@@ -91,9 +91,10 @@ end
 
 
 return {
-	add_existing          = add_existing,
-	register_potion       = register_potion,
-	register_potion_group = register_potion_group,
-	get_all_potions       = function() return potions.all_items end,
-	get_lord_potions      = function() return potions.lord_items end,
+	add_existing   = add_existing,
+	register       = register_potion,
+	register_group = register_potion_group,
+	get_all        = function() return potions.all_items end,
+	--- returns only lord internal registered potions.
+	get_lord       = function() return potions.lord_items end,
 }
