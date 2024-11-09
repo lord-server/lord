@@ -1,6 +1,5 @@
 local S = minetest.get_mod_translator()
 
-
 --- @class lord_potions.PotionPower
 --- @field amount   number applying effect value (depends on effect).
 --- @field duration number time in seconds.
@@ -28,9 +27,9 @@ local config = {
 			['+3'] = { amount = 4, duration = 100, },
 		},
 		description =
-			S('An ancient elixir from the West')..'\n'..
+		S('An ancient elixir from the West')..'\n'..
 			S('    that restores health and heals wounds.')
-		,
+	,
 	},
 	{
 		item_name = 'lord_potions:orcish_brew', title = S('Orcish Brew'), color = '#400',
@@ -42,7 +41,7 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-			S('Thick toxic brew based on orc pus, corroding both body and spirit.')..'\n'..
+		S('Thick toxic brew based on orc pus, corroding both body and spirit.')..'\n'..
 			S('Corrodes the body from the inside and covers it with wounds from the outside.')
 	},
 
@@ -56,7 +55,7 @@ local config = {
 			['+3'] = { amount = 3, duration = 100, },
 		},
 		description =
-			S('An extremely refreshing and invigorating drink')..'\n'..
+		S('An extremely refreshing and invigorating drink')..'\n'..
 			S('    made from the waters of the Metedras springs.')..'\n'..
 			S('A unique drink that grants the speed of the ancient trees.')
 	},
@@ -69,7 +68,7 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-			S('Created from the venom of Shelob\'s web,')..'\n'..
+		S('Created from the venom of Shelob\'s web,')..'\n'..
 			S('    which she uses to paralyze enemies.')..'\n'..
 			S('A venomous potion that binds the body like Shelob’s web.')
 	},
@@ -84,7 +83,7 @@ local config = {
 			['+3'] = { amount = 4, duration = 100, },
 		},
 		description =
-			S('А strong stimulating drink of the elves.')..'\n'..
+		S('А strong stimulating drink of the elves.')..'\n'..
 			S('A potion that allows you to jump higher,')..'\n'..
 			S('    as if invisible wings were lifting you into the air.')
 	},
@@ -97,7 +96,7 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-			S('A dark potion that binds the body')..'\n'..
+		S('A dark potion that binds the body')..'\n'..
 			S('    like the heavy chains of the dungeons of Dol Guldur.')..'\n'..
 			S('It weighs down your legs, making jumping impossible.')
 	},

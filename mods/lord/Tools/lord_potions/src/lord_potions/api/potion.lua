@@ -94,6 +94,6 @@ return {
 	add_existing          = add_existing,
 	register_potion       = register_potion,
 	register_potion_group = register_potion_group,
-	get_all_items         = function() return potions.all_items end,
-	get_lord_items        = function() return potions.lord_items end,
+	get_all_potions       = function() return potions.all_items end,
+	get_lord_potions      = function() return potions.lord_items end,
 }
