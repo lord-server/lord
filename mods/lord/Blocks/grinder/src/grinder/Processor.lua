@@ -36,15 +36,16 @@ local function burn_fuel(meta, remaining_fuel, result_fuel)
 	local fuel_time = meta:get_int("fuel_time")
 	local fuel_totaltime = meta:get_int("fuel_totaltime")
 
-	if fuel_time == 0 or fuel_totaltime == 0 then
+	if fuel_totaltime ~= result_fuel.time then
 		meta:set_int("fuel_totaltime", result_fuel.time)
+	end
+	if fuel_time == 0 then
+		meta:get_inventory():set_stack("fuel", 1, remaining_fuel)
 	end
 
 	fuel_time = fuel_time + 1
 
 	if fuel_time >= fuel_totaltime then
-		local inv = meta:get_inventory()
-		inv:set_stack("fuel", 1, remaining_fuel)
 		fuel_time = 0
 	end
 
