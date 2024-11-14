@@ -2,7 +2,6 @@ local craft     = require('grinder.definition.craft')
 local node      = require('grinder.definition.node')
 local recipes   = require('grinder.definition.recipes')
 
-local Recipe    = require('grinder.Recipe')
 local Processor = require('grinder.Processor')
 
 
@@ -16,7 +15,15 @@ local function register_craft()
 end
 
 local function register_recipes()
-	Recipe.register_recipes(recipes)
+	for _, data in pairs(recipes) do
+		minetest.register_craft({
+			method = 'grinder',
+			type   = 'cooking',
+			input  = data[1],
+			output = data[2],
+			time   = data[3],
+		})
+	end
 end
 
 local function register_nodes()
@@ -33,6 +40,8 @@ end
 
 return {
 	init = function()
+		minetest.CraftMethod.GRINDER = 'grinder'
+		minetest.register_craft_method(minetest.CraftMethod.GRINDER)
 		register_craft()
 		register_recipes()
 		register_nodes()

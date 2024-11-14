@@ -1,12 +1,10 @@
 --- @type Grinder
 local Grinder   = require("grinder.Grinder")
---- @type Recipe
-local Recipe    = require("grinder.Recipe")
 
 
 --- @param inv InvRef
 local function grinding_possible(inv)
-	local result, remaining = Recipe.get_grinding_result({
+	local result, remaining = minetest.get_craft_result({
 		method = 'grinder',
 		type   = 'cooking',
 		width  = 1,
