@@ -1,5 +1,5 @@
-local pairs, string_gsub, table_indexOf
-	= pairs, string.gsub, table.indexof
+local pairs, string_gsub, table_contains
+	= pairs, string.gsub, table.contains
 
 -- правка стандартных функций преобразования регистра
 -- для работы с кириллицей
@@ -73,7 +73,7 @@ end
 --- @param table table
 --- @return boolean
 function string:is_one_of(table)
-	return table_indexOf(table, self) ~= -1
+	return table_contains(table, self)
 end
 
 --- @return string
