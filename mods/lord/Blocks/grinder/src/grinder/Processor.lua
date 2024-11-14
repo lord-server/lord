@@ -5,9 +5,10 @@ local Grinder   = require("grinder.Grinder")
 --- - Returns whether grinding possible &
 --- - if possible, also returns (RecipeOutput - result, RecipeInput - remaining) for source & fuel.
 --- - So, returns `possible, result_source, remaining_source, result_fuel, remaining_fuel`
---- @param inv InvRef
+--- @param inv  InvRef
+--- @param meta NodeMetaRef
 --- @return boolean, RecipeOutput|nil, RecipeInput|nil, RecipeOutput|nil, RecipeInput|nil
-local function grinding_possible(inv)
+local function grinding_possible(inv, meta)
 	local result_source, remaining_source = minetest.get_craft_result({
 		method = 'grinder',
 		type   = 'cooking',
@@ -24,7 +25,10 @@ local function grinding_possible(inv)
 		items = inv:get_list("fuel")
 	})
 
-	local possible = result_source.time > 0 and result_fuel.time > 0 and inv:room_for_item("dst", result_source.item)
+	local possible =
+		result_source.time > 0 and
+		(result_fuel.time > 0 or meta:get_int("fuel_time") > 0) and
+		inv:room_for_item("dst", result_source.item)
 	if not possible then
 		return false, nil, nil, nil, nil
 	end
@@ -39,11 +43,10 @@ local function burn_fuel(meta, remaining_fuel, result_fuel)
 	local fuel_time = meta:get_int("fuel_time")
 	local fuel_totaltime = meta:get_int("fuel_totaltime")
 
-	if fuel_totaltime ~= result_fuel.time then
-		meta:set_int("fuel_totaltime", result_fuel.time)
-	end
 	if fuel_time == 0 then
 		meta:get_inventory():set_list("fuel", remaining_fuel.items)
+		meta:set_int("fuel_totaltime", result_fuel.time)
+		fuel_totaltime = result_fuel.time
 	end
 
 	fuel_time = fuel_time + 1
@@ -96,7 +99,7 @@ function Processor.act(pos)
 	local meta = g:get_meta()
 	local inv  = meta:get_inventory()
 
-	local possible, result_source, remaining_source, result_fuel, remaining_fuel = grinding_possible(inv)
+	local possible, result_source, remaining_source, result_fuel, remaining_fuel = grinding_possible(inv, meta)
 	if possible then
 		g:activate("%s Grinding")
 

@@ -40,13 +40,25 @@ local function get_initiated_meta(pos)
 		"fuel_totaltime",
 		"fuel_time",
 		"src_totaltime",
-		"src_time" }) do
-		-- init with 0.0 if var not set
+		"src_time"
+	}) do
 		if not meta:get_float(name) then
 			meta:set_float(name, 0.0)
 		end
 	end
 	return meta
+end
+
+--- @param meta NodeMetaRef
+local function reset_meta_vars(meta)
+	for _, name in pairs({
+		"fuel_totaltime",
+		"fuel_time",
+		"src_totaltime",
+		"src_time"
+	}) do
+		meta:set_float(name, 0.0)
+	end
 end
 
 --- Swaps node if node is not same and return old node name.
@@ -90,6 +102,7 @@ end
 --- @public
 --- @param hint_en string A template for hinting in English. Use "%s" for machine name placeholder.
 function Grinder:deactivate(hint_en)
+	reset_meta_vars(self:get_meta())
 	swap_node(self.position, "grinder:grinder")
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)))
 	self:get_meta():set_string("formspec", form.get('inactive'))
