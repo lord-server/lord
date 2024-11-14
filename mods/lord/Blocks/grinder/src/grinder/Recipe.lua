@@ -18,30 +18,32 @@ local function get_recipe_index(items)
 	return l
 end
 
-local function register_recipe(data)
-	data.time = data.time or 120
+--- @param data string|string[]
+--- @return string|string[]
+local function to_ItemStack_names(data)
+	if type(data) ~= "table" then
+		return ItemStack(data):get_name()
+	end
+
+	local stacks = {}
+	for i, _ in ipairs(data) do
+		stacks[i] = ItemStack(data[i]):get_name()
+	end
+
+	return stacks
+end
+
+--- @param recipe minetest.CraftRecipe
+local function register_craft(recipe)
+	recipe.time = recipe.time or 120
 
 	-- Handle aliases
-	if type(data.input) == "table" then
-		for i, _ in ipairs(data.input) do
-			data.input[i] = ItemStack(data.input[i]):to_string()
-		end
-	else
-		data.input = ItemStack(data.input):to_string()
-	end
+	recipe.input  = to_ItemStack_names(recipe.input)
+	recipe.output = to_ItemStack_names(recipe.output)
 
-	if type(data.output) == "table" then
-		for i, _ in ipairs(data.output) do
-			data.output[i] = ItemStack(data.output[i]):to_string()
-		end
-	else
-		data.output = ItemStack(data.output):to_string()
-	end
-
-	local recipe = {time = data.time, input = data.input, output = data.output}
-	local index = ItemStack(data.input):get_name()
+	local index = ItemStack(recipe.input):get_name()
 	-- создаем таблицу рецептов, в качестве индекса имя исходного материала
-	registered_recipes[index] = recipe
+	registered_recipes[index] = { time = recipe.time, input = recipe.input, output = recipe.output }
 end
 
 local function find_recipe(items)
@@ -54,16 +56,17 @@ end
 --- Returns `table {time = recipe.time, new_input = new_input, output = recipe.output}`
 --- or returns `nil` if recipe not found or there is not enough items
 --- @static
---- @param items ItemStack
---- @return table|nil
-function Recipe.get_grinding_result(items)
+--- @param input RecipeInput you can use your own `input.method`
+--- @return RecipeOutput|nil, RecipeInput|nil
+function Recipe.get_grinding_result(input)
+	local items = input.items
 	if (items == nil) then
-		return nil
+		return nil, nil
 	end
 	local recipe = find_recipe(items)
 	-- Recipe not found
 	if not recipe then
-		return nil
+		return nil, nil
 	end
 
 	local new_input = {}
@@ -71,7 +74,7 @@ function Recipe.get_grinding_result(items)
 	for _, stack in ipairs(items) do
 		if stack:get_count() < num_item then
 			-- В стеке не хватает предметов
-			return nil
+			return nil, nil
 		else
 			-- Будет изъято num_item
 			new_input = ItemStack(stack)
@@ -79,7 +82,10 @@ function Recipe.get_grinding_result(items)
 		end
 	end
 
-	return {time = recipe.time, new_input = new_input, output = recipe.output}
+	--return {time = recipe.time, new_input = new_input, output = recipe.output}
+	return
+		{ item = recipe.output, time = recipe.time, replacements = {} },
+		{ items = { new_input }, width = 1, method = 'cooking' }
 end
 
 --- Registers grinding recipes
@@ -88,7 +94,13 @@ end
 --- @param recipes table<table>
 function Recipe.register_recipes(recipes)
 	for _, data in pairs(recipes) do
-		register_recipe({input = data[1], output = data[2], time = data[3]})
+		register_craft({
+			method = 'grinder',
+			type   = 'cooking',
+			input  = data[1],
+			output = data[2],
+			time   = data[3],
+		})
 	end
 end
 

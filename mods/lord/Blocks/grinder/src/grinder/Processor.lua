@@ -6,10 +6,16 @@ local Recipe    = require("grinder.Recipe")
 
 --- @param inv InvRef
 local function grinding_possible(inv)
-	local result                      = Recipe.get_grinding_result(inv:get_list("src"))
+	local result, remaining = Recipe.get_grinding_result({
+		method = 'grinder',
+		type   = 'cooking',
+		width  = 1,
+		items  = inv:get_list('src'),
+	})
 	if not result then
 		return false
 	end
+
 	local result_fuel, remaining_fuel = minetest.get_craft_result({
 		method = "fuel",
 		width = 1,
@@ -17,8 +23,8 @@ local function grinding_possible(inv)
 	})
 
 	local time              = result and result.time
-	local remaining_source  = result and result.new_input
-	local result_source     = result and ItemStack(result.output)
+	local remaining_source  = result and remaining.items[1]
+	local result_source     = result and ItemStack(result.item)
 
 	return
 		result ~= nil and result_fuel.time > 0 and inv:room_for_item("dst", result_source),
