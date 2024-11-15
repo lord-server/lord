@@ -25,8 +25,8 @@ local function register_recipes()
 end
 
 local function register_nodes()
-	minetest.register_node("grinder:grinder", node.inactive)
-	minetest.register_node("grinder:grinder_active", node.active)
+	minetest.register_node('grinder:grinder', node.inactive)
+	minetest.register_node('grinder:grinder_active', node.active)
 end
 
 

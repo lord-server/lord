@@ -10,18 +10,18 @@ return {
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
-		if listname == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
-				if inv:is_empty("src") then
-					meta:set_string("infotext", SL("Grinder is empty"))
+		if listname == 'fuel' then
+			if minetest.get_craft_result({method='fuel',width=1,items={stack}}).time ~= 0 then
+				if inv:is_empty('src') then
+					meta:set_string('infotext', SL('Grinder is empty'))
 				end
 				return stack:get_count()
 			else
 				return 0
 			end
-		elseif listname == "src" then
+		elseif listname == 'src' then
 			return stack:get_count()
-		elseif listname == "dst" then
+		elseif listname == 'dst' then
 			return 0
 		end
 	end,
@@ -32,18 +32,18 @@ return {
 		if minetest.is_protected(pos, player:get_player_name()) then
 			return 0
 		end
-		if to_list == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
-				if inv:is_empty("src") then
-					meta:set_string("infotext", SL("Grinder is empty"))
+		if to_list == 'fuel' then
+			if minetest.get_craft_result({method='fuel',width=1,items={stack}}).time ~= 0 then
+				if inv:is_empty('src') then
+					meta:set_string('infotext', SL('Grinder is empty'))
 				end
 				return count
 			else
 				return 0
 			end
-		elseif to_list == "src" then
+		elseif to_list == 'src' then
 			return count
-		elseif to_list == "dst" then
+		elseif to_list == 'dst' then
 			return 0
 		end
 	end,

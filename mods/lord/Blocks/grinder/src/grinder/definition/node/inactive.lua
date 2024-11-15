@@ -6,17 +6,17 @@ local form                = require('grinder.definition.node.form')
 
 
 return table.merge(common, table.merge(inventory_callbacks, {
-	description = SL("Grinder"),
+	description = SL('Grinder'),
 	tiles = {
-		"grinder_top.png", "carts_steam_mechanismn.png",
-		"grinder_side_left.png", "grinder_side_right.png",
-		"grinder_side.png", "grinder_front.png"
+		'grinder_top.png', 'carts_steam_mechanismn.png',
+		'grinder_side_left.png', 'grinder_side_right.png',
+		'grinder_side.png', 'grinder_front.png'
 	},
 
 	-- backwards compatibility: punch to set formspec
 	on_punch = function(pos, player)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", SL("Grinder"))
-		meta:set_string("formspec", form.get('inactive'))
+		meta:set_string('infotext', SL('Grinder'))
+		meta:set_string('formspec', form.get('inactive'))
 	end
 }))
