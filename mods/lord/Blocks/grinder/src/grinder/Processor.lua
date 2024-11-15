@@ -2,7 +2,7 @@ local math_floor
     = math.floor
 
 --- @type Grinder
-local Grinder = require('grinder.Grinder')
+local Grinder = require('grinder.Grinder_')
 
 local S = minetest.get_mod_translator()
 

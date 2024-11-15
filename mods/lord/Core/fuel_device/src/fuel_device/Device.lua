@@ -1,27 +1,25 @@
 local setmetatable, pairs, math_floor
     = setmetatable, pairs, math.floor
 
-local S    = minetest.get_mod_translator()
-local form = require('grinder.definition.node.form')
-
 
 ---
---- @class Grinder
+--- @class fuel_device.Device
 ---
-local Grinder = {
+local Device = {
 	--- @static
 	--- @type string
-	NAME       = S('Grinder'),
+	NAME       = nil,
 	--- @static
 	--- @type number
 	TIMER_TICK = 1,
 	--- @static
-	form       = form,
+	--- @type fuel_device.node.Form
+	form       = nil,
 	--- @static
 	--- @type {inactive:string,active:string}
 	node_name  = {
-		inactive = 'grinder:grinder',
-		active   = 'grinder:grinder_active',
+		inactive = nil,
+		active   = nil,
 	},
 	--- @type Position
 	position   = nil,
@@ -29,11 +27,19 @@ local Grinder = {
 	meta       = nil,
 }
 
+--- @public
+--- @generic GenericDevice: fuel_device.Device
+--- @param child_class GenericDevice
+--- @return GenericDevice
+function Device:extended(child_class)
+	return setmetatable(child_class or {}, { __index = self })
+end
+
 --- Constructor
 --- @public
 --- @param pos table<number,number,number>
---- @return Grinder
-function Grinder:new(pos)
+--- @return Device
+function Device:new(pos)
 	local class = self
 	self = {}
 
@@ -81,14 +87,14 @@ end
 
 --- @public
 --- @return NodeMetaRef
-function Grinder:get_meta()
+function Device:get_meta()
 	return self.meta or get_initiated_meta(self.position)
 end
 
---- Sets Node into active grinder with new hint.
+--- Sets Node into active device with new hint.
 --- @public
 --- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
-function Grinder:activate(hint)
+function Device:activate(hint)
 	local meta         = self:get_meta()
 	local percent      = math_floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
 	local item_percent = math_floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
@@ -98,10 +104,10 @@ function Grinder:activate(hint)
 	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
---- Sets Node into inactive grinder with new hint.
+--- Sets Node into inactive device with new hint.
 --- @public
 --- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
-function Grinder:deactivate(hint)
+function Device:deactivate(hint)
 	minetest.get_node_timer(self.position):stop()
 	reset_meta_vars(self:get_meta())
 	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
@@ -110,4 +116,4 @@ function Grinder:deactivate(hint)
 end
 
 
-return Grinder
+return Device
