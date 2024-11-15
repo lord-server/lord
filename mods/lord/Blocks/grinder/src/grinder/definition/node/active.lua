@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local common              = require('grinder.definition.node.common')
 local inventory_callbacks = require('grinder.definition.node.inventory_callbacks')
@@ -22,7 +22,7 @@ end
 
 
 return table.merge(common, table.merge(inventory_callbacks, {
-	description  = SL('Grinder'),
+	description  = S('Grinder'),
 	tiles        = {
 		animated_tile('grinder_top_active.png', 32, 32, 1.6),
 		'grinder_bottom.png',

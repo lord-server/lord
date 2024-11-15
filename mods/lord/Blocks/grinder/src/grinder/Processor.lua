@@ -1,5 +1,10 @@
+local math_floor
+    = math.floor
+
 --- @type Grinder
-local Grinder   = require('grinder.Grinder')
+local Grinder = require('grinder.Grinder')
+
+local S = minetest.get_mod_translator()
 
 
 --- - Returns whether grinding possible &
@@ -100,9 +105,9 @@ function Processor.start_or_stop(position)
 
 	local possible = grinding_possible(inv, meta)
 	if possible then
-		grinder:activate('%s Grinding')
+		grinder:activate(S('Active'))
 	else
-		grinder:deactivate('%s Out Of Heat')
+		grinder:deactivate(S('Out Of Fuel'))
 	end
 end
 
@@ -115,12 +120,12 @@ function Processor.act(position)
 
 	local possible, result_source, remaining_source, result_fuel, remaining_fuel = grinding_possible(inv, meta)
 	if possible then
-		grinder:activate('%s Grinding')
+		grinder:activate(S('Active'))
 
 		burn_fuel(meta, remaining_fuel, result_fuel)
 		grind_source(meta, remaining_source, result_source)
 	else
-		grinder:deactivate('%s Out Of Heat')
+		grinder:deactivate(S('Out Of Fuel'))
 	end
 end
 
@@ -128,7 +133,7 @@ end
 --- @param position Position
 --- @param elapsed  number
 function Processor.on_timer(position, elapsed)
-	for i = 1, math.floor(elapsed/Grinder.TIMER_TICK) do
+	for i = 1, math_floor(elapsed/Grinder.TIMER_TICK) do
 		Processor.act(position)
 	end
 

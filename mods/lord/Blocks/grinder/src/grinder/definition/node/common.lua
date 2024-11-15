@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local form = require('grinder.definition.node.form')
 
@@ -12,7 +12,7 @@ return {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', form.get('inactive'))
-		meta:set_string('infotext', SL('Grinder'))
+		meta:set_string('infotext', S('Grinder'))
 		local inv = meta:get_inventory()
 		inv:set_size('fuel', 1)
 		inv:set_size('src', 1)

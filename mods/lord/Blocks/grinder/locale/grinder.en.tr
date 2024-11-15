@@ -1,9 +1,10 @@
 # textdomain: grinder
-Grinder is empty=Grinder is empty
-Roll=Roll
-Grinding=Grinding
-Grinder Grinding=Grinder Grinding
-Grinder Out Of Heat=Grinder Out Of Heat
+
 Grinder=Grinder
+Roll=Roll
 Coal dust=Coal dust
+
+Grinder is empty=Grinder is empty
+Active=Active
+Out Of Heat=Out Of Heat
 

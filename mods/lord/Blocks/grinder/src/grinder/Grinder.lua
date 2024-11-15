@@ -1,3 +1,6 @@
+local setmetatable, pairs, math_floor
+    = setmetatable, pairs, math.floor
+
 local S    = minetest.get_mod_translator()
 local form = require('grinder.definition.node.form')
 
@@ -8,7 +11,7 @@ local form = require('grinder.definition.node.form')
 local Grinder = {
 	--- @static
 	--- @type string
-	NAME       = 'Grinder',
+	NAME       = S('Grinder'),
 	--- @static
 	--- @type number
 	TIMER_TICK = 1,
@@ -84,25 +87,25 @@ end
 
 --- Sets Node into active grinder with new hint.
 --- @public
---- @param hint_en string A template for hinting in English. Use '%s' for machine name placeholder.
-function Grinder:activate(hint_en)
+--- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
+function Grinder:activate(hint)
 	local meta         = self:get_meta()
-	local percent      = math.floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
-	local item_percent = math.floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
+	local percent      = math_floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
+	local item_percent = math_floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
 	minetest.swap_node_if_not_same(self.position, self.node_name.active)
-	self:get_meta():set_string('infotext', S((hint_en):format(self.NAME)) .. ' (' .. percent .. '%)')
+	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint .. ' (' .. percent .. '%)')
 	self:get_meta():set_string('formspec', self.form.get('active', percent, item_percent))
 	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
 --- Sets Node into inactive grinder with new hint.
 --- @public
---- @param hint_en string A template for hinting in English. Use '%s' for machine name placeholder.
-function Grinder:deactivate(hint_en)
+--- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
+function Grinder:deactivate(hint)
 	minetest.get_node_timer(self.position):stop()
 	reset_meta_vars(self:get_meta())
 	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
-	self:get_meta():set_string('infotext', S((hint_en):format(self.NAME)))
+	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint)
 	self:get_meta():set_string('formspec', self.form.get('inactive'))
 end
 
