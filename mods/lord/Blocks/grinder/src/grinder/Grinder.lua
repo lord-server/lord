@@ -94,7 +94,7 @@ function Grinder:activate(hint)
 	local item_percent = math_floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
 	minetest.swap_node_if_not_same(self.position, self.node_name.active)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint .. ' (' .. percent .. '%)')
-	self:get_meta():set_string('formspec', self.form.get('active', percent, item_percent))
+	self:get_meta():set_string('formspec', self.form.get_spec('active', percent, item_percent))
 	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
@@ -106,7 +106,7 @@ function Grinder:deactivate(hint)
 	reset_meta_vars(self:get_meta())
 	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint)
-	self:get_meta():set_string('formspec', self.form.get('inactive'))
+	self:get_meta():set_string('formspec', self.form.get_spec('inactive'))
 end
 
 

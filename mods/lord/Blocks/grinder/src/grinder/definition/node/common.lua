@@ -11,7 +11,7 @@ return {
 	sounds                = default.node_sound_stone_defaults(),
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string('formspec', form.get('inactive'))
+		meta:set_string('formspec', form.get_spec('inactive'))
 		meta:set_string('infotext', S('Grinder'))
 		local inv = meta:get_inventory()
 		inv:set_size('fuel', 1)

@@ -17,6 +17,6 @@ return table.merge(common, table.merge(inventory_callbacks, {
 	on_punch = function(pos, player)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('infotext', S('Grinder'))
-		meta:set_string('formspec', form.get('inactive'))
+		meta:set_string('formspec', form.get_spec('inactive'))
 	end
 }))

@@ -8,7 +8,9 @@ return {
 	--- @param item_percent number|nil pass only for active grinder
 	---
 	--- @return string form specification
-	get = function(type, percent, item_percent)
+	get_spec = function(type, percent, item_percent)
+		assert(type:is_one_of({ 'active', 'inactive' }))
+
 		local imageSpec =
 			type == 'active'
 				and
