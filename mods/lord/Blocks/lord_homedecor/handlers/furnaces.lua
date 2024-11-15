@@ -2,12 +2,6 @@
 
 local SL = minetest.get_mod_translator()
 
-local function swap_node(pos, name)
-	local node = minetest.get_node(pos)
-	if node.name == name then return end
-	node.name = name
-	minetest.swap_node(pos, node)
-end
 
 local function make_formspec(furnacedef, percent)
 	local fire
@@ -228,7 +222,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 				local percent = math.floor(meta:get_float("fuel_time") /
 						meta:get_float("fuel_totaltime") * 100)
 				meta:set_string("infotext", SL("%s active: %d%%"):format(desc,percent))
-				swap_node(pos, node_name_active ..locked)
+				minetest.swap_node_if_not_same(pos, node_name_active ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, percent))
 				return
 			end
@@ -247,7 +241,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 
 			if (not fuel) or (fuel.time <= 0) then
 				meta:set_string("infotext",desc.. SL(": Out of fuel"))
-				swap_node(pos, node_name ..locked)
+				minetest.swap_node_if_not_same(pos, node_name ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, 0))
 				return
 			end
@@ -255,7 +249,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 			if cooked.item:is_empty() then
 				if was_active then
 					meta:set_string("infotext", SL("%s is empty"):format(desc))
-					swap_node(pos, node_name ..locked)
+					minetest.swap_node_if_not_same(pos, node_name ..locked)
 					meta:set_string("formspec", make_formspec(furnacedef, 0))
 				end
 				return
@@ -263,7 +257,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 
 			if not inv:room_for_item("dst", cooked.item) then
 				meta:set_string("infotext", desc.. SL(": output bins are full"))
-				swap_node(pos, node_name ..locked)
+				minetest.swap_node_if_not_same(pos, node_name ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, 0))
 				return
 			end

@@ -64,22 +64,6 @@ local function reset_meta_vars(meta)
 	end
 end
 
---- Swaps node if node is not same and return old node name.
---- @see minetest.swap_node (https://dev.minetest.net/minetest.swap_node)
----
---- @private
---- @param pos table {x,y,z}
---- @param name string
---- @return string
-local function swap_node(pos, name)
-	local node = minetest.get_node(pos)
-	if node.name ~= name then
-		node.name = name
-		minetest.swap_node(pos, node)
-	end
-	return node.name
-end
-
 -- -----------------------------------------------------------------------------------------------
 -- Public functions:
 
@@ -96,7 +80,7 @@ function Grinder:activate(hint_en)
 	local meta         = self:get_meta()
 	local percent      = math.floor(meta:get_float("fuel_time") / meta:get_float("fuel_totaltime") * 100)
 	local item_percent = math.floor(meta:get_float("src_time") / meta:get_float("src_totaltime") * 100)
-	swap_node(self.position, "grinder:grinder_active")
+	minetest.swap_node_if_not_same(self.position, "grinder:grinder_active")
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
 	self:get_meta():set_string("formspec", form.get('active', percent, item_percent))
 	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
@@ -108,7 +92,7 @@ end
 function Grinder:deactivate(hint_en)
 	minetest.get_node_timer(self.position):stop()
 	reset_meta_vars(self:get_meta())
-	swap_node(self.position, "grinder:grinder")
+	minetest.swap_node_if_not_same(self.position, "grinder:grinder")
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)))
 	self:get_meta():set_string("formspec", form.get('inactive'))
 end
