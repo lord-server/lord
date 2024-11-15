@@ -92,23 +92,22 @@ local Processor = {}
 -- Public functions:
 
 --- @static
---- @param pos table {x,y,z}
-function Processor.act(pos)
-
-	local g    = Grinder:new(pos)
-	local meta = g:get_meta()
-	local inv  = meta:get_inventory()
+--- @param position Position
+function Processor.act(position)
+	local grinder = Grinder:new(position)
+	local meta    = grinder:get_meta()
+	local inv     = meta:get_inventory()
 
 	local possible, result_source, remaining_source, result_fuel, remaining_fuel = grinding_possible(inv, meta)
 	if possible then
-		g:activate("%s Grinding")
+		grinder:activate("%s Grinding")
 
 		burn_fuel(meta, remaining_fuel, result_fuel)
 		grind_source(meta, remaining_source, result_source)
 	else
-		g:deactivate("%s Out Of Heat")
+		grinder:deactivate("%s Out Of Heat")
 	end
-
 end
+
 
 return Processor
