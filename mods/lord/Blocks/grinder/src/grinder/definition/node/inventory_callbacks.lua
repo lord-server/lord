@@ -1,5 +1,7 @@
 local SL = minetest.get_mod_translator()
 
+local Processor = require('grinder.Processor')
+
 
 return {
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
@@ -51,4 +53,7 @@ return {
 		end
 		return stack:get_count()
 	end,
+	on_metadata_inventory_move = Processor.start_or_stop,
+	on_metadata_inventory_put = Processor.start_or_stop,
+	on_metadata_inventory_take = Processor.start_or_stop,
 }

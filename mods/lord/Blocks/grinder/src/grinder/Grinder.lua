@@ -8,10 +8,13 @@ local machine_name = "Grinder"
 --- @class Grinder
 ---
 local Grinder      = {
+	--- @static
+	--- @type number
+	TIMER_TICK = 1,
 	--- @type table<number,number,number>
-	position = nil,
+	position   = nil,
 	--- @type NodeMetaRef
-	meta     = nil
+	meta       = nil,
 }
 
 --- Constructor
@@ -96,16 +99,19 @@ function Grinder:activate(hint_en)
 	swap_node(self.position, "grinder:grinder_active")
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)) .. " (" .. percent .. "%)")
 	self:get_meta():set_string("formspec", form.get('active', percent, item_percent))
+	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
 --- Sets Node into inactive grinder with new hint.
 --- @public
 --- @param hint_en string A template for hinting in English. Use "%s" for machine name placeholder.
 function Grinder:deactivate(hint_en)
+	minetest.get_node_timer(self.position):stop()
 	reset_meta_vars(self:get_meta())
 	swap_node(self.position, "grinder:grinder")
 	self:get_meta():set_string("infotext", SL((hint_en):format(machine_name)))
 	self:get_meta():set_string("formspec", form.get('inactive'))
 end
+
 
 return Grinder

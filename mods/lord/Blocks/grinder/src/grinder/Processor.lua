@@ -93,6 +93,21 @@ local Processor = {}
 
 --- @static
 --- @param position Position
+function Processor.start_or_stop(position)
+	local grinder = Grinder:new(position)
+	local meta    = grinder:get_meta()
+	local inv     = meta:get_inventory()
+
+	local possible = grinding_possible(inv, meta)
+	if possible then
+		grinder:activate("%s Grinding")
+	else
+		grinder:deactivate("%s Out Of Heat")
+	end
+end
+
+--- @static
+--- @param position Position
 function Processor.act(position)
 	local grinder = Grinder:new(position)
 	local meta    = grinder:get_meta()
@@ -107,6 +122,17 @@ function Processor.act(position)
 	else
 		grinder:deactivate("%s Out Of Heat")
 	end
+end
+
+--- @static
+--- @param position Position
+--- @param elapsed  number
+function Processor.on_timer(position, elapsed)
+	for i = 1, math.floor(elapsed/Grinder.TIMER_TICK) do
+		Processor.act(position)
+	end
+
+	minetest.get_node_timer(position):set(Grinder.TIMER_TICK, elapsed % Grinder.TIMER_TICK)
 end
 
 
