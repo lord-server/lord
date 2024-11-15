@@ -1,17 +1,26 @@
-local SL           = minetest.get_mod_translator()
-local form         = require('grinder.definition.node.form')
+local S    = minetest.get_mod_translator()
+local form = require('grinder.definition.node.form')
 
---- @type string
-local machine_name = 'Grinder'
 
 ---
 --- @class Grinder
 ---
-local Grinder      = {
+local Grinder = {
+	--- @static
+	--- @type string
+	NAME       = 'Grinder',
 	--- @static
 	--- @type number
 	TIMER_TICK = 1,
-	--- @type table<number,number,number>
+	--- @static
+	form       = form,
+	--- @static
+	--- @type {inactive:string,active:string}
+	node_name  = {
+		inactive = 'grinder:grinder',
+		active   = 'grinder:grinder_active',
+	},
+	--- @type Position
 	position   = nil,
 	--- @type NodeMetaRef
 	meta       = nil,
@@ -80,9 +89,9 @@ function Grinder:activate(hint_en)
 	local meta         = self:get_meta()
 	local percent      = math.floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
 	local item_percent = math.floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
-	minetest.swap_node_if_not_same(self.position, 'grinder:grinder_active')
-	self:get_meta():set_string('infotext', SL((hint_en):format(machine_name)) .. ' (' .. percent .. '%)')
-	self:get_meta():set_string('formspec', form.get('active', percent, item_percent))
+	minetest.swap_node_if_not_same(self.position, self.node_name.active)
+	self:get_meta():set_string('infotext', S((hint_en):format(self.NAME)) .. ' (' .. percent .. '%)')
+	self:get_meta():set_string('formspec', self.form.get('active', percent, item_percent))
 	minetest.get_node_timer(self.position):start(self.TIMER_TICK)
 end
 
@@ -92,9 +101,9 @@ end
 function Grinder:deactivate(hint_en)
 	minetest.get_node_timer(self.position):stop()
 	reset_meta_vars(self:get_meta())
-	minetest.swap_node_if_not_same(self.position, 'grinder:grinder')
-	self:get_meta():set_string('infotext', SL((hint_en):format(machine_name)))
-	self:get_meta():set_string('formspec', form.get('inactive'))
+	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
+	self:get_meta():set_string('infotext', S((hint_en):format(self.NAME)))
+	self:get_meta():set_string('formspec', self.form.get('inactive'))
 end
 
 
