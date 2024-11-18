@@ -248,7 +248,7 @@ minetest.register_abm({
 
 		if fuel.time <= 0 then
 			meta:set_string('infotext', S(('%s Out Of Heat'):format(machine_name)))
-			lottpotion_nodes.swap_node(pos, 'lottpotion:brewer')
+			minetest.swap_node_if_not_same(pos, 'lottpotion:brewer')
 			meta:set_string('formspec', formspec)
 			return
 		end

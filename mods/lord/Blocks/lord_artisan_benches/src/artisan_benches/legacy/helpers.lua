@@ -16,15 +16,6 @@ function lottpotion_nodes.can_dig(pos, player)
 	end
 end
 
-function lottpotion_nodes.swap_node(pos, name)
-	local node = minetest.get_node(pos)
-	if node.name ~= name then
-		node.name = name
-		minetest.swap_node(pos, node)
-	end
-	return node.name
-end
-
 --- @param meta         NodeMetaRef
 --- @param inv          InvRef
 --- @param formspec     string
@@ -54,7 +45,7 @@ end
 --- @param info      string
 --- @param spec      string
 function lottpotion_nodes.update_node(pos, meta, node_name, info, spec)
-	lottpotion_nodes.swap_node(pos, node_name)
+	minetest.swap_node_if_not_same(pos, node_name)
 	meta:set_string("infotext", info)
 	meta:set_string("formspec", spec)
 end

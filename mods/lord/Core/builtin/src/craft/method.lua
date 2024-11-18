@@ -4,8 +4,8 @@
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
-local assert, pairs, ipairs, next, table_contains, table_copy, table_insert, math_min, typeof
-    = assert, pairs, ipairs, next, table.contains, table.copy, table.insert, math.min, type
+local assert, pairs, ipairs, next, table_copy, table_insert, math_min, typeof
+    = assert, pairs, ipairs, next, table.copy, table.insert, math.min, type
 
 
 
@@ -30,17 +30,21 @@ local mt_methods = { 'normal', 'cooking', 'fuel' }
 --- @field shapeless boolean    default: `false`. Not used as for now. (It will be better, if in MT it will separate)
 --- @field input     string[][] array like craft grid slots with tech names of ingredients ({{`"mod:node_name"`}})
 --- @field output    string     result item tech name (`"mod:node_name"`)
---- @field recipe    string[][] alias for `input` filed
+--- @field recipe    string[][] alias for `input` filed.
+--- @field time      number     time required for cooking. Use only for type `"cooking"`. In seconds.
+--- @field cooktime  number     alias for `time` filed.
 
 
---- @type minetest.CraftRecipe[][][]|table<string,table<string,minetest.CraftRecipe[]>>
+--- @type minetest.CraftRecipe[][][][]|table<string,table<string,table<string,minetest.CraftRecipe[]>>>
 local method_registered_recipes = {
 	-- [method] = {
-	--     [output] = {
-	--         <minetest.CraftRecipe>,
-	--         <minetest.CraftRecipe>,
-	--         <minetest.CraftRecipe>,
-	--         ...
+	--     [type] = {
+	--         [output] = {
+	--             <minetest.CraftRecipe>,
+	--             <minetest.CraftRecipe>,
+	--             <minetest.CraftRecipe>,
+	--             ...
+	--         }
 	--     }
 	-- }
 }
@@ -113,27 +117,32 @@ end
 --- @param name string
 function minetest.register_craft_method(name)
 	minetest.CraftMethod[name:upper()] = name:lower()
-	method_registered_recipes[name] = {}
+	method_registered_recipes[name:lower()] = {}
 end
 
 
 --- @param recipe minetest.CraftRecipe
 local function validate_recipe_for_custom_method(recipe)
 	assert(
-		recipe.type == minetest.CraftType.NORMAL,
-		'sorry, only default `"normal"` type currently supported for custom methods'
+		recipe.type:is_one_of({minetest.CraftType.NORMAL, minetest.CraftType.COOKING}),
+		'sorry, only `"normal"` & `"cooking"` type currently supported for custom methods'
 	)
 
 	assert(typeof(recipe.method) == 'string', '`recipe.method` must be of type `string`')
-	assert(table_contains(minetest.CraftMethod, recipe.method), 'unknown craft method: ' .. recipe.method)
+	assert(recipe.method:is_one_of(minetest.CraftMethod), 'unknown craft method: ' .. recipe.method)
 	if not method_registered_recipes[recipe.method] then
 		method_registered_recipes[recipe.method] = {}
+	end
+	if not method_registered_recipes[recipe.method][recipe.type] then
+		method_registered_recipes[recipe.method][recipe.type] = {}
 	end
 
 	assert(not recipe.shapeless, 'sorry, only shaped grid currently supported for custom methods')
 
-	assert(next(recipe.input) == 1, '`recipe.input` must of type `table` of `table`s')
-	assert(next(recipe.input[1]) == 1, '`recipe.input` must of type `table` of `table`s')
+	assert(
+		next(recipe.input) == 1 and next(recipe.input[1]) == 1,
+		'`recipe.input` must of type `string`, or `string[], or `string[][]'
+	)
 	local any_not_empty = false
 	foreach_item_in_grid(recipe.input, function(item)
 		assert(typeof(item) == 'string', 'all ingredients of `recipe.input` must be of type `string`')
@@ -164,17 +173,19 @@ function minetest.register_craft(recipe)
 	recipe.type      = recipe.type or minetest.CraftType.NORMAL
 	recipe.shapeless = recipe.shapeless == nil and false
 	recipe.input     = recipe.input or recipe.recipe
-	recipe.recipe = nil
+	recipe.recipe    = nil
 
+	if typeof(recipe.input) == 'string' then recipe.input = { { recipe.input } } end
+	if next(recipe.input[1]) ~= 1       then recipe.input =   { recipe.input }   end
 	validate_recipe_for_custom_method(recipe)
 
 	recipe.input = shift_top_left(recipe.input)
 
 	local output_name = recipe.output:split(' ')[1]
-	if (not method_registered_recipes[method][output_name]) then
-		method_registered_recipes[method][output_name] = {}
+	if (not method_registered_recipes[method][recipe.type][output_name]) then
+		method_registered_recipes[method][recipe.type][output_name] = {}
 	end
-	table_insert(method_registered_recipes[method][output_name], recipe)
+	table_insert(method_registered_recipes[method][recipe.type][output_name], recipe)
 
 	return
 end
@@ -195,9 +206,7 @@ local function decrement_input(input, recipe)
 	local item_not_taken = false
 
 	foreach_item_in_grid(recipe.input, function(recipe_item, i, j)
-		print(dump(recipe_item))
 		if not recipe_item or recipe_item == '' then
-			print(__FILE_LINE__())
 			return -- skip `foreach_item_in_grid()` iteration with empty item
 		end
 		for _, stack in pairs(input.items) do
@@ -256,20 +265,22 @@ end
 --- @param input RecipeInput you can use your own `input.method`
 --- @return RecipeOutput, RecipeInput
 function minetest.get_craft_result(input)
-	if not input.method or table_contains(mt_methods, input.method)  then
+	if not input.method or input.method:is_one_of(mt_methods) then
 		return mt_get_craft_result(input)
 	end
 
-	if not table_contains(minetest.CraftMethod, input.method) then
+	if not input.method:is_one_of(minetest.CraftMethod) then
 		minetest.log('error', 'unknown craft method: ' .. input.method)
 		return table_copy(EMPTY_OUTPUT), input
 	end
+
+	input.type = input.type or minetest.CraftType.NORMAL
 
 	local shifted_grid = shift_top_left(to_grid(input.items, input.width))
 
 	--- @type RecipeOutput
 	local output = table_copy(EMPTY_OUTPUT)
-	for output_item, recipes in pairs(method_registered_recipes[input.method]) do
+	for output_item, recipes in pairs(method_registered_recipes[input.method][input.type]) do
 		for i, recipe in pairs(recipes) do
 			if items_is_correspond_to_recipe(shifted_grid, recipe.input) then
 				local new_input = decrement_input(input, recipe)
@@ -278,6 +289,9 @@ function minetest.get_craft_result(input)
 				end
 
 				output.item = ItemStack(recipe.output)
+				if input.type == minetest.CraftType.COOKING then
+					output.time = recipe.time
+				end
 
 				return output, new_input
 			end

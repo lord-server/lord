@@ -20,15 +20,6 @@ local S = minetest.get_mod_translator()
     return formspec
   end
 
-  local function swap_node(pos, name)
-    local node = minetest.get_node(pos)
-    if node.name == name then
-      return
-    end
-    node.name = name
-    minetest.swap_node(pos, node)
-  end
-
   local function hive_wild_on_punch(pos, node, puncher)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
@@ -120,7 +111,7 @@ local S = minetest.get_mod_translator()
           -- то заменяем на полную и сбрасываем про .. (таймер?)
           inv:set_stack('combs',k,'bees:honey_comb')
           if k == inv:get_size('combs') then -- Если был заполнен последний стак
-            swap_node(pos, 'bees:hive_wild_filled') -- Заменить улей на заполненный
+            minetest.swap_node_if_not_same(pos, 'bees:hive_wild_filled') -- Заменить улей на заполненный
             timer:stop()
           else
             timer:start(60-timer_mod)
@@ -258,7 +249,7 @@ local S = minetest.get_mod_translator()
         if inv:contains_item('queen', 'mobs:bee') then
           taker:set_hp(health-2)
         end
-        swap_node(pos, 'bees:hive_wild')
+        minetest.swap_node_if_not_same(pos, 'bees:hive_wild')
       end
     end,
 

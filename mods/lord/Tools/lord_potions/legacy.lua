@@ -1,6 +1,15 @@
 
 -- TODO: uncomment & double check (#1736)
 
+-- Ingredients
+--minetest.register_alias('lottpotion:glass_bottle_mese', 'lord_potions:ingredient_mese')
+--minetest.register_alias('lottpotion:glass_bottle_geodes', 'lord_potions:ingredient_geodes')
+--minetest.register_alias('lottpotion:glass_bottle_seregon', 'lord_potions:ingredient_seregon')
+--minetest.register_alias('lottpotion:glass_bottle_obsidian', 'lord_potions:ingredient_obsidian')
+--minetest.register_alias('lottpotion:glass_bottle_bonedust', 'lord_potions:ingredient_bonedust')
+--minetest.register_alias('lottpotion:glass_bottle_mordor', 'lord_potions:ingredient_mordor')
+
+
 -- Potions
 --minetest.register_alias('lottpotion:athelasbrew_power1', 'lord_potions:athelas_elixir_1')
 --minetest.register_alias('lottpotion:athelasbrew_power2', 'lord_potions:athelas_elixir_1')

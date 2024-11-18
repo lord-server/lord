@@ -18,15 +18,6 @@ local S = minetest.get_mod_translator()
     return formspec
   end
 
-  local function swap_node(pos, name)
-    local node = minetest.get_node(pos)
-    if node.name == name then
-      return
-    end
-    node.name = name
-    minetest.swap_node(pos, node)
-  end
-
   local function hive_artificial_on_rightclick(pos, node, clicker, itemstack)
     minetest.show_formspec(
       clicker:get_player_name(),
@@ -118,7 +109,7 @@ local S = minetest.get_mod_translator()
                 if k == inv:get_size('frames') then -- Если был заполнен последний стак
                   timer:stop()
                   meta:set_string('infotext', S('does not have empty frame(s)'))
-                  swap_node(pos, 'bees:hive_artificial_filled') -- Заменить улей на заполненный
+                  minetest.swap_node_if_not_same(pos, 'bees:hive_artificial_filled') -- Заменить улей на заполненный
                 end
                 if meta:get_int('progress') < 1000 then
                   meta:set_string('infotext', 'Progress: '..meta:get_int('progress')..'+'..#flowers..'/1000')
@@ -131,7 +122,7 @@ local S = minetest.get_mod_translator()
           end
         else
           meta:set_string('infotext', S('does not have empty frame(s)'))
-          swap_node(pos, 'bees:hive_artificial_filled')
+          minetest.swap_node_if_not_same(pos, 'bees:hive_artificial_filled')
           timer:stop()
         end
       end
@@ -244,7 +235,7 @@ local S = minetest.get_mod_translator()
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
       local inv = minetest.get_meta(pos):get_inventory()
       if inv:is_empty('frames') then
-        swap_node(pos, 'bees:hive_artificial')
+        minetest.swap_node_if_not_same(pos, 'bees:hive_artificial')
       end
     end,
 
@@ -286,7 +277,7 @@ local S = minetest.get_mod_translator()
         return 0
       end
       if inv:contains_item('frames', 'bees:frame_empty') then
-        swap_node(pos, 'bees:hive_artificial')
+        minetest.swap_node_if_not_same(pos, 'bees:hive_artificial')
         timer:start(30)
         meta:set_int('progress', 0)
         meta:set_string('infotext',S('bees are acclimating'));
