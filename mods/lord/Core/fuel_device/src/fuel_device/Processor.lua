@@ -110,22 +110,18 @@ end
 -- Public functions:
 
 --- @static
---- @overload fun():fun(position:Position):void
 --- @generic GenericProcessor: fuel_device.Processor
 --- @param self GenericProcessor just specify your own extended Processor class, or `fuel_device.Processor` well be used
 function Processor.get_start_or_stop_function(self)
-	self = self or Processor
 	return function(position)
 		self:start_or_stop(position)
 	end
 end
 
 --- @static
---- @overload fun():fun(position:Position,elapsed:number):void
 --- @generic GenericProcessor: fuel_device.Processor
 --- @param self GenericProcessor just specify your own extended Processor class, or `fuel_device.Processor` well be used
 function Processor.get_on_timer_function(self)
-	self = self or Processor
 	return function(position, elapsed)
 		self:on_timer(position, elapsed)
 	end

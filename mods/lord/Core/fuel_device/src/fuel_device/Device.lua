@@ -13,7 +13,8 @@ local Device = {
 	--- @type number
 	TIMER_TICK = 1,
 	--- @static
-	--- @type fuel_device.node.Form
+	--- @generic GenericForm: fuel_device.node.Form
+	--- @type GenericForm
 	form       = nil,
 	--- @static
 	--- @type {inactive:string,active:string}
