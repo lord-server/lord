@@ -1,1 +1,4 @@
 # textdomain: fuel_device
+
+Active=работает
+Out Of Fuel=закончилось топливо

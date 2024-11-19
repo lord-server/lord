@@ -5,5 +5,3 @@ Roll=
 Coal dust=
 
 Grinder is empty=
-Active=
-Out Of Heat=

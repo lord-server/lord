@@ -1,21 +1,19 @@
 local math_floor
     = math.floor
 
---- @type Grinder
-local Grinder = require('grinder.Grinder_')
-
 local S = minetest.get_mod_translator()
 
 
---- - Returns whether grinding possible &
+--- - Returns whether processing possible &
 --- - if possible, also returns (RecipeOutput - result, RecipeInput - remaining) for source & fuel.
 --- - So, returns `possible, result_source, remaining_source, result_fuel, remaining_fuel`
---- @param inv  InvRef
---- @param meta NodeMetaRef
+--- @param inv    InvRef
+--- @param meta   NodeMetaRef
+--- @param method string
 --- @return boolean, RecipeOutput|nil, RecipeInput|nil, RecipeOutput|nil, RecipeInput|nil
-local function grinding_possible(inv, meta)
+local function process_possible(inv, meta, method)
 	local result_source, remaining_source = minetest.get_craft_result({
-		method = 'grinder',
+		method = method,
 		type   = 'cooking',
 		width  = 1,
 		items  = inv:get_list('src'),
@@ -89,55 +87,92 @@ end
 
 
 ---
---- @class Processor
+--- @class fuel_device.Processor
 ---
-local Processor = {}
+local Processor = {
+	--- @static
+	--- @type fuel_device.Device
+	DeviceClass  = nil,
+	--- @static
+	--- @type string
+	craft_method = nil,
+}
+
+--- @public
+--- @generic GenericProcessor: fuel_device.Processor
+--- @param child_class GenericProcessor
+--- @return GenericProcessor
+function Processor:extended(child_class)
+	return setmetatable(child_class or {}, { __index = self })
+end
 
 -- -----------------------------------------------------------------------------------------------
 -- Public functions:
 
 --- @static
---- @param position Position
-function Processor.start_or_stop(position)
-	local grinder = Grinder:new(position)
-	local meta    = grinder:get_meta()
-	local inv     = meta:get_inventory()
+--- @overload fun():fun(position:Position):void
+--- @generic GenericProcessor: fuel_device.Processor
+--- @param self GenericProcessor just specify your own extended Processor class, or `fuel_device.Processor` well be used
+function Processor.get_start_or_stop_function(self)
+	self = self or Processor
+	return function(position)
+		self:start_or_stop(position)
+	end
+end
 
-	local possible = grinding_possible(inv, meta)
+--- @static
+--- @overload fun():fun(position:Position,elapsed:number):void
+--- @generic GenericProcessor: fuel_device.Processor
+--- @param self GenericProcessor just specify your own extended Processor class, or `fuel_device.Processor` well be used
+function Processor.get_on_timer_function(self)
+	self = self or Processor
+	return function(position, elapsed)
+		self:on_timer(position, elapsed)
+	end
+end
+
+--- @param position Position
+function Processor:start_or_stop(position)
+	local device = self.DeviceClass:new(position)
+	local meta   = device:get_meta()
+	local inv    = meta:get_inventory()
+
+	local possible = process_possible(inv, meta, self.craft_method)
 	if possible then
-		grinder:activate(S('Active'))
+		device:activate(S('Active'))
 	else
-		grinder:deactivate(S('Out Of Fuel'))
+		device:deactivate(S('Out Of Fuel'))
 	end
 end
 
 --- @static
 --- @param position Position
-function Processor.act(position)
-	local grinder = Grinder:new(position)
-	local meta    = grinder:get_meta()
-	local inv     = meta:get_inventory()
+function Processor:act(position)
+	local device = self.DeviceClass:new(position)
+	local meta   = device:get_meta()
+	local inv    = meta:get_inventory()
 
-	local possible, result_source, remaining_source, result_fuel, remaining_fuel = grinding_possible(inv, meta)
+	local possible, result_source, remaining_source, result_fuel, remaining_fuel
+		= process_possible(inv, meta, self.craft_method)
 	if possible then
-		grinder:activate(S('Active'))
+		device:activate(S('Active'))
 
 		burn_fuel(meta, remaining_fuel, result_fuel)
 		grind_source(meta, remaining_source, result_source)
 	else
-		grinder:deactivate(S('Out Of Fuel'))
+		device:deactivate(S('Out Of Fuel'))
 	end
 end
 
 --- @static
 --- @param position Position
 --- @param elapsed  number
-function Processor.on_timer(position, elapsed)
-	for i = 1, math_floor(elapsed/Grinder.TIMER_TICK) do
-		Processor.act(position)
+function Processor:on_timer(position, elapsed)
+	for i = 1, math_floor(elapsed / self.DeviceClass.TIMER_TICK) do
+		self:act(position)
 	end
 
-	minetest.get_node_timer(position):set(Grinder.TIMER_TICK, elapsed % Grinder.TIMER_TICK)
+	minetest.get_node_timer(position):set(self.DeviceClass.TIMER_TICK, elapsed % self.DeviceClass.TIMER_TICK)
 end
 
 
