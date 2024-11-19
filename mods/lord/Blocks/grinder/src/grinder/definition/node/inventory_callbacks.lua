@@ -1,6 +1,6 @@
 local S = minetest.get_mod_translator()
 
-local Processor = require('grinder.Processor')
+local Processor = require('grinder.Processor_')
 
 
 return {
@@ -53,7 +53,7 @@ return {
 		end
 		return stack:get_count()
 	end,
-	on_metadata_inventory_move = Processor.start_or_stop,
-	on_metadata_inventory_put = Processor.start_or_stop,
-	on_metadata_inventory_take = Processor.start_or_stop,
+	on_metadata_inventory_move = Processor.get_start_or_stop_function(Processor),
+	on_metadata_inventory_put = Processor.get_start_or_stop_function(Processor),
+	on_metadata_inventory_take = Processor.get_start_or_stop_function(Processor),
 }

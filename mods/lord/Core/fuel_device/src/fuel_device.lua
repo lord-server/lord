@@ -1,4 +1,4 @@
-local api    = require("fuel_device.api")
+local api = require("fuel_device.api")
 
 
 fuel_device = {} -- luacheck: ignore unused global variable fuel_device

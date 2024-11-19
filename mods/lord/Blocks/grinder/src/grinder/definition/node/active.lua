@@ -2,7 +2,7 @@ local S = minetest.get_mod_translator()
 
 local common              = require('grinder.definition.node.common')
 local inventory_callbacks = require('grinder.definition.node.inventory_callbacks')
-local Processor           = require('grinder.Processor')
+local Processor           = require('grinder.Processor_')
 
 
 --- @param width  number Width of a frame in pixels.
@@ -33,5 +33,5 @@ return table.merge(common, table.merge(inventory_callbacks, {
 	},
 	light_source = 8,
 	groups       = { not_in_creative_inventory = 1, hot = 1 },
-	on_timer     = Processor.on_timer,
+	on_timer     = Processor.get_on_timer_function(Processor),
 }))
