@@ -50,9 +50,10 @@ end
 --- @param craft_method      string                       name of craft method (use `minetest.register_craft_method()`).
 --- @param nodes_definitions fuel_device.NodesDefinitions partial nodes definitions (`drawtype` & `tiles` is enough).
 --- @param form              fuel_device.node.Form        any table that implements `fuel_device.node.Form` interface.
+--- @param size_of           {fuel:number,src:number,dst:number}  sizes of corresponding inventories.
 --- @param DeviceClass       GenericDevice|nil            your own device, if you want something extend/change.
 --- @param ProcessorClass    GenericProcessor|nil         your own processor, if you want something extend/change.
-local function register_nodes(device_name, craft_method, nodes_definitions, form, DeviceClass, ProcessorClass)
+local function register_nodes(device_name, craft_method, nodes_definitions, form, size_of, DeviceClass, ProcessorClass)
 	local node_name = {
 		inactive = nodes_definitions.inactive.node_name,
 		active   = nodes_definitions.active.node_name,
@@ -60,7 +61,7 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 	DeviceClass     = DeviceClass or create_generic_device(device_name, form, node_name)
 	ProcessorClass  = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
 
-	local common              = definition.common.get(device_name, form)
+	local common              = definition.common.get(device_name, form, size_of)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 
 	--- @type NodeDefinition

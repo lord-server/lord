@@ -33,7 +33,8 @@ local function register_nodes(S)
 			inactive = { node_name = 'grinder:grinder',        definition = node.inactive },
 			active   = { node_name = 'grinder:grinder_active', definition = node.active   },
 		},
-		form
+		form,
+		{ dst = 4 }
 	)
 end
 
