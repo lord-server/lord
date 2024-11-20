@@ -41,7 +41,7 @@ return {
 	--- @param size_of            {fuel:number,src:number,dst:number}|nil
 	get = function(device_name, inactive_node_name, form, size_of)
 		return table.merge(common_definition, {
-			drop         = 'grinder:grinder',
+			drop         = inactive_node_name,
 			on_construct = get_on_construct_function(device_name, form, size_of or {})
 		})
 	end

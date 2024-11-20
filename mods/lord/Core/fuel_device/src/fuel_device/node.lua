@@ -55,13 +55,13 @@ end
 --- @param ProcessorClass    GenericProcessor|nil         your own processor, if you want something extend/change.
 local function register_nodes(device_name, craft_method, nodes_definitions, form, size_of, DeviceClass, ProcessorClass)
 	local node_name = {
-		inactive = nodes_definitions.inactive.node_name,
-		active   = nodes_definitions.active.node_name,
+		inactive = nodes_definitions.inactive.node_name:replace('^:', ''),
+		active   = nodes_definitions.active.node_name:replace('^:', ''),
 	}
 	DeviceClass     = DeviceClass or create_generic_device(device_name, form, node_name)
 	ProcessorClass  = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
 
-	local common              = definition.common.get(device_name, form, size_of)
+	local common              = definition.common.get(device_name, node_name.inactive, form, size_of)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 
 	--- @type NodeDefinition
