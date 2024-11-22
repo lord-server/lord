@@ -49,8 +49,8 @@ local method_registered_recipes = {
 	-- }
 }
 
---- @param grid string[][]
---- @param grid string[][]
+--- @param grid ItemStack[][]|string[][]
+--- @param grid ItemStack[][]|string[][]
 local function shift_top_left(grid)
 	local shift_top_on  = #grid
 	local shift_left_on = #grid[1]
@@ -59,7 +59,8 @@ local function shift_top_left(grid)
 	for i, row in pairs(grid) do
 		local row_is_empty = true
 		for j, item in pairs(row) do
-			if item ~= '' then
+			local str = type(item) == 'string' and item or item:get_name()
+			if str ~= '' then
 				row_is_empty = false
 				shift_left_on = math_min(j - 1, shift_left_on)
 			end
@@ -83,12 +84,17 @@ local function shift_top_left(grid)
 end
 
 --- @param items ItemStack[]
---- @return string[][]
+--- @return ItemStack[][]
 local function to_grid(items, width)
+	if not items or not width or width == 0 then
+		minetest.log('error', 'Args `items` or `width` comes as `nil` or `0`')
+		return {}
+	end
+
 	local grid = {}
 	local row = {}
 	for i, item in ipairs(items) do
-		row[#row+1] = item:get_name()
+		row[#row+1] = item
 		if i % width == 0 then
 			grid[#grid+1] = row
 			row = {}
@@ -102,13 +108,16 @@ local function to_grid(items, width)
 	return grid
 end
 
---- @param grid     string[][]
---- @param callback fun(item:string,row:number,col:number):boolean  return `true` for stop traverse
+--- @param grid     ItemStack[][]|string[][]
+--- @param callback fun(item:ItemStack|string,row:number,col:number):boolean  return `true` for stop traverse
 local function foreach_item_in_grid(grid, callback)
+	local stop_propagation = false
 	for i, row in pairs(grid) do
 		for j, item in pairs(row) do
-			if callback(item, i, j) then  break;  end
+			stop_propagation = callback(item, i, j)
+			if stop_propagation then  break;  end
 		end
+		if stop_propagation then  break;  end
 	end
 end
 
@@ -206,19 +215,28 @@ local function decrement_input(input, recipe)
 	local item_not_taken = false
 
 	foreach_item_in_grid(recipe.input, function(recipe_item, i, j)
-		if not recipe_item or recipe_item == '' then
+		recipe_item = recipe_item or ''
+		if recipe_item == '' then
 			return -- skip `foreach_item_in_grid()` iteration with empty item
 		end
+		recipe_item = recipe_item:split(' ')
+		local recipe_item_name  =          recipe_item[1]  or ''
+		local recipe_item_count = tonumber(recipe_item[2]) or 1
+
 		for _, stack in pairs(input.items) do
-			if recipe_item:starts_with('group:') then
-				local group = recipe_item:split(':')[2]
+			if recipe_item_name:starts_with('group:') then
+				local group = recipe_item_name:split(':')[2]
 				if minetest.get_item_group(stack:get_name(), group) ~= 0 then
-					stack:take_item()
+					if stack:take_item(recipe_item_count):get_count() ~= recipe_item_count then
+						item_not_taken = true
+					end
 					return -- when find and take, goto next `foreach_item_in_grid()` iteration
 				end
 			else
-				if stack:get_name() == recipe_item then
-					stack:take_item()
+				if stack:get_name() == recipe_item_name then
+					if stack:take_item(recipe_item_count):get_count() ~= recipe_item_count then
+						item_not_taken = true
+					end
 					return -- when find and take, goto next `foreach_item_in_grid()` iteration
 				end
 			end
@@ -237,22 +255,32 @@ local function decrement_input(input, recipe)
 	return input
 end
 
---- @param items_grid  string[][]
+--- @param items_grid  ItemStack[][]
 --- @param recipe_grid string[][]
 --- @return boolean
 local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 	local correspond = true
+	--- @param item ItemStack
 	foreach_item_in_grid(items_grid, function(item, i, j)
-		local recipe_item = recipe_grid[i][j]
-		recipe_item = recipe_item or ''
-		if recipe_item:starts_with('group:') then
-			local group = recipe_item:split(':')[2]
-			if minetest.get_item_group(item, group) == 0 then
+		local recipe_item = recipe_grid[i][j] or ''
+		recipe_item = recipe_item:split(' ')
+		local recipe_item_name  =          recipe_item[1]  or ''
+		local recipe_item_count = tonumber(recipe_item[2]) or 1
+
+		if recipe_item_name:starts_with('group:') then
+			local group = recipe_item_name:split(':')[2]
+			if
+				minetest.get_item_group(item:get_name(), group) == 0 or
+				item:get_count() < recipe_item_count
+			then
 				correspond = false
 				return true -- break `foreach_item_in_grid()`
 			end
 		else
-			if item ~= recipe_item then
+			if
+				item:get_name() ~= recipe_item_name or
+				(item:get_count() < recipe_item_count and recipe_item_name ~= '')
+			then
 				correspond = false
 				return true -- break `foreach_item_in_grid()`
 			end
