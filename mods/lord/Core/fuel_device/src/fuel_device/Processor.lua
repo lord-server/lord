@@ -10,12 +10,12 @@ local S = minetest.get_mod_translator()
 --- @param inv    InvRef
 --- @param meta   NodeMetaRef
 --- @param method string
---- @return boolean, RecipeOutput|nil, RecipeInput|nil, RecipeOutput|nil, RecipeInput|nil
+--- @return boolean, RecipeOutput, RecipeInput, RecipeOutput, RecipeInput
 local function process_possible(inv, meta, method)
 	local result_source, remaining_source = minetest.get_craft_result({
 		method = method,
 		type   = 'cooking',
-		width  = 1,
+		width  = inv:get_size('src'),
 		items  = inv:get_list('src'),
 	})
 	if not result_source or result_source.time == 0 then
@@ -24,8 +24,8 @@ local function process_possible(inv, meta, method)
 
 	local result_fuel, remaining_fuel = minetest.get_craft_result({
 		method = 'fuel',
-		width = 1,
-		items = inv:get_list('fuel')
+		width  = inv:get_size('fuel'),
+		items  = inv:get_list('fuel'),
 	})
 
 	local possible =

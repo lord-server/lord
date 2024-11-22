@@ -53,6 +53,7 @@ end
 --- @param size_of           {fuel:number,src:number,dst:number}  sizes of corresponding inventories.
 --- @param DeviceClass       GenericDevice|nil            your own device, if you want something extend/change.
 --- @param ProcessorClass    GenericProcessor|nil         your own processor, if you want something extend/change.
+--- @return GenericDevice, GenericProcessor
 local function register_nodes(device_name, craft_method, nodes_definitions, form, size_of, DeviceClass, ProcessorClass)
 	local node_name = {
 		inactive = nodes_definitions.inactive.node_name:replace('^:', ''),
@@ -90,6 +91,8 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 		nodes_definitions.active.node_name,
 		table.overwrite(active_node, nodes_definitions.active.definition)
 	)
+
+	return DeviceClass, ProcessorClass
 end
 
 

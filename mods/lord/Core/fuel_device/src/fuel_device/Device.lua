@@ -89,7 +89,11 @@ end
 --- @public
 --- @return NodeMetaRef
 function Device:get_meta()
-	return self.meta or get_initiated_meta(self.position)
+	if not self.meta then
+		self.meta = get_initiated_meta(self.position)
+	end
+
+	return self.meta
 end
 
 --- Sets Node into active device with new hint.
