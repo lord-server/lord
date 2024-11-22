@@ -33,3 +33,13 @@ minetest.register_node('lord_vessels:glass_bottle_water', {
 	groups          = { vessel = 1, dig_immediate = 3, attached_node = 1 },
 	sounds          = default.node_sound_glass_defaults(),
 })
+
+minetest.register_craft({
+	type = "cooking",
+	output = "lottores:salt 5",
+	recipe = "lord_vessels:glass_bottle_water",
+	cooktime = 7,
+	replacements = {
+		{ "lord_vessels:glass_bottle_water", "vessels:glass_bottle" },
+	},
+})
