@@ -19,11 +19,14 @@ local definition = {
 ---
 --- @generic GenericDevice: fuel_device.Device
 --- @return GenericDevice
-local function create_generic_device(device_name, form, node_name)
+local function create_generic_device(device_name, form, node_name, size_of)
+	size_of = size_of or table.overwrite({ src = 1, dst = 1 }, size_of)
+
 	return Device:extended({
 		NAME       = device_name,
 		form       = form,
-		node_name  = node_name
+		node_name  = node_name,
+		size_of    = size_of,
 	})
 end
 
@@ -59,10 +62,10 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 		inactive = nodes_definitions.inactive.node_name:replace('^:', ''),
 		active   = nodes_definitions.active.node_name:replace('^:', ''),
 	}
-	DeviceClass     = DeviceClass or create_generic_device(device_name, form, node_name)
+	DeviceClass     = DeviceClass or create_generic_device(device_name, form, node_name, size_of)
 	ProcessorClass  = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
 
-	local common              = definition.common.get(device_name, node_name.inactive, form, size_of)
+	local common              = definition.common.get(DeviceClass)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 
 	--- @type NodeDefinition
