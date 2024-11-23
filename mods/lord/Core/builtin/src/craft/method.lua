@@ -206,6 +206,33 @@ local EMPTY_OUTPUT = { time = 0, replacements = {}, item = ItemStack("") }
 local mt_get_craft_result = minetest.get_craft_result
 
 
+--- @param stack       ItemStack
+--- @param recipe_item string
+local function take_item(stack, recipe_item)
+	recipe_item = recipe_item:split(' ')
+	local recipe_item_name  =          recipe_item[1]
+	local recipe_item_count = tonumber(recipe_item[2]) or 1
+
+	if recipe_item_name:starts_with('group:') then
+		local group = recipe_item_name:split(':')[2]
+		if
+			minetest.get_item_group(stack:get_name(), group) == 0 or
+			stack:take_item(recipe_item_count):get_count() ~= recipe_item_count
+		then
+			return false
+		end
+	else
+		if
+			stack:get_name() ~= recipe_item_name or
+			stack:take_item(recipe_item_count):get_count() ~= recipe_item_count
+		then
+			return false
+		end
+	end
+
+	return true
+end
+
 --- @param input  RecipeInput
 --- @param recipe minetest.CraftRecipe
 --- @return RecipeInput|nil
@@ -219,33 +246,18 @@ local function decrement_input(input, recipe)
 		if recipe_item == '' then
 			return -- skip `foreach_item_in_grid()` iteration with empty item
 		end
-		recipe_item = recipe_item:split(' ')
-		local recipe_item_name  =          recipe_item[1]  or ''
-		local recipe_item_count = tonumber(recipe_item[2]) or 1
 
-		for _, stack in pairs(input.items) do
-			if recipe_item_name:starts_with('group:') then
-				local group = recipe_item_name:split(':')[2]
-				if minetest.get_item_group(stack:get_name(), group) ~= 0 then
-					if stack:take_item(recipe_item_count):get_count() ~= recipe_item_count then
-						item_not_taken = true
-					end
-					return -- when find and take, goto next `foreach_item_in_grid()` iteration
-				end
-			else
-				if stack:get_name() == recipe_item_name then
-					if stack:take_item(recipe_item_count):get_count() ~= recipe_item_count then
-						item_not_taken = true
-					end
-					return -- when find and take, goto next `foreach_item_in_grid()` iteration
-				end
-			end
+		local stack = input.items[(i - 1) * input.width + j]
+		if not stack then
+			minetest.log('error', 'get_craft_result(): decrement_input() failed')
+			item_not_taken = true
+			return true -- break `foreach_item_in_grid()` cycle
 		end
 
-		-- item `recipe_item` was not found:
-		item_not_taken = true
-
-		return true -- break `foreach_item_in_grid()` cycle
+		if not take_item(stack, recipe_item) then
+			item_not_taken = true
+			return true -- break `foreach_item_in_grid()` cycle
+		end
 	end)
 
 	if item_not_taken then
