@@ -33,3 +33,43 @@ minetest.register_node('lord_vessels:glass_bottle_water', {
 	groups          = { vessel = 1, dig_immediate = 3, attached_node = 1 },
 	sounds          = default.node_sound_glass_defaults(),
 })
+
+local glass_bottle_salt_texture = 'lord_vessels_salt_bottle.png'
+minetest.register_node('lord_vessels:glass_bottle_salt', {
+	description     = S('Glass Bottle (Salt)'),
+	drawtype        = 'plantlike',
+	tiles           = { glass_bottle_salt_texture },
+	inventory_image = glass_bottle_salt_texture,
+	wield_image     = glass_bottle_salt_texture,
+	paramtype       = 'light',
+	walkable        = false,
+	selection_box   = {
+		type  = 'fixed',
+		fixed = { -0.25, -0.5, -0.25, 0.25, 0.4, 0.25 }
+	},
+	groups          = { vessel = 1, dig_immediate = 3, attached_node = 1 },
+	sounds          = default.node_sound_glass_defaults(),
+})
+
+minetest.register_craft({
+	type = 'cooking',
+	cooktime = 5,
+	output = 'lord_vessels:glass_bottle_salt',
+	recipe = 'lord_vessels:glass_bottle_water'
+})
+
+minetest.register_craft({
+	type = 'shapeless',
+	output = 'lottores:salt 5',
+	recipe = {'lord_vessels:glass_bottle_salt'},
+	replacements = {{'', 'vessels:glass_bottle'}},
+})
+
+minetest.register_craft({
+	output = 'lord_vessels:glass_bottle_salt',
+	recipe = {
+		{'lottores:salt', 'lottores:salt', 'lottores:salt'},
+		{'lottores:salt', 'vessels:glass_bottle', 'lottores:salt'},
+		{'', '', ''},
+	}
+})
