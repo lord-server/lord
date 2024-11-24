@@ -52,21 +52,21 @@ minetest.register_node('lord_vessels:glass_bottle_salt', {
 })
 
 minetest.register_craft({
-	type = "cooking",
+	type = 'cooking',
 	cooktime = 5,
-	output = "lord_vessels:glass_bottle_salt",
-	recipe = "lord_vessels:glass_bottle_water"
+	output = 'lord_vessels:glass_bottle_salt',
+	recipe = 'lord_vessels:glass_bottle_water'
 })
 
 minetest.register_craft({
-	type = "shapeless",
-	output = "lottores:salt 5",
-	recipe = {"lord_vessels:glass_bottle_salt"},
-	replacements = {{"", "vessels:glass_bottle"}},
+	type = 'shapeless',
+	output = 'lottores:salt 5',
+	recipe = {'lord_vessels:glass_bottle_salt'},
+	replacements = {{'', 'vessels:glass_bottle'}},
 })
 
 minetest.register_craft({
-	output = "lord_vessels:glass_bottle_salt",
+	output = 'lord_vessels:glass_bottle_salt',
 	recipe = {
 		{'lottores:salt', 'lottores:salt', 'lottores:salt'},
 		{'lottores:salt', 'vessels:glass_bottle', 'lottores:salt'},
