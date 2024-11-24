@@ -19,10 +19,7 @@ Empty Cauldron=Empty Cauldron
 Barrel=Barrel
 
 ### Laboratory ###
-Potion Brewer=Potion Brewer
-Potion Brewer Brewing=Brewer Brewing
-Potion Brewer Out Of Heat=Brewer Out Of Heat
-Potion Brewer is empty=Brewer is empty
+Laboratory=Laboratory
 
 ### Workbench ###
 Workbench=Workbench

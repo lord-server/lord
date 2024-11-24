@@ -19,10 +19,7 @@ Empty Cauldron=Пустой котёл
 Barrel=Бочка
 
 ### Laboratory ###
-Potion Brewer=Лаборатория
-Potion Brewer Brewing=Лаборатория: работает
-Potion Brewer Out Of Heat=Лаборатория: нет топлива
-Potion Brewer is empty=Лаборатория: нет материала
+Laboratory=Лаборатория
 
 ### Workbench ###
 Workbench=Верстак

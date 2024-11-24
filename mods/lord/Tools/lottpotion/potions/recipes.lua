@@ -62,5 +62,11 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	lottpotion_recipe.register("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
+	minetest.register_craft({
+		method = minetest.CraftMethod.POTION,
+		type   = 'cooking',
+		input  = { { data[1], data[2] } },
+		output = data[3],
+		time   = data[4] or 60,
+	})
 end
