@@ -45,6 +45,33 @@ local function create_generic_processor(DeviceClass, craft_method)
 	})
 end
 
+---@param fd_node_def         fuel_device.NodeDef
+---@param common              NodeDefinition
+---@param inventory_callbacks NodeDefinition
+---@param base_def            NodeDefinition
+local function register_node(fd_node_def, common, inventory_callbacks, base_def)
+	base_def = table.merge(common, table.merge(inventory_callbacks, base_def))
+	minetest.register_node(fd_node_def.node_name, table.overwrite(base_def, fd_node_def.definition))
+end
+
+--- @param inactive_full_name string                          inactive node name with ':' prefix
+--- @param node_names         {inactive:string,active:string} nodes names without ':' prefix
+--- @param DeviceClass        fuel_device.Device
+local function register_lbm(inactive_full_name, node_names, DeviceClass)
+	local node_name_parts = inactive_full_name:split(':')
+	local mod_name, node_name = unpack(node_name_parts)
+
+	minetest.register_lbm({
+		label             = mod_name:first_to_upper() .. ' ' .. node_name .. ' initialization',
+		name              = inactive_full_name .. '_init',
+		nodenames         = { node_names.inactive, node_names.active },
+		run_at_every_load = true,
+		action            = function(pos, node)
+			DeviceClass:new(pos):init()
+		end
+	})
+end
+
 --- @overload fun(device_name, craft_method, nodes_definitions, form)
 --- @generic GenericDevice: fuel_device.Device
 --- @generic GenericProcessor: fuel_device.Processor
@@ -58,42 +85,29 @@ end
 --- @param ProcessorClass    GenericProcessor|nil         your own processor, if you want something extend/change.
 --- @return GenericDevice, GenericProcessor
 local function register_nodes(device_name, craft_method, nodes_definitions, form, size_of, DeviceClass, ProcessorClass)
-	local node_name = {
+	local nodes_names = {
 		inactive = nodes_definitions.inactive.node_name:replace('^:', ''),
 		active   = nodes_definitions.active.node_name:replace('^:', ''),
 	}
-	DeviceClass     = DeviceClass or create_generic_device(device_name, form, node_name, size_of)
-	ProcessorClass  = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
+	DeviceClass    = DeviceClass    or create_generic_device(device_name, form, nodes_names, size_of)
+	ProcessorClass = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
 
 	local common              = definition.common.get(DeviceClass)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 
-	--- @type NodeDefinition
-	local inactive_node = {
+	register_node(nodes_definitions.inactive, common, inventory_callbacks, {
 		description = device_name,
-		-- backwards compatibility: punch to set formspec
-		on_punch = function(pos, player)
-			local meta = minetest.get_meta(pos)
-			meta:set_string('infotext', device_name)
-			meta:set_string('formspec', form.get_spec('inactive'))
-		end
-	}
-	inactive_node = table.merge(common, table.merge(inventory_callbacks, inactive_node))
-	minetest.register_node(
-		nodes_definitions.inactive.node_name,
-		table.overwrite(inactive_node, nodes_definitions.inactive.definition)
-	)
+	})
 
-	--- @type NodeDefinition
-	local active_node = {
+	register_node(nodes_definitions.active, common, inventory_callbacks, {
 		description = device_name,
 		on_timer    = ProcessorClass.get_on_timer_function(ProcessorClass),
-	}
-	active_node = table.merge(common, table.merge(inventory_callbacks, active_node))
-	minetest.register_node(
-		nodes_definitions.active.node_name,
-		table.overwrite(active_node, nodes_definitions.active.definition)
-	)
+	})
+
+	-- Form or node meta inventories sizes can be changed in code in future.
+	-- So we need to re-init formspec, infotext & sizes.
+	-- LBM will works even the node name will be changed.
+	register_lbm(nodes_definitions.inactive.node_name, nodes_names, DeviceClass)
 
 	return DeviceClass, ProcessorClass
 end
