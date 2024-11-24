@@ -9,7 +9,7 @@
 
 --- @class lord_alcohol.config
 --- @field potions lord_alcohol.config.potion[]
---- @field recipes number
+--- @field recipes {input:string[],output:string}[]
 
 
 --- @type lord_alcohol.config
@@ -23,23 +23,23 @@ local config = {
 	},
 	recipes = {
 		{
-			input = { 'lottfarming:berries 5', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lottfarming:berries 5', 'lord_vessels:drinking_glass_water' },
 			output = 'lord_alcohol:wine'
 		},
 		{
-			input = { 'farming:wheat0 3', 'lord_vessels:drinking_glass_water' },
+			input  = { 'farming:wheat0 3', 'lord_vessels:drinking_glass_water' },
 			output = 'lord_alcohol:beer'
 		},
 		{
-			input = { 'bees:bottle_honey 6', 'lord_vessels:drinking_glass_water' },
+			input  = { 'bees:bottle_honey 6', 'lord_vessels:drinking_glass_water' },
 			output = 'lord_alcohol:mead'--, 'vessels:glass_bottle 6'
 		},
 		{
-			input = { 'default:apple 5', 'lord_vessels:drinking_glass_water' },
+			input  = { 'default:apple 5', 'lord_vessels:drinking_glass_water' },
 			output = 'lord_alcohol:cider'
 		},
 		{
-			input = { 'lottfarming:barley_seed 6', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lottfarming:barley_seed 6', 'lord_vessels:drinking_glass_water' },
 			output = 'lord_alcohol:ale'
 		},
 	},

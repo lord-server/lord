@@ -16,7 +16,13 @@ end
 
 local function register_recipes()
 	for _, recipe in pairs(config.recipes) do
-		lottpotion_recipe.register('brew', recipe)
+		minetest.register_craft({
+			method = minetest.CraftMethod.BARREL,
+			type   = 'cooking',
+			input  = { recipe.input },
+			output = recipe.output,
+			time   = recipe.time or 20,
+		})
 	end
 end
 
