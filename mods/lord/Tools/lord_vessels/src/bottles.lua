@@ -36,7 +36,7 @@ minetest.register_node('lord_vessels:glass_bottle_water', {
 
 local glass_bottle_salt_texture = 'lord_vessels_salt_bottle.png'
 minetest.register_node('lord_vessels:glass_bottle_salt', {
-	description     = S('Glass Bottle (Salt)')
+	description     = S('Glass Bottle (Salt)'),
 	drawtype        = 'plantlike',
 	tiles           = { glass_bottle_salt_texture },
 	inventory_image = glass_bottle_salt_texture,
