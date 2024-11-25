@@ -59,7 +59,6 @@ local get_recipe = function(inv)
 end
 
 local workbench_formspec = 'size[8,9;]' ..
-	"listcolors[#606060AA;#888;#141318;#30434C;#FFF]" ..
 	'label[0,0;' .. S('Source Material') .. ']' ..
 	'list[context;src;0,0.5;2,4;]' ..
 	'label[3.5,0.5;' .. S('Recipe to Use') .. ']' ..
@@ -77,7 +76,7 @@ minetest.register_lbm({
 	label = "workbench formspec replacement",
 	name = ":castle:workbench_formspec_replacement",
 	nodenames = {"lord_artisan_benches:workbench"},
-	run_at_every_load = false,
+	run_at_every_load = true,
 	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
@@ -86,18 +85,20 @@ minetest.register_lbm({
 
 minetest.register_node("lord_artisan_benches:workbench", {
 	description                   = S("Workbench"),
-	tiles                         = {
-		"benches_workbench_top.png",
-		"default_wood.png",
-		"benches_workbench_1.png",
-		"benches_workbench_1.png",
-		"benches_workbench_2.png",
-		"benches_workbench_2.png"
-	},
+	drawtype                      = "mesh",
+	mesh = "workbench.obj",
+	tiles = { "benches_workbench.png" },
+	--tiles                         = {
+	--	"benches_workbench_top.png",
+	--	"default_wood.png",
+	--	"benches_workbench_1.png",
+	--	"benches_workbench_1.png",
+	--	"benches_workbench_2.png",
+	--	"benches_workbench_2.png"
+	--},
 	paramtype2                    = "facedir",
 	paramtype                     = "light",
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wooden = 1 },
-	drawtype                      = "normal",
 	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
 		local meta = minetest.get_meta(pos)
