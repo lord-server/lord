@@ -4,7 +4,8 @@ lord_effects = {
 	SPEED  = 'speed',
 	JUMP   = 'jump',
 	HEALTH = 'health',
-	-- BREATH = 'breath', TODO: #1678
+	BREATH = 'breath',
+	SUFFOCATION = 'suffocation',
 }
 
 
@@ -34,6 +35,28 @@ local function register_effects()
 			end)
 			:on_stop(function(self, player)
 			    -- Periodical Damage stops itself.
+			end)
+	)
+	effects.register(
+		effects.Effect:new(lord_effects.BREATH)
+			:on_start(function(self, player, amount, duration)
+				player:set_breath(player.breath_max or core.PLAYER_MAX_BREATH_DEFAULT)
+				player:set_flags({ drowning = false, })
+			end)
+			:on_stop(function(self, player)
+				player:set_flags({ drowning = true, })
+			end)
+	)
+	effects.register(
+		effects.Effect:new(lord_effects.SUFFOCATION)
+			:on_start(function(self, player, amount, duration)
+				player:set_breath(0)
+				player:set_flags({ breathing = false, })
+				damage.Periodical:for_player(player):start(damage.Type.SUFFOCATION, amount, duration)
+			end)
+			:on_stop(function(self, player)
+				player:set_flags({ breathing = true, })
+				-- Periodical Damage stops itself.
 			end)
 	)
 end

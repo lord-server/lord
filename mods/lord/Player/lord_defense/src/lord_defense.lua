@@ -8,10 +8,11 @@ local armor_slots_count = equipment.Kind.get_size(equipment.Kind.ARMOR)
 --- @param player Player
 local function collect_defense_from_armor_equipment(player)
 	local defense = {
-		fleshy = 0,
-		fire   = 0,
-		soul   = 0,
-		poison = 0,
+		fleshy      = 0,
+		fire        = 0,
+		soul        = 0,
+		poison      = 0,
+		suffocation = 0,
 	}
 	local damage_avoid = 0
 
