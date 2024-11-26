@@ -56,7 +56,8 @@ defense_poison=from poison
 Health=Health
 Speed=Speed
 Jump=Jump
-
+Breath=Breathing underwater
+Suffocation=Suffocation
 
 # Food
 @1@2 to satiety=@1@2 to satiety

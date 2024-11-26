@@ -17,7 +17,9 @@ end
 --- @param value number
 --- @return string
 local function value_color(value)
-	return tonumber(value) > 0 and '#aea' or '#f66'
+	return value
+		and (tonumber(value) > 0 and '#aea' or '#f66')
+		or  tt.COLOR_DEFAULT
 end
 
 
@@ -38,10 +40,10 @@ return function (item_string)
 
 	local tpl = effect.is_periodical and template.periodical or template.general
 	local effect_name  = effect.name:first_to_upper()
-	local amount       = sign(effect.power.amount) .. effect.power.amount
+	local amount       = effect.power.amount and (sign(effect.power.amount) .. effect.power.amount)
 	local amount_color = value_color(effect.power.amount)
 	effects_strings[#effects_strings +1] =
-		'  • ' .. S(tpl, S(effect_name), colorize(amount_color, amount), effect.power.duration)
+		'  • ' .. S(tpl, S(effect_name), colorize(amount_color, amount or ''), effect.power.duration)
 
 	return #effects_strings ~= 0
 		and ('\n' ..
