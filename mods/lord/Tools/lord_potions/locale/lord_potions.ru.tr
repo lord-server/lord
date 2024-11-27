@@ -2,7 +2,20 @@
 
 Potion "@1"@2=Зелье "@1"@2
 (Power: @1)=(Сила: @1)
+Ingredient "@1"=Ингредиент "@1"
 
+
+# Ingredients:
+
+Extract of Mese=Экстракт Mese
+Extract of Geodes Crystal=Экстракт Жеоды
+Extract of Seregon=Экстракт Серегона
+Extract of Obsidian=Экстракт Обсидиана
+Extract of Bonedust=Экстракт Костный
+Extract of Mordor Thorn=Экстракт Мордорской Колючки
+
+
+# Potions:
 
 Elixir of Athelas=Эликсир Ателаса
 An ancient elixir from the West=Древний эликсир Запада,

@@ -2,7 +2,20 @@
 
 Potion "@1"@2=Potion "@1"@2
 (Power: @1)=(Power: @1)
+Ingredient "@1"=Ingredient "@1"
 
+
+# Ingredients:
+
+Extract of Mese=Extract of Mese
+Extract of Geodes Crystal=Extract of Geodes Crystal
+Extract of Seregon=Extract of Seregon
+Extract of Obsidian=Extract of Obsidian
+Extract of Bonedust=Extract of Bonedust
+Extract of Mordor Thorn=Extract of Mordor Thorn
+
+
+# Potions:
 
 Elixir of Athelas=Elixir of Athelas
 An ancient elixir from the West=An ancient elixir from the West
