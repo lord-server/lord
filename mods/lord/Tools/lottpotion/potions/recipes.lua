@@ -1,9 +1,5 @@
 
 local recipes = {
-	--Base Potion
-	{ "lottplants:seregon", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_seregon" },
-	{ "default:mese_crystal_fragment 1", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_mese" },
-	{ "lottores:geodes_crystal_1", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_geodes" },
 	--Potions
 	--Orc Draught
 	{ "lottmobs:rotten_meat 5", "lottpotion:glass_bottle_seregon", "lottpotion:orcdraught_power1" },
@@ -30,10 +26,6 @@ local recipes = {
 	{ "default:leaves 10", "lottpotion:entdraught_power1", "lottpotion:entdraught_power2", 120 },
 	{ "default:leaves 10", "lottpotion:entdraught_power2", "lottpotion:entdraught_power3", 240 },
 
-	--Negative Base Potion
-	{ "lottplants:brambles_of_mordor", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_mordor" },
-	{ "default:obsidian_shard 1", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_obsidian" },
-	{ "bones:bonedust 1", "lord_vessels:glass_bottle_water", "lottpotion:glass_bottle_bonedust" },
 	--Negative Potions
 	--Orc Draught
 	{ "lottmobs:rotten_meat 5", "lottpotion:glass_bottle_mordor", "lottpotion:orcdraught_corruption1" },
@@ -62,5 +54,11 @@ local recipes = {
 }
 
 for _, data in pairs(recipes) do
-	lottpotion_recipe.register("potion", { input = { data[1], data[2] }, output = data[3], time = data[4] })
+	minetest.register_craft({
+		method = minetest.CraftMethod.POTION,
+		type   = 'cooking',
+		input  = { { data[1], data[2] } },
+		output = data[3],
+		time   = data[4] or 60,
+	})
 end

@@ -16,16 +16,10 @@ One Third Filled Cauldron=One Third Filled Cauldron
 Empty Cauldron=Empty Cauldron
 
 ### Barrel ###
-Brewer=Brewer
-Brewer Brewing=Brewer Brewing
-Brewer Out Of Heat=Brewer Out Of Heat
-Brewer is empty=Brewer is empty
+Barrel=Barrel
 
 ### Laboratory ###
-Potion Brewer=Potion Brewer
-Potion Brewer Brewing=Brewer Brewing
-Potion Brewer Out Of Heat=Brewer Out Of Heat
-Potion Brewer is empty=Brewer is empty
+Laboratory=Laboratory
 
 ### Workbench ###
 Workbench=Workbench

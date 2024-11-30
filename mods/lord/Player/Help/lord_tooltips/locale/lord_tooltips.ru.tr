@@ -57,7 +57,8 @@ defense_poison=от отравления
 Health=Здоровье
 Speed=Скорость
 Jump=Прыжок
-
+Breath=Дыхание под водой
+Suffocation=Удушье
 
 # Food
 @1@2 to satiety=@1@2 к сытости

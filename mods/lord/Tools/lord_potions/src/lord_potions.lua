@@ -14,7 +14,8 @@ local function register_ingredients()
 			ingredient.node_name,
 			ingredient.title,
 			ingredient.description,
-			ingredient.groups
+			ingredient.groups,
+			ingredient.recipe
 		)
 	end
 end

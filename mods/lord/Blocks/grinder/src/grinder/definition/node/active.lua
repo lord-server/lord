@@ -1,9 +1,3 @@
-local S = minetest.get_mod_translator()
-
-local common              = require('grinder.definition.node.common')
-local inventory_callbacks = require('grinder.definition.node.inventory_callbacks')
-local Processor           = require('grinder.Processor_')
-
 
 --- @param width  number Width of a frame in pixels.
 --- @param height number Height of a frame in pixels.
@@ -21,8 +15,7 @@ local function animated_tile(image, width, height, length)
 end
 
 
-return table.merge(common, table.merge(inventory_callbacks, {
-	description  = S('Grinder'),
+return {
 	tiles        = {
 		animated_tile('grinder_top_active.png', 32, 32, 1.6),
 		'grinder_bottom.png',
@@ -32,6 +25,6 @@ return table.merge(common, table.merge(inventory_callbacks, {
 		animated_tile('grinder_front_active.png', 32, 32, 1.0)
 	},
 	light_source = 8,
-	groups       = { not_in_creative_inventory = 1, hot = 1 },
-	on_timer     = Processor.get_on_timer_function(Processor),
-}))
+	groups       = { cracky = 2, not_in_creative_inventory = 1, hot = 1 },
+	sounds       = default.node_sound_stone_defaults(),
+}

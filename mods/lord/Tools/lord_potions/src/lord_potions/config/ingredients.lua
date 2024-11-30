@@ -5,36 +5,56 @@ local S = minetest.get_mod_translator()
 --- @field title       string prefix to description of item or will extracted from `item_name` (`title`.." ingredient").
 --- @field description string some words you want to displayed in tooltip.
 --- @field groups      table  additional or overwrite groups for item definition groups.
+--- @field recipe      {input:string[],time:number|nil}  default time: 60.
 
 
 --- @type lord_potions.Ingredient[]
 local config = {
 	-- Base Ingredients
 	{
-		node_name   = "lord_potions:ingredient_mese",
-		description = S("Glass Bottle (Mese Water)"),
+		node_name = "lord_potions:ingredient_mese",
+		title     = S("Extract of Mese"),
+		recipe    = {
+			input = { "default:mese_crystal_fragment 1", "lord_vessels:glass_bottle_water" },
+		},
 	},
 	{
-		node_name   = "lord_potions:ingredient_geodes",
-		description = S("Glass Bottle (Geodes Crystal Water)"),
+		node_name = "lord_potions:ingredient_geodes",
+		title     = S("Extract of Geodes Crystal"),
+		recipe    = {
+			input = { "lottores:geodes_crystal_1", "lord_vessels:glass_bottle_water" },
+		},
 	},
 	{
-		node_name   = "lord_potions:ingredient_seregon",
-		description = S("Glass Bottle (Seregon Water)"),
+		node_name = "lord_potions:ingredient_seregon",
+		title     = S("Extract of Seregon"),
+		recipe    = {
+			input = { "lottplants:seregon", "lord_vessels:glass_bottle_water" },
+		}
 	},
 	-- Negative Base Ingredients
 	{
-		node_name   = "lord_potions:ingredient_obsidian",
-		description = S("Glass Bottle (Obsidian Water)"),
+		node_name = "lord_potions:ingredient_obsidian",
+		title     = S("Extract of Obsidian"),
+		recipe    = {
+			input = { "default:obsidian_shard 1", "lord_vessels:glass_bottle_water" },
+		},
 	},
 	{
-		node_name   = "lord_potions:ingredient_bonedust",
-		description = S("Glass Bottle (Bonedust Water)"),
+		node_name = "lord_potions:ingredient_bonedust",
+		title     = S("Extract of Bonedust"),
+		recipe    = {
+			input = { "bones:bonedust 1", "lord_vessels:glass_bottle_water" },
+		},
 	},
 	{
-		node_name   = "lord_potions:ingredient_mordor",
-		description = S("Glass Bottle (Mordor Water)"),
+		node_name = "lord_potions:ingredient_mordor",
+		title     = S("Extract of Mordor Thorn"),
+		recipe    = {
+			input = { "lottplants:brambles_of_mordor", "lord_vessels:glass_bottle_water" },
+		},
 	},
 }
+
 
 return config

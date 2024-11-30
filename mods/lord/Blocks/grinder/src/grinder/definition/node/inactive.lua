@@ -1,22 +1,11 @@
-local S = minetest.get_mod_translator()
-
-local common              = require('grinder.definition.node.common')
-local inventory_callbacks = require('grinder.definition.node.inventory_callbacks')
-local form                = require('grinder.definition.node.form')
 
 
-return table.merge(common, table.merge(inventory_callbacks, {
-	description = S('Grinder'),
-	tiles = {
+return {
+	tiles  = {
 		'grinder_top.png', 'carts_steam_mechanismn.png',
 		'grinder_side_left.png', 'grinder_side_right.png',
 		'grinder_side.png', 'grinder_front.png'
 	},
-
-	-- backwards compatibility: punch to set formspec
-	on_punch = function(pos, player)
-		local meta = minetest.get_meta(pos)
-		meta:set_string('infotext', S('Grinder'))
-		meta:set_string('formspec', form.get_spec('inactive'))
-	end
-}))
+	groups = { cracky = 2 },
+	sounds = default.node_sound_stone_defaults(),
+}

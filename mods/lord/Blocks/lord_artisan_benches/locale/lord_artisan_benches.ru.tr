@@ -16,16 +16,10 @@ One Third Filled Cauldron=Котёл, заполненный на 1/3
 Empty Cauldron=Пустой котёл
 
 ### Barrel ###
-Brewer=Бочка
-Brewer Brewing=Бочка: работает
-Brewer Out Of Heat=Бочка: нет топлива
-Brewer is empty=Бочка: нет материала
+Barrel=Бочка
 
 ### Laboratory ###
-Potion Brewer=Лаборатория
-Potion Brewer Brewing=Лаборатория: работает
-Potion Brewer Out Of Heat=Лаборатория: нет топлива
-Potion Brewer is empty=Лаборатория: нет материала
+Laboratory=Лаборатория
 
 ### Workbench ###
 Workbench=Верстак

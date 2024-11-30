@@ -13,7 +13,8 @@ local Device = {
 	--- @type number
 	TIMER_TICK = 1,
 	--- @static
-	--- @type fuel_device.node.Form
+	--- @generic GenericForm: fuel_device.node.Form
+	--- @type GenericForm
 	form       = nil,
 	--- @static
 	--- @type {inactive:string,active:string}
@@ -21,6 +22,11 @@ local Device = {
 		inactive = nil,
 		active   = nil,
 	},
+	--- @static
+	--- @type {src:number,dst:number}
+	size_of = { fuel = 1, src = 1, dst = 1, },
+
+	-- dynamic:
 	--- @type Position
 	position   = nil,
 	--- @type NodeMetaRef
@@ -38,7 +44,7 @@ end
 --- Constructor
 --- @public
 --- @param pos table<number,number,number>
---- @return Device
+--- @return fuel_device.Device
 function Device:new(pos)
 	local class = self
 	self = {}
@@ -71,7 +77,7 @@ local function get_initiated_meta(pos)
 end
 
 --- @param meta NodeMetaRef
-local function reset_meta_vars(meta)
+local function reset_meta_times(meta)
 	for _, name in pairs({
 		'fuel_totaltime',
 		'fuel_time',
@@ -88,12 +94,34 @@ end
 --- @public
 --- @return NodeMetaRef
 function Device:get_meta()
-	return self.meta or get_initiated_meta(self.position)
+	if not self.meta then
+		self.meta = get_initiated_meta(self.position)
+	end
+
+	return self.meta
+end
+
+--- @public
+function Device:init()
+	self:get_meta():set_string('formspec', self.form.get_spec('inactive'))
+	self:get_meta():set_string('infotext', self.NAME)
+	local inventory = self:get_meta():get_inventory()
+	inventory:set_size('fuel', self.size_of.fuel or 1)
+	inventory:set_size('src', self.size_of.src or 1)
+	inventory:set_size('dst', self.size_of.dst or 1)
+end
+
+--- @public
+--- @return boolean
+function Device:is_empty()
+	local inventory = self:get_meta():get_inventory()
+
+	return inventory:is_empty('fuel') and inventory:is_empty('src') and inventory:is_empty('dst')
 end
 
 --- Sets Node into active device with new hint.
 --- @public
---- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
+--- @param hint string text shown in `infotext` after `"<Device.NAME>: "`
 function Device:activate(hint)
 	local meta         = self:get_meta()
 	local percent      = math_floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
@@ -106,10 +134,10 @@ end
 
 --- Sets Node into inactive device with new hint.
 --- @public
---- @param hint string A template for hinting in English. Use '%s' for machine name placeholder.
+--- @param hint string text shown in `infotext` after `"<Device.NAME>: "`
 function Device:deactivate(hint)
 	minetest.get_node_timer(self.position):stop()
-	reset_meta_vars(self:get_meta())
+	reset_meta_times(self:get_meta())
 	minetest.swap_node_if_not_same(self.position, self.node_name.inactive)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint)
 	self:get_meta():set_string('formspec', self.form.get_spec('inactive'))

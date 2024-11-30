@@ -27,7 +27,7 @@ local config = {
 			['+3'] = { amount = 4, duration = 100, },
 		},
 		description =
-		S('An ancient elixir from the West')..'\n'..
+			S('An ancient elixir from the West')..'\n'..
 			S('    that restores health and heals wounds.')
 	,
 	},
@@ -41,7 +41,7 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-		S('Thick toxic brew based on orc pus, corroding both body and spirit.')..'\n'..
+			S('Thick toxic brew based on orc pus, corroding both body and spirit.')..'\n'..
 			S('Corrodes the body from the inside and covers it with wounds from the outside.')
 	},
 
@@ -55,7 +55,7 @@ local config = {
 			['+3'] = { amount = 3, duration = 100, },
 		},
 		description =
-		S('An extremely refreshing and invigorating drink')..'\n'..
+			S('An extremely refreshing and invigorating drink')..'\n'..
 			S('    made from the waters of the Metedras springs.')..'\n'..
 			S('A unique drink that grants the speed of the ancient trees.')
 	},
@@ -68,7 +68,7 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-		S('Created from the venom of Shelob\'s web,')..'\n'..
+			S('Created from the venom of Shelob\'s web,')..'\n'..
 			S('    which she uses to paralyze enemies.')..'\n'..
 			S('A venomous potion that binds the body like Shelob’s web.')
 	},
@@ -83,7 +83,7 @@ local config = {
 			['+3'] = { amount = 4, duration = 100, },
 		},
 		description =
-		S('А strong stimulating drink of the elves.')..'\n'..
+			S('А strong stimulating drink of the elves.')..'\n'..
 			S('A potion that allows you to jump higher,')..'\n'..
 			S('    as if invisible wings were lifting you into the air.')
 	},
@@ -96,9 +96,37 @@ local config = {
 			['-3'] = { amount = -3, duration = 100, },
 		},
 		description =
-		S('A dark potion that binds the body')..'\n'..
+			S('A dark potion that binds the body')..'\n'..
 			S('    like the heavy chains of the dungeons of Dol Guldur.')..'\n'..
 			S('It weighs down your legs, making jumping impossible.')
+	},
+
+	-- BREATH
+	{
+		item_name = 'lord_potions:limpe', title = S('Limpë'), color = '#0ff',
+		effect = lord_effects.BREATH,
+		powers    = {
+			['+1'] = { duration =  20, },
+			['+2'] = { duration =  50, },
+			['+3'] = { duration = 100, },
+		},
+		description =
+			S('Sacred drink, crafted from the dew of Telperion and Laurelin,')..'\n'..
+			S('    grants ability to hold their breath.')..'\n'..
+			S('Legends say it was first gifted to the Elves by Ulmo, the Lord of Waters.')
+	},
+	{
+		item_name = 'lord_potions:morgoth_breath', title = S('Breath of Morgoth'), color = '#222',
+		effect = lord_effects.SUFFOCATION,
+		is_periodical = true,
+		powers    = {
+			['-1'] = { amount = -1, duration =  20, },
+			['-2'] = { amount = -2, duration =  50, },
+			['-3'] = { amount = -3, duration = 100, },
+		},
+		description =
+			S('A dangerous potion that blocks breathing and causes suffocation,')..'\n'..
+			S('    as if darkness is consuming you from within.')
 	},
 }
 

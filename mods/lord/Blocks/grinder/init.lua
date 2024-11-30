@@ -1,5 +1,5 @@
 
 
 minetest.mod(function(mod)
-	require('grinder').init()
+	require('grinder').init(mod)
 end)
