@@ -32,7 +32,10 @@ end
 --- @param is_periodical boolean whether effect has action every second or not.
 --- @param power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
 --- @param groups        table  additional or overwrite groups for item definition groups.
-local function register_potion(name_prefix, title, description, color, effect, is_periodical, power, level, groups)
+--- @param recipe        {input:string[],time:number|nil}  default time: 120.
+local function register_potion(
+	name_prefix, title, description, color, effect, is_periodical, power, level, groups, recipe
+)
 	local power_abs = math.abs(level)
 	local item_name = name_prefix .. '_' .. power_abs
 	local sub_name  = item_name:split(':')[2]
@@ -71,6 +74,42 @@ local function register_potion(name_prefix, title, description, color, effect, i
 
 	potions.all_items[item_name]  = minetest.registered_nodes[item_name]
 	potions.lord_items[item_name] = minetest.registered_nodes[item_name]
+
+	if not recipe then
+		return
+	end
+
+	local craft = {
+		method = minetest.CraftMethod.POTION,
+		type   = 'cooking',
+		input  = { recipe.input },
+		output = item_name,
+		time   = recipe.time or 120,
+	}
+
+	minetest.register_craft(craft)
+end
+
+
+--- @param group_item_name string                            items names prefix of group
+--- @param level           string                            level of potion power (`"+1"`, `"+2"`,.. `"-1"`, `"-2"`,..)
+--- @param crafting        lord_potions.PotionGroup.Crafting crafting ingredients & times of group of potions.
+--- @return {input:string[],output:string,time:number|nil}
+local function get_recipe_for(group_item_name, level, crafting)
+	level = math.abs(tonumber(level))
+
+	--- @type {input:string[],output:string,time:number|nil}
+	local recipe = {
+		input  = {
+			-- we crafts each next-level potion from prev-level potion, and first one from `base`
+			[1] = level == 1 and crafting.ingredients.base or (group_item_name .. '_' .. (level-1)),
+			[2] = crafting.ingredients.mixin,
+		},
+		output = group_item_name .. '_' .. level,
+		time   = crafting.times[level] or 120,
+	}
+
+	return recipe
 end
 
 --- @param group lord_potions.PotionGroup
@@ -84,7 +123,9 @@ local function register_potion_group(group)
 			group.effect,
 			group.is_periodical,
 			power,
-			level
+			level,
+			nil,
+			get_recipe_for(group.item_name, level, group.crafting)
 		)
 	end
 end
