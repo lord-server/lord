@@ -4,8 +4,8 @@
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
-local assert, pairs, ipairs, next, table_copy, table_insert, math_min, typeof
-    = assert, pairs, ipairs, next, table.copy, table.insert, math.min, type
+local assert, pairs, ipairs, table_copy, table_insert, math_min, typeof
+    = assert, pairs, ipairs, table.copy, table.insert, math.min, type
 
 
 
@@ -149,7 +149,7 @@ local function validate_recipe_for_custom_method(recipe)
 	assert(not recipe.shapeless, 'sorry, only shaped grid currently supported for custom methods')
 
 	assert(
-		next(recipe.input) == 1 and next(recipe.input[1]) == 1,
+		typeof(recipe.input) == 'table' and typeof(recipe.input[1]) == 'table',
 		'`recipe.input` must of type `string`, or `string[], or `string[][]'
 	)
 	local any_not_empty = false
@@ -184,8 +184,8 @@ function minetest.register_craft(recipe)
 	recipe.input     = recipe.input or recipe.recipe
 	recipe.recipe    = nil
 
-	if typeof(recipe.input) == 'string' then recipe.input = { { recipe.input } } end
-	if next(recipe.input[1]) ~= 1       then recipe.input =   { recipe.input }   end
+	if typeof(recipe.input) == 'string'   then recipe.input = { { recipe.input } } end
+	if typeof(recipe.input[1]) ~= 'table' then recipe.input =   { recipe.input }   end
 	validate_recipe_for_custom_method(recipe)
 
 	recipe.input = shift_top_left(recipe.input)
