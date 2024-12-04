@@ -333,8 +333,7 @@ local bookshelf_formspec =
 	"list[current_player;main;0,5;8,4;]" ..
 	"listring[context;books]" ..
 	"listring[current_player;main]" ..
-	"background[-0.5,-0.65;9,10.35;gui_chestbg.png]" ..
-"listcolors[#606060AA;#888;#141318;#30434C;#FFF]"
+	"background[-0.5,-0.65;9,10.35;gui_chestbg.png]"
 
 -- Функция использовалась для другого, но я ее порезал, при этом
 -- решив оставить функцией, а не распихивать по коллбэкам

@@ -42,7 +42,6 @@ return {
 				'listring[current_player;main]' ..
 				'listring[current_name;dst]' ..
 				'listring[current_player;main]' ..
-				'background[-0.5,-0.65;9,10.35;gui_grinderbg.png]' ..
-				'listcolors[#606060AA;#888;#141318;#30434C;#FFF]'
+				'background[-0.5,-0.65;9,10.35;gui_grinderbg.png]'
 	end
 }

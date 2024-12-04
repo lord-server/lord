@@ -11,8 +11,7 @@ local bones_formspec =
 	"list[current_player;main;0,5.2;8,4;]"..
 	"listring[current_name;main]"..
 	"listring[current_player;main]"..
-	"background[-0.5,-0.65;9,10.35;gui_bonesbg.png]"..
-	"listcolors[#0002;#0004;#141318;#30434C;#FFF]"
+	"background[-0.5,-0.65;9,10.35;gui_bonesbg.png]"
 
 local function is_owner(pos, name)
 	local owner = minetest.get_meta(pos):get_string("owner")
