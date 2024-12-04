@@ -27,7 +27,7 @@ read_globals      = {
 		"copy", "indexof", "insert_all", "key_value_swap",
 		-- our Core/helpers:
 		-- table:
-		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of",
+		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of", "count",
 		"keys", "except", "keys_has_one_of_values",
         "equals", "multiply_each_value", "apply_function_to_every_value"
 	} },
