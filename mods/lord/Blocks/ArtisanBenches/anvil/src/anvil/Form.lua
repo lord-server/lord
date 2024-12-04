@@ -1,4 +1,4 @@
-local Inventory = require("artisan_benches.anvil.Form.Inventory")
+local Inventory = require('anvil.Form.Inventory')
 
 
 --- @class artisan_benches.anvil.Form: base_classes.Form.Base
@@ -7,7 +7,7 @@ local Inventory = require("artisan_benches.anvil.Form.Inventory")
 local Form = base_classes.Form:personal():for_node():with_detached(Inventory):extended({
 	--- @const
 	--- @type string
-	NAME = "lord_artisan_benches:anvil",
+	NAME = 'anvil:anvil',
 })
 
 --- @private

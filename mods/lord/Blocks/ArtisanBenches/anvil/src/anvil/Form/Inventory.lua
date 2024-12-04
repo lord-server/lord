@@ -1,4 +1,4 @@
-local InventoryCallbacks = require("artisan_benches.anvil.Form.InventoryCallbacks")
+local InventoryCallbacks = require('anvil.Form.InventoryCallbacks')
 
 
 --- @class anvil.Form.Inventory: base_classes.DetachedInventory
