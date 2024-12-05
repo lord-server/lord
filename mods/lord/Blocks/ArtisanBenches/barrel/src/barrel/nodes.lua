@@ -1,5 +1,5 @@
-local Form     = require('artisan_benches.barrel.nodes.Form')
-local geometry = require('artisan_benches.barrel.nodes.geometry')
+local Form     = require('barrel.nodes.Form')
+local geometry = require('barrel.nodes.geometry')
 local S        = minetest.get_mod_translator()
 
 
@@ -37,13 +37,13 @@ fuel_device.register(
 	minetest.CraftMethod.BARREL,
 	{
 		inactive = {
-			node_name  = ':lottpotion:brewer',
+			node_name  = 'barrel:barrel',
 			definition = table.merge(common_node_definition, {}),
 		},
 		active = {
-			node_name  = ':lottpotion:brewer_active',
+			node_name  = 'barrel:barrel_active',
 			definition = table.merge(common_node_definition, {
-				drop   = 'lottpotion:brewer',
+				drop   = 'barrel:barrel',
 				groups = { not_in_creative_inventory = 1 },
 			}),
 		}

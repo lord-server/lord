@@ -5,9 +5,5 @@ Fuel:=Топливо:
 Ingredients:=Ингредиенты:
 Result:=Результат:
 
-
-### Barrel ###
-Barrel=Бочка
-
 ### Laboratory ###
 Laboratory=Лаборатория
