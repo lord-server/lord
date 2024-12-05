@@ -99,4 +99,4 @@
 	url = https://github.com/Minetest-j45/j_mute
 [submodule "mods/_various/beerchat"]
 	path = mods/_various/beerchat
-	url = https://github.com/lord-papirus/beerchat.git
+	url = https://github.com/lord-papirus/beerchat
