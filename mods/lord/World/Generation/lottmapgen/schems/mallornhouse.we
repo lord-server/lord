@@ -1608,7 +1608,7 @@ return {
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 41, ["param1"] = 0, ["z"] = 7, ["name"] = "lottmapgen:elfloth_chest_spawner" },
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 41, ["param1"] = 0, ["z"] = 8, ["name"] = "lord_trees:mallorn_tree" },
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 41, ["param1"] = 0, ["z"] = 9, ["name"] = "lord_trees:mallorn_tree" },
-{["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 2, ["y"] = 41, ["param1"] = 0, ["z"] = 10, ["name"] = "lord_artisan_benches:cauldron_3_3" },
+{["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 2, ["y"] = 41, ["param1"] = 0, ["z"] = 10, ["name"] = "cauldron:cauldron_3_3" },
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 41, ["param1"] = 170, ["z"] = 11, ["name"] = "lottother:air" },
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 41, ["param1"] = 153, ["z"] = 12, ["name"] = "default:fence_wood" },
 {["x"] = 9, ["meta"] = { ["fields"] = {}, ["inventory"] = {} }, ["param2"] = 0, ["y"] = 42, ["param1"] = 170, ["z"] = 5, ["name"] = "lottother:air" },
