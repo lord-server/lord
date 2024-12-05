@@ -14,7 +14,7 @@ local id_bookshelf           = id("default:bookshelf")
 local id_fence               = id("default:fence_wood")
 local id_hatch               = id("lord_wooden_stuff:hatch_alder")
 local id_chair               = id("lord_wooden_stuff:chair_alder")
-local id_brewer_barrel       = id("lottpotion:brewer")
+local id_barrel              = id("barrel:barrel")
 local id_torch               = id("default:torch_wall")
 
 --- @param data table     map data taken from `VoxelManip:get_data()`
@@ -134,7 +134,7 @@ function Interior:place_south_wall_barrels(wall, corner)
 
 	for i = 1, #barrels_pos do
 		if is_air(self.data, self.area, barrels_pos[i]) then
-			self.data[self.area:indexp(barrels_pos[i])] = id_brewer_barrel
+			self.data[self.area:indexp(barrels_pos[i])] = id_barrel
 		end
 	end
 end

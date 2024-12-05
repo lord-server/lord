@@ -35,8 +35,8 @@ minetest.register_craft({
 minetest.register_craft({
 	type         = "shapeless",
 	output       = "lord_books:brewing_book",
-	recipe       = { 'lottpotion:brewer', 'lord_books:cooking_book' },
-	replacements = { { "lottpotion:brewer", "lottpotion:brewer" } }
+	recipe       = { 'barrel:barrel', 'lord_books:cooking_book' },
+	replacements = { { "barrel:barrel", "barrel:barrel" } }
 })
 
 minetest.register_craft({
