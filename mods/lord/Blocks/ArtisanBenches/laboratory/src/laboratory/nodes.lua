@@ -1,4 +1,4 @@
-local Form = require('artisan_benches.laboratory.nodes.Form')
+local Form = require('laboratory.nodes.Form')
 local S    = minetest.get_mod_translator()
 
 
@@ -22,17 +22,17 @@ fuel_device.register(
 	minetest.CraftMethod.POTION,
 	{
 		inactive = {
-			node_name  = ':lottpotion:potion_brewer',
+			node_name  = 'laboratory:laboratory',
 			definition = table.merge(common_node_definition, {
 				tiles = { "benches_laboratory.png" },
 			}),
 		},
 		active   = {
-			node_name  = ':lottpotion:potion_brewer_active',
+			node_name  = 'laboratory:laboratory_active',
 			definition = table.merge(common_node_definition, {
 				tiles        = { "benches_laboratory_active.png" },
 				light_source = 8,
-				drop         = "lottpotion:potion_brewer",
+				drop         = "laboratory:laboratory",
 				groups       = { not_in_creative_inventory = 1 },
 			}),
 		}
