@@ -15,10 +15,8 @@ local HEADER2_SIZE = '+5'
 local HEADER3_SIZE = '+3'
 
 
---- @class forms.Spec
-local Spec = {}
-
-Spec.label = spec.label
+--- @class forms.Spec: minetest.FormSpec
+local Spec = setmetatable({}, { __index = spec })
 
 --- @see forms.DefaultStyle
 --- @param element_name string name of element type (`label`, ...). Valid: one of `forms.DefaultStyle.<name>`

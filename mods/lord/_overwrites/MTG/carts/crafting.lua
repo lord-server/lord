@@ -45,7 +45,7 @@ minetest.register_craft({
 	output = "carts:steam_mechanism",
 	recipe = {
 		{"default:steel_ingot", "group:stick", "default:steel_ingot"},
-		{"carts:gear", "lord_artisan_benches:cauldron_3_3", "default:torch"},
+		{"carts:gear", "cauldron:cauldron_3_3", "default:torch"},
 		{"default:steel_ingot", "default:coalblock", "default:steel_ingot"},
 	}
 })

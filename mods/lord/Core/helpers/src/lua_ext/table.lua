@@ -244,3 +244,13 @@ function table.apply_function_to_every_value(t, func)
 	end
 	return result
 end
+
+--- Use `#table` for numeric
+function table.count(table)
+	local count = 0
+	for _, _ in pairs(table) do
+		count = count + 1
+	end
+
+	return count
+end

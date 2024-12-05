@@ -17,7 +17,7 @@ minetest.override_item('vessels:glass_bottle', {
 	end
 })
 
-local glass_bottle_water_texture = 'vessels_glass_bottle.png^lottpotion_water.png'
+local glass_bottle_water_texture = 'lord_vessels_bottle_closed.png^lord_vessels_water.png'
 minetest.register_node('lord_vessels:glass_bottle_water', {
 	description     = S('Glass Bottle (Water)'),
 	drawtype        = 'plantlike',

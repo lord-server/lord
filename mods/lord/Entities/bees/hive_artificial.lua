@@ -12,7 +12,6 @@ local S = minetest.get_mod_translator()
       'list[nodemeta:'..spos..';queen;3.5,1;1,1;]'..
       'list[nodemeta:'..spos..';frames;0,3;8,1;]'..
       'list[current_player;main;0,5;8,4;]'..
-      'listcolors[#e5a73588;#f2d39a88;#201408]'..
       'listring[nodemeta:'..spos..';frames]'..
       'listring[current_player;main]'
     return formspec

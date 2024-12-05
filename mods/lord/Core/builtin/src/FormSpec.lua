@@ -562,7 +562,7 @@ function FormSpec.image_button(X,Y,W,H,texture_name,name,label,noclip,drawborder
 	return 'image_button['..
 		X..','..Y..';' ..W..','..H..';'..
 		texture_name..';'..name..';'..optional(e(label))..
-		optional(noclip)..optional(drawborder)..optional(pressed_texture_name)..
+		optional(bool_str(noclip))..optional(bool_str(drawborder))..optional(pressed_texture_name)..
 	']'
 end
 
@@ -574,7 +574,7 @@ end
 ---
 --- @return string
 function FormSpec.item_image_button(X,Y,W,H,item_name,name,label)
-	return 'item_image_button['..X..','..Y..';' ..W..','..H..';'..item_name..';'..name..optional(e(label))..']'
+	return 'item_image_button['..X..','..Y..';' ..W..','..H..';'..item_name..';'..name..';'..e(label)..']'
 end
 
 ---

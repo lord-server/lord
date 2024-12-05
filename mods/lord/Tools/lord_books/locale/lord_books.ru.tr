@@ -1,4 +1,7 @@
 # textdomain: lord_books
+
+Book "@1"=Книга "@1"
+
 ### zcg.lua ###
 Book of Crafts=Книга@n"Основы крафта"
 
@@ -12,7 +15,7 @@ Book of Forbidden Crafts=Книга@n"Улучшенный крафт"
 Book of Protection=Книга@n"Крафт доспехов"
 
 ### potions.lua ###
-Book of Potions=Книга@n"Приготовление зелий"
+Crafting of Potions=Приготовление зелий
 
 Base Potions:=Базовые зелья:
 Base Potions Of Negative:=Базовые зелья негатива:

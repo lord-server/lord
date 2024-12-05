@@ -17,7 +17,6 @@ local S = minetest.get_mod_translator()
     local formspec =
       'size[8,9]'..
         'background[0,0;0.1,0.1;bees_extractor_background.png;true]'..
-        'listcolors[#b3835288;#cfb29388;#201408]'..
         --input
         'image[1,1;1,1;bees_frame_full.png]'..
         'image[1,3;1,1;vessels_glass_bottle.png]'..

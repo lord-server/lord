@@ -4,8 +4,8 @@
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
-local assert, pairs, ipairs, next, table_copy, table_insert, math_min, typeof
-    = assert, pairs, ipairs, next, table.copy, table.insert, math.min, type
+local assert, pairs, ipairs, table_copy, table_insert, math_min, typeof
+    = assert, pairs, ipairs, table.copy, table.insert, math.min, type
 
 
 
@@ -149,7 +149,7 @@ local function validate_recipe_for_custom_method(recipe)
 	assert(not recipe.shapeless, 'sorry, only shaped grid currently supported for custom methods')
 
 	assert(
-		next(recipe.input) == 1 and next(recipe.input[1]) == 1,
+		typeof(recipe.input) == 'table' and typeof(recipe.input[1]) == 'table',
 		'`recipe.input` must of type `string`, or `string[], or `string[][]'
 	)
 	local any_not_empty = false
@@ -184,8 +184,8 @@ function minetest.register_craft(recipe)
 	recipe.input     = recipe.input or recipe.recipe
 	recipe.recipe    = nil
 
-	if typeof(recipe.input) == 'string' then recipe.input = { { recipe.input } } end
-	if next(recipe.input[1]) ~= 1       then recipe.input =   { recipe.input }   end
+	if typeof(recipe.input) == 'string'   then recipe.input = { { recipe.input } } end
+	if typeof(recipe.input[1]) ~= 'table' then recipe.input =   { recipe.input }   end
 	validate_recipe_for_custom_method(recipe)
 
 	recipe.input = shift_top_left(recipe.input)
@@ -341,6 +341,38 @@ function minetest.get_craft_result(input)
 	return output, input
 end
 
--- to-do
---function minetest.get_craft_recipe(output)
---end
+
+--- @param output string
+--- @return minetest.CraftRecipe|nil
+local function find_craft_recipe(output)
+	for method, method_recipes in pairs(method_registered_recipes) do
+		for type, type_recipes in pairs(method_recipes) do
+			for recipe_item_name, recipes in pairs(type_recipes) do
+				if recipe_item_name == output then
+					return recipes[1]
+				end
+			end
+		end
+	end
+end
+
+local mt_get_craft_recipe = minetest.get_craft_recipe
+--- @param output string
+--- @return RecipeInput|minetest.CraftRecipe|nil
+function minetest.get_craft_recipe(output, method, type)
+	method = method or minetest.CraftMethod.DEFAULT
+	type   = type   or minetest.CraftType.NORMAL
+
+	if method == minetest.CraftMethod.DEFAULT then
+		local found = mt_get_craft_recipe(output)
+		if found then
+			return found
+		end
+
+		return find_craft_recipe(output)
+	end
+
+	local r = method_registered_recipes
+
+	return r[method] and r[method][type] and r[method][type][output] and r[method][type][output][1]
+end

@@ -1,8 +1,8 @@
 
 local cauldron_changes = {
-	['lord_artisan_benches:cauldron_3_3'] = 'lord_artisan_benches:cauldron_2_3',
-	['lord_artisan_benches:cauldron_2_3'] = 'lord_artisan_benches:cauldron_1_3',
-	['lord_artisan_benches:cauldron_1_3'] = 'lord_artisan_benches:cauldron_0_3',
+	['cauldron:cauldron_3_3'] = 'cauldron:cauldron_2_3',
+	['cauldron:cauldron_2_3'] = 'cauldron:cauldron_1_3',
+	['cauldron:cauldron_1_3'] = 'cauldron:cauldron_0_3',
 }
 
 --- @param pos       Position
