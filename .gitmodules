@@ -97,3 +97,6 @@
 [submodule "mods/_various/j_mute"]
 	path = mods/_various/j_mute
 	url = https://github.com/Minetest-j45/j_mute
+[submodule "mods/_various/beerchat"]
+	path = mods/_various/beerchat
+	url = https://github.com/lord-papirus/beerchat.git
