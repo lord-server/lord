@@ -98,8 +98,8 @@ end
 
 minetest.register_tool("lottfarming:bacteria_fertiliser", {
 	description = S("Bacteria Fertiliser"),
-	tiles = {"vessels_glass_bottle.png^lottfarming_bacteria_fertiliser.png"},
-	inventory_image = "vessels_glass_bottle.png^lottfarming_bacteria_fertiliser.png",
+	tiles = {"lord_vessels_bottle_closed.png^lottfarming_bacteria_fertiliser.png"},
+	inventory_image = "lord_vessels_bottle_closed.png^lottfarming_bacteria_fertiliser.png",
 	on_use = function(itemstack, user, pointed_thing)
 		if decaying_wood(pointed_thing.under) or growgen(pointed_thing.under) then
 			itemstack:add_wear(65535/20)
