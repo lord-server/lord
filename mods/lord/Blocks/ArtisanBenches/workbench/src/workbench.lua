@@ -4,9 +4,6 @@
 local S = minetest.get_mod_translator()
 
 
-minetest.register_alias('castle:workbench', 'lord_artisan_benches:workbench')
-
-
 local get_recipe = function(inv)
 	local result, needed, input
 	needed          = inv:get_list('rec')
@@ -73,9 +70,9 @@ local workbench_formspec = 'size[8,9;]' ..
 
 
 minetest.register_lbm({
-	label = "workbench formspec replacement",
-	name = ":castle:workbench_formspec_replacement",
-	nodenames = {"lord_artisan_benches:workbench"},
+	label = 'workbench formspec replacement',
+	name = ':castle:workbench_formspec_replacement',
+	nodenames = {'workbench:workbench'},
 	run_at_every_load = true,
 	action = function(pos, node)
 		local meta = minetest.get_meta(pos)
@@ -83,21 +80,13 @@ minetest.register_lbm({
 	end
 })
 
-minetest.register_node("lord_artisan_benches:workbench", {
-	description                   = S("Workbench"),
-	drawtype                      = "mesh",
-	mesh = "workbench.obj",
-	tiles = { "benches_workbench.png" },
-	--tiles                         = {
-	--	"benches_workbench_top.png",
-	--	"default_wood.png",
-	--	"benches_workbench_1.png",
-	--	"benches_workbench_1.png",
-	--	"benches_workbench_2.png",
-	--	"benches_workbench_2.png"
-	--},
-	paramtype2                    = "facedir",
-	paramtype                     = "light",
+minetest.register_node('workbench:workbench', {
+	description                   = S('Workbench'),
+	drawtype                      = 'mesh',
+	mesh                          = 'workbench.obj',
+	tiles                         = { 'benches_workbench.png' },
+	paramtype2                    = 'facedir',
+	paramtype                     = 'light',
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wooden = 1 },
 	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
@@ -112,48 +101,42 @@ minetest.register_node("lord_artisan_benches:workbench", {
 	can_dig                       = function(pos, player)
 		local meta = minetest.get_meta(pos);
 		local inv  = meta:get_inventory()
-		return inv:is_empty("src") and inv:is_empty("dst") and inv:is_empty("rec")
+		return inv:is_empty('src') and inv:is_empty('dst') and inv:is_empty('rec')
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log("action", player:get_player_name() ..
-				" attempt moves stuff in workbench at " .. minetest.pos_to_string(pos))
+			minetest.log('action', player:get_player_name() ..
+				' attempt moves stuff in workbench at ' .. minetest.pos_to_string(pos))
 			return 0
 		end
-		minetest.log("action", player:get_player_name() ..
-			" moves stuff in workbench at " .. minetest.pos_to_string(pos))
+		minetest.log('action', player:get_player_name() ..
+			' moves stuff in workbench at ' .. minetest.pos_to_string(pos))
 		return count
 	end,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log("action", player:get_player_name() ..
-				" attempt moves stuff to workbench at " .. minetest.pos_to_string(pos))
+			minetest.log('action', player:get_player_name() ..
+				' attempt moves stuff to workbench at ' .. minetest.pos_to_string(pos))
 			return 0
 		end
-		minetest.log("action", player:get_player_name() ..
-			" moves stuff to workbench at " .. minetest.pos_to_string(pos))
+		minetest.log('action', player:get_player_name() ..
+			' moves stuff to workbench at ' .. minetest.pos_to_string(pos))
 		return stack:get_count()
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log("action", player:get_player_name() ..
-				" attempt takes stuff from workbench at " .. minetest.pos_to_string(pos))
+			minetest.log('action', player:get_player_name() ..
+				' attempt takes stuff from workbench at ' .. minetest.pos_to_string(pos))
 			return 0
 		end
-		minetest.log("action", player:get_player_name() ..
-			" takes stuff from workbench at " .. minetest.pos_to_string(pos))
+		minetest.log('action', player:get_player_name() ..
+			' takes stuff from workbench at ' .. minetest.pos_to_string(pos))
 		return stack:get_count()
 	end,
-	-- allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-	-- end,
-	-- allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-	-- end,
-	-- allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-	-- end,
 })
 
 minetest.register_abm({
-	nodenames = { 'lord_artisan_benches:workbench' },
+	nodenames = { 'workbench:workbench' },
 	interval  = 5,
 	chance    = 1,
 	action    = function(pos, node)
@@ -179,10 +162,18 @@ minetest.register_abm({
 })
 
 minetest.register_craft({
-	output = "lord_artisan_benches:workbench",
+	output = 'workbench:workbench',
 	recipe = {
-		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },
-		{ "default:wood", "default:wood", "default:steel_ingot" },
-		{ "default:tree", "default:tree", "default:steel_ingot" },
+		{ 'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot' },
+		{ 'default:wood', 'default:wood', 'default:steel_ingot' },
+		{ 'default:tree', 'default:tree', 'default:steel_ingot' },
 	}
 })
+
+
+return {
+	--- @param mod minetest.Mod
+	init = function(mod)
+		-- all things done upper
+	end,
+}
