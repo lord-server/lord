@@ -231,17 +231,21 @@ function table.multiply_each_value(table, multiplier_table)
 	return result
 end
 
----	Runs the input function for each table entry with the entry value as the argument.
---- Whatever the input function returns will be set instead of the value.
---- Non-recurcive, doesn't modify the input table.
---- @param t     table
---- @param func  function
+--- Iterates through the `t` table and passes each value and key to the given `callback`.
+--- Value returned by the `callback` will be set instead of the value of `t` with same key.
+--- Non-recurcive.
+--- @generic T: table
+--- @param t         table|T                    A table to walk through.
+--- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
+--- @param overwrite boolean                    Whether to overwrite the `t` table (default: false)
 --- @return table
-function table.apply_function_to_every_value(t, func)
-	local result = table.copy(t)
-	for k, v in pairs(t) do
-		result[k] = func(v)
+function table.map(t, callback, overwrite)
+	overwrite = overwrite or false
+	local result = overwrite and t or table_copy(t)
+	for key, value in pairs(t) do
+		result[key] = callback(value, key)
 	end
+
 	return result
 end
 

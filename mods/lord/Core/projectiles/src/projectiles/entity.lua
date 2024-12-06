@@ -31,14 +31,12 @@ local function punch_target(projectile, target, damage_groups, remove_after_punc
 
 	local multiplied = table.multiply_each_value(damage_groups, multipliers)
 
-	local function do_ceil_if_number(v)
-		if type(v) ~= "number" then
-			return v
+	local new_damage_groups = table.map(multiplied, function(value)
+		if type(value) ~= "number" then
+			return value
 		end
-		return math.ceil(v)
-	end
-	local new_damage_groups = table.apply_function_to_every_value(multiplied, do_ceil_if_number)
-	minetest.chat_send_all(dump(new_damage_groups))
+		return math.ceil(value)
+	end)
 	target:punch(projectile.object, 10, {
 		full_punch_interval = 0.0,
 		damage_groups       = new_damage_groups,
@@ -79,7 +77,6 @@ end
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
 		local speed = (vector.length(velocity)/GRAVITY)^(1/2)
-		minetest.chat_send_all("Speed: "..speed)
 		punch_target(projectile, target, damage_groups, true, { fleshy = speed })
 	end
 	-- Hit player
@@ -99,12 +96,6 @@ local function hit_handling(projectile, target, damage_groups, velocity)
 		end
 	end
 end
-
-core.register_on_player_hpchange(function(player, hp_change, reason)
-	if hp_change >= 0 then return hp_change end
-	minetest.chat_send_all("HP change: "..hp_change)
-	return hp_change
-end, true)
 
 -- Collision handling
 --- @param projectile    LuaEntity  projectile entity
@@ -211,7 +202,6 @@ local register_projectile_entity = function(name, item, reg)
 				environment = "water"
 			end
 
-			--print(dump(pos))
 			core.emerge_area(vector.subtract(pos, 8), vector.add(pos, 8))
 
 			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
