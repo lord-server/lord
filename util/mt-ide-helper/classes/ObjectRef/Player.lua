@@ -119,6 +119,16 @@ function Player:get_player_control() end
 ---        * 8 - place
 ---        * 9 - zoom
 ---    * Returns `0` (no bits set) if the object is not a player.
+
+--- @class physics_override_table
+--- @field speed        number multiplier to default walking speed value (default: `1`)
+--- @field jump         number multiplier to default jump value (default: `1`)
+--- @field gravity      number multiplier to default gravity value (default: `1`)
+--- @field sneak        number whether player can sneak (default: `true`)
+--- @field sneak_glitch number whether player can use the new move code replications of the old sneak side-effects: sneak ladders and 2 node sneak jump (default: `false`)
+--- @field new_move     number use new move/sneak code. When `false` the exact old code is used for the specific old sneak behavior (default: `true`)
+
+--- @return physics_override_table
 function Player:get_player_control_bits() end
 ---    * `override_table` is a table with the following fields:
 ---        * `speed`: multiplier to default walking speed value (default: `1`)
@@ -130,6 +140,7 @@ function Player:get_player_control_bits() end
 ---          (default: `false`)
 ---        * `new_move`: use new move/sneak code. When `false` the exact old code
 ---          is used for the specific old sneak behavior (default: `true`)
+--- @param override_table physics_override_table
 function Player:set_physics_override(override_table) end
 --- returns the table given to `set_physics_override`
 function Player:get_physics_override() end
