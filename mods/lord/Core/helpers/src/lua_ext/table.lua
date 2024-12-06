@@ -249,6 +249,87 @@ function table.map(t, callback, overwrite)
 	return result
 end
 
+--- Iterates through the `t` table and passes each value and key to the given `callback`.
+--- @generic T: table
+--- @param t         table|T                    A table to walk through.
+--- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
+function table.walk(t, callback)
+	for key, value in pairs(t) do
+		callback()
+	end
+end
+
+table.each = table.walk
+
+--- Adds values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- @generic T: table
+--- @param table1      table   Table to the values of which the values from `table2` will be added.
+--- @param table2      table   Table to iterate and add values to `table1`
+--- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `0`
+--- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+function table.add_values(table1, table2, empty_value, overwrite)
+	empty_value = empty_value or 0
+	overwrite = overwrite or false
+	local result = overwrite and table1 or table_copy(table1)
+	for key, value in pairs(table2) do
+		result[key] = (table1[key] or empty_value) + value
+	end
+
+	return result
+end
+
+--- Subtract values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- @generic T: table
+--- @param table1      table   Table to the values of which the values from `table2` will be added.
+--- @param table2      table   Table to iterate and add values to `table1`
+--- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `0`
+--- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+function table.sub_values(table1, table2, empty_value, overwrite)
+	empty_value = empty_value or 0
+	overwrite = overwrite or false
+	local result = overwrite and table1 or table_copy(table1)
+	for key, value in pairs(table2) do
+		result[key] = (table1[key] or empty_value) - value
+	end
+
+	return result
+end
+
+--- Adds values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- @generic T: table
+--- @param table1      table   Table to the values of which the values from `table2` will be added.
+--- @param table2      table   Table to iterate and add values to `table1`
+--- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
+--- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+function table.mul_values(table1, table2, empty_value, overwrite)
+	empty_value = empty_value or 1
+	overwrite = overwrite or false
+	local result = overwrite and table1 or table_copy(table1)
+	for key, value in pairs(table2) do
+		result[key] = (table1[key] or empty_value) * value
+	end
+
+	return result
+end
+
+--- Adds values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- Please sure that there is no zeroes in `table2`
+--- @generic T: table
+--- @param table1      table   Table to the values of which the values from `table2` will be added.
+--- @param table2      table   Table to iterate and add values to `table1`
+--- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
+--- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+function table.div_values(table1, table2, empty_value, overwrite, nil_on_zero)
+	empty_value = empty_value or 1
+	overwrite   = overwrite or false
+	local result = overwrite and table1 or table_copy(table1)
+	for key, value in pairs(table2) do
+		result[key] = (table1[key] or empty_value) / value
+	end
+
+	return result
+end
+
 --- Use `#table` for numeric
 function table.count(table)
 	local count = 0
