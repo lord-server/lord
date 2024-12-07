@@ -6,6 +6,7 @@ local colorize = minetest.colorize
 --- @field name          string                   one of registered `lord_effects.<CONST>` names.
 --- @field is_periodical boolean                  whether effect has action every second or not.
 --- @field power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
+--- @field group         string                   name of effect group.
 
 local potions = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
@@ -27,11 +28,9 @@ end
 --- @param title         string
 --- @param description   string
 --- @param color         string
---- @param effect        string
---- @param is_periodical boolean
---- @param power         lord_potions.PotionPower
+--- @param effect        lord_potions.PotionEffect
 --- @param groups        table
-local function register_potion_node(item_name, title, description, color, effect, is_periodical, power, level, groups)
+local function register_potion_node(item_name, title, description, color, effect, level, groups)
 	local power_abs = math.abs(level)
 	local sub_name  = item_name:split(':')[2]
 	title           = title and title:first_to_upper() or sub_name:first_to_upper()
@@ -62,9 +61,9 @@ local function register_potion_node(item_name, title, description, color, effect
 		drawtype        = 'plantlike',
 		paramtype       = 'light',
 		on_use          = function(itemstack, user, pointed_thing)
-			effects.for_player(user):apply(effect, power.amount, power.duration)
+			effects.for_player(user):apply(effect.name, effect.power.amount, effect.power.duration)
 		end,
-		_effect         = { name = effect, is_periodical = is_periodical, power = power, },
+		_effect         = effect,
 	})
 end
 
@@ -91,18 +90,14 @@ end
 --- @param title         string  prefix to description of item or will extracted from `item_name` ("Potion:"..`title`).
 --- @param description   string  some words you want to displayed in tooltip before properties of power.
 --- @param color         string  color of potion liquid (bottle contents).
---- @param effect        string  one of registered `lord_effects.<CONST>` names.
---- @param is_periodical boolean whether effect has action every second or not.
---- @param power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
+--- @param effect        lord_potions.PotionEffect  one of registered `lord_effects.<CONST>` names.
 --- @param groups        table  additional or overwrite groups for item definition groups.
 --- @param recipe        {input:string[],time:number|nil}  default time: 120.
-local function register_potion(
-	name_prefix, title, description, color, effect, is_periodical, power, level, groups, recipe
-)
+local function register_potion(name_prefix, title, description, color, effect, level, groups, recipe)
 	local power_abs = math.abs(level)
 	local item_name = name_prefix .. '_' .. power_abs
 
-	register_potion_node(item_name, title, description, color, effect, is_periodical, power, level, groups)
+	register_potion_node(item_name, title, description, color, effect, level, groups)
 
 	potions.all_items[item_name]  = minetest.registered_nodes[item_name]
 	potions.lord_items[item_name] = minetest.registered_nodes[item_name]
@@ -141,9 +136,12 @@ local function register_potion_group(group)
 			group.title,
 			group.description,
 			power.color or group.color,
-			group.effect,
-			group.is_periodical,
-			power,
+			{
+				name          = group.effect,
+				is_periodical = group.is_periodical,
+				power         = power,
+				group         = group.item_name,
+			},
 			level,
 			nil,
 			get_recipe_for(group.item_name, level, group.crafting)
