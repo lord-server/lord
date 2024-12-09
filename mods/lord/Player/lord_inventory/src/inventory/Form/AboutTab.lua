@@ -1,6 +1,5 @@
-local S         = minetest.get_mod_translator()
-local spec      = minetest.formspec
-local lord_spec = forms.Spec
+local S    = minetest.get_mod_translator()
+local spec = forms.Spec
 
 
 -- TODO #1709
@@ -65,12 +64,12 @@ local function resource(x, y, res)
 	local icon = 'lord_inventory_icon_'..res.name..'.png'
 
 	return ''
-		.. lord_spec.bold(x, y + .08, description.title, { textcolor = '#fffe' })
+		.. spec.bold(x, y + .08, description.title, { textcolor = '#fffe' })
 		.. (description.sub_title and (
-			lord_spec.small_bold(x + sdx, y + .07, '(' .. description.sub_title .. ')', '#d4d4d4')
+			spec.small_bold(x + sdx, y + .07, '(' .. description.sub_title .. ')', '#d4d4d4')
 		) or '')
-		.. lord_spec.small(x, y + .34, description.desc, { textcolor = '#ddd' })
-		.. lord_spec.icon_button(x + 5.2, y, res.name, icon, res.title, res.url)
+		.. spec.small(x, y + .34, description.desc, { textcolor = '#ddd' })
+		.. spec.icon_button(x + 5.2, y, res.name, icon, res.title, res.url)
 end
 
 --- @param x              number
@@ -103,16 +102,16 @@ end
 --- @return string
 function AboutTab:get_spec()
 	return ''
-		.. lord_spec.title(2.75, 0, 'L.O.R.D. Server')
-		.. lord_spec.label(0.3, 0.5, 'по мотивам легендариума Дж. Толкина ("Властелин Колец", "Хоббит", ...)')
-		.. lord_spec.muted_italic(2.15, 0.9, 'можно копать... можно не копать...')
+		.. spec.title(2.75, 0, 'L.O.R.D. Server')
+		.. spec.label(0.3, 0.5, 'по мотивам легендариума Дж. Толкина ("Властелин Колец", "Хоббит", ...)')
+		.. spec.muted_italic(2.15, 0.9, 'можно копать... можно не копать...')
 
-		.. lord_spec.button(2, 1.4, 2, 1, 'about', S('About.btn'), 'https://lord-server.ru/about')
-		.. lord_spec.button(4, 1.4, 2, 1, 'rules', S('Rules.btn'), 'https://lord-server.ru/rules')
+		.. spec.button(2, 1.4, 2, 1, 'about', S('About.btn'), 'https://lord-server.ru/about')
+		.. spec.button(4, 1.4, 2, 1, 'rules', S('Rules.btn'), 'https://lord-server.ru/rules')
 
 		.. all_resources(.4, 2.6, resources)
 
-		.. lord_spec.bold(2.25, 7.3, 'Поддержать развитие проекта', { textcolor = '#fffd' })
+		.. spec.bold(2.25, 7.3, 'Поддержать развитие проекта', { textcolor = '#fffd' })
 		.. donate_button()
 end
 

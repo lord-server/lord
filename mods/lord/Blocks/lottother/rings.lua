@@ -251,15 +251,15 @@ minetest.register_craft({
 
 local lumps = {
 	-- ["name"] = level,
-	["lottores:limestone_lump"] = 1,
-	["lottores:silver_lump"] = 3,
-	["lottores:tin_lump"] = 1,
-	["lottores:lead_lump"] = 1,
-	["default:coal_lump"] = 2,
-	["default:iron_lump"] = 2,
-	["default:copper_lump"] = 2,
-	["default:gold_lump"] = 3,
-	["lottores:rough_rock_lump"] = 1,
+	["lottores:limestone_lump"]  = 1,
+	["lottores:silver_lump"]     = 5,
+	["lottores:tin_lump"]        = 3,
+	["lottores:lead_lump"]       = 4,
+	["default:coal_lump"]        = 2,
+	["default:iron_lump"]        = 1,
+	["default:copper_lump"]      = 3,
+	["default:gold_lump"]        = 5,
+	["lottores:rough_rock_lump"] = 5,
 }
 
 for i, j in pairs(lumps) do

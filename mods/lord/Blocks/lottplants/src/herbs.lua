@@ -94,7 +94,7 @@ minetest.register_node("lottplants:lorien_grass_4", {
 })
 
 minetest.register_node("lottplants:brambles_of_mordor", {
-	description = S("Brambles Of Mordor"),
+	description = S("Mordor Thorn"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_brambles_of_mordor.png" },
 	inventory_image = "lottplants_brambles_of_mordor.png",

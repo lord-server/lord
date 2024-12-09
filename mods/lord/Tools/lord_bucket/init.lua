@@ -49,7 +49,7 @@ minetest.mod(function(mod)
 	})
 
 	minetest.register_craft({
-		output       = "lottores:salt",
+		output       = "lottores:salt_block",
 		recipe       = { { "bucket:bucket_salt" } },
 		replacements = {
 			{ "bucket:bucket_salt", "bucket:bucket_empty" },

@@ -1,8 +1,7 @@
-local SL        = minetest.get_mod_translator()
-local colorize  = minetest.colorize
-local e         = minetest.formspec.escape
-local spec      = minetest.formspec
-local lord_spec = forms.Spec
+local SL       = minetest.get_mod_translator()
+local colorize = minetest.colorize
+local e        = minetest.formspec.escape
+local spec     = forms.Spec
 
 local text_color = "#000"
 
@@ -95,7 +94,10 @@ minetest.register_node("lord_mail:mail_chest", {
 		local meta = minetest.get_meta(pos)
 		local player = clicker:get_player_name()
 		local owner  = meta:get_string("owner")
-		if owner == player then
+		if
+			owner == player or
+			(minetest.check_player_privs(clicker, "server") and not clicker:get_player_control().aux1)
+		then
 			minetest.show_formspec(
 				clicker:get_player_name(),
 				"lord_mail:mail_chest_output" .. minetest.pos_to_string(pos),
@@ -207,9 +209,9 @@ local function book_on_use(itemstack, user, pointed_thing)
 	if owner == player_name then
 		formspec = formspec
 			.. spec.style({ 'book_title', 'book_text' }, { textcolor = text_color})
-			.. lord_spec.bold(0.2, -0.1, SL('Title'))
+			.. spec.bold(0.2, -0.1, SL('Title'))
 			.. spec.field(0.5, 1, 7.5, 0, 'book_title', '', title)
-			.. lord_spec.bold(0.2, 1.1, SL('Contents'))
+			.. spec.bold(0.2, 1.1, SL('Contents'))
 			.. spec.box(0.2, 1.53, 7.3, 5.9, '#fff4')
 			.. spec.textarea(0.5, 1.5, 7.5, 7, 'book_text', '', text)
 			.. spec.button_exit(4.7, 7.7, 3, 1, 'book_save', SL('Save'))

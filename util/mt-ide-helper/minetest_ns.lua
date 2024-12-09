@@ -911,6 +911,7 @@ function minetest.get_meta(pos) end
 --- * Get `NodeTimerRef`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4905-L4906)
+--- @return NodeTimerRef
 function minetest.get_node_timer(pos) end
 --- Spawn Lua-defined entity at
 ---   position.

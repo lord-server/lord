@@ -61,7 +61,7 @@ minetest.register_node("lottmapgen:blacksource", {
 	inventory_image            = minetest.inventorycube("lottmapgen_black_water.png"),
 	tiles                      = {
 		{
-			name             = "lottmapgen_black_water_source_animated.png",
+			name             = "lottmapgen_black_water_source_animated.png^[opacity:180",
 			backface_culling = false,
 			animation        = {
 				type     = "vertical_frames",
@@ -71,7 +71,7 @@ minetest.register_node("lottmapgen:blacksource", {
 			},
 		},
 		{
-			name             = "lottmapgen_black_water_source_animated.png",
+			name             = "lottmapgen_black_water_source_animated.png^[opacity:180",
 			backface_culling = true,
 			animation        = {
 				type     = "vertical_frames",

@@ -1,7 +1,6 @@
-local S         = minetest.get_mod_translator()
-local spec      = minetest.formspec
-local lord_spec = forms.Spec
-local mod_path  = minetest.get_modpath(minetest.get_current_modname())
+local S        = minetest.get_mod_translator()
+local spec     = forms.Spec
+local mod_path = minetest.get_modpath(minetest.get_current_modname())
 
 
 local supported_lang_codes = { 'en', 'ru' }
@@ -31,13 +30,13 @@ local function guide_on_use(itemstack, user)
 	local formspec = ''
 		.. spec.size(9, 9)
 		.. spec.image(-.2, -.2, 11.5, 10.95, '(lottblocks_palantir_guide_bg.png^[opacity:70)')
-		.. lord_spec.header2(0.9, 0, S('The Eye of the Seer: On Secrets of Palantiri Creation'))
-		.. lord_spec.italic(1.2, 0.4, S('The Book of Feanor, greatest of the Eldar artisans.'))
+		.. spec.header2(0.9, 0, S('The Eye of the Seer: On Secrets of Palantiri Creation'))
+		.. spec.italic(1.2, 0.4, S('The Book of Feanor, greatest of the Eldar artisans.'))
 		.. spec.box(0.625, 0.85, 7.45, 1.155, '#000')
-		.. lord_spec.italic_area_ro(1, 0.9, 8, 1.3, book.about)
+		.. spec.italic_area_ro(1, 0.9, 8, 1.3, book.about)
 		.. spec.box(0.125, 2.2, 8.5, 6.4, '#000')
 		.. spec.textarea(0.5, 2.3, 8.55, 7.3, spec.read_only, '', book.content)
-		.. lord_spec.bold(4, 8.7, S('Feanor, son of Finwë, king of the Noldor'))
+		.. spec.bold(4, 8.7, S('Feanor, son of Finwë, king of the Noldor'))
 
 	minetest.show_formspec(player_name, 'lottother:guide', formspec)
 end

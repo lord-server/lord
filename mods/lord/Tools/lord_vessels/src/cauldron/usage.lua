@@ -1,8 +1,8 @@
 
 local cauldron_changes = {
-	['lottpotion:cauldron_full']           = 'lottpotion:cauldron_two_third_full',
-	['lottpotion:cauldron_two_third_full'] = 'lottpotion:cauldron_one_third_full',
-	['lottpotion:cauldron_one_third_full'] = 'lottpotion:cauldron_empty',
+	['cauldron:cauldron_3_3'] = 'cauldron:cauldron_2_3',
+	['cauldron:cauldron_2_3'] = 'cauldron:cauldron_1_3',
+	['cauldron:cauldron_1_3'] = 'cauldron:cauldron_0_3',
 }
 
 --- @param pos       Position

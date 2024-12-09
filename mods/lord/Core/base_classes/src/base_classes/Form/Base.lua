@@ -78,7 +78,7 @@ end
 --- @public
 function BaseForm:open(...)
 	self.event:trigger(self.event.Type.on_open, self, ...)
-	minetest.show_formspec(self.player_name, self.NAME, self:get_spec())
+	minetest.show_formspec(self.player_name, self.NAME, self:get_spec(...))
 end
 
 --- @public

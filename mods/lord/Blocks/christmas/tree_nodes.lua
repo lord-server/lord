@@ -12,8 +12,7 @@ local function get_formspec(pos)
 		"list[current_player;main;0,6.08;8,3;8]"..
 		"listring[nodemeta:" .. pos_str .. ";main]"..
 		"listring[current_player;main]"..
-		"background[0,0;0.1,0.1;christmas_tree_formspec_background.png;true]"..
-		"listcolors[#69696988;#80808088;#222222]"
+		"background[0,0;0.1,0.1;christmas_tree_formspec_background.png;true]"
 
 	return formspec
 end

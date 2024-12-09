@@ -4,6 +4,11 @@ minetest.register_craftitem("lottfarming:white_mushroom_spore", {
 	description = S("White Mushroom Spores"),
 	inventory_image = "lottfarming_white_mushroom_spore.png",
 	on_place = function(itemstack, placer, pointed_thing)
+		local ptu = pointed_thing.under
+		local nu = minetest.get_node(ptu)
+		if minetest.registered_nodes[nu.name].on_rightclick then
+			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		end
 		return place_spore(itemstack, placer, pointed_thing, "lottfarming:white_mushroom_1", 9)
 	end,
 })

@@ -1,7 +1,8 @@
-damage.Type.FLESHY = 'fleshy'
-damage.Type.FIRE   = 'fire'
-damage.Type.SOUL   = 'soul'
-damage.Type.POISON = 'poison'
+damage.Type.FLESHY      = 'fleshy'
+damage.Type.FIRE        = 'fire'
+damage.Type.SOUL        = 'soul'
+damage.Type.POISON      = 'poison'
+damage.Type.SUFFOCATION = 'suffocation'
 
 
 return {
@@ -10,6 +11,7 @@ return {
 		damage.Type.FIRE,
 		damage.Type.SOUL,
 		damage.Type.POISON,
+		damage.Type.SUFFOCATION,
 	},
 	particles = {
 		[damage.Type.FLESHY] = { amount = 10, time = 0.2 },

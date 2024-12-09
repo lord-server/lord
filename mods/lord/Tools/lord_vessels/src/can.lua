@@ -14,7 +14,7 @@ minetest.override_item('vessels:steel_bottle', {
 	},
 	paramtype         = 'light',
 	paramtype2        = 'facedir',
-	walkable          = false,
+	walkable          = true,
 	groups            = { vessel = 1, cracky = 1, attached_node = 1 },
 	is_ground_content = false,
 })
