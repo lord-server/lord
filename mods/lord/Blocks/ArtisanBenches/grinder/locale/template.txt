@@ -1,0 +1,7 @@
+# textdomain: grinder
+
+Grinder=
+Roll=
+Coal dust=
+
+Grinder is empty=
