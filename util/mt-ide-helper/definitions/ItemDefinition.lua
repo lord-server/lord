@@ -183,7 +183,7 @@ local ItemDefinition = {
     --- Otherwise, the function is free to do what it wants.
     --- The user may be any ObjectRef or nil.
     --- The default functions handle regular use cases.
-    --- @type fun(itemstack:ItemStack, user:Player|ObjectRef|nil, pointed_thing:pointed_thing)
+    --- @type fun(itemstack:ItemStack, user:Player|ObjectRef|nil, pointed_thing:pointed_thing):ItemStack|nil
     on_use = nil,
 
     --- default: nil

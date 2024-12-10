@@ -61,7 +61,9 @@ local function register_potion_node(item_name, title, description, color, effect
 		drawtype        = 'plantlike',
 		paramtype       = 'light',
 		on_use          = function(itemstack, user, pointed_thing)
-			effects.for_player(user):apply(effect.name, effect.power.amount, effect.power.duration)
+			effects.for_player(user):apply(effect.name, effect.power.amount, effect.power.duration, {
+				name = effect.group, description = colorize('#ee8', title)
+			})
 		end,
 		_effect         = effect,
 	})
