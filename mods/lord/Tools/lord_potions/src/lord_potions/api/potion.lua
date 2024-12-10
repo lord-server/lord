@@ -64,6 +64,10 @@ local function register_potion_node(item_name, title, description, color, effect
 			effects.for_player(user):apply(effect.name, effect.power.amount, effect.power.duration, {
 				name = effect.group, description = colorize('#ee8', title)
 			})
+
+			itemstack:take_item()
+
+			return itemstack
 		end,
 		_effect         = effect,
 	})
