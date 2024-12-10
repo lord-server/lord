@@ -17,11 +17,12 @@ end
 --- @param effect   effects.Effect
 --- @param amount   number
 --- @param duration number
---- @param after_stop fun()
+--- @param after_stop fun(player:Player,effect:effects.Effect)
+--- @return job
 function Processor.run_effect_for(player, effect, amount, duration, params, after_stop)
 	effect:start(player, amount, duration, unpack(params))
 	-- TODO: effect can be reapplied. #1650
-	minetest.after(duration, function()
+	return minetest.after(duration, function()
 		-- TODO: the `player` could have already left. #1673
 		effect:stop(player, amount, duration, unpack(params))
 		after_stop(player, effect)

@@ -19,6 +19,7 @@ function Registered.all()
 end
 
 --- @param name string
+--- @return effects.Effect
 function Registered.get(name)
 	return registered_effects[name]
 end

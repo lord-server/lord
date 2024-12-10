@@ -4,11 +4,17 @@ local Logger     = minetest.get_mod_logger()
 
 -- TODO: #1669
 
+--- @class effects.ForPlayer.Active
+--- @field effect   effects.Effect
+--- @field amount   number
+--- @field duration number
+--- @field job      job
+
 --- @class effects.ForPlayer
 local ForPlayer = {
 	--- @type Player
 	player = nil,
-	--- @type effects.Effect[]
+	--- @type effects.ForPlayer.Active[][]
 	effects = nil,
 	--- @static
 	--- @type helpers.Logger
@@ -36,22 +42,31 @@ end
 --- @param effect_name string
 --- @param amount      number
 --- @param duration    number
-function ForPlayer:apply(effect_name, amount, duration, ...)
+--- @param reason      effects.Effect.Reason
+function ForPlayer:apply(effect_name, amount, duration, reason, ...)
 	local effect = Registered.get(effect_name)
 	if not effect then
 		self.logger.error('Can\'t apply effect: effect "%s" not found', effect_name)
 		return
 	end
 
-	self.effects[effect_name] = {
-		amount = amount,
-		duration = duration,
-	}
+	reason = reason or { name = 'default' }
+	self.effects[effect_name] = self.effects[effect_name] or {}
 
-	Processor.run_effect_for(self.player, effect, amount, duration, {...}, function(player)
-		-- TODO: the `player` could have already left. #1673
-		self.effects[effect_name] = nil
-	end)
+	if effect.stop_with_same_reason and self.effects[effect_name][reason.name] then
+		self.effects[effect_name][reason.name].effect:stop(self.player, amount, duration, unpack({ reason, ... }))
+		self.effects[effect_name][reason.name].job:cancel()
+	end
+
+	self.effects[effect_name][reason.name] = {
+		amount   = amount,
+		duration = duration,
+		effect   = effect,
+		job      = Processor.run_effect_for(self.player, effect, amount, duration, { reason, ... }, function(player)
+			-- TODO: the `player` could have already left. #1673
+			self.effects[effect_name][reason.name] = nil
+		end)
+	}
 end
 
 

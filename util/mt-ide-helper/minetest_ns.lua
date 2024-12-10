@@ -1654,6 +1654,8 @@ function minetest.sound_stop(handle) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5407-L5415)
 function minetest.sound_fade(handle, step, gain) end
 
+--- @class job
+local job = {}
 -- Timing:
 --- Returns job table to use as below.
 --- * Call the function `func` after `time` seconds, may be fractional
@@ -1662,7 +1664,7 @@ function minetest.sound_fade(handle, step, gain) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5420-L5422)
 ---@param time number @in seconds
 ---@param func fun()
----@return table @job (job:cancel() to stop)
+---@return job @job (job:cancel() to stop)
 function minetest.after(time, func, ...) end
 --- * Cancels the job function from being called
 function job:cancel() end

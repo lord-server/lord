@@ -1,20 +1,33 @@
 
+--- @class effects.Effect.Reason
+--- @field name        string
+--- @field description string
 
 --- @class effects.Effect
 local Effect = {
 	--- @type string
 	name = nil,
+	--- @type boolean
+	stop_with_same_reason = nil,
 }
 
 --- @param name string
---- @param type string
-function Effect:new(name, type)
+function Effect:new(name)
 	local class = self
 
 	self = {}
-	self.name  = name
+	self.name                  = name
+	self.stop_with_same_reason = false
 
 	return setmetatable(self, { __index = class })
+end
+
+--- @param is_stops boolean
+--- @return effects.Effect
+function Effect:is_stops_on_same_reason(is_stops)
+	self.stop_with_same_reason = is_stops
+
+	return self
 end
 
 --- @param start fun(self:effects.Effect,player:Player,amount:number,duration:number)
@@ -25,7 +38,7 @@ function Effect:on_start(start)
 	return self
 end
 
---- @param stop fun(self:effects.Effect,player:Player)
+--- @param stop fun(self:effects.Effect,player:Player,amount:number,duration:number)
 --- @return effects.Effect
 function Effect:on_stop(stop)
 	self.stop = stop
