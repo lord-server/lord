@@ -1,9 +1,13 @@
+local pairs, unpack
+    = pairs, unpack
+
 local Registered = require('effects.Registered')
 local Processor  = require('effects.Processor')
 local Logger     = minetest.get_mod_logger()
 
 
 --- @class effects.ForPlayer.Active
+--- @field reason   effects.Effect.Reason
 --- @field effect   effects.Effect
 --- @field amount   number
 --- @field duration number
@@ -61,19 +65,31 @@ function ForPlayer:apply(effect_name, amount, duration, reason, ...)
 	self.effects[effect_name] = self.effects[effect_name] or {}
 
 	if effect.stop_with_same_reason and self.effects[effect_name][reason.name] then
-		self.effects[effect_name][reason.name].effect:stop(self.player, amount, duration, unpack({ reason, ... }))
-		self.effects[effect_name][reason.name].job:cancel()
+		Processor.stop_for(self.player, self.effects[effect_name][reason.name], unpack({ reason, ... }))
 	end
 
 	self.effects[effect_name][reason.name] = {
+		reason   = reason,
 		amount   = amount,
 		duration = duration,
 		effect   = effect,
 		job      = Processor.run_effect_for(self.player, effect, amount, duration, { reason, ... }, function(player)
-			-- TODO: the `player` could have already left. #1673
-			self.effects[effect_name][reason.name] = nil
+			if self.effects[effect_name] and self.effects[effect_name][reason.name] then
+				self.effects[effect_name][reason.name] = nil
+			end
 		end)
 	}
+end
+
+function ForPlayer:reset(...)
+	for effect_name, reasoned_effects in pairs(self.effects) do
+		for reason_name, active_effect in pairs(reasoned_effects) do
+			Processor.stop_for(self.player, active_effect, ...)
+			if self.effects[effect_name] and self.effects[effect_name][reason_name] then
+				self.effects[effect_name][reason_name] = nil
+			end
+		end
+	end
 end
 
 
