@@ -13,6 +13,15 @@ function table.keys(table)
 	return keys
 end
 
+function table.values(table)
+	local values = {}
+	for _, value in pairs(table) do
+		values[#values+1] = value
+	end
+
+	return values
+end
+
 --- @param table table
 --- @param value any
 --- @return table|nil returns indexed table of found keys for table `table` or `nil` if nothing found
