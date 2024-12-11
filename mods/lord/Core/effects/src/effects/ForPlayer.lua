@@ -2,7 +2,6 @@ local Registered = require('effects.Registered')
 local Processor  = require('effects.Processor')
 local Logger     = minetest.get_mod_logger()
 
--- TODO: #1669
 
 --- @class effects.ForPlayer.Active
 --- @field effect   effects.Effect
@@ -37,6 +36,14 @@ function ForPlayer:refresh_player(player)
 	self.player = player
 
 	return self
+end
+
+--- @param name string|nil effect name
+--- @return effects.ForPlayer.Active[][]|effects.ForPlayer.Active[]
+function ForPlayer:get(name)
+	return name
+		and (self.effects[name] or nil)
+		or   self.effects
 end
 
 --- @param effect_name string
