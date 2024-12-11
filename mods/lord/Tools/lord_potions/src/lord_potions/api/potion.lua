@@ -10,9 +10,13 @@ local colorize = minetest.colorize
 
 local potions = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
-	all_items  = {},
+	all_items          = {},
+	--- @type table<string,table<string,NodeDefinition>>|NodeDefinition[][]
+	all_items_grouped  = {},
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
-	lord_items = {},
+	lord_items         = {},
+	--- @type table<string,table<string,NodeDefinition>>|NodeDefinition[][]
+	lord_items_grouped = {},
 }
 
 --- @param node_name string technical node name ("<mod>:<node>").
@@ -43,7 +47,7 @@ local function register_potion_node(item_name, title, description, color, effect
 		'lord_potions_bottle_content_mask.png' ..
 		'^[colorize:' .. color .. ':170' ..
 		'^[colorize:#000:' .. content_opacity_by_level ..
-		')'
+	')'
 	local texture                  = bottle_contents_img .. '^(lord_potions_bottle.png)'
 
 	minetest.register_node(item_name, {
@@ -105,8 +109,13 @@ local function register_potion(name_prefix, title, description, color, effect, l
 
 	register_potion_node(item_name, title, description, color, effect, level, groups)
 
-	potions.all_items[item_name]  = minetest.registered_nodes[item_name]
-	potions.lord_items[item_name] = minetest.registered_nodes[item_name]
+	potions.all_items_grouped [effect.group] = potions.all_items_grouped [effect.group] or {}
+	potions.lord_items_grouped[effect.group] = potions.lord_items_grouped[effect.group] or {}
+
+	potions.all_items [item_name]                       = minetest.registered_nodes[item_name]
+	potions.lord_items[item_name]                       = minetest.registered_nodes[item_name]
+	potions.all_items_grouped [effect.group][item_name] = minetest.registered_nodes[item_name]
+	potions.lord_items_grouped[effect.group][item_name] = minetest.registered_nodes[item_name]
 
 	register_potion_craft(item_name, recipe)
 end
@@ -157,10 +166,12 @@ end
 
 
 return {
-	add_existing   = add_existing,
-	register       = register_potion,
-	register_group = register_potion_group,
-	get_all        = function() return potions.all_items end,
+	add_existing     = add_existing,
+	register         = register_potion,
+	register_group   = register_potion_group,
+	get_all          = function() return potions.all_items end,
+	get_all_grouped  = function() return potions.all_items_grouped end,
 	--- returns only lord internal registered potions.
-	get_lord       = function() return potions.lord_items end,
+	get_lord         = function() return potions.lord_items end,
+	get_lord_grouped = function() return potions.lord_items_grouped end,
 }

@@ -86,8 +86,10 @@ end
 --- @param item_name       string
 --- @param item_definition ItemDefinition
 --- @param i               number
-function Form.recipe(item_name, item_definition, i)
-	local dy = i % Form.RECIPES_PER_PAGE
+function Form.recipe(item_name, item_definition, i, is_ingredients_page)
+	local dy = is_ingredients_page
+		and i % Form.RECIPES_PER_PAGE
+		or  tonumber(item_name:sub(-1)) - 1  -- name of potion has `_1`, `_2`, `_3` postfix at the end
 
 	local recipe = minetest.get_craft_recipe(item_name, minetest.CraftMethod.POTION, minetest.CraftType.COOKING)
 
@@ -97,30 +99,50 @@ function Form.recipe(item_name, item_definition, i)
 		.. spec.item_image_button(5, 2 + dy, 1, 1, recipe.input[1][2], recipe.input[1][2], '')
 		.. spec.image            (6, 2 + dy, 1, 1, 'benches_laboratory.png')
 		.. spec.item_image_button(7, 2 + dy, 1, 1, item_name, item_name, '')
+end
 
+--- @param list     table<string,NodeDefinition>
+--- @param callback fun(item_name:string,item_definition:ItemDefinition):boolean return `true` for stop iteration
+local function foreach_ingredient_in(list, callback)
+	for item_name, item_definition in pairs(list) do
+		if callback(item_name, item_definition) then  break  end
+	end
+end
+
+--- @param list     table<string,table<string,NodeDefinition>>
+--- @param callback fun(item_name:string,item_definition:ItemDefinition):boolean return `true` for stop iteration
+local function foreach_potion_in(list, callback)
+	for group_name, group_list in pairs(list) do
+		for item_name, item_definition in pairs(group_list) do
+			if callback(item_name, item_definition) then  break  end
+		end
+	end
 end
 
 --- @private
 --- @param page number
 --- @return string
 function Form.list_page(page)
-	local list = Form.is_ingredients_page(page)
+	local is_ingredients_page = Form.is_ingredients_page(page)
+	local list = is_ingredients_page
 		and potions.ingredient.get_all()
-		or  potions.potion.get_all()
+		or  potions.potion.get_all_grouped()
 
-	local page_list     = Form.is_ingredients_page(page) and page or page - Form.pages_of.ingredients
-	local items_to_skip = (page_list - 1) * Form.RECIPES_PER_PAGE
+	local list_page     = is_ingredients_page and page or page - Form.pages_of.ingredients
+	local items_to_skip = (list_page - 1) * Form.RECIPES_PER_PAGE
 	local i             = 1
 	local form_spec     = ''
-	for item_name, item_definition in pairs(list) do
+
+	local foreach_in = is_ingredients_page and foreach_ingredient_in or foreach_potion_in
+	foreach_in(list, function(item_name, item_definition)
 		if i > items_to_skip + Form.RECIPES_PER_PAGE then
-			break
+			return true
 		end
 		if i > items_to_skip then
-			form_spec = form_spec .. Form.recipe(item_name, item_definition, i)
+			form_spec = form_spec .. Form.recipe(item_name, item_definition, i, is_ingredients_page)
 		end
 		i = i + 1
-	end
+	end)
 
 	return form_spec
 end
