@@ -58,24 +58,6 @@ end
 -- -----------------------------------------------------------------------------------------------
 -- Private functions:
 
---- @private
---- @param pos table<number,number,number>
---- @return NodeMetaRef
-local function get_initiated_meta(pos)
-	local meta = minetest.get_meta(pos)
-	for _, name in pairs({
-		'fuel_totaltime',
-		'fuel_time',
-		'src_totaltime',
-		'src_time'
-	}) do
-		if not meta:get_float(name) then
-			meta:set_float(name, 0.0)
-		end
-	end
-	return meta
-end
-
 --- @param meta NodeMetaRef
 local function reset_meta_times(meta)
 	for _, name in pairs({
@@ -84,7 +66,7 @@ local function reset_meta_times(meta)
 		'src_totaltime',
 		'src_time'
 	}) do
-		meta:set_float(name, 0.0)
+		meta:set_int(name, 0)
 	end
 end
 
@@ -95,7 +77,7 @@ end
 --- @return NodeMetaRef
 function Device:get_meta()
 	if not self.meta then
-		self.meta = get_initiated_meta(self.position)
+		self.meta = minetest.get_meta(self.position)
 	end
 
 	return self.meta
@@ -124,8 +106,8 @@ end
 --- @param hint string text shown in `infotext` after `"<Device.NAME>: "`
 function Device:activate(hint)
 	local meta         = self:get_meta()
-	local percent      = math_floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
-	local item_percent = math_floor(meta:get_float('src_time') / meta:get_float('src_totaltime') * 100)
+	local percent      = math_floor(meta:get_int('fuel_time') / meta:get_int('fuel_totaltime') * 100)
+	local item_percent = math_floor(meta:get_int('src_time') / meta:get_int('src_totaltime') * 100)
 	minetest.swap_node_if_not_same(self.position, self.node_name.active)
 	self:get_meta():set_string('infotext', self.NAME .. ': ' .. hint .. ' (' .. percent .. '%)')
 	self:get_meta():set_string('formspec', self.form.get_spec('active', percent, item_percent))

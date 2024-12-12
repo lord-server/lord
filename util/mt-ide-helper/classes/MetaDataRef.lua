@@ -32,7 +32,7 @@ function MetaDataRef:get_string(key) end
 function MetaDataRef:set_int(key, value) end
 
 ---@param key string
----@return number
+---@return number Returns `0` if `key` not present.
 function MetaDataRef:get_int(key) end
 
 ---@param key string

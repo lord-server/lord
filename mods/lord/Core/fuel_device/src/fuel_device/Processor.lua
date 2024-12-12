@@ -65,13 +65,9 @@ end
 --- @param remaining_source RecipeInput
 --- @param result_source    RecipeOutput
 --- @param time number
-local function grind_source(meta, remaining_source, result_source)
+local function process_source(meta, remaining_source, result_source)
 	local src_time = meta:get_int('src_time')
-	local src_totaltime = meta:get_int('src_totaltime')
-
-	if src_time == 0 or src_totaltime == 0 then
-		meta:set_int('src_totaltime', result_source.time)
-	end
+	local src_totaltime = result_source.time
 
 	src_time = src_time + 1
 
@@ -154,7 +150,7 @@ function Processor:act(position)
 		device:activate(S('Active'))
 
 		burn_fuel(meta, remaining_fuel, result_fuel)
-		grind_source(meta, remaining_source, result_source)
+		process_source(meta, remaining_source, result_source)
 	else
 		device:deactivate(S('Out Of Fuel'))
 	end
