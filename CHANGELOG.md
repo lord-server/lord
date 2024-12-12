@@ -1,5 +1,180 @@
 # Change Log
 
+## [2024.11](https://github.com/lord-server/lord/releases/tag/2024.11)
+ - Increase Hobbit Dagger usages. Fixes #1724
+ - Forms: Palantiri Guide: channge form. Closes #1727
+ - Candles: update from our fork. Closes #1092. Closes #1729
+ - Changing salt to salt_block as product of water bucket
+ - Salt crafting solved via bottle_with_water -> bottle_with_salt -> salt. Closes #1792 (#1804)
+ - Adding stone spear to newcomers' inventories. Closes #1810
+ - Tooltips:
+   - add Durability info. Relates to #1602
+ - Interior:
+   - add `vessels:shelf`. Closes #1754
+   - add wooden Pint. Closes #1244
+   - ability to put small flower pot in world. Closes #1246
+   - add 6 plates/bowls randomly placed by the `Bowl` item. Closes #1243
+   - ability to place glasses. Closes #1760
+   - redraw glass & all items "liquid in glass" (alcohol). Closes #1759
+   - add sounds for alcohol glasses. Relates to #1760
+ - Exterior:
+   - `steel_bottle`: use model, change texturese; rename to Steel Can. Closes #1755
+   - `steel_bottle`/`can`: no walk through the Can. Relates to #1755
+ - New Potions:
+   - New Ones:
+     - Elixir of Athelas
+     - Orcish Brew
+     - Ent Draught
+     - Shelob's Bonds
+     - Miruvor
+     - Dol Guldur's Fetters
+     - Limpë
+     - Breath of Morgoth
+   - add full descriptions. Relates to 1731
+   - add nice tooltips & snippet for potions. Closes #1731
+   - Remove potion arrows -- convert them into potions. Relates #717, #1736
+   - reconfigure effects, powers & times. Closes #1732
+   - add groups for potion effects. -- true effect apply & neutralization. Closes #1821
+   - reset all effects on player leave or die. Closes #1832. Closes #1833
+ - Sounds: Mobs: Racial: add for Nazgul. Closes #1745
+ - Economics: balance dwarven ring. Closes #1801
+ - Artisan Benches:
+   - Workbench:
+     - correcting form background. Closes #1743
+     - remake model & texture. Closes #1740
+     - 3d-model: Workbench: new one. Closes #1781
+   - Grinder, Laboratory & Barrel now works on timers
+ - Add ability to see content of `mail_chest` for admins. Closes #1776
+ - Forms: General Styles: remove `listcolors` in all project forms. Closes #1738
+   - now tooltips in all forms looks identically (semi-transparent bg, same colors)
+
+ - Textures:
+   - Change clan chest textures. Closes #1742
+   - Armor:
+     - update for inventory & previews. Optimize all. Closes #1828
+   - Alcohol: improve inventory image. Relates to #1759
+
+ - Bug Fixing:
+   - Store meta data of items when sort chest content. Fixes #1711
+   - Fix translation of pine trunks. Fixes #1689
+   - Use new names for grass textures in achievements. Fixes #1646
+   - Add plums as leaf into `leafdecay`. Now the plums are falling. Fixes #1330
+   - Fix mordor water transparence. Closes #1239
+   - Fix Grinder fool with fuel. Closes #1784
+   - Solving white mushroom spore problem. Closes #1799 (#1800)
+
+ - Technical:
+   - Forms: General: add styled textarea helpers. Closes #1728
+   - `ide-helper`: improve `ItemDefinition` class docs.
+   - Refactoring: `lottpotions`: sort textures in folders. Relates to #717
+   - Tooltips: ability to specify custom `_tt_luminance` for tooltips. Relates to #1729
+   - Effects Integration: `lord_potions`: experimetal version. Closes #1679
+   - Effects Int: add `lord_potions` first version. Closes #1679
+   - Optimize textures: for clan chest. Relates to #1742
+   - Refactoring: `Core`: add `minetest.get_mod_translator()`. Closes #1753
+   - Refactoring: `lottpotion`: extract `lord_vessels`; rewrite code. Closes #1750
+   - Refactoring: `lottpotion`: extract alcohol. Part of #717. Closes #1751. Relates to #1759, #1760'
+   - Refactoring: `lottpotions`: extract recipes system. Closes #1769. Relates to #717
+   - Sounds: Mobs: Racial: Nazgul: fix distance, fix `animal`->`monster`. Relates to #1745
+   - Refactoring: `lottpotion`: remove `effects` chat command. Relates to #717
+   - Refactoring: `lottpotion`: extract `aka_api.lua`. Relates to #1771, #717
+   - Refactoring: `lottpotion`: extract `potions.lua` itself. Relates to #1771, #717
+   - Refactoring: `lottpotion`: extract handling functions into `aka_api`. Relates to #1771, #717
+   - Refactoring: `lottpotion`: move `arrows.lua`. Relates to #1771, #717
+   - Refactoring: `lottpotion`: aggregate `benches` files; extract `benches/helpers.lua`. Relates to #1771, #717
+   - Refactoring: `lottpotion`: just rename files. Relates to #1771, #717
+   - Refactoring: `lottpotion`: separate barrel recipes & nodes definition. Relates to #1771, #717
+   - Refactoring: `lottpotion`: separate laboratory ingredients, recipes & nodes definition. Relates to #1771, #717
+   - Effects Int: Potions: prepare potions aliases. Relates to #1736
+   - Refactoring `lottpotion`: remove potion arrows; add aliases, prepare new aliases. Relates #717, #1736
+   - Add mods: projectiles and lord_projectiles
+   - Add helper functions for table class
+   - PvP: Lord Bows: Base: add stub `archery` to dev, it needs for projectiles mods from #1772. Relates to #1773
+   - Refactoring: `lottpotion`: reorder files move alcohol recipes int our mod. Closes #1771. Relates to #717
+   - Refactoring: `lottpotion`: remove debug garbage. Relates #1771.
+   - Refactoring: `lottpotion`: prettify caudron code; add top img for empty; make water transparent. Relates to #1752, #717
+   - Refactoring: `lottpotion`: extract caudron into `lord_artisan_benches`. Relates to #1752, #717
+   - Refactoring: `lottpotion`: extract barrel & laboratory into `lord_artisan_benches`. Relates to #1752, #717
+   - Refactoring: `lottpotion`: decrease CC for laboratory. Relates to #1752, #943, #717
+   - Refactoring: `lottpotion`: laboratory: extract ABM helpers. Relates to #1752, #943, #717
+   - Refactoring: `lottpotion`: laboratory: extract ABM helpers. Relates to #1752, #943. Clases #717
+   - Refactoring: `lottpotion`: move alcohol recipes into config. Relates to #1751
+   - Refactoring: `lottpotion`: move localization of alcohol. Relates to #1751
+   - Refactoring: `lottpotion`: move localization of barrel & laboratory. Relates to #1752, #717
+   - Refactoring: `lottpotion`: move textures of barrel & laboratory. Relates to #1752, #717
+   - [broken code] Refactoring: `lottpotion`: just move files to keep git-history & then add ingresients reg & config. Relates to #1752, #717
+   - Effects Int: Potions: add ingredients for potions. Closes #1779
+   - Effects Int: Potions: prepare aliases for ingredients. Relates to #1736
+   - ide-helper: add `NodeTimerRef` class docs.
+   - Artisan Benches: Fuel Device: make grinder recipe system close to native. Closes #1785
+   - `Core`: ability to add crafts of type `cooking` for custom `method`s. Closes #1786
+   - Artisan Benches: Fuel Device: migrate Grinder to `Core/builtin.craft.method` system. Closes #1791
+   - Artisan Benches: Grinder: rework `grinding_possible()`, fix using new craft system. Relates to #1791
+   - Artisan Benches: Grinder: fix grinding possibility check, reset meta-counters on deactivate. Relates to #1784
+   - Artisan Benches: Grinder: extract common definition & inventory_callbacks. Relates to #1787
+   - Artisan Benches: Refactoring: Grinder: just rename vars.
+   - Artisan Benches: Grinder: migrate to node timer. Closes #1063
+   - Refactoring: extract and replace in project `minetest.swap_node_if_not_same()`. Closes #1793
+   - Refactoring: Grinder: replace quotes. Relates to #1787
+   - Refactoring: Grinder: use only internal class vars & constants. Relates to #1787
+   - Refactoring: Grinder: rename SL->S; rework translations; use local globals. Relates to #1787
+   - Refactoring: Grinder: rename `form.get()` -> `form.get_spec()`. Relates to #1787
+   - Artisan Benches: Fuel Device: first mod version: extract `Device` class from `grinder`. Relates to #1787
+   - Artisan Benches: Fuel Device: extract `Processor` from `grinder` mod. Relates to #1787
+   - Localization: Исправлено `"лимп"` на `"лимпэ"`. Closes #1240
+   - Artisan Benches: Fuel Device: extract nodes registrations and common definitions from `grinder`. Closes #1787. Closes #1788
+   - Artisan Benches: Fuel Device: ability to specify inventories size(s). Relates to #1788, #1789
+   - Artisan Benches: Fuel Device: fix fogotten node name. Relates to #1787
+   - `Core`: `builtin`: ability to specify items count for registering recipes. Closes #1802
+   - Artisan Benches: Fuel Device: small improvements, fix `get_craft_result()` `width`. Relates to #1787
+   - `Core`: `builtin`: custom craft method takes exactly from the same input cell.
+   - Artisan Benches: Fuel Device: add inv sizes, `:init()`, `:is_empty()` into `Device` & reuse it. Relates to #1787, #1789
+   - Artisan Benches: Fuel Device: add LBM for re-init Device. Relates to #1787, #1789
+   - Artisan Benches: Fuel Device: migrate Barrel to FuelDevice. Relates to #1789
+   - Artisan Benches: Fuel Device: Barrel: extract common nodes def & Form. Closes #1789
+   - Artisan Benches: Fuel Device: migrate `lord_alcohol` to new recipes for Barrel. Relates to #1789
+   - Artisan Benches: Fuel Device: migrate Laboratory to FuelDevice. Closes #1790
+   - Effects System: control breath effects. Closes #1678, Closes #1676
+   - Effects Int: Potions: add potions for breath. Closes #1733
+   - Effects Int: Potions: migrate recipes for ingredients. Relates to #1734
+   - `Core`: `builtin`: fix validation false positive error. Relates to #1734
+   - Effects Int: Potions: add recipes for lord_potions. Closes #1734
+   - Effects/Potions: REMOVE `lottpotion`! Closes #1736. Closes #943
+   - `Core`: `builtin`: crafts: ability to find custom crafts via `core.get_craft_recipe()`. Closes #1814
+   - `Core`: `helpers`: add `table.count()` for assoc arrays
+   - `Core`: Base form: ability to pass args into `:get_spec()` via `:open()`. Relates to #1735
+   - Forms: General Styles: extend `forms.Spec` from `minetest.formspec` & change usages. Closes #1815
+   - Effects Int: Potions: use new lord potions & crafts in book. Relates to #1816
+   - Artisan Benches: prepare modpack backbone. Relates to #1798, #1752
+   - Artisan Benches modpack: move `grinder`. Relates to #1798
+   - Artisan Benches modpack: extract `anvil`. Relates to #1798
+   - Artisan Benches modpack: extract `workbench`. Relates to #1798
+   - Artisan Benches modpack: extract `cauldron`. Relates to #1798
+   - Artisan Benches modpack: extract `barrel`, rename. Relates to #1798, #1752
+   - Artisan Benches modpack: fix `cauldron` aliases. Relates to #1798
+   - Artisan Benches modpack: replace `cauldron` names with new ones. Relates to #1798
+   - Artisan Benches modpack: replace `barrel` names with new ones. Relates to #1798, #1752
+   - Artisan Benches modpack: extract `laboratory`, rename. Closes #1798. Closes #1752
+   - `lottpotion`: clean up the remains. Closes #717
+   - Artisan benches: add forgotten dependencies. Relates to #1798
+   - `Core`: `helpers`: rename/refactor `table.{apply_function_to_every_value->map}()`; cleanup debug.
+   - `ide-helper`: add `physics_override_table` annotation.
+   - `Core`: `helpers`: add `table.{add|sub|mul|div}_values(t1,t2)` functions.
+   - `physics`: ability to add/sub/mul/div. Closes #1819
+   - Effects Int: Potions: add groups for potion effects. Closes #1821
+   - Effects System: ability to pass additional args into `:start()`/`:stop()` via `:apply()`. Closes #1823
+   - `Physics`: ability to specify reason and manage by reson. Closes #1824
+   - Effects System: ability to specify reason for effect & stop running effect early. Closes #1825
+   - Effects System: apply physics from armor with reason. Closes #1829
+   - Effects System: apply effects with reason & theirs physics with reason. Closes #1830
+   - Potions Int: potions consumption. Fixes #1822
+   - `Core`: `helpers`: add `table.values()`
+   - Effects Int: Potions: crafts in book paged by groups, ordered by power. Closes #1816
+   - Effects System: ability to get all effects currently acting on player. Closes #1669
+   - Artisan Benches: Workbench: update model texture. Relates to #1781
+   - Artisan Benches: Barrel: change sequence in ricipes. Relates to #1826
+   - Fuel device: fix imediatly result on first step. Fixes #1834
+
 ## [2024.09.p2](https://github.com/lord-server/lord/releases/tag/2024.09.p2)
  - Rebalanse spears
  - Add information about Telegram-channel
