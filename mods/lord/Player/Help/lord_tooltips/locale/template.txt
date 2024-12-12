@@ -54,6 +54,10 @@ defense_poison=from poison
 # Food
 @1@2 to satiety=
 
+# Durability
+# @1: @2 uses=
+
+
 # copy from `tt_base` (`node_info`)
 damage on contact=
 healing on contact=

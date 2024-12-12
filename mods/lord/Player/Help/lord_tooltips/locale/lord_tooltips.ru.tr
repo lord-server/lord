@@ -6,13 +6,14 @@ Damage=Урон
 Defense=Защита
 Food=Еда
 Effects=Эффекты
+Durability=Прочность
 
 # Properties / Digging:
 crumbly=сыпучий
 cracky=разламывающийся
 snappy=непрочный
 choppy=рубящийся
-fleshy=живой/прокалываемый
+fleshy=телесный
 explody=взрывающийся
 unbreakable=неломающийся
 bendy=гнущийся
@@ -62,6 +63,10 @@ Suffocation=Удушье
 
 # Food
 @1@2 to satiety=@1@2 к сытости
+
+# Durability
+# @1: @2 uses=@1: @2 использований
+
 
 # copy from `tt_base` (`node_info`)
 damage on contact=урон при контакте
