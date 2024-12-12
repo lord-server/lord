@@ -112,10 +112,13 @@ minetest.register_privilege("palantiri", {
 
 minetest.register_node("lottblocks:palantir", {
 	description               = S("Palantir"),
-	tiles                     = { "default_obsidian.png" },
-	paramtype                 = "light",
+	inventory_image           = "lottblocks_palantir_item.png^[opacity:220",
+	wield_image               = "lottblocks_palantir_item.png^[opacity:220",
 	drawtype                  = "mesh",
 	mesh                      = "lottblocks_palantir.obj",
+	tiles                     = { "lottblocks_palantir.png^[opacity:235" },
+	use_texture_alpha         = "blend",
+	paramtype                 = "light",
 	node_placement_prediction = "",
 	on_punch                  = function(pos)
 		local meta = minetest.get_meta(pos)
