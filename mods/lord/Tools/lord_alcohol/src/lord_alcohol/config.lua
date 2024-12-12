@@ -23,23 +23,23 @@ local config = {
 	},
 	recipes = {
 		{
-			input  = { 'lottfarming:berries 5', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lord_vessels:drinking_glass_water', 'lottfarming:berries 5' },
 			output = 'lord_alcohol:wine'
 		},
 		{
-			input  = { 'farming:wheat0 3', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lord_vessels:drinking_glass_water', 'farming:wheat0 3' },
 			output = 'lord_alcohol:beer'
 		},
 		{
-			input  = { 'bees:bottle_honey 6', 'lord_vessels:drinking_glass_water' },
-			output = 'lord_alcohol:mead'--, 'vessels:glass_bottle 6'
+			input  = { 'lord_vessels:drinking_glass_water', 'bees:bottle_honey 6' },
+			output = 'lord_alcohol:mead'
 		},
 		{
-			input  = { 'default:apple 5', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lord_vessels:drinking_glass_water', 'default:apple 5' },
 			output = 'lord_alcohol:cider'
 		},
 		{
-			input  = { 'lottfarming:barley_seed 6', 'lord_vessels:drinking_glass_water' },
+			input  = { 'lord_vessels:drinking_glass_water', 'lottfarming:barley_seed 6' },
 			output = 'lord_alcohol:ale'
 		},
 	},

@@ -259,7 +259,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 
 	-- HACK: обработка кнопок `potions` и `brews` происходит в обработчиках форм книг
 	--       `lord_books:potions_book` и `lord_books:brewing_book` соответственно.
-	--       см. "HACK" в `potions.lua` и `brewing.lua`.
+	--       см. "HACK" в `potions.lua` и `alcohol.lua`.
 
 	local pn = player:get_player_name();
 	if zmc.users[pn] == nil then zmc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
