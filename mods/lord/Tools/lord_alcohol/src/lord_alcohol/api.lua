@@ -1,7 +1,8 @@
-local S = minetest.get_mod_translator()
+local S       = minetest.get_mod_translator()
+local Logger  = minetest.get_mod_logger()
 
 
-local px = 1/16
+local px      = 1/16
 local alcohol = {
 	--- @type table<string,ItemDefinition>|ItemDefinition[]
 	nodes = {},
@@ -23,21 +24,20 @@ end
 --- @param groups    table        additional or overwrite groups (default: {alcohol = 1})
 --- @param title     string       prefix to description of nodes or will extracted from `node_bane`
 local function register(node_name, satiety, groups, title)
-	local sub_name = node_name:split(":")[2]
+	local sub_name = node_name:split(':')[2]
 	title = title and title:first_to_upper() or sub_name:first_to_upper()
-	local texture = node_name:replace(":", "_") .. ".png"
+	local texture = node_name:replace(':', '_') .. '.png'
 	if not io.file_exists(minetest.get_mod_textures_folder() .. texture) then
-		minetest.log('warning', ('Can\'t find texture: "%s". Alcohol `%s` not registered.'):format(texture, node_name))
+		Logger.warning('Can\'t find texture: "%s". Alcohol `%s` not registered.', texture, node_name)
 		return
 	end
 
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	minetest.log('info', 'use texture: ' .. texture .. ' at ' .. __FILE_LINE__())
 
 	minetest.register_node(node_name, {
 		description       = S(title),
-		inventory_image   = texture .. '^vessels_drinking_glass_inv.png',
-		wield_image       = texture .. '^vessels_drinking_glass_inv.png',
+		inventory_image   = '(empty_16x16.png^[lowpart:50:' .. texture .. ')^vessels_drinking_glass_inv.png',
 		drawtype          = 'plantlike',
 		paramtype         = 'light',
 		tiles             = { texture .. '^(vessels_drinking_glass.png^[opacity:200)^[opacity:200' },
