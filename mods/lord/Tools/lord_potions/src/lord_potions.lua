@@ -30,10 +30,6 @@ end
 return {
 	--- @param mod minetest.Mod
 	init = function(mod)
-		local environment = minetest.settings:get('environment')
-		if not environment or environment == 'production' then
-			return
-		end
 		register_api()
 		register_ingredients()
 		register_potions()
