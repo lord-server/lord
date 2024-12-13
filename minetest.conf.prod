@@ -296,6 +296,7 @@ dynamic_spawn = true
 orc_spawn_pos = 11773, 54, -10282
 man_spawn_pos = -7201, 3, 7629
 hobbit_spawn_pos = -8619, 15, 7649
+dwarf_spawn_pos = 9519, 40, 11815
 
 # ------- lord_ground -------
 # границы, до которых происходит расползание мордорских земель:
