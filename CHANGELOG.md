@@ -1,5 +1,13 @@
 # Change Log
 
+## [2024.11.p1](https://github.com/lord-server/lord/releases/tag/2024.11.p1)
+ - Add Dwarves Spawn into prod conf.
+ - Vessels: Pint: add groups for dig node. Closes #1838
+ - Merge branch 'dev'
+ - Vesseld: Bowl: fix crafting. Fixes #1846
+ - Make Orc Medicine glass similar to alcohol. Relates to #1836
+ - Переименовать "Limpё" в "Лимпэ" · Issue #1839 · lord-server/lord (#1847)
+
 ## [2024.11](https://github.com/lord-server/lord/releases/tag/2024.11)
  - Increase Hobbit Dagger usages. Fixes #1724
  - Forms: Palantiri Guide: channge form. Closes #1727
