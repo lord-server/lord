@@ -49,7 +49,7 @@ end
 
 -- craft of the wielded Item (of Bowl)
 minetest.register_craft({
-	output = 'lord_vessels:bowl 3',
+	output = 'lord_vessels:bowl_wood 3',
 	recipe = {
 		{'group:wood', '', 'group:wood'},
 		{'', 'group:wood', ''},
