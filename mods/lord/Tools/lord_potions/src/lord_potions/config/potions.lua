@@ -129,7 +129,7 @@ local config = {
 
 	-- BREATH
 	{
-		item_name   = 'lord_potions:limpe', title = S('Limpë'), color = '#0ff',
+		item_name   = 'lord_potions:limpe', title = S('Limpe'), color = '#0ff',
 		effect      = lord_effects.BREATH,
 		powers      = {
 			['+1'] = { duration = 60, },
