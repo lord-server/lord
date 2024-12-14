@@ -48,9 +48,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craftitem("lottfarming:orc_medicine", {
-	description = S("Orc medicine"),
-	inventory_image = "lottfarming_orc_medicine.png",
+minetest.register_node("lottfarming:orc_medicine", {
+	description       = S("Orc medicine"),
+	inventory_image   = '(empty_16x16.png^[lowpart:50:lottfarming_orc_medicine.png)^vessels_drinking_glass_inv.png',
+	drawtype          = 'plantlike',
+	paramtype         = 'light',
+	tiles             = { 'lottfarming_orc_medicine.png^(vessels_drinking_glass.png^[opacity:160)^[opacity:240' },
+	use_texture_alpha = 'blend',
+	visual_scale      = 0.8,
 	on_use = function(itemstack, user, pointed_thing)
 		user:set_hp(20)
 		local name = user:get_player_name()
