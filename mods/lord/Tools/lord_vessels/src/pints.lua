@@ -13,6 +13,7 @@ minetest.register_node('lord_vessels:pint_wood', {
 	paramtype   = 'light',
 	paramtype2  = 'facedir',
 	walkable    = false,
+	groups      = { wooden = 1, choppy = 3, oddly_breakable_by_hand = 3 }
 })
 
 minetest.register_craft({
