@@ -23,7 +23,7 @@ local function register_projectile(name, reg)
 	entity.register_projectile_entity(reg.entity_name, name, reg.entity_reg)
 
 	minetest.register_craftitem(name, table.overwrite({
-		_tt_help = S_tt("Damage: @1", reg.damage)
+		_tt_help = S_tt("Damage: @1", reg.damage_tt)
 	}, def))
 end
 
