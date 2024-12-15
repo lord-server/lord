@@ -25,16 +25,23 @@ end
 --- @param player     Player             a player that charges the archery item
 --- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
 local function charge(stack, hold_time, stages, player)
+	minetest.chat_send_all("TWO")
 	local name = player:get_player_name()
 
 	if not name then
 		return false
 	end
+	local stage_list = stages.stages
 
-	for position, stage in pairs(stages.stages) do
-		if stack:get_name() == stage then
-			if (hold_time >= stages.charging_time[position]) and (#stages.stages-1 >= position + 1) then
-				stack:set_name(stages.stages[position + 1])
+	for position, current_stage in pairs(stage_list) do
+		local next_pos = position + 1
+		local next_stage_time = stages.charging_time[next_pos]
+		local next_stage_stack = stage_list[next_pos]
+		if stack:get_name() == current_stage then
+			--minetest.chat_send_all(#stage_list-1)
+			--minetest.chat_send_all(position + 1)
+			if next_stage_time and (hold_time >= next_stage_time) then
+				stack:set_name(next_stage_stack)
 				return stack
 			end
 		end
@@ -51,9 +58,10 @@ local function discharge(stack)
 end
 
 
+-- Needs a new effect-based implementation
 --- @param player Player a player to slow down
 local function player_slowdown(player)
-	local physics = player:get_physics_override()
+	--[[local physics = player:get_physics_override()
 
 	if not physics then
 		return
@@ -64,38 +72,39 @@ local function player_slowdown(player)
 	end
 
 	physics.speed = PLAYER_SLOWDOWN_SPEED
-	player:set_physics_override(physics)
+	player:set_physics_override(physics)]]
 end
 
+-- Needs a new effect-based implementation
 --- @param player Player a player to reset the effect of slowing down for
 local function player_reset_slowdown(player)
-	local physics = player:get_physics_override()
+	--[[local physics = player:get_physics_override()
 
 	if not physics then
 		return
 	end
 
 	physics.speed = players_physics[player:get_player_name()]
-	player:set_physics_override(physics)
+	player:set_physics_override(physics)]]
 end
 
 --- @param player    Player     a player that shoots the projectile
 --- @param stack     ItemStack  a stack with the archery item
 --- @param hold_time number     the time the player was holding CONTROL_CHARGE down
-local function projectile_shot(player, stack, hold_time)
+local function projectile_shoot(player, stack, hold_time)
 	local inv            = player:get_inventory()
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
 	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
 	local charging_time  = reg_from_archery_item(stack:get_name()).stages.charging_time
-	local shot_power     = reg_from_archery_item(stack:get_name()).shot_power or 1
+	local draw_power     = reg_from_archery_item(stack:get_name()).draw_power or 1
 	local max_holding    = charging_time[#charging_time]
 
     if not hold_time then
         hold_time = max_holding
     end
 
-	local power = hold_time/max_holding
+	local power = draw_power*(hold_time-charging_time[1])/max_holding
 
 	if power >= 1 then
 		power = 1
@@ -106,12 +115,12 @@ local function projectile_shot(player, stack, hold_time)
 	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if inv:contains_item("main", item_name) then
 			local projectile = minetest.add_entity(projectile_pos, reg.entity_name)
-			projectile:add_velocity(vector.multiply(look_dir, reg.entity_reg.max_speed * 3 * power * shot_power))
+			projectile:add_velocity(vector.multiply(look_dir, reg.entity_reg.max_speed * 3 * power))
 			projectile:set_acceleration(vector.new(0, -GRAVITY, 0))
 			projectile:get_luaentity()._shooter = player
 			stack:add_wear(65535/uses)
 			inv:remove_item("main", item_name)
-			return
+			return true
 		end
 	end
 end
@@ -124,13 +133,21 @@ local function check_projectiles(player, type)
 	local inv = player:get_inventory()
 	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if reg.type == type and inv:contains_item("main", item_name) then
-			return true
+			return item_name
 		end
 	end
 	return false
 end
 
--- Bow charge on hold
+local function find_matching_projectile(player, archery_item)
+	local used_projectiles = archery_item:get_definition()._used_projectiles
+	for _, projectile_type in ipairs(used_projectiles) do
+		local found_projectile = check_projectiles(player, projectile_type)
+		return found_projectile
+	end
+end
+
+-- Archery item charge on hold
 controls.on_hold(function(player, key, hold_time)
 	-- Charging on holding CONTROL_CHARGE
 	if key ~= CONTROL_CHARGE then
@@ -139,18 +156,23 @@ controls.on_hold(function(player, key, hold_time)
 
 	-- Check if wielded item is not an archery_item
 	local stack = player:get_wielded_item()
-	if not stack:get_definition().groups.archery_item then
+	local stack_def = stack:get_definition()
+	if not stack_def.groups.archery_item then
+		--minetest.chat_send_all("HERE")
 		return
 	end
 
-	if not check_projectiles(player) then
+	if not find_matching_projectile(player, stack) then
+		--minetest.chat_send_all("HERE2")
 		return
 	end
+	--minetest.chat_send_all("ONE")
 
 	player_slowdown(player)
 
 	local new_stack = charge(stack, hold_time, reg_from_archery_item(stack:get_name()).stages, player)
 	if new_stack then
+		--minetest.chat_send_all("THREE")
 		player:set_wielded_item(new_stack)
 	end
 end)
@@ -162,14 +184,15 @@ controls.on_press(function(player, key)
 	end
 
 	local stack = player:get_wielded_item()
+	local stack_def = stack:get_definition()
 
-	if not stack:get_definition().groups.crossbow then
+	if not stack_def.groups.crossbow_charged then
 		return
 	end
 
 	minetest.sound_play(stack:get_definition()["_sound_on_release"], {object = player})
 
-	projectile_shot(player, stack, hold_time)
+	projectile_shoot(player, stack, 0)
 
 	player_reset_slowdown(player)
 	local new_stack = discharge(stack)
@@ -185,14 +208,16 @@ controls.on_release(function(player, key, hold_time)
 	end
 
 	local stack = player:get_wielded_item()
+	local stack_def = stack:get_definition()
 
-	if not stack:get_definition().groups.bow then
+	if not (stack_def.groups.charged and stack_def.groups.bow) then
 		return
 	end
 
-	minetest.sound_play(stack:get_definition()["_sound_on_release"], {object = player})
-
-	projectile_shot(player, stack, hold_time)
+	local projectile = find_matching_projectile(player, stack)
+	if projectile and projectile_shoot(player, stack, hold_time) then
+		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
+	end
 
 	player_reset_slowdown(player)
 	local new_stack = discharge(stack)

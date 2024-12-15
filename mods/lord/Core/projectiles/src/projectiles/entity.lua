@@ -37,8 +37,10 @@ local function punch_target(projectile, target, damage_groups, remove_after_punc
 		end
 		return math.ceil(value)
 	end)
-	target:punch(projectile.object, 10, {
-		full_punch_interval = 0.0,
+	minetest.chat_send_all(dump(damage_groups))
+	minetest.chat_send_all(dump(new_damage_groups))
+	target:punch(projectile.object, 1.4, {
+		full_punch_interval = 1.4,
 		damage_groups       = new_damage_groups,
 	})
 
@@ -165,31 +167,26 @@ local function flight_processing(projectile, environment)
 	end
 end
 
-local register_projectile_entity = function(name, item, reg)
+local register_projectile_entity = function(name, item, entity_reg)
+	local initial_properties = {
+		hp_max                 = 1,
+		physical               = true,
+		collide_with_objects   = true,
+		collisionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
+		selectionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
+		pointable              = true,
+		visual                 = "item",
+		visual_size            = {x = 1.5, y = 1.5, z = 1.5},
+		use_texture_alpha      = true,
+	}
 	minetest.register_entity(name, {
-		initial_properties = {
-			hp_max                 = 1,
-			physical               = true,
-			collide_with_objects   = true,
-			collisionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
-			selectionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
-			pointable              = reg.pointable or true,
-			visual                 = reg.visual,
-			visual_size            = reg.visual_size or {x = 1.5, y = 1.5, z = 1.5},
-			mesh                   = reg.mesh,
-			textures               = reg.textures,
-			colors                 = reg.colors,
-			use_texture_alpha      = true,
-			spritediv              = reg.spritediv,
-			initial_sprite_basepos = reg.initial_sprite_basepos,
-			glow                   = reg.glow,
-		},
-		_life_timer         = reg.life_timer or 90,
+		initial_properties = table.merge(initial_properties, entity_reg.initial_properties),
+		_life_timer         = entity_reg.life_timer or 90,
 		_shooter            = nil,
 		_timer_is_started   = false,
 		_collision_count    = 0,
-		_sound_hit_node     = reg.sound_hit_node,
-		_sound_hit_object   = reg.sound_hit_object,
+		_sound_hit_node     = entity_reg.sound_hit_node,
+		_sound_hit_object   = entity_reg.sound_hit_object,
 		on_step        = function(self, dtime, moveresult)
 			if self._time_from_last_hit and self._life_timer > 0  then
 				self._time_from_last_hit = self._time_from_last_hit + dtime
@@ -239,12 +236,12 @@ local register_projectile_entity = function(name, item, reg)
 		end,
 		_on_collision  = function(self, moveresult)
 			self._collision_count = self._collision_count + 1
-			if reg.on_collision and type(reg.on_collision) == "function" then
-				reg.on_collision()
+			if entity_reg.on_collision and type(entity_reg.on_collision) == "function" then
+				entity_reg.on_collision()
 			end
-			collision_handling(self, moveresult, reg.damage_groups)
+			local pos = self.object:get_pos()
+			collision_handling(self, moveresult, entity_reg.damage_groups)
 			if self._collision_count >= 10 then
-				local pos = self.object:get_pos()
 				self.object:remove()
 				if self._shooter and self._shooter:is_player() then
 					minetest.add_item(pos, ItemStack(item))

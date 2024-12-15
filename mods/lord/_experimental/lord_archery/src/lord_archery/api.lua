@@ -22,7 +22,10 @@ local registered_crossbows = {}
 local function register_bow(name, reg)
 	local def          = reg.definition
 	local wield_scale  = { x = 2, y = 2, z = 0.75, }
-	local stage_groups = table.merge({ not_in_creative_inventory = 1, }, def.groups)
+	local stage_groups = table.merge({
+		not_in_creative_inventory = 1,
+		charged = 1,
+	}, def.groups)
 
 	minetest.register_tool(name, {
 		range             = 3,
@@ -39,6 +42,7 @@ local function register_bow(name, reg)
 		},
 		_original_state   = name,
 		_sound_on_release = def.sound_on_release,
+		_used_projectiles = def.used_projectiles,
 	})
 
 	local stages = {}
@@ -46,7 +50,7 @@ local function register_bow(name, reg)
 
 	for i = 1, 3 do
 		local stage_name = name .. "_" .. i
-		stages[i]    = stage_name
+		stages[i]        = stage_name
 		minetest.register_tool(stage_name, {
 			description       = def.description,
 			range             = 0,
@@ -62,6 +66,7 @@ local function register_bow(name, reg)
 			},
 			_original_state   = name,
 			_sound_on_release = def.sound_on_release,
+			_used_projectiles = def.used_projectiles,
 		})
 	end
 	registered_bows[name] = {
@@ -81,10 +86,13 @@ end
 --- @param name string                itemstring "<mod>:<archery_item_name>"
 --- @param reg  archery.Registration  archery item registration table
 local function register_crossbow(name, reg)
-	local def = reg.definition
-	local wield_scale      = { x = 2, y = 2, z = 0.75, }
+	local def         = reg.definition
+	local wield_scale = { x = 2, y = 2, z = 0.75, }
 
-	local stage_groups = table.merge({ not_in_creative_inventory = 1, charged_state = 1 }, def.groups)
+	local stage_groups = table.merge({
+		not_in_creative_inventory = 1,
+		is_loaded = 1,
+	}, def.groups)
 
 	minetest.register_tool(name, {
 		range             = 3,
@@ -101,29 +109,38 @@ local function register_crossbow(name, reg)
 		},
 		_original_state   = name,
 		_sound_on_release = def.sound_on_release,
+		_used_projectiles = def.used_projectiles,
 	})
 
 	local stages = {}
 	stages[0] = name
-	local stage_name = name .. "_" .. 1
-	stages[1]        = stage_name
+	local max_stage = 2
 
-	minetest.register_tool(stage_name, {
-		description       = def.description,
-		range             = 0,
-		wield_scale       = wield_scale,
-		inventory_image   = def.inventory_image .. "_" .. 1 .. ".png",
-		wield_image       = def.inventory_image .. "_" .. 1 .. ".png",
-		groups            = stage_groups,
-		tool_capabilities = def.tool_capabilities,
-		touch_interaction = {
-			pointed_nothing = "short_dig_long_place",
-			pointed_node    = "long_dig_short_place",
-			pointed_object  = "short_dig_long_place",
-		},
-		_original_state   = name,
-		_sound_on_release = def.sound_on_release,
-	})
+	for i = 1, max_stage do
+		local stage_name = name .. "_" .. i
+		stages[i]        = stage_name
+		if i == max_stage then
+			stage_groups = table.merge({ crossbow_charged = 1, }, stage_groups)
+		end
+
+		minetest.register_tool(stage_name, {
+			description       = def.description,
+			range             = 0,
+			wield_scale       = wield_scale,
+			inventory_image   = def.inventory_image .. "_" .. i .. ".png",
+			wield_image       = def.inventory_image .. "_" .. i .. ".png",
+			groups            = stage_groups,
+			tool_capabilities = def.tool_capabilities,
+			touch_interaction = {
+				pointed_nothing = "short_dig_long_place",
+				pointed_node    = "long_dig_short_place",
+				pointed_object  = "short_dig_long_place",
+			},
+			_original_state   = name,
+			_sound_on_release = def.sound_on_release,
+			_used_projectiles = def.used_projectiles,
+		})
+	end
 
 	registered_crossbows[name] = {
 		definition = def,
