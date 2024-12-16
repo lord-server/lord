@@ -301,7 +301,7 @@ local S = minetest.get_mod_translator()
      label = "formspec extractor replacement",
      name = "bees:extractor_formspec_replacement_2",
      nodenames = {"bees:extractor"},
-     run_at_every_load = false,
+     run_at_every_load = true,
      action = function(pos, node)
 	 local meta = minetest.get_meta(pos)
 	   meta:set_string('formspec', formspecs.extractor(pos))
