@@ -1,4 +1,7 @@
-local S = minetest.get_mod_translator()
+local S        = minetest.get_mod_translator()
+local colorize = minetest.colorize
+
+local px = 1/16
 
 local function make_negative_visual_effect(user)
 	local first_screen = user:hud_add({
@@ -50,12 +53,20 @@ minetest.register_craft({
 
 minetest.register_node("lottfarming:orc_medicine", {
 	description       = S("Orc medicine"),
+	_tt_help          = colorize('#aaa', S('Be careful. Who knows what these orcs have come up with.')),
 	inventory_image   = '(empty_16x16.png^[lowpart:50:lottfarming_orc_medicine.png)^vessels_drinking_glass_inv.png',
 	drawtype          = 'plantlike',
 	paramtype         = 'light',
 	tiles             = { 'lottfarming_orc_medicine.png^(vessels_drinking_glass.png^[opacity:160)^[opacity:240' },
 	use_texture_alpha = 'blend',
 	visual_scale      = 0.8,
+	selection_box     = {
+		type  = 'fixed',
+		fixed = { -2.2*px, -8*px, -2.2*px, 2.2*px, 0, 2.2*px } -- 2.2 cause of visual_scale=0.8
+	},
+	walkable          = false,
+	groups            = { dig_immediate = 3, attached_node = 1 },
+	sounds            = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
 		user:set_hp(20)
 		local name = user:get_player_name()
