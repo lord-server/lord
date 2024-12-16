@@ -10,6 +10,7 @@ return {
 	end,
 	wood        = {
 		description         = SL("Wooden Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.75, [2] = 2.75, [3] = 2.05 }, uses = 5, maxlevel = 1 },
 		snappy              = { times = { [1] = 2.75, [2] = 1.75, [3] = 0.75 }, uses = 5, maxlevel = 1 },
@@ -19,6 +20,7 @@ return {
 	},
 	stone       = {
 		description         = SL("Stone Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.35, [2] = 2.10, [3] = 1.85 }, uses = 5, maxlevel = 1 },
 		snappy              = { times = { [1] = 2.75, [2] = 1.75, [3] = 0.75 }, uses = 5, maxlevel = 1 },
@@ -27,6 +29,7 @@ return {
 	},
 	steel       = {
 		description         = SL("Steel Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3, [2] = 1.90, [3] = 1.50 }, uses = 15, maxlevel = 2 },
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
@@ -36,6 +39,7 @@ return {
 	},
 	bronze      = {
 		description         = SL("Bronze Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
 		snappy              = { times = { [1] = 2.55, [2] = 1.25, [3] = 0.50 }, uses = 30, maxlevel = 2 },
@@ -45,6 +49,7 @@ return {
 	},
 	copper      = {
 		description         = SL("Copper Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.25, [2] = 2.00, [3] = 1.75 }, uses = 5, maxlevel = 1 },
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 10, maxlevel = 1 },
@@ -54,6 +59,7 @@ return {
 	},
 	tin         = {
 		description         = SL("Tin Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.25, [2] = 2.00, [3] = 1.75 }, uses = 5, maxlevel = 1 },
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 10, maxlevel = 1 },
@@ -63,6 +69,7 @@ return {
 	},
 	silver      = {
 		description         = SL("Silver Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 15, maxlevel = 2 },
 		snappy              = { times = { [1] = 2.60, [2] = 1.30, [3] = 0.50 }, uses = 25, maxlevel = 2 },
@@ -72,6 +79,7 @@ return {
 	},
 	gold        = {
 		description         = SL("Gold Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
 		snappy              = { times = { [1] = 2.60, [2] = 1.30, [3] = 0.50 }, uses = 30, maxlevel = 2 },
@@ -81,6 +89,7 @@ return {
 	},
 	galvorn     = {
 		description         = SL("Galvorn Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.50, [2] = 1.50, [3] = .90 }, uses = 25, maxlevel = 2 },
 		snappy              = { times = { [1] = 2.50, [2] = 1.50, [3] = 0.85 }, uses = 35, maxlevel = 2 },
@@ -90,6 +99,7 @@ return {
 	},
 	mithril     = {
 		description         = SL("Mithril Battleaxe"),
+		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2, [2] = 1, [3] = .50 }, uses = 35, maxlevel = 3 },
 		snappy              = { times = { [1] = 1, [2] = 1.10, [3] = 0.50 }, uses = 40, maxlevel = 3 },

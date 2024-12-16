@@ -10,7 +10,7 @@ minetest.mod(function(mod)
 		warhammer = require('warhammers'),
 		spear     = require('spears'),
 		dagger    = require('daggers'),
-		special   = require('special'),
+		special   = require('racial'),
 	}
 
 	-- Source materials

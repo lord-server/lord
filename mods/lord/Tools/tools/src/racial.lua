@@ -52,7 +52,7 @@ minetest.register_tool('tools:sword_human', {
 minetest.register_tool('tools:dagger_hobbit', {
 	description         = S('Hobbit Dagger'),
 	inventory_image     = 'tools_dagger_hobbit.png',
-	range               = 2,
+	range               = 3,
 	tool_capabilities = {
 		max_drop_level      = 0,
 		groupcaps           = { snappy = { times = { [2] = 2.25, [3] = 1.75 }, uses = 15, maxlevel = 1 }, },

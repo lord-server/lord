@@ -10,7 +10,7 @@ return {
 	end,
 	wood        = {
 		description         = SL("Wooden Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3.40, [2] = 2.40, [3] = 1.30 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 15 },
@@ -19,7 +19,7 @@ return {
 	},
 	stone       = {
 		description         = SL("Stone Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.85, [2] = 1.85, [3] = 1.10 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 18.4 },
@@ -27,7 +27,7 @@ return {
 	},
 	steel       = {
 		description         = SL("Steel Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
 		damage_groups       = { fleshy = 20 },
@@ -36,7 +36,7 @@ return {
 	},
 	bronze      = {
 		description         = SL("Bronze Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 30, maxlevel = 2 },
 		damage_groups       = { fleshy = 26.10 },
@@ -45,7 +45,7 @@ return {
 	},
 	copper      = {
 		description         = SL("Copper Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 21.81 },
@@ -54,7 +54,7 @@ return {
 	},
 	tin         = {
 		description         = SL("Tin Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 20.4 },
@@ -63,7 +63,7 @@ return {
 	},
 	silver      = {
 		description         = SL("Silver Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 20, maxlevel = 2 },
 		damage_groups       = { fleshy = 29 },
@@ -72,6 +72,7 @@ return {
 	},
 	gold        = {
 		description         = SL("Gold Warhammer"),
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 30, maxlevel = 2 },
 		damage_groups       = { fleshy = 33 },
@@ -80,7 +81,7 @@ return {
 	},
 	galvorn     = {
 		description         = SL("Galvorn Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.50, [2] = 1.30, [3] = 0.45 }, uses = 35, maxlevel = 2 },
 		damage_groups       = { fleshy = 36 },
@@ -89,7 +90,7 @@ return {
 	},
 	mithril     = {
 		description         = SL("Mithril Warhammer"),
-		range               = 2,
+		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 40, maxlevel = 3 },
 		damage_groups       = { fleshy = 25 },

@@ -9,7 +9,7 @@ return {
 	end,
 	wood        = {
 		description         = SL("Wooden Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 2.25, [3] = 1.75 }, uses = 2, maxlevel = 1 },
 		damage_groups       = { fleshy = .65 },
@@ -18,7 +18,7 @@ return {
 	},
 	stone       = {
 		description         = SL("Stone Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.35, [3] = 0.85 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = .70 },
@@ -26,7 +26,7 @@ return {
 	},
 	steel       = {
 		description         = SL("Steel Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 10, maxlevel = 1 },
 		damage_groups       = { fleshy = 1.5 },
@@ -35,7 +35,7 @@ return {
 	},
 	bronze      = {
 		description         = SL("Bronze Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 15, maxlevel = 1 },
 		damage_groups       = { fleshy = 2.2 },
@@ -44,7 +44,7 @@ return {
 	},
 	copper      = {
 		description         = SL("Copper Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.25, [3] = 0.75 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 1.8 },
@@ -53,7 +53,7 @@ return {
 	},
 	tin         = {
 		description         = SL("Tin Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.25, [3] = 0.75 }, uses = 5, maxlevel = 1 },
 		damage_groups       = { fleshy = 1.2 },
@@ -62,7 +62,7 @@ return {
 	},
 	silver      = {
 		description         = SL("Silver Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .80, [3] = 0.40 }, uses = 10, maxlevel = 1 },
 		damage_groups       = { fleshy = 3.5625 },
@@ -71,7 +71,7 @@ return {
 	},
 	gold        = {
 		description         = SL("Gold Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .80, [3] = 0.40 }, uses = 15, maxlevel = 1 },
 		damage_groups       = { fleshy = 3.84 },
@@ -80,7 +80,7 @@ return {
 	},
 	galvorn     = {
 		description         = SL("Galvorn Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .90, [3] = 0.45 }, uses = 20, maxlevel = 1 },
 		damage_groups       = { fleshy = 6.0 },
@@ -89,7 +89,7 @@ return {
 	},
 	mithril     = {
 		description         = SL("Mithril Dagger"),
-		range               = 2,
+		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .75, [3] = 0.35 }, uses = 25, maxlevel = 2 },
 		damage_groups       = { fleshy = 2.0 },
