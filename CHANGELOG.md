@@ -1,5 +1,10 @@
 # Change Log
 
+## [2024.11.p2](https://github.com/lord-server/lord/releases/tag/2024.11.p2)
+ - Orc medicine: add `selection_box`, `groups`, `sounds`, description & not `walkable`. Closes #1848. Closes #1849
+ - Melee weapon: change attack distance (`range`). Closes #1841
+ - Update extractor form every LBM. Closes #1851
+
 ## [2024.11.p1](https://github.com/lord-server/lord/releases/tag/2024.11.p1)
  - Add Dwarves Spawn into prod conf.
  - Vessels: Pint: add groups for dig node. Closes #1838
