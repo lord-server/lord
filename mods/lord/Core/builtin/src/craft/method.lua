@@ -333,7 +333,7 @@ function minetest.get_craft_result(input)
 					output.time = recipe.time
 				end
 
-				return output, new_input
+				return output, new_input, recipe
 			end
 		end
 	end
