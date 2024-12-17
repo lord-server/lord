@@ -63,45 +63,51 @@ minetest.register_tool('tools:dagger_hobbit', {
 })
 
 minetest.register_craft({
-	method = minetest.CraftMethod.ANVIL,
-	output = 'tools:sword_elven',
-	recipe = {
+	method   = minetest.CraftMethod.ANVIL,
+	output   = 'tools:sword_elven',
+	for_race = races.name.ELF,
+	recipe   = {
 		{ '',                     'default:steel_ingot', ''                     },
 		{ 'default:bronze_ingot', 'default:steel_ingot', 'default:bronze_ingot' },
 		{ 'default:mese_crystal', 'group:stick',         'default:mese_crystal' },
 	}
 })
 minetest.register_mirrored_crafts({
-	method = minetest.CraftMethod.ANVIL,
-	output = 'tools:sword_orc',
-	recipe = {
+	method   = minetest.CraftMethod.ANVIL,
+	output   = 'tools:sword_orc',
+	for_race = races.name.ORC,
+	recipe   = {
 		{ '', 'default:steel_ingot', 'default:steel_ingot' },
 		{ '', 'lottores:mithril_lump', '' },
 		{ '', 'default:mese_crystal', '' },
 	}
 })
 minetest.register_craft({
-	method = minetest.CraftMethod.ANVIL,
-	output = 'tools:battleaxe_dwarven',
-	recipe = {
+	method   = minetest.CraftMethod.ANVIL,
+	output   = 'tools:battleaxe_dwarven',
+	for_race = races.name.DWARF,
+	recipe   = {
 		{ 'lottores:mithril_ingot', 'default:mese_crystal', 'lottores:mithril_ingot' },
 		{ 'lottores:mithril_ingot', 'group:stick',          'lottores:mithril_ingot' },
 		{ '',                       'group:stick',          '' }
 	}
 })
 minetest.register_craft({
-	method = minetest.CraftMethod.ANVIL,
-	output = 'tools:sword_human',
-	recipe = {
+	method   = minetest.CraftMethod.ANVIL,
+	output   = 'tools:sword_human',
+	for_race = races.name.HUMAN,
+	recipe   = {
 		{ '',                  'lottores:mithril_ingot', ''                  },
 		{ 'lottores:red_gem',  'lottores:mithril_ingot', 'lottores:red_gem'  },
 		{ 'lottores:blue_gem', 'group:stick',            'lottores:blue_gem' },
 	}
 })
+
 minetest.register_craft({
-	method = minetest.CraftMethod.ANVIL,
-	output = 'tools:dagger_hobbit',
-	recipe = {
+	method   = minetest.CraftMethod.ANVIL,
+	for_race = races.name.HOBBIT,
+	output   = 'tools:dagger_hobbit',
+	recipe   = {
 		{ '',                     'default:mese_crystal', ''                     },
 		{ 'default:mese_crystal', 'tools:dagger_mithril', 'default:mese_crystal' },
 		{ '',                     '',                     ''                     }

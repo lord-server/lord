@@ -12,9 +12,16 @@ local function get_craft_result(inv)
 	})
 end
 
---- @param inv InvRef
-local function make_result_prediction(inv)
-	local result = get_craft_result(inv)
+--- @param inv    InvRef
+--- @param player Player
+local function make_result_prediction(inv, player)
+	local result, _, recipe = get_craft_result(inv)
+	local player_race       = races.get_race(player:get_player_name())
+
+	if recipe and recipe.for_race and recipe.for_race ~= player_race then
+		return
+	end
+
 	inv:set_list('craft_result', { result.item })
 end
 
@@ -36,17 +43,17 @@ InventoryCallbacks = {
 	end,
 
 	on_put = function(inv, list_name, index, stack, player)
-		make_result_prediction(inv)
+		make_result_prediction(inv, player)
 	end,
-	on_move = function(inv, from_list, from_index, to_list, to_index, count, _)
-		make_result_prediction(inv)
+	on_move = function(inv, from_list, from_index, to_list, to_index, count, player)
+		make_result_prediction(inv, player)
 	end,
 
 	on_take = function(inv, list_name, index, stack, player)
 		if list_name == 'craft_result' then
 			do_craft(inv)
 		end
-		make_result_prediction(inv)
+		make_result_prediction(inv, player)
 	end,
 }
 
