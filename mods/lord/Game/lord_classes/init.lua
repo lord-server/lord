@@ -19,8 +19,17 @@ races = {
 	init_cbs = {},
 }
 
+races.name = {
+	SHADOW = 'shadow',
+	ORC    = 'orc',
+	HUMAN  = 'man',
+	DWARF  = 'dwarf',
+	HOBBIT = 'hobbit',
+	ELF    = 'elf',
+}
+
 races.list = {
-	shadow = {
+	[races.name.SHADOW] = {
 		name = SL("Shadow"),
 		granted_privs = {"fly", "fast"},
 		revoked_privs = {"shout", "interact"},
@@ -30,31 +39,31 @@ races.list = {
 		female_skins = 1,
 		faction = "neutral",
 	},
-	orc = {
+	[races.name.ORC] = {
 		name = SL("Orc"),
 		male_skins = 5,
 		female_skins = 5,
 		faction = "monster",
 	},
-	man = {
+	[races.name.HUMAN] = {
 		name = SL("Man"),
 		male_skins = 8,
 		female_skins = 5,
 		faction = "npc",
 	},
-	dwarf = {
+	[races.name.DWARF] = {
 		name = SL("Dwarf"),
 		male_skins = 5,
 		female_skins = 5,
 		faction = "npc",
 	},
-	hobbit = {
+	[races.name.HOBBIT] = {
 		name = SL("Hobbit"),
 		male_skins = 5,
 		female_skins = 5,
 		faction = "npc",
 	},
-	elf = {
+	[races.name.ELF] = {
 		name = SL("Elf"),
 		male_skins = 6,
 		female_skins = 5,
@@ -63,7 +72,7 @@ races.list = {
 }
 
 -- TODO: Get these values via minetest.settings:get()
-races.default = {"shadow", "male"}
+races.default = { races.name.SHADOW, "male" }
 races.default_skin = 1
 
 local tmp_races_list = {}
