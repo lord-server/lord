@@ -1,0 +1,9 @@
+# textdomain: lord_replacer
+Node Replacer=Node Replacer
+Error: you have selected an unloaded node, please wait for server.=Error: you have selected an unloaded node, please wait for server.
+Node replacer set to: %s=Node replacer set to: %s
+Error: non-empty node inventory found. Unload it first.=Error: non-empty node inventory found. Unload it first.
+Error: this node is protected.=Error: this node is protected.
+Error: this node is in blacklist.=Error: this node is in blacklist.
+Error: this node is irreplaceable.=Error: this node is irreplaceable.
+Error: not enough materials.=Error: not enough materials.

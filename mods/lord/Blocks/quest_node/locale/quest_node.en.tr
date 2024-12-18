@@ -1,0 +1,12 @@
+# textdomain: quest_node
+
+Reward Chest=Reward Chest
+Settings=Settings
+Players=Players
+Reward:=Reward:
+Congratulations text for player:=Congratulations text for player:
+Leave empty to display "Congratulations! You've completed the quest!"=Leave empty to display "Congratulations! You've completed the quest!"
+Save=Save
+Cancel=Cancel
+The chest is empty! You've already been here!=The chest is empty! You've already been here!
+Congratulations! You've completed the quest!=Congratulations! You've completed the quest!

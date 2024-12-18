@@ -1,0 +1,34 @@
+# textdomain: farming
+Hoe=Hoe
+Seed=Seed
+Wooden Hoe=Wooden Hoe
+Stone Hoe=Stone Hoe
+Steel Hoe=Steel Hoe
+Bronze Hoe=Bronze Hoe
+Mese Hoe=Mese Hoe
+Diamond Hoe=Diamond Hoe
+Wheat Seed=Wheat Seed
+Wheat=Wheat
+Flour=Flour
+Bread=Bread
+Cotton Seed=Cotton Seed
+Cotton=Cotton
+String=String
+Soil=Soil
+Wet Soil=Wet Soil
+Savanna Soil=Savanna Soil
+Wet Savanna Soil=Wet Savanna Soil
+Desert Sand Soil=Desert Sand Soil
+Wet Desert Sand Soil=Wet Desert Sand Soil
+Straw=Straw
+Straw Stair=Straw Stair
+Inner Straw Stair=Inner Straw Stair
+Outer Straw Stair=Outer Straw Stair
+Straw Slab=Straw Slab
+Wild Cotton=Wild Cotton
+
+
+##### not used anymore #####
+
+Dry Soil=Dry Soil
+Wet Dry Soil=Wet Dry Soil
