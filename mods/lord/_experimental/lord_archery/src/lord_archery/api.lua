@@ -9,13 +9,13 @@ local registered_crossbows = {}
 --- @field groups          table   minetest item definition groups table
 --- @field uses            number  number of shots available until the archery item breaks
 
---- @class archery.Stages
+--- @class archery.StageConf
 --- @field charging_time table  a numerical table starting from 0 containing charging times for each stage
 --- @field stages        table  a numerical table starting from 0 containing stage names (itemstring)
 
 --- @class archery.Registration
 --- @field definition archery.Definition  definition for creating the base archery item and stages
---- @field stages archery.Stages          the stages and time taken to charge configuration
+--- @field stage_conf archery.StageConf   the StageConf table
 
 --- @param name string                itemstring "<mod>:<archery_item_name>"
 --- @param reg  archery.Registration  archery item registration table
@@ -71,9 +71,9 @@ local function register_bow(name, reg)
 	end
 	registered_bows[name] = {
 		definition = def,
-		stages = {
-			stages        = stages,
-			charging_time = reg.stages.charging_time or {
+		stage_conf = {
+			stage_conf    = stages,
+			charging_time = reg.stage_conf.charging_time or {
 				[0] = 0,
 				[1] = 0.5,
 				[2] = 1,
@@ -144,11 +144,12 @@ local function register_crossbow(name, reg)
 
 	registered_crossbows[name] = {
 		definition = def,
-		stages = {
+		stage_conf = {
 			stages        = stages,
-			charging_time = reg.stages.charging_time or {
+			charging_time = reg.stage_conf.charging_time or {
 				[0] = 0,
-				[1] = 1.5,
+				[1] = 0.5,
+				[2] = 1,
 			},
 		},
 	}
