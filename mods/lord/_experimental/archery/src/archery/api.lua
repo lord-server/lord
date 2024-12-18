@@ -21,21 +21,21 @@ end
 
 --- @param stack      ItemStack          a stack with the archery item
 --- @param hold_time  number             the time the player was holding CONTROL_CHARGE down
---- @param stages     archery.Stages     the stages and time taken to charge
+--- @param stage_conf archery.StageConf  the StageConf table
 --- @param player     Player             a player that charges the archery item
 --- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
-local function charge(stack, hold_time, stages, player)
+local function charge(stack, hold_time, stage_conf, player)
 	minetest.chat_send_all("TWO")
 	local name = player:get_player_name()
 
 	if not name then
 		return false
 	end
-	local stage_list = stages.stages
+	local stage_list = stage_conf.stages
 
 	for position, current_stage in pairs(stage_list) do
 		local next_pos = position + 1
-		local next_stage_time = stages.charging_time[next_pos]
+		local next_stage_time = stage_conf.charging_time[next_pos]
 		local next_stage_stack = stage_list[next_pos]
 		if stack:get_name() == current_stage then
 			--minetest.chat_send_all(#stage_list-1)
@@ -96,7 +96,7 @@ local function projectile_shoot(player, stack, hold_time)
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
 	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
-	local charging_time  = reg_from_archery_item(stack:get_name()).stages.charging_time
+	local charging_time  = reg_from_archery_item(stack:get_name()).stage_conf.charging_time
 	local draw_power     = reg_from_archery_item(stack:get_name()).draw_power or 1
 	local max_holding    = charging_time[#charging_time]
 
@@ -170,7 +170,7 @@ controls.on_hold(function(player, key, hold_time)
 
 	player_slowdown(player)
 
-	local new_stack = charge(stack, hold_time, reg_from_archery_item(stack:get_name()).stages, player)
+	local new_stack = charge(stack, hold_time, reg_from_archery_item(stack:get_name()).stage_conf, player)
 	if new_stack then
 		--minetest.chat_send_all("THREE")
 		player:set_wielded_item(new_stack)
