@@ -13,7 +13,7 @@ return {
 				used_projectiles = { "arrow" },
 				draw_power = 1,
 			},
-			stages = {
+			stage_conf = {
 				charging_time = {
 					[0] = 0,
 					[1] = .25,
@@ -32,9 +32,9 @@ return {
 				uses             = 180,
 				sound_on_release = "lord_archery_arrow_release",
 				used_projectiles = { "bolt" },
-				draw_power = 1,
+				draw_power = 10,
 			},
-			stages = {
+			stage_conf = {
 				charging_time = {
 					[0] = 0,
 					[1] = 0.5,
