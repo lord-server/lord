@@ -1,4 +1,3 @@
-
 -- Table for saving player physics to avoid getting bugs with potions
 local players_physics = {}
 
@@ -57,52 +56,33 @@ local function discharge(stack)
 	return stack
 end
 
-
--- Needs a new effect-based implementation
+-- See #1855
 --- @param player Player a player to slow down
 local function player_slowdown(player)
-	--[[local physics = player:get_physics_override()
-
-	if not physics then
-		return
-	end
-
-	if physics.speed ~= PLAYER_SLOWDOWN_SPEED then
-		players_physics[player:get_player_name()] = physics.speed
-	end
-
-	physics.speed = PLAYER_SLOWDOWN_SPEED
-	player:set_physics_override(physics)]]
+	--physics.for_player(player):set({
+	--	speed = PLAYER_SLOWDOWN_SPEED,
+	--},
+	--{
+	--	name = "archery:draw_slowdown",
+	--})
 end
 
--- Needs a new effect-based implementation
+-- See #1855
 --- @param player Player a player to reset the effect of slowing down for
 local function player_reset_slowdown(player)
-	--[[local physics = player:get_physics_override()
-
-	if not physics then
-		return
-	end
-
-	physics.speed = players_physics[player:get_player_name()]
-	player:set_physics_override(physics)]]
+	--physics.for_player(player):revert({
+	--	name = "archery:draw_slowdown",
+	--})
 end
 
---- @param player    Player     a player that shoots the projectile
---- @param stack     ItemStack  a stack with the archery item
---- @param hold_time number     the time the player was holding CONTROL_CHARGE down
-local function projectile_shoot(player, stack, hold_time)
-	local inv            = player:get_inventory()
-	local look_dir       = player:get_look_dir()
-	local player_pos     = player:get_pos()
-	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
-	local charging_time  = reg_from_archery_item(stack:get_name()).stage_conf.charging_time
-	local draw_power     = reg_from_archery_item(stack:get_name()).draw_power or 1
-	local max_holding    = charging_time[#charging_time]
+local function calculate_power(stack, hold_time, no_hold)
+	local charging_time = reg_from_archery_item(stack:get_name()).stage_conf.charging_time
+	local draw_power    = reg_from_archery_item(stack:get_name()).draw_power or 1
+	local max_holding   = charging_time[#charging_time]
 
-    if not hold_time then
-        hold_time = max_holding
-    end
+	if no_hold then
+		return draw_power
+	end
 
 	local power = draw_power*(hold_time-charging_time[1])/max_holding
 
@@ -111,10 +91,23 @@ local function projectile_shoot(player, stack, hold_time)
 	elseif hold_time <= 0.1 then
 		power = 0.1/max_holding
 	end
+	return power
+end
+
+--- @param player    Player     a player that shoots the projectile
+--- @param stack     ItemStack  a stack with the archery item
+--- @param hold_time number     the time the player was holding CONTROL_CHARGE down
+local function projectile_shoot(player, stack, power)
+	local inv            = player:get_inventory()
+	local look_dir       = player:get_look_dir()
+	local player_pos     = player:get_pos()
+	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
+
 	local uses = reg_from_archery_item(stack:get_name()).definition.uses
 	for item_name, reg in pairs(projectiles.get_projectiles()) do
 		if inv:contains_item("main", item_name) then
 			local projectile = minetest.add_entity(projectile_pos, reg.entity_name)
+
 			projectile:add_velocity(vector.multiply(look_dir, reg.entity_reg.max_speed * 3 * power))
 			projectile:set_acceleration(vector.new(0, -GRAVITY, 0))
 			projectile:get_luaentity()._shooter = player
@@ -147,97 +140,14 @@ local function find_matching_projectile(player, archery_item)
 	end
 end
 
--- Archery item charge on hold
-controls.on_hold(function(player, key, hold_time)
-	-- Charging on holding CONTROL_CHARGE
-	if key ~= CONTROL_CHARGE then
-		return
-	end
-
-	-- Check if wielded item is not an archery_item
-	local stack = player:get_wielded_item()
-	local stack_def = stack:get_definition()
-	if not stack_def.groups.archery_item then
-		--minetest.chat_send_all("HERE")
-		return
-	end
-
-	if not find_matching_projectile(player, stack) then
-		--minetest.chat_send_all("HERE2")
-		return
-	end
-	--minetest.chat_send_all("ONE")
-
-	player_slowdown(player)
-
-	local new_stack = charge(stack, hold_time, reg_from_archery_item(stack:get_name()).stage_conf, player)
-	if new_stack then
-		--minetest.chat_send_all("THREE")
-		player:set_wielded_item(new_stack)
-	end
-end)
-
--- Charged crossbow discharge on release
-controls.on_press(function(player, key)
-	if key ~= CONTROL_CHARGE then
-		return
-	end
-
-	local stack = player:get_wielded_item()
-	local stack_def = stack:get_definition()
-
-	if not stack_def.groups.crossbow_charged then
-		return
-	end
-
-	minetest.sound_play(stack:get_definition()["_sound_on_release"], {object = player})
-
-	projectile_shoot(player, stack, 0)
-
-	player_reset_slowdown(player)
-	local new_stack = discharge(stack)
-	if new_stack then
-		player:set_wielded_item(new_stack)
-	end
-end)
-
--- Bow discharge on release
-controls.on_release(function(player, key, hold_time)
-	if key ~= CONTROL_CHARGE then
-		return
-	end
-
-	local stack = player:get_wielded_item()
-	local stack_def = stack:get_definition()
-
-	if not (stack_def.groups.charged and stack_def.groups.bow) then
-		return
-	end
-
-	local projectile = find_matching_projectile(player, stack)
-	if projectile and projectile_shoot(player, stack, hold_time) then
-		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
-	end
-
-	player_reset_slowdown(player)
-	local new_stack = discharge(stack)
-	if new_stack then
-		player:set_wielded_item(new_stack)
-	end
-end)
-
--- If the wielded item changed while bow was charging, discharge without shooting the arrow
-wield_item.on_index_change(function(player, player_wield_index, player_last_wield_index)
-	local inv   = player:get_inventory()
-	local stack = inv:get_stack("main", player_last_wield_index)
-
-	if not stack:get_definition().groups.allow_hold_abort then
-		return
-	end
-
-	player_reset_slowdown(player)
-	local new_stack = discharge(stack)
-	if new_stack then
-		inv:set_stack("main", player_last_wield_index, new_stack)
-	end
-end)
+return {
+	find_matching_projectile = find_matching_projectile,
+	player_reset_slowdown = player_reset_slowdown,
+	reg_from_archery_item = reg_from_archery_item,
+	projectile_shoot = projectile_shoot,
+	calculate_power = calculate_power,
+	player_slowdown = player_slowdown,
+	discharge = discharge,
+	charge = charge,
+	CONTROL_CHARGE = CONTROL_CHARGE,
+}
