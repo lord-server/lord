@@ -72,7 +72,7 @@ local function register_bow(name, reg)
 	registered_bows[name] = {
 		definition = def,
 		stage_conf = {
-			stage_conf    = stages,
+			stages        = stages,
 			charging_time = reg.stage_conf.charging_time or {
 				[0] = 0,
 				[1] = 0.5,

@@ -1,13 +1,7 @@
-local api = require("archery.api")
-
-archery = {}
-
-local function register_api()
-	_G.archery = api
-end
+local  processor = require("archery.processor")
 
 return {
 	init = function()
-		register_api()
-	end,
+		return processor
+	end
 }
