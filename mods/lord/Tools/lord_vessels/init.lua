@@ -6,6 +6,7 @@ minetest.mod(function(mod)
 	require('pints')
 	require('plates')  -- bowls & other plates
 	require('can')     -- steel bottle
+	require('vases')
 
 	dofile(mod.path .. '/legacy.lua')
 end)
