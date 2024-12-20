@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local SL = minetest.get_mod_translator()
 
 minetest.register_alias("protector_lott:protect", "protector_lott:protect_stone")
 

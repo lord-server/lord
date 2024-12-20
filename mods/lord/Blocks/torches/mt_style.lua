@@ -1,5 +1,4 @@
-local S = lord.require_intllib()
-
+local S = minetest.get_mod_translator()
 
 --elf
 minetest.register_craftitem(":lottother:blue_torch", {
