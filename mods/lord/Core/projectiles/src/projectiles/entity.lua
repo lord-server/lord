@@ -78,8 +78,8 @@ end
 --- @param velocity      vector     projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
-		local speed = (vector.length(velocity)/GRAVITY)^(1/2)
-		punch_target(projectile, target, damage_groups, true, { fleshy = speed })
+		local damage = (vector.length(velocity)/GRAVITY)^(1/2)
+		punch_target(projectile, target, damage_groups, true, { fleshy = damage })
 	end
 	-- Hit player
 	if target:is_player() then

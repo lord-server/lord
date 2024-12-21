@@ -32,13 +32,14 @@ return {
 				uses             = 180,
 				sound_on_release = "lord_archery_arrow_release",
 				used_projectiles = { "bolt" },
-				draw_power = 10,
+				draw_power = 1,
 			},
 			stage_conf = {
 				charging_time = {
 					[0] = 0,
 					[1] = 0.5,
 					[2] = 1,
+					[3] = 1.5,
 				},
 			},
 		},
