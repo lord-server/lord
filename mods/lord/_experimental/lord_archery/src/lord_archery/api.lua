@@ -24,7 +24,7 @@ local function register_bow(name, reg)
 	local wield_scale  = { x = 2, y = 2, z = 0.75, }
 	local stage_groups = table.merge({
 		not_in_creative_inventory = 1,
-		charged = 1,
+		is_loaded = 1,
 	}, def.groups)
 
 	minetest.register_tool(name, {
@@ -92,6 +92,7 @@ local function register_crossbow(name, reg)
 	local stage_groups = table.merge({
 		not_in_creative_inventory = 1,
 		is_loaded = 1,
+		allow_hold_abort = 1,
 	}, def.groups)
 
 	minetest.register_tool(name, {
@@ -100,7 +101,7 @@ local function register_crossbow(name, reg)
 		wield_scale       = wield_scale,
 		inventory_image   = def.inventory_image .. ".png",
 		wield_image       = def.inventory_image .. ".png",
-		groups            = def.groups,
+		groups            = table.merge({ allow_hold_abort = 1 }, def.groups),
 		tool_capabilities = def.tool_capabilities,
 		touch_interaction = {
 			pointed_nothing = "short_dig_long_place",
@@ -114,13 +115,15 @@ local function register_crossbow(name, reg)
 
 	local stages = {}
 	stages[0] = name
-	local max_stage = 2
+	local max_stage = 3
 
 	for i = 1, max_stage do
 		local stage_name = name .. "_" .. i
 		stages[i]        = stage_name
+		local stage_groups_temp = table.copy(stage_groups)
 		if i == max_stage then
-			stage_groups = table.merge({ crossbow_charged = 1, }, stage_groups)
+			stage_groups_temp["allow_hold_abort"] = nil
+			stage_groups_temp["crossbow_charged"] = 1
 		end
 
 		minetest.register_tool(stage_name, {
@@ -129,7 +132,7 @@ local function register_crossbow(name, reg)
 			wield_scale       = wield_scale,
 			inventory_image   = def.inventory_image .. "_" .. i .. ".png",
 			wield_image       = def.inventory_image .. "_" .. i .. ".png",
-			groups            = stage_groups,
+			groups            = stage_groups_temp,
 			tool_capabilities = def.tool_capabilities,
 			touch_interaction = {
 				pointed_nothing = "short_dig_long_place",
@@ -150,6 +153,7 @@ local function register_crossbow(name, reg)
 				[0] = 0,
 				[1] = 0.5,
 				[2] = 1,
+				[3] = 1.5,
 			},
 		},
 	}

@@ -24,7 +24,6 @@ end
 --- @param player     Player             a player that charges the archery item
 --- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
 local function charge(stack, hold_time, stage_conf, player)
-	minetest.chat_send_all("TWO")
 	local name = player:get_player_name()
 
 	if not name then
@@ -37,8 +36,6 @@ local function charge(stack, hold_time, stage_conf, player)
 		local next_stage_time = stage_conf.charging_time[next_pos]
 		local next_stage_stack = stage_list[next_pos]
 		if stack:get_name() == current_stage then
-			--minetest.chat_send_all(#stage_list-1)
-			--minetest.chat_send_all(position + 1)
 			if next_stage_time and (hold_time >= next_stage_time) then
 				stack:set_name(next_stage_stack)
 				return stack
@@ -50,11 +47,12 @@ end
 
 
 --- @param stack ItemStack a stack with the archery item
---- @return      ItemStack resulting archery item stack
+--- @return ItemStack resulting archery item stack
 local function discharge(stack)
 	stack:set_name(to_original_state(stack:get_name()))
 	return stack
 end
+
 
 -- See #1855
 --- @param player Player a player to slow down
@@ -86,36 +84,32 @@ local function calculate_power(stack, hold_time, no_hold)
 
 	local power = draw_power*(hold_time-charging_time[1])/max_holding
 
-	if power >= 1 then
+	if power > 1 then
 		power = 1
-	elseif hold_time <= 0.1 then
-		power = 0.1/max_holding
+	elseif hold_time < 0.1 then
+		power = 0.1
 	end
 	return power
 end
 
---- @param player    Player     a player that shoots the projectile
---- @param stack     ItemStack  a stack with the archery item
---- @param hold_time number     the time the player was holding CONTROL_CHARGE down
-local function projectile_shoot(player, stack, power)
-	local inv            = player:get_inventory()
+--- @param player           Player  a player that shoots the projectile
+--- @param projectile_item  string  itemstring of a projectile item to shoot
+--- @param hold_time        number  the time the player was holding CONTROL_CHARGE down
+local function projectile_shoot(player, projectile_item, power)
+
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
 	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
 
-	local uses = reg_from_archery_item(stack:get_name()).definition.uses
-	for item_name, reg in pairs(projectiles.get_projectiles()) do
-		if inv:contains_item("main", item_name) then
-			local projectile = minetest.add_entity(projectile_pos, reg.entity_name)
+	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
-			projectile:add_velocity(vector.multiply(look_dir, reg.entity_reg.max_speed * 3 * power))
-			projectile:set_acceleration(vector.new(0, -GRAVITY, 0))
-			projectile:get_luaentity()._shooter = player
-			stack:add_wear(65535/uses)
-			inv:remove_item("main", item_name)
-			return true
-		end
-	end
+	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
+
+	projectile_entity:add_velocity(vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power))
+	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
+	projectile_entity:get_luaentity()._shooter = player
+
+	return true
 end
 
 -- Check if there are projectiles in player inventory
@@ -144,6 +138,7 @@ return {
 	find_matching_projectile = find_matching_projectile,
 	player_reset_slowdown = player_reset_slowdown,
 	reg_from_archery_item = reg_from_archery_item,
+	to_original_state = to_original_state,
 	projectile_shoot = projectile_shoot,
 	calculate_power = calculate_power,
 	player_slowdown = player_slowdown,
