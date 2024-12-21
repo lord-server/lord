@@ -1,0 +1,39 @@
+# textdomain: technic_chests
+
+@1 Chest=@1 Chest
+@1 Locked Chest=@1 Locked Chest
+@1 Locked Chest (owned by @2)=@1 Locked Chest (owned by @2)
+Color Filter: @1=Color Filter: @1
+Edit chest description:=Edit chest description:
+
+# Colors
+Black=Black
+Blue=Blue
+Brown=Brown
+Cyan=Cyan
+Dark Green=Dark Green
+Dark Grey=Dark Grey
+Green=Green
+Grey=Grey
+Magenta=Magenta
+Orange=Orange
+Pink=Pink
+Red=Red
+Violet=Violet
+White=White
+Yellow=Yellow
+None=None
+
+# Materials
+Copper=Copper
+Gold=Gold
+Iron=Iron
+Mithril=Mithril
+Silver=Silver
+Wooden=Wooden
+
+# Sorting
+Sort=Sort
+Auto-sort is @1=Auto-sort is @1
+Off=Off
+On=On

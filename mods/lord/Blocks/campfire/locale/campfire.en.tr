@@ -1,0 +1,9 @@
+# textdomain: campfire
+
+### campfire.lua ###
+
+Campfire=Campfire
+Active campfire=Active campfire
+Ash=Ash
+Cooking=Cooking
+Fireplace=Fireplace

@@ -1,0 +1,4 @@
+# textdomain: worldedit_ext
+
+### init.lua ###
+Sets WorldEdit region positions to chunk(s) corners according to current selection marker(s) and/or player position.=Sets WorldEdit region positions to chunk(s) corners according to current selection marker(s) and/or player position.
