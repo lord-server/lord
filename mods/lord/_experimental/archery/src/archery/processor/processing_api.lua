@@ -1,8 +1,5 @@
--- Table for saving player physics to avoid getting bugs with potions
-local players_physics = {}
-
 local CONTROL_CHARGE = "RMB"
-local PLAYER_SLOWDOWN_SPEED = 0.25
+-- local PLAYER_SLOWDOWN_SPEED = 0.25
 
 --- @param tool_name string name of a stage of an archery item
 --- @return          string name of the stage 0 archery item
@@ -12,7 +9,7 @@ local function to_original_state(tool_name)
 end
 
 local function reg_from_archery_item(name)
-    local common_table = table.join(table.copy(lord_archery.get_bows()), table.copy(lord_archery.get_crossbows()))
+    local common_table = table.join(table.copy(archery.get_bows()), table.copy(archery.get_crossbows()))
     local reg = common_table[to_original_state(name)]
     print(dump(reg))
     return reg

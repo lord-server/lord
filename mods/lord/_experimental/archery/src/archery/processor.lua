@@ -1,4 +1,4 @@
-local api = require("archery.api")
+local api = require("archery.processor.processing_api")
 local S = minetest.get_translator("archery")
 
 -- Archery item charge on hold
