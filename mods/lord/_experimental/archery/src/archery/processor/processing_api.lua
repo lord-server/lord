@@ -9,7 +9,7 @@ local function to_original_state(tool_name)
 end
 
 local function reg_from_archery_item(name)
-    local common_table = table.join(table.copy(archery.get_bows()), table.copy(archery.get_crossbows()))
+    local common_table = table.join(table.join(archery.get_bows(), archery.get_crossbows()), archery.get_throwables())
     local reg = common_table[to_original_state(name)]
     print(dump(reg))
     return reg
@@ -42,7 +42,6 @@ local function charge(stack, hold_time, stage_conf, player)
 	return false
 end
 
-
 --- @param stack ItemStack a stack with the archery item
 --- @return ItemStack resulting archery item stack
 local function discharge(stack)
@@ -71,28 +70,48 @@ local function player_reset_slowdown(player)
 end
 
 local function calculate_power(stack, hold_time, no_hold)
+	print(dump(reg_from_archery_item(stack:get_name())))
 	local charging_time = reg_from_archery_item(stack:get_name()).stage_conf.charging_time
-	local draw_power    = reg_from_archery_item(stack:get_name()).draw_power or 1
+	local draw_power    = reg_from_archery_item(stack:get_name()).definition.draw_power
 	local max_holding   = charging_time[#charging_time]
+
+	print(reg_from_archery_item(stack:get_name()))
 
 	if no_hold then
 		return draw_power
 	end
 
-	local power = draw_power*(hold_time-charging_time[1])/max_holding
+	local time_until_stage1 = charging_time[1]
+	hold_time = hold_time-time_until_stage1
+
+	if hold_time >= max_holding then
+		hold_time = max_holding
+	end
+
+	local power = draw_power*hold_time/max_holding
 
 	if power > 1 then
 		power = 1
 	elseif hold_time < 0.1 then
 		power = 0.1
 	end
+
+	minetest.chat_send_all(dump({
+		["1power"] = power,
+		["2draw_power"] = draw_power,
+		["3hold_time"] = hold_time,
+		["4charging_time_1"] = charging_time[1],
+		["5max_holding"] = max_holding,
+		["6Coefficient"] = (hold_time-charging_time[1])/max_holding,
+	}))
 	return power
 end
 
---- @param player           Player  a player that shoots the projectile
---- @param projectile_item  string  itemstring of a projectile item to shoot
---- @param hold_time        number  the time the player was holding CONTROL_CHARGE down
-local function projectile_shoot(player, projectile_item, power)
+--- @param player           Player     a player that shoots the projectile
+--- @param projectile_item  string     itemstring of a projectile item to shoot
+--- @param hold_time        number     the time the player was holding CONTROL_CHARGE down
+--- @param throwable_item   ItemStack  item that was thrown
+local function projectile_shoot(player, projectile_item, power, throwable_item)
 
 	local look_dir       = player:get_look_dir()
 	local player_pos     = player:get_pos()
@@ -101,10 +120,11 @@ local function projectile_shoot(player, projectile_item, power)
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
 	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
-
+	minetest.chat_send_all(projectile_reg.entity_reg.max_speed * power)
 	projectile_entity:add_velocity(vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power))
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
 	projectile_entity:get_luaentity()._shooter = player
+	projectile_entity:get_luaentity()._throwable_item = throwable_item
 
 	return true
 end
