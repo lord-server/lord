@@ -44,4 +44,39 @@ return {
 			},
 		},
 	},
+	throwables = {
+		["lord_archery:javelin_test"] = {
+			definition = {
+				description      = S("Test Javelin"),
+				inventory_image  = "lord_archery_test_javelin", -- without ".png"
+				groups           = { javelin = 1, throwable = 1 },
+				uses             = 180,
+				sound_on_release = "lord_archery_arrow_release",
+				--used_projectiles = { "bolt" },
+				draw_power = 1,
+			},
+			stage_conf = {
+				charging_time = {
+					[0] = 0,
+					[1] = 0.5,
+					[2] = 1.5,
+				},
+			},
+			projectile_reg = {
+				damage_tt   = 5,
+				entity_name = "lord_archery:test_javelin",
+				entity_reg  = {
+					initial_properties = {
+						visual   = "mesh",
+						mesh     = "lord_projectiles_arrow.obj",
+						textures = { "projectile_arrow.png" },
+					},
+					max_speed        = 60,
+					sound_hit_node   = { name = "lord_projectiles_arrow_hit_node",   gain = 3.0 },
+					sound_hit_object = { name = "lord_projectiles_arrow_hit_object", gain = 0.1 },
+					damage_groups    = { fleshy = 5 }
+				},
+			},
+		},
+	},
 }

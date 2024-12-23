@@ -11,9 +11,10 @@ local entity = require("projectiles.entity")
 --- @field speed              number          projectile speed multiplier that used to calculate the flight trajectory
 --- @field type               string          a type of projectile
 
---- @param name string                       itemstring "<mod>:<projectile_name>"
---- @param reg  projectiles.Registration  projectile registration table
-local function register_projectile(name, reg)
+--- @param name               string                    itemstring "<mod>:<projectile_name>"
+--- @param reg                projectiles.Registration  projectile registration table
+--- @param not_register_item  boolean                   whether to register craftitem or not (false/nil = register)
+local function register_projectile(name, reg, not_register_item)
 	local def       = reg.definition
 	reg.type        = reg.type or "arrow"
 	reg.entity_name = reg.entity_name or name
@@ -21,6 +22,10 @@ local function register_projectile(name, reg)
 	registered_projectiles[name] = reg
 
 	entity.register_projectile_entity(reg.entity_name, name, reg.entity_reg)
+
+	if not_register_item then
+		return
+	end
 
 	minetest.register_craftitem(name, table.overwrite({
 		_tt_help = S_tt("Damage: @1", reg.damage_tt)

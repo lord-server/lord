@@ -217,7 +217,12 @@ local register_projectile_entity = function(name, item, entity_reg)
 				return
 			end
 			self.object:remove()
-			minetest.give_or_drop(puncher, ItemStack(item))
+			local item_to_give = ItemStack(item)
+			if self._throwable_item then
+				item_to_give = self._throwable_item
+			end
+			minetest.chat_send_all(dump(item_to_give))
+			minetest.give_or_drop(puncher, item_to_give)
 		end,
 		on_activate    = function(self, staticdata, dtime_s)
 			if staticdata == "_timer_is_started" then

@@ -1,6 +1,6 @@
 local config = require("lord_archery.config")
 
-local function register_bows()
+local function register_archery_items()
 	for name, registration in pairs(config.bows) do
 		archery.register_bow(name, registration)
 	end
@@ -9,8 +9,16 @@ local function register_bows()
 	end
 end
 
+local function register_throwables()
+	for name, registration in pairs(config.throwables) do
+		archery.register_throwable(name, registration)
+	end
+end
+
+
 return {
 	init = function()
-		register_bows()
+		register_archery_items()
+		register_throwables()
 	end,
 }

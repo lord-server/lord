@@ -57,6 +57,44 @@ controls.on_press(function(player, key)
 	end
 end)
 
+-- Bow discharge on release
+controls.on_release(function(player, key, hold_time)
+	if key ~= api.CONTROL_CHARGE then
+		return
+	end
+
+	local stack = player:get_wielded_item()
+	local stack_def = stack:get_definition()
+
+	if not (stack_def.groups.bow and stack_def.groups.is_loaded) then
+		return
+	end
+
+	local inv = player:get_inventory()
+	local meta = stack:get_meta()
+	local wield_index = player:get_wield_index()
+
+	local power = api.calculate_power(stack, hold_time)
+
+	local projectile_item = meta:get_string("loaded_projectile")
+	if projectile_item and api.projectile_shoot(player, projectile_item, power) then
+		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
+		local uses = api.reg_from_archery_item(stack:get_name()).definition.uses
+		stack:add_wear(65535/uses)
+	end
+
+	api.player_reset_slowdown(player)
+	local new_stack = api.discharge(stack)
+	if new_stack then
+		local new_meta = new_stack:get_meta()
+		if new_meta:contains("loaded_projectile") then
+			new_meta:set_string("loaded_projectile", "")
+		end
+		api.player_reset_slowdown(player)
+		inv:set_stack("main", wield_index, new_stack)
+	end
+end)
+
 -- Crossbow loading on starting holding
 controls.on_press(function(player, key)
 	if key ~= api.CONTROL_CHARGE then
@@ -141,8 +179,6 @@ controls.on_release(function(player, key)
 	local inv = player:get_inventory()
 	local wield_index = player:get_wield_index()
 
-	minetest.chat_send_all(stack:get_wear())
-	minetest.chat_send_all("BBB")
 	local new_stack = api.discharge(stack)
 	if new_stack then
 		local new_meta = new_stack:get_meta()
@@ -156,7 +192,7 @@ controls.on_release(function(player, key)
 	end
 end)
 
--- Bow discharge on release
+-- Throwable item throw on release
 controls.on_release(function(player, key, hold_time)
 	if key ~= api.CONTROL_CHARGE then
 		return
@@ -165,33 +201,32 @@ controls.on_release(function(player, key, hold_time)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not (stack_def.groups.bow and stack_def.groups.is_loaded) then
+	if not stack_def.groups.throwable then
+		return
+	end
+
+	local stage_conf = api.reg_from_archery_item(stack:get_name()).stage_conf
+
+	if hold_time < stage_conf.charging_time[1] then
 		return
 	end
 
 	local inv = player:get_inventory()
-	local meta = stack:get_meta()
+	--local meta = stack:get_meta()
 	local wield_index = player:get_wield_index()
 
 	local power = api.calculate_power(stack, hold_time)
 
-	local projectile_item = meta:get_string("loaded_projectile")
-	if projectile_item and api.projectile_shoot(player, projectile_item, power) then
+	local projectile_item = archery.get_throwables()[stack:get_name()].entity_name
+	if projectile_item and api.projectile_shoot(player, projectile_item, power, stack) then
 		minetest.sound_play(stack:get_definition()["_sound_on_release"], { object = player })
 		local uses = api.reg_from_archery_item(stack:get_name()).definition.uses
 		stack:add_wear(65535/uses)
+		stack:take_item(1)
 	end
 
 	api.player_reset_slowdown(player)
-	local new_stack = api.discharge(stack)
-	if new_stack then
-		local new_meta = new_stack:get_meta()
-		if new_meta:contains("loaded_projectile") then
-			new_meta:set_string("loaded_projectile", "")
-		end
-		api.player_reset_slowdown(player)
-		inv:set_stack("main", wield_index, new_stack)
-	end
+	--inv:set_stack("main", wield_index, new_stack)
 end)
 
 -- If the wielded item changed while bow was charging, discharge without shooting the arrow
