@@ -1,0 +1,60 @@
+# textdomain: protector_lott
+### init.lua ###
+Protection Logo=Знак защиты
+
+Protection=Защита
+owned by=только для
+
+PUNCH node to show protected area or USE for area check=Ударьте этот нод для подсветки защищённой области.
+Members: (type player name then press Enter to add)=Доступ для (введите имя игрока и нажмите Enter для добавления):
+Close=Закрыть
+
+This area is owned by=Это только для
+Protection located at:=Защитный блок на координатах:
+Members:=Также доступно для:
+This area is not protected.=Этот блок не защищён.
+You can build here.=Вы можете здесь строить.
+
+Overlaps into another protected area!=Перекрытие с другими защищёнными регионами!
+
+To Chest=В сундук
+To Inventory=В инвентарь
+
+Ignore player protection=Возможность игнорировать защиту игроков
+
+### blocks.lua ###
+Protection Brick Block=Защитный кирпич
+Protection Obsidian=Защитный обсидиан
+Protection Stone=Защитный камень
+Protection Cobble=Защитный булыжник
+Protection Stonebrick=Защитный каменный кирпич
+Protection Desert Stone=Защитный пустынный камень
+Protection Desert Cobble=Защитный пустынный булыжник
+Protection Desert Stone Brick=Защитный кирпич из пустынного камня
+Protection Sandstone=Защитный песчаник
+Protection Sandstone Brick=Защитный кирпич из песчаника
+Protection Dungeon Stone=Защитный малахит
+Protection Paving Stone=Защитная брусчатка
+Protection Marble=Защитный мрамор
+Protection Marble Brick=Защитный мраморный кирпич
+Protection Orc Brick=Защитный орочий камень
+Protection Mordor Stone=Защитный камень Мордора
+
+### doors.lua ###
+Protected Steel Door=Защищённая стальная дверь
+Protected Glass Door=Защищённая стеклянная дверь
+Protected Obsidian Glass Door=Защищённая стеклянно-обсидиановая дверь
+
+Protected Wooden Door=Защищённая яблоневая дверь
+Protected Junglewood Door=Защищённая эвкалиптовая дверь
+Protected Alder Door=Защищённая ольховая дверь
+Protected Birch Door=Защищённая берёзовая дверь
+Protected Pine Door=Защищённая сосновая дверь
+Protected Lebethron Door=Защищённая лебетроновая дверь
+Protected Mallorn Door=Защищённая маллорновая дверь
+
+Protected Oak Door=Защищённая дверь с зарешоченным окном
+Protected Jail Door=Защищённая дверь-решётка
+
+### chests.lua ###
+Protected Chest=Защищённый сундук

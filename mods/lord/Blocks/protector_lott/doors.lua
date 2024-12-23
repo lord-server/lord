@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
 -- Register Protected Doors
 
@@ -13,7 +13,7 @@ local function reg_prot_door(desc, name, door, mat, texture_i, texture_uv)
 	end
 	doors.register(name, {
 		tiles = {{ name = texture_uv.."^protector_logo_door_uv.png", backface_culling = true }},
-		description = SL(desc),
+		description = S(desc),
 		inventory_image = texture_i.."^protector_logo_i.png",
 		groups = gd,
 		sunlight = true,

@@ -1,6 +1,6 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
-minetest.register_privilege("delprotect", SL("Ignore player protection"))
+minetest.register_privilege("delprotect", S("Ignore player protection"))
 
 
 -- get static spawn position
@@ -53,8 +53,8 @@ end
 protector.generate_formspec = function(meta)
 
 	local formspec = "size[8,7]"
-		.."label[0,1;"..SL("PUNCH node to show protected area or USE for area check").."]"
-		.."label[0,2;"..SL("Members: (type player name then press Enter to add)").."]"
+		.."label[0,1;"..S("PUNCH node to show protected area or USE for area check").."]"
+		.."label[0,2;"..S("Members: (type player name then press Enter to add)").."]"
 
 	local members = protector.get_member_list(meta)
 	local npp = 12
@@ -79,7 +79,7 @@ protector.generate_formspec = function(meta)
 			"field_close_on_enter[protector_add_member;false]"
 	end
 
-	formspec = formspec .. "button_exit[2.5,6.2;3,0.5;close_me;"..SL("Close").."]"
+	formspec = formspec .. "button_exit[2.5,6.2;3,0.5;close_me;"..S("Close").."]"
 
 	return formspec
 end
@@ -131,15 +131,15 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 				if infolevel == 1 then
 					minetest.get_player_by_name(digger):set_hp(dig_player:get_hp()-protector.damage)
 					minetest.chat_send_player(digger,
-					SL("This area is owned by").." " .. owner .. "!")
+					S("This area is owned by").." " .. owner .. "!")
 				elseif infolevel == 2 then
 					minetest.chat_send_player(digger,
-					SL("This area is owned by").." " .. owner .. ".")
+					S("This area is owned by").." " .. owner .. ".")
 					minetest.chat_send_player(digger,
-					SL("Protection located at:").." " .. minetest.pos_to_string(p))
+					S("Protection located at:").." " .. minetest.pos_to_string(p))
 					if members ~= "" then
 						minetest.chat_send_player(digger,
-						SL("Members:").." ".. members .. ".")
+						S("Members:").." ".. members .. ".")
 					end
 				end
 				return false
@@ -148,12 +148,12 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 
 		if infolevel == 2 then
 			minetest.chat_send_player(digger,
-			SL("This area is owned by").." " .. owner .. ".")
+			S("This area is owned by").." " .. owner .. ".")
 			minetest.chat_send_player(digger,
-			SL("Protection located at:").." " .. minetest.pos_to_string(positions[1]))
+			S("Protection located at:").." " .. minetest.pos_to_string(positions[1]))
 			if members ~= "" then
 				minetest.chat_send_player(digger,
-				SL("Members:").." ".. members .. ".")
+				S("Members:").." ".. members .. ".")
 			end
 			break
 		end
@@ -163,9 +163,9 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if infolevel == 2 then
 		if #positions < 1 then
 			minetest.chat_send_player(digger,
-			SL("This area is not protected."))
+			S("This area is not protected."))
 		end
-		minetest.chat_send_player(digger, SL("You can build here."))
+		minetest.chat_send_player(digger, S("You can build here."))
 	end
 
 	return true
@@ -226,7 +226,7 @@ function minetest.item_place(itemstack, placer, pointed_thing)
 		local pos = pointed_thing.under
 		if not protector.can_dig(protector.radius * 2, pos, user, true, 3) then
 			minetest.chat_send_player(user,
-			SL("Overlaps into another protected area!"))
+			S("Overlaps into another protected area!"))
 			return protector.old_node_place(itemstack, placer, pos)
 		end
 	    end
@@ -240,7 +240,7 @@ end
 --= Protection Logo
 
 minetest.register_node("protector_lott:protect2", {
-	description = SL("Protection Logo"),
+	description = S("Protection Logo"),
 	tiles = {"protector_logo.png"},
 	wield_image = "protector_logo.png",
 	inventory_image = "protector_logo.png",
@@ -264,7 +264,7 @@ minetest.register_node("protector_lott:protect2", {
 	after_place_node = function(pos, placer)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
-		meta:set_string("infotext", SL("Protection").." ("..SL("owned by").." " .. meta:get_string("owner") .. ")")
+		meta:set_string("infotext", S("Protection").." ("..S("owned by").." " .. meta:get_string("owner") .. ")")
 		meta:set_string("members", "")
 	end,
 

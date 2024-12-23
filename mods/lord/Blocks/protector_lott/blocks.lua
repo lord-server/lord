@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
 minetest.register_alias("protector_lott:protect", "protector_lott:protect_stone")
 
@@ -12,7 +12,7 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 	end
 
 	minetest.register_node("protector_lott:protect_"..subname, {
-		description = SL("Protection "..desc),
+		description = S("Protection "..desc),
 		tiles = {texture, texture, texture.."^protector_logo.png"},
 		sounds = default.node_sound_stone_defaults(),
 		groups = groups,
@@ -21,7 +21,7 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 		after_place_node = function(pos, placer)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("owner", placer:get_player_name() or "")
-			meta:set_string("infotext", SL("Protection").." ("..SL("owned by").." " .. meta:get_string("owner") .. ")")
+			meta:set_string("infotext", S("Protection").." ("..S("owned by").." " .. meta:get_string("owner") .. ")")
 			meta:set_string("members", "")
 		end,
 

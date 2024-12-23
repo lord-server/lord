@@ -1,9 +1,9 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
 -- Protected Chest
 
 minetest.register_node("protector_lott:chest", {
-	description = SL("Protected Chest"),
+	description = S("Protected Chest"),
 	tiles = {
 		"default_chest_top.png", "default_chest_top.png",
 		"default_chest_side.png", "default_chest_side.png",
@@ -17,7 +17,7 @@ minetest.register_node("protector_lott:chest", {
 
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", SL("Protected Chest"))
+		meta:set_string("infotext", S("Protected Chest"))
 		meta:set_string("name", "")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8 * 4)
@@ -49,10 +49,10 @@ minetest.register_node("protector_lott:chest", {
 		local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 		local formspec = "size[8,9]"
 			.. "list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"
-			.. "button[0,4.5;2,0.25;toup;"..SL("To Chest").."]"
+			.. "button[0,4.5;2,0.25;toup;"..S("To Chest").."]"
 			.. "field[2.3,4.8;4,0.25;chestname;;"
 			.. meta:get_string("name") .. "]"
-			.. "button[6,4.5;2,0.25;todn;"..SL("To Inventory").."]"
+			.. "button[6,4.5;2,0.25;todn;"..S("To Inventory").."]"
 			.. "list[current_player;main;0,5;8,1;]"
 			.. "list[current_player;main;0,6.08;8,3;8]"
 			.. "listring[nodemeta:" .. spos .. ";main]"
@@ -110,9 +110,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 			if fields.chestname ~= "" then
 				meta:set_string("name", fields.chestname)
 				meta:set_string("infotext",
-				SL("Protected Chest").." (" .. fields.chestname .. ")")
+				S("Protected Chest").." (" .. fields.chestname .. ")")
 			else
-				meta:set_string("infotext", SL("Protected Chest"))
+				meta:set_string("infotext", S("Protected Chest"))
 			end
 
 		end
