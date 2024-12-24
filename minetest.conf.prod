@@ -288,6 +288,7 @@ lp_api.system_name = lord
 common_spawn_pos = 735, 33, -818
 #hall_of_life_pos = 735, 33, -818
 hall_of_center_pos = 735, 33, -818
+hall_of_event_pos = 9519, 40, 11815
 hall_of_death_pos = 11773, 54, -10282
 #hall_of_bree_pos = -7201, 3, 7629
 # спауны для рас ( GH: #330 )
