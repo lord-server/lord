@@ -123,6 +123,7 @@ end
 
 spawn.register_hall("center", "Dol Guldur")
 spawn.register_hall("death", "Death")
+spawn.register_hall("event", "Event") -- revert after Jan 13, 2025
 --spawn.register_hall("life", "Life")
 minetest.register_chatcommand("life", {
 	description = S("Teleport to the Hall of Life"),

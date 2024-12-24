@@ -195,12 +195,15 @@ minetest.register_craftitem("lord_mail:paper_with_text", {
 
 -- books
 
+
 local function book_on_use(itemstack, user, pointed_thing)
 	local player_name = user:get_player_name()
-	local data = minetest.deserialize(itemstack:get_metadata())
+	local meta = itemstack:get_metadata()
+	local data = minetest.deserialize(meta)
 	local title, text, owner = "", "", player_name
 	if data then
 		title, text, owner = data.title, data.text, data.owner
+		meta:set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. title ..'"'))
 	end
 	local formspec = ''
 		.. spec.size(8, 8.5)
