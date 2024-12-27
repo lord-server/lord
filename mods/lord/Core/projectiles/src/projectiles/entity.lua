@@ -20,14 +20,18 @@ local function update_life_timer(projectile, dtime)
 end
 
 -- Dealing the damage to the target
---- @param projectile    LuaEntity  projectile entity
---- @param target        LuaEntity  target entity
---- @param damage_groups table      damage groups table
---- @param multipliers   table      damage multiplier table
-local function punch_target(projectile, target, damage_groups, remove_after_punch, multipliers)
-	if remove_after_punch == nil then
-		remove_after_punch = true
+--- @param projectile        LuaEntity  projectile entity
+--- @param target            LuaEntity  target entity
+--- @param damage_groups     table      damage groups table
+--- @param remove_after_hit  boolean    true: remove after hit; false/nil: do nothing
+--- @param multipliers       table      damage multiplier table
+local function punch_target(projectile, target, damage_groups, remove_after_hit, multipliers)
+	minetest.chat_send_all("RoOH: "..tostring(remove_after_hit))
+	if remove_after_hit == nil then
+		remove_after_hit = true
 	end
+
+	minetest.chat_send_all("RoOH: "..tostring(remove_after_hit))
 
 	local multiplied = table.multiply_each_value(damage_groups, multipliers)
 
@@ -37,16 +41,19 @@ local function punch_target(projectile, target, damage_groups, remove_after_punc
 		end
 		return math.ceil(value)
 	end)
-	minetest.chat_send_all(dump(damage_groups))
-	minetest.chat_send_all(dump(new_damage_groups))
+	--minetest.chat_send_all(dump(damage_groups))
+	--minetest.chat_send_all(dump(new_damage_groups))
 	target:punch(projectile.object, 1.4, {
 		full_punch_interval = 1.4,
 		damage_groups       = new_damage_groups,
 	})
 
-	if remove_after_punch == true then
-		projectile.object:remove()
+	if remove_after_hit ~= true then
+		local pos = projectile.object:get_pos()
+		minetest.add_item(pos, projectile._projectile_stack)
 	end
+
+	projectile.object:remove()
 end
 
 --- @param entity LuaEntity  entity to check if it is a projectile
@@ -79,7 +86,8 @@ end
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
 		local damage = (vector.length(velocity)/GRAVITY)^(1/2)
-		punch_target(projectile, target, damage_groups, true, { fleshy = damage })
+		minetest.chat_send_all(dump(projectile))
+		return punch_target(projectile, target, damage_groups, projectile._remove_on_object_hit, { fleshy = damage })
 	end
 	-- Hit player
 	if target:is_player() then
@@ -138,8 +146,11 @@ end
 
 
 --- @param projectile LuaEntity  projectile entity
-local function flight_processing(projectile, environment)
+local function flight_processing(projectile, environment, rotation_formula)
 	local vel = projectile.object:get_velocity()
+	print(dump(projectiles.get_projectiles()[projectile._projectile_stack:get_name()]))
+	local projectile_type = projectiles.get_projectiles()[projectile._projectile_stack:get_name()].type
+	local particle_texture = "projectiles_"..projectile_type.."_trajectory_"..environment.."_particle.png"
 	if vel.y ~= 0 then
 		math.randomseed(os.clock())
 		if environment == "water" then
@@ -151,32 +162,41 @@ local function flight_processing(projectile, environment)
 					max = vector.new( 0.5,  0.5,  0.5),
 					-- when `bias` is 0, all random values are exactly as likely as any
 				},
-				texture = "projectiles_trajectory_"..environment.."_particle.png",
+				texture = particle_texture,
 			})
 		else
 			minetest.add_particlespawner({
 				attached = projectile.object,
-				texture = "projectiles_trajectory_"..environment.."_particle.png",
+				texture = particle_texture,
 			})
 		end
 		local rot = {
-			x = 0,
-			y = math_pi + math_arctan(vel.z, vel.x),
-			z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))}
-			projectile.object:set_rotation(rot)
+			arrow = {
+				x = 0,
+				y = math_pi + math_arctan(vel.z, vel.x),
+				z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
+			},
+			axe = {
+				x = 0,
+				y = -math_pi*2 + math_arctan(vel.z, vel.x),
+				z = -math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
+			},
+		}
+		projectile.object:set_rotation(rot[rotation_formula or "arrow"])
 	end
 end
 
-local register_projectile_entity = function(name, item, entity_reg)
+local register_projectile_entity = function(name, entity_reg)
 	local initial_properties = {
 		hp_max                 = 1,
 		physical               = true,
 		collide_with_objects   = true,
-		collisionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
-		selectionbox           = {-0.15, -0.15, -0.15, 0.15, 0.15, 0.15},
+		collisionbox           = { -0.15, -0.15, -0.15, 0.15, 0.15, 0.15 },
+		selectionbox           = { -0.15, -0.15, -0.15, 0.15, 0.15, 0.15 },
 		pointable              = true,
 		visual                 = "item",
-		visual_size            = {x = 1.5, y = 1.5, z = 1.5},
+		wield_item             = "default:clay_brick",
+		visual_size            = { x = 1.5, y = 1.5, z = 1.5 },
 		use_texture_alpha      = true,
 	}
 	minetest.register_entity(name, {
@@ -204,12 +224,12 @@ local register_projectile_entity = function(name, item, entity_reg)
 			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
 				self:_on_collision(moveresult)
 			elseif vector.length(self.object:get_velocity()) > 0 then
-				flight_processing(self, environment)
+				flight_processing(self, environment, self._rotation_formula)
 			end
 
 
 			if update_life_timer(self, dtime) then
-				minetest.add_item(pos, item)
+				minetest.add_item(pos, self._projectile_stack)
 			end
 		end,
 		on_punch       = function(self, puncher)
@@ -217,27 +237,26 @@ local register_projectile_entity = function(name, item, entity_reg)
 				return
 			end
 			self.object:remove()
-			local item_to_give = ItemStack(item)
-			if self._throwable_item then
-				item_to_give = self._throwable_item
-			end
-			minetest.chat_send_all(dump(item_to_give))
-			minetest.give_or_drop(puncher, item_to_give)
+			minetest.give_or_drop(puncher, self._projectile_stack)
 		end,
 		on_activate    = function(self, staticdata, dtime_s)
-			if staticdata == "_timer_is_started" then
-				self._timer_is_started = true
-			else
+			if not staticdata or staticdata == "" then
 				return
 			end
+			local staticdata_table = minetest.deserialize(staticdata)
+			print(dump(staticdata_table))
+			self._timer_is_started = staticdata_table._timer_is_started
+			self._projectile_stack = ItemStack(staticdata_table._projectile_stack)
 			update_life_timer(self, dtime_s)
 		end,
 		get_staticdata = function(self)
-			if self._timer_is_started then
-				return "_timer_is_started"
-			else
-				return ""
+			local staticdata_table = {}
+			staticdata_table._timer_is_started = self._timer_is_started
+			local projectile_stack = self._projectile_stack
+			if projectile_stack then
+				staticdata_table._projectile_stack = projectile_stack:to_table()
 			end
+			return minetest.serialize(staticdata_table)
 		end,
 		_on_collision  = function(self, moveresult)
 			self._collision_count = self._collision_count + 1
@@ -249,7 +268,7 @@ local register_projectile_entity = function(name, item, entity_reg)
 			if self._collision_count >= 10 then
 				self.object:remove()
 				if self._shooter and self._shooter:is_player() then
-					minetest.add_item(pos, ItemStack(item))
+					minetest.add_item(pos, self._projectile_stack)
 				end
 			end
 		end
