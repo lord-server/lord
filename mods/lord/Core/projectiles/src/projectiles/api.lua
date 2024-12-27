@@ -16,12 +16,12 @@ local entity = require("projectiles.entity")
 --- @param not_register_item  boolean                   whether to register craftitem or not (false/nil = register)
 local function register_projectile(name, reg, not_register_item)
 	local def       = reg.definition
-	reg.type        = reg.type or "arrow"
+	reg.type        = reg.type
 	reg.entity_name = reg.entity_name or name
 
 	registered_projectiles[name] = reg
 
-	entity.register_projectile_entity(reg.entity_name, name, reg.entity_reg)
+	entity.register_projectile_entity(reg.entity_name, reg.entity_reg)
 
 	if not_register_item then
 		return
