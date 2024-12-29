@@ -92,14 +92,6 @@ local function calculate_power(stack, hold_time, no_hold)
 		power = 0.1
 	end
 
-	--[[minetest.chat_send_all(dump({
-		["1power"] = power,
-		["2draw_power"] = draw_power,
-		["3hold_time"] = hold_time,
-		["4charging_time_1"] = charging_time[1],
-		["5max_holding"] = max_holding,
-		["6Coefficient"] = (hold_time-charging_time[1])/max_holding,
-	}))]]
 	return power
 end
 
@@ -116,7 +108,6 @@ local function projectile_shoot(player, projectile_stack, power)
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
 	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
-	--minetest.chat_send_all(projectile_reg.entity_reg.max_speed * power)
 	projectile_entity:add_velocity(vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power))
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
 	projectile_entity:get_luaentity()._shooter = player

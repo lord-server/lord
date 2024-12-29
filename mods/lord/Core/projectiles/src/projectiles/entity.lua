@@ -26,12 +26,9 @@ end
 --- @param remove_after_hit  boolean    true: remove after hit; false/nil: do nothing
 --- @param multipliers       table      damage multiplier table
 local function punch_target(projectile, target, damage_groups, remove_after_hit, multipliers)
-	minetest.chat_send_all("RoOH: "..tostring(remove_after_hit))
 	if remove_after_hit == nil then
 		remove_after_hit = true
 	end
-
-	minetest.chat_send_all("RoOH: "..tostring(remove_after_hit))
 
 	local multiplied = table.multiply_each_value(damage_groups, multipliers)
 
@@ -41,8 +38,7 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 		end
 		return math.ceil(value)
 	end)
-	--minetest.chat_send_all(dump(damage_groups))
-	--minetest.chat_send_all(dump(new_damage_groups))
+
 	target:punch(projectile.object, 1.4, {
 		full_punch_interval = 1.4,
 		damage_groups       = new_damage_groups,
@@ -86,7 +82,6 @@ end
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
 		local damage = (vector.length(velocity)/GRAVITY)^(1/2)
-		minetest.chat_send_all(dump(projectile))
 		return punch_target(projectile, target, damage_groups, projectile._remove_on_object_hit, { fleshy = damage })
 	end
 	-- Hit player
@@ -148,7 +143,6 @@ end
 --- @param projectile LuaEntity  projectile entity
 local function flight_processing(projectile, environment, rotation_formula)
 	local vel = projectile.object:get_velocity()
-	print(dump(projectiles.get_projectiles()[projectile._projectile_stack:get_name()]))
 	local projectile_type = projectiles.get_projectiles()[projectile._projectile_stack:get_name()].type
 	local particle_texture = "projectiles_"..projectile_type.."_trajectory_"..environment.."_particle.png"
 	if vel.y ~= 0 then
