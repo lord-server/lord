@@ -9,7 +9,7 @@ return {
             uses             = 90,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "arrow" },
-            draw_power = 0.6,
+            draw_power = 0.5,
         },
         stage_conf = {
             charging_time = {
@@ -28,7 +28,7 @@ return {
             uses             = 120,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "arrow" },
-            draw_power = 0.9,
+            draw_power = 0.8,
         },
         stage_conf = {
             charging_time = {
@@ -47,7 +47,7 @@ return {
             uses             = 180,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "arrow" },
-            draw_power = 1,
+            draw_power = 0.9,
         },
         stage_conf = {
             charging_time = {
@@ -66,7 +66,7 @@ return {
             uses             = 210,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "arrow" },
-            draw_power = 1,
+            draw_power = 0.9,
         },
         stage_conf = {
             charging_time = {
@@ -85,7 +85,7 @@ return {
             uses             = 350,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "arrow" },
-            draw_power = 1.2,
+            draw_power = 1,
         },
         stage_conf = {
             charging_time = {

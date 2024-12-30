@@ -9,7 +9,7 @@ return  {
             uses             = 100,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 0.7,
+            draw_power = 0.6,
         },
         stage_conf = {
             charging_time = {
@@ -28,7 +28,7 @@ return  {
             uses             = 120,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 0.8,
+            draw_power = 0.7,
         },
         stage_conf = {
             charging_time = {
@@ -47,7 +47,7 @@ return  {
             uses             = 150,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 0.9,
+            draw_power = 0.7,
         },
         stage_conf = {
             charging_time = {
@@ -66,7 +66,7 @@ return  {
             uses             = 190,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 1,
+            draw_power = 0.9,
         },
         stage_conf = {
             charging_time = {
@@ -85,7 +85,7 @@ return  {
             uses             = 200,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 1,
+            draw_power = 0.9,
         },
         stage_conf = {
             charging_time = {
@@ -104,7 +104,7 @@ return  {
             uses             = 250,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 1.2,
+            draw_power = 1,
         },
         stage_conf = {
             charging_time = {
@@ -123,7 +123,7 @@ return  {
             uses             = 350,
             sound_on_release = "lord_archery_arrow_release",
             used_projectiles = { "bolt" },
-            draw_power = 1.4,
+            draw_power = 1.1,
         },
         stage_conf = {
             charging_time = {
