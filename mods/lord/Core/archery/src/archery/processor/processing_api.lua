@@ -145,6 +145,8 @@ end
 
 local function find_matching_projectile(player, archery_item)
 	local used_projectiles = archery_item:get_definition()._used_projectiles
+
+	-- luacheck: globals g1 g2, ignore 512
 	for _, projectile_type in ipairs(used_projectiles) do
 		local found_projectile = check_projectiles(player, projectile_type)
 		return found_projectile
