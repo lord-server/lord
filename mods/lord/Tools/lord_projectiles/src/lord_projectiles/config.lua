@@ -319,10 +319,10 @@ return {
 					wield_item = "lord_projectiles:dark_ball",
 					visual_size = vector.new(1, 1, 1),
 				},
-				max_speed        = 35,
+				max_speed        = 20,
 				sound_hit_node   = { name = "lord_projectiles_explosion", gain = 3.0 },
 				sound_hit_object = { name = "lord_projectiles_explosion", gain = 3.0 },
-				damage_groups    = { fire = 15, },
+				damage_groups    = { soul = 15, },
 				rotation_formula = "rolling",
 				on_hit_node      = function(projectile, node_pos, move_result)
 					local radius = 1
