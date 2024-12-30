@@ -1,5 +1,75 @@
 # Change Log
 
+## [2024.12](https://github.com/lord-server/lord/releases/tag/2024.12)
+ - Artisan Benches: Anvil: racial items can be crafted only by player of the same race. Closes #1852
+ - Update book tooltip with book title on book use
+
+ - Exterior:
+   - add vase with handles. Relates to 1870
+   - add vase without handles. Closes #1870
+
+ - New bow and throwing system - Lord Archery:
+   - Add new throwing engine:
+     - Damage is based on projectile speed and base damage
+     - Projectile speed differs with the bow and crossbow
+     - Projectiles to shoot are detected in all of player's main inventory
+   - New throwing axes (steel, bronze, galvorn, mithril):
+     - Hold RMB or touchscreen to charge
+     - Release to throw
+   - New bows:
+     - Hold RMB or touchscreen to charge
+     - Release to shoot
+   - New crossbows:
+     - Hold RMB or touchscreen to charge
+     - Release won't trigger shooting
+     - When fully charged click RMB or short-hold touchscreen to shoot
+   - New arrows:
+     - Flint Arrow
+     - Bronze Arrow
+     - Galvorn Arrow
+   - New bolts:
+     - Bronze Bolt
+     - Galvorn Bolt
+   - New sound effects for projectiles, bows and crossbows
+   - Mobs are now using new projectiles, bows and crossbows
+   - Balrog, Nazgul and Witch King projectiles:
+     - explode on collision
+     - Balrog projectile deals fire damage on player or entity hit
+     - Nazgul and Witch King projectiles deal soul damage on player or entity hit
+
+ - Textures:
+   - Change palantir texture. Update model uv. Closes #795
+   - Update tools textures (closes #1877)
+
+ - Technical:
+   - Remove `lord_bows` mod.
+   - Remove mods: Arrows, Throwing, Lottthrowing (closes #921)
+   - Turn off deployments. (for new server move)
+   - Craft System: ability to know recipe while `minetest.get_craft_result()`. Relates to #1852
+   - Add races names constants. Relates to #1852
+   - Translations: `protector_lott`. Related to #328 (#1871)
+   - Lord Archery: Base: extract mods from branch (it was PR #1772 in `dev`). Relates to #1773
+   - Lord Archery: Mobs-archers: add hitter:is_player() check
+   - Lord Archery: Changed Processing, so a projectile is taken before charging
+   - Lord Archery: Archery item (bow or crossbow) now preserves a loaded projectile
+   - Lord Archery: Changed speed and damage calculation formulas so it makes more sense
+   - Lord Archery: Add 3 stages for crossbows (closes  #1862)
+   - Lord Archery: Move api for (cross-)bow registration to archery
+   - Lord Archery: Add bows and crossbows (closes #1861, #1858)
+   - Lord Archery: Move the archery mods out of _experimental (closes  #1774, #1775)
+   - Lord Archery: Added stable support for Throwable (closes #1866)
+   - Lord Archery: Add new throwing axes (closes #1867, #1868)
+   - Lord Archery: Move all arrows, bows etc. to the new archery engine (closes #1523, #1863)
+   - Lord Archery: Mobs are now using new archery engine
+   - Lord Archery: Fire ball and dark ball now explode on collision
+   - Lord Archery: Add crafts
+   - Lord Archery: Mobs are now aggroed on hit (closes #1874)
+   - Lord Archery: Add localization
+
+## [2024.11.p2](https://github.com/lord-server/lord/releases/tag/2024.11.p3)
+ - New Year textures for chests. Closes #1827
+ - Add a chatcommand to teleport to event area (#1880)
+
 ## [2024.11.p2](https://github.com/lord-server/lord/releases/tag/2024.11.p2)
  - Orc medicine: add `selection_box`, `groups`, `sounds`, description & not `walkable`. Closes #1848. Closes #1849
  - Melee weapon: change attack distance (`range`). Closes #1841
