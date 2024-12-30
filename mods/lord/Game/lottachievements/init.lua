@@ -168,11 +168,11 @@ lottachievements.register_achievement("his_arm_has_grown_long", {
 lottachievements.register_achievement("marksman_of_lorien", {
 	title       = SL("Marksman of Lorien"),
 	description = SL("Craft a mallorn bow"),
-	icon        = "lottthrowing_bow_wood_mallorn.png",
+	icon        = "lord_archery_mallorn_wood_bow.png",
 	id          = 10,
 	trigger     = {
 		type   = "craft",
-		item   = "lottthrowing:bow_wood_mallorn",
+		item   = "lord_archery:mallorn_wood_bow",
 		target = 1
 	}
 })

@@ -1,51 +1,75 @@
 local SL = minetest.get_mod_translator()
 
-
--- egg throwing item
-local EGG_MASS = 0.1
-local EGG_VELOCITY = 10
-local EGG_DC = 0.5
-local EGG_KFR = 0.01
-
-arrows:register_throwing_weapon("lottmobs:egg", {
-	arrow = {
-		visual = "sprite",
-		visual_size = {x=.5, y=.5},
-		texture = "lottmobs_egg.png",
-		velocity = EGG_VELOCITY,
-		mass = EGG_MASS,
-		kfr = EGG_KFR,
-		damage_coefficient = EGG_DC,
-		drop = false,
-
-		hit_node = function(self, pos, node_name)
-			if math.random(1, 10) > 1 then
-				return
-			end
-
-			pos.y = pos.y + 1
-			local node = minetest.get_node_or_nil(pos)
-			if not node then
-				return
-			end
-			local node_def = minetest.registered_nodes[node.name]
-			if not node_def or node_def.walkable then
-				return
-			end
-
-			minetest.add_entity(pos, "lottmobs:chicken")
-		end,
+archery.register_throwable("lottmobs:egg", {
+	definition = {
+		description      = SL("Chicken Egg"),
+		inventory_image  = "lottmobs_egg", -- without ".png"
+		groups           = { throwable = 1 },
+		wield_scale      = vector.new(1, 1, 0.5),
+		--sound_on_release = "lord_archery_arrow_release",
+		draw_power       = 0.5,
+		just_an_item     = true,
 	},
-	craftitem = {
-		description = SL("Chicken Egg"),
-		inventory_image = "lottmobs_egg.png",
-		shoot_sound = {
-			sound = "default_place_node_hard",
-			distance = 5,
+	stage_conf = {
+		charging_time = {
+			[0] = 0,
+			[1] = 0.25,
+			[2] = 0.5,
 		},
-		on_use          = minetest.item_eat(2),
-		_tt_food_hp     = 2,
 	},
+	projectile_reg = {
+		type        = "throwable",
+		damage_tt   = 1,
+		entity_name = "lottmobs:egg",
+		entity_reg  = {
+			initial_properties = {
+				visual    = "item",
+				wield_item = "lottmobs:egg",
+				visual_size = vector.new(0.25, 0.25, 0.25),
+			},
+			max_speed        = 20,
+			--sound_hit_node   = { name = "lord_projectiles_explosion", gain = 3.0 },
+			--sound_hit_object = { name = "lord_projectiles_explosion", gain = 3.0 },
+			damage_groups    = { fleshy = 1, },
+			rotation_formula = "rolling",
+			on_hit_node      = function(projectile, node_pos, move_result)
+				local spawn_chicken = math.random(1, 20) == 1
+				if spawn_chicken then
+					minetest.add_entity(projectile.object:get_pos(), "lottmobs:chicken")
+				end
+				local radius = 0.5
+				local rad_vec = vector.new(radius, radius, radius)
+				local min_pos = vector.subtract(node_pos, rad_vec)
+				local max_pos = vector.add(node_pos, rad_vec)
+				minetest.add_particlespawner({
+					pos = {
+						min = min_pos,
+						max = max_pos,
+					},
+					time = 0.1,
+					amount = 10,
+					size = { min = 1, max = 3 },
+					texture = {
+						name = "lottmobs_egg.png",
+						alpha_tween = { 1, 0 },
+						scale = 1,
+					},
+					vel = {
+						min = vector.new(-2, 3, -2),
+						max = vector.new(2, 7, 2),
+					},
+					acc = {
+						min = vector.new(-0, -9.81, -0),
+						max = vector.new(0, -9.81, 0),
+					},
+					exptime = { min = 0.1, max = 2 },
+				})
+			end,
+			after_hit_node   = function(projectile)
+				projectile.object:remove()
+			end
+		}
+	}
 })
 
 mobs:register_mob("lottmobs:chicken", {

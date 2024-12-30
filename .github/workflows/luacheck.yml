@@ -33,7 +33,7 @@ jobs:
       - name: Check Cyclomatic Complexity
         run: |
           $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
-            --globals lottachievements races throwing \
+            --globals lottachievements races \
             --exclude-files \
               mods/_minetest_game/ \
               mods/lord/_overwrites/MTG/default/ \
@@ -43,9 +43,7 @@ jobs:
               mods/lord/Blocks/protector_lott/ \
               mods/lord/Blocks/signs_lib/ \
               mods/lord/Blocks/technic_chests/ \
-              mods/lord/Entities/throwing/ \
               mods/lord/Entities/npc/ \
-              mods/lord/Entities/lottthrowing/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/lottachievements/ \
               mods/lord/Game/lord_classes/ \

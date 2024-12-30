@@ -95,14 +95,25 @@ local function calculate_power(stack, hold_time, no_hold)
 	return power
 end
 
---- @param player            Player     a player that shoots the projectile
---- @param projectile_stack  temStack  itemstack with item to shoot
---- @param hold_time         number     the time the player was holding CONTROL_CHARGE down
-local function projectile_shoot(player, projectile_stack, power)
+--- @param shooter                Object|Player  a player that shoots the projectile
+--- @param projectile_stack       ItemStack      itemstack with item to shoot
+--- @param power                  number         power multiplier
+--- @param forced_direction       vector         forced shooting direction (normalized vector)
+--- @param forced_start_position  vector         forced position to spawn the projectile on
+local function projectile_shoot(shooter, projectile_stack, power, forced_direction, forced_start_position)
+	local shooter_pos    = shooter:get_pos()
+	local yaw            = shooter:get_yaw()
+	local look_dir       = forced_direction
+	local projectile_pos = forced_start_position
 
-	local look_dir       = player:get_look_dir()
-	local player_pos     = player:get_pos()
-	local projectile_pos = vector.new(player_pos.x, player_pos.y + 1.5, player_pos.z)
+	if shooter and shooter:is_player() then
+		look_dir = look_dir or shooter:get_look_dir()
+		projectile_pos = forced_start_position or vector.new(shooter_pos.x, shooter_pos.y + 1.5, shooter_pos.z)
+	elseif shooter then
+		look_dir = look_dir or vector.new(-math.sin(yaw), 0.25, math.cos(yaw))
+		projectile_pos = forced_start_position or vector.new(shooter_pos.x, shooter_pos.y, shooter_pos.z)
+	end
+
 	local projectile_item = projectile_stack:get_name()
 
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
@@ -110,7 +121,7 @@ local function projectile_shoot(player, projectile_stack, power)
 	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
 	projectile_entity:add_velocity(vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power))
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
-	projectile_entity:get_luaentity()._shooter = player
+	projectile_entity:get_luaentity()._shooter = shooter
 	projectile_entity:get_luaentity()._projectile_stack = projectile_stack
 	projectile_entity:get_luaentity()._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
 	projectile_entity:get_luaentity()._rotation_formula = projectile_reg.entity_reg.rotation_formula

@@ -24,7 +24,7 @@ trader_config.common_goods = {
 --- @type traders.config
 trader_config.dwarf  = {
 	goods      = table.merge(trader_config.common_goods, {
-		["lottthrowing:crossbow_silver 1"]  = { price = 90,   chance = 15, stock = 1 },
+		["lord_archery:silver_crossbow 1"]  = { price = 90,   chance = 15, stock = 1 },
 		["lottarmor:chestplate_mithril 1"]  = { price = 1200, chance = 50, stock = 1 },
 		["default:steel_ingot 99"]          = { price = 700,  chance = 12, stock = 1 },
 		["tools:sword_silver 1"]            = { price = 100,  chance = 10, stock = 1 },
