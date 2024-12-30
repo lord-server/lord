@@ -1,4 +1,20 @@
-# textdomain: lord_bows
+# textdomain: lord_archery
 
-Wooden Bow=Деревянный Лук
-Arrow=Стрела
+Apple Wood Bow=Яблоневый Лук
+Alder Wood Bow=Ольховый Лук
+Birch Wood Bow=Берёзовый лук
+Mallorn Wood Bow=Маллорновый Лук
+Lebethron Wood Bow=Лебетроновый Лук
+
+Wooden Crossbow=Деревянный Арбалет
+Tin Crossbow=Оловянный Арбалет
+Steel Crossbow=Стальной Арбалет
+Silver Crossbow=Серебряный Арбалет
+Gold Crossbow=Золотой Арбалет
+Galvorn Crossbow=Галворновый Арбалет
+Mithril Crossbow=Мифриловый Арбалет
+
+Steel Throwing Axe=Стальной Метательный Топор
+Bronze Throwing Axe=Бронзовый Метательный Топор
+Galvorn Throwing Axe=Галворновый Метательный Топор
+Mithril Throwing Axe=Мифриловый Метательный Топор
