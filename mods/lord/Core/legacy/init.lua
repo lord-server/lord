@@ -288,6 +288,9 @@ minetest.register_alias("lottthrowing:crossbow_steel", "lord_archery:steel_cross
 minetest.register_alias("lottthrowing:crossbow_tin", "lord_archery:tin_crossbow")
 minetest.register_alias("lottthrowing:crossbow_wood", "lord_archery:wooden_crossbow")
 
+minetest.register_alias("arrows:fireball", "lord_projectiles:fire_ball")
+minetest.register_alias("arrows:darkball", "lord_projectiles:dark_ball")
+
 
 minetest.register_alias("fire:campfire", "campfire:campfire")
 minetest.register_alias("fire:fireplace", "campfire:fireplace")
