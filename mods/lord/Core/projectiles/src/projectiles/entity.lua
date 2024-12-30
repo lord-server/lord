@@ -79,6 +79,31 @@ local function play_sound_on_hit(entity, hit_thing, pos)
 	end
 end
 
+local function collision_node(projectile, move_result, on_hit_node, after_hit_node)
+	local node_pos = move_result.collisions[1].node_pos
+
+		play_sound_on_hit(projectile, "node", node_pos)
+
+		if on_hit_node and type(on_hit_node) == "function" then
+			on_hit_node(projectile, node_pos, move_result)
+		end
+		local projectile_pos = projectile.object:get_pos()
+
+		local dist = math_sqrt( (node_pos.x - projectile_pos.x)^2 +
+			(node_pos.y - projectile_pos.y)^2 +
+			(node_pos.z - projectile_pos.z)^2
+		)
+
+		if dist < 0.9 then
+			projectile.object:set_velocity({x = 0, y = 0, z = 0})
+			projectile.object:set_acceleration({x = 0, y = 0, z = 0})
+			projectile._timer_is_started = true
+		end
+		if after_hit_node and type(after_hit_node) == "function" then
+			after_hit_node(projectile, node_pos, move_result)
+		end
+end
+
 -- Hit handling depending on target
 --- @param projectile    LuaEntity  projectile entity
 --- @param target        LuaEntity  target entity
@@ -126,28 +151,7 @@ local function collision_handling(projectile, move_result, damage_groups)
 	local after_hit_object = itemstack_entity_reg.after_hit_object
 
 	if move_result.collisions[1].type == "node" then
-		local node_pos = move_result.collisions[1].node_pos
-
-		play_sound_on_hit(projectile, "node", node_pos)
-
-		if on_hit_node and type(on_hit_node) == "function" then
-			on_hit_node(projectile, node_pos, move_result)
-		end
-		local projectile_pos = projectile.object:get_pos()
-
-		local dist = math_sqrt( (node_pos.x - projectile_pos.x)^2 +
-			(node_pos.y - projectile_pos.y)^2 +
-			(node_pos.z - projectile_pos.z)^2
-		)
-
-		if dist < 0.9 then
-			projectile.object:set_velocity({x = 0, y = 0, z = 0})
-			projectile.object:set_acceleration({x = 0, y = 0, z = 0})
-			projectile._timer_is_started = true
-		end
-		if after_hit_node and type(after_hit_node) == "function" then
-			after_hit_node(projectile, node_pos, move_result)
-		end
+		collision_node(projectile, move_result, on_hit_node, after_hit_node)
 		return
 	end
 	projectile.object:set_velocity({x = 0, y = 0, z = 0})
