@@ -214,7 +214,6 @@ end
 
 local register_projectile_entity = function(name, entity_reg)
 	local initial_properties = {
-		hp_max                 = 1,
 		physical               = true,
 		collide_with_objects   = true,
 		collisionbox           = { -0.15, -0.15, -0.15, 0.15, 0.15, 0.15 },
@@ -258,8 +257,16 @@ local register_projectile_entity = function(name, entity_reg)
 				minetest.add_item(pos, self._projectile_stack)
 			end
 		end,
-		on_punch       = function(self, puncher)
-			if vector.length(self.object:get_velocity()) > 0 or self._shooter ~= puncher then
+		on_punch       = function(self, puncher, time_from_last_punch, tool_capabilities, dir, damage)
+			if not puncher:is_player() or not self._shooter then
+				return
+			end
+
+			if not self._shooter:is_player() then
+				return
+			end
+
+			if vector.length(self.object:get_velocity()) > 0 or self._shooter:get_player_name() ~= puncher:get_player_name() then
 				return
 			end
 			self.object:remove()
@@ -270,7 +277,7 @@ local register_projectile_entity = function(name, entity_reg)
 				return
 			end
 			local staticdata_table = minetest.deserialize(staticdata)
-			print(dump(staticdata_table))
+
 			self._timer_is_started = staticdata_table._timer_is_started
 			self._projectile_stack = ItemStack(staticdata_table._projectile_stack)
 			update_life_timer(self, dtime_s)
