@@ -78,7 +78,7 @@ function lottmobs.register_elf_archer(n, hpmin, hpmax, textures, wv, rv, damg, a
 		reach                = 3,
 		shoot_interval       = 1.25,
 		shoot_offset         = 0.75,
-		arrow                = "arrows:arrow_steel",
+		arrow                = "lord_projectiles:steel_arrow",
 
 		follow               = "lottother:narya",
 		animation            = {
@@ -224,26 +224,26 @@ local textures4 = {
     {
 		"lottmobs_lorien_elf_1.png",
 		"lottarmor_chestplate_galvorn.png",
-		"lottthrowing_bow_wood_mallorn.png",
+		"lord_archery_mallorn_wood_bow.png",
 		"lottarmor_trans.png",
 	},
     {
 		"lottmobs_lorien_elf_2.png",
 		"lottarmor_chestplate_gold.png^lottarmor_shield_gold.png",
-		"lottthrowing_bow_wood_mallorn.png",
+		"lord_archery_mallorn_wood_bow.png",
 		"lottarmor_trans.png",
 	},
     {
 		"lottmobs_lorien_elf_3.png",
 		"lottarmor_shield_steel.png",
-		"lottthrowing_bow_wood_mallorn.png",
+		"lord_archery_mallorn_wood_bow.png",
 		"lottarmor_trans.png",
 	},
 }
 
 local drops4 = {
-	{ name = "arrows:arrow",                  chance = 30, min = 1, max = 10, },
-	{ name = "lottthrowing:bow_wood_mallord", chance = 5,  min = 1, max = 1, },
+	{ name = "lord_projectiles:steel_arrow",  chance = 30, min = 1, max = 10, },
+	{ name = "lord_archery:mallorn_wood_bow", chance = 5,  min = 1, max = 1, },
 	{ name = "lottores:silveringot",          chance = 20, min = 1, max = 7 },
 	{ name = "lottarmor:chestplate_silver",   chance = 30, min = 1, max = 1 },
 }

@@ -219,7 +219,9 @@ controls.on_release(function(player, key, hold_time)
 	local new_stack = ItemStack(table.copy(stack:to_table()))
 
 	local uses = api.reg_from_archery_item(new_stack:get_name()).definition.uses
-	new_stack:add_wear(65535/uses)
+	if uses then
+		new_stack:add_wear(65535/uses)
+	end
 
 	local projectile_item = archery.get_throwables()[stack:get_name()].entity_name
 	if projectile_item and api.projectile_shoot(player, new_stack, power) then

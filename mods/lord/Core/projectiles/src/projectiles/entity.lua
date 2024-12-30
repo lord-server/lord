@@ -39,7 +39,7 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 		return math.ceil(value)
 	end)
 
-	target:punch(projectile.object, 1.4, {
+	target:punch(projectile._shooter or projectile.object, 1.4, {
 		full_punch_interval = 1.4,
 		damage_groups       = new_damage_groups,
 	})
@@ -64,13 +64,18 @@ local function is_entity_projectile(entity)
 	return false
 end
 
-local function play_sound_on_hit(entity, hit_thing)
+local function play_sound_on_hit(entity, hit_thing, pos)
+	local sound_spec = { object = entity.object }
+	if pos then
+		sound_spec.object = nil
+		sound_spec.pos = pos
+	end
 	if not entity._time_from_last_hit or
 			(entity._time_from_last_hit > 1 and
 			(not entity._sound_played_times or entity._sound_played_times < 5)) then
 		entity._time_from_last_hit = 0
 		entity._sound_played_times = (entity._sound_played_times or 0) + 1
-		minetest.sound_play(entity["_sound_hit_"..hit_thing], {object = entity.object})
+		minetest.sound_play(entity["_sound_hit_"..hit_thing], sound_spec)
 	end
 end
 
@@ -113,9 +118,21 @@ local function collision_handling(projectile, move_result, damage_groups)
 		return
 	end
 
+	local itemstack_entity_reg = projectiles.get_projectiles()[projectile._projectile_stack:get_name()].entity_reg
+
+	local on_hit_node   = itemstack_entity_reg.on_hit_node
+	local on_hit_object = itemstack_entity_reg.on_hit_object
+	local after_hit_node   = itemstack_entity_reg.after_hit_node
+	local after_hit_object = itemstack_entity_reg.after_hit_object
+
 	if move_result.collisions[1].type == "node" then
-		play_sound_on_hit(projectile, "node")
 		local node_pos = move_result.collisions[1].node_pos
+
+		play_sound_on_hit(projectile, "node", node_pos)
+
+		if on_hit_node and type(on_hit_node) == "function" then
+			on_hit_node(projectile, node_pos, move_result)
+		end
 		local projectile_pos = projectile.object:get_pos()
 
 		local dist = math_sqrt( (node_pos.x - projectile_pos.x)^2 +
@@ -128,6 +145,9 @@ local function collision_handling(projectile, move_result, damage_groups)
 			projectile.object:set_acceleration({x = 0, y = 0, z = 0})
 			projectile._timer_is_started = true
 		end
+		if after_hit_node and type(after_hit_node) == "function" then
+			after_hit_node(projectile, node_pos, move_result)
+		end
 		return
 	end
 	projectile.object:set_velocity({x = 0, y = 0, z = 0})
@@ -136,7 +156,15 @@ local function collision_handling(projectile, move_result, damage_groups)
 
 	local target = move_result.collisions[1].object
 
+	if on_hit_object and type(on_hit_object) == "function" then
+		on_hit_object(projectile, target, move_result)
+	end
+
 	hit_handling(projectile, target, damage_groups, vel)
+
+	if after_hit_object and type(after_hit_object) == "function" then
+		after_hit_object(projectile, target, move_result)
+	end
 end
 
 
@@ -144,7 +172,7 @@ end
 local function flight_processing(projectile, environment, rotation_formula)
 	local vel = projectile.object:get_velocity()
 	local projectile_type = projectiles.get_projectiles()[projectile._projectile_stack:get_name()].type
-	local particle_texture = "projectiles_"..projectile_type.."_trajectory_"..environment.."_particle.png"
+	local particle_texture = "lord_projectiles_"..projectile_type.."_trajectory_"..environment.."_particle.png"
 	if vel.y ~= 0 then
 		math.randomseed(os.clock())
 		if environment == "water" then
@@ -165,18 +193,18 @@ local function flight_processing(projectile, environment, rotation_formula)
 			})
 		end
 		local rot = {
-			arrow = {
+			pointed = {
 				x = 0,
 				y = math_pi + math_arctan(vel.z, vel.x),
 				z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
 			},
-			axe = {
+			rolling = {
 				x = 0,
 				y = -math_pi*2 + math_arctan(vel.z, vel.x),
 				z = -math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
 			},
 		}
-		projectile.object:set_rotation(rot[rotation_formula or "arrow"])
+		projectile.object:set_rotation(rot[rotation_formula or "pointed"])
 	end
 end
 

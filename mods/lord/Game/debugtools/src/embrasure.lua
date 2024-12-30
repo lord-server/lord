@@ -9,8 +9,8 @@ minetest.register_node("debugtools:arrownode", {
 		local timer = minetest.get_node_timer(pos)
 		timer:start(1)
 		local dir = {x = -1, y=0, z=0}
-		local arrow = "arrows:arrow_steel"
+		local arrow = "lord_projectiles:steel_arrow"
 		minetest.log("shoot at "..pos.x.." "..pos.y.." "..pos.z)
-		throwing.shoot({x=pos.x, y=pos.y, z=pos.z}, "node", arrow, pos, dir, 0.5)
+		archery.projectile_shoot(nil, arrow, 1, dir, {x=pos.x, y=pos.y, z=pos.z})
 	end,
 })

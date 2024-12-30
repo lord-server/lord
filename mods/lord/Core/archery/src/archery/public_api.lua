@@ -1,4 +1,4 @@
---local S_tt = minetest.get_translator("tt_base")
+local api = require("archery.processor.processing_api")
 
 local registered_bows       = {}
 local registered_crossbows  = {}
@@ -100,7 +100,7 @@ local function register_crossbow(name, reg)
 	minetest.register_tool(name, {
 		range             = def.range or 3,
 		description       = def.description,
-		wield_scale       = wield_scale,
+		wield_scale       = def.wield_scale or wield_scale,
 		inventory_image   = def.inventory_image .. ".png",
 		wield_image       = def.inventory_image .. ".png",
 		groups            = table.merge({ allow_hold_abort = 1 }, def.groups),
@@ -165,23 +165,42 @@ local function register_throwable(name, reg)
 	local def          = reg.definition
 	local wield_scale  = { x = 2, y = 2, z = 0.75, }
 
-	minetest.register_tool(name, {
-		range             = def.range or 3,
-		description       = def.description,
-		wield_scale       = def.wield_scale or wield_scale,
-		inventory_image   = def.inventory_image .. ".png",
-		wield_image       = def.inventory_image .. ".png",
-		groups            = def.groups,
-		tool_capabilities = def.tool_capabilities,
-		touch_interaction = def.touch_interaction or {
-			pointed_nothing = "short_dig_long_place",
-			pointed_node    = "long_dig_short_place",
-			pointed_object  = "short_dig_long_place",
-		},
-		_original_state   = name,
-		_sound_on_release = def.sound_on_release,
-		_used_projectiles = def.used_projectiles,
-	})
+	if reg.definition.just_an_item == true then
+		minetest.register_craftitem(name, {
+			range             = def.range or 3,
+			description       = def.description,
+			wield_scale       = def.wield_scale or wield_scale,
+			inventory_image   = def.inventory_image .. ".png",
+			wield_image       = def.inventory_image .. ".png",
+			groups            = def.groups,
+			touch_interaction = def.touch_interaction or {
+				pointed_nothing = "short_dig_long_place",
+				pointed_node    = "long_dig_short_place",
+				pointed_object  = "short_dig_long_place",
+			},
+			_original_state   = name,
+			_sound_on_release = def.sound_on_release,
+			_used_projectiles = name,
+		})
+	else
+		minetest.register_tool(name, {
+			range             = def.range or 3,
+			description       = def.description,
+			wield_scale       = def.wield_scale or wield_scale,
+			inventory_image   = def.inventory_image .. ".png",
+			wield_image       = def.inventory_image .. ".png",
+			groups            = def.groups,
+			tool_capabilities = def.tool_capabilities,
+			touch_interaction = def.touch_interaction or {
+				pointed_nothing = "short_dig_long_place",
+				pointed_node    = "long_dig_short_place",
+				pointed_object  = "short_dig_long_place",
+			},
+			_original_state   = name,
+			_sound_on_release = def.sound_on_release,
+			_used_projectiles = def.used_projectiles,
+		})
+	end
 
 	local stages = {}
 	stages[0] = name
@@ -206,6 +225,8 @@ local function register_throwable(name, reg)
 	}
 end
 
+--WIP:
+--[[
 local function link_existing_throwable(name, reg)
 	local stages = {}
 	stages[0] = name
@@ -228,12 +249,15 @@ local function link_existing_throwable(name, reg)
 		},
 	}
 end
+]]
 
 return {
 	register_bow            = register_bow,
+	projectile_shoot        = api.projectile_shoot,
 	register_crossbow       = register_crossbow,
 	register_throwable      = register_throwable,
-	link_existing_throwable = link_existing_throwable,
+	--WIP:
+	--link_existing_throwable = link_existing_throwable,
 	get_bows       = function() return registered_bows end,
 	get_crossbows  = function() return registered_crossbows end,
 	get_throwables = function() return registered_throwables end,

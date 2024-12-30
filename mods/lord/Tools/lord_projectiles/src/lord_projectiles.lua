@@ -1,4 +1,5 @@
 local config = require("lord_projectiles.config")
+require("lord_projectiles.crafts")
 
 local function register_projectiles()
 	for name, registration in pairs(config.projectiles) do

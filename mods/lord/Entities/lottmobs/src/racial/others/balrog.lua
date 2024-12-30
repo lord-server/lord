@@ -27,8 +27,8 @@ mobs:register_mob("lottmobs:balrog", {
 		{ name = "lottweapons:mithril_battleaxe", chance = 5, min = 1,  max = 1, },
 		{ name = "lottweapons:mithril_warhammer", chance = 5, min = 1,  max = 1, },
 		{ name = "lottweapons:mithril_dagger",    chance = 5, min = 1,  max = 1, },
-		{ name = "lottthrowing:crossbow_mithril", chance = 5, min = 1,  max = 1, },
-		{ name = "lottthrowing:bolt_mithril",     chance = 5, min = 10, max = 50, },
+		{ name = "lord_archery:mithril_crossbow", chance = 5, min = 1,  max = 1, },
+		{ name = "lord_projectiles:mithril_bolt", chance = 5, min = 10, max = 50, },
 		{ name = "lottarmor:helmet_mithril",      chance = 5, min = 1,  max = 1, },
 		{ name = "lottarmor:chestplate_mithril",  chance = 5, min = 1,  max = 1, },
 		{ name = "lottarmor:leggings_mithril",    chance = 5, min = 1,  max = 1, },
@@ -46,7 +46,7 @@ mobs:register_mob("lottmobs:balrog", {
 	dogshoot_count2_max = 3, -- dogfight for 3 seconds
 	reach = 3,
 	shoot_interval = 2.5,
-	arrow = "arrows:fireball",
+	arrow = "lord_projectiles:fire_ball",
 	shoot_offset = 1,
 	jump = true,
 	sounds = {
