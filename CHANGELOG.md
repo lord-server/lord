@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.12.p1](https://github.com/lord-server/lord/releases/tag/2024.12.p1)
+ - Fix a crash: mobs accessing hitter (#1884)
+
 ## [2024.12](https://github.com/lord-server/lord/releases/tag/2024.12)
  - Artisan Benches: Anvil: racial items can be crafted only by player of the same race. Closes #1852
  - Update book tooltip with book title on book use
