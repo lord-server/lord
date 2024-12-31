@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.12.p2](https://github.com/lord-server/lord/releases/tag/2024.12.p2)
+ - Fix a crash: mobs accessing hitter (again, trivial) (#1885)
+
 ## [2024.12.p1](https://github.com/lord-server/lord/releases/tag/2024.12.p1)
  - Fix a crash: mobs accessing hitter (#1884)
 
