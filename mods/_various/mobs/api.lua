@@ -1883,7 +1883,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 	-- weapon wear
 	local weapon = ItemStack("lord_archery:apple_wood_bow")
-	if hitter:is_player() then
+	if hitter and hitter:is_player() then
 		weapon = hitter:get_wielded_item()
 	end
 	local punch_interval = 1.4
@@ -1937,8 +1937,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 	if weapon:get_definition()
 	and weapon:get_definition().tool_capabilities
-	and hitter:is_player() then
-
+	and hitter and hitter:is_player() then
 		weapon:add_wear(floor((punch_interval / 75) * 9000))
 		hitter:set_wielded_item(weapon)
 	end
