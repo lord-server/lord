@@ -1882,7 +1882,10 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	end
 
 	-- weapon wear
-	local weapon = hitter:get_wielded_item() or ItemStack("lord_archery:apple_wood_bow")
+	local weapon = ItemStack("lord_archery:apple_wood_bow")
+	if hitter:is_player() then
+		weapon = hitter:get_wielded_item()
+	end
 	local punch_interval = 1.4
 
 	-- calculate mob damage
