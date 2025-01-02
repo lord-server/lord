@@ -269,7 +269,7 @@ return {
 					local rad_vec = vector.new(radius, radius, radius)
 					local min_pos = vector.subtract(pos, rad_vec)
 					local max_pos = vector.add(pos, rad_vec)
-					projectiles.explode_area(pos, radius, 5, projectile.object, { fleshy = 15 })
+					projectiles.explode_area(pos, radius, 5, projectile.object, { fire = 10 })
 					minetest.add_particlespawner({
 						pos = {
 							min = min_pos,
