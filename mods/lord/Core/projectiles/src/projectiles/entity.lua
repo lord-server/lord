@@ -55,9 +55,13 @@ end
 --- @param entity LuaEntity  entity to check if it is a projectile
 --- @return       boolean    true, if it is a projectile, or false
 local function is_entity_projectile(entity)
+	if not entity then
+		return
+	end
+	local entity_name = entity:get_luaentity().name
 	local registered_projectiles = projectiles.get_projectiles()
 	for _, reg in pairs(registered_projectiles) do
-		if reg.entity_name == entity:get_luaentity().name then
+		if reg.entity_name == entity_name then
 			return true
 		end
 	end
@@ -115,12 +119,12 @@ local function hit_handling(projectile, target, damage_groups, velocity)
 		return punch_target(projectile, target, damage_groups, projectile._remove_on_object_hit, { fleshy = damage })
 	end
 	-- Hit player
-	if target:is_player() then
+	if target and target:is_player() then
 		play_sound_on_hit(projectile, "object")
 		hit()
 	else
 		-- Hit another projectile
-		if is_entity_projectile(target) then
+		if target and is_entity_projectile(target) then
 			projectile.object:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
 			target:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
 			play_sound_on_hit(projectile, "object")
