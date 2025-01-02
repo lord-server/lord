@@ -14,10 +14,11 @@ mobs:register_mob("lottmobs:balrog", {
 	},
 	makes_footstep_sound = true,
 	view_range = 50,
-	armor = 100,
+	armor = { fleshy = 80, fire = 0, soul = 200 },
 	walk_velocity = 1,
 	run_velocity = 3,
-	damage = 30,
+	damage = 15,
+	damage_type = "fire",
 	drops = {
 		{ name = "lottores:mithril_ingot",        chance = 5, min = 1,  max = 5, }, -- temporary reduced x 10
 		{ name = "lottores:mithrilsword",         chance = 5, min = 1,  max = 1, },
