@@ -1,5 +1,9 @@
 # Change Log
 
+## [2024.12.p4](https://github.com/lord-server/lord/releases/tag/2024.12.p4)
+ - Fix another crash. Change fire ball explosive damage to fire
+ - Make fire ball and dark ball a sprite. Fix a crash again.
+
 ## [2024.12.p3](https://github.com/lord-server/lord/releases/tag/2024.12.p3)
  - Balance difficulty of balrogs and nazguls, add fire damage immunity to balrogs
 
