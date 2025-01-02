@@ -224,8 +224,8 @@ return {
 			},
 			entity_reg  = {
 				initial_properties = {
-					visual    = "item",
-					wield_item = "lord_projectiles:fire_ball",
+					visual   = "sprite",
+					textures = { "mobs_fireball.png" },
 					visual_size = vector.new(1, 1, 1),
 				},
 				max_speed        = 40,
@@ -316,8 +316,8 @@ return {
 			},
 			entity_reg  = {
 				initial_properties = {
-					visual    = "item",
-					wield_item = "lord_projectiles:dark_ball",
+					visual   = "sprite",
+					textures = { "lottmobs_darkball.png" },
 					visual_size = vector.new(1, 1, 1),
 				},
 				max_speed        = 20,

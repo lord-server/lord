@@ -52,10 +52,10 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 	projectile.object:remove()
 end
 
---- @param entity LuaEntity  entity to check if it is a projectile
+--- @param entity ObjectRef  entity to check if it is a projectile
 --- @return       boolean    true, if it is a projectile, or false
 local function is_entity_projectile(entity)
-	if not entity then
+	if not entity or not entity:get_luaentity() then
 		return
 	end
 	local entity_name = entity:get_luaentity().name
@@ -110,7 +110,7 @@ end
 
 -- Hit handling depending on target
 --- @param projectile    LuaEntity  projectile entity
---- @param target        LuaEntity  target entity
+--- @param target        ObjectRef  target entity
 --- @param damage_groups table      damage groups table (see Minetest API)
 --- @param velocity      vector     projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
