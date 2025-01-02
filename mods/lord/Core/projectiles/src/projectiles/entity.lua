@@ -252,9 +252,11 @@ local register_projectile_entity = function(name, entity_reg)
 				flight_processing(self, environment, self._rotation_formula)
 			end
 
+			local stack = self._projectile_stack
+			local is_in_creative = minetest.registered_items[stack:get_name()].groups.not_in_creative_inventory
 
-			if update_life_timer(self, dtime) then
-				minetest.add_item(pos, self._projectile_stack)
+			if update_life_timer(self, dtime) and not is_in_creative then
+				minetest.add_item(pos, stack)
 			end
 		end,
 		on_punch       = function(self, puncher, time_from_last_punch, tool_capabilities, dir, damage)
