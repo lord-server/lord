@@ -1,5 +1,12 @@
 # Change Log
 
+## [2024.12.p3](https://github.com/lord-server/lord/releases/tag/2024.12.p3)
+ - Balance difficulty of balrogs and nazguls, add fire damage immunity to balrogs
+
+ - Technical:
+   - Fix dropping some projectiles when their timer expires
+   - Fix THE crash (again): never let it access if hitter == nil
+
 ## [2024.12.p2](https://github.com/lord-server/lord/releases/tag/2024.12.p2)
  - Fix a crash: mobs accessing hitter (again, trivial) (#1885)
 
