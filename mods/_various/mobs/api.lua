@@ -1861,6 +1861,11 @@ end
 
 -- deal damage and effects when mob punched
 function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+	-- TEMPORARY FIX (remove when refactoring)
+	if not hitter then
+		return
+	end
+
 	-- mob health check
 	if self.health <= 0 then
 		-- kill mob
