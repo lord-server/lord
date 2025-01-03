@@ -41,12 +41,10 @@ local function spawn_mob_inside_cuboid(mob, minp, maxp)
 end
 
 local function is_inside_cuboid(p, minp, maxp)
-	return p.x >= minp.x
-		and p.x <= maxp.x
-		and p.y >= minp.y
-		and p.y <= maxp.y
-		and p.z >= minp.z
-		and p.z <= maxp.z
+	return
+		p.x >= minp.x and p.x <= maxp.x and
+		p.y >= minp.y and p.y <= maxp.y and
+		p.z >= minp.z and p.z <= maxp.z
 end
 
 -- Returns amount of mobs and players inside the cuboid
@@ -69,18 +67,24 @@ local function get_mobs_inside_cuboid(mobs, pos1, pos2)
 
 	-- Count the objects
 	for _, object in pairs(objects) do
-		local name = object.name
 		local pos = object:get_pos()
-		-- Filter positions outside the cuboid
-		local valid_pos = is_inside_cuboid(pos, minp, maxp)
-		-- HACK: This is to update arena if a player is somewhere near it.
-		--local valid_pos_for_player = is_inside_cuboid(
-		--	vector.subtract(minp, arena.LAZY_AREA_OFFSET),
-		--	vector.add(maxp, arena.LAZY_AREA_OFFSET))
-		if object:is_player() and valid_pos then
-			players = players + 1
-		elseif name and mob_count[name] and valid_pos then
-			mob_count[name] = mob_count[name] + 1
+		if object:is_player() then
+			-- HACK: This is to update arena if a player is somewhere near it.
+			local valid_pos_for_player = is_inside_cuboid(
+				pos,
+				vector.subtract(minp, arena.LAZY_AREA_OFFSET),
+				vector.add(maxp, arena.LAZY_AREA_OFFSET)
+			)
+			players = valid_pos_for_player
+				and players + 1
+				or  players
+		else
+			--- @type Entity
+			local entity = object
+			local name = entity:get_luaentity().name
+			if name and mob_count[name] and is_inside_cuboid(pos, minp, maxp) then
+				mob_count[name] = mob_count[name] + 1
+			end
 		end
 	end
 
@@ -137,7 +141,7 @@ minetest.register_node("arena:lighting_gas", {
 ------------
 -- ARENAS --
 ------------
-arena.add_arena({x=1143, y=-30911, z=-50}, {x=1189, y=-30900, z=-4}, {
+arena.add_arena({x=4, y=-38, z=28}, {x=64, y=-21, z=84}, {
 	["lottmobs:balrog"] = 10,
 })
 
