@@ -1,3 +1,7 @@
+local math_max, math_ceil, math_log, math_random
+	= math.max, math.ceil, math.log, math.random
+
+
 local smooth_filter = {
 	{ 0, 1, 1, 1, 0 },
 	{ 1, 1, 1, 1, 1 },
@@ -8,8 +12,8 @@ local smooth_filter = {
 
 ---smooth map at (x,z)
 ---@param map table height map
----@param z integer z coordinate
----@param x integer x coordinate
+---@param z number z coordinate
+---@param x number x coordinate
 local function smooth(map, z, x)
 	local sum = 0
 	local cnt = 0
@@ -31,7 +35,7 @@ end
 ---Random value from -max_value to max_value
 ---@param max_value any
 local function adjust_random(max_value)
-	return (2 * math.random() - 1) * max_value
+	return (2 * math_random() - 1) * max_value
 end
 
 ---Average of 4 values. Ignore nils
@@ -65,19 +69,19 @@ local function average(v1, v2, v3, v4)
 end
 
 ---Generate mountain with diamond-square algorithm
----@param map_w integer desired width of the mountain
----@param mountain_h integer height of the mountain
----@param rk_thr integer for scales greater than this, use rk_big
----@param rk_small integer smoothness coefficient for small scales
----@param rk_big integer smoothness coefficient for big scales
----@return table, integer, integer "height map, map size, center coordinate"
+---@param map_w number desired width of the mountain
+---@param mountain_h number height of the mountain
+---@param rk_thr number for scales greater than this, use rk_big
+---@param rk_small number smoothness coefficient for small scales
+---@param rk_big number smoothness coefficient for big scales
+---@return table, number, number "height map, map size, center coordinate"
 mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
-	local W = math.max(map_w, 3)
-	local H = math.max(mountain_h, 1)
+	local W = math_max(map_w, 3)
+	local H = math_max(mountain_h, 1)
 
-	local n = math.ceil(math.log(W) / math.log(2))
+	local n = math_ceil(math_log(W) / math_log(2))
 
-	n = math.max(n, 1)
+	n = math_max(n, 1)
 	local r = 2 ^ (n - 1)
 	local w = 2 * r + 1
 	local map = {}
