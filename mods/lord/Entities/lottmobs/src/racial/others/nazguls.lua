@@ -32,7 +32,7 @@ mobs:register_mob("lottmobs:nazgul", {
 	light_damage = 0,
 	on_rightclick = nil,
 	attack_type = "shoot",
-	arrow = "arrows:darkball",
+	arrow = "lord_projectiles:dark_ball",
 	shoot_interval = 4,
 	animation = {
 		speed_normal = 15,
@@ -89,7 +89,7 @@ mobs:register_mob("lottmobs:witch_king", {
 	light_damage = 0,
 	on_rightclick = nil,
 	attack_type = "shoot",
-	arrow = "arrows:darkball",
+	arrow = "lord_projectiles:dark_ball",
 	shoot_interval = 2,
 	animation = {
 		speed_normal = 15,

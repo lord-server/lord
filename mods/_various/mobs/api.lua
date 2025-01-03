@@ -1467,6 +1467,7 @@ local do_states = function(self, dtime)
 		-- calculate distance from mob and enemy
 		local s = self.object:get_pos()
 		local p = self.attack:get_pos() or s
+		local shoot_dir = vector.normalize(vector.add(vector.subtract(p, s), vector.new(0, 2, 0)))
 		local dist = get_distance(p, s)
 
 		-- stop attacking if player or out of range
@@ -1782,7 +1783,11 @@ local do_states = function(self, dtime)
 					z = vec.z,
 				}
 
-				throwing.shoot(self.object, "entity", self.arrow, p, dir, 0.5)
+				local arrow = ItemStack(self.arrow)
+
+				minetest.sound_play(arrow:get_definition()["_sound_on_release"], { object = self.object })
+				local aim_variety = random(-2, 2) * 0.1
+				archery.projectile_shoot(self.object, arrow, 0.6 + aim_variety, shoot_dir)
 			end
 		end
 	end
@@ -1877,7 +1882,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	end
 
 	-- weapon wear
-	local weapon = hitter:get_wielded_item()
+	local weapon = hitter:get_wielded_item() or ItemStack("lord_archery:apple_wood_bow")
 	local punch_interval = 1.4
 
 	-- calculate mob damage
@@ -1928,7 +1933,8 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	end
 
 	if weapon:get_definition()
-	and weapon:get_definition().tool_capabilities then
+	and weapon:get_definition().tool_capabilities
+	and hitter:is_player() then
 
 		weapon:add_wear(floor((punch_interval / 75) * 9000))
 		hitter:set_wielded_item(weapon)

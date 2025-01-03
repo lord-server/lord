@@ -27,9 +27,6 @@
  - это modpack с различными нашими переопределениями
  - подробнее в [_overwrites/readme.md](_overwrites/readme.md)
 
-### `arrows`
- - вынесено из [`lottthrowing`]((https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottthrowing)): разделено на движок/api(`throwing`) и бросабельные-итемы/ака-стрелы(`arrows`))
-
 ### `death_handler`
  - сохраняем умерших игроков в массив (в момент смерти), выполняя колбек, и удаляем из массива при возрождении
  - Этот мод был нужен для исправления бага с коллбеком на смерть.  
@@ -62,11 +59,6 @@
  - Отвёртки `lord_screwdriver:screwdriver`, `lord_screwdriver:screwdriver_galvorn`
  - Оптимизирована текстура `screwdriver_galvorn.png` 9406 bytes -> 257 bytes
  - Зависит от `MTG/screwdriver`
-
-### `throwing`
- - вынесено из [`lottthrowing`](https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottthrowing) и допилено: разделено на движок/api(`throwing`) и бросабельные-итемы/ака-стрелы(`arrows`))
- - завезена физика притяжения (полёт/падение "стрелы" по дуге)
- - возможно на базе другого мода-апи (например, [этого](https://github.com/minetest-mods/throwing))
 
 ### `tools`
  - вынесено из [`lottweapons`](https://github.com/minetest-LOTR/Lord-of-the-Test/tree/master/mods/lottweapons) и дополнено

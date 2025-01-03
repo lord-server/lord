@@ -169,8 +169,8 @@ minetest.register_alias("lord_homedecor:slab_Roofing", "stairs:slab_roofing")
 minetest.register_alias("lord_homedecor:slab_grate", "stairs:slab_grate")
 minetest.register_alias("lord_homedecor:slab_hardwood", "stairs:slab_hardwood")
 
-minetest.register_alias("lottthrowing:bolt_fire", "lottthrowing:bolt")
-minetest.register_alias("lottpotion:bolt", "lottthrowing:bolt")
+minetest.register_alias("lottthrowing:bolt_fire", "lord_projectiles:steel_bolt")
+minetest.register_alias("lottpotion:bolt", "lord_projectiles:steel_bolt")
 
 minetest.register_alias("lottplants:anemones_fake", "lottplants:anemones")
 minetest.register_alias("lottplants:asphodel_fake", "lottplants:asphodel")
@@ -253,15 +253,44 @@ end
 minetest.register_alias("lottweapons:elven_sword", "tools:sword_elven")
 minetest.register_alias("lottweapons:orc_sword", "tools:sword_orc")
 
-minetest.register_alias("lottthrowing:arrow", "arrows:arrow_steel")
-minetest.register_alias("lottthrowing:arrow_mithril", "arrows:arrow_mithril")
-minetest.register_alias("lottthrowing:bolt", "arrows:bolt_steel")
-minetest.register_alias("lottthrowing:bolt_mithril", "arrows:bolt_mithril")
+minetest.register_alias("lottthrowing:arrow", "lord_projectiles:steel_arrow")
+minetest.register_alias("lottthrowing:arrow_mithril", "lord_projectiles:mithril_arrow")
+minetest.register_alias("lottthrowing:bolt", "lord_projectiles:steel_bolt")
+minetest.register_alias("lottthrowing:bolt_mithril", "lord_projectiles:mithril_bolt")
 
-minetest.register_alias("lottthrowing:axe_dwarf", "arrows:axe_dwarf")
-minetest.register_alias("lottthrowing:axe_elf", "arrows:axe_elf")
-minetest.register_alias("lottthrowing:axe_steel", "arrows:axe_steel")
-minetest.register_alias("lottthrowing:axe_galvorn", "arrows:axe_galvorn")
+minetest.register_alias("arrows:arrow_steel", "lord_projectiles:steel_arrow")
+minetest.register_alias("arrows:arrow_mithril", "lord_projectiles:mithril_arrow")
+minetest.register_alias("arrows:bolt_steel", "lord_projectiles:steel_bolt")
+minetest.register_alias("arrows:bolt_mithril", "lord_projectiles:mithril_bolt")
+
+minetest.register_alias("lottthrowing:axe_dwarf", "lord_projectiles:mithril_bolt")
+minetest.register_alias("lottthrowing:axe_elf", "lord_projectiles:galvorn_bolt")
+minetest.register_alias("lottthrowing:axe_steel", "lord_projectiles:steel_bolt")
+minetest.register_alias("lottthrowing:axe_galvorn", "lord_projectiles:galvorn_bolt")
+
+minetest.register_alias("arrows:axe_dwarf", "lord_projectiles:mithril_bolt")
+minetest.register_alias("arrows:axe_elf", "lord_projectiles:galvorn_bolt")
+minetest.register_alias("arrows:axe_steel", "lord_projectiles:steel_bolt")
+minetest.register_alias("arrows:axe_galvorn", "lord_projectiles:galvorn_bolt")
+
+minetest.register_alias("lottthrowing:bow_wood", "lord_archery:apple_wood_bow")
+minetest.register_alias("lottthrowing:bow_wood_alder", "lord_archery:alder_wood_bow")
+minetest.register_alias("lottthrowing:bow_wood_birch", "lord_archery:birch_wood_bow")
+minetest.register_alias("lottthrowing:bow_wood_lebethron", "lord_archery:lebethron_wood_bow")
+minetest.register_alias("lottthrowing:bow_wood_mallorn", "lord_archery:mallorn_wood_bow")
+
+minetest.register_alias("lottthrowing:crossbow_galvorn", "lord_archery:galvorn_crossbow")
+minetest.register_alias("lottthrowing:crossbow_gold", "lord_archery:gold_crossbow")
+minetest.register_alias("lottthrowing:crossbow_magical", "lord_archery:mithril_crossbow")
+minetest.register_alias("lottthrowing:crossbow_mithril", "lord_archery:mithril_crossbow")
+minetest.register_alias("lottthrowing:crossbow_silver", "lord_archery:silver_crossbow")
+minetest.register_alias("lottthrowing:crossbow_steel", "lord_archery:steel_crossbow")
+minetest.register_alias("lottthrowing:crossbow_tin", "lord_archery:tin_crossbow")
+minetest.register_alias("lottthrowing:crossbow_wood", "lord_archery:wooden_crossbow")
+
+minetest.register_alias("arrows:fireball", "lord_projectiles:fire_ball")
+minetest.register_alias("arrows:darkball", "lord_projectiles:dark_ball")
+
 
 minetest.register_alias("fire:campfire", "campfire:campfire")
 minetest.register_alias("fire:fireplace", "campfire:fireplace")

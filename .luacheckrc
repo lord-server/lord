@@ -27,10 +27,10 @@ read_globals      = {
 		"copy", "indexof", "insert_all", "key_value_swap",
 		-- our Core/helpers:
 		-- table:
-		"contains", "has_value", "has_key", "merge", "merge_values", "is_empty", "overwrite", "keys_of", "count",
-		"keys", "values", "except", "keys_has_one_of_values",
-        "equals", "multiply_each_value", "map",
-        "add_values", "sub_values", "mul_values", "div_values"
+		"contains", "has_value", "has_key", "merge", "join", "merge_values",
+		"is_empty", "overwrite", "keys_of", "count", "keys", "values",
+		"except", "keys_has_one_of_values", "equals", "multiply_each_value",
+		"map", "add_values", "sub_values", "mul_values", "div_values"
 	} },
 
 	string = { fields = {

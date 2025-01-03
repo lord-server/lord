@@ -1,55 +1,55 @@
-# Выкладка на боевой сервер (game.lord-server.ru)
-
-name: Deploy to Production Server
-on:
-  push:
-    tags:
-      - 20[0-9][0-9].[0-9][0-9]
-      - 20[0-9][0-9].[0-9][0-9].p[0-9]
-
-
-jobs:
-
-  deploy-to-prod:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Update repo & Restart Minetest
-        uses: fifsky/ssh-action@v0.0.4
-        with:
-          host: ${{ secrets.LORD_PROD_HOST }}
-          port: ${{ secrets.LORD_PROD_PORT }}
-          user: ${{ secrets.LORD_PROD_USER }}
-          key: ${{ secrets.LORD_PROD_KEY }}
-          command: |
-            set -e
-            cd minetest-master/games/lord
-            git checkout master
-            git pull --recurse-submodules
-            git submodule init
-            git submodule update
-            cp -f minetest.conf.prod minetest.conf
-            sudo systemctl restart lord   # can only restart MT
-          args: -tt
-
-  merge-to-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-        with:
-          submodules: recursive
-          fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
-      - name: Merge `Master` -> `Dev`
-        run: |
-          set -e
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git fetch
-          git checkout master
-          git pull --recurse-submodules
-          git checkout dev --recurse-submodules
-          git submodule init
-          git submodule update
-          git merge master
-          git push
+## Выкладка на боевой сервер (game.lord-server.ru)
+#
+#name: Deploy to Production Server
+#on:
+#  push:
+#    tags:
+#      - 20[0-9][0-9].[0-9][0-9]
+#      - 20[0-9][0-9].[0-9][0-9].p[0-9]
+#
+#
+#jobs:
+#
+#  deploy-to-prod:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Update repo & Restart Minetest
+#        uses: fifsky/ssh-action@v0.0.4
+#        with:
+#          host: ${{ secrets.LORD_PROD_HOST }}
+#          port: ${{ secrets.LORD_PROD_PORT }}
+#          user: ${{ secrets.LORD_PROD_USER }}
+#          key: ${{ secrets.LORD_PROD_KEY }}
+#          command: |
+#            set -e
+#            cd minetest-master/games/lord
+#            git checkout master
+#            git pull --recurse-submodules
+#            git submodule init
+#            git submodule update
+#            cp -f minetest.conf.prod minetest.conf
+#            sudo systemctl restart lord   # can only restart MT
+#          args: -tt
+#
+#  merge-to-dev:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repo
+#        uses: actions/checkout@v2
+#        with:
+#          submodules: recursive
+#          fetch-depth: 0
+#          token: ${{ secrets.GH_TOKEN }}
+#      - name: Merge `Master` -> `Dev`
+#        run: |
+#          set -e
+#          git config user.name github-actions
+#          git config user.email github-actions@github.com
+#          git fetch
+#          git checkout master
+#          git pull --recurse-submodules
+#          git checkout dev --recurse-submodules
+#          git submodule init
+#          git submodule update
+#          git merge master
+#          git push
