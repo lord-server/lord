@@ -1,5 +1,10 @@
 # Change Log
 
+## [2024.12.p5](https://github.com/lord-server/lord/releases/tag/2024.12.p5)
+ - Balrog arena: fix limitted spawn. Fixes #1891
+ - Fix crash on read book. Fixes #1895 (#1898)
+ - Add forgotten steel shovel texture. Closes #1894
+
 ## [2024.12.p4](https://github.com/lord-server/lord/releases/tag/2024.12.p4)
  - Fix another crash. Change fire ball explosive damage to fire
  - Make fire ball and dark ball a sprite. Fix a crash again.
