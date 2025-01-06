@@ -60,26 +60,27 @@ mountgen.mountgen = function(top, config)
 		return
 	end
 
-	local y1 = config.Y0
-	local y2 = top.y
-	local H = y2 - y1
-	local W = math_ceil(2 * H * math_tan(config.ANGLE * 3.141 / 180 / 2)) + 3
-
 	local height_map, width, center
 	if method_name == "cone" then
-		height_map, width, center = mountgen.cone(W, H)
+
+		height_map, width, center = mountgen.cone(top, config)
+
 	elseif method_name == "diamond-square" then
+
+		local H = top.y - config.Y0
+		local W = math_ceil(2 * H * math_tan(math.rad(90 - config.ANGLE))) + 3
 		height_map, width, center = mountgen.diamond_square(W, H,
 			config.rk_thr,
 			config.rk_small,
 			config.rk_big)
+
 	else
 		minetest.log("error", "unknown method: " .. tostring(method_name))
 		return
 	end
 
-	local p1 = { x = top.x + 1 - center, y = y1, z = top.z + 1 - center }
-	local p2 = { x = top.x + width - center, y = y2 + 16, z = top.z + width - center }
+	local p1 = { x = top.x + 1 - center, y = config.Y0, z = top.z + 1 - center }
+	local p2 = { x = top.x + width - center, y = top.y + 16, z = top.z + width - center }
 
 	local chunks = mountgen.list_chunks(p1, p2)
 	local voxel_manip = minetest.get_voxel_manip(p1, p2)

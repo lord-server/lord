@@ -4,9 +4,14 @@ local esc = minetest.formspec_escape
 mountgen = {
 	required_priv = "server",
 	config = {
-		ANGLE = 120,
+		-- for cone:
+		TOP_RADIUS = 10,
+		MAX_RADIUS = 20,
+		-- /for cone
+
+		ANGLE = 60,
 		Y0 = 0,
-		METHOD = "diamond-square",
+		METHOD = "cone",
 		SNOW_LINE = 50,
 		SNOW_LINE_RAND = 4,
 		GRASS_PERCENT = 10,
@@ -91,7 +96,7 @@ local function validate_config(config)
 			return false
 		end
 	end
-	if config.ANGLE >= 180 then
+	if config.ANGLE < 15 or config.ANGLE > 90 then
 		return false
 	end
 	return true
