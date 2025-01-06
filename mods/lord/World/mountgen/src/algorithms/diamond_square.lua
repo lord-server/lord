@@ -1,6 +1,8 @@
 local math_max, math_ceil, math_log, math_random
 	= math.max, math.ceil, math.log, math.random
 
+local HeightMap = require('generator.HeightMap')
+
 
 local smooth_filter = {
 	{ 0, 1, 1, 1, 0 },
@@ -11,7 +13,7 @@ local smooth_filter = {
 }
 
 ---smooth map at (x,z)
----@param map table height map
+---@param map mountgen.generator.HeightMap height map
 ---@param z number z coordinate
 ---@param x number x coordinate
 local function smooth(map, z, x)
@@ -19,7 +21,7 @@ local function smooth(map, z, x)
 	local cnt = 0
 	for i = 1, 5 do
 		for j = 1, 5 do
-			local val = mountgen.get_value(map, z - 3 + i, x - 3 + j)
+			local val = map:get_value(z - 3 + i, x - 3 + j)
 			if val ~= nil then
 				cnt = cnt + smooth_filter[i][j]
 				sum = sum + val * smooth_filter[i][j]
@@ -29,7 +31,7 @@ local function smooth(map, z, x)
 	if cnt == 0 then
 		return
 	end
-	mountgen.set_value(map, z, x, sum / cnt)
+	map:set_value(z, x, sum / cnt)
 end
 
 ---Random value from -max_value to max_value
@@ -84,20 +86,14 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 	n = math_max(n, 1)
 	local r = 2 ^ (n - 1)
 	local w = 2 * r + 1
-	local map = {}
-	for i = 1, w do
-		map[i] = {}
-		for j = 1, w do
-			map[i][j] = "nan"
-		end
-	end
+	local height_map = HeightMap:new(w)
 
 	-- set central peak and corners
-	mountgen.set_value(map, r, r, H)
-	mountgen.set_value(map, 0, 0, -H / 2)
-	mountgen.set_value(map, 0, w - 1, -H / 2)
-	mountgen.set_value(map, w - 1, 0, -H / 2)
-	mountgen.set_value(map, w - 1, w - 1, -H / 2)
+	height_map:set_value(r, r, H)
+	height_map:set_value(0, 0, -H / 2)
+	height_map:set_value(0, w - 1, -H / 2)
+	height_map:set_value(w - 1, 0, -H / 2)
+	height_map:set_value(w - 1, w - 1, -H / 2)
 
 	-- run diamond square
 	local i = n
@@ -120,13 +116,13 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 			for _ = 1, num do
 				local x = 0
 				for _ = 1, num do
-					local val1 = mountgen.get_value(map, z, x)
-					local val2 = mountgen.get_value(map, z + step, x)
-					local val3 = mountgen.get_value(map, z, x + step)
-					local val4 = mountgen.get_value(map, z + step, x + step)
+					local val1 = height_map:get_value(z, x)
+					local val2 = height_map:get_value(z + step, x)
+					local val3 = height_map:get_value(z, x + step)
+					local val4 = height_map:get_value(z + step, x + step)
 					local rand = adjust_random(step2 / rk)
 					local val = average(val1, val2, val3, val4) + rand
-					mountgen.set_value(map, z + step2, x + step2, val)
+					height_map:set_value(z + step2, x + step2, val)
 					x = x + step
 				end
 				z = z + step
@@ -142,20 +138,20 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 				local rand
 
 				rand = adjust_random(step2 / rk)
-				val1 = mountgen.get_value(map, z - step2, x + step2)
-				val2 = mountgen.get_value(map, z + step2, x + step2)
-				val3 = mountgen.get_value(map, z, x)
-				val4 = mountgen.get_value(map, z, x + step)
+				val1 = height_map:get_value(z - step2, x + step2)
+				val2 = height_map:get_value(z + step2, x + step2)
+				val3 = height_map:get_value(z, x)
+				val4 = height_map:get_value(z, x + step)
 				val = average(val1, val2, val3, val4) + rand
-				mountgen.set_value(map, z, x + step2, val)
+				height_map:set_value(z, x + step2, val)
 
 				rand = adjust_random(step2 / rk)
-				val1 = mountgen.get_value(map, z + step2, x - step2)
-				val2 = mountgen.get_value(map, z + step2, x + step2)
-				val3 = mountgen.get_value(map, z, x)
-				val4 = mountgen.get_value(map, z + step, x)
+				val1 = height_map:get_value(z + step2, x - step2)
+				val2 = height_map:get_value(z + step2, x + step2)
+				val3 = height_map:get_value(z, x)
+				val4 = height_map:get_value(z + step, x)
 				val = average(val1, val2, val3, val4) + rand
-				mountgen.set_value(map, z + step2, x, val)
+				height_map:set_value(z + step2, x, val)
 
 				x = x + step
 			end
@@ -164,6 +160,7 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 
 		i = i - 1
 	end
-	smooth(map, r, r)
-	return map, w, r + 1
+	smooth(height_map, r, r)
+
+	return height_map, w, r + 1
 end

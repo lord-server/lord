@@ -60,6 +60,7 @@ mountgen.mountgen = function(top, config)
 		return
 	end
 
+	--- @type mountgen.generator.HeightMap
 	local height_map, width, center
 	if method_name == "cone" then
 
@@ -117,7 +118,7 @@ mountgen.mountgen = function(top, config)
 				if global_z >= 1 and global_z <= width and
 					global_x >= 1 and global_x <= width and
 					global_y >= 1 then
-					local height = math_floor(height_map[global_z][global_x] + 0.5)
+					local height = math_floor(height_map.map[global_z][global_x] + 0.5)
 					if height > 0 then
 						if global_y < height then
 							data[i] = stone_id
