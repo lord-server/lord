@@ -1,6 +1,9 @@
 local math_floor, math_ceil, math_tan, table_insert, id
     = math.floor, math.ceil, math.tan, table.insert, minetest.get_content_id
 
+local Node = require('generator.Node')
+
+
 local stone_id = id("default:stone")
 local air_id = id("air")
 
@@ -124,12 +127,12 @@ mountgen.mountgen = function(top, config)
 							data[i] = stone_id
 						elseif global_y == height then
 							if can_place_dirt(data[i], stone_id) then
-								local top_node = mountgen.top_node({ x = global_x, y = global_y, z = global_z }, config)
+								local top_node = Node.get_coverage({ x = global_x, y = global_y, z = global_z }, config)
 								data[i] = id(top_node)
 							end
 						elseif global_y == height + 1 then
 							if can_place_plant(data[i], air_id) then
-								local upper_node = mountgen.upper_node({ x = global_x, y = global_y, z = global_z },
+								local upper_node = Node.get_plant({ x = global_x, y = global_y, z = global_z },
 									config)
 								if upper_node ~= nil then
 									data[i] = id(upper_node)

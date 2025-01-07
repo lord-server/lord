@@ -27,7 +27,10 @@ local function get_sapling(pos)
 end
 
 
-mountgen.top_node = function(pos, config)
+--- @class mountgen.generator.Node
+local Node = {}
+
+function Node.get_coverage(pos, config)
 	local place_snow = false
 	local sl = config.SNOW_LINE - math_random(0, config.SNOW_LINE_RAND)
 	if pos.y >= sl then
@@ -41,7 +44,7 @@ mountgen.top_node = function(pos, config)
 	end
 end
 
-mountgen.upper_node = function(pos, config)
+function Node.get_plant(pos, config)
 	if pos.y >= config.SNOW_LINE - config.SNOW_LINE_RAND then
 		return nil
 	end
@@ -59,3 +62,6 @@ mountgen.upper_node = function(pos, config)
 
 	return nil
 end
+
+
+return Node
