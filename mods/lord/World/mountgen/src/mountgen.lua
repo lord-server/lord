@@ -1,9 +1,9 @@
 
 mountgen = {}
 
-require('algorithms.cone')
-require('algorithms.diamond_square')
-require('ui')
+require('mountgen.algorithms.cone')
+require('mountgen.algorithms.diamond_square')
+require('mountgen.ui')
 
 
 

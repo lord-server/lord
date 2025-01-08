@@ -1,7 +1,7 @@
 local math_max, math_ceil, math_log, math_random
 	= math.max, math.ceil, math.log, math.random
 
-local HeightMap = require('generator.HeightMap')
+local HeightMap = require('mountgen.generator.HeightMap')
 
 
 local smooth_filter = {

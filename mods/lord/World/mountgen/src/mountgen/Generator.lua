@@ -1,8 +1,8 @@
 local math_floor, math_ceil, math_tan, id
     = math.floor, math.ceil, math.tan, minetest.get_content_id
 
-local ChunksIterator = require('generator.ChunksIterator')
-local Node           = require('generator.Node')
+local ChunksIterator = require('mountgen.generator.ChunksIterator')
+local Node           = require('mountgen.generator.Node')
 local Logger         = minetest.get_mod_logger()
 
 

@@ -1,4 +1,4 @@
-local Generator = require('Generator')
+local Generator = require('mountgen.Generator')
 
 
 local S      = minetest.get_mod_translator()

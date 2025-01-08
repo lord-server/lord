@@ -1,7 +1,7 @@
 local math_min, math_max, math_floor, math_ceil, math_sqrt, math_tan, math_rad
     = math.min, math.max, math.floor, math.ceil, math.sqrt, math.tan, math.rad
 
-local HeightMap = require('generator.HeightMap')
+local HeightMap = require('mountgen.generator.HeightMap')
 
 
 local MIN_CONE_FOOT_DIAMETER = 3
