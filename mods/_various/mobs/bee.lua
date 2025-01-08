@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
 -- Bee by KrupnoPavel
 
@@ -46,18 +46,18 @@ mobs:register_mob("mobs:bee", {
 --mobs:spawn_specific(name, nodes, {"air"}, min_light, max_light, 30, chance, active_object_count, -31000, max_height)
 mobs:spawn_specific("mobs:bee", {"group:flower"}, {"air"}, 10, 20, 30, 5000, 1, 0, 1000)
 
-mobs:register_egg("mobs:bee", SL("Bee"), "mobs_bee_inv.png", 0)
+mobs:register_egg("mobs:bee", S("Bee"), "mobs_bee_inv.png", 0)
 
 -- honey
 minetest.register_craftitem("mobs:honey", {
-	description = SL("Honey"),
+	description = S("Honey"),
 	inventory_image = "mobs_honey_inv.png",
 	on_use = minetest.item_eat(6),
 })
 
 -- beehive (when placed spawns bee)
 minetest.register_node("mobs:beehive", {
-	description = SL("Beehive"),
+	description = S("Beehive"),
 	drawtype = "plantlike",
 	visual_scale = 1.0,
 	tiles = {"mobs_beehive.png"},
@@ -88,7 +88,7 @@ minetest.register_node("mobs:beehive", {
 
 -- honey block
 minetest.register_node("mobs:honey_block", {
-	description = SL("Honey Block"),
+	description = S("Honey Block"),
 	tiles = {"mobs_honey_block.png"},
 	groups = {snappy = 3, flammable = 2},
 	sounds = default.node_sound_dirt_defaults(),
