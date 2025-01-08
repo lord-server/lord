@@ -4,8 +4,8 @@ local math_floor, math_ceil, math_tan, table_insert, id
 local Node = require('generator.Node')
 
 
-local stone_id = id("default:stone")
-local air_id = id("air")
+local stone_id = id('default:stone')
+local air_id   = id('air')
 
 mountgen.list_chunks = function(p1, p2)
 	local chunks = {}
@@ -14,10 +14,13 @@ mountgen.list_chunks = function(p1, p2)
 	local fp1 = {
 		x = math_floor(p1.x / size) * size,
 		y = math_floor(p1.y / size) * size,
-		z = math_floor(p1.z / size) *
-			size
+		z = math_floor(p1.z / size) * size,
 	}
-	local cp2 = { x = math_ceil(p2.x / size) * size, y = math_ceil(p2.y / size) * size, z = math_ceil(p2.z / size) * size }
+	local cp2 = {
+		x = math_ceil(p2.x / size) * size,
+		y = math_ceil(p2.y / size) * size,
+		z = math_ceil(p2.z / size) * size,
+	}
 
 	local nx = (cp2.x - fp1.x) / size
 	local ny = (cp2.y - fp1.y) / size
@@ -59,17 +62,17 @@ mountgen.mountgen = function(top, config)
 	top.z = math_floor(top.z + 0.5)
 
 	if top.y <= config.Y0 then
-		minetest.log("Trying to build negative mountain")
+		minetest.log('Trying to build negative mountain')
 		return
 	end
 
 	--- @type mountgen.generator.HeightMap
 	local height_map, width, center
-	if method_name == "cone" then
+	if method_name == 'cone' then
 
 		height_map, width, center = mountgen.cone(top, config)
 
-	elseif method_name == "diamond-square" then
+	elseif method_name == 'diamond-square' then
 
 		local H = top.y - config.Y0
 		local W = math_ceil(2 * H * math_tan(math.rad(90 - config.ANGLE))) + 3
@@ -79,7 +82,7 @@ mountgen.mountgen = function(top, config)
 			config.rk_big)
 
 	else
-		minetest.log("error", "unknown method: " .. tostring(method_name))
+		minetest.log('error', 'unknown method: ' .. tostring(method_name))
 		return
 	end
 
@@ -124,18 +127,16 @@ mountgen.mountgen = function(top, config)
 					local height = math_floor(height_map.map[global_z][global_x] + 0.5)
 					if height > 0 then
 						if global_y < height then
-							data[i] = stone_id
+							data[i] = Node.get_rock({ x = global_x, y = global_y, z = global_z }, config)
 						elseif global_y == height then
 							if can_place_dirt(data[i], stone_id) then
-								local top_node = Node.get_coverage({ x = global_x, y = global_y, z = global_z }, config)
-								data[i] = id(top_node)
+								data[i] = Node.get_coverage({ x = global_x, y = global_y, z = global_z }, config)
 							end
 						elseif global_y == height + 1 then
 							if can_place_plant(data[i], air_id) then
-								local upper_node = Node.get_plant({ x = global_x, y = global_y, z = global_z },
-									config)
-								if upper_node ~= nil then
-									data[i] = id(upper_node)
+								local plant_node_id = Node.get_plant({ x = global_x, y = global_y, z = global_z }, config)
+								if plant_node_id ~= nil then
+									data[i] = plant_node_id
 								end
 							end
 						end
