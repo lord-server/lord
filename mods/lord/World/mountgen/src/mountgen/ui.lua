@@ -1,9 +1,8 @@
 local Generator = require('mountgen.Generator')
 
-
 local S      = minetest.get_mod_translator()
 local Logger = minetest.get_mod_logger()
-local esc    = minetest.formspec_escape
+local spec   = minetest.formspec
 
 
 mountgen.show_config_menu = function(user_name, config)
@@ -12,58 +11,51 @@ mountgen.show_config_menu = function(user_name, config)
 	local bw = 5 - 0.5
 	local pos = 0.5
 
-	formspec = formspec .. "label[3.5," .. (pos - 0.3) .. ";" .. S("Mountain creation tool") .. "]"
+	formspec = formspec .. spec.label(3.5, pos - 0.3, S("Mountain creation tool"))
 	pos = pos + 0.5
-	formspec = formspec .. "label[3.5," .. (pos - 0.3) .. ";" .. S("USE WITH CAUTION!") .. "]"
+	formspec = formspec .. spec.label(3.5, pos - 0.3, S("USE WITH CAUTION!"))
 	pos = pos + 1
 
 	-- метод
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Method")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_method;;" .. esc(config.METHOD) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Method"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_method', '', config.METHOD)
 	pos = pos + 0.8
-
 	-- угол горы
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Angle")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_angle;;" .. esc(config.ANGLE) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Angle"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_angle', '', config.ANGLE)
 	pos = pos + 0.8
-
 	-- основание
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Base height")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_base;;" .. esc(config.Y0) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Foot height"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_base', '', config.Y0)
 	pos = pos + 0.8
-
 	-- снежная линия
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Snow line")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_snow_line;;" .. esc(config.SNOW_LINE) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Snow line"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_snow_line', '', config.SNOW_LINE)
 	pos = pos + 0.8
-
 	-- сглаживание на крупном масштабе
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Smooth big scale")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_rk_big;;" .. esc(config.rk_big) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Big scale smooth"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_big', '', config.rk_big)
 	pos = pos + 0.8
-
 	-- сглаживание на малом масштабе
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Smooth small scale")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_rk_small;;" .. esc(config.rk_small) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Small scale smooth"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_small', '', config.rk_small)
 	pos = pos + 0.8
-
 	-- граница мелкого масштаба (лог2)
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Small scale (log2)")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_rk_thr;;" .. esc(config.rk_thr) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Small scale (log2)"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_thr', '', config.rk_thr)
 	pos = pos + 0.8
 
 	-- грунт сверху
-	formspec = formspec .. "label[0.5," .. (pos - 0.3) .. ";" .. esc(S("Top dirt")) .. "]"
-	formspec = formspec .. "field[3," .. pos .. ";" .. bw .. ",0.5;edit_top_cover;;" .. esc(config.top_cover) .. "]"
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S("Top dirt"))
+	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_top_cover', '', config.top_cover)
 	pos = pos + 0.8
 
 
-	formspec = formspec .. "button[2.75," .. pos .. ";" .. bw .. ",1;save_main;" .. esc(S("Save")) .. "]"
-	pos = pos + 1
-	formspec = formspec .. "button[2.75," .. pos .. ";" .. bw .. ",1;generate;" .. esc(S("Generate")) .. "]"
+	formspec = formspec .. spec.button(1, pos, 3, 1, 'save_main', S("Save"))
+	formspec = formspec .. spec.button(4, pos, 3, 1, 'generate', S("Generate"))
 	pos = pos + 1
 
-	formspec = "size[" .. width .. "," .. pos .. "]" .. formspec
+	formspec = spec.size(width, pos) .. formspec
 
 	minetest.show_formspec(user_name, "mountgen:configure", formspec)
 end
