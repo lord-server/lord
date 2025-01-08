@@ -5,30 +5,6 @@ local S      = minetest.get_mod_translator()
 local Logger = minetest.get_mod_logger()
 local esc    = minetest.formspec_escape
 
-mountgen.required_priv = "server"
-mountgen.config = {
-	-- for cone:
-	TOP_RADIUS = 10,
-	MAX_RADIUS = 20,
-	-- /for cone
-
-	ANGLE = 60,
-	Y0 = 0,
-	METHOD = "cone",
-	SNOW_LINE = 50,
-	SNOW_LINE_RAND = 4,
-	GRASS_PERCENT = 10,
-	FLOWERS_LINE = 35,
-	FLOWERS_PERCENT = 10,
-	TREE_LINE = 20,
-	TREE_PROMILLE = 4,
-
-	rk_big = 5,
-	rk_small = 100,
-	rk_thr = 5,
-
-	top_cover = "lord_ground:dirt_dunland",
-}
 
 mountgen.show_config_menu = function(user_name, config)
 	local formspec = ""
@@ -144,21 +120,3 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 		end
 	end
 end)
-
-minetest.register_tool("mountgen:mount_tool", {
-	description = S("Mountain tool"),
-	inventory_image = "ghost_tool.png",
-	on_use = function(itemstack, placer, pointed_thing)
-		-- show configure menu
-		local user_name = placer:get_player_name()
-		local can_access = minetest.get_player_privs(user_name)[mountgen.required_priv]
-		if not can_access then
-			return
-		end
-		mountgen.show_config_menu(user_name, mountgen.config)
-	end,
-	group = {},
-	on_drop = function(itemstack, dropper, pos)
-		return
-	end,
-})
