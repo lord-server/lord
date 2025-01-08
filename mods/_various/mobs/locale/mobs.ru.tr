@@ -1,0 +1,13 @@
+# textdomain: mobs
+Honey=Мёд
+Beehive=Улей
+Honey Block=Блок мёда
+Bee=Пчела
+[MOBS] mod profiling enabled, damage not enabled=[MOBS] профилирование мода включено, урон не включен
+lifetimer expired, removed @1=таймер жизни истёк, удален @1
+[Mobs Redo] @1 has spawning disabled=[Mobs Redo] спавн @1 выключен
+[Mobs Redo] Chance setting for @1 is now @2=[Mobs Redo] Значение вероятности для @1 теперь равно @2
+[mobs] @1 failed to spawn at @2=@1 не удалось появиться на @2
+Missed!=Не поймал!
+Enter name:=Введите имя:
+Rename=Переименовать
