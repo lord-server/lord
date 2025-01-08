@@ -3,7 +3,6 @@ mountgen = {}
 
 require('algorithms.cone')
 require('algorithms.diamond_square')
-require('generator')
 require('ui')
 
 

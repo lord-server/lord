@@ -3,35 +3,56 @@ local math_floor, math_ceil, math_tan, id
 
 local ChunksIterator = require('generator.ChunksIterator')
 local Node           = require('generator.Node')
+local Logger         = minetest.get_mod_logger()
 
 
 local stone_id = id('default:stone')
 local air_id   = id('air')
 
-local can_place_dirt = function(data)
-	if data ~= stone_id then
-		return true
-	end
-
-	return false
+--- @param node_id number
+--- @return boolean
+local can_place_dirt = function(node_id)
+	return node_id ~= stone_id
 end
 
-local can_place_plant = function(data)
-	if data == air_id then
-		return true
-	end
-
-	return false
+--- @param node_id number
+--- @return boolean
+local can_place_plant = function(node_id)
+	return node_id == air_id
 end
 
-mountgen.mountgen = function(top, config)
+
+--- @class mountgen.Generator
+local Generator = {
+	--- @type vector
+	top_position = nil,
+	--- @type table
+	config       = nil,
+}
+
+
+--- @param top_position Position
+--- @param config       table
+--- @return mountgen.Generator
+function Generator:new(top_position, config)
+	local class = self
+	self = {}
+
+	self.top_position = top_position and vector.new(top_position) or self.top_position
+	self.config       = config or self.config
+
+	return setmetatable(self, { __index = class })
+end
+
+function Generator:run()
+	local top    = self.top_position
+	local config = self.config
 	local method_name = config.METHOD
-	top.x = math_floor(top.x + 0.5)
-	top.y = math_floor(top.y + 0.5)
-	top.z = math_floor(top.z + 0.5)
+
+	top = top:add(0.5):floor()
 
 	if top.y <= config.Y0 then
-		minetest.log('Trying to build negative mountain')
+		Logger.warning('Trying to build negative mountain')
 		return
 	end
 
@@ -48,10 +69,11 @@ mountgen.mountgen = function(top, config)
 		height_map, width, center = mountgen.diamond_square(W, H,
 			config.rk_thr,
 			config.rk_small,
-			config.rk_big)
+			config.rk_big
+		)
 
 	else
-		minetest.log('error', 'unknown method: ' .. tostring(method_name))
+		Logger.error('unknown method: ' .. tostring(method_name))
 		return
 	end
 
@@ -71,11 +93,11 @@ mountgen.mountgen = function(top, config)
 				if position.y < height then
 					data[i] = Node.get_rock(position, config)
 				elseif position.y == height then
-					if can_place_dirt(data[i], stone_id) then
+					if can_place_dirt(data[i]) then
 						data[i] = Node.get_coverage(position, config)
 					end
 				elseif position.y == height + 1 then
-					if can_place_plant(data[i], air_id) then
+					if can_place_plant(data[i]) then
 						local plant_node_id = Node.get_plant(position, config)
 						if plant_node_id ~= nil then
 							data[i] = plant_node_id
@@ -86,3 +108,6 @@ mountgen.mountgen = function(top, config)
 		end
 	end)
 end
+
+
+return Generator

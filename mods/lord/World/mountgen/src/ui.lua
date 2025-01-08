@@ -1,5 +1,9 @@
-local S = minetest.get_mod_translator()
-local esc = minetest.formspec_escape
+local Generator = require('Generator')
+
+
+local S      = minetest.get_mod_translator()
+local Logger = minetest.get_mod_logger()
+local esc    = minetest.formspec_escape
 
 mountgen.required_priv = "server"
 mountgen.config = {
@@ -132,11 +136,11 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 		end
 
 		if fields["generate"] ~= nil then
-			local top = clicker:get_pos()
-			local config = mountgen.config
-			minetest.log("use mount stick at " .. top.x .. " " .. top.y .. " " .. top.z)
-			minetest.log("parameters: " .. dump(mountgen.config))
-			mountgen.mountgen(top, config)
+			local top_position = clicker:get_pos()
+			local config       = mountgen.config
+			Logger.action("use mount stick at " .. top_position.x .. " " .. top_position.y .. " " .. top_position.z)
+			Logger.action("parameters: " .. dump(mountgen.config))
+			Generator:new(top_position, config):run()
 		end
 	end
 end)
