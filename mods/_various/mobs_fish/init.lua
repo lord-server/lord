@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 if mobs.mod and mobs.mod == "redo" then
 
 local SPRITE_VERSION = false	-- set to true to use upright sprites instead of meshes
@@ -71,7 +71,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 	})
 	--name, nodes, neighbours, minlight, maxlight, interval, chance, active_object_count, min_height, max_height
 	--mobs:spawn_specific("mobs_fish:clownfish", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level)
-	mobs:register_egg("mobs_fish:clownfish", SL("Clownfish"), "animal_clownfish_clownfish_item.png", 0)
+	mobs:register_egg("mobs_fish:clownfish", S("Clownfish"), "animal_clownfish_clownfish_item.png", 0)
 
 -- Tropical fish
 	mobs:register_mob("mobs_fish:tropical", {
@@ -105,6 +105,6 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 	})
 	--name, nodes, neighbours, minlight, maxlight, interval, chance, active_object_count, min_height, max_height
 	--mobs:spawn_specific("mobs_fish:tropical", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level)
-	mobs:register_egg("mobs_fish:tropical", SL("Tropical fish"), "animal_fish_blue_white_fish_blue_white_item.png", 0)
+	mobs:register_egg("mobs_fish:tropical", S("Tropical fish"), "animal_fish_blue_white_fish_blue_white_item.png", 0)
 
 end
