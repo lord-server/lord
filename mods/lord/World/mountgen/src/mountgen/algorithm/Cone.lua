@@ -6,11 +6,16 @@ local HeightMap = require('mountgen.generator.HeightMap')
 
 local MIN_CONE_FOOT_DIAMETER = 3
 
+--- @class mountgen.algorithm.Cone: mountgen.AlgorithmInterface
+local Cone = {
+	NAME = 'cone',
+}
+
 --- Generate mountain as cone
 --- @param top_pos Position
 --- @param config  table
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center_coordinate"
-mountgen.cone = function(top_pos, config)
+function Cone.build_height_map(top_pos, config)
 	local H = top_pos.y - config.Y0                        -- height of truncated cone
 	local W = 2 * (config.TOP_RADIUS + math_ceil(          -- width (diameter) of cone foot
 		H * math_tan( math_rad(90 - config.ANGLE) )
@@ -41,3 +46,6 @@ mountgen.cone = function(top_pos, config)
 
 	return height_map, height_map_size, height_map_radius
 end
+
+
+return Cone

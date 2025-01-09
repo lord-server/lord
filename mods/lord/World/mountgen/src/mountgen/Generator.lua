@@ -1,6 +1,7 @@
-local math_floor, math_ceil, math_tan, id
-    = math.floor, math.ceil, math.tan, minetest.get_content_id
+local math_floor, id
+    = math.floor, minetest.get_content_id
 
+local Algorithm      = require('mountgen.Algorithm')
 local ChunksIterator = require('mountgen.generator.ChunksIterator')
 local Node           = require('mountgen.generator.Node')
 local Logger         = minetest.get_mod_logger()
@@ -55,27 +56,13 @@ function Generator:run()
 		Logger.warning('Trying to build negative mountain')
 		return
 	end
-
-	--- @type mountgen.generator.HeightMap
-	local height_map, width, center
-	if method_name == 'cone' then
-
-		height_map, width, center = mountgen.cone(top, config)
-
-	elseif method_name == 'diamond-square' then
-
-		local H = top.y - config.Y0
-		local W = math_ceil(2 * H * math_tan(math.rad(90 - config.ANGLE))) + 3
-		height_map, width, center = mountgen.diamond_square(W, H,
-			config.rk_thr,
-			config.rk_small,
-			config.rk_big
-		)
-
-	else
-		Logger.error('unknown method: ' .. tostring(method_name))
+	if not Algorithm.is_valid_name(method_name) then
+		Logger.error('Unknown method: ' .. tostring(method_name))
 		return
 	end
+
+	--- @type mountgen.generator.HeightMap
+	local height_map, width, center = Algorithm.get(method_name).build_height_map(top, config)
 
 	local p1 = { x = top.x + 1 - center, y = config.Y0, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = top.y + 16, z = top.z + width - center }

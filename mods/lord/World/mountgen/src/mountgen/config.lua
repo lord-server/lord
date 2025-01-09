@@ -16,8 +16,11 @@ mountgen.config = {
 	TREE_LINE = 20,
 	TREE_PROMILLE = 4,
 
+	--- @type number smoothness coefficient for big scales
 	rk_big = 5,
+	--- @type number smoothness coefficient for small scales
 	rk_small = 100,
+	--- @type number for scales greater than this, use rk_big
 	rk_thr = 5,
 
 	top_cover = "lord_ground:dirt_dunland",

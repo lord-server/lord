@@ -1,5 +1,5 @@
-local math_max, math_ceil, math_log, math_random
-	= math.max, math.ceil, math.log, math.random
+local math_max, math_ceil, math_tan, math_log, math_random
+	= math.max, math.ceil, math.tan, math.log, math.random
 
 local HeightMap = require('mountgen.generator.HeightMap')
 
@@ -70,16 +70,24 @@ local function average(v1, v2, v3, v4)
 	return sum / cnt
 end
 
----Generate mountain with diamond-square algorithm
----@param map_w number desired width of the mountain
----@param mountain_h number height of the mountain
----@param rk_thr number for scales greater than this, use rk_big
----@param rk_small number smoothness coefficient for small scales
----@param rk_big number smoothness coefficient for big scales
----@return table, number, number "height map, map size, center coordinate"
-mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
-	local W = math_max(map_w, 3)
-	local H = math_max(mountain_h, 1)
+--- @class mountgen.algorithm.DiamondSquare: mountgen.AlgorithmInterface
+local DiamondSquare = {
+	NAME = 'diamond-square',
+}
+
+--- Generate mountain with diamond-square algorithm
+--- @param top    Position
+--- @param config table
+--- @return mountgen.generator.HeightMap, number, number "height map, map size, center coordinate"
+function DiamondSquare.build_height_map(top, config)
+	local H = top.y - config.Y0
+	local W = math_ceil(2 * H * math_tan(math.rad(90 - config.ANGLE))) + 3
+	local rk_big   = config.rk_big
+	local rk_small = config.rk_small
+	local rk_thr   = config.rk_thr
+
+	W = math_max(W, 3)
+	H = math_max(H, 1)
 
 	local n = math_ceil(math_log(W) / math_log(2))
 
@@ -164,3 +172,6 @@ mountgen.diamond_square = function(map_w, mountain_h, rk_thr, rk_small, rk_big)
 
 	return height_map, w, r + 1
 end
+
+
+return DiamondSquare
