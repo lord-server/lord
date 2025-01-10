@@ -7,7 +7,7 @@ mountgen.config = {
 
 	ANGLE = 60,
 	Y0 = 0,
-	METHOD = "cone",
+	METHOD = 'cone',
 	SNOW_LINE = 50,
 	SNOW_LINE_RAND = 4,
 	GRASS_PERCENT = 10,
@@ -23,5 +23,8 @@ mountgen.config = {
 	--- @type number for scales greater than this, use rk_big
 	rk_thr = 5,
 
-	top_cover = "lord_ground:dirt_dunland",
+	top_cover = minetest.get_modpath('lord_ground')
+		and 'lord_ground:dirt_lorien'
+		or  'default:dirt'
+	,
 }

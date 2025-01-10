@@ -1,3 +1,4 @@
+local Algorithm = require('mountgen.Algorithm')
 local Generator = require('mountgen.Generator')
 
 local S      = minetest.get_mod_translator()
@@ -5,13 +6,57 @@ local Logger = minetest.get_mod_logger()
 local spec   = minetest.formspec
 
 
+local DEFAULT_MOD_DIRTS = {
+	'default:dirt',
+	'default:dirt_with_grass',
+	'default:dirt_with_grass_footsteps',
+	'default:dirt_with_dry_grass',
+	'default:dirt_with_rainforest_litter',
+	'default:dirt_with_coniferous_litter',
+	'default:dirt_with_snow',
+	'default:dry_dirt',
+	'default:dry_dirt_with_dry_grass',
+}
+
 --- @class mountgen.config.Form: base_classes.Form.Base
-local Form = base_classes.Form:personal():extended({
+local Form = {
 	--- @const
 	--- @type string
 	NAME = 'mountgen:configure',
-})
+	--- @private
+	--- @type string[] used for `method` dropdown
+	algorithm_names = nil,
+	--- @private
+	--- @type string[] used for `Coverage node` dropdown
+	coverage_nodes_list = nil,
+}
+Form = base_classes.Form:personal():extended(Form)
 
+
+--- @return string[]
+function Form:get_methods()
+	if not self.algorithm_names then
+		self.algorithm_names = Algorithm.get_names()
+	end
+
+	return self.algorithm_names
+end
+
+--- @return string[]
+function Form:get_coverage_variants()
+	if not self.coverage_nodes_list then
+		if minetest.global_exists('ground') and ground.dirt and ground.dirt.get_nodes then
+			self.coverage_nodes_list = {}
+			for node_name, node in pairs(ground.dirt.get_nodes()) do -- also contains dirts from `default`
+				table.insert(self.coverage_nodes_list, node_name)
+			end
+		else -- `default` mod not in optional dependencies
+			self.coverage_nodes_list = DEFAULT_MOD_DIRTS
+		end
+	end
+
+	return self.coverage_nodes_list
+end
 
 --- @param config table
 --- @return string
@@ -27,8 +72,10 @@ function Form:get_spec(config)
 	pos = pos + 1
 
 	-- метод
+	local methods = self:get_methods()
+	local selected_method = table.key_value_swap(methods)[config.METHOD]
 	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Method'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_method', '', config.METHOD)
+	formspec = formspec .. spec.dropdown_W(3 - 0.295, pos - 0.45, bw + 0.190, 'edit_method', methods, selected_method)
 	pos = pos + 0.8
 	-- угол горы
 	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Angle'))
@@ -56,8 +103,10 @@ function Form:get_spec(config)
 	pos = pos + 0.8
 
 	-- грунт сверху
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Top dirt'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_top_cover', '', config.top_cover)
+	local covers = self:get_coverage_variants()
+	local selected_cover = table.key_value_swap(covers)[config.top_cover]
+	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Coverage node'))
+	formspec = formspec .. spec.dropdown_W(3 - 0.295, pos - 0.45, bw + 0.190, 'edit_top_cover', covers, selected_cover)
 	pos = pos + 0.8
 
 
