@@ -84,6 +84,7 @@ end
 --- @public
 function BaseForm:close(...)
 	self.event:trigger(self.event.Type.on_close, self, ...)
+	minetest.close_formspec(self.player_name, self.NAME)
 end
 
 --- @protected
