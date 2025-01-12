@@ -1,9 +1,10 @@
 local Algorithm = require('mountgen.Algorithm')
 local Generator = require('mountgen.Generator')
 
-local S      = minetest.get_mod_translator()
-local Logger = minetest.get_mod_logger()
-local spec   = minetest.formspec
+local S        = minetest.get_mod_translator()
+local Logger   = minetest.get_mod_logger()
+local spec     = minetest.formspec
+local colorize = minetest.colorize
 
 
 local DEFAULT_MOD_DIRTS = {
@@ -19,6 +20,7 @@ local DEFAULT_MOD_DIRTS = {
 }
 
 --- @class mountgen.config.Form: base_classes.Form.Base
+--- @field new fun(player:Player,meta:MetaDataRef|string) @`meta` - metadata of Node or string `for_wielded_item`
 local Form = {
 	--- @const
 	--- @type string
@@ -29,10 +31,25 @@ local Form = {
 	--- @private
 	--- @type string[] used for `Coverage node` dropdown
 	coverage_nodes_list = nil,
+	--- @private
+	--- @type MetaDataRef|string meta data of Item or Node to get config from, and save to
+	thing_meta = nil,
 }
 Form = base_classes.Form:personal():extended(Form)
 
+function Form:instantiate(player, meta)
+	self.thing_meta = meta
+end
 
+--- @protected
+--- @return MetaDataRef
+function Form:get_thing_meta()
+	return self.thing_meta == 'for_wielded_item'
+		and minetest.get_player_by_name(self.player_name):get_wielded_item():get_meta()
+		or  self.thing_meta
+end
+
+--- @protected
 --- @return string[]
 function Form:get_methods()
 	if not self.algorithm_names then
@@ -58,9 +75,14 @@ function Form:get_coverage_variants()
 	return self.coverage_nodes_list
 end
 
---- @param config table
+
 --- @return string
-function Form:get_spec(config)
+function Form:get_spec()
+	local config = self:get_thing_meta():get('config')
+	config = config
+		and minetest.deserialize(config)
+		or  table.copy(mountgen.config)
+
 	local formspec = ''
 	local width = 8
 	local bw = 5 - 0.5
@@ -110,7 +132,7 @@ function Form:get_spec(config)
 	pos = pos + 0.8
 
 
-	formspec = formspec .. spec.button(1, pos, 3, 1, 'save_main', S('Save'))
+	formspec = formspec .. spec.button(1, pos, 3, 1, 'save', S('Save'))
 	formspec = formspec .. spec.button(4, pos, 3, 1, 'generate', S('Generate'))
 	pos = pos + 1
 
@@ -122,7 +144,7 @@ end
 --- @private
 --- @param config table
 --- @return boolean
-local function validate_config(config)
+function Form:is_valid(config)
 	for k, v in pairs(config) do
 		if v == nil then
 			return false
@@ -134,6 +156,26 @@ local function validate_config(config)
 	return true
 end
 
+--- @private
+--- @param wield_item ItemStack
+--- @param config     table
+--- @return string
+function Form:build_tool_description(wield_item, config)
+	local base_description = wield_item:get_definition().description
+	local default_config   = mountgen.config
+
+	local config_strings = {}
+	for name, value in pairs(config) do
+		local list_item = colorize('#bbb', S(name)) .. ':   ' ..
+			(value ~= default_config[name] and colorize('#f66', value) or value)
+		config_strings[#config_strings+1] = '  • ' .. list_item
+	end
+
+	return base_description ..'\n\n' ..
+		colorize('#ee8', S('Configuration')) .. ':\n' ..
+		table.concat(config_strings, '\n')
+end
+
 --- @protected
 --- @param fields table
 --- @return nil|boolean return `true` for stop propagation of handling
@@ -142,36 +184,49 @@ function Form:handle(fields)
 	if not can_edit then
 		return
 	end
+	if fields['save'] == nil and fields['generate'] == nil then
+		return
+	end
 
-	if fields['save_main'] ~= nil or fields['generate'] ~= nil then
-		local config     = {}
-		config.METHOD    = fields['edit_method']
-		config.ANGLE     = tonumber(fields['edit_angle']) or 0
-		config.Y0        = tonumber(fields['edit_base']) or 0
-		config.SNOW_LINE = tonumber(fields['edit_snow_line']) or 0
-		config.rk_big    = tonumber(fields['edit_rk_big']) or 0
-		config.rk_small  = tonumber(fields['edit_rk_small']) or 0
-		config.rk_thr    = tonumber(fields['edit_rk_thr']) or 0
-		config.top_cover = fields['edit_top_cover']
-		if validate_config(config) then
-			mountgen.config.METHOD    = config.METHOD
-			mountgen.config.ANGLE     = config.ANGLE
-			mountgen.config.Y0        = config.Y0
-			mountgen.config.SNOW_LINE = config.SNOW_LINE
-			mountgen.config.rk_big    = config.rk_big
-			mountgen.config.rk_small  = config.rk_small
-			mountgen.config.rk_thr    = config.rk_thr
-			mountgen.config.top_cover = config.top_cover
+	local config     = {}
+	config.METHOD    = fields['edit_method']
+	config.ANGLE     = tonumber(fields['edit_angle']) or 0
+	config.Y0        = tonumber(fields['edit_base']) or 0
+	config.SNOW_LINE = tonumber(fields['edit_snow_line']) or 0
+	config.rk_big    = tonumber(fields['edit_rk_big']) or 0
+	config.rk_small  = tonumber(fields['edit_rk_small']) or 0
+	config.rk_thr    = tonumber(fields['edit_rk_thr']) or 0
+	config.top_cover = fields['edit_top_cover']
+	-- TODO validation
+	if not self:is_valid(config) then
+		-- TODO validation messages
+		return
+	end
+
+	config = table.merge(mountgen.config, config)
+
+	if fields['save'] then
+		if self.thing_meta == 'for_wielded_item' then
+			local player = minetest.get_player_by_name(self.player_name)
+			local wield_item = player:get_wielded_item()
+			local meta = wield_item:get_meta()
+
+			meta:set_string('config', minetest.serialize(config))
+			meta:set_string('description', self:build_tool_description(wield_item, config))
+			player:set_wielded_item(wield_item)
+		else -- for Node
+			self:get_thing_meta():set_string('config', minetest.serialize(config))
 		end
 	end
 
-	if fields['generate'] ~= nil then
+	if fields['generate'] then
 		local top_position = minetest.get_player_by_name(self.player_name):get_pos()
-		local config       = mountgen.config
-		Logger.action('use mount stick at ' .. top_position.x .. ' ' .. top_position.y .. ' ' .. top_position.z)
-		Logger.action('parameters: ' .. dump(mountgen.config))
+		Logger.action('use mount stick at ' .. minetest.pos_to_string(top_position))
+		Logger.action('parameters: ' .. dump(config))
 		Generator:new(top_position, config):run()
 	end
+
+	self:close()
 end
 
 

@@ -15,7 +15,9 @@ local function register_stick()
 				return
 			end
 
-			Form:new(placer):open(mountgen.config)
+			Form:new(placer, 'for_wielded_item'):open()
+
+			return itemstack
 		end,
 		group = {},
 		on_drop = function(itemstack, dropper, pos)
