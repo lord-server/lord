@@ -201,7 +201,7 @@ minetest.register_node("itemframes:protected_frame",{
 		end
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos)
+--		local meta = minetest.get_meta(pos)
 		return not minetest.is_protected(pos, player:get_player_name())
 	end,
 })
