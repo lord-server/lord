@@ -1861,6 +1861,11 @@ end
 
 -- deal damage and effects when mob punched
 function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+	-- TEMPORARY FIX (remove when refactoring)
+	if not hitter then
+		return
+	end
+
 	-- mob health check
 	if self.health <= 0 then
 		-- kill mob
@@ -1882,7 +1887,10 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	end
 
 	-- weapon wear
-	local weapon = hitter:get_wielded_item() or ItemStack("lord_archery:apple_wood_bow")
+	local weapon = ItemStack("lord_archery:apple_wood_bow")
+	if hitter and hitter:is_player() then
+		weapon = hitter:get_wielded_item()
+	end
 	local punch_interval = 1.4
 
 	-- calculate mob damage
@@ -1934,8 +1942,7 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 	if weapon:get_definition()
 	and weapon:get_definition().tool_capabilities
-	and hitter:is_player() then
-
+	and hitter and hitter:is_player() then
 		weapon:add_wear(floor((punch_interval / 75) * 9000))
 		hitter:set_wielded_item(weapon)
 	end

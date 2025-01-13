@@ -1,5 +1,27 @@
 # Change Log
 
+## [2024.12.p5](https://github.com/lord-server/lord/releases/tag/2024.12.p5)
+ - Balrog arena: fix limitted spawn. Fixes #1891
+ - Fix crash on read book. Fixes #1895 (#1898)
+ - Add forgotten steel shovel texture. Closes #1894
+
+## [2024.12.p4](https://github.com/lord-server/lord/releases/tag/2024.12.p4)
+ - Fix another crash. Change fire ball explosive damage to fire
+ - Make fire ball and dark ball a sprite. Fix a crash again.
+
+## [2024.12.p3](https://github.com/lord-server/lord/releases/tag/2024.12.p3)
+ - Balance difficulty of balrogs and nazguls, add fire damage immunity to balrogs
+
+ - Technical:
+   - Fix dropping some projectiles when their timer expires
+   - Fix THE crash (again): never let it access if hitter == nil
+
+## [2024.12.p2](https://github.com/lord-server/lord/releases/tag/2024.12.p2)
+ - Fix a crash: mobs accessing hitter (again, trivial) (#1885)
+
+## [2024.12.p1](https://github.com/lord-server/lord/releases/tag/2024.12.p1)
+ - Fix a crash: mobs accessing hitter (#1884)
+
 ## [2024.12](https://github.com/lord-server/lord/releases/tag/2024.12)
  - Artisan Benches: Anvil: racial items can be crafted only by player of the same race. Closes #1852
  - Update book tooltip with book title on book use

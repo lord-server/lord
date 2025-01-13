@@ -224,11 +224,11 @@ return {
 			},
 			entity_reg  = {
 				initial_properties = {
-					visual    = "item",
-					wield_item = "lord_projectiles:fire_ball",
+					visual   = "sprite",
+					textures = { "mobs_fireball.png" },
 					visual_size = vector.new(1, 1, 1),
 				},
-				max_speed        = 35,
+				max_speed        = 40,
 				sound_hit_node   = { name = "lord_projectiles_explosion", gain = 3.0 },
 				sound_hit_object = { name = "lord_projectiles_explosion", gain = 3.0 },
 				damage_groups    = { fire = 15, },
@@ -238,7 +238,7 @@ return {
 					local rad_vec = vector.new(radius, radius, radius)
 					local min_pos = vector.subtract(node_pos, rad_vec)
 					local max_pos = vector.add(node_pos, rad_vec)
-					projectiles.flame_area(min_pos, max_pos)
+					projectiles.explode_area(node_pos, radius, 5, projectile.object, { fleshy = 15 })
 					minetest.add_particlespawner({
 						pos = {
 							min = min_pos,
@@ -269,6 +269,7 @@ return {
 					local rad_vec = vector.new(radius, radius, radius)
 					local min_pos = vector.subtract(pos, rad_vec)
 					local max_pos = vector.add(pos, rad_vec)
+					projectiles.explode_area(pos, radius, 5, projectile.object, { fire = 10 })
 					minetest.add_particlespawner({
 						pos = {
 							min = min_pos,
@@ -296,7 +297,7 @@ return {
 				after_hit_node = function(projectile)
 					projectile.object:remove()
 				end,
-				after_hit_entity = function(projectile)
+				after_hit_object = function(projectile)
 					projectile.object:remove()
 				end
 			},
@@ -315,8 +316,8 @@ return {
 			},
 			entity_reg  = {
 				initial_properties = {
-					visual    = "item",
-					wield_item = "lord_projectiles:dark_ball",
+					visual   = "sprite",
+					textures = { "lottmobs_darkball.png" },
 					visual_size = vector.new(1, 1, 1),
 				},
 				max_speed        = 20,
@@ -329,7 +330,7 @@ return {
 					local rad_vec = vector.new(radius, radius, radius)
 					local min_pos = vector.subtract(node_pos, rad_vec)
 					local max_pos = vector.add(node_pos, rad_vec)
-					projectiles.flame_area(min_pos, max_pos)
+					projectiles.explode_area(node_pos, radius, 3, projectile.object, { fleshy = 5 })
 					minetest.add_particlespawner({
 						pos = {
 							min = min_pos,
@@ -360,6 +361,7 @@ return {
 					local rad_vec = vector.new(radius, radius, radius)
 					local min_pos = vector.subtract(pos, rad_vec)
 					local max_pos = vector.add(pos, rad_vec)
+					projectiles.explode_area(pos, radius, 3, projectile.object, { fleshy = 5 })
 					minetest.add_particlespawner({
 						pos = {
 							min = min_pos,
@@ -387,7 +389,7 @@ return {
 				after_hit_node = function(projectile)
 					projectile.object:remove()
 				end,
-				after_hit_entity = function(projectile)
+				after_hit_object = function(projectile)
 					projectile.object:remove()
 				end
 			},

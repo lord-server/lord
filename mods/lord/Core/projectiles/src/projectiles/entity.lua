@@ -52,12 +52,16 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 	projectile.object:remove()
 end
 
---- @param entity LuaEntity  entity to check if it is a projectile
+--- @param entity ObjectRef  entity to check if it is a projectile
 --- @return       boolean    true, if it is a projectile, or false
 local function is_entity_projectile(entity)
+	if not entity or not entity:get_luaentity() then
+		return
+	end
+	local entity_name = entity:get_luaentity().name
 	local registered_projectiles = projectiles.get_projectiles()
 	for _, reg in pairs(registered_projectiles) do
-		if reg.entity_name == entity:get_luaentity().name then
+		if reg.entity_name == entity_name then
 			return true
 		end
 	end
@@ -106,7 +110,7 @@ end
 
 -- Hit handling depending on target
 --- @param projectile    LuaEntity  projectile entity
---- @param target        LuaEntity  target entity
+--- @param target        ObjectRef  target entity
 --- @param damage_groups table      damage groups table (see Minetest API)
 --- @param velocity      vector     projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
@@ -115,12 +119,12 @@ local function hit_handling(projectile, target, damage_groups, velocity)
 		return punch_target(projectile, target, damage_groups, projectile._remove_on_object_hit, { fleshy = damage })
 	end
 	-- Hit player
-	if target:is_player() then
+	if target and target:is_player() then
 		play_sound_on_hit(projectile, "object")
 		hit()
 	else
 		-- Hit another projectile
-		if is_entity_projectile(target) then
+		if target and is_entity_projectile(target) then
 			projectile.object:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
 			target:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
 			play_sound_on_hit(projectile, "object")
@@ -252,9 +256,11 @@ local register_projectile_entity = function(name, entity_reg)
 				flight_processing(self, environment, self._rotation_formula)
 			end
 
+			local stack = self._projectile_stack
+			local is_in_creative = minetest.registered_items[stack:get_name()].groups.not_in_creative_inventory
 
-			if update_life_timer(self, dtime) then
-				minetest.add_item(pos, self._projectile_stack)
+			if update_life_timer(self, dtime) and not is_in_creative then
+				minetest.add_item(pos, stack)
 			end
 		end,
 		on_punch       = function(self, puncher, time_from_last_punch, tool_capabilities, dir, damage)

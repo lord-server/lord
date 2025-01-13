@@ -60,7 +60,40 @@ local flame_node = function(pos)
 	end
 end
 
-local flame_area = function(p1, p2)
+-- `explosive_object` is temporary workaround for mobs to be affected by the explosion
+local explode_objects = function(pos, radius, explosive_object, damage_groups)
+	for obj in core.objects_inside_radius(pos, radius) do
+		if obj == explosive_object then
+			goto continue
+		end
+		local obj_pos = obj:get_pos()
+		local distance_vector = vector.subtract(obj_pos, pos)
+		local distance_length = vector.length(distance_vector)
+		local dir_vector = vector.normalize(distance_vector)
+		local explosion_power
+
+		if distance_length == 0 then
+			explosion_power = radius
+		else
+			explosion_power = -math.log10((distance_length/radius)^2)
+			if explosion_power > radius then
+				explosion_power = radius
+			end
+		end
+		local dealt_damage = table.mul_values(table.div_values(damage_groups, {}, radius), {}, explosion_power)
+		obj:punch(explosive_object, 1.4, {
+			full_punch_interval = 1.4,
+			damage_groups       = dealt_damage
+		}, vector.multiply(dir_vector, explosion_power))
+		::continue::
+	end
+end
+
+local explode_area = function(pos, burn_radius, explosion_radius, explosive_object, damage_groups)
+	local rad_vec = vector.new(burn_radius, burn_radius, burn_radius)
+	local p1 = vector.subtract(pos, rad_vec)
+	local p2 = vector.add(pos, rad_vec)
+	explode_objects(pos, explosion_radius, explosive_object, damage_groups)
 	for y = p1.y, p2.y do
 		for z = p1.z, p2.z do
 			minetest.punch_node({ x = p1.x - 1, y = y, z = z })
@@ -93,7 +126,7 @@ end
 
 
 return {
-	flame_area          = flame_area,
+	explode_area          = explode_area,
 	register_projectile = register_projectile,
 	get_projectiles     = function() return registered_projectiles end,
 }
