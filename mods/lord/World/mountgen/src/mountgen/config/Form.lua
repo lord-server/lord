@@ -75,6 +75,44 @@ function Form:get_coverage_variants()
 	return self.coverage_nodes_list
 end
 
+--- @static
+--- @private
+--- @param x         number
+--- @param y         number
+--- @param text      string
+--- @param font_size string
+--- @return string
+function Form.title(x, y, text, font_size)
+	return ''
+		.. spec.style_type('label', { font = 'bold', font_size = font_size })
+		.. spec.label(x, y, text)
+		.. spec.style_type('label', { font = 'normal', font_size = '+0' })
+end
+
+--- @static
+--- @private
+--- @param label string
+--- @param y_pos number
+--- @param callback fun(y_pos:number):number,string
+--- @return number, string
+function Form.group(label, y_pos, callback)
+	--- @type string
+	local formspec
+	local start_pos = y_pos
+
+	y_pos = y_pos + 0.4
+	y_pos, formspec = callback(y_pos)
+	y_pos = y_pos + 0.2
+
+	return
+		y_pos,
+		spec.style_type('label', { font_size = '-1', textcolor = '#ddd'  }) ..
+		spec.label(0.05, start_pos - 0.6, label) ..
+		spec.style_type('label', { font_size = '+0', textcolor = '#ddd'  }) ..
+		spec.box(0, start_pos - 0.2, 6.8, y_pos - start_pos - 0.4, '#0003') ..
+		formspec ..
+		spec.style_type('label', { font_size = '+0', textcolor = '#fff' })
+end
 
 --- @return string
 function Form:get_spec()
@@ -84,59 +122,80 @@ function Form:get_spec()
 		or  table.copy(mountgen.config)
 
 	local formspec = ''
-	local width = 8
-	local bw = 5 - 0.5
-	local pos = 0.5
+	local width = 7
+	local bw = 4
+	local y_pos = 0.1
 
-	formspec = formspec .. spec.label(3.5, pos - 0.3, S('Mountain creation tool'))
-	pos = pos + 0.5
-	formspec = formspec .. spec.label(3.5, pos - 0.3, S('USE WITH CAUTION!'))
-	pos = pos + 1
+	local group_spec
 
-	-- метод
-	local methods = self:get_methods()
-	local selected_method = table.key_value_swap(methods)[config.METHOD]
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Method'))
-	formspec = formspec .. spec.dropdown_W(3 - 0.295, pos - 0.45, bw + 0.190, 'edit_method', methods, selected_method)
-	pos = pos + 0.8
-	-- угол горы
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Angle'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_angle', '', config.ANGLE)
-	pos = pos + 0.8
-	-- основание
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Foot height'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_base', '', config.Y0)
-	pos = pos + 0.8
-	-- снежная линия
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Snow line'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_snow_line', '', config.SNOW_LINE)
-	pos = pos + 0.8
-	-- сглаживание на крупном масштабе
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Big scale smooth'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_big', '', config.rk_big)
-	pos = pos + 0.8
-	-- сглаживание на малом масштабе
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Small scale smooth'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_small', '', config.rk_small)
-	pos = pos + 0.8
-	-- граница мелкого масштаба (лог2)
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Small scale (log2)'))
-	formspec = formspec .. spec.field(3, pos, bw, 0.5, 'edit_rk_thr', '', config.rk_thr)
-	pos = pos + 0.8
+	formspec = formspec .. self.title(2, y_pos - 0.3, S('Mountain creation tool'), '+6')
+	y_pos = y_pos + 0.4
+	formspec = formspec .. self.title(2.5, y_pos - 0.3, colorize('#faa', S('Use with caution!')), '+3')
+	y_pos = y_pos + 0.8
 
-	-- грунт сверху
-	local covers = self:get_coverage_variants()
-	local selected_cover = table.key_value_swap(covers)[config.top_cover]
-	formspec = formspec .. spec.label(0.5, pos - 0.3, S('Coverage node'))
-	formspec = formspec .. spec.dropdown_W(3 - 0.295, pos - 0.45, bw + 0.190, 'edit_top_cover', covers, selected_cover)
-	pos = pos + 0.8
+	y_pos, group_spec = self.group(S('Basic Options:'), y_pos, function(pos_y)
+		local f_spec = ''
+		-- метод
+		local methods = self:get_methods()
+		local selected_method = table.key_value_swap(methods)[config.METHOD]
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Method'))
+		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_method', methods, selected_method)
+		pos_y = pos_y + 0.8
+		-- основание
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Foot height'))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_base', '', config.Y0)
+		pos_y = pos_y + 0.8
+		-- угол горы
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Angle'))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_angle', '', config.ANGLE)
+		pos_y = pos_y + 0.8
+
+		return pos_y, f_spec
+	end)
+	formspec = formspec .. group_spec
+
+	y_pos, group_spec = self.group(S('Algorithm Options:'), y_pos, function(pos_y)
+		local f_spec = ''
+		-- сглаживание на крупном масштабе
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Big scale smooth'))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_big', '', config.rk_big)
+		pos_y = pos_y + 0.8
+		-- сглаживание на малом масштабе
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Small scale smooth'))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_small', '', config.rk_small)
+		pos_y = pos_y + 0.8
+		-- граница мелкого масштаба (лог2)
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Small scale (log2)'))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_thr', '', config.rk_thr)
+		pos_y = pos_y + 0.8
+
+		return pos_y, f_spec
+	end)
+	formspec = formspec .. group_spec
+
+	y_pos, group_spec = self.group(S('Content Options:'), y_pos, function(pos_y)
+		local f_spec = ''
+		-- снежная линия
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Snow line '))
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_snow_line', '', config.SNOW_LINE)
+		pos_y = pos_y + 0.8
+		-- грунт сверху
+		local covers = self:get_coverage_variants()
+		local selected_cover = table.key_value_swap(covers)[config.top_cover]
+		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Coverage node'))
+		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_top_cover', covers, selected_cover)
+		pos_y = pos_y + 0.8
+
+		return pos_y, f_spec
+	end)
+	formspec = formspec .. group_spec
 
 
-	formspec = formspec .. spec.button(1, pos, 3, 1, 'save', S('Save'))
-	formspec = formspec .. spec.button(4, pos, 3, 1, 'generate', S('Generate'))
-	pos = pos + 1
+	formspec = formspec .. spec.button(0.5, y_pos - 0.3, 3, 1, 'save', S('Save'))
+	formspec = formspec .. spec.button(3.5, y_pos - 0.3, 3, 1, 'generate', S('Generate'))
+	y_pos = y_pos + 0.6
 
-	formspec = spec.size(width, pos) .. formspec
+	formspec = spec.size(width, y_pos) .. formspec
 
 	return formspec
 end
