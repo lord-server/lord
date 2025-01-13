@@ -1,4 +1,4 @@
-local SL = lord.require_intllib()
+local S = minetest.get_mod_translator()
 
 -- See README.txt for licensing and other information.
 
@@ -102,7 +102,7 @@ local drop_item = function(pos, node)
 end
 
 minetest.register_node("itemframes:frame",{
-	description = SL("Item frame"),
+	description = S("Item frame"),
 	drawtype = "nodebox",
 	node_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
 	selection_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
@@ -118,7 +118,7 @@ minetest.register_node("itemframes:frame",{
 	after_place_node = function(pos, placer, itemstack)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("owner",placer:get_player_name())
-		meta:set_string("infotext", SL("Item frame").."\n"..SL("(owned by").." "..placer:get_player_name()..")")
+		meta:set_string("infotext", S("Item frame").."\n"..S("(owned by").." "..placer:get_player_name()..")")
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
@@ -135,7 +135,7 @@ minetest.register_node("itemframes:frame",{
 		if clicker:get_player_name() == meta:get_string("owner") then
 			drop_item(pos,node)
 			local s = itemstack:take_item()
-			meta:set_string("infotext", SL("Item frame")..item_name.."\n"..SL("(owned by").." "..clicker:get_player_name()..")")
+			meta:set_string("infotext", S("Item frame")..item_name.."\n"..S("(owned by").." "..clicker:get_player_name()..")")
 			meta:set_string("item",s:to_string())
 			update_item(pos,node)
 		end
@@ -144,7 +144,7 @@ minetest.register_node("itemframes:frame",{
 	on_punch = function(pos,node,puncher)
 		local meta = minetest.get_meta(pos)
 		if puncher:get_player_name() == meta:get_string("owner") then
-			meta:set_string("infotext", SL("Item frame").."\n"..SL("(owned by").." "..puncher:get_player_name()..")")
+			meta:set_string("infotext", S("Item frame").."\n"..S("(owned by").." "..puncher:get_player_name()..")")
 			drop_item(pos, node)
 		end
 	end,
@@ -155,7 +155,7 @@ minetest.register_node("itemframes:frame",{
 })
 
 minetest.register_node("itemframes:protected_frame",{
-	description = SL("Protected item frame"),
+	description = S("Protected item frame"),
 	drawtype = "nodebox",
 	node_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
 	selection_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
@@ -170,7 +170,7 @@ minetest.register_node("itemframes:protected_frame",{
 	sounds = default.node_sound_defaults(),
 	after_place_node = function(pos, placer, itemstack)
 		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", SL("Protected item frame"))
+		meta:set_string("infotext", S("Protected item frame"))
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
@@ -187,7 +187,7 @@ minetest.register_node("itemframes:protected_frame",{
 		if not minetest.is_protected(pos, clicker:get_player_name()) then
 			drop_item(pos,node)
 			local s = itemstack:take_item()
-			meta:set_string("infotext", SL("Protected item frame")..item_name)
+			meta:set_string("infotext", S("Protected item frame")..item_name)
 			meta:set_string("item",s:to_string())
 			update_item(pos,node)
 		end
@@ -196,7 +196,7 @@ minetest.register_node("itemframes:protected_frame",{
 	on_punch = function(pos,node,puncher)
 		local meta = minetest.get_meta(pos)
 		if not minetest.is_protected(pos, puncher:get_player_name()) then
-			meta:set_string("infotext", SL("Protected item frame"))
+			meta:set_string("infotext", S("Protected item frame"))
 			drop_item(pos, node)
 		end
 	end,
@@ -238,7 +238,7 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 		after_place_node = function(pos, placer, itemstack)
 			local meta = minetest.get_meta(pos)
 			meta:set_string("owner",placer:get_player_name())
-			meta:set_string("infotext", SL("Pedestal").."\n"..SL("(owned by").." "..placer:get_player_name()..")")
+			meta:set_string("infotext", S("Pedestal").."\n"..S("(owned by").." "..placer:get_player_name()..")")
 		end,
 		on_rightclick = function(pos, node, clicker, itemstack)
 			if not itemstack then return end
@@ -255,7 +255,7 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 			if clicker:get_player_name() == meta:get_string("owner") then
 				drop_item(pos,node)
 				local s = itemstack:take_item()
-				meta:set_string("infotext", SL("Pedestal")..item_name.."\n"..SL("(owned by").." "..clicker:get_player_name()..")")
+				meta:set_string("infotext", S("Pedestal")..item_name.."\n"..S("(owned by").." "..clicker:get_player_name()..")")
 				meta:set_string("item",s:to_string())
 				update_item(pos,node)
 			end
@@ -264,7 +264,7 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 		on_punch = function(pos,node,puncher)
 			local meta = minetest.get_meta(pos)
 			if puncher:get_player_name() == meta:get_string("owner") then
-				meta:set_string("infotext", SL("Pedestal").."\n"..SL("(owned by").." "..puncher:get_player_name()..")")
+				meta:set_string("infotext", S("Pedestal").."\n"..S("(owned by").." "..puncher:get_player_name()..")")
 				drop_item(pos,node)
 			end
 		end,
@@ -287,119 +287,119 @@ end
 itemframes.register_pedestal("wood", "default:wood",
 		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3,pedestal=1, wooden = 1},
 		{"default_wood.png"},
-		SL("Wooden Pedestal"),
+		S("Wooden Pedestal"),
 		default.node_sound_wood_defaults()
 )
 
 itemframes.register_pedestal("stone", "default:stone",
 		{cracky=3,pedestal=1},
 		{"default_stone.png"},
-		SL("Stone Pedestal"),
+		S("Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("cobble", "default:cobble",
 		{cracky=3,pedestal=1},
 		{"default_cobble.png"},
-		SL("Cobblestone Pedestal"),
+		S("Cobblestone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("desert_stone", "default:desert_stone",
 		{cracky=3,pedestal=1},
 		{"default_desert_stone.png"},
-		SL("Desert Stone Pedestal"),
+		S("Desert Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("desert_cobble", "default:desert_cobble",
 		{cracky=3,pedestal=1},
 		{"default_desert_cobble.png"},
-		SL("Desert Cobblestone Pedestal"),
+		S("Desert Cobblestone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("desert_stonebrick", "default:desert_stonebrick",
 		{cracky=3,pedestal=1},
 		{"default_desert_stone_brick.png"},
-		SL("Desert Stone Brick Pedestal"),
+		S("Desert Stone Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("brick", "default:brick",
 		{cracky=3,pedestal=1},
 		{"default_brick.png"},
-		SL("Brick Pedestal"),
+		S("Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("sandstone", "default:sandstone",
 		{crumbly=2,cracky=2,pedestal=1},
 		{"default_sandstone.png"},
-		SL("Sandstone Pedestal"),
+		S("Sandstone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("sandstonebrick", "default:sandstonebrick",
 		{crumbly=2,cracky=2,pedestal=1},
 		{"default_sandstone_brick.png"},
-		SL("Sandstone Brick Pedestal"),
+		S("Sandstone Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("stonebrick", "default:stonebrick",
 		{cracky=3,pedestal=1},
 		{"default_stone_brick.png"},
-		SL("Stone Brick Pedestal"),
+		S("Stone Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("obsidian", "default:obsidian",
 		{cracky=1,level=2,pedestal=1},
 		{"default_obsidian.png"},
-		SL("Obsidian Pedestal"),
+		S("Obsidian Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("mordor_stone", "lord_rocks:mordor_stone",
 		{cracky=3, stone=1, pedestal=1},
 		{"lord_rocks_mordor_stone.png"},
-		SL("Mordor Stone Pedestal"),
+		S("Mordor Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("dungeon_stone", "castle:dungeon_stone",
 		{cracky=2, pedestal=1},
 		{"castle_dungeon_stone.png"},
-		SL("Dungeon Stone Pedestal"),
+		S("Dungeon Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("pavement", "castle:pavement",
 		{cracky=2, pedestal=1},
 		{"castle_pavement_brick.png"},
-		SL("Paving Stone Pedestal"),
+		S("Paving Stone Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("marble", "lottores:marble",
 		{cracky=3, pedestal=1},
 		{"lottores_marble.png"},
-		SL("Marble Pedestal"),
+		S("Marble Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("marble_brick", "lottblocks:marble_brick",
 		{cracky=2, pedestal=1},
 		{"lottblocks_marble_brick.png"},
-		SL("Marble Brick Pedestal"),
+		S("Marble Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
 itemframes.register_pedestal("orc_brick", "lottblocks:orc_brick",
 		{cracky=2, pedestal=1},
 		{"lottblocks_orc_brick.png"},
-		SL("Orc Brick Pedestal"),
+		S("Orc Brick Pedestal"),
 		default.node_sound_stone_defaults()
 )
 
