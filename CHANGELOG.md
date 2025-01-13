@@ -1,5 +1,8 @@
 # Change Log
 
+## [2024.12.p6](https://github.com/lord-server/lord/releases/tag/2024.12.p6)
+ - Balrog-arena: revert prod arena coords. Fixes #1950
+
 ## [2024.12.p5](https://github.com/lord-server/lord/releases/tag/2024.12.p5)
  - Balrog arena: fix limitted spawn. Fixes #1891
  - Fix crash on read book. Fixes #1895 (#1898)

@@ -141,7 +141,7 @@ minetest.register_node("arena:lighting_gas", {
 ------------
 -- ARENAS --
 ------------
-arena.add_arena({x=4, y=-38, z=28}, {x=64, y=-21, z=84}, {
+arena.add_arena({x=1143, y=-30911, z=-50}, {x=1189, y=-30900, z=-4}, {
 	["lottmobs:balrog"] = 10,
 })
 
