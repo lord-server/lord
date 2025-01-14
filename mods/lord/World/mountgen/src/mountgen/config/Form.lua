@@ -1,5 +1,6 @@
 local Algorithm = require('mountgen.Algorithm')
 local Generator = require('mountgen.Generator')
+local Config    = require('mountgen.Config')
 
 local S        = minetest.get_mod_translator()
 local Logger   = minetest.get_mod_logger()
@@ -119,7 +120,7 @@ function Form:get_spec()
 	local config = self:get_thing_meta():get('config')
 	config = config
 		and minetest.deserialize(config)
-		or  table.copy(mountgen.config)
+		or  Config.get_defaults()
 
 	local formspec = ''
 	local width = 7
@@ -135,19 +136,20 @@ function Form:get_spec()
 
 	y_pos, group_spec = self.group(S('Basic Options:'), y_pos, function(pos_y)
 		local f_spec = ''
+		-- TODO #1932
 		-- метод
 		local methods = self:get_methods()
-		local selected_method = table.key_value_swap(methods)[config.METHOD]
+		local selected_method = table.key_value_swap(methods)[config.algorithm]
 		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Method'))
 		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_method', methods, selected_method)
 		pos_y = pos_y + 0.8
 		-- основание
 		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Foot height'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_base', '', config.Y0)
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_base', '', config.foot_height)
 		pos_y = pos_y + 0.8
 		-- угол горы
 		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Angle'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_angle', '', config.ANGLE)
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_angle', '', config.angle)
 		pos_y = pos_y + 0.8
 
 		return pos_y, f_spec
@@ -156,18 +158,14 @@ function Form:get_spec()
 
 	y_pos, group_spec = self.group(S('Algorithm Options:'), y_pos, function(pos_y)
 		local f_spec = ''
-		-- сглаживание на крупном масштабе
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Big scale smooth'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_big', '', config.rk_big)
-		pos_y = pos_y + 0.8
-		-- сглаживание на малом масштабе
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Small scale smooth'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_small', '', config.rk_small)
-		pos_y = pos_y + 0.8
-		-- граница мелкого масштаба (лог2)
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Small scale (log2)'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_rk_thr', '', config.rk_thr)
-		pos_y = pos_y + 0.8
+
+		-- TODO #1932
+		local config_fields = Algorithm.get(config.algorithm).get_config_fields()
+		for _, config_field in pairs(config_fields) do
+			f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, config_field.label)
+			f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_' .. config_field.name, '', config[config_field.name])
+			pos_y = pos_y + 0.8
+		end
 
 		return pos_y, f_spec
 	end)
@@ -175,9 +173,10 @@ function Form:get_spec()
 
 	y_pos, group_spec = self.group(S('Content Options:'), y_pos, function(pos_y)
 		local f_spec = ''
+		-- TODO #1932
 		-- снежная линия
 		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Snow line '))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_snow_line', '', config.SNOW_LINE)
+		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_snow_line', '', config.snow_line)
 		pos_y = pos_y + 0.8
 		-- грунт сверху
 		local covers = self:get_coverage_variants()
@@ -209,7 +208,7 @@ function Form:is_valid(config)
 			return false
 		end
 	end
-	if config.ANGLE < 15 or config.ANGLE > 90 then
+	if config.angle < 15 or config.angle > 90 then
 		return false
 	end
 	return true
@@ -221,7 +220,7 @@ end
 --- @return string
 function Form:build_tool_description(wield_item, config)
 	local base_description = wield_item:get_definition().description
-	local default_config   = mountgen.config
+	local default_config   = Config.get_defaults(Algorithm.get(config.algorithm))
 
 	local config_strings = {}
 	for name, value in pairs(config) do
@@ -243,26 +242,32 @@ function Form:handle(fields)
 	if not can_edit then
 		return
 	end
+
+	-- TODO #1932  refresh form on algo change
+
 	if fields['save'] == nil and fields['generate'] == nil then
 		return
 	end
 
-	local config     = {}
-	config.METHOD    = fields['edit_method']
-	config.ANGLE     = tonumber(fields['edit_angle']) or 0
-	config.Y0        = tonumber(fields['edit_base']) or 0
-	config.SNOW_LINE = tonumber(fields['edit_snow_line']) or 0
-	config.rk_big    = tonumber(fields['edit_rk_big']) or 0
-	config.rk_small  = tonumber(fields['edit_rk_small']) or 0
-	config.rk_thr    = tonumber(fields['edit_rk_thr']) or 0
-	config.top_cover = fields['edit_top_cover']
+	local config       = {}
+	config.algorithm   = fields['edit_method']
+	config.angle       = tonumber(fields['edit_angle']) or 0
+	config.foot_height = tonumber(fields['edit_base']) or 0
+	config.snow_line   = tonumber(fields['edit_snow_line']) or 0
+	config.rk_big      = tonumber(fields['edit_rk_big']) or 0
+	config.rk_small    = tonumber(fields['edit_rk_small']) or 0
+	config.rk_thr      = tonumber(fields['edit_rk_thr']) or 0
+	config.top_cover   = fields['edit_top_cover']
 	-- TODO validation
 	if not self:is_valid(config) then
 		-- TODO validation messages
 		return
 	end
 
-	config = table.merge(mountgen.config, config)
+	config = table.merge(
+		Config.get_defaults(Algorithm.get(config.algorithm)),
+		config
+	)
 
 	if fields['save'] then
 		if self.thing_meta == 'for_wielded_item' then

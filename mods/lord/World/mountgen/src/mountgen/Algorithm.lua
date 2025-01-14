@@ -1,7 +1,7 @@
 
 --- @class mountgen.AlgorithmInterface
 --- @field NAME                string
---- @field get_config_fields   fun():{name:string,type:string}[]
+--- @field get_config_fields   fun():mountgen.config.FieldDefinition[]
 --- @field get_config_defaults fun():table
 --- @field build_height_map    fun(top_pos:Position, config:table):mountgen.generator.HeightMap,number,number
 

@@ -48,7 +48,7 @@ end
 --- @return number
 function Node.get_coverage(pos, config)
 	local place_snow = false
-	local sl = config.SNOW_LINE - math_random(0, config.SNOW_LINE_RAND)
+	local sl = config.snow_line - math_random(0, config.snow_line_rand)
 	if pos.y >= sl then
 		place_snow = true
 	end
@@ -67,18 +67,18 @@ end
 --- @param config table
 --- @return number|nil
 function Node.get_plant(pos, config)
-	if pos.y >= config.SNOW_LINE - config.SNOW_LINE_RAND then
+	if pos.y >= config.snow_line - config.snow_line_rand then
 		return nil
 	end
-	if math_random(0, 100) < config.GRASS_PERCENT then
+	if math_random(0, 100) < config.grass_percent then
 		return get_random_id(GRASS_IDS)
 	end
 
-	if pos.y <= config.FLOWERS_LINE and math_random(0, 100) < config.FLOWERS_PERCENT then
+	if pos.y <= config.flowers_line and math_random(0, 100) < config.flowers_percent then
 		return get_random_id(FLOWERS_IDS)
 	end
 
-	if pos.y <= config.TREE_LINE and math_random(0, 1000) < config.TREE_PROMILLE then
+	if pos.y <= config.tree_line and math_random(0, 1000) < config.tree_promille then
 		return ID_SAPLING
 	end
 

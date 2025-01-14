@@ -48,11 +48,11 @@ end
 function Generator:run()
 	local top    = self.top_position
 	local config = self.config
-	local method_name = config.METHOD
+	local method_name = config.algorithm
 
 	top = top:add(0.5):floor()
 
-	if top.y <= config.Y0 then
+	if top.y <= config.foot_height then
 		Logger.warning('Trying to build negative mountain')
 		return
 	end
@@ -64,7 +64,7 @@ function Generator:run()
 	--- @type mountgen.generator.HeightMap
 	local height_map, width, center = Algorithm.get(method_name).build_height_map(top, config)
 
-	local p1 = { x = top.x + 1 - center, y = config.Y0, z = top.z + 1 - center }
+	local p1 = { x = top.x + 1 - center, y = config.foot_height, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = top.y + 16, z = top.z + width - center }
 
 	ChunksIterator.foreach_pos_in(p1, p2, function(data, i, position)

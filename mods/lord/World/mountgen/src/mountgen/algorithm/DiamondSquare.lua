@@ -2,6 +2,9 @@ local math_max, math_ceil, math_tan, math_log, math_random
 	= math.max, math.ceil, math.tan, math.log, math.random
 
 local HeightMap = require('mountgen.generator.HeightMap')
+local FieldType = require('mountgen.config.FieldType')
+
+local S = minetest.get_mod_translator()
 
 
 local smooth_filter = {
@@ -73,15 +76,59 @@ end
 --- @class mountgen.algorithm.DiamondSquare: mountgen.AlgorithmInterface
 local DiamondSquare = {
 	NAME = 'diamond-square',
+	--- @private
+	--- @const
+	--- @type mountgen.config.FieldDefinition[]
+	CONFIG_FIELDS = {
+		{
+			name        = 'rk_big',
+			type        = FieldType.NUMBER,
+			label       = S('Big scale smooth'),
+			description = S('Smooth on the big scales of whole mountain.\n(smooth of diamonds)'),
+		},
+		{
+			name        = 'rk_small',
+			type        = FieldType.NUMBER,
+			label       = S('Small scale smooth'),
+			description = S('Smooth on the small scales of sibling nodes.\n(smooth of square)'),
+		},
+		{
+			name        = 'rk_thr',
+			type        = FieldType.NUMBER,
+			label       = S('Big & small scale boundary'),
+			description = S('For scales greater than this, use `Big-scale-smooth`, otherwise `Small-scale-smooth`'),
+		},
+	},
+	--- @private
+	--- @const
+	--- @type table
+	CONFIG_DEFAULTS = {
+		--- @type number
+		rk_big = 5,
+		--- @type number
+		rk_small = 100,
+		--- @type number
+		rk_thr = 5,
+	}
 }
+
+--- @return mountgen.config.FieldDefinition[]
+function DiamondSquare.get_config_fields()
+	return DiamondSquare.CONFIG_FIELDS
+end
+
+--- @return table
+function DiamondSquare.get_config_defaults()
+	return DiamondSquare.CONFIG_DEFAULTS
+end
 
 --- Generate mountain with diamond-square algorithm
 --- @param top    Position
 --- @param config table
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center coordinate"
 function DiamondSquare.build_height_map(top, config)
-	local H = top.y - config.Y0
-	local W = math_ceil(2 * H * math_tan(math.rad(90 - config.ANGLE))) + 3
+	local H = top.y - config.foot_height
+	local W = math_ceil(2 * H * math_tan(math.rad(90 - config.angle))) + 3
 	local rk_big   = config.rk_big
 	local rk_small = config.rk_small
 	local rk_thr   = config.rk_thr

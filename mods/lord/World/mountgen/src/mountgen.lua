@@ -5,7 +5,6 @@ local tools                  = require('mountgen.tools')
 
 
 mountgen = {}
-require('mountgen.config')
 
 local function register_api()
 	mountgen.required_priv = 'server'
