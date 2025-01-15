@@ -64,6 +64,11 @@ function BaseForm:new(player, ...)
 	return self
 end
 
+--- @return Player
+function BaseForm:player()
+	return minetest.get_player_by_name(self.player_name)
+end
+
 --- @protected
 --- @param player Player
 function BaseForm:instantiate(player, ...)
