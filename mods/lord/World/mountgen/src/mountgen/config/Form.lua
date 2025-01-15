@@ -1,41 +1,53 @@
 local Algorithm = require('mountgen.Algorithm')
-local Generator = require('mountgen.Generator')
 local Config    = require('mountgen.Config')
 
 local S        = minetest.get_mod_translator()
-local Logger   = minetest.get_mod_logger()
 local spec     = minetest.formspec
 local colorize = minetest.colorize
 
 
 --- @class mountgen.config.Form: base_classes.Form.Base
---- @field new fun(player:Player,meta:MetaDataRef|string) @`meta` - metadata of Node or string `for_wielded_item`
+--- @field new fun(player:Player,opened_by:string) @`opened_by` - name of tool|node (ex:`wielded:mountgen:mount_tool`)
 local Form = {
 	--- @const
 	--- @type string
-	NAME = 'mountgen:configure',
+	NAME                = 'mountgen:configure',
 	--- @private
 	--- @type string[] used for `method` dropdown
-	algorithm_names = nil,
+	algorithm_names     = nil,
 	--- @private
 	--- @type string[] used for `Coverage node` dropdown
 	coverage_nodes_list = nil,
 	--- @private
-	--- @type MetaDataRef|string meta data of Item or Node to get config from, and save to
-	thing_meta = nil,
+	--- @type string unique name of tool|node|... by which the form was opened
+	opened_by           = nil,
 }
 Form = base_classes.Form:personal():extended(Form)
 
-function Form:instantiate(player, meta)
-	self.thing_meta = meta
-end
+Form.event.Type.on_save     = 'on_save'
+Form.event.Type.on_generate = 'on_generate'
+Form.event.subscribers[Form.event.Type.on_save]     = {}
+Form.event.subscribers[Form.event.Type.on_generate] = {}
+
+--- @alias mountgen.config.Form.callback fun(form:mountgen.config.Form, config:table)
+
+--- @type fun(callback:mountgen.config.Form.callback)
+Form.on_save     = Form.event:on(Form.event.Type.on_save, Form.event)
+--- @type fun(callback:mountgen.config.Form.callback)
+Form.on_generate = Form.event:on(Form.event.Type.on_generate, Form.event)
+
 
 --- @protected
---- @return MetaDataRef
-function Form:get_thing_meta()
-	return self.thing_meta == 'for_wielded_item'
-		and minetest.get_player_by_name(self.player_name):get_wielded_item():get_meta()
-		or  self.thing_meta
+--- @param player    Player
+--- @param opened_by string
+function Form:instantiate(player, opened_by)
+	self.opened_by = opened_by
+end
+
+--- @public
+--- @return string unique name of tool|node|... by which the form was opened (you must set it by yourself via `:new()`)
+function Form:get_opened_by()
+	return self.opened_by
 end
 
 --- @protected
@@ -87,13 +99,9 @@ function Form.group(label, y_pos, callback)
 		spec.style_type('label', { font_size = '+0', textcolor = '#fff' })
 end
 
+--- @param config table
 --- @return string
-function Form:get_spec()
-	local config = self:get_thing_meta():get('config')
-	config = config
-		and minetest.deserialize(config)
-		or  Config.get_defaults()
-
+function Form:get_spec(config)
 	local formspec = ''
 	local width = 7
 	local bw = 4
@@ -171,6 +179,7 @@ function Form:get_spec()
 	return formspec
 end
 
+-- TODO
 --- @private
 --- @param config table
 --- @return boolean
@@ -186,26 +195,6 @@ function Form:is_valid(config)
 	return true
 end
 
---- @private
---- @param wield_item ItemStack
---- @param config     table
---- @return string
-function Form:build_tool_description(wield_item, config)
-	local base_description = wield_item:get_definition().description
-	local default_config   = Config.get_defaults(Algorithm.get(config.algorithm))
-
-	local config_strings = {}
-	for name, value in pairs(config) do
-		local list_item = colorize('#bbb', S(name)) .. ':   ' ..
-			(value ~= default_config[name] and colorize('#f66', value) or value)
-		config_strings[#config_strings+1] = '  • ' .. list_item
-	end
-
-	return base_description ..'\n\n' ..
-		colorize('#ee8', S('Configuration')) .. ':\n' ..
-		table.concat(config_strings, '\n')
-end
-
 --- @protected
 --- @param fields table
 --- @return nil|boolean return `true` for stop propagation of handling
@@ -215,9 +204,7 @@ function Form:handle(fields)
 		return
 	end
 
-	-- TODO #1932  refresh form on algo change
-
-	if fields['save'] == nil and fields['generate'] == nil then
+	if not fields['save'] and not fields['generate'] and not fields['edit_method'] then
 		return
 	end
 
@@ -241,29 +228,25 @@ function Form:handle(fields)
 		config
 	)
 
-	if fields['save'] then
-		if self.thing_meta == 'for_wielded_item' then
-			local player = minetest.get_player_by_name(self.player_name)
-			local wield_item = player:get_wielded_item()
-			local meta = wield_item:get_meta()
+	if fields['edit_method'] and not fields['save'] and not fields['generate'] then
+		self:open(config)
 
-			meta:set_string('config', minetest.serialize(config))
-			meta:set_string('description', self:build_tool_description(wield_item, config))
-			player:set_wielded_item(wield_item)
-		else -- for Node
-			self:get_thing_meta():set_string('config', minetest.serialize(config))
-		end
+		return
+	end
+
+	if fields['save'] then
+		self.event:trigger(self.event.Type.on_save, self, config)
 	end
 
 	if fields['generate'] then
-		local top_position = minetest.get_player_by_name(self.player_name):get_pos()
-		Logger.action('use mount stick at ' .. minetest.pos_to_string(top_position))
-		Logger.action('parameters: ' .. dump(config))
-		Generator:new(top_position, config):run()
+		self.event:trigger(self.event.Type.on_generate, self, config)
 	end
 
 	self:close()
 end
 
 
-return Form:register()
+Form:register()
+
+
+return Form
