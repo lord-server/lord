@@ -8,18 +8,6 @@ local spec     = minetest.formspec
 local colorize = minetest.colorize
 
 
-local DEFAULT_MOD_DIRTS = {
-	'default:dirt',
-	'default:dirt_with_grass',
-	'default:dirt_with_grass_footsteps',
-	'default:dirt_with_dry_grass',
-	'default:dirt_with_rainforest_litter',
-	'default:dirt_with_coniferous_litter',
-	'default:dirt_with_snow',
-	'default:dry_dirt',
-	'default:dry_dirt_with_dry_grass',
-}
-
 --- @class mountgen.config.Form: base_classes.Form.Base
 --- @field new fun(player:Player,meta:MetaDataRef|string) @`meta` - metadata of Node or string `for_wielded_item`
 local Form = {
@@ -58,22 +46,6 @@ function Form:get_methods()
 	end
 
 	return self.algorithm_names
-end
-
---- @return string[]
-function Form:get_coverage_variants()
-	if not self.coverage_nodes_list then
-		if minetest.global_exists('ground') and ground.dirt and ground.dirt.get_nodes then
-			self.coverage_nodes_list = {}
-			for node_name, node in pairs(ground.dirt.get_nodes()) do -- also contains dirts from `default`
-				table.insert(self.coverage_nodes_list, node_name)
-			end
-		else -- `default` mod not in optional dependencies
-			self.coverage_nodes_list = DEFAULT_MOD_DIRTS
-		end
-	end
-
-	return self.coverage_nodes_list
 end
 
 --- @static
@@ -179,7 +151,7 @@ function Form:get_spec()
 		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_snow_line', '', config.snow_line)
 		pos_y = pos_y + 0.8
 		-- грунт сверху
-		local covers = self:get_coverage_variants()
+		local covers = Config.get_coverage_variants()
 		local selected_cover = table.key_value_swap(covers)[config.top_cover]
 		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Coverage node'))
 		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_top_cover', covers, selected_cover)
