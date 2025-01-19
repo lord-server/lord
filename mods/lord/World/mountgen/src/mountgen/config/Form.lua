@@ -1,5 +1,6 @@
 local Algorithm = require('mountgen.Algorithm')
 local Config    = require('mountgen.Config')
+local Builder   = require('mountgen.config.Form.Builder')
 
 local S        = minetest.get_mod_translator()
 local spec     = minetest.formspec
@@ -104,7 +105,6 @@ end
 function Form:get_spec(config)
 	local formspec = ''
 	local width = 7
-	local bw = 4
 	local y_pos = 0.1
 
 	local group_spec
@@ -114,22 +114,14 @@ function Form:get_spec(config)
 	formspec = formspec .. self.title(2.5, y_pos - 0.3, colorize('#faa', S('Use with caution!')), '+3')
 	y_pos = y_pos + 0.8
 
+	-- TODO #1932 `Builder.render_group()`
 	y_pos, group_spec = self.group(S('Basic Options:'), y_pos, function(pos_y)
 		local f_spec = ''
-		-- TODO #1932
-		-- метод
-		local methods = self:get_methods()
-		local selected_method = table.key_value_swap(methods)[config.algorithm]
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Method'))
-		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_method', methods, selected_method)
+		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('algorithm'), config.algorithm)
 		pos_y = pos_y + 0.8
-		-- основание
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Foot height'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_base', '', config.foot_height)
+		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('foot_height'), config.foot_height)
 		pos_y = pos_y + 0.8
-		-- угол горы
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Angle'))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_angle', '', config.angle)
+		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('angle'), config.angle)
 		pos_y = pos_y + 0.8
 
 		return pos_y, f_spec
@@ -140,10 +132,9 @@ function Form:get_spec(config)
 		local f_spec = ''
 
 		-- TODO #1932
-		local config_fields = Algorithm.get(config.algorithm).get_config_fields()
-		for _, config_field in pairs(config_fields) do
-			f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, config_field.label)
-			f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_' .. config_field.name, '', config[config_field.name])
+		local fields_definitions = Algorithm.get(config.algorithm).get_config_fields()
+		for name, field_def in pairs(fields_definitions) do
+			f_spec = f_spec .. Builder.render_field(pos_y, field_def, config[name])
 			pos_y = pos_y + 0.8
 		end
 
@@ -154,15 +145,9 @@ function Form:get_spec(config)
 	y_pos, group_spec = self.group(S('Content Options:'), y_pos, function(pos_y)
 		local f_spec = ''
 		-- TODO #1932
-		-- снежная линия
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Snow line '))
-		f_spec = f_spec .. spec.field(3, pos_y, bw, 0.5, 'edit_snow_line', '', config.snow_line)
+		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('snow_line'), config.snow_line)
 		pos_y = pos_y + 0.8
-		-- грунт сверху
-		local covers = Config.get_coverage_variants()
-		local selected_cover = table.key_value_swap(covers)[config.top_cover]
-		f_spec = f_spec .. spec.label(0.3, pos_y - 0.3, S('Coverage node'))
-		f_spec = f_spec .. spec.dropdown_W(3 - 0.295, pos_y - 0.45, bw + 0.190, 'edit_top_cover', covers, selected_cover)
+		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('coverage_node'), config.coverage_node)
 		pos_y = pos_y + 0.8
 
 		return pos_y, f_spec
@@ -204,19 +189,19 @@ function Form:handle(fields)
 		return
 	end
 
-	if not fields['save'] and not fields['generate'] and not fields['edit_method'] then
+	if not fields['save'] and not fields['generate'] and not fields['algorithm'] then
 		return
 	end
 
-	local config       = {}
-	config.algorithm   = fields['edit_method']
-	config.angle       = tonumber(fields['edit_angle']) or 0
-	config.foot_height = tonumber(fields['edit_base']) or 0
-	config.snow_line   = tonumber(fields['edit_snow_line']) or 0
-	config.rk_big      = tonumber(fields['edit_rk_big']) or 0
-	config.rk_small    = tonumber(fields['edit_rk_small']) or 0
-	config.rk_thr      = tonumber(fields['edit_rk_thr']) or 0
-	config.top_cover   = fields['edit_top_cover']
+	local config         = {}
+	config.algorithm     = fields['algorithm']
+	config.angle         = tonumber(fields['angle']) or 0
+	config.foot_height   = tonumber(fields['foot_height']) or 0
+	config.snow_line     = tonumber(fields['snow_line']) or 0
+	config.rk_big        = tonumber(fields['rk_big']) or 0
+	config.rk_small      = tonumber(fields['rk_small']) or 0
+	config.rk_thr        = tonumber(fields['rk_thr']) or 0
+	config.coverage_node = fields['coverage_node']
 	-- TODO validation
 	if not self:is_valid(config) then
 		-- TODO validation messages
@@ -228,7 +213,7 @@ function Form:handle(fields)
 		config
 	)
 
-	if fields['edit_method'] and not fields['save'] and not fields['generate'] then
+	if fields['algorithm'] and not fields['save'] and not fields['generate'] then
 		self:open(config)
 
 		return

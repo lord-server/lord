@@ -58,7 +58,7 @@ function Node.get_coverage(pos, config)
 	else
 		-- TODO dont call `id()` everytime in cycle
 		-- TODO for ex., replace with id right in `config` on save or apply
-		return id(config.top_cover)
+		return id(config.coverage_node)
 	end
 end
 

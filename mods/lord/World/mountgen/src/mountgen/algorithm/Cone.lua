@@ -19,13 +19,13 @@ local Cone = {
 	--- @const
 	--- @type mountgen.config.FieldDefinition[]
 	CONFIG_FIELDS = {
-		{
+		top_radius = {
 			name        = 'top_radius',
 			type        = FieldType.NUMBER,
 			label       = S('Truncation radius'),
 			description = S('Radius of top platform of truncated cone.'),
 		},
-		{
+		max_radius = {
 			name        = 'max_radius',
 			type        = FieldType.NUMBER,
 			label       = S('Max radius'),

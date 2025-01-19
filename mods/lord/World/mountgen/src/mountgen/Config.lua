@@ -1,16 +1,16 @@
-local FieldType = require('mountgen.config.FieldType')
 local Algorithm = require('mountgen.Algorithm')
 local ConeAlgo  = require('mountgen.algorithm.Cone')
+local FieldType = require('mountgen.config.FieldType')
 
 local S = minetest.get_mod_translator()
 
 
 --- @class mountgen.config.FieldDefinition
---- @field name        string name of the config field
---- @field type        string type of the config field; one of `mountgen.config.FieldType.<CONST>`
---- @field list        table  list of possible values if `type` is `mountgen.config.FieldType.ONE_OF`
---- @field label       string human-readable name: label in interfaces
---- @field description string description for user in interfaces
+--- @field name        string            name of the config field
+--- @field type        string            type of the config field; one of `mountgen.config.FieldType.<CONST>`
+--- @field list        table|fun():table possible values if `type` is `FieldType.ONE_OF` or `fun` for lazy loading.
+--- @field label       string            human-readable name: label in interfaces
+--- @field description string            description for user in interfaces
 
 
 --- @type string[]
@@ -57,7 +57,7 @@ local CONFIG_DEFAULTS = {
 	snow_line_rand  = 4,
 
 	-- Coverage
-	top_cover       = minetest.get_modpath('lord_ground')
+	coverage_node   = minetest.get_modpath('lord_ground')
 		and 'lord_ground:dirt_lorien'
 		or  'default:dirt'
 	,
@@ -73,37 +73,42 @@ local CONFIG_DEFAULTS = {
 local Config = {
 	--- @type table|any[]
 	DEFAULTS = CONFIG_DEFAULTS,
-	--- @type mountgen.config.FieldDefinition[]
+	--- @protected
 	FIELDS   = {
 		-- Basic
-		{
+		--- @type mountgen.config.FieldDefinition
+		algorithm = {
 			name        = 'algorithm',
 			type        = FieldType.ONE_OF,
-			list        = Algorithm.get_names(),
+			list        = function() return Algorithm.get_names() end,
 			label       = S('Algorithm'),
 			description = S('Choose one of methods of mountain generation.'),
 		},
-		{
+		--- @type mountgen.config.FieldDefinition
+		foot_height = {
 			name        = 'foot_height',
 			type        = FieldType.NUMBER,
 			label       = S('Foot height'),
 			description = S('Altitude of mountain foot, where generation stops.'),
 		},
-		{
+		--- @type mountgen.config.FieldDefinition
+		angle = {
 			name        = 'angle',
 			type        = FieldType.NUMBER,
 			label       = S('Angle'),
 			description = S('Angle between mountain foot and mountainside'),
 		},
 		-- Content
-		{
+		--- @type mountgen.config.FieldDefinition
+		snow_line = {
 			name        = 'snow_line',
 			type        = FieldType.NUMBER,
 			label       = S('Snow line height'),
 			description = S('Altitude above which the snow generated instead of grass-dirt.'),
 		},
-		{
-			name        = 'angle',
+		--- @type mountgen.config.FieldDefinition
+		coverage_node = {
+			name        = 'coverage_node',
 			type        = FieldType.ONE_OF,
 			list        = get_coverage_variants(),
 			label       = S('Coverage node'),
@@ -119,7 +124,18 @@ function Config.get_defaults(algorithm)
 	return table.merge(Config.DEFAULTS, algorithm.get_config_defaults())
 end
 
-Config.get_coverage_variants = get_coverage_variants
+
+---@param field_name string
+---@return mountgen.config.FieldDefinition
+function Config.get_definition(field_name)
+	--- @type mountgen.config.FieldDefinition
+	local def = Config.FIELDS[field_name]
+	if def.list and type(def.list) == 'function' then
+		def.list = def.list()
+	end
+
+	return def
+end
 
 
 return Config

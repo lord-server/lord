@@ -80,19 +80,19 @@ local DiamondSquare = {
 	--- @const
 	--- @type mountgen.config.FieldDefinition[]
 	CONFIG_FIELDS = {
-		{
+		rk_big = {
 			name        = 'rk_big',
 			type        = FieldType.NUMBER,
 			label       = S('Big scale smooth'),
 			description = S('Smooth on the big scales of whole mountain.\n(smooth of diamonds)'),
 		},
-		{
+		rk_small = {
 			name        = 'rk_small',
 			type        = FieldType.NUMBER,
 			label       = S('Small scale smooth'),
 			description = S('Smooth on the small scales of sibling nodes.\n(smooth of square)'),
 		},
-		{
+		rk_thr = {
 			name        = 'rk_thr',
 			type        = FieldType.NUMBER,
 			label       = S('Big & small scale boundary'),
