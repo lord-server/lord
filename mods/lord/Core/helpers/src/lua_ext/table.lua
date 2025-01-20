@@ -76,6 +76,22 @@ end
 local table_has_key
     = table.has_key
 
+--- Returns a table with key/value pairs from given `table`, where presents only pairs with keys specified in `only`.
+--- @param table table<string,any>
+--- @param only  string[]
+--- @return table
+function table.only(table, only)
+	local result = {}
+	for _, key in pairs(only) do
+		local value = table[key]
+		if value then
+			result[key] = value
+		end
+	end
+
+	return result
+end
+
 --- Copies `self` table and remove specified `keys`
 --- @param table table
 --- @param keys  table|string[]|any[]
@@ -304,7 +320,7 @@ function table.sub_values(table1, table2, empty_value, overwrite)
 	return result
 end
 
---- Adds values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- Multiplies values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
 --- @generic T: table
 --- @param table1      table   Table to the values of which the values from `table2` will be added.
 --- @param table2      table   Table to iterate and add values to `table1`
@@ -321,14 +337,14 @@ function table.mul_values(table1, table2, empty_value, overwrite)
 	return result
 end
 
---- Adds values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
+--- Divides values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
 --- Please sure that there is no zeroes in `table2`
 --- @generic T: table
 --- @param table1      table   Table to the values of which the values from `table2` will be added.
 --- @param table2      table   Table to iterate and add values to `table1`
 --- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
 --- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
-function table.div_values(table1, table2, empty_value, overwrite, nil_on_zero)
+function table.div_values(table1, table2, empty_value, overwrite)
 	empty_value = empty_value or 1
 	overwrite   = overwrite or false
 	local result = overwrite and table1 or table_copy(table1)
