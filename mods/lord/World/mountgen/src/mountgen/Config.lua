@@ -12,6 +12,10 @@ local S = minetest.get_mod_translator()
 --- @field label       string            human-readable name: label in interfaces
 --- @field description string            description for user in interfaces
 
+--- @class mountgen.config.GroupDefinition
+--- @field label       string                            human-readable name of group: label in interfaces
+--- @field definitions mountgen.config.FieldDefinition[] definitions of fields of group
+
 
 --- @type string[]
 local DEFAULT_MOD_DIRTS = {
@@ -71,6 +75,9 @@ local CONFIG_DEFAULTS = {
 --- @static
 --- @class mountgen.Config
 local Config = {
+	--- @private
+	--- Indicates whether the config was built. (Whether the lazy functions of fields definition was loaded.)
+	_built   = false,
 	--- @type table|any[]
 	DEFAULTS = CONFIG_DEFAULTS,
 	--- @protected
@@ -115,6 +122,12 @@ local Config = {
 			description = S('Choose one of grass-dirt with which the mountain will be covered.'),
 		},
 	},
+	--- @protected
+	--- @type {label:string,fields:string[]}[]
+	GROUPS   = {
+		basic   = { label = S('Basic Options:'),   fields = { 'algorithm', 'foot_height', 'angle' } },
+		content = { label = S('Content Options:'), fields = { 'snow_line', 'coverage_node' } },
+	},
 }
 
 --- @param algorithm mountgen.AlgorithmInterface
@@ -124,17 +137,41 @@ function Config.get_defaults(algorithm)
 	return table.merge(Config.DEFAULTS, algorithm.get_config_defaults())
 end
 
-
----@param field_name string
----@return mountgen.config.FieldDefinition
-function Config.get_definition(field_name)
-	--- @type mountgen.config.FieldDefinition
-	local def = Config.FIELDS[field_name]
-	if def.list and type(def.list) == 'function' then
-		def.list = def.list()
+--- Just fill `Config.FIELDS.*.list` by run `def.list()` if it was a function for lazy loading
+--- @private
+--- @return mountgen.Config
+function Config.build()
+	if not Config._built then
+		table.map(Config.FIELDS, function(def, key)
+			if def.list and type(def.list) == 'function' then
+				def.list = def.list()
+			end
+			return def
+		end)
+		Config._built = true
 	end
 
-	return def
+	return Config
+end
+
+--- @param field_name string
+--- @return mountgen.config.FieldDefinition
+function Config.get_definition(field_name)
+	return Config.build().FIELDS[field_name]
+end
+
+--- @param name string
+--- @return mountgen.config.GroupDefinition
+function Config.get_group(name)
+	Config.build()
+
+	--- @type mountgen.config.GroupDefinition
+	local group = {
+		label       = Config.GROUPS[name].label,
+		definitions = table.only(Config.FIELDS, Config.GROUPS[name].fields)
+	}
+
+	return group
 end
 
 

@@ -51,5 +51,26 @@ function Builder.render_field(pos_y, field_def, value)
 		.. spec.label(2.7, pos_y - 0.3, colorize('#f88', 'Unknown field type "' .. field_def.type .. '"'))
 end
 
+--- @param group mountgen.config.GroupDefinition
+function Builder.render_group(group, pos_y, values)
+	local start_pos = pos_y
+	local formspec = ''
+		.. spec.style_type('label', { font_size = '-1', textcolor = '#ddd', })
+		.. spec.label(0.05, start_pos - 0.6, group.label)
+		.. spec.style_type('label', { font_size = '+0', textcolor = '#ddd', })
+		.. spec.box(0, start_pos - 0.2, 6.8, 0.8 * table.count(group.definitions) + 0.2, '#0003')
+
+	pos_y = pos_y + 0.4
+	for name, definition in pairs(group.definitions) do
+		formspec = formspec .. Builder.render_field(pos_y, definition, values[name])
+		pos_y    = pos_y + 0.8
+	end
+	pos_y = pos_y + 0.2
+
+	return
+		pos_y,
+		formspec .. spec.style_type('label', { font_size = '+0', textcolor = '#fff' })
+end
+
 
 return Builder

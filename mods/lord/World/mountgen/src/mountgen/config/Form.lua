@@ -105,7 +105,7 @@ end
 function Form:get_spec(config)
 	local formspec = ''
 	local width = 7
-	local y_pos = 0.1
+	local y_pos = 0.2
 
 	local group_spec
 
@@ -114,46 +114,18 @@ function Form:get_spec(config)
 	formspec = formspec .. self.title(2.5, y_pos - 0.3, colorize('#faa', S('Use with caution!')), '+3')
 	y_pos = y_pos + 0.8
 
-	-- TODO #1932 `Builder.render_group()`
-	y_pos, group_spec = self.group(S('Basic Options:'), y_pos, function(pos_y)
-		local f_spec = ''
-		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('algorithm'), config.algorithm)
-		pos_y = pos_y + 0.8
-		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('foot_height'), config.foot_height)
-		pos_y = pos_y + 0.8
-		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('angle'), config.angle)
-		pos_y = pos_y + 0.8
-
-		return pos_y, f_spec
-	end)
+	y_pos, group_spec = Builder.render_group(Config.get_group('basic'), y_pos, config)
 	formspec = formspec .. group_spec
 
-	y_pos, group_spec = self.group(S('Algorithm Options:'), y_pos, function(pos_y)
-		local f_spec = ''
-
-		-- TODO #1932
-		local fields_definitions = Algorithm.get(config.algorithm).get_config_fields()
-		for name, field_def in pairs(fields_definitions) do
-			f_spec = f_spec .. Builder.render_field(pos_y, field_def, config[name])
-			pos_y = pos_y + 0.8
-		end
-
-		return pos_y, f_spec
-	end)
+	local algorithm_group = {
+		label       = S('Algorithm Options:'),
+		definitions = Algorithm.get(config.algorithm).get_config_fields()
+	}
+	y_pos, group_spec = Builder.render_group(algorithm_group, y_pos, config)
 	formspec = formspec .. group_spec
 
-	y_pos, group_spec = self.group(S('Content Options:'), y_pos, function(pos_y)
-		local f_spec = ''
-		-- TODO #1932
-		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('snow_line'), config.snow_line)
-		pos_y = pos_y + 0.8
-		f_spec = f_spec .. Builder.render_field(pos_y, Config.get_definition('coverage_node'), config.coverage_node)
-		pos_y = pos_y + 0.8
-
-		return pos_y, f_spec
-	end)
+	y_pos, group_spec = Builder.render_group(Config.get_group('content'), y_pos, config)
 	formspec = formspec .. group_spec
-
 
 	formspec = formspec .. spec.button(0.5, y_pos - 0.3, 3, 1, 'save', S('Save'))
 	formspec = formspec .. spec.button(3.5, y_pos - 0.3, 3, 1, 'generate', S('Generate'))
