@@ -14,6 +14,7 @@ local S = minetest.get_mod_translator()
 
 --- @class mountgen.config.GroupDefinition
 --- @field label       string                            human-readable name of group: label in interfaces
+--- @field description string                            description for user in interfaces
 --- @field definitions mountgen.config.FieldDefinition[] definitions of fields of group
 
 

@@ -117,9 +117,11 @@ function Form:get_spec(config)
 	y_pos, group_spec = Builder.render_group(Config.get_group('basic'), y_pos, config)
 	formspec = formspec .. group_spec
 
+	local algorithm = Algorithm.get(config.algorithm)
 	local algorithm_group = {
 		label       = S('Algorithm Options:'),
-		definitions = Algorithm.get(config.algorithm).get_config_fields()
+		description = algorithm.get_description and algorithm.get_description(),
+		definitions = algorithm.get_config_fields()
 	}
 	y_pos, group_spec = Builder.render_group(algorithm_group, y_pos, config)
 	formspec = formspec .. group_spec

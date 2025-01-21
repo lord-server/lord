@@ -112,6 +112,14 @@ local DiamondSquare = {
 	}
 }
 
+--- @return string
+function DiamondSquare.get_description()
+	return
+		S('The `DiamondSquare` algorithm is well suited on a large scale for building high mountains.') .. ' ' ..
+		S('Be careful, it can freeze serverI.') .. '\n' ..
+		S('More info:') .. ' https://ru.wikipedia.org/wiki/Алгоритм_Diamond-Square'
+end
+
 --- @return mountgen.config.FieldDefinition[]
 function DiamondSquare.get_config_fields()
 	return DiamondSquare.CONFIG_FIELDS

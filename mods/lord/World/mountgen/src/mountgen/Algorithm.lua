@@ -1,6 +1,7 @@
 
 --- @class mountgen.AlgorithmInterface
 --- @field NAME                string
+--- @field get_description     nil|(fun():string|nil)
 --- @field get_config_fields   fun():mountgen.config.FieldDefinition[]
 --- @field get_config_defaults fun():table
 --- @field build_height_map    fun(top_pos:Position, config:table):mountgen.generator.HeightMap,number,number
@@ -19,6 +20,8 @@ local Algorithm = {
 function Algorithm.register(algorithm)
 	assert(algorithm.NAME)
 	assert(algorithm.build_height_map)
+	assert(algorithm.get_config_fields)
+	assert(algorithm.get_config_defaults)
 
 	Algorithm.collection[algorithm.NAME] = algorithm
 

@@ -43,6 +43,13 @@ local Cone = {
 	}
 }
 
+--- @return string
+function Cone.get_description()
+	return
+		S('The `Cone` algorithm builds a part of the mountain in the form of a truncated cone.') .. ' ' ..
+		S('It is well suited on a small scale for more detailed landscape construction.')
+end
+
 --- @return mountgen.config.FieldDefinition[]
 function Cone.get_config_fields()
 	return Cone.CONFIG_FIELDS
