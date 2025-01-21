@@ -6,8 +6,28 @@ local colorize = minetest.colorize
 
 --- @class mountgen.config.Form.Builder
 local Builder = {
+	form_width  = 7,
 	field_width = 4,
 }
+
+--- @param pos_y number
+--- @return string
+function Builder.size(pos_y)
+	return spec.size(Builder.form_width, pos_y)
+end
+
+--- @static
+--- @param x         number
+--- @param y         number
+--- @param text      string
+--- @param font_size string
+--- @return string
+function Builder.title(x, y, text, font_size)
+	return ''
+		.. spec.style_type('label', { font = 'bold', font_size = font_size })
+		.. spec.label(x, y, text)
+		.. spec.style_type('label', { font = 'normal', font_size = '+0' })
+end
 
 --- @protected
 --- @param pos_y     number                          y position at Form.
@@ -64,7 +84,7 @@ function Builder.render_group_description(pos_y, description)
 
 	local formspec = ''
 		.. spec.style_type('textarea', { font_size = '-1', textcolor = '#bbb', })
-		.. spec.textarea(0.4, pos_y - 0.15, 7 - 0.2, size_y + 0.25, spec.read_only, '', description)
+		.. spec.textarea(0.4, pos_y - 0.15, Builder.form_width - 0.2, size_y + 0.25, spec.read_only, '', description)
 		.. spec.style_type('textarea', { font_size = '+0', textcolor = '#fff', })
 
 	return formspec, size_y
@@ -93,7 +113,7 @@ function Builder.render_group(group, pos_y, values)
 	pos_y = pos_y + 0.2
 
 	formspec = formspec
-		.. spec.box(0, start_pos - 0.2, 6.8, pos_y - start_pos - 0.4, '#0000003b')
+		.. spec.box(0, start_pos - 0.2, Builder.form_width - 0.2, pos_y - start_pos - 0.4, '#0000003b')
 		.. fields_spec
 		.. spec.style_type('label', { textcolor = '#fff' })
 

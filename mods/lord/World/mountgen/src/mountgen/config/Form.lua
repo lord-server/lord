@@ -45,32 +45,17 @@ function Form:get_opened_by()
 	return self.opened_by
 end
 
---- @static
---- @private
---- @param x         number
---- @param y         number
---- @param text      string
---- @param font_size string
---- @return string
-function Form.title(x, y, text, font_size)
-	return ''
-		.. spec.style_type('label', { font = 'bold', font_size = font_size })
-		.. spec.label(x, y, text)
-		.. spec.style_type('label', { font = 'normal', font_size = '+0' })
-end
-
 --- @param config table
 --- @return string
 function Form:get_spec(config)
 	local formspec = ''
-	local width = 7
 	local y_pos = 0.2
 
 	local group_spec
 
-	formspec = formspec .. self.title(2, y_pos - 0.3, S('Mountain creation tool'), '+6')
+	formspec = formspec .. Builder.title(2, y_pos - 0.3, S('Mountain creation tool'), '+6')
 	y_pos = y_pos + 0.4
-	formspec = formspec .. self.title(2.5, y_pos - 0.3, colorize('#faa', S('Use with caution!')), '+3')
+	formspec = formspec .. Builder.title(2.5, y_pos - 0.3, colorize('#faa', S('Use with caution!')), '+3')
 	y_pos = y_pos + 0.8
 
 	y_pos, group_spec = Builder.render_group(Config.get_group('basic'), y_pos, config)
@@ -92,7 +77,7 @@ function Form:get_spec(config)
 	formspec = formspec .. spec.button(3.5, y_pos - 0.3, 3, 1, 'generate', S('Generate'))
 	y_pos = y_pos + 0.6
 
-	formspec = spec.size(width, y_pos) .. formspec
+	formspec = Builder.size(y_pos) .. formspec
 
 	return formspec
 end
