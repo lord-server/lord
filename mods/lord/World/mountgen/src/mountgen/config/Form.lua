@@ -1,6 +1,7 @@
 local Algorithm = require('mountgen.Algorithm')
 local Config    = require('mountgen.Config')
 local Builder   = require('mountgen.config.Form.Builder')
+local FieldType = require('mountgen.config.FieldType')
 
 local S        = minetest.get_mod_translator()
 local spec     = minetest.formspec
@@ -98,8 +99,23 @@ function Form:is_valid(config)
 	return true
 end
 
+--- @private
+--- @param fields    table
+--- @param algorithm mountgen.AlgorithmInterface
+function Form:cast_fields(fields, algorithm)
+	local algo_definitions = algorithm.get_config_fields()
+	for name, value in pairs(fields) do
+		local def = Config.get_definition(name) or algo_definitions[name]
+		if def.type == FieldType.NUMBER then
+			fields[name] = tonumber(fields[name])
+		end
+	end
+
+	return fields
+end
+
 --- @protected
---- @param fields table
+--- @param fields table|mountgen.ConfigValues table with fields comes from client form
 --- @return nil|boolean return `true` for stop propagation of handling
 function Form:handle(fields)
 	local can_edit = minetest.get_player_privs(self.player_name)[mountgen.required_priv]
@@ -111,25 +127,20 @@ function Form:handle(fields)
 		return
 	end
 
-	local config         = {}
-	config.algorithm     = fields['algorithm']
-	config.angle         = tonumber(fields['angle']) or 0
-	config.foot_height   = tonumber(fields['foot_height']) or 0
-	config.snow_line     = tonumber(fields['snow_line']) or 0
-	config.rk_big        = tonumber(fields['rk_big']) or 0
-	config.rk_small      = tonumber(fields['rk_small']) or 0
-	config.rk_thr        = tonumber(fields['rk_thr']) or 0
-	config.coverage_node = fields['coverage_node']
-	-- TODO validation
-	if not self:is_valid(config) then
-		-- TODO validation messages
+	local algorithm = Algorithm.get(fields.algorithm)
+	local defaults  = Config.get_defaults(algorithm)
+	local config_fields = self:cast_fields(
+		table.only(fields, table.keys(defaults)),
+		algorithm
+	)
+
+	-- TODO #1964 validation
+	if not self:is_valid(config_fields) then
+		-- TODO #1964 validation messages
 		return
 	end
 
-	config = table.merge(
-		Config.get_defaults(Algorithm.get(config.algorithm)),
-		config
-	)
+	local config = table.merge(defaults, config_fields)
 
 	if fields['algorithm'] and not fields['save'] and not fields['generate'] then
 		self:open(config)
