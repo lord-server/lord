@@ -9,6 +9,12 @@ local S = minetest.get_mod_translator()
 
 local MIN_CONE_FOOT_DIAMETER = 3
 
+--- @class mountgen.algorithm.Cone.ConfigValues: mountgen.config.ValuesTable
+--- @field top_radius number truncation radius
+--- @field max_radius number maximum radius of generated cone
+
+--- @alias mountgen.ConeCfgValues mountgen.algorithm.Cone.ConfigValues
+
 --- @class mountgen.algorithm.Cone: mountgen.AlgorithmInterface
 local Cone = {
 	--- @public
@@ -62,7 +68,7 @@ end
 
 --- Generate mountain as cone
 --- @param top_pos Position
---- @param config  table
+--- @param config  mountgen.ConfigValues
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center_coordinate"
 function Cone.build_height_map(top_pos, config)
 	local H = top_pos.y - config.foot_height               -- height of truncated cone

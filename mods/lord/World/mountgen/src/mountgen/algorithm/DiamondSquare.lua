@@ -73,6 +73,13 @@ local function average(v1, v2, v3, v4)
 	return sum / cnt
 end
 
+--- @class mountgen.algorithm.DiamondSquare.ConfigValues: mountgen.config.ValuesTable
+--- @field rk_big   number smooth on the big scales
+--- @field rk_small number smooth on the small scales
+--- @field rk_thr   number big & small scale boundary
+
+--- @alias mountgen.DiamondSquareCfgValues mountgen.algorithm.DiamondSquare.ConfigValues
+
 --- @class mountgen.algorithm.DiamondSquare: mountgen.AlgorithmInterface
 local DiamondSquare = {
 	NAME = 'diamond-square',
@@ -132,7 +139,7 @@ end
 
 --- Generate mountain with diamond-square algorithm
 --- @param top    Position
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center coordinate"
 function DiamondSquare.build_height_map(top, config)
 	local H = top.y - config.foot_height

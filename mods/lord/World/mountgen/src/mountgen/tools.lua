@@ -34,7 +34,7 @@ local function register_stick()
 	})
 
 	--- @param wield_item ItemStack
-	--- @param config     table
+	--- @param config     mountgen.ConfigValues
 	--- @return string
 	local function build_tool_description(wield_item, config)
 		local base_description = wield_item:get_definition().description

@@ -36,7 +36,7 @@ local Node = {}
 
 --- @static
 --- @param pos    Position
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return number
 function Node.get_rock(pos, config)
 	return ID_STONE
@@ -44,7 +44,7 @@ end
 
 --- @static
 --- @param pos    Position
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return number
 function Node.get_coverage(pos, config)
 	local place_snow = false
@@ -64,7 +64,7 @@ end
 
 --- @static
 --- @param pos    Position
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return number|nil
 function Node.get_plant(pos, config)
 	if pos.y >= config.snow_line - config.snow_line_rand then

@@ -24,7 +24,7 @@ Form.event.Type.on_generate = 'on_generate'
 Form.event.subscribers[Form.event.Type.on_save]     = {}
 Form.event.subscribers[Form.event.Type.on_generate] = {}
 
---- @alias mountgen.config.Form.callback fun(form:mountgen.config.Form, config:table)
+--- @alias mountgen.config.Form.callback fun(form:mountgen.config.Form, config:mountgen.ConfigValues)
 
 --- @type fun(callback:mountgen.config.Form.callback)
 Form.on_save     = Form.event:on(Form.event.Type.on_save, Form.event)
@@ -45,7 +45,7 @@ function Form:get_opened_by()
 	return self.opened_by
 end
 
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return string
 function Form:get_spec(config)
 	local formspec = ''
@@ -84,7 +84,7 @@ end
 
 -- TODO
 --- @private
---- @param config table
+--- @param config mountgen.ConfigValues
 --- @return boolean
 function Form:is_valid(config)
 	for k, v in pairs(config) do

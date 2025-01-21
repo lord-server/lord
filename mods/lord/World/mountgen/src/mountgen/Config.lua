@@ -17,6 +17,20 @@ local S = minetest.get_mod_translator()
 --- @field description string                            description for user in interfaces
 --- @field definitions mountgen.config.FieldDefinition[] definitions of fields of group
 
+--- @class mountgen.config.ValuesTable
+--- @field algorithm       string the name of algorithm (`Algorithm.NAME`)
+--- @field foot_height     number altitude of mountain foot (y coordinate)
+--- @field angle           number between foot and mountainside
+--- @field coverage_node   string grass-dirt: technical name of any registered node (`"mod:node"`)
+--- @field snow_line       number altitude, where snow begins
+--- @field snow_line_rand  number random for mix grass-dirt and snow
+--- @field grass_percent   number how often grass rendered
+--- @field flowers_line    number altitude, where snow begins
+--- @field flowers_percent number altitude, where flowers ends
+--- @field tree_line       number altitude, where trees ends
+--- @field tree_promille   number how often trees rendered
+
+--- @alias mountgen.ConfigValues mountgen.config.ValuesTable|mountgen.ConeCfgValues|mountgen.DiamondSquareCfgValues
 
 --- @type string[]
 local DEFAULT_MOD_DIRTS = {
@@ -50,22 +64,22 @@ end
 --- @type table|any[]
 local CONFIG_DEFAULTS = {
 	algorithm       = ConeAlgo.NAME,
-	foot_height     = 0,
+	foot_height     = tonumber(minetest.settings:get('water_level')) or 1,
 	angle           = 60,
 
 	--- --== Content ==-- ---
 	-- Stone
 	--stone_node      = 'default:stone', not used yet (hard-coded)
 
-	-- Snow
-	snow_line       = 50,
-	snow_line_rand  = 4,
-
 	-- Coverage
 	coverage_node   = minetest.get_modpath('lord_ground')
 		and 'lord_ground:dirt_lorien'
 		or  'default:dirt'
 	,
+	-- Snow
+	snow_line       = 50,
+	snow_line_rand  = 4,
+
 	grass_percent   = 10,
 	flowers_line    = 35,
 	flowers_percent = 10,
@@ -127,7 +141,7 @@ local Config = {
 	--- @type {label:string,fields:string[]}[]
 	GROUPS   = {
 		basic   = { label = S('Basic Options:'),   fields = { 'algorithm', 'foot_height', 'angle' } },
-		content = { label = S('Content Options:'), fields = { 'snow_line', 'coverage_node' } },
+		content = { label = S('Content Options:'), fields = { 'coverage_node', 'snow_line' } },
 	},
 }
 

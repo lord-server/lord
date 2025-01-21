@@ -27,13 +27,13 @@ end
 local Generator = {
 	--- @type vector
 	top_position = nil,
-	--- @type table
+	--- @type mountgen.ConfigValues
 	config       = nil,
 }
 
 
 --- @param top_position Position
---- @param config       table
+--- @param config       mountgen.ConfigValues
 --- @return mountgen.Generator
 function Generator:new(top_position, config)
 	local class = self
