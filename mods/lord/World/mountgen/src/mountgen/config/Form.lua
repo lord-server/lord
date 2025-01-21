@@ -14,12 +14,6 @@ local Form = {
 	--- @type string
 	NAME                = 'mountgen:configure',
 	--- @private
-	--- @type string[] used for `method` dropdown
-	algorithm_names     = nil,
-	--- @private
-	--- @type string[] used for `Coverage node` dropdown
-	coverage_nodes_list = nil,
-	--- @private
 	--- @type string unique name of tool|node|... by which the form was opened
 	opened_by           = nil,
 }
@@ -51,16 +45,6 @@ function Form:get_opened_by()
 	return self.opened_by
 end
 
---- @protected
---- @return string[]
-function Form:get_methods()
-	if not self.algorithm_names then
-		self.algorithm_names = Algorithm.get_names()
-	end
-
-	return self.algorithm_names
-end
-
 --- @static
 --- @private
 --- @param x         number
@@ -73,31 +57,6 @@ function Form.title(x, y, text, font_size)
 		.. spec.style_type('label', { font = 'bold', font_size = font_size })
 		.. spec.label(x, y, text)
 		.. spec.style_type('label', { font = 'normal', font_size = '+0' })
-end
-
---- @static
---- @private
---- @param label string
---- @param y_pos number
---- @param callback fun(y_pos:number):number,string
---- @return number, string
-function Form.group(label, y_pos, callback)
-	--- @type string
-	local formspec
-	local start_pos = y_pos
-
-	y_pos = y_pos + 0.4
-	y_pos, formspec = callback(y_pos)
-	y_pos = y_pos + 0.2
-
-	return
-		y_pos,
-		spec.style_type('label', { font_size = '-1', textcolor = '#ddd'  }) ..
-		spec.label(0.05, start_pos - 0.6, label) ..
-		spec.style_type('label', { font_size = '+0', textcolor = '#ddd'  }) ..
-		spec.box(0, start_pos - 0.2, 6.8, y_pos - start_pos - 0.4, '#0003') ..
-		formspec ..
-		spec.style_type('label', { font_size = '+0', textcolor = '#fff' })
 end
 
 --- @param config table
