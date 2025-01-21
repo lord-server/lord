@@ -208,8 +208,8 @@ end
 --- @return string
 function FormSpec.list(inventory_location,list_name,X,Y,W,H,starting_item_index)
 	return string.format(
-		'list[%s;%s;%s,%s;%s;%s;%s]',
-		inventory_location,list_name,X,Y,W,H,starting_item_index
+		'list[%s;%s;%s,%s;%s;%s%s]',
+		inventory_location,list_name,X,Y,W,H,optional(starting_item_index)
 	)
 end
 
@@ -259,7 +259,7 @@ end
 ---
 --- @return string
 function FormSpec.tooltip(gui_element_name,tooltip_text,bgcolor,fontcolor)
-	return 'tooltip['..gui_element_name..';'..e(tooltip_text)..';'..bgcolor..';'..fontcolor..']'
+	return 'tooltip['..gui_element_name..';'..e(tooltip_text)..optional(bgcolor)..optional(fontcolor)..']'
 end
 
 ---
@@ -270,8 +270,8 @@ end
 --- @return string
 function FormSpec.tooltip2(X,Y,W,H,tooltip_text,bgcolor,fontcolor)
 	return string.format(
-		'tooltip[%s,%s;%s,%s;%s;%s;%s]',
-		X,Y,W,H,e(tooltip_text),bgcolor,fontcolor
+		'tooltip[%s,%s;%s,%s;%s%s%s]',
+		X,Y,W,H,e(tooltip_text),optional(bgcolor),optional(fontcolor)
 	)
 end
 
@@ -284,8 +284,8 @@ end
 --- @return string
 function FormSpec.image(X,Y,W,H,texture_name,middle)
 	return string.format(
-		'image[%s,%s;%s,%s;%s;%s]',
-		X,Y,W,H,texture_name,middle
+		'image[%s,%s;%s,%s;%s%s]',
+		X,Y,W,H,texture_name,optional(middle)
 	)
 end
 
@@ -304,8 +304,8 @@ end
 --- @return string
 function FormSpec.animated_image(X,Y,W,H,name,texture_name,frame_count,frame_duration,frame_start,middle)
 	return string.format(
-		'animated_image[%s,%s;%s,%s;%s;%s;%s;%s;%s;%s]',
-		X,Y,W,H,name,texture_name,frame_count,frame_duration,frame_start,middle
+		'animated_image[%s,%s;%s,%s;%s;%s;%s;%s%s%s]',
+		X,Y,W,H,name,texture_name,frame_count,frame_duration,optional(frame_start),optional(middle)
 	)
 end
 
