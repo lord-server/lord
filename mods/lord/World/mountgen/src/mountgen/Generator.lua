@@ -45,10 +45,33 @@ function Generator:new(top_position, config)
 	return setmetatable(self, { __index = class })
 end
 
+--- @private
+--- @param height number
+--- @param position Position
+--- @param data table
+--- @param i number
+--- @param config mountgen.ConfigValues
+function Generator:fill_map_data(height, position, data, i, config)
+	if position.y < height then
+		data[i] = Node.get_rock(position, config)
+	elseif position.y == height then
+		if can_place_dirt(data[i]) then
+			data[i] = Node.get_coverage(position, config)
+		end
+	elseif position.y == height + 1 then
+		if can_place_plant(data[i]) then
+			local plant_node_id = Node.get_plant(position, config)
+			if plant_node_id ~= nil then
+				data[i] = plant_node_id
+			end
+		end
+	end
+end
+
 function Generator:run()
-	local top    = self.top_position
-	local config = self.config
-	local method_name = config.algorithm
+	local top       = self.top_position
+	local config    = self.config
+	local algorithm = config.algorithm
 
 	top = top:add(0.5):floor()
 
@@ -56,13 +79,13 @@ function Generator:run()
 		Logger.warning('Trying to build negative mountain')
 		return
 	end
-	if not Algorithm.is_valid_name(method_name) then
-		Logger.error('Unknown method: ' .. tostring(method_name))
+	if not Algorithm.is_valid_name(algorithm) then
+		Logger.error('Unknown algorithm: ' .. algorithm)
 		return
 	end
 
 	--- @type mountgen.generator.HeightMap
-	local height_map, width, center = Algorithm.get(method_name).build_height_map(top, config)
+	local height_map, width, center = Algorithm.get(algorithm).build_height_map(top, config)
 
 	local p1 = { x = top.x + 1 - center, y = config.foot_height, z = top.z + 1 - center }
 	local p2 = { x = top.x + width - center, y = top.y + 16, z = top.z + width - center }
@@ -77,20 +100,7 @@ function Generator:run()
 			local height = math_floor(height_map.map[position.z][position.x] + 0.5)
 
 			if height > 0 then
-				if position.y < height then
-					data[i] = Node.get_rock(position, config)
-				elseif position.y == height then
-					if can_place_dirt(data[i]) then
-						data[i] = Node.get_coverage(position, config)
-					end
-				elseif position.y == height + 1 then
-					if can_place_plant(data[i]) then
-						local plant_node_id = Node.get_plant(position, config)
-						if plant_node_id ~= nil then
-							data[i] = plant_node_id
-						end
-					end
-				end
+				self:fill_map_data(height, position, data, i, config)
 			end
 		end
 	end)

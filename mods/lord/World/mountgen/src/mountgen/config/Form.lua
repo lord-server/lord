@@ -7,6 +7,9 @@ local S        = minetest.get_mod_translator()
 local spec     = minetest.formspec
 local colorize = minetest.colorize
 
+--- @class mountgen.config.Form.Fields: mountgen.config.ValuesTable
+--- @field save
+--- @field generate
 
 --- @class mountgen.config.Form: base_classes.Form.Base
 --- @field new fun(player:Player,opened_by:string) @`opened_by` - name of tool|node (ex:`wielded:mountgen:mount_tool`)
@@ -114,8 +117,22 @@ function Form:cast_fields(fields, algorithm)
 	return fields
 end
 
+--- @private
+--- @param fields mountgen.config.Form.Fields
+--- @return boolean
+function Form:no_action_required(fields)
+	return not fields.save and not fields.generate and not fields.algorithm
+end
+
+--- @private
+--- @param fields mountgen.config.Form.Fields
+--- @return boolean
+function Form:is_algorithm_changed(fields)
+	return fields.algorithm and not fields.save and not fields.generate
+end
+
 --- @protected
---- @param fields table|mountgen.ConfigValues table with fields comes from client form
+--- @param fields mountgen.config.Form.Fields table with fields comes from client form
 --- @return nil|boolean return `true` for stop propagation of handling
 function Form:handle(fields)
 	local can_edit = minetest.get_player_privs(self.player_name)[mountgen.required_priv]
@@ -123,12 +140,12 @@ function Form:handle(fields)
 		return
 	end
 
-	if not fields['save'] and not fields['generate'] and not fields['algorithm'] then
+	if self:no_action_required(fields) then
 		return
 	end
 
-	local algorithm = Algorithm.get(fields.algorithm)
-	local defaults  = Config.get_defaults(algorithm)
+	local algorithm     = Algorithm.get(fields.algorithm)
+	local defaults      = Config.get_defaults(algorithm)
 	local config_fields = self:cast_fields(
 		table.only(fields, table.keys(defaults)),
 		algorithm
@@ -142,17 +159,16 @@ function Form:handle(fields)
 
 	local config = table.merge(defaults, config_fields)
 
-	if fields['algorithm'] and not fields['save'] and not fields['generate'] then
+	if self:is_algorithm_changed(fields) then
 		self:open(config)
 
 		return
 	end
 
-	if fields['save'] then
+	if fields.save then
 		self.event:trigger(self.event.Type.on_save, self, config)
 	end
-
-	if fields['generate'] then
+	if fields.generate then
 		self.event:trigger(self.event.Type.on_generate, self, config)
 	end
 
