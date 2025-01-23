@@ -139,7 +139,7 @@ end
 
 --- Generate mountain with diamond-square algorithm
 --- @param top    Position
---- @param config mountgen.ConfigValues
+--- @param config mountgen.algorithm.DiamondSquare.ConfigValues
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center coordinate"
 function DiamondSquare.build_height_map(top, config)
 	local H = top.y - config.foot_height

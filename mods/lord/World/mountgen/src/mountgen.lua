@@ -1,5 +1,6 @@
 local Algorithm              = require('mountgen.Algorithm')
 local ConeAlgorithm          = require('mountgen.algorithm.Cone')
+local ParabolaAlgorithm      = require('mountgen.algorithm.Parabola')
 local DiamondSquareAlgorithm = require('mountgen.algorithm.DiamondSquare')
 local Form                   = require('mountgen.config.Form')
 local Generator              = require('mountgen.Generator')
@@ -24,6 +25,7 @@ end
 local function register_algorithms()
 	Algorithm
 		.register(ConeAlgorithm)
+		.register(ParabolaAlgorithm)
 		.register(DiamondSquareAlgorithm)
 end
 

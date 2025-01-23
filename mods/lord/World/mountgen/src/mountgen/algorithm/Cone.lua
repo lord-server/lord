@@ -68,7 +68,7 @@ end
 
 --- Generate mountain as cone
 --- @param top_pos Position
---- @param config  mountgen.ConfigValues
+--- @param config  mountgen.algorithm.Cone.ConfigValues
 --- @return mountgen.generator.HeightMap, number, number "height map, map size, center_coordinate"
 function Cone.build_height_map(top_pos, config)
 	local H = top_pos.y - config.foot_height               -- height of truncated cone
