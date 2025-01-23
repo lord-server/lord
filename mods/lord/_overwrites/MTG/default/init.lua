@@ -554,8 +554,11 @@ end
 ---@param trunk_name string @название соответствующего дереву (tree) блока trunk
 ---@return ItemStack @обновлённый stack в руках игрока (tree)
 function default.place_tree(itemstack, placer, pointed_thing, trunk_name)
-	minetest.rotate_node(ItemStack(trunk_name), placer, pointed_thing)
-	itemstack:take_item()
+	local leftover_stack = minetest.rotate_node(ItemStack(trunk_name), placer, pointed_thing)
+	if leftover_stack:get_count() == 0 then
+		itemstack:take_item()
+	end
+
 	return itemstack
 end
 
