@@ -2156,12 +2156,24 @@ function minetest.is_area_protected(pos1, pos2, player_name, interval) end
 --- * Returns the new itemstack after placement
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5767-L5785)
-function minetest.rotate_and_place(itemstack, placer, pointed_thing, infinitestacks,  orient_flags, prevent_after_place) end
+--- @param itemstack           ItemStack
+--- @param placer              Player
+--- @param pointed_thing       pointed_thing
+--- @param infinite_stacks     boolean
+--- @param orient_flags        {invert_wall:boolean,force_wall:boolean,force_ceiling:boolean,force_floor:boolean,force_facedir:boolean}
+--- @param prevent_after_place boolean
+--- @return ItemStack
+function minetest.rotate_and_place(itemstack, placer, pointed_thing, infinite_stacks, orient_flags, prevent_after_place) end
 --- * calls `rotate_and_place()` with `infinitestacks` set according to the state
 ---   of the creative mode setting, checks for "sneak" to set the `invert_wall`
 ---   parameter and `prevent_after_place` set to `true`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5786-L5789)
+---
+--- @param itemstack     ItemStack
+--- @param placer        Player
+--- @param pointed_thing pointed_thing
+--- @return ItemStack
 function minetest.rotate_node(itemstack, placer, pointed_thing) end
 --- * Returns the amount of knockback applied on the punched player.
 --- * Arguments are equivalent to `register_on_punchplayer`, except the following:
