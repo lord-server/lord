@@ -16,10 +16,13 @@ local colorize = minetest.colorize
 local Form = {
 	--- @const
 	--- @type string
-	NAME                = 'mountgen:configure',
+	NAME      = 'mountgen:configure',
 	--- @private
 	--- @type string unique name of tool|node|... by which the form was opened
-	opened_by           = nil,
+	opened_by = nil,
+	--- @private
+	--- @type any
+	context   = nil,
 }
 Form = base_classes.Form:personal():extended(Form)
 
@@ -47,6 +50,21 @@ end
 --- @return string unique name of tool|node|... by which the form was opened (you must set it by yourself via `:new()`)
 function Form:get_opened_by()
 	return self.opened_by
+end
+
+--- @public
+--- @param context any
+--- @return mountgen.config.Form
+function Form:set_context(context)
+	self.context = context
+
+	return self
+end
+
+--- @public
+--- @return any
+function Form:get_context()
+	return self.context
 end
 
 --- @param config mountgen.ConfigValues
