@@ -196,22 +196,17 @@ minetest.register_craftitem("lord_mail:paper_with_text", {
 -- books
 
 
-local function book_on_use(itemstack, user, pointed_thing)
-	local player_name = user:get_player_name()
-	local meta = itemstack:get_meta()
-	local title, text, owner = "", "", player_name
-
-	-- Backwards compatibility
-	local old_data = minetest.deserialize(itemstack:get_meta():get_string(""))
-	if old_data then
-		meta:from_table({ fields = old_data })
-	end
-
-	local data = meta:to_table().fields
-
-	if data.owner then
-		title, text, owner = data.title, data.text, data.owner
-		meta:set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. title ..'"'))
+local function book_on_use(stack, user, pointed_thing)
+        local player_name = user:get_player_name()
+        local meta = stack:get_meta():get_string("")
+        local data = minetest.deserialize(meta)
+        local title, text, owner = "", "", player_name
+        if data then
+                title, text, owner = data.title, data.text, data.owner
+                stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. title ..'"') )
+                data = minetest.serialize(data)
+                stack:set_metadata(data)
+                user:set_wielded_item(stack)
 	end
 	local formspec = ''
 		.. spec.size(8, 8.5)
