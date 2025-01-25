@@ -347,9 +347,7 @@ function npc:register_mob(name, definition)
 				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
 			end
 
-			if pos
-			and within_limits(pos, 0)
-			and not minetest.is_protected(pos, player) then
+			if pos and not minetest.is_protected(pos, player) then
 				pos.y            = pos.y + 0.5
 
 				local data       = itemstack:get_metadata()

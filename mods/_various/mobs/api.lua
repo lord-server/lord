@@ -80,7 +80,7 @@ local stuck_path_timeout = 10 -- how long will mob follow path before giving up
 
 
 -- play sound
-mob_sound = function(self, sound)
+local mob_sound = function(self, sound)
 
 	if sound then
 		minetest.sound_play(sound, {
@@ -93,7 +93,7 @@ end
 
 
 -- attack player/mob
-do_attack = function(self, player)
+local do_attack = function(self, player)
 
 	if self.state == "attack" then
 		return
@@ -109,7 +109,7 @@ end
 
 
 -- move mob in facing direction
-set_velocity = function(self, v)
+local set_velocity = function(self, v)
 
 	local yaw = self.object:get_yaw() + self.rotate
 
@@ -122,7 +122,7 @@ end
 
 
 -- get overall speed of mob
-get_velocity = function(self)
+local get_velocity = function(self)
 
 	local v = self.object:get_velocity()
 
@@ -131,7 +131,7 @@ end
 
 
 -- set defined animation
-set_animation = function(self, anim)
+local set_animation = function(self, anim)
 
 	if not self.animation then return end
 
@@ -155,6 +155,7 @@ end
 
 -- get distance
 local get_distance = function(a, b)
+	if not a or not b then return 50 end -- nil check and default distance
 
 	local x, y, z = a.x - b.x, a.y - b.y, a.z - b.z
 
@@ -163,7 +164,7 @@ end
 
 
 -- check line of sight (BrunoMine)
-function line_of_sight(self, pos1, pos2, stepsize)
+local function line_of_sight(self, pos1, pos2, stepsize)
 
 	stepsize = stepsize or 1
 
@@ -246,7 +247,7 @@ end
 
 
 -- particle effects
-function effect(pos, amount, texture, min_size, max_size, radius, gravity)
+local function effect(pos, amount, texture, min_size, max_size, radius, gravity)
 
 	radius = radius or 2
 	min_size = min_size or 0.5
@@ -272,7 +273,7 @@ end
 
 
 -- update nametag colour
-function update_tag(self)
+local function update_tag(self)
 
 	local col = "#00FF00"
 	local qua = self.hp_max / 4
@@ -385,7 +386,7 @@ local function mob_damaged(self)
 end
 
 -- check if mob is dead or only hurt
-function check_for_death(self)
+local function check_for_death(self)
 	-- has health actually changed?
 	if self.health == self.old_health then
 		return
@@ -403,7 +404,7 @@ end
 
 
 -- check if within physical map limits (-30911 to 30927)
-function within_limits(pos, radius)
+local function within_limits(pos, radius)
 
 	if  (pos.x - radius) > -30913
 	and (pos.x + radius) <  30928
@@ -458,7 +459,7 @@ end
 
 
 -- environmental damage (water, lava, fire, light)
-do_env_damage = function(self)
+local do_env_damage = function(self)
 	if mob_is_dead(self) then
 		return
 	end
@@ -551,7 +552,7 @@ end
 
 
 -- jump if facing a solid node (not fences or gates)
-do_jump = function(self)
+local do_jump = function(self)
 	if mob_is_dead(self) then
 		return
 	end
@@ -624,17 +625,8 @@ do_jump = function(self)
 end
 
 
--- this is a faster way to calculate distance
-local get_distance = function(a, b)
-
-	local x, y, z = a.x - b.x, a.y - b.y, a.z - b.z
-
-	return square(x * x + y * y + z * z)
-end
-
-
 -- blast damage to entities nearby (modified from TNT mod)
-function entity_physics(pos, radius)
+local function entity_physics(pos, radius)
 
 	radius = radius * 2
 
@@ -661,7 +653,7 @@ end
 
 
 -- should mob follow what I'm holding ?
-function follow_holding(self, clicker)
+local function follow_holding(self, clicker)
 
 	if mobs.invis[clicker:get_player_name()] then
 		return false
@@ -826,7 +818,7 @@ end
 
 
 -- find and replace what mob is looking for (grass, wheat etc.)
-function replace(self, pos)
+local function replace(self, pos)
 	if mob_is_dead(self) then
 		return
 	end
@@ -872,7 +864,7 @@ end
 
 
 -- check if daytime and also if mob is docile during daylight hours
-function day_docile(self)
+local function day_docile(self)
 
 	if self.docile_by_day == false then
 
@@ -888,7 +880,7 @@ end
 
 
 -- path finding and smart mob routine by rnd
-function smart_mobs(self, s, p, dist, dtime)
+local function smart_mobs(self, s, p, dist, dtime)
 	if mob_is_dead(self) then
 		return
 	end
@@ -1466,7 +1458,7 @@ local do_states = function(self, dtime)
 
 		-- calculate distance from mob and enemy
 		local s = self.object:get_pos()
-		local p = self.attack:get_pos() or s
+		local p = self.attack and self.attack:get_pos()
 		local shoot_dir = vector.normalize(vector.add(vector.subtract(p, s), vector.new(0, 2, 0)))
 		local dist = get_distance(p, s)
 
@@ -2375,7 +2367,7 @@ end
 
 mobs.spawning_mobs = {}
 
-function punch(self, hitter, tflp, tool_capabilities, dir)
+local function punch(self, hitter, tflp, tool_capabilities, dir)
 	mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 end
 
@@ -3044,7 +3036,7 @@ local mob_sta = {}
 -- feeding, taming and breeding (thanks blert2112)
 function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
-	beast_ring = "lottother:beast_ring"
+	local beast_ring = "lottother:beast_ring"
 	local item = clicker:get_wielded_item()
 	local itemname = item:get_name() or ""
 	local ring_used = itemname == beast_ring
