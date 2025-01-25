@@ -1418,7 +1418,6 @@ local do_states = function(self, dtime)
 		-- calculate distance from mob and enemy
 		local s = self.object:get_pos()
 		local p = self.attack and self.attack:get_pos()
-		local shoot_dir = vector.normalize(vector.add(vector.subtract(p, s), vector.new(0, 2, 0)))
 		local dist = get_distance(p, s)
 
 		-- stop attacking if player or out of range
@@ -1723,11 +1722,8 @@ local do_states = function(self, dtime)
 				-- play shoot attack sound
 				mob_sound(self, self.sounds.shoot_attack)
 
-				local p = self.object:get_pos()
-
-				p.y = p.y + (self.collisionbox[2]*0.2 + self.collisionbox[5]*0.8)
-
 				local arrow = ItemStack(self.arrow)
+				local shoot_dir = vector.normalize(vector.add(vector.subtract(p, s), vector.new(0, 2.5, 0)))
 
 				minetest.sound_play(arrow:get_definition()["_sound_on_release"], { object = self.object })
 				local aim_variety = random(-2, 2) * 0.1
