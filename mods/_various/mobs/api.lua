@@ -1723,10 +1723,16 @@ local do_states = function(self, dtime)
 				mob_sound(self, self.sounds.shoot_attack)
 
 				local arrow = ItemStack(self.arrow)
-				local shoot_dir = vector.normalize(vector.add(vector.subtract(p, s), vector.new(0, 2.5, 0)))
+				local v = vector.new
+				s = v(self.object:get_pos())
+				p = v(self.attack:get_pos())
+				if self.attack:is_player() then
+					p = p + v(0, .5, 0) -- на данный момент игрок находится на пол блока ниже моба
+				end
+				local shoot_dir = (p - s + v(0, 2, 0)):normalize()
 
 				minetest.sound_play(arrow:get_definition()["_sound_on_release"], { object = self.object })
-				local aim_variety = random(-2, 2) * 0.1
+				local aim_variety = random(-.1, .1)
 				archery.projectile_shoot(self.object, arrow, 0.6 + aim_variety, shoot_dir)
 			end
 		end
