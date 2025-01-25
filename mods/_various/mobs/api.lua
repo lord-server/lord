@@ -311,8 +311,8 @@ local function mob_die(self)
 		set_velocity(self, 0)
 		set_animation(self, "die")
 
-		minetest.after(2, function(self)
-			self.object:remove()
+		minetest.after(2, function(entity)
+			entity.object:remove()
 		end, self)
 	else
 		self.object:remove()
@@ -538,10 +538,11 @@ local do_jump = function(self)
 	local pos = self.object:get_pos()
 	local yaw = self.object:get_yaw()
 
+	local nod
 	-- what is mob standing on?
 	pos.y = pos.y + self.collisionbox[2] - 0.2
 
-	local nod = node_ok(pos)
+	nod = node_ok(pos)
 
 --print ("standing on:", nod.name, pos.y)
 
@@ -554,7 +555,7 @@ local do_jump = function(self)
 	local dir_z = cos(yaw) * (self.collisionbox[4] + 0.5)
 
 	-- what is in front of mob?
-	local nod = node_ok({
+	nod = node_ok({
 		x = pos.x + dir_x,
 		y = pos.y + 0.5,
 		z = pos.z + dir_z
@@ -601,17 +602,13 @@ local function entity_physics(pos, radius)
 
 		obj_pos = objs[n]:get_pos()
 
-		dist = get_distance(pos, obj_pos)
-		if dist < 1 then dist = 1 end
+		dist = max(1, get_distance(pos, obj_pos))
 
 		local damage = floor((4 / dist) * radius)
-		local ent = objs[n]:get_luaentity()
 
 		-- punches work on entities AND players
-		objs[n]:punch(objs[n], 1.0, {
-			full_punch_interval = 1.0,
-			damage_groups = {fleshy = damage},
-		}, nil)
+		objs[n]:punch(objs[n], 1.0,
+			{full_punch_interval = 1.0, damage_groups = {fleshy = damage}}, pos)
 	end
 end
 
@@ -700,7 +697,7 @@ local function breed(self)
 
 		local objs = minetest.get_objects_inside_radius(pos, 3)
 		local num = 0
-		local ent = nil
+		local ent
 
 		for n = 1, #objs do
 
@@ -771,8 +768,6 @@ local function breed(self)
 					ent2.tamed = true
 					ent2.owner = self.owner
 				end)
-
-				num = 0
 
 				break
 			end
@@ -1243,7 +1238,7 @@ local do_states = function(self, dtime)
 		return
 	end
 
-	local yaw = 0
+	local yaw
 
 	if self.state == "stand" then
 
@@ -1704,7 +1699,6 @@ local do_states = function(self, dtime)
 			p.y = p.y - .5
 			s.y = s.y + .5
 
-			local dist = get_distance(p, s)
 			local vec = {
 				x = p.x - s.x,
 				y = p.y - s.y,
@@ -1732,12 +1726,6 @@ local do_states = function(self, dtime)
 				local p = self.object:get_pos()
 
 				p.y = p.y + (self.collisionbox[2]*0.2 + self.collisionbox[5]*0.8)
-
-				local dir = {
-					x = vec.x,
-					y = vec.y + self.shoot_offset,
-					z = vec.z,
-				}
 
 				local arrow = ItemStack(self.arrow)
 
@@ -1816,7 +1804,7 @@ end
 
 
 -- deal damage and effects when mob punched
-function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+function mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
 	-- TEMPORARY FIX (remove when refactoring)
 	if not hitter then
 		return
@@ -2015,13 +2003,12 @@ function mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
 
 		-- alert others to the attack / предупредить других в атаку
 		local objs = minetest.get_objects_inside_radius(hitter:get_pos(), self.view_range)
-		local obj = nil
+		local obj
 
 		for n = 1, #objs do
 			if not objs[n]:is_player() then
 				obj = objs[n]:get_luaentity()
 				if obj then
-					local player = obj.object
 					local type = obj.type
 
 					local is_friend = factions:is_friend(type, self.type)
@@ -2208,7 +2195,6 @@ local mob_step = function(self, dtime)
 	end
 
 	local pos = self.object:get_pos()
-	local yaw = 0
 
 	-- when lifetimer expires remove mob (except npc and tamed)
 	if self.type ~= "npc"
@@ -2332,7 +2318,7 @@ end
 mobs.spawning_mobs = {}
 
 local function punch(self, hitter, tflp, tool_capabilities, dir)
-	mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+	mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
 end
 
 -- register mob entity
@@ -2711,9 +2697,6 @@ function mobs:explosion(pos, radius, fire, smoke, sound)
 
 				return on_blast(p)
 
-			elseif minetest.registered_nodes[n].groups.unbreakable == 1 then
-
-				-- do nothing
 			else
 
 				-- after effects
@@ -3014,8 +2997,6 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 		-- if not in creative then take item
 		if not minetest.is_creative_enabled(clicker) and not ring_used then
 
-			local item = clicker:get_wielded_item()
-
 			item:take_item()
 
 			clicker:set_wielded_item(item)
@@ -3075,8 +3056,6 @@ function mobs:feed_tame(self, clicker, feed_count, breed, tame)
 
 		return true
 	end
-
-	local item = clicker:get_wielded_item()
 
 	-- if mob has been tamed you can name it with a nametag
 	if item:get_name() == "mobs:nametag"

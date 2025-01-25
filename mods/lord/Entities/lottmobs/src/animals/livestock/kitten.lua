@@ -93,7 +93,7 @@ mobs:register_mob("lottmobs:kitten", {
 				max_hear_distance = 5,
 			})
 		else
-			mobs:mob_punch(self, hitter, tflp, tool_capabilities, dir)
+			mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
 		end
 	end,
 
