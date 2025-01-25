@@ -20,7 +20,7 @@ local Segment = {
 ---
 --- @return nametag.NameTag.Segment
 function Segment:new(definition, name_tag)
-	local class = self
+	local class = table.copy(self)
 	self = {}
 
 	self.name_tag = name_tag
