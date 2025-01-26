@@ -126,7 +126,8 @@ end
 
 
 return {
-	explode_area          = explode_area,
-	register_projectile = register_projectile,
-	get_projectiles     = function() return registered_projectiles end,
+	explode_area         = explode_area,
+	register_projectile  = register_projectile,
+	get_rotation_pattern = entity.get_rotation_pattern,
+	get_projectiles      = function() return registered_projectiles end,
 }

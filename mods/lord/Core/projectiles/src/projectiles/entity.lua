@@ -2,6 +2,25 @@ local math_pi, math_arctan, math_sqrt
 	= math.pi, math.atan2,  math.sqrt
 
 
+local function get_rotation_pattern(rotation_type, vel)
+	if not rotation_type or type(rotation_type) ~= "string" then
+		rotation_type = "pointed"
+	end
+	local rotation_patterns = {
+		pointed = {
+			x = 0,
+			y = math_pi + math_arctan(vel.z, vel.x),
+			z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
+		},
+		rolling = {
+			x = 0,
+			y = -math_pi*2 + math_arctan(vel.z, vel.x),
+			z = -math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
+		},
+	}
+	return rotation_patterns[rotation_type]
+end
+
 -- Update projectile life timer
 --- @param projectile LuaEntity  projectile entity
 --- @param dtime      number     time passed from the last call
@@ -200,19 +219,8 @@ local function flight_processing(projectile, environment, rotation_formula)
 				texture = particle_texture,
 			})
 		end
-		local rot = {
-			pointed = {
-				x = 0,
-				y = math_pi + math_arctan(vel.z, vel.x),
-				z = math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
-			},
-			rolling = {
-				x = 0,
-				y = -math_pi*2 + math_arctan(vel.z, vel.x),
-				z = -math_arctan(vel.y, math_sqrt(vel.z * vel.z + vel.x * vel.x))
-			},
-		}
-		projectile.object:set_rotation(rot[rotation_formula or "pointed"])
+
+		projectile.object:set_rotation(get_rotation_pattern(rotation_formula, vel))
 	end
 end
 
@@ -316,4 +324,5 @@ end
 
 return {
 	register_projectile_entity = register_projectile_entity,
+	get_rotation_pattern       = get_rotation_pattern,
 }
