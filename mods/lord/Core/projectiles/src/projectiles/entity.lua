@@ -234,7 +234,7 @@ local register_projectile_entity = function(name, entity_reg)
 		visual                 = "item",
 		wield_item             = "default:clay_brick",
 		visual_size            = { x = 1.5, y = 1.5, z = 1.5 },
-		use_texture_alpha      = true,
+		use_texture_alpha      = false,
 	}
 	minetest.register_entity(name, {
 		initial_properties = table.merge(initial_properties, entity_reg.initial_properties),
