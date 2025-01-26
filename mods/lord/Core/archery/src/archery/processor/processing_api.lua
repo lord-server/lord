@@ -119,12 +119,15 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
 	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
-	projectile_entity:add_velocity(vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power))
+	local initial_vel = vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power)
+	local rotation_formula = projectile_reg.entity_reg.rotation_formula
+	projectile_entity:set_rotation(projectiles.get_rotation_pattern(rotation_formula, initial_vel))
+	projectile_entity:get_luaentity()._rotation_formula = rotation_formula
+	projectile_entity:add_velocity(initial_vel)
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
 	projectile_entity:get_luaentity()._shooter = shooter
 	projectile_entity:get_luaentity()._projectile_stack = projectile_stack
 	projectile_entity:get_luaentity()._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
-	projectile_entity:get_luaentity()._rotation_formula = projectile_reg.entity_reg.rotation_formula
 
 	return true
 end
