@@ -1232,6 +1232,37 @@ local dogswitch = function(self, dtime)
 end
 
 
+-- TODO: move this into `Projectile` class or some physics helper.
+local math_min, math_max, math_sqrt, math_tan, math_atan, math_quadratic_equation_roots, v
+    = math.min, math.max, math.sqrt, math.tan, math.atan, math.quadratic_equation_roots, vector.new
+
+--- @param p1 vector shooting mob position
+--- @param p2 vector position of the mob|player being attacked
+--- @param v0 number initial velocity/speed of projectile
+function calculate_shot_direction(p1, p2, v0)
+	local g = 9.8 -- TODO: get from mt-config (use GRAVITY in projectile mod)
+
+	local delta = p2 - p1
+	local d     = math_sqrt(delta.x^2 + delta.z^2) -- Horizontal distance
+	local dh    = delta.y                          -- Height difference
+
+	-- Coefficients for the quadratic equation tan(theta)
+	local a = -g * d^2 / (2 * v0^2)
+	local b = d
+	local c = a - dh
+
+	-- Find tan(theta) for the shooting angles
+	local tan_angle1, tan_angle2 = math_quadratic_equation_roots(a, b, c)
+	if not tan_angle1 then
+		minetest.log('warning', 'Impossible to shoot: no real roots of quadratic equation.')
+		return nil
+	end
+	-- We choose a "flatter" trajectory
+	local tan_angle = math_min(tan_angle1, tan_angle2)
+
+	return v(delta.x / d, tan_angle, delta.z / d):normalize()
+end
+
 -- execute current state (stand, walk, run, attacks)
 local do_states = function(self, dtime)
 	if mob_is_dead(self) then
@@ -1722,18 +1753,21 @@ local do_states = function(self, dtime)
 				-- play shoot attack sound
 				mob_sound(self, self.sounds.shoot_attack)
 
-				local arrow = ItemStack(self.arrow)
-				local v = vector.new
 				s = v(self.object:get_pos())
 				p = v(self.attack:get_pos())
 				if self.attack:is_player() then
-					p = p + v(0, .5, 0) -- на данный момент игрок находится на пол блока ниже моба
+					p = p + v(0, 1, 0) -- на данный момент игрок находится на блок ниже моба
 				end
-				local shoot_dir = (p - s + v(0, 2, 0)):normalize()
 
-				minetest.sound_play(arrow:get_definition()["_sound_on_release"], { object = self.object })
-				local aim_variety = random(-.1, .1)
-				archery.projectile_shoot(self.object, arrow, 0.6 + aim_variety, shoot_dir)
+				-- TODO: move direction calculation into `Projectile` class.
+				local projectile = projectiles.get_projectiles()[self.arrow]
+				local power      = 0.6 + random(-.1, .1)
+				local velocity   = projectile.entity_reg.max_speed * power
+				local shoot_dir  = calculate_shot_direction(s, p, velocity)
+
+				local arrow = ItemStack(self.arrow)
+				minetest.sound_play(arrow:get_definition()._sound_on_release, { object = self.object })
+				archery.projectile_shoot(self.object, arrow, power, shoot_dir)
 			end
 		end
 	end
