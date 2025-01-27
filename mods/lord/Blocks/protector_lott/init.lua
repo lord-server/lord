@@ -1,4 +1,6 @@
-local S = minetest.get_mod_translator()
+local S    = minetest.get_mod_translator()
+local spec = minetest.formspec
+
 
 minetest.register_privilege("delprotect", S("Ignore player protection"))
 
@@ -51,35 +53,35 @@ end
 -- Protector Interface
 
 protector.generate_formspec = function(meta)
-
-	local formspec = "size[8,7]"
-		.."label[0,1;"..S("PUNCH node to show protected area or USE for area check").."]"
-		.."label[0,2;"..S("Members: (type player name then press Enter to add)").."]"
+	local formspec = ""
+		.. spec.size(8, 7)
+		.. spec.label(0, 1, S("PUNCH node to show protected area or USE for area check"))
+		.. spec.label(0, 2, S("Members: (type player name then press Enter to add)"))
 
 	local members = protector.get_member_list(meta)
 	local npp = 12
 	local i = 0
 	for _, member in ipairs(members) do
 			if i < npp then
-				formspec = formspec .. "button[" .. (i % 4 * 2)
-				.. "," .. math.floor(i / 4 + 3)
-				.. ";1.5,.5;protector_member;" .. member .. "]"
-				.. "button[" .. (i % 4 * 2 + 1.25) .. ","
-				.. math.floor(i / 4 + 3)
-				.. ";.75,.5;protector_del_member_" .. member .. ";X]"
+				local pos_x = i % 4 * 2
+				local pos_y = math.floor(i / 4 + 3)
+				formspec = formspec
+					.. spec.button(pos_x, pos_y, 1.5, .5, "protector_member", member)
+					.. spec.button(pos_x + 1.25, pos_y, .75, .5, "protector_del_member_"..member, "X")
 			end
 			i = i + 1
 	end
 
 	if i < npp then
-		local pos_x = i % 4 * 2 + 1 / 3
-		local pos_y = math.floor(i / 4 + 3) + 1 / 3
-		formspec = formspec ..
-			"field[" .. pos_x .. "," .. pos_y .. ";1.433,.5;protector_add_member;;]" ..
-			"field_close_on_enter[protector_add_member;false]"
+		local pos_x = i % 4 * 2
+		local pos_y = math.floor(i / 4 + 3)
+		formspec = formspec
+			.. spec.field(pos_x + 0.3, pos_y + 0.3, 1.433, .5, "protector_add_member", "", "")
+			.. spec.button(pos_x + 1.25, pos_y, 0.75, .5, "add", "+")
+			.. spec.field_close_on_enter("protector_add_member", "false")
 	end
 
-	formspec = formspec .. "button_exit[2.5,6.2;3,0.5;close_me;"..S("Close").."]"
+	formspec = formspec .. spec.button_exit(2.5, 6.2, 3, 0.5, "close_me", S("Close"))
 
 	return formspec
 end
@@ -315,7 +317,7 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 			return
 		end
 
-		if fields.key_enter and fields.key_enter_field == "protector_add_member" then
+		if (fields.key_enter and fields.key_enter_field == "protector_add_member") or fields.add then
 			for _, i in ipairs(fields.protector_add_member:split(" ")) do
 				protector.add_member(meta, i)
 			end
