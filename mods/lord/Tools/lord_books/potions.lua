@@ -94,11 +94,11 @@ function Form.recipe(item_name, item_definition, i, is_ingredients_page)
 	local recipe = minetest.get_craft_recipe(item_name, minetest.CraftMethod.POTION, minetest.CraftType.COOKING)
 
 	return ''
-		.. spec.label(0, 2.2 + dy, item_definition._tt_original_description or item_definition.description)
-		.. spec.item_image_button(4, 2 + dy, 1, 1, recipe.input[1][1], recipe.input[1][1], '')
-		.. spec.item_image_button(5, 2 + dy, 1, 1, recipe.input[1][2], recipe.input[1][2], '')
-		.. spec.image            (6, 2 + dy, 1, 1, 'benches_laboratory.png')
-		.. spec.item_image_button(7, 2 + dy, 1, 1, item_name, item_name, '')
+		.. spec.label(0, 2.75 + dy, item_definition._tt_original_description or item_definition.description)
+		.. spec.item_image_button(5, 2.5 + dy, 1, 1, recipe.input[1][1], recipe.input[1][1], '')
+		.. spec.item_image_button(6, 2.5 + dy, 1, 1, recipe.input[1][2], recipe.input[1][2], '')
+		.. spec.image            (7, 2.5 + dy, 1, 1, 'benches_laboratory.png')
+		.. spec.item_image_button(8, 2.5 + dy, 1, 1, item_name, item_name, '')
 end
 
 --- @param list     table<string,NodeDefinition>
@@ -152,13 +152,13 @@ end
 function Form:get_spec(page)
 	page = tonumber(page) or 1
 
-	return spec.size(8, 5.5)
+	return spec.size(9, 5.5)
 		.. spec.bold(0, 0, S('Book "@1"', colorize('#ff8', S('Crafting of Potions'))))
 		.. Form.page_title(0, 1, page)
 		.. Form.list_page(page)
-		.. spec.button_exit(6, 0, 2, 0.5, 'quit', S('Exit'))
-		.. Form.navigate(6, 1, 1, 1, 'previous', page)
-		.. Form.navigate(7, 1, 1, 1, 'next', page)
+		.. spec.button_exit(7, 0, 2, 0.5, 'quit', S('Exit'))
+		.. Form.navigate(7, 1, 1, 1, 'previous', page)
+		.. Form.navigate(8, 1, 1, 1, 'next', page)
 end
 
 ---@param player    Player
