@@ -78,6 +78,7 @@ protector.generate_formspec = function(meta)
 		formspec = formspec
 			.. spec.field(pos_x + 0.3, pos_y + 0.3, 1.433, .5, "protector_add_member", "", "")
 			.. spec.button(pos_x + 1.25, pos_y, 0.75, .5, "add", "+")
+			.. spec.field_enter_after_edit("protector_add_member", "true")
 			.. spec.field_close_on_enter("protector_add_member", "false")
 	end
 
