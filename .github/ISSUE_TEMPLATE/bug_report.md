@@ -4,6 +4,7 @@ about: Создайте отчёт об ошибке, чтобы помочь н
 title: ''
 labels: bug, unconfirmed
 assignees: ''
+type: bug
 
 ---
 
