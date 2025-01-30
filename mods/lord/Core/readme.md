@@ -8,7 +8,3 @@
    - string: `string.{lower|upper}()` на руском, `string.<...>`
    - table: `.has_key()`, `.contains()`, `merge()`, `overwrite()`, ...
  - доп. хелперы к движку MT
-
-### `lordlib`
- - вспомогательные функции (`lord.require_intllib()`)
- - обработка клавиш управления с клиента
