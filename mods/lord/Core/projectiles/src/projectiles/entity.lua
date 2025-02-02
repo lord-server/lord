@@ -232,7 +232,7 @@ local register_projectile_entity = function(name, entity_reg)
 		initial_properties = table.merge(initial_properties, entity_reg.initial_properties),
 		_life_timer         = entity_reg.life_timer or 90,
 		_shooter            = nil,
-		_timer_is_started   = false,
+		_timer_is_started   = entity_reg.timer_is_started or true,
 		_collision_count    = 0,
 		_sound_hit_node     = entity_reg.sound_hit_node,
 		_sound_hit_object   = entity_reg.sound_hit_object,
@@ -284,7 +284,7 @@ local register_projectile_entity = function(name, entity_reg)
 			end
 			local staticdata_table = minetest.deserialize(staticdata)
 
-			self._timer_is_started = staticdata_table._timer_is_started
+			self._timer_is_started = true --staticdata_table._timer_is_started
 			self._projectile_stack = ItemStack(staticdata_table._projectile_stack)
 			update_life_timer(self, dtime_s)
 		end,
