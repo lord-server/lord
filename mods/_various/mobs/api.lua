@@ -4,8 +4,7 @@
 mobs = {}
 mobs.mod = "redo"
 
--- Intllib
-local S
+local S = minetest.get_mod_translator()
 
 local function mob_is_dead(self)
 	if not self.object:get_pos() then
@@ -13,19 +12,6 @@ local function mob_is_dead(self)
 	end
 	return false
 end
-
-if minetest.get_modpath("intllib") then
-	S = intllib.make_gettext_pair()
-else
-	S = function(s, a, ...) a = {a, ...}
-		return s:gsub("@(%d+)", function(n)
-			return a[tonumber(n)]
-		end)
-	end
-
-end
-
-mobs.intllib = S
 
 
 -- Invisibility mod check
