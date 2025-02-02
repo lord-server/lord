@@ -42,10 +42,6 @@
  - изменения:
    - принудительное размещение HUD-баров в нужной последовательности
 
-### `intllib`
- - из [minetest-mods/intllib](https://github.com/minetest-mods/intllib)
- - [DEPRECATED] нужно переходить на встроенный API (практически все моды уже поддерживают, просто обновиться)
-
 ### `itemframes`
  - ? https://gitlab.com/VanessaE/homedecor_modpack/-/tree/master/itemframes ?
  - ? https://content.minetest.net/packages/TenPlus1/itemframes/ (https://notabug.org/TenPlus1/itemframes) ?
