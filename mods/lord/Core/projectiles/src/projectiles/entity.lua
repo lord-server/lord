@@ -40,7 +40,7 @@ end
 
 -- Dealing the damage to the target
 --- @param projectile        LuaEntity  projectile entity
---- @param target            LuaEntity  target entity
+--- @param target            Entity     target entity
 --- @param damage_groups     table      damage groups table
 --- @param remove_after_hit  boolean    true: remove after hit; false/nil: do nothing
 --- @param multipliers       table      damage multiplier table

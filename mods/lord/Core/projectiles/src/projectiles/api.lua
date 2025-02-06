@@ -130,4 +130,10 @@ return {
 	register_projectile  = register_projectile,
 	get_rotation_pattern = entity.get_rotation_pattern,
 	get_projectiles      = function() return registered_projectiles end,
+	--- @param name string|nil technical item name (`"<mod>:<projectile_name>"`) or `nil` to return full list.
+	get                  = function(name)
+		return name
+			and (registered_projectiles[name] or nil)
+			or  registered_projectiles
+	end,
 }
