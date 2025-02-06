@@ -55,7 +55,13 @@ end
 protector.generate_formspec = function(meta)
 	local formspec = ""
 		.. spec.size(8, 7)
-		.. spec.label(0, 1, S("PUNCH node to show protected area or USE for area check"))
+		.. spec.style_type("label", { font_size = '+5', font = 'bold' })
+		.. spec.label(3, 0, S("Protection"))
+		.. spec.style_type("label", { font_size = '+0', font = 'normal', textcolor = '#fbb' })
+		.. spec.label(0, 0.7, protector.form_error or '')
+		.. spec.style_type("label", { font_size = '+0', font = 'normal', textcolor = '#ddd' })
+		.. spec.label(0, 1.5, S("PUNCH node to show protected area or USE for area check"))
+		.. spec.style_type("label", { font_size = '+0', font = 'normal', textcolor = '#fff' })
 		.. spec.label(0, 2, S("Members: (type player name then press Enter to add)"))
 
 	local members = protector.get_member_list(meta)
@@ -82,7 +88,7 @@ protector.generate_formspec = function(meta)
 			.. spec.field_close_on_enter("protector_add_member", "false")
 	end
 
-	formspec = formspec .. spec.button_exit(2.5, 6.2, 3, 0.5, "close_me", S("Close"))
+	formspec = formspec .. spec.button_exit(2.5, 6.5, 3, 0.5, "close_me", S("Close"))
 
 	return formspec
 end
@@ -319,8 +325,12 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 		end
 
 		if (fields.key_enter and fields.key_enter_field == "protector_add_member") or fields.add then
-			for _, i in ipairs(fields.protector_add_member:split(" ")) do
-				protector.add_member(meta, i)
+			if spec.escape(fields.protector_add_member) ~= fields.protector_add_member then
+				protector.form_error = S('Invalid player name')
+			else
+				for _, i in ipairs(fields.protector_add_member:split(" ")) do
+					protector.add_member(meta, i)
+				end
 			end
 		end
 

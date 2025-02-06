@@ -9,6 +9,8 @@ PUNCH node to show protected area or USE for area check=Ударьте этот 
 Members: (type player name then press Enter to add)=Доступ для (введите имя игрока и нажмите Enter для добавления):
 Close=Закрыть
 
+Invalid player name=Недопустимое имя игрока
+
 This area is owned by=Это только для
 Protection located at:=Защитный блок на координатах:
 Members:=Также доступно для:
