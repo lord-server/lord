@@ -1,5 +1,6 @@
 
 minetest.mod(function(mod)
+
 	local S        = mod.translator
 	local logger   = mod.logger
 	local colorize = minetest.colorize
@@ -17,12 +18,13 @@ minetest.mod(function(mod)
 		local clan = clans.clan_get_by_name(clan_name)
 		if not clan then
 			logger.warning('Clan `%s` not found', clan_name)
+		else
+			castle.tapestry.register(
+				'clans_tapestries:' .. clan_name,
+				S('@1 Clan Tapestry', colorize(clans.COLOR, clan.title)),
+				'clans_tapestries_' .. clan_name .. '.png'
+			)
 		end
-		castle.tapestry.register(
-			'clans_tapestries:' .. clan_name,
-			S('@1 Clan Tapestry', colorize(clans.COLOR, clan.title)),
-			'clans_tapestries_' .. clan_name .. '.png'
-		)
 	end
 
 end)
