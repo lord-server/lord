@@ -1,6 +1,8 @@
 local math_random, math_floor, math_abs, math_ceil, math_min, math_max, os_clock, pairs, type, id
 	= math.random, math.floor, math.abs, math.ceil, math.min, math.max, os.clock, pairs, type, minetest.get_content_id
 
+local Logger = minetest.get_mod_logger()
+
 -- This thresholds used for detection of biome in current map position (in 2D -- only x, z coordinates)
 local HI_TEMPERATURE_THRESHOLD =  0.4
 local LO_TEMPERATURE_THRESHOLD = -0.4
@@ -358,7 +360,13 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 
 	local lua_gen_time = 0
 
+	if minetest.settings:get_bool("mapgen_chunk_pos_log") then
+		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
+			 .. x1 .. "_" .. y1 .. "_" .. z1 .. " generation start")
+	end
+
 	minetest.with_map_part_do(min_pos, max_pos, function(area, data)
+
 
 		local lua_t1 = os_clock()
 
@@ -488,6 +496,11 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 		chunk_gen_avg = math_ceil((chunk_gen_avg * chunk_gen_count + chunk_gen_time) / (chunk_gen_count + 1))
 		print("map-gen: " .. chunk_gen_time .. ", ".. lua_gen_time ..", avg: " .. chunk_gen_avg)
 		chunk_gen_count = chunk_gen_count + 1
+	end
+
+	if minetest.settings:get_bool("mapgen_chunk_pos_log") then
+		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
+			.. x1 .. "_" .. y1 .. "_" .. z1 .. " generation end")
 	end
 end)
 
