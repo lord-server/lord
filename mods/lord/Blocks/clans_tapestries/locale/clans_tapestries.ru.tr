@@ -1,2 +1,5 @@
 # textdomain: clans_tapestries
-Example Clan Tapestry=Демонстрационный клановый гобелен
+
+@1 Clan Tapestry=Штандарт Клана @1
+
+Example=Пример
