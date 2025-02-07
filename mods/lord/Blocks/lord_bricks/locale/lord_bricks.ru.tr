@@ -61,3 +61,32 @@ Mordor Clay Block Stair=Ступень из Блока из Мордорской
 Mordor Clay Block Slab=Плита из Блока из Мордорской Глины
 Inner Mordor Clay Block Stair=Ступень из Блока из Мордорской Глины (Внутренний Угол)
 Outer Mordor Clay Block Stair=Ступень из Блока из Мордорской Глины (Внешний Угол)
+
+
+# Rocks:
+@1 @2=@1 @2
+Brick of=Кирпич из
+Block of=Блок
+
+@1 @2 Stair=Ступень из @2 @1
+@1 @2 Slab=Плита из @2 @1
+Inner @1 @2 Stair=Ступень из @2 @1 (Внутренний Угол)
+Outer @1 @2 Stair=Ступень из @2 @1 (Внешний Угол)
+
+Brick=Кирпича из
+Block=Блока
+
+Diorite=Диорита
+White Tuff=Белого Туфа
+Red Tuff=Красного Туфа
+Mordor Stone=Мордорского Камня
+Granite=Гранита
+Grey Quartzite=Серого Кварцита
+Basalt=Базальта
+Andesite=Андезита
+Pyroxenite=Пироксенита
+Pink Quartzite=Розового Кварцита
+Peridotite=Перидотита
+Shale=Глинистого Сланца
+Grey Tuff=Серого Туфа
+Frozen Stone=Обледеневшего Камня
