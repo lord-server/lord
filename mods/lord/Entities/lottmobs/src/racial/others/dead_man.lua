@@ -15,7 +15,7 @@ mobs:register_mob("lottmobs:dead_men", {
 	view_range = 10,
 	walk_velocity = 1,
 	run_velocity = 4,
-	damage = 10,
+	damage = 8,
 	damage_type = damage.Type.SOUL,
 	armor = {soul = 100, immortal = 1},
 	water_damage = 0,
@@ -45,4 +45,17 @@ mobs:register_mob("lottmobs:dead_men", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	drops = {
+		-- money
+		{ name = "lord_money:diamond_coin", chance = 100/5 , min = 1, max =  1, }, -- 5%
+		{ name = "lord_money:gold_coin",    chance = 100/10, min = 1, max =  2, }, -- 10%
+		{ name = "lord_money:silver_coin",  chance = 100/15, min = 1, max =  4, },
+		{ name = "lord_money:copper_coin",  chance = 100/25, min = 1, max = 10, },
+		-- gems
+		{ name = "default:diamond",         chance = 100/20, min = 1, max = 1, },
+		{ name = "default:mese_crystal",    chance = 100/16, min = 1, max = 1, },
+		{ name = "lottores:white_gem",      chance = 100/2 , min = 1, max = 1, },
+		{ name = "lottores:blue_gem",       chance = 100/4 , min = 1, max = 1, },
+		{ name = "lottores:red_gem",        chance = 100/2 , min = 1, max = 1, },
+	},
 })
