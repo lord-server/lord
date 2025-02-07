@@ -288,7 +288,9 @@ christmas_tree_gifts = lottfarming:salad 23,lord_alcohol:cider 23,default:bluebe
 # ------- lord/lottmapgen
 # Земер времени генерации чанка. Default: false
 # Постоянно сыпет в лог, использовать локально при разработке или при крайней необходимости.
-#mapgen_measure_chunk_gene_time = false
+mapgen_measure_chunk_gene_time = false
+# Логгирование координат герерируемого чанка.
+mapgen_chunk_pos_log = true
 
 # ------- lord/nazgul_area
 # Минас-Моргул, где на зеленом мраморе спавнятся назгулы. Координаты 395, -120
