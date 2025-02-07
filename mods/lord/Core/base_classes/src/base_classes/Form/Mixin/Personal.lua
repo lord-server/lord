@@ -42,7 +42,7 @@ function Personal:handler(player, form_name, fields)
 	end
 
 	if fields.quit then
-		form:close()
+		form:trigger_close()
 	end
 end
 
@@ -51,7 +51,7 @@ end
 function Personal:player_leave(player, _)
 	local form = self:get_opened_for(player);
 	if form then
-		form:close()
+		form:trigger_close()
 		if self.no_cleanup_on_close then
 			self.opened_for[self.player_name] = nil
 		end

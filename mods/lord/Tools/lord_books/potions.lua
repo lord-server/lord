@@ -186,7 +186,7 @@ function Form:handler(player, form_name, fields)
 
 
 	if fields.quit then
-		self:close()
+		self:trigger_close()
 	end
 end
 

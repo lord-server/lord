@@ -47,7 +47,14 @@ function BaseForm:extended(child_class)
 	return self
 end
 
---- Constructor
+--- Constructor.
+---
+--- You can pass additional own params into this method.
+--- This params will be passed to `on_instance` event subscribers and into `:instantiate()` implementation.
+---
+--- Do not override this method unless necessary. Instead override `:instantiate()`.
+--- If you still need to override this method, you need to replicate its behavior and add your own logic.
+---
 --- @public
 --- @param player Player
 --- @return base_classes.Form.Base
@@ -64,34 +71,90 @@ function BaseForm:new(player, ...)
 	return self
 end
 
+--- Shorten for `minetest.get_player_by_name(self.player_name)`
 --- @return Player
 function BaseForm:player()
 	return minetest.get_player_by_name(self.player_name)
 end
 
+--- Override this method instead constructor (`:new()`), if you want to add some logic on instance creating.
+--- All additional params from constructor will be passed here.
 --- @protected
 --- @param player Player
 function BaseForm:instantiate(player, ...)
 end
 
+--- You should override this method and implement and return form specification for your form.
 --- @public
 --- @abstract
-function BaseForm:get_spec()
+function BaseForm:get_spec(...)
 	error('You need to override method `:get_spec()`')
 end
 
+--- Opens the form for the player specified in the constructor (`:new()` method).
+---
+--- You can pass additional own params into this method.
+--- This params will be passed to `on_open` event subscribers and into your `:get_spec()` implementation.
+---
+--- Example:
+--- ```
+--- minetest.register_tool('...:...', {
+---     on_use = function(itemstack, player, pointed_thing)
+---         MyForm:new(player):open(my_param)
+--- ```
+---
 --- @public
 function BaseForm:open(...)
 	self.event:trigger(self.event.Type.on_open, self, ...)
 	minetest.show_formspec(self.player_name, self.NAME, self:get_spec(...))
 end
 
+--- This function should be used when you override method `:handler()`,
+--- and when user press `esc` or click outside the form.
+---
+--- Example:
+--- ```lua
+--- function MyForm:handler(player, form_name, fields)
+---     if form_name ~= self.NAME then   return   end
+---
+---     self:trigger_handle(player, fields)
+--- ```
+---
+--- When you want to close form forcibly, use the `:close()` method.
+---
+--- @protected
+function BaseForm:trigger_handle(player, fields)
+	self.event:trigger(self.event.Type.on_handle, self, player, fields)
+end
+
+--- This function should be used when you override method `:handler()`,
+--- and when user press `esc` or click outside the form.
+---
+--- Example:
+--- ```lua
+--- function MyForm:handler(player, form_name, fields)
+---     -- ...
+---     if fields.quit then
+---         self:trigger_close()
+---     end
+--- ```
+---
+--- When you want to close form forcibly, use the `:close()` method.
+---
+--- @protected
+function BaseForm:trigger_close(...)
+	self.event:trigger(self.event.Type.on_close, self, ...)
+end
+
+--- Triggers `on_close` event & call `minetest.close_formspec()`.
 --- @public
 function BaseForm:close(...)
 	self.event:trigger(self.event.Type.on_close, self, ...)
 	minetest.close_formspec(self.player_name, self.NAME)
 end
 
+--- Override this method to implement some form handling and your own logic.
+---
 --- @protected
 --- @param fields table
 --- @return nil|boolean return `true` for stop propagation of handling
@@ -99,6 +162,12 @@ function BaseForm:handle(fields)
 	return
 end
 
+--- If you want just add some handling to your form, just override `:handle()` method.
+---
+--- If you still need to override this method, you need to replicate its behavior and add your own logic.
+---
+--- Exactly this method itself is registering as a form handler in the Luanti core.
+---
 --- @protected
 --- @param player    Player
 --- @param form_name string
@@ -108,17 +177,18 @@ function BaseForm:handler(player, form_name, fields)
 		return
 	end
 
-	self.event:trigger(self.event.Type.on_handle, self, player, fields)
+	self:trigger_handle(player, fields)
 	if self:handle(fields) then
 		return
 	end
 
 
 	if fields.quit then
-		self:close()
+		self:trigger_close()
 	end
 end
 
+--- You should to call this method after you declare your form class.
 --- @public
 --- @return base_classes.Form.Base
 function BaseForm:register(...)
