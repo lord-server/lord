@@ -27,7 +27,7 @@ local config = {
 			output = 'lord_alcohol:wine'
 		},
 		{
-			input  = { 'lord_vessels:drinking_glass_water', 'farming:wheat0 3' },
+			input  = { 'lord_vessels:drinking_glass_water', 'farming:seed_wheat 3' },
 			output = 'lord_alcohol:beer'
 		},
 		{

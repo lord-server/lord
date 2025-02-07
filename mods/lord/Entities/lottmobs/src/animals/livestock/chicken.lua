@@ -108,7 +108,7 @@ mobs:register_mob("lottmobs:chicken", {
 		walk_start = 10,
 		walk_end = 50,
 	},
-	follow = {"farming:wheat0", "lottother:beast_ring"},
+	follow = {"farming:seed_wheat", "lottother:beast_ring"},
 	view_range = 5,
 	jump = true,
 	step=1,

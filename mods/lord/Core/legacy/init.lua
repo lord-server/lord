@@ -144,7 +144,6 @@ minetest.register_alias("lottspecial:scarecrow_bottom", "lottfarming:melon")
 minetest.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
 minetest.register_alias("farming:wheat", "farming:sheaf_wheat")
-minetest.register_alias("farming:seed_wheat", "farming:wheat0")
 
 minetest.register_alias("lottfarming:barley", "lottfarming:sheaf_barley")
 -- если будет ещё замена, то в этой строке тоже стоит поменять на новый вариант:

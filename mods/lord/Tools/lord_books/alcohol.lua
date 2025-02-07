@@ -22,7 +22,7 @@ form.get_spec = function(page)
 			--Second
 			.. "label[1,3.2; " .. SL("Beer") .. "]"
 			.. "item_image_button[4,3;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
-			.. "item_image_button[5,3;1,1;farming:wheat0;zcg:wheat;3]"
+			.. "item_image_button[5,3;1,1;farming:seed_wheat;zcg:wheat;3]"
 			.. "image[6,3;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,3;1,1;lord_alcohol:beer;zcg:beer;]"
 			--Third
