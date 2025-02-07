@@ -394,6 +394,8 @@ function minetest.unregister_chatcommand(name) end
 ---   minetest.conf setting.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4548-L4554)
+--- @param name       string
+--- @param definition string|PrivilegeDefinition
 function minetest.register_privilege(name, definition) end
 --- * Registers an auth handler that overrides the builtin one.
 --- * This function can be called by a single mod once only.
