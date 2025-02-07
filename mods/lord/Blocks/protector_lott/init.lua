@@ -64,6 +64,8 @@ protector.generate_formspec = function(meta)
 		.. spec.style_type("label", { font_size = '+0', font = 'normal', textcolor = '#fff' })
 		.. spec.label(0, 2, S("Members: (type player name then press Enter to add)"))
 
+	protector.form_error = nil
+
 	local members = protector.get_member_list(meta)
 	local npp = 12
 	local i = 0
