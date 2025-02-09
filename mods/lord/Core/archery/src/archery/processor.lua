@@ -151,7 +151,7 @@ controls.on_press(function(player, key)
 	if new_stack then
 		player:set_wielded_item(new_stack)
 		if not meta:contains("loaded_projectile") then
-			minetest.chat_send_player(player, S("No projectile loaded, discharged safely."))
+			minetest.chat_send_player(player:get_player_name(), S("No projectile loaded, discharged safely."))
 		end
 		meta:set_string("loaded_projectile", "")
 		inv:set_stack("main", wield_index, new_stack)
