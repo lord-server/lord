@@ -723,14 +723,22 @@ function minetest.setting_get_pos(name) end
 --- * Returns `{ priv1 = true, ... }`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4774-L4777)
+--- @param str   string
+--- @param delim string
+--- @return table<string,boolean>
 function minetest.string_to_privs(str, delim) end
 --- * Returns the string representation of `privs`
 --- * `delim`: [Optional] String to delimit privs. Defaults to `","`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4778-L4780)
+--- @param privs table<string,boolean>
+--- @param delim string
+--- @return string
 function minetest.privs_to_string(privs, delim) end
 --- Returns -> {priv1=true,...}
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4781-L4781)
+--- @param name string
+--- @return table<string,boolean>
 function minetest.get_player_privs(name) end
 --- Returns `bool, missing_privs`
 --- * A quickhand for checking privileges.
@@ -739,6 +747,8 @@ function minetest.get_player_privs(name) end
 ---   a table, e.g. `{ priva = true, privb = true }`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4782-L4787)
+--- @param player_or_name Player|string
+--- @return boolean,table
 function minetest.check_player_privs(player_or_name, ...) end
 --- * Returns true if the "password entry" for a player with name matches given
 ---   password, false otherwise.
@@ -787,7 +797,7 @@ function minetest.set_player_password(name, password_hash) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4816-L4817)
 --- @param name  string
---- @param privs table  object like `{priv1=true,...}`
+--- @param privs table<string,boolean>  object like `{priv1=true,...}`
 function minetest.set_player_privs(name, privs) end
 --- * See `reload()` in authentication handler definition
 ---
