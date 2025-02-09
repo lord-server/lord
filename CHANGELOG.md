@@ -1,5 +1,111 @@
 # Change Log
 
+## [2025.01](https://github.com/lord-server/lord/releases/tag/2025.01)
+ - Clans: Tapestries: add for `masons`, `vassals`, `hansa`, `international` & `liberty`.  Closes #1956
+ - Mobs: Dead Man: add drop, decrease damage. Closes #1960.
+ - Items: Food: Add pancakes. Closes #1995
+ - Clans v3: add clan base certificate. Closes #2001
+ - Revert `"New Year textures for chests. Closes #1827 (#1879)"`. Closes #1980 (#1998)
+
+ - Improvements:
+   - Mobs: better shooting accuracy.
+     - calc best shoot direction for mobs. Relates to #1972.
+   - Old book header closes #1925
+   - Protector: Form:
+     - add button "add" for ability to add player on mobile devices. Closes #1965. Relates to #1959
+     - on mobile: lets `Done` kb button == `Enter`. Expected clos #1959
+     - no ability to enter impossible player name. Closes #1986
+
+ - Textures:
+   - Update meat textures
+   - Update bags textures
+   - Update screwdriver textures
+   - Update bones textures
+
+ - Bug fixes:
+   - Arrows & Bolts:
+     - arrows & bolts do not stack forever anymore (Projectiles now always start a timer.) Fix #1938
+     - stuck arrows & bolts now have different directions (apply rotation before applying speed) Fix #1945
+     - arrows & bolts now visible under the water (set use_texture_alpha to false) Fix #1897
+     - fix server crash on mob shoot. Closes #1876
+   - Right leftover stack count in `default.place_tree()`. Closes #1777. Closes #1842. Closes #1951
+   - NameTags: use `Core/player_namtag` in `Player/show_health`. Closes #1429. Fixes #1232
+   - Potion Book: fix title overlaps recipes images; add translation. Fixes #1835
+   - Farming: change `farming:wheat0` -> `farming:seed_wheat` - fixes Barrel recipe. Closes #1988
+   - Riders: fix attach position for `boar` & `warg`. Closes #1840
+   - Tree trunks: fix server crash when opening chest with trunk. Closes #1984
+
+ - Translations:
+   - lord/torches disable intllib. Related to #328
+   - Migrate initframes to mt translator. Related to #328
+   - Add translation for `Salt Bucket`. Relates to #2003
+   - Add translations for bricks/blocks & its stairs from `lord_rocks`. Relates to #2003
+   - Locale lord rocks. Related to #2003
+   - Fix locale lord_projectile. Related to #2003
+   - Mobs bee migrate to get_mod_translator(). Related to #328
+   - Mobs fish migrate to get_mod_translator(). Related to #328
+
+ - Technical:
+   - `Core`: `Form`: add forgotten closing spec in `Form:close()`.
+   - `Core`: `base_classes`: add `Form:player()` method.
+   - `Core`: `helpers`: add `table.only()` helper.
+   - `Core`: `builtin`: `FormSpec`: actualize `optional` params of all functions.
+   - `Core`: `player_nametag`: fix redifinition of previously registered segments.
+   - `Core`: `helpers`: add `math.quadratic_equation_roots()`.
+   - `Core`: `base_classes`: improve `Form.Base` close handling; add inline documentation. Also fixes #1976
+   - `Core`: `helpers`: add `pd()` shorten for `print(dump(...))`
+   - `ide-helper`: add doc-blocks for couple functions.
+   - `ide-helper`: add `PrivilegeDefinition` docs.
+   - `ide-helper`: improve doc-blocks for some privs functions.
+   - GitHub: add `type: bug` for bug template
+   - GitHub: remove label `bug` for bug template
+   - Mount Gen: use local links to global functions. Closes #1892
+   - Mount Gen: use local links to global functions. Relates to #1892
+   - Mount Gen: Cone algo: initial refactoring. Relates to #1893
+   - Mount Gen: `cone` can be used as truncated cone. Closes #1893
+   - Mount Gen: restruct mod files. Relates to #1906
+   - Mount Gen: convert `HeightMap` as class. Relates to #1906
+   - Mount Gen: refactoring: rename map.lua and return class `mountgen.generator.Node`. Relates to #1906
+   - Mount Gen: refactoring: use only ids in mountgen.generator.Node, not strings. Relates to #1906
+   - Mount Gen: exract `ChunksIterator`. Closes #1917. Relates to #1906
+   - Mount Gen: convert generator into class. Closes #1918
+   - Mount Gen: finally restruct files. Closes #1906
+   - Mount Gen: separate tool, form & config. Closes #1921
+   - Mount Gen: config form: use `minetest.formspec`. Relates to #1904
+   - Mount Gen: config form: use `base_classes.Form`. Closes #1904
+   - Mount Gen: add algorithm "interface" and "facade". Closes #1907
+   - Mount Gen: Form: dropdowns for `method` & `coverage dirt`. Closes #1929
+   - Mount Gen: save config into tool. Closes #1908
+   - Mount Gen: prettify Form. Closes #1939
+   - Mount Gen: individual params for algorithms. Closes #1905
+   - Mount Gen: add `FieldDefinition`'s for common configs. Relates to #1932. Closes #1920
+   - Mount Gen: add events `on_save` & `on_generate`; refresh form on algorithm changed. Closes #1953
+   - Mount Gen: unified render form fields by `mountgen.config.Form.Builder`. Relates to #1932
+   - Mount Gen: Form: extract group rendering. Relates to #1932
+   - Mount Gen: add fields tooltips and groups descriptions. Closes #1932
+   - Mount Gen: cleanup Form from unused code. Relates to #1932
+   - Mount Gen: move all formspec grneration into `Builder`. Closes #1962
+   - Mount Gen: add API for mod. Closes #1919
+   - Mount Gen: valid form fields casting & config update. Closes #1961
+   - Mount Gen: reduce the remaining cyclomatic complexity. Fully closed #734
+   - Mount Gen: add parabola algorithm. Closes #1931
+   - Mount Gen: Form: ability to pass any params. Closes #1968
+   - Mobs: Refactoring: update `get_distance()`; make vars & funcs local. Relates to #1971
+   - Mobs: Refactoring: update `line_of_sight()` from original. Relates to #1971
+   - Mobs: Refactoring: fix unused & some shadowed vars. Closes #1971
+   - PvP: Projectile: same y position for player & player. Relates to #1972
+   - PvP: Projectile: refactoring: fix doc-block notation, add additional `get(name|nil)` function. Relates to #1996.
+   - Fix palantir texture #1924
+   - cyclomatic complexy itemframes closed #1948
+   - Move itemframes mod to mods/lord/Blocks (#1979). Related to #328
+   - Remove lordlib, fix depends in mods. Closes #946
+   - Remove intllib (#1990). Relates to #328
+   - Add mapgen chunk logging. Closes #1982
+   - Protector: hide error message after first display. Fixes #2002
+   - Super-duper optimaze textures
+   - Clans: Tapestries: fix handling non existing clan. Fixes #2000
+   - Mobs: Dead Man: balance drop. Relates to #1960.
+
 ## [2024.12.p6](https://github.com/lord-server/lord/releases/tag/2024.12.p6)
  - Balrog-arena: revert prod arena coords. Fixes #1950
 
