@@ -22,6 +22,14 @@ function __FUNC__(depth)  -- luacheck: ignore unused global variable __FUNC__
 	return debug_getinfo(2 + (depth or 0), 'n').name
 end
 
+--- Shorten for `print(dump(...))`
+--- @overload fun(any:any)
+--- @param any    any
+--- @param dumped table
+function pd(any, dumped) -- luacheck: ignore unused global variable pd
+	print(dump(any, dumped))
+end
+
 --- @param func function
 --- @return string
 function debug.get_function_code(func)
