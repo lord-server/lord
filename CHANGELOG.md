@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.01.p1](https://github.com/lord-server/lord/releases/tag/2025.01.p1)
+ - Mobs: balance `dead_man` drop. Relates to #1960.
+
 ## [2025.01](https://github.com/lord-server/lord/releases/tag/2025.01)
  - Clans: Tapestries: add for `masons`, `vassals`, `hansa`, `international` & `liberty`.  Closes #1956
  - Mobs: Dead Man: add drop, decrease damage. Closes #1960.
