@@ -113,7 +113,7 @@ mobs:spawn_specific("lottmobs:troll", {"lottmapgen:angsnowblock"}, {"air"}, -1, 
 
 ---------------------------   C A V E S   ---------------------------
 
-mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 7, 15, 2, 5, -31000, -50)
+mobs:spawn_specific("lottmobs:dead_men", {"default:mossycobble"}, {"air"}, -1, 7, 45, 2, 5, -31000, -50)
 
 for _, cave_rock in pairs(cave_rocks) do
 	mobs:spawn_specific("lottmobs:rat",    {cave_rock}, {"air"}, -1,  8, 30, 6000, 2, -31000, 0)

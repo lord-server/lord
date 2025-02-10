@@ -47,15 +47,15 @@ mobs:register_mob("lottmobs:dead_men", {
 	step = 1,
 	drops = {
 		-- money
-		{ name = "lord_money:diamond_coin", chance = 100/1 , min = 1, max =  1, }, -- 1%
-		{ name = "lord_money:gold_coin",    chance = 100/5 , min = 1, max =  2, }, -- 5%
-		{ name = "lord_money:silver_coin",  chance = 100/15, min = 1, max =  4, },
-		{ name = "lord_money:copper_coin",  chance = 100/25, min = 1, max = 10, },
+		{ name = "lord_money:diamond_coin", chance = 100/  .5, min = 1, max =  1, }, -- 1%
+		{ name = "lord_money:gold_coin",    chance = 100/ 2.5, min = 1, max =  2, }, -- 5%
+		{ name = "lord_money:silver_coin",  chance = 100/ 4  , min = 1, max =  4, },
+		{ name = "lord_money:copper_coin",  chance = 100/25  , min = 1, max = 10, },
 		-- gems
-		{ name = "default:diamond",         chance = 100/10, min = 1, max = 1, },
-		{ name = "default:mese_crystal",    chance = 100/8 , min = 1, max = 1, },
-		{ name = "lottores:white_gem",      chance = 100/1 , min = 1, max = 1, },
-		{ name = "lottores:blue_gem",       chance = 100/2 , min = 1, max = 1, },
-		{ name = "lottores:red_gem",        chance = 100/1 , min = 1, max = 1, },
+		{ name = "default:diamond",         chance = 100/5  , min = 1, max = 1, },
+		{ name = "default:mese_crystal",    chance = 100/4  , min = 1, max = 1, },
+		{ name = "lottores:white_gem",      chance = 100/ .5, min = 1, max = 1, },
+		{ name = "lottores:blue_gem",       chance = 100/1  , min = 1, max = 1, },
+		{ name = "lottores:red_gem",        chance = 100/ .5, min = 1, max = 1, },
 	},
 })
