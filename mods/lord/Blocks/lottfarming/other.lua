@@ -33,6 +33,12 @@ minetest.register_craft({
 	recipe = {"group:mushroom", "lottfarming:dough"},
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "lottfarming:dough_with_egg",
+	recipe = {"lottmobs:egg", "lord_vessels:glass_bottle_water", "farming:flour"},
+})
+
 minetest.register_craftitem("lottfarming:dough", {
 	description     = S("Dough"),
 	inventory_image = "lottfarming_dough.png",
@@ -53,20 +59,15 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 	on_use          = minetest.item_eat(4),
 	_tt_food_hp     = 4,
 })
---[[
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottfarming:dough_with_egg",
-	recipe = {"lottmobs:chicken_egg", "lottfarming:dough"},
-})
 
 minetest.register_craftitem("lottfarming:dough_with_egg", {
-	description     = SL("Dough"),
-	inventory_image = "lottfarming_eggdough.png",
-	on_use          = minetest.item_eat(1),
-	_tt_food_hp     = 1,
+	description     = S("Dough with egg"),
+	inventory_image = "lottfarming_dough_with_egg.png",
+	on_use          = minetest.item_eat(3),
+	_tt_food_hp     = 3,
 })
 
+--[[
 minetest.register_craftitem("lottfarming:dough_for_sbread", {
 	description     = SL("Dough for Shortbread"),
 	inventory_image = "lottfarming_sbreaddough.png",
