@@ -36,7 +36,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:dough_with_egg",
-	recipe = {"lottmobs:egg", "lord_vessels:glass_bottle_water", "farming:flour"},
+	recipe = {"lottmobs:chicken_egg", "lottfarming:dough"},
 })
 
 minetest.register_craftitem("lottfarming:dough", {
@@ -63,8 +63,8 @@ minetest.register_craftitem("lottfarming:salted_dough", {
 minetest.register_craftitem("lottfarming:dough_with_egg", {
 	description     = S("Dough with egg"),
 	inventory_image = "lottfarming_dough_with_egg.png",
-	on_use          = minetest.item_eat(3),
-	_tt_food_hp     = 3,
+	on_use          = minetest.item_eat(4),
+	_tt_food_hp     = 4,
 })
 
 --[[
