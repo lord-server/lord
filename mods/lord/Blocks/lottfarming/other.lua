@@ -36,7 +36,7 @@ minetest.register_craft({
 minetest.register_craft({
 	type = "shapeless",
 	output = "lottfarming:dough_with_egg",
-	recipe = {"lottmobs:chicken_egg", "lottfarming:dough"},
+	recipe = {"lottmobs:egg", "lottfarming:dough"},
 })
 
 minetest.register_craftitem("lottfarming:dough", {
