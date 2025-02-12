@@ -27,7 +27,7 @@ minetest.register_globalstep(function(delta_time)
 			local index
 			-- Цикл ниже гарантирует, что индекс будет выбран заново, пока он не окажется уникальным среди уже использованных
 			repeat
-			index = math.random(#resources)
+				index = math.random(#resources)
 			until not used_indices[index]
 			used_indices[index] = true
 			message = message .. resources[index].title .. ': ' .. resources[index].url .. '\n'
