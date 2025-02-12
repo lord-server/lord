@@ -34,6 +34,5 @@ minetest.register_globalstep(function(delta_time)
 		end
 		minetest.chat_send_all(message .. '\n')
 		timer = 0
-		used_indices = {}  -- Явная очистка таблицы после использования
 	end
 end)
