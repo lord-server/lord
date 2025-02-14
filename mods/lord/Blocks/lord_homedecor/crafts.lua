@@ -522,7 +522,7 @@ minetest.register_node("lord_homedecor:flower_pot_small", {
 minetest.register_craft({
 	output = "lord_homedecor:flower_pot_small",
 	recipe = {
-		{ "default:clay_brick", "", "default:clay_brick" },
+		{ "default:clay_brick", "default:dirt", "default:clay_brick" },
 		{ "", "default:clay_brick", "" }
 	}
 })
