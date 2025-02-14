@@ -144,7 +144,7 @@ minetest.register_chatcommand("set_vol_str", {
         end
 
         local value = tonumber(param)
-		
+
         -- Проверка на NaN и диапазон
         if value and value >= 0 and value <= 1 then
             volumetric_strength = value
