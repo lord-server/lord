@@ -86,6 +86,8 @@ do
 	end
 end
 
+local volumetric_strength = 0.2 -- Базовое значение силы объёмного света
+
 function weather.get(player)
 	-- Adjusted time in seconds
 	local time = math.floor(minetest.get_gametime() - t_offset)
@@ -127,3 +129,54 @@ function weather.get(player)
 		}
 	}
 end
+
+-- Далее блок управления силой объёмного света
+-- Начало блока управления объемным светом
+
+-- Регистрация команды для изменения volumetric_strength
+minetest.register_chatcommand("set_vol_str", {
+    params = "<value>",
+    description = "Set the volumetric light strength (0.0 to 1.0)",
+    func = function(name, param)
+        -- Проверка на наличие служебных символов
+        if not param:match("^%d*%.?%d*$") then
+            return false, "Invalid input. Please enter a valid number between 0.0 and 1.0."
+        end
+
+        local value = tonumber(param)
+        
+        -- Проверка на NaN и диапазон
+        if value and value >= 0 and value <= 1 then
+            volumetric_strength = value
+            minetest.chat_send_player(name, "Volumetric light strength set to " .. value)
+            return true
+        else
+            return false, "Invalid value. Please enter a number between 0.0 and 1.0."
+        end
+    end,
+})
+
+-- Команда для получения текущего значения volumetric_strength
+minetest.register_chatcommand("get_vol_str", {
+    description = "Get the current volumetric light strength",
+    func = function(name)
+        return true, "Current volumetric light strength: " .. volumetric_strength
+    end,
+})
+
+-- Регистрация команды для перезапуска погоды
+minetest.register_chatcommand("refresh_weather", {
+    description = "Refresh the weather settings",
+    func = function(name)
+        local player = minetest.get_player_by_name(name)
+        if player then
+            local weather_data = weather.get(player)
+            player:set_lighting(weather_data.lighting)
+            return true, "Weather settings refreshed."
+        else
+            return false, "Player not found."
+        end
+    end,
+})
+
+-- Конец блока управления объемным светом
