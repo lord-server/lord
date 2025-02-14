@@ -116,7 +116,7 @@ minetest.register_node("lottblocks:palantir", {
 	wield_image               = "lottblocks_palantir_item.png^[opacity:220",
 	drawtype                  = "mesh",
 	mesh                      = "lottblocks_palantir.obj",
-	tiles                     = { "lottblocks_palantir.png^[opacity:235" },
+	tiles                     = { "lottblocks_palantir.png" },
 	use_texture_alpha         = "blend",
 	paramtype                 = "light",
 	node_placement_prediction = "",
