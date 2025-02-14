@@ -125,7 +125,7 @@ function weather.get(player)
 		lighting = {
 			shadows = { intensity = 0.7 * (1 - density) },
 			bloom = { intensity = 0.05 },
-			volumetric_light = { strength = 0.2 },
+			volumetric_light = { strength = volumetric_strength },
 		}
 	}
 end
