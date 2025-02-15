@@ -14,7 +14,7 @@ Hardwood Planks=Доски из твёрдой древесины
 Lebethron Planks=Доски из лебетрона
 Mallorn Planks=Доски из маллорна
 Pine Planks=Доски из сосны
-
+Plum Planks=Доски из сливы
 
 ## planks stairs: ##
 Alder Wood Stair=Ступенька из ольхи
@@ -52,7 +52,7 @@ Fir Wood Slab=Плита из досок ели
 Inner Fir Wood Stair=Угловая ступенька из ели (Внутренний Угол)
 Outer Fir Wood Stair=Угловая ступенька из ели (Внешний Угол)
 #
-Hardwood stair=Ступенька из
+Hardwood stair=Ступенька из твердой древесины
 Hardwood Slab=Плита из твёрдой древесины
 Inner Hardwood stair=Угловая ступенька из твёрдой древесины (Внутренний Угол)
 Outer Hardwood stair=Угловая ступенька из твёрдой древесины (Внешний Угол)
@@ -71,3 +71,13 @@ Pine Wood Stair=Ступенька из сосны
 Pine Wood Slab=Плита из сосны
 Inner Pine Wood Stair=Угловая ступенька из сосны (Внутренний Угол)
 Outer Pine Wood Stair=Угловая ступенька из сосны (Внешний Угол)
+#
+Plum Wood Stair=Ступенька из сливы
+Plum Wood Slab=Плита из сливы
+Inner Plum Wood Stair=Угловая ступенька из сливы (Внутренний Угол)
+Outer Plum Wood Stair=Угловая ступенька из сливы (Внешний Угол)
+#
+Hardwood Wood Stair=Ступенька из твердого дерева
+Hardwood Wood Slab=Плита из твердого дерева
+Inner Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внутренний Угол)
+Outer Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внешний Угол)
