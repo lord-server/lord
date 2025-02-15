@@ -81,14 +81,14 @@ local function register_candle_lamp(material, desc, ingot)
 
 	-- Напольная лампа.
 	minetest.register_node("lamps:" .. material .. "_candle_lamp", table.merge(common_definition, {
-		description = desc .. " candle lamp",
+		description = S(desc .. " candle lamp"),
 		tiles       = { upTx, sideTx },
 		mesh        = "lamps_candle_lamp.obj",
 	}))
 
 	-- Подвесная лампа.
 	minetest.register_node("lamps:" .. material .. "_hanging_candle_lamp", table.merge(common_definition, {
-		description = desc .. " hanging candle lamp",
+		description = S(desc .. " hanging candle lamp"),
 		tiles       = { upTx, sideTx, chain },
 		mesh        = "lamps_hanging_candle_lamp.obj",
 	}))
