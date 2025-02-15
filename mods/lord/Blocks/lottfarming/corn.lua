@@ -1,7 +1,7 @@
 local S = minetest.get_mod_translator()
 
 minetest.register_craftitem("lottfarming:corn_seed", {
-	description     = S("Corn"),
+	description     = S("Corn Seeds"),
 	inventory_image = "lottfarming_corn_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
