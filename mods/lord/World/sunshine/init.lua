@@ -1,5 +1,7 @@
+local S = minetest.get_translator("sunshine")
+
 -- Always load the API
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/api.lua")
+dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/src/sunshine/api.lua")
 
 -- Disable by mapgen or setting
 
@@ -130,17 +132,15 @@ function weather.get(player)
 	}
 end
 
--- Далее блок управления силой объёмного света
--- Начало блока управления объемным светом
 
 -- Регистрация команды для изменения volumetric_strength
-minetest.register_chatcommand("set_vol_str", {
+minetest.register_chatcommand("set_lgt_str", {
     params = "<value>",
-    description = "Set the volumetric light strength (0.0 to 1.0)",
+    description = S("Set the volumetric light strength (0.0 to 1.0)"),
     func = function(name, param)
         -- Проверка на наличие служебных символов
         if not param:match("^%d*%.?%d*$") then
-            return false, "Invalid input. Please enter a valid number between 0.0 and 1.0."
+            return false, S("Invalid input. Please enter a valid number between 0.0 and 1.0.")
         end
 
         local value = tonumber(param)
@@ -151,32 +151,30 @@ minetest.register_chatcommand("set_vol_str", {
             minetest.chat_send_player(name, "Volumetric light strength set to " .. value)
             return true
         else
-            return false, "Invalid value. Please enter a number between 0.0 and 1.0."
+            return false, S("Invalid input. Please enter a valid number between 0.0 and 1.0.")
         end
     end,
 })
 
 -- Команда для получения текущего значения volumetric_strength
-minetest.register_chatcommand("get_vol_str", {
-    description = "Get the current volumetric light strength",
+minetest.register_chatcommand("get_lgt_str", {
+    description = S("Get the current volumetric light strength"),
     func = function(name)
-        return true, "Current volumetric light strength: " .. volumetric_strength
+        return true, S("Current volumetric light strength: ") .. volumetric_strength
     end,
 })
 
 -- Регистрация команды для перезапуска погоды
 minetest.register_chatcommand("refresh_weather", {
-    description = "Refresh the weather settings",
+    description = S("Refresh the weather settings"),
     func = function(name)
         local player = minetest.get_player_by_name(name)
         if player then
             local weather_data = weather.get(player)
             player:set_lighting(weather_data.lighting)
-            return true, "Weather settings refreshed."
+            return true, S("Weather settings refreshed.")
         else
-            return false, "Player not found."
+            return false, S("Player not found.")
         end
     end,
 })
-
--- Конец блока управления объемным светом
