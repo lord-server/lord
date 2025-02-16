@@ -23,6 +23,11 @@ minetest.register_chatcommand("set_lgt_str", {
     end,
 })
 
+local environment = minetest.settings:get("environment")
+if not environment or environment == "production" then
+    return
+end
+
 -- Команда для получения текущего значения volumetric_strength
 minetest.register_chatcommand("get_lgt_str", {
     description = S("Get the current volumetric light strength"),
