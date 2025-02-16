@@ -1,4 +1,4 @@
-# textdomain: lord_spawn
+# textdomain: sunshine
 
 Invalid input. Please enter a valid number between 0.0 and 1.0.=Неверное значение. введите число от 0.0 до 1.0.=
 Invalid input. Please enter a valid number between 0.0 and 1.0.=
