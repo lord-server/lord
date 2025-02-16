@@ -1,5 +1,3 @@
-local S = minetest.get_translator()
-
 -- Always load the API
 dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/src/sunshine/api.lua")
 
