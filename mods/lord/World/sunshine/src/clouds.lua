@@ -1,10 +1,21 @@
-local api = require('sunshine.api') -- Always load the API
+local TSCALE = 600      -- Time scale of noise variation in seconds
+local np_density        -- плотность облаков
+local np_thickness      -- толщина облаков
+local np_speedx         -- скорость облаков по оси X
+local np_speedz         -- скорость облаков по оси Z
+local t_offset          -- смещение времени для разнообразия перлинового шума
+local time = nil
+local nobj_density
+local nobj_thickness
+local nobj_speedx
+local nobj_speedz
+local n_density
+local n_thickness
+local n_speedx
+local n_speedz
 
-local TSCALE = nil      -- Time scale of noise variation in seconds
-local np_density = {}   -- влажность
-local np_thickness = {} -- толщина облаков
-local np_speedx = {}    -- скорость облаков по оси X
-local np_speedz = {}    -- скорость облаков по оси Z
+
+
 
 --[[
 
@@ -13,10 +24,8 @@ local np_speedz = {}    -- скорость облаков по оси Z
 	и других погодных эффектов
 ]]
 
-
-local TSCALE = 600
-
-local np_density = {
+-- плотность облаков
+np_density = {
 	offset = 0.5,
 	scale = 0.5,
 	spread = {x = TSCALE, y = TSCALE, z = TSCALE},
@@ -26,7 +35,8 @@ local np_density = {
 	lacunarity = 2,
 }
 
-local np_thickness = {
+-- толщина облаков
+np_thickness = {
 	offset = 0.5,
 	scale = 0.5,
 	spread = {x = TSCALE, y = TSCALE, z = TSCALE},
@@ -36,7 +46,8 @@ local np_thickness = {
 	lacunarity = 2,
 }
 
-local np_speedx = {
+-- скорость облаков по оси X
+np_speedx = {
 	offset = 0,
 	scale = 1,
 	spread = {x = TSCALE, y = TSCALE, z = TSCALE},
@@ -46,7 +57,8 @@ local np_speedx = {
 	lacunarity = 2,
 }
 
-local np_speedz = {
+-- скорость облаков по оси Z
+np_speedz = {
 	offset = 0,
 	scale = 1,
 	spread = {x = TSCALE, y = TSCALE, z = TSCALE},
@@ -56,23 +68,16 @@ local np_speedz = {
 	lacunarity = 2,
 }
 
-local nobj_density = nil
-local nobj_thickness = nil
-local nobj_speedx = nil
-local nobj_speedz = nil
-
 local function rangelim(value, lower, upper)
 	return math.min(math.max(value, lower), upper)
 end
-
-local t_offset -- смещение времени для разнообразия перлинового шума
 
 --[[
 
 	В данном контексте смещение времени используется
 	для генерации перлинового шума,
 	который зависит от времени.
-	
+
 	Смещение времени позволяет сдвигать начало генерации шума,
 	что приводит к разным погодным результатам для каждого мира.
 
@@ -94,17 +99,17 @@ end
 
 function weather.get(player)
 	-- Adjusted time in seconds
-	local time = math.floor(minetest.get_gametime() - t_offset)
+	time = math.floor(minetest.get_gametime() - t_offset)
 
 	nobj_density = nobj_density or minetest.get_perlin(np_density)
 	nobj_thickness = nobj_thickness or minetest.get_perlin(np_thickness)
 	nobj_speedx = nobj_speedx or minetest.get_perlin(np_speedx)
 	nobj_speedz = nobj_speedz or minetest.get_perlin(np_speedz)
 
-	local n_density = nobj_density:get_2d({x = time, y = 0}) -- 0 to 1
-	local n_thickness = nobj_thickness:get_2d({x = time, y = 0}) -- 0 to 1
-	local n_speedx = nobj_speedx:get_2d({x = time, y = 0}) -- -1 to 1
-	local n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
+	n_density = nobj_density:get_2d({x = time, y = 0}) -- 0 to 1
+	n_thickness = nobj_thickness:get_2d({x = time, y = 0}) -- 0 to 1
+	n_speedx = nobj_speedx:get_2d({x = time, y = 0}) -- -1 to 1
+	n_speedz = nobj_speedz:get_2d({x = time, y = 0}) -- -1 to 1
 
 	-- Fallback to mid-value 50 for very old worlds
 	local humid = minetest.get_humidity(player:get_pos()) or 50
