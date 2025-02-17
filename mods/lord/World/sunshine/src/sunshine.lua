@@ -1,3 +1,5 @@
+local S = minetest.get_mod_translator()
+
 require('sunshine.api')
 
 --[[
@@ -27,6 +29,19 @@ if minetest.settings:get_bool("enable_weather") == false then
 	return
 end
 
+-- Регистрация новой привилегии "sunshine"
+minetest.register_privilege("sunshine", {
+    description = S("Allows the player to set the volumetric light strength."),
+
+	--[[
+		Установите true, если хотите,
+		чтобы эта привилегия была
+		автоматически дана одиночному игроку
+	]]
+
+	give_to_singleplayer = false,
+})
+
 --[[
 
 	Определение карты:
@@ -48,12 +63,10 @@ if mg_name == "v6" or mg_name == "singlenode" then
         })
     end)
 
-
     return
 end
 
 function weather.get(player)
-
 
 	return {
 		lighting = {
@@ -63,3 +76,4 @@ function weather.get(player)
 		}
 	}
 end
+

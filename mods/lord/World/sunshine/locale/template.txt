@@ -1,6 +1,7 @@
 # textdomain: sunshine
 
 Invalid input. Please enter a valid number between 0.0 and 1.0.=Неверное значение. введите число от 0.0 до 1.0.=
+You do not have permission to use this command.=
 Invalid input. Please enter a valid number between 0.0 and 1.0.=
 Get the current volumetric light strength=
 Current volumetric light strength: = 

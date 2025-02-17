@@ -6,6 +6,12 @@ minetest.register_chatcommand("set_lgt_str", {
     params = "<value>",
     description = S("Set the volumetric light strength (0.0 to 1.0)"),
     func = function(name, param)
+
+        -- Проверка на наличие привилегии "sunshine"
+        if not minetest.check_player_privs(name, {sunshine=true}) then
+            return false, S("You do not have permission to use this command.")
+        end
+
         -- Проверка на наличие служебных символов
         if not param:match("^%d*%.?%d*$") then
 
