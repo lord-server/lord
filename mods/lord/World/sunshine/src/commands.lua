@@ -1,6 +1,5 @@
 local S = minetest.get_mod_translator()
 
-
 -- Регистрация команды для изменения volumetric_strength
 minetest.register_chatcommand("set_lgt_str", {
     params = "<value>",
@@ -9,6 +8,7 @@ minetest.register_chatcommand("set_lgt_str", {
 
         -- Проверка на наличие привилегии "sunshine"
         if not minetest.check_player_privs(name, {sunshine=true}) then
+
             return false, S("You do not have permission to use this command.")
         end
 

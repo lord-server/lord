@@ -19,21 +19,18 @@ end
 
 --[[
 	Определена локальная функция do_update(),
-	которая обновляет погоду для всех подключенных игроков.
+	которая обновляет погоду для каждого подключенного игрока.
 
-	Она вызывает функцию weather.get(player) для каждого игрока,
-	проверяет, вернула ли она таблицу с параметрами,
-	и если да, то обновляет облачный покров
-	и освещение для этого игрока.
+	В начале идёт проверка на пустое имя игрока player
+	Далее проверка на пустые значения параметров погоды игрока weather.get(player)
+	Если проверки успешны, то обновляет освещение для этого игрока.
 ]]
 
 local function do_update()
 	for _, player in ipairs(minetest.get_connected_players()) do
+		assert(player ~= nil, "player must not be nil")
 		local params = weather.get(player)
 		assert(params ~= nil, "weather.get() must not return nil")
-		if params.clouds then
-			player:set_clouds(params.clouds)
-		end
 		if params.lighting then
 			player:set_lighting(params.lighting)
 		end
@@ -61,7 +58,8 @@ minetest.after(0, cyclic_update)
 	Определен обработчик события minetest.register_on_joinplayer(),
 	который вызывает do_update() каждый раз,
 	когда новый игрок подключается к игре.
-	Это позволяет мгновенно обновить облачный покров и освещение для нового игрока.
+	Это позволяет мгновенно обновить освещение
+	для нового игрока и каждого подключенного
 ]]
 
 minetest.register_on_joinplayer(function(player)
