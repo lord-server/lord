@@ -1,4 +1,4 @@
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/src/sunshine/api.lua") -- Always load the API
+require('sunshine.api')
 
 --[[
 
