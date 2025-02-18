@@ -1,76 +1,27 @@
-require('sunshine.api')
+require('commands')
 
+local lighting_default = {
+	shadows = { intensity = 0.33},
+	bloom = { intensity = 0.05 },
+	volumetric_light = { strength = 0.2 },
+}
 
---[[
-
-	Использую константу, т.к.
-	мод на облака `clouds.lua`
-	пока не включён.
-
-	При активации мода облаков,
-	нужно тянуть `density` от туда.
-]]
-
-local mg_name				-- Имя мап генератора
-volumetric_strength = 0.2	-- Cила объёмного света по умолчанию
-
---[[
-
-	Проверка настроек:
-	Код проверяет, включена ли функция погоды в настройках игры.
-	Если она выключена, код прерывается.
-]]
 
 if minetest.settings:get_bool("enable_weather") == false then
 
 	return
 end
 
---[[
+function user_light_set(player, value)
+	player:set_lighting({
+		shadows = { intensity = 0.5},
+		bloom = { intensity = 0.05 },
+		volumetric_light = { strength = value }
+	})
 
-	Определение карты:
-	Код определяет тип карты, используемой в игре.
-	Если карта имеет тип "v6" или "singlenode",
-	код устанавливает определенные параметры освещения по умолчанию
-	и прерывается.
-]]
-
-mg_name = minetest.get_mapgen_setting("mg_name")
-
-if mg_name == "v6" or mg_name == "singlenode" then
-    -- Устанавливаем стандартную интенсивность теней для mgv6 и singlenode
-    minetest.register_on_joinplayer(function(player)
-        player:set_lighting({
-            shadows = { intensity = 0.33 },
-            bloom = { intensity = 0.05 },
-            volumetric_light = { strength = 0.2 },
-        })
-    end)
-
-    return
+	return
 end
 
--- функция задаёт новый параметр силы света
-function new_light_get(player)
-
-	return {
-		lighting = {
-			shadows = { intensity = 0.7},
-			bloom = { intensity = 0.05 },
-			volumetric_light = { strength = volumetric_strength },
-		}
-	}
-end
-
--- функция задаёт стандартныый для MTG параметр силы света
-function default_light_get(player)
-
-	return {
-		lighting = {
-			shadows = { intensity = 0.33},
-			bloom = { intensity = 0.05 },
-			volumetric_light = { strength = 0.2 },
-		}
-	}
-end
-
+minetest.register_on_joinplayer(function(player)
+	player:set_lighting(lighting_default)
+end)

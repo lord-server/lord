@@ -1,10 +1,5 @@
 # textdomain: sunshine
 
-Invalid input. Please enter a valid number between 0.0 and 1.0.=Неверное значение. введите число от 0.0 до 1.0.=
-You do not have permission to use this command.=
+Set the volumetric light strength (0.0 to 1.0)=
 Invalid input. Please enter a valid number between 0.0 and 1.0.=
-Get the current volumetric light strength=
-Current volumetric light strength: = 
-Refresh the weather settings=
-Weather settings refreshed.=
-Player not found.=
+Volumetric light strength set to =

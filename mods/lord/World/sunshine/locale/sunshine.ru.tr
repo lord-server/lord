@@ -1,13 +1,5 @@
 # textdomain: sunshine
 
-Allows the player to set the volumetric light strength.=Позволяет игроку использовать регулировку.
-
-Set the volumetric light strength (0.0 to 1.0)=Задаёт силу объёмного освещения (от 0.0 до 1.0)
-You do not have permission to use this command.=Вы не можете использовать эту команду.
-Invalid input. Please enter a valid number between 0.0 and 1.0.=Неверное значение. введите число от 0.0 до 1.0.
-Volumetric light strength set to =Установлена сила света 
-Your lighting has been updated=Ваши настройки света обновлены
-Get the current volumetric light strength=Получает текущую силу объёмного освещения
-Current volumetric light strength: =Сила объёмного освещения: 
-Refresh the lighting settings=Обновить рассчёт света
-Lighting settings refreshed.=Световые эффекты обновлены.
+Set the volumetric light strength (0.0 to 1.0)=Задаёт силу силу света от 0.0 до 1.0
+Invalid input. Please enter a valid number between 0.0 and 1.0.=Ошика ввода. Введи значение от 0.0 до 1.0
+Volumetric light strength set to =Сила оъёмного свечения установлена на 

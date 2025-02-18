@@ -1,11 +1,5 @@
 # textdomain: sunshine
 
-Allows the player to set the volumetric light strength.=Allows the player to set the volumetric light strength.
-
 Set the volumetric light strength (0.0 to 1.0)=Set the volumetric light strength (0.0 to 1.0)
-You do not have permission to use this command.=You do not have permission to use this command.
 Invalid input. Please enter a valid number between 0.0 and 1.0.=Invalid input. Please enter a valid number between 0.0 and 1.0.
 Volumetric light strength set to =Volumetric light strength set to 
-Your lighting has been updated=Your lighting has been updated
-Get the current volumetric light strength=Get the current volumetric light strength
-Current volumetric light strength: =Current volumetric light strength: 
