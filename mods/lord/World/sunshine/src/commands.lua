@@ -1,35 +1,35 @@
 local S = minetest.get_mod_translator()
 
+require('sunshine.api')
+
 -- Регистрация команды для изменения volumetric_strength
-minetest.register_chatcommand("set_lgt_str", {
+minetest.register_chatcommand("set_lgt", {
     params = "<value>",
     description = S("Set the volumetric light strength (0.0 to 1.0)"),
     func = function(name, param)
 
-        -- Проверка на наличие привилегии "sunshine"
+        -- проверка привелегий
         if not minetest.check_player_privs(name, {sunshine=true}) then
-
             return false, S("You do not have permission to use this command.")
         end
 
-        -- Проверка на наличие служебных символов
-        if not param:match("^%d*%.?%d*$") then
-
-            return false, S("Invalid input. Please enter a valid number between 0.0 and 1.0.")
-        end
-
+        -- конвертация значения ввода в число и проверка на диапазон
         local value = tonumber(param)
-
-        -- Проверка на NaN и диапазон
-        if value and value >= 0 and value <= 1 then
-            volumetric_strength = value
-            minetest.chat_send_player(name, "Volumetric light strength set to " .. value)
-
-            return true
-        else
-
+        if not value or value < 0 or value > 1 then
             return false, S("Invalid input. Please enter a valid number between 0.0 and 1.0.")
         end
+        -- установка значения света
+        volumetric_strength = value
+        minetest.chat_send_player(name, "Volumetric light strength set to " .. value)
+
+        -- обновление значения света для текущего игрока
+        local player = minetest.get_player_by_name(name)
+        if player then
+            lighting.do_update_me(player)
+            minetest.chat_send_player(name, "Your lighting has been updated")
+        end
+
+        return true
     end,
 })
 
@@ -40,27 +40,10 @@ if not environment or environment == "production" then
 end
 
 -- Команда для получения текущего значения volumetric_strength
-minetest.register_chatcommand("get_lgt_str", {
+minetest.register_chatcommand("get_lgt", {
     description = S("Get the current volumetric light strength"),
     func = function(name)
 
         return true, S("Current volumetric light strength: ") .. volumetric_strength
-    end,
-})
-
--- Регистрация команды для перезапуска погоды
-minetest.register_chatcommand("refresh_lighting", {
-    description = S("Refresh the lighting settings"),
-    func = function(name)
-        local player = minetest.get_player_by_name(name)
-        if player then
-            local weather_data = weather.get(player)
-            player:set_lighting(weather_data.lighting)
-
-            return true, S("Lighting settings refreshed.")
-        else
-
-            return false, S("Player not found.")
-        end
     end,
 })
