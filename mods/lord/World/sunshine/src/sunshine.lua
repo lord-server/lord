@@ -1,6 +1,5 @@
-local S = minetest.get_mod_translator()
-
 require('sunshine.api')
+
 
 --[[
 
@@ -12,7 +11,6 @@ require('sunshine.api')
 	нужно тянуть `density` от туда.
 ]]
 
-local density = 0.4			-- Default and classic density value is 0.4
 local mg_name				-- Имя мап генератора
 volumetric_strength = 0.2	-- Cила объёмного света по умолчанию
 
@@ -25,22 +23,8 @@ volumetric_strength = 0.2	-- Cила объёмного света по умол
 
 if minetest.settings:get_bool("enable_weather") == false then
 
-
 	return
 end
-
--- Регистрация новой привилегии "sunshine"
-minetest.register_privilege("sunshine", {
-    description = S("Allows the player to set the volumetric light strength."),
-
-	--[[
-		Установите true, если хотите,
-		чтобы эта привилегия была
-		автоматически дана одиночному игроку
-	]]
-
-	give_to_singleplayer = false,
-})
 
 --[[
 
@@ -66,13 +50,26 @@ if mg_name == "v6" or mg_name == "singlenode" then
     return
 end
 
-function weather.get(player)
+-- функция задаёт новый параметр силы света
+function new_light_get(player)
 
 	return {
 		lighting = {
-			shadows = { intensity = 0.7 * (1 - density) },
+			shadows = { intensity = 0.7},
 			bloom = { intensity = 0.05 },
 			volumetric_light = { strength = volumetric_strength },
+		}
+	}
+end
+
+-- функция задаёт стандартныый для MTG параметр силы света
+function default_light_get(player)
+
+	return {
+		lighting = {
+			shadows = { intensity = 0.33},
+			bloom = { intensity = 0.05 },
+			volumetric_light = { strength = 0.2 },
 		}
 	}
 end

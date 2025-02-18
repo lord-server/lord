@@ -1,35 +1,28 @@
 --[[
-	Определена функция weather.get(player),
+	Определена функция new_light.get(player),
 	которая должна возвращать таблицу
 	с параметрами погоды для данного игрока.
 
 	По умолчанию эта функция возвращает пустую таблицу.
 ]]
 
-weather = {}
-
-function weather.get(player)
-
-	return {}
-end
-
 --[[
 	Определена функция do_update(),
 	которая обновляет погоду для игроков.
 
 	В начале идёт проверка на пустое имя игрока player
-	Далее проверка на пустые значения параметров погоды игрока weather.get(player)
+	Далее проверка на пустые значения параметров погоды игрока new_light.get(player)
 	Если проверки успешны, то обновляет освещение для этого игрока.
 ]]
 
-lighting = lighting or {}
+lighting = {}
 
 -- для всех подключенных игроков
-function lighting.do_update_all()
+function lighting.set_all()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		assert(player ~= nil, "player must not be nil")
-		local params = weather.get(player)
-		assert(params ~= nil, "weather.get() must not return nil")
+		local params = default_light_get(player)
+		assert(params ~= nil, "new_light.get() must not return nil")
 		if params.lighting then
 			player:set_lighting(params.lighting)
 		end
@@ -37,10 +30,10 @@ function lighting.do_update_all()
 end
 
 -- для конкретного игрока
-function lighting.do_update_me(player)
+function lighting.set_me(player)
 	assert(player ~= nil, "player must not be nil")
-	local params = weather.get(player)
-	assert(params ~= nil, "weather.get() must not return nil")
+	local params = new_light_get(player)
+	assert(params ~= nil, "new_light.get() must not return nil")
 	if params.lighting then
 		player:set_lighting(params.lighting)
 	end
@@ -55,5 +48,5 @@ end
 ]]
 
 minetest.register_on_joinplayer(function(player)
-	lighting.do_update_all()
+	lighting.set_all()
 end)

@@ -8,11 +8,6 @@ minetest.register_chatcommand("set_lgt", {
     description = S("Set the volumetric light strength (0.0 to 1.0)"),
     func = function(name, param)
 
-        -- проверка привелегий
-        if not minetest.check_player_privs(name, {sunshine=true}) then
-            return false, S("You do not have permission to use this command.")
-        end
-
         -- конвертация значения ввода в число и проверка на диапазон
         local value = tonumber(param)
         if not value or value < 0 or value > 1 then
@@ -25,7 +20,7 @@ minetest.register_chatcommand("set_lgt", {
         -- обновление значения света для текущего игрока
         local player = minetest.get_player_by_name(name)
         if player then
-            lighting.do_update_me(player)
+            lighting.set_me(player)
             minetest.chat_send_player(name, "Your lighting has been updated")
         end
 
