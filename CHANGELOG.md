@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.01.p2](https://github.com/lord-server/lord/releases/tag/2025.01.p2)
+- Change /event coordinates. Closes #2036
+
 ## [2025.01.p1](https://github.com/lord-server/lord/releases/tag/2025.01.p1)
  - Mobs: balance `dead_man` drop. Relates to #1960.
 
