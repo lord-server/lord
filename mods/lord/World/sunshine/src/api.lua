@@ -1,6 +1,10 @@
 
 
-local function set_user_light(player, value)
+--- @class sunshine.Api
+local Api = {
+	light = {},
+}
+function Api.light.set_for(player, value)
 	player:set_lighting({
 		shadows = {},
 		bloom = {},
@@ -8,4 +12,4 @@ local function set_user_light(player, value)
 	})
 end
 
-return set_user_light
+return Api

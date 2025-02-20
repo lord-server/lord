@@ -1,8 +1,8 @@
 local S = minetest.get_mod_translator()
-local set_user_light = require('api')
+local api = require('api')
 
 
-minetest.register_chatcommand('sunshine.set_light_value', {
+minetest.register_chatcommand('sunshine.set_light', {
     params = '<value>',
     description = S('Set the volumetric light strength (0.0 to 1.0)'),
     func = function(name, param)
@@ -14,7 +14,7 @@ minetest.register_chatcommand('sunshine.set_light_value', {
 
         local player = minetest.get_player_by_name(name)
         if player then
-			set_user_light(player, value)
+			api.light.set_for(player, value)
             local user_lighting_table = player:get_lighting()
             if user_lighting_table.volumetric_light and user_lighting_table.volumetric_light.strength == value then
                 minetest.chat_send_player(name, S('Volumetric light strength set to ') .. value)
