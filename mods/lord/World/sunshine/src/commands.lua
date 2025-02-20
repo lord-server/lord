@@ -14,12 +14,14 @@ minetest.register_chatcommand('sunshine.set_light_value', {
 
         local player = minetest.get_player_by_name(name)
         if player then
-			local success = set_user_light(player, value)
-			if not success then
-				return false, S('Not succes')
-			else
-				minetest.chat_send_player(name, 'Volumetric light strength set to ' .. value)
-			end
+			set_user_light(player, value)
+            local user_lighting_table = player:get_lighting()
+            if user_lighting_table.volumetric_light and user_lighting_table.volumetric_light.strength == value then
+                minetest.chat_send_player(name, S('Volumetric light strength set to ') .. value)
+            else
+                minetest.chat_send_player(name, S('Failed to set volumetric light strength'))
+
+                end
         else
 			return false, S('Player not found.')
 		end
