@@ -1,0 +1,7 @@
+# textdomain: sunshine
+
+Set the volumetric light strength (0.0 to 1.0)=Задаёт силу силу света от 0.0 до 1.0
+Invalid input. Please enter a valid number between 0.0 and 1.0.=Ошика ввода. Введи значение от 0.0 до 1.0
+Volumetric light strength set to =Сила оъёмного свечения установлена на 
+Failed to set volumetric light strength. Please try again.=Не удалось установить значение объемного света. Пожалуйста, попробуйте еще раз.
+Player not found.=Игрок не найден.
