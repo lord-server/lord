@@ -31,29 +31,33 @@ minetest.register_chatcommand('sunshine.set_light', {
 })
 
 minetest.register_chatcommand('sunshine.set_bloom', {
-    params = '<num1> <num2> <num3>',
-    description = 'Ввод трех числовых переменных для эффекта bloom',
+    params = '< intensity > < strength_factor > < radius >',
+    description = [[
+                    Ввод трех числовых переменных для эффекта bloom
+                    Intensity от 0.0 до 1.0
+                    Strength_factor от 0.1 до 10.0
+                    Radius от 0.1 до 8.0
+                ]],
     func = function(name, param)
         local num1, num2, num3 = param:match('^(%d+%.?%d*) (%d+%.?%d*) (%d+%.?%d*)$')
         if num1 and num2 and num3 then
             local i, s, r = tonumber(num1), tonumber(num2), tonumber(num3)
 
-            -- Проверка значений переменных
             if i < 0.0 or i > 1.0 then
-                return false, 'Ошибка: i должно быть в диапазоне от 0.0 до 1.0.'
+                return false, 'Ошибка: intensity должно быть в диапазоне от 0.0 до 1.0.'
             end
             if s < 0.1 or s > 10.0 then
-                return false, 'Ошибка: s должно быть в диапазоне от 0.1 до 10.0.'
+                return false, 'Ошибка: strength_factor должно быть в диапазоне от 0.1 до 10.0.'
             end
             if r < 0.1 or r > 8.0 then
-                return false, 'Ошибка: r должно быть в диапазоне от 0.1 до 8.0.'
+                return false, 'Ошибка: radius должно быть в диапазоне от 0.1 до 8.0.'
             end
 
             local player = minetest.get_player_by_name(name)
             if player then
-                api.bloom.set_for(player, i, s, r)  -- Вызов функции с параметрами
+                api.bloom.set_for(player, i, s, r)
 
-                return true, 'Вы ввели: ' .. i .. ', ' .. s .. ', ' .. r  -- Используйте i, s, r для вывода
+                return true, 'Вы ввели: ' .. i .. ', ' .. s .. ', ' .. r
             else
                 return false, 'Ошибка: игрок не найден.'
             end
@@ -61,20 +65,4 @@ minetest.register_chatcommand('sunshine.set_bloom', {
             return false, 'Ошибка: введите три числа.'
         end
     end
-})
-
-minetest.register_chatcommand('sunshine.reset', {
-    params = '<value>',
-    description = S('Set the volumetric light strength (0.0 to 1.0)'),
-    func = function(name, param)
-
-        local player = minetest.get_player_by_name(name)
-        if player then
-			api.reset.set_for(player)
-        else
-			return false, S('Player not found.')
-		end
-
-        return true
-    end,
 })

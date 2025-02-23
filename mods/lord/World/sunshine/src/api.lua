@@ -4,7 +4,6 @@
 local Api = {
 	light = {},
 	bloom ={},
-	reset = {},
 }
 function Api.light.set_for(player, value)
 	player:set_lighting({
@@ -22,10 +21,6 @@ function Api.bloom.set_for(player, i, s, r)
 			radius = r,
 		},
 	})
-end
-
-function Api.reset.set_for(player)
-	player:set_lighting()
 end
 
 return Api
