@@ -37,7 +37,6 @@ minetest.register_chatcommand('sunshine.set_bloom', {
     description = [[
                     Для эффекта bloom
                     Ввод трех числовых переменных разделённых пробелом
-
                     Intensity от 0.0 до 1.0
                     Strength_factor от 0.1 до 10.0
                     Radius от 0.1 до 8.0
@@ -64,14 +63,14 @@ minetest.register_chatcommand('sunshine.set_bloom', {
             if player then
                 api.bloom.set_for(player, i, s, r)
 
-                return true, 'Вы ввели: ' .. i .. ', ' .. s .. ', ' .. r
+                return true
             else
 
                 return false, 'Ошибка: игрок не найден.'
             end
         else
 
-            return false, 'Ошибка: введите три числа.'
+            return false, 'Ошибка: введите три числа, разделяя пробелом.'
         end
     end
 })
