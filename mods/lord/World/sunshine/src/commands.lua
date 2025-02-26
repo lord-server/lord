@@ -34,13 +34,7 @@ minetest.register_chatcommand('sunshine.set_light', {
 
 minetest.register_chatcommand('sunshine.set_bloom', {
     params = '< intensity > < strength_factor > < radius >',
-    description = [[
-                    For bloom effect
-                    Input 3 numbers separated by a space
-                    Intensity from 0.0 to 1.0
-                    Strength_factor from 0.1 to 10.0
-                    Radius from 0.1 to 8.0
-                ]],
+    description = S('set_bloom_description'),
     func = function(name, param)
         local num1, num2, num3 = param:match('^(%d+%.?%d*) (%d+%.?%d*) (%d+%.?%d*)$')
         if num1 and num2 and num3 then
