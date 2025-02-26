@@ -35,11 +35,11 @@ minetest.register_chatcommand('sunshine.set_light', {
 minetest.register_chatcommand('sunshine.set_bloom', {
     params = '< intensity > < strength_factor > < radius >',
     description = [[
-                    Для эффекта bloom
-                    Ввод трех числовых переменных разделённых пробелом
-                    Intensity от 0.0 до 1.0
-                    Strength_factor от 0.1 до 10.0
-                    Radius от 0.1 до 8.0
+                    For bloom effect
+                    Input 3 numbers separated by a space
+                    Intensity from 0.0 to 1.0
+                    Strength_factor from 0.1 to 10.0
+                    Radius from 0.1 to 8.0
                 ]],
     func = function(name, param)
         local num1, num2, num3 = param:match('^(%d+%.?%d*) (%d+%.?%d*) (%d+%.?%d*)$')
@@ -48,15 +48,15 @@ minetest.register_chatcommand('sunshine.set_bloom', {
 
             if i < 0.0 or i > 1.0 then
 
-                return false, 'Ошибка: intensity должно быть в диапазоне от 0.0 до 1.0.'
+                return false, S('Error: intensity must be in range from 0.0 to 1.0.')
             end
             if s < 0.1 or s > 10.0 then
-                
-                return false, 'Ошибка: strength_factor должно быть в диапазоне от 0.1 до 10.0.'
+
+                return false, S('Error: strength_factor must be in range from 0.1 to 10.0.')
             end
             if r < 0.1 or r > 8.0 then
 
-                return false, 'Ошибка: radius должно быть в диапазоне от 0.1 до 8.0.'
+                return false, S('Error: radius must be in range from 0.1 to 8.0.')
             end
 
             local player = minetest.get_player_by_name(name)
@@ -66,11 +66,11 @@ minetest.register_chatcommand('sunshine.set_bloom', {
                 return true
             else
 
-                return false, 'Ошибка: игрок не найден.'
+                return false, S('Player not found.')
             end
         else
 
-            return false, 'Ошибка: введите три числа, разделяя пробелом.'
+            return false, S('Error: input 3 numbers separated by a space.')
         end
     end
 })
@@ -85,7 +85,7 @@ minetest.register_chatcommand('sunshine.reset', {
             return true
         else
 
-            return false, 'Ошибка: игрок не найден.'
+            return false, S('Player not found.')
         end
     end
 })
