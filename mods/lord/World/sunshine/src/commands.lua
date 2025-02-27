@@ -2,17 +2,17 @@ local S = minetest.get_mod_translator()
 local api = require('api')
 
 --- Validates the light value from user input.
--- @param value The value to validate.
--- @return boolean True if the value is valid, false otherwise.
+---@param value number value to validate.
+---@return boolean True if the value is valid, false otherwise.
 local function validate_light_value(value)
     return value and value >= 0 and value <= 1
 end
 
 --- Validates the bloom parameters.
--- @param i The intensity of the bloom effect.
--- @param s The strength factor of the bloom effect.
--- @param r The radius of the bloom effect.
--- @return boolean True if all parameters are valid, false otherwise.
+--- @param i number intensity of the bloom effect.
+--- @param s number strength factor of the bloom effect.
+--- @param r number radius of the bloom effect.
+--- @return boolean True if all parameters are valid, false otherwise.
 local function validate_bloom_params(i, s, r)
     return (i >= 0.0 and i <= 1.0) and (s >= 0.1 and s <= 10.0) and (r >= 0.1 and r <= 8.0)
 end
@@ -27,9 +27,9 @@ local function get_player(name)
 end
 
 --- Sets the volumetric light strength for a player.
--- @param name The name of the player.
--- @param value The strength value of the volumetric light.
--- @return boolean True if the light was set successfully, false and an error message otherwise.
+--- @param name string of the player.
+--- @param value number strength value of the volumetric light.
+--- @return boolean True if the light was set successfully, false and an error message otherwise.
 local function set_light(name, value)
     local player, err = get_player(name)
     if not player then
@@ -62,10 +62,10 @@ minetest.register_chatcommand('sunshine.set_light', {
 
 minetest.register_chatcommand('sunshine.set_bloom', {
     params = '<intensity> <strength_factor> <radius>',
-    description =   S('Input 3 numbers separated by a space.') .. '\n' ..
-                    S('Intensity from 0.0 to 1.0') .. '\n' ..
-                    S('Strength factor from 0.1 to 10.0') .. '\n' ..
-                    S('Radius from 0.1 to 8.0'),
+    description = S('Input 3 numbers separated by a space.') .. '\n' ..
+        S('Intensity from 0.0 to 1.0') .. '\n' ..
+        S('Strength factor from 0.1 to 10.0') .. '\n' ..
+        S('Radius from 0.1 to 8.0'),
     func = function(name, param)
         local num1, num2, num3 = param:match('^(%d+%.?%d*) (%d+%.?%d*) (%d+%.?%d*)$')
         if not (num1 and num2 and num3) then
