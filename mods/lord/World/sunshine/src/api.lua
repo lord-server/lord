@@ -1,3 +1,6 @@
+local Default  = require('config')
+
+
 --- @class sunshine.Api
 local Api = {
     --- Array for managing volumetric light parameters.
@@ -33,13 +36,9 @@ end
 --- @param player object player for whom the lighting parameters are reset.
 function Api.reset.set_for(player)
     player:set_lighting({
-        shadows = { intensity = 0.5 },
-        bloom = {
-            intensity = 0.05,
-            strength_factor = 1,
-            radius = 1,
-        },
-        volumetric_light = { strength = 0.2 },
+        shadows = Default.shadows,
+        bloom = Default.bloom,
+        volumetric_light = Default.volumetric_light,
     })
 end
 
