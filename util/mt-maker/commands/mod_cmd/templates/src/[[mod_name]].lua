@@ -1,5 +1,5 @@
-local api    = require("[[mod_name]].api")
-local config = require("[[mod_name]].config")
+local api    = require('[[mod_name]].api')
+local config = require('[[mod_name]].config')
 
 
 [[mod_name]] = {} -- luacheck: ignore unused global variable [[mod_name]]
