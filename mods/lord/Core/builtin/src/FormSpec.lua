@@ -208,7 +208,7 @@ end
 --- @return string
 function FormSpec.list(inventory_location,list_name,X,Y,W,H,starting_item_index)
 	return string.format(
-		'list[%s;%s;%s,%s;%s;%s%s]',
+		'list[%s;%s;%s,%s;%s,%s%s]',
 		inventory_location,list_name,X,Y,W,H,optional(starting_item_index)
 	)
 end
@@ -220,18 +220,15 @@ end
 --- * The first occurrence of an element inside the ring will
 --- determine the inventory where items will be sent to
 ---
---- @return string
-function FormSpec.listring(inventory_location,list_name)
-	return 'listring['..inventory_location..';'..list_name..']'
-end
-
----
---- * Shorthand for doing `listring[<inventory location>;<list name>]`
+--- * `listring[]` - Shorthand for doing `listring[<inventory location>;<list name>]`
 --- for the last two inventory lists added by list[...]
 ---
+--- @overload fun():string
 --- @return string
-function FormSpec.listring()
-	return 'listring[]'
+function FormSpec.listring(inventory_location,list_name)
+	return not inventory_location
+		and 'listring[]'
+		or  'listring['..inventory_location..';'..list_name..']'
 end
 
 ---
