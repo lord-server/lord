@@ -7,9 +7,9 @@ local formspec_prepend = ''
 
 local function build_formspec_prepend()
 	formspec_prepend = ''
-		.. spec.bgcolor('#000c', 'true')
-		.. spec.background9(5, 5, 1, 1, 'gui_formbg.png', 'true', 10)
-		.. spec.listcolors('#0007', '#5a5a5a', '#141318', '#1238', '#fffc')
+		.. spec.bgcolor(DefaultStyle.get_params_for('bgcolor'))
+		.. spec.background9(DefaultStyle.get_params_for('background9'))
+		.. spec.listcolors(DefaultStyle.get_params_for('listcolors'))
 
 	for selectors, style in DefaultStyle.list() do
 		formspec_prepend = formspec_prepend
