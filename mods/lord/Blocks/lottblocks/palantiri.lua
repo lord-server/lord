@@ -57,7 +57,7 @@ local function formspec_update(meta)
 	end
 	local palantir = meta:get_string("name")
 	local form     = "size[6,5]" ..
-		"background[5,5;1,1;gui_elfbg.png;true]" ..
+		"background[5,5;1,1;palantir_form-bg.png;true]" ..
 		"label[1.5,1;" .. S("Network Name") .. ": " .. network .. "]" ..
 		"label[1.5,1.5;" .. S("Palantir Name") .. ": " .. palantir .. "]" ..
 		"dropdown[1.5,2.5;3;teleports;" .. S("Teleport to...")
@@ -93,7 +93,7 @@ local function options_form(network)
 	-- 4. selected (optional) true/false
 	-- 5. tooltip (optional)
 	local options      = "size[5,5]" ..
-		"background[5,5;1,1;gui_elfbg.png;true]" ..
+		"background[5,5;1,1;palantir_form-bg.png;true]" ..
 		"label[1,0.5;" .. S("Allowed races") .. ":]" ..
 		"button[1,4;2,1;exit;" .. S("Proceed") .. "]"
 	for i, race in pairs(races_p) do
@@ -150,7 +150,7 @@ minetest.register_node("lottblocks:palantir", {
 		meta:set_int("configured", 0)
 		meta:set_string("owner", placer:get_player_name())
 		meta:set_string("formspec", "size[8,5]" ..
-			"background[8,5;1,1;gui_elfbg.png;true]" ..
+			"background[8,5;1,1;palantir_form-bg.png;true]" ..
 			"button[2.75,3.5;3,1;exit;" .. S("Proceed") .. "]" ..
 			"field[3,1;3,1;network;" .. S("Network Name") .. ";]" ..
 			"field[3,2.5;3,1;palantir;" .. S("Palantir Name") .. ";]")
