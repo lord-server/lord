@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.01.p3](https://github.com/lord-server/lord/releases/tag/2025.01.p3)
+ - Change translation of `/event` command. Fixes #2042
+
 ## [2025.01.p2](https://github.com/lord-server/lord/releases/tag/2025.01.p2)
 - Change /event coordinates. Closes #2036
 
