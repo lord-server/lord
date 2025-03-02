@@ -128,3 +128,10 @@ minetest.register_craft({
 		{'default:chest', 'protector_lott:protect2', ''},
 	}
 })
+
+minetest.register_on_mods_loaded(function()
+	if not minetest.global_exists('chests') then
+		return
+	end
+	chests.add_existing('protector_lott:chest')
+end)

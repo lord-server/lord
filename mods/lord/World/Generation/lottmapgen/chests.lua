@@ -20,12 +20,11 @@
 local function register_chest_spawner(chest_name, possible_items)
 
 	-- Конструирование имени и описания ноды спавнера из имени ноды целевого сундука:
-	local chest_basename = chest_name:sub(string.find(chest_name, ":")+1)
-	local chest_spawner_basename = chest_basename .. "_spawner" -- используется в качестве описания ноды
-	local chest_spawner_name = "lottmapgen:" .. chest_spawner_basename
+	local chest_basename = chest_name:replace("lord_chests:racial_", "")
+	local chest_spawner_name = "lottmapgen:" .. chest_basename .. '_chest_spawner'
 
 	minetest.register_node(chest_spawner_name, {
-		description = chest_spawner_basename,
+		description = chest_basename:first_to_upper() .. ' Chest Spawner',
 		tiles = {"lottblocks_elf_chest_bottom.png"},
 		is_ground_content = false,
 		groups = { oddly_breakable_by_hand = 1, not_in_creative_inventory=1 },
@@ -74,7 +73,7 @@ end
 
 
 
-register_chest_spawner("lottblocks:hobbit_chest", {
+register_chest_spawner("lord_chests:racial_hobbit", {
 	{ "lottfarming:barley_seed", 2 },
 	{ "lottfarming:barley_cooked", },
 	{ "lottfarming:berries_seed", },
@@ -102,7 +101,7 @@ register_chest_spawner("lottblocks:hobbit_chest", {
 	{ "farming:hoe_steel", },
 })
 
-register_chest_spawner("lottblocks:gondor_chest", {
+register_chest_spawner("lord_chests:racial_gondor", {
 	{ "lottores:marble", 6 },
 	{ "lottblocks:marble_brick", 10 },
 	{ "lottarmor:helmet_silver", },
@@ -130,7 +129,7 @@ register_chest_spawner("lottblocks:gondor_chest", {
 	{ "lord_archery:alder_wood_bow" },
 })
 
-register_chest_spawner("lottblocks:rohan_chest", {
+register_chest_spawner("lord_chests:racial_rohan", {
 	{ "lottores:lead_block", },
 	{ "lottores:pearl", 3 },
 	{ "lottarmor:helmet_tin", },
@@ -162,7 +161,7 @@ register_chest_spawner("lottblocks:rohan_chest", {
 	{ "lord_projectiles:steel_bolt", 5 },
 })
 
-register_chest_spawner("lottblocks:elfloth_chest", {
+register_chest_spawner("lord_chests:racial_elfloth", {
 	{ "lottores:mithril_ingot", },
 	{ "default:gold_ingot", 3 },
 	{ "lottweapons:elven_sword", },
@@ -199,7 +198,7 @@ register_chest_spawner("lottblocks:elfloth_chest", {
 	{ "lottores:white_gem", },
 })
 
-register_chest_spawner("lottblocks:elfmirk_chest", {
+register_chest_spawner("lord_chests:racial_elfmirk", {
 	{ "lottores:galvorn_ingot", 3 },
 	{ "lottores:tin_ingot", 5 },
 	{ "lottweapons:elven_sword", },
@@ -236,7 +235,7 @@ register_chest_spawner("lottblocks:elfmirk_chest", {
 	{ "farming:hoe_bronze", },
 })
 
-register_chest_spawner("lottblocks:mordor_chest", {
+register_chest_spawner("lord_chests:racial_mordor", {
 	{ "lord_rocks:mordor_stone", 6 },
 	{ "lottblocks:orc_brick", 7 },
 	{ "lottother:orc_torch", 4 },
@@ -266,7 +265,7 @@ register_chest_spawner("lottblocks:mordor_chest", {
 	{ "lottfarming:orc_medicine", 2 },
 })
 
-register_chest_spawner("lottblocks:angmar_chest", {
+register_chest_spawner("lord_chests:racial_angmar", {
 	{ "lottmapgen:angsnowblock", 3 },
 	{ "lottblocks:orc_brick", 7 },
 	{ "lottother:orc_torch", 4 },
@@ -297,7 +296,7 @@ register_chest_spawner("lottblocks:angmar_chest", {
 	{ "lottfarming:orc_medicine", 2 },
 })
 
-register_chest_spawner("lottblocks:dwarf_chest", {
+register_chest_spawner("lord_chests:racial_dwarf", {
 	{ "lord_alcohol:beer", 1, 10 },
 	{ "lord_alcohol:wine", 2, 6 },
 	{ "lord_alcohol:mead", 2, 4 },
