@@ -111,7 +111,7 @@ minetest.register_chatcommand("event.set_pos", {
 			storage:set_string("hall_of_event_pos", mypos.x..", "..mypos.y..", "..mypos.z)
 			minetest.settings:set("hall_of_event_pos", mypos.x..", "..mypos.y..", "..mypos.z)
 			spawn.register_hall("event", "Event")
-			minetest.chat_send_all("Event position is set to: "..storage:get_string("hall_of_event_pos"))
+			return true, S("Event position is set.")
 		end
 	end
 })
@@ -151,6 +151,12 @@ end
 
 spawn.register_hall("center", "Dol Guldur")
 spawn.register_hall("death", "Death")
+--Команда перемещения на Событие (/event) создается при наличии позиции hall_of_event_pos.
+--Позиция(текущая) задается в игре командой /event.set_pos при наличии привилегии eventing.
+--Значение hall_of_event_pos сохраняется в ModStorage и доступно после перезапуска сервера.
+--При инициализации lord_spawn сохраненное значение hall_of_event_pos, помещается в
+--minetest.settings для совместимости с функцией spawn.register_hall
+--От сохранения позиции в конфиг отказались т.к. при деплое он перезаписывается.
 if storage:get("hall_of_event_pos") then
 	minetest.settings:set("hall_of_event_pos", (storage:get("hall_of_event_pos")))
 	spawn.register_hall("event", "Event")
