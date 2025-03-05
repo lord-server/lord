@@ -25,7 +25,7 @@ local function register_chest_spawner(chest_name, possible_items)
 
 	minetest.register_node(chest_spawner_name, {
 		description = chest_basename:first_to_upper() .. ' Chest Spawner',
-		tiles = {"lottblocks_elf_chest_bottom.png"},
+		tiles = {"lord_chests_racial_elf_bottom.png"},
 		is_ground_content = false,
 		groups = { oddly_breakable_by_hand = 1, not_in_creative_inventory=1 },
 	})
