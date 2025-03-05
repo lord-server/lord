@@ -18,7 +18,7 @@ local NodeDefinition = {
 	---
 	--- Textures of node; +Y, -Y, +X, -X, +Z, -Z
 	--- List can be shortened to needed length.
-	--- @type string[]
+	--- @type string[]|TileDefinition[]
 	tiles                         = nil,
 
 	--- {tile definition 1, def2, def3, def4, def5, def6}
