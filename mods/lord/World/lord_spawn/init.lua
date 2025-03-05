@@ -1,5 +1,7 @@
 local S = minetest.get_mod_translator()
 
+local storage = core.get_mod_storage()
+
 -- Some modified from: Minetest: builtin/static_spawn.lua
 
 spawn = {}
@@ -70,7 +72,6 @@ minetest.register_chatcommand("spawn", {
 minetest.register_privilege("spawn_to", {
 	description = S("Can teleports to any race spawn."),
 	give_to_singleplayer = false,
-
 })
 
 minetest.register_chatcommand("spawn_to", {
@@ -85,6 +86,33 @@ minetest.register_chatcommand("spawn_to", {
 			S("Teleporting to "..race.." Spawn...")
 		end
 		return false, S("Teleport failed")
+	end
+})
+
+minetest.register_privilege("eventing", {
+	description = S("Can save position for /event."),
+	give_to_singleplayer = false,
+})
+
+minetest.register_chatcommand("event.set_pos", {
+	privs = { eventing = true },
+	description = S("Save current position as spawn point to /event."),
+	func = function(name, param)
+		if param == "none" then
+			storage:set_string("hall_of_event_pos", "")
+			minetest.settings:set("hall_of_event_pos", "")
+			minetest.unregister_chatcommand("event")
+		else
+			local player = minetest.get_player_by_name(name)
+			local mypos = player:get_pos()
+			mypos.x = math.floor(mypos.x)
+			mypos.y = math.floor(mypos.y)+0.5
+			mypos.z = math.floor(mypos.z)
+			storage:set_string("hall_of_event_pos", mypos.x..", "..mypos.y..", "..mypos.z)
+			minetest.settings:set("hall_of_event_pos", mypos.x..", "..mypos.y..", "..mypos.z)
+			spawn.register_hall("event", "Event")
+			return true, S("Event position is set.")
+		end
 	end
 })
 
@@ -123,7 +151,16 @@ end
 
 spawn.register_hall("center", "Dol Guldur")
 spawn.register_hall("death", "Death")
-spawn.register_hall("event", "Event") -- revert after Jan 13, 2025
+--Команда перемещения на Событие (/event) создается при наличии позиции hall_of_event_pos.
+--Позиция(текущая) задается в игре командой /event.set_pos при наличии привилегии eventing.
+--Значение hall_of_event_pos сохраняется в ModStorage и доступно после перезапуска сервера.
+--При инициализации lord_spawn сохраненное значение hall_of_event_pos, помещается в
+--minetest.settings для совместимости с функцией spawn.register_hall
+--От сохранения позиции в конфиг отказались т.к. при деплое он перезаписывается.
+if storage:get("hall_of_event_pos") then
+	minetest.settings:set("hall_of_event_pos", (storage:get("hall_of_event_pos")))
+	spawn.register_hall("event", "Event")
+end
 --spawn.register_hall("life", "Life")
 minetest.register_chatcommand("life", {
 	description = S("Teleport to the Hall of Life"),
