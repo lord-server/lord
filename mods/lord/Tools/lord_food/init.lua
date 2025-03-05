@@ -43,6 +43,8 @@ minetest.mod(function(mod)
 			'lord_food:pancakes',
 			'bees:bottle_honey',
 		},
-
+		replacements = {
+			{'bees:bottle_honey', 'vessels:glass_bottle'},
+		},
 	})
 end)
