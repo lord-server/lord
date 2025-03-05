@@ -12,6 +12,7 @@ require('mod')
 require('node')
 require('stack')
 require('craft')
+require('Texture')
 
 
 require = old_require
