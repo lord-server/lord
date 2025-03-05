@@ -13,6 +13,7 @@ require('node')
 require('stack')
 require('craft')
 require('Texture')
+require('Tile')
 
 
 require = old_require
