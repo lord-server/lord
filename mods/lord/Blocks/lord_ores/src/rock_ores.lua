@@ -1,7 +1,8 @@
 local S    = minetest.get_mod_translator()
 local tile = minetest.tile
 
-for name, registration in pairs(rocks.get_lord_nodes()) do
+
+for name, registration in pairs(rocks.get_lord_rocks()) do
 	local stripped_name = name:replace("lord_rocks:", "")
 	local rock_texture       = minetest.registered_nodes[name].tiles[1]
 

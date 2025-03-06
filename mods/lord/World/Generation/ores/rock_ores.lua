@@ -1,4 +1,4 @@
-for name, _ in pairs(rocks.get_lord_nodes()) do
+for name, _ in pairs(rocks.get_lord_rocks()) do
 	local stripped_name = name:replace("lord_rocks:", "")
 
 	-- MTG ores

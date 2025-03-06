@@ -16,7 +16,7 @@ return {
 		["lord_rocks:pyroxenite"]     = { softness = 1, definition = {} },
 		["lord_rocks:frozen_stone"]   = { softness = 3, definition = {
 			tiles = { "default_stone.png^lord_rocks_frozen.png" },
-		} },
+		}, not_rock = true },
 		["lord_rocks:mordor_stone"] = { softness = 3, definition = {
 			drop = "lottmapgen:mordor_cobble",
 		} },

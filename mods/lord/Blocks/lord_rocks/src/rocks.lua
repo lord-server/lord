@@ -14,7 +14,7 @@ local function register_lord_rocks()
 	api.add_existing("default:desert_sandstone")
 	api.add_existing("default:silver_sandstone")
 	for name, registration in pairs(config.rocks) do
-		api.register_rock(name, registration.softness, registration.definition, true)
+		api.register_rock(name, registration.softness, registration.definition, true, registration.not_rock)
 	end
 end
 
