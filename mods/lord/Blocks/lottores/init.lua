@@ -1,4 +1,5 @@
-local SL = minetest.get_mod_translator()
+local SL   = minetest.get_mod_translator()
+local tile = minetest.tile
 
 -- Ores:
 
@@ -56,61 +57,49 @@ minetest.register_node("lottores:mithril_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
+--- Gems ores ---
+
+
 minetest.register_node("lottores:blue_gem_ore", {
-	description = SL("Blue Gem Ore"),
-	tiles = {"default_stone.png^lottores_bluegem_ore.png"},
+	description       = SL("Blue Gem Ore"),
+	tiles             = { tile.anim_vertical_frames("lottores_bluegem_ore_anim.png", 1.5, "default_stone.png", 16) },
+	paramtype         = "light",
+	light_source      = 2,
 	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:blue_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
+	groups            = { cracky = 1 },
+	drop              = { items = {
+		{ items = { 'lottores:blue_gem' }, rarity = 5, },
+		{ items = { '' }, }
+	} },
+	sounds            = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:white_gem_ore", {
-	description = SL("White Gem Ore"),
-	tiles = {"default_stone.png^lottores_whitegem_ore.png"},
+	description       = SL("White Gem Ore"),
+	tiles             = { tile.anim_vertical_frames("lottores_whitegem_ore_anim.png", 1.5, "default_stone.png", 16) },
+	paramtype         = "light",
+	light_source      = 2,
 	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:white_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
+	groups            = { cracky = 1 },
+	drop              = { items = {
+		{ items = { 'lottores:white_gem' }, rarity = 5, },
+		{ items = { '' }, }
+	} },
+	sounds            = default.node_sound_stone_defaults(),
 })
 
 minetest.register_node("lottores:red_gem_ore", {
-	description = SL("Red Gem Ore"),
-	tiles = {"default_stone.png^lottores_redgem_ore.png"},
+	description       = SL("Red Gem Ore"),
+	tiles             = { tile.anim_vertical_frames("lottores_redgem_ore_anim.png", 1.5, "default_stone.png", 16) },
+	paramtype         = "light",
+	light_source      = 2,
 	is_ground_content = true,
-	groups = {cracky=1},
-	drop = {
-		items = {
-			{
-				items = {'lottores:red_gem'},
-				rarity = 5,
-			},
-			{
-				items = {''},
-			}
-		}
-	},
-	sounds = default.node_sound_stone_defaults(),
+	groups            = { cracky = 1 },
+	drop              = { items = {
+		{ items = { 'lottores:red_gem' }, rarity = 5, },
+		{ items = { '' }, }
+	} },
+	sounds            = default.node_sound_stone_defaults(),
 })
 
 -- Craft Items

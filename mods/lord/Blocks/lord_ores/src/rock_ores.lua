@@ -1,5 +1,5 @@
-local S = minetest.get_mod_translator()
-
+local S    = minetest.get_mod_translator()
+local tile = minetest.tile
 
 for name, registration in pairs(rocks.get_lord_nodes()) do
 	local stripped_name = name:replace("lord_rocks:", "")
@@ -90,57 +90,44 @@ for name, registration in pairs(rocks.get_lord_nodes()) do
 		sounds      = default.node_sound_stone_defaults(),
 	})
 
+	-- Gems
+
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_blue_gem", {
-		description = S("Blue Gem Ore"),
-		tiles       = { rock_texture .. "^lottores_bluegem_ore.png" },
-		groups      = { cracky = 1 },
-		sounds      = default.node_sound_stone_defaults(),
-		drop        = {
-			items = {
-				{
-					items = {'lottores:blue_gem'},
-					rarity = 5,
-				},
-				{
-					items = {''},
-				}
-			}
-		},
+		description  = S("Blue Gem Ore"),
+		tiles        = { tile.anim_vertical_frames("lottores_bluegem_ore_anim.png", 1.5, rock_texture, 16) },
+		paramtype    = "light",
+		light_source = 2,
+		groups       = { cracky = 1 },
+		sounds       = default.node_sound_stone_defaults(),
+		drop         = { items = {
+			{ items = { 'lottores:blue_gem' }, rarity = 5, },
+			{ items = { '' }, }
+		} },
 	})
 
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_white_gem", {
-		description = S("White Gem Ore"),
-		tiles       = { rock_texture .. "^lottores_whitegem_ore.png" },
-		groups      = { cracky = 1 },
-		sounds      = default.node_sound_stone_defaults(),
-		drop        = {
-			items = {
-				{
-					items = {'lottores:white_gem'},
-					rarity = 5,
-				},
-				{
-					items = {''},
-				}
-			}
-		},
+		description  = S("White Gem Ore"),
+		tiles        = { tile.anim_vertical_frames("lottores_whitegem_ore_anim.png", 1.5, rock_texture, 16) },
+		paramtype    = "light",
+		light_source = 2,
+		groups       = { cracky = 1 },
+		sounds       = default.node_sound_stone_defaults(),
+		drop         = { items = {
+			{ items = { 'lottores:white_gem' }, rarity = 5, },
+			{ items = { '' }, }
+		} },
 	})
 
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_red_gem", {
-		description = S("Red Gem Ore"),
-		tiles       = { rock_texture .. "^lottores_redgem_ore.png" },
-		groups      = { cracky = 1 },
-		sounds      = default.node_sound_stone_defaults(),
-		drop        = {
-			items = {
-				{
-					items = {'lottores:red_gem'},
-					rarity = 5,
-				},
-				{
-					items = {''},
-				}
-			}
-		},
+		description  = S("Red Gem Ore"),
+		tiles        = { tile.anim_vertical_frames("lottores_redgem_ore_anim.png", 1.5, rock_texture, 16) },
+		paramtype    = "light",
+		light_source = 2,
+		groups       = { cracky = 1 },
+		sounds       = default.node_sound_stone_defaults(),
+		drop         = { items = {
+			{ items = { 'lottores:red_gem' }, rarity = 5, },
+			{ items = { '' }, }
+		} },
 	})
 end
