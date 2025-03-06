@@ -38,7 +38,7 @@ local function set_light(name, value)
 
     api.light.set_for(player, value)
     local user_lighting_table = player:get_lighting()
-    if user_lighting_table.volumetric_light and user_lighting_table.volumetric_light.strength == value then
+    if math.abs(user_lighting_table.volumetric_light.strength - value) < 0.00001 then
         minetest.chat_send_player(name, S('Volumetric light strength set to ') .. value)
     else
         return false, S('Failed to set volumetric light strength')
