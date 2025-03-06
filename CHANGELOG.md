@@ -1,10 +1,51 @@
 # Change Log
 
+## [2025.02](https://github.com/lord-server/lord/releases/tag/2025.02)
+ - Chests: Racial: new forms bg texture & icons for each. Closes #2046.
+ - Add `sunshine` mod:
+   - enable & ability to configure sun light ("god-rays") by `/sunshine.set_light` (#2026). Closes #1911
+   - enable & ability to configure `bloom` by `/sunshine.set_bloom` (#2047)
+ - Add glow to fire- and magic balls (#2030)
+ - Add new command `/event.set_pos` for players with `eventing` privilege (#2054). Closes #2045
+ - Change crafting `lord_homedecor:flower_pot_small`. Closes #2005
+ - No duplicate links in server message (#2019). Fix #1831.
+
+ - Translations:
+   - Locale lord_homedecor(wooden banister). Related to #2003
+   - Locale some products from Plum and Hardwood. Related to #2003
+   - Locale some lottfarming item. Related #2003
+   - Locale International Cloak. Closes #2010
+   - Fix translator lord/Block/lamps
+
+ - Textures:
+   - Update texture for `lottfarming:cookie_cracker`. No issue.
+   - Add new textures for gems ores. Blue,white,red gems now animated and have low light. Closes #2055
+   - Ore Textures: clean from noises; change tones for ores, lumps & ingots. Closes #2060.
+
+ - Bug fixes:
+   - Fix tile texture name in `register_chest_spawner` func
+   - Added `glass_bottle` to `pancakes_with_honey` craft
+
+ - Technical:
+   - `util/mt-maker`: change quotes to single in mod template.
+   - Chests: Racial: extract into `lord_chests`. Closes #2050
+   - `Core`: `builtin`: fix `FormSpec.{list|listring}()` functions.
+   - `Game`: `lord_forms`: ability to get default params for style directives like `bgcolor`, if `no_prepend[]` used.
+   - Clean up couple unused textures.
+   - `lottblocks`: remove unused chest bg textures & unused `ring_guide.lua`.
+   - Move race tapestries textures in subfolder.
+   - Refactoring: ores textures: group in folders. Relates to #2060
+   - `Core`: `builtin`: add `Texture.repeat_vertically` helpper.
+   - `ide-helper`: add notations for `TileAnimationDefinition`.
+   - `ide-helper`: add notations for `TileDefinition`.
+   - `Core`: `builtin`: add `Tile.anim_vertical_frames()` helpper.
+   - Rocks: ability to get only rocks, that participate in the generation. Also fixes #2061.
+
 ## [2025.01.p3](https://github.com/lord-server/lord/releases/tag/2025.01.p3)
  - Change translation of `/event` command. Fixes #2042
 
 ## [2025.01.p2](https://github.com/lord-server/lord/releases/tag/2025.01.p2)
-- Change /event coordinates. Closes #2036
+ - Change /event coordinates. Closes #2036
 
 ## [2025.01.p1](https://github.com/lord-server/lord/releases/tag/2025.01.p1)
  - Mobs: balance `dead_man` drop. Relates to #1960.
