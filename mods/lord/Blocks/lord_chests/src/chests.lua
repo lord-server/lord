@@ -18,7 +18,7 @@ end
 --- Registers our racial chests
 local function register_racial()
 	for name, chest in pairs(config.racial) do
-		chests.racial.register(name, chest.title, chest.texture_type, chest.race, chest.craft_ingredient)
+		chests.racial.register(name, chest.title, chest.texture_type, chest.race, chest.craft)
 	end
 end
 
