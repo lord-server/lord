@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.02.p1](https://github.com/lord-server/lord/releases/tag/2025.02.p1)
+ - Chests: racial: fix crafts. Closes #2067
+
 ## [2025.02](https://github.com/lord-server/lord/releases/tag/2025.02)
  - Chests: Racial: new forms bg texture & icons for each. Closes #2046.
  - Add `sunshine` mod:
