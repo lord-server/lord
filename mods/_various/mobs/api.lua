@@ -2346,7 +2346,7 @@ end
 -- register mob entity
 function mobs:register_mob(name, def)
 
-	mobs.spawning_mobs[name] = true
+	mobs.spawning_mobs[name:replace('^:', '')] = true
 
 minetest.register_entity(name, {
 
