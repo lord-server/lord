@@ -53,3 +53,41 @@ worldedit.register_command('clear_trees', {
 		worldedit.player_notify(name, S("@1 nodes replaced", count))
 	end
 })
+
+
+worldedit.register_command('find_entity', {
+	params      = "",
+	description = S(""),
+	privs       = { worldedit = true },
+	require_pos = 2,
+	--- @param param string
+	parse = function(param)
+		local entity_name = param:replace(' ', '')
+		if entity_name == '' then
+			return false, S("invalid entity name: @1", param)
+		end
+		return true, entity_name
+	end,
+	--- @param name        string player name.
+	--- @param entity_name string parsed first command param.
+	func        = function(name, entity_name)
+		local pos1 = vector.add(worldedit.pos1[name], -0.5)
+		local pos2 = vector.add(worldedit.pos2[name], 0.5)
+
+		pos1, pos2 = worldedit.sort_pos(pos1, pos2)
+		worldedit.keep_loaded(pos1, pos2)
+
+		local count = 0
+		local objects = minetest.get_objects_in_area(pos1, pos2)
+		for _, obj in pairs(objects) do
+			if not obj:is_player() then
+				if obj:get_entity_name() == entity_name then
+					worldedit.player_notify(name, obj:get_entity_name() .. ' at ' .. core.pos_to_string(obj:get_pos()))
+					count = count + 1
+				end
+			end
+		end
+
+		worldedit.player_notify(name, S("@1 entities found", count))
+	end
+})
