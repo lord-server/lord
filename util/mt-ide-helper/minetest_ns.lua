@@ -952,13 +952,16 @@ function minetest.get_player_by_name(name) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4914-L4916)
 --- @param pos Position
 --- @param radius number
---- @return ObjectRef[]
+--- @return ObjectRef[]|Entity[]|Player[]
 function minetest.get_objects_inside_radius(pos, radius) end
 --- Returns a list of
 ---   ObjectRefs.
 ---  * `pos1` and `pos2` are the min and max positions of the area to search.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4917-L4919)
+--- @param pos1 Position
+--- @param pos2 Position
+--- @return ObjectRef[]|Entity[]|Player[]
 function minetest.get_objects_in_area(pos1, pos2) end
 --- * `val` is between `0` and `1`; `0` for midnight, `0.5` for midday
 ---
