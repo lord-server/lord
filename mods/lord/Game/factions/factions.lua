@@ -1,13 +1,23 @@
 -- register monster/animal/npc as factions
 
-factions:register_faction("animal", {})
-
-factions:register_faction("npc", {
-	friends = {"npc"},
-	hostiles = {"monster"},
+factions.register({
+	name        = 'animal',
+	title       = 'Animals',
+	description = 'All neutral animals.',
 })
 
-factions:register_faction("monster", {
-	friends = {"monster"},
-	hostiles = {"npc"},
+factions.register({
+	name        = 'npc',
+	title       = 'NPCs',
+	description = '',
+	friends     = { 'npc' },
+	hostiles    = { 'monster' },
+})
+
+factions.register({
+	name        = 'monster',
+	title       = 'Monsters',
+	description = '',
+	friends     = { 'monster' },
+	hostiles    = { 'npc' },
 })

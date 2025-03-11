@@ -993,7 +993,7 @@ local is_target = function(self, name, type)
 		return true
 	end
 
-	if factions:is_hostile(type, self.type) then
+	if factions.get(self.type):has_hostile(type) then
 		return true
 	end
 
@@ -2033,7 +2033,7 @@ function mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
 				if obj then
 					local type = obj.type
 
-					local is_friend = factions:is_friend(type, self.type)
+					local is_friend = factions.get(self.type):has_friend(type)
 
 					if is_friend then
 						if obj.group_attack == true and obj.state ~= "attack" then
