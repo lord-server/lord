@@ -1,0 +1,32 @@
+# textdomain: lord_races
+
+Shadow=Shadow
+Shadows=Shadows
+
+# Player Races (& mobs)
+Dwarf=Dwarf
+Dwarves=Dwarves
+Elf=Elf
+Elves=Elves
+Human=Human
+Humans=Humans
+Orc=Orc
+Orcs=Orcs
+Hobbit=Hobbit
+Hobbits=Hobbits
+
+# Mobs Only Races
+Dunlending=Dunlending
+Dunlendings=Dunlendings
+Half-troll=Half-troll
+Half-trolls=Half-trolls
+Ent=Ent
+Ents=Ents
+Troll=Troll
+Trolls=Trolls
+Dead Man=Dead Man
+Dead People=Dead People
+Nazgul=Nazgul
+Nazguls=Nazguls
+Balrog=Balrog
+Balrogs=Balrogs

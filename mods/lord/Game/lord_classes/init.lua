@@ -19,14 +19,8 @@ races = {
 	init_cbs = {},
 }
 
-races.name = {
-	SHADOW = 'shadow',
-	ORC    = 'orc',
-	HUMAN  = 'man',
-	DWARF  = 'dwarf',
-	HOBBIT = 'hobbit',
-	ELF    = 'elf',
-}
+-- TODO: migrate to new ones (to `lord_races`)
+races.name = lord_races.Name
 
 races.list = {
 	[races.name.SHADOW] = {

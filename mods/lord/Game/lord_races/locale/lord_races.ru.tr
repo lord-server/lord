@@ -1,0 +1,32 @@
+# textdomain: lord_races
+
+Shadow=Тень
+Shadows=Тени
+
+# Player Races (& mobs)
+Dwarf=Гном
+Dwarves=Гномы
+Elf=Эльф
+Elves=Эльфы
+Human=Человек
+Humans=Люди
+Orc=Орк
+Orcs=Орки
+Hobbit=Хоббит
+Hobbits=Хоббиты
+
+# Mobs Only Races
+Dunlending=Дунландец
+Dunlendings=Дунландцы
+Half-troll=Полутролль
+Half-trolls=Полутролли
+Ent=Энт
+Ents=Энты
+Troll=Тролль
+Trolls=Тролли
+Dead Man=Мертвец
+Dead People=Мертвецы
+Nazgul=Назгул
+Nazguls=Назгулы
+Balrog=Balrog
+Balrogs=Balrogs
