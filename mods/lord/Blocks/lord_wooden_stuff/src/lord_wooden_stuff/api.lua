@@ -3,14 +3,15 @@ local register_stick = require("lord_wooden_stuff.register.stick")
 --- Contains wooden stuff type to function accordance
 ---@type table<string,fun()>
 local stuff2func = {
-	["doors"]     = require("lord_wooden_stuff.register.doors"),
-	["hatch"]     = require("lord_wooden_stuff.register.hatch"),
-	["Rhatch"]    = require("lord_wooden_stuff.register.reinforced_hatch"),
-	["fence"]     = require("lord_wooden_stuff.register.fence"),
-	["ladder"]    = require("lord_wooden_stuff.register.ladder"),
-	["stanchion"] = require("lord_wooden_stuff.register.stanchion"),
-	["table"]     = require("lord_wooden_stuff.register.table"),
-	["chair"]     = require("lord_wooden_stuff.register.chair"),
+	["doors"]     	= require("lord_wooden_stuff.register.doors"),
+	["hatch"]     	= require("lord_wooden_stuff.register.hatch"),
+	["Rhatch"]    	= require("lord_wooden_stuff.register.reinforced_hatch"),
+	["fence"]     	= require("lord_wooden_stuff.register.fence"),
+	["fence_gate"]	= require("lord_wooden_stuff.register.fence_gate"),
+	["ladder"]    	= require("lord_wooden_stuff.register.ladder"),
+	["stanchion"] 	= require("lord_wooden_stuff.register.stanchion"),
+	["table"]     	= require("lord_wooden_stuff.register.table"),
+	["chair"]     	= require("lord_wooden_stuff.register.chair"),
 }
 
 --- Registers doors, hatches, fences (with reinforced ones), sticks, ladders, stanchions, tables, chairs of given wood
