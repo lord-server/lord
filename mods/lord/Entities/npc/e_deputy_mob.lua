@@ -192,9 +192,9 @@ local function configure_placed(self, playername)
 	self.creator = playername
 	self.mobname = "Deputy "..playername
 	local race = races.get_race(playername)
-	local gender = races.get_gender(playername)
-	local skin = races.get_skin(playername)
-	self.texture = races.get_texture_name(race, gender, skin)
+	local gender  = races.get_gender(playername)
+	local skin_no = races.get_skin_number(playername)
+	self.texture  = lord_skins.get_texture_name(race, gender, skin_no)
 	self.object:set_properties({
 		nametag       = self.mobname,
 		nametag_color = self.color,

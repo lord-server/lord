@@ -21,7 +21,6 @@ races = {
 
 -- TODO: migrate to new ones (to `lord_races`)
 races.name = lord_races.Name
-
 races.list = {
 	[races.name.SHADOW] = {
 		name = SL("Shadow"),
@@ -29,38 +28,26 @@ races.list = {
 		revoked_privs = {"shout", "interact"},
 		cannot_be_selected = true,
 		no_corpse = true,
-		male_skins = 1,
-		female_skins = 1,
 		faction = "neutral",
 	},
 	[races.name.ORC] = {
 		name = SL("Orc"),
-		male_skins = 5,
-		female_skins = 5,
 		faction = "monster",
 	},
 	[races.name.HUMAN] = {
 		name = SL("Man"),
-		male_skins = 8,
-		female_skins = 5,
 		faction = "npc",
 	},
 	[races.name.DWARF] = {
 		name = SL("Dwarf"),
-		male_skins = 5,
-		female_skins = 5,
 		faction = "npc",
 	},
 	[races.name.HOBBIT] = {
 		name = SL("Hobbit"),
-		male_skins = 5,
-		female_skins = 5,
 		faction = "npc",
 	},
 	[races.name.ELF] = {
 		name = SL("Elf"),
-		male_skins = 6,
-		female_skins = 5,
 		faction = "npc",
 	},
 }
@@ -169,8 +156,8 @@ function races.update_player(name, race_and_gender, skin)
 	local gender = race_and_gender[2]
 
 	-- TODO: caching
-	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	local face = races.get_face_preview_name(race, gender, skin)
+	local texture = lord_skins.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
+	local face = lord_skins.get_preview_name('front' ,race, gender, skin)
 
 	for _, cb in ipairs(races.update_cbs) do
 		cb(name, race, gender, skin, texture, face)
@@ -182,8 +169,8 @@ function races.init_player(name, race_and_gender, skin)
 	local gender = race_and_gender[2]
 
 	-- TODO: caching
-	local texture = races.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	local face = races.get_face_preview_name(race, gender, skin)
+	local texture = lord_skins.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
+	local face = lord_skins.get_preview_name('front', race, gender, skin)
 
 	for _, cb in ipairs(races.init_cbs) do
 		cb(name, race, gender, skin, texture, face)
@@ -249,13 +236,13 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 	return true
 end
 
-function races.get_skin(name)
+function races.get_skin_number(name)
 	return cache.skins[name] or races.default_skin
 end
 
-function races.set_skin(name, skin)
-	cache.skins[name] = skin
-	races.update_player(name, races.get_race_and_gender(name), skin)
+function races.set_skin(name, skin_number)
+	cache.skins[name] = skin_number
+	races.update_player(name, races.get_race_and_gender(name), skin_number)
 end
 
 -- Tinker with privs
@@ -362,22 +349,6 @@ function races.show_change_form(name)
 	minetest.show_formspec(name, "change_race", form)
 end
 
-function races.get_texture_name(race, gender, skin)
-	if race ~= "shadow" then
-		return string.format("%s_%s%d.png", race, gender, skin)
-	else
-		return string.format("shadow_%s1.png", gender)
-	end
-end
-
-function races.get_face_preview_name(race, gender, skin)
-	if race ~= "shadow" then
-		return string.format("preview_%s_%s%d_face.png", race, gender, skin)
-	else
-		return nil
-	end
-end
-
 -- Generates number sequence starting with 1 and ending with `max`
 local function generate_sequence(max)
 	local t = {}
@@ -387,23 +358,19 @@ local function generate_sequence(max)
 	return table.concat(t, ",")
 end
 
-function races.get_skins_num(race, gender)
-	return races.list[race][gender.."_skins"]
-end
-
 function races.show_skin_change_form(race, gender, skin, name)
 	local form = form_header
 
 	form = form .. string.format(
 		"label[0,0;%s]"..
-		"image[0.0,0.5;3.3,3.0;preview_%s_%s%d.png]"..
+		"image[0.0,0.5;3.3,3.0;%s]"..
 		"dropdown[3.6,0.51;3.0,1.0;skin;%s;%d]"..
 		"button_exit[0.0,3.3;3.0,1.0;back;%s]"..
 		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",
 
 		SL("Choose a skin for your character:"),
-		race, gender, skin,
-		generate_sequence(races.list[race][gender.."_skins"]), skin,
+		lord_skins.get_preview_name('both', race, gender, skin),
+		generate_sequence(lord_skins.get_skins_count(race, gender)), skin,
 		SL("Back"),
 		SL("OK")
 	)
@@ -495,7 +462,7 @@ minetest.register_on_joinplayer(function(player)
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(name)
-			races.init_player(name, r, races.get_skin(name))
+			races.init_player(name, r, races.get_skin_number(name))
 			return
 		end
 		r = races.get_race_and_gender(name)
@@ -505,12 +472,12 @@ minetest.register_on_joinplayer(function(player)
 			cache.skins[name] = races.default_skin
 		end
 
-		races.init_player(name, r, races.get_skin(name))
+		races.init_player(name, r, races.get_skin_number(name))
 	else
 		races.show_change_form(name)
 		cache.can_change[name] = true
 		local r = races.get_race_and_gender(name)
-		races.init_player(name, r, races.get_skin(name))
+		races.init_player(name, r, races.get_skin_number(name))
 	end
 end)
 

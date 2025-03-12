@@ -45,8 +45,9 @@ end
 function multiskin:get_preview(name)
 	local race = races.get_race(name)
 	local gender = races.get_gender(name)
-	local skin = races.get_skin(name)
-	return races.get_face_preview_name(race, gender, skin) or MULTISKIN_DEFAULT_PREVIEW
+	local skin = races.get_skin_number(name)
+
+	return lord_skins.get_preview_name('front', race, gender, skin) or MULTISKIN_DEFAULT_PREVIEW
 end
 
 player_api.register_model("lottarmor_character.b3d", {

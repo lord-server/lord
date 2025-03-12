@@ -26,7 +26,7 @@ local function register_corpse(race, gender, skin)
 		description = SL("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
-		tiles = {races.get_texture_name(race, gender, skin)},
+		tiles = {lord_skins.get_texture_name(race, gender, skin)},
 		use_texture_alpha = "clip",
 		paramtype = "light",
 		sunlight_propagates = true,
@@ -105,9 +105,9 @@ end
 
 for race, _ in pairs(races.list) do
 	for _, gender in pairs({"male", "female"}) do
-		for skin=1, races.list[race][gender.."_skins"] do
+		for skin_no = 1, lord_skins.get_skins_count(race, gender) do
 			if not races.list[race].no_corpse then
-				register_corpse(race, gender, skin)
+				register_corpse(race, gender, skin_no)
 			end
 		end
 	end
@@ -168,7 +168,7 @@ minetest.register_on_dieplayer(function(player)
 	local player_name = player:get_player_name()
 	local race = races.get_race_and_gender(player_name)[1]
 	local gender = races.get_race_and_gender(player_name)[2]
-	local skin = races.get_skin(player_name)
+	local skin = races.get_skin_number(player_name)
 	local player_inv = player:get_inventory()
 
 	if races.list[race].no_corpse then
