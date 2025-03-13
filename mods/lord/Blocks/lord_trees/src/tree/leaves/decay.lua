@@ -17,8 +17,8 @@ default.register_leafdecay({
 		"lord_trees:elm_leaf", -- Elms / Вяз.   Оставлено опадание вокруг ствола яблони, т.к. есть уже сгенерированные.
 		"lord_trees:plum_leaf", "lord_trees:plum", -- Plum Tree / Слива  -- Оставлено, т.к. есть уже сгенерированные.
 		"lord_trees:rowan_leaf", "lord_trees:rowan_berry", -- Rowans / Рябина
-		--"lord_trees:white_leaf", -- White Tree / Белое дерево
-		--"lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit", -- Yavannamire / Йаванамирэ
+		"lord_trees:white_leaf", -- White Tree / Белое дерево
+		"lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit", -- Yavannamire / Йаванамирэ
 	},
 	radius = 3,
 })
@@ -109,7 +109,7 @@ default.register_leafdecay({
 
 -- Yavannamire / Йаванамирэ
 default.register_leafdecay({
-	trunks = {"lord_trees:white_tree"},
+	trunks = {"lord_trees:yavannamire_tree"},
 	leaves = {"lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit"},
 	radius = 3,
 })
