@@ -87,23 +87,12 @@ minetest.register_privilege("race", {
 	give_to_singleplayer= false,
 })
 
---[[
-  Boilerplate functions
---]]
-local function ensure_table(p)
-	if not p then
-		return {}
-	else
-		return p
-	end
-end
-
 local function ensure_table_struct()
-	cache.players = ensure_table(cache.players)
-	cache.granted_privs = ensure_table(cache.granted_privs)
-	cache.revoked_privs = ensure_table(cache.revoked_privs)
-	cache.can_change = ensure_table(cache.can_change)
-	cache.skins = ensure_table(cache.skins)
+	cache.players = cache.players or {}
+	cache.granted_privs = cache.granted_privs or {}
+	cache.revoked_privs = cache.revoked_privs or {}
+	cache.can_change = cache.can_change or {}
+	cache.skins = cache.skins or {}
 end
 
 -- Load serialized classes from file
