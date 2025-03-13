@@ -313,7 +313,7 @@ function lottmapgen_lebethrontree(x, y, z, area, data)
 end
 
 function lottmapgen_whitetree(x, y, z, area, data)
-	local id_tree      = minetest.get_content_id("default:tree")
+	local id_tree      = minetest.get_content_id("lord_trees:white_tree")
 	local id_whiteleaf = minetest.get_content_id("lord_trees:white_leaf")
 	for j = -2, 4 do
 		if j >= 1 then

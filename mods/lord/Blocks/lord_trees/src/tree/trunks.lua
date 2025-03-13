@@ -108,6 +108,8 @@ register_trunk("lord_trees:lebethron_tree", 1, 10, 2)
 register_trunk("lord_trees:mallorn_tree",   1, 30, 5, { tree_height = 10, leaves_radius = 1 })
 register_trunk("lord_trees:pine_tree",      3, 13, 2)
 register_trunk("lord_trees:plum_tree",      3, 6,  2)
+register_trunk("lord_trees:white_tree", 3, 12, 3)
+register_trunk("lord_trees:yavannamire_tree", 3, 12, 3)
 
 
 return {

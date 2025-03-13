@@ -25,6 +25,7 @@ local function register_wooden_stuff(wood, def, exceptions)
 
 	local stick = "default:stick"
 	if not table.contains(exceptions, "stick") then
+		minetest.log("info", "Register stick: " .. wood)
 		stick = register_stick(wood, def)
 	end
 
