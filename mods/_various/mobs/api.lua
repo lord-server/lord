@@ -543,7 +543,7 @@ local do_jump = function(self)
 	-- what is in front of mob?
 	nod = node_ok({
 		x = pos.x + dir_x,
-		y = pos.y + 0.5,
+		y = pos.y + 1,
 		z = pos.z + dir_z
 	})
 
@@ -561,7 +561,7 @@ local do_jump = function(self)
 
 		local v = self.object:get_velocity()
 
-		v.y = self.jump_height -- + 1
+		v.y = self.jump_height
 
 		set_animation(self, "jump") -- only when defined
 
@@ -2360,7 +2360,7 @@ minetest.register_entity(name, {
 	order = def.order or "",
 	on_die = def.on_die,
 	do_custom = def.do_custom,
-	jump_height = def.jump_height or 6,
+	jump_height = def.jump_height or 4,
 	drawtype = def.drawtype, -- DEPRECATED, use rotate instead
 	rotate = math.rad(def.rotate or 0), --  0=front, 90=side, 180=back, 270=side2
 	lifetimer = def.lifetimer or 180, -- 3 minutes
