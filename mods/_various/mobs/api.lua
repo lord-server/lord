@@ -2350,7 +2350,7 @@ function mobs:register_mob(name, def)
 
 minetest.register_entity(name, {
 
-	stepheight = def.stepheight or 0.6,
+	stepheight = def.stepheight or 1.1,
 	name = name,
 	type = def.type,
 	attack_type = def.attack_type,
