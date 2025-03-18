@@ -1,3 +1,4 @@
+local api = require('api')
 
 
 mobs:register_mob("lottmobs:ent", {
@@ -59,5 +60,7 @@ mobs:register_mob("lottmobs:ent", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
-
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })

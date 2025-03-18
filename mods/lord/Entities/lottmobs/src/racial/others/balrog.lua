@@ -1,3 +1,4 @@
+local api = require('api')
 
 
 mobs:register_mob("lottmobs:balrog", {
@@ -69,4 +70,7 @@ mobs:register_mob("lottmobs:balrog", {
 		speed_normal = 15,
 		speed_run = 15,
 	},
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })

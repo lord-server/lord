@@ -35,7 +35,7 @@ mobs:register_mob("lottmobs:boar", {
 	water_damage         = 1,
 	lava_damage          = 5,
 	light_damage         = 0,
-	fear_height          = 2,
+	fear_height          = 3,
 	animation            = {
 		speed_normal = 15,
 		stand_start  = 25,

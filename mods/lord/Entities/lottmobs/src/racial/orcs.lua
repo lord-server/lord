@@ -1,3 +1,6 @@
+local api = require('api')
+
+
 local orc_armor = "lottarmor_chestplate_steel.png^" ..
 	"lottarmor_leggings_steel.png^" ..
 	"lottarmor_helmet_steel.png^" ..
@@ -69,6 +72,10 @@ mobs:register_mob("lottmobs:orc", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })
 
 mobs:register_mob("lottmobs:orc_crossbowman", {
@@ -142,6 +149,9 @@ mobs:register_mob("lottmobs:orc_crossbowman", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })
 
 mobs:register_mob("lottmobs:orc_archer", {
@@ -215,6 +225,9 @@ mobs:register_mob("lottmobs:orc_archer", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })
 
 mobs:register_mob("lottmobs:raiding_orc", {
@@ -277,6 +290,9 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })
 
 mobs:register_mob("lottmobs:uruk_hai", {
@@ -339,4 +355,7 @@ mobs:register_mob("lottmobs:uruk_hai", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })

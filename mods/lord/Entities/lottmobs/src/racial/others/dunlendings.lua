@@ -1,3 +1,6 @@
+local api = require('api')
+
+
 mobs:register_mob("lottmobs:dunlending", {
 	type = "monster",
 	hp_min = 17,
@@ -59,4 +62,7 @@ mobs:register_mob("lottmobs:dunlending", {
 		attack = "default_punch2",
 	},
 	step = 1,
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })

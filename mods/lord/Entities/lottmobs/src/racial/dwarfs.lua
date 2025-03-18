@@ -1,3 +1,6 @@
+local api = require('api')
+
+
 function lottmobs.register_dwarf(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
 	mobs:register_mob("lottmobs:dwarf" .. n, {
 		type                 = "npc",
@@ -47,6 +50,9 @@ function lottmobs.register_dwarf(n, hpmin, hpmax, textures, wv, rv, damg, arm, d
 		peaceful             = true,
 		group_attack         = true,
 		step                 = 1,
+		do_custom = function (self)
+			api.fear_height.state_check(self)
+		end
 	})
 end
 

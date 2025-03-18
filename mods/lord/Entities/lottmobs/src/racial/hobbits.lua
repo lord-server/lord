@@ -1,3 +1,5 @@
+local api = require('api')
+
 
 mobs:register_mob("lottmobs:hobbit", {
 	type = "npc",
@@ -63,5 +65,8 @@ mobs:register_mob("lottmobs:hobbit", {
 		death = "default_death",
 		attack = "default_punch2",
 	},
+	do_custom = function (self)
+		api.fear_height.state_check(self)
+	end
 })
 --mobs:register_spawn("lottmobs:hobbit", {"lord_ground:dirt_shire"}, 20, -1, 6000, 3, 31000)
