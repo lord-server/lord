@@ -191,6 +191,5 @@ mobs:register_mob("lottmobs:horseara", {
 	jump                 = true,
 	step                 = 1,
 	passive              = true,
-	fear_height = 3,
 })
 

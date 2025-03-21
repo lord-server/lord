@@ -1,4 +1,4 @@
-local api = require('api')
+local api = require('fear_height.api')
 
 
 function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
@@ -50,7 +50,7 @@ function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, dro
 		group_attack         = true,
 		step                 = 1,
 		do_custom = function (self)
-			api.fear_height.state_check(self)
+			api.set_fear_height_by_state(self)
 		end
 	})
 end
@@ -112,7 +112,7 @@ function lottmobs.register_elf_archer(n, hpmin, hpmax, textures, wv, rv, damg, a
 		group_attack         = true,
 		step                 = 1,
 		do_custom = function (self)
-			api.fear_height.state_check(self)
+			api.set_fear_height_by_state(self)
 		end
 	})
 end

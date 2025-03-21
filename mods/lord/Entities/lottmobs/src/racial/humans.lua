@@ -1,4 +1,4 @@
-local api = require('api')
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:rohan_guard", {
@@ -66,7 +66,7 @@ mobs:register_mob("lottmobs:rohan_guard", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -139,7 +139,7 @@ mobs:register_mob("lottmobs:gondor_guard", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -207,6 +207,6 @@ mobs:register_mob("lottmobs:ithilien_ranger", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })

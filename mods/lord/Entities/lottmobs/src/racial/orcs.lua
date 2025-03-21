@@ -1,4 +1,4 @@
-local api = require('api')
+local api = require('fear_height.api')
 
 
 local orc_armor = "lottarmor_chestplate_steel.png^" ..
@@ -74,7 +74,7 @@ mobs:register_mob("lottmobs:orc", {
 	step = 1,
 
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -150,7 +150,7 @@ mobs:register_mob("lottmobs:orc_crossbowman", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -226,7 +226,7 @@ mobs:register_mob("lottmobs:orc_archer", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -291,7 +291,7 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 
@@ -356,6 +356,6 @@ mobs:register_mob("lottmobs:uruk_hai", {
 	group_attack = true,
 	step = 1,
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })

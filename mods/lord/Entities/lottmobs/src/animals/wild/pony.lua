@@ -133,5 +133,4 @@ mobs:register_mob("lottmobs:shireponyblack", {
 	jump                 = true,
 	step                 = 1,
 	passive              = true,
-	fear_height = 3,
 })

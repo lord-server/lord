@@ -39,7 +39,6 @@ mobs:register_mob("lottmobs:kitten", {
 	},
 	water_damage = 0,
 	lava_damage = 5,
-	fear_height = 3,
 	animation = {
 		speed_normal = 42,
 		stand_start = 97,

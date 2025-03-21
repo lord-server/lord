@@ -46,7 +46,6 @@ mobs:register_mob("lottmobs:sheep", {
 	replace_what = {"default:grass_3", "default:grass_4", "default:grass_5", "farming:wheat_8"},
 	replace_with = "air",
 	replace_offset = -1,
-	fear_height = 3,
 
 	on_rightclick = function(self, clicker)
 		if mobs:feed_tame(self, clicker, 8, true, true) then

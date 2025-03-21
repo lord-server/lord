@@ -1,5 +1,5 @@
 local SL = minetest.get_mod_translator()
-local api = require('api')
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:warg", {
@@ -67,7 +67,7 @@ mobs:register_mob("lottmobs:warg", {
 	step                 = 1,
 	sounds               = {},
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 		lottmobs.do_custom_guard()
 	end
 })

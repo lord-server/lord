@@ -2425,7 +2425,7 @@ minetest.register_entity(name, {
 	child_texture = def.child_texture,
 	docile_by_day = def.docile_by_day or false,
 	time_of_day = 0.5,
-	fear_height = def.fear_height or 0,
+	fear_height = def.fear_height or 3,
 	runaway = def.runaway,
 	runaway_timer = 0,
 	pathfinding = def.pathfinding,

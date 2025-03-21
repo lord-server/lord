@@ -516,7 +516,6 @@ lottmobs.register_horse("lottmobs:horsepegh1", {
 	feed = {
 		["lottfarming:carrot_item"] = 5,
 	},
-	fear_height = 3,
 })
 
 --horse arabik
@@ -548,7 +547,6 @@ lottmobs.register_horse("lottmobs:horsearah1", {
 	feed = {
 		["lottfarming:carrot_item"] = 5,
 	},
-	fear_height = 3,
 })
 
 lottmobs.register_horse("lottmobs:shireponyblackh1", {
@@ -580,7 +578,6 @@ lottmobs.register_horse("lottmobs:shireponyblackh1", {
 	feed = {
 		["lottfarming:carrot_item"] = 5,
 	},
-	fear_height = 3,
 })
 
 lottmobs.register_horse("lottmobs:shireponyh1", {
@@ -612,7 +609,6 @@ lottmobs.register_horse("lottmobs:shireponyh1", {
 	feed = {
 		["lottfarming:carrot_item"] = 5,
 	},
-	fear_height = 3,
 })
 
 lottmobs.register_horse("lottmobs:boar_mount", {
@@ -649,7 +645,6 @@ lottmobs.register_horse("lottmobs:boar_mount", {
 	feed = {
 		["lottfarming:carrot_item"] = 5,
 	},
-	fear_height = 3,
 })
 
 lottmobs.register_horse("lottmobs:warg_mount", {
@@ -687,5 +682,4 @@ lottmobs.register_horse("lottmobs:warg_mount", {
 		["lottmobs:rotten_meat"] = 6,
 		["lottfarming:orc_food"] = 5,
 	},
-	fear_height = 3,
 })

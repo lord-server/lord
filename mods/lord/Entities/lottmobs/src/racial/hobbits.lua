@@ -1,4 +1,4 @@
-local api = require('api')
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:hobbit", {
@@ -66,7 +66,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		attack = "default_punch2",
 	},
 	do_custom = function (self)
-		api.fear_height.state_check(self)
+		api.set_fear_height_by_state(self)
 	end
 })
 --mobs:register_spawn("lottmobs:hobbit", {"lord_ground:dirt_shire"}, 20, -1, 6000, 3, 31000)
