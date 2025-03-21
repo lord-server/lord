@@ -502,7 +502,14 @@ end
 
 
 -- jump if facing a solid node (not fences or gates)
+local jump_cooldown = 1
+local can_jump = true
+
 local do_jump = function(self)
+    if not can_jump then
+        return false
+    end
+
 	if mob_is_dead(self) then
 		return
 	end
@@ -543,7 +550,7 @@ local do_jump = function(self)
 	-- what is in front of mob?
 	nod = node_ok({
 		x = pos.x + dir_x,
-		y = pos.y + 1,
+		y = pos.y + 0.5,
 		z = pos.z + dir_z
 	})
 
@@ -555,6 +562,7 @@ local do_jump = function(self)
 --print ("in front:", nod.name, pos.y + 0.5)
 
 	if (minetest.registered_items[nod.name].walkable
+	and not nod.name:find("walls")
 	and not nod.name:find("fence")
 	and not nod.name:find("gate"))
 	or self.walk_chance == 0 then
@@ -568,6 +576,12 @@ local do_jump = function(self)
 		self.object:set_velocity(v)
 
 		mob_sound(self, self.sounds.jump)
+
+		can_jump = false
+
+		minetest.after(jump_cooldown, function()
+			can_jump = true
+		end)
 
 		return true
 	end
