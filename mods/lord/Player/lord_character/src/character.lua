@@ -1,5 +1,6 @@
 local Character = require('character.Character')
 local Storage   = require('character.Storage')
+local Event     = require('character.Event')
 
 
 --- @type character.Character[]|table<string,character.Character>
@@ -18,8 +19,16 @@ local function register_api()
 			end
 
 			return player_characters[name]
-		end
+		end,
+
+		--- @type fun(callback:character.callbacks.OnRaceChange)
+		on_race_change   = Event:on(Event.Type.on_race_change),
+		--- @type fun(callback:character.callbacks.OnGenderChange)
+		on_gender_change = Event:on(Event.Type.on_gender_change),
+		--- @type fun(callback:character.callbacks.OnSkinChange)
+		on_skin_change   = Event:on(Event.Type.on_skin_change),
 	}
+
 	-- Cleanup cached character on leave
 	minetest.register_on_leaveplayer(function(player, timed_out)
 		player_characters[player:get_player_name()] = nil

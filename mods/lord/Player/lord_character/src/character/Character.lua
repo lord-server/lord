@@ -1,4 +1,5 @@
-local Property      = require('character.Character.Property')
+local Property = require('character.Character.Property')
+local Event    = require('character.Event')
 
 
 --- @class character.Character
@@ -20,6 +21,11 @@ function Character:new(storage)
 	return setmetatable(self, { __index = class })
 end
 
+--- @return Player
+function Character:get_player()
+	return self.storage.player
+end
+
 --- @see lord_races.Name
 --- @return string|nil one of lord_races.Name.<CONST>
 function Character:get_race()
@@ -38,6 +44,7 @@ end
 --- @return character.Character
 function Character:set_race(race)
 	self.storage:set(Property.RACE, race)
+	Event:trigger(Event.Type.on_race_change, self, race)
 
 	return self
 end
@@ -58,6 +65,7 @@ end
 function Character:set_gender(gender)
 	assert(gender:is_one_of({ 'male', 'female' }))
 	self.storage:set(Property.GENDER, gender)
+	Event:trigger(Event.Type.on_gender_change, self, gender)
 
 	return self
 end
@@ -73,6 +81,7 @@ end
 --- @return character.Character
 function Character:set_skin_no(number)
 	self.storage:set_int(Property.SKIN, number)
+	Event:trigger(Event.Type.on_skin_change, self, number)
 
 	return self
 end
