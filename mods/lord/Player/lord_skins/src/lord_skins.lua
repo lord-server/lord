@@ -1,5 +1,7 @@
 local config = require('lord_skins.config')
 
+
+--- @class lord_skins the namespace to refers to in @see notations.
 lord_skins   = {} -- luacheck: ignore unused global variable lord_skins
 
 local function register_api()
@@ -34,6 +36,7 @@ local function register_api()
 		end
 	}
 end
+
 
 return {
 	--- @param mod minetest.Mod
