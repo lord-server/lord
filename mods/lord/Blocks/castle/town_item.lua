@@ -20,14 +20,14 @@ minetest.register_node("castle:dungeon_stone", {
 })
 
 minetest.register_craft({
-	output = "castle:dungeon_stone",
+	output = "castle:dungeon_stone 2",
 	recipe = {
 		{ "default:stonebrick", "default:obsidian" },
 	}
 })
 
 minetest.register_craft({
-	output = "castle:dungeon_stone",
+	output = "castle:dungeon_stone 2",
 	recipe = {
 		{ "default:stonebrick" },
 		{ "default:obsidian" },
