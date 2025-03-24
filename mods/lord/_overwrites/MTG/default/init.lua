@@ -109,7 +109,7 @@ minetest.clear_craft({recipe = {
 }});
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:bronze_ingot",
+	output = "default:bronze_ingot 2",
 	recipe = {"lottores:tin_ingot", "default:copper_ingot"},
 })
 -- в `_lott/lottores` своё олово (видимо в MTG оно появилось позже)
