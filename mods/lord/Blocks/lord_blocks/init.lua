@@ -28,7 +28,7 @@ minetest.register_node(":lottblocks:dwarfstone_stripe_singledot", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
-	groups            = { cracky = 3 },
+	groups            = { cracky = 3, wall_connected = 1 },
 })
 
 minetest.register_node(":lottblocks:dwarfstone_stripe_onesided", {
@@ -43,7 +43,7 @@ minetest.register_node(":lottblocks:dwarfstone_stripe_onesided", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
-	groups            = { cracky = 3 },
+	groups            = { cracky = 3, wall_connected = 1 },
 })
 
 
@@ -86,7 +86,7 @@ minetest.register_node("lord_blocks:marble_with_gold", {
 	description = S("Marble With Gold"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -94,7 +94,7 @@ minetest.register_node("lord_blocks:marble_with_redgem", {
 	description = S("Marble With Redgem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_redgem.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -102,7 +102,7 @@ minetest.register_node("lord_blocks:marble_with_bluegem", {
 	description = S("Marble With Bluegem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_bluegem.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -110,7 +110,7 @@ minetest.register_node("lord_blocks:marble_with_purplegem", {
 	description = S("Marble With Purplegem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_purplegem.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 

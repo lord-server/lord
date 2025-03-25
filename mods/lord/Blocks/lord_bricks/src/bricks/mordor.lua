@@ -19,7 +19,7 @@ minetest.register_node("lord_bricks:mordor_clay_masonry", {
 	description = S("Mordor Clay Masonry"),
 	tiles = {"lord_bricks_mordor_clay_masonry.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -27,7 +27,7 @@ minetest.register_node("lord_bricks:mordor_clay_masonry_large", {
 	description = S("Large Mordor Clay Masonry"),
 	tiles = {"lord_bricks_mordor_clay_masonry_large.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -35,7 +35,7 @@ minetest.register_node("lord_bricks:mordor_clay_brick", {
 	description = S("Mordor Clay Brick"),
 	tiles = {"lord_bricks_mordor_clay_brick.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -43,7 +43,7 @@ minetest.register_node("lord_bricks:mordor_clay_block", {
 	description = S("Mordor Clay Block"),
 	tiles = {"lord_bricks_mordor_clay_block.png"},
 	is_ground_content = false,
-	groups = {cracky = 2},
+	groups = {cracky = 2, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 

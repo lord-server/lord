@@ -19,7 +19,7 @@ minetest.register_node("lord_bricks:chamotte_masonry", {
 	description = S("Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -27,7 +27,7 @@ minetest.register_node("lord_bricks:chamotte_masonry_large", {
 	description = S("Large Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry_large.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -35,7 +35,7 @@ minetest.register_node("lord_bricks:chamotte_brick", {
 	description = S("Chamotte Brick"),
 	tiles = {"lord_bricks_chamotte_brick.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -43,7 +43,7 @@ minetest.register_node("lord_bricks:chamotte_block", {
 	description = S("Chamotte Block"),
 	tiles = {"lord_bricks_chamotte_block.png"},
 	is_ground_content = false,
-	groups = {cracky = 2},
+	groups = {cracky = 2, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
