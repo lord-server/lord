@@ -28,7 +28,6 @@ mobs:register_mob("lottmobs:bunny", {
 	water_damage = 1,
 	lava_damage = 4,
 	light_damage = 0,
-	fear_height = 2,
 	animation = {
 		speed_normal = 15,
 		stand_start = 1,

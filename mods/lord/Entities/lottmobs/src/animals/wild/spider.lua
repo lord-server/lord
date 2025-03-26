@@ -1,3 +1,4 @@
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:spider", {
@@ -51,5 +52,8 @@ mobs:register_mob("lottmobs:spider", {
 		attack = "mobs_oerkki_attack",
 	},
 	step = 1,
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })
 --mobs:register_spawn("lottmobs:spider", {"lord_ground:dirt_mirkwood"}, 20, -10, 6000, 3, 31000)

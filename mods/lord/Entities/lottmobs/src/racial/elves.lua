@@ -1,3 +1,6 @@
+local api = require('fear_height.api')
+
+
 function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
 	mobs:register_mob("lottmobs:elf" .. n, {
 		type                 = "npc",
@@ -46,6 +49,9 @@ function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, dro
 		peaceful             = true,
 		group_attack         = true,
 		step                 = 1,
+		do_custom = function (self)
+			api.set_fear_height_by_state(self)
+		end
 	})
 end
 
@@ -105,6 +111,9 @@ function lottmobs.register_elf_archer(n, hpmin, hpmax, textures, wv, rv, damg, a
 		peaceful             = true,
 		group_attack         = true,
 		step                 = 1,
+		do_custom = function (self)
+			api.set_fear_height_by_state(self)
+		end
 	})
 end
 

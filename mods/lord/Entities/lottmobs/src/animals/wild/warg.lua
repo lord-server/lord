@@ -1,4 +1,5 @@
 local SL = minetest.get_mod_translator()
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:warg", {
@@ -59,11 +60,14 @@ mobs:register_mob("lottmobs:warg", {
 			self.object:remove()
 		end
 	end,
-	do_custom            = lottmobs.do_custom_guard,
 	jump                 = true,
 	attacks_monsters     = true,
 	peaceful             = true,
 	group_attack         = true,
 	step                 = 1,
 	sounds               = {},
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+		lottmobs.do_custom_guard()
+	end
 })

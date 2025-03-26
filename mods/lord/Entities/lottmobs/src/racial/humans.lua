@@ -1,3 +1,6 @@
+local api = require('fear_height.api')
+
+
 mobs:register_mob("lottmobs:rohan_guard", {
 	type = "npc",
 	hp_min = 20,
@@ -62,6 +65,9 @@ mobs:register_mob("lottmobs:rohan_guard", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })
 
 mobs:register_mob("lottmobs:gondor_guard", {
@@ -132,6 +138,9 @@ mobs:register_mob("lottmobs:gondor_guard", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })
 
 mobs:register_mob("lottmobs:ithilien_ranger", {
@@ -197,4 +206,7 @@ mobs:register_mob("lottmobs:ithilien_ranger", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })

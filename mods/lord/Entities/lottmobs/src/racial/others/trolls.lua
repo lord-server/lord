@@ -1,3 +1,5 @@
+local api = require('fear_height.api')
+
 
 mobs:register_mob("lottmobs:battle_troll", {
 	type = "monster",
@@ -115,4 +117,7 @@ mobs:register_mob("lottmobs:troll", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+    do_custom = function(self)
+        api.set_fear_height_by_state(self)
+    end
 })

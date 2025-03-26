@@ -1,3 +1,4 @@
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:dead_men", {
@@ -58,4 +59,7 @@ mobs:register_mob("lottmobs:dead_men", {
 		{ name = "lottores:blue_gem",       chance = 100/1  , min = 1, max = 1, },
 		{ name = "lottores:red_gem",        chance = 100/ .5, min = 1, max = 1, },
 	},
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })

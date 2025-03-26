@@ -1,4 +1,5 @@
 local SL = minetest.get_mod_translator()
+local api = require('fear_height.api')
 
 
 mobs:register_mob("lottmobs:boar", {
@@ -35,7 +36,6 @@ mobs:register_mob("lottmobs:boar", {
 	water_damage         = 1,
 	lava_damage          = 5,
 	light_damage         = 0,
-	fear_height          = 2,
 	animation            = {
 		speed_normal = 15,
 		stand_start  = 25,
@@ -65,4 +65,8 @@ mobs:register_mob("lottmobs:boar", {
 			self.object:remove()
 		end
 	end,
+
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
 })

@@ -66,6 +66,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		lava_damage = 5,
 		light_damage = 0,
 		animation = l_anims,
+		fear_height = 0,
 		on_rightclick = function(self, clicker)
 			mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
 		end
@@ -102,6 +103,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		lava_damage = 5,
 		light_damage = 0,
 		animation = l_anims,
+		fear_height = 0,
 		on_rightclick = function(self, clicker)
 			mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
 		end
