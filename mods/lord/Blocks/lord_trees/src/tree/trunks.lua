@@ -97,19 +97,19 @@ local function register_trunk(node_name, softness, tree_height, leaves_radius, r
 	end
 end
 
-register_trunk("lord_trees:alder_tree",			2, 10, 2)
-register_trunk("lord_trees:beech_tree",			2, 15, 4)
-register_trunk("lord_trees:birch_tree",			3, 12, 3)
-register_trunk("lord_trees:cherry_tree",		2, 10, 2)
-register_trunk("lord_trees:culumalda_tree",		2, 10, 2)
-register_trunk("lord_trees:elm_tree",			2, 25, 2)
-register_trunk("lord_trees:fir_tree",			3, 13, 2)
-register_trunk("lord_trees:lebethron_tree",		1, 10, 2)
-register_trunk("lord_trees:mallorn_tree",		1, 30, 5, { tree_height = 10, leaves_radius = 1 })
-register_trunk("lord_trees:pine_tree",			3, 13, 2)
-register_trunk("lord_trees:plum_tree",			3, 6,  2)
-register_trunk("lord_trees:white_tree",			3, 12, 3)
-register_trunk("lord_trees:yavannamire_tree",	3, 12, 3)
+register_trunk("lord_trees:alder_tree",       2, 10, 2)
+register_trunk("lord_trees:beech_tree",       2, 15, 4)
+register_trunk("lord_trees:birch_tree",       3, 12, 3)
+register_trunk("lord_trees:cherry_tree",      2, 10, 2)
+register_trunk("lord_trees:culumalda_tree",   2, 10, 2)
+register_trunk("lord_trees:elm_tree",         2, 25, 2)
+register_trunk("lord_trees:fir_tree",         3, 13, 2)
+register_trunk("lord_trees:lebethron_tree",   1, 10, 2)
+register_trunk("lord_trees:mallorn_tree",     1, 30, 5, { tree_height = 10, leaves_radius = 1 })
+register_trunk("lord_trees:pine_tree",        3, 13, 2)
+register_trunk("lord_trees:plum_tree",        3, 6,  2)
+register_trunk("lord_trees:white_tree",       3, 12, 3)
+register_trunk("lord_trees:yavannamire_tree", 3, 12, 3)
 
 
 return {
