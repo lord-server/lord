@@ -101,6 +101,25 @@ stairs.register_slab(
 	false
 )
 
+stairs.register_slab(
+	"whitetree",
+	"lord_trees:white_tree",
+	{ tree_slab = 1, choppy = 2, flammable = 2 },
+	{ "lord_trees_white_tree.png",},
+	S("White Tree Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
+
+stairs.register_slab(
+	"Yavannamire",
+	"lord_trees:yavannamire_tree",
+	{ tree_slab = 1, choppy = 2, flammable = 2 },
+	{ "lord_trees_yavannamire_tree.png",},
+	S("Yavannamire Tree Trunk Slab"),
+	default.node_sound_wood_defaults(),
+	false
+)
 
 minetest.register_craft({
 	type = "fuel",

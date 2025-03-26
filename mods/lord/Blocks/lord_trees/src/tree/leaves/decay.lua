@@ -99,3 +99,17 @@ default.register_leafdecay({
 	leaves = {"lord_trees:plum_leaf", "lord_trees:plum"},
 	radius = 2,
 })
+
+-- White Tree / Белое дерево
+default.register_leafdecay({
+	trunks = {"lord_trees:white_tree"},
+	leaves = {"lord_trees:white_leaf"},
+	radius = 3,
+})
+
+-- Yavannamire / Йаванамирэ
+default.register_leafdecay({
+	trunks = {"lord_trees:yavannamire_tree"},
+	leaves = {"lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit"},
+	radius = 3,
+})

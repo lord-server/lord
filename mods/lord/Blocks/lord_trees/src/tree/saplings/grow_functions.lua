@@ -225,7 +225,7 @@ function lottplants_whitetree(pos, generator)
 	local height = 4 + math.random(2)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "default:tree")
+	generator.add_trunk(pos, height, "lord_trees:white_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:white_leaf")
 	generator.add_crown_at(pos, height,     radius, "lord_trees:white_leaf")
@@ -238,7 +238,7 @@ function lottplants_yavannamiretree(pos, generator)
 	local height = 4 + math.random(2)
 	local radius = 2
 
-	generator.add_trunk(pos, height, "default:tree")
+	generator.add_trunk(pos, height, "lord_trees:yavannamire_tree")
 
 	generator.add_crown_at(pos, height - 2, radius, "lord_trees:yavannamire_leaf")
 	generator.add_crown_at(pos, height,     radius, { "lord_trees:yavannamire_leaf", "lord_trees:yavannamire_fruit" })
