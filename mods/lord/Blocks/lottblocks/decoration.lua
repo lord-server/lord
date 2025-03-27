@@ -188,13 +188,13 @@ minetest.register_node("lottblocks:dwarfstone_white", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
-	groups            = { cracky = 3 },
+	groups            = { cracky = 3, wall_connected = 1 },
 })
 
 stairs.register_stair_and_slab(
 	"dwarfstone_white",
 	"lottblocks:dwarfstone_white",
-	{ cracky = 2 },
+	{ cracky = 2, wall_connected = 1 },
 	{ "lottblocks_dwarfstone_white_top.png" },
 	S("White Dwarf Stone Stair"),
 	S("White Dwarf Stone Slab"),
@@ -218,13 +218,13 @@ minetest.register_node("lottblocks:dwarfstone_black", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
-	groups            = { cracky = 3 },
+	groups            = { cracky = 3, wall_connected = 1 },
 })
 
 stairs.register_stair_and_slab(
 	"dwarfstone_black",
 	"lottblocks:dwarfstone_black",
-	{ cracky = 2 },
+	{ cracky = 2, wall_connected = 1 },
 	{ "lottblocks_dwarfstone_black_top.png" },
 	S("Black Dwarf Stone Stair"),
 	S("Black Dwarf Stone Slab"),
@@ -248,7 +248,7 @@ minetest.register_node("lottblocks:dwarfstone_stripe", {
 	},
 	paramtype2        = "facedir",
 	is_ground_content = false,
-	groups            = { cracky = 3 },
+	groups            = { cracky = 3, wall_connected = 1 },
 })
 
 --------------

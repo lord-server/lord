@@ -36,7 +36,7 @@ for _, row in ipairs(hole.types) do
 		drawtype = "nodebox",
 		description = S(desc.." Murder Hole"),
 		tiles = {tile..".png"},
-		groups = {cracky=3},
+		groups = {cracky=3, wall_connected = 1},
 		sounds = default.node_sound_defaults(),
 		paramtype = "light",
 		paramtype2 = "facedir",

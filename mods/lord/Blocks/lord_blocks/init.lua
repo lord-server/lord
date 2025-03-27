@@ -152,7 +152,7 @@ minetest.register_node("lord_blocks:green_marble", {
 stairs.register_stair_and_slab(
 	"green_marble",
 	"lord_blocks:green_marble",
-	{cracky=3},
+	{cracky=3, wall_connected = 1},
 	{"lord_blocks_green_marble.png"},
 	S("Green Marble Stair"),
 	S("Green Marble Slab"),

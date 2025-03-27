@@ -131,7 +131,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 	local def = {
 		description = description,
 		tiles = make_tiles(furnacedef.tiles, furnacedef.tile_format, false),
-		groups = furnacedef.groups or {cracky=2},
+		groups = furnacedef.groups or {cracky=2, wall_connected = 1},
 		sounds = furnacedef.sounds or default.node_sound_wood_defaults(),
 		on_construct = furnace_construct,
 		can_dig = furnace_can_dig,
@@ -145,7 +145,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 		tiles = make_tiles(furnacedef.tiles_active, furnacedef.tile_format, true),
 		light_source = 8,
 		drop = "lord_homedecor:" .. name,
-		groups = furnacedef.groups or {cracky=2, not_in_creative_inventory=1},
+		groups = furnacedef.groups or {cracky=2, wall_connected = 1, not_in_creative_inventory=1},
 		sounds = furnacedef.sounds or default.node_sound_stone_defaults(),
 		on_construct = furnace_construct,
 		can_dig = furnace_can_dig,

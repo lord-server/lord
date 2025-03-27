@@ -19,12 +19,12 @@ minetest.register_node("clay_types:chamotte_block_dried", {
 	description = S("Dried Chamotte Block"),
 	tiles = {"clay_types_chamotte_block_dried.png"},
 	is_ground_content = false,
-	groups = {cracky = 2},
+	groups = {cracky = 2, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 stairs.register_stair_and_slab("chamotte_block_dried", "clay_types:chamotte_block_dried",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"clay_types_chamotte_block_dried.png"},
 		S("Dried Chamotte Block Stair"),
 		S("Dried Chamotte Block Slab"),
@@ -83,12 +83,12 @@ minetest.register_node("clay_types:mordor_clay_block_dried", {
 	description = S("Dried Mordor Clay Block"),
 	tiles = {"clay_types_mordor_clay_block_dried.png"},
 	is_ground_content = false,
-	groups = {cracky = 2},
+	groups = {cracky = 2, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 stairs.register_stair_and_slab("mordor_clay_block_dried", "clay_types:mordor_clay_block_dried",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"clay_types_mordor_clay_block_dried.png"},
 		S("Dried Mordor Clay Block Stair"),
 		S("Dried Mordor Clay Block Slab"),

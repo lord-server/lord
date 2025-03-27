@@ -48,7 +48,7 @@ minetest.register_node("lord_bricks:mordor_clay_block", {
 })
 
 stairs.register_stair_and_slab("mordor_clay_masonry", "lord_bricks:mordor_clay_masonry",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_mordor_clay_masonry.png"},
 		S("Mordor Clay Masonry Stair"),
 		S("Mordor Clay Masonry Slab"),
@@ -59,7 +59,7 @@ stairs.register_stair_and_slab("mordor_clay_masonry", "lord_bricks:mordor_clay_m
 )
 
 stairs.register_stair_and_slab("mordor_clay_masonry_large", "lord_bricks:mordor_clay_masonry_large",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_mordor_clay_masonry_large.png"},
 		S("Large Mordor Clay Masonry Stair"),
 		S("Large Mordor Clay MasonrySlab"),
@@ -70,7 +70,7 @@ stairs.register_stair_and_slab("mordor_clay_masonry_large", "lord_bricks:mordor_
 )
 
 stairs.register_stair_and_slab("mordor_clay_brick", "lord_bricks:mordor_clay_brick",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_mordor_clay_brick.png"},
 		S("Mordor Clay Brick Stair"),
 		S("Mordor Clay Brick Slab"),
@@ -81,7 +81,7 @@ stairs.register_stair_and_slab("mordor_clay_brick", "lord_bricks:mordor_clay_bri
 )
 
 stairs.register_stair_and_slab("mordor_clay_block", "lord_bricks:mordor_clay_block",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_mordor_clay_block.png"},
 		S("Mordor Clay Block Stair"),
 		S("Mordor Clay Block Slab"),
