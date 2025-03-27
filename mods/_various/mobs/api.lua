@@ -501,14 +501,10 @@ local do_env_damage = function(self)
 end
 
 
--- jump if facing a solid node (not fences or gates)
-local jump_cooldown = 1
-local can_jump = true
-
 local do_jump = function(self)
-    if not can_jump then
-        return false
-    end
+	if not self.can_jump then
+		return false
+	end
 
 	if mob_is_dead(self) then
 		return
@@ -577,10 +573,10 @@ local do_jump = function(self)
 
 		mob_sound(self, self.sounds.jump)
 
-		can_jump = false
+		self.can_jump = false
 
-		minetest.after(jump_cooldown, function()
-			can_jump = true
+		minetest.after(1, function()
+			self.can_jump = true
 		end)
 
 		return true
@@ -2101,6 +2097,12 @@ local mob_staticdata = function(self)
 		end
 	end
 
+	if self.can_jump ~= nil then
+		tmp.can_jump = self.can_jump
+	else
+		tmp.can_jump = true  -- default
+	end
+
 	--print('===== '..self.name..'\n'.. dump(tmp)..'\n=====\n')
 	return minetest.serialize(tmp)
 end
@@ -2216,6 +2218,9 @@ local mob_activate = function(self, staticdata, def)
 	self.collisionbox = colbox
 	self.visual_size = vis_size
 	self.standing_in = ""
+
+	-- Инициализация can_jump для старых мобов
+	self.can_jump = self.can_jump or true
 
 	-- set anything changed above
 	self.object:set_properties(self)
