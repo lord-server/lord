@@ -501,8 +501,11 @@ local do_env_damage = function(self)
 end
 
 
--- jump if facing a solid node (not fences or gates)
 local do_jump = function(self)
+	if not self.can_jump then
+		return false
+	end
+
 	if mob_is_dead(self) then
 		return
 	end
@@ -555,19 +558,26 @@ local do_jump = function(self)
 --print ("in front:", nod.name, pos.y + 0.5)
 
 	if (minetest.registered_items[nod.name].walkable
+	and not nod.name:find("walls")
 	and not nod.name:find("fence")
 	and not nod.name:find("gate"))
 	or self.walk_chance == 0 then
 
 		local v = self.object:get_velocity()
 
-		v.y = self.jump_height -- + 1
+		v.y = self.jump_height
 
 		set_animation(self, "jump") -- only when defined
 
 		self.object:set_velocity(v)
 
 		mob_sound(self, self.sounds.jump)
+
+		self.can_jump = false
+
+		minetest.after(1, function()
+			self.can_jump = true
+		end)
 
 		return true
 	end
@@ -2087,6 +2097,12 @@ local mob_staticdata = function(self)
 		end
 	end
 
+	if self.can_jump ~= nil then
+		tmp.can_jump = self.can_jump
+	else
+		tmp.can_jump = true  -- default
+	end
+
 	--print('===== '..self.name..'\n'.. dump(tmp)..'\n=====\n')
 	return minetest.serialize(tmp)
 end
@@ -2202,6 +2218,9 @@ local mob_activate = function(self, staticdata, def)
 	self.collisionbox = colbox
 	self.visual_size = vis_size
 	self.standing_in = ""
+
+	-- Инициализация can_jump для старых мобов
+	self.can_jump = self.can_jump or true
 
 	-- set anything changed above
 	self.object:set_properties(self)
@@ -2360,7 +2379,7 @@ minetest.register_entity(name, {
 	order = def.order or "",
 	on_die = def.on_die,
 	do_custom = def.do_custom,
-	jump_height = def.jump_height or 6,
+	jump_height = def.jump_height or 4,
 	drawtype = def.drawtype, -- DEPRECATED, use rotate instead
 	rotate = math.rad(def.rotate or 0), --  0=front, 90=side, 180=back, 270=side2
 	lifetimer = def.lifetimer or 180, -- 3 minutes
