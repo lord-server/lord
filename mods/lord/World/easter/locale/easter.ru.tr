@@ -1,0 +1,15 @@
+# textdomain: sunshine
+
+Set the volumetric light strength (0.0 to 1.0)=Задаёт силу силу света от 0.0 до 1.0
+Invalid input. Please enter a valid number between 0.0 and 1.0.=Ошика ввода. Введи значение от 0.0 до 1.0
+Volumetric light strength set to =Сила оъёмного свечения установлена на 
+Failed to set volumetric light strength. Please try again.=Не удалось установить значение объемного света. Пожалуйста, попробуйте еще раз.
+Player not found.=Игрок не найден.
+Error: intensity must be in range from 0.0 to 1.0.=Ошибка: intensity должна быть в диапазоне от 0,0 до 1,0.
+Error: strength_factor must be in range from 0.1 to 10.0.=Ошибка: strength_factor должен быть в диапазоне от 0,1 до 10,0.
+Error: radius must be in range from 0.1 to 8.0.=Ошибка: radius должен быть в диапазоне от 0,1 до 8,0.
+Error: input 3 numbers separated by a space.=Ошибка: введите 3 числа разделённых пробелом.
+Input 3 numbers separated by a space.=Введите 3 числа, разделённых пробелом
+Intensity from 0.0 to 1.0=Intensity от 0.0 до 1.0
+Strength factor from 0.1 to 10.0=Strength от 0.1 до 10.0
+Radius from 0.1 to 8.0=Radius от 0.1 до 8.0
