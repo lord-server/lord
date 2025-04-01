@@ -1,1 +1,12 @@
 # textdomain: lord_chests
+
+Hobbit Chest=Сундук Хоббитов
+Gondorian Chest=Сундук Гондора
+Rohirrim Chest=Сундук Рохана
+Elven (Lorien) Chest=Сундук Лориэна
+Elven (Mirkwood) Chest=Сундук Лихолесья
+Mordor Chest=Сундук Мордора
+Angmar Chest=Сундук Ангмара
+Dwarf Chest=Сундук Гномов
+
+Only @1 can open this kind of chest!=Только @1 могут открывать этот сундук!

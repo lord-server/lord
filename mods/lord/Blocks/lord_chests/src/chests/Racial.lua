@@ -67,7 +67,7 @@ function Racial.register(node_name, title, texture_type, race, craft)
 		end,
 		on_punch              = function(pos, player)
 			local meta = minetest.get_meta(pos)
-			meta:set_string('infotext', node_name)
+			meta:set_string('infotext', title)
 			meta:set_string('formspec', '')
 		end,
 	})
