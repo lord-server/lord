@@ -1,17 +1,14 @@
 local S = minetest.get_mod_translator()
-local colors = require('config')
+local egg_colors = { 'red', 'green', 'blue', 'yellow' }
 
-for _, color in ipairs(colors) do
+for _, color in ipairs(egg_colors) do
 
-	local color_name = color[1]
-	local color_code = color[2]
-	local color_ratio = color[3]
 	local egg_message_1 = minetest.colorize('#B380FF' , S('A colorful Easter egg!'))
 	local egg_message_2 = S('Exchange it for gifts at the spawn store')
 
-	minetest.register_craftitem('easter:egg_' .. color_name, {
+	minetest.register_craftitem('easter:'..color..'_egg', {
 		description     = egg_message_1,
-		inventory_image = 'lottmobs_egg.png' .. '^[colorize:' .. color_code .. ':' .. color_ratio,
+		inventory_image = 'easter_' .. color .. '_egg.png',
 		on_use = function(itemstack, user)
 
 			local player_name = user:get_player_name()
