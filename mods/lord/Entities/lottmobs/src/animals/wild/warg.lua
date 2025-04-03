@@ -68,6 +68,5 @@ mobs:register_mob("lottmobs:warg", {
 	sounds               = {},
 	do_custom = function (self)
 		api.set_fear_height_by_state(self)
-		lottmobs.do_custom_guard()
 	end
 })
