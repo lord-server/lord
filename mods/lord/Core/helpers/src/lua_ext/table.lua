@@ -364,3 +364,22 @@ function table.count(table)
 
 	return count
 end
+
+--- Generate sequence of numbers and insert into table.
+--- Via `for i = i = start_from, max, step do`
+---
+--- @param max        number
+--- @param start_from number default: 1
+--- @param step       number default: 1
+--- @return table
+function table.generate_sequence(max, start_from, step)
+	start_from = start_from or 1
+	step       = step       or 1
+
+	local sequence = {}
+	for i = start_from, max, step do
+		table.insert(sequence, i)
+	end
+
+	return sequence
+end
