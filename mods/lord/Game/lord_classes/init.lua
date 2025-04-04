@@ -298,11 +298,11 @@ function races.to_internal(race, gender)
 end
 
 -- The form
---- @type lord_classes.form.ChangeRace
-local ChangeRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChangeRaceForm.lua')
+--- @type lord_classes.form.ChooseRace
+local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
 
 function races.show_change_form(player)
-	ChangeRaceForm:new(player):open()
+	ChooseRaceForm:new(player):open()
 end
 
 -- Generates number sequence starting with 1 and ending with `max`

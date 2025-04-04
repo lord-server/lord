@@ -2,8 +2,8 @@ local S    = minetest.get_mod_translator()
 local spec = minetest.formspec
 
 
---- @class lord_classes.form.ChangeRace: base_classes.Form.Base
-local ChangeRaceForm = {
+--- @class lord_classes.form.ChooseRace: base_classes.Form.Base
+local ChooseRaceForm = {
 	--- @type string
 	NAME       = 'change_race',
 	--- @static
@@ -11,13 +11,13 @@ local ChangeRaceForm = {
 	--- @type string[] list of available races to choose. Filled dynamically once on first `:get_spec()` call.
 	races_list = nil,
 }
-ChangeRaceForm = base_classes.Form:personal():extended(ChangeRaceForm)
+ChooseRaceForm = base_classes.Form:personal():extended(ChooseRaceForm)
 
 --- @static
 --- @private
 --- @return string[]
-function ChangeRaceForm.get_races_list()
-	if not ChangeRaceForm.races_list then
+function ChooseRaceForm.get_races_list()
+	if not ChooseRaceForm.races_list then
 		local list = {}
 		for _, def in pairs(races.list) do
 			if not def.cannot_be_selected then -- Exclude 'shadow'
@@ -25,17 +25,17 @@ function ChangeRaceForm.get_races_list()
 			end
 		end
 
-		ChangeRaceForm.races_list = list
+		ChooseRaceForm.races_list = list
 	end
 
-	return ChangeRaceForm.races_list
+	return ChooseRaceForm.races_list
 end
 
 --- @return string
-function ChangeRaceForm:get_spec()
+function ChooseRaceForm:get_spec()
 	--- @type string
 	local form
-	local races_list = ChangeRaceForm.get_races_list()
+	local races_list = ChooseRaceForm.get_races_list()
 
 	form = spec.size(7, 4)
 		.. spec.label(0, 0, S('Please select the race you wish to be:'))
@@ -56,7 +56,7 @@ end
 
 --- @protected
 --- @param fields table
-function ChangeRaceForm:handle(fields)
+function ChooseRaceForm:handle(fields)
 	local name   = self.player_name
 	local player = self:player()
 
@@ -95,4 +95,4 @@ function ChangeRaceForm:handle(fields)
 end
 
 
-return ChangeRaceForm
+return ChooseRaceForm
