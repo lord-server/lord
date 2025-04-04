@@ -298,44 +298,11 @@ function races.to_internal(race, gender)
 end
 
 -- The form
-function races.show_change_form(name)
-	local form = form_header
+--- @type lord_classes.form.ChangeRace
+local ChangeRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChangeRaceForm.lua')
 
-	local list = {}
-	for _, def in pairs(races.list) do
-		if not def.cannot_be_selected then  -- Exclude "shadow"
-			table.insert(list, def.name)
-		end
-	end
-
-	local races_list = table.concat(list, ",")
-
-	if not minetest.settings:get_bool("dynamic_spawn") then
-		form = form .. string.format(
-			"label[0,0;%s]"..  -- Information label
-			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
-			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
-			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
-			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
-			minetest.formspec_escape(SL("Please select the race you wish to be:")),
-			races_list, SL("Male"), SL("Female"), SL("Cancel"), SL("OK")
-		)
-	else
-		form = form .. string.format(
-			"label[0,0;%s]"..  -- Information label
-			"dropdown[0.0,2.3;3.0,1.0;race;%s;1]"..  -- Race dropdown
-			"dropdown[4.0,2.3;3.0,1.0;gender;%s,%s;1]"..  -- Gender dropdown
-			"label[0,0.5;%s]"..
-			"button_exit[0.0,3.3;3.0,1.0;cancel;%s]"..  -- Cancel button
-			"button_exit[4.0,3.3;3.0,1.0;ok;%s]",  -- OK button
-			minetest.formspec_escape(SL("Please select the race you wish to be:")),
-			races_list, SL("Male"), SL("Female"),
-			minetest.colorize("#ff033e", SL("(Warning: choosing the race will teleport \n"..
-			"you at the race spawn!)")),
-			SL("Cancel"), SL("OK")
-		)
-	end
-	minetest.show_formspec(name, "change_race", form)
+function races.show_change_form(player)
+	ChangeRaceForm:new(player):open()
 end
 
 -- Generates number sequence starting with 1 and ending with `max`
@@ -433,7 +400,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	if formname == "change_skin" then
 		if fields.back then
-			minetest.after(0.1, races.show_change_form, name)
+			minetest.after(0.1, races.show_change_form, player)
 		elseif fields.ok then
 			races.set_skin(name, tonumber(fields.skin))
 			races.save()
@@ -450,7 +417,7 @@ minetest.register_on_joinplayer(function(player)
 	if table_has_key(cache.players, name) then  -- Player is registered already
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
-			races.show_change_form(name)
+			races.show_change_form(player)
 			races.init_player(name, r, races.get_skin_number(name))
 			return
 		end
@@ -463,7 +430,7 @@ minetest.register_on_joinplayer(function(player)
 
 		races.init_player(name, r, races.get_skin_number(name))
 	else
-		races.show_change_form(name)
+		races.show_change_form(player)
 		cache.can_change[name] = true
 		local r = races.get_race_and_gender(name)
 		races.init_player(name, r, races.get_skin_number(name))
@@ -481,7 +448,7 @@ minetest.register_chatcommand("second_chance", {
 		if not cache.can_change[name] then
 			return false, SL("Won't give another chance")
 		end
-		races.show_change_form(name)
+		races.show_change_form(minetest.get_player_by_name(name))
 		cache.can_change[name] = false
 	end
 })
@@ -509,7 +476,7 @@ minetest.register_chatcommand("give_chance", {
 			return false, string.format(SL("Player '%s' does not exist"), args[1])
 		end
 
-		races.show_change_form(args[1])
+		races.show_change_form(minetest.get_player_by_name(args[1]))
 	end
 })
 
