@@ -86,7 +86,7 @@ function ChooseRaceForm:handle(fields)
 		-- OK button pressed
 		local r = races.to_internal(fields.race, fields.gender)
 		races.set_race_and_gender(name, r, true)
-		races.show_skin_change_form(r[1], r[2], 1, name)
+		races.show_skin_change_form(player, r[1], r[2], 1)
 	else
 		-- Cancel button pressed, or escape pressed
 		local r = races.default
@@ -95,4 +95,4 @@ function ChooseRaceForm:handle(fields)
 end
 
 
-return ChooseRaceForm
+return ChooseRaceForm:register()

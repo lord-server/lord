@@ -30,7 +30,8 @@ read_globals      = {
 		"contains", "has_value", "has_key", "merge", "join", "merge_values",
 		"is_empty", "overwrite", "keys_of", "count", "keys", "values",
 		"only", "except", "keys_has_one_of_values", "equals", "multiply_each_value",
-		"map", "add_values", "sub_values", "mul_values", "div_values"
+		"map", "add_values", "sub_values", "mul_values", "div_values",
+		"generate_sequence"
 	} },
 
 	string = { fields = {

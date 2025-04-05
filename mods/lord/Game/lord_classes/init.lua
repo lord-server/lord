@@ -11,8 +11,6 @@ local SL = minetest.get_mod_translator()
   Definitions
 --]]
 
-local form_header = "size[7,4]"
-
 races = {
 	save_path = minetest.get_worldpath() .. "/races.txt",
 	update_cbs = {},
@@ -297,40 +295,23 @@ function races.to_internal(race, gender)
 	return {_race, _gender}
 end
 
--- The form
 --- @type lord_classes.form.ChooseRace
 local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
+--- @type lord_classes.form.ChooseSkin
+local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseSkinForm.lua')
 
+--- @param player Player
 function races.show_change_form(player)
 	ChooseRaceForm:new(player):open()
 end
-
--- Generates number sequence starting with 1 and ending with `max`
-local function generate_sequence(max)
-	local t = {}
-	for i = 1, max do
-		table.insert(t, i)
-	end
-	return table.concat(t, ",")
-end
-
-function races.show_skin_change_form(race, gender, skin, name)
-	local form = form_header
-
-	form = form .. string.format(
-		"label[0,0;%s]"..
-		"image[0.0,0.5;3.3,3.0;%s]"..
-		"dropdown[3.6,0.51;3.0,1.0;skin;%s;%d]"..
-		"button_exit[0.0,3.3;3.0,1.0;back;%s]"..
-		"button_exit[4.0,3.3;3.0,1.0;ok;%s]",
-
-		SL("Choose a skin for your character:"),
-		lord_skins.get_preview_name('both', race, gender, skin),
-		generate_sequence(lord_skins.get_skins_count(race, gender)), skin,
-		SL("Back"),
-		SL("OK")
-	)
-	minetest.after(0.1, minetest.show_formspec, name, "change_skin", form)
+---@param player  Player
+---@param race    string
+---@param gender  string
+---@param skin_no number
+function races.show_skin_change_form(player, race, gender, skin_no)
+	minetest.after(0.1, function()
+		ChooseSkinForm:new(player):open(race, gender, skin_no)
+	end)
 end
 
 --- Обработчик открытия чего-либо расового (сундуков, дверей и др.).
@@ -364,52 +345,6 @@ end
 
 races.tp_process = {}
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
-	local name = player:get_player_name()
-	if formname == "change_race" then
-		if fields.race and not fields.ok and not fields.quit and not fields.cancel then
-			local r = races.to_internal(fields.race, fields.gender)
-			if r then races.set_race_and_gender(name, r, true) end
-
-			if minetest.settings:get_bool("dynamic_spawn") == true then
-				if races.tp_process[name] ~= true then
-					--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
-					races.tp_process[name] = true
-					minetest.after(1, function()
-						if spawn.check_conf(r[1].."_spawn_pos") then
-							spawn.put_player_at_spawn(player, r[1].."_spawn_pos")
-						else
-							spawn.put_player_at_spawn(player, "common_spawn_pos")
-						end
-						races.tp_process[name] = false
-						--minetest.after(1, function()
-							--races.show_skin_change_form(r[1], r[2], 1, name)
-						--end)
-					end)
-				end
-			end
-		end
-		if fields.ok then -- OK button pressed
-			local r = races.to_internal(fields.race, fields.gender)
-			races.set_race_and_gender(name, r, true)
-			races.show_skin_change_form(r[1], r[2], 1, name)
-		else -- Cancel button pressed, or escape pressed
-			local r = races.default
-			races.set_race_and_gender(name, r, true)
-		end
-	end
-	if formname == "change_skin" then
-		if fields.back then
-			minetest.after(0.1, races.show_change_form, player)
-		elseif fields.ok then
-			races.set_skin(name, tonumber(fields.skin))
-			races.save()
-		elseif fields.skin then
-			local r = races.get_race_and_gender(name)
-			minetest.after(0.1, races.show_skin_change_form, r[1], r[2], tonumber(fields.skin), name)
-		end
-	end
-end)
 
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
