@@ -12,7 +12,7 @@ end
 local function register_node()
 	minetest.register_node('holding_node:holding_node', {
 		description  = S('Holding block'),
-		
+
 		--- @param pos Position
 		on_construct = function(pos)
 			local meta = minetest.get_meta(pos)
