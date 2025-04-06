@@ -1,4 +1,3 @@
-local S = minetest.get_mod_translator()
 local node = require('holding_node.node')
 
 

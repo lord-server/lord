@@ -1,4 +1,4 @@
-
+local S = minetest.get_mod_translator()
 
 local definition = {
 	description = S('Holding block'),
