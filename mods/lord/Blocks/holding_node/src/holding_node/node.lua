@@ -24,7 +24,9 @@ local definition = {
 				"field[1,1;3,1;name;Name;]" ..
 				"button_exit[1,2.5;3,1;exit;Save]")
 
-		-- Отладочное сообщение
+		minetest.show_formspec(placer:get_player_name(), "holding_block:holding_block", meta:get_string("formspec"))
+
+		-- debug formspec
 		minetest.log("action", "Formspec set: " .. meta:get_string("formspec"))
 	end,
 	on_receive_fields = function(pos, formname, fields, player)
@@ -39,17 +41,28 @@ local definition = {
 	on_punch = function(pos, node, player, pointed_thing)
 		local meta = minetest.get_meta(pos)
 
-		-- *** BATTLE STAT *** starting
+		-- BATTLE STAT: starting
+
 		local battle_stat = minetest.deserialize(meta:get_string('battle_stat')) or {}
 		local clan_id = clans.clan_get_by_player(player).name
+
 		-- set meta to table
-		table.insert(battle_stat, {clan = clan_id, time = os.time()})
+		if clan_id then
+			table.insert(battle_stat, {clan = clan_id, time = os.time()})
+		else
+			minetest.log("warning", "Clan ID is nil, not adding to battle_stat.")
+		end
 
 		-- serialize table battle_stat to meta as string
 		meta:set_string('battle_stat', minetest.serialize(battle_stat))
-		-- *** BATTLE STAT *** ending
 
-		meta:set_string ('captured_by_clan', clan_id)
+		-- BATTLE STAT: ending
+
+		if clan_id then
+			meta:set_string ('captured_by_clan', clan_id)
+		else
+			minetest.log("warning", "Clan ID is nil, not adding to captured_by_clan.")
+		end
 
 		-- debug meta
 		minetest.log("action", "Meta is: " .. (dump(meta:to_table())))
