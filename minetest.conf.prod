@@ -67,7 +67,11 @@ max_packets_per_iteration = 768
 #    This will be overridden when creating a world from the main menu.
 default_game = lord
 #    Message of the day displayed to players connecting.
-motd = Добро пожаловать на Русский сервер в стиле Властелина Колец! Не забывайте читать правила. Незнание законов не освобождает от ответственности.
+motd = """
+Добро пожаловать на Российский сервер в стиле Властелина Колец!
+Не забывайте читать правила. Незнание законов не освобождает от ответственности.
+Правила поведения на сервере: https://lord-server.ru/rules (ctrl+click)
+"""
 #    Maximum number of players that can be connected simultaneously.
 max_users = 24
 #    World directory (everything in the world is stored here).
