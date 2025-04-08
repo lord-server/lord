@@ -1,4 +1,8 @@
+local Form = require('holding_node.Form')
+
+
 local S = minetest.get_mod_translator()
+
 
 local definition = {
 	description = S('Holding block'),
@@ -6,6 +10,7 @@ local definition = {
 	--- @param pos Position
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
+
 		meta:set_string ('name', S('-'))
 		meta:set_int    ('in_event_list', 1)
 		meta:set_int    ('active', 0)
@@ -14,59 +19,72 @@ local definition = {
 		meta:set_int    ('captured_at', 0)
 		meta:set_int    ('reward_gived_at', 0)
 		meta:set_string ('battle_stat', minetest.serialize({}))
+		local inv = meta:get_inventory()
+		inv:set_size('reward', 8)
 	end,
 
+	--- @param placer Player
+	--- @param itemstack ItemStack
+	--- @param pointed_thing pointed_thing
+	on_place = function(itemstack, placer, pointed_thing)
+		if not minetest.check_player_privs(placer, 'server') then
+			minetest.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
+
+			return itemstack, nil
+		end
+		-- Если проверка пройдена, возвращаем стандартное поведение
+		return minetest.item_place(itemstack, placer, pointed_thing)
+	end,
+
+	--- @param pos Position
+	--- @param placer Player
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("formspec",
-				"formspec_version[4]" ..
-				"size[5,4]" ..
-				"field[1,1;3,1;name;Name;]" ..
-				"button_exit[1,2.5;3,1;exit;Save]")
+		if not minetest.check_player_privs(placer, 'server') then
+				minetest.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
 
-		minetest.show_formspec(placer:get_player_name(), "holding_block:holding_block", meta:get_string("formspec"))
-
-		-- debug formspec
-		minetest.log("action", "Formspec set: " .. meta:get_string("formspec"))
-	end,
-	on_receive_fields = function(pos, formname, fields, player)
-		local meta = minetest.get_meta(pos)
-
-		if fields.name then
-			meta:set_string('name', fields.name) -- Обновляем метаданную name
+				return nil
 		end
+		Form:new(placer, pos):open()
 	end,
 
+	--- @param pos Position
 	--- @param player Player
+	--- @param pointed_thing pointed_thing
+	--- @param node Node
 	on_punch = function(pos, node, player, pointed_thing)
+
+		-- чтоб код не падал если ноду ударит не игрок
+		if not player or not minetest.is_player(player) then
+			return
+		end
+
+		-- чтоб код не падал если ноду ударит игрок без клана
+		local clan = clans.clan_get_by_player(player)
+
+		if not clan then
+			minetest.chat_send_player(player:get_player_name(), S('For clan players only'))
+			return
+		end
+
+		-- нужно проверить наличие клана игрока в таблице статистики, обновить время захвата при наличии
 		local meta = minetest.get_meta(pos)
-
-		-- BATTLE STAT: starting
-
 		local battle_stat = minetest.deserialize(meta:get_string('battle_stat')) or {}
-		local clan_id = clans.clan_get_by_player(player).name
+		local current_time = os.time()
 
-		-- set meta to table
-		if clan_id then
-			table.insert(battle_stat, {clan = clan_id, time = os.time()})
-		else
-			minetest.log("warning", "Clan ID is nil, not adding to battle_stat.")
-		end
+		battle_stat[clan.name] = current_time
 
-		-- serialize table battle_stat to meta as string
+		-- обновить метаданные ноды
 		meta:set_string('battle_stat', minetest.serialize(battle_stat))
+		meta:set_string('captured_by_clan', clan.name)
+		meta:set_int('captured_at', current_time)
+	end,
 
-		-- BATTLE STAT: ending
-
-		if clan_id then
-			meta:set_string ('captured_by_clan', clan_id)
-		else
-			minetest.log("warning", "Clan ID is nil, not adding to captured_by_clan.")
-		end
-
-		-- debug meta
-		minetest.log("action", "Meta is: " .. (dump(meta:to_table())))
-
+	--- @param pos Position
+	--- @param node Node
+	--- @param clicker Player
+	--- @param itemstack ItemStack
+	--- @param pointed_thing pointed_thing
+	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 
 	end
 }
