@@ -39,6 +39,10 @@ PseudoRandom = {}
 
 --- @class vector: Position
 
+--- @class Position2d
+--- @field x number
+--- @field y number
+
 --- @class pointed_thing
 --- @field public type  string one of {"nothing"|"node"|"object"}
 --- @field public above Position refers to the node position in front of the pointed face (only if type=="node")
