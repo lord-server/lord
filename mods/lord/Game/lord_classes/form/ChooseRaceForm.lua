@@ -75,9 +75,6 @@ function ChooseRaceForm:handle(fields)
 						spawn.put_player_at_spawn(player, "common_spawn_pos")
 					end
 					races.tp_process[name] = false
-					--minetest.after(1, function()
-					--	races.show_skin_change_form(r[1], r[2], 1, name)
-					--end)
 				end)
 			end
 		end
@@ -91,6 +88,7 @@ function ChooseRaceForm:handle(fields)
 		-- Cancel button pressed, or escape pressed
 		local r = races.default
 		races.set_race_and_gender(name, r, true)
+		races.show_shadow_hud(player)
 	end
 end
 

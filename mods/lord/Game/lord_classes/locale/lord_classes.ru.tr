@@ -26,3 +26,11 @@ Player '%s' does not exist=Игрока '%s' не существует
 Won't give another chance=Ещё одного шанса не будет
 Second chance=Второй шанс
 Give another chance to a player.=Дать еще один шанс игроку.
+
+# Shadow HUD:
+You are in Shadow mode!=Вы в режиме Тени!
+The Shadow can't interact with the world or chat.=Тень не может взаимодействовать с миром и общаться в чате.
+However, the Shadow can fly and move quickly.=Однако, Тень может летать и быстро передвигаться.
+Also, the Shadow can teleport to different race spawns=А также Тень может перемещаться к спаунам разных рас
+using the @1 command. (see @2)=с помощью команды @1. (см. @2.)
+If you want to choose a race, use the @1 command.=Если вы хотите выбрать расу, воспользуйтесь командой @1.

@@ -299,6 +299,8 @@ end
 local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
 --- @type lord_classes.form.ChooseSkin
 local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseSkinForm.lua')
+--- @type lord_classes.hud.Shadow
+local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shadow.lua')
 
 --- @param player Player
 function races.show_change_form(player)
@@ -312,6 +314,13 @@ function races.show_skin_change_form(player, race, gender, skin_no)
 	minetest.after(0.1, function()
 		ChooseSkinForm:new(player):open(race, gender, skin_no)
 	end)
+end
+
+--- @param player Player
+function races.show_shadow_hud(player)
+	local show_spawn_to = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+
+	ShadowHUD:for_player(player):show(show_spawn_to)
 end
 
 --- Обработчик открытия чего-либо расового (сундуков, дверей и др.).

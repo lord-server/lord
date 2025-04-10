@@ -26,3 +26,11 @@ Player '%s' does not exist=
 Won't give another chance=
 Second chance=
 Give another chance to a player.=
+
+# Shadow HUD:
+You are in Shadow mode!=
+The Shadow can't interact with the world or chat.=
+However, the Shadow can fly and move quickly.=
+Also, the Shadow can teleport to different race spawns=
+using the @1 command. (see @2)=
+If you want to choose a race, use the @1 command.=
