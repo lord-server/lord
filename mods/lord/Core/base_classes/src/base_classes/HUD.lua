@@ -10,6 +10,9 @@ local HUD = {
 	--- @protected
 	--- @type Player
 	player = nil,
+	--- @protected
+	--- @type HudDefinition
+	common = {},
 	--- @private
 	--- @generic GenericHUD: base_classes.HUD
 	--- @type table<string,GenericHUD>
@@ -51,16 +54,19 @@ function HUD:for_player(player)
 	return self.hud[player_name]
 end
 
+--- @protected
 --- @return HudDefinition[]
 function HUD:get_definitions()
 	error('You should to override method `:get_definitions()`')
 end
 
+--- You can pass any params here, as defined in your child HUD-class for `:get_definitions()` method.
+--- @param ... any Any params that will be passed into `:get_definitions()` of child class.
 --- @generic GenericHUD: base_classes.HUD
 --- @return GenericHUD
-function HUD:show()
-	for _, definition in ipairs(self:get_definitions()) do
-		table_insert(self.IDs, self.player:hud_add(definition))
+function HUD:show(...)
+	for _, definition in ipairs(self:get_definitions(...)) do
+		table_insert(self.IDs, self.player:hud_add(table.merge(self.common, definition)))
 	end
 
 	return self
