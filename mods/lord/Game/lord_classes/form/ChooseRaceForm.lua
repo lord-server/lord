@@ -71,15 +71,15 @@ function ChooseRaceForm:handle(fields)
 	local player = self:player()
 
 	if fields.race and not fields.ok and not fields.quit and not fields.cancel then
-		local r = races.to_internal(fields.race, fields.gender)
-		if r then races.set_race_and_gender(name, r, true) end
+		local race_and_gender = races.to_internal(fields.race, fields.gender)
+		if race_and_gender then races.set_race_and_gender(name, race_and_gender, true) end
 
 		if minetest.settings:get_bool("dynamic_spawn") == true then
 			if races.tp_process[name] ~= true then
 				races.tp_process[name] = true
 				minetest.after(1, function()
-					if spawn.check_conf(r[1] .. "_spawn_pos") then
-						spawn.put_player_at_spawn(player, r[1] .. "_spawn_pos")
+					if spawn.check_conf(race_and_gender[1] .. "_spawn_pos") then
+						spawn.put_player_at_spawn(player, race_and_gender[1] .. "_spawn_pos")
 					else
 						spawn.put_player_at_spawn(player, "common_spawn_pos")
 					end
@@ -87,16 +87,19 @@ function ChooseRaceForm:handle(fields)
 				end)
 			end
 		end
+
+		return
 	end
+
 	if fields.ok then
 		-- OK button pressed
-		local r = races.to_internal(fields.race, fields.gender)
-		races.set_race_and_gender(name, r, true)
-		races.show_skin_change_form(player, r[1], r[2], 1)
+		local race_and_gender = races.to_internal(fields.race, fields.gender)
+		races.set_race_and_gender(name, race_and_gender, true)
+		races.show_skin_change_form(player, race_and_gender[1], race_and_gender[2], 1)
 	else
 		-- Cancel button pressed, or escape pressed
-		local r = races.default
-		races.set_race_and_gender(name, r, true)
+		local race_and_gender = races.default
+		races.set_race_and_gender(name, race_and_gender, true)
 		races.show_shadow_hud(player)
 	end
 end
