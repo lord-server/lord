@@ -1,5 +1,5 @@
 local S    = minetest.get_mod_translator()
-local spec = minetest.formspec
+local spec = forms.Spec
 
 
 --- @class lord_classes.form.ChooseSkin: base_classes.Form.Base
@@ -23,7 +23,7 @@ function ChooseSkin:get_spec(race, gender, skin_no)
 	local skins_list = table.generate_sequence(lord_skins.get_skins_count(race, gender))
 
 	return spec.size(7, 4)
-		.. spec.label(0, 0, S('Choose a skin for your character:'))
+		.. spec.bold(0, 0, S('Choose a skin for your character'))
 		.. spec.image(0, 0.5, 3.3, 3, lord_skins.get_preview_name('both', race, gender, skin_no))
 		.. spec.dropdown_WH(3.6, 0.51, 3, 1, 'skin', skins_list, skin_no)
 		.. spec.button_exit(0, 3.3, 3, 1, 'back', S('Back'))

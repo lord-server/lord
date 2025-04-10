@@ -12,6 +12,7 @@ local ShadowHUD = {
 	},
 	--- @type string
 	text_color     = '#eeec',
+	-- TODO: extract into gui.color.COMMAND #2150
 	--- @type string
 	commands_color = '#8ffc',
 }
@@ -19,6 +20,7 @@ ShadowHUD = base_classes.HUD:extended(ShadowHUD)
 
 --- @return HudDefinition[]
 function ShadowHUD:get_definitions(show_spawn_to)
+	-- TODO: extract into gui.colorize.cmd() #2150
 	--- @param text string
 	local function cmd(text)
 		return colorize(self.commands_color, text)

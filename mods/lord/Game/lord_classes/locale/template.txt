@@ -1,25 +1,36 @@
 # textdomain: lord_classes
+
 Shadow=
 Dwarf=
 Elf=
 Man=
 Orc=
 Hobbit=
+
 Male=
 Female=
+
 Cancel=
 Back=
 OK=
-(Warning: choosing the race will teleport @nyou at the race spawn!)=
+
+# ChooseRaceForm
+Please select the race you wish to be=
+You will be able to change your race once during your gameplay.=
+Use command @1 to do this.=
+While selecting a race, you will be instantly teleported to that race’s spawn!=
+
 Ability to change race and gender of a player.=
-Please select the race you wish to be:=
-Choose a skin for your character:=
+
 change_shadow=
 change_orc=
 change_man=
 change_dwarf=
 change_hobbit=
 change_elf=
+
+Choose a skin for your character=
+
 Too few arguments. Try %s to show the correct usage=
 Player '%s' does not exist=
 <player name>=

@@ -302,9 +302,13 @@ local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/Cho
 --- @type lord_classes.hud.Shadow
 local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shadow.lua')
 
+
+local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+
 --- @param player Player
 function races.show_change_form(player)
-	ChooseRaceForm:new(player):open()
+	local show_spawns_info = has_several_spawns
+	ChooseRaceForm:new(player):open(show_spawns_info)
 end
 ---@param player  Player
 ---@param race    string
@@ -318,7 +322,7 @@ end
 
 --- @param player Player
 function races.show_shadow_hud(player)
-	local show_spawn_to = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+	local show_spawn_to = has_several_spawns
 
 	ShadowHUD:for_player(player):show(show_spawn_to)
 end

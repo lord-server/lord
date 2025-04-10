@@ -1,5 +1,6 @@
-local S    = minetest.get_mod_translator()
-local spec = minetest.formspec
+local S        = minetest.get_mod_translator()
+local spec     = forms.Spec
+local colorize = minetest.colorize
 
 
 --- @class lord_classes.form.ChooseRace: base_classes.Form.Base
@@ -10,6 +11,9 @@ local ChooseRaceForm = {
 	--- @private
 	--- @type string[] list of available races to choose. Filled dynamically once on first `:get_spec()` call.
 	races_list = nil,
+	-- TODO: extract into gui.color.COMMAND #2150
+	--- @type string
+	commands_color = '#8ff',
 }
 ChooseRaceForm = base_classes.Form:personal():extended(ChooseRaceForm)
 
@@ -31,25 +35,31 @@ function ChooseRaceForm.get_races_list()
 	return ChooseRaceForm.races_list
 end
 
+--- @param show_spawns_info boolean
 --- @return string
-function ChooseRaceForm:get_spec()
+function ChooseRaceForm:get_spec(show_spawns_info)
+	-- TODO: extract into gui.colorize.cmd() #2150
+	--- @param text string
+	local function cmd(text)
+		return colorize(self.commands_color, text)
+	end
+
 	--- @type string
 	local form
 	local races_list = ChooseRaceForm.get_races_list()
 
-	form = spec.size(7, 4)
-		.. spec.label(0, 0, S('Please select the race you wish to be:'))
-		.. spec.dropdown_WH(0.0, 2.3, 3.0, 1.0, 'race', races_list, 1)
-		.. spec.dropdown_WH(4.0, 2.3, 3.0, 1.0, 'gender', { S('Male'), S('Female') }, 1)
-		.. spec.button_exit(4.0, 3.3, 3.0, 1.0, 'ok', S('OK'))
-		.. spec.button_exit(0.0, 3.3, 3.0, 1.0, 'cancel', S('Cancel'))
-
-	if minetest.settings:get_bool('dynamic_spawn') then
-		form = form
-			.. spec.label(0, 0.5, minetest.colorize('#ff033e',
-				S('(Warning: choosing the race will teleport \n' .. 'you at the race spawn!)')
-			))
-	end
+	form = spec.size(7.5, 4)
+		.. spec.bold (0, 0.0, S('Please select the race you wish to be'))
+		.. spec.label(0, 0.5, S('You will be able to change your race once during your gameplay.'))
+		.. spec.label(0, 0.8, S('Use command @1 to do this.', cmd('/second_chance')))
+		.. (show_spawns_info
+			and spec.label(0, 1.3, S('While selecting a race, you will be instantly teleported to that race’s spawn!'))
+			or ''
+		)
+		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_list, 1)
+		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', { S('Male'), S('Female') }, 1)
+		.. spec.button_exit(0.25, 3.3, 3.25, 1.0, 'cancel', S('Cancel'))
+		.. spec.button_exit(4.00, 3.3, 3.00, 1.0, 'ok', S('OK'))
 
 	return form
 end
