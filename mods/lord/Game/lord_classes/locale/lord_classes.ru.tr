@@ -20,16 +20,9 @@ You will be able to change your race once during your gameplay.=В дальне�
 Use command @1 to do this.=Для этого используйте команду @1.
 While selecting a race, you will be instantly teleported to that race’s spawn!=При переключении расы в меню вас сразу переносит на её спаун!
 
-Ability to change race and gender of a player.=Возможность изменять расу и пол игроку.
-
-change_shadow=Теперь вы — Тень
-change_orc=Теперь вы — Орк
-change_man=Теперь вы — Человек
-change_dwarf=Теперь вы — Гном
-change_hobbit=Теперь вы — Хоббит
-change_elf=Теперь вы — Эльф
-
 Choose a skin for your character=Выберите скин для вашего персонажа
+
+Ability to change race and gender of a player.=Возможность изменять расу и пол игроку.
 
 Too few arguments. Try %s to show the correct usage=Слишком мало аргументов. Напишите %s, чтобы показать, как использовать эту команду
 Player '%s' does not exist=Игрока '%s' не существует

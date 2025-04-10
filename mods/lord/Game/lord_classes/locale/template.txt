@@ -20,16 +20,9 @@ You will be able to change your race once during your gameplay.=
 Use command @1 to do this.=
 While selecting a race, you will be instantly teleported to that race’s spawn!=
 
-Ability to change race and gender of a player.=
-
-change_shadow=
-change_orc=
-change_man=
-change_dwarf=
-change_hobbit=
-change_elf=
-
 Choose a skin for your character=
+
+Ability to change race and gender of a player.=
 
 Too few arguments. Try %s to show the correct usage=
 Player '%s' does not exist=

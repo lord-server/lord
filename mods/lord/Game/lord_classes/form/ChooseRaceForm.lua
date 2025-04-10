@@ -76,7 +76,6 @@ function ChooseRaceForm:handle(fields)
 
 		if minetest.settings:get_bool("dynamic_spawn") == true then
 			if races.tp_process[name] ~= true then
-				--minetest.chat_send_player(name, SL("Teleporting to Spawn..."))
 				races.tp_process[name] = true
 				minetest.after(1, function()
 					if spawn.check_conf(r[1] .. "_spawn_pos") then

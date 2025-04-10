@@ -202,7 +202,7 @@ function races.get_gender(name)
 	return races.get_race_and_gender(name)[2]
 end
 
-function races.set_race_and_gender(name, race_and_gender, show_message)
+function races.set_race_and_gender(name, race_and_gender)
 	local valid = races.validate(race_and_gender)
 	if not valid then
 		return false
@@ -214,11 +214,6 @@ function races.set_race_and_gender(name, race_and_gender, show_message)
 
 	cache.players[name] = race_and_gender
 --	races.update_player(name, race_and_gender, races.default_skin)
-
-	-- Notify player
-	if show_message then
-		minetest.chat_send_player(name, SL("change_" .. race))
-	end
 
 	return true
 end
