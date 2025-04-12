@@ -1,28 +1,28 @@
 # Выкладка на тестовый сервер (он же Polygon)
 
-#name: Deploy to Test Server
-#on:
-#  push:
-#    branches:
-#      - dev
-#jobs:
-#  deploy-to-test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Update repo & Restart Minetest
-#        uses: fifsky/ssh-action@v0.0.4
-#        with:
-#          host: ${{ secrets.LORD_TEST_HOST }}
-#          port: ${{ secrets.LORD_TEST_PORT }}
-#          user: ${{ secrets.LORD_TEST_USER }}
-#          key: ${{ secrets.LORD_TEST_KEY }}
-#          command: |
-#            set -e
-#            cd mt/games/lord/
-#            git checkout dev
-#            git pull --recurse-submodules
-#            git submodule init
-#            git submodule update
-#            cp -f minetest.conf.test minetest.conf
-#            $HOME/bin/mt_server-lord restart
-#          args: -tt
+name: Deploy to Test Server
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  deploy-to-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update repo & Restart Minetest
+        uses: fifsky/ssh-action@v0.0.4
+        with:
+          host: ${{ secrets.LORD_TEST_HOST }}
+          port: ${{ secrets.LORD_TEST_PORT }}
+          user: ${{ secrets.LORD_TEST_USER }}
+          key: ${{ secrets.LORD_TEST_KEY }}
+          command: |
+            set -e
+            cd mt/games/lord/
+            git checkout dev
+            git pull --recurse-submodules
+            git submodule init
+            git submodule update
+            cp -f minetest.conf.test minetest.conf
+            $HOME/bin/mt_server-lord restart
+          args: -tt
