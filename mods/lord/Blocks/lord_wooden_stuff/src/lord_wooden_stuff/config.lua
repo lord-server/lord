@@ -41,8 +41,8 @@ local wood_stuff_exceptions = {
 	["pine"]        = {                                               "Rhatch", },
 	["plum"]        = { "doors",                                      "Rhatch", },
 	["wood"]        = { "doors", "hatch", "fence", "stick", "ladder", },
-	["white"]       = {                                               "Rhatch", },
-	["yavannamire"] = {                                               "Rhatch", },
+	["white"]       = { "doors",                                      "Rhatch", },
+	["yavannamire"] = { "doors",                                      "Rhatch", },
 }
 
 
