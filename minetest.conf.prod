@@ -242,6 +242,10 @@ emergequeue_limit_diskonly = 32
 # отключение пожара
 disable_fire = true
 
+# ------- MTG/{default|doors|walls} -------
+# If enabled, fences and walls cannot be jumped over.
+enable_fence_tall = true
+
 # ------- MTG/give_initial_stuff -------
 # Gives some stuff to players at the beginning
 give_initial_stuff = true
