@@ -22,7 +22,7 @@ races.name = lord_races.Name
 races.list = {
 	[races.name.SHADOW] = {
 		name = SL("Shadow"),
-		granted_privs = {"fly", "fast", "spawn_to"},
+		granted_privs = {"fly", "fast", "spawn_to", "choose_race"},
 		revoked_privs = {"shout", "interact"},
 		cannot_be_selected = true,
 		no_corpse = true,
@@ -393,6 +393,21 @@ minetest.register_chatcommand("second_chance", {
 		end
 		races.show_change_form(minetest.get_player_by_name(name))
 		cache.can_change[name] = false
+	end
+})
+
+minetest.register_chatcommand('choose_race', {
+	params = '',
+	privs = { choose_race = true },
+	description = SL(''),
+	func = function(name, params)
+		if races.get_race(name) ~= races.name.SHADOW then
+			return false, SL('Something went wrong. Only the Shadow can choose the race.')
+		end
+
+		local player = minetest.get_player_by_name(name)
+		ShadowHUD:for_player(player):hide()
+		races.show_change_form(player)
 	end
 })
 
