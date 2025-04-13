@@ -90,7 +90,7 @@ register_leaf("lord_trees:rowan_berry",    "Rowan Leaf with Berries", {}, {
 	}
 })
 register_leaf("lord_trees:white_leaf",       "White Leaf", { color_white = 1 }) -- also drops lord_trees:white_sapling
-register_leaf("lord_trees:yavannamire_leaf", "Yavannamire Leaf", { color_green = 1 }) -- drops lord_trees:yavannamire_sapling
+register_leaf("lord_trees:yavannamire_leaf", "Yavannamire Leaf", { color_green = 1 }) -- drops yavannamire_sapling
 register_leaf("lord_trees:mirk_leaf",        "Mirkwood", { color_green = 1 }) -- also drops lord_trees:mirk_sapling
 
 return {
