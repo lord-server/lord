@@ -20,7 +20,7 @@ function lottmobs.register_dwarf(n, hpmin, hpmax, textures, wv, rv, damg, arm, d
 		drops                = drops,
 		light_resistant      = true,
 		drawtype             = "front",
-		water_damage         = 0,
+		water_damage         = 1,
 		lava_damage          = 10,
 		light_damage         = 0,
 		attack_type          = "dogfight",
