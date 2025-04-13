@@ -141,6 +141,8 @@ local function register_sticks_aliases()
 	minetest.register_alias( "lottblocks:stick_mallorn",    "lord_wooden_stuff:stick_mallorn"    )
 	minetest.register_alias( "lottblocks:stick_pine",       "lord_wooden_stuff:stick_pine"       )
 	minetest.register_alias( "lottblocks:stick_plum",       "lord_wooden_stuff:stick_plum"       )
+	minetest.register_alias( "lottblocks:stick_white",      "lord_wooden_stuff:stick_white"      )
+	minetest.register_alias( "lottblocks:stick_yavannamire", "lord_wooden_stuff:stick_yavannamire" )
 end
 
 local function register_ladders_aliases()

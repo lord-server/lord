@@ -23,7 +23,7 @@ Pine Leaf=Ветки сосны
 Plum Leaf=Ветки сливы
 Rowan Leaf=Ветки рябины
 Rowan Leaf with Berries=Ветки рябины с ягодами
-White Leaf=Ветки белого дерева
+White Leaf=Ветки Белого дерева
 Yavannamire Leaf=Ветки йаваннамирэ
 Mirkwood Leaves=Ветки Лихолесья (Эвкалиптовые)
 
@@ -50,8 +50,12 @@ Pine Tree=Сосна
 Pine Trunk=Ствол сосны
 Plum Tree=Слива
 Plum Trunk=Ствол сливы
+White Tree=Белое дерево
+White Trunk=Ствол Белого дерева
 Young Mallorn Trее=Молодой маллорн
 Young Mallorn Trunk=Ствол молодого маллорна
+Yavannamire Tree=Йаваннамирэ
+Yavannamire Trunk=Ствол йаваннамирэ
 
 ### tree/trunks/slabs.lua ###
 Alder Trunk Slab=Плита из ствола ольхи
@@ -65,20 +69,22 @@ Mallorn Trunk Slab=Плита из ствола маллорна
 Elm Trunk Slab=Плита из ствола вяза
 Tree Trunk Slab=Плита из ствола яблони
 Jungle Tree Trunk Slab=Плита из ствола эвкалипта
+White Tree Trunk Slab=Плита из ствола Белого дерева
+Yavannamire Tree Trunk Slab=Плита из ствола йаваннамирэ
 
 ### tree/saplings.lua ###
 Alder Sapling=Саженец ольхи
-Fruitful Apple Tree Sapling=Саженец плодоносной яблони
-Birch Sapling=Саженец берёзы
 Beech Sapling=Саженец бука
+Birch Sapling=Саженец берёзы
 Culumalda Sapling=Саженец кулумальды
 Elm Sapling=Саженец вяза
 Fir Sapling=Саженец ели
+Fruitful Apple Tree Sapling=Саженец плодоносной яблони
 Lebethron Sapling=Саженец лебетрона
 Mallorn Sapling=Саженец маллорна
+Mirkwood Sapling=Саженец Лихолесья (Эвкалипта)
 Pine Sapling=Саженец сосны
 Plum Tree Sapling=Саженец сливы
 Rowan Sapling=Саженец рябины
-White Tree Sapling=Саженец белого дерева
+White Tree Sapling=Саженец Белого дерева
 Yavannamire Sapling=Саженец йаваннамирэ
-Mirkwood Sapling=Саженец Лихолесья (Эвкалипта)

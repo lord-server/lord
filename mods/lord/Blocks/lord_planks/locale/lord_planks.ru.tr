@@ -15,6 +15,9 @@ Lebethron Planks=Доски из лебетрона
 Mallorn Planks=Доски из маллорна
 Pine Planks=Доски из сосны
 Plum Planks=Доски из сливы
+White Planks=Доски из Белого дерева
+Yavannamire Planks=Доски из йаваннамирэ
+
 
 ## planks stairs: ##
 Alder Wood Stair=Ступенька из ольхи
@@ -81,3 +84,13 @@ Hardwood Wood Stair=Ступенька из твердого дерева
 Hardwood Wood Slab=Плита из твердого дерева
 Inner Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внутренний Угол)
 Outer Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внешний Угол)
+#
+White Wood Stair=Ступенька из Белого дерева
+White Wood Slab=Плита из Белого дерева
+Inner White Wood Stair=Угловая ступенька из Белого дерева (Внутренний Угол)
+Outer White Wood Stair=Угловая ступенька из Белого дерева (Внешний Угол)
+#
+Yavannamire Wood Stair=Ступенька из йаваннамирэ
+Yavannamire Wood Slab=Плита из йаваннамирэ
+Inner Yavannamire Wood Stair=Угловая ступенька из йаваннамирэ (Внутренний Угол)
+Outer Yavannamire Wood Stair=Угловая ступенька из йаваннамирэ (Внешний Угол)
