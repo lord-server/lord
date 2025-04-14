@@ -407,13 +407,21 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 
 		minetest.register_on_punchplayer(
 		function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
+			-- debug section start
+			local debug_force_nil_hitter = false
+
+			if debug_force_nil_hitter then
+				hitter = nil
+			end
+			-- debug section end
 
 			if not player or not hitter then
 				minetest.log("warning", "[Protector] on_punchplayer called with nil objects")
+				return true -- Запрещаем обработку удара
 			end
 
 			if not hitter:is_player() then
-				return false
+				return false -- Разрешаем удар от не-игроков (мобов и т.д.)
 			end
 
 			-- no pvp at spawn area
@@ -427,11 +435,7 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 				return true
 			end
 
-			if minetest.is_protected(pos, hitter:get_player_name()) then
-				return true
-			else
-				return false
-			end
+			return minetest.is_protected(pos, hitter:get_player_name())
 
 		end)
 	else
