@@ -165,12 +165,9 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 
-	local player_name = player:get_player_name()
-	local race = races.get_race_and_gender(player_name)[1]
-	local gender = races.get_race_and_gender(player_name)[2]
-	local skin = races.get_skin_number(player)
-	local player_inv = player:get_inventory()
-
+	local race =   races.get_race(player)
+	local gender = races.get_gender(player)
+	local skin =   races.get_skin_number(player)
 	if races.list[race].no_corpse then
 		return
 	end
@@ -183,6 +180,8 @@ minetest.register_on_dieplayer(function(player)
 	local param2 = minetest.dir_to_facedir(player:get_look_dir())
 	minetest.set_node(corpse_pos, { name =string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2 =param2})
 
+	local player_name = player:get_player_name()
+	local player_inv = player:get_inventory()
 	local corpse_meta = minetest.get_meta(corpse_pos)
 	local corpse_inv  = corpse_meta:get_inventory()
 	local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})

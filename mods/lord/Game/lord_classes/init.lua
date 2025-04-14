@@ -183,14 +183,20 @@ function races.register_init_callback(cb)
 	table.insert(races.init_cbs, cb)
 end
 
--- Returns the race and the gender of specified player
-function races.get_race_and_gender(name)
-	return cache.players[name] or races.default
+--- Returns the race and the gender of specified `player`
+--- @param player Player
+function races.get_race_and_gender(player)
+	local character = character.of(player)
+
+	return {
+		character:get_race(races.default[1]),
+		character:get_gender(races.default[2]),
+	}
 end
 
 -- Now faction is binded to race
 function races.get_faction(name)
-	local race = races.get_race_and_gender(name)[1]
+	local race = races.get_race(minetest.get_player_by_name(name))
 	return races.factions[race]
 end
 
@@ -226,7 +232,7 @@ end
 
 function races.set_skin(name, skin_number)
 	cache.skins[name] = skin_number
-	races.update_player(name, races.get_race_and_gender(name), skin_number)
+	races.update_player(name, races.get_race_and_gender(minetest.get_player_by_name(name)), skin_number)
 end
 
 -- Tinker with privs
@@ -408,25 +414,25 @@ minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
 	if table_has_key(cache.players, name) then  -- Player is registered already
-		local r = races.get_race_and_gender(name)
-		if races.list[r[1]].cannot_be_selected then
+		if races.list[races.get_race(player)].cannot_be_selected then
 			races.show_change_form(player)
-			races.init_player(name, r, races.get_skin_number(player))
+			local race_and_gender = races.get_race_and_gender(player)
+			races.init_player(name, race_and_gender, races.get_skin_number(player))
 			return
 		end
-		r = races.get_race_and_gender(name)
-		races.set_race_and_gender(name, r, false)
+		local race_and_gender = races.get_race_and_gender(player)
+		races.set_race_and_gender(name, race_and_gender, false)
 		-- Player is registered, but has no skin
 		if cache.skins[name] == nil then
 			cache.skins[name] = races.default_skin
 		end
 
-		races.init_player(name, r, races.get_skin_number(player))
+		races.init_player(name, race_and_gender, races.get_skin_number(player))
 	else
 		races.show_change_form(player)
 		cache.can_change[name] = true
-		local r = races.get_race_and_gender(name)
-		races.init_player(name, r, races.get_skin_number(player))
+		local race_and_gender = races.get_race_and_gender(player)
+		races.init_player(name, race_and_gender, races.get_skin_number(player))
 	end
 end)
 
