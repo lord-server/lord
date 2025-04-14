@@ -45,6 +45,7 @@ jobs:
               mods/lord/Blocks/technic_chests/ \
               mods/lord/Entities/npc/ \
               mods/lord/Entities/lottmobs/ \
+              mods/lord/Game/discord/ \
               mods/lord/Game/lottachievements/ \
               mods/lord/Game/lord_classes/ \
               mods/lord/Player/hud_modpack/hbhunger/ \
