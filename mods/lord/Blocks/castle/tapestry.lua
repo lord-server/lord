@@ -40,8 +40,8 @@ local tapestry_tops = {
 	{ "castle:tapestry_top_lebethron", "lottblocks:stick_lebethron", S("Lebethron"), "lord_planks_lebethron.png" },
 	{ "castle:tapestry_top_mallorn", "lottblocks:stick_mallorn", S("Mallorn"), "lord_planks_mallorn.png"   },
 	{ "castle:tapestry_top_pine", "lottblocks:stick_pine", S("Pine"), "lord_planks_pine.png"      },
-	{ "castle:tapestry_top_white", "lottblocks:stick_white", S("White"), "lord_planks_white.png"      },
-	{ "castle:tapestry_top_yavannamire", "lottblocks:stick_yavannamire", S("Yavannamire"),
+	{ "castle:tapestry_top_white", "lord_wooden_stuff:stick_white", S("White"), "lord_planks_white.png"      },
+	{ "castle:tapestry_top_yavannamire", "lord_wooden_stuff:stick_yavannamire", S("Yavannamire"),
 																		"lord_planks_yavannamire.png"      },
 }
 for _, tapestry_top in pairs(tapestry_tops) do
