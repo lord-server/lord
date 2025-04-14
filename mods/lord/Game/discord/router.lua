@@ -95,12 +95,12 @@ end)
 
 minetest.register_on_joinplayer(function(player, last_login)
 	local name = player:get_player_name()
-	local who  = (not last_login) and races.get_race(name) or "newbie"
+	local who  = (not last_login) and races.get_race(player) or "newbie"
 	lp_api.publisher.pub_msg(SYS_NAME, "chat", "", who .. " {" .. name .. "} joined the game")
 end)
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
-	local who  = races.get_race(name)
+	local who  = races.get_race(player)
 	lp_api.publisher.pub_msg(SYS_NAME, "chat", "", who .. " {" .. name .. "} left the game")
 end)

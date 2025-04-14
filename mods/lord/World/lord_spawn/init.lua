@@ -54,7 +54,7 @@ minetest.register_chatcommand("spawn", {
 	description = S("Teleport to Spawn"),
 	func = function(name, _)
 		local player = minetest.get_player_by_name(name)
-		local setting = races.get_race(name).."_spawn_pos"
+		local setting = races.get_race(player).."_spawn_pos"
 		if (minetest.settings:get_bool("dynamic_spawn") ~= true) or (not spawn.check_conf(setting)) then
 			local ok = spawn.put_player_at_spawn(player, "common_spawn_pos")
 			if ok then
@@ -63,7 +63,7 @@ minetest.register_chatcommand("spawn", {
 		end
 		if spawn.put_player_at_spawn(player, setting) then
 			return true,
-			S("Teleporting to "..races.get_race(name).." Spawn...")
+			S("Teleporting to "..races.get_race(player).." Spawn...")
 		end
 		return false, S("Teleport failed")
 	end
@@ -174,15 +174,15 @@ minetest.register_on_newplayer(function(obj)
 	return spawn.put_player_at_spawn(obj, "common_spawn_pos")
 end)
 
-minetest.register_on_respawnplayer(function(obj)
-	local name = obj:get_player_name()
+minetest.register_on_respawnplayer(function(player)
+	local name = player:get_player_name()
 	local a
 	if beds.spawn[name] == nil then
 		if minetest.settings:get_bool("dynamic_spawn")
-		and spawn.check_conf(races.get_race(name).."_spawn_pos") then
-			a = spawn.put_player_at_spawn(obj, races.get_race(name).."_spawn_pos")
+		and spawn.check_conf(races.get_race(player).."_spawn_pos") then
+			a = spawn.put_player_at_spawn(player, races.get_race(player).."_spawn_pos")
 		else
-			a = spawn.put_player_at_spawn(obj, "common_spawn_pos")
+			a = spawn.put_player_at_spawn(player, "common_spawn_pos")
 		end
 	end
 	return a

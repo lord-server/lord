@@ -42,10 +42,11 @@ function multiskin:get_skin_name(name)
 	end
 end
 
-function multiskin:get_preview(name)
-	local race = races.get_race(name)
-	local gender = races.get_gender(name)
-	local skin = races.get_skin_number(name)
+--- @param player Player
+function multiskin:get_preview(player)
+	local race = races.get_race(player)
+	local gender = races.get_gender(player)
+	local skin = races.get_skin_number(player)
 
 	return lord_skins.get_preview_name('front', race, gender, skin) or MULTISKIN_DEFAULT_PREVIEW
 end

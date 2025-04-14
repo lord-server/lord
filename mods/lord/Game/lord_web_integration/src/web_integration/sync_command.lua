@@ -8,7 +8,7 @@ local WebClan
 local function create_player_on_web(player_name, notify_player_name)
 	minetest.chat_send_player(notify_player_name, player_name .. ": send `::create()`")
 	WebPlayer.create(
-		player_name,
+		minetest.get_player_by_name(player_name),
 		minetest.get_auth_handler().get_auth(player_name).last_login,
 		nil,
 		function(created_player)

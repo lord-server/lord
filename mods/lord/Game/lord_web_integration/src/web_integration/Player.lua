@@ -30,18 +30,18 @@ end
 
 
 --- @static
---- @param player_name string
+--- @param player      Player
 --- @param last_login  number|nil  timestamp or nil for use "now()"
 --- @param is_online   boolean|nil if nil, does not passed to web
 --- @param on_done     fun(created_player:web_integration.WebPlayer)
 --- @param on_link     fun(linked_player:web_integration.WebPlayer)
 --- @param on_fail     fun(result:HTTPRequestResult)
-function Player.create(player_name, last_login, is_online, on_done, on_link, on_fail)
+function Player.create(player, last_login, is_online, on_done, on_link, on_fail)
 	--- @type web_integration.WebPlayer
 	local web_player  = {
-		name       = player_name,
-		race       = races.get_race(player_name),
-		gender     = races.get_gender(player_name),
+		name       = player:get_player_name(),
+		race       = races.get_race(player),
+		gender     = races.get_gender(player),
 		last_login = os.date("%Y-%m-%d %H:%M:%S", last_login)
 	}
 	if is_online ~= nil then
@@ -58,7 +58,7 @@ function Player.create(player_name, last_login, is_online, on_done, on_link, on_
 				return
 			end
 
-			Player.storage.set_player_web_id(player_name, created_player.id)
+			Player.storage.set_player_web_id(player, created_player.id)
 			if on_done then on_done(created_player) end
 		end,
 
@@ -66,7 +66,7 @@ function Player.create(player_name, last_login, is_online, on_done, on_link, on_
 			if result.code == 409 then
 				local existing_player = minetest.parse_json(result.data)
 				if existing_player then
-					Player.storage.set_player_web_id(player_name, existing_player.id)
+					Player.storage.set_player_web_id(player, existing_player.id)
 					if on_link then on_link(existing_player) end
 
 					return
@@ -81,14 +81,14 @@ end
 
 --- @static
 --- @param player_web_id number ID of player in the Web DB.
---- @param player_name   string
+--- @param player        Player
 --- @param last_login    number|nil  timestamp or nil for use "now()"
 --- @param is_online     boolean|nil if nil, does not passed to web
-function Player.update(player_web_id, player_name, last_login, is_online)
+function Player.update(player_web_id, player, last_login, is_online)
 	--- @type web_integration.WebPlayer
 	local web_player  = {
-		race       = races.get_race(player_name),
-		gender     = races.get_gender(player_name),
+		race       = races.get_race(player),
+		gender     = races.get_gender(player),
 		last_login = os.date("%Y-%m-%d %H:%M:%S", last_login)
 	}
 	if is_online ~= nil then
@@ -104,16 +104,16 @@ function Player.update(player_web_id, player_name, last_login, is_online)
 end
 
 --- @static
---- @param player_name Player minetest player object
+--- @param player      Player      minetest player object
 --- @param last_login  number|nil  timestamp or nil for use "now()"
 --- @param is_online   boolean|nil if nil, does not passed to web
-function Player.update_or_create(player_name, last_login, is_online)
-	local player_web_id = Player.storage.get_player_web_id(player_name)
+function Player.update_or_create(player, last_login, is_online)
+	local player_web_id = Player.storage.get_player_web_id(player)
 
 	if not player_web_id then
-		Player.create(player_name, last_login, is_online)
+		Player.create(player, last_login, is_online)
 	else
-		Player.update(player_web_id, player_name, last_login, is_online)
+		Player.update(player_web_id, player, last_login, is_online)
 	end
 end
 

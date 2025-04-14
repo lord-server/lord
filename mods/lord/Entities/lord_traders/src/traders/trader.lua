@@ -85,7 +85,7 @@ local function on_rightclick(entity, clicker, race)
 			tostring(trader_config.messages[math.random(1, #trader_config.messages)]) -- messages already translated
 	)
 
-	local same_race = races.get_race(clicker:get_player_name()) == race
+	local same_race = races.get_race(clicker) == race
 	local inventory_id = Inventory:new(clicker, entity, trader_config.goods, same_race):get_id()
 	Form:new(clicker, inventory_id, entity.game_name):open()
 

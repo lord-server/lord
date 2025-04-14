@@ -10,9 +10,9 @@ local register_for_players = function()
 		if not player:is_player() then return end
 
 		if not last_login then -- player is new
-			Player.create(player:get_player_name(), nil, true)
+			Player.create(player, nil, true)
 		else -- player Not new
-			Player.update_or_create(player:get_player_name(), nil, true)
+			Player.update_or_create(player, nil, true)
 		end
 	end)
 

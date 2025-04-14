@@ -21,7 +21,7 @@ local function check_player_pos(player, _)
 	local pos = vector.round(player:get_pos())
 	local player_areas = areas:getAreasAtPos(pos)
 	local player_name = player:get_player_name()
-	if player_areas[area_id] and races.get_race(player_name) == "hobbit" then
+	if player_areas[area_id] and races.get_race(player) == "hobbit" then
 		effects.decrease_hp[player_name] = player
 	else
 		if effects.decrease_hp[player_name] then

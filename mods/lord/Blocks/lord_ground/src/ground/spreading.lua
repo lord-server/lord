@@ -37,7 +37,7 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 				--- @type Player[]
 				local nearest_objects = minetest.get_objects_inside_radius(pos, 15)
 				for i, object in pairs(nearest_objects) do
-					if object:is_player() and races.get_race(object:get_player_name()) == RACE_ORC then
+					if object:is_player() and races.get_race(object) == RACE_ORC then
 						local replace_with = covers_with[math_random(#covers_with)]
 						minetest.set_node(pos, { name = replace_with })
 						break;

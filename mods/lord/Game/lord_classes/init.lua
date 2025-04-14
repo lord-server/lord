@@ -194,12 +194,14 @@ function races.get_faction(name)
 	return races.factions[race]
 end
 
-function races.get_race(name)
-	return races.get_race_and_gender(name)[1]
+--- @param player Player
+function races.get_race(player)
+	return character.of(player):get_race(races.default[1])
 end
 
-function races.get_gender(name)
-	return races.get_race_and_gender(name)[2]
+--- @param player Player
+function races.get_gender(player)
+	return character.of(player):get_gender(races.default[2])
 end
 
 function races.set_race_and_gender(name, race_and_gender)
@@ -217,8 +219,9 @@ function races.set_race_and_gender(name, race_and_gender)
 	return true
 end
 
-function races.get_skin_number(name)
-	return cache.skins[name] or races.default_skin
+--- @param player Player
+function races.get_skin_number(player)
+	return character.of(player):get_skin_no(races.default_skin)
 end
 
 function races.set_skin(name, skin_number)
@@ -383,6 +386,7 @@ end
 function races.can_open_stuff(owner_race, player, itemstack)
 	assert(races.list[owner_race], string.format("unknown race - \"%s\"", owner_race))
 
+	player = minetest.get_player_by_name(player)
 	if races.get_race(player) == owner_race or minetest.check_player_privs(player, "race") then
 		return true, nil
 	end
@@ -407,7 +411,7 @@ minetest.register_on_joinplayer(function(player)
 		local r = races.get_race_and_gender(name)
 		if races.list[r[1]].cannot_be_selected then
 			races.show_change_form(player)
-			races.init_player(name, r, races.get_skin_number(name))
+			races.init_player(name, r, races.get_skin_number(player))
 			return
 		end
 		r = races.get_race_and_gender(name)
@@ -417,12 +421,12 @@ minetest.register_on_joinplayer(function(player)
 			cache.skins[name] = races.default_skin
 		end
 
-		races.init_player(name, r, races.get_skin_number(name))
+		races.init_player(name, r, races.get_skin_number(player))
 	else
 		races.show_change_form(player)
 		cache.can_change[name] = true
 		local r = races.get_race_and_gender(name)
-		races.init_player(name, r, races.get_skin_number(name))
+		races.init_player(name, r, races.get_skin_number(player))
 	end
 end)
 
@@ -447,11 +451,11 @@ minetest.register_chatcommand('choose_race', {
 	privs = { choose_race = true },
 	description = SL(''),
 	func = function(name, params)
-		if races.get_race(name) ~= races.name.SHADOW then
+		local player = minetest.get_player_by_name(name)
+		if races.get_race(player) ~= races.name.SHADOW then
 			return false, SL('Something went wrong. Only the Shadow can choose the race.')
 		end
 
-		local player = minetest.get_player_by_name(name)
 		ShadowHUD:for_player(player):hide()
 		races.show_change_form(player)
 	end
