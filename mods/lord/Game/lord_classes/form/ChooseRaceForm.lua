@@ -4,6 +4,7 @@ local colorize = minetest.colorize
 
 
 --- @class lord_classes.form.ChooseRace: base_classes.Form.Base
+--- @field new
 local ChooseRaceForm = {
 	--- @type string
 	NAME       = 'change_race',
@@ -14,8 +15,35 @@ local ChooseRaceForm = {
 	-- TODO: extract into gui.color.COMMAND #2150
 	--- @type string
 	commands_color = '#8ff',
+	--- @private
+	--- @type string unique name of form-user choice, that indicates by which code the form was opened (for form-users)
+	opened_by = nil,
 }
 ChooseRaceForm = base_classes.Form:personal():extended(ChooseRaceForm)
+
+ChooseRaceForm.event.Type.on_switch = 'on_switch'
+ChooseRaceForm.event.Type.on_apply  = 'on_apply'
+ChooseRaceForm.event.Type.on_cancel = 'on_cancel'
+ChooseRaceForm.event.subscribers[ChooseRaceForm.event.Type.on_switch] = {}
+ChooseRaceForm.event.subscribers[ChooseRaceForm.event.Type.on_apply]  = {}
+ChooseRaceForm.event.subscribers[ChooseRaceForm.event.Type.on_cancel] = {}
+
+--- @alias lord_classes.form.ChooseRace.callback fun(form:lord_classes.form.ChooseRace, race:string, gender:string)
+
+--- @type fun(callback:lord_classes.form.ChooseRace.callback)
+ChooseRaceForm.on_switch = ChooseRaceForm.event:on(ChooseRaceForm.event.Type.on_switch, ChooseRaceForm.event)
+--- @type fun(callback:lord_classes.form.ChooseRace.callback)
+ChooseRaceForm.on_apply  = ChooseRaceForm.event:on(ChooseRaceForm.event.Type.on_apply, ChooseRaceForm.event)
+--- @type fun(callback:lord_classes.form.ChooseRace.callback)
+ChooseRaceForm.on_cancel = ChooseRaceForm.event:on(ChooseRaceForm.event.Type.on_cancel, ChooseRaceForm.event)
+
+
+--- @protected
+--- @param player    Player
+--- @param opened_by string
+function ChooseRaceForm:instantiate(player, opened_by)
+	self.opened_by = opened_by
+end
 
 --- @static
 --- @private
@@ -67,40 +95,18 @@ end
 --- @protected
 --- @param fields table
 function ChooseRaceForm:handle(fields)
-	local name   = self.player_name
-	local player = self:player()
-
-	if fields.race and not fields.ok and not fields.quit and not fields.cancel then
-		local race_and_gender = races.to_internal(fields.race, fields.gender)
-		if race_and_gender then races.set_race_and_gender(name, race_and_gender, true) end
-
-		if minetest.settings:get_bool("dynamic_spawn") == true then
-			if races.tp_process[name] ~= true then
-				races.tp_process[name] = true
-				minetest.after(1, function()
-					if spawn.check_conf(race_and_gender[1] .. "_spawn_pos") then
-						spawn.put_player_at_spawn(player, race_and_gender[1] .. "_spawn_pos")
-					else
-						spawn.put_player_at_spawn(player, "common_spawn_pos")
-					end
-					races.tp_process[name] = false
-				end)
-			end
-		end
+	if (fields.race or fields.gender) and not fields.ok and not fields.quit and not fields.cancel then
+		self.event:trigger(self.event.Type.on_switch, self, fields.race, fields.gender)
 
 		return
 	end
 
 	if fields.ok then
-		-- OK button pressed
-		local race_and_gender = races.to_internal(fields.race, fields.gender)
-		races.set_race_and_gender(name, race_and_gender, true)
-		races.show_skin_change_form(player, race_and_gender[1], race_and_gender[2], 1)
+		-- `OK` button pressed
+		self.event:trigger(self.event.Type.on_apply, self, fields.race, fields.gender)
 	else
-		-- Cancel button pressed, or escape pressed
-		local race_and_gender = races.default
-		races.set_race_and_gender(name, race_and_gender, true)
-		races.show_shadow_hud(player)
+		-- `Cancel` button pressed, or escape pressed, or click outside the form
+		self.event:trigger(self.event.Type.on_cancel, self)
 	end
 end
 

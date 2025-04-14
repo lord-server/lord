@@ -209,8 +209,7 @@ function races.set_race_and_gender(name, race_and_gender)
 	end
 
 	local race = race_and_gender[1]
-	races.update_privileges(name, races.list[race].granted_privs,
-		races.list[race].revoked_privs)
+	races.update_privileges(name, races.list[race].granted_privs, races.list[race].revoked_privs)
 
 	cache.players[name] = race_and_gender
 --	races.update_player(name, race_and_gender, races.default_skin)
@@ -290,6 +289,10 @@ function races.to_internal(race, gender)
 	return {_race, _gender}
 end
 
+-- -------------------------------------------------------------------------------------------------
+
+local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+
 --- @type lord_classes.form.ChooseRace
 local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
 --- @type lord_classes.form.ChooseSkin
@@ -297,8 +300,51 @@ local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/Cho
 --- @type lord_classes.hud.Shadow
 local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shadow.lua')
 
+ChooseRaceForm.on_switch(function(form, race, gender)
+	local name   = form.player_name
+	local player = form:player()
+	local race_and_gender = races.to_internal(race, gender)
+	if race_and_gender then
+		-- TODO:
+		-- don't set. Its just switching in form. Save
+		races.set_race_and_gender(form.player_name, race_and_gender, true)
+	end
 
-local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+	if has_several_spawns then
+		if races.tp_process[name] ~= true then
+			races.tp_process[name] = true
+			minetest.after(0.1, function()
+				if spawn.check_conf(race_and_gender[1] .. "_spawn_pos") then
+					spawn.put_player_at_spawn(player, race_and_gender[1] .. "_spawn_pos")
+				else
+					spawn.put_player_at_spawn(player, "common_spawn_pos")
+				end
+				races.tp_process[name] = false
+			end)
+		end
+	end
+end)
+ChooseRaceForm.on_apply(function(form, race, gender)
+	local race_and_gender = races.to_internal(race, gender)
+	-- TODO: character.of(form:player()):set_race(race)
+	races.set_race_and_gender(form.player_name, race_and_gender, true)
+	races.show_skin_change_form(form:player(), race_and_gender[1], race_and_gender[2], 1)
+end)
+ChooseRaceForm.on_cancel(function(form, race, gender)
+	local race_and_gender = races.default
+	-- TODO: character.of(form:player()):set_race(race)
+	races.set_race_and_gender(form.player_name, race_and_gender, true)
+	races.show_shadow_hud(form:player())
+end)
+
+ChooseSkinForm.on_apply(function(form, skin_no)
+	-- TODO: character.of(form:player()):set_skin(skin_no)
+	races.set_skin(form.player_name, skin_no)
+	races.save()
+end)
+ChooseSkinForm.on_back(function(form)
+	races.show_change_form(form:player())
+end)
 
 --- @param player Player
 function races.show_change_form(player)
@@ -311,7 +357,7 @@ end
 ---@param skin_no number
 function races.show_skin_change_form(player, race, gender, skin_no)
 	minetest.after(0.1, function()
-		ChooseSkinForm:new(player):open(race, gender, skin_no)
+		ChooseSkinForm:new(player, race, gender):open(skin_no)
 	end)
 end
 

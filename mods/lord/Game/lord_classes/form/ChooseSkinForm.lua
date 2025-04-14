@@ -3,47 +3,73 @@ local spec = forms.Spec
 
 
 --- @class lord_classes.form.ChooseSkin: base_classes.Form.Base
---- @field open fun(race:string, gender:string, skin_no:number)
+--- @field new  fun(self:self, player:Player, race:string, gender:string, opened_by:string)
+--- @field open fun(self:self, skin_no:number)
 local ChooseSkin = {
 	--- @type string
-	NAME       = 'change_skin',
-	--- @static
+	NAME      = 'change_skin',
 	--- @private
-	--- @type string[] list of available races to choose. Filled dynamically once on first `:get_spec()` call.
-	races_list = nil,
+	race      = nil,
+	--- @private
+	gender    = nil,
+	--- @private
+	--- @type string unique name of form-user choice, that indicates by which code the form was opened (for form-users)
+	opened_by = nil,
 }
 ChooseSkin = base_classes.Form:personal():extended(ChooseSkin)
 
+ChooseSkin.event.Type.on_switch = 'on_switch'
+ChooseSkin.event.Type.on_apply  = 'on_apply'
+ChooseSkin.event.Type.on_back = 'on_back'
+ChooseSkin.event.subscribers[ChooseSkin.event.Type.on_switch] = {}
+ChooseSkin.event.subscribers[ChooseSkin.event.Type.on_apply]  = {}
+ChooseSkin.event.subscribers[ChooseSkin.event.Type.on_back] = {}
+
+--- @type fun(callback:fun(form:lord_classes.form.ChooseRace, skin_no:number))
+ChooseSkin.on_switch = ChooseSkin.event:on(ChooseSkin.event.Type.on_switch, ChooseSkin.event)
+--- @type fun(callback:fun(form:lord_classes.form.ChooseRace, skin_no:number))
+ChooseSkin.on_apply  = ChooseSkin.event:on(ChooseSkin.event.Type.on_apply, ChooseSkin.event)
+--- @type fun(callback:fun(form:lord_classes.form.ChooseRace))
+ChooseSkin.on_back = ChooseSkin.event:on(ChooseSkin.event.Type.on_back, ChooseSkin.event)
+
+
 --- @protected
---- @param race    string
---- @param gender  string
+--- @param player    Player
+--- @param race      string
+--- @param gender    string
+--- @param opened_by string
+function ChooseSkin:instantiate(player, race, gender, opened_by)
+	self.race      = race
+	self.gender    = gender
+	self.opened_by = opened_by
+end
+
+--- @protected
 --- @param skin_no number
 --- @return string
-function ChooseSkin:get_spec(race, gender, skin_no)
-	local skins_list = table.generate_sequence(lord_skins.get_skins_count(race, gender))
+function ChooseSkin:get_spec(skin_no)
+	local skins_list = table.generate_sequence(lord_skins.get_skins_count(self.race, self.gender))
 
 	return spec.size(7, 4)
 		.. spec.bold(0, 0, S('Choose a skin for your character'))
-		.. spec.image(0, 0.5, 3.3, 3, lord_skins.get_preview_name('both', race, gender, skin_no))
+		.. spec.image(0, 0.5, 3.3, 3, lord_skins.get_preview_name('both', self.race, self.gender, skin_no))
 		.. spec.dropdown_WH(3.6, 0.51, 3, 1, 'skin', skins_list, skin_no)
-		.. spec.button_exit(0, 3.3, 3, 1, 'back', S('Back'))
+		.. spec.button_exit(0, 3.3, 3, 1, 'back', '« ' .. S('Back'))
 		.. spec.button_exit(4, 3.3, 3, 1, 'ok', S('OK'))
 end
 
 --- @protected
 --- @param fields table
 function ChooseSkin:handle(fields)
-	local name   = self.player_name
-	local player = self:player()
-
 	if fields.back then
-		minetest.after(0.1, races.show_change_form, player)
+		self.event:trigger(self.event.Type.on_back, self)
 	elseif fields.ok then
-		races.set_skin(name, tonumber(fields.skin))
-		races.save()
+		self.event:trigger(self.event.Type.on_apply, self, tonumber(fields.skin))
 	elseif fields.skin then
-		local r = races.get_race_and_gender(name)
-		minetest.after(0.1, races.show_skin_change_form, player, r[1], r[2], tonumber(fields.skin))
+		-- just redraw form to display new skin:
+		self:open(tonumber(fields.skin))
+
+		self.event:trigger(self.event.Type.on_switch, self, tonumber(fields.skin))
 	end
 end
 
