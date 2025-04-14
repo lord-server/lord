@@ -27,15 +27,9 @@ function Character:get_player()
 end
 
 --- @see lord_races.Name
---- @return string|nil one of lord_races.Name.<CONST>
-function Character:get_race()
-	return self.storage:get(Property.RACE)
-end
-
---- @see lord_races.Name
---- @param default string one of lord_races.Name.<CONST>
---- @return string one of lord_races.Name.<CONST>
-function Character:get_race_or(default)
+--- @param default string one of `lord_races.Name.<CONST>` or your own value if needed.
+--- @return string|nil one of lord_races.Name.<CONST> or `default` value.
+function Character:get_race(default)
 	return self.storage:get(Property.RACE, default)
 end
 
@@ -49,14 +43,9 @@ function Character:set_race(race)
 	return self
 end
 
---- @return string|nil one of `{ "male" | "female" | nil }`
-function Character:get_gender()
-	return self.storage:get(Property.GENDER)
-end
-
---- @param default string one of `{ "male" | "female" }`
---- @return string one of `{ "male" | "female" }`
-function Character:get_gender_or(default)
+--- @param default string one of `{ "male" | "female" }` or your own value if needed.
+--- @return string|nil one of `{ "male" | "female" | nil }` or `default` value.
+function Character:get_gender(default)
 	return self.storage:get(Property.GENDER, default)
 end
 
@@ -71,9 +60,10 @@ function Character:set_gender(gender)
 end
 
 --- @see lord_skins
+--- @param default number default skin number or your own value if needed.
 --- @return number|nil returns number of applied/chosen skin.
-function Character:get_skin_no()
-	return self.storage:get_int(Property.SKIN)
+function Character:get_skin_no(default)
+	return self.storage:get_int(Property.SKIN, default)
 end
 
 --- @see lord_skins
