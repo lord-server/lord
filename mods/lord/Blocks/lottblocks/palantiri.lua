@@ -159,7 +159,7 @@ minetest.register_node("lottblocks:palantir", {
 		local meta        = minetest.get_meta(pos)
 		local configured  = meta:get_int("configured")
 		local player_name = sender:get_player_name()
-		local player_race = races.get_race(sender)
+		local player_race = character.of(sender):get_race()
 
 		if configured == 0 then
 			if not fields.network or not fields.palantir

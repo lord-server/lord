@@ -16,7 +16,7 @@ end
 --- @param player Player
 local function make_result_prediction(inv, player)
 	local result, _, recipe = get_craft_result(inv)
-	local player_race       = races.get_race(player)
+	local player_race       = character.of(player):get_race()
 
 	if recipe and recipe.for_race and recipe.for_race ~= player_race then
 		return

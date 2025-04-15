@@ -33,7 +33,7 @@ minetest.register_craftitem("lottfarming:orc_food", {
 		local name = user:get_player_name()
 		hbhunger.hunger[name] = 20
 		hbhunger.set_hunger_raw(user)
-		if races.get_race(user) ~= "orc" then
+		if character.of(user):get_race() ~= lord_races.Name.ORC then
 			make_negative_visual_effect(user)
 		end
 		itemstack:take_item(1)
@@ -69,7 +69,7 @@ minetest.register_node("lottfarming:orc_medicine", {
 	sounds            = default.node_sound_glass_defaults(),
 	on_use = function(itemstack, user, pointed_thing)
 		user:set_hp(20)
-		if races.get_race(user) ~= "orc" then
+		if character.of(user):get_race() ~= lord_races.Name.ORC then
 			make_negative_visual_effect(user)
 		end
 		itemstack:take_item(1)

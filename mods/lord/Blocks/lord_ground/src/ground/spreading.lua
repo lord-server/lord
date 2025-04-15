@@ -1,7 +1,6 @@
 local pairs, math_random
 	= pairs, math.random
 
-local RACE_ORC = "orc"
 
 --- For biome grasses spreading we use existing MTG ABM function:
 --- mods/_minetest_game/default/functions.lua:~586 (label = "Grass spread")
@@ -37,7 +36,7 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 				--- @type Player[]
 				local nearest_objects = minetest.get_objects_inside_radius(pos, 15)
 				for i, object in pairs(nearest_objects) do
-					if object:is_player() and races.get_race(object) == RACE_ORC then
+					if object:is_player() and character.of(object):get_race() == lord_races.Name.ORC then
 						local replace_with = covers_with[math_random(#covers_with)]
 						minetest.set_node(pos, { name = replace_with })
 						break;

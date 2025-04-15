@@ -131,13 +131,8 @@ end
 
 -- Now faction is binded to race
 function races.get_faction(name)
-	local race = races.get_race(minetest.get_player_by_name(name))
+	local race = character.of(minetest.get_player_by_name(name)):get_race()
 	return races.factions[race]
-end
-
---- @param player Player
-function races.get_race(player)
-	return character.of(player):get_race(races.default[1])
 end
 
 --- @param player Player
@@ -309,7 +304,7 @@ function races.can_open_stuff(owner_race, player, itemstack)
 	assert(races.list[owner_race], string.format("unknown race - \"%s\"", owner_race))
 
 	player = minetest.get_player_by_name(player)
-	if races.get_race(player) == owner_race or minetest.check_player_privs(player, "race") then
+	if character.of(player):get_race() == owner_race or minetest.check_player_privs(player, "race") then
 		return true, nil
 	end
 
@@ -361,7 +356,7 @@ minetest.register_chatcommand('choose_race', {
 	description = SL(''),
 	func = function(name, params)
 		local player = minetest.get_player_by_name(name)
-		if races.get_race(player) ~= races.name.SHADOW then
+		if character.of(player):get_race() ~= races.name.SHADOW then
 			return false, SL('Something went wrong. Only the Shadow can choose the race.')
 		end
 

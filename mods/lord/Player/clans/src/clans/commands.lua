@@ -46,7 +46,7 @@ local auth_handler = minetest.get_auth_handler()
 ---@param player_name string
 ---@return string|nil
 local function get_beautiful_player_str(player_name)
-	local race = races.list[races.get_race(minetest.get_player_by_name(player_name))]
+	local race = races.list[character.of(minetest.get_player_by_name(player_name)):get_race()]
 	local race_name = colorize("chocolate", race.name)
 	local last_status = colorize("green", "online")
 	if not is_player_online(player_name) then
