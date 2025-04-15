@@ -48,12 +48,12 @@ end
 --- @return string
 function preview.compile_overlay(player_name)
 	local previews = preview.for_player[player_name]
-	local overlaid_previews = "" .. previews.skin
-	if previews.clothing and previews.clothing ~= "" then
-		overlaid_previews = overlaid_previews .. "^" .. previews.clothing
+	local overlaid_previews = '' .. previews.skin
+	if previews.clothing and previews.clothing ~= '' then
+		overlaid_previews = overlaid_previews .. '^' .. previews.clothing
 	end
-	if previews.armor and previews.armor ~= "" then
-		overlaid_previews = overlaid_previews .. "^" .. previews.armor
+	if previews.armor and previews.armor ~= '' then
+		overlaid_previews = overlaid_previews .. '^' .. previews.armor
 	end
 
 	return overlaid_previews
@@ -74,12 +74,12 @@ local function overlay_equip_previews(player, kind)
 	local previews = {}
 	for _, item in equipment.for_player(player):not_empty(kind) do
 		local item_groups = item:get_definition().groups
-		if not item_groups["no_preview"] then
-			table.insert(previews, item:get_name():replace("%:", "_") .. "_preview.png")
+		if not item_groups['no_preview'] then
+			table.insert(previews, item:get_name():replace('%:', '_') .. '_preview.png')
 		end
 	end
 
-	return table.concat(previews, "^")
+	return table.concat(previews, '^')
 end
 
 local function register_equipment_changes()
@@ -87,7 +87,7 @@ local function register_equipment_changes()
 		preview.set_part(player, kind, overlay_equip_previews(player, kind))
 	end)
 	equipment.on_load_all(function(player)
-		preview.set_part(player, "skin", character.of(player):get_skin_preview_name('front'))
+		preview.set_part(player, 'skin', character.of(player):get_skin_preview_name('front'))
 		preview.update_on_form(player)
 	end)
 
@@ -97,6 +97,14 @@ local function register_equipment_changes()
 		local player_name = player:get_player_name()
 		preview.for_player[player_name][kind] = overlay_equip_previews(player, kind)
 
+		preview.update_on_form(player)
+	end)
+end
+
+local function register_skin_change()
+	character.on_skin_change(function(character, skin_no)
+		local player = character:get_player()
+		preview.set_part(player, 'skin', character:get_skin_preview_name('front'))
 		preview.update_on_form(player)
 	end)
 end
@@ -119,5 +127,6 @@ return {
 		PlayerForm:register(player_forms)
 
 		register_equipment_changes()
+		register_skin_change()
 	end
 }
