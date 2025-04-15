@@ -138,11 +138,13 @@ end)
 -- TODO: end
 
 ChooseRaceForm.on_apply(function(form, race, gender)
+	local skin_no = races.default.skin_no
 	character.of(form:player())
 		:set_race(race)
 		:set_gender(gender)
+		:set_skin_no(skin_no)
 
-	races.show_skin_change_form(form:player(), race, gender, 1)
+	races.show_skin_change_form(form:player(), race, gender, skin_no)
 end)
 ChooseRaceForm.on_cancel(function(form)
 	local race   = races.default.race
@@ -150,14 +152,19 @@ ChooseRaceForm.on_cancel(function(form)
 	character.of(form:player())
 		:set_race(race)
 		:set_gender(gender)
+		:set_skin_no(races.default.skin_no)
 
 	races.show_shadow_hud(form:player())
 end)
 
+ChooseSkinForm.on_switch(function(form, skin_no)
+	character.of(form:player()):set_skin_no(skin_no)
+end)
 ChooseSkinForm.on_apply(function(form, skin_no)
 	character.of(form:player()):set_skin_no(skin_no)
 end)
 ChooseSkinForm.on_back(function(form)
+	character.of(form:player()):set_skin_no(nil)
 	races.show_change_form(form:player())
 end)
 
@@ -176,9 +183,7 @@ end
 ---@param gender  string
 ---@param skin_no number
 function races.show_skin_change_form(player, race, gender, skin_no)
-	minetest.after(0.1, function()
-		ChooseSkinForm:new(player, race, gender):open(skin_no)
-	end)
+	ChooseSkinForm:new(player, race, gender):open(skin_no)
 end
 
 --- @param player Player
