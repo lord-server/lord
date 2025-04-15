@@ -96,9 +96,6 @@ function races.update_privileges(player, old_race, new_race)
 end
 
 -- -------------------------------------------------------------------------------------------------
-
-local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
-
 --- @type lord_classes.form.ChooseRace
 local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
 --- @type lord_classes.form.ChooseSkin
@@ -106,24 +103,40 @@ local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/Cho
 --- @type lord_classes.hud.Shadow
 local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shadow.lua')
 
+-- TODO: move to `lord_spawns` mod
+local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+races.tp_process = {}
+--- @param player Player
+--- @param race   string
+local function move_player_to_spawn(player, race)
+	local name = player:get_player_name()
+	if races.tp_process[name] ~= true then
+		races.tp_process[name] = true
+		minetest.after(0.1, function()
+			if spawn.check_conf(race .. "_spawn_pos") then
+				spawn.put_player_at_spawn(player, race .. "_spawn_pos")
+			else
+				spawn.put_player_at_spawn(player, "common_spawn_pos")
+			end
+			races.tp_process[name] = false
+		end)
+	end
+end
+--- @return string one of lord_races.Name.<CONST>
+local function get_random_race()
+	local available_races = table.keys(table.except(lord_races.get_player_races(),	{ lord_races.Name.SHADOW }))
+
+	return available_races[math.random(1, #available_races)]
+end
 ChooseRaceForm.on_switch(function(form, race, gender)
-	local name   = form.player_name
 	local player = form:player()
 
 	if has_several_spawns then
-		if races.tp_process[name] ~= true then
-			races.tp_process[name] = true
-			minetest.after(0.1, function()
-				if spawn.check_conf(race .. "_spawn_pos") then
-					spawn.put_player_at_spawn(player, race .. "_spawn_pos")
-				else
-					spawn.put_player_at_spawn(player, "common_spawn_pos")
-				end
-				races.tp_process[name] = false
-			end)
-		end
+		move_player_to_spawn(player, race)
 	end
 end)
+-- TODO: end
+
 ChooseRaceForm.on_apply(function(form, race, gender)
 	character.of(form:player())
 		:set_race(race)
@@ -153,9 +166,10 @@ character.on_race_change(function(character, race, old_race)
 end)
 
 --- @param player Player
-function races.show_change_form(player)
+function races.show_change_form(player, selected_race)
 	local show_spawns_info = has_several_spawns
-	ChooseRaceForm:new(player):open(show_spawns_info)
+	selected_race = selected_race or character.of(player):get_race()
+	ChooseRaceForm:new(player):open(show_spawns_info, selected_race)
 end
 ---@param player  Player
 ---@param race    string
@@ -204,13 +218,15 @@ function races.can_open_stuff(owner_race, player, itemstack)
 	end
 end
 
-races.tp_process = {}
-
-
 minetest.register_on_joinplayer(function(player)
 	local race = character.of(player):get_race()
 	if not race then
-		races.show_change_form(player)
+		-- Random chosen race for select in ChooseRaceForm & for tp to spawn
+		if has_several_spawns then
+			race = get_random_race()
+			move_player_to_spawn(player, race)
+		end
+		races.show_change_form(player, race)
 
 		return
 	end
@@ -247,7 +263,13 @@ minetest.register_chatcommand('choose_race', {
 		end
 
 		ShadowHUD:for_player(player):hide()
-		races.show_change_form(player)
+		-- Random chosen race for select in ChooseRaceForm & for tp to spawn
+		local race
+		if has_several_spawns then
+			race = get_random_race()
+			move_player_to_spawn(player, race)
+		end
+		races.show_change_form(player, race)
 	end
 })
 

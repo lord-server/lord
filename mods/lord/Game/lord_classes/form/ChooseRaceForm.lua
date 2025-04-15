@@ -4,8 +4,8 @@ local colorize = minetest.colorize
 
 
 --- @class lord_classes.form.ChooseRace: base_classes.Form.Base
---- @field new  fun(player:Player)
---- @field open fun(show_spawns_info:boolean)
+--- @field new  fun(self:self,player:Player,opened_by:string)
+--- @field open fun(self:self,show_spawns_info:boolean,selected_race:string)
 local ChooseRaceForm = {
 	--- @type string
 	NAME       = 'change_race',
@@ -52,6 +52,18 @@ function ChooseRaceForm:instantiate(player, opened_by)
 	self.opened_by = opened_by
 end
 
+--- @param selected_race string
+--- @return lord_classes.form.ChooseRace
+function ChooseRaceForm:set_selected_race(selected_race)
+	for i, race in ipairs(self.get_races_list()) do
+		if race.name == selected_race then
+			self.selected_race_index = i
+		end
+	end
+
+	return self
+end
+
 --- @static
 --- @private
 --- @return {name:string,title:string}[]
@@ -94,11 +106,15 @@ end
 
 --- @param show_spawns_info boolean
 --- @return string
-function ChooseRaceForm:get_spec(show_spawns_info)
+function ChooseRaceForm:get_spec(show_spawns_info, selected_race)
 	-- TODO: extract into gui.colorize.cmd() #2150
 	--- @param text string
 	local function cmd(text)
 		return colorize(self.commands_color, text)
+	end
+
+	if selected_race then
+		self:set_selected_race(selected_race)
 	end
 
 	--- @type string
@@ -114,8 +130,8 @@ function ChooseRaceForm:get_spec(show_spawns_info)
 			and spec.label(0, 1.3, S('While selecting a race, you will be instantly teleported to that race’s spawn!'))
 			or ''
 		)
-		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_dropdown_items, 1, 'true')
-		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', gender_dropdown_items, 1, 'true')
+		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_dropdown_items, self.selected_race_index, 'true')
+		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', gender_dropdown_items, self.selected_gender_index, 'true')
 		.. spec.button_exit(0.25, 3.3, 3.25, 1.0, 'cancel', S('Cancel'))
 		.. spec.button_exit(4.00, 3.3, 3.00, 1.0, 'ok', S('OK'))
 
