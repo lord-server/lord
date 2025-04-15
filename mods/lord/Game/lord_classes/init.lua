@@ -210,16 +210,20 @@ function races.get_gender(player)
 	return character.of(player):get_gender(races.default[2])
 end
 
-function races.set_race_and_gender(name, race_and_gender)
+--- @param player Player
+function races.set_race_and_gender(player, race_and_gender)
 	local valid = races.validate(race_and_gender)
 	if not valid then
 		return false
 	end
 
 	local race = race_and_gender[1]
-	races.update_privileges(name, races.list[race].granted_privs, races.list[race].revoked_privs)
+	local gender = race_and_gender[2]
+	character.of(player)
+		:set_race(race)
+		:set_gender(gender)
 
-	cache.players[name] = race_and_gender
+	races.update_privileges(player:get_player_name(), races.list[race].granted_privs, races.list[race].revoked_privs)
 --	races.update_player(name, race_and_gender, races.default_skin)
 
 	return true
@@ -230,9 +234,11 @@ function races.get_skin_number(player)
 	return character.of(player):get_skin_no(races.default_skin)
 end
 
-function races.set_skin(name, skin_number)
-	cache.skins[name] = skin_number
-	races.update_player(name, races.get_race_and_gender(minetest.get_player_by_name(name)), skin_number)
+--- @param player      Player
+--- @param skin_number number
+function races.set_skin(player, skin_number)
+	character.of(player):set_skin_no(skin_number)
+	races.update_player(player:get_player_name(), races.get_race_and_gender(player), skin_number)
 end
 
 -- Tinker with privs
@@ -312,19 +318,13 @@ local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shad
 ChooseRaceForm.on_switch(function(form, race, gender)
 	local name   = form.player_name
 	local player = form:player()
-	local race_and_gender = { race, gender }
-	if race_and_gender then
-		-- TODO:
-		-- don't set. Its just switching in form. Save
-		races.set_race_and_gender(form.player_name, race_and_gender, true)
-	end
 
 	if has_several_spawns then
 		if races.tp_process[name] ~= true then
 			races.tp_process[name] = true
 			minetest.after(0.1, function()
-				if spawn.check_conf(race_and_gender[1] .. "_spawn_pos") then
-					spawn.put_player_at_spawn(player, race_and_gender[1] .. "_spawn_pos")
+				if spawn.check_conf(race .. "_spawn_pos") then
+					spawn.put_player_at_spawn(player, race .. "_spawn_pos")
 				else
 					spawn.put_player_at_spawn(player, "common_spawn_pos")
 				end
@@ -334,22 +334,21 @@ ChooseRaceForm.on_switch(function(form, race, gender)
 	end
 end)
 ChooseRaceForm.on_apply(function(form, race, gender)
-	local race_and_gender = races.to_internal(race, gender)
+	local race_and_gender = { race, gender }
 	-- TODO: character.of(form:player()):set_race(race)
-	races.set_race_and_gender(form.player_name, race_and_gender, true)
-	races.show_skin_change_form(form:player(), race_and_gender[1], race_and_gender[2], 1)
+	races.set_race_and_gender(form:player(), race_and_gender, true)
+	races.show_skin_change_form(form:player(), race, gender, 1)
 end)
 ChooseRaceForm.on_cancel(function(form)
 	local race_and_gender = races.default
 	-- TODO: character.of(form:player()):set_race(race)
-	races.set_race_and_gender(form.player_name, race_and_gender, true)
+	races.set_race_and_gender(form:player(), race_and_gender, true)
 	races.show_shadow_hud(form:player())
 end)
 
 ChooseSkinForm.on_apply(function(form, skin_no)
 	-- TODO: character.of(form:player()):set_skin(skin_no)
-	races.set_skin(form.player_name, skin_no)
-	races.save()
+	races.set_skin(form.player(), skin_no)
 end)
 ChooseSkinForm.on_back(function(form)
 	races.show_change_form(form:player())
@@ -421,7 +420,7 @@ minetest.register_on_joinplayer(function(player)
 			return
 		end
 		local race_and_gender = races.get_race_and_gender(player)
-		races.set_race_and_gender(name, race_and_gender, false)
+		races.set_race_and_gender(player, race_and_gender, false)
 		-- Player is registered, but has no skin
 		if cache.skins[name] == nil then
 			cache.skins[name] = races.default_skin
