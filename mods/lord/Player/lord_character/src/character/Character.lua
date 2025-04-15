@@ -78,7 +78,7 @@ end
 
 --- @return boolean returns whether the player can change Race.
 function Character:has_second_chance()
-	return self.storage:get_bool(Property.HAS_SECOND_CHANCE)
+	return self.storage:get_bool(Property.HAS_SECOND_CHANCE, true)
 end
 
 --- @param has boolean whether the player can change Race.

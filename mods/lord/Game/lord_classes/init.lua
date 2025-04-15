@@ -73,11 +73,8 @@ races.list_str = table.concat(tmp_races_list, ", ")
 -- cache.granted_privs[player_name] = {"fly", "fast"}
 -- cache.revoked_privs[player_name] = {"shout", "interact"}
 local cache = {
-	players = {},
 	granted_privs = {},  -- Contains privileges given by this mod.
 	revoked_privs = {},
-	can_change = {},  -- {foo=true, bar=false}
-	skins = {}, -- {foo=1, bar=4}
 }
 
 minetest.register_privilege("race", {
@@ -86,11 +83,8 @@ minetest.register_privilege("race", {
 })
 
 local function ensure_table_struct()
-	cache.players = cache.players or {}
 	cache.granted_privs = cache.granted_privs or {}
 	cache.revoked_privs = cache.revoked_privs or {}
-	cache.can_change = cache.can_change or {}
-	cache.skins = cache.skins or {}
 end
 
 -- Load serialized classes from file
@@ -412,8 +406,9 @@ races.tp_process = {}
 minetest.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 
-	if table_has_key(cache.players, name) then  -- Player is registered already
-		if races.list[races.get_race(player)].cannot_be_selected then
+	local character = character.of(player)
+	if character:get_race() then
+		if character:get_race() == lord_races.Name.SHADOW then
 			races.show_change_form(player)
 			local race_and_gender = races.get_race_and_gender(player)
 			races.init_player(name, race_and_gender, races.get_skin_number(player))
@@ -421,15 +416,10 @@ minetest.register_on_joinplayer(function(player)
 		end
 		local race_and_gender = races.get_race_and_gender(player)
 		races.set_race_and_gender(player, race_and_gender, false)
-		-- Player is registered, but has no skin
-		if cache.skins[name] == nil then
-			cache.skins[name] = races.default_skin
-		end
 
 		races.init_player(name, race_and_gender, races.get_skin_number(player))
 	else
 		races.show_change_form(player)
-		cache.can_change[name] = true
 		local race_and_gender = races.get_race_and_gender(player)
 		races.init_player(name, race_and_gender, races.get_skin_number(player))
 	end
@@ -440,14 +430,14 @@ minetest.register_chatcommand("second_chance", {
 	privs = {},
 	description = SL("Second chance"),
 	func = function(name, params)
-		if cache.can_change[name] == nil then
-			cache.can_change[name] = true
-		end
-		if not cache.can_change[name] then
+		local player = minetest.get_player_by_name(name)
+		local character = character.of(player)
+		if not character:has_second_chance() then
 			return false, SL("Won't give another chance")
 		end
-		races.show_change_form(minetest.get_player_by_name(name))
-		cache.can_change[name] = false
+
+		races.show_change_form(player)
+		character:set_has_second_chance(false)
 	end
 })
 
@@ -484,12 +474,12 @@ minetest.register_chatcommand("give_chance", {
 				"/help give_chance")
 		end
 
-		-- Check if player exists
-		if not cache.players[args[1]] then
-			return false, string.format(SL("Player '%s' does not exist"), args[1])
+		local player = minetest.get_player_by_name(args[1])
+		if not player then
+			return false, SL("Player '@1' is not online or does not exist", args[1])
 		end
 
-		races.show_change_form(minetest.get_player_by_name(args[1]))
+		races.show_change_form(player)
 	end
 })
 

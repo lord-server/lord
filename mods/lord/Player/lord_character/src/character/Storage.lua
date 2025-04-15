@@ -63,9 +63,11 @@ end
 --- @param default boolean default value if there is no value for the property `name`.
 --- @return boolean
 function Storage:get_bool(name, default)
-	return self.meta:contains(self.prefix .. name)
-		and (self.meta:get_string(self.prefix .. name) == 'true' and true or false)
-		or  default
+	if not self.meta:contains(self.prefix .. name) then
+		return default
+	end
+
+	return self.meta:get_string(self.prefix .. name) == 'true'
 end
 
 --- @param name  string  property name (without prefix).

@@ -25,7 +25,7 @@ Choose a skin for your character=Choose a skin for your character
 Ability to change race and gender of a player.=Ability to change race and gender of a player.
 
 Too few arguments. Try %s to show the correct usage=Too few arguments. Try %s to show the correct usage
-Player '%s' does not exist=Player '%s' does not exist
+Player '@1' is not online or does not exist=Player '@1' is not online or does not exist
 <player name>=<player name>
 Won't give another chance=Won't give another chance
 Second chance=Second chance
