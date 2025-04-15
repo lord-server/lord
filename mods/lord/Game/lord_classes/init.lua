@@ -131,34 +131,6 @@ function races.validate(race_and_gender)
 	return false
 end
 
--- Updates player visuals
-function races.update_player(name, race_and_gender, skin)
-	local race = race_and_gender[1]
-	local gender = race_and_gender[2]
-
-	-- TODO: caching
-	local texture = lord_skins.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	local face = lord_skins.get_preview_name('front' ,race, gender, skin)
-
-	for _, cb in ipairs(races.update_cbs) do
-		cb(name, race, gender, skin, texture, face)
-	end
-end
-
-function races.init_player(name, race_and_gender, skin)
-	local race = race_and_gender[1]
-	local gender = race_and_gender[2]
-
-	-- TODO: caching
-	local texture = lord_skins.get_texture_name(race, gender, skin) -- e.g. shadow_female.png
-	local face = lord_skins.get_preview_name('front', race, gender, skin)
-
-	for _, cb in ipairs(races.init_cbs) do
-		cb(name, race, gender, skin, texture, face)
-	end
-end
-
-
 function races.register_update_callback(cb)
 	if cb == nil then
 		-- fool proof
@@ -232,7 +204,6 @@ end
 --- @param skin_number number
 function races.set_skin(player, skin_number)
 	character.of(player):set_skin_no(skin_number)
-	races.update_player(player:get_player_name(), races.get_race_and_gender(player), skin_number)
 end
 
 -- Tinker with privs
@@ -342,7 +313,7 @@ end)
 
 ChooseSkinForm.on_apply(function(form, skin_no)
 	-- TODO: character.of(form:player()):set_skin(skin_no)
-	races.set_skin(form.player(), skin_no)
+	races.set_skin(form:player(), skin_no)
 end)
 ChooseSkinForm.on_back(function(form)
 	races.show_change_form(form:player())
@@ -404,24 +375,15 @@ races.tp_process = {}
 
 
 minetest.register_on_joinplayer(function(player)
-	local name = player:get_player_name()
-
-	local character = character.of(player)
-	if character:get_race() then
-		if character:get_race() == lord_races.Name.SHADOW then
-			races.show_change_form(player)
-			local race_and_gender = races.get_race_and_gender(player)
-			races.init_player(name, race_and_gender, races.get_skin_number(player))
-			return
-		end
-		local race_and_gender = races.get_race_and_gender(player)
-		races.set_race_and_gender(player, race_and_gender, false)
-
-		races.init_player(name, race_and_gender, races.get_skin_number(player))
-	else
+	local race = character.of(player):get_race()
+	if not race then
 		races.show_change_form(player)
-		local race_and_gender = races.get_race_and_gender(player)
-		races.init_player(name, race_and_gender, races.get_skin_number(player))
+
+		return
+	end
+
+	if race == lord_races.Name.SHADOW then
+		races.show_shadow_hud(player)
 	end
 end)
 

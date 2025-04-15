@@ -88,5 +88,12 @@ function Character:set_has_second_chance(has)
 	return self
 end
 
+--- @return string return texture file name
+function Character:get_skin_texture()
+	return lord_skins.get_texture_name(
+		self:get_race(lord_races.Name.SHADOW), self:get_gender('male'), self:get_skin_no(1)
+	)
+end
+
 
 return Character

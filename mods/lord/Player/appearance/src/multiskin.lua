@@ -6,6 +6,7 @@ local MULTISKIN_DEFAULT_SKIN = "character.png"
 local MULTISKIN_DEFAULT_PREVIEW = "character_preview.png"
 local MULTISKIN_TRANS = "lottarmor_trans.png"
 
+-- TODO: refactoring: separate array for multiskin[name] ; use wield_item.on_index_change()
 multiskin = {}
 
 function multiskin:init(player, texture)
@@ -19,26 +20,27 @@ function multiskin:init(player, texture)
 	}
 end
 
+function multiskin.for_player(player)
+	local name = player:get_player_name()
+	if not multiskin[name] then
+		multiskin:init(player)
+	end
+
+	return multiskin[name]
+end
+
 function multiskin:update_player_visuals(player)
 	if not player then
 		return
 	end
 	local name = player:get_player_name()
-	if multiskin[name] then
+	if multiskin.for_player(player) then
 		player_api.set_textures(player, {
 			multiskin[name].skin,
 			multiskin[name].armor,
 			multiskin[name].wielditem,
 			multiskin[name].clothing,
 		})
-	end
-end
-
-function multiskin:get_skin_name(name)
-	if multiskin[name] then
-		return multiskin[name].skin or MULTISKIN_DEFAULT_SKIN
-	else
-		return MULTISKIN_DEFAULT_SKIN
 	end
 end
 
@@ -93,23 +95,27 @@ local function overlay_equip_textures(kind, player)
 	return table_concat(textures, "^")
 end
 
--- moved from lottarmor/armor.lua & lottclothing/clothing.lua
--- TODO: remove using `races.register_init_callback`, instead use `equipment.on_load_all` & `character.get_texture`
-races.register_init_callback(function(name, race, gender, skin, texture, face)
-	local joined_player = minetest.get_player_by_name(name)
-	multiskin:init(joined_player, texture)
-end)
 equipment.on_load(function(player, kind, event, slot, item)
-	multiskin[player:get_player_name()][kind] = overlay_equip_textures(kind, player)
+	multiskin.for_player(player)[kind] = overlay_equip_textures(kind, player)
 end)
 equipment.on_load_all(function(player)
+	multiskin.for_player(player).skin = character.of(player):get_skin_texture()
 	multiskin:update_player_visuals(player)
 end)
--- end TODO
 
 -- When *any* equipment changed (armor or clothing),
 -- we need to update player model appearance to show clothes and/or armor.
 equipment.on_change(function(player, kind, event, slot, item)
-	multiskin[player:get_player_name()][kind] = overlay_equip_textures(kind, player)
+	multiskin.for_player(player)[kind] = overlay_equip_textures(kind, player)
 	multiskin:update_player_visuals(player)
+end)
+
+character.on_skin_change(function(character, skin_no)
+	local player = character:get_player()
+	multiskin.for_player(player).skin = character:get_skin_texture()
+	multiskin:update_player_visuals(player)
+end)
+
+minetest.register_on_leaveplayer(function(player, timed_out)
+	multiskin[player:get_player_name()] = nil
 end)
