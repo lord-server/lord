@@ -13,8 +13,6 @@ local SL = minetest.get_mod_translator()
 
 races = {
 	save_path = minetest.get_worldpath() .. "/races.txt",
-	update_cbs = {},
-	init_cbs = {},
 }
 
 -- TODO: migrate to new ones (to `lord_races`)
@@ -129,35 +127,6 @@ function races.validate(race_and_gender)
 		end
 	end
 	return false
-end
-
-function races.register_update_callback(cb)
-	if cb == nil then
-		-- fool proof
-		minetest.log("Trying to register nil callback")
-		return
-	end
-	table.insert(races.update_cbs, cb)
-end
-
-function races.register_init_callback(cb)
-	if cb == nil then
-		-- fool proof
-		minetest.log("Trying to register nil callback")
-		return
-	end
-	table.insert(races.init_cbs, cb)
-end
-
---- Returns the race and the gender of specified `player`
---- @param player Player
-function races.get_race_and_gender(player)
-	local character = character.of(player)
-
-	return {
-		character:get_race(races.default[1]),
-		character:get_gender(races.default[2]),
-	}
 end
 
 -- Now faction is binded to race
