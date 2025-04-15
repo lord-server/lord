@@ -18,6 +18,12 @@ local ChooseRaceForm = {
 	--- @private
 	--- @type string unique name of form-user choice, that indicates by which code the form was opened (for form-users)
 	opened_by = nil,
+	--- @private
+	--- @type number
+	selected_race_index = 1,
+	--- @private
+	--- @type number
+	selected_gender_index = 1,
 }
 ChooseRaceForm = base_classes.Form:personal():extended(ChooseRaceForm)
 
@@ -47,13 +53,13 @@ end
 
 --- @static
 --- @private
---- @return string[]
+--- @return {name:string,title:string}[]
 function ChooseRaceForm.get_races_list()
 	if not ChooseRaceForm.races_list then
 		local list = {}
-		for _, def in pairs(races.list) do
-			if not def.cannot_be_selected then -- Exclude 'shadow'
-				table.insert(list, def.name)
+		for _, race in pairs(lord_races.get_player_races()) do
+			if race.name ~= lord_races.Name.SHADOW then
+				table.insert(list, { name = race.name, title = race.title })
 			end
 		end
 
@@ -61,6 +67,28 @@ function ChooseRaceForm.get_races_list()
 	end
 
 	return ChooseRaceForm.races_list
+end
+
+--- @static
+--- @private
+--- @return table|{name:string,title:string}[]
+function ChooseRaceForm.get_gender_list()
+	return {
+		{ name = 'male',   title = S('Male')   },
+		{ name = 'female', title = S('Female') },
+	}
+end
+
+--- @static
+--- @private
+--- @param list table|{name:string,title:string}[]
+function ChooseRaceForm.only_titles(list)
+	local titles = {}
+	for i, item in ipairs(list) do
+		titles[i] = item.title
+	end
+
+	return titles
 end
 
 --- @param show_spawns_info boolean
@@ -74,7 +102,8 @@ function ChooseRaceForm:get_spec(show_spawns_info)
 
 	--- @type string
 	local form
-	local races_list = ChooseRaceForm.get_races_list()
+	local races_dropdown_items  = self.only_titles(self.get_races_list())
+	local gender_dropdown_items = self.only_titles(self.get_gender_list())
 
 	form = spec.size(7.5, 4)
 		.. spec.bold (0, 0.0, S('Please select the race you wish to be'))
@@ -84,8 +113,8 @@ function ChooseRaceForm:get_spec(show_spawns_info)
 			and spec.label(0, 1.3, S('While selecting a race, you will be instantly teleported to that race’s spawn!'))
 			or ''
 		)
-		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_list, 1)
-		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', { S('Male'), S('Female') }, 1)
+		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_dropdown_items, 1, 'true')
+		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', gender_dropdown_items, 1, 'true')
 		.. spec.button_exit(0.25, 3.3, 3.25, 1.0, 'cancel', S('Cancel'))
 		.. spec.button_exit(4.00, 3.3, 3.00, 1.0, 'ok', S('OK'))
 
@@ -95,15 +124,21 @@ end
 --- @protected
 --- @param fields table
 function ChooseRaceForm:handle(fields)
+	if fields.race   then  self.selected_race_index   = tonumber(fields.race)   end
+	if fields.gender then  self.selected_gender_index = tonumber(fields.gender) end
+
+	local race   = self.get_races_list()[self.selected_race_index].name
+	local gender = self.get_gender_list()[self.selected_gender_index].name
+
 	if (fields.race or fields.gender) and not fields.ok and not fields.quit and not fields.cancel then
-		self.event:trigger(self.event.Type.on_switch, self, fields.race, fields.gender)
+		self.event:trigger(self.event.Type.on_switch, self, race, gender)
 
 		return
 	end
 
 	if fields.ok then
 		-- `OK` button pressed
-		self.event:trigger(self.event.Type.on_apply, self, fields.race, fields.gender)
+		self.event:trigger(self.event.Type.on_apply, self, race, gender)
 	else
 		-- `Cancel` button pressed, or escape pressed, or click outside the form
 		self.event:trigger(self.event.Type.on_cancel, self)

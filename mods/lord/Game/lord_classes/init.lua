@@ -303,7 +303,7 @@ local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shad
 ChooseRaceForm.on_switch(function(form, race, gender)
 	local name   = form.player_name
 	local player = form:player()
-	local race_and_gender = races.to_internal(race, gender)
+	local race_and_gender = { race, gender }
 	if race_and_gender then
 		-- TODO:
 		-- don't set. Its just switching in form. Save
@@ -330,7 +330,7 @@ ChooseRaceForm.on_apply(function(form, race, gender)
 	races.set_race_and_gender(form.player_name, race_and_gender, true)
 	races.show_skin_change_form(form:player(), race_and_gender[1], race_and_gender[2], 1)
 end)
-ChooseRaceForm.on_cancel(function(form, race, gender)
+ChooseRaceForm.on_cancel(function(form)
 	local race_and_gender = races.default
 	-- TODO: character.of(form:player()):set_race(race)
 	races.set_race_and_gender(form.player_name, race_and_gender, true)
