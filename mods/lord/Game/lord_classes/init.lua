@@ -49,8 +49,11 @@ races.list = {
 }
 
 -- TODO: Get these values via minetest.settings:get()
-races.default = { races.name.SHADOW, "male" }
-races.default_skin = 1
+races.default = {
+	race = races.name.SHADOW,
+	gender = 'male',
+	skin_no = 1,
+}
 
 local tmp_races_list = {}
 for name, _ in pairs(races.list) do
@@ -115,43 +118,10 @@ function races.save()
     return true
 end
 
--- Validates {race, gender} tables
--- Returns true if the table is valid, false otherwise
-function races.validate(race_and_gender)
-	local race = race_and_gender[1]
-	local gender = race_and_gender[2]
-
-	if table_has_key(races.list, race) then
-		if gender == "male" or gender == "female" then
-			return true
-		end
-	end
-	return false
-end
-
 -- Now faction is binded to race
 function races.get_faction(name)
 	local race = character.of(minetest.get_player_by_name(name)):get_race()
 	return races.factions[race]
-end
-
---- @param player Player
-function races.set_race_and_gender(player, race_and_gender)
-	local valid = races.validate(race_and_gender)
-	if not valid then
-		return false
-	end
-
-	local race = race_and_gender[1]
-	local gender = race_and_gender[2]
-	character.of(player)
-		:set_race(race)
-		:set_gender(gender)
-
-	races.update_privileges(player:get_player_name(), races.list[race].granted_privs, races.list[race].revoked_privs)
---	races.update_player(name, race_and_gender, races.default_skin)
-
-	return true
 end
 
 -- Tinker with privs
@@ -195,28 +165,6 @@ function races.update_privileges(name, granted_privs, revoked_privs)
 	minetest.set_player_privs(name, privs)
 end
 
--- Converts user-friendly names to the corresponding internal names
--- Will return default values if the input is incorrect
--- E.g. Shadow -> shadow, Male -> male
-function races.to_internal(race, gender)
-	local _race = races.default[1]
-	local _gender = races.default[2]
-
-	for internal_name, def in pairs(races.list) do
-		if def.name == race then
-			_race = internal_name
-		end
-	end
-
-	if gender == SL("Female") then
-		_gender = "female"
-	elseif gender == SL("Male") then
-		_gender = "male"
-	end
-
-	return {_race, _gender}
-end
-
 -- -------------------------------------------------------------------------------------------------
 
 local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
@@ -247,15 +195,21 @@ ChooseRaceForm.on_switch(function(form, race, gender)
 	end
 end)
 ChooseRaceForm.on_apply(function(form, race, gender)
-	local race_and_gender = { race, gender }
-	-- TODO: character.of(form:player()):set_race(race)
-	races.set_race_and_gender(form:player(), race_and_gender, true)
+	character.of(form:player())
+		:set_race(race)
+		:set_gender(gender)
+	races.update_privileges(form.player_name, races.list[race].granted_privs, races.list[race].revoked_privs)
+
 	races.show_skin_change_form(form:player(), race, gender, 1)
 end)
 ChooseRaceForm.on_cancel(function(form)
-	local race_and_gender = races.default
-	-- TODO: character.of(form:player()):set_race(race)
-	races.set_race_and_gender(form:player(), race_and_gender, true)
+	local race   = races.default.race
+	local gender = races.default.gender
+	character.of(form:player())
+		:set_race(race)
+		:set_gender(gender)
+	races.update_privileges(form.player_name, races.list[race].granted_privs, races.list[race].revoked_privs)
+
 	races.show_shadow_hud(form:player())
 end)
 
