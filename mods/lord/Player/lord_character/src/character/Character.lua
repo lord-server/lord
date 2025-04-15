@@ -88,10 +88,18 @@ function Character:set_has_second_chance(has)
 	return self
 end
 
---- @return string return texture file name
+--- @return string return skin texture file name
 function Character:get_skin_texture()
 	return lord_skins.get_texture_name(
 		self:get_race(lord_races.Name.SHADOW), self:get_gender('male'), self:get_skin_no(1)
+	)
+end
+
+--- @param preview_type string one of `"both"` | `"front"`.
+--- @return string return skin preview file name
+function Character:get_skin_preview_name(preview_type)
+	return lord_skins.get_preview_name(
+		preview_type, self:get_race(lord_races.Name.SHADOW), self:get_gender('male'), self:get_skin_no(1)
 	)
 end
 

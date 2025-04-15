@@ -2,8 +2,6 @@ local table_insert, table_concat
 	= table.insert, table.concat
 
 
-local MULTISKIN_DEFAULT_SKIN = "character.png"
-local MULTISKIN_DEFAULT_PREVIEW = "character_preview.png"
 local MULTISKIN_TRANS = "lottarmor_trans.png"
 
 -- TODO: refactoring: separate array for multiskin[name] ; use wield_item.on_index_change()
@@ -13,7 +11,7 @@ function multiskin:init(player, texture)
 	player_api.set_model(player, "lottarmor_character.b3d")
 	local name = player:get_player_name()
 	multiskin[name] = {
-		skin = texture or MULTISKIN_DEFAULT_SKIN,
+		skin = texture or lord_skins.DEFAULT.SKIN,
 		armor = MULTISKIN_TRANS,
 		wielditem = MULTISKIN_TRANS,
 		clothing = MULTISKIN_TRANS,
@@ -44,19 +42,10 @@ function multiskin:update_player_visuals(player)
 	end
 end
 
---- @param player Player
-function multiskin:get_preview(player)
-	local race = races.get_race(player)
-	local gender = races.get_gender(player)
-	local skin = races.get_skin_number(player)
-
-	return lord_skins.get_preview_name('front', race, gender, skin) or MULTISKIN_DEFAULT_PREVIEW
-end
-
 player_api.register_model("lottarmor_character.b3d", {
 	animation_speed = 30,
 	textures = {
-		MULTISKIN_DEFAULT_SKIN,
+		lord_skins.DEFAULT.SKIN,
 		MULTISKIN_TRANS,
 		MULTISKIN_TRANS,
 		MULTISKIN_TRANS,

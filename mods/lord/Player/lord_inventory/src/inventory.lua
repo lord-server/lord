@@ -87,7 +87,7 @@ local function register_equipment_changes()
 		preview.set_part(player, kind, overlay_equip_previews(player, kind))
 	end)
 	equipment.on_load_all(function(player)
-		preview.set_part(player, "skin", multiskin:get_preview(player))
+		preview.set_part(player, "skin", character.of(player):get_skin_preview_name('front'))
 		preview.update_on_form(player)
 	end)
 

@@ -37,11 +37,12 @@ end
 --- @param on_link     fun(linked_player:web_integration.WebPlayer)
 --- @param on_fail     fun(result:HTTPRequestResult)
 function Player.create(player, last_login, is_online, on_done, on_link, on_fail)
+	local character = character.of(player)
 	--- @type web_integration.WebPlayer
 	local web_player  = {
 		name       = player:get_player_name(),
-		race       = races.get_race(player),
-		gender     = races.get_gender(player),
+		race       = character:get_race(lord_races.Name.SHADOW),
+		gender     = character:get_gender('male'),
 		last_login = os.date("%Y-%m-%d %H:%M:%S", last_login)
 	}
 	if is_online ~= nil then
@@ -85,10 +86,11 @@ end
 --- @param last_login    number|nil  timestamp or nil for use "now()"
 --- @param is_online     boolean|nil if nil, does not passed to web
 function Player.update(player_web_id, player, last_login, is_online)
+	local character = character.of(player)
 	--- @type web_integration.WebPlayer
 	local web_player  = {
-		race       = races.get_race(player),
-		gender     = races.get_gender(player),
+		race       = character:get_race(lord_races.Name.SHADOW),
+		gender     = character:get_gender('male'),
 		last_login = os.date("%Y-%m-%d %H:%M:%S", last_login)
 	}
 	if is_online ~= nil then

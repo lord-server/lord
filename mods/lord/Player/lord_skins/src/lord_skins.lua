@@ -1,5 +1,9 @@
 local config = require('lord_skins.config')
 
+local DEFAULT = {
+	SKIN    = 'character.png',
+	PREVIEW = 'character_preview.png',
+}
 
 --- @class lord_skins the namespace to refers to in @see notations.
 lord_skins   = {} -- luacheck: ignore unused global variable lord_skins
@@ -13,6 +17,9 @@ local function register_api()
 			assert(lord_races.get_player_races()[race] ~= nil, 'Unknown race for players: ' .. race)
 
 			skin_no = skin_no or 1
+			if race == lord_races.Name.SHADOW then
+				skin_no = 1
+			end
 
 			return string.format("%s_%s%d.png", race, gender, skin_no)
 		end,
@@ -25,7 +32,7 @@ local function register_api()
 			if race ~= lord_races.Name.SHADOW then
 				return string.format("preview_%s_%s%d_%s.png", race, gender, skin_no, preview_type)
 			else
-				return nil
+				return DEFAULT.PREVIEW
 			end
 		end,
 
@@ -33,7 +40,9 @@ local function register_api()
 		--- @param gender       string one of `"male"` | `"female"`.
 		get_skins_count = function(race, gender)
 			return config[race].skins_count[gender]
-		end
+		end,
+
+		DEFAULT          = DEFAULT,
 	}
 end
 

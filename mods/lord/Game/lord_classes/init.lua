@@ -141,11 +141,6 @@ function races.get_race(player)
 end
 
 --- @param player Player
-function races.get_gender(player)
-	return character.of(player):get_gender(races.default[2])
-end
-
---- @param player Player
 function races.set_race_and_gender(player, race_and_gender)
 	local valid = races.validate(race_and_gender)
 	if not valid then
@@ -162,17 +157,6 @@ function races.set_race_and_gender(player, race_and_gender)
 --	races.update_player(name, race_and_gender, races.default_skin)
 
 	return true
-end
-
---- @param player Player
-function races.get_skin_number(player)
-	return character.of(player):get_skin_no(races.default_skin)
-end
-
---- @param player      Player
---- @param skin_number number
-function races.set_skin(player, skin_number)
-	character.of(player):set_skin_no(skin_number)
 end
 
 -- Tinker with privs
@@ -281,8 +265,7 @@ ChooseRaceForm.on_cancel(function(form)
 end)
 
 ChooseSkinForm.on_apply(function(form, skin_no)
-	-- TODO: character.of(form:player()):set_skin(skin_no)
-	races.set_skin(form:player(), skin_no)
+	character.of(form:player()):set_skin_no(skin_no)
 end)
 ChooseSkinForm.on_back(function(form)
 	races.show_change_form(form:player())

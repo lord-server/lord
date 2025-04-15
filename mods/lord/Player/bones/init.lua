@@ -165,9 +165,10 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 
-	local race =   races.get_race(player)
-	local gender = races.get_gender(player)
-	local skin =   races.get_skin_number(player)
+	local character = character.of(player)
+	local race =   character:get_race(lord_races.Name.SHADOW)
+	local gender = character:get_gender('male')
+	local skin =   character:get_skin_no(1)
 	if races.list[race].no_corpse then
 		return
 	end

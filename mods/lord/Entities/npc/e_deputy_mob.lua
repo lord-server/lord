@@ -193,10 +193,7 @@ local function configure_placed(self, playername)
 	self.mobname = "Deputy "..playername
 	local player = minetest.get_player_by_name(playername)
 
-	local race    = races.get_race(player)
-	local gender  = races.get_gender(player)
-	local skin_no = races.get_skin_number(player)
-	self.texture  = lord_skins.get_texture_name(race, gender, skin_no)
+	self.texture  = character.of(player):get_skin_texture()
 	self.object:set_properties({
 		nametag       = self.mobname,
 		nametag_color = self.color,
