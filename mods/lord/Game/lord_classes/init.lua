@@ -1,16 +1,7 @@
 local SL = minetest.get_mod_translator()
 
---[[
-  TODO: Move I/O-related functions into a separate mod (lord_util?)
---]]
 
---[[
-  Definitions
---]]
-
-races = {
-	save_path = minetest.get_worldpath() .. "/races.txt",
-}
+races = {}
 
 races.shadow_privileges = {
 	granted_privileges = { 'fly', 'fast', 'spawn_to', 'choose_race' },
@@ -47,17 +38,11 @@ races.list = {
 	},
 }
 
--- TODO: Get these values via minetest.settings:get()
 races.default = {
 	race = races.name.SHADOW,
 	gender = 'male',
 	skin_no = 1,
 }
-
-local tmp_races_list = {}
-for name, _ in pairs(races.list) do
-	table.insert(tmp_races_list, name)
-end
 
 races.factions = {}
 
@@ -65,57 +50,10 @@ for name, desc in pairs(races.list) do
 	races.factions[name] = desc.faction
 end
 
--- A string contaning possible race values
-races.list_str = table.concat(tmp_races_list, ", ")
-
--- All data will be stored in this table
--- cache.players[player_name] = {"shadow", "female"}
--- cache.granted_privs[player_name] = {"fly", "fast"}
--- cache.revoked_privs[player_name] = {"shout", "interact"}
-local cache = {
-	granted_privs = {},  -- Contains privileges given by this mod.
-	revoked_privs = {},
-}
-
 minetest.register_privilege("race", {
 	description = "Ability to change race and gender of a player.",
 	give_to_singleplayer= false,
 })
-
-local function ensure_table_struct()
-	cache.granted_privs = cache.granted_privs or {}
-	cache.revoked_privs = cache.revoked_privs or {}
-end
-
--- Load serialized classes from file
--- Returns false when failed, true otherwise
-function races.load()
-    local content = io.read_from_file(races.save_path)
-	if not content then	return false end
-
-	cache = minetest.deserialize(content)
-
-	return true
-end
-
-races.load()
-ensure_table_struct()
-
--- Serialize and save the races
--- Returns false when failed, true otherwise
-function races.save()
-	local content = minetest.serialize(cache)
-	local wrote, error_code, error_message = io.write_to_file(races.save_path, content)
-	if not wrote then
-		minetest.log("error", string.format(
-			"Can't write to file `%s`: [%s]: %s", races.save_path, error_code, error_message
-		))
-
-		return false
-	end
-
-    return true
-end
 
 -- Now faction is binded to race
 function races.get_faction(name)
@@ -316,7 +254,7 @@ minetest.register_chatcommand('choose_race', {
 minetest.register_chatcommand("give_chance", {
 	params = SL("<player name>"),
 	privs = {race=true},
-	description = string.format(SL("Give another chance to a player."), races.list_str),
+	description = SL("Give another chance to a player."),
 	func = function(name, params)
 		-- Parse arguments
 		local args = {}

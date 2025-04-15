@@ -19,13 +19,14 @@ dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
 
 -- Table Save Load Functions
 function lottachievements.save()
+	local file_name = minetest.get_worldpath().."/lottachievements.txt"
 	local wrote, error_code, error_message = io.write_to_file(
-		minetest.get_worldpath().."/lottachievements.txt",
+		file_name,
 		minetest.serialize(lottachievements.players)
 	)
 	if not wrote then
 		minetest.log("error", string.format(
-			"Can't write to file `%s`: [%s]: %s", races.save_path, error_code, error_message
+			"Can't write to file `%s`: [%s]: %s", file_name, error_code, error_message
 		))
 	end
 end
