@@ -1,4 +1,4 @@
---- @alias character.callbacks.OnRaceChange   fun(character:character.Character, race:string)
+--- @alias character.callbacks.OnRaceChange   fun(character:character.Character, race:string, old_race:string)
 --- @alias character.callbacks.OnGenderChange fun(character:character.Character, gender:string)
 --- @alias character.callbacks.OnSkinChange   fun(character:character.Character, skin_no:number)
 -- luacheck: push no_max_line_length

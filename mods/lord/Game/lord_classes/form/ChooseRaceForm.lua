@@ -4,7 +4,8 @@ local colorize = minetest.colorize
 
 
 --- @class lord_classes.form.ChooseRace: base_classes.Form.Base
---- @field new
+--- @field new  fun(player:Player)
+--- @field open fun(show_spawns_info:boolean)
 local ChooseRaceForm = {
 	--- @type string
 	NAME       = 'change_race',

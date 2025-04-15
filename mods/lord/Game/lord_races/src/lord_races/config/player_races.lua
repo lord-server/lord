@@ -13,7 +13,6 @@ local races = {
 		for_player      = true,
 		for_player_only = true,
 		no_corpse       = true,
-		cannot_be_selected = true, -- TODO #2083
 		--faction         = factions.Name.NEUTRAL
 	},
 	[Name.ORC] = {

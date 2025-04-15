@@ -37,9 +37,11 @@ end
 --- @param race string one of lord_races.Name.<CONST>
 --- @return character.Character
 function Character:set_race(race)
-	assert(lord_races.Name[race])
+	assert(lord_races.get_player_races()[race])
+
+	local old_race = self:get_race()
 	self.storage:set(Property.RACE, race)
-	Event:trigger(Event.Type.on_race_change, self, race)
+	Event:trigger(Event.Type.on_race_change, self, race, old_race)
 
 	return self
 end

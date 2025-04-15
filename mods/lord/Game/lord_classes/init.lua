@@ -1,6 +1,3 @@
-local table_has_key
-	= table.has_key
-
 local SL = minetest.get_mod_translator()
 
 --[[
@@ -15,14 +12,16 @@ races = {
 	save_path = minetest.get_worldpath() .. "/races.txt",
 }
 
+races.shadow_privileges = {
+	granted_privileges = { 'fly', 'fast', 'spawn_to', 'choose_race' },
+	revoked_privileges = { 'shout', 'interact' },
+}
+
 -- TODO: migrate to new ones (to `lord_races`)
 races.name = lord_races.Name
 races.list = {
 	[races.name.SHADOW] = {
 		name = SL("Shadow"),
-		granted_privs = {"fly", "fast", "spawn_to", "choose_race"},
-		revoked_privs = {"shout", "interact"},
-		cannot_be_selected = true,
 		no_corpse = true,
 		faction = "neutral",
 	},
@@ -124,45 +123,38 @@ function races.get_faction(name)
 	return races.factions[race]
 end
 
--- Tinker with privs
-function races.update_privileges(name, granted_privs, revoked_privs)
-	local privs = minetest.get_player_privs(name)
+--- @param privileges table<string,boolean>
+--- @param to_remove  string[]
+local function remove_privileges(privileges, to_remove)
+	for _, privilege_name in pairs(to_remove) do
+		privileges[privilege_name] = nil
+	end
+end
+--- @param privileges table<string,boolean>
+--- @param to_add     string[]
+local function add_privileges(privileges, to_add)
+	for _, privilege_name in pairs(to_add) do
+		privileges[privilege_name] = true
+	end
+end
 
-	-- Create tables if they don't exist
-	cache.granted_privs[name] = cache.granted_privs[name] or {}
-	cache.revoked_privs[name] = cache.revoked_privs[name] or {}
+--- @param player   Player
+--- @param old_race string
+--- @param new_race string
+function races.update_privileges(player, old_race, new_race)
+	local player_name = player:get_player_name()
+	local privileges  = minetest.get_player_privs(player_name)
 
-	-- Step #1: Restore normal privileges
-	for priv_name, _ in pairs(privs) do
-		if cache.granted_privs[name][priv_name] then
-			cache.granted_privs[name][priv_name] = nil
-			privs[priv_name] = nil
-		end
+	if old_race == lord_races.Name.SHADOW then
+		remove_privileges(privileges, races.shadow_privileges.granted_privileges)
+		add_privileges(privileges, races.shadow_privileges.revoked_privileges)
+	end
+	if new_race == lord_races.Name.SHADOW then
+		remove_privileges(privileges, races.shadow_privileges.revoked_privileges)
+		add_privileges(privileges, races.shadow_privileges.granted_privileges)
 	end
 
-	for priv_name, _ in pairs(cache.revoked_privs[name]) do
-		cache.revoked_privs[name][priv_name] = nil
-		privs[priv_name] = true
-	end
-
-	-- Step #2: Grant/revoke new privileges
-	if granted_privs then
-		for _, priv_name in pairs(granted_privs) do
-			if not privs[priv_name] then  -- Player hasn't this privilege
-				privs[priv_name] = true
-				cache.granted_privs[name][priv_name] = true
-			end
-		end
-	end
-
-	if revoked_privs then
-		for _, priv_name in pairs(revoked_privs) do
-			privs[priv_name] = nil
-			cache.revoked_privs[name][priv_name] = true
-		end
-	end
-
-	minetest.set_player_privs(name, privs)
+	minetest.set_player_privs(player_name, privileges)
 end
 
 -- -------------------------------------------------------------------------------------------------
@@ -198,7 +190,6 @@ ChooseRaceForm.on_apply(function(form, race, gender)
 	character.of(form:player())
 		:set_race(race)
 		:set_gender(gender)
-	races.update_privileges(form.player_name, races.list[race].granted_privs, races.list[race].revoked_privs)
 
 	races.show_skin_change_form(form:player(), race, gender, 1)
 end)
@@ -208,7 +199,6 @@ ChooseRaceForm.on_cancel(function(form)
 	character.of(form:player())
 		:set_race(race)
 		:set_gender(gender)
-	races.update_privileges(form.player_name, races.list[race].granted_privs, races.list[race].revoked_privs)
 
 	races.show_shadow_hud(form:player())
 end)
@@ -218,6 +208,10 @@ ChooseSkinForm.on_apply(function(form, skin_no)
 end)
 ChooseSkinForm.on_back(function(form)
 	races.show_change_form(form:player())
+end)
+
+character.on_race_change(function(character, race, old_race)
+	races.update_privileges(character:get_player(), old_race, race)
 end)
 
 --- @param player Player
