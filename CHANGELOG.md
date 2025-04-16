@@ -1,5 +1,83 @@
 # Change Log
 
+## [2025.03](https://github.com/lord-server/lord/releases/tag/2025.03)
+ - Add `gates`. Closes #760 (#2078)
+ - Increase crafted items for bronze ingot & malachite (dungeon stone), in proportion to the raw material. Closes #2100
+ - Added White Tree, Yavannamire, theirs wooden stuff. Closes #1288 (#2088)
+ - Easter eggs (#2113). Closes #2112
+ - Mobs:
+   - Traders are here! fix mob registration (used for spawn). Closes #2073
+   - Fix mobs jumps. Close #2094
+   - Fix mobs suicide. Closes #1130 (#2093)
+   - Fix double-jump for mobs. Closes #379 (#2096)
+   - Mobs can't jump over the fences & walls. (`enable_fence_tall` config). Relates to #760, #2094, #379
+   - Add water damage to dwarfs
+ - Periodical Server message:
+   - add info about clans. Closes #2097
+   - add info about rules and link to it. Closes #2145
+
+ - Player Start:
+   - Choose race form:
+     - add info about `/second_chance`. Closes #2053. Fixes #2148
+     - remove spam "now you ...". Closes #2151
+     - fix triggering `cancel` behaviour while selecting race. Closes #2152
+     - choose random race for newbie & move to that spawn immediately upon connection. Closes #2137
+     - apply skin immediately during selecting skin. Closes #1071
+     - update skin preview in inventory form immediately on skin changed. Closes #2166
+   - Shadow mode:
+     - Access to `/spawn_to` command. Closes #2136.
+     - Add permanent HUD info about Shadow capabilities. Closes #2082
+     - Add `/choose_race` command only for Shadows. Closes #2140
+
+ - Translations:
+   - Fix mordor stair translate. Closes #2079
+   - Added server-side translation(names rules of user) when an error occurs on the register form of new user. Closes #2051
+   - Translation for Stained glass. Switch to lord-server gitlab repo. (#2107).  Closes #2003
+   - Translation racial chests. Closes #2065
+
+ - Technical:
+   - `ide-helper`: add `@return` notation for `minetest.get_objects_in_area`.
+   - `worldedit_ext`: add `//find_entity <name>` WE chat-command (mostly for debug).
+   - `Core`: add separate mod `factions`. Closes #2075. Relates to #2074.
+   - Races: Refactoring: minimal first version for `lord_races`. Closes #2070
+   - Races: Refactoring: extract `lord_skins` mod. Closes #2085
+   - Races: Refactoring: remove unnecessary function. Relates to #2087
+   - Races: Refactoring: migration to DB script generation. Closes #472
+   - Prod Conf: Up players limit to 24; fix en description.
+   - Races: Refactoring; Add minimal `lord_character` mod. Closes #2071.
+   - `Character`: add `on_{race|gender|skin}_change` events. Closes #2101
+   - Delete `do_custom_guard` func as unused (#2142). Closes #2141. Relates to #1130, #2093
+   - Races: Refactoring: extract "choose race" form into separate file; migrate to `base_classes.Form.Base`. Relates to #2087
+   - Races: Refactoring: rename `ChangeRaceForm` -> `ChooseRaceForm` . Relates to #2087
+   - `helpers`: `table`: add `table.generate_sequence(max, start_from, step)` helpper.
+   - Races: Refactoring: extract "choose skin" form into separate file; migrate to `base_classes.Form.Base`. Relates to #2087
+   - Clans hold points (#2143). Closes #2123. Closes #2124
+   - `ide-helper`: add `HUDDefinition` fields full descriptions.
+   - `Core`: `base_classes`: add `base_classes.HUD` class for easy HUD control.
+   - `base_classes.HUD`: Add ability to define common HUD-properties & ability to pass any params into `:get_definitions()` via `:show()`.
+   - `utils`: add `.png`-optimizing script (`util/png_optimize-git-added`)
+   - Remove some doors. Closes #2154
+   - Readd the deployment to test
+   - Races: Refactoring: migrate forms `ChooseRace` & `ChooseSkin` to `Event`s. Closes #2163. Retates to #2087
+   - Add debug section for `on_punchplayer`. Fix `nil` checks. Closes #2161 (#2162)
+   - `character.Character`: add `default` values for `:get_{race|geder|skin_no}()`. Relates to #2071, #2164
+   - Move `discord` mod into our main repo.
+   - Exclude `discord` from cyclomatic complexity checking (mod was external previously).
+   - Races: Refactoring: `ChooseRaceForm`: pass to Event subscribers right `race` & `gender` codes. Relates to #2163, #2164
+   - [partially broken code, no squash] Races: Refactoring: mograte `races.get_{race|gender|skin_number}()` to `character` mod. Relates to #2164
+   - [partially broken code, no squash] Races: Refactoring: mograte `races.get_race_and_gender()` to `character` mod. Relates to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate `races.set_{skin|race_and_gender}()` to `character` mod. Relates to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate `cache.{players|can_change|skins}()` to `character` mod. Relates to #2164
+   - [partially broken code, no squash] Races: Refactoring: no `races.{init|update}_player()`. Raletes to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate to `character` mod: remove now unused. Raletes to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate to `character`: no usages for `races,{get_gender|get_skin_number|set_skin}()`. Raletes to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate to `character`: no usages for `races,get_race()`. Raletes to #2164
+   - [partially broken code, no squash] Races: Refactoring: migrate `races,set_race_and_gender()` to `character`: no usages. Raletes to #2164
+   - Races: Refactoring: `races,update_privileges()` on `character.on_race_change()`. Raletes to #2164
+   - Races: Refactoring: completly migrate to `character` & into DB. Closes #2164. Instead #466
+   - If previously on first login was error, we still need to init equipment. Closes #2165
+   - Add translations for White wood & Yavannamire (#2159). Closes #2158
+
 ## [2025.02.p1](https://github.com/lord-server/lord/releases/tag/2025.02.p1)
  - Chests: racial: fix crafts. Closes #2067
 
