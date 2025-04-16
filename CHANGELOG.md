@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.03.p1](https://github.com/lord-server/lord/releases/tag/2025.03.p1)
+ - Hotfix: repare web intergation on player login. Closes #2167
+
 ## [2025.03](https://github.com/lord-server/lord/releases/tag/2025.03)
  - Add `gates`. Closes #760 (#2078)
  - Increase crafted items for bronze ingot & malachite (dungeon stone), in proportion to the raw material. Closes #2100
