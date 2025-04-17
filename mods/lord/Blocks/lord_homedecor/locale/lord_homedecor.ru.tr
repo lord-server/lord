@@ -129,9 +129,6 @@ Banister for Stairs (pine, horizontal)=Сосновые перила
 Banister for Stairs (junglewood, horizontal)=Эвкалиптовые перила
 Banister for Stairs (wrought iron, horizontal)=Железные перила
 Wrought Iron Pole=Железная кованая полоса
-Shrubbery (green)=Кустарник @n(зеленый)
-Shrubbery (red)=Кустарник @n(красный)
-Shrubbery (yellow)=Кустарник @n(желтый)
 Potted flower (Rose)=Горшочный цветок @n(Роза)
 Potted flower (Tulip)=Горшочный цветок @n(Тюльпан)
 Potted flower (Yellow Dandelion)=Горшочный цветок @n(Желтый одуванчик)
@@ -172,3 +169,16 @@ Window flowerbox=Цветочный ящик для окна
 Cannot place - the space is occupied by another block!=Невозможно установить: здесь находится другой блок!
 Not enough room - the upper space is occupied!=Недостаточно места: сверху находится блок!
 Someone already owns that spot.=Это место защищено.
+
+
+# Shrubbery (`exterior.lua`)
+green=зеленый
+red=красный
+yellow=желтый
+
+Shrubbery (@1)=Кустарник (@1)
+
+@1 Stair=Ступенька из @1
+@1 Slab=Плита из @1
+Inner @1 Stair=Угловая ступенька из @1 (Внутренний Угол)
+Outer @1 Stair=Угловая ступенька из @1 (Внешний Угол)

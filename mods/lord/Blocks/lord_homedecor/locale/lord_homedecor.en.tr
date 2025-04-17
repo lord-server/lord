@@ -22,7 +22,6 @@ Grass stair=Grass stair
 Inner Grass stair=Inner Grass stair
 Outer Grass stair=Outer Grass stair
 Potted flower (Yellow Dandelion)=Potted flower (Yellow Dandelion)
-Shrubbery (red)=Shrubbery (red)
 Wooden Shutter (Black)=Wooden Shutter (Black)
 Wooden Shutter (Light blue)=Wooden Shutter (Light blue)
 Sofa (white)=Sofa (white)
@@ -106,7 +105,6 @@ Wooden Shutter (Red)=Wooden Shutter (Red)
 Chess board tiling=Chess board tiling
 Bars=Bars
 Marble stair=Marble stair
-Shrubbery (yellow)=Shrubbery (yellow)
 Wooden Shutter (Unpainted oak)=Wooden Shutter (Unpainted oak)
 Sofa (dark_grey)=Sofa (dark_grey)
 Glass Skylight=Glass Skylight
@@ -154,7 +152,6 @@ Sofa (blue)=Sofa (blue)
 Canopy=Canopy
 Tree's swing=Tree's swing
 End Table=End Table
-Shrubbery (green)=Shrubbery (green)
 Granite=Granite
 Tar Knife=Tar Knife
 Wooden Shutter (Forest green)=Wooden Shutter (Forest green)
@@ -164,3 +161,15 @@ Adobe slab=Adobe slab
 Sofa (orange)=Sofa (orange)
 Window flowerbox=Window flowerbox
 Sofa (violet)=Sofa (violet)
+
+# Shrubbery (`exterior.lua`)
+green=green
+red=red
+yellow=yellow
+
+Shrubbery (@1)=Shrubbery (@1)
+
+@1 Stair=@1 Stair
+@1 Slab=@1 Slab
+Inner @1 Stair=Inner @1 Stair
+Outer @1 Stair=Outer @1 Stair

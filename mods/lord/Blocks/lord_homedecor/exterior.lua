@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local bl1_sbox = {
 	type = "fixed",
@@ -19,7 +19,7 @@ lord_homedecor.register("bench_large_1", {
 		"homedecor_generic_wood_old.png",
 		"homedecor_generic_metal_wrought_iron.png"
 	},
-	description = SL("Garden Bench (style 1)"),
+	description = S("Garden Bench (style 1)"),
 	inventory_image = "homedecor_bench_large_1_inv.png",
 	groups = { snappy = 3 },
 	expand = { right="placeholder" },
@@ -46,7 +46,7 @@ local bl2_cbox = {
 }
 
 lord_homedecor.register("bench_large_2", {
-	description = SL("Garden Bench (style 2)"),
+	description = S("Garden Bench (style 2)"),
 	mesh = "homedecor_bench_large_2.obj",
 	tiles = { "homedecor_generic_wood_old.png" },
 	inventory_image = "homedecor_bench_large_2_inv.png",
@@ -63,7 +63,7 @@ minetest.register_alias("lord_homedecor:bench_large_2_right", "air")
 
 lord_homedecor.register("simple_bench", {
 	tiles = { "homedecor_generic_wood_old.png" },
-	description = SL("Simple Bench"),
+	description = S("Simple Bench"),
 	groups = {snappy=3},
 	node_box = {
 	type = "fixed",
@@ -77,7 +77,7 @@ lord_homedecor.register("simple_bench", {
 })
 
 lord_homedecor.register("stonepath", {
-	description = SL("Garden stone path"),
+	description = S("Garden stone path"),
 	tiles = {
 		"default_stone.png"
 	},
@@ -112,7 +112,7 @@ local lattice_colors = {
 
 for _, m in ipairs(lattice_colors) do
 lord_homedecor.register("lattice_"..m[1], {
-	description = SL("Garden Lattice ("..m[1]..")"),
+	description = S("Garden Lattice ("..m[1]..")"),
 	tiles = {"homedecor_lattice"..m[2]},
 	use_texture_alpha = "clip",
 	inventory_image = "homedecor_lattice"..m[2],
@@ -136,7 +136,7 @@ lord_homedecor.register("lattice_"..m[1], {
 end
 
 lord_homedecor.register("swing", {
-	description = SL("Tree's swing"),
+	description = S("Tree's swing"),
 	tiles = {
 		"homedecor_swing_top.png",
 		"homedecor_swing_top.png^[transformR180",
@@ -243,7 +243,7 @@ lord_homedecor.register("well", {
 	},
 	use_texture_alpha = "clip",
 	inventory_image = "homedecor_well_inv.png",
-	description = SL("Water well"),
+	description = S("Water well"),
 	groups = { snappy = 3 },
 	selection_box = lord_homedecor.nodebox.slab_y(2),
 	collision_box = lord_homedecor.nodebox.slab_y(2),
@@ -263,7 +263,7 @@ if minetest.get_modpath("bucket") then
 					itemstack:take_item()
 					inv:add_item("main", "bucket:bucket_water 1")
 				else
-					minetest.chat_send_player(user:get_player_name(), SL("No room in your inventory to add a filled bucket!"))
+					minetest.chat_send_player(user:get_player_name(), S("No room in your inventory to add a filled bucket!"))
 				end
 				return itemstack
 			else if original_bucket_on_use then
@@ -283,8 +283,10 @@ lord_homedecor.shrub_colors = {
 local shrub_cbox = { -0.5, -0.5, -0.5, 0.5, 0.5, 0.5 }
 
 for _, color in ipairs(lord_homedecor.shrub_colors) do
+	local description = S("Shrubbery (@1)", S(color))
+
 	minetest.register_node("lord_homedecor:shrubbery_large_"..color, {
-		description = SL("Shrubbery ("..color..")"),
+		description = description,
 		drawtype = "mesh",
 		mesh = "homedecor_cube.obj",
 		tiles = {"homedecor_shrubbery_"..color..".png"},
@@ -296,7 +298,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 	})
 
 	minetest.register_node("lord_homedecor:shrubbery_"..color, {
-		description = SL("Shrubbery ("..color..")"),
+		description = description,
 		drawtype = "mesh",
 		mesh = "homedecor_shrubbery.obj",
 		tiles = {
@@ -312,6 +314,19 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 		selection_box = shrub_cbox,
 		collision_box = shrub_cbox,
 	})
+
+	stairs.register_stair_and_slab(
+		"shrubbery_large_" .. color,
+		"lord_homedecor:shrubbery_large_" .. color,
+		{ snappy = 3, flammable = 2 },
+		{ "homedecor_shrubbery_" .. color .. ".png" },
+		S("@1 Stair", description),
+		S("@1 Slab", description),
+		default.node_sound_leaves_defaults(),
+		true, --worldaligntex
+		S("Inner @1 Stair", description),
+		S("Outer @1 Stair", description)
+	)
 end
 
 minetest.register_alias("lord_homedecor:well_top", "air")

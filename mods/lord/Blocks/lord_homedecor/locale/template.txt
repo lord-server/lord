@@ -20,7 +20,6 @@ Armchair (red)=
 Potted flower (Bonsai)=
 Grass stair=
 Potted flower (Yellow Dandelion)=
-Shrubbery (red)=
 Wooden Shutter (Black)=
 Wooden Shutter (Light blue)=
 Sofa (white)=
@@ -104,7 +103,6 @@ Wooden Shutter (Red)=
 Chess board tiling=
 Bars=
 Marble stair=
-Shrubbery (yellow)=
 Wooden Shutter (Unpainted oak)=
 Sofa (dark_grey)=
 Glass Skylight=
@@ -152,7 +150,6 @@ Sofa (blue)=
 Canopy=
 Tree's swing=
 End Table=
-Shrubbery (green)=
 Granite=
 Tar Knife=
 Wooden Shutter (Forest green)=
@@ -162,3 +159,15 @@ Adobe slab=
 Sofa (orange)=
 Window flowerbox=
 Sofa (violet)=
+
+# Shrubbery (`exterior.lua`)
+green=
+red=
+yellow=
+
+Shrubbery (@1)=
+
+@1 Stair=
+@1 Slab=
+Inner @1 Stair=
+Outer @1 Stair=
