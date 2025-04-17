@@ -79,5 +79,13 @@ function Storage:set_bool(name, value)
 	return self
 end
 
+--- @param name string property name (without prefix).
+--- @return character.Storage
+function Storage:remove(name)
+	self.meta:set_string(self.prefix .. name, '')
+
+	return self
+end
+
 
 return Storage

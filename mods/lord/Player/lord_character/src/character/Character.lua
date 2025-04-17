@@ -69,11 +69,18 @@ function Character:get_skin_no(default)
 	return self.storage:get_int(Property.SKIN, default)
 end
 
+--- Removes skin number from storage, if `number` is `nil`.
+--- @overload fun()
 --- @see lord_skins
---- @param number number number of skin. Please check if skin available by `lord_skins` functions.
+--- @param number number|nil number of skin. Please check if skin available by `lord_skins` functions. Removes if `nil`.
 --- @return character.Character
 function Character:set_skin_no(number)
-	self.storage:set_int(Property.SKIN, number)
+	if number == nil then
+		self.storage:remove(Property.SKIN)
+	else
+		self.storage:set_int(Property.SKIN, number)
+	end
+
 	Event:trigger(Event.Type.on_skin_change, self, number)
 
 	return self
