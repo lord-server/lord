@@ -331,7 +331,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 		elseif not self.driver and not player_api.player_attached[player] then
 
 			for no = 1, #self.riders do -- who can drive
-				if self.riders[no] == character.of(player):get_race() or
+				if self.riders[no] == character.of(clicker):get_race() or
 					clicker:get_inventory():get_stack("main", clicker:get_wield_index()):get_name() == "lottother:beast_ring" then
 
 					self.driver    = clicker
