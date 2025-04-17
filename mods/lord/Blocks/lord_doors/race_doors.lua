@@ -8,12 +8,12 @@ local S = minetest.get_mod_translator()
 ---@param clicker Player
 ---@param itemstack ItemStack
 local function race_door_on_rightclick_wrapper(owner_race, pos, node, clicker, itemstack)
-	local player = clicker:get_player_name()
-	local opened, failed_race = races.can_open_stuff(owner_race, player, itemstack)
+	local player_name         = clicker:get_player_name()
+	local opened, failed_race = races.can_open_stuff(owner_race, clicker, itemstack)
 	if opened then
 		doors.door_toggle(pos, node, clicker)
 	elseif failed_race ~= nil then
-		minetest.chat_send_player(player, S("This door can only be opened by @1!", failed_race))
+		minetest.chat_send_player(player_name, S("This door can only be opened by @1!", failed_race))
 	end
 end
 

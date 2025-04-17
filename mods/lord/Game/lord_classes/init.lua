@@ -201,20 +201,19 @@ end
 ---    или nil, если взлом не удался или удалось открыть.
 ---
 ---@param owner_race string    ID расы, которой принадлежит сундук.
----@param player     string    никнейм игрока.
+---@param player     Player    ObjectRef игрока.
 ---@param itemstack  ItemStack предмет в руке игрока.
 ---
 ---@return boolean|nil, string|nil
 function races.can_open_stuff(owner_race, player, itemstack)
 	assert(races.list[owner_race], string.format("unknown race - \"%s\"", owner_race))
 
-	player = minetest.get_player_by_name(player)
 	if character.of(player):get_race() == owner_race or minetest.check_player_privs(player, "race") then
 		return true, nil
 	end
 
 	if itemstack:get_name() == "lottblocks:lockpick" then
-		if lottblocks.lockpick_can_break_in(itemstack, player) then
+		if lottblocks.lockpick_can_break_in(itemstack, player:get_player_name()) then
 			return true, nil
 		end
 		return false, nil

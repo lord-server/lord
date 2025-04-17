@@ -52,12 +52,12 @@ function Racial.register(node_name, title, texture_type, race, craft)
 			inv:set_size('main', 8 * 4)
 		end,
 		on_rightclick         = function(pos, node, clicker, itemstack)
-			local player = clicker:get_player_name()
-			local opened, expected_race = races.can_open_stuff(race, player, itemstack)
+			local player_name           = clicker:get_player_name()
+			local opened, expected_race = races.can_open_stuff(race, clicker, itemstack)
 			if opened then
-				minetest.show_formspec(player, node_name, default.chest.get_chest_formspec(pos, nil, form_icon))
+				minetest.show_formspec(player_name, node_name, default.chest.get_chest_formspec(pos, nil, form_icon))
 			elseif expected_race ~= nil then
-				minetest.chat_send_player(player, S('Only @1 can open this kind of chest!', expected_race))
+				minetest.chat_send_player(player_name, S('Only @1 can open this kind of chest!', expected_race))
 			end
 		end,
 		can_dig               = function(pos, player)

@@ -19,13 +19,13 @@ minetest.register_craft({
 
 --- Обработчик отмычки
 --- Проверяет, срабатывает ли отмычка.
----@param itemstack ItemStack стак, содержащий отмычку;
----@param player string имя игрока, использующего отмычку.
+---@param itemstack   ItemStack стак, содержащий отмычку;
+---@param player_name string    имя игрока, использующего отмычку.
 ---@return boolean сработало или нет.
-function lottblocks.lockpick_can_break_in(itemstack, player)
+function lottblocks.lockpick_can_break_in(itemstack, player_name)
 	itemstack:add_wear(65535 / 20)
 	if math.random(1, 4) ~= 3 then
-		minetest.chat_send_player(player, S("Lockpick failed"))
+		minetest.chat_send_player(player_name, S("Lockpick failed"))
 		return false
 	else
 		return true
