@@ -1,5 +1,12 @@
 # Change Log
 
+## [2025.03.p2](https://github.com/lord-server/lord/releases/tag/2025.03.p2)
+ - Fix `character.of` in `on_rightclick` func (#2169). Closes #2168
+ - Races: fix crash on open/lockpick of racial chests & doors. Closes #2172
+ - Character/Races refactoring/Player Loss: fix crash on `back` in `ChooseRace` form. Closes #2174
+ - Character/Races Refactoring: fix crash on `/clans.show` command. Closes #2175
+ - Blocks: Plants: add stairs & slab for shrubbery large. Closes #1902
+
 ## [2025.03.p1](https://github.com/lord-server/lord/releases/tag/2025.03.p1)
  - Hotfix: repare web intergation on player login. Closes #2167
 
