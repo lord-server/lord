@@ -198,7 +198,7 @@ minetest.register_craft({
 stairs.register_stair_and_slab(
 	"dungeon_stone",
 	"castle:dungeon_stone",
-	{cracky=3},
+	{cracky=3, wall_connected = 1},
 	{"castle_dungeon_stone.png"},
 	S("Dungeon Stone Stair"),
 	S("Dungeon Stone Slab"),
@@ -211,7 +211,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"pavement",
 	"castle:pavement",
-	{cracky=3},
+	{cracky=3, wall_connected = 1},
 	{"castle_pavement_brick.png"},
 	S("Castle Pavement Stair"),
 	S("Castle Pavement Slab"),

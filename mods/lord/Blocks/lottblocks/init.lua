@@ -16,12 +16,12 @@ minetest.register_node("lottblocks:snowycobble", {
 	description = S("Snowy Cobblestone"),
 	tiles = {"lottblocks_snowycobble.png"},
 	is_ground_content = false,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 })
 stairs.register_stair_and_slab(
 	"snowycobble",
 	"lottblocks:snowycobble",
-	{cracky=2},
+	{cracky=2, wall_connected = 1},
 	{"lottblocks_snowycobble.png"},
 	S("Snowy Cobble Stair"),
 	S("Snowy Cobble Slab"),
@@ -48,7 +48,7 @@ minetest.register_node("lottblocks:orc_stone", {
 stairs.register_stair_and_slab(
 		"orc_stone",
 		"lottblocks:orc_stone",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lottblocks_orc_stone.png"},
 		S("Orc Stone Stair"),
 		S("Orc Stone Slab"),
@@ -66,7 +66,7 @@ minetest.register_node("lottblocks:orc_brick", {
 stairs.register_stair_and_slab(
 		"orc_brick",
 		"lottblocks:orc_brick",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lottblocks_orc_brick.png"},
 		S("Orc Brick Stair"),
 		S("Orc Brick Slab"),
@@ -84,7 +84,7 @@ minetest.register_node("lottblocks:orc_block", {
 stairs.register_stair_and_slab(
 		"orc_block",
 		"lottblocks:orc_block",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lottblocks_orc_block.png"},
 		S("Orc Block Stair"),
 		S("Orc Block Slab"),
@@ -136,7 +136,7 @@ minetest.register_node("lottblocks:marble_brick", {
 stairs.register_stair_and_slab(
 		"marble_brick",
 		"lottblocks:marble_brick",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lottblocks_marble_brick.png"},
 		S("Marble Brick Stair"),
 		S("Marble Brick Slab"),
