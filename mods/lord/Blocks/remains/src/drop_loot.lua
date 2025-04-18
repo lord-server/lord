@@ -1,0 +1,43 @@
+-- mods/lord/Blocks/remains/drop_loot.lua
+
+local common_items = {
+	{ items = { 'remains:ancient_miner' }},
+	{ items = { 'lottother:narya' },           rarity = 100/2 },
+	{ items = { 'lottother:vilya' },           rarity = 100/0.5 },
+	{ items = { 'lord_money:diamond_coin' },   rarity = 100/5 },
+	{ items = { 'lord_money:gold_coin 2' },    rarity = 100/20 },
+	{ items = { 'lord_money:silver_coin 10' }, rarity = 100/50 },
+	{ items = { 'lord_money:copper_coin 20' }, rarity = 100/100 },
+	{ items = { 'lottores:white_gem' },        rarity = 100/5 },
+	{ items = { 'lottores:blue_gem' },         rarity = 100/5 },
+	{ items = { 'lottores:red_gem' },          rarity = 100/5 },
+	{ items = { 'default:copper_lump 5' },     rarity = 100/33 },
+	{ items = { 'default:gold_lump 6' },       rarity = 100/10 },
+	{ items = { 'default:iron_lump 15' },      rarity = 100/33 },
+	{ items = { 'lottores:lead_lump 10' },     rarity = 100/10 },
+	{ items = { 'lottores:silver_lump 6' },    rarity = 100/10 },
+	{ items = { 'lottores:mithril_lump 3' },   rarity = 100/5 },
+	{ items = { 'lottores:tin_lump 10' },      rarity = 100/33 },
+	{ items = { 'tools:pick_bronze' },         rarity = 100/12.5 },
+	{ items = { 'tools:pick_copper' },         rarity = 100/12.5 },
+	{ items = { 'tools:pick_steel' },          rarity = 100/12.5 },
+	{ items = { 'tools:pick_galvorn' },        rarity = 100/12.5 },
+	{ items = { 'tools:pick_gold' },           rarity = 100/12.5 },
+	{ items = { 'tools:pick_silver' },         rarity = 100/12.5 },
+	{ items = { 'tools:pick_stone' },          rarity = 100/12.5 },
+	{ items = { 'tools:pick_wood' },           rarity = 100/12.5 },
+	{ items = { 'tools:pick_tin' },            rarity = 100/12.5 },
+	{ items = { 'tools:pick_mithril' },        rarity = 100/10 },
+	{ items = { 'tools:shovel_bronze' },       rarity = 100/12.5 },
+	{ items = { 'tools:shovel_copper' },       rarity = 100/12.5 },
+	{ items = { 'tools:shovel_steel' },        rarity = 100/12.5 },
+	{ items = { 'tools:shovel_galvorn' },      rarity = 100/12.5 },
+	{ items = { 'tools:shovel_gold' },         rarity = 100/12.5 },
+	{ items = { 'tools:shovel_silver' },       rarity = 100/12.5 },
+	{ items = { 'tools:shovel_stone' },        rarity = 100/12.5 },
+	{ items = { 'tools:shovel_wood' },         rarity = 100/12.5 },
+	{ items = { 'tools:shovel_tin' },          rarity = 100/12.5 },
+	{ items = { 'tools:shovel_mithril' },     rarity = 100/10 }
+}
+
+return common_items
