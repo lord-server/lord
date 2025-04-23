@@ -205,6 +205,13 @@ end
 --- slots is one-fourth the size of an inventory slot by default. Also see
 --- [Styling Formspecs] for changing the size of slots and spacing.
 ---
+--- **Inventory locations**
+--- * "context": Selected node metadata (deprecated: "current_name")
+--- * "current_player": Player to whom the menu is shown
+--- * "player:\<name\>": Any player
+--- * "nodemeta:\<X\>,\<Y\>,\<Z\>": Any node metadata
+--- * "detached:\<name\>": A detached inventory
+---
 --- @return string
 function FormSpec.list(inventory_location,list_name,X,Y,W,H,starting_item_index)
 	return string.format(
