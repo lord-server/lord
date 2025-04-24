@@ -66,8 +66,9 @@ minetest = {}
 --- * The escape sequence sets the text color to `color`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3107-L3109)
----@param color string @ColorString
----@return string
+---
+--- @param color string @ColorString
+--- @return string
 function minetest.get_color_escape_sequence(color) end
 --- * Equivalent to:
 ---   `minetest.get_color_escape_sequence(color) ..
@@ -75,27 +76,38 @@ function minetest.get_color_escape_sequence(color) end
 ---   minetest.get_color_escape_sequence("#ffffff")`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3110-L3114)
----@param color string @ColorString
----@param message string
----@return string
+---
+--- @param color string @ColorString
+--- @param message string
+--- @return string
 function minetest.colorize(color, message) end
 --- * `color` is a ColorString
 --- * The escape sequence sets the background of the whole text element to
 ---   `color`. Only defined for item descriptions and tooltips.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3115-L3118)
+---
+--- @param color string @ColorString
+--- @return string
 function minetest.get_background_escape_sequence(color) end
 --- * Removes foreground colors added by `get_color_escape_sequence`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3119-L3120)
+--- @param str string
+--- @return string
 function minetest.strip_foreground_colors(str) end
 --- * Removes background colors added by `get_background_escape_sequence`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3121-L3122)
+---
+--- @param str string
 function minetest.strip_background_colors(str) end
 --- * Removes all color escape sequences.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3123-L3124)
+---
+--- @param str string
+--- @return string
 function minetest.strip_colors(str) end
 
 -- Helpers:
@@ -110,6 +122,11 @@ function minetest.strip_colors(str) end
 ---   is returned, default: `false`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3244-L3251)
+---
+--- @param str      string
+--- @param limit    number
+--- @param as_table boolean
+--- @return string|table
 function minetest.wrap_text(str, limit, as_table) end
 --- returns string `"(X,Y,Z)"`
 --- * `pos`: table {x=X, y=Y, z=Z}
@@ -118,12 +135,19 @@ function minetest.wrap_text(str, limit, as_table) end
 ---   the position are rounded to the given decimal place.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3252-L3256)
+---
+--- @param pos            Position
+--- @param decimal_places number
+--- @return string
 function minetest.pos_to_string(pos, decimal_places) end
 --- returns a position or `nil`
 --- * Same but in reverse.
 --- * If the string can't be parsed to a position, nothing is returned.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3257-L3259)
+---
+--- @param string string
+--- @return Position
 function minetest.string_to_pos(string) end
 --- returns two positions
 --- * Converts a string representing an area box into two positions
