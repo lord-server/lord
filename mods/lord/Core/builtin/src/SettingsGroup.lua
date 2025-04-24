@@ -1,3 +1,6 @@
+local pairs, setmetatable, assert, type
+    = pairs, setmetatable, assert, type
+
 
 --- @class Voxrame.SettingsGroup
 local SettingsGroup = {
@@ -67,6 +70,18 @@ end
 --- @return Position|nil
 function SettingsGroup:get_position(name)
 	return minetest.string_to_pos(self.settings[name])
+end
+
+--- @overload fun(name:string)
+--- @param name    string  name of the setting (key). Stripped key names are used (without group-name prefixes).
+--- @param default boolean default value, if setting not found. [optional]
+--- @return boolean
+function SettingsGroup:get_bool(name, default)
+	assert(type(default) == 'boolean')
+
+	local value = self.settings[name]
+
+	return value and minetest.is_yes(value) or default
 end
 
 
