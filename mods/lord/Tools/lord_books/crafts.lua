@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local DEFAULT_LANG = minetest.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
@@ -146,7 +146,7 @@ zcg.form.get_spec = function(player_name, find)
 	local current_item = zcg.users[player_name].current_item
 	local formspec =
 		"size[8,7.75]" ..
-		"button_exit[6,7.25;2,0.5;;"..SL("Exit").."]"
+		"button_exit[6,7.25;2,0.5;;".. S("Exit").."]"
 	if zcg.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zcg_previous;;false;false;books_previous_press.png]"
 	else
@@ -196,7 +196,7 @@ zcg.form.get_spec = function(player_name, find)
 
 	-- Filter items by `filter` field value
 	formspec = formspec ..
-		"field[0.3,3.5;4,0.5;zcg_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field[0.3,3.5;4,0.5;zcg_filter;" .. S("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zcg_filter;false]"
 
 	local lang_code = minetest.get_player_information(player_name).lang_code or DEFAULT_LANG
@@ -226,9 +226,9 @@ zcg.form.get_spec = function(player_name, find)
 		formspec = formspec .. "button[1,7.25;1,.5;zcg_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,7.25;"..SL("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
+	formspec = formspec .. "label[2,7.25;".. S("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
 	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
-	formspec = formspec .. "label[0,0;"..SL("Book of Crafts").."]"
+	formspec = formspec .. "label[0,0;".. S("Book of Crafts").."]"
 	return formspec
 end
 --- @param player_name string
@@ -290,7 +290,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:crafts_book",{
-    description = SL("Book of Crafts"),
+    description = S("Book of Crafts"),
     groups = {book=1, paper=1},
     inventory_image = "crafts_book.png",
     wield_image = "",

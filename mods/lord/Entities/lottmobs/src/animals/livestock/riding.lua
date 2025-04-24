@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 
 local function is_ground(pos)
@@ -36,7 +36,7 @@ local function move_horse_to_inventory(entity, player)
 	if not player:get_inventory():room_for_item("main", horse_item) then
 		minetest.chat_send_player(
 			player:get_player_name(),
-			minetest.colorize("yellow", SL("Inventory is full!"))
+			minetest.colorize("yellow", S("Inventory is full!"))
 		)
 		return false
 	end
@@ -108,7 +108,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			if not walkable then
 				minetest.chat_send_player(
 					placer:get_player_name(),
-					minetest.colorize("yellow", SL("Can only be placed on a hard surface."))
+					minetest.colorize("yellow", S("Can only be placed on a hard surface."))
 				)
 				return itemstack, nil
 			end
@@ -116,7 +116,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			if not minetest.find_path(placer:get_pos(), pointed_thing.above, 1, 1, 3, "Dijkstra") then
 				minetest.chat_send_player(
 					placer:get_player_name(),
-					minetest.colorize("yellow", SL("Sweetly far. Try to get closer."))
+					minetest.colorize("yellow", S("Sweetly far. Try to get closer."))
 				)
 				return itemstack, nil
 			end
@@ -352,7 +352,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 				end
 			end
 			if not player_api.player_attached[clicker:get_player_name()] then
-				minetest.chat_send_player(player, core.colorize("#ff8ea1", SL("You can't ride this beast!!!")))
+				minetest.chat_send_player(player, core.colorize("#ff8ea1", S("You can't ride this beast!!!")))
 			end
 		end
 	end
@@ -458,7 +458,7 @@ end
 ---------------------
 
 lottmobs.register_horse("lottmobs:horseh1", {
-	description     = SL("Brown Horse"),
+	description     = S("Brown Horse"),
 	inventory_image = "lottmobs_horse_inventory.png",
 }, {
 	riders        = { "man", "elf" },
@@ -490,7 +490,7 @@ lottmobs.register_horse("lottmobs:horseh1", {
 --horse white
 
 lottmobs.register_horse("lottmobs:horsepegh1", {
-	description     = SL("White Horse"),
+	description     = S("White Horse"),
 	inventory_image = "lottmobs_horsepeg_inventory.png",
 }, {
 	riders        = { "man", "elf" },
@@ -521,7 +521,7 @@ lottmobs.register_horse("lottmobs:horsepegh1", {
 --horse arabik
 
 lottmobs.register_horse("lottmobs:horsearah1", {
-	description     = SL("Black Horse"),
+	description     = S("Black Horse"),
 	inventory_image = "lottmobs_horseara_inventory.png",
 }, {
 	riders        = { "man", "elf" },
@@ -550,7 +550,7 @@ lottmobs.register_horse("lottmobs:horsearah1", {
 })
 
 lottmobs.register_horse("lottmobs:shireponyblackh1", {
-	description     = SL("Shire Pony"),
+	description     = S("Shire Pony"),
 	inventory_image = "lottmobs_shireponyblack_inventory.png",
 }, {
 	riders        = { "dwarf", "hobbit" },
@@ -581,7 +581,7 @@ lottmobs.register_horse("lottmobs:shireponyblackh1", {
 })
 
 lottmobs.register_horse("lottmobs:shireponyh1", {
-	description     = SL("Shire Pony"),
+	description     = S("Shire Pony"),
 	inventory_image = "lottmobs_shirepony_inventory.png",
 }, {
 	riders        = { "dwarf", "hobbit" },
@@ -612,7 +612,7 @@ lottmobs.register_horse("lottmobs:shireponyh1", {
 })
 
 lottmobs.register_horse("lottmobs:boar_mount", {
-	description     = SL("Boar"),
+	description     = S("Boar"),
 	inventory_image = "lottmobs_boar.png",
 }, {
 	riders        = { "dwarf" },
@@ -648,7 +648,7 @@ lottmobs.register_horse("lottmobs:boar_mount", {
 })
 
 lottmobs.register_horse("lottmobs:warg_mount", {
-	description     = SL("Warg"),
+	description     = S("Warg"),
 	inventory_image = "lottmobs_warg_inv.png",
 }, {
 	riders        = { "orc" },

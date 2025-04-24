@@ -1,8 +1,8 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 archery.register_throwable("lottmobs:egg", {
 	definition = {
-		description      = SL("Chicken Egg"),
+		description      = S("Chicken Egg"),
 		inventory_image  = "lottmobs_egg", -- without ".png"
 		groups           = { throwable = 1 },
 		wield_scale      = vector.new(1, 1, 0.5),

@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood = {
-		description = SL("Wooden Pickaxe"),
+		description = S("Wooden Pickaxe"),
 		full_punch_interval = 1.2,
 		max_drop_level = 0,
 		cracky = {
@@ -21,7 +21,7 @@ return {
 		groups = {wooden = 1, pickaxe = 1, flammable = 2},
 	},
 	stone = {
-		description = SL("Stone Pickaxe"),
+		description = S("Stone Pickaxe"),
 		full_punch_interval = 1.3,
 		max_drop_level = 0,
 		cracky = {
@@ -33,7 +33,7 @@ return {
 		groups = {pickaxe = 1},
 	},
 	steel = {
-		description = SL("Steel Pickaxe"),
+		description = S("Steel Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		cracky = {
@@ -45,7 +45,7 @@ return {
 		groups = {steel_item = 1, pickaxe = 1},
 	},
 	bronze = {
-		description = SL("Bronze Pickaxe"),
+		description = S("Bronze Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		cracky = {
@@ -57,7 +57,7 @@ return {
 		groups = {bronze_item = 1, pickaxe = 1},
 	},
 	copper = {
-		description = SL("Copper Pickaxe"),
+		description = S("Copper Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		cracky = {
@@ -69,7 +69,7 @@ return {
 		groups = {copper_item = 1, pickaxe = 1},
 	},
 	tin = {
-		description = SL("Tin Pickaxe"),
+		description = S("Tin Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		cracky = {
@@ -81,7 +81,7 @@ return {
 		groups = {tin_item = 1, pickaxe = 1},
 	},
 	silver = {
-		description = SL("Silver Pickaxe"),
+		description = S("Silver Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 2,
 		cracky = {
@@ -93,7 +93,7 @@ return {
 		groups = {silver_item = 1, pickaxe = 1},
 	},
 	gold = {
-		description = SL("Gold Pickaxe"),
+		description = S("Gold Pickaxe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 2,
 		cracky = {
@@ -105,7 +105,7 @@ return {
 		groups = {gold_item = 1, pickaxe = 1},
 	},
 	galvorn = {
-		description = SL("Galvorn Pickaxe"),
+		description = S("Galvorn Pickaxe"),
 		full_punch_interval = 0.9,
 		max_drop_level = 3,
 		cracky = {
@@ -117,7 +117,7 @@ return {
 		groups = {forbidden = 1, galvorn_item = 1, pickaxe = 1},
 	},
 	mithril = {
-		description = SL("Mithril Pickaxe"),
+		description = S("Mithril Pickaxe"),
 		full_punch_interval = 0.8,
 		max_drop_level = 3,
 		cracky = {

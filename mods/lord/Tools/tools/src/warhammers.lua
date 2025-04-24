@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood        = {
-		description         = SL("Wooden Warhammer"),
+		description         = S("Wooden Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3.40, [2] = 2.40, [3] = 1.30 }, uses = 5, maxlevel = 1 },
@@ -18,7 +18,7 @@ return {
 		groups              = { wooden = 1 },
 	},
 	stone       = {
-		description         = SL("Stone Warhammer"),
+		description         = S("Stone Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.85, [2] = 1.85, [3] = 1.10 }, uses = 5, maxlevel = 1 },
@@ -26,7 +26,7 @@ return {
 		full_punch_interval = 2.3,
 	},
 	steel       = {
-		description         = SL("Steel Warhammer"),
+		description         = S("Steel Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
@@ -35,7 +35,7 @@ return {
 		groups              = { steel_item = 1 },
 	},
 	bronze      = {
-		description         = SL("Bronze Warhammer"),
+		description         = S("Bronze Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 30, maxlevel = 2 },
@@ -44,7 +44,7 @@ return {
 		groups              = { bronze_item = 1 },
 	},
 	copper      = {
-		description         = SL("Copper Warhammer"),
+		description         = S("Copper Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
@@ -53,7 +53,7 @@ return {
 		groups              = { copper_item = 1 },
 	},
 	tin         = {
-		description         = SL("Tin Warhammer"),
+		description         = S("Tin Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
@@ -62,7 +62,7 @@ return {
 		groups              = { tin_item = 1 },
 	},
 	silver      = {
-		description         = SL("Silver Warhammer"),
+		description         = S("Silver Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 20, maxlevel = 2 },
@@ -71,7 +71,7 @@ return {
 		groups              = { silver_item = 1 },
 	},
 	gold        = {
-		description         = SL("Gold Warhammer"),
+		description         = S("Gold Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 30, maxlevel = 2 },
@@ -80,7 +80,7 @@ return {
 		groups              = { gold_item = 1 },
 	},
 	galvorn     = {
-		description         = SL("Galvorn Warhammer"),
+		description         = S("Galvorn Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.50, [2] = 1.30, [3] = 0.45 }, uses = 35, maxlevel = 2 },
@@ -89,7 +89,7 @@ return {
 		groups              = { forbidden = 1, galvorn_item = 1 },
 	},
 	mithril     = {
-		description         = SL("Mithril Warhammer"),
+		description         = S("Mithril Warhammer"),
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 40, maxlevel = 3 },

@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood        = {
-		description         = SL("Wooden Battleaxe"),
+		description         = S("Wooden Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.75, [2] = 2.75, [3] = 2.05 }, uses = 5, maxlevel = 1 },
@@ -19,7 +19,7 @@ return {
 		groups              = { wooden = 1 },
 	},
 	stone       = {
-		description         = SL("Stone Battleaxe"),
+		description         = S("Stone Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.35, [2] = 2.10, [3] = 1.85 }, uses = 5, maxlevel = 1 },
@@ -28,7 +28,7 @@ return {
 		full_punch_interval = 1.60,
 	},
 	steel       = {
-		description         = SL("Steel Battleaxe"),
+		description         = S("Steel Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3, [2] = 1.90, [3] = 1.50 }, uses = 15, maxlevel = 2 },
@@ -38,7 +38,7 @@ return {
 		groups              = { steel_item = 1 },
 	},
 	bronze      = {
-		description         = SL("Bronze Battleaxe"),
+		description         = S("Bronze Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
@@ -48,7 +48,7 @@ return {
 		groups              = { bronze_item = 1 },
 	},
 	copper      = {
-		description         = SL("Copper Battleaxe"),
+		description         = S("Copper Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.25, [2] = 2.00, [3] = 1.75 }, uses = 5, maxlevel = 1 },
@@ -58,7 +58,7 @@ return {
 		groups              = { copper_item = 1 },
 	},
 	tin         = {
-		description         = SL("Tin Battleaxe"),
+		description         = S("Tin Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 3.25, [2] = 2.00, [3] = 1.75 }, uses = 5, maxlevel = 1 },
@@ -68,7 +68,7 @@ return {
 		groups              = { tin_item = 1 },
 	},
 	silver      = {
-		description         = SL("Silver Battleaxe"),
+		description         = S("Silver Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 15, maxlevel = 2 },
@@ -78,7 +78,7 @@ return {
 		groups              = { silver_item = 1 },
 	},
 	gold        = {
-		description         = SL("Gold Battleaxe"),
+		description         = S("Gold Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
@@ -88,7 +88,7 @@ return {
 		groups              = { gold_item = 1 },
 	},
 	galvorn     = {
-		description         = SL("Galvorn Battleaxe"),
+		description         = S("Galvorn Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2.50, [2] = 1.50, [3] = .90 }, uses = 25, maxlevel = 2 },
@@ -98,7 +98,7 @@ return {
 		groups              = { forbidden = 1, galvorn_item = 1 },
 	},
 	mithril     = {
-		description         = SL("Mithril Battleaxe"),
+		description         = S("Mithril Battleaxe"),
 		range               = 4.5,
 		max_drop_level      = 1,
 		choppy              = { times = { [1] = 2, [2] = 1, [3] = .50 }, uses = 35, maxlevel = 3 },

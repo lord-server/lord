@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 zfc = {}
 zfc.users = {}
@@ -102,7 +102,7 @@ zfc.form.get_spec = function(player_name)
 	local alt = zfc.users[player_name].alt
 	local current_item = zfc.users[player_name].current_item
 	local formspec = "size[8,7.5]"
-		.. "button_exit[6,7;2,0.5;;"..SL("Exit").."]"
+		.. "button_exit[6,7;2,0.5;;".. S("Exit").."]"
 	if zfc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zfc_previous;;false;false;books_previous_press.png]"
 	else
@@ -168,8 +168,8 @@ zfc.form.get_spec = function(player_name)
 		formspec = formspec .. "button[1,7;1,.5;zfc_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zfc.itemlist/npp+1)).."]"
-	formspec = formspec .. "label[0,0;"..SL("Book of Forbidden Crafts").."]"
+	formspec = formspec .. "label[2,6.85;".. S("Page").." "..(page+1).."/"..(math.floor(#zfc.itemlist/npp+1)).."]"
+	formspec = formspec .. "label[0,0;".. S("Book of Forbidden Crafts").."]"
 	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
 
 	return formspec
@@ -226,7 +226,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:forbidden_crafts_book",{
-    description = SL("Book of Forbidden Crafts"),
+    description = S("Book of Forbidden Crafts"),
     inventory_image = "forbidden_book.png",
     wield_image = "",
     wield_scale = {x=1,y=1,z=1},

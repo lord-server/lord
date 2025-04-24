@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- outfit from the ettenmoor region. wizard style (as possible).
 -- made from grey and brown felt & gold ingot.
@@ -8,7 +8,7 @@ local SL = minetest.get_mod_translator()
 
 -- hood (head)
 minetest.register_tool("lottclothes:hood_ettenmoor", {
-	description = SL("Ettenmoor Hood"),
+	description = S("Ettenmoor Hood"),
 	inventory_image = "lottclothes_inv_hood_ettenmoor.png",
 	groups = {armor_head=0, clothes=1, clothes_head=1},
 	wear = 0
@@ -32,7 +32,7 @@ minetest.register_craft({
 
 -- robe (torso (yeah limitations suck))
 minetest.register_tool("lottclothes:robe_ettenmoor", {
-	description = SL("Ettenmoor Robe"),
+	description = S("Ettenmoor Robe"),
 	inventory_image = "lottclothes_inv_robe_ettenmoor.png",
 	groups = {armor_torso=0, clothes=1, clothes_torso=1},
 	wear = 0
@@ -56,7 +56,7 @@ minetest.register_craft({
 
 -- trousers (legs)
 minetest.register_tool("lottclothes:trousers_ettenmoor", {
-	description = SL("Ettenmoor Trousers"),
+	description = S("Ettenmoor Trousers"),
 	inventory_image = "lottclothes_inv_trousers_ettenmoor.png",
 	groups = {armor_legs=0, clothes=1, clothes_legs=1},
 	wear = 0

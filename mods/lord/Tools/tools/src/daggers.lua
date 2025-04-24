@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -8,7 +8,7 @@ return {
 		}}
 	end,
 	wood        = {
-		description         = SL("Wooden Dagger"),
+		description         = S("Wooden Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 2.25, [3] = 1.75 }, uses = 2, maxlevel = 1 },
@@ -17,7 +17,7 @@ return {
 		groups              = { wooden = 1 },
 	},
 	stone       = {
-		description         = SL("Stone Dagger"),
+		description         = S("Stone Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.35, [3] = 0.85 }, uses = 5, maxlevel = 1 },
@@ -25,7 +25,7 @@ return {
 		full_punch_interval = 0.25,
 	},
 	steel       = {
-		description         = SL("Steel Dagger"),
+		description         = S("Steel Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 10, maxlevel = 1 },
@@ -34,7 +34,7 @@ return {
 		groups              = { steel_item = 1 },
 	},
 	bronze      = {
-		description         = SL("Bronze Dagger"),
+		description         = S("Bronze Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 15, maxlevel = 1 },
@@ -43,7 +43,7 @@ return {
 		groups              = { bronze_item = 1 },
 	},
 	copper      = {
-		description         = SL("Copper Dagger"),
+		description         = S("Copper Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.25, [3] = 0.75 }, uses = 5, maxlevel = 1 },
@@ -52,7 +52,7 @@ return {
 		groups              = { copper_item = 1 },
 	},
 	tin         = {
-		description         = SL("Tin Dagger"),
+		description         = S("Tin Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = 1.25, [3] = 0.75 }, uses = 5, maxlevel = 1 },
@@ -61,7 +61,7 @@ return {
 		groups              = { tin_item = 1 },
 	},
 	silver      = {
-		description         = SL("Silver Dagger"),
+		description         = S("Silver Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .80, [3] = 0.40 }, uses = 10, maxlevel = 1 },
@@ -70,7 +70,7 @@ return {
 		groups              = { silver_item = 1 },
 	},
 	gold        = {
-		description         = SL("Gold Dagger"),
+		description         = S("Gold Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .80, [3] = 0.40 }, uses = 15, maxlevel = 1 },
@@ -79,7 +79,7 @@ return {
 		groups              = { gold_item = 1 },
 	},
 	galvorn     = {
-		description         = SL("Galvorn Dagger"),
+		description         = S("Galvorn Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .90, [3] = 0.45 }, uses = 20, maxlevel = 1 },
@@ -88,7 +88,7 @@ return {
 		groups              = { forbidden = 1, galvorn_item = 1 },
 	},
 	mithril     = {
-		description         = SL("Mithril Dagger"),
+		description         = S("Mithril Dagger"),
 		range               = 2.5,
 		max_drop_level      = 0,
 		snappy              = { times = { [2] = .75, [3] = 0.35 }, uses = 25, maxlevel = 2 },

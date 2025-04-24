@@ -1,4 +1,4 @@
-local SL       = minetest.get_mod_translator()
+local S        = minetest.get_mod_translator()
 local colorize = minetest.colorize
 local e        = minetest.formspec.escape
 local spec     = forms.Spec
@@ -10,7 +10,7 @@ local mail = {}
 mail.change_owner = function(meta, name)
 	if name ~= "" and name ~= nil then
 		meta:set_string("owner", name)
-		meta:set_string("infotext", SL("Mail for").." "..name)
+		meta:set_string("infotext", S("Mail for").." "..name)
 	end
 end
 
@@ -73,7 +73,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 minetest.register_node("lord_mail:mail_chest", {
-	description = SL("Mail Chest"),
+	description = S("Mail Chest"),
 	tiles = {"mail_chest_top.png", "default_chest_top.png", "mail_chest_side.png",
 		"mail_chest_side.png", "mail_chest_side.png", "mail_chest_front.png"},
 	paramtype = "light",
@@ -85,7 +85,7 @@ minetest.register_node("lord_mail:mail_chest", {
 		local meta = minetest.get_meta(pos)
 		local owner = placer:get_player_name()
 		meta:set_string("owner", owner)
-		meta:set_string("infotext", SL("Mail for").." "..owner)
+		meta:set_string("infotext", S("Mail for").." "..owner)
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
 		inv:set_size("drop", 1)
@@ -123,7 +123,7 @@ minetest.register_node("lord_mail:mail_chest", {
 			inv:add_item("main", stack)
 			local owner_mail = get_mail(meta:get_string("owner"))
 			if owner_mail then
-				local report = SL("You have new post").." "..minetest.pos_to_string(pos)
+				local report = S("You have new post").." "..minetest.pos_to_string(pos)
 				os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
 			end
 		end
@@ -140,7 +140,7 @@ minetest.register_node("lord_mail:mail_chest", {
 			else
 				local owner_mail = get_mail(meta:get_string("owner"))
 				if owner_mail then
-					local report = SL("Your post full").." "..minetest.pos_to_string(pos)
+					local report = S("Your post full").." "..minetest.pos_to_string(pos)
 					os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
 				end
 				return 0
@@ -168,25 +168,25 @@ local function paper_on_use(itemstack, user, pointed_thing)
 		formspec = "size[8,3]"..gui_paperbg..
 			"style[paper_text;textcolor="..text_color.."]"..
 			"field[0.5,0.5;7.5,1.0;paper_text;;"..e(text).."]"..
-			"button_exit[2.5,2.0;3.0,1.0;paper_save;"..SL("Save").."]"
+			"button_exit[2.5,2.0;3.0,1.0;paper_save;".. S("Save").."]"
 	else
 		formspec = "size[8,3]"..gui_paperbg..
 			"textarea[0.5,0.3;7.5,2.0;paper_text;;"..e(text).."]"..
-			"label[0.3,2.5;"..SL("by").." "..owner.."]"
+			"label[0.3,2.5;".. S("by").." "..owner.."]"
 	end
 	minetest.show_formspec(user:get_player_name(), "mail:paper", formspec)
 end
 
 -- TODO: `minetest.override_item` instead register
 minetest.register_craftitem(":default:paper", {
-	description = SL("Paper"),
+	description = S("Paper"),
 	inventory_image = "default_paper.png",
 	groups = {book=1, paper=1},
 	on_use = paper_on_use,
 })
 
 minetest.register_craftitem("lord_mail:paper_with_text", {
-	description = SL("Letter"),
+	description = S("Letter"),
 	inventory_image = "mail_paper_with_text.png",
 	groups = {not_in_creative_inventory=1, book=1, paper=1},
 	stack_max = 1,
@@ -203,7 +203,7 @@ local function book_on_use(stack, user, pointed_thing)
         local title, text, owner = "", "", player_name
         if data then
                 title, text, owner = data.title, data.text, data.owner
-                stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. title ..'"') )
+                stack:get_meta():set_string("description", S('Book')..': '..colorize('#ee8' , '"'.. title ..'"') )
                 data = minetest.serialize(data)
                 stack:set_metadata(data)
                 user:set_wielded_item(stack)
@@ -215,16 +215,16 @@ local function book_on_use(stack, user, pointed_thing)
 	if owner == player_name then
 		formspec = formspec
 			.. spec.style({ 'book_title', 'book_text' }, { textcolor = text_color})
-			.. spec.bold(0.2, -0.1, SL('Title'))
+			.. spec.bold(0.2, -0.1, S('Title'))
 			.. spec.field(0.5, 1, 7.5, 0, 'book_title', '', title)
-			.. spec.bold(0.2, 1.1, SL('Contents'))
+			.. spec.bold(0.2, 1.1, S('Contents'))
 			.. spec.box(0.2, 1.53, 7.3, 5.9, '#fff4')
 			.. spec.textarea(0.5, 1.5, 7.5, 7, 'book_text', '', text)
-			.. spec.button_exit(4.7, 7.7, 3, 1, 'book_save', SL('Save'))
+			.. spec.button_exit(4.7, 7.7, 3, 1, 'book_save', S('Save'))
 	else
 		formspec = formspec
-			.. spec.label(0.2, 0, SL('Title')..': '..title)
-			.. spec.label(0.2, 0.5, SL('by')..' '..owner)
+			.. spec.label(0.2, 0, S('Title')..': '..title)
+			.. spec.label(0.2, 0.5, S('by')..' '..owner)
 			.. spec.box(0.125, 1.4, 7.45, 6.6, '#000')
 			.. spec.textarea(0.5, 1.5, 7.5, 7.5, spec.read_only, '', text)
 	end
@@ -233,14 +233,14 @@ end
 
 -- TODO: `minetest.override_item` instead register
 minetest.register_craftitem(":default:book", {
-	description = SL("Book"),
+	description = S("Book"),
 	inventory_image = "default_book.png",
 	groups = {book=1, flammable=1},
 	on_use = book_on_use,
 })
 
 minetest.register_craftitem("lord_mail:book_with_text", {
-	description = SL("Book With Text"),
+	description = S("Book With Text"),
 	inventory_image = "mail_book_with_text.png",
 	groups = {not_in_creative_inventory=1, book=1, flammable=1},
 	stack_max = 1,
@@ -306,7 +306,7 @@ local function book_form_handler(player, fields)
 	local data_str = minetest.serialize(data)
 	if new_stack then
 		new_stack:set_metadata(data_str)
-		new_stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
+		new_stack:get_meta():set_string("description", S('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
 		if inv:room_for_item("main", new_stack) then
 			inv:add_item("main", new_stack)
 		else
@@ -314,7 +314,7 @@ local function book_form_handler(player, fields)
 		end
 	else
 		stack:set_metadata(data_str)
-		stack:get_meta():set_string("description", SL('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
+		stack:get_meta():set_string("description", S('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
 	end
 	player:set_wielded_item(stack)
 end

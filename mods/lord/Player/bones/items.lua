@@ -1,19 +1,19 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_craftitem("bones:bonedust", {
-	description = SL("Bone Dust"),
+	description = S("Bone Dust"),
 	inventory_image = "bones_bonedust.png",
 	liquids_pointable = false,
 	stack_max = 99,
 })
 
 minetest.register_craftitem("bones:bone", {
-	description = SL("Bone"),
+	description = S("Bone"),
 	inventory_image = "bones_bone.png",
 })
 
 minetest.register_tool("bones:bone_scythe", {
-	description = SL("Bone Scythe"),
+	description = S("Bone Scythe"),
 	inventory_image = "bones_scythe.png",
 	range = 7,
 	tool_capabilities = {

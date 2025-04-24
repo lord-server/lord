@@ -5,7 +5,7 @@ local detached_inv_equipment_slots = {
 	armor    = require("equipment.armor_slots"),
 	clothing = require("equipment.clothing_slots"),
 }
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 
 local CLOTHING_EQUIPMENT_SIZE = 5
@@ -29,7 +29,7 @@ local function item_wear(stack, slot, player)
 	if stack:get_count() == 0 then
 		local desc = minetest.registered_items[stack:get_name()].description
 		if desc then
-			minetest.chat_send_player(player:get_player_name(), desc.." "..SL("got destroyed!"))
+			minetest.chat_send_player(player:get_player_name(), desc.." ".. S("got destroyed!"))
 		end
 		armor_inv:set_stack("armor", slot, nil)
 		equipment.for_player(player):delete(equipment.Kind.ARMOR, slot)

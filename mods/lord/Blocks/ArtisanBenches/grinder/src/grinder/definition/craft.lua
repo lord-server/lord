@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	recipes = {
@@ -28,7 +28,7 @@ return {
 		{
 			name = 'grinder:coal_dust',
 			definition = {
-				description = SL('Coal dust'),
+				description = S('Coal dust'),
 				inventory_image = 'grinder_coal_dust.png',
 				groups = {fuel=1,coal=1},
 			}
@@ -36,7 +36,7 @@ return {
 		{
 			name = 'grinder:roll',
 			definition = {
-				description = SL('Roll'),
+				description = S('Roll'),
 				inventory_image = 'grinder_roll.png',
 			}
 		},

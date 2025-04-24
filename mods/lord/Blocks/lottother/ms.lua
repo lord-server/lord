@@ -1,10 +1,10 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- Mobs spawners for buildings
 -- Mordor
 
 minetest.register_node("lottother:mordorms", {
-	description = SL("Mordor Mob Spawner"),
+	description = S("Mordor Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',
@@ -30,7 +30,7 @@ minetest.register_node("lottother:mordorms", {
 -- Rohan
 
 minetest.register_node("lottother:rohanms", {
-	description = SL("Rohan Mob Spawner"),
+	description = S("Rohan Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',
@@ -52,7 +52,7 @@ minetest.register_node("lottother:rohanms", {
 -- Elf
 
 minetest.register_node("lottother:elfms", {
-	description = SL("Elf Mob Spawner"),
+	description = S("Elf Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',
@@ -74,7 +74,7 @@ minetest.register_node("lottother:elfms", {
 --Hobbit
 
 minetest.register_node("lottother:hobbitms", {
-	description = SL("Hobbit Mob Spawner"),
+	description = S("Hobbit Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',
@@ -96,7 +96,7 @@ minetest.register_node("lottother:hobbitms", {
 --Gondor
 
 minetest.register_node("lottother:gondorms", {
-	description = SL("Gondor Mob Spawner"),
+	description = S("Gondor Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',
@@ -118,7 +118,7 @@ minetest.register_node("lottother:gondorms", {
 --Angmar
 
 minetest.register_node("lottother:angmarms", {
-	description = SL("Angmar Mob Spawner"),
+	description = S("Angmar Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
 	drop = '',

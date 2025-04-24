@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 
 races = {}
@@ -12,28 +12,28 @@ races.shadow_privileges = {
 races.name = lord_races.Name
 races.list = {
 	[races.name.SHADOW] = {
-		name = SL("Shadow"),
+		name = S("Shadow"),
 		no_corpse = true,
 		faction = "neutral",
 	},
 	[races.name.ORC] = {
-		name = SL("Orc"),
+		name = S("Orc"),
 		faction = "monster",
 	},
 	[races.name.HUMAN] = {
-		name = SL("Man"),
+		name = S("Man"),
 		faction = "npc",
 	},
 	[races.name.DWARF] = {
-		name = SL("Dwarf"),
+		name = S("Dwarf"),
 		faction = "npc",
 	},
 	[races.name.HOBBIT] = {
-		name = SL("Hobbit"),
+		name = S("Hobbit"),
 		faction = "npc",
 	},
 	[races.name.ELF] = {
-		name = SL("Elf"),
+		name = S("Elf"),
 		faction = "npc",
 	},
 }
@@ -243,12 +243,12 @@ end)
 minetest.register_chatcommand("second_chance", {
 	params = "",
 	privs = {},
-	description = SL("Second chance"),
+	description = S("Second chance"),
 	func = function(name, params)
 		local player = minetest.get_player_by_name(name)
 		local character = character.of(player)
 		if not character:has_second_chance() then
-			return false, SL("Won't give another chance")
+			return false, S("Won't give another chance")
 		end
 
 		races.show_change_form(player)
@@ -259,11 +259,11 @@ minetest.register_chatcommand("second_chance", {
 minetest.register_chatcommand('choose_race', {
 	params = '',
 	privs = { choose_race = true },
-	description = SL(''),
+	description = S(''),
 	func = function(name, params)
 		local player = minetest.get_player_by_name(name)
 		if character.of(player):get_race() ~= races.name.SHADOW then
-			return false, SL('Something went wrong. Only the Shadow can choose the race.')
+			return false, S('Something went wrong. Only the Shadow can choose the race.')
 		end
 
 		ShadowHUD:for_player(player):hide()
@@ -278,9 +278,9 @@ minetest.register_chatcommand('choose_race', {
 })
 
 minetest.register_chatcommand("give_chance", {
-	params = SL("<player name>"),
+	params = S("<player name>"),
 	privs = {race=true},
-	description = SL("Give another chance to a player."),
+	description = S("Give another chance to a player."),
 	func = function(name, params)
 		-- Parse arguments
 		local args = {}
@@ -291,13 +291,13 @@ minetest.register_chatcommand("give_chance", {
 		-- Throw an error if there are too few arguments
 		if #args < 1 then
 			return false, string.format(
-				SL("Too few arguments. Try %s to show the correct usage"),
+				S("Too few arguments. Try %s to show the correct usage"),
 				"/help give_chance")
 		end
 
 		local player = minetest.get_player_by_name(args[1])
 		if not player then
-			return false, SL("Player '@1' is not online or does not exist", args[1])
+			return false, S("Player '@1' is not online or does not exist", args[1])
 		end
 
 		races.show_change_form(player)

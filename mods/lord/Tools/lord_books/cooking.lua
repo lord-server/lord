@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL           = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 zcc                = {}
 zcc.users          = {}
@@ -105,7 +105,7 @@ zcc.form           = {}
 zcc.form.NAME      = "cooking_book_form"
 --- @param player_name string
 --- @return string
-zcc.form.get_spec  = function(player_name)
+zcc.form.get_spec = function(player_name)
 	if zcc.need_load_all then
 		zcc.load_all()
 	end
@@ -113,7 +113,7 @@ zcc.form.get_spec  = function(player_name)
 	local alt          = zcc.users[player_name].alt
 	local current_item = zcc.users[player_name].current_item
 	local formspec     = "size[8,7.5]"
-		.. "button_exit[6,7;2,0.5;;" .. SL("Exit") .. "]"
+		.. "button_exit[6,7;2,0.5;;" .. S("Exit") .. "]"
 	if zcc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zcc_previous;;false;false;books_previous_press.png]"
 	else
@@ -185,9 +185,9 @@ zcc.form.get_spec  = function(player_name)
 	end
 	formspec = formspec ..
 		-- The Y is approximatively the good one to have it centered vertically...
-		"label[2,6.85;" .. SL("Page") .. " " .. (page + 1) .. "/" .. (math.floor(#zcc.itemlist / npp + 1)) .. "]" ..
+		"label[2,6.85;" .. S("Page") .. " " .. (page + 1) .. "/" .. (math.floor(#zcc.itemlist / npp + 1)) .. "]" ..
 		"background[5,5;1,1;books_formbg.png;true]" ..
-		"label[0,0;" .. SL("Book of Cooking") .. "]"
+		"label[0,0;" .. S("Book of Cooking") .. "]"
 	return formspec
 end
 --- @param player_name string
@@ -243,7 +243,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:cooking_book", {
-	description     = SL("Book of Cooking"),
+	description     = S("Book of Cooking"),
 	groups          = { book = 1, paper = 1 },
 	inventory_image = "cooking_book.png",
 	wield_image     = "",

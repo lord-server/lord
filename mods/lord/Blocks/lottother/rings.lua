@@ -1,31 +1,31 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local DWARF_RING_USES = 250
 
 minetest.register_craftitem("lottother:beast_ring", {
-	description = SL("Beast Ring"),
+	description = S("Beast Ring"),
 	inventory_image = "lottother_beast_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:ringsilver_lump", {
-	description = SL("Unrefined Ring Silver"),
+	description = S("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
     groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ringsilver_ingot", {
-	description = SL("Refined Ring Silver"),
+	description = S("Refined Ring Silver"),
 	inventory_image = "lottother_ringsilver_ingot.png",
     groups = {forbidden=1},
 })
 minetest.register_craftitem("lottother:ring", {
-	description = SL("Plain Ring"),
+	description = S("Plain Ring"),
 	inventory_image = "lottother_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_gem", {
-	description = SL("Purple Gem"),
+	description = S("Purple Gem"),
 	inventory_image = "lottother_purplegem.png",
     groups = {forbidden=1},
 })
@@ -34,19 +34,19 @@ minetest.register_craftitem("lottother:purple_gem", {
 --ELF RINGS
 --FUNCTION = Sets your health to max every 30 seconds.
 minetest.register_craftitem("lottother:blue_gem_ring", {
-	description = SL("Blue Gem Ring"),
+	description = S("Blue Gem Ring"),
 	inventory_image = "lottother_bluegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:blue_am_ring", {
-	description = SL("Blue Almost Magic Ring"),
+	description = S("Blue Almost Magic Ring"),
 	inventory_image = "lottother_bluegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:vilya", {
-	description = SL("Vilya"),
+	description = S("Vilya"),
 	inventory_image = "lottother_vilya.png",
     groups = {forbidden=1},
 	stack_max = 1,
@@ -63,19 +63,19 @@ end)
 
 --FUNCTION = Makes (good) mobs follow you.
 minetest.register_craftitem("lottother:red_gem_ring", {
-	description = SL("Red Gem Ring"),
+	description = S("Red Gem Ring"),
 	inventory_image = "lottother_redgem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:red_am_ring", {
-	description = SL("Red Almost Magic Ring"),
+	description = S("Red Almost Magic Ring"),
 	inventory_image = "lottother_redgem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:narya", {
-	description = SL("Narya"),
+	description = S("Narya"),
 	inventory_image = "lottother_narya.png",
     groups = {forbidden=1},
 	stack_max = 1,
@@ -84,19 +84,19 @@ minetest.register_craftitem("lottother:narya", {
 
 --FUNCTION = Same armor stats as a full set of mithril.
 minetest.register_craftitem("lottother:white_gem_ring", {
-	description = SL("White Gem Ring"),
+	description = S("White Gem Ring"),
 	inventory_image = "lottother_whitegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:white_am_ring", {
-	description = SL("White Almost Magic Ring"),
+	description = S("White Almost Magic Ring"),
 	inventory_image = "lottother_whitegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_tool("lottother:nenya", {
-	description = SL("Nenya"),
+	description = S("Nenya"),
 	inventory_image = "lottother_nenya_inv.png",
 	groups = { armor_shield = 1, defense_fleshy = 90, forbidden = 1, armor_use = 30 },
 	wear = 0,
@@ -196,25 +196,25 @@ minetest.register_craft({
 --OTHER RINGS
 --Mithril ring (base for Dwarf ring)
 minetest.register_craftitem("lottother:purple_gem_ring", {
-	description = SL("Purple Gem Ring"),
+	description = S("Purple Gem Ring"),
 	inventory_image = "lottother_purplegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_gem_mithril_ring", {
-	description = SL("Purple Gem Mithril Ring"),
+	description = S("Purple Gem Mithril Ring"),
 	inventory_image = "lottother_purplegem_mithril_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_craftitem("lottother:purple_am_ring", {
-	description = SL("Mithril Almost Magic Ring"),
+	description = S("Mithril Almost Magic Ring"),
 	inventory_image = "lottother_purplegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 minetest.register_tool("lottother:dwarf_ring", {
-	description = SL("Dwarf Ring"),
+	description = S("Dwarf Ring"),
 	inventory_image = "lottother_dwarf_ring.png",
 	groups = {forbidden=1},
 })

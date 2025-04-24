@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -15,7 +15,7 @@ return {
 		}
 	end,
 	wood = {
-		description = SL("Wooden Axe"),
+		description = S("Wooden Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 0,
 		choppy = {
@@ -27,7 +27,7 @@ return {
 		groups = {wooden = 1, axe = 1, flammable = 2},
 	},
 	stone = {
-		description = SL("Stone Axe"),
+		description = S("Stone Axe"),
 		full_punch_interval = 1.2,
 		max_drop_level = 0,
 		choppy = {
@@ -39,7 +39,7 @@ return {
 		groups = {axe = 1},
 	},
 	steel = {
-		description = SL("Steel Axe"),
+		description = S("Steel Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -51,7 +51,7 @@ return {
 		groups = {steel_item = 1, axe = 1},
 	},
 	bronze = {
-		description = SL("Bronze Axe"),
+		description = S("Bronze Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -63,7 +63,7 @@ return {
 		groups = {bronze_item = 1, axe = 1},
 	},
 	copper = {
-		description = SL("Copper Axe"),
+		description = S("Copper Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -75,7 +75,7 @@ return {
 		groups = {copper_item = 1, axe = 1},
 	},
 	tin = {
-		description = SL("Tin Axe"),
+		description = S("Tin Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -87,7 +87,7 @@ return {
 		groups = {tin_item = 1, axe = 1},
 	},
 	silver = {
-		description = SL("Silver Axe"),
+		description = S("Silver Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -99,7 +99,7 @@ return {
 		groups = {silver_item = 1, axe = 1},
 	},
 	gold = {
-		description = SL("Gold Axe"),
+		description = S("Gold Axe"),
 		full_punch_interval = 1.0,
 		max_drop_level = 1,
 		choppy = {
@@ -111,7 +111,7 @@ return {
 		groups = {gold_item = 1, axe = 1},
 	},
 	galvorn = {
-		description = SL("Galvorn Axe"),
+		description = S("Galvorn Axe"),
 		full_punch_interval = 0.9,
 		max_drop_level = 1,
 		choppy = {
@@ -123,7 +123,7 @@ return {
 		groups = {galvorn_item = 1, axe = 1},
 	},
 	mithril = {
-		description = SL("Mithril Axe"),
+		description = S("Mithril Axe"),
 		full_punch_interval = 0.8,
 		max_drop_level = 1,
 		choppy = {

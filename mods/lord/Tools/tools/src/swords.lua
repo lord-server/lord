@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood        = {
-		description         = SL("Wooden Sword"),
+		description         = S("Wooden Sword"),
 		max_drop_level      = 0,
 		snappy              = {
 			times    = { [2] = 1.6, [3] = 0.40 },
@@ -21,7 +21,7 @@ return {
 		groups              = { wooden = 1, sword = 1, flammable = 2 },
 	},
 	stone       = {
-		description         = SL("Stone Sword"),
+		description         = S("Stone Sword"),
 		max_drop_level      = 0,
 		snappy              = {
 			times    = { [2] = 1.4, [3] = 0.40 },
@@ -33,7 +33,7 @@ return {
 		groups              = { sword = 1 },
 	},
 	steel       = {
-		description         = SL("Steel Sword"),
+		description         = S("Steel Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -45,7 +45,7 @@ return {
 		groups              = { steel_item = 1, sword = 1 },
 	},
 	bronze      = {
-		description         = SL("Bronze Sword"),
+		description         = S("Bronze Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -57,7 +57,7 @@ return {
 		groups              = { bronze_item = 1, sword = 1 },
 	},
 	copper      = {
-		description         = SL("Copper Sword"),
+		description         = S("Copper Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -69,7 +69,7 @@ return {
 		groups              = { copper_item = 1, sword = 1 },
 	},
 	tin         = {
-		description         = SL("Tin Sword"),
+		description         = S("Tin Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -81,7 +81,7 @@ return {
 		groups              = { tin_item = 1, sword = 1 },
 	},
 	silver      = {
-		description         = SL("Silver Sword"),
+		description         = S("Silver Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.3, [2] = 1.10, [3] = 0.35 },
@@ -93,7 +93,7 @@ return {
 		groups              = { silver_item = 1, sword = 1 },
 	},
 	gold        = {
-		description         = SL("Gold Sword"),
+		description         = S("Gold Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.3, [2] = 1.10, [3] = 0.35 },
@@ -105,7 +105,7 @@ return {
 		groups              = { gold_item = 1, sword = 1 },
 	},
 	galvorn     = {
-		description         = SL("Galvorn Sword"),
+		description         = S("Galvorn Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.0, [2] = 1.00, [3] = 0.35 },
@@ -117,7 +117,7 @@ return {
 		groups              = { forbidden = 1, galvorn_item = 1, sword = 1 },
 	},
 	mithril     = {
-		description         = SL("Mithril Sword"),
+		description         = S("Mithril Sword"),
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 0.70, [2] = 0.80, [3] = 0.25 },

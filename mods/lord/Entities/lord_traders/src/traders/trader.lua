@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 --- @type traders.config[]
 local config = require("traders.config")
@@ -80,8 +80,8 @@ local function on_rightclick(entity, clicker, race)
 
 	minetest.chat_send_player(
 		player_name,
-		"[NPC] <" .. SL("Trader") .. " " .. SL(entity.game_name) .. "> " ..
-			SL("Hello") .. ", " .. player_name .. ", \n" ..
+		"[NPC] <" .. S("Trader") .. " " .. S(entity.game_name) .. "> " ..
+			S("Hello") .. ", " .. player_name .. ", \n" ..
 			tostring(trader_config.messages[math.random(1, #trader_config.messages)]) -- messages already translated
 	)
 

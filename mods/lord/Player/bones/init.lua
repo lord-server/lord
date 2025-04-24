@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
@@ -23,7 +23,7 @@ end
 
 local function register_corpse(race, gender, skin)
 	minetest.register_node(string.format("bones:corpse_%s_%s_%d", race, gender, skin), {
-		description = SL("Corpse"),
+		description = S("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
 		tiles = {lord_skins.get_texture_name(race, gender, skin)},
@@ -58,7 +58,7 @@ local function register_corpse(race, gender, skin)
 		on_metadata_inventory_take = function(pos, listname, index, stack, player)
 			local meta = minetest.get_meta(pos)
 			if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
-				meta:set_string("infotext", SL("Unknown corpse"))
+				meta:set_string("infotext", S("Unknown corpse"))
 				meta:set_string("owner", "")
 			end
 		end,
@@ -66,7 +66,7 @@ local function register_corpse(race, gender, skin)
 			local meta = minetest.get_meta(pos)
 			local inv = meta:get_inventory()
 			inv:set_size("main", 8*5)
-			meta:set_string("infotext", SL("Unknown corpse"))
+			meta:set_string("infotext", S("Unknown corpse"))
 			meta:set_string("formspec", bones_formspec)
 		end,
 		on_timer = function(pos, elapsed)
@@ -74,7 +74,7 @@ local function register_corpse(race, gender, skin)
 			local meta = minetest.get_meta(pos)
 			local time = meta:get_int("time") + elapsed
 			if time >= publish_after then
-				meta:set_string("infotext", SL("Unknown corpse"))
+				meta:set_string("infotext", S("Unknown corpse"))
 				meta:set_string("owner", "")
 				return false
 			else
@@ -196,13 +196,13 @@ minetest.register_on_dieplayer(function(player)
 
 	corpse_meta:set_string("formspec", bones_formspec)
 	if publish_after < 0 then -- все трупы - достояние общественности
-		corpse_meta:set_string("infotext", SL("Unknown corpse"))
+		corpse_meta:set_string("infotext", S("Unknown corpse"))
 		corpse_meta:set_string("owner", "")
 	elseif publish_after == 0 then -- труп - собственность хозяина - навсегда
-		corpse_meta:set_string("infotext", SL("Corpse of").." "..player_name)
+		corpse_meta:set_string("infotext", S("Corpse of").." "..player_name)
 		corpse_meta:set_string("owner", player_name)
 	else -- труп - собственность хозяина - на время publish_after
-		corpse_meta:set_string("infotext", SL("Corpse of").." "..player_name)
+		corpse_meta:set_string("infotext", S("Corpse of").." "..player_name)
 		corpse_meta:set_string("owner", player_name)
 		corpse_meta:set_int("time", 0)
 		minetest.get_node_timer(corpse_pos):start(10)

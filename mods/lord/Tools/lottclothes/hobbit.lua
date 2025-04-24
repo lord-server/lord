@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- basic hobbit outfit.
 -- made from varios flax (multi-color).
@@ -21,7 +21,7 @@ for color, fabric in pairs(fabric_colors) do
 
 	-- shirt (torso)
 	minetest.register_tool("lottclothes:shirt_hobbit_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Hobbit Shirt"),
+		description = S(color:gsub("^%l", string.upper).." Hobbit Shirt"),
 		inventory_image = "lottclothes_inv_shirt_hobbit_"..color..".png",
 		groups = {armor_torso=0, clothes=1, clothes_torso=1},
 		wear = 0
@@ -45,7 +45,7 @@ for color, fabric in pairs(fabric_colors) do
 
 	-- shorts(legs)
 	minetest.register_tool("lottclothes:shorts_hobbit_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Hobbit Shorts"),
+		description = S(color:gsub("^%l", string.upper).." Hobbit Shorts"),
 		inventory_image = "lottclothes_inv_shorts_hobbit_"..color..".png",
 		groups = {armor_legs=0, clothes=1, clothes_legs=1},
 		wear = 0
@@ -69,7 +69,7 @@ for color, fabric in pairs(fabric_colors) do
 
 	-- shoes(feet)
 	minetest.register_tool("lottclothes:shoes_hobbit_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Hobbit Shoes"),
+		description = S(color:gsub("^%l", string.upper).." Hobbit Shoes"),
 		inventory_image = "lottclothes_inv_shoes_hobbit_"..color..".png",
 		groups = {armor_feet=0, clothes=1, clothes_feet=1},
 		wear = 0
@@ -92,7 +92,7 @@ for color, fabric in pairs(fabric_colors) do
 
 	-- cloak
 	minetest.register_tool("lottclothes:cloak_hobbit_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Hobbit Cloak"),
+		description = S(color:gsub("^%l", string.upper).." Hobbit Cloak"),
 		inventory_image = "lottclothes_inv_cloak_hobbit_"..color..".png",
 		groups = {clothes=1, no_preview = 1, clothes_cloak=1},
 		wear = 0

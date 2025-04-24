@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood = {
-		description = SL("Wooden Shovel"),
+		description = S("Wooden Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.2,
 		max_drop_level = 0,
@@ -22,7 +22,7 @@ return {
 		groups = {wooden = 1, shovel = 1, flammable = 2},
 	},
 	stone = {
-		description = SL("Stone Shovel"),
+		description = S("Stone Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.4,
 		max_drop_level = 0,
@@ -35,7 +35,7 @@ return {
 		groups = {shovel = 1},
 	},
 	steel = {
-		description = SL("Steel Shovel"),
+		description = S("Steel Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -47,7 +47,7 @@ return {
 		groups = {steel_item = 1, shovel = 1},
 	},
 	bronze = {
-		description = SL("Bronze Shovel"),
+		description = S("Bronze Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -60,7 +60,7 @@ return {
 		groups = {bronze_item = 1, shovel = 1},
 	},
 	copper = {
-		description = SL("Copper Shovel"),
+		description = S("Copper Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -73,7 +73,7 @@ return {
 		groups = {copper_item = 1, shovel = 1},
 	},
 	tin = {
-		description = SL("Tin Shovel"),
+		description = S("Tin Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -86,7 +86,7 @@ return {
 		groups = {tin_item = 1, shovel = 1},
 	},
 	silver = {
-		description = SL("Silver Shovel"),
+		description = S("Silver Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -99,7 +99,7 @@ return {
 		groups = {silver_item = 1, shovel = 1},
 	},
 	gold = {
-		description = SL("Gold Shovel"),
+		description = S("Gold Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.1,
 		max_drop_level = 1,
@@ -112,7 +112,7 @@ return {
 		groups = {gold_item = 1, shovel = 1},
 	},
 	galvorn = {
-		description = SL("Galvorn Shovel"),
+		description = S("Galvorn Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 1.0,
 		max_drop_level = 3,
@@ -125,7 +125,7 @@ return {
 		groups = {forbidden=1, galvorn_item = 1, shovel = 1},
 	},
 	mithril = {
-		description = SL("Mithril Shovel"),
+		description = S("Mithril Shovel"),
 		wield_image_transform = "^[transformR90",
 		full_punch_interval = 0.9,
 		max_drop_level = 3,

@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local armchair_cbox = {
 	type = "fixed",
@@ -13,7 +13,7 @@ for i in ipairs(lrfurn.colors) do
 	local hue = lrfurn.colors[i][2]
 
 	minetest.register_node("lord_homedecor:armchair_"..colour, {
-		description = SL("Armchair ("..colour..")"),
+		description = S("Armchair ("..colour..")"),
 		drawtype = "mesh",
 		mesh = "lrfurn_armchair.obj",
 		tiles = {

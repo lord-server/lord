@@ -1,12 +1,12 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_chatcommand("mypos", {
 	params = "<name>",
-	description = SL("Show your position for all or same player."),
+	description = S("Show your position for all or same player."),
 	func = function(name, param)
 		local player = minetest.get_player_by_name(name)
 		if not player then
-			return false, SL("Player not found!")
+			return false, S("Player not found!")
 		end
 		local mypos = player:get_pos()
 		local message = string.format("x=%d, y=%d, z=%d", mypos.x,mypos.y,mypos.z)
@@ -15,8 +15,8 @@ minetest.register_chatcommand("mypos", {
 		elseif minetest.get_player_by_name(param) then
 			minetest.chat_send_player(param, message)
 		else
-			return false, SL("Player for private message not found!")
+			return false, S("Player for private message not found!")
 		end
-		return true, SL("Done.")
+		return true, S("Done.")
 	end,
 })

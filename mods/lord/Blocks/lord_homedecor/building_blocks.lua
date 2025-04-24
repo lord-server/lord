@@ -1,8 +1,8 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_node("lord_homedecor:Adobe", {
 	tiles = {"building_blocks_Adobe.png"},
-	description = SL("Adobe"),
+	description = S("Adobe"),
 	is_ground_content = true,
 	groups = {crumbly=3},
 	sounds = default.node_sound_stone_defaults(),
@@ -10,7 +10,7 @@ minetest.register_node("lord_homedecor:Adobe", {
 minetest.register_node("lord_homedecor:Roofing", {
 	tiles = {"building_blocks_Roofing.png"},
 	is_ground_content = true,
-	description = SL("Roof block"),
+	description = S("Roof block"),
 	groups = {snappy=3},
 })
 minetest.register_craft({
@@ -110,7 +110,7 @@ minetest.register_craft({
 
 minetest.register_node("lord_homedecor:smoothglass", {
 	drawtype = "glasslike",
-	description = SL("Streak Free Glass"),
+	description = S("Streak Free Glass"),
 	tiles = {"building_blocks_sglass.png"},
 	inventory_image = minetest.inventorycube("building_blocks_sglass.png"),
 	paramtype = "light",
@@ -122,7 +122,7 @@ minetest.register_node("lord_homedecor:smoothglass", {
 
 minetest.register_node("lord_homedecor:grate", {
 	drawtype = "glasslike",
-	description = SL("Grate"),
+	description = S("Grate"),
 	tiles = {"building_blocks_grate.png"},
 	use_texture_alpha = "clip",
 	inventory_image = minetest.inventorycube("building_blocks_grate.png"),
@@ -133,7 +133,7 @@ minetest.register_node("lord_homedecor:grate", {
 })
 
 minetest.register_node("lord_homedecor:Fireplace", {
-	description = SL("Fireplace"),
+	description = S("Fireplace"),
 	tiles = {
 		"building_blocks_cast_iron.png",
 		"building_blocks_cast_iron.png",
@@ -150,7 +150,7 @@ minetest.register_node("lord_homedecor:Fireplace", {
 
 minetest.register_node("lord_homedecor:woodglass", {
 	drawtype = "glasslike",
-	description = SL("Wood Framed Glass"),
+	description = S("Wood Framed Glass"),
 	tiles = {"building_blocks_wglass.png"},
 	inventory_image = minetest.inventorycube("building_blocks_wglass.png"),
 	paramtype = "light",
@@ -161,7 +161,7 @@ minetest.register_node("lord_homedecor:woodglass", {
 })
 minetest.register_node("lord_homedecor:terrycloth_towel", {
 	drawtype = "raillike",
-	description = SL("Terrycloth towel"),
+	description = S("Terrycloth towel"),
 	tiles = {"building_blocks_towel.png"},
 	inventory_image = "building_blocks_towel_inv.png",
 	paramtype = "light",
@@ -180,7 +180,7 @@ minetest.register_node("lord_homedecor:terrycloth_towel", {
 --
 minetest.register_node("lord_homedecor:canopy", {
 	drawtype = "raillike",
-	description = SL("Canopy"),
+	description = S("Canopy"),
 	tiles = {"building_blocks_canopy.png"},
 	inventory_image = "building_blocks_canopy_inv.png",
 	paramtype = "light",
@@ -206,7 +206,7 @@ minetest.register_craft({
 --
 minetest.register_node("lord_homedecor:BWtile", {
 	drawtype = "raillike",
-	description = SL("Chess board tiling"),
+	description = S("Chess board tiling"),
 	tiles = {"building_blocks_BWtile.png"},
 	inventory_image = "building_blocks_bwtile_inv.png",
 	paramtype = "light",
@@ -222,7 +222,7 @@ minetest.register_node("lord_homedecor:BWtile", {
 })
 minetest.register_node("lord_homedecor:brobble_spread", {
 	drawtype = "raillike",
-	description = SL("Brobble Spread"),
+	description = S("Brobble Spread"),
 	tiles = {"building_blocks_brobble.png"},
 	inventory_image = "building_blocks_brobble_spread_inv.png",
 	paramtype = "light",
@@ -238,7 +238,7 @@ minetest.register_node("lord_homedecor:brobble_spread", {
 })
 minetest.register_node("lord_homedecor:gravel_spread", {
 	drawtype = "raillike",
-	description = SL("Gravel Spread"),
+	description = S("Gravel Spread"),
 	tiles = {"default_gravel.png"},
 	inventory_image = "building_blocks_gravel_spread_inv.png",
 	paramtype = "light",
@@ -261,7 +261,7 @@ local texture_side = "scaffolding_wooden_side.png"
 local texture_bottom = texture_top.."^scaffolding_wooden_bottom.png"
 
 minetest.register_node("lord_homedecor:scaffolding", {
-	description = SL("Scaffolding"),
+	description = S("Scaffolding"),
 	drawtype = "nodebox",
 	node_box = {
 		type = "fixed",
@@ -303,12 +303,12 @@ stairs.register_stair_and_slab(
 	"lord_homedecor:grate",
 	{cracky=1},
 	{"building_blocks_grate.png"},
-	SL("Grate stair"),
-	SL("Grate slab"),
+	S("Grate stair"),
+	S("Grate slab"),
 	default.node_sound_leaves_defaults(),
 	false,
-	SL("Inner Grate stair"),
-	SL("Outer Grate stair")
+	S("Inner Grate stair"),
+	S("Outer Grate stair")
 )
 
 stairs.register_stair_and_slab(
@@ -316,12 +316,12 @@ stairs.register_stair_and_slab(
 	"lord_homedecor:Adobe",
 	{cracky=3},
 	{"building_blocks_Adobe.png"},
-	SL("Adobe stair"),
-	SL("Adobe slab"),
+	S("Adobe stair"),
+	S("Adobe slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Adobe stair"),
-	SL("Outer Adobe stair")
+	S("Inner Adobe stair"),
+	S("Outer Adobe stair")
 )
 
 stairs.register_stair_and_slab(
@@ -329,16 +329,16 @@ stairs.register_stair_and_slab(
 	"lord_homedecor:Roofing",
 	{cracky=3},
 	{"building_blocks_Roofing.png"},
-	SL("Roofing stair"),
-	SL("Roofing slab"),
+	S("Roofing stair"),
+	S("Roofing slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Roofing stair"),
-	SL("Outer Roofing stair")
+	S("Inner Roofing stair"),
+	S("Outer Roofing stair")
 )
 
 minetest.register_craftitem("lord_homedecor:sticks", {
-	description = SL("Small bundle of sticks"),
+	description = S("Small bundle of sticks"),
 	image = "building_blocks_sticks.png",
 	on_place_on_ground = minetest.craftitem_place_item,
 })

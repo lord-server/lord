@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- the simplest outfit available.
 -- made from green felt & wood (just cut down the nearest tree).
@@ -6,7 +6,7 @@ local SL = minetest.get_mod_translator()
 
 -- cap (head)
 minetest.register_tool("lottclothes:cap_midgewater", {
-	description = SL("Midgewater Cap"),
+	description = S("Midgewater Cap"),
 	inventory_image = "lottclothes_inv_cap_midgewater.png",
 	groups = {armor_head=0, clothes=1, clothes_head=1},
 	wear = 0
@@ -30,7 +30,7 @@ minetest.register_craft({
 
 -- jacket (torso)
 minetest.register_tool("lottclothes:jacket_midgewater", {
-	description = SL("Midgewater Jacket"),
+	description = S("Midgewater Jacket"),
 	inventory_image = "lottclothes_inv_jacket_midgewater.png",
 	groups = {armor_torso=0, clothes=1, clothes_torso=1},
 	wear = 0
@@ -54,7 +54,7 @@ minetest.register_craft({
 
 -- pants (legs)
 minetest.register_tool("lottclothes:pants_midgewater", {
-	description = SL("Midgewater Pants"),
+	description = S("Midgewater Pants"),
 	inventory_image = "lottclothes_inv_pants_midgewater.png",
 	groups = {armor_legs=0, clothes=1, clothes_legs=1},
 	wear = 0
@@ -78,7 +78,7 @@ minetest.register_craft({
 
 -- boots (feet)
 minetest.register_tool("lottclothes:boots_midgewater", {
-	description = SL("Midgewater Boots"),
+	description = S("Midgewater Boots"),
 	inventory_image = "lottclothes_inv_boots_midgewater.png",
 	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0

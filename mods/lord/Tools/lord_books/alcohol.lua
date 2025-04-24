@@ -1,4 +1,4 @@
-local SL      = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local form    = {}
 --- @type string
@@ -9,24 +9,24 @@ form.get_spec = function(page)
 	if page == "brews" then
 		return "size[8,5.5]"
 			.. "background[5,5;1,1;books_formbg.png;true]"
-			.. "label[0,0;" .. SL("Book of Brewing") .. "]"
-			.. "button_exit[6,0;2,0.5;quit;" .. SL("Exit") .. "]"
+			.. "label[0,0;" .. S("Book of Brewing") .. "]"
+			.. "button_exit[6,0;2,0.5;quit;" .. S("Exit") .. "]"
 			.. "image_button[7,1;1,1;books_next.png;brews2;;false;false;books_next_press.png]"
 			.. "image[6,1;1,1;books_previous_inactive.png]"
 			--First
-			.. "label[1,2.2; " .. SL("Wine") .. "]"
+			.. "label[1,2.2; " .. S("Wine") .. "]"
 			.. "item_image_button[4,2;1,1;lord_vessels:drinking_glass_water;zcg:vessels:glass_water;]"
 			.. "item_image_button[5,2;1,1;lottfarming:berries;zcg:berries;5]"
 			.. "image[6,2;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,2;1,1;lord_alcohol:wine;zcg:wine;]"
 			--Second
-			.. "label[1,3.2; " .. SL("Beer") .. "]"
+			.. "label[1,3.2; " .. S("Beer") .. "]"
 			.. "item_image_button[4,3;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,3;1,1;farming:seed_wheat;zcg:wheat;3]"
 			.. "image[6,3;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,3;1,1;lord_alcohol:beer;zcg:beer;]"
 			--Third
-			.. "label[1,4.2; " .. SL("Mead") .. "]"
+			.. "label[1,4.2; " .. S("Mead") .. "]"
 			.. "item_image_button[4,4;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,4;1,1;bees:bottle_honey;zcg:honey;6]"
 			.. "image[6,4;1,1;books_craft_arrow.png]"
@@ -35,18 +35,18 @@ form.get_spec = function(page)
 	if page == "brews2" then
 		return "size[8,5.5]"
 			.. "background[5,5;1,1;books_formbg.png;true]"
-			.. "label[0,0;" .. SL("Book of Brewing") .. "]"
-			.. "button_exit[6,0;2,0.5;quit;" .. SL("Exit") .. "]"
+			.. "label[0,0;" .. S("Book of Brewing") .. "]"
+			.. "button_exit[6,0;2,0.5;quit;" .. S("Exit") .. "]"
 			.. "image[7,1;1,1;books_next_inactive.png]"
 			.. "image_button[6,1;1,1;books_previous.png;brews;;false;false;books_previous_press.png]"
 			--First
-			.. "label[1,2.2; " .. SL("Cider") .. "]"
+			.. "label[1,2.2; " .. S("Cider") .. "]"
 			.. "item_image_button[4,2;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,2;1,1;default:apple;zcg:apple; 5]"
 			.. "image[6,2;1,1;books_craft_arrow.png]"
 			.. "item_image_button[7,2;1,1;lord_alcohol:cider;zcg:cider;]"
 			--Second
-			.. "label[1,3.2; " .. SL("Ale") .. "]"
+			.. "label[1,3.2; " .. S("Ale") .. "]"
 			.. "item_image_button[4,3;1,1;lord_vessels:drinking_glass_water;zcg:drinking_glass_water;]"
 			.. "item_image_button[5,3;1,1;lottfarming:barley_seed;zcg:barley;6]"
 			.. "image[6,3;1,1;books_craft_arrow.png]"
@@ -85,7 +85,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:brewing_book", {
-	description     = SL("Book of Brewing"),
+	description     = S("Book of Brewing"),
 	inventory_image = "brewing_book.png",
 	wield_image     = "",
 	wield_scale     = { x = 1, y = 1, z = 1 },

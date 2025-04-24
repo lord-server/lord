@@ -1,7 +1,7 @@
 -- Minetest 0.4 mod: lord_homedecor
 -- See README.txt for licensing and other information.
 
-local SL = minetest.get_mod_translator()
+local S       = minetest.get_mod_translator()
 local modpath = minetest.get_modpath("lord_homedecor")
 
 -- Definitions made by this mod that other mods can use too
@@ -58,12 +58,12 @@ function lrfurn.check_forward(pos, fdir, long, placer)
 		if not long then
 			minetest.chat_send_player(
 				placer:get_player_name(),
-				SL("Someone else owns the spot where other end goes!")
+				S("Someone else owns the spot where other end goes!")
 			)
 		else
 			minetest.chat_send_player(
 				placer:get_player_name(),
-				SL("Someone else owns the spot where the middle or far end goes!")
+				S("Someone else owns the spot where the middle or far end goes!")
 			)
 		end
 		return false
@@ -74,7 +74,7 @@ function lrfurn.check_forward(pos, fdir, long, placer)
 		if node3 and node3.name ~= "air" then
 			return false
 		elseif minetest.is_protected(pos3, placer:get_player_name()) then
-			minetest.chat_send_player(placer:get_player_name(), SL("Someone else owns the spot where the other end goes!"))
+			minetest.chat_send_player(placer:get_player_name(), S("Someone else owns the spot where the other end goes!"))
 			return false
 		end
 	end

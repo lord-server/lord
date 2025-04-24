@@ -1,7 +1,7 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_node("bones:skeleton", {
-	description = SL("Skeleton Head"),
+	description = S("Skeleton Head"),
 	drawtype    = "nodebox",
 	tiles       = {
 		"bones_skeleton_top.png",
@@ -30,7 +30,7 @@ minetest.register_node("bones:skeleton", {
 })
 
 minetest.register_node("bones:skeleton_body", {
-	description = SL("Skeleton"),
+	description = S("Skeleton"),
 	drawtype = "nodebox",
 	tiles = {"bones_skeleton_top.png"},
 	inventory_image = "bones_skeleton.png",

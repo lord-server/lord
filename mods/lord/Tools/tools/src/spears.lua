@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 return {
 	get_recipes = function(source)
@@ -9,7 +9,7 @@ return {
 		}}
 	end,
 	wood        = {
-		description           = SL("Wooden Spear"),
+		description           = S("Wooden Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -19,7 +19,7 @@ return {
 		groups                = { wooden = 1 },
 	},
 	stone       = {
-		description           = SL("Stone Spear"),
+		description           = S("Stone Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -28,7 +28,7 @@ return {
 		full_punch_interval   = 1.50,
 	},
 	steel       = {
-		description           = SL("Steel Spear"),
+		description           = S("Steel Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -38,7 +38,7 @@ return {
 		groups                = { steel_item = 1 },
 	},
 	bronze      = {
-		description           = SL("Bronze Spear"),
+		description           = S("Bronze Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -48,7 +48,7 @@ return {
 		groups                = { bronze_item = 1 },
 	},
 	copper      = {
-		description           = SL("Copper Spear"),
+		description           = S("Copper Spear"),
 		wield_image_transform = "^[transformFX",
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
@@ -57,7 +57,7 @@ return {
 		groups                = { copper_item = 1 },
 	},
 	tin         = {
-		description           = SL("Tin Spear"),
+		description           = S("Tin Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -67,7 +67,7 @@ return {
 		groups                = { tin_item = 1 },
 	},
 	silver      = {
-		description           = SL("Silver Spear"),
+		description           = S("Silver Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -77,7 +77,7 @@ return {
 		groups                = { silver_item = 1 },
 	},
 	gold        = {
-		description           = SL("Gold Spear"),
+		description           = S("Gold Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -87,7 +87,7 @@ return {
 		groups                = { gold_item = 1 },
 	},
 	galvorn     = {
-		description           = SL("Galvorn Spear"),
+		description           = S("Galvorn Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,
@@ -97,7 +97,7 @@ return {
 		groups                = { forbidden = 1, galvorn_item = 1 },
 	},
 	mithril     = {
-		description           = SL("Mithril Spear"),
+		description           = S("Mithril Spear"),
 		wield_image_transform = "^[transformFX",
 		range                 = 7,
 		max_drop_level        = 1,

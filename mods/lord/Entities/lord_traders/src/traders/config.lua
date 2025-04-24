@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 --- @class traders.config
 --- @field goods    table<string,traders.config.good> key: stack_string, value: {price: stack_string, chance: percent}
@@ -45,12 +45,12 @@ trader_config.dwarf  = {
 		"Grór", "Lóni", "Náli", "Narvi", "Telchar", "Thion"
 	},
 	messages   = {
-		SL("We have many treasures, and for the right price we might be willing to part with them..."),
-		SL("Don't even think of stealing our treasure... If you do, heads shall roll."),
-		SL("What are you doing here? What do you want from us?"),
-		SL("Be careful when you enter our homes, a fall from the ladder could well prove deadly."),
-		SL("If you want to mine, do so. There's plenty of iron to go around!"),
-		SL("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."), -- luacheck: no_max_line_length
+		S("We have many treasures, and for the right price we might be willing to part with them..."),
+		S("Don't even think of stealing our treasure... If you do, heads shall roll."),
+		S("What are you doing here? What do you want from us?"),
+		S("Be careful when you enter our homes, a fall from the ladder could well prove deadly."),
+		S("If you want to mine, do so. There's plenty of iron to go around!"),
+		S("If you venture deep underground, beware! The monsters there are very powerful, and kill the unprepared instantly."), -- luacheck: no_max_line_length
 	}
 }
 --- @type traders.config
@@ -78,12 +78,12 @@ trader_config.elf    = {
 		"Oropher", "Maglor", "Quennar", "Rúmil", "Orgof", "Voronwë"
 	},
 	messages   = {
-		SL("Welcome to our lovely forest home, weary traveler. Refresh yourself here."),
-		SL("Sauron grows in power. Shall we be able to vanquish him again?"),
-		SL("We are a peace loving people, but if we are angered, our wrath is terrible!"),
-		SL("Rest among us and prepare yourself, for war is imminent."),
-		SL("If you wish to buy goods from us, there are certain traders who wander our land."),
-		SL("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."), -- luacheck: no_max_line_length
+		S("Welcome to our lovely forest home, weary traveler. Refresh yourself here."),
+		S("Sauron grows in power. Shall we be able to vanquish him again?"),
+		S("We are a peace loving people, but if we are angered, our wrath is terrible!"),
+		S("Rest among us and prepare yourself, for war is imminent."),
+		S("If you wish to buy goods from us, there are certain traders who wander our land."),
+		S("Beware! Our society, and all societies, are on the edge of a knife blade - one false move and all will end, and Sauron will rule supreme."), -- luacheck: no_max_line_length
 	}
 }
 --- @type traders.config
@@ -110,16 +110,16 @@ trader_config.hobbit = {
 		"Hobson", "Ilberic", "Largo", "Madoc", "Orgulas", "Rorimac"
 	},
 	messages   = {
-		SL("Ah, what a lovely land we have, so peaceful, so beautiful."),
-		SL("There's nothing quite like the smell of pipe smoke rising on a cold October morning, is there?"),
-		SL("If you are in need of any food, there are traders who wander around and they usually have a good stock."),
-		SL("If you are thinking that you'll find adventures here, think again! Good day!"),
-		SL("We hear tales of war, but they cannot be more than tales - like that of the Oliphaunt."),
-		SL("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."), -- luacheck: no_max_line_length
+		S("Ah, what a lovely land we have, so peaceful, so beautiful."),
+		S("There's nothing quite like the smell of pipe smoke rising on a cold October morning, is there?"),
+		S("If you are in need of any food, there are traders who wander around and they usually have a good stock."),
+		S("If you are thinking that you'll find adventures here, think again! Good day!"),
+		S("We hear tales of war, but they cannot be more than tales - like that of the Oliphaunt."),
+		S("Food is meant to be enjoyed, not rushed. Don't just eat a little here and a little there, sit down for a proper meal sometimes..."), -- luacheck: no_max_line_length
 	}
 }
 --- @type traders.config
-trader_config.man  = {
+trader_config.man    = {
 	goods      = table.merge(trader_config.common_goods, {
 		["default:sandstone 40"]           = { price = 100, chance = 12, stock = 1 },
 		["lord_boats:sail_boat 1"]         = { price = 40,  chance = 14, stock = 1 },
@@ -142,12 +142,12 @@ trader_config.man  = {
 		"Gilraen", "Írimon", "Minardil", "Oromendil", "Tarcil", "Vorondil"
 	},
 	messages   = {
-		SL("War comes swiftly... We are preparing, but are we doing enough?"),
-		SL("The noble race of man rises in the world! Even the dwarves are starting to show interest in some of our goods."),
-		SL("Are you willing to fight with us? We have much to lose, but much to gain also! We must rally together."),
-		SL("Don't listen to those who say that all this talk of war will come to nothing, for we are at war now."),
-		SL("We suffer raids from orcs, and other evil things, yet we do nothing! We must act, and act with force!"),
-		SL("Life here is far from normal. We wish for peace, yet the only way we can get peace is through war..."),
+		S("War comes swiftly... We are preparing, but are we doing enough?"),
+		S("The noble race of man rises in the world! Even the dwarves are starting to show interest in some of our goods."),
+		S("Are you willing to fight with us? We have much to lose, but much to gain also! We must rally together."),
+		S("Don't listen to those who say that all this talk of war will come to nothing, for we are at war now."),
+		S("We suffer raids from orcs, and other evil things, yet we do nothing! We must act, and act with force!"),
+		S("Life here is far from normal. We wish for peace, yet the only way we can get peace is through war..."),
 	}
 }
 trader_config.orc    = {
@@ -157,8 +157,8 @@ trader_config.orc    = {
 		"Othrod", "Radbug", "Shagrat", "Ufthak", "Uglúk"
 	},
 	messages = {
-		SL("DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!"),
-		SL("Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!")
+		S("DIE!!!, Urrrrrrrrrrrrrghhhhhhhhhhhhhhhhhhh!!"),
+		S("Arrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr!, KILL! KILL! KILL!")
 	},
 }
 

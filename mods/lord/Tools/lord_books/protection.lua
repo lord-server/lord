@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 zpc = {}
 zpc.users = {}
@@ -106,7 +106,7 @@ zpc.form.get_spec = function(player_name)
 	local current_item = zpc.users[player_name].current_item
 	local formspec =
 		"size[8,7.5]" ..
-		"button_exit[6,7;2,0.5;;"..SL("Exit").."]"
+		"button_exit[6,7;2,0.5;;".. S("Exit").."]"
 	if zpc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zpc_previous;;false;false;books_previous_press.png]"
 	else
@@ -177,8 +177,8 @@ zpc.form.get_spec = function(player_name)
 		formspec = formspec .. "button[1,7;1,.5;zpc_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,6.85;"..SL("Page").." "..(page+1).."/"..(math.floor(#zpc.itemlist/npp+1)).."]"
-	formspec = formspec .. "label[0,0;"..SL("Book of Protection").."]"
+	formspec = formspec .. "label[2,6.85;".. S("Page").." "..(page+1).."/"..(math.floor(#zpc.itemlist/npp+1)).."]"
+	formspec = formspec .. "label[0,0;".. S("Book of Protection").."]"
 	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
 	return formspec
 end
@@ -234,7 +234,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:protection_book",{
-    description = SL("Book of Protection"),
+    description = S("Book of Protection"),
     groups = {book=1, paper=1},
     inventory_image = "protection_book.png",
     wield_image = "",

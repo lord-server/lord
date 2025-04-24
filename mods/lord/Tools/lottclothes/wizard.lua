@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- Clothes made for wizards
 
@@ -6,7 +6,7 @@ local SL = minetest.get_mod_translator()
 -- gandalf the grey:
 -- big black dwarf boots
 minetest.register_tool("lottclothes:boots_dwarf", {
-	description = SL("Dwarven Boots"),
+	description = S("Dwarven Boots"),
 	inventory_image = "lottclothes_inv_boots_dwarf.png",
 	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0
@@ -29,7 +29,7 @@ minetest.register_craft({
 
 -- cloak
 minetest.register_tool("lottclothes:cloak_wizard_grey", {
-	description = SL("Grey Wizard Cloak"),
+	description = S("Grey Wizard Cloak"),
 	inventory_image = "lottclothes_inv_cloak_wizard_grey.png",
 	groups = {clothes=1, no_preview=1, clothes_cloak=1},
 	wear = 0
@@ -52,7 +52,7 @@ minetest.register_craft({
 
 -- hood
 minetest.register_tool("lottclothes:hood_wizard_blue", {
-	description = SL("Blue Wizard Hood"),
+	description = S("Blue Wizard Hood"),
 	inventory_image = "lottclothes_inv_hood_wizard_blue.png",
 	groups = {clothes=1, clothes_head=1},
 	wear = 0
@@ -75,7 +75,7 @@ minetest.register_craft({
 
 -- robe
 minetest.register_tool("lottclothes:robe_wizard_grey", {
-	description = SL("Grey Wizard Robe"),
+	description = S("Grey Wizard Robe"),
 	inventory_image = "lottclothes_inv_robe_wizard_grey.png",
 	groups = {clothes=1, clothes_torso=1},
 	wear = 0
@@ -105,7 +105,7 @@ minetest.register_craft({
 -- gandalf the white
 -- hood
 minetest.register_tool("lottclothes:hood_wizard_white", {
-	description = SL("White Wizard Hood"),
+	description = S("White Wizard Hood"),
 	inventory_image = "lottclothes_inv_hood_wizard_white.png",
 	groups = {clothes=1, clothes_head=1},
 	wear = 0
@@ -128,7 +128,7 @@ minetest.register_craft({
 
 -- robe
 minetest.register_tool("lottclothes:robe_wizard_white", {
-	description = SL("White Wizard Robe"),
+	description = S("White Wizard Robe"),
 	inventory_image = "lottclothes_inv_robe_wizard_white.png",
 	groups = {clothes=1, clothes_torso=1},
 	wear = 0
@@ -152,7 +152,7 @@ minetest.register_craft({
 
 -- trousers
 minetest.register_tool("lottclothes:trousers_wizard_white", {
-	description = SL("White Wizard Trousers"),
+	description = S("White Wizard Trousers"),
 	inventory_image = "lottclothes_inv_trousers_wizard_white.png",
 	groups = {clothes=1, clothes_legs=1},
 	wear = 0
@@ -176,7 +176,7 @@ minetest.register_craft({
 
 -- cloak
 minetest.register_tool("lottclothes:cloak_wizard_white", {
-	description = SL("White Wizard Cloak"),
+	description = S("White Wizard Cloak"),
 	inventory_image = "lottclothes_inv_cloak_wizard_white.png",
 	groups = {clothes=1, no_preview=1, clothes_cloak=1},
 	wear = 0

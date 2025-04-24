@@ -1,11 +1,11 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 dofile(minetest.get_modpath("lottother") .. "/rings.lua")
 dofile(minetest.get_modpath("lottother") .. "/ms.lua")
 dofile(minetest.get_modpath("lottother") .. "/flags.lua")
 
 minetest.register_node("lottother:blue_torch", {
-	description         = SL("Blue Torch"),
+	description         = S("Blue Torch"),
 	drawtype            = "torchlike",
 	tiles               = {
 		{
@@ -56,7 +56,7 @@ minetest.register_node("lottother:blue_torch", {
 	sounds              = default.node_sound_defaults(),
 })
 minetest.register_node("lottother:orc_torch", {
-	description         = SL("Orc Torch"),
+	description         = S("Orc Torch"),
 	drawtype            = "torchlike",
 	tiles               = {
 		{
@@ -108,7 +108,7 @@ minetest.register_node("lottother:orc_torch", {
 })
 
 minetest.register_node("lottother:blue_flame", {
-	description       = SL("Blue Flame"),
+	description       = S("Blue Flame"),
 	drawtype          = "firelike",
 	tiles             = { {
 							  name      = "lottother_blue_flame_animated.png",
@@ -297,7 +297,7 @@ minetest.register_craft({
 })
 
 minetest.register_node("lottother:dirt", {
-	description       = SL("Dirt Substitute"),
+	description       = S("Dirt Substitute"),
 	tiles             = { "default_dirt.png" },
 	is_ground_content = true,
 	drop              = 'default:dirt',
@@ -306,7 +306,7 @@ minetest.register_node("lottother:dirt", {
 })
 
 minetest.register_node("lottother:snow", {
-	description       = SL("Snow Substitute"),
+	description       = S("Snow Substitute"),
 	tiles             = { "default_snow.png" },
 	is_ground_content = true,
 	drop              = 'default:snowblock',
@@ -319,7 +319,7 @@ minetest.register_node("lottother:snow", {
 })
 
 minetest.register_node("lottother:mordor_stone", {
-	description       = SL("Mordor Stone Substitute"),
+	description       = S("Mordor Stone Substitute"),
 	tiles             = { "lord_rocks_mordor_stone.png" },
 	is_ground_content = true,
 	drop              = 'lord_rocks:mordor_stone',
@@ -328,7 +328,7 @@ minetest.register_node("lottother:mordor_stone", {
 })
 
 minetest.register_node("lottother:air", {
-	description         = SL("Air Substitute"),
+	description         = S("Air Substitute"),
 	drawtype            = "glasslike",
 	tiles               = { "lottother_air.png" },
 	paramtype           = "light",

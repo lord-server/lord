@@ -1,14 +1,14 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_craftitem("lottmobs:meat", {
-	description     = SL("Cooked Meat"),
+	description     = S("Cooked Meat"),
 	inventory_image = "lottmobs_meat.png",
 	on_use          = minetest.item_eat(13),
 	_tt_food_hp     = 13,
 })
 
 minetest.register_craftitem("lottmobs:meat_raw", {
-	description     = SL("Raw Meat"),
+	description     = S("Raw Meat"),
 	inventory_image = "lottmobs_meat_raw.png",
 	on_use          = minetest.item_eat(3),
 	_tt_food_hp     = 3,
@@ -21,14 +21,14 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottmobs:pork_raw", {
-	description     = SL("Raw Boar Meat"),
+	description     = S("Raw Boar Meat"),
 	inventory_image = "mobs_pork_raw.png",
 	on_use          = minetest.item_eat(4),
 	_tt_food_hp     = 4,
 })
 
 minetest.register_craftitem("lottmobs:pork_cooked", {
-	description     = SL("Cooked Boar Meat"),
+	description     = S("Cooked Boar Meat"),
 	inventory_image = "mobs_pork_cooked.png",
 	on_use          = minetest.item_eat(14),
 	_tt_food_hp     = 14,
@@ -43,13 +43,13 @@ minetest.register_craft({
 
 
 minetest.register_craftitem("lottmobs:dirty_shirt", {
-    description = SL("Dirty Jacket"),
+    description = S("Dirty Jacket"),
     inventory_image = "lottclothes_inv_jacket_midgewater.png^[colorize:#935d3675",
     stack_max = 1,
 })
 
 minetest.register_craftitem("lottmobs:dirty_trousers", {
-    description = SL("Dirty Trousers"),
+    description = S("Dirty Trousers"),
     inventory_image = "lottclothes_inv_pants_midgewater.png^[colorize:#935d3675",
     stack_max = 1,
 })
@@ -69,76 +69,76 @@ minetest.register_craft({
 })
 
 minetest.register_craftitem("lottmobs:spiderpoison", {
-	description = SL("Spider Poison"),
+	description = S("Spider Poison"),
 	inventory_image = "lottmobs_spiderpoison.png",
 })
 
 
 minetest.register_craftitem("lottmobs:fish_raw", {
-	description     = SL("Raw Fish"),
+	description     = S("Raw Fish"),
 	inventory_image = "lottmobs_fish_raw.png",
 	on_use          = minetest.item_eat(2),
 	_tt_food_hp     = 2,
 })
 
 minetest.register_craftitem("lottmobs:horsemeat_raw", {
-	description     = SL("Raw Horsemeat"),
+	description     = S("Raw Horsemeat"),
 	inventory_image = "lottmobs_horsemeat_raw.png",
 	on_use          = minetest.item_eat(3),
 	_tt_food_hp     = 3,
 })
 
 minetest.register_craftitem("lottmobs:chicken_raw", {
-	description     = SL("Raw Chicken"),
+	description     = S("Raw Chicken"),
 	inventory_image = "lottmobs_chicken_raw.png",
 	on_use          = minetest.item_eat(2),
 	_tt_food_hp     = 2,
 })
 
 minetest.register_craftitem("lottmobs:rabbit_raw", {
-	description     = SL("Raw Rabbit"),
+	description     = S("Raw Rabbit"),
 	inventory_image = "lottmobs_rabbit_raw.png",
 	on_use          = minetest.item_eat(2),
 	_tt_food_hp     = 2,
 })
 
 minetest.register_craftitem("lottmobs:fish_cooked", {
-	description     = SL("Cooked Fish"),
+	description     = S("Cooked Fish"),
 	inventory_image = "lottmobs_fish_cooked.png",
 	on_use          = minetest.item_eat(11),
 	_tt_food_hp     = 11,
 })
 
 minetest.register_craftitem("lottmobs:horsemeat_cooked", {
-	description     = SL("Cooked Horsemeat"),
+	description     = S("Cooked Horsemeat"),
 	inventory_image = "lottmobs_horsemeat_cooked.png",
 	on_use          = minetest.item_eat(13),
 	_tt_food_hp     = 13,
 })
 
 minetest.register_craftitem("lottmobs:chicken_cooked", {
-	description     = SL("Cooked Chiсken"),
+	description     = S("Cooked Chiсken"),
 	inventory_image = "lottmobs_chicken_cooked.png",
 	on_use          = minetest.item_eat(11),
 	_tt_food_hp     = 11,
 })
 
 minetest.register_craftitem("lottmobs:rabbit_cooked", {
-	description     = SL("Cooked Rabbit"),
+	description     = S("Cooked Rabbit"),
 	inventory_image = "lottmobs_rabbit_cooked.png",
 	on_use          = minetest.item_eat(9),
 	_tt_food_hp     = 9,
 })
 
 minetest.register_craftitem("lottmobs:rotten_meat", {
-	description     = SL("Rotten Meat"),
+	description     = S("Rotten Meat"),
 	inventory_image = "lottmobs_rotten_meat.png",
 	on_use          = minetest.item_eat(-6),
 	_tt_food_hp     = -6,
 })
 
 minetest.register_craftitem("lottmobs:fried_egg", {
-	description     = SL("Omelette"),
+	description     = S("Omelette"),
 	inventory_image = "lottmobs_fried_egg.png",
 	on_use          = minetest.item_eat(5),
 	_tt_food_hp     = 5,

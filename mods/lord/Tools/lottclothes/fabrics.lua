@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 --------------------------------------------------------------------------------
 -- fabrics.lua: colored fabrics as ingredient for clothes
@@ -24,7 +24,7 @@ local fabric_colors = {
 
 -- flaxthreads made of dry_shrub. 2:1
 minetest.register_craftitem("lottclothes:flaxthread", {
-	description = SL("Flax Thread"),
+	description = S("Flax Thread"),
 	inventory_image = "lottclothes_flaxthread.png",
 })
 minetest.register_craft({
@@ -36,7 +36,7 @@ minetest.register_craft({
 -- flax, a fabric made of flaxthreads
 for color, dye in pairs(fabric_colors) do
 	minetest.register_craftitem("lottclothes:flax_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Flax"),
+		description = S(color:gsub("^%l", string.upper).." Flax"),
 		inventory_image = "lottclothes_flax_"..color..".png"
 	})
 
@@ -66,7 +66,7 @@ end
 
 -- feltthreads
 minetest.register_craftitem("lottclothes:feltthread", {
-	description = SL("Felt Thread"),
+	description = S("Felt Thread"),
 	inventory_image = "lottclothes_feltthread.png",
 })
 minetest.register_craft({
@@ -79,7 +79,7 @@ minetest.register_craft({
 -- felt, a fabric made of feltthreads
 for color, dye in pairs(fabric_colors) do
 	minetest.register_craftitem("lottclothes:felt_"..color, {
-		description = SL(color:gsub("^%l", string.upper).." Felt"),
+		description = S(color:gsub("^%l", string.upper).." Felt"),
 		inventory_image = "lottclothes_felt_"..color..".png"
 	})
 

@@ -1,4 +1,4 @@
-local SL       = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local tapestry = {}
 
@@ -21,7 +21,7 @@ for _, row in ipairs(tapestry.colours) do
 	-- Node Definition
 	minetest.register_node("lottother:tapestry_" .. name, {
 		drawtype      = "nodebox",
-		description   = SL(desc .. " Tapestry"),
+		description   = S(desc .. " Tapestry"),
 		tiles         = { "lottother_banner_" .. name .. ".png" },
 		groups        = { oddly_breakable_by_hand = 3, flammable = 3 },
 		sounds        = default.node_sound_defaults(),
@@ -86,7 +86,7 @@ for _, row in ipairs(tapestry.colours) do
 	-- Node Definition
 	minetest.register_node("lottother:tapestry_top_" .. name, {
 		drawtype    = "nodebox",
-		description = SL(desc .. " Tapestry Top"),
+		description = S(desc .. " Tapestry Top"),
 		tiles       = { "lottother_banner_top_" .. name .. ".png" },
 		groups      = { oddly_breakable_by_hand = 3, flammable = 3, not_in_creative_inventory = 1 },
 		sounds      = default.node_sound_defaults(),

@@ -1,10 +1,10 @@
-local SL   = minetest.get_mod_translator()
+local S    = minetest.get_mod_translator()
 local tile = minetest.tile
 
 -- Ores:
 
 minetest.register_node("lottores:limestone_ore", {
-	description = SL("Limestone Ore"),
+	description = S("Limestone Ore"),
 	tiles = {"default_stone.png^lottores_limestone_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -13,7 +13,7 @@ minetest.register_node("lottores:limestone_ore", {
 })
 
 minetest.register_node("lottores:rough_rock", {
-	description = SL("Rough Rock"),
+	description = S("Rough Rock"),
 	tiles = {"default_stone.png^lottores_rough_rock.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
@@ -22,7 +22,7 @@ minetest.register_node("lottores:rough_rock", {
 })
 
 minetest.register_node("lottores:silver_ore", {
-	description = SL("Silver Ore"),
+	description = S("Silver Ore"),
 	tiles = {"default_stone.png^lottores_silver_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
@@ -31,7 +31,7 @@ minetest.register_node("lottores:silver_ore", {
 })
 
 minetest.register_node("lottores:tin_ore", {
-	description = SL("Tin Ore"),
+	description = S("Tin Ore"),
 	tiles = {"default_stone.png^lottores_tin_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=3},
@@ -40,7 +40,7 @@ minetest.register_node("lottores:tin_ore", {
 })
 
 minetest.register_node("lottores:lead_ore", {
-	description = SL("Lead Ore"),
+	description = S("Lead Ore"),
 	tiles = {"default_stone.png^lottores_lead_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=2},
@@ -49,7 +49,7 @@ minetest.register_node("lottores:lead_ore", {
 })
 
 minetest.register_node("lottores:mithril_ore", {
-	description = SL("Mithril Ore"),
+	description = S("Mithril Ore"),
 	tiles = {"default_stone.png^lottores_mithril_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
@@ -61,7 +61,7 @@ minetest.register_node("lottores:mithril_ore", {
 
 
 minetest.register_node("lottores:blue_gem_ore", {
-	description       = SL("Blue Gem Ore"),
+	description       = S("Blue Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_bluegem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
 	light_source      = 2,
@@ -75,7 +75,7 @@ minetest.register_node("lottores:blue_gem_ore", {
 })
 
 minetest.register_node("lottores:white_gem_ore", {
-	description       = SL("White Gem Ore"),
+	description       = S("White Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_whitegem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
 	light_source      = 2,
@@ -89,7 +89,7 @@ minetest.register_node("lottores:white_gem_ore", {
 })
 
 minetest.register_node("lottores:red_gem_ore", {
-	description       = SL("Red Gem Ore"),
+	description       = S("Red Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_redgem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
 	light_source      = 2,
@@ -105,93 +105,93 @@ minetest.register_node("lottores:red_gem_ore", {
 -- Craft Items
 
 minetest.register_craftitem("lottores:limestone_lump", {
-	description = SL("Limestone Lump"),
+	description = S("Limestone Lump"),
 	inventory_image = "lottores_limestone_lump.png",
 })
 
 minetest.register_craftitem("lottores:rough_rock_lump", {
-	description = SL("Rough Rock Lump"),
+	description = S("Rough Rock Lump"),
 	inventory_image = "lottores_rough_rock_lump.png",
 })
 
 minetest.register_craftitem("lottores:silver_lump", {
-	description = SL("Silver Lump"),
+	description = S("Silver Lump"),
 	inventory_image = "lottores_silver_lump.png",
 })
 
 minetest.register_craftitem("lottores:silver_ingot", {
-	description = SL("Silver Ingot"),
+	description = S("Silver Ingot"),
 	inventory_image = "lottores_silver_ingot.png",
 })
 
 minetest.register_craftitem("lottores:tin_lump", {
-	description = SL("Tin Lump"),
+	description = S("Tin Lump"),
 	inventory_image = "lottores_tin_lump.png",
 })
 
 minetest.register_craftitem("lottores:tin_ingot", {
-	description = SL("Tin Ingot"),
+	description = S("Tin Ingot"),
 	inventory_image = "lottores_tin_ingot.png",
 })
 
 minetest.register_craftitem("lottores:lead_lump", {
-	description = SL("Lead Lump"),
+	description = S("Lead Lump"),
 	inventory_image = "lottores_lead_lump.png",
 })
 
 minetest.register_craftitem("lottores:lead_ingot", {
-	description = SL("Lead Ingot"),
+	description = S("Lead Ingot"),
 	inventory_image = "lottores_lead_ingot.png",
 })
 
 minetest.register_craftitem("lottores:mithril_lump", {
-	description = SL("Mithril Lump"),
+	description = S("Mithril Lump"),
 	inventory_image = "lottores_mithril_lump.png",
 })
 
 minetest.register_craftitem("lottores:mithril_ingot", {
-	description = SL("Mithril Ingot"),
+	description = S("Mithril Ingot"),
 	inventory_image = "lottores_mithril_ingot.png",
 })
 
 minetest.register_craftitem("lottores:galvorn_ingot", {
-	description = SL("Galvorn Ingot"),
+	description = S("Galvorn Ingot"),
 	inventory_image = "lottores_galvorn_ingot.png",
      groups = {forbidden=1},
 })
 
 minetest.register_craftitem("lottores:tilkal_ingot", {
-	description = SL("Tilkal Ingot"),
+	description = S("Tilkal Ingot"),
 	inventory_image = "lottores_tilkal_ingot.png",
      groups = {forbidden=1},
 })
 
 minetest.register_craftitem("lottores:blue_gem", {
-	description = SL("Blue Gem"),
+	description = S("Blue Gem"),
 	inventory_image = "lottores_bluegem.png",
 })
 
 minetest.register_craftitem("lottores:red_gem", {
-	description = SL("Red Gem"),
+	description = S("Red Gem"),
 	inventory_image = "lottores_redgem.png",
 })
 
 minetest.register_craftitem("lottores:white_gem", {
-	description = SL("White Gem"),
+	description = S("White Gem"),
 	inventory_image = "lottores_whitegem.png",
 })
 
 -- Nodes
 
 minetest.register_node("lottores:tilkal", {
-	description = SL("Tilkal"),
+	description = S("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
 	sounds = default.node_sound_metal_defaults(),
 	groups = {forbidden=1},
 })
 
 minetest.register_node("lottores:limestone", {
-	description = SL("Limestone"),
+	description = S("Limestone"),
 	tiles = {"lottores_limestone_ore.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1},
@@ -199,7 +199,7 @@ minetest.register_node("lottores:limestone", {
 })
 
 minetest.register_node("lottores:marble", {
-	description = SL("Marble"),
+	description = S("Marble"),
 	tiles = {"lottores_marble.png"},
 	is_ground_content = true,
 	groups = {cracky=1, stone=1},
@@ -207,7 +207,7 @@ minetest.register_node("lottores:marble", {
 })
 
 minetest.register_node("lottores:geodes_crystal_1", {
-	description = SL("Geodes Crystal"),
+	description = S("Geodes Crystal"),
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
 	paramtype = "light",
@@ -332,7 +332,7 @@ minetest.register_node("lottores:geodes_crystal_5", {
 })
 
 minetest.register_node("lottores:silver_block", {
-	description = SL("Silver Block"),
+	description = S("Silver Block"),
 	tiles = {"lottores_silver_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
@@ -340,7 +340,7 @@ minetest.register_node("lottores:silver_block", {
 })
 
 minetest.register_node("lottores:tin_block", {
-	description = SL("Tin Block"),
+	description = S("Tin Block"),
 	tiles = {"lottores_tin_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
@@ -348,7 +348,7 @@ minetest.register_node("lottores:tin_block", {
 })
 
 minetest.register_node("lottores:lead_block", {
-	description = SL("Lead Block"),
+	description = S("Lead Block"),
 	tiles = {"lottores_lead_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1},
@@ -356,7 +356,7 @@ minetest.register_node("lottores:lead_block", {
 })
 
 minetest.register_node("lottores:mithril_block", {
-	description = SL("Mithril Block"),
+	description = S("Mithril Block"),
 	tiles = {"lottores_mithril_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2},
@@ -364,7 +364,7 @@ minetest.register_node("lottores:mithril_block", {
 })
 
 minetest.register_node("lottores:galvorn_block", {
-	description = SL("Galvorn Block"),
+	description = S("Galvorn Block"),
 	tiles = {"lottores_galvorn_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2,forbidden=1},
@@ -374,7 +374,7 @@ minetest.register_node("lottores:galvorn_block", {
 -- Ithildin
 
 minetest.register_node("lottores:ithildin_0", {
-	description = SL("Ithildin"),
+	description = S("Ithildin"),
 	tiles = {"ithildin_0.png"},
 	drawtype = "glasslike",
 	paramtype = "light",
@@ -387,7 +387,7 @@ minetest.register_node("lottores:ithildin_0", {
 })
 
 minetest.register_node("lottores:ithildin_1", {
-	description = SL("Ithildin"),
+	description = S("Ithildin"),
 	tiles = {"ithildin_1.png"},
 	inventory_image = "ithildin_1.png",
 	wield_image = "ithildin_1.png",
@@ -403,7 +403,7 @@ minetest.register_node("lottores:ithildin_1", {
 })
 
 minetest.register_node("lottores:ithildin_stone_0", {
-	description = SL("Ithildin Stone"),
+	description = S("Ithildin Stone"),
 	tiles = {"default_stone.png"},
 	drawtype = 'normal',
 	walkable = true,
@@ -415,7 +415,7 @@ minetest.register_node("lottores:ithildin_stone_0", {
 })
 
 minetest.register_node("lottores:ithildin_stone_1", {
-	description = SL("Ithildin Stone"),
+	description = S("Ithildin Stone"),
 	tiles = {"ithildin_1.png"},
 	drawtype = 'glasslike',
 	walkable = false,
@@ -428,7 +428,7 @@ minetest.register_node("lottores:ithildin_stone_1", {
 })
 
 minetest.register_node("lottores:ithildin_stonelamp_0", {
-	description = SL("Ithildin Stonelamp"),
+	description = S("Ithildin Stonelamp"),
 	tiles = {"default_stone.png"},
 	drawtype = 'normal',
 	walkable = true,
@@ -440,7 +440,7 @@ minetest.register_node("lottores:ithildin_stonelamp_0", {
 })
 
 minetest.register_node("lottores:ithildin_stonelamp_1", {
-	description = SL("Ithildin Stonelamp"),
+	description = S("Ithildin Stonelamp"),
 	tiles = {"default_stone.png^ithildin_lamp_1.png"},
 	drawtype = 'normal',
 	walkable = true,
@@ -453,7 +453,7 @@ minetest.register_node("lottores:ithildin_stonelamp_1", {
 })
 
 minetest.register_node("lottores:ithildin_lamp_0", {
-	description = SL("Ithildin Lamp"),
+	description = S("Ithildin Lamp"),
 	tiles = {"ithildin_lamp_0.png"},
 	paramtype = "light",
 	drawtype = 'glasslike',
@@ -466,7 +466,7 @@ minetest.register_node("lottores:ithildin_lamp_0", {
 })
 
 minetest.register_node("lottores:ithildin_lamp_1", {
-	description = SL("Ithildin Lamp"),
+	description = S("Ithildin Lamp"),
 	tiles = {"default_stone.png^ithildin_lamp_1.png"},
 	paramtype = "light",
 	drawtype = 'glasslike',
@@ -584,12 +584,12 @@ stairs.register_stair_and_slab(
 	"lottores:tilkal",
   {forbidden=1},
 	{"lottores_tilkal.png"},
-	SL("Tilkal Stair"),
-	SL("Tilkal Slab"),
+	S("Tilkal Stair"),
+	S("Tilkal Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Tilkal Stair"),
-	SL("Outer Tilkal Stair")
+	S("Inner Tilkal Stair"),
+	S("Outer Tilkal Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -597,12 +597,12 @@ stairs.register_stair_and_slab(
 	"lottores:limestone",
   {cracky=3, stone=2},
 	{"lottores_limestone_ore.png"},
-	SL("Limestone Stair"),
-	SL("Limestone Slab"),
+	S("Limestone Stair"),
+	S("Limestone Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Limestone Stair"),
-	SL("Outer Limestone Stair")
+	S("Inner Limestone Stair"),
+	S("Outer Limestone Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -610,12 +610,12 @@ stairs.register_stair_and_slab(
 	"lottores:marble",
   {cracky=3},
 	{"lottores_marble.png"},
-	SL("Marble Stair"),
-	SL("Marble Slab"),
+	S("Marble Stair"),
+	S("Marble Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Marble Stair"),
-	SL("Outer Marble Stair")
+	S("Inner Marble Stair"),
+	S("Outer Marble Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -623,12 +623,12 @@ stairs.register_stair_and_slab(
 	"lottores:silver_block",
   {cracky=1,level=2},
 	{"lottores_silver_block.png"},
-	SL("Silver Stair"),
-	SL("Silver Slab"),
+	S("Silver Stair"),
+	S("Silver Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Silver Stair"),
-	SL("Outer Silver Stair")
+	S("Inner Silver Stair"),
+	S("Outer Silver Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -636,12 +636,12 @@ stairs.register_stair_and_slab(
 	"lottores:tin_block",
   {cracky=1},
 	{"lottores_tin_block.png"},
-	SL("Tin Stair"),
-	SL("Tin Slab"),
+	S("Tin Stair"),
+	S("Tin Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Tin Stair"),
-	SL("Outer Tin Stair")
+	S("Inner Tin Stair"),
+	S("Outer Tin Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -649,12 +649,12 @@ stairs.register_stair_and_slab(
 	"lottores:lead_block",
   {cracky=1},
 	{"lottores_lead_block.png"},
-	SL("Lead Stair"),
-	SL("Lead Slab"),
+	S("Lead Stair"),
+	S("Lead Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Lead Stair"),
-	SL("Outer Lead Stair")
+	S("Inner Lead Stair"),
+	S("Outer Lead Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -662,12 +662,12 @@ stairs.register_stair_and_slab(
 	"lottores:mithril_block",
   {cracky=1,level=2},
 	{"lottores_mithril_block.png"},
-	SL("Mithril Stair"),
-	SL("Mithril Slab"),
+	S("Mithril Stair"),
+	S("Mithril Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Mithril Stair"),
-	SL("Outer Mithril Stair")
+	S("Inner Mithril Stair"),
+	S("Outer Mithril Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -675,12 +675,12 @@ stairs.register_stair_and_slab(
 	"lottores:galvorn_block",
   {cracky=1,level=2,forbidden=1},
 	{"lottores_galvorn_block.png"},
-	SL("Galvorn Stair"),
-	SL("Galvorn Slab"),
+	S("Galvorn Stair"),
+	S("Galvorn Slab"),
 	default.node_sound_metal_defaults(),
 	false,
-	SL("Inner Galvorn Stair"),
-	SL("Outer Galvorn Stair")
+	S("Inner Galvorn Stair"),
+	S("Outer Galvorn Stair")
 )
 
 -- Crafting
@@ -855,7 +855,7 @@ minetest.register_craft({
 --Blocks
 
 minetest.register_node("lottores:mineral_pearl", {
-	description = SL("Pearl Ore"),
+	description = S("Pearl Ore"),
 	tiles = {"default_sand.png^lottores_mineral_pearl.png"},
 	paramtype = "light",
 	is_ground_content = true,
@@ -874,7 +874,7 @@ minetest.register_node("lottores:mineral_pearl", {
 })
 
 minetest.register_node("lottores:mineral_salt", {
-	description = SL("Salt Mineral"),
+	description = S("Salt Mineral"),
 	tiles = {"default_dirt.png^lottores_mineral_salt.png"},
 	paramtype = "light",
 	is_ground_content = true,
@@ -893,7 +893,7 @@ minetest.register_node("lottores:mineral_salt", {
 })
 
 minetest.register_node( "lottores:pearl_block", {
-	description = SL("Pearl Block"),
+	description = S("Pearl Block"),
 	use_texture_alpha = "blend",
 	tiles = { "lottores_pearl_block.png" },
 	is_ground_content = true,
@@ -902,7 +902,7 @@ minetest.register_node( "lottores:pearl_block", {
 })
 
 minetest.register_node( "lottores:salt_block", {
-	description       = SL("Salt Block"),
+	description       = S("Salt Block"),
 	tiles             = { "default_clay.png^lottores_salt_block.png" },
 	is_ground_content = true,
 	groups            = { snappy = 2, cracky = 3, oddly_breakable_by_hand = 3 },
@@ -910,7 +910,7 @@ minetest.register_node( "lottores:salt_block", {
 })
 
 minetest.register_node("lottores:salt", {
-	description         = SL("Salt"),
+	description         = S("Salt"),
 	drawtype            = "plantlike",
 	visual_scale        = 1.0,
 	tiles               = { "lottores_salt.png" },
@@ -927,7 +927,7 @@ minetest.register_node("lottores:salt", {
 -- Craft items
 
 minetest.register_craftitem("lottores:pearl", {
-	description = SL("Pearl"),
+	description = S("Pearl"),
 	inventory_image = "lottores_pearl.png",
 })
 
@@ -970,12 +970,12 @@ stairs.register_stair_and_slab(
 	"lottores:pearl_block",
 	{cracky=3,oddly_breakable_by_hand=3},
 	{"lottores_pearl_block.png"},
-	SL("Pearl Stair"),
-	SL("Pearl Slab"),
+	S("Pearl Stair"),
+	S("Pearl Slab"),
 	default.node_sound_glass_defaults(),
 	false,
-	SL("Inner Pearl Stair"),
-	SL("Outer Pearl Stair")
+	S("Inner Pearl Stair"),
+	S("Outer Pearl Stair")
 )
 
 stairs.register_stair_and_slab(
@@ -983,12 +983,12 @@ stairs.register_stair_and_slab(
 	"lottores:salt_block",
 	{cracky=3,oddly_breakable_by_hand=3},
 	{"lottores_salt_block.png"},
-	SL("Salt Stair"),
-	SL("Salt Slab"),
+	S("Salt Stair"),
+	S("Salt Slab"),
 	default.node_sound_stone_defaults(),
 	false,
-	SL("Inner Salt Stair"),
-	SL("Outer Salt Stair")
+	S("Inner Salt Stair"),
+	S("Outer Salt Stair")
 )
 
 -- Cooking

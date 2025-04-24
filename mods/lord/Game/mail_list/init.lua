@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local file_name = minetest.get_worldpath() .. "/mail_list.txt"
 
@@ -14,17 +14,17 @@ function get_mail(name)
 end
 
 minetest.register_privilege("mail", {
-	description          = SL("Can register e-mail."),
+	description          = S("Can register e-mail."),
 	give_to_singleplayer = false,
 })
 
 minetest.register_chatcommand("setmail", {
 	privs       = { mail = true },
 	params      = "<mail>",
-	description = SL("Register your e-mail"),
+	description = S("Register your e-mail"),
 	func        = function(name, param)
 		if (not param) or (param == "") then
-			minetest.chat_send_player(name, SL("No <mail>!"))
+			minetest.chat_send_player(name, S("No <mail>!"))
 			return
 		end
 		local tab = get_mail()
@@ -36,13 +36,13 @@ minetest.register_chatcommand("setmail", {
 
 minetest.register_chatcommand("getmail", {
 	privs       = { mail = true },
-	description = SL("Show your e-mail"),
+	description = S("Show your e-mail"),
 	func        = function(name)
 		local mail = get_mail(name)
 		if not mail then
-			minetest.chat_send_player(name, SL("No mail!"))
+			minetest.chat_send_player(name, S("No mail!"))
 		else
-			minetest.chat_send_player(name, SL("Your mail:") .. " " .. mail)
+			minetest.chat_send_player(name, S("Your mail:") .. " " .. mail)
 		end
 	end,
 })

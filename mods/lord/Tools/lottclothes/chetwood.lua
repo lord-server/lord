@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- basic outfit from the chetwood forest.
 -- made from green and brown felt & tin ingot.
@@ -6,7 +6,7 @@ local SL = minetest.get_mod_translator()
 
 -- cap (head)
 minetest.register_tool("lottclothes:cap_chetwood", {
-	description = SL("Chetwood Cap"),
+	description = S("Chetwood Cap"),
 	inventory_image = "lottclothes_inv_cap_chetwood.png",
 	groups = {armor_head=0, clothes=1, clothes_head=1},
 	wear = 0
@@ -30,7 +30,7 @@ minetest.register_craft({
 
 -- jacket (torso)
 minetest.register_tool("lottclothes:jacket_chetwood", {
-	description = SL("Chetwood Jacket"),
+	description = S("Chetwood Jacket"),
 	inventory_image = "lottclothes_inv_jacket_chetwood.png",
 	groups = {armor_torso=0, clothes=1, clothes_torso=1},
 	wear = 0
@@ -54,7 +54,7 @@ minetest.register_craft({
 
 -- pants (legs)
 minetest.register_tool("lottclothes:pants_chetwood", {
-	description = SL("Chetwood Pants"),
+	description = S("Chetwood Pants"),
 	inventory_image = "lottclothes_inv_pants_chetwood.png",
 	groups = {armor_legs=0, clothes=1, clothes_legs=1},
 	wear = 0
@@ -78,7 +78,7 @@ minetest.register_craft({
 
 -- boots (feet)
 minetest.register_tool("lottclothes:boots_chetwood", {
-	description = SL("Chetwood Boots"),
+	description = S("Chetwood Boots"),
 	inventory_image = "lottclothes_inv_boots_chetwood.png",
 	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0

@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- basic outfit from the the brandybuck family.
 -- made from blue flax and copper ingot.
@@ -7,7 +7,7 @@ local SL = minetest.get_mod_translator()
 
 -- shirt (torso)
 minetest.register_tool("lottclothes:shirt_brandybuck", {
-	description = SL("Brandybuck Shirt"),
+	description = S("Brandybuck Shirt"),
 	inventory_image = "lottclothes_inv_shirt_brandybuck.png",
 	groups = {armor_torso=0, clothes=1, clothes_torso=1},
 	wear = 0
@@ -31,7 +31,7 @@ minetest.register_craft({
 
 -- trousers (legs)
 minetest.register_tool("lottclothes:trousers_brandybuck", {
-	description = SL("Brandybuck Trousers"),
+	description = S("Brandybuck Trousers"),
 	inventory_image = "lottclothes_inv_trousers_brandybuck.png",
 	groups = {armor_legs=0, clothes=1, clothes_legs=1},
 	wear = 0
@@ -56,7 +56,7 @@ minetest.register_craft({
 
 -- shoes (feet)
 minetest.register_tool("lottclothes:shoes_brandybuck", {
-	description = SL("Brandybuck Shoes"),
+	description = S("Brandybuck Shoes"),
 	inventory_image = "lottclothes_inv_shoes_brandybuck.png",
 	groups = {armor_feet=0, clothes=1, clothes_feet=1},
 	wear = 0

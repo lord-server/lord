@@ -1,7 +1,7 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_node("lord_homedecor:endtable", {
-	description = SL("End Table"),
+	description = S("End Table"),
 	drawtype = "nodebox",
 	tiles = {
 		"lrfurn_coffeetable_back.png",

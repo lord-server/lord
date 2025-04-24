@@ -1,7 +1,7 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 minetest.register_node("lord_homedecor:coffeetable_back", {
-	description = SL("Coffee Table"),
+	description = S("Coffee Table"),
 	drawtype = "nodebox",
 	tiles = {
 		"lrfurn_coffeetable_back.png",
@@ -54,7 +54,7 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 			end
 			minetest.set_node(pos, node)
 		else
-			minetest.chat_send_player(placer:get_player_name(), SL("No room to place the coffee table!"))
+			minetest.chat_send_player(placer:get_player_name(), S("No room to place the coffee table!"))
 			minetest.set_node(pos, {name = "air"})
 			return true
 		end

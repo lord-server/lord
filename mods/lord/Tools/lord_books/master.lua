@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 local DEFAULT_LANG = minetest.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
@@ -155,7 +155,7 @@ zmc.form.get_spec = function(player_name, find)
 	local current_item = zmc.users[player_name].current_item
 	local formspec =
 		"size[8,8.5]" ..
-		"button_exit[6,8;2,0.5;;"..SL("Exit").."]"
+		"button_exit[6,8;2,0.5;;".. S("Exit").."]"
 	if zmc.users[player_name].history.index > 1 then
 		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zmc_previous;;false;false;books_previous_press.png]"
 	else
@@ -205,7 +205,7 @@ zmc.form.get_spec = function(player_name, find)
 
 	-- Filter items by `filter` field value
 	formspec = formspec ..
-		"field[0.3,4.25;4,0.5;zmc_filter;" .. SL("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field[0.3,4.25;4,0.5;zmc_filter;" .. S("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zmc_filter;false]"
 
 	local lang_code = minetest.get_player_information(player_name).lang_code or DEFAULT_LANG
@@ -235,10 +235,10 @@ zmc.form.get_spec = function(player_name, find)
 		formspec = formspec .. "button[1,8;1,.5;zmc_page:"..(page+1)..";>>]"
 	end
 	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,8;"..SL("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
-	formspec = formspec .. "button[0,2.8;2,0.5;potions;"..SL("Potions").."]"
-	formspec = formspec .. "button[0,2.1;2,0.5;brews;"..SL("Brewing").."]"
-	formspec = formspec .. "label[0,0;"..SL("Master Book of Crafts").."]"
+	formspec = formspec .. "label[2,8;".. S("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
+	formspec = formspec .. "button[0,2.8;2,0.5;potions;".. S("Potions").."]"
+	formspec = formspec .. "button[0,2.1;2,0.5;brews;".. S("Brewing").."]"
+	formspec = formspec .. "label[0,0;".. S("Master Book of Crafts").."]"
 	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
 	return formspec
 end
@@ -305,7 +305,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 end)
 
 minetest.register_tool("lord_books:master_book",{
-    description = SL("Master Book of Crafts"),
+    description = S("Master Book of Crafts"),
     inventory_image = "master_book.png",
     wield_image = "",
     wield_scale = {x=1,y=1,z=1},

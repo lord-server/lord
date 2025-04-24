@@ -1,8 +1,8 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 -- Register Shields
 minetest.register_tool(":lottarmor:shield_wood", {
-	description     = SL("Training Shield"),
+	description     = S("Training Shield"),
 	inventory_image = "lottarmor_inv_shield_wood.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 3, damage_avoid_chance = 1, armor_use = 2000,
@@ -12,7 +12,7 @@ minetest.register_tool(":lottarmor:shield_wood", {
 })
 
 minetest.register_tool(":lottarmor:shield_tin", {
-	description     = SL("Tin Shield"),
+	description     = S("Tin Shield"),
 	inventory_image = "lottarmor_inv_shield_tin.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 5, damage_avoid_chance = 2.5, armor_use = 1750,
@@ -22,7 +22,7 @@ minetest.register_tool(":lottarmor:shield_tin", {
 })
 
 minetest.register_tool(":lottarmor:shield_copper", {
-	description     = SL("Copper Shield"),
+	description     = S("Copper Shield"),
 	inventory_image = "lottarmor_inv_shield_copper.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 9, damage_avoid_chance = 5, armor_use = 1750,
@@ -32,7 +32,7 @@ minetest.register_tool(":lottarmor:shield_copper", {
 })
 
 minetest.register_tool(":lottarmor:shield_steel", {
-	description     = SL("Steel Shield"),
+	description     = S("Steel Shield"),
 	inventory_image = "lottarmor_inv_shield_steel.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 8, damage_avoid_chance = 4, armor_use = 1250,
@@ -42,7 +42,7 @@ minetest.register_tool(":lottarmor:shield_steel", {
 })
 
 minetest.register_tool(":lottarmor:shield_bronze", {
-	description     = SL("Bronze Shield"),
+	description     = S("Bronze Shield"),
 	inventory_image = "lottarmor_inv_shield_bronze.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 10, damage_avoid_chance = 8, armor_use = 750,
@@ -52,7 +52,7 @@ minetest.register_tool(":lottarmor:shield_bronze", {
 })
 
 minetest.register_tool(":lottarmor:shield_silver", {
-	description     = SL("Silver Shield"),
+	description     = S("Silver Shield"),
 	inventory_image = "lottarmor_inv_shield_silver.png",
 	groups          = {
 		armor_shield = 1, armor_use = 1000, silver_item = 1,
@@ -64,7 +64,7 @@ minetest.register_tool(":lottarmor:shield_silver", {
 })
 
 minetest.register_tool(":lottarmor:shield_gold", {
-	description     = SL("Gold Shield"),
+	description     = S("Gold Shield"),
 	inventory_image = "lottarmor_inv_shield_gold.png",
 	groups          = {
 		armor_shield = 1, armor_use = 500, gold_item = 1,
@@ -76,7 +76,7 @@ minetest.register_tool(":lottarmor:shield_gold", {
 })
 
 minetest.register_tool(":lottarmor:shield_galvorn", {
-	description     = SL("Galvorn Shield"),
+	description     = S("Galvorn Shield"),
 	inventory_image = "lottarmor_inv_shield_galvorn.png",
 	groups          = {
 		armor_shield = 1, armor_use = 250, forbidden = 1, galvorn_item = 1,
@@ -88,7 +88,7 @@ minetest.register_tool(":lottarmor:shield_galvorn", {
 })
 
 minetest.register_tool(":lottarmor:shield_mithril", {
-	description     = SL("Mithril Shield"),
+	description     = S("Mithril Shield"),
 	inventory_image = "lottarmor_inv_shield_mithril.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 14, damage_avoid_chance = 0, armor_use = 100,

@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 
 local sofa_sbox = {
@@ -19,7 +19,7 @@ for i in ipairs(lrfurn.colors) do
 	local hue = lrfurn.colors[i][2]
 
 	minetest.register_node("lord_homedecor:sofa_"..colour, {
-		description = SL("Sofa ("..colour..")"),
+		description = S("Sofa ("..colour..")"),
 		drawtype = "mesh",
 		mesh = "lrfurn_sofa_short.obj",
 		tiles = {
@@ -43,7 +43,7 @@ for i in ipairs(lrfurn.colors) do
 				minetest.set_node(pos, {name = "lord_homedecor:sofa_"..colour, param2 = fdir})
 				itemstack:take_item()
 			else
-				minetest.chat_send_player(placer:get_player_name(), SL("No room to place the sofa!"))
+				minetest.chat_send_player(placer:get_player_name(), S("No room to place the sofa!"))
 				minetest.set_node(pos, { name = "air" })
 
 			end

@@ -1,5 +1,5 @@
 
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 lottmobs = {}
 
@@ -10,7 +10,7 @@ lottmobs.guard = function(self, clicker, payment)
 		or item:get_name() == "farming:bread" then
 		local hp = self.object:get_hp()
 		if hp >= self.hp_max then
-			minetest.chat_send_player(name, SL("NPC at full health."))
+			minetest.chat_send_player(name, S("NPC at full health."))
 			return
 		end
 		hp = hp + 4

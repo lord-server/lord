@@ -1,4 +1,4 @@
-local SL = minetest.get_mod_translator()
+local S = minetest.get_mod_translator()
 
 
 mobs:register_mob("lottmobs:shirepony", {
@@ -51,7 +51,7 @@ mobs:register_mob("lottmobs:shirepony", {
 			if math.random(1, 3) ~= 1 then
 				minetest.chat_send_player(
 					clicker:get_player_name(),
-					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+					core.colorize("#ff8ea1", S("You could not tame this beast!!!"))
 				)
 				return
 			end
@@ -118,7 +118,7 @@ mobs:register_mob("lottmobs:shireponyblack", {
 			if math.random(1, 3) ~= 1 then
 				minetest.chat_send_player(
 					clicker:get_player_name(),
-					core.colorize("#ff8ea1", SL("You could not tame this beast!!!"))
+					core.colorize("#ff8ea1", S("You could not tame this beast!!!"))
 				)
 				return
 			end
