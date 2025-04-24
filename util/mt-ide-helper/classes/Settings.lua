@@ -75,5 +75,5 @@ function Settings:has(key) end
 --- @return boolean
 function Settings:write() end
 --- returns `{[key1]=value1,...}`
---- @return table
+--- @return table<string,string>
 function Settings:to_table() end
