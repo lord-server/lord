@@ -174,10 +174,14 @@ function minetest.formspec_escape(string) end
 --- * returns true if passed 'y', 'yes', 'true' or a number that isn't zero.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3265-L3266)
+---
+--- @return boolean
 function minetest.is_yes(arg) end
 --- * returns true when the passed number represents NaN.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3267-L3268)
+---
+--- @return boolean
 function minetest.is_nan(arg) end
 --- * returns time with microsecond precision. May not return wall time.
 --- * This value might overflow on certain 32-bit systems!
