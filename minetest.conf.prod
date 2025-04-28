@@ -58,7 +58,6 @@ port = 30000
 #    client number.
 #    type: int
 # max_packets_per_iteration = 1024
-max_packets_per_iteration = 768
 
 
 ## Game
