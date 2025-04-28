@@ -7,7 +7,7 @@ for _, dye in ipairs(dye.dyes) do
 		recipe = {
 			{ dye_item, },
 			{ "group:stick", },
-			{ "group:stick, "}
+			{ "group:stick" }
 		}
 	})
 
