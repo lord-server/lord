@@ -77,7 +77,7 @@ end
 --- @param default boolean default value, if setting not found. [optional]
 --- @return boolean
 function SettingsGroup:get_bool(name, default)
-	assert(type(default) == 'boolean')
+	assert(default == nil or type(default) == 'boolean')
 
 	local value = self.settings[name]
 

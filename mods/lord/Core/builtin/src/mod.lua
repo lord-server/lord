@@ -6,6 +6,7 @@ local ModSettings    = require('mod.Settings')
 minetest.get_mod_require    = RequireFactory.get_mod_require
 minetest.get_mod_logger     = LoggerFactory.get_mod_logger
 minetest.get_mod_translator = Translator.get
+--- @return Voxrame.mod.Settings
 minetest.get_mod_settings   = function(mod_name)
 	return ModSettings:new(mod_name)
 end
