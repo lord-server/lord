@@ -1,0 +1,30 @@
+# textdomain: lord_spawns
+
+# lord_spawns/command/spawn.lua
+Teleport to Spawn=Teleport to Spawn
+Teleporting to @1 Spawn...=Teleporting to @1 Spawn...
+
+# lord_spawns/command/spawn_to.lua
+Can teleport to any race spawn.=Can teleport to any race spawn.
+Teleports to specified Spawn. (use as param one of: orc, man, dwarf, hobbit, elf)=Teleports to specified Spawn. (use as param one of: orc, man, dwarf, hobbit, elf)
+Unknown player race: @1=Unknown player race: @1
+
+# lord_spawns/Halls.lua
+Teleport to the @1=Teleport to the @1
+Teleporting to the @1 ...=Teleporting to the @1 ...
+Teleport failed=Teleport failed
+
+# lord_spawns.lua
+Command reserved. For teleporting to Old Central Spawn use command `/center`=Command reserved. For teleporting to Old Central Spawn use command `/center`
+
+###
+Hall of Life=Hall of Life
+Hall of Death=Hall of Death
+Hall of Dol Guldur=Hall of Dol Guldur
+
+common=common
+orc=orc
+man=man
+dwarf=dwarf
+hobbit=hobbit
+elf=elf

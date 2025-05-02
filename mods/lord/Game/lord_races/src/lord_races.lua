@@ -29,6 +29,11 @@ local function register_api()
 		get_mobs_races = function()
 			return Collection.mob_races
 		end,
+		--- @param name string
+		--- @return boolean
+		has_player_race = function(name)
+			return Collection.player_races[name] ~= nil
+		end
 	}
 end
 

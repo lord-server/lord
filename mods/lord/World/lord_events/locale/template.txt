@@ -1,0 +1,13 @@
+# textdomain: lord_events
+
+# lord_events/command/event/set_pos.lua
+Save current position as teleporting point for `/event` command.=
+If "none" is passed as a parameter, the position and the `/event` command are removed.=
+Event position unset.=
+Event position is set to @1.=
+
+# lord_events/Event.lua
+Event Place=
+
+# lord_events.lua
+Can save position for /event command.=

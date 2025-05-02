@@ -1,0 +1,30 @@
+# textdomain: lord_spawns
+
+# lord_spawns/command/spawn.lua
+Teleport to Spawn=Переместиться на Спаун
+Teleporting to @1 Spawn...=Производится перемещение на @1 Спаун...
+
+# lord_spawns/command/spawn_to.lua
+Can teleport to any race spawn.=Может перемещаться на любой Спаун.
+Teleports to specified Spawn. (use as param one of: orc, man, dwarf, hobbit, elf)=Перемещает на указанный Спаун. (используйте в качестве параметра одно из: orc, man, dwarf, hobbit, elf)
+Unknown player race: @1=Неизвестная раса: @1
+
+# lord_spawns/Halls.lua
+Teleport to the @1=Переместиться в @1
+Teleporting to the @1 ...=Производится перемещение в @1 ...
+Teleport failed=Не удалось переместиться
+
+# lord_spawns.lua
+Command reserved. For teleporting to Old Central Spawn use command `/center`=Команда зарезервирована. Для телепортации в Старый центральный Спаун используйте команду `/center`
+
+###
+Hall of Life=Зал Жизни
+Hall of Death=Зал Смерти
+Dol Guldur=Дол Гулдур
+
+common=Общий
+orc=Орочий
+man=Людской
+dwarf=Гномий
+hobbit=Хоббичий
+elf=Эльфийский

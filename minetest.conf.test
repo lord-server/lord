@@ -258,20 +258,22 @@ lp_api.system_name = lord-test
 environment = test
 debug = true
 
-# ------- lord/lord_classes, lord/lord_spawn -------
+# ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
+lord_spawns.common_spawn_pos = 330, 20, 160
+lord_spawns.dynamic_spawn = true
 
-# добавлено при реализации `/death`
-common_spawn_pos = 330, 20, 160
-hall_of_life_pos = 330, 20, 160
-hall_of_death_pos = 380, 2, -6
-hall_of_bree_pos = 417, 23, 193
-# спауны для рас ( GH: #330 )
-dynamic_spawn = true
-elf_spawn_pos = 440, 22, 98
-orc_spawn_pos = 380, 2, -6
-hobbit_spawn_pos = 430, 22, 287
+# Spawns (Racial, by command /spawn)
+lord_spawns.racial.elf_pos = 440, 22, 98
+lord_spawns.racial.orc_pos = 380, 2, -6
+lord_spawns.racial.hobbit_pos = 430, 22, 287
 
+# Halls (Teleport by command points)
+lord_spawns.halls.life_pos = 330, 20, 160
+lord_spawns.halls.death_pos = 380, 2, -6
+lord_spawns.halls.bree_pos = 417, 23, 193
+
+# ------- lord/lord_classes
 sauron_curse_area = 5
 
 # ------- lord_ground -------

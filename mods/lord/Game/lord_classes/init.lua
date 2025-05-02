@@ -113,11 +113,7 @@ local function move_player_to_spawn(player, race)
 	if races.tp_process[name] ~= true then
 		races.tp_process[name] = true
 		minetest.after(0.1, function()
-			if spawn.check_conf(race .. "_spawn_pos") then
-				spawn.put_player_at_spawn(player, race .. "_spawn_pos")
-			else
-				spawn.put_player_at_spawn(player, "common_spawn_pos")
-			end
+			lord_spawns.spawns.teleport_to(player, race)
 			races.tp_process[name] = false
 		end)
 	end
