@@ -189,6 +189,16 @@ function table.is_empty(table)
 	return next(table) == nil
 end
 
+--- @param table table|any
+--- @return boolean
+function table.is_position(table)
+	return
+		type(table) == 'table' and
+		type(table.x) == 'number' and
+		type(table.y) == 'number' and
+		type(table.z) == 'number'
+end
+
 --- @param table table
 --- @param values table
 function table.keys_has_one_of_values(table, values)
@@ -204,7 +214,7 @@ end
 --- @param table table
 --- @param value any
 --- @return boolean
-function table.each_value_equals(table, value)
+function table.each_value_is(table, value)
 	value = value or true
 	for _, v in pairs(table) do
 		if v ~= value then
