@@ -550,7 +550,7 @@ function minetest.register_on_dieplayer(callback) end
 --- * return true in func to disable regular player placement
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4630-L4633)
---- @param callback fun(player:ObjectRef)
+--- @param callback fun(player:ObjectRef):boolean|nil
 function minetest.register_on_respawnplayer(callback) end
 --- * Called when a client connects to the server, prior to authentication
 --- * If it returns a string, the client is disconnected with that string as
