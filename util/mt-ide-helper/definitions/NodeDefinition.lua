@@ -447,7 +447,7 @@ local NodeDefinition = {
 	--- default: minetest.node_punch
 	--- Called when puncher (an ObjectRef) punches the node at pos.
 	--- By default calls minetest.register_on_punchnode callbacks.
-	--- @type fun(pos:Position, node:Node, puncher:Player|ObjectRef|nil, pointed_thing:pointed_thing)
+	--- @type fun(pos:Position, node:NodeTable, puncher:Player|ObjectRef|nil, pointed_thing:pointed_thing)
 	on_punch                      = nil,
 
 	--- default: nil
@@ -459,14 +459,14 @@ local NodeDefinition = {
 	--- Note: pointed_thing can be nil, if a mod calls this function.
 	--- This function does not get triggered by clients <=0.4.16 if the
 	--- "formspec" node metadata field is set.
-	--- @type fun(pos:Position, node:Node, clicker:Player|ObjectRef|nil, itemstack:ItemStack, pointed_thing:pointed_thing|nil)
+	--- @type fun(pos:Position, node:NodeTable, clicker:Player|ObjectRef|nil, itemstack:ItemStack, pointed_thing:pointed_thing|nil)
 	on_rightclick                 = nil,
 
 	--- default: minetest.node_dig
 	--- By default checks privileges, wears out item (if tool) and removes node.
 	--- return true if the node was dug successfully, false otherwise.
 	--- Deprecated: returning nil is the same as returning true.
-	--- @type fun(pos:Position, node:Node, digger:Player): boolean
+	--- @type fun(pos:Position, node:NodeTable, digger:Player): boolean
 	on_dig                        = nil,
 
 	--- default: nil

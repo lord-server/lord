@@ -583,7 +583,7 @@ end
 --- Падение(сползание) ствола деревьев вниз при ломании
 --- Fall(slide) all trunk nodes down while digging
 --- @param pos    Position
---- @param node   Node
+--- @param node   NodeTable
 --- @param name   string
 --- @param digger Player
 --- @param height number

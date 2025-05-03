@@ -11,7 +11,7 @@
 --
 --- See ./classes/AreaStore.lua
 
----@class Node
+---@class NodeTable
 ---@field name string
 ---@field param1 number
 ---@field param2 number
@@ -889,7 +889,7 @@ function minetest.remove_node(pos) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4860-L4863)
 ---@param pos Position
----@return Node
+---@return NodeTable
 function minetest.get_node(pos) end
 --- * Same as `get_node` but returns `nil` for unloaded areas.
 ---

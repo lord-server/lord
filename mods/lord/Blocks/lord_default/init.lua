@@ -9,7 +9,7 @@ minetest.register_craftitem(":default:scorched_stuff", {
 
 --- Use as `on_punch` callback. Fires node by punching with torch.
 --- @param pos           Position      punched `node` position
---- @param node          Node          punched `node` NodeTable
+--- @param node          NodeTable     punched `node` NodeTable
 --- @param puncher       Player        who punched the `node`
 --- @param pointed_thing pointed_thing params on which node "cursor" is pointed now
 local function fire_by_torch_punch(pos, node, puncher, pointed_thing)
