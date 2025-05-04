@@ -11,6 +11,11 @@ local title_remains_skull_bones = S('Remains. Skull and bones')
 local title_remains_skull_pick = S('Remains. Skull and pick')
 
 -- лейвый, правый клик выбрасывает лут
+--- Generates handlers for `on_punch` & `on_rightclick`
+--- @param swap_to_node string              technical node name (`"mod:name"`) to replace with when looting.
+--- @param title        string              text that will be displayed when point to new(replaced) node.
+--- @param drop_items   remains.drop.config list of items to drop to world as loot.
+--- @return fun(pos:Position, node:NodeTable, clicker:Player)
 local function get_mouse_click_handler(swap_to_node, title, drop_items)
     return function(pos, node, clicker)
         local meta        = minetest.get_meta(pos)
