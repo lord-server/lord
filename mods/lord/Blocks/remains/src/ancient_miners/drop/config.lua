@@ -52,10 +52,7 @@ local tools_acnient_miner = {
 }
 
 --- @type remains.drop.config
-local skull_pick = items_ancient_miner
-for item, drop in pairs(tools_acnient_miner) do
-	table.insert(skull_pick, drop)
-end
+local skull_pick = table.merge_values( tools_acnient_miner, items_ancient_miner )
 table.sort( skull_pick, function (a,b) return a.rarity > b.rarity end )
 
 
