@@ -1,6 +1,8 @@
 local math_random, type, pairs, ipairs, table_copy
     = math.random, type, pairs, ipairs, table.copy
 
+--- @param count number              total max count of items to select from `items`.
+--- @param items remains.drop.config list of items to select from.
 local function get_random_items(count, items)
 	local result_items = {}
 	for _, row in pairs(items) do
@@ -18,8 +20,12 @@ local function get_random_items(count, items)
 	return result_items
 end
 
--- фукниция выбрасывания лута в мир
-local function drop_items_to_world(remains_pos, player_pos, items)
+--- фукниция выбрасывания лута в мир
+--- Drops random items into world.
+---
+--- @param remains_pos Position            position of remains node.
+--- @param player_pos  Position            position of player.
+--- @param items       remains.drop.config list of items to drop to world as loot.
 	local drop_pos       = table_copy(remains_pos)
 	drop_pos.y           = remains_pos.y + 1
 	local drop_direction = {

@@ -26,5 +26,5 @@ return {
 		minetest.register_node('remains:ancient_miner_2', table_merge(
 			nodes.common_definition,
 			nodes.ancient_miner_2))
-end
+	end
 }

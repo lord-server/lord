@@ -1,3 +1,10 @@
+--- @class remains.drop.config.entry
+--- @field item   string|table technical item name with quantity (`"mod:item"|"mod:item N"`) or array of them.
+--- @field rarity number       chance 1 to `rarity`. use `100/<percent>` to define in percents.
+
+--- @alias remains.drop.config remains.drop.config.entry[]
+
+--- @type remains.drop.config
 local items_ancient_miner = {
 	{ item = 'lottother:vilya',           rarity = 100/0.5 },
 	{ item = 'lottother:narya',           rarity = 100/2 },
@@ -20,6 +27,7 @@ local items_ancient_miner = {
 	{ item = 'lord_money:silver_coin 10', rarity = 100/50 },
 	{ item = 'lord_money:copper_coin 20', rarity = 100/100 },
 }
+--- @type remains.drop.config
 local tools_acnient_miner = {
 	{ item = {
 		'tools:pick_bronze',
@@ -43,6 +51,7 @@ local tools_acnient_miner = {
 		},                                rarity = 100/74 },
 }
 
+--- @type remains.drop.config
 local skull_pick = items_ancient_miner
 for item, drop in pairs(tools_acnient_miner) do
 	table.insert(skull_pick, drop)
@@ -51,6 +60,8 @@ table.sort( skull_pick, function (a,b) return a.rarity > b.rarity end )
 
 
 return {
+	--- @type remains.drop.config
 	skull_bones = items_ancient_miner,
+	--- @type remains.drop.config
 	skull_pick = skull_pick
 }

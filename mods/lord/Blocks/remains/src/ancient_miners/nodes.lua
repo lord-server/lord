@@ -1,7 +1,7 @@
 local S = minetest.get_mod_translator()
 
 local drop = require('ancient_miners.drop.config')
-local loot_functions = require("loot_functions")
+local loot_functions = require('loot_functions')
 
 
 -- title используется как node.description и meta.infotext
@@ -11,6 +11,11 @@ local title_remains_skull_bones = S('Remains. Skull and bones')
 local title_remains_skull_pick = S('Remains. Skull and pick')
 
 -- лейвый, правый клик выбрасывает лут
+--- Generates handlers for `on_punch` & `on_rightclick`
+--- @param swap_to_node string              technical node name (`"mod:name"`) to replace with when looting.
+--- @param title        string              text that will be displayed when point to new(replaced) node.
+--- @param drop_items   remains.drop.config list of items to drop to world as loot.
+--- @return fun(pos:Position, node:NodeTable, clicker:Player)
 --- Generates handlers for `on_punch` & `on_rightclick`
 --- @param swap_to_node string              technical node name (`"mod:name"`) to replace with when looting.
 --- @param title        string              text that will be displayed when point to new(replaced) node.
@@ -27,6 +32,7 @@ end
 
 -- общие определения регистрируемых нод
 
+--- @type NodeDefinition
 local common_definition = {
 	node_box = { type = 'fixed', fixed = {
 		0.5, -0.5, -0.5, 0.5, -0.1, 0.5,
@@ -41,7 +47,8 @@ local common_definition = {
 	paramtype2   = 'facedir',
 }
 
--- нода череп и скелет с лутом для mapgen
+--- нода череп и скелет с лутом для mapgen
+--- @type NodeDefinition
 local ancient_miner_mapgen_1 = {
 	description = title_ancient_miner_mapgen,
 	mesh         = 'skull_bones.obj',
@@ -55,7 +62,8 @@ local ancient_miner_mapgen_1 = {
 	on_rightclick = get_mouse_click_handler('remains:ancient_miner_1', title_remains_skull_bones, drop.skull_bones),
 }
 
--- нода череп и кирка с лутом для mapgen
+--- нода череп и кирка с лутом для mapgen
+--- @type NodeDefinition
 local ancient_miner_mapgen_2 = {
 	description  = title_ancient_miner_mapgen,
 	mesh         = 'skull_pick.obj',
@@ -69,7 +77,8 @@ local ancient_miner_mapgen_2 = {
 	on_rightclick = get_mouse_click_handler('remains:ancient_miner_2', title_remains_skull_pick, drop.skull_bones),
 }
 
--- нода добытые останки (для инвентаря)
+--- нода добытые останки (для инвентаря)
+--- @type NodeDefinition
 local ancient_miner = {
 	description     = title_ancient_miner,
 	inventory_image = 'skull_front_inv.png',
@@ -86,7 +95,8 @@ local ancient_miner = {
 	end
 }
 
--- нода череп и скелет добытый (без лута)
+--- нода череп и скелет добытый (без лута)
+--- @type NodeDefinition
 local ancient_miner_1 = {
 	description = title_remains_skull_bones,
 	mesh        = 'skull_bones.obj',
@@ -104,7 +114,8 @@ local ancient_miner_1 = {
 	end
 }
 
--- нода череп и кирка добытый (без лута)
+--- нода череп и кирка добытый (без лута)
+--- @type NodeDefinition
 local ancient_miner_2 = {
 	description = title_remains_skull_pick,
 	mesh        = 'skull_pick.obj',
