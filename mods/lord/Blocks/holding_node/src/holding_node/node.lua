@@ -71,7 +71,7 @@ local definition = {
 		local battle_stat = minetest.deserialize(meta:get_string('battle_stat')) or {}
 		local current_time = os.time()
 
-		battle_stat[clan.name] = current_time
+		battle_stat[clan.name] = 0
 
 		-- обновить метаданные ноды
 		meta:set_string('battle_stat', minetest.serialize(battle_stat))

@@ -10,6 +10,7 @@ local Form = base_classes.Form:personal():for_node():extended({
 })
 
 --- @private
+--- @return string
 function Form:get_spec()
 	local str_pos = self.node_position.x .. ',' .. self.node_position.y .. ',' .. self.node_position.z
 
@@ -20,6 +21,7 @@ function Form:get_spec()
 		.. spec.list('nodemeta:' .. str_pos, 'reward', 1, 3, 4, 1)
 end
 
+--- @param fields table
 function Form:handle(fields)
 	if fields.input_name and fields.save then
 		if self.node_meta then
