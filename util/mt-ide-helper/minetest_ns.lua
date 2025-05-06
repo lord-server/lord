@@ -478,14 +478,17 @@ function minetest.register_on_dignode(callback) end
 function minetest.register_on_punchnode(callback) end
 --- * Called after generating a piece of world. Modifying nodes inside the area
 ---   is a bit faster than usually.
+--- * **Avoid using this** whenever possible. As with other callbacks this blocks
+---   the main thread and introduces noticeable latency.
+---   Consider "Mapgen environment" for an alternative.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4586-L4588)
---- @param callback fun(minp, maxp, blockseed)
+--- @param callback fun(min_pos:Position, max_pos:Position, seed:number)
 function minetest.register_on_generated(callback) end
 --- * Called when a new player enters the world for the first time
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4589-L4590)
---- @param callback fun(player:ObjectRef)
+--- @param callback fun(player:Player)
 function minetest.register_on_newplayer(callback) end
 --- * Called when a player is punched
 --- * Note: This callback is invoked even if the punched player is dead.
@@ -500,14 +503,14 @@ function minetest.register_on_newplayer(callback) end
 --- * should return `true` to prevent the default damage mechanism
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4591-L4602)
---- @param callback fun(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
+--- @param callback fun(player:Player, hitter:Player, time_from_last_punch:number|nil, tool_capabilities, dir, damage)
 function minetest.register_on_punchplayer(callback) end
 --- * Called when a player is right-clicked
 --- * `player`: ObjectRef - Player that was right-clicked
 --- * `clicker`: ObjectRef - Object that right-clicked, may or may not be a player
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4603-L4606)
---- @param callback fun(player, clicker)
+--- @param callback fun(player:Player, clicker:Player)
 function minetest.register_on_rightclickplayer(callback) end
 
 --- @class PlayerHPChangeReason
@@ -543,7 +546,7 @@ function minetest.register_on_player_hpchange(callback, modifier) end
 --- * `reason`: a PlayerHPChangeReason table, see register_on_player_hpchange
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4627-L4629)
---- @param callback fun(player:ObjectRef, reason)
+--- @param callback fun(player:ObjectRef, reason:PlayerHPChangeReason)
 function minetest.register_on_dieplayer(callback) end
 --- * Called when player is to be respawned
 --- * Called _before_ repositioning of player occurs
@@ -557,7 +560,7 @@ function minetest.register_on_respawnplayer(callback) end
 ---   reason.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4634-L4637)
---- @param callback fun(name, ip)
+--- @param callback fun(name:string, ip:string):nil|string
 function minetest.register_on_prejoinplayer(callback) end
 --- * Called when a player joins the game
 --- * `last_login`: The timestamp of the previous login, or nil if player is new
