@@ -2,8 +2,16 @@ local Nodes  = require('icicles.Nodes')
 local MapGen = require('icicles.MapGen')
 
 
+local except = { 'lord_rocks:mordor_stone' }
+
 local function register_nodes()
-	Nodes.register()
+	Nodes.register('default:stone')
+
+	for rock_name, _ in pairs(rocks.get_lord_rocks()) do
+		if not except[rock_name] then
+			Nodes.register(rock_name)
+		end
+	end
 end
 
 
