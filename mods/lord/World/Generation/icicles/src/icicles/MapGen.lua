@@ -1,6 +1,9 @@
 local minetest_get_node, minetest_set_node, math_min, math_max, math_floor, v
     = minetest.get_node, minetest.set_node, math.min, math.max, math.floor, vector.new
 
+local config = require('icicles.config')
+
+
 --- @class icicles.MapGen
 local MapGen = {}
 
@@ -18,27 +21,29 @@ end
 
 --- @param pos    Position
 --- @param length number
-function MapGen.make_stalactite(pos, length)
+function MapGen.make_stalactite(pos, rock_name, length)
+	local icicle_name_prefix = 'icicles:' .. rock_name:replace(':', '_') .. '_'
 	for i = length, 1, -1 do
 		local under_pos = v(pos) + v(0, - i + 1, 0)
 		if minetest_get_node(under_pos).name ~= 'air' then
 			return
 		end
 
-		minetest_set_node(under_pos, { name = 'icicles:icicle_' .. 5 - i })
+		minetest_set_node(under_pos, { name = icicle_name_prefix .. 5 - i })
 	end
 end
 
 --- @param pos    Position
 --- @param length number
-function MapGen.make_stalagmite(pos, length)
+function MapGen.make_stalagmite(pos, rock_name, length)
+	local icicle_name_prefix = 'icicles:' .. rock_name:replace(':', '_') .. '_'
 	for i = 1, length do
 		local above_pos = v(pos) + v(0, i - 1, 0)
 		if minetest_get_node(above_pos).name ~= 'air' then
 			return
 		end
 
-		minetest_set_node(above_pos, { name = 'icicles:icicle_' .. 5 - i, param2 = 1 })
+		minetest_set_node(above_pos, { name = icicle_name_prefix .. 5 - i, param2 = 1 })
 	end
 end
 
@@ -77,12 +82,23 @@ function MapGen.generate(min_pos, max_pos, seed, chunks_per_volume, icicles_per_
 				local cur_pos   = chunk_start_pos + v(dx, dy, dz)
 				local above_pos = cur_pos + v(0, 1, 0)
 				local under_pos = cur_pos - v(0, 1, 0)
+
 				if minetest_get_node(cur_pos).name == 'air' then
-					if minetest_get_node(above_pos).name == 'default:stone' then
-						MapGen.make_stalactite(cur_pos, pr:next(2, 4))
-					elseif minetest_get_node(under_pos).name == 'default:stone' then
-						MapGen.make_stalagmite(cur_pos, pr:next(2, 4))
+
+					local above_node_name = minetest_get_node(above_pos).name
+					if above_node_name:is_one_of(config) then
+						MapGen.make_stalactite(cur_pos, above_node_name, pr:next(2, 4))
+
+						return
 					end
+
+					local under_node_name = minetest_get_node(under_pos).name
+					if under_node_name:is_one_of(config) then
+						MapGen.make_stalagmite(cur_pos, under_node_name, pr:next(2, 4))
+
+						return
+					end
+
 				end
 			end)
 		end
