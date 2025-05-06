@@ -301,11 +301,14 @@ lord_spawns.racial.dwarf_pos = 9519, 40, 11815
 #lord_spawns.racial.elf_pos =
 
 # Halls (Teleport by command points)
-lord_spawns.halls.center_pos = 735, 33, -818
-lord_spawns.halls.death_pos = 11773, 54, -10282
-#lord_spawns.halls.bree_pos = -7201, 3, 7629
-#lord_spawns.halls.life_pos = 735, 33, -818  - сейчас стоит заглушка, т.к. не построен Ривенделл
-#lord_spawns.halls.event_pos - установка этой позиции перенесена в ./mods/lord/World/lord_spawn, задается командой /event.set_pos
+lord_spawns.halls.center.position = 735, 33, -818
+lord_spawns.halls.center.description = Dol Guldur
+lord_spawns.halls.death.position = 11773, 54, -10282
+lord_spawns.halls.death.description = Hall of Death
+#lord_spawns.halls.bree.position = -7201, 3, 7629
+#lord_spawns.halls.bree.description = Bree
+#lord_spawns.halls.life.position = 735, 33, -818  - сейчас стоит заглушка, т.к. не построен Ривенделл
+#lord_spawns.halls.life.description = Hall of Death
 
 # ------- lord/lord_classes
 #sauron_curse_area =

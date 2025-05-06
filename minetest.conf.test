@@ -269,9 +269,12 @@ lord_spawns.racial.orc_pos = 380, 2, -6
 lord_spawns.racial.hobbit_pos = 430, 22, 287
 
 # Halls (Teleport by command points)
-lord_spawns.halls.life_pos = 330, 20, 160
-lord_spawns.halls.death_pos = 380, 2, -6
-lord_spawns.halls.bree_pos = 417, 23, 193
+lord_spawns.halls.center.position = 330, 20, 160
+lord_spawns.halls.center.description = Dol Guldur
+lord_spawns.halls.death.position = 380, 2, -6
+lord_spawns.halls.death.description = Hall of Death
+#lord_spawns.halls.bree.position = 417, 23, 193
+#lord_spawns.halls.bree.description = Bree
 
 # ------- lord/lord_classes
 sauron_curse_area = 5
