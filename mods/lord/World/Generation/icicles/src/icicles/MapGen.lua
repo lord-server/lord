@@ -3,13 +3,21 @@ local minetest_get_node, minetest_set_node, math_min, math_max, math_floor, v
 
 local config = require('icicles.config')
 
+local config_rocks         = config.rocks
+local config_icicle_prefix = config.icicle_prefix
+
+local chunks_per_volume = config.map_gen.chunks_per_volume
+local chunk_size        = config.map_gen.chunk_size
+local icicles_per_chunk = config.map_gen.icicles_per_chunk
+local height_min        = config.map_gen.height_min
+local height_max        = config.map_gen.height_max
+
 
 --- @class icicles.MapGen
 local MapGen = {}
 
---- @param chunk_size number
 --- @param callback   fun(dx:number, dy:number, dz:number)
-function MapGen.foreach_pos_in_chunk(chunk_size, callback)
+function MapGen.foreach_pos_in_chunk(callback)
 	for dx = 0, chunk_size - 1 do
 		for dy = 0, chunk_size - 1 do
 			for dz = 0, chunk_size - 1 do
@@ -22,7 +30,7 @@ end
 --- @param pos    Position
 --- @param length number
 function MapGen.make_stalactite(pos, rock_name, length)
-	local icicle_name_prefix = 'icicles:' .. rock_name:replace(':', '_') .. '_'
+	local icicle_name_prefix = config_icicle_prefix[rock_name]
 	for i = length, 1, -1 do
 		local under_pos = v(pos) + v(0, - i + 1, 0)
 		if minetest_get_node(under_pos).name ~= 'air' then
@@ -36,7 +44,7 @@ end
 --- @param pos    Position
 --- @param length number
 function MapGen.make_stalagmite(pos, rock_name, length)
-	local icicle_name_prefix = 'icicles:' .. rock_name:replace(':', '_') .. '_'
+	local icicle_name_prefix = config_icicle_prefix[rock_name]
 	for i = 1, length do
 		local above_pos = v(pos) + v(0, i - 1, 0)
 		if minetest_get_node(above_pos).name ~= 'air' then
@@ -47,14 +55,10 @@ function MapGen.make_stalagmite(pos, rock_name, length)
 	end
 end
 
----@param min_pos           Position
----@param max_pos           Position
----@param seed              number
----@param chunks_per_volume number
----@param icicles_per_chunk number
----@param height_min        number
----@param height_max        number
-function MapGen.generate(min_pos, max_pos, seed, chunks_per_volume, icicles_per_chunk, height_min, height_max)
+---@param min_pos Position
+---@param max_pos Position
+---@param seed    number
+function MapGen.generate(min_pos, max_pos, seed)
 	if max_pos.y < height_min or min_pos.y > height_max then
 		return
 	end
@@ -63,10 +67,6 @@ function MapGen.generate(min_pos, max_pos, seed, chunks_per_volume, icicles_per_
 	local volume     = (max_pos.x - min_pos.x + 1) * (y_max - y_min + 1) * (max_pos.z - min_pos.z + 1)
 	local pr         = PseudoRandom(seed)
 	local num_chunks = math_floor(chunks_per_volume * volume)
-	local chunk_size = 3
-	if icicles_per_chunk <= 4 then
-		chunk_size = 2
-	end
 	local inverse_chance = math_floor(chunk_size * chunk_size * chunk_size / icicles_per_chunk)
 	for i = 1, num_chunks do
 		local y0 = pr:next(y_min, y_max - chunk_size + 1)
@@ -74,7 +74,7 @@ function MapGen.generate(min_pos, max_pos, seed, chunks_per_volume, icicles_per_
 			local x0 = pr:next(min_pos.x, max_pos.x - chunk_size + 1)
 			local z0 = pr:next(min_pos.z, max_pos.z - chunk_size + 1)
 			local chunk_start_pos = v(x0, y0, z0)
-			MapGen.foreach_pos_in_chunk(chunk_size, function(dx, dy, dz)
+			MapGen.foreach_pos_in_chunk(function(dx, dy, dz)
 				if pr:next(1, inverse_chance) ~= 1 then
 					return
 				end
@@ -86,14 +86,14 @@ function MapGen.generate(min_pos, max_pos, seed, chunks_per_volume, icicles_per_
 				if minetest_get_node(cur_pos).name == 'air' then
 
 					local above_node_name = minetest_get_node(above_pos).name
-					if above_node_name:is_one_of(config) then
+					if above_node_name:is_one_of(config_rocks) then
 						MapGen.make_stalactite(cur_pos, above_node_name, pr:next(2, 4))
 
 						return
 					end
 
 					local under_node_name = minetest_get_node(under_pos).name
-					if under_node_name:is_one_of(config) then
+					if under_node_name:is_one_of(config_rocks) then
 						MapGen.make_stalagmite(cur_pos, under_node_name, pr:next(2, 4))
 
 						return
