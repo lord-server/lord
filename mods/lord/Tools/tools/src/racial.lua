@@ -25,7 +25,7 @@ minetest.register_tool('tools:sword_orc', {
 })
 minetest.register_tool('tools:battleaxe_dwarven', {
 	description       = S('Dwarven Battleaxe'),
-	inventory_image   = 'castle_battleaxe.png',
+	inventory_image   = 'tools_battleaxe_dwarf.png',
 	tool_capabilities = {
 		max_drop_level      = 1,
 		groupcaps           = {
