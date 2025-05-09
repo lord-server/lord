@@ -1,0 +1,6 @@
+# textdomain: remains
+
+Remains. Skull and bones=
+Remains. Skull and pick=
+Remains=
+Remains of ancient miner=
