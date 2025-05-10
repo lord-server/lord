@@ -47,6 +47,12 @@ local function fill_wall(wall_type, start_pos, end_pos, data, area)
 end
 
 return {
+	--- @param minp          Position
+	--- @param maxp          Position
+	--- @param data          table
+	--- @param area          VoxelArea
+	--- @param rooms_centers Position[]
+	--- @param room_walls    RoomWalls[]
 	on_dungeon_generated = function(minp, maxp, data, area, rooms_centers, rooms_walls)
 		for i, room_center in pairs(rooms_centers) do
 			for wall_type, wall in pairs(rooms_walls[i]) do

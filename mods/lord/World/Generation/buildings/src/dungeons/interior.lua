@@ -217,6 +217,13 @@ end
 
 
 return {
+	--- @param minp          Position
+	--- @param maxp          Position
+	--- @param data          table
+	--- @param param2_data   table
+	--- @param area          VoxelArea
+	--- @param rooms_centers Position[]
+	--- @param room_walls    RoomWalls[]
 	on_dungeon_generated = function(minp, maxp, data, param2_data, area, rooms_centers, rooms_walls)
 		if maxp.y > INTERIOR_Y_MAX then
 			return
