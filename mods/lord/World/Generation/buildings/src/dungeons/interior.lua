@@ -4,25 +4,25 @@ local pairs, math_random, table_is_empty, vector_new, id
 local INTERIOR_CHANCE = 3
 local INTERIOR_Y_MAX  = -50
 
-local id_air    = id("air")
-local id_ignore = id("ignore")
+local id_air    = id('air')
+local id_ignore = id('ignore')
 
-local id_bed_bottom          = id("beds:bed_bottom")
-local id_bed_top             = id("beds:bed_top")
-local id_dwarf_chest_spawner = id("lottmapgen:dwarf_chest_spawner")
-local id_bookshelf           = id("default:bookshelf")
-local id_fence               = id("default:fence_wood")
-local id_hatch               = id("lord_wooden_stuff:hatch_alder")
-local id_chair               = id("lord_wooden_stuff:chair_alder")
-local id_barrel              = id("barrel:barrel")
-local id_torch               = id("default:torch_wall")
+local id_bed_bottom          = id('beds:bed_bottom')
+local id_bed_top             = id('beds:bed_top')
+local id_dwarf_chest_spawner = id('lottmapgen:dwarf_chest_spawner')
+local id_bookshelf           = id('default:bookshelf')
+local id_fence               = id('default:fence_wood')
+local id_hatch               = id('lord_wooden_stuff:hatch_alder')
+local id_chair               = id('lord_wooden_stuff:chair_alder')
+local id_barrel              = id('barrel:barrel')
+local id_torch               = id('default:torch_wall')
 
 --- @param data table     map data taken from `VoxelManip:get_data()`
 --- @param area VoxelArea map data indexer
 --- @param ...  Position  all args after `area` must be `Position`s
 local function is_air(data, area, ...)
 	for _, value in pairs({...}) do
-		local index = type(value) == "table" and area:indexp(value) or value
+		local index = type(value) == 'table' and area:indexp(value) or value
 		local node_id = data[index]
 		if node_id ~= id_air and node_id ~= id_ignore then
 			return false
@@ -73,10 +73,10 @@ function Interior:place_torch_if_possible(x, y, z, param2)
 end
 
 --- @param wall   RoomWall
---- @param corner string   one of {"left"|"right"}
+--- @param corner string   one of {'left'|'right'}
 function Interior:place_north_wall_bad_and_chest(wall, corner)
-	local sign = corner == "left" and 1 or -1
-	local corner_pos = corner == "left"
+	local sign = corner == 'left' and 1 or -1
+	local corner_pos = corner == 'left'
 		and wall.start_pos
 		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
 
@@ -117,11 +117,11 @@ function Interior:place_north_wall_shelves(wall)
 end
 
 --- @param wall   RoomWall
---- @param corner string   one of {"left"|"right"}
+--- @param corner string   one of {'left'|'right'}
 function Interior:place_south_wall_barrels(wall, corner)
-	local sign = corner == "left" and 1 or -1
+	local sign = corner == 'left' and 1 or -1
 	--- @type vector
-	local corner_pos = corner == "left"
+	local corner_pos = corner == 'left'
 		and wall.start_pos
 		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
 
@@ -139,10 +139,10 @@ function Interior:place_south_wall_barrels(wall, corner)
 	end
 end
 
---- @param side string   one of {"west"|"east"}
+--- @param side string   one of {'west'|'east'}
 --- @param wall RoomWall
 function Interior:place_diner_zone(side, wall)
-	local sign = side == "west" and 1 or -1
+	local sign = side == 'west' and 1 or -1
 	local wall_z_center = wall.start_pos.z + math.floor((wall.end_pos.z - wall.start_pos.z) / 2)
 	local wall_center_bottom_pos = vector_new(wall.start_pos.x, wall.start_pos.y, wall_z_center)
 
@@ -189,20 +189,20 @@ function Interior:place_room_interior(room_walls, room_center)
 	local west_wall  = room_walls.west
 	local east_wall  = room_walls.east
 
-	self:place_north_wall_bad_and_chest(north_wall, "left")
-	self:place_north_wall_bad_and_chest(north_wall, "right")
+	self:place_north_wall_bad_and_chest(north_wall, 'left')
+	self:place_north_wall_bad_and_chest(north_wall, 'right')
 
 	self:place_north_wall_shelves(north_wall)
-	self:place_south_wall_barrels(south_wall, "left")
-	self:place_south_wall_barrels(south_wall, "right")
+	self:place_south_wall_barrels(south_wall, 'left')
+	self:place_south_wall_barrels(south_wall, 'right')
 
-	self:place_diner_zone("west", west_wall)
-	self:place_diner_zone("east", east_wall)
+	self:place_diner_zone('west', west_wall)
+	self:place_diner_zone('east', east_wall)
 
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
 
-	minetest.add_entity(room_center, "lottmobs:dead_men")
+	minetest.add_entity(room_center, 'lottmobs:dead_men')
 end
 
 --- @param rooms_centers Position[]

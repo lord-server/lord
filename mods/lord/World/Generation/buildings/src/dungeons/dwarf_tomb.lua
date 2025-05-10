@@ -1,13 +1,13 @@
 local pairs, math_random, id
     = pairs, math.random, minetest.get_content_id
 
-local id_air                 = id("air")
-local id_mossy_cobble        = id("default:mossycobble")
-local id_gold                = id("default:goldblock")
-local id_tomb_legs           = id("lottblocks:dwarf_tomb_bottom")
-local id_tomb_head           = id("lottblocks:dwarf_tomb_top")
-local id_tomb_with_drop_legs = id("lottblocks:gen_dwarf_tomb_bottom")
-local id_tomb_with_drop_head = id("lottblocks:gen_dwarf_tomb_top")
+local id_air                 = id('air')
+local id_mossy_cobble        = id('default:mossycobble')
+local id_gold                = id('default:goldblock')
+local id_tomb_legs           = id('lottblocks:dwarf_tomb_bottom')
+local id_tomb_head           = id('lottblocks:dwarf_tomb_top')
+local id_tomb_with_drop_legs = id('lottblocks:gen_dwarf_tomb_bottom')
+local id_tomb_with_drop_head = id('lottblocks:gen_dwarf_tomb_top')
 
 local TOMB       = {
 	Y_MAX           = -250, -- from here and below just tomb for players nodes (without drop)

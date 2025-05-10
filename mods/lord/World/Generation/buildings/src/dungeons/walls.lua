@@ -2,14 +2,14 @@ local pairs, math_random, id
 	= pairs, math.random, minetest.get_content_id
 
 
-local id_air = id("air")
+local id_air = id('air')
 
 local ids_side_wall_blocks = {
-	id("default:cobble"),
-	id("default:mossycobble"),
-	id("default:stone"),
-	id("default:stonebrick"),
-	id("default:stonebrick"),
+	id('default:cobble'),
+	id('default:mossycobble'),
+	id('default:stone'),
+	id('default:stonebrick'),
+	id('default:stonebrick'),
 }
 local ids_wall_blocks      = {
 	north = ids_side_wall_blocks,
@@ -17,20 +17,20 @@ local ids_wall_blocks      = {
 	west  = ids_side_wall_blocks,
 	east  = ids_side_wall_blocks,
 	floor = {
-		id("default:cobble"),
-		id("default:mossycobble"),
-		id("default:mossycobble"),
-		id("default:stonebrick"),
+		id('default:cobble'),
+		id('default:mossycobble'),
+		id('default:mossycobble'),
+		id('default:stonebrick'),
 	},
 	ceiling = {
-		id("default:cobble"),
-		id("default:mossycobble"),
-		id("default:stone"),
-		id("default:stonebrick"),
+		id('default:cobble'),
+		id('default:mossycobble'),
+		id('default:stone'),
+		id('default:stonebrick'),
 	},
 }
 
---- @param wall_type string    one of "north", "south", "west", "east", "floor", "ceiling"
+--- @param wall_type string    one of 'north', 'south', 'west', 'east', 'floor', 'ceiling'
 --- @param data      table
 --- @param area      VoxelArea
 local function fill_wall(wall_type, start_pos, end_pos, data, area)

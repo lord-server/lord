@@ -1,5 +1,5 @@
 
 
 minetest.mod(function(mod)
-	require("dungeons")
+	require('dungeons')
 end)
