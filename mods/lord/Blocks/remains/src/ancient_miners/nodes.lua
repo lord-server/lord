@@ -92,7 +92,7 @@ local ancient_miner = {
 		if ret == nil then
 			return itemstack
 		else
-			return ItemStack('remains:ancient_miner ' .. (itemstack:get_count() - ret:get_count()))
+			return ItemStack('remains:ancient_miner ' .. (itemstack:get_count() - 1))
 		end
 	end
 }
