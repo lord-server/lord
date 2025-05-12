@@ -3,10 +3,6 @@
 Моды:
 -----
 
-### `icicles`
- - когда-то взят из [RealTest Game](https://github.com/sda97ghb/realtest/tree/master/mods/icicles) ([форум](https://forum.minetest.net/viewtopic.php?f=50&t=2671))
- - давно не поддерживается и вряд ли будет, поэтому забрали к себе без сабмодуля
-
 ### `lottmapgen`
  - Наследие из LOTT
  - содержит генерацию **биомов в верхнем слое поверхности** (и только)
