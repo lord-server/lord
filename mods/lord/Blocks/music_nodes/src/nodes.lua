@@ -1,6 +1,6 @@
-require('instruments.calimba')
 local Instruments = require('Instruments')
 local modname = "music_nodes"
+require('instruments.calimba')
 
 
 --- Обновляет метаданные ноды и проигрывает звук, соответствующий смещению

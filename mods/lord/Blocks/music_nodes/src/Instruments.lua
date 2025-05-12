@@ -1,41 +1,65 @@
-local Instruments = {}
+---
+--- @class music_nodes.Instrument
+--- @field name string Идентификатор инструмента
+--- @field description string Описание инструмента
+--- @field tiles string[] Список текстур
+--- @field instrument_type string Тип инструмента
+--- @field notes table<number, {note: string, pitch: number}> Таблица нот
+--- @field sound string Имя звукового файла
+
+---
+--- @class music_nodes.Instruments
+---
+local Instruments = {
+	--- @static
+	--- @type table<string, music_nodes.Instrument>
+	registered_instruments = {},
+}
 Instruments.__index = Instruments
 
--------------------------------
--- Реестр инструментов START --
--------------------------------
-
---- @table Локальный реестр зарегистрированных инструментов
-local registered_instruments = {}
-
---- Регистрирует инструмент в модуле
---- @param instrument table Объект инструмента (должен содержать поле .name)
---- @return nil
+--- Регистрирует инструмент в реестре
+--- @public
+--- @param instrument music_nodes.Instrument
 function Instruments.register(instrument)
-	registered_instruments[instrument.name] = instrument
+	Instruments.registered_instruments[instrument.name] = instrument
+end
+
+--- Возвращает инструмент по имени
+--- @public
+--- @param name string
+--- @return music_nodes.Instrument|nil
+function Instruments.get(name)
+
+	return Instruments.registered_instruments[name]
 end
 
 --- Возвращает все зарегистрированные инструменты
---- @return table -- Таблица вида {[name] = instrument}
+--- @public
+--- @return table<string, music_nodes.Instrument>
 function Instruments.get_all()
 
-return registered_instruments
+	return Instruments.registered_instruments
 end
 
------------------------------
--- Реестр инструментов END --
------------------------------
-
---- Конструктор инструмента. Создаёт новый объект с наследованием от Instruments.
---- @param opts table Таблица параметров инструмента (обязательные поля: name, description и др.)
---- @return table -- Новый объект инструмента
+--- Наш конструктор инструмента с наследованием
+--- @public
+--- @generic T: music_nodes.Instruments
+--- @param opts T Параметры инструмента
+--- @return T
 function Instruments:new(opts)
 	opts = opts or {}
-	-- Настраиваем метатаблицу для наследования методов
-	setmetatable(opts, self)
-	self.__index = self
 
-return opts
+	return setmetatable(opts, { __index = self })
+end
+
+--- Метод для расширения класса (наследования)
+--- @public
+--- @generic T: music_nodes.Instruments
+--- @param child_class T
+--- @return T
+function Instruments:extended(child_class)
+
+	return setmetatable(child_class or {}, { __index = self })
 end
 
 

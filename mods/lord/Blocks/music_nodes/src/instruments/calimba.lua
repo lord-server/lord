@@ -1,18 +1,12 @@
---- @class Instrument
---- @field name string Идентификатор инструмента
---- @field description string Описание инструмента
---- @field tiles table Таблица текстур
---- @field instrument_type string Тип инструмента (напр., "Percussion")
---- @field notes table Таблица с маппингом смещения к таблице с нотами (note, pitch)
---- @field sound string Имя звукового файла
-
 local Instruments = require('Instruments')
 
+
 --- Создаём инструмент Calimba
-local calimba = Instruments:new{
-	name        = "calimba",
+--- @class music_nodes.Calimba : music_nodes.Instrument
+local Calimba = Instruments:new({
+	name = "calimba",
 	description = "Самодельная калимба с тёплым звуком",
-	tiles       = {"calimba.png"},
+	tiles = {"calimba.png"},
 	instrument_type = "Percussion",
 	notes = {
 		[-12] = { note = "C4",  pitch = 0.500 },
@@ -42,10 +36,9 @@ local calimba = Instruments:new{
 		[ 12] = { note = "C6",  pitch = 2.000 },
 	},
 	sound = "calimba_c5"
-}
+})
 
--- Регистрация через модуль Instruments
-Instruments.register(calimba)
+Instruments.register(Calimba)
 
 
-return calimba
+return Calimba
