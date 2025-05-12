@@ -7,6 +7,25 @@ local on_dungeon_generated_handlers = {}
 
 local c_air = id("air")
 
+--- При генерации комнат данжей движок использует следующие размеры:
+---  - Обычные комнаты: 8×8×6 (макс.).
+---  - Большие залы: 16×16×16 (редко).
+---  - Коридоры: 1×2 блока и длиной до 13.
+---
+--- При этом бывает так, что соседние комнаты и коридоры пересекаются.
+--- Движок не передаёт размеры комнат, только их центры.
+---
+--- Т.о. при поиске стен "вручную" мы можем наткнуться на то,
+--- что стены очень далеко, -- дальше, чем заявлено.
+---
+--- Кроме того, бывает так, что комната сгенерировалась на стыке с пещерой
+--- и тогда стены попросту нет вообще.
+---
+--- Мы ищем от центра во все стороны, поэтому нам нужна только половина
+--- (если пересекутся больше комнат и коридоров, то стены не запишутся)
+local MAX_NODES_TO_WALL = math.ceil((8 + 16 + 13) / 2)
+--- Центр комнаты движок указывает на полу, тут нам нужна вся высота, а не половина
+local MAX_NODES_TO_CEIL = 8 + 16 + 2
 
 --- @class RoomWall
 --- @field start_pos vector
@@ -26,7 +45,7 @@ local c_air = id("air")
 ---@param area VoxelArea
 local function find_room_walls_positions(rc, data, area)
 	local wx_plus, wx_minus, wz_plus, wz_minus
-	for delta = 1, 8 do
+	for delta = 1, MAX_NODES_TO_WALL do
 		if wx_plus == nil  and data[area:index(rc.x + delta, rc.y, rc.z)] ~= c_air then wx_plus  = rc.x + delta end
 		if wx_minus == nil and data[area:index(rc.x - delta, rc.y, rc.z)] ~= c_air then wx_minus = rc.x - delta end
 		if wz_plus == nil  and data[area:index(rc.x, rc.y, rc.z + delta)] ~= c_air then wz_plus  = rc.z + delta end
@@ -45,7 +64,7 @@ end
 --- @param area     VoxelArea
 --- @return number|nil
 local function find_room_ceiling_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, data, area)
-	for dy = 1, 16 do
+	for dy = 1, MAX_NODES_TO_CEIL do
 		if
 			data[area:index(wx_plus  - 1, rc.y + dy,  rc.z        )] ~= c_air or
 			data[area:index(wx_minus + 1, rc.y + dy,  rc.z        )] ~= c_air or
