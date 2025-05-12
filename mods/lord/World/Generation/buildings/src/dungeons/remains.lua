@@ -4,7 +4,7 @@ local pairs, math_random, table_is_empty, id
 
 local REMAINS_Y_MAX = -100
 local REMAINS_CHANCE = 100/60 -- 60%
-
+local REMAINS_IN_TOMB_ROOM = 3
 local FIND_FREE_PLACE_ATTEMPTS = 10
 
 local id_air      = id('air')
@@ -63,7 +63,18 @@ end
 
 --- @param room_floor  RoomWall
 --- @param room_center Position
-function Remains:place_remains(room_floor, room_center)
+function Remains:place_remains_in_tomb_room(room_floor, room_center)
+	for i = 1, REMAINS_IN_TOMB_ROOM do
+		local index = self:find_free_place_index(room_floor)
+		if index then
+			self.data[index]        = ids_remains[math_random(#ids_remains)]
+			self.param2_data[index] = math_random(0, 3)
+		end
+	end
+end
+
+--- @param room_floor  RoomWall
+function Remains:place_remains(room_floor)
 	local index = self:find_free_place_index(room_floor)
 	if not index then  return  end
 
@@ -71,30 +82,36 @@ function Remains:place_remains(room_floor, room_center)
 	self.param2_data[index] = math_random(0, 3)
 end
 
---- @param rooms_centers Position[]
---- @param rooms_walls   RoomWalls[]
-function Remains:generate(rooms_centers, rooms_walls)
+--- @param rooms_centers   Position[]
+--- @param rooms_walls     RoomWalls[]
+--- @param tomb_room_index number      room index, where tomb was placed or `nil`
+function Remains:generate(rooms_centers, rooms_walls, tomb_room_index)
 	for i, room_center in pairs(rooms_centers) do
-		if (math_random(REMAINS_CHANCE) == 1 and not table_is_empty(rooms_walls[i])) then
-			self:place_remains(rooms_walls[i].floor, room_center)
+		if not table_is_empty(rooms_walls[i]) then
+			if i == tomb_room_index then
+				self:place_remains_in_tomb_room(rooms_walls[i].floor)
+			elseif math_random(REMAINS_CHANCE) == 1 then
+				self:place_remains(rooms_walls[i].floor)
+			end
 		end
 	end
 end
 
 
 return {
-	--- @param min_pos       Position
-	--- @param max_pos       Position
-	--- @param data          table
-	--- @param param2_data   table
-	--- @param area          VoxelArea
-	--- @param rooms_centers Position[]
-	--- @param rooms_walls   RoomWalls[]
-	on_dungeon_generated = function(min_pos, max_pos, data, param2_data, area, rooms_centers, rooms_walls)
+	--- @param min_pos         Position
+	--- @param max_pos         Position
+	--- @param data            table
+	--- @param param2_data     table
+	--- @param area            VoxelArea
+	--- @param rooms_centers   Position[]
+	--- @param rooms_walls     RoomWalls[]
+	--- @param tomb_room_index number      room index, where tomb was placed or `nil`
+	on_dungeon_generated = function(min_pos, max_pos, data, param2_data, area, rooms_centers, rooms_walls, tomb_room_index)
 		if max_pos.y > REMAINS_Y_MAX then
 			return
 		end
 
-		Remains:new(data, param2_data, area):generate(rooms_centers, rooms_walls)
+		Remains:new(data, param2_data, area):generate(rooms_centers, rooms_walls, tomb_room_index)
 	end
 }

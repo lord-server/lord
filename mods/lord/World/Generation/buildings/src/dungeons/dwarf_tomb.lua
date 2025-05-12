@@ -59,35 +59,38 @@ local function is_enough_space(room_center, data, area)
 end
 
 --- @param rooms_centers Position[]
---- @param data table
---- @param area VoxelArea
---- @return Position|nil
+--- @param data          table
+--- @param area          VoxelArea
+--- @return Position|nil,number|nil
 local function find_room_with_space(rooms_centers, data, area)
-	for _, room_center in pairs(rooms_centers) do
+	for i, room_center in pairs(rooms_centers) do
 		if is_enough_space(room_center, data, area) then
-			return room_center
+			return room_center, tonumber(i)
 		end
 	end
 
-	return nil
+	return nil, nil
 end
 
 return {
-	--- @param minp Position
-	--- @param maxp Position
-	--- @param data table
-	--- @param area VoxelArea
+	--- @param min_pos       Position
+	--- @param max_pos       Position
+	--- @param data          table
+	--- @param area          VoxelArea
 	--- @param rooms_centers Position[]
-	on_dungeon_generated = function(minp, maxp, data, area, rooms_centers)
-		if minp.y > TOMB.Y_MAX then
+	--- @return number|nil returns room index, where tomb was placed or `nil`
+	on_dungeon_generated = function(min_pos, max_pos, data, area, rooms_centers)
+		if min_pos.y > TOMB.Y_MAX then
 			return
 		end
 
 		if #rooms_centers >= TOMB.MIN_ROOMS and math_random(TOMB.CHANCE) == 1 then
-			local place_to = find_room_with_space(rooms_centers, data, area)
+			local place_to, room_index = find_room_with_space(rooms_centers, data, area)
 			if place_to then
-				local with_drop = minp.y < TOMB.WITH_DROP_Y_MAX
+				local with_drop = min_pos.y < TOMB.WITH_DROP_Y_MAX
 				place_tomb(place_to.x, place_to.y, place_to.z, with_drop, data, area)
+
+				return room_index
 			end
 		end
 	end
