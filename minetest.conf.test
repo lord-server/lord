@@ -307,3 +307,6 @@ nazgul_areas = 140
 
 # ------- lord/Game/lord_web_api
 #lord_web_api.base_url = https://lord-server.ru/api
+
+# ------- lord/World/Generation/Caves/caves_debug
+caves_debug.enabled = false
