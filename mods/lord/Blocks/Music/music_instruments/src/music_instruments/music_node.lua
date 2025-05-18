@@ -1,35 +1,46 @@
+local MusicNodeHelper = require('music_instruments.music_node.MusicNodeHelper')
 local config = require('music_instruments.music_node.config')
 
 
-local Music_node = {}
+local function register_instruments()
+	for instrument, def in pairs(config.instruments) do
+		minetest.register_node('music_instruments:' .. instrument, {
+			description = def.description,
+			drawtype = def.drawtype,
+			mesh = def.mesh,
+			tiles = def.tiles,
+			paramtype2 = 'facedir',
+			groups = { choppy = 2 },
 
---- Обновляет метаданные ноды
---- @param pos Position Позиция ноды
---- @param instrument_id string Название инструмента из config.instruments
---- @param offset number Смещение в полутонах (-12..12)
-function Music_node.update_node(pos, instrument_id, offset)
-	local meta = minetest.get_meta(pos)
-	local instrument = config.instruments[instrument_id]
-	local note = instrument.notes[offset] or instrument.notes[0]
+			on_construct = function(pos)
+				-- Устанавливает начальные значения из конфига
+				local initial_offset = 0 -- отсутствие смещения полутона при установке ноды
+				local initial_note = def.notes[initial_offset].note --начальная нота, без смещений полутона
+				MusicNodeHelper.update(pos, instrument, initial_offset, def.name, initial_note)
+			end,
 
-	meta:set_string('instrument', instrument_id)
-	meta:set_int('semitones', offset)
-	meta:set_string('infotext', instrument.name..'\nNote: '..note.note)
+			on_punch = function(pos)
+				local meta = minetest.get_meta(pos)
+				local semitones = meta:get_int('semitones')
+
+				if def and def.notes[semitones] then
+					MusicNodeHelper.play_sound(pos, def.sound, def.notes[semitones].pitch)
+				end
+			end,
+
+			on_rightclick = function(pos)
+				local meta = minetest.get_meta(pos)
+				local semitones = meta:get_int('semitones')
+
+				if def and def.notes[semitones] then
+					MusicNodeHelper.play_sound(pos, def.sound, def.notes[semitones].pitch)
+				end
+			end,
+		})
+	end
 end
 
---- Проигрывает звук инструмента
---- @param pos Position Позиция ноды
---- @param instrument_id string Название инструмента из config.instruments
---- @param offset number Текущее смещение
-function Music_node.play_sound(pos, instrument_id, offset)
-	local instrument = config.instruments[instrument_id]
-	local note = instrument.notes[offset] or instrument.notes[0]
-	minetest.sound_play(instrument.sound, {
-		pos = pos,
-		pitch = note.pitch,
-		gain = 1.0,
-	})
-end
 
-
-return Music_node
+return {
+	register = register_instruments
+}

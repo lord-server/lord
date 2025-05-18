@@ -1,18 +1,9 @@
-local api = require('music_instruments.music_node.api')
-
-
-music_instruments = {} -- luacheck: ignore unused global variable music_instruments
-
-local function register_api()
-	_G.music_instruments = api
-end
-
+local tuning_fork = require('music_instruments.tuning_fork')
+local music_node = require('music_instruments.music_node')
 
 return {
---- @param mod minetest.Mod
-	init = function(mod)
-		register_api()
+	init = function()
+		tuning_fork.register()
+		music_node.register()
 	end,
-	require('music_instruments.adjuster'),
-	require('music_instruments.music_node.config'),
 }

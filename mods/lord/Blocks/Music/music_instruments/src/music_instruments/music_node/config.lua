@@ -1,11 +1,15 @@
+local S = minetest.get_mod_translator()
 
 
 -- Таблица с константами: для каждого смещения задаём название ноты и значение pitch
 --- @type table<number, {note: string, pitch: number}>
 local instruments = {
 	kalimba = {
-		name = 'Kalimba',
-		description = 'Kalimba description',
+		name = S('Kalimba'),
+		description =   S('The kalimba is a magical instrument') .. '\n' ..
+						S('that can turn even the most hopeless') .. '\n' ..
+						S('musical attempts') .. '\n' ..
+						S('into something resembling a melody.'),
 		drawtype = 'mesh',
 		mesh = 'music_instruments_kalimba.obj',
 		tiles = {'music_instruments_kalimba_metallophon.png'},
@@ -40,8 +44,12 @@ local instruments = {
 	},
 
 	metallophone = {
-		name = 'Metallophone',
-		description = 'metallophone description',
+		name = S('Metallophone'),
+		description =   S('The metallophone can sound') .. '\n' ..
+						S('like an angelic choir,') .. '\n' ..
+						S('if struck gently,') .. '\n' ..
+						S('or like a china shop fight') .. '\n' ..
+						S('if approached with enthusiasm.'),
 		drawtype = 'mesh',
 		mesh = 'music_instruments_metallophone.obj',
 		tiles = {'music_instruments_kalimba_metallophon.png'},
