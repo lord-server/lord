@@ -18,19 +18,19 @@ local config = {
 		name = 'remains:ancient_miner_deep_level_1',
 		y_max = -100,
 		y_min = -250,
-		fill_ratio = 1/48000,
+		fill_ratio = 1/12000,
 	},
 	deep_level_2 = {
 		name = 'remains:ancient_miner_deep_level_2',
 		y_max = -250,
 		y_min = -1000,
-		fill_ratio = 1/24000,
+		fill_ratio = 1/6000,
 	},
 	deep_level_3 = {
 		name = 'remains:ancient_miner_deep_level_3',
 		y_max = -1000,
 		y_min = -30000,
-		fill_ratio = 1/18000,
+		fill_ratio = 1/4000,
 	}
 --	deep_level_4 = {
 --		name = 'remains:ancient_miner_deep_level_4',
