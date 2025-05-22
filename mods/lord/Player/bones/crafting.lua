@@ -29,3 +29,9 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = 'bones:bone 9',
+	recipe = {
+		{'bones:skeleton_body'},
+	}
+})
