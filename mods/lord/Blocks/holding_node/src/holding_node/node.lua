@@ -85,7 +85,15 @@ local definition = {
 	--- @param itemstack ItemStack
 	--- @param pointed_thing pointed_thing
 	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+		-- чтоб код не падал если ноду ударит не игрок
+		if not clicker or not minetest.is_player(clicker) then
+			return
+		end
 
+		if not minetest.check_player_privs(clicker, 'server') then
+			return
+		end
+		Form:new(clicker, pos):open()
 	end
 }
 
