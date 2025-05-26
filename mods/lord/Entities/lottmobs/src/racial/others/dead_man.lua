@@ -18,7 +18,7 @@ mobs:register_mob("lottmobs:dead_men", {
 	run_velocity = 4,
 	damage = 8,
 	damage_type = damage.Type.SOUL,
-	armor = {soul = 100, immortal = 1},
+	armor = {soul = 200, immortal = 1},
 	water_damage = 0,
 	lava_damage = 0,
 	light_damage = 1,
