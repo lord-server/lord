@@ -10,7 +10,7 @@ local function register_instruments()
 			mesh = def.mesh,
 			tiles = def.tiles,
 			paramtype2 = 'facedir',
-			groups = { choppy = 2 },
+			groups = { choppy = 2, forbidden = 1 },
 
 			on_construct = function(pos)
 				-- Устанавливает начальные значения из конфига
@@ -37,10 +37,16 @@ local function register_instruments()
 				end
 			end,
 		})
+
+		minetest.register_craft({
+			output = 'music_instruments:' .. instrument,
+			recipe = def.recipe,
+		})
 	end
 end
 
 
+
 return {
-	register = register_instruments
+	register = register_instruments,
 }

@@ -40,7 +40,12 @@ local instruments = {
 			[ 10] = { note = 'A#5', pitch = 1.782 },
 			[ 11] = { note = 'B5',  pitch = 1.888 },
 			[ 12] = { note = 'C6',  pitch = 2.000 },
-		}
+		},
+		recipe = {
+			{'default:steel_ingot', ''                            , 'default:steel_ingot', },
+			{'default:steel_ingot', 'music_instruments:music_base', 'default:steel_ingot', },
+			{'default:steel_ingot', ''                            , 'default:steel_ingot', },
+		},
 	},
 
 	metallophone = {
@@ -80,7 +85,12 @@ local instruments = {
 			[ 10] = { note = 'A#7', pitch = 1.782 },
 			[ 11] = { note = 'B7',  pitch = 1.888 },
 			[ 12] = { note = 'C8',  pitch = 2.000 },
-		}
+		},
+		recipe = {
+			{'lottores:silver_ingot', ''                            , 'lottores:silver_ingot', },
+			{'lottores:silver_ingot', 'music_instruments:music_base', 'lottores:silver_ingot', },
+			{'lottores:silver_ingot', ''                            , 'lottores:silver_ingot', },
+		},
 	},
 }
 
