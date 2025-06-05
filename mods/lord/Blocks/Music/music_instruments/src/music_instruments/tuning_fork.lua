@@ -11,11 +11,15 @@ local function adjust_semitones(pos, delta)
 	local meta = minetest.get_meta(pos)
 	local instrument_id = meta:get_string('instrument')
 	local current = meta:get_int('semitones')
-	local new_offset = math.clamp(current + delta, config.min_offset, config.max_offset)
 
 	-- Получает данные инструмента из конфига
 	local def = config.instruments[instrument_id]
-	if not def or not def.notes[new_offset] then return end
+	if not def then return end
+
+	-- Индивидуальные min/max нот для инструмента
+	local new_offset = math.clamp(current + delta, def.min_offset or 0, def.max_offset or 0)
+
+	if not def.notes[new_offset] then return end
 
 	-- Обновляет метаданные и воспроизводит звук
 	MusicNodeHelper.update(pos, instrument_id, new_offset, def.name, def.notes[new_offset].note)
