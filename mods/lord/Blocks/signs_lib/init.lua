@@ -113,8 +113,6 @@ signs_lib.sign_post_model = {
 	}
 }
 
--- Boilerplate to support localized strings if intllib mod is installed.
-
 -- the list of standard sign nodes
 
 signs_lib.sign_node_list = {

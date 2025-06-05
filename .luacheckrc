@@ -73,7 +73,6 @@ read_globals      = {
 	"lord", "hb",
 
 	-- Mods APIs
-	"intllib",
 	"screwdriver",
 	"armor", -- lottarmor
 	"multiskin", -- lottarmor
