@@ -16,12 +16,13 @@ function Form:get_spec()
 
 	return ''
 		.. spec.formspec_version(4)
-		.. spec.size(12,11)
-		.. spec.field(1, 1, 3, 1, 'input_name',S('Name'), self.node_meta:get_string('name'))
-		.. spec.button_exit(4.5, 1, 2, 1, 'save', S('Save'))
-		.. spec.label(1, 2.75, S('Reward'))
-		.. spec.list('nodemeta:' .. str_pos, 'reward', 1, 3, 8, 1)
-		.. spec.list('current_player', 'main', 1, 5, 8, 4)
+		.. spec.size(10.75, 11)
+		.. spec.field(0.5, 1, 3, 0.7, 'input_name',S('Name'), self.node_meta:get_string('name'))
+		.. spec.button_exit(4.5, 1, 2, 0.7, 'save', S('Save'))
+		.. spec.label(0.5, 3.75, S('Reward'))
+		.. spec.list('nodemeta:' .. str_pos, 'reward', 0.5, 4, 8, 1)
+		.. spec.list('current_player', 'main', 0.5, 5.5,  8, 1)
+		.. spec.list('current_player', 'main', 0.5, 6.75, 8, 3, 8)
 end
 
 --- @param fields table
