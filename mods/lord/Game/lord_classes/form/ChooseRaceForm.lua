@@ -72,7 +72,7 @@ function ChooseRaceForm.get_races_list()
 		local list = {}
 		for _, race in pairs(lord_races.get_player_races()) do
 			if race.name ~= lord_races.Name.SHADOW then
-				table.insert(list, { name = race.name, title = race.title })
+				table.insert(list, { name = race.name, title = race.title, description = race.description })
 			end
 		end
 
@@ -112,9 +112,9 @@ function ChooseRaceForm:get_spec(show_spawns_info, selected_race)
 	local function cmd(text)
 		return colorize(self.commands_color, text)
 	end
-
 	if selected_race then
 		self:set_selected_race(selected_race)
+		else selected_race = "shadow"
 	end
 
 	--- @type string
@@ -122,7 +122,7 @@ function ChooseRaceForm:get_spec(show_spawns_info, selected_race)
 	local races_dropdown_items  = self.only_titles(self.get_races_list())
 	local gender_dropdown_items = self.only_titles(self.get_gender_list())
 
-	form = spec.size(7.5, 4)
+	form = spec.size(8.6, 7.2)
 		.. spec.bold (0, 0.0, S('Please select the race you wish to be'))
 		.. spec.label(0, 0.5, S('You will be able to change your race once during your gameplay.'))
 		.. spec.label(0, 0.8, S('Use command @1 to do this.', cmd('/second_chance')))
@@ -130,10 +130,12 @@ function ChooseRaceForm:get_spec(show_spawns_info, selected_race)
 			and spec.label(0, 1.3, S('While selecting a race, you will be instantly teleported to that race’s spawn!'))
 			or ''
 		)
-		.. spec.dropdown_WH(0.25, 2.3, 3.25, 1.0, 'race', races_dropdown_items, self.selected_race_index, 'true')
-		.. spec.dropdown_WH(4.00, 2.3, 3.00, 1.0, 'gender', gender_dropdown_items, self.selected_gender_index, 'true')
-		.. spec.button_exit(0.25, 3.3, 3.25, 1.0, 'cancel', S('Cancel'))
-		.. spec.button_exit(4.00, 3.3, 3.00, 1.0, 'ok', S('OK'))
+		.. spec.dropdown_WH(0.25, 1.6, 3.00, 1.0, 'race', races_dropdown_items, self.selected_race_index, 'true')
+		.. spec.dropdown_WH(5.2, 1.6, 3.00, 1.0, 'gender', gender_dropdown_items, self.selected_gender_index, 'true')
+		.. spec.box(-0.01, 2.7, 8.45, 3, '#000')
+		.. spec.italic_area_ro(0.28, 2.8, 8.6, 3.37, lord_races.get(selected_race).description)
+		.. spec.button_exit(0.25, 6.17, 3.3, 1.0, 'cancel', S('Cancel'))
+		.. spec.button_exit(5.2, 6.17, 3.3, 1.0, 'ok', S('OK'))
 
 	return form
 end
@@ -149,6 +151,7 @@ function ChooseRaceForm:handle(fields)
 
 	if (fields.race or fields.gender) and not fields.ok and not fields.quit and not fields.cancel then
 		self.event:trigger(self.event.Type.on_switch, self, race, gender)
+		self:open(lord_spawns.has_several, race)
 
 		return
 	end

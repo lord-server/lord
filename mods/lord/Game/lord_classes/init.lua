@@ -126,7 +126,6 @@ local function get_random_race()
 end
 ChooseRaceForm.on_switch(function(form, race, gender)
 	local player = form:player()
-
 	if has_several_spawns then
 		move_player_to_spawn(player, race)
 	end
