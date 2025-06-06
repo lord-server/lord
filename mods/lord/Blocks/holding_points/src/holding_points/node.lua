@@ -1,13 +1,13 @@
-local Form = require('holding_node.Form')
+local Form = require('holding_points.Form')
 
 local S = minetest.get_mod_translator()
 
 
 --- @type NodeDefinition
 local definition = {
-	description       = S('Holding block'),
+	description       = S('Holding Point'),
 
-	tiles             = { 'holding_node_holding_node.png' },
+	tiles             = { 'holding_points_node.png' },
 	use_texture_alpha = 'blend',
 
 	--- @param pos Position

@@ -5,12 +5,12 @@ local e     = spec.escape
 
 local SMALL = { font_size = '-1' } -- Style for formspec
 
---- @class holding_node.node.Form: base_classes.Form.Base
+--- @class holding_points.node.Form: base_classes.Form.Base
 --- @field node_position Position
 --- @field node_meta NodeMetaRef
 local Form = base_classes.Form:personal():for_node():extended({
 	--- @type string
-	NAME     = 'holding_node:holding_node_config',
+	NAME     = 'holding_points:node',
 	--- @type {x:number, y:number}
 	padding  = { x = 0.5, y = 0.5 },
 	--- @type {x:number, y:number} size without paddings
