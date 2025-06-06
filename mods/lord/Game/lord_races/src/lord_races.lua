@@ -17,6 +17,11 @@ local function register_api()
 			Collection.add(Race:new(definition))
 		end,
 
+		--- @param name string
+		--- @return lord_races.Race
+		get = function(name)
+			return Collection.all[name]
+		end,
 		--- @return lord_races.Race[]
 		get_all = function()
 			return Collection.all
