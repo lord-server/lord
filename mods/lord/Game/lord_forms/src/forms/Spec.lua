@@ -267,5 +267,29 @@ function Spec.icon_button(x, y, name, icon, title, url, exit)
 		.. spec.image(x+.2, y+.24, 0.4, 0.4, icon)
 end
 
+--- @overload fun(x:number, y:number, width:number, height:number, position:Position, list:string)
+--- @param x                   number
+--- @param y                   number
+--- @param width               number
+--- @param height              number
+--- @param position            Position
+--- @param list                string
+--- @param starting_item_index number|nil
+--- @return string
+function Spec.node_inventory(x, y, width, height, position, list, starting_item_index)
+	local str_pos = position.x .. ',' .. position.y .. ',' .. position.z
+
+	return spec.list('nodemeta:' .. str_pos, list, x, y, width, height, starting_item_index)
+end
+
+--- @param x     number
+--- @param y     number
+--- @return string
+function Spec.player_inventory(x, y)
+	return ''
+		.. spec.list('current_player', 'main', x, y      , 8, 1   )
+		.. spec.list('current_player', 'main', x, y + 1.5, 8, 3, 8)
+end
+
 
 return Spec
