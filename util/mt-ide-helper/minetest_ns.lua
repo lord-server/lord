@@ -953,6 +953,7 @@ function minetest.find_nodes_with_meta(pos1, pos2) end
 --- * Get a `NodeMetaRef` at that position
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4903-L4904)
+--- @param pos Position
 --- @return NodeMetaRef
 function minetest.get_meta(pos) end
 --- * Get `NodeTimerRef`
