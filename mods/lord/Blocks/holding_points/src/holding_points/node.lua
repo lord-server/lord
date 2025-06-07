@@ -16,6 +16,13 @@ local definition = {
 		HoldingPoint:new(pos):init_node()
 	end,
 
+	--- @param pos Position
+	on_destruct = function(pos)
+		HoldingPoint:new(pos).processor
+			:stop()
+			:remove()
+	end,
+
 	--- @param placer        Player
 	--- @param itemstack     ItemStack
 	--- @param pointed_thing pointed_thing
