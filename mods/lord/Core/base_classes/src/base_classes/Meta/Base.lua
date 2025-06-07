@@ -1,5 +1,5 @@
-local setmetatable, type, table_walk, tonumber, tostring
-    = setmetatable, type, table.walk, tonumber, tostring
+local setmetatable, table_walk, tonumber, tostring, type_of
+    = setmetatable, table.walk, tonumber, tostring, type
 
 local FieldType = require('base_classes.Meta.FieldType')
 
@@ -19,10 +19,10 @@ local BaseMeta = {
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
 function BaseMeta:extended(child_class)
-	assert(type(child_class) == 'table')
-	assert(child_class.field_type and type(child_class.field_type) == 'table')
+	assert(type_of(child_class) == 'table')
+	assert(child_class.field_type and type_of(child_class.field_type) == 'table')
 	table.walk(child_class.field_type, function(value, key)
-		assert(type(value) == 'string')
+		assert(type_of(value) == 'string')
 		assertf(value:is_one_of(FieldType), 'Unknown type `%s` for field `%s`', value, key)
 	end)
 
@@ -61,22 +61,32 @@ end
 
 BaseMeta.has = BaseMeta.contains
 
+--- @param field string
+--- @return string
+function BaseMeta:get_type(field)
+	local field_type = self.field_type[field]
+	if not field_type then
+		errorlf('Undefined field: `%s`', 4, field or 'nil')
+	end
+
+	return field_type
+end
+
 --- @protected
+--- @param type    string one of base_classes.Meta.FieldType::<CONST>
 --- @param key     string
 --- @param default any
 --- @return nil|any
-function BaseMeta:get_typified(key, default)
-	local field_type = self.field_type[key]
-
-	if field_type == FieldType.BOOLEAN then
+function BaseMeta:get_typified(type, key, default)
+	if type == FieldType.BOOLEAN then
 		local value = self.meta:get(key) or default
 
 		return value == nil	and nil	or minetest.is_yes(tonumber(value))
-	elseif field_type == FieldType.INTEGER then
+	elseif type == FieldType.INTEGER then
 		return tonumber(self.meta:get(key) or default)
-	elseif field_type == FieldType.STRING then
+	elseif type == FieldType.STRING then
 		return self.meta:get(key) or default
-	elseif field_type == FieldType.TABLE then
+	elseif type == FieldType.TABLE then
 		return minetest.parse_json(self.meta:get(key), default)
 	else
 		errorf('Something went wrong...')
@@ -88,35 +98,27 @@ end
 --- @param default any
 --- @return any
 function BaseMeta:get(field, default)
-	if not self.field_type[field] then
-		errorlf('Undefined field: `%s`', 3, field or 'nil')
-	end
-
-	return self:get_typified(field, default)
+	return self:get_typified(self:get_type(field), field, default)
 end
 
 --- @protected
+--- @param type  string one of base_classes.Meta.FieldType::<CONST>
 --- @param key   string
 --- @param value any
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
-function BaseMeta:set_typified(key, value)
-	local field_type = self.field_type[key]
-	if not field_type then
-		errorlf('Undefined field: `%s`', 4, key or 'nil')
-	end
-
-	if field_type == FieldType.BOOLEAN then
+function BaseMeta:set_typified(type, key, value)
+	if type == FieldType.BOOLEAN then
 		self.meta:set_int(key, minetest.is_yes(value) and 1 or 0)
-	elseif field_type == FieldType.INTEGER then
+	elseif type == FieldType.INTEGER then
 		self.meta:set_int(key, tonumber(value))
-	elseif field_type == FieldType.STRING then
+	elseif type == FieldType.STRING then
 		self.meta:set_string(key, tostring(value))
-	elseif field_type == FieldType.TABLE then
-		if type(value) ~= 'table' then
-			errorlf('Type mismatch for meta-field `%s`: `table` expected, got `%s`', 3, key, type(value))
+	elseif type == FieldType.TABLE then
+		if type_of(value) ~= 'table' then
+			errorlf('Type mismatch for meta-field `%s`: `table` expected, got `%s`', 3, key, type_of(value))
 		end
-		self.meta:set_string(key, minetest.write_json(value))
+		self.meta:set_string(key, table.is_empty(value) and '[]' or minetest.write_json(value))
 	else
 		errorf('Something went wrong...')
 	end
@@ -129,12 +131,12 @@ end
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
 function BaseMeta:set(key_or_pairs, value)
-	if type(key_or_pairs) == 'table' then
+	if type_of(key_or_pairs) == 'table' then
 		table_walk(key_or_pairs, function(val, key)
-			self:set_typified(key, val)
+			self:set_typified(self:get_type(key), key, val)
 		end)
 	else
-		self:set_typified(key_or_pairs, value)
+		self:set_typified(self:get_type(key_or_pairs), key_or_pairs, value)
 	end
 
 	return self
