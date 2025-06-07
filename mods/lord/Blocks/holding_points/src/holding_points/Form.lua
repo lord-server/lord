@@ -118,8 +118,8 @@ function Form:get_spec()
 	local in_event_list    = self.in_event_list == nil
 		and (self.node_meta:get_int('in_event_list') == 1)
 		or  self.in_event_list
-	local active           = self.node_meta:get_int('active') == 1
-	local last_activate_at = self.node_meta:get_int('last_activate_at')
+	local active            = self.node_meta:get_int('active') == 1
+	local last_activated_at = self.node_meta:get_int('last_activated_at')
 
 	return ''
 		.. spec.formspec_version(4)
@@ -128,7 +128,7 @@ function Form:get_spec()
 		.. self:labeled_checkbox(1, 'in_event_list', in_event_list, S('Participates in future battles'), S('Description'))
 		.. self:labeled_boolean_ro(2, active, S('Active now'), S('Right now the battle is going on for this point.'))
 		.. self:labeled_datetime_ro(
-			3, last_activate_at,
+			3, last_activated_at,
 			S('Last activate at'), S('Date of the block\'s last participation in event')
 		)
 		.. spec.button_exit(self.center_x - 2/2, self:get_row_start_y(4), 2, self.fields_h, 'save', S('Save'))

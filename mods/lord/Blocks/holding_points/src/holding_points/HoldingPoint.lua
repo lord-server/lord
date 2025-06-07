@@ -1,9 +1,11 @@
+local Meta = require('holding_points.HoldingPoint.Meta')
+
 local S = minetest.get_mod_translator()
 
 
 --- @class holding_points.HoldingPoint
 local HoldingPoint = {
-	--- @type NodeMetaRef
+	--- @type holding_points.HoldingPoint.Meta
 	meta = nil
 }
 
@@ -13,22 +15,23 @@ function HoldingPoint:new(position)
 	local class = self
 
 	self = {}
-	self.meta = minetest.get_meta(position)
+	self.meta = Meta:new(position)
+	self.node_meta = self.meta.meta
 
 	return setmetatable(self, { __index = class })
 end
 
 function HoldingPoint:init_node()
-	self.meta:set_string('name', '')
-	self.meta:set_int('in_event_list', 1)
-	self.meta:set_int('active', 0)
-	self.meta:set_int('last_activate_at', 0)
-	self.meta:set_string('captured_by_clan', '')
-	self.meta:set_int('captured_at', 0)
-	self.meta:set_int('reward_gived_at', 0)
-	self.meta:set_string('battle_stat', minetest.serialize({}))
+	self.meta.name = ''
+	self.meta.in_event_list = true
+	self.meta.active = false
+	self.meta.last_activated_at = 0
+	self.meta.captured_by_clan = ''
+	self.meta.captured_at = 0
+	self.meta.reward_given_at = 0
+	self.meta.battle_stat = {}
 
-	self.meta:get_inventory():set_size('reward', 8)
+	self.node_meta:get_inventory():set_size('reward', 8)
 end
 
 --- @param player Player
@@ -40,16 +43,16 @@ function HoldingPoint:punch(player)
 	end
 
 	-- нужно проверить наличие клана игрока в таблице статистики, обновить время захвата при наличии
-	local meta             = self.meta
-	local battle_stat      = minetest.deserialize(meta:get_string('battle_stat')) or {}
-	local current_time     = os.time()
+	local meta        = self.meta
+	local battle_stat = meta.battle_stat or {}
+
 
 	battle_stat[clan.name] = 0
 
 	-- обновить метаданные ноды
-	meta:set_string('battle_stat', minetest.serialize(battle_stat))
-	meta:set_string('captured_by_clan', clan.name)
-	meta:set_int('captured_at', current_time)
+	meta.battle_stat      = battle_stat
+	meta.captured_by_clan = clan.name
+	meta.captured_at      = os.time()
 end
 
 
