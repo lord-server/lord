@@ -31,7 +31,7 @@ read_globals      = {
 		"is_empty", "overwrite", "keys_of", "count", "keys", "values",
 		"only", "except", "keys_has_one_of_values", "equals", "multiply_each_value",
 		"map", "add_values", "sub_values", "mul_values", "div_values",
-		"generate_sequence", "is_position"
+		"generate_sequence", "is_position", "walk"
 	} },
 
 	string = { fields = {

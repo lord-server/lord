@@ -290,7 +290,7 @@ end
 --- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
 function table.walk(t, callback)
 	for key, value in pairs(t) do
-		callback()
+		callback(value, key)
 	end
 end
 
