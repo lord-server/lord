@@ -3,6 +3,7 @@ local Form              = require('base_classes.Form')
 local DetachedInventory = require('base_classes.DetachedInventory')
 local ObjectState       = require('base_classes.ObjectState')
 local HUD               = require('base_classes.HUD')
+local Meta              = require('base_classes.Meta')
 
 
 base_classes = {} -- luacheck: ignore unused global variable base_classes
@@ -19,6 +20,8 @@ local function register_api()
 		ObjectState       = ObjectState,
 		--- @type base_classes.HUD
 		HUD               = HUD,
+		--- @type base_classes.Meta
+		Meta              = Meta,
 	}
 end
 
