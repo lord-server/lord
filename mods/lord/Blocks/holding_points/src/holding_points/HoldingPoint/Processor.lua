@@ -1,46 +1,45 @@
 local TICK_SECONDS = 10
 local MINUTE       = 60
 
+
 --- @type table<string,holding_points.HoldingPoint.Processor>
 local processors = {}
 
 --- @class holding_points.HoldingPoint.Processor
 local Processor = {
-	--- @type string
-	id   = nil,
-	--- @type job
-	job  = nil,
-	--- @type number process every `tick` seconds
-	tick = TICK_SECONDS,
+	--- @private
+	--- @type string id of Processor (currently identical to HoldingPoint.id)
+	id            = nil,
+	--- @private
+	--- @type job    saved job from `minetest.after()` return
+	job           = nil,
+	--- @private
+	--- @type number run processing every `tick` seconds
+	tick          = TICK_SECONDS,
+	--- @private
+	--- @type holding_points.HoldingPoint
+	holding_point = nil,
 }
-
---- @private
---- @param holding_point holding_points.HoldingPoint
---- @return string
-function Processor.create_id(holding_point)
-	return minetest.pos_to_string(holding_point.position)
-end
 
 --- @param holding_point holding_points.HoldingPoint
 --- @return holding_points.HoldingPoint.Processor
 function Processor.get_for(holding_point)
-	local id = Processor.create_id(holding_point)
+	local id = holding_point:get_id()
 	if not processors[id] then
-		processors[id] = Processor:new(id, holding_point)
+		processors[id] = Processor:new(holding_point)
 	end
 
 	return processors[id]
 end
 
 --- @private
---- @param id            string
 --- @param holding_point holding_points.HoldingPoint
 --- @return holding_points.HoldingPoint.Processor
-function Processor:new(id, holding_point)
+function Processor:new(holding_point)
 	local class = self
 
 	self = {}
-	self.id            = id
+	self.id            = holding_point:get_id()
 	self.holding_point = holding_point
 
 	return setmetatable(self, { __index = class })
@@ -60,7 +59,7 @@ end
 --- @return holding_points.HoldingPoint.Processor
 function Processor:stop()
 	if not self.job then
-		return
+		return self
 	end
 
 	self.job:cancel()

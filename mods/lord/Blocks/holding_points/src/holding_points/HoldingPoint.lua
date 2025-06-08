@@ -6,28 +6,49 @@ local S = minetest.get_mod_translator()
 
 --- @class holding_points.HoldingPoint
 local HoldingPoint = {
-	--- @type Position
+	--- @private
+	--- @type Position position of node
 	position  = nil,
+	--- @private
+	--- @type string   HoldingPoint identifier
+	id        = nil,
+	--- @private
 	--- @type holding_points.HoldingPoint.Meta
 	meta      = nil,
+	--- @private
 	--- @type NodeMetaRef
 	node_meta = nil,
+	--- @private
 	--- @type holding_points.HoldingPoint.Processor
 	processor = nil,
 }
+
+--- @private
+--- @static
+--- @param position Position
+--- @return string
+function HoldingPoint.create_id(position)
+	return minetest.pos_to_string(position)
+end
 
 --- @param position Position
 --- @return holding_points.HoldingPoint
 function HoldingPoint:new(position)
 	local class = self
 
-	self = {}
+	self = setmetatable({}, { __index = class })
 	self.position  = position
+	self.id        = class.create_id(position)
 	self.meta      = Meta:new(position)
 	self.node_meta = self.meta.meta
 	self.processor = Processor.get_for(self)
 
-	return setmetatable(self, { __index = class })
+	return self
+end
+
+--- @return string
+function HoldingPoint:get_id()
+	return self.id
 end
 
 function HoldingPoint:init_node()
