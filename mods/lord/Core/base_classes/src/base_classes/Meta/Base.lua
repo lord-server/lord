@@ -30,14 +30,14 @@ function BaseMeta:extended(child_class)
 end
 
 --- @public
---- @param position Position
+--- @param meta MetaDataRef
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
-function BaseMeta:new(position)
+function BaseMeta:new(meta)
 	local class = self
 
 	self = {}
-	self.meta = minetest.get_meta(position)
+	self.meta = meta
 
 	return setmetatable(self, {
 		__index    = function(instance, field)

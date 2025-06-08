@@ -39,8 +39,8 @@ function HoldingPoint:new(position)
 	self = setmetatable({}, { __index = class })
 	self.position  = position
 	self.id        = class.create_id(position)
-	self.meta      = Meta:new(position)
-	self.node_meta = self.meta.meta
+	self.node_meta = minetest.get_meta(position)
+	self.meta      = Meta:new(self.node_meta)
 	self.processor = Processor.get_for(self)
 
 	return self
