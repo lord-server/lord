@@ -6,6 +6,7 @@ local FieldType = require('base_classes.Meta.FieldType')
 
 --- @class base_classes.Meta.Base
 local BaseMeta = {
+	key_prefix = nil,
 	--- @protected
 	--- @type MetaDataRef
 	meta = nil,
@@ -30,14 +31,17 @@ function BaseMeta:extended(child_class)
 end
 
 --- @public
---- @param meta MetaDataRef
+--- @overload fun(meta:MetaDataRef)
+--- @param meta       MetaDataRef
+--- @param key_prefix string|nil
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
-function BaseMeta:new(meta)
+function BaseMeta:new(meta, key_prefix)
 	local class = self
 
 	self = {}
-	self.meta = meta
+	self.meta       = meta
+	self.key_prefix = key_prefix or class.key_prefix or ''
 
 	return setmetatable(self, {
 		__index    = function(instance, field)
@@ -78,6 +82,8 @@ end
 --- @param default any
 --- @return nil|any
 function BaseMeta:get_typified(type, key, default)
+	key = self.key_prefix .. key
+
 	if type == FieldType.BOOLEAN then
 		local value = self.meta:get(key) or default
 
@@ -108,6 +114,8 @@ end
 --- @generic GenericMeta: base_classes.Meta.Base
 --- @return GenericMeta
 function BaseMeta:set_typified(type, key, value)
+	key = self.key_prefix .. key
+
 	if type == FieldType.BOOLEAN then
 		self.meta:set_int(key, minetest.is_yes(value) and 1 or 0)
 	elseif type == FieldType.INTEGER then
