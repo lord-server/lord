@@ -1,4 +1,4 @@
-local Form         = require('holding_points.Form')
+local Form         = require('holding_points.node.Form')
 local HoldingPoint = require('holding_points.HoldingPoint')
 
 local S = minetest.get_mod_translator()
