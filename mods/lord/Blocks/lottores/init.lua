@@ -7,7 +7,7 @@ minetest.register_node("lottores:limestone_ore", {
 	description = S("Limestone Ore"),
 	tiles = {"default_stone.png^lottores_limestone_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	drop = 'lottores:limestone_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -16,7 +16,7 @@ minetest.register_node("lottores:rough_rock", {
 	description = S("Rough Rock"),
 	tiles = {"default_stone.png^lottores_rough_rock.png"},
 	is_ground_content = true,
-	groups = {cracky=2},
+	groups = {cracky=2, wall_connected = 1},
 	drop = 'lottores:rough_rock_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -25,7 +25,7 @@ minetest.register_node("lottores:silver_ore", {
 	description = S("Silver Ore"),
 	tiles = {"default_stone.png^lottores_silver_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=2},
+	groups = {cracky=2, wall_connected = 1},
 	drop = 'lottores:silver_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -34,7 +34,7 @@ minetest.register_node("lottores:tin_ore", {
 	description = S("Tin Ore"),
 	tiles = {"default_stone.png^lottores_tin_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	drop = "lottores:tin_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -43,7 +43,7 @@ minetest.register_node("lottores:lead_ore", {
 	description = S("Lead Ore"),
 	tiles = {"default_stone.png^lottores_lead_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=2},
+	groups = {cracky=2, wall_connected = 1},
 	drop = "lottores:lead_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -52,7 +52,7 @@ minetest.register_node("lottores:mithril_ore", {
 	description = S("Mithril Ore"),
 	tiles = {"default_stone.png^lottores_mithril_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky=1, wall_connected = 1},
 	drop = "lottores:mithril_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -66,7 +66,7 @@ minetest.register_node("lottores:blue_gem_ore", {
 	paramtype         = "light",
 	light_source      = 2,
 	is_ground_content = true,
-	groups            = { cracky = 1 },
+	groups            = { cracky = 1, wall_connected = 1 },
 	drop              = { items = {
 		{ items = { 'lottores:blue_gem' }, rarity = 5, },
 		{ items = { '' }, }
@@ -80,7 +80,7 @@ minetest.register_node("lottores:white_gem_ore", {
 	paramtype         = "light",
 	light_source      = 2,
 	is_ground_content = true,
-	groups            = { cracky = 1 },
+	groups            = { cracky = 1, wall_connected = 1 },
 	drop              = { items = {
 		{ items = { 'lottores:white_gem' }, rarity = 5, },
 		{ items = { '' }, }
@@ -94,7 +94,7 @@ minetest.register_node("lottores:red_gem_ore", {
 	paramtype         = "light",
 	light_source      = 2,
 	is_ground_content = true,
-	groups            = { cracky = 1 },
+	groups            = { cracky = 1, wall_connected = 1 },
 	drop              = { items = {
 		{ items = { 'lottores:red_gem' }, rarity = 5, },
 		{ items = { '' }, }
@@ -187,7 +187,7 @@ minetest.register_node("lottores:tilkal", {
 	description = S("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
 	sounds = default.node_sound_metal_defaults(),
-	groups = {forbidden=1},
+	groups = {forbidden=1, wall_connected = 1},
 })
 
 minetest.register_node("lottores:limestone", {
@@ -335,7 +335,7 @@ minetest.register_node("lottores:silver_block", {
 	description = S("Silver Block"),
 	tiles = {"lottores_silver_block.png"},
 	is_ground_content = true,
-	groups = {cracky=1,level=2},
+	groups = {cracky=1,level=2, wall_connected = 1},
 	sounds = default.node_sound_metal_defaults(),
 })
 
@@ -343,7 +343,7 @@ minetest.register_node("lottores:tin_block", {
 	description = S("Tin Block"),
 	tiles = {"lottores_tin_block.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky=1, wall_connected = 1},
 	sounds = default.node_sound_metal_defaults(),
 })
 
@@ -351,7 +351,7 @@ minetest.register_node("lottores:lead_block", {
 	description = S("Lead Block"),
 	tiles = {"lottores_lead_block.png"},
 	is_ground_content = true,
-	groups = {cracky=1},
+	groups = {cracky=1, wall_connected = 1},
 	sounds = default.node_sound_metal_defaults(),
 })
 
@@ -359,7 +359,7 @@ minetest.register_node("lottores:mithril_block", {
 	description = S("Mithril Block"),
 	tiles = {"lottores_mithril_block.png"},
 	is_ground_content = true,
-	groups = {cracky=1,level=2},
+	groups = {cracky=1,level=2, wall_connected = 1},
 	sounds = default.node_sound_metal_defaults(),
 })
 
@@ -367,7 +367,7 @@ minetest.register_node("lottores:galvorn_block", {
 	description = S("Galvorn Block"),
 	tiles = {"lottores_galvorn_block.png"},
 	is_ground_content = true,
-	groups = {cracky=1,level=2,forbidden=1},
+	groups = {cracky=1,level=2,forbidden=1, wall_connected = 1},
 	sounds = default.node_sound_metal_defaults(),
 })
 
@@ -582,7 +582,7 @@ minetest.register_abm(
 stairs.register_stair_and_slab(
 	"tilkal",
 	"lottores:tilkal",
-  {forbidden=1},
+  {forbidden=1, wall_connected = 1},
 	{"lottores_tilkal.png"},
 	S("Tilkal Stair"),
 	S("Tilkal Slab"),
@@ -595,7 +595,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"limestone",
 	"lottores:limestone",
-  {cracky=3, stone=2},
+  {cracky=3, stone=2, wall_connected = 1},
 	{"lottores_limestone_ore.png"},
 	S("Limestone Stair"),
 	S("Limestone Slab"),
@@ -608,7 +608,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"marble",
 	"lottores:marble",
-  {cracky=3},
+  {cracky=3, wall_connected = 1},
 	{"lottores_marble.png"},
 	S("Marble Stair"),
 	S("Marble Slab"),
@@ -621,7 +621,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"silver_block",
 	"lottores:silver_block",
-  {cracky=1,level=2},
+  {cracky=1,level=2, wall_connected = 1},
 	{"lottores_silver_block.png"},
 	S("Silver Stair"),
 	S("Silver Slab"),
@@ -634,7 +634,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"tin_block",
 	"lottores:tin_block",
-  {cracky=1},
+  {cracky=1, wall_connected = 1},
 	{"lottores_tin_block.png"},
 	S("Tin Stair"),
 	S("Tin Slab"),
@@ -647,7 +647,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"lead_block",
 	"lottores:lead_block",
-  {cracky=1},
+  {cracky=1, wall_connected = 1},
 	{"lottores_lead_block.png"},
 	S("Lead Stair"),
 	S("Lead Slab"),
@@ -660,7 +660,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"mithril_block",
 	"lottores:mithril_block",
-  {cracky=1,level=2},
+  {cracky=1,level=2, wall_connected = 1},
 	{"lottores_mithril_block.png"},
 	S("Mithril Stair"),
 	S("Mithril Slab"),
@@ -673,7 +673,7 @@ stairs.register_stair_and_slab(
 stairs.register_stair_and_slab(
 	"galvorn_block",
 	"lottores:galvorn_block",
-  {cracky=1,level=2,forbidden=1},
+  {cracky=1,level=2,forbidden=1, wall_connected = 1},
 	{"lottores_galvorn_block.png"},
 	S("Galvorn Stair"),
 	S("Galvorn Slab"),

@@ -11,7 +11,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_coal", {
 		description = S("Coal Ore"),
 		tiles       = { rock_texture .. "^default_mineral_coal.png" },
-		groups      = { cracky = 3 },
+		groups      = { cracky = 3, wall_connected = 1 },
 		drop        = "default:coal_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -19,7 +19,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_iron", {
 		description = S("Iron Ore"),
 		tiles       = { rock_texture .. "^default_mineral_iron.png" },
-		groups      = { cracky = 2 },
+		groups      = { cracky = 2, wall_connected = 1 },
 		drop        = "default:iron_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -27,7 +27,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_copper", {
 		description = S("Copper Ore"),
 		tiles       = { rock_texture .. "^default_mineral_copper.png" },
-		groups      = { cracky = 2 },
+		groups      = { cracky = 2, wall_connected = 1 },
 		drop        = "default:copper_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -35,7 +35,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_mese", {
 		description = S("Mese Ore"),
 		tiles       = { rock_texture .. "^default_mineral_mese.png" },
-		groups      = { cracky = 1 },
+		groups      = { cracky = 1, wall_connected = 1 },
 		drop        = "default:mese_crystal",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -43,7 +43,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_gold", {
 		description = S("Gold Ore"),
 		tiles       = { rock_texture .. "^default_mineral_gold.png" },
-		groups      = { cracky = 2 },
+		groups      = { cracky = 2, wall_connected = 1 },
 		drop        = "default:gold_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -51,7 +51,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	minetest.register_node("lord_ores:" .. stripped_name .. "_with_diamond", {
 		description = S("Diamond Ore"),
 		tiles       = { rock_texture .. "^default_mineral_diamond.png" },
-		groups      = { cracky = 1 },
+		groups      = { cracky = 1, wall_connected = 1 },
 		drop        = "default:diamond",
 		sounds      = default.node_sound_stone_defaults(),
 	})
