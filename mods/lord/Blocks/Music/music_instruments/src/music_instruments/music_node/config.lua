@@ -59,7 +59,7 @@ local instruments = {
 		},
 		recipe = {
 			{'default:steel_ingot', ''                            , 'default:steel_ingot', },
-			{'default:steel_ingot', 'music_instruments:music_base', 'default:steel_ingot', },
+			{'default:steel_ingot', 'music_instruments:base'      , 'default:steel_ingot', },
 			{'default:steel_ingot', ''                            , 'default:steel_ingot', },
 		},
 		min_offset = -12,
@@ -100,7 +100,7 @@ local instruments = {
 		max_offset = 13,
 		recipe = {
 			{'lottores:silver_ingot', ''                            , 'lottores:silver_ingot', },
-			{'lottores:silver_ingot', 'music_instruments:music_base', 'lottores:silver_ingot', },
+			{'lottores:silver_ingot', 'music_instruments:base'      , 'lottores:silver_ingot', },
 			{'lottores:silver_ingot', ''                            , 'lottores:silver_ingot', },
 		},
 	},
