@@ -1,4 +1,7 @@
-local node     = require('holding_points.node')
+local node      = require('holding_points.node')
+local Storage   = require('holding_points.Storage')
+local Manager   = require('holding_points.Manager')
+local Scheduler = require('holding_points.Scheduler')
 
 
 holding_points = {} -- luacheck: ignore unused global variable holding_points
@@ -12,5 +15,16 @@ return {
 	--- @param mod minetest.Mod
 	init = function(mod)
 		register_node()
+
+		local storage   = Storage:new(minetest.get_mod_storage())
+		local scheduler = Scheduler:new()
+
+		-- We need minetest to have fully started to access the map.
+		-- So, deferred start of Manager:
+		minetest.after(5, function()
+			Manager
+				.init(storage)
+				.run(scheduler)
+		end)
 	end,
 }

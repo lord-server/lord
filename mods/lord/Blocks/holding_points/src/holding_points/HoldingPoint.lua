@@ -52,28 +52,34 @@ function HoldingPoint:get_id()
 end
 
 function HoldingPoint:init_node()
-	self.meta.name = ''
-	self.meta.in_event_list = true
-	self.meta.active = false
+	self.meta.name              = ''
+	self.meta.in_event_list     = true
+	self.meta.active            = false
 	self.meta.last_activated_at = 0
-	self.meta.captured_by_clan = ''
-	self.meta.captured_at = 0
-	self.meta.reward_given_at = 0
-	self.meta.battle_stat = {}
+	self.meta.captured_by_clan  = ''
+	self.meta.captured_at       = 0
+	self.meta.reward_given_at   = 0
+	self.meta.battle_stat       = {}
 
 	self.node_meta:get_inventory():set_size('reward', 8)
 end
 
 --- @return holding_points.HoldingPoint
 function HoldingPoint:activate()
-	self.meta.active = true
+	self.meta.active            = true
+	self.meta.last_activated_at = os.time()
+	self.meta.captured_at       = 0
+	self.meta.captured_by_clan  = ''
+	self.meta.battle_stat       = {}
 
 	return self
 end
 
 --- @return holding_points.HoldingPoint
 function HoldingPoint:deactivate()
-	self.meta.active = false
+	self.meta.active      = false
+	self.meta.captured_at = 0
+	self.processor:stop()
 
 	return self
 end

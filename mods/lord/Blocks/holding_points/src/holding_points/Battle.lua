@@ -41,7 +41,7 @@ end
 --- @return holding_points.Battle
 function Battle:deactivate()
 	for id, point in pairs(self.points) do
-		point:activate()
+		point:deactivate()
 	end
 
 	return self
