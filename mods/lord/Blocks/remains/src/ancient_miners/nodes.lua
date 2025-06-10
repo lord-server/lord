@@ -18,6 +18,9 @@ local title_remains_skull_pick = S('Remains. Skull and pick')
 --- @return fun(pos:Position, node:NodeTable, clicker:Player, itemstack:ItemStack|nil):ItemStack|nil
 local function get_mouse_click_handler(swap_to_node, title, drop_items)
 	return function(pos, node, clicker, itemstack)
+		if not clicker:is_player() then
+			return
+		end
 		local meta = minetest.get_meta(pos)
 		loot_functions.drop_items_to_world(pos, clicker:get_pos(), drop_items)
 		minetest.swap_node(pos, { name = swap_to_node, param2 = node.param2 })
@@ -79,8 +82,9 @@ local ancient_miner_mapgen_2 = {
 --- @type NodeDefinition
 local ancient_miner = {
 	description     = title_ancient_miner,
-	inventory_image = 'skull_front_inv.png',
-	sounds      = loot_functions.sound_of_dig_remains(),
+	sounds          = loot_functions.sound_of_dig_remains(),
+	mesh            = 'skull_bones.obj',
+	tiles           = { 'skull_front.png', 'skull.png', 'edges.png' },
 	on_construct    = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string('infotext', title_ancient_miner)
