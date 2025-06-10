@@ -70,6 +70,8 @@ local definition = {
 			return
 		end
 		if not minetest.check_player_privs(clicker, 'server') then
+			HoldingPoint:new(pos):reward(clicker)
+
 			return
 		end
 
