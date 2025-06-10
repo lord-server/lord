@@ -36,6 +36,7 @@ local function register_tuning_fork()
 						S('and dedicated labour.'),
 		inventory_image = 'music_instruments_tuning_fork.png',
 		wield_image = 'music_instruments_tuning_fork.png^[transformFX',
+		groups = { forbidden = 1 },
 
 		--- @param itemstack ItemStack
 		--- @param user Player
@@ -64,6 +65,15 @@ local function register_tuning_fork()
 
 			return itemstack
 		end
+	})
+
+	minetest.register_craft({
+		output = 'music_instruments:tuning_fork',
+		recipe = {
+			{'', '',                      ''},
+			{'', 'lottores:silver_ingot', ''},
+			{'', 'lottores:silver_ingot', ''},
+		}
 	})
 end
 
