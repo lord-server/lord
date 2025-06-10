@@ -87,9 +87,10 @@ function BaseMeta:get_typified(type, key, default)
 	key = self.key_prefix .. key
 
 	if type == FieldType.BOOLEAN then
-		local value = self.meta:get(key) or default
+		local value = self.meta:get(key)
+		if value == nil then  return default  end
 
-		return value == nil	and nil	or minetest.is_yes(tonumber(value))
+		return minetest.is_yes(tonumber(value))
 	elseif type == FieldType.INTEGER then
 		return tonumber(self.meta:get(key) or default)
 	elseif type == FieldType.STRING then
