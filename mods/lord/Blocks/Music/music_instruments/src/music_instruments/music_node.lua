@@ -5,7 +5,8 @@ local config = require('music_instruments.music_node.config')
 local function register_instruments()
 	for instrument, def in pairs(config.instruments) do
 		minetest.register_node('music_instruments:' .. instrument, {
-			description = def.description,
+			description = def.title,
+			_tt_help = def.description and minetest.colorize('#aaa',  '\n' .. def.description),
 			drawtype = def.drawtype,
 			mesh = def.mesh,
 			tiles = def.tiles,
