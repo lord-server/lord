@@ -133,7 +133,7 @@ function ChooseRaceForm:get_spec(show_spawns_info, selected_race)
 		.. spec.dropdown_WH(0.25, 1.6, 3.00, 1.0, 'race', races_dropdown_items, self.selected_race_index, 'true')
 		.. spec.dropdown_WH(5.2, 1.6, 3.00, 1.0, 'gender', gender_dropdown_items, self.selected_gender_index, 'true')
 		.. spec.box(-0.01, 2.7, 8.45, 3, '#000')
-		.. spec.italic_area_ro(0.28, 2.8, 8.6, 3.37, lord_races.get(selected_race).description)
+		.. spec.italic_area_ro(0.35, 2.8, 8.53, 3.37, lord_races.get(selected_race).description)
 		.. spec.button_exit(0.25, 6.17, 3.3, 1.0, 'cancel', S('Cancel'))
 		.. spec.button_exit(5.2, 6.17, 3.3, 1.0, 'ok', S('OK'))
 
