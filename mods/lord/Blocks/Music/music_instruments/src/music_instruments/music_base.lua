@@ -1,8 +1,9 @@
 local S = minetest.get_mod_translator()
 
 local function register_base()
-	minetest.register_node('music_instruments:music_base', {
-		description =   S('A stone plucked from the embrace of subterranean horrors') .. '\n' ..
+	minetest.register_node('music_instruments:base', {
+		description =   S('Musical instrument base') .. '\n' ..
+						S('A stone plucked from the embrace of subterranean horrors') .. '\n' ..
 						S('and a tree liberated from the elves') .. '\n' ..
 						S('They are now the basis for melodies') .. '\n' ..
 						S('that can melt hearts...') .. '\n' ..
@@ -20,7 +21,7 @@ local function register_base()
 	})
 
 	minetest.register_craft({
-		output = 'music_instruments:music_base',
+		output = 'music_instruments:base',
 		recipe = {
 			{'lord_rocks:peridotite', 'lord_rocks:peridotite', 'lord_rocks:peridotite', },
 			{'lord_rocks:peridotite', 'lord_trees:yavannamire_tree', 'lord_rocks:peridotite', },
