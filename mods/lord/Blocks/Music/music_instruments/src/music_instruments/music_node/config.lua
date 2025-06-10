@@ -13,7 +13,8 @@ local S = minetest.get_mod_translator()
 local instruments = {
 	kalimba = {
 		name = S('Kalimba'),
-		description =   S('The kalimba is a magical instrument') .. '\n' ..
+		title = S('A kalimba'),
+		description =   S('Is a magical instrument') .. '\n' ..
 						S('that can turn even the most hopeless') .. '\n' ..
 						S('musical attempts') .. '\n' ..
 						S('into something resembling a melody.'),
@@ -68,8 +69,8 @@ local instruments = {
 
 	metallophone = {
 		name = S('Metallophone'),
-		description =   S('The metallophone can sound') .. '\n' ..
-						S('like an angelic choir,') .. '\n' ..
+		title = S('A metallophone'),
+		description =   S('It can sound like an angelic choir,') .. '\n' ..
 						S('if struck gently,') .. '\n' ..
 						S('or like a china shop fight') .. '\n' ..
 						S('if approached with enthusiasm.'),
@@ -106,7 +107,26 @@ local instruments = {
 	},
 }
 
+local base = {
+	title = S('Musical instrument base') ,
+	description =   S('A stone plucked from the embrace of subterranean horrors') .. '\n' ..
+					S('and a tree liberated from the elves') .. '\n' ..
+					S('They are now the basis for melodies') .. '\n' ..
+					S('that can melt hearts...'),
+	drawtype = 'mesh',
+	mesh = 'music_instruments_base.obj',
+	tiles = {
+		'lord_rocks_peridotite.png',
+		'lord_trees_yavannamire_tree.png',
+		'lord_trees_yavannamire_tree_top.png',
+	},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = { choppy = 2, forbidden = 1 },
+}
+
 
 return {
 	instruments = instruments,
+	base = base,
 }
