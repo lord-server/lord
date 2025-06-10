@@ -112,8 +112,7 @@ local base = {
 	description =   S('A stone plucked from the embrace of subterranean horrors') .. '\n' ..
 					S('and a tree liberated from the elves') .. '\n' ..
 					S('They are now the basis for melodies') .. '\n' ..
-					S('that can melt hearts...') .. '\n' ..
-					S('or exorcise nazguls'),
+					S('that can melt hearts...'),
 	drawtype = 'mesh',
 	mesh = 'music_instruments_base.obj',
 	tiles = {
