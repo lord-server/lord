@@ -95,11 +95,12 @@ end
 --- @return boolean|holding_points.Battle, string|nil returns `false, error` or `battle` instance
 function Manager.start_battle(battle)
 	if type(battle) == 'string' then
+		local battle_name = battle
 		battle = self.battles[battle]
 		if not battle then
-			Logger.error('Battle `%s` not found', battle)
+			Logger.error('Battle `%s` not found', battle_name)
 
-			return false, S('Battle `@1` not found', battle)
+			return false, S('Battle `@1` not found', battle_name)
 		end
 	end
 
@@ -115,9 +116,10 @@ function Manager.stop_battle(battle)
 	if type(battle) == 'string' then
 		battle = self.battles[battle]
 		if not battle then
-			Logger.error('Battle `%s` not found', battle)
+			local battle_name = battle
+			Logger.error('Battle `%s` not found', battle_name)
 
-			return false, S('Battle `@1` not found', battle)
+			return false, S('Battle `@1` not found', battle_name)
 		end
 	end
 
