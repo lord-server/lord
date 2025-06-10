@@ -1,5 +1,6 @@
 local Battle       = require('holding_points.Battle')
 local HoldingPoint = require('holding_points.HoldingPoint')
+local Event        = require('holding_points.Event')
 
 local Logger  = minetest.get_mod_logger()
 local S       = minetest.get_mod_translator()
@@ -70,6 +71,8 @@ end
 --- @param minutes number
 function Manager.on_upcoming_reached(battle, minutes)
 	minetest.chat_send_all(S('Time left until the battle `@1` starts: @2 minutes', battle.title, minutes))
+
+	Event.trigger(Event.Type.on_battle_upcoming, battle, minutes)
 end
 
 --- @private
@@ -99,6 +102,8 @@ function Manager.start_battle(battle)
 	end
 
 	battle:activate()
+
+	Event:trigger(Event.Type.on_battle_started, battle)
 end
 
 --- @param battle holding_points.Battle
@@ -112,6 +117,8 @@ function Manager.stop_battle(battle)
 	end
 
 	battle:deactivate()
+
+	Event:trigger(Event.Type.on_battle_stopped, battle)
 end
 
 
