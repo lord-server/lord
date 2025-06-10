@@ -64,6 +64,20 @@ function HoldingPoint:init_node()
 	self.node_meta:get_inventory():set_size('reward', 8)
 end
 
+--- @return holding_points.HoldingPoint
+function HoldingPoint:activate()
+	self.meta.active = true
+
+	return self
+end
+
+--- @return holding_points.HoldingPoint
+function HoldingPoint:deactivate()
+	self.meta.active = false
+
+	return self
+end
+
 --- @param player Player
 function HoldingPoint:punch(player)
 	local player_name = player:get_player_name()
@@ -78,7 +92,7 @@ function HoldingPoint:punch(player)
 	local meta = self.meta
 
 	if not meta.active then
-		minetest.chat_send_player(player_name, S('This point is not currently participating in the event.'))
+		minetest.chat_send_player(player_name, S('This point is not currently participating in the battle.'))
 
 		return
 	end

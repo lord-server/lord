@@ -129,7 +129,7 @@ function Form:get_spec()
 		.. self:labeled_boolean_ro(2, active, S('Active now'), S('Right now the battle is going on for this point.'))
 		.. self:labeled_datetime_ro(
 			3, last_activated_at,
-			S('Last activate at'), S('Date of the block\'s last participation in event')
+			S('Last activate at'), S('Date of the block\'s last participation in battle')
 		)
 		.. spec.button_exit(self.center_x - 2/2, self:get_row_start_y(4), 2, self.fields_h, 'save', S('Save'))
 		.. spec.label(self.padding.x, self:get_row_start_y(5) - 0.25, S('Reward'))
