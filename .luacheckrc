@@ -46,7 +46,8 @@ read_globals      = {
 		-- MT Builtin:
 		"sign", "hypot", "factorial", "round",
 		-- Core/helpers:
-		"limit", "clamp"
+		"limit", "clamp",
+		"is_within", "is_among", "is_in_range", "is_near"
 	} },
 
 	io = { fields = {
