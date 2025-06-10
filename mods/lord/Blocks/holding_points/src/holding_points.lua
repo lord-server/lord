@@ -2,6 +2,7 @@ local node      = require('holding_points.node')
 local Storage   = require('holding_points.Storage')
 local Manager   = require('holding_points.Manager')
 local Scheduler = require('holding_points.Scheduler')
+local command   = require('holding_points.command')
 
 
 holding_points = {} -- luacheck: ignore unused global variable holding_points
@@ -26,5 +27,7 @@ return {
 				.init(storage)
 				.run(scheduler)
 		end)
+
+		minetest.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
 	end,
 }

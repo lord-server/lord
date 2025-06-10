@@ -92,18 +92,22 @@ function Manager.on_finish_reached(battle)
 end
 
 --- @param battle holding_points.Battle|string
+--- @return boolean|holding_points.Battle, string|nil returns `false, error` or `battle` instance
 function Manager.start_battle(battle)
 	if type(battle) == 'string' then
 		battle = self.battles[battle]
 		if not battle then
 			Logger.error('Battle `%s` not found', battle)
-			return
+
+			return false, S('Battle `@1` not found', battle)
 		end
 	end
 
 	battle:activate()
 
 	Event:trigger(Event.Type.on_battle_started, battle)
+
+	return battle, nil
 end
 
 --- @param battle holding_points.Battle
@@ -112,13 +116,16 @@ function Manager.stop_battle(battle)
 		battle = self.battles[battle]
 		if not battle then
 			Logger.error('Battle `%s` not found', battle)
-			return
+
+			return false, S('Battle `@1` not found', battle)
 		end
 	end
 
 	battle:deactivate()
 
 	Event:trigger(Event.Type.on_battle_stopped, battle)
+
+	return battle, nil
 end
 
 
