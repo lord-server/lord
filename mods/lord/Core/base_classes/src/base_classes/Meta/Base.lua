@@ -44,6 +44,8 @@ function BaseMeta:new(meta, key_prefix)
 	self.key_prefix = key_prefix or class.key_prefix or ''
 
 	return setmetatable(self, {
+		--- @generic GenericMeta: base_classes.Meta.Base
+		--- @param instance GenericMeta
 		__index    = function(instance, field)
 			local field_value = class[field]
 			if field_value ~= nil then
@@ -93,7 +95,7 @@ function BaseMeta:get_typified(type, key, default)
 	elseif type == FieldType.STRING then
 		return self.meta:get(key) or default
 	elseif type == FieldType.TABLE then
-		return minetest.parse_json(self.meta:get(key), default)
+		return minetest.parse_json(self.meta:get(key) or 'null', default)
 	else
 		errorf('Something went wrong...')
 	end
