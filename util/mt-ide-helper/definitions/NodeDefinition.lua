@@ -1,7 +1,117 @@
 --- @class NodeDefinition: ItemDefinition
 local NodeDefinition = {
 
-	--- See "Node drawtypes"
+	--- For last version see ["Node drawtypes"](https://api.luanti.org/nodes/#node-drawtypes)
+	---
+	--- There are a bunch of different looking node types.
+	---	* `normal`
+	---   * * A node-sized cube.
+	--- * `airlike`
+	---   * * Invisible, uses no texture.
+	--- * `liquid`
+	---   * * The cubic source node for a liquid.
+	---   * * Faces bordering to the same node are never rendered.
+	---   * * Connects to node specified in `liquid_alternative_flowing` if specified.
+	---   * * Use `backface_culling = false` for the tiles you want to make
+	---       visible when inside the node.
+	--- * `flowingliquid`
+	---   * * The flowing version of a liquid, appears with various heights and slopes.
+	---   * * Faces bordering to the same node are never rendered.
+	---   * * Connects to node specified in `liquid_alternative_source`.
+	---   * * You *must* set `liquid_alternative_flowing` to the node's own name.
+	---   * * Node textures are defined with `special_tiles` where the first tile
+	---       is for the top and bottom faces and the second tile is for the side
+	---       faces.
+	---   * * `tiles` is used for the item/inventory/wield image rendering.
+	---   * * Use `backface_culling = false` for the special tiles you want to make
+	---       visible when inside the node
+	--- * `glasslike`
+	---   * * Often used for partially-transparent nodes.
+	---   * * Only external sides of textures are visible.
+	--- * `glasslike_framed`
+	---   * * All face-connected nodes are drawn as one volume within a surrounding
+	---       frame.
+	---   * * The frame appearance is generated from the edges of the first texture
+	---       specified in `tiles`. The width of the edges used are 1/16th of texture
+	---       size: 1 pixel for 16x16, 2 pixels for 32x32 etc.
+	---   * * The glass 'shine' (or other desired detail) on each node face is supplied
+	---       by the second texture specified in `tiles`.
+	--- * `glasslike_framed_optional`
+	---   * * This switches between the above 2 drawtypes according to the menu setting
+	---       'Connected Glass'.
+	--- * `allfaces`
+	---   * * Often used for partially-transparent nodes.
+	---   * * External sides of textures, and unlike other drawtypes, the external sides
+	---       of other nodes, are visible from the inside.
+	--- * `allfaces_optional`
+	---   * * Often used for leaves nodes.
+	---   * * This switches between `normal`, `glasslike` and `allfaces` according to
+	---       the menu setting: Opaque Leaves / Simple Leaves / Fancy Leaves.
+	---   * * With 'Simple Leaves' selected, the texture specified in `special_tiles`
+	---       is used instead, if present. This allows a visually thicker texture to be
+	---       used to compensate for how `glasslike` reduces visual thickness.
+	--- * `torchlike`
+	---   * * A single vertical texture.
+	---   * * If `paramtype2="[color]wallmounted"`:
+	---     * * * If placed on top of a node, uses the first texture specified in `tiles`.
+	---     * * * If placed against the underside of a node, uses the second texture
+	---           specified in `tiles`.
+	---     * * * If placed on the side of a node, uses the third texture specified in
+	---           `tiles` and is perpendicular to that node.
+	---   * * If `paramtype2="none"`:
+	---     * * * Will be rendered as if placed on top of a node (see
+	---           above) and only the first texture is used.
+	--- * `signlike`
+	---   * * A single texture parallel to, and mounted against, the top, underside or
+	---       side of a node.
+	---   * * If `paramtype2="[color]wallmounted"`, it rotates according to `param2`
+	---   * * If `paramtype2="none"`, it will always be on the floor.
+	--- * `plantlike`
+	---   * * Two vertical and diagonal textures at right-angles to each other.
+	---   * * See `paramtype2 = "meshoptions"` above for other options.
+	--- * `firelike`
+	---   * * When above a flat surface, appears as 6 textures, the central 2 as
+	---       `plantlike` plus 4 more surrounding those.
+	---   * * If not above a surface the central 2 do not appear, but the texture
+	---       appears against the faces of surrounding nodes if they are present.
+	--- * `fencelike`
+	---   * * A 3D model suitable for a wooden fence.
+	---   * * One placed node appears as a single vertical post.
+	---   * * Adjacently-placed nodes cause horizontal bars to appear between them.
+	--- * `raillike`
+	---   * * Often used for tracks for mining carts.
+	---   * * Requires 4 textures to be specified in `tiles`, in order: Straight,
+	---       curved, t-junction, crossing.
+	---   * * Each placed node automatically switches to a suitable rotated texture
+	---       determined by the adjacent `raillike` nodes, in order to create a
+	---       continuous track network.
+	---   * * Becomes a sloping node if placed against stepped nodes.
+	--- * `nodebox`
+	---   * * Often used for stairs and slabs.
+	---   * * Allows defining nodes consisting of an arbitrary number of boxes.
+	---   * * See [Node boxes] below for more information.
+	--- * `mesh`
+	---   * * Uses models for nodes.
+	---   * * Tiles should hold model materials textures.
+	---   * * Only static meshes are implemented.
+	---   * * For supported model formats see Irrlicht engine documentation.
+	--- * `plantlike_rooted`
+	---   * * Enables underwater `plantlike` without air bubbles around the nodes.
+	---   * * Consists of a base cube at the coordinates of the node plus a
+	---       `plantlike` extension above
+	---   * * If `paramtype2="leveled", the `plantlike` extension has a height
+	---       of `param2 / 16` nodes, otherwise it's the height of 1 node
+	---   * * If `paramtype2="wallmounted"`, the `plantlike` extension
+	---       will be at one of the corresponding 6 sides of the base cube.
+	---       Also, the base cube rotates like a `normal` cube would
+	---   * * The `plantlike` extension visually passes through any nodes above the
+	---       base cube without affecting them.
+	---   * * The base cube texture tiles are defined as normal, the `plantlike`
+	---       extension uses the defined special tile, for example:
+	---       `special_tiles = {{name = "default_papyrus.png"}},`
+	---
+	--- `*_optional` drawtypes need less rendering time if deactivated(always client-side).
+	---
 	--- @type string
 	drawtype                      = "normal",
 
