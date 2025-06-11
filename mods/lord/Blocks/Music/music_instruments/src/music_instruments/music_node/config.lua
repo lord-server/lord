@@ -108,7 +108,7 @@ local instruments = {
 }
 
 local base = {
-	title = S('Musical instrument base') ,
+	title = S('Musical instrument base'),
 	description =   S('A stone plucked from the embrace of subterranean horrors') .. '\n' ..
 					S('and a tree liberated from the elves') .. '\n' ..
 					S('They are now the basis for melodies') .. '\n' ..
@@ -125,8 +125,21 @@ local base = {
 	groups = { choppy = 2, forbidden = 1 },
 }
 
+local turnig_fork = {
+	title = S('Turning fork'),
+	description =   S('It\'s a musical instrument') .. '\n' ..
+					S('that gives hope to aspiring musicians') .. '\n' ..
+					S('that their false notes can be corrected') .. '\n' ..
+					S('with a small metal object,') .. '\n' ..
+					S('rather than long hours of practice') .. '\n' ..
+					S('and dedicated labour.'),
+	inventory_image = 'music_instruments_tuning_fork.png',
+	wield_image = 'music_instruments_tuning_fork.png^[transformFX',
+	groups = { forbidden = 1 },
+}
 
 return {
 	instruments = instruments,
 	base = base,
+	turnig_fork = turnig_fork,
 }
