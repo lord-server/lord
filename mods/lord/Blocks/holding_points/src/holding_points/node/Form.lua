@@ -1,6 +1,10 @@
-local S     = minetest.get_mod_translator()
-local spec  = forms.Spec
-local e     = spec.escape
+local MainTab    = require('holding_points.node.Form.MainTab')
+local MetaTab    = require('holding_points.node.Form.MetaTab')
+local BattlesTab = require('holding_points.node.Form.BattlesTab')
+
+local S    = minetest.get_mod_translator()
+local spec = forms.Spec
+local e    = spec.escape
 
 
 local SMALL = { font_size = '-1' } -- Style for formspec
@@ -8,7 +12,7 @@ local SMALL = { font_size = '-1' } -- Style for formspec
 --- @class holding_points.node.Form: base_classes.Form.Base
 --- @field node_position Position
 --- @field node_meta NodeMetaRef
-local Form = base_classes.Form:personal():for_node():extended({
+local Form = base_classes.Form:personal():for_node():with_tabs({ MAIN = 1, META = 2, BATTLE = 3 }):extended({
 	--- @type string
 	NAME     = 'holding_points:node',
 	--- @type {x:number, y:number}
@@ -21,13 +25,24 @@ local Form = base_classes.Form:personal():for_node():extended({
 	row_h    = 0.9,
 	--- @type number
 	center_x = nil,
-	--- @type boolean
-	in_event_list = nil
 })
 
 --- just pre-calculate center_x of the form
 function Form:instantiate()
 	self.center_x = self.padding.x + self.size.x / 2
+
+	self
+		:add_tab(MainTab:new(self))
+		:add_tab(MetaTab:new(self))
+		:add_tab(BattlesTab:new(self))
+end
+
+--- @protected
+--- @return string
+function Form:get_spec_head()
+	return ''
+		.. spec.formspec_version(4)
+		.. spec.size(self.size.x + 2 * self.padding.x, self.size.y + 2 * self.padding.y)
 end
 
 --- @param row number form row number
@@ -109,46 +124,6 @@ function Form:labeled_datetime_ro(row, datetime, label, description)
 	return ''
 		.. self:described_label(row, label, description)
 		.. spec.bold(row_center.x, row_center.y, datetime and '-' or e(os.date('%d.%m.%Y %H:%M:%S', datetime)))
-end
-
---- @private
---- @return string
-function Form:get_spec()
-	local name             = self.node_meta:get_string('name')
-	local in_event_list    = self.in_event_list == nil
-		and (self.node_meta:get_int('in_event_list') == 1)
-		or  self.in_event_list
-	local active            = self.node_meta:get_int('active') == 1
-	local last_activated_at = self.node_meta:get_int('last_activated_at')
-
-	return ''
-		.. spec.formspec_version(4)
-		.. spec.size(self.size.x + 2 * self.padding.x, self.size.y + 2 * self.padding.y)
-		.. self:labeled_field(0, 'input_name', name, S('Name'), S('This name will be shown for players'))
-		.. self:labeled_checkbox(1, 'in_event_list', in_event_list, S('Participates in future battles'), S('Description'))
-		.. self:labeled_boolean_ro(2, active, S('Active now'), S('Right now the battle is going on for this point.'))
-		.. self:labeled_datetime_ro(
-			3, last_activated_at,
-			S('Last activate at'), S('Date of the block\'s last participation in battle')
-		)
-		.. spec.button_exit(self.center_x - 2/2, self:get_row_start_y(4), 2, self.fields_h, 'save', S('Save'))
-		.. spec.label(self.padding.x, self:get_row_start_y(5) - 0.25, S('Reward'))
-		.. spec.node_inventory(self.padding.x, self:get_row_start_y(5), 8, 1, self.node_position, 'reward')
-		.. spec.player_inventory(self.padding.x, self:get_row_start_y(5) + 0.2 + 1.5, 8, 1)
-end
-
---- @param fields table
-function Form:handle(fields)
-	if fields.in_event_list then
-		-- just remember current value of checkbox for future saving by `Save` button
-		self.in_event_list = minetest.is_yes(fields.in_event_list)
-	end
-	if not fields.save then
-		return
-	end
-
-	self.node_meta:set_string('name', fields.input_name)
-	self.node_meta:set_int('in_event_list', self.in_event_list and 1 or 0)
 end
 
 
