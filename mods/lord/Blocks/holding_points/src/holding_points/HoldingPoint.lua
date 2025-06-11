@@ -150,7 +150,7 @@ function HoldingPoint:reward(player)
 		return
 	end
 
-	if not self.can_get_reward(player, clan) then
+	if not self:can_get_reward(player, clan) then
 		minetest.chat_send_player(player_name, S('You can\'t get reward.'))
 
 		return
