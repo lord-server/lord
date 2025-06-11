@@ -29,5 +29,6 @@ return {
 		end)
 
 		minetest.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
+		minetest.register_chatcommand(command.battle_stop.NAME,  command.battle_stop.definition)
 	end,
 }
