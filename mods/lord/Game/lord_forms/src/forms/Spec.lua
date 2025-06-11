@@ -32,9 +32,9 @@ end
 --- @return string
 function Spec.text(x, y, text, style)
 	return ''
-		.. spec.style_type('label', style)
+		.. (style and spec.style_type('label', style) or '')
 		.. spec.label(x, y, text)
-		.. Spec.reset_style('label')
+		.. (style and Spec.reset_style('label') or '')
 end
 
 --- Styled Read-Only textarea
@@ -43,13 +43,14 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @param style  minetest.FormSpec.Style
 --- @return string
 function Spec.area_ro(x, y, width, height, text, style)
+	pd(style)
 	return ''
-		.. spec.style_type('textarea', style)
+		.. (style and spec.style_type('textarea', style) or '')
 		.. spec.textarea(x, y, width, height, spec.read_only, '', text)
-		.. Spec.reset_style('textarea')
+		.. (style and Spec.reset_style('textarea') or '')
 end
 
 --- @param x     number
@@ -97,7 +98,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,width:number,height:number,text:string):string
 --- @return string
 function Spec.bold_area_ro(x, y, width, height, text, style)
@@ -112,7 +113,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,width:number,height:number,text:string):string
 --- @return string
 function Spec.bold_area_ro(x, y, width, height, text, style)
