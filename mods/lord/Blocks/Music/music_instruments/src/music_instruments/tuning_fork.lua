@@ -1,5 +1,6 @@
 local MusicNodeHelper = require('music_instruments.music_node.MusicNodeHelper')
 local config = require('music_instruments.music_node.config')
+local fork = config.turnig_fork
 
 
 local S = minetest.get_mod_translator()
@@ -28,15 +29,11 @@ end
 
 local function register_tuning_fork()
 	minetest.register_tool('music_instruments:tuning_fork', {
-		description =   S('The tuning fork is a musical instrument') .. '\n' ..
-						S('that gives hope to aspiring musicians') .. '\n' ..
-						S('that their false notes can be corrected') .. '\n' ..
-						S('with a small metal object,') .. '\n' ..
-						S('rather than long hours of practice') .. '\n' ..
-						S('and dedicated labour.'),
-		inventory_image = 'music_instruments_tuning_fork.png',
-		wield_image = 'music_instruments_tuning_fork.png^[transformFX',
-		groups = { forbidden = 1 },
+		description = fork.title,
+		_tt_help = fork.description and minetest.colorize('#aaa',  '\n' .. fork.description),
+		inventory_image = fork.inventory_image,
+		wield_image = fork.wield_image,
+		groups = fork.groups,
 
 		--- @param itemstack ItemStack
 		--- @param user Player
