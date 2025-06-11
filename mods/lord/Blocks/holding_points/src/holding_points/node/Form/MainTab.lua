@@ -1,3 +1,5 @@
+local Manager   = require('holding_points.Manager')
+
 local S    = minetest.get_mod_translator()
 local spec = forms.Spec
 
@@ -14,6 +16,17 @@ local MainTab = {
 MainTab = base_classes.Form.Element.Tab:extended(MainTab)
 
 --- @private
+function MainTab:get_battles_list()
+	local list = {}
+	for name, battle in pairs(Manager.battles) do
+		print(battle.name)
+		list[#list + 1] = battle.name
+	end
+
+	return list
+end
+
+--- @private
 --- @return string
 function MainTab:get_spec()
 	local form = self.form
@@ -22,15 +35,18 @@ function MainTab:get_spec()
 	local name              = meta:get_string('name')
 	local in_event_list     = self.in_event_list == nil and (meta:get_int('in_event_list') == 1) or self.in_event_list
 	local active            = meta:get_int('active') == 1
-	local last_activated_at = meta:get_int('last_activated_at')
+	--local last_activated_at = meta:get_int('last_activated_at')
 
 	return ''
 		.. form:labeled_field(0, 'input_name', name, S('Name'), S('This name will be shown for players'))
 		.. form:labeled_checkbox(1, 'in_event_list', in_event_list, S('Participates in future battles'), S('Description'))
 		.. form:labeled_boolean_ro(2, active, S('Active now'), S('Right now the battle is going on for this point.'))
-		.. form:labeled_datetime_ro(
-			3, last_activated_at,
-			S('Last activate at'), S('Date of the block\'s last participation in battle')
+		--.. form:labeled_datetime_ro(
+		--	3, last_activated_at,
+		--	S('Last activate at'), S('Date of the block\'s last participation in battle')
+		--)
+		.. form:labeled_dropdown(
+			3, 'battle', self:get_battles_list(), 1, S('Battle'), S('Name(ID) of Battle the node will be in.')
 		)
 		.. spec.button_exit(form.center_x - 2/2, form:get_row_start_y(4), 2, form.fields_h, 'save', S('Save'))
 		.. spec.label(form.padding.x, form:get_row_start_y(5) - 0.25, S('Reward'))
@@ -51,6 +67,7 @@ function MainTab:handle(fields)
 
 	self.form.node_meta:set_string('name', fields.input_name)
 	self.form.node_meta:set_int('in_event_list', self.in_event_list and 1 or 0)
+	self.form.node_meta:set_string('battle', fields.battle)
 
 	return true
 end

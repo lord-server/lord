@@ -73,10 +73,12 @@ end
 --- @private
 --- @return string
 function Form:labeled_field(row, name, value, label, description)
+	local field_padding = (self.row_h - self.fields_h) / 2
+
 	return ''
 		.. self:described_label(row, label, description)
 		.. spec.field(
-			self.center_x, self.padding.y + row * self.row_h + (self.row_h - self.fields_h) / 2,
+			self.center_x, self:get_row_start_y(row) + field_padding,
 			self.size.x / 2, self.fields_h,
 			name, '', value
 		)
@@ -110,7 +112,7 @@ function Form:labeled_boolean_ro(row, is_yes, label, description)
 end
 
 --- @private
---- @param row           number
+--- @param row         number
 --- @param datetime    number timestamp
 --- @param label       string
 --- @param description string
@@ -124,6 +126,23 @@ function Form:labeled_datetime_ro(row, datetime, label, description)
 	return ''
 		.. self:described_label(row, label, description)
 		.. spec.bold(row_center.x, row_center.y, datetime and '-' or e(os.date('%d.%m.%Y %H:%M:%S', datetime)))
+end
+
+--- @param row         number
+--- @param name        table
+--- @param list        table
+--- @param selected    number
+--- @param label       string
+--- @param description string
+function Form:labeled_dropdown(row, name, list, selected, label, description)
+	local row_start_y   = self:get_row_start_y(row)
+	local field_padding = (self.row_h - self.fields_h) / 2
+
+	return ''
+		.. self:described_label(row, label, description)
+		.. spec.dropdown_WH(
+			self.center_x, row_start_y + field_padding, self.size.x / 2,  self.fields_h, name, list, selected
+		)
 end
 
 

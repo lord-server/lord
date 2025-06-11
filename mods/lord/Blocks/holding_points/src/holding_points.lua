@@ -22,7 +22,7 @@ return {
 
 		-- We need minetest to have fully started to access the map.
 		-- So, deferred start of Manager:
-		minetest.after(5, function()
+		minetest.after(1, function()
 			Manager
 				.init(storage)
 				.run(scheduler)
