@@ -3,8 +3,6 @@ local config = require('music_instruments.music_node.config')
 local fork = config.turnig_fork
 
 
-local S = minetest.get_mod_translator()
-
 --- Изменяет тон ноды
 --- @param pos Position
 --- @param delta number Шаг изменения (1 или -1)
