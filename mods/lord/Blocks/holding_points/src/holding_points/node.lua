@@ -10,6 +10,7 @@ local definition = {
 
 	tiles             = { 'holding_points_node.png' },
 	use_texture_alpha = 'blend',
+	drawtype          = 'glasslike',
 
 	--- @param pos Position
 	on_construct      = function(pos)
