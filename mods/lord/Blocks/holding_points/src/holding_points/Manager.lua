@@ -72,7 +72,7 @@ end
 function Manager.on_upcoming_reached(battle, minutes)
 	minetest.chat_send_all(S('Time left until the battle `@1` starts: @2 minutes', battle.title, minutes))
 
-	Event.trigger(Event.Type.on_battle_upcoming, battle, minutes)
+	Event:trigger(Event.Type.on_battle_upcoming, battle, minutes)
 end
 
 --- @private
