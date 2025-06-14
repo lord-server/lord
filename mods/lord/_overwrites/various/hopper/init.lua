@@ -24,3 +24,67 @@ minetest.register_craft({
 		{"", "lottores:mithril_block", ""}
 	}
 })
+
+hopper:add_container({
+	-- ### protector_lott ###
+	{"bottom", "protector_lott:chest", "main"},
+
+	-- ### technic_chests ###
+	{"top", "technic:copper_chest",  "main"},
+	{"top", "technic:iron_chest",    "main"},
+	{"top", "technic:silver_chest",  "main"},
+	{"top", "technic:gold_chest",    "main"},
+	{"top", "technic:mithril_chest", "main"},
+
+	{"side", "technic:copper_chest",  "main"},
+	{"side", "technic:iron_chest",    "main"},
+	{"side", "technic:silver_chest",  "main"},
+	{"side", "technic:gold_chest",    "main"},
+	{"side", "technic:mithril_chest", "main"},
+
+	{"bottom", "technic:copper_chest",  "main"},
+	{"bottom", "technic:iron_chest",    "main"},
+	{"bottom", "technic:silver_chest",  "main"},
+	{"bottom", "technic:gold_chest",    "main"},
+	{"bottom", "technic:mithril_chest", "main"},
+
+	-- locked: only input
+	{"bottom", "technic:copper_locked_chest",  "main"},
+	{"bottom", "technic:iron_locked_chest",    "main"},
+	{"bottom", "technic:silver_locked_chest",  "main"},
+	{"bottom", "technic:gold_locked_chest",    "main"},
+	{"bottom", "technic:mithril_locked_chest", "main"},
+
+	-- ### workbench ###
+	{"top", "workbench:workbench", "src"},
+	{"side", "workbench:workbench", "src"},
+	{"bottom", "workbench:workbench", "dst"},
+
+	-- ### bees ###
+	{"top", "bees:extractor", "frames_filled"},
+	{"side", "bees:extractor", "bottles_empty"},
+	{"bottom", "bees:extractor", "wax"},
+	{"bottom", "bees:extractor", "bottles_full"},
+	{"bottom", "bees:extractor", "frames_emptied"},
+
+	-- ### laboratory ###
+	{"top", "laboratory:laboratory", "src"},
+	{"side", "laboratory:laboratory", "fuel"},
+	{"bottom", "laboratory:laboratory", "dst"},
+
+	-- ### barrel ###
+	{"top", "barrel:barrel",        "src"},
+	{"top", "barrel:barrel_active", "src"},
+	{"side", "barrel:barrel",        "fuel"},
+	{"side", "barrel:barrel_active", "fuel"},
+	{"bottom", "barrel:barrel",        "dst"},
+	{"bottom", "barrel:barrel_active", "dst"},
+
+	-- ### grinder ###
+	{"top", "grinder:grinder",        "src"},
+	{"top", "grinder:grinder_active", "src"},
+	{"side", "grinder:grinder",        "fuel"},
+	{"side", "grinder:grinder_active", "fuel"},
+	{"bottom", "grinder:grinder",        "dst"},
+	{"bottom", "grinder:grinder_active", "dst"},
+})
