@@ -23,6 +23,17 @@ minetest.register_tool('tools:sword_orc', {
 	},
 	groups            = { steel_item = 1, forbidden = 1 },
 })
+minetest.register_tool('tools:sword_orcish', {
+	description       = S('Morgul Blade'),
+	inventory_image   = 'tools_sword_orcish.png',
+	tool_capabilities = {
+		max_drop_level      = 2,
+		groupcaps           = { snappy = { times = { [1] = 1.60, [2] = 1.30, [3] = 0.90 }, uses = 50, maxlevel = 3 }, },
+		damage_groups       = { poison = 4, fleshy = 6 },
+		full_punch_interval = 1,
+	},
+	groups            = { steel_item = 1, forbidden = 1 },
+})
 minetest.register_tool('tools:battleaxe_dwarven', {
 	description       = S('Dwarven Battleaxe'),
 	inventory_image   = 'tools_battleaxe_dwarf.png',
@@ -80,6 +91,17 @@ minetest.register_mirrored_crafts({
 		{ '', 'default:steel_ingot', 'default:steel_ingot' },
 		{ '', 'lottores:mithril_lump', '' },
 		{ '', 'default:mese_crystal', '' },
+	}
+})
+--'tools:sword_orcish'
+minetest.register_craft({
+	method   = minetest.CraftMethod.ANVIL,
+	output   = 'tools:sword_orcish',
+	for_race = races.name.ORC,
+	recipe   = {
+		{ '', 'default:steel_ingot', '' },
+		{ 'default:obsidian_shard', 'default:steel_ingot', 'default:obsidian_shard' },
+		{ 'default:mese_crystal', 'bones:bone', 'default:mese_crystal' },
 	}
 })
 minetest.register_craft({
