@@ -94,3 +94,6 @@
 	path = mods/_various/stainedglass
 	url = https://gitlab.com/lord-server/stainedglass.git
 	branch = lord
+[submodule "mods/_various/hopper"]
+	path = mods/_various/hopper
+	url = https://codeberg.org/tenplus1/hopper.git
