@@ -79,6 +79,7 @@ read_globals      = {
 	"mobs",
 	"worldedit",
 	"areas",
+	"hopper",
 
 	-- Functions:
 	"get_mail", -- mail_list из lord-server/lord_ext
