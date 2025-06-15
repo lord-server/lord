@@ -312,3 +312,8 @@ minetest.register_alias("lottinventory:potions_book", "lord_books:potions_book")
 minetest.register_alias("lottinventory:protection_book", "lord_books:protection_book")
 
 minetest.register_alias("lottother:tapestry_top", "castle:tapestry_top")
+
+-- вынесено из MTG/default/legacy.lua (требуется для hopper):
+default.gui_bg     = ""
+default.gui_bg_img = ""
+default.gui_slots  = ""
