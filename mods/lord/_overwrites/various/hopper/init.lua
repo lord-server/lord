@@ -16,14 +16,15 @@ minetest.register_craft({
 
 minetest.clear_craft({output = "hopper:hopper_void"})
 
-minetest.register_craft({
-	output = "hopper:hopper_void",
-	recipe = {
-		{"lottores:lead_ingot", "carts:steam_mechanism",  "lottores:lead_ingot"},
-		{"lottores:lead_ingot", "default:chest", "lottores:lead_ingot"},
-		{"", "lottores:mithril_block", ""}
-	}
-})
+-- TODO: for future
+-- minetest.register_craft({
+-- 	output = "hopper:hopper_void",
+-- 	recipe = {
+-- 		{"lottores:lead_ingot", "carts:steam_mechanism",  "lottores:lead_ingot"},
+-- 		{"lottores:lead_ingot", "default:chest", "lottores:lead_ingot"},
+-- 		{"", "lottores:mithril_block", ""}
+-- 	}
+-- })
 
 hopper:add_container({
 	-- ### protector_lott ###
