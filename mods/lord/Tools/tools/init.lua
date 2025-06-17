@@ -10,7 +10,8 @@ minetest.mod(function(mod)
 		warhammer = require('warhammers'),
 		spear     = require('spears'),
 		dagger    = require('daggers'),
-		special   = require('racial'),
+		racial    = require('racial'),
+		special   = require('special'),
 	}
 
 	-- Source materials
@@ -106,4 +107,6 @@ minetest.mod(function(mod)
 		end
 	end
 
+	dofile(minetest.get_modpath("tools") .. '/aliases.lua')
 end)
+

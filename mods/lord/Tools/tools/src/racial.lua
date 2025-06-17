@@ -12,17 +12,6 @@ minetest.register_tool('tools:sword_elven', {
 	},
 	groups            = { bronze_item = 1, forbidden = 1 },
 })
-minetest.register_tool('tools:sword_orc', {
-	description       = S('Orcish Sword'),
-	inventory_image   = 'tools_sword_orc.png',
-	tool_capabilities = {
-		max_drop_level      = 2,
-		groupcaps           = { snappy = { times = { [1] = 2.25, [2] = 1.80, [3] = 1.30 }, uses = 17, maxlevel = 3 }, },
-		damage_groups       = { poison = 1.2, fleshy = 7.8 },
-		full_punch_interval = 1.2,
-	},
-	groups            = { steel_item = 1, forbidden = 1 },
-})
 minetest.register_tool('tools:sword_orcish', {
 	description       = S('Morgul Blade'),
 	inventory_image   = 'tools_sword_orcish.png',
@@ -59,7 +48,6 @@ minetest.register_tool('tools:sword_human', {
 	},
 	groups            = { mithril_item = 1, forbidden = 1 },
 })
-
 minetest.register_tool('tools:dagger_hobbit', {
 	description         = S('Hobbit Dagger'),
 	inventory_image     = 'tools_dagger_hobbit.png',
@@ -83,17 +71,6 @@ minetest.register_craft({
 		{ 'default:mese_crystal', 'group:stick',         'default:mese_crystal' },
 	}
 })
-minetest.register_mirrored_crafts({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'tools:sword_orc',
-	for_race = races.name.ORC,
-	recipe   = {
-		{ '', 'default:steel_ingot', 'default:steel_ingot' },
-		{ '', 'lottores:mithril_lump', '' },
-		{ '', 'default:mese_crystal', '' },
-	}
-})
---'tools:sword_orcish'
 minetest.register_craft({
 	method   = minetest.CraftMethod.ANVIL,
 	output   = 'tools:sword_orcish',
@@ -124,7 +101,6 @@ minetest.register_craft({
 		{ 'lottores:blue_gem', 'group:stick',            'lottores:blue_gem' },
 	}
 })
-
 minetest.register_craft({
 	method   = minetest.CraftMethod.ANVIL,
 	for_race = races.name.HOBBIT,
@@ -135,7 +111,3 @@ minetest.register_craft({
 		{ '',                     '',                     ''                     }
 	},
 })
-
-
--- @tags: legacy
-minetest.register_alias('castle:battleaxe', 'tools:battleaxe_dwarven')
