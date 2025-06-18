@@ -121,11 +121,6 @@ minetest.register_node("lord_mail:mail_chest", {
 		if listname == "drop" and inv:room_for_item("main", stack) then
 			inv:remove_item("drop", stack)
 			inv:add_item("main", stack)
-			local owner_mail = get_mail(meta:get_string("owner"))
-			if owner_mail then
-				local report = S("You have new post").." "..minetest.pos_to_string(pos)
-				os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
-			end
 		end
 	end,
 	allow_metadata_inventory_put = function(pos, listname, index, stack, player)
@@ -138,11 +133,6 @@ minetest.register_node("lord_mail:mail_chest", {
 			if inv:room_for_item("main", stack) then
 				return -1
 			else
-				local owner_mail = get_mail(meta:get_string("owner"))
-				if owner_mail then
-					local report = S("Your post full").." "..minetest.pos_to_string(pos)
-					os.execute("echo '"..report.."' | mail -s 'post' ".. owner_mail)
-				end
 				return 0
 			end
 		end

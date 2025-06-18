@@ -295,35 +295,29 @@ local function check_empty_slots_in_gives(name, pos, player_inv, gives)
 	return true
 end
 
-local function check_stock(name, pos, shop_inv, gives, mail)
+local function check_stock(name, pos, shop_inv, gives)
 	-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
 	for _, stack in pairs(gives) do
 		if not shop_inv:contains_item("stock", stack, true) then --If false, only the items' names are compared
 			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить"..
 				"обмен, но товар на складе кончился.", pos, name))
 			minetest.chat_send_player(name, S("Unable to perform an exchange: the shop is out of stock."))
-			if mail ~= nil and mail ~= "" then
-				local report = S("Your shop at (@1) is out of stock.", tostring(pos))
-				os.execute("echo '"..report.."' | mail -s 'store' "..mail)
-			end
-			return
+
+			return false
 		end
 	end
 	return true
 end
 
-local function check_storage(name, pos, shop_inv, wants, mail)
+local function check_storage(name, pos, shop_inv, wants)
 	-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА НА СКЛАДЕ
 	for _, stack in pairs(wants) do
 		if not shop_inv:room_for_item("customers_gave", stack) then
 			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить"..
 				"обмен, но на складе недостаточно свободного места.", pos, name))
 			minetest.chat_send_player(name, S("Unable to perform an exchange: the storage is full."))
-			if mail ~= nil and mail ~= "" then
-				local report = S("Your shop at (@1) is full: no storage left.", tostring(pos))
-				os.execute("echo '"..report.."' | mail -s 'store' "..mail)
-			end
-			return
+
+			return false
 		end
 	end
 	return true
@@ -348,10 +342,6 @@ local function give_items(player_inv, is_endless, shop_inv, gives)
 end
 
 local function exchange(sender, name, pos, meta, player_inv, is_endless)
-	local mail = ""
-	if minetest.get_modpath("mail_list") then -- если есть мод взаимодействия с e-mail
-		mail = get_mail(meta:get_string("owner")) -- адрес владельца
-	end
 	local shop_inv = meta:get_inventory() -- инвентари магазина
 	local wants    = shop_inv:get_list("owner_wants") -- цена
 	local gives    = shop_inv:get_list("owner_gives") -- товар
@@ -361,8 +351,8 @@ local function exchange(sender, name, pos, meta, player_inv, is_endless)
 			not check_enough_items_in_wants(name, pos, player_inv, wants) or
 			not check_empty_slots_in_gives(name, pos, player_inv, gives) or (
 			not is_endless and (
-			not check_stock(name, pos, shop_inv, gives, mail) or
-			not check_storage(name, pos, shop_inv, wants, mail))) then
+			not check_stock(name, pos, shop_inv, gives) or
+			not check_storage(name, pos, shop_inv, wants))) then
 		return
 	end
 
