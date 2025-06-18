@@ -28,8 +28,9 @@ minetest.clear_craft({output = "hopper:hopper_void"})
 
 hopper:add_container({
 	-- ### protector_lott ###
-	{"bottom", "protector_lott:chest", "main"},
 	{"void", "protector_lott:chest", "main"},
+	{"bottom", "protector_lott:chest", "main"},
+	{"side", "protector_lott:chest", "main"},
 
 	-- ### technic_chests ###
 	{"top", "technic:copper_chest",  "main"},
@@ -57,6 +58,12 @@ hopper:add_container({
 	{"void", "technic:mithril_chest", "main"},
 
 	-- locked: only input
+	{"side", "technic:copper_locked_chest",  "main"},
+	{"side", "technic:iron_locked_chest",    "main"},
+	{"side", "technic:silver_locked_chest",  "main"},
+	{"side", "technic:gold_locked_chest",    "main"},
+	{"side", "technic:mithril_locked_chest", "main"},
+
 	{"bottom", "technic:copper_locked_chest",  "main"},
 	{"bottom", "technic:iron_locked_chest",    "main"},
 	{"bottom", "technic:silver_locked_chest",  "main"},
@@ -71,41 +78,51 @@ hopper:add_container({
 
 	-- ### workbench ###
 	{"void", "workbench:workbench", "src"},
-	{"top", "workbench:workbench", "src"},
+	{"bottom", "workbench:workbench", "src"},
 	{"side", "workbench:workbench", "src"},
-	{"bottom", "workbench:workbench", "dst"},
+	{"top", "workbench:workbench", "dst"},
 
 	-- ### bees ###
 	{"void", "bees:extractor", "frames_filled"},
-	{"top", "bees:extractor", "frames_filled"},
+	{"bottom", "bees:extractor", "frames_filled"},
 	{"side", "bees:extractor", "bottles_empty"},
-	{"bottom", "bees:extractor", "wax"},
-	{"bottom", "bees:extractor", "bottles_full"},
-	{"bottom", "bees:extractor", "frames_emptied"},
+	{"top", "bees:extractor", "wax"},
+	{"top", "bees:extractor", "bottles_full"},
+	{"top", "bees:extractor", "frames_emptied"},
 
 	-- ### laboratory ###
-	{"void", "laboratory:laboratory", "src"},
-	{"top", "laboratory:laboratory", "src"},
-	{"side", "laboratory:laboratory", "fuel"},
-	{"bottom", "laboratory:laboratory", "dst"},
+	{"void", "laboratory:laboratory",        "src"},
+	{"void", "laboratory:laboratory_active", "src"},
+	{"bottom", "laboratory:laboratory",        "src"},
+	{"bottom", "laboratory:laboratory_active", "src"},
+	{"side", "laboratory:laboratory",        "fuel"},
+	{"side", "laboratory:laboratory_active", "fuel"},
+	{"top", "laboratory:laboratory",        "dst"},
+	{"top", "laboratory:laboratory_active", "dst"},
 
 	-- ### barrel ###
 	{"void", "barrel:barrel",        "src"},
 	{"void", "barrel:barrel_active", "src"},
-	{"top", "barrel:barrel",        "src"},
-	{"top", "barrel:barrel_active", "src"},
+	{"bottom", "barrel:barrel",        "src"},
+	{"bottom", "barrel:barrel_active", "src"},
 	{"side", "barrel:barrel",        "fuel"},
 	{"side", "barrel:barrel_active", "fuel"},
-	{"bottom", "barrel:barrel",        "dst"},
-	{"bottom", "barrel:barrel_active", "dst"},
+	{"top", "barrel:barrel",        "dst"},
+	{"top", "barrel:barrel_active", "dst"},
 
 	-- ### grinder ###
 	{"void", "grinder:grinder",        "src"},
 	{"void", "grinder:grinder_active", "src"},
-	{"top", "grinder:grinder",        "src"},
-	{"top", "grinder:grinder_active", "src"},
+	{"bottom", "grinder:grinder",        "src"},
+	{"bottom", "grinder:grinder_active", "src"},
 	{"side", "grinder:grinder",        "fuel"},
 	{"side", "grinder:grinder_active", "fuel"},
-	{"bottom", "grinder:grinder",        "dst"},
-	{"bottom", "grinder:grinder_active", "dst"},
+	{"top", "grinder:grinder",        "dst"},
+	{"top", "grinder:grinder_active", "dst"},
+
+	-- ### lord_money ###
+	{"void", "lord_money:shop", "stock"},
+	{"bottom", "lord_money:shop", "stock"},
+	{"side", "lord_money:shop", "stock"},
+	{"top", "lord_money:shop", "customers_gave"},
 })
