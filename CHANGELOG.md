@@ -1,5 +1,8 @@
 # Change Log
 
+## [2025.05.p1](https://github.com/lord-server/lord/releases/tag/2025.05.p1)
+ - Mobs: increase srop from Nazguls & Wotch-Kings a little.
+
 ## [2025.05](https://github.com/lord-server/lord/releases/tag/2025.05)
  - MapGen: Caves: `icicles`:
    - add nodes for all lord rocks. Relates to #2177
