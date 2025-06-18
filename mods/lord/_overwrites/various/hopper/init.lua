@@ -119,4 +119,10 @@ hopper:add_container({
 	{"side", "grinder:grinder_active", "fuel"},
 	{"top", "grinder:grinder",        "dst"},
 	{"top", "grinder:grinder_active", "dst"},
+
+	-- ### lord_money ###
+	{"void", "lord_money:shop", "stock"},
+	{"bottom", "lord_money:shop", "stock"},
+	{"side", "lord_money:shop", "stock"},
+	{"top", "lord_money:shop", "customers_gave"},
 })
