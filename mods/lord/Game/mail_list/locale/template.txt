@@ -1,8 +1,0 @@
-# textdomain: mail_list
-No <mail>!=
-Can register e-mail.=
-Show your e-mail=
-Register your e-mail=
-Your mail:=
-No mail!=
-
