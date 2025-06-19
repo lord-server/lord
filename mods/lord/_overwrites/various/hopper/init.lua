@@ -212,6 +212,12 @@ hopper:add_container({
 	{"void", "technic:gold_locked_chest_white",      "main"},
 	{"void", "technic:gold_locked_chest_yellow",     "main"},
 
+	-- ### castle ###
+	{"void", "castle:ironbound_chest", "main"},
+	{"bottom", "castle:ironbound_chest", "main"},
+	{"side", "castle:ironbound_chest", "main"},
+	{"top", "castle:ironbound_chest", "main"},
+
 	-- ### workbench ###
 	{"void", "workbench:workbench", "src"},
 	{"bottom", "workbench:workbench", "src"},
