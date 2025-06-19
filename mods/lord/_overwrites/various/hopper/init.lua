@@ -26,11 +26,23 @@ minetest.clear_craft({output = "hopper:hopper_void"})
 -- 	}
 -- })
 
+-- TIP: first param of the func
+-- ┌───┐
+-- └┬─┬┘
+--  └─┘ <-------- "bottom": input
+-- ┌───┐ ┌───┐
+-- │ c │ └┬─┬┘ <- "side": input
+-- │   │  └─┘
+-- └───┘ <------- container
+-- ┌───┐
+-- └┬─┬┘ <------- "top": output
+--  └─┘
 hopper:add_container({
 	-- ### protector_lott ###
 	{"void", "protector_lott:chest", "main"},
 	{"bottom", "protector_lott:chest", "main"},
 	{"side", "protector_lott:chest", "main"},
+	-- without output
 
 	-- ### technic_chests ###
 	{"top", "technic:copper_chest",  "main"},
