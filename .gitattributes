@@ -1,3 +1,7 @@
 * text=auto eol=lf
 
 *.x linguist-vendored
+
+
+*           export-ignore
+readme.md  !export-ignore
