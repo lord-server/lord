@@ -267,4 +267,10 @@ hopper:add_container({
 	{"bottom", "lord_money:shop", "stock"},
 	{"side", "lord_money:shop", "stock"},
 	{"top", "lord_money:shop", "customers_gave"},
+
+	-- ### lord_mail ###
+	{"void", "lord_mail:mail_chest", "main"},
+	{"bottom", "lord_mail:mail_chest", "main"},
+	{"side", "lord_mail:mail_chest", "main"},
+	{"top", "lord_mail:mail_chest", "main"},
 })
