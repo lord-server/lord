@@ -14,7 +14,7 @@ minetest.register_tool('tools:sword_urukhai', {
 minetest.register_mirrored_crafts({
 	--method   = minetest.CraftMethod.DEFAULT,
 	output   = 'tools:sword_urukhai',
-	for_race = races.name.ORC,
+	for_race = races.name,
 	recipe   = {
 		{ '', 'default:steel_ingot', 'default:steel_ingot' },
 		{ '', 'default:steel_ingot', '' },
