@@ -1,5 +1,13 @@
 # Change Log
 
+## [2025.05.p2](https://github.com/lord-server/lord/releases/tag/2025.05.p2)
+ - Distribution: Remove dated mod mail_list. Closes #2272
+ - Distribution: Move `lord_spawners` to `_experimental`. Closes #2278
+ - Distribution: Madpack `Debug`: move into: `lord_caves_debug` & `debugtools`. Closes #2274
+ - Distribution: Move `lord_music_box` to `_experimental`. Closes #2273
+ - Distribution: Clean up unnecessary files & folders. Closes #2276
+ - Distribution: update `readme.md`. Closes #2280
+
 ## [2025.05.p1](https://github.com/lord-server/lord/releases/tag/2025.05.p1)
  - Mobs: increase srop from Nazguls & Wotch-Kings a little.
 
