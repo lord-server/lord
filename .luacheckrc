@@ -83,7 +83,6 @@ read_globals      = {
 	"hopper",
 
 	-- Functions:
-	"get_mail", -- mail_list из lord-server/lord_ext
 	"within_limits", -- mobs api
 
 	-- Legacy

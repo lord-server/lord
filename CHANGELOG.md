@@ -1,5 +1,139 @@
 # Change Log
 
+## [2025.05.p2](https://github.com/lord-server/lord/releases/tag/2025.05.p2)
+ - Distribution: Remove dated mod mail_list. Closes #2272
+ - Distribution: Move `lord_spawners` to `_experimental`. Closes #2278
+ - Distribution: Madpack `Debug`: move into: `lord_caves_debug` & `debugtools`. Closes #2274
+ - Distribution: Move `lord_music_box` to `_experimental`. Closes #2273
+ - Distribution: Clean up unnecessary files & folders. Closes #2276
+ - Distribution: update `readme.md`. Closes #2280
+
+## [2025.05.p1](https://github.com/lord-server/lord/releases/tag/2025.05.p1)
+ - Mobs: increase srop from Nazguls & Wotch-Kings a little.
+
+## [2025.05](https://github.com/lord-server/lord/releases/tag/2025.05)
+ - MapGen: Caves: `icicles`:
+   - add nodes for all lord rocks. Relates to #2177
+   - add generation for all caves (all rocks). Relates to #2177
+   - decrease amount of icicles; extract gen configs. Closes #2177
+ - New mod `remains`:
+   - skeletons with some nice loot. (#2149). Closes #788.
+     - Two nice "Remains of ancient miner" (skull with bones & skull with pickaxe)
+   - MapGen: Dungeons: add skeleton remains to:
+     - to rooms generation (chance 60%). Relates to #2178
+     - to rooms with tomb (from 0 to 3 skeletons, usually 3). Closes #2178
+   - MapGen: Caves:
+     - add remains generation to caves (rarely). Closes to #2179 (#2203)
+   - Added a recipe for `bones` from: a skeleton_body & remains:ancient_miner. Closes #2211
+ - Music Nodes:
+   - Music Instrument Body
+   - Kalimba. Closes #2195 (#2202)
+   - Metallophone. (#2205). Relates to #2204
+   - Tuning Fork. #2253
+   - Recipes. Closes #2222
+ - Clans: Hold points:
+   - Admin configuration Form (#2146). Closes #2125. Closes #2126
+   - `Processor` - start/stop timers, calc score. Closes #2241
+   - add full Battle management: add `Storage`, `Scheduler` & `Manager` classes. Closes #2246. Closes #2242
+   - add command `/battle.start <battle_name>` for `server` priv. Closes #2262
+     add command `/battle.stop <battle_name>`. Closes #2267. Relates to #2166
+   - receiving reward. Closes #2132
+
+ - New player: selecting race:
+   - Added races description on the first form after registration. Closes #2220
+
+ - Racial weapons:
+   - textures: for new orcish "Morgul Blade" & update "Andúril". Closes #2229. Relates to #2227
+ - Balancing the elven sword. Closes #2185.
+   - players will not die so fast, but damage for dead-mans will the same
+ - Correct dead_men drop. (Drop increased a little). Closes #2215 (#2219)
+
+ - Game: Random facts. Closes #2221
+   - The Game will periodically send Fun Facts about Middle-earth, Tolkien and his universe to the chat. 
+
+ - Textures:
+   - full `Tools` set: weapons/tools. Closes #2068
+
+ - Bugfixes:
+   - Fix `"painting:brush_"..color` craft: craft now visible in book. Closes #2187
+   - Sounds: fix sheep sound (volume & change the sound). Relates #2217
+   - Sounds: decrease volume for nazgul. Closes #2217
+
+ - Technical:
+   - Added tips for FormSpec.list func
+   - Wrap `lord_music_box/init.lua` content into `minetest.mod()`.
+   - Raname legacy translation variable `SL` -> `S`.
+   - `ide-helper`: improve docs for escape sequences functions & pos-sring concertion functions.
+   - `ide-helper`: precise `Settings:to_table()` return type
+   - `Core`: add `SettingsGroup` class to simplify working with settings of one group.
+   - `Core`: add `mod.Settings` class, `minetest.get_mod_setting()`, lazy via `mod.settings`
+   - `ide-helper`: `@return boolean` for `minetest.is_{yes|nan}()` functions.
+   - `Core`: add `SettingsGroup:get_bool(name, default)` helper.
+   - Config Prod: change `max_packets_per_iteration` to default value.
+   - `Core`: `helpers`: add `table.is_position()` function to check var is pos.
+   - `ide-helper`: fix `minetest.register_on_respawnplayer()` param annotation.
+   - `Core`: fix `SettingsGroup:get_bool()` internal validation (assertion).
+   - Races: Refactoring: full rewrite `lord_spawn`. Closes #2153. - separate into `lord_spans` & `lord_events` - use our structure - add API for Spawns - add API for Halls - use Halls API in `lord_events`
+   - `ide-helper`: improve `NodeDefinition` annotations.
+   - `ide-helper`: rename class `Node` -> `NodeTable`.
+   - `ide-helper`: add some impovements for `register_on_rightclickplayer`, `register_on_punchplayer`, `register_on_newplayer`, `register_on_generated`, `register_on_prejoinplayer`, `register_on_dieplayer`.
+   - MapGen: Caves: migrate `icicles` to our structure, decrease cyclomatic complexity. Relates to #2177. Closes #2190.
+   - `lord_spawns`: fix configs to latest version. Relates to #2153. Closes #2189
+   - Code-Style: use single quotes for `Generation/buildings`.
+   - Code-Style: add forgotten annotations in `Generation/buildings`.
+   - Fix decrement remains:ancient_miners on place node. Closes #2191
+   - `ide-helper`: improve `VoxelArea` annotation: add types.
+   - `Core`: precise detection of room walls of dungeons.
+   - MapGen: Caves: refactor: add common modpack, which is collecting cave-mods. Closes #2187
+   - Music: Refactoring: Common modpack-folder. Closes #2200.
+   - MapGen: Caves: debug-mod (highlight caves on debug). Closes #2199
+   - Selecting the chance of meetings remains. Related to #2179
+   - MapGen: Caves: tune chances to remains gen. Relates to #2179
+   - Fixed decrement itemstack if place node of  remains between two nodes of remains. Closes #2209 (#2210)
+   - Luacheck: fix warning on writing into `beds.day_interval.finish`
+   - Music: Nodes: pitch correction. Closes #2231
+   - Clans: Holding point: add simple texture, prettify form, small codestyle & type-hinting fixes. Relates to #2126, #2124.
+   - `lord_forms`: add helpers to display node & player inventories
+   - Clans: Hold Points: rename mod & node as `holding_points:node`. Closes #2236
+   - Clans: Hold Points: extract first simple version of class `HoldingPoint`. Closes #2237
+   - Translations: final clean up `intllib` occurrences. Closes #328
+   - `Core/helpers`: add `assertf()` helper, fix `table.walk()`
+   - `ide-helper`: `pos` param annotation.
+   - `Core/base_classes`: add classes for simplifing work with `meta`.
+   - Clans: Hold Points: simplify work with meta. Closes #2238
+   - Converted stereo sounds to mono :rotating_light:
+   - `Core/base_classes`: `Meta.Base`: fix unexpected json serialization; extract `:get_type()`.
+   - Clans: Hold Points: move id creation into HoldingPoint; incapsulate properties; fix `Processor:stop()`. Relates to #2242
+   - Clans: Hold Points: just move `Form.lua` -> `node/Form.lua`. Relates to #2126
+   - Clans: Hold Points: Player inventory added. Closes #2135
+   - Clans: Hold Points: Form: edit/saving `in_event_list` field. Closes #2235. Display `active` & `last_activate_at`. Relates to #2127
+   - `Core/base_classes`: ability to use for all `MetaDataRef` childs, not only `NodeMetaRef`.
+   - `Core/base_classes`: ability to specify key prefix.
+   - `Core/base_classes`: ability to use for all `MetaDataRef` childs, not only `NodeMetaRef`.
+   - `Core/base_classes`: ability to specify key prefix.
+   - `helpers`: add `math.{is_within|is_among|is_in_range|is_near}()` helpers.
+   - Clans: Hold Points: add simple `Battle` class. Relates to #2242.
+   - Title and tech-name for base node. Closes #2254
+   - Music Nodes: change tooltips styles. Closes #2255 (#2258)
+   - `Core/base_classes`: `Meta.Base`: fix getting unsetted property of type `table`.
+   - `Core/base_classes`: `Meta.Base`: decrease cyclomatic comlexity of `:get_typified()`.
+   - `Core/helpers`: fix debug macroses.
+   - Music Nodes: tuning fork recipe. Closes #2253
+   - Clans: Hold Points: `Event` class & trigger simple events. Relates to #2259
+   - Fixed crash of "punch" from nazgul to remains_mapgen. Closes #2252 Fixed invisible item in hand of player and invisible item on drop remains ancient_miner. Closes #2249 #2248
+   - The description of races in the registration form has been padding. Closes #2250
+   - Clans: Hold Points: fix crash on wrong Battle name. Relates #2262
+   - `ide-helper`: add "Node DrawType" annotion.
+   - Clans: Hold Points: fix node pearlblock-effect. Relates to #2124
+   - Fix turning fork tooltip styles. Relates to #2255
+   - Delete unused translation var 'S'
+   - Clans: Hold Points: full form: extract current form into tab `main`. Relates to #2127
+   - Clans: Hold Points: fix crash by rightclick. Closes #2265
+   - Clans: Hold Points: fix triggering upcoming. Relates to #2259
+   - Clans: Hold Points: form: stupid simple meta-data view in `meta` tab. Relates to #2127
+   - `lord_forms`: dont wrap with style, if there is no.
+   - Clans: Hold Points: add `battle` option in form & saving. Relates #2268
+
 ## [2025.03.p2](https://github.com/lord-server/lord/releases/tag/2025.03.p2)
  - Fix `character.of` in `on_rightclick` func (#2169). Closes #2168
  - Races: fix crash on open/lockpick of racial chests & doors. Closes #2172

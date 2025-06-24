@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="64">
+    <!-- Внешний серый бордюр -->
+    <rect
+            x="1" y="1" width="198" height="62"
+            rx="10" ry="10"
+            fill="none"
+            stroke="#999"
+            stroke-width="1"
+    />
+    <!-- Основная зелёная кнопка с белым бордюром -->
+    <rect
+            x="3" y="3" width="194" height="58"
+            rx="8" ry="8"
+            fill="#659b4b"
+            stroke="#ccc"
+            stroke-width="3"
+    />
+    <text
+            x="100" y="38"
+            text-anchor="middle"
+            font-family="Arial, sans-serif"
+            font-size="24"
+            fill="#ffffff"
+    >
+        Играть!
+    </text>
+</svg>
