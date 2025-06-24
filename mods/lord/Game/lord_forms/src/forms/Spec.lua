@@ -46,7 +46,6 @@ end
 --- @param style  minetest.FormSpec.Style
 --- @return string
 function Spec.area_ro(x, y, width, height, text, style)
-	pd(style)
 	return ''
 		.. (style and spec.style_type('textarea', style) or '')
 		.. spec.textarea(x, y, width, height, spec.read_only, '', text)
