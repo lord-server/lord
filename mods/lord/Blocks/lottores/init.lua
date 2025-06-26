@@ -166,21 +166,6 @@ minetest.register_craftitem("lottores:tilkal_ingot", {
      groups = {forbidden=1},
 })
 
-minetest.register_craftitem("lottores:blue_gem", {
-	description = S("Blue Gem"),
-	inventory_image = "lottores_bluegem.png",
-})
-
-minetest.register_craftitem("lottores:red_gem", {
-	description = S("Red Gem"),
-	inventory_image = "lottores_redgem.png",
-})
-
-minetest.register_craftitem("lottores:white_gem", {
-	description = S("White Gem"),
-	inventory_image = "lottores_whitegem.png",
-})
-
 -- Nodes
 
 minetest.register_node("lottores:tilkal", {
