@@ -24,11 +24,6 @@ minetest.register_craftitem("lottother:ring", {
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:purple_gem", {
-	description = S("Purple Gem"),
-	inventory_image = "lottother_purplegem.png",
-    groups = {forbidden=1},
-})
 
 
 --ELF RINGS
@@ -120,11 +115,6 @@ minetest.register_craft({
 	{"lottother:ringsilver_ingot", "", "lottother:ringsilver_ingot"},
 	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
 	},
-})
-minetest.register_craft({
-	type = "shapeless",
-	output = "lottother:purple_gem",
-	recipe = {"lottores:blue_gem", "lottores:red_gem"},
 })
 
 minetest.register_craft({
