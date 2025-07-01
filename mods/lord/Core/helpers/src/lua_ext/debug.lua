@@ -75,17 +75,75 @@ function __DIR__(depth)
 	return dir_path
 end
 
---- Shorten for `print(dump(...))`
---- @overload fun(any:any)
---- @param any    any
---- @param dumped table
-function pd(any, dumped) -- luacheck: ignore unused global variable pd
+--- Shorten for `print(dump(...))`, but dumps all passed params
+--- @param ... any
+function pd(...) -- luacheck: ignore unused global variable pd
 	local file_full = __FILE__(1, true)
 	local line      = __LINE__(1)
 
 	term.print(get_file_line_term_string(file_full, line))
 
-	print(dump(any, dumped))
+	local passed_params, max_param_length = debug.get_passed_params(debug.get_file_code(file_full, line))
+	max_param_length = max_param_length
+
+	for i = 1, select('#', ...) do
+		local name = passed_params[i] or ('<' .. i .. '>')
+		name = (' '):rep(max_param_length - #name) .. name
+		print(term.stylize(name .. ':', term.style.cyan) .. ' ' .. dump(select(i, ...)))
+	end
+end
+
+--- @param line_code string
+--- @return table, number array of passed params & max string length of param
+function debug.get_passed_params(line_code)
+	local params_str = (line_code:match('%b()') or '')
+		:sub(2, -2):gsub('%s+', '')
+
+	local params           = {}
+	local buffer           = ''
+	local bracket_depth    = 0
+	local max_param_length = 0
+	for i = 1, #params_str do
+		local char = params_str:sub(i, i)
+
+		if char == '(' then
+			bracket_depth = bracket_depth + 1
+			buffer        = buffer .. char
+		elseif char == ')' then
+			bracket_depth = bracket_depth - 1
+			buffer        = buffer .. char
+		elseif char == ',' and bracket_depth == 0 then
+			table.insert(params, buffer:trim())
+			max_param_length = #buffer > max_param_length and #buffer or max_param_length
+			buffer = ''
+		else
+			buffer = buffer .. char
+		end
+	end
+
+	if buffer ~= '' then
+		table.insert(params, buffer:trim())
+	end
+
+	return params, max_param_length
+end
+
+--- @param file      string
+--- @param line_from number
+--- @param line_to   number
+--- @return string|nil
+function debug.get_file_code(file, line_from, line_to)
+	line_to = line_to or line_from
+
+	local code = {}
+	local current_line = 0
+	for line in io.lines(file) do
+		current_line = current_line + 1
+		if current_line >  line_to   then  break                    end
+		if current_line >= line_from then  table.insert(code, line) end
+	end
+
+	return table.concat(code, '\n')
 end
 
 --- @param func function
@@ -93,15 +151,8 @@ end
 function debug.get_function_code(func)
 	local func_info = debug_getinfo(func)
 	local name = func_info.source:replace('^@','')
-	local i    = 0
-	local code = {}
-	for line in io.lines(name) do
-		i = i + 1
-		if i >= func_info.linedefined then code[#code +1] = line end
-		if i >= func_info.lastlinedefined then break end
-	end
 
-	return table.concat(code,'\n')
+	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined)
 end
 
 local up = io.dirname
@@ -111,7 +162,7 @@ if not minetest.settings:get_bool('debug', false) then
 	return
 end
 
-
+--- @param depth number
 local function backtrace(depth)
 	depth = depth + 2
 
