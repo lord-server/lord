@@ -20,6 +20,8 @@ local function get_x_scheme_url(file_full, line)
 		:replace('%${project}', PROJECT_LOCATION)
 end
 
+--- @param file_full string
+--- @param line      number
 local function get_file_line_term_string(file_full, line)
 	local file = file_full:replace(PROJECT_LOCATION:reg_escape(), '')
 
@@ -75,23 +77,10 @@ function __DIR__(depth)
 	return dir_path
 end
 
---- Shorten for `print(dump(...))`, but dumps all passed params
---- @param ... any
-function pd(...) -- luacheck: ignore unused global variable pd
-	local file_full = __FILE__(1, true)
-	local line      = __LINE__(1)
 
-	term.print(get_file_line_term_string(file_full, line))
+local up = io.dirname
+PROJECT_LOCATION = up(up(up(up(up(up(__DIR__())))))) .. os.DIRECTORY_SEPARATOR
 
-	local passed_params, max_param_length = debug.get_passed_params(debug.get_file_code(file_full, line))
-	max_param_length = max_param_length
-
-	for i = 1, select('#', ...) do
-		local name = passed_params[i] or ('<' .. i .. '>')
-		name = (' '):rep(max_param_length - #name) .. name
-		print(term.stylize(name .. ':', term.style.cyan) .. ' ' .. dump(select(i, ...)))
-	end
-end
 
 --- @param line_code string
 --- @return table, number array of passed params & max string length of param
@@ -155,15 +144,9 @@ function debug.get_function_code(func)
 	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined)
 end
 
-local up = io.dirname
-PROJECT_LOCATION = up(up(up(up(up(up(__DIR__())))))) .. os.DIRECTORY_SEPARATOR
-
-if not minetest.settings:get_bool('debug', false) then
-	return
-end
-
 --- @param depth number
 local function backtrace(depth)
+	depth = depth or 0
 	depth = depth + 2
 
 	local i = 1
@@ -188,6 +171,57 @@ local function backtrace(depth)
 	end
 
 	return trace
+end
+
+--- Dumps all passed params, also show `@ <file>:<line>` where `pdt()` was called.
+---
+--- If `with_trace` is `true` additionally prints stack trace from place of call.
+---
+--- If your terminal supports links, every `@ <file>:<line>` will linked to open IDE, see `readme.md` to configure.
+---
+--- @param depth      number  call stack depth to start from
+--- @param with_trace boolean print trace or not
+--- @param ...        any     params to dump
+function print_dump(depth, with_trace, ...)
+	depth = depth or 0
+	local file_full = __FILE__(1 + depth, true)
+	local line      = __LINE__(1 + depth)
+
+	term.print(get_file_line_term_string(file_full, line))
+	if with_trace then
+		term.print(backtrace(2 + depth))
+	end
+
+	local passed_params, max_param_length = debug.get_passed_params(debug.get_file_code(file_full, line))
+	max_param_length = max_param_length
+
+	for i = 1, select('#', ...) do
+		local name = passed_params[i] or ('<' .. i .. '>')
+		name = (' '):rep(max_param_length - #name) .. name
+		local value = select(i, ...)
+		print(term.stylize(name .. ':', term.style.cyan) .. ' ' .. dump(value))
+	end
+end
+
+--- Dumps all passed params, also show `@ <file>:<line>` & stack trace where `pd()` was called.
+--- Shorten for `print_dump(0, true, ...)`.
+--- See `readme.md` to configure your IDE to open `<file>:<line>` links from terminal.
+--- @param ... any
+function pdt(...) -- luacheck: ignore unused global variable pdt
+	print_dump(1, true, ...)
+end
+
+--- Dumps all passed params, also show `@ <file>:<line>` where `pd()` was called.
+--- Shorten for `print_dump(0, false, ...)`.
+--- See `readme.md` to configure your IDE to open `<file>:<line>` links from terminal.
+--- @param ... any
+function pd(...) -- luacheck: ignore unused global variable pd
+	print_dump(1, false, ...)
+end
+
+
+if not minetest.settings:get_bool('debug', false) then
+	return
 end
 
 local original_error = error
