@@ -122,3 +122,7 @@ function string:contains(sub_string)
 end
 
 string.replace = string.gsub
+
+function string:reg_escape()
+	return self:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%0")
+end

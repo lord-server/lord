@@ -203,8 +203,14 @@ emergequeue_limit_generate = 32
 # ----------------------------------------------------------------------------------------------------------
 
 #
-#    Core
+#    Core/Voxrame
 #
+
+environment = test
+debug = true
+#debug.editor_x_scheme_tpl = webstorm://open?file=${file}&line=${line}
+#debug.editor_x_scheme_tpl = vscode://file/${file}:${line}?project=${project}
+#debug.editor_x_scheme_tpl = kate://open?file=${file}&line=${line}&project=${project}
 
 # ------- Core/http -------
 #http.debug = true
@@ -255,8 +261,6 @@ lp_api.system_name = lord-test
 #
 #    Ours (LORD)
 #
-environment = test
-debug = true
 
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше

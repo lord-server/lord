@@ -68,3 +68,12 @@ function io.read_from_file(filepath, mode)
 
 	return content
 end
+
+--- @param path string
+--- @return string
+function io.dirname(path)
+	path = path:replace('[/\\]+$', '') -- del trailing slash
+	local dir = path:match('(.*)[/\\]') or '.'
+
+	return dir ~= '' and dir or '.'
+end
