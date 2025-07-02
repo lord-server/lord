@@ -3,9 +3,9 @@ local debug_getinfo
 
 
 local PROJECT_LOCATION = ''
-local x_scheme_tpl = minetest.settings:get_bool('debug', false)
-	and minetest.settings:get('debug.editor_x_scheme_tpl')
-	or  nil
+
+local debug_mode   = minetest.settings:get_bool('debug', false)
+local x_scheme_tpl = debug_mode	and minetest.settings:get('debug.editor_x_scheme_tpl') or  nil
 
 --- @param file_full string
 --- @param line string
@@ -220,34 +220,26 @@ function pd(...) -- luacheck: ignore unused global variable pd
 end
 
 
-if not minetest.settings:get_bool('debug', false) then
-	return
-end
-
-local original_error = error
----
---- Terminates the last protected function called and returns `message` as the
---- error object. Function `error` never returns. Usually, `error` adds some
---- information about the error position at the beginning of the message, if the
---- message is a string. The `level` argument specifies how to get the error
---- position. With level 1 (the default), the error position is where the
---- `error` function was called. Level 2 points the error to where the function
---- that called `error` was called; and so on. Passing a level 0 avoids the
---- addition of error position information to the message.
+local original_error_handler = core.error_handler
 ---@overload fun(message:string)
 ---@param message string
 ---@param depth number
-function error(message, depth)
+function core.error_handler(message, depth)
 	depth   = depth or 0
 	message = message or term.stylize('~ no error message ~', term.style.italic .. term.style.red)
+	message = message:gsub('%.%.%.[^:]+:[0-9]+: ', '')
 
-	term.print(term.stylize(('+'):rep(80), term.style.green))
-	term.print('ERROR:', term.style.bold .. term.style.bright_red)
-	term.print('  ' .. message, term.style.bright_red)
-	term.print('')
-	term.print('Stack trace:', term.style.bold .. term.style.bright_red)
-	term.print(backtrace(depth + 1))
-	term.print(term.stylize(('+'):rep(80), term.style.green))
+	if debug_mode then
+		term.print(term.stylize(('+'):rep(80), term.style.green))
+		term.print('ERROR:', term.style.bold .. term.style.bright_red)
+		term.print('  ' .. message, term.style.bright_red)
+		term.print('')
+		term.print('Stack trace:', term.style.bold .. term.style.bright_red)
+		term.print(backtrace(depth + 1))
+		term.print(term.stylize(('+'):rep(80), term.style.green))
 
-	original_error(message, depth)
+		return 'Debug mode is `on`. See you terminal.'
+	else
+		return original_error_handler(message, depth)
+	end
 end
