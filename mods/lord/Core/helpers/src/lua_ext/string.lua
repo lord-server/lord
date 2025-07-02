@@ -121,7 +121,26 @@ function string:contains(sub_string)
 	return self:find(sub_string, 1, true) ~= nil
 end
 
-string.replace = string.gsub
+--- Same as `string.gsub()`, but returns only result string without count of matches.
+--- See `string.gsub()` docs.
+--- @overload fun(pattern:string, replacement:string): string
+--- @param pattern     string
+--- @param replacement string|fun()
+--- @param n           number
+--- @return string
+function string:replace(pattern, replacement, n)
+	local result_string = self:gsub(pattern, replacement, n) -- take only first returned value
+
+	return result_string
+end
+
+--- @overload fun(pattern:string): string
+--- @param pattern string
+--- @param n       number
+--- @return string
+function string:remove(pattern, n)
+	return self:replace(pattern, '', n)
+end
 
 function string:reg_escape()
 	return self:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%0")
