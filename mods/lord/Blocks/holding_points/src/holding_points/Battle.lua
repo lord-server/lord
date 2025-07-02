@@ -1,7 +1,3 @@
---- @class holding_points.Battle.Schedule
---- @field days number[] Дни недели (1=пн, 7=вс)
---- @field time string   time in "HH:MM" format
---- @field week {every:number,offset:number}|nil which weeks to choose. Ex: `{ every = 2, offset = 1 }` - odd week.
 
 --- @class holding_points.Battle
 local Battle = {
@@ -17,7 +13,11 @@ local Battle = {
 	schedules = nil,
 }
 
---- @return holding_points.Battle
+---@param name      string
+---@param title     string
+---@param points    holding_points.HoldingPoint[]
+---@param duration  number
+---@param schedules holding_points.Battle.Schedule[]
 function Battle:new(name, title, points, duration, schedules)
 	self = setmetatable({}, { __index = self })
 	self.name      = name

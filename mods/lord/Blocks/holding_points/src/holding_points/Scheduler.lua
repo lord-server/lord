@@ -133,7 +133,7 @@ end
 --- @param current_time number
 --- @return boolean
 function Scheduler:is_week_match(week, current_time)
-	if not week or week.every == 1 then
+	if not week or table.is_empty(week) or week.every == 1 then
 		return true
 	end
 

@@ -1,4 +1,5 @@
 local Battle       = require('holding_points.Battle')
+local Schedule     = require('holding_points.Battle.Schedule')
 local HoldingPoint = require('holding_points.HoldingPoint')
 local Event        = require('holding_points.Event')
 
@@ -11,8 +12,10 @@ local S       = minetest.get_mod_translator()
 --- @static Singleton
 --- @class holding_points.Manager
 local Manager = {
+	--- @private
 	--- @type holding_points.Storage
 	storage = nil,
+	--- @private
 	--- @type holding_points.Battle[]
 	battles = {},
 }
@@ -27,6 +30,17 @@ function Manager.init(storage)
 	return Manager
 end
 
+--- @return holding_points.Battle[]
+function Manager.get_battles()
+	return self.battles
+end
+
+--- @param name string
+--- @return holding_points.Battle
+function Manager.get_battle(name)
+	return self.battles[name]
+end
+
 --- @private
 --- @param positions Position[]
 --- @return holding_points.HoldingPoint[]
@@ -39,6 +53,19 @@ function Manager.points_from_positions(positions)
 	return points
 end
 
+--- @private
+--- @param schedules_data holding_points.Storage.ScheduleData[]
+--- @return holding_points.Battle.Schedule[]
+function Manager.schedules_from_data(schedules_data)
+	local schedules = {}
+	for _, data in pairs(schedules_data) do
+		schedules[#schedules + 1] = Schedule:from_data(data)
+	end
+
+	return schedules
+end
+
+--- @public
 function Manager.load_battles()
 	local stored_battles = self.storage.battles
 	if not stored_battles then
@@ -51,11 +78,12 @@ function Manager.load_battles()
 			battle.title,
 			self.points_from_positions(battle.points),
 			battle.duration,
-			battle.schedules
+			self.schedules_from_data(battle.schedules)
 		)
 	end
 end
 
+--- @public
 --- @param scheduler holding_points.Scheduler
 function Manager.run(scheduler)
 	scheduler

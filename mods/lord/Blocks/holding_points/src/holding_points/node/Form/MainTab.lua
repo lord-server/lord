@@ -1,4 +1,4 @@
-local Manager   = require('holding_points.Manager')
+local Manager = require('holding_points.Manager')
 
 local S    = minetest.get_mod_translator()
 local spec = forms.Spec
@@ -18,8 +18,7 @@ MainTab = base_classes.Form.Element.Tab:extended(MainTab)
 --- @private
 function MainTab:get_battles_list()
 	local list = {}
-	for name, battle in pairs(Manager.battles) do
-		print(battle.name)
+	for name, battle in pairs(Manager.get_battles()) do
 		list[#list + 1] = battle.name
 	end
 
