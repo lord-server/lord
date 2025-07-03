@@ -41,6 +41,12 @@ function Manager.get_battle(name)
 	return self.battles[name]
 end
 
+function Manager.add_battle(battle)
+	self.battles[battle.name] = battle
+
+	return self
+end
+
 --- @private
 --- @param positions Position[]
 --- @return holding_points.HoldingPoint[]
@@ -73,13 +79,13 @@ function Manager.load_battles()
 	end
 
 	for _, battle in pairs(stored_battles) do
-		self.battles[battle.name] = Battle:new(
+		self.add_battle(Battle:new(
 			battle.name,
 			battle.title,
 			self.points_from_positions(battle.points),
 			battle.duration,
 			self.schedules_from_data(battle.schedules)
-		)
+		))
 	end
 end
 

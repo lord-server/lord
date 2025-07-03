@@ -11,7 +11,12 @@ local SMALL = { font_size = '-1' } -- Style for formspec
 
 --- @class holding_points.node.Form: base_classes.Form.Base
 --- @field node_position Position
---- @field node_meta NodeMetaRef
+--- @field node_meta     NodeMetaRef
+--- @field padding       {x:number, y:number}
+--- @field size          {x:number, y:number}
+--- @field fields_h      number
+--- @field row_h         number
+--- @field center_x      number
 local Form = base_classes.Form:personal():for_node():with_tabs({ MAIN = 1, META = 2, BATTLE = 3 }):extended({
 	--- @type string
 	NAME     = 'holding_points:node',
@@ -46,15 +51,19 @@ function Form:get_spec_head()
 end
 
 --- @param row number form row number
---- @return string
-function Form:get_row_center_y(row)
-	return self.padding.y + row * self.row_h + self.row_h / 2
+--- @return number
+function Form:get_row_center_y(row, row_h)
+	row_h = row_h or self.row_h
+
+	return self.padding.y + row * row_h + row_h / 2
 end
 
 --- @param row number form row number
---- @return string
-function Form:get_row_start_y(row)
-	return self.padding.y + row * self.row_h
+--- @return number
+function Form:get_row_start_y(row, row_h)
+	row_h = row_h or self.row_h
+
+	return self.padding.y + row * row_h
 end
 
 --- @private
@@ -70,7 +79,11 @@ function Form:described_label(row, label, description)
 		.. spec.muted(self.padding.x, row_center_y + 0.14, description, SMALL)
 end
 
---- @private
+--- @param row         number form row number
+--- @param name        string
+--- @param value       string|number
+--- @param label       string
+--- @param description string
 --- @return string
 function Form:labeled_field(row, name, value, label, description)
 	local field_padding = (self.row_h - self.fields_h) / 2
@@ -99,6 +112,17 @@ function Form:labeled_checkbox(row, name, selected, label, description)
 		.. spec.checkbox(self.center_x, row_center_y, name, '', selected)
 end
 
+--- @param row         number
+--- @param value       string
+--- @param label       string
+--- @param description string
+--- @return string
+function Form:labeled_value_ro(row, value, label, description)
+	return ''
+		.. self:described_label(row, label, description)
+		.. spec.bold(self.center_x, self:get_row_center_y(row), value)
+end
+
 --- @private
 --- @param row         number
 --- @param is_yes      boolean
@@ -106,9 +130,7 @@ end
 --- @param description string
 --- @return string
 function Form:labeled_boolean_ro(row, is_yes, label, description)
-	return ''
-		.. self:described_label(row, label, description)
-		.. spec.bold(self.center_x, self:get_row_center_y(row), is_yes and S('Yes') or S('No'))
+	return self:labeled_value_ro(row, is_yes and S('Yes') or S('No'), label, description)
 end
 
 --- @private
@@ -118,14 +140,7 @@ end
 --- @param description string
 --- @return string
 function Form:labeled_datetime_ro(row, datetime, label, description)
-	local row_center = {
-		x = self.center_x,
-		y = self:get_row_center_y(row)
-	}
-
-	return ''
-		.. self:described_label(row, label, description)
-		.. spec.bold(row_center.x, row_center.y, datetime and '-' or e(os.date('%d.%m.%Y %H:%M:%S', datetime)))
+	return self:labeled_value_ro(row, datetime and '-' or e(os.date('%d.%m.%Y %H:%M:%S', datetime)), label, description)
 end
 
 --- @param row         number

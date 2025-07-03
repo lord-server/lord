@@ -29,6 +29,14 @@ function Battle:new(name, title, points, duration, schedules)
 	return self
 end
 
+--- @param schedule holding_points.Battle.Schedule
+--- @return holding_points.Battle
+function Battle:add_schedule(schedule)
+	self.schedules[#self.schedules + 1] = schedule
+
+	return self
+end
+
 --- @return holding_points.Battle
 function Battle:activate()
 	for id, point in pairs(self.points) do
