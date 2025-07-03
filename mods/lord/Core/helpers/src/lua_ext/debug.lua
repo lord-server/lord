@@ -199,7 +199,11 @@ function print_dump(depth, with_trace, ...)
 		local name = passed_params[i] or ('<' .. i .. '>')
 		name = (' '):rep(max_param_length - #name) .. name
 		local value = select(i, ...)
-		print(term.stylize(name .. ':', term.style.cyan) .. ' ' .. dump(value))
+		print(term.stylize(name .. ':', term.style.cyan) .. ' ' .. (
+			type(value) == 'function'
+				and debug.get_function_code(value)
+				or  dump(value)
+		))
 	end
 end
 
@@ -235,7 +239,7 @@ function core.error_handler(message, depth)
 		term.print('  ' .. message, term.style.bright_red)
 		term.print('')
 		term.print('Stack trace:', term.style.bold .. term.style.bright_red)
-		term.print(backtrace(depth + 1))
+		term.print(backtrace(depth))
 		term.print(term.stylize(('+'):rep(80), term.style.green))
 
 		return 'Debug mode is `on`. See you terminal.'
