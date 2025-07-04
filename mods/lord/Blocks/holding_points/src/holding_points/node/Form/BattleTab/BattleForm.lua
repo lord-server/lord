@@ -11,12 +11,20 @@ local colorize = minetest.colorize
 local BattleForm = {
 	--- @type string
 	NAME            = 'holding_points:battle',
+	--- @type Position2d initialized in `self:instantiate()`
+	size            = {},
 	--- @type holding_points.Battle
 	battle          = nil,
 	--- @type holding_points.node.Form "parent" form. The form from which was opened this form.
 	form            = nil,
 	--- @type number
 	schedules_row_h = nil,
+	--- @type string temporary saved entered by user `name` of Battle
+	typed_name      = nil,
+	--- @type string temporary saved entered by user `title` of Battle
+	typed_title     = nil,
+	--- @type string temporary saved entered by user `duration` of Battle
+	typed_duration  = nil,
 }
 BattleForm = base_classes.Form:personal():extended(BattleForm)
 
@@ -27,6 +35,20 @@ function BattleForm:instantiate(player, battle, parent_form)
 	self.battle          = battle
 	self.form            = parent_form
 	self.schedules_row_h = self.form.row_h - 0.1
+	self:refresh_size()
+end
+
+--- @return holding_points.node.Form.BattlesTab.BattleForm
+function BattleForm:refresh_size()
+	local battle = self.battle
+
+	self.size.x = self.form.size.x
+	self.size.y = self.form.size.y - 3 + (#battle.schedules > 2
+		and (#battle.schedules - 2) * self.schedules_row_h
+		or  0
+	)
+
+	return self
 end
 
 --- @param x      number
@@ -49,7 +71,7 @@ end
 --- @param schedules holding_points.Battle.Schedule[]
 --- @param edit_i    number index of currently being edited schedule.
 function BattleForm:schedules_rows(x, y, schedules, edit_i)
-	local size     = self.form.size
+	local size     = self.size
 	local padding  = self.form.padding
 	local fields_h = self.form.fields_h - 0.1
 	local row_h    = self.schedules_row_h
@@ -88,7 +110,7 @@ end
 --- @param edit_i number index of currently being edited schedule.
 --- @return string
 function BattleForm:schedules_list(row, schedules, edit_i)
-	local size    = self.form.size
+	local size    = self.size
 	local padding = self.form.padding
 	local y_shift = 0.3
 
@@ -105,20 +127,28 @@ end
 --- @param edit_i number index of currently being edited schedule.
 --- @return string
 function BattleForm:get_spec(edit_i)
-	local size    = self.form.size
-	local padding = self.form.padding
-	local row_h   = self.form.row_h
+	local battle   = self.battle
+	local size     = self.size
+	local form     = self.form
+	local padding  = self.form.padding
+	local row_h    = self.form.row_h
+	local fields_h = self.form.fields_h
+
+	local battle_name     = self.typed_name or battle.name
+	local battle_title    = self.typed_name or battle.title
+	local battle_duration = self.typed_name or battle.duration
 
 	return ''
 		.. spec.formspec_version(4)
-		.. spec.size(size.x + 2 * padding.x, size.y + 2 * padding.y - 3)
+		.. spec.size(size.x + 2 * padding.x, size.y + 2 * padding.y)
 		.. spec.box(padding.x - 0.1, padding.y - 0.1, size.x + 0.1 * 2, row_h, '#0006')
-		.. spec.header3(padding.x, padding.y - 0.1 + row_h / 2, S('Edit Battle [@1]', colorize('#cccc', self.battle.name)))
-		.. self.form:labeled_field(1, 'name', self.battle.name, 'name', 'unique technical name (ID).')
-		.. self.form:labeled_field(2, 'title', self.battle.title, 'Title', 'Human-readable title for battle.')
-		.. self.form:labeled_field(3, 'duration', self.battle.duration, 'Duration', 'Human-readable title for battle.')
-		.. self.form:labeled_value_ro(4, #self.battle.points, 'Points', 'To add point to battle use Main Tab.')
-		.. self:schedules_list(5, self.battle.schedules, edit_i)
+		.. spec.header3(padding.x, padding.y - 0.1 + row_h / 2, S('Edit Battle [@1]', colorize('#cccc', battle.name)))
+		.. form:labeled_field(1, 'name', battle_name, 'name', 'unique technical name (ID).')
+		.. form:labeled_field(2, 'title', battle_title, 'Title', 'Human-readable title for battle.')
+		.. form:labeled_field(3, 'duration', battle_duration, 'Duration', 'Human-readable title for battle.')
+		.. form:labeled_value_ro(4, #battle.points, 'Points', 'To add point to battle use Main Tab.')
+		.. self:schedules_list(5, battle.schedules, edit_i)
+		.. spec.button_exit(padding.x + size.x / 2 - 2 / 2, padding.y + size.y - fields_h, 2, fields_h, 'save', S('Save'))
 end
 
 --- @param fields table
@@ -135,12 +165,27 @@ function BattleForm:schedule_btn_pressed(fields, prefix)
 end
 
 --- @param fields table
+function BattleForm:presave_typed(fields)
+	if fields.name then
+		self.typed_name = fields.name
+	end
+	if fields.title then
+		self.typed_title = fields.title
+	end
+	if fields.duration then
+		self.typed_duration = fields.duration
+	end
+end
+
+--- @param fields table
 function BattleForm:handle(fields)
+	self:presave_typed(fields)
+
 	if fields.add_schedule then
 		self.battle:add_schedule(Schedule:new())
 		local new_i = #self.battle.schedules
 
-		return self:open(new_i)
+		return self:refresh_size():open(new_i)
 	end
 
 	local edit_i_schedule = self:schedule_btn_pressed(fields, 'sch_edit_')
@@ -153,7 +198,7 @@ function BattleForm:handle(fields)
 		table.remove(self.battle.schedules, delete_i_schedule)
 		Manager.save_battles()
 
-		return self:open()
+		return self:refresh_size():open()
 	end
 
 	local save_i_schedule = self:schedule_btn_pressed(fields, 'sch_save_')
@@ -166,6 +211,14 @@ function BattleForm:handle(fields)
 		Manager.save_battles()
 
 		return self:open()
+	end
+
+	if fields.save then
+		self.battle.name     = self.typed_name or self.battle.name
+		self.battle.title    = self.typed_title or self.battle.title
+		self.battle.duration = self.typed_duration or self.battle.duration
+
+		Manager.save_battles()
 	end
 end
 

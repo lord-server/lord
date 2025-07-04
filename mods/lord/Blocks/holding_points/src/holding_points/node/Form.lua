@@ -12,17 +12,17 @@ local SMALL = { font_size = '-1' } -- Style for formspec
 --- @class holding_points.node.Form: base_classes.Form.Base
 --- @field node_position Position
 --- @field node_meta     NodeMetaRef
---- @field padding       {x:number, y:number}
---- @field size          {x:number, y:number}
+--- @field padding       Position2d
+--- @field size          Position2d
 --- @field fields_h      number
 --- @field row_h         number
 --- @field center_x      number
 local Form = base_classes.Form:personal():for_node():with_tabs({ MAIN = 1, META = 2, BATTLE = 3 }):extended({
 	--- @type string
 	NAME     = 'holding_points:node',
-	--- @type {x:number, y:number}
+	--- @type Position2d
 	padding  = { x = 0.5, y = 0.5 },
-	--- @type {x:number, y:number} size without paddings
+	--- @type Position2d size without paddings
 	size     = { x = 10 - 0.25, y = 11.25 }, -- `0.25` - spacing between slots of `list`, it present after last slot too.
 	--- @type number
 	fields_h = 0.65,
