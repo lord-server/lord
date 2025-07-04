@@ -10,7 +10,7 @@ local Schedule = {
 	--- @type number[] default `days` param for new Schedule.
 	DEFAULT_DAYS = { 7 },
 	--- @type string default `time` param for new Schedule. Format: `"HH:MM"`
-	DEFAULT_TIME = "14:00",
+	DEFAULT_TIME = '14:00',
 }
 
 --- @param days number[]|nil                     default: `[7]`; array of days of week (1=mon). Дни недели (1=пн, 7=вс).
@@ -30,6 +30,18 @@ end
 --- @return holding_points.Battle.Schedule
 function Schedule:from_data(data)
 	return self:new(data.days, data.time, data.week)
+end
+
+--- @return holding_points.Storage.ScheduleData
+function Schedule:to_data()
+	--- @type holding_points.Storage.ScheduleData
+	local data = {
+		days = self.days,
+		time = self.time,
+		week = self.week,
+	}
+
+	return data
 end
 
 

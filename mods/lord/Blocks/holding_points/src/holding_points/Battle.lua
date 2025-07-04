@@ -1,3 +1,5 @@
+local Schedule     = require('holding_points.Battle.Schedule')
+
 
 --- @class holding_points.Battle
 local Battle = {
@@ -11,6 +13,8 @@ local Battle = {
 	duration  = nil,
 	--- @type holding_points.Battle.Schedule[] array of schedules
 	schedules = nil,
+	--- @type number default duration in minutes.
+	DEFAULT_DURATION = 30,
 }
 
 ---@param name      string
@@ -21,10 +25,10 @@ local Battle = {
 function Battle:new(name, title, points, duration, schedules)
 	self = setmetatable({}, { __index = self })
 	self.name      = name
-	self.title     = title
-	self.points    = points
-	self.duration  = duration
-	self.schedules = schedules
+	self.title     = title or ''
+	self.points    = points or {}
+	self.duration  = duration or self.DEFAULT_DURATION
+	self.schedules = schedules or { Schedule:new() }
 
 	return self
 end

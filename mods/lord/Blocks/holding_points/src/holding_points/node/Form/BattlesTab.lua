@@ -104,7 +104,7 @@ function BattlesTab:handle(fields)
 			return true
 		end
 
-		Manager.add_battle(Battle:new(tmp_name, '', {}, 30, {}))
+		Manager.add_battle(Battle:new(tmp_name))
 		BattleForm
 			:new(self.form:player(), Manager.get_battle(tmp_name), self.form)
 			:open()

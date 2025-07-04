@@ -1,7 +1,4 @@
-local Battle       = require('holding_points.Battle')
-local Schedule     = require('holding_points.Battle.Schedule')
-local HoldingPoint = require('holding_points.HoldingPoint')
-local Event        = require('holding_points.Event')
+local Event = require('holding_points.Event')
 
 local Logger  = minetest.get_mod_logger()
 local S       = minetest.get_mod_translator()
@@ -47,46 +44,16 @@ function Manager.add_battle(battle)
 	return self
 end
 
---- @private
---- @param positions Position[]
---- @return holding_points.HoldingPoint[]
-function Manager.points_from_positions(positions)
-	local points = {}
-	for _, position in pairs(positions) do
-		points[#points + 1] = HoldingPoint:new(position)
+--- @public
+function Manager.load_battles()
+	for _, battle in pairs(self.storage:load_battles()) do
+		self.add_battle(battle)
 	end
-
-	return points
-end
-
---- @private
---- @param schedules_data holding_points.Storage.ScheduleData[]
---- @return holding_points.Battle.Schedule[]
-function Manager.schedules_from_data(schedules_data)
-	local schedules = {}
-	for _, data in pairs(schedules_data) do
-		schedules[#schedules + 1] = Schedule:from_data(data)
-	end
-
-	return schedules
 end
 
 --- @public
-function Manager.load_battles()
-	local stored_battles = self.storage.battles
-	if not stored_battles then
-		return
-	end
-
-	for _, battle in pairs(stored_battles) do
-		self.add_battle(Battle:new(
-			battle.name,
-			battle.title,
-			self.points_from_positions(battle.points),
-			battle.duration,
-			self.schedules_from_data(battle.schedules)
-		))
-	end
+function Manager.save_battles()
+	self.storage:save_battles(self.battles)
 end
 
 --- @public
