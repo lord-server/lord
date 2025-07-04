@@ -148,6 +148,14 @@ function BattleForm:handle(fields)
 		return self:open(edit_i_schedule)
 	end
 
+	local delete_i_schedule = self:schedule_btn_pressed(fields, 'sch_del_')
+	if delete_i_schedule then
+		table.remove(self.battle.schedules, delete_i_schedule)
+		Manager.save_battles()
+
+		return self:open()
+	end
+
 	local save_i_schedule = self:schedule_btn_pressed(fields, 'sch_save_')
 	if save_i_schedule then
 		local schedule = self.battle.schedules[save_i_schedule]
