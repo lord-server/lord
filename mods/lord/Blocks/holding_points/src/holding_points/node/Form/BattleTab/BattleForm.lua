@@ -1,3 +1,4 @@
+local Manager  = require('holding_points.Manager')
 local Schedule = require('holding_points.Battle.Schedule')
 
 local S        = minetest.get_mod_translator()
@@ -149,6 +150,13 @@ function BattleForm:handle(fields)
 
 	local save_i_schedule = self:schedule_btn_pressed(fields, 'sch_save_')
 	if save_i_schedule then
+		local schedule = self.battle.schedules[save_i_schedule]
+		schedule.days = string.vxr_split(fields.sch_days, ',', tonumber)
+		schedule.time = fields.sch_time
+		schedule.week = minetest.parse_json(fields.sch_week)
+
+		Manager.save_battles()
+
 		return self:open()
 	end
 end
