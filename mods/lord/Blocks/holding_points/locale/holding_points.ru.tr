@@ -1,1 +1,9 @@
 # textdomain: holding_points
+
+mon=пн
+tue=вт
+wed=ср
+thu=чт
+fri=пт
+sat=сб
+sun=вс

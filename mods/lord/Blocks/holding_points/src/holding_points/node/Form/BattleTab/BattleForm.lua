@@ -38,7 +38,7 @@ function BattleForm:schedules_header(x, y, width, height)
 	return ''
 		.. spec.bold(x, center_y - height / 4, S('Schedules'))
 		.. spec.label(x + 0.1, columns_y, S('days'))
-		.. spec.label(x + 2.1, columns_y, S('time'))
+		.. spec.label(x + 2.3, columns_y, S('time'))
 		.. spec.label(x + 4.1, columns_y, S('week'))
 		.. spec.button(x + width - 2.4, y, 2.4, self.form.fields_h - 0.1, 'add_schedule', 'add schedule')
 end
@@ -65,15 +65,15 @@ function BattleForm:schedules_rows(x, y, schedules, edit_i)
 
 		if i == edit_i then
 			schedules_rows = schedules_rows
-				.. spec.field(x + 0.1, y + fields_dy, 1, fields_h, 'sch_days', '', table.concat(schedule.days, ','))
-				.. spec.field(x + 2.1, y + fields_dy, 1, fields_h, 'sch_time', '', schedule.time)
-				.. spec.field(x + 4.1, y + fields_dy, 1, fields_h, 'sch_week', '', minetest.write_json(schedule.week))
+				.. spec.field(x + 0.1, y + fields_dy, 1.8, fields_h, 'sch_days', '', table.concat(schedule.days, ','))
+				.. spec.field(x + 2.3, y + fields_dy, 1.0, fields_h, 'sch_time', '', schedule.time)
+				.. spec.field(x + 4.1, y + fields_dy, 3.1, fields_h, 'sch_week', '', minetest.write_json(schedule.week))
 				.. spec.button(x + size.x - 1, y + fields_dy, 1, fields_h, 'sch_save_' .. i, S('save'))
 		else
 			schedules_rows = schedules_rows
-				.. spec.label(x + 0.1, y + row_center_dy, table.concat(schedule.days, ','))
-				.. spec.label(x + 2.1, y + row_center_dy, schedule.time)
-				.. spec.label(x + 4.1, y + row_center_dy, minetest.write_json(schedule.week))
+				.. spec.label(x + 0.1, y + row_center_dy, schedule:get_days_string())
+				.. spec.label(x + 2.3, y + row_center_dy, schedule.time)
+				.. spec.label(x + 4.1, y + row_center_dy, schedule:get_week_string())
 				.. spec.button(x + size.x - 2.1, y + fields_dy, 1, fields_h, 'sch_edit_' .. i, S('edit'))
 				.. spec.button(x + size.x - 1.0, y + fields_dy, 1, fields_h, 'sch_del_' .. i, S('del'))
 		end

@@ -1,3 +1,15 @@
+local S = minetest.get_mod_translator()
+
+local WEEKDAY_NAME_SHORT = {
+	[1] = S('mon'),
+	[2] = S('tue'),
+	[3] = S('wed'),
+	[4] = S('thu'),
+	[5] = S('fri'),
+	[6] = S('sat'),
+	[7] = S('sun'),
+}
+
 
 --- @class holding_points.Battle.Schedule
 local Schedule = {
@@ -42,6 +54,57 @@ function Schedule:to_data()
 	}
 
 	return data
+end
+
+--- @return string
+function Schedule:get_days_string()
+	table.sort(self.days)
+	local str = ''
+
+	local i = 1
+	while i <= #self.days do
+		local start  = self.days[i]
+		local finish = start
+		while i < #self.days and self.days[i + 1] == finish + 1 do
+			finish = self.days[i + 1]
+			i = i + 1
+		end
+
+		str = str
+			.. (#str > 0 and str .. ',' or '')
+			.. (start == finish
+				and WEEKDAY_NAME_SHORT[start]
+				or WEEKDAY_NAME_SHORT[start] .. '-' .. WEEKDAY_NAME_SHORT[finish]
+			)
+
+		i = i + 1
+	end
+
+	return str
+end
+
+--- @return string
+function Schedule:get_week_string()
+	if not (self.week and self.week.every and self.week.every > 1) then
+		return ''
+	end
+
+	return self.week.every == 2
+		and
+			S('@1 week', self.week.offset == 1 and S('odd') or S('even'))
+		or
+			self.week.offset .. '/' .. self.week.every .. ' ' .. S('week')
+end
+
+--- @return string
+function Schedule:to_string()
+	local days_str = self:get_days_string()
+	local week_str = self:get_week_string()
+
+	return ''
+		.. (days_str or '--') .. '; '
+		.. self.time
+		.. (week_str and ' (' .. week_str .. ')' or '')
 end
 
 

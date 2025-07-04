@@ -14,7 +14,7 @@ local BattlesTab = {
 	--- @type holding_points.node.Form parent form
 	form    = nil,
 	--- @type number height of row in battle list
-	row_h   = 1.3,
+	row_h   = 1.2,
 	--- @type string error string to display on form
 	error   = nil,
 	--- @type number height of error box area
@@ -26,7 +26,9 @@ BattlesTab = base_classes.Form.Element.Tab:extended(BattlesTab)
 function BattlesTab:battle_row(x, y, row, battle)
 	local padding      = self.form.padding
 	local size         = self.form.size
-	local row_center_y = self.form:get_row_center_y(row, self.row_h)
+	-- `form:get_row_center_y()` also adds padding, so we have to subtract it,
+	--     since its already contained in the passed `y`
+	local row_center_y = self.form:get_row_center_y(row, self.row_h) - padding.x
 	local center_x     = self.form.center_x
 	local fields_h     = self.form.fields_h
 
@@ -36,15 +38,14 @@ function BattlesTab:battle_row(x, y, row, battle)
 		.. spec.bold (x, y + row_center_y - 0.14, battle.title)
 		.. spec.muted(x, y + row_center_y + 0.14, battle.name, SMALL)
 		.. (schedule
-			and spec.label(x + center_x - 1.7, y + row_center_y, ('%s; %s (%s minutes)'):format(
-				table.concat(schedule.days, ','), schedule.time, battle.duration
-			))
+			and spec.text(x + center_x - 1.7, y + row_center_y - 0.15, schedule:to_string(), SMALL)
 			or ''
 		)
-		.. spec.bold (size.x - 1.7, y + row_center_y, #battle.points .. ' point(s)')
+		.. spec.text(x + center_x - 1.7, y + row_center_y + 0.15, battle.duration .. ' minutes', SMALL)
+		.. spec.bold(size.x - 2.4, y + row_center_y, #battle.points .. ' point(s)')
 		.. spec.button(
 			size.x - 1 + padding.x,
-			y + row_center_y - self.row_h / 2,
+			y + row_center_y - fields_h / 2,
 			1,
 			fields_h,
 			'edit_' .. battle.name,
