@@ -10,7 +10,6 @@ dofile(minetest.get_modpath("castle").."/jailbars.lua") --решётки
 dofile(minetest.get_modpath("castle").."/town_item.lua") --всяко-разно
 dofile(minetest.get_modpath("castle").."/murder_hole.lua") --дыры-убийцы
 dofile(minetest.get_modpath("castle").."/shields_decor.lua") --декор.щиты
-dofile(minetest.get_modpath("castle").."/rope.lua") --блок с троссом
 
 doors.register("castle:oak_door", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
