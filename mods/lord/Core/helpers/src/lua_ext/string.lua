@@ -129,7 +129,8 @@ end
 --- @param n           number
 --- @return string
 function string:replace(pattern, replacement, n)
-	local result_string = self:gsub(pattern, replacement, n) -- take only first returned value
+	-- take only first returned value from gsub, to return only 1 value from this function
+	local result_string = self:gsub(pattern, replacement, n)
 
 	return result_string
 end
@@ -142,6 +143,27 @@ function string:remove(pattern, n)
 	return self:replace(pattern, '', n)
 end
 
+--- @return string
 function string:reg_escape()
-	return self:gsub("[%-%.%+%[%]%(%)%$%^%%%?%*]", "%%%0")
+	-- take only first returned value from gsub, to return only 1 value from this function
+	local escaped = self:gsub('[%-%.%+%[%]%(%)%$%^%%%?%*]', '%%%0')
+
+	return escaped
+end
+
+--- @overload fun()
+--- @overload fun(delimiter:string)
+--- @overload fun(delimiter:string, processor:fun(part:string):any)
+--- @param delimiter string                default `" "` (space)
+--- @param processor fun(part:string): any
+--- @return table
+function string:vxr_split(delimiter, processor)
+	delimiter = delimiter or ' '
+
+	local result = {}
+	for part in self:gmatch('([^' .. delimiter .. ']+)') do
+		result[#result + 1] = processor and processor(part) or part
+	end
+
+	return result
 end

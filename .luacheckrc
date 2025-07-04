@@ -12,11 +12,6 @@ globals           = {
 
 	-- Other APIs (mods/_various)
 	"hbhunger", "tt",
-
-	debug  = { fields = {
-		-- our Core/helpers:
-		"get_function_code", "get_passed_params", "get_file_code"
-	} },
 }
 
 read_globals      = {
@@ -38,8 +33,7 @@ read_globals      = {
 		-- MT Builtin:
 		"split", "trim",
 		-- our Core/helpers:
-		"is_one_of", "replace",
-		-- TODO: "startsWith", "endsWith", ...
+		"is_one_of", "replace", "contains", "starts_with", "ends_with", "vxr_split"
 	} },
 
 	math = { fields = {
@@ -58,6 +52,11 @@ read_globals      = {
 	os = { fields = {
 		-- our Core/helpers:
 		"DIRECTORY_SEPARATOR",
+	} },
+
+	debug  = { fields = {
+		-- our Core/helpers:
+		"get_function_code", "get_passed_params", "get_file_code"
 	} },
 
 	-- Builtin
@@ -106,7 +105,7 @@ files["mods/_minetest_game/default/legacy.lua"].global = false
 
 -- Lua extending:
 files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = { "table", "string", "math", "io", "os" }
+	globals = { "table", "string", "math", "io", "os", "debug" }
 }
 -- WorldEdit extending:
 files["mods/lord/World/worldedit_ext/**/*.lua"] = {
