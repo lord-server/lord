@@ -1,3 +1,4 @@
+local HoldingPoint = require('holding_points.HoldingPoint')
 local Schedule     = require('holding_points.Battle.Schedule')
 
 
@@ -31,6 +32,34 @@ function Battle:new(name, title, points, duration, schedules)
 	self.schedules = schedules or { Schedule:new() }
 
 	return self
+end
+
+--- @param point holding_points.HoldingPoint
+--- @return holding_points.Battle
+function Battle:add_point(point)
+	self.points[point:get_id()] = point
+
+	return self
+end
+
+--- @return holding_points.HoldingPoint|nil
+function Battle:remove_point_by_id(id)
+	local point = self.points[id]
+	self.points[id] = nil
+
+	return point
+end
+
+--- @param point holding_points.HoldingPoint
+--- @return holding_points.HoldingPoint|nil
+function Battle:remove_point(point)
+	return self:remove_point_by_id(point:get_id())
+end
+
+--- @param position Position
+--- @return holding_points.HoldingPoint|nil
+function Battle:remove_point_by_position(position)
+	return self:remove_point_by_id(HoldingPoint.create_id(position))
 end
 
 --- @param schedule holding_points.Battle.Schedule

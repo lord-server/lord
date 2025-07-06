@@ -3,6 +3,7 @@ local FieldType = base_classes.Meta.FieldType
 
 --- @class holding_points.HoldingPoint.Meta: base_classes.Meta.Base
 --- @field name              string
+--- @field battle            string  battle unique code (`battle.name`)
 --- @field in_event_list     boolean
 --- @field active            boolean
 --- @field last_activated_at number
@@ -18,6 +19,7 @@ local Meta = base_classes.Meta.extended({
 	--- @type table<string,string> key - name of field, value - field-type (one of base_classes.Meta.FieldType::<CONST>)
 	field_type = {
 		name              = FieldType.STRING,
+		battle            = FieldType.STRING,
 		in_event_list     = FieldType.BOOLEAN,
 		active            = FieldType.BOOLEAN,
 		last_activated_at = FieldType.INTEGER,

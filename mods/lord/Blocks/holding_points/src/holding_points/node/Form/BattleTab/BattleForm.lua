@@ -51,6 +51,19 @@ function BattleForm:refresh_size()
 	return self
 end
 
+--- returns string with bullet list (like html <ul> -- unordered list)
+--- @return string
+function BattleForm:get_points_ul()
+	local points_li = {} -- li - list item (like html <li>)
+	for _, point in pairs(self.battle.points) do
+		points_li[#points_li + 1] = colorize('#aff', point:get_id()) .. ' ' .. colorize('#bfb', point:get_name())
+	end
+
+	return #points_li
+		and ('• ' .. table.concat(points_li, '\n• '))
+		or  ''
+end
+
 --- @param x      number
 --- @param y      number
 --- @param height number
@@ -146,7 +159,9 @@ function BattleForm:get_spec(edit_i)
 		.. form:labeled_field(1, 'name', battle_name, 'name', 'unique technical name (ID).')
 		.. form:labeled_field(2, 'title', battle_title, 'Title', 'Human-readable title for battle.')
 		.. form:labeled_field(3, 'duration', battle_duration, 'Duration', 'Human-readable title for battle.')
-		.. form:labeled_value_ro(4, #battle.points, 'Points', 'To add point to battle use Main Tab.')
+		.. form:labeled_value_ro(4, table.count(battle.points),
+			'Points', 'To add point to battle use Main Tab.', self:get_points_ul()
+		)
 		.. self:schedules_list(5, battle.schedules, edit_i)
 		.. spec.button_exit(padding.x + size.x / 2 - 2 / 2, padding.y + size.y - fields_h, 2, fields_h, 'save', S('Save'))
 end

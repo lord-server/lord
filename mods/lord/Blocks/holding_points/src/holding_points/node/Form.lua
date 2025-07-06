@@ -116,11 +116,13 @@ end
 --- @param value       string
 --- @param label       string
 --- @param description string
+--- @param tooltip     string
 --- @return string
-function Form:labeled_value_ro(row, value, label, description)
+function Form:labeled_value_ro(row, value, label, description, tooltip)
 	return ''
 		.. self:described_label(row, label, description)
 		.. spec.bold(self.center_x, self:get_row_center_y(row), value)
+		.. (tooltip and spec.tooltip2(self.padding.x, self:get_row_start_y(row), self.size.x, self.row_h, tooltip) or '')
 end
 
 --- @private

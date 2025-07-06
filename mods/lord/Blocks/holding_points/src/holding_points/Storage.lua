@@ -34,7 +34,8 @@ local Storage = base_classes.Meta.extended({
 function Storage:points_from_positions(positions)
 	local points = {}
 	for _, position in pairs(positions) do
-		points[#points + 1] = HoldingPoint:new(position)
+		local point = HoldingPoint:new(position)
+		points[point:get_id()] = point
 	end
 
 	return points

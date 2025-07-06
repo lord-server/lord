@@ -42,7 +42,7 @@ function BattlesTab:battle_row(x, y, row, battle)
 			or ''
 		)
 		.. spec.text(x + center_x - 1.7, y + row_center_y + 0.15, battle.duration .. ' minutes', SMALL)
-		.. spec.bold(size.x - 2.4, y + row_center_y, #battle.points .. ' point(s)')
+		.. spec.bold(size.x - 2.4, y + row_center_y, table.count(battle.points) .. ' point(s)')
 		.. spec.button(
 			size.x - 1 + padding.x,
 			y + row_center_y - fields_h / 2,

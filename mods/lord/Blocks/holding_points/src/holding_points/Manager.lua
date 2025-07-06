@@ -1,4 +1,5 @@
-local Event = require('holding_points.Event')
+local HoldingPoint = require('holding_points.HoldingPoint')
+local Event        = require('holding_points.Event')
 
 local Logger  = minetest.get_mod_logger()
 local S       = minetest.get_mod_translator()
@@ -22,9 +23,8 @@ local self = Manager
 --- @return holding_points.Manager
 function Manager.init(storage)
 	self.storage = storage
-	self.load_battles()
 
-	return Manager
+	return self.load_battles()
 end
 
 --- @return holding_points.Battle[]
@@ -38,6 +38,7 @@ function Manager.get_battle(name)
 	return self.battles[name]
 end
 
+--- @return holding_points.Manager
 function Manager.add_battle(battle)
 	self.battles[battle.name] = battle
 
@@ -45,15 +46,52 @@ function Manager.add_battle(battle)
 end
 
 --- @public
+--- @return holding_points.Manager
 function Manager.load_battles()
 	for _, battle in pairs(self.storage:load_battles()) do
 		self.add_battle(battle)
 	end
+
+	return self
 end
 
 --- @public
+--- @return holding_points.Manager
 function Manager.save_battles()
 	self.storage:save_battles(self.battles)
+
+	return self
+end
+
+--- @param point_position  Position
+--- @param old_battle_name string
+--- @param new_battle_name string
+--- @return holding_points.Manager
+function Manager.move_point(point_position, old_battle_name, new_battle_name)
+	local moving_point = (not old_battle_name or old_battle_name == '')
+		and HoldingPoint:new(point_position)
+		or  self.get_battle(old_battle_name):remove_point_by_position(point_position)
+
+	if not moving_point then
+		Logger.error(
+			'Can\'t move point: point with position `%s` not fount in old battle `%s`. Try force move.',
+			core.pos_to_string(point_position),
+			old_battle_name
+		)
+		moving_point = HoldingPoint:new(point_position)
+		if moving_point:get_name() == nil then
+			Logger.error(
+				'Can\'t force move point: seems like node at `%s` is not a HoldingPoint node.',
+				core.pos_to_string(point_position)
+			)
+
+			return self
+		end
+	end
+
+	self.get_battle(new_battle_name):add_point(moving_point)
+
+	return self.save_battles()
 end
 
 --- @public

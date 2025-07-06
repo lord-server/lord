@@ -47,7 +47,6 @@ local HoldingPoint = {
 	processor = nil,
 }
 
---- @private
 --- @static
 --- @param position Position
 --- @return string
@@ -75,6 +74,11 @@ function HoldingPoint:get_id()
 	return self.id
 end
 
+--- @return Position
+function HoldingPoint:get_position()
+	return self.position
+end
+
 function HoldingPoint:init_node()
 	self.meta.name              = ''
 	self.meta.in_event_list     = true
@@ -86,6 +90,11 @@ function HoldingPoint:init_node()
 	self.meta.battle_stat       = {}
 
 	self.node_meta:get_inventory():set_size('reward', 8)
+end
+
+--- @return string
+function HoldingPoint:get_name()
+	return self.meta.name
 end
 
 --- @return holding_points.HoldingPoint
