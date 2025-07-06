@@ -1,6 +1,6 @@
 minetest.mod(function(mod)
 	require('gems')
-	require('gems_block')
+	require('block')
 
 	dofile(mod.path..'/aliases.lua')
 end)
