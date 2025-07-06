@@ -29,17 +29,29 @@ function Tab:extended(child_class)
 end
 
 --- @public
+--- Don't override this method, use `:instantiate()` instead.
 --- @overload fun(form:base_classes.Form): base_classes.Form.Element.Tab
 --- @param form     base_classes.Form
 --- @param instance base_classes.Form.Element.Tab for quick instantiate [optional].
 --- @return base_classes.Form.Element.Tab
-function Tab:new(form, instance)
+function Tab:new(form, instance, ...)
 	local class = self
 
 	self = instance or {}
 	self.form = form
 
-	return setmetatable(self, { __index = class })
+	self = setmetatable(self, { __index = class })
+	self:instantiate(...)
+
+	return self
+end
+
+--- Override this method instead constructor (`:new()`), if you want to add some logic on instance creating.
+--- All additional params from constructor will be passed here.
+--- Neither `form` nor `instance` will not be passed, as it assign to `self.form` & `self` respectively.
+--- @protected
+--- @param form base_classes.Form.Base
+function Tab:instantiate(...)
 end
 
 
