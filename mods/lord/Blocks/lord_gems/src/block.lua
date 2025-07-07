@@ -28,7 +28,7 @@ for _, node_source in pairs(list_gems_blocks) do
 		inventory_image = node_inventory_image,
 		tiles           = { node_tiles },
 		sounds          = node_sounds,
-		groups = {cracky = 3, stone = 1},
+		groups = { cracky = 1, level = 3 },
 	})
 	-- Register crafts
 	local name_craftitem = ('lord_gems:'..node_source)
