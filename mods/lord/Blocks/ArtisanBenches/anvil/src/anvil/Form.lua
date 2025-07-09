@@ -22,7 +22,10 @@ function Form:get_spec()
 		'list[current_player;main;0,6.08;8,3;8]' ..
 
 		'listring[current_player;main]' ..
-		'listring[detached:'..inventory_id..';craft]'
+		'listring[detached:'..inventory_id..';craft]' ..
+		'listring[current_player;main]' ..
+		'listring[detached:'..inventory_id..';craft_result]' ..
+		'listring[current_player;main]'
 end
 
 --- @private
