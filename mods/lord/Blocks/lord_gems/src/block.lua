@@ -12,11 +12,11 @@ local function capitalize_first(s)
 end
 
 for _, node_source in pairs(list_gems_blocks) do
-	local node_name = ('lord_gems:'..node_source..'_block')
-	local node_description = (capitalize_first(node_source)..' Gem Block')
+	local node_name            = ('lord_gems:'..node_source..'_block')
+	local node_description     = (capitalize_first(node_source)..' Gem Block')
 	local node_inventory_image = ('lord_gems_'..node_source..'_block.png')
-	local node_tiles = node_inventory_image
-	local node_sound_file = ('footstep_'..node_source..'_block')
+	local node_tiles           = ('lord_gems_'..node_source..'_block.png'..'^[opacity:150')
+	local node_sound_file      = ('footstep_'..node_source..'_block')
 	local node_sounds = {
 		footstep = { name = node_sound_file,        gain = 0.25 },
 		dug      = { name = node_sound_file,        gain = 0.25 },
@@ -24,12 +24,18 @@ for _, node_source in pairs(list_gems_blocks) do
 		}
 	-- Register nodes
 	minetest.register_node(node_name, {
-		description     = S(node_description),
-		inventory_image = node_inventory_image,
-		tiles           = { node_tiles },
-		sounds          = node_sounds,
-		groups = { cracky = 1, level = 3 },
+		description         = S(node_description),
+		inventory_image     = node_inventory_image,
+		tiles               = { node_tiles },
+		drawtype            = "nodebox",
+		use_texture_alpha   = "blend",
+		paramtype           = "light",
+		sunlight_propagates = true,
+		is_ground_content   = false,
+		sounds              = node_sounds,
+		groups              = { cracky = 1, level = 3 },
 	})
+
 	-- Register crafts
 	local name_craftitem = ('lord_gems:'..node_source)
 	minetest.register_craft({
@@ -40,7 +46,8 @@ for _, node_source in pairs(list_gems_blocks) do
 			{name_craftitem, name_craftitem, name_craftitem},
 		}
 	})
-	-- Registre revers crafts
+
+	-- Register reverse crafts
 	minetest.register_craft({
 		output = (name_craftitem..' 9'),
 		recipe = {
