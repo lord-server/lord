@@ -1,5 +1,5 @@
-local setmetatable, table_walk, tonumber, tostring, type_of
-    = setmetatable, table.walk, tonumber, tostring, type
+local setmetatable, table_walk, tonumber, table_is_empty, tostring_or_nil, type_of
+    = setmetatable, table.walk, tonumber, table.is_empty, string.or_nil, type
 
 local FieldType = require('base_classes.Meta.FieldType')
 
@@ -124,12 +124,12 @@ function BaseMeta:set_typified(type, key, value)
 	elseif type == FieldType.INTEGER then
 		self.meta:set_int(key, tonumber(value))
 	elseif type == FieldType.STRING then
-		self.meta:set_string(key, tostring(value))
+		self.meta:set_string(key, tostring_or_nil(value))
 	elseif type == FieldType.TABLE then
 		if type_of(value) ~= 'table' then
 			errorlf('Type mismatch for meta-field `%s`: `table` expected, got `%s`', 3, key, type_of(value))
 		end
-		self.meta:set_string(key, table.is_empty(value) and '[]' or minetest.write_json(value))
+		self.meta:set_string(key, table_is_empty(value) and '[]' or minetest.write_json(value))
 	else
 		errorf('Something went wrong...')
 	end
