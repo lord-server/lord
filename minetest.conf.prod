@@ -226,8 +226,17 @@ emergequeue_limit_diskonly = 32
 # ----------------------------------------------------------------------------------------------------------
 
 #
-#    Core
+#    Core/Voxrame
 #
+
+# Default: `production`
+#environment = production
+
+# Общая настройка отладки. Влияет в том числе на все настройки вида `<mod_name>.debug`.
+# Если настройка мода `<mod_name>.debug` не указана, то `<mod_name>.debug` устанавливается из этой настройки.
+# Default: false
+#debug = false
+
 
 # ------- Core/http -------
 #http.debug = false
@@ -285,8 +294,6 @@ lp_api.system_name = lord
 #
 #    Ours (LORD)
 #
-#environment = production
-#debug = false
 
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
@@ -342,3 +349,15 @@ nazgul_areas = 10605
 
 # ------- lord/Game/lord_web_api
 lord_web_api.base_url = https://lord-server.ru/api
+
+
+# ------- holding_points -------
+
+# Если что-то пошло не так можно отключить мод полностью (уже установленные ноды будут как `unknown`).
+# Default: false
+#holding_points.disabled = false
+
+# Используется для тестирования и отладки. Общая настройка `debug` также включает этот параметр.
+# Т.е. включаем только тогда, когда общий `debug` отключен и нужно включить `debug` только для этого мода.
+# Default: `debug` option
+#holding_points.debug = false

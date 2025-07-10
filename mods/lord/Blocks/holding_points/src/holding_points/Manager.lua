@@ -17,7 +17,7 @@ local Manager = {
 	--- @type holding_points.Battle[]
 	battles = {},
 	--- @static
-	--- @public
+	--- @private
 	debug   = false,
 }
 local self = Manager
