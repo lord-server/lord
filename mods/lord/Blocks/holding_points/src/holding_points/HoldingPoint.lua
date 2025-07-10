@@ -151,7 +151,6 @@ function HoldingPoint:punch(player)
 
 	meta.captured_at = os.time()
 	meta.captured_by_clan = clan.name
-	self:add_score(10, clan.name)
 
 	self.processor:start()
 end
