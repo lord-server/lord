@@ -50,7 +50,7 @@ function MainTab:get_spec()
 		or  0
 
 	return ''
-		.. form:labeled_field(0, 'input_name', name, S('Name'), S('This name will be shown for players'))
+		.. form:labeled_field(0, 'name', name, S('Name'), S('This name will be shown for players'))
 		.. form:labeled_checkbox(1, 'in_event_list', in_event_list, S('Participates in future battles'), S('Description'))
 		.. form:labeled_boolean_ro(2, active, S('Active now'), S('Right now the battle is going on for this point.'))
 		.. form:labeled_dropdown(
@@ -75,7 +75,7 @@ function MainTab:handle(fields)
 
 	local previous_battle = self.meta.battle
 
-	self.meta.name          = fields.input_name
+	self.meta.name          = fields.name
 	self.meta.in_event_list = self.in_event_list
 	self.meta.battle        = fields.battle
 

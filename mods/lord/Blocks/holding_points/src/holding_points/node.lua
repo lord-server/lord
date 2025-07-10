@@ -1,5 +1,6 @@
 local Form         = require('holding_points.node.Form')
 local HoldingPoint = require('holding_points.HoldingPoint')
+local Manager      = require('holding_points.Manager')
 
 local S = minetest.get_mod_translator()
 
@@ -19,9 +20,17 @@ local definition = {
 
 	--- @param pos Position
 	on_destruct = function(pos)
-		HoldingPoint:new(pos).processor
+		local point = HoldingPoint:new(pos)
+
+		point.processor
 			:stop()
 			:remove()
+
+		local battle_name = point:get_battle_name()
+		if battle_name then
+			Manager.get_battle(battle_name)
+				:remove_point(point)
+		end
 	end,
 
 	--- @param placer        Player

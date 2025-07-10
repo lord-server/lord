@@ -100,6 +100,11 @@ function HoldingPoint:get_name()
 	return self.meta.name
 end
 
+--- @return string
+function HoldingPoint:get_battle_name()
+	return self.meta.battle
+end
+
 --- @return holding_points.HoldingPoint
 function HoldingPoint:activate()
 	self.meta.active            = true
