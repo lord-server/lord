@@ -25,6 +25,7 @@ return {
 		minetest.after(1, function()
 			Manager
 				.init(storage)
+				.set_debug(mod.debug)
 				.run(scheduler)
 		end)
 

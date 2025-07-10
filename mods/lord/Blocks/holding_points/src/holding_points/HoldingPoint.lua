@@ -45,6 +45,9 @@ local HoldingPoint = {
 	--- @private
 	--- @type holding_points.HoldingPoint.Processor
 	processor = nil,
+	--- @static
+	--- @public
+	debug     = false,
 }
 
 --- @static
@@ -180,7 +183,9 @@ function HoldingPoint:add_score(score, clan_name)
 	battle_stat[clan_name] = (battle_stat[clan_name] or 0) + score
 	meta.battle_stat = battle_stat
 
-	minetest.chat_send_all('Score: ' .. battle_stat[clan_name])
+	if self.debug then
+		minetest.chat_send_all('Score: ' .. battle_stat[clan_name])
+	end
 
 	return self
 end

@@ -16,6 +16,9 @@ local Manager = {
 	--- @private
 	--- @type holding_points.Battle[]
 	battles = {},
+	--- @static
+	--- @public
+	debug   = false,
 }
 local self = Manager
 
@@ -25,6 +28,15 @@ function Manager.init(storage)
 	self.storage = storage
 
 	return self.load_battles()
+end
+
+--- @param debug_mode boolean
+--- @return holding_points.Manager
+function Manager.set_debug(debug_mode)
+	self.debug = debug_mode
+	HoldingPoint.debug = debug_mode
+
+	return self
 end
 
 --- @return holding_points.Battle[]
