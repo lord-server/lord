@@ -148,8 +148,8 @@ function BattleForm:get_spec(edit_i)
 	local fields_h = self.form.fields_h
 
 	local battle_name     = self.typed_name or battle.name
-	local battle_title    = self.typed_name or battle.title
-	local battle_duration = self.typed_name or battle.duration
+	local battle_title    = self.typed_title or battle.title
+	local battle_duration = self.typed_duration or battle.duration
 
 	return ''
 		.. spec.formspec_version(4)
