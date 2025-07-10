@@ -39,7 +39,7 @@ end
 function MainTab:get_spec()
 	local form = self.form
 
-	local name          = self.meta.name
+	local name          = self.meta.name or ''
 	local in_event_list = self.in_event_list ~= nil and self.in_event_list or self.meta.in_event_list
 	local active        = self.meta.active
 	local battle        = self.meta.battle
