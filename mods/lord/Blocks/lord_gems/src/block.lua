@@ -14,18 +14,18 @@ end
 for _, node_source in pairs(list_gems_blocks) do
 	local node_name            = ('lord_gems:'..node_source..'_block')
 	local node_description     = (capitalize_first(node_source)..' Gem Block')
-	local node_inventory_image = ('lord_gems_'..node_source..'_block.png')
 	local node_tiles           = ('lord_gems_'..node_source..'_block.png'..'^[opacity:150')
 	local node_sound_file      = ('footstep_'..node_source..'_block')
 	local node_sounds = {
-		footstep = { name = node_sound_file,        gain = 0.25 },
-		dug      = { name = node_sound_file,        gain = 0.25 },
-		place    = { name = node_sound_file,        gain = 0.25 },
+		footstep = { name = node_sound_file,        gain = 1.0 },
+		dug      = { name = "default_break_glass",  gain = 1.0 },
+		dig      = { name = node_sound_file,        gain = 1.0 },
+		place    = { name = node_sound_file,        gain = 1.0 },
 		}
+
 	-- Register nodes
 	minetest.register_node(node_name, {
 		description         = S(node_description),
-		inventory_image     = node_inventory_image,
 		tiles               = { node_tiles },
 		drawtype            = "nodebox",
 		use_texture_alpha   = "blend",
@@ -33,6 +33,9 @@ for _, node_source in pairs(list_gems_blocks) do
 		sunlight_propagates = true,
 		is_ground_content   = false,
 		sounds              = node_sounds,
+		on_punch = function (pos)
+			minetest.sound_play( node_sound_file, { gain = 3, pos = pos, max_hear_distance = 10 }, true )
+		end,
 		groups              = { cracky = 1, level = 3 },
 	})
 
