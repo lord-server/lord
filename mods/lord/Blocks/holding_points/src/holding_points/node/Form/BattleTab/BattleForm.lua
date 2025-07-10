@@ -231,7 +231,7 @@ function BattleForm:handle(fields)
 	if fields.save then
 		self.battle.name     = self.typed_name or self.battle.name
 		self.battle.title    = self.typed_title or self.battle.title
-		self.battle.duration = self.typed_duration or self.battle.duration
+		self.battle.duration = tonumber(self.typed_duration) or self.battle.duration
 
 		Manager.save_battles()
 	end
