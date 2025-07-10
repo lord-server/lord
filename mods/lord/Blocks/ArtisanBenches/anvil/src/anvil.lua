@@ -6,38 +6,26 @@ local px = 1/16
 local node_box = {
 	type  = 'fixed',
 	fixed = {
-		-- Подошва
-		{ -8*px, -8*px, -8*px,  -4*px, -5*px, -4*px }, -- ножки подошвы
-		{ -8*px, -8*px,  8*px,  -4*px, -5*px,  4*px },
-		{  8*px, -8*px,  8*px,   4*px, -5*px,  4*px },
-		{  8*px, -8*px, -8*px,   4*px, -5*px, -4*px },
-
-		{ -7*px, -8*px, -6*px,   7*px, -5*px,  6*px }, -- сердцевины подошвы
-		{ -5*px, -5*px, -4*px,   5*px, -2*px,  4*px },
-
-		-- Ножка / шея
-		{ -3*px, -2*px, -2*px,   3*px,  3*px,  2*px },
-		-- Рабочая область (наличник)
-		{ -5*px,  3*px, -4*px,   5*px,  8*px,  4*px },
-
-		-- Рог
-		{ -5*px,  5*px, -2*px,  -8*px,  8*px,  2*px },
-
-		-- Обух с отверстием Харди
-		{ 7*px, 5*px, -4*px,   8*px, 8*px,  4*px  },
-		{ 5*px, 5*px, -2*px,   7*px, 6*px,  2*px  },
-		{ 5*px, 5*px, -4*px,   7*px, 8*px, -2*px  },
-		{ 5*px, 5*px,  2*px,   7*px, 8*px,  4*px  },
+		{-8/16, 2/16, -5/16, 8/16, 8/16, 5/16},
+		{-5/16, -4/16, -2/16, 5/16, 5/16, 2/16},
+		{-8/16, -8/16, -5/16, 8/16, -4/16, 5/16},
 	},
 }
 
 local function register_node()
 	minetest.register_node('anvil:anvil', {
 		description   = S('Anvil'),
-		drawtype      = 'mesh',
-		mesh          = 'anvil.obj',
-		tiles         = { 'benches_anvil.png' },
+		drawtype      = 'nodebox',
+		tiles         = {
+			'benches_anvil_top.png',
+			'benches_anvil_top.png',
+			'benches_anvil_side.png',
+			'benches_anvil_side.png',
+			'benches_anvil_front.png',
+			'benches_anvil_front.png'
+		},
 		groups        = { cracky = 1, falling_node = 1 },
+		node_box      = node_box,
 		selection_box = node_box,
 		collision_box = node_box,
 		paramtype     = 'light',
