@@ -33,7 +33,7 @@ read_globals      = {
 		-- MT Builtin:
 		"split", "trim",
 		-- our Core/helpers:
-		"is_one_of", "replace", "contains", "starts_with", "ends_with", "vxr_split"
+		"is_one_of", "replace", "contains", "starts_with", "ends_with", "vxr_split", "or_nil"
 	} },
 
 	math = { fields = {
