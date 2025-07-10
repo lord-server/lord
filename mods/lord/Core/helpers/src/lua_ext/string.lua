@@ -167,3 +167,12 @@ function string:vxr_split(delimiter, processor)
 
 	return result
 end
+
+--- Cast to to string or return `nil` if `value` is `nil`.
+--- The same as `tostring()` function, but dont convert `nil` value to string `"nil"`
+--- @static
+--- @param value any
+--- @return string|nil
+function string.or_nil(value)
+	return value ~= nil and tostring(value) or nil
+end
