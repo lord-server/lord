@@ -121,8 +121,6 @@ end
 --- @param battle  holding_points.Battle
 --- @param minutes number
 function Manager.on_upcoming_reached(battle, minutes)
-	minetest.chat_send_all(S('Time left until the battle `@1` starts: @2 minutes', battle.title, minutes))
-
 	Event:trigger(Event.Type.on_battle_upcoming, battle, minutes)
 end
 
@@ -131,7 +129,6 @@ end
 function Manager.on_start_reached(battle)
 	Manager.start_battle(battle)
 	Logger.action('Battle `%s` started', battle.name)
-	minetest.chat_send_all(S('Battle `@1` started', battle.title))
 end
 
 --- @private
@@ -139,7 +136,6 @@ end
 function Manager.on_finish_reached(battle)
 	Manager.stop_battle(battle)
 	Logger.action('Battle `%s` stopped', battle.name)
-	minetest.chat_send_all(S('Battle `@1` finished', battle.title))
 end
 
 --- @param battle holding_points.Battle|string

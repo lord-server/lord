@@ -2,6 +2,7 @@ local api       = require('holding_points.api')
 local node      = require('holding_points.node')
 local Storage   = require('holding_points.Storage')
 local Manager   = require('holding_points.Manager')
+local Notifier  = require('holding_points.Notifier')
 local Scheduler = require('holding_points.Scheduler')
 local command   = require('holding_points.command')
 
@@ -28,6 +29,8 @@ return {
 				.set_debug(mod.debug)
 				.run(scheduler)
 		end)
+
+		Notifier.init()
 
 		minetest.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
 		minetest.register_chatcommand(command.battle_stop.NAME,  command.battle_stop.definition)
