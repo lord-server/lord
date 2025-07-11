@@ -5,13 +5,16 @@ local colorize = minetest.colorize
 --- @class holding_points.Notifier
 local Notifier = {
 	--- @type holding_points.config.Notifier.Colors
-	color = nil,
+	color   = nil,
+	--- @type string[]
+	war_cry = {},
 }
 local self = Notifier
 
 --- @param config holding_points.config.Notifier
 function Notifier.init(config)
-	self.color = config.colors
+	self.color   = config.colors
+	self.war_cry = config.war_cry
 	holding_points.on_battle_upcoming(self.on_battle_upcoming)
 	holding_points.on_battle_started(self.on_battle_started)
 	holding_points.on_battle_stopped(self.on_battle_stopped)
@@ -35,9 +38,42 @@ function Notifier.on_battle_upcoming(battle, minutes)
 	)
 end
 
---- @param battle holding_points.Battle The battle that started.
-function Notifier.on_battle_started(battle)
-	minetest.chat_send_all(S('Battle `@1` started', battle.title))
+--- @private
+--- @param points holding_points.HoldingPoint[]
+--- @return string
+function Notifier.activated_points_ul(points)
+	local color = self.color
+
+	local points_li = {}
+	for _, point in pairs(points) do
+		points_li[#points_li + 1] =
+			colorize(color.POINT, '«' .. point:get_name() .. '»') .. ' ' ..
+			colorize(color.POSITION, point:get_id())
+	end
+
+	return #points_li
+		and ('  • ' .. table.concat(points_li, '\n  • '))
+		or  ''
+end
+
+--- @return string
+function Notifier.random_war_cry()
+	return self.war_cry[math.random(#self.war_cry)]
+end
+
+--- @param battle holding_points.Battle         The battle that started.
+--- @param points holding_points.HoldingPoint[] Activated Points.
+function Notifier.on_battle_started(battle, points)
+	local color = self.color
+
+	minetest.chat_send_all(
+		'\n ' ..
+		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
+			S('Battle @1 started! 🚀', colorize(color.BATTLE, '«' .. battle.title .. '»')) .. '\n' ..
+		self.activated_points_ul(points) .. '\n \n' ..
+		' ' .. colorize(color.WAR_CRY, self.random_war_cry()) .. '\n' ..
+		'\n '
+	)
 end
 
 --- @param battle holding_points.Battle The battle that stopped.
@@ -49,9 +85,9 @@ end
 --- @param clan  clans.Clan
 function Notifier.on_point_captured(point, clan)
 	-- TODO: in LG-1923: use `point:get_title()`
+	clans.clan_players_add()
 	minetest.chat_send_all(S('Point "@1" captured by clan "@2"!', point:get_name(), clan.title))
 end
-
 
 
 return Notifier
