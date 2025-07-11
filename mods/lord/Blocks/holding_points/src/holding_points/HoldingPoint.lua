@@ -101,6 +101,11 @@ function HoldingPoint:get_name()
 	return self.meta.name
 end
 
+--- @return boolean
+function HoldingPoint:is_in_event_list()
+	return self.meta.in_event_list
+end
+
 --- @return string
 function HoldingPoint:get_battle_name()
 	return self.meta.battle

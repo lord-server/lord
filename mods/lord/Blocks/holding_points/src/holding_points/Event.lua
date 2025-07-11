@@ -1,7 +1,9 @@
+-- luacheck: push no max line length
 --- @alias holding_points.callbacks.OnBattleUpcoming fun(battle:holding_points.Battle, minutes:number)
---- @alias holding_points.callbacks.OnBattleStarted  fun(battle:holding_points.Battle)
+--- @alias holding_points.callbacks.OnBattleStarted  fun(battle:holding_points.Battle, points:holding_points.HoldingPoint[])
 --- @alias holding_points.callbacks.OnBattleStopped  fun(battle:holding_points.Battle)
 --- @alias holding_points.callbacks.OnPointCaptured  fun(point:holding_points.HoldingPoint, clan:clans.Clan)
+-- luacheck: pop
 
 
 --- @class holding_points.Event: base_classes.Event

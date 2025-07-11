@@ -151,9 +151,16 @@ function Manager.start_battle(battle)
 		end
 	end
 
-	battle:activate()
+	if not battle:has_participating_points() then
+		Logger.error('Battle `%s` has no participating points', battle.name)
 
-	Event:trigger(Event.Type.on_battle_started, battle)
+		return false, S('Battle `@1` has no participating points', battle.name)
+	end
+
+	--- @type holding_points.HoldingPoint[]
+	local activated = battle:activate()
+
+	Event:trigger(Event.Type.on_battle_started, battle, activated)
 
 	return battle, nil
 end

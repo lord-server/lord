@@ -62,6 +62,17 @@ function Battle:remove_point_by_position(position)
 	return self:remove_point_by_id(HoldingPoint.create_id(position))
 end
 
+--- @return boolean
+function Battle:has_participating_points()
+	for _, point in pairs(self.points) do
+		if point:is_in_event_list() then
+			return true
+		end
+	end
+
+	return false
+end
+
 --- @param schedule holding_points.Battle.Schedule
 --- @return holding_points.Battle
 function Battle:add_schedule(schedule)
@@ -70,13 +81,17 @@ function Battle:add_schedule(schedule)
 	return self
 end
 
---- @return holding_points.Battle
+--- @return holding_points.HoldingPoint[]
 function Battle:activate()
+	local activated = {}
 	for id, point in pairs(self.points) do
-		point:activate()
+		if point:is_in_event_list() then
+			point:activate()
+			activated[#activated + 1] = point
+		end
 	end
 
-	return self
+	return activated
 end
 
 --- @return holding_points.Battle
