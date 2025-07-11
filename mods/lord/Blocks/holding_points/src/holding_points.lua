@@ -5,6 +5,7 @@ local Manager   = require('holding_points.Manager')
 local Notifier  = require('holding_points.Notifier')
 local Scheduler = require('holding_points.Scheduler')
 local command   = require('holding_points.command')
+local config    = require('holding_points.config')
 
 
 holding_points = {} -- luacheck: ignore unused global variable holding_points
@@ -30,7 +31,7 @@ return {
 				.run(scheduler)
 		end)
 
-		Notifier.init()
+		Notifier.init(config.notifier)
 
 		minetest.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
 		minetest.register_chatcommand(command.battle_stop.NAME,  command.battle_stop.definition)

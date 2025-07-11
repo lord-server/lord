@@ -7,3 +7,7 @@ thu=чт
 fri=пт
 sat=сб
 sun=вс
+
+# Notifier
+Events=События
+Battle @1 will start in @2 minutes=Битва @1 начнётся через @2 минут

@@ -1,12 +1,17 @@
-local S = minetest.get_mod_translator()
-
+local S        = minetest.get_mod_translator()
+local colorize = minetest.colorize
 
 --- @static Singleton
 --- @class holding_points.Notifier
-local Notifier = {}
+local Notifier = {
+	--- @type holding_points.config.Notifier.Colors
+	color = nil,
+}
 local self = Notifier
 
-function Notifier.init()
+--- @param config holding_points.config.Notifier
+function Notifier.init(config)
+	self.color = config.colors
 	holding_points.on_battle_upcoming(self.on_battle_upcoming)
 	holding_points.on_battle_started(self.on_battle_started)
 	holding_points.on_battle_stopped(self.on_battle_stopped)
@@ -16,7 +21,18 @@ end
 --- @param battle  holding_points.Battle The battle that is upcoming.
 --- @param minutes number                Minutes until battle starts.
 function Notifier.on_battle_upcoming(battle, minutes)
-	minetest.chat_send_all(S('Time left until the battle `@1` starts: @2 minutes', battle.title, minutes))
+	local color = self.color
+
+	minetest.chat_send_all(
+		'\n ' ..
+		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
+		S(
+			'Battle @1 will start in @2 minutes',
+			colorize(color.BATTLE, '«' .. battle.title .. '»'),
+			colorize(color.BATTLE, minutes)
+		) ..
+		'\n '
+	)
 end
 
 --- @param battle holding_points.Battle The battle that started.
