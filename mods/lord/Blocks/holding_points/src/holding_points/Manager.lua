@@ -70,6 +70,13 @@ end
 --- @public
 --- @return holding_points.Manager
 function Manager.save_battles()
+	for key, battle in pairs(self.battles) do
+		if key ~= battle.name then
+			self.battles[key] = nil
+			self.add_battle(battle)
+		end
+	end
+
 	self.storage:save_battles(self.battles)
 
 	return self
