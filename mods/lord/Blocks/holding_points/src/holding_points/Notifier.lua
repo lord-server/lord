@@ -32,7 +32,8 @@ end
 --- @param point holding_points.HoldingPoint The point that was captured.
 --- @param clan  clans.Clan
 function Notifier.on_point_captured(point, clan)
-	minetest.chat_send_all(S('Point "@1" captured by clan "@2"!', point:ti(), clan.title))
+	-- TODO: in LG-1923: use `point:get_title()`
+	minetest.chat_send_all(S('Point "@1" captured by clan "@2"!', point:get_name(), clan.title))
 end
 
 
