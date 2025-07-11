@@ -1,5 +1,6 @@
 local Meta      = require('holding_points.HoldingPoint.Meta')
 local Processor = require('holding_points.HoldingPoint.Processor')
+local Event     = require('holding_points.Event')
 
 local S = minetest.get_mod_translator()
 
@@ -153,6 +154,8 @@ function HoldingPoint:punch(player)
 	meta.captured_by_clan = clan.name
 
 	self.processor:start()
+
+	Event:trigger(Event.Type.on_point_captured, self, clan)
 end
 
 --- @param player Player

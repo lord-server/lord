@@ -1,3 +1,4 @@
+local api       = require('holding_points.api')
 local node      = require('holding_points.node')
 local Storage   = require('holding_points.Storage')
 local Manager   = require('holding_points.Manager')
@@ -7,15 +8,14 @@ local command   = require('holding_points.command')
 
 holding_points = {} -- luacheck: ignore unused global variable holding_points
 
-local function register_node()
-	minetest.register_node('holding_points:node', node.definition)
-end
-
 
 return {
 	--- @param mod minetest.Mod
 	init = function(mod)
-		register_node()
+		-- Register api
+		_G.holding_points = api
+
+		minetest.register_node('holding_points:node', node.definition)
 
 		local storage   = Storage:new(minetest.get_mod_storage())
 		local scheduler = Scheduler:new()
