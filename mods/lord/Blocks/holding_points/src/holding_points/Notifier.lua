@@ -56,6 +56,7 @@ function Notifier.activated_points_ul(points)
 		or  ''
 end
 
+--- @private
 --- @return string
 function Notifier.random_war_cry()
 	return self.war_cry[math.random(#self.war_cry)]
@@ -76,9 +77,38 @@ function Notifier.on_battle_started(battle, points)
 	)
 end
 
+--- @private
+--- @param battle holding_points.Battle The battle that stopped.
+--- @return string
+function Notifier.battle_results(battle)
+	local color = self.color
+
+	local points_li = {}
+	for _, point in pairs(battle.points) do
+		local clan = clans.clan_get_by_name(point:get_captured_by_clan())
+
+		points_li[#points_li + 1] = S(
+			'Point @1 — conquered by clan @2',
+			colorize(color.POINT, '«' .. point:get_name() .. '»'),
+			colorize(clans.COLOR, '«' .. (clan and clan.title or '???') .. '»')
+		)
+	end
+
+	return #points_li
+		and ('  • ' .. table.concat(points_li, '\n  • '))
+		or  ''
+end
+
 --- @param battle holding_points.Battle The battle that stopped.
 function Notifier.on_battle_stopped(battle)
-	minetest.chat_send_all(S('Battle `@1` finished', battle.title))
+	local color = self.color
+
+	minetest.chat_send_all(
+		'\n ' ..
+		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
+			S('Battle @1 finished!', colorize(color.BATTLE, '«' .. battle.title .. '»')) .. '\n' ..
+			self.battle_results(battle) .. '\n '
+	)
 end
 
 --- @param point holding_points.HoldingPoint The point that was captured.

@@ -111,6 +111,11 @@ function HoldingPoint:get_battle_name()
 	return self.meta.battle
 end
 
+--- @return string
+function HoldingPoint:get_captured_by_clan()
+	return self.meta.captured_by_clan
+end
+
 --- @return holding_points.HoldingPoint
 function HoldingPoint:activate()
 	self.meta.active            = true
