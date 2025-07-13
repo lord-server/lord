@@ -1,6 +1,7 @@
 local Manager = require('holding_points.Manager')
 
-local S = minetest.get_mod_translator()
+local S        = minetest.get_mod_translator()
+local colorize = minetest.colorize
 
 --- @type ChatCommandDefinition
 local definition = {
@@ -17,7 +18,11 @@ local definition = {
 			return false, error
 		end
 
-		return true, S('Battle `@1` started', started.title)
+		return
+			true,
+			S('Battle `@1` started', started.title) .. '\n' ..
+				colorize('#ff0', S('Attention:')) .. ' ' ..
+				S('You must stop the Battle manually with command `/battle.stop`')
 	end
 }
 
