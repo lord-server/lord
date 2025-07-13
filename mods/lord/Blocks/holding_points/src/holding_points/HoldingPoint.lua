@@ -189,6 +189,7 @@ function HoldingPoint:reward(player)
 
 	local reward = self.node_meta:get_inventory():get_list('reward')
 	drop_items_to_world(self.position, player:get_pos(), reward)
+	self.meta.reward_given_at = os.time() -- now
 end
 
 ---@param score     number
