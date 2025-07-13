@@ -35,9 +35,9 @@ local config = {
 			S('Capture. Hold. Dominate. Good luck on the battlefield!'),
 			S('Every point is a step toward triumph. Show them what you’re made of!'),
 			S('Not a step back! May your team be the first to the point!'),
-			S('Kings aren’t born—they’re forged in battle!'),
+			S('Kings aren’t born — they’re forged in battle!'),
 			S('Eyes on the map, fists on the controls. Let’s move!'),
-			S('Capture, hold, don’t hesitate—the enemy never sleeps!'),
+			S('Capture, hold, don’t hesitate — the enemy never sleeps!'),
 			S('It’s gonna get hot! Ready for a fight? Attack!'),
 			S('Victory favors the bold! Do you? Charge for the points!'),
 		}
