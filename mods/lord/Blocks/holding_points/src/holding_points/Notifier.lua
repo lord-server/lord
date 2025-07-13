@@ -114,9 +114,16 @@ end
 --- @param point holding_points.HoldingPoint The point that was captured.
 --- @param clan  clans.Clan
 function Notifier.on_point_captured(point, clan)
-	-- TODO: in LG-1923: use `point:get_title()`
-	clans.clan_players_add()
-	minetest.chat_send_all(S('Point "@1" captured by clan "@2"!', point:get_name(), clan.title))
+	local color = self.color
+
+	minetest.chat_send_all(
+		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
+		S(
+			'Point @1 captured by clan @2',
+			colorize(color.POINT, '«' .. point:get_name() .. '»'),
+			colorize(clans.COLOR, '«' .. clan.title .. '»')
+		)
+	)
 end
 
 
