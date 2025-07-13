@@ -132,6 +132,8 @@ function HoldingPoint:deactivate()
 	self.meta.active      = false
 	self.processor:stop()
 
+	self.meta.captured_by_clan = self:get_win_clan().name
+
 	return self
 end
 
@@ -237,6 +239,20 @@ function HoldingPoint.same_day(timestamp1, timestamp2)
 		d1.year == d2.year and
 		d1.month == d2.month and
 		d1.day == d2.day
+end
+
+--- @return clans.Clan
+function HoldingPoint:get_win_clan()
+	local max_score   = 0
+	local win_clan_id = nil
+	for clan_id, score in pairs(self.meta.battle_stat) do
+		if score > max_score then
+			max_score   = score
+			win_clan_id = clan_id
+		end
+	end
+
+	return clans.clan_get_by_name(win_clan_id)
 end
 
 
