@@ -87,9 +87,10 @@ end
 --- @param new_battle_name string
 --- @return holding_points.Manager
 function Manager.move_point(point_position, old_battle_name, new_battle_name)
-	local moving_point = (not old_battle_name or old_battle_name == '')
+	local old_battle   = self.get_battle(old_battle_name)
+	local moving_point = (not old_battle_name or old_battle_name == '' or not old_battle)
 		and HoldingPoint:new(point_position)
-		or  self.get_battle(old_battle_name):remove_point_by_position(point_position)
+		or  old_battle:remove_point_by_position(point_position)
 
 	if not moving_point then
 		Logger.error(
