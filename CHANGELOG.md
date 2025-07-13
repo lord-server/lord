@@ -1,5 +1,92 @@
 # Change Log
 
+## [2025.06](https://github.com/lord-server/lord/releases/tag/2025.06)
+ - Added hopper
+ - Anvil: Improve movement by click with `shift` (#2290)
+ - Racial weapons:
+   - "Orcish sword" -> "Uruk-hai scimitar". Closes #2226
+     - now available for all races
+     - update texture. LG-1856. Relates to #2226
+   - Added new "Morgul Blade" as orcish racial weapon. Closes #2227
+   - Added extended description to racial weapon. Closes #2228
+ - Added gemstone blocks. LG-1899
+   - The blocks have gained transparency and cast shadows. Related LG-1899 Closes #2288
+   - Added sound of gems blocks when on_punch, dig, dug. Related LG-1899 Closes #2289
+ - Dwarven ropes. LG-2:
+   - new textures
+   - new models
+   - two nodes:
+     - ceiling and wall, which are selected automatically during installation
+ - Clans: Hold Points:
+   - add texture for node. LG-1780
+   - Configuration Form:
+     - add `Battles` tab & `BattleForm`, add creation & navigation through th forms (no saves of changes). Relates to #2127. LG-1783
+     - prettify "Battle" tab & `BattleForm`. Closes #2127. LG-1783
+     - save / delete Schedule for Battle. LG-1909 / LG-1909
+     - save Battle; also resize form accordingly to schedules count. LG-1909
+     - save battle changes; display points for battle in tooltip. Closes #2268. LG-1885
+   - Notifications:
+     - battle upcoming. LG-1920
+     - battle start. LG-1921
+     - battle finished. LG-1922
+     - point captured. LG-1923
+   - Mechanics:
+     - activate only participating points. LG-1927
+     - point conquered by clan with max score. LG-1931
+     - dispay warning about the need to stop battle manually. LG-1912
+
+ - Technical:
+   - Add `FUNDING.yml` with link to our Boosty.
+   - LG-1898 Related to #2035 Created new structured mod for lord gemstone item. Legacy gems was move to new place and renew item tech name.
+   - `Core/helpers`:
+     - `debug`:
+       - stylized stacktrace & `pd()` with links to open IDE. LG-1902
+       - ability to pass several params into pd(). LG-1903
+       - dump with ability to view stack trace via `pdt()` function. LG-1905
+       - catch errors handled by c-side. LG-1906
+       - dump function code if passed arg is function; increase trace depth. Relates to LG-1903
+     - `string`:
+       - `string.replace` now returns only 1 value (all usages was inspected),
+       - `string.remove()` helper. LG-1907
+       - `string.vxr_split()` helper.
+       - `string.or_nil(value)` cast helper (based on `tostring()`).
+       - Fix luacheck for `string.or_nil()` helper.
+   - `Core/base_classes`:
+     - `Tab`: ability to add some logic on `instantiate()`.
+     - `Meta/Base`: fix save `nil` for fields of `string` type.
+   - Gemstone blocks:
+     - Related to LG-1899 Refactoring gems block.
+     - Related to LG-1899 Fixed hardness like a diamond block.
+   - Dwarven ropes:
+     - moved to `lord-ropes`. LG-1910
+   - Clans: Hold Points:
+     - extract `Schedule` as separate class, change it loading; incapsulate `Manager::{storage|battles}`. Relates to #2127. LG-1783
+     - redesign work with `Strorage`, add saving. Relates to #2127. LG-1783
+     - send score messages only in `debug` mode. LG-1911
+     - fix broken node form (`MaintTab`). LG-1916
+     - fix form redraw on add/del Schedule. LG-1914
+     - remove point from Battle on node destroy. LG-1917
+     - save `duration` of Battle as `number`. LG-1914
+     - Add a config param that disables the mod. LG-1915
+     - no add score +10 on capture. LG-1918
+     - add `on_point_captured` Event; add all events into API. Closes #2259. LG-1878
+     - Notifications: basic `Notifier` class. LG-1919
+     - fix typo: fix crash by punch. LG-1926
+     - fix crash on rename id of Battle. LG-1928
+     - Scheduler: extract `NOTIFY_BEFORE` into config.
+     - fix typos in notifications. Relates to LG-1921.
+     - fix move-point: force move if no old battle found. LG-1929
+     - fix infinite reward. LG-1935
+   - Hopper:
+     - Returned back some legacy code
+     - Updated hopper submodule for new tweaks
+     - Overwritten hopper recipes with new overwrite mod
+     - Added hopper support for various mods
+     - Added void hopper support for our mods
+     - Added new global to luacheck
+     - Removed void hopper craft for future updates
+     - Hopper tweaks (#2277) & More hopper tweaks (#2279) (что бы это не значило)
+
 ## [2025.05.p2](https://github.com/lord-server/lord/releases/tag/2025.05.p2)
  - Distribution: Remove dated mod mail_list. Closes #2272
  - Distribution: Move `lord_spawners` to `_experimental`. Closes #2278
