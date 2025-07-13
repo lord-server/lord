@@ -1,9 +1,8 @@
-local os_time, os_date, pairs, math_is_in_range, math_floor, tonumber
-    = os.time, os.date, pairs, math.is_in_range, math.floor, tonumber
+local os_time, os_date, pairs, math_is_in_range, math_floor, tonumber, table_is_empty
+    = os.time, os.date, pairs, math.is_in_range, math.floor, tonumber, table.is_empty
 
 local MINUTE        = 60
 local TICK          = 1 * MINUTE
-local NOTIFY_BEFORE = { 30, 10, 5, 3, 1 }
 
 --- Map for os.date format (1=sun, 2=mon, ..., 7=sat)
 local WEEKDAY_MAP = {
@@ -22,10 +21,16 @@ local WEEKDAY_MAP = {
 
 --- @class holding_points.Scheduler
 local Scheduler = {
+	--- @private
 	--- @type number
 	tick    = TICK,
+	--- @private
+	--- @type number[]
+	notify_before = { 10 },
+	--- @private
 	--- @type holding_points.Battle[]
 	battles = nil,
+
 	--- @type holding_points.Scheduler.on_upcoming
 	notify_upcoming = nil,
 	--- @type holding_points.Scheduler.on_start
@@ -34,12 +39,14 @@ local Scheduler = {
 	notify_finish   = nil,
 }
 
---- @overload fun():holding_points.Scheduler
+--- @overload fun(config:holding_points.config.Scheduler):holding_points.Scheduler
+--- @param config  holding_points.config.Scheduler
 --- @param battles holding_points.Battle[]
 --- @return holding_points.Scheduler
-function Scheduler:new(battles)
+function Scheduler:new(config, battles)
 	self = setmetatable({}, { __index = self })
-	self.battles = battles or {}
+	self.notify_before = config.notify_before or self.notify_before
+	self.battles       = battles or {}
 
 	return self
 end
@@ -112,7 +119,7 @@ function Scheduler:check_battle(battle, current_time)
 				local minutes_left_until = (battle_time - current_time) / MINUTE
 
 				if math_is_in_range(minutes_left_until, 0, 30) then
-					for _, minutes in pairs(NOTIFY_BEFORE) do
+					for _, minutes in pairs(self.notify_before) do
 						if minutes_left_until == minutes then
 							self.notify_upcoming(battle, minutes)
 						end
@@ -133,7 +140,7 @@ end
 --- @param current_time number
 --- @return boolean
 function Scheduler:is_week_match(week, current_time)
-	if not week or table.is_empty(week) or week.every == 1 then
+	if not week or table_is_empty(week) or week.every == 1 then
 		return true
 	end
 

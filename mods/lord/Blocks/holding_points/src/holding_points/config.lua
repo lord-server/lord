@@ -12,6 +12,9 @@ local S = minetest.get_mod_translator()
 --- @field colors  holding_points.config.Notifier.Colors
 --- @field war_cry string[]
 
+--- @class holding_points.config.Scheduler
+--- @field notify_before number[]
+
 
 --- @class holding_points.config
 local config = {
@@ -38,7 +41,12 @@ local config = {
 			S('It’s gonna get hot! Ready for a fight? Attack!'),
 			S('Victory favors the bold! Do you? Charge for the points!'),
 		}
-	}
+	},
+	--- @type holding_points.config.Scheduler
+	scheduler = {
+		--- @type number[]
+		notify_before = { 30, 10, 5, 3, 1 }
+	},
 }
 
 

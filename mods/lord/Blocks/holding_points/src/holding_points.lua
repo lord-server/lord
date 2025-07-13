@@ -20,7 +20,7 @@ return {
 		minetest.register_node('holding_points:node', node.definition)
 
 		local storage   = Storage:new(minetest.get_mod_storage())
-		local scheduler = Scheduler:new()
+		local scheduler = Scheduler:new(config.scheduler)
 
 		-- We need minetest to have fully started to access the map.
 		-- So, deferred start of Manager:
