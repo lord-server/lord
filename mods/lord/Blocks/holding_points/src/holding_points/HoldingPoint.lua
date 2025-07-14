@@ -132,7 +132,8 @@ function HoldingPoint:deactivate()
 	self.meta.active      = false
 	self.processor:stop()
 
-	self.meta.captured_by_clan = self:get_win_clan().name
+	local win_clan_id = self:get_win_clan()
+	self.meta.captured_by_clan = win_clan_id and win_clan_id.name or ''
 
 	return self
 end
