@@ -8,9 +8,21 @@ local S = minetest.get_mod_translator()
 --- @field WAR_CRY  string ColorSpec
 --- @field CLAN     string ColorSpec
 
+--- @class holding_points.config.Notifier.Sounds
+--- @field battle_start        string
+--- @field battle_over         string
+--- @field battle_starts_in_30 string
+--- @field battle_starts_in_10 string
+--- @field battle_starts_in_5  string
+--- @field battle_starts_in_3  string
+--- @field battle_starts_in_1  string
+--- @field point_captured      string
+
+
 --- @class holding_points.config.Notifier
 --- @field colors  holding_points.config.Notifier.Colors
 --- @field war_cry string[]
+--- @field sounds  holding_points.config.Notifier.Sounds
 
 --- @class holding_points.config.Scheduler
 --- @field notify_before number[]
@@ -40,7 +52,18 @@ local config = {
 			S('Capture, hold, don’t hesitate — the enemy never sleeps!'),
 			S('It’s gonna get hot! Ready for a fight? Attack!'),
 			S('Victory favors the bold! Do you? Charge for the points!'),
-		}
+		},
+		--- @type holding_points.config.Notifier.Sounds
+		sounds = {
+			battle_start        = 'holding_points_battle_start',
+			battle_over         = 'holding_points_battle_over',
+			battle_starts_in_30 = 'holding_points_battle_starts_in_30_min',
+			battle_starts_in_10 = 'holding_points_battle_starts_in_10_min',
+			battle_starts_in_5  = 'holding_points_battle_starts_in_5_min',
+			battle_starts_in_3  = 'holding_points_battle_starts_in_3_min',
+			battle_starts_in_1  = 'holding_points_battle_starts_in_1_min',
+			point_captured      = 'holding_points_point_captured',
+		},
 	},
 	--- @type holding_points.config.Scheduler
 	scheduler = {

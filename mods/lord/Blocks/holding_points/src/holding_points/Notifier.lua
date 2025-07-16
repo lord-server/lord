@@ -8,6 +8,8 @@ local Notifier = {
 	color   = nil,
 	--- @type string[]
 	war_cry = {},
+	--- @type holding_points.config.Notifier.Sounds
+	sound   = nil,
 }
 local self = Notifier
 
@@ -15,6 +17,7 @@ local self = Notifier
 function Notifier.init(config)
 	self.color   = config.colors
 	self.war_cry = config.war_cry
+	self.sound   = config.sounds
 	holding_points.on_battle_upcoming(self.on_battle_upcoming)
 	holding_points.on_battle_started(self.on_battle_started)
 	holding_points.on_battle_stopped(self.on_battle_stopped)
@@ -36,6 +39,13 @@ function Notifier.on_battle_upcoming(battle, minutes)
 		) ..
 		'\n '
 	)
+
+	for _, player in ipairs(minetest.get_connected_players()) do
+		minetest.sound_play('holding_points_battle_starts_in_' .. minutes .. '_min', {
+			to_player = player:get_player_name(),
+			gain      = 1.0,
+		})
+	end
 end
 
 --- @private
@@ -66,7 +76,7 @@ end
 --- @param points holding_points.HoldingPoint[] Activated Points.
 function Notifier.on_battle_started(battle, points)
 	local color = self.color
-
+	local sound = self.sound
 	minetest.chat_send_all(
 		'\n ' ..
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
@@ -75,6 +85,13 @@ function Notifier.on_battle_started(battle, points)
 		' ' .. colorize(color.WAR_CRY, self.random_war_cry()) .. '\n' ..
 		'\n '
 	)
+
+	for _, player in ipairs(minetest.get_connected_players()) do
+		minetest.sound_play(sound.battle_start, {
+			to_player = player:get_player_name(),
+			gain      = 1.0,
+		})
+	end
 end
 
 --- @private
@@ -102,6 +119,7 @@ end
 --- @param battle holding_points.Battle The battle that stopped.
 function Notifier.on_battle_stopped(battle)
 	local color = self.color
+	local sound = self.sound
 
 	minetest.chat_send_all(
 		'\n ' ..
@@ -109,12 +127,20 @@ function Notifier.on_battle_stopped(battle)
 			S('Battle @1 finished!', colorize(color.BATTLE, '«' .. battle.title .. '»')) .. '\n' ..
 			self.battle_results(battle) .. '\n '
 	)
+
+	for _, player in ipairs(minetest.get_connected_players()) do
+		minetest.sound_play(sound.battle_over, {
+			to_player = player:get_player_name(),
+			gain      = 1.0,
+		})
+	end
 end
 
 --- @param point holding_points.HoldingPoint The point that was captured.
 --- @param clan  clans.Clan
 function Notifier.on_point_captured(point, clan)
 	local color = self.color
+	local sound = self.sound
 
 	minetest.chat_send_all(
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
@@ -124,6 +150,13 @@ function Notifier.on_point_captured(point, clan)
 			colorize(clans.COLOR, '«' .. clan.title .. '»')
 		)
 	)
+
+	for _, player in ipairs(minetest.get_connected_players()) do
+		minetest.sound_play(sound.point_captured, {
+			to_player = player:get_player_name(),
+			gain      = 1.0,
+		})
+	end
 end
 
 
