@@ -88,10 +88,7 @@ local function register_dwarven()
 		use_texture_alpha   = 'clip',
 		paramtype           = 'light',
 		paramtype2          = 'wallmounted',
-		groups              = {
-			choppy = 3,
-			rope_block = 1
-		},
+		groups              = { oddly_breakable_by_hand = 2, cracky = 3, rope_block = 1 },
 		sounds              = default.node_sound_wood_defaults(),
 		after_destruct = function(pos, oldnode)
 			local node = minetest.get_node({ x = pos.x, y = pos.y - 1, z = pos.z })
@@ -124,8 +121,9 @@ local function register_dwarven()
 	minetest.register_craft({
 		output = 'lord_ropes:dwarven_ropebox',
 		recipe = {
-			{ 'default:wood' },
-			{ 'lord_ropes:dwarven_ropes' },
+			{ 'default:steel_ingot', 'carts:gear',              'default:steel_ingot' },
+			{ '',                    'lord_ropes:dwarven_ropes',                   '' },
+			{ '',                    'lord_ropes:dwarven_ropes',                   '' },
 		}
 	})
 end
