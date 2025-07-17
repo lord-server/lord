@@ -1,5 +1,6 @@
 .git/*
 .github/*
+/mods/_minetest_game/up
 /mods/lord/_experimental/*
 /mods/lord/Blocks/clan_node/*
 /mods/lord/Blocks/clans_tapestries/*
@@ -18,6 +19,7 @@
 /mods/lord/World/arena/*
 /mods/lord/World/lord_events/*
 /util/*
+.distribution-exclude
 .editorconfig
 .gitattributes
 .gitignore
@@ -29,3 +31,12 @@ CODE_OF_CONDUCT.md
 /minetest.conf.example
 /minetest.conf.prod
 /minetest.conf.test
+*/.editorconfig
+*/.gitattributes
+*/.gitignore
+*/.gitmodules
+*/.luacheckrc
+*/.util/*
+*/.github/*
+*/.git/*
+*/.git
