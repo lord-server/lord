@@ -33,12 +33,12 @@ end
 local definition = {
 	description       = S("Clan Chest"),
 	tiles             = {
-		"clan_node_chest_top.png",
-		"clan_node_chest_top.png",
-		"clan_node_chest_side.png",
-		"clan_node_chest_side.png",
-		"clan_node_chest_side.png",
-		"clan_node_chest_front.png"
+		'default_chest_top.png^[contrast:0:-64^[overlay:clan_node_top.png',
+		'default_chest_top.png^[contrast:0:-64^[overlay:clan_node_top.png',
+		'default_chest_side.png^[contrast:0:-64^[overlay:clan_node_side.png',
+		'default_chest_side.png^[contrast:0:-64^[overlay:clan_node_side.png',
+		'default_chest_side.png^[contrast:0:-64^[overlay:clan_node_side.png',
+		'default_chest_lock.png^[contrast:0:-64^[overlay:clan_node_side.png',
 	},
 	sounds            = default.node_sound_wood_defaults(),
 	sound_open        = "default_chest_open",
