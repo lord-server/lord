@@ -102,7 +102,7 @@
  - [@Doloment](https://github.com/Doloment) - development / testing / ideas
  - [@Petus228666](https://github.com/Petus228666) (Petus) - some texturing / QA Lead
  - [@VladTcvs](https://github.com/vladtcvs) (VladTs) - development / testing / ideas
- - [@VanicGame](https://github.com/VanicGame) (Van) - development / testing / texturing / ideas
+ - [@varttist](https://github.com/varttist) (Van) - development / testing / texturing / ideas
  - [@TyulenPelmen](https://github.com/TyulenPelmen) (Vasiliy_Rus) - Media Lead / release news for social content / ideas
  - [@Badger](https://github.com/albel4) - infrastructure administration (in past: development / game admin)
  - [@Strannik](https://github.com/LordStrannik) (Strannik) - building
