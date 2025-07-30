@@ -53,8 +53,6 @@
  - Texture maker (Художник по текстурам)
  - 3D-Modeller / Animator
 
-ну и, конечно, разработчиков.
-
 #### Небольшой [гайд по разработке](development.md):
  - [Разворачивание локально](development.md#Разворачивание-локально)
  - [Code-Style](development.md#Code-Style)
