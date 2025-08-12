@@ -36,6 +36,8 @@ end
 local function add_existing(node_name, trunks_group)
 	trunks_group = trunks_group or DEFAULT_TRUNKS_GROUP
 	local definition = minetest.registered_nodes[node_name]
+	assert(definition._tree_height)
+	assert(definition._leaves_radius)
 	minetest.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { tree = 1 }),
 	})
@@ -132,6 +134,8 @@ local function register_trunk(
 	end
 end
 
+add_existing('default:tree')
+add_existing('default:jungletree')
 register_trunk('lord_trees:alder_tree',       2, 10, 2)
 register_trunk('lord_trees:beech_tree',       2, 15, 4)
 register_trunk('lord_trees:birch_tree',       3, 12, 3)

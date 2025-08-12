@@ -6,6 +6,9 @@ require('tree.trunks.slabs')
 require('tree.fruits')
 require('tree.leaves.decay')
 
+require('tree.trunks.infected')
+
+
 tree = {}
 
 local function register_api()
