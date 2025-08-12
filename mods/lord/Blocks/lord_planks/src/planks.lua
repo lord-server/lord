@@ -20,6 +20,7 @@ local function register_lord_planks()
 	end
 
 	api.register_planks("lord_planks:hardwood",  1, nil, { flammable = 1 })
+	api.register_planks("lord_planks:infected",  1, nil, { flammable = 1 })
 end
 
 local function register_additional_crafts()
@@ -31,18 +32,18 @@ local function register_additional_crafts()
 		}
 	})
 	-- different crafts for hardwood
-	minetest.register_craft({
+	minetest.register_mirrored_crafts({
 		output = 'lord_planks:hardwood 2',
 		recipe = {
 			{"default:wood", "default:junglewood"},
 			{"default:junglewood", "default:wood"},
 		}
 	})
+	-- craft for infected planks
 	minetest.register_craft({
-		output = 'lord_planks:hardwood 2',
+		output = 'lord_planks:infected 2',
 		recipe = {
-			{"default:junglewood", "default:wood"},
-			{"default:wood", "default:junglewood"},
+			{ 'group:infected_tree' },
 		}
 	})
 

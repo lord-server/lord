@@ -29,6 +29,7 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 	node_name = not node_name:starts_with('lord_trees:') and ':' .. node_name or node_name
 	trunks.register(node_name, softness, tree_height, leaves_radius, register_young, {
 		tiles             = { texture_top, texture_top, texture_side .. '^lord_trees_infected_side_overlay.png' },
+		groups            = { infected_tree = 1 },
 		_is_infected      = true,
 		_parent_node_name = parent_node_name,
 	}, INFECTED_TRUNKS_GROUP)
