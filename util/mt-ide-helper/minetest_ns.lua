@@ -855,6 +855,8 @@ function minetest.chat_send_player(name, text) end
 function minetest.format_chat_message(name, message) end
 
 -- Environment access:
+--- @param pos  Position
+--- @param node NodeTable
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4840-L4840)
 function minetest.set_node(pos, node) end
 --- Alias to `minetest.set_node`
