@@ -21,6 +21,7 @@ local wood_defs = {
 	["wood"]        = { desc="Wooden",      texture="default_wood.png",          	wood_name="default:wood", },
 	["white"]       = { desc="White",       texture="lord_planks_white.png",     	wood_name="lord_planks:white", },
 	["yavannamire"] = { desc="Yavannamire", texture="lord_planks_yavannamire.png",  wood_name="lord_planks:yavannamire", },
+	["infected"]    = { desc="Infected",    texture="lord_planks_infected.png",     wood_name="lord_planks:infected", },
 }
 
 --- Stuff types which will not be registered.
@@ -43,6 +44,7 @@ local wood_stuff_exceptions = {
 	["wood"]        = { "doors", "hatch", "fence", "stick", "ladder", },
 	["white"]       = { "doors",                                      "Rhatch", },
 	["yavannamire"] = { "doors",                                      "Rhatch", },
+	["infected"]    = { "doors",                                      "Rhatch", },
 }
 
 
