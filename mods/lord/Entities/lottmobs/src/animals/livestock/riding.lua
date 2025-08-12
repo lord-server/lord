@@ -680,6 +680,6 @@ lottmobs.register_horse("lottmobs:warg_mount", {
 	jump_boost    = 7,
 	feed = {
 		["lottmobs:rotten_meat"] = 6,
-		["lottfarming:orc_food"] = 5,
+		["lottfarming:orc_food"] = 12,
 	},
 })
