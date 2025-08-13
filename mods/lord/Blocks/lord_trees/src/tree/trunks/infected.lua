@@ -2,6 +2,7 @@ local trunks = require('tree.trunks')
 
 
 local INFECTED_TRUNKS_GROUP = 'infected'
+local INFECTED_BY           = { 'lottfarming:orc_food' }
 
 --- @param parent_node_name string  technical name of not infected tree, which ends with 'tree' ("<mod>:<node>tree").
 --- @param tree_height      number
@@ -33,6 +34,24 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 		_is_infected      = true,
 		_parent_node_name = parent_node_name,
 	}, INFECTED_TRUNKS_GROUP)
+
+	minetest.override_item(parent_node_name, {
+		_infected_node_name = node_name,
+		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
+			if not itemstack:get_name():is_one_of(INFECTED_BY) then
+				if not clicker:get_player_control().sneak then
+					return minetest.item_place_node(itemstack, clicker, pointed_thing)
+				end
+
+				return itemstack
+			end
+
+			itemstack:take_item(1)
+			minetest.set_node(pos, { name = node_name })
+
+			return itemstack
+		end,
+	})
 end
 
 -- lord_trees:infected_alder_tree       | lord_trees:infected_alder_trunk
