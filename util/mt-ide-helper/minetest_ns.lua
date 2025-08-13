@@ -319,6 +319,7 @@ function minetest.unregister_item(name) end
 --- @param entity_definition EntityDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4483-L4483)
 function minetest.register_entity(name, entity_definition) end
+--- @param abm_definition ABMDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4484-L4484)
 function minetest.register_abm(abm_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4485-L4485)
