@@ -475,7 +475,7 @@ end
 ---
 --- @return string
 function FormSpec.field_close_on_enter(name,close_on_enter)
-	return 'field_close_on_enter['..name..optional(close_on_enter)..']'
+	return 'field_close_on_enter['..name..optional(bool_str(close_on_enter))..']'
 end
 
 ---
