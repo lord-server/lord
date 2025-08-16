@@ -1025,25 +1025,29 @@ function minetest.get_day_count() end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4928-L4933)
 ---
---- @param pos Position
---- @param radius number using a maximum metric
---- @param nodenames table|string e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
---- @param search_center boolean  [Optional] is an optional boolean (default: `false`). If true `pos` is also checked for the nodes
+--- @param pos              Position
+--- @param radius           number       using a maximum metric
+--- @param node_names       table|string e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+--- @param search_in_center boolean      Optional. If true `pos` is also checked for the nodes. (default: `false`).
 ---
 --- @return Position|nil
-function minetest.find_node_near(pos, radius, nodenames, search_center) end
---- * `pos1` and `pos2` are the min and max positions of the area to search.
---- * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+function minetest.find_node_near(pos, radius, node_names, search_in_center) end
 --- * If `grouped` is true the return value is a table indexed by node name
 ---   which contains lists of positions.
 --- * If `grouped` is false or absent the return values are as follows:
 ---   first value: Table with all node positions
----   second value: Table with the count of each node with the node name
----   as index
---- * Area volume is limited to 4,096,000 nodes
+---   second value: Table with the count of each node with the node name as index
+--- * Area volume is limited to 4,096,000 or 150,000,000 nodes (depending on the version)
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4934-L4943)
-function minetest.find_nodes_in_area(pos1, pos2, nodenames, grouped) end
+---
+--- @param pos1       Position     min positions of the area to search.
+--- @param pos2       Position     max positions of the area to search.
+--- @param node_names table|string e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
+--- @param grouped    boolean
+---
+--- @return (table<string,Position[]>|Position[]), (nil|table<string,number>)
+function minetest.find_nodes_in_area(pos1, pos2, node_names, grouped) end
 --- Returns a
 ---   list of positions.
 --- * `nodenames`: e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
