@@ -7,10 +7,12 @@ local YOUNG_TRUNKS_GROUP_POSTFIX = '_young'
 local YOUNG_TRUNKS_GROUP         = DEFAULT_TRUNKS_GROUP .. YOUNG_TRUNKS_GROUP_POSTFIX
 
 --- @class TrunkDefinition: NodeDefinition
---- @field _is_young      boolean|nil whether this thunk is young analogue of another full-size trunk.
---- @field _tree_height   number      max height of tree (will be used for digging of growing tree).
---- @field _leaves_radius number      radius of tree crown (will be used for leaves fall off).
---- @field _has_young     boolean     whether the trunk has young analogue.
+--- @field _is_young           boolean|nil whether this thunk is young analogue of another full-size trunk.
+--- @field _tree_height        number      max height of tree (will be used for digging of growing tree).
+--- @field _leaves_radius      number      radius of tree crown (will be used for leaves fall off).
+--- @field _has_young          boolean     whether the trunk has young analogue.
+--- @field _is_infected        boolean     whether the trunk is infected variant.
+--- @field _infected_node_name string      technical name of infected node pair.
 
 local trunks = {
 	--- @type table<string,table<string,TrunkDefinition>>|TrunkDefinition[][]

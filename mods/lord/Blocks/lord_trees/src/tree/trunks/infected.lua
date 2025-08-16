@@ -4,6 +4,9 @@ local trunks = require('tree.trunks')
 local INFECTED_TRUNKS_GROUP = 'infected'
 local INFECTED_BY           = { 'lottfarming:orc_food' }
 
+--- @class InfectedTrunkDefinition: TrunkDefinition
+--- @field _healthy_node_name string  technical name of not infected (healthy) tree trunk.
+
 --- @param parent_node_name string  technical name of not infected tree, which ends with 'tree' ("<mod>:<node>tree").
 --- @param tree_height      number
 --- @param leaves_radius    number
@@ -29,13 +32,14 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 
 	node_name = not node_name:starts_with('lord_trees:') and ':' .. node_name or node_name
 	trunks.register(node_name, softness, tree_height, leaves_radius, register_young, {
-		tiles             = { texture_top, texture_top, texture_side .. '^lord_trees_infected_side_overlay.png' },
-		groups            = { infected_tree = 1 },
-		_is_infected      = true,
-		_parent_node_name = parent_node_name,
+		tiles              = { texture_top, texture_top, texture_side .. '^lord_trees_infected_side_overlay.png' },
+		groups             = { infected_tree = 1 },
+		_is_infected       = true,
+		_healthy_node_name = parent_node_name,
 	}, INFECTED_TRUNKS_GROUP)
 
 	minetest.override_item(parent_node_name, {
+		_is_infected        = false,
 		_infected_node_name = node_name,
 		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
 			if not itemstack:get_name():is_one_of(INFECTED_BY) then
@@ -70,6 +74,27 @@ end
 for node_name, trunk_definition in pairs(trunks.get_nodes()) do
 	register_infected_trunk(node_name, trunk_definition._tree_height, trunk_definition._leaves_radius)
 end
+
+minetest.register_abm({
+	label     = 'Trees trunks Infection spreading',
+	nodenames = { 'group:infected_tree' },
+	interval  = 5,
+	chance    = 40,
+	action    = function(pos, node, active_object_count, active_object_count_wider)
+		local found_at, found_node_table = minetest.find_node_near_except(pos, 1, 'group:tree', 'group:infected_tree', false)
+		if not found_at then
+			return
+		end
+
+		--- @type TrunkDefinition
+		local found_node = minetest.registered_nodes[found_node_table.name]
+		if found_node._is_infected or not found_node._infected_node_name then
+			return
+		end
+
+		minetest.set_node(found_at, { name = found_node._infected_node_name })
+	end
+})
 
 
 return {
