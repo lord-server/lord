@@ -1,4 +1,5 @@
-local trunks = require('tree.trunks')
+local trunks          = require('tree.trunks')
+local MiasmaParticles = require('tree.trunks.infected.MiasmaParticles')
 
 local S = minetest.get_mod_translator()
 
@@ -122,6 +123,20 @@ minetest.register_abm({
 		end
 
 		minetest.set_node(found_at, { name = found_node._infected_node_name })
+	end
+})
+
+minetest.register_abm({
+	nodenames = { 'group:infected_tree' },
+	interval  = 1,
+	chance    = 10,
+	action = function(pos, node, active_object_count, active_object_count_wider)
+		local air_pos = minetest.find_node_near(pos, 1, 'air')
+		if not air_pos then
+			return
+		end
+
+		MiasmaParticles.spawn(pos, air_pos)
 	end
 })
 

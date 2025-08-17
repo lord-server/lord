@@ -3,10 +3,9 @@ local leaves   = require('tree.leaves')
 local saplings = require('tree.saplings')
 
 require('tree.trunks.slabs')
+require('tree.trunks.infected')
 require('tree.fruits')
 require('tree.leaves.decay')
-
-require('tree.trunks.infected')
 
 
 tree = {}
