@@ -86,7 +86,7 @@ local function fire_particles_on(pos)
 		maxsize            = 6,
 		collisiondetection = true,
 		vertical           = true,
-		texture            = "campfire_anim_smoke.png^[opacity:160",
+		texture            = { name = "campfire_anim_smoke.png^[opacity:160", alpha_tween = {1, 0.3}, },
 		animation          = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 5.1, },
 	})
 	meta:set_int("layer_3", id)
