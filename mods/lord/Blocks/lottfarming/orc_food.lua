@@ -30,15 +30,18 @@ minetest.register_craftitem("lottfarming:orc_food", {
 	description = S("Orc Food"),
 	inventory_image = "lottfarming_orc_food.png",
 	on_use = function(itemstack, user, pointed_thing)
-		local name = user:get_player_name()
-		hbhunger.hunger[name] = 20
-		hbhunger.set_hunger_raw(user)
 		if character.of(user):get_race() ~= lord_races.Name.ORC then
 			make_negative_visual_effect(user)
+			damage.Periodical:for_player(user):start(damage.Type.POISON, -1, 10, {
+				type      = 'set_hp',
+				from      = 'mod',
+				game_type = 'eat', -- TODO / maybe changed
+				item      = 'lottfarming:orc_food',
+			})
+			return minetest.do_item_eat(-3, nil, itemstack, user, pointed_thing)
+		else
+			return minetest.do_item_eat(8, nil, itemstack, user, pointed_thing)
 		end
-		itemstack:take_item(1)
-		minetest.give_or_drop(user, ItemStack("lord_vessels:bowl_wood"))
-		return itemstack
 	end,
 })
 
