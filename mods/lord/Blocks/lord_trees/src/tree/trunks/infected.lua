@@ -1,5 +1,7 @@
 local trunks = require('tree.trunks')
 
+local S = minetest.get_mod_translator()
+
 
 local INFECTED_TRUNKS_GROUP = 'infected'
 local INFECTED_BY           = { 'lottfarming:orc_food' }
@@ -56,6 +58,31 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 			return itemstack
 		end,
 	})
+
+	return node_name
+end
+
+--- @param original_node_name string name of infected tree
+local function register_infected_trunk_slab(original_node_name)
+	local definition = minetest.registered_nodes[original_node_name]
+	assertf(
+		definition._is_infected,
+		'Can\'n register infected slab: original node `%s` is not infected.',
+		original_node_name
+	)
+	assertf(definition.tiles[3], 'Can\'n register infected slab: definition must have `tiles[3]` texture of trunk side.')
+
+	local texture_side = definition.tiles[3]
+
+	stairs.register_slab(
+		original_node_name:remove('lord_trees:'),
+		original_node_name,
+		{ tree_slab = 1, choppy = definition.groups.choppy, flammable = 2 },
+		{ texture_side, },
+		S('Infected ' .. original_node_name:remove('lord_trees:infected_'):remove('_tree$'):title() ..' Trunk Slab'),
+		default.node_sound_wood_defaults(),
+		false
+	)
 end
 
 -- lord_trees:infected_alder_tree       | lord_trees:infected_alder_trunk
@@ -72,7 +99,9 @@ end
 -- lord_trees:infected_white_tree       | lord_trees:infected_white_trunk
 -- lord_trees:infected_yavannamire_tree | lord_trees:infected_yavannamire_trunk
 for node_name, trunk_definition in pairs(trunks.get_nodes()) do
-	register_infected_trunk(node_name, trunk_definition._tree_height, trunk_definition._leaves_radius)
+	register_infected_trunk_slab(
+		register_infected_trunk(node_name, trunk_definition._tree_height, trunk_definition._leaves_radius)
+	)
 end
 
 minetest.register_abm({
@@ -98,5 +127,6 @@ minetest.register_abm({
 
 
 return {
-	register = register_infected_trunk
+	register      = register_infected_trunk,
+	register_slab = register_infected_trunk_slab,
 }
