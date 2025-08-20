@@ -511,21 +511,25 @@ minetest.register_node(":default:jungletree_trunk", {
 -- Включение возможности падения стволов деревьев
 
 minetest.override_item("default:tree", {
-	on_dig = function(pos, node, digger)
-		default.dig_tree(pos, node, "default:tree", digger, 20, 2)
+	on_dig         = function(pos, node, digger)
+		default.dig_tree(pos, node, "default:tree", digger, 10, 2)
 	end,
-	on_place = function(itemstack, placer, pointed_thing)
+	on_place       = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "default:tree_trunk")
 	end,
+	_tree_height   = 10,
+	_leaves_radius = 2,
 })
 
 minetest.override_item("default:jungletree", {
-	on_dig = function(pos, node, digger)
-		default.dig_tree(pos, node, "default:jungletree", digger, 20, 2)
+	on_dig         = function(pos, node, digger)
+		default.dig_tree(pos, node, "default:jungletree", digger, 15, 2)
 	end,
-	on_place = function(itemstack, placer, pointed_thing)
+	on_place       = function(itemstack, placer, pointed_thing)
 		return default.place_tree(itemstack, placer, pointed_thing, "default:jungletree_trunk")
 	end,
+	_tree_height   = 15,
+	_leaves_radius = 2,
 })
 
 minetest.override_item('default:lava_source',  { damage_groups = { fire = true, }, })

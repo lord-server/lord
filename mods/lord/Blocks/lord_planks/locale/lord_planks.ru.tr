@@ -10,7 +10,6 @@ Cherry Planks=Доски из сакуры
 Culumalda Planks=Доски из кулумальды
 Elm Planks=Доски из вяза
 Fir Planks=Доски из ели
-Hardwood Planks=Доски из твёрдой древесины
 Lebethron Planks=Доски из лебетрона
 Mallorn Planks=Доски из маллорна
 Pine Planks=Доски из сосны
@@ -18,6 +17,8 @@ Plum Planks=Доски из сливы
 White Planks=Доски из Белого дерева
 Yavannamire Planks=Доски из йаваннамирэ
 
+Hardwood Planks=Доски из твёрдой древесины
+Infected Planks=Доски из заражённого дерева
 
 ## planks stairs: ##
 Alder Wood Stair=Ступенька из ольхи
@@ -55,11 +56,6 @@ Fir Wood Slab=Плита из досок ели
 Inner Fir Wood Stair=Угловая ступенька из ели (Внутренний Угол)
 Outer Fir Wood Stair=Угловая ступенька из ели (Внешний Угол)
 #
-Hardwood stair=Ступенька из твердой древесины
-Hardwood Slab=Плита из твёрдой древесины
-Inner Hardwood stair=Угловая ступенька из твёрдой древесины (Внутренний Угол)
-Outer Hardwood stair=Угловая ступенька из твёрдой древесины (Внешний Угол)
-#
 Lebethron Wood Stair=Ступенька из лебетрона
 Lebethron Wood Slab=Плита из лебетрона
 Inner Lebethron Wood Stair=Угловая ступенька из лебетрона (Внутренний Угол)
@@ -80,11 +76,6 @@ Plum Wood Slab=Плита из сливы
 Inner Plum Wood Stair=Угловая ступенька из сливы (Внутренний Угол)
 Outer Plum Wood Stair=Угловая ступенька из сливы (Внешний Угол)
 #
-Hardwood Wood Stair=Ступенька из твердого дерева
-Hardwood Wood Slab=Плита из твердого дерева
-Inner Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внутренний Угол)
-Outer Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внешний Угол)
-#
 White Wood Stair=Ступенька из Белого дерева
 White Wood Slab=Плита из Белого дерева
 Inner White Wood Stair=Угловая ступенька из Белого дерева (Внутренний Угол)
@@ -94,3 +85,14 @@ Yavannamire Wood Stair=Ступенька из йаваннамирэ
 Yavannamire Wood Slab=Плита из йаваннамирэ
 Inner Yavannamire Wood Stair=Угловая ступенька из йаваннамирэ (Внутренний Угол)
 Outer Yavannamire Wood Stair=Угловая ступенька из йаваннамирэ (Внешний Угол)
+
+#
+Hardwood Wood Stair=Ступенька из твердого дерева
+Hardwood Wood Slab=Плита из твердого дерева
+Inner Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внутренний Угол)
+Outer Hardwood Wood Stair=Угловая ступенька из твердого дерева (Внешний Угол)
+#
+Infected Wood Stair=Ступенька из заражённого дерева
+Infected Wood Slab=Плита из заражённого дерева
+Inner Infected Wood Stair=Угловая ступенька из заражённого дерева (Внутренний Угол)
+Outer Infected Wood Stair=Угловая ступенька из заражённого дерева (Внешний Угол)

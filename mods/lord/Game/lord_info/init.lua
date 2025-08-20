@@ -1,5 +1,6 @@
-local S = minetest.get_mod_translator()
-
+local S    = minetest.get_mod_translator()
+local spec = minetest.formspec
+local e    = spec.escape
 
 --- @param search_query string
 --- @return table
@@ -42,52 +43,78 @@ local function move_ghost_to_end(list)
 	end
 end
 
+--- @param definition ItemDefinition
+--- @return string[] array of `"<name>=<value>"` strings
+local function get_groups_list(definition)
+	local groups = definition and definition.groups or {}
+	local groups_list = {}
+	for name, value in pairs(groups) do
+		table.insert(groups_list, name .. " = " .. value)
+	end
 
+	return groups_list
+end
+
+--- @param name         string
+--- @param select_id    number
+--- @param search_query string
+--- @return string
 local function list_form(name, select_id, search_query)
-	local form = "size[8,8.5]background[5,5;1,1;info_formbg.png;true]"
-	form = form..
-		"label[0.3,0.3;".. S("Objects:").."]"..
-		"field_close_on_enter[txt_filter;false]"..
-		"field[3.0,0.3;2.5,1;txt_filter;;"..minetest.formspec_escape(search_query).."]"..
-		"button[5.2,0;2.5,1;btn_find;".. S("Find").."]"
+	local width   = 10
+	local height  = 11
+	local padding = { x = 0.25, y = 0.3 }
+	local field_h = 0.65
+	local row_h   = field_h + padding.y
+	local label_h = padding.y
 
 	local list = get_filtered_list(search_query)
+	table.sort(list)
+	-- moving ghost items to the end of the list:
+	move_ghost_to_end(list)
 
-	if #list == 0 then
-		form = form.."textlist[0.3,0.8;7.2,3.6;lst_objs;;;]"
-		form = form.."label[0.3,4.5;".. S("Groups:").."]"
-		form = form.."textlist[0.3,5.0;7.2,1.0;lst_groups;;;]"
-		form = form.."textarea[0.6,6.5;7.4,1.5;txt_description;".. S("Description:")..";]"
-		form = form.."button_exit[0.3,7.7;3,1;btn_exit;".. S("Exit").."]"
-	else
-		-- sorting
-		table.sort(list)
+	local item_name       = list[select_id]
+	local item_definition = minetest.registered_items[item_name]
+	local stack_max       = item_definition and item_definition.stack_max or 0
 
-		-- moving ghost items to the end of the list:
-		move_ghost_to_end(list)
+	local list_h  = 4
+	local details = {
+		label_y = padding.y + row_h + list_h + padding.y,
+		pos_x1  = padding.x,
+		pos_x2  = width/3 + padding.x/2,
+		pos_y   = padding.y + row_h + list_h + padding.y + label_h,
+		width1  = width/3 - 1.5*padding.x,
+		width2  = width*2/3 - 1.5*padding.x,
+		height  = 4
+	}
+	local d = details
 
-		-- form construction step-by-step
-		local item_name = list[select_id]
-		form = form.."field[3,3;0,0;txt_select;;"..item_name.."]" -- скрыто
-		form = form.."textlist[0.3,0.8;7.2,3.6;lst_objs;"..table.concat(list, ",")..";"..tostring(select_id)..";]"
-		form = form.."label[0.3,4.5;".. S("Groups:").."]"
-		local groups = {}
-		for i, j in pairs(minetest.registered_items[list[select_id]].groups) do
-			table.insert(groups, i.." = "..tostring(j))
-		end
-		groups = table.concat(groups, ",")
-		form = form.."textlist[0.3,5.0;7.2,1.0;lst_groups;"..groups..";;]"
-		local description = minetest.registered_items[list[select_id]].description
-		if (description == nil)or(description == "") then description = S("no description") end
-		description = minetest.formspec_escape(description)
-		form = form.."textarea[0.6,6.5;7.4,1.5;txt_description;".. S("Description:")..";"..description.."]"
-		form = form.."button_exit[0.3,7.7;3,1;btn_exit;".. S("Exit").."]"
-		form = form.."label[4.0,7.9;".. S("To invenory:").."]"
-		form = form.."item_image_button[5.7,7.7;1,1;"..item_name..";btn_giveme;1]"
-		local stack_max = minetest.registered_items[list[select_id]].stack_max
-		form = form.."item_image_button[6.7,7.7;1,1;"..item_name..";btn_giveme_m;"..tostring(stack_max).."]"
-	end
-	return form
+	local last_row_y = height - padding.y - field_h
+
+	return ""
+		.. spec.formspec_version(4)
+		.. spec.size(width, height)
+		.. spec.box(padding.x, padding.y, 3, field_h, '#000')
+		.. spec.field(padding.x, padding.y, 3, field_h, "txt_filter", "", e(search_query))
+		.. spec.button(width - padding.x - 2, padding.y, 2, field_h, "btn_find", S("Find"))
+		.. spec.field_close_on_enter("txt_filter", false)
+
+		.. --[[ скрытое поле ]] spec.field(3, 3, 0, 0, "txt_select", "", item_name)
+		--.. spec.label(padding.x, 1, S("Objects:"))
+		.. spec.textlist(padding.x, padding.y + row_h, width - 2*padding.x, list_h, "lst_objs", list, select_id, "")
+		.. spec.label(d.pos_x1, d.label_y, S("Groups:"))
+		.. spec.label(d.pos_x2, d.label_y, S("Definition:"))
+		.. spec.box(d.pos_x2, d.pos_y, d.width2, d.height, '#000')
+		.. spec.textlist(d.pos_x1, d.pos_y, d.width1, d.height, "lst_groups", get_groups_list(item_definition))
+		.. spec.textarea(d.pos_x2, d.pos_y, d.width2, d.height, "txt_definition", "", e(dump(item_definition)))
+		.. spec.button_exit(padding.x, last_row_y, 3, field_h, "btn_exit", S("Exit"))
+		.. spec.label(width - padding.x - 4, last_row_y + field_h/2, S("To inventory:"))
+		.. (item_name
+			and
+				spec.item_image_button(width - padding.x - 2, last_row_y - 0.1, 0.8, 0.8, item_name, "btn_giveme", 1) ..
+				spec.item_image_button(width - padding.x - 1, last_row_y - 0.1, 0.8, 0.8, item_name, "btn_giveme_m", stack_max)
+			or
+				""
+		)
 end
 
 -- чат-команды
@@ -132,8 +159,6 @@ local function handle_list_form(player, form_name, fields)
 	end
 end
 
--- обработка событий на формах
--- TODO: register separate handlers
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "list_form" then
 		return

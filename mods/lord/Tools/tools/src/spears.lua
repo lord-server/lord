@@ -11,7 +11,7 @@ return {
 	wood        = {
 		description           = S("Wooden Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 3.70, [2] = 2.70, [3] = 1.70 }, uses = 3, maxlevel = 1 },
 		damage_groups         = { fleshy = 3.00 },
@@ -21,7 +21,7 @@ return {
 	stone       = {
 		description           = S("Stone Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.75, [2] = 1.75, [3] = 0.75 }, uses = 5, maxlevel = 1 },
 		damage_groups         = { fleshy = 4.50 },
@@ -30,7 +30,7 @@ return {
 	steel       = {
 		description           = S("Steel Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.40, [2] = 1.40, [3] = 0.40 }, uses = 15, maxlevel = 1 },
 		damage_groups         = { fleshy = 7.00 },
@@ -40,7 +40,7 @@ return {
 	bronze      = {
 		description           = S("Bronze Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.40, [2] = 1.40, [3] = 0.40 }, uses = 20, maxlevel = 1 },
 		damage_groups         = { fleshy = 8.75 },
@@ -59,7 +59,7 @@ return {
 	tin         = {
 		description           = S("Tin Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
 		damage_groups         = { fleshy = 4.95 },
@@ -69,7 +69,7 @@ return {
 	silver      = {
 		description           = S("Silver Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.2, [2] = 1.2, [3] = 0.20 }, uses = 15, maxlevel = 1 },
 		damage_groups         = { fleshy = 8.79 },
@@ -79,7 +79,7 @@ return {
 	gold        = {
 		description           = S("Gold Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.2, [2] = 1.2, [3] = 0.20 }, uses = 20, maxlevel = 1 },
 		damage_groups         = { fleshy = 9.12 },
@@ -89,7 +89,7 @@ return {
 	galvorn     = {
 		description           = S("Galvorn Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.3, [2] = 1.3, [3] = 0.30 }, uses = 25, maxlevel = 1 },
 		damage_groups         = { fleshy = 11.10 },
@@ -99,7 +99,7 @@ return {
 	mithril     = {
 		description           = S("Mithril Spear"),
 		wield_image_transform = "^[transformFX",
-		range                 = 7,
+		range                 = 6,
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.00, [2] = 1.00, [3] = 0.20 }, uses = 30, maxlevel = 2 },
 		damage_groups         = { fleshy = 7.5 },
