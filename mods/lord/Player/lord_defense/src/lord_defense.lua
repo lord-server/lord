@@ -44,14 +44,15 @@ local function collect_defense_from_armor_equipment(player)
 		remember_material(stack, material)
 	end
 
-	if ring_defense > 0 then
-		local only_armor_fleshy_defense = defense.fleshy - ring_defense
-		defense.fleshy = math.max(ring_defense, only_armor_fleshy_defense)
-	end
-
 	-- if same material set
 	if (material.type and material.count == armor_slots_count) then
 		defense.fleshy = defense.fleshy * 1.1
+	end
+
+	-- either armor or the ring
+	if ring_defense > 0 then
+		local only_armor_fleshy_defense = defense.fleshy - ring_defense
+		defense.fleshy = math.max(ring_defense, only_armor_fleshy_defense)
 	end
 
 	return defense, damage_avoid
