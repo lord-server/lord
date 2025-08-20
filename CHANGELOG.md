@@ -1,5 +1,41 @@
 # Change Log
 
+## [2025.07](https://github.com/lord-server/lord/releases/tag/2025.07)
+ - Dwarven rope: change recipe, add digging by pickaxe and hand
+ - Hold Points:
+   - add sounds to node. LG-1924 #done.
+ - Textures:
+   - Change clan chest texture. LG-1270 #done.
+ - Blocks: Infected: Trees:
+   - add trunks. LG-47 #done.
+   - add planks & srairs/slab & mese post ligth. LG-1948 #done.
+   - add stick & wooden stuff. LG-1949 #done
+   - add initial infection. LG-1950
+   - add infection spreading. LG-1951
+   - apply textures. LG-1956.
+   - add slabs for infected trunks. LG-1953
+   - no leaf decay for infected trees. LG-1959
+   - add miasmas
+   - no infecting in protected areas. LG-1952
+ - Orc food now recover 12 points of Warg health.
+ - Campfire: a little smoke imrovement.
+ - Orcish food: no bowl on eat, add poisoning for not orcs, add satiety increase for orcs. LG-1958
+ - Rebalance: Armor:
+   - only armor-set or ring applied (not both). LG-1962
+   - new properties. LG-1960
+ - Bugfixes:
+   - Clans: Hold Points: fix crash on manual stop. LG-1936 #done. [2025.06.p1]
+ - Technical:
+   - `ide-helper`: add `@param`s annotation for `minetest.set_node()`
+   - `ide-helper`: add `ABMDefinition` notations.
+   - `Core`: `builtin_ext`: ability to pass `boolean` into `FormSpec.field_close_on_enter()`
+   - Debug: show items definition in `/list` command. LG-1957 #done.
+   - `ide-helper`: improve annotations for `minetest.{find_node_near|find_nodes_in_area}()`.
+   - `Core`: `builtin_ext`: add `minetest.{find_nodes_near|find_nodes_near_except|find_node_near_except}()` helpers.
+   - Trees: trunks: abbility to specify "group" & get nodes by that group; store some properties in definition. Relates to LG-1947
+   - Removing tautology
+   - Tweak past contributor name VanicGame -> varttist
+
 ## [2025.06](https://github.com/lord-server/lord/releases/tag/2025.06)
  - Added hopper
  - Anvil: Improve movement by click with `shift` (#2290)
