@@ -45,6 +45,16 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 		_is_infected        = false,
 		_infected_node_name = node_name,
 		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
+			local player_name = clicker:get_player_name()
+			pd(minetest.is_protected(pos, player_name), minetest.check_player_privs(player_name, "protection_bypass"))
+			if
+				minetest.is_protected(pos, player_name) and
+				not minetest.check_player_privs(player_name, "protection_bypass")
+			then
+				minetest.record_protection_violation(pos, player_name)
+				return itemstack
+			end
+
 			if not itemstack:get_name():is_one_of(INFECTED_BY) then
 				if not clicker:get_player_control().sneak then
 					return minetest.item_place_node(itemstack, clicker, pointed_thing)
