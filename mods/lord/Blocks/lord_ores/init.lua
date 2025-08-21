@@ -8,7 +8,7 @@ minetest.mod(function(mod)
 
 	minetest.register_node("lord_ores:magma", {
 		description                = S("Magma"),
-		groups                     = { rock = 1, cracky = 2, },
+		groups                     = { rock = 1, cracky = 2, wall_connected = 1},
 		paramtype                  = "light",
 		light_source               = 4,
 		sounds                     = default.node_sound_stone_defaults(),
