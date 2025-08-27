@@ -22,7 +22,7 @@ local function get_mouse_click_handler(swap_to_node, title, drop_items)
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		loot_functions.drop_items_to_world(pos, clicker:get_pos(), drop_items)
+		loot_functions.drop_items_to_world(pos, clicker:get_pos(), clicker:get_look_horizontal(), drop_items)
 		minetest.swap_node(pos, { name = swap_to_node, param2 = node.param2 })
 		meta:set_string('infotext', title)
 		minetest.sound_play( 'drop_loot_of_remains', { gain = 3, pos = pos, max_hear_distance = 10 }, true )
