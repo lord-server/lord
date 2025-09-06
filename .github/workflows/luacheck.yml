@@ -38,6 +38,7 @@ jobs:
               mods/_minetest_game/ \
               mods/lord/_experimental/lord_spawners/src/spawners/api.lua \
               mods/lord/_overwrites/MTG/default/ \
+              mods/lord/Blocks/beds/ \
               mods/lord/Blocks/lottblocks/ \
               mods/lord/Blocks/lord_homedecor/ \
               mods/lord/Blocks/protector_lott/ \
