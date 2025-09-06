@@ -326,6 +326,6 @@ lord_homedecor.register("chimney", {
 		"default_brick.png"
 	},
 	selection_box = lord_homedecor.nodebox.bar_y(0.25),
-	groups = {cracky=3},
+	groups = {cracky=3, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults()
 })
