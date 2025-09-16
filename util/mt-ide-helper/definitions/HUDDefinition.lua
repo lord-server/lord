@@ -31,7 +31,7 @@ local HudDefinition = {
 	--- To account for differing resolutions, the position coordinates are the percentage of the screen,
 	--- ranging in value from `0` to `1`.
 	---
-	--- @type Position2d
+	--- @type Position2d?
 	position = {x = 0, y = 0},
 
 	--- Offset in pixels from the position.
@@ -40,13 +40,13 @@ local HudDefinition = {
 	---
 	--- **Note:** offset will adapt to screen DPI as well as user defined scaling factor!
 	---
-	--- @type Position2d
+	--- @type Position2d?
 	offset = {x = 0, y = 0},
 
 	--- Alignment anchor. Values: `{x = -1..1, y = -1..1}`.
 	--- It is a table where `x` and `y` range from -1 to 1, with 0 being central.
 	--- `-1` is moved to the left/up, and 1 is to the right/down. Fractional values can be used.
-	--- @type Position2d
+	--- @type Position2d?
 	alignment = {x = 0, y = 0},
 
 	--- Direction: 0: left-right, 1: right-left, 2: top-bottom, 3: bottom-top.
@@ -55,7 +55,7 @@ local HudDefinition = {
 	--- `0` draws from left to right, `1` draws from right to left, `2` draws from top to bottom,
 	--- and `3` draws from bottom to top.
 	---
-	--- @type number
+	--- @type number?
 	direction = 0,
 
 	--- * For `type` == `"image"`:
@@ -80,7 +80,7 @@ local HudDefinition = {
 	--- * * The size of this element.
 	---     Negative values represent percentage of the screen; e.g. x=-100 means 100% (width).
 	---
-	--- @type Position2d
+	--- @type Position2d?
 	scale = {x = 1, y = 1},
 
 	--- Name of the text or image to display.
@@ -90,10 +90,14 @@ local HudDefinition = {
 	--- * For "inventory": The name of the inventory list to be displayed.
 	--- * For "waypoint": Distance suffix. Can be blank.
 	---
-	--- @type string
+	--- @type string?
 	text = "",
 
-	--- @type string
+	--- * For "statbar": Optional texture name to enable a background / "off state" texture
+	---   (useful to visualize the maximal value).
+	---   Both textures must have the same size.
+	---
+	--- @type string?
 	text2 = "",
 
 	--- * For "text": An integer containing the RGB value of the color used to draw the text.
@@ -103,20 +107,13 @@ local HudDefinition = {
 	--- * For "inventory": Number of items in the inventory to be displayed.
 	--- * For "waypoint": An integer containing the RGB value of the color used to draw the text.
 	---
-	--- @type number
+	--- @type number?
 	number = 0,
 
 	--- * For "statbar": Same as `number` but for the "off state" texture.
 	--- * For "inventory": Position of item that is selected.
-	--- @type number
+	--- @type number?
 	item = 0,
-
-	--- * For "statbar": Optional texture name to enable a background / "off state" texture
-	---   (useful to visualize the maximal value).
-	---   Both textures must have the same size.
-	---
-	--- @type string
-	text2 = "",
 
 	--- * For "text": size of the text. The player-set font size is multiplied by size.x (y value isn't used).
 	--- * For "statbar": If used, will force full-image size to this value (override texture pack image size).
@@ -128,7 +125,7 @@ local HudDefinition = {
 	---     Example: On a 1920x1080 screen, {x = 0, y = -25} will result in a 270x270 minimap.
 	---   * - Negative values are supported starting with protocol version 45.
 	---
-	--- @type Position2d
+	--- @type Position2d?
 	size = {x=0, y=0},
 
 	--- Z index: lower z-index HUDs are displayed behind higher z-index HUDs
@@ -150,12 +147,12 @@ local HudDefinition = {
 	---
 	--- If your HUD element doesn't fit into any category, pick a number between the suggested values.
 	---
-	--- @type number
+	--- @type number?
 	z_index = 0,
 
 	--- * For "text": determines font style Bitfield with 1 = bold, 2 = italic, 4 = monospace.
 	---
-	--- @type number
+	--- @type number?
 	style = 0,
 
 	--- * For "waypoint": Waypoint precision, integer >= 0. Defaults to 10.
@@ -165,11 +162,11 @@ local HudDefinition = {
 	---   `precision = 2` will show multiples of `0.5`;
 	---   `precision = 5` will show multiples of `0.2` and so on: precision = n will show multiples of `1/n`.
 	---
-	--- @type number
+	--- @type number?
 	precision = 10,
 
 	--- * For "waypoint"/"image_waypoint": World position of the waypoint.
 	---
-	--- @type Position
+	--- @type Position?
 	world_pos = {x=0, y=0, z=0},
 }

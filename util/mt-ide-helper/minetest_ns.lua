@@ -136,8 +136,8 @@ function minetest.wrap_text(str, limit, as_table) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3252-L3256)
 ---
---- @param pos            Position
---- @param decimal_places number
+--- @param pos             Position
+--- @param decimal_places? number
 --- @return string
 function minetest.pos_to_string(pos, decimal_places) end
 --- returns a position or `nil`
@@ -1520,9 +1520,9 @@ function minetest.strip_param2_color(param2, paramtype2) end
 function minetest.get_node_drops(node, toolname) end
 
 --- @class RecipeInput
---- @field method string      `"normal"` or `"cooking"` or `"fuel"`
---- @field width  number      for example `3`
---- @field items  ItemStack[] for example `{stack1, stack2, stack3, stack4, stack 5, stack 6, stack 7, stack 8, stack 9}`
+--- @field method string                               `"normal"` or `"cooking"` or `"fuel"`
+--- @field width  number                               for example `3`
+--- @field items  ItemStack[]|table<number, ItemStack> for example `{stack1, stack2, stack3, stack4, stack 5, stack 6, stack 7, stack 8, stack 9}`
 
 --- @class RecipeOutput
 --- @field item         ItemStack

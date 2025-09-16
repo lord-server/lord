@@ -1,6 +1,9 @@
+--- @diagnostic disable: missing-return
+
+
 ---@class AuthenticationHandlerGetAuth
 ---@field password string
----@field priveleges table<string,number>
+---@field privileges table<string,number>
 ---@field last_login number|nil
 
 -- Used by `minetest.register_authentication_handler`.

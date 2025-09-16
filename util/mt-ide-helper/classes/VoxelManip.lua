@@ -1,3 +1,5 @@
+--- @diagnostic disable: missing-return
+
 
 --- @class VoxelManip
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.7.0/doc/lua_api.txt#L4244)

@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- Base class used by [`StorageRef`], [`NodeMetaRef`], [`ItemStackMetaRef`],
 --- and [`PlayerMetaRef`].
 ---
@@ -62,6 +65,6 @@ function MetaDataRef:to_table() end
 function MetaDataRef:from_table(value) end
 
 --- * returns `true` if this metadata has the same key-value pairs as `other`
---- @param other
+--- @param other any
 --- @return boolean
 function MetaDataRef:equals(other) end

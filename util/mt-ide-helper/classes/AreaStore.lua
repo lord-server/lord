@@ -1,7 +1,9 @@
+--- @diagnostic disable: missing-return
 
---- @class AreaStore
+
 --- `AreaStore` is a data structure to calculate intersections of 3D cuboid volumes and points.
 --- Despite its name, mods must take care of persisting AreaStore data. They may use the provided load and write functions for this.
+--- @class AreaStore
 --- @field data string may be used to store and retrieve any mod-relevant information to the specified area.
 AreaStore = {}
 

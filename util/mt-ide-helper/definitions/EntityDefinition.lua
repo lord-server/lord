@@ -1,10 +1,16 @@
+--- @diagnostic disable: missing-return
+
+
+--- Used by `core.register_entity`.
+--- The entity definition table becomes a metatable of a newly created per-entity luaentity table,  
+---   meaning its fields (e.g. initial_properties) will be shared between all instances of an entity.
 --- @class EntityDefinition
 local EntityDefinition = {
 	--- A table of object properties, see the `Object properties` section.
 	--- The properties in this table are applied to the object
 	---	once when it is spawned.
-	--- @type ObjectProperties
-	initial_properties = {},
+	--- @type ObjectProperties?
+	initial_properties = nil,
 
 
 	--- Called when the object is instantiated.

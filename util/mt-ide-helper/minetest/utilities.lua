@@ -1,4 +1,14 @@
+--- @diagnostic disable: missing-return
 
+--- Returns the currently loading mod's name, when loading a mod.
+---  - Returns nil if not loading a mod.
+---  - Only works during mod loading (i.e. when a mod calls this function from
+---    its top-level scope, or from a function called during mod loading).
+---  - Useful for libraries to determine which mod is loading them, for
+---    example to access that mod's mod storage.
+--- @see minetest.get_modpath
+--- @see minetest.get_modnames
+--- @see minetest.get_worldpath
 --- @return string returns the currently loading mod's name, when loading a mod.
 function minetest.get_current_modname() end
 

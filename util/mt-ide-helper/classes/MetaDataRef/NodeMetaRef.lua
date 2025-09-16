@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- Node metadata: reference extra data and functionality stored in a node.
 --- Can be obtained via `minetest.get_meta(pos)`.
 ---

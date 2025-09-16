@@ -1,15 +1,15 @@
 --- @class SimpleSoundSpec
 local SimpleSoundSpec = {
 	--- Scales the gain specified in `SimpleSoundSpec`.
-	--- @type number
+	--- @type number?
 	gain              = 1.0,
 
 	--- Overwrites the pitch specified in `SimpleSoundSpec`.
-	--- @type number
+	--- @type number?
 	pitch             = 1.0,
 
 	--- Overwrites the fade specified in `SimpleSoundSpec`.
-	--- @type number
+	--- @type number?
 	fade              = 0.0,
 
 	--- Start with a time-offset into the sound.
@@ -21,16 +21,16 @@ local SimpleSoundSpec = {
 	---
 	--- Available since feature `sound_params_start_time`.
 	---
-	--- @type number
+	--- @type number?
 	start_time        = 0.0,
 
 	--- If true, sound is played in a loop.
-	--- @type boolean
+	--- @type boolean?
 	loop              = false,
 
 	--- Play sound at a position.
 	--- Can't be used together with `object`.
-	--- @type Position
+	--- @type Position?
 	pos               = { x = 1, y = 2, z = 3 },
 
 	--- Attach the sound to an object.
@@ -51,19 +51,19 @@ local SimpleSoundSpec = {
 	--- the active object range; they should start playing again if objects
 	--- come back into range (but due to a known bug, they don't yet).
 	---
-	--- @type ObjectRef
+	--- @type ObjectRef?
 	object            = nil,
 
 	--- Only play for this player.
 	--- Can't be used together with `exclude_player`.
 	---
-	--- @type string
+	--- @type string?
 	to_player         = '',
 
 	--- Don't play sound for this player.
 	--- Can't be used together with `to_player`.
 	---
-	--- @type string
+	--- @type string?
 	exclude_player    = '',
 
 	--- Only play for players that are at most this far away when the sound
@@ -71,6 +71,6 @@ local SimpleSoundSpec = {
 	--- Needs `pos` or `object` to be set.
 	--- `32` is the default.
 	---
-	--- @type number
+	--- @type number?
 	max_hear_distance = 32,
 }

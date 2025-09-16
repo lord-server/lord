@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- Node Timers: a high resolution persistent per-node timer.
 --- Can be gotten via `core.get_node_timer(pos)`.
 --- @class NodeTimerRef

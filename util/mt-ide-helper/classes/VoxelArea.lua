@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- @class VoxelArea
 --- A helper class for voxel areas.
 --- It can be created via `VoxelArea(pmin, pmax)` or

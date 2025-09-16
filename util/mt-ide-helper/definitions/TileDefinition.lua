@@ -3,11 +3,11 @@ local TileDefinition = {
 	--- @type string
 	name = "image.png",
 
-	--- @type TileAnimationDefinition
+	--- @type TileAnimationDefinition?
 	animation = nil,
 
 	--- Backface culling enabled by default for most nodes.
-	--- @type boolean
+	--- @type boolean?
 	backface_culling = true,
 
 	--- One of `{"node"|"world"|"user"}`.
@@ -17,7 +17,7 @@ local TileDefinition = {
 	--- `"user"` means that client setting will be used, similar to `glasslike_framed_optional`.
 	---
 	--- **Note:** supported by solid nodes and nodeboxes only.
-	--- @type string
+	--- @type string?
 	align_style = "none",
 
 	--- `scale` is used to make texture span several (exactly scale) nodes, instead of just one, in each direction.
@@ -26,11 +26,11 @@ local TileDefinition = {
 	---
 	--- **Note** that as the effect is applied on per-mapblock basis,
 	---   16 should be equally divisible by scale or you may get wrong results.
-	--- @type number
+	--- @type number?
 	scale = 1,
 
 	--- - the texture's color will be multiplied with this color.
     --- - the tile's color overrides the owning node's color in all cases.
-	--- @type string|ColorSpec
+	--- @type string|ColorSpec|nil
 	color = ""
 }

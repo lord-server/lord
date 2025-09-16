@@ -1,12 +1,12 @@
+--- @diagnostic disable: missing-return
+
+
 --- @class Player: ObjectRef
 Player = {}
 
---- @return string
-function Player:get_player_name() end
 --- @return InvRef
 function Player:get_inventory() end
 
---TODO:
 --- returns `""` if is not a player
 --- @return string
 function Player:get_player_name() end
@@ -120,6 +120,8 @@ function Player:get_player_control() end
 ---        * 8 - place
 ---        * 9 - zoom
 ---    * Returns `0` (no bits set) if the object is not a player.
+--- @return number
+function Player:get_player_control_bits() end
 
 --- @class physics_override_table
 --- @field speed        number multiplier to default walking speed value (default: `1`)
@@ -129,8 +131,7 @@ function Player:get_player_control() end
 --- @field sneak_glitch number whether player can use the new move code replications of the old sneak side-effects: sneak ladders and 2 node sneak jump (default: `false`)
 --- @field new_move     number use new move/sneak code. When `false` the exact old code is used for the specific old sneak behavior (default: `true`)
 
---- @return physics_override_table
-function Player:get_player_control_bits() end
+--- set physics override for player
 ---    * `override_table` is a table with the following fields:
 ---        * `speed`: multiplier to default walking speed value (default: `1`)
 ---        * `jump`: multiplier to default jump value (default: `1`)
@@ -144,6 +145,7 @@ function Player:get_player_control_bits() end
 --- @param override_table physics_override_table
 function Player:set_physics_override(override_table) end
 --- returns the table given to `set_physics_override`
+--- @return physics_override_table
 function Player:get_physics_override() end
 --- add a HUD element described by HUD def, returns ID
 ---   number on success
@@ -214,8 +216,11 @@ function Player:set_minimap_modes(modes_list, selected_mode) end
 ---      whether `set_sky` accepts this format. Check the legacy format otherwise.
 ---    * Passing no arguments resets the sky to its default values.
 ---    * `sky_parameters` is a table with the following optional fields:
----        * `base_color`: ColorSpec, changes fog in "skybox" and "plain".
----          (default: `#ffffff`)
+---        * `base_color`: ColorSpec, changes fog in "skybox" and "plain". (default: `#ffffff`)
+---        * `body_orbit_tilt`: Float, rotation angle of sun/moon orbit in degrees.  
+---             By default, orbit is controlled by a client-side setting, and this field is not set.  
+---             After a value is assigned, it can only be changed to another float value.  
+---             Valid range [-60.0,60.0] (default: not set)
 ---        * `type`: Available types:
 ---            * `"regular"`: Uses 0 textures, `base_color` ignored
 ---            * `"skybox"`: Uses 6 textures, `base_color` used as fog.
@@ -256,6 +261,18 @@ function Player:set_minimap_modes(modes_list, selected_mode) end
 ---                abides by, `"custom"` uses `sun_tint` and `moon_tint`, while
 ---                `"default"` uses the classic Minetest sun and moon tinting.
 ---                Will use tonemaps, if set to `"default"`. (default: `"default"`)
+---        * `fog`: A table containing the following values:
+---            * `fog_distance`: integer, set an upper bound for the client's viewing_range.  
+---                 Any value >= 0 sets the desired upper bound for viewing_range, disables range_all and prevents disabling fog (F3 key by default).  
+---                 Any value < 0 resets the behavior to being client-controlled. (default: -1)
+---            * `fog_start`: float, override the client's fog_start.  
+---                 Fraction of the visible distance at which fog starts to be rendered.  
+---                 Any value between [0.0, 0.99] set the fog_start as a fraction of the viewing_range.
+---                 Any value < 0, resets the behavior to being client-controlled. (default: -1)
+---            * `fog_color`: ColorSpec, override the color of the fog.  
+---                 Unlike `base_color` above this will apply regardless of the skybox type.  
+---                 (default: `"#00000000"`, which means no override)
+--- @param sky_parameters table
 function Player:set_sky(sky_parameters) end
 ---    * Deprecated. Use `set_sky(sky_parameters)`
 ---    * `base_color`: ColorSpec, defaults to white
@@ -274,6 +291,7 @@ function Player:set_sky(base_color, type, texture_names, clouds) end
 function Player:get_sky(as_table) end
 ---    * Deprecated: Use `get_sky(as_table)` instead.
 ---    * returns a table with the `sky_color` parameters as in `set_sky`.
+--- @deprecated
 function Player:get_sky_color() end
 ---    * Passing no arguments resets the sun to its default values.
 ---    * `sun_parameters` is a table with the following optional fields:

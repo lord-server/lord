@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- An interface to read config files in the format of `minetest.conf`.
 ---
 --- `minetest.settings` is a `Settings` instance that can be used to access the

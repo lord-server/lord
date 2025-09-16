@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- @class ObjectRef
 ObjectRef = {}
 
@@ -29,9 +32,10 @@ function ObjectRef:add_velocity(vel) end
 --- @param pos Position
 --- @param continuous boolean
 function ObjectRef:move_to(pos, continuous) end
---- @param puncher ObjectRef another `ObjectRef`,
+--- Arguments `time_from_last_punch`, `tool_capabilities`, and `direction` will be replaced with a default value when the caller sets them to nil.
+--- @param puncher ObjectRef|Entity|Player another `ObjectRef`
 --- @param time_from_last_punch number? time since last punch action of the puncher
---- @param direction`: can be `nil`
+--- @param direction Position the direction from which the punch came, normalized vector
 function ObjectRef:punch(puncher, time_from_last_punch, tool_capabilities, direction) end
 --- @param clicker ObjectRef
 function ObjectRef:right_click(clicker) end
@@ -69,17 +73,20 @@ function ObjectRef:set_animation(frame_range, frame_speed, frame_blend, frame_lo
 function ObjectRef:get_animation() end
 --- @param frame_speed number default: `15.0`
 function ObjectRef:set_animation_frame_speed(frame_speed) end
+
+--- Attaches object to `parent`.  
+--- See 'Attachments' section for details.  
+--- This command may fail silently (do nothing) when it would result in circular attachments.
 --- @overload fun(parent:ObjectRef)
 --- @param parent ObjectRef to attach to
 --- @param bone string default `""` (the root bone)
 --- @param position Position relative position, default `{x=0, y=0, z=0}`
 --- @param rotation Position|vector relative rotation in degrees, default `{x=0, y=0, z=0}`
 --- @param forced_visible boolean to control whether the attached entity should appear in first person, default `false`.
---- * Please also read the [Attachments] section above.
---- * This command may fail silently (do nothing) when it would result
----   in circular attachments.
 function ObjectRef:set_attach(parent, bone, position, rotation, forced_visible) end
---- @return ObjectRef,string,Position,Position,boolean parent, bone, position, rotation, forced_visible, or nil if it isn't attached.
+--- Returns current attachment parameters or nil if it isn't attached.  
+--- If attached, returns `parent`, `bone`, `position`, `rotation`, `forced_visible`.
+--- @return ObjectRef,string,Position,Position,boolean|nil
 function ObjectRef:get_attach() end
 --- @return ObjectRef[]|table<number,ObjectRef> a list of ObjectRefs that are attached to the object.
 function ObjectRef:get_children() end

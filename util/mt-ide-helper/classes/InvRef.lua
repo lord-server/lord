@@ -1,3 +1,6 @@
+--- @diagnostic disable: missing-return
+
+
 --- @class InvRef
 InvRef = {}
 

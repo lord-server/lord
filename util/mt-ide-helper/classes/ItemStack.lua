@@ -1,11 +1,14 @@
----@class ItemStack
+--- @diagnostic disable: missing-return
+
+
+--- @class ItemStack
 ItemStack = {}
 
 --- @class ItemStackTable: table
 --- @field name     string
 --- @field count    number
 --- @field wear     number
---- @field metadata string|
+--- @field metadata string
 
 --- @alias ItemStackString string
 
