@@ -7,12 +7,12 @@ local Storage = {}
 --- @return table
 function Storage.get_state_of(object)
 	if not object then
-		return
+		return {}
 	end
 
 	return object:is_player()
 		and minetest.deserialize(object:get_meta():get("object_state") or "return {}")
-		or  object:get_luaentity().object_state or {}
+		or  object:get_luaentity().object_state or {} --- @diagnostic disable-line: undefined-field
 end
 
 --- Obtains `ObjectState` from meta or object properties depending on whether `object` is a player or not
@@ -36,7 +36,7 @@ function Storage.set_state_of(object, state_table)
 		if not entity then
 			return false
 		end
-		entity.object_state = state_table
+		entity.object_state = state_table --- @diagnostic disable-line: inject-field TODO?: @class with `object_state` field
 	end
 
 	return true

@@ -14,14 +14,15 @@ local BaseForm  = {
 
 	--- @protected
 	--- @type base_classes.Form.Event
-	event       = nil,
+	event       = nil, --- @diagnostic disable-line: assign-type-mismatch
 
 	--- @type string
-	player_name = nil,
+	player_name = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param mixin base_classes.Form.Mixin
 function BaseForm:mix(mixin, ...)
+	--- @type base_classes.Form.Base
 	self = setmetatable(self, { __index = table.overwrite(
 		table.copy(getmetatable(self).__index),
 		mixin
@@ -72,7 +73,7 @@ function BaseForm:new(player, ...)
 end
 
 --- Shorten for `minetest.get_player_by_name(self.player_name)`
---- @return Player
+--- @return Player?
 function BaseForm:player()
 	return minetest.get_player_by_name(self.player_name)
 end

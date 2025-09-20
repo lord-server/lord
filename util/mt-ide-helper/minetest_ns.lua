@@ -2089,6 +2089,8 @@ function minetest.write_json(data, styled) end
 --- * Example: `serialize({foo='bar'})`, returns `'return { ["foo"] = "bar" }'`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5686-L5689)
+--- @param table
+--- @return string
 function minetest.serialize(table) end
 --- Returns a table
 --- * Convert a string returned by `minetest.serialize` into a table
@@ -2388,17 +2390,17 @@ minetest.registered_privileges = {}
 -- Built-in libraries and extensions
 --
 
----@generic T : table
----@param value `T`
----@return `T`
+--- @generic T : table
+--- @param value T
+--- @return T
 function table.copy(value) end
 --- @param list table
 --- @param value any
 function table.indexof(list, value) end
 
----@param obj any
----@param dumped table
----@return string
+--- @param obj any
+--- @param dumped table
+--- @return string
 function dump(obj, dumped) end
 
 --
@@ -2415,6 +2417,6 @@ invisibility = nil
 --- https://luajit.org/ext_jit.html
 jit = {}
 
--- Legacy function, should be removed after upgrading to 5.5
----@deprecated
+--- Legacy function, should be removed after upgrading to 5.5
+--- @deprecated
 function spawn_falling_node(pos, nodename) end

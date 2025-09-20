@@ -105,6 +105,8 @@ function Player:get_formspec_prepend(formspec) end
 ---    * The fields `LMB` and `RMB` are equal to `dig` and `place` respectively,
 ---      and exist only to preserve backwards compatibility.
 ---    * Returns an empty table `{}` if the object is not a player.
+---
+--- @return table<string, boolean>
 function Player:get_player_control() end
 --- returns integer with bit packed player pressed
 ---  keys.
@@ -217,9 +219,9 @@ function Player:set_minimap_modes(modes_list, selected_mode) end
 ---    * Passing no arguments resets the sky to its default values.
 ---    * `sky_parameters` is a table with the following optional fields:
 ---        * `base_color`: ColorSpec, changes fog in "skybox" and "plain". (default: `#ffffff`)
----        * `body_orbit_tilt`: Float, rotation angle of sun/moon orbit in degrees.  
----             By default, orbit is controlled by a client-side setting, and this field is not set.  
----             After a value is assigned, it can only be changed to another float value.  
+---        * `body_orbit_tilt`: Float, rotation angle of sun/moon orbit in degrees.
+---             By default, orbit is controlled by a client-side setting, and this field is not set.
+---             After a value is assigned, it can only be changed to another float value.
 ---             Valid range [-60.0,60.0] (default: not set)
 ---        * `type`: Available types:
 ---            * `"regular"`: Uses 0 textures, `base_color` ignored
@@ -262,15 +264,15 @@ function Player:set_minimap_modes(modes_list, selected_mode) end
 ---                `"default"` uses the classic Minetest sun and moon tinting.
 ---                Will use tonemaps, if set to `"default"`. (default: `"default"`)
 ---        * `fog`: A table containing the following values:
----            * `fog_distance`: integer, set an upper bound for the client's viewing_range.  
----                 Any value >= 0 sets the desired upper bound for viewing_range, disables range_all and prevents disabling fog (F3 key by default).  
+---            * `fog_distance`: integer, set an upper bound for the client's viewing_range.
+---                 Any value >= 0 sets the desired upper bound for viewing_range, disables range_all and prevents disabling fog (F3 key by default).
 ---                 Any value < 0 resets the behavior to being client-controlled. (default: -1)
----            * `fog_start`: float, override the client's fog_start.  
----                 Fraction of the visible distance at which fog starts to be rendered.  
+---            * `fog_start`: float, override the client's fog_start.
+---                 Fraction of the visible distance at which fog starts to be rendered.
 ---                 Any value between [0.0, 0.99] set the fog_start as a fraction of the viewing_range.
 ---                 Any value < 0, resets the behavior to being client-controlled. (default: -1)
----            * `fog_color`: ColorSpec, override the color of the fog.  
----                 Unlike `base_color` above this will apply regardless of the skybox type.  
+---            * `fog_color`: ColorSpec, override the color of the fog.
+---                 Unlike `base_color` above this will apply regardless of the skybox type.
 ---                 (default: `"#00000000"`, which means no override)
 --- @param sky_parameters table
 function Player:set_sky(sky_parameters) end

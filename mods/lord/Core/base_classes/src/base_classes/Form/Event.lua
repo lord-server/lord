@@ -1,20 +1,19 @@
 local BaseEvent = require('base_classes.Event')
 
 
---- @generic GenericForm: base_classes.Form.Base
---- @alias base_classes.Form.callback.on_register fun(form:GenericForm)
---- @alias base_classes.Form.callback.on_instance fun(form:GenericForm, player:Player, ...)
---- @alias base_classes.Form.callback.on_open     fun(form:GenericForm)
---- @alias base_classes.Form.callback.on_close    fun(form:GenericForm)
---- @alias base_classes.Form.callback.on_handle   fun(form:GenericForm, player:Player, fields:table)
 -- luacheck: no max line length
+--- @alias base_classes.Form.callback.on_register fun(form:base_classes.Form.Base)
+--- @alias base_classes.Form.callback.on_instance fun(form:base_classes.Form.Base, player:Player, ...)
+--- @alias base_classes.Form.callback.on_open     fun(form:base_classes.Form.Base)
+--- @alias base_classes.Form.callback.on_close    fun(form:base_classes.Form.Base)
+--- @alias base_classes.Form.callback.on_handle   fun(form:base_classes.Form.Base, player:Player, fields:table): nil|boolean
 --- @alias base_classes.Form.callback base_classes.Form.callback.on_register|base_classes.Form.callback.on_instance|base_classes.Form.callback.on_open|base_classes.Form.callback.on_close|base_classes.Form.callback.on_handle
 
 
 --- @generic GenericEvent: base_classes.Form.Event
 --- @class base_classes.Form.Event: base_classes.Event
---- @field on      fun(event:string, base:GenericEvent): fun(callback:base_classes.Form.callback)
---- @field trigger fun(event:string, ...): void
+--- @field on      fun(self:self, event:string, base:GenericEvent): fun(callback:base_classes.Form.callback)
+--- @field trigger fun(self:self, event:string, ...): void
 local Event = BaseEvent:extended()
 
 --- @class base_classes.Form.Event.Type
@@ -41,9 +40,10 @@ Event.subscribers = {
 }
 
 --- @generic GenericEvent: base_classes.Form.Event
---- @param child_class GenericEvent
+--- @param child_class GenericEvent?
 --- @return GenericEvent
 function Event:extended(child_class)
+	--- @type GenericEvent
 	child_class = child_class or {}
 
 	child_class.Type        = child_class.Type        or table.copy(Event.Type)

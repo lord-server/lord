@@ -32,8 +32,8 @@ function InvRef:set_width(list_name, width) end
 function InvRef:get_stack(list_name, i) end
 --- copy stack to index i in list
 --- @param list_name string
---- @param i number
---- @param stack ItemStack
+--- @param i         number
+--- @param stack     ItemStack?
 function InvRef:set_stack(list_name, i, stack) end
 --- return full list
 --- @param list_name string

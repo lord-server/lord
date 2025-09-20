@@ -4,15 +4,15 @@
 local DetachedInventory = {
 	--- @protected
 	--- @type string
-	player_name = nil,
+	player_name = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type string
-	id = nil,
+	id = nil,          --- @diagnostic disable-line: assign-type-mismatch
 	--- @overridable
 	--- @static
 	--- @protected
 	--- @type DetachedInventoryCallbacksDef
-	callbacks = nil,
+	callbacks = {},
 	--- @overridable
 	--- @static
 	--- @protected
@@ -46,7 +46,7 @@ end
 --- @abstract
 --- @return string
 function DetachedInventory:generate_id()
-	return error('You should override method `DetachedInventory:generate_id()` in your inventory class')
+	error('You should override method `DetachedInventory:generate_id()` in your inventory class')
 end
 
 --- @protected
@@ -55,7 +55,7 @@ end
 --- @generic GenericDetachedInventory: base_classes.DetachedInventory
 --- @return GenericDetachedInventory
 function DetachedInventory:build(detached)
-	return error('You should override method `DetachedInventory:build()` in your inventory class')
+	error('You should override method `DetachedInventory:build()` in your inventory class')
 end
 
 --- @protected
@@ -93,8 +93,13 @@ end
 function DetachedInventory:return_forgotten()
 	if table.is_empty(self.lists_for_return) then  return  end
 
-	local player_inventory = minetest.get_inventory({ type = 'player', name = self.player_name })
+	local player_inventory   = minetest.get_inventory({ type = 'player', name = self.player_name })
 	local detached_inventory = self:get_detached()
+	local player             = minetest.get_player_by_name(self.player_name)
+	if not player_inventory or not detached_inventory or not player then
+		return
+	end
+	local position = player:get_pos()
 
 	for _, list in pairs(self.lists_for_return) do
 		for i, stack in pairs(detached_inventory:get_list(list)) do
@@ -103,8 +108,7 @@ function DetachedInventory:return_forgotten()
 				if player_inventory:room_for_item('main', stack) then
 					player_inventory:add_item('main', stack)
 				else
-					local player = minetest.get_player_by_name(self.player_name)
-					minetest.item_drop(stack, player, player:get_pos())
+					minetest.item_drop(stack, player, position)
 				end
 			end
 		end

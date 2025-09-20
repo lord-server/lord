@@ -6,17 +6,18 @@ local Personal = {
 	--- @static late
 	--- @protected
 	--- @type table<string,base_classes.Form.Base>
-	opened_for = nil,
+	opened_for          = nil,   --- @diagnostic disable-line: assign-type-mismatch
 	--- Set `true` if you don't need to cleanup `self.opened_for[player_name]` on each close form.
 	--- In this case it will be removed only on player leave.
 	--- Useful for player inventory specified by `player:set_inventory_formspec()` MT function.
-	--- @type string
+	--- @type boolean
 	no_cleanup_on_close = false,
 }
 
 --- @public
 --- @static late
 --- @param player Player
+--- @return base_classes.Form.Base|nil
 function Personal:get_opened_for(player)
 	return self.opened_for[player:get_player_name()]
 end

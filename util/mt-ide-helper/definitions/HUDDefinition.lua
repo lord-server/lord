@@ -4,7 +4,7 @@ local HudDefinition = {
 	---
 	--- The `name` field is not yet used, but should contain a description of what the HUD element represents.
 	---
-	--- @type string
+	--- @type string?
 	name = "",
 
 	--- HUD element type, one of:
@@ -18,11 +18,13 @@ local HudDefinition = {
 	---    the position is instead determined by world_pos, the world position of the waypoint.
 	---  * `"compass"`   - Displays an image oriented or translated according to current heading direction.
 	---  * `"minimap"`   - Displays a minimap on the HUD.
+	---
+	--- @type string?
 	type = "image",
 	--- HUD element type: "image", "text", "statbar", "inventory", "waypoint", "image_waypoint".
 	--- In case both are specified (`type` and `hud_elem_type`) `type` will be used.
 	--- @deprecated
-	--- @type string
+	--- @type string?
 	hud_elem_type = "",
 
 	--- Position on the screen, range: `{x = 0..1, y = 0..1}`.

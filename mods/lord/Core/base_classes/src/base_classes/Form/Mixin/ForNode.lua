@@ -3,10 +3,10 @@
 local ForNode = {
 	--- @protected
 	--- @type Position
-	node_position = false,
+	node_position = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type NodeMetaRef
-	node_meta     = false,
+	node_meta     = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @static
