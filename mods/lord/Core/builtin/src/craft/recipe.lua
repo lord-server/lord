@@ -4,7 +4,7 @@ local minetest_registered_items
 
 
 ---foreach_items_with_recipes
----@param items    ItemDefinition[]
+---@param items    table<string,ItemDefinition>
 ---@param callback fun(name:string,item:ItemDefinition,recipes:RecipeEntryTable[])
 local function foreach_items_with_recipes(items, callback)
 	for name, item in pairs(items) do
@@ -43,7 +43,7 @@ function minetest.get_all_craft_recipes_from(ingredient, recursively, max_depth,
 	local found_recipes = {}
 	foreach_items_with_recipes(minetest_registered_items, function(_, _, recipes)
 		foreach_recipe_with_ingredient(recipes, ingredient, function(recipe)
-
+			--- @type string
 			local out_item_name = recipe.output:split(' ')[1]
 			found_recipes[out_item_name] = recipe
 			if recursively and max_depth > 0 and not except[out_item_name] then

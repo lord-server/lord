@@ -43,7 +43,7 @@ function minetest.find_nodes_near(position, radius, node_names, search_in_center
 end
 
 --- @param node              NodeTable
---- @param except_node_names table|string Nodes to exclude. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
+--- @param except_node_names table     Nodes to exclude. (e.g. `{"ignore", "group:tree"}` or `"default:dirt"`)
 local function should_be_excluded(node, except_node_names)
 	for _, except in ipairs(except_node_names) do
 		local group = except:match("^group:(.+)$")
@@ -73,6 +73,7 @@ end
 --- @param only_first        boolean      Optional. Return only first found node (default: false)
 --- @return table<Position,NodeTable>|Position|nil, nil|NodeTable Found filtered node(s).
 function minetest.find_nodes_near_except(position, radius, node_names, except_node_names, search_in_center, only_first)
+	--- @type table
 	except_node_names = type(except_node_names) == 'string' and { except_node_names } or except_node_names or {}
 
 	local all_found = minetest.find_nodes_near(position, radius, node_names, search_in_center)
@@ -108,5 +109,6 @@ end
 ---
 --- @return Position|nil, NodeTable|nil
 function minetest.find_node_near_except(position, radius, node_names, except_node_names, search_in_center)
+	--- @diagnostic disable-next-line: return-type-mismatch
 	return minetest.find_nodes_near_except(position, radius, node_names, except_node_names, search_in_center, true)
 end

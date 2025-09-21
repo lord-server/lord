@@ -3,15 +3,26 @@
   "codeAction": {
     "insertSpace": true
   },
-  "workspace": {
-    "encoding": "utf-8",
-    "library": ["/usr/share/luanti/builtin/"],
-    "ignoreDir": [
-      ".git", ".github", ".vscode", ".idea",
-      "mods/_minetest_game", "mods/_various"
+  "diagnostics": {
+    "disable": [
+      "unnecessary-if"
     ]
   },
   "runtime": {
     "version": "Lua5.1"
+  },
+  "workspace": {
+    "encoding": "utf-8",
+    "ignoreDir": [
+      ".git",
+      ".github",
+      ".vscode",
+      ".idea",
+      "mods/_minetest_game",
+      "mods/_various"
+    ],
+    "library": [
+      "/usr/share/luanti/builtin/"
+    ]
   }
 }

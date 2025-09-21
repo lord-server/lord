@@ -44,7 +44,8 @@ function minetest.mod(mod_init_function)
 	local old_require = require
 	require = minetest.get_mod_require(mod_name, mod_path)
 
-	mod_init_function(setmetatable(
+	--- @type minetest.Mod
+	local mod = setmetatable(
 		{
 			name       = mod_name,
 			path       = mod_path,
@@ -67,7 +68,8 @@ function minetest.mod(mod_init_function)
 				return self[key]
 			end
 		}
-	))
+	)
+	mod_init_function(mod)
 
 	require = old_require
 

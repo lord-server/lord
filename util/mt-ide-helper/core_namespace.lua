@@ -1544,9 +1544,9 @@ function minetest.strip_param2_color(param2, paramtype2) end
 function minetest.get_node_drops(node, toolname) end
 
 --- @class RecipeInput
---- @field method string                               `"normal"` or `"cooking"` or `"fuel"`
---- @field width  number                               for example `3`
---- @field items  ItemStack[]|table<number, ItemStack> for example `{stack1, stack2, stack3, stack4, stack 5, stack 6, stack 7, stack 8, stack 9}`
+--- @field method string      `"normal"` or `"cooking"` or `"fuel"`
+--- @field width  number      for example `3`
+--- @field items  ItemStack[] for example `{stack1, stack2, stack3, stack4, stack 5, stack 6, stack 7, stack 8, stack 9}`
 
 --- @class RecipeOutput
 --- @field item         ItemStack
@@ -2318,12 +2318,12 @@ minetest.env = {}
 --- * Map of registered items, indexed by name
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5838-L5839)
---- @type table|ItemDefinition[]
+--- @type table<string,ItemDefinition>
 minetest.registered_items = {}
 --- * Map of registered node definitions, indexed by name
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5840-L5841)
---- @type table<string,NodeDefinition>|NodeDefinition[]
+--- @type table<string,NodeDefinition>
 minetest.registered_nodes = {}
 --- * Map of registered craft item definitions, indexed by name
 ---

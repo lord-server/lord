@@ -4,7 +4,7 @@
 
 -- Ok, Lets try fix this. And add custom craft methods.
 
-local assert, pairs, ipairs, table_copy, table_insert, math_min, typeof
+local assert, pairs, ipairs, table_copy, table_insert, math_min, type
     = assert, pairs, ipairs, table.copy, table.insert, math.min, type
 
 
@@ -35,7 +35,7 @@ local mt_methods = { 'normal', 'cooking', 'fuel' }
 --- @field cooktime  number     alias for `time` filed.
 
 
---- @type minetest.CraftRecipe[][][][]|table<string,table<string,table<string,minetest.CraftRecipe[]>>>
+--- @type table<string,table<string,table<string,minetest.CraftRecipe[]>>>
 local method_registered_recipes = {
 	-- [method] = {
 	--     [type] = {
@@ -52,7 +52,9 @@ local method_registered_recipes = {
 --- @param grid ItemStack[][]|string[][]
 --- @param grid ItemStack[][]|string[][]
 local function shift_top_left(grid)
+	--- @type number
 	local shift_top_on  = #grid
+	--- @type number
 	local shift_left_on = #grid[1]
 
 	-- find on how many rows & columns to shift
@@ -109,8 +111,9 @@ local function to_grid(items, width)
 end
 
 --- @param grid     ItemStack[][]|string[][]
---- @param callback fun(item:ItemStack|string,row:number,col:number):boolean  return `true` for stop traverse
+--- @param callback fun(item:ItemStack|string,row:number,col:number):boolean|nil  return `true` for stop traverse
 local function foreach_item_in_grid(grid, callback)
+	--- @type boolean|nil
 	local stop_propagation = false
 	for i, row in pairs(grid) do
 		for j, item in pairs(row) do
@@ -137,7 +140,7 @@ local function validate_recipe_for_custom_method(recipe)
 		'sorry, only `"normal"` & `"cooking"` type currently supported for custom methods'
 	)
 
-	assert(typeof(recipe.method) == 'string', '`recipe.method` must be of type `string`')
+	assert(type(recipe.method) == 'string', '`recipe.method` must be of type `string`')
 	assert(recipe.method:is_one_of(minetest.CraftMethod), 'unknown craft method: ' .. recipe.method)
 	if not method_registered_recipes[recipe.method] then
 		method_registered_recipes[recipe.method] = {}
@@ -149,18 +152,19 @@ local function validate_recipe_for_custom_method(recipe)
 	assert(not recipe.shapeless, 'sorry, only shaped grid currently supported for custom methods')
 
 	assert(
-		typeof(recipe.input) == 'table' and typeof(recipe.input[1]) == 'table',
+		type(recipe.input) == 'table' and type(recipe.input[1]) == 'table',
 		'`recipe.input` must of type `string`, or `string[], or `string[][]'
 	)
 	local any_not_empty = false
 	foreach_item_in_grid(recipe.input, function(item)
-		assert(typeof(item) == 'string', 'all ingredients of `recipe.input` must be of type `string`')
+		assert(type(item) == 'string', 'all ingredients of `recipe.input` must be of type `string`')
 		if item ~= '' then  any_not_empty = true  end
 	end)
 	assert(any_not_empty, 'at least one ingredient must be not empty string')
 
-	assert(typeof(recipe.output) == 'string', '`recipe.output` must be of type string')
+	assert(type(recipe.output) == 'string', '`recipe.output` must be of type string')
 
+	--- @diagnostic disable-next-line: undefined-field
 	assert(recipe.replacements == nil, 'sorry, `recipe.replacements` currently not supported for custom methods')
 end
 
@@ -184,12 +188,15 @@ function minetest.register_craft(recipe)
 	recipe.input     = recipe.input or recipe.recipe
 	recipe.recipe    = nil
 
-	if typeof(recipe.input) == 'string'   then recipe.input = { { recipe.input } } end
-	if typeof(recipe.input[1]) ~= 'table' then recipe.input =   { recipe.input }   end
+	if type(recipe.input) == 'string'   then recipe.input = { { recipe.input } } end
+	--- @diagnostic disable-next-line: assign-type-mismatch
+	if type(recipe.input[1]) ~= 'table' then recipe.input =   { recipe.input }   end
 	validate_recipe_for_custom_method(recipe)
 
+	--- @cast recipe.input string[][]
 	recipe.input = shift_top_left(recipe.input)
 
+	--- @type string
 	local output_name = recipe.output:split(' ')[1]
 	if (not method_registered_recipes[method][recipe.type][output_name]) then
 		method_registered_recipes[method][recipe.type][output_name] = {}
@@ -209,6 +216,7 @@ local mt_get_craft_result = minetest.get_craft_result
 --- @param stack       ItemStack
 --- @param recipe_item string
 local function take_item(stack, recipe_item)
+	--- @diagnostic disable-next-line: assign-type-mismatch
 	recipe_item = recipe_item:split(' ')
 	local recipe_item_name  =          recipe_item[1]
 	local recipe_item_count = tonumber(recipe_item[2]) or 1
@@ -267,6 +275,35 @@ local function decrement_input(input, recipe)
 	return input
 end
 
+--- @param item        ItemStack
+--- @param recipe_item string
+--- @return boolean
+local function item_is_correspond_to_recipe(item, recipe_item)
+	local recipe_item_parts = recipe_item:split(' ')
+
+	local recipe_item_name  =          recipe_item_parts[1]  or ''
+	local recipe_item_count = tonumber(recipe_item_parts[2]) or 1
+
+	if recipe_item_name:starts_with('group:') then
+		local group = recipe_item_name:split(':')[2]
+		if
+			minetest.get_item_group(item:get_name(), group) == 0 or
+			item:get_count() < recipe_item_count
+		then
+			return false
+		end
+	else
+		if
+			item:get_name() ~= recipe_item_name or
+			(item:get_count() < recipe_item_count and recipe_item_name ~= '')
+		then
+			return false
+		end
+	end
+
+	return true
+end
+
 --- @param items_grid  ItemStack[][]
 --- @param recipe_grid string[][]
 --- @return boolean
@@ -274,28 +311,11 @@ local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 	local correspond = true
 	--- @param item ItemStack
 	foreach_item_in_grid(items_grid, function(item, i, j)
-		local recipe_item = recipe_grid[i][j] or ''
-		recipe_item = recipe_item:split(' ')
-		local recipe_item_name  =          recipe_item[1]  or ''
-		local recipe_item_count = tonumber(recipe_item[2]) or 1
+		local recipe_item = recipe_grid[i] and (recipe_grid[i][j] or '') or ''
 
-		if recipe_item_name:starts_with('group:') then
-			local group = recipe_item_name:split(':')[2]
-			if
-				minetest.get_item_group(item:get_name(), group) == 0 or
-				item:get_count() < recipe_item_count
-			then
-				correspond = false
-				return true -- break `foreach_item_in_grid()`
-			end
-		else
-			if
-				item:get_name() ~= recipe_item_name or
-				(item:get_count() < recipe_item_count and recipe_item_name ~= '')
-			then
-				correspond = false
-				return true -- break `foreach_item_in_grid()`
-			end
+		if not item_is_correspond_to_recipe(item, recipe_item) then
+			correspond = false
+			return true -- break `foreach_item_in_grid()`
 		end
 	end)
 
@@ -303,7 +323,7 @@ local function items_is_correspond_to_recipe(items_grid, recipe_grid)
 end
 
 --- @param input RecipeInput you can use your own `input.method`
---- @return RecipeOutput, RecipeInput
+--- @return RecipeOutput, RecipeInput, minetest.CraftRecipe?
 function minetest.get_craft_result(input)
 	if not input.method or input.method:is_one_of(mt_methods) then
 		return mt_get_craft_result(input)
@@ -314,12 +334,14 @@ function minetest.get_craft_result(input)
 		return table_copy(EMPTY_OUTPUT), input
 	end
 
+	--- @diagnostic disable-next-line: inject-field, undefined-field # native luabti `RecipeInput` does not have `type`
 	input.type = input.type or minetest.CraftType.NORMAL
 
 	local shifted_grid = shift_top_left(to_grid(input.items, input.width))
 
 	--- @type RecipeOutput
 	local output = table_copy(EMPTY_OUTPUT)
+	--- @diagnostic disable-next-line: undefined-field # native luabti `RecipeInput` does not have `type`
 	for output_item, recipes in pairs(method_registered_recipes[input.method][input.type]) do
 		for i, recipe in pairs(recipes) do
 			if items_is_correspond_to_recipe(shifted_grid, recipe.input) then
@@ -329,6 +351,7 @@ function minetest.get_craft_result(input)
 				end
 
 				output.item = ItemStack(recipe.output)
+				--- @diagnostic disable-next-line: undefined-field # native luabti `RecipeInput` does not have `type`
 				if input.type == minetest.CraftType.COOKING then
 					output.time = recipe.time
 				end
@@ -346,7 +369,7 @@ end
 --- @return minetest.CraftRecipe|nil
 local function find_craft_recipe(output)
 	for method, method_recipes in pairs(method_registered_recipes) do
-		for type, type_recipes in pairs(method_recipes) do
+		for craft_type, type_recipes in pairs(method_recipes) do
 			for recipe_item_name, recipes in pairs(type_recipes) do
 				if recipe_item_name == output then
 					return recipes[1]
@@ -359,9 +382,9 @@ end
 local mt_get_craft_recipe = minetest.get_craft_recipe
 --- @param output string
 --- @return RecipeInput|minetest.CraftRecipe|nil
-function minetest.get_craft_recipe(output, method, type)
-	method = method or minetest.CraftMethod.DEFAULT
-	type   = type   or minetest.CraftType.NORMAL
+function minetest.get_craft_recipe(output, method, craft_type)
+	method     = method     or minetest.CraftMethod.DEFAULT
+	craft_type = craft_type or minetest.CraftType.NORMAL
 
 	if method == minetest.CraftMethod.DEFAULT then
 		local found = mt_get_craft_recipe(output)
@@ -374,5 +397,5 @@ function minetest.get_craft_recipe(output, method, type)
 
 	local r = method_registered_recipes
 
-	return r[method] and r[method][type] and r[method][type][output] and r[method][type][output][1]
+	return r[method] and r[method][craft_type] and r[method][craft_type][output] and r[method][craft_type][output][1]
 end
