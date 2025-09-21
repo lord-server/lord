@@ -5,8 +5,8 @@
 
 
 --- @class controls.Event: base_classes.Event
---- @field on      fun(event:string|controls.Event.Type): fun(callback:controls.callback)
---- @field trigger fun(event:string|controls.Event.Type, ...): void
+--- @field on      fun(self:self,event:string|controls.Event.Type): fun(callback:controls.callback)
+--- @field trigger fun(self:self,event:string|controls.Event.Type, ...): void
 local Event = base_classes.Event:extended()
 
 --- @class controls.Event.Type
