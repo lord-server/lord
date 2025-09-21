@@ -10,6 +10,7 @@ VoxelManip = {}
 ---     * returns actual emerged `pmin`, actual emerged `pmax`
 --- @param position1 Position min position for load part of map
 --- @param position2 Position max position for load part of map
+--- @return Position, Position
 function VoxelManip:read_from_map(position1, position2) end
 --- Writes the data loaded from the `VoxelManip` back to
 ---   the map.
@@ -37,6 +38,13 @@ function VoxelManip:set_node_at(pos, node) end
 --- @return number[]
 function VoxelManip:get_data(buffer) end
 --- Sets the data contents of the `VoxelManip` object
+---     * expects raw node data in the form of an array of node content IDs
+---     * the array must be exactly the size of the volume of the `VoxelManip` object
+---     * the array must be indexed from `1` to `volume`
+---     * the data can be retrieved using `VoxelManip:get_data()`
+--- @param data number[]
+function VoxelManip:set_data(data) end
+--- Sets the data contents of the `VoxelManip` object
 --- function VoxelManip:set_data(data) end
 --- Does nothing, kept for compatibility.
 --- function VoxelManip:update_map() end
@@ -56,7 +64,7 @@ function VoxelManip:set_lighting(light, p1, p2) end
 ---     * `light = day + (night * 16)`
 ---     * If the param `buffer` is present, this table will be used to store the
 ---       result instead.
---- @param buffer number[]
+--- @param buffer number[]? [optional]
 --- @return number[]
 function VoxelManip:get_light_data(buffer) end
 --- Sets the `param1` (light) contents of each node in the `VoxelManip`.
@@ -68,7 +76,7 @@ function VoxelManip:set_light_data(light_data) end
 ---       `255`.
 ---     * If the param `buffer` is present, this table will be used to store the
 ---       result instead.
---- @param buffer number[]
+--- @param buffer number[]? [optional]
 --- @return number[]
 function VoxelManip:get_param2_data(buffer) end
 --- Sets the `param2` contents of each node in the `VoxelManip`.
@@ -83,6 +91,9 @@ function VoxelManip:set_param2_data(param2_data) end
 ---     * `propagate_shadow` is an optional boolean deciding whether shadows in a
 ---       generated mapchunk above are propagated down into the mapchunk, defaults
 ---       to `true` if left out.
+--- @overload fun(p1:Position, p2:Position)
+--- @overload fun(propagate_shadow:boolean)
+--- @overload fun()
 --- @param p1 Position
 --- @param p2 Position
 --- @param propagate_shadow boolean

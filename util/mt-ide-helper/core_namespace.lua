@@ -37,7 +37,7 @@ PseudoRandom = {}
 --- @field y number
 --- @field z number
 
---- @class vector: Position
+
 
 --- @class Position2d
 --- @field x number
@@ -1044,7 +1044,7 @@ function minetest.find_node_near(pos, radius, node_names, search_in_center) end
 --- @param pos1       Position     min positions of the area to search.
 --- @param pos2       Position     max positions of the area to search.
 --- @param node_names table|string e.g. `{"ignore", "group:tree"}` or `"default:dirt"`
---- @param grouped    boolean
+--- @param grouped    boolean?     [optional] If true the return value is a table indexed by node name which contains lists of positions. (default: `false`).
 ---
 --- @return (table<string,Position[]>|Position[]), (nil|table<string,number>)
 function minetest.find_nodes_in_area(pos1, pos2, node_names, grouped) end
@@ -1070,10 +1070,10 @@ function minetest.get_perlin(seeddiff, octaves, persistence, spread) end
 --- * Loads the manipulator from the map if positions are passed.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4955-L4957)
---- @param position1 Position min position
---- @param position2 Position max position
+--- @param min_position Position? min position
+--- @param max_position Position? max position
 --- @return VoxelManip
-function minetest.get_voxel_manip(position1, position2) end
+function minetest.get_voxel_manip(min_position, max_position) end
 --- * Set the types of on-generate notifications that should be collected.
 --- * `flags` is a flag field with the available flags:
 ---     * dungeon
@@ -1083,12 +1083,13 @@ function minetest.get_voxel_manip(position1, position2) end
 ---     * large_cave_begin
 ---     * large_cave_end
 ---     * decoration
---- * The second parameter is a list of IDs of decorations which notification
----   is requested for.
 ---
---- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4958-L4969)
---- @param deco_ids table
-function minetest.set_gen_notify(flags, deco_ids) end
+--- @param flags      string flagstring with any of the above flags separated by commas.
+--- @param deco_ids   table? list of decoration IDs which notification is requested for.
+--- @param custom_ids table? list of user-defined IDs (strings) which are requested.
+---                          By convention these should be the mod name with an optional
+---                          colon and specifier added, e.g. `"default"` or `"default:dungeon_loot"`
+function minetest.set_gen_notify(flags, deco_ids, custom_ids) end
 --- * Returns a flagstring and a table with the `deco_id`s.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4970-L4971)
@@ -1098,10 +1099,33 @@ function minetest.get_gen_notify() end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4972-L4974)
 function minetest.get_decoration_id(decoration_name) end
---- * Return requested mapgen object if available (see [Mapgen objects])
+
+--- * `voxelmanip` - VoxelManip object
+--- * `heightmap` - 2D array of height values (y)
+--- * `biomemap` - 2D array of biome IDs
+--- * `heatmap` - 2D array of heat values (0-255)
+--- * `humiditymap` - 2D array of humidity values (0-255)
+--- * `gennotify` - Table of on-generate notifications (see `minetest.set_gen_notify`)
+--- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4970-L4971)
+--- @alias MapgenObjectName
+--- | "voxelmanip" # VoxelManip object
+--- | "heightmap" # 2D? array of height values (y)
+--- | "biomemap" # 2D? array of biome IDs
+--- | "heatmap" # 2D? array of heat values (0-255)
+--- | "humiditymap" # 2D? array of humidity values (0-255)
+--- | "gennotify" # Table of on-generate notifications (see `minetest.set_gen_notify`)
+
+--- Returns requested mapgen object if available (see [Mapgen objects])
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4975-L4976)
---- @return VoxelManip|number[][]|number[][][], number, number
+--- @overload fun(objectname:"voxelmanip") :VoxelManip, Position, Position
+--- @overload fun(objectname:"heightmap")  :number[][]
+--- @overload fun(objectname:"biomemap")   :number[][]
+--- @overload fun(objectname:"heatmap")    :number[][]
+--- @overload fun(objectname:"humiditymap"):number[][]
+--- @overload fun(objectname:"gennotify")  :table
+--- @param objectname MapgenObjectName one of: "voxelmanip", "heightmap", "biomemap", "heatmap", "humiditymap", "gennotify"
+--- @return VoxelManip|number[][]|number[][][], Position, Position
 function minetest.get_mapgen_object(objectname) end
 --- * Returns the heat at the position, or `nil` on failure.
 ---
@@ -1982,9 +2006,9 @@ function minetest.get_mod_storage() end
 
 -- Misc.:
 --- Returns list of `ObjectRefs`
---- @return Player[]
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5637-L5637)
+--- @return Player[]
 function minetest.get_connected_players() end
 --- Boolean, whether `obj` is a player
 ---

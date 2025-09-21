@@ -13,6 +13,7 @@ VoxelArea = {}
 --- Also you can create an instance via `VoxelArea(pmin, pmax)`
 ---
 --- @param cuboid { MinEdge: any, MaxEdge: any }
+--- @return VoxelArea
 function VoxelArea:new(cuboid) end
 
 --- returns a 3D vector containing the size of the area formed by `MinEdge` and `MaxEdge`.
