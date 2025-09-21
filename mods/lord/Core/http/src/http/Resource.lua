@@ -9,7 +9,7 @@
 --- @class http.Resource
 local Resource = {
 	--- @type http.Client
-	client   = nil,
+	client   = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type string url postfix, which appends to `base_url`
 	resource = "",
 }

@@ -1,3 +1,4 @@
+--- @enum http.Method
 local HTTPMethod = {
 	GET    = "GET",
 	POST   = "POST",
@@ -5,7 +6,16 @@ local HTTPMethod = {
 	DELETE = "DELETE",
 }
 
---- @alias http.Client.callback fun(result:HTTPRequestResult):void
+--- @class http.Request: HTTPRequest
+
+--- @class http.Request.Result: HTTPRequestResult
+
+--- @class http.Request.Options: HTTPRequest
+--- @field protected url? string|nil
+--- @field protected method? string|nil
+
+
+--- @alias http.Client.callback fun(result:http.Request.Result):void
 
 
 --- **Usage:**
@@ -28,38 +38,38 @@ local Client = {
 	--- @static
 	--- @private
 	--- @type HTTPApiTable
-	mt_http_api  = {},
+	mt_http_api  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @private
 	--- @type boolean
 	debug        = false,
 	--- @type string
-	base_url     = nil,
-	--- @type HTTPRequest
+	base_url     = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @type http.Request.Options
 	base_options = {},
 	--- @type http.Client.callback
-	on_success   = nil,
+	on_success   = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type http.Client.callback
-	on_error     = nil,
+	on_error     = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param base_url     string
---- @param base_options HTTPRequest
+--- @param base_options http.Request.Options
 ---
 --- @return http.Client
 function Client:new(base_url, base_options)
-	local class = self
-	self = {}
+	self = setmetatable({}, { __index = self })
 
-	self.base_url         = base_url
+	self.base_url     = base_url
 	self.base_options = base_options
 
-	return setmetatable(self, { __index = class })
+	return self
 end
 
 --- @param callback http.Client.callback
 --- @return http.Client
 function Client:on_success(callback)
+	--- @diagnostic disable-next-line: assign-type-mismatch override `on_success` of instance & restore in `request()`
 	self.on_success = callback
 
 	return self
@@ -68,6 +78,7 @@ end
 --- @param callback http.Client.callback
 --- @return http.Client
 function Client:on_error(callback)
+	--- @diagnostic disable-next-line: assign-type-mismatch override `on_error` of instance & restore it in `request()`
 	self.on_error = callback
 
 	return self
@@ -75,7 +86,9 @@ end
 
 --- @return http.Client.callback
 function Client:getAsyncCallback()
+	--- @type http.Client.callback|nil
 	local on_success = self.on_success
+	--- @type http.Client.callback|nil
 	local on_error   = self.on_error
 
 	--- @type http.Client.callback
@@ -91,18 +104,18 @@ function Client:getAsyncCallback()
 	return callback
 end
 
---- @param request HTTPRequest
+--- @param request  http.Request
 --- @param callback http.Client.callback
 function Client:rawRequest(request, callback)
 	if self.debug then print(dump(request)) end
 	self.mt_http_api.fetch(request, callback)
 end
 
---- @param method  string      one of HTTPMethod::<CONST>'ants
---- @param url     string      url postfix (appends to base_url)
---- @param options HTTPRequest additional request params
+--- @param method  http.Method          one of HTTPMethod::<CONST>'ants
+--- @param url     string               url postfix (appends to base_url)
+--- @param options http.Request.Options additional request params
 function Client:request(method, url, options)
-	--- @type HTTPRequest
+	--- @type http.Request
 	local request = table.merge(
 		self.base_options,
 		table.overwrite(
@@ -117,29 +130,29 @@ function Client:request(method, url, options)
 	self.on_error = nil
 end
 
---- @param url     string      url postfix (appends to base_url)
---- @param options HTTPRequest additional request params
+--- @param url      string               url postfix (appends to base_url)
+--- @param options? http.Request.Options additional request params
 function Client:get(url, options)
 	self:request(HTTPMethod.GET, url, options or {})
 end
 
---- @param url     string      url postfix (appends to base_url)
---- @param data    table       post data fields
---- @param options HTTPRequest additional request params
+--- @param url      string               url postfix (appends to base_url)
+--- @param data?    table                post data fields
+--- @param options? http.Request.Options additional request params
 function Client:post(url, data, options)
 	self:request(HTTPMethod.POST, url, table.merge({ data = data, }, options or {}))
 end
 
---- @param url     string      url postfix (appends to base_url)
---- @param data    table       post data fields
---- @param options HTTPRequest additional request params
+--- @param url      string               url postfix (appends to base_url)
+--- @param data?    table                post data fields
+--- @param options? http.Request.Options additional request params
 function Client:put(url, data, options)
 	self:request(HTTPMethod.PUT, url, table.merge({ data = data, }, options or {}))
 end
 
---- @param url     string      url postfix (appends to base_url)
---- @param data    table       post data fields
---- @param options HTTPRequest additional request params
+--- @param url      string               url postfix (appends to base_url)
+--- @param data?    table                post data fields
+--- @param options? http.Request.Options additional request params
 function Client:delete(url, data, options)
 	self:request(HTTPMethod.DELETE, url, table.merge({ data = data, }, options or {}))
 end
