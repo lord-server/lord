@@ -3,12 +3,14 @@
 --- @field name        string
 --- @field description string
 
+--- @alias effects.Effect.callback fun(player:Player,amount:number,duration:number,...)
+
 --- @class effects.Effect
 local Effect = {
 	--- @type string
-	name = nil,
+	name                  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type boolean
-	stop_with_same_reason = nil,
+	stop_with_same_reason = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param name string
@@ -30,7 +32,7 @@ function Effect:is_stops_on_same_reason(is_stops)
 	return self
 end
 
---- @param start fun(self:effects.Effect,player:Player,amount:number,duration:number)
+--- @param start effects.Effect.callback
 --- @return effects.Effect
 function Effect:on_start(start)
 	self.start = start
@@ -38,7 +40,7 @@ function Effect:on_start(start)
 	return self
 end
 
---- @param stop fun(self:effects.Effect,player:Player,amount:number,duration:number)
+--- @param stop effects.Effect.callback
 --- @return effects.Effect
 function Effect:on_stop(stop)
 	self.stop = stop
@@ -46,12 +48,19 @@ function Effect:on_stop(stop)
 	return self
 end
 
-
-function Effect:start()
+--- @param player   Player
+--- @param amount   number
+--- @param duration number
+--- @param ...      any
+function Effect:start(player, amount, duration, ...)
 	error('No start function assign for effect: you have to set the `start()` function before; use `Effect:on_start()`')
 end
 
-function Effect:stop()
+--- @param player   Player
+--- @param amount   number
+--- @param duration number
+--- @param ...      any
+function Effect:stop(player, amount, duration, ...)
 	error('No start function assign for effect: you have to set the `start()` function before; use `Effect:on_stop()`')
 end
 
