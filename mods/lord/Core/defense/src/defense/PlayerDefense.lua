@@ -11,22 +11,22 @@ local PlayerDefense = {
 	default_type = 'fleshy',
 
 	--- @type Player
-	player = nil,
+	player = nil,  --- @diagnostic disable-line: assign-type-mismatch
 
 	--- @private
 	defense = {
 		--- @type number in percents from 0 to 100
-		fleshy = nil,
+		fleshy = nil,  --- @diagnostic disable-line: assign-type-mismatch
 		--- @type number in percents from 0 to 100
-		fire   = nil,
+		fire   = nil,  --- @diagnostic disable-line: assign-type-mismatch
 		--- @type number in percents from 0 to 100
-		soul   = nil,
+		soul   = nil,  --- @diagnostic disable-line: assign-type-mismatch
 		--- @type number in percents from 0 to 100
-		poison = nil,
+		poison = nil,  --- @diagnostic disable-line: assign-type-mismatch
 	},
 
 	--- @type number in percents from 0 to 100
-	damage_avoid_chance = nil,
+	damage_avoid_chance = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- Constructor
@@ -81,7 +81,7 @@ local function build_armor_groups(defense)
 	return armor_groups
 end
 
---- @param defense             {fleshy:number,fire:number,soul:number,poison:number}|table<string,number>
+--- @param defense             table<string,number>
 --- @param damage_avoid_chance number
 function PlayerDefense:set(defense, damage_avoid_chance)
 	self.defense             = limit_defense(defense)
