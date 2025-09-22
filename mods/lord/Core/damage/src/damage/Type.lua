@@ -1,4 +1,4 @@
-local assert, table_contains, table_insert, setmetatable, typeof
+local assert, table_contains, table_insert, setmetatable, type
     = assert, table.contains, table.insert, setmetatable, type
 
 local TypeEvent    = require('damage.Type.Event')
@@ -13,7 +13,7 @@ local Type = {
 	--- @private
 	--- @static
 	--- @type string
-	default = nil,
+	default    = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @private
 	--- @static
 	--- @type string[]
@@ -23,12 +23,12 @@ local Type = {
 	--- @private
 	--- @static
 	--- @type table<string,damage.Type.Modifier[]>
-	modifiers = {
+	modifiers  = {
 		-- fleshy = { function(), function(), ... }
 	},
 
 	--- @type string
-	name = nil,
+	name       = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 TypeResolver.init(Type.registered)
@@ -65,11 +65,11 @@ function Type.get_default()
 end
 
 --- @static
---- @param type string
+--- @param default_type string
 --- @return damage.Type
-function Type.set_default(type)
-	assert(table_contains(Type.registered, type))
-	Type.default = type
+function Type.set_default(default_type)
+	assert(table_contains(Type.registered, default_type))
+	Type.default = default_type
 
 	return Type
 end
@@ -93,7 +93,7 @@ end
 --- @return string
 function Type.detect(reason)
 	local default_type = Type.get_default()
-	assert(typeof(default_type) == 'string')
+	assert(type(default_type) == 'string')
 
 	return TypeResolver.by_reason(reason) or default_type
 end

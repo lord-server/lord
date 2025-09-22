@@ -40,6 +40,7 @@ function ObjectRef:punch(puncher, time_from_last_punch, tool_capabilities, direc
 --- @param clicker ObjectRef
 function ObjectRef:right_click(clicker) end
 --- returns number of health points
+--- @return number
 function ObjectRef:get_hp() end
 --- set number of health points
 ---  * See reason in register_on_player_hpchange
@@ -74,8 +75,8 @@ function ObjectRef:get_animation() end
 --- @param frame_speed number default: `15.0`
 function ObjectRef:set_animation_frame_speed(frame_speed) end
 
---- Attaches object to `parent`.  
---- See 'Attachments' section for details.  
+--- Attaches object to `parent`.
+--- See 'Attachments' section for details.
 --- This command may fail silently (do nothing) when it would result in circular attachments.
 --- @overload fun(parent:ObjectRef)
 --- @param parent ObjectRef to attach to
@@ -84,7 +85,7 @@ function ObjectRef:set_animation_frame_speed(frame_speed) end
 --- @param rotation Position|vector relative rotation in degrees, default `{x=0, y=0, z=0}`
 --- @param forced_visible boolean to control whether the attached entity should appear in first person, default `false`.
 function ObjectRef:set_attach(parent, bone, position, rotation, forced_visible) end
---- Returns current attachment parameters or nil if it isn't attached.  
+--- Returns current attachment parameters or nil if it isn't attached.
 --- If attached, returns `parent`, `bone`, `position`, `rotation`, `forced_visible`.
 --- @return ObjectRef,string,Position,Position,boolean|nil
 function ObjectRef:get_attach() end

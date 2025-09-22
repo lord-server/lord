@@ -514,10 +514,21 @@ function minetest.register_on_punchplayer(callback) end
 --- @param callback fun(player:Player, clicker:Player)
 function minetest.register_on_rightclickplayer(callback) end
 
+--- @alias PlayerHPChangeReasonType
+--- | "set_hp"      # A mod or the engine called `set_hp` without giving a type - use this for custom damage types.
+--- | "punch"       # Was punched. `reason.object` will hold the puncher, or nil if none.
+--- | "fall"        # A fall.
+--- | "node_damage" # `damage_per_second` from a neighbouring node. `reason.node` will hold the node name or nil.
+--- | "drown"       # Drowning damage.
+--- | "respawn"     # Respawning.
+
+
 --- @class PlayerHPChangeReason
---- @field type string one of `"set_hp"`, `"punch"`, ... See `register_on_player_hpchange` description.
+--- @field type PlayerHPChangeReasonType one of `"set_hp"`, `"punch"`, ... See `register_on_player_hpchange` description.
 --- @field from string will be `"mod"` or `"engine"`
 --- @field object ObjectRef|Player|Entity
+--- @field node string|nil
+--- @field node_pos Position|nil
 
 --- * Called when the player gets damaged or healed
 --- * `player`: ObjectRef of the player

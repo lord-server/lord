@@ -7,7 +7,7 @@ local pairs, os_time, setmetatable
 --- @field reason PlayerHPChangeReason reason, which will be passed into `player:set_hp()`
 
 --- Local storage of now active damages for players.
---- @type damage.Periodical.Active[][]
+--- @type damage.Periodical.Active[string][string]
 local active_for = {
 	-- [player_name] = { fleshy = { value = -7, till = <time> } }
 }
@@ -16,7 +16,7 @@ local active_for = {
 --- @class damage.Periodical
 local Periodical = {
 	--- @type string
-	player_name = nil,
+	player_name = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param player Player

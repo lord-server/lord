@@ -8,7 +8,7 @@ local Resolver = {
 	--- @private
 	--- @static
 	--- @type string[]
-	damage_types = nil
+	damage_types = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param registered_damage_types string[]
@@ -63,6 +63,7 @@ function Resolver.by_reason(reason)
 		else
 			return item:get_name() ~= ""                             -- `damage.Type` of:
 				and Resolver.by_definition(item:get_definition())    -- Entity wielded item
+				--- @diagnostic disable-next-line: undefined-field `damage_type` field must be set for entities of mobs
 				or  player_or_mob:get_luaentity().damage_type        -- Entity hand
 		end
 

@@ -27,7 +27,7 @@ return {
 	--- @type fun(callback:damage.callbacks.OnDamage)
 	on_damage    = Event:on(Event.Type.on_damage),
 
-	--- @param type     string|damage.Type name of damage type (for ex.: `"fleshy"`, `"fire"`, ...)
+	--- @param type     string damage type (`"fleshy"`,`"fire"`,..). One of registered by `damage.Type.register()`.
 	--- @param callback damage.callbacks.OnDamageOf
 	on_damage_of = function(type, callback)
 		TypeEvent:subscribe(type, callback)
