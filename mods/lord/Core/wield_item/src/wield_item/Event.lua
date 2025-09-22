@@ -4,11 +4,11 @@
 
 --- @static
 --- @class wield_item.Event: base_classes.Event
---- @field on      fun(event:string|wield_item.Event.Type): fun(callback:wield_item.callback)
---- @field trigger fun(event:string|wield_item.Event.Type, ...): void
+--- @field on      fun(self:self, event:wield_item.Event.Type): fun(callback:wield_item.callback)
+--- @field trigger fun(self:self, event:wield_item.Event.Type, ...): void
 local Event = base_classes.Event:extended()
 
---- @class wield_item.Event.Type
+--- @enum wield_item.Event.Type
 Event.Type  = {
 	on_index_change = "on_index_change",
 }
