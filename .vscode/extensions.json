@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "tangzx.emmylua",
-    "EditorConfig.EditorConfig"
+    "EditorConfig.EditorConfig",
+    "CppCXY.emmylua-codestyle"
   ]
 }

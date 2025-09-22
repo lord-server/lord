@@ -1,0 +1,9 @@
+{
+    "emmylua.spell.dict": [
+        "minetest",
+        "leaveplayer",
+        "joinplayer",
+        "foreach",
+        "punchplayer"
+    ]
+}
