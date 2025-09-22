@@ -14,16 +14,15 @@ local storage = {}
 --- @class nametag.NameTag
 local NameTag = {
 	--- @type Player
-	player = nil,
-	--- @type nametag.NameTag.Segment[]|table<string, nametag.NameTag.Segment>
+	player   = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @type table<string, nametag.NameTag.Segment>
 	segments = {}
 }
 
 
 --- @param player Player player object, for which we get the `NameTag` instance.
 function NameTag:new(player)
-	local class = self
-	self = {}
+	self = setmetatable({}, { __index = self })
 
 	self.player = player
 	self.segments = {}
@@ -32,7 +31,7 @@ function NameTag:new(player)
 		self.segments[name] = Segment:new(definition, self)
 	end
 
-	return setmetatable(self, { __index = class })
+	return self
 end
 
 --- @param name string technical name of nametag segment.

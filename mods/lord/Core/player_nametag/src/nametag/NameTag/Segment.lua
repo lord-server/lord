@@ -6,9 +6,9 @@ local setmetatable
 --- @class nametag.NameTag.Segment
 local Segment = {
 	--- @type nametag.NameTag
-	name_tag = nil,
+	name_tag = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type string|nametag.NameTag.Segment.value_getter
-	value    = nil,
+	value    = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type string|nil
 	color    = nil,
 	--- @type string|nil
@@ -54,7 +54,7 @@ end
 function Segment:get_value()
 	return type(self.value) == "function"
 		and self.value(self)
-		or  self.value
+		or  self.value--[[@as string]]
 end
 
 --- Returns built segment text ready for display.
