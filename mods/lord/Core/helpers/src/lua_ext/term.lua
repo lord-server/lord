@@ -84,12 +84,14 @@ end) ()
 
 
 --- @overload fun(text:string)
---- @param text  string
---- @param style string Color or style ANSI-code. (one of `term.style`). You can concatenate several styles.
+--- @param text   string|number|integer Text to stylize.
+--- @param style  string Color or style ANSI-code. (one of `term.style`). You can concatenate several styles.
+--- @param reset? string ANSI-code to reset style, default is `term.style.reset`
 --- @return string
 function term.stylize(text, style, reset)
 	reset = reset or term.style.reset
 
+	--- @cast text string
 	return (term.supports_ansi and style)
 		and (style .. text .. reset)
 		or  text
@@ -103,7 +105,7 @@ function term.print(text, style)
 end
 
 --- @param text string
---- @param url
+--- @param url  string
 --- @return string
 function term.link(text, url)
 	return '\27]8;;' .. url .. '\27\\' .. text .. '\27]8;;\27\\'

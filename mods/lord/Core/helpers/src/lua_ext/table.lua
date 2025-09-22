@@ -227,8 +227,7 @@ end
 
 --- @param table1 table
 --- @param table2 table
---- @param recursively boolean
-function table.equals(table1, table2, recursively)
+function table.equals(table1, table2)
 	for key, value in pairs(table1) do
 		if type(value) == "table" then
 			if not table2[key] or type(table2[key]) ~= "table" then
@@ -270,7 +269,7 @@ end
 --- Value returned by the `callback` will be set instead of the value of `t` with same key.
 --- Non-recurcive.
 --- @generic T: table
---- @param t         table|T                    A table to walk through.
+--- @param t         T                          A table to walk through.
 --- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
 --- @param overwrite boolean                    Whether to overwrite the `t` table (default: false)
 --- @return table

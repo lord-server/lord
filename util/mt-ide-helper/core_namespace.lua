@@ -2433,8 +2433,8 @@ function table.copy(value) end
 --- @param value any
 function table.indexof(list, value) end
 
---- @param obj any
---- @param dumped table
+--- @param obj     any
+--- @param dumped? table
 --- @return string
 function dump(obj, dumped) end
 

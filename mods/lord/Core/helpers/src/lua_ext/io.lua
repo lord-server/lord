@@ -16,13 +16,9 @@ end
 ---
 --- @param filepath string
 --- @param content  string
---- @param mode     string default: `"w"`
+--- @param mode?    iolib.OpenMode default: `"w"`
 ---
---- @return boolean
---- @overload fun(filepath:string, content:string, mode:string):boolean,number,string
----
---- @overload fun(filepath:string, content:string):boolean
---- @overload fun(filepath:string, content:string):boolean,number,string
+--- @return boolean,number?,string?
 function io.write_to_file(filepath, content, mode)
 	mode = mode or "w"
 
@@ -47,13 +43,9 @@ end
 --- Returns `string` with file content if success or `false, error_code, error_message`.
 ---
 --- @param filepath string
---- @param mode     string
+--- @param mode?    iolib.OpenMode default: `"r"`
 ---
---- @return string|boolean|nil
---- @overload fun(filepath:string, mode:string):boolean|nil,nil|number,nil|string
----
---- @overload fun(filepath:string):string
---- @overload fun(filepath:string):boolean|nil,nil|number,nil|string
+--- @return false|string|nil,number?,string?
 function io.read_from_file(filepath, mode)
 	mode = mode or "r"
 

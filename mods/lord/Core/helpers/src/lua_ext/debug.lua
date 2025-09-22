@@ -8,12 +8,12 @@ local debug_mode   = minetest.settings:get_bool('debug', false)
 local x_scheme_tpl = debug_mode	and minetest.settings:get('debug.editor_x_scheme_tpl') or  nil
 
 --- @param file_full string
---- @param line string
+--- @param line      number
 --- @return string
 local function get_x_scheme_url(file_full, line)
 	local file_relative = file_full:replace(PROJECT_LOCATION:reg_escape(), '')
 
-	return x_scheme_tpl
+	return (x_scheme_tpl or '')
 		:replace('%${file}', file_full)
 		:replace('%${file_relative}', file_relative)
 		:replace('%${line}', line)
@@ -22,6 +22,7 @@ end
 
 --- @param file_full string
 --- @param line      number
+--- @return string
 local function get_file_line_term_string(file_full, line)
 	local file = file_full:replace(PROJECT_LOCATION:reg_escape(), '')
 
@@ -36,8 +37,8 @@ local function get_file_line_term_string(file_full, line)
 		or  file_line_styled
 end
 
---- @param depth number  Call stack nesting level (default: `0`)
---- @param full  boolean get full path; default: `false`
+--- @param depth? integer Call stack nesting level (default: `0`)
+--- @param full?  boolean get full path; default: `false`
 --- @return string
 function __FILE__(depth, full) -- luacheck: ignore unused global variable __FILE__
 	full = full or false
@@ -48,27 +49,27 @@ function __FILE__(depth, full) -- luacheck: ignore unused global variable __FILE
 		or  full_file:replace(PROJECT_LOCATION:reg_escape(), '')
 end
 
---- @param depth number Call stack nesting level (default: `0`)
+--- @param depth? integer Call stack nesting level (default: `0`)
 --- @return number
 function __LINE__(depth) -- luacheck: ignore unused global variable __LINE__
 	return debug_getinfo(2 + (depth or 0), 'l').currentline
 end
 
---- @param depth number  Call stack nesting level (default: `0`)
---- @param full  boolean get full path; default: `false`
+--- @param depth? integer Call stack nesting level (default: `0`)
+--- @param full?  boolean get full path; default: `false`
 --- @return string
 function __FILE_LINE__(depth, full) -- luacheck: ignore unused global variable __FILE_LINE__
 	depth = depth or 0
 	return __FILE__(depth + 1, full) .. ':' .. __LINE__(depth + 1)
 end
 
---- @param depth number Call stack nesting level (default: `0`)
+--- @param depth? integer Call stack nesting level (default: `0`)
 --- @return string
 function __FUNC__(depth)  -- luacheck: ignore unused global variable __FUNC__
 	return debug_getinfo(2 + (depth or 0), 'n').name
 end
 
---- @param depth number Call stack nesting level (default: `0`)
+--- @param depth? integer Call stack nesting level (default: `0`)
 --- @return string
 function __DIR__(depth)
 	local file_path = __FILE__(depth)
@@ -83,7 +84,7 @@ PROJECT_LOCATION = up(up(up(up(up(up(__DIR__())))))) .. os.DIRECTORY_SEPARATOR
 
 
 --- @param line_code string
---- @return table, number array of passed params & max string length of param
+--- @return table, integer  # array of passed params & max string length of param
 function debug.get_passed_params(line_code)
 	local params_str = (line_code:match('%b()') or '')
 		:sub(2, -2):gsub('%s+', '')
@@ -118,9 +119,9 @@ function debug.get_passed_params(line_code)
 end
 
 --- @param file      string
---- @param line_from number
---- @param line_to   number
---- @return string|nil
+--- @param line_from number 1-based line number
+--- @param line_to?  number default: `line_from`
+--- @return string
 function debug.get_file_code(file, line_from, line_to)
 	line_to = line_to or line_from
 
@@ -141,10 +142,10 @@ function debug.get_function_code(func)
 	local func_info = debug_getinfo(func)
 	local name = func_info.source:replace('^@','')
 
-	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined)
+	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined) or ''
 end
 
---- @param depth number
+--- @param depth? number
 local function backtrace(depth)
 	depth = depth or 0
 	depth = depth + 2
@@ -179,9 +180,9 @@ end
 ---
 --- If your terminal supports links, every `@ <file>:<line>` will linked to open IDE, see `readme.md` to configure.
 ---
---- @param depth      number  call stack depth to start from
---- @param with_trace boolean print trace or not
---- @param ...        any     params to dump
+--- @param depth?      number  call stack depth to start from
+--- @param with_trace? boolean print trace or not
+--- @param ...         any     params to dump
 function print_dump(depth, with_trace, ...)
 	depth = depth or 0
 	local file_full = __FILE__(1 + depth, true)
