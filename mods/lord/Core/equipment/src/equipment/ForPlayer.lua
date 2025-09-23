@@ -5,10 +5,10 @@ local setmetatable, ipairs
 --- @class equipment.ForPlayer
 local ForPlayer = {
 	--- @type Player
-	player = nil,
+	player = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @type equipment.Event
-	event = nil,
+	event  = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- Constructor
@@ -16,14 +16,10 @@ local ForPlayer = {
 --- @param player Player
 --- @return equipment.ForPlayer
 function ForPlayer:new(player)
-	---@type equipment.ForPlayer
-	local new_object = {}
+	self = setmetatable({}, { __index = self })
+	self.player = player
 
-	new_object.player = player
-
-	setmetatable(new_object, {__index = self})
-
-	return new_object
+	return self
 end
 
 --- @param kind string
@@ -47,7 +43,7 @@ function ForPlayer:items(kind)
 	return ipairs(self.player:get_inventory():get_list(kind))
 end
 
---- @return fun(items:ItemStack[]):number,ItemStack
+--- @return (fun(items:ItemStack[]):number,ItemStack), ItemStack[], number
 function ForPlayer:not_empty(kind)
 	--- @param items ItemStack[]
 	--- @param slot  number

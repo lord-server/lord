@@ -2,35 +2,37 @@ local setmetatable, pairs, math_floor
     = setmetatable, pairs, math.floor
 
 
+--- @alias fuel_device.Device.InvSize {fuel:number?, src:number?, dst:number?}
+
 ---
 --- @class fuel_device.Device
 ---
 local Device = {
 	--- @static
 	--- @type string
-	NAME       = nil,
+	NAME       = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @type number
 	TIMER_TICK = 1,
 	--- @static
 	--- @generic GenericForm: fuel_device.node.Form
 	--- @type GenericForm
-	form       = nil,
+	form       = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @type {inactive:string,active:string}
-	node_name  = {
+	node_name  = {    --- @diagnostic disable-line: assign-type-mismatch
 		inactive = nil,
 		active   = nil,
 	},
 	--- @static
-	--- @type {src:number,dst:number}
+	--- @type fuel_device.Device.InvSize
 	size_of = { fuel = 1, src = 1, dst = 1, },
 
 	-- dynamic:
 	--- @type Position
-	position   = nil,
+	position   = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type NodeMetaRef
-	meta       = nil,
+	meta       = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @public
@@ -43,7 +45,7 @@ end
 
 --- Constructor
 --- @public
---- @param pos table<number,number,number>
+--- @param pos Position
 --- @return fuel_device.Device
 function Device:new(pos)
 	local class = self

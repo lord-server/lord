@@ -22,6 +22,8 @@ local inventory_callbacks = {
 		elseif listname == 'dst' then
 			return 0
 		end
+
+		return 0
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
 		local meta  = minetest.get_meta(pos)
@@ -41,6 +43,8 @@ local inventory_callbacks = {
 		elseif to_list == 'dst' then
 			return 0
 		end
+
+		return 0
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
 		if minetest.is_protected(pos, player:get_player_name()) then
@@ -51,6 +55,9 @@ local inventory_callbacks = {
 }
 
 return {
+	--- @param device_name string
+	--- @param Processor   fuel_device.Processor
+	--- @return NodeDefinition
 	get = function(device_name, Processor)
 		return table.merge(inventory_callbacks, {
 			on_metadata_inventory_move = Processor.get_start_or_stop_function(Processor),

@@ -37,7 +37,7 @@ function InvRef:get_stack(list_name, i) end
 function InvRef:set_stack(list_name, i, stack) end
 --- return full list
 --- @param list_name string
---- @return ItemStack[]|table<number,ItemStack>
+--- @return ItemStack[]
 function InvRef:get_list(list_name) end
 --- set full list (size will not change)
 --- @param list_name string

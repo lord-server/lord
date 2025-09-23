@@ -11,9 +11,9 @@ local function register_api()
 			Collection.add(Faction:new(definition))
 		end,
 
-		get      = Collection.get,
+		get      = Collection.get, --- @diagnostic disable-line: duplicate-set-field
 
-		all      = Collection.all,
+		all      = Collection.all, --- @diagnostic disable-line: duplicate-set-field
 	}
 end
 

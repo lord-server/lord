@@ -3,7 +3,7 @@ local ForPlayer = require("equipment.ForPlayer")
 local Kind      = require("equipment.Kind")
 
 ForPlayer.event = Event
-Kind.event      = Event
+Kind.event      = Event --- @diagnostic disable-line: access-invisible
 
 
 --- @param kind          string|fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
@@ -79,9 +79,9 @@ local function register_api()
 		end,
 	}
 	equipment.Kind = {
-		register = Kind.register,
-		is_valid = Kind.is_valid,
-		get_size = Kind.get_size,
+		register = Kind.register, --- @diagnostic disable-line: duplicate-set-field
+		is_valid = Kind.is_valid, --- @diagnostic disable-line: duplicate-set-field
+		get_size = Kind.get_size, --- @diagnostic disable-line: duplicate-set-field
 	}
 end
 

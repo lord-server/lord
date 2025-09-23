@@ -10,14 +10,14 @@
 --- @class factions.Faction
 local Faction = {
 	--- @type string   faction code/id.
-	name        = nil,
+	name        = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type string   human-readable translated faction title.
 	title       = '',
 	--- @type string   human-readable translated description of faction.
 	description = '',
-	--- @type string[] list of hostiles for the faction.
+	--- @type table<string,boolean> list of hostiles for the faction.
 	hostiles    = {},
-	--- @type string[] list of friends for the faction.
+	--- @type table<string,boolean> list of friends for the faction.
 	friends     = {},
 }
 

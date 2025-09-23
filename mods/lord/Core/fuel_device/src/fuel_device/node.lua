@@ -16,13 +16,14 @@ local definition = {
 --- @param device_name string                          name of device.
 --- @param form        fuel_device.node.Form           any table that implements `fuel_device.node.Form` interface.
 --- @param node_name   {inactive:string,active:string} names of inactive & active nodes.
+--- @param size_of?    fuel_device.Device.InvSize      sizes of node inventories.
 ---
 --- @generic GenericDevice: fuel_device.Device
 --- @return GenericDevice
 local function create_generic_device(device_name, form, node_name, size_of)
-	size_of = size_of or table.overwrite({ src = 1, dst = 1 }, size_of)
+	size_of = size_of or table.overwrite({ src = 1, dst = 1 }, size_of or {})
 
-	return Device:extended({
+	return Device:extended({ --- @diagnostic disable-line: generic-constraint-mismatch
 		NAME       = device_name,
 		form       = form,
 		node_name  = node_name,
@@ -31,15 +32,13 @@ local function create_generic_device(device_name, form, node_name, size_of)
 end
 
 --- @generic GenericDevice: fuel_device.Device
---- @return GenericDevice
----
 --- @param DeviceClass  GenericDevice
 --- @param craft_method string
 ---
 --- @generic GenericProcessor: fuel_device.Processor
 --- @return GenericProcessor
 local function create_generic_processor(DeviceClass, craft_method)
-	return Processor:extended({
+	return Processor:extended({ --- @diagnostic disable-line: generic-constraint-mismatch
 		DeviceClass  = DeviceClass,
 		craft_method = craft_method,
 	})
@@ -80,9 +79,10 @@ end
 --- @param craft_method      string                       name of craft method (use `minetest.register_craft_method()`).
 --- @param nodes_definitions fuel_device.NodesDefinitions partial nodes definitions (`drawtype` & `tiles` is enough).
 --- @param form              fuel_device.node.Form        any table that implements `fuel_device.node.Form` interface.
---- @param size_of           {fuel:number,src:number,dst:number}  sizes of corresponding inventories.
+--- @param size_of           fuel_device.Device.InvSize   sizes of corresponding inventories.
 --- @param DeviceClass       GenericDevice|nil            your own device, if you want something extend/change.
 --- @param ProcessorClass    GenericProcessor|nil         your own processor, if you want something extend/change.
+---
 --- @return GenericDevice, GenericProcessor
 local function register_nodes(device_name, craft_method, nodes_definitions, form, size_of, DeviceClass, ProcessorClass)
 	local nodes_names = {
@@ -92,6 +92,7 @@ local function register_nodes(device_name, craft_method, nodes_definitions, form
 	DeviceClass    = DeviceClass    or create_generic_device(device_name, form, nodes_names, size_of)
 	ProcessorClass = ProcessorClass or create_generic_processor(DeviceClass, craft_method)
 
+	--- @diagnostic disable-next-line: generic-constraint-mismatch тупит плагин?
 	local common              = definition.common.get(DeviceClass)
 	local inventory_callbacks = definition.inventory_callbacks.get(device_name, ProcessorClass)
 

@@ -107,11 +107,14 @@ function table.except(table, keys)
 	return result
 end
 
+--- Merges two tables. Values that are tables are merged recursively.
+--- If `overwrite` is true, the `table1` will be modified, otherwise a new table will be created.
+--- @generic T: table, U: table
 --- @overload fun(table1:table, table2:table):table
---- @param table1 table
---- @param table2 table
---- @param overwrite boolean whether to overwrite the `table1` (default: false)
---- @return table
+--- @param table1     T
+--- @param table2     U
+--- @param overwrite? boolean whether to overwrite the `table1` (default: false)
+--- @return T|U
 function table.merge(table1, table2, overwrite)
 	overwrite = overwrite or false
 	local merged_table = overwrite and table1 or table_copy(table1)
@@ -127,9 +130,10 @@ end
 local table_merge
     = table.merge
 
---- @param table1 table
---- @param table2 table
---- @return table
+--- @generic T: table, U: table
+--- @param table1 T
+--- @param table2 U
+--- @return T|U
 function table.overwrite(table1, table2)
 	return table_merge(table1, table2, true)
 end
@@ -140,12 +144,12 @@ end
 ---
 --- @overload fun(table1:table, table2:table):table
 ---
---- @generic T: table
---- @param table1      table|T
---- @param table2      table
+--- @generic T: table, U: table
+--- @param table1      T
+--- @param table2      U
 --- @param recursively boolean Default: false. Go recursively if both values are tables.
 ---
---- @return table|T
+--- @return T|U
 function table.join(table1, table2, recursively)
 	recursively = recursively or false
 	for key, value in pairs(table2) do
@@ -227,6 +231,7 @@ end
 
 --- @param table1 table
 --- @param table2 table
+--- @return boolean
 function table.equals(table1, table2)
 	for key, value in pairs(table1) do
 		if type(value) == "table" then

@@ -4,7 +4,7 @@ local Kind = {
 	--- @private
 	--- @static
 	--- @type equipment.Event
-	event = nil,
+	event = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @private
 	--- @static
 	--- @type table<string,number>
@@ -18,7 +18,7 @@ local Kind = {
 --- @static
 --- @param kind string kind(type) of equipment. For ex. "armor"|"clothing"|<your_one>. \
 ---                    Except "event" and "sizes" - reserved.
---- @param size string quantity of slots for this `kind` of equipment.
+--- @param size number quantity of slots for this `kind` of equipment.
 function Kind.register(kind, size)
 	Kind.event.addSubscribersKind(kind)
 	Kind.sizes[kind] = size
