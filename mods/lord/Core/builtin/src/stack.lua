@@ -2,7 +2,7 @@
 --- Places an item in the inventory of the specified player
 ---   or drops it on the ground nearby, if there is not enough space in the inventory.
 --- @param player Player
---- @param stack  ItemStack
+--- @param stack  ItemStack|ItemStackString
 --- @return boolean `true` if the item is put into inventory, and `false` if the item is dropped to the world.
 function minetest.give_or_drop(player, stack)
 	local inv = player:get_inventory()

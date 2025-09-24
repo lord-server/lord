@@ -4,7 +4,7 @@ local registered_bows       = {}
 local registered_crossbows  = {}
 local registered_throwables = {}
 
---- @class archery.Definition
+--- @class archery.Definition: NodeDefinition
 --- @field inventory_image  string  texture name without file format (`.png`)
 --- @field description      string  item description shown on hovering on it in an inventory
 --- @field groups           table   minetest item definition groups table

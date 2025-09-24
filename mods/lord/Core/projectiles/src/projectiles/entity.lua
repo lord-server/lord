@@ -2,6 +2,9 @@ local math_pi, math_arctan, math_sqrt
 	= math.pi, math.atan2,  math.sqrt
 
 
+--- @param rotation_type "pointed"|"rolling"
+--- @param vel           Position|vector
+--- @return Position|vector
 local function get_rotation_pattern(rotation_type, vel)
 	if not rotation_type or type(rotation_type) ~= "string" then
 		rotation_type = "pointed"

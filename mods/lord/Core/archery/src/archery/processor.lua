@@ -12,7 +12,7 @@ controls.on_hold(function(player, key, hold_time)
 	local stack_def = stack:get_definition()
 
 	-- Check if wielded item is not an archery_item
-	if not stack_def.groups.archery_item then
+	if not stack_def.groups or not stack_def.groups.archery_item then
 		return
 	end
 
@@ -39,7 +39,7 @@ controls.on_press(function(player, key)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not stack_def.groups.bow or stack_def.groups.is_loaded then
+	if not stack_def.groups or not stack_def.groups.bow or stack_def.groups.is_loaded then
 		return
 	end
 
@@ -53,6 +53,7 @@ controls.on_press(function(player, key)
 		inv:remove_item("main", projectile_item)
 		meta:set_string("loaded_projectile", projectile_item)
 		inv:set_stack("main", wield_index, stack)
+
 		return
 	end
 end)
@@ -66,7 +67,7 @@ controls.on_release(function(player, key, hold_time)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not (stack_def.groups.bow and stack_def.groups.is_loaded) then
+	if not stack_def.groups or not (stack_def.groups.bow and stack_def.groups.is_loaded) then
 		return
 	end
 
@@ -104,7 +105,7 @@ controls.on_press(function(player, key)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not stack_def.groups.crossbow or stack_def.groups.is_loaded then
+	if not stack_def.groups or not stack_def.groups.crossbow or stack_def.groups.is_loaded then
 		return
 	end
 
@@ -131,7 +132,7 @@ controls.on_press(function(player, key)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not stack_def.groups.crossbow_charged then
+	if not stack_def.groups or not stack_def.groups.crossbow_charged then
 		return
 	end
 
@@ -167,7 +168,7 @@ controls.on_release(function(player, key)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not (stack_def.groups.crossbow and stack_def.groups.allow_hold_abort) then
+	if not stack_def.groups or not (stack_def.groups.crossbow and stack_def.groups.allow_hold_abort) then
 		return
 	end
 
@@ -201,7 +202,7 @@ controls.on_release(function(player, key, hold_time)
 	local stack = player:get_wielded_item()
 	local stack_def = stack:get_definition()
 
-	if not stack_def.groups.throwable then
+	if not stack_def.groups or not stack_def.groups.throwable then
 		return
 	end
 
@@ -216,7 +217,7 @@ controls.on_release(function(player, key, hold_time)
 	local wield_index = player:get_wield_index()
 
 	local power = api.calculate_power(stack, hold_time)
-	local new_stack = ItemStack(table.copy(stack:to_table()))
+	local new_stack = ItemStack(table.copy(stack:to_table() or {}))
 
 	local uses = api.reg_from_archery_item(new_stack:get_name()).definition.uses
 	if uses then
@@ -235,10 +236,10 @@ end)
 
 -- If the wielded item changed while bow was charging, discharge without shooting the arrow
 wield_item.on_index_change(function(player, _, player_last_wield_index)
-	local inv = player:get_inventory()
-	local stack = inv:get_stack("main", player_last_wield_index)
-
-	if not stack:get_definition().groups.allow_hold_abort then
+	local inv        = player:get_inventory()
+	local stack      = inv:get_stack('main', player_last_wield_index)
+	local definition = stack:get_definition()
+	if not definition.groups or not definition.groups.allow_hold_abort then
 		return
 	end
 
