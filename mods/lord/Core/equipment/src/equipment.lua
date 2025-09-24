@@ -6,10 +6,10 @@ ForPlayer.event = Event
 Kind.event      = Event --- @diagnostic disable-line: access-invisible
 
 
---- @param kind          string|fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
---- @param callback      fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)|nil
+--- @param kind          string|equipment.Event.callback
+--- @param callback      equipment.Event.callback|nil
 --- @param function_name string
---- @return string, fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
+--- @return string, equipment.Event.callback
 local function assertion(kind, callback, function_name)
 	if callback == nil then
 		assert(
@@ -27,8 +27,8 @@ local function assertion(kind, callback, function_name)
 end
 
 --- @param event    string
---- @param kind     string|fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
---- @param callback fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)|nil
+--- @param kind     string|equipment.Event.callback
+--- @param callback equipment.Event.callback|nil
 local function on(event, kind, callback)
 	kind, callback = assertion(kind, callback, __FUNC__(1))
 	Event.subscribe(kind, event, callback)
@@ -42,33 +42,33 @@ local function register_api()
 			return ForPlayer:new(player)
 		end,
 
-		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
-		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		--- @param kind     string|equipment.Event.callback
+		--- @param callback equipment.Event.callback|nil
 		on_change = function(kind, callback)
 			on("change", kind, callback)
 		end,
 
-		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
-		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		--- @param kind     string|equipment.Event.callback
+		--- @param callback equipment.Event.callback|nil
 		on_set = function(kind, callback)
 			on("set", kind, callback)
 		end,
 
-		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
-		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		--- @param kind     string|equipment.Event.callback
+		--- @param callback equipment.Event.callback|nil
 		on_delete = function(kind, callback)
 			on("delete", kind, callback)
 		end,
 
 		--- Triggers when new player join & equipment of `kind` created
-		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
-		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		--- @param kind     string|equipment.Event.callback
+		--- @param callback equipment.Event.callback|nil
 		on_create = function(kind, callback)
 			on("create", kind, callback)
 		end,
 
-		--- @param kind     string|fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)
-		--- @param callback fun(player:Player, kind:string, event:string, slot:number, item:ItemStack)|nil
+		--- @param kind     string|equipment.Event.callback
+		--- @param callback equipment.Event.callback|nil
 		on_load = function(kind, callback)
 			on("load", kind, callback)
 		end,
