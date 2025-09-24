@@ -51,29 +51,34 @@ function InvRef:get_lists() end
 function InvRef:set_lists(lists) end
 --- add item somewhere in list, returns leftover ItemStack
 --- @param list_name string
---- @param stack ItemStack
+--- @param stack ItemStack|ItemStackString
 --- @return ItemStack leftover ItemStack
 function InvRef:add_item(list_name, stack) end
 --- returns true if the stack of items can be fully added to the list
 --- @param list_name string
---- @param stack ItemStack
+--- @param stack ItemStack|ItemStackString
+---
 --- @return boolean
 function InvRef:room_for_item(list_name, stack) end
 --- returns true if the stack of items can be fully taken from the list
 --- @overload fun(list_name:string, stack:ItemStack):boolean
 --- @param list_name string
---- @param stack ItemStack
+--- @param stack ItemStack|ItemStackString
 --- @param match_meta boolean If `match_meta` is false, only the items' names are compared (default: `false`).
 --- @return boolean
 function InvRef:contains_item(list_name, stack, match_meta) end
---- take as many items as specified from the list, returns the items that were actually removed (as an ItemStack).
---- note that any item metadata is ignored,
---- so attempting to remove a specific unique item this way will likely remove the wrong one -- to do that use
----  `set_stack` with an empty `ItemStack`.
---- @param list_name string
---- @param stack ItemStack
+
+--- Take as many items as specified from the list, returns the items that were actually removed (as an ItemStack).
+--- - If match_meta is true (available since feature `remove_item_match_meta`), item metadata is also considered when comparing items.
+---   Otherwise, only the items names are compared. Default: `false``
+--- - The method ignores wear.
+---
+--- @param list_name   string
+--- @param stack       ItemStack|ItemStackString
+--- @param match_meta? boolean   since `remove_item_match_meta`
+---
 --- @return ItemStack
-function InvRef:remove_item(list_name, stack) end
+function InvRef:remove_item(list_name, stack, match_meta) end
 --- returns a location compatible to `minetest.get_inventory(location)`. e.g.
 ---    * `{type="player", name="celeron55"}`
 ---    * `{type="node", pos={x=, y=, z=}}`

@@ -18,9 +18,6 @@
       ".github",
       ".vscode",
       ".idea"
-    ],
-    "library": [
-      "/usr/share/luanti/builtin/"
     ]
   }
 }

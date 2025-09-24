@@ -58,7 +58,10 @@ PseudoRandom = {}
 -- `minetest.` / `core.` functions
 --
 
-minetest = {}
+core = {}
+--- for backward compatibilit
+--- @legacy
+minetest = core
 
 -- Escape sequences:
 
@@ -1695,7 +1698,7 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2) end
 --- * returns the leftover itemstack
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5376-L5378)
---- @param itemstack ItemStack
+--- @param itemstack ItemStack|ItemStackString
 --- @param dropper   Player|ObjectRef
 --- @param pos       Position
 --- @return ItemStack

@@ -14,6 +14,8 @@
 --
 -- In case of other database read the documentation to database.
 
+--- @diagnostic disable
+
 
 local input_filename = arg[1]
 local db_type        = (arg[2] and arg[2] == '--sqlite') and 'sqlite' or 'postgre'

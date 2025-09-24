@@ -7,12 +7,12 @@
 --- @operator sub(vector): vector
 --- @operator mul(number): vector
 --- @operator div(number): vector
-local vector = {}
+vector = {}
 
 --- Creates a new vector `(a, b, c)`.
 --- * Deprecated: `vector.new()` does the same as `vector.zero()` and
 ---   `vector.new(v)` does the same as `vector.copy(v)`
---- @param x  number
+--- @param x  number|Position
 --- @param y? number
 --- @param z? number
 --- @return vector
@@ -180,9 +180,10 @@ function vector:subtract(x) end
 
 --- Returns a scaled vector.
 --- - Deprecated: If `scalar` is a vector: Returns the Schur product.
+--- @param self   vector
 --- @param scalar number|vector
 --- @return vector
-function vector:multiply(scalar) end
+function vector.multiply(self, scalar) end
 
 --- Returns a scaled vector.
 --- - Deprecated: If `scalar` is a vector: Returns the Schur quotient.
