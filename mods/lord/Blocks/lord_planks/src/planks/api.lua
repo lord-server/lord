@@ -38,12 +38,12 @@ local function register_planks(node_name, hardness, craft, groups, title)
 		description  = S(title .. " Planks"),
 		tiles        = { texture },
 		groups       = table.overwrite({
-										choppy = hardness,
-										flammable = 3,
-										wood = 1,
-										planks = 1,
-										wall_connected = 1
-										}, groups or {}),
+			choppy         = hardness,
+			flammable      = 3,
+			wood           = 1,
+			planks         = 1,
+			wall_connected = 1
+		}, groups or {}),
 		sounds       = default.node_sound_wood_defaults(),
 		paramtype2   = "facedir",
 		place_param2 = 0,
