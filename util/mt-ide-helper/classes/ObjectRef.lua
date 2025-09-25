@@ -12,6 +12,7 @@ function ObjectRef:set_pos(pos) end
 --TODO:
 --- @return vector|Position returns the velocity, a vector.
 function ObjectRef:get_velocity()  end
+
 --- @param vel vector|Position e.g. `{x=0.0, y=2.3, z=1.0}`
 ---  * In comparison to using get_velocity, adding the velocity and then using
 ---    set_velocity, add_velocity is supposed to avoid synchronization problems.
@@ -32,10 +33,16 @@ function ObjectRef:add_velocity(vel) end
 --- @param pos Position
 --- @param continuous boolean
 function ObjectRef:move_to(pos, continuous) end
---- Arguments `time_from_last_punch`, `tool_capabilities`, and `direction` will be replaced with a default value when the caller sets them to nil.
---- @param puncher ObjectRef|Entity|Player another `ObjectRef`
---- @param time_from_last_punch number? time since last punch action of the puncher
---- @param direction Position the direction from which the punch came, normalized vector
+
+
+--- Punches the object, triggering all consequences a normal punch would have.
+--- - Arguments `time_from_last_punch`, `tool_capabilities`, and `direction` will be replaced with a default value when the caller sets them to `nil`.
+--- - Other arguments: See on_punch for entities
+---
+--- @param puncher?              ObjectRef|Entity|Player|nil another `ObjectRef` which punched the object or `nil`
+--- @param time_from_last_punch? number                      time since last punch action of the puncher
+--- @param tool_capabilities?    table                       the tool capabilities of the puncher. See [Tool Capabilities](https://api.luanti.org/tool-capabilities/)
+--- @param direction?            Position                    the direction from which the punch came, normalized vector
 function ObjectRef:punch(puncher, time_from_last_punch, tool_capabilities, direction) end
 --- @param clicker ObjectRef
 function ObjectRef:right_click(clicker) end
@@ -92,12 +99,21 @@ function ObjectRef:get_attach() end
 --- @return ObjectRef[]|table<number,ObjectRef> a list of ObjectRefs that are attached to the object.
 function ObjectRef:get_children() end
 function ObjectRef:set_detach() end
---- @overload fun()
---- @param bone string Default is `""`, the root bone
---- @param position Position `{x=num, y=num, z=num}`, relative, `default {x=0, y=0, z=0}`
---- @param rotation Position `{x=num, y=num, z=num}`, default `{x=0, y=0, z=0}`
+
+---
+--- @deprecated
+--- @param bone?     string   Default is `""`, the root bone
+--- @param position? Position `{x=num, y=num, z=num}`, relative, `default {x=0, y=0, z=0}`
+--- @param rotation? Position `{x=num, y=num, z=num}`, default `{x=0, y=0, z=0}`
 function ObjectRef:set_bone_position(bone, position, rotation) end
---- @return Position,Position position and rotation of the bone
+
+--- Returns the previously set position and rotation of the bone.
+--- - Shorthand for `get_bone_override(bone).position.vec, get_bone_override(bone).rotation.vec:apply(math.deg)`.
+--- - **Note:** Returned rotation is in degrees, not radians.
+--- - **Deprecated:** Use `get_bone_override` instead.
+---
+--- @param bone string
+--- @return Position,Position # position and rotation of the bone
 function ObjectRef:get_bone_position(bone) end
 --- @param object_property_table table<string,any>
 function ObjectRef:set_properties(object_property_table) end
