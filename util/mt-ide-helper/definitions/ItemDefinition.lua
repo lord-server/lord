@@ -193,7 +193,7 @@ local ItemDefinition = {
     --- Shall drop item and return the leftover itemstack.
     --- The dropper may be any ObjectRef or nil.
     --- default: minetest.item_drop
-    --- @type fun(itemstack:ItemStack, dropper:Player|ObjectRef|nil, pos:Position)?
+    --- @type (fun(itemstack:ItemStack|ItemStackString, dropper:Player|ObjectRef|nil, pos:Position):ItemStack)?
     on_drop = minetest.item_drop,
 
     --- Called when a dropped item is punched by a player.
