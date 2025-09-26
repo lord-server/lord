@@ -274,9 +274,9 @@ end
 --- Value returned by the `callback` will be set instead of the value of `t` with same key.
 --- Non-recurcive.
 --- @generic T: table
---- @param t         T                          A table to walk through.
---- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
---- @param overwrite boolean                    Whether to overwrite the `t` table (default: false)
+--- @param t          T                          A table to walk through.
+--- @param callback   fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
+--- @param overwrite? boolean                    Whether to overwrite the `t` table (default: false)
 --- @return table
 function table.map(t, callback, overwrite)
 	overwrite = overwrite or false
@@ -336,10 +336,10 @@ end
 
 --- Multiplies values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
 --- @generic T: table
---- @param table1      table   Table to the values of which the values from `table2` will be added.
---- @param table2      table   Table to iterate and add values to `table1`
---- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
---- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+--- @param table1       table   Table to the values of which the values from `table2` will be added.
+--- @param table2       table   Table to iterate and add values to `table1`
+--- @param empty_value? number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
+--- @param overwrite?   boolean Whether to overwrite the `table1` table (default: `false`)
 function table.mul_values(table1, table2, empty_value, overwrite)
 	empty_value = empty_value or 1
 	overwrite = overwrite or false
@@ -354,10 +354,10 @@ end
 --- Divides values with identical keys. If there is no a key in `table1`, the `empty_value` applied.
 --- Please sure that there is no zeroes in `table2`
 --- @generic T: table
---- @param table1      table   Table to the values of which the values from `table2` will be added.
---- @param table2      table   Table to iterate and add values to `table1`
---- @param empty_value number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
---- @param overwrite   boolean Whether to overwrite the `table1` table (default: `false`)
+--- @param table1       table   Table to the values of which the values from `table2` will be added.
+--- @param table2       table   Table to iterate and add values to `table1`
+--- @param empty_value? number  Value for apply to operation, `table1[key]` doesnt exists. Default: `1`
+--- @param overwrite?   boolean Whether to overwrite the `table1` table (default: `false`)
 function table.div_values(table1, table2, empty_value, overwrite)
 	empty_value = empty_value or 1
 	overwrite   = overwrite or false

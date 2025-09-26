@@ -9,7 +9,7 @@
     ]
   },
   "runtime": {
-    "version": "Lua5.1"
+    "version": "LuaJIT"
   },
   "workspace": {
     "encoding": "utf-8",

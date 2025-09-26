@@ -197,7 +197,7 @@ function minetest.register_craft(recipe)
 	recipe.input = shift_top_left(recipe.input)
 
 	--- @type string
-	local output_name = recipe.output:split(' ')[1]
+	local output_name = recipe.output:split(' ')[1]--[[@as string # `:split()` always have at least 1 element]]
 	if (not method_registered_recipes[method][recipe.type][output_name]) then
 		method_registered_recipes[method][recipe.type][output_name] = {}
 	end
@@ -218,7 +218,7 @@ local mt_get_craft_result = minetest.get_craft_result
 local function take_item(stack, recipe_item)
 	--- @diagnostic disable-next-line: assign-type-mismatch
 	recipe_item = recipe_item:split(' ')
-	local recipe_item_name  =          recipe_item[1]
+	local recipe_item_name  =          recipe_item[1] --- @as string `:split()` always have at least 1 element
 	local recipe_item_count = tonumber(recipe_item[2]) or 1
 
 	if recipe_item_name:starts_with('group:') then
