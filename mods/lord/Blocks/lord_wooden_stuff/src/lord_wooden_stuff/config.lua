@@ -29,22 +29,22 @@ local wood_defs = {
 local wood_stuff_exceptions = {
 --  [wood_type]     = { "doors", "hatch", "fence", "stick", "ladder", "Rhatch", "stanchion", "table", "chair", }
 	["alder"]       = {                                               "Rhatch", },
-	["beech"]       = { "doors", },
+	["beech"]       = {},
 	["birch"]       = {                                               "Rhatch", },
-	["cherry"]      = { "doors",                                      "Rhatch", },
-	["culumalda"]   = { "doors",                                      "Rhatch", },
-	["elm"]         = { "doors", },
-	["fir"]         = { "doors",                                      "Rhatch", },
+	["cherry"]      = {                                               "Rhatch", },
+	["culumalda"]   = {                                               "Rhatch", },
+	["elm"]         = {},
+	["fir"]         = {                                               "Rhatch", },
 	["hardwood"]    = {                                               "Rhatch", },
 	["junglewood"]  = {                   "fence", },
 	["lebethron"]   = {                                               "Rhatch", },
 	["mallorn"]     = {                                               "Rhatch", },
 	["pine"]        = {                                               "Rhatch", },
-	["plum"]        = { "doors",                                      "Rhatch", },
-	["wood"]        = { "doors", "hatch", "fence", "stick", "ladder", },
-	["white"]       = { "doors",                                      "Rhatch", },
-	["yavannamire"] = { "doors",                                      "Rhatch", },
-	["infected"]    = { "doors",                                      "Rhatch", },
+	["plum"]        = {                                               "Rhatch", },
+	["wood"]        = {          "hatch", "fence", "stick", "ladder", },
+	["white"]       = {                                               "Rhatch", },
+	["yavannamire"] = {                                               "Rhatch", },
+	["infected"]    = {                                               "Rhatch", },
 }
 
 
