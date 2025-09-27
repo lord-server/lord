@@ -6,23 +6,124 @@
 
 ---@type table<string,LordWoodenStuffDefinition>
 local wood_defs = {
-	["alder"]       = { desc="Alder",       texture="lord_planks_alder.png",     	wood_name="lord_planks:alder",       lock_texture = "lord_doors_bright_lock.png", },
-	["beech"]       = { desc="Beech",       texture="lord_planks_beech.png",     	wood_name="lord_planks:beech",       lock_texture = "lord_doors_dark_lock.png",   },
-	["birch"]       = { desc="Birch",       texture="lord_planks_birch.png",     	wood_name="lord_planks:birch",       lock_texture = "lord_doors_dark_lock.png",   },
-	["cherry"]      = { desc="Cherry",      texture="lord_planks_cherry.png",    	wood_name="lord_planks:cherry",      lock_texture = "lord_doors_dark_lock.png",   },
-	["culumalda"]   = { desc="Culumalda",   texture="lord_planks_culumalda.png", 	wood_name="lord_planks:culumalda",   lock_texture = "lord_doors_bright_lock.png", },
-	["elm"]         = { desc="Elm",         texture="lord_planks_elm.png",       	wood_name="lord_planks:elm",         lock_texture = "lord_doors_bright_lock.png", },
-	["fir"]         = { desc="Fir",         texture="lord_planks_fir.png",       	wood_name="lord_planks:fir",         lock_texture = "lord_doors_dark_lock.png",   },
-	["hardwood"]    = { desc="Hardwood",    texture="lord_planks_hardwood.png",  	wood_name="lord_planks:hardwood",    lock_texture = "lord_doors_bright_lock.png", },
-	["junglewood"]  = { desc="Junglewood",  texture="default_junglewood.png",    	wood_name="default:junglewood",      lock_texture = "lord_doors_bright_lock.png", },
-	["lebethron"]   = { desc="Lebethron",   texture="lord_planks_lebethron.png", 	wood_name="lord_planks:lebethron",   lock_texture = "lord_doors_dark_lock.png",   },
-	["mallorn"]     = { desc="Mallorn",     texture="lord_planks_mallorn.png",   	wood_name="lord_planks:mallorn",     lock_texture = "lord_doors_dark_lock.png",   },
-	["pine"]        = { desc="Pine",        texture="lord_planks_pine.png",      	wood_name="lord_planks:pine",        lock_texture = "lord_doors_dark_lock.png",   },
-	["plum"]        = { desc="Plum",        texture="lord_planks_plum.png",      	wood_name="lord_planks:plum",        lock_texture = "lord_doors_dark_lock.png",   },
-	["wood"]        = { desc="Wooden",      texture="default_wood.png",          	wood_name="default:wood",            lock_texture = "lord_doors_dark_lock.png",   },
-	["white"]       = { desc="White",       texture="lord_planks_white.png",     	wood_name="lord_planks:white",       lock_texture = "lord_doors_dark_lock.png",   },
-	["yavannamire"] = { desc="Yavannamire", texture="lord_planks_yavannamire.png",  wood_name="lord_planks:yavannamire", lock_texture = "lord_doors_dark_lock.png",   },
-	["infected"]    = { desc="Infected",    texture="lord_planks_infected.png",     wood_name="lord_planks:infected",    lock_texture = "lord_doors_bright_lock.png", },
+	['alder']        = {
+		desc         = 'Alder',
+		texture      = 'lord_planks_alder.png',
+		wood_name    = 'lord_planks:alder',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
+
+	['beech']        = {
+		desc         = 'Beech',
+		texture      = 'lord_planks_beech.png',
+		wood_name    = 'lord_planks:beech',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['birch']        = {
+		desc         = 'Birch',
+		texture      = 'lord_planks_birch.png',
+		wood_name    = 'lord_planks:birch',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['cherry']       = {
+		desc         = 'Cherry',
+		texture      = 'lord_planks_cherry.png',
+		wood_name    = 'lord_planks:cherry',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['culumalda']    = {
+		desc         = 'Culumalda',
+		texture      = 'lord_planks_culumalda.png',
+		wood_name    = 'lord_planks:culumalda',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
+
+	['elm']          = {
+		desc         = 'Elm',
+		texture      = 'lord_planks_elm.png',
+		wood_name    = 'lord_planks:elm',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
+
+	['fir']          = {
+		desc         = 'Fir',
+		texture      = 'lord_planks_fir.png',
+		wood_name    = 'lord_planks:fir',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['hardwood']     = {
+		desc         = 'Hardwood',
+		texture      = 'lord_planks_hardwood.png',
+		wood_name    = 'lord_planks:hardwood',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
+
+	['junglewood']   = {
+		desc         = 'Junglewood',
+		texture      = 'default_junglewood.png',
+		wood_name    = 'default:junglewood',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
+
+	['lebethron']    = {
+		desc         = 'Lebethron',
+		texture      = 'lord_planks_lebethron.png',
+		wood_name    = 'lord_planks:lebethron',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['mallorn']      = {
+		desc         = 'Mallorn',
+		texture      = 'lord_planks_mallorn.png',
+		wood_name    = 'lord_planks:mallorn',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['pine']         = {
+		desc         = 'Pine',
+		texture      = 'lord_planks_pine.png',
+		wood_name    = 'lord_planks:pine',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['plum']         = {
+		desc         = 'Plum',
+		texture      = 'lord_planks_plum.png',
+		wood_name    = 'lord_planks:plum',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['wood']         = {
+		desc         = 'Wooden',
+		texture      = 'default_wood.png',
+		wood_name    = 'default:wood',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['white']        = {
+		desc         = 'White',
+		texture      = 'lord_planks_white.png',
+		wood_name    = 'lord_planks:white',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['yavannamire']  = {
+		desc         = 'Yavannamire',
+		texture      = 'lord_planks_yavannamire.png',
+		wood_name    = 'lord_planks:yavannamire',
+		lock_texture = 'lord_doors_dark_lock.png',
+	},
+
+	['infected']     = {
+		desc         = 'Infected',
+		texture      = 'lord_planks_infected.png',
+		wood_name    = 'lord_planks:infected',
+		lock_texture = 'lord_doors_bright_lock.png',
+	},
 }
 
 --- Stuff types which will not be registered.
