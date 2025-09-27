@@ -16,6 +16,13 @@ local function register_doors(wood, def, node_groups, _)
 		sound_close     = "doors_door_close",
 		groups          = groups,
 	}
+
+	local lock_definition = {
+		tiles           = {{ name = uv_texture .. "^" .. def.lock_texture, backface_culling = true }},
+		sound_open      = "doors_door_open",
+		sound_close     = "doors_door_close",
+		groups          = groups,
+	}
 	doors.register(name, table.merge(common_definition, {
 		description     = S(def.desc .. " Door"),
 		inventory_image = inv_texture,
@@ -25,7 +32,7 @@ local function register_doors(wood, def, node_groups, _)
 			{ def.wood_name, def.wood_name },
 		},
 	}))
-	doors.register(name .. "_lock", table.merge(common_definition, {
+	doors.register(name .. "_lock", table.merge(lock_definition, {
 		description     = S(def.desc .. " Door With Lock"),
 		inventory_image = inv_texture .. "^lord_doors_lock.png",
 		recipe          = {
