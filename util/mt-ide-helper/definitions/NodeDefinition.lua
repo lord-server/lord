@@ -128,7 +128,7 @@ local NodeDefinition = {
 	---
 	--- Textures of node; +Y, -Y, +X, -X, +Z, -Z
 	--- List can be shortened to needed length.
-	--- @type table<number,string|TileDefinition>?
+	--- @type (string[]|TileDefinition[])?
 	tiles                         = nil,
 
 	--- {tile definition 1, def2, def3, def4, def5, def6}
@@ -138,20 +138,20 @@ local NodeDefinition = {
 	--- texture. If the texture name is an empty string, that overlay is not
 	--- drawn. Since such tiles are drawn twice, it is not recommended to use
 	--- overlays on very common nodes.
-	--- @type table<number,string|TileDefinition>?
+	--- @type (string[]|TileDefinition[])?
 	overlay_tiles                 = nil,
 
 	--- {tile definition 1, Tile definition 2},
 	--- Special textures of node; used rarely.
 	--- List can be shortened to needed length.
-	--- @type table<number,string|TileDefinition>?
+	--- @type (string[]|TileDefinition[])?
 	special_tiles                 = nil,
 
 	--- The node's original color will be multiplied with this color.
 	--- If the node has a palette, then this setting only has an effect in
 	--- the inventory and on the wield item.
 	--- @see ColorSpec
-	--- @type string|ColorSpec|nil
+	--- @type (string|ColorSpec)?
 	color                         = '',
 
 	--- Specifies how the texture's alpha channel will be used for rendering.
@@ -316,7 +316,7 @@ local NodeDefinition = {
 	---   settings apply.
 	--- * nil: Will be treated as true if `liquidtype ~= "none"`
 	---   and as false otherwise.
-	--- @type boolean|nil
+	--- @type boolean?
 	liquid_move_physics           = nil,
 
 	--- Only valid for "nodebox" drawtype with 'type = "leveled"'.
