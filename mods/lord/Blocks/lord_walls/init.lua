@@ -21,7 +21,7 @@ walls.register(":walls:green_marble", S("Green Marble Wall"), "lord_blocks_green
 walls.register(":walls:dungeon_stone", S("Dungeon Stone Wall"), "castle_dungeon_stone.png",
 	"castle:dungeon_stone", default.node_sound_stone_defaults())
 
---- @type string
+
 for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	--- @type string
 	local sub_name = node_name:split(":")[2]

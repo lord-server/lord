@@ -1,4 +1,4 @@
---- @module
+
 local skybox      = {}
 
 skybox.height     = {

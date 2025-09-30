@@ -162,9 +162,9 @@ end
 --
 -- Core Functions
 --
---- @param
---- @param mob_name     string
---- @param sound_custom string
+--- @param spawn_area_random_pos Position[]
+--- @param mob_name              string
+--- @param sound_custom          string
 function spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
 	if not (spawn_area_random_pos or mob_name) then
 		return
@@ -336,7 +336,7 @@ function spawners.on_timer(pos, elapsed)
 	spawners.tick(pos)
 end
 
---- @param
+--- @param meta MetaDataRef
 local function spawner_add_particles(meta, position)
 	local id_flame = Particles.add_flame_effects(position)
 	local id_smoke = Particles.add_smoke_effects(position)

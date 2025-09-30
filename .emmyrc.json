@@ -19,6 +19,10 @@
       ".github",
       ".vscode",
       ".idea"
+    ],
+    "library": [
+      "./mods/_minetest_game",
+      "./mods/_various"
     ]
   }
 }
