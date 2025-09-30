@@ -551,7 +551,7 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 	local node=minetest.get_node(pointed_thing.under)
 
 	if minetest.registered_nodes[node.name] and minetest.registered_nodes[node.name].on_rightclick then
-		return minetest.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack)
+		return minetest.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
 	else
 		local above = pointed_thing.above
 		local under = pointed_thing.under
