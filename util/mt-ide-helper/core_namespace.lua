@@ -1678,6 +1678,12 @@ function minetest.rollback_revert_actions_by(actor, seconds) end
 ---   * `position`: the location the node was placed to. `nil` if nothing was placed.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5358-L5364)
+--- @param itemstack           ItemStack
+--- @param placer              Player|ObjectRef
+--- @param pointed_thing       pointed_thing
+--- @param param2              number
+--- @param prevent_after_place boolean
+--- @return ItemStack, vector|nil
 function minetest.item_place_node(itemstack, placer, pointed_thing, param2, prevent_after_place) end
 --- * Place item as-is
 --- * returns the leftover itemstack
@@ -1693,6 +1699,11 @@ function minetest.item_place_object(itemstack, placer, pointed_thing) end
 ---   * `position`: the location the node was placed to. `nil` if nothing was placed.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5369-L5375)
+--- @param itemstack     ItemStack
+--- @param placer        Player|ObjectRef|nil
+--- @param pointed_thing pointed_thing
+--- @param param2        number
+--- @return ItemStack, vector|nil
 function minetest.item_place(itemstack, placer, pointed_thing, param2) end
 --- * Drop the item
 --- * returns the leftover itemstack

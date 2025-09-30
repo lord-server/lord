@@ -574,8 +574,8 @@ local NodeDefinition = {
 	--- Note: pointed_thing can be nil, if a mod calls this function.
 	--- This function does not get triggered by clients <=0.4.16 if the
 	--- "formspec" node metadata field is set.
-	--- @type fun(pos:Position, node:NodeTable, clicker:Player|ObjectRef|nil, itemstack:ItemStack, pointed_thing:pointed_thing|nil)?
-	on_rightclick                 = nil,
+	--- @type (fun(pos:Position, node:NodeTable, clicker:Player|ObjectRef, itemstack:ItemStack, pointed_thing:pointed_thing|nil):ItemStack|nil)?
+	on_rightclick                 = core.node_punch,
 
 	--- default: minetest.node_dig
 	--- By default checks privileges, wears out item (if tool) and removes node.

@@ -173,13 +173,12 @@ local ItemDefinition = {
         punch_use_air = nil,
     },
 
-    --- When the 'place' key was pressed with the item in hand
-    --- and a node was pointed at.
-    --- Shall place item and return the leftover itemstack
-    --- or nil to not modify the inventory.
+    --- When the 'place' key was pressed with the item in hand and a node was pointed at.
+    --- Shall place item and return the leftover itemstack or nil to not modify the inventory.
+	--- Second return value: position of placed item/node.
     --- The placer may be any ObjectRef or nil.
     --- default: minetest.item_place
-    --- @type fun(itemstack:ItemStack, placer:Player|ObjectRef|nil, pointed_thing:pointed_thing)?
+    --- @type (fun(itemstack:ItemStack, placer:Player|ObjectRef|nil, pointed_thing:pointed_thing):ItemStack|nil, Position|vector|nil)?
     on_place = minetest.item_place,
 
     --- Same as on_place but called when not pointing at a node.
