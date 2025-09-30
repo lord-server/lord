@@ -133,13 +133,14 @@ local function projectile_shoot(shooter, projectile_stack, power, forced_directi
 	local initial_vel = vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power)
 	local rotation_formula = projectile_reg.entity_reg.rotation_formula
 	projectile_entity:set_rotation(projectiles.get_rotation_pattern(rotation_formula, initial_vel))
-	projectile_entity:get_luaentity()._rotation_formula = rotation_formula --- @diagnostic disable-line: inject-field
+	projectile_entity:get_luaentity()._rotation_formula = rotation_formula
 	projectile_entity:add_velocity(initial_vel)
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
-	projectile_entity:get_luaentity()._shooter = shooter                   --- @diagnostic disable-line: inject-field
-	projectile_entity:get_luaentity()._projectile_stack = projectile_stack --- @diagnostic disable-line: inject-field
-	--- @diagnostic disable-next-line: inject-field
-	projectile_entity:get_luaentity()._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
+	--- @type projectiles.Entity.LuaEntity
+	local lua_entity = projectile_entity:get_luaentity()
+	lua_entity._shooter              = shooter
+	lua_entity._projectile_stack     = projectile_stack
+	lua_entity._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
 
 	return true
 end

@@ -59,6 +59,8 @@ end
 local function register_lbm(inactive_full_name, node_names, DeviceClass)
 	local node_name_parts = inactive_full_name:split(':')
 	local mod_name, node_name = unpack(node_name_parts)
+	--- @cast mod_name  string
+	--- @cast node_name string
 
 	minetest.register_lbm({
 		label             = mod_name:first_to_upper() .. ' ' .. node_name .. ' initialization',
