@@ -1,0 +1,24 @@
+name: EmmyLua Check
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  emmylua-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+          
+      - name: Install emmylua_check
+        run: cargo install emmylua_check
+      
+      - name: Run EmmyLua analysis
+        run: emmylua_check .
