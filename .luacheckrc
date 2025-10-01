@@ -41,7 +41,7 @@ read_globals      = {
 		"sign", "hypot", "factorial", "round",
 		-- Core/helpers:
 		"limit", "clamp",
-		"is_within", "is_among", "is_in_range", "is_near"
+		"is_within", "is_among", "is_in_range", "is_near", "point_on_circle"
 	} },
 
 	io = { fields = {
