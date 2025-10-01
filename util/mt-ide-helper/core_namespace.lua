@@ -11,10 +11,10 @@
 --
 --- See ./classes/AreaStore.lua
 
----@class NodeTable
----@field name string
----@field param1 number
----@field param2 number
+--- @class NodeTable
+--- @field name string
+--- @field param1 number?
+--- @field param2 number?
 NodeTable = {}
 
 --- See ./classes/NodeMetaRef.lua
@@ -63,6 +63,8 @@ core = {}
 --- @legacy
 minetest = core
 
+
+
 -- Escape sequences:
 
 --- * `color` is a ColorString
@@ -70,9 +72,10 @@ minetest = core
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3107-L3109)
 ---
---- @param color string @ColorString
+--- @param color ColorString
 --- @return string
 function minetest.get_color_escape_sequence(color) end
+
 --- * Equivalent to:
 ---   `minetest.get_color_escape_sequence(color) ..
 ---   message ..
@@ -80,19 +83,21 @@ function minetest.get_color_escape_sequence(color) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3110-L3114)
 ---
---- @param color string @ColorString
+--- @param color ColorString
 --- @param message string
 --- @return string
 function minetest.colorize(color, message) end
+
 --- * `color` is a ColorString
 --- * The escape sequence sets the background of the whole text element to
 ---   `color`. Only defined for item descriptions and tooltips.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3115-L3118)
 ---
---- @param color string @ColorString
+--- @param color ColorString
 --- @return string
 function minetest.get_background_escape_sequence(color) end
+
 --- * Removes foreground colors added by `get_color_escape_sequence`.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3119-L3120)
@@ -104,7 +109,9 @@ function minetest.strip_foreground_colors(str) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3121-L3122)
 ---
 --- @param str string
+--- @return string
 function minetest.strip_background_colors(str) end
+
 --- * Removes all color escape sequences.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3123-L3124)
@@ -112,6 +119,8 @@ function minetest.strip_background_colors(str) end
 --- @param str string
 --- @return string
 function minetest.strip_colors(str) end
+
+
 
 -- Helpers:
 
@@ -126,11 +135,12 @@ function minetest.strip_colors(str) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3244-L3251)
 ---
---- @param str      string
---- @param limit    number
---- @param as_table boolean
+--- @param str       string
+--- @param limit     number
+--- @param as_table? boolean
 --- @return string|table
 function minetest.wrap_text(str, limit, as_table) end
+
 --- returns string `"(X,Y,Z)"`
 --- * `pos`: table {x=X, y=Y, z=Z}
 --- * Converts the position `pos` to a human-readable, printable string
@@ -143,6 +153,7 @@ function minetest.wrap_text(str, limit, as_table) end
 --- @param decimal_places? number
 --- @return string
 function minetest.pos_to_string(pos, decimal_places) end
+
 --- returns a position or `nil`
 --- * Same but in reverse.
 --- * If the string can't be parsed to a position, nothing is returned.
@@ -152,6 +163,7 @@ function minetest.pos_to_string(pos, decimal_places) end
 --- @param string string
 --- @return Position
 function minetest.string_to_pos(string) end
+
 --- returns two positions
 --- * Converts a string representing an area box into two positions
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3260-L3261)
@@ -164,26 +176,30 @@ function minetest.string_to_pos(string) end
 --- * Example: `minetest.string_to_area("(1,2,3) (~5,~-5,~)", {x=10,y=10,z=10})`
 ---   returns `{x=1,y=2,z=3}, {x=15,y=5,z=10}`
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.6.1/doc/lua_api.txt#L3581-L3590)
---- @param area_string string
---- @param relative_to Position
+--- @param area_string  string
+--- @param relative_to? Position
 --- @return Position, Position
 function minetest.string_to_area(area_string, relative_to) end
+
 --- returns a string
 --- * escapes the characters "[", "]", "\", "," and ";", which can not be used
 ---   in formspecs.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3262-L3264)
+--- @param string string
+--- @return string
 function minetest.formspec_escape(string) end
+
 --- * returns true if passed 'y', 'yes', 'true' or a number that isn't zero.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3265-L3266)
----
+--- @param arg any
 --- @return boolean
 function minetest.is_yes(arg) end
 --- * returns true when the passed number represents NaN.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3267-L3268)
----
+--- @param arg any
 --- @return boolean
 function minetest.is_nan(arg) end
 --- * returns time with microsecond precision. May not return wall time.
@@ -196,33 +212,41 @@ function minetest.get_us_time() end
 --- * returns the exact position on the surface of a pointed node
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3291-L3293)
+--- @param placer        Player|ObjectRef
+--- @param pointed_thing pointed_thing
+--- @return Position
 function minetest.pointed_thing_to_face_pos(placer, pointed_thing) end
---- Simulates a tool
---- that digs a node.
+
+--- Simulates a tool that digs a node.
 --- Returns a table with the following fields:
 --- * `diggable`: `true` if node can be dug, `false` otherwise.
 --- * `time`: Time it would take to dig the node.
 --- * `wear`: How much wear would be added to the tool.
 --- `time` and `wear` are meaningless if node's not diggable
---- Parameters:
---- * `groups`: Table of the node groups of the node that would be dug
---- * `tool_capabilities`: Tool capabilities table of the tool
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3294-L3303)
+---
+--- @param groups            table  Table of the node groups of the node that would be dug
+--- @param tool_capabilities table  Tool capabilities table of the tool
+--- @return {diggable: boolean, time: number, wear: number}
 function minetest.get_dig_params(groups, tool_capabilities) end
+
 --- Simulates an item that punches an object.
 --- Returns a table with the following fields:
 --- * `hp`: How much damage the punch would cause.
 --- * `wear`: How much wear would be added to the tool.
---- Parameters:
---- * `groups`: Damage groups of the object
---- * `tool_capabilities`: Tool capabilities table of the item
---- * `time_from_last_punch`: [Optional] time in seconds since last punch action
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3304-L3312)
+---
+--- @param groups                table   Damage groups of the object
+--- @param tool_capabilities     table   Tool capabilities table of the item
+--- @param time_from_last_punch? number  [Optional] time in seconds since last punch action
+--- @return {hp: number, wear: number}
 function minetest.get_hit_params(groups, tool_capabilities , time_from_last_punch) end
 
--- Translations^
+
+
+-- Translations
 
 --- is a simple wrapper around
 ---   `minetest.translate`, and `minetest.get_translator(textdomain)(str, ...)` is
@@ -268,6 +292,10 @@ function minetest.get_translator(text_domain) end
 ---   this will be displayed as "Laine Rouge" on clients with a French locale.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L3340-L3365)
+---
+--- @param textdomain string
+--- @param str string
+--- @return string
 function minetest.translate(textdomain, str, ...) end
 
 
@@ -277,16 +305,25 @@ function minetest.translate(textdomain, str, ...) end
 --- * Equivalent to `minetest.log(table.concat({...}, "\t"))`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4458-L4459)
+--- @param ... any
 function minetest.debug(...) end
---- * `level` [Optional] is one of `"none"`, `"error"`, `"warning"`, `"action"`,
----   `"info"`, or `"verbose"`.  Default is `"none"`.
----
+
+--- @alias LogLevel
+--- | "none"
+--- | "error"
+--- | "warning"
+--- | "action"
+--- | "info"
+--- | "verbose"
+
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4460-L4462)
 ---
 --- @overload fun(text:string)
---- @param level string
---- @param text  string
+--- @param level? LogLevel  # [Optional] is one of `"none"`, `"error"`, `"warning"`, `"action"`, `"info"`, or `"verbose"`.  Default is `"none"`.
+--- @param text   string
 function minetest.log(level, text) end
+
+
 
 -- Registration functions:
 
@@ -296,8 +333,8 @@ function minetest.log(level, text) end
 --- @param node_definition NodeDefinition table with node definition properties.
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4471-L4471)
 function minetest.register_node(name, node_definition) end
---- @param item_definition ItemDefinition
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4472-L4472)
+--- @param item_definition ItemDefinition
 function minetest.register_craftitem(name, item_definition) end
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4473-L4473)
 --- @param name            string
@@ -410,9 +447,9 @@ function minetest.register_craft(recipe) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4533-L4542)
 function minetest.clear_craft(recipe) end
+--- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4543-L4543)
 --- @param cmd                    string
 --- @param chatcommand_definition ChatCommandDefinition
---- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4543-L4543)
 function minetest.register_chatcommand(cmd, chatcommand_definition) end
 --- * Overrides fields of a chatcommand registered with `register_chatcommand`.
 ---
@@ -882,6 +919,7 @@ function minetest.set_node(pos, node) end
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4841-L4845)
 function minetest.add_node(pos, node) end
+
 --- * Set node on all positions set in the first argument.
 --- * e.g. `minetest.bulk_set_node({{x=0, y=1, z=1}, {x=1, y=2, z=2}}, {name="default:stone"})`
 --- * For node specification or position syntax see `minetest.set_node` call
@@ -893,15 +931,25 @@ function minetest.add_node(pos, node) end
 ---   times faster.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4846-L4855)
---- @param positions table {pos1, pos2, pos3, ...}
+---
+--- @param positions Position[] {pos1, pos2, pos3, ...}
+--- @param node      NodeTable
 function minetest.bulk_set_node(positions, node) end
---- * Set node at position, but don't remove metadata
+
+--- Swap node at position with another.
+--- * This keeps the metadata intact and will not run con-/destructor callbacks.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4856-L4857)
+---
+--- @param pos  Position
+--- @param node NodeTable
 function minetest.swap_node(pos, node) end
---- * By default it does the same as `minetest.set_node(pos, {name="air"})`
+
+--- Equivalent to core.set_node(pos, {name="air"}), but a bit faster.
+--- (Any existing metadata is deleted.)
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4858-L4859)
+--- @param pos Position
 function minetest.remove_node(pos) end
 --- * Returns the node at the given position as table in the format
 ---   `{name="node_name", param1=0, param2=0}`,
@@ -914,16 +962,19 @@ function minetest.get_node(pos) end
 --- * Same as `get_node` but returns `nil` for unloaded areas.
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4864-L4865)
+--- @param pos Position
+--- @return NodeTable|nil
 function minetest.get_node_or_nil(pos) end
 --- * Gets the light value at the given position. Note that the light value
 ---   "inside" the node at the given position is returned, so you usually want
 ---   to get the light value of a neighbor.
---- * `pos`: The position where to measure the light.
---- * `timeofday`: `nil` for current time, `0` for night, `0.5` for day
 --- * Returns a number between `0` and `15` or `nil`
 --- * `nil` is returned e.g. when the map isn't loaded at `pos`
 ---
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L4866-L4873)
+--- @param pos       Position    The position where to measure the light.
+--- @param timeofday number|nil  `nil` for current time, `0` for night, `0.5` for day
+--- @return number|nil
 function minetest.get_node_light(pos, timeofday) end
 --- * Figures out the sunlight (or moonlight) value at pos at the given time of
 ---   day.
@@ -2016,9 +2067,9 @@ function minetest.read_schematic(schematic, options) end
 --- * **DO NOT ALLOW ANY OTHER MODS TO ACCESS THE RETURNED TABLE, STORE IT IN
 ---   A LOCAL VARIABLE!**
 ---
---- @return HTTPApiTable
----
 --- [View in lua_api.txt](https://github.com/minetest/minetest/blob/5.4.1/doc/lua_api.txt#L5606-L5616)
+---
+--- @return HTTPApiTable
 function minetest.request_http_api() end
 
 -- Storage API:
@@ -2438,14 +2489,6 @@ minetest.registered_privileges = {}
 --
 -- Built-in libraries and extensions
 --
-
---- @generic T : table
---- @param value T
---- @return T
-function table.copy(value) end
---- @param list table
---- @param value any
-function table.indexof(list, value) end
 
 --- @param obj     any
 --- @param dumped? table

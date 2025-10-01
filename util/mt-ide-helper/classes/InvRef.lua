@@ -62,9 +62,9 @@ function InvRef:add_item(list_name, stack) end
 function InvRef:room_for_item(list_name, stack) end
 --- returns true if the stack of items can be fully taken from the list
 --- @overload fun(list_name:string, stack:ItemStack):boolean
---- @param list_name string
---- @param stack ItemStack|ItemStackString
---- @param match_meta boolean If `match_meta` is false, only the items' names are compared (default: `false`).
+--- @param list_name   string
+--- @param stack       ItemStack|ItemStackString
+--- @param match_meta? boolean If `match_meta` is false, only the items' names are compared (default: `false`).
 --- @return boolean
 function InvRef:contains_item(list_name, stack, match_meta) end
 
