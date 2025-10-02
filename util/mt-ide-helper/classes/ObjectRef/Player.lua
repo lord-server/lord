@@ -1,4 +1,4 @@
---- @diagnostic disable: missing-return
+--- @meta
 
 
 --- @class Player: ObjectRef
