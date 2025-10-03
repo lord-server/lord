@@ -94,3 +94,7 @@
 [submodule "mods/_various/hopper"]
 	path = mods/_various/hopper
 	url = https://codeberg.org/tenplus1/hopper.git
+
+[submodule "util/ide-helper"]
+	path = util/ide-helper
+	url = https://github.com/Voxrame/luanti-ide-helper.git
