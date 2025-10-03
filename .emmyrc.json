@@ -18,7 +18,8 @@
       ".git",
       ".github",
       ".vscode",
-      ".idea"
+      ".idea",
+      "util/mt-maker"
     ],
     "library": [
       "./mods/_minetest_game",
