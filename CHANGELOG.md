@@ -1,5 +1,52 @@
 # Change Log
 
+## [2025.09](https://github.com/lord-server/lord/releases/tag/2025.09)
+ - Doors resprite (#2308)
+   - Added door locks. LG-1973 (#2311)
+ - Add wall connected. To lord-blocks, bricks, planks Closes #2106 (#2110)
+ - Blocks: Infected: Trees: change groups: some can dig by hand, wall/fance connection (when up mtg). LG-1965
+ - Bugfixes:
+   - Fix typo in Morgul's Blade name. LG-2000 #done (#2312)
+   - Fix typo in ropes translation. Closes #2302
+ - Technical:
+   - Modern Lua Plugins: fix errors in `util/mt-ide-helper` & add changes that fixes most errors in code. LG-1978
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/base_classes`. LG-1980
+   - Modern Lua Plugins: `ide-helper`: add `vector` definitions; some useful fixes. LORD-58, LG-1978
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/builtin`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/controls`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/http`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/damage`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/defence`. LG-1980
+   - Modern Lua Plugins: update fixed `mods/lord/Core/nodes_dump`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/helpers`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/physics`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/player_nametag`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/wield_item`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/effects`. LG-1980
+   - Migrate to `5.12`: update config from `minetest.conf.example@5.12.0`. LG-1772. Closes #2116
+   - Migrate to `5.12`: update MTG mods from splits. LG-1774
+   - Move MTG/`beds` into `lord/Blocks`, remove submodule. LG-1968
+   - EmmyLua for VSCode: configure & recommendations. LG-1986
+   - EmmyLua Code Style: integrate/configure. LG-1991
+   - `ide-helper`: add `string`, `math`  & `table` luanti methods annotations. LG-1994
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/{equipment|factions|fuel_device}`. LG-1980
+   - Modern Lua Plugins: some fixes in `ide-helper`, use `CppCXY.emmylua-codestyle` as default codde formatter, ignore tmp-svript. LG-1978 LG-1980 LG-1991
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/archery`. LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/equipment`. LG-1980
+   - Modern Lua Plugins: impromements & fixes in `ide-helper` for `ObjectRef` & `[Lua]Entity`. LG-1980 LG-1978
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/{builtin|helpers}`. LG-1980
+   - `ide-helper`: small `ItemDefinition`. LG-1994
+   - Modern Lua Plugins: `ide-helper` improvements. LG-1978, LG-1980
+   - Modern Lua Plugins: `ide-helper`: `NodeDefinition` improvements. LG-1978, LG-1980
+   - Modern Lua Plugins: fix errors in `mods/lord/Core/{archery|fuel_device|nodes_dump|projectiles}`. LG-1980 (closes)
+   - Modern Lua Plugins: fix all errors (not warnings) in project. LG-2002
+   - Modern Lua Plugins: `ide-helper`: `core_namespace.lua` improvements. LG-1978, LORD-68
+   - Modern Lua Plugins: add GH-Action for run static analizer `emmylua_check`. LG-2004
+   - Modern Lua Plugins: `ide-helper`: use `@meta` for `Player.lua` for no warnings about duplicate methods. LG-1978
+   - `ide-helper`: ignore `util/mt-maker`. LG-1986
+   - Separate `ide-helper`: add as submodule. LG-2005
+
+
 ## [2025.07](https://github.com/lord-server/lord/releases/tag/2025.07)
  - Dwarven rope: change recipe, add digging by pickaxe and hand
  - Hold Points:
