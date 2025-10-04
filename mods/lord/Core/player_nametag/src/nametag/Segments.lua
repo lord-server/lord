@@ -1,7 +1,7 @@
 
 --- @class nametag.Segments.definition
 --- @field color  string|nil
---- @field value  string|nametag.NameTag.Segment.value_getter
+--- @field value  string|nametag.NameTag.Segment.value_getter|nil
 --- @field format string|nil
 
 --- @type table<string,nametag.Segments.definition>

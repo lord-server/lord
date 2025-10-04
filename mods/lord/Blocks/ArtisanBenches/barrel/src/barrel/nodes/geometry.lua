@@ -2,7 +2,7 @@
 -- moved AS IS from lottpotion. Added doc-block.
 
 return {
-	--- @param pipes {f:number,h1:number,h2:number}[]
+	--- @param pipes {f:number,h1:number,h2:number,b:number}[]
 	make_pipe = function(pipes, horizontal)
 		local result = {};
 		for i, v in pairs(pipes) do

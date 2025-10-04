@@ -64,7 +64,7 @@ local MainTab = {
 }
 MainTab = base_classes.Form.Element.Tab:extended(MainTab)
 
---- @param preview
+--- @param preview string
 --- @return self|inventory.Form.MainTab
 function MainTab:set_preview(preview)
 	self.preview = preview

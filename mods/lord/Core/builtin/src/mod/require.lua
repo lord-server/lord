@@ -8,7 +8,7 @@ end
 
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
---- @type fun(name:string):any[]
+--- @type table<string, fun(name:string):any>
 local mod_requires = {}
 
 
@@ -47,8 +47,12 @@ return {
 		mod_name = mod_name or minetest.get_current_modname()
 		mod_path = mod_path or minetest.get_modpath(mod_name)
 
+		if mod_requires[mod_name] then
+			return mod_requires[mod_name]
+		end
+
+		mod_requires[mod_name] = create_require_for_mod(mod_name, mod_path)
+
 		return mod_requires[mod_name]
-			and mod_requires[mod_name]
-			or  create_require_for_mod(mod_name, mod_path)
 	end
 }

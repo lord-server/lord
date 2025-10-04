@@ -13,13 +13,13 @@ local WithDetached = {
 }
 
 --- @static
---- @param class base_classes.Form.Base
+--- @param class           base_classes.Form.Base|base_classes.Form.Mixin.WithDetached
+--- @param Inventory_class base_classes.DetachedInventory
 function WithDetached.mix_to(class, Inventory_class)
 	class.Inventory_class = Inventory_class
 
 	--- @param self base_classes.Form.Mixin.WithDetached
 	--- @param player Player
-	--- @param _      Position
 	class.on_instance(function(self, player)
 		self.inventory = self.Inventory_class:new(player)
 	end)

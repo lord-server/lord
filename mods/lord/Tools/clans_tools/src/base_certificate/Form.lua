@@ -33,7 +33,7 @@ local Form = {
 	--- @type { background:Form.deltas, content:Form.deltas }
 	deltas  = {},
 	--- @static
-	--- @type
+	--- @type string[]
 	clans_list = table.keys(clans.list()),
 	--- @static
 	--- @type table<string,string>
@@ -44,7 +44,7 @@ Form = base_classes.Form:personal():extended(Form)
 
 Form.event.Type.on_sign     = 'on_sign'
 Form.event.subscribers[Form.event.Type.on_sign] = {}
---- @type fun(callback:fun(form:clans_tools.base_certificate.Form)
+--- @type fun(callback:fun(form:clans_tools.base_certificate.Form))
 Form.on_sign = Form.event:on(Form.event.Type.on_sign, Form.event)
 
 --- @param lang_code string

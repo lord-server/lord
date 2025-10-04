@@ -19,7 +19,7 @@ minetest.register_node("lord_bricks:chamotte_masonry", {
 	description = S("Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -27,7 +27,7 @@ minetest.register_node("lord_bricks:chamotte_masonry_large", {
 	description = S("Large Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry_large.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -35,7 +35,7 @@ minetest.register_node("lord_bricks:chamotte_brick", {
 	description = S("Chamotte Brick"),
 	tiles = {"lord_bricks_chamotte_brick.png"},
 	is_ground_content = false,
-	groups = {cracky = 2, brick = 1},
+	groups = {cracky = 2, brick = 1, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
@@ -43,13 +43,13 @@ minetest.register_node("lord_bricks:chamotte_block", {
 	description = S("Chamotte Block"),
 	tiles = {"lord_bricks_chamotte_block.png"},
 	is_ground_content = false,
-	groups = {cracky = 2},
+	groups = {cracky = 2, wall_connected = 1},
 	sounds = default.node_sound_stone_defaults(),
 })
 
 
 stairs.register_stair_and_slab("chamotte_masonry", "lord_bricks:chamotte_masonry",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_chamotte_masonry.png"},
 		S("Chamotte Masonry Stair"),
 		S("Chamotte Masonry Slab"),
@@ -60,7 +60,7 @@ stairs.register_stair_and_slab("chamotte_masonry", "lord_bricks:chamotte_masonry
 )
 
 stairs.register_stair_and_slab("chamotte_masonry_large", "lord_bricks:chamotte_masonry_large",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_chamotte_masonry_large.png"},
 		S("Large Chamotte Masonry Stair"),
 		S("Large Chamotte Masonry Slab"),
@@ -71,7 +71,7 @@ stairs.register_stair_and_slab("chamotte_masonry_large", "lord_bricks:chamotte_m
 )
 
 stairs.register_stair_and_slab("chamotte_brick", "lord_bricks:chamotte_brick",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_chamotte_brick.png"},
 		S("Chamotte Brick Stair"),
 		S("Chamotte Brick Slab"),
@@ -82,7 +82,7 @@ stairs.register_stair_and_slab("chamotte_brick", "lord_bricks:chamotte_brick",
 )
 
 stairs.register_stair_and_slab("chamotte_block", "lord_bricks:chamotte_block",
-		{cracky=2},
+		{cracky=2, wall_connected = 1},
 		{"lord_bricks_chamotte_block.png"},
 		S("Chamotte Block Stair"),
 		S("Chamotte Block Slab"),

@@ -1,5 +1,6 @@
 local S_tt = minetest.get_translator("tt_base")
 
+--- @type table<string, projectiles.Registration>
 local registered_projectiles = {}
 local entity = require("projectiles.entity")
 
@@ -10,6 +11,9 @@ local entity = require("projectiles.entity")
 --- @field damage             number          damage base value of projectile that used to calculate resulting damage
 --- @field speed              number          projectile speed multiplier that used to calculate the flight trajectory
 --- @field type               string          a type of projectile
+--- @field damage_tt          number          damage value used in tooltip
+--- @field entity_reg         projectiles.Entity.Definition entity registration table
+
 
 --- @param name               string                    itemstring "<mod>:<projectile_name>"
 --- @param reg                projectiles.Registration  projectile registration table
@@ -129,6 +133,7 @@ return {
 	explode_area         = explode_area,
 	register_projectile  = register_projectile,
 	get_rotation_pattern = entity.get_rotation_pattern,
+	--- @return table<string, projectiles.Registration>
 	get_projectiles      = function() return registered_projectiles end,
 	--- @param name string|nil technical item name (`"<mod>:<projectile_name>"`) or `nil` to return full list.
 	get                  = function(name)

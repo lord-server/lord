@@ -1,6 +1,3 @@
-[submodule "mods/_minetest_game/beds"]
-	path = mods/_minetest_game/beds
-	url = https://github.com/minetest-game-mod/beds
 [submodule "mods/_minetest_game/bucket"]
 	path = mods/_minetest_game/bucket
 	url = https://github.com/minetest-game-mod/bucket
@@ -97,3 +94,7 @@
 [submodule "mods/_various/hopper"]
 	path = mods/_various/hopper
 	url = https://codeberg.org/tenplus1/hopper.git
+
+[submodule "util/ide-helper"]
+	path = util/ide-helper
+	url = https://github.com/Voxrame/luanti-ide-helper.git

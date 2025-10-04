@@ -28,7 +28,7 @@ local Form = {
 	Element = Element,
 }
 setmetatable(Form, {
-	--- @param self  self
+	--- @param self  base_classes.Form
 	--- @param mixin string
 	__index = function(self, mixin)
 		if not self.mixins[mixin] then

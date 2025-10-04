@@ -18,7 +18,7 @@ end
 --- @param hold_time  number             the time the player was holding CONTROL_CHARGE down
 --- @param stage_conf archery.StageConf  the StageConf table
 --- @param player     Player             a player that charges the archery item
---- @return           boolean|ItemStack  a stack with the different name if charge is succesful, or false
+--- @return           false|ItemStack #  a stack with the different name if charge is succesful, or false
 local function charge(stack, hold_time, stage_conf, player)
 	local name = player:get_player_name()
 
@@ -95,46 +95,61 @@ local function calculate_power(stack, hold_time, no_hold)
 	return power
 end
 
---- @param shooter                Object|Player  a player that shoots the projectile
---- @param projectile_stack       ItemStack      itemstack with item to shoot
---- @param power                  number         power multiplier
---- @param forced_direction       vector         forced shooting direction (normalized vector)
---- @param forced_start_position  vector         forced position to spawn the projectile on
+--- @param shooter                ObjectRef  a player or mob that shoots the projectile
+--- @param projectile_stack       ItemStack  itemstack with item to shoot
+--- @param power                  number     power multiplier
+--- @param forced_direction?      vector     forced shooting direction (normalized vector)
+--- @param forced_start_position? vector     forced position to spawn the projectile on
+---
+--- @return boolean
 local function projectile_shoot(shooter, projectile_stack, power, forced_direction, forced_start_position)
 	local shooter_pos    = shooter:get_pos()
-	local yaw            = shooter:get_yaw()
 	local look_dir       = forced_direction
 	local projectile_pos = forced_start_position
 
 	if shooter and shooter:is_player() then
-		look_dir = look_dir or shooter:get_look_dir()
+		--- @cast shooter Player
+		look_dir       = look_dir or shooter:get_look_dir()
 		projectile_pos = forced_start_position or vector.new(shooter_pos.x, shooter_pos.y + 1.5, shooter_pos.z)
 	elseif shooter then
-		look_dir = look_dir or vector.new(-math.sin(yaw), 0.25, math.cos(yaw))
+		--- @cast shooter Entity
+		local yaw      = shooter:get_yaw()
+		look_dir       = look_dir or vector.new(-math.sin(yaw), 0.25, math.cos(yaw))
 		projectile_pos = forced_start_position or vector.new(shooter_pos.x, shooter_pos.y, shooter_pos.z)
 	end
+	--- @cast look_dir vector
 
 	local projectile_item = projectile_stack:get_name()
 
 	local projectile_reg = projectiles.get_projectiles()[projectile_item]
 
 	local projectile_entity = minetest.add_entity(projectile_pos, projectile_reg.entity_name)
+	if not projectile_entity then
+		minetest.get_mod_logger().error('Can\'t add projectile entity "%s" into world.')
+
+		return false
+	end
+
 	local initial_vel = vector.multiply(look_dir, projectile_reg.entity_reg.max_speed * power)
 	local rotation_formula = projectile_reg.entity_reg.rotation_formula
 	projectile_entity:set_rotation(projectiles.get_rotation_pattern(rotation_formula, initial_vel))
 	projectile_entity:get_luaentity()._rotation_formula = rotation_formula
 	projectile_entity:add_velocity(initial_vel)
 	projectile_entity:set_acceleration(vector.new(0, -GRAVITY, 0))
-	projectile_entity:get_luaentity()._shooter = shooter
-	projectile_entity:get_luaentity()._projectile_stack = projectile_stack
-	projectile_entity:get_luaentity()._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
+	--- @type projectiles.Entity.LuaEntity
+	local lua_entity = projectile_entity:get_luaentity()
+	lua_entity._shooter              = shooter
+	lua_entity._projectile_stack     = projectile_stack
+	lua_entity._remove_on_object_hit = projectile_reg.entity_reg.remove_on_object_hit
 
 	return true
 end
 
--- Check if there are projectiles in player inventory
---- @param player Player   the player to check the inventory of
---- @return       boolean  true if player has projectiles, or false
+--- Check if there are projectiles in player inventory
+---
+--- @param player Player # the player to check the inventory of
+---
+--- @return false|string # item name if player has projectiles, or false
 local function check_projectiles(player, type)
 	type = type or "arrow"
 	local inv = player:get_inventory()
@@ -143,15 +158,21 @@ local function check_projectiles(player, type)
 			return item_name
 		end
 	end
+
 	return false
 end
 
+--- @param player       Player
+--- @param archery_item ItemStack
+---
+--- @return false|string|nil
 local function find_matching_projectile(player, archery_item)
 	local used_projectiles = archery_item:get_definition()._used_projectiles
 
 	-- luacheck: globals g1 g2, ignore 512
 	for _, projectile_type in ipairs(used_projectiles) do
 		local found_projectile = check_projectiles(player, projectile_type)
+
 		return found_projectile
 	end
 end

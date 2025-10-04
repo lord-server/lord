@@ -78,7 +78,7 @@ local function find_room_ceiling_y(rc, wx_minus, wx_plus, wz_minus, wz_plus, dat
 	return nil
 end
 
---- @param room_center Position[]
+--- @param room_center Position
 --- @param data table
 --- @param area VoxelArea
 --- @return RoomWalls|RoomWall[]|table

@@ -22,6 +22,7 @@ local function get_can_dig_function(Device)
 	end
 end
 
+--- @type NodeDefinition
 local common_definition = {
 	paramtype2        = 'facedir',
 	is_ground_content = false,
@@ -31,6 +32,7 @@ local common_definition = {
 return {
 	--- @generic GenericDevice: fuel_device.Device
 	--- @param Device GenericDevice
+	--- @return NodeDefinition
 	get = function(Device)
 		return table.merge(common_definition, {
 			drop         = Device.node_name.inactive,

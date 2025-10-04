@@ -100,8 +100,12 @@ enable_pvp = true
 static_spawnpoint = 735, 33, -818
 #    If enabled, new players cannot join with an empty password.
 disallow_empty_password = true
-#    If enabled, disable cheat prevention in multiplayer.
-disable_anticheat = true
+
+# Убрано при переходе на 5.12 (используются значения по умолчанию, см. minetest.conf.example)
+# Удалить позже при отсутствии жалоб
+# --- # #    If enabled, disable cheat prevention in multiplayer.
+# --- # disable_anticheat = true
+
 #    If enabled, actions are recorded for rollback.
 #    This option is only read when server starts.
 enable_rollback_recording = true

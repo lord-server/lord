@@ -87,7 +87,7 @@ function string:title()
 	for _, word in ipairs(self:split(" ")) do
 		result = string.format("%s%s ", result, word:first_to_upper())
 	end
-	return result:trim()
+	return result:trim()--[[@as string]]
 end
 
 --- @return string
@@ -96,12 +96,13 @@ function string:to_headline()
 	for _, word in ipairs(self:split(" ")) do
 		result = string.format("%s%s ", result, word:first_to_upper())
 	end
-	return result:trim()
+	return result:trim()--[[@as string]]
 end
 
+--- @deprecated use `string:replace()` or `string:remove()` instead
 --- @return string
 function string:remove_underscores()
-	return self:gsub("_", " ")
+	return self:replace("_", " ")
 end
 
 --- @param prefix string
@@ -125,8 +126,8 @@ end
 --- See `string.gsub()` docs.
 --- @overload fun(pattern:string, replacement:string): string
 --- @param pattern     string
---- @param replacement string|fun()
---- @param n           number
+--- @param replacement string|number|integer|fun(param:string):string
+--- @param n?          integer number of substitutions to make; default is to make all possible substitutions
 --- @return string
 function string:replace(pattern, replacement, n)
 	-- take only first returned value from gsub, to return only 1 value from this function
@@ -137,7 +138,7 @@ end
 
 --- @overload fun(pattern:string): string
 --- @param pattern string
---- @param n       number
+--- @param n?      integer number of substitutions to make; default is to make all possible substitutions
 --- @return string
 function string:remove(pattern, n)
 	return self:replace(pattern, '', n)

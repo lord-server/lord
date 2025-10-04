@@ -7,10 +7,12 @@ local S = minetest.get_mod_translator()
 --- - Returns whether processing possible &
 --- - if possible, also returns (RecipeOutput - result, RecipeInput - remaining) for source & fuel.
 --- - So, returns `possible, result_source, remaining_source, result_fuel, remaining_fuel`
+--- @overload fun(inv:InvRef, meta:NodeMetaRef, method:string): false, nil, nil, nil, nil
+--- @overload fun(inv:InvRef, meta:NodeMetaRef, method:string): true, RecipeOutput,RecipeInput,RecipeOutput,RecipeInput
 --- @param inv    InvRef
 --- @param meta   NodeMetaRef
 --- @param method string
---- @return boolean, RecipeOutput, RecipeInput, RecipeOutput, RecipeInput
+--- @return boolean, RecipeOutput?, RecipeInput?, RecipeOutput?, RecipeInput?
 local function process_possible(inv, meta, method)
 	local result_source, remaining_source = minetest.get_craft_result({
 		method = method,
@@ -64,7 +66,6 @@ end
 --- @param meta             NodeMetaRef
 --- @param remaining_source RecipeInput
 --- @param result_source    RecipeOutput
---- @param time number
 local function process_source(meta, remaining_source, result_source)
 	local src_time = meta:get_int('src_time')
 	local src_totaltime = result_source.time
@@ -88,10 +89,10 @@ end
 local Processor = {
 	--- @static
 	--- @type fuel_device.Device
-	DeviceClass  = nil,
+	DeviceClass  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @type string
-	craft_method = nil,
+	craft_method = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @public
@@ -147,6 +148,10 @@ function Processor:act(position)
 	local possible, result_source, remaining_source, result_fuel, remaining_fuel
 		= process_possible(inv, meta, self.craft_method)
 	if possible then
+		--- @cast result_source    RecipeOutput
+		--- @cast remaining_source RecipeInput
+		--- @cast result_fuel      RecipeOutput
+		--- @cast remaining_fuel   RecipeInput
 		device:activate(S('Active'))
 
 		burn_fuel(meta, remaining_fuel, result_fuel)

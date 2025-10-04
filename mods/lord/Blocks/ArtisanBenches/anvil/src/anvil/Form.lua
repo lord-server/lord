@@ -2,7 +2,7 @@ local Inventory = require('anvil.Form.Inventory')
 
 
 --- @class artisan_benches.anvil.Form: base_classes.Form.Base
---- @field new fun(player:Player, pos:Position)
+--- @field new fun(self: self, player:Player, pos:Position)
 --- @field inventory anvil.Form.Inventory
 local Form = base_classes.Form:personal():for_node():with_detached(Inventory):extended({
 	--- @const

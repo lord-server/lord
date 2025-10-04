@@ -34,9 +34,16 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 	local texture_top  = parent_node_name:replace(':', '_') .. '_top.png^(lord_trees_infected_top.png^[opacity:200)'
 
 	node_name = not node_name:starts_with('lord_trees:') and ':' .. node_name or node_name
+
+	local parent_groups = table.copy(parent_tree_definition.groups)
+	parent_groups.infected_tree   = 1
+	parent_groups.tree            = nil -- not use in crafts with `"group:tree"`
+	parent_groups.wall_connected  = 1
+	parent_groups.fence_connected = 1
+
 	trunks.register(node_name, softness, tree_height, leaves_radius, register_young, {
 		tiles              = { texture_top, texture_top, texture_side },
-		groups             = { infected_tree = 1 },
+		groups             = parent_groups,
 		_is_infected       = true,
 		_healthy_node_name = parent_node_name,
 	}, INFECTED_TRUNKS_GROUP)

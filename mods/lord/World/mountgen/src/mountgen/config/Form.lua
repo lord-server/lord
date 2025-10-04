@@ -8,8 +8,8 @@ local spec     = minetest.formspec
 local colorize = minetest.colorize
 
 --- @class mountgen.config.Form.Fields: mountgen.config.ValuesTable
---- @field save
---- @field generate
+--- @field save     string?
+--- @field generate string?
 
 --- @class mountgen.config.Form: base_classes.Form.Base
 --- @field new fun(player:Player,opened_by:string) @`opened_by` - name of tool|node (ex:`wielded:mountgen:mount_tool`)

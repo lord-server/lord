@@ -10,17 +10,18 @@ minetest.formspec = FormSpec
 --- @param bool boolean|string
 --- @return string
 local function bool_str(bool)
-	return (bool==true and 'true' or (bool==false and 'false' or bool))
+	return (bool==true and 'true' or (bool==false and 'false' or tostring(bool)))
 end
 --- @param param     any
---- @param separator string default: `;`
+--- @param separator string? [optional] default: `;`
 --- @return string
 local function optional(param, separator)
 	separator = separator or ';'
+
 	return param and (separator.. param) or ''
 end
 --- @param list      table
---- @param separator string default: `;`
+--- @param separator string? [optional] default: `;`
 --- @return string
 local function key_value_list(list, separator)
 	separator = separator or ';'

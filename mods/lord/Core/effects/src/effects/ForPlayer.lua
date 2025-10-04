@@ -16,12 +16,12 @@ local Logger     = minetest.get_mod_logger()
 --- @class effects.ForPlayer
 local ForPlayer = {
 	--- @type Player
-	player = nil,
-	--- @type effects.ForPlayer.Active[][]
-	effects = nil,
+	player  = nil,    --- @diagnostic disable-line: assign-type-mismatch
+	--- @type effects.ForPlayer.Active[string][string]
+	effects = {},     --- @diagnostic disable-line: assign-type-mismatch
 	--- @static
 	--- @type helpers.Logger
-	logger = Logger,
+	logger  = Logger, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 function ForPlayer:new(player)
@@ -43,7 +43,7 @@ function ForPlayer:refresh_player(player)
 end
 
 --- @param name string|nil effect name
---- @return effects.ForPlayer.Active[][]|effects.ForPlayer.Active[]
+--- @return effects.ForPlayer.Active[string][string]|effects.ForPlayer.Active[string]
 function ForPlayer:get(name)
 	return name
 		and (self.effects[name] or nil)

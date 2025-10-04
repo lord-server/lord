@@ -9,14 +9,14 @@ local HUD = {
 	IDs    = {},
 	--- @protected
 	--- @type Player
-	player = nil,
+	player = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type HudDefinition
 	common = {},
 	--- @private
 	--- @generic GenericHUD: base_classes.HUD
 	--- @type table<string,GenericHUD>
-	hud    = nil,
+	hud    = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @public
@@ -55,8 +55,9 @@ function HUD:for_player(player)
 end
 
 --- @protected
+--- @param ... any[]
 --- @return HudDefinition[]
-function HUD:get_definitions()
+function HUD:get_definitions(...)
 	error('You should to override method `:get_definitions()`')
 end
 

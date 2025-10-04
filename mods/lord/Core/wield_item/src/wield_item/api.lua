@@ -1,4 +1,4 @@
-local Event = require("wield_item.Event")
+local Event = require('wield_item.Event')
 
 
 local player_last_wield_index = {}

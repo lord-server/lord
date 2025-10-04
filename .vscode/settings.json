@@ -1,0 +1,13 @@
+{
+    // Форматтер по умолчанию для Lua
+    "[lua]": {
+        "editor.defaultFormatter": "CppCXY.emmylua-codestyle",
+    },
+    "emmylua.spell.dict": [
+        "minetest",
+        "leaveplayer",
+        "joinplayer",
+        "foreach",
+        "punchplayer"
+    ]
+}

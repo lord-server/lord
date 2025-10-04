@@ -5,9 +5,9 @@ local pairs, setmetatable, assert, type
 --- @class Voxrame.SettingsGroup
 local SettingsGroup = {
 	--- @type string name of the Group, which used as prefix of setting key.
-	group_name = nil,
+	group_name = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type table<string,string> stripped key names are used (without group-name prefixes).
-	settings = nil,
+	settings   = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @protected
@@ -75,7 +75,7 @@ end
 --- @overload fun(name:string)
 --- @param name    string  name of the setting (key). Stripped key names are used (without group-name prefixes).
 --- @param default boolean default value, if setting not found. [optional]
---- @return boolean
+--- @return boolean|nil returns `nil` if setting not found and `default` not specified.
 function SettingsGroup:get_bool(name, default)
 	assert(default == nil or type(default) == 'boolean')
 

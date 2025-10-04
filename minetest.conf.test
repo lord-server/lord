@@ -72,8 +72,6 @@ enable_pvp = true
 static_spawnpoint = 330, 20, 160
 #    If enabled, new players cannot join with an empty password.
 disallow_empty_password = true
-#    If enabled, disable cheat prevention in multiplayer.
-disable_anticheat = true
 #    If enabled, actions are recorded for rollback.
 #    This option is only read when server starts.
 enable_rollback_recording = true

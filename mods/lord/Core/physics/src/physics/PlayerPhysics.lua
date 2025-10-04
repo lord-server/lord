@@ -11,24 +11,27 @@ local Event = require('physics.Event')
 --- @class physics.PlayerPhysics
 local PlayerPhysics = {
 	--- @type Player
-	player = nil,
+	player       = nil, --- @diagnostic disable-line: assign-type-mismatch
 
 	--- @type physics_override_table
-	base_physics = nil,
+	base_physics = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- ```lua
+	--- {
+	--- 	speed = {
+	--- 		[reason.name] = amount,
+	--- 		[reason.name] = amount,
+	--- 	}
+	--- }
+	--- ```
 	--- @private
 	--- @type table<string,table<string,number>>
-	deltas       = nil, --{
-	--	speed = {
-	--		[reason.name] = amount,
-	--		[reason.name] = amount,
-	--	}
-	--}
+	deltas       = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- Constructor
 --- @public
---- @param player       Player
---- @param base_physics physics_override_table
+--- @param player        Player
+--- @param base_physics? physics_override_table (default: { speed = 1, jump = 1, gravity = 1 })
 --- @return physics.PlayerPhysics
 function PlayerPhysics:new(player, base_physics)
 	local class = self
@@ -75,9 +78,9 @@ function PlayerPhysics:extract_override()
 end
 
 --- @overload fun():table<string,table<string,number>>
---- @param name   string
---- @param reason physics.PlayerPhysics.Reason
---- @return table<string,number>
+--- @param name?   string
+--- @param reason? physics.PlayerPhysics.Reason
+--- @return table<string,table<string,number>>|table<string,number>|number|nil
 function PlayerPhysics:get(name, reason)
 	return name
 		and (reason

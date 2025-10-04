@@ -18,7 +18,7 @@ end
 --- that called `error` was called; and so on. Passing a level 0 avoids the
 --- addition of error position information to the message.
 ---@param message string  format string for `string.format()`
----@param level   number  traceback depth
+---@param level   integer traceback depth
 function errorlf(message, level, ...)  -- luacheck: ignore unused global variable errorlf
 	error(string.format(message, ...), level)
 end

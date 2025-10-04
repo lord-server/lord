@@ -1,7 +1,42 @@
 local math_pi, math_arctan, math_sqrt
 	= math.pi, math.atan2,  math.sqrt
 
+--- @alias projectiles.Entity.RotationType "pointed"|"rolling"
 
+--- @class projectiles.Entity.LuaEntity
+--- @field _collision_count      integer
+--- @field _life_timer           number
+--- @field _projectile_stack     ItemStack
+--- @field _rotation_formula     projectiles.Entity.RotationType
+--- @field _shooter              ObjectRef|Player|Entity
+--- @field _sound_played_times   integer
+--- @field _time_from_last_hit   number
+--- @field _timer_is_started     boolean
+--- @field _remove_on_object_hit boolean
+--- @field object                Entity
+
+--- @class projectiles.Entity.StaticData
+--- @field _timer_is_started boolean
+--- @field _projectile_stack table
+
+--- @class projectiles.Entity.Definition
+--- @field initial_properties   { visual: string, wield_item: string, visual_size: Position }
+--- @field max_speed            number
+--- @field sound_hit_node       { name: string, gain: number },
+--- @field sound_hit_object     { name:string, gain: number },
+--- @field damage_groups        { fleshy: number },
+--- @field remove_on_object_hit boolean,
+--- @field remove_on_node_hit   boolean,
+--- @field rotation_formula     projectiles.Entity.RotationType
+--- @field on_hit_node          fun(projectile:projectiles.Entity.LuaEntity, node_pos, move_result)
+--- @field on_hit_object        fun(projectile:projectiles.Entity.LuaEntity, target, move_result)
+--- @field after_hit_node       fun(projectile:projectiles.Entity.LuaEntity, node_pos, move_result)
+--- @field after_hit_object     fun(projectile:projectiles.Entity.LuaEntity, target, move_result)
+
+
+--- @param rotation_type projectiles.Entity.RotationType
+--- @param vel           Position|vector
+--- @return Position|vector
 local function get_rotation_pattern(rotation_type, vel)
 	if not rotation_type or type(rotation_type) ~= "string" then
 		rotation_type = "pointed"
@@ -22,8 +57,8 @@ local function get_rotation_pattern(rotation_type, vel)
 end
 
 -- Update projectile life timer
---- @param projectile LuaEntity  projectile entity
---- @param dtime      number     time passed from the last call
+--- @param projectile projectiles.Entity.LuaEntity  projectile entity
+--- @param dtime      number                        time passed from the last call
 local function update_life_timer(projectile, dtime)
 	if not projectile._timer_is_started then
 		return
@@ -39,7 +74,7 @@ local function update_life_timer(projectile, dtime)
 end
 
 -- Dealing the damage to the target
---- @param projectile        LuaEntity  projectile entity
+--- @param projectile        projectiles.Entity.LuaEntity  projectile entity
 --- @param target            Entity     target entity
 --- @param damage_groups     table      damage groups table
 --- @param remove_after_hit  boolean    true: remove after hit; false/nil: do nothing
@@ -61,7 +96,7 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 	target:punch(projectile._shooter or projectile.object, 1.4, {
 		full_punch_interval = 1.4,
 		damage_groups       = new_damage_groups,
-	})
+	}, projectile.object:get_velocity():normalize())
 
 	if remove_after_hit ~= true then
 		local pos = projectile.object:get_pos()
@@ -71,12 +106,14 @@ local function punch_target(projectile, target, damage_groups, remove_after_hit,
 	projectile.object:remove()
 end
 
---- @param entity ObjectRef  entity to check if it is a projectile
---- @return       boolean    true, if it is a projectile, or false
+--- @param entity Entity  entity to check if it is a projectile
+---
+--- @return boolean true, if it is a projectile, or false
 local function is_entity_projectile(entity)
 	if not entity or not entity:get_luaentity() then
-		return
+		return false
 	end
+
 	local entity_name = entity:get_luaentity().name
 	local registered_projectiles = projectiles.get_projectiles()
 	for _, reg in pairs(registered_projectiles) do
@@ -84,6 +121,7 @@ local function is_entity_projectile(entity)
 			return true
 		end
 	end
+
 	return false
 end
 
@@ -127,11 +165,11 @@ local function collision_node(projectile, move_result, on_hit_node, after_hit_no
 		end
 end
 
--- Hit handling depending on target
---- @param projectile    LuaEntity  projectile entity
---- @param target        ObjectRef  target entity
---- @param damage_groups table      damage groups table (see Minetest API)
---- @param velocity      vector     projectile velocity
+--- Hit handling depending on target
+--- @param projectile    projectiles.Entity.LuaEntity projectile entity
+--- @param target        ObjectRef                    target entity
+--- @param damage_groups table                        damage groups table (see Minetest API)
+--- @param velocity      vector                       projectile velocity
 local function hit_handling(projectile, target, damage_groups, velocity)
 	local function hit()
 		local damage = (vector.length(velocity)/GRAVITY)^(1/2)
@@ -142,6 +180,7 @@ local function hit_handling(projectile, target, damage_groups, velocity)
 		play_sound_on_hit(projectile, "object")
 		hit()
 	else
+		--- @cast target Entity
 		-- Hit another projectile
 		if target and is_entity_projectile(target) then
 			projectile.object:set_acceleration({x = 0, y = GRAVITY * -1, z = 0})
@@ -156,9 +195,9 @@ local function hit_handling(projectile, target, damage_groups, velocity)
 end
 
 -- Collision handling
---- @param projectile    LuaEntity  projectile entity
---- @param move_result   table      table with collision info
---- @param damage_groups table      damage groups table (see Minetest API)
+--- @param projectile    projectiles.Entity.LuaEntity projectile entity
+--- @param move_result   table                        table with collision info
+--- @param damage_groups table                        damage groups table (see Minetest API)
 local function collision_handling(projectile, move_result, damage_groups)
 	local vel = projectile.object:get_velocity()
 
@@ -195,13 +234,15 @@ local function collision_handling(projectile, move_result, damage_groups)
 end
 
 
---- @param projectile LuaEntity  projectile entity
-local function flight_processing(projectile, environment, rotation_formula)
+--- @param projectile  projectiles.Entity.LuaEntity    projectile entity
+--- @param environment "normal"|"water"                node type
+--- @param rotation    projectiles.Entity.RotationType rotation type
+local function flight_processing(projectile, environment, rotation)
 	local vel = projectile.object:get_velocity()
 	local projectile_type = projectiles.get_projectiles()[projectile._projectile_stack:get_name()].type
 	local particle_texture = "lord_projectiles_"..projectile_type.."_trajectory_"..environment.."_particle.png"
 	if vel.y ~= 0 then
-		math.randomseed(os.clock())
+		math.randomseed(os.time())
 		if environment == "water" then
 			minetest.add_particlespawner({
 				attached = projectile.object,
@@ -220,8 +261,18 @@ local function flight_processing(projectile, environment, rotation_formula)
 			})
 		end
 
-		projectile.object:set_rotation(get_rotation_pattern(rotation_formula, vel))
+		projectile.object:set_rotation(get_rotation_pattern(rotation, vel))
 	end
+end
+
+--- @param position Position
+--- @return "normal"|"water"
+local function get_environment_at(position)
+	local node_groups = minetest.registered_nodes[core.get_node(position).name].groups
+
+	return (node_groups and node_groups.water ~= nil)
+		and "water"
+		or  "normal"
 end
 
 local register_projectile_entity = function(name, entity_reg)
@@ -249,22 +300,18 @@ local register_projectile_entity = function(name, entity_reg)
 				self._time_from_last_hit = self._time_from_last_hit + dtime
 			end
 
-			local pos         = self.object:get_pos()
-			local node_groups = minetest.registered_nodes[core.get_node(pos).name].groups
-			local environment = "normal"
-			if node_groups.water ~= nil then
-				environment = "water"
-			end
+			local pos = self.object:get_pos()
 
 			core.emerge_area(vector.subtract(pos, 8), vector.add(pos, 8))
 
 			if (vector.length(self.object:get_velocity()) > 0 and moveresult.collides) or moveresult.standing_on_object then
 				self:_on_collision(moveresult)
 			elseif vector.length(self.object:get_velocity()) > 0 then
-				flight_processing(self, environment, self._rotation_formula)
+				flight_processing(self, get_environment_at(pos), self._rotation_formula)
 			end
 
 			local stack = self._projectile_stack
+			--- @diagnostic disable-next-line # TODO: тут что-то странное (is_in_creative = not_in_creative_inventory)
 			local is_in_creative = minetest.registered_items[stack:get_name()].groups.not_in_creative_inventory
 
 			if update_life_timer(self, dtime) and not is_in_creative then
@@ -291,8 +338,11 @@ local register_projectile_entity = function(name, entity_reg)
 				return
 			end
 			local staticdata_table = minetest.deserialize(staticdata)
+			if not staticdata_table then
+				return
+			end
 
-			self._timer_is_started = true --staticdata_table._timer_is_started
+			self._timer_is_started = true --staticdata_table._timer_is_started -- TODO: check if it is needed
 			self._projectile_stack = ItemStack(staticdata_table._projectile_stack)
 			update_life_timer(self, dtime_s)
 		end,

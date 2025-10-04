@@ -5,7 +5,7 @@ local Storage = require("base_classes.ObjectState.Storage")
 local ObjectState = {
 	--- @private
 	--- @type table<string,any>
-	state_table = nil,
+	state_table = {},
 }
 
 --- @param object table  Table of all state entries
@@ -49,5 +49,6 @@ end
 function ObjectState:load(object)
 	self.state_table = Storage.get_state_of(object)
 end
+
 
 return ObjectState

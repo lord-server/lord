@@ -10,10 +10,13 @@ local SUBSCRIBERS_EVENTS_SET_OF_KIND = {
 	["change"] = {},
 }
 
+--- @alias equipment.Event.callback fun(player:Player,kind:string,event:string,slot:number,item:ItemStack)
+
 --- @class equipment.Event
 local Event = {}
 
 --- @private
+--- @type table<string, table<string, equipment.Event.callback[]>>
 Event.subscribers = {
 	["*any*"] = table.copy(SUBSCRIBERS_EVENTS_SET_OF_KIND),
 	["*all*"] = {

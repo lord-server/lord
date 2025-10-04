@@ -7,6 +7,7 @@ local YOUNG_TRUNKS_GROUP_POSTFIX = '_young'
 local YOUNG_TRUNKS_GROUP         = DEFAULT_TRUNKS_GROUP .. YOUNG_TRUNKS_GROUP_POSTFIX
 
 --- @class TrunkDefinition: NodeDefinition
+--- @field groups              table<string,number>
 --- @field _is_young           boolean|nil whether this thunk is young analogue of another full-size trunk.
 --- @field _tree_height        number      max height of tree (will be used for digging of growing tree).
 --- @field _leaves_radius      number      radius of tree crown (will be used for leaves fall off).
@@ -15,11 +16,11 @@ local YOUNG_TRUNKS_GROUP         = DEFAULT_TRUNKS_GROUP .. YOUNG_TRUNKS_GROUP_PO
 --- @field _infected_node_name string      technical name of infected node pair.
 
 local trunks = {
-	--- @type table<string,table<string,TrunkDefinition>>|TrunkDefinition[][]
+	--- @type table<string,table<string,TrunkDefinition>>
 	nodes = {
-		--- @type table<string,TrunkDefinition>|TrunkDefinition[]
+		--- @type table<string,TrunkDefinition>
 		[DEFAULT_TRUNKS_GROUP] = {},
-		--- @type table<string,TrunkDefinition>|TrunkDefinition[]
+		--- @type table<string,TrunkDefinition>
 		[YOUNG_TRUNKS_GROUP]   = {},
 	}
 }
@@ -41,7 +42,7 @@ local function add_existing(node_name, trunks_group)
 	assert(definition._tree_height)
 	assert(definition._leaves_radius)
 	minetest.override_item(node_name, {
-		groups = table.overwrite(definition.groups, { tree = 1 }),
+		groups = table.overwrite(definition.groups or {}, { tree = 1 }),
 	})
 	remember(trunks_group, node_name, definition)
 end
@@ -156,9 +157,9 @@ register_trunk('lord_trees:yavannamire_tree', 3, 12, 3)
 return {
 	add_existing         = add_existing,
 	register             = register_trunk,
-	--- @overload fun()
+	--- @overload fun():table<string,TrunkDefinition>
 	--- @param trunks_group string|nil group name to get from. (Default: `DEFAULT_TRUNKS_GROUP`)
-	--- @return TrunkDefinition[]
+	--- @return table<string,TrunkDefinition> # return list of trunks nodes definitions
 	get_nodes            = function(trunks_group)
 		trunks_group = trunks_group or DEFAULT_TRUNKS_GROUP
 
