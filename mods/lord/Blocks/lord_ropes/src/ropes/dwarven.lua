@@ -6,7 +6,14 @@ local function register_dwarven()
 		description         = S('Dwarven ropes'),
 		drawtype            = 'nodebox',
 		sunlight_propagates = true,
-		tiles               = { 'lord_ropes_dwarven_ropes.png' },
+		tiles               = {
+			'lord_ropes_rope_top.png',
+			'lord_ropes_rope_top.png',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:0,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:0,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:1,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:1,0',
+		},
 		use_texture_alpha   = 'clip',
 		groups              = {
 			choppy = 3,
@@ -44,7 +51,14 @@ local function register_dwarven()
 	minetest.register_node('lord_ropes:dwarven_rope_hanging', {
 		paramtype           = 'light',
 		sunlight_propagates = true,
-		tiles               = { 'lord_ropes_dwarven_ropes.png' },
+		tiles               = {
+			'[fill:1x1:0,0:#00000000',
+			'[fill:1x1:0,0:#00000000',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:0,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:0,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:1,0',
+			'lord_ropes_dwarven_ropes.png^[sheet:2x1:1,0',
+		},
 		use_texture_alpha   = 'clip',
 		groups              = { not_in_creative_inventory = 1 },
 		climbable           = true,
