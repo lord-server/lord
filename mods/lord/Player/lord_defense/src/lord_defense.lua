@@ -46,7 +46,7 @@ local function collect_defense_from_armor_equipment(player)
 
 	-- if same material set
 	if (material.type and material.count == armor_slots_count) then
-		defense.fleshy = defense.fleshy * 1.1
+		defense.fleshy = defense.fleshy * 1.05
 	end
 
 	-- either armor or the ring
