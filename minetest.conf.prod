@@ -289,7 +289,7 @@ protector_damage = 3
 
 # -------- _various/discord ---------
 # For Discord
-lp_api.enabled = true
+lp_api.enabled = false
 lp_api.channel_id = 284593326370324481
 lp_api.router.cmd = true
 lp_api.system_name = lord
