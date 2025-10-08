@@ -118,3 +118,12 @@ minetest.register_tool("admin_tools:pick_admin", {
 		return
 	end,
 })
+
+
+minetest.register_tool('admin_tools:pointer', {
+	description = 'Pointer. For touch all ding ding nodes',
+	inventory_image = 'lord_tools_pointer.png^[transformFX',
+	range = 10,
+	groups = { tool = 1 },
+	liquids_pointable = true,
+})
