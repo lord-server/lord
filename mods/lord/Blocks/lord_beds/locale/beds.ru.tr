@@ -1,4 +1,4 @@
-# textdomain: beds
+# textdomain: lord_beds
 Fancy Bed=Красивая кровать
 Simple Bed=Простая кровать
 This bed is already occupied!=Эта кровать уже занята!
@@ -8,3 +8,4 @@ Good morning.=Доброе утро.
 Force night skip=Пропустить ночь
 You can only sleep at night.=Вы можете спать только ночью.
 Leave Bed=Встать с кровати
+Straw Bed=Соломенная кровать

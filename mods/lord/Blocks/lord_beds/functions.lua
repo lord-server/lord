@@ -50,7 +50,80 @@ local function check_in_beds(players)
 	return #players > 0
 end
 
-local function lay_down(player, pos, bed_pos, state, skip)
+local function stand_up(player, name, skip, hud_flags)
+	if not beds.player[name] then
+		-- player not in bed, do nothing
+		return false
+	end
+	beds.bed_position[name] = nil
+	-- skip here to prevent sending player specific changes (used for leaving players)
+	if skip then
+		return
+	end
+	player:set_pos(beds.pos[name])
+
+	-- physics, eye_offset, etc
+	local physics_override = beds.player[name].physics_override
+	beds.player[name] = nil
+	player:set_physics_override({
+		speed = physics_override.speed,
+		jump = physics_override.jump,
+		gravity = physics_override.gravity
+	})
+	player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
+	player:set_look_horizontal(math.random(1, 180) / 100)
+	player_api.player_attached[name] = false
+	hud_flags.wielditem = true
+	player_api.set_animation(player, "stand" , 30)
+end
+
+local function lay_down(player, name, pos, bed_pos, hud_flags)
+	-- Check if bed is occupied
+	for _, other_pos in pairs(beds.bed_position) do
+		if vector.distance(bed_pos, other_pos) < 0.1 then
+			minetest.chat_send_player(name, S("This bed is already occupied!"))
+			return false
+		end
+	end
+
+	-- Check if player is moving
+	if vector.length(player:get_velocity()) > 0.001 then
+		minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
+		return false
+	end
+
+	-- Check if player is attached to an object
+	if player:get_attach() then
+		return false
+	end
+
+	if beds.player[name] then
+		-- player already in bed, do nothing
+		return false
+	end
+
+	beds.pos[name] = pos
+	beds.bed_position[name] = bed_pos
+	beds.player[name] = {physics_override = player:get_physics_override()}
+
+	local yaw, param2 = get_look_yaw(bed_pos)
+	player:set_look_horizontal(yaw)
+	local dir = minetest.facedir_to_dir(param2)
+	-- p.y is just above the nodebox height of the 'Simple Bed' (the highest bed),
+	-- to avoid sinking down through the bed.
+	local p = {
+		x = bed_pos.x + dir.x / 2,
+		y = bed_pos.y + 0.07,
+		z = bed_pos.z + dir.z / 2
+	}
+	player:set_physics_override({speed = 0, jump = 0, gravity = 0})
+	player:set_pos(p)
+	player_api.player_attached[name] = true
+	hud_flags.wielditem = false
+	player_api.set_animation(player, "lay" , 0)
+end
+
+local function stand_up_or_lay_down(player, pos, bed_pos, state, skip)
 	local name = player:get_player_name()
 	local hud_flags = player:hud_get_flags()
 
@@ -60,77 +133,9 @@ local function lay_down(player, pos, bed_pos, state, skip)
 
 	-- stand up
 	if state ~= nil and not state then
-		if not beds.player[name] then
-			-- player not in bed, do nothing
-			return false
-		end
-		beds.bed_position[name] = nil
-		-- skip here to prevent sending player specific changes (used for leaving players)
-		if skip then
-			return
-		end
-		player:set_pos(beds.pos[name])
-
-		-- physics, eye_offset, etc
-		local physics_override = beds.player[name].physics_override
-		beds.player[name] = nil
-		player:set_physics_override({
-			speed = physics_override.speed,
-			jump = physics_override.jump,
-			gravity = physics_override.gravity
-		})
-		player:set_eye_offset({x = 0, y = 0, z = 0}, {x = 0, y = 0, z = 0})
-		player:set_look_horizontal(math.random(1, 180) / 100)
-		player_api.player_attached[name] = false
-		hud_flags.wielditem = true
-		player_api.set_animation(player, "stand" , 30)
-
-	-- lay down
+		stand_up(player, name, skip, hud_flags)
 	else
-
-		-- Check if bed is occupied
-		for _, other_pos in pairs(beds.bed_position) do
-			if vector.distance(bed_pos, other_pos) < 0.1 then
-				minetest.chat_send_player(name, S("This bed is already occupied!"))
-				return false
-			end
-		end
-
-		-- Check if player is moving
-		if vector.length(player:get_velocity()) > 0.001 then
-			minetest.chat_send_player(name, S("You have to stop moving before going to bed!"))
-			return false
-		end
-
-		-- Check if player is attached to an object
-		if player:get_attach() then
-			return false
-		end
-
-		if beds.player[name] then
-			-- player already in bed, do nothing
-			return false
-		end
-
-		beds.pos[name] = pos
-		beds.bed_position[name] = bed_pos
-		beds.player[name] = {physics_override = player:get_physics_override()}
-
-		local yaw, param2 = get_look_yaw(bed_pos)
-		player:set_look_horizontal(yaw)
-		local dir = minetest.facedir_to_dir(param2)
-		-- p.y is just above the nodebox height of the 'Simple Bed' (the highest bed),
-		-- to avoid sinking down through the bed.
-		local p = {
-			x = bed_pos.x + dir.x / 2,
-			y = bed_pos.y + 0.07,
-			z = bed_pos.z + dir.z / 2
-		}
-		player:set_physics_override({speed = 0, jump = 0, gravity = 0})
-		player:set_pos(p)
-		player_api.player_attached[name] = true
-		hud_flags.wielditem = false
-		player_api.set_animation(player, "lay" , 0)
+		lay_down(player, name, pos, bed_pos, hud_flags)
 	end
 
 	player:hud_set_flags(hud_flags)
@@ -173,7 +178,7 @@ end
 function beds.kick_players()
 	for name, _ in pairs(beds.player) do
 		local player = minetest.get_player_by_name(name)
-		lay_down(player, nil, nil, false)
+		stand_up_or_lay_down(player, nil, nil, false)
 	end
 end
 
@@ -208,7 +213,7 @@ function beds.on_rightclick(pos, player)
 
 	if tod > beds.day_interval.start and tod < beds.day_interval.finish then
 		if beds.player[name] then
-			lay_down(player, nil, nil, false)
+			stand_up_or_lay_down(player, nil, nil, false)
 		end
 		minetest.chat_send_player(name, S("You can only sleep at night."))
 		return
@@ -216,10 +221,10 @@ function beds.on_rightclick(pos, player)
 
 	-- move to bed
 	if not beds.player[name] then
-		lay_down(player, ppos, pos)
+		stand_up_or_lay_down(player, ppos, pos)
 		beds.set_spawns() -- save respawn positions when entering bed
 	else
-		lay_down(player, nil, nil, false)
+		stand_up_or_lay_down(player, nil, nil, false)
 	end
 
 	if not is_sp then
@@ -257,7 +262,7 @@ end
 
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
-	lay_down(player, nil, nil, false, true)
+	stand_up_or_lay_down(player, nil, nil, false, true)
 	beds.player[name] = nil
 	if check_in_beds() then
 		schedule_update()
@@ -271,7 +276,7 @@ minetest.register_on_dieplayer(function(player)
 	local yaw = get_look_yaw(pos)
 
 	if in_bed[name] then
-		lay_down(player, nil, pos, false)
+		stand_up_or_lay_down(player, nil, pos, false)
 		player:set_look_horizontal(yaw)
 		player:set_pos(pos)
 	end
@@ -283,12 +288,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 
 	-- Because "Force night skip" button is a button_exit, it will set fields.quit
-	-- and lay_down call will change value of player_in_bed, so it must be taken
+	-- and stand_up_or_lay_down call will change value of player_in_bed, so it must be taken
 	-- earlier.
 	local last_player_in_bed = get_player_in_bed_count()
 
 	if fields.quit or fields.leave then
-		lay_down(player, nil, nil, false)
+		stand_up_or_lay_down(player, nil, nil, false)
 		update_formspecs(false)
 	end
 
