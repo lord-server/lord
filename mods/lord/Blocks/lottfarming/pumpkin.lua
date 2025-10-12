@@ -1,4 +1,10 @@
 local S = minetest.get_mod_translator()
+local jack_o_lantern_color_description = minetest.colorize('#B380FF',
+	S('Jack-o-lantern') .. '\n' ..
+	S('Halloween сollection')
+
+)
+
 
 minetest.register_craftitem('lottfarming:pumpkin_seed', {
 	description     = S('Pumpkin seed'),
@@ -93,6 +99,7 @@ minetest.register_node('lottfarming:pumpkin_2', {
 
 minetest.register_node('lottfarming:pumpkin_3', {
 	description = S('Pumpkin'),
+	paramtype   = 'light',
 	paramtype2  = 'facedir',
 	tiles       = {
 		'lottfarming_pumpkin_top.png',
@@ -105,6 +112,33 @@ minetest.register_node('lottfarming:pumpkin_3', {
 	drop        = 'lottfarming:pumpkin_3',
 	groups      = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, plant = 1 },
 	sounds      = default.node_sound_wood_defaults(),
+})
+
+minetest.register_node('lottfarming:pumpkin_jack_o_lantern', {
+	description         = jack_o_lantern_color_description,
+	sunlight_propagates = true,
+	light_source        = 12,
+	tiles               = {
+		'lottfarming_pumpkin_top.png',
+		'lottfarming_pumpkin_back.png',
+		'lottfarming_pumpkin_side.png',
+		'lottfarming_pumpkin_side.png',
+		'lottfarming_pumpkin_side.png',
+		'lottfarming_pumpkin_side.png^lottfarming_pumpkin_face_light_on.png',
+	},
+	groups              = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
+	paramtype           = 'light',
+	paramtype2          = 'facedir',
+	sounds              = default.node_sound_wood_defaults(),
+})
+
+minetest.register_craft({
+	output = 'lottfarming:pumpkin_jack_o_lantern',
+	recipe = {
+		{ 'default:torch', 'default:torch',         'default:torch' },
+		{ 'default:torch', 'lottfarming:pumpkin_3', 'default:torch' },
+		{ 'default:torch', 'default:torch',         'default:torch' },
+	},
 })
 
 farming:add_plant('lottfarming:pumpkin_3', { 'lottfarming:pumpkin_1', 'lottfarming:pumpkin_2' }, 50, 20)
