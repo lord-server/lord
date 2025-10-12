@@ -24,6 +24,49 @@ local function destruct_bed(pos, n)
 	end
 end
 
+--- @param placer Player
+--- @param udef   NodeDefinition
+local function place_on_rightclick_item(placer, udef)
+	if udef and udef.on_rightclick and
+		not (placer and placer:is_player() and
+		placer:get_player_control().sneak)
+	then
+		return true
+	end
+
+	return false
+end
+--- @param player_name string
+--- @param pos         Position
+--- @param botpos      Position
+local function can_not_place(player_name, pos, botpos)
+	if
+		minetest.is_protected(pos, player_name) and
+		not minetest.check_player_privs(player_name, "protection_bypass")
+	then
+		minetest.record_protection_violation(pos, player_name)
+		return true
+	end
+
+	local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+	if not node_def or not node_def.buildable_to then
+		return true
+	end
+
+	if minetest.is_protected(botpos, player_name) and
+		not minetest.check_player_privs(player_name, "protection_bypass") then
+		minetest.record_protection_violation(botpos, player_name)
+		return true
+	end
+
+	local botdef = minetest.registered_nodes[minetest.get_node(botpos).name]
+	if not botdef or not botdef.buildable_to then
+		return true
+	end
+
+	return false
+end
+
 function beds.register_bed(name, def)
 	minetest.register_node(name .. "_bottom", {
 		description = def.description,
@@ -51,11 +94,8 @@ function beds.register_bed(name, def)
 			local under = pointed_thing.under
 			local node = minetest.get_node(under)
 			local udef = minetest.registered_nodes[node.name]
-			if udef and udef.on_rightclick and
-					not (placer and placer:is_player() and
-					placer:get_player_control().sneak) then
-				return udef.on_rightclick(under, node, placer, itemstack,
-					pointed_thing) or itemstack
+			if place_on_rightclick_item(placer, udef) then
+				return udef.on_rightclick(under, node, placer, itemstack, pointed_thing) or	itemstack
 			end
 
 			local pos
@@ -66,30 +106,10 @@ function beds.register_bed(name, def)
 			end
 
 			local player_name = placer and placer:get_player_name() or ""
-
-			if minetest.is_protected(pos, player_name) and
-					not minetest.check_player_privs(player_name, "protection_bypass") then
-				minetest.record_protection_violation(pos, player_name)
-				return itemstack
-			end
-
-			local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
-			if not node_def or not node_def.buildable_to then
-				return itemstack
-			end
-
 			local dir = placer and placer:get_look_dir() and
 				minetest.dir_to_facedir(placer:get_look_dir()) or 0
 			local botpos = vector.add(pos, minetest.facedir_to_dir(dir))
-
-			if minetest.is_protected(botpos, player_name) and
-					not minetest.check_player_privs(player_name, "protection_bypass") then
-				minetest.record_protection_violation(botpos, player_name)
-				return itemstack
-			end
-
-			local botdef = minetest.registered_nodes[minetest.get_node(botpos).name]
-			if not botdef or not botdef.buildable_to then
+			if can_not_place(player_name, pos, botpos) then
 				return itemstack
 			end
 

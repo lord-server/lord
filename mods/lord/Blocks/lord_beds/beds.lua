@@ -1,11 +1,8 @@
--- beds/beds.lua
-
--- support for MT game translation.
 local S = beds.get_translator
 
 -- Fancy shaped bed
 
-beds.register_bed("beds:fancy_bed", {
+beds.register_bed("lord_beds:fancy_bed", {
 	description = S("Fancy Bed"),
 	inventory_image = "beds_bed_fancy.png",
 	wield_image = "beds_bed_fancy.png",
@@ -56,7 +53,7 @@ beds.register_bed("beds:fancy_bed", {
 
 -- Simple shaped bed
 
-beds.register_bed("beds:bed", {
+beds.register_bed("lord_beds:bed", {
 	description = S("Simple Bed"),
 	inventory_image = "beds_bed.png",
 	wield_image = "beds_bed.png",
@@ -89,8 +86,14 @@ beds.register_bed("beds:bed", {
 	},
 })
 
+-- Aliases for MT beds
+minetest.register_alias("beds:fancy_bed", "lord_beds:fancy_bed")
+minetest.register_alias("beds:fancy_bed_bottom", "lord_beds:fancy_bed_bottom")
+minetest.register_alias("beds:fancy_bed_top", "lord_beds:fancy_bed_top")
+minetest.register_alias("beds:bed", "lord_beds:bed")
+minetest.register_alias("beds:bed_bottom", "lord_beds:bed_bottom")
+minetest.register_alias("beds:bed_top", "lord_beds:bed_top")
 -- Aliases for PilzAdam's beds mod
-
 minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
 minetest.register_alias("beds:bed_top_red", "beds:bed_top")
 
@@ -98,12 +101,12 @@ minetest.register_alias("beds:bed_top_red", "beds:bed_top")
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "beds:fancy_bed_bottom",
+	recipe = "lord_beds:fancy_bed_bottom",
 	burntime = 13,
 })
 
 minetest.register_craft({
 	type = "fuel",
-	recipe = "beds:bed_bottom",
+	recipe = "lord_beds:bed_bottom",
 	burntime = 12,
 })
