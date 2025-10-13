@@ -1,5 +1,10 @@
 # Change Log
 
+## [2025.09.p1](https://github.com/lord-server/lord/releases/tag/2025.09.p1)
+ - Fixing bonus of the same armor. LG-2009
+ - Disable Discord lp_api. LG-1933
+ - Added tool for touch any node. LG-1996
+
 ## [2025.09](https://github.com/lord-server/lord/releases/tag/2025.09)
  - Doors resprite (#2308)
    - Added door locks. LG-1973 (#2311)
