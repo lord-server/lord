@@ -4,24 +4,24 @@ local S = beds.get_translator
 
 beds.register_bed("lord_beds:fancy_bed", {
 	description = S("Fancy Bed"),
-	inventory_image = "beds_bed_fancy.png",
-	wield_image = "beds_bed_fancy.png",
+	inventory_image = "beds_fancy_bed_sheet.png^[sheet:11x1:0,0",
+	wield_image = "beds_fancy_bed_sheet.png^[sheet:11x1:0,0",
 	tiles = {
 		bottom = {
-			"beds_bed_top1.png",
-			"beds_bed_under.png",
-			"beds_bed_side1.png",
-			"beds_bed_side1.png^[transformFX",
-			"beds_bed_foot.png",
-			"beds_bed_foot.png",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:1,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:2,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:3,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:4,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:5,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:5,0",
 		},
 		top = {
-			"beds_bed_top2.png",
-			"beds_bed_under.png",
-			"beds_bed_side2.png",
-			"beds_bed_side2.png^[transformFX",
-			"beds_bed_head.png",
-			"beds_bed_head.png",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:6,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:2,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:7,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:8,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:9,0",
+			"beds_fancy_bed_sheet.png^[sheet:11x1:9,0",
 		}
 	},
 	nodebox = {
@@ -55,24 +55,24 @@ beds.register_bed("lord_beds:fancy_bed", {
 
 beds.register_bed("lord_beds:bed", {
 	description = S("Simple Bed"),
-	inventory_image = "beds_bed.png",
-	wield_image = "beds_bed.png",
+	inventory_image = "beds_bed_sheet.png^[sheet:11x1:0,0",
+	wield_image = "beds_bed_sheet.png^[sheet:11x1:0,0",
 	tiles = {
 		bottom = {
-			"beds_bed_top_bottom.png^[transformR90",
-			"beds_bed_under.png",
-			"beds_bed_side_bottom_r.png",
-			"beds_bed_side_bottom_r.png^[transformFX",
-			"beds_transparent.png",
-			"beds_bed_side_bottom.png"
+			"beds_bed_sheet.png^[sheet:11x1:1,0",
+			"beds_bed_sheet.png^[sheet:11x1:2,0",
+			"beds_bed_sheet.png^[sheet:11x1:3,0",
+			"beds_bed_sheet.png^[sheet:11x1:4,0",
+			"beds_bed_sheet.png^[sheet:11x1:10,0",
+			"beds_bed_sheet.png^[sheet:11x1:5,0",
 		},
 		top = {
-			"beds_bed_top_top.png^[transformR90",
-			"beds_bed_under.png",
-			"beds_bed_side_top_r.png",
-			"beds_bed_side_top_r.png^[transformFX",
-			"beds_bed_side_top.png",
-			"beds_transparent.png",
+			"beds_bed_sheet.png^[sheet:11x1:6,0",
+			"beds_bed_sheet.png^[sheet:11x1:2,0",
+			"beds_bed_sheet.png^[sheet:11x1:7,0",
+			"beds_bed_sheet.png^[sheet:11x1:8,0",
+			"beds_bed_sheet.png^[sheet:11x1:9,0",
+			"beds_bed_sheet.png^[sheet:11x1:10,0",
 		}
 	},
 	nodebox = {
