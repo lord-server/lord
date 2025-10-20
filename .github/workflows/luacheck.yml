@@ -56,4 +56,4 @@ jobs:
               mods/lord/Tools/lord_boats/ \
               mods/lord/World/Generation/lottmapgen/ \
               mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua \
-              mods/lord/Blocks/lord_beds/api.lua
+              mods/lord/Blocks/lord_beds/src/api.lua
