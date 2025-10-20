@@ -4,6 +4,7 @@ License of source code
 The MIT License (MIT)
 Copyright (C) 2014-2016 BlockMen
 Copyright (C) 2014-2016 Various Minetest developers and contributors
+Copyright (C) 2025 [Александр Чибрикин](https://github.com/alek13) & [Lord Team](https://github.com/lord-server/lord?tab=readme-ov-file#contributors--%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%B8)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this
 software and associated documentation files (the "Software"), to deal in the Software
@@ -31,6 +32,7 @@ Licenses of media (textures)
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Copyright (C) 2014-2016 BlockMen
 Copyright (C) 2018 TumeniNodes
+Copyright (C) 2025 [Александр Чибрикин](https://github.com/alek13) & [Lord Team](https://github.com/lord-server/lord?tab=readme-ov-file#contributors--%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BD%D0%B8%D0%BA%D0%B8)
 
 You are free to:
 Share — copy and redistribute the material in any medium or format.

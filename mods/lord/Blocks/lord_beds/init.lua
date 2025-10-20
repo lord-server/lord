@@ -1,6 +1,3 @@
--- beds/init.lua
-
--- Load support for MT game translation.
 local S = minetest.get_translator("lord_beds")
 local esc = minetest.formspec_escape
 
@@ -21,12 +18,10 @@ beds.day_interval = {
 	finish = 0.790,
 }
 
-local modpath = minetest.get_modpath("lord_beds")
-
--- Load files
-
-dofile(modpath .. "/functions.lua")
-dofile(modpath .. "/api.lua")
-dofile(modpath .. "/beds.lua")
-dofile(modpath .. "/straw_bed.lua")
-dofile(modpath .. "/spawns.lua")
+minetest.mod(function(mod)
+	require('functions')
+	require('api')
+	require('beds')
+	require('straw_bed')
+	require('spawns')
+end)
