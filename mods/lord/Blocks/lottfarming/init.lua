@@ -138,9 +138,6 @@ dofile(minetest.get_modpath("lottfarming") .. "/barley.lua")
 -- ========= PUMPKIN =========
 dofile(minetest.get_modpath("lottfarming") .. "/pumpkin.lua")
 
--- ========= SCARECROW =========
-dofile(minetest.get_modpath("lottfarming") .. "/scarecrow.lua")
-
 -- ========= CRAFTS =========
 dofile(minetest.get_modpath("lottfarming") .. "/crafting.lua")
 
