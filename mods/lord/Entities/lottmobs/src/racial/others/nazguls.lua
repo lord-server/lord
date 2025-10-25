@@ -1,5 +1,14 @@
 local api = require('fear_height.api')
 
+-- TODO: workaround of LG-2023: не возможно переопределить текстуру после регистрации мобов
+--- Проверяет, находится ли текущая дата в хэллоуинском периоде
+--- @return boolean true если текущая дата в периоде с 24 октября по 7 ноября, иначе false
+local function is_halloween_season()
+	local now = os.date('*t')
+	local month, day = now.month, now.day
+
+	return (month == 10 and day >= 24) or (month == 11 and day <= 14)
+end
 
 mobs:register_mob("lottmobs:nazgul", {
 	type = "monster",
@@ -8,9 +17,10 @@ mobs:register_mob("lottmobs:nazgul", {
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
 	mesh = "ringwraith_model.x",
-	textures = {
-		{"lottmobs_nazgul.png"},
-	},
+	-- TODO: Workaround of LG-2023: не возможно переопределить текстуру после регистрации мобов
+	textures = is_halloween_season()
+		and { {"halloween_nazgul.png"} }
+		or  { {"lottmobs_nazgul.png"} },
 	visual_size = {x=2, y=2},
 	makes_footstep_sound = true,
 	view_range = 15,
@@ -69,9 +79,10 @@ mobs:register_mob("lottmobs:witch_king", {
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 	visual = "mesh",
 	mesh = "human_model.x",
-	textures = {
-		{"lottmobs_witch_king.png"},
-	},
+	-- TODO: Workaround of LG-2023: не возможно переопределить текстуру после регистрации мобов
+	textures = is_halloween_season()
+		and { {"halloween_witch_king.png"} }
+		or  { {"lottmobs_witch_king.png"} },
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1,
