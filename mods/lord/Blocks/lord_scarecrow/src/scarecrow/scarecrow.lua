@@ -16,6 +16,51 @@ local function register_scarecrow()
 		{ -0.0625, -0.5,   -0.0625, 0.0625, 0.6875, 0.0625 },
 	}
 
+	-- Функция зажигания фонаря при ударе факелом
+	local ignite = function(pos, node, puncher, pointed_thing)
+		if not puncher then
+			return
+		end
+		local player_name = puncher:get_player_name()
+
+		if player_name and minetest.is_protected(pos, player_name) then
+			return
+		end
+		-- Проверка факела в руке
+		local wielded_item = puncher:get_wielded_item()
+		local item_name = wielded_item:get_name()
+
+		if item_name == 'default:torch' then
+			-- Проверка незажженного фонаря
+			if node.name == 'lord_scarecrow:scarecrow' then
+				minetest.swap_node(pos, { name = 'lord_scarecrow:scarecrow_halloween', param2 = node.param2 })
+			end
+		end
+	end
+
+	-- Функция для гашения фонаря
+	local extinguish = function(pos, node, clicker, pointed_thing)
+		if not clicker then
+			return
+		end
+		local player_name = clicker:get_player_name()
+
+		if player_name and minetest.is_protected(pos, player_name) then
+			return
+		end
+		-- Проверка пустой руки
+		local wielded_item = clicker:get_wielded_item()
+		local item_name = wielded_item:get_name()
+
+		if item_name == '' then
+			-- Если фонарь зажжен - гасим его
+			if node.name == 'lord_scarecrow:scarecrow_halloween' then
+				minetest.swap_node(pos, { name = 'lord_scarecrow:scarecrow', param2 = node.param2 })
+			end
+		end
+	end
+
+
 	minetest.register_node('lord_scarecrow:scarecrow', {
 		description         = S('Scarecrow'),
 		paramtype           = 'light',
@@ -42,6 +87,10 @@ local function register_scarecrow()
 		},
 
 		sounds              = default.node_sound_wood_defaults(),
+
+		on_punch            = function(pos, node, puncher, pointed_thing)
+			ignite(pos, node, puncher, pointed_thing)
+		end,
 	})
 
 	minetest.register_node('lord_scarecrow:scarecrow_halloween', {
@@ -52,7 +101,7 @@ local function register_scarecrow()
 		light_source        = 12,
 		drawtype            = 'mesh',
 		mesh                = 'lord_scarecrow_scarecrow.obj',
-		tiles               = { 'lord_scarecrow_scarecrow.png^lord_scarecrow_lightning_face.png' },
+		tiles               = { 'lord_scarecrow_scarecrow.png^lord_scarecrow_ignite.png' },
 		use_texture_alpha   = 'clip',
 		is_ground_content   = false,
 		walkable            = true,
@@ -71,6 +120,11 @@ local function register_scarecrow()
 		},
 
 		sounds              = default.node_sound_wood_defaults(),
+		drop                = 'lord_scarecrow:scarecrow',
+
+		on_rightclick       = function(pos, node, clicker, pointed_thing)
+			extinguish(pos, node, clicker, pointed_thing)
+		end,
 	})
 
 	minetest.register_craft({
