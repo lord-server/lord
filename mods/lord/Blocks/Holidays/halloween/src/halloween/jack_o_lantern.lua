@@ -1,25 +1,23 @@
 local S = minetest.get_mod_translator()
-local jack_o_lantern_color_description = minetest.colorize('#B380FF',
-	S('Jack-o-lantern') .. '\n' ..
-	S('Halloween сollection')
 
-)
 
--- Функция зажигания фонаря при ударе факелом
-local ignite = function(pos, node, puncher, pointed_thing)
-	if not puncher then
+--- Функция зажигания фонаря при ударе факелом
+--- @param pos           Position
+--- @param node          NodeTable
+--- @param puncher       (Player|ObjectRef)?
+--- @param pointed_thing pointed_thing
+local function ignite(pos, node, puncher, pointed_thing)
+	if not puncher or not puncher:is_player() then
 		return
 	end
+	--- @cast puncher Player -- мы выше проверили, что это игрок
 	local player_name = puncher:get_player_name()
 
 	if player_name and minetest.is_protected(pos, player_name) then
 		return
 	end
 	-- Проверка факела в руке
-	local wielded_item = puncher:get_wielded_item()
-	local item_name = wielded_item:get_name()
-
-	if item_name == 'default:torch' then
+	if puncher:get_wielded_item():get_name() == 'default:torch' then
 		-- Проверка незажженного фонаря
 		if node.name == 'halloween:jack_o_lantern_unlit' then
 			minetest.swap_node(pos, { name = 'halloween:jack_o_lantern', param2 = node.param2 })
@@ -27,8 +25,11 @@ local ignite = function(pos, node, puncher, pointed_thing)
 	end
 end
 
--- Функция для гашения фонаря
-local extinguish = function(pos, node, clicker, pointed_thing)
+--- Функция для гашения фонаря
+--- @param pos           Position
+--- @param node          NodeTable
+--- @param clicker       Player
+local function extinguish(pos, node, clicker)
 	if not clicker then
 		return
 	end
@@ -38,10 +39,7 @@ local extinguish = function(pos, node, clicker, pointed_thing)
 		return
 	end
 	-- Проверка пустой руки
-	local wielded_item = clicker:get_wielded_item()
-	local item_name = wielded_item:get_name()
-
-	if item_name == '' then
+	if clicker:get_wielded_item():get_name() == '' then
 		-- Если фонарь зажжен - гасим его
 		if node.name == 'halloween:jack_o_lantern' then
 			minetest.swap_node(pos, { name = 'halloween:jack_o_lantern_unlit', param2 = node.param2 })
@@ -49,7 +47,9 @@ local extinguish = function(pos, node, clicker, pointed_thing)
 	end
 end
 
-local function jack_o_lantern()
+local function register_jack_o_lantern_nodes()
+	local jack_o_lantern_color_description = S('Jack-o-lantern') .. '\n' .. S('Halloween сollection')
+
 	minetest.register_node('halloween:jack_o_lantern', {
 		description         = jack_o_lantern_color_description,
 		light_source        = 12,
@@ -66,8 +66,10 @@ local function jack_o_lantern()
 		paramtype2          = 'facedir',
 		sounds              = default.node_sound_wood_defaults(),
 
-		on_rightclick       = function(pos, node, clicker, pointed_thing)
-			extinguish(pos, node, clicker, pointed_thing)
+		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
+			extinguish(pos, node, clicker)
+
+			return itemstack
 		end,
 	})
 
@@ -104,5 +106,5 @@ end
 
 
 return {
-	register = jack_o_lantern,
+	register = register_jack_o_lantern_nodes,
 }
