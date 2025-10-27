@@ -3,11 +3,7 @@ local S = minetest.get_mod_translator()
 
 local function register_scarecrow()
 
-	local scarecrow_halloween_color_description = minetest.colorize(
-		'#B380FF',
-		S('Jack Pumpkinhead') .. '\n' ..
-		S('Halloween сollection')
-	)
+	local scarecrow_halloween_color_description = S('Jack Pumpkinhead')
 	local selection_box = {
 		{ -0.0625, 0.8125, -0.0625, 0.0625, 0.875,  0.0625 },
 		{ -0.25,   0.875,  -0.25,   0.25,   1.375,  0.25   },
