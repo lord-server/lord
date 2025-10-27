@@ -2,15 +2,19 @@ local S = minetest.get_mod_translator()
 
 
 local function register_skull_candle()
+
 	local skull_candle_description = S('Skull Candle')
+	local selection_box = {
+		{ -0.1875, -0.5, 0.1875, 0.1875, 0.0, -0.1875 },
+	}
 
 	minetest.register_node('lord_lamps:skull_candle', {
-		description = skull_candle_description,
-		drawtype    = 'mesh',
-		paramtype = 'light',
-		paramtype2 = 'facedir',
-		mesh = 'lord_lamps_skull_candle.obj',
-		tiles = {
+		description       = skull_candle_description,
+		drawtype          = 'mesh',
+		paramtype         = 'light',
+		paramtype2        = 'facedir',
+		mesh              = 'lord_lamps_skull_candle.obj',
+		tiles             = {
 			'skull_front.png',
 			'skull.png',
 			'homedecor_candle_sides.png',
@@ -25,9 +29,17 @@ local function register_skull_candle()
 			},
 		},
 		use_texture_alpha = 'clip',
-		walkable = true,
-		light_source = default.LIGHT_MAX - 6,
-		groups = { oddly_breakable_by_hand = 3 },
+		walkable          = true,
+		light_source      = default.LIGHT_MAX - 6,
+		selection_box       = {
+			type  = 'fixed',
+			fixed = selection_box,
+		},
+		collision_box       = {
+			type  = 'fixed',
+			fixed = selection_box,
+		},
+		groups            = { oddly_breakable_by_hand = 3 },
 	})
 
 	minetest.register_craft({
