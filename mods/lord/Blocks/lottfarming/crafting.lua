@@ -206,6 +206,14 @@ minetest.register_craft({
 		{'lottfarming:pipeweed'},
 	}
 })
+
+minetest.register_craft({
+	output = 'lottfarming:pumpkin_seed 9',
+	recipe = {
+		{'lottfarming:pumpkin_3'},
+	}
+})
+
 minetest.register_craft({
 	output = 'lottfarming:turnips_seed 2',
 	recipe = {

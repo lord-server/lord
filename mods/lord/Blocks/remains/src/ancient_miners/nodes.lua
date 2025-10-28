@@ -14,15 +14,16 @@ local title_remains_skull_pick = S('Remains. Skull and pick')
 --- Generates handlers for `on_punch` & `on_rightclick`
 --- @param swap_to_node string              technical node name (`"mod:name"`) to replace with when looting.
 --- @param title        string              text that will be displayed when point to new(replaced) node.
---- @param drop_items   remains.drop.config list of items to drop to world as loot.
+--- @param items        remains.drop.config list of items to drop to world as loot.
 --- @return fun(pos:Position, node:NodeTable, clicker:Player, itemstack:ItemStack|nil):ItemStack|nil
-local function get_mouse_click_handler(swap_to_node, title, drop_items)
+local function get_mouse_click_handler(swap_to_node, title, items)
 	return function(pos, node, clicker, itemstack)
 		if not clicker:is_player() then
 			return
 		end
 		local meta = minetest.get_meta(pos)
-		loot_functions.drop_items_to_world(pos, clicker:get_pos(), drop_items)
+		local drop_items = loot_functions.get_random_items(5, items)
+		drop_items_to_world(pos, clicker:get_pos(), clicker:get_look_horizontal(), drop_items, 'default')
 		minetest.swap_node(pos, { name = swap_to_node, param2 = node.param2 })
 		meta:set_string('infotext', title)
 		minetest.sound_play( 'drop_loot_of_remains', { gain = 3, pos = pos, max_hear_distance = 10 }, true )
@@ -59,8 +60,10 @@ local ancient_miner_mapgen_1 = {
 		local meta = minetest.get_meta(pos)
 		meta:set_string( 'infotext', title_ancient_miner_mapgen )
 	end,
-	on_punch      = get_mouse_click_handler('remains:ancient_miner_1', title_remains_skull_bones, drop.skull_bones),
-	on_rightclick = get_mouse_click_handler('remains:ancient_miner_1', title_remains_skull_bones, drop.skull_bones),
+	on_punch      = get_mouse_click_handler('remains:ancient_miner_1',
+		title_remains_skull_bones, drop.skull_bones),
+	on_rightclick = get_mouse_click_handler('remains:ancient_miner_1',
+		title_remains_skull_bones, drop.skull_bones),
 }
 
 --- нода череп и кирка с лутом для mapgen
@@ -74,8 +77,10 @@ local ancient_miner_mapgen_2 = {
 		local meta = minetest.get_meta(pos)
 		meta:set_string('infotext', title_ancient_miner_mapgen)
 	end,
-	on_punch      = get_mouse_click_handler('remains:ancient_miner_2', title_remains_skull_pick, drop.skull_pick),
-	on_rightclick = get_mouse_click_handler('remains:ancient_miner_2', title_remains_skull_pick, drop.skull_pick),
+	on_punch      = get_mouse_click_handler('remains:ancient_miner_2',
+		title_remains_skull_pick, drop.skull_pick),
+	on_rightclick = get_mouse_click_handler('remains:ancient_miner_2',
+		title_remains_skull_pick, drop.skull_pick),
 }
 
 --- нода добытые останки (для инвентаря)

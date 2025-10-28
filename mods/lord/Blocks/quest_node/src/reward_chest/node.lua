@@ -6,26 +6,6 @@ local S = minetest.get_mod_translator()
 
 --- HELPERS: -----------------------------------------------------------------------------------------------------------
 
---- @param chest_pos Position
---- @param player_pos Position
---- @param items ItemStack[]
-local function drop_items_to_world(chest_pos, player_pos, items)
-	local drop_pos       = table.copy(chest_pos)
-	drop_pos.y           = chest_pos.y + 1
-	local drop_direction = {
-		x = (player_pos.x - drop_pos.x),
-		y = (player_pos.y - drop_pos.y + 3.5),
-		z = (player_pos.z - drop_pos.z),
-	}
-	for _, reward in ipairs(items) do
-		if reward:get_count() > 0 then
-			--- @type Entity
-			local item = minetest.add_item(drop_pos, reward)
-			item:set_velocity(drop_direction)
-		end
-	end
-end
-
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function chest_add_visitor(meta, player_name)
@@ -116,7 +96,7 @@ local definition = {
 
 			local inventory = meta:get_inventory()
 			local rewards   = inventory:get_list("reward")
-			drop_items_to_world(pos, clicker:get_pos(), rewards)
+			drop_items_to_world(pos, clicker:get_pos(), clicker:get_look_horizontal(), rewards)
 
 			chest_add_visitor(meta, player_name)
 

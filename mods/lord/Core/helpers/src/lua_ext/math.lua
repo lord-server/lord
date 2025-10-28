@@ -1,5 +1,5 @@
-local math_min, math_max, math_sqrt
-    = math.min, math.max, math.sqrt
+local math_min, math_max, math_sqrt, math_cos, math_sin
+    = math.min, math.max, math.sqrt, math.cos, math.sin
 
 
 --- `math.limit`/`math.clamp` ensures a given number stays within a specified range.
@@ -72,4 +72,18 @@ function math.quadratic_equation_roots(a, b, c)
 	return
 		(-b + sqrt_discriminant) / (2 * a),
 		(-b - sqrt_discriminant) / (2 * a)
+end
+
+--- The function of calculating a point on a circle, where the center is a "droploot node"
+--- (for example, the remains of ancient miner)
+--- radius - the radius from the object to the player
+--- angle - the angle of displacement from the player along the circle in radians
+--- For understanding:
+---    Z-axis, in minetest, this is the X-axis on a trigonometric circle
+---    X-axis, in minetest, this is the Y-axis on a trigonometric circle
+---    The angle is a mirror image of the player_look vector (where the player is looking)
+--- @param radius number                   calculated by theoreme of Pifagor
+--- @param angle any                       mirror reflection of the player_look angle in radian
+function math.point_on_circle(radius, angle)
+	return radius*math_sin(angle), radius*math_cos(angle)
 end
