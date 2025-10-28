@@ -1,5 +1,36 @@
 # Change Log
 
+## [2025.10](https://github.com/lord-server/lord/releases/tag/2025.10)
+ - Add "nice drop" effect. Loot is thrown in circular increments from the source to the player.
+   - Added to mod remains. LG-1816 #2180
+   - Added to the reward chest node. Drop scenario - default. LG-1816
+   - Added to the HoldingPoint node. Drop scenario - default. LG-1816
+
+ - Bads:
+   - Added any color (all colors of dye) "simple/fancy beds". LG-1094
+   - The scheme of crafting beds has been changed. LG-1094
+
+ - Halloween:
+   - Added pumpkin to farming. LG-2014
+   - Added scarcrow. LG-2018
+   - Added jack_o_lantern pumpkin lightning. LG-2015
+   - Nazguls season exchange skin. LG-2023
+   - Halloween candy treat (drops from Nazguls and Kigns). LG-2023
+   - Added `skull_candle` lamp. LG-2019
+
+ - Technical:
+   - Optimize textures for artisits. LG-1977
+   - Added info about license of sound. Closes #2180 LG-1816
+   - Function drop loot has been moved to builtin. Added drop scenario 'random_dinstance'. LG-1816
+   - Mod beds move to mod lord_beds. LG-2012
+   - Holiday modpack. LG-2028
+   - Move scarecrow to its own mod folder
+   - Several fixes of `halloween` mod after PR as agreed. LG-2015
+   - Workarownd for nazgul textures Fix event date. LG-2023
+   - Update `ide-helper`.
+   - Replaced a lot texture files of mod lord_beds to sheet tile image. LG-1094
+   - Added `lord_lamps` mod. LG-2019
+
 ## [2025.09.p1](https://github.com/lord-server/lord/releases/tag/2025.09.p1)
  - Fixing bonus of the same armor. LG-2009
  - Disable Discord lp_api. LG-1933
