@@ -32,18 +32,34 @@ local function congratulate(meta, player_name)
 	minetest.chat_send_player(player_name, congratulations)
 end
 
+local function is_halloween_season()
+	local now = os.date('*t')
+	local month, day = now.month, now.day
+
+	return (month == 10 and day >= 24) or (month == 11 and day <= 14)
+end
+
 --- NODE DEFINITION: ---------------------------------------------------------------------------------------------------
 
 local definition = {
 	description       = S("Reward Chest"),
-	tiles             = {
-		"default_chest_top.png",
-		"default_chest_top.png",
-		"default_chest_side.png",
-		"default_chest_side.png",
-		"default_chest_side.png",
-		"default_chest_front.png"
-	},
+	tiles             = is_halloween_season()
+		and {
+			'halloween_reward_chest_top.png',
+			'halloween_reward_chest_top.png',
+			'halloween_reward_chest_side.png',
+			'halloween_reward_chest_side.png',
+			'halloween_reward_chest_side.png',
+			'halloween_reward_chest_front.png',
+		}
+		or {
+			"default_chest_top.png",
+			"default_chest_top.png",
+			"default_chest_side.png",
+			"default_chest_side.png",
+			"default_chest_side.png",
+			"default_chest_front.png"
+		},
 	sounds            = default.node_sound_wood_defaults(),
 	sound_open        = "default_chest_open",
 	--sound_close = "default_chest_close",
