@@ -1,5 +1,9 @@
 # Change Log
 
+## [2025.10.p1](https://github.com/lord-server/lord/releases/tag/2025.10.p1)
+ - Added pumpkin seed drop. LG-2031
+ - Added skin change to reward_chest. LG-2034
+
 ## [2025.10](https://github.com/lord-server/lord/releases/tag/2025.10)
  - Add "nice drop" effect. Loot is thrown in circular increments from the source to the player.
    - Added to mod remains. LG-1816 #2180
