@@ -11,7 +11,7 @@ globals           = {
 	"sethome.set", "beds.day_interval.finish",
 
 	-- Other APIs (mods/_various)
-	"hbhunger", "tt",
+	"hbhunger", "tt", "flowerpot",
 }
 
 read_globals      = {
