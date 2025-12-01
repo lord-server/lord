@@ -8,6 +8,7 @@ minetest.mod(function(mod)
 		['vassals']       = 'Vassals',
 		['hansa']         = 'Hansa',
 		['international'] = 'International',
+		['bmg']           = 'BMG'
 	}
 
 	for id, title in pairs(clan_titles) do
