@@ -36,6 +36,7 @@ mobs:register_mob("lottmobs:hobbit", {
 		{ name = "lord_alcohol:wine",             chance = 20, min = 1, max = 5, },
 		{ name = "lord_alcohol:beer",             chance = 20, min = 1, max = 5, },
 		{ name = "lord_alcohol:cider",            chance = 20, min = 1, max = 5, },
+		{ name = "lottfarming:pumpkin_seed",      chance = 25, min = 1, max = 3, },
 	},
 	light_resistant = true,
 	drawtype = "front",
