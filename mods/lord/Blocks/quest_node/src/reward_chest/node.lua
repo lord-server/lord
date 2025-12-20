@@ -28,14 +28,13 @@ local function congratulate(meta, player_name)
 	if congratulations == nil or congratulations == '' then
 		congratulations = S("Congratulations! You've completed the quest!")
 	end
-
 	minetest.chat_send_player(player_name, congratulations)
 end
 
 local HOLIDAYS = {
 	{
 		name = 'Christmas',
-		dates = { start_month = 12, start_day = 20, end_month = 1, end_day = 14 },
+		dates = { start_month = 12, start_day = 18, end_month = 1, end_day = 14 },
 		textures = {
 			'default_snow.png',
 			'christmas_reward_chest_down.png',
@@ -69,19 +68,31 @@ local DEFAULT_TILES = {
 	'default_chest_front.png',
 }
 
+--- Сравнение даты вынесено отдельно чтоб пройти проверку цикломатической сложности в luacheck
+--- @param month1 number os.date.month месяц начала ивента
+--- @param day1   number os.date.day день начал ивента
+--- @param month2 number os.date.month месяц конца ивента
+--- @param day2   number os.date.day день конца ивента
+--- @return boolean
+local function smallest_date(month1, day1, month2, day2)
+	return (month1 * 100 + day1) <= (month2 * 100 + day2)
+end
+
 --- Проверка, активен ли праздник
+--- @param holiday_data table Таблица праздников HOLIDAYS с датами начала и завершения каждого
+--- @return boolean
 local function check_holiday(holiday_data)
 	local now = os.date('*t')
-	local cur_year = now.year
+	local start_month, start_day = holiday_data.start_month, holiday_data.start_day
+	local end_month, end_day = holiday_data.end_month, holiday_data.end_day
 
-	-- Проверка периода начала и конца праздника
-	if holiday_data.start_month > holiday_data.end_month then
-		return ((now.month == holiday_data.start_month and now.day >= holiday_data.start_day) or
-				(now.month == holiday_data.end_month and now.day <= holiday_data.end_day)) or
-			(cur_year % 4 == 0 and now.month == 12 and now.day >= 31) -- Учет високосного года
-	else
-		return (now.month == holiday_data.start_month and now.day >= holiday_data.start_day) or
-			(now.month == holiday_data.end_month and now.day <= holiday_data.end_day)
+	-- Обработка праздников, проходящих через новый год
+	if start_month > end_month then
+		return (
+			smallest_date(start_month, start_day, now.month, now.day)
+			or
+			smallest_date(now.month, now.day, end_month, end_day)
+		)
 	end
 end
 
@@ -93,6 +104,7 @@ local function select_tiles()
 			return holiday.textures
 		end
 	end
+
 	return DEFAULT_TILES
 end
 
@@ -150,7 +162,6 @@ local definition = {
 				minetest.chat_send_player(player_name, S("The chest is empty! You've already been here!"))
 				return
 			end
-
 			local inventory = meta:get_inventory()
 			local rewards   = inventory:get_list('reward')
 			drop_items_to_world(pos, clicker:get_pos(), clicker:get_look_horizontal(), rewards)
