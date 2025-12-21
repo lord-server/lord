@@ -2,6 +2,7 @@ local S = minetest.get_mod_translator()
 
 local mod_path = minetest.get_modpath(minetest.get_current_modname())
 local require = function(name) return dofile(mod_path .. "/" .. name:gsub("%.", "/") .. ".lua") end
+local candy_cane = require('candy_cane')
 
 local gifts, christmas_date = require("configure")
 
@@ -20,6 +21,8 @@ minetest.register_craftitem("christmas:tree_no_decorations", {
 	description = S("Fir Tree"),
 	inventory_image = "christmas_tree_no_decorations.png",
 })
+
+candy_cane.register()
 
 --- CRAFTS: ----------------------------------------------------
 local item_deco = "christmas:decorations"
