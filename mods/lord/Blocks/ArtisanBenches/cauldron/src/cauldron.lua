@@ -9,7 +9,6 @@ local common_definition = {
 		'benches_cauldron_top.png', 'benches_cauldron_side.png', 'benches_cauldron_side.png',
 		'benches_cauldron_side.png', 'benches_cauldron_side.png', 'benches_cauldron_side.png',
 	},
-	use_texture_alpha = 'blend',
 	paramtype         = 'light',
 	paramtype2        = 'facedir',
 	groups            = { cracky = 1 },
