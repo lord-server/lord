@@ -1,5 +1,6 @@
-local pairs, math_random, table_is_empty, vector_new, id
+local pairs, math_random, table_is_empty, v,          id
 	= pairs, math.random, table.is_empty, vector.new, minetest.get_content_id
+
 
 local INTERIOR_CHANCE = 3
 local INTERIOR_Y_MAX  = -50
@@ -17,9 +18,12 @@ local id_chair               = id('lord_wooden_stuff:chair_alder')
 local id_barrel              = id('barrel:barrel')
 local id_torch               = id('default:torch_wall')
 
---- @param data table     map data taken from `VoxelManip:get_data()`
---- @param area VoxelArea map data indexer
---- @param ...  Position  all args after `area` must be `Position`s
+--- @param data table             map data taken from `VoxelManip:get_data()`
+--- @param area VoxelArea         map data indexer
+--- @param ...  Position|integer  all args after `area` must be indices in `data` linear array or `Position` \
+---                               to be checked for air/ignore nodes
+---
+--- @return boolean  # `true` if all specified positions are air or ignore nodes, `false` otherwise
 local function is_air(data, area, ...)
 	for _, value in pairs({...}) do
 		local index = type(value) == 'table' and area:indexp(value) or value
@@ -28,6 +32,7 @@ local function is_air(data, area, ...)
 			return false
 		end
 	end
+
 	return true
 end
 
@@ -35,11 +40,11 @@ end
 --- @class dungeons.Interior
 local Interior = {
 	--- @type table map data (linear array) with nodes IDs taken from `VoxelManip:get_data()`
-	data        = nil,
+	data        = nil,   --- @diagnostic disable-line: assign-type-mismatch
 	--- @type table map data (linear array) with nodes `param2` values taken from `VoxelManip:get_param2_data()`
-	param2_data = nil,
+	param2_data = nil,   --- @diagnostic disable-line: assign-type-mismatch
 	--- @type VoxelArea map data indexer for positioning in `data` linear array
-	area        = nil,
+	area        = nil,   --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- Constructor
@@ -59,16 +64,11 @@ function Interior:new(data, param2_data, area)
 	return self
 end
 
---- @param x      number
---- @param y      number
---- @param z      number
---- @param param2 number
-function Interior:place_torch_if_possible(x, y, z, param2)
-	local torch_pos_index = self.area:index(x, y, z)
-	local current_node_id = self.data[torch_pos_index]
-	if current_node_id == id_air or current_node_id == id_ignore then
-		self.data       [torch_pos_index] = id_torch
-		self.param2_data[torch_pos_index] = param2
+--- @param pos Position
+--- @param param2 integer
+function Interior:place_torch_if_possible(pos, param2)
+	if self.area:is(pos, id_air) then
+		self.area:set_node_at(pos, id_torch, param2)
 	end
 end
 
@@ -78,16 +78,15 @@ function Interior:place_north_wall_bad_and_chest(wall, corner)
 	local sign = corner == 'left' and 1 or -1
 	local corner_pos = corner == 'left'
 		and wall.start_pos
-		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
+		or  v(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
 
-	local bed_top_pos    = corner_pos:add(vector_new(sign * 1, 1, -1))
-	local bed_bottom_pos = corner_pos:add(vector_new(sign * 1, 1, -2))
-	local chest_pos      = corner_pos:add(vector_new(sign * 2, 1, -1))
-
+	local bed_top_pos    = corner_pos:add(v(sign * 1, 1, -1))
+	local bed_bottom_pos = corner_pos:add(v(sign * 1, 1, -2))
+	local chest_pos      = corner_pos:add(v(sign * 2, 1, -1))
 	if is_air(self.data, self.area, bed_top_pos, bed_bottom_pos, chest_pos) then
-		self.data[self.area:indexp(bed_top_pos)]    = id_bed_top
-		self.data[self.area:indexp(bed_bottom_pos)] = id_bed_bottom
-		self.data[self.area:indexp(chest_pos)]      = id_dwarf_chest_spawner
+		self.area:set_node_at(bed_top_pos   , id_bed_top)
+		self.area:set_node_at(bed_bottom_pos, id_bed_bottom)
+		self.area:set_node_at(chest_pos     , id_dwarf_chest_spawner)
 	end
 end
 
@@ -108,7 +107,7 @@ function Interior:place_north_wall_shelves(wall)
 	end
 
 	for x = from_x, to_x do
-		local shelf_pos  = vector_new(x, wall.start_pos.y + 3, wall.start_pos.z)
+		local shelf_pos  = v(x, wall.start_pos.y + 3, wall.start_pos.z)
 		local data_index = self.area:indexp(shelf_pos)
 		if not is_air(self.data, self.area, data_index) then
 			self.data[data_index] = id_bookshelf
@@ -123,18 +122,18 @@ function Interior:place_south_wall_barrels(wall, corner)
 	--- @type vector
 	local corner_pos = corner == 'left'
 		and wall.start_pos
-		or  vector_new(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
+		or  v(wall.end_pos.x, wall.start_pos.y, wall.start_pos.z)
 
 	local barrels_pos = {
-		corner_pos:add(vector_new(sign * 1, 1, 1)),
-		corner_pos:add(vector_new(sign * 2, 1, 1)),
-		corner_pos:add(vector_new(sign * 1, 2, 1)),
-		corner_pos:add(vector_new(sign * 1, 1, 2)),
+		corner_pos:add(v(sign * 1, 1, 1)),
+		corner_pos:add(v(sign * 2, 1, 1)),
+		corner_pos:add(v(sign * 1, 2, 1)),
+		corner_pos:add(v(sign * 1, 1, 2)),
 	}
 
-	for i = 1, #barrels_pos do
-		if is_air(self.data, self.area, barrels_pos[i]) then
-			self.data[self.area:indexp(barrels_pos[i])] = id_barrel
+	for i, barrel_pos in ipairs(barrels_pos) do
+		if is_air(self.data, self.area, barrel_pos) then
+			self.data[self.area:indexp(barrel_pos)] = id_barrel
 		end
 	end
 end
@@ -144,17 +143,17 @@ end
 function Interior:place_diner_zone(side, wall)
 	local sign = side == 'west' and 1 or -1
 	local wall_z_center = wall.start_pos.z + math.floor((wall.end_pos.z - wall.start_pos.z) / 2)
-	local wall_center_bottom_pos = vector_new(wall.start_pos.x, wall.start_pos.y, wall_z_center)
+	local wall_center_bottom_pos = v(wall.start_pos.x, wall.start_pos.y, wall_z_center)
 
-	local table_leg_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, 0))
-	local table_top_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 2, 0))
+	local table_leg_pos = wall_center_bottom_pos:add(v(sign * 1, 1, 0))
+	local table_top_pos = wall_center_bottom_pos:add(v(sign * 1, 2, 0))
 	if is_air(self.data, self.area, table_leg_pos, table_top_pos) then
 		self.data[self.area:indexp(table_leg_pos)] = id_fence
 		self.data[self.area:indexp(table_top_pos)] = id_hatch
 	end
 
-	local chair1_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, -1))
-	local chair2_pos = wall_center_bottom_pos:add(vector_new(sign * 1, 1, 1))
+	local chair1_pos = wall_center_bottom_pos:add(v(sign * 1, 1, -1))
+	local chair2_pos = wall_center_bottom_pos:add(v(sign * 1, 1, 1))
 	if is_air(self.data, self.area, chair1_pos) then
 		local pos_index = self.area:indexp(chair1_pos)
 		self.data       [pos_index] = id_chair
@@ -170,15 +169,15 @@ end
 --- @param wall RoomWall
 function Interior:place_north_wall_torches(wall)
 	local s, e = wall.start_pos, wall.end_pos
-	self:place_torch_if_possible(s.x + 1, e.y - 1, s.z - 1, 4)
-	self:place_torch_if_possible(e.x - 1, e.y - 1, e.z - 1, 4)
+	self:place_torch_if_possible(v(s.x + 1, e.y - 1, s.z - 1), 4)
+	self:place_torch_if_possible(v(e.x - 1, e.y - 1, e.z - 1), 4)
 end
 
 --- @param wall RoomWall
 function Interior:place_south_wall_torches(wall)
 	local s_pos, e_pos = wall.start_pos, wall.end_pos
-	self:place_torch_if_possible(s_pos.x + 1, e_pos.y - 1, s_pos.z + 1, 5)
-	self:place_torch_if_possible(e_pos.x - 1, e_pos.y - 1, e_pos.z + 1, 5)
+	self:place_torch_if_possible(v(s_pos.x + 1, e_pos.y - 1, s_pos.z + 1), 5)
+	self:place_torch_if_possible(v(e_pos.x - 1, e_pos.y - 1, e_pos.z + 1), 5)
 end
 
 --- @param room_walls  RoomWalls list of room walls
@@ -209,8 +208,10 @@ end
 --- @param rooms_walls   RoomWalls[]
 function Interior:generate(rooms_centers, rooms_walls)
 	for i, room_center in pairs(rooms_centers) do
-		if (math_random(INTERIOR_CHANCE) == 1 and not table_is_empty(rooms_walls[i])) then
-			self:place_room_interior(rooms_walls[i], room_center)
+		--- @type RoomWalls
+		local room_walls = rooms_walls[i] or {}
+		if (math_random(INTERIOR_CHANCE) == 1 and not table_is_empty(room_walls)) then
+			self:place_room_interior(room_walls, room_center)
 		end
 	end
 end

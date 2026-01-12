@@ -34,16 +34,12 @@ local ids_wall_blocks      = {
 --- @param data      table
 --- @param area      VoxelArea
 local function fill_wall(wall_type, start_pos, end_pos, data, area)
-	local wall_blocks = ids_wall_blocks[wall_type]
-	for x = start_pos.x, end_pos.x do
-		for y = start_pos.y, end_pos.y do
-			for z = start_pos.z, end_pos.z do
-				if (data[area:index(x, y, z)] ~= id_air) then
-					data[area:index(x, y, z)] = wall_blocks[math_random(#wall_blocks)]
-				end
-			end
+	local wall_blocks = ids_wall_blocks[wall_type] --- @as integer[]
+	area:foreach(start_pos, end_pos, function(i)
+		if (data[i] ~= id_air) then
+			data[i] = wall_blocks[math_random(#wall_blocks)]
 		end
-	end
+	end)
 end
 
 return {

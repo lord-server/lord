@@ -3,7 +3,7 @@ local pairs, math_random, table_is_empty, id
 
 
 local REMAINS_Y_MAX = -100
-local REMAINS_CHANCE = 100/60 -- 60%
+local REMAINS_CHANCE = 0.6 -- 60%
 local REMAINS_IN_TOMB_ROOM = 3
 local FIND_FREE_PLACE_ATTEMPTS = 10
 
@@ -17,11 +17,11 @@ local ids_remains = {
 --- @class dungeons.Remains
 local Remains = {
 	--- @type table map data (linear array) with nodes IDs taken from `VoxelManip:get_data()`
-	data        = nil,
+	data        = nil,  --- @diagnostic disable-line: assign-type-mismatch
 	--- @type table map data (linear array) with nodes `param2` values taken from `VoxelManip:get_param2_data()`
-	param2_data = nil,
+	param2_data = nil,  --- @diagnostic disable-line: assign-type-mismatch
 	--- @type VoxelArea map data indexer for positioning in `data` or `param2_data` linear arrays
-	area        = nil,
+	area        = nil,  --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- Constructor
@@ -62,8 +62,7 @@ function Remains:find_free_place_index(room_floor)
 end
 
 --- @param room_floor  RoomWall
---- @param room_center Position
-function Remains:place_remains_in_tomb_room(room_floor, room_center)
+function Remains:place_remains_in_tomb_room(room_floor)
 	for i = 1, REMAINS_IN_TOMB_ROOM do
 		local index = self:find_free_place_index(room_floor)
 		if index then
@@ -87,11 +86,13 @@ end
 --- @param tomb_room_index number      room index, where tomb was placed or `nil`
 function Remains:generate(rooms_centers, rooms_walls, tomb_room_index)
 	for i, room_center in pairs(rooms_centers) do
-		if not table_is_empty(rooms_walls[i]) then
+		--- @type RoomWalls
+		local room_walls = rooms_walls[i] or {}
+		if not table_is_empty(room_walls) then
 			if i == tomb_room_index then
-				self:place_remains_in_tomb_room(rooms_walls[i].floor)
-			elseif math_random(REMAINS_CHANCE) == 1 then
-				self:place_remains(rooms_walls[i].floor)
+				self:place_remains_in_tomb_room(room_walls.floor)
+			elseif math_random() < REMAINS_CHANCE then
+				self:place_remains(room_walls.floor)
 			end
 		end
 	end

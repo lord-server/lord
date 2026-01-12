@@ -1,5 +1,6 @@
-local pairs, math_random, id
-    = pairs, math.random, minetest.get_content_id
+local pairs, math_random, v,          id
+    = pairs, math.random, vector.new, minetest.get_content_id
+
 
 local id_air                 = id('air')
 local id_mossy_cobble        = id('default:mossycobble')
@@ -19,9 +20,9 @@ local TOMB       = {
 	--       So ~ 22% - it's quite rarely.
 }
 
---- @param x number
---- @param y number
---- @param z number
+--- @param x integer
+--- @param y integer
+--- @param z integer
 --- @param with_drop boolean place nodes with additional drop or not
 --- @param data table
 --- @param area VoxelArea
@@ -48,7 +49,7 @@ local function is_enough_space(room_center, data, area)
 	for dy = 0, 1 do  -- needs two layers: 1 - for gold & cobble, 2 - for tomb
 		for dx = -1, 1 do  -- width 3: 1 on right, 1 on left (for gold)
 			for dz = -1, 2 do  -- tomb takes 2 blocks, & additional 1 on each side (head/legs)
-				if data[area:index(room_center.x + dx, room_center.y + dy, room_center.z + dz)] ~= id_air then
+				if area:is_not(room_center + v(dx, dy, dz), id_air) then
 					return false
 				end
 			end
