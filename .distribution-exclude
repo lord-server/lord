@@ -2,6 +2,7 @@
 .github/*
 /mods/_minetest_game/up
 /mods/lord/_experimental/*
+/mods/lord/Blocks/Holidays/*
 /mods/lord/Blocks/clan_node/*
 /mods/lord/Blocks/clans_tapestries/*
 /mods/lord/Blocks/holding_points/*
