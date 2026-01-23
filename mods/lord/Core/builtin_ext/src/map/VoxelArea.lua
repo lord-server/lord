@@ -4,6 +4,20 @@ local type, math_floor, math_random, math_is_among, vector_sort, v,          id
 
 local id_air = id('air')
 
+--- Returns just `value` if `is_random` is false,
+--- or random value from `value` if `value` is array and `is_random` is true.
+---
+--- @param value     integer|integer[]
+--- @param is_random boolean
+--- @param count     integer
+--- @return integer
+local function get_self_or_random(value, is_random, count)
+	return is_random
+		and value[math_random(count)]
+		or  value--[[@as integer]]
+end
+
+
 --- @param data integer[]
 function VoxelArea:set_data(data)
 	self.data = data
@@ -96,20 +110,15 @@ function VoxelArea:fill_with_chance(node_id, from, to, chance, param2)
 	local is_random_param2 = type(param2) == 'table'
 	local nodes_count      = is_random and #node_id or 0
 	local param2_count     = is_random_param2 and #param2 or 0
-	local data             = self.data
-	local data_param2      = self.data_param2
-	for i in self:iterp(from, to) do
+
+	self:foreach(from, to, function(i, data, data_param2)
 		if math_random() <= chance then
-			data[i] = is_random
-				and node_id[math_random(nodes_count)]
-				or  node_id--[[@as integer]]
+			data[i] = get_self_or_random(node_id, is_random, nodes_count)
 			if param2 then
-				data_param2[i] = is_random_param2
-					and param2[math_random(param2_count)]
-					or  param2--[[@as integer]]
+				data_param2[i] = get_self_or_random(param2, is_random_param2, param2_count)
 			end
 		end
-	end
+	end)
 
 	return self
 end
@@ -134,9 +143,7 @@ function VoxelArea:fill_with(node_id, from, to, chance, param2)
 	local nodes_count = is_random and #node_id or 0
 	local data        = self.data
 	for i in self:iterp(from, to) do
-		data[i] = is_random
-			and node_id[math_random(nodes_count)]
-			or  node_id--[[@as integer]]
+		data[i] = get_self_or_random(node_id, is_random, nodes_count)
 	end
 
 	return self
@@ -227,13 +234,9 @@ function VoxelArea:place_pile(node_id, from, to, peak, fillness, param2)
 			math_is_among(pos.z, layer_from_dz, layer_to_dz) and
 			math_random() <= fillness
 		then
-			data[i] = is_random
-				and node_id[math_random(nodes_count)]
-				or  node_id--[[@as integer]]
+			data[i] = get_self_or_random(node_id, is_random, nodes_count)
 			if param2 then
-				self.data_param2[i] = is_random_param2
-					and param2[math_random(param2_count)]
-					or  param2--[[@as integer]]
+				self.data_param2[i] = get_self_or_random(param2, is_random_param2, param2_count)
 			end
 		end
 	end)
