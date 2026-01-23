@@ -85,20 +85,29 @@ end
 
 --- @protected
 --- @param node_id integer|integer[]
---- @param from   Position
---- @param to     Position
---- @param chance number
+--- @param from    Position
+--- @param to      Position
+--- @param chance  number
+--- @param param2? integer|integer[]
 ---
 --- @return self
-function VoxelArea:fill_with_chance(node_id, from, to, chance)
-	local is_random   = type(node_id) == 'table'
-	local nodes_count = is_random and #node_id or 0
-	local data        = self.data
+function VoxelArea:fill_with_chance(node_id, from, to, chance, param2)
+	local is_random        = type(node_id) == 'table'
+	local is_random_param2 = type(param2) == 'table'
+	local nodes_count      = is_random and #node_id or 0
+	local param2_count     = is_random_param2 and #param2 or 0
+	local data             = self.data
+	local data_param2      = self.data_param2
 	for i in self:iterp(from, to) do
 		if math_random() <= chance then
 			data[i] = is_random
 				and node_id[math_random(nodes_count)]
 				or  node_id--[[@as integer]]
+			if param2 then
+				data_param2[i] = is_random_param2
+					and param2[math_random(param2_count)]
+					or  param2--[[@as integer]]
+			end
 		end
 	end
 
@@ -110,14 +119,15 @@ end
 --- @param from?   Position          position from which to start filling.
 --- @param to?     Position          position to which to fill.
 --- @param chance? number            chance to fill each node (0..1), default is 1 (fill all).
+--- @param param2? integer|integer[] if is array of integers, than random param2 will be set from it.
 ---
 --- @return self
-function VoxelArea:fill_with(node_id, from, to, chance)
+function VoxelArea:fill_with(node_id, from, to, chance, param2)
 	from   = from   or self.MinEdge
 	to     = to     or self.MaxEdge
 
 	if chance and chance < 1 then
-		return self:fill_with_chance(node_id, from, to, chance)
+		return self:fill_with_chance(node_id, from, to, chance, param2)
 	end
 
 	local is_random   = type(node_id) == 'table'
