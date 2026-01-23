@@ -111,14 +111,17 @@ function VoxelArea:fill_with_chance(node_id, from, to, chance, param2)
 	local nodes_count      = is_random and #node_id or 0
 	local param2_count     = is_random_param2 and #param2 or 0
 
-	self:foreach(from, to, function(i, data, data_param2)
+	local data        = self.data
+	local data_param2 = self.data_param2
+
+	for i in self:iterp(from, to) do
 		if math_random() <= chance then
 			data[i] = get_self_or_random(node_id, is_random, nodes_count)
 			if param2 then
 				data_param2[i] = get_self_or_random(param2, is_random_param2, param2_count)
 			end
 		end
-	end)
+	end
 
 	return self
 end
