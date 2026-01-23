@@ -4,6 +4,7 @@
         "editor.defaultFormatter": "CppCXY.emmylua-codestyle",
     },
     "emmylua.spell.dict": [
+        "Voxrame",
         "minetest",
         "leaveplayer",
         "joinplayer",
