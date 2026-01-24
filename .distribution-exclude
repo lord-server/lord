@@ -15,8 +15,8 @@
 /mods/lord/Game/lord_web_api/*
 /mods/lord/Game/lord_web_integration/*
 /mods/lord/Player/clans/*
-/mods/lord/Tools/clans_clothes/*
-/mods/lord/Tools/clans_tools/*
+/mods/lord/Items/clans_clothes/*
+/mods/lord/Items/clans_tools/*
 /mods/lord/World/arena/*
 /mods/lord/World/lord_events/*
 /util/*
