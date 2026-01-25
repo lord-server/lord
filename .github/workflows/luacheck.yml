@@ -51,9 +51,9 @@ jobs:
               mods/lord/Player/hud_modpack/hbhunger/ \
               mods/lord/Player/hud_modpack/hbsprint/ \
               mods/lord/Player/hud_modpack/hudbars/ \
-              mods/lord/Tools/lord_replacer/ \
-              mods/lord/Tools/lord_books/ \
-              mods/lord/Tools/lord_boats/ \
+              mods/lord/Items/lord_replacer/ \
+              mods/lord/Items/lord_books/ \
+              mods/lord/Items/lord_boats/ \
               mods/lord/World/Generation/lottmapgen/ \
               mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua \
               mods/lord/Blocks/lord_beds/src/api.lua
