@@ -1,0 +1,213 @@
+#
+#     ! Файл автоматически выкатывается и применяется на ВтороМ ткстовом сервере !
+#
+# -----------------------------------------------------------------------------------
+#
+#                           Настройки для Test-Featured
+#             (тестируем экспериментальные и промежуточные варианты фич)
+#
+#                       На базе файла `minetest.conf.test`
+#
+# -----------------------------------------------------------------------------------
+
+#
+# Клиентские настройки выпилены и всё что не используется или используется значение по умолчанию
+#
+
+#
+# Server / Singleplayer
+#
+
+server_name = [RU] L.O.R.D. Полигон stable
+server_description = L.O.R.D.: Test-Featured server (все фичи включены)
+server_address = test-Featured.lord-server.ru
+server_url = http://lord-server.ru/
+server_announce = false
+
+## Network
+
+port = 30005
+
+
+## Game
+
+default_game = lord
+motd = На сервере включены все фичи, тестирование обычно требует комлексного подхода и рельной игры
+max_users = 6
+enable_damage = true
+creative_mode = false
+fixed_map_seed = badger
+default_password = 456852
+disallow_empty_password = true
+default_privs = shout, interact, spawn, info, news, home
+player_transfer_distance = 1000
+enable_pvp = true
+
+static_spawnpoint = 330, 20, 160
+
+enable_rollback_recording = true
+ask_reconnect_on_crash = true
+time_speed = 24
+
+## Security
+# А НА ПРОДЕ `false` !!!
+secure.enable_security = true
+secure.trusted_mods = lp_api
+secure.http_mods = lp_api, http
+
+
+#
+# Client and Server
+#
+
+name = Alek
+language = ru
+debug_log_level = action
+chat_log_level = warning
+
+
+#
+# Mapgen
+#
+
+mg_name = v7
+
+
+# ----------------------------------------------------------------------------------------------------------
+#
+#                        Далее секция с дополнительными настройками,
+#           которых нет в основном предоставляемом MT конфиге (`minetest.conf.example`)
+#                  и которые используются модами (MTG, сторонними, нашими)
+#
+# ----------------------------------------------------------------------------------------------------------
+
+#
+#    Core/Voxrame
+#
+
+# Default: `production`
+environment = test
+
+# Общая настройка отладки. Влияет в том числе на все настройки вида `<mod_name>.debug`.
+# Если настройка мода `<mod_name>.debug` не указана, то `<mod_name>.debug` устанавливается из этой настройки.
+# Default: false
+debug = true
+
+# ------- Core/http -------
+#http.debug = true
+
+
+#
+#    MTG
+#
+
+# ------- MTG/fire -------
+# отключение пожара
+disable_fire = true
+
+# ------- MTG/{default|doors|walls} -------
+# If enabled, fences and walls cannot be jumped over.
+enable_fence_tall = true
+
+# ------- MTG/give_initial_stuff -------
+# Gives some stuff to players at the beginning
+give_initial_stuff = true
+initial_stuff = lord_money:copper_coin 100,lottmobs:horsemeat_cooked 99,tools:pick_mithril,tools:axe_mithril,tools:spear_stone
+
+
+#
+#    Various
+#
+
+# ------- _various/areas -------
+# разрешить игрокам защищать области
+areas.self_protection = false
+
+# ------- _various/mobs/api.lua -------
+# отключить спавн мобов в районе протектора? (на данный момент вообще спавн)
+mobs_spawn_protected = 0
+
+# ------- _various/protector_lott -------
+protector_pvp = true
+protector_spawn = 10
+#protector_damage = 3
+
+# -------- _various/discord ---------
+# For Discord
+lp_api.channel_id = 284678831866904578
+lp_api.router.cmd = true
+lp_api.system_name = lord-test
+
+
+#
+#    Ours (LORD)
+#
+
+# ---- FEATURE TOGGLE ----
+toggle_dungeons = true
+
+
+# ------- lord/lord_spawns -------
+# также см. настройку `static_spawnpoint` в основном разделе выше
+lord_spawns.common_spawn_pos = 330, 20, 160
+lord_spawns.dynamic_spawn = true
+
+# Spawns (Racial, by command /spawn)
+lord_spawns.racial.elf_pos = 440, 22, 98
+lord_spawns.racial.orc_pos = 380, 2, -6
+lord_spawns.racial.hobbit_pos = 430, 22, 287
+
+# Halls (Teleport by command points)
+lord_spawns.halls.center.position = 330, 20, 160
+lord_spawns.halls.center.description = Dol Guldur
+lord_spawns.halls.death.position = 380, 2, -6
+lord_spawns.halls.death.description = Hall of Death
+#lord_spawns.halls.bree.position = 417, 23, 193
+#lord_spawns.halls.bree.description = Bree
+
+# ------- lord/lord_classes
+sauron_curse_area = 5
+
+# ------- lord_ground -------
+# границы, до которых происходит расползание мордорских земель:
+lord_ground.mordor_lands.from = -633, 465
+lord_ground.mordor_lands.to   = -380, 810
+
+# ------- lord/player -------
+# арены, на которых отображается здоровье:
+arenas = 2
+
+# ------- lord/christmas -------
+# дата праздника / генерации подарков (format: "MM/DD hh:mm")
+christmas_date = 12/24 00:00
+# список подарков
+christmas_tree_gifts = lottfarming:salad 23,lord_alcohol:cider 23,default:blueberries 23,lottfarming:cookie_cracker 23,default:charcoalblock 23,default:apple 23,lottfarming:carrot_item 23,lottmobs:meat 23,lottores:tin_lump 23,default:silver_sandstone 23
+
+# ------- lord/lottmapgen
+# Земер времени генерации чанка. Default: false
+# Постоянно сыпет в лог, использовать локально при разработке или при крайней необходимости.
+mapgen_measure_chunk_gene_time = false
+# Логгирование координат герерируемого чанка.
+mapgen_chunk_pos_log = true
+
+# ------- lord/nazgul_area
+# Минас-Моргул, где на зеленом мраморе спавнятся назгулы. Координаты 395, -120
+nazgul_areas = 140
+
+# ------- lord/Game/lord_web_api
+#lord_web_api.base_url = https://lord-server.ru/api
+
+# ------- lord/World/Generation/Caves/caves_debug
+caves_debug.enabled = false
+
+
+# ------- holding_points -------
+
+# Если что-то пошло не так можно отключить мод полностью (уже установленные ноды будут как `unknown`)
+# Default: false
+#holding_points.disabled = false
+
+# Используется для тестирования и отладки. Общая настройка `debug` также включает этот параметр.
+# Т.е. включаем только тогда, когда общий `debug` отключен и нужно включить `debug` только для этого мода.
+# Default: `debug` option
+#holding_points.debug = false
