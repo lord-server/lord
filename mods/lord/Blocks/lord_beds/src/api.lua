@@ -67,6 +67,15 @@ local function can_not_place(player_name, pos, botpos)
 	return false
 end
 
+--- @param pointed_thing    pointed_thing
+--- @param under_definition NodeDefinition|nil of pointed_thing.under node
+--- @return Position
+local function get_position_to_place(pointed_thing, under_definition)
+	return (under_definition and under_definition.buildable_to)
+		and pointed_thing.under
+		or  pointed_thing.above
+end
+
 function beds.register_bed(name, def)
 	minetest.register_node(name .. "_bottom", {
 		description = def.description,
@@ -98,12 +107,7 @@ function beds.register_bed(name, def)
 				return udef.on_rightclick(under, node, placer, itemstack, pointed_thing) or	itemstack
 			end
 
-			local pos
-			if udef and udef.buildable_to then
-				pos = under
-			else
-				pos = pointed_thing.above
-			end
+			local pos = get_position_to_place(pointed_thing, udef)
 
 			local player_name = placer and placer:get_player_name() or ""
 			local dir = placer and placer:get_look_dir() and
@@ -119,6 +123,7 @@ function beds.register_bed(name, def)
 			if not minetest.is_creative_enabled(player_name) then
 				itemstack:take_item()
 			end
+
 			return itemstack
 		end,
 
