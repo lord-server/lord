@@ -11,12 +11,14 @@ local id_air = id('air')
 --- @abstract
 --- @class Voxrame.map.Room: Voxrame.map.Cuboid
 local Room = {
-	--- @type vector
+	--- @type PositionVector
 	center = nil, --- @diagnostic disable-line: assign-type-mismatch
-	--- @type vector
+	--- @type IntegerVector
 	size   = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type Voxrame.map.Room.Walls
 	walls  = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @type Voxrame.map.Room.Exit[]
+	exits  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type VoxelArea
 	area   = nil, --- @diagnostic disable-line: assign-type-mismatch
@@ -51,8 +53,9 @@ function Room.set_debug_node_id(node_id)
 	return Room
 end
 
---- @param position vector
---- @param size     vector?
+--- @param position PositionVector
+--- @param size     IntegerVector?
+--- @return self
 function Room:new(position, size)
 	size = size or self.size or v(9, 5, 9)
 
@@ -93,7 +96,7 @@ end
 
 --- @param name        Voxrame.map.Room.Wall.Type name of wall.
 --- @param inside_room boolean?                   if true, corners will be shifted one node inside the room.
---- @return vector[]
+--- @return PositionVector[]
 function Room:get_corners_of(name, inside_room)
 	inside_room = inside_room or false
 
@@ -136,7 +139,7 @@ function Room:get_corners_of(name, inside_room)
 	return corners
 end
 
---- @param position vector
+--- @param position PositionVector
 --- @param length?  number
 --- @return vector
 function Room:to_center_from(position, length)
@@ -145,7 +148,7 @@ function Room:to_center_from(position, length)
 	return ((self.center - position):normalize() * length)
 end
 
---- @param position vector
+--- @param position PositionVector
 --- @param length?  number
 --- @return vector
 function Room:from_center_to(position, length)
@@ -224,6 +227,7 @@ end
 
 --- @param area VoxelArea
 --- @param data integer[]
+--- @return self
 function Room:generate(area, data)
 	self.area = area
 	self.data = data

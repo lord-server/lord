@@ -1,7 +1,7 @@
 
 --- @class Voxrame.map.Cuboid
---- @field public from Position
---- @field public to   Position
+--- @field public from PositionVector
+--- @field public to   PositionVector
 local Cuboid = {}
 
 

@@ -2,8 +2,6 @@ local WallType = require('map.Room.Wall.Type')
 
 
 --- @class Voxrame.map.Room.Wall: Voxrame.map.Cuboid
---- @field public from vector
---- @field public to   vector
 --local Wall = {}
 
 
