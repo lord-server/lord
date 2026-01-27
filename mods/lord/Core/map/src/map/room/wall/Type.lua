@@ -1,5 +1,5 @@
 
---- @enum Voxrame.map.Room.Wall.Type: string
+--- @enum Voxrame.map.room.wall.Type: string
 local WallType = {
 	floor   = 'floor',
 	ceiling = 'ceiling',

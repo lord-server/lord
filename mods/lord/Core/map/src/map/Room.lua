@@ -1,8 +1,7 @@
 local setmetatable, v,          id
     = setmetatable, vector.new, core.get_content_id
 
-local RoomWall = require('map.Room.Wall')
-local WallType = require('map.Room.Wall.Type')
+local WallType = require('map.room.wall.Type')
 
 
 
@@ -15,9 +14,9 @@ local Room = {
 	center = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type IntegerVector
 	size   = nil, --- @diagnostic disable-line: assign-type-mismatch
-	--- @type Voxrame.map.Room.Walls
+	--- @type Voxrame.map.room.Walls
 	walls  = nil, --- @diagnostic disable-line: assign-type-mismatch
-	--- @type Voxrame.map.Room.Exit[]
+	--- @type Voxrame.map.room.Exit[]
 	exits  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type VoxelArea
@@ -32,8 +31,6 @@ local Room = {
 	--- @static
 	--- @type integer
 	debug_node_id = 0,
-
-	Wall = RoomWall,
 }
 core.register_on_mods_loaded(function()
 	Room.debug_node_id = Room.debug_node_id ~= 0 -- already set by another mod?
@@ -77,9 +74,9 @@ function Room:set_debug(debug)
 	return self
 end
 
---- @param name        Voxrame.map.Room.Wall.Type name of wall.
+--- @param name        Voxrame.map.room.wall.Type name of wall.
 --- @param inside_room boolean?                   if true, corners will be shifted one node inside the room.
---- @return Voxrame.map.Room.Wall
+--- @return Voxrame.map.room.Wall
 function Room:get_wall(name, inside_room)
 	inside_room = inside_room or false
 
@@ -94,13 +91,13 @@ function Room:get_wall(name, inside_room)
 	return wall
 end
 
---- @param name        Voxrame.map.Room.Wall.Type name of wall.
+--- @param name        Voxrame.map.room.wall.Type name of wall.
 --- @param inside_room boolean?                   if true, corners will be shifted one node inside the room.
 --- @return PositionVector[]
 function Room:get_corners_of(name, inside_room)
 	inside_room = inside_room or false
 
-	--- @type Voxrame.map.Room.Wall
+	--- @type Voxrame.map.room.Wall
 	local wall = self.walls[name]
 	local from = wall.from
 	local to   = wall.to
