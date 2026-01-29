@@ -136,6 +136,23 @@ function Room:get_corners_of(name, inside_room)
 	return corners
 end
 
+--- @param wall_type Voxrame.map.room.wall.Type
+--- @return PositionVector
+function Room:center_of(wall_type)
+	local wall = self:get_wall(wall_type)
+
+	return ((wall.from + wall.to) / 2):floor()
+end
+
+--- @param side Voxrame.map.room.wall.Type
+--- @return PositionVector
+function Room:floor_center_of(side)
+	local position = self:center_of(side)
+	position.y = self.walls['floor'].from.y + 1
+
+	return position
+end
+
 --- @param position PositionVector
 --- @param length?  number
 --- @return vector

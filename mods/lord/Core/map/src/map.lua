@@ -13,6 +13,6 @@ Voxrame.map = {
 			Type = require('map.room.wall.Type')
 		},
 		Walls = require('map.room.Walls'),
-		-- TODO: Exit  = require('map.room.Exit'),
+		Exit  = require('map.room.Exit'),
 	},
 }
