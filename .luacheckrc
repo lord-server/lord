@@ -18,8 +18,9 @@ read_globals      = {
 	table  = { fields = {
 		--- @deprecated
 		"getn", -- was in Lua, now deprecated TODO: remove usages
-		-- MT Builtin:
-		"copy", "indexof", "insert_all", "key_value_swap",
+		-- Luanti Builtin:
+		"copy", "copy_with_metatables", "indexof", "insert_all", "key_value_swap",
+		"pack", "unpack", "packsize",
 		-- our Core/helpers:
 		-- table:
 		"contains", "has_value", "has_key", "merge", "join", "merge_values",

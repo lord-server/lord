@@ -1,8 +1,7 @@
 local setmetatable, v,          id
     = setmetatable, vector.new, core.get_content_id
 
-local WallType = require('map.room.wall.Type')
-
+local Cuboid   = require('map.Cuboid')
 
 
 local id_air = id('air')
@@ -10,28 +9,30 @@ local id_air = id('air')
 --- @abstract
 --- @class Voxrame.map.Room: Voxrame.map.Cuboid
 local Room = {
-	--- @type PositionVector
-	center = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @readonly
 	--- @type IntegerVector
-	size   = nil, --- @diagnostic disable-line: assign-type-mismatch
-	--- @type Voxrame.map.room.Walls
-	walls  = nil, --- @diagnostic disable-line: assign-type-mismatch
+	size         = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @protected
+	--- @type IntegerVector
+	size_max     = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type Voxrame.map.room.Exit[]
-	exits  = nil, --- @diagnostic disable-line: assign-type-mismatch
+	exits        = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type VoxelArea
-	area   = nil, --- @diagnostic disable-line: assign-type-mismatch
+	area         = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type integer[]
-	data   = nil, --- @diagnostic disable-line: assign-type-mismatch
+	data         = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type boolean
-	debug  = false,
+	debug        = false,
 	--- @protected
 	--- @static
 	--- @type integer
 	debug_node_id = 0,
 }
+Cuboid:extended(Room)
+
 core.register_on_mods_loaded(function()
 	Room.debug_node_id = Room.debug_node_id ~= 0 -- already set by another mod?
 		and Room.debug_node_id
@@ -55,10 +56,12 @@ end
 --- @return self
 function Room:new(position, size)
 	size = size or self.size or v(9, 5, 9)
+	if self.size_max then
+		size = size:apply(math.min, self.size_max)
+	end
 
 	local class = self
 	self = {}
-	self.center = position
 	self.size   = size
 	self.from   = position - (size/2):ceil():subtract(1)
 	self.to     = position + (size/2):floor()
@@ -74,127 +77,11 @@ function Room:set_debug(debug)
 	return self
 end
 
---- @param name        Voxrame.map.room.wall.Type name of wall.
---- @param inside_room boolean?                   if true, corners will be shifted one node inside the room.
---- @return Voxrame.map.room.Wall
-function Room:get_wall(name, inside_room)
-	inside_room = inside_room or false
-
-	local wall = self.walls[name]
-
-	if inside_room then
-		wall = table.copy(wall)
-		wall.from = wall.from + self:to_center_from(wall.from):sign()
-		wall.to   = wall.to   + self:to_center_from(wall.to):sign()
-	end
-
-	return wall
-end
-
---- @param name        Voxrame.map.room.wall.Type name of wall.
---- @param inside_room boolean?                   if true, corners will be shifted one node inside the room.
---- @return PositionVector[]
-function Room:get_corners_of(name, inside_room)
-	inside_room = inside_room or false
-
-	--- @type Voxrame.map.room.Wall
-	local wall = self.walls[name]
-	local from = wall.from
-	local to   = wall.to
-
-	local corners = {}
-	if name == WallType.floor or name == WallType.ceiling then
-		corners = {
-			from:copy(),
-			v(from.x, from.y, to.z),
-			to:copy(),
-			v(to.x,   from.y, from.z),
-		}
-	elseif name == WallType.north or name == WallType.south then
-		corners = {
-			from:copy(),
-			v(to.x, from.y, from.z),
-			to:copy(),
-			v(from.x, to.y, from.z),
-		}
-	elseif name == WallType.west or name == WallType.east then
-		corners = {
-			from:copy(),
-			v(from.x, from.y, to.z),
-			to:copy(),
-			v(from.x, to.y, from.z),
-		}
-	end
-
-	if inside_room then
-		for index, corner in pairs(corners) do
-			local direction = self:to_center_from(corner):sign()
-			corners[index] = corner + direction
-		end
-	end
-
-	return corners
-end
-
---- @param wall_type Voxrame.map.room.wall.Type
---- @return PositionVector
-function Room:center_of(wall_type)
-	local wall = self:get_wall(wall_type)
-
-	return ((wall.from + wall.to) / 2):floor()
-end
-
---- @param side Voxrame.map.room.wall.Type
---- @return PositionVector
-function Room:floor_center_of(side)
-	local position = self:center_of(side)
-	position.y = self.walls['floor'].from.y + 1
-
-	return position
-end
-
---- @param position PositionVector
---- @param length?  number
---- @return vector
-function Room:to_center_from(position, length)
-	length = length or 1
-
-	return ((self.center - position):normalize() * length)
-end
-
---- @param position PositionVector
---- @param length?  number
---- @return vector
-function Room:from_center_to(position, length)
-	length = length or 1
-
-	return ((position - self.center):normalize() * length)
-end
-
-
 --- You can override method `:initialize()` for your purposes.
 --- It will be called before `:do_generation()` inside `generate()` inside `init()`
 --- @protected
 --- @return self
 function Room:initialize()
-	return self
-end
-
---- @protected
---- @return self
-function Room:init_walls()
-	local s = self.from
-	local e = self.to
-
-	self.walls = {
-		west    = { from = v(s.x - 1, s.y - 1, s.z - 1),  to = v(s.x - 1, e.y + 1, e.z + 1), },
-		east    = { from = v(e.x + 1, s.y - 1, s.z - 1),  to = v(e.x + 1, e.y + 1, e.z + 1), },
-		south   = { from = v(s.x - 1, s.y - 1, s.z - 1),  to = v(e.x + 1, e.y + 1, s.z - 1), },
-		north   = { from = v(s.x - 1, s.y - 1, e.z + 1),  to = v(e.x + 1, e.y + 1, e.z + 1), },
-		floor   = { from = v(s.x - 1, s.y - 1, s.z - 1),  to = v(e.x + 1, s.y - 1, e.z + 1), },
-		ceiling = { from = v(s.x - 1, e.y + 1, s.z - 1),  to = v(e.x + 1, e.y + 1, e.z + 1), },
-	}
-
 	return self
 end
 
@@ -221,7 +108,7 @@ function Room:debug_things()
 		return self
 	end
 
-	local center  = self.center
+	local center  = self:center()
 	local node_id = self.debug_node_id
 	self.area
 		:set_node_at(center + v(1, 0, 0), node_id)

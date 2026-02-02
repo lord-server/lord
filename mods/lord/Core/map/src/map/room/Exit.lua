@@ -5,8 +5,9 @@ local WallType = require('map.room.wall.Type')
 
 
 --- @class Voxrame.map.room.Exit
---- @field public direction vector             direction from room to outside (normalized).
---- @field public frame     Voxrame.map.Cuboid coordinates of exit frame. If only `to` is set, its used to store size.
+--- @field public direction vector                               direction from room to outside (normalized).
+--- @field public frame    {from:IntegerVector,to:IntegerVector} Exit frame coordinates.  \
+---                                                              If only `frame.to` is set, its used to store size.
 local Exit = {}
 
 --- @protected
