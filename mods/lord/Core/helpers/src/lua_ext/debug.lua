@@ -1,5 +1,5 @@
-local debug_getinfo
-	= debug.getinfo
+local debug_getinfo, math_ceil
+    = debug.getinfo, math.ceil
 
 
 local PROJECT_LOCATION = ''
@@ -247,4 +247,57 @@ function core.error_handler(message, depth)
 	else
 		return original_error_handler(message, depth)
 	end
+end
+
+--- @type number[string]
+local mesure_average = {}
+--- @type number[string]
+local mesure_count   = {}
+
+--- Measures time and average time of `callback` function execution.  \
+--- Prints result if `print_result` is `true`.
+---
+--- @param name          string  ununique name of mesure
+--- @param callback      fun()   function to mesure time of
+--- @param print_result? boolean whether to print result
+---
+--- @return number, number, number
+function debug.mesure(name, callback, print_result)
+	local start = os.clock()
+
+	callback()
+
+	local time = math_ceil((os.clock() - start) * 1000)
+	if not mesure_average[name] then
+		mesure_average[name] = 0
+		mesure_count  [name] = 0
+	end
+	mesure_average[name] = math_ceil((mesure_average[name] * mesure_count[name] + time) / (mesure_count[name] + 1))
+	mesure_count  [name] = mesure_count[name] + 1
+
+	if print_result then
+		-- Print mesure and average aligning them one under another
+		local average = mesure_average[name]
+		local average_str = (' '):rep(5 - #tostring(average)) .. average
+		local time_str    = (' '):rep(5 - #tostring(time))    .. time
+
+		print('Mesure of [' .. name .. ']:  Time: ' .. time_str .. ' ms ;  Average: ' .. average_str .. ' ms')
+	end
+
+	return time, mesure_average[name], mesure_count[name]
+end
+
+--- Prints results of previous `debug.mesure()`
+---
+--- @param name string ununique name of mesure
+function debug.mesure_print(name)
+	if not mesure_average[name] then
+		print('Mesure of [' .. name .. ']:  No mesure found')
+
+		return
+	end
+
+	local average_str = (' '):rep(5 - #tostring(mesure_average[name])) .. mesure_average[name]
+	local count_str   = (' '):rep(5 - #tostring(mesure_count[name]))   .. mesure_count[name]
+	print('Mesure of [' .. name .. ']:  Average time: ' .. average_str .. ' ms ; Count of mesures: ' .. count_str)
 end

@@ -57,7 +57,8 @@ read_globals      = {
 
 	debug  = { fields = {
 		-- our Core/helpers:
-		"get_function_code", "get_passed_params", "get_file_code"
+		"get_function_code", "get_passed_params", "get_file_code",
+		"mesure", "mesure_print"
 	} },
 
 	-- Builtin
