@@ -1,5 +1,7 @@
-local type, math_floor, math_random, math_is_among, vector_sort, v,          id
-    = type, math.floor, math.random, math.is_among, vector.sort, vector.new, core.get_content_id
+local type, math_floor, math_random, math_is_among, vector_sort, v
+    = type, math.floor, math.random, math.is_among, vector.sort, vector.new
+local id,                  name_by_id
+    = core.get_content_id, core.get_name_from_content_id
 
 
 local id_air = id('air')
@@ -57,12 +59,36 @@ function VoxelArea:foreach(from, to, callback)
 		to       = self.MaxEdge
 	end
 
-	local data = self.data
 	for i in self:iterp(from, to) do
-		if callback(i, data) then  break  end
+		if callback(i, self.data, self.data_param2, self.data_light) then
+			break
+		end
 	end
 
 	return self
+end
+
+--- Returns the node ID at the specified position.
+--- @param position Position
+--- @return integer?, integer?, integer?
+function VoxelArea:get_node_id_at(position, with_param2, with_light)
+	local i = self:indexp(position)
+
+	return
+		self.data[i],
+		with_param2 and self.data_param2[i],
+		with_light  and self.data_light[i]
+end
+
+--- Returns the node name at the specified position.
+--- Prefer to use `get_node_id_at()` and compare with preloaded node IDs.
+---
+--- @param position Position
+--- @return string?, integer?, integer?
+function VoxelArea:get_node_name_at(position, with_param2, with_light)
+	local node_id, param2, light = self:get_node_id_at(position, with_param2, with_light)
+
+	return name_by_id(node_id), param2, light
 end
 
 --- Sets the node at the specified position to the given node ID.
