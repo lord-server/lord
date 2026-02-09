@@ -14,11 +14,11 @@ The mob api is a function that can be called on by other mods to add new animals
     'mob_difficulty' sets difficulty level (health and hit damage multiplied by this number), defaults to 1.0.
     'mob_show_health' if false then punching mob will not show health status (true by default)
 
-mobs:register_mob(name, definition)
+legacy_mobs:register_mob(name, definition)
 
 This functions registers a new mob as a Minetest entity.
 
-    'name' is the name of the mob (e.g. "mobs:dirt_monster")
+    'name' is the name of the mob (e.g. "legacy_mobs:dirt_monster")
     definition is a table with the following fields
         'type' the type of the mob ("monster", "animal" or "npc")
         'passive' will mob defend itself, set to false to attack
@@ -106,7 +106,7 @@ This functions registers a new mob as a Minetest entity.
 Mobs can look for specific nodes as they walk and replace them to mimic eating
 
         'replace_what' group if items to replace e.g. {"farming:wheat_8", "farming:carrot_8"}
-        'replace_with' replace with what e.g. "air" or in chickens case "mobs:egg"
+        'replace_with' replace with what e.g. "air" or in chickens case "legacy_mobs:egg"
         'replace_rate' how random should the replace rate be (typically 10)
         'replace_offset' +/- value to check specific node to replace
 
@@ -140,18 +140,18 @@ The mob api also has some preset variables and functions that it will remember f
     'do_custom' a custom function that is called every tick while mob is active and which has access to all of the self.* variables e.g. (self.health for health or self.standing_in for node status), return with 'false' to skip remainder of mob API.
 
 
-mobs:register_spawn(name, nodes, max_light, min_light, chance, active_object_count, max_height, day_toggle)
+legacy_mobs:register_spawn(name, nodes, max_light, min_light, chance, active_object_count, max_height, day_toggle)
 
-mobs:spawn_specfic(name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height, day_toggle, on_spawn)
+legacy_mobs:spawn_specfic(name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height, day_toggle, on_spawn)
 
 These functions register a spawn algorithm for the mob. Without this function the call the mobs won't spawn.
 
     'name' is the name of the animal/monster
     'nodes' is a list of nodenames on that the animal/monster can spawn on top of
-    'neighbors' is a list of nodenames on that the animal/monster will spawn beside (default is {"air"} for mobs:register_spawn)
+    'neighbors' is a list of nodenames on that the animal/monster will spawn beside (default is {"air"} for legacy_mobs:register_spawn)
     'max_light' is the maximum of light
     'min_light' is the minimum of light
-    'interval' is same as in register_abm() (default is 30 for mobs:register_spawn)
+    'interval' is same as in register_abm() (default is 30 for legacy_mobs:register_spawn)
     'chance' is same as in register_abm()
     'active_object_count' mob is only spawned if active_object_count_wider of ABM is <= this
     'min_height' is the minimum height the mob can spawn
@@ -159,9 +159,9 @@ These functions register a spawn algorithm for the mob. Without this function th
     'day_toggle' true for day spawning, false for night or nil for anytime
     'on_spawn' is a custom function which runs after mob has spawned and gives self and pos values.
 
-... also a simpler way to handle mob spawns has been added with the mobs:spawn(def) command which uses above names to make settings clearer:
+... also a simpler way to handle mob spawns has been added with the legacy_mobs:spawn(def) command which uses above names to make settings clearer:
 
-    mobs:spawn({name = "mobs_monster:tree_monster",
+    legacy_mobs:spawn({name = "mobs_monster:tree_monster",
        nodes = {"group:leaves"},
        max_light = 7,
     })
@@ -174,7 +174,7 @@ mobs_animal:sheep_chance 11000 or mobs_monster:sand_monster_chance 100
 For each mob that spawns with this function is a field in mobs.spawning_mobs. It tells if the mob should spawn or not. Default is true. So other mods can only use the API of this mod by disabling the spawning of the default mobs in this mod.
 
 
-mobs:register_arrow(name, definition)
+legacy_mobs:register_arrow(name, definition)
 
 This function registers a arrow for mobs with the attack type shoot.
 
@@ -200,7 +200,7 @@ This function registers a arrow for mobs with the attack type shoot.
     'on_step' is a custom function when arrow is active, nil for default.
 
 
-mobs:register_egg(name, description, background, addegg)
+legacy_mobs:register_egg(name, description, background, addegg)
 
 This function registers a spawn egg which can be used by admin to properly spawn in a mob.
 
@@ -211,7 +211,7 @@ This function registers a spawn egg which can be used by admin to properly spawn
     'no_creative' when set to true this stops spawn egg appearing in creative mode for destructive mobs like Dungeon Masters
 
 
-mobs:explosion(pos, radius, fire, smoke)
+legacy_mobs:explosion(pos, radius, fire, smoke)
 
 This function generates an explosion which removes nodes in a specific radius and replace them with fire or air. Protection nodes, obsidian and locked chests will not be destroyed although a normal chest will drop it's contents.
 
@@ -222,7 +222,7 @@ This function generates an explosion which removes nodes in a specific radius an
     'sound' sound played when mob explodes
 
 
-mobs:capture_mob(self, clicker, chance_hand, chance_net, chance_lasso, force_take, replacewith)
+legacy_mobs:capture_mob(self, clicker, chance_hand, chance_net, chance_lasso, force_take, replacewith)
 
 This function is generally called inside the on_rightclick section of the mob api code, it provides a chance of capturing the mob by hand, using the net or magic lasso items, and can also have the player take the mob by force if tamed and replace with another item entirely.
 
@@ -235,7 +235,7 @@ This function is generally called inside the on_rightclick section of the mob ap
     'replacewith' once captured replace mob with this item instead (overrides new mob eggs with saved information)
 
 
-mobs:feed_tame(self, clicker, feed_count, breed)
+legacy_mobs:feed_tame(self, clicker, feed_count, breed)
 
 This function allows the mob to be fed the item inside self.follow be it apple, wheat or whatever a set number of times and be tamed or bred as a result.
 
@@ -246,9 +246,9 @@ This function allows the mob to be fed the item inside self.follow be it apple, 
     'tame' true or false stating if mob can be tamed so player can pick them up
 
 
-mobs:protect(self, clicker)
+legacy_mobs:protect(self, clicker)
 
-This function can be used to right-click any tamed mob with mobs:protector item, this will protect the mob from harm inside of a protected area from other players.
+This function can be used to right-click any tamed mob with legacy_mobs:protector item, this will protect the mob from harm inside of a protected area from other players.
 
     'self' mob information
     'clicker' player information
@@ -268,7 +268,7 @@ Useful Internal Variables
 Mobs can now be ridden by players and the following shows the functions and usage:
 
 
-mobs:attach(self, player)
+legacy_mobs:attach(self, player)
 
 This function attaches a player to the mob so it can be ridden.
 
@@ -276,7 +276,7 @@ This function attaches a player to the mob so it can be ridden.
     'player' player information
 
 
-mobs:detach(player, offset)
+legacy_mobs:detach(player, offset)
 
 This function will detach the player currently riding a mob to an offset position.
 
@@ -284,7 +284,7 @@ This function will detach the player currently riding a mob to an offset positio
     'offset' position table containing offset values
 
 
-mobs:drive(self, move_animation, stand_animation, can_fly, dtime)
+legacy_mobs:drive(self, move_animation, stand_animation, can_fly, dtime)
 
 This function allows an attached player to move the mob around and animate it at same time.
 
@@ -295,7 +295,7 @@ This function allows an attached player to move the mob around and animate it at
     'dtime' tick time used inside drive function
 
 
-mobs:fly(self, dtime, speed, can_shoot, arrow_entity, move_animation, stand_animation)
+legacy_mobs:fly(self, dtime, speed, can_shoot, arrow_entity, move_animation, stand_animation)
 
 This function allows an attached player to fly the mob around using directional controls.
 
@@ -324,7 +324,7 @@ Here is an example mob to show how the above functions work:
 
 
 -- rideable horse
-mobs:register_mob("mob_horse:horse", {
+legacy_mobs:register_mob("mob_horse:horse", {
 	type = "animal",
 	visual = "mesh",
 	visual_size = {x = 1.20, y = 1.20},
@@ -360,7 +360,7 @@ mobs:register_mob("mob_horse:horse", {
 	water_damage = 1,
 	makes_footstep_sound = true,
 	drops = {
-		{name = "mobs:meat_raw", chance = 1, min = 2, max = 3}
+		{name = "legacy_mobs:meat_raw", chance = 1, min = 2, max = 3}
 	},
 
 	do_custom = function(self, dtime)
@@ -393,7 +393,7 @@ mobs:register_mob("mob_horse:horse", {
 		-- drop saddle when horse is killed while riding
 		-- also detach from horse properly
 		if self.driver then
-			minetest.add_item(pos, "mobs:saddle")
+			minetest.add_item(pos, "legacy_mobs:saddle")
 			mobs.detach(self.driver, {x = 1, y = 0, z = 1})
 		end
 
@@ -407,7 +407,7 @@ mobs:register_mob("mob_horse:horse", {
 		end
 
 		-- feed, tame or heal horse
-		if mobs:feed_tame(self, clicker, 10, true, true) then
+		if legacy_mobs:feed_tame(self, clicker, 10, true, true) then
 			return
 		end
 
@@ -422,25 +422,25 @@ mobs:register_mob("mob_horse:horse", {
 				mobs.detach(clicker, {x = 1, y = 0, z = 1})
 
 				-- add saddle back to inventory
-				if inv:room_for_item("main", "mobs:saddle") then
-					inv:add_item("main", "mobs:saddle")
+				if inv:room_for_item("main", "legacy_mobs:saddle") then
+					inv:add_item("main", "legacy_mobs:saddle")
 				else
-					minetest.add_item(clicker.get_pos(), "mobs:saddle")
+					minetest.add_item(clicker.get_pos(), "legacy_mobs:saddle")
 				end
 
 			-- attach player to horse
 			elseif not self.driver
-			and clicker:get_wielded_item():get_name() == "mobs:saddle" then
+			and clicker:get_wielded_item():get_name() == "legacy_mobs:saddle" then
 
 				self.object:set_properties({stepheight = 1.1})
 				mobs.attach(self, clicker)
 
 				-- take saddle from inventory
-				inv:remove_item("main", "mobs:saddle")
+				inv:remove_item("main", "legacy_mobs:saddle")
 			end
 		end
 
 		-- used to capture horse with magic lasso
-		mobs:capture_mob(self, clicker, 0, 0, 80, false, nil)
+		legacy_mobs:capture_mob(self, clicker, 0, 0, 80, false, nil)
 	end
 })

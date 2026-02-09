@@ -1,7 +1,7 @@
 local S = minetest.get_mod_translator()
 
 
-mobs:register_mob("lottmobs:horse", {
+legacy_mobs:register_mob("lottmobs:horse", {
 	type                 = "animal",
 	hp_min               = 5,
 	hp_max               = 7,
@@ -65,7 +65,7 @@ mobs:register_mob("lottmobs:horse", {
 	passive              = true,
 })
 
-mobs:register_mob("lottmobs:horsepeg", {
+legacy_mobs:register_mob("lottmobs:horsepeg", {
 	type                 = "animal",
 	hp_min               = 5,
 	hp_max               = 7,
@@ -129,7 +129,7 @@ mobs:register_mob("lottmobs:horsepeg", {
 	passive              = true,
 })
 
-mobs:register_mob("lottmobs:horseara", {
+legacy_mobs:register_mob("lottmobs:horseara", {
 	type                 = "animal",
 	hp_min               = 5,
 	hp_max               = 7,

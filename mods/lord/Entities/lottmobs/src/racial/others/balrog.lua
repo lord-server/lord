@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:balrog", {
+legacy_mobs:register_mob("lottmobs:balrog", {
 	type = "monster",
 	--rotate = 180,
 	hp_min = 1000,

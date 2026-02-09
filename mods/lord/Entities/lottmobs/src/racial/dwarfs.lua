@@ -2,7 +2,7 @@ local api = require('fear_height.api')
 
 
 function lottmobs.register_dwarf(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
-	mobs:register_mob("lottmobs:dwarf" .. n, {
+	legacy_mobs:register_mob("lottmobs:dwarf" .. n, {
 		type                 = "npc",
 		hp_min               = hpmin,
 		hp_max               = hpmax,

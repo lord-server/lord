@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:ent", {
+legacy_mobs:register_mob("lottmobs:ent", {
 	type = "npc",
 	hp_min = 50,
 	hp_max = 70,

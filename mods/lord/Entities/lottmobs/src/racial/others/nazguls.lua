@@ -10,7 +10,7 @@ local function is_halloween_season()
 	return (month == 10 and day >= 24) or (month == 11 and day <= 14)
 end
 
-mobs:register_mob("lottmobs:nazgul", {
+legacy_mobs:register_mob("lottmobs:nazgul", {
 	type = "monster",
 	hp_min = 90,
 	hp_max = 110,
@@ -72,7 +72,7 @@ mobs:register_mob("lottmobs:nazgul", {
 	end
 })
 
-mobs:register_mob("lottmobs:witch_king", {
+legacy_mobs:register_mob("lottmobs:witch_king", {
 	type = "monster",
 	hp_min = 250,
 	hp_max = 350,

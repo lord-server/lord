@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:dunlending", {
+legacy_mobs:register_mob("lottmobs:dunlending", {
 	type = "monster",
 	hp_min = 17,
 	hp_max = 27,

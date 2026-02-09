@@ -1,6 +1,6 @@
 
 
-mobs:register_mob("lottmobs:rat", {
+legacy_mobs:register_mob("lottmobs:rat", {
 	type = "animal",
 	passive = true,
 	hp_min = 1,

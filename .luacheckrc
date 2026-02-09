@@ -82,6 +82,7 @@ read_globals      = {
 	"worldedit",
 	"areas",
 	"hopper",
+	"legacy_mobs",
 
 	-- Functions:
 	"within_limits", -- mobs api

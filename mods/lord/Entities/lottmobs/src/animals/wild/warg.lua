@@ -2,7 +2,7 @@ local S   = minetest.get_mod_translator()
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:warg", {
+legacy_mobs:register_mob("lottmobs:warg", {
 	--	type = "npc",
 	type                 = "monster",
 	race                 = "orc",

@@ -8,7 +8,7 @@ local orc_armor = "lottarmor_chestplate_steel.png^" ..
 	"lottarmor_shield_steel.png^" ..
 	"[colorize:#00000055"
 
-mobs:register_mob("lottmobs:orc", {
+legacy_mobs:register_mob("lottmobs:orc", {
 	type = "monster",
 	hp_min = 15,
 	hp_max = 35,
@@ -78,7 +78,7 @@ mobs:register_mob("lottmobs:orc", {
 	end
 })
 
-mobs:register_mob("lottmobs:orc_crossbowman", {
+legacy_mobs:register_mob("lottmobs:orc_crossbowman", {
 	type = "monster",
 	hp_min = 15,
 	hp_max = 35,
@@ -154,7 +154,7 @@ mobs:register_mob("lottmobs:orc_crossbowman", {
 	end
 })
 
-mobs:register_mob("lottmobs:orc_archer", {
+legacy_mobs:register_mob("lottmobs:orc_archer", {
 	type = "monster",
 	hp_min = 15,
 	hp_max = 35,
@@ -230,7 +230,7 @@ mobs:register_mob("lottmobs:orc_archer", {
 	end
 })
 
-mobs:register_mob("lottmobs:raiding_orc", {
+legacy_mobs:register_mob("lottmobs:raiding_orc", {
 	type = "monster",
 	hp_min = 15,
 	hp_max = 35,
@@ -295,7 +295,7 @@ mobs:register_mob("lottmobs:raiding_orc", {
 	end
 })
 
-mobs:register_mob("lottmobs:uruk_hai", {
+legacy_mobs:register_mob("lottmobs:uruk_hai", {
 	type = "monster",
 	hp_min = 25,
 	hp_max = 40,

@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:spider", {
+legacy_mobs:register_mob("lottmobs:spider", {
 	type = "monster",
 	hp_min = 20,
 	hp_max = 40,
@@ -56,4 +56,4 @@ mobs:register_mob("lottmobs:spider", {
 		api.set_fear_height_by_state(self)
 	end
 })
---mobs:register_spawn("lottmobs:spider", {"lord_ground:dirt_mirkwood"}, 20, -10, 6000, 3, 31000)
+--legacy_mobs:register_spawn("lottmobs:spider", {"lord_ground:dirt_mirkwood"}, 20, -10, 6000, 3, 31000)

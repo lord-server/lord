@@ -2,7 +2,7 @@ local S = minetest.get_mod_translator()
 
 -- Bee by KrupnoPavel
 
-mobs:register_mob('bees:bee', {
+legacy_mobs:register_mob('bees:bee', {
 	type = "animal",
 	passive = true,
 	hp_min = 1,
@@ -23,6 +23,7 @@ mobs:register_mob('bees:bee', {
 	drop = {""},
 	--drops = {
 		--{name = "bees:honey",
+		--{name = "legacy_mobs:honey",
 		--chance = 1, min = 1, max = 2},
 	--},
 	water_damage = 1,
@@ -38,17 +39,13 @@ mobs:register_mob('bees:bee', {
 		walk_end = 65,
 	},
 	on_rightclick = function(self, clicker)
-		mobs:capture_mob(self, clicker, 25, 80, 0, true, nil)
+		legacy_mobs:capture_mob(self, clicker, 25, 80, 0, true, nil)
 	end,
 })
 
-mobs:alias_mob('mobs:bee', 'bees:bee')
-
---name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height
---mobs:spawn_specific(name, nodes, {"air"}, min_light, max_light, 30, chance, active_object_count, -31000, max_height)
-mobs:spawn_specific("bees:bee", {"group:flower"}, {"air"}, 10, 20, 30, 5000, 1, 0, 1000)
-
-mobs:register_egg("bees:bee", S("Bee"), "mobs_bee_inv.png", 0)
+legacy_mobs:alias_mob('mobs:bee', 'bees:bee')
+legacy_mobs:spawn_specific("bees:bee", {"group:flower"}, {"air"}, 10, 20, 30, 5000, 1, 0, 1000)
+legacy_mobs:register_egg("bees:bee", S("Bee"), "mobs_bee_inv.png", 0)
 
 -- honey
 minetest.register_craftitem("bees:honey", {

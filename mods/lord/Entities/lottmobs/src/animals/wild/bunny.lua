@@ -1,6 +1,6 @@
 
 
-mobs:register_mob("lottmobs:bunny", {
+legacy_mobs:register_mob("lottmobs:bunny", {
 	type = "animal",
 	passive = true,
 	reach = 1,

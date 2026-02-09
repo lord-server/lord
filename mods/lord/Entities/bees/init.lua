@@ -223,7 +223,7 @@ local S = minetest.get_mod_translator()
     end,
   })
 
-  --minetest.register_alias("mobs:beehive",'bees:hive_wild')
+  --minetest.register_alias("bees:beehive",'bees:hive_wild')
 
 
 

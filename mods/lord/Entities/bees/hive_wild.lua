@@ -22,7 +22,7 @@ local S = minetest.get_mod_translator()
   local function hive_wild_on_punch(pos, node, puncher)
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
-      if inv:contains_item('queen','mobs:bee') then
+      if inv:contains_item('queen','bees:bee') then
         local health = puncher:get_hp()
         puncher:set_hp(health-4)
       end
@@ -36,7 +36,7 @@ local S = minetest.get_mod_translator()
       )
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
-      if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
+      if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'bees:bee') then
         local health = clicker:get_hp()
         if health <= 4 then
                 clicker:set_wielded_item("")
@@ -129,7 +129,7 @@ local S = minetest.get_mod_translator()
       timer:start(5)
       inv:set_size('queen', 1)
       inv:set_size('combs', 5)
-      inv:set_stack('queen', 1, 'mobs:bee')
+      inv:set_stack('queen', 1, 'bees:bee')
       for i=1,math.random(3) do
         inv:set_stack('combs', i, 'bees:honey_comb')
       end
@@ -141,7 +141,7 @@ local S = minetest.get_mod_translator()
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
       local timer= minetest.get_node_timer(pos)
-      if listname == 'combs' and inv:contains_item('queen', 'mobs:bee') then
+      if listname == 'combs' and inv:contains_item('queen', 'bees:bee') then
         local health = taker:get_hp()
         timer:start(30)
         taker:set_hp(health-2)
@@ -159,7 +159,7 @@ local S = minetest.get_mod_translator()
     end,
 
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if listname == 'queen' and stack:get_name() == 'mobs:bee' then
+      if listname == 'queen' and stack:get_name() == 'bees:bee' then
         return 1
       else
         return 0
@@ -183,7 +183,7 @@ local S = minetest.get_mod_translator()
       if 'bees:grafting_tool' == wielded:get_name() then
         local inv = user:get_inventory()
         if inv then
-          inv:add_item('main', ItemStack('mobs:bee'))
+          inv:add_item('main', ItemStack('bees:bee'))
         end
       end
     end
@@ -230,7 +230,7 @@ local S = minetest.get_mod_translator()
       timer:start(5)
       inv:set_size('queen', 1)
       inv:set_size('combs', 5)
-      inv:set_stack('queen', 1, 'mobs:bee')
+      inv:set_stack('queen', 1, 'bees:bee')
       for i=1, inv:get_size('combs') do
         inv:set_stack('combs', i, 'bees:honey_comb')
       end
@@ -245,7 +245,7 @@ local S = minetest.get_mod_translator()
       if listname == 'combs' then
         local health = taker:get_hp()
         timer:start(30)
-        if inv:contains_item('queen', 'mobs:bee') then
+        if inv:contains_item('queen', 'bees:bee') then
           taker:set_hp(health-2)
         end
         minetest.swap_node_if_not_same(pos, 'bees:hive_wild')

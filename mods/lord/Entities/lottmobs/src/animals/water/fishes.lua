@@ -1,4 +1,5 @@
 local S = minetest.get_mod_translator()
+local lm = legacy_mobs
 
 local SPRITE_VERSION = false	-- set to true to use upright sprites instead of meshes
 
@@ -41,7 +42,7 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 	end
 
 -- Clownfish
-	mobs:register_mob("lottmobs:clownfish", {
+	legacy_mobs:register_mob("lottmobs:clownfish", {
 		type = "animal",
 		passive = true,
 		hp_min = 1,
@@ -68,17 +69,17 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		animation = l_anims,
 		fear_height = 0,
 		on_rightclick = function(self, clicker)
-			mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
+			legacy_mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
 		end
 	})
 	--name, nodes, neighbours, minlight, maxlight, interval, chance, active_object_count, min_height, max_height
-	mobs:spawn_specific(
+	legacy_mobs:spawn_specific(
 		"lottmobs:clownfish", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level
 	)
-	mobs:register_egg("lottmobs:clownfish", S("Clownfish"), "animal_clownfish_clownfish_item.png", 0)
+	legacy_mobs:register_egg("lottmobs:clownfish", S("Clownfish"), "animal_clownfish_clownfish_item.png", 0)
 
 -- Tropical fish
-	mobs:register_mob("lottmobs:tropical", {
+	legacy_mobs:register_mob("lottmobs:tropical", {
 		type = "animal",
 		passive = true,
 		hp_min = 1,
@@ -105,9 +106,9 @@ local SPRITE_VERSION = false	-- set to true to use upright sprites instead of me
 		animation = l_anims,
 		fear_height = 0,
 		on_rightclick = function(self, clicker)
-			mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
+			legacy_mobs:capture_mob(self, clicker, l_cc_hand, l_cc_net, 0, true, nil)
 		end
 	})
 	--name, nodes, neighbours, minlight, maxlight, interval, chance, active_object_count, min_height, max_height
-	mobs:spawn_specific("lottmobs:tropical", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level)
-	mobs:register_egg("lottmobs:tropical", S("Tropical fish"), "animal_fish_blue_white_fish_blue_white_item.png", 0)
+	lm:spawn_specific("lottmobs:tropical", l_spawn_in, l_spawn_near, 5, 20, 30, l_spawn_chance, 1, -31000, l_water_level)
+	lm:register_egg("lottmobs:tropical", S("Tropical fish"), "animal_fish_blue_white_fish_blue_white_item.png", 0)

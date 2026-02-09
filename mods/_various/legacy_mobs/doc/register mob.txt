@@ -41,7 +41,7 @@
 
     Simple Mobs has a simple API. Other mods can use the functions to add their own mobs.
 
-    ### mobs:register_mob(name, definition)
+    ### legacy_mobs:register_mob(name, definition)
 
     This functions registers a new mob as a Minetest entity.
     * `name` is the name of the mob (e.g. "mobs:dirt_monster")
@@ -89,7 +89,7 @@
         * `speed_run` used when mob runs behind player to make animation faster
 
 
-    ### mobs:register_spawn(name, nodes, max_light, min_light, chance, active_object_count, max_height)
+    ### legacy_mobs:register_spawn(name, nodes, max_light, min_light, chance, active_object_count, max_height)
 
     This function registers a spawn algorithm for the animal. Without this function the call the mobs won't spawn.
     * `name` is the name of the animal/monster

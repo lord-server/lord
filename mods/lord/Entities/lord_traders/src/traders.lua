@@ -1,5 +1,6 @@
 
 local trader = require("traders.trader")
+local lm = legacy_mobs
 
 -- TODO move this into lord_mobs_common & use for other humanlike mobs
 local MODEL_HEIGHT = 1.8
@@ -97,8 +98,8 @@ trader.register(":lottmobs:dwarf_trader", {
 	damage       = 4,
 })
 
-mobs:spawn_specific("lottmobs:elf_trader",   {"lord_ground:dirt_lorien"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
-mobs:spawn_specific("lottmobs:human_trader", {"lord_ground:dirt_rohan"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
-mobs:spawn_specific("lottmobs:human_trader", {"lord_ground:dirt_gondor"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
-mobs:spawn_specific("lottmobs:hobbit_trader",{"lord_ground:dirt_shire"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
-mobs:spawn_specific("lottmobs:dwarf_trader", {"lord_ground:dirt_iron_hills"},{"air"},-1,20, 30, 90000, 2, -31000, 31000)
+lm:spawn_specific("lottmobs:elf_trader",   {"lord_ground:dirt_lorien"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+lm:spawn_specific("lottmobs:human_trader", {"lord_ground:dirt_rohan"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+lm:spawn_specific("lottmobs:human_trader", {"lord_ground:dirt_gondor"},  {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+lm:spawn_specific("lottmobs:hobbit_trader",{"lord_ground:dirt_shire"},   {"air"}, -1, 20, 30, 90000, 2, -31000, 31000)
+lm:spawn_specific("lottmobs:dwarf_trader", {"lord_ground:dirt_iron_hills"},{"air"},-1,20, 30, 90000, 2, -31000, 31000)

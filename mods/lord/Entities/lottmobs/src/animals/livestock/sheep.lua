@@ -1,6 +1,6 @@
 
 
-mobs:register_mob("lottmobs:sheep", {
+legacy_mobs:register_mob("lottmobs:sheep", {
 	type = "animal",
 	passive = true,
 	hp_min = 8,
@@ -48,7 +48,7 @@ mobs:register_mob("lottmobs:sheep", {
 	replace_offset = -1,
 
 	on_rightclick = function(self, clicker)
-		if mobs:feed_tame(self, clicker, 8, true, true) then
+		if legacy_mobs:feed_tame(self, clicker, 8, true, true) then
 			if self.gotten == false then
 				self.object:set_properties({
 					textures = {"mobs_sheep_base.png^mobs_sheep_wool.png"},
@@ -90,7 +90,7 @@ mobs:register_mob("lottmobs:sheep", {
 	end
 })
 
-mobs:register_spawn("lottmobs:sheep",
+legacy_mobs:register_spawn("lottmobs:sheep",
 	{"lord_ground:dirt_shire", "lord_ground:dirt_gondor", "lord_ground:dirt_dunland",
 	 "lord_ground:dirt_ithilien"},
 	20, 10, 10000, 1, 31000)
