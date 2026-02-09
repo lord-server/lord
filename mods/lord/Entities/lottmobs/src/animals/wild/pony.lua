@@ -1,7 +1,7 @@
 local S = minetest.get_mod_translator()
 
 
-mobs:register_mob("lottmobs:shirepony", {
+legacy_mobs:register_mob("lottmobs:shirepony", {
 	type                 = "animal",
 	hp_min               = 5,
 	hp_max               = 7,
@@ -68,7 +68,7 @@ mobs:register_mob("lottmobs:shirepony", {
 	passive              = true,
 })
 
-mobs:register_mob("lottmobs:shireponyblack", {
+legacy_mobs:register_mob("lottmobs:shireponyblack", {
 	type                 = "animal",
 	hp_min               = 5,
 	hp_max               = 7,

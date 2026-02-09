@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:rohan_guard", {
+legacy_mobs:register_mob("lottmobs:rohan_guard", {
 	type = "npc",
 	hp_min = 20,
 	hp_max = 30,
@@ -70,7 +70,7 @@ mobs:register_mob("lottmobs:rohan_guard", {
 	end
 })
 
-mobs:register_mob("lottmobs:gondor_guard", {
+legacy_mobs:register_mob("lottmobs:gondor_guard", {
 	type = "npc",
 	hp_min = 20,
 	hp_max = 30,
@@ -143,7 +143,7 @@ mobs:register_mob("lottmobs:gondor_guard", {
 	end
 })
 
-mobs:register_mob("lottmobs:ithilien_ranger", {
+legacy_mobs:register_mob("lottmobs:ithilien_ranger", {
 	type = "npc",
 	hp_min = 25,
 	hp_max = 40,

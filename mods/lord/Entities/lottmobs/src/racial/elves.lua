@@ -2,7 +2,7 @@ local api = require('fear_height.api')
 
 
 function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
-	mobs:register_mob("lottmobs:elf" .. n, {
+	legacy_mobs:register_mob("lottmobs:elf" .. n, {
 		type                 = "npc",
 		hp_min               = hpmin,
 		hp_max               = hpmax,
@@ -56,7 +56,7 @@ function lottmobs.register_elf(n, hpmin, hpmax, textures, wv, rv, damg, arm, dro
 end
 
 function lottmobs.register_elf_archer(n, hpmin, hpmax, textures, wv, rv, damg, arm, drops)
-	mobs:register_mob("lottmobs:elf_archer" .. n, {
+	legacy_mobs:register_mob("lottmobs:elf_archer" .. n, {
 		type                 = "npc",
 		hp_min               = hpmin,
 		hp_max               = hpmax,

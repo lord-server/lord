@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:half_troll", {
+legacy_mobs:register_mob("lottmobs:half_troll", {
 	type = "monster",
 	hp_min = 20,
 	hp_max = 30,

@@ -105,12 +105,12 @@ local function register_trader(name, definition)
 	local def         = table.merge(common_trader_definition, definition)
 
 	-- HACK: we can't move this into `common_trader_definition`, because we need `def.race`,
-	--       but `mobs:register_mob()` does not pass all `def` into `minetest.register_entity()`
+	--       but `legacy_mobs:register_mob()` does not pass all `def` into `minetest.register_entity()`
 	def.on_rightclick = function(self, clicker)
 		on_rightclick(self, clicker, def.race)
 	end
 
-	mobs:register_mob(name, def)
+	legacy_mobs:register_mob(name, def)
 end
 
 return {

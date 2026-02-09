@@ -358,7 +358,7 @@ minetest.register_entity("protector_lott:display", {
 	visual_size = {x = 1.0 / 1.5, y = 1.0 / 1.5},
 	textures = {"protector_lott:display_node"},
 	on_activate = function(self, staticdata)
-		if mobs and mobs.entity == false then self.object:remove() end
+		if legacy_mobs and legacy_mobs.entity == false then self.object:remove() end
 	end,
 	on_step = function(self, dtime)
 		self.timer = (self.timer or 0) + dtime

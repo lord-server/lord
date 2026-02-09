@@ -1,7 +1,7 @@
 local api = require('fear_height.api')
 
 
-mobs:register_mob("lottmobs:hobbit", {
+legacy_mobs:register_mob("lottmobs:hobbit", {
 	type = "npc",
 	hp_min = 5,
 	hp_max = 15,
@@ -70,4 +70,4 @@ mobs:register_mob("lottmobs:hobbit", {
 		api.set_fear_height_by_state(self)
 	end
 })
---mobs:register_spawn("lottmobs:hobbit", {"lord_ground:dirt_shire"}, 20, -1, 6000, 3, 31000)
+--legacy_mobs:register_spawn("lottmobs:hobbit", {"lord_ground:dirt_shire"}, 20, -1, 6000, 3, 31000)

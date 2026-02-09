@@ -25,7 +25,7 @@ local S = minetest.get_mod_translator()
     )
     local meta = minetest.get_meta(pos)
     local inv  = meta:get_inventory()
-    if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'mobs:bee') then
+    if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'bees:bee') then
       local health = clicker:get_hp()
       if health <= 4 then
               clicker:set_wielded_item("")
@@ -87,7 +87,7 @@ local S = minetest.get_mod_translator()
       local meta = minetest.get_meta(pos)
       local inv = meta:get_inventory()
       local timer = minetest.get_node_timer(pos)
-      if inv:contains_item('queen', 'mobs:bee') then
+      if inv:contains_item('queen', 'bees:bee') then
         if inv:contains_item('frames', 'bees:frame_empty') then
           timer:start(30)
           local rad  = 10
@@ -175,7 +175,7 @@ local S = minetest.get_mod_translator()
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if not minetest.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
       if listname == 'queen' then
-        if stack:get_name():match('mobs:bee*') then
+        if stack:get_name():match('bees:bee*') then
           return 1
         end
       elseif listname == 'frames' then
@@ -221,7 +221,7 @@ local S = minetest.get_mod_translator()
       inv:set_size('queen', 1)
       inv:set_size('frames', 8)
       meta:set_string('infotext',S('does not have empty frame(s)'))
-      inv:set_stack('queen', 1, 'mobs:bee')
+      inv:set_stack('queen', 1, 'bees:bee')
       for i=1, inv:get_size('frames') do
         inv:set_stack('frames', i, 'bees:frame_full')
       end
@@ -257,7 +257,7 @@ local S = minetest.get_mod_translator()
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
       if not minetest.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
       if listname == 'queen' then
-        if stack:get_name():match('mobs:bee*') then
+        if stack:get_name():match('bees:bee*') then
           return 1
         end
       elseif listname == 'frames' then

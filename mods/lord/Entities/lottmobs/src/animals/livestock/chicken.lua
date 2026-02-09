@@ -72,7 +72,7 @@ archery.register_throwable("lottmobs:egg", {
 	}
 })
 
-mobs:register_mob("lottmobs:chicken", {
+legacy_mobs:register_mob("lottmobs:chicken", {
 	type = "animal",
 	hp_min = 5,
 	hp_max = 10,

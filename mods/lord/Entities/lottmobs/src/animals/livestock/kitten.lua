@@ -2,7 +2,7 @@
 
 -- Kitten by Jordach / BFD
 
-mobs:register_mob("lottmobs:kitten", {
+legacy_mobs:register_mob("lottmobs:kitten", {
 	stepheight = 0.6,
 	type = "animal",
 	specific_attack = {"lottmobs:rat"},
@@ -63,14 +63,14 @@ mobs:register_mob("lottmobs:kitten", {
 		local user = clicker:get_player_name()
 
 		if self.owner and self.owner == user then
-			if not mobs:feed_tame(self, clicker, 4, true, true) then
-				mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
+			if not legacy_mobs:feed_tame(self, clicker, 4, true, true) then
+				legacy_mobs:capture_mob(self, clicker, 50, 50, 90, false, nil)
 			end
 		else
-			if mobs:protect(self, clicker) then
+			if legacy_mobs:protect(self, clicker) then
 				return
 			end
-			if mobs:feed_tame(self, clicker, 4, true, true) then
+			if legacy_mobs:feed_tame(self, clicker, 4, true, true) then
 				self.owner = clicker:get_player_name()
 			else
 				local vel = self.object:get_velocity()
@@ -92,7 +92,7 @@ mobs:register_mob("lottmobs:kitten", {
 				max_hear_distance = 5,
 			})
 		else
-			mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
+			legacy_mobs.mob_punch(self, hitter, tflp, tool_capabilities, dir)
 		end
 	end,
 
