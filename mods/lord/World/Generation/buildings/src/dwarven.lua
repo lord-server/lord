@@ -1,7 +1,7 @@
-local dwarf_tomb = require('dungeons.dwarf_tomb')
-local walls      = require('dungeons.walls')
-local interior   = require('dungeons.interior')
-local remains    = require('dungeons.remains')
+local dwarf_tomb = require('dwarven.dwarf_tomb')
+local walls      = require('dwarven.walls')
+local interior   = require('dwarven.interior')
+local remains    = require('dwarven.remains')
 
 
 minetest.register_on_dungeon_generated(function(minp, maxp, data, param2_data, area, rooms_centers, rooms_walls)
