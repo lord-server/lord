@@ -83,10 +83,10 @@ end
 
 --- @param rooms_centers   Position[]
 --- @param rooms_walls     RoomWalls[]
---- @param tomb_room_index number      room index, where tomb was placed or `nil`
+--- @param tomb_room_index number?     room index, where tomb was placed or `nil`
 function Remains:generate(rooms_centers, rooms_walls, tomb_room_index)
 	for i, room_center in pairs(rooms_centers) do
-		--- @type RoomWalls
+		--- @type RoomWalls|table
 		local room_walls = rooms_walls[i] or {}
 		if not table_is_empty(room_walls) then
 			if i == tomb_room_index then
@@ -107,7 +107,7 @@ return {
 	--- @param area            VoxelArea
 	--- @param rooms_centers   Position[]
 	--- @param rooms_walls     RoomWalls[]
-	--- @param tomb_room_index number      room index, where tomb was placed or `nil`
+	--- @param tomb_room_index number|nil   room index, where tomb was placed or `nil`
 	on_dungeon_generated = function(min_pos, max_pos, data, param2_data, area, rooms_centers, rooms_walls, tomb_room_index)
 		if max_pos.y > REMAINS_Y_MAX then
 			return

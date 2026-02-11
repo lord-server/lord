@@ -208,7 +208,7 @@ end
 --- @param rooms_walls   RoomWalls[]
 function Interior:generate(rooms_centers, rooms_walls)
 	for i, room_center in pairs(rooms_centers) do
-		--- @type RoomWalls
+		--- @type RoomWalls|table
 		local room_walls = rooms_walls[i] or {}
 		if (math_random(INTERIOR_CHANCE) == 1 and not table_is_empty(room_walls)) then
 			self:place_room_interior(room_walls, room_center)

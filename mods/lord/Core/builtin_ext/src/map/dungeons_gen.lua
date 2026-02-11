@@ -28,8 +28,8 @@ local MAX_NODES_TO_WALL = math.ceil((8 + 16 + 13) / 2)
 local MAX_NODES_TO_CEIL = 8 + 16 + 2
 
 --- @class RoomWall
---- @field start_pos vector
---- @field end_pos   vector
+--- @field start_pos PositionVector
+--- @field end_pos   PositionVector
 
 --- @class RoomWalls
 --- @field north   RoomWall
