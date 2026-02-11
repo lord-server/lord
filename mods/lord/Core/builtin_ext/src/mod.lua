@@ -34,6 +34,7 @@ end
 --- @field translator fun(str: string, ...):string translator for this mod
 --- @field logger     helpers.Logger               lazy loaded logger instance for this mod
 --- @field settings   Voxrame.mod.Settings         lazy loaded settings for this mod
+--- @field measure    fun(self:self, name:string, callback:fun(), print_result?:boolean) time and avg t. of `callback`
 
 --- @param mod_init_function fun(mod:minetest.Mod)
 function minetest.mod(mod_init_function)
@@ -51,7 +52,14 @@ function minetest.mod(mod_init_function)
 			path       = mod_path,
 			debug      = mod_debug,
 			require    = require,
-			translator = Translator.get()
+			translator = Translator.get(),
+			measure    = function(self, name, callback, print_result)
+				if not self.debug then
+					return callback()
+				end
+
+				return debug.measure(name, callback, print_result or true)
+			end
 		}, {
 			-- Lazy Loading
 			__index = function(self, key)
