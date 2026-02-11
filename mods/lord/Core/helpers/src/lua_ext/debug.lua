@@ -8,7 +8,7 @@ local debug_mode   = minetest.settings:get_bool('debug', false)
 local x_scheme_tpl = debug_mode	and minetest.settings:get('debug.editor_x_scheme_tpl') or  nil
 
 --- @param file_full string
---- @param line      number
+--- @param line      integer
 --- @return string
 local function get_x_scheme_url(file_full, line)
 	local file_relative = file_full:replace(PROJECT_LOCATION:reg_escape(), '')
@@ -21,7 +21,7 @@ local function get_x_scheme_url(file_full, line)
 end
 
 --- @param file_full string
---- @param line      number
+--- @param line      integer
 --- @return string
 local function get_file_line_term_string(file_full, line)
 	local file = file_full:replace(PROJECT_LOCATION:reg_escape(), '')
@@ -42,6 +42,7 @@ end
 --- @return string
 function __FILE__(depth, full) -- luacheck: ignore unused global variable __FILE__
 	full = full or false
+	--- @diagnostic disable-next-line: need-check-nil
 	local full_file = debug_getinfo(2 + (depth or 0), 'S').source:replace('^@', '')
 
 	return full
@@ -50,9 +51,9 @@ function __FILE__(depth, full) -- luacheck: ignore unused global variable __FILE
 end
 
 --- @param depth? integer Call stack nesting level (default: `0`)
---- @return number
+--- @return integer
 function __LINE__(depth) -- luacheck: ignore unused global variable __LINE__
-	return debug_getinfo(2 + (depth or 0), 'l').currentline
+	return debug_getinfo(2 + (depth or 0), 'l').currentline --- @diagnostic disable-line: need-check-nil
 end
 
 --- @param depth? integer Call stack nesting level (default: `0`)
@@ -66,7 +67,7 @@ end
 --- @param depth? integer Call stack nesting level (default: `0`)
 --- @return string
 function __FUNC__(depth)  -- luacheck: ignore unused global variable __FUNC__
-	return debug_getinfo(2 + (depth or 0), 'n').name
+	return debug_getinfo(2 + (depth or 0), 'n').name --- @diagnostic disable-line: need-check-nil
 end
 
 --- @param depth? integer Call stack nesting level (default: `0`)
@@ -119,8 +120,8 @@ function debug.get_passed_params(line_code)
 end
 
 --- @param file      string
---- @param line_from number 1-based line number
---- @param line_to?  number default: `line_from`
+--- @param line_from integer 1-based line number
+--- @param line_to?  integer default: `line_from`
 --- @return string
 function debug.get_file_code(file, line_from, line_to)
 	line_to = line_to or line_from
@@ -139,13 +140,14 @@ end
 --- @param func function
 --- @return string
 function debug.get_function_code(func)
-	local func_info = debug_getinfo(func)
+	local func_info = debug_getinfo(func) --- @as debuglib.DebugInfo
 	local name = func_info.source:replace('^@','')
 
 	return debug.get_file_code(name, func_info.linedefined, func_info.lastlinedefined) or ''
 end
 
---- @param depth? number
+--- @param depth? integer Call stack nesting level (default: `0`)
+--- @return string
 local function backtrace(depth)
 	depth = depth or 0
 	depth = depth + 2
@@ -180,7 +182,7 @@ end
 ---
 --- If your terminal supports links, every `@ <file>:<line>` will linked to open IDE, see `readme.md` to configure.
 ---
---- @param depth?      number  call stack depth to start from
+--- @param depth?      integer call stack depth to start from
 --- @param with_trace? boolean print trace or not
 --- @param ...         any     params to dump
 function print_dump(depth, with_trace, ...)
@@ -228,7 +230,7 @@ end
 local original_error_handler = core.error_handler
 ---@overload fun(message:string)
 ---@param message string
----@param depth number
+---@param depth integer
 function core.error_handler(message, depth)
 	depth   = depth or 0
 	message = message or term.stylize('~ no error message ~', term.style.italic .. term.style.red)
@@ -250,9 +252,11 @@ function core.error_handler(message, depth)
 end
 
 --- @type number[string]
-local mesure_average = {}
+local measure_average = {}
 --- @type number[string]
-local mesure_count   = {}
+local measure_count   = {}
+--- @type number[string]
+local measure_last    = {}
 
 --- Measures time and average time of `callback` function execution.  \
 --- Prints result if `print_result` is `true`.
@@ -261,43 +265,47 @@ local mesure_count   = {}
 --- @param callback      fun()   function to mesure time of
 --- @param print_result? boolean whether to print result
 ---
---- @return number, number, number
-function debug.mesure(name, callback, print_result)
+--- @return number, number, number, string?  # time, average time, count of mesures, print string if not `print_result`
+function debug.measure(name, callback, print_result)
 	local start = os.clock()
+	if not measure_average[name] then
+		measure_average[name] = 0
+		measure_count  [name] = 0
+	end
 
 	callback()
 
 	local time = math_ceil((os.clock() - start) * 1000)
-	if not mesure_average[name] then
-		mesure_average[name] = 0
-		mesure_count  [name] = 0
-	end
-	mesure_average[name] = math_ceil((mesure_average[name] * mesure_count[name] + time) / (mesure_count[name] + 1))
-	mesure_count  [name] = mesure_count[name] + 1
+
+	measure_average[name] = math_ceil((measure_average[name] * measure_count[name] + time) / (measure_count[name] + 1))
+	measure_count  [name] = measure_count[name] + 1
+	measure_last   [name] = time
+
+	-- Align results to make them one under another
+	local print_string = ('Measure of [%s]:  Time: %5.0f ms ;  Average: %5.0f ms')
+		:format(name, time, measure_average[name])
 
 	if print_result then
-		-- Print mesure and average aligning them one under another
-		local average = mesure_average[name]
-		local average_str = (' '):rep(5 - #tostring(average)) .. average
-		local time_str    = (' '):rep(5 - #tostring(time))    .. time
+		print(print_string)
 
-		print('Mesure of [' .. name .. ']:  Time: ' .. time_str .. ' ms ;  Average: ' .. average_str .. ' ms')
+		return time, measure_average[name], measure_count[name]
 	end
 
-	return time, mesure_average[name], mesure_count[name]
+	return time, measure_average[name], measure_count[name], print_string
 end
 
 --- Prints results of previous `debug.mesure()`
 ---
 --- @param name string ununique name of mesure
 function debug.mesure_print(name)
-	if not mesure_average[name] then
-		print('Mesure of [' .. name .. ']:  No mesure found')
+	if not measure_average[name] then
+		print('Measure of [' .. name .. ']:  No mesure found')
 
 		return
 	end
 
-	local average_str = (' '):rep(5 - #tostring(mesure_average[name])) .. mesure_average[name]
-	local count_str   = (' '):rep(5 - #tostring(mesure_count[name]))   .. mesure_count[name]
-	print('Mesure of [' .. name .. ']:  Average time: ' .. average_str .. ' ms ; Count of mesures: ' .. count_str)
+	print(
+		('Measure of [%s]: Average time: %5.0f ms ; Last time: %5.0f ms ; Count of mesures: %5.0f')
+			:format(name, measure_average[name], measure_last[name], measure_count[name])
+	)
 end
