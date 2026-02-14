@@ -15,7 +15,7 @@ local Cuboid = {
 }
 
 --- @generic GenericCuboid: Voxrame.map.Cuboid
---- @param child_class GenericCuboid|nil
+--- @param child_class? GenericCuboid
 --- @return GenericCuboid
 function Cuboid:extended(child_class)
 	return setmetatable(child_class or {}, { __index = self })
@@ -176,11 +176,43 @@ function Cuboid:floor_center_of(side)
 	return position
 end
 
+--- @param offset PositionVector
+--- @return self
+function Cuboid:move(offset)
+	self.from = self.from + offset
+	self.to   = self.to   + offset
+
+	return self
+end
+
+--- @param position PositionVector
+--- @return self
+function Cuboid:move_at(position)
+	local size = self.to - self.from
+
+	self.from = position
+	self.to   = position + size
+
+	return self
+end
+
+--- @param wall_type Voxrame.map.room.wall.Type
+--- @param delta     integer?
+--- @return self
+function Cuboid:move_to(wall_type, delta)
+	assert(WallType[wall_type], 'Invalid wall type: ' .. wall_type)
+	delta = delta or 1
+
+	self.from = self.from:at(wall_type, delta)
+	self.to   = self.to:at(wall_type, delta)
+
+	return self
+end
+
 -- -----------------------------------------------------------------
 
 -- #region `:floor()`, `:north()`, ...
 
---- @
 --- @param inside_room boolean?
 --- @return Voxrame.map.room.Wall
 function Cuboid:floor(inside_room)

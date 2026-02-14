@@ -62,7 +62,7 @@ function Room:new(position, size)
 
 	local class = self
 	self = {}
-	self.size   = size
+	self.size   = size --- @diagnostic disable-line: read-only
 	self.from   = position - (size/2):ceil():subtract(1)
 	self.to     = position + (size/2):floor()
 

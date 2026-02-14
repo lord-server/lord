@@ -2,23 +2,31 @@ local type, v
     = type, vector.new
 
 local WallType = require('map.room.wall.Type')
+local Cuboid   = require('map.Cuboid')
 
 
---- @class Voxrame.map.room.Exit
---- @field public direction vector                               direction from room to outside (normalized).
---- @field public frame    {from:IntegerVector,to:IntegerVector} Exit frame coordinates.  \
----                                                              If only `frame.to` is set, its used to store size.
-local Exit = {}
+--- @class Voxrame.map.room.Exit: Voxrame.map.room.Connector
+local Exit = {
+	--- Direction from room to outside (normalized).
+	--- @type vector
+	direction = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- Voxrame.map.Cuboid Exit frame coordinates.  \
+	--- If only `frame.to` is set, its used to store size.
+	--- @type Voxrame.map.Cuboid
+	frame     = nil, --- @diagnostic disable-line: assign-type-mismatch
+}
+
 
 --- @protected
+--- @param direction vector
 --- @return self
-function Exit:new(direction, frame)
+function Exit:new(direction)
 	self = setmetatable({}, { __index = self })
-	self.direction = direction or nil
-	self.frame     = frame or {
-		from = nil,
-		to   = nil,
-	}
+	self.direction  = direction
+	-- here we create fake cuboid, it will be set later in `at()` & `with_size()` methods
+	self.frame      = Cuboid:new(v(0, 0, 0), v(0, 0, 0))
+	self.frame.from = nil
+	self.frame.to   = nil
 
 	return self
 end
@@ -110,6 +118,13 @@ function Exit:with_size(width, height)
 
 		self.frame.to = self.frame.from + size - v(1, 1, 1)
 	end
+
+	return self
+end
+
+--- @param delta integer
+function Exit:shift(delta)
+	self.frame:move(delta * self.direction:cross(v(0, 1, 0)))
 
 	return self
 end
