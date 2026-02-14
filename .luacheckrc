@@ -20,7 +20,7 @@ read_globals      = {
 		"getn", -- was in Lua, now deprecated TODO: remove usages
 		-- Luanti Builtin:
 		"copy", "copy_with_metatables", "indexof", "insert_all", "key_value_swap",
-		"pack", "unpack", "packsize",
+		"pack", "unpack", "packsize", "shuffle",
 		-- our Core/helpers:
 		-- table:
 		"contains", "has_value", "has_key", "merge", "join", "merge_values",

@@ -9,6 +9,7 @@ local WallType = Voxrame.map.room.wall.Type
 local id_air         = id('air')
 local id_lava        = id('default:lava_source')
 local id_barrel      = id('barrel:barrel')
+local id_orc_torch   = id('torches:orc_wall')
 local id_modor_stone = id('lord_rocks:mordor_stone')
 local id_remains     = id('remains:ancient_miner_1')
 local id_bone_1      = id('bones:bone_1')
@@ -69,16 +70,16 @@ end
 
 --- @return self
 function Main:add_exits()
-	local exits_count = math_random(4, 4)
+	local exits_count = math_random(2, 4)
 
 	local walls = { WallType.north, WallType.south, WallType.east, WallType.west }
+	table.shuffle(walls)
 
 	for i = 1, exits_count do
-		--local side = walls[math_random(#walls)] --- @as Voxrame.map.room.wall.Type
 		local side = walls[i] --- @as Voxrame.map.room.wall.Type
 		local position = self:floor_center_of(side)
 
-		local exit = Exit.to(side):at(position):with_size(3, 4)
+		local exit = Exit.to(side):at(position):with_size(3, 4):shift(math_random(-4, 4))
 		self.exits[#self.exits + 1] = exit
 
 		self.area:fill_with(id_air, exit.frame.from, exit.frame.to)
@@ -107,18 +108,17 @@ function Main:barrels()
 	local barrels_pile_size = 2 -- for all dimensions
 
 	for _, corner in pairs(self:get_corners_of('floor')) do
-		local direction = self:to_center_from(corner):sign()
+		local to_center = self:to_center_from(corner):sign()
 
-		local from = corner + direction
-		local to   = from   + direction * (barrels_pile_size-1)
+		local from = corner + to_center
+		local to   = from   + to_center * (barrels_pile_size-1)
 
 		local pile_peak = v(from.x, to.y, from.z)
 
 		self.area:place_pile(id_barrel, from, to, pile_peak)
 
-		if self.debug then
-			self.area:set_node_at(pile_peak + v(0, 1, 0), id('default:torch'))
-		end
+		local orientation = to_center.x > 0 and 3 or 2
+		self.area:set_node_at(pile_peak:above(), id_orc_torch, orientation)
 	end
 
 	return self
