@@ -56,18 +56,6 @@ function Main:lava_circle()
 	return self
 end
 
---- @private
---- @return self
-function Main:fill_walls()
-	local area = self.area
-	for name, wall in pairs(self.walls) do
-		local nodes_ids = self.wall_blocks[name] or self.wall_blocks['_all']
-		area:fill_with(nodes_ids, wall.from, wall.to)
-	end
-
-	return self
-end
-
 --- @return self
 function Main:add_exits()
 	local exits_count = math_random(2, 4)
@@ -127,7 +115,6 @@ end
 --- @return self
 function Main:do_generation()
 	return self
-		:fill_walls()
 		:add_exits()
 		:lava_circle()
 		:remains()

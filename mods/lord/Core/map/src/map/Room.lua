@@ -15,6 +15,9 @@ local Room = {
 	--- @protected
 	--- @type IntegerVector
 	size_max     = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @protected
+	--- @type table<'_all'|Voxrame.map.room.wall.Type, integer[]>
+	wall_blocks  = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type Voxrame.map.room.Exit[]
 	exits        = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
@@ -103,6 +106,22 @@ end
 
 --- @protected
 --- @return self
+function Room:fill_walls()
+	if not self.wall_blocks then
+		return self
+	end
+
+	local area = self.area
+	for name, wall in pairs(self.walls) do
+		local nodes_ids = self.wall_blocks[name] or self.wall_blocks['_all']
+		area:fill_with(nodes_ids, wall.from, wall.to)
+	end
+
+	return self
+end
+
+--- @protected
+--- @return self
 function Room:debug_things()
 	if not self.debug then
 		return self
@@ -136,6 +155,7 @@ function Room:generate(area, data)
 	return self
 		:init()
 		:fill_with_air()
+		:fill_walls()
 		:debug_things()
 		:do_generation()
 end
