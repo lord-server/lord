@@ -19,7 +19,7 @@ local Room = {
 	--- @protected
 	--- @type table<'_all'|Voxrame.map.room.wall.Type, integer[]>
 	wall_blocks  = nil, --- @diagnostic disable-line: assign-type-mismatch
-	--- @type Voxrame.map.room.Exit[]
+	--- @type table<Voxrame.map.room.wall.Type, Voxrame.map.room.Exit>
 	exits        = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type VoxelArea
@@ -69,6 +69,7 @@ function Room:new(position, size)
 	self.size   = size --- @diagnostic disable-line: read-only
 	self.from   = position - (size/2):ceil():subtract(1)
 	self.to     = position + (size/2):floor()
+	self.exits  = {}
 
 	return setmetatable(self, { __index = class })
 end
