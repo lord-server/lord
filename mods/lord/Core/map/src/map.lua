@@ -5,8 +5,11 @@ Voxrame = Voxrame or {}
 Voxrame.map = {
 	--- @type Voxrame.map.Room
 	Room = require('map.Room'),
+	--- @type Voxrame.map.Corridor
+	Corridor = require('map.Corridor'),
 	--- @namespace Voxrame.map.room
 	room = {
+		--- @type Voxrame.map.room.Wall
 		Wall  = require('map.room.Wall'),
 		--- @namespace Voxrame.map.room.wall
 		wall  = {

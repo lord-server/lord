@@ -90,10 +90,17 @@ function Exit:at(position)
 	return self
 end
 
---- @param width  number
---- @param height number
+--- Configures exit size and calculates exit `.frame` coordinates.  \
+--- Usages: `exit:with_size(3, 4)` or `exit:with_size({width = 3, height = 4})`
+--- @param width  integer|{width:integer, height:integer}
+--- @param height integer?
 --- @return self
 function Exit:with_size(width, height)
+	if type(width) == "table" then
+		height = width.height
+		width  = width.width
+	end
+
 	--- @type IntegerVector
 	local size
 
