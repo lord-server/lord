@@ -196,15 +196,15 @@ function Cuboid:move_at(position)
 	return self
 end
 
---- @param wall_type Voxrame.map.room.wall.Type
---- @param delta     integer?
+--- @param side  Voxrame.map.room.wall.Type
+--- @param delta integer?
 --- @return self
-function Cuboid:move_to(wall_type, delta)
-	assert(WallType[wall_type], 'Invalid wall type: ' .. wall_type)
+function Cuboid:move_to(side, delta)
+	WallType.assert_valid(side)
 	delta = delta or 1
 
-	self.from = self.from:at(wall_type, delta)
-	self.to   = self.to:at(wall_type, delta)
+	self.from = self.from:at(side, delta)
+	self.to   = self.to:at(side, delta)
 
 	return self
 end

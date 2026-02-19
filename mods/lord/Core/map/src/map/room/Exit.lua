@@ -49,8 +49,8 @@ function Exit.to(side)
 		return Exit:new(direction)
 	end
 
-	--- @cast side string
-	assert(side:is_one_of(WallType))
+	--- @cast side Voxrame.map.room.wall.Type
+	WallType.assert_valid(side)
 	local directions = {
 		[WallType.north]   = v( 0,  0,  1),
 		[WallType.south]   = v( 0,  0, -1),
@@ -122,6 +122,8 @@ function Exit:with_size(width, height)
 	return self
 end
 
+--- Shifts exit by `delta` in the direction perpendicular to the exit
+--- (moves exit along the wall on `delta` blocks)
 --- @param delta integer
 function Exit:shift(delta)
 	self.frame:move(delta * self.direction:cross(v(0, 1, 0)))
