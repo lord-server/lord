@@ -131,5 +131,25 @@ function Exit:shift(delta)
 	return self
 end
 
+--- Returns center position of the exit frame on the floor.
+--- @return Position
+function Exit:floor_center()
+	return self.frame:floor():center()
+end
+
+--- @param connectable Voxrame.map.room.Connectable
+--- @param ...         any                          additional arguments passed to `connectable:connect_to()`
+--- @return self
+function Exit:connect(connectable, ...)
+	connectable:connect_to(self, ...)
+
+	return self
+end
+
+--- @return Position
+function Exit:get_direction()
+	return self.direction
+end
+
 
 return Exit

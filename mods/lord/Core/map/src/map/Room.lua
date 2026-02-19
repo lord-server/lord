@@ -2,13 +2,15 @@ local setmetatable, v,          id
     = setmetatable, vector.new, core.get_content_id
 
 local Cuboid   = require('map.Cuboid')
+local Exit     = require('map.room.Exit')
+local WallType = require('map.room.wall.Type')
 
 
 local id_air = id('air')
 
 local parent = Cuboid
 --- @abstract
---- @class Voxrame.map.Room: Voxrame.map.Cuboid
+--- @class Voxrame.map.Room: Voxrame.map.Cuboid, Voxrame.map.room.Connectable
 local Room = {
 	--- @readonly
 	--- @type IntegerVector
@@ -34,6 +36,10 @@ local Room = {
 	--- @static
 	--- @type integer
 	debug_node_id = 0,
+	--- @protected
+	--- @static
+	--- @type helpers.Logger
+	logger        = core.get_mod_logger(),
 }
 parent:extended(Room)
 
@@ -160,6 +166,51 @@ function Room:fill_walls()
 		local nodes_ids = self.wall_blocks[name] or self.wall_blocks['_all']
 		area:fill_with(nodes_ids, wall.from, wall.to)
 	end
+
+	return self
+end
+
+--- @param connector Voxrame.map.room.Connector
+--- @return self
+function Room:connect_to(connector)
+	local direction = connector:get_direction()
+	assert(direction.y == 0, 'Direction of connector must be horizontal')
+
+	local connector_side = WallType.of(direction)
+	if not connector_side then
+		self.logger.error(
+			'Cannot connect Room: Invalid connector side `%s` of direction `%s`',
+			dump(connector_side), dump(direction)
+		)
+
+		return self
+	end
+	local my_exit_side = WallType.opposite_for(connector_side)
+	if not my_exit_side then
+		self.logger.error(
+			'Cannot connect Room: cannot find opposite side of connector side `%s`',
+			dump(connector_side)
+		)
+
+		return self
+	end
+
+	if not self.exits[my_exit_side] then
+		local position = self:floor_center_of(my_exit_side)
+		self.exits[my_exit_side] = Exit.to(my_exit_side):at(position):with_size(3, 4)
+	end
+	local room_exit = self.exits[my_exit_side]
+
+	-- Выход из присоединяемой комнаты может быть не в центре стены
+	-- Нам нужно выровнять комнату относительно расположения выхода на этой стене
+	local exit_offset_from_center = room_exit:floor_center() - self:floor_center_of(my_exit_side)
+	local alignment_offset = self.size:multiply(direction) / 2
+	alignment_offset = alignment_offset - exit_offset_from_center
+	alignment_offset.y = self.size.y / 2
+
+	self:move(connector:floor_center() + alignment_offset)
+
+	self.from, self.to = vector.sort(self.from, self.to)
 
 	return self
 end
