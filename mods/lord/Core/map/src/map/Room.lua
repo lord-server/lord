@@ -6,6 +6,7 @@ local Cuboid   = require('map.Cuboid')
 
 local id_air = id('air')
 
+local parent = Cuboid
 --- @abstract
 --- @class Voxrame.map.Room: Voxrame.map.Cuboid
 local Room = {
@@ -34,7 +35,7 @@ local Room = {
 	--- @type integer
 	debug_node_id = 0,
 }
-Cuboid:extended(Room)
+parent:extended(Room)
 
 core.register_on_mods_loaded(function()
 	Room.debug_node_id = Room.debug_node_id ~= 0 -- already set by another mod?
@@ -94,6 +95,48 @@ function Room:init()
 	return self
 		:init_walls()
 		:initialize()
+end
+
+--- Calls specified `method` on room and all its exits.
+--- @protected
+--- @param method string
+--- @param ... any
+--- @return self
+function Room:apply(method, ...)
+	parent[method](self, ...)
+	for _, exit in pairs(self.exits) do
+		exit.frame[method](exit.frame, ...)
+	end
+
+	return self
+end
+
+--- Moves coordinates of room and all its exits by offset.  \
+--- Use before `generate()` to set room position.
+--- Be sure that exits already initialized.
+--- @param offset PositionVector
+--- @return self
+function Room:move(offset)
+	return self:apply('move', offset)
+end
+
+--- Moves coordinates of room and all its exits to `position`.  \
+--- Use before `generate()` to set room position.
+--- Be sure that exits already initialized.
+--- @param position PositionVector
+--- @return self
+function Room:move_at(position)
+	return self:apply('move_at', position)
+end
+
+--- Moves coordinates of room and all its exits to side with `delta`.  \
+--- Use before `generate()` to set room position.
+--- Be sure that exits already initialized.
+--- @param side  Voxrame.map.room.wall.Type
+--- @param delta integer?
+--- @return self
+function Room:move_to(side, delta)
+	return self:apply('move_to', side, delta)
 end
 
 --- @protected
