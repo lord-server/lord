@@ -200,7 +200,7 @@ end
 --- @param delta integer?
 --- @return self
 function Cuboid:move_to(side, delta)
-	WallType.assert_valid(side)
+	WallType.assert_valid(side) --- @cast side Position.OffsetSide
 	delta = delta or 1
 
 	self.from = self.from:at(side, delta)
