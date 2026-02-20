@@ -61,7 +61,7 @@
  - [Обновление своего форка](development.md#Обновление-своего-форка)
  - [Релизный процесс](development.md#Релизный-процесс)
  - [Изменение конфигов](development.md#Изменение-конфигов)
- - [Textures & modeles Style Guide](style_guide.md)
+ - [Textures & modeles Style Guide](.guides/assets-style.ru.md)
 
 
 ## Contributors / Участники
