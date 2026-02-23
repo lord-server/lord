@@ -236,7 +236,7 @@ local S = minetest.get_mod_translator()
     action = function(pos)
       local meta = minetest.get_meta(pos)
       local inv  = meta:get_inventory()
-      if inv:contains_item('queen', 'mobs:bee') then
+      if inv:contains_item('queen', 'bees:bee') then
         minetest.add_particle({
             pos = {x=pos.x, y=pos.y, z=pos.z},
           velocity = {x=(math.random()-0.5)*5,y=(math.random()-0.5)*5,z=(math.random()-0.5)*5},
@@ -483,13 +483,13 @@ local S = minetest.get_mod_translator()
           minetest.set_node(pos, { name = 'bees:hive_wild' })
           local meta = minetest.get_meta(pos)
           local inv  = meta:get_inventory()
-          inv:set_stack('queen', 1, 'mobs:bee')
+          inv:set_stack('queen', 1, 'bees:bee')
         end
         if node.name == 'bees:hive_artificial_inhabited' then
           minetest.set_node(pos, { name = 'bees:hive_artificial' })
           local meta = minetest.get_meta(pos)
           local inv  = meta:get_inventory()
-          inv:set_stack('queen', 1, 'mobs:bee')
+          inv:set_stack('queen', 1, 'bees:bee')
           local timer = minetest.get_node_timer(pos)
           timer:start(60)
         end
@@ -499,5 +499,6 @@ local S = minetest.get_mod_translator()
 -- Load
 local bees_path = minetest.get_modpath("bees")
 
+dofile(bees_path.."/bee.lua")
 dofile(bees_path.."/hive_wild.lua")
 dofile(bees_path.."/hive_artificial.lua")
