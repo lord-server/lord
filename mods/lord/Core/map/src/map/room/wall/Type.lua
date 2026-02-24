@@ -1,7 +1,7 @@
 local assert
     = assert
 
---- @enum Voxrame.map.room.wall.Type: string
+--- @enum Voxrame.map.room.wall.Type: WorldSide
 local WallType = {
 	floor   = 'floor',
 	ceiling = 'ceiling',
@@ -76,15 +76,9 @@ end
 --- Converts direction vector to wall side type.
 --- @static
 --- @param direction vector Direction of the side. Must be horizontal.
---- @return Voxrame.map.room.wall.Type?
-function WallType.of(direction) -- luacheck: ignore 561 # cyclomatic complexity
-	return direction.x > 0 and WallType.east
-		or direction.x < 0 and WallType.west
-		or direction.z > 0 and WallType.north
-		or direction.z < 0 and WallType.south
-		or direction.y > 0 and WallType.ceiling
-		or direction.y < 0 and WallType.floor
-		or nil
+--- @return Voxrame.map.room.wall.Type
+function WallType.of(direction)
+	return direction:direction_side()
 end
 
 --- Returns opposite wall side type.

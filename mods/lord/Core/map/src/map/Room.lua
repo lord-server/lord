@@ -177,23 +177,7 @@ function Room:connect_to(connector)
 	assert(direction.y == 0, 'Direction of connector must be horizontal')
 
 	local connector_side = WallType.of(direction)
-	if not connector_side then
-		self.logger.error(
-			'Cannot connect Room: Invalid connector side `%s` of direction `%s`',
-			dump(connector_side), dump(direction)
-		)
-
-		return self
-	end
-	local my_exit_side = WallType.opposite_for(connector_side)
-	if not my_exit_side then
-		self.logger.error(
-			'Cannot connect Room: cannot find opposite side of connector side `%s`',
-			dump(connector_side)
-		)
-
-		return self
-	end
+	local my_exit_side   = WallType.opposite_for(connector_side)
 
 	if not self.exits[my_exit_side] then
 		local position = self:floor_center_of(my_exit_side)
