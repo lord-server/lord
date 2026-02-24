@@ -1,5 +1,5 @@
-local assert
-    = assert
+local assert, table_shuffle
+    = assert, table.shuffle
 
 --- @enum Voxrame.map.room.wall.Type: WorldSide
 local WallType = {
@@ -51,7 +51,7 @@ function WallType.horizontal(shuffle)
 	}
 
 	if shuffle then
-		table.shuffle(result)
+		table_shuffle(result)
 	end
 
 	return result

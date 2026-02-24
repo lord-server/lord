@@ -61,10 +61,11 @@ function Room.set_debug_node_id(node_id)
 	return Room
 end
 
---- @param position PositionVector
+--- @param position PositionVector?
 --- @param size     IntegerVector?
 --- @return self
 function Room:new(position, size)
+	position = position or v(0, 0, 0)
 	size = size or self.size or v(9, 5, 9)
 	if self.size_max then
 		size = size:apply(math.min, self.size_max)
@@ -188,9 +189,9 @@ function Room:connect_to(connector)
 	-- Выход из присоединяемой комнаты может быть не в центре стены
 	-- Нам нужно выровнять комнату относительно расположения выхода на этой стене
 	local exit_offset_from_center = room_exit:floor_center() - self:floor_center_of(my_exit_side)
-	local alignment_offset = self.size:multiply(direction) / 2
+	local alignment_offset = (self.size:multiply(direction) / 2):floor()
 	alignment_offset = alignment_offset - exit_offset_from_center
-	alignment_offset.y = self.size.y / 2
+	alignment_offset.y = math.floor(self.size.y / 2)
 
 	self:move(connector:floor_center() + alignment_offset)
 
