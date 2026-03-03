@@ -1,8 +1,4 @@
-# textdomain: mobs
-Honey=Мёд
-Beehive=Улей
-Honey Block=Блок мёда
-Bee=Пчела
+# textdomain: legacy_mobs
 [MOBS] mod profiling enabled, damage not enabled=[MOBS] профилирование мода включено, урон не включен
 lifetimer expired, removed @1=таймер жизни истёк, удален @1
 [Mobs Redo] @1 has spawning disabled=[Mobs Redo] спавн @1 выключен
