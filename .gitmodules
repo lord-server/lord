@@ -98,3 +98,6 @@
 [submodule "util/ide-helper"]
 	path = util/ide-helper
 	url = https://github.com/Voxrame/luanti-ide-helper.git
+[submodule "mods/_various/mobs"]
+	path = mods/_various/mobs
+	url = https://codeberg.org/tenplus1/mobs_redo.git
