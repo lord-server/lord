@@ -16,13 +16,10 @@ globals           = {
 
 read_globals      = {
 	table  = { fields = {
-		--- @deprecated
-		"getn", -- was in Lua, now deprecated TODO: remove usages
 		-- Luanti Builtin:
-		"copy", "copy_with_metatables", "indexof", "insert_all", "key_value_swap",
-		"pack", "unpack", "packsize", "shuffle",
-		-- our Core/helpers:
-		-- table:
+		"copy", "copy_with_metatables", "insert_all",
+		"indexof", "keyof", "key_value_swap", "shuffle",
+		-- Voxrame/helpers:
 		"contains", "has_value", "has_key", "merge", "join", "merge_values",
 		"is_empty", "overwrite", "keys_of", "count", "keys", "values",
 		"only", "except", "keys_has_one_of_values", "equals", "multiply_each_value",
@@ -31,32 +28,32 @@ read_globals      = {
 	} },
 
 	string = { fields = {
-		-- MT Builtin:
-		"split", "trim",
-		-- our Core/helpers:
+		-- Luanti Builtin:
+		"split", "trim", "pack", "unpack", "packsize",
+		-- Voxrame/helpers:
 		"is_one_of", "replace", "contains", "starts_with", "ends_with", "vxr_split", "or_nil"
 	} },
 
 	math = { fields = {
-		-- MT Builtin:
+		-- Luanti Builtin:
 		"sign", "hypot", "factorial", "round",
-		-- Core/helpers:
+		-- Voxrame/helpers:
 		"limit", "clamp",
 		"is_within", "is_among", "is_in_range", "is_near", "point_on_circle"
 	} },
 
 	io = { fields = {
-		-- our Core/helpers:
-		"file_exists", "write_to_file", "read_from_file"
+		-- Voxrame/helpers:
+		"file_exists", "write_to_file", "read_from_file", "dirname", "get_file_error"
 	} },
 
 	os = { fields = {
-		-- our Core/helpers:
+		-- Voxrame/helpers:
 		"DIRECTORY_SEPARATOR",
 	} },
 
 	debug  = { fields = {
-		-- our Core/helpers:
+		-- Voxrame/helpers:
 		"get_function_code", "get_passed_params", "get_file_code",
 		"measure", "measure_print"
 	} },

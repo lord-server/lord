@@ -2,8 +2,9 @@ local table_copy, table_key_value_swap, pairs, next, type
 	= table.copy, table.key_value_swap, pairs, next, type
 
 
+--- Returns list of all keys of specified table.
 --- @param table table
---- @return string[]|any[] returns list of all keys of specified table
+--- @return string[]|any[]
 function table.keys(table)
 	local keys = {}
 	for key, _ in pairs(table) do
@@ -13,6 +14,10 @@ function table.keys(table)
 	return keys
 end
 
+--- Returns a table with all values from the given `table`.  \
+--- Keys will be numeric indices.
+--- @param table table
+--- @return any[]
 function table.values(table)
 	local values = {}
 	for _, value in pairs(table) do
@@ -22,9 +27,10 @@ function table.values(table)
 	return values
 end
 
+--- Returns a table with keys from the given `table` that have the specified `value`.
 --- @param table table
 --- @param value any
---- @return table|nil returns indexed table of found keys for table `table` or `nil` if nothing found
+--- @return table|nil
 function table.keys_of(table, value)
 	local found_keys = {}
 	for key, v in pairs(table) do
@@ -140,7 +146,9 @@ end
 
 
 --- Adds key-value from `table2` into `table1` only if that key does not exists in `table1`.
---- Values that are tables are copied by `table.copy()`
+--- Values that are tables are copied by `table.copy()`.
+--- If `recursively` is true, the function will be applied recursively for values
+--- that are tables in both `table1` and `table2`.
 ---
 --- @overload fun(table1:table, table2:table):table
 ---
@@ -203,16 +211,18 @@ function table.is_position(table)
 		type(table.z) == 'number'
 end
 
---- @param table table
---- @param values table
-function table.keys_has_one_of_values(table, values)
+--- @deprecated
+--- @param table     table
+--- @param find_keys table
+function table.keys_has_one_of_values(table, find_keys)
 	for key in pairs(table) do
-		if table_has_value(values, key) then
+		if table_has_value(find_keys, key) then
 			return true
 		end
 	end
 	return false
 end
+table.has_any_key = table.keys_has_one_of_values
 
 --- Checks whether all `table` elements are equal to the specified `value`
 --- @param table table
@@ -270,30 +280,33 @@ function table.multiply_each_value(table, multiplier_table)
 	return result
 end
 
---- Iterates through the `t` table and passes each value and key to the given `callback`.
---- Value returned by the `callback` will be set instead of the value of `t` with same key.
+--- Iterates through the `table` and passes each value and key to the given `callback`.  \
+--- Value returned by the `callback` will be set instead of the value of `table` with same key.  \
 --- Non-recurcive.
+---
 --- @generic T: table
---- @param t          T                          A table to walk through.
+--- @param table      T                          A table to walk through.
 --- @param callback   fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
---- @param overwrite? boolean                    Whether to overwrite the `t` table (default: false)
+--- @param overwrite? boolean                    Whether to overwrite the `table` table (default: false)
 --- @return table
-function table.map(t, callback, overwrite)
+function table.map(table, callback, overwrite)
 	overwrite = overwrite or false
-	local result = overwrite and t or table_copy(t)
-	for key, value in pairs(t) do
+	local result = overwrite and table or table_copy(table)
+	for key, value in pairs(table) do
 		result[key] = callback(value, key)
 	end
 
 	return result
 end
 
---- Iterates through the `t` table and passes each value and key to the given `callback`.
+--- Iterates through the `table` and passes each value and key to the given `callback`.  \
+--- Non-recurcive.
+---
 --- @generic T: table
---- @param t         table|T                    A table to walk through.
---- @param callback  fun(value:any,key:any):any Callback for apply to each value. Must return new value to set.
-function table.walk(t, callback)
-	for key, value in pairs(t) do
+--- @param table     table|T                        A table to walk through.
+--- @param callback  fun(value:any,key:any):boolean Function for apply to each value.
+function table.walk(table, callback)
+	for key, value in pairs(table) do
 		callback(value, key)
 	end
 end

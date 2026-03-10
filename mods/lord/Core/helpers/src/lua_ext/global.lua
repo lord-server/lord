@@ -23,11 +23,11 @@ function errorlf(message, level, ...)  -- luacheck: ignore unused global variabl
 	error(string.format(message, ...), level)
 end
 
---- Calls errorf if the value of its argument `v` is false (i.e., **nil** or **false**)
---- @param v any
+--- Calls errorf if the value of its argument `condition` is false (i.e., **nil** or **false**)
+--- @param condition any
 --- @param message string format string for `string.format()`
-function assertf(v, message, ...)  -- luacheck: ignore unused global variable assertf
-	if not v then
+function assertf(condition, message, ...)  -- luacheck: ignore unused global variable assertf
+	if not condition then
 		errorlf(message, 2, ...)
 	end
 end

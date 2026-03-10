@@ -1,5 +1,5 @@
-local debug_getinfo, math_ceil
-    = debug.getinfo, math.ceil
+local debug_getinfo
+    = debug.getinfo
 
 
 local PROJECT_LOCATION = ''
@@ -73,7 +73,7 @@ end
 --- @param depth? integer Call stack nesting level (default: `0`)
 --- @return string
 function __DIR__(depth)
-	local file_path = __FILE__(depth)
+	local file_path = __FILE__(1 + (depth or 0))
 	local dir_path  = file_path:match('(.*[/\\])') or './'
 
 	return dir_path
@@ -237,13 +237,13 @@ function core.error_handler(message, depth)
 	message = message:gsub('%.%.%.[^:]+:[0-9]+: ', '')
 
 	if debug_mode then
-		term.print(term.stylize(('+'):rep(80), term.style.green))
+		term.print(('+'):rep(80), term.style.green)
 		term.print('ERROR:', term.style.bold .. term.style.bright_red)
 		term.print('  ' .. message, term.style.bright_red)
 		term.print('')
 		term.print('Stack trace:', term.style.bold .. term.style.bright_red)
 		term.print(backtrace(depth))
-		term.print(term.stylize(('+'):rep(80), term.style.green))
+		term.print(('+'):rep(80), term.style.green)
 
 		return 'Debug mode is `on`. See you terminal.'
 	else
@@ -275,9 +275,9 @@ function debug.measure(name, callback, print_result)
 
 	callback()
 
-	local time = math_ceil((os.clock() - start) * 1000)
+	local time = (os.clock() - start) * 1000
 
-	measure_average[name] = math_ceil((measure_average[name] * measure_count[name] + time) / (measure_count[name] + 1))
+	measure_average[name] = (measure_average[name] * measure_count[name] + time) / (measure_count[name] + 1)
 	measure_count  [name] = measure_count[name] + 1
 	measure_last   [name] = time
 

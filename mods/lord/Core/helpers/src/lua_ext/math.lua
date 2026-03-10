@@ -44,10 +44,10 @@ function math.is_in_range(value, min, max)
 	return value > min and value <= max
 end
 
----
+--- Checks if `value` is close to `near` (within `gap` distance).
 --- @param value number
 --- @param near  number
---- @param gap   number
+--- @param gap?  number default: `1`
 function math.is_near(value, near, gap)
 	gap = gap or 1
 

@@ -11,8 +11,12 @@ function io.file_exists(name)
 	return false
 end
 
+--- @type number?, string?
+local error_code, error_message
+
 --- Writes `content` into file by path `filepath`.
 --- Returns `true` if success or `false, error_code, error_message`.
+--- Also you can get last error code and error message from `io.get_file_error` function.
 ---
 --- @param filepath string
 --- @param content  string
@@ -22,7 +26,8 @@ end
 function io.write_to_file(filepath, content, mode)
 	mode = mode or "w"
 
-	local file, error_message, error_code = io.open(filepath, mode)
+	local file
+	file, error_message, error_code = io.open(filepath, mode)
 	if not file then
 		return false, error_code, error_message
 	end
@@ -41,6 +46,7 @@ end
 
 --- Reads all content from file by path `filepath`.
 --- Returns `string` with file content if success or `false, error_code, error_message`.
+--- Also you can get last error code and error message from `io.get_file_error` function.
 ---
 --- @param filepath string
 --- @param mode?    iolib.OpenMode default: `"r"`
@@ -49,7 +55,8 @@ end
 function io.read_from_file(filepath, mode)
 	mode = mode or "r"
 
-	local file, error_message, error_code = io.open(filepath, mode)
+	local file
+	file, error_message, error_code = io.open(filepath, mode)
 	if not file then
 		return false, error_code, error_message
 	end
@@ -59,6 +66,12 @@ function io.read_from_file(filepath, mode)
 	file:close()
 
 	return content
+end
+
+--- Returns last error code and error message from `io.read_from_file` or `io.write_to_file` function.
+--- @return number?, string?
+function io.get_file_error()
+	return error_code, error_message
 end
 
 --- @param path string
