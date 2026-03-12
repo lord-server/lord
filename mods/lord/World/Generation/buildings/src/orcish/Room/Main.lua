@@ -1,24 +1,28 @@
-local pairs, math_random, v,          id
-    = pairs, math.random, vector.new, minetest.get_content_id
+local pairs, v,          id
+    = pairs, vector.new, core.get_content_id
 
-local Room     = Voxrame.map.Room
-local Exit     = Voxrame.map.room.Exit
-local WallType = Voxrame.map.room.wall.Type
+local Room  = Voxrame.map.Room
 
 
-local id_air         = id('air')
-local id_lava        = id('default:lava_source')
-local id_barrel      = id('barrel:barrel')
-local id_orc_torch   = id('torches:orc_wall')
-local id_modor_stone = id('lord_rocks:mordor_stone')
-local id_remains     = id('remains:ancient_miner_1')
-local id_bone_1      = id('bones:bone_1')
-
+-- walls:
 local ids_wall_nodes = {
 	id('lord_bricks:mordor_clay_brick'),
 	id('lord_bricks:mordor_clay_masonry'),
 	id('lord_bricks:mordor_clay_masonry_large'),
 }
+local id_modor_stone = id('lord_rocks:mordor_stone')
+-- center:
+local id_lava            = id('default:lava_source')
+local id_charcoal_block  = id('default:charcoalblock')
+local id_permanent_flame = id('fire:permanent_flame')
+local id_skull_candle    = id('lord_lamps:skull_candle')
+-- corners:
+local id_barrel    = id('barrel:barrel')
+local id_orc_chest = id('lottmapgen:mordor_chest_spawner')
+local id_orc_torch = id('torches:orc_wall')
+-- decorations:
+local id_remains   = id('remains:ancient_miner_1')
+local id_bone_1    = id('bones:bone_1')
 
 --- @class buildings.OrcishCave.Room.Main: Voxrame.map.Room
 local Main = {
@@ -31,16 +35,21 @@ local Main = {
 		floor = table.insert_all(
 			table.copy(ids_wall_nodes),
 			{ id_modor_stone, id_modor_stone, id_modor_stone }
-		)
+		),
 	},
-	--- @type Voxrame.map.room.Exit[]
-	exits = {},
+	--- @type Voxrame.map.room.ExitsDefinition
+	possible_exits = {
+		count = { min =  2, max = 4 },
+		shift = { min = -4, max = 4 },
+	},
+	--- @type integer
+	corner_pile_size = 2,
 }
-setmetatable(Main, { __index = Room })
+Room:extended(Main)
 
 --- @private
 --- @return self
-function Main:lava_circle()
+function Main:center_lava_circle()
 	local area    = self.area
 	local center  = self:center()
 	local floor_y = self.walls['floor'].from.y
@@ -56,35 +65,24 @@ function Main:lava_circle()
 	return self
 end
 
+--- @private
 --- @return self
-function Main:add_exits()
-	local exits_count = math_random(2, 4)
+function Main:center_flame_and_skull_candles()
+	local floor_center = self:floor(true):center()
+	self.area:set_node_at(floor_center        , id_charcoal_block)
+	self.area:set_node_at(floor_center:above(), id_permanent_flame)
 
-	local walls = { WallType.north, WallType.south, WallType.east, WallType.west }
-	table.shuffle(walls)
-
-	for i = 1, exits_count do
-		local side = walls[i] --- @as Voxrame.map.room.wall.Type
-		local position = self:floor_center_of(side)
-
-		local exit = Exit.to(side):at(position):with_size(3, 4):shift(math_random(-4, 4))
-		self.exits[#self.exits + 1] = exit
-
-		self.area:fill_with(id_air, exit.frame.from, exit.frame.to)
-	end
+	self.area:set_node_at(floor_center + v( 1, 0,  1), id_skull_candle, 2)
+	self.area:set_node_at(floor_center + v( 1, 0, -1), id_skull_candle, 0)
+	self.area:set_node_at(floor_center + v(-1, 0,  1), id_skull_candle, 2)
+	self.area:set_node_at(floor_center + v(-1, 0, -1), id_skull_candle, 0)
 
 	return self
 end
 
---- Returns list of exits (areas) of the room.
---- @return Voxrame.map.room.Exit[]
-function Main:get_exits()
-	return self.exits
-end
-
 --- @return self
 function Main:remains()
-	local floor = table.copy(self:wall('floor', true))
+	local floor = self:floor(true)
 	self.area:fill_with({ id_remains, id_bone_1 }, floor.from, floor.to, 0.02, { 0, 1, 2, 3 })
 
 	return self
@@ -92,18 +90,16 @@ end
 
 --- @private
 --- @return self
-function Main:barrels()
-	local barrels_pile_size = 2 -- for all dimensions
-
+function Main:corners_barrels()
 	for _, corner in pairs(self:get_corners_of('floor')) do
 		local to_center = self:to_center_from(corner):sign()
 
 		local from = corner + to_center
-		local to   = from   + to_center * (barrels_pile_size-1)
+		local to   = from   + to_center * (self.corner_pile_size - 1)
 
 		local pile_peak = v(from.x, to.y, from.z)
 
-		self.area:place_pile(id_barrel, from, to, pile_peak)
+		self.area:place_pile({ id_barrel, id_orc_chest }, from, to, pile_peak)
 
 		local orientation = to_center.x > 0 and 3 or 2
 		self.area:set_node_at(pile_peak:above(), id_orc_torch, orientation)
@@ -115,10 +111,10 @@ end
 --- @return self
 function Main:do_generation()
 	return self
-		:add_exits()
-		:lava_circle()
 		:remains()
-		:barrels()
+		:center_lava_circle()
+		:center_flame_and_skull_candles()
+		:corners_barrels()
 end
 
 

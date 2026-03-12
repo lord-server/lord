@@ -1,7 +1,10 @@
-local v,          id
-    = vector.new, minetest.get_content_id
+local pairs, v,          id
+    = pairs, vector.new, core.get_content_id
 
-	local MainRoom = require('orcish.Room.Main')
+local MainRoom      = require('orcish.Room.Main')
+local SecondaryRoom = require('orcish.Room.Secondary')
+local Corridor      = Voxrame.map.Corridor
+local Side          = Voxrame.map.room.wall.Type
 
 
 --- @class buildings.OrcishDungeon
@@ -16,6 +19,10 @@ local OrcishDungeon = {
 	--- @protected
 	--- @type integer|nil
 	on_debug_fill_with = id('default:stone'),
+	--- @static
+	--- @protected
+	--- @type helpers.Logger
+	logger = core.get_mod_logger(),
 }
 
 --- @param position    vector
@@ -35,10 +42,10 @@ function OrcishDungeon:generate(debug, is_on_mapgen)
 
 	local from      = self.center - half_size
 	local to        = self.center + half_size
-	local fill_with = self.on_debug_fill_with --- @diagnostic disable-line: access-invisible тупит плагин
+	local fill_with = self.on_debug_fill_with
 	core.with_map_part_do(from, to, function(area, data)
 		if not debug and area:content_of(id('air')) > 0.2 then
-			core.log('warning', 'OrcishDungeon: abort generation, area has too much air. Is this a cave or overhang?')
+			self.logger.warning('OrcishDungeon: abort generation, area has too much air. Is this a cave or overhang?')
 
 			return
 		end
@@ -52,9 +59,15 @@ function OrcishDungeon:generate(debug, is_on_mapgen)
 			:generate(area, data)
 
 		for _, exit in pairs(main_room:get_exits()) do
-			-- TODO: connect corridors to exits and other rooms to that corridors
-			-- something like:
-			-- exit:connect(Corridor:new(...))
+			local exit_side = Side.of(exit.direction)
+
+			local corridor = Corridor:new({ width = 3, height = 4 }, math.random(3, 3), exit_side)
+				:connect_to(exit)
+				:generate(area, data)
+
+			SecondaryRoom:new()
+				:connect_to(corridor.exits[exit_side])
+				:generate(area, data)
 		end
 	end, is_on_mapgen, true)
 end
