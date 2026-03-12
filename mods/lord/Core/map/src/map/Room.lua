@@ -1,5 +1,5 @@
-local setmetatable, v,          id
-    = setmetatable, vector.new, core.get_content_id
+local setmetatable, table_shuffle, math_random, math_min, v,          id
+    = setmetatable, table.shuffle, math.random, math.min, vector.new, core.get_content_id
 
 local Cuboid   = require('map.Cuboid')
 local Exit     = require('map.room.Exit')
@@ -14,32 +14,35 @@ local parent = Cuboid
 local Room = {
 	--- @readonly
 	--- @type IntegerVector
-	size         = nil, --- @diagnostic disable-line: assign-type-mismatch
+	size           = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type IntegerVector
-	size_max     = nil, --- @diagnostic disable-line: assign-type-mismatch
+	size_max       = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type table<'_all'|Voxrame.map.room.wall.Type, integer[]>
-	wall_blocks  = nil, --- @diagnostic disable-line: assign-type-mismatch
+	wall_blocks    = nil, --- @diagnostic disable-line: assign-type-mismatch
+	--- @private
+	--- @type 'default'|Voxrame.map.room.ExitsDefinition
+	possible_exits = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type table<Voxrame.map.room.wall.Type, Voxrame.map.room.Exit>
-	exits        = nil, --- @diagnostic disable-line: assign-type-mismatch
+	exits          = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type VoxelArea
-	area         = nil, --- @diagnostic disable-line: assign-type-mismatch
+	area           = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type integer[]
-	data         = nil, --- @diagnostic disable-line: assign-type-mismatch
+	data           = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @protected
 	--- @type boolean
-	debug        = false,
+	debug          = false,
 	--- @protected
 	--- @static
 	--- @type integer
-	debug_node_id = 0,
+	debug_node_id  = 0,
 	--- @protected
 	--- @static
 	--- @type helpers.Logger
-	logger        = core.get_mod_logger(),
+	logger         = core.get_mod_logger(),
 }
 parent:extended(Room)
 
@@ -68,7 +71,7 @@ function Room:new(position, size)
 	position = position or v(0, 0, 0)
 	size = size or self.size or v(9, 5, 9)
 	if self.size_max then
-		size = size:apply(math.min, self.size_max)
+		size = size:apply(math_min, self.size_max)
 	end
 
 	local class = self
@@ -89,6 +92,67 @@ function Room:set_debug(debug)
 	return self
 end
 
+--- Returns list of exits of the room.
+--- @return Voxrame.map.room.Exit[Voxrame.map.room.wall.Type]
+function Room:get_exits()
+	return self.exits
+end
+
+--- @private
+--- @return Voxrame.map.room.ExitsDefinitionResolved?
+function Room:resolve_possible_exits()
+	local possible_exits = self.possible_exits
+	if not possible_exits then
+		return
+	end
+	if possible_exits == 'default' or table.is_empty(possible_exits) then
+		possible_exits = {
+			count = { min = 2, max = 4 },
+			walls = WallType.horizontal(),
+			size  = { width = { min = 1, max = 1 }, height = { min = 2, max = 2 } },
+			shift = { min = -2, max = 2 },
+		}
+	else
+		possible_exits.count = possible_exits.count or { min = 2, max = 4 }
+		possible_exits.walls = possible_exits.walls or WallType.horizontal()
+		possible_exits.shift = possible_exits.shift or { min = -4, max = 4 }
+
+		possible_exits.count = type(possible_exits.count) == 'number'
+			and { min = possible_exits.count, max = possible_exits.count }
+			or  possible_exits.count
+	end
+
+	return possible_exits
+end
+
+function Room:init_exits()
+	local possible_exits = self:resolve_possible_exits()
+	if not possible_exits then
+		return self
+	end
+
+	local exits_count = math_random(
+		possible_exits.count.min --[[@as integer]],
+		possible_exits.count.max --[[@as integer]]
+	)
+	table_shuffle(possible_exits.walls)
+	local walls = possible_exits.walls
+
+	for i = 1, math_min(exits_count, #walls) do
+		local side     = walls[i] --- @as Voxrame.map.room.wall.Type
+
+		if not self.exits[side] then
+			self.exits[side] = Exit
+				.to(side)
+				:at(self:floor_center_of(side))
+				:with_size({ width = 3, height = 4 })
+				:shift(math_random(possible_exits.shift.min, possible_exits.shift.max))
+		end
+	end
+
+	return self
+end
+
 --- You can override method `:initialize()` for your purposes.
 --- It will be called before `:do_generation()` inside `generate()` inside `init()`
 --- @protected
@@ -102,6 +166,7 @@ end
 function Room:init()
 	return self
 		:init_walls()
+		:init_exits()
 		:initialize()
 end
 
@@ -166,6 +231,16 @@ function Room:fill_walls()
 	for name, wall in pairs(self.walls) do
 		local nodes_ids = self.wall_blocks[name] or self.wall_blocks['_all']
 		area:fill_with(nodes_ids, wall.from, wall.to)
+	end
+
+	return self
+end
+
+--- @protected
+--- @return self
+function Room:make_exits()
+	for _, exit in pairs(self.exits) do
+		self.area:fill_with(id_air, exit.frame.from, exit.frame.to)
 	end
 
 	return self
@@ -236,6 +311,7 @@ function Room:generate(area, data)
 		:init()
 		:fill_with_air()
 		:fill_walls()
+		:make_exits()
 		:debug_things()
 		:do_generation()
 end
