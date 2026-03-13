@@ -108,6 +108,29 @@ Doc-Blocks
    - стягиваем её с upstream локально: `git pull upstream dev --tags --recurse-submodules`
    - обновляем в своём форке на GitHub: `git push` (или `git push origin dev`)
 
+### Устранение проблем при обновлении локальной копии
+Если в upstream были изменения с submodules, то могут возникнуть проблемы при обновлении локальной копии.
+
+В большинстве случаев достаточно:
+```shell
+git submodule sync
+git submodule update --init --recursive
+```
+
+Если совсем ничего не помогает, то можно удалить все submodules и добавить их заново:
+```shell
+git submodule deinit --all
+git submodule update --init --recursive
+```
+
+#### совсем всё сломалось (hard reset для сабмодулей):
+и очень редко нужно подчистить внутрянку в `.git/modules/` и заново инициализировать submodules:
+```shell
+git submodule deinit -f --all
+rm -rf .git/modules/*
+git submodule update --init --recursive
+```
+
 Оптимизация текстур:
 --------------------
 Для оптимизации текстур вы можете использовать утилиту `optipng` (обычно есть пакет для всех дистрибутивов).  
