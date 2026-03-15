@@ -1,117 +1,43 @@
-unused_args       = false
-allow_defined_top = true
+return dofile("mods/Voxrame/game.luacheckrc"):extend({
+	globals           = {
+		-- MTG APIs
+		"default", "doors", "farming", "player_api",
+		"sethome.set", "beds.day_interval.finish",
 
-std = "lua51"
+		-- Other APIs (mods/_various)
+		"hbhunger", "tt", "flowerpot",
+	},
 
-globals           = {
-	"minetest", "core",
+	read_globals      = {
+		-- MTG
+		"creative", "dungeon_loot",
+		"dye", "stairs", "sethome", "walls", "bucket",
 
-    -- MTG APIs
-	"default", "doors", "farming", "player_api",
-	"sethome.set", "beds.day_interval.finish",
+		-- Lord specific
+		"lord", "hb",
 
-	-- Other APIs (mods/_various)
-	"hbhunger", "tt", "flowerpot",
-}
+		-- Mods APIs
+		"screwdriver",
+		"armor", -- lottarmor
+		"multiskin", -- lottarmor
+		"mobs",
+		"worldedit",
+		"areas",
+		"hopper",
+		"legacy_mobs",
 
-read_globals      = {
-	table  = { fields = {
-		-- Luanti Builtin:
-		"copy", "copy_with_metatables", "insert_all",
-		"indexof", "keyof", "key_value_swap", "shuffle",
-		-- Voxrame/helpers:
-		"contains", "has_value", "has_key", "merge", "join", "merge_values",
-		"is_empty", "overwrite", "keys_of", "count", "keys", "values",
-		"only", "except", "keys_has_one_of_values", "equals", "multiply_each_value",
-		"map", "add_values", "sub_values", "mul_values", "div_values",
-		"generate_sequence", "is_position", "walk"
-	} },
+		-- Functions:
+		"within_limits", -- mobs api
+	},
 
-	string = { fields = {
-		-- Luanti Builtin:
-		"split", "trim", "pack", "unpack", "packsize",
-		-- Voxrame/helpers:
-		"is_one_of", "replace", "contains", "starts_with", "ends_with", "vxr_split", "or_nil"
-	} },
+	exclude_files     = {
+		"mods/_various/",
+	},
 
-	math = { fields = {
-		-- Luanti Builtin:
-		"sign", "hypot", "factorial", "round",
-		-- Voxrame/helpers:
-		"limit", "clamp",
-		"is_within", "is_among", "is_in_range", "is_near", "point_on_circle"
-	} },
-
-	io = { fields = {
-		-- Voxrame/helpers:
-		"file_exists", "write_to_file", "read_from_file", "dirname", "get_file_error"
-	} },
-
-	os = { fields = {
-		-- Voxrame/helpers:
-		"DIRECTORY_SEPARATOR",
-	} },
-
-	debug  = { fields = {
-		-- Voxrame/helpers:
-		"get_function_code", "get_passed_params", "get_file_code",
-		"measure", "measure_print"
-	} },
-
-	-- Builtin
-	"vector", "nodeupdate", "PseudoRandom",
-	"VoxelManip", "VoxelArea",
-	"ItemStack", "Settings",
-	"dump", "DIR_DELIM",
-
-	-- MTG
-	"beds", "sfinv", "creative", "dungeon_loot",
-	"dye", "stairs", "sethome", "walls", "bucket",
-
-	-- Lord specific
-	"lord", "hb",
-
-	-- Mods APIs
-	"screwdriver",
-	"armor", -- lottarmor
-	"multiskin", -- lottarmor
-	"mobs",
-	"worldedit",
-	"areas",
-	"hopper",
-	"legacy_mobs",
-
-	-- Functions:
-	"within_limits", -- mobs api
-
-	-- Legacy
-	"spawn_falling_node",
-}
-
-exclude_files     = {
-	-- External mods:
-
-    -- наследие из LOTT (требует переработки):
-	--"mods/lord/World/Generation/lottmapgen",
-
-    -- Остальное:
-	"mods/_various/",
-	"util",
-}
-
--- Don't report on legacy definitions of globals.
-files["mods/_minetest_game/default/legacy.lua"].global = false
-
--- Extend built-in globals only in specific files:
-files["mods/lord/Core/builtin_ext/src/**/*.lua"] = {
-	globals = { "VoxelArea", "vector" },
-}
-
--- Lua extending only in specific files:
-files["mods/lord/Core/helpers/src/lua_ext/**/*.lua"] = {
-	globals = { "table", "string", "math", "io", "os", "debug" }
-}
--- WorldEdit extending:
-files["mods/lord/World/worldedit_ext/**/*.lua"] = {
-	globals = { "worldedit"	}
-}
+	files             = {
+		-- Don't report on legacy definitions of globals.
+		["mods/_minetest_game/default/legacy.lua"] = { global = false },
+		-- WorldEdit extending:
+		["mods/lord/World/worldedit_ext/**/*.lua"] = { globals = { "worldedit" } }
+	}
+})

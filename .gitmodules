@@ -101,3 +101,6 @@
 [submodule "mods/_various/mobs"]
 	path = mods/_various/mobs
 	url = https://codeberg.org/tenplus1/mobs_redo.git
+[submodule "mods/Voxrame"]
+	path = mods/Voxrame
+	url = https://github.com/Voxrame/Voxrame.git
