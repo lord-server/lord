@@ -19,7 +19,7 @@
       ".github",
       ".vscode",
       ".idea",
-      "util/mt-maker"
+      "util/voxrame"
     ],
     "library": [
       "./mods/_minetest_game",
