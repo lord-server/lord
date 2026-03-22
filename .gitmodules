@@ -96,7 +96,7 @@
 	url = https://codeberg.org/tenplus1/hopper.git
 
 [submodule "util/ide-helper"]
-	path = util/ide-helper
+	path = util/ide-helper/luanti
 	url = https://github.com/Voxrame/luanti-ide-helper.git
 [submodule "mods/_various/mobs"]
 	path = mods/_various/mobs
