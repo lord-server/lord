@@ -20,5 +20,15 @@ jobs:
       - name: Install emmylua_check
         run: cargo install emmylua_check
       
-      - name: Run EmmyLua analysis
-        run: emmylua_check .
+      - name: Run EmmyLua Check (Errors only)
+        shell: bash
+        run: |
+          set -o pipefail
+          #
+          # Use `script` to emulate TTY and preserve colors
+          script -q -e -c "emmylua_check ." /dev/null | awk '
+            /^(\033\[[0-9;]*m)*[Ee][Rr][Rr][Oo][Rr]/ { p=1 }
+            /^(\033\[[0-9;]*m)*(warning|hint|info)/ { p=0 }
+            /^(\033\[[0-9;]*m)*Summary/ { p=1 }
+            p
+          '
