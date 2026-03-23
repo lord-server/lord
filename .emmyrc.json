@@ -19,7 +19,7 @@
       ".github",
       ".vscode",
       ".idea",
-      "util/voxrame"
+      "util/voxrame/commands/mod/templates"
     ],
     "library": [
       "./mods/_minetest_game",

@@ -1,6 +1,6 @@
 local DS = package.config:sub(1,1)
 
-local command_dir = debug.getinfo(1, 'S').source:gsub("@./", ""):gsub(".lua$", "")
+local command_dir = (debug.getinfo(1, 'S')--[[@as {source:string}]]).source:gsub("@./", ""):gsub(".lua$", "")
 
 
 --- @param find    string
@@ -8,7 +8,7 @@ local command_dir = debug.getinfo(1, 'S').source:gsub("@./", ""):gsub(".lua$", "
 --- @return string
 function string:replace(find, replace)
 	local start_pos, end_pos = self:find(find, 1, true)
-	if not start_pos then return self end
+	if not start_pos then return self end --- @cast end_pos integer
 
 	return self:sub(1, start_pos-1) .. replace .. self:sub(end_pos+1)
 end
@@ -18,7 +18,7 @@ end
 --- @return string compiled file content
 local function tpl_compile(filename, variables)
 	local file, err, msg = io.open(filename)
-	if not file then print(err) print(msg) end
+	if not file then print(err) print(msg) return "" end
 	--- @type string
 	local content = file:read("*all")
 
@@ -31,10 +31,16 @@ end
 
 --- @param filename string
 --- @param content  string
---- @param mode     string file open mode. Default: `"w"`
+--- @param mode?    "r"|"w"|"a"|"r+"|"w+"|"a+" file open mode. Default: `"w"`
 local function create_file_with(filename, content, mode)
 	mode = mode or "w"
-	local file = io.open(filename, mode)
+	local file, err, msg = io.open(filename, mode)
+	if not file then
+		print("Failed to open file: " .. filename)
+		print(err)
+		print(msg)
+		return
+	end
 	file:write(content)
 	file:close()
 end
@@ -84,6 +90,6 @@ return {
 	action = function(parsed, command, app)
 		create_dirs_and_files(parsed.mod_name, app)
 
-		app.theme.success("Backbone for MT Mod `" .. parsed.mod_name .. "` created!")
+		app.theme.success("Backbone for Luanti Mod `" .. parsed.mod_name .. "` created!")
 	end,
 }
