@@ -14,7 +14,7 @@
 #    runs-on: ubuntu-latest
 #    steps:
 #      - name: Update repo & Restart Minetest
-#        uses: fifsky/ssh-action@v0.0.4
+#        uses: fifsky/ssh-action@v0.0.6
 #        with:
 #          host: ${{ secrets.LORD_PROD_HOST }}
 #          port: ${{ secrets.LORD_PROD_PORT }}
@@ -35,7 +35,7 @@
 #    runs-on: ubuntu-latest
 #    steps:
 #      - name: Checkout repo
-#        uses: actions/checkout@v2
+#        uses: actions/checkout@v6
 #        with:
 #          submodules: recursive
 #          fetch-depth: 0
