@@ -1,5 +1,36 @@
 # Change Log
 
+## [2025.12.p1](https://github.com/lord-server/lord/releases/tag/2025.12.p1)
+ - Restore texture:
+   - Restore default chest texture files. LG-2061
+   - Restore shop top texture. LG-2061
+
+ - Bugfixes:
+   - Disable transparency to fix blend glitch for cauldron. Close #2345
+   - Now broken crafts of dyes with hemp oil are definitely removed from the register. Close #1993
+   - Fix ghost mordor stone. LG-2070 closes #2309
+
+## [2025.12](https://github.com/lord-server/lord/releases/tag/2025.12)
+ - New flowerpots for:
+   - LG-1097 Added a mod that registers lord plants (flower and sapling) in flowerpot.
+ - Added candy cane. LG-2045
+ - Added event cloak for NY 2026. LG-2040
+ - Add the BMG clan cloak. LG-2037. Closes #2337.
+
+ - NY Textures:
+   - Added christmas skin to reward_chest. LG-2039 (#2339)
+   - Added NY shop texture/ Closes #2343
+
+ - Technical:
+   - Fixed misspell in lord beds mod. Closes #2336
+   - Add lord style guide (#2340). LG-2043
+   - Distribution: CDB:
+     - rename `builtin` mod. LG-1942
+     - add some `.distribution-exclude` files. Relates to LG-1943
+     - add temporary first version of the license. LG-1945 #done
+     - add licenses for `Core` mods. LG-2046
+
+
 ## [2025.10.p1](https://github.com/lord-server/lord/releases/tag/2025.10.p1)
  - Added pumpkin seed drop. LG-2031
  - Added skin change to reward_chest. LG-2034

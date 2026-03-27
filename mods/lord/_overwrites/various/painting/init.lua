@@ -11,8 +11,8 @@ for _, dye in ipairs(dye.dyes) do
 		}
 	})
 
-	-- TODO: remove after fixing sfence/painting#15 issue
-	minetest.clear_craft({output = "painting"})
+	-- Removing crafts with hemp oil that we don't have.
+	minetest.clear_craft({output = "painting:oil_color_"..color})
 
 	minetest.register_craft{
 		output = "painting:oil_color_"..color,
