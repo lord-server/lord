@@ -1,0 +1,41 @@
+
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment: { required: true, type: string }
+      config_file: { required: true, type: string }
+      branch:      { required: true, type: string }
+    secrets:
+      GAME_HOST:   { required: true }
+      GAME_PORT:   { required: true }
+      DEPLOY_USER: { required: true }
+      DEPLOY_KEY:  { required: true }
+      GAME_USER:   { required: true }
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      deployment: true
+    steps:
+      - name: Update repo & Restart Luanti
+        uses: fifsky/ssh-action@v0.0.6
+        with:
+          host: ${{ secrets.GAME_HOST }}
+          port: ${{ secrets.GAME_PORT }}
+          user: ${{ secrets.DEPLOY_USER }}
+          key:  ${{ secrets.DEPLOY_KEY }}
+          command: |
+            set -e
+            cd /srv/luanti/accounts/lord/games/lord/
+            sudo -u ${{ secrets.GAME_USER }} git checkout ${{ inputs.branch }}
+            sudo -u ${{ secrets.GAME_USER }} git pull --recurse-submodules
+            sudo -u ${{ secrets.GAME_USER }} git submodule init
+            sudo -u ${{ secrets.GAME_USER }} git submodule update
+            sudo -u ${{ secrets.GAME_USER }} cp -f ${{ inputs.config_file }} minetest.conf
+            sudo -u ${{ secrets.GAME_USER }} sudo systemctl restart lord
+          args: -tt
+    

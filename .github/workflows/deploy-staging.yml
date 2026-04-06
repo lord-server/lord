@@ -1,0 +1,16 @@
+
+name: Deploy to Staging Server
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+
+  deploy-to-staging:
+    uses: ./.github/workflows/job.depoy.yml
+    with:
+      environment: Staging
+      config_file: minetest.conf.test
+      branch:      dev
+    secrets: inherit
