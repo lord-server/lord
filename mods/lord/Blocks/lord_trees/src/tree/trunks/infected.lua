@@ -41,7 +41,11 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 	parent_groups.wall_connected  = 1
 	parent_groups.fence_connected = 1
 
+	local title_part = parent_node_name:split(':')[2]:remove('_tree$'):replace('_', ' '):title()
+	local title = 'Infected ' .. title_part .. ' Trunk'
+
 	trunks.register(node_name, softness, tree_height, leaves_radius, register_young, {
+		description        = S(title),
 		tiles              = { texture_top, texture_top, texture_side },
 		groups             = parent_groups,
 		_is_infected       = true,

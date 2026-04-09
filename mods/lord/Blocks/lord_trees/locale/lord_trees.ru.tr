@@ -57,6 +57,40 @@ Young Mallorn Trunk=Ствол молодого маллорна
 Yavannamire Tree=Йаваннамирэ
 Yavannamire Trunk=Ствол йаваннамирэ
 
+### tree/trunks/infected.lua ###
+Infected Alder Trunk=Заражённый ствол ольхи
+Infected Apple Trunk=Заражённый ствол яблони
+Infected Beech Trunk=Заражённый ствол бука
+Infected Birch Trunk=Заражённый ствол берёзы
+Infected Cherry Trunk=Заражённый ствол сакуры
+Infected Culumalda Trunk=Заражённый ствол кулумальды
+Infected Elm Trunk=Заражённый ствол вяза
+Infected Fir Trunk=Заражённый ствол ели
+Infected Lebethron Trunk=Заражённый ствол лебетрона
+Infected Mallorn Trunk=Заражённый ствол маллорна
+Infected Mirk Tree Trunk=Заражённый ствол лихолесья
+Infected Pine Trunk=Заражённый ствол сосны
+Infected Plum Trunk=Заражённый ствол сливы
+Infected White Tree Trunk=Заражённый ствол Белого дерева
+Infected Yavannamire Tree Trunk=Заражённый ствол йаваннамирэ
+
+### tree/trunks/infected/slabs.lua ###
+Infected Alder Trunk Slab=Плита из заражённого ствола ольхи
+Infected Apple Trunk Slab=Плита из заражённого ствола яблони
+Infected Beech Trunk Slab=Плита из заражённого ствола бука
+Infected Birch Trunk Slab=Плита из заражённого ствола берёзы
+Infected Cherry Trunk Slab=Плита из заражённого ствола сакуры
+Infected Culumalda Trunk Slab=Плита из заражённого ствола кулумальды
+Infected Elm Trunk Slab=Плита из заражённого ствола вяза
+Infected Fir Trunk Slab=Плита из заражённого ствола ели
+Infected Lebethron Trunk Slab=Плита из заражённого ствола лебетрона
+Infected Mallorn Trunk Slab=Плита из заражённого ствола маллорна
+Infected Mirk Tree Trunk Slab=Плита из заражённого ствола лихолесья
+Infected Pine Trunk Slab=Плита из заражённого ствола сосны
+Infected Plum Trunk Slab=Плита из заражённого ствола сливы
+Infected White Tree Trunk Slab=Плита из заражённого ствола Белого дерева
+Infected Yavannamire Tree Trunk Slab=Плита из заражённого ствола йаваннамирэ
+
 ### tree/trunks/slabs.lua ###
 Alder Trunk Slab=Плита из ствола ольхи
 Beech Trunk Slab=Плита из ствола бука
