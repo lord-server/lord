@@ -5,13 +5,18 @@ nazgul_area = {}
 
 local NAZGUL_AREA_IDS = {}
 
-local area_ids      = minetest.settings:get("nazgul_areas") or ""
-area_ids            = string.split(area_ids, ",")
+local area_ids      = core.settings:get('nazgul_areas') or ''
+area_ids            = string.split(area_ids, ',')
 for _, v in ipairs(area_ids) do
 	table.insert(NAZGUL_AREA_IDS, tonumber(v))
 end
 
-local max_per_block = tonumber(minetest.settings:get("max_objects_per_block") or 99)
+if table.is_empty(NAZGUL_AREA_IDS) then
+	core.log('info', 'No nazgul areas defined in settings')
+	return
+end
+
+local max_per_block = tonumber(core.settings:get('max_objects_per_block') or 99)
 
 --- @param pos Position position of point
 nazgul_area.position_in_nazgul_area = function(pos)
@@ -26,7 +31,7 @@ local count_mobs = function(pos, type)
 
 	local num_type = 0
 	local num_total = 0
-	local objs = minetest.get_objects_inside_radius(pos, 40)
+	local objs = core.get_objects_inside_radius(pos, 40)
 
 	for n = 1, #objs do
 
@@ -52,10 +57,10 @@ local count_mobs = function(pos, type)
 end
 
 -- spawn nazguls in nazgul areas
-minetest.register_abm({
+core.register_abm({
 
-	label = "nazgul_area_spawning",
-	nodenames = {"lord_blocks:green_marble"},
+	label = 'nazgul_area_spawning',
+	nodenames = {'lord_blocks:green_marble'},
 	interval = 30,
 	chance = 5000,
 	catch_up = false,
@@ -70,19 +75,19 @@ minetest.register_abm({
 		end
 
 		if math.random(9) == 1 then
-			if count_mobs(pos, "lottmobs:witch_king") >= 1 then
+			if count_mobs(pos, 'lottmobs:witch_king') >= 1 then
 				return
 			end
 
 			pos.y = pos.y + 1
-			minetest.add_entity(pos, "lottmobs:witch_king")
+			core.add_entity(pos, 'lottmobs:witch_king')
 		else
-			if count_mobs(pos, "lottmobs:nazgul") >= 3 then
+			if count_mobs(pos, 'lottmobs:nazgul') >= 3 then
 				return
 			end
 
 			pos.y = pos.y + 1
-			minetest.add_entity(pos, "lottmobs:nazgul")
+			core.add_entity(pos, 'lottmobs:nazgul')
 		end
 
 	end
