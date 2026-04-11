@@ -8,10 +8,11 @@ minetest.mod(function(mod)
 
 
 	minetest.register_node('catapult:catapult', {
-		drawtype = "mesh",
+		drawtype = 'mesh',
 		mesh = 'catapult.obj',
 		tiles = {
 			'catapult.png'
 		},
+		paramtype = 'light',
 	})
 end)

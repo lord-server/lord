@@ -9,6 +9,7 @@ local function register_instruments()
 			_tt_help = def.description and minetest.colorize('#aaa',  '\n' .. def.description),
 			drawtype = def.drawtype,
 			mesh = def.mesh,
+			paramtype = def.paramtype,
 			tiles = def.tiles,
 			paramtype2 = 'facedir',
 			groups = { choppy = 2, forbidden = 1 },

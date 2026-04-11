@@ -502,6 +502,7 @@ minetest.register_node("lord_homedecor:flower_pot_small", {
 	description       = S("Small Flower Pot"),
 	inventory_image   = "homedecor_flowerpot_small_inv.png",
 	drawtype          = "mesh",
+	paramtype         = "light",
 	mesh              = "homedecor_potted_plant.obj",
 	tiles             = {
 		"homedecor_flower_pot_terracotta.png",

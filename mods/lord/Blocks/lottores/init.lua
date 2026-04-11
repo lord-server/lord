@@ -403,6 +403,7 @@ minetest.register_node("lottores:ithildin_stone_1", {
 	description = S("Ithildin Stone"),
 	tiles = {"ithildin_1.png"},
 	drawtype = 'glasslike',
+	paramtype = "light",
 	walkable = false,
 	pointable = true,
 	sunlight_propagates = false,

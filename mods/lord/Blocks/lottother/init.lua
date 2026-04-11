@@ -110,6 +110,7 @@ minetest.register_node("lottother:orc_torch", {
 minetest.register_node("lottother:blue_flame", {
 	description       = S("Blue Flame"),
 	drawtype          = "firelike",
+	paramtype         = "light",
 	tiles             = { {
 							  name      = "lottother_blue_flame_animated.png",
 							  animation = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1 },
