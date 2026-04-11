@@ -8,15 +8,26 @@ for _, row in ipairs(dye.dyes) do
 	local desc = row[2]
 
 	stairs.register_stair_and_slab(
-		"wool"..name,
-		"wool:"..name,
-		{snappy=2,choppy=2,oddly_breakable_by_hand=2,flammable=3,wool=1},
-		{"wool_"..name..".png"},
-		S(desc.." Wool Stair"), --desc_stair
-		S(desc.." Wool Slab"), --desc_slab
+		'wool'..name,
+		'wool:'..name,
+		{ snappy = 2, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, wool_stair = 1 },
+		{'wool_'..name..'.png'},
+		S(desc..' Wool Stair'), --desc_stair
+		S(desc..' Wool Slab'), --desc_slab
 		default.node_sound_wood_defaults(),
 		false, --worldaligntex
-		S("Inner "..desc.." Wool Stair"), --desc_stair_inner
-		S("Outer "..desc.." Wool Stair") --desc_stair_outer
+		S('Inner '..desc..' Wool Stair'), --desc_stair_inner
+		S('Outer '..desc..' Wool Stair') --desc_stair_outer
 	)
 end
+
+minetest.register_craft({
+	type     = 'fuel',
+	recipe   = 'group:wool',
+	burntime = 1,
+})
+minetest.register_craft({
+	type     = 'fuel',
+	recipe   = 'group:wool_stair',
+	burntime = 0.5,
+})
