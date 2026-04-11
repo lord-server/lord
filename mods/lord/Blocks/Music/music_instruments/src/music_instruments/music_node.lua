@@ -4,6 +4,12 @@ local config = require('music_instruments.music_node.config')
 
 local function register_instruments()
 	for instrument, def in pairs(config.instruments) do
+		assert(def.notes[0], string.format(
+			"Instrument '%s' does not have a zero note [0] in the notes table. " ..
+			"Each instrument must have a note with index 0 for correct operation.",
+			instrument
+		))
+
 		minetest.register_node('music_instruments:' .. instrument, {
 			description = def.title,
 			_tt_help = def.description and minetest.colorize('#aaa',  '\n' .. def.description),
