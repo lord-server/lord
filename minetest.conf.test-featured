@@ -146,6 +146,7 @@ lp_api.system_name = lord-test
 # ---- FEATURE TOGGLE ----
 toggle_dungeons = true
 toggle_racial_armor
+toggle_smelter = true
 
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
