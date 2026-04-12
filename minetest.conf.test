@@ -272,6 +272,7 @@ toggle_smelter = true
 toggle_racial_armor = true
 
 
+
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
 lord_spawns.common_spawn_pos = 330, 20, 160
