@@ -339,7 +339,6 @@ local craft_ingreds = {
 	gold = "default:gold_ingot",
 	galvorn = "lottores:galvorn_ingot",
 	mithril = "lottores:mithril_ingot",
-	mese = "default_mese_crystal"
 }
 
 for k, v in pairs(craft_ingreds) do
@@ -383,7 +382,7 @@ minetest.register_craft({
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:mithril_ingot','lottores:galvorn_ingot','lottores:mithril_ingot'},
-		{ 'default_mese_crystal', '',						  'default_mese_crystal'},
+		{ 'default:mese_crystal', '',						  'default:mese_crystal'},
 		{ '', 					  '',											  ''},
 	}
 })
@@ -395,7 +394,7 @@ minetest.register_craft({
 	recipe   = {
 		{ 'lottores:mithril_ingot','',						 'lottores:mithril_ingot'},
 		{ 'lottores:mithril_ingot', 'lottores:mithril_ingot','lottores:mithril_ingot'},
-		{ 'lottores:galvorn_ingot', 'default_mese_crystal',	 'lottores:galvorn_ingot'},
+		{ 'lottores:galvorn_ingot', 'default:mese_crystal',	 'lottores:galvorn_ingot'},
 	}
 })
 
@@ -404,7 +403,7 @@ minetest.register_craft({
 	output   = 'lord_armor:leggings_dwarf',
 	for_race = races.name.DWARF,
 	recipe   = {
-		{ 'lottores:galvorn_ingot','default_mese_crystal','lottores:galvorn_ingot'},
+		{ 'lottores:galvorn_ingot','default:mese_crystal','lottores:galvorn_ingot'},
 		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
 		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
 	}
@@ -415,7 +414,6 @@ minetest.register_craft({
 	output   = 'lord_armor:boots_dwarf',
 	for_race = races.name.DWARF,
 	recipe   = {
-		{ '',					   '',											''},
 		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
 		{ 'lottores:galvorn_ingot','',					  'lottores:galvorn_ingot'},
 	}

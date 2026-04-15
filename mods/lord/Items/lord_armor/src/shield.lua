@@ -117,7 +117,6 @@ local craft_ingreds = {
 	gold    = "default:gold_ingot",
 	galvorn = "lottores:galvorn_ingot",
 	mithril = "lottores:mithril_ingot",
-	mese    = "default:mese_crystal",
 }
 
 for k, v in pairs(craft_ingreds) do
