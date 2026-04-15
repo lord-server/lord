@@ -79,7 +79,7 @@ local S = minetest.get_mod_translator()
       'default_wood.png^[transformR90^bees_extractor.png'
       },
     paramtype2 = "facedir",
-    groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1},
+    groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1,fence_connected=1},
     sounds = default.node_sound_wood_defaults(),
     on_construct = function(pos, node)
       local meta = minetest.get_meta(pos)
