@@ -2,6 +2,8 @@ local MainTab  = require('inventory.Form.MainTab')
 local BagsTab  = require('inventory.Form.BagsTab')
 local AboutTab = require('inventory.Form.AboutTab')
 
+local logger = core.get_mod_logger()
+
 
 --- @class inventory.Form: base_classes.Form.Mixin.WithTabs
 local Form = base_classes.Form:personal():with_tabs():extended({
@@ -40,7 +42,16 @@ end
 
 --- @param player Player
 function Form:instantiate(player)
-	self.player_lang = minetest.get_player_information(self.player_name).lang_code or 'en'
+	local player_info = minetest.get_player_information(self.player_name)
+	self.player_lang = (player_info and player_info.lang_code) or 'en'
+
+	if not player_info then
+		logger.warning(
+			'Can`t get player information while `inventory.Form:instantiate()`.\n' ..
+			'`player_info`: ' .. dump(player_info) .. '\n' ..
+			'`self.player_name`: ' .. dump(self.player_name)
+		)
+	end
 
 	self
 		:add_tab(MainTab:new(self))
