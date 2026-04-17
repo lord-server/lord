@@ -2,20 +2,42 @@ local S    = minetest.get_mod_translator()
 local spec = minetest.formspec
 local e    = spec.escape
 
+
+--- @param id           string
+--- @param def          NodeDefinition
 --- @param search_query string
---- @return table
-local function get_filtered_list(search_query)
+--- @return boolean
+local function satisfies_search_query(id, def, search_query)
+	return (
+		(search_query == "") or
+		(string.find(string.lower(id), search_query) ~= nil) or
+		(string.find(string.lower(def.description or ''), search_query) ~= nil) or
+		(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query) ~= nil)
+	) == true
+end
+
+--- @param def NodeDefinition
+--- @param search_group string
+--- @return boolean
+local function satisfies_search_group(def, search_group)
+	return (
+		search_group == '' or
+		search_group == nil or
+		(def.groups and def.groups[search_group])
+	) == true
+end
+
+--- @param search_query string
+--- @param search_group string
+--- @return string[]
+local function get_filtered_list(search_query, search_group)
 	local list = {} -- filtered result
 	search_query = string.lower(search_query)
 	for id, def in pairs(minetest.registered_items) do
 		if
-			(id ~= '') and -- skip the "hand" item
-			(
-				(search_query == "") or
-				(string.find(string.lower(id), search_query)) or
-				(string.find(string.lower(def.description), search_query)) or
-				(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query))
-			)
+			id ~= '' and -- skip the "hand" item
+			satisfies_search_query(id, def, search_query) and
+			satisfies_search_group(def, search_group)
 		then
 			table.insert(list, id)
 		end
@@ -55,26 +77,62 @@ local function get_groups_list(definition)
 	return groups_list
 end
 
---- @param name         string
---- @param select_id    number
---- @param search_query string
+--- @return string[] array of all available group names
+local function get_all_groups()
+	local all_groups = {}
+	for id, def in pairs(minetest.registered_items) do
+		if id ~= ''--[[skip "hand"]] and def.groups then
+			for group_name, _ in pairs(def.groups) do
+				all_groups[group_name] = true
+			end
+		end
+	end
+
+	all_groups = table.keys(all_groups)
+	table.sort(all_groups)
+
+	return all_groups
+end
+
+--- @param search_query? string
+--- @param search_group? string
+--- @return string, string
+local function normalize_search_params(search_query, search_group)
+	return
+		search_query or '',
+		search_group
+			and (search_group == '(all)' and '' or search_group)
+			or  ''
+end
+
+--- @param name          string
+--- @param select_id     number
+--- @param search_query? string
+--- @param search_group? string
 --- @return string
-local function list_form(name, select_id, search_query)
-	local width   = 10
+local function list_form(name, select_id, search_query, search_group)
+	search_query, search_group = normalize_search_params(search_query, search_group)
+
+	local width   = 12
 	local height  = 11
 	local padding = { x = 0.25, y = 0.3 }
 	local field_h = 0.65
 	local row_h   = field_h + padding.y
 	local label_h = padding.y
 
-	local list = get_filtered_list(search_query)
+	local list = get_filtered_list(search_query, search_group)
 	table.sort(list)
 	-- moving ghost items to the end of the list:
 	move_ghost_to_end(list)
 
-	local item_name       = list[select_id]
+	local item_name       = list[select_id] or list[1] or ''
 	local item_definition = minetest.registered_items[item_name]
 	local stack_max       = item_definition and item_definition.stack_max or 0
+
+	-- Prepare groups dropdown
+	local all_groups = get_all_groups()
+	local group_items = table.insert_all({ '(all)' }, all_groups)
+	local group_index = search_group and search_group ~= "" and table.indexof(group_items, search_group) or 1
 
 	local list_h  = 4
 	local details = {
@@ -95,12 +153,14 @@ local function list_form(name, select_id, search_query)
 		.. spec.size(width, height)
 		.. spec.box(padding.x, padding.y, 3, field_h, '#000')
 		.. spec.field(padding.x, padding.y, 3, field_h, "txt_filter", "", e(search_query))
+		.. spec.label(padding.x + 3.5, padding.y + label_h, S("Group:"))
+		.. spec.dropdown_WH(padding.x + 4.5, padding.y, 3, field_h, "ddl_group", group_items, group_index)
 		.. spec.button(width - padding.x - 2, padding.y, 2, field_h, "btn_find", S("Find"))
 		.. spec.field_close_on_enter("txt_filter", false)
 
-		.. --[[ скрытое поле ]] spec.field(3, 3, 0, 0, "txt_select", "", item_name)
+		.. --[[ hidden field ]] spec.field(3, 3, 0, 0, "txt_select", "", item_name)
 		--.. spec.label(padding.x, 1, S("Objects:"))
-		.. spec.textlist(padding.x, padding.y + row_h, width - 2*padding.x, list_h, "lst_objs", list, select_id, "")
+		.. spec.textlist(padding.x, padding.y + row_h, width - 2*padding.x, list_h, "lst_objs", list, select_id)
 		.. spec.label(d.pos_x1, d.label_y, S("Groups:"))
 		.. spec.label(d.pos_x2, d.label_y, S("Definition:"))
 		.. spec.box(d.pos_x2, d.pos_y, d.width2, d.height, '#000')
@@ -122,7 +182,7 @@ local list_command_definition = {
 	description = S("Show list of registered objects"),
 	privs = {give = true},
 	func = function(name)
-		minetest.show_formspec(name, "list_form", list_form(name, 1, ""))
+		minetest.show_formspec(name, "list_form", list_form(name, 1))
 	end,
 }
 minetest.register_chatcommand("list", list_command_definition)
@@ -140,7 +200,7 @@ local function handle_list_form(player, form_name, fields)
 		chg = string.replace(chg, "CHG:", "")
 		chg = string.replace(chg, "DCL:", "")
 		chg = tonumber(chg)
-		minetest.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter))
+		minetest.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter, fields.ddl_group))
 	end
 	if fields.btn_giveme or fields.btn_giveme_m then
 		local count = (fields.btn_giveme)or(fields.btn_giveme_m)
@@ -155,7 +215,7 @@ local function handle_list_form(player, form_name, fields)
 		end
 	end
 	if fields.btn_find or (fields.key_enter_field == "txt_filter") then
-		minetest.show_formspec(player_name, "list_form", list_form(player_name, 1, fields.txt_filter))
+		minetest.show_formspec(player_name, "list_form", list_form(player_name, 1, fields.txt_filter, fields.ddl_group))
 	end
 end
 
