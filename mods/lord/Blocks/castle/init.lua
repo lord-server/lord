@@ -24,7 +24,7 @@ doors.register("castle:oak_door", {
 })
 
 doors.register("castle:oak_door_lock", {
-	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
+	tiles = {{ name = "castle_oak_door_uv.png^lord_doors_bright_lock.png", backface_culling = true, }},
 	description = S("Oak Door With Lock"),
 	inventory_image = "castle_oak_door.png^lord_doors_lock.png",
 	groups = { choppy=2, door=1, wooden = 1, },
@@ -44,7 +44,7 @@ doors.register("castle:jail_door", {
 })
 
 doors.register("castle:jail_door_lock", {
-	tiles = {{ name = "castle_jail_door_uv.png", backface_culling = true, }},
+	tiles = {{ name = "castle_jail_door_uv.png^lord_doors_bright_lock.png", backface_culling = true, }},
 	description = S("Jail Door With Lock"),
 	inventory_image = "castle_jail_door.png^lord_doors_lock.png",
 	groups = { cracky=2, door=1, steel_item=1, },
