@@ -236,11 +236,6 @@ minetest.register_craft({
 })
 minetest.register_craft({
 	type = "fuel",
-	recipe = "group:wool",
-	burntime = 1,
-})
-minetest.register_craft({
-	type = "fuel",
 	recipe = "group:wooden",
 	burntime = 5,
 })
@@ -352,6 +347,7 @@ minetest.override_item("default:bookshelf", {
 		"default_wood.png^3dbookshelf_inside_back.png",
 		"3dbookshelf_books.png",
 	},
+	paramtype = "light",
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()

@@ -66,7 +66,9 @@ function ghost.register_ghost_material(name)
 			}
 		}
 	end
-	minetest.register_node(ghost_name, node)
+
+	-- Register with `:` prefix to avoid naming conflicts at `core.register_on_mods_loaded`
+	minetest.register_node(':' .. ghost_name, node)
 end
 
 
@@ -138,12 +140,13 @@ minetest.register_craft({
 
 local forbidden_groups = { "ghostly", "door", "mobs_spawner"}
 local accepted_groups = {
-	"stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", "slabs_replace",
+	"stone", "tree", "wood", "leaves", "cracky", "crumbly", "wool", "need_ghost_variant", "slabs_replace", "wool_stair"
 }
 
 -- TODO: move into helpers, use something like "table:containsOneOf()"
 --- @param node_definition NodeDefinition
 local function has_forbidden_group(node_definition)
+	--- @cast node_definition.groups table<string, number> # `has_forbidden_group()` called only if `groups` is not nil
 	for _, g in ipairs(forbidden_groups) do
 		if node_definition.groups[g] ~= nil then
 			return true
@@ -153,6 +156,7 @@ local function has_forbidden_group(node_definition)
 end
 --- @param node_definition NodeDefinition
 local function has_accepted_group(node_definition)
+	--- @cast node_definition.groups table<string, number> # `has_accepted_group()` called only if `groups` is not nil
 	for _, g in ipairs(accepted_groups) do
 		if node_definition.groups[g] ~= nil then
 			return true
@@ -161,11 +165,12 @@ local function has_accepted_group(node_definition)
 	return false
 end
 
-local now_registered_nodes = table.copy(minetest.registered_nodes)
-for name, def in pairs(now_registered_nodes) do
-	if def.groups ~= nil then
-		if not has_forbidden_group(def) and has_accepted_group(def) then
+
+core.register_on_mods_loaded(function()
+	local now_registered_nodes = table.copy(minetest.registered_nodes)
+	for name, def in pairs(now_registered_nodes) do
+		if def.groups ~= nil and not has_forbidden_group(def) and has_accepted_group(def) then
 			ghost.register_ghost_material(name)
 		end
 	end
-end
+end)

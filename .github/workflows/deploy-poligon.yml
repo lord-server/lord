@@ -1,5 +1,8 @@
 # Выкладка на тестовый сервер (он же Polygon)
 
+# TODO: удалить этот файл после полного переезда на staging server
+# see: https://lord-games.atlassian.net/browse/LI-13  ( infrastructure#11 )
+
 name: Deploy to Test Server
 on:
   push:

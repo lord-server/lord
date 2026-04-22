@@ -6,7 +6,7 @@ local Event    = require('character.Event')
 local Character     = {
 	--- @protected
 	--- @type character.Storage
-	storage = nil,
+	storage = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
 --- @param storage character.Storage
@@ -27,17 +27,17 @@ function Character:get_player()
 end
 
 --- @see lord_races.Name
---- @param default string one of `lord_races.Name.<CONST>` or your own value if needed.
+--- @param default? string one of `lord_races.Name.<CONST>` or your own value if needed.
 --- @return string|nil one of lord_races.Name.<CONST> or `default` value.
 function Character:get_race(default)
 	return self.storage:get(Property.RACE, default)
 end
 
 --- @see lord_races.Name
---- @param race string one of lord_races.Name.<CONST>
+--- @param race string|nil one of lord_races.Name.<CONST> or `nil` to remove
 --- @return character.Character
 function Character:set_race(race)
-	assert(lord_races.get_player_races()[race])
+	assert(race == nil or lord_races.get_player_races()[race])
 
 	local old_race = self:get_race()
 	self.storage:set(Property.RACE, race)
@@ -46,16 +46,16 @@ function Character:set_race(race)
 	return self
 end
 
---- @param default string one of `{ "male" | "female" }` or your own value if needed.
+--- @param default? string one of `{ "male" | "female" }` or your own value if needed.
 --- @return string|nil one of `{ "male" | "female" | nil }` or `default` value.
 function Character:get_gender(default)
 	return self.storage:get(Property.GENDER, default)
 end
 
---- @param gender string one of `{ "male" | "female" }`
+--- @param gender string|nil one of `{ "male" | "female" }` or `nil` to remove
 --- @return character.Character
 function Character:set_gender(gender)
-	assert(gender:is_one_of({ 'male', 'female' }))
+	assert(gender == nil or gender:is_one_of({ 'male', 'female' }))
 	self.storage:set(Property.GENDER, gender)
 	Event:trigger(Event.Type.on_gender_change, self, gender)
 
@@ -63,7 +63,7 @@ function Character:set_gender(gender)
 end
 
 --- @see lord_skins
---- @param default number default skin number or your own value if needed.
+--- @param default? number default skin number or your own value if needed.
 --- @return number|nil returns number of applied/chosen skin.
 function Character:get_skin_no(default)
 	return self.storage:get_int(Property.SKIN, default)

@@ -57,6 +57,7 @@ for i in ipairs(lottmapgen_list) do
 	minetest.register_node("lottmapgen:"..name, {
 		description = description,
 		drawtype = "glasslike",
+		paramtype = "light",
 		walkable = false,
 		tiles = {"lottother_air.png"},
 		pointable = false,

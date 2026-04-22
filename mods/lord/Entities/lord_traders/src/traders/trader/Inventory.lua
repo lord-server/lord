@@ -125,7 +125,7 @@ local inventory_callbacks = {}
 ---@param player     Player
 function inventory_callbacks.allow_move(inv, from_list, from_index, to_list, to_index, count, player)
 	if
-		(from_list == "goods" and (to_list ~= "selection" and to_list ~= "goods")) or
+		(from_list == "goods" and to_list ~= "selection") or
 		(from_list == "selection" and to_list ~= "goods") or
 		from_list:is_one_of({"price", "payment", "takeaway"})
 	then

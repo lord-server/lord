@@ -46,7 +46,7 @@ end
 
 -- doors:door_wood_lock registration
 doors.register("lord_doors:door_wood_lock", {
-		tiles = {{ name = "doors_door_wood.png", backface_culling = true }},
+		tiles = {{ name = "doors_door_wood.png^lord_doors_dark_lock.png", backface_culling = true }},
 		description = S("Wooden Door With Lock"),
 		inventory_image = "doors_item_wood.png^lord_doors_lock.png",
 		protected = true,

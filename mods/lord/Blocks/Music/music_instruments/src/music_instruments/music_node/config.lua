@@ -20,6 +20,7 @@ local instruments = {
 						S('into something resembling a melody.'),
 		drawtype = 'mesh',
 		mesh = 'music_instruments_kalimba.obj',
+		paramtype = 'light',
 		tiles = {'music_instruments_kalimba_metallophon.png'},
 		sound = 'kalimba_c5',
 		notes = {
@@ -76,6 +77,7 @@ local instruments = {
 						S('if approached with enthusiasm.'),
 		drawtype = 'mesh',
 		mesh = 'music_instruments_metallophone.obj',
+		paramtype = 'light',
 		tiles = {'music_instruments_kalimba_metallophon.png'},
 		sound = 'metallophone_c6',
 		notes = {

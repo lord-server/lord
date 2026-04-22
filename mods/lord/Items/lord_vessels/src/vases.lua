@@ -18,6 +18,7 @@ minetest.register_node('lord_vessels:vase_1', {
 		type  = 'fixed',
 		fixed = { -5*px, -8*px, -5*px, 5*px, 6*px, 5*px }
 	},
+	paramtype         = 'light',
 	paramtype2        = 'facedir',
 	walkable          = true,
 	groups            = { vessel = 1, oddly_breakable_by_hand = 3, cracky = 3, attached_node = 1, },

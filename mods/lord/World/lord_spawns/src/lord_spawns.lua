@@ -7,7 +7,7 @@ local command = require('lord_spawns.command')
 lord_spawns = {} -- luacheck: ignore unused global variable lord_spawns
 
 local function register_life_command_dummy(S)
-	minetest.register_chatcommand('life', {
+	core.register_chatcommand('life', {
 		description = S('Teleport to the @1', S('Hall of Life')),
 		func = function(_, _)
 			return true, S('Command reserved. For teleporting to Old Central Spawn use command `/center`')
@@ -43,10 +43,10 @@ return {
 		Halls .configure(Config.halls).register_configured()
 		register_life_command_dummy(mod.translator)
 
-		minetest.register_chatcommand(command.spawn.NAME, command.spawn.get_definition(Spawns))
-		minetest.register_privilege(command.spawn_to.privilege.NAME, command.spawn_to.privilege.definition)
-		minetest.register_chatcommand(command.spawn_to.command.NAME, command.spawn_to.command.get_definition(Spawns))
-		minetest.register_on_respawnplayer(on_player_respawn)
+		core.register_chatcommand(command.spawn.NAME, command.spawn.get_definition(Spawns))
+		core.register_privilege(command.spawn_to.privilege.NAME, command.spawn_to.privilege.definition)
+		core.register_chatcommand(command.spawn_to.command.NAME, command.spawn_to.command.get_definition(Spawns))
+		core.register_on_respawnplayer(on_player_respawn)
 
 
 		register_api(mod)

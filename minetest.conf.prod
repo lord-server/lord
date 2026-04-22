@@ -97,7 +97,7 @@ player_transfer_distance = 10
 #    Whether to allow players to damage and kill each other.
 enable_pvp = true
 #    If this is set, players will always (re)spawn at the given position.
-static_spawnpoint = 735, 33, -818
+static_spawnpoint = 0, 25001, -1
 #    If enabled, new players cannot join with an empty password.
 disallow_empty_password = true
 
@@ -221,6 +221,18 @@ emergequeue_limit_diskonly = 32
 
 
 
+# --------------------------------------------
+# Временная настройка от гриферства (LG-1999):
+# --------------------------------------------
+
+#    Liquid update interval in seconds.
+#    type: float min: 0.001
+# разлитие на 1 блок раз в 5 минут
+# вернули "на посмотреть" 29.03.2026
+#liquid_update = 300
+
+
+
 # ----------------------------------------------------------------------------------------------------------
 #
 #                        Далее секция с дополнительными настройками,
@@ -301,7 +313,7 @@ lp_api.system_name = lord
 
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
-lord_spawns.common_spawn_pos = 735, 33, -818
+lord_spawns.common_spawn_pos = 0, 25001, -1
 lord_spawns.dynamic_spawn = true
 
 # Spawns (Racial)
@@ -309,16 +321,16 @@ lord_spawns.racial.orc_pos = 11773, 54, -10282
 lord_spawns.racial.man_pos = -7201, 3, 7629
 lord_spawns.racial.hobbit_pos = -8619, 15, 7649
 lord_spawns.racial.dwarf_pos = 9519, 40, 11815
-#lord_spawns.racial.elf_pos =
+lord_spawns.racial.elf_pos = 11405, 18, 646
 
 # Halls (Teleport by command points)
-lord_spawns.halls.center.position = 735, 33, -818
+lord_spawns.halls.center.position = 0, 25001, -1
 lord_spawns.halls.center.description = Dol Guldur
 lord_spawns.halls.death.position = 11773, 54, -10282
 lord_spawns.halls.death.description = Hall of Death
 #lord_spawns.halls.bree.position = -7201, 3, 7629
 #lord_spawns.halls.bree.description = Bree
-#lord_spawns.halls.life.position = 735, 33, -818  - сейчас стоит заглушка, т.к. не построен Ривенделл
+#lord_spawns.halls.life.position = 0, 25001, -1  - сейчас стоит заглушка, т.к. не построен Ривенделл
 #lord_spawns.halls.life.description = Hall of Death
 
 # ------- lord/lord_classes
@@ -349,7 +361,8 @@ mapgen_chunk_pos_log = false
 
 # ------- lord/nazgul_area
 # Минас-Моргул, где на зеленом мраморе спавнятся назгулы
-nazgul_areas = 10605
+# Отключено в силу жёсткой имбы
+# nazgul_areas = 10605
 
 # ------- lord/Game/lord_web_api
 lord_web_api.base_url = https://lord-server.ru/api

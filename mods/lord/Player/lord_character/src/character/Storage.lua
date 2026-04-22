@@ -2,14 +2,14 @@
 --- @class character.Storage
 local Storage = {
 	--- @type Player
-	player = nil,
+	player = nil, --- @diagnostic disable-line: assign-type-mismatch
 	--- @type PlayerMetaRef
-	meta   = nil,
+	meta   = nil, --- @diagnostic disable-line: assign-type-mismatch
 }
 
---- @overload fun(player:Player)
---- @param player Player @ player object.
---- @param prefix string @ [optional] prefix for each property name. Default: `"character:"`
+--- @overload fun(player:Player): character.Storage
+--- @param player  Player @ player object.
+--- @param prefix? string @ [optional] prefix for each property name. Default: `"character:"`
 --- @return character.Storage
 function Storage:new(player, prefix)
 	local class = self
@@ -23,15 +23,15 @@ function Storage:new(player, prefix)
 end
 
 --- @overload fun(name:string)
---- @param name    string property name (without prefix).
---- @param default string default value if there is no value for the property `name`.
---- @return string
+--- @param name     string property name (without prefix).
+--- @param default? string default value if there is no value for the property `name`.
+--- @return string?
 function Storage:get(name, default)
 	return self.meta:get(self.prefix .. name) or default
 end
 
 --- @param name  string property name (without prefix).
---- @param value string value to set to the property `name`.
+--- @param value string|nil value to set to the property `name`, or `nil` to remove.
 --- @return character.Storage
 function Storage:set(name, value)
 	self.meta:set_string(self.prefix .. name, value)
@@ -40,9 +40,9 @@ function Storage:set(name, value)
 end
 
 --- @overload fun(name:string)
---- @param name    string property name (without prefix).
---- @param default number default value if there is no value for the property `name`.
---- @return number
+--- @param name     string property name (without prefix).
+--- @param default? number default value if there is no value for the property `name`.
+--- @return number|nil
 function Storage:get_int(name, default)
 	return self.meta:contains(self.prefix .. name)
 		and self.meta:get_int(self.prefix .. name)
