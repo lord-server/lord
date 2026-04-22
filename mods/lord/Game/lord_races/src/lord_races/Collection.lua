@@ -1,11 +1,11 @@
 
 --- @class lord_races.Collection
 local Collection = {
-	--- @type lord_races.Race[]
+	--- @type lord_races.Race[string]
 	all          = {},
-	--- @type lord_races.Race[]
+	--- @type lord_races.Race[string]
 	player_races = {},
-	--- @type lord_races.Race[]
+	--- @type lord_races.Race[string]
 	mob_races    = {},
 }
 

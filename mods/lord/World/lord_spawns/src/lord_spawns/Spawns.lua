@@ -1,4 +1,4 @@
-local Logger = minetest.get_mod_logger()
+local Logger = core.get_mod_logger()
 
 
 --- @class lord_spawns.Spawns
@@ -61,8 +61,8 @@ function Spawns.teleport_to(player, race)
 	Logger.action(
 		'Moving %s to %s spawn at %s',
 		player:get_player_name(),
-		Spawns.config[race] and race or ('common(no config for `'.. race ..'`)'),
-		minetest.pos_to_string(position)
+		Spawns.config[race] and race or ('common(no config for `'.. (race or 'nil') ..'`)'),
+		core.pos_to_string(position)
 	)
 
 	player:set_pos(position)
