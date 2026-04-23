@@ -3,14 +3,15 @@ name: Deploy to Staging Server
 on:
   push:
     branches:
-      - dev
+      - test-deploy
 
 jobs:
 
   deploy-to-staging:
     uses: ./.github/workflows/job.depoy.yml
     with:
-      environment: Staging
-      config_file: minetest.conf.test
+      environment: staging
+      config_file: minetest.conf.stage
       branch:      dev
+      service:     lord-lord
     secrets: inherit

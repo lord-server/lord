@@ -13,9 +13,10 @@ jobs:
   deploy-to-production:
     uses: ./.github/workflows/job.depoy.yml
     with:
-      environment: Production
+      environment: production
       config_file: minetest.conf.prod
       branch:      master
+      service:     lord-lord
     secrets: inherit
 
   merge-to-dev:
