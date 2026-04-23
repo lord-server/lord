@@ -10,7 +10,18 @@ jobs:
   deploy-to-staging:
     uses: ./.github/workflows/job.depoy.yml
     with:
-      environment: Staging
+      environment: staging
       config_file: minetest.conf.stage
       branch:      dev
+      service:     lord-staging
     secrets: inherit
+
+  deploy-to-staging-featured:
+    uses: ./.github/workflows/job.depoy.yml
+    with:
+      environment: staging-featured
+      config_file: minetest.conf.stage-featured
+      branch:      dev
+      service:     lord-staging-featured
+    secrets: inherit
+
