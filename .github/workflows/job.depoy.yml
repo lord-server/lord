@@ -44,6 +44,7 @@ jobs:
               cp -f ${{ inputs.config_file }} minetest.conf
               echo "Restarting lord service..."
               sudo systemctl restart lord
+              echo "Service restarted successfully"
             '
           args: -tt
     
