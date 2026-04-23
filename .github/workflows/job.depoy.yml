@@ -43,7 +43,7 @@ jobs:
               echo "Config file update:"
               cp -f ${{ inputs.config_file }} minetest.conf
               echo "Restarting lord service..."
-              sudo systemctl restart lord
+              sudo systemctl restart lord > /dev/null 2>&1
               echo "After service restarted"
               sleep 3
               if systemctl is-active --quiet lord; then
