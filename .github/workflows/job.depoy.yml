@@ -32,24 +32,19 @@ jobs:
             sudo -u ${{ secrets.GAME_USER }} bash -s << 'EOF'
               set -e
               cd /srv/luanti/accounts/lord/games/lord/
-              echo "Checkout to branch: ${{ inputs.branch }}"
               git checkout ${{ inputs.branch }}
-              echo "Pulling updates:"
               git pull --recurse-submodules
-              echo "Initializing submodules:"
               git submodule init
-              echo "Updating submodules:"
               git submodule update
-              echo "Config file update:"
               cp -f ${{ inputs.config_file }} minetest.conf
-              echo "Restarting lord service..."
-              sudo systemctl restart lord > /dev/null 2>&1
-              echo "After service restarted"
+              echo 'Restarting lord service...'
+              sudo systemctl restart lord
               sleep 3
               if systemctl is-active --quiet lord; then
-                echo "Service is running successfully"
+                echo 'Service successfully restarted'
+                exit 0
               else
-                echo "Service failed to start" >&2
+                echo 'Service failed to start' >&2
                 exit 1
               fi
             EOF
