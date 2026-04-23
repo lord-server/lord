@@ -29,7 +29,7 @@ jobs:
           user: ${{ secrets.DEPLOY_USER }}
           key:  ${{ secrets.DEPLOY_KEY }}
           command: |
-            sudo -u ${{ secrets.GAME_USER }} bash -c '
+            sudo -u ${{ secrets.GAME_USER }} bash -s << 'EOF'
               set -e
               cd /srv/luanti/accounts/lord/games/lord/
               echo "Checkout to branch: ${{ inputs.branch }}"
@@ -52,6 +52,6 @@ jobs:
                 echo "Service failed to start" >&2
                 exit 1
               fi
-            '
+            EOF
           args: -tt
     
