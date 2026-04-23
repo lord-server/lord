@@ -32,11 +32,17 @@ jobs:
             sudo -u ${{ secrets.GAME_USER }} bash -c '
               set -e
               cd /srv/luanti/accounts/lord/games/lord/
+              echo "Checkout to branch: ${{ inputs.branch }}"
               git checkout ${{ inputs.branch }}
+              echo "Pulling updates:"
               git pull --recurse-submodules
+              echo "Initializing submodules:"
               git submodule init
+              echo "Updating submodules:"
               git submodule update
+              echo "Config file update:"
               cp -f ${{ inputs.config_file }} minetest.conf
+              echo "Restarting lord service..."
               sudo systemctl restart lord
             '
           args: -tt
