@@ -29,13 +29,15 @@ jobs:
           user: ${{ secrets.DEPLOY_USER }}
           key:  ${{ secrets.DEPLOY_KEY }}
           command: |
-            set -e
-            cd /srv/luanti/accounts/lord/games/lord/
-            sudo -u ${{ secrets.GAME_USER }} git checkout ${{ inputs.branch }}
-            sudo -u ${{ secrets.GAME_USER }} git pull --recurse-submodules
-            sudo -u ${{ secrets.GAME_USER }} git submodule init
-            sudo -u ${{ secrets.GAME_USER }} git submodule update
-            sudo -u ${{ secrets.GAME_USER }} cp -f ${{ inputs.config_file }} minetest.conf
-            sudo -u ${{ secrets.GAME_USER }} sudo systemctl restart lord
+            sudo su ${{ secrets.GAME_USER }} -c '
+              set -e
+              cd /srv/luanti/accounts/lord/games/lord/
+              git checkout ${{ inputs.branch }}
+              git pull --recurse-submodules
+              git submodule init
+              git submodule update
+              cp -f ${{ inputs.config_file }} minetest.conf
+              sudo systemctl restart lord
+            '
           args: -tt
     
