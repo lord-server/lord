@@ -269,7 +269,7 @@ lp_api.system_name = lord-test
 # ---- FEATURE TOGGLE ----
 toggle_dungeons = true
 toggle_smelter = true
-toggle_dwarf_armor = true
+toggle_racial_armor = true
 
 
 # ------- lord/lord_spawns -------
