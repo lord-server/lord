@@ -97,16 +97,6 @@ minetest.register_tool(":lottarmor:shield_mithril", {
 	wear            = 0,
 })
 
-minetest.register_tool("lord_armor:shield_dwarf", {
-	description     = S("Dwarf Shield"),
-	inventory_image = "lord_armor_dwarf_shield_inv.png",
-	groups          = {
-		armor_shield = 1, defense_fleshy = 21, damage_avoid_chance = 15, armor_use = 100,
-		physics_speed = -0.1, physics_sneak = -1, forbidden = 1, mithril_item = 1
-	},
-	wear            = 0,
-})
-
 local craft_ingreds = {
 	wood    = "group:wood",
 	tin     = "lottores:tin_ingot",
@@ -128,18 +118,4 @@ for k, v in pairs(craft_ingreds) do
 			{ "", v, "" },
 		},
 	})
-
-	minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'lord_armor:shield_dwarf',
-	for_race = races.name.DWARF,
-	recipe   = {
-		{ 'lottores:mithril_ingot', 'default:mese_crystal',  'lottores:mithril_ingot' },
-		{ 'lottores:mithril_ingot', 'lottores:galvorn_ingot','lottores:mithril_ingot' },
-		{ '',                       'lottores:galvorn_ingot',          '' }
-	    }
-   })
 end
-
-
-

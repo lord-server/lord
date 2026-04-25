@@ -301,32 +301,6 @@ minetest.register_tool(":lottarmor:boots_mithril", {
 	wear = 0,
 })
 
---Dwarf_armor
-minetest.register_tool(":lord_armor:helmet_dwarf", {
-	description = S("Dwarf Helmet"),
-	inventory_image = "lord_armor_dwarf_inv_helmet.png",
-	groups = {armor_head=1, defense_fleshy=15, damage_avoid_chance=6, armor_use=50, physics_speed=-0.3, mithril_item=1},
-	wear = 0,
-})
-minetest.register_tool(":lord_armor:chestplate_dwarf", {
-	description = S("Dwarf Chestplate"),
-	inventory_image = "lord_armor_dwarf_inv_chestplate.png",
-	groups = {armor_torso=1, defense_fleshy=20, damage_avoid_chance=10, armor_use=50, physics_speed=-0.07, mithril_item=1},
-	wear = 0,
-})
-minetest.register_tool(":lord_armor:leggings_dwarf", {
-	description = S("Dwarf Leggings"),
-	inventory_image = "lord_armor_dwarf_inv_leggings.png",
-	groups = {armor_legs=1, defense_fleshy=10, damage_avoid_chance=8, armor_use=50, physics_speed=-0.05, mithril_item=1},
-	wear = 0,
-})
-minetest.register_tool(":lord_armor:boots_dwarf", {
-	description = S("Dwarf Boots"),
-	inventory_image = "lord_armor_dwarf_inv_boots.png",
-	groups = {armor_feet=1, defense_fleshy=7, damage_avoid_chance=6, armor_use=50, physics_speed=-0.02, mithril_item=1},
-	wear = 0,
-})
-
 -- Register Craft Recipes
 
 local craft_ingreds = {
@@ -373,50 +347,4 @@ for k, v in pairs(craft_ingreds) do
 			{v, "", v},
 		},
 	})
-
--- Register_Rase_Anvil_Craft
-
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'lord_armor:helmet_dwarf',
-	for_race = races.name.DWARF,
-	recipe   = {
-		{ 'lottores:mithril_ingot','lottores:galvorn_ingot','lottores:mithril_ingot'},
-		{ 'default:mese_crystal', '',						  'default:mese_crystal'},
-		{ '', 					  '',											  ''},
-	}
-})
-
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'lord_armor:chestplate_dwarf',
-	for_race = races.name.DWARF,
-	recipe   = {
-		{ 'lottores:mithril_ingot','',						 'lottores:mithril_ingot'},
-		{ 'lottores:mithril_ingot', 'lottores:mithril_ingot','lottores:mithril_ingot'},
-		{ 'lottores:galvorn_ingot', 'default:mese_crystal',	 'lottores:galvorn_ingot'},
-	}
-})
-
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'lord_armor:leggings_dwarf',
-	for_race = races.name.DWARF,
-	recipe   = {
-		{ 'lottores:galvorn_ingot','default:mese_crystal','lottores:galvorn_ingot'},
-		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
-		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
-	}
-})
-
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
-	output   = 'lord_armor:boots_dwarf',
-	for_race = races.name.DWARF,
-	recipe   = {
-		{ 'lottores:mithril_ingot','',					  'lottores:mithril_ingot'},
-		{ 'lottores:galvorn_ingot','',					  'lottores:galvorn_ingot'},
-	}
-})
-
 end

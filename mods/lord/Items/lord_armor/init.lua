@@ -1,10 +1,7 @@
 minetest.mod(function(mod)
-if mod.settings:get_bool('toggle_racial_armor', false) then
-    -- отменяем регистрацию старой брони
-		return
-     -- регистрируем новую броню
+    require('armor')
+    require('shield')
+    if core.settings:get_bool('toggle_racial_armor', false) then
+	    require('racial')
 	end
-
-    require("armor")
-    require("shield")
 end)
