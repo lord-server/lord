@@ -36,6 +36,10 @@ Mithril Helmet=Мифриловый шлем
 Mithril Chestplate=Мифриловая кираса
 Mithril Leggings=Мифриловые поножи
 Mithril Boots=Мифриловые сапоги
+Dwarf Helmet=Шлем гномов синих гор
+Dwarf Chestplate=Нагрудник гномов синих гор
+Dwarf Leggings=Поножи гномов синих гор
+Dwarf Boots=Сапоги гномов синих гор
 
 Training Shield=Деревянный щит
 Tin Shield=Оловянный щит
@@ -46,3 +50,4 @@ Silver Shield=Серебряный щит
 Gold Shield=Золотой щит
 Galvorn Shield=Галворновый щит
 Mithril Shield=Мифриловый щит
+Dwarf Shield= Щит гномов синих гор

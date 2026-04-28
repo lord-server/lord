@@ -36,6 +36,10 @@ Mithril Helmet=
 Mithril Chestplate=
 Mithril Leggings=
 Mithril Boots=
+Dwarf Helmet=
+Dwarf Chestplate=
+Dwarf Leggings=
+Dwarf Boots=
 
 Training Shield=
 Tin Shield=
@@ -46,3 +50,4 @@ Silver Shield=
 Gold Shield=
 Galvorn Shield=
 Mithril Shield=
+Dwarf Shield=
