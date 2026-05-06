@@ -73,7 +73,7 @@ core.register_tool('lord_armor:dwarf_shield', {
 
 core.register_craft({
 	method   = core.CraftMethod.ANVIL,
-	output   = 'lord_armor:helmet_dwarf',
+	output   = 'lord_armor:dwarf_helmet',
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:mithril_ingot', 'lottores:galvorn_ingot', 'lottores:mithril_ingot' },
@@ -84,7 +84,7 @@ core.register_craft({
 
 core.register_craft({
 	method   = core.CraftMethod.ANVIL,
-	output   = 'lord_armor:chestplate_dwarf',
+	output   = 'lord_armor:dwarf_chestplate',
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:mithril_ingot', ''                      , 'lottores:mithril_ingot' },
@@ -95,7 +95,7 @@ core.register_craft({
 
 core.register_craft({
 	method   = core.CraftMethod.ANVIL,
-	output   = 'lord_armor:leggings_dwarf',
+	output   = 'lord_armor:dwarf_leggings',
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:galvorn_ingot', 'default:mese_crystal', 'lottores:galvorn_ingot' },
@@ -106,7 +106,7 @@ core.register_craft({
 
 core.register_craft({
 	method   = core.CraftMethod.ANVIL,
-	output   = 'lord_armor:boots_dwarf',
+	output   = 'lord_armor:dwarf_boots',
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:mithril_ingot', ''                    , 'lottores:mithril_ingot' },
@@ -116,7 +116,7 @@ core.register_craft({
 
 core.register_craft({
 	method   = core.CraftMethod.ANVIL,
-	output   = 'lord_armor:shield_dwarf',
+	output   = 'lord_armor:dwarf_shield',
 	for_race = races.name.DWARF,
 	recipe   = {
 		{ 'lottores:mithril_ingot', 'default:mese_crystal'  , 'lottores:mithril_ingot' },
