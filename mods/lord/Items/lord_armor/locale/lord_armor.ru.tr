@@ -40,6 +40,10 @@ Dwarf Helmet=Шлем гномов синих гор
 Dwarf Chestplate=Нагрудник гномов синих гор
 Dwarf Leggings=Поножи гномов синих гор
 Dwarf Boots=Сапоги гномов синих гор
+Ranger Hood=Капюшон Следопытов Севера
+Ranger Chestplate=Кольчуга Следопытов Севера
+Ranger Leggings=Поножи Следопытов Севера
+Ranger Boots=Сапоги Следопытов Севера
 
 Training Shield=Деревянный щит
 Tin Shield=Оловянный щит
@@ -50,4 +54,5 @@ Silver Shield=Серебряный щит
 Gold Shield=Золотой щит
 Galvorn Shield=Галворновый щит
 Mithril Shield=Мифриловый щит
-Dwarf Shield= Щит гномов синих гор
+Dwarf Shield=Щит гномов синих гор
+Ranger Shield=Щит Следопытов Севера

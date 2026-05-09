@@ -40,6 +40,10 @@ Dwarf Helmet=Dwarf Helmet
 Dwarf Chestplate=Dwarf Chestplate
 Dwarf Leggings=Dwarf Leggings
 Dwarf Boots=Dwarf Boots
+Ranger Hood=Ranger Hood
+Ranger Chestplate=Ranger Chestplate
+Ranger Leggings=Ranger Leggings
+Ranger Boots=Ranger Boots
 
 Training Shield=Training Shield
 Tin Shield=Tin Shield
@@ -51,3 +55,4 @@ Gold Shield=Gold Shield
 Galvorn Shield=Galvorn Shield
 Mithril Shield=Mithril Shield
 Dwarf Shield=Dwarf Shield
+Ranger Shield=Ranger Shield
