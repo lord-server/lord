@@ -5,7 +5,6 @@ local common_node_definition = {
 	description   = S('Smelter'),
 	drawtype      = 'mesh',
 	mesh          = 'smelter1.obj',
-	visual_scale  = 0.5,
 	paramtype     = 'light',
 	selection_box = {
 		type  = 'fixed',

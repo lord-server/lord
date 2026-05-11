@@ -16,13 +16,25 @@ return {
 				inactive = {
 					node_name  = 'smelter:smelter1',
 					definition = table.merge(nodes, {
-					tiles      = {'smelter1_inactive.png'},
+						tiles  = {
+							'smelter1_inactive.png',
+							'smelter1_front_inactive_flame.png',
+						},
 					}),
 				},
 				active   = {
 					node_name  = 'smelter:smelter1_active',
 					definition = table.merge(nodes, {
-						tiles  = {'smelter1_active.png'},
+						tiles = { 'smelter1_active.png',{
+								name = 'smelter1_front_active_flame.png',
+								animation = {
+									type = "vertical_frames",
+									aspect_w = 16,
+									aspect_h = 16,
+									length = 2.0,
+								},
+							},
+						},
 						light_source = 3,
 						drop         = 'smelter:smelter1',
 						groups       = { not_in_creative_inventory = 1 },
@@ -36,8 +48,8 @@ return {
 		minetest.register_craft({
 			output = 'smelter:smelter1',
 			recipe = {
-				{ '', '', '' },
 				{ '', 'castle:hole_cobble', '' },
+				{ '', 'unknown:node', '' },
 				{ '', 'default:furnace', '' },
 			}
 		})
