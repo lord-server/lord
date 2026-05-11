@@ -40,6 +40,10 @@ Dwarf Helmet=
 Dwarf Chestplate=
 Dwarf Leggings=
 Dwarf Boots=
+Ranger Hood=
+Ranger Chestplate=
+Ranger Leggings=
+Ranger Boots=
 
 Training Shield=
 Tin Shield=
@@ -51,3 +55,4 @@ Gold Shield=
 Galvorn Shield=
 Mithril Shield=
 Dwarf Shield=
+Ranger Shield=

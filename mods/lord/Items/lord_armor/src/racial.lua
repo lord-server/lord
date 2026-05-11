@@ -124,3 +124,126 @@ core.register_craft({
 		{ ''                      , 'lottores:galvorn_ingot', ''                       },
 	}
 })
+
+-- Ranger Armor
+core.register_tool('lord_armor:ranger_hood', {
+	description     = S('Ranger Hood'),
+	inventory_image = 'lord_armor_ranger_inv_hood.png',
+	groups          = {
+		armor_head          = 1,
+		defense_fleshy      = 6,
+		damage_avoid_chance = 1,
+		armor_use           = 150,
+		physics_speed       = 0.08,
+		tin_item            = 1,
+	},
+	wear            = 0,
+})
+core.register_tool('lord_armor:ranger_chestplate', {
+	description     = S('Ranger Chestplate'),
+	inventory_image = 'lord_armor_inv_chestplate_ranger.png',
+	groups          = {
+		armor_torso         = 1,
+		defense_fleshy      = 7,
+		damage_avoid_chance = 1,
+		armor_use           = 1500,
+		physics_speed       = 0.1,
+		tin_item            = 1,
+	},
+	wear            = 0,
+})
+core.register_tool('lord_armor:ranger_leggings', {
+	description     = S('Ranger Leggings'),
+	inventory_image = 'lord_armor_ranger_inv_leggings.png',
+	groups          = {
+		armor_legs          = 1,
+		defense_fleshy      = 4,
+		damage_avoid_chance = 1,
+		armor_use           = 1500,
+		physics_speed       = 0.1,
+		tin_item            = 1,
+	},
+	wear            = 0,
+})
+core.register_tool('lord_armor:ranger_boots', {
+	description     = S('Ranger Boots'),
+	inventory_image = 'lord_armor_inv_boots_ranger.png',
+	groups          = {
+		armor_feet          = 1,
+		defense_fleshy      = 3,
+		damage_avoid_chance = 0,
+		armor_use           = 2000,
+		physics_speed       = 0.12,
+		tin_item            = 1,
+	},
+	wear            = 0,
+})
+
+core.register_tool('lord_armor:ranger_shield', {
+	description     = S('Ranger Shield'),
+	inventory_image = 'lord_armor_ranger_shield_inv.png',
+	groups          = {
+		armor_shield        = 1,
+		defense_fleshy      = 9,
+		damage_avoid_chance = 2,
+		armor_use           = 1750,
+		physics_speed       = 0.1,
+		tin_item        = 1,
+	},
+	wear            = 0,
+})
+
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
+	output   = 'lord_armor:ranger_hood',
+	for_race = races.name.HOBBIT,
+	recipe   = {
+		{ 'lottclothes:flax_green', 'lottclothes:flax_green', 'lottclothes:flax_green' },
+		{ 'lottclothes:flax_green', 'lottarmor:helmet_tin'  , 'lottclothes:flax_green' },
+		{ ''                      , ''                      , ''                       },
+	}
+})
+
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
+	output   = 'lord_armor:ranger_chestplate',
+	for_race = races.name.HOBBIT,
+	recipe   = {
+		{ 'lottclothes:flax_green', ''                       , 'lottclothes:flax_green' },
+		{ 'lottores:tin_ingot'    , 'lottores:silver_ingot'  , 'lottores:tin_ingot'     },
+		{ 'lottores:tin_ingot'    , 'lottclothes:flax_green' , 'lottores:tin_ingot'     },
+	}
+})
+
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
+	output   = 'lord_armor:ranger_leggings',
+	for_race = races.name.HOBBIT,
+	recipe   = {
+		{ 'lottores:tin_ingot'    , 'lottores:tin_ingot', 'lottores:tin_ingot'     },
+		{ 'lottclothes:flax_green', ''                  , 'lottclothes:flax_green' },
+		{ 'lottores:tin_ingot'    , ''                  , 'lottores:tin_ingot'     },
+	}
+})
+
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
+	output   = 'lord_armor:ranger_boots',
+	for_race = races.name.HOBBIT,
+	recipe   = {
+		{ 'lottclothes:felt_brown', ''                    , 'lottclothes:felt_brown' },
+		{ 'lottores:tin_ingot'    , ''                    , 'lottores:tin_ingot'     },
+	}
+})
+
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
+	output   = 'lord_armor:ranger_shield',
+	for_race = races.name.HOBBIT,
+	recipe   = {
+		{ 'lottores:tin_ingot'    , 'lottores:tin_ingot'    , 'lottores:tin_ingot'     },
+		{ 'lottores:tin_ingot'    , 'lottores:silver_ingot' , 'lottores:tin_ingot'     },
+		{ ''                      , 'lottores:tin_ingot'    , ''                       },
+	}
+})
+
