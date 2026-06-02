@@ -98,3 +98,7 @@ White Wizard Hood=Капюшон белого мага
 White Wizard Robe=Мантия белого мага
 White Wizard Trousers=Штаны белого мага
 White Wizard Cloak=Плащ белого мага
+
+### unique.lua ###
+Cloak "Guardian of Minas Tirith"=Плащ "Страж Минас Тирита"
+unique collection=Уникальная коллекция
