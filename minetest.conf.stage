@@ -18,74 +18,41 @@
 # Server / Singleplayer
 #
 
-#    Name of the server, to be displayed when players join and in the serverlist.
 server_name = [RU] L.O.R.D. Полигон stable
-#    Description of server, to be displayed when players join and in the serverlist.
 server_description = Тестовый сервер L.O.R.D. (раскатка с ветки `dev` - см. релизный процесс)
-#    Domain name of server, to be displayed in the serverlist.
-#server_address = 84.204.209.222
-server_address = test.lord-server.ru
-#    Homepage of server, to be displayed in the serverlist.
+server_address = stage.lord-server.ru
 server_url = http://lord-server.ru/
-#    Automatically report to the serverlist.
 server_announce = false
-
-## Network
-
-#    Network port to listen (UDP).
-port = 30004
+port = 30000
 
 
 ## Game
 
-#    Default game when creating a new world.
 default_game = lord
-#    Message of the day displayed to players connecting.
-motd = Тестим, не ленимся.
-#    Maximum number of players that can be connected simultaneously.
+motd = Stage сервер L.O.R.D. (приближен к production, NO features)
 max_users = 6
+enable_damage = true
+creative_mode = false
+enable_pvp = true
+fixed_map_seed = badger
+default_password = 456852
+disallow_empty_password = true
+default_privs = shout, interact, spawn, home
+player_transfer_distance = 1000
+
+static_spawnpoint = 330, 20, 160
+
+enable_rollback_recording = true
+ask_reconnect_on_crash = true
+time_speed = 24
+
 #    Time in seconds for item entity (dropped items) to live.
 #    Setting it to -1 disables the feature.
 item_entity_ttl = 600
-#    Enable players getting damage and dying.
-#    type: bool
-enable_damage = true
-#    Enable creative mode for all players
-#    type: bool
-creative_mode = false
-#    A chosen map seed for a new map, leave empty for random.
-#    Will be overridden when creating a new world in the main menu.
-fixed_map_seed = badger
-#    New users need to input this password.
-default_password = 456852
-#    The privileges that new users automatically get.
-#    See /privs in game for a full list on your server and mod configuration.
-default_privs = shout, interact, spawn, info, news, home
-#    Whether players are shown to clients without any range limit.
-#    Deprecated, use the setting player_transfer_distance instead.
-#unlimited_player_transfer_distance = false
-#    Defines the maximal player transfer distance in blocks (0 = unlimited).
-player_transfer_distance = 100
-#    Whether to allow players to damage and kill each other.
-enable_pvp = true
-#    If this is set, players will always (re)spawn at the given position.
-static_spawnpoint = 330, 20, 160
-#    If enabled, new players cannot join with an empty password.
-disallow_empty_password = true
-#    If enabled, actions are recorded for rollback.
-#    This option is only read when server starts.
-enable_rollback_recording = true
 #    A message to be displayed to all clients when the server shuts down.
 kick_msg_shutdown = Сервер останавливается. Server shutting down.
 #    A message to be displayed to all clients when the server crashes.
 kick_msg_crash = Внутренняя ошибка сервера. Вы будете отключены. Попробуйте переподключится через 5 минут. This server has experienced an internal error. You will now be disconnected. Try to reconnect in 5 minutes.
-#    Whether to ask clients to reconnect after a (Lua) crash.
-#    Set this to true if your server is set up to restart automatically.
-ask_reconnect_on_crash = true
-#    Controls length of day/night cycle.
-#    Examples:
-#    72 = 20min, 360 = 4min, 1 = 24hour, 0 = day/night/whatever stays unchanged.
-time_speed = 24
 
 ### Physics
 # всё по умолчанию
@@ -96,8 +63,8 @@ max_objects_per_block = 499
 
 ## Security
 #    Prevent mods from doing insecure things like running shell commands.
-# А НА ПРОДЕ `false` !!!
-secure.enable_security = true
+# И НА ПРОДЕ `false` !!!
+secure.enable_security = false
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
 secure.trusted_mods = lp_api
@@ -205,7 +172,7 @@ emergequeue_limit_generate = 32
 #
 
 # Default: `production`
-environment = test
+environment = stage
 
 # Общая настройка отладки. Влияет в том числе на все настройки вида `<mod_name>.debug`.
 # Если настройка мода `<mod_name>.debug` не указана, то `<mod_name>.debug` устанавливается из этой настройки.
@@ -265,13 +232,6 @@ lp_api.system_name = lord-test
 #
 #    Ours (LORD)
 #
-
-# ---- FEATURE TOGGLE ----
-toggle_dungeons = true
-toggle_smelter = true
-toggle_racial_armor = true
-
-
 
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше

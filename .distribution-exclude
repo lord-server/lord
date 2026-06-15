@@ -31,7 +31,8 @@ CODE_OF_CONDUCT.md
 /lord
 /minetest.conf.example
 /minetest.conf.prod
-/minetest.conf.test
+/minetest.conf.stage
+/minetest.conf.stage-featured
 */.editorconfig
 */.gitattributes
 */.gitignore

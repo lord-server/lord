@@ -11,6 +11,6 @@ jobs:
     uses: ./.github/workflows/job.depoy.yml
     with:
       environment: Staging
-      config_file: minetest.conf.test
+      config_file: minetest.conf.stage
       branch:      dev
     secrets: inherit
