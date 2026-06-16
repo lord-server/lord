@@ -101,4 +101,7 @@ White Wizard Cloak=Плащ белого мага
 
 ### unique.lua ###
 Cloak "Guardian of Minas Tirith"=Плащ "Страж Минас Тирита"
-unique collection=Уникальная коллекция
+When the Guardian squares his shoulders,=Когда страж распрямляет стан,
+    the cloak spreads like the wings of an eagle —=    его плащ ложится на плечи как крылья орла —
+    a herald of the coming victory.=    вестник грядущей победы.
+Unique collection: "Guardian of Minas Tirith"=Уникальная коллекция "Страж Минас Тирита"
