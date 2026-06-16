@@ -11,17 +11,18 @@ for _, v in ipairs(area_ids) do
 	table.insert(NAZGUL_AREA_IDS, tonumber(v))
 end
 
+--- @param pos Position position of point
+nazgul_area.position_in_nazgul_area = function(pos)
+	return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
+end
+
+
 if table.is_empty(NAZGUL_AREA_IDS) then
 	core.log('info', 'No nazgul areas defined in settings')
 	return
 end
 
 local max_per_block = tonumber(core.settings:get('max_objects_per_block') or 99)
-
---- @param pos Position position of point
-nazgul_area.position_in_nazgul_area = function(pos)
-	return table_keys_has_one_of_values(areas:getAreasAtPos(pos), NAZGUL_AREA_IDS)
-end
 
 -- HACK: copy from mobs mod
 --- @param pos Position position of centre of sphere where we count mobs
