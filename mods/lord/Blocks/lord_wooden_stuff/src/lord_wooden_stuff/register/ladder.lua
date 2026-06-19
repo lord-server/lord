@@ -61,7 +61,7 @@ local function register_ladder(wood, def, _, stick)
 			local node_under = minetest.get_node(under)
 
 			if minetest.registered_nodes[node_under.name].on_rightclick then
-				return minetest.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack)
+				return minetest.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack, pointed_thing)
 			end
 
 			local above_2 = above:offset(0, 1, 0)
