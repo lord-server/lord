@@ -7,7 +7,7 @@ local phrase_color     = '#aaa'
 local collection_color = '#99c'
 
 
-core.register_tool(':lord_uniq_clothes_mt_guardian_cloak', {
+core.register_tool(':lord_uniq_clothes:mt_guardian_cloak', {
 		description     =
 			colorize(legendry_color, S('Cloak "Guardian of Minas Tirith"')) .. '\n' ..
 			colorize(phrase_color,
