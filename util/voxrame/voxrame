@@ -33,6 +33,7 @@ local app = Lummander.new{
 
 
 app:command("mod <mod_name>", require("commands.mod"))
+app:command("each-mod <subcommand>", require("commands.each-mod"))
 
 
 app:parse(arg)
