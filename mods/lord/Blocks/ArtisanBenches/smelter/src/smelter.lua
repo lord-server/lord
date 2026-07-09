@@ -38,6 +38,8 @@ return {
 						light_source = 3,
 						drop         = 'smelter:smelter1',
 						groups       = { not_in_creative_inventory = 1 },
+						sound_device = { file = 'smelter1', parameters = { gain = 1 } },
+						sound_output = { file = 'default_cool_lava', parameters = { gain = 0.1 } },
 					}),
 				}
 			},
