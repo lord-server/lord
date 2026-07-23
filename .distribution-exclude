@@ -9,7 +9,7 @@
 /mods/lord/Blocks/Music/*
 /mods/lord/Blocks/quest_node/*
 /mods/lord/Core/nodes_dump/*
-/mods/lord/Game/debugtools/*
+/mods/lord/Game/Debug/*
 /mods/lord/Game/discord/*
 /mods/lord/Game/lord_names_rules/*
 /mods/lord/Game/lord_web_api/*
