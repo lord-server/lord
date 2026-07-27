@@ -5,10 +5,13 @@
 /mods/lord/Blocks/Holidays/*
 /mods/lord/Blocks/clan_node/*
 /mods/lord/Blocks/clans_tapestries/*
+/mods/lord/Blocks/christmas/*
 /mods/lord/Blocks/holding_points/*
 /mods/lord/Blocks/Music/*
 /mods/lord/Blocks/quest_node/*
+/mods/lord/Blocks/lord_scarecrow/*
 /mods/lord/Core/nodes_dump/*
+/mods/lord/Entities/npc/*
 /mods/lord/Game/Debug/*
 /mods/lord/Game/discord/*
 /mods/lord/Game/lord_names_rules/*
@@ -17,8 +20,10 @@
 /mods/lord/Player/clans/*
 /mods/lord/Items/clans_clothes/*
 /mods/lord/Items/clans_tools/*
+/mods/lord/Items/easter/*
 /mods/lord/World/arena/*
 /mods/lord/World/lord_events/*
+/mods/lord/World/lord_spawns/*
 /util/*
 .distribution-exclude
 .editorconfig
