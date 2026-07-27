@@ -45,13 +45,12 @@ LICENSE_PATTERNS = {
     'ISC': re.compile(r'\bISC\b', re.IGNORECASE),
     'Zlib': re.compile(r'\bZlib\b', re.IGNORECASE),
     'AGPL': re.compile(r'\bAGPL\b', re.IGNORECASE),
-    'Proprietary': re.compile(r'\bproprietary\b', re.IGNORECASE),
     'All Rights Reserved': re.compile(r'\ball\s*rights\s*reserved\b', re.IGNORECASE),
 }
 
 COMMERCIAL_ALLOWED = {'MIT', 'GPL', 'LGPL', 'Apache', 'BSD', 'CC0', 'CC BY', 'CC BY-SA', 
                       'Public Domain', 'WTFPL', 'DWYWPL', 'ISC', 'Zlib', 'AGPL', 'AGPL 3'}
-COMMERCIAL_FORBIDDEN = {'CC BY-NC', 'Proprietary', 'All Rights Reserved'}
+COMMERCIAL_FORBIDDEN = {'CC BY-NC', 'All Rights Reserved'}
 
 COPYLEFT_LICENSES = {'GPL', 'LGPL', 'AGPL', 'CC BY-SA'}
 
@@ -159,13 +158,13 @@ def categorize_licenses(content, all_licenses):
     content_lower = content.lower()
     
     code_section_patterns = [
-        r'(?:source\s*code|code|software|lua|program)(?:[\s\-]*license)?[:\s\n]+([^\n]*?(?:\b(?:MIT|GPL|LGPL|Apache|BSD|CC0|WTFPL|ISC|Zlib|proprietary)\b)[^\n]*)',
-        r'(?:license\s*of\s*source\s*code)[:\s\n]+([^\n]*?(?:\b(?:MIT|GPL|LGPL|Apache|BSD|CC0|WTFPL|ISC|Zlib|proprietary)\b)[^\n]*)',
+        r'(?:source\s*code|code|software|lua|program)(?:[\s\-]*license)?[:\s\n]+([^\n]*?(?:\b(?:MIT|GPL|LGPL|Apache|BSD|CC0|WTFPL|ISC|Zlib)\b)[^\n]*)',
+        r'(?:license\s*of\s*source\s*code)[:\s\n]+([^\n]*?(?:\b(?:MIT|GPL|LGPL|Apache|BSD|CC0|WTFPL|ISC|Zlib)\b)[^\n]*)',
     ]
     
     media_section_patterns = [
-        r'(?:media|textures?|models?|sounds?|images?|graphics?)(?:[\s\-]*license)?[:\s\n]+([^\n]*?(?:\b(?:CC|MIT|GPL|LGPL|Apache|BSD|public\s*domain|WTFPL|ISC|Zlib|proprietary)\b)[^\n]*)',
-        r'(?:license[s\s]*of\s*media)[:\s\n]+([^\n]*?(?:\b(?:CC|MIT|GPL|LGPL|Apache|BSD|public\s*domain|WTFPL|ISC|Zlib|proprietary)\b)[^\n]*)',
+        r'(?:media|textures?|models?|sounds?|images?|graphics?)(?:[\s\-]*license)?[:\s\n]+([^\n]*?(?:\b(?:CC|MIT|GPL|LGPL|Apache|BSD|public\s*domain|WTFPL|ISC|Zlib)\b)[^\n]*)',
+        r'(?:license[s\s]*of\s*media)[:\s\n]+([^\n]*?(?:\b(?:CC|MIT|GPL|LGPL|Apache|BSD|public\s*domain|WTFPL|ISC|Zlib)\b)[^\n]*)',
     ]
     
     for pattern in code_section_patterns:
@@ -361,6 +360,7 @@ def main():
     unknown_count = 0
     skipped_count = 0
     results = []
+    all_licenses = {}
     for mod_path in sorted(mods_list):
         if args.skip_excluded and is_excluded(mod_path, excluded_patterns):
             skipped_count += 1
@@ -371,6 +371,13 @@ def main():
         if info['our?'] == '?':
             unknown_count += 1
             print(info)
+        
+        # Собираем все лицензии с подсчётом количества модов
+        for lic in info['all-licenses']:
+            if lic in all_licenses:
+                all_licenses[lic] += 1
+            else:
+                all_licenses[lic] = 1
     
     with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
@@ -393,6 +400,11 @@ def main():
     if args.skip_excluded:
         print(f"Пропущено модов (по исключениям): {skipped_count}")
     print(f"Неизвестных модов: {unknown_count}")
+    
+    if all_licenses:
+        print(f"\nВсе найденные лицензии ({len(all_licenses)}):")
+        for lic, count in sorted(all_licenses.items(), key=lambda x: (-x[1], x[0])):
+            print(f"  - {lic:<20}: {count} мод(а/ов)")
 
 
 if __name__ == '__main__':
