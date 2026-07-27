@@ -27,7 +27,7 @@ core.register_tool(':lord_uniq_clothes:mt_guardian_helmet', {
 			colorize(legendry_color, S('Helmet "Guardian of Minas Tirith"')) .. '\n' ..
 			colorize(phrase_color,
 				S('The burden of the sentry is arduous yet honorable—to peer, day and night,') .. '\n' ..
-				S('into the misty distance from beneath the steel brows of a heavy helmet.') 
+				S('into the misty distance from beneath the steel brows of a heavy helmet.')
 				) .. '\n\n' ..
 				colorize(collection_color, S('Unique collection: "Guardian of Minas Tirith"'))
 			,
