@@ -113,14 +113,6 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		return true
 	end
 
-	local nodename = minetest.get_node(pos).name
-	local nodedef = minetest.registered_nodes[nodename]
-	if nodedef ~= nil then
-		if nodedef.groups["corpse"] then
-			return true
-		end
-	end
-
 	if infolevel == 3 then infolevel = 1 end
 
 	-- Find the protector nodes
@@ -205,23 +197,37 @@ protector.old_is_protected = minetest.is_protected
 
 function minetest.is_protected(pos, digger)
 
-	if not protector.can_dig(protector.radius, pos, digger, false, 1) then
--- hurt here
---player = minetest.get_player_by_name(digger)
---player:set_hp(player:get_hp()-2)
-
-		-- The hack explained:
-		-- 1. Player places the node
-		-- 2. Server returns the node to player's inventory
-		-- 3. Some time (like 0.1s, nobody will feel this lag) passes and we
-		--    drop the item
-		-- 4. ???
-		-- 5. PROFIT
-		minetest.after(0.1, protector.drop_wielded_item, digger)
-		return true
+	print("core.is_protected: Protector Redo")
+	digger_is_blocked = true
+	
+	if protector.can_dig(protector.radius, pos, digger, false, 2) then
+		digger_is_blocked = false
 	end
-	return protector.old_is_protected(pos, digger)
+	
+	if digger_is_blocked then
+		if not protector.old_is_protected(pos, digger) then
+			digger_is_blocked = false
+		else
+			-- hurt here
+			--player = minetest.get_player_by_name(digger)
+			--player:set_hp(player:get_hp()-2)
 
+			-- The hack explained:
+			-- 1. Player places the node
+			-- 2. Server returns the node to player's inventory
+			-- 3. Some time (like 0.1s, nobody will feel this lag) passes and we
+			--    drop the item
+			-- 4. ???
+			-- 5. PROFIT
+			local dig_player = minetest.get_player_by_name(digger)
+			dig_player:set_hp(dig_player:get_hp()-protector.damage)
+			
+			minetest.after(0.1, protector.drop_wielded_item, digger)
+			return true
+		end
+	end
+
+	return digger_is_blocked
 end
 
 -- Make sure protection block doesn't overlap another protector's area
@@ -441,3 +447,5 @@ end
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."blocks.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."doors.lua")
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."chests.lua")
+
+print("[MOD] Protector Redo mod loaded")
