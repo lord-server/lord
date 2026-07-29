@@ -102,3 +102,7 @@ White Wizard Cloak=
 ### unique.lua ###
 Cloak "Guardian of Minas Tirith"=
 unique collection=
+Helmet "Guardian of Minas Tirith"=
+Chestplate "Guardian of Minas Tirith"=
+Leggins "Guardian of Minas Tirith"=
+Boots "Guardian of Minas Tirith"=
