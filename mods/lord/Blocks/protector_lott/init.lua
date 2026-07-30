@@ -103,6 +103,8 @@ end
 -- 2 for "This area is owned by <owner>.
 -- 3 for checking protector overlaps
 
+-- @return boolean  result   whether digger is allowed to dig in the protector area
+-- @return nil      result   there are no protectors nearby
 protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if not digger then return false end
 	if not minetest.get_player_by_name(digger) then return false end
@@ -130,9 +132,12 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		{x = pos.x + r, y = pos.y + r, z = pos.z + r},
 		{"group:protector"})
 
+
+	local protectors_count = 0
 	local dig_player = minetest.get_player_by_name(digger)
 	local meta, owner, members
 	for _, p in ipairs(positions) do
+		protectors_count = protectors_count + 1
 		meta = minetest.get_meta(p)
 		owner = meta:get_string("owner")
 		members = meta:get_string("members")
@@ -179,6 +184,10 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		minetest.chat_send_player(digger, S("You can build here."))
 	end
 
+	if protectors_count == 0 then
+		return nil
+	end
+
 	return true
 end
 
@@ -201,27 +210,63 @@ function protector.drop_wielded_item(digger)
 	end
 end
 
+-- Punish the player for unauthorized interaction
+function protector.punish_for_unauthorized(digger)
+	-- The hack explained:
+	-- 1. Player places the node
+	-- 2. Server returns the node to player's inventory
+	-- 3. Some time (like 0.1s, nobody will feel this lag) passes and we
+	--    drop the item
+	-- 4. ???
+	-- 5. PROFIT
+
+	local dig_player = minetest.get_player_by_name(digger)
+	dig_player:set_hp(dig_player:get_hp()-protector.damage)
+	minetest.after(0.1, protector.drop_wielded_item, digger)
+end
+
 protector.old_is_protected = minetest.is_protected
 
+-- Protector's is_protected function logic table (0 represents false, 1 represents true):
+-- ===============================================
+-- can_dig_result     |  nil   nil   0   1   0   1
+-- old_is_protected   |  0     1     0   0   1   1
+--                    -----------------------------
+-- return             |  0     1     0   0   1   0
+-- ===============================================
+-- Discussion: https://github.com/lord-server/lord/issues/2388
 function minetest.is_protected(pos, digger)
+	local can_dig_result = protector.can_dig(protector.radius, pos, digger, false, 1)
 
-	if not protector.can_dig(protector.radius, pos, digger, false, 1) then
--- hurt here
---player = minetest.get_player_by_name(digger)
---player:set_hp(player:get_hp()-2)
+	-- Situation A: if the node is possibly protected by other mod
+	if protector.old_is_protected(pos, digger) then
+		-- no protectors nearby - other mod decides if the node is protected
+		if can_dig_result == nil then
+			return true
+		end
 
-		-- The hack explained:
-		-- 1. Player places the node
-		-- 2. Server returns the node to player's inventory
-		-- 3. Some time (like 0.1s, nobody will feel this lag) passes and we
-		--    drop the item
-		-- 4. ???
-		-- 5. PROFIT
-		minetest.after(0.1, protector.drop_wielded_item, digger)
-		return true
+		-- the node is protected if all mods agree on that
+		if not can_dig_result then
+			protector.punish_for_unauthorized(digger)
+
+			return true
+		end
 	end
-	return protector.old_is_protected(pos, digger)
 
+	-- Situation B: if Protector is the only mod to decide
+	--                           OR
+	--              if other mod's opinion is irrelevant
+	if can_dig_result ~= nil then
+		-- if the node is in a protector's area
+		if not can_dig_result then
+			protector.punish_for_unauthorized(digger)
+		end
+
+		return not can_dig_result
+	else
+		-- if no protectors nearby
+		return false
+	end
 end
 
 -- Make sure protection block doesn't overlap another protector's area
