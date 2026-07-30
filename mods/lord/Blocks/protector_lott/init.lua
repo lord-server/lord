@@ -188,6 +188,7 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if protectors_count == 0 then
 		return nil
 	end
+
 	return true
 end
 
@@ -209,7 +210,6 @@ function protector.drop_wielded_item(digger)
 		player:set_wielded_item("") -- Remove itemstack from inventory
 	end
 end
-
 
 -- Punish the player for unauthorized interaction
 function protector.punish_for_unauthorized(digger)
@@ -250,11 +250,12 @@ function minetest.is_protected(pos, digger)
 		-- the node is protected if all mods agree on that
 		if not can_dig_result then
 			protector.punish_for_unauthorized(digger)
+
 			return true
 		end
 	end
 
-	-- Situation B: if Protector is the only mod to decide 
+	-- Situation B: if Protector is the only mod to decide
 	--                           OR
 	--              if other mod's opinion is irrelevant
 	if can_dig_result ~= nil then
