@@ -235,8 +235,7 @@ protector.old_is_protected = minetest.is_protected
 --                    -----------------------------
 -- return             |  0     1     0   0   1   0
 -- ===============================================
--- Discussion related to a certain bug in logic when areas protected by two mods overlap:
--- https://github.com/lord-server/lord/issues/2388
+-- Discussion: https://github.com/lord-server/lord/issues/2388
 function minetest.is_protected(pos, digger)
 	local can_dig_result = protector.can_dig(protector.radius, pos, digger, false, 1)
 
