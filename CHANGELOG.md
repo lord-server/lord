@@ -1,5 +1,33 @@
 # Change Log
 
+## [2025.12.p2](https://github.com/lord-server/lord/releases/tag/2025.12.p2)
+ - Elven spawn coordinates.
+ - Sync production config.
+ - CI: new deployments to production & staging. LG-2094
+ - Hotfix: no Nazguls spawn in Minas Morgul. LG-2095
+ - Fix Bug: Corn growth brakes any block by 3rd level. LG-2086
+ - Fix [ru] localization for infexted tree trunks. LG-2071. Closes #2306.
+ - Debug: add `lord_ghost_debug` for counting ghost blocks and prevent errors.
+ - Debug: fix diff output in `lord_ghost_debug`.
+ - Register ghost blocks after all mods loaded. No huge dependencies list. Found lost blocks.
+ - Fix wool dyeing: no dyeing for stairs/slabs; also fix recipes with `group:wool` (ex. bags). LG-2074. Closes #2194.
+ - Fix black textures on bookshelf, kalimba, metallophon, holding_point, flower_pot_small, vase_1 & some others, when `smooth_lighting` is off. LG-1966
+ - Fix `music_instruments` api: no runtime crash if no `notes[0]` configured. LG-2073. Closes #2232.
+ - Update MTG mods to latest version. Relates to LG-2097 / #1256.
+ - Fences: fix connection to Honey Extractor (`bees:extractor`). LG-2097 Closes #1256.
+ - Check `player_info` & addlogging in `inventory.Form:instantiate()`. Possibly fix crash after cancel choose race form. LG-2062 LG-1934 #2283
+ - Fix: prevent stacking of trader goods. LG-2103. Closes #2234.
+ - Fix: add lock texture for all doors. LG-2072. Closes #2304
+ - Debug: debug commands for `Character`. Relates to LG-2104, LG-1934, #2283
+ - Fix crash on `teleport_to()` of player without race. LG-2104
+ - fix: crash on Nazgul's projectiles collision: leave registered `position_in_nazgul_area()` if no areas defined. LG-2112.
+ - Sync prodution config. LI-37
+ - new cloack for event
+ - Unique: add describtion, change colors for Cloak Guard of MT. LG-2116.
+ - Fix crash: on place ladder on a tree trunk. LG-2124. Closes #2379.
+ - Fix tech name of `Cloak "Guardian of Minas Tirith"`. LG-2125. LG-2116.
+ - Armor Set "Guardian of Minas Tirith". LG-2166 (#2387)
+
 ## [2025.12.p1](https://github.com/lord-server/lord/releases/tag/2025.12.p1)
  - Restore texture:
    - Restore default chest texture files. LG-2061
