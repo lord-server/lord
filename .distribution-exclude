@@ -1,5 +1,7 @@
-.git/*
-.github/*
+/.git/*
+/.github/*
+/.guides/*
+/.vscode/*
 /mods/_minetest_game/up
 /mods/lord/_experimental/*
 /mods/lord/Blocks/Holidays/*
@@ -31,6 +33,9 @@
 .gitignore
 .gitmodules
 .luacheckrc
+.emmyrc.json
+/analyze_licenses.py
+/voxrame
 CODE_OF_CONDUCT.md
 /development.md
 /lord
