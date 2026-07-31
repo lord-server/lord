@@ -115,14 +115,6 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		return true
 	end
 
-	local nodename = minetest.get_node(pos).name
-	local nodedef = minetest.registered_nodes[nodename]
-	if nodedef ~= nil then
-		if nodedef.groups["corpse"] then
-			return true
-		end
-	end
-
 	if infolevel == 3 then infolevel = 1 end
 
 	-- Find the protector nodes
