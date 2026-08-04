@@ -345,13 +345,12 @@ def analyze_mod(mod_path):
 
 def main():
     parser = argparse.ArgumentParser(description='Анализ лицензий модов')
-    parser.add_argument('--skip-excluded', action='store_true', 
-                       help='Пропускать моды, указанные в .distribution-exclude')
+    parser.add_argument('--skip-excluded', action='store_true', help='Пропускать моды, указанные в .distribution-exclude')
+    parser.add_argument('--only-total', action='store_true', help='Выводить только ')
     args = parser.parse_args()
     
-    print("Получение списка модов...")
     mods_list = get_mods_list()
-    print(f"Найдено {len(mods_list)} модов")
+    print(f"Total mods: {len(mods_list)}")
     
     excluded_patterns = []
     if args.skip_excluded:
@@ -359,6 +358,7 @@ def main():
     
     unknown_count = 0
     skipped_count = 0
+    our_count = 0
     results = []
     all_licenses = {}
     for mod_path in sorted(mods_list):
@@ -368,7 +368,9 @@ def main():
         
         info = analyze_mod(mod_path)
         results.append(info)
-        if info['our?'] == '?':
+        if info['our?'] == 'yes':
+            our_count += 1
+        elif info['our?'] == '?':
             unknown_count += 1
             print(info)
         
@@ -379,32 +381,36 @@ def main():
             else:
                 all_licenses[lic] = 1
     
-    with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(['path', 'our?', 'license', 'code-license', 'media-licenses', 'all-licenses', 'commercial-use', 'copyleft'])
-        
-        for info in results:
-            writer.writerow([
-                info['path'],
-                info['our?'],
-                info['license'],
-                info['code-license'],
-                str(info['media-licenses']),
-                str(info['all-licenses']),
-                info['commercial-use'],
-                info['copyleft'],
-            ])
+    if not args.only_total:
+        with open(OUTPUT_FILE, 'w', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow(['path', 'our?', 'license', 'code-license', 'media-licenses', 'all-licenses', 'commercial-use', 'copyleft'])
+            
+            for info in results:
+                writer.writerow([
+                    info['path'],
+                    info['our?'],
+                    info['license'],
+                    info['code-license'],
+                    str(info['media-licenses']),
+                    str(info['all-licenses']),
+                    info['commercial-use'],
+                    info['copyleft'],
+                ])
     
-    print(f"\nРезультаты сохранены в {OUTPUT_FILE}")
-    print(f"Всего проанализировано модов: {len(results)}")
+            print(f"\nResults saved to {OUTPUT_FILE}")
+
+    print(f"  Analized modes: {len(results)}")
+
     if args.skip_excluded:
-        print(f"Пропущено модов (по исключениям): {skipped_count}")
-    print(f"Неизвестных модов: {unknown_count}")
+        print(f"  Skipped mods: {skipped_count}")
+    print(f"  Unknown mods: {unknown_count}")
+    print(f"  Our mods: {our_count}")
     
     if all_licenses:
-        print(f"\nВсе найденные лицензии ({len(all_licenses)}):")
+        print(f"\nTotal licenses ({len(all_licenses)}):")
         for lic, count in sorted(all_licenses.items(), key=lambda x: (-x[1], x[0])):
-            print(f"  - {lic:<20}: {count} мод(а/ов)")
+            print(f"  - {lic:<20}: {count} mod(s)")
 
 
 if __name__ == '__main__':
