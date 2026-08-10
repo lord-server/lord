@@ -113,6 +113,8 @@
    - Licensing: add simple `analyze_licenses.py` script.
    - Licensing: add some our forbidden licenses. LG-2046.
    - Licensing: `analyze_licenses.py`: fix wrong `proprietary` detetion, add total "distincct" info. LG-2046.
+   - Licensing: add Overall License for ContentDB. LG-1954. LG-2047.
+   - `game.conf`: title, description, allowed_mapgens, default_mapgen. LG-1943.
 
 ## [2025.12.p2](https://github.com/lord-server/lord/releases/tag/2025.12.p2)
  - Elven spawn coordinates.
