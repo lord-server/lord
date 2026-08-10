@@ -1,5 +1,119 @@
 # Change Log
 
+## [2025.12.p3](https://github.com/lord-server/lord/releases/tag/2025.12.p3)
+ - Textures:
+   - New textures of wool and add source file. LG-2013
+
+ - Bugfixes:
+   - Fix full stack canvas disappearance; use protection. Closes #1657. Closes #1805. LG-2152. LG-2146.
+   - Fix Server Crash: when placing a canvas on an inverted easel. Closes #2380. LG-2122
+   - Fix Destruction of easel with a canvas placed on it transforms the canvas into an indestructable plane with texture. LG-2134. Closes #2383
+ 
+ - Technical:
+   - Racial Armor (Toggled off; for future release):
+     - Dwarven set.  (#2366)
+     - Hobbit set. LG-2106
+   - Rename modpack `Tools` -> `Items` (#2351)
+   - `debug_tooltips`: add raw item:name and groups list in tooltips if debug is on.
+   - DevTools: search by group in /list command. LG-1818. Closes #2182
+   - Update annotations `util/ide-helper`. LG-2048
+   - `ide-helper`: update to last version.
+   - `ide-helper`: update version with lua_ext helpers.
+   - `ide-helper`: update to last nightly version with: > Make `ObjectProperties` fields optional > More strict verification via `emmylua_check` (add `--warnings-as-errors`). > Add forgotten `@meta` for `classes/ItemStack.lua`. > `VoxelArea`: fix return types for iterators.
+   - `ide-helper`: just move submodule `util/ide-helper` -> `util/ide-helper/luanti`.
+   - `helpers`: move `term.lua` up from `lua_ext/`.
+   - Generation: add "bone" as node for testing dungeons. LG-2054
+   - `helpers`: add `debug.mesure(name, callback, print_result)` & `debug.mesure_print(name)`.
+   - `helpers`: `debug.measure()` also returns `print_string`; fix all diagnostic warnings
+   - `builtin_ext`: `vector`: ability to pass `n` into "side"-methods; add `:at(side, n)`
+   - `builtin_ext`: `vector`: add `direction_{axis|side}()` helpers; improve annotaion docs.
+   - `builtin_ext`: add `minetest.Mod:measure()` which is measures only if debug mod for mod is on
+   - Docs:
+     - Add `.guides/code-style.ru.md`; move `style_guide.md` -> `.guides/assets-style.ru.md`; add translations `*.en.md`. LG-2077
+     - `development.md`: minor clarifications in release process.
+     - `development.md`: describe submodules troubleshooting.
+   - Gen.Library:
+     - Extend `VoxelArea`: add `:set_data[_param2|light]()`, `:foreach()`,`:set_node_at()`, `:fill_with()` & `:place_pile()`. LG-2049
+     - Extend `VoxelArea`: improve `:place_pile()`: add peak and fillnes. LG-2049
+     - Extend `vector`: add `:at_{north|south|east|west}()` & `:{above|under}()` helpers. Relates to LG-2049
+     - Extend `VoxelArea`: add `:content_of()`, `:is[_not]()`,  `:fill_with()` can take `chance` arg, abbility to break `:foreach()`, improve `:place_pile()` readability. LG-2049.
+     - Extend `VoxelArea`: ability to pass `param2` into `:fill_with()`. LG-2049
+     - Extend `VoxelArea`: reduce cyclomatic complexity. LG-2049
+     - `Voxrame.map` module: `Room` class. LG-2051
+     - Extend `VoxelArea`: fix `:fill_with[_chance]()`. LG-2049 `:foreach()` method does not pass `data_param2`, so we cant use it.
+     - Actualize types and use new `IntegerVector`/`PositionVector` types. LG-2051
+     - Change namespace naming. LG-2051
+     - `Voxrame.map.Cuboid` draft as class. LG-2059
+     - `Voxrame.map.room.Exit` class. LG-2053
+     - Move common methods into `Cuboid` instead `Room`. LG-2059
+     - `VoxelArea`: add `:get_node_{id|name}_at()`. Relates to LG-2049 LG-1829.
+     - Usage example on Orcish Dungeon. LG-2052
+     - Add repositioning method for `Cuboid` & `Exit`. LG-2059 LG-2053
+     - Orcish Example: randomize exit, add random shift; add orcish torches. LG-2052
+     - `Room`: ability to just specify `wall_blocks` in child classes. LG-2051
+     - `wall.Type`: extend with useful helpers. Relates to LG-2058 LG-2060
+     - `Room`: add useful repositioning helpers. Relates to LG-2060
+     - `Room.exits`: now associative array. Relates to LG-2060
+     - Add `Connector`, `Connectabe` interfaces & implemetation for `Exit`,`Room`. LG-2060
+     - Add `Corridor` class. LG-2058
+     - Fix emmylua diagnosting warning. LG-2059
+     - Use new helpers of `vector`. LG-2058 LG-2060
+     - Fix repositioning on connect. LG-2060
+     - `Room`: declarative `Exit`s. LG-2079.
+     - Orcish Example: complete example v1. LG-2052
+   - Mobs:
+     - Move bee from mod mobs to mod bees. LG-2064
+     - Move mod mobs to legacy_mobs. LG-2057
+     - Fix translation after move mod bee. LG-2064
+     - Fix move mod mobs. LG-2057
+     - Added mod 'mobs' (aka 'mobs_redo') as submodule. LG-2078
+   - Smelter:
+     - Added minimal version smelter. LG-2102
+     - Smelter reworking. LG-2111
+     - Added sound of smelter1. LG-2115
+   - Fix warnings about calling `:set_lighting()`/`:calc_lighting()` on not mapgen `VoxelManip`.
+   - Gen.`buildings`: dwarven dungeons: fix linter errors, use some helpers to improve readability.
+   - Underground spawn: get rocks from api. LG-1318 (#2350)
+   - Fix `item_place()` overriden in `protector_lott`.
+   - `lord_beds`: Reduce cyclomatic comlexity.
+   - `icicles`: speed up generation up to 10 times
+   - Annotations: `buildings`: fix emmylua warnings.
+   - Refactoring: buildings: dwafven dungeons: rename files. Relates to LG-2052
+   - `helpers`: `range` type, bug fixes, annotation improvements, Voxrame module init.
+   - Add `Voxrame` (former `./mods/lord/Core/`) as submodule. VX-3.
+   - Rename cli utility into `voxrame`.
+   - Voxrame CLI Hunker: rename `commands/{mod_cmd => mod}`.
+   - Voxrame CLI Hunker: fix emmylua_chaeck after renaming.
+   - Add annotations meta-file for Lummander CLI Library.
+   - Update Voxrame.
+   - `util/voxrame`: fix EmmyLua errors for `mod` command.
+   - CI/CD:
+     - CI: emmylua_check: add 'Errors only' execution variant with filtration.
+     - CI/CD: update used actions versions
+     - Infra: rename config files for staging servers. LI-39.
+     - Actualize stages configs. LI-37
+     - New deployments with different environments. LI-37
+     - Deploy prod(master): fix merge-to-dev: save credentials for next steps.
+   - Add annotations meta-file for LuaFileSystem (lfs) library.
+   - Fix dwarven armor crafts. Relates to #2368. LG-2105
+   - All OptiPNG textures armor
+   - Voxrame submodule is update. VX-13
+   - Fix tech name of `Cloak "Guardian of Minas Tirith"`. LG-2125. LG-2116.
+   - Add `./voxrame each-mod` command. Relates to LG-1954
+   - Distribution: CDB: excleude `Holidays` mod. Relates to #2276 LG-1893
+   - Licansing: add MIT for all `mods/lord/_overwrites/MTG/` mods. LG-2046.
+   - Licansing: add MIT for all `mods/lord/Blocks/ArtisanBenches/` mods. LG-2046.
+   - Licansing: add MIT for remaining `mods/lord/_overwrites/` mods. LG-2046.
+   - Licansing: add MIT for some `mods/lord/Blocks/` mods. LG-2046.
+   - Licensing: add batch of our MIT. LG-2046.
+   - Licensing: add for `hud_modpack`. LG-2046.
+   - Licensing: add batch of our MIT. LG-2046.
+   - Licensing: additional batch of our MIT. LG-2046.
+   - Licensing: add some skipped licenses.
+   - Licensing: add simple `analyze_licenses.py` script.
+   - Licensing: add some our forbidden licenses. LG-2046.
+   - Licensing: `analyze_licenses.py`: fix wrong `proprietary` detetion, add total "distincct" info. LG-2046.
+
 ## [2025.12.p2](https://github.com/lord-server/lord/releases/tag/2025.12.p2)
  - Elven spawn coordinates.
  - Sync production config.
