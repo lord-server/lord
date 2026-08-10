@@ -34,11 +34,8 @@ jobs:
           set -e
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git fetch
-          git checkout master
+          git checkout -B dev origin/dev
           git pull --recurse-submodules
-          git checkout dev --recurse-submodules
-          git submodule init
-          git submodule update
-          git merge master
-          git push
+          git submodule update --init --recursive
+          git merge origin/master --no-edit
+          git push origin dev
