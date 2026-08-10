@@ -27,7 +27,6 @@
     - Данное право не распространяется на:
       - Сторонние моды/модпаки (их лицензии определяются оригинальными правообладателями);
       - Моды, содержащие код третьих лиц с неизменяемыми условиями лицензий (например, GPL, CC-BY-SA).
-      - 
    > The project owner reserves the right to:
    > - Change any project mod's license **to any other license** (including proprietary) at any time.
    > - Notify or obtain consent from contributors **is not required**.
