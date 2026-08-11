@@ -191,7 +191,7 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if protectors_count == 0 then
 		return nil
 	end
-	
+
 	return true
 end
 
@@ -260,7 +260,7 @@ function minetest.is_protected(pos, digger)
 		end
 	end
 
-	-- Situation B: if Protector is the only mod to decide 
+	-- Situation B: if Protector is the only mod to decide
 	--                           OR
 	--              if other mod's opinion is irrelevant
 	if can_dig_result ~= nil then
@@ -297,7 +297,7 @@ function protector.check_old_is_protected_overlap(pos, user)
 			end
 		end
 	end
-	
+
 	return false
 end
 
