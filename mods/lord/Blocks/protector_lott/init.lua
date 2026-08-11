@@ -225,8 +225,10 @@ function protector.punish_for_unauthorized(digger)
 	-- 5. PROFIT
 
 	local dig_player = minetest.get_player_by_name(digger)
-	dig_player:set_hp(dig_player:get_hp()-protector.damage)
-	minetest.after(0.1, protector.drop_wielded_item, digger)
+	if dig_player ~= nil then
+		dig_player:set_hp(dig_player:get_hp()-protector.damage)
+		minetest.after(0.1, protector.drop_wielded_item, digger)
+	end
 end
 
 protector.old_is_protected = minetest.is_protected
