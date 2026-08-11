@@ -115,15 +115,19 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		return true
 	end
 
+	if infolevel == 3 then infolevel = 1 end
+
+	-- bones mod compatibility: the owner of a corpse is allowed to dig it
 	local nodename = minetest.get_node(pos).name
 	local nodedef = minetest.registered_nodes[nodename]
 	if nodedef ~= nil then
 		if nodedef.groups["corpse"] then
-			return true
+			local bones_meta = minetest.get_meta(pos)
+			if bones_meta:get_string("owner") == digger then
+				return true
+			end
 		end
 	end
-
-	if infolevel == 3 then infolevel = 1 end
 
 	-- Find the protector nodes
 
@@ -221,8 +225,10 @@ function protector.punish_for_unauthorized(digger)
 	-- 5. PROFIT
 
 	local dig_player = minetest.get_player_by_name(digger)
-	dig_player:set_hp(dig_player:get_hp()-protector.damage)
-	minetest.after(0.1, protector.drop_wielded_item, digger)
+	if dig_player ~= nil then
+		dig_player:set_hp(dig_player:get_hp()-protector.damage)
+		minetest.after(0.1, protector.drop_wielded_item, digger)
+	end
 end
 
 protector.old_is_protected = minetest.is_protected
