@@ -103,8 +103,9 @@ end
 -- 2 for "This area is owned by <owner>.
 -- 3 for checking protector overlaps
 
--- @return boolean  result   whether digger is allowed to dig in the protector area
--- @return nil      result   there are no protectors nearby
+-- return false if digger is not allowed to dig in the protector area
+-- return true if digger is allowed to dig in the protector area
+-- return nil if there are no protectors nearby
 protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if not digger then return false end
 	if not minetest.get_player_by_name(digger) then return false end
@@ -115,9 +116,7 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		return true
 	end
 
-	if infolevel == 3 then infolevel = 1 end
-
-	-- bones mod compatibility: the owner of a corpse is allowed to dig it
+	-- bones-mod compatibility: the owner of a corpse is allowed to dig it
 	local nodename = minetest.get_node(pos).name
 	local nodedef = minetest.registered_nodes[nodename]
 	if nodedef ~= nil then
@@ -129,13 +128,14 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		end
 	end
 
+	if infolevel == 3 then infolevel = 1 end
+
 	-- Find the protector nodes
 
 	local positions = minetest.find_nodes_in_area(
 		{x = pos.x - r, y = pos.y - r, z = pos.z - r},
 		{x = pos.x + r, y = pos.y + r, z = pos.z + r},
 		{"group:protector"})
-
 
 	local protectors_count = 0
 	local dig_player = minetest.get_player_by_name(digger)
@@ -191,7 +191,7 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if protectors_count == 0 then
 		return nil
 	end
-
+	
 	return true
 end
 
@@ -213,6 +213,7 @@ function protector.drop_wielded_item(digger)
 		player:set_wielded_item("") -- Remove itemstack from inventory
 	end
 end
+
 
 -- Punish the player for unauthorized interaction
 function protector.punish_for_unauthorized(digger)
@@ -240,7 +241,8 @@ protector.old_is_protected = minetest.is_protected
 --                    -----------------------------
 -- return             |  0     1     0   0   1   0
 -- ===============================================
--- Discussion: https://github.com/lord-server/lord/issues/2388
+-- Discussion related to a certain bug in logic when areas protected by two mods overlap:
+-- https://github.com/lord-server/lord/issues/2388
 function minetest.is_protected(pos, digger)
 	local can_dig_result = protector.can_dig(protector.radius, pos, digger, false, 1)
 
@@ -254,12 +256,11 @@ function minetest.is_protected(pos, digger)
 		-- the node is protected if all mods agree on that
 		if not can_dig_result then
 			protector.punish_for_unauthorized(digger)
-
 			return true
 		end
 	end
 
-	-- Situation B: if Protector is the only mod to decide
+	-- Situation B: if Protector is the only mod to decide 
 	--                           OR
 	--              if other mod's opinion is irrelevant
 	if can_dig_result ~= nil then
@@ -273,6 +274,31 @@ function minetest.is_protected(pos, digger)
 		-- if no protectors nearby
 		return false
 	end
+end
+
+--- Check if there is an overlap with another mod's area
+--- @param  pos  Position   position of a protector sign
+--- @param  user string    player name
+--- @return      boolean       true if overlap exists and false if none
+function protector.check_old_is_protected_overlap(pos, user)
+	local x_min = pos.x - protector.radius
+	local x_max = pos.x + protector.radius
+	local y_min = pos.y - protector.radius
+	local y_max = pos.y + protector.radius
+	local z_min = pos.z - protector.radius
+	local z_max = pos.z + protector.radius
+
+	for x = x_min, x_max do
+		for y = y_min, y_max do
+			for z = z_min, z_max do
+				if protector.old_is_protected({x = x, y = y, z = z}, user) then
+					return true
+				end
+			end
+		end
+	end
+	
+	return false
 end
 
 -- Make sure protection block doesn't overlap another protector's area
@@ -291,6 +317,18 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 				if not can_dig_result then
 					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 
+					return protector.old_node_place(itemstack, placer, pos, param2)
+				else
+					-- check if there is a mod that controls whether a node is protected
+					if protector.check_old_is_protected_overlap(pos, user) then
+						minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+						return protector.old_node_place(itemstack, placer, pos, param2)
+					end
+				end
+			else
+				-- check if there is a mod that controls whether a node is protected
+				if protector.check_old_is_protected_overlap(pos, user) then
+					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				end
 			end
