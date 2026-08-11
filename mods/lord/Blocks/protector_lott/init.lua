@@ -286,10 +286,13 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 	    if item_definition.groups and item_definition.groups.protector then
 			local user = placer:get_player_name()
 			local pos  = pointed_thing.under
-			if not protector.can_dig(protector.radius * 2, pos, user, true, 3) then
-				minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+			local can_dig_result = protector.can_dig(protector.radius * 2, pos, user, true, 3)
+			if can_dig_result ~= nil then
+				if not placer_can_dig then
+					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 
-				return protector.old_node_place(itemstack, placer, pos, param2)
+					return protector.old_node_place(itemstack, placer, pos, param2)
+				end
 			end
 	    end
 	end
