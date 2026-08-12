@@ -115,6 +115,8 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		return true
 	end
 
+	if infolevel == 3 then infolevel = 1 end
+
 	-- bones-mod compatibility: the owner of a corpse is allowed to dig it
 	local nodename = minetest.get_node(pos).name
 	local nodedef = minetest.registered_nodes[nodename]
@@ -126,8 +128,6 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 			end
 		end
 	end
-
-	if infolevel == 3 then infolevel = 1 end
 
 	-- Find the protector nodes
 
