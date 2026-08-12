@@ -136,7 +136,6 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		{x = pos.x + r, y = pos.y + r, z = pos.z + r},
 		{"group:protector"})
 
-
 	local protectors_count = 0
 	local dig_player = minetest.get_player_by_name(digger)
 	local meta, owner, members
@@ -275,6 +274,27 @@ function minetest.is_protected(pos, digger)
 	end
 end
 
+--- Check if there is an overlap with another mod's area
+--- @param  pos  Position  position of a protector sign
+--- @param  user string    player name
+--- @return      boolean   true if overlap exists and false if none
+function protector.old_is_protected_overlap(pos, user)
+	local min = vector.add(pos, -protector.radius)
+	local max = vector.add(pos,  protector.radius)
+
+	for x = min.x, max.x do
+		for y = min.y, max.y do
+			for z = min.z, max.z do
+				if protector.old_is_protected({x = x, y = y, z = z}, user) then
+					return true
+				end
+			end
+		end
+	end
+
+	return false
+end
+
 -- Make sure protection block doesn't overlap another protector's area
 
 protector.old_node_place = minetest.item_place
@@ -289,6 +309,23 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 			local can_dig_result = protector.can_dig(protector.radius * 2, pos, user, true, 3)
 			if can_dig_result ~= nil then
 				if not can_dig_result then
+					-- Situation A: a protector nearby forbids placing a new protector here
+					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+
+					return protector.old_node_place(itemstack, placer, pos, param2)
+				else
+					-- Situation B: a protector nearby allows placing a new protector here
+					-- check if there is a mod that controls whether a node is protected
+					if protector.old_is_protected_overlap(pos, user) then
+						minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+
+						return protector.old_node_place(itemstack, placer, pos, param2)
+					end
+				end
+			else
+				-- Situation C: no protectors nearby to allow or forbid placing a new protector here
+				-- check if there is a mod that controls whether a node is protected
+				if protector.old_is_protected_overlap(pos, user) then
 					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 
 					return protector.old_node_place(itemstack, placer, pos, param2)
