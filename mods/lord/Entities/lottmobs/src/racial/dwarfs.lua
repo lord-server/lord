@@ -82,7 +82,7 @@ local drops1 = {
 	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 
-lottmobs.register_dwarf("", 20, 30, textures1, 2, 4, 5, 175, drops1)
+lottmobs.register_dwarf("", 20, 30, textures1, 2, 4, 5, { soul = 100, fleshy = 175 }, drops1)
 
 --Dwarfs with mithril armor & warhammers.
 local textures2 = {
@@ -130,7 +130,7 @@ local drops2 = {
 	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 
-lottmobs.register_dwarf("1", 30, 40, textures2, 2.75, 3.5, 13, 75, drops2)
+lottmobs.register_dwarf("1", 30, 40, textures2, 2.75, 3.5, 13, { soul = 100, fleshy = 75 }, drops2)
 
 --Dwarfs with steel armor & swords.
 local textures3 = {
@@ -177,4 +177,4 @@ local drops3 = {
 	{ name = "lottores:mithril_lump", chance = 50, min = 1, max = 3, },
 }
 
-lottmobs.register_dwarf("2", 25, 25, textures3, 2.5, 3.5, 7, 100, drops3)
+lottmobs.register_dwarf("2", 25, 25, textures3, 2.5, 3.5, 7, { soul = 100, fleshy = 100 }, drops3)

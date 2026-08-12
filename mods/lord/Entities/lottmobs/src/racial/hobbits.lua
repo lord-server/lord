@@ -19,7 +19,7 @@ legacy_mobs:register_mob("lottmobs:hobbit", {
 	view_range = 12,
 	walk_velocity = 1,
 	run_velocity = 3.5,
-	armor = 300,
+	armor = { soul = 100, fleshy = 300 },
 	damage = 3,
 	drops = {
 		{ name = "lottfarming:corn_seed",       chance = 5,  min = 3, max = 10, },

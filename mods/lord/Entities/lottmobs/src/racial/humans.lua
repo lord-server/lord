@@ -18,7 +18,7 @@ legacy_mobs:register_mob("lottmobs:rohan_guard", {
 	view_range = 12,
 	walk_velocity = 2,
 	run_velocity = 3.5,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	damage = 5,
 	drops = {
 		{ name = "lottmobs:horseh1",           chance = 15, min = 1, max = 1, },
@@ -87,7 +87,7 @@ legacy_mobs:register_mob("lottmobs:gondor_guard", {
 	view_range = 12,
 	walk_velocity = 2,
 	run_velocity = 3.5,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	damage = 5,
 	drops = {
 		{ name = "lottweapons:galvorn_warhammer", chance = 35,  min = 1, max = 1, },
@@ -160,7 +160,7 @@ legacy_mobs:register_mob("lottmobs:ithilien_ranger", {
 	view_range = 16,
 	walk_velocity = 2.5,
 	run_velocity = 4,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	damage = 6,
 	drops = {
 		{ name = "default:steel_ingot",           chance = 10, min = 2, max = 5, },

@@ -27,7 +27,7 @@ legacy_mobs:register_mob("lottmobs:battle_troll", {
 		{ name = "lottweapons:copper_warhammer", chance = 10, min = 1, max = 5, },
 	},
 	light_resistant = true,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	drawtype = "front",
 	water_damage = 5,
 	lava_damage = 1,
@@ -76,7 +76,7 @@ legacy_mobs:register_mob("lottmobs:troll", {
 	walk_velocity = 1,
 	run_velocity = 1,
 	damage = 10,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	drops = {
 		{ name = "default:stone",                chance = 5,  min = 1, max = 7, },
 		{ name = "default:stone_with_coal",      chance = 15, min = 1, max = 4, },

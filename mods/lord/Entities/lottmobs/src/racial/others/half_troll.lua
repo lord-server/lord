@@ -16,7 +16,7 @@ legacy_mobs:register_mob("lottmobs:half_troll", {
 	walk_velocity = 1,
 	run_velocity = 3,
 	damage = 4,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	drops = {
 		{ name = "default:sword_steel",      chance = 10, min = 1, max = 1, },
 		{ name = "default:sword_bronze",     chance = 10, min = 1, max = 1, },

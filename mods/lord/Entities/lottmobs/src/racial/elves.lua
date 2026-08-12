@@ -138,7 +138,7 @@ local drops1 = {
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
-lottmobs.register_elf("", 20, 35, textures1, 2.5, 5, 4, 200, drops1)
+lottmobs.register_elf("", 20, 35, textures1, 2.5, 5, 4, { soul = 100, fleshy = 200 }, drops1)
 
 --Elves in full armor
 
@@ -187,7 +187,7 @@ local drops2 = {
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
-lottmobs.register_elf(1, 20, 35, textures2, 2, 4.5, 6, 100, drops2)
+lottmobs.register_elf(1, 20, 35, textures2, 2, 4.5, 6, { soul = 100, fleshy = 100 }, drops2)
 
 --Evels with chestplates and powerfull weapons!
 
@@ -225,7 +225,7 @@ local drops3 = {
 	{ name = "lottores:mithril_lump",         chance = 100, min = 1, max = 2, },
 }
 
-lottmobs.register_elf(2, 20, 35, textures3, 2.25, 4.75, 8, 150, drops3)
+lottmobs.register_elf(2, 20, 35, textures3, 2.25, 4.75, 8, { soul = 100, fleshy = 150 }, drops3)
 
 --Evels with chestplates and bow!
 
@@ -257,4 +257,4 @@ local drops4 = {
 	{ name = "lottarmor:chestplate_silver",   chance = 30, min = 1, max = 1 },
 }
 
-lottmobs.register_elf_archer("", 20, 35, textures4, 2.25, 4.75, 8, 150, drops4)
+lottmobs.register_elf_archer("", 20, 35, textures4, 2.25, 4.75, 8, { soul = 100, fleshy = 150 }, drops4)

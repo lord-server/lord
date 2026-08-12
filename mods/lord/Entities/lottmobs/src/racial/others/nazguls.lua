@@ -37,7 +37,7 @@ legacy_mobs:register_mob("lottmobs:nazgul", {
 		{ name = "lottores:goldsword",        chance = 3, min = 1, max = 1, },
 	},
 	drawtype = "front",
-	armor = 100,
+	armor = { soul = 40, fleshy = 100 },
 	water_damage = 10,
 	lava_damage = 0,
 	light_damage = 0,
@@ -86,7 +86,7 @@ legacy_mobs:register_mob("lottmobs:witch_king", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1,
-	armor = 100,
+	armor = { soul = 20, fleshy = 100 },
 	run_velocity = 3,
 	damage = 12,
 	drops = {

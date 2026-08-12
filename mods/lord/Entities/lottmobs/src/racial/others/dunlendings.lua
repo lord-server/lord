@@ -17,7 +17,7 @@ legacy_mobs:register_mob("lottmobs:dunlending", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1,
-	armor = 200,
+	armor = { soul = 100, fleshy = 100 },
 	run_velocity = 3,
 	damage = 3,
 	drops = {

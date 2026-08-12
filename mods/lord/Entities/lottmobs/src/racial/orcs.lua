@@ -29,7 +29,7 @@ legacy_mobs:register_mob("lottmobs:orc", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1.5,
-	armor = 200,
+	armor = { soul = 100, fleshy = 200 },
 	run_velocity = 3,
 	damage = 2,
 	drops = {
@@ -99,7 +99,7 @@ legacy_mobs:register_mob("lottmobs:orc_crossbowman", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1.5,
-	armor = 200,
+	armor = { soul = 100, fleshy = 200 },
 	run_velocity = 3,
 	damage = 2,
 	drops = {
@@ -175,7 +175,7 @@ legacy_mobs:register_mob("lottmobs:orc_archer", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1.5,
-	armor = 200,
+	armor = { soul = 100, fleshy = 200 },
 	run_velocity = 3,
 	damage = 2,
 	drops = {
@@ -245,7 +245,7 @@ legacy_mobs:register_mob("lottmobs:raiding_orc", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1,
-	armor = 200,
+	armor = { soul = 100, fleshy = 200 },
 	run_velocity = 3,
 	damage = 3,
 	drops = {
@@ -311,7 +311,7 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 	makes_footstep_sound = true,
 	view_range = 15,
 	walk_velocity = 1,
-	armor = 100,
+	armor = { soul = 100, fleshy = 100 },
 	run_velocity = 3,
 	damage = 4,
 	drops = {

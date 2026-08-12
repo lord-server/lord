@@ -16,7 +16,7 @@ legacy_mobs:register_mob("lottmobs:ent", {
 	makes_footstep_sound = true,
 	walk_velocity = 1,
 	run_velocity = 1.5,
-	armor = 100,
+	armor = { soul = 20, fleshy = 100 },
 	damage = 5,
 	drops = {
 		{ name = "default:sapling",               chance = 5, min = 1, max = 3, },
