@@ -253,6 +253,7 @@ function minetest.is_protected(pos, digger)
 		-- the node is protected if all mods agree on that
 		if not can_dig_result then
 			protector.punish_for_unauthorized(digger)
+
 			return true
 		end
 	end
