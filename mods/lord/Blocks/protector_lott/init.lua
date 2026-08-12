@@ -278,17 +278,21 @@ end
 --- @param  pos  Position  position of a protector sign
 --- @param  user string    player name
 --- @return      boolean   true if overlap exists and false if none
-function protector.check_old_is_protected_overlap(pos, user)
-	local x_min = pos.x - protector.radius
-	local x_max = pos.x + protector.radius
-	local y_min = pos.y - protector.radius
-	local y_max = pos.y + protector.radius
-	local z_min = pos.z - protector.radius
-	local z_max = pos.z + protector.radius
+function protector.old_is_protected_overlap(pos, user)
+	local min = {
+		x = pos.x - protector.radius,
+		y = pos.y - protector.radius,
+		z = pos.z - protector.radius,
+		}
+	local max = {
+		x = pos.x + protector.radius,
+		y = pos.y + protector.radius,
+		z = pos.z + protector.radius,
+		}
 
-	for x = x_min, x_max do
-		for y = y_min, y_max do
-			for z = z_min, z_max do
+	for x = min.x, max.x do
+		for y = min.y, max.y do
+			for z = min.z, max.z do
 				if protector.old_is_protected({x = x, y = y, z = z}, user) then
 					return true
 				end
@@ -318,14 +322,14 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				else
 					-- check if there is a mod that controls whether a node is protected
-					if protector.check_old_is_protected_overlap(pos, user) then
+					if protector.old_is_protected_overlap(pos, user) then
 						minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 						return protector.old_node_place(itemstack, placer, pos, param2)
 					end
 				end
 			else
 				-- check if there is a mod that controls whether a node is protected
-				if protector.check_old_is_protected_overlap(pos, user) then
+				if protector.old_is_protected_overlap(pos, user) then
 					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				end
