@@ -1,5 +1,16 @@
 # Change Log
 
+## [2025.12.p4](https://github.com/lord-server/lord/releases/tag/2025.12.p4)
+ - Fix players able to unconditionally remove corpses from protected territory.  LG-2167. Closes #2390. (#2391)
+ - CI: fix merging `master` -> `dev`.
+ - Fix server crash. LG-2168. Closes #2393
+ - Distribution: CDB: our `worledit_ext` now does not require `worldedit`. LG-2171
+ - Update `Voxrame`: `term.supports_ansi`, projectiles `on_blast()`, no explosion in nazgul area.
+ - Fix protection sign placement failure. LG-2172. Closes #2396 (#2397)
+ - Disallow protector sign placement if a node in radius is protected from the player by other mod. LG-2174. Closes #2398 (#2400)
+ - Fix: wrong texture name for achievements. Closes #2335. Closes #2386. LG-2067.
+ - Mobs: add `soul` damage for racial mobs. Closes #2024. LG-2175.
+
 ## [2025.12.p3](https://github.com/lord-server/lord/releases/tag/2025.12.p3)
  - Textures:
    - New textures of wool and add source file. LG-2013
