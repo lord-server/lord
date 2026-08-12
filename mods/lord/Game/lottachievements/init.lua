@@ -108,7 +108,7 @@ lottachievements.register_achievement("silver_stringed_music", {
 lottachievements.register_achievement("express_miner", {
 	title       = S("Express Miner"),
 	description = S("Craft a mithril pickaxe"),
-	icon        = "lottores_mithrilpick.png",
+	icon        = "tools_pick_mithril.png",
 	id          = 5,
 	trigger     = {
 		type   = "craft",
@@ -553,7 +553,7 @@ lottachievements.register_achievement("lord_of_moria", {
 lottachievements.register_achievement("little_cave", {
 	title       = S("Little cave"),
 	description = S("Dig out 100 of cobblestone"),
-	icon        = "lottores_goldpick.png^lottachievements_level1.png",
+	icon        = "tools_pick_gold.png^lottachievements_level1.png",
 	secret      = true,
 	id          = 42,
 	trigger     = {
@@ -566,7 +566,7 @@ lottachievements.register_achievement("little_cave", {
 lottachievements.register_achievement("miner", {
 	title       = S("Miner"),
 	description = S("Dig out 1000 of cobblestone"),
-	icon        = "lottores_goldpick.png^lottachievements_level2.png",
+	icon        = "tools_pick_gold.png^lottachievements_level2.png",
 	secret      = true,
 	requires    = "little_cave",
 	id          = 43,
@@ -580,7 +580,7 @@ lottachievements.register_achievement("miner", {
 lottachievements.register_achievement("pick_man", {
 	title       = S("Pick-man"),
 	description = S("Dig out 10000 of cobblestone"),
-	icon        = "lottores_goldpick.png^lottachievements_level3.png",
+	icon        = "tools_pick_gold.png^lottachievements_level3.png",
 	secret      = true,
 	requires    = "miner",
 	id          = 44,
