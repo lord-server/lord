@@ -103,9 +103,8 @@ end
 -- 2 for "This area is owned by <owner>.
 -- 3 for checking protector overlaps
 
--- return false if digger is not allowed to dig in the protector area
--- return true if digger is allowed to dig in the protector area
--- return nil if there are no protectors nearby
+-- @return boolean  result   whether digger is allowed to dig in the protector area
+-- @return nil      result   there are no protectors nearby
 protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if not digger then return false end
 	if not minetest.get_player_by_name(digger) then return false end
@@ -213,7 +212,6 @@ function protector.drop_wielded_item(digger)
 		player:set_wielded_item("") -- Remove itemstack from inventory
 	end
 end
-
 
 -- Punish the player for unauthorized interaction
 function protector.punish_for_unauthorized(digger)
