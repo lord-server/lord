@@ -317,6 +317,7 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 					-- check if there is a mod that controls whether a node is protected
 					if protector.old_is_protected_overlap(pos, user) then
 						minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+
 						return protector.old_node_place(itemstack, placer, pos, param2)
 					end
 				end
@@ -325,6 +326,7 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 				-- check if there is a mod that controls whether a node is protected
 				if protector.old_is_protected_overlap(pos, user) then
 					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				end
 			end
