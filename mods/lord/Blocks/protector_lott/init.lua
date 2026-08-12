@@ -277,9 +277,9 @@ function minetest.is_protected(pos, digger)
 end
 
 --- Check if there is an overlap with another mod's area
---- @param  pos  Position   position of a protector sign
+--- @param  pos  Position  position of a protector sign
 --- @param  user string    player name
---- @return      boolean       true if overlap exists and false if none
+--- @return      boolean   true if overlap exists and false if none
 function protector.check_old_is_protected_overlap(pos, user)
 	local x_min = pos.x - protector.radius
 	local x_max = pos.x + protector.radius
