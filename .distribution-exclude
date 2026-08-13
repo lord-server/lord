@@ -28,6 +28,7 @@
 /mods/lord/World/arena/*
 /mods/lord/World/lord_events/*
 /mods/lord/World/lord_spawns/*
+/mods/Voxrame/http/*
 /util/*
 .distribution-exclude
 .editorconfig
