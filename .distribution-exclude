@@ -3,6 +3,7 @@
 /.guides/*
 /.vscode/*
 /mods/_minetest_game/up
+/mods/_various/WorldEdit/worldedit_gui/*
 /mods/lord/_experimental/*
 /mods/lord/Blocks/Holidays/*
 /mods/lord/Blocks/clan_node/*
@@ -19,6 +20,7 @@
 /mods/lord/Game/lord_names_rules/*
 /mods/lord/Game/lord_web_api/*
 /mods/lord/Game/lord_web_integration/*
+/mods/lord/Game/server_message/*
 /mods/lord/Player/clans/*
 /mods/lord/Items/clans_clothes/*
 /mods/lord/Items/clans_tools/*
