@@ -12,13 +12,13 @@ local ChooseRaceForm = {
 	--- @static
 	--- @private
 	--- @type string[] list of available races to choose. Filled dynamically once on first `:get_spec()` call.
-	races_list = nil,
+	races_list = nil,    --- @diagnostic disable-line: assign-type-mismatch
 	-- TODO: extract into gui.color.COMMAND #2150
 	--- @type string
 	commands_color = '#8ff',
 	--- @private
 	--- @type string unique name of form-user choice, that indicates by which code the form was opened (for form-users)
-	opened_by = nil,
+	opened_by = nil,     --- @diagnostic disable-line: assign-type-mismatch
 	--- @private
 	--- @type number
 	selected_race_index = 1,
@@ -151,7 +151,9 @@ function ChooseRaceForm:handle(fields)
 
 	if (fields.race or fields.gender) and not fields.ok and not fields.quit and not fields.cancel then
 		self.event:trigger(self.event.Type.on_switch, self, race, gender)
-		self:open(lord_spawns.has_several, race)
+		-- In some single player builds (for example, for CDB) there is no mod `lord_spawns`
+		local show_will_tp_info = rawget(_G, 'lord_spawns') and lord_spawns.has_several
+		self:open(show_will_tp_info, race)
 
 		return
 	end
