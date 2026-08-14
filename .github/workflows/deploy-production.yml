@@ -20,22 +20,5 @@ jobs:
     secrets: inherit
 
   merge-to-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-        with:
-          submodules: recursive
-          fetch-depth: 0
-          token: ${{ secrets.GH_TOKEN }}
-          persist-credentials: true
-      - name: Merge `master` -> `dev`
-        run: |
-          set -e
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -B dev origin/dev
-          git pull --recurse-submodules
-          git submodule update --init --recursive
-          git merge origin/master --no-edit
-          git push origin dev
+    uses: ./.github/workflows/job.merge.yml
+    secrets: inherit
