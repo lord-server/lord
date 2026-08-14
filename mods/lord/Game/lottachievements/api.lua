@@ -17,6 +17,8 @@ local S = minetest.get_mod_translator()
 
 dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
 
+local is_new_world = not io.file_exists(core.get_worldpath()..'/env_meta.txt')
+
 -- Table Save Load Functions
 function lottachievements.save()
 	local file_name = minetest.get_worldpath().."/lottachievements.txt"
@@ -40,12 +42,14 @@ function lottachievements.init()
 end
 
 function lottachievements.load()
-	local content, _, error_message = io.read_from_file(minetest.get_worldpath().."/lottachievements.txt")
+	local content, _, error_message = io.read_from_file(core.get_worldpath().."/lottachievements.txt")
 	if not content then
-		minetest.log(
-			"error",
-			"Can't read file `/lottachievements.txt`" .. (error_message and (": " .. error_message) or "")
-		)
+		if not is_new_world then
+			core.log(
+				"error",
+				"Can't read file `/lottachievements.txt`" .. (error_message and (": " .. error_message) or "")
+			)
+		end
 
 		return {}
 	end
