@@ -21,4 +21,3 @@ jobs:
 
   merge-to-dev:
     uses: ./.github/workflows/job.merge.yml
-    secrets: inherit
