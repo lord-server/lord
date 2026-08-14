@@ -1,5 +1,11 @@
 # Change Log
 
+## [2025.12.p5](https://github.com/lord-server/lord/releases/tag/2025.12.p5)
+ - Fix: choose race: no teleport in if no `lord_spawns` mod. Fix LG-2176.
+ - Distribution: CDB: remove `server_message`, `worldedit_gui`. LG-2177.
+ - Distribution: CDB: remove `http` mod. LG-2178.
+ - Distribution: CDB: Fix "Can't read file `/lottachievements.txt`" when start new world. LG-2179.
+
 ## [2025.12.p4](https://github.com/lord-server/lord/releases/tag/2025.12.p4)
  - Fix players able to unconditionally remove corpses from protected territory.  LG-2167. Closes #2390. (#2391)
  - CI: fix merging `master` -> `dev`.
