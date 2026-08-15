@@ -18,6 +18,10 @@ trim_trailing_whitespace = false
 [minetest.conf.example*]
 trim_trailing_whitespace = false
 
+[*.yml,*.yaml]
+indent_style = space
+indent_size = 2
+
 
 
 # see https://github.com/CppCXY/EmmyLuaCodeStyle
