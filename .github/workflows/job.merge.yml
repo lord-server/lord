@@ -1,0 +1,25 @@
+
+name: Merge `master` -> `dev`
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  merge-to-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Merge `master` -> `dev`
+        run: |
+          set -e
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git fetch origin dev master
+          git checkout dev
+          git merge master --no-edit
+          git push origin dev
