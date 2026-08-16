@@ -20,6 +20,6 @@ jobs:
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git fetch origin dev master
-          git checkout dev
-          git merge master --no-edit
+          git checkout -B dev origin/dev
+          git merge origin/master --no-edit
           git push origin dev
