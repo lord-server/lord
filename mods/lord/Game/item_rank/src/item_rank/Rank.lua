@@ -1,5 +1,4 @@
 --- @class item_rank.Rank
---- 
 --- @field code string
 --- @field color string
 --- @field title string
