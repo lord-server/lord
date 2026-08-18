@@ -1,6 +1,6 @@
-local Type = require('item_rank.Type')
+local Type       = require('item_rank.Type')
 local Collection = require('item_rank.Collection')
-local config = require('item_rank.config')
+local config     = require('item_rank.config')
 
 
 item_rank = {} -- luacheck: ignore unused global variable item_rank
