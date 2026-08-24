@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @param stack ItemStack
@@ -6,7 +6,7 @@ local S = minetest.get_mod_translator()
 --- @return boolean
 local function has_wear(stack, player)
 	if stack:get_wear() > 0 then
-		minetest.chat_send_player(player:get_player_name(),
+		core.chat_send_player(player:get_player_name(),
 				S("The item must be wear-free: ") .. stack:get_short_description())
 		return true
 	end
@@ -151,15 +151,15 @@ shop.formspec = {
 }
 
 shop.player_has_access = function(player, shop_pos)
-	local meta = minetest.get_meta(shop_pos)
+	local meta = core.get_meta(shop_pos)
 	local owner_name = meta:get_string("owner")
 	local members = meta:get_string("members")
 	local player_name = player:get_player_name()
-	local is_admin = minetest.get_player_privs(player_name).server
+	local is_admin = core.get_player_privs(player_name).server
 	return player_name == owner_name or is_admin or string.find(" "..members.." ", " "..player_name.." ") , is_admin
 end
 
-minetest.register_node("lord_money:shop", {
+core.register_node("lord_money:shop", {
 	description = S("Exchange Shop"),
 	tiles = { "shop_chest_top.png", "default_chest_top.png", "default_chest_side.png",
 		"default_chest_side.png", "default_chest_side.png", "default_chest_lock.png" },
@@ -168,7 +168,7 @@ minetest.register_node("lord_money:shop", {
 	sounds = default.node_sound_wood_defaults(),
 	after_place_node = function(pos, placer, _)
 		local owner = placer:get_player_name()
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", S("Exchange Shop (owned by @1)", tostring(owner)))
 		meta:set_string("owner", owner)
 		meta:set_string("is_endless", "false")
@@ -181,7 +181,7 @@ minetest.register_node("lord_money:shop", {
 	end,
 
 		on_rightclick = function(pos, _, clicker, _)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local owner = meta:get_string("owner")
 			meta:set_string("infotext", S("Exchange Shop (owned by @1)", tostring(owner)))
 		local user_name = clicker:get_player_name()
@@ -193,11 +193,11 @@ minetest.register_node("lord_money:shop", {
 			local inv = meta:get_inventory()
 			inv:set_size("customers_gave", 8*2)
 			inv:set_size("stock", 8*2)
-			minetest.show_formspec(user_name,"lord_money:shop_formspec", shop.formspec.configurator(pos, is_admin, is_endless))
+			core.show_formspec(user_name,"lord_money:shop_formspec", shop.formspec.configurator(pos, is_admin, is_endless))
 		else
 			clicker:get_inventory():set_size("customer_gives", 8*2)
 			clicker:get_inventory():set_size("customer_gets", 8*2)
-			minetest.show_formspec(user_name, "lord_money:shop_formspec", shop.formspec.customer(pos))
+			core.show_formspec(user_name, "lord_money:shop_formspec", shop.formspec.customer(pos))
 		end
 	end,
 
@@ -206,7 +206,7 @@ minetest.register_node("lord_money:shop", {
 			return 0
 		end
 
-		local stack_from = minetest.get_meta(pos):get_inventory():get_stack(from_list, from_index)
+		local stack_from = core.get_meta(pos):get_inventory():get_stack(from_list, from_index)
 		if has_wear(stack_from, player) then
 			return 0
 		end
@@ -234,7 +234,7 @@ minetest.register_node("lord_money:shop", {
 	end,
 
 	can_dig = function(pos, _)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv  = meta:get_inventory()
 
 		return inv:is_empty("stock") and
@@ -244,13 +244,13 @@ minetest.register_node("lord_money:shop", {
 	end
 })
 
-minetest.register_craftitem("lord_money:license", {
+core.register_craftitem("lord_money:license", {
 	description = S("Trade License"),
 	inventory_image = "shop_license.png",
 	groups = { not_in_creative_inventory=1, book=1, paper=1 },
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lord_money:shop",
 	recipe = { "lord_money:license", "default:chest_locked" }
@@ -259,10 +259,10 @@ minetest.register_craft({
 local function is_selling(name, pos, shop_inv)
 	-- ПРОВЕРКА НАЛИЧИЯ ЦЕНЫ И ПРЕДЛОЖЕНИЯ
 	if shop_inv:is_empty("owner_wants") or shop_inv:is_empty("owner_gives") then
-		minetest.log("action", string.format(
-			"магазин %s - игрок %s пытался совершить обмен, "..
-			"но в магазине пусты ячейки цены или предложения.", pos, name))
-		minetest.chat_send_player(name, S("Exchange shop is out of service, please contact the seller"))
+		core.log("action", string.format(
+			"shop %s - player %s tried to make an exchange, "..
+			"but the shop has empty price or offer cells.", pos, name))
+		core.chat_send_player(name, S("Exchange shop is out of service, please contact the seller"))
 		return
 	end
 	return true
@@ -272,9 +272,9 @@ local function check_enough_items_in_wants(name, pos, player_inv, wants)
 	-- ПРОВЕРКА СООТВЕТСТВИЯ ОПЛАТЫ ЦЕНЕ
 	for _, stack in pairs(wants) do
 		if not player_inv:contains_item("customer_gives", stack, true) then --If false, only the items' names are compared
-			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить "..
-				"обмен, но его оплата не соответствует цене.", pos, name))
-			minetest.chat_send_player(name, S("Unable to perform the exchange: not enough required items."))
+			core.log("action", string.format("shop %s - player %s tried to make an exchange, "..
+				"but his payment does not match the price.", pos, name))
+			core.chat_send_player(name, S("Unable to perform the exchange: not enough required items."))
 			return
 		end
 	end
@@ -285,9 +285,9 @@ local function check_empty_slots_in_gives(name, pos, player_inv, gives)
 	-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА В СТЭКЕ "Приобретённый товар"
 	for _, stack in pairs(gives) do
 		if not player_inv:room_for_item("customer_gets", stack) then
-			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить "..
-				"обмен, но у него не оказалось свободного места.", pos, name))
-			minetest.chat_send_player(name, S("Unable to perform the exchange: nowhere to put your revenue, "..
+			core.log("action", string.format("shop %s - player %s tried to make an exchange, "..
+				"but he had no free space.", pos, name))
+			core.chat_send_player(name, S("Unable to perform the exchange: nowhere to put your revenue, "..
 			 "please clear the 'Recieved' inventory."))
 			return
 		end
@@ -299,9 +299,9 @@ local function check_stock(name, pos, shop_inv, gives)
 	-- ПРОВЕРКА НАЛИЧИЯ ТОВАРА НА СКЛАДЕ
 	for _, stack in pairs(gives) do
 		if not shop_inv:contains_item("stock", stack, true) then --If false, only the items' names are compared
-			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить"..
-				"обмен, но товар на складе кончился.", pos, name))
-			minetest.chat_send_player(name, S("Unable to perform an exchange: the shop is out of stock."))
+			core.log("action", string.format("shop %s - player %s tried to make an exchange, "..
+				"but the product ran out on the warehouse.", pos, name))
+			core.chat_send_player(name, S("Unable to perform an exchange: the shop is out of stock."))
 
 			return false
 		end
@@ -313,9 +313,9 @@ local function check_storage(name, pos, shop_inv, wants)
 	-- ПРОВЕРКА НАЛИЧИЯ СВОБОДНОГО МЕСТА НА СКЛАДЕ
 	for _, stack in pairs(wants) do
 		if not shop_inv:room_for_item("customers_gave", stack) then
-			minetest.log("action", string.format("магазин %s - игрок %s пытался совершить"..
-				"обмен, но на складе недостаточно свободного места.", pos, name))
-			minetest.chat_send_player(name, S("Unable to perform an exchange: the storage is full."))
+			core.log("action", string.format("shop %s - player %s tried to make an exchange, "..
+				"but there is not enough free space on the warehouse.", pos, name))
+			core.chat_send_player(name, S("Unable to perform an exchange: the storage is full."))
 
 			return false
 		end
@@ -360,7 +360,7 @@ local function exchange(sender, name, pos, meta, player_inv, is_endless)
 	take_items(player_inv, is_endless, shop_inv, wants)
 	give_items(player_inv, is_endless, shop_inv, gives)
 
-	minetest.log("action", string.format("магазин %s - игрок %s успешно произвёл обмен.",
+	core.log("action", string.format("shop %s - player %s successfully made an exchange.",
 			pos, name))
 	return true
 end
@@ -369,7 +369,7 @@ local function on_close_shop(sender, player_inv)
 	for _, list in pairs({ "customer_gives", "customer_gets" }) do
 		if not player_inv:is_empty(list) then
 			for i, stack in ipairs(player_inv:get_list(list)) do
-				minetest.give_or_drop(sender, stack)
+				core.give_or_drop(sender, stack)
 				player_inv:set_stack(list, i, nil) -- Удаляем элемент i из list
 			end
 		end
@@ -377,29 +377,29 @@ local function on_close_shop(sender, player_inv)
 end
 
 local function show_whitelist(name, pos, meta, is_admin, is_endless)
-	if name == meta:get_string("owner") or minetest.get_player_privs(name).server then
-		minetest.show_formspec(name,"lord_money:shop_formspec",
-			shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+	if name == meta:get_string("owner") or core.get_player_privs(name).server then
+		core.show_formspec(name,"lord_money:shop_formspec",
+			shop.formspec.configurator_whitelist(core.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
 		)
 	else
-		minetest.chat_send_player(name, S("You are not the owner of this shop!"))
+		core.chat_send_player(name, S("You are not the owner of this shop!"))
 	end
 end
 
 local function hide_whitelist(name, pos, is_admin, is_endless)
-	minetest.show_formspec(name,"lord_money:shop_formspec",
-				shop.formspec.configurator(minetest.string_to_pos(pos), is_admin, is_endless)
+	core.show_formspec(name,"lord_money:shop_formspec",
+				shop.formspec.configurator(core.string_to_pos(pos), is_admin, is_endless)
 			)
 end
 
 local function whitelist_add_member(name, pos, meta, is_admin, is_endless, fields)
-	if name == meta:get_string("owner") or minetest.get_player_privs(name).server then
+	if name == meta:get_string("owner") or core.get_player_privs(name).server then
 		add_member(meta, fields.add_member)
-		minetest.show_formspec(name,"lord_money:shop_formspec",
-			shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+		core.show_formspec(name,"lord_money:shop_formspec",
+			shop.formspec.configurator_whitelist(core.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
 		)
 	else
-		minetest.chat_send_player(name, S("You are not the owner of this shop!"))
+		core.chat_send_player(name, S("You are not the owner of this shop!"))
 	end
 
 end
@@ -417,12 +417,12 @@ end
 local function delete_members(name, pos, meta, is_admin, is_endless, fields)
 	for field, _ in pairs(fields) do
 		if string.find(field, "delete_member_") and (
-			name == meta:get_string("owner") or minetest.get_player_privs(name).server
+			name == meta:get_string("owner") or core.get_player_privs(name).server
 		) then
 			local member = string.replace(field, "delete_member_", "")
 			remove_member(meta, member)
-			minetest.show_formspec(name,"lord_money:shop_formspec",
-				shop.formspec.configurator_whitelist(minetest.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
+			core.show_formspec(name,"lord_money:shop_formspec",
+				shop.formspec.configurator_whitelist(core.string_to_pos(pos), is_admin, is_endless,  get_members_list(meta))
 			)
 		end
 	end
@@ -431,36 +431,36 @@ end
 local function exchange_handle(sender, name, pos, meta, player_inv, is_endless, fields)
 	if fields.exchange then -- нажата кнопка "купить"
 		exchange(sender, name, pos, meta, player_inv, is_endless)
-		minetest.chat_send_player(name, S("Exchanged 1!"))
+		core.chat_send_player(name, S("Exchanged 1!"))
 	elseif fields.exchange_ten then -- нажата кнопка "купить 10"
 		for i = 1, 10 do
 			if not exchange(sender, name, pos, meta, player_inv, is_endless) then
-				minetest.chat_send_player(name, S("Exchanged @1!", tostring(i)))
+				core.chat_send_player(name, S("Exchanged @1!", tostring(i)))
 				return
 			end
 			if i == 10 then
-				minetest.chat_send_player(name, S("Exchanged @1!", tostring(i)))
+				core.chat_send_player(name, S("Exchanged @1!", tostring(i)))
 			end
 		end
 	elseif fields.exchange_all then -- нажата кнопка "купить всё"
 		while true do
 			if not exchange(sender, name, pos, meta, player_inv, is_endless) then
-				minetest.chat_send_player(name, S("Everything is exchanged!"))
+				core.chat_send_player(name, S("Everything is exchanged!"))
 				return
 			end
 		end
 	end
 end
 
-minetest.register_on_player_receive_fields(
+core.register_on_player_receive_fields(
 	function(sender, formname, fields)
 		if formname ~= "lord_money:shop_formspec" then return end-- проверка соответсвия формы
 		local name       = sender:get_player_name() -- имя покупателя
-		local pos        = minetest.pos_to_string(shop.current_shop[name]) -- коорд-ы магазина для логов
-		local meta       = minetest.get_meta(shop.current_shop[name]) -- метаданные магазина
+		local pos        = core.pos_to_string(shop.current_shop[name]) -- коорд-ы магазина для логов
+		local meta       = core.get_meta(shop.current_shop[name]) -- метаданные магазина
 		local player_inv = sender:get_inventory() --инвентари покупателя
 		local is_endless = (meta:get_string("is_endless") == "true")
-		local is_admin   = minetest.get_player_privs(name).server
+		local is_admin   = core.get_player_privs(name).server
 
 		if fields.is_endless then
 			meta:set_string("is_endless", fields.is_endless)
