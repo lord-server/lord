@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- Функция зажигания фонаря при ударе факелом
@@ -13,14 +13,14 @@ local function ignite(pos, node, puncher, pointed_thing)
 	--- @cast puncher Player -- мы выше проверили, что это игрок
 	local player_name = puncher:get_player_name()
 
-	if player_name and minetest.is_protected(pos, player_name) then
+	if player_name and core.is_protected(pos, player_name) then
 		return
 	end
 	-- Проверка факела в руке
 	if puncher:get_wielded_item():get_name() == 'default:torch' then
 		-- Проверка незажженного фонаря
 		if node.name == 'halloween:jack_o_lantern_unlit' then
-			minetest.swap_node(pos, { name = 'halloween:jack_o_lantern', param2 = node.param2 })
+			core.swap_node(pos, { name = 'halloween:jack_o_lantern', param2 = node.param2 })
 		end
 	end
 end
@@ -35,22 +35,22 @@ local function extinguish(pos, node, clicker)
 	end
 	local player_name = clicker:get_player_name()
 
-	if player_name and minetest.is_protected(pos, player_name) then
+	if player_name and core.is_protected(pos, player_name) then
 		return
 	end
 	-- Проверка пустой руки
 	if clicker:get_wielded_item():get_name() == '' then
 		-- Если фонарь зажжен - гасим его
 		if node.name == 'halloween:jack_o_lantern' then
-			minetest.swap_node(pos, { name = 'halloween:jack_o_lantern_unlit', param2 = node.param2 })
+			core.swap_node(pos, { name = 'halloween:jack_o_lantern_unlit', param2 = node.param2 })
 		end
 	end
 end
 
 local function register_jack_o_lantern_nodes()
-	local jack_o_lantern_color_description = S('Jack-o-lantern') .. '\n' .. S('Halloween сollection')
+	local jack_o_lantern_color_description = S('Jack-o-lantern') .. '\n' .. S('Halloween collection')
 
-	minetest.register_node('halloween:jack_o_lantern', {
+	core.register_node('halloween:jack_o_lantern', {
 		description         = jack_o_lantern_color_description,
 		light_source        = 12,
 		tiles               = {
@@ -73,7 +73,7 @@ local function register_jack_o_lantern_nodes()
 		end,
 	})
 
-	minetest.register_node('halloween:jack_o_lantern_unlit', {
+	core.register_node('halloween:jack_o_lantern_unlit', {
 		description         = jack_o_lantern_color_description,
 		tiles               = {
 			'lottfarming_pumpkin_top.png',
@@ -94,7 +94,7 @@ local function register_jack_o_lantern_nodes()
 		end,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'halloween:jack_o_lantern',
 		recipe = {
 			{ 'default:torch', 'default:torch',         'default:torch' },
