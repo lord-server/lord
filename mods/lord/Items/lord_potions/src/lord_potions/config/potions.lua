@@ -103,7 +103,7 @@ local config = {
 			['+3'] = { amount = 1.5, duration = 20, },
 		},
 		description =
-			S('А strong stimulating drink of the elves.') .. '\n' ..
+			S('A strong stimulating drink of the elves.') .. '\n' ..
 			S('A potion that allows you to jump higher,') .. '\n' ..
 			S('    as if invisible wings were lifting you into the air.'),
 		crafting    = {

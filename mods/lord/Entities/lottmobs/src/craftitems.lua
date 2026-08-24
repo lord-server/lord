@@ -117,7 +117,7 @@ minetest.register_craftitem("lottmobs:horsemeat_cooked", {
 })
 
 minetest.register_craftitem("lottmobs:chicken_cooked", {
-	description     = S("Cooked Chiсken"),
+	description     = S("Cooked Chicken"),
 	inventory_image = "lottmobs_chicken_cooked.png",
 	on_use          = minetest.item_eat(11),
 	_tt_food_hp     = 11,
