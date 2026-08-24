@@ -1,22 +1,27 @@
-local table_is_empty
-	= table.is_empty
+local table_is_empty, pairs, ipairs
+    = table.is_empty, pairs, ipairs
+
+-- no use `.get_mod_translator()`, we do not want to have extra dependencies
+-- maybe it will be a separate mod in the future
+local S = core.get_translator('mega_sl')
+
 
 --- @param pos1 Position
 --- @param pos2 Position
 --- @param filename string
 --- @param player_name string
 local function save_schematic(pos1, pos2, filename, player_name)
-	if minetest.create_schematic(pos1, pos2, worldedit.prob_list[player_name], filename) then
-		minetest.chat_send_player(player_name, "Ландшафт записан в файл ".. filename)
+	if core.create_schematic(pos1, pos2, worldedit.prob_list[player_name], filename) then
+		core.chat_send_player(player_name, S('The landscape is written to file ') .. filename)
 	else
-		minetest.chat_send_player(player_name, "Ошибка записи ландшафта") return
+		core.chat_send_player(player_name, S('Landscape writting error')) return
 	end
 end
 
--- Можно это заменить на использование `VoxelArea:iterp()`, но работает и так быстро
+-- It can be replaced with `VoxelArea:iterp()`, but it works fast enough
 --- @param pos1 Position
 --- @param pos2 Position
---- @param callback fun(x:number,y:number,z:number)
+--- @param callback fun(x:integer,y:integer,z:integer)
 local function iterate_cube(pos1, pos2, callback)
 	for x = pos1.x, pos2.x do
 		for y = pos1.y, pos2.y do
@@ -35,12 +40,12 @@ local function save_meta_data(pos1, pos2, filename, player_name)
 	local data = {}
 	iterate_cube(pos1, pos2, function(x, y, z)
 		local pos = {x=x, y=y, z=z}
-		local node = minetest.get_node(pos)
-		if node.name == "air" or node.name == "ignore" then
+		local node = core.get_node(pos)
+		if node.name == 'air' or node.name == 'ignore' then
 			return
 		end
 
-		local meta = minetest.get_meta(pos):to_table()
+		local meta = core.get_meta(pos):to_table() --[[@as table]]
 		-- Convert metadata item stacks to item strings
 		for _, inventory in pairs(meta.inventory) do
 			for index, stack in ipairs(inventory) do
@@ -52,41 +57,45 @@ local function save_meta_data(pos1, pos2, filename, player_name)
 			not table_is_empty(meta.inventory)
 		then
 			table.insert(data, {
-				pos = minetest.pos_to_string({x = x-pos1.x, y = y-pos1.y, z = z-pos1.z}),
+				pos = core.pos_to_string({x = x-pos1.x, y = y-pos1.y, z = z-pos1.z}),
 				fields = meta.fields,
 				inventory = meta.inventory,
 			})
 		end
 	end)
-	data = minetest.serialize(data)
 
-	io.write_to_file(filename, data, "wb")
+	io.write_to_file(filename, core.serialize(data), 'wb')
 
-	minetest.chat_send_player(player_name, "META-данные записаны в файл ".. filename)
+	core.chat_send_player(player_name, S('META-data is written to file ') .. filename)
 end
 
 ---------------------------------------------------------------------------------------------
 --- Chat Commands
 ---------------------------------------------------------------------------------------------
-minetest.register_chatcommand ("S", {
-	description = "Сохранить данные в файл",
-	params = "<file_name>",
+core.register_chatcommand ('S', {
+	description = S('Save data to file'),
+	params = '<file_name>',
 	privs = {worldedit = true},
 	--- @param player_name string
 	--- @param param string
 	--- @return boolean,string
 	func = function(player_name, param)
-		if (param == nil)or(param == "") then minetest.chat_send_player(player_name, "Не задано имя файла") return end
+		if param == nil or param == '' then
+			return false, S('File name not specified')
+		end
 
-		local path = minetest.get_worldpath() .. "/schems"
-		local file_mts = path .. "/" .. param .. ".mts"
-		local file_meta = path .. "/" .. param .. ".meta"
-		minetest.mkdir(path)
+		local path = core.get_worldpath() .. '/schems'
+		local file_mts = path .. '/' .. param .. '.mts'
+		local file_meta = path .. '/' .. param .. '.meta'
+		core.mkdir(path)
 
-		local pos1, pos2 = worldedit.pos1[player_name], worldedit.pos2[player_name]
-		if pos1 == nil then minetest.chat_send_player(player_name, "Не задана первая координата") return
-		elseif pos2 == nil then minetest.chat_send_player(player_name, "Не задана вторая координата") return
-		else pos1, pos2 = worldedit.sort_pos(pos1, pos2)
+		local pos1, pos2 = worldedit.pos1[player_name]--[[@as Position?]], worldedit.pos2[player_name]--[[@as Position?]]
+		if pos1 == nil then
+			return false, S('Pos1 not specified')
+		elseif pos2 == nil then
+			return false, S('Pos2 not specified')
+		else
+			pos1, pos2 = --[[@as Position,Position]]worldedit.sort_pos(pos1, pos2)
 		end
 
 		save_schematic(pos1, pos2, file_mts, player_name)
@@ -95,35 +104,39 @@ minetest.register_chatcommand ("S", {
 	end,
 })
 
-minetest.register_chatcommand ("L", {
-	description = "Загрузить данные из файла",
-	params = "<file_name>",
+core.register_chatcommand ('L', {
+	description = S('Load data from file'),
+	params = '<file_name>',
 	privs = {worldedit = true},
 	func = function(name, param)
-		if (param == nil)or(param == "") then minetest.chat_send_player(name, "Не задано имя файла") return end
-
-		local path = minetest.get_worldpath() .. "/schems"
-		local file_mts = path .. "/" .. param .. ".mts"
-		local file_meta = path .. "/" .. param .. ".meta"
-
-		local pos1 = worldedit.pos1[name]
-		if pos1 == nil then minetest.chat_send_player(name, "Не задана первая координата") return end
-
-		if minetest.place_schematic(pos1, file_mts) then
-			minetest.chat_send_player(name, "Ландшафт загружен из файла "..file_mts)
-		else
-			minetest.chat_send_player(name, "Ошибка загрузки ландшафта") return
+		if param == nil or param == '' then
+			return false, S('File name not specified')
 		end
 
-		local data = io.read_from_file(file_meta, "r")
-		local meta_table = minetest.deserialize(data)
+		local path = core.get_worldpath() .. '/schems'
+		local file_mts = path .. '/' .. param .. '.mts'
+		local file_meta = path .. '/' .. param .. '.meta'
+
+		local pos1 = worldedit.pos1[name]
+		if pos1 == nil then
+			return false, S('Pos1 not specified')
+		end
+
+		if core.place_schematic(pos1, file_mts) then
+			core.chat_send_player(name, S('Landscape loaded from file ') .. file_mts)
+		else
+			return false, S('Landscape loading error')
+		end
+
+		local data = io.read_from_file(file_meta, 'r')
+		local meta_table = core.deserialize(data)
 		for i, m in ipairs(meta_table) do
-			local posl = minetest.string_to_pos(m.pos)
+			local posl = core.string_to_pos(m.pos)
 			local pos = {x=pos1.x+posl.x, y=pos1.y+posl.y, z=pos1.z+posl.z}
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:from_table({inventory = m.inventory, fields = m.fields})
 		end
 
-		minetest.chat_send_player(name, "META-данные загружены из файла "..file_meta)
+		core.chat_send_player(name, S('META-data loaded from file ') .. file_meta)
 	end,
 })

@@ -1,0 +1,13 @@
+# textdomain: mega_sl
+
+The landscape is written to file =Ландшафт записан в файл 
+Landscape writting error=Ошибка записи ландшафта
+META-data is written to file =META-данные записаны в файл 
+Save data to file=Сохранить данные в файл
+File name is not specified=Не задано имя файла
+Pos1 not specified=Не задана первая координата
+Pos2 not specified=Не задана вторая координата
+Load data from file=Загрузить данные из файла
+Landscape loaded from file =Ландшафт загружен из файла 
+Landscape loading error=Ошибка загрузки ландшафта
+META-data loaded from file =META-данные загружены из файла 
