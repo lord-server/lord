@@ -19,7 +19,7 @@ local config = {
 
 	[Type.RARE] = {
 		discription =
-			S('Require special conditions or components with a low drop rate')..'\n'.. 
+			S('Require special conditions or components with a low drop rate')..'\n'..
 			S('They possess enhanced stats and beneficial properties.'),
 		title = S('Rare'),
 		code  = Type.RARE,
