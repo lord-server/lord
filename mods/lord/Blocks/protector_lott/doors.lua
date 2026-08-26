@@ -152,13 +152,6 @@ reg_prot_door(
 	"castle_oak_door_uv.png"
 )
 
--- from castle mod
-reg_prot_door(
-	"Protected Oak Door", "protector_lott:oak_door", "castle:oak_door", "wood",
-	"castle_oak_door.png",
-	"castle_oak_door_uv.png"
-)
-
 reg_prot_door(
 	"Protected Jail Door", "protector_lott:jail_door", "castle:jail_door", "steel",
 	"castle_jail_door.png",
