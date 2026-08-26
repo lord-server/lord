@@ -237,7 +237,7 @@ end
 --- @param name   string
 --- @param title  string
 --- @param url    string
---- @param exit   boolean
+--- @param exit?  boolean
 --- @return string
 function Spec.button(x, y, width, height, name, title, url, exit)
 	return '' ..
@@ -258,7 +258,7 @@ end
 --- @param name  string
 --- @param title string
 --- @param url   string
---- @param exit  boolean
+--- @param exit? boolean
 --- @return string
 function Spec.icon_button(x, y, name, icon, title, url, exit)
 	return ''
