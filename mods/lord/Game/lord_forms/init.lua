@@ -1,5 +1,5 @@
 
 
 core.mod(function(mod)
-	require('forms').init()
+	require('forms').init(mod)
 end)

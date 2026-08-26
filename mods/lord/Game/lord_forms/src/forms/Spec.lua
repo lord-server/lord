@@ -135,9 +135,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted_bold(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.muted(x, y, text, table_merge(BOLD, color))
+	return Spec.muted(x, y, text, table_merge(
+		BOLD,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x    number
@@ -147,9 +148,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted_italic(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.muted(x, y, text, table_merge(ITALIC, color))
+	return Spec.muted(x, y, text, table_merge(
+		ITALIC,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x     number
@@ -159,9 +161,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small_bold(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.small(x, y, text, table_merge(BOLD, color))
+	return Spec.small(x, y, text, table_merge(
+		BOLD,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x    number
@@ -171,9 +174,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small_italic(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.small(x, y, text, table_merge(ITALIC, color))
+	return Spec.small(x, y, text, table_merge(
+		ITALIC,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x         number
