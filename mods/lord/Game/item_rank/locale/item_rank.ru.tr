@@ -1,0 +1,19 @@
+# textdomain: item_rank
+
+
+# discription
+Basic items, crafted from common resources. Minimal stats.=Базовые предметы, создаются из простых ресурсов. Минимальные характеристики.
+Requires rare materials or advanced crafting. Balanced stats.=Требуют редких компонентов или продвинутого крафта. Хороший баланс статов.
+They possess enhanced stats and beneficial properties.=Имеют улучшенные параметры и полезные свойства.
+Hard to craft, needs elite resources. High-tier stats.=Сложные в создании, нужны элитные ресурсы. Мощные характеристики.
+Peak of craftsmanship. Very hard to obtain/craft. Best-in-slot performance.=Вершина мастерства. Очень сложный крафт/добыча. Лучшие в игре.
+One-of-a-kind items—legends among gear.=Еденичные экземпляры, легенды среди вещей.
+They boast exceptional stats and transform your playstyle=Обладают выдающимися характеристиками и меняют стиль игры
+
+# title
+Common=Обычный
+Advanced=Продвинутый
+Rare=Редкий
+Epic=Эпический
+Legendary=Легендарный
+Mythical=Мифический
