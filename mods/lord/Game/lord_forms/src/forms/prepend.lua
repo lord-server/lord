@@ -1,5 +1,5 @@
 local DefaultStyle = require('forms.DefaultStyle')
-local spec         = minetest.formspec
+local spec         = core.formspec
 
 
 local formspec_prepend = ''
@@ -20,9 +20,9 @@ end
 
 return {
 	register = function()
-		minetest.register_on_mods_loaded(build_formspec_prepend)
+		core.register_on_mods_loaded(build_formspec_prepend)
 
-		minetest.register_on_joinplayer(function(player)
+		core.register_on_joinplayer(function(player)
 			player:set_formspec_prepend(formspec_prepend)
 		end)
 	end,
