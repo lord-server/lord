@@ -106,21 +106,6 @@ function Spec.bold_area_ro(x, y, width, height, text, style)
 	return Spec.area_ro(x, y, width, height, text, style)
 end
 
---- Styled Read-Only textarea
---- @param x      number
---- @param y      number
---- @param width  number
---- @param height number
---- @param text   string
---- @param style  core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
---- @overload fun(x:number,y:number,width:number,height:number,text:string):string
---- @return string
-function Spec.bold_area_ro(x, y, width, height, text, style)
-	style = table_merge(BOLD, style or {})
-
-	return Spec.area_ro(x, y, width, height, text, style)
-end
-
 --- @param x     number
 --- @param y     number
 --- @param text  string
