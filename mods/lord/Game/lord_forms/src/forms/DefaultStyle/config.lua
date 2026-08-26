@@ -1,15 +1,15 @@
 
 
---- @alias forms.DefaultStyle.elements_config minetest.FormSpec.Style[]|table<string,minetest.FormSpec.Style>
+--- @alias forms.DefaultStyle.elements_config core.FormSpec.Style[]|table<string,core.FormSpec.Style>
 
 local config = {
 	--- @type forms.DefaultStyle.elements_config
 	elements = {
-		--- @type minetest.FormSpec.Style
+		--- @type core.FormSpec.Style
 		label  = {
 			font = 'normal', font_size = '+0', textcolor = '#fffffff0', --[[noclip = 'false'--]]
 		},
-		--- @type minetest.FormSpec.Style
+		--- @type core.FormSpec.Style
 		button = {
 			bgimg        = 'button_bg.png',
 			bgimg_middle = 4,
@@ -17,12 +17,12 @@ local config = {
 			textcolor    = '#fffc',
 			padding      = '0',
 		},
-		--- @type minetest.FormSpec.Style
+		--- @type core.FormSpec.Style
 		textarea = {
 			font = 'normal', font_size = '+0', textcolor = '#fffffff0',
 		},
 
-		-- as for now, this styles is not supported by MT
+		-- as for now, this styles is not supported by Luanti
 		--[{'field', 'field:focused', 'field:hovered', 'field:pressed'}] = {
 		--	bgcolor = '#600',
 		--	bgcolor_hovered = '#000',

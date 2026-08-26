@@ -5,13 +5,13 @@ local config = require('forms.DefaultStyle.config')
 local DefaultStyle = {}
 
 --- @param name string element name.
---- @return minetest.FormSpec.Style
+--- @return core.FormSpec.Style
 function DefaultStyle.get(name)
 	return config.elements[name]
 end
 
 --- @param name  string element name.
---- @param style minetest.FormSpec.Style
+--- @param style core.FormSpec.Style
 --- @return forms.DefaultStyle
 function DefaultStyle.set(name, style)
 	config.elements[name] = style
@@ -34,7 +34,7 @@ end
 
 --- Returns `pairs()` of styles for elements or `pairs()` of params for style directives (`bgcolor`, `listcolors`,..).
 ---
---- @generic style: minetest.FormSpec.Style
+--- @generic style: core.FormSpec.Style
 --- @generic params: table
 ---
 --- @param name string list name: `"elements"` or `"params"`. Default: `"elements"`.

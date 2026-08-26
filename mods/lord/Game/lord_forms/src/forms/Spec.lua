@@ -2,7 +2,7 @@ local table_merge
     = table.merge
 
 local DefaultStyle = require('forms.DefaultStyle')
-local spec         = minetest.formspec
+local spec         = core.formspec
 
 
 local BOLD   = { font = 'bold' }
@@ -15,7 +15,7 @@ local HEADER2_SIZE = '+5'
 local HEADER3_SIZE = '+3'
 
 
---- @class forms.Spec: minetest.FormSpec
+--- @class forms.Spec: core.FormSpec
 local Spec = setmetatable({}, { __index = spec })
 
 --- @see forms.DefaultStyle
@@ -28,7 +28,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @param style core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @return string
 function Spec.text(x, y, text, style)
 	return ''
@@ -43,7 +43,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style
+--- @param style  core.FormSpec.Style
 --- @return string
 function Spec.area_ro(x, y, width, height, text, style)
 	return ''
@@ -55,7 +55,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @param style core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.bold(x, y, text, style)
@@ -67,7 +67,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @param style core.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.italic(x, y, text, style)
@@ -82,7 +82,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
+--- @param style  core.FormSpec.Style  additional style to merge with `{ font = 'italic' }`
 --- @overload fun(x:number,y:number,width:number,height:number,text:string):string
 --- @return string
 function Spec.italic_area_ro(x, y, width, height, text, style)
@@ -97,7 +97,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @param style  core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,width:number,height:number,text:string):string
 --- @return string
 function Spec.bold_area_ro(x, y, width, height, text, style)
@@ -112,7 +112,7 @@ end
 --- @param width  number
 --- @param height number
 --- @param text   string
---- @param style  minetest.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
+--- @param style  core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
 --- @overload fun(x:number,y:number,width:number,height:number,text:string):string
 --- @return string
 function Spec.bold_area_ro(x, y, width, height, text, style)
@@ -124,7 +124,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style minetest.FormSpec.Style  additional style to merge with `{ textcolor = '#ccc' }`
+--- @param style core.FormSpec.Style  additional style to merge with `{ textcolor = '#ccc' }`
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted(x, y, text, style)
@@ -136,7 +136,7 @@ end
 --- @param x     number
 --- @param y     number
 --- @param text  string
---- @param style minetest.FormSpec.Style
+--- @param style core.FormSpec.Style
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small(x, y, text, style)
@@ -194,7 +194,7 @@ end
 --- @param x         number
 --- @param y         number
 --- @param text      string
---- @param font_size string  see minetest.FormSpec.Style.font_size . Default: `HEADER1_SIZE` (`"+7"`)
+--- @param font_size string  see core.FormSpec.Style.font_size . Default: `HEADER1_SIZE` (`"+7"`)
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.title(x, y, text, font_size)
