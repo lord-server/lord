@@ -42,7 +42,7 @@ local config = {
 
 	[Type.MYTHICAL] = {
 		discription =
-			S('One-of-a-kind items—legends among gear.')..'\n'.. 
+			S('One-of-a-kind items—legends among gear.')..'\n'..
 			S('They boast exceptional stats and transform your playstyle'),
 		title = S('Mythical'),
 		code  = Type.MYTHICAL,
