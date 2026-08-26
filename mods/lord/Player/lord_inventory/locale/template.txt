@@ -13,6 +13,26 @@ All Bags=
 Bag=
 
 # About Tab:
-About.btn=
-Rules.btn=
+About=
+Rules=
+
+Website=
+World Map=
+Information about Players, Spawns and Clans=
+
+Our Telegram=
+Stay in touch=
+Post news, inform about events and streams=
+
+Our Discord=
+Chat and friendship=
+Post news, discuss events=
+
+Our YouTube=
+Video and streams=
+Records of events, Let's play, Building=
+
+VKontakte page=
+News and notes about server life=
+
 # TODO #1709
