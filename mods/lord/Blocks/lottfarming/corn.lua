@@ -165,22 +165,6 @@ core.register_craft({
 local chance   = 10
 local interval = 45
 
---- TODO: remove after merged into `dev`
-if not vector.above then
-	--- Returns position above this one by `n` nodes.
-	--- @param n? integer default is `1`
-	--- @return self
-	function vector:above(n) -- luacheck: ignore
-		return self:offset(0, n or 1, 0)
-	end
-	--- Returns position below this one by `n` nodes.
-	--- @param n? integer default is `1`
-	--- @return self
-	function vector:under(n) -- luacheck: ignore
-		return self:offset(0, -(n or 1), 0)
-	end
-end
---- end of TODO
 
 --- @param pos vector
 --- @return boolean
