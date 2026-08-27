@@ -106,21 +106,6 @@ function Spec.bold_area_ro(x, y, width, height, text, style)
 	return Spec.area_ro(x, y, width, height, text, style)
 end
 
---- Styled Read-Only textarea
---- @param x      number
---- @param y      number
---- @param width  number
---- @param height number
---- @param text   string
---- @param style  core.FormSpec.Style  additional style to merge with `{ font = 'bold' }`
---- @overload fun(x:number,y:number,width:number,height:number,text:string):string
---- @return string
-function Spec.bold_area_ro(x, y, width, height, text, style)
-	style = table_merge(BOLD, style or {})
-
-	return Spec.area_ro(x, y, width, height, text, style)
-end
-
 --- @param x     number
 --- @param y     number
 --- @param text  string
@@ -150,9 +135,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted_bold(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.muted(x, y, text, table_merge(BOLD, color))
+	return Spec.muted(x, y, text, table_merge(
+		BOLD,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x    number
@@ -162,9 +148,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.muted_italic(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.muted(x, y, text, table_merge(ITALIC, color))
+	return Spec.muted(x, y, text, table_merge(
+		ITALIC,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x     number
@@ -174,9 +161,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small_bold(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.small(x, y, text, table_merge(BOLD, color))
+	return Spec.small(x, y, text, table_merge(
+		BOLD,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x    number
@@ -186,9 +174,10 @@ end
 --- @overload fun(x:number,y:number,text:string):string
 --- @return string
 function Spec.small_italic(x, y, text, color)
-	color = color and { textcolor = color } or {}
-
-	return Spec.small(x, y, text, table_merge(ITALIC, color))
+	return Spec.small(x, y, text, table_merge(
+		ITALIC,
+		color and { textcolor = color } or {}
+	))
 end
 
 --- @param x         number
@@ -237,7 +226,7 @@ end
 --- @param name   string
 --- @param title  string
 --- @param url    string
---- @param exit   boolean
+--- @param exit?  boolean
 --- @return string
 function Spec.button(x, y, width, height, name, title, url, exit)
 	return '' ..
@@ -258,7 +247,7 @@ end
 --- @param name  string
 --- @param title string
 --- @param url   string
---- @param exit  boolean
+--- @param exit? boolean
 --- @return string
 function Spec.icon_button(x, y, name, icon, title, url, exit)
 	return ''

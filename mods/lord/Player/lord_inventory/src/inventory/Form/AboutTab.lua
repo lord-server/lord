@@ -1,51 +1,74 @@
 local S    = minetest.get_mod_translator()
-local spec = forms.Spec
+local spec = forms.Spec --[[@as forms.Spec]]
 
 
 -- TODO #1709
 
---- @alias lord_inventory.Form.AboutTab.resource { name:string, title:string, url:string }
+--- @class lord_inventory.Form.AboutTab.resource
+--- @field title          string
+--- @field sub_title?     string
+--- @field sub_title_dx?  number
+--- @field desc           string
+--- @field at_single_mode boolean
+--- @field at_server_mode boolean
+--- @field btn_text       string
+--- @field url            string
 
---- @type lord_inventory.Form.AboutTab.resource[]
+--- @type lord_inventory.Form.AboutTab.resource[string]
 local resources = {
-	{ name = 'site'     , title = 'Website', url = 'https://lord-server.ru/' },
-	{ name = 'telegram' , title = 'Telegram', url = 'https://t.me/lord_server_ru' },
-	{ name = 'discord'  , title = 'Discord', url = 'https://www.discord.gg/YcT5FuQwUT' },
-	{ name = 'youtube'  , title = 'YouTube', url = 'https://www.youtube.com/@lord-server' },
-	{ name = 'vk'       , title = 'group  ', url = 'https://vk.com/minetest_lord' },
-	--{ name = 'github'   , title = 'GitHub ', url = 'https://github.com/lord-server/lord' },
-}
---- @type { title:string, sub_title:string, sub_title_dx:number, desc:string }[]
-local descriptions = {
 	site    = {
-		title     = 'Наш сайт',
-		sub_title = 'Карта мира', sub_title_dx = 1.06,
-		desc      = 'Информация об Игроках, Спаунах и Кланах',
+		title          = S('Website'),
+		sub_title      = not core.is_singleplayer() and S('World Map') or nil, sub_title_dx = 1.06,
+		desc           = S('Information about Players, Spawns and Clans'),
+		at_single_mode = true,
+		at_server_mode = true,
+		btn_text       = 'Website',
+		url            = 'https://lord-server.ru/',
 	},
 	telegram = {
-		title     = 'Наш Telegram',
-		sub_title = 'Оставайтесь на связи', sub_title_dx = 1.48,
-		desc      = 'Постим новости, сообщаем об Ивентах и Стримах',
+		title          = S('Our Telegram'),
+		sub_title      = S('Stay in touch'), sub_title_dx = 1.48,
+		desc           = S('Post news, inform about events and streams'),
+		at_single_mode = true,
+		at_server_mode = true,
+		btn_text       = 'Telegram',
+		url            = 'https://t.me/lord_server_ru',
 	},
 	discord = {
-		title     = 'Наш Discord',
-		sub_title = 'Болтаем и дружим', sub_title_dx = 1.38,
-		desc      = 'Выкладываем новости, договариваемся об Ивентах',
+		title          = S('Our Discord'),
+		sub_title      = S('Chat and friendship'), sub_title_dx = 1.38,
+		desc           = S('Post news, discuss events'),
+		at_single_mode = true,
+		at_server_mode = true,
+		btn_text       = 'Discord',
+		url            = 'https://www.discord.gg/YcT5FuQwUT',
 	},
 	youtube = {
-		title     = 'Наш YouTube',
-		sub_title = 'Видео и стримы', sub_title_dx = 1.51,
-		desc      = 'Записи Ивентов, Let\'s play-ев, Строительства',
+		title          = S('Our YouTube'),
+		sub_title      = S('Video and streams'), sub_title_dx = 1.51,
+		desc           = S('Records of events, Let\'s play, Building'),
+		at_single_mode = true,
+		at_server_mode = true,
+		btn_text       = 'YouTube',
+		url            = 'https://www.youtube.com/@lord-server',
 	},
 	vk      = {
-		title     = 'Страница ВКонтакте',
-		desc      = 'Новости и заметки о жизни сервера',
+		title          = S('VKontakte page'),
+		desc           = S('News and notes about server life'),
+		at_single_mode = false,
+		at_server_mode = true,
+		btn_text       = 'group',
+		url            = 'https://vk.com/minetest_lord',
 	},
-	--github  = {
-	--	title     = 'Репозиторий',
-	--	sub_title = 'Open source', sub_title_dx = 1.48,
-	--	desc      = 'Сообщи об ошибке. Присоединяйся к команде',
-	--},
+	github  = {
+		title          = 'Репозиторий',
+		sub_title      = 'Open source', sub_title_dx = 1.48,
+		desc           = 'Сообщи об ошибке. Присоединяйся к команде',
+		at_single_mode = true,
+		at_server_mode = false,
+		btn_text       = 'GitHub',
+		url            = 'https://github.com/lord-server/lord',
+	},
 }
 
 
@@ -57,31 +80,35 @@ local AboutTab = base_classes.Form.Element.Tab:extended({
 
 --- @param x    number
 --- @param y    number
+--- @param name string
 --- @param res  lord_inventory.Form.AboutTab.resource
-local function resource(x, y, res)
-	local description = descriptions[res.name]
-	local sdx = description.sub_title_dx
-	local icon = 'lord_inventory_icon_'..res.name..'.png'
+local function resource(x, y, name, res)
+	local sdx = res.sub_title_dx or 0
+	local icon = 'lord_inventory_icon_'..name..'.png'
 
 	return ''
-		.. spec.bold(x, y + .08, description.title, { textcolor = '#fffe' })
-		.. (description.sub_title and (
-			spec.small_bold(x + sdx, y + .07, '(' .. description.sub_title .. ')', '#d4d4d4')
+		.. spec.bold(x, y + .08, res.title, { textcolor = '#fffe' })
+		.. (res.sub_title and (
+			spec.small_bold(x + sdx, y + .07, '(' .. res.sub_title .. ')', '#d4d4d4')
 		) or '')
-		.. spec.small(x, y + .34, description.desc, { textcolor = '#ddd' })
-		.. spec.icon_button(x + 5.2, y, res.name, icon, res.title, res.url)
+		.. spec.small(x, y + .34, res.desc, { textcolor = '#ddd' })
+		.. spec.icon_button(x + 5.2, y, name, icon, res.btn_text, res.url)
 end
 
 --- @param x              number
 --- @param y              number
---- @param resources_list lord_inventory.Form.AboutTab.resource[]
+--- @param resources_list table<string, lord_inventory.Form.AboutTab.resource>
 local function all_resources(x, y, resources_list)
 	local res_strings = {}
-	local dx = 0
-	local dy = 0
-	for _, res in pairs(resources_list) do
-		table.insert(res_strings, resource(dx, dy, res))
-		dy = dy + 0.9
+	local dx = 0.0
+	local dy = 0.0
+	local is_single_mode = core.is_singleplayer()
+	local is_server_mode = not is_single_mode
+	for name, res in pairs(resources_list) do
+		if (is_single_mode and res.at_single_mode) or (is_server_mode and res.at_server_mode) then
+			table.insert(res_strings, resource(dx, dy, name, res))
+			dy = dy + 0.9
+		end
 	end
 
 	return ''
@@ -93,8 +120,8 @@ end
 --- @return string
 local function donate_button()
 	return ''
-		.. spec.style('donate', { bgimg = 'lord_inventory_boosty.png', border = 'false' })
-		.. spec.style('donate:hovered', { bgimg = 'lord_inventory_boosty_hovered.png', border = 'false' })
+		.. spec.style('donate', { bgimg = 'lord_inventory_boosty.png', border = true })
+		.. spec.style('donate:hovered', { bgimg = 'lord_inventory_boosty_hovered.png', border = false })
 		.. spec.button_url(2.5, 7.75, 3, 1, 'donate', '', 'https://boosty.to/lord-server')
 end
 
@@ -106,8 +133,8 @@ function AboutTab:get_spec()
 		.. spec.label(0.3, 0.5, 'по мотивам легендариума Дж. Толкина ("Властелин Колец", "Хоббит", ...)')
 		.. spec.muted_italic(2.15, 0.9, 'можно копать... можно не копать...')
 
-		.. spec.button(2, 1.4, 2, 1, 'about', S('About.btn'), 'https://lord-server.ru/about')
-		.. spec.button(4, 1.4, 2, 1, 'rules', S('Rules.btn'), 'https://lord-server.ru/rules')
+		.. spec.button(2, 1.4, 2, 1, 'about', S('About'), 'https://lord-server.ru/about')
+		.. spec.button(4, 1.4, 2, 1, 'rules', S('Rules'), 'https://lord-server.ru/rules')
 
 		.. all_resources(.4, 2.6, resources)
 

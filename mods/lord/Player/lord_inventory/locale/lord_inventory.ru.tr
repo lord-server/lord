@@ -13,7 +13,28 @@ crafting_image=lord_inventory_crafting.ru.png
 All Bags=Все Сумки
 Bag=Сумка
 
+
 # About Tab:
-About.btn=О сервере
-Rules.btn=Правила
+About=О сервере
+Rules=Правила
+
+Website=Наш сайт
+World Map=Карта мира
+Information about Players, Spawns and Clans=Информация об Игроках, Спаунах и Кланах
+
+Our Telegram=Наш Telegram
+Stay in touch=Оставайтесь на связи
+Post news, inform about events and streams=Постим новости, сообщаем об Ивентах и Стримах
+
+Our Discord=Наш Discord
+Chat and friendship=Болтаем и дружим
+Post news, discuss events=Выкладываем новости, договариваемся об Ивентах
+
+Our YouTube=Наш YouTube
+Video and streams=Видео и стримы
+Records of events, Let's play, Building=Записи Ивентов, Let's play-ев, Строительства
+
+VKontakte page=Страница ВКонтакте
+News and notes about server life=Новости и заметки о жизни сервера
+
 # TODO #1709

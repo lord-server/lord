@@ -1,5 +1,27 @@
 # Change Log
 
+## [2025.12.p6](https://github.com/lord-server/lord/releases/tag/2025.12.p6)
+ - CI: extract `job.merge.yml`, only mergre(no submodules sync), allow exec manully.
+ - CI: remove usage of old token to use standart token.
+ - Distribution: CDB: use `voxrame_` prefix. LG-2189. Update `fuel_device`. LG-2115.
+ - Distribution: CDB: fix use `voxrame_` prefix after merging. LG-2189.
+ - Distribution: CDB: Update `mywalls` with new license. LG-2182.
+ - Distribution: CDB: localize `defaults`, use `core.` NS, use `'`. LG-2188.
+ - Distribution: CDB: localize `mega_sl`, use `core.` NS, use `'`. LG-2188.
+ - Distribution: CDB: localization: fix russian symbols in `lottmobs`,`lord_potions`. LG-2188.
+ - Distribution: CDB: `lord_overwrites_mtg_carts` add localization; use `core.`; use `'`. LG-2188.
+ - Distribution: CDB: `lord_money:shop`: logs in english; use `core.` NS. LG-2188.
+ - `lord_forms`: use `core.` NS.
+ - `lord_forms`: improve `Spec.[icon_]button()` annotations; update Voxrame: use `boolean` in FormSpec styles.
+ - `lord_forms`: remove duplicated `Spec.bold_area_ro()` function.
+ - `lord_forms`: fix linter warnings.
+ - Distribution: CDB: translate player inventory `AboutTab`. LG-2188.
+ - Distribution: CDB: `CC BY-SA 3.0` for media. LG-2186.
+ - Update `Voxrame` & `luanti-ide-helper`.
+ - Distribution: CDB: `lord_homedecor` license explain. LG-2187.
+ - Update `painting`: oil colors - closes #2392 LG-2169; avoid crash - closes #2402 LG-2193.
+ - Update `Voxrame`&`luanti-ide-helper`: improved annotations; fixed linting.
+
 ## [2025.12.p5](https://github.com/lord-server/lord/releases/tag/2025.12.p5)
  - Fix: choose race: no teleport in if no `lord_spawns` mod. Fix LG-2176.
  - Distribution: CDB: remove `server_message`, `worldedit_gui`. LG-2177.
