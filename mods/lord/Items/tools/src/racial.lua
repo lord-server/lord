@@ -129,9 +129,9 @@ minetest.register_craft({
 	output   = 'tools:sword_human',
 	for_race = races.name.HUMAN,
 	recipe   = {
-		{ '',                  'lottores:mithril_ingot', ''                  },
-		{ 'lottores:red_gem',  'lottores:mithril_ingot', 'lottores:red_gem'  },
-		{ 'lottores:blue_gem', 'group:stick',            'lottores:blue_gem' },
+		{ '',                'lottores:mithril_ingot', ''               },
+		{ 'lord_gems:red',   'lottores:mithril_ingot', 'lord_gems:red'  },
+		{ 'lord_gems:blue',  'group:stick',            'lord_gems:blue' },
 	}
 })
 minetest.register_craft({
