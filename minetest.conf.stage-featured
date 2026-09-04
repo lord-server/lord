@@ -50,7 +50,7 @@ time_speed = 24
 # И НА ПРОДЕ `false` !!!
 secure.enable_security = false
 secure.trusted_mods = lp_api
-secure.http_mods = lp_api, http
+secure.http_mods = lp_api, voxrame_http
 
 
 #
