@@ -9,7 +9,8 @@ lfs.chdir('../../')
 require('mods.Voxrame.helpers.src.lua_ext.io')
 require('mods.Voxrame.helpers.src.lua_ext.table')
 require('mods.Voxrame.helpers.src.lua_ext.string')
-require('mods.Voxrame.helpers.src.term')
+
+local term = require('mods.Voxrame.helpers.src.terminal')
 
 
 local function forech_dir(path, callback)

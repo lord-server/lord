@@ -6,6 +6,8 @@ core.mod(function(mod)
 		return
 	end
 
+	local term = Voxrame.terminal
+
 	local count_file_path = mod.path .. '/.ghost_blocks_count.txt'
 	local state_file_path = mod.path .. '/.ghost_blocks.lua'
 
