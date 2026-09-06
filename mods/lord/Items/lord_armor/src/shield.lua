@@ -3,6 +3,7 @@ local S = minetest.get_mod_translator()
 -- Register Shields
 minetest.register_tool(":lottarmor:shield_wood", {
 	description     = S("Training Shield"),
+	_rank           = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_shield_wood.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 6, armor_use = 2000,
@@ -13,6 +14,7 @@ minetest.register_tool(":lottarmor:shield_wood", {
 
 minetest.register_tool(":lottarmor:shield_tin", {
 	description     = S("Tin Shield"),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_shield_tin.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 9, damage_avoid_chance = 2, armor_use = 1750,
@@ -23,6 +25,7 @@ minetest.register_tool(":lottarmor:shield_tin", {
 
 minetest.register_tool(":lottarmor:shield_copper", {
 	description     = S("Copper Shield"),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_shield_copper.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 12, damage_avoid_chance = 2, armor_use = 1750,
@@ -33,6 +36,7 @@ minetest.register_tool(":lottarmor:shield_copper", {
 
 minetest.register_tool(":lottarmor:shield_steel", {
 	description     = S("Steel Shield"),
+	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_shield_steel.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 13, damage_avoid_chance = 4, armor_use = 1250,
@@ -43,6 +47,7 @@ minetest.register_tool(":lottarmor:shield_steel", {
 
 minetest.register_tool(":lottarmor:shield_bronze", {
 	description     = S("Bronze Shield"),
+	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_shield_bronze.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 14, damage_avoid_chance = 6, armor_use = 750,
@@ -53,6 +58,7 @@ minetest.register_tool(":lottarmor:shield_bronze", {
 
 minetest.register_tool(":lottarmor:shield_silver", {
 	description     = S("Silver Shield"),
+	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_shield_silver.png",
 	groups          = {
 		armor_shield = 1, armor_use = 1000, silver_item = 1,
@@ -65,6 +71,7 @@ minetest.register_tool(":lottarmor:shield_silver", {
 
 minetest.register_tool(":lottarmor:shield_gold", {
 	description     = S("Gold Shield"),
+	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_shield_gold.png",
 	groups          = {
 		armor_shield = 1, armor_use = 500, gold_item = 1,
@@ -77,6 +84,7 @@ minetest.register_tool(":lottarmor:shield_gold", {
 
 minetest.register_tool(":lottarmor:shield_galvorn", {
 	description     = S("Galvorn Shield"),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_shield_galvorn.png",
 	groups          = {
 		armor_shield = 1, armor_use = 250, forbidden = 1, galvorn_item = 1,
@@ -89,6 +97,7 @@ minetest.register_tool(":lottarmor:shield_galvorn", {
 
 minetest.register_tool(":lottarmor:shield_mithril", {
 	description     = S("Mithril Shield"),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_shield_mithril.png",
 	groups          = {
 		armor_shield = 1, defense_fleshy = 21, damage_avoid_chance = 0, armor_use = 100,
