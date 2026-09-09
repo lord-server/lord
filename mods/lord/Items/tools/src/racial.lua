@@ -1,6 +1,5 @@
 local S = minetest.get_mod_translator()
 local colorize = minetest.colorize
-local violet = '#87d'
 local grey = '#aaa'
 
 minetest.register_tool('tools:sword_elven', {
