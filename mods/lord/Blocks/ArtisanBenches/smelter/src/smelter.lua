@@ -1,10 +1,10 @@
-
 local nodes = require('smelter.nodes')
 local Form  = require('smelter.nodes.Form')
 local S     = minetest.get_mod_translator()
 
+
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		minetest.CraftMethod.SMELTER = 'smelter'
 		minetest.register_craft_method(minetest.CraftMethod.SMELTER)
