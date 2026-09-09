@@ -1,16 +1,16 @@
 local S = minetest.get_mod_translator()
 local colorize = minetest.colorize
-local violet = '#87d'
 local grey = '#aaa'
 
 minetest.register_tool('tools:sword_elven', {
 	description       =
-		colorize(violet, S('"Andúril"'))..' '..colorize(grey, S('("Narsil")'))..'\n'..'\n'..
+		(S('"Andúril"'))..' '..colorize(grey, S('("Narsil")'))..'\n'..'\n'..
 		colorize(grey,
 			S('Reforged from the shards of Narsil.')..'\n'..
 			S('The song of its blade is heard only by the dead.')..'\n'..
 			S('Fatal to those who broke their oath and found no rest.')
 		),
+	_rank           = item_rank.Type.EPIC,
 	inventory_image   = 'tools_sword_elven.png',
 	tool_capabilities = {
 		max_drop_level      = 2,
@@ -22,13 +22,14 @@ minetest.register_tool('tools:sword_elven', {
 })
 minetest.register_tool('tools:sword_orcish', {
 	description       =
-		colorize(violet, S('"Morgul Blade"'))..'\n'..'\n'..
+		(S('"Morgul Blade"'))..'\n'..'\n'..
 		colorize(grey,
 			S('Forged in the terror of Morgul,')..'\n'..
 			S('its edge steeped in the ancient poison of the Black Speech.')..'\n'..
 			S('With its wound comes cold and death beyond healing.')..'\n'..
 			S('Its wounds do not close – they only kill, slowly.')
 		),
+	_rank           = item_rank.Type.EPIC,
 	inventory_image   = 'tools_sword_orcish.png',
 	tool_capabilities = {
 		max_drop_level      = 2,
@@ -40,12 +41,13 @@ minetest.register_tool('tools:sword_orcish', {
 })
 minetest.register_tool('tools:battleaxe_dwarven', {
 	description       =
-		colorize(violet, S('"Durin’s Axe"'))..'\n'..'\n'..
+		(S('"Durin’s Axe"'))..'\n'..'\n'..
 		colorize(grey,
 				S('An axe wrought in the depths of Khazad-dûm,')..'\n'..
 				S('its weight shatters even stone gates.')..'\n'..
 				S('Its strike is like a mountain’s collapse – swift and inevitable.')
 			),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image   = 'tools_battleaxe_dwarf.png',
 	tool_capabilities = {
 		max_drop_level      = 1,
@@ -60,11 +62,12 @@ minetest.register_tool('tools:battleaxe_dwarven', {
 })
 minetest.register_tool('tools:sword_human', {
 	description       =
-		colorize(violet, S('"Flame of Númenor"'))..'\n'..'\n'..
+		(S('"Flame of Númenor"'))..'\n'..'\n'..
 		colorize(grey,
 			S('Forged in imitation of the legendary weapons of the West.')..'\n'..
 			S('Its blade burns with a heat that scars even stone.')
 		),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image   = 'tools_sword_human.png',
 	tool_capabilities = {
 		max_drop_level      = 2,
@@ -76,13 +79,14 @@ minetest.register_tool('tools:sword_human', {
 })
 minetest.register_tool('tools:dagger_hobbit', {
 	description         =
-		colorize(violet, S('"Took’s Blade"'))..'\n'..'\n'..
+		(S('"Took’s Blade"'))..'\n'..'\n'..
 		colorize(grey,
 			S('Light as a feather and swift as a squirrel.')..'\n'..
 			S('For centuries, hobbits guarded it as an heirloom.')..'\n'..
 			S('In deft hands, it is as deadly as a warrior’s sword.')..'\n'..
 			S('Those who laugh at it die in surprise.')
 		),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image     = 'tools_dagger_hobbit.png',
 	range               = 3,
 	tool_capabilities = {
