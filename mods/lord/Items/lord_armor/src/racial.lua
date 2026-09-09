@@ -4,6 +4,7 @@ local S = core.get_mod_translator()
 --Dwarf_armor
 core.register_tool('lord_armor:dwarf_helmet', {
 	description     = S('Dwarf Helmet'),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'lord_armor_dwarf_inv_helmet.png',
 	groups          = {
 		armor_head          = 1,
@@ -17,6 +18,7 @@ core.register_tool('lord_armor:dwarf_helmet', {
 })
 core.register_tool('lord_armor:dwarf_chestplate', {
 	description     = S('Dwarf Chestplate'),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'lord_armor_dwarf_inv_chestplate.png',
 	groups          = {
 		armor_torso         = 1,
@@ -30,6 +32,7 @@ core.register_tool('lord_armor:dwarf_chestplate', {
 })
 core.register_tool('lord_armor:dwarf_leggings', {
 	description     = S('Dwarf Leggings'),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'lord_armor_dwarf_inv_leggings.png',
 	groups          = {
 		armor_legs          = 1,
@@ -43,6 +46,7 @@ core.register_tool('lord_armor:dwarf_leggings', {
 })
 core.register_tool('lord_armor:dwarf_boots', {
 	description     = S('Dwarf Boots'),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'lord_armor_dwarf_inv_boots.png',
 	groups          = {
 		armor_feet          = 1,
@@ -57,6 +61,7 @@ core.register_tool('lord_armor:dwarf_boots', {
 
 core.register_tool('lord_armor:dwarf_shield', {
 	description     = S('Dwarf Shield'),
+	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'lord_armor_dwarf_shield_inv.png',
 	groups          = {
 		armor_shield        = 1,
@@ -128,6 +133,7 @@ core.register_craft({
 -- Ranger Armor
 core.register_tool('lord_armor:ranger_hood', {
 	description     = S('Ranger Hood'),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = 'lord_armor_ranger_inv_hood.png',
 	groups          = {
 		armor_head          = 1,
@@ -141,6 +147,7 @@ core.register_tool('lord_armor:ranger_hood', {
 })
 core.register_tool('lord_armor:ranger_chestplate', {
 	description     = S('Ranger Chestplate'),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = 'lord_armor_inv_chestplate_ranger.png',
 	groups          = {
 		armor_torso         = 1,
@@ -154,6 +161,7 @@ core.register_tool('lord_armor:ranger_chestplate', {
 })
 core.register_tool('lord_armor:ranger_leggings', {
 	description     = S('Ranger Leggings'),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = 'lord_armor_ranger_inv_leggings.png',
 	groups          = {
 		armor_legs          = 1,
@@ -167,6 +175,7 @@ core.register_tool('lord_armor:ranger_leggings', {
 })
 core.register_tool('lord_armor:ranger_boots', {
 	description     = S('Ranger Boots'),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = 'lord_armor_inv_boots_ranger.png',
 	groups          = {
 		armor_feet          = 1,
@@ -181,6 +190,7 @@ core.register_tool('lord_armor:ranger_boots', {
 
 core.register_tool('lord_armor:ranger_shield', {
 	description     = S('Ranger Shield'),
+	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = 'lord_armor_ranger_shield_inv.png',
 	groups          = {
 		armor_shield        = 1,

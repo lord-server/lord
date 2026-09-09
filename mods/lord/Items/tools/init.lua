@@ -65,6 +65,7 @@ minetest.mod(function(mod)
 			wield_image       = "tools_" .. tooltype .. "_" .. material .. ".png" ..
 				(itemdef.wield_image_transform or ""),
 			range             = itemdef.range,
+			_rank             = itemdef._rank,
 			tool_capabilities = {
 				full_punch_interval = itemdef.full_punch_interval,
 				max_drop_level      = itemdef.max_drop_level,
