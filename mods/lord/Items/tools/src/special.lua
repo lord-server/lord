@@ -2,6 +2,7 @@ local S = minetest.get_mod_translator()
 
 minetest.register_tool('tools:sword_urukhai', {
 	description       = S('Uruk-hai Scimitar'),
+	_rank             = item_rank.Type.RARE,
 	inventory_image   = 'tools_sword_urukhai.png',
 	tool_capabilities = {
 		max_drop_level      = 2,

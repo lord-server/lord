@@ -10,6 +10,7 @@ return {
 	end,
 	wood        = {
 		description           = S("Wooden Spear"),
+		_rank                 = item_rank.Type.COMMON,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -20,6 +21,7 @@ return {
 	},
 	stone       = {
 		description           = S("Stone Spear"),
+		_rank                 = item_rank.Type.COMMON,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -29,6 +31,7 @@ return {
 	},
 	steel       = {
 		description           = S("Steel Spear"),
+		_rank                 = item_rank.Type.RARE,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -39,6 +42,7 @@ return {
 	},
 	bronze      = {
 		description           = S("Bronze Spear"),
+		_rank                 = item_rank.Type.RARE,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -49,6 +53,7 @@ return {
 	},
 	copper      = {
 		description           = S("Copper Spear"),
+		_rank                 = item_rank.Type.ADVANCED,
 		wield_image_transform = "^[transformFX",
 		max_drop_level        = 1,
 		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
@@ -58,6 +63,7 @@ return {
 	},
 	tin         = {
 		description           = S("Tin Spear"),
+		_rank               = item_rank.Type.ADVANCED,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -68,6 +74,7 @@ return {
 	},
 	silver      = {
 		description           = S("Silver Spear"),
+		_rank               = item_rank.Type.EPIC,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -78,6 +85,7 @@ return {
 	},
 	gold        = {
 		description           = S("Gold Spear"),
+		_rank               = item_rank.Type.EPIC,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -88,6 +96,7 @@ return {
 	},
 	galvorn     = {
 		description           = S("Galvorn Spear"),
+		_rank                 = item_rank.Type.LEGENDARY,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
@@ -98,6 +107,7 @@ return {
 	},
 	mithril     = {
 		description           = S("Mithril Spear"),
+		_rank                 = item_rank.Type.LEGENDARY,
 		wield_image_transform = "^[transformFX",
 		range                 = 6,
 		max_drop_level        = 1,
