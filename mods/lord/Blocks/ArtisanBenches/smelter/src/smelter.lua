@@ -50,9 +50,17 @@ return {
 		minetest.register_craft({
 			output = 'smelter:smelter1',
 			recipe = {
-				{ '', 'castle:hole_cobble', '' },
-				{ '', 'unknown:node', '' },
-				{ '', 'default:furnace', '' },
+				{ ''                    , 'castle:hole_cobble', ''                     },
+				{ 'default:copper_ingot', 'castle:hole_cobble', 'default:copper_ingot' },
+				{ 'lottores:tin_ingot'  , 'default:furnace'   , 'lottores:tin_ingot'   },
+			}
+		})
+		minetest.register_craft({
+			output = 'smelter:smelter1',
+			recipe = {
+				{ ''                    , 'castle:hole_cobble', ''                     },
+				{ 'lottores:tin_ingot'  , 'castle:hole_cobble', 'lottores:tin_ingot'   },
+				{ 'default:copper_ingot', 'default:furnace'   , 'default:copper_ingot' },
 			}
 		})
 	end
