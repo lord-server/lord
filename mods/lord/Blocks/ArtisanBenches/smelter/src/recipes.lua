@@ -4,7 +4,8 @@ local smelter_recipes = {
 	{ 'default:iron_lump'         , ''                          , 'default:steel_ingot'          , 6  },
 	{ 'default:iron_lump'         , 'default:iron_lump'         , 'default:steel_ingot 2'        , 12 },
 	{ 'group:steel_item'          , ''                          , 'default:steel_ingot'          , 6  },
-	{ 'lottores:tin_ingot'        , 'defult:copper_ingot'       , 'default:bronze_ingot 2'       , 12 },
+	{ 'lottores:tin_ingot'        , 'default:copper_ingot'      , 'default:bronze_ingot 2'       , 12 },
+	{ 'default:copper_ingot'      , 'lottores:tin_ingot'        , 'default:bronze_ingot 2'       , 12 },
 	{ 'group:bronze_item'         , ''                          , 'default:bronze_ingot'         , 6  },
 	-- level2
 	{ 'lottores:silver_lump'      , ''                          , 'lottores:silver_ingot'        , 6  },
