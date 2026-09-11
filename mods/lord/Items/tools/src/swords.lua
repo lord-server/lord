@@ -10,6 +10,7 @@ return {
 	end,
 	wood        = {
 		description         = S("Wooden Sword"),
+		_rank               = item_rank.Type.COMMON,
 		max_drop_level      = 0,
 		snappy              = {
 			times    = { [2] = 1.6, [3] = 0.40 },
@@ -22,6 +23,7 @@ return {
 	},
 	stone       = {
 		description         = S("Stone Sword"),
+		_rank               = item_rank.Type.COMMON,
 		max_drop_level      = 0,
 		snappy              = {
 			times    = { [2] = 1.4, [3] = 0.40 },
@@ -34,6 +36,7 @@ return {
 	},
 	steel       = {
 		description         = S("Steel Sword"),
+		_rank               = item_rank.Type.RARE,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -46,6 +49,7 @@ return {
 	},
 	bronze      = {
 		description         = S("Bronze Sword"),
+		_rank               = item_rank.Type.RARE,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -58,6 +62,7 @@ return {
 	},
 	copper      = {
 		description         = S("Copper Sword"),
+		_rank               = item_rank.Type.ADVANCED,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -70,6 +75,7 @@ return {
 	},
 	tin         = {
 		description         = S("Tin Sword"),
+		_rank               = item_rank.Type.ADVANCED,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
@@ -82,6 +88,7 @@ return {
 	},
 	silver      = {
 		description         = S("Silver Sword"),
+		_rank               = item_rank.Type.EPIC,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.3, [2] = 1.10, [3] = 0.35 },
@@ -94,6 +101,7 @@ return {
 	},
 	gold        = {
 		description         = S("Gold Sword"),
+		_rank               = item_rank.Type.EPIC,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.3, [2] = 1.10, [3] = 0.35 },
@@ -106,6 +114,7 @@ return {
 	},
 	galvorn     = {
 		description         = S("Galvorn Sword"),
+		_rank               = item_rank.Type.LEGENDARY,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 2.0, [2] = 1.00, [3] = 0.35 },
@@ -118,6 +127,7 @@ return {
 	},
 	mithril     = {
 		description         = S("Mithril Sword"),
+		_rank               = item_rank.Type.LEGENDARY,
 		max_drop_level      = 1,
 		snappy              = {
 			times    = { [1] = 0.70, [2] = 0.80, [3] = 0.25 },

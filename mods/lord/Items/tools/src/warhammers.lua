@@ -10,6 +10,7 @@ return {
 	end,
 	wood        = {
 		description         = S("Wooden Warhammer"),
+		_rank               = item_rank.Type.COMMON,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3.40, [2] = 2.40, [3] = 1.30 }, uses = 5, maxlevel = 1 },
@@ -19,6 +20,7 @@ return {
 	},
 	stone       = {
 		description         = S("Stone Warhammer"),
+		_rank               = item_rank.Type.COMMON,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.85, [2] = 1.85, [3] = 1.10 }, uses = 5, maxlevel = 1 },
@@ -27,6 +29,7 @@ return {
 	},
 	steel       = {
 		description         = S("Steel Warhammer"),
+		_rank               = item_rank.Type.RARE,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
@@ -36,6 +39,7 @@ return {
 	},
 	bronze      = {
 		description         = S("Bronze Warhammer"),
+		_rank               = item_rank.Type.RARE,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 30, maxlevel = 2 },
@@ -45,6 +49,7 @@ return {
 	},
 	copper      = {
 		description         = S("Copper Warhammer"),
+		_rank               = item_rank.Type.ADVANCED,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
@@ -54,6 +59,7 @@ return {
 	},
 	tin         = {
 		description         = S("Tin Warhammer"),
+		_rank               = item_rank.Type.ADVANCED,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 3, [2] = 1.80, [3] = 1.00 }, uses = 5, maxlevel = 1 },
@@ -63,6 +69,7 @@ return {
 	},
 	silver      = {
 		description         = S("Silver Warhammer"),
+		_rank               = item_rank.Type.EPIC,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 20, maxlevel = 2 },
@@ -72,6 +79,7 @@ return {
 	},
 	gold        = {
 		description         = S("Gold Warhammer"),
+		_rank               = item_rank.Type.EPIC,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 30, maxlevel = 2 },
@@ -81,6 +89,7 @@ return {
 	},
 	galvorn     = {
 		description         = S("Galvorn Warhammer"),
+		_rank               = item_rank.Type.LEGENDARY,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.50, [2] = 1.30, [3] = 0.45 }, uses = 35, maxlevel = 2 },
@@ -90,6 +99,7 @@ return {
 	},
 	mithril     = {
 		description         = S("Mithril Warhammer"),
+		_rank               = item_rank.Type.LEGENDARY,
 		range               = 3,
 		max_drop_level      = 1,
 		snappy              = { times = { [1] = 2.60, [2] = 1.40, [3] = 0.50 }, uses = 40, maxlevel = 3 },
