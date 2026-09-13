@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 local spec = forms.Spec
 
---- @class smelter.node.Form: fuel_device.node.Form
+--- @class Lord.smelter.node.Form: fuel_device.node.Form
 local Form = {
 	get_spec = function(type, percent)
 		assert(type:is_one_of({ 'active', 'inactive' }))
@@ -11,10 +11,9 @@ local Form = {
 		return ''
 			.. spec.size(8, 9)
 			.. spec.label(0, 0, S('Smelter first level'))
-			.. (
-				type == 'inactive'
-					and spec.image(3.5, 1, 1, 2, '(smelter1_front.png)')
-					or  spec.image(3.5, 1, 1, 2, 'smelter_bg.png^[lowpart:' .. inv_percent .. ':smelter_fg.png]')
+			.. (type == 'inactive'
+				and spec.image(3.5, 1, 1, 2, 'lord_smelter_1_front.png')
+				or  spec.image(3.5, 1, 1, 2, 'lord_smelter_bg.png^[lowpart:' .. inv_percent .. ':lord_smelter_fg.png]')
 			)
 			.. spec.image(4.5, 2, 1, 1, 'benches_form_arrow.png')
 			.. spec.label(2.3, 3.2, S('Fuel:'))

@@ -1,10 +1,12 @@
 
-local S    = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
+
+--- @type NodeDefinition
 local common_node_definition = {
 	description   = S('Smelter'),
 	drawtype      = 'mesh',
-	mesh          = 'smelter1.obj',
+	mesh          = 'lord_smelter_1.obj',
 	paramtype     = 'light',
 	selection_box = {
 		type  = 'fixed',
@@ -12,17 +14,16 @@ local common_node_definition = {
 	},
 	collision_box = {
 		type  = 'fixed',
-		fixed = {-0.5, -0.5, -0.5, 0.5, 1.5, 0.5},
+		fixed = { -0.5, -0.5, -0.5, 0.5, 1.5, 0.5 },
 	},
-	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		local top_pos = pos:above()
-		local pos_above = minetest.get_node(top_pos)
-		-- Проверяем, пусто ли на втором блоке сверху
-		if pos_above.name == 'air' then
-			local fdir = minetest.get_node(pos).param2
-			minetest.set_node(pos, {name = 'smelter:smelter1', param2 = fdir})
+	after_place_node = function(pos, placer, item_stack, pointed_thing)
+		local node_above = core.get_node(pos:above())
+
+		if node_above.name == 'air' then
+			local face_dir = core.get_node(pos).param2
+			core.set_node(pos, { name = 'lord_smelter:smelter_1', param2 = face_dir })
 		else
-			minetest.remove_node(pos)
+			core.remove_node(pos)
 			return true
 		end
 	end,

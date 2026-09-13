@@ -1,5 +1,5 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	if not core.settings:get_bool('toggle_smelter', false) then
 		return
 	end

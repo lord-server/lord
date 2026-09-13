@@ -16,8 +16,8 @@ local furnance_recipes = {
 }
 
 for _, row in ipairs(furnance_recipes) do
-	minetest.clear_craft({
-		type = 'cooking',
+	core.clear_craft({
+		type   = 'cooking',
 		output = row[2],
 		recipe = row[1],
 	})

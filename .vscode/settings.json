@@ -9,6 +9,12 @@
         "leaveplayer",
         "joinplayer",
         "foreach",
-        "punchplayer"
+        "punchplayer",
+        "drawtype",
+        "paramtype",
+        "cracky",
+        "listring",
+        "rightclick",
+        "leveled"
     ]
 }

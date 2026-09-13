@@ -1,6 +1,6 @@
 # Blender 3.4.1
 # www.blender.org
-mtllib smelter1.mtl
+mtllib lord_smelter_1.mtl
 g smelter_surface
 v -0.300065 1.500000 -0.299935
 v -0.300065 1.000000 -0.299935
