@@ -23,5 +23,6 @@ jobs:
       config_file: minetest.conf.stage-featured
       branch:      dev
       service:     lord-staging-featured
+      hard_reset:  true
     secrets: inherit
 

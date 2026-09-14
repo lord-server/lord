@@ -8,6 +8,7 @@ on:
       config_file: { required: true,  type: string }
       branch:      { required: true,  type: string }
       service:     { required: false, type: string, default: lord }
+      hard_reset:  { required: false, type: boolean, default: false }
     secrets:
       GAME_HOST:   { required: true }
       GAME_PORT:   { required: true }
@@ -33,6 +34,10 @@ jobs:
             sudo -u ${{ secrets.GAME_USER }} bash -s << 'EOF'
               set -e
               cd /srv/luanti/accounts/lord/${{ inputs.environment }}/game/lord/
+              if ${{ inputs.hard_reset }}; then
+                echo 'Performing hard reset...'
+                git reset --hard
+              fi
               git checkout ${{ inputs.branch }}
               git pull --recurse-submodules
               git submodule init

@@ -16,5 +16,8 @@
         "listring",
         "rightclick",
         "leveled"
-    ]
+    ],
+    "files.associations": {
+        "minetest.conf.*": "properties"
+    }
 }
