@@ -15,7 +15,8 @@
         "cracky",
         "listring",
         "rightclick",
-        "leveled"
+        "leveled",
+        "cooktime"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"
