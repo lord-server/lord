@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:athelas_seed", {
+core.register_craftitem("lottfarming:athelas_seed", {
 	description = S("Athelas Seeds"),
 	inventory_image = "lottfarming_athelas_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:athelas_1", 2)
 	end,
 })
 
-minetest.register_node("lottfarming:athelas_1", {
+core.register_node("lottfarming:athelas_1", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -31,7 +31,7 @@ minetest.register_node("lottfarming:athelas_1", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:athelas_2", {
+core.register_node("lottfarming:athelas_2", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -49,7 +49,7 @@ minetest.register_node("lottfarming:athelas_2", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:athelas_3", {
+core.register_node("lottfarming:athelas_3", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -71,7 +71,7 @@ minetest.register_node("lottfarming:athelas_3", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:athelas", {
+core.register_craftitem("lottfarming:athelas", {
 	description = S("Athelas"),
 	inventory_image = "lottfarming_athelas.png",
 })

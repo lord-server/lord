@@ -1,4 +1,4 @@
-minetest.register_craft({
+core.register_craft({
 	output = 'technic:mithril_chest 1',
 	recipe = {
 		{'lottores:mithril_ingot','lottores:mithril_ingot','lottores:mithril_ingot'},
@@ -7,7 +7,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'technic:mithril_locked_chest 1',
 	recipe = {
 		{'lottores:mithril_ingot','lottores:mithril_ingot','lottores:mithril_ingot'},
@@ -16,7 +16,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "technic:mithril_locked_chest 1",
 	recipe = {"technic:mithril_chest", "default:steel_ingot"}

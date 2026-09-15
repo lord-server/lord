@@ -4,7 +4,7 @@ local math_min, math_limit, math_abs, math_floor, math_ceil, math_sqrt
 local HeightMap = require('mountgen.generator.HeightMap')
 local FieldType = require('mountgen.config.FieldType')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @class mountgen.algorithm.Parabola.ConfigValues: mountgen.config.ValuesTable

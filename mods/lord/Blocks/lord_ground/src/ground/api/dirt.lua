@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local dirt = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
@@ -11,8 +11,8 @@ local dirt = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { dirt = 1 }),
 	})
 	dirt.nodes[node_name] = definition
@@ -31,9 +31,9 @@ local function register_biome_dirt(node_name, softness, title, definition)
 	local texture      = node_name:replace(":", "_") .. ".png"
 	local texture_side = node_name:replace(":", "_") .. "_side.png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. ", " .. texture_side .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. texture .. ", " .. texture_side .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, table.overwrite({
+	core.register_node(node_name, table.overwrite({
 		description       = S(title),
 		tiles             = {
 			texture,
@@ -51,8 +51,8 @@ local function register_biome_dirt(node_name, softness, title, definition)
 		}),
 	}, definition))
 
-	dirt.nodes[node_name]       = minetest.registered_nodes[node_name]
-	dirt.biome_nodes[node_name] = minetest.registered_nodes[node_name]
+	dirt.nodes[node_name]       = core.registered_nodes[node_name]
+	dirt.biome_nodes[node_name] = core.registered_nodes[node_name]
 end
 
 --- @param node_name  string technical node name ("<mod>:<node>").
@@ -66,9 +66,9 @@ local function register_mixed_dirt(node_name, craft_from, softness, title, defin
 
 	local overlay = node_name:replace(":", "_") .. "_overlay.png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. overlay .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. overlay .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, table.overwrite({
+	core.register_node(node_name, table.overwrite({
 		description       = S(title),
 		tiles             = { "default_dirt.png^" .. overlay, },
 		is_ground_content = true,
@@ -76,22 +76,22 @@ local function register_mixed_dirt(node_name, craft_from, softness, title, defin
 		sounds            = default.node_sound_dirt_defaults(),
 	}, definition))
 
-	minetest.register_craft({
+	core.register_craft({
 		output = node_name .. " 4",
 		recipe = {
 			{ "default:dirt", craft_from },
 			{ craft_from, "default:dirt"},
 		}
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = node_name .. " 4",
 		recipe = {
 			{ craft_from, "default:dirt"},
 			{ "default:dirt", craft_from },
 		}
 	})
-	dirt.nodes[node_name]       = minetest.registered_nodes[node_name]
-	dirt.mixed_nodes[node_name] = minetest.registered_nodes[node_name]
+	dirt.nodes[node_name]       = core.registered_nodes[node_name]
+	dirt.mixed_nodes[node_name] = core.registered_nodes[node_name]
 end
 
 

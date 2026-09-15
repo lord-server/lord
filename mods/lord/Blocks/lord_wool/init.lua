@@ -1,7 +1,7 @@
 -- lord_wool/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 for _, row in ipairs(dye.dyes) do
 	local name = row[1]
@@ -21,12 +21,12 @@ for _, row in ipairs(dye.dyes) do
 	)
 end
 
-minetest.register_craft({
+core.register_craft({
 	type     = 'fuel',
 	recipe   = 'group:wool',
 	burntime = 1,
 })
-minetest.register_craft({
+core.register_craft({
 	type     = 'fuel',
 	recipe   = 'group:wool_stair',
 	burntime = 0.5,

@@ -1,5 +1,5 @@
 local pairs, math_random, v,          id
-    = pairs, math.random, vector.new, minetest.get_content_id
+    = pairs, math.random, vector.new, core.get_content_id
 
 
 local id_air                 = id('air')

@@ -1,5 +1,5 @@
-local S = minetest.get_translator("lord_beds")
-local esc = minetest.formspec_escape
+local S = core.get_translator("lord_beds")
+local esc = core.formspec_escape
 
 beds = {}
 beds.player = {}
@@ -18,7 +18,7 @@ beds.day_interval = {
 	finish = 0.790,
 }
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('functions')
 	require('api')
 	require('beds')

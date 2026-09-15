@@ -1,14 +1,14 @@
 -- luacheck:ignore 561
 -- Отключена проверка на цикломатическую сложность, поскольку
 -- mods/lord/Blocks/castle/town_item.lua:152:20: cyclomatic complexity of function get_recipe is too high (14 > 10)
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local get_recipe = function(inv)
 	local result, needed, input
 	needed          = inv:get_list('rec')
 
-	result, input   = minetest.get_craft_result({
+	result, input   = core.get_craft_result({
 		method = 'normal',
 		width  = 3,
 		items  = needed
@@ -69,18 +69,18 @@ local workbench_formspec = 'size[8,9;]' ..
 	'listring[context;dst]'
 
 
-minetest.register_lbm({
+core.register_lbm({
 	label = 'workbench formspec replacement',
 	name = ':castle:workbench_formspec_replacement',
 	nodenames = {'workbench:workbench'},
 	run_at_every_load = true,
 	action = function(pos, node)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
 	end
 })
 
-minetest.register_node('workbench:workbench', {
+core.register_node('workbench:workbench', {
 	description                   = S('Workbench'),
 	drawtype                      = 'mesh',
 	mesh                          = 'workbench.obj',
@@ -90,7 +90,7 @@ minetest.register_node('workbench:workbench', {
 	groups                        = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, wooden = 1 },
 	sounds                        = default.node_sound_wood_defaults(),
 	on_construct                  = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('formspec', workbench_formspec)
 		meta:set_string('infotext', S('Workbench'))
 		local inv = meta:get_inventory()
@@ -99,48 +99,48 @@ minetest.register_node('workbench:workbench', {
 		inv:set_size('dst', 2 * 4)
 	end,
 	can_dig                       = function(pos, player)
-		local meta = minetest.get_meta(pos);
+		local meta = core.get_meta(pos);
 		local inv  = meta:get_inventory()
 		return inv:is_empty('src') and inv:is_empty('dst') and inv:is_empty('rec')
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log('action', player:get_player_name() ..
-				' attempt moves stuff in workbench at ' .. minetest.pos_to_string(pos))
+		if core.is_protected(pos, player:get_player_name()) then
+			core.log('action', player:get_player_name() ..
+				' attempt moves stuff in workbench at ' .. core.pos_to_string(pos))
 			return 0
 		end
-		minetest.log('action', player:get_player_name() ..
-			' moves stuff in workbench at ' .. minetest.pos_to_string(pos))
+		core.log('action', player:get_player_name() ..
+			' moves stuff in workbench at ' .. core.pos_to_string(pos))
 		return count
 	end,
 	allow_metadata_inventory_put  = function(pos, listname, index, stack, player)
-		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log('action', player:get_player_name() ..
-				' attempt moves stuff to workbench at ' .. minetest.pos_to_string(pos))
+		if core.is_protected(pos, player:get_player_name()) then
+			core.log('action', player:get_player_name() ..
+				' attempt moves stuff to workbench at ' .. core.pos_to_string(pos))
 			return 0
 		end
-		minetest.log('action', player:get_player_name() ..
-			' moves stuff to workbench at ' .. minetest.pos_to_string(pos))
+		core.log('action', player:get_player_name() ..
+			' moves stuff to workbench at ' .. core.pos_to_string(pos))
 		return stack:get_count()
 	end,
 	allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		if minetest.is_protected(pos, player:get_player_name()) then
-			minetest.log('action', player:get_player_name() ..
-				' attempt takes stuff from workbench at ' .. minetest.pos_to_string(pos))
+		if core.is_protected(pos, player:get_player_name()) then
+			core.log('action', player:get_player_name() ..
+				' attempt takes stuff from workbench at ' .. core.pos_to_string(pos))
 			return 0
 		end
-		minetest.log('action', player:get_player_name() ..
-			' takes stuff from workbench at ' .. minetest.pos_to_string(pos))
+		core.log('action', player:get_player_name() ..
+			' takes stuff from workbench at ' .. core.pos_to_string(pos))
 		return stack:get_count()
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { 'workbench:workbench' },
 	interval  = 5,
 	chance    = 1,
 	action    = function(pos, node)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv  = meta:get_inventory()
 		local result, newinput, needed
 		if not inv:is_empty('src') then
@@ -161,7 +161,7 @@ minetest.register_abm({
 	end
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'workbench:workbench',
 	recipe = {
 		{ 'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot' },
@@ -172,7 +172,7 @@ minetest.register_craft({
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		-- all things done upper
 	end,

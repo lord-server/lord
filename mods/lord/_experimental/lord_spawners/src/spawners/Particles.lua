@@ -14,7 +14,7 @@ function Particles.cloud_boom(pos)
 		return
 	end
 
-	minetest.add_particlespawner({
+	core.add_particlespawner({
 		amount     = 5,
 		time       = 2,
 		minpos     = vector.subtract({ x = pos.x - 0.3, y = pos.y, z = pos.z - 0.3 }, 0.3),
@@ -45,7 +45,7 @@ function Particles.add_flame_effects(pos)
 		return
 	end
 
-	return minetest.add_particlespawner({
+	return core.add_particlespawner({
 		amount     = 6,
 		time       = 0,
 		minpos     = vector.subtract({ x = pos.x - 0.001, y = pos.y - 0.001, z = pos.z - 0.001 }, 0.5),
@@ -67,7 +67,7 @@ function Particles.add_smoke_effects(pos)
 		return
 	end
 
-	return minetest.add_particlespawner({
+	return core.add_particlespawner({
 		amount     = 1,
 		time       = 0,
 		minpos     = vector.subtract({ x = pos.x - 0.001, y = pos.y - 0.001, z = pos.z - 0.001 }, 0.5),

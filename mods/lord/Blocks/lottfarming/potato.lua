@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:potato_seed", {
+core.register_craftitem("lottfarming:potato_seed", {
 	description = S("Half of potato"),
 	inventory_image = "lottfarming_potato_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:potato_1", 40)
 	end,
 })
 
-minetest.register_node("lottfarming:potato_1", {
+core.register_node("lottfarming:potato_1", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -31,7 +31,7 @@ minetest.register_node("lottfarming:potato_1", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:potato_2", {
+core.register_node("lottfarming:potato_2", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -49,7 +49,7 @@ minetest.register_node("lottfarming:potato_2", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:potato_3", {
+core.register_node("lottfarming:potato_3", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -68,18 +68,18 @@ minetest.register_node("lottfarming:potato_3", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:potato", {
+core.register_craftitem("lottfarming:potato", {
 	description     = S("Potato"),
 	inventory_image = "lottfarming_potato.png",
-	on_use          = minetest.item_eat(1),
+	on_use          = core.item_eat(1),
 	_tt_food_hp     = 1,
 })
 
 farming:add_plant("lottfarming:potato_3", {"lottfarming:potato_1", "lottfarming:potato_2"}, 50, 20, 40)
 
-minetest.register_craftitem("lottfarming:potato_cooked", {
+core.register_craftitem("lottfarming:potato_cooked", {
 	description     = S("Cooked Potato"),
 	inventory_image = "lottfarming_potato_cooked.png",
-	on_use          = minetest.item_eat(7),
+	on_use          = core.item_eat(7),
 	_tt_food_hp     = 7,
 })

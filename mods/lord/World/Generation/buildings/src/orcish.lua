@@ -5,7 +5,7 @@ local OrcishDungeon = require('orcish.Dungeon')
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 
 		-- TODO: Регистрация генерации на карте

@@ -1,14 +1,14 @@
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
-		minetest.CraftMethod.POTION = 'potion'
-		minetest.register_craft_method(minetest.CraftMethod.POTION)
+		core.CraftMethod.POTION = 'potion'
+		core.register_craft_method(core.CraftMethod.POTION)
 
 		require('laboratory.nodes')
 
-		minetest.register_craft({
+		core.register_craft({
 			output = 'laboratory:laboratory',
 			recipe = {
 				{ 'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot' },

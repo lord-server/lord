@@ -5,7 +5,7 @@ local detached_inv_equipment_slots = {
 	armor    = require("equipment.armor_slots"),
 	clothing = require("equipment.clothing_slots"),
 }
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local CLOTHING_EQUIPMENT_SIZE = 5
@@ -25,11 +25,11 @@ local function item_wear(stack, slot, player)
 	local use = stack:get_definition().groups["armor_use"] or 0
 	stack:add_wear(use)
 
-	local armor_inv = minetest.get_inventory({type="detached", name = player:get_player_name().."_armor"})
+	local armor_inv = core.get_inventory({type="detached", name = player:get_player_name().."_armor"})
 	if stack:get_count() == 0 then
-		local desc = minetest.registered_items[stack:get_name()].description
+		local desc = core.registered_items[stack:get_name()].description
 		if desc then
-			minetest.chat_send_player(player:get_player_name(), desc.." ".. S("got destroyed!"))
+			core.chat_send_player(player:get_player_name(), desc.." ".. S("got destroyed!"))
 		end
 		armor_inv:set_stack("armor", slot, nil)
 		equipment.for_player(player):delete(equipment.Kind.ARMOR, slot)
@@ -55,7 +55,7 @@ end
 --- @param event  string
 local function register_detached_slots(player, kind, event)
 	local player_name = player:get_player_name()
-	local equip_inv   = minetest.create_detached_inventory(
+	local equip_inv   = core.create_detached_inventory(
 		equipment.get_inventory_name(player_name, kind), detached_inv_equipment_slots[kind], player_name
 	)
 	equip_inv:set_size(kind, equipment.Kind.get_size(kind))
@@ -82,6 +82,6 @@ return {
 		--   - fill each inventory with equipment items
 		equipment.on_load(register_detached_slots)
 
-		minetest.register_on_punchplayer(handle_armor_wear)
+		core.register_on_punchplayer(handle_armor_wear)
 	end
 }

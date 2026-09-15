@@ -6,17 +6,17 @@ local recipes = require('grinder.definition.recipes')
 
 local function register_craft()
 	for _, craftRecipe in pairs(craft.recipes) do
-		minetest.register_craft(craftRecipe)
+		core.register_craft(craftRecipe)
 	end
 	for _, item in pairs(craft.items) do
-		minetest.register_craftitem(item.name, item.definition)
+		core.register_craftitem(item.name, item.definition)
 	end
 end
 
 local function register_recipes()
 	for _, data in pairs(recipes) do
-		minetest.register_craft({
-			method = minetest.CraftMethod.GRINDER,
+		core.register_craft({
+			method = core.CraftMethod.GRINDER,
 			type   = 'cooking',
 			input  = data[1],
 			output = data[2],
@@ -28,7 +28,7 @@ end
 local function register_nodes(S)
 	fuel_device.register(
 		S('Grinder'),
-		minetest.CraftMethod.GRINDER,
+		core.CraftMethod.GRINDER,
 		{
 			inactive = { node_name = 'grinder:grinder',        definition = node.inactive },
 			active   = { node_name = 'grinder:grinder_active', definition = node.active   },
@@ -40,10 +40,10 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
-		minetest.CraftMethod.GRINDER = 'grinder'
-		minetest.register_craft_method(minetest.CraftMethod.GRINDER)
+		core.CraftMethod.GRINDER = 'grinder'
+		core.register_craft_method(core.CraftMethod.GRINDER)
 		register_craft()
 		register_recipes()
 		register_nodes(mod.translator)

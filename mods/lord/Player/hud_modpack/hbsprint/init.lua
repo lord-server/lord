@@ -1,28 +1,28 @@
 local enable_stamina = false --Set to "true" to enable stamina
 if enable_stamina == true then
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 -- Vars
 
-local speed         = tonumber(minetest.settings:get ("sprint_speed")) or 2
-local key           = minetest.settings:get ("sprint_key") or "Use"
-local dir           = minetest.settings:get_bool("sprint_forward_only") ~= false
-local particles     = tonumber(minetest.settings:get ("sprint_particles")) or 2
-local stamina       = minetest.settings:get_bool("sprint_stamina") ~= false
-local stamina_drain = tonumber(minetest.settings:get ("sprint_stamina_drain")) or 0.5
-local replenish     = tonumber(minetest.settings:get ("sprint_stamina_replenish")) or 1
---local starve        = minetest.settings:get_bool("sprint_starve") ~= false
---local starve_drain  = tonumber(minetest.settings:get ("sprint_starve_drain")) or 590
-local starve_limit  = tonumber(minetest.settings:get ("sprint_starve_limit")) or 6
-local autohide      = minetest.settings:get_bool("hudbars_autohide_stamina") ~= false
+local speed         = tonumber(core.settings:get ("sprint_speed")) or 2
+local key           = core.settings:get ("sprint_key") or "Use"
+local dir           = core.settings:get_bool("sprint_forward_only") ~= false
+local particles     = tonumber(core.settings:get ("sprint_particles")) or 2
+local stamina       = core.settings:get_bool("sprint_stamina") ~= false
+local stamina_drain = tonumber(core.settings:get ("sprint_stamina_drain")) or 0.5
+local replenish     = tonumber(core.settings:get ("sprint_stamina_replenish")) or 1
+--local starve        = core.settings:get_bool("sprint_starve") ~= false
+--local starve_drain  = tonumber(core.settings:get ("sprint_starve_drain")) or 590
+local starve_limit  = tonumber(core.settings:get ("sprint_starve_limit")) or 6
+local autohide      = core.settings:get_bool("hudbars_autohide_stamina") ~= false
 
 local sprint_timer_step = 0.5
 local sprint_timer = 0
 local stamina_timer = 0
 
-local mod_hudbars = minetest.get_modpath("hudbars") or false
+local mod_hudbars = core.get_modpath("hudbars") or false
 local starve
-if minetest.get_modpath("hbhunger") then
+if core.get_modpath("hbhunger") then
   starve = "hbhunger"
 else
   starve = false
@@ -68,11 +68,11 @@ end
 
 local function create_particles(player, name, pos, ground)
   if ground and ground.name ~= "air" and ground.name ~= "ignore" then
-    local def = minetest.registered_nodes[ground.name]
+    local def = core.registered_nodes[ground.name]
     local tile = def.tiles[1] or def.inventory_image or ""
     if type(tile) == "string" then
       for i = 1, particles do
-        minetest.add_particle({
+        core.add_particle({
           pos = {x = pos.x + math.random(-1,1) * math.random() / 2, y = pos.y + 0.1,
            z = pos.z + math.random(-1,1) * math.random() / 2},
           velocity = {x = 0, y = 5, z = 0},
@@ -108,16 +108,16 @@ if mod_hudbars and stamina then
   )
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
   if mod_hudbars and stamina then hb.init_hudbar(player, "stamina", 20, 20, autohide) end
   player:get_meta():set_float("hbsprint:stamina", 20)
 end)
 
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
   sprint_timer = sprint_timer + dtime
   stamina_timer = stamina_timer + dtime
   if sprint_timer >= sprint_timer_step then
-    for _,player in ipairs(minetest.get_connected_players()) do
+    for _,player in ipairs(core.get_connected_players()) do
       local ctrl = player:get_player_control()
       local key_press = false
       if key == "Use" and dir then
@@ -135,9 +135,9 @@ minetest.register_globalstep(function(dtime)
         local name = player:get_player_name()
         local hunger = 30
         local pos = player:get_pos()
-        local ground = minetest.get_node_or_nil({x=pos.x, y=pos.y-1, z=pos.z})
+        local ground = core.get_node_or_nil({x=pos.x, y=pos.y-1, z=pos.z})
         local player_stamina = tonumber(player:get_meta():get("hbsprint:stamina"))
-        if starve == "hbhunger" and not minetest.is_creative_enabled(name) then
+        if starve == "hbhunger" and not core.is_creative_enabled(name) then
           hunger = tonumber(hbhunger.hunger[name])
         end
         if player_stamina > 0 and hunger > starve_limit then

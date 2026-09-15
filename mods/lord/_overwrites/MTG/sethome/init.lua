@@ -1,12 +1,12 @@
 
-local S = minetest.get_mod_translator("sethome")
+local S = core.get_mod_translator("sethome")
 
 local original_sethome_set = sethome.set
 
 sethome.set = function(name, pos)
-	if minetest.get_modpath("protector_lott") ~= nil then
-		if minetest.is_protected(pos, name) then
-			minetest.chat_send_player(name, S("Home not set!"))
+	if core.get_modpath("protector_lott") ~= nil then
+		if core.is_protected(pos, name) then
+			core.chat_send_player(name, S("Home not set!"))
 			return false
 		end
 	end

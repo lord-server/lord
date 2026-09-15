@@ -1,8 +1,8 @@
-local base_url = minetest.settings:get("lord_web_api.base_url")
-local timeout  = minetest.settings:get("lord_web_api.timeout") or 5
+local base_url = core.settings:get("lord_web_api.base_url")
+local timeout  = core.settings:get("lord_web_api.timeout") or 5
 
 if not base_url then
-	minetest.log("warning", "Can't find setting `lord_web_api.base_url`.")
+	core.log("warning", "Can't find setting `lord_web_api.base_url`.")
 	return false
 end
 

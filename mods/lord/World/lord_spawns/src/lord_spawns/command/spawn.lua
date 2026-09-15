@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @param Spawns lord_spawns.Spawns
@@ -8,7 +8,7 @@ local function get_spawn_command_definition(Spawns)
 	local spawn_command_definition = {
 		description = S('Teleport to Spawn'),
 		func        = function(name, _)
-			local player   = minetest.get_player_by_name(name)
+			local player   = core.get_player_by_name(name)
 			local location = character.of(player):get_race()
 
 			local teleported_to = Spawns.teleport_to(player, location)

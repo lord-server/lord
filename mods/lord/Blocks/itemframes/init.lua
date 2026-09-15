@@ -1,11 +1,11 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- See README.txt for licensing and other information.
 
 local tmp = {}
 itemframes = {}
 
-minetest.register_entity("itemframes:item",{
+core.register_entity("itemframes:item",{
 	hp_max = 1,
 	visual="wielditem",
 	visual_size={x=.33,y=.33},
@@ -51,9 +51,9 @@ facedir[3] = {x=-1,y=0,z=0}
 local remove_item = function(pos, node)
 	local objs = nil
 	if node.name == "itemframes:frame" or node.name == "itemframes:protected_frame" then
-		objs = minetest.get_objects_inside_radius(pos, .5)
-	elseif minetest.get_item_group(node.name, "group:pedestal") then
-		objs = minetest.get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
+		objs = core.get_objects_inside_radius(pos, .5)
+	elseif core.get_item_group(node.name, "group:pedestal") then
+		objs = core.get_objects_inside_radius({x=pos.x,y=pos.y+1,z=pos.z}, .5)
 	end
 	if objs then
 		for _, obj in ipairs(objs) do
@@ -67,7 +67,7 @@ end
 
 local update_item = function(pos, node)
 	remove_item(pos, node)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" or node.name == "itemframes:protected_frame" then
 			local posad = facedir[node.param2]
@@ -75,12 +75,12 @@ local update_item = function(pos, node)
 			pos.x = pos.x + posad.x*6.5/16
 			pos.y = pos.y + posad.y*6.5/16
 			pos.z = pos.z + posad.z*6.5/16
-		elseif minetest.get_item_group(node.name, "group:pedestal") then
+		elseif core.get_item_group(node.name, "group:pedestal") then
 			pos.y = pos.y + 12/16+.33
 		end
 		tmp.nodename = node.name
 		tmp.texture = ItemStack(meta:get_string("item")):get_name()
-		local e = minetest.add_entity(pos,"itemframes:item")
+		local e = core.add_entity(pos,"itemframes:item")
 		if node.name == "itemframes:frame" or node.name == "itemframes:protected_frame" then
 			local yaw = math.pi*2 - node.param2 * math.pi/2
 			e:set_yaw(yaw)
@@ -89,19 +89,19 @@ local update_item = function(pos, node)
 end
 
 local drop_item = function(pos, node)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	if meta:get_string("item") ~= "" then
 		if node.name == "itemframes:frame" or node.name == "itemframes:protected_frame" then
-			minetest.add_item(pos, meta:get_string("item"))
-		elseif minetest.get_item_group(node.name, "group:pedestal") then
-			minetest.add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
+			core.add_item(pos, meta:get_string("item"))
+		elseif core.get_item_group(node.name, "group:pedestal") then
+			core.add_item({x=pos.x,y=pos.y+1,z=pos.z}, meta:get_string("item"))
 		end
 		meta:set_string("item","")
 	end
 	remove_item(pos, node)
 end
 
-minetest.register_node("itemframes:frame",{
+core.register_node("itemframes:frame",{
 	description = S("Item frame"),
 	drawtype = "nodebox",
 	node_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
@@ -116,22 +116,22 @@ minetest.register_node("itemframes:frame",{
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner",placer:get_player_name())
 		meta:set_string("infotext", S("Item frame").."\n"..S("(owned by").." "..placer:get_player_name()..")")
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
 		local item_name
-		if not minetest.registered_items[itemstack:get_name()] then
+		if not core.registered_items[itemstack:get_name()] then
 			return
 		end
 		if itemstack:is_empty() then
 			item_name = " "
 		else
-			item_name = ": "..minetest.registered_items[itemstack:get_name()].description
+			item_name = ": "..core.registered_items[itemstack:get_name()].description
 		end
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if clicker:get_player_name() == meta:get_string("owner") then
 			drop_item(pos,node)
 			local s = itemstack:take_item()
@@ -142,19 +142,19 @@ minetest.register_node("itemframes:frame",{
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if puncher:get_player_name() == meta:get_string("owner") then
 			meta:set_string("infotext", S("Item frame").."\n"..S("(owned by").." "..puncher:get_player_name()..")")
 			drop_item(pos, node)
 		end
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		return player:get_player_name() == meta:get_string("owner")
 	end,
 })
 
-minetest.register_node("itemframes:protected_frame",{
+core.register_node("itemframes:protected_frame",{
 	description = S("Protected item frame"),
 	drawtype = "nodebox",
 	node_box = { type = "fixed", fixed = {-0.5, -0.5, 7/16, 0.5, 0.5, 0.5} },
@@ -169,22 +169,22 @@ minetest.register_node("itemframes:protected_frame",{
 	legacy_wallmounted = true,
 	sounds = default.node_sound_defaults(),
 	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", S("Protected item frame"))
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if not itemstack then return end
 		local item_name
-		if not minetest.registered_items[itemstack:get_name()] then
+		if not core.registered_items[itemstack:get_name()] then
 			return
 		end
 		if itemstack:is_empty() then
 			item_name = " "
 		else
-			item_name = ": "..minetest.registered_items[itemstack:get_name()].description
+			item_name = ": "..core.registered_items[itemstack:get_name()].description
 		end
-		local meta = minetest.get_meta(pos)
-		if not minetest.is_protected(pos, clicker:get_player_name()) then
+		local meta = core.get_meta(pos)
+		if not core.is_protected(pos, clicker:get_player_name()) then
 			drop_item(pos,node)
 			local s = itemstack:take_item()
 			meta:set_string("infotext", S("Protected item frame")..item_name)
@@ -194,18 +194,18 @@ minetest.register_node("itemframes:protected_frame",{
 		return itemstack
 	end,
 	on_punch = function(pos,node,puncher)
-		local meta = minetest.get_meta(pos)
-		if not minetest.is_protected(pos, puncher:get_player_name()) then
+		local meta = core.get_meta(pos)
+		if not core.is_protected(pos, puncher:get_player_name()) then
 			meta:set_string("infotext", S("Protected item frame"))
 			drop_item(pos, node)
 		end
 	end,
 	can_dig = function(pos,player)
-		return not minetest.is_protected(pos, player:get_player_name())
+		return not core.is_protected(pos, player:get_player_name())
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'itemframes:frame',
 	recipe = {
 		{'group:stick', 'group:stick', 'group:stick'},
@@ -214,14 +214,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'itemframes:protected_frame',
 	type = "shapeless",
 	recipe = {'itemframes:frame', 'protector_lott:protect2'}
 })
 
 function itemframes.register_pedestal(subname, recipeitem, groups, images, description, sounds)
-	minetest.register_node("itemframes:pedestal_" .. subname, {
+	core.register_node("itemframes:pedestal_" .. subname, {
 		description = description,
 		drawtype = "nodebox",
 		tiles = images,
@@ -235,22 +235,22 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 		sounds = sounds,
 		paramtype = "light",
 		after_place_node = function(pos, placer, itemstack)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("owner",placer:get_player_name())
 			meta:set_string("infotext", S("Pedestal").."\n"..S("(owned by").." "..placer:get_player_name()..")")
 		end,
 		on_rightclick = function(pos, node, clicker, itemstack)
 			if not itemstack then return end
 			local item_name
-			if not minetest.registered_items[itemstack:get_name()] then
+			if not core.registered_items[itemstack:get_name()] then
 				return
 			end
 			if itemstack:is_empty() then
 				item_name = " "
 			else
-				item_name = ": "..minetest.registered_items[itemstack:get_name()].description
+				item_name = ": "..core.registered_items[itemstack:get_name()].description
 			end
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if clicker:get_player_name() == meta:get_string("owner") then
 				drop_item(pos,node)
 				local s = itemstack:take_item()
@@ -261,19 +261,19 @@ function itemframes.register_pedestal(subname, recipeitem, groups, images, descr
 			return itemstack
 		end,
 		on_punch = function(pos,node,puncher)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if puncher:get_player_name() == meta:get_string("owner") then
 				meta:set_string("infotext", S("Pedestal").."\n"..S("(owned by").." "..puncher:get_player_name()..")")
 				drop_item(pos,node)
 			end
 		end,
 		can_dig = function(pos,player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			return player:get_player_name() == meta:get_string("owner")
 		end,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'itemframes:pedestal_' .. subname,
 		recipe = {
 			{recipeitem, recipeitem, recipeitem},
@@ -405,12 +405,12 @@ itemframes.register_pedestal("orc_brick", "lottblocks:orc_brick",
 -- automatically restore entities lost from
 -- frames/pedestals due to /clearobjects or similar
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"itemframes:frame", "group:pedestal"},
 	interval = 15,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if #minetest.get_objects_inside_radius(pos, 0.5) > 0 then return end
+		if #core.get_objects_inside_radius(pos, 0.5) > 0 then return end
 		update_item(pos, node)
 	end
 })

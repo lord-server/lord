@@ -1,6 +1,6 @@
 local Manager = require('holding_points.Manager')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @type ChatCommandDefinition
 local definition = {

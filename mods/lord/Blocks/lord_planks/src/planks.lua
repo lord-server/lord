@@ -16,7 +16,7 @@ local function register_lord_planks()
 		local planks_name = trunk_name:replace("^lord_trees:", "lord_planks:"):replace("_tree$", "")
 		api.register_planks(planks_name, trunk.groups.choppy or 2, trunk_name)
 		-- bin/minetest --info 2>&1 | grep 'use node'
-		minetest.log("info", "use node: " .. trunk_name .. " at " .. __FILE_LINE__())
+		core.log("info", "use node: " .. trunk_name .. " at " .. __FILE_LINE__())
 	end
 
 	api.register_planks("lord_planks:hardwood",  1, nil, { flammable = 1 })
@@ -25,14 +25,14 @@ end
 
 local function register_additional_crafts()
 	-- additional craft from young mallorn
-	minetest.register_craft({
+	core.register_craft({
 		output = 'lord_planks:mallorn 2',
 		recipe = {
 			{ 'lord_trees:mallorn_young_tree' },
 		}
 	})
 	-- different crafts for hardwood
-	minetest.register_mirrored_crafts({
+	core.register_mirrored_crafts({
 		output = 'lord_planks:hardwood 2',
 		recipe = {
 			{"default:wood", "default:junglewood"},
@@ -40,7 +40,7 @@ local function register_additional_crafts()
 		}
 	})
 	-- craft for infected planks
-	minetest.register_craft({
+	core.register_craft({
 		output = 'lord_planks:infected 2',
 		recipe = {
 			{ 'group:infected_tree' },
@@ -48,7 +48,7 @@ local function register_additional_crafts()
 	})
 
 	-- hardwood burned slower, than group:wood
-	minetest.register_craft({
+	core.register_craft({
 		type = "fuel",
 		recipe = "lord_planks:hardwood",
 		burntime = 28,

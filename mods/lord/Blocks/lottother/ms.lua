@@ -1,9 +1,9 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Mobs spawners for buildings
 -- Mordor
 
-minetest.register_node("lottother:mordorms", {
+core.register_node("lottother:mordorms", {
 	description = S("Mordor Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -16,20 +16,20 @@ minetest.register_node("lottother:mordorms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 4) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:orc")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:orc")
 		elseif math.random(1, 5) == 3 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:uruk_hai")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:uruk_hai")
 		elseif math.random(1, 11) == 4 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:battle_troll")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:battle_troll")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
 -- Rohan
 
-minetest.register_node("lottother:rohanms", {
+core.register_node("lottother:rohanms", {
 	description = S("Rohan Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -42,16 +42,16 @@ minetest.register_node("lottother:rohanms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 3) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:rohan_guard")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:rohan_guard")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
 -- Elf
 
-minetest.register_node("lottother:elfms", {
+core.register_node("lottother:elfms", {
 	description = S("Elf Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -64,16 +64,16 @@ minetest.register_node("lottother:elfms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 2) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:elf")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:elf")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
 --Hobbit
 
-minetest.register_node("lottother:hobbitms", {
+core.register_node("lottother:hobbitms", {
 	description = S("Hobbit Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -86,16 +86,16 @@ minetest.register_node("lottother:hobbitms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 2) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:hobbit")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:hobbit")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
 --Gondor
 
-minetest.register_node("lottother:gondorms", {
+core.register_node("lottother:gondorms", {
 	description = S("Gondor Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -108,16 +108,16 @@ minetest.register_node("lottother:gondorms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 3) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:gondor_guard")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:gondor_guard")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
 --Angmar
 
-minetest.register_node("lottother:angmarms", {
+core.register_node("lottother:angmarms", {
 	description = S("Angmar Mob Spawner"),
 	drawtype = "glasslike",
 	tiles = {"lottother_air.png"},
@@ -130,22 +130,22 @@ minetest.register_node("lottother:angmarms", {
 	pointable = false,
 	on_construct = function(pos, node)
 		if math.random(1, 2) == 2 then
-			minetest.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:half_troll")
+			core.add_entity({x = pos.x, y = pos.y+1, z = pos.z}, "lottmobs:half_troll")
 		end
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 	groups = {not_in_creative_inventory=1,dig_immediate=3},
 })
 
-minetest.register_alias("lottother:gondorms_on", "lottother:gondorms")
-minetest.register_alias("lottother:gondorms_off", "lottother:gondorms")
-minetest.register_alias("lottother:rohanms_on", "lottother:rohanms")
-minetest.register_alias("lottother:rohanms_off", "lottother:rohanms")
-minetest.register_alias("lottother:angmarms_on", "lottother:angmarms")
-minetest.register_alias("lottother:angmarms_off", "lottother:angmarms")
-minetest.register_alias("lottother:hobbitms_on", "lottother:hobbitms")
-minetest.register_alias("lottother:hobbitms_off", "lottother:hobbitms")
-minetest.register_alias("lottother:elfms_on", "lottother:elfms")
-minetest.register_alias("lottother:elfms_off", "lottother:elfms")
-minetest.register_alias("lottother:mordorms_on", "lottother:mordorms")
-minetest.register_alias("lottother:mordorms_off", "lottother:mordorms")
+core.register_alias("lottother:gondorms_on", "lottother:gondorms")
+core.register_alias("lottother:gondorms_off", "lottother:gondorms")
+core.register_alias("lottother:rohanms_on", "lottother:rohanms")
+core.register_alias("lottother:rohanms_off", "lottother:rohanms")
+core.register_alias("lottother:angmarms_on", "lottother:angmarms")
+core.register_alias("lottother:angmarms_off", "lottother:angmarms")
+core.register_alias("lottother:hobbitms_on", "lottother:hobbitms")
+core.register_alias("lottother:hobbitms_off", "lottother:hobbitms")
+core.register_alias("lottother:elfms_on", "lottother:elfms")
+core.register_alias("lottother:elfms_off", "lottother:elfms")
+core.register_alias("lottother:mordorms_on", "lottother:mordorms")
+core.register_alias("lottother:mordorms_off", "lottother:mordorms")

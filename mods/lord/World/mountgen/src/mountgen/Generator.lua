@@ -1,10 +1,10 @@
 local math_floor, id
-    = math.floor, minetest.get_content_id
+    = math.floor, core.get_content_id
 
 local Algorithm      = require('mountgen.Algorithm')
 local ChunksIterator = require('mountgen.generator.ChunksIterator')
 local Node           = require('mountgen.generator.Node')
-local Logger         = minetest.get_mod_logger()
+local Logger         = core.get_mod_logger()
 
 
 local stone_id = id('default:stone')

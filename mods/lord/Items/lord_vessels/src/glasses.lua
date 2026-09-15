@@ -1,9 +1,9 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local cauldron = require('cauldron.usage')
 local px = 1/16
 
-minetest.override_item('vessels:drinking_glass', {
+core.override_item('vessels:drinking_glass', {
 	on_use           = function(itemstack, user, pointed_thing)
 		local pos = pointed_thing.above
 		if pos == nil then return itemstack end
@@ -19,7 +19,7 @@ minetest.override_item('vessels:drinking_glass', {
 	},
 })
 
-minetest.register_node('lord_vessels:drinking_glass_water', {
+core.register_node('lord_vessels:drinking_glass_water', {
 	description       = S('Drinking Glass (Water)'),
 	inventory_image   = 'lord_vessels_glass_water.png^vessels_drinking_glass_inv.png',
 	wield_image       = 'lord_vessels_glass_water.png^vessels_drinking_glass_inv.png',

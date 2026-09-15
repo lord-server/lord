@@ -1,5 +1,5 @@
-local S = minetest.get_mod_translator()
-local esc = minetest.formspec_escape
+local S = core.get_mod_translator()
+local esc = core.formspec_escape
 
 ---show mob answers
 ---@param clicker Player player
@@ -9,7 +9,7 @@ local function show_answer(clicker, item)
 	local formspec = "size[8,5]"
 	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
 	formspec = formspec.."button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
-	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
+	core.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
 ---edit mob answers form
@@ -30,7 +30,7 @@ local function edit_answer(clicker, item)
 	else
 		formspec = formspec.."button[0.25,8;7.5,1;show_question;"..esc(S("Show")).."]"
 	end
-	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
+	core.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
 
 ---form content when display dialog
@@ -164,7 +164,7 @@ end
 ---@param self table mob object
 ---@param mobdata string serialized data
 local function init_from_staticdata(self, mobdata)
-	local data = minetest.deserialize(mobdata)
+	local data = core.deserialize(mobdata)
 	if data["questions"] ~= nil then
 		self.questions = data["questions"]
 	else
@@ -191,7 +191,7 @@ end
 local function configure_placed(self, playername)
 	self.creator = playername
 	self.mobname = "Deputy "..playername
-	local player = minetest.get_player_by_name(playername)
+	local player = core.get_player_by_name(playername)
 
 	self.texture  = character.of(player):get_skin_texture()
 	self.object:set_properties({
@@ -209,7 +209,7 @@ local function get_mobdata(self)
 		["questions"] = self.questions,
 		["new_question_index"] = self.new_question_index,
 	}
-	return minetest.serialize(data)
+	return core.serialize(data)
 end
 
 ---check if player can place deputy mob
@@ -227,7 +227,7 @@ local function can_edit(self, playername)
 	if playername == self.creator then
 		return true
 	end
-	if minetest.get_player_privs(playername)[npc.required_priv] then
+	if core.get_player_privs(playername)[npc.required_priv] then
 		return true
 	end
 	return false

@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- Обработчик on_rightclick для расовых дверей.
@@ -13,7 +13,7 @@ local function race_door_on_rightclick_wrapper(owner_race, pos, node, clicker, i
 	if opened then
 		doors.door_toggle(pos, node, clicker)
 	elseif failed_race ~= nil then
-		minetest.chat_send_player(player_name, S("This door can only be opened by @1!", failed_race))
+		core.chat_send_player(player_name, S("This door can only be opened by @1!", failed_race))
 	end
 end
 

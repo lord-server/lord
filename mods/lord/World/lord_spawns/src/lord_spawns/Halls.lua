@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @class lord_spawns.Halls
@@ -42,10 +42,10 @@ function Halls.register(name, definition, remember)
 		Halls.config[name] = definition
 	end
 
-	minetest.register_chatcommand(name, {
+	core.register_chatcommand(name, {
 		description = S('Teleport to the @1', S(definition.description)),
 		func = function(player_name, _)
-			local teleported = Halls.teleport_to(minetest.get_player_by_name(player_name), name)
+			local teleported = Halls.teleport_to(core.get_player_by_name(player_name), name)
 			if teleported then
 				return true, S('Teleporting to the @1 ...', S(definition.description))
 			end

@@ -4,7 +4,7 @@ local math_max, math_ceil, math_tan, math_log, math_random
 local HeightMap = require('mountgen.generator.HeightMap')
 local FieldType = require('mountgen.config.FieldType')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local smooth_filter = {

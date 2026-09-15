@@ -27,7 +27,7 @@ local spawners = {
 	nodes = {}
 }
 
-local max_objects    = tonumber(minetest.settings:get('max_objects_per_block')) / 4
+local max_objects    = tonumber(core.settings:get('max_objects_per_block')) / 4
 local tick_short_max = 20
 
 function spawners.register_spawner(name, definition)
@@ -61,7 +61,7 @@ function spawners.register_spawner(name, definition)
 	node_def.on_timer            = spawners.on_timer
 	node_def.on_construct        = function(pos)
 		-- set meta
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_int('tick', 0)
 		meta:set_int('tick_short', 0)
 
@@ -70,7 +70,7 @@ function spawners.register_spawner(name, definition)
 	end
 
 	node_def.after_place_node    = function(pos, placer, itemstack, pointed_thing)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('owner', placer:get_player_name())
 
 		meta:set_string(
@@ -85,7 +85,7 @@ function spawners.register_spawner(name, definition)
 
 	local node_name              = 'lord_spawners:' .. definition.mod_prefix .. '_' .. definition.mob_name .. '_spawner'
 
-	minetest.register_node(node_name, node_def)
+	core.register_node(node_name, node_def)
 	spawners.nodes[node_name]     = definition
 
 	-- Waiting spawner
@@ -111,11 +111,11 @@ function spawners.register_spawner(name, definition)
 	node_def_waiting.after_place_node = nil
 	node_def_waiting.on_destruct      = nil
 
-	minetest.register_node(node_name, node_def_waiting)
+	core.register_node(node_name, node_def_waiting)
 	spawners.nodes[node_name] = definition
 
 
-	minetest.register_lbm({
+	core.register_lbm({
 		name      = 'lord_spawners:start_nodetimer_' .. definition.mod_prefix .. '_' .. definition.mob_name .. '_spawner',
 		nodenames = 'lord_spawners:' .. definition.mod_prefix .. '_' .. definition.mob_name .. '_spawner',
 		action    = function(pos)
@@ -130,10 +130,10 @@ end
 --
 -- how often node timers for spawners will tick, +/- some random value
 function spawners.tick(pos)
-	local meta         = minetest.get_meta(pos)
+	local meta         = core.get_meta(pos)
 	local tick_counter = meta:get_int('tick')
 	local owner        = meta:get_string('owner')
-	local privs        = minetest.get_player_privs(owner);
+	local privs        = core.get_player_privs(owner);
 
 	-- not for admin
 	if not privs.privs then
@@ -141,12 +141,12 @@ function spawners.tick(pos)
 		meta:set_int('tick', tick_counter)
 	end
 
-	minetest.get_node_timer(pos):start(math.random(5, 15))
+	core.get_node_timer(pos):start(math.random(5, 15))
 end
 
 -- how often a spawn failure tick is retried (e.g. too dark)
 function spawners.tick_short(pos)
-	local meta               = minetest.get_meta(pos)
+	local meta               = core.get_meta(pos)
 	local tick_short_counter = meta:get_int('tick_short')
 
 	if tick_short_counter >= tick_short_max then
@@ -156,7 +156,7 @@ function spawners.tick_short(pos)
 		tick_short_counter = tick_short_counter + 1
 		meta:set_int('tick_short', tick_short_counter)
 	end
-	minetest.get_node_timer(pos):start(math.random(5, 10))
+	core.get_node_timer(pos):start(math.random(5, 10))
 end
 
 --
@@ -179,11 +179,11 @@ function spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
 
 		Particles.cloud_boom(spawn_area_random_pos[i])
 
-		minetest.after(1, function()
-			local obj = minetest.add_entity(spawn_area_random_pos[i], mob_name)
+		core.after(1, function()
+			local obj = core.add_entity(spawn_area_random_pos[i], mob_name)
 			if obj then
 				if sound_name then
-					minetest.sound_play(sound_name, {
+					core.sound_play(sound_name, {
 						pos               = spawn_area_random_pos[i],
 						max_hear_distance = 16,
 						gain              = 0.5
@@ -195,8 +195,8 @@ function spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
 end
 
 function spawners.on_timer(pos, elapsed)
-	local meta      = minetest.get_meta(pos)
-	local node      = minetest.get_node(pos)
+	local meta      = core.get_meta(pos)
+	local node      = core.get_node(pos)
 	local mob_table = spawners.nodes[node.name]
 
 	if not mob_table then
@@ -213,7 +213,7 @@ function spawners.on_timer(pos, elapsed)
 	local night_only            = mob_table.night_only
 	local has_dummy             = false
 
-	local objects_inside_radius = minetest.get_objects_inside_radius(pos, 0.5)
+	local objects_inside_radius = core.get_objects_inside_radius(pos, 0.5)
 	for _, obj in ipairs(objects_inside_radius) do
 		local lua_ent = obj:get_luaentity()
 		if lua_ent and lua_ent.name == mob_table.dummy_entity_name then
@@ -226,7 +226,7 @@ function spawners.on_timer(pos, elapsed)
 	end
 
 	-- check spawner light
-	local node_light = minetest.get_node_light(pos)
+	local node_light = core.get_node_light(pos)
 
 	if night_only ~= 'disabled' then
 		-- dark
@@ -245,7 +245,7 @@ function spawners.on_timer(pos, elapsed)
 	-- positions where mobs can spawn
 	local posmin         = { x = pos.x - 3, y = pos.y - 1, z = pos.z - 3 }
 	local posmax         = { x = pos.x + 4, y = pos.y + 4, z = pos.z + 4 }
-	local spawn_area_pos = minetest.find_nodes_in_area(posmin, posmax, 'air')
+	local spawn_area_pos = core.find_nodes_in_area(posmin, posmax, 'air')
 
 	-- check if there is enough place to spawn mob
 	if #spawn_area_pos < 1 then
@@ -263,7 +263,7 @@ function spawners.on_timer(pos, elapsed)
 		while #spawn_area_random_pos < how_many and #spawn_area_pos > 0 do
 
 			local random_pos       = spawn_area_pos[math.random(#spawn_area_pos)]
-			local random_pos_above = minetest.get_node(
+			local random_pos_above = core.get_node(
 				{ x = random_pos.x, y = random_pos.y + 1, z = random_pos.z }
 			).name
 
@@ -284,7 +284,7 @@ function spawners.on_timer(pos, elapsed)
 	end
 
 	-- area where player and entity count will be detected
-	local activation_area = minetest.get_objects_inside_radius(pos, 16)
+	local activation_area = core.get_objects_inside_radius(pos, 16)
 
 	-- prevent object clutter on the map
 	if #activation_area > max_objects then
@@ -349,8 +349,8 @@ local function spawner_del_particles(meta)
 	local id_smoke    = meta:get_int('id_smoke')
 	-- delete particles
 	if id_flame ~= -1 and id_smoke ~= -1 then
-		minetest.delete_particlespawner(id_flame)
-		minetest.delete_particlespawner(id_smoke)
+		core.delete_particlespawner(id_flame)
+		core.delete_particlespawner(id_smoke)
 		meta:set_int('id_flame', -1)
 		meta:set_int('id_smoke', -1)
 	end
@@ -361,8 +361,8 @@ end
 --
 function spawners.set_status(pos, set_status, message)
 	message = message or ''
-	local meta      = minetest.get_meta(pos)
-	local node      = minetest.get_node(pos)
+	local meta      = core.get_meta(pos)
+	local node      = core.get_node(pos)
 	local mob_table = spawners.nodes[node.name]
 
 	if not mob_table then
@@ -389,7 +389,7 @@ function spawners.set_status(pos, set_status, message)
 
 		if meta_status ~= set_status then
 			nodes.dummy_entity.add(pos, mob_table.dummy_entity_name)
-			minetest.swap_node(pos, { name = 'lord_spawners:' .. mod_prefix .. '_' .. mob_name .. '_spawner' })
+			core.swap_node(pos, { name = 'lord_spawners:' .. mod_prefix .. '_' .. mob_name .. '_spawner' })
 			meta:set_string('status', 'active')
 		end
 
@@ -397,7 +397,7 @@ function spawners.set_status(pos, set_status, message)
 
 		spawner_del_particles(meta)
 		nodes.dummy_entity.remove(pos)
-		minetest.swap_node(pos, { name = 'lord_spawners:' .. mod_prefix .. '_' .. mob_name .. '_spawner_waiting' })
+		core.swap_node(pos, { name = 'lord_spawners:' .. mod_prefix .. '_' .. mob_name .. '_spawner_waiting' })
 		meta:set_string('status', 'waiting')
 		meta:set_string('infotext', infotext .. message)
 

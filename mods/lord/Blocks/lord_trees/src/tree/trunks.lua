@@ -1,5 +1,5 @@
-local S      = minetest.get_mod_translator()
-local logger = minetest.get_mod_logger()
+local S      = core.get_mod_translator()
+local logger = core.get_mod_logger()
 
 
 local DEFAULT_TRUNKS_GROUP       = 'default'
@@ -38,10 +38,10 @@ end
 --- @param trunks_group string|nil group name to store to. Default: `DEFAULT_TRUNKS_GROUP`.
 local function add_existing(node_name, trunks_group)
 	trunks_group = trunks_group or DEFAULT_TRUNKS_GROUP
-	local definition = minetest.registered_nodes[node_name]
+	local definition = core.registered_nodes[node_name]
 	assert(definition._tree_height)
 	assert(definition._leaves_radius)
-	minetest.override_item(node_name, {
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups or {}, { tree = 1 }),
 	})
 	remember(trunks_group, node_name, definition)
@@ -97,18 +97,18 @@ local function register_trunk(
 		drop        = node_name,
 		groups      = { tree = 1, choppy = softness, flammable = 2 },
 		sounds      = default.node_sound_wood_defaults(),
-		on_place    = minetest.rotate_node,
+		on_place    = core.rotate_node,
 	}, def_override)
 
 	-- Placed tree trunk (no affect to leaves decay)
-	minetest.register_node(placed_node_name, table.merge(common_definition, {
+	core.register_node(placed_node_name, table.merge(common_definition, {
 		description = S('Placed ' .. title),
 		drop        = node_name,
-		on_place    = minetest.rotate_node,
+		on_place    = core.rotate_node,
 	}))
 
 	-- Growing tree, also in inventory, uses for crafting, ...
-	minetest.register_node(node_name, table.merge(common_definition, {
+	core.register_node(node_name, table.merge(common_definition, {
 		on_dig         = function(pos, node, digger)
 			default.dig_tree(pos, node, node_name, digger, tree_height, leaves_radius)
 		end,
@@ -123,7 +123,7 @@ local function register_trunk(
 	local group = is_young_registration
 		and trunks_group .. YOUNG_TRUNKS_GROUP_POSTFIX
 		or  trunks_group
-	remember(group, node_name, minetest.registered_nodes[node_name])
+	remember(group, node_name, core.registered_nodes[node_name])
 
 	if register_young then
 		register_trunk(

@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 require("tree.saplings.grow_functions")
 
@@ -14,8 +14,8 @@ local saplings = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { sapling = 1 }),
 	})
 	saplings.nodes[node_name] = definition
@@ -28,9 +28,9 @@ local function register_sapling(node_name, title, grow_function)
 	title         = title:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description     = S(title .. " Sapling"),
 		drawtype        = "plantlike",
 		visual_scale    = 1.0,
@@ -48,9 +48,9 @@ local function register_sapling(node_name, title, grow_function)
 		sounds          = default.node_sound_defaults(),
 	})
 
-	saplings.nodes[node_name] = minetest.registered_nodes[node_name]
+	saplings.nodes[node_name] = core.registered_nodes[node_name]
 
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = { node_name },
 		interval  = SAPLING_GROW_ABM_INTERVAL,
 		chance    = SAPLING_GROW_ABM_CHANCE,
@@ -65,7 +65,7 @@ local function register_sapling(node_name, title, grow_function)
 			--
 			--local pos1 = vector.offset(pos, -max_radius,          0, max_radius)
 			--local pos2 = vector.offset(pos, -max_radius, max_height, max_radius)
-			--minetest.with_map_part_do(pos1, pos2, function(area, data)
+			--core.with_map_part_do(pos1, pos2, function(area, data)
 				local tree_gen = Generator:new(grow_function)--, area, data)
 				tree_gen:generate_tree(pos)
 			--end)

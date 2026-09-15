@@ -1,7 +1,7 @@
 local Meta    = require('holding_points.HoldingPoint.Meta')
 local Manager = require('holding_points.Manager')
 
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 local spec = forms.Spec
 
 
@@ -67,7 +67,7 @@ end
 function MainTab:handle(fields)
 	if fields.in_event_list then
 		-- just remember current value of checkbox for future saving by `Save` button
-		self.in_event_list = minetest.is_yes(fields.in_event_list)
+		self.in_event_list = core.is_yes(fields.in_event_list)
 	end
 	if not fields.save then
 		return

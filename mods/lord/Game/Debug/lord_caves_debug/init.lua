@@ -1,14 +1,14 @@
 
 
-minetest.mod(function(mod)
-	local environment         = minetest.settings:get('environment')
+core.mod(function(mod)
+	local environment         = core.settings:get('environment')
 	local caves_debug_enabled = mod.settings:get_bool('enabled', false)
 
 	if not environment or environment == 'production' or not caves_debug_enabled then
 		return
 	end
 
-	minetest.register_decoration({
+	core.register_decoration({
 		name         = 'caves_debug:lighting_gas',
 		deco_type    = 'simple',
 		place_on     = table.keys(rocks.get_nodes()),

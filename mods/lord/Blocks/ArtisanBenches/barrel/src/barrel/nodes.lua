@@ -1,6 +1,6 @@
 local Form     = require('barrel.nodes.Form')
 local geometry = require('barrel.nodes.geometry')
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 
 
 local node_box = {
@@ -34,7 +34,7 @@ local common_node_definition = {
 
 fuel_device.register(
 	S('Barrel'),
-	minetest.CraftMethod.BARREL,
+	core.CraftMethod.BARREL,
 	{
 		inactive = {
 			node_name  = 'barrel:barrel',

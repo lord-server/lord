@@ -1,4 +1,4 @@
-local spec = minetest.formspec
+local spec = core.formspec
 
 
 --- Overwrites `default.chest.get_chest_formspec` function.

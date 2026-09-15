@@ -1,6 +1,6 @@
 -- ДИКИЙ УЛЕЙ
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Функции
 
@@ -20,7 +20,7 @@ local S = minetest.get_mod_translator()
   end
 
   local function hive_wild_on_punch(pos, node, puncher)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
       if inv:contains_item('queen','bees:bee') then
         local health = puncher:get_hp()
@@ -29,12 +29,12 @@ local S = minetest.get_mod_translator()
     end
 
   function hive_wild_on_rightclick(pos, node, clicker, itemstack, pointed_thing)
-      minetest.show_formspec(
+      core.show_formspec(
         clicker:get_player_name(),
         'bees:hive_artificial',
         formspecs.hive_wild(pos, (itemstack:get_name() == 'bees:grafting_tool'))
       )
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
       if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'bees:bee') then
         local health = clicker:get_hp()
@@ -50,7 +50,7 @@ local S = minetest.get_mod_translator()
 -- Ноды
 
 -- Дикий улей (обычный)
-  minetest.register_node('bees:hive_wild', {
+  core.register_node('bees:hive_wild', {
     description = S('wild bee hive'),
     tiles = {
       'bees_hive_wild_top.png',
@@ -81,13 +81,13 @@ local S = minetest.get_mod_translator()
       }
     },
     on_timer = function(pos)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
-      local timer= minetest.get_node_timer(pos)
+      local timer= core.get_node_timer(pos)
       local r  = 5
       local minp = {x=pos.x-r, y=pos.y-r, z=pos.z-r}
       local maxp = {x=pos.x+r, y=pos.y+r, z=pos.z+r}
-      local flowers = minetest.find_nodes_in_area(minp, maxp, 'group:flower')
+      local flowers = core.find_nodes_in_area(minp, maxp, 'group:flower')
 
       -- если нет цветов в радиусе "r" королева умирает и колония погибает
       if #flowers == 0 then
@@ -102,7 +102,7 @@ local S = minetest.get_mod_translator()
       local flower = flowers[math.random(#flowers)]
       local timer_mod = #flowers
       if timer_mod > 30 then timer_mod = 30 end
-      bees.polinate_flower(flower, minetest.get_node(flower).name)
+      bees.polinate_flower(flower, core.get_node(flower).name)
       local stacks = inv:get_list('combs')
       for k, v in pairs(stacks) do
         if inv:get_stack('combs', k):is_empty() then
@@ -110,7 +110,7 @@ local S = minetest.get_mod_translator()
           -- то заменяем на полную и сбрасываем про .. (таймер?)
           inv:set_stack('combs',k,'bees:honey_comb')
           if k == inv:get_size('combs') then -- Если был заполнен последний стак
-            minetest.swap_node_if_not_same(pos, 'bees:hive_wild_filled') -- Заменить улей на заполненный
+            core.swap_node_if_not_same(pos, 'bees:hive_wild_filled') -- Заменить улей на заполненный
             timer:stop()
           else
             timer:start(60-timer_mod)
@@ -121,10 +121,10 @@ local S = minetest.get_mod_translator()
     end,
 
     on_construct = function(pos)
-      minetest.get_node(pos).param2 = 0
-      local meta = minetest.get_meta(pos)
+      core.get_node(pos).param2 = 0
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
-      local timer = minetest.get_node_timer(pos)
+      local timer = core.get_node_timer(pos)
       meta:set_int('agressive', 1)
       timer:start(5)
       inv:set_size('queen', 1)
@@ -138,9 +138,9 @@ local S = minetest.get_mod_translator()
     on_punch = hive_wild_on_punch,
 
     on_metadata_inventory_take = function(pos, listname, index, stack, taker)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
-      local timer= minetest.get_node_timer(pos)
+      local timer= core.get_node_timer(pos)
       if listname == 'combs' and inv:contains_item('queen', 'bees:bee') then
         local health = taker:get_hp()
         timer:start(30)
@@ -150,8 +150,8 @@ local S = minetest.get_mod_translator()
 
     --restart the colony by adding a queen / перезагрузите колонии, добавив королеву
     on_metadata_inventory_put = function(pos, listname, index, stack, taker)
-      local meta = minetest.get_meta(pos)
-      local timer = minetest.get_node_timer(pos)
+      local meta = core.get_meta(pos)
+      local timer = core.get_node_timer(pos)
       meta:set_string('infotext', '')
       if not timer:is_started() then
         timer:start(10)
@@ -169,7 +169,7 @@ local S = minetest.get_mod_translator()
     on_rightclick = hive_wild_on_rightclick,
 
     can_dig = function(pos,player)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
       if inv:is_empty('queen') and inv:is_empty('combs') then
         return true
@@ -190,7 +190,7 @@ local S = minetest.get_mod_translator()
   })
 
 -- Дикий улей (Заполненный)
-  minetest.register_node('bees:hive_wild_filled', {
+  core.register_node('bees:hive_wild_filled', {
     description = S('filled wild bee hive'),
     tiles = {
       'bees_hive_wild_top.png',
@@ -222,10 +222,10 @@ local S = minetest.get_mod_translator()
     },
 
     on_construct = function(pos)
-      minetest.get_node(pos).param2 = 0
-      local meta = minetest.get_meta(pos)
+      core.get_node(pos).param2 = 0
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
-      local timer = minetest.get_node_timer(pos)
+      local timer = core.get_node_timer(pos)
       meta:set_int('agressive', 1)
       timer:start(5)
       inv:set_size('queen', 1)
@@ -239,16 +239,16 @@ local S = minetest.get_mod_translator()
     on_punch = hive_wild_on_punch,
 
     on_metadata_inventory_take = function(pos, listname, index, stack, taker)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
-      local timer= minetest.get_node_timer(pos)
+      local timer= core.get_node_timer(pos)
       if listname == 'combs' then
         local health = taker:get_hp()
         timer:start(30)
         if inv:contains_item('queen', 'bees:bee') then
           taker:set_hp(health-2)
         end
-        minetest.swap_node_if_not_same(pos, 'bees:hive_wild')
+        core.swap_node_if_not_same(pos, 'bees:hive_wild')
       end
     end,
 

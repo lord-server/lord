@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local rocks = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
@@ -44,10 +44,10 @@ end
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
+	local definition = core.registered_nodes[node_name]
 	local softness   = definition.groups["cracky"] or 2
 
-	minetest.override_item(node_name, {
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { rock = 1, stone = 1 }),
 	})
 
@@ -75,10 +75,10 @@ local function register_rock(node_name, softness, definition, register_stairs, n
 	definition.tiles       = tiles
 
 	for _, texture in ipairs(tiles) do
-		minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+		core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 	end
 
-	minetest.register_node(node_name, table.overwrite({
+	core.register_node(node_name, table.overwrite({
 		description       = S(description),
 		tiles             = tiles,
 		groups            = { rock = 1, stone = 1, cracky = softness, },

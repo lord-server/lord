@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("lord_homedecor:endtable", {
+core.register_node("lord_homedecor:endtable", {
 	description = S("End Table"),
 	drawtype = "nodebox",
 	tiles = {
@@ -36,7 +36,7 @@ minetest.register_node("lord_homedecor:endtable", {
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:endtable",
 	recipe = {
 		{"", "", "", },
@@ -45,7 +45,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:endtable",
 	recipe = {
 		{"", "", "", },

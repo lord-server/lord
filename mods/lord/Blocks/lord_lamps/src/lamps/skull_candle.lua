@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function register_skull_candle()
@@ -8,7 +8,7 @@ local function register_skull_candle()
 		{ -0.1875, -0.5, 0.1875, 0.1875, 0.0, -0.1875 },
 	}
 
-	minetest.register_node('lord_lamps:skull_candle', {
+	core.register_node('lord_lamps:skull_candle', {
 		description       = skull_candle_description,
 		drawtype          = 'mesh',
 		paramtype         = 'light',
@@ -42,7 +42,7 @@ local function register_skull_candle()
 		groups            = { oddly_breakable_by_hand = 3 },
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'lord_lamps:skull_candle',
 		recipe = {
 			{ '' },

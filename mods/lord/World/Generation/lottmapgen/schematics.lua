@@ -1,9 +1,9 @@
 local string_format
     = string.format
 
-local mod_path       = minetest.get_modpath(minetest.get_current_modname())
-local areas_mod      = minetest.global_exists("areas")
-local protect_houses = minetest.settings:get_bool("protect_structures") or true
+local mod_path       = core.get_modpath(core.get_current_modname())
+local areas_mod      = core.global_exists("areas")
+local protect_houses = core.settings:get_bool("protect_structures") or true
 
 local lottmapgen_list = {
 	-- Description      Technical name  Area name        Area owner       Area bounding box (from placement point)
@@ -54,7 +54,7 @@ for i in ipairs(lottmapgen_list) do
 	buildings[name] = load_building(name)
 
 	-- The node being placed by the mapgen
-	minetest.register_node("lottmapgen:"..name, {
+	core.register_node("lottmapgen:"..name, {
 		description = description,
 		drawtype = "glasslike",
 		paramtype = "light",
@@ -72,12 +72,12 @@ for i in ipairs(lottmapgen_list) do
 	})
 
 	-- ABM that places a building
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = {"lottmapgen:"..name},
 		interval = 0.1,
 		chance = 1,
 		action = function(pos)
-			minetest.remove_node(pos)
+			core.remove_node(pos)
 			place_building(name, pos, offset1, offset2, area_name, area_owner)
 		end,
 	})

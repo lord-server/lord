@@ -1,7 +1,7 @@
 local FieldType = require('mountgen.config.FieldType')
 
-local spec     = minetest.formspec
-local colorize = minetest.colorize
+local spec     = core.formspec
+local colorize = core.colorize
 
 
 --- @class mountgen.config.Form.Builder

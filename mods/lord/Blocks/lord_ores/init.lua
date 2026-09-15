@@ -1,12 +1,12 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('rock_ores')
 
 
-	local S = minetest.get_mod_translator()
+	local S = core.get_mod_translator()
 
-	minetest.register_node("lord_ores:magma", {
+	core.register_node("lord_ores:magma", {
 		description                = S("Magma"),
 		groups                     = { rock = 1, cracky = 2, wall_connected = 1},
 		paramtype                  = "light",

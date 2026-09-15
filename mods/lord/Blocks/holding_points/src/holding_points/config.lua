@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @class holding_points.config.Notifier.Colors
 --- @field EVENT    string ColorSpec

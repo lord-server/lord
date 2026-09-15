@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 zcc                = {}
 zcc.users          = {}
@@ -12,7 +12,7 @@ zcc.itemlist       = {}
 zcc.items_in_group = function(group)
 	local items = {}
 
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		-- the node should be in all groups
 		local ok = true
 		for _, g in ipairs(group:split(',')) do
@@ -27,13 +27,13 @@ zcc.items_in_group = function(group)
 end
 
 zcc.add_craft      = function(input, output, groups)
-	if minetest.get_item_group(output, "forbidden") > 0 then
+	if core.get_item_group(output, "forbidden") > 0 then
 		return
 	end
-	if minetest.get_item_group(output, "armor_use") > 0 then
+	if core.get_item_group(output, "armor_use") > 0 then
 		return
 	end
-	if minetest.get_item_group(output, "armor_crafts") > 0 then
+	if core.get_item_group(output, "armor_crafts") > 0 then
 		return
 	end
 	if not groups then groups = {} end
@@ -41,7 +41,7 @@ zcc.add_craft      = function(input, output, groups)
 	c.width = input.width
 	c.type  = input.type
 	c.items = input.items
-	if minetest.get_item_group(output, "cook_crafts") > 0 or c.type == "cooking" then
+	if core.get_item_group(output, "cook_crafts") > 0 or c.type == "cooking" then
 		if c.items == nil then return end
 		for i, item in pairs(c.items) do
 			if item:starts_with("group:") then
@@ -69,7 +69,7 @@ end
 
 zcc.load_crafts    = function(name)
 	zcc.crafts[name] = {}
-	local _recipes   = minetest.get_all_craft_recipes(name)
+	local _recipes   = core.get_all_craft_recipes(name)
 	if _recipes then
 		for i, recipe in ipairs(_recipes) do
 			if (recipe and recipe.items and recipe.type) then
@@ -89,7 +89,7 @@ zcc.need_load_all  = true
 zcc.load_all       = function()
 	print("Loading all crafts, this may take some time...")
 	local i = 0
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		if (name and name ~= "") then
 			zcc.load_crafts(name)
 		end
@@ -192,13 +192,13 @@ zcc.form.get_spec = function(player_name)
 end
 --- @param player_name string
 zcc.form.show      = function(player_name)
-	minetest.show_formspec(player_name, zcc.form.NAME, zcc.form.get_spec(player_name))
+	core.show_formspec(player_name, zcc.form.NAME, zcc.form.get_spec(player_name))
 end
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= zcc.form.NAME then
 		return
 	end
@@ -242,7 +242,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:cooking_book", {
+core.register_tool("lord_books:cooking_book", {
 	description     = S("Book of Cooking"),
 	groups          = { book = 1, paper = 1 },
 	inventory_image = "cooking_book.png",

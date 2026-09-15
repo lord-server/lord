@@ -1,9 +1,9 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	if not rawget(_G, "http") then
 		-- Don't use `mod.logger` here. This will create new Logger instance, but it will not be used.
-		minetest.log(
+		core.log(
 			"warning",
 			"[" .. mod.name .. "] Can't initialize `lord_web_api`: " ..
 				"Global variable `http` not found: mod `http` not loaded or not initialized."

@@ -1,18 +1,18 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 lottblocks = {}
 
-dofile(minetest.get_modpath("lottblocks").."/misc.lua")
-dofile(minetest.get_modpath("lottblocks").."/music.lua") --This has musical insturments, and the music they play.
-dofile(minetest.get_modpath("lottblocks").."/decoration.lua") --This has various decoration nodes, by catninja.
-dofile(minetest.get_modpath("lottblocks").."/dwarf_tomb.lua")
-dofile(minetest.get_modpath("lottblocks").."/chests.lua")
-dofile(minetest.get_modpath("lottblocks").."/lamps.lua")
-dofile(minetest.get_modpath("lottblocks").."/palantiri.lua")
-dofile(minetest.get_modpath("lottblocks").."/guides.lua")
+dofile(core.get_modpath("lottblocks").."/misc.lua")
+dofile(core.get_modpath("lottblocks").."/music.lua") --This has musical insturments, and the music they play.
+dofile(core.get_modpath("lottblocks").."/decoration.lua") --This has various decoration nodes, by catninja.
+dofile(core.get_modpath("lottblocks").."/dwarf_tomb.lua")
+dofile(core.get_modpath("lottblocks").."/chests.lua")
+dofile(core.get_modpath("lottblocks").."/lamps.lua")
+dofile(core.get_modpath("lottblocks").."/palantiri.lua")
+dofile(core.get_modpath("lottblocks").."/guides.lua")
 
 -- Snowy Cobble
-minetest.register_node("lottblocks:snowycobble", {
+core.register_node("lottblocks:snowycobble", {
 	description = S("Snowy Cobblestone"),
 	tiles = {"lottblocks_snowycobble.png"},
 	is_ground_content = false,
@@ -30,7 +30,7 @@ stairs.register_stair_and_slab(
 	S("Inner Snowy Cobble Stair"),
 	S("Outer Snowy Cobble Stair")
 )
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
 	output = "lottblocks:snowycobble 2",
 	recipe = {
 		{ "default:snowblock", "default:cobble" },
@@ -39,7 +39,7 @@ minetest.register_mirrored_crafts({
 })
 
 -- Orc Stone
-minetest.register_node("lottblocks:orc_stone", {
+core.register_node("lottblocks:orc_stone", {
 	description = S("Orc Stone"),
 	tiles = {"lottblocks_orc_stone.png"},
 	is_ground_content = false,
@@ -57,7 +57,7 @@ stairs.register_stair_and_slab(
 		S("Inner Orc Stone Stair"),
 		S("Outer Orc Stone Stair")
 )
-minetest.register_node("lottblocks:orc_brick", {
+core.register_node("lottblocks:orc_brick", {
 	description = S("Orc Brick"),
 	tiles = {"lottblocks_orc_brick.png"},
 	is_ground_content = false,
@@ -75,7 +75,7 @@ stairs.register_stair_and_slab(
 		S("Inner Orc Brick Stair"),
 		S("Outer Orc Brick Stair")
 )
-minetest.register_node("lottblocks:orc_block", {
+core.register_node("lottblocks:orc_block", {
 	description = S("Orc Block"),
 	tiles = {"lottblocks_orc_block.png"},
 	is_ground_content = false,
@@ -94,29 +94,29 @@ stairs.register_stair_and_slab(
 		S("Outer Orc Block Stair")
 )
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottblocks:orc_stone",
 	recipe = "lord_rocks:mordor_stone",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottblocks:orc_brick",
 	recipe = "lottblocks:mordor_stone_brick",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottblocks:orc_block",
 	recipe = "lottblocks:mordor_stone_block",
 })
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:orc_brick 4',
 	recipe = {
 		{'lottblocks:orc_stone', 'lottblocks:orc_stone'},
 		{'lottblocks:orc_stone', 'lottblocks:orc_stone'},
 	}
 })
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:orc_block 9',
 	recipe = {
 		{'lottblocks:orc_stone', 'lottblocks:orc_stone', 'lottblocks:orc_stone'},
@@ -127,7 +127,7 @@ minetest.register_craft({
 
 
 -- Marble
-minetest.register_node("lottblocks:marble_brick", {
+core.register_node("lottblocks:marble_brick", {
 	description = S("Marble Brick"),
 	tiles = {"lottblocks_marble_brick.png"},
 	is_ground_content = false,
@@ -145,7 +145,7 @@ stairs.register_stair_and_slab(
 		S("Inner Marble Brick Stair"),
 		S("Outer Marble Brick Stair")
 )
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:marble_brick 4',
 	recipe = {
 		{'lottores:marble', 'lottores:marble'},

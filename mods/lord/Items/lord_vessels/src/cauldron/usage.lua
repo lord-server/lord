@@ -12,13 +12,13 @@ local function fill_from(pos, itemstack, user, filled_item_name)
 	local leftover
 
 	for from, to in pairs(cauldron_changes) do
-		if (minetest.get_node(pos).name == from) then
-			minetest.remove_node(pos)
-			minetest.set_node(pos, { name = to })
+		if (core.get_node(pos).name == from) then
+			core.remove_node(pos)
+			core.set_node(pos, { name = to })
 			itemstack:take_item()
 			leftover = user:get_inventory():add_item('main', filled_item_name)
 			if leftover then
-				minetest.item_drop(leftover, user, pos)
+				core.item_drop(leftover, user, pos)
 			end
 			return itemstack
 		end

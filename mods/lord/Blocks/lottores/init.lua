@@ -1,9 +1,9 @@
-local S    = minetest.get_mod_translator()
-local tile = minetest.tile
+local S    = core.get_mod_translator()
+local tile = core.tile
 
 -- Ores:
 
-minetest.register_node("lottores:limestone_ore", {
+core.register_node("lottores:limestone_ore", {
 	description = S("Limestone Ore"),
 	tiles = {"default_stone.png^lottores_limestone_ore.png"},
 	is_ground_content = true,
@@ -12,7 +12,7 @@ minetest.register_node("lottores:limestone_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:rough_rock", {
+core.register_node("lottores:rough_rock", {
 	description = S("Rough Rock"),
 	tiles = {"default_stone.png^lottores_rough_rock.png"},
 	is_ground_content = true,
@@ -21,7 +21,7 @@ minetest.register_node("lottores:rough_rock", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:silver_ore", {
+core.register_node("lottores:silver_ore", {
 	description = S("Silver Ore"),
 	tiles = {"default_stone.png^lottores_silver_ore.png"},
 	is_ground_content = true,
@@ -30,7 +30,7 @@ minetest.register_node("lottores:silver_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:tin_ore", {
+core.register_node("lottores:tin_ore", {
 	description = S("Tin Ore"),
 	tiles = {"default_stone.png^lottores_tin_ore.png"},
 	is_ground_content = true,
@@ -39,7 +39,7 @@ minetest.register_node("lottores:tin_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:lead_ore", {
+core.register_node("lottores:lead_ore", {
 	description = S("Lead Ore"),
 	tiles = {"default_stone.png^lottores_lead_ore.png"},
 	is_ground_content = true,
@@ -48,7 +48,7 @@ minetest.register_node("lottores:lead_ore", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:mithril_ore", {
+core.register_node("lottores:mithril_ore", {
 	description = S("Mithril Ore"),
 	tiles = {"default_stone.png^lottores_mithril_ore.png"},
 	is_ground_content = true,
@@ -60,7 +60,7 @@ minetest.register_node("lottores:mithril_ore", {
 --- Gems ores ---
 
 
-minetest.register_node("lottores:blue_gem_ore", {
+core.register_node("lottores:blue_gem_ore", {
 	description       = S("Blue Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_bluegem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
@@ -74,7 +74,7 @@ minetest.register_node("lottores:blue_gem_ore", {
 	sounds            = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:white_gem_ore", {
+core.register_node("lottores:white_gem_ore", {
 	description       = S("White Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_whitegem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
@@ -88,7 +88,7 @@ minetest.register_node("lottores:white_gem_ore", {
 	sounds            = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:red_gem_ore", {
+core.register_node("lottores:red_gem_ore", {
 	description       = S("Red Gem Ore"),
 	tiles             = { tile.anim_vertical_frames("lottores_redgem_ore_anim.png", 1.5, "default_stone.png", 16) },
 	paramtype         = "light",
@@ -104,63 +104,63 @@ minetest.register_node("lottores:red_gem_ore", {
 
 -- Craft Items
 
-minetest.register_craftitem("lottores:limestone_lump", {
+core.register_craftitem("lottores:limestone_lump", {
 	description = S("Limestone Lump"),
 	inventory_image = "lottores_limestone_lump.png",
 })
 
-minetest.register_craftitem("lottores:rough_rock_lump", {
+core.register_craftitem("lottores:rough_rock_lump", {
 	description = S("Rough Rock Lump"),
 	inventory_image = "lottores_rough_rock_lump.png",
 })
 
-minetest.register_craftitem("lottores:silver_lump", {
+core.register_craftitem("lottores:silver_lump", {
 	description = S("Silver Lump"),
 	inventory_image = "lottores_silver_lump.png",
 })
 
-minetest.register_craftitem("lottores:silver_ingot", {
+core.register_craftitem("lottores:silver_ingot", {
 	description = S("Silver Ingot"),
 	inventory_image = "lottores_silver_ingot.png",
 })
 
-minetest.register_craftitem("lottores:tin_lump", {
+core.register_craftitem("lottores:tin_lump", {
 	description = S("Tin Lump"),
 	inventory_image = "lottores_tin_lump.png",
 })
 
-minetest.register_craftitem("lottores:tin_ingot", {
+core.register_craftitem("lottores:tin_ingot", {
 	description = S("Tin Ingot"),
 	inventory_image = "lottores_tin_ingot.png",
 })
 
-minetest.register_craftitem("lottores:lead_lump", {
+core.register_craftitem("lottores:lead_lump", {
 	description = S("Lead Lump"),
 	inventory_image = "lottores_lead_lump.png",
 })
 
-minetest.register_craftitem("lottores:lead_ingot", {
+core.register_craftitem("lottores:lead_ingot", {
 	description = S("Lead Ingot"),
 	inventory_image = "lottores_lead_ingot.png",
 })
 
-minetest.register_craftitem("lottores:mithril_lump", {
+core.register_craftitem("lottores:mithril_lump", {
 	description = S("Mithril Lump"),
 	inventory_image = "lottores_mithril_lump.png",
 })
 
-minetest.register_craftitem("lottores:mithril_ingot", {
+core.register_craftitem("lottores:mithril_ingot", {
 	description = S("Mithril Ingot"),
 	inventory_image = "lottores_mithril_ingot.png",
 })
 
-minetest.register_craftitem("lottores:galvorn_ingot", {
+core.register_craftitem("lottores:galvorn_ingot", {
 	description = S("Galvorn Ingot"),
 	inventory_image = "lottores_galvorn_ingot.png",
      groups = {forbidden=1},
 })
 
-minetest.register_craftitem("lottores:tilkal_ingot", {
+core.register_craftitem("lottores:tilkal_ingot", {
 	description = S("Tilkal Ingot"),
 	inventory_image = "lottores_tilkal_ingot.png",
      groups = {forbidden=1},
@@ -168,14 +168,14 @@ minetest.register_craftitem("lottores:tilkal_ingot", {
 
 -- Nodes
 
-minetest.register_node("lottores:tilkal", {
+core.register_node("lottores:tilkal", {
 	description = S("Tilkal"),
 	tiles = {"lottores_tilkal.png"},
 	sounds = default.node_sound_metal_defaults(),
 	groups = {forbidden=1, wall_connected = 1},
 })
 
-minetest.register_node("lottores:limestone", {
+core.register_node("lottores:limestone", {
 	description = S("Limestone"),
 	tiles = {"lottores_limestone_ore.png"},
 	is_ground_content = true,
@@ -183,7 +183,7 @@ minetest.register_node("lottores:limestone", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:marble", {
+core.register_node("lottores:marble", {
 	description = S("Marble"),
 	tiles = {"lottores_marble.png"},
 	is_ground_content = true,
@@ -191,7 +191,7 @@ minetest.register_node("lottores:marble", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:geodes_crystal_1", {
+core.register_node("lottores:geodes_crystal_1", {
 	description = S("Geodes Crystal"),
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
@@ -214,12 +214,12 @@ minetest.register_node("lottores:geodes_crystal_1", {
     },
      on_place = function(itemstack, placer, pointed_thing)
 		local stack = ItemStack("lottores:geodes_crystal_"..math.random(1,5))
-		local ret = minetest.item_place(stack, placer, pointed_thing)
+		local ret = core.item_place(stack, placer, pointed_thing)
 		return ItemStack("lottores:geodes_crystal_1 "..itemstack:get_count()-(1-ret:get_count()))
 	end,
 })
 
-minetest.register_node("lottores:geodes_crystal_2", {
+core.register_node("lottores:geodes_crystal_2", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
 	paramtype = "light",
@@ -243,7 +243,7 @@ minetest.register_node("lottores:geodes_crystal_2", {
     }
 })
 
-minetest.register_node("lottores:geodes_crystal_3", {
+core.register_node("lottores:geodes_crystal_3", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
 	paramtype = "light",
@@ -268,7 +268,7 @@ minetest.register_node("lottores:geodes_crystal_3", {
     }
 })
 
-minetest.register_node("lottores:geodes_crystal_4", {
+core.register_node("lottores:geodes_crystal_4", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
 	paramtype = "light",
@@ -292,7 +292,7 @@ minetest.register_node("lottores:geodes_crystal_4", {
     }
 })
 
-minetest.register_node("lottores:geodes_crystal_5", {
+core.register_node("lottores:geodes_crystal_5", {
 	drawtype = "nodebox",
 	tiles = {"lottores_geodes_crystal.png"},
 	paramtype = "light",
@@ -316,7 +316,7 @@ minetest.register_node("lottores:geodes_crystal_5", {
     }
 })
 
-minetest.register_node("lottores:silver_block", {
+core.register_node("lottores:silver_block", {
 	description = S("Silver Block"),
 	tiles = {"lottores_silver_block.png"},
 	is_ground_content = true,
@@ -324,7 +324,7 @@ minetest.register_node("lottores:silver_block", {
 	sounds = default.node_sound_metal_defaults(),
 })
 
-minetest.register_node("lottores:tin_block", {
+core.register_node("lottores:tin_block", {
 	description = S("Tin Block"),
 	tiles = {"lottores_tin_block.png"},
 	is_ground_content = true,
@@ -332,7 +332,7 @@ minetest.register_node("lottores:tin_block", {
 	sounds = default.node_sound_metal_defaults(),
 })
 
-minetest.register_node("lottores:lead_block", {
+core.register_node("lottores:lead_block", {
 	description = S("Lead Block"),
 	tiles = {"lottores_lead_block.png"},
 	is_ground_content = true,
@@ -340,7 +340,7 @@ minetest.register_node("lottores:lead_block", {
 	sounds = default.node_sound_metal_defaults(),
 })
 
-minetest.register_node("lottores:mithril_block", {
+core.register_node("lottores:mithril_block", {
 	description = S("Mithril Block"),
 	tiles = {"lottores_mithril_block.png"},
 	is_ground_content = true,
@@ -348,7 +348,7 @@ minetest.register_node("lottores:mithril_block", {
 	sounds = default.node_sound_metal_defaults(),
 })
 
-minetest.register_node("lottores:galvorn_block", {
+core.register_node("lottores:galvorn_block", {
 	description = S("Galvorn Block"),
 	tiles = {"lottores_galvorn_block.png"},
 	is_ground_content = true,
@@ -358,7 +358,7 @@ minetest.register_node("lottores:galvorn_block", {
 
 -- Ithildin
 
-minetest.register_node("lottores:ithildin_0", {
+core.register_node("lottores:ithildin_0", {
 	description = S("Ithildin"),
 	tiles = {"ithildin_0.png"},
 	drawtype = "glasslike",
@@ -371,7 +371,7 @@ minetest.register_node("lottores:ithildin_0", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_1", {
+core.register_node("lottores:ithildin_1", {
 	description = S("Ithildin"),
 	tiles = {"ithildin_1.png"},
 	inventory_image = "ithildin_1.png",
@@ -387,7 +387,7 @@ minetest.register_node("lottores:ithildin_1", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_stone_0", {
+core.register_node("lottores:ithildin_stone_0", {
 	description = S("Ithildin Stone"),
 	tiles = {"default_stone.png"},
 	drawtype = 'normal',
@@ -399,7 +399,7 @@ minetest.register_node("lottores:ithildin_stone_0", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_stone_1", {
+core.register_node("lottores:ithildin_stone_1", {
 	description = S("Ithildin Stone"),
 	tiles = {"ithildin_1.png"},
 	drawtype = 'glasslike',
@@ -413,7 +413,7 @@ minetest.register_node("lottores:ithildin_stone_1", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_stonelamp_0", {
+core.register_node("lottores:ithildin_stonelamp_0", {
 	description = S("Ithildin Stonelamp"),
 	tiles = {"default_stone.png"},
 	drawtype = 'normal',
@@ -425,7 +425,7 @@ minetest.register_node("lottores:ithildin_stonelamp_0", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_stonelamp_1", {
+core.register_node("lottores:ithildin_stonelamp_1", {
 	description = S("Ithildin Stonelamp"),
 	tiles = {"default_stone.png^ithildin_lamp_1.png"},
 	drawtype = 'normal',
@@ -438,7 +438,7 @@ minetest.register_node("lottores:ithildin_stonelamp_1", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_lamp_0", {
+core.register_node("lottores:ithildin_lamp_0", {
 	description = S("Ithildin Lamp"),
 	tiles = {"ithildin_lamp_0.png"},
 	paramtype = "light",
@@ -451,7 +451,7 @@ minetest.register_node("lottores:ithildin_lamp_0", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node("lottores:ithildin_lamp_1", {
+core.register_node("lottores:ithildin_lamp_1", {
 	description = S("Ithildin Lamp"),
 	tiles = {"default_stone.png^ithildin_lamp_1.png"},
 	paramtype = "light",
@@ -467,98 +467,98 @@ minetest.register_node("lottores:ithildin_lamp_1", {
 
 -- Functions
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_1"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() > 0.2 and minetest.get_timeofday() < 0.8
+		if core.get_timeofday() > 0.2 and core.get_timeofday() < 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_0"})
+			core.set_node(pos, {name="lottores:ithildin_0"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_0"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() < 0.2 or minetest.get_timeofday() > 0.8
+		if core.get_timeofday() < 0.2 or core.get_timeofday() > 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_1"})
+			core.set_node(pos, {name="lottores:ithildin_1"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_stone_1"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() > 0.2 and minetest.get_timeofday() < 0.8
+		if core.get_timeofday() > 0.2 and core.get_timeofday() < 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_stone_0"})
+			core.set_node(pos, {name="lottores:ithildin_stone_0"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_stone_0"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() < 0.2 or minetest.get_timeofday() > 0.8
+		if core.get_timeofday() < 0.2 or core.get_timeofday() > 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_stone_1"})
+			core.set_node(pos, {name="lottores:ithildin_stone_1"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_stonelamp_1"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() > 0.2 and minetest.get_timeofday() < 0.8
+		if core.get_timeofday() > 0.2 and core.get_timeofday() < 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_stonelamp_0"})
+			core.set_node(pos, {name="lottores:ithildin_stonelamp_0"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_stonelamp_0"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() < 0.2 or minetest.get_timeofday() > 0.8
+		if core.get_timeofday() < 0.2 or core.get_timeofday() > 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_stonelamp_1"})
+			core.set_node(pos, {name="lottores:ithildin_stonelamp_1"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_lamp_1"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() > 0.2 and minetest.get_timeofday() < 0.8
+		if core.get_timeofday() > 0.2 and core.get_timeofday() < 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_lamp_0"})
+			core.set_node(pos, {name="lottores:ithildin_lamp_0"})
 		end
 	end,
 })
 
-minetest.register_abm(
+core.register_abm(
 	{nodenames = {"lottores:ithildin_lamp_0"},
 	interval = 1,
 	chance = 1,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		if minetest.get_timeofday() < 0.2 or minetest.get_timeofday() > 0.8
+		if core.get_timeofday() < 0.2 or core.get_timeofday() > 0.8
 		then
-			minetest.set_node(pos, {name="lottores:ithildin_lamp_1"})
+			core.set_node(pos, {name="lottores:ithildin_lamp_1"})
 		end
 	end,
 })
@@ -671,13 +671,13 @@ stairs.register_stair_and_slab(
 
 -- Crafting
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:galvorn_ingot",
 	recipe = {"lottores:lead_ingot", "default:mese_crystal"}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:tilkal',
 	recipe = {
 		{'lottores:tilkal_ingot', 'lottores:tilkal_ingot', 'lottores:tilkal_ingot'},
@@ -686,14 +686,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:tilkal_ingot 9',
 	recipe = {
 		{'lottores:tilkal'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:tilkal_ingot",
 	recipe = {
@@ -706,7 +706,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:limestone',
 	recipe = {
 		{'lottores:limestone_lump', 'lottores:limestone_lump', 'lottores:limestone_lump'},
@@ -715,26 +715,26 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:limestone_lump 9',
 	recipe = {
 		{'lottores:limestone'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:marble",
 	recipe = "lottores:limestone",
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:geodes_crystal_1",
 	recipe = "lottores:rough_rock_lump",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:silver_block',
 	recipe = {
 		{'lottores:silver_ingot', 'lottores:silver_ingot', 'lottores:silver_ingot'},
@@ -743,14 +743,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:silver_ingot 9',
 	recipe = {
 		{'lottores:silver_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:tin_block',
 	recipe = {
 		{'lottores:tin_ingot', 'lottores:tin_ingot', 'lottores:tin_ingot'},
@@ -759,14 +759,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:tin_ingot 9',
 	recipe = {
 		{'lottores:tin_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:lead_block',
 	recipe = {
 		{'lottores:lead_ingot', 'lottores:lead_ingot', 'lottores:lead_ingot'},
@@ -775,14 +775,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:lead_ingot 9',
 	recipe = {
 		{'lottores:lead_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:mithril_block',
 	recipe = {
 		{'lottores:mithril_ingot', 'lottores:mithril_ingot', 'lottores:mithril_ingot'},
@@ -791,14 +791,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:mithril_ingot 9',
 	recipe = {
 		{'lottores:mithril_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:galvorn_block',
 	recipe = {
 		{'lottores:galvorn_ingot', 'lottores:galvorn_ingot', 'lottores:galvorn_ingot'},
@@ -807,32 +807,32 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:galvorn_ingot 9',
 	recipe = {
 		{'lottores:galvorn_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:ithildin_1",
 	recipe = {"lottores:mithril_ingot", "lottores:geodes_crystal_1"}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:ithildin_stone_1",
 	recipe = {"lottores:ithildin_1", "group:stone"}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:ithildin_lamp_1",
 	recipe = {"lottores:mithril_ingot", "lottother:blue_torch"}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottores:ithildin_stonelamp_1",
 	recipe = {"lottores:ithildin_lamp_1", "group:stone"}
@@ -840,7 +840,7 @@ minetest.register_craft({
 
 --Blocks
 
-minetest.register_node("lottores:mineral_pearl", {
+core.register_node("lottores:mineral_pearl", {
 	description = S("Pearl Ore"),
 	tiles = {"default_sand.png^lottores_mineral_pearl.png"},
 	paramtype = "light",
@@ -859,7 +859,7 @@ minetest.register_node("lottores:mineral_pearl", {
 	sounds = default.node_sound_sand_defaults(),
 })
 
-minetest.register_node("lottores:mineral_salt", {
+core.register_node("lottores:mineral_salt", {
 	description = S("Salt Mineral"),
 	tiles = {"default_dirt.png^lottores_mineral_salt.png"},
 	paramtype = "light",
@@ -878,7 +878,7 @@ minetest.register_node("lottores:mineral_salt", {
 	sounds = default.node_sound_dirt_defaults(),
 })
 
-minetest.register_node( "lottores:pearl_block", {
+core.register_node( "lottores:pearl_block", {
 	description = S("Pearl Block"),
 	use_texture_alpha = "blend",
 	tiles = { "lottores_pearl_block.png" },
@@ -887,7 +887,7 @@ minetest.register_node( "lottores:pearl_block", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_node( "lottores:salt_block", {
+core.register_node( "lottores:salt_block", {
 	description       = S("Salt Block"),
 	tiles             = { "default_clay.png^lottores_salt_block.png" },
 	is_ground_content = true,
@@ -895,7 +895,7 @@ minetest.register_node( "lottores:salt_block", {
 	sounds            = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottores:salt", {
+core.register_node("lottores:salt", {
 	description         = S("Salt"),
 	drawtype            = "plantlike",
 	visual_scale        = 1.0,
@@ -905,21 +905,21 @@ minetest.register_node("lottores:salt", {
 	sunlight_propagates = true,
 	walkable            = false,
 	groups              = { fleshy = 3, dig_immediate = 3, flammable = 1 },
-	on_use              = minetest.item_eat(1),
+	on_use              = core.item_eat(1),
 	_tt_food_hp         = 1,
 	sounds              = default.node_sound_defaults(),
 })
 
 -- Craft items
 
-minetest.register_craftitem("lottores:pearl", {
+core.register_craftitem("lottores:pearl", {
 	description = S("Pearl"),
 	inventory_image = "lottores_pearl.png",
 })
 
 -- Crafting
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:salt_block',
 	recipe = {
 		{'lottores:salt', 'lottores:salt', 'lottores:salt'},
@@ -928,14 +928,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:salt 9',
 	recipe = {
 		{'lottores:salt_block'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:pearl_block',
 	recipe = {
 		{'lottores:pearl', 'lottores:pearl', 'lottores:pearl'},
@@ -944,7 +944,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottores:pearl 9',
 	recipe = {
 		{'lottores:pearl_block'},
@@ -979,54 +979,54 @@ stairs.register_stair_and_slab(
 
 -- Cooking
 -- Серебро и изделия
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:silver_ingot",
 	recipe = "lottores:silver_lump",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:silver_ingot",
 	recipe = "group:silver_item",
 })
 
 -- Мифрил и изделия
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:mithril_ingot",
 	recipe = "lottores:mithril_lump",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:mithril_ingot",
 	recipe = "group:mithril_item",
 })
 
 -- Олово и изделия
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:tin_ingot",
 	recipe = "lottores:tin_lump",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:tin_ingot",
 	recipe = "group:tin_item",
 })
 
 -- Свинец и изделия
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:lead_ingot",
 	recipe = "lottores:lead_lump",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:lead_ingot",
 	recipe = "group:lead_item",
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottores:galvorn_ingot",
 	recipe = "group:galvorn_item",

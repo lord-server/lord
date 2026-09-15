@@ -1,11 +1,11 @@
-local items,                     colorize
-    = minetest.registered_items, minetest.colorize
+local items,                 colorize
+    = core.registered_items, core.colorize
 
 local properties = {
 	node = require('snippet.properties.node'),
 	item = require('snippet.properties.item'),
 }
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local dig_properties = {

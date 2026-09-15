@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local pot_colors = {"terracotta"}
 
@@ -49,15 +49,15 @@ for i in ipairs(flowers_list) do
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		type = "shapeless",
 		output = "lord_homedecor:potted_"..flower,
 		recipe = { craftwith, "lord_homedecor:flower_pot_small" }
 	})
 
-	minetest.register_alias("flowers:flower_"..flower.."_pot", "lord_homedecor:potted_"..flower)
-	minetest.register_alias("flowers:potted_"..flower, "lord_homedecor:potted_"..flower)
-	minetest.register_alias("flowers:flower_pot", "lord_homedecor:flower_pot_small")
+	core.register_alias("flowers:flower_"..flower.."_pot", "lord_homedecor:potted_"..flower)
+	core.register_alias("flowers:potted_"..flower, "lord_homedecor:potted_"..flower)
+	core.register_alias("flowers:flower_pot", "lord_homedecor:flower_pot_small")
 end
 
 lord_homedecor.register("pole_wrought_iron", {
@@ -189,7 +189,7 @@ for _, side in ipairs({"diagonal_left", "diagonal_right", "horizontal"}) do
 				fixed = { -8/16, -8/16, 5/16, 8/16, 8/16, 8/16 }
 			}
 		else
-			minetest.register_alias(string.replace("lord_homedecor:"..nodename, "diagonal_", ""), "lord_homedecor:"..nodename)
+			core.register_alias(string.replace("lord_homedecor:"..nodename, "diagonal_", ""), "lord_homedecor:"..nodename)
 		end
 
 		lord_homedecor.register(nodename, {

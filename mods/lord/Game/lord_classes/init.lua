@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 races = {}
@@ -50,14 +50,14 @@ for name, desc in pairs(races.list) do
 	races.factions[name] = desc.faction
 end
 
-minetest.register_privilege("race", {
+core.register_privilege("race", {
 	description = "Ability to change race and gender of a player.",
 	give_to_singleplayer= false,
 })
 
 -- Now faction is binded to race
 function races.get_faction(name)
-	local race = character.of(minetest.get_player_by_name(name)):get_race()
+	local race = character.of(core.get_player_by_name(name)):get_race()
 	return races.factions[race]
 end
 
@@ -81,7 +81,7 @@ end
 --- @param new_race string
 function races.update_privileges(player, old_race, new_race)
 	local player_name = player:get_player_name()
-	local privileges  = minetest.get_player_privs(player_name)
+	local privileges  = core.get_player_privs(player_name)
 
 	if old_race == lord_races.Name.SHADOW then
 		remove_privileges(privileges, races.shadow_privileges.granted_privileges)
@@ -92,19 +92,19 @@ function races.update_privileges(player, old_race, new_race)
 		add_privileges(privileges, races.shadow_privileges.granted_privileges)
 	end
 
-	minetest.set_player_privs(player_name, privileges)
+	core.set_player_privs(player_name, privileges)
 end
 
 -- -------------------------------------------------------------------------------------------------
 --- @type lord_classes.form.ChooseRace
-local ChooseRaceForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
+local ChooseRaceForm = dofile(core.get_modpath('lord_classes') .. '/form/ChooseRaceForm.lua')
 --- @type lord_classes.form.ChooseSkin
-local ChooseSkinForm = dofile(minetest.get_modpath('lord_classes') .. '/form/ChooseSkinForm.lua')
+local ChooseSkinForm = dofile(core.get_modpath('lord_classes') .. '/form/ChooseSkinForm.lua')
 --- @type lord_classes.hud.Shadow
-local ShadowHUD      = dofile(minetest.get_modpath('lord_classes') .. '/hud/Shadow.lua')
+local ShadowHUD      = dofile(core.get_modpath('lord_classes') .. '/hud/Shadow.lua')
 
 -- TODO: move to `lord_spawns` mod
-local has_several_spawns = not minetest.is_singleplayer() and minetest.settings:get_bool('dynamic_spawn', false)
+local has_several_spawns = not core.is_singleplayer() and core.settings:get_bool('dynamic_spawn', false)
 races.tp_process = {}
 --- @param player Player
 --- @param race   string
@@ -112,7 +112,7 @@ local function move_player_to_spawn(player, race)
 	local name = player:get_player_name()
 	if races.tp_process[name] ~= true then
 		races.tp_process[name] = true
-		minetest.after(0.1, function()
+		core.after(0.1, function()
 			lord_spawns.spawns.teleport_to(player, race)
 			races.tp_process[name] = false
 		end)
@@ -203,7 +203,7 @@ end
 function races.can_open_stuff(owner_race, player, itemstack)
 	assert(races.list[owner_race], string.format("unknown race - \"%s\"", owner_race))
 
-	if character.of(player):get_race() == owner_race or minetest.check_player_privs(player, "race") then
+	if character.of(player):get_race() == owner_race or core.check_player_privs(player, "race") then
 		return true, nil
 	end
 
@@ -217,7 +217,7 @@ function races.can_open_stuff(owner_race, player, itemstack)
 	end
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	local race = character.of(player):get_race()
 	if not race then
 		-- Random chosen race for select in ChooseRaceForm & for tp to spawn
@@ -235,12 +235,12 @@ minetest.register_on_joinplayer(function(player)
 	end
 end)
 
-minetest.register_chatcommand("second_chance", {
+core.register_chatcommand("second_chance", {
 	params = "",
 	privs = {},
 	description = S("Second chance"),
 	func = function(name, params)
-		local player = minetest.get_player_by_name(name)
+		local player = core.get_player_by_name(name)
 		local character = character.of(player)
 		if not character:has_second_chance() then
 			return false, S("Won't give another chance")
@@ -251,12 +251,12 @@ minetest.register_chatcommand("second_chance", {
 	end
 })
 
-minetest.register_chatcommand('choose_race', {
+core.register_chatcommand('choose_race', {
 	params = '',
 	privs = { choose_race = true },
 	description = S(''),
 	func = function(name, params)
-		local player = minetest.get_player_by_name(name)
+		local player = core.get_player_by_name(name)
 		if character.of(player):get_race() ~= races.name.SHADOW then
 			return false, S('Something went wrong. Only the Shadow can choose the race.')
 		end
@@ -272,7 +272,7 @@ minetest.register_chatcommand('choose_race', {
 	end
 })
 
-minetest.register_chatcommand("give_chance", {
+core.register_chatcommand("give_chance", {
 	params = S("<player name>"),
 	privs = {race=true},
 	description = S("Give another chance to a player."),
@@ -290,7 +290,7 @@ minetest.register_chatcommand("give_chance", {
 				"/help give_chance")
 		end
 
-		local player = minetest.get_player_by_name(args[1])
+		local player = core.get_player_by_name(args[1])
 		if not player then
 			return false, S("Player '@1' is not online or does not exist", args[1])
 		end
@@ -299,4 +299,4 @@ minetest.register_chatcommand("give_chance", {
 	end
 })
 
-dofile(minetest.get_modpath('lord_classes')..'/effects.lua')
+dofile(core.get_modpath('lord_classes')..'/effects.lua')

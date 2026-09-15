@@ -1,12 +1,12 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function is_ground(pos)
-	local nn = minetest.get_node(pos).name
-	return minetest.get_item_group(nn, "crumbly") ~= 0 or
-		minetest.get_item_group(nn, "cracky") ~= 0 or
-		minetest.get_item_group(nn, "choppy") ~= 0 or
-		minetest.get_item_group(nn, "snappy") ~= 0
+	local nn = core.get_node(pos).name
+	return core.get_item_group(nn, "crumbly") ~= 0 or
+		core.get_item_group(nn, "cracky") ~= 0 or
+		core.get_item_group(nn, "choppy") ~= 0 or
+		core.get_item_group(nn, "snappy") ~= 0
 end
 
 local function get_sign(i)
@@ -34,9 +34,9 @@ local function move_horse_to_inventory(entity, player)
 	local horse_item = ItemStack(entity.name)
 	horse_item:get_meta():set_int('hp', entity.object:get_hp())
 	if not player:get_inventory():room_for_item("main", horse_item) then
-		minetest.chat_send_player(
+		core.chat_send_player(
 			player:get_player_name(),
-			minetest.colorize("yellow", S("Inventory is full!"))
+			core.colorize("yellow", S("Inventory is full!"))
 		)
 		return false
 	end
@@ -102,40 +102,40 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 
 			local pos_below  = vector.add(pointed_thing.above, vector.new(0, -1, 0))
-			local node_below = minetest.get_node_or_nil(pos_below)
-			local node_under_def = node_below and minetest.registered_nodes[node_below.name]
+			local node_below = core.get_node_or_nil(pos_below)
+			local node_under_def = node_below and core.registered_nodes[node_below.name]
 			local walkable = node_under_def and (node_under_def.walkable == nil or node_under_def.walkable == true)
 			if not walkable then
-				minetest.chat_send_player(
+				core.chat_send_player(
 					placer:get_player_name(),
-					minetest.colorize("yellow", S("Can only be placed on a hard surface."))
+					core.colorize("yellow", S("Can only be placed on a hard surface."))
 				)
 				return itemstack, nil
 			end
 
-			if not minetest.find_path(placer:get_pos(), pointed_thing.above, 1, 1, 3, "Dijkstra") then
-				minetest.chat_send_player(
+			if not core.find_path(placer:get_pos(), pointed_thing.above, 1, 1, 3, "Dijkstra") then
+				core.chat_send_player(
 					placer:get_player_name(),
-					minetest.colorize("yellow", S("Sweetly far. Try to get closer."))
+					core.colorize("yellow", S("Sweetly far. Try to get closer."))
 				)
 				return itemstack, nil
 			end
 
 			local place_to = vector.copy(pointed_thing.above)
 			place_to.y     = place_to.y - 0.5
-			local entity = minetest.add_entity(place_to, name)
+			local entity = core.add_entity(place_to, name)
 			if itemstack:get_meta():contains('hp') then
 				entity:set_hp(itemstack:get_meta():get_int('hp') or horse.hp)
 			end
 
-			if not minetest.is_creative_enabled(placer) then
+			if not core.is_creative_enabled(placer) then
 				itemstack:take_item()
 			end
 
 			return itemstack, pointed_thing.above
 		end
 
-		minetest.register_craftitem(name, craftitem)
+		core.register_craftitem(name, craftitem)
 	end
 
 	function horse:set_animation(type)
@@ -268,7 +268,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 		p   = self.object:get_pos()
 		p.y = p.y + 1
 		if not is_ground(p) then
-			if minetest.registered_nodes[minetest.get_node(p).name].walkable then
+			if core.registered_nodes[core.get_node(p).name].walkable then
 				self.v = 0
 			end
 			self.object:set_acceleration({ x = 0, y = -10, z = 0 })
@@ -293,13 +293,13 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 			local x = math.sin(yaw) * -2
 			local z = math.cos(yaw) * 2
-			if minetest.get_item_group(minetest.get_node(self.object:get_pos()).name, "water") ~= 0 then
+			if core.get_item_group(core.get_node(self.object:get_pos()).name, "water") ~= 0 then
 				self.object:set_acceleration({ x = x, y = 2, z = z })
 			else
 				self.object:set_acceleration({ x = x, y = -5, z = z })
 			end
 		else
-			if minetest.get_item_group(minetest.get_node(self.object:get_pos()).name, "water") ~= 0 then
+			if core.get_item_group(core.get_node(self.object:get_pos()).name, "water") ~= 0 then
 				self.object:set_acceleration({ x = 0, y = 2, z = 0 })
 			else
 				self.object:set_acceleration({ x = 0, y = -5, z = 0 })
@@ -352,7 +352,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 				end
 			end
 			if not player_api.player_attached[clicker:get_player_name()] then
-				minetest.chat_send_player(player, core.colorize("#ff8ea1", S("You can't ride this beast!!!")))
+				core.chat_send_player(player, core.colorize("#ff8ea1", S("You can't ride this beast!!!")))
 			end
 		end
 	end
@@ -367,7 +367,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 			return
 		end
 
-		local data = minetest.deserialize(static_data)
+		local data = core.deserialize(static_data)
 		if not data then return end
 		if data.hp then
 			self.object:set_hp(data.hp)
@@ -376,7 +376,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 	--- @return string
 	function horse:get_staticdata()
-		return minetest.serialize({
+		return core.serialize({
 			hp = self.object:get_hp()
 		})
 	end
@@ -386,7 +386,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 		local ridername = self.ridername
 		local rider
 		if ridername ~= nil then
-			rider = minetest.get_player_by_name(ridername)
+			rider = core.get_player_by_name(ridername)
 		end
 
 		if puncher and puncher:is_player() then
@@ -401,11 +401,11 @@ function lottmobs.register_horse(name, craftitem, horse)
 			elseif ridername == nil and puncher:get_player_control().sneak then
 				move_horse_to_inventory(self, puncher)
 			elseif self.aggressive == true then
-				local objs = minetest.get_objects_inside_radius(self.object:get_pos(), 4)
+				local objs = core.get_objects_inside_radius(self.object:get_pos(), 4)
 				for _, obj in ipairs(objs) do
 					if obj:is_player() and puncher:get_player_name() == obj:get_player_name() then
 						self.underattack = true
-						minetest.after(2, function()
+						core.after(2, function()
 							self.underattack = false
 						end)
 
@@ -418,11 +418,11 @@ function lottmobs.register_horse(name, craftitem, horse)
 			end
 		else
 			if puncher and self.aggressive == true then
-				local objs = minetest.get_objects_inside_radius(self.object:get_pos(), 4)
+				local objs = core.get_objects_inside_radius(self.object:get_pos(), 4)
 				for _, obj in ipairs(objs) do
 					if puncher:get_luaentity() == obj:get_luaentity() then
 						self.underattack = true
-						minetest.after(2, function()
+						core.after(2, function()
 							self.underattack = false
 						end)
 
@@ -452,7 +452,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 		self.driver:set_detach()
 	end
 
-	minetest.register_entity(name, horse)
+	core.register_entity(name, horse)
 end
 
 ---------------------

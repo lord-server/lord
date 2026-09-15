@@ -1,4 +1,4 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 	local S = mod.translator
 
 
@@ -12,7 +12,7 @@ minetest.mod(function(mod)
 	}
 
 	for id, title in pairs(clan_titles) do
-		minetest.register_tool("clans_clothes:cloak_" .. id, {
+		core.register_tool("clans_clothes:cloak_" .. id, {
 			description     = S(title .. " Clan Cloak"),
 			inventory_image = "clans_clothes_cloak_" .. id .. "_inv.png",
 			groups          = { clothes = 1, no_preview = 1, clothes_cloak = 1 },
@@ -21,7 +21,7 @@ minetest.mod(function(mod)
 	end
 
 	-- TODO: удалить в следующем релизе (сами апдейтятся через сундук движком при load map block)
-	minetest.register_alias('clans_clothes:mason_cloak',  'clans_clothes:cloak_masons')
-	minetest.register_alias('clans_clothes:vassal_cloak', 'clans_clothes:cloak_vassals')
-	minetest.register_alias('clans_clothes:hansa_cloak',  'clans_clothes:cloak_hansa')
+	core.register_alias('clans_clothes:mason_cloak',  'clans_clothes:cloak_masons')
+	core.register_alias('clans_clothes:vassal_cloak', 'clans_clothes:cloak_vassals')
+	core.register_alias('clans_clothes:hansa_cloak',  'clans_clothes:cloak_hansa')
 end)

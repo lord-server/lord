@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("lottmapgen:angsnowblock", {
+core.register_node("lottmapgen:angsnowblock", {
 	description       = S("Snow Block"),
 	tiles             = { "default_snow.png" },
 	is_ground_content = true,
@@ -13,7 +13,7 @@ minetest.register_node("lottmapgen:angsnowblock", {
 	}),
 })
 
-minetest.register_node("lottmapgen:mordor_cobble", {
+core.register_node("lottmapgen:mordor_cobble", {
 	description       = S("Mordor Cobble"),
 	tiles             = { "lottmapgen_mordor_cobble.png" },
 	is_ground_content = true,
@@ -34,7 +34,7 @@ stairs.register_stair_and_slab(
 	S("Outer Mordor Cobble Stair")
 )
 
-minetest.register_node("lottmapgen:mordor_gravel", {
+core.register_node("lottmapgen:mordor_gravel", {
 	description = S("Mordor Gravel"),
 	tiles       = { "lottmapgen_mordor_gravel.png" },
 	groups      = { crumbly = 2, falling_node = 1 },
@@ -48,17 +48,17 @@ minetest.register_node("lottmapgen:mordor_gravel", {
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "cooking",
 	output = "lord_rocks:mordor_stone",
 	recipe = "lottmapgen:mordor_cobble",
 })
 
-minetest.register_node("lottmapgen:blacksource", {
+core.register_node("lottmapgen:blacksource", {
 	description                = S("Black Water Source"),
 	drawtype                   = "liquid",
 	waving                     = 3,
-	inventory_image            = minetest.inventorycube("lottmapgen_black_water.png"),
+	inventory_image            = core.inventorycube("lottmapgen_black_water.png"),
 	tiles                      = {
 		{
 			name             = "lottmapgen_black_water_source_animated.png^[opacity:180",
@@ -98,7 +98,7 @@ minetest.register_node("lottmapgen:blacksource", {
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1 },
 })
 
-minetest.register_node("lottmapgen:blackflowing", {
+core.register_node("lottmapgen:blackflowing", {
 	drawtype                   = "flowingliquid",
 	tiles                      = { "lottmapgen_black_water.png" },
 	special_tiles              = {
@@ -129,10 +129,10 @@ minetest.register_node("lottmapgen:blackflowing", {
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1, not_in_creative_inventory = 1 },
 })
 
-minetest.register_node("lottmapgen:black_river_source", {
+core.register_node("lottmapgen:black_river_source", {
 	description                = S("Black River Source"),
 	drawtype                   = "liquid",
-	inventory_image            = minetest.inventorycube("lottmapgen_black_water.png"),
+	inventory_image            = core.inventorycube("lottmapgen_black_water.png"),
 	tiles                      = { "lottmapgen_black_water.png" },
 	use_texture_alpha          = "blend",
 	paramtype                  = "light",
@@ -153,7 +153,7 @@ minetest.register_node("lottmapgen:black_river_source", {
 	groups                     = { water = 3, liquid = 3, puts_out_fire = 1 },
 })
 
-minetest.register_node("lottmapgen:black_river_flowing", {
+core.register_node("lottmapgen:black_river_flowing", {
 	drawtype                   = "flowingliquid",
 	tiles                      = { "lottmapgen_black_water.png" },
 	special_tiles              = {

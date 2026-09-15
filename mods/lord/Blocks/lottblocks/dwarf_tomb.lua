@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local common_definition = {
 	drawtype = "nodebox",
@@ -43,10 +43,10 @@ local tomb_top = table.merge(common_definition, {
 		}
 	},
 	on_destruct = function(pos)
-		local node  = minetest.get_node(pos)
-		local dir   = minetest.facedir_to_dir(node.param2)
+		local node  = core.get_node(pos)
+		local dir   = core.facedir_to_dir(node.param2)
 		local other = vector.subtract(pos, dir)
-		minetest.remove_node(other)
+		core.remove_node(other)
 	end,
 })
 
@@ -76,7 +76,7 @@ local tomb_bottom = table.merge(common_definition, {
 
 -- MapGen only blocks.
 -- Follow two blocks are spawned only on map dungeon generation.
-minetest.register_node("lottblocks:gen_dwarf_tomb_top", table.merge(tomb_top, {
+core.register_node("lottblocks:gen_dwarf_tomb_top", table.merge(tomb_top, {
 	description = S("Generated @1", tomb_top.description),
 	drop = {
 		max_items = 3,
@@ -89,56 +89,56 @@ minetest.register_node("lottblocks:gen_dwarf_tomb_top", table.merge(tomb_top, {
 	},
 }))
 
-minetest.register_node("lottblocks:gen_dwarf_tomb_bottom", table.merge(tomb_bottom, {
+core.register_node("lottblocks:gen_dwarf_tomb_bottom", table.merge(tomb_bottom, {
 	description = S("Generated @1", tomb_bottom.description),
 }))
 
 
 -- Tomb nodes for players.
 -- Follow two blocks are drops from generated ones and used when player place the tomb.
-minetest.register_node("lottblocks:dwarf_tomb_top", table.merge(tomb_top, {
+core.register_node("lottblocks:dwarf_tomb_top", table.merge(tomb_top, {
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
 		local pos
-		if minetest.registered_items[minetest.get_node(under).name].buildable_to then
+		if core.registered_items[core.get_node(under).name].buildable_to then
 			pos = under
 		else
 			pos = pointed_thing.above
 		end
 
-		if minetest.is_protected(pos, placer:get_player_name()) and
-			not minetest.check_player_privs(placer, "protection_bypass") then
-			minetest.record_protection_violation(pos, placer:get_player_name())
+		if core.is_protected(pos, placer:get_player_name()) and
+			not core.check_player_privs(placer, "protection_bypass") then
+			core.record_protection_violation(pos, placer:get_player_name())
 			return itemstack
 		end
 
-		local node_def = minetest.registered_nodes[minetest.get_node(pos).name]
+		local node_def = core.registered_nodes[core.get_node(pos).name]
 		if not node_def or not node_def.buildable_to then
 			return itemstack
 		end
 
-		local dir = minetest.dir_to_facedir(placer:get_look_dir())
-		local botpos = vector.subtract(pos, minetest.facedir_to_dir(dir))
+		local dir = core.dir_to_facedir(placer:get_look_dir())
+		local botpos = vector.subtract(pos, core.facedir_to_dir(dir))
 
-		if minetest.is_protected(botpos, placer:get_player_name()) and
-			not minetest.check_player_privs(placer, "protection_bypass") then
-			minetest.record_protection_violation(botpos, placer:get_player_name())
+		if core.is_protected(botpos, placer:get_player_name()) and
+			not core.check_player_privs(placer, "protection_bypass") then
+			core.record_protection_violation(botpos, placer:get_player_name())
 			return itemstack
 		end
 
-		local botdef = minetest.registered_nodes[minetest.get_node(botpos).name]
+		local botdef = core.registered_nodes[core.get_node(botpos).name]
 		if not botdef or not botdef.buildable_to then
 			return itemstack
 		end
 
-		minetest.set_node(pos, {name = "lottblocks:dwarf_tomb_top", param2 = dir})
-		minetest.set_node(botpos, {name = "lottblocks:dwarf_tomb_bottom", param2 = dir})
+		core.set_node(pos, {name = "lottblocks:dwarf_tomb_top", param2 = dir})
+		core.set_node(botpos, {name = "lottblocks:dwarf_tomb_bottom", param2 = dir})
 
-		if not minetest.settings:get_bool("creative_mode") then
+		if not core.settings:get_bool("creative_mode") then
 			itemstack:take_item()
 		end
 		return itemstack
 	end,
 }))
 
-minetest.register_node("lottblocks:dwarf_tomb_bottom", tomb_bottom)
+core.register_node("lottblocks:dwarf_tomb_bottom", tomb_bottom)

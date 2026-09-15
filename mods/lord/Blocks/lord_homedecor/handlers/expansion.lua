@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- vectors to place one node next to or behind another
 
@@ -24,7 +24,7 @@ lord_homedecor.fdir_to_fwd = {
 }
 
 local placeholder_node = "lord_homedecor:expansion_placeholder"
-minetest.register_node(placeholder_node, {
+core.register_node(placeholder_node, {
 	description = "Expansion placeholder (you hacker you!)",
 	groups = { not_in_creative_inventory=1 },
 	drawtype = "airlike",
@@ -40,13 +40,13 @@ minetest.register_node(placeholder_node, {
 -- returns nil if no node could be selected
 local function select_node(pointed_thing)
 	local pos = pointed_thing.under
-	local node = minetest.get_node_or_nil(pos)
-	local def = node and minetest.registered_nodes[node.name]
+	local node = core.get_node_or_nil(pos)
+	local def = node and core.registered_nodes[node.name]
 
 	if not def or not def.buildable_to then
 		pos = pointed_thing.above
-		node = minetest.get_node_or_nil(pos)
-		def = node and minetest.registered_nodes[node.name]
+		node = core.get_node_or_nil(pos)
+		def = node and core.registered_nodes[node.name]
 	end
 	return def and pos, def
 end
@@ -54,9 +54,9 @@ end
 --- check if all nodes can and may be build to
 local function is_buildable_to(placer_name, ...)
 	for _, pos in ipairs({...}) do
-		local node = minetest.get_node_or_nil(pos)
-		local def = node and minetest.registered_nodes[node.name]
-		if not (def and def.buildable_to) or minetest.is_protected(pos, placer_name) then
+		local node = core.get_node_or_nil(pos)
+		local def = node and core.registered_nodes[node.name]
+		if not (def and def.buildable_to) or core.is_protected(pos, placer_name) then
 			return false
 		end
 	end
@@ -67,8 +67,8 @@ end
 local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 	local placer_name = placer:get_player_name() or ""
 	if is_buildable_to(placer_name, pos, pos2) then
-		fdir = fdir or minetest.dir_to_facedir(placer:get_look_dir())
-		minetest.set_node(pos, { name = node1, param2 = fdir })
+		fdir = fdir or core.dir_to_facedir(placer:get_look_dir())
+		core.set_node(pos, { name = node1, param2 = fdir })
 		node2 = node2 or "air" -- this can be used to clear buildable_to nodes even though we are using a multinode mesh
 		-- do not assume by default, as we still might want to allow overlapping in some cases
 		local has_facedir = node2 ~= "air"
@@ -76,10 +76,10 @@ local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 			has_facedir = false
 			node2 = placeholder_node
 		end
-		minetest.set_node(pos2, { name = node2, param2 = (has_facedir and fdir) or nil })
+		core.set_node(pos2, { name = node2, param2 = (has_facedir and fdir) or nil })
 
 		-- call after_place_node of the placed node if available
-		local ctrl_node_def = minetest.registered_nodes[node1]
+		local ctrl_node_def = core.registered_nodes[node1]
 		if ctrl_node_def and ctrl_node_def.after_place_node then
 			ctrl_node_def.after_place_node(pos, placer)
 		end
@@ -92,9 +92,9 @@ local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 end
 
 local function rightclick_pointed_thing(pos, placer, itemstack)
-	local node = minetest.get_node_or_nil(pos)
+	local node = core.get_node_or_nil(pos)
 	if not node then return false end
-	local def = minetest.registered_nodes[node.name]
+	local def = core.registered_nodes[node.name]
 	if not def or not def.on_rightclick then return false end
 	return def.on_rightclick(pos, node, placer, itemstack) or itemstack
 end
@@ -125,9 +125,9 @@ function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node
 	if not pos then return itemstack end
 
 	local forceright = placer:get_player_control()["sneak"]
-	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+	local fdir = core.dir_to_facedir(placer:get_look_dir())
 
-	local is_right_wing = node1 == minetest.get_node({
+	local is_right_wing = node1 == core.get_node({
 			x = pos.x + lord_homedecor.fdir_to_left[fdir+1][1],
 			y = pos.y,
 			z = pos.z + lord_homedecor.fdir_to_left[fdir+1][2],
@@ -147,7 +147,7 @@ function lord_homedecor.stack_sideways(itemstack, placer, pointed_thing, node1, 
 	local pos, def = select_node(pointed_thing)
 	if not pos then return itemstack end
 
-	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+	local fdir = core.dir_to_facedir(placer:get_look_dir())
 	local fdir_transform = dir and lord_homedecor.fdir_to_right or lord_homedecor.fdir_to_fwd
 
 	local pos2 = { x = pos.x + fdir_transform[fdir+1][1], y=pos.y, z = pos.z + fdir_transform[fdir+1][2] }
@@ -157,82 +157,82 @@ end
 
 function lord_homedecor.bed_expansion(pos, placer, itemstack, pointed_thing, color)
 
-	local thisnode = minetest.get_node(pos)
+	local thisnode = core.get_node(pos)
 	local fdir = thisnode.param2
 
 	local fxd = lord_homedecor.fdir_to_fwd[fdir+1][1]
 	local fzd = lord_homedecor.fdir_to_fwd[fdir+1][2]
 
 	local forwardpos = {x=pos.x+fxd, y=pos.y, z=pos.z+fzd}
-	local forwardnode = minetest.get_node(forwardpos)
+	local forwardnode = core.get_node(forwardpos)
 
-	local def = minetest.registered_nodes[forwardnode.name]
+	local def = core.registered_nodes[forwardnode.name]
 	local placer_name = placer:get_player_name()
 
 	if not (def and def.buildable_to) then
-		minetest.chat_send_player( placer:get_player_name(), "Not enough room - the space for the headboard is occupied!" )
-		minetest.set_node(pos, {name = "air"})
+		core.chat_send_player( placer:get_player_name(), "Not enough room - the space for the headboard is occupied!" )
+		core.set_node(pos, {name = "air"})
 		return true
 	end
 
-	if minetest.is_protected(forwardpos, placer_name) then
-		minetest.chat_send_player( placer:get_player_name(), "Someone already owns the spot where the headboard goes." )
+	if core.is_protected(forwardpos, placer_name) then
+		core.chat_send_player( placer:get_player_name(), "Someone already owns the spot where the headboard goes." )
 		return true
 	end
 
-	minetest.set_node(forwardpos, {name = "air"})
+	core.set_node(forwardpos, {name = "air"})
 
 	local lxd = lord_homedecor.fdir_to_left[fdir+1][1]
 	local lzd = lord_homedecor.fdir_to_left[fdir+1][2]
 	local leftpos = {x=pos.x+lxd, y=pos.y, z=pos.z+lzd}
-	local leftnode = minetest.get_node(leftpos)
+	local leftnode = core.get_node(leftpos)
 
 	local rxd = lord_homedecor.fdir_to_right[fdir+1][1]
 	local rzd = lord_homedecor.fdir_to_right[fdir+1][2]
 	local rightpos = {x=pos.x+rxd, y=pos.y, z=pos.z+rzd}
-	local rightnode = minetest.get_node(rightpos)
+	local rightnode = core.get_node(rightpos)
 
 	if leftnode.name == "lord_homedecor:bed_"..color.."_regular" then
 		local newname = string.replace(thisnode.name, "_regular", "_kingsize")
-		minetest.set_node(pos, {name = "air"})
-		minetest.set_node(leftpos, { name = newname, param2 = fdir})
+		core.set_node(pos, {name = "air"})
+		core.set_node(leftpos, { name = newname, param2 = fdir})
 	elseif rightnode.name == "lord_homedecor:bed_"..color.."_regular" then
 		local newname = string.replace(thisnode.name, "_regular", "_kingsize")
-		minetest.set_node(rightpos, {name = "air"})
-		minetest.set_node(pos, { name = newname, param2 = fdir})
+		core.set_node(rightpos, {name = "air"})
+		core.set_node(pos, { name = newname, param2 = fdir})
 	end
 
-	local topnode = minetest.get_node({x=pos.x, y=pos.y+1.0, z=pos.z})
-	local bottomnode = minetest.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
+	local topnode = core.get_node({x=pos.x, y=pos.y+1.0, z=pos.z})
+	local bottomnode = core.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
 
 	if string.find(topnode.name, "lord_homedecor:bed_.*_regular$") then
 		if fdir == topnode.param2 then
 			local newname = string.replace(thisnode.name, "_regular", "_extended")
-			minetest.set_node(pos, { name = newname, param2 = fdir})
+			core.set_node(pos, { name = newname, param2 = fdir})
 		end
 	end
 
 	if string.find(bottomnode.name, "lord_homedecor:bed_.*_regular$") then
 		if fdir == bottomnode.param2 then
 			local newname = string.replace(bottomnode.name, "_regular", "_extended")
-			minetest.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
+			core.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
 		end
 	end
 end
 
 function lord_homedecor.unextend_bed(pos, color)
-	local bottomnode = minetest.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
+	local bottomnode = core.get_node({x=pos.x, y=pos.y-1.0, z=pos.z})
 	local fdir = bottomnode.param2
 	if string.find(bottomnode.name, "lord_homedecor:bed_.*_extended$") then
 		local newname = string.replace(bottomnode.name, "_extended", "_regular")
-		minetest.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
+		core.set_node({x=pos.x, y=pos.y-1.0, z=pos.z}, { name = newname, param2 = fdir})
 	end
 end
 
 --- @param pos           Position
 --- @param compared_name string
 local function is_same_banister_at(pos, compared_name)
-	local definition = minetest.get_node(pos)
+	local definition = core.get_node(pos)
 	local def_name = definition and definition.name or ""
 	local node_name = compared_name or "-----"
 
@@ -255,32 +255,32 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 
 	local pos = select_node(pointed_thing)
 	if not pos then return itemstack end
-	local node = minetest.get_node(pos)
-	local def = minetest.registered_nodes[node.name]
+	local node = core.get_node(pos)
+	local def = core.registered_nodes[node.name]
 
 
-	local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+	local fdir = core.dir_to_facedir(placer:get_look_dir())
 	local meta = itemstack:get_meta()
 	local pindex = meta:get_int("palette_index")
 
 	local abovepos  = { x=pos.x, y=pos.y+1, z=pos.z }
-	local abovenode = minetest.get_node(abovepos)
+	local abovenode = core.get_node(abovepos)
 
-	local adef = minetest.registered_nodes[abovenode.name]
+	local adef = core.registered_nodes[abovenode.name]
 	local placer_name = placer:get_player_name()
 
 	if not  (def and def.buildable_to) and not is_same_banister_at(pos, itemstack:get_name()) then
-		minetest.chat_send_player(placer_name, S("Cannot place - the space is occupied by another block!"))
+		core.chat_send_player(placer_name, S("Cannot place - the space is occupied by another block!"))
 		return itemstack
 	end
 
 	if not (adef and adef.buildable_to) then
-		minetest.chat_send_player(placer_name, S("Not enough room - the upper space is occupied!"))
+		core.chat_send_player(placer_name, S("Not enough room - the upper space is occupied!"))
 		return itemstack
 	end
 
-	if minetest.is_protected(abovepos, placer_name) then
-		minetest.chat_send_player(placer_name, S("Someone already owns that spot."))
+	if core.is_protected(abovepos, placer_name) then
+		core.chat_send_player(placer_name, S("Someone already owns that spot."))
 		return itemstack
 	end
 
@@ -304,15 +304,15 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	local right_fwd_below_pos = { x=pos.x+rxd+fxd, y=pos.y-1, z=pos.z+rzd+fzd }
 	local left_fwd_below_pos =  { x=pos.x+lxd+fxd, y=pos.y-1, z=pos.z+lzd+fzd }
 
-	local below_node =           minetest.get_node(below_pos)
-	local left_node =            minetest.get_node(left_pos)
-	local right_node =           minetest.get_node(right_pos)
-	local left_fwd_node =        minetest.get_node(left_fwd_pos)
-	local right_fwd_node =        minetest.get_node(right_fwd_pos)
-	local left_below_node =      minetest.get_node({x=left_pos.x, y=left_pos.y-1, z=left_pos.z})
-	local right_below_node =     minetest.get_node({x=right_pos.x, y=right_pos.y-1, z=right_pos.z})
-	local right_fwd_below_node = minetest.get_node(right_fwd_below_pos)
-	local left_fwd_below_node =  minetest.get_node(left_fwd_below_pos)
+	local below_node =           core.get_node(below_pos)
+	local left_node =            core.get_node(left_pos)
+	local right_node =           core.get_node(right_pos)
+	local left_fwd_node =        core.get_node(left_fwd_pos)
+	local right_fwd_node =        core.get_node(right_fwd_pos)
+	local left_below_node =      core.get_node({x=left_pos.x, y=left_pos.y-1, z=left_pos.z})
+	local right_below_node =     core.get_node({x=right_pos.x, y=right_pos.y-1, z=right_pos.z})
+	local right_fwd_below_node = core.get_node(right_fwd_below_pos)
+	local left_fwd_below_node =  core.get_node(left_fwd_below_pos)
 
 	local new_place_name = itemstack:get_name()
 
@@ -382,7 +382,7 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 	if take_item then
 		itemstack:take_item()
 	end
-	minetest.set_node(pos, {name = new_place_name, param2 = fdir+pindex})
+	core.set_node(pos, {name = new_place_name, param2 = fdir+pindex})
 	return itemstack
 end
 

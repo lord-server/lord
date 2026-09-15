@@ -20,7 +20,7 @@ local leaves_color = {
 }
 
 for _, row in ipairs(leaves_color) do
-	minetest.register_craft({
+	core.register_craft({
 		output = row[1] .. " 4",
 		recipe = {
 			{"group:leaves," .. row[2]}
@@ -29,21 +29,21 @@ for _, row in ipairs(leaves_color) do
 end
 
 -- Крафт коричневой краски из земли (`default:dirt`)
-minetest.register_craft({
+core.register_craft({
   type = "shapeless",
   output = "dye:brown 4",
   recipe = {"default:dirt"},
 })
 
 -- Крафт зеленой краски из травы ('default:grass_1')
-minetest.register_craft({
+core.register_craft({
   type = "shapeless",
 	output = "dye:green 4",
 	recipe = {"default:grass_1"},
 })
 
 -- Крафт зеленой краски из травы ('lottplants:lorien_grass_1'), возможно стоит от него отказаться
-minetest.register_craft({
+core.register_craft({
   type = "shapeless",
 	output = "dye:green 4",
 	recipe = {"lottplants:lorien_grass_1"},

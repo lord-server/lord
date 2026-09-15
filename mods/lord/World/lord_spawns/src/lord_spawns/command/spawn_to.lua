@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @type PrivilegeDefinition
 local privilege_definition = {
@@ -19,7 +19,7 @@ local function get_command_definition(Spawns)
 				return false, S('Unknown player race: @1', S(race))
 			end
 
-			local player = minetest.get_player_by_name(name)
+			local player = core.get_player_by_name(name)
 			local teleported_to = Spawns.teleport_to(player, race)
 
 			return true, S('Teleporting to @1 Spawn...', S(teleported_to))

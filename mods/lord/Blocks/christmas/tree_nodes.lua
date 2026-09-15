@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @param pos Position
@@ -20,11 +20,11 @@ end
 --- @param pos Position
 --- @param gifts table<number, table>
 local function gen_gifts(pos, gifts)
-	local node = minetest.get_node(pos)
+	local node = core.get_node(pos)
 	node.name = "christmas:tree_with_gifts"
-	minetest.swap_node(pos, node)
+	core.swap_node(pos, node)
 
-	local meta  = minetest.get_meta(pos)
+	local meta  = core.get_meta(pos)
 	local inv   = meta:get_inventory()
 	local count = #gifts > 10 and 10 or #gifts
 
@@ -59,7 +59,7 @@ local function register_tree_nodes(christmas)
 		sounds            = default.node_sound_wood_defaults(),
 		--- @param pos Position
 		on_construct = function(pos, node, active_object_count, active_object_count_wider)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("owner", "")
 			local inv  = meta:get_inventory()
 			inv:set_size("main", 10)
@@ -67,19 +67,19 @@ local function register_tree_nodes(christmas)
 		--- @param pos Position
 		--- @param placer Player
 		after_place_node = function(pos, placer)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("owner", placer:get_player_name() or "")
 		end,
 		--- @param pos Position
 		--- @param clicker Player
 		on_rightclick = function(pos, node, clicker, itemstack)
 			local player = clicker:get_player_name()
-			minetest.show_formspec(player, "christmas:tree", get_formspec(pos))
+			core.show_formspec(player, "christmas:tree", get_formspec(pos))
 		end,
 		--- @param pos Position
 		--- @param player Player
 		can_dig = function(pos, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local inv  = meta:get_inventory()
 			return inv:is_empty("main") and player:get_player_name() == meta:get_string("owner")
 		end,
@@ -87,7 +87,7 @@ local function register_tree_nodes(christmas)
 		--- @param count number
 		--- @param player Player
 		allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if player:get_player_name() == meta:get_string("owner") then
 				return count
 			end
@@ -97,7 +97,7 @@ local function register_tree_nodes(christmas)
 		--- @param stack ItemStack
 		--- @param player Player
 		allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if player:get_player_name() == meta:get_string("owner") then
 				return stack:get_count()
 			end
@@ -113,16 +113,16 @@ local function register_tree_nodes(christmas)
 	--- @param pointed_thing pointed_thing
 	tree_def.on_place = function(itemstack, placer, pointed_thing)
 		if christmas.is_coming() then
-			return minetest.item_place(itemstack, placer, pointed_thing)
+			return core.item_place(itemstack, placer, pointed_thing)
 		end
 		if christmas.has_come() then
-			minetest.item_place(ItemStack("christmas:tree_with_gifts"), placer, pointed_thing)
-			minetest.chat_send_player(placer:get_player_name(), S("Santa Claus is already gone"))
+			core.item_place(ItemStack("christmas:tree_with_gifts"), placer, pointed_thing)
+			core.chat_send_player(placer:get_player_name(), S("Santa Claus is already gone"))
 			itemstack:take_item()
 			return itemstack
 		end
 
-		minetest.chat_send_player(
+		core.chat_send_player(
 			placer:get_player_name(),
 			S("You can install a Christmas tree not earlier than a month before the holiday")
 		)
@@ -130,14 +130,14 @@ local function register_tree_nodes(christmas)
 		return itemstack
 	end
 
-	minetest.register_node("christmas:tree", tree_def)
-	minetest.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
+	core.register_node("christmas:tree", tree_def)
+	core.register_node("christmas:tree_with_gifts", tree_w_gifts_def)
 end
 
 --- @param christmas Christmas
 --- @param gifts table<number, table>
 local function register_tree_nodes_replacement_abm(christmas, gifts)
-	minetest.register_abm({
+	core.register_abm({
 		label = "Generates gifts in christmas tree",
 		nodenames = {"christmas:tree"},
 		interval = 10,

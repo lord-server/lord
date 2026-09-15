@@ -1,5 +1,5 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('lord_damage').init(mod)
 end)

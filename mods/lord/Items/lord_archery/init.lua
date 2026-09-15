@@ -1,3 +1,3 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("lord_archery").init()
 end)

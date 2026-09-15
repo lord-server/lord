@@ -31,13 +31,13 @@ local function add_goods(trader_inventory, goods_config)
 	local max_goods = trader_inventory:get_size("goods")
 	local i = 1
 
-	local registered_items = minetest.registered_items
-	local registered_aliases = minetest.registered_aliases
+	local registered_items = core.registered_items
+	local registered_aliases = core.registered_aliases
 
 	for stack_string, good in pairs(goods_config) do
 		local good_name = stack_string:split(" ")[1]
 		if not registered_items[good_name] or registered_aliases[good_name] then
-			minetest.log(
+			core.log(
 				"error",
 				"Can't add item to Trader inventory: undefined item `" .. good_name .. "` or its an alias."
 			)
@@ -273,7 +273,7 @@ end
 --- @param inventory_id string
 --- @return InvRef
 function Inventory:create_detached_inventory(inventory_id)
-	local trader_inventory = minetest.create_detached_inventory(inventory_id, inventory_callbacks, self.player_name)
+	local trader_inventory = core.create_detached_inventory(inventory_id, inventory_callbacks, self.player_name)
 	trader_inventory:set_size("goods", 15)
 	trader_inventory:set_size("takeaway", 1)
 	trader_inventory:set_size("selection", 1)
@@ -290,7 +290,7 @@ function Inventory:get_or_create_detached_inventory()
 	self.detached_inv_id = self.player_name.."_trader_".. self.entity_id:replace(":", "_")
 	inventories_by_id[self.detached_inv_id] = self
 
-	local trader_inventory = minetest.get_inventory({ type = "detached", name = self.detached_inv_id })
+	local trader_inventory = core.get_inventory({ type = "detached", name = self.detached_inv_id })
 	if trader_inventory ~= nil then
 		return trader_inventory
 	end
@@ -311,8 +311,8 @@ end
 --- Returns forgotten money into player's inventory or drops into world.
 --- @public
 function Inventory:return_forgotten()
-	local player_inventory = minetest.get_inventory({ type = "player", name = self.player_name })
-	local trader_inventory = minetest.get_inventory({ type = "detached", name = self.detached_inv_id })
+	local player_inventory = core.get_inventory({ type = "player", name = self.player_name })
+	local trader_inventory = core.get_inventory({ type = "detached", name = self.detached_inv_id })
 
 	if trader_inventory:is_empty("payment") then return end
 
@@ -322,8 +322,8 @@ function Inventory:return_forgotten()
 	if player_inventory:room_for_item("main", stack) then
 		player_inventory:add_item("main", stack)
 	else
-		local player = minetest.get_player_by_name(self.player_name)
-		minetest.item_drop(stack, player, player:get_pos())
+		local player = core.get_player_by_name(self.player_name)
+		core.item_drop(stack, player, player:get_pos())
 	end
 end
 

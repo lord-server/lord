@@ -1,5 +1,5 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 --- @static Singleton
 --- @class holding_points.Notifier
@@ -29,7 +29,7 @@ end
 function Notifier.on_battle_upcoming(battle, minutes)
 	local color = self.color
 
-	minetest.chat_send_all(
+	core.chat_send_all(
 		'\n ' ..
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
 		S(
@@ -40,8 +40,8 @@ function Notifier.on_battle_upcoming(battle, minutes)
 		'\n '
 	)
 
-	for _, player in ipairs(minetest.get_connected_players()) do
-		minetest.sound_play('holding_points_battle_starts_in_' .. minutes .. '_min', {
+	for _, player in ipairs(core.get_connected_players()) do
+		core.sound_play('holding_points_battle_starts_in_' .. minutes .. '_min', {
 			to_player = player:get_player_name(),
 			gain      = 1.0,
 		})
@@ -77,7 +77,7 @@ end
 function Notifier.on_battle_started(battle, points)
 	local color = self.color
 	local sound = self.sound
-	minetest.chat_send_all(
+	core.chat_send_all(
 		'\n ' ..
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
 			S('Battle @1 started! 🚀', colorize(color.BATTLE, '«' .. battle.title .. '»')) .. '\n' ..
@@ -86,8 +86,8 @@ function Notifier.on_battle_started(battle, points)
 		'\n '
 	)
 
-	for _, player in ipairs(minetest.get_connected_players()) do
-		minetest.sound_play(sound.battle_start, {
+	for _, player in ipairs(core.get_connected_players()) do
+		core.sound_play(sound.battle_start, {
 			to_player = player:get_player_name(),
 			gain      = 1.0,
 		})
@@ -121,15 +121,15 @@ function Notifier.on_battle_stopped(battle)
 	local color = self.color
 	local sound = self.sound
 
-	minetest.chat_send_all(
+	core.chat_send_all(
 		'\n ' ..
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
 			S('Battle @1 finished!', colorize(color.BATTLE, '«' .. battle.title .. '»')) .. '\n' ..
 			self.battle_results(battle) .. '\n '
 	)
 
-	for _, player in ipairs(minetest.get_connected_players()) do
-		minetest.sound_play(sound.battle_over, {
+	for _, player in ipairs(core.get_connected_players()) do
+		core.sound_play(sound.battle_over, {
 			to_player = player:get_player_name(),
 			gain      = 1.0,
 		})
@@ -142,7 +142,7 @@ function Notifier.on_point_captured(point, clan)
 	local color = self.color
 	local sound = self.sound
 
-	minetest.chat_send_all(
+	core.chat_send_all(
 		colorize(color.EVENT, ('#%s: '):format(S('Events'))) ..
 		S(
 			'Point @1 captured by clan @2',
@@ -151,8 +151,8 @@ function Notifier.on_point_captured(point, clan)
 		)
 	)
 
-	for _, player in ipairs(minetest.get_connected_players()) do
-		minetest.sound_play(sound.point_captured, {
+	for _, player in ipairs(core.get_connected_players()) do
+		core.sound_play(sound.point_captured, {
 			to_player = player:get_player_name(),
 			gain      = 1.0,
 		})

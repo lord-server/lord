@@ -1,5 +1,5 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 local ingredients = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
@@ -18,7 +18,7 @@ local function register_ingredient(node_name, title, description, groups, recipe
 	local texture   = node_name:replace(':', '_') .. '.png^lord_potions_bottle.png'
 	title           = title or sub_name:first_to_upper()
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description       = S('Ingredient "@1"', colorize('#dd8', title)),
 		_tt_help          = description and colorize('#aaa', '\n' .. description),
 		inventory_image   = texture,
@@ -36,14 +36,14 @@ local function register_ingredient(node_name, title, description, groups, recipe
 		sounds            = default.node_sound_glass_defaults(),
 	})
 
-	ingredients.all_items[node_name] = minetest.registered_nodes[node_name]
+	ingredients.all_items[node_name] = core.registered_nodes[node_name]
 
 	if not recipe then
 		return
 	end
 
-	minetest.register_craft({
-		method = minetest.CraftMethod.POTION,
+	core.register_craft({
+		method = core.CraftMethod.POTION,
 		type   = 'cooking',
 		input  = { recipe.input },
 		output = node_name,

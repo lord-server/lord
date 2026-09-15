@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local function is_water(pos)
-	local nn = minetest.get_node(pos).name
-	return minetest.get_item_group(nn, "water") ~= 0
+	local nn = core.get_node(pos).name
+	return core.get_item_group(nn, "water") ~= 0
 end
 
 local function get_velocity(v, yaw, y)
@@ -47,7 +47,7 @@ function lord_boats.register_boat(boat_name, def)
 				y = pos.y + def.driver_shift.y,
 				z = pos.z + def.driver_shift.z
 			}
-			minetest.after(0.1, function()
+			core.after(0.1, function()
 				clicker:set_pos(pos)
 			end)
 		elseif not self.driver then
@@ -63,7 +63,7 @@ function lord_boats.register_boat(boat_name, def)
 			clicker:set_attach(self.object, "",
 				def.driver_bone_position, { x = 0, y = 0, z = 0, })
 			player_api.player_attached[name] = true
-			minetest.after(0.2, function()
+			core.after(0.2, function()
 				player_api.set_animation(clicker, "sit" , 30)
 			end)
 			clicker:set_look_horizontal(self.object:get_yaw())
@@ -101,16 +101,16 @@ function lord_boats.register_boat(boat_name, def)
 		if not self.driver then
 			self.removed = true
 			local inv = puncher:get_inventory()
-			if not minetest.is_creative_enabled(name)
+			if not core.is_creative_enabled(name)
 					or not inv:contains_item("main", boat_name) then
 				local leftover = inv:add_item("main", boat_name)
 				-- if no room in inventory add a replacement boat to the world
 				if not leftover:is_empty() then
-					minetest.add_item(self.object:get_pos(), leftover)
+					core.add_item(self.object:get_pos(), leftover)
 				end
 			end
 			-- delay remove to ensure player is detached
-			minetest.after(0.1, function()
+			core.after(0.1, function()
 				self.object:remove()
 			end)
 		end
@@ -119,20 +119,20 @@ function lord_boats.register_boat(boat_name, def)
 	function boat_entity.on_step(self, dtime)
 		self.v = get_v(self.object:get_velocity()) * math.sign(self.v)
 		if self.driver then
-			local driver_objref = minetest.get_player_by_name(self.driver)
+			local driver_objref = core.get_player_by_name(self.driver)
 			local mod = def.control_modifier
 			if driver_objref then
 				local ctrl = driver_objref:get_player_control()
 				if ctrl.up and ctrl.down then
 					if not self.auto then
 						self.auto = true
-						minetest.chat_send_player(self.driver, S("Boat cruise mode on"))
+						core.chat_send_player(self.driver, S("Boat cruise mode on"))
 					end
 				elseif ctrl.down then
 					self.v = self.v - dtime * mod.down
 					if self.auto then
 						self.auto = false
-						minetest.chat_send_player(self.driver, S("Boat cruise mode off"))
+						core.chat_send_player(self.driver, S("Boat cruise mode off"))
 					end
 				elseif ctrl.up or self.auto then
 					self.v = self.v + dtime * mod.up
@@ -173,7 +173,7 @@ function lord_boats.register_boat(boat_name, def)
 		local new_velo
 		local new_acce = { x = 0, y = 0, z = 0, }
 		if not is_water(p) then
-			local nodedef = minetest.registered_nodes[minetest.get_node(p).name]
+			local nodedef = core.registered_nodes[core.get_node(p).name]
 			if (not nodedef) or nodedef.walkable then
 				self.v = 0
 				new_acce = { x = 0, y = 1, z = 0, }
@@ -215,9 +215,9 @@ function lord_boats.register_boat(boat_name, def)
 		self.object:set_acceleration(new_acce)
 	end
 
-	minetest.register_entity(boat_name, boat_entity)
+	core.register_entity(boat_name, boat_entity)
 
-	minetest.register_craftitem(boat_name, {
+	core.register_craftitem(boat_name, {
 		description = def.description,
 		inventory_image = def.inventory_image,
 		wield_image = def.wield_image,
@@ -227,8 +227,8 @@ function lord_boats.register_boat(boat_name, def)
 
 		on_place = function(itemstack, placer, pointed_thing)
 			local under = pointed_thing.under
-			local node = minetest.get_node(under)
-			local udef = minetest.registered_nodes[node.name]
+			local node = core.get_node(under)
+			local udef = core.registered_nodes[node.name]
 			if udef and udef.on_rightclick and
 					not (placer and placer:is_player() and
 					placer:get_player_control().sneak) then
@@ -243,13 +243,13 @@ function lord_boats.register_boat(boat_name, def)
 				return itemstack
 			end
 			pointed_thing.under.y = pointed_thing.under.y + 0.5
-			local boat_ent = minetest.add_entity(pointed_thing.under, boat_name)
+			local boat_ent = core.add_entity(pointed_thing.under, boat_name)
 			if boat_ent then
 				if placer then
 					boat_ent:set_yaw(placer:get_look_horizontal())
 				end
 				local player_name = placer and placer:get_player_name() or ""
-				if not minetest.is_creative_enabled(player_name) then
+				if not core.is_creative_enabled(player_name) then
 					itemstack:take_item()
 				end
 			end
@@ -257,12 +257,12 @@ function lord_boats.register_boat(boat_name, def)
 		end,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = boat_name,
 		recipe = def.recipe,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		type = "fuel",
 		recipe = boat_name,
 		burntime = def.fuel_burntime,

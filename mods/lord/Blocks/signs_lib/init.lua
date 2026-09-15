@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- This mod provides the visible text on signs library used by Home Decor
 -- and perhaps other mods at some point in the future.  Forked from thexyz's/
@@ -13,17 +13,17 @@ local S = minetest.get_mod_translator()
 -- }
 
 -- CWz's keyword interact mod uses this setting.
-local current_keyword = minetest.settings:get("interact_keyword") or "iaccept"
+local current_keyword = core.settings:get("interact_keyword") or "iaccept"
 
-local str = dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/src/str.lua')
+local str = dofile(core.get_modpath(core.get_current_modname()) .. '/src/str.lua')
 
 local signs_lib = {}
 screwdriver = screwdriver or {}
 
 signs_lib.wallmounted_rotate = function(pos, node, user, mode, new_param2)
 	if mode ~= screwdriver.ROTATE_AXIS then return false end
-	minetest.swap_node(pos, {name = node.name, param2 = (node.param2 + 1) % 6})
-	for _, v in ipairs(minetest.get_objects_inside_radius(pos, 0.5)) do
+	core.swap_node(pos, {name = node.name, param2 = (node.param2 + 1) % 6})
+	for _, v in ipairs(core.get_objects_inside_radius(pos, 0.5)) do
 		local e = v:get_luaentity()
 		if e and e.name == "signs:text" then
 			v:remove()
@@ -33,7 +33,7 @@ signs_lib.wallmounted_rotate = function(pos, node, user, mode, new_param2)
 	return true
 end
 
-signs_lib.modpath = minetest.get_modpath("signs_lib")
+signs_lib.modpath = core.get_modpath("signs_lib")
 
 signs_lib.regular_wall_sign_model = {
 	nodebox = {
@@ -147,12 +147,12 @@ end
 -- infinite stacks
 
 signs_lib.expect_infinite_stacks = function(player)
-	return minetest.is_creative_enabled(player)
+	return core.is_creative_enabled(player)
 end
 
 -- CONSTANTS
 
-local MP = minetest.get_modpath("signs_lib")
+local MP = core.get_modpath("signs_lib")
 
 -- Used by `build_char_db' to locate the file.
 local FONT_FMT = "%s/hdf_%02x.png"
@@ -398,7 +398,7 @@ local function set_obj_text(obj, text, new)
 end
 
 signs_lib.construct_sign = function(pos, locked)
-    local meta = minetest.get_meta(pos)
+    local meta = core.get_meta(pos)
 	meta:set_string(
 		"formspec",
 		"size[6,4]"..
@@ -409,7 +409,7 @@ signs_lib.construct_sign = function(pos, locked)
 end
 
 signs_lib.destruct_sign = function(pos)
-    local objects = minetest.get_objects_inside_radius(pos, 0.5)
+    local objects = core.get_objects_inside_radius(pos, 0.5)
     for _, v in ipairs(objects) do
 		local e = v:get_luaentity()
         if e and e.name == "signs:text" then
@@ -435,7 +435,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 	-- First, check if the interact keyword from CWz's mod is being set,
 	-- or has been changed since the last restart...
 
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	local stored_text = meta:get_string("text") or ""
 	--current_keyword = mki_interact_keyword or current_keyword
 
@@ -476,7 +476,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 	end
 	local text = meta:get_string("text")
 	if text == nil then return end
-	local objects = minetest.get_objects_inside_radius(pos, 0.5)
+	local objects = core.get_objects_inside_radius(pos, 0.5)
 	local found
 	for _, v in ipairs(objects) do
 		local e = v:get_luaentity()
@@ -495,26 +495,26 @@ signs_lib.update_sign = function(pos, fields, owner)
 
 	-- if there is no entity
 	local sign_info
-	local signnode = minetest.get_node(pos)
+	local signnode = core.get_node(pos)
 	if signnode.name == "signs:sign_yard" then
-		sign_info = signs_lib.yard_sign_model.textpos[minetest.get_node(pos).param2 + 1]
+		sign_info = signs_lib.yard_sign_model.textpos[core.get_node(pos).param2 + 1]
 	elseif signnode.name == "signs:sign_hanging" then
-		sign_info = signs_lib.hanging_sign_model.textpos[minetest.get_node(pos).param2 + 1]
+		sign_info = signs_lib.hanging_sign_model.textpos[core.get_node(pos).param2 + 1]
 	elseif string.find(signnode.name, "sign_wall") then
 		if signnode.name == "default:sign_wall"
 		  or signnode.name == "locked_sign:sign_wall_locked" then
-			sign_info = signs_lib.regular_wall_sign_model.textpos[minetest.get_node(pos).param2 + 1]
+			sign_info = signs_lib.regular_wall_sign_model.textpos[core.get_node(pos).param2 + 1]
 		else
-			sign_info = signs_lib.metal_wall_sign_model.textpos[minetest.get_node(pos).param2 + 1]
+			sign_info = signs_lib.metal_wall_sign_model.textpos[core.get_node(pos).param2 + 1]
 		end
 	else -- ...it must be a sign on a fence post.
-		sign_info = signs_lib.sign_post_model.textpos[minetest.get_node(pos).param2 + 1]
+		sign_info = signs_lib.sign_post_model.textpos[core.get_node(pos).param2 + 1]
 	end
 	if sign_info == nil then
 		return
 	end
 
-	minetest.add_entity(
+	core.add_entity(
 		{
 			x = pos.x + sign_info.delta.x,
 			y = pos.y + sign_info.delta.y,
@@ -528,30 +528,30 @@ end
 
 function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 	local name
-	name = minetest.get_node(pointed_thing.under).name
+	name = core.get_node(pointed_thing.under).name
 	if fences_with_sign[name] then
-		if minetest.is_protected(pointed_thing.under, placer:get_player_name()) then
-			minetest.record_protection_violation(pointed_thing.under,
+		if core.is_protected(pointed_thing.under, placer:get_player_name()) then
+			core.record_protection_violation(pointed_thing.under,
 				placer:get_player_name())
 			return itemstack
 		end
 	else
-		name = minetest.get_node(pointed_thing.above).name
-		local def = minetest.registered_nodes[name]
+		name = core.get_node(pointed_thing.above).name
+		local def = core.registered_nodes[name]
 		if not def.buildable_to then
 			return itemstack
 		end
-		if minetest.is_protected(pointed_thing.above, placer:get_player_name()) then
-			minetest.record_protection_violation(pointed_thing.above,
+		if core.is_protected(pointed_thing.above, placer:get_player_name()) then
+			core.record_protection_violation(pointed_thing.above,
 				placer:get_player_name())
 			return itemstack
 		end
 	end
 
-	local node=minetest.get_node(pointed_thing.under)
+	local node=core.get_node(pointed_thing.under)
 
-	if minetest.registered_nodes[node.name] and minetest.registered_nodes[node.name].on_rightclick then
-		return minetest.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
+	if core.registered_nodes[node.name] and core.registered_nodes[node.name].on_rightclick then
+		return core.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
 	else
 		local above = pointed_thing.above
 		local under = pointed_thing.under
@@ -559,7 +559,7 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 					 y = under.y - above.y,
 					 z = under.z - above.z}
 
-		local wdir = minetest.dir_to_wallmounted(dir)
+		local wdir = core.dir_to_wallmounted(dir)
 
 		local placer_pos = placer:get_pos()
 		if placer_pos then
@@ -570,25 +570,25 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 			}
 		end
 
-		local fdir = minetest.dir_to_facedir(dir)
+		local fdir = core.dir_to_facedir(dir)
 
-		local pt_name = minetest.get_node(under).name
+		local pt_name = core.get_node(under).name
 		print(dump(pt_name))
 		local signname = itemstack:get_name()
 
 		if fences_with_sign[pt_name] and signname == "default:sign_wall" then
-			minetest.add_node(under, {name = fences_with_sign[pt_name], param2 = fdir})
+			core.add_node(under, {name = fences_with_sign[pt_name], param2 = fdir})
 		elseif wdir == 0 and signname == "default:sign_wall" then
-			minetest.add_node(above, {name = "signs:sign_hanging", param2 = fdir})
+			core.add_node(above, {name = "signs:sign_hanging", param2 = fdir})
 		elseif wdir == 1 and signname == "default:sign_wall" then
-			minetest.add_node(above, {name = "signs:sign_yard", param2 = fdir})
+			core.add_node(above, {name = "signs:sign_yard", param2 = fdir})
 		elseif signname ~= "default:sign_wall"
 		  and signname ~= "locked_sign:sign_wall_locked" then -- it's a metal wall sign.
-			minetest.add_node(above, {name = signname, param2 = fdir})
+			core.add_node(above, {name = signname, param2 = fdir})
 		else -- it must be a default or locked wooden wall sign
-			minetest.add_node(above, {name = signname, param2 = wdir }) -- note it's wallmounted here!
+			core.add_node(above, {name = signname, param2 = wdir }) -- note it's wallmounted here!
 			if locked then
-				local meta = minetest.get_meta(above)
+				local meta = core.get_meta(above)
 				local owner = placer:get_player_name()
 				meta:set_string("owner", owner)
 			end
@@ -602,17 +602,17 @@ function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
 end
 
 function signs_lib.receive_fields(pos, formname, fields, sender, lock)
-	if minetest.is_protected(pos, sender:get_player_name()) then
-		minetest.record_protection_violation(pos,
+	if core.is_protected(pos, sender:get_player_name()) then
+		core.record_protection_violation(pos,
 			sender:get_player_name())
 		return
 	end
 	local lockstr = lock and "locked " or ""
 	if fields and fields.text and fields.ok then
-		minetest.log("action", ("%s wrote \"%s\" to "..lockstr.."sign at %s"):format(
+		core.log("action", ("%s wrote \"%s\" to "..lockstr.."sign at %s"):format(
 			(sender:get_player_name() or ""),
 			fields.text,
-			minetest.pos_to_string(pos)
+			core.pos_to_string(pos)
 		))
 		if lock then
 			signs_lib.update_sign(pos, fields, sender:get_player_name())
@@ -622,7 +622,7 @@ function signs_lib.receive_fields(pos, formname, fields, sender, lock)
 	end
 end
 
-minetest.register_node(":default:sign_wall", {
+core.register_node(":default:sign_wall", {
 	description = S("Sign Wood"),
 	inventory_image = "default_sign_wall.png",
 	wield_image = "default_sign_wall.png",
@@ -653,7 +653,7 @@ minetest.register_node(":default:sign_wall", {
 	on_rotate = signs_lib.wallmounted_rotate
 })
 
-minetest.register_node(":signs:sign_yard", {
+core.register_node(":signs:sign_yard", {
     paramtype = "light",
 	sunlight_propagates = true,
     paramtype2 = "facedir",
@@ -683,7 +683,7 @@ minetest.register_node(":signs:sign_yard", {
 	end,
 })
 
-minetest.register_node(":signs:sign_hanging", {
+core.register_node(":signs:sign_hanging", {
     paramtype = "light",
 	sunlight_propagates = true,
     paramtype2 = "facedir",
@@ -719,7 +719,7 @@ minetest.register_node(":signs:sign_hanging", {
 	end,
 })
 
-minetest.register_node(":signs:sign_post", {
+core.register_node(":signs:sign_post", {
     paramtype = "light",
 	sunlight_propagates = true,
     paramtype2 = "facedir",
@@ -745,9 +745,9 @@ minetest.register_node(":signs:sign_post", {
 
 -- Locked wall sign
 
-minetest.register_privilege("sign_editor", S("Can edit all locked signs"))
+core.register_privilege("sign_editor", S("Can edit all locked signs"))
 
-minetest.register_node(":locked_sign:sign_wall_locked", {
+core.register_node(":locked_sign:sign_wall_locked", {
 	description = S("Sign locked"),
 	inventory_image = "signs_locked_inv.png",
 	wield_image = "signs_locked_inv.png",
@@ -769,11 +769,11 @@ minetest.register_node(":locked_sign:sign_wall_locked", {
 		signs_lib.destruct_sign(pos)
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local owner = meta:get_string("owner")
 		local pname = sender:get_player_name() or ""
-		if pname ~= owner and pname ~= minetest.settings:get("name")
-		  and not minetest.check_player_privs(pname, {sign_editor=true}) then
+		if pname ~= owner and pname ~= core.settings:get("name")
+		  and not core.check_player_privs(pname, {sign_editor=true}) then
 			return
 		end
 		signs_lib.receive_fields(pos, formname, fields, sender, true)
@@ -782,11 +782,11 @@ minetest.register_node(":locked_sign:sign_wall_locked", {
 		signs_lib.update_sign(pos)
 	end,
 	can_dig = function(pos, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local owner = meta:get_string("owner")
 		local pname = player:get_player_name()
-		return pname == owner or pname == minetest.settings:get("name")
-			or minetest.check_player_privs(pname, {sign_editor=true})
+		return pname == owner or pname == core.settings:get("name")
+			or core.check_player_privs(pname, {sign_editor=true})
 	end,
 	on_rotate = signs_lib.wallmounted_rotate
 })
@@ -796,7 +796,7 @@ minetest.register_node(":locked_sign:sign_wall_locked", {
 local sign_colors = { "green", "yellow", "red", "white_red", "white_black", "orange", "blue", "brown" }
 
 for _, color in ipairs(sign_colors) do
-	minetest.register_node(":signs:sign_wall_"..color, {
+	core.register_node(":signs:sign_wall_"..color, {
 		description = S("Sign ("..color..", metal)"),
 		inventory_image = "signs_"..color.."_inv.png",
 		wield_image = "signs_"..color.."_inv.png",
@@ -836,7 +836,7 @@ end
 local signs_text_on_activate
 
 signs_text_on_activate = function(self)
-	local meta = minetest.get_meta(self.object:get_pos())
+	local meta = core.get_meta(self.object:get_pos())
 	local text = meta:get_string("text")
 	local new = (meta:get_int("__signslib_new_format") ~= 0)
 	if text then
@@ -845,7 +845,7 @@ signs_text_on_activate = function(self)
 	end
 end
 
-minetest.register_entity(":signs:text", {
+core.register_entity(":signs:text", {
     collisionbox = { 0, 0, 0, 0, 0, 0 },
     visual = "upright_sprite",
     textures = {},
@@ -856,10 +856,10 @@ minetest.register_entity(":signs:text", {
 -- And the good stuff here! :-)
 
 function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
-    local def = minetest.registered_nodes[fencename]
-    local def_sign = minetest.registered_nodes[fencewithsignname]
+    local def = core.registered_nodes[fencename]
+    local def_sign = core.registered_nodes[fencewithsignname]
     if not (def and def_sign) then
-        minetest.log("warning", "[signs_lib] Attempt to register unknown node as fence")
+        core.log("warning", "[signs_lib] Attempt to register unknown node as fence")
         return
     end
     def = signs_lib.table_copy(def)
@@ -867,34 +867,34 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
     fences_with_sign[fencename] = fencewithsignname
 
     def.on_place               = function(itemstack, placer, pointed_thing, ...)
-		local node_above = minetest.get_node(pointed_thing.above)
-		local node_under = minetest.get_node(pointed_thing.under)
-		local def_above = minetest.registered_nodes[node_above.name]
-		local def_under = minetest.registered_nodes[node_under.name]
-		local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+		local node_above = core.get_node(pointed_thing.above)
+		local node_under = core.get_node(pointed_thing.under)
+		local def_above = core.registered_nodes[node_above.name]
+		local def_under = core.registered_nodes[node_under.name]
+		local fdir = core.dir_to_facedir(placer:get_look_dir())
 		local playername = placer:get_player_name()
 
-		if minetest.is_protected(pointed_thing.under, playername) then
-			minetest.record_protection_violation(pointed_thing.under, playername)
+		if core.is_protected(pointed_thing.under, playername) then
+			core.record_protection_violation(pointed_thing.under, playername)
 			return
 		end
 
-		if minetest.is_protected(pointed_thing.above, playername) then
-			minetest.record_protection_violation(pointed_thing.above, playername)
+		if core.is_protected(pointed_thing.above, playername) then
+			core.record_protection_violation(pointed_thing.above, playername)
 			return
 		end
 
 		if def_under and def_under.on_rightclick then
 			return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack) or itemstack
 		elseif def_under and def_under.buildable_to then
-			minetest.add_node(pointed_thing.under, {name = fencename, param2 = fdir})
+			core.add_node(pointed_thing.under, {name = fencename, param2 = fdir})
 			if not signs_lib.expect_infinite_stacks() then
 				itemstack:take_item()
 			end
 			placer:set_wielded_item(itemstack)
 			return itemstack
 		elseif not def_above or def_above.buildable_to then
-			minetest.add_node(pointed_thing.above, {name = fencename, param2 = fdir})
+			core.add_node(pointed_thing.above, {name = fencename, param2 = fdir})
 			if not signs_lib.expect_infinite_stacks() then
 				itemstack:take_item()
 			end
@@ -917,24 +917,24 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
 	local name                 = fencename
 	def_sign.after_dig_node    = function(pos, node, ...)
 	    node.name = name
-	    minetest.add_node(pos, node)
+	    core.add_node(pos, node)
 	end
     def_sign.drop              = "default:sign_wall"
-	minetest.register_node(":".. name, def)
-	minetest.register_node(":"..fencewithsignname, def_sign)
+	core.register_node(":".. name, def)
+	core.register_node(":"..fencewithsignname, def_sign)
 	table.insert(signs_lib.sign_node_list, fencewithsignname)
 end
 
 build_char_db()
 
-minetest.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
-minetest.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
+core.register_alias("lord_homedecor:fence_wood_with_sign", "signs:sign_post")
+core.register_alias("sign_wall_locked", "locked_sign:sign_wall_locked")
 
 signs_lib.register_fence_with_sign("default:fence_wood", "signs:sign_post")
 
 -- restore signs' text after /clearobjects and the like
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = signs_lib.sign_node_list,
 	interval = 15,
 	chance = 1,
@@ -944,4 +944,4 @@ minetest.register_abm({
 })
 
 
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. '/src/crafts.lua')
+dofile(core.get_modpath(core.get_current_modname()) .. '/src/crafts.lua')

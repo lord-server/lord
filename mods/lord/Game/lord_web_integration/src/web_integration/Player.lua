@@ -55,7 +55,7 @@ function Player.create(player, last_login, is_online, on_done, on_link, on_fail)
 		web_player,
 
 		function(result)
-			local created_player = minetest.parse_json(result.data)
+			local created_player = core.parse_json(result.data)
 			if created_player == nil then
 				Player.logger.error("Can't store player web id: unable to parse response json: " .. result.data)
 				return
@@ -67,7 +67,7 @@ function Player.create(player, last_login, is_online, on_done, on_link, on_fail)
 
 		function(result)
 			if result.code == 409 then
-				local existing_player = minetest.parse_json(result.data)
+				local existing_player = core.parse_json(result.data)
 				if existing_player then
 					Player.storage.set_player_web_id(player_name, existing_player.id)
 					if on_link then on_link(existing_player) end

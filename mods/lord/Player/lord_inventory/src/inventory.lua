@@ -111,7 +111,7 @@ end
 
 --- Bags Form (& other forms) 'main' button handler: -----------------------------------------------------
 -- TODO: move/remove this (move to appropriate forms, if needed; remove here)
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if fields.main then
 		inventory.for_player(player):open()
 	end
@@ -119,7 +119,7 @@ end)
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 

@@ -1,9 +1,9 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
-minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall")
-minetest.register_alias("castle:arrowslit_hole", "castle:arrowslit_stonewall_hole")
-minetest.register_alias("castle:arrowslit", "castle:arrowslit_stonewall_cross")
+core.register_alias("castle:arrowslit", "castle:arrowslit_stonewall")
+core.register_alias("castle:arrowslit_hole", "castle:arrowslit_stonewall_hole")
+core.register_alias("castle:arrowslit", "castle:arrowslit_stonewall_cross")
 
 local arrowslit = {}
 
@@ -37,7 +37,7 @@ for _, row in ipairs(arrowslit.types) do
 	local tile = row[3]
 	local craft_material = row[4]
 	-- Node Definition
-	minetest.register_node("castle:arrowslit_"..name, {
+	core.register_node("castle:arrowslit_"..name, {
 		drawtype = "nodebox",
 		description = S(desc.." Arrowslit"),
 		tiles = {tile..".png"},
@@ -61,7 +61,7 @@ for _, row in ipairs(arrowslit.types) do
 		},
 	},
 	})
-	minetest.register_node("castle:arrowslit_"..name.."_cross", {
+	core.register_node("castle:arrowslit_"..name.."_cross", {
 		drawtype = "nodebox",
 		description = S(desc.." Arrowslit with Cross"),
 		tiles = {tile..".png"},
@@ -89,7 +89,7 @@ for _, row in ipairs(arrowslit.types) do
 		},
 	},
 	})
-	minetest.register_node("castle:arrowslit_"..name.."_hole", {
+	core.register_node("castle:arrowslit_"..name.."_hole", {
 		drawtype = "nodebox",
 		description = S(desc.." Arrowslit with Hole"),
 		tiles = {tile..".png"},
@@ -117,7 +117,7 @@ for _, row in ipairs(arrowslit.types) do
 	})
 	if craft_material then
 		--Choose craft material
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:arrowslit_"..name.." 6",
 			recipe = {
 			{craft_material,"", craft_material},
@@ -126,21 +126,21 @@ for _, row in ipairs(arrowslit.types) do
 		})
 	end
 	if craft_material then
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:arrowslit_"..name.."_cross",
 			recipe = {
 			{"castle:arrowslit_"..name} },
 		})
 	end
 	if craft_material then
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:arrowslit_"..name.."_hole",
 			recipe = {
 			{"castle:arrowslit_"..name.."_cross"} },
 		})
 	end
 	if craft_material then
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:arrowslit_"..name,
 			recipe = {
 			{"castle:arrowslit_"..name.."_hole"} },

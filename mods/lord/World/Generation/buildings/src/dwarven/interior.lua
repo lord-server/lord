@@ -1,5 +1,5 @@
 local pairs, math_random, table_is_empty, v,          id
-	= pairs, math.random, table.is_empty, vector.new, minetest.get_content_id
+	= pairs, math.random, table.is_empty, vector.new, core.get_content_id
 
 
 local INTERIOR_CHANCE = 3
@@ -201,7 +201,7 @@ function Interior:place_room_interior(room_walls, room_center)
 	self:place_north_wall_torches(north_wall)
 	self:place_south_wall_torches(south_wall)
 
-	minetest.add_entity(room_center, 'lottmobs:dead_men')
+	core.add_entity(room_center, 'lottmobs:dead_men')
 end
 
 --- @param rooms_centers Position[]

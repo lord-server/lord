@@ -1,15 +1,15 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
-minetest.register_craftitem('lottfarming:pumpkin_seed', {
+core.register_craftitem('lottfarming:pumpkin_seed', {
 	description     = S('Pumpkin seed'),
 	inventory_image = 'lottfarming_pumpkin_seed.png',
 	on_place        = function(itemstack, placer, pointed_thing)
 		local target_position = pointed_thing.under
-		local target_node  = minetest.get_node(target_position)
-		if minetest.registered_nodes[target_node.name].on_rightclick then
+		local target_node  = core.get_node(target_position)
+		if core.registered_nodes[target_node.name].on_rightclick then
 
-			return minetest.registered_nodes[target_node.name].on_rightclick(
+			return core.registered_nodes[target_node.name].on_rightclick(
 				target_position,
 				target_node,
 				placer,
@@ -22,7 +22,7 @@ minetest.register_craftitem('lottfarming:pumpkin_seed', {
 	end,
 })
 
-minetest.register_node('lottfarming:pumpkin_1', {
+core.register_node('lottfarming:pumpkin_1', {
 	paramtype           = 'light',
 	sunlight_propagates = true,
 	drawtype            = 'nodebox',
@@ -57,7 +57,7 @@ minetest.register_node('lottfarming:pumpkin_1', {
 	sounds              = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node('lottfarming:pumpkin_2', {
+core.register_node('lottfarming:pumpkin_2', {
 	paramtype           = 'light',
 	sunlight_propagates = true,
 	drawtype            = 'nodebox',
@@ -92,7 +92,7 @@ minetest.register_node('lottfarming:pumpkin_2', {
 	sounds              = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node('lottfarming:pumpkin_3', {
+core.register_node('lottfarming:pumpkin_3', {
 	description = S('Pumpkin'),
 	paramtype   = 'light',
 	paramtype2  = 'facedir',

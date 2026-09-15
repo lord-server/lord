@@ -1,5 +1,5 @@
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 lord_homedecor.register("bars", {
 	description = S("Bars"),
@@ -80,12 +80,12 @@ lord_homedecor.register("torch_wall", {
 	walkable = false,
 	floodable = true,
 	on_flood = function(pos, oldnode, newnode)
-		minetest.add_item(pos, ItemStack("lord_homedecor:torch_wall 1"))
+		core.add_item(pos, ItemStack("lord_homedecor:torch_wall 1"))
 		-- Play flame-extinguish sound if liquid is not an 'igniter'
-		local nodedef = minetest.registered_items[newnode.name]
+		local nodedef = core.registered_items[newnode.name]
 		if not (nodedef and nodedef.groups and
 				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
-			minetest.sound_play(
+			core.sound_play(
 				"default_cool_lava",
 				{pos = pos, max_hear_distance = 16, gain = 0.1},
 				true
@@ -120,7 +120,7 @@ lord_homedecor.register("wall_lamp", {
 	walkable = false
 })
 
-minetest.register_alias('bars', 'lord_homedecor:bars')
-minetest.register_alias('binding_bars', 'lord_homedecor:L_binding_bars')
-minetest.register_alias('chains', 'lord_homedecor:chains')
-minetest.register_alias('torch_wall', 'lord_homedecor:torch_wall')
+core.register_alias('bars', 'lord_homedecor:bars')
+core.register_alias('binding_bars', 'lord_homedecor:L_binding_bars')
+core.register_alias('chains', 'lord_homedecor:chains')
+core.register_alias('torch_wall', 'lord_homedecor:torch_wall')

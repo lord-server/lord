@@ -4,7 +4,7 @@ nametag.segments.add("clan", clans.COLOR, "[%s]")
 ---@param player_name string
 ---@param clan_title  string|nil
 local function set_player_nametag(player_name, clan_title)
-	local player = minetest.get_player_by_name(player_name)
+	local player = core.get_player_by_name(player_name)
 	if not player then return end
 
 	nametag.for_player(player):segment("clan"):set_value(clan_title):update()

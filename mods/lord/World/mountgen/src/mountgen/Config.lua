@@ -2,7 +2,7 @@ local Algorithm = require('mountgen.Algorithm')
 local ConeAlgo  = require('mountgen.algorithm.Cone')
 local FieldType = require('mountgen.config.FieldType')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @class mountgen.config.FieldDefinition
@@ -49,7 +49,7 @@ local DEFAULT_MOD_DIRTS = {
 local function get_coverage_variants()
 	--- @type string[]
 	local coverage_nodes_list
-	if minetest.global_exists('ground') and ground.dirt and ground.dirt.get_nodes then
+	if core.global_exists('ground') and ground.dirt and ground.dirt.get_nodes then
 		coverage_nodes_list = {}
 		for node_name, node in pairs(ground.dirt.get_nodes()) do -- also contains dirts from `default`
 			table.insert(coverage_nodes_list, node_name)
@@ -64,7 +64,7 @@ end
 --- @type table|any[]
 local CONFIG_DEFAULTS = {
 	algorithm       = ConeAlgo.NAME,
-	foot_height     = tonumber(minetest.settings:get('water_level')) or 1,
+	foot_height     = tonumber(core.settings:get('water_level')) or 1,
 	angle           = 60,
 
 	--- --== Content ==-- ---
@@ -72,7 +72,7 @@ local CONFIG_DEFAULTS = {
 	--stone_node      = 'default:stone', not used yet (hard-coded)
 
 	-- Coverage
-	coverage_node   = minetest.get_modpath('lord_ground')
+	coverage_node   = core.get_modpath('lord_ground')
 		and 'lord_ground:dirt_lorien'
 		or  'default:dirt'
 	,

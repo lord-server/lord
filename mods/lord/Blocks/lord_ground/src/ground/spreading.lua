@@ -9,7 +9,7 @@ local pairs, math_random
 --- @param config ground.Config
 local function deferred_register_mordor_lands_spreading_abm(api, config)
 	if config.mordor_lands == nil then return end
-	minetest.register_on_mods_loaded(function()
+	core.register_on_mods_loaded(function()
 		local exclude_dirts    = config.mordor_lands.exclude_dirts
 		local covers_with      = config.mordor_lands.covers_with
 		local dirts_to_replace = table.keys(table.except(api.dirt.get_biome_nodes(), exclude_dirts))
@@ -19,7 +19,7 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 		local z_from = config.mordor_lands.from.z
 		local z_to   = config.mordor_lands.to.z
 
-		minetest.register_abm({
+		core.register_abm({
 			label = "Mordor lands spread",
 			nodenames = dirts_to_replace,
 			interval = 6,
@@ -34,11 +34,11 @@ local function deferred_register_mordor_lands_spreading_abm(api, config)
 				end
 
 				--- @type Player[]
-				local nearest_objects = minetest.get_objects_inside_radius(pos, 15)
+				local nearest_objects = core.get_objects_inside_radius(pos, 15)
 				for i, object in pairs(nearest_objects) do
 					if object:is_player() and character.of(object):get_race() == lord_races.Name.ORC then
 						local replace_with = covers_with[math_random(#covers_with)]
-						minetest.set_node(pos, { name = replace_with })
+						core.set_node(pos, { name = replace_with })
 						break;
 					end
 				end

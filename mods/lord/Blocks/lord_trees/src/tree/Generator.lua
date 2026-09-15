@@ -9,9 +9,9 @@ local crown_level_Type = require("tree.crown.level_Type")
 --- @param pos       Position position to place to.
 --- @param node_name string   technical name of leaf ("<mod_name>:<node_name>").
 local function add_leaf_node(pos, node_name)
-	local n = minetest.get_node(pos)
+	local n = core.get_node(pos)
 	if (n.name == "air") then
-		minetest.add_node(pos, { name = node_name })
+		core.add_node(pos, { name = node_name })
 	end
 end
 
@@ -19,9 +19,9 @@ end
 --- @param pos       Position position to place to.
 --- @param node_name string   technical name of trunk ("<mod_name>:<node_name>").
 local function add_trunk_node(pos, node_name)
-	local n = minetest.get_node(pos)
+	local n = core.get_node(pos)
 	if (n.name == "air") or (string.find(n.name, "leaf")) or (string.find(n.name, "sapling")) then
-		minetest.add_node(pos, { name = node_name })
+		core.add_node(pos, { name = node_name })
 	end
 end
 

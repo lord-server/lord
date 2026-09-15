@@ -1,5 +1,5 @@
 local math_random, id
-	= math.random, minetest.get_content_id
+	= math.random, core.get_content_id
 
 --Rarity for Trees
 

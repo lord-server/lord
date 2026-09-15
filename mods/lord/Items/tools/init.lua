@@ -1,4 +1,4 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 
 	-- Load tables
 	local tools = {
@@ -29,7 +29,7 @@ minetest.mod(function(mod)
 	}
 
 	-- A special item - the hand
-	minetest.register_item(":", {
+	core.register_item(":", {
 		type              = "none",
 		wield_image       = "wieldhand.png",
 		wield_scale       = { x = 1, y = 1, z = 2.5 },
@@ -58,7 +58,7 @@ minetest.mod(function(mod)
 	end
 
 	local function register_tool(tooltype, material, itemdef)
-		minetest.register_tool("tools:" .. tooltype .. "_" .. material, {
+		core.register_tool("tools:" .. tooltype .. "_" .. material, {
 			description       = itemdef.description,
 			inventory_image   = "tools_" .. tooltype .. "_" .. material .. ".png" ..
 				(itemdef.image_transform or ""),
@@ -83,11 +83,11 @@ minetest.mod(function(mod)
 
 	local function register_craft(tooltype, material, itemdef)
 		if tools.sources[material] == nil then
-			minetest.log("error", "Cannot find source material for the craft recipe" ..
+			core.log("error", "Cannot find source material for the craft recipe" ..
 				" (output='" .. material .. "')")
 		end
 		for _, r in pairs(tools[tooltype].get_recipes(tools.sources[material])) do
-			minetest.register_craft({
+			core.register_craft({
 				output = "tools:" .. tooltype .. "_" .. material,
 				recipe = r
 			})
@@ -108,6 +108,6 @@ minetest.mod(function(mod)
 		end
 	end
 
-	dofile(minetest.get_modpath("tools") .. '/aliases.lua')
+	dofile(core.get_modpath("tools") .. '/aliases.lua')
 end)
 

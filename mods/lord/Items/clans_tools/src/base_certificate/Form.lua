@@ -1,4 +1,4 @@
-local S            = minetest.get_mod_translator()
+local S            = core.get_mod_translator()
 local spec         = forms.Spec
 local DefaultStyle = forms.DefaultStyle
 
@@ -6,7 +6,7 @@ local DefaultStyle = forms.DefaultStyle
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 --- @type string
-local locale_path  = minetest.get_modpath(minetest.get_current_modname()) .. DS .. 'locale' .. DS
+local locale_path  = core.get_modpath(core.get_current_modname()) .. DS .. 'locale' .. DS
 --- @type string
 local DEFAULT_LANG = 'en'
 
@@ -67,7 +67,7 @@ end
 --- @param clan string
 --- @return string
 function Form:get_text(clan)
-	local lang_code = minetest.get_player_information(self.player_name).lang_code
+	local lang_code = core.get_player_information(self.player_name).lang_code
 
 	return self:get_lang_text(lang_code):format(clan)
 end

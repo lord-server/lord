@@ -2,19 +2,19 @@
 -- subscriber
 --
 lp_api.subscriber = {}
-lp_api.subscriber.timeout = minetest.settings:get("lp_api.subscriber.timeout") or 15
+lp_api.subscriber.timeout = core.settings:get("lp_api.subscriber.timeout") or 15
 
 function lp_api.subscriber.resp_handler(result)
     if result.succeeded and result.code == 200 then
         lp_api.subscriber.sub_msg()
-        --local data = minetest.parse_json(string.sub(result.data, string.find(result.data, "data")+6, -4))
-        local dt = minetest.parse_json(result.data)
+        --local data = core.parse_json(string.sub(result.data, string.find(result.data, "data")+6, -4))
+        local dt = core.parse_json(result.data)
         if dt then
             lp_api.msg_router(dt.events[1].data)
         end
     else
-        minetest.after(lp_api.timeout, lp_api.subscriber.sub_msg)
-        minetest.log("[lp_api] Sub request... [ERROR]")
+        core.after(lp_api.timeout, lp_api.subscriber.sub_msg)
+        core.log("[lp_api] Sub request... [ERROR]")
     end
 end
 
@@ -23,4 +23,4 @@ function lp_api.subscriber.sub_msg()
     lp_api.subscriber.resp_handler,"GET")
 end
 
-minetest.after(3, lp_api.subscriber.sub_msg)
+core.after(3, lp_api.subscriber.sub_msg)

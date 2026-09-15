@@ -1,11 +1,11 @@
-local mod_path    = minetest.get_modpath(minetest.get_current_modname())
+local mod_path    = core.get_modpath(core.get_current_modname())
 dofile(mod_path .. "/rock_ores.lua")
 
 --
 -- Ore generation
 --
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_coal",
 	wherein        = "default:stone",
@@ -16,7 +16,7 @@ minetest.register_ore({
 	y_max     = 64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_coal",
 	wherein        = "default:stone",
@@ -27,7 +27,7 @@ minetest.register_ore({
 	y_max     = 0,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_iron",
 	wherein        = "default:stone",
@@ -38,7 +38,7 @@ minetest.register_ore({
 	y_max     = 2,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_iron",
 	wherein        = "default:stone",
@@ -49,7 +49,7 @@ minetest.register_ore({
 	y_max     = -16,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_iron",
 	wherein        = "default:stone",
@@ -60,7 +60,7 @@ minetest.register_ore({
 	y_max     = -64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_iron",
 	wherein        = "default:stone",
@@ -71,7 +71,7 @@ minetest.register_ore({
 	y_max     = -64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_mese",
 	wherein        = "default:stone",
@@ -82,7 +82,7 @@ minetest.register_ore({
 	y_max     = -64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_mese",
 	wherein        = "default:stone",
@@ -93,7 +93,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:mese",
 	wherein        = "default:stone",
@@ -104,7 +104,7 @@ minetest.register_ore({
 	y_max     = -1024,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_gold",
 	wherein        = "default:stone",
@@ -115,7 +115,7 @@ minetest.register_ore({
 	y_max     = -64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_gold",
 	wherein        = "default:stone",
@@ -126,7 +126,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_diamond",
 	wherein        = "default:stone",
@@ -137,7 +137,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_copper",
 	wherein        = "default:stone",
@@ -148,7 +148,7 @@ minetest.register_ore({
 	y_max     = -16,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:stone_with_copper",
 	wherein        = "default:stone",
@@ -159,7 +159,7 @@ minetest.register_ore({
 	y_max     = -64,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "default:clay",
 	wherein        = "default:sand",
@@ -174,7 +174,7 @@ minetest.register_ore({
 
 -- Ores Spawning
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:limestone_ore",
 	wherein        = "default:stone",
@@ -185,7 +185,7 @@ minetest.register_ore({
 	y_max     = -10,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:limestone_ore",
 	wherein        = "default:stone",
@@ -196,7 +196,7 @@ minetest.register_ore({
 	y_max     = -61,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:limestone_ore",
 	wherein        = "default:stone",
@@ -207,7 +207,7 @@ minetest.register_ore({
 	y_max     = -50,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:silver_ore",
 	wherein        = "default:stone",
@@ -218,7 +218,7 @@ minetest.register_ore({
 	y_max     = -50,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:silver_ore",
 	wherein        = "default:stone",
@@ -229,7 +229,7 @@ minetest.register_ore({
 	y_max     = -201,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:tin_ore",
 	wherein        = "default:stone",
@@ -240,7 +240,7 @@ minetest.register_ore({
 	y_max     = -20,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:tin_ore",
 	wherein        = "default:stone",
@@ -251,7 +251,7 @@ minetest.register_ore({
 	y_max     = -61,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:lead_ore",
 	wherein        = "default:stone",
@@ -262,7 +262,7 @@ minetest.register_ore({
 	y_max     = -30,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:lead_ore",
 	wherein        = "default:stone",
@@ -273,7 +273,7 @@ minetest.register_ore({
 	y_max     = -61,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:rough_rock",
 	wherein        = "default:stone",
@@ -284,7 +284,7 @@ minetest.register_ore({
 	y_max     = -70,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:rough_rock",
 	wherein        = "default:stone",
@@ -295,7 +295,7 @@ minetest.register_ore({
 	y_max     = -301,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:blue_gem_ore",
 	wherein        = "default:stone",
@@ -306,7 +306,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:red_gem_ore",
 	wherein        = "default:stone",
@@ -317,7 +317,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:white_gem_ore",
 	wherein        = "default:stone",
@@ -328,7 +328,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:mithril_ore",
 	wherein        = "default:stone",
@@ -339,7 +339,7 @@ minetest.register_ore({
 	y_max     = -128,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lottores:mithril_ore",
 	wherein        = "default:stone",
@@ -350,7 +350,7 @@ minetest.register_ore({
 	y_max     = -256,
 })
 
-minetest.register_ore({
+core.register_ore({
 	ore_type       = "scatter",
 	ore            = "lord_ores:magma",
 	wherein        = "lord_rocks:pyroxenite",

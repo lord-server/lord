@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- HELPER ---
@@ -12,7 +12,7 @@ local MusicNodeHelper = {}
 --- @param name string Локализованное название инструмента
 --- @param note string Название ноты
 function MusicNodeHelper.update(pos, instrument, offset, name, note)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	meta:set_string('instrument', instrument)
 	meta:set_int('semitones', offset)
 	meta:set_string('infotext', name..'\n'..S('Note:')..' '..note)
@@ -22,7 +22,7 @@ end
 --- @param sound string Название звукового файла
 --- @param pitch number Тон звука
 function MusicNodeHelper.play_sound(pos, sound, pitch)
-	minetest.sound_play(sound, {
+	core.sound_play(sound, {
 		pos = pos,
 		pitch = pitch or 1,
 		gain = 1.0,

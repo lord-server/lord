@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 zfc = {}
 zfc.users = {}
@@ -12,7 +12,7 @@ zfc.itemlist = {}
 zfc.items_in_group = function(group)
 	local items = {}
 
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		-- the node should be in all groups
 		local ok = true
 		for _, g in ipairs(group:split(',')) do
@@ -27,7 +27,7 @@ zfc.items_in_group = function(group)
 end
 
 zfc.add_craft = function(input, output, groups)
-	if minetest.get_item_group(output, "forbidden") > 0 then
+	if core.get_item_group(output, "forbidden") > 0 then
 	if not groups then groups = {} end
 	local c = {}
 	c.width = input.width
@@ -60,7 +60,7 @@ end
 
 zfc.load_crafts = function(name)
 	zfc.crafts[name] = {}
-	local _recipes = minetest.get_all_craft_recipes(name)
+	local _recipes = core.get_all_craft_recipes(name)
 	if _recipes then
 		for i, recipe in ipairs(_recipes) do
 			if (recipe and recipe.items and recipe.type) then
@@ -80,7 +80,7 @@ zfc.need_load_all = true
 zfc.load_all = function()
 	print("Loading all crafts, this may take some time...")
 	local i = 0
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		if (name and name ~= "") then
 			zfc.load_crafts(name)
 		end
@@ -176,14 +176,14 @@ zfc.form.get_spec = function(player_name)
 end
 --- @param player_name string
 zfc.form.show = function(player_name)
-	minetest.show_formspec(player_name, zfc.form.NAME, zfc.form.get_spec(player_name))
+	core.show_formspec(player_name, zfc.form.NAME, zfc.form.get_spec(player_name))
 end
 
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= zfc.form.NAME then
 		return
 	end
@@ -225,7 +225,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:forbidden_crafts_book",{
+core.register_tool("lord_books:forbidden_crafts_book",{
     description = S("Book of Forbidden Crafts"),
     inventory_image = "forbidden_book.png",
     wield_image = "",

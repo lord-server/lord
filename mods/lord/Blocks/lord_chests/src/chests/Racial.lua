@@ -1,5 +1,5 @@
-local S = minetest.get_mod_translator()
-local Logger = minetest.get_mod_logger()
+local S = core.get_mod_translator()
+local Logger = core.get_mod_logger()
 
 
 --- @static
@@ -30,7 +30,7 @@ function Racial.register(node_name, title, texture_type, race, craft)
 	Logger.info('use texture: ' .. texture_prefix .. '_side.png at ' .. __FILE_LINE__())
 	Logger.info('use texture: ' .. form_icon .. ' at ' .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description           = title,
 		tiles                 = {
 			texture_prefix .. '_top.png',
@@ -46,7 +46,7 @@ function Racial.register(node_name, title, texture_type, race, craft)
 		is_ground_content     = false,
 		sounds                = default.node_sound_wood_defaults(),
 		on_construct          = function(pos, node, active_object_count, active_object_count_wider)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string('infotext', title)
 			local inv = meta:get_inventory()
 			inv:set_size('main', 8 * 4)
@@ -55,24 +55,24 @@ function Racial.register(node_name, title, texture_type, race, craft)
 			local player_name           = clicker:get_player_name()
 			local opened, expected_race = races.can_open_stuff(race, clicker, itemstack)
 			if opened then
-				minetest.show_formspec(player_name, node_name, default.chest.get_chest_formspec(pos, nil, form_icon))
+				core.show_formspec(player_name, node_name, default.chest.get_chest_formspec(pos, nil, form_icon))
 			elseif expected_race ~= nil then
-				minetest.chat_send_player(player_name, S('Only @1 can open this kind of chest!', expected_race))
+				core.chat_send_player(player_name, S('Only @1 can open this kind of chest!', expected_race))
 			end
 		end,
 		can_dig               = function(pos, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local inv  = meta:get_inventory()
 			return inv:is_empty('main')
 		end,
 		on_punch              = function(pos, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string('infotext', title)
 			meta:set_string('formspec', '')
 		end,
 	})
 
-	Racial.nodes[node_name]      = minetest.registered_nodes[node_name]
+	Racial.nodes[node_name]      = core.registered_nodes[node_name]
 
 	local recipe = type(craft) == 'string'
 		and {
@@ -86,7 +86,7 @@ function Racial.register(node_name, title, texture_type, race, craft)
 		)
 
 	if recipe then
-		minetest.register_craft({ output = node_name, recipe = recipe, })
+		core.register_craft({ output = node_name, recipe = recipe, })
 	end
 end
 

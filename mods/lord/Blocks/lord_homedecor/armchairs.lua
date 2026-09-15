@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local armchair_cbox = {
 	type = "fixed",
@@ -12,7 +12,7 @@ for i in ipairs(lrfurn.colors) do
 	local colour = lrfurn.colors[i][1]
 	local hue = lrfurn.colors[i][2]
 
-	minetest.register_node("lord_homedecor:armchair_"..colour, {
+	core.register_node("lord_homedecor:armchair_"..colour, {
 		description = S("Armchair ("..colour..")"),
 		drawtype = "mesh",
 		mesh = "lrfurn_armchair.obj",
@@ -35,7 +35,7 @@ for i in ipairs(lrfurn.colors) do
 		end
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "lord_homedecor:armchair_"..colour,
 		recipe = {
 			{"wool:"..colour, "", "", },
@@ -44,7 +44,7 @@ for i in ipairs(lrfurn.colors) do
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "lord_homedecor:armchair_"..colour,
 		recipe = {
 			{"wool:"..colour, "", "", },

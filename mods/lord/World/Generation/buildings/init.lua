@@ -1,6 +1,6 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('dwarven')
 
 	if mod.settings:get_bool('toggle_dungeons', false) then

@@ -1,14 +1,14 @@
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
-		minetest.CraftMethod.BARREL = 'barrel'
-		minetest.register_craft_method(minetest.CraftMethod.BARREL)
+		core.CraftMethod.BARREL = 'barrel'
+		core.register_craft_method(core.CraftMethod.BARREL)
 
 		require('barrel.nodes')
 
-		minetest.register_craft({
+		core.register_craft({
 			output = 'barrel:barrel',
 			recipe = {
 				{ 'group:wood', 'group:wood', 'group:wood' },

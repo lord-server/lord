@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
-minetest.register_node('lord_vessels:pint_wood', {
+core.register_node('lord_vessels:pint_wood', {
 	description = S('Pint'),
 	drawtype    = 'mesh',
 	mesh        = 'lord_vessels_pint.obj',
@@ -16,7 +16,7 @@ minetest.register_node('lord_vessels:pint_wood', {
 	groups      = { wooden = 1, choppy = 3, oddly_breakable_by_hand = 3 }
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_vessels:pint_wood',
 	recipe = {
 		{ 'default:wood', '',             'default:wood' },

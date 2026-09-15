@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local pipeworks = rawget(_G, "pipeworks")
-if not minetest.get_modpath("pipeworks") then
+if not core.get_modpath("pipeworks") then
 	-- Pipeworks is not installed. Simulate using a dummy table...
 	pipeworks = {}
 	local pipeworks_meta = {}
@@ -63,11 +63,11 @@ end
 local function check_color_buttons(pos, meta, chest_name, fields)
 	for i = 1, 16 do
 		if fields["color_button"..i] then
-			local node = minetest.get_node(pos)
+			local node = core.get_node(pos)
 			node.name = chest_name..colorid_to_postfix(i)
 			-- if node name incorrect
 			--print(node.name)
-			minetest.swap_node(pos, node)
+			core.swap_node(pos, node)
 			meta:set_string("color", i)
 			return
 		end
@@ -75,7 +75,7 @@ local function check_color_buttons(pos, meta, chest_name, fields)
 end
 
 local function set_formspec(pos, data, page)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	local formspec = data.base_formspec
 	if data.autosort then
 		local status = meta:get_int("autosort")
@@ -88,7 +88,7 @@ local function set_formspec(pos, data, page)
 			"]"
 	end
 	if data.infotext then
-		local formspec_infotext = minetest.formspec_escape(meta:get_string("infotext"))
+		local formspec_infotext = core.formspec_escape(meta:get_string("infotext"))
 		if page == "main" then
 			formspec = formspec.."image_button["..(data.hileft+2.5)..",0.0;0.8,0.8;"
 					.."technic_pencil_icon.png;edit_infotext;]"
@@ -168,7 +168,7 @@ end
 local function get_receive_fields(name, data)
 	local lname = name:lower()
 	return function(pos, formname, fields, sender)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local page = "main"
 		if has_locked_chest_privilege(meta,sender) == true or not data.locked then
 			if fields.sort or (data.autosort and fields.quit and meta:get_int("autosort") == 1) then
@@ -241,7 +241,7 @@ function technic.chests:definition(name, data)
 
 	if data.locked then
 		locked_after_place = function(pos, placer)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("owner", placer:get_player_name() or "")
 			meta:set_string(
 				"infotext",
@@ -275,7 +275,7 @@ function technic.chests:definition(name, data)
 		after_dig_node = pipeworks.after_dig,
 
 		on_construct = function(pos)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("infotext", desc)
 			set_formspec(pos, data, "main")
 			local inv = meta:get_inventory()
@@ -299,7 +299,7 @@ function technic.chests:register(name, data)
 	local def = technic.chests:definition(name, data)
 
 	local nn = "technic:"..name:lower()..(data.locked and "_locked" or "").."_chest"
-	minetest.register_node(":"..nn, def)
+	core.register_node(":"..nn, def)
 
 	if data.color then
 		local mk_front
@@ -324,7 +324,7 @@ function technic.chests:register(name, data)
 				def.tiles[5],
 				mk_front("technic_chest_overlay"..postfix..".png")
 			}
-			minetest.register_node(":"..nn..postfix, colordef)
+			core.register_node(":"..nn..postfix, colordef)
 		end
 	end
 

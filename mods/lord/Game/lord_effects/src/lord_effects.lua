@@ -68,7 +68,7 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_effects()
 	end,

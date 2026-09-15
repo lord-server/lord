@@ -1,10 +1,10 @@
 -- lord_screwdriver/init.lua
 
 -- Load support for MT game translation.
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Galvorn Screwdriver
-minetest.register_tool(":screwdriver:screwdriver_galvorn", {
+core.register_tool(":screwdriver:screwdriver_galvorn", {
 	description     = S("Galvorn Screwdriver") .. "\n" .. S("(left-click rotates face, right-click rotates axis)"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "screwdriver_galvorn.png",
@@ -19,7 +19,7 @@ minetest.register_tool(":screwdriver:screwdriver_galvorn", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "screwdriver:screwdriver_galvorn",
 	recipe = {
 		{"lottores:galvorn_ingot", ""},

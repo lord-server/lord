@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 local api = require('api')
 
 --- Validates the light value from user input.
@@ -18,7 +18,7 @@ local function validate_bloom_params(i, s, r)
 end
 
 local function get_player(name)
-    local player = minetest.get_player_by_name(name)
+    local player = core.get_player_by_name(name)
     if not player then
         return nil, S('Player not found.')
     end
@@ -39,7 +39,7 @@ local function set_light(name, value)
     api.light.set_for(player, value)
     local user_lighting_table = player:get_lighting()
     if math.abs(user_lighting_table.volumetric_light.strength - value) < 0.00001 then
-        minetest.chat_send_player(name, S('Volumetric light strength set to ') .. value)
+        core.chat_send_player(name, S('Volumetric light strength set to ') .. value)
     else
         return false, S('Failed to set volumetric light strength')
     end
@@ -47,7 +47,7 @@ local function set_light(name, value)
     return true
 end
 
-minetest.register_chatcommand('sunshine.set_light', {
+core.register_chatcommand('sunshine.set_light', {
     params = '<value>',
     description = S('Set the volumetric light strength (0.0 to 1.0)'),
     func = function(name, param)
@@ -60,7 +60,7 @@ minetest.register_chatcommand('sunshine.set_light', {
     end,
 })
 
-minetest.register_chatcommand('sunshine.set_bloom', {
+core.register_chatcommand('sunshine.set_bloom', {
     params = '<intensity> <strength_factor> <radius>',
     description = S('Input 3 numbers separated by a space.') .. '\n' ..
         S('Intensity from 0.0 to 1.0') .. '\n' ..
@@ -88,7 +88,7 @@ minetest.register_chatcommand('sunshine.set_bloom', {
     end
 })
 
-minetest.register_chatcommand('sunshine.reset', {
+core.register_chatcommand('sunshine.reset', {
     func = function(name)
         local player, err = get_player(name)
         if not player then

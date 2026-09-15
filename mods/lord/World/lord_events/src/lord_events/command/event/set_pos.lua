@@ -1,6 +1,6 @@
 local Event = require('lord_events.Event')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 local v = vector.new
 
 
@@ -18,7 +18,7 @@ local definition = {
 
 			return true, S('Event position unset.')
 		else
-			local player   = minetest.get_player_by_name(name)
+			local player   = core.get_player_by_name(name)
 			local position = v(player:get_pos()) + v(0, 0.5, 0)
 
 			Event.register(position)

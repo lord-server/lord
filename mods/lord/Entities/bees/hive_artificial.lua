@@ -1,6 +1,6 @@
 -- УЛЕЙ
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Функции
 
@@ -18,12 +18,12 @@ local S = minetest.get_mod_translator()
   end
 
   local function hive_artificial_on_rightclick(pos, node, clicker, itemstack)
-    minetest.show_formspec(
+    core.show_formspec(
       clicker:get_player_name(),
       'bees:hive_artificial',
       formspecs.hive_artificial(pos)
     )
-    local meta = minetest.get_meta(pos)
+    local meta = core.get_meta(pos)
     local inv  = meta:get_inventory()
     if meta:get_int('agressive') == 1 and inv:contains_item('queen', 'bees:bee') then
       local health = clicker:get_hp()
@@ -37,7 +37,7 @@ local S = minetest.get_mod_translator()
   end
 
   local function hive_artificial_allow_metadata_inventory_take(pos, listname, index, stack, player)
-    if minetest.is_protected(pos, player:get_player_name()) then
+    if core.is_protected(pos, player:get_player_name()) then
       return 0
     end
      return stack:get_count()
@@ -46,7 +46,7 @@ local S = minetest.get_mod_translator()
 -- Ноды
 
 -- Улей (обычный)
-  minetest.register_node('bees:hive_artificial', {
+  core.register_node('bees:hive_artificial', {
     description = S('bee hive'),
     tiles = {
       'default_wood.png',
@@ -73,7 +73,7 @@ local S = minetest.get_mod_translator()
       }
     },
     on_construct = function(pos)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
       meta:set_int('agressive', 1)
       inv:set_size('queen', 1)
@@ -84,22 +84,22 @@ local S = minetest.get_mod_translator()
     on_rightclick = hive_artificial_on_rightclick,
 
     on_timer = function(pos,elapsed)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
-      local timer = minetest.get_node_timer(pos)
+      local timer = core.get_node_timer(pos)
       if inv:contains_item('queen', 'bees:bee') then
         if inv:contains_item('frames', 'bees:frame_empty') then
           timer:start(30)
           local rad  = 10
           local minp = {x=pos.x-rad, y=pos.y-rad, z=pos.z-rad}
           local maxp = {x=pos.x+rad, y=pos.y+rad, z=pos.z+rad}
-          local flowers = minetest.find_nodes_in_area(minp, maxp, 'group:flower')
+          local flowers = core.find_nodes_in_area(minp, maxp, 'group:flower')
           local progress = meta:get_int('progress')
           progress = progress + #flowers
           meta:set_int('progress', progress)
           if progress > 1000 then
             local flower = flowers[math.random(#flowers)]
-            bees.polinate_flower(flower, minetest.get_node(flower).name)
+            bees.polinate_flower(flower, core.get_node(flower).name)
             local stacks = inv:get_list('frames')
             for k, v in pairs(stacks) do
               if inv:get_stack('frames', k):get_name() == 'bees:frame_empty' then
@@ -108,7 +108,7 @@ local S = minetest.get_mod_translator()
                 if k == inv:get_size('frames') then -- Если был заполнен последний стак
                   timer:stop()
                   meta:set_string('infotext', S('does not have empty frame(s)'))
-                  minetest.swap_node_if_not_same(pos, 'bees:hive_artificial_filled') -- Заменить улей на заполненный
+                  core.swap_node_if_not_same(pos, 'bees:hive_artificial_filled') -- Заменить улей на заполненный
                 end
                 if meta:get_int('progress') < 1000 then
                   meta:set_string('infotext', 'Progress: '..meta:get_int('progress')..'+'..#flowers..'/1000')
@@ -121,7 +121,7 @@ local S = minetest.get_mod_translator()
           end
         else
           meta:set_string('infotext', S('does not have empty frame(s)'))
-          minetest.swap_node_if_not_same(pos, 'bees:hive_artificial_filled')
+          core.swap_node_if_not_same(pos, 'bees:hive_artificial_filled')
           timer:stop()
         end
       end
@@ -131,16 +131,16 @@ local S = minetest.get_mod_translator()
 
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
       if listname == 'queen' then
-        local timer = minetest.get_node_timer(pos)
-        local meta = minetest.get_meta(pos)
+        local timer = core.get_node_timer(pos)
+        local meta = core.get_meta(pos)
         meta:set_string('infotext',S('requires queen bee to function'))
         timer:stop()
       end
     end,
 
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-      local inv = minetest.get_meta(pos):get_inventory()
-      if minetest.is_protected(pos, player:get_player_name()) then
+      local inv = core.get_meta(pos):get_inventory()
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
       if from_list == to_list then
@@ -155,10 +155,10 @@ local S = minetest.get_mod_translator()
     end,
 
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
-      local timer = minetest.get_node_timer(pos)
-      if minetest.is_protected(pos, player:get_player_name()) then
+      local timer = core.get_node_timer(pos)
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
       if listname == 'queen' or listname == 'frames' then
@@ -173,7 +173,7 @@ local S = minetest.get_mod_translator()
     end,
 
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if not minetest.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
+      if not core.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
       if listname == 'queen' then
         if stack:get_name():match('bees:bee*') then
           return 1
@@ -188,7 +188,7 @@ local S = minetest.get_mod_translator()
   })
 
 -- Улей (заполненный)
-  minetest.register_node('bees:hive_artificial_filled', {
+  core.register_node('bees:hive_artificial_filled', {
     description = S('filled bee hive'),
     tiles = {
       'default_wood.png',
@@ -215,7 +215,7 @@ local S = minetest.get_mod_translator()
       }
     },
     on_construct = function(pos)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
       meta:set_int('agressive', 1)
       inv:set_size('queen', 1)
@@ -232,15 +232,15 @@ local S = minetest.get_mod_translator()
     allow_metadata_inventory_take = hive_artificial_allow_metadata_inventory_take,
 
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
-      local inv = minetest.get_meta(pos):get_inventory()
+      local inv = core.get_meta(pos):get_inventory()
       if inv:is_empty('frames') then
-        minetest.swap_node_if_not_same(pos, 'bees:hive_artificial')
+        core.swap_node_if_not_same(pos, 'bees:hive_artificial')
       end
     end,
 
     allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-      local inv = minetest.get_meta(pos):get_inventory()
-      if minetest.is_protected(pos, player:get_player_name()) then
+      local inv = core.get_meta(pos):get_inventory()
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
       if from_list == to_list then
@@ -255,7 +255,7 @@ local S = minetest.get_mod_translator()
     end,
 
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if not minetest.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
+      if not core.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
       if listname == 'queen' then
         if stack:get_name():match('bees:bee*') then
           return 1
@@ -269,14 +269,14 @@ local S = minetest.get_mod_translator()
     end,
 
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
-      local timer = minetest.get_node_timer(pos)
-      if minetest.is_protected(pos, player:get_player_name()) then
+      local timer = core.get_node_timer(pos)
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
       if inv:contains_item('frames', 'bees:frame_empty') then
-        minetest.swap_node_if_not_same(pos, 'bees:hive_artificial')
+        core.swap_node_if_not_same(pos, 'bees:hive_artificial')
         timer:start(30)
         meta:set_int('progress', 0)
         meta:set_string('infotext',S('bees are acclimating'));

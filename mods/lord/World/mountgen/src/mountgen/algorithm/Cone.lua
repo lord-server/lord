@@ -4,7 +4,7 @@ local math_min, math_max, math_floor, math_ceil, math_sqrt, math_tan, math_rad
 local HeightMap = require('mountgen.generator.HeightMap')
 local FieldType = require('mountgen.config.FieldType')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local MIN_CONE_FOOT_DIAMETER = 3

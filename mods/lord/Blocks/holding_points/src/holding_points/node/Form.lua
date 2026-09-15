@@ -2,7 +2,7 @@ local MainTab    = require('holding_points.node.Form.MainTab')
 local MetaTab    = require('holding_points.node.Form.MetaTab')
 local BattlesTab = require('holding_points.node.Form.BattlesTab')
 
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 local spec = forms.Spec
 local e    = spec.escape
 

@@ -1,5 +1,5 @@
 local minetest_add_particlespawner, vector_new
-    = minetest.add_particlespawner, vector.new
+    = core.add_particlespawner, vector.new
 
 
 

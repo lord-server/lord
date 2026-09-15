@@ -14,21 +14,21 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- The global award namespace
 lottachievements = {
 	show_mode = "hud"
 }
 
-dofile(minetest.get_modpath("lottachievements") .. "/api.lua")
-dofile(minetest.get_modpath("lottachievements") .. "/chat_commands.lua")
-dofile(minetest.get_modpath("lottachievements") .. "/triggers.lua")
+dofile(core.get_modpath("lottachievements") .. "/api.lua")
+dofile(core.get_modpath("lottachievements") .. "/chat_commands.lua")
+dofile(core.get_modpath("lottachievements") .. "/triggers.lua")
 
 -- To add achievements in the middle of ids (e.g. between 29 and 30),
 -- use the script at the bottom of the file, changing the variables as needed.
 
-minetest.register_craftitem("lottachievements:achievement_book", {
+core.register_craftitem("lottachievements:achievement_book", {
 	description     = S("Achievements Book"),
 	inventory_image = "lottachievements_achievement_book.png",
 	groups          = { book = 1 },
@@ -39,7 +39,7 @@ minetest.register_craftitem("lottachievements:achievement_book", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottachievements:achievement_book',
 	recipe = {
 		{ 'lottores:blue_gem', 'lottores:tilkal_ingot', 'lottother:purple_gem' },
@@ -692,7 +692,7 @@ lottachievements.register_achievement("supersonic_speed", {
 		item     = "lottblocks:palantir",
 		target   = 1,
 		setprivs = function(player, data)
-			minetest.set_player_privs(player.get_player_name(), "palantiri")
+			core.set_player_privs(player.get_player_name(), "palantiri")
 		end
 	}
 })
@@ -707,16 +707,16 @@ lottachievements.register_achievement("magic", {
 	trigger     = {
 		effect = function(player)
 			local player_name = player:get_player_name()
-			if minetest.check_player_privs(player_name, "palantiri") then
+			if core.check_player_privs(player_name, "palantiri") then
 				-- already have "palantiri" privilege
 				return false
 			end
-			local player_privs = minetest.get_player_privs(player_name)
+			local player_privs = core.get_player_privs(player_name)
 			player_privs["palantiri"] = true
-			minetest.set_player_privs(player_name, player_privs)
-			minetest.chat_send_player(
+			core.set_player_privs(player_name, player_privs)
+			core.chat_send_player(
 				player_name,
-				minetest.colorize("purple", S("You can now travel with palantiri"))
+				core.colorize("purple", S("You can now travel with palantiri"))
 			)
 		end,
 		item   = "lottblocks:palantir_guide",

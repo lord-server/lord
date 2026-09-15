@@ -3,7 +3,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @type string
 local DS = os.DIRECTORY_SEPARATOR
 
-local mod_path = minetest.get_modpath(minetest.get_current_modname())
+local mod_path = core.get_modpath(core.get_current_modname())
 local mod_textures_path = mod_path .. DS .. "textures" .. DS .. "hatches" .. DS
 
 -- TODO: get rid of this function with #1467 issue
@@ -34,7 +34,7 @@ local function register_hatch(wood, def, groups, _)
 		tile_side       = side_texture,
 		groups          = table.merge(groups, { hatch = 1 }),
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = name,
 		recipe = {
 			{ def.wood_name, def.wood_name },

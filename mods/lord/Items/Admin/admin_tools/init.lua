@@ -1,11 +1,11 @@
 -- Admin tools
 
-minetest.register_privilege("admin_pick", {
+core.register_privilege("admin_pick", {
 	description = "Player can use admin pickaxe",
 	give_to_singleplayer = true,
 })
 
-minetest.register_tool("admin_tools:admin_stick", {
+core.register_tool("admin_tools:admin_stick", {
 	description = "Admins Magic Stick",
 	inventory_image = "tool_magic_stick.png",
 	range = 7,
@@ -13,11 +13,11 @@ minetest.register_tool("admin_tools:admin_stick", {
 	    -- Must be pointing to facedir applicable node
 	    if pointed_thing.type~="node" then return end
 	    local user_name = user:get_player_name()
-	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    local can_access = core.get_player_privs(user_name).admin_pick
 	    if not can_access then return end
 
 		if pointed_thing.type == "node" then
-			minetest.remove_node(pointed_thing.under)
+			core.remove_node(pointed_thing.under)
 		elseif pointed_thing.type == "object" then
 			local obj = pointed_thing.ref
 			if obj ~= nil then
@@ -33,11 +33,11 @@ minetest.register_tool("admin_tools:admin_stick", {
     end,
 	on_place = function(itemstack, placer, pointed_thing)
 	    local user_name = placer:get_player_name()
-	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    local can_access = core.get_player_privs(user_name).admin_pick
 	    if (not can_access) or (pointed_thing.type ~= "node") then
 			return itemstack
 		end
-	    local pos=minetest.get_pointed_thing_position(pointed_thing,true)
+	    local pos=core.get_pointed_thing_position(pointed_thing,true)
 		local max_nodes = 200
 		local item = placer:get_inventory():get_stack("main", placer:get_wield_index()+1)
 		local item_name = item:get_name()
@@ -47,13 +47,13 @@ minetest.register_tool("admin_tools:admin_stick", {
 			return itemstack
 		end
 
-		minetest.set_node(pointed_thing.above, {name=item_name})
+		core.set_node(pointed_thing.above, {name=item_name})
 		for i = 2, max_nodes do
 			pos.y = pos.y - 1
-			local node_below = minetest.get_node(pos)
+			local node_below = core.get_node(pos)
 			if node_below ~= nil then
-				if (node_below.name == "air") or (minetest.registered_items[node_below.name].groups["water"]) then
-					minetest.set_node(pos, {name = item_name})
+				if (node_below.name == "air") or (core.registered_items[node_below.name].groups["water"]) then
+					core.set_node(pos, {name = item_name})
 				else
 					break
 				end
@@ -67,7 +67,7 @@ minetest.register_tool("admin_tools:admin_stick", {
 
 })
 
-minetest.register_tool("admin_tools:pick_admin", {
+core.register_tool("admin_tools:pick_admin", {
 	description = "Admins Pickaxe",
 	privs = {admin_pick=true},
 	inventory_image = "tool_admin_pick.png",
@@ -88,17 +88,17 @@ minetest.register_tool("admin_tools:pick_admin", {
 	},
 	on_use = function(itemstack, user, pointed_thing)
 	    local user_name = user:get_player_name()
-	    local can_access = minetest.get_player_privs(user_name).admin_pick
+	    local can_access = core.get_player_privs(user_name).admin_pick
 	    if not can_access then
 			-- itemstack.take_item()
 			return itemstack
 	    end
-	    minetest.log("action","Admins Pickaxe in use "..user_name)
-	    local pos=minetest.get_pointed_thing_position(pointed_thing,false)
+	    core.log("action","Admins Pickaxe in use "..user_name)
+	    local pos=core.get_pointed_thing_position(pointed_thing,false)
 	    if pos == nil then return end
-	    local node=minetest.get_node(pos)
+	    local node=core.get_node(pos)
 		if pointed_thing.type == "node" and pos ~= nil then
-			minetest.node_dig(pos, node, user)
+			core.node_dig(pos, node, user)
 		elseif pointed_thing.type == "object" then
 			local obj = pointed_thing.ref
 			if obj ~= nil then
@@ -120,7 +120,7 @@ minetest.register_tool("admin_tools:pick_admin", {
 })
 
 
-minetest.register_tool('admin_tools:pointer', {
+core.register_tool('admin_tools:pointer', {
 	description = 'Pointer. For touch all ding ding nodes',
 	inventory_image = 'lord_tools_pointer.png^[transformFX',
 	range = 10,

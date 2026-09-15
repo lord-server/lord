@@ -1,13 +1,13 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Chamotte
 
-minetest.register_craftitem("clay_types:chamotte_lump", {
+core.register_craftitem("clay_types:chamotte_lump", {
 	description = S("Chamotte Clay Lump"),
 	inventory_image = "clay_types_chamotte_lump.png"
 })
 
-minetest.register_node("clay_types:chamotte_block_raw", {
+core.register_node("clay_types:chamotte_block_raw", {
 	description = S("Raw Chamotte Block"),
 	tiles = {"clay_types_chamotte_block_raw.png"},
 	is_ground_content = false,
@@ -15,7 +15,7 @@ minetest.register_node("clay_types:chamotte_block_raw", {
 	sounds = default.node_sound_dirt_defaults(),
 })
 
-minetest.register_node("clay_types:chamotte_block_dried", {
+core.register_node("clay_types:chamotte_block_dried", {
 	description = S("Dried Chamotte Block"),
 	tiles = {"clay_types_chamotte_block_dried.png"},
 	is_ground_content = false,
@@ -36,13 +36,13 @@ stairs.register_stair_and_slab("chamotte_block_dried", "clay_types:chamotte_bloc
 
 -- Chamotte crafts
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "clay_types:chamotte_lump",
 	recipe = "default:clay_lump",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "clay_types:chamotte_block_raw",
 	recipe = {
 		{"clay_types:chamotte_lump", "clay_types:chamotte_lump"},
@@ -50,14 +50,14 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "clay_types:chamotte_lump 4",
 	recipe = {
 		{"clay_types:chamotte_block_raw"},
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "clay_types:chamotte_block_dried",
 	recipe = "clay_types:chamotte_block_raw",
@@ -66,12 +66,12 @@ minetest.register_craft({
 
 -- Mordor Clay
 
-minetest.register_craftitem("clay_types:mordor_clay_lump", {
+core.register_craftitem("clay_types:mordor_clay_lump", {
 	description = S("Mordor Clay Lump"),
 	inventory_image = "clay_types_mordor_clay_lump.png"
 })
 
-minetest.register_node("clay_types:mordor_clay_block_raw", {
+core.register_node("clay_types:mordor_clay_block_raw", {
 	description = S("Raw Mordor Clay Block"),
 	tiles = {"clay_types_mordor_clay_block_raw.png"},
 	groups = {crumbly = 2},
@@ -79,7 +79,7 @@ minetest.register_node("clay_types:mordor_clay_block_raw", {
 	sounds = default.node_sound_dirt_defaults(),
 })
 
-minetest.register_node("clay_types:mordor_clay_block_dried", {
+core.register_node("clay_types:mordor_clay_block_dried", {
 	description = S("Dried Mordor Clay Block"),
 	tiles = {"clay_types_mordor_clay_block_dried.png"},
 	is_ground_content = false,
@@ -98,7 +98,7 @@ stairs.register_stair_and_slab("mordor_clay_block_dried", "clay_types:mordor_cla
 		S("Outer Dried Mordor Clay Block Stair")
 )
 
-minetest.register_craft({
+core.register_craft({
 	output = "clay_types:mordor_clay_block_raw",
 	recipe = {
 		{"clay_types:mordor_clay_lump", "clay_types:mordor_clay_lump"},
@@ -106,14 +106,14 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "clay_types:mordor_clay_lump 4",
 	recipe = {
 		{"clay_types:mordor_clay_block_raw"},
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "clay_types:mordor_clay_block_dried",
 	recipe = "clay_types:mordor_clay_block_raw",

@@ -26,7 +26,7 @@ local function on_player_respawn(player)
 	return true -- to disable regular player placement
 end
 
---- @param mod minetest.Mod
+--- @param mod core.Mod
 local function register_api(mod)
 	_G.lord_spawns = {
 		has_several = Config.dynamic_spawns,
@@ -37,7 +37,7 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		Spawns.configure(Config.spawns).set_common(Config.common_spawn_pos)
 		Halls .configure(Config.halls).register_configured()

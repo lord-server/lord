@@ -16,8 +16,8 @@ end
 
 local function register_recipes()
 	for _, recipe in pairs(config.recipes) do
-		minetest.register_craft({
-			method = minetest.CraftMethod.BARREL,
+		core.register_craft({
+			method = core.CraftMethod.BARREL,
 			type   = 'cooking',
 			input  = { recipe.input },
 			output = recipe.output,
@@ -28,7 +28,7 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 		register_lord_alcohol()

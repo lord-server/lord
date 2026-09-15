@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_archery")
+local S = core.get_translator("lord_archery")
 
 return  {
     ["lord_archery:steel_throwing_axe"] = {

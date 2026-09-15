@@ -1,6 +1,6 @@
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 local spec     = core.formspec
-local colorize = minetest.colorize
+local colorize = core.colorize
 
 
 local function register_new_year_event_cloaks()
@@ -15,7 +15,7 @@ local function register_new_year_event_cloaks()
 		.. S('He sewed this wonderful cloak for You') .. '\n'
 		.. S('In honor of the New Year 2026!')
 
-	minetest.register_tool('new_year:cloak_2026', {
+	core.register_tool('new_year:cloak_2026', {
 		description     = event_cloak_message .. '\n' .. S('New Year collection'),
 		inventory_image = 'new_year_cloak_2026_inv.png',
 		groups          = { clothes = 1, no_preview = 1, clothes_cloak = 1 },
@@ -36,7 +36,7 @@ local function register_new_year_event_cloaks()
 				.. spec.label(0.5, 1.2, exchange_it_message)
 				.. spec.button_exit(2.5, 5.7, 3, 0.8, 'close', 'OK')
 
-			minetest.show_formspec(player_name, 'event_cloak_message', formspec)
+			core.show_formspec(player_name, 'event_cloak_message', formspec)
 
 			return itemstack
 		end,

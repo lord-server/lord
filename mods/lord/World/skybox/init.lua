@@ -50,7 +50,7 @@ local function change_player_sky(player, definition)
 	player:override_day_night_ratio(definition.day_night_ratio)
 end
 
-minetest.foreach_player_every(0.3, function(player)
+core.foreach_player_every(0.3, function(player)
 	local player_name = player:get_player_name()
 	local layer = detect_height_layer(player:get_pos().y)
 	if layer ~= skybox.player_current_layer[player_name] then
@@ -60,6 +60,6 @@ minetest.foreach_player_every(0.3, function(player)
 end)
 
 --- @param player Player
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	skybox.player_current_layer[player:get_player_name()] = nil
 end)

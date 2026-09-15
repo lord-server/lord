@@ -1,6 +1,6 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("planks").init()
 
 	dofile(mod.path .. "/legacy.lua")

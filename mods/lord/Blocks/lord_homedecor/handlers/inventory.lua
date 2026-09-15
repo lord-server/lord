@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local default_can_dig = function(pos,player)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	return meta:get_inventory():is_empty("main")
 end
 
@@ -65,7 +65,7 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 		local on_construct = def.on_construct
 		def.on_construct = function(pos)
 			local size = inventory.size
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:get_inventory():set_size("main", size)
 			meta:set_string("formspec", inventory.formspec or get_formspec_by_size(size))
 			if on_construct then on_construct(pos) end
@@ -75,20 +75,20 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 	def.can_dig = def.can_dig or default_can_dig
 	def.on_metadata_inventory_move = def.on_metadata_inventory_move or
 		function(pos, from_list, from_index, to_list, to_index, count, player)
-			minetest.log("action", S("%s moves stuff in %s at %s"):format(
-				player:get_player_name(), name, minetest.pos_to_string(pos)
+			core.log("action", S("%s moves stuff in %s at %s"):format(
+				player:get_player_name(), name, core.pos_to_string(pos)
 			))
 		end
 	def.on_metadata_inventory_put = def.on_metadata_inventory_put or
 		function(pos, listname, index, stack, player)
-			minetest.log("action", S("%s moves stuff to %s at %s"):format(
-				player:get_player_name(), name, minetest.pos_to_string(pos)
+			core.log("action", S("%s moves stuff to %s at %s"):format(
+				player:get_player_name(), name, core.pos_to_string(pos)
 			))
 		end
 	def.on_metadata_inventory_take = def.on_metadata_inventory_take or
 		function(pos, listname, index, stack, player)
-			minetest.log("action", S("%s takes stuff from %s at %s"):format(
-				player:get_player_name(), name, minetest.pos_to_string(pos)
+			core.log("action", S("%s takes stuff from %s at %s"):format(
+				player:get_player_name(), name, core.pos_to_string(pos)
 			))
 		end
 
@@ -96,7 +96,7 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 	if locked then
 		local after_place_node = def.after_place_node
 		def.after_place_node = function(pos, placer)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local owner = placer:get_player_name() or ""
 
 			meta:set_string("owner", owner)
@@ -106,13 +106,13 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 
 		local allow_move = def.allow_metadata_inventory_move
 		def.allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local owner = meta:get_string("owner")
 			local playername = player:get_player_name()
 
 			if (playername ~= owner) then
-				minetest.log("action", string.format("%s tried to access a %s belonging to %s at %s",
-					playername, name, owner, minetest.pos_to_string(pos)
+				core.log("action", string.format("%s tried to access a %s belonging to %s at %s",
+					playername, name, owner, core.pos_to_string(pos)
 				))
 				return 0
 			end
@@ -123,13 +123,13 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 
 		local allow_put = def.allow_metadata_inventory_put
 		def.allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local owner = meta:get_string("owner")
 			local playername = player:get_player_name()
 
 			if (playername ~= owner) then
-				minetest.log("action", string.format("%s tried to access a %s belonging to %s at %s",
-					playername, name, owner, minetest.pos_to_string(pos)
+				core.log("action", string.format("%s tried to access a %s belonging to %s at %s",
+					playername, name, owner, core.pos_to_string(pos)
 				))
 				return 0
 			end
@@ -139,13 +139,13 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 
 		local allow_take = def.allow_metadata_inventory_take
 		def.allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local owner = meta:get_string("owner")
 			local playername = player:get_player_name()
 
 			if (playername ~= owner) then
-				minetest.log("action", string.format("%s tried to access a %s belonging to %s at %s",
-					playername, name, owner, minetest.pos_to_string(pos)
+				core.log("action", string.format("%s tried to access a %s belonging to %s at %s",
+					playername, name, owner, core.pos_to_string(pos)
 				))
 				return 0
 			end
@@ -165,7 +165,7 @@ function lord_homedecor.handle_inventory(name, def, original_def)
 
 		local locked_name = name .. "_locked"
 		lord_homedecor.register(locked_name, locked_def)
-		minetest.register_craft({
+		core.register_craft({
 			type = "shapeless",
 			output = "lord_homedecor:" .. locked_name,
 			recipe = { "lord_homedecor:" .. name, "default:steel_ingot" }

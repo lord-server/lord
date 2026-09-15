@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --------------------------------------------------------------------------------
 -- fabrics.lua: colored fabrics as ingredient for clothes
@@ -23,11 +23,11 @@ local fabric_colors = {
 }
 
 -- flaxthreads made of dry_shrub. 2:1
-minetest.register_craftitem("lottclothes:flaxthread", {
+core.register_craftitem("lottclothes:flaxthread", {
 	description = S("Flax Thread"),
 	inventory_image = "lottclothes_flaxthread.png",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottclothes:flaxthread 2",
 	recipe = {"default:dry_shrub","default:dry_shrub","default:dry_shrub","default:dry_shrub"}
@@ -35,14 +35,14 @@ minetest.register_craft({
 
 -- flax, a fabric made of flaxthreads
 for color, dye in pairs(fabric_colors) do
-	minetest.register_craftitem("lottclothes:flax_"..color, {
+	core.register_craftitem("lottclothes:flax_"..color, {
 		description = S(color:gsub("^%l", string.upper).." Flax"),
 		inventory_image = "lottclothes_flax_"..color..".png"
 	})
 
 	if color == "brown" then
 		-- default to brown
-		minetest.register_craft({
+		core.register_craft({
 			output = "lottclothes:flax_"..color.." 3",
 			recipe = {
 				{"lottclothes:flaxthread","lottclothes:flaxthread","lottclothes:flaxthread"},
@@ -52,7 +52,7 @@ for color, dye in pairs(fabric_colors) do
 		})
 	else
 		-- all other colors require little dye
-		minetest.register_craft({
+		core.register_craft({
 			output = "lottclothes:flax_"..color.." 3",
 			recipe = {
 				{"lottclothes:flaxthread",dye,"lottclothes:flaxthread"},
@@ -65,11 +65,11 @@ end
 
 
 -- feltthreads
-minetest.register_craftitem("lottclothes:feltthread", {
+core.register_craftitem("lottclothes:feltthread", {
 	description = S("Felt Thread"),
 	inventory_image = "lottclothes_feltthread.png",
 })
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottclothes:feltthread 2",
 	recipe = {"group:leaves","group:leaves","group:leaves","group:leaves"}
@@ -78,14 +78,14 @@ minetest.register_craft({
 
 -- felt, a fabric made of feltthreads
 for color, dye in pairs(fabric_colors) do
-	minetest.register_craftitem("lottclothes:felt_"..color, {
+	core.register_craftitem("lottclothes:felt_"..color, {
 		description = S(color:gsub("^%l", string.upper).." Felt"),
 		inventory_image = "lottclothes_felt_"..color..".png"
 	})
 
 	if color == "green" then
 		-- green is default color, all felt (no dye)
-		minetest.register_craft({
+		core.register_craft({
 			output = "lottclothes:felt_"..color.." 3",
 			recipe = {
 				{"lottclothes:feltthread","lottclothes:feltthread","lottclothes:feltthread"},
@@ -95,7 +95,7 @@ for color, dye in pairs(fabric_colors) do
 		})
 	else
 		-- all other colors require little dye
-		minetest.register_craft({
+		core.register_craft({
 			output = "lottclothes:felt_"..color.." 3",
 			recipe = {
 				{"lottclothes:feltthread",dye,"lottclothes:feltthread"},

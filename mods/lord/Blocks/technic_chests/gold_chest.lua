@@ -1,4 +1,4 @@
-minetest.register_craft({
+core.register_craft({
 	output = 'technic:gold_chest',
 	recipe = {
 		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
@@ -7,7 +7,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'technic:gold_locked_chest',
 	recipe = {
 		{'default:gold_ingot','default:gold_ingot','default:gold_ingot'},
@@ -16,7 +16,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "technic:gold_locked_chest",
 	recipe = {"technic:gold_chest", "default:steel_ingot"}

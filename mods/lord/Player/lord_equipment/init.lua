@@ -1,5 +1,5 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("equipment").init()
 end)

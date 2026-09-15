@@ -1,7 +1,7 @@
 local trunks          = require('tree.trunks')
 local MiasmaParticles = require('tree.trunks.infected.MiasmaParticles')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local INFECTED_TRUNKS_GROUP = 'infected'
@@ -52,30 +52,30 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 		_healthy_node_name = parent_node_name,
 	}, INFECTED_TRUNKS_GROUP)
 
-	minetest.override_item(parent_node_name, {
+	core.override_item(parent_node_name, {
 		_is_infected        = false,
 		_infected_node_name = node_name,
 		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
 			local player_name = clicker:get_player_name()
-			pd(minetest.is_protected(pos, player_name), minetest.check_player_privs(player_name, "protection_bypass"))
+			pd(core.is_protected(pos, player_name), core.check_player_privs(player_name, "protection_bypass"))
 			if
-				minetest.is_protected(pos, player_name) and
-				not minetest.check_player_privs(player_name, "protection_bypass")
+				core.is_protected(pos, player_name) and
+				not core.check_player_privs(player_name, "protection_bypass")
 			then
-				minetest.record_protection_violation(pos, player_name)
+				core.record_protection_violation(pos, player_name)
 				return itemstack
 			end
 
 			if not itemstack:get_name():is_one_of(INFECTED_BY) then
 				if not clicker:get_player_control().sneak then
-					return minetest.item_place_node(itemstack, clicker, pointed_thing)
+					return core.item_place_node(itemstack, clicker, pointed_thing)
 				end
 
 				return itemstack
 			end
 
 			itemstack:take_item(1)
-			minetest.set_node(pos, { name = node_name })
+			core.set_node(pos, { name = node_name })
 
 			return itemstack
 		end,
@@ -86,7 +86,7 @@ end
 
 --- @param original_node_name string name of infected tree
 local function register_infected_trunk_slab(original_node_name)
-	local definition = minetest.registered_nodes[original_node_name]
+	local definition = core.registered_nodes[original_node_name]
 	assertf(
 		definition._is_infected,
 		'Can\'n register infected slab: original node `%s` is not infected.',
@@ -126,33 +126,33 @@ for node_name, trunk_definition in pairs(trunks.get_nodes()) do
 	)
 end
 
-minetest.register_abm({
+core.register_abm({
 	label     = 'Trees trunks Infection spreading',
 	nodenames = { 'group:infected_tree' },
 	interval  = 5,
 	chance    = 40,
 	action    = function(pos, node, active_object_count, active_object_count_wider)
-		local found_at, found_node_table = minetest.find_node_near_except(pos, 1, 'group:tree', 'group:infected_tree', false)
+		local found_at, found_node_table = core.find_node_near_except(pos, 1, 'group:tree', 'group:infected_tree', false)
 		if not found_at then
 			return
 		end
 
 		--- @type TrunkDefinition
-		local found_node = minetest.registered_nodes[found_node_table.name]
+		local found_node = core.registered_nodes[found_node_table.name]
 		if found_node._is_infected or not found_node._infected_node_name then
 			return
 		end
 
-		minetest.set_node(found_at, { name = found_node._infected_node_name })
+		core.set_node(found_at, { name = found_node._infected_node_name })
 	end
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { 'group:infected_tree' },
 	interval  = 1,
 	chance    = 10,
 	action = function(pos, node, active_object_count, active_object_count_wider)
-		local air_pos = minetest.find_node_near(pos, 1, 'air')
+		local air_pos = core.find_node_near(pos, 1, 'air')
 		if not air_pos then
 			return
 		end

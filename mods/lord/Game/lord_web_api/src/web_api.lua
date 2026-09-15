@@ -7,7 +7,7 @@ web_api = nil
 --- @return http.Client
 local function register_api()
 	if not config then
-		minetest.log("warning", "Can't initialize `web_api`: `config` not loaded.")
+		core.log("warning", "Can't initialize `web_api`: `config` not loaded.")
 		return
 	end
 
@@ -18,7 +18,7 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 	end,

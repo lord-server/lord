@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local list_gems_blocks = {
@@ -24,7 +24,7 @@ for _, node_source in pairs(list_gems_blocks) do
 		}
 
 	-- Register nodes
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description         = S(node_description),
 		tiles               = { node_tiles },
 		drawtype            = "nodebox",
@@ -34,14 +34,14 @@ for _, node_source in pairs(list_gems_blocks) do
 		is_ground_content   = false,
 		sounds              = node_sounds,
 		on_punch = function (pos)
-			minetest.sound_play( node_sound_file, { gain = 3, pos = pos, max_hear_distance = 10 }, true )
+			core.sound_play( node_sound_file, { gain = 3, pos = pos, max_hear_distance = 10 }, true )
 		end,
 		groups              = { cracky = 1, level = 3 },
 	})
 
 	-- Register crafts
 	local name_craftitem = ('lord_gems:'..node_source)
-	minetest.register_craft({
+	core.register_craft({
 		output = node_name,
 		recipe = {
 			{name_craftitem, name_craftitem, name_craftitem},
@@ -51,7 +51,7 @@ for _, node_source in pairs(list_gems_blocks) do
 	})
 
 	-- Register reverse crafts
-	minetest.register_craft({
+	core.register_craft({
 		output = (name_craftitem..' 9'),
 		recipe = {
 			{node_name},

@@ -28,14 +28,14 @@ end
 --- @param rock_name string tech name of material node
 --- @return integer[string]
 function Nodes.register(rock_name)
-	local rock_definition = minetest.registered_nodes[rock_name]
+	local rock_definition = core.registered_nodes[rock_name]
 	assert(rock_definition and type(rock_definition) == 'table', 'undefined rock: ' .. rock_name)
 
 	local node_name_prefix = 'icicles:' .. rock_name:replace(':', '_')
 	local ids = {}
 	for i = 1, 4 do
 		local name = node_name_prefix .. '_' .. i
-		minetest.register_node(name, {
+		core.register_node(name, {
 			description       = 'Icicle ' .. i,
 			groups            = {
 				cracky = 3, icicle = 1, oddly_breakable_by_hand = 4 - i, drop_on_dig = 1, attached_node = 1

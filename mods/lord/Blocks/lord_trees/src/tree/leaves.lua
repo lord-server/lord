@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local leaves = {
@@ -8,8 +8,8 @@ local leaves = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { leaves = 1 }),
 	})
 	leaves.nodes[node_name] = definition
@@ -39,9 +39,9 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 			}
 		}
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description                = S(title),
 		drawtype                   = "mesh",
 		mesh                       = "leaves_model.obj",
@@ -62,7 +62,7 @@ local function register_leaf(node_name, title, groups, sapling_or_drop)
 		sounds                     = default.node_sound_leaves_defaults(),
 	})
 
-	leaves.nodes[node_name] = minetest.registered_nodes[node_name]
+	leaves.nodes[node_name] = core.registered_nodes[node_name]
 end
 
 register_leaf("lord_trees:alder_leaf",     "Alder Leaf", { color_green = 1 }) -- also drops lord_trees:alder_sapling

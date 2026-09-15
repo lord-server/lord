@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("lord_blocks:blackout", {
+core.register_node("lord_blocks:blackout", {
 	description = S("Blackout"),
 	tiles = {"default_blackout.png"},
 	drawtype = "glasslike",
@@ -14,9 +14,9 @@ minetest.register_node("lord_blocks:blackout", {
 	--post_effect_color = {a = 10, r = 0, g = 0, b = 0},
 })
 
-minetest.register_alias("default:blackout", "lord_blocks:blackout")
+core.register_alias("default:blackout", "lord_blocks:blackout")
 
-minetest.register_node(":lottblocks:dwarfstone_stripe_singledot", {
+core.register_node(":lottblocks:dwarfstone_stripe_singledot", {
 	description       = S("Stripe Dwarf Stone (Single Dot)"),
 	tiles             = {
 		"lottblocks_dwarfstone_stripe_singledot_top.png",
@@ -31,7 +31,7 @@ minetest.register_node(":lottblocks:dwarfstone_stripe_singledot", {
 	groups            = { cracky = 3, wall_connected = 1 },
 })
 
-minetest.register_node(":lottblocks:dwarfstone_stripe_onesided", {
+core.register_node(":lottblocks:dwarfstone_stripe_onesided", {
 	description       = S("Stripe Dwarf Stone (One Sided)"),
 	tiles             = {
 		"lottblocks_dwarfstone_stripe_onesided_top.png",
@@ -47,7 +47,7 @@ minetest.register_node(":lottblocks:dwarfstone_stripe_onesided", {
 })
 
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_stripe 4',
 	recipe = {
 		{ 'default:coal_lump', 'default:stone' },
@@ -55,7 +55,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_stripe_singledot 8',
 	recipe = {
 		{ 'default:stone', 'default:stone', 'default:coal_lump' },
@@ -63,7 +63,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_stripe_singledot 8',
 	recipe = {
 		{ 'default:coal_lump', 'default:stone', 'default:stone' },
@@ -71,7 +71,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_stripe_onesided 4',
 	recipe = {
 		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
@@ -82,7 +82,7 @@ minetest.register_craft({
 
 -- Marble with gold and gems
 
-minetest.register_node("lord_blocks:marble_with_gold", {
+core.register_node("lord_blocks:marble_with_gold", {
 	description = S("Marble With Gold"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png"},
 	is_ground_content = true,
@@ -90,7 +90,7 @@ minetest.register_node("lord_blocks:marble_with_gold", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_blocks:marble_with_redgem", {
+core.register_node("lord_blocks:marble_with_redgem", {
 	description = S("Marble With Redgem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_redgem.png"},
 	is_ground_content = true,
@@ -98,7 +98,7 @@ minetest.register_node("lord_blocks:marble_with_redgem", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_blocks:marble_with_bluegem", {
+core.register_node("lord_blocks:marble_with_bluegem", {
 	description = S("Marble With Bluegem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_bluegem.png"},
 	is_ground_content = true,
@@ -106,7 +106,7 @@ minetest.register_node("lord_blocks:marble_with_bluegem", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_blocks:marble_with_purplegem", {
+core.register_node("lord_blocks:marble_with_purplegem", {
 	description = S("Marble With Purplegem"),
 	tiles = {"lottores_marble.png^lord_blocks_edging_gold.png^lord_blocks_purplegem.png"},
 	is_ground_content = true,
@@ -114,7 +114,7 @@ minetest.register_node("lord_blocks:marble_with_purplegem", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_blocks:marble_with_gold',
 	recipe = {
 		{ 'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot' },
@@ -123,25 +123,25 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = 'lord_blocks:marble_with_redgem',
 	recipe = {'lord_blocks:marble_with_gold', 'lottores:red_gem'}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = 'lord_blocks:marble_with_bluegem',
 	recipe = {'lord_blocks:marble_with_gold', 'lottores:blue_gem'}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = 'lord_blocks:marble_with_purplegem',
 	recipe = {'lord_blocks:marble_with_gold', 'lottother:purple_gem'}
 })
 
-minetest.register_node("lord_blocks:green_marble", {
+core.register_node("lord_blocks:green_marble", {
 	description = S("Green Marble"),
 	tiles = {"lord_blocks_green_marble.png"},
 	is_ground_content = true,

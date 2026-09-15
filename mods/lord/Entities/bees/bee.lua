@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Bee by KrupnoPavel
 
@@ -48,14 +48,14 @@ legacy_mobs:spawn_specific("bees:bee", {"group:flower"}, {"air"}, 10, 20, 30, 50
 legacy_mobs:register_egg("bees:bee", S("Bee"), "mobs_bee_inv.png", 0)
 
 -- honey
-minetest.register_craftitem("bees:honey", {
+core.register_craftitem("bees:honey", {
 	description = S("Honey"),
 	inventory_image = "mobs_honey_inv.png",
-	on_use = minetest.item_eat(6),
+	on_use = core.item_eat(6),
 })
 
 -- beehive (when placed spawns bee)
-minetest.register_node("bees:beehive", {
+core.register_node("bees:beehive", {
 	description = S("Beehive"),
 	drawtype = "plantlike",
 	visual_scale = 1.0,
@@ -69,16 +69,16 @@ minetest.register_node("bees:beehive", {
 	drop = {""},
 	after_place_node = function(pos, placer, itemstack)
 		if placer:is_player() then
-			minetest.set_node(pos, {name = "bees:beehive", param2 = 1})
+			core.set_node(pos, {name = "bees:beehive", param2 = 1})
 			if math.random(1, 5) == 1 then
-				minetest.add_entity(pos, "bees:bee")
+				core.add_entity(pos, "bees:bee")
 			end
 		end
 	end,
 
 })
 
---minetest.register_craft({
+--core.register_craft({
 	--output = "bees:beehive",
 	--recipe = {
 		--{"bees:bee","bees:bee","bees:bee"},
@@ -86,14 +86,14 @@ minetest.register_node("bees:beehive", {
 --})
 
 -- honey block
-minetest.register_node("bees:honey_block", {
+core.register_node("bees:honey_block", {
 	description = S("Honey Block"),
 	tiles = {"mobs_honey_block.png"},
 	groups = {snappy = 3, flammable = 2},
 	sounds = default.node_sound_dirt_defaults(),
 })
 
---minetest.register_craft({
+--core.register_craft({
 	--output = "bees:honey_block",
 	--recipe = {
 		--{"bees:honey", "bees:honey", "bees:honey"},
@@ -102,7 +102,7 @@ minetest.register_node("bees:honey_block", {
 	--}
 --})
 
---minetest.register_craft({
+--core.register_craft({
 	--output = "bees:honey 9",
 	--recipe = {
 		--{"bees:honey_block"},

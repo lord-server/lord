@@ -5,21 +5,21 @@
 --- К тому же не особо красивые постройки. Стоит их в будущем переделать/перестроить и внедрить также как остальные.
 ---
 -- Buildings
---minetest.register_decoration({
+--core.register_decoration({
 --	deco_type = "schematic",
 --	place_on = "default:snowblock",
 --	sidelen = 16,
 --	fill_ratio = 0.004,
---	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_fort.mts",
+--	schematic = core.get_modpath("lottmapgen").."/schems/abandoned_fort.mts",
 --	flags = "place_center_x, place_center_z",
 --})
 --
---minetest.register_decoration({
+--core.register_decoration({
 --	deco_type = "schematic",
 --	place_on = "default:snowblock",
 --	sidelen = 16,
 --	fill_ratio = 0.0045,
---	schematic = minetest.get_modpath("lottmapgen").."/schems/abandoned_tower.mts",
+--	schematic = core.get_modpath("lottmapgen").."/schems/abandoned_tower.mts",
 --	flags = "place_center_x, place_center_z",
 --})
 --

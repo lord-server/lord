@@ -1,7 +1,7 @@
-minetest.mod(function(mod)
-	local S = minetest.get_mod_translator()
+core.mod(function(mod)
+	local S = core.get_mod_translator()
 
-	minetest.register_on_prejoinplayer(function(usrname, ip)
+	core.register_on_prejoinplayer(function(usrname, ip)
 
 		-- правила формирования имени
 		local rules = {
@@ -50,14 +50,14 @@ minetest.mod(function(mod)
 			return check_flag
 		end
 		local name = usrname
-		if minetest.is_singleplayer() or minetest.player_exists(name) then
+		if core.is_singleplayer() or core.player_exists(name) then
 			return
 		end
 		if not is_correct_name(name) then
 			local list_rules = ""
 			--выводим правила сервера на русском языке
 			for _, rule in pairs(rules) do
-				list_rules = list_rules .. "\n" .. rule.check .. " " .. minetest.get_translated_string("ru", rule.description)
+				list_rules = list_rules .. "\n" .. rule.check .. " " .. core.get_translated_string("ru", rule.description)
 			end
 			-- выводим правила сервера на английском языке
 			list_rules = list_rules .. "\n\n" .. "Your name does not accepted with the server rules:"
@@ -65,7 +65,7 @@ minetest.mod(function(mod)
 				list_rules = list_rules .. "\n" .. rule.check .. " " .. rule.description
 			end
 
-			return "\n" .. minetest.get_translated_string("ru", S("Your name does not accepted with the server rules:"))
+			return "\n" .. core.get_translated_string("ru", S("Your name does not accepted with the server rules:"))
 				.. list_rules
 		end
 	end)

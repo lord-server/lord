@@ -1,11 +1,11 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:vegetable_oil", {
+core.register_craftitem("lottfarming:vegetable_oil", {
 	description = S("Vegetable Oil"),
 	inventory_image = "lottfarming_vegetable_oil.png",
 })
 
-minetest.register_craft( {
+core.register_craft( {
 	output = "lottfarming:vegetable_oil",
 	recipe = {
 		{"farming:seed_wheat", "farming:seed_wheat",   "farming:seed_wheat"},

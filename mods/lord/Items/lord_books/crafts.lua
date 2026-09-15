@@ -2,9 +2,9 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-local DEFAULT_LANG = minetest.settings:get("language")
+local DEFAULT_LANG = core.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = "en" end
 
@@ -16,7 +16,7 @@ zcg.itemlist = {}
 zcg.items_in_group = function(group)
 	local items = {}
 
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		-- the node should be in all groups
 		local ok = true
 		for _, g in ipairs(group:split(',')) do
@@ -31,16 +31,16 @@ zcg.items_in_group = function(group)
 end
 
 zcg.add_craft = function(input, output, groups)
-	if minetest.get_item_group(output, "forbidden") > 0 then
+	if core.get_item_group(output, "forbidden") > 0 then
 		return
 	end
-     if minetest.get_item_group(output, "armor_use") > 0 then
+     if core.get_item_group(output, "armor_use") > 0 then
 		return
 	end
-     if minetest.get_item_group(output, "armor_crafts") > 0 then
+     if core.get_item_group(output, "armor_crafts") > 0 then
 		return
 	end
-     if minetest.get_item_group(output, "cook_crafts") > 0 then
+     if core.get_item_group(output, "cook_crafts") > 0 then
 		return
 	end
 	if not groups then groups = {} end
@@ -77,7 +77,7 @@ end
 
 zcg.load_crafts = function(name)
 	zcg.crafts[name] = {}
-	local _recipes = minetest.get_all_craft_recipes(name)
+	local _recipes = core.get_all_craft_recipes(name)
 	if _recipes then
 		for i, recipe in ipairs(_recipes) do
 			if (recipe and recipe.items and recipe.type) then
@@ -97,7 +97,7 @@ zcg.need_load_all = true
 zcg.load_all = function()
 	print("Loading all crafts, this may take some time...")
 	local i = 0
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		if (name and name ~= "") then
 			zcg.load_crafts(name)
 		end
@@ -117,8 +117,8 @@ local function filter_by_search(find, lang_code)
 	find = string.lower(find)
 	local filtered_list = {}
 	for _, name in pairs(zcg.itemlist) do
-		local description_en = minetest.registered_items[name].description
-		local description_player_lang = minetest.get_translated_string(lang_code, description_en)
+		local description_en = core.registered_items[name].description
+		local description_player_lang = core.get_translated_string(lang_code, description_en)
 
 		if
 			string.find(name, find, nil, true) or
@@ -196,10 +196,10 @@ zcg.form.get_spec = function(player_name, find)
 
 	-- Filter items by `filter` field value
 	formspec = formspec ..
-		"field[0.3,3.5;4,0.5;zcg_filter;" .. S("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field[0.3,3.5;4,0.5;zcg_filter;" .. S("Search") .. ";" .. core.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zcg_filter;false]"
 
-	local lang_code = minetest.get_player_information(player_name).lang_code or DEFAULT_LANG
+	local lang_code = core.get_player_information(player_name).lang_code or DEFAULT_LANG
 	local filtered_list = filter_by_search(find, lang_code)
 
 	-- Node list
@@ -234,14 +234,14 @@ end
 --- @param player_name string
 --- @param find        string
 zcg.form.show = function(player_name, find)
-	minetest.show_formspec(player_name, zcg.form.NAME, zcg.form.get_spec(player_name, find))
+	core.show_formspec(player_name, zcg.form.NAME, zcg.form.get_spec(player_name, find))
 end
 
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= zcg.form.NAME then
 		return
 	end
@@ -289,7 +289,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:crafts_book",{
+core.register_tool("lord_books:crafts_book",{
     description = S("Book of Crafts"),
     groups = {book=1, paper=1},
     inventory_image = "crafts_book.png",

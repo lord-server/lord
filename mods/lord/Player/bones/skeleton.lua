@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("bones:skeleton", {
+core.register_node("bones:skeleton", {
 	description = S("Skeleton Head"),
 	drawtype    = "nodebox",
 	tiles       = {
@@ -29,7 +29,7 @@ minetest.register_node("bones:skeleton", {
 	}),
 })
 
-minetest.register_node("bones:skeleton_body", {
+core.register_node("bones:skeleton_body", {
 	description = S("Skeleton"),
 	drawtype = "nodebox",
 	tiles = {"bones_skeleton_top.png"},
@@ -58,19 +58,19 @@ minetest.register_node("bones:skeleton_body", {
 	}),
 	on_place = function(itemstack, placer, pointed_thing)
 		local under = pointed_thing.under
-		local node_under = minetest.get_node(under)
+		local node_under = core.get_node(under)
 		local above = pointed_thing.above
 		local above_2 = {x = above.x, y = above.y, z = above.z}
 		above_2.y = above_2.y + 1
-		if minetest.registered_nodes[node_under.name].on_rightclick then
-			return minetest.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack)
+		if core.registered_nodes[node_under.name].on_rightclick then
+			return core.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack)
 		end
-		if minetest.is_protected(above, placer:get_player_name()) or
-		minetest.is_protected(above_2, placer:get_player_name()) then
-			minetest.record_protection_violation(above, placer:get_player_name())
+		if core.is_protected(above, placer:get_player_name()) or
+		core.is_protected(above_2, placer:get_player_name()) then
+			core.record_protection_violation(above, placer:get_player_name())
 			return itemstack
 		end
-		if minetest.get_node(above_2).name ~= "air" then
+		if core.get_node(above_2).name ~= "air" then
 			return itemstack
 		end
 		local fdir = 0
@@ -81,17 +81,17 @@ minetest.register_node("bones:skeleton_body", {
 				y = above.y - placer_pos.y,
 				z = above.z - placer_pos.z
 			}
-			fdir = minetest.dir_to_facedir(dir)
+			fdir = core.dir_to_facedir(dir)
 		end
-		minetest.add_node(above, {name = "bones:skeleton_body", param2 = fdir})
-		minetest.add_node(above_2, {name = "bones:skeleton", param2 = fdir})
-		if not minetest.is_creative_enabled(placer) then
+		core.add_node(above, {name = "bones:skeleton_body", param2 = fdir})
+		core.add_node(above_2, {name = "bones:skeleton", param2 = fdir})
+		if not core.is_creative_enabled(placer) then
 			itemstack:take_item()
 		end
 		return itemstack
 	end,
 	on_destruct = function(pos)
 		local p = {x=pos.x, y=pos.y+1, z=pos.z}
-		minetest.remove_node(p)
+		core.remove_node(p)
 	end
 })

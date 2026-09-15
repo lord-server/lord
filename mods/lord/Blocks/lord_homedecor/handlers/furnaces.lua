@@ -1,6 +1,6 @@
 -- This code supplies an oven/stove. Basically it's just a copy of the default furnace with different textures.
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function make_formspec(furnacedef, percent)
@@ -62,7 +62,7 @@ local function make_tiles(tiles, fmt, active)
 end
 
 local furnace_can_dig = function(pos,player)
-	local meta = minetest.get_meta(pos);
+	local meta = core.get_meta(pos);
 	local inv = meta:get_inventory()
 	return inv:is_empty("fuel")
 		and inv:is_empty("dst")
@@ -81,7 +81,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 	local description = furnacedef.description or "Furnace"
 
 	local furnace_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("formspec", make_formspec(furnacedef, 0))
 		meta:set_string("infotext", description)
 		local inv = meta:get_inventory()
@@ -91,10 +91,10 @@ function lord_homedecor.register_furnace(name, furnacedef)
 	end
 
 	local furnace_allow_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if listname == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if core.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext", S("%s is empty"):format(description))
 				end
@@ -109,11 +109,11 @@ function lord_homedecor.register_furnace(name, furnacedef)
 		end
 	end
 	local furnace_allow_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		local stack = inv:get_stack(from_list, from_index)
 		if to_list == "fuel" then
-			if minetest.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
+			if core.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
 				if inv:is_empty("src") then
 					meta:set_string("infotext", S("%s is empty"):format(description))
 				end
@@ -168,13 +168,13 @@ function lord_homedecor.register_furnace(name, furnacedef)
 
 	local node_name, node_name_active = "lord_homedecor:"..name, "lord_homedecor:"..name_active
 
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = { node_name, node_name_active, node_name .."_locked", node_name_active .."_locked"},
 		label = "furnaces",
 		interval = 1.0,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			for _, property in ipairs({
 					"fuel_totaltime",
 					"fuel_time",
@@ -193,7 +193,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 			local aftercooked
 
 			if srclist then
-				cooked, aftercooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+				cooked, aftercooked = core.get_craft_result({method = "cooking", width = 1, items = srclist})
 			end
 
 			local was_active = false
@@ -216,13 +216,13 @@ function lord_homedecor.register_furnace(name, furnacedef)
 
 			-- XXX: Quick patch, make it better in the future.
 			local locked = node.name:find("_locked$") and "_locked" or ""
-			local desc = minetest.registered_nodes[node_name ..locked].description
+			local desc = core.registered_nodes[node_name ..locked].description
 
 			if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
 				local percent = math.floor(meta:get_float("fuel_time") /
 						meta:get_float("fuel_totaltime") * 100)
 				meta:set_string("infotext", S("%s active: %d%%"):format(desc,percent))
-				minetest.swap_node_if_not_same(pos, node_name_active ..locked)
+				core.swap_node_if_not_same(pos, node_name_active ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, percent))
 				return
 			end
@@ -233,15 +233,15 @@ function lord_homedecor.register_furnace(name, furnacedef)
 			srclist = inv:get_list("src")
 
 			if srclist then
-				cooked = minetest.get_craft_result({method = "cooking", width = 1, items = srclist})
+				cooked = core.get_craft_result({method = "cooking", width = 1, items = srclist})
 			end
 			if fuellist then
-				fuel, afterfuel = minetest.get_craft_result({method = "fuel", width = 1, items = fuellist})
+				fuel, afterfuel = core.get_craft_result({method = "fuel", width = 1, items = fuellist})
 			end
 
 			if (not fuel) or (fuel.time <= 0) then
 				meta:set_string("infotext",desc.. S(": Out of fuel"))
-				minetest.swap_node_if_not_same(pos, node_name ..locked)
+				core.swap_node_if_not_same(pos, node_name ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, 0))
 				return
 			end
@@ -249,7 +249,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 			if cooked.item:is_empty() then
 				if was_active then
 					meta:set_string("infotext", S("%s is empty"):format(desc))
-					minetest.swap_node_if_not_same(pos, node_name ..locked)
+					core.swap_node_if_not_same(pos, node_name ..locked)
 					meta:set_string("formspec", make_formspec(furnacedef, 0))
 				end
 				return
@@ -257,7 +257,7 @@ function lord_homedecor.register_furnace(name, furnacedef)
 
 			if not inv:room_for_item("dst", cooked.item) then
 				meta:set_string("infotext", desc.. S(": output bins are full"))
-				minetest.swap_node_if_not_same(pos, node_name ..locked)
+				core.swap_node_if_not_same(pos, node_name ..locked)
 				meta:set_string("formspec", make_formspec(furnacedef, 0))
 				return
 			end

@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 walls.register(":walls:orc_stone", S("Orc Stone Wall"), "lottblocks_orc_stone.png",
 	"lottblocks:orc_stone", default.node_sound_stone_defaults())
@@ -34,13 +34,13 @@ for node_name, registration in pairs(rocks.get_lord_nodes()) do
 	-- For `lord_bricks` nodes.
 	-- TODO: use an API of `lord_bricks` (`bricks.get_lord_nodes()`, not `rocks.get_lord_nodes()`)
 	local brick_name = 'lord_bricks:' .. sub_name .. '_brick'
-	local brick = minetest.registered_nodes[brick_name]
+	local brick = core.registered_nodes[brick_name]
 	wall_name = ':walls:' .. sub_name .. '_brick'
 	texture   = brick.tiles
 	walls.register(wall_name, S(description .. ' Brick'), texture, brick_name, default.node_sound_stone_defaults())
 
 	local block_name = 'lord_bricks:' .. sub_name .. '_block'
-	local block = minetest.registered_nodes[block_name]
+	local block = core.registered_nodes[block_name]
 	wall_name = ':walls:' .. sub_name .. '_block'
 	texture   = block.tiles
 	walls.register(wall_name, S(description .. ' Block'), texture, block_name, default.node_sound_stone_defaults())

@@ -1,15 +1,15 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 castle = {} -- namespace
 
-castle.tapestry = dofile(minetest.get_modpath("castle").."/tapestry.lua")
+castle.tapestry = dofile(core.get_modpath("castle").."/tapestry.lua")
 
-dofile(minetest.get_modpath("castle").."/pillars.lua") --колонны
-dofile(minetest.get_modpath("castle").."/arrowslit.lua") --бойницы
-dofile(minetest.get_modpath("castle").."/jailbars.lua") --решётки
-dofile(minetest.get_modpath("castle").."/town_item.lua") --всяко-разно
-dofile(minetest.get_modpath("castle").."/murder_hole.lua") --дыры-убийцы
-dofile(minetest.get_modpath("castle").."/shields_decor.lua") --декор.щиты
+dofile(core.get_modpath("castle").."/pillars.lua") --колонны
+dofile(core.get_modpath("castle").."/arrowslit.lua") --бойницы
+dofile(core.get_modpath("castle").."/jailbars.lua") --решётки
+dofile(core.get_modpath("castle").."/town_item.lua") --всяко-разно
+dofile(core.get_modpath("castle").."/murder_hole.lua") --дыры-убийцы
+dofile(core.get_modpath("castle").."/shields_decor.lua") --декор.щиты
 
 doors.register("castle:oak_door", {
 	tiles = {{ name = "castle_oak_door_uv.png", backface_culling = true, }},
@@ -51,13 +51,13 @@ doors.register("castle:jail_door_lock", {
 	protected = true,
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "castle:oak_door_lock",
 	recipe = {"castle:oak_door", "default:steel_ingot"}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "castle:jail_door_lock",
 	recipe = {"castle:jail_door", "default:steel_ingot"}
@@ -82,7 +82,7 @@ local function has_ironbound_chest_privilege(meta, player)
 	return true
 end
 
-minetest.register_node("castle:ironbound_chest",{
+core.register_node("castle:ironbound_chest",{
 	drawtype = "nodebox",
 	description = S("Ironbound Chest"),
 	tiles = {"castle_ironbound_chest_top.png",
@@ -112,72 +112,72 @@ minetest.register_node("castle:ironbound_chest",{
 	},
 	sounds = default.node_sound_wood_defaults(),
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Ironbound Chest (owned by").." "..
 				meta:get_string("owner")..")")
 	end,
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", S("Ironbound Chest"))
 		meta:set_string("owner", "")
 		local inv = meta:get_inventory()
 		inv:set_size("main", 8*4)
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = core.get_meta(pos);
 		local inv = meta:get_inventory()
 		return inv:is_empty("main") and has_ironbound_chest_privilege(meta, player)
 	end,
 	allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if not has_ironbound_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
+			core.log("action", player:get_player_name()..
 					" tried to access a locked chest belonging to "..
 					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
+					core.pos_to_string(pos))
 			return 0
 		end
 		return count
 	end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if not has_ironbound_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
+			core.log("action", player:get_player_name()..
 					" tried to access a locked chest belonging to "..
 					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
+					core.pos_to_string(pos))
 			return 0
 		end
 		return stack:get_count()
 	end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if not has_ironbound_chest_privilege(meta, player) then
-			minetest.log("action", player:get_player_name()..
+			core.log("action", player:get_player_name()..
 					" tried to access a locked chest belonging to "..
 					meta:get_string("owner").." at "..
-					minetest.pos_to_string(pos))
+					core.pos_to_string(pos))
 			return 0
 		end
 		return stack:get_count()
 	end,
 	on_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		minetest.log("action", player:get_player_name()..
-				" moves stuff in locked chest at "..minetest.pos_to_string(pos))
+		core.log("action", player:get_player_name()..
+				" moves stuff in locked chest at "..core.pos_to_string(pos))
 	end,
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				" moves stuff to locked chest at "..minetest.pos_to_string(pos))
+		core.log("action", player:get_player_name()..
+				" moves stuff to locked chest at "..core.pos_to_string(pos))
 	end,
     on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name()..
-				" takes stuff from locked chest at "..minetest.pos_to_string(pos))
+		core.log("action", player:get_player_name()..
+				" takes stuff from locked chest at "..core.pos_to_string(pos))
 	end,
 	on_rightclick = function(pos, node, clicker)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if has_ironbound_chest_privilege(meta, clicker) then
-			minetest.show_formspec(
+			core.show_formspec(
 				clicker:get_player_name(),
 				"castle:ironbound_chest",
 				default.get_ironbound_chest_formspec(pos)
@@ -186,7 +186,7 @@ minetest.register_node("castle:ironbound_chest",{
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "castle:ironbound_chest",
 	recipe = {
 		{"default:wood", "default:steel_ingot","default:wood"},

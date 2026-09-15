@@ -6,7 +6,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param stick string
 local function register_stanchion(wood, def, groups, stick)
 	local name = "lord_wooden_stuff:stanchion_" .. wood
-	minetest.register_node(name, {
+	core.register_node(name, {
 		description         = S(def.desc .. " Stanchion"),
 		tiles               = { def.texture },
 		drawtype            = "nodebox",
@@ -24,7 +24,7 @@ local function register_stanchion(wood, def, groups, stick)
 		},
 		groups              = groups
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = name,
 		recipe = {
 			{ stick, '', stick },

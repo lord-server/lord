@@ -14,7 +14,7 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 lottachievements.register_trigger("dig", function(def)
 	local tmp = {
@@ -41,11 +41,11 @@ lottachievements.register_trigger("dig", function(def)
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
 		if self.trigger.node then
-			local nname = minetest.registered_nodes[self.trigger.node]
+			local nname = core.registered_nodes[self.trigger.node]
 			if nname == nil then
 				nname = self.trigger.node
 			else
-				nname = minetest.registered_nodes[self.trigger.node].description
+				nname = core.registered_nodes[self.trigger.node].description
 			end
 			-- Translators: @1 is count, @2 is description.
 			return S("Mine: @1 @2", n, nname)
@@ -80,11 +80,11 @@ lottachievements.register_trigger("place", function(def)
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
 		if self.trigger.node then
-			local nname = minetest.registered_nodes[self.trigger.node]
+			local nname = core.registered_nodes[self.trigger.node]
 			if nname == nil then
 				nname = self.trigger.node
 			else
-				nname = minetest.registered_nodes[self.trigger.node].description
+				nname = core.registered_nodes[self.trigger.node].description
 			end
 			-- Translators: @1 is count, @2 is description.
 			return S("Place: @1 @2", n, nname)
@@ -119,7 +119,7 @@ lottachievements.register_trigger("eat", function(def)
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
 		if self.trigger.item then
-			local iname = minetest.registered_items[self.trigger.item].description
+			local iname = core.registered_items[self.trigger.item].description
 			if iname == nil then
 				iname = self.trigger.iode
 			end
@@ -225,11 +225,11 @@ lottachievements.register_trigger("craft", function(def)
 	def.getDefaultDescription = function(self)
 		local n = self.trigger.target
 		if self.trigger.item then
-			local iname = minetest.registered_items[self.trigger.item]
+			local iname = core.registered_items[self.trigger.item]
 			if iname == nil then
 				iname = self.trigger.item
 			else
-				iname = minetest.registered_items[self.trigger.item].description
+				iname = core.registered_items[self.trigger.item].description
 			end
 			-- Translators: @1 is count, @2 is description.
 			return S("Craft: @1 @2", n, iname)
@@ -247,7 +247,7 @@ lottachievements.register_trigger("equip", function(def)
 	table.insert(lottachievements.on.equip, tmp)
 	def.getDefaultDescription = function(self)
 		if self.trigger.item then
-			local iname = minetest.registered_items[self.trigger.item].description
+			local iname = core.registered_items[self.trigger.item].description
 			if iname == nil then
 				iname = self.trigger.iode
 			end
@@ -304,7 +304,7 @@ lottachievements.register_onJoin  = lottachievements.register_on_join
 lottachievements.register_onCraft = lottachievements.register_on_craft
 
 -- Trigger Handles
-minetest.register_on_dignode(function(pos, oldnode, digger)
+core.register_on_dignode(function(pos, oldnode, digger)
 	if not digger or not pos or not oldnode then
 		return
 	end
@@ -331,7 +331,7 @@ minetest.register_on_dignode(function(pos, oldnode, digger)
 	end)
 end)
 
-minetest.register_on_placenode(function(pos, node, digger)
+core.register_on_placenode(function(pos, node, digger)
 	if not digger or not pos or not node or not digger:get_player_name() or digger:get_player_name()=="" then
 		return
 	end
@@ -358,7 +358,7 @@ minetest.register_on_placenode(function(pos, node, digger)
 	end)
 end)
 
-minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack,
+core.register_on_item_eat(function(hp_change, replace_with_item, itemstack,
 		user, pointed_thing, old_itemstack, old_level, level)
 	--print("что-то съели")
 	if not user or not itemstack or not user:get_player_name()
@@ -388,7 +388,7 @@ minetest.register_on_item_eat(function(hp_change, replace_with_item, itemstack,
 	end)
 end)
 
-minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
+core.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv)
 	if not player or not itemstack then
 		return
 	end
@@ -419,7 +419,7 @@ minetest.register_on_craft(function(itemstack, player, old_craft_grid, craft_inv
 	end)
 end)
 
-minetest.register_on_dieplayer(function(player)
+core.register_on_dieplayer(function(player)
 	-- Run checks
 	local name = player:get_player_name()
 	if not player or not name or name=="" then
@@ -441,7 +441,7 @@ minetest.register_on_dieplayer(function(player)
 	end)
 end)
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	-- Run checks
 	local name = player:get_player_name()
 	if not player or not name or name=="" then
@@ -463,7 +463,7 @@ minetest.register_on_joinplayer(function(player)
 	end)
 end)
 
-minetest.register_on_chat_message(function(name, message)
+core.register_on_chat_message(function(name, message)
 	-- Run checks
 	local idx = string.find(message,"/")
 	if not name or (idx ~= nil and idx <= 1)  then
@@ -473,7 +473,7 @@ minetest.register_on_chat_message(function(name, message)
 	-- Get player
 	lottachievements.assertPlayer(name)
 	local data = lottachievements.players[name]
-	local player = minetest.get_player_by_name(name)
+	local player = core.get_player_by_name(name)
 
 	-- Increment counter
 	data.chats = data.chats + 1

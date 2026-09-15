@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:cabbage_seed", {
+core.register_craftitem("lottfarming:cabbage_seed", {
 	description     = S("Cabbage Seed"),
 	inventory_image = "lottfarming_cabbage_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu  = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu  = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:cabbage_1")
 	end,
 })
 
-minetest.register_node("lottfarming:cabbage_1", {
+core.register_node("lottfarming:cabbage_1", {
 	paramtype           = "light",
 	sunlight_propagates = true,
 	drawtype            = "nodebox",
@@ -48,7 +48,7 @@ minetest.register_node("lottfarming:cabbage_1", {
 	sounds              = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node("lottfarming:cabbage_2", {
+core.register_node("lottfarming:cabbage_2", {
 	paramtype           = "light",
 	sunlight_propagates = true,
 	drawtype            = "nodebox",
@@ -83,7 +83,7 @@ minetest.register_node("lottfarming:cabbage_2", {
 	sounds              = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node("lottfarming:cabbage_3", {
+core.register_node("lottfarming:cabbage_3", {
 	description = S("Cabbage"),
 	paramtype2  = "facedir",
 	tiles       = {
@@ -109,7 +109,7 @@ minetest.register_node("lottfarming:cabbage_3", {
 	sounds      = default.node_sound_wood_defaults(),
 })
 
-minetest.register_node("lottfarming:cabbage", {
+core.register_node("lottfarming:cabbage", {
 	description = S("Cabbage"),
 	paramtype2  = "facedir",
 	tiles       = {
@@ -122,15 +122,15 @@ minetest.register_node("lottfarming:cabbage", {
 	},
 	groups      = { choppy = 2, oddly_breakable_by_hand = 2, flammable = 2, plant = 1, salad = 1 },
 	sounds      = default.node_sound_wood_defaults(),
-	on_use      = minetest.item_eat(5),
+	on_use      = core.item_eat(5),
 	_tt_food_hp = 5,
 })
 
 farming:add_plant("lottfarming:cabbage_3", { "lottfarming:cabbage_1", "lottfarming:cabbage_2" }, 80, 20)
 
-minetest.register_craftitem("lottfarming:salad", {
+core.register_craftitem("lottfarming:salad", {
 	description     = S("Salad"),
 	inventory_image = "lottfarming_salad.png",
-	on_use          = minetest.item_eat(14),
+	on_use          = core.item_eat(14),
 	_tt_food_hp     = 14,
 })

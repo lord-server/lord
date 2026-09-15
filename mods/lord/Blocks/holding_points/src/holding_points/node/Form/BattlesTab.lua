@@ -2,7 +2,7 @@ local Manager    = require('holding_points.Manager')
 local Battle     = require('holding_points.Battle')
 local BattleForm = require('holding_points.node.Form.BattleTab.BattleForm')
 
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 local spec = forms.Spec
 
 

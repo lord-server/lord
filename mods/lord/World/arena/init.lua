@@ -37,7 +37,7 @@ local function spawn_mob_inside_cuboid(mob, minp, maxp)
 		y = minp.y + arena.SPAWN_Y_OFFSET,
 		z = math.random(minp.z, maxp.z),
 	}
-	minetest.add_entity(pos, mob)
+	core.add_entity(pos, mob)
 end
 
 local function is_inside_cuboid(p, minp, maxp)
@@ -56,7 +56,7 @@ local function get_mobs_inside_cuboid(mobs, pos1, pos2)
 	-- ignore them later
 	local radius = vector.distance(minp, maxp) / 2
 	local center = vector.divide(vector.add(minp, maxp), 2)
-	local objects = minetest.get_objects_inside_radius(center, radius)
+	local objects = core.get_objects_inside_radius(center, radius)
 
 	local players = 0
 	local mob_count = {}
@@ -114,7 +114,7 @@ end
 
 local arena_update_time = 5
 local t = 0
-minetest.register_globalstep(function(dt)
+core.register_globalstep(function(dt)
 	t = t + dt
 	if t >= arena_update_time then
 		t = t - arena_update_time
@@ -124,7 +124,7 @@ minetest.register_globalstep(function(dt)
 	end
 end)
 
-minetest.register_node("arena:lighting_gas", {
+core.register_node("arena:lighting_gas", {
 	description = "Lighting gas",
 	tiles = {"default_blackout.png"},
 	drawtype = "airlike",

@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("lottblocks:dwarf_harp", {
+core.register_node("lottblocks:dwarf_harp", {
 	description   = S("Dwarvern Harp"),
 	tiles         = {
 		"lottblocks_harp1.png",
@@ -14,7 +14,7 @@ minetest.register_node("lottblocks:dwarf_harp", {
 	paramtype     = "light",
 	paramtype2    = "facedir",
 	on_punch      = function(pos)
-		minetest.sound_play("lottblocks_harp", {
+		core.sound_play("lottblocks_harp", {
 			pos               = pos,
 			max_hear_distance = 12,
 			gain              = 1,
@@ -54,12 +54,12 @@ minetest.register_node("lottblocks:dwarf_harp", {
 	groups        = { instrument = 1, cracky = 1 }
 })
 
-minetest.register_craftitem("lottblocks:dwarf_harp_strings", {
+core.register_craftitem("lottblocks:dwarf_harp_strings", {
 	description     = S("Dwarvern Harp Strings"),
 	inventory_image = "lottblocks_harp_strings.png",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:dwarf_harp_strings",
 	recipe = {
 		{ "farming:string", "lottores:silver_ingot", "farming:string" },
@@ -68,7 +68,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:dwarf_harp",
 	recipe = {
 		{ "", "default:gold_ingot", "" },
@@ -91,18 +91,18 @@ for _, row in ipairs(whistle) do
 	local wood      = row[1]
 	local note      = row[2]
 	local craftwood = row[3]
-	minetest.register_craftitem("lottblocks:whistle_" .. wood, {
+	core.register_craftitem("lottblocks:whistle_" .. wood, {
 		description     = S(wood:gsub("^%l", string.upper) .. " (Note " .. note .. ") Whistle"),
 		inventory_image = "lottblocks_" .. wood .. "_whistle.png",
 		on_use          = function(itemstack, user)
-			minetest.sound_play(note, {
+			core.sound_play(note, {
 				pos               = user:get_pos(),
 				max_hear_distance = 7,
 				gain              = 1,
 			})
 		end
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottblocks:whistle_" .. wood,
 		recipe = {
 			{ craftwood, "", "" },
@@ -113,14 +113,14 @@ for _, row in ipairs(whistle) do
 end
 
 
-minetest.register_node("lottblocks:gong", {
+core.register_node("lottblocks:gong", {
 	description = S("Gong"),
 	tiles = {"default_bronze_block.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "facedir",
 	on_punch = function(pos)
-		minetest.sound_play("gong", {
+		core.sound_play("gong", {
 			pos = pos,
 			max_hear_distance = 48,
 			gain = 1,
@@ -150,7 +150,7 @@ minetest.register_node("lottblocks:gong", {
 	groups = { instrument=1, cracky=1, }
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:gong",
 	recipe = {
 		{ "group:stick",          "default:bronze_ingot", "group:stick" },

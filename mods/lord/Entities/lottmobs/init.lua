@@ -1,6 +1,6 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require("guarding")
 	require("craftitems")
 	require("racial")

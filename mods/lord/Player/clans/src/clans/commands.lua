@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-local colorize = minetest.colorize
+local colorize = core.colorize
 
 --- Formats clan info in beautiful colored string! :3
 ---@param clan clans.Clan
@@ -19,7 +19,7 @@ local function get_beautiful_clan_str(clan)
 	return string.format("%s (%s) — %s", title_str, id_str, status_str)
 end
 
-minetest.register_chatcommand("clans.list", {
+core.register_chatcommand("clans.list", {
 	description = S("Lists all existing clans. Blocked clans are marked with gray color."),
 	func = function(_, _)
 		local msg = S("List of clans in format '<clan title> (<clan name>) — <status>':") .. "\n"
@@ -33,7 +33,7 @@ minetest.register_chatcommand("clans.list", {
 ---@param player_name string
 ---@return boolean
 local function is_player_online(player_name)
-	for _, p in ipairs(minetest.get_connected_players()) do
+	for _, p in ipairs(core.get_connected_players()) do
 		if p:get_player_name() == player_name then
 			return true
 		end
@@ -41,13 +41,13 @@ local function is_player_online(player_name)
 	return false
 end
 
-local auth_handler = minetest.get_auth_handler()
+local auth_handler = core.get_auth_handler()
 --- Returns beautiful and nice string with given player info! :3
 ---@param player_name string
 ---@return string|nil
 local function get_beautiful_player_str(player_name)
 	-- TODO: #2176
-	local player = minetest.get_player_by_name(player_name)
+	local player = core.get_player_by_name(player_name)
 	if not player then
 		return (player_name or "`nil`") .. " — " .. colorize("red", "player offline or not found")
 	end
@@ -57,7 +57,7 @@ local function get_beautiful_player_str(player_name)
 	if not is_player_online(player_name) then
 		local auth = auth_handler.get_auth(player_name)
 		if not auth then
-			minetest.log("error", "[clans] can't get player auth for "..player_name)
+			core.log("error", "[clans] can't get player auth for "..player_name)
 			return nil
 		end
 		local seen = os.date("(%H:%M %d.%m.%y)", auth.last_login) -- "(18:49 12.06.24)"
@@ -66,7 +66,7 @@ local function get_beautiful_player_str(player_name)
 	return string.format("%s (%s) — %s", player_name, race_name, last_status)
 end
 
-minetest.register_chatcommand("clans.show", {
+core.register_chatcommand("clans.show", {
 	params = S("<clan ID>"),
 	description = S("Shows given clan information."),
 	func = function(_, param_str)
@@ -88,7 +88,7 @@ minetest.register_chatcommand("clans.show", {
 	end
 })
 
-minetest.register_chatcommand("clans.register", {
+core.register_chatcommand("clans.register", {
 	params = S("<leader name> <clan ID> <clan title>"),
 	description = S("Register clan with given leader, name and title"),
 	privs = { server = true, },
@@ -120,7 +120,7 @@ minetest.register_chatcommand("clans.register", {
 	end
 })
 
-minetest.register_chatcommand("clans.delete", {
+core.register_chatcommand("clans.delete", {
 	params = S("<clan ID>"),
 	description = S("Delete clan with given name"),
 	privs = { server = true, },
@@ -156,7 +156,7 @@ local function err2str(err, clan_name)
 	return enum[idx]
 end
 
-minetest.register_chatcommand("clans.players.add", {
+core.register_chatcommand("clans.players.add", {
 	params = S("<clan ID> <list of players separated by space>"),
 	description = S("Add given players to given clan"),
 	privs = { server = true, },
@@ -180,7 +180,7 @@ minetest.register_chatcommand("clans.players.add", {
 	end
 })
 
-minetest.register_chatcommand("clans.players.remove", {
+core.register_chatcommand("clans.players.remove", {
 	params = S("<clan ID> <player name>"),
 	description = S("Removes given player from given clan."),
 	privs = { server = true, },
@@ -204,7 +204,7 @@ minetest.register_chatcommand("clans.players.remove", {
 	end
 })
 
-minetest.register_chatcommand("clans.toggle_block", {
+core.register_chatcommand("clans.toggle_block", {
 	params = S("<clan ID>"),
 	description = S("Toggles clan block."),
 	privs = { server = true, },

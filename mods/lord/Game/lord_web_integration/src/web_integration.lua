@@ -6,7 +6,7 @@ local sync_command = require("web_integration.sync_command")
 
 
 local register_for_players = function()
-	minetest.register_on_joinplayer(function(player, last_login)
+	core.register_on_joinplayer(function(player, last_login)
 		if not player:is_player() then return end
 
 		if not last_login then -- player is new
@@ -16,7 +16,7 @@ local register_for_players = function()
 		end
 	end)
 
-	minetest.register_on_leaveplayer(function(player, _)
+	core.register_on_leaveplayer(function(player, _)
 		Player.offline(player)
 	end)
 
@@ -35,11 +35,11 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		if not rawget(_G, "web_api") then
 			-- Don't use `mod.logger` here. This will create new Logger instance, but it will not be used.
-			minetest.log(
+			core.log(
 				"warning",
 				"[" .. mod.name .. "] Can't initialize `lord_web_integration`: Global variable `web_api` not found: " ..
 					"mod `lord_wed_api` not loaded or not initialized.")

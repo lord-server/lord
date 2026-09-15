@@ -1,13 +1,13 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Items
 
-minetest.register_craftitem("lord_bricks:mordor_clay_brick_raw", {
+core.register_craftitem("lord_bricks:mordor_clay_brick_raw", {
 	description = S("Raw Mordor Clay Brick"),
 	inventory_image = "lord_bricks_mordor_clay_brick_raw.png"
 })
 
-minetest.register_craftitem("lord_bricks:mordor_clay_brick_dried", {
+core.register_craftitem("lord_bricks:mordor_clay_brick_dried", {
 	description = S("Mordor Clay Brick"),
 	inventory_image = "lord_bricks_mordor_clay_brick_dried.png"
 })
@@ -15,7 +15,7 @@ minetest.register_craftitem("lord_bricks:mordor_clay_brick_dried", {
 
 -- Nodes
 
-minetest.register_node("lord_bricks:mordor_clay_masonry", {
+core.register_node("lord_bricks:mordor_clay_masonry", {
 	description = S("Mordor Clay Masonry"),
 	tiles = {"lord_bricks_mordor_clay_masonry.png"},
 	is_ground_content = false,
@@ -23,7 +23,7 @@ minetest.register_node("lord_bricks:mordor_clay_masonry", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:mordor_clay_masonry_large", {
+core.register_node("lord_bricks:mordor_clay_masonry_large", {
 	description = S("Large Mordor Clay Masonry"),
 	tiles = {"lord_bricks_mordor_clay_masonry_large.png"},
 	is_ground_content = false,
@@ -31,7 +31,7 @@ minetest.register_node("lord_bricks:mordor_clay_masonry_large", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:mordor_clay_brick", {
+core.register_node("lord_bricks:mordor_clay_brick", {
 	description = S("Mordor Clay Brick"),
 	tiles = {"lord_bricks_mordor_clay_brick.png"},
 	is_ground_content = false,
@@ -39,7 +39,7 @@ minetest.register_node("lord_bricks:mordor_clay_brick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:mordor_clay_block", {
+core.register_node("lord_bricks:mordor_clay_block", {
 	description = S("Mordor Clay Block"),
 	tiles = {"lord_bricks_mordor_clay_block.png"},
 	is_ground_content = false,

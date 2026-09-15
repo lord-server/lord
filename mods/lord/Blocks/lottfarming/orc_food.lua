@@ -1,5 +1,5 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 local px = 1/16
 
@@ -11,7 +11,7 @@ local function make_negative_visual_effect(user)
 		text = "orc_negative_effect.png",
 		offset = {x=0, y=0},
 	})
-	minetest.after(10, function()
+	core.after(10, function()
 		user:hud_remove(first_screen)
 		local second_screen = user:hud_add({
 			hud_elem_type = "image",
@@ -20,13 +20,13 @@ local function make_negative_visual_effect(user)
 			text = "orc_negative_effect1.png",
 			offset = {x=0, y=0},
 		})
-		minetest.after(10, function()
+		core.after(10, function()
 			user:hud_remove(second_screen)
 		end)
 	end)
 end
 
-minetest.register_craftitem("lottfarming:orc_food", {
+core.register_craftitem("lottfarming:orc_food", {
 	description = S("Orc Food"),
 	inventory_image = "lottfarming_orc_food.png",
 	on_use = function(itemstack, user, pointed_thing)
@@ -38,14 +38,14 @@ minetest.register_craftitem("lottfarming:orc_food", {
 				game_type = 'eat', -- TODO / maybe changed
 				item      = 'lottfarming:orc_food',
 			})
-			return minetest.do_item_eat(-3, nil, itemstack, user, pointed_thing)
+			return core.do_item_eat(-3, nil, itemstack, user, pointed_thing)
 		else
-			return minetest.do_item_eat(8, nil, itemstack, user, pointed_thing)
+			return core.do_item_eat(8, nil, itemstack, user, pointed_thing)
 		end
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottfarming:orc_food 4",
 	recipe = {
 		{"default:dirt", "lottfarming:potato_cooked", "default:dirt"},
@@ -54,7 +54,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("lottfarming:orc_medicine", {
+core.register_node("lottfarming:orc_medicine", {
 	description       = S("Orc medicine"),
 	_tt_help          = colorize('#aaa', S('Be careful. Who knows what these orcs have come up with.')),
 	inventory_image   = '(empty_16x16.png^[lowpart:50:lottfarming_orc_medicine.png)^vessels_drinking_glass_inv.png',
@@ -76,12 +76,12 @@ minetest.register_node("lottfarming:orc_medicine", {
 			make_negative_visual_effect(user)
 		end
 		itemstack:take_item(1)
-		minetest.give_or_drop(user, ItemStack("vessels:drinking_glass"))
+		core.give_or_drop(user, ItemStack("vessels:drinking_glass"))
 		return itemstack
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottfarming:orc_medicine",
 	recipe = {
 		{"", "lottfarming:berries", ""},

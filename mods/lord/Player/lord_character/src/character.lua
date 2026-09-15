@@ -30,14 +30,14 @@ local function register_api()
 	}
 
 	-- Cleanup cached character on leave
-	minetest.register_on_leaveplayer(function(player, timed_out)
+	core.register_on_leaveplayer(function(player, timed_out)
 		player_characters[player:get_player_name()] = nil
 	end)
 end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		register_api()
 	end,

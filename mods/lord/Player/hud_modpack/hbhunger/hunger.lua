@@ -6,7 +6,7 @@ function hbhunger.load_hunger(player)
 	hbhunger.get_hunger_raw(player)
 end
 
--- wrapper for minetest.item_eat (this way we make sure other mods can't break this one)
+-- wrapper for core.item_eat (this way we make sure other mods can't break this one)
 core.do_item_eat = function(hp_change, replace_with_item, itemstack, user, pointed_thing)
 	local old_itemstack = itemstack
 	itemstack = hbhunger.eat(hp_change, replace_with_item, itemstack, user, pointed_thing)
@@ -51,7 +51,7 @@ local function poisonp(tick, poison, time_left, player, player_name)
 	local time_full = math.abs(poison)
 	time_left = time_left + tick
 	if time_left < time_full then
-		minetest.after(tick, poisonp, tick, poison, time_left, player, player_name)
+		core.after(tick, poisonp, tick, poison, time_left, player, player_name)
 	else
 		hbhunger.poisonings[player_name] = hbhunger.poisonings[player_name] - 1
 		if hbhunger.poisonings[player_name] <= 0 then
@@ -75,7 +75,7 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poison, heal, sound
 			if h == nil or hp == nil then
 				return
 			end
-			minetest.sound_play({name = sound or "hbhunger_eat_generic", gain = 1}, {pos=user:get_pos(), max_hear_distance = 16})
+			core.sound_play({name = sound or "hbhunger_eat_generic", gain = 1}, {pos=user:get_pos(), max_hear_distance = 16})
 
 			-- Saturation
 			if h < 30 and hunger_change > 0 then
@@ -117,7 +117,7 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poison, heal, sound
 				if inv:room_for_item("main", replace_with_item) then
 					inv:add_item("main", replace_with_item)
 				else
-					minetest.add_item(user:get_pos(), replace_with_item)
+					core.add_item(user:get_pos(), replace_with_item)
 				end
 			end
 		end
@@ -156,5 +156,5 @@ function hbhunger.handle_node_actions(pos, oldnode, player, ext)
 	hbhunger.exhaustion[name] = exhaus
 end
 
-minetest.register_on_placenode(hbhunger.handle_node_actions)
-minetest.register_on_dignode(hbhunger.handle_node_actions)
+core.register_on_placenode(hbhunger.handle_node_actions)
+core.register_on_dignode(hbhunger.handle_node_actions)

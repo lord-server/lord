@@ -1,6 +1,6 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	if mod.settings:get_bool('disabled', false) then
 		mod.logger.warning('Mod `holding_points` disabled.')
 

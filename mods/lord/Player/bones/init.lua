@@ -1,9 +1,9 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Minetest 0.4 mod: bones
 -- See README.txt for licensing and other information.
 
-local publish_after = tonumber(minetest.settings:get("share_bones_time")) or 60*5
+local publish_after = tonumber(core.settings:get("share_bones_time")) or 60*5
 
 local bones_formspec =
 	"size[8,9]"..
@@ -14,7 +14,7 @@ local bones_formspec =
 	"background[-0.5,-0.65;9,10.35;gui_bonesbg.png]"
 
 local function is_owner(pos, name)
-	local owner = minetest.get_meta(pos):get_string("owner")
+	local owner = core.get_meta(pos):get_string("owner")
 	if owner == "" or owner == name then
 		return true
 	end
@@ -22,7 +22,7 @@ local function is_owner(pos, name)
 end
 
 local function register_corpse(race, gender, skin)
-	minetest.register_node(string.format("bones:corpse_%s_%s_%d", race, gender, skin), {
+	core.register_node(string.format("bones:corpse_%s_%s_%d", race, gender, skin), {
 		description = S("Corpse"),
 		drawtype = "mesh",
 		mesh = "bones.obj",
@@ -41,7 +41,7 @@ local function register_corpse(race, gender, skin)
 			if player == nil then
 				return
 			end
-			local inv = minetest.get_meta(pos):get_inventory()
+			local inv = core.get_meta(pos):get_inventory()
 			return is_owner(pos, player:get_player_name()) and inv:is_empty("main")
 		end,
 		allow_metadata_inventory_move = function(pos, from_list, from_index, to_list, to_index, count, player)
@@ -56,14 +56,14 @@ local function register_corpse(race, gender, skin)
 			return 0
 		end,
 		on_metadata_inventory_take = function(pos, listname, index, stack, player)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if meta:get_string("owner") ~= "" and meta:get_inventory():is_empty("main") then
 				meta:set_string("infotext", S("Unknown corpse"))
 				meta:set_string("owner", "")
 			end
 		end,
 		on_construct = function(pos)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local inv = meta:get_inventory()
 			inv:set_size("main", 8*5)
 			meta:set_string("infotext", S("Unknown corpse"))
@@ -71,7 +71,7 @@ local function register_corpse(race, gender, skin)
 		end,
 		on_timer = function(pos, elapsed)
 			if publish_after <= 0 then return false end -- таймер не работает
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local time = meta:get_int("time") + elapsed
 			if time >= publish_after then
 				meta:set_string("infotext", S("Unknown corpse"))
@@ -84,7 +84,7 @@ local function register_corpse(race, gender, skin)
 		end,
 		on_punch = function(pos, node, player)
 			if(not is_owner(pos, player:get_player_name())) then return end
-			local inv = minetest.get_meta(pos):get_inventory()
+			local inv = core.get_meta(pos):get_inventory()
 			local player_inv = player:get_inventory()
 			if not player_inv then
 				return
@@ -112,7 +112,7 @@ for race, _ in pairs(races.list) do
 		end
 	end
 end
-minetest.register_alias("bones:bones", "bones:corpse_man_male")
+core.register_alias("bones:bones", "bones:corpse_man_male")
 
 --- @param player Player
 --- @return Position|nil
@@ -122,7 +122,7 @@ local function find_position_for_corpse(player)
 	pos.y = math.floor(pos.y + 0.5)
 	pos.z = math.floor(pos.z + 0.5)
 
-	pos = minetest.find_node_near(pos, 20, {
+	pos = core.find_node_near(pos, 20, {
 		"air", "default:water_source", "default:water_flowing",
 		"lottmapgen:blacksource", "lottmapgen:blackflowing",
 		"default:river_water_source", "default:river_water_flowing",
@@ -160,8 +160,8 @@ local function move_inventory_list(from_inventory, from_list, to_inventory, to_l
 	end
 end
 --- @param player Player
-minetest.register_on_dieplayer(function(player)
-	if minetest.is_creative_enabled(player) then
+core.register_on_dieplayer(function(player)
+	if core.is_creative_enabled(player) then
 		return
 	end
 
@@ -178,14 +178,14 @@ minetest.register_on_dieplayer(function(player)
 		return
 	end
 
-	local param2 = minetest.dir_to_facedir(player:get_look_dir())
-	minetest.set_node(corpse_pos, { name =string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2 =param2})
+	local param2 = core.dir_to_facedir(player:get_look_dir())
+	core.set_node(corpse_pos, { name =string.format("bones:corpse_%s_%s_%d", race, gender, skin), param2 =param2})
 
 	local player_name = player:get_player_name()
 	local player_inv = player:get_inventory()
-	local corpse_meta = minetest.get_meta(corpse_pos)
+	local corpse_meta = core.get_meta(corpse_pos)
 	local corpse_inv  = corpse_meta:get_inventory()
-	local armor_inv = minetest.get_inventory({type="detached", name=player_name.."_armor"})
+	local armor_inv = core.get_inventory({type="detached", name=player_name.."_armor"})
 	corpse_inv:set_size("main", 8*5)
 	exchange_inventories_lists(corpse_inv, "main", player_inv, "main")
 	move_inventory_list(player_inv, "craft", corpse_inv, "main")
@@ -205,10 +205,10 @@ minetest.register_on_dieplayer(function(player)
 		corpse_meta:set_string("infotext", S("Corpse of").." "..player_name)
 		corpse_meta:set_string("owner", player_name)
 		corpse_meta:set_int("time", 0)
-		minetest.get_node_timer(corpse_pos):start(10)
+		core.get_node_timer(corpse_pos):start(10)
 	end
 end)
 
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."items.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."skeleton.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."crafting.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."items.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."skeleton.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."crafting.lua")

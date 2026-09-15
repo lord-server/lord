@@ -85,7 +85,7 @@ end
 
 function Scheduler:run()
 	local next_tick_in = self.tick - (os_time() % self.tick)
-	minetest.after(next_tick_in, self.on_tick, self)
+	core.after(next_tick_in, self.on_tick, self)
 end
 
 --- @private

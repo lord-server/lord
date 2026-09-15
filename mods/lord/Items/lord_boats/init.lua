@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Load files
-local default_path = minetest.get_modpath("lord_boats")
+local default_path = core.get_modpath("lord_boats")
 dofile(default_path.."/functions.lua")
 
 
@@ -68,8 +68,8 @@ lord_boats.register_boat("lord_boats:sail_boat", {
 
 
 --Aliases for lord_boats
-minetest.register_alias("boats:row_boat", "lord_boats:row_boat")
-minetest.register_alias("boats:sail_boat", "lord_boats:sail_boat")
+core.register_alias("boats:row_boat", "lord_boats:row_boat")
+core.register_alias("boats:sail_boat", "lord_boats:sail_boat")
 
 
 -- Migration `MTG/boats` to `lord_boats`
@@ -82,13 +82,13 @@ for i, entity_name in ipairs(migrate_entities) do
 	local old_entity = entity_name[1]
 	local new_entity = entity_name[2]
 
-	minetest.register_entity(":" .. old_entity, {
+	core.register_entity(":" .. old_entity, {
 		on_activate = function(self, staticdata)
 			local pos = self.object:get_pos()
-			local pos_log = minetest.pos_to_string(pos)
+			local pos_log = core.pos_to_string(pos)
 			self.object:remove()
-			minetest.add_entity(pos, new_entity)
-			minetest.log("none", pos_log .. " " .. old_entity .. " was replaced with " .. new_entity)
+			core.add_entity(pos, new_entity)
+			core.log("none", pos_log .. " " .. old_entity .. " was replaced with " .. new_entity)
 		end,
 	})
 end

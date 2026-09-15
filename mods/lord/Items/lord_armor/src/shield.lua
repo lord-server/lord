@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Register Shields
-minetest.register_tool(":lottarmor:shield_wood", {
+core.register_tool(":lottarmor:shield_wood", {
 	description     = S("Training Shield"),
 	_rank           = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_shield_wood.png",
@@ -12,7 +12,7 @@ minetest.register_tool(":lottarmor:shield_wood", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_tin", {
+core.register_tool(":lottarmor:shield_tin", {
 	description     = S("Tin Shield"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_shield_tin.png",
@@ -23,7 +23,7 @@ minetest.register_tool(":lottarmor:shield_tin", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_copper", {
+core.register_tool(":lottarmor:shield_copper", {
 	description     = S("Copper Shield"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_shield_copper.png",
@@ -34,7 +34,7 @@ minetest.register_tool(":lottarmor:shield_copper", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_steel", {
+core.register_tool(":lottarmor:shield_steel", {
 	description     = S("Steel Shield"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_shield_steel.png",
@@ -45,7 +45,7 @@ minetest.register_tool(":lottarmor:shield_steel", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_bronze", {
+core.register_tool(":lottarmor:shield_bronze", {
 	description     = S("Bronze Shield"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_shield_bronze.png",
@@ -56,7 +56,7 @@ minetest.register_tool(":lottarmor:shield_bronze", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_silver", {
+core.register_tool(":lottarmor:shield_silver", {
 	description     = S("Silver Shield"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_shield_silver.png",
@@ -69,7 +69,7 @@ minetest.register_tool(":lottarmor:shield_silver", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_gold", {
+core.register_tool(":lottarmor:shield_gold", {
 	description     = S("Gold Shield"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_shield_gold.png",
@@ -82,7 +82,7 @@ minetest.register_tool(":lottarmor:shield_gold", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_galvorn", {
+core.register_tool(":lottarmor:shield_galvorn", {
 	description     = S("Galvorn Shield"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_shield_galvorn.png",
@@ -95,7 +95,7 @@ minetest.register_tool(":lottarmor:shield_galvorn", {
 	wear            = 0,
 })
 
-minetest.register_tool(":lottarmor:shield_mithril", {
+core.register_tool(":lottarmor:shield_mithril", {
 	description     = S("Mithril Shield"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_shield_mithril.png",
@@ -119,7 +119,7 @@ local craft_ingreds = {
 }
 
 for k, v in pairs(craft_ingreds) do
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottarmor:shield_" .. k,
 		recipe = {
 			{ v, v, v },

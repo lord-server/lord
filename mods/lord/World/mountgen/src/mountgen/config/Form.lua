@@ -3,9 +3,9 @@ local Config    = require('mountgen.Config')
 local Builder   = require('mountgen.config.Form.Builder')
 local FieldType = require('mountgen.config.FieldType')
 
-local S        = minetest.get_mod_translator()
-local spec     = minetest.formspec
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local spec     = core.formspec
+local colorize = core.colorize
 
 --- @class mountgen.config.Form.Fields: mountgen.config.ValuesTable
 --- @field save     string?
@@ -153,7 +153,7 @@ end
 --- @param fields mountgen.config.Form.Fields table with fields comes from client form
 --- @return nil|boolean return `true` for stop propagation of handling
 function Form:handle(fields)
-	local can_edit = minetest.get_player_privs(self.player_name)[mountgen.required_priv]
+	local can_edit = core.get_player_privs(self.player_name)[mountgen.required_priv]
 	if not can_edit then
 		return
 	end

@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --Code written by foot_on_teh_hill, with some slight changes.
 --https://github.com/foot-on-teh-hill/cavetools/blob/master/rope.lua
@@ -9,17 +9,17 @@ local function place_rope(pos, itemstack, player)
 		return
 	else
 		local max_nodes = itemstack:get_count()
-		local creative = minetest.is_creative_enabled(player)
+		local creative = core.is_creative_enabled(player)
         if creative then
             max_nodes = 200
         end
 		local set_nodes = 0
 		for i = 2, max_nodes do
 			pos.y = pos.y - 1
-			local node_below = minetest.get_node(pos)
+			local node_below = core.get_node(pos)
 			if node_below ~= nil then
 				if node_below.name == "air" then
-					minetest.set_node(pos, {name = "lottblocks:elven_rope"})
+					core.set_node(pos, {name = "lottblocks:elven_rope"})
 					set_nodes = set_nodes + 1
 				else
 					break
@@ -41,11 +41,11 @@ local function dig_rope(pos, digger)
 	local y = pos.y
 	for i = 1, max_nodes do
 		pos.y = y + i
-		local node = minetest.get_node(pos)
+		local node = core.get_node(pos)
 		if node ~= nil then
 			if node.name == "lottblocks:elven_rope" then
-				if not minetest.is_protected(pos, digger:get_player_name()) then
-					minetest.remove_node(pos)
+				if not core.is_protected(pos, digger:get_player_name()) then
+					core.remove_node(pos)
 					dug_nodes = dug_nodes + 1
 				else
 					break
@@ -57,11 +57,11 @@ local function dig_rope(pos, digger)
 	end
 	for i = -1, -max_nodes, -1 do
 		pos.y = y + i
-		local node = minetest.get_node(pos)
+		local node = core.get_node(pos)
 		if node ~= nil then
 			if node.name == "lottblocks:elven_rope" then
-				if not minetest.is_protected(pos, digger:get_player_name()) then
-					minetest.remove_node(pos)
+				if not core.is_protected(pos, digger:get_player_name()) then
+					core.remove_node(pos)
 					dug_nodes = dug_nodes + 1
 				else
 					break
@@ -75,12 +75,12 @@ local function dig_rope(pos, digger)
 	if inventory == nil then
 		return
 	end
-    if not minetest.is_creative_enabled(digger) then
+    if not core.is_creative_enabled(digger) then
 	   inventory:add_item("main", "lottblocks:elven_rope " .. dug_nodes)
     end
 end
 
-minetest.register_node("lottblocks:elven_rope", {
+core.register_node("lottblocks:elven_rope", {
 	tiles = {"lottblocks_elven_rope.png"}, --Made by foot_on_teh_hill
     --https://github.com/foot-on-teh-hill/cavetools/blob/master/textures/cavetools_rope.png
     inventory_image = "lottblocks_elven_rope.png",
@@ -109,7 +109,7 @@ minetest.register_node("lottblocks:elven_rope", {
 	groups = {oddly_breakable_by_hand = 3}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:elven_rope 8",
 	recipe = {
 		{"group:wool"},

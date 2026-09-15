@@ -2,7 +2,7 @@ local Meta      = require('holding_points.HoldingPoint.Meta')
 local Processor = require('holding_points.HoldingPoint.Processor')
 local Event     = require('holding_points.Event')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local DAY = 60 * 60 * 24
 
@@ -33,7 +33,7 @@ local HoldingPoint = {
 --- @param position Position
 --- @return string
 function HoldingPoint.create_id(position)
-	return minetest.pos_to_string(position)
+	return core.pos_to_string(position)
 end
 
 --- @param position Position
@@ -44,7 +44,7 @@ function HoldingPoint:new(position)
 	self = setmetatable({}, { __index = class })
 	self.position  = position
 	self.id        = class.create_id(position)
-	self.node_meta = minetest.get_meta(position)
+	self.node_meta = core.get_meta(position)
 	self.meta      = Meta:new(self.node_meta)
 	self.processor = Processor.get_for(self)
 
@@ -122,7 +122,7 @@ function HoldingPoint:punch(player)
 
 	local clan = clans.clan_get_by_player_name(player_name)
 	if not clan then
-		minetest.chat_send_player(player_name, S('For clan players only.'))
+		core.chat_send_player(player_name, S('For clan players only.'))
 
 		return
 	end
@@ -130,7 +130,7 @@ function HoldingPoint:punch(player)
 	local meta = self.meta
 
 	if not meta.active then
-		minetest.chat_send_player(player_name, S('This point is not currently participating in the battle.'))
+		core.chat_send_player(player_name, S('This point is not currently participating in the battle.'))
 
 		return
 	end
@@ -155,13 +155,13 @@ function HoldingPoint:reward(player)
 
 	local clan = clans.clan_get_by_player_name(player_name)
 	if not clan then
-		minetest.chat_send_player(player_name, S('For clan players only.'))
+		core.chat_send_player(player_name, S('For clan players only.'))
 
 		return
 	end
 
 	if not self:can_get_reward(player, clan) then
-		minetest.chat_send_player(player_name, S('You can\'t get reward.'))
+		core.chat_send_player(player_name, S('You can\'t get reward.'))
 
 		return
 	end
@@ -183,7 +183,7 @@ function HoldingPoint:add_score(score, clan_name)
 	meta.battle_stat = battle_stat
 
 	if self.debug then
-		minetest.chat_send_all('Score: ' .. battle_stat[clan_name])
+		core.chat_send_all('Score: ' .. battle_stat[clan_name])
 	end
 
 	return self

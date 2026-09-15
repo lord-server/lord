@@ -1,6 +1,6 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
-local e        = minetest.formspec.escape
+local S        = core.get_mod_translator()
+local colorize = core.colorize
+local e        = core.formspec.escape
 local spec     = forms.Spec
 
 local text_color = "#000"
@@ -26,7 +26,7 @@ mail.get_output_formspec = function(meta,pos,owner)
 		"listring[nodemeta:".. spos .. ";main]"..
 		"listring[current_player;main]"
 
-		if minetest.check_player_privs(owner, {privs = true}) then
+		if core.check_player_privs(owner, {privs = true}) then
 			formspec = formspec .. "field[2.34,4.34;3,1;mail_change_owner;;".. owner .."]"..
 			"button_exit[5,4;1,1;btn_ok;OK]"
 		end
@@ -40,7 +40,7 @@ mail.get_input_formspec = function(meta,pos,name)
 		"list[nodemeta:".. spos .. ";drop;3.5,2;1,1;]"..
 		"list[current_player;main;0,5;8,4;]"
 
-		if minetest.check_player_privs(name, {privs = true}) then
+		if core.check_player_privs(name, {privs = true}) then
 			formspec = formspec .. "field[2.34,4.34;3,1;mail_change_owner;;".. name .."]"..
 			"button_exit[5,4;1,1;btn_ok;OK]"
 		end
@@ -49,7 +49,7 @@ mail.get_input_formspec = function(meta,pos,name)
 end
 
 -- Обработка событий формы
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
 
 	local name = player:get_player_name()
 
@@ -57,10 +57,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if string.sub(formname, 0, string.len("lord_mail:mail_chest_")) == "lord_mail:mail_chest_" then
 
 		local pos_s = string.sub(formname, string.len("lord_mail:mail_chest_") + 7)
-		local pos = minetest.string_to_pos(pos_s)
-		local meta = minetest.get_meta(pos)
+		local pos = core.string_to_pos(pos_s)
+		local meta = core.get_meta(pos)
 
-		if minetest.check_player_privs(name, {privs = true}) then
+		if core.check_player_privs(name, {privs = true}) then
 			if fields.btn_ok then -- кнопка Ok
 				local owner = fields.mail_change_owner
 
@@ -72,7 +72,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
-minetest.register_node("lord_mail:mail_chest", {
+core.register_node("lord_mail:mail_chest", {
 	description = S("Mail Chest"),
 	tiles = {"mail_chest_top.png", "default_chest_top.png", "mail_chest_side.png",
 		"mail_chest_side.png", "mail_chest_side.png", "mail_chest_front.png"},
@@ -82,7 +82,7 @@ minetest.register_node("lord_mail:mail_chest", {
 	sounds = default.node_sound_wood_defaults(),
 	groups = {choppy=2,oddly_breakable_by_hand=2,wooden=1},
 	after_place_node = function(pos, placer, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local owner = placer:get_player_name()
 		meta:set_string("owner", owner)
 		meta:set_string("infotext", S("Mail for").." "..owner)
@@ -91,32 +91,32 @@ minetest.register_node("lord_mail:mail_chest", {
 		inv:set_size("drop", 1)
 	end,
 	on_rightclick = function(pos, node, clicker, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local player = clicker:get_player_name()
 		local owner  = meta:get_string("owner")
 		if
 			owner == player or
-			(minetest.check_player_privs(clicker, "server") and not clicker:get_player_control().aux1)
+			(core.check_player_privs(clicker, "server") and not clicker:get_player_control().aux1)
 		then
-			minetest.show_formspec(
+			core.show_formspec(
 				clicker:get_player_name(),
-				"lord_mail:mail_chest_output" .. minetest.pos_to_string(pos),
+				"lord_mail:mail_chest_output" .. core.pos_to_string(pos),
 				mail.get_output_formspec(meta,pos,owner))
 		else
-			minetest.show_formspec(
+			core.show_formspec(
 				clicker:get_player_name(),
-				"lord_mail:mail_chest__input" .. minetest.pos_to_string(pos),
+				"lord_mail:mail_chest__input" .. core.pos_to_string(pos),
 				mail.get_input_formspec(meta,pos,player))
 		end
 	end,
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos);
+		local meta = core.get_meta(pos);
 		local owner = meta:get_string("owner")
 		local inv = meta:get_inventory()
 		return player:get_player_name() == owner and inv:is_empty("main")
 	end,
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if listname == "drop" and inv:room_for_item("main", stack) then
 			inv:remove_item("drop", stack)
@@ -128,7 +128,7 @@ minetest.register_node("lord_mail:mail_chest", {
 			return 0
 		end
 		if listname == "drop" then
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local inv = meta:get_inventory()
 			if inv:room_for_item("main", stack) then
 				return -1
@@ -139,7 +139,7 @@ minetest.register_node("lord_mail:mail_chest", {
 	end,
 })
 
-minetest.register_craft({output = "lord_mail:mail_chest",
+core.register_craft({output = "lord_mail:mail_chest",
 	recipe = {{"default:chest_locked"}},
 })
 
@@ -148,7 +148,7 @@ local gui_paperbg = "background[5,5;1,1;mail_paperbg.png;true]"
 
 local function paper_on_use(itemstack, user, pointed_thing)
 	local player_name = user:get_player_name()
-	local data = minetest.deserialize(itemstack:get_metadata())
+	local data = core.deserialize(itemstack:get_metadata())
 	local text, owner = "", player_name
 	if data then
 		text, owner = data.text, data.owner
@@ -164,18 +164,18 @@ local function paper_on_use(itemstack, user, pointed_thing)
 			"textarea[0.5,0.3;7.5,2.0;paper_text;;"..e(text).."]"..
 			"label[0.3,2.5;".. S("by").." "..owner.."]"
 	end
-	minetest.show_formspec(user:get_player_name(), "mail:paper", formspec)
+	core.show_formspec(user:get_player_name(), "mail:paper", formspec)
 end
 
--- TODO: `minetest.override_item` instead register
-minetest.register_craftitem(":default:paper", {
+-- TODO: `core.override_item` instead register
+core.register_craftitem(":default:paper", {
 	description = S("Paper"),
 	inventory_image = "default_paper.png",
 	groups = {book=1, paper=1},
 	on_use = paper_on_use,
 })
 
-minetest.register_craftitem("lord_mail:paper_with_text", {
+core.register_craftitem("lord_mail:paper_with_text", {
 	description = S("Letter"),
 	inventory_image = "mail_paper_with_text.png",
 	groups = {not_in_creative_inventory=1, book=1, paper=1},
@@ -189,12 +189,12 @@ minetest.register_craftitem("lord_mail:paper_with_text", {
 local function book_on_use(stack, user, pointed_thing)
         local player_name = user:get_player_name()
         local meta = stack:get_meta():get_string("")
-        local data = minetest.deserialize(meta)
+        local data = core.deserialize(meta)
         local title, text, owner = "", "", player_name
         if data then
                 title, text, owner = data.title, data.text, data.owner
                 stack:get_meta():set_string("description", S('Book')..': '..colorize('#ee8' , '"'.. title ..'"') )
-                data = minetest.serialize(data)
+                data = core.serialize(data)
                 stack:set_metadata(data)
                 user:set_wielded_item(stack)
 	end
@@ -218,18 +218,18 @@ local function book_on_use(stack, user, pointed_thing)
 			.. spec.box(0.125, 1.4, 7.45, 6.6, '#000')
 			.. spec.textarea(0.5, 1.5, 7.5, 7.5, spec.read_only, '', text)
 	end
-	minetest.show_formspec(user:get_player_name(), 'mail:book', formspec)
+	core.show_formspec(user:get_player_name(), 'mail:book', formspec)
 end
 
--- TODO: `minetest.override_item` instead register
-minetest.register_craftitem(":default:book", {
+-- TODO: `core.override_item` instead register
+core.register_craftitem(":default:book", {
 	description = S("Book"),
 	inventory_image = "default_book.png",
 	groups = {book=1, flammable=1},
 	on_use = book_on_use,
 })
 
-minetest.register_craftitem("lord_mail:book_with_text", {
+core.register_craftitem("lord_mail:book_with_text", {
 	description = S("Book With Text"),
 	inventory_image = "mail_book_with_text.png",
 	groups = {not_in_creative_inventory=1, book=1, flammable=1},
@@ -253,18 +253,18 @@ local function paper_form_handler(player, fields)
 			new_stack = ItemStack("lord_mail:paper_with_text")
 		end
 	else
-		data = minetest.deserialize(stack:get_metadata())
+		data = core.deserialize(stack:get_metadata())
 	end
 	if not data then data = {} end
 	data.text = fields.paper_text
 	data.owner = player:get_player_name()
-	local data_str = minetest.serialize(data)
+	local data_str = core.serialize(data)
 	if new_stack then
 		new_stack:set_metadata(data_str)
 		if inv:room_for_item("main", new_stack) then
 			inv:add_item("main", new_stack)
 		else
-			minetest.add_item(player:get_pos(), new_stack)
+			core.add_item(player:get_pos(), new_stack)
 		end
 	else
 		stack:set_metadata(data_str)
@@ -287,20 +287,20 @@ local function book_form_handler(player, fields)
 			new_stack = ItemStack("lord_mail:book_with_text")
 		end
 	else
-		data = minetest.deserialize(stack:get_metadata())
+		data = core.deserialize(stack:get_metadata())
 	end
 	if not data then data = {} end
 	data.title = fields.book_title
 	data.text = fields.book_text
 	data.owner = player:get_player_name()
-	local data_str = minetest.serialize(data)
+	local data_str = core.serialize(data)
 	if new_stack then
 		new_stack:set_metadata(data_str)
 		new_stack:get_meta():set_string("description", S('Book')..': '..colorize('#ee8' , '"'.. data.title ..'"'))
 		if inv:room_for_item("main", new_stack) then
 			inv:add_item("main", new_stack)
 		else
-			minetest.add_item(player:get_pos(), new_stack)
+			core.add_item(player:get_pos(), new_stack)
 		end
 	else
 		stack:set_metadata(data_str)
@@ -310,7 +310,7 @@ local function book_form_handler(player, fields)
 end
 
 -- обработка событий
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name == "mail:paper" and fields.paper_save and fields.paper_text ~= "" then
 		paper_form_handler(player, fields)
 	end

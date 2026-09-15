@@ -12,7 +12,7 @@ core.register_chatcommand('character.second_chance', {
 		end
 
 		local player_name = parts[1] --[[@as string]]
-		local player = minetest.get_player_by_name(player_name)
+		local player = core.get_player_by_name(player_name)
 
 		if not player then
 			return false, c.error('Player `%s` is not online', player_name)

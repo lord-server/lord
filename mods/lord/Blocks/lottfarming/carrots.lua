@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:carrot_seed", {
+core.register_craftitem("lottfarming:carrot_seed", {
 	description     = S("Carrot Seeds"),
 	inventory_image = "farming_carrot_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu  = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu  = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:carrot_1")
 	end
 })
 
-minetest.register_node("lottfarming:carrot_1", {
+core.register_node("lottfarming:carrot_1", {
 	paramtype     = "light",
 	walkable      = false,
 	drawtype      = "plantlike",
@@ -29,7 +29,7 @@ minetest.register_node("lottfarming:carrot_1", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:carrot_2", {
+core.register_node("lottfarming:carrot_2", {
 	paramtype     = "light",
 	walkable      = false,
 	drawtype      = "plantlike",
@@ -45,7 +45,7 @@ minetest.register_node("lottfarming:carrot_2", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:carrot_3", {
+core.register_node("lottfarming:carrot_3", {
 	paramtype     = "light",
 	walkable      = false,
 	drawtype      = "plantlike",
@@ -61,7 +61,7 @@ minetest.register_node("lottfarming:carrot_3", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:carrot", {
+core.register_node("lottfarming:carrot", {
 	paramtype = "light",
 	walkable  = false,
 	drawtype  = "plantlike",
@@ -81,10 +81,10 @@ minetest.register_node("lottfarming:carrot", {
 	sounds    = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:carrot_item", {
+core.register_craftitem("lottfarming:carrot_item", {
 	description     = S("Carrot"),
 	inventory_image = "farming_carrot.png",
-	on_use          = minetest.item_eat(4),
+	on_use          = core.item_eat(4),
 	_tt_food_hp     = 4,
 })
 

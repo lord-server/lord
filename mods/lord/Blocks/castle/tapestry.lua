@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function register_tapestry_top(node_name, craft_from, description_material, texture)
@@ -6,7 +6,7 @@ local function register_tapestry_top(node_name, craft_from, description_material
 		type  = "fixed",
 		fixed = { { -0.600000, -0.500000, 0.375000, 0.600000, -0.375000, 0.500000 }, },
 	}
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		drawtype            = "nodebox",
 		description         = S("@1 Tapestry Top", description_material),
 		tiles               = { texture },
@@ -19,7 +19,7 @@ local function register_tapestry_top(node_name, craft_from, description_material
 		selection_box       = node_and_selection_box,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		type   = "shapeless",
 		output = node_name,
 		recipe = { craft_from },
@@ -67,7 +67,7 @@ local tapestry_node_def_template = {
 ---@param desc string @Localised full description
 ---@param tile string @texture. Example: `"wool_blue.png"`
 function tapestry.register(name, desc, tile)
-	minetest.register_node(name, table.overwrite(table.copy(tapestry_node_def_template), {
+	core.register_node(name, table.overwrite(table.copy(tapestry_node_def_template), {
 		description = desc,
 		tiles = { tile, },
 		drawtype = "mesh",
@@ -93,7 +93,7 @@ end
 ---@param desc string @Localised full description
 ---@param tile string @texture. Example: `"wool_blue.png"`
 function tapestry.register_long(name, desc, tile)
-	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+	core.register_node(name, table.merge(tapestry_node_def_template, {
 		description = desc,
 		tiles = { tile, },
 		node_box = {
@@ -125,7 +125,7 @@ end
 ---@param desc string @Localised full description
 ---@param tile string @texture. Example: `"wool_blue.png"`
 function tapestry.register_very_long(name, desc, tile)
-	minetest.register_node(name, table.merge(tapestry_node_def_template, {
+	core.register_node(name, table.merge(tapestry_node_def_template, {
 		description = desc,
 		tiles = { tile, },
 		node_box = {
@@ -162,7 +162,7 @@ for _, dye in ipairs(dye.dyes) do
 	local name = "castle:tapestry_"..dye[1]
 	local desc = S(desc_prefix.." Tapestry")
 	tapestry.register(name, desc, tile)
-	minetest.register_craft({
+	core.register_craft({
 		type = "shapeless",
 		output = name,
 		recipe = { material, 'group:stick', },
@@ -171,7 +171,7 @@ for _, dye in ipairs(dye.dyes) do
 	local name_long = "castle:long_tapestry_"..dye[1]
 	local desc_long = S(desc_prefix.." Tapestry (Long)")
 	tapestry.register_long(name_long, desc_long, tile)
-	minetest.register_craft({
+	core.register_craft({
 		type = "shapeless",
 		output = name_long,
 		recipe = { material, name, },
@@ -180,7 +180,7 @@ for _, dye in ipairs(dye.dyes) do
 	local name_very_long = "castle:very_long_tapestry_"..dye[1]
 	local desc_very_long = S(desc_prefix.." Tapestry (Very Long)")
 	tapestry.register_very_long(name_very_long, desc_very_long, tile)
-	minetest.register_craft({
+	core.register_craft({
 		type = "shapeless",
 		output = name_very_long,
 		recipe = { material, name_long, },

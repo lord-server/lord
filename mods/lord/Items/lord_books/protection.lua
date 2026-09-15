@@ -2,7 +2,7 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 zpc = {}
 zpc.users = {}
@@ -12,7 +12,7 @@ zpc.itemlist = {}
 zpc.items_in_group = function(group)
 	local items = {}
 
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		-- the node should be in all groups
 		local ok = true
 		for _, g in ipairs(group:split(',')) do
@@ -27,8 +27,8 @@ zpc.items_in_group = function(group)
 end
 
 zpc.add_craft = function(input, output, groups)
-	if minetest.get_item_group(output, "armor_use") > 0 or minetest.get_item_group(output, "armor_crafts") > 0 then
-     if minetest.get_item_group(output, "forbidden") > 0 then
+	if core.get_item_group(output, "armor_use") > 0 or core.get_item_group(output, "armor_crafts") > 0 then
+     if core.get_item_group(output, "forbidden") > 0 then
 		return
 	end
 	if not groups then groups = {} end
@@ -63,7 +63,7 @@ end
 
 zpc.load_crafts = function(name)
 	zpc.crafts[name] = {}
-	local _recipes = minetest.get_all_craft_recipes(name)
+	local _recipes = core.get_all_craft_recipes(name)
 	if _recipes then
 		for i, recipe in ipairs(_recipes) do
 			if (recipe and recipe.items and recipe.type) then
@@ -83,7 +83,7 @@ zpc.need_load_all = true
 zpc.load_all = function()
 	print("Loading all crafts, this may take some time...")
 	local i = 0
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		if (name and name ~= "") then
 			zpc.load_crafts(name)
 		end
@@ -184,14 +184,14 @@ zpc.form.get_spec = function(player_name)
 end
 --- @param player_name string
 zpc.form.show = function(player_name)
-	minetest.show_formspec(player_name, zpc.form.NAME, zpc.form.get_spec(player_name))
+	core.show_formspec(player_name, zpc.form.NAME, zpc.form.get_spec(player_name))
 end
 
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= zpc.form.NAME then
 		return
 	end
@@ -233,7 +233,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:protection_book",{
+core.register_tool("lord_books:protection_book",{
     description = S("Book of Protection"),
     groups = {book=1, paper=1},
     inventory_image = "protection_book.png",

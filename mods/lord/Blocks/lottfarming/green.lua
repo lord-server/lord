@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:green_mushroom_spore", {
+core.register_craftitem("lottfarming:green_mushroom_spore", {
 	description = S("Green Mushroom Spores"),
 	inventory_image = "lottfarming_green_mushroom_spore.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_spore(itemstack, placer, pointed_thing, "lottfarming:green_mushroom_1", 9)
 	end,
 })
 
-minetest.register_node("lottfarming:green_mushroom", {
+core.register_node("lottfarming:green_mushroom", {
 	description = S("Green Mushroom"),
 	paramtype = "light",
 	paramtype2 = "meshoptions",
@@ -33,10 +33,10 @@ minetest.register_node("lottfarming:green_mushroom", {
 	groups = {snappy=3, flammable=2, mushroom=1, flower=1, color_green=1},
 	sounds = default.node_sound_leaves_defaults(),
 	inventory_image = "lottfarming_green_mushroom.png",
-	on_use = minetest.item_eat(1),
+	on_use = core.item_eat(1),
 	_tt_food_hp = 1,
 })
-minetest.register_node("lottfarming:green_mushroom_1", {
+core.register_node("lottfarming:green_mushroom_1", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	light_source = 2,
@@ -54,7 +54,7 @@ minetest.register_node("lottfarming:green_mushroom_1", {
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
-minetest.register_node("lottfarming:green_mushroom_2", {
+core.register_node("lottfarming:green_mushroom_2", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	light_source = 2,
@@ -72,7 +72,7 @@ minetest.register_node("lottfarming:green_mushroom_2", {
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
-minetest.register_node("lottfarming:green_mushroom_3", {
+core.register_node("lottfarming:green_mushroom_3", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	light_source = 2,
@@ -90,7 +90,7 @@ minetest.register_node("lottfarming:green_mushroom_3", {
 	groups = {snappy=3, flammable=2, not_in_creative_inventory=1},
 	sounds = default.node_sound_leaves_defaults(),
 })
-minetest.register_node("lottfarming:green_mushroom_4", {
+core.register_node("lottfarming:green_mushroom_4", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	light_source = 2,
@@ -118,72 +118,72 @@ minetest.register_node("lottfarming:green_mushroom_4", {
 local chance = 10
 local interval = 30
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = "lottfarming:green_mushroom_1",
 	interval = interval,
 	chance = chance,
 	action = function(pos, node)
 		pos.y = pos.y-1
-		if minetest.get_node(pos).name ~= "lottfarming:decay_tree" then
+		if core.get_node(pos).name ~= "lottfarming:decay_tree" then
 			return
 		end
 		pos.y = pos.y+1
-		if not minetest.get_node_light(pos) then
+		if not core.get_node_light(pos) then
 			return
 		end
-		if minetest.get_node_light(pos) > 8 then
+		if core.get_node_light(pos) > 8 then
 			return
 		end
-		minetest.set_node(pos, {name='lottfarming:green_mushroom_2', param2 = 9})
+		core.set_node(pos, {name='lottfarming:green_mushroom_2', param2 = 9})
 	end
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = "lottfarming:green_mushroom_2",
 	interval = interval,
 	chance = chance,
 	action = function(pos, node)
 		pos.y = pos.y-1
-		if minetest.get_node(pos).name ~= "lottfarming:decay_tree" then
+		if core.get_node(pos).name ~= "lottfarming:decay_tree" then
 			return
 		end
 		pos.y = pos.y+1
-		if not minetest.get_node_light(pos) then
+		if not core.get_node_light(pos) then
 			return
 		end
-		if minetest.get_node_light(pos) > 8 then
+		if core.get_node_light(pos) > 8 then
 			return
 		end
-		minetest.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
+		core.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
 	end
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = "lottfarming:green_mushroom_3",
 	interval = interval,
 	chance = chance,
 	action = function(pos, node)
 		pos.y = pos.y-1
 		if
-			minetest.get_node(pos).name ~= "lottfarming:decay_tree" and
-			minetest.get_node(pos).name ~= "default:tree"
+			core.get_node(pos).name ~= "lottfarming:decay_tree" and
+			core.get_node(pos).name ~= "default:tree"
 		then
 			return
 		end
 		pos.y = pos.y+1
-		if not minetest.get_node_light(pos) then
+		if not core.get_node_light(pos) then
 			return
 		end
-		if minetest.get_node_light(pos) > 8 then
+		if core.get_node_light(pos) > 8 then
 			return
 		end
-		minetest.set_node(pos, {name='lottfarming:green_mushroom_4', param2 = 9})
+		core.set_node(pos, {name='lottfarming:green_mushroom_4', param2 = 9})
 	end
 })
 
 num = PseudoRandom(111)
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = "lottfarming:green_mushroom_3",
 	interval = interval,
 	chance = chance,
@@ -191,30 +191,30 @@ minetest.register_abm({
 		pos.x = pos.x + num:next(-1, 1)
 		pos.z = pos.z + num:next(-1, 1)
 		local name
-		if minetest.get_node(pos).name=="air" then
+		if core.get_node(pos).name=="air" then
 			pos.y = pos.y-1
-			name = minetest.get_node(pos).name
+			name = core.get_node(pos).name
 			if name=="default:tree" then
 				pos.y=pos.y+1
-				minetest.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
+				core.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
 			end
 			if name=="air" then
 				pos.y=pos.y-1
-				name = minetest.get_node(pos).name
+				name = core.get_node(pos).name
 				if name=="default:tree" then
 					pos.y=pos.y+1
-					minetest.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
+					core.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
 				end
 			end
 
 		end
 		pos.y=pos.y+1
-		if minetest.get_node(pos).name=="air" then
+		if core.get_node(pos).name=="air" then
 			pos.y = pos.y-1
-			name = minetest.get_node(pos).name
+			name = core.get_node(pos).name
 			if name=="default:tree" then
 				pos.y=pos.y+1
-				minetest.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
+				core.set_node(pos, {name='lottfarming:green_mushroom_3', param2 = 9})
 			end
 		end
 	end

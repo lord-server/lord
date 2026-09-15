@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 stairs.register_slab(
@@ -121,7 +121,7 @@ stairs.register_slab(
 	false
 )
 
-minetest.register_craft({
+core.register_craft({
 	type = "fuel",
 	recipe = "group:tree_slab",
 	burntime = 15,

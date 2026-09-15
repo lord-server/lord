@@ -1,4 +1,4 @@
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 local Form = require('anvil.Form')
 
 
@@ -32,7 +32,7 @@ local node_box = {
 }
 
 local function register_node()
-	minetest.register_node('anvil:anvil', {
+	core.register_node('anvil:anvil', {
 		description   = S('Anvil'),
 		drawtype      = 'mesh',
 		mesh          = 'anvil.obj',
@@ -49,7 +49,7 @@ local function register_node()
 end
 
 local function register_craft()
-	minetest.register_craft({
+	core.register_craft({
 		output = 'anvil:anvil',
 		recipe = {
 			{ 'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot' },
@@ -61,10 +61,10 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
-		minetest.CraftMethod.ANVIL = 'anvil'
-		minetest.register_craft_method(minetest.CraftMethod.ANVIL)
+		core.CraftMethod.ANVIL = 'anvil'
+		core.register_craft_method(core.CraftMethod.ANVIL)
 
 		Form:register()
 

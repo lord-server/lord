@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- xjailbarss mod by xyz
 
@@ -14,24 +14,24 @@ local directions = {
 }
 
 local function update_jailbars(pos)
-	if minetest.get_node(pos).name:find("castle:jailbars") == nil then
+	if core.get_node(pos).name:find("castle:jailbars") == nil then
 		return
 	end
 	local sum = 0
 	for i = 1, 4 do
-		local node = minetest.get_node({
+		local node = core.get_node({
 			x = pos.x + directions[i].x,
 			y = pos.y + directions[i].y,
 			z = pos.z + directions[i].z
 		})
-		if minetest.registered_nodes[node.name].walkable ~= false then
+		if core.registered_nodes[node.name].walkable ~= false then
 			sum = sum + 2 ^ (i - 1)
 		end
 	end
 	if sum == 0 then
 		sum = 15
 	end
-	minetest.add_node(pos, { name = "castle:jailbars_" .. sum })
+	core.add_node(pos, { name = "castle:jailbars_" .. sum })
 end
 
 local function update_nearby(pos)
@@ -79,7 +79,7 @@ for i = 1, 15 do
 	if cnt == 1 then
 		texture = "castle_jailbars.png"
 	end
-	minetest.register_node("castle:jailbars_" .. i, {
+	core.register_node("castle:jailbars_" .. i, {
 		drawtype          = "nodebox",
 		tiles             = { "castle_grey.png", "castle_grey.png", texture },
 		use_texture_alpha = "clip",
@@ -98,7 +98,7 @@ for i = 1, 15 do
 	})
 end
 
-minetest.register_node("castle:jailbars", {
+core.register_node("castle:jailbars", {
 	description               = S("Jailbars"),
 	tiles                     = { "castle_space.png" },
 	inventory_image           = "castle_jailbars.png",
@@ -109,10 +109,10 @@ minetest.register_node("castle:jailbars", {
 	on_construct              = update_jailbars
 })
 
-minetest.register_on_placenode(update_nearby)
-minetest.register_on_dignode(update_nearby)
+core.register_on_placenode(update_nearby)
+core.register_on_dignode(update_nearby)
 
-minetest.register_craft({
+core.register_craft({
 	output = "castle:jailbars 12",
 	recipe = {
 		{ "default:steel_ingot", "", "default:steel_ingot" },

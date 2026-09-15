@@ -2,22 +2,22 @@
 local Form = require('reward_chest.node.Form')
 
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- HELPERS: -----------------------------------------------------------------------------------------------------------
 
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function chest_add_visitor(meta, player_name)
-	local visitors = minetest.deserialize(meta:get_string('visitors')) or {}
+	local visitors = core.deserialize(meta:get_string('visitors')) or {}
 	table.insert(visitors, player_name)
-	meta:set_string('visitors', minetest.serialize(visitors))
+	meta:set_string('visitors', core.serialize(visitors))
 end
 
 --- @param meta NodeMetaRef
 --- @param player_name string
 local function chest_has_visitor(meta, player_name)
-	local visitors = minetest.deserialize(meta:get_string('visitors')) or {}
+	local visitors = core.deserialize(meta:get_string('visitors')) or {}
 	return table.indexof(visitors, player_name) > 0
 end
 
@@ -28,7 +28,7 @@ local function congratulate(meta, player_name)
 	if congratulations == nil or congratulations == '' then
 		congratulations = S("Congratulations! You've completed the quest!")
 	end
-	minetest.chat_send_player(player_name, congratulations)
+	core.chat_send_player(player_name, congratulations)
 end
 
 local HOLIDAYS = {
@@ -127,10 +127,10 @@ local definition = {
 
 	--- @param pos Position
 	on_construct      = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('infotext',        S('Reward Chest'))
 		meta:set_string('congratulations', '')
-		meta:set_string('visitors',        minetest.serialize({}))
+		meta:set_string('visitors',        core.serialize({}))
 		meta:mark_as_private('visitors')
 		local inventory = meta:get_inventory()
 		inventory:set_size('reward', 8)
@@ -139,27 +139,27 @@ local definition = {
 	--- @param placer        Player
 	--- @param pointed_thing pointed_thing
 	on_place          = function(itemstack, placer, pointed_thing)
-		if not minetest.check_player_privs(placer, 'server') then
+		if not core.check_player_privs(placer, 'server') then
 			itemstack:clear()
 			return itemstack
 		end
-		return minetest.item_place(itemstack, placer, pointed_thing)
+		return core.item_place(itemstack, placer, pointed_thing)
 	end,
 	--- @param pos Position
 	--- @param player Player
 	can_dig           = function(pos, player)
-		return player and minetest.check_player_privs(player, 'server')
+		return player and core.check_player_privs(player, 'server')
 	end,
 	--- @param pos Position
 	--- @param clicker Player
 	on_rightclick     = function(pos, node, clicker)
-		if minetest.check_player_privs(clicker, 'server') then
+		if core.check_player_privs(clicker, 'server') then
 			Form:new(clicker, pos):open()
 		else
-			local meta        = minetest.get_meta(pos)
+			local meta        = core.get_meta(pos)
 			local player_name = clicker:get_player_name()
 			if chest_has_visitor(meta, player_name) then
-				minetest.chat_send_player(player_name, S("The chest is empty! You've already been here!"))
+				core.chat_send_player(player_name, S("The chest is empty! You've already been here!"))
 				return
 			end
 			local inventory = meta:get_inventory()

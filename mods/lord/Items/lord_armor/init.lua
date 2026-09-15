@@ -1,4 +1,4 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
     require('armor')
     require('shield')
     if core.settings:get_bool('toggle_racial_armor', false) then

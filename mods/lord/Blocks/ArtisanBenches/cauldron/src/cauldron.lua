@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local px = 1/16
@@ -35,7 +35,7 @@ local function fill_bottle(player, position, change_to)
 	local player_inv = player:get_inventory()
 	local itemstack  = player:get_wielded_item()
 	if itemstack:get_name() == 'vessels:glass_bottle' then
-		minetest.set_node(position, { name = change_to })
+		core.set_node(position, { name = change_to })
 		if player_inv:room_for_item('main', 1) then
 			itemstack:take_item(1)
 			player_inv:add_item('main', 'lord_vessels:glass_bottle_water')
@@ -44,14 +44,14 @@ local function fill_bottle(player, position, change_to)
 	end
 end
 
-minetest.register_node('cauldron:cauldron_3_3', table.merge(common_definition, {
+core.register_node('cauldron:cauldron_3_3', table.merge(common_definition, {
 	description = S('Filled Cauldron'),
 	node_box    = { fixed = { [10] = { -6*px,  4*px, -6*px,   6*px,  5*px,  6*px }, } },
 	on_punch    = function(pos, node, player)
 		fill_bottle(player, pos, 'cauldron:cauldron_2_3')
 	end,
 }))
-minetest.register_node('cauldron:cauldron_2_3', table.merge(common_definition, {
+core.register_node('cauldron:cauldron_2_3', table.merge(common_definition, {
 	description = S('Two Third Filled Cauldron'),
 	groups      = { not_in_creative_inventory = 1 },
 	node_box    = { fixed = { [10] = { -6*px,  1*px, -6*px,   6*px,  2*px,  6*px }, } },
@@ -59,7 +59,7 @@ minetest.register_node('cauldron:cauldron_2_3', table.merge(common_definition, {
 		fill_bottle(player, pos, 'cauldron:cauldron_1_3')
 	end,
 }))
-minetest.register_node('cauldron:cauldron_1_3', table.merge(common_definition, {
+core.register_node('cauldron:cauldron_1_3', table.merge(common_definition, {
 	description = S('One Third Filled Cauldron'),
 	groups      = { not_in_creative_inventory = 1 },
 	node_box    = { fixed = { [10] = { -6*px, -2*px, -6*px,   6*px, -1*px,  6*px }, } },
@@ -69,7 +69,7 @@ minetest.register_node('cauldron:cauldron_1_3', table.merge(common_definition, {
 }))
 
 common_definition.tiles = nil
-minetest.register_node('cauldron:cauldron_0_3', table.merge(common_definition, {
+core.register_node('cauldron:cauldron_0_3', table.merge(common_definition, {
 	description   = S('Empty Cauldron'),
 	tiles         = {
 		'benches_cauldron_top_empty.png', 'benches_cauldron_side.png', 'benches_cauldron_side.png',
@@ -79,13 +79,13 @@ minetest.register_node('cauldron:cauldron_0_3', table.merge(common_definition, {
 	node_box      = { fixed = { [10] = { -6*px, -2*px, -6*px,   6*px, -4*px,  6*px }, }, },
 	on_rightclick = function(pos, node, clicker, itemstack)
 		if itemstack:get_name() == 'bucket:bucket_water' then
-			minetest.set_node(pos, { name = 'cauldron:cauldron_3_3' })
+			core.set_node(pos, { name = 'cauldron:cauldron_3_3' })
 			return { name = 'bucket:bucket_empty' }
 		end
 	end
 }))
 
-minetest.register_craft({
+core.register_craft({
 	output = 'cauldron:cauldron_0_3',
 	recipe = {
 		{ 'default:steel_ingot', '', 'default:steel_ingot' },
@@ -96,7 +96,7 @@ minetest.register_craft({
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		-- all things done upper
 	end,

@@ -1,14 +1,14 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local px = 1/16
 
-minetest.register_craftitem('lord_vessels:vase_1_raw', {
+core.register_craftitem('lord_vessels:vase_1_raw', {
 	description     = S('Raw Ceramic Vase'),
 	inventory_image = 'lord_vessels_vase_1_raw_inv.png',
 })
 
-minetest.register_node('lord_vessels:vase_1', {
+core.register_node('lord_vessels:vase_1', {
 	description       = S('Ceramic Vase'),
 	inventory_image   = 'lord_vessels_vase_1_inv.png',
 	drawtype          = 'mesh',
@@ -26,12 +26,12 @@ minetest.register_node('lord_vessels:vase_1', {
 })
 
 
-minetest.register_craftitem('lord_vessels:vase_2_raw', {
+core.register_craftitem('lord_vessels:vase_2_raw', {
 	description     = S('Raw Ceramic Vase with Handles'),
 	inventory_image = 'lord_vessels_vase_2_raw_inv.png',
 })
 
-minetest.register_node('lord_vessels:vase_2', {
+core.register_node('lord_vessels:vase_2', {
 	description       = S('Ceramic Vase with Handles'),
 	inventory_image   = 'lord_vessels_vase_2_inv.png',
 	drawtype          = 'mesh',
@@ -48,7 +48,7 @@ minetest.register_node('lord_vessels:vase_2', {
 	is_ground_content = false,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_vessels:vase_1_raw',
 	recipe = {
 		{ ''                              , 'lord_homedecor:terracotta_base', ''                               },
@@ -56,14 +56,14 @@ minetest.register_craft({
 		{ 'lord_homedecor:terracotta_base', 'lord_homedecor:terracotta_base', 'lord_homedecor:terracotta_base' },
 	},
 })
-minetest.register_craft({
-	type     = minetest.CraftType.COOKING,
+core.register_craft({
+	type     = core.CraftType.COOKING,
 	output   = 'lord_vessels:vase_1',
 	recipe   = 'lord_vessels:vase_1_raw',
 	cooktime = 60,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_vessels:vase_2_raw',
 	recipe = {
 		{ ''                              , ''                        , ''                               },
@@ -71,8 +71,8 @@ minetest.register_craft({
 		{ ''                              , ''                        , ''                               },
 	},
 })
-minetest.register_craft({
-	type     = minetest.CraftType.COOKING,
+core.register_craft({
+	type     = core.CraftType.COOKING,
 	output   = 'lord_vessels:vase_2',
 	recipe   = 'lord_vessels:vase_2_raw',
 	cooktime = 60,

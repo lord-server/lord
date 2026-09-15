@@ -1,5 +1,5 @@
 local pairs, math_random, table_is_empty, id
-    = pairs, math.random, table.is_empty, minetest.get_content_id
+    = pairs, math.random, table.is_empty, core.get_content_id
 
 
 local REMAINS_Y_MAX = -100

@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:pipeweed_seed", {
+core.register_craftitem("lottfarming:pipeweed_seed", {
 	description     = S("Pipeweed Seeds"),
 	inventory_image = "lottfarming_pipeweed_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu  = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu  = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:pipeweed_1", 34)
 	end,
 })
 
-minetest.register_node("lottfarming:pipeweed_1", {
+core.register_node("lottfarming:pipeweed_1", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -31,7 +31,7 @@ minetest.register_node("lottfarming:pipeweed_1", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:pipeweed_2", {
+core.register_node("lottfarming:pipeweed_2", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -49,7 +49,7 @@ minetest.register_node("lottfarming:pipeweed_2", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:pipeweed_3", {
+core.register_node("lottfarming:pipeweed_3", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -67,7 +67,7 @@ minetest.register_node("lottfarming:pipeweed_3", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:pipeweed_4", {
+core.register_node("lottfarming:pipeweed_4", {
 	paramtype  = "light",
 	paramtype2 = "meshoptions",
 	walkable   = false,
@@ -89,7 +89,7 @@ minetest.register_node("lottfarming:pipeweed_4", {
 	sounds     = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:pipeweed", {
+core.register_craftitem("lottfarming:pipeweed", {
 	description     = S("Pipeweed"),
 	inventory_image = "lottfarming_pipeweed.png",
 })
@@ -102,12 +102,12 @@ farming:add_plant(
 	34
 )
 
-minetest.register_craftitem("lottfarming:pipeweed_cooked", {
+core.register_craftitem("lottfarming:pipeweed_cooked", {
 	description     = S("Cooked Pipeweed"),
 	inventory_image = "lottfarming_pipeweed_cooked.png",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:pipe',
 	recipe = {
 		{ '', '', 'group:stick' },
@@ -120,19 +120,19 @@ pipeweed = {
 	{ "lottfarming:pipeweed_cooked" },
 }
 
-minetest.register_tool("lottfarming:pipe", {
+core.register_tool("lottfarming:pipe", {
 	description     = S("Pipe"),
 	inventory_image = "lottfarming_pipe.png",
 	on_use          = function(itemstack, player)
 		for _, arrow in ipairs(pipeweed) do
 			if player:get_inventory():get_stack("main", player:get_wield_index() + 1):get_name() == arrow[1] then
 				player:set_hp(player:get_hp() + 2)
-				if not minetest.is_creative_enabled(player) then
+				if not core.is_creative_enabled(player) then
 					player:get_inventory():remove_item("main", arrow[1])
 				end
 				local pos = player:get_pos()
 				local dir = player:get_look_dir()
-				minetest.add_particle({
+				core.add_particle({
 					pos                = { x = pos.x, y = pos.y + 1.5, z = pos.z },
 					vel                = { x = dir.x * .3, y = .2, z = dir.z * .3 },
 					acc                = { x = dir.x * .01, y = .1, z = dir.z * .01 },

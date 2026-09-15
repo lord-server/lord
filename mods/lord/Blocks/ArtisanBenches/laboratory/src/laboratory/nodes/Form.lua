@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @class Form.lua.node.Form: fuel_device.node.Form
 local Form = {

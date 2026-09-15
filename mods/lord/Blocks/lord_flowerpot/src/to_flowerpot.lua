@@ -43,7 +43,7 @@ local to_flowerpot = {
 	}
 
 for _, node in pairs(to_flowerpot) do
-	if minetest.registered_nodes[node] then
+	if core.registered_nodes[node] then
 		flowerpot.register_node(node)
 	end
 end

@@ -21,7 +21,7 @@ return {
 			drop = "lottmapgen:mordor_cobble",
 		} },
 	},
-	--- @type minetest.CraftRecipe[]
+	--- @type core.CraftRecipe[]
 	additional_crafts = {
 		{
 			output = "lord_rocks:frozen_stone 2",

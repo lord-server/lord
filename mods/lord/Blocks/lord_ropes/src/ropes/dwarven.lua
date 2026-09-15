@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function register_dwarven()
-	minetest.register_node('lord_ropes:dwarven_ropes', {
+	core.register_node('lord_ropes:dwarven_ropes', {
 		description         = S('Dwarven ropes'),
 		drawtype            = 'nodebox',
 		sunlight_propagates = true,
@@ -39,7 +39,7 @@ local function register_dwarven()
 		sounds = default.node_sound_defaults(),
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output              = 'lord_ropes:dwarven_ropes',
 		recipe              = {
 			{ 'farming:string' },
@@ -48,7 +48,7 @@ local function register_dwarven()
 		}
 	})
 
-	minetest.register_node('lord_ropes:dwarven_rope_hanging', {
+	core.register_node('lord_ropes:dwarven_rope_hanging', {
 		paramtype           = 'light',
 		sunlight_propagates = true,
 		tiles               = {
@@ -78,14 +78,14 @@ local function register_dwarven()
 		},
 		sounds              = default.node_sound_wood_defaults(),
 		after_destruct = function(pos, oldnode)
-			local node = minetest.get_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+			local node = core.get_node({ x = pos.x, y = pos.y - 1, z = pos.z })
 			if node.name == 'lord_ropes:dwarven_rope_hanging' then
-				minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+				core.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
 			end
 		end,
 	})
 
-	minetest.register_node('lord_ropes:dwarven_ropebox', {
+	core.register_node('lord_ropes:dwarven_ropebox', {
 		description         = S('Dwarven ropebox'),
 		drawtype            = 'mesh',
 		mesh                = 'lord_ropes_dwarven_rope_block.obj',
@@ -105,34 +105,34 @@ local function register_dwarven()
 		groups              = { oddly_breakable_by_hand = 2, cracky = 3, rope_block = 1 },
 		sounds              = default.node_sound_wood_defaults(),
 		after_destruct = function(pos, oldnode)
-			local node = minetest.get_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+			local node = core.get_node({ x = pos.x, y = pos.y - 1, z = pos.z })
 			if node.name == 'lord_ropes:dwarven_rope_hanging' then
-				minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+				core.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
 			end
 		end,
 	})
 
-	minetest.register_abm({
+	core.register_abm({
 		nodenames           = { 'lord_ropes:dwarven_ropebox' },
 		interval            = 1,
 		chance              = 1,
 		action = function(pos, node)
-			if minetest.get_node({ x = pos.x, y = pos.y - 1, z = pos.z }).name ~= 'air' then return end
-			minetest.add_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = 'lord_ropes:dwarven_rope_hanging' })
+			if core.get_node({ x = pos.x, y = pos.y - 1, z = pos.z }).name ~= 'air' then return end
+			core.add_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = 'lord_ropes:dwarven_rope_hanging' })
 		end
 	})
 
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = { 'lord_ropes:dwarven_rope_hanging' },
 		interval = 1,
 		chance = 1,
 		action = function(pos, node)
-			if minetest.get_node({ x = pos.x, y = pos.y - 1, z = pos.z }).name ~= 'air' then return end
-			minetest.add_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = 'lord_ropes:dwarven_rope_hanging' })
+			if core.get_node({ x = pos.x, y = pos.y - 1, z = pos.z }).name ~= 'air' then return end
+			core.add_node({ x = pos.x, y = pos.y - 1, z = pos.z }, { name = 'lord_ropes:dwarven_rope_hanging' })
 		end
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'lord_ropes:dwarven_ropebox',
 		recipe = {
 			{ 'default:steel_ingot', 'carts:gear',              'default:steel_ingot' },

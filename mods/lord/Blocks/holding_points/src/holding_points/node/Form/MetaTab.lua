@@ -1,4 +1,4 @@
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 local spec = forms.Spec
 
 
@@ -17,7 +17,7 @@ function MetaTab:get_spec()
 
 	return ''
 		.. spec.box(.75, 1, 9, 9, '#000')
-		.. spec.area_ro(.75, 1, 9, 9, minetest.write_json(fields, true))
+		.. spec.area_ro(.75, 1, 9, 9, core.write_json(fields, true))
 end
 
 --- @param fields table

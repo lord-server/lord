@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
-minetest.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
-minetest.register_alias("castle:pillars_middle", "castle:pillars_stonewall_middle")
+core.register_alias("castle:pillars_bottom", "castle:pillars_stonewall_bottom")
+core.register_alias("castle:pillars_top", "castle:pillars_stonewall_top")
+core.register_alias("castle:pillars_middle", "castle:pillars_stonewall_middle")
 
 local pillar = {}
 
@@ -36,7 +36,7 @@ for _, row in ipairs(pillar.types) do
 	local tile = row[3]
 	local craft_material = row[4]
 	-- Node Definition
-	minetest.register_node("castle:pillars_"..name.."_bottom", {
+	core.register_node("castle:pillars_"..name.."_bottom", {
 	    drawtype = "nodebox",
 		description = S(desc.." Pillar Base"),
 		tiles = {tile..".png"},
@@ -53,7 +53,7 @@ for _, row in ipairs(pillar.types) do
 		},
 	},
 	})
-	minetest.register_node("castle:pillars_"..name.."_top", {
+	core.register_node("castle:pillars_"..name.."_top", {
 	    drawtype = "nodebox",
 		description = S(desc.." Pillar Top"),
 		tiles = {tile..".png"},
@@ -70,7 +70,7 @@ for _, row in ipairs(pillar.types) do
 		},
 	},
 	})
-	minetest.register_node("castle:pillars_"..name.."_middle", {
+	core.register_node("castle:pillars_"..name.."_middle", {
 	    drawtype = "nodebox",
 		description = S(desc.." Pillar Middle"),
 		tiles = {tile..".png"},
@@ -87,7 +87,7 @@ for _, row in ipairs(pillar.types) do
 	})
 	if craft_material then
 		--Choose craft material
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:pillars_"..name.."_bottom 4",
 			recipe = {
 			{"",craft_material,""},
@@ -97,7 +97,7 @@ for _, row in ipairs(pillar.types) do
 	end
 	if craft_material then
 		--Choose craft material
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:pillars_"..name.."_top 4",
 			recipe = {
 			{craft_material,craft_material,craft_material},
@@ -107,7 +107,7 @@ for _, row in ipairs(pillar.types) do
 	end
 	if craft_material then
 		--Choose craft material
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:pillars_"..name.."_middle 4",
 			recipe = {
 			{craft_material,craft_material},

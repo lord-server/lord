@@ -64,11 +64,11 @@ legacy_mobs:register_mob("lottmobs:sheep", {
 		if string.match(itemname, "^tools:dagger_") then
 			if self.gotten ~= false
 				or self.child ~= false
-				or not minetest.get_modpath("wool") then
+				or not core.get_modpath("wool") then
 				return
 			end
 			self.gotten = true -- shaved
-			local obj = minetest.add_item(
+			local obj = core.add_item(
 				self.object:get_pos(),
 				ItemStack( "wool:white " .. math.random(1, 3) )
 			)

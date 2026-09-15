@@ -1,17 +1,17 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_alias("protector_lott:protect", "protector_lott:protect_stone")
+core.register_alias("protector_lott:protect", "protector_lott:protect_stone")
 
 local function reg_prot_node(subname, desc, base_node_name, texture)
 	local groups = {}
 	groups.protector = 1
 	groups.dig_immediate = 2
 	groups.unbreakable = 1
-	for i, j in pairs(minetest.registered_nodes[base_node_name].groups) do
+	for i, j in pairs(core.registered_nodes[base_node_name].groups) do
 		groups[i] = j
 	end
 
-	minetest.register_node("protector_lott:protect_"..subname, {
+	core.register_node("protector_lott:protect_"..subname, {
 		description = S("Protection "..desc),
 		tiles = {texture, texture, texture.."^protector_logo.png"},
 		sounds = default.node_sound_stone_defaults(),
@@ -19,7 +19,7 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 		paramtype = "light",
 
 		after_place_node = function(pos, placer)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			meta:set_string("owner", placer:get_player_name() or "")
 			meta:set_string("infotext", S("Protection").." ("..S("owned by").." " .. meta:get_string("owner") .. ")")
 			meta:set_string("members", "")
@@ -31,10 +31,10 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 		end,
 
 		on_rightclick = function(pos, node, clicker, itemstack)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			if protector.can_dig(1, pos,clicker:get_player_name(), true, 1) then
-				minetest.show_formspec(clicker:get_player_name(),
-				"protector_lott:node_" .. minetest.pos_to_string(pos), protector.generate_formspec(meta))
+				core.show_formspec(clicker:get_player_name(),
+				"protector_lott:node_" .. core.pos_to_string(pos), protector.generate_formspec(meta))
 			end
 		end,
 
@@ -42,7 +42,7 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 			if not protector.can_dig(1, pos, puncher:get_player_name(), true, 1) then
 				return
 			end
-			minetest.add_entity(pos, "protector_lott:display")
+			core.add_entity(pos, "protector_lott:display")
 		end,
 
 		can_dig = function(pos, player)
@@ -50,7 +50,7 @@ local function reg_prot_node(subname, desc, base_node_name, texture)
 		end,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "protector_lott:protect_"..subname,
 		recipe = {
 			{base_node_name, "protector_lott:protect2"},

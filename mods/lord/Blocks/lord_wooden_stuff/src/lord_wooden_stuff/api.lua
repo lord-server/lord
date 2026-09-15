@@ -20,13 +20,13 @@ local stuff2func = {
 ---@param def LordWoodenStuffDefinition
 ---@param exceptions string[] @list with stuff types which will be not registered
 local function register_wooden_stuff(wood, def, exceptions)
-	local node_groups     = table.copy(minetest.registered_nodes[def.wood_name].groups)
+	local node_groups     = table.copy(core.registered_nodes[def.wood_name].groups)
 	node_groups["wood"]   = nil
 	node_groups["wooden"] = 1
 
 	local stick = "default:stick"
 	if not table.contains(exceptions, "stick") then
-		minetest.log("info", "Register stick: " .. wood)
+		core.log("info", "Register stick: " .. wood)
 		stick = register_stick(wood, def)
 	end
 

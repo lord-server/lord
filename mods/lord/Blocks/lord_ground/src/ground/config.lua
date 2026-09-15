@@ -48,8 +48,8 @@ local config = {
 	--},
 }
 
-local mordor_from_setting = minetest.settings:get("lord_ground.mordor_lands.from")
-local mordor_to_setting = minetest.settings:get("lord_ground.mordor_lands.to")
+local mordor_from_setting = core.settings:get("lord_ground.mordor_lands.from")
+local mordor_to_setting = core.settings:get("lord_ground.mordor_lands.to")
 
 if mordor_from_setting and mordor_to_setting then
 	local mordor_from = string.split(mordor_from_setting)
@@ -68,7 +68,7 @@ if mordor_from_setting and mordor_to_setting then
 		},
 	}
 else
-	minetest.log("warning", "lord_ground.mordor_lands.from/to aren't set, disabling the functionality...")
+	core.log("warning", "lord_ground.mordor_lands.from/to aren't set, disabling the functionality...")
 end
 
 

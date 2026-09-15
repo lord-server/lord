@@ -7,7 +7,7 @@ local fork = config.turnig_fork
 --- @param pos Position
 --- @param delta number Шаг изменения (1 или -1)
 local function adjust_semitones(pos, delta)
-	local meta = minetest.get_meta(pos)
+	local meta = core.get_meta(pos)
 	local instrument_id = meta:get_string('instrument')
 	local current = meta:get_int('semitones')
 
@@ -26,9 +26,9 @@ local function adjust_semitones(pos, delta)
 end
 
 local function register_tuning_fork()
-	minetest.register_tool('music_instruments:tuning_fork', {
+	core.register_tool('music_instruments:tuning_fork', {
 		description = fork.title,
-		_tt_help = fork.description and minetest.colorize('#aaa',  '\n' .. fork.description),
+		_tt_help = fork.description and core.colorize('#aaa',  '\n' .. fork.description),
 		inventory_image = fork.inventory_image,
 		wield_image = fork.wield_image,
 		groups = fork.groups,
@@ -38,7 +38,7 @@ local function register_tuning_fork()
 		on_use = function(itemstack, user, pointed_thing)
 			if pointed_thing.type == 'node' then
 
-				local node_name = minetest.get_node(pointed_thing.under).name
+				local node_name = core.get_node(pointed_thing.under).name
 				if node_name:find('music_instruments:') then
 					adjust_semitones(pointed_thing.under, 1)
 				end
@@ -52,7 +52,7 @@ local function register_tuning_fork()
 		on_place = function(itemstack, user, pointed_thing)
 			if pointed_thing.type == 'node' then
 
-				local node_name = minetest.get_node(pointed_thing.under).name
+				local node_name = core.get_node(pointed_thing.under).name
 				if node_name:find('music_instruments:') then
 					adjust_semitones(pointed_thing.under, -1)
 				end
@@ -62,7 +62,7 @@ local function register_tuning_fork()
 		end
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'music_instruments:tuning_fork',
 		recipe = {
 			{'', '',                      ''},

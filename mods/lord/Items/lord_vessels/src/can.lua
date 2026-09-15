@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
-minetest.override_item('vessels:steel_bottle', {
+core.override_item('vessels:steel_bottle', {
 	description       = S('Steel Can'),
 	drawtype          = 'mesh',
 	mesh              = 'lord_vessels_steel_can.obj',

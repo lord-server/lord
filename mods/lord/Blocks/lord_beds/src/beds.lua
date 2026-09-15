@@ -54,7 +54,7 @@ for i = 1, #dyes do
 			{"group:wood", "group:wood", "group:wood"},
 		},
 	})
-	minetest.register_craft({
+	core.register_craft({
 		type = 'fuel',
 		recipe = node_name..'_bottom',
 		burntime = 13,
@@ -100,7 +100,7 @@ for i = 1, #dyes do
 			{"group:wood", "group:wood", "group:wood"},
 		},
 	})
-	minetest.register_craft({
+	core.register_craft({
 		type = 'fuel',
 		recipe = node_name..'_bottom',
 		burntime = 12,
@@ -108,9 +108,9 @@ for i = 1, #dyes do
 end
 
 -- Aliases for MT beds
-minetest.register_alias("beds:fancy_bed",        "lord_beds:fancy_bed_red")
-minetest.register_alias("beds:fancy_bed_bottom", "lord_beds:fancy_bed_red_bottom")
-minetest.register_alias("beds:fancy_bed_top",    "lord_beds:fancy_bed_red_top")
-minetest.register_alias("beds:bed",              "lord_beds:bed_red")
-minetest.register_alias("beds:bed_bottom",       "lord_beds:bed_red_bottom")
-minetest.register_alias("beds:bed_top",          "lord_beds:bed_red_top")
+core.register_alias("beds:fancy_bed",        "lord_beds:fancy_bed_red")
+core.register_alias("beds:fancy_bed_bottom", "lord_beds:fancy_bed_red_bottom")
+core.register_alias("beds:fancy_bed_top",    "lord_beds:fancy_bed_red_top")
+core.register_alias("beds:bed",              "lord_beds:bed_red")
+core.register_alias("beds:bed_bottom",       "lord_beds:bed_red_bottom")
+core.register_alias("beds:bed_top",          "lord_beds:bed_red_top")

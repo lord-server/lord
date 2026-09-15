@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
-minetest.register_node("lottfarming:decay_tree", {
+core.register_node("lottfarming:decay_tree", {
 	description = S("Decaying Wood"),
 	tiles = {'default_tree_top.png^lottfarming_decay_tree.png', 'default_tree.png', 	'default_tree.png'},
      is_ground_content = true,
@@ -12,15 +12,15 @@ minetest.register_node("lottfarming:decay_tree", {
 
 local function decaying_wood(pos)
 	if pos == nil then return false end
-	local node = minetest.get_node(pos)
+	local node = core.get_node(pos)
 	local name = node.name
-	local above = minetest.get_node({x=pos.x, y=pos.y+1, z=pos.z})
+	local above = core.get_node({x=pos.x, y=pos.y+1, z=pos.z})
 	local is_tree = name == "default:tree" or name == "default:jungletree"
 	local is_trunk = name == "default:tree_trunk" or name == "default:jungletree_trunk"
 	if is_tree or is_trunk then
 		if above.name == "air" then
 			node.name = "lottfarming:decay_tree"
-			minetest.set_node(pos, node)
+			core.set_node(pos, node)
 			return true
 		end
 	end
@@ -29,7 +29,7 @@ end
 
 local function growgen(pos)
 	if pos == nil then return false end
-	local name = minetest.get_node(pos).name
+	local name = core.get_node(pos).name
 	local farm_list = {
 		["lottfarming:turnips_1"] = "lottfarming:turnips_2",
 		["lottfarming:turnips_2"] = "lottfarming:turnips_3",
@@ -88,7 +88,7 @@ local function growgen(pos)
 	}
 	for farm_1, farm_2 in pairs(farm_list) do
 		if name == farm_1 then
-			minetest.set_node(pos, {name=farm_2})
+			core.set_node(pos, {name=farm_2})
 			return true
 		end
 	end
@@ -96,7 +96,7 @@ local function growgen(pos)
 end
 
 
-minetest.register_tool("lottfarming:bacteria_fertiliser", {
+core.register_tool("lottfarming:bacteria_fertiliser", {
 	description = S("Bacteria Fertiliser"),
 	tiles = {"lord_vessels_bottle_closed.png^lottfarming_bacteria_fertiliser.png"},
 	inventory_image = "lord_vessels_bottle_closed.png^lottfarming_bacteria_fertiliser.png",
@@ -108,12 +108,12 @@ minetest.register_tool("lottfarming:bacteria_fertiliser", {
 	end
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottfarming:bacteria_fertiliser",
 	recipe = {{"lord_vessels:glass_bottle_water", "bones:bonedust"}}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:pipe',
 	recipe = {
 		{'', '', 'group:stick'},
@@ -124,7 +124,7 @@ minetest.register_craft({
 
 -- SOUPS and SALADS
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:mushroom_soup',
 	recipe = {
 		{'', 'lottores:salt', ''},
@@ -133,7 +133,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:salad',
 	recipe = {
 		{'', 'lottores:salt', ''},
@@ -144,77 +144,77 @@ minetest.register_craft({
 
 -- SEEDS
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:athelas_seed 2',
 	recipe = {
 		{'lottfarming:athelas'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:barley_seed 6',
 	recipe = {
 		{'lottfarming:sheaf_barley'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:berries_seed 2',
 	recipe = {
 		{'lottfarming:berries'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:cabbage_seed 2',
 	recipe = {
 		{'lottfarming:cabbage'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:corn_seed 6',
 	recipe = {
 		{'lottfarming:ear_of_corn'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:tomatoes_seed 2',
 	recipe = {
 		{'lottfarming:tomatoes'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:melon_seed 2',
 	recipe = {
 		{'lottfarming:melon'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:potato_seed 2',
 	recipe = {
 		{'lottfarming:potato'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:pipeweed_seed 2',
 	recipe = {
 		{'lottfarming:pipeweed'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:pumpkin_seed 9',
 	recipe = {
 		{'lottfarming:pumpkin_3'},
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:turnips_seed 2',
 	recipe = {
 		{'lottfarming:turnips'},
@@ -223,34 +223,34 @@ minetest.register_craft({
 
 -- FOOD
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:melon 9',
 	recipe = {{'lottfarming:melon_3'}},
 })
 
 -- COOKING
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:barley_cooked",
 	recipe = "lottfarming:sheaf_barley"
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:pipeweed_cooked",
 	recipe = "lottfarming:pipeweed"
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:potato_cooked",
 	recipe = "lottfarming:potato"
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:turnips_cooked",

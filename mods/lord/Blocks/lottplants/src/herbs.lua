@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --Lorien grass
-minetest.register_node("lottplants:lorien_grass_1", {
+core.register_node("lottplants:lorien_grass_1", {
 	description       = S("Lorien Grass"),
 	drawtype          = "plantlike",
 	tiles             = { "lottplants_lorien_grass_1.png" },
@@ -25,11 +25,11 @@ minetest.register_node("lottplants:lorien_grass_1", {
 	on_place          = function(itemstack, placer, pointed_thing)
 		-- place a random grass node
 		local stack = ItemStack("lottplants:lorien_grass_" .. math.random(1, 5))
-		local ret   = minetest.item_place(stack, placer, pointed_thing)
+		local ret   = core.item_place(stack, placer, pointed_thing)
 		return ItemStack("lottplants:lorien_grass_1 " .. itemstack:get_count() - (1 - ret:get_count()))
 	end,
 })
-minetest.register_node("lottplants:lorien_grass_2", {
+core.register_node("lottplants:lorien_grass_2", {
 	description       = S("Lorien Grass"),
 	drawtype          = "plantlike",
 	tiles             = { "lottplants_lorien_grass_2.png" },
@@ -50,7 +50,7 @@ minetest.register_node("lottplants:lorien_grass_2", {
 		fixed = { -0.5, -0.5, -0.5, 0.5, -5 / 16, 0.5 },
 	},
 })
-minetest.register_node("lottplants:lorien_grass_3", {
+core.register_node("lottplants:lorien_grass_3", {
 	description       = S("Lorien Grass"),
 	drawtype          = "plantlike",
 	tiles             = { "lottplants_lorien_grass_3.png" },
@@ -71,7 +71,7 @@ minetest.register_node("lottplants:lorien_grass_3", {
 		fixed = { -0.5, -0.5, -0.5, 0.5, -5 / 16, 0.5 },
 	},
 })
-minetest.register_node("lottplants:lorien_grass_4", {
+core.register_node("lottplants:lorien_grass_4", {
 	description       = S("Lorien Grass"),
 	drawtype          = "plantlike",
 	tiles             = { "lottplants_lorien_grass_4.png" },
@@ -93,7 +93,7 @@ minetest.register_node("lottplants:lorien_grass_4", {
 	},
 })
 
-minetest.register_node("lottplants:brambles_of_mordor", {
+core.register_node("lottplants:brambles_of_mordor", {
 	description = S("Mordor Thorn"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_brambles_of_mordor.png" },
@@ -114,7 +114,7 @@ minetest.register_node("lottplants:brambles_of_mordor", {
 	},
 })
 
-minetest.register_node("lottplants:pilinehtar", {
+core.register_node("lottplants:pilinehtar", {
 	description = S("Pilinehtar"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_pilinehtar.png" },

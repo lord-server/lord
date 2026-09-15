@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local planks = {
@@ -10,8 +10,8 @@ local planks = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { planks = 1 }),
 	})
 	planks.nodes[node_name] = definition
@@ -26,15 +26,15 @@ local function register_planks(node_name, hardness, craft, groups, title)
 	local sub_name = node_name:split(":")[2]
 	title = title and title:first_to_upper() or sub_name:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
-	if not io.file_exists(minetest.get_mod_textures_folder() .. texture) then
-		minetest.log("warning", ("Can't find texture: \"%s\". Planks `%s` not registered."):format(texture, node_name))
+	if not io.file_exists(core.get_mod_textures_folder() .. texture) then
+		core.log("warning", ("Can't find texture: \"%s\". Planks `%s` not registered."):format(texture, node_name))
 		return
 	end
 
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description  = S(title .. " Planks"),
 		tiles        = { texture },
 		groups       = table.overwrite({
@@ -49,8 +49,8 @@ local function register_planks(node_name, hardness, craft, groups, title)
 		place_param2 = 0,
 	})
 
-	planks.nodes[node_name]      = minetest.registered_nodes[node_name]
-	planks.lord_nodes[node_name] = minetest.registered_nodes[node_name]
+	planks.nodes[node_name]      = core.registered_nodes[node_name]
+	planks.lord_nodes[node_name] = core.registered_nodes[node_name]
 
 	local stairs_subname = sub_name
 	stairs.register_stair_and_slab(
@@ -69,7 +69,7 @@ local function register_planks(node_name, hardness, craft, groups, title)
 	if craft == nil then
 		return
 	end
-	minetest.register_craft({
+	core.register_craft({
 		output = node_name .. " 4",
 		recipe = type(craft) == "string"
 			and { { craft } }

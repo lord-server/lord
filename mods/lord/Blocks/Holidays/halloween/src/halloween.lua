@@ -16,8 +16,8 @@ end
 -- Вызывается автоматически при загрузке мода если текущая дата в хэллоуинском периоде
 local function apply_halloween_changes()
 	if not is_halloween_season() then return end
-	local nazgul_def     = minetest.registered_entities['lottmobs:nazgul']
-	local witch_king_def = minetest.registered_entities['lottmobs:witch_king']
+	local nazgul_def     = core.registered_entities['lottmobs:nazgul']
+	local witch_king_def = core.registered_entities['lottmobs:witch_king']
 
 	if nazgul_def then
 		-- Добавляем candy_treat в начало таблицы чтоб увеличить приоритет дропа
@@ -41,10 +41,10 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		jack_o_lantern.register()
 		treats.register()
-		minetest.after(0, apply_halloween_changes)
+		core.after(0, apply_halloween_changes)
 	end,
 }

@@ -19,17 +19,17 @@
 
 function lord_homedecor.start_particle_spawner(pos, node, particledef, soundname)
 
-	local this_spawner_meta = minetest.get_meta(pos)
+	local this_spawner_meta = core.get_meta(pos)
 	local id = this_spawner_meta:get_int("active")
 	local s_handle = this_spawner_meta:get_int("sound")
 
 	if id ~= 0 then
 		if s_handle then
-			minetest.after(0, function(handle)
-				minetest.sound_stop(handle)
+			core.after(0, function(handle)
+				core.sound_stop(handle)
 			end, s_handle)
 		end
-		minetest.delete_particlespawner(id)
+		core.delete_particlespawner(id)
 		this_spawner_meta:set_int("active", nil)
 		this_spawner_meta:set_int("sound", nil)
 		return
@@ -67,7 +67,7 @@ function lord_homedecor.start_particle_spawner(pos, node, particledef, soundname
 		local maxvelx = maxvelx_t[fdir + 1]
 		local maxvelz = maxvelz_t[fdir + 1]
 
-		id = minetest.add_particlespawner({
+		id = core.add_particlespawner({
 			amount = 60,
 			time = 0,
 			collisiondetection = true,
@@ -83,7 +83,7 @@ function lord_homedecor.start_particle_spawner(pos, node, particledef, soundname
 			maxsize = 1,
 			texture = "homedecor_water_particle.png",
 		})
-		s_handle = minetest.sound_play(soundname, {
+		s_handle = core.sound_play(soundname, {
 			pos = pos,
 			max_hear_distance = 5,
 			loop = true
@@ -95,17 +95,17 @@ function lord_homedecor.start_particle_spawner(pos, node, particledef, soundname
 end
 
 function lord_homedecor.stop_particle_spawner(pos)
-	local this_spawner_meta = minetest.get_meta(pos)
+	local this_spawner_meta = core.get_meta(pos)
 	local id = this_spawner_meta:get_int("active")
 	local s_handle = this_spawner_meta:get_int("sound")
 
 	if id ~= 0 then
-		minetest.delete_particlespawner(id)
+		core.delete_particlespawner(id)
 	end
 
 	if s_handle then
-		minetest.after(0, function(handle)
-			minetest.sound_stop(handle)
+		core.after(0, function(handle)
+			core.sound_stop(handle)
 		end, s_handle)
 	end
 

@@ -17,7 +17,7 @@ end
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 
 		MapGen.id_icicle = register_nodes()

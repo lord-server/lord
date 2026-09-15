@@ -4,50 +4,50 @@
 -- Aliases for map generator outputs
 --
 
-minetest.register_on_mapgen_init(function(params)
-	local mapgen = minetest.get_mapgen_setting
+core.register_on_mapgen_init(function(params)
+	local mapgen = core.get_mapgen_setting
 	if mapgen("mg_name") == "singlenode" or mapgen("mg_name") == "v6" then
-		minetest.set_mapgen_setting("mg_name", "v7")
+		core.set_mapgen_setting("mg_name", "v7")
 	end
 end)
 
-minetest.register_alias("mapgen_stone", "default:stone")
-minetest.register_alias("mapgen_tree", "default:tree")
-minetest.register_alias("mapgen_leaves", "default:leaves")
-minetest.register_alias("mapgen_jungletree", "default:jungletree")
+core.register_alias("mapgen_stone", "default:stone")
+core.register_alias("mapgen_tree", "default:tree")
+core.register_alias("mapgen_leaves", "default:leaves")
+core.register_alias("mapgen_jungletree", "default:jungletree")
 -- Временно выпилили в связи с #894 (см. github), где возникла проблема с default:junglesapling
 -- В коде присутствует и default:jungleleaves, и lord_trees:mirk_leaf/lottplants:mirkleaf, что создаёт путанницу
 -- Принято решение пока что оставить только lord_trees:mirk_leaf
 -- Может понадобиться при возможном переходе с дерева из lord_trees на дерево из default
---minetest.register_alias("mapgen_jungleleaves", "default:jungleleaves")
-minetest.register_alias("mapgen_apple", "default:apple")
-minetest.register_alias("mapgen_water_source", "default:water_source")
-minetest.register_alias("mapgen_river_water_source", "default:river_water_source")
-minetest.register_alias("mapgen_dirt", "default:dirt")
-minetest.register_alias("mapgen_sand", "default:sand")
-minetest.register_alias("mapgen_gravel", "default:gravel")
-minetest.register_alias("mapgen_desert_gravel", "default:desert_gravel")
-minetest.register_alias("mapgen_clay", "default:clay")
-minetest.register_alias("mapgen_lava_source", "default:lava_source")
-minetest.register_alias("mapgen_cobble", "default:cobble")
-minetest.register_alias("mapgen_mossycobble", "default:mossycobble")
-minetest.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
-minetest.register_alias("mapgen_junglegrass", "default:junglegrass")
-minetest.register_alias("mapgen_stone_with_coal", "default:stone_with_coal")
-minetest.register_alias("mapgen_stone_with_iron", "default:stone_with_iron")
-minetest.register_alias("mapgen_mese", "default:mese")
-minetest.register_alias("mapgen_desert_sand", "default:desert_sand")
-minetest.register_alias("mapgen_desert_stone", "default:desert_stone")
-minetest.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
+--core.register_alias("mapgen_jungleleaves", "default:jungleleaves")
+core.register_alias("mapgen_apple", "default:apple")
+core.register_alias("mapgen_water_source", "default:water_source")
+core.register_alias("mapgen_river_water_source", "default:river_water_source")
+core.register_alias("mapgen_dirt", "default:dirt")
+core.register_alias("mapgen_sand", "default:sand")
+core.register_alias("mapgen_gravel", "default:gravel")
+core.register_alias("mapgen_desert_gravel", "default:desert_gravel")
+core.register_alias("mapgen_clay", "default:clay")
+core.register_alias("mapgen_lava_source", "default:lava_source")
+core.register_alias("mapgen_cobble", "default:cobble")
+core.register_alias("mapgen_mossycobble", "default:mossycobble")
+core.register_alias("mapgen_dirt_with_grass", "default:dirt_with_grass")
+core.register_alias("mapgen_junglegrass", "default:junglegrass")
+core.register_alias("mapgen_stone_with_coal", "default:stone_with_coal")
+core.register_alias("mapgen_stone_with_iron", "default:stone_with_iron")
+core.register_alias("mapgen_mese", "default:mese")
+core.register_alias("mapgen_desert_sand", "default:desert_sand")
+core.register_alias("mapgen_desert_stone", "default:desert_stone")
+core.register_alias("mapgen_stair_cobble", "stairs:stair_cobble")
 
 
 function default.make_papyrus(pos, size)
 	for y=0,size-1 do
 		local p = {x=pos.x, y=pos.y+y, z=pos.z}
-		local nn = minetest.get_node(p).name
-		if minetest.registered_nodes[nn] and
-			minetest.registered_nodes[nn].buildable_to then
-			minetest.set_node(p, {name="default:papyrus"})
+		local nn = core.get_node(p).name
+		if core.registered_nodes[nn] and
+			core.registered_nodes[nn].buildable_to then
+			core.set_node(p, {name="default:papyrus"})
 		else
 			return
 		end
@@ -57,10 +57,10 @@ end
 function default.make_cactus(pos, size)
 	for y=0,size-1 do
 		local p = {x=pos.x, y=pos.y+y, z=pos.z}
-		local nn = minetest.get_node(p).name
-		if minetest.registered_nodes[nn] and
-			minetest.registered_nodes[nn].buildable_to then
-			minetest.set_node(p, {name="default:cactus"})
+		local nn = core.get_node(p).name
+		if core.registered_nodes[nn] and
+			core.registered_nodes[nn].buildable_to then
+			core.set_node(p, {name="default:cactus"})
 		else
 			return
 		end
@@ -85,11 +85,11 @@ function default.make_nyancat(pos, facedir, length)
 		tailvec.z = 1
 	end
 	local p = {x=pos.x, y=pos.y, z=pos.z}
-	minetest.set_node(p, {name="default:nyancat", param2=facedir})
+	core.set_node(p, {name="default:nyancat", param2=facedir})
 	for i=1,length do
 		p.x = p.x + tailvec.x
 		p.z = p.z + tailvec.z
-		minetest.set_node(p, {name="default:nyancat_rainbow", param2=facedir})
+		core.set_node(p, {name="default:nyancat_rainbow", param2=facedir})
 	end
 end
 
@@ -115,11 +115,11 @@ function generate_nyancats(seed, minp, maxp)
 	end
 end
 
-minetest.register_on_generated(function(minp, maxp, seed)
+core.register_on_generated(function(minp, maxp, seed)
 	if maxp.y >= 2 and minp.y <= 0 then
 		local perlin1, divlen, divs
 		-- Generate papyrus
-		perlin1 = minetest.get_perlin(354, 3, 0.7, 100)
+		perlin1 = core.get_perlin(354, 3, 0.7, 100)
 		-- Assume X and Z lengths are equal
 		divlen = 8
 		divs = (maxp.x-minp.x)/divlen+1;
@@ -136,15 +136,15 @@ minetest.register_on_generated(function(minp, maxp, seed)
 			for i=0,papyrus_amount do
 				local x = pr:next(x0, x1)
 				local z = pr:next(z0, z1)
-				if minetest.get_node({x=x,y=1,z=z}).name == "default:dirt_with_grass" and
-						minetest.find_node_near({x=x,y=1,z=z}, 1, "default:water_source") then
+				if core.get_node({x=x,y=1,z=z}).name == "default:dirt_with_grass" and
+						core.find_node_near({x=x,y=1,z=z}, 1, "default:water_source") then
 					default.make_papyrus({x=x,y=2,z=z}, pr:next(2, 4))
 				end
 			end
 		end
 		end
 		-- Generate cactuses
-		perlin1 = minetest.get_perlin(230, 3, 0.6, 100)
+		perlin1 = core.get_perlin(230, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
 		divlen = 16
 		divs = (maxp.x-minp.x)/divlen+1;
@@ -164,20 +164,20 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				-- Find ground level (0...15)
 				local ground_y = nil
 				for y=30,0,-1 do
-					if minetest.get_node({x=x,y=y,z=z}).name ~= "air" then
+					if core.get_node({x=x,y=y,z=z}).name ~= "air" then
 						ground_y = y
 						break
 					end
 				end
 				-- If desert sand, make cactus
-				if ground_y and minetest.get_node({x=x,y=ground_y,z=z}).name == "default:desert_sand" then
+				if ground_y and core.get_node({x=x,y=ground_y,z=z}).name == "default:desert_sand" then
 					default.make_cactus({x=x,y=ground_y+1,z=z}, pr:next(3, 4))
 				end
 			end
 		end
 		end
 		-- Generate grass
-		perlin1 = minetest.get_perlin(329, 3, 0.6, 100)
+		perlin1 = core.get_perlin(329, 3, 0.6, 100)
 		-- Assume X and Z lengths are equal
 		divlen = 16
 		divs = (maxp.x-minp.x)/divlen+1;
@@ -197,7 +197,7 @@ minetest.register_on_generated(function(minp, maxp, seed)
 				-- Find ground level (0...15)
 				local ground_y = nil
 				for y=30,0,-1 do
-					if minetest.get_node({x=x,y=y,z=z}).name ~= "air" then
+					if core.get_node({x=x,y=y,z=z}).name ~= "air" then
 						ground_y = y
 						break
 					end
@@ -205,18 +205,18 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 				if ground_y then
 					local p = {x=x,y=ground_y+1,z=z}
-					local nn = minetest.get_node(p).name
+					local nn = core.get_node(p).name
 					-- Check if the node can be replaced
-					if minetest.registered_nodes[nn] and
-						minetest.registered_nodes[nn].buildable_to then
-						nn = minetest.get_node({x=x,y=ground_y,z=z}).name
+					if core.registered_nodes[nn] and
+						core.registered_nodes[nn].buildable_to then
+						nn = core.get_node({x=x,y=ground_y,z=z}).name
 						-- If desert sand, add dry shrub
 						if nn == "default:desert_sand" then
-							minetest.set_node(p,{name="default:dry_shrub"})
+							core.set_node(p,{name="default:dry_shrub"})
 
 						-- If dirt with grass, add grass
 						elseif nn == "default:dirt_with_grass" then
-							minetest.set_node(p,{name="default:grass_"..pr:next(1, 5)})
+							core.set_node(p,{name="default:grass_"..pr:next(1, 5)})
 						end
 					end
 				end

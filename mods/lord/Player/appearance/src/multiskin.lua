@@ -105,6 +105,6 @@ character.on_skin_change(function(character, skin_no)
 	multiskin:update_player_visuals(player)
 end)
 
-minetest.register_on_leaveplayer(function(player, timed_out)
+core.register_on_leaveplayer(function(player, timed_out)
 	multiskin[player:get_player_name()] = nil
 end)

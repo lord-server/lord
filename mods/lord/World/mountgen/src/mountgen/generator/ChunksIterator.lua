@@ -48,7 +48,7 @@ local ChunksIterator = {}
 --- @param callback fun(data:number[],index:number,pos:Position)
 function ChunksIterator.foreach_pos_in(p1, p2, callback)
 	local chunks = list_chunks(p1, p2)
-	local voxel_manip = minetest.get_voxel_manip(p1, p2)
+	local voxel_manip = core.get_voxel_manip(p1, p2)
 
 	for _, chunk in ipairs(chunks) do
 		local lp1 = chunk[1]

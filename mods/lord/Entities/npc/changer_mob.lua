@@ -1,4 +1,4 @@
-local esc = minetest.formspec_escape
+local esc = core.formspec_escape
 
 local function user_mob_content(self, width, pos)
 	local formspec = ""
@@ -76,8 +76,8 @@ local function update_changer(self, inv)
 	inv:set_stack("show_goods", 1, inv:get_stack("admin_give", 1))
 	inv:set_stack("show_price", 1, inv:get_stack("admin_receive", 1))
 
-	minetest.log("Changer receive: "..self.receive.." "..self.receive_qty)
-	minetest.log("Changer give: "..self.give.." "..self.give_qty)
+	core.log("Changer receive: "..self.receive.." "..self.receive_qty)
+	core.log("Changer give: "..self.give.." "..self.give_qty)
 end
 
 local function update_takeout(self, inv)
@@ -117,7 +117,7 @@ local function on_put(inv, listname, index, stack, player)
 	elseif listname == "receive" then
 		update_takeout(self, inv)
 	elseif listname == "give" then
-		minetest.log("error", "put to GIVE!")
+		core.log("error", "put to GIVE!")
 	end
 end
 
@@ -140,7 +140,7 @@ local function on_take(inv, listname, index, stack, player)
 end
 
 local function create_inventory(self, id)
-	self.inventory = minetest.get_inventory({type="detached", name=id})
+	self.inventory = core.get_inventory({type="detached", name=id})
 	if self.inventory ~= nil then
 		return
 	end
@@ -152,7 +152,7 @@ local function create_inventory(self, id)
 		on_put = on_put,
 		on_take = on_take
 	}
-	self.inventory = minetest.create_detached_inventory(id, move_put_take)
+	self.inventory = core.create_detached_inventory(id, move_put_take)
 	self.inventory:set_size("admin_receive", 1)
 	self.inventory:set_size("admin_give", 1)
 
@@ -168,7 +168,7 @@ local function create_inventory(self, id)
 end
 
 local function init_from_staticdata(self, mobdata)
-	local data = minetest.deserialize(mobdata)
+	local data = core.deserialize(mobdata)
 	if data["receive"] ~= nil then
 		self.receive = data["receive"]
 		self.receive_qty = data["receive_qty"]
@@ -211,7 +211,7 @@ local function get_mobdata(self)
 		["give"] = self.give,
 		["give_qty"] = self.give_qty,
 	}
-	return minetest.serialize(data)
+	return core.serialize(data)
 end
 
 npc:register_mob("npc:changer_mob", {

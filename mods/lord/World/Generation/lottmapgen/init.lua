@@ -1,7 +1,7 @@
 local math_random, math_floor, math_abs, math_ceil, math_min, math_max, os_clock, pairs, type, id
-	= math.random, math.floor, math.abs, math.ceil, math.min, math.max, os.clock, pairs, type, minetest.get_content_id
+	= math.random, math.floor, math.abs, math.ceil, math.min, math.max, os.clock, pairs, type, core.get_content_id
 
-local Logger = minetest.get_mod_logger()
+local Logger = core.get_mod_logger()
 
 -- This thresholds used for detection of biome in current map position (in 2D -- only x, z coordinates)
 local HI_TEMPERATURE_THRESHOLD =  0.4
@@ -74,15 +74,15 @@ local np_random = {
 }
 
 -- Stuff
-local water_level = tonumber(minetest.get_mapgen_setting("water_level") or 1)
+local water_level = tonumber(core.get_mapgen_setting("water_level") or 1)
 
-local measure = minetest.settings:get_bool("mapgen_measure_chunk_gene_time", false)
+local measure = core.settings:get_bool("mapgen_measure_chunk_gene_time", false)
 local chunk_gen_count = 0
 local chunk_gen_avg = 0
 
-dofile(minetest.get_modpath("lottmapgen").."/nodes.lua")
-dofile(minetest.get_modpath("lottmapgen").."/functions.lua")
-dofile(minetest.get_modpath("lottmapgen").."/schematics.lua")
+dofile(core.get_modpath("lottmapgen").."/nodes.lua")
+dofile(core.get_modpath("lottmapgen").."/functions.lua")
+dofile(core.get_modpath("lottmapgen").."/schematics.lua")
 
 local function detect_current_biome(n_temp, n_humid, n_ran)
 	local biome
@@ -201,7 +201,7 @@ local id_salt = id("lottores:mineral_salt")
 local id_pearl = id("lottores:mineral_pearl")
 local id_waterlily = id("flowers:waterlily_waving")
 
-local config = dofile(minetest.get_modpath("lottmapgen").."/config.lua")
+local config = dofile(core.get_modpath("lottmapgen").."/config.lua")
 local biome_grass = config.biome_grass
 local biome_airspace = config.biome_airspace
 
@@ -336,7 +336,7 @@ end
 
 
 -- On generated function
-minetest.register_on_generated(function(min_pos, max_pos, seed)
+core.register_on_generated(function(min_pos, max_pos, seed)
 	if min_pos.y < (water_level-300) or min_pos.y > 1000 then
 		return
 	end
@@ -354,18 +354,18 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 	local chunk_lens = { x = side_len, y = side_len, z = side_len }
 	local xz_min_pos = { x = x0, y = z0 }
 
-	local nvals_temp   = minetest.get_perlin_map(np_temperature, chunk_lens):get_2d_map_flat(xz_min_pos)
-	local nvals_humid  = minetest.get_perlin_map(np_humidity, chunk_lens):get_2d_map_flat(xz_min_pos)
-	local nvals_random = minetest.get_perlin_map(np_random, chunk_lens):get_2d_map_flat(xz_min_pos)
+	local nvals_temp   = core.get_perlin_map(np_temperature, chunk_lens):get_2d_map_flat(xz_min_pos)
+	local nvals_humid  = core.get_perlin_map(np_humidity, chunk_lens):get_2d_map_flat(xz_min_pos)
+	local nvals_random = core.get_perlin_map(np_random, chunk_lens):get_2d_map_flat(xz_min_pos)
 
 	local lua_gen_time = 0
 
-	if minetest.settings:get_bool("mapgen_chunk_pos_log") then
+	if core.settings:get_bool("mapgen_chunk_pos_log") then
 		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
 			 .. x1 .. "_" .. y1 .. "_" .. z1 .. " generation start")
 	end
 
-	minetest.with_map_part_do(min_pos, max_pos, function(area, data)
+	core.with_map_part_do(min_pos, max_pos, function(area, data)
 
 
 		local lua_t1 = os_clock()
@@ -498,11 +498,11 @@ minetest.register_on_generated(function(min_pos, max_pos, seed)
 		chunk_gen_count = chunk_gen_count + 1
 	end
 
-	if minetest.settings:get_bool("mapgen_chunk_pos_log") then
+	if core.settings:get_bool("mapgen_chunk_pos_log") then
 		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
 			.. x1 .. "_" .. y1 .. "_" .. z1 .. " generation end")
 	end
 end)
 
-dofile(minetest.get_modpath("lottmapgen").."/deco.lua")
-dofile(minetest.get_modpath("lottmapgen").."/chests.lua")
+dofile(core.get_modpath("lottmapgen").."/deco.lua")
+dofile(core.get_modpath("lottmapgen").."/chests.lua")

@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Protected Chest
 
-minetest.register_node("protector_lott:chest", {
+core.register_node("protector_lott:chest", {
 	description = S("Protected Chest"),
 	tiles = {
 		"default_chest_top.png", "default_chest_top.png",
@@ -16,7 +16,7 @@ minetest.register_node("protector_lott:chest", {
 	sounds = default.node_sound_wood_defaults(),
 
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("infotext", S("Protected Chest"))
 		meta:set_string("name", "")
 		local inv = meta:get_inventory()
@@ -24,28 +24,28 @@ minetest.register_node("protector_lott:chest", {
 	end,
 
 	can_dig = function(pos,player)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		if inv:is_empty("main") then
-			if not minetest.is_protected(pos, player:get_player_name()) then
+			if not core.is_protected(pos, player:get_player_name()) then
 				return true
 			end
 		end
 	end,
 
 	on_metadata_inventory_put = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-		" moves stuff to protected chest at " .. minetest.pos_to_string(pos))
+		core.log("action", player:get_player_name() ..
+		" moves stuff to protected chest at " .. core.pos_to_string(pos))
 	end,
 
 	on_metadata_inventory_take = function(pos, listname, index, stack, player)
-		minetest.log("action", player:get_player_name() ..
-		" takes stuff from protected chest at " .. minetest.pos_to_string(pos))
+		core.log("action", player:get_player_name() ..
+		" takes stuff from protected chest at " .. core.pos_to_string(pos))
 	end,
 
 	on_rightclick = function(pos, node, clicker)
-		if not minetest.is_protected(pos, clicker:get_player_name()) then
-		local meta = minetest.get_meta(pos)
+		if not core.is_protected(pos, clicker:get_player_name()) then
+		local meta = core.get_meta(pos)
 		local spos = pos.x .. "," .. pos.y .. "," ..pos.z
 		local formspec = "size[8,9]"
 			.. "list[nodemeta:".. spos .. ";main;0,0.3;8,4;]"
@@ -58,9 +58,9 @@ minetest.register_node("protector_lott:chest", {
 			.. "listring[nodemeta:" .. spos .. ";main]"
 			.. "listring[current_player;main]"
 
-			minetest.show_formspec(
+			core.show_formspec(
 				clicker:get_player_name(),
-				"protector_lott:chest_" .. minetest.pos_to_string(pos),
+				"protector_lott:chest_" .. core.pos_to_string(pos),
 				formspec)
 		end
 	end,
@@ -68,13 +68,13 @@ minetest.register_node("protector_lott:chest", {
 
 -- Protected Chest formspec buttons
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
 
 	if string.sub(formname, 0, string.len("protector_lott:chest_")) == "protector_lott:chest_" then
 
 		local pos_s = string.sub(formname,string.len("protector_lott:chest_") + 1)
-		local pos = minetest.string_to_pos(pos_s)
-		local meta = minetest.get_meta(pos)
+		local pos = core.string_to_pos(pos_s)
+		local meta = core.get_meta(pos)
 		local chest_inv = meta:get_inventory()
 		local player_inv = player:get_inventory()
 
@@ -122,15 +122,15 @@ end)
 
 -- Protected Chest recipe
 
-minetest.register_craft({
+core.register_craft({
 	output = 'protector_lott:chest',
 	recipe = {
 		{'default:chest', 'protector_lott:protect2', ''},
 	}
 })
 
-minetest.register_on_mods_loaded(function()
-	if not minetest.global_exists('chests') then
+core.register_on_mods_loaded(function()
+	if not core.global_exists('chests') then
 		return
 	end
 	chests.add_existing('protector_lott:chest')

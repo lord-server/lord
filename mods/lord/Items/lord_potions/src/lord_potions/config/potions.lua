@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @class lord_potions.PotionPower
 --- @field amount   number applying effect value (depends on effect).

@@ -42,7 +42,7 @@ end
 
 --- @param player Player
 function Form:instantiate(player)
-	local player_info = minetest.get_player_information(self.player_name)
+	local player_info = core.get_player_information(self.player_name)
 	self.player_lang = (player_info and player_info.lang_code) or 'en'
 
 	if not player_info then
@@ -72,7 +72,7 @@ end
 
 --- @return inventory.Form
 function Form:refresh()
-	minetest.get_player_by_name(self.player_name)
+	core.get_player_by_name(self.player_name)
 		:set_inventory_formspec(self:get_spec())
 
 	return self

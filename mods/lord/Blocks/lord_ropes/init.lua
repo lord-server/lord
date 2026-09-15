@@ -1,6 +1,6 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('ropes').init(mod)
 
 	dofile(mod.path..'/aliases.lua')

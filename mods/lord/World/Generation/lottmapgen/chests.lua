@@ -23,7 +23,7 @@ local function register_chest_spawner(chest_name, possible_items)
 	local chest_basename = chest_name:replace("lord_chests:racial_", "")
 	local chest_spawner_name = "lottmapgen:" .. chest_basename .. '_chest_spawner'
 
-	minetest.register_node(chest_spawner_name, {
+	core.register_node(chest_spawner_name, {
 		description = chest_basename:first_to_upper() .. ' Chest Spawner',
 		tiles = {"lord_chests_racial_elf_bottom.png"},
 		is_ground_content = false,
@@ -48,14 +48,14 @@ local function register_chest_spawner(chest_name, possible_items)
 		return items_available
 	end
 
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = {chest_spawner_name},
 		interval = 9,
 		chance = 1,
 		action = function(pos, node, active_object_count, active_object_count_wider)
-			minetest.set_node(pos, { name = chest_name, param2 = node.param2 })
+			core.set_node(pos, { name = chest_name, param2 = node.param2 })
 			local number_of_items = math.random(3, 12)
-			local meta = minetest.get_meta(pos)
+			local meta = core.get_meta(pos)
 			local inv = meta:get_inventory()
 			local items_set = get_items_available_from_possible_items(possible_items)
 			for _ = 1, number_of_items do

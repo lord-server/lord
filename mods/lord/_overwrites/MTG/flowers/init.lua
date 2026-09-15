@@ -1,2 +1,2 @@
-minetest.unregister_item("flowers:mushroom_red")
-minetest.unregister_item("flowers:mushroom_brown")
+core.unregister_item("flowers:mushroom_red")
+core.unregister_item("flowers:mushroom_brown")

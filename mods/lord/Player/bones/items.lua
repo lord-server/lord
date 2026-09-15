@@ -1,25 +1,25 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem('bones:bonedust', {
+core.register_craftitem('bones:bonedust', {
 	description       = S('Bone Dust'),
 	inventory_image   = 'bones_bonedust.png',
 	liquids_pointable = false,
 	stack_max         = 99,
 })
 
-minetest.register_craftitem('bones:bone', {
+core.register_craftitem('bones:bone', {
 	description     = S('Bone'),
 	inventory_image = 'bones_bone_inv.png',
 })
 
 -- As for now, used only for dungeons generation testing
 -- Full implementation later
-if minetest.settings:get_bool('toggle_dungeons', false) then
+if core.settings:get_bool('toggle_dungeons', false) then
 	-- Move into main declaration later
 	core.override_item('bones:bone', {
 		on_place = function(itemstack, placer, pointed_thing)
 			local stack  = ItemStack('bones:bone_' .. math.random(1, 1))
-			local placed = minetest.item_place(stack, placer, pointed_thing, math.random(0, 3))
+			local placed = core.item_place(stack, placer, pointed_thing, math.random(0, 3))
 
 			return placed
 				and ItemStack('bones:bone ' .. (itemstack:get_count() - (1 - placed:get_count())))
@@ -28,7 +28,7 @@ if minetest.settings:get_bool('toggle_dungeons', false) then
 	})
 
 	local px = 1 / 16
-	minetest.register_node('bones:bone_1', {
+	core.register_node('bones:bone_1', {
 		description       = S('Bone'),
 		inventory_image   = 'bones_bone_inv.png',
 		wield_image       = 'bones_bone_inv.png',
@@ -64,7 +64,7 @@ if minetest.settings:get_bool('toggle_dungeons', false) then
 	})
 end
 
-minetest.register_tool('bones:bone_scythe', {
+core.register_tool('bones:bone_scythe', {
 	description       = S('Bone Scythe'),
 	inventory_image   = 'bones_scythe.png',
 	range             = 7,

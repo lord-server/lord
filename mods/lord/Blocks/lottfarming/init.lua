@@ -7,25 +7,25 @@ function place_seed(itemstack, placer, pointed_thing, plantname, param2)
 	if pt.type ~= "node" then
 		return
 	end
-	local under = minetest.get_node(pt.under)
-	local above = minetest.get_node(pt.above)
-	if not minetest.registered_nodes[under.name] then
+	local under = core.get_node(pt.under)
+	local above = core.get_node(pt.above)
+	if not core.registered_nodes[under.name] then
 		return
 	end
-	if not minetest.registered_nodes[above.name] then
+	if not core.registered_nodes[above.name] then
 		return
 	end
 	if pt.above.y ~= pt.under.y + 1 then
 		return
 	end
-	if not minetest.registered_nodes[above.name].buildable_to then
+	if not core.registered_nodes[above.name].buildable_to then
 		return
 	end
-	if minetest.get_item_group(under.name, "soil") <= 1 then
+	if core.get_item_group(under.name, "soil") <= 1 then
 		return
 	end
-	minetest.add_node(pt.above, { name = plantname, param2 = param2 })
-	if not minetest.is_creative_enabled(placer) then
+	core.add_node(pt.above, { name = plantname, param2 = param2 })
+	if not core.is_creative_enabled(placer) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -40,25 +40,25 @@ function place_spore(itemstack, placer, pointed_thing, plantname, param2)
 	if pt.type ~= "node" then
 		return
 	end
-	local under = minetest.get_node(pt.under)
-	local above = minetest.get_node(pt.above)
-	if not minetest.registered_nodes[under.name] then
+	local under = core.get_node(pt.under)
+	local above = core.get_node(pt.above)
+	if not core.registered_nodes[under.name] then
 		return
 	end
-	if not minetest.registered_nodes[above.name] then
+	if not core.registered_nodes[above.name] then
 		return
 	end
 	if pt.above.y ~= pt.under.y + 1 then
 		return
 	end
-	if not minetest.registered_nodes[above.name].buildable_to then
+	if not core.registered_nodes[above.name].buildable_to then
 		return
 	end
-	if minetest.get_item_group(under.name, "fungi") <= 1 then
+	if core.get_item_group(under.name, "fungi") <= 1 then
 		return
 	end
-	minetest.add_node(pt.above, { name = plantname, param2 = param2 })
-	if not minetest.is_creative_enabled(placer) then
+	core.add_node(pt.above, { name = plantname, param2 = param2 })
+	if not core.is_creative_enabled(placer) then
 		itemstack:take_item()
 	end
 	return itemstack
@@ -66,21 +66,21 @@ end
 
 function farming:add_plant(full_grown, names, interval, chance, param2)
 	param2 = param2 or 0;
-	minetest.register_abm({
+	core.register_abm({
 		nodenames = names,
 		interval = interval,
 		chance = chance,
 		catch_up = true,
 		action = function(pos, node)
 			pos.y = pos.y-1
-			if minetest.get_node(pos).name ~= "farming:soil_wet" then
+			if core.get_node(pos).name ~= "farming:soil_wet" then
 				return
 			end
 			pos.y = pos.y+1
-			if not minetest.get_node_light(pos) then
+			if not core.get_node_light(pos) then
 				return
 			end
-			if minetest.get_node_light(pos) < 8 then
+			if core.get_node_light(pos) < 8 then
 				return
 			end
 			local step = nil
@@ -97,70 +97,70 @@ function farming:add_plant(full_grown, names, interval, chance, param2)
 			if new_node.name == nil then
 				new_node.name = full_grown
 			end
-			minetest.set_node(pos, new_node)
+			core.set_node(pos, new_node)
 		end
 }	)
 end
 
 -- ========= CORN =========
-dofile(minetest.get_modpath("lottfarming") .. "/corn.lua")
+dofile(core.get_modpath("lottfarming") .. "/corn.lua")
 
 -- ========= CARROT =========
-dofile(minetest.get_modpath("lottfarming") .. "/carrots.lua")
+dofile(core.get_modpath("lottfarming") .. "/carrots.lua")
 
 -- ========= BERRIES =========
-dofile(minetest.get_modpath("lottfarming") .. "/berries.lua")
+dofile(core.get_modpath("lottfarming") .. "/berries.lua")
 
 -- ========= CABBAGE =========
-dofile(minetest.get_modpath("lottfarming") .. "/cabbage.lua")
+dofile(core.get_modpath("lottfarming") .. "/cabbage.lua")
 
 -- ========= ATHELAS =========
-dofile(minetest.get_modpath("lottfarming") .. "/athelas.lua")
+dofile(core.get_modpath("lottfarming") .. "/athelas.lua")
 
 -- ========= POTATO =========
-dofile(minetest.get_modpath("lottfarming") .. "/potato.lua")
+dofile(core.get_modpath("lottfarming") .. "/potato.lua")
 
 -- ========= TOMATO =========
-dofile(minetest.get_modpath("lottfarming") .. "/tomatoes.lua")
+dofile(core.get_modpath("lottfarming") .. "/tomatoes.lua")
 
 -- ========= TURNIP =========
-dofile(minetest.get_modpath("lottfarming") .. "/turnips.lua")
+dofile(core.get_modpath("lottfarming") .. "/turnips.lua")
 
 -- ========= PIPEWEED =========
-dofile(minetest.get_modpath("lottfarming") .. "/pipeweed.lua")
+dofile(core.get_modpath("lottfarming") .. "/pipeweed.lua")
 
 -- ========= MELON =========
-dofile(minetest.get_modpath("lottfarming") .. "/melon.lua")
+dofile(core.get_modpath("lottfarming") .. "/melon.lua")
 
 -- ========= BARLEY =========
-dofile(minetest.get_modpath("lottfarming") .. "/barley.lua")
+dofile(core.get_modpath("lottfarming") .. "/barley.lua")
 
 -- ========= PUMPKIN =========
-dofile(minetest.get_modpath("lottfarming") .. "/pumpkin.lua")
+dofile(core.get_modpath("lottfarming") .. "/pumpkin.lua")
 
 -- ========= CRAFTS =========
-dofile(minetest.get_modpath("lottfarming") .. "/crafting.lua")
+dofile(core.get_modpath("lottfarming") .. "/crafting.lua")
 
 -- ========= BROWN MUSHROOM =========
-dofile(minetest.get_modpath("lottfarming") .. "/brown.lua")
+dofile(core.get_modpath("lottfarming") .. "/brown.lua")
 
 -- ========= RED MUSHROOM =========
-dofile(minetest.get_modpath("lottfarming") .. "/red.lua")
+dofile(core.get_modpath("lottfarming") .. "/red.lua")
 
 -- ========= BLUE MUSHROOM =========
-dofile(minetest.get_modpath("lottfarming") .. "/blue.lua")
+dofile(core.get_modpath("lottfarming") .. "/blue.lua")
 
 -- ========= GREEN MUSHROOM =========
-dofile(minetest.get_modpath("lottfarming") .. "/green.lua")
+dofile(core.get_modpath("lottfarming") .. "/green.lua")
 
 -- ========= WHITE MUSHROOM =========
-dofile(minetest.get_modpath("lottfarming") .. "/white.lua")
+dofile(core.get_modpath("lottfarming") .. "/white.lua")
 
 -- ========= ORC FOOD =========
-dofile(minetest.get_modpath("lottfarming") .. "/orc_food.lua")
+dofile(core.get_modpath("lottfarming") .. "/orc_food.lua")
 
 -- ========= OTHER =========
-dofile(minetest.get_modpath("lottfarming") .. "/other.lua")
+dofile(core.get_modpath("lottfarming") .. "/other.lua")
 
 -- ========= OIL =========
-dofile(minetest.get_modpath("lottfarming") .. "/oil.lua")
+dofile(core.get_modpath("lottfarming") .. "/oil.lua")

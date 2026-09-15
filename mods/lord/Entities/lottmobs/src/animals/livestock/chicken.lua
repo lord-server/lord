@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 archery.register_throwable("lottmobs:egg", {
 	definition = {
@@ -35,13 +35,13 @@ archery.register_throwable("lottmobs:egg", {
 			on_hit_node      = function(projectile, node_pos, move_result)
 				local spawn_chicken = math.random(1, 20) == 1
 				if spawn_chicken then
-					minetest.add_entity(projectile.object:get_pos(), "lottmobs:chicken")
+					core.add_entity(projectile.object:get_pos(), "lottmobs:chicken")
 				end
 				local radius = 0.5
 				local rad_vec = vector.new(radius, radius, radius)
 				local min_pos = vector.subtract(node_pos, rad_vec)
 				local max_pos = vector.add(node_pos, rad_vec)
-				minetest.add_particlespawner({
+				core.add_particlespawner({
 					pos = {
 						min = min_pos,
 						max = max_pos,

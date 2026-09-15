@@ -5,7 +5,7 @@ local S = require("lord_wooden_stuff.config").translator
 --- @param groups table<string,number>
 local function register_chair(wood, def, groups, _)
 	local name = "lord_wooden_stuff:chair_" .. wood
-	minetest.register_node(name, {
+	core.register_node(name, {
 		description         = S(def.desc .. " Chair"),
 		tiles               = { def.texture },
 		drawtype            = "nodebox",
@@ -30,7 +30,7 @@ local function register_chair(wood, def, groups, _)
 		groups              = groups,
 		sounds              = default.node_sound_wood_defaults(),
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = name,
 		recipe = {
 			{ 'group:stick', ''            },
@@ -38,7 +38,7 @@ local function register_chair(wood, def, groups, _)
 			{ 'group:stick', 'group:stick' },
 		}
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = name,
 		recipe = {
 			{ '',            'group:stick' },

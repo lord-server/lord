@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local form    = {}
 --- @type string
@@ -57,14 +57,14 @@ end
 --- @param player Player
 --- @param page string
 form.show     = function(player, page)
-	minetest.show_formspec(player:get_player_name(), form.NAME, form.get_spec(page))
+	core.show_formspec(player:get_player_name(), form.NAME, form.get_spec(page))
 end
 
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= form.NAME then
 		-- HACK: До рефакторинга все формы книг обрабатывали все прилетающие поля со всех форм, не учитывая `form_name`,
 		--       с кучей запутанных вызовов.
@@ -84,7 +84,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:brewing_book", {
+core.register_tool("lord_books:brewing_book", {
 	description     = S("Book of Brewing"),
 	inventory_image = "brewing_book.png",
 	wield_image     = "",

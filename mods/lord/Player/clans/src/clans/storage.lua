@@ -14,16 +14,16 @@ local clan_storage = {} -- namespace for storage manipulations
 --- @field public players string[]
 --- @field public is_blocked boolean|nil
 
-local storage = minetest.get_mod_storage()
+local storage = core.get_mod_storage()
 
 --- @return table<string,clans.Clan>
 local function storage2cache()
 	local cache = {}
 	local raw_data = storage:to_table().fields
 	for clan_name, clan_json in pairs(raw_data) do
-		cache[clan_name] = minetest.parse_json(clan_json)
+		cache[clan_name] = core.parse_json(clan_json)
 		if cache[clan_name] == nil then
-			minetest.log("error", string.format(
+			core.log("error", string.format(
 				"[clans] cannot parse %s clan info from json.",
 				clan_name, clan_json
 			))
@@ -52,9 +52,9 @@ function clan_storage.set(clan)
 	cache[clan.name] = clan
 	local clan_name = clan.name
 	local storage_clan = table.copy(clan)
-	local data = minetest.write_json(storage_clan)
+	local data = core.write_json(storage_clan)
 	if data == nil then
-		minetest.log("error", string.format(
+		core.log("error", string.format(
 			"[clans] cannot write json from %s clan table. Dump: %s",
 			clan_name, dump(storage_clan)
 		))

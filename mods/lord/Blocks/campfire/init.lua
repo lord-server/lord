@@ -1,1 +1,1 @@
-dofile(minetest.get_modpath("campfire").."/campfire.lua")
+dofile(core.get_modpath("campfire").."/campfire.lua")

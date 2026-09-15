@@ -1,5 +1,5 @@
-local S       = minetest.get_mod_translator()
-local Logger  = minetest.get_mod_logger()
+local S       = core.get_mod_translator()
+local Logger  = core.get_mod_logger()
 
 
 local px      = 1/16
@@ -12,8 +12,8 @@ local alcohol = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { alcohol = 1 }),
 	})
 	alcohol.nodes[node_name] = definition
@@ -27,15 +27,15 @@ local function register(node_name, satiety, groups, title)
 	local sub_name = node_name:split(':')[2]
 	title = title and title:first_to_upper() or sub_name:first_to_upper()
 	local texture = node_name:replace(':', '_') .. '.png'
-	if not io.file_exists(minetest.get_mod_textures_folder() .. texture) then
+	if not io.file_exists(core.get_mod_textures_folder() .. texture) then
 		Logger.warning('Can\'t find texture: "%s". Alcohol `%s` not registered.', texture, node_name)
 		return
 	end
 
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log('info', 'use texture: ' .. texture .. ' at ' .. __FILE_LINE__())
+	core.log('info', 'use texture: ' .. texture .. ' at ' .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description       = S(title),
 		inventory_image   = '(empty_16x16.png^[lowpart:50:' .. texture .. ')^vessels_drinking_glass_inv.png',
 		drawtype          = 'plantlike',
@@ -49,13 +49,13 @@ local function register(node_name, satiety, groups, title)
 		},
 		walkable          = false,
 		groups            = table.overwrite({ dig_immediate = 3, attached_node = 1, alcohol = 1 }, groups or {}),
-		on_use            = minetest.item_eat(satiety),
+		on_use            = core.item_eat(satiety),
 		_tt_food_hp       = satiety,
 		sounds            = default.node_sound_glass_defaults(),
 	})
 
-	alcohol.nodes[node_name]      = minetest.registered_nodes[node_name]
-	alcohol.lord_nodes[node_name] = minetest.registered_nodes[node_name]
+	alcohol.nodes[node_name]      = core.registered_nodes[node_name]
+	alcohol.lord_nodes[node_name] = core.registered_nodes[node_name]
 end
 
 

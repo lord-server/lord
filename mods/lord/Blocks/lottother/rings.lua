@@ -1,24 +1,24 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local DWARF_RING_USES = 250
 
-minetest.register_craftitem("lottother:beast_ring", {
+core.register_craftitem("lottother:beast_ring", {
 	description = S("Beast Ring"),
 	inventory_image = "lottother_beast_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:ringsilver_lump", {
+core.register_craftitem("lottother:ringsilver_lump", {
 	description = S("Unrefined Ring Silver"),
 	inventory_image = "lottother_ringsilver_lump.png",
     groups = {forbidden=1},
 })
-minetest.register_craftitem("lottother:ringsilver_ingot", {
+core.register_craftitem("lottother:ringsilver_ingot", {
 	description = S("Refined Ring Silver"),
 	inventory_image = "lottother_ringsilver_ingot.png",
     groups = {forbidden=1},
 })
-minetest.register_craftitem("lottother:ring", {
+core.register_craftitem("lottother:ring", {
 	description = S("Plain Ring"),
 	inventory_image = "lottother_ring.png",
     groups = {forbidden=1},
@@ -28,26 +28,26 @@ minetest.register_craftitem("lottother:ring", {
 
 --ELF RINGS
 --FUNCTION = Sets your health to max every 30 seconds.
-minetest.register_craftitem("lottother:blue_gem_ring", {
+core.register_craftitem("lottother:blue_gem_ring", {
 	description = S("Blue Gem Ring"),
 	inventory_image = "lottother_bluegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:blue_am_ring", {
+core.register_craftitem("lottother:blue_am_ring", {
 	description = S("Blue Almost Magic Ring"),
 	inventory_image = "lottother_bluegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:vilya", {
+core.register_craftitem("lottother:vilya", {
 	description = S("Vilya"),
 	inventory_image = "lottother_vilya.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 
-minetest.foreach_player_every(0, function(player, delta_time)
+core.foreach_player_every(0, function(player, delta_time)
 	if math.random() < 0.1 then
 		if player:get_inventory():get_stack("main", player:get_wield_index()):get_name() == "lottother:vilya"
 			and player:get_hp() < 19 then
@@ -57,19 +57,19 @@ minetest.foreach_player_every(0, function(player, delta_time)
 end)
 
 --FUNCTION = Makes (good) mobs follow you.
-minetest.register_craftitem("lottother:red_gem_ring", {
+core.register_craftitem("lottother:red_gem_ring", {
 	description = S("Red Gem Ring"),
 	inventory_image = "lottother_redgem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:red_am_ring", {
+core.register_craftitem("lottother:red_am_ring", {
 	description = S("Red Almost Magic Ring"),
 	inventory_image = "lottother_redgem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:narya", {
+core.register_craftitem("lottother:narya", {
 	description = S("Narya"),
 	inventory_image = "lottother_narya.png",
     groups = {forbidden=1},
@@ -78,37 +78,37 @@ minetest.register_craftitem("lottother:narya", {
 --follow = "lottother:narya",
 
 --FUNCTION = Same armor stats as a full set of mithril.
-minetest.register_craftitem("lottother:white_gem_ring", {
+core.register_craftitem("lottother:white_gem_ring", {
 	description = S("White Gem Ring"),
 	inventory_image = "lottother_whitegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:white_am_ring", {
+core.register_craftitem("lottother:white_am_ring", {
 	description = S("White Almost Magic Ring"),
 	inventory_image = "lottother_whitegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_tool("lottother:nenya", {
+core.register_tool("lottother:nenya", {
 	description = S("Nenya"),
 	inventory_image = "lottother_nenya_inv.png",
 	groups = { armor_shield = 1, defense_fleshy = 75, forbidden = 1, armor_use = 30 },
 	wear = 0,
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "shapeless",
 	output = "lottother:ringsilver_lump",
 	recipe = {"lottores:mithril_lump", "default:gold_lump", "lottores:silver_lump", "lottores:silver_lump"},
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottother:ringsilver_ingot",
 	recipe = "lottother:ringsilver_lump",
 	cooktime = 35,
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:ring",
 	recipe = {
 	{"lottother:ringsilver_ingot", "lottother:ringsilver_ingot", "lottother:ringsilver_ingot"},
@@ -117,14 +117,14 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:blue_gem_ring",
 	recipe = {
 	{"lottores:blue_gem"},
 	{"lottother:ring"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:blue_am_ring",
 	recipe = {
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
@@ -132,21 +132,21 @@ minetest.register_craft({
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottother:vilya",
 	recipe = "lottother:blue_am_ring",
 	cooktime = 1000,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:red_gem_ring",
 	recipe = {
 	{"lottores:red_gem"},
 	{"lottother:ring"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:red_am_ring",
 	recipe = {
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
@@ -154,21 +154,21 @@ minetest.register_craft({
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottother:narya",
 	recipe = "lottother:red_am_ring",
 	cooktime = 1000,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:white_gem_ring",
 	recipe = {
 	{"lottores:white_gem"},
 	{"lottother:ring"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:white_am_ring",
 	recipe = {
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
@@ -176,7 +176,7 @@ minetest.register_craft({
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottother:nenya",
 	recipe = "lottother:white_am_ring",
@@ -185,38 +185,38 @@ minetest.register_craft({
 
 --OTHER RINGS
 --Mithril ring (base for Dwarf ring)
-minetest.register_craftitem("lottother:purple_gem_ring", {
+core.register_craftitem("lottother:purple_gem_ring", {
 	description = S("Purple Gem Ring"),
 	inventory_image = "lottother_purplegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:purple_gem_mithril_ring", {
+core.register_craftitem("lottother:purple_gem_mithril_ring", {
 	description = S("Purple Gem Mithril Ring"),
 	inventory_image = "lottother_purplegem_mithril_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_craftitem("lottother:purple_am_ring", {
+core.register_craftitem("lottother:purple_am_ring", {
 	description = S("Mithril Almost Magic Ring"),
 	inventory_image = "lottother_purplegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
-minetest.register_tool("lottother:dwarf_ring", {
+core.register_tool("lottother:dwarf_ring", {
 	description = S("Dwarf Ring"),
 	inventory_image = "lottother_dwarf_ring.png",
 	groups = {forbidden=1},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:purple_gem_ring",
 	recipe = {
 	{"lottother:purple_gem"},
 	{"lottother:ring"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:purple_gem_mithril_ring",
 	recipe = {
 	{"lottores:mithril_ingot", "lottores:mithril_ingot", "lottores:mithril_ingot"},
@@ -224,7 +224,7 @@ minetest.register_craft({
 	{"lottores:mithril_ingot", "lottores:mithril_ingot", "lottores:mithril_ingot"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	output = "lottother:purple_am_ring",
 	recipe = {
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
@@ -232,7 +232,7 @@ minetest.register_craft({
 	{"lottores:rough_rock_lump", "lottores:rough_rock_lump", "lottores:rough_rock_lump"},
 	},
 })
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "lottother:dwarf_ring",
 	recipe = "lottother:purple_am_ring",
@@ -253,7 +253,7 @@ local lumps = {
 }
 
 for i, j in pairs(lumps) do
-	minetest.register_craft({
+	core.register_craft({
 		type = "shapeless",
 		output = i .. " 2",
 		recipe = {i, "lottother:dwarf_ring"},
@@ -266,7 +266,7 @@ local function starts_with(str, st)
 end
 
 -- Ring wearing
-minetest.register_on_craft(function(is, player, old_grid, inv)
+core.register_on_craft(function(is, player, old_grid, inv)
 	local has_ring = inv:contains_item("craft", ItemStack("lottother:dwarf_ring"))
 	local ring_itemstack
 	local ring_index

@@ -2,7 +2,7 @@ local Form         = require('holding_points.node.Form')
 local HoldingPoint = require('holding_points.HoldingPoint')
 local Manager      = require('holding_points.Manager')
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @type NodeDefinition
@@ -38,20 +38,20 @@ local definition = {
 	--- @param itemstack     ItemStack
 	--- @param pointed_thing pointed_thing
 	on_place          = function(itemstack, placer, pointed_thing)
-		if not minetest.check_player_privs(placer, 'server') then
-			minetest.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
+		if not core.check_player_privs(placer, 'server') then
+			core.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
 
 			return itemstack, nil
 		end
 
-		return minetest.item_place(itemstack, placer, pointed_thing)
+		return core.item_place(itemstack, placer, pointed_thing)
 	end,
 
 	--- @param pos    Position
 	--- @param placer Player
 	after_place_node  = function(pos, placer)
-		if not minetest.check_player_privs(placer, 'server') then
-			minetest.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
+		if not core.check_player_privs(placer, 'server') then
+			core.chat_send_player(placer:get_player_name(), S('It\'s for admins only! How did you get this thing?!'))
 
 			return nil
 		end
@@ -64,7 +64,7 @@ local definition = {
 	--- @param pointed_thing pointed_thing
 	--- @param node          NodeTable
 	on_punch          = function(pos, node, player, pointed_thing)
-		if not player or not minetest.is_player(player) then
+		if not player or not core.is_player(player) then
 			return
 		end
 
@@ -77,10 +77,10 @@ local definition = {
 	--- @param itemstack     ItemStack
 	--- @param pointed_thing pointed_thing
 	on_rightclick     = function(pos, node, clicker, itemstack, pointed_thing)
-		if not clicker or not minetest.is_player(clicker) then
+		if not clicker or not core.is_player(clicker) then
 			return
 		end
-		if not minetest.check_player_privs(clicker, 'server') then
+		if not core.check_player_privs(clicker, 'server') then
 			HoldingPoint:new(pos):reward(clicker)
 
 			return

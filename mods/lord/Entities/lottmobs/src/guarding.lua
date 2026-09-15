@@ -1,5 +1,5 @@
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 lottmobs = {}
 
@@ -10,18 +10,18 @@ lottmobs.guard = function(self, clicker, payment)
 		or item:get_name() == "farming:bread" then
 		local hp = self.object:get_hp()
 		if hp >= self.hp_max then
-			minetest.chat_send_player(name, S("NPC at full health."))
+			core.chat_send_player(name, S("NPC at full health."))
 			return
 		end
 		hp = hp + 4
 		if hp > self.hp_max then hp = self.hp_max end
 		self.object:set_hp(hp)
-		if not minetest.is_creative_enabled(name) then
+		if not core.is_creative_enabled(name) then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end
 	elseif item:get_name() == payment then
-		if not minetest.is_creative_enabled(name) then
+		if not core.is_creative_enabled(name) then
 			item:take_item()
 			clicker:set_wielded_item(item)
 		end

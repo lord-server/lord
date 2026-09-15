@@ -1,8 +1,8 @@
 local HoldingPoint = require('holding_points.HoldingPoint')
 local Event        = require('holding_points.Event')
 
-local Logger  = minetest.get_mod_logger()
-local S       = minetest.get_mod_translator()
+local Logger  = core.get_mod_logger()
+local S       = core.get_mod_translator()
 
 
 --- Management of periodic events (battles) on the server.

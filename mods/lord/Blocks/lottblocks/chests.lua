@@ -1,14 +1,14 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- todo: extract into `lord_chests`. #2049
-minetest.register_tool("lottblocks:lockpick", {
+core.register_tool("lottblocks:lockpick", {
 	description     = S("Lockpick"),
 	inventory_image = "lottblocks_steel_lockpick.png", --Made by HeroOfTheWinds
 	--https://github.com/HeroOfTheWinds/lockpicks/blob/master/textures/steel_lockpick.png
 	max_stack       = 1,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:lockpick",
 	recipe = {
 		{ "", "default:steel_ingot", "" },
@@ -25,7 +25,7 @@ minetest.register_craft({
 function lottblocks.lockpick_can_break_in(itemstack, player_name)
 	itemstack:add_wear(65535 / 20)
 	if math.random(1, 4) ~= 3 then
-		minetest.chat_send_player(player_name, S("Lockpick failed"))
+		core.chat_send_player(player_name, S("Lockpick failed"))
 		return false
 	else
 		return true

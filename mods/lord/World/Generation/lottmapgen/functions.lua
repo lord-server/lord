@@ -2,91 +2,91 @@
 
 function lottmapgen_grass(data, vi)
 	local ids_grasses = {
-		minetest.get_content_id("default:grass_1"),
-		minetest.get_content_id("default:grass_2"),
-		minetest.get_content_id("default:grass_3"),
-		minetest.get_content_id("default:grass_4"),
-		minetest.get_content_id("default:grass_5"),
+		core.get_content_id("default:grass_1"),
+		core.get_content_id("default:grass_2"),
+		core.get_content_id("default:grass_3"),
+		core.get_content_id("default:grass_4"),
+		core.get_content_id("default:grass_5"),
 	}
 	data[vi] = ids_grasses[math.random(#ids_grasses)]
 end
 
 function lottmapgen_grass_1_3(data, vi)
 	local ids_grasses = {
-		minetest.get_content_id("default:grass_1"),
-		minetest.get_content_id("default:grass_2"),
-		minetest.get_content_id("default:grass_3"),
+		core.get_content_id("default:grass_1"),
+		core.get_content_id("default:grass_2"),
+		core.get_content_id("default:grass_3"),
 	}
 	data[vi] = ids_grasses[math.random(#ids_grasses)]
 end
 
 function lottmapgen_dry_grass(data, vi)
 	local ids_grasses = {
-		minetest.get_content_id("default:dry_grass_1"),
-		minetest.get_content_id("default:dry_grass_2"),
-		minetest.get_content_id("default:dry_grass_3"),
-		minetest.get_content_id("default:dry_grass_4"),
-		minetest.get_content_id("default:dry_grass_5"),
+		core.get_content_id("default:dry_grass_1"),
+		core.get_content_id("default:dry_grass_2"),
+		core.get_content_id("default:dry_grass_3"),
+		core.get_content_id("default:dry_grass_4"),
+		core.get_content_id("default:dry_grass_5"),
 	}
 	data[vi] = ids_grasses[math.random(#ids_grasses)]
 end
 
 function lottmapgen_fern(data, vi)
 	local ids_ferns = {
-		minetest.get_content_id("default:fern_1"),
-		minetest.get_content_id("default:fern_2"),
-		minetest.get_content_id("default:fern_3"),
+		core.get_content_id("default:fern_1"),
+		core.get_content_id("default:fern_2"),
+		core.get_content_id("default:fern_3"),
 	}
 	data[vi] = ids_ferns[math.random(#ids_ferns)]
 end
 
 function lottmapgen_lorien_grass(data, vi)
 	local ids_lorgrasses = {
-		minetest.get_content_id("lottplants:lorien_grass_1"),
-		minetest.get_content_id("lottplants:lorien_grass_2"),
-		minetest.get_content_id("lottplants:lorien_grass_3"),
-		minetest.get_content_id("lottplants:lorien_grass_4"),
+		core.get_content_id("lottplants:lorien_grass_1"),
+		core.get_content_id("lottplants:lorien_grass_2"),
+		core.get_content_id("lottplants:lorien_grass_3"),
+		core.get_content_id("lottplants:lorien_grass_4"),
 	}
 	data[vi] = ids_lorgrasses[math.random(#ids_lorgrasses)]
 end
 
 function lottmapgen_farmingplants(data, vi)
 	local ids_plants = {
-		minetest.get_content_id("lottplants:pipeweed_wild"),
-		minetest.get_content_id("lottplants:barley_wild"),
-		minetest.get_content_id("lottplants:corn_wild"),
-		minetest.get_content_id("lottplants:potato_wild"),
-		minetest.get_content_id("lottplants:mushroom_wild"),
-		minetest.get_content_id("lottplants:berries_wild"),
-		minetest.get_content_id("lottplants:turnips_wild"),
-		minetest.get_content_id("lottplants:tomatoes_wild"),
-		minetest.get_content_id("lottplants:cabbage_wild"),
+		core.get_content_id("lottplants:pipeweed_wild"),
+		core.get_content_id("lottplants:barley_wild"),
+		core.get_content_id("lottplants:corn_wild"),
+		core.get_content_id("lottplants:potato_wild"),
+		core.get_content_id("lottplants:mushroom_wild"),
+		core.get_content_id("lottplants:berries_wild"),
+		core.get_content_id("lottplants:turnips_wild"),
+		core.get_content_id("lottplants:tomatoes_wild"),
+		core.get_content_id("lottplants:cabbage_wild"),
 	}
 	data[vi] = ids_plants[math.random(#ids_plants)]
 end
 
 function lottmapgen_ithildinplants(data, vi)
 	local ids_iplants = {
-		minetest.get_content_id("lottplants:asphodel"),
-		minetest.get_content_id("lottplants:anemones"),
-		minetest.get_content_id("lottplants:eglantive"),
-		minetest.get_content_id("lottplants:iris"),
+		core.get_content_id("lottplants:asphodel"),
+		core.get_content_id("lottplants:anemones"),
+		core.get_content_id("lottplants:eglantive"),
+		core.get_content_id("lottplants:iris"),
 	}
 	data[vi] = ids_iplants[math.random(#ids_iplants)]
 end
 
 function lottmapgen_lorienplants(data, vi)
 	local ids_lplants = {
-		minetest.get_content_id("lottplants:elanor"),
-		minetest.get_content_id("lottplants:lissuin"),
-		minetest.get_content_id("lottplants:niphredil"),
+		core.get_content_id("lottplants:elanor"),
+		core.get_content_id("lottplants:lissuin"),
+		core.get_content_id("lottplants:niphredil"),
 	}
 	data[vi] = ids_lplants[math.random(#ids_lplants)]
 end
 
 
 function lottmapgen_papyrus(x, y, z, area, data)
-	local id_papyrus = minetest.get_content_id("default:papyrus")
+	local id_papyrus = core.get_content_id("default:papyrus")
 	local ph         = math.random(0, 3)
 	for j = 0, ph do
 		local vip = area:index(x, y + j, z)
@@ -96,14 +96,14 @@ end
 
 function lottmapgen_farmingrareplants(data, vi)
 	local ids_plants = {
-		minetest.get_content_id("lottplants:athelas"),
-		minetest.get_content_id("lottplants:melon_wild"),
+		core.get_content_id("lottplants:athelas"),
+		core.get_content_id("lottplants:melon_wild"),
 	}
 	data[vi] = ids_plants[math.random(#ids_plants)]
 end
 
 function lottmapgen_burnedtree(x, y, z, area, data)
-	local id_tree = minetest.get_content_id("default:tree")
+	local id_tree = core.get_content_id("default:tree")
 	for j = -2, 4 do
 	for i = -2, 2 do
 		if i == 0 or j == 2 or (j == 3 and math.abs(i) == 2) then
@@ -121,9 +121,9 @@ end
 --- @param pos       Position position to place to.
 --- @param node_name string   technical name of leaf ("<mod_name>:<node_name>").
 local function add_leaf_node(pos, node_name)
-	local n = minetest.get_node(pos)
+	local n = core.get_node(pos)
 	if (n.name == "air") then
-		minetest.add_node(pos, { name = node_name })
+		core.add_node(pos, { name = node_name })
 	end
 end
 -- FIXME: Remove this function during #661
@@ -131,9 +131,9 @@ end
 --- @param pos       Position position to place to.
 --- @param node_name string   technical name of trunk ("<mod_name>:<node_name>").
 local function add_trunk_node(pos, node_name)
-	local n = minetest.get_node(pos)
+	local n = core.get_node(pos)
 	if (n.name == "air") or (string.find(n.name, "leaf")) or (string.find(n.name, "sapling")) then
-		minetest.add_node(pos, { name = node_name })
+		core.add_node(pos, { name = node_name })
 	end
 end
 -- FIXME: Remove this function during #661
@@ -162,9 +162,9 @@ end
 
 
 function lottmapgen_appletree(x, y, z, area, data)
-	local id_tree   = minetest.get_content_id("default:tree")
-	local id_apple  = minetest.get_content_id("default:apple")
-	local id_leaves = minetest.get_content_id("default:leaves")
+	local id_tree   = core.get_content_id("default:tree")
+	local id_apple  = core.get_content_id("default:apple")
+	local id_leaves = core.get_content_id("default:leaves")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -184,9 +184,9 @@ function lottmapgen_appletree(x, y, z, area, data)
 end
 
 function lottmapgen_plumtree(x, y, z, area, data)
-	local id_tree     = minetest.get_content_id("lord_trees:plum_tree")
-	local id_plum     = minetest.get_content_id("lord_trees:plum")
-	local id_plumleaf = minetest.get_content_id("lord_trees:plum_leaf")
+	local id_tree     = core.get_content_id("lord_trees:plum_tree")
+	local id_plum     = core.get_content_id("lord_trees:plum")
+	local id_plumleaf = core.get_content_id("lord_trees:plum_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -206,9 +206,9 @@ function lottmapgen_plumtree(x, y, z, area, data)
 end
 
 function lottmapgen_rowantree(x, y, z, area, data)
-	local id_tree        = minetest.get_content_id("default:tree")
-	local id_rowan_berry = minetest.get_content_id("lord_trees:rowan_berry")
-	local id_rowan_leaf  = minetest.get_content_id("lord_trees:rowan_leaf")
+	local id_tree        = core.get_content_id("default:tree")
+	local id_rowan_berry = core.get_content_id("lord_trees:rowan_berry")
+	local id_rowan_leaf  = core.get_content_id("lord_trees:rowan_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -228,9 +228,9 @@ function lottmapgen_rowantree(x, y, z, area, data)
 end
 
 function lottmapgen_culumaldatree(x, y, z, area, data)
-	local id_tree           = minetest.get_content_id("lord_trees:culumalda_tree")
-	local id_yellow_flowers = minetest.get_content_id("lord_trees:yellow_flowers")
-	local id_culumalda_leaf = minetest.get_content_id("lord_trees:culumalda_leaf")
+	local id_tree           = core.get_content_id("lord_trees:culumalda_tree")
+	local id_yellow_flowers = core.get_content_id("lord_trees:yellow_flowers")
+	local id_culumalda_leaf = core.get_content_id("lord_trees:culumalda_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -250,8 +250,8 @@ function lottmapgen_culumaldatree(x, y, z, area, data)
 end
 
 function lottmapgen_defaulttree(x, y, z, area, data)
-	local id_tree   = minetest.get_content_id("default:tree")
-	local id_leaves = minetest.get_content_id("default:leaves")
+	local id_tree   = core.get_content_id("default:tree")
+	local id_leaves = core.get_content_id("default:leaves")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -271,8 +271,8 @@ function lottmapgen_defaulttree(x, y, z, area, data)
 end
 
 function lottmapgen_aldertree(x, y, z, area, data)
-	local id_aldertree = minetest.get_content_id("lord_trees:alder_tree")
-	local id_alderleaf = minetest.get_content_id("lord_trees:alder_leaf")
+	local id_aldertree = core.get_content_id("lord_trees:alder_tree")
+	local id_alderleaf = core.get_content_id("lord_trees:alder_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -292,8 +292,8 @@ function lottmapgen_aldertree(x, y, z, area, data)
 end
 
 function lottmapgen_lebethrontree(x, y, z, area, data)
-	local id_lebethrontree = minetest.get_content_id("lord_trees:lebethron_tree")
-	local id_lebethronleaf = minetest.get_content_id("lord_trees:lebethron_leaf")
+	local id_lebethrontree = core.get_content_id("lord_trees:lebethron_tree")
+	local id_lebethronleaf = core.get_content_id("lord_trees:lebethron_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -313,8 +313,8 @@ function lottmapgen_lebethrontree(x, y, z, area, data)
 end
 
 function lottmapgen_whitetree(x, y, z, area, data)
-	local id_tree      = minetest.get_content_id("lord_trees:white_tree")
-	local id_whiteleaf = minetest.get_content_id("lord_trees:white_leaf")
+	local id_tree      = core.get_content_id("lord_trees:white_tree")
+	local id_whiteleaf = core.get_content_id("lord_trees:white_leaf")
 	for j = -2, 4 do
 		if j >= 1 then
 			for i = -2, 2 do
@@ -334,8 +334,8 @@ function lottmapgen_whitetree(x, y, z, area, data)
 end
 
 function lottmapgen_birchtree(x, y, z, area, data)
-	local id_birchtree = minetest.get_content_id("lord_trees:birch_tree")
-	local id_birchleaf = minetest.get_content_id("lord_trees:birch_leaf")
+	local id_birchtree = core.get_content_id("lord_trees:birch_tree")
+	local id_birchleaf = core.get_content_id("lord_trees:birch_leaf")
 	for j = -5, 12 do
 		if j == 8 or j == 11 then
 			for i = -2, 2 do
@@ -353,8 +353,8 @@ function lottmapgen_birchtree(x, y, z, area, data)
 end
 
 function lottmapgen_elmtree(x, y, z, area, data)
-	local id_tree    = minetest.get_content_id("lord_trees:elm_tree")
-	local id_elmleaf = minetest.get_content_id("lord_trees:elm_leaf")
+	local id_tree    = core.get_content_id("lord_trees:elm_tree")
+	local id_elmleaf = core.get_content_id("lord_trees:elm_leaf")
 	for j = -5, 25 do
 		if j == 11 or j == 18 or j == 24 then
 			for i = -2, 2 do
@@ -372,8 +372,8 @@ function lottmapgen_elmtree(x, y, z, area, data)
 end
 
 function lottmapgen_mallornsmalltree(x, y, z, area, data)
-	local id_mallorntree = minetest.get_content_id("lord_trees:mallorn_tree")
-	local id_mallornleaf = minetest.get_content_id("lord_trees:mallorn_leaf")
+	local id_mallorntree = core.get_content_id("lord_trees:mallorn_tree")
+	local id_mallornleaf = core.get_content_id("lord_trees:mallorn_leaf")
 	for j = -5, 15 do
 		if j == 11 or j == 15 then
 			for i = -2, 2 do
@@ -391,8 +391,8 @@ function lottmapgen_mallornsmalltree(x, y, z, area, data)
 end
 
 function lottmapgen_young_mallorn(x, y, z, area, data)
-	local id_youngmallorn = minetest.get_content_id("lord_trees:mallorn_young_tree")
-	local id_mallornleaf  = minetest.get_content_id("lord_trees:mallorn_leaf")
+	local id_youngmallorn = core.get_content_id("lord_trees:mallorn_young_tree")
+	local id_mallornleaf  = core.get_content_id("lord_trees:mallorn_leaf")
 	local t = 6 + math.random(1) -- trunk height
 	for j = 0, t do
 		if j == t or j == t - 2 then
@@ -413,8 +413,8 @@ function lottmapgen_young_mallorn(x, y, z, area, data)
 end
 
 function lottmapgen_jungletree(x, y, z, area, data)
-	local id_tree   = minetest.get_content_id("default:jungletree")
-	local id_leaves = minetest.get_content_id("lord_trees:mirk_leaf")
+	local id_tree   = core.get_content_id("default:jungletree")
+	local id_leaves = core.get_content_id("lord_trees:mirk_leaf")
 	for j = -3, 7 do
 		if j == 6 then
 			for i = -4, 4 do
@@ -448,9 +448,9 @@ function lottmapgen_jungletree(x, y, z, area, data)
 end
 
 function lottmapgen_pinetree(x, y, z, area, data)
-	local id_pinetree = minetest.get_content_id("lord_trees:pine_tree")
-	local id_pineleaf = minetest.get_content_id("lord_trees:pine_leaf")
-	local id_snow     = minetest.get_content_id("default:snow")
+	local id_pinetree = core.get_content_id("lord_trees:pine_tree")
+	local id_pineleaf = core.get_content_id("lord_trees:pine_leaf")
+	local id_snow     = core.get_content_id("default:snow")
 	for j = -4, 13 do
 		if j == 3 or j == 6 or j == 9 or j == 12 then
 			for i = -2, 2 do
@@ -491,9 +491,9 @@ function lottmapgen_pinetree(x, y, z, area, data)
 end
 
 function lottmapgen_firtree(x, y, z, area, data)
-	local id_pinetree = minetest.get_content_id("lord_trees:fir_tree")
-	local id_firleaf  = minetest.get_content_id("lord_trees:fir_leaf")
-	local id_snow     = minetest.get_content_id("default:snow")
+	local id_pinetree = core.get_content_id("lord_trees:fir_tree")
+	local id_firleaf  = core.get_content_id("lord_trees:fir_leaf")
+	local id_snow     = core.get_content_id("default:snow")
 	for j = -4, 13 do
 		if j == 3 or j == 6 or j == 9 or j == 12 then
 			for i = -2, 2 do
@@ -536,8 +536,8 @@ end
 
 
 function lottmapgen_oaktree(x, y, z, area, data)
-	local id_tree   = minetest.get_content_id("default:tree")
-	local id_leaves = minetest.get_content_id("default:leaves")
+	local id_tree   = core.get_content_id("default:tree")
+	local id_leaves = core.get_content_id("default:leaves")
 	for j = -4, 13 do
 		if j == 3 or j == 6 or j == 9 or j == 12 then
 			for i = -2, 2 do
@@ -578,7 +578,7 @@ function lottmapgen_mallorntree(pos)
 		if height < 10 then
 			for i = height, -2, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
-				minetest.add_node(p, {name="lord_trees:mallorn_tree"})
+				core.add_node(p, {name="lord_trees:mallorn_tree"})
 				if i == height then
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+height+math.random(0, 1), z=pos.z})
 					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z})
@@ -587,10 +587,10 @@ function lottmapgen_mallorntree(pos)
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1})
 				end
 				if i < 0 then
-					minetest.add_node({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1}, {name="lord_trees:mallorn_tree"})
 				end
 				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
 					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
@@ -604,10 +604,10 @@ function lottmapgen_mallorntree(pos)
 					add_tree_branch_mallorn(branch_pos)
 				end
 				if i < math.random(0,1) then
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z+1}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x+2, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z-2}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x-1, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z+1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x+2, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z-2}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x-1, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
 				end
 				if i == height then
 					add_tree_branch_mallorn({x=pos.x+1, y=pos.y+i, z=pos.z+1})
@@ -623,10 +623,10 @@ function lottmapgen_mallorntree(pos)
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z-1})
 					add_tree_branch_mallorn({x=pos.x, y=pos.y+i, z=pos.z})
 				else
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z-1}, {name="lord_trees:mallorn_tree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z}, {name="lord_trees:mallorn_tree"})
 				end
 			end
 		end
@@ -646,37 +646,37 @@ function lottmapgen_beechtree(pos)
 			j = t - absk
 		end
 		if math.random() > (absi + absk) / 24 then
-			minetest.add_node({x=pos.x+i,y=pos.y+j+7,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i+2,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i-2,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k+2},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k-2},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i+3,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i-3,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k+3},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k-3},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i+3,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i-3,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k+3},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k-3},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i+4,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i-4,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k+4},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k-4},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i+4,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i-4,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k+4},{name="lord_trees:beech_leaf"})
-			minetest.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k-4},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+7,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i+2,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i-2,y=pos.y+j+4,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k+2},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+4,z=pos.z+k-2},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i+3,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i-3,y=pos.y+j+1,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k+3},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j+1,z=pos.z+k-3},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i+3,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i-3,y=pos.y+j-2,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k+3},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-2,z=pos.z+k-3},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i+4,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i-4,y=pos.y+j-5,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k+4},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-5,z=pos.z+k-4},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i+4,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i-4,y=pos.y+j-8,z=pos.z+k},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k+4},{name="lord_trees:beech_leaf"})
+			core.add_node({x=pos.x+i,y=pos.y+j-8,z=pos.z+k-4},{name="lord_trees:beech_leaf"})
 		end
 	end
 	end
 	for j = -3, t do
-		minetest.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="lord_trees:beech_tree"})
+		core.add_node({x=pos.x,y=pos.y+j,z=pos.z},{name="lord_trees:beech_tree"})
 	end
 end
 
@@ -685,7 +685,7 @@ function lottmapgen_mirktree(pos)
 		if height < 1 then
 			for i = height, -2, -1 do
 				local p = {x=pos.x, y=pos.y+i, z=pos.z}
-				minetest.add_node(p, {name="default:jungletree"})
+				core.add_node(p, {name="default:jungletree"})
 				if i == height then
 					add_tree_branch_mirktree({x=pos.x, y=pos.y+height+math.random(0, 1), z=pos.z})
 					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z})
@@ -694,10 +694,10 @@ function lottmapgen_mirktree(pos)
 					add_tree_branch_mirktree({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1})
 				end
 				if i < 0 then
-					minetest.add_node({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1}, {name="default:jungletree"})
+					core.add_node({x=pos.x+1, y=pos.y+i-math.random(2), z=pos.z}, {name="default:jungletree"})
+					core.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z+1}, {name="default:jungletree"})
+					core.add_node({x=pos.x-1, y=pos.y+i-math.random(2), z=pos.z}, {name="default:jungletree"})
+					core.add_node({x=pos.x, y=pos.y+i-math.random(2), z=pos.z-1}, {name="default:jungletree"})
 				end
 				if (math.sin(i/height*i) < 0.2 and i > 3 and math.random(0,2) < 1.5) then
 					local branch_pos = {x=pos.x+math.random(0,1), y=pos.y+i, z=pos.z-math.random(0,1)}
@@ -711,10 +711,10 @@ function lottmapgen_mirktree(pos)
 					add_tree_branch_mirktree(branch_pos)
 				end
 				if i < math.random(0,1) then
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z+1}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x+2, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z-2}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x-1, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z+1}, {name="default:jungletree"})
+					core.add_node({x=pos.x+2, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z-2}, {name="default:jungletree"})
+					core.add_node({x=pos.x-1, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
 				end
 				if i == height then
 					add_tree_branch_mirktree({x=pos.x+1, y=pos.y+i, z=pos.z+1})
@@ -730,16 +730,16 @@ function lottmapgen_mirktree(pos)
 					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z-1})
 					add_tree_branch_mirktree({x=pos.x, y=pos.y+i, z=pos.z})
 				else
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x+1, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
-					minetest.add_node({x=pos.x, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
+					core.add_node({x=pos.x+1, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z-1}, {name="default:jungletree"})
+					core.add_node({x=pos.x, y=pos.y+i, z=pos.z}, {name="default:jungletree"})
 				end
 			end
 		end
 end
 
-minetest.register_node("lottmapgen:mallorngen", {
+core.register_node("lottmapgen:mallorngen", {
 	tiles = {"lord_ground_dirt_lorien.png", "default_dirt.png", "default_dirt.png^lord_ground_dirt_lorien_side.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1, not_in_creative_inventory=1},
@@ -747,7 +747,7 @@ minetest.register_node("lottmapgen:mallorngen", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottmapgen:beechgen", {
+core.register_node("lottmapgen:beechgen", {
 	tiles = {"default_snow.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1, not_in_creative_inventory=1},
@@ -755,7 +755,7 @@ minetest.register_node("lottmapgen:beechgen", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottmapgen:mirktreegen", {
+core.register_node("lottmapgen:mirktreegen", {
 	tiles = {"lord_ground_dirt_mirkwood.png", "default_dirt.png", "default_dirt.png^lord_ground_dirt_mirkwood_side.png"},
 	is_ground_content = true,
 	groups = {cracky=3, stone=1, not_in_creative_inventory=1},
@@ -763,7 +763,7 @@ minetest.register_node("lottmapgen:mirktreegen", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"lottmapgen:mallorngen"},
 	interval = 1,
 	chance = 1,
@@ -772,7 +772,7 @@ minetest.register_abm({
 	 end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"lottmapgen:mirktreegen"},
 	interval = 1,
 	chance = 1,
@@ -781,7 +781,7 @@ minetest.register_abm({
 	 end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = {"lottmapgen:beechgen"},
 		interval = 1,
 	chance = 1,

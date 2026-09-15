@@ -1,13 +1,13 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Items
 
-minetest.register_craftitem("lord_bricks:chamotte_brick_raw", {
+core.register_craftitem("lord_bricks:chamotte_brick_raw", {
 	description = S("Raw Chamotte Brick"),
 	inventory_image = "lord_bricks_chamotte_brick_raw.png"
 })
 
-minetest.register_craftitem("lord_bricks:chamotte_brick_dried", {
+core.register_craftitem("lord_bricks:chamotte_brick_dried", {
 	description = S("Chamotte Brick"),
 	inventory_image = "lord_bricks_chamotte_brick_dried.png"
 })
@@ -15,7 +15,7 @@ minetest.register_craftitem("lord_bricks:chamotte_brick_dried", {
 
 -- Nodes
 
-minetest.register_node("lord_bricks:chamotte_masonry", {
+core.register_node("lord_bricks:chamotte_masonry", {
 	description = S("Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry.png"},
 	is_ground_content = false,
@@ -23,7 +23,7 @@ minetest.register_node("lord_bricks:chamotte_masonry", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:chamotte_masonry_large", {
+core.register_node("lord_bricks:chamotte_masonry_large", {
 	description = S("Large Chamotte Masonry"),
 	tiles = {"lord_bricks_chamotte_masonry_large.png"},
 	is_ground_content = false,
@@ -31,7 +31,7 @@ minetest.register_node("lord_bricks:chamotte_masonry_large", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:chamotte_brick", {
+core.register_node("lord_bricks:chamotte_brick", {
 	description = S("Chamotte Brick"),
 	tiles = {"lord_bricks_chamotte_brick.png"},
 	is_ground_content = false,
@@ -39,7 +39,7 @@ minetest.register_node("lord_bricks:chamotte_brick", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lord_bricks:chamotte_block", {
+core.register_node("lord_bricks:chamotte_block", {
 	description = S("Chamotte Block"),
 	tiles = {"lord_bricks_chamotte_block.png"},
 	is_ground_content = false,

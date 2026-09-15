@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local function register_scarecrow()
@@ -19,7 +19,7 @@ local function register_scarecrow()
 		end
 		local player_name = puncher:get_player_name()
 
-		if player_name and minetest.is_protected(pos, player_name) then
+		if player_name and core.is_protected(pos, player_name) then
 			return
 		end
 		-- Проверка факела в руке
@@ -29,7 +29,7 @@ local function register_scarecrow()
 		if item_name == 'default:torch' then
 			-- Проверка незажженного фонаря
 			if node.name == 'lord_scarecrow:scarecrow' then
-				minetest.swap_node(pos, { name = 'lord_scarecrow:scarecrow_halloween', param2 = node.param2 })
+				core.swap_node(pos, { name = 'lord_scarecrow:scarecrow_halloween', param2 = node.param2 })
 			end
 		end
 	end
@@ -41,7 +41,7 @@ local function register_scarecrow()
 		end
 		local player_name = clicker:get_player_name()
 
-		if player_name and minetest.is_protected(pos, player_name) then
+		if player_name and core.is_protected(pos, player_name) then
 			return
 		end
 		-- Проверка пустой руки
@@ -51,13 +51,13 @@ local function register_scarecrow()
 		if item_name == '' then
 			-- Если фонарь зажжен - гасим его
 			if node.name == 'lord_scarecrow:scarecrow_halloween' then
-				minetest.swap_node(pos, { name = 'lord_scarecrow:scarecrow', param2 = node.param2 })
+				core.swap_node(pos, { name = 'lord_scarecrow:scarecrow', param2 = node.param2 })
 			end
 		end
 	end
 
 
-	minetest.register_node('lord_scarecrow:scarecrow', {
+	core.register_node('lord_scarecrow:scarecrow', {
 		description         = S('Scarecrow'),
 		paramtype           = 'light',
 		paramtype2          = 'facedir',
@@ -89,7 +89,7 @@ local function register_scarecrow()
 		end,
 	})
 
-	minetest.register_node('lord_scarecrow:scarecrow_halloween', {
+	core.register_node('lord_scarecrow:scarecrow_halloween', {
 		description         = scarecrow_halloween_color_description,
 		paramtype           = 'light',
 		paramtype2          = 'facedir',
@@ -123,7 +123,7 @@ local function register_scarecrow()
 		end,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'lord_scarecrow:scarecrow',
 		recipe = {
 			{ '',            'farming:straw',                                 '' },

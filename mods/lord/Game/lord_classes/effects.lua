@@ -1,4 +1,4 @@
-local area_id = tonumber(minetest.settings:get("sauron_curse_area"))
+local area_id = tonumber(core.settings:get("sauron_curse_area"))
 
 local effects = {
 	decrease_hp = {},
@@ -14,7 +14,7 @@ local function decrease_hp()
 			player:set_hp(player:get_hp() - 2)
 		end
 	end
-	minetest.after(dmg_timer, decrease_hp)
+	core.after(dmg_timer, decrease_hp)
 end
 
 local function check_player_pos(player, _)
@@ -38,8 +38,8 @@ if not area_id then
 	return
 end
 
-minetest.after(dmg_timer, decrease_hp)
---minetest.after(eye_t, sauron_eye)
+core.after(dmg_timer, decrease_hp)
+--core.after(eye_t, sauron_eye)
 
 -- не нагружаем сервер, а проверяем только раз в секунду
-minetest.foreach_player_every(1, check_player_pos)
+core.foreach_player_every(1, check_player_pos)

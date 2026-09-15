@@ -20,7 +20,7 @@ end
 
 local function register_additional_crafts()
 	for _, recipe in pairs(config.additional_crafts) do
-		minetest.register_mirrored_crafts(recipe)
+		core.register_mirrored_crafts(recipe)
 	end
 end
 

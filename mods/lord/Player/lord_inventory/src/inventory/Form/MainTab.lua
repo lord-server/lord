@@ -1,10 +1,10 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local EXISTING_CRAFTING_IMAGE_LANG = { 'ru', 'en' }
 local DEFAULT_CRAFTING_IMAGE_LANG  = 'en'
 
 --- Trash / Recycle Bin
-local detached_inv_trash = minetest.create_detached_inventory('trash', {
+local detached_inv_trash = core.create_detached_inventory('trash', {
 	allow_put = function(inv, listname, index, stack, player)
 		return stack:get_count()
 	end,

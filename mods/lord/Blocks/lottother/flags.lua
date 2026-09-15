@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local tapestry = {}
 
@@ -19,7 +19,7 @@ for _, row in ipairs(tapestry.colours) do
 	local name = row[1]
 	local desc = row[2]
 	-- Node Definition
-	minetest.register_node("lottother:tapestry_" .. name, {
+	core.register_node("lottother:tapestry_" .. name, {
 		drawtype      = "nodebox",
 		description   = S(desc .. " Tapestry"),
 		tiles         = { "lottother_banner_" .. name .. ".png" },
@@ -50,7 +50,7 @@ for _, row in ipairs(tapestry.colours) do
 		},
 		on_place      = function(itemstack, placer, pointed_thing)
 			local above = pointed_thing.above
-			if minetest.get_node({ x = above.x, y = above.y + 1, z = above.z }).name ~= "air" then
+			if core.get_node({ x = above.x, y = above.y + 1, z = above.z }).name ~= "air" then
 				return itemstack
 			end
 			local fdir       = 0
@@ -61,21 +61,21 @@ for _, row in ipairs(tapestry.colours) do
 					y = above.y - placer_pos.y,
 					z = above.z - placer_pos.z
 				}
-				fdir = minetest.dir_to_facedir(dir)
+				fdir = core.dir_to_facedir(dir)
 			end
-			minetest.add_node(above, { name = "lottother:tapestry_" .. name, param2 = fdir })
-			minetest.add_node(
+			core.add_node(above, { name = "lottother:tapestry_" .. name, param2 = fdir })
+			core.add_node(
 				{ x = above.x, y = above.y + 1, z = above.z },
 				{ name = "lottother:tapestry_top_" .. name, param2 = fdir }
 			)
-			if not minetest.is_creative_enabled(placer) then
+			if not core.is_creative_enabled(placer) then
 				itemstack:take_item()
 			end
 			return itemstack
 		end,
 		on_destruct   = function(pos)
 			local p = { x = pos.x, y = pos.y + 1, z = pos.z }
-			minetest.remove_node(p)
+			core.remove_node(p)
 		end
 	})
 end
@@ -84,7 +84,7 @@ for _, row in ipairs(tapestry.colours) do
 	local name = row[1]
 	local desc = row[2]
 	-- Node Definition
-	minetest.register_node("lottother:tapestry_top_" .. name, {
+	core.register_node("lottother:tapestry_top_" .. name, {
 		drawtype    = "nodebox",
 		description = S(desc .. " Tapestry Top"),
 		tiles       = { "lottother_banner_top_" .. name .. ".png" },

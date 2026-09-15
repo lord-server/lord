@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --Thanks for all the things in this file, and the related textures goes to catninja!--
 
@@ -11,7 +11,7 @@ local S = minetest.get_mod_translator()
 --- @param texture_name string
 --- @param leaves string
 local function register_leafroof(name, desc, texture_name, leaves)
-	minetest.register_node("lottblocks:"..name, {
+	core.register_node("lottblocks:"..name, {
 		description       = S(desc.." Roof"),
 		tiles             = { texture_name },
 		use_texture_alpha = "clip",
@@ -35,7 +35,7 @@ local function register_leafroof(name, desc, texture_name, leaves)
 		S("Outer "..desc.." Roof Stair")
 	)
 
-	minetest.register_craft({
+	core.register_craft({
 	output = "lottblocks:"..name,
 	recipe = {
 		{ leaves, leaves },
@@ -47,7 +47,7 @@ end
 -- TREES
 -- Vine tree
 
-minetest.register_node("lottblocks:tree_vine", {
+core.register_node("lottblocks:tree_vine", {
 	description       = S("Tree With Vines"),
 	tiles             = {
 		"lottblocks_tree_vine_top.png",
@@ -78,7 +78,7 @@ stairs.register_stair_and_slab(
 
 -- Mossy tree
 
-minetest.register_node("lottblocks:tree_mossy", {
+core.register_node("lottblocks:tree_mossy", {
 	description       = S("Tree With Moss"),
 	tiles             = {
 		"lottblocks_tree_mossy_top.png",
@@ -127,7 +127,7 @@ register_leafroof("leafroof_mallorn", "Mallorn Leaf", "lottblocks_mallornroof.pn
 
 -- mallorn pillar
 
-minetest.register_node("lottblocks:mallorn_pillar", {
+core.register_node("lottblocks:mallorn_pillar", {
 	description       = S("Mallorn Pillar"),
 	tiles             = { "lottblocks_mallorn_pillar.png" },
 	paramtype         = "light",
@@ -151,7 +151,7 @@ stairs.register_stair_and_slab(
 
 -- mallorn White
 
-minetest.register_node("lottblocks:mallorn_white", {
+core.register_node("lottblocks:mallorn_white", {
 	description       = S("White Mallorn"),
 	tiles             = { "lottblocks_mallorn_white.png" },
 	paramtype         = "light",
@@ -176,7 +176,7 @@ stairs.register_stair_and_slab(
 -- DWARFSTONE
 -- white
 
-minetest.register_node("lottblocks:dwarfstone_white", {
+core.register_node("lottblocks:dwarfstone_white", {
 	description       = S("White Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_white_top.png",
@@ -206,7 +206,7 @@ stairs.register_stair_and_slab(
 
 -- black
 
-minetest.register_node("lottblocks:dwarfstone_black", {
+core.register_node("lottblocks:dwarfstone_black", {
 	description       = S("Black Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_black_top.png",
@@ -236,7 +236,7 @@ stairs.register_stair_and_slab(
 
 -- stripe
 
-minetest.register_node("lottblocks:dwarfstone_stripe", {
+core.register_node("lottblocks:dwarfstone_stripe", {
 	description       = S("Stripe Dwarf Stone"),
 	tiles             = {
 		"lottblocks_dwarfstone_stripe_top.png",
@@ -258,7 +258,7 @@ minetest.register_node("lottblocks:dwarfstone_stripe", {
 --TREES
 -- vine
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:tree_vine 4',
 	recipe = {
 		{ 'default:tree', 'default:grass_1' },
@@ -268,7 +268,7 @@ minetest.register_craft({
 
 -- mossy tree
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:tree_mossy 4',
 	recipe = {
 		{ 'default:grass_1', 'default:grass_1', 'default:grass_1' },
@@ -281,7 +281,7 @@ minetest.register_craft({
 
 -- White mallorn
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:mallorn_white',
 	recipe = {
 		{ 'dye:white' },
@@ -291,7 +291,7 @@ minetest.register_craft({
 
 -- Mallorn pillar
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:mallorn_pillar',
 	recipe = {
 		{ 'lord_trees:mallorn_tree', 'default:gold_ingot' },
@@ -302,7 +302,7 @@ minetest.register_craft({
 -- DWARFSTONE
 -- white
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_white 4',
 	recipe = {
 		{ 'default:steel_ingot', 'default:stone', 'default:steel_ingot' },
@@ -313,7 +313,7 @@ minetest.register_craft({
 
 -- black
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_black 4',
 	recipe = {
 		{ 'default:coal_lump', 'default:stone', 'default:coal_lump' },
@@ -324,7 +324,7 @@ minetest.register_craft({
 
 -- stripe
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottblocks:dwarfstone_stripe 4',
 	recipe = {
 		{ 'default:stone', 'default:coal_lump' },

@@ -1,5 +1,5 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 
 --- @class lord_potions.PotionEffect
@@ -21,8 +21,8 @@ local potions = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { potions = 1 }),
 	})
 	potions.all_items[node_name] = definition
@@ -50,7 +50,7 @@ local function register_potion_node(item_name, title, description, color, effect
 	')'
 	local texture                  = bottle_contents_img .. '^(lord_potions_bottle.png)'
 
-	minetest.register_node(item_name, {
+	core.register_node(item_name, {
 		description     = S('Potion "@1"@2',
 			colorize('#ee8', title),
 			level ~= 0 and ' '..S('(Power: @1)', level) or ''
@@ -85,14 +85,14 @@ local function register_potion_craft(item_name, recipe)
 	end
 
 	local craft = {
-		method = minetest.CraftMethod.POTION,
+		method = core.CraftMethod.POTION,
 		type   = 'cooking',
 		input  = { recipe.input },
 		output = item_name,
 		time   = recipe.time or 120,
 	}
 
-	minetest.register_craft(craft)
+	core.register_craft(craft)
 end
 
 --- default groups: default: { dig_immediate = 3, attached_node = 1, vessel = 1, potions = 1 }
@@ -112,10 +112,10 @@ local function register_potion(name_prefix, title, description, color, effect, l
 	potions.all_items_grouped [effect.group] = potions.all_items_grouped [effect.group] or {}
 	potions.lord_items_grouped[effect.group] = potions.lord_items_grouped[effect.group] or {}
 
-	potions.all_items [item_name]                       = minetest.registered_nodes[item_name]
-	potions.lord_items[item_name]                       = minetest.registered_nodes[item_name]
-	potions.all_items_grouped [effect.group][item_name] = minetest.registered_nodes[item_name]
-	potions.lord_items_grouped[effect.group][item_name] = minetest.registered_nodes[item_name]
+	potions.all_items [item_name]                       = core.registered_nodes[item_name]
+	potions.lord_items[item_name]                       = core.registered_nodes[item_name]
+	potions.all_items_grouped [effect.group][item_name] = core.registered_nodes[item_name]
+	potions.lord_items_grouped[effect.group][item_name] = core.registered_nodes[item_name]
 
 	register_potion_craft(item_name, recipe)
 end

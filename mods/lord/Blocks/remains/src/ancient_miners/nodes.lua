@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local drop = require('ancient_miners.drop.config')
 local loot_functions = require('loot_functions')
@@ -21,12 +21,12 @@ local function get_mouse_click_handler(swap_to_node, title, items)
 		if not clicker:is_player() then
 			return
 		end
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local drop_items = loot_functions.get_random_items(5, items)
 		drop_items_to_world(pos, clicker:get_pos(), clicker:get_look_horizontal(), drop_items, 'default')
-		minetest.swap_node(pos, { name = swap_to_node, param2 = node.param2 })
+		core.swap_node(pos, { name = swap_to_node, param2 = node.param2 })
 		meta:set_string('infotext', title)
-		minetest.sound_play( 'drop_loot_of_remains', { gain = 3, pos = pos, max_hear_distance = 10 }, true )
+		core.sound_play( 'drop_loot_of_remains', { gain = 3, pos = pos, max_hear_distance = 10 }, true )
 
 		return itemstack
 	end
@@ -57,7 +57,7 @@ local ancient_miner_mapgen_1 = {
 	tiles        = { 'skull_front.png', 'skull.png', 'edges.png' },
 	sounds       = loot_functions.sound_of_drop_loot(),
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string( 'infotext', title_ancient_miner_mapgen )
 	end,
 	on_punch      = get_mouse_click_handler('remains:ancient_miner_1',
@@ -74,7 +74,7 @@ local ancient_miner_mapgen_2 = {
 	tiles        = { 'skull_front.png', 'skull.png', 'pick.png' },
 	sounds       = loot_functions.sound_of_drop_loot(),
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('infotext', title_ancient_miner_mapgen)
 	end,
 	on_punch      = get_mouse_click_handler('remains:ancient_miner_2',
@@ -91,12 +91,12 @@ local ancient_miner = {
 	mesh            = 'skull_bones.obj',
 	tiles           = { 'skull_front.png', 'skull.png', 'edges.png' },
 	on_construct    = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('infotext', title_ancient_miner)
 	end,
 	on_place        = function(itemstack, placer, pointed_thing)
 		local stack = ItemStack('remains:ancient_miner_' .. math.random(1,2))
-		local ret = minetest.item_place(stack, placer, pointed_thing)
+		local ret = core.item_place(stack, placer, pointed_thing)
 		--ret:
 		if ret == nil then
 			return itemstack
@@ -121,7 +121,7 @@ local ancient_miner_1 = {
 		}
 	},
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('infotext', title_remains_skull_bones)
 	end
 }
@@ -140,7 +140,7 @@ local ancient_miner_2 = {
 		}
 	},
 	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string('infotext', title_remains_skull_pick)
 	end
 }

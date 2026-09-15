@@ -1,9 +1,9 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 
 	local S        = mod.translator
 	local logger   = mod.logger
-	local colorize = minetest.colorize
+	local colorize = core.colorize
 
 	castle.tapestry.register(
 		'clans_tapestries:example',

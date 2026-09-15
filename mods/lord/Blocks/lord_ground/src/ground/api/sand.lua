@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local sand = {
 	--- @type table<string,NodeDefinition>|NodeDefinition[]
@@ -9,8 +9,8 @@ local sand = {
 
 --- @param node_name string technical node name ("<mod>:<node>").
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { sand = 1 }),
 	})
 	sand.nodes[node_name] = definition
@@ -25,17 +25,17 @@ local function register_sand(node_name, softness, title)
 
 	local texture = node_name:replace(":", "_") .. ".png"
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	minetest.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
 
-	minetest.register_node(node_name, {
+	core.register_node(node_name, {
 		description = S(title),
 		tiles       = { texture },
 		groups      = { crumbly = softness, falling_node = 1, sand = 1 },
 		sounds      = default.node_sound_sand_defaults(),
 	})
 
-	sand.nodes[node_name]      = minetest.registered_nodes[node_name]
-	sand.lord_nodes[node_name] = minetest.registered_nodes[node_name]
+	sand.nodes[node_name]      = core.registered_nodes[node_name]
+	sand.lord_nodes[node_name] = core.registered_nodes[node_name]
 
 end
 

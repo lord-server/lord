@@ -1,13 +1,13 @@
 
 
-minetest.mod(function(mod)
-	local environment = minetest.settings:get("environment")
+core.mod(function(mod)
+	local environment = core.settings:get("environment")
 	if not environment or environment == "production" then
 		return
 	end
 
 
-	minetest.register_node('catapult:catapult', {
+	core.register_node('catapult:catapult', {
 		drawtype = 'mesh',
 		mesh = 'catapult.obj',
 		tiles = {

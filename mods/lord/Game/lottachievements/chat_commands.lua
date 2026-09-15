@@ -14,22 +14,22 @@
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_chatcommand("achievements", {
+core.register_chatcommand("achievements", {
 	params = S("[c|clear|disable|enable]"),
 	description = S("Show, clear, disable or enable your achievements"),
 	func = function(name, param)
 		if param == "clear" then
 			lottachievements.clear_player(name)
-			minetest.chat_send_player(name,
+			core.chat_send_player(name,
 			S("All your achievements and statistics have been cleared. You can now start again."))
 		elseif param == "disable" then
 			lottachievements.disable(name)
-			minetest.chat_send_player(name, S("You have disabled your achievements."))
+			core.chat_send_player(name, S("You have disabled your achievements."))
 		elseif param == "enable" then
 			lottachievements.enable(name)
-			minetest.chat_send_player(name, S("You have enabled your achievements."))
+			core.chat_send_player(name, S("You have enabled your achievements."))
 		elseif param == "c" then
 			lottachievements.show_to(name, name, nil, true)
 		else
@@ -38,20 +38,20 @@ minetest.register_chatcommand("achievements", {
 	end
 })
 
-minetest.register_chatcommand("achievement-info", {
+core.register_chatcommand("achievement-info", {
 	params = S("<achievement ID>"),
 	description = S("Show details of an achievement"),
 	func = function(name, param)
 		local def = lottachievements.def[param]
 		if def then
-			minetest.chat_send_player(name, string.format(S("%s: %s"), def.title, def.description))
+			core.chat_send_player(name, string.format(S("%s: %s"), def.title, def.description))
 		else
-			minetest.chat_send_player(name, S("Achievement not found."))
+			core.chat_send_player(name, S("Achievement not found."))
 		end
 	end
 })
 
-minetest.register_chatcommand("achievement-stats", {
+core.register_chatcommand("achievement-stats", {
 	privs = {
 		server = true
 	},
@@ -61,8 +61,8 @@ minetest.register_chatcommand("achievement-stats", {
 		if not param or param == "" then
 			param = name
 		end
-		minetest.chat_send_player(name, param)
+		core.chat_send_player(name, param)
 		local player = lottachievements.player(param)
-		minetest.chat_send_player(name, dump(player))
+		core.chat_send_player(name, dump(player))
 	end
 })

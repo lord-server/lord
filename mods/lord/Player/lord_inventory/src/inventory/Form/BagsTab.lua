@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 --- @class inventory.Form.BagsTab: base_classes.Form.Element.Tab
@@ -33,7 +33,7 @@ function BagsTab:get_spec()
 	end
 
 	-- Form with bag contents
-	local player = minetest.get_player_by_name(player_name)
+	local player = core.get_player_by_name(player_name)
 	local image = player:get_inventory():get_stack('bag' .. bag, 1):get_definition().inventory_image
 	local bags_buttons = 'style_type[image_button;font=bold;textcolor=#fffb]'
 	for i = 1, 4 do
@@ -65,7 +65,7 @@ function BagsTab:handle(fields)
 		local page = 'bag' .. i
 		if fields[page] then
 			self.current_bag = i
-			local item_in_slot_definition = minetest.get_player_by_name(self.form.player_name)
+			local item_in_slot_definition = core.get_player_by_name(self.form.player_name)
 				:get_inventory():get_stack(page, 1):get_definition()
 			if item_in_slot_definition.groups.bagslots == nil then
 				self.current_bag = 0
@@ -79,11 +79,11 @@ function BagsTab:handle(fields)
 end
 
 --- @param joined_player Player
-minetest.register_on_joinplayer(function(joined_player, last_login)
+core.register_on_joinplayer(function(joined_player, last_login)
 	local player_name = joined_player:get_player_name()
 	local player_inv  = joined_player:get_inventory()
 
-	local bags_inv    = minetest.create_detached_inventory(player_name .. '_bags', {
+	local bags_inv    = core.create_detached_inventory(player_name .. '_bags', {
 		on_put     = function(inv, list_name, index, stack, player)
 			player:get_inventory():set_stack(list_name, index, stack)
 			player:get_inventory():set_size(list_name .. 'contents', stack:get_definition().groups.bagslots)

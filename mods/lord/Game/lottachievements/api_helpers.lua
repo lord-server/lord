@@ -6,7 +6,7 @@ function lottachievements.tbv(tb,value,default)
 		if not value then
 			value = "[NULL]"
 		end
-		minetest.log("error", "lottachievements.tbv - table "..dump(value).." is null, or not a table! Dump: "..dump(tb))
+		core.log("error", "lottachievements.tbv - table "..dump(value).." is null, or not a table! Dump: "..dump(tb))
 		return
 	end
 	if not value then

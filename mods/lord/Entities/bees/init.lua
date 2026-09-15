@@ -5,7 +5,7 @@
 --Version		2.2
 --License		WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --VARIABLES
   bees = {}
@@ -49,29 +49,29 @@ local S = minetest.get_mod_translator()
   function bees.polinate_flower(pos, flower)
     local spawn_pos = { x=pos.x+math.random(-3,3), y=pos.y, z=pos.z+math.random(-3,3) }
     local floor_pos = { x=spawn_pos.x , y=spawn_pos.y-1 , z=spawn_pos.z }
-    local spawn = minetest.get_node(spawn_pos).name
-    local floor_node = minetest.get_node(floor_pos).name
+    local spawn = core.get_node(spawn_pos).name
+    local floor_node = core.get_node(floor_pos).name
     if floor_node == 'default:dirt_with_grass' and spawn == 'air' then
-      minetest.set_node(spawn_pos, {name=flower})
+      core.set_node(spawn_pos, {name=flower})
     end
   end
 
 --NODES
-  minetest.register_node('bees:honey_comb_block', {
+  core.register_node('bees:honey_comb_block', {
     description = S('honey comb block'),
     tiles = {"bees_honey_comb_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
     sounds = default.node_sound_wood_defaults(),
   })
 
-  minetest.register_node('bees:wax_block', {
+  core.register_node('bees:wax_block', {
     description = S('wax block'),
     tiles = {"bees_wax_block.png"},
     groups = {oddly_breakable_by_hand=2, choppy=2},
     sounds = default.node_sound_wood_defaults(),
   })
 
-  minetest.register_node('bees:extractor', {
+  core.register_node('bees:extractor', {
     description = S('honey extractor'),
     tiles = {
       'bees_extractor_top.png',
@@ -82,7 +82,7 @@ local S = minetest.get_mod_translator()
     groups = {choppy=2,oddly_breakable_by_hand=2,tubedevice=1,tubedevice_receiver=1,wooden=1,fence_connected=1},
     sounds = default.node_sound_wood_defaults(),
     on_construct = function(pos, node)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
       inv:set_size('frames_filled'  ,1)
       inv:set_size('frames_emptied' ,1)
@@ -92,7 +92,7 @@ local S = minetest.get_mod_translator()
       meta:set_string('formspec', formspecs.extractor(pos))
     end,
 	can_dig = function(pos)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		local inv = meta:get_inventory()
 		return inv:is_empty("frames_filled") and
 			inv:is_empty("frames_emptied") and
@@ -101,7 +101,7 @@ local S = minetest.get_mod_translator()
 			inv:is_empty("wax")
 	end,
     on_timer = function(pos, node)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
       if
         not inv:contains_item('frames_filled','bees:frame_full') or
@@ -121,7 +121,7 @@ local S = minetest.get_mod_translator()
         inv:remove_item('frames_filled','bees:frame_full')
 
         --wax flying all over the place
-        minetest.add_particle({
+        core.add_particle({
           pos = {x=pos.x, y=pos.y, z=pos.z},
           velocity = {x=math.random(-4,4),y=math.random(8),z=math.random(-4,4)},
           acceleration = {x=0,y=-6,z=0},
@@ -130,18 +130,18 @@ local S = minetest.get_mod_translator()
           collisiondetection = false,
           texture = 'bees_wax_particle.png',
         })
-        local timer = minetest.get_node_timer(pos)
+        local timer = core.get_node_timer(pos)
         timer:start(5)
       else
-        local timer = minetest.get_node_timer(pos)
+        local timer = core.get_node_timer(pos)
         timer:start(1) -- Try again in 1 second
       end
     end,
     tube = {
       insert_object = function(pos, node, stack, direction)
-        local meta = minetest.get_meta(pos)
+        local meta = core.get_meta(pos)
         local inv = meta:get_inventory()
-        local timer = minetest.get_node_timer(pos)
+        local timer = core.get_node_timer(pos)
         if stack:get_name() == "bees:frame_full" then
           if inv:is_empty("frames_filled") then
             timer:start(5)
@@ -156,7 +156,7 @@ local S = minetest.get_mod_translator()
         return stack
       end,
       can_insert = function(pos,node,stack,direction)
-        local meta = minetest.get_meta(pos)
+        local meta = core.get_meta(pos)
         local inv = meta:get_inventory()
         if stack:get_name() == "bees:frame_full" then
           return inv:room_for_item("frames_filled",stack)
@@ -169,15 +169,15 @@ local S = minetest.get_mod_translator()
       connect_sides = {left=1, right=1, back=1, front=1, bottom=1, top=1}
     },
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-      local timer = minetest.get_node_timer(pos)
-      local meta = minetest.get_meta(pos)
+      local timer = core.get_node_timer(pos)
+      local meta = core.get_meta(pos)
       local inv = meta:get_inventory()
       if inv:get_stack(listname, 1):get_count() == stack:get_count() then -- inv was empty -> start the timer
           timer:start(5) --create a honey bottle and empty frame and wax every 5 seconds
       end
     end,
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if minetest.is_protected(pos, player:get_player_name()) then
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
       if
@@ -193,7 +193,7 @@ local S = minetest.get_mod_translator()
       return 0
     end,
     allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-      if minetest.is_protected(pos, player:get_player_name()) then
+      if core.is_protected(pos, player:get_player_name()) then
         return 0
       end
 
@@ -201,7 +201,7 @@ local S = minetest.get_mod_translator()
     end,
   })
 
-  minetest.register_node('bees:bees', {
+  core.register_node('bees:bees', {
     description = S('flying bees'),
     drawtype = 'plantlike',
     paramtype = 'light',
@@ -223,21 +223,21 @@ local S = minetest.get_mod_translator()
     end,
   })
 
-  --minetest.register_alias("bees:beehive",'bees:hive_wild')
+  --core.register_alias("bees:beehive",'bees:hive_wild')
 
 
 
 --ABMS
   --particles / частицы (имитация вылета пчел из улья)
-  minetest.register_abm({
+  core.register_abm({
     nodenames = {'bees:hive_artificial', 'bees:hive_wild'},
     interval  = 10,
     chance    = 2,
     action = function(pos)
-      local meta = minetest.get_meta(pos)
+      local meta = core.get_meta(pos)
       local inv  = meta:get_inventory()
       if inv:contains_item('queen', 'bees:bee') then
-        minetest.add_particle({
+        core.add_particle({
             pos = {x=pos.x, y=pos.y, z=pos.z},
           velocity = {x=(math.random()-0.5)*5,y=(math.random()-0.5)*5,z=(math.random()-0.5)*5},
           acceleration = {x=math.random()-0.5,y=math.random()-0.5,z=math.random()-0.5},
@@ -251,7 +251,7 @@ local S = minetest.get_mod_translator()
   })
 
   --spawn abm. This should be changed to a more realistic type of spawning
-  minetest.register_abm({
+  core.register_abm({
     nodenames = {'group:leaves'},
     neighbors = {'group:flora'},
     interval = 3000,
@@ -261,88 +261,88 @@ local S = minetest.get_mod_translator()
             return
         end
       local p = {x=pos.x, y=pos.y-1, z=pos.z}
-      if minetest.get_node(p).walkable == false then
+      if core.get_node(p).walkable == false then
         return
       end
 
-      if minetest.find_node_near(p, 40, 'bees:hive_wild') == nil then
-        minetest.add_node(p, {name='bees:hive_wild'})
+      if core.find_node_near(p, 40, 'bees:hive_wild') == nil then
+        core.add_node(p, {name='bees:hive_wild'})
       end
 
     end,
   })
 
   --spawning bees around bee hive
-  minetest.register_abm({
+  core.register_abm({
     nodenames = {'bees:hive_wild', 'bees:hive_artificial', 'bees:hive_industrial'},
     neighbors = {'group:flowers', 'group:leaves'},
     interval = 300,
     chance = 2,
     action = function(pos, node, _, _)
       local p = {x=pos.x+math.random(-5,5), y=pos.y-math.random(0,3), z=pos.z+math.random(-5,5)}
-      if minetest.get_node(p).name == 'air' then
-        minetest.add_node(p, {name='bees:bees'})
+      if core.get_node(p).name == 'air' then
+        core.add_node(p, {name='bees:bees'})
       end
     end,
   })
 
   --remove bees
-  minetest.register_abm({
+  core.register_abm({
     nodenames = {'bees:bees'},
     interval = 100,
     chance = 3,
     action = function(pos, node, _, _)
-      minetest.remove_node(pos)
+      core.remove_node(pos)
     end,
   })
 
 -- LBMS
-   minetest.register_lbm({
+   core.register_lbm({
      label = "formspec extractor replacement",
      name = "bees:extractor_formspec_replacement_2",
      nodenames = {"bees:extractor"},
      run_at_every_load = true,
      action = function(pos, node)
-	 local meta = minetest.get_meta(pos)
+	 local meta = core.get_meta(pos)
 	   meta:set_string('formspec', formspecs.extractor(pos))
      end
 })
 
 --ITEMS
-  minetest.register_craftitem('bees:frame_empty', {
+  core.register_craftitem('bees:frame_empty', {
     description = S('empty hive frame'),
     groups = {wooden=1},
     inventory_image = 'bees_frame_empty.png',
   })
 
-  minetest.register_craftitem('bees:frame_full', {
+  core.register_craftitem('bees:frame_full', {
     description = S('filled hive frame'),
     inventory_image = 'bees_frame_full.png',
   })
 
-  minetest.register_craftitem('bees:bottle_honey', {
+  core.register_craftitem('bees:bottle_honey', {
     description = S('honey bottle'),
     inventory_image = 'bees_bottle_honey.png',
     on_use = function(itemstack, user, pointed_thing)
-      minetest.give_or_drop(user, ItemStack("vessels:glass_bottle"))
-      return minetest.do_item_eat(22, nil, itemstack, user, pointed_thing)
+      core.give_or_drop(user, ItemStack("vessels:glass_bottle"))
+      return core.do_item_eat(22, nil, itemstack, user, pointed_thing)
     end,
     _tt_food_hp = 22,
   })
 
-  minetest.register_craftitem('bees:wax', {
+  core.register_craftitem('bees:wax', {
     description = S('bees wax'),
     inventory_image = 'bees_wax.png',
   })
 
-  minetest.register_craftitem('bees:honey_comb', {
+  core.register_craftitem('bees:honey_comb', {
     description = S('honey comb'),
     inventory_image = 'bees_comb.png',
-    on_use = minetest.item_eat(20),
+    on_use = core.item_eat(20),
     _tt_food_hp = 20,
   })
 
-  --minetest.register_craftitem('bees:queen', {
+  --core.register_craftitem('bees:queen', {
     --description = 'Queen Bee',
     ----inventory_image = 'bees_particle_bee.png',
     --inventory_image = 'mobs_bee_inv.png',
@@ -350,7 +350,7 @@ local S = minetest.get_mod_translator()
   --})
 
 --CRAFTS
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:honey_comb_block',
     recipe = {
       {'bees:honey_comb','bees:honey_comb','bees:honey_comb'},
@@ -359,13 +359,13 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     type = 'shapeless',
     output = 'bees:honey_comb 9',
     recipe = {'bees:honey_comb_block'},
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:wax_block',
     recipe = {
       {'bees:wax','bees:wax','bees:wax'},
@@ -374,13 +374,13 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     type = 'shapeless',
     output = 'bees:wax 9',
     recipe = {'bees:wax_block'},
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:extractor',
     recipe = {
       {'group:wood','default:steel_ingot','group:wood'},
@@ -389,7 +389,7 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:smoker',
     recipe = {
       {'default:steel_ingot', 'wool:red', ''},
@@ -398,7 +398,7 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:hive_artificial',
     recipe = {
       {'group:wood','group:wood','group:wood'},
@@ -407,7 +407,7 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:grafting_tool',
     recipe = {
       {'', '', 'default:steel_ingot'},
@@ -416,7 +416,7 @@ local S = minetest.get_mod_translator()
     }
   })
 
-  minetest.register_craft({
+  core.register_craft({
     output = 'bees:frame_empty',
     recipe = {
       {'group:wood',  'group:wood',  'group:wood'},
@@ -426,7 +426,7 @@ local S = minetest.get_mod_translator()
   })
 
 --TOOLS
-  minetest.register_tool('bees:smoker', {
+  core.register_tool('bees:smoker', {
     description = S('smoker'),
     groups = {steel_item = 1},
     inventory_image = 'bees_smoker.png',
@@ -440,7 +440,7 @@ local S = minetest.get_mod_translator()
         local pos = node.under
         if pos then
           for i=1,6 do
-            minetest.add_particle({
+            core.add_particle({
               pos = {x=pos.x+math.random()-0.5, y=pos.y, z=pos.z+math.random()-0.5},
               velocity = {x=0,y=0.5+math.random(),z=0},
               acceleration = {x=0,y=0,z=0},
@@ -450,7 +450,7 @@ local S = minetest.get_mod_translator()
               texture = 'bees_smoke_particle.png',
             })
           end
-          local meta = minetest.get_meta(pos)
+          local meta = core.get_meta(pos)
           meta:set_int('agressive', 0)
           return nil
         end
@@ -458,7 +458,7 @@ local S = minetest.get_mod_translator()
     end,
   })
 
-  minetest.register_tool('bees:grafting_tool', {
+  core.register_tool('bees:grafting_tool', {
     description = S('grafting tool'),
     groups = {steel_item = 1},
     inventory_image = 'bees_grafting_tool.png',
@@ -471,33 +471,33 @@ local S = minetest.get_mod_translator()
 
 --COMPATIBILTY --remove after all has been updated
   --ALIASES
-    minetest.register_alias('bees:honey_extractor', 'bees:extractor')
+    core.register_alias('bees:honey_extractor', 'bees:extractor')
   --BACKWARDS COMPATIBILITY WITH OLDER VERSION
-    minetest.register_alias('bees:honey_bottle', 'bees:bottle_honey')
-    minetest.register_abm({
+    core.register_alias('bees:honey_bottle', 'bees:bottle_honey')
+    core.register_abm({
       nodenames = {'bees:hive', 'bees:hive_artificial_inhabited'},
       interval = 1000,
       chance = 1,
       action = function(pos, node)
         if node.name == 'bees:hive' then
-          minetest.set_node(pos, { name = 'bees:hive_wild' })
-          local meta = minetest.get_meta(pos)
+          core.set_node(pos, { name = 'bees:hive_wild' })
+          local meta = core.get_meta(pos)
           local inv  = meta:get_inventory()
           inv:set_stack('queen', 1, 'bees:bee')
         end
         if node.name == 'bees:hive_artificial_inhabited' then
-          minetest.set_node(pos, { name = 'bees:hive_artificial' })
-          local meta = minetest.get_meta(pos)
+          core.set_node(pos, { name = 'bees:hive_artificial' })
+          local meta = core.get_meta(pos)
           local inv  = meta:get_inventory()
           inv:set_stack('queen', 1, 'bees:bee')
-          local timer = minetest.get_node_timer(pos)
+          local timer = core.get_node_timer(pos)
           timer:start(60)
         end
       end,
     })
 
 -- Load
-local bees_path = minetest.get_modpath("bees")
+local bees_path = core.get_modpath("bees")
 
 dofile(bees_path.."/bee.lua")
 dofile(bees_path.."/hive_wild.lua")

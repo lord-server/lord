@@ -1,4 +1,4 @@
-minetest.register_craft({
+core.register_craft({
     output = "lord_archery:steel_throwing_axe",
     recipe = {
         { "default:steel_ingot", "", "default:steel_ingot", },
@@ -7,7 +7,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     output = "lord_archery:bronze_throwing_axe",
     recipe = {
         { "default:bronze_ingot", "", "default:bronze_ingot", },
@@ -16,7 +16,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     output = "lord_archery:galvorn_throwing_axe",
     recipe = {
         { "lottores:galvorn_ingot", "", "lottores:galvorn_ingot", },
@@ -25,7 +25,7 @@ minetest.register_craft({
     }
 })
 
-minetest.register_craft({
+core.register_craft({
     output = "lord_archery:mithril_throwing_axe",
     recipe = {
         { "lottores:mithril_ingot", "", "lottores:mithril_ingot", },

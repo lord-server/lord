@@ -1,6 +1,6 @@
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 local spec     = forms.Spec
-local mod_path = minetest.get_modpath(minetest.get_current_modname())
+local mod_path = core.get_modpath(core.get_current_modname())
 
 
 local supported_lang_codes = { 'en', 'ru' }
@@ -24,7 +24,7 @@ end
 local function guide_on_use(itemstack, user)
 	local player_name = user:get_player_name()
 
-	local lang_code = minetest.get_player_information(player_name).lang_code
+	local lang_code = core.get_player_information(player_name).lang_code
 	local book = get_book_in_lang(lang_code)
 
 	local formspec = ''
@@ -38,10 +38,10 @@ local function guide_on_use(itemstack, user)
 		.. spec.textarea(0.5, 2.3, 8.55, 7.3, spec.read_only, '', book.content)
 		.. spec.bold(4, 8.7, S('Feanor, son of Finwë, king of the Noldor'))
 
-	minetest.show_formspec(player_name, 'lottother:guide', formspec)
+	core.show_formspec(player_name, 'lottother:guide', formspec)
 end
 
-minetest.register_craftitem('lottblocks:palantir_guide', {
+core.register_craftitem('lottblocks:palantir_guide', {
 	description = S('Palantir Guidebook'),
 	inventory_image = 'lottblocks_palantir_guide.png',
 	groups = {book = 1, forbidden = 1},
@@ -51,7 +51,7 @@ minetest.register_craftitem('lottblocks:palantir_guide', {
 	end
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = 'shapeless',
 	output = 'lottblocks:palantir_guide',
 	recipe = {'default:book', 'lottblocks:palantir'},

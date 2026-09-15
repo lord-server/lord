@@ -2,7 +2,7 @@ for _, dye in ipairs(dye.dyes) do
 	local color = dye[1]
 	local dye_item = "dye:"..color
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "painting:brush_"..color,
 		recipe = {
 			{ dye_item, },
@@ -12,9 +12,9 @@ for _, dye in ipairs(dye.dyes) do
 	})
 
 	-- Removing crafts with hemp oil that we don't have.
-	minetest.clear_craft({output = "painting:oil_color_"..color})
+	core.clear_craft({output = "painting:oil_color_"..color})
 
-	minetest.register_craft{
+	core.register_craft{
 		output = "painting:oil_color_"..color,
 		recipe = {
 			{ dye_item, },
@@ -25,7 +25,7 @@ for _, dye in ipairs(dye.dyes) do
 	}
 end
 
-minetest.register_alias("painting:brush_darkgrey", "painting:brush_dark_grey")
-minetest.register_alias("painting:brush_darkgreen", "painting:brush_dark_green")
+core.register_alias("painting:brush_darkgrey", "painting:brush_dark_grey")
+core.register_alias("painting:brush_darkgreen", "painting:brush_dark_green")
 
-minetest.unregister_item("painting:canvas_64")
+core.unregister_item("painting:canvas_64")

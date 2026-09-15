@@ -1,7 +1,7 @@
 local colorize = core.colorize
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 
 	--- @diagnostic disable-next-line: need-check-nil
 	local debug = core.settings:get_bool('debug', false)
@@ -10,7 +10,7 @@ minetest.mod(function(mod)
 	end
 
 
-	local items = minetest.registered_items
+	local items = core.registered_items
 
 	--- @param item_string string
 	--- @return string|nil

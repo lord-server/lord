@@ -52,7 +52,7 @@ function Clan.create(clan, on_done, on_link, on_fail)
 		},
 
 		function(result)
-			local created_clan = minetest.parse_json(result.data)
+			local created_clan = core.parse_json(result.data)
 			if created_clan == nil then
 				return Clan.logger.error("Can't store clan web id: unable to parse response json: " .. result.data)
 			end
@@ -63,7 +63,7 @@ function Clan.create(clan, on_done, on_link, on_fail)
 
 		function(result)
 			if result.code == 409 then
-				local response = minetest.parse_json(result.data)
+				local response = core.parse_json(result.data)
 				if response and response.field == "name" and response.entry then
 					Clan.storage.set_clan_web_id(clan.name, response.entry.id)
 					if on_link then on_link(response.entry) end

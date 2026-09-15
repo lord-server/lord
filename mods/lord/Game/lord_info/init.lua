@@ -1,5 +1,5 @@
-local S    = minetest.get_mod_translator()
-local spec = minetest.formspec
+local S    = core.get_mod_translator()
+local spec = core.formspec
 local e    = spec.escape
 
 
@@ -12,7 +12,7 @@ local function satisfies_search_query(id, def, search_query)
 		(search_query == "") or
 		(string.find(string.lower(id), search_query) ~= nil) or
 		(string.find(string.lower(def.description or ''), search_query) ~= nil) or
-		(string.find(string.lower(minetest.get_translated_string("ru", def.description)), search_query) ~= nil)
+		(string.find(string.lower(core.get_translated_string("ru", def.description)), search_query) ~= nil)
 	) == true
 end
 
@@ -33,7 +33,7 @@ end
 local function get_filtered_list(search_query, search_group)
 	local list = {} -- filtered result
 	search_query = string.lower(search_query)
-	for id, def in pairs(minetest.registered_items) do
+	for id, def in pairs(core.registered_items) do
 		if
 			id ~= '' and -- skip the "hand" item
 			satisfies_search_query(id, def, search_query) and
@@ -80,7 +80,7 @@ end
 --- @return string[] array of all available group names
 local function get_all_groups()
 	local all_groups = {}
-	for id, def in pairs(minetest.registered_items) do
+	for id, def in pairs(core.registered_items) do
 		if id ~= ''--[[skip "hand"]] and def.groups then
 			for group_name, _ in pairs(def.groups) do
 				all_groups[group_name] = true
@@ -126,7 +126,7 @@ local function list_form(name, select_id, search_query, search_group)
 	move_ghost_to_end(list)
 
 	local item_name       = list[select_id] or list[1] or ''
-	local item_definition = minetest.registered_items[item_name]
+	local item_definition = core.registered_items[item_name]
 	local stack_max       = item_definition and item_definition.stack_max or 0
 
 	-- Prepare groups dropdown
@@ -182,11 +182,11 @@ local list_command_definition = {
 	description = S("Show list of registered objects"),
 	privs = {give = true},
 	func = function(name)
-		minetest.show_formspec(name, "list_form", list_form(name, 1))
+		core.show_formspec(name, "list_form", list_form(name, 1))
 	end,
 }
-minetest.register_chatcommand("list", list_command_definition)
-minetest.register_chatcommand("l", list_command_definition)
+core.register_chatcommand("list", list_command_definition)
+core.register_chatcommand("l", list_command_definition)
 
 
 --- @param player    Player
@@ -200,7 +200,7 @@ local function handle_list_form(player, form_name, fields)
 		chg = string.replace(chg, "CHG:", "")
 		chg = string.replace(chg, "DCL:", "")
 		chg = tonumber(chg)
-		minetest.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter, fields.ddl_group))
+		core.show_formspec(player_name, "list_form", list_form(player_name, chg, fields.txt_filter, fields.ddl_group))
 	end
 	if fields.btn_giveme or fields.btn_giveme_m then
 		local count = (fields.btn_giveme)or(fields.btn_giveme_m)
@@ -209,17 +209,17 @@ local function handle_list_form(player, form_name, fields)
 		local inv = player:get_inventory()
 		if inv:room_for_item("main", item_stack) then
 			inv:add_item("main", item_stack)
-			minetest.chat_send_player(player_name, S("Item successfully added!"))
+			core.chat_send_player(player_name, S("Item successfully added!"))
 		else
-			minetest.chat_send_player(player_name, S("Error: Inventory is full!"))
+			core.chat_send_player(player_name, S("Error: Inventory is full!"))
 		end
 	end
 	if fields.btn_find or (fields.key_enter_field == "txt_filter") then
-		minetest.show_formspec(player_name, "list_form", list_form(player_name, 1, fields.txt_filter, fields.ddl_group))
+		core.show_formspec(player_name, "list_form", list_form(player_name, 1, fields.txt_filter, fields.ddl_group))
 	end
 end
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "list_form" then
 		return
 	end

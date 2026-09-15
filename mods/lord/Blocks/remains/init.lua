@@ -1,4 +1,4 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('register_nodes').init()
 	require('ancient_miners/craftitems')
 end)

@@ -4,7 +4,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	-- MTG ores
 
 	-- Coal
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_coal",
 		wherein        = name,
@@ -15,7 +15,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = 64,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_coal",
 		wherein        = name,
@@ -27,7 +27,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Iron
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_iron",
 		wherein        = name,
@@ -38,7 +38,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -16,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_iron",
 		wherein        = name,
@@ -49,7 +49,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -64,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_iron",
 		wherein        = name,
@@ -61,7 +61,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Copper
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_copper",
 		wherein        = name,
@@ -72,7 +72,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -16,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_copper",
 		wherein        = name,
@@ -84,7 +84,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Mese
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_mese",
 		wherein        = name,
@@ -95,7 +95,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -64,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_mese",
 		wherein        = name,
@@ -107,7 +107,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Mese blocks
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "default:mese",
 		wherein        = name,
@@ -119,7 +119,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Gold
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_gold",
 		wherein        = name,
@@ -130,7 +130,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -64,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_gold",
 		wherein        = name,
@@ -142,7 +142,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Diamond
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_diamond",
 		wherein        = name,
@@ -157,7 +157,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	-- lottores
 
 	-- Limestone
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lottores:limestone_ore",
 		wherein        = name,
@@ -168,7 +168,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -10,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lottores:limestone_ore",
 		wherein        = name,
@@ -179,7 +179,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -61,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lottores:limestone_ore",
 		wherein        = name,
@@ -191,7 +191,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Silver
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_silver",
 		wherein        = name,
@@ -202,7 +202,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -50,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_silver",
 		wherein        = name,
@@ -214,7 +214,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Tin
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_tin",
 		wherein        = name,
@@ -225,7 +225,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -20,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_tin",
 		wherein        = name,
@@ -237,7 +237,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Lead
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_lead",
 		wherein        = name,
@@ -248,7 +248,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -30,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_lead",
 		wherein        = name,
@@ -260,7 +260,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Rough rock
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lottores:rough_rock",
 		wherein        = name,
@@ -271,7 +271,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -70,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lottores:rough_rock",
 		wherein        = name,
@@ -283,7 +283,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Mithril
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_mithril",
 		wherein        = name,
@@ -294,7 +294,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -128,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_mithril",
 		wherein        = name,
@@ -306,7 +306,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 	})
 
 	-- Gems
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_blue_gem",
 		wherein        = name,
@@ -317,7 +317,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -256,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_red_gem",
 		wherein        = name,
@@ -328,7 +328,7 @@ for name, _ in pairs(rocks.get_lord_rocks()) do
 		y_max     = -256,
 	})
 
-	minetest.register_ore({
+	core.register_ore({
 		ore_type       = "scatter",
 		ore            = "lord_ores:" .. stripped_name .. "_with_white_gem",
 		wherein        = name,

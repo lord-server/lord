@@ -1,6 +1,6 @@
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 local spec     = forms.Spec
-local colorize = minetest.colorize
+local colorize = core.colorize
 
 
 --- @class lord_classes.form.ChooseRace: base_classes.Form.Base

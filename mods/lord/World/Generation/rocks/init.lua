@@ -1,4 +1,4 @@
-minetest.register_biome({
+core.register_biome({
 	name = "stone_cave",
 	node_stone = "default:stone",
 	node_cave_liquid = "default:water_source",
@@ -12,7 +12,7 @@ minetest.register_biome({
 	humidity_point = 50,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "stone_cave",
 	node_stone = "default:stone",
 	node_dungeon = "default:stonebrick",
@@ -25,7 +25,7 @@ minetest.register_biome({
 })
 
 
-minetest.register_biome({
+core.register_biome({
 	name = "diorite_cave",
 	node_stone = "lord_rocks:diorite",
 	node_cave_liquid = "default:water_source",
@@ -39,7 +39,7 @@ minetest.register_biome({
 	humidity_point = 80,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "granite_cave",
 	node_stone = "lord_rocks:granite",
 	node_cave_liquid = "default:water_source",
@@ -53,7 +53,7 @@ minetest.register_biome({
 	humidity_point = 30,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "basalt_cave",
 	node_stone = "lord_rocks:basalt",
 	node_cave_liquid = "default:water_source",
@@ -67,7 +67,7 @@ minetest.register_biome({
 	humidity_point = 70,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "andesite_cave",
 	node_stone = "lord_rocks:andesite",
 	node_cave_liquid = "default:water_source",
@@ -81,7 +81,7 @@ minetest.register_biome({
 	humidity_point = 40,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "peridotite_cave",
 	node_stone = "lord_rocks:peridotite",
 	node_dungeon = "default:stonebrick",
@@ -93,7 +93,7 @@ minetest.register_biome({
 	humidity_point = 90,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "grey_tuff_cave",
 	node_stone = "lord_rocks:grey_tuff",
 	node_cave_liquid = "default:water_source",
@@ -107,7 +107,7 @@ minetest.register_biome({
 	humidity_point = 90,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "white_tuff_cave",
 	node_stone = "lord_rocks:white_tuff",
 	node_cave_liquid = "default:water_source",
@@ -121,7 +121,7 @@ minetest.register_biome({
 	humidity_point = 50,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "red_tuff_cave",
 	node_stone = "lord_rocks:red_tuff",
 	node_cave_liquid = "default:water_source",
@@ -135,7 +135,7 @@ minetest.register_biome({
 	humidity_point = 10,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "grey_quartzite_cave",
 	node_stone = "lord_rocks:grey_quartzite",
 	node_cave_liquid = "default:water_source",
@@ -149,7 +149,7 @@ minetest.register_biome({
 	humidity_point = 20,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "pink_quartzite_cave",
 	node_stone = "lord_rocks:pink_quartzite",
 	node_cave_liquid = "default:water_source",
@@ -163,7 +163,7 @@ minetest.register_biome({
 	humidity_point = 20,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "shale_cave",
 	node_stone = "lord_rocks:shale",
 	node_cave_liquid = "default:water_source",
@@ -177,7 +177,7 @@ minetest.register_biome({
 	humidity_point = 60,
 })
 
-minetest.register_biome({
+core.register_biome({
 	name = "pyroxenite_cave",
 	node_stone = "lord_rocks:pyroxenite",
 	node_cave_liquid = "default:lava_source",

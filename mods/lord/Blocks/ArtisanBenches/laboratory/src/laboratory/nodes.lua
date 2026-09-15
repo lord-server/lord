@@ -1,5 +1,5 @@
 local Form = require('laboratory.nodes.Form')
-local S    = minetest.get_mod_translator()
+local S    = core.get_mod_translator()
 
 
 local common_node_definition = {
@@ -19,7 +19,7 @@ local common_node_definition = {
 
 fuel_device.register(
 	S('Laboratory'),
-	minetest.CraftMethod.POTION,
+	core.CraftMethod.POTION,
 	{
 		inactive = {
 			node_name  = 'laboratory:laboratory',

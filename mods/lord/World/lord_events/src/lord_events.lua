@@ -9,17 +9,17 @@ local command = require('lord_events.command')
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		local S = mod.translator
 
-		minetest.register_privilege('eventing', {
+		core.register_privilege('eventing', {
 			description = S('Can save position for /event command'),
 			give_to_singleplayer = false,
 		})
 
 		Event.restore_from_storage_config()
 
-		minetest.register_chatcommand(command.event.set_pos.NAME, command.event.set_pos.definition)
+		core.register_chatcommand(command.event.set_pos.NAME, command.event.set_pos.definition)
 	end,
 }

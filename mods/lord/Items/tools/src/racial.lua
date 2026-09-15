@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S = core.get_mod_translator()
+local colorize = core.colorize
 local grey = '#aaa'
 
-minetest.register_tool('tools:sword_elven', {
+core.register_tool('tools:sword_elven', {
 	description       =
 		(S('"Andúril"'))..' '..colorize(grey, S('("Narsil")'))..'\n'..'\n'..
 		colorize(grey,
@@ -20,7 +20,7 @@ minetest.register_tool('tools:sword_elven', {
 	},
 	groups            = { bronze_item = 1, forbidden = 1 },
 })
-minetest.register_tool('tools:sword_orcish', {
+core.register_tool('tools:sword_orcish', {
 	description       =
 		(S('"Morgul Blade"'))..'\n'..'\n'..
 		colorize(grey,
@@ -39,7 +39,7 @@ minetest.register_tool('tools:sword_orcish', {
 	},
 	groups            = { steel_item = 1, forbidden = 1 },
 })
-minetest.register_tool('tools:battleaxe_dwarven', {
+core.register_tool('tools:battleaxe_dwarven', {
 	description       =
 		(S('"Durin’s Axe"'))..'\n'..'\n'..
 		colorize(grey,
@@ -60,7 +60,7 @@ minetest.register_tool('tools:battleaxe_dwarven', {
 	},
 	groups            = { steel_item = 1, forbidden = 1 },
 })
-minetest.register_tool('tools:sword_human', {
+core.register_tool('tools:sword_human', {
 	description       =
 		(S('"Flame of Númenor"'))..'\n'..'\n'..
 		colorize(grey,
@@ -77,7 +77,7 @@ minetest.register_tool('tools:sword_human', {
 	},
 	groups            = { mithril_item = 1, forbidden = 1 },
 })
-minetest.register_tool('tools:dagger_hobbit', {
+core.register_tool('tools:dagger_hobbit', {
 	description         =
 		(S('"Took’s Blade"'))..'\n'..'\n'..
 		colorize(grey,
@@ -98,8 +98,8 @@ minetest.register_tool('tools:dagger_hobbit', {
 	groups            = { mithril_item = 1, forbidden = 1 },
 })
 
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
 	output   = 'tools:sword_elven',
 	for_race = races.name.ELF,
 	recipe   = {
@@ -108,8 +108,8 @@ minetest.register_craft({
 		{ 'default:mese_crystal', 'group:stick',         'default:mese_crystal' },
 	}
 })
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
 	output   = 'tools:sword_orcish',
 	for_race = races.name.ORC,
 	recipe   = {
@@ -118,8 +118,8 @@ minetest.register_craft({
 		{ 'default:mese_crystal', 'bones:bone', 'default:mese_crystal' },
 	}
 })
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
 	output   = 'tools:battleaxe_dwarven',
 	for_race = races.name.DWARF,
 	recipe   = {
@@ -128,8 +128,8 @@ minetest.register_craft({
 		{ '',                       'group:stick',          '' }
 	}
 })
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
 	output   = 'tools:sword_human',
 	for_race = races.name.HUMAN,
 	recipe   = {
@@ -138,8 +138,8 @@ minetest.register_craft({
 		{ 'lord_gems:blue', 'group:stick',            'lord_gems:blue' },
 	}
 })
-minetest.register_craft({
-	method   = minetest.CraftMethod.ANVIL,
+core.register_craft({
+	method   = core.CraftMethod.ANVIL,
 	for_race = races.name.HOBBIT,
 	output   = 'tools:dagger_hobbit',
 	recipe   = {

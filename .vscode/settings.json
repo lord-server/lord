@@ -16,7 +16,8 @@
         "listring",
         "rightclick",
         "leveled",
-        "cooktime"
+        "cooktime",
+        "colorize"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"

@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:barley_seed", {
+core.register_craftitem("lottfarming:barley_seed", {
 	description = S("Barley Seeds"),
 	inventory_image = "lottfarming_barley_seed.png",
 	on_place = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:barley_1", 3)
 	end,
 })
 
-minetest.register_node("lottfarming:barley_1", {
+core.register_node("lottfarming:barley_1", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -31,7 +31,7 @@ minetest.register_node("lottfarming:barley_1", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:barley_2", {
+core.register_node("lottfarming:barley_2", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -49,7 +49,7 @@ minetest.register_node("lottfarming:barley_2", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:barley_3", {
+core.register_node("lottfarming:barley_3", {
 	paramtype = "light",
 	paramtype2 = "meshoptions",
 	walkable = false,
@@ -68,24 +68,24 @@ minetest.register_node("lottfarming:barley_3", {
 	sounds = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:sheaf_barley", {
+core.register_craftitem("lottfarming:sheaf_barley", {
 	description = S("Sheaf barley"),
 	inventory_image = "lottfarming_sheaf_barley.png",
 })
 
 farming:add_plant("lottfarming:barley_3", {"lottfarming:barley_1", "lottfarming:barley_2"}, 50, 20, 3)
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	cooktime = 15,
 	output = "lottfarming:barley_cooked",
 	recipe = "lottfarming:sheaf_barley"
 })
 
-minetest.register_craftitem("lottfarming:barley_cooked", {
+core.register_craftitem("lottfarming:barley_cooked", {
 	description     = S("Cooked Barley"),
 	inventory_image = "lottfarming_barley_cooked.png",
 	-- removed while balancing food TODO: add to horse follow & tame #1583
-	--on_use          = minetest.item_eat(2),
+	--on_use          = core.item_eat(2),
 	----_tt_food_hp     = 2,
 })

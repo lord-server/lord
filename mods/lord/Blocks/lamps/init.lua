@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local chains = {}
 
@@ -48,7 +48,7 @@ local on_place = function(material)
 		local node_name_to_place = detect_node_name_to_place(material, pointed_thing)
 		local position
 		itemstack:set_name(node_name_to_place)
-		itemstack, position = minetest.item_place_node(itemstack, placer, pointed_thing, param2)
+		itemstack, position = core.item_place_node(itemstack, placer, pointed_thing, param2)
 		itemstack:set_name(current_node_name)
 
 		return itemstack, position
@@ -74,26 +74,26 @@ local function register_candle_lamp(material, desc, ingot)
 		on_place = on_place(material)
 	}
 
-	minetest.register_alias(
+	core.register_alias(
 		"lamps:" .. material .. "_item_candle_lamp",
 		"lamps:" .. material .. "_candle_lamp"
 	)
 
 	-- Напольная лампа.
-	minetest.register_node("lamps:" .. material .. "_candle_lamp", table.merge(common_definition, {
+	core.register_node("lamps:" .. material .. "_candle_lamp", table.merge(common_definition, {
 		description = S(desc .. " candle lamp"),
 		tiles       = { upTx, sideTx },
 		mesh        = "lamps_candle_lamp.obj",
 	}))
 
 	-- Подвесная лампа.
-	minetest.register_node("lamps:" .. material .. "_hanging_candle_lamp", table.merge(common_definition, {
+	core.register_node("lamps:" .. material .. "_hanging_candle_lamp", table.merge(common_definition, {
 		description = S(desc .. " hanging candle lamp"),
 		tiles       = { upTx, sideTx, chain },
 		mesh        = "lamps_hanging_candle_lamp.obj",
 	}))
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "lamps:" .. material .. "_candle_lamp",
 		recipe = {
 			{ "", ingot, "" },
@@ -119,7 +119,7 @@ local function register_chains(material, desc, ingot)
 	chains[diagonal_2_name] = vertical_name
 
 	-- Вертикальная цепь
-	minetest.register_node(vertical_name, {
+	core.register_node(vertical_name, {
 		description = S(desc.." chains"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -147,7 +147,7 @@ local function register_chains(material, desc, ingot)
 	})
 
 	-- Диагональная по грани цепь
-	minetest.register_node(diagonal_name, {
+	core.register_node(diagonal_name, {
 		description = S(desc.." diagonal chains"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -175,7 +175,7 @@ local function register_chains(material, desc, ingot)
 	})
 
 	-- Диагональная по кубу цепь
-	minetest.register_node(diagonal_2_name, {
+	core.register_node(diagonal_2_name, {
 		description = S(desc.." diagonal chains type 2"),
 		inventory_image = itemTx,
 		wield_image = itemTx,
@@ -202,7 +202,7 @@ local function register_chains(material, desc, ingot)
 		drop = vertical_name,
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = vertical_name,
 		recipe = {
 			{ingot, ""},
@@ -210,7 +210,7 @@ local function register_chains(material, desc, ingot)
 			{ingot, ""}},
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = vertical_name,
 		recipe = {
 			{"", ingot},
@@ -232,7 +232,7 @@ register_chains("silver", "Silver", "lottores:silver_ingot")
 register_chains("tin", "Tin", "lottores:tin_ingot")
 
 -- Гаечный ключ
-minetest.register_tool("lamps:wrench", {
+core.register_tool("lamps:wrench", {
 	description = S("Wrench") .. "\n" .. S("(left click to tilt the chain)"),
 	inventory_image = "lamps_wrench.png",
 	groups = {tool = 1},
@@ -241,7 +241,7 @@ minetest.register_tool("lamps:wrench", {
 
 		if not pointed_thing.under then return end
 
-		local node = minetest.get_node(pointed_thing.under)
+		local node = core.get_node(pointed_thing.under)
 
 		if not node then return end
 
@@ -254,12 +254,12 @@ minetest.register_tool("lamps:wrench", {
 
 		local player_name = user:get_player_name()
 
-		if minetest.is_protected(pointed_thing.under, player_name) then
-			minetest.record_protection_violation(pointed_thing.under, player_name)
+		if core.is_protected(pointed_thing.under, player_name) then
+			core.record_protection_violation(pointed_thing.under, player_name)
 			return
 		end
 
-		minetest.swap_node(pointed_thing.under, node)
+		core.swap_node(pointed_thing.under, node)
 
 		itemstack:add_wear(500)
 
@@ -267,7 +267,7 @@ minetest.register_tool("lamps:wrench", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lamps:wrench",
 	recipe = {
 		{"default:steel_ingot"},
@@ -275,7 +275,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("lamps:dungeon_lamp", {
+core.register_node("lamps:dungeon_lamp", {
 	description = S("Dungeon lamp"),
 	use_texture_alpha = "clip",
 	mesh = "lamps_dungeon_lamp.obj",
@@ -304,19 +304,19 @@ minetest.register_node("lamps:dungeon_lamp", {
 			-- Если блок, который поставил игрок не ниже блока,
 			-- который он выделил, то обычная лампа.
 			itemstack:set_name("lamps:dungeon_lamp")
-			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
+			core.item_place_node(itemstack, placer, pointed_thing, 0)
 		else
 			-- Если блок, который поставил игрок ниже блока,
 			-- который он выделил, то потолочная лампа.
 			itemstack:set_name("lamps:dungeon_lamp_hanging")
-			minetest.item_place_node(itemstack, placer, pointed_thing, 0)
+			core.item_place_node(itemstack, placer, pointed_thing, 0)
 		end
 		itemstack:set_name("lamps:dungeon_lamp")
 		return itemstack
 	end,
 })
 
-minetest.register_node("lamps:dungeon_lamp_hanging", {
+core.register_node("lamps:dungeon_lamp_hanging", {
 	description = S("Dungeon hanging lamp"),
 	use_texture_alpha = "clip",
 	mesh = "lamps_dungeon_lamp_hanging.obj",
@@ -346,7 +346,7 @@ minetest.register_node("lamps:dungeon_lamp_hanging", {
 	drop = "lamps:dungeon_lamp",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lamps:dungeon_lamp",
 	recipe = {
 		{"default:steel_ingot"},

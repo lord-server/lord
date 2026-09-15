@@ -5,8 +5,8 @@ local InventoryCallbacks
 --- @param inv InvRef
 --- @return RecipeOutput, RecipeInput
 local function get_craft_result(inv)
-	return minetest.get_craft_result({
-		method = minetest.CraftMethod.ANVIL,
+	return core.get_craft_result({
+		method = core.CraftMethod.ANVIL,
 		width  = 3,
 		items  = inv:get_list('craft'),
 	})

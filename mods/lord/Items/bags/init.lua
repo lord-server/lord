@@ -1,24 +1,24 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	local S = mod.translator
 
-	minetest.register_tool("bags:small", {
+	core.register_tool("bags:small", {
 		description     = S("Small Bag"),
 		inventory_image = "bags_small.png",
 		groups          = { bagslots = 8 },
 	})
-	minetest.register_tool("bags:medium", {
+	core.register_tool("bags:medium", {
 		description     = S("Medium Bag"),
 		inventory_image = "bags_medium.png",
 		groups          = { bagslots = 16 },
 	})
-	minetest.register_tool("bags:large", {
+	core.register_tool("bags:large", {
 		description     = S("Large Bag"),
 		inventory_image = "bags_large.png",
 		groups          = { bagslots = 24, forbidden = 1 },
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'bags:small',
 		recipe = {
 			{ '', 'group:stick', '' },
@@ -27,7 +27,7 @@ minetest.mod(function(mod)
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'bags:medium',
 		recipe = {
 			{ 'default:steel_ingot', 'farming:string', 'default:steel_ingot' },
@@ -35,7 +35,7 @@ minetest.mod(function(mod)
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'bags:large',
 		recipe = {
 			{ 'default:steel_ingot', 'bags:medium', 'default:steel_ingot' },
@@ -43,7 +43,7 @@ minetest.mod(function(mod)
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = 'bags:large',
 		recipe = {
 			{ 'default:steel_ingot', 'bags:small', 'default:steel_ingot' },

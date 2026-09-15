@@ -1,13 +1,13 @@
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/crafts.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/cooking.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/forbidden.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/protection.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/potions.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/alcohol.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/master.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()) .. "/scroll.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/crafts.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/cooking.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/forbidden.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/protection.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/potions.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/alcohol.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/master.lua")
+dofile(core.get_modpath(core.get_current_modname()) .. "/scroll.lua")
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_books:crafts_book',
 	recipe = {
 		{ 'group:stick', 'group:stick', 'group:stick' },
@@ -16,14 +16,14 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type         = "shapeless",
 	output       = 'lord_books:cooking_book',
 	recipe       = { 'lord_books:crafts_book', 'default:furnace' },
 	replacements = { { "default:furnace", "default:furnace" } }
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_books:protection_book',
 	recipe = {
 		{ 'default:steel_ingot', 'default:steel_ingot', 'default:steel_ingot' },
@@ -32,21 +32,21 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type         = "shapeless",
 	output       = "lord_books:brewing_book",
 	recipe       = { 'barrel:barrel', 'lord_books:cooking_book' },
 	replacements = { { "barrel:barrel", "barrel:barrel" } }
 })
 
-minetest.register_craft({
+core.register_craft({
 	type         = "shapeless",
 	output       = "lord_books:potions_book",
 	recipe       = { 'laboratory:laboratory', 'lord_books:cooking_book' },
 	replacements = { { "laboratory:laboratory", "laboratory:laboratory" } }
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_books:forbidden_crafts_book',
 	recipe = {
 		{ 'default:gold_ingot', 'default:gold_ingot', 'default:gold_ingot' },
@@ -55,7 +55,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_books:master_book",
 	recipe = {
@@ -71,7 +71,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_books:scroll",
 	recipe = {
 		{"default:paper", "default:paper"},
@@ -80,7 +80,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_books:scroll",
 	recipe = {
 		{"default:paper", "default:paper"},

@@ -10,8 +10,8 @@ local chests = {
 
 --- @param node_name string technical node name ('<mod>:<node>').
 local function add_existing(node_name)
-	local definition = minetest.registered_nodes[node_name]
-	minetest.override_item(node_name, {
+	local definition = core.registered_nodes[node_name]
+	core.override_item(node_name, {
 		groups = table.overwrite(definition.groups, { chest = 1 }),
 	})
 	chests.existing_nodes[node_name] = definition

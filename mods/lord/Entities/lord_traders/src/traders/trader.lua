@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --- @type traders.config[]
 local config = require("traders.config")
@@ -78,7 +78,7 @@ local function on_rightclick(entity, clicker, race)
 		--self.nametag = self.game_name
 	end
 
-	minetest.chat_send_player(
+	core.chat_send_player(
 		player_name,
 		"[NPC] <" .. S("Trader") .. " " .. S(entity.game_name) .. "> " ..
 			S("Hello") .. ", " .. player_name .. ", \n" ..
@@ -105,7 +105,7 @@ local function register_trader(name, definition)
 	local def         = table.merge(common_trader_definition, definition)
 
 	-- HACK: we can't move this into `common_trader_definition`, because we need `def.race`,
-	--       but `legacy_mobs:register_mob()` does not pass all `def` into `minetest.register_entity()`
+	--       but `legacy_mobs:register_mob()` does not pass all `def` into `core.register_entity()`
 	def.on_rightclick = function(self, clicker)
 		on_rightclick(self, clicker, def.race)
 	end

@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("lord_homedecor:coffeetable_back", {
+core.register_node("lord_homedecor:coffeetable_back", {
 	description = S("Coffee Table"),
 	drawtype = "nodebox",
 	tiles = {
@@ -34,11 +34,11 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 	},
 
 	after_place_node = function(pos, placer, itemstack, pointed_thing)
-		if minetest.is_protected(pos, placer:get_player_name()) then return true end
-		local node = minetest.get_node(pos)
+		if core.is_protected(pos, placer:get_player_name()) then return true end
+		local node = core.get_node(pos)
 		local param2 = node.param2
 
-		local fdir = minetest.dir_to_facedir(placer:get_look_dir(), false)
+		local fdir = core.dir_to_facedir(placer:get_look_dir(), false)
 
 		if lrfurn.check_forward(pos, fdir, false, placer) then
 
@@ -52,17 +52,17 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 			elseif param2 == 3 then
 				pos.x = pos.x-1
 			end
-			minetest.set_node(pos, node)
+			core.set_node(pos, node)
 		else
-			minetest.chat_send_player(placer:get_player_name(), S("No room to place the coffee table!"))
-			minetest.set_node(pos, {name = "air"})
+			core.chat_send_player(placer:get_player_name(), S("No room to place the coffee table!"))
+			core.set_node(pos, {name = "air"})
 			return true
 		end
 
 	end,
 
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
-		if minetest.is_protected(pos, digger:get_player_name()) then return true end
+		if core.is_protected(pos, digger:get_player_name()) then return true end
 
 		local param2 = oldnode.param2
 		if param2 == 0 then
@@ -75,16 +75,16 @@ minetest.register_node("lord_homedecor:coffeetable_back", {
 			pos.x = pos.x-1
 		end
 
-		if minetest.is_protected(pos, digger:get_player_name()) then return true end
+		if core.is_protected(pos, digger:get_player_name()) then return true end
 
-		if (minetest.get_node({x=pos.x, y=pos.y, z=pos.z}).name == "lord_homedecor:coffeetable_front")
-		  and (minetest.get_node({x=pos.x, y=pos.y, z=pos.z}).param2 == param2) then
-				minetest.remove_node(pos)
+		if (core.get_node({x=pos.x, y=pos.y, z=pos.z}).name == "lord_homedecor:coffeetable_front")
+		  and (core.get_node({x=pos.x, y=pos.y, z=pos.z}).param2 == param2) then
+				core.remove_node(pos)
 		end
 	end,
 })
 
-minetest.register_node("lord_homedecor:coffeetable_front", {
+core.register_node("lord_homedecor:coffeetable_front", {
 	drawtype = "nodebox",
 	tiles = {
 		"lrfurn_coffeetable_front.png",
@@ -117,9 +117,9 @@ minetest.register_node("lord_homedecor:coffeetable_front", {
 	},
 })
 
-minetest.register_alias("lord_homedecor:coffeetable", "lord_homedecor:coffeetable_back")
+core.register_alias("lord_homedecor:coffeetable", "lord_homedecor:coffeetable_back")
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:coffeetable",
 	recipe = {
 		{"", "", "", },
@@ -128,7 +128,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:coffeetable",
 	recipe = {
 		{"", "", "", },

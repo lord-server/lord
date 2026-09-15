@@ -1,8 +1,8 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- FLOWERS
 
-minetest.register_node("lottplants:athelas", {
+core.register_node("lottplants:athelas", {
 	description = S("Athelas"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_athelas.png" },
@@ -30,7 +30,7 @@ minetest.register_node("lottplants:athelas", {
 	},
 })
 
-minetest.register_node("lottplants:anemones", {
+core.register_node("lottplants:anemones", {
 	description = S("Anemones"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_anemones.png" },
@@ -57,7 +57,7 @@ minetest.register_node("lottplants:anemones", {
 	},
 })
 
-minetest.register_node("lottplants:asphodel", {
+core.register_node("lottplants:asphodel", {
 	description = S("Asphodel"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_asphodel.png" },
@@ -84,7 +84,7 @@ minetest.register_node("lottplants:asphodel", {
 	},
 })
 
-minetest.register_node("lottplants:eglantive", {
+core.register_node("lottplants:eglantive", {
 	description = S("Eglantive"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_eglantive.png" },
@@ -111,7 +111,7 @@ minetest.register_node("lottplants:eglantive", {
 	},
 })
 
-minetest.register_node("lottplants:elanor", {
+core.register_node("lottplants:elanor", {
 	description = S("Elanor"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_elanor.png" },
@@ -138,7 +138,7 @@ minetest.register_node("lottplants:elanor", {
 	},
 })
 
-minetest.register_node("lottplants:iris", {
+core.register_node("lottplants:iris", {
 	description = S("Iris"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_iris.png" },
@@ -165,7 +165,7 @@ minetest.register_node("lottplants:iris", {
 	},
 })
 
-minetest.register_node("lottplants:lissuin", {
+core.register_node("lottplants:lissuin", {
 	description = S("Lissuin"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_lissuin.png" },
@@ -192,7 +192,7 @@ minetest.register_node("lottplants:lissuin", {
 	},
 })
 
-minetest.register_node("lottplants:mallos", {
+core.register_node("lottplants:mallos", {
 	description = S("Mallos"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_mallos.png" },
@@ -219,7 +219,7 @@ minetest.register_node("lottplants:mallos", {
 	},
 })
 
-minetest.register_node("lottplants:niphredil", {
+core.register_node("lottplants:niphredil", {
 	description = S("Niphredil"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_niphredil.png" },
@@ -246,7 +246,7 @@ minetest.register_node("lottplants:niphredil", {
 	},
 })
 
-minetest.register_node("lottplants:seregon", {
+core.register_node("lottplants:seregon", {
 	description = S("Seregon"),
 	drawtype = "plantlike",
 	tiles = { "lottplants_seregon.png" },

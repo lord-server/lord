@@ -1,5 +1,5 @@
-local S       = minetest.get_mod_translator()
-local storage = minetest.get_mod_storage()
+local S       = core.get_mod_translator()
+local storage = core.get_mod_storage()
 
 
 --- @class lord_events.Event
@@ -23,7 +23,7 @@ end
 
 --- @static
 function Event.restore_from_storage_config()
-	local position = minetest.string_to_pos(storage:get(Event.CONF_VAR))
+	local position = core.string_to_pos(storage:get(Event.CONF_VAR))
 	if position then
 		Event.register_command(position)
 	end
@@ -39,7 +39,7 @@ end
 --- @static
 function Event.unregister()
 	storage:set_string(Event.CONF_VAR, '')
-	minetest.unregister_chatcommand('event')
+	core.unregister_chatcommand('event')
 end
 
 

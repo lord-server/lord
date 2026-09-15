@@ -1,14 +1,14 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 --
 -- crafting
 --
 
-minetest.clear_craft({output = "carts:brakerail"})
-minetest.clear_craft({output = "carts:powerrail"})
-minetest.clear_craft({output = "carts:rail"})
+core.clear_craft({output = "carts:brakerail"})
+core.clear_craft({output = "carts:powerrail"})
+core.clear_craft({output = "carts:rail"})
 
-minetest.register_craft({
+core.register_craft({
 	output = "carts:cart",
 	recipe = {
 		{"default:steel_ingot", "", "default:steel_ingot"},
@@ -17,12 +17,12 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craftitem(":carts:gear", {
+core.register_craftitem(":carts:gear", {
 	description = S("Gear"),
 	inventory_image = "carts_gear.png",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "carts:gear 4",
 	recipe = {
 		{"", "default:steel_ingot", ""},
@@ -31,7 +31,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node(":carts:steam_mechanism", {
+core.register_node(":carts:steam_mechanism", {
 	description = S("Steam mechanism"),
 	tiles = {"carts_steam_mechanismv.png", "carts_steam_mechanismn.png",
 		"carts_steam_mechanism1.png", "carts_steam_mechanism3.png",
@@ -41,7 +41,7 @@ minetest.register_node(":carts:steam_mechanism", {
 	sounds = default.node_sound_stone_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "carts:steam_mechanism",
 	recipe = {
 		{"default:steel_ingot", "group:stick", "default:steel_ingot"},
@@ -51,7 +51,7 @@ minetest.register_craft({
 })
 
 local function register_rail_craft(item, special)
-	minetest.register_craft({
+	core.register_craft({
 		output = item .. " 6",
 		recipe = {
 			{"default:steel_ingot", special, "default:steel_ingot"},
@@ -59,7 +59,7 @@ local function register_rail_craft(item, special)
 			{"default:steel_ingot", "", "default:steel_ingot"},
 		}
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = item .. " 6",
 		recipe = {
 			{"default:steel_ingot", "", "default:steel_ingot"},
@@ -77,19 +77,19 @@ register_rail_craft("carts:rail", "")
 -- cooking
 --**************************************************************************
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "carts:brakerail",
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "carts:powerrail",
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = "cooking",
 	output = "default:steel_ingot",
 	recipe = "carts:rail",

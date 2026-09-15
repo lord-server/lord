@@ -1,15 +1,15 @@
-if not minetest.settings:get_bool("enable_damage", false) then
+if not core.settings:get_bool("enable_damage", false) then
 	return
 end
 
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 local N = function(s) return s end
 
 
 local hbarmor = {
 	--- If true, the armor bar is hidden when the player does not have any defense
-	auto_hide     = minetest.settings:get_bool("hbarmor_autohide", true),
+	auto_hide     = core.settings:get_bool("hbarmor_autohide", true),
 }
 
 hb.register_hudbar(

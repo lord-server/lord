@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 
 local px = 1/16
@@ -14,13 +14,13 @@ local wooden_bowls = {
 
 -- Single Item for all BOWLS_WOOD_COUNT nodes, registered below.
 -- Only the Item has craft.
-minetest.register_craftitem('lord_vessels:bowl_wood', {
+core.register_craftitem('lord_vessels:bowl_wood', {
 	description = S('Bowl'),
 	inventory_image = 'lord_vessels_bowl_inv.png',
 	on_place = function(itemstack, placer, pointed_thing)
 		-- place a random Bowl node
 		local stack = ItemStack('lord_vessels:bowl_wood_' .. math.random(#wooden_bowls))
-		local ret = minetest.item_place(stack, placer, pointed_thing)
+		local ret = core.item_place(stack, placer, pointed_thing)
 
 		return ItemStack('lord_vessels:bowl_wood ' .. itemstack:get_count() - (1 - ret:get_count()))
 	end,
@@ -29,7 +29,7 @@ minetest.register_craftitem('lord_vessels:bowl_wood', {
 
 -- All variants of Bowls nodes, that placed. Drops the Item.
 for i = 1, #wooden_bowls do
-	minetest.register_node('lord_vessels:bowl_wood_'..i, {
+	core.register_node('lord_vessels:bowl_wood_'..i, {
 		description = S('Bowl'),
 		drawtype    = 'mesh',
 		mesh        = 'lord_vessels_bowl_'..i..'.obj',
@@ -48,7 +48,7 @@ for i = 1, #wooden_bowls do
 end
 
 -- craft of the wielded Item (of Bowl)
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_vessels:bowl_wood 3',
 	recipe = {
 		{'group:wood', '', 'group:wood'},

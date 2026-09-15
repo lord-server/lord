@@ -22,7 +22,7 @@ function MiasmaParticles.spawn(trunk_position, air_position)
 	direction = (direction + v(0, 1, 0)):normalize()
 	local velocity  = direction * MiasmaParticles.speed
 
-	minetest.add_particlespawner({
+	core.add_particlespawner({
 		amount  = 1,
 		size    = { min = 1.5,       max = 2.5, },
 		pos     = {	min = start_pos, max = start_pos, },

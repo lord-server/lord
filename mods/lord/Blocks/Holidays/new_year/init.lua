@@ -1,5 +1,5 @@
 
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('new_year').init(mod)
 end)

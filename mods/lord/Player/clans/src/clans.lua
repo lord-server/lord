@@ -19,7 +19,7 @@ clans.err = {
 --- @private
 --- @readonly
 --- @type number readonly
-clans.max_players_in_clan = tonumber(minetest.settings:get("clans.max_players_in_clan")) or 10
+clans.max_players_in_clan = tonumber(core.settings:get("clans.max_players_in_clan")) or 10
 
 
 local function register_general_api_functions()
@@ -66,7 +66,7 @@ end
 function clans.clan_create(name, title, leader_name)
 	if clans.clan_get_by_name(name) ~= nil then return false, clans.err[1] end
 	if clans.clan_get_by_player_name(leader_name) ~= nil then return false, clans.err[2] end
-	if not minetest.player_exists(leader_name) then return false, clans.err[7] end
+	if not core.player_exists(leader_name) then return false, clans.err[7] end
 
 	local clan = { name = name, title = title, players = { leader_name }, leader = leader_name }
 	clan_storage.set(clan)
@@ -98,7 +98,7 @@ function clans.clan_players_add(clan_name, player_name)
 	if clan == nil then return false, clans.err[3] end
 	if clan.is_blocked then return false, clans.err[6] end
 	if #clan.players+1 > clans.max_players_in_clan then return false, clans.err[5] end
-	if not minetest.player_exists(player_name) then return false, clans.err[7] end
+	if not core.player_exists(player_name) then return false, clans.err[7] end
 
 	table.insert(clan.players, player_name)
 	clan_storage.set(clan)
@@ -172,7 +172,7 @@ end
 local function check_clan_is_online(name)
 	local clan = clans.clan_get_by_name(name)
 	if not clan then return nil end
-	for _, player in pairs(minetest.get_connected_players()) do
+	for _, player in pairs(core.get_connected_players()) do
 		if table.contains(clan.players, player:get_player_name()) then
 			return true
 		end
@@ -199,7 +199,7 @@ end
 
 local function register_join_or_leave_operations()
 
-	minetest.register_on_joinplayer(function(player, _)
+	core.register_on_joinplayer(function(player, _)
 		if not player or not player:is_player() then return end
 
 		local clan = clans.clan_get_by_player(player)
@@ -210,7 +210,7 @@ local function register_join_or_leave_operations()
 		clan_is_online_cache[clan.name] = true
 	end)
 
-	minetest.register_on_leaveplayer(function(player, _)
+	core.register_on_leaveplayer(function(player, _)
 		if not player or not player:is_player() then return end
 
 		local clan = clans.clan_get_by_player(player)

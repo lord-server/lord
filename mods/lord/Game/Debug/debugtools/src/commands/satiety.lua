@@ -1,8 +1,8 @@
 
 
-minetest.register_chatcommand("satiety.get", {
+core.register_chatcommand("satiety.get", {
 	func = function(name, _)
-		local player    = minetest.get_player_by_name(name)
+		local player    = core.get_player_by_name(name)
 		local inventory = player:get_inventory()
 
 		return
@@ -13,7 +13,7 @@ minetest.register_chatcommand("satiety.get", {
 	end
 })
 
-minetest.register_chatcommand("satiety.set", {
+core.register_chatcommand("satiety.set", {
 	params = "<value>",
 	func   = function(name, param)
 		if not param or param == "" then
@@ -23,7 +23,7 @@ minetest.register_chatcommand("satiety.set", {
 			return false, "<value> must be a positive number"
 		end
 
-		local player    = minetest.get_player_by_name(name)
+		local player    = core.get_player_by_name(name)
 		local inventory = player:get_inventory()
 
 		hbhunger.hunger[name] = tonumber(param)

@@ -1,9 +1,9 @@
 local Manager  = require('holding_points.Manager')
 local Schedule = require('holding_points.Battle.Schedule')
 
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 local spec     = forms.Spec
-local colorize = minetest.colorize
+local colorize = core.colorize
 
 
 --- @class holding_points.node.Form.BattlesTab.BattleForm: base_classes.Form.Base
@@ -103,7 +103,7 @@ function BattleForm:schedules_rows(x, y, schedules, edit_i)
 			schedules_rows = schedules_rows
 				.. spec.field(x + 0.1, y + fields_dy, 1.8, fields_h, 'sch_days', '', table.concat(schedule.days, ','))
 				.. spec.field(x + 2.3, y + fields_dy, 1.0, fields_h, 'sch_time', '', schedule.time)
-				.. spec.field(x + 4.1, y + fields_dy, 3.1, fields_h, 'sch_week', '', minetest.write_json(schedule.week))
+				.. spec.field(x + 4.1, y + fields_dy, 3.1, fields_h, 'sch_week', '', core.write_json(schedule.week))
 				.. spec.button(x + size.x - 1, y + fields_dy, 1, fields_h, 'sch_save_' .. i, S('save'))
 		else
 			schedules_rows = schedules_rows
@@ -221,7 +221,7 @@ function BattleForm:handle(fields)
 		local schedule = self.battle.schedules[save_i_schedule]
 		schedule.days = string.vxr_split(fields.sch_days, ',', tonumber)
 		schedule.time = fields.sch_time
-		schedule.week = minetest.parse_json(fields.sch_week)
+		schedule.week = core.parse_json(fields.sch_week)
 
 		Manager.save_battles()
 

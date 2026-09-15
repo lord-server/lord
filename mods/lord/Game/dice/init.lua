@@ -1,8 +1,8 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	local S = mod.translator
 
-	minetest.register_chatcommand("dice", {
+	core.register_chatcommand("dice", {
 		params      = "[MAX_NUM]",
 		description = S("prints out random number"),
 		func        = function(name, param)
@@ -14,7 +14,7 @@ minetest.mod(function(mod)
 				end
 			end
 			local num = math.random(1, max_limit)
-			minetest.chat_send_all(name .. " - " .. S("dice") .. ": " .. num)
+			core.chat_send_all(name .. " - " .. S("dice") .. ": " .. num)
 			return true
 		end,
 	})

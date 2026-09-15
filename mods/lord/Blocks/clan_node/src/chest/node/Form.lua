@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 ---
 --- @class clan_node.chest.node.Form: base_classes.Form.Base
@@ -14,17 +14,17 @@ local Form = base_classes.Form:personal():for_node():extended({
 
 Form.on_open(function(self)
 	local node_pos = self.node_position
-	local sound    = minetest.registered_nodes[minetest.get_node(node_pos).name].sound_open
+	local sound    = core.registered_nodes[core.get_node(node_pos).name].sound_open
 	if not sound then return end
-	minetest.sound_play(sound, { gain = 0.3, pos = node_pos, max_hear_distance = 10}, true)
+	core.sound_play(sound, { gain = 0.3, pos = node_pos, max_hear_distance = 10}, true)
 end)
 
 --- @public
 Form.on_close(function(self)
 	local node_pos = self.node_position
-	local sound    = minetest.registered_nodes[minetest.get_node(node_pos).name].sound_close
+	local sound    = core.registered_nodes[core.get_node(node_pos).name].sound_close
 	if not sound then return end
-	minetest.sound_play(sound, { gain = 0.3, pos = node_pos, max_hear_distance = 10}, true)
+	core.sound_play(sound, { gain = 0.3, pos = node_pos, max_hear_distance = 10}, true)
 end)
 
 --- @private
@@ -32,9 +32,9 @@ function Form:get_spec()
 	local pos  = self.node_position
 
 	local clan_info = ""
-	local is_admin = minetest.check_player_privs(self.player_name, "server")
+	local is_admin = core.check_player_privs(self.player_name, "server")
 	if is_admin then
-		local clan_name = minetest.get_meta(self.node_position):get_string("owned_clan")
+		local clan_name = core.get_meta(self.node_position):get_string("owned_clan")
 		local is_online = clans.clan_is_online(clan_name)
 		clan_info = "label[0,4.3;" ..
 			S("Clan:") .. " " .. clan_name ..

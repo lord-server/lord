@@ -1,8 +1,8 @@
 
 
-minetest.register_chatcommand("physics.get", {
+core.register_chatcommand("physics.get", {
 	func = function(name, _)
-		local player    = minetest.get_player_by_name(name)
+		local player    = core.get_player_by_name(name)
 
 		return
 			true,
@@ -10,7 +10,7 @@ minetest.register_chatcommand("physics.get", {
 	end
 })
 
-minetest.register_chatcommand("physics.set", {
+core.register_chatcommand("physics.set", {
 	params = "<type> [value]",
 	func   = function(name, param)
 		if not param or param == "" then
@@ -24,7 +24,7 @@ minetest.register_chatcommand("physics.set", {
 		local type         = params[1]
 		local value        = tonumber(params[2])
 
-		local player            = minetest.get_player_by_name(name)
+		local player            = core.get_player_by_name(name)
 		local physics_overrides = player:get_physics_override()
 		physics_overrides[type] = value
 		player:set_physics_override(physics_overrides)

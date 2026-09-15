@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local bl1_sbox = {
 	type = "fixed",
@@ -29,8 +29,8 @@ lord_homedecor.register("bench_large_1", {
 	on_rotate = screwdriver.disallow
 })
 
-minetest.register_alias("lord_homedecor:bench_large_1_left", "lord_homedecor:bench_large_1")
-minetest.register_alias("lord_homedecor:bench_large_1_right", "air")
+core.register_alias("lord_homedecor:bench_large_1_left", "lord_homedecor:bench_large_1")
+core.register_alias("lord_homedecor:bench_large_1_right", "air")
 
 local bl2_sbox = {
 	type = "fixed",
@@ -58,8 +58,8 @@ lord_homedecor.register("bench_large_2", {
 	on_rotate = screwdriver.disallow
 })
 
-minetest.register_alias("lord_homedecor:bench_large_2_left", "lord_homedecor:bench_large_2")
-minetest.register_alias("lord_homedecor:bench_large_2_right", "air")
+core.register_alias("lord_homedecor:bench_large_2_left", "lord_homedecor:bench_large_2")
+core.register_alias("lord_homedecor:bench_large_2_right", "air")
 
 lord_homedecor.register("simple_bench", {
 	tiles = { "homedecor_generic_wood_old.png" },
@@ -171,12 +171,12 @@ lord_homedecor.register("swing", {
 			for i = 0, 4 do	-- search up to 5 spaces downward from the ceiling for the first non-buildable-to node...
 				height = i
 				local testpos = { x=pos.x, y=pos.y-i-1, z=pos.z }
-				local testnode = minetest.get_node_or_nil(testpos)
+				local testnode = core.get_node_or_nil(testpos)
 				local testreg = testnode and core.registered_nodes[testnode.name]
 
 				if not testreg or not testreg.buildable_to then
 					if i < 1 then
-						minetest.chat_send_player(placer:get_player_name(), "No room under there to hang a swing.")
+						core.chat_send_player(placer:get_player_name(), "No room under there to hang a swing.")
 						return itemstack
 					else
 						break
@@ -184,19 +184,19 @@ lord_homedecor.register("swing", {
 				end
 			end
 
-			local fdir = minetest.dir_to_facedir(placer:get_look_dir())
+			local fdir = core.dir_to_facedir(placer:get_look_dir())
 			for j = 0, height do -- then fill that space with ropes...
 				local testpos = { x=pos.x, y=pos.y-j, z=pos.z }
-				minetest.set_node(testpos, { name = "lord_homedecor:swing_rope", param2 = fdir })
+				core.set_node(testpos, { name = "lord_homedecor:swing_rope", param2 = fdir })
 			end
 
-			minetest.set_node({ x=pos.x, y=pos.y-height, z=pos.z }, { name = "lord_homedecor:swing", param2 = fdir })
+			core.set_node({ x=pos.x, y=pos.y-height, z=pos.z }, { name = "lord_homedecor:swing", param2 = fdir })
 
 			if not lord_homedecor.expect_infinite_stacks(placer) then
 				itemstack:take_item()
 			end
 		else
-			minetest.chat_send_player(
+			core.chat_send_player(
 				placer:get_player_name(),
 				"You have to point at the bottom side of an overhanging object to place a swing."
 			)
@@ -206,8 +206,8 @@ lord_homedecor.register("swing", {
 	after_dig_node = function(pos, oldnode, oldmetadata, digger)
 		for i = 0, 4 do
 			local testpos = { x=pos.x, y=pos.y+i+1, z=pos.z }
-			if minetest.get_node(testpos).name == "lord_homedecor:swing_rope" then
-				minetest.remove_node(testpos)
+			if core.get_node(testpos).name == "lord_homedecor:swing_rope" then
+				core.remove_node(testpos)
 			else
 				return
 			end
@@ -252,18 +252,18 @@ lord_homedecor.register("well", {
 	on_rotate = screwdriver.rotate_simple
 })
 
-if minetest.get_modpath("bucket") then
-	local original_bucket_on_use = minetest.registered_items["bucket:bucket_empty"].on_use
-	minetest.override_item("bucket:bucket_empty", {
+if core.get_modpath("bucket") then
+	local original_bucket_on_use = core.registered_items["bucket:bucket_empty"].on_use
+	core.override_item("bucket:bucket_empty", {
 		on_use = function(itemstack, user, pointed_thing)
 			local inv = user:get_inventory()
 
-			if pointed_thing.type == "node" and minetest.get_node(pointed_thing.under).name == "lord_homedecor:well" then
+			if pointed_thing.type == "node" and core.get_node(pointed_thing.under).name == "lord_homedecor:well" then
 				if inv:room_for_item("main", "bucket:bucket_water 1") then
 					itemstack:take_item()
 					inv:add_item("main", "bucket:bucket_water 1")
 				else
-					minetest.chat_send_player(user:get_player_name(), S("No room in your inventory to add a filled bucket!"))
+					core.chat_send_player(user:get_player_name(), S("No room in your inventory to add a filled bucket!"))
 				end
 				return itemstack
 			else if original_bucket_on_use then
@@ -285,7 +285,7 @@ local shrub_cbox = { -0.5, -0.5, -0.5, 0.5, 0.5, 0.5 }
 for _, color in ipairs(lord_homedecor.shrub_colors) do
 	local description = S("Shrubbery (@1)", S(color))
 
-	minetest.register_node("lord_homedecor:shrubbery_large_"..color, {
+	core.register_node("lord_homedecor:shrubbery_large_"..color, {
 		description = description,
 		drawtype = "mesh",
 		mesh = "homedecor_cube.obj",
@@ -297,7 +297,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 		sounds = default.node_sound_leaves_defaults(),
 	})
 
-	minetest.register_node("lord_homedecor:shrubbery_"..color, {
+	core.register_node("lord_homedecor:shrubbery_"..color, {
 		description = description,
 		drawtype = "mesh",
 		mesh = "homedecor_shrubbery.obj",
@@ -329,8 +329,8 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 	)
 end
 
-minetest.register_alias("lord_homedecor:well_top", "air")
-minetest.register_alias("lord_homedecor:well_base", "lord_homedecor:well")
+core.register_alias("lord_homedecor:well_top", "air")
+core.register_alias("lord_homedecor:well_base", "lord_homedecor:well")
 
-minetest.register_alias("gloopblocks:shrubbery", "lord_homedecor:shrubbery_green")
-minetest.register_alias("gloopblocks:shrubbery_large", "lord_homedecor:shrubbery_large_green")
+core.register_alias("gloopblocks:shrubbery", "lord_homedecor:shrubbery_green")
+core.register_alias("gloopblocks:shrubbery_large", "lord_homedecor:shrubbery_large_green")

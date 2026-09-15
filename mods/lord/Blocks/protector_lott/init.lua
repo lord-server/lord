@@ -1,19 +1,19 @@
-local S    = minetest.get_mod_translator()
-local spec = minetest.formspec
+local S    = core.get_mod_translator()
+local spec = core.formspec
 
 
-minetest.register_privilege("delprotect", S("Ignore player protection"))
+core.register_privilege("delprotect", S("Ignore player protection"))
 
 
 -- get static spawn position
-local statspawn = (minetest.setting_get_pos("static_spawnpoint") or {x = 0, y = 2, z = 0})
+local statspawn = (core.setting_get_pos("static_spawnpoint") or {x = 0, y = 2, z = 0})
 
 protector = {}
 protector.mod = "redo"
-protector.radius = (tonumber(minetest.settings:get("protector_radius")) or 5)
-protector.pvp = minetest.settings:get_bool("protector_pvp")
-protector.spawn = (tonumber(minetest.settings:get("protector_pvp_spawn")) or 0)
-protector.damage = (tonumber(minetest.settings:get("protector_damage")) or 1)
+protector.radius = (tonumber(core.settings:get("protector_radius")) or 5)
+protector.pvp = core.settings:get_bool("protector_pvp")
+protector.spawn = (tonumber(core.settings:get("protector_pvp_spawn")) or 0)
+protector.damage = (tonumber(core.settings:get("protector_damage")) or 1)
 
 protector.get_member_list = function(meta)
 	return meta:get_string("members"):split(" ")
@@ -107,22 +107,22 @@ end
 -- @return nil      result   there are no protectors nearby
 protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if not digger then return false end
-	if not minetest.get_player_by_name(digger) then return false end
+	if not core.get_player_by_name(digger) then return false end
 
 	-- Delprotect privileged users can override protections
 
-	if minetest.check_player_privs(digger, {delprotect = true}) and infolevel == 1 then
+	if core.check_player_privs(digger, {delprotect = true}) and infolevel == 1 then
 		return true
 	end
 
 	if infolevel == 3 then infolevel = 1 end
 
 	-- bones mod compatibility: the owner of a corpse is allowed to dig it
-	local nodename = minetest.get_node(pos).name
-	local nodedef = minetest.registered_nodes[nodename]
+	local nodename = core.get_node(pos).name
+	local nodedef = core.registered_nodes[nodename]
 	if nodedef ~= nil then
 		if nodedef.groups["corpse"] then
-			local bones_meta = minetest.get_meta(pos)
+			local bones_meta = core.get_meta(pos)
 			if bones_meta:get_string("owner") == digger then
 				return true
 			end
@@ -131,33 +131,33 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 
 	-- Find the protector nodes
 
-	local positions = minetest.find_nodes_in_area(
+	local positions = core.find_nodes_in_area(
 		{x = pos.x - r, y = pos.y - r, z = pos.z - r},
 		{x = pos.x + r, y = pos.y + r, z = pos.z + r},
 		{"group:protector"})
 
 	local protectors_count = 0
-	local dig_player = minetest.get_player_by_name(digger)
+	local dig_player = core.get_player_by_name(digger)
 	local meta, owner, members
 	for _, p in ipairs(positions) do
 		protectors_count = protectors_count + 1
-		meta = minetest.get_meta(p)
+		meta = core.get_meta(p)
 		owner = meta:get_string("owner")
 		members = meta:get_string("members")
 
 		if owner ~= digger then
 			if onlyowner or not protector.is_member(meta, digger) then
 				if infolevel == 1 then
-					minetest.get_player_by_name(digger):set_hp(dig_player:get_hp()-protector.damage)
-					minetest.chat_send_player(digger,
+					core.get_player_by_name(digger):set_hp(dig_player:get_hp()-protector.damage)
+					core.chat_send_player(digger,
 					S("This area is owned by").." " .. owner .. "!")
 				elseif infolevel == 2 then
-					minetest.chat_send_player(digger,
+					core.chat_send_player(digger,
 					S("This area is owned by").." " .. owner .. ".")
-					minetest.chat_send_player(digger,
-					S("Protection located at:").." " .. minetest.pos_to_string(p))
+					core.chat_send_player(digger,
+					S("Protection located at:").." " .. core.pos_to_string(p))
 					if members ~= "" then
-						minetest.chat_send_player(digger,
+						core.chat_send_player(digger,
 						S("Members:").." ".. members .. ".")
 					end
 				end
@@ -166,12 +166,12 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 		end
 
 		if infolevel == 2 then
-			minetest.chat_send_player(digger,
+			core.chat_send_player(digger,
 			S("This area is owned by").." " .. owner .. ".")
-			minetest.chat_send_player(digger,
-			S("Protection located at:").." " .. minetest.pos_to_string(positions[1]))
+			core.chat_send_player(digger,
+			S("Protection located at:").." " .. core.pos_to_string(positions[1]))
 			if members ~= "" then
-				minetest.chat_send_player(digger,
+				core.chat_send_player(digger,
 				S("Members:").." ".. members .. ".")
 			end
 			break
@@ -181,10 +181,10 @@ protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 
 	if infolevel == 2 then
 		if #positions < 1 then
-			minetest.chat_send_player(digger,
+			core.chat_send_player(digger,
 			S("This area is not protected."))
 		end
-		minetest.chat_send_player(digger, S("You can build here."))
+		core.chat_send_player(digger, S("You can build here."))
 	end
 
 	if protectors_count == 0 then
@@ -197,7 +197,7 @@ end
 -- Can node be added or removed, if so return node else true (for protected)
 
 function protector.drop_wielded_item(digger)
-	local player = minetest.get_player_by_name(digger)
+	local player = core.get_player_by_name(digger)
 
 	-- Stop random crashes
 	if player == nil then
@@ -208,7 +208,7 @@ function protector.drop_wielded_item(digger)
 		player:set_wielded_item("")
 	else
 		local itemstack = player:get_wielded_item()
-		minetest.item_drop(itemstack, player, player:get_pos()) -- Drop entire itemstack
+		core.item_drop(itemstack, player, player:get_pos()) -- Drop entire itemstack
 		player:set_wielded_item("") -- Remove itemstack from inventory
 	end
 end
@@ -223,14 +223,14 @@ function protector.punish_for_unauthorized(digger)
 	-- 4. ???
 	-- 5. PROFIT
 
-	local dig_player = minetest.get_player_by_name(digger)
+	local dig_player = core.get_player_by_name(digger)
 	if dig_player ~= nil then
 		dig_player:set_hp(dig_player:get_hp()-protector.damage)
-		minetest.after(0.1, protector.drop_wielded_item, digger)
+		core.after(0.1, protector.drop_wielded_item, digger)
 	end
 end
 
-protector.old_is_protected = minetest.is_protected
+protector.old_is_protected = core.is_protected
 
 -- Protector's is_protected function logic table (0 represents false, 1 represents true):
 -- ===============================================
@@ -240,7 +240,7 @@ protector.old_is_protected = minetest.is_protected
 -- return             |  0     1     0   0   1   0
 -- ===============================================
 -- Discussion: https://github.com/lord-server/lord/issues/2388
-function minetest.is_protected(pos, digger)
+function core.is_protected(pos, digger)
 	local can_dig_result = protector.can_dig(protector.radius, pos, digger, false, 1)
 
 	-- Situation A: if the node is possibly protected by other mod
@@ -297,11 +297,11 @@ end
 
 -- Make sure protection block doesn't overlap another protector's area
 
-protector.old_node_place = minetest.item_place
+protector.old_node_place = core.item_place
 
-function minetest.item_place(itemstack, placer, pointed_thing, param2)
+function core.item_place(itemstack, placer, pointed_thing, param2)
 
-	local item_definition = minetest.registered_items[itemstack:get_name()]
+	local item_definition = core.registered_items[itemstack:get_name()]
 	if item_definition then
 	    if item_definition.groups and item_definition.groups.protector then
 			local user = placer:get_player_name()
@@ -310,14 +310,14 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 			if can_dig_result ~= nil then
 				if not can_dig_result then
 					-- Situation A: a protector nearby forbids placing a new protector here
-					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+					core.chat_send_player(user, S("Overlaps into another protected area!"))
 
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				else
 					-- Situation B: a protector nearby allows placing a new protector here
 					-- check if there is a mod that controls whether a node is protected
 					if protector.old_is_protected_overlap(pos, user) then
-						minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+						core.chat_send_player(user, S("Overlaps into another protected area!"))
 
 						return protector.old_node_place(itemstack, placer, pos, param2)
 					end
@@ -326,7 +326,7 @@ function minetest.item_place(itemstack, placer, pointed_thing, param2)
 				-- Situation C: no protectors nearby to allow or forbid placing a new protector here
 				-- check if there is a mod that controls whether a node is protected
 				if protector.old_is_protected_overlap(pos, user) then
-					minetest.chat_send_player(user, S("Overlaps into another protected area!"))
+					core.chat_send_player(user, S("Overlaps into another protected area!"))
 
 					return protector.old_node_place(itemstack, placer, pos, param2)
 				end
@@ -341,7 +341,7 @@ end
 
 --= Protection Logo
 
-minetest.register_node("protector_lott:protect2", {
+core.register_node("protector_lott:protect2", {
 	description = S("Protection Logo"),
 	tiles = {"protector_logo.png"},
 	wield_image = "protector_logo.png",
@@ -364,7 +364,7 @@ minetest.register_node("protector_lott:protect2", {
 	selection_box = {type = "wallmounted"},
 
 	after_place_node = function(pos, placer)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		meta:set_string("owner", placer:get_player_name() or "")
 		meta:set_string("infotext", S("Protection").." ("..S("owned by").." " .. meta:get_string("owner") .. ")")
 		meta:set_string("members", "")
@@ -376,10 +376,10 @@ minetest.register_node("protector_lott:protect2", {
 	end,
 
 	on_rightclick = function(pos, node, clicker, itemstack)
-		local meta = minetest.get_meta(pos)
+		local meta = core.get_meta(pos)
 		if protector.can_dig(1, pos, clicker:get_player_name(), true, 1) then
-			minetest.show_formspec(clicker:get_player_name(),
-			"protector_lott:node_" .. minetest.pos_to_string(pos), protector.generate_formspec(meta))
+			core.show_formspec(clicker:get_player_name(),
+			"protector_lott:node_" .. core.pos_to_string(pos), protector.generate_formspec(meta))
 		end
 	end,
 
@@ -387,7 +387,7 @@ minetest.register_node("protector_lott:protect2", {
 		if not protector.can_dig(1, pos, puncher:get_player_name(), true, 1) then
 			return
 		end
-		minetest.add_entity(pos, "protector_lott:display")
+		core.add_entity(pos, "protector_lott:display")
 	end,
 
 	can_dig = function(pos, player)
@@ -395,7 +395,7 @@ minetest.register_node("protector_lott:protect2", {
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "protector_lott:protect2 4",
 	recipe = {
 		{"default:stone", "default:stone", "default:stone"},
@@ -405,13 +405,13 @@ minetest.register_craft({
 })
 
 -- If name entered or button press
-minetest.register_on_player_receive_fields(function(player,formname,fields)
+core.register_on_player_receive_fields(function(player,formname,fields)
 
 	if string.sub(formname, 0, string.len("protector_lott:node_")) == "protector_lott:node_" then
 
 		local pos_s = string.sub(formname, string.len("protector_lott:node_") + 1)
-		local pos = minetest.string_to_pos(pos_s)
-		local meta = minetest.get_meta(pos)
+		local pos = core.string_to_pos(pos_s)
+		local meta = core.get_meta(pos)
 
 		if not protector.can_dig(1, pos, player:get_player_name(), true, 1) then
 			return
@@ -434,14 +434,14 @@ minetest.register_on_player_receive_fields(function(player,formname,fields)
 		end
 
 		if not (fields.close_me or fields.quit) then
-			minetest.show_formspec(player:get_player_name(), formname, protector.generate_formspec(meta))
+			core.show_formspec(player:get_player_name(), formname, protector.generate_formspec(meta))
 		end
 
 	end
 
 end)
 
-minetest.register_entity("protector_lott:display", {
+core.register_entity("protector_lott:display", {
 	physical = false,
 	collisionbox = {0, 0, 0, 0, 0, 0},
 	visual = "wielditem",
@@ -462,7 +462,7 @@ minetest.register_entity("protector_lott:display", {
 -- Display-zone node, Do NOT place the display as a node,
 -- it is made to be used as an entity (see above)
 local x = protector.radius
-minetest.register_node("protector_lott:display_node", {
+core.register_node("protector_lott:display_node", {
 	tiles = {"protector_display.png"},
 	use_texture_alpha = "clip",
 	walkable = false,
@@ -492,15 +492,15 @@ minetest.register_node("protector_lott:display_node", {
 })
 
 -- Disable PVP in your own protected areas
-if minetest.settings:get_bool("enable_pvp") and protector.pvp then
+if core.settings:get_bool("enable_pvp") and protector.pvp then
 
-	if minetest.register_on_punchplayer then
+	if core.register_on_punchplayer then
 
-		minetest.register_on_punchplayer(
+		core.register_on_punchplayer(
 		function(player, hitter, time_from_last_punch, tool_capabilities, dir, damage)
 
 			if not player or not hitter then
-				minetest.log("warning", "[Protector] on_punchplayer called with nil objects")
+				core.log("warning", "[Protector] on_punchplayer called with nil objects")
 				return true -- Запретить обработку удара если функция вызвана с nil аргументами
 			end
 
@@ -519,16 +519,16 @@ if minetest.settings:get_bool("enable_pvp") and protector.pvp then
 				return true
 			end
 
-			return minetest.is_protected(pos, hitter:get_player_name())
+			return core.is_protected(pos, hitter:get_player_name())
 
 		end)
 	else
-		minetest.log("warning", "[Protector] pvp_protect not active, update your version of Minetest")
+		core.log("warning", "[Protector] pvp_protect not active, update your version of Minetest")
 	end
 else
-	minetest.log("info", "[Protector] pvp_protect is disabled")
+	core.log("info", "[Protector] pvp_protect is disabled")
 end
 
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."blocks.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."doors.lua")
-dofile(minetest.get_modpath(minetest.get_current_modname()).."/".."chests.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."blocks.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."doors.lua")
+dofile(core.get_modpath(core.get_current_modname()).."/".."chests.lua")

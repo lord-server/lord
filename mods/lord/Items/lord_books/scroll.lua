@@ -1,5 +1,5 @@
-local S = minetest.get_mod_translator()
-local esc = minetest.formspec_escape
+local S = core.get_mod_translator()
+local esc = core.formspec_escape
 
 local formspec_size = "size[8,8]"
 
@@ -17,7 +17,7 @@ end
 
 local book_writers = {}
 
-minetest.register_on_leaveplayer(function(player)
+core.register_on_leaveplayer(function(player)
 	book_writers[player:get_player_name()] = nil
 end)
 
@@ -37,7 +37,7 @@ local function scroll_on_use(itemstack, user)
 	local formspec
 	formspec = formspec_write(title, text)
 
-	minetest.show_formspec(player_name, "lord_books:scroll", formspec_size .. formspec)
+	core.show_formspec(player_name, "lord_books:scroll", formspec_size .. formspec)
 	-- Store the wield index in case the user accidentally switches the wield item before the formspec is shown
 	book_writers[player_name] = { wield_index = user:get_wield_index() }
 	return itemstack
@@ -45,7 +45,7 @@ end
 
 local max_title_size = 80
 local short_title_size = 35
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "lord_books:scroll" then
 		return
 	end
@@ -61,7 +61,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	local stack = inv:get_stack(wield_list, wield_index)
 	if stack:get_name() ~= "lord_books:scroll" then
 		-- No book in the wield slot, abort & inform the player
-		minetest.chat_send_player(player_name,
+		core.chat_send_player(player_name,
 			S("The scroll you were writing to mysteriously disappeared."))
 		return
 	end
@@ -91,7 +91,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	inv:set_stack(wield_list, wield_index, stack)
 end)
 
-minetest.register_craftitem("lord_books:scroll", {
+core.register_craftitem("lord_books:scroll", {
 	description = S("Scroll"),
 	inventory_image = "scroll.png",
 	groups = { book = 1, flammable = 3 },

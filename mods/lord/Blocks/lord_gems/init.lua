@@ -1,4 +1,4 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('gems')
 	require('block')
 

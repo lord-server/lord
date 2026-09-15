@@ -1,12 +1,12 @@
-local S = minetest.get_mod_translator()
-local esc = minetest.formspec_escape
+local S = core.get_mod_translator()
+local esc = core.formspec_escape
 
 local function show_answer(clicker, item)
 	local player = clicker:get_player_name()
 	local formspec = "size[8,5]"
 	formspec = formspec.."textarea[0.5,0;7.5,4;;;"..esc(item.answer).."]"
 	formspec = formspec.."button[0.25,4;7.5,1;return_to_main;"..esc(S("Back")).."]"
-	minetest.show_formspec(player, "npc:static_guide_answer", formspec)
+	core.show_formspec(player, "npc:static_guide_answer", formspec)
 end
 
 local function edit_answer(clicker, item)
@@ -24,7 +24,7 @@ local function edit_answer(clicker, item)
 	else
 		formspec = formspec.."button[0.25,8;7.5,1;show_question;"..esc(S("Show")).."]"
 	end
-	minetest.show_formspec(player, "npc:edit_guide_answer", formspec)
+	core.show_formspec(player, "npc:edit_guide_answer", formspec)
 end
 
 local function user_mob_content(self, width, pos)
@@ -134,7 +134,7 @@ local function form_handle(self, clicker, formname, fields, can_edit)
 end
 
 local function init_from_staticdata(self, mobdata)
-	local data = minetest.deserialize(mobdata)
+	local data = core.deserialize(mobdata)
 	if data["questions"] ~= nil then
 		self.questions = data["questions"]
 	else
@@ -158,7 +158,7 @@ local function get_mobdata(self)
 		["questions"] = self.questions,
 		["new_question_index"] = self.new_question_index,
 	}
-	return minetest.serialize(data)
+	return core.serialize(data)
 end
 
 npc:register_mob("npc:info_mob", {

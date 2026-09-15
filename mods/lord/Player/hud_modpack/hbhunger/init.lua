@@ -1,6 +1,6 @@
-if minetest.settings:get_bool("enable_damage") then
+if core.settings:get_bool("enable_damage") then
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 hbhunger = {}
 hbhunger.food = {}
@@ -30,9 +30,9 @@ hbhunger.EXHAUST_LVL = 160 -- at what exhaustion player satiation gets lowerd
 
 
 --load custom settings
-local set = io.open(minetest.get_modpath("hbhunger").."/hbhunger.conf", "r")
+local set = io.open(core.get_modpath("hbhunger").."/hbhunger.conf", "r")
 if set then
-	dofile(minetest.get_modpath("hbhunger").."/hbhunger.conf")
+	dofile(core.get_modpath("hbhunger").."/hbhunger.conf")
 	set:close()
 end
 
@@ -40,7 +40,7 @@ local function custom_hud(player)
 	hb.init_hudbar(player, "satiation", hbhunger.get_hunger_raw(player))
 end
 
-dofile(minetest.get_modpath("hbhunger").."/hunger.lua")
+dofile(core.get_modpath("hbhunger").."/hunger.lua")
 
 -- register satiation hudbar
 hb.register_hudbar(
@@ -94,7 +94,7 @@ hbhunger.set_hunger_raw = function(player)
 	return true
 end
 
-minetest.register_on_joinplayer(function(player)
+core.register_on_joinplayer(function(player)
 	local name = player:get_player_name()
 	local inv = player:get_inventory()
 	inv:set_size("hunger",1)
@@ -106,7 +106,7 @@ minetest.register_on_joinplayer(function(player)
 	hbhunger.set_hunger_raw(player)
 end)
 
-minetest.register_on_respawnplayer(function(player)
+core.register_on_respawnplayer(function(player)
 	-- reset hunger (and save)
 	local name = player:get_player_name()
 	hbhunger.hunger[name] = 30
@@ -117,13 +117,13 @@ end)
 local main_timer = 0
 local timer = 0
 local timer2 = 0
-minetest.register_globalstep(function(dtime)
+core.register_globalstep(function(dtime)
 	main_timer = main_timer + dtime
 	timer = timer + dtime
 	timer2 = timer2 + dtime
 	if main_timer > hbhunger.HUD_TICK or timer > 4 or timer2 > hbhunger.HUNGER_TICK then
 		if main_timer > hbhunger.HUD_TICK then main_timer = 0 end
-		for _,player in ipairs(minetest.get_connected_players()) do
+		for _,player in ipairs(core.get_connected_players()) do
 		local name = player:get_player_name()
 
 		local h = tonumber(hbhunger.hunger[name])

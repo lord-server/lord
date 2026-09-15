@@ -19,7 +19,7 @@ core.mod(function(mod)
 		),
 		privs       = { worldedit = true },
 		func        = function(name)
-			local player_pos = minetest.get_player_by_name(name):get_pos()
+			local player_pos = core.get_player_by_name(name):get_pos()
 
 			local pos1 = worldedit.pos1[name] or player_pos
 			local pos2 = worldedit.pos2[name] or player_pos
@@ -90,7 +90,7 @@ core.mod(function(mod)
 			worldedit.keep_loaded(pos1, pos2)
 
 			local count = 0
-			local objects = minetest.get_objects_in_area(pos1, pos2)
+			local objects = core.get_objects_in_area(pos1, pos2)
 			for _, obj in pairs(objects) do
 				if not obj:is_player() then
 					if obj:get_entity_name() == entity_name then

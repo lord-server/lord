@@ -1,5 +1,5 @@
-local S         = minetest.get_mod_translator()
-local colorize  = minetest.colorize
+local S         = core.get_mod_translator()
+local colorize  = core.colorize
 
 
 --- @class lord_classes.hud.Shadow: base_classes.HUD

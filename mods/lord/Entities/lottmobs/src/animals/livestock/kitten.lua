@@ -86,7 +86,7 @@ legacy_mobs:register_mob("lottmobs:kitten", {
 
 		if self.owner and self.owner == user then
 			self.object:set_velocity({x = 0, y = 0, z = 0})
-			minetest.sound_play("mobs_kitten", {
+			core.sound_play("mobs_kitten", {
 				pos = self.object:get_pos(),
 				gain = 1.0,
 				max_hear_distance = 5,
@@ -110,9 +110,9 @@ legacy_mobs:register_mob("lottmobs:kitten", {
 
 		local pos = self.object:get_pos()
 
-		minetest.add_item(pos, "wool:white")
+		core.add_item(pos, "wool:white")
 
-		minetest.sound_play("mobs_kitten", {
+		core.sound_play("mobs_kitten", {
 			pos = pos,
 			gain = 1.0,
 			max_hear_distance = 5,

@@ -1,9 +1,9 @@
 
-minetest.mod(function(mod)
+core.mod(function(mod)
 	require('photometer')
 	require('commands.character')
 
-	local environment = minetest.settings:get("environment")
+	local environment = core.settings:get("environment")
 	if not environment or environment == "production" then
 		return
 	end

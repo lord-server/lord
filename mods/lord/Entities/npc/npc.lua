@@ -1,5 +1,5 @@
-local S = minetest.get_mod_translator()
-local esc = minetest.formspec_escape
+local S = core.get_mod_translator()
+local esc = core.formspec_escape
 
 npc = {
 	["required_priv"] = "server",
@@ -11,7 +11,7 @@ npc = {
 ---@param playername string playername
 ---@return boolean
 local function can_place(definition, playername)
-	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
+	local allowed = core.get_player_privs(playername)[npc.required_priv]
 	if definition.can_place then
 		allowed = allowed or definition.can_place(playername)
 	end
@@ -23,7 +23,7 @@ end
 ---@param playername string playername
 ---@return boolean
 local function can_edit(self, playername)
-	local allowed = minetest.get_player_privs(playername)[npc.required_priv]
+	local allowed = core.get_player_privs(playername)[npc.required_priv]
 	if self.definition.can_edit then
 		allowed = allowed or self.definition.can_edit(self, playername)
 	end
@@ -112,13 +112,13 @@ local function show_main(self, clicker)
 		if self.definition.can_edit_mobname ~= nil then
 			can_edit_mobname = self.definition.can_edit_mobname
 		end
-		minetest.show_formspec(player, "npc:main_form", build_main_form_editable(self, can_edit_mobname))
+		core.show_formspec(player, "npc:main_form", build_main_form_editable(self, can_edit_mobname))
 	else
-		minetest.show_formspec(player, "npc:main_form", build_main_form(self))
+		core.show_formspec(player, "npc:main_form", build_main_form(self))
 	end
 end
 
-minetest.register_on_player_receive_fields(function(clicker, formname, fields)
+core.register_on_player_receive_fields(function(clicker, formname, fields)
 	local player = clicker:get_player_name()
 
 	local self = npc.player_mobs[player]
@@ -158,7 +158,7 @@ minetest.register_on_player_receive_fields(function(clicker, formname, fields)
 				if inv:room_for_item("main", new_stack) then
 					inv:add_item("main", new_stack)
 				else
-					minetest.add_item(clicker:get_pos(), new_stack)
+					core.add_item(clicker:get_pos(), new_stack)
 				end
 
 				self.object:remove()
@@ -222,11 +222,11 @@ local function default_configure_placed(self, playername)
 end
 
 local function default_get_mobdata(self)
-	return minetest.serialize({})
+	return core.serialize({})
 end
 
 local function on_activate(self, staticdata)
-	local data = minetest.deserialize(staticdata)
+	local data = core.deserialize(staticdata)
 	if data ~= nil then
 		if data["mobdata"] ~= nil then
 			self:init_from_staticdata(data["mobdata"])
@@ -281,11 +281,11 @@ local function get_staticdata(self)
 		["greeting"] = self.greeting,
 		["mobdata"] = self:get_mobdata(),
 	}
-	return minetest.serialize(data)
+	return core.serialize(data)
 end
 
 function npc:register_mob(name, definition)
-	minetest.register_entity(name, {
+	core.register_entity(name, {
 		definition = definition,
 		physical = true,
 
@@ -325,7 +325,7 @@ function npc:register_mob(name, definition)
 		description = definition.description
 	end
 
-	minetest.register_craftitem(name.."_egg", {
+	core.register_craftitem(name.."_egg", {
 
 		description = description,
 		inventory_image = "npc_info_mob.png",
@@ -341,17 +341,17 @@ function npc:register_mob(name, definition)
 			local pos = pointed_thing.above
 
 			-- am I clicking on something with existing on_rightclick function?
-			local under = minetest.get_node(pointed_thing.under)
-			local def = minetest.registered_nodes[under.name]
+			local under = core.get_node(pointed_thing.under)
+			local def = core.registered_nodes[under.name]
 			if def and def.on_rightclick then
 				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
 			end
 
-			if pos and not minetest.is_protected(pos, player) then
+			if pos and not core.is_protected(pos, player) then
 				pos.y            = pos.y + 0.5
 
 				local data       = itemstack:get_metadata()
-				local entity     = minetest.add_entity(pos, name, data)
+				local entity     = core.add_entity(pos, name, data)
 				local lua_entity = entity:get_luaentity()
 
 				if not lua_entity then

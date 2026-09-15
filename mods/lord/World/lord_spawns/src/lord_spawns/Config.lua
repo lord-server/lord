@@ -1,4 +1,4 @@
-local mod_settings  = minetest.get_mod_settings()
+local mod_settings  = core.get_mod_settings()
 
 --- @class lord_spawns.Config.halls.HallDefinition
 --- @field position    Position
@@ -31,7 +31,7 @@ local Config = {
 	halls  = {},
 
 	--- @type boolean
-	dynamic_spawns = not minetest.is_singleplayer() and mod_settings:get_bool('dynamic_spawns', false),
+	dynamic_spawns = not core.is_singleplayer() and mod_settings:get_bool('dynamic_spawns', false),
 
 	--- @type Position
 	common_spawn_pos = mod_settings:get_position('common_spawn_pos'),

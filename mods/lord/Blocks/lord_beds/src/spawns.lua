@@ -1,4 +1,4 @@
-local world_path = minetest.get_worldpath()
+local world_path = core.get_worldpath()
 local org_file = world_path .. "/beds_spawns"
 local file = world_path .. "/beds_spawns"
 local bkwd = false
@@ -27,7 +27,7 @@ function beds.read_spawns()
 		until input:read(0) == nil
 		io.close(input)
 	elseif input and bkwd then
-		beds.spawn = minetest.deserialize(input:read("*all"))
+		beds.spawn = core.deserialize(input:read("*all"))
 		input:close()
 		beds.save_spawns()
 		os.rename(file, file .. ".backup")
@@ -52,10 +52,10 @@ end
 
 function beds.set_spawns()
 	for name,_ in pairs(beds.player) do
-		local player = minetest.get_player_by_name(name)
+		local player = core.get_player_by_name(name)
 		local p = player:get_pos()
 		-- but don't change spawn location if borrowing a bed
-		if not minetest.is_protected(p, name) then
+		if not core.is_protected(p, name) then
 			beds.spawn[name] = p
 		end
 	end

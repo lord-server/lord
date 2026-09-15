@@ -15,7 +15,7 @@ local function register_reinforced_hatch(wood, def, groups, _)
 		groups = table.merge(groups, { hatch = 1, }),
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		output = name,
 		recipe = {
 			{ "", "lottores:tin_ingot", "", },

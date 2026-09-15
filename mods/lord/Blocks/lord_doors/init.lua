@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 doors.register("lord_doors:door_gondor", {
 	tiles = {{ name = "lord_doors_gondor.png", backface_culling = true }},
@@ -9,7 +9,7 @@ doors.register("lord_doors:door_gondor", {
 
 
 -- Двери вынесены из MTG, так как в обновлении 5.4.1 удалены некоторые из них или заменены их названия.
-dofile(minetest.get_modpath("lord_doors").."/mtg.lua")
+dofile(core.get_modpath("lord_doors").."/mtg.lua")
 
 -- Двери, открывающиеся только конкретной расой или отмычкой.
-dofile(minetest.get_modpath("lord_doors").."/race_doors.lua")
+dofile(core.get_modpath("lord_doors").."/race_doors.lua")

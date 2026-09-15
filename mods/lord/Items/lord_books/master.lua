@@ -2,9 +2,9 @@
 -- See README for more information
 -- Released by Zeg9 under WTFPL
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-local DEFAULT_LANG = minetest.settings:get("language")
+local DEFAULT_LANG = core.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = "en" end
 
@@ -16,7 +16,7 @@ zmc.itemlist = {}
 zmc.items_in_group = function(group)
 	local items = {}
 
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		-- the node should be in all groups
 		local ok = true
 		for _, g in ipairs(group:split(',')) do
@@ -62,26 +62,26 @@ end
 
 zmc.load_crafts = function(name)
 	zmc.crafts[name] = {}
-	local recipes = minetest.get_all_craft_recipes(name)
+	local recipes = core.get_all_craft_recipes(name)
 
 	-- Check if something went wrong.
 	-- For ex., while refactor for using MTG/default as git submodule, recipe for the `default:sign_wall` was gone (#1127),
 	-- but there still was one for `default:sign_wall_wood` alias and its not displayed in book.
 	-- If so, adds recipe to book & writes warning to log.
-	local aliases = table.keys_of(minetest.registered_aliases, name)
+	local aliases = table.keys_of(core.registered_aliases, name)
 	if aliases then
 		local aliases_recipes = {}
 		for _, alias in pairs(aliases) do
-			local alias_recipes = minetest.get_all_craft_recipes(alias)
+			local alias_recipes = core.get_all_craft_recipes(alias)
 			if alias_recipes then
 				aliases_recipes = table.merge_values(aliases_recipes, alias_recipes)
 			end
 		end
 		if #aliases_recipes ~= 0 then
 			if not recipes then
-				minetest.log("warning", "Recipe exists only for alias: " .. dump(aliases_recipes))
+				core.log("warning", "Recipe exists only for alias: " .. dump(aliases_recipes))
 			else
-				minetest.log("warning", "Extra recipe for alias: " .. dump(aliases_recipes))
+				core.log("warning", "Extra recipe for alias: " .. dump(aliases_recipes))
 			end
 			recipes = table.merge_values(recipes, aliases_recipes)
 		end
@@ -106,7 +106,7 @@ zmc.need_load_all = true
 zmc.load_all = function()
 	print("Loading all crafts, this may take some time...")
 	local i = 0
-	for name, item in pairs(minetest.registered_items) do
+	for name, item in pairs(core.registered_items) do
 		if (name and name ~= "") then
 			zmc.load_crafts(name)
 		end
@@ -126,8 +126,8 @@ local function filter_by_search(find, lang_code)
 	find = string.lower(find)
 	local filtered_list = {}
 	for _, name in pairs(zmc.itemlist) do
-		local description_en = minetest.registered_items[name].description
-		local description_player_lang = minetest.get_translated_string(lang_code, description_en)
+		local description_en = core.registered_items[name].description
+		local description_player_lang = core.get_translated_string(lang_code, description_en)
 
 		if
 			string.find(name, find, nil, true) or
@@ -205,10 +205,10 @@ zmc.form.get_spec = function(player_name, find)
 
 	-- Filter items by `filter` field value
 	formspec = formspec ..
-		"field[0.3,4.25;4,0.5;zmc_filter;" .. S("Search") .. ";" .. minetest.formspec_escape(find) .. "]" ..
+		"field[0.3,4.25;4,0.5;zmc_filter;" .. S("Search") .. ";" .. core.formspec_escape(find) .. "]" ..
 		"field_close_on_enter[zmc_filter;false]"
 
-	local lang_code = minetest.get_player_information(player_name).lang_code or DEFAULT_LANG
+	local lang_code = core.get_player_information(player_name).lang_code or DEFAULT_LANG
 	local filtered_list = filter_by_search(find, lang_code)
 
 	-- Node list
@@ -245,14 +245,14 @@ end
 --- @param player_name string
 --- @param find        string
 zmc.form.show = function(player_name, find)
-	minetest.show_formspec(player_name, zmc.form.NAME, zmc.form.get_spec(player_name, find))
+	core.show_formspec(player_name, zmc.form.NAME, zmc.form.get_spec(player_name, find))
 end
 
 
 ---@param player    Player
 ---@param form_name string
 ---@param fields    table
-minetest.register_on_player_receive_fields(function(player, form_name, fields)
+core.register_on_player_receive_fields(function(player, form_name, fields)
 	if form_name ~= zmc.form.NAME then
 		return
 	end
@@ -304,7 +304,7 @@ minetest.register_on_player_receive_fields(function(player, form_name, fields)
 	end
 end)
 
-minetest.register_tool("lord_books:master_book",{
+core.register_tool("lord_books:master_book",{
     description = S("Master Book of Crafts"),
     inventory_image = "master_book.png",
     wield_image = "",

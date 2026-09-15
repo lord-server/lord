@@ -1,25 +1,25 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
-minetest.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")
-minetest.register_alias("lottother:lamp_top_wood", "lottblocks:lamp_top_wood")
-minetest.register_alias("lottother:tiny_lamp_wood", "lottblocks:small_lamp_wood")
-minetest.register_alias("lottother:lamp_wood_alder", "lottblocks:lamp_alder")
-minetest.register_alias("lottother:lamp_middle_wood_alder", "lottblocks:lamp_middle_alder")
-minetest.register_alias("lottother:lamp_top_wood_alder", "lottblocks:lamp_top_alder")
-minetest.register_alias("lottother:tiny_lamp_wood_alder", "lottblocks:small_lamp_alder")
-minetest.register_alias("lottother:lamp_wood_birch", "lottblocks:lamp_birch")
-minetest.register_alias("lottother:lamp_middle_wood_birch", "lottblocks:lamp_middle_birch")
-minetest.register_alias("lottother:lamp_top_wood_birch", "lottblocks:lamp_top_birch")
-minetest.register_alias("lottother:tiny_lamp_wood_birch", "lottblocks:small_lamp_birch")
-minetest.register_alias("lottother:lamp_wood_lebethron", "lottblocks:lamp_lebethron")
-minetest.register_alias("lottother:lamp_middle_wood_lebethron", "lottblocks:lamp_middle_lebethron")
-minetest.register_alias("lottother:lamp_top_wood_lebethron", "lottblocks:lamp_top_lebethron")
-minetest.register_alias("lottother:tiny_lamp_wood_lebethron", "lottblocks:small_lamp_lebethron")
-minetest.register_alias("lottother:lamp_wood_mallorn", "lottblocks:lamp_mallorn")
-minetest.register_alias("lottother:lamp_middle_wood_mallorn", "lottblocks:lamp_middle_mallorn")
-minetest.register_alias("lottother:lamp_top_wood_mallorn", "lottblocks:lamp_top_mallorn")
-minetest.register_alias("lottother:tiny_lamp_wood_mallorn", "lottblocks:small_lamp_mallorn")
+core.register_alias("lottother:lamp_wood", "lottblocks:lamp_wood")
+core.register_alias("lottother:lamp_middle_wood", "lottblocks:lamp_middle_wood")
+core.register_alias("lottother:lamp_top_wood", "lottblocks:lamp_top_wood")
+core.register_alias("lottother:tiny_lamp_wood", "lottblocks:small_lamp_wood")
+core.register_alias("lottother:lamp_wood_alder", "lottblocks:lamp_alder")
+core.register_alias("lottother:lamp_middle_wood_alder", "lottblocks:lamp_middle_alder")
+core.register_alias("lottother:lamp_top_wood_alder", "lottblocks:lamp_top_alder")
+core.register_alias("lottother:tiny_lamp_wood_alder", "lottblocks:small_lamp_alder")
+core.register_alias("lottother:lamp_wood_birch", "lottblocks:lamp_birch")
+core.register_alias("lottother:lamp_middle_wood_birch", "lottblocks:lamp_middle_birch")
+core.register_alias("lottother:lamp_top_wood_birch", "lottblocks:lamp_top_birch")
+core.register_alias("lottother:tiny_lamp_wood_birch", "lottblocks:small_lamp_birch")
+core.register_alias("lottother:lamp_wood_lebethron", "lottblocks:lamp_lebethron")
+core.register_alias("lottother:lamp_middle_wood_lebethron", "lottblocks:lamp_middle_lebethron")
+core.register_alias("lottother:lamp_top_wood_lebethron", "lottblocks:lamp_top_lebethron")
+core.register_alias("lottother:tiny_lamp_wood_lebethron", "lottblocks:small_lamp_lebethron")
+core.register_alias("lottother:lamp_wood_mallorn", "lottblocks:lamp_mallorn")
+core.register_alias("lottother:lamp_middle_wood_mallorn", "lottblocks:lamp_middle_mallorn")
+core.register_alias("lottother:lamp_top_wood_mallorn", "lottblocks:lamp_top_mallorn")
+core.register_alias("lottother:tiny_lamp_wood_mallorn", "lottblocks:small_lamp_mallorn")
 
 function lottblocks.register_lamp(
 	material, description, inv_texture, post1_texture, post2_texture, top_texture, texture, material_code_name, race
@@ -28,7 +28,7 @@ function lottblocks.register_lamp(
 	local node_middle = "lottblocks:lamp_middle_" .. material
 	local node_top    = "lottblocks:lamp_top_" .. material
 	local node_small  = "lottblocks:small_lamp_" .. material
-	minetest.register_node(node_bottom, {
+	core.register_node(node_bottom, {
 		drop             = "",
 		description      = S(description .. " Lamppost"),
 		tiles            = { post1_texture },
@@ -48,20 +48,20 @@ function lottblocks.register_lamp(
 		on_place         = function(itemstack, placer, pointed_thing)
 			local pos = pointed_thing.above
 			if
-			(minetest.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or
-				(minetest.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
+			(core.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name ~= "air") or
+				(core.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name ~= "air")
 			then
-				minetest.chat_send_player(placer:get_player_name(), S('Not enough space for lamppost to be placed'))
+				core.chat_send_player(placer:get_player_name(), S('Not enough space for lamppost to be placed'))
 				return
 			end
-			return minetest.item_place(itemstack, placer, pointed_thing)
+			return core.item_place(itemstack, placer, pointed_thing)
 		end,
 		after_place_node = function(pos, placer, itemstack)
-			minetest.set_node({ x = pos.x, y = pos.y + 1, z = pos.z }, { name = node_middle })
-			minetest.set_node({ x = pos.x, y = pos.y + 2, z = pos.z }, { name = node_top })
+			core.set_node({ x = pos.x, y = pos.y + 1, z = pos.z }, { name = node_middle })
+			core.set_node({ x = pos.x, y = pos.y + 2, z = pos.z }, { name = node_top })
 		end,
 	})
-	minetest.register_node(node_middle, {
+	core.register_node(node_middle, {
 		drop      = "",
 		groups    = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, not_in_creative_inventory = 1 },
 		tiles     = { post2_texture },
@@ -75,7 +75,7 @@ function lottblocks.register_lamp(
 			}
 		}
 	})
-	minetest.register_node(node_top, {
+	core.register_node(node_top, {
 		drop           = "lottblocks:lamp_" .. material,
 		groups         = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2, not_in_creative_inventory = 1 },
 		tiles          = {
@@ -108,11 +108,11 @@ function lottblocks.register_lamp(
 			}
 		},
 		after_dig_node = function(pos)
-			minetest.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
-			minetest.remove_node({ x = pos.x, y = pos.y - 2, z = pos.z })
+			core.remove_node({ x = pos.x, y = pos.y - 1, z = pos.z })
+			core.remove_node({ x = pos.x, y = pos.y - 2, z = pos.z })
 		end
 	})
-	minetest.register_node(node_small, {
+	core.register_node(node_small, {
 		description   = S(description .. " Small Lamp"),
 		groups        = { choppy = 2, oddly_breakable_by_hand = 1, flammable = 2 },
 		tiles         = {
@@ -147,7 +147,7 @@ function lottblocks.register_lamp(
 		},
 	})
 	if race == "elf" then
-		minetest.register_craft({
+		core.register_craft({
 			output = node_bottom,
 			recipe = {
 				{ node_small },
@@ -155,7 +155,7 @@ function lottblocks.register_lamp(
 				{ "castle:pillars_stonebrick_middle" },
 			}
 		})
-		minetest.register_craft({
+		core.register_craft({
 			output = node_small,
 			recipe = {
 				{ material_code_name, material_code_name, material_code_name },
@@ -164,7 +164,7 @@ function lottblocks.register_lamp(
 			}
 		})
 	elseif race == "orc" then
-		minetest.register_craft({
+		core.register_craft({
 			output = node_bottom,
 			recipe = {
 				{ node_small },
@@ -172,7 +172,7 @@ function lottblocks.register_lamp(
 				{ "castle:pillars_orc_brick_middle" },
 			}
 		})
-		minetest.register_craft({
+		core.register_craft({
 			output = node_small,
 			recipe = {
 				{ material_code_name, material_code_name, material_code_name },
@@ -203,7 +203,7 @@ lottblocks.register_lamp("lebethron_orc", "Mordor Lebethron", "lottblocks_orc_la
 
 -- Made by lumidify - lottblocks_mithril_stonelamp.png
 -- created by modifying darkage_lamp.png
-minetest.register_node("lottblocks:mithril_stonelamp", {
+core.register_node("lottblocks:mithril_stonelamp", {
 	description = S("Mithril Stonelamp"),
 	tiles = { "lottblocks_mithril_stonelamp.png" },
 	paramtype = "light",
@@ -213,7 +213,7 @@ minetest.register_node("lottblocks:mithril_stonelamp", {
 	sounds = default.node_sound_glass_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lottblocks:mithril_stonelamp 2",
 	recipe = {
 		{"default:stone", "default:stone","default:stone"},

@@ -2,26 +2,26 @@
 --
 -- Mostly my own code; overall template borrowed from game default
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- misc craftitems
 
-minetest.register_craftitem("lord_homedecor:terracotta_base", {
+core.register_craftitem("lord_homedecor:terracotta_base", {
 	description     = S("Uncooked Terracotta Base"),
 	inventory_image = "homedecor_terracotta_base.png",
 })
 
-minetest.register_craftitem("lord_homedecor:roof_tile_terracotta", {
+core.register_craftitem("lord_homedecor:roof_tile_terracotta", {
 	description     = S("Terracotta Roof Tile"),
 	inventory_image = "homedecor_roof_tile_terracotta.png",
 })
 
---minetest.register_craftitem("lord_homedecor:oil_extract", {
+--core.register_craftitem("lord_homedecor:oil_extract", {
 --description = S("Oil extract"),
 --inventory_image = "homedecor_oil_extract.png",
 --})
 
-minetest.register_craft({
+core.register_craft({
 	type         = "shapeless",
 	output       = "lord_homedecor:terracotta_base 8",
 	recipe       = {
@@ -32,13 +32,13 @@ minetest.register_craft({
 	replacements = { { "bucket:bucket_water", "bucket:bucket_empty" }, },
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "cooking",
 	output = "lord_homedecor:roof_tile_terracotta",
 	recipe = "lord_homedecor:terracotta_base",
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:shingles_terracotta",
 	recipe = {
 		{ "lord_homedecor:roof_tile_terracotta", "lord_homedecor:roof_tile_terracotta" },
@@ -46,7 +46,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:flower_pot_terracotta",
 	recipe = {
 		{ "lord_homedecor:roof_tile_terracotta", "default:dirt", "lord_homedecor:roof_tile_terracotta" },
@@ -55,7 +55,7 @@ minetest.register_craft({
 })
 
 -- кровля
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:shingles_wood 12",
 	recipe = {
 		{ "group:stick", "group:wood" },
@@ -63,7 +63,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:shingles_wood 12",
 	recipe = {
 		{ "group:wood", "group:stick" },
@@ -71,7 +71,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shingles_wood",
 	burntime = 30,
@@ -80,14 +80,14 @@ minetest.register_craft({
 ----
 
 -- мансардные стекла
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:skylight 4",
 	recipe = {
 		{ "default:glass", "default:glass" },
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:skylight_frosted",
 	recipe = {
@@ -96,7 +96,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "cooking",
 	output = "lord_homedecor:skylight",
 	recipe = "lord_homedecor:skylight_frosted",
@@ -104,7 +104,7 @@ minetest.register_craft({
 --
 
 ---- Various colors of shutters / окрашенные ставни
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:shutter_oak 2",
 	recipe = {
 		{ "group:stick", "group:stick" },
@@ -113,7 +113,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_oak",
 	burntime = 30,
@@ -121,7 +121,7 @@ minetest.register_craft({
 
 ----
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_black 4",
 	recipe = {
@@ -133,7 +133,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_black",
 	burntime = 30,
@@ -141,7 +141,7 @@ minetest.register_craft({
 
 ----
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_dark_grey 4",
 	recipe = {
@@ -153,7 +153,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_dark_grey",
 	burntime = 30,
@@ -161,7 +161,7 @@ minetest.register_craft({
 
 ----
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_grey 4",
 	recipe = {
@@ -173,7 +173,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_grey",
 	burntime = 30,
@@ -181,7 +181,7 @@ minetest.register_craft({
 
 --
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_white 4",
 	recipe = {
@@ -193,7 +193,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_white",
 	burntime = 30,
@@ -201,7 +201,7 @@ minetest.register_craft({
 
 --
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_mahogany 4",
 	recipe = {
@@ -213,7 +213,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_mahogany",
 	burntime = 30,
@@ -221,7 +221,7 @@ minetest.register_craft({
 
 ----
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_red 4",
 	recipe = {
@@ -233,13 +233,13 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_red",
 	burntime = 30,
 })
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_yellow 4",
 	recipe = {
@@ -251,7 +251,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_yellow",
 	burntime = 30,
@@ -259,7 +259,7 @@ minetest.register_craft({
 
 --
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_forest_green 4",
 	recipe = {
@@ -271,7 +271,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_forest_green",
 	burntime = 30,
@@ -279,7 +279,7 @@ minetest.register_craft({
 
 --
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_light_blue 4",
 	recipe = {
@@ -291,7 +291,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_light_blue",
 	burntime = 30,
@@ -299,7 +299,7 @@ minetest.register_craft({
 
 ----
 
-minetest.register_craft({
+core.register_craft({
 	type   = "shapeless",
 	output = "lord_homedecor:shutter_violet 4",
 	recipe = {
@@ -311,13 +311,13 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	type     = "fuel",
 	recipe   = "lord_homedecor:shutter_violet",
 	burntime = 30,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:pole_wrought_iron 6",
 	recipe = {
 		{ "default:steel_ingot", },
@@ -330,7 +330,7 @@ minetest.register_craft({
 
 -- candles / свечи
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:candle_thin 4",
 	recipe = {
 		{ "farming:string" },
@@ -338,7 +338,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:candle 2",
 	recipe = {
 		{ "farming:string" },
@@ -347,7 +347,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:wall_sconce 2",
 	recipe = {
 		{ "default:iron_lump", "", "" },
@@ -356,7 +356,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:candlestick_wrought_iron",
 	recipe = {
 		{ "" },
@@ -365,7 +365,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:candlestick_brass",
 	recipe = {
 		{ "" },
@@ -374,7 +374,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:well",
 	recipe = {
 		{ "lord_homedecor:shingles_wood", "lord_homedecor:shingles_wood", "lord_homedecor:shingles_wood" },
@@ -383,7 +383,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:bench_large_1",
 	recipe = {
 		{ "group:wood", "group:wood", "group:wood" },
@@ -392,7 +392,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:bench_large_2_left",
 	recipe = {
 		{ "lord_homedecor:shutter_oak", "lord_homedecor:shutter_oak", "lord_homedecor:shutter_oak" },
@@ -401,7 +401,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:bench_large_2_left",
 	recipe = {
 		{ "lord_homedecor:shutter_oak", "lord_homedecor:shutter_oak", "lord_homedecor:shutter_oak" },
@@ -410,7 +410,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:simple_bench",
 	recipe = {
 		{ "stairs:slab_wood", "stairs:slab_wood", "stairs:slab_wood" },
@@ -418,7 +418,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:window_flowerbox",
 	recipe = {
 		{ "lord_homedecor:roof_tile_terracotta", "default:dirt",                        "lord_homedecor:roof_tile_terracotta" }, -- luacheck: ignore
@@ -426,7 +426,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:stonepath 16",
 	recipe = {
 		{ "stairs:slab_stone", "", "stairs:slab_stone" },
@@ -435,7 +435,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:swing",
 	recipe = {
 		{ "farming:string", "", "farming:string" },
@@ -444,7 +444,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:wall_lamp 2",
 	recipe = {
 		{ "default:glass", "default:torch", "default:glass" },
@@ -453,7 +453,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:lattice_wood 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
@@ -462,7 +462,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:lattice_white_wood 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
@@ -471,7 +471,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:lattice_wood_vegetal 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
@@ -480,7 +480,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:lattice_white_wood_vegetal 8",
 	recipe = {
 		{ "group:stick", "group:wood", "group:stick" },
@@ -489,7 +489,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:stained_glass 8",
 	recipe = {
 		{ "", "dye:blue", "" },
@@ -498,7 +498,7 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_node("lord_homedecor:flower_pot_small", {
+core.register_node("lord_homedecor:flower_pot_small", {
 	description       = S("Small Flower Pot"),
 	inventory_image   = "homedecor_flowerpot_small_inv.png",
 	drawtype          = "mesh",
@@ -520,7 +520,7 @@ minetest.register_node("lord_homedecor:flower_pot_small", {
 	walkable          = false,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:flower_pot_small",
 	recipe = {
 		{ "default:clay_brick", "default:dirt", "default:clay_brick" },
@@ -528,12 +528,12 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:flower_pot_small 3",
 	recipe = { { "lord_homedecor:flower_pot_terracotta" } }
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "lord_homedecor:shrubbery_green 3",
 	recipe = {
 		{ "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf", "lord_trees:lebethron_leaf" },
@@ -544,7 +544,7 @@ minetest.register_craft({
 
 for _, color in ipairs(lord_homedecor.shrub_colors) do
 
-	minetest.register_craft({
+	core.register_craft({
 		type   = "shapeless",
 		output = "lord_homedecor:shrubbery_large_" .. color,
 		recipe = {
@@ -552,7 +552,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 		}
 	})
 
-	minetest.register_craft({
+	core.register_craft({
 		type   = "shapeless",
 		output = "lord_homedecor:shrubbery_" .. color,
 		recipe = {
@@ -561,7 +561,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 	})
 
 	if color ~= "green" then
-		minetest.register_craft({
+		core.register_craft({
 			type   = "shapeless",
 			output = "lord_homedecor:shrubbery_large_" .. color,
 			recipe = {
@@ -570,7 +570,7 @@ for _, color in ipairs(lord_homedecor.shrub_colors) do
 			}
 		})
 
-		minetest.register_craft({
+		core.register_craft({
 			type   = "shapeless",
 			output = "lord_homedecor:shrubbery_" .. color,
 			recipe = {
@@ -592,7 +592,7 @@ for i in ipairs(lord_homedecor.banister_materials) do
 	local dye1    = lord_homedecor.banister_materials[i][7]
 	local dye2    = lord_homedecor.banister_materials[i][8]
 
-	minetest.register_craft({
+	core.register_craft({
 		output = "lord_homedecor:banister_" .. name .. "_horizontal 2",
 		recipe = {
 			{ topmat, "", dye1 },

@@ -1,7 +1,7 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 -- Wood Armor
-minetest.register_tool(":lottarmor:helmet_wood", {
+core.register_tool(":lottarmor:helmet_wood", {
 	description     = S("Training Helmet"),
 	_rank           = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_helmet_wood.png",
@@ -11,7 +11,7 @@ minetest.register_tool(":lottarmor:helmet_wood", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_wood", {
+core.register_tool(":lottarmor:chestplate_wood", {
 	description     = S("Training Chestplate"),
 	_rank           = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_chestplate_wood.png",
@@ -21,7 +21,7 @@ minetest.register_tool(":lottarmor:chestplate_wood", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_wood", {
+core.register_tool(":lottarmor:leggings_wood", {
 	description     = S("Training Leggings"),
 	_rank           = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_leggings_wood.png",
@@ -31,7 +31,7 @@ minetest.register_tool(":lottarmor:leggings_wood", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_wood", {
+core.register_tool(":lottarmor:boots_wood", {
 	description = S("Training Boots"),
 	_rank = item_rank.Type.COMMON,
 	inventory_image = "lottarmor_inv_boots_wood.png",
@@ -44,7 +44,7 @@ minetest.register_tool(":lottarmor:boots_wood", {
 
 
 -- Tin Armor
-minetest.register_tool(":lottarmor:helmet_tin", {
+core.register_tool(":lottarmor:helmet_tin", {
 	description     = S("Tin Helmet"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_helmet_tin.png",
@@ -54,7 +54,7 @@ minetest.register_tool(":lottarmor:helmet_tin", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_tin", {
+core.register_tool(":lottarmor:chestplate_tin", {
 	description     = S("Tin Chestplate"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_chestplate_tin.png",
@@ -64,7 +64,7 @@ minetest.register_tool(":lottarmor:chestplate_tin", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_tin", {
+core.register_tool(":lottarmor:leggings_tin", {
 	description     = S("Tin Leggings"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_leggings_tin.png",
@@ -74,7 +74,7 @@ minetest.register_tool(":lottarmor:leggings_tin", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_tin", {
+core.register_tool(":lottarmor:boots_tin", {
 	description     = S("Tin Boots"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_boots_tin.png",
@@ -87,7 +87,7 @@ minetest.register_tool(":lottarmor:boots_tin", {
 
 
 --Copper Armor
-minetest.register_tool(":lottarmor:helmet_copper", {
+core.register_tool(":lottarmor:helmet_copper", {
 	description     = S("Copper Helmet"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_helmet_copper.png",
@@ -97,7 +97,7 @@ minetest.register_tool(":lottarmor:helmet_copper", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_copper", {
+core.register_tool(":lottarmor:chestplate_copper", {
 	description     = S("Copper Chestplate"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_chestplate_copper.png",
@@ -107,7 +107,7 @@ minetest.register_tool(":lottarmor:chestplate_copper", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_copper", {
+core.register_tool(":lottarmor:leggings_copper", {
 	description     = S("Copper Leggings"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_leggings_copper.png",
@@ -117,7 +117,7 @@ minetest.register_tool(":lottarmor:leggings_copper", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_copper", {
+core.register_tool(":lottarmor:boots_copper", {
 	description     = S("Copper Boots"),
 	_rank           = item_rank.Type.ADVANCED,
 	inventory_image = "lottarmor_inv_boots_copper.png",
@@ -130,7 +130,7 @@ minetest.register_tool(":lottarmor:boots_copper", {
 
 
 --Steel Armor
-minetest.register_tool(":lottarmor:helmet_steel", {
+core.register_tool(":lottarmor:helmet_steel", {
 	description     = S("Steel Helmet"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_helmet_steel.png",
@@ -140,7 +140,7 @@ minetest.register_tool(":lottarmor:helmet_steel", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_steel", {
+core.register_tool(":lottarmor:chestplate_steel", {
 	description     = S("Steel Chestplate"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_chestplate_steel.png",
@@ -150,7 +150,7 @@ minetest.register_tool(":lottarmor:chestplate_steel", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_steel", {
+core.register_tool(":lottarmor:leggings_steel", {
 	description     = S("Steel Leggings"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_leggings_steel.png",
@@ -160,7 +160,7 @@ minetest.register_tool(":lottarmor:leggings_steel", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_steel", {
+core.register_tool(":lottarmor:boots_steel", {
 	description     = S("Steel Boots"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_boots_steel.png",
@@ -173,7 +173,7 @@ minetest.register_tool(":lottarmor:boots_steel", {
 
 
 --Bronze Armor
-minetest.register_tool(":lottarmor:helmet_bronze", {
+core.register_tool(":lottarmor:helmet_bronze", {
 	description     = S("Bronze Helmet"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_helmet_bronze.png",
@@ -183,7 +183,7 @@ minetest.register_tool(":lottarmor:helmet_bronze", {
 	},
 	wear             = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_bronze", {
+core.register_tool(":lottarmor:chestplate_bronze", {
 	description     = S("Bronze Chestplate"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_chestplate_bronze.png",
@@ -193,7 +193,7 @@ minetest.register_tool(":lottarmor:chestplate_bronze", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_bronze", {
+core.register_tool(":lottarmor:leggings_bronze", {
 	description     = S("Bronze Leggings"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_leggings_bronze.png",
@@ -203,7 +203,7 @@ minetest.register_tool(":lottarmor:leggings_bronze", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_bronze", {
+core.register_tool(":lottarmor:boots_bronze", {
 	description     = S("Bronze Boots"),
 	_rank           = item_rank.Type.RARE,
 	inventory_image = "lottarmor_inv_boots_bronze.png",
@@ -216,7 +216,7 @@ minetest.register_tool(":lottarmor:boots_bronze", {
 
 
 --Silver Armor
-minetest.register_tool(":lottarmor:helmet_silver", {
+core.register_tool(":lottarmor:helmet_silver", {
 	description     = S("Silver Helmet"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_helmet_silver.png",
@@ -228,7 +228,7 @@ minetest.register_tool(":lottarmor:helmet_silver", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_silver", {
+core.register_tool(":lottarmor:chestplate_silver", {
 	description     = S("Silver Chestplate"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_chestplate_silver.png",
@@ -240,7 +240,7 @@ minetest.register_tool(":lottarmor:chestplate_silver", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_silver", {
+core.register_tool(":lottarmor:leggings_silver", {
 	description     = S("Silver Leggings"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_leggings_silver.png",
@@ -252,7 +252,7 @@ minetest.register_tool(":lottarmor:leggings_silver", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_silver", {
+core.register_tool(":lottarmor:boots_silver", {
 	description     = S("Silver Boots"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_boots_silver.png",
@@ -267,7 +267,7 @@ minetest.register_tool(":lottarmor:boots_silver", {
 
 
 --Gold Armor
-minetest.register_tool(":lottarmor:helmet_gold", {
+core.register_tool(":lottarmor:helmet_gold", {
 	description     = S("Gold Helmet"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_helmet_gold.png",
@@ -279,7 +279,7 @@ minetest.register_tool(":lottarmor:helmet_gold", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_gold", {
+core.register_tool(":lottarmor:chestplate_gold", {
 	description     = S("Gold Chestplate"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_chestplate_gold.png",
@@ -291,7 +291,7 @@ minetest.register_tool(":lottarmor:chestplate_gold", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_gold", {
+core.register_tool(":lottarmor:leggings_gold", {
 	description     = S("Gold Leggings"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_leggings_gold.png",
@@ -303,7 +303,7 @@ minetest.register_tool(":lottarmor:leggings_gold", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_gold", {
+core.register_tool(":lottarmor:boots_gold", {
 	description     = S("Gold Boots"),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = "lottarmor_inv_boots_gold.png",
@@ -318,7 +318,7 @@ minetest.register_tool(":lottarmor:boots_gold", {
 
 
 --Galvorn Armor
-minetest.register_tool(":lottarmor:helmet_galvorn", {
+core.register_tool(":lottarmor:helmet_galvorn", {
 	description     = S("Galvorn Helmet"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_helmet_galvorn.png",
@@ -330,7 +330,7 @@ minetest.register_tool(":lottarmor:helmet_galvorn", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_galvorn", {
+core.register_tool(":lottarmor:chestplate_galvorn", {
 	description     = S("Galvorn Chestplate"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_chestplate_galvorn.png",
@@ -342,7 +342,7 @@ minetest.register_tool(":lottarmor:chestplate_galvorn", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_galvorn", {
+core.register_tool(":lottarmor:leggings_galvorn", {
 	description     = S("Galvorn Leggings"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_leggings_galvorn.png",
@@ -354,7 +354,7 @@ minetest.register_tool(":lottarmor:leggings_galvorn", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_galvorn", {
+core.register_tool(":lottarmor:boots_galvorn", {
 	description     = S("Galvorn Boots"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_boots_galvorn.png",
@@ -369,7 +369,7 @@ minetest.register_tool(":lottarmor:boots_galvorn", {
 
 
 --Mithril Armor
-minetest.register_tool(":lottarmor:helmet_mithril", {
+core.register_tool(":lottarmor:helmet_mithril", {
 	description     = S("Mithril Helmet"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_helmet_mithril.png",
@@ -379,7 +379,7 @@ minetest.register_tool(":lottarmor:helmet_mithril", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:chestplate_mithril", {
+core.register_tool(":lottarmor:chestplate_mithril", {
 	description     = S("Mithril Chestplate"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_chestplate_mithril.png",
@@ -389,7 +389,7 @@ minetest.register_tool(":lottarmor:chestplate_mithril", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:leggings_mithril", {
+core.register_tool(":lottarmor:leggings_mithril", {
 	description     = S("Mithril Leggings"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_leggings_mithril.png",
@@ -399,7 +399,7 @@ minetest.register_tool(":lottarmor:leggings_mithril", {
 	},
 	wear            = 0,
 })
-minetest.register_tool(":lottarmor:boots_mithril", {
+core.register_tool(":lottarmor:boots_mithril", {
 	description     = S("Mithril Boots"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "lottarmor_inv_boots_mithril.png",
@@ -425,7 +425,7 @@ local craft_ingreds = {
 }
 
 for k, v in pairs(craft_ingreds) do
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottarmor:helmet_"..k,
 		recipe = {
 			{v, v, v},
@@ -433,7 +433,7 @@ for k, v in pairs(craft_ingreds) do
 			{"", "", ""},
 		},
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottarmor:chestplate_"..k,
 		recipe = {
 			{v, "", v},
@@ -441,7 +441,7 @@ for k, v in pairs(craft_ingreds) do
 			{v, v, v},
 		},
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottarmor:leggings_"..k,
 		recipe = {
 			{v, v, v},
@@ -449,7 +449,7 @@ for k, v in pairs(craft_ingreds) do
 			{v, "", v},
 		},
 	})
-	minetest.register_craft({
+	core.register_craft({
 		output = "lottarmor:boots_"..k,
 		recipe = {
 			{v, "", v},

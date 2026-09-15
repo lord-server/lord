@@ -1,4 +1,4 @@
 -- @tags: legacy
 
-minetest.register_alias('castle:battleaxe', 'tools:battleaxe_dwarven')
-minetest.register_alias('tools:sword_orc', 'tools:sword_urukhai')
+core.register_alias('castle:battleaxe', 'tools:battleaxe_dwarven')
+core.register_alias('tools:sword_orc', 'tools:sword_urukhai')

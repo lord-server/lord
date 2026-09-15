@@ -13,21 +13,21 @@
 -- with this program; if not, write to the Free Software Foundation, Inc.,
 -- 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 --
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-dofile(minetest.get_modpath("lottachievements").."/api_helpers.lua")
+dofile(core.get_modpath("lottachievements").."/api_helpers.lua")
 
 local is_new_world = not io.file_exists(core.get_worldpath()..'/env_meta.txt')
 
 -- Table Save Load Functions
 function lottachievements.save()
-	local file_name = minetest.get_worldpath().."/lottachievements.txt"
+	local file_name = core.get_worldpath().."/lottachievements.txt"
 	local wrote, error_code, error_message = io.write_to_file(
 		file_name,
-		minetest.serialize(lottachievements.players)
+		core.serialize(lottachievements.players)
 	)
 	if not wrote then
-		minetest.log("error", string.format(
+		core.log("error", string.format(
 			"Can't write to file `%s`: [%s]: %s", file_name, error_code, error_message
 		))
 	end
@@ -54,9 +54,9 @@ function lottachievements.load()
 		return {}
 	end
 
-	local table = minetest.deserialize(content)
+	local table = core.deserialize(content)
 	if type(table) ~= "table" then
-		minetest.log("error", "Unable to deserialize `lottachievements.txt` content")
+		core.log("error", "Unable to deserialize `lottachievements.txt` content")
 		return {}
 	end
 
@@ -228,7 +228,7 @@ function lottachievements.unlock(name, award)
 	end
 
 	-- Unlock Award
-	minetest.log("action", name.." has unlocked award "..name)
+	core.log("action", name.." has unlocked award "..name)
 	data.unlocked[award] = award
 	lottachievements.save()
 
@@ -237,7 +237,7 @@ function lottachievements.unlock(name, award)
 		for i = 1, #awdef.prizes do
 			local itemstack = ItemStack(awdef.prizes[i])
 			if not itemstack:is_empty() then
-				local receiverref = minetest.get_player_by_name(name)
+				local receiverref = core.get_player_by_name(name)
 				if receiverref then
 					receiverref:get_inventory():add_item("main", itemstack)
 				end
@@ -279,14 +279,14 @@ function lottachievements.unlock(name, award)
 		-- Enforce sound delay to prevent sound spamming
 		local lastsound = lottachievements.players[name].lastsound
 		if lastsound == nil or os.difftime(os.time(), lastsound) >= 1 then
-			minetest.sound_play(sound, {to_player=name})
+			core.sound_play(sound, {to_player=name})
 			lottachievements.players[name].lastsound = os.time()
 		end
 	end
 
 	if lottachievements.show_mode == "formspec" then
 		-- use a formspec to send it
-		minetest.show_formspec(name, "achievements:unlocked", "size[6,2]"..
+		core.show_formspec(name, "achievements:unlocked", "size[6,2]"..
 				"image_button_exit[0,0;6,2;"..background..";close1; ]"..
 				"image_button_exit[0.2,0.8;1,1;"..icon..";close2; ]"..
 				"label[1.1,1;"..title.."]"..
@@ -299,13 +299,13 @@ function lottachievements.unlock(name, award)
 			chat_announce = S("Achievement Unlocked: %s")
 		end
 		-- use the chat console to send it
-		minetest.chat_send_player(name, string.format(chat_announce, title))
+		core.chat_send_player(name, string.format(chat_announce, title))
 		if desc~="" then
-			minetest.chat_send_player(name, desc)
+			core.chat_send_player(name, desc)
 		end
 	else
 		--- @type Player
-		local player = minetest.get_player_by_name(name)
+		local player = core.get_player_by_name(name)
 		local bg_width = 255 * 2 -- because scale.x == 2
 		--local bg_height = 128
 		local margin_top    = 10
@@ -355,7 +355,7 @@ function lottachievements.unlock(name, award)
 			alignment = {x = 1, y = 0},
 			z_index = 120,
 		})
-		minetest.after(4, function()
+		core.after(4, function()
 			player:hud_remove(one)
 			player:hud_remove(two)
 			player:hud_remove(three)
@@ -367,7 +367,7 @@ end
 -- Backwards compatibility
 lottachievements.give_achievement = lottachievements.unlock
 
---[[minetest.register_chatcommand("gawd", {
+--[[core.register_chatcommand("gawd", {
 	params = "award name",
 	description = "gawd: give award to self",
 	func = function(name, param)
@@ -382,8 +382,8 @@ function lottachievements.getFormspec(name, to, sid)
 	local playerdata = lottachievements.players[name]
 
 	if #listoflottachievements == 0 then
-		formspec = formspec .. "label[3.9,1.5;"..minetest.formspec_escape(S("Error: No lottachievements available.")).."]"
-		formspec = formspec .. "button_exit[4.2,2.3;3,1;close;"..minetest.formspec_escape(S("OK")).."]"
+		formspec = formspec .. "label[3.9,1.5;"..core.formspec_escape(S("Error: No lottachievements available.")).."]"
+		formspec = formspec .. "button_exit[4.2,2.3;3,1;close;"..core.formspec_escape(S("OK")).."]"
 		return formspec
 	end
 
@@ -394,25 +394,25 @@ function lottachievements.getFormspec(name, to, sid)
 
 		if def and def.secret and not item.got then
 			formspec = formspec .. "label[0.64,2.75;"..
-							minetest.formspec_escape(minetest.colorize("black", S("(Secret Achievement)"))).."]"..
+							core.formspec_escape(core.colorize("black", S("(Secret Achievement)"))).."]"..
 							"image[1,0;3,3;lottachievements_unknown.png]"
 			if def and def.description then
 				formspec = formspec	.. "textarea[0.25,3.25;4.8,1.7;;"..
-					minetest.formspec_escape(minetest.colorize("black", S("Unlock this achievement to find out what it is.")))..";]"
+					core.formspec_escape(core.colorize("black", S("Unlock this achievement to find out what it is.")))..";]"
 			end
 		elseif def and def.requires and not item.got and not completed[def.requires] then
 			formspec = formspec .. "label[0.56,2.75;"..
-							minetest.formspec_escape(minetest.colorize("black", S("(Hidden Achievement)"))).."]"..
+							core.formspec_escape(core.colorize("black", S("(Hidden Achievement)"))).."]"..
 							"image[1,0;3,3;lottachievements_unknown.png]"
 			if def and def.description and lottachievements.def[def.requires] then
 				if lottachievements.def[def.requires].requires and
 				not completed[lottachievements.def[def.requires].requires] then
 					formspec = formspec	.. "textarea[0.25,3.25;4.8,2;;"..
-						minetest.formspec_escape(minetest.colorize("black",
+						core.formspec_escape(core.colorize("black",
 						S("To see this achievement you need to complete more achievements!"))) .. ";]"
 				else
 					formspec = formspec	.. "textarea[0.25,3.25;4.8,2;;"..
-						minetest.formspec_escape(minetest.colorize("black",
+						core.formspec_escape(core.colorize("black",
 						S("To see this achievement, complete").." \""
 						 .. lottachievements.def[def.requires].title .. "\""))..";]"
 				end
@@ -424,11 +424,11 @@ function lottachievements.getFormspec(name, to, sid)
 			end
 			local status = ""
 			if item.got then
-				status = minetest.colorize("green", S("(completed)"))
+				status = core.colorize("green", S("(completed)"))
 			end
 
 			formspec = formspec .. "textarea[0.5,2.7;4.8,1.45;;" ..
-				minetest.formspec_escape(minetest.colorize("black", title)) .. "\n" .. status .. ";]"
+				core.formspec_escape(core.colorize("black", title)) .. "\n" .. status .. ";]"
 
 			if def and def.icon then
 				formspec = formspec .. "image[1,0;3,3;" .. def.icon .. "]"
@@ -449,12 +449,12 @@ function lottachievements.getFormspec(name, to, sid)
 					"background[0,5.675;" .. barwidth .. ",0.425;lottachievements_progress_gray.png;false]" ..
 					"background[0,5.675;" .. (barwidth * perc) .. ",0.425;lottachievements_progress_green.png;false]"
 				if label then
-					formspec = formspec .. "label[1.75,5.575;" .. minetest.formspec_escape(label) .. "]"
+					formspec = formspec .. "label[1.75,5.575;" .. core.formspec_escape(label) .. "]"
 				end
 			end
 			if def and def.description then
 				formspec = formspec	.. "textarea[0.25,3.75;4.8,1.7;;"..
-					minetest.formspec_escape(minetest.colorize("black", def.description))..";]"
+					core.formspec_escape(core.colorize("black", def.description))..";]"
 			end
 		end
 	end
@@ -471,18 +471,18 @@ function lottachievements.getFormspec(name, to, sid)
 			first = false
 
 			if def.secret and not award.got then
-				formspec = formspec .. "#808080" ..minetest.formspec_escape(S("(Secret Achievement)"))
+				formspec = formspec .. "#808080" ..core.formspec_escape(S("(Secret Achievement)"))
 			elseif def.requires and not award.got and not completed[def.requires] then
-				formspec = formspec .. "#ACACAC" ..minetest.formspec_escape(S("(Hidden Achievement)"))
+				formspec = formspec .. "#ACACAC" ..core.formspec_escape(S("(Hidden Achievement)"))
 			else
 				local title = award.name
 				if def and def.title then
 					title = def.title
 				end
 				if award.got then
-					formspec = formspec .. "#00CC00" ..minetest.formspec_escape(title)
+					formspec = formspec .. "#00CC00" ..core.formspec_escape(title)
 				else
-					formspec = formspec .. minetest.formspec_escape(title)
+					formspec = formspec .. core.formspec_escape(title)
 				end
 			end
 		end
@@ -495,31 +495,31 @@ function lottachievements.show_to(name, to, sid, text)
 		name = to
 	end
 	if name == to and lottachievements.player(to).disabled then
-		minetest.chat_send_player(S("You've disabled lottachievements. Type /lottachievements enable to reenable."))
+		core.chat_send_player(S("You've disabled lottachievements. Type /lottachievements enable to reenable."))
 		return
 	end
 	if text then
 		local listoflottachievements = lottachievements._order_lottachievements(name)
 		if #listoflottachievements == 0 then
-			minetest.chat_send_player(to, S("Error: No lottachievements available."))
+			core.chat_send_player(to, S("Error: No lottachievements available."))
 			return
 		elseif not lottachievements.players[name] or not lottachievements.players[name].unlocked  then
-			minetest.chat_send_player(to, S("You have not unlocked any lottachievements."))
+			core.chat_send_player(to, S("You have not unlocked any lottachievements."))
 			return
 		end
-		minetest.chat_send_player(to, string.format(S("%s’s lottachievements:"), name))
+		core.chat_send_player(to, string.format(S("%s’s lottachievements:"), name))
 
 		for _, str in pairs(lottachievements.players[name].unlocked) do
 			local def = lottachievements.def[str]
 			if def then
 				if def.title then
 					if def.description then
-						minetest.chat_send_player(to, string.format(S("%s: %s"), def.title, def.description))
+						core.chat_send_player(to, string.format(S("%s: %s"), def.title, def.description))
 					else
-						minetest.chat_send_player(to, def.title)
+						core.chat_send_player(to, def.title)
 					end
 				else
-					minetest.chat_send_player(to, str)
+					core.chat_send_player(to, str)
 				end
 			end
 		end
@@ -528,14 +528,14 @@ function lottachievements.show_to(name, to, sid, text)
 			sid = 1
 		end
 		-- Show formspec to user
-		minetest.show_formspec(to,"lottachievements:lottachievements",
+		core.show_formspec(to,"lottachievements:lottachievements",
 			"size[11,6]" ..
 			lottachievements.getFormspec(name, to, sid))
 	end
 end
 lottachievements.showto = lottachievements.show_to
 
-minetest.register_on_player_receive_fields(function(player, formname, fields)
+core.register_on_player_receive_fields(function(player, formname, fields)
 	if formname ~= "lottachievements:lottachievements" then
 		return false
 	end
@@ -544,7 +544,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 	local name = player:get_player_name()
 	if fields.lottachievements then
-		local event = minetest.explode_textlist_event(fields.lottachievements)
+		local event = core.explode_textlist_event(fields.lottachievements)
 		if event.type == "CHG" then
 			lottachievements.show_to(name, name, event.index, false)
 		end
@@ -555,11 +555,11 @@ end)
 
 lottachievements.init()
 
-minetest.register_on_newplayer(function(player)
+core.register_on_newplayer(function(player)
 	local playern = player:get_player_name()
 	lottachievements.assertPlayer(playern)
 end)
 
-minetest.register_on_shutdown(function()
+core.register_on_shutdown(function()
 	lottachievements.save()
 end)

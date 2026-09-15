@@ -1,9 +1,9 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local cauldron = require('cauldron.usage')
 
 
-minetest.override_item('vessels:glass_bottle', {
+core.override_item('vessels:glass_bottle', {
 	selection_box = {
 		type  = 'fixed',
 		fixed = { -0.25, -0.5, -0.25, 0.25, 0.4, 0.25 }
@@ -18,7 +18,7 @@ minetest.override_item('vessels:glass_bottle', {
 })
 
 local glass_bottle_water_texture = 'lord_vessels_bottle_closed.png^lord_vessels_water.png'
-minetest.register_node('lord_vessels:glass_bottle_water', {
+core.register_node('lord_vessels:glass_bottle_water', {
 	description     = S('Glass Bottle (Water)'),
 	drawtype        = 'plantlike',
 	tiles           = { glass_bottle_water_texture },
@@ -35,7 +35,7 @@ minetest.register_node('lord_vessels:glass_bottle_water', {
 })
 
 local glass_bottle_salt_texture = 'lord_vessels_salt_bottle.png'
-minetest.register_node('lord_vessels:glass_bottle_salt', {
+core.register_node('lord_vessels:glass_bottle_salt', {
 	description     = S('Glass Bottle (Salt)'),
 	drawtype        = 'plantlike',
 	tiles           = { glass_bottle_salt_texture },
@@ -51,21 +51,21 @@ minetest.register_node('lord_vessels:glass_bottle_salt', {
 	sounds          = default.node_sound_glass_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = 'cooking',
 	cooktime = 5,
 	output = 'lord_vessels:glass_bottle_salt',
 	recipe = 'lord_vessels:glass_bottle_water'
 })
 
-minetest.register_craft({
+core.register_craft({
 	type = 'shapeless',
 	output = 'lottores:salt 5',
 	recipe = {'lord_vessels:glass_bottle_salt'},
 	replacements = {{'', 'vessels:glass_bottle'}},
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lord_vessels:glass_bottle_salt',
 	recipe = {
 		{'lottores:salt', 'lottores:salt', 'lottores:salt'},

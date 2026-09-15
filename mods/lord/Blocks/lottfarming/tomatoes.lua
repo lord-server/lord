@@ -1,19 +1,19 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_craftitem("lottfarming:tomatoes_seed", {
+core.register_craftitem("lottfarming:tomatoes_seed", {
 	description     = S("Tomato Seeds"),
 	inventory_image = "lottfarming_tomatoes_seed.png",
 	on_place        = function(itemstack, placer, pointed_thing)
 		local ptu = pointed_thing.under
-		local nu  = minetest.get_node(ptu)
-		if minetest.registered_nodes[nu.name].on_rightclick then
-			return minetest.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+		local nu  = core.get_node(ptu)
+		if core.registered_nodes[nu.name].on_rightclick then
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:tomatoes_1", 10)
 	end,
 })
 
-minetest.register_node("lottfarming:tomatoes_1", {
+core.register_node("lottfarming:tomatoes_1", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -31,7 +31,7 @@ minetest.register_node("lottfarming:tomatoes_1", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:tomatoes_2", {
+core.register_node("lottfarming:tomatoes_2", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -49,7 +49,7 @@ minetest.register_node("lottfarming:tomatoes_2", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:tomatoes_3", {
+core.register_node("lottfarming:tomatoes_3", {
 	paramtype     = "light",
 	paramtype2    = "meshoptions",
 	walkable      = false,
@@ -67,7 +67,7 @@ minetest.register_node("lottfarming:tomatoes_3", {
 	sounds        = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_node("lottfarming:tomatoes_4", {
+core.register_node("lottfarming:tomatoes_4", {
 	paramtype  = "light",
 	paramtype2 = "meshoptions",
 	walkable   = false,
@@ -89,10 +89,10 @@ minetest.register_node("lottfarming:tomatoes_4", {
 	sounds     = default.node_sound_leaves_defaults(),
 })
 
-minetest.register_craftitem("lottfarming:tomatoes", {
+core.register_craftitem("lottfarming:tomatoes", {
 	description     = S("Tomato"),
 	inventory_image = "lottfarming_tomatoes.png",
-	on_use          = minetest.item_eat(4),
+	on_use          = core.item_eat(4),
 	_tt_food_hp     = 4,
 	groups          = { salad = 1 },
 })
@@ -105,28 +105,28 @@ farming:add_plant(
 	10
 )
 
-minetest.register_craft({
+core.register_craft({
 	type     = "cooking",
 	cooktime = 15,
 	output   = "lottfarming:tomatoes_cooked",
 	recipe   = "lottfarming:tomatoes"
 })
 
-minetest.register_craftitem("lottfarming:tomatoes_cooked", {
+core.register_craftitem("lottfarming:tomatoes_cooked", {
 	description     = S("Cooked Tomato"),
 	inventory_image = "lottfarming_tomatoes_cooked.png",
-	on_use          = minetest.item_eat(7),
+	on_use          = core.item_eat(7),
 	_tt_food_hp     = 7,
 })
 
-minetest.register_craftitem("lottfarming:tomato_soup", {
+core.register_craftitem("lottfarming:tomato_soup", {
 	description     = S("Tomato Soup"),
 	inventory_image = "lottfarming_tomato_soup.png",
-	on_use          = minetest.item_eat(16),
+	on_use          = core.item_eat(16),
 	_tt_food_hp     = 16,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottfarming:tomato_soup',
 	recipe = {
 		{ '', 'lottores:salt', '' },

@@ -1,4 +1,4 @@
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:wooden_crossbow",
     recipe = {
         { "", "farming:string", "group:wood", },
@@ -7,7 +7,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:tin_crossbow",
     recipe = {
         { "", "farming:string", "lottores:tin_ingot", },
@@ -16,7 +16,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:steel_crossbow",
     recipe = {
         { "", "farming:string", "default:steel_ingot", },
@@ -25,7 +25,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:silver_crossbow",
     recipe = {
         { "", "farming:string", "lottores:silver_ingot", },
@@ -34,7 +34,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:gold_crossbow",
     recipe = {
         { "", "farming:string", "default:gold_ingot", },
@@ -43,7 +43,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:galvorn_crossbow",
     recipe = {
         { "", "farming:string", "lottores:galvorn_ingot", },
@@ -52,7 +52,7 @@ minetest.register_mirrored_crafts({
     }
 })
 
-minetest.register_mirrored_crafts({
+core.register_mirrored_crafts({
     output = "lord_archery:mithril_crossbow",
     recipe = {
         { "", "farming:string", "lottores:mithril_ingot", },

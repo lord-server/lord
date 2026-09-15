@@ -1,5 +1,5 @@
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 
 local legendry_color   = '#fa4'

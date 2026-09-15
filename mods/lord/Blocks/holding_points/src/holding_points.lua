@@ -12,19 +12,19 @@ holding_points = {} -- luacheck: ignore unused global variable holding_points
 
 
 return {
-	--- @param mod minetest.Mod
+	--- @param mod core.Mod
 	init = function(mod)
 		-- Register api
 		_G.holding_points = api
 
-		minetest.register_node('holding_points:node', node.definition)
+		core.register_node('holding_points:node', node.definition)
 
-		local storage   = Storage:new(minetest.get_mod_storage())
+		local storage   = Storage:new(core.get_mod_storage())
 		local scheduler = Scheduler:new(config.scheduler)
 
 		-- We need minetest to have fully started to access the map.
 		-- So, deferred start of Manager:
-		minetest.after(1, function()
+		core.after(1, function()
 			Manager
 				.init(storage)
 				.set_debug(mod.debug)
@@ -33,7 +33,7 @@ return {
 
 		Notifier.init(config.notifier)
 
-		minetest.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
-		minetest.register_chatcommand(command.battle_stop.NAME,  command.battle_stop.definition)
+		core.register_chatcommand(command.battle_start.NAME, command.battle_start.definition)
+		core.register_chatcommand(command.battle_stop.NAME,  command.battle_stop.definition)
 	end,
 }

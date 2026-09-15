@@ -3,7 +3,7 @@ local table_keys_has_one_of_values
 
 local ARENA_AREA_IDS = {}
 
-local arena_ids = minetest.settings:get('arenas') or ''
+local arena_ids = core.settings:get('arenas') or ''
 arena_ids       = string.split(arena_ids, ',')
 for _, v in ipairs(arena_ids) do
 	table.insert(ARENA_AREA_IDS, tonumber(v))
@@ -41,7 +41,7 @@ local function player_undisplay_hp(player)
 	health_displayed_for[name] = nil
 end
 
-minetest.foreach_player_every(0.2, function(player)
+core.foreach_player_every(0.2, function(player)
 	local pos = vector.round(player:get_pos())
 	local in_arena = table_keys_has_one_of_values(areas:getAreasAtPos(pos), ARENA_AREA_IDS)
 

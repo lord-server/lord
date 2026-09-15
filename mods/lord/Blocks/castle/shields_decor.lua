@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node("castle:shield", {
+core.register_node("castle:shield", {
 	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side.png",
@@ -32,7 +32,7 @@ minetest.register_node("castle:shield", {
 	sounds        = default.node_sound_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "castle:shield",
 	recipe = {
 		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },
@@ -41,7 +41,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("castle:shield_2", {
+core.register_node("castle:shield_2", {
 	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side_2.png",
@@ -73,7 +73,7 @@ minetest.register_node("castle:shield_2", {
 	sounds        = default.node_sound_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "castle:shield_2",
 	recipe = {
 		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },
@@ -82,7 +82,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("castle:shield_3", {
+core.register_node("castle:shield_3", {
 	description   = S("Mounted Shield"),
 	tiles         = {
 		"castle_shield_side_3.png",
@@ -114,7 +114,7 @@ minetest.register_node("castle:shield_3", {
 	sounds        = default.node_sound_defaults(),
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = "castle:shield_3",
 	recipe = {
 		{ "default:steel_ingot", "default:steel_ingot", "default:steel_ingot" },

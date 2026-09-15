@@ -1,12 +1,12 @@
 local Form = require('base_certificate.Form')
 
-local S        = minetest.get_mod_translator()
-local colorize = minetest.colorize
+local S        = core.get_mod_translator()
+local colorize = core.colorize
 
 
-local certify_privilege_name = minetest.settings:get('clans_tools.certify_privilege_name') or 'clan_base_certify'
+local certify_privilege_name = core.settings:get('clans_tools.certify_privilege_name') or 'clan_base_certify'
 
-minetest.register_privilege(certify_privilege_name, {
+core.register_privilege(certify_privilege_name, {
 	description   = S('Can certify clan bases'),
 	give_to_admin = true,
 })
@@ -14,12 +14,12 @@ minetest.register_privilege(certify_privilege_name, {
 --- @param player Player
 --- @return boolean
 local function has_permissions(player)
-	local has = minetest.check_player_privs(player, certify_privilege_name)
+	local has = core.check_player_privs(player, certify_privilege_name)
 
 	return has
 end
 
-minetest.register_tool('clans_tools:base_certificate', {
+core.register_tool('clans_tools:base_certificate', {
 	description     = S('Clan Base Certificate Blank'),
 	_tt_help        = colorize('#aaa',  '\n' ..
 		S('Only players with `@1` privilege can sign certificate.', certify_privilege_name)
@@ -28,10 +28,10 @@ minetest.register_tool('clans_tools:base_certificate', {
 	stack_max       = 1,
 	on_use          = function(itemstack, player, pointed_thing)
 		local meta = itemstack:get_meta()
-		print(dump(minetest.registered_tools['clans_tools:base_certificate']))
+		print(dump(core.registered_tools['clans_tools:base_certificate']))
 		if meta:contains('signed') then
 			--- @type {for:string,by:string}
-			local signed = minetest.deserialize(meta:get_string('signed'))
+			local signed = core.deserialize(meta:get_string('signed'))
 			local clan   = clans.clan_get_by_name(signed['for'])
 			Form:new(player):open('for_show', clan.title, signed.by)
 		else
@@ -56,7 +56,7 @@ Form.on_sign(function(form, clan_key)
 	local clan = clans.clan_get_by_name(clan_key)
 
 	--- @type {for:string,by:string}
-	local signed = minetest.serialize({
+	local signed = core.serialize({
 		['for'] = clan_key,
 		['by' ] = player:get_player_name(),
 	})

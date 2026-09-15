@@ -11,7 +11,7 @@ local Processor = {
 	--- @type string id of Processor (currently identical to HoldingPoint.id)
 	id            = nil,
 	--- @private
-	--- @type job    saved job from `minetest.after()` return
+	--- @type job    saved job from `core.after()` return
 	job           = nil,
 	--- @private
 	--- @type number run processing every `tick` seconds
@@ -51,7 +51,7 @@ end
 
 --- @return holding_points.HoldingPoint.Processor
 function Processor:start()
-	self.job = minetest.after(10, Processor.on_tick, self)
+	self.job = core.after(10, Processor.on_tick, self)
 
 	return self
 end

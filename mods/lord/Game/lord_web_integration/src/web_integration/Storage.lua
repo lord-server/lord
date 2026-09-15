@@ -4,7 +4,7 @@ local Storage = {
 	--- @private
 	--- @static
 	--- @type StorageRef
-	mod_storage = minetest.get_mod_storage(),
+	mod_storage = core.get_mod_storage(),
 }
 
 --- @param player_name string

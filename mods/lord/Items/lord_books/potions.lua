@@ -1,6 +1,6 @@
-local S        = minetest.get_mod_translator()
+local S        = core.get_mod_translator()
 local spec     = forms.Spec
-local colorize = minetest.colorize
+local colorize = core.colorize
 
 
 --- @class lord_books.potions.Form: base_classes.Form.Base
@@ -91,7 +91,7 @@ function Form.recipe(item_name, item_definition, i, is_ingredients_page)
 		and i % Form.RECIPES_PER_PAGE
 		or  tonumber(item_name:sub(-1)) - 1  -- name of potion has `_1`, `_2`, `_3` postfix at the end
 
-	local recipe = minetest.get_craft_recipe(item_name, minetest.CraftMethod.POTION, minetest.CraftType.COOKING)
+	local recipe = core.get_craft_recipe(item_name, core.CraftMethod.POTION, core.CraftType.COOKING)
 
 	return ''
 		.. spec.label(0, 2.75 + dy, item_definition._tt_original_description or item_definition.description)
@@ -194,7 +194,7 @@ end
 Form.init()
 Form:register()
 
-minetest.register_tool('lord_books:potions_book',{
+core.register_tool('lord_books:potions_book',{
 	description     = S('Book "@1"', colorize('#ff0', S('Crafting of Potions'))),
 	inventory_image = 'potion_book.png',
 	stack_max       = 1,

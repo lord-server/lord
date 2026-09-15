@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_tool('tools:sword_urukhai', {
+core.register_tool('tools:sword_urukhai', {
 	description       = S('Uruk-hai Scimitar'),
 	_rank             = item_rank.Type.RARE,
 	inventory_image   = 'tools_sword_urukhai.png',
@@ -12,8 +12,8 @@ minetest.register_tool('tools:sword_urukhai', {
 	},
 	groups            = { steel_item = 1, forbidden = 1 },
 })
-minetest.register_mirrored_crafts({
-	--method   = minetest.CraftMethod.DEFAULT,
+core.register_mirrored_crafts({
+	--method   = core.CraftMethod.DEFAULT,
 	output   = 'tools:sword_urukhai',
 	for_race = races.name,
 	recipe   = {

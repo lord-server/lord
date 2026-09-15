@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 lord_homedecor.register("window_flowerbox", {
 	description = S("Window flowerbox"),

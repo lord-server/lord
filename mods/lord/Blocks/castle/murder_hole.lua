@@ -1,4 +1,4 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local hole = {}
 
@@ -32,7 +32,7 @@ for _, row in ipairs(hole.types) do
 	local tile = row[3]
 	local craft_material = row[4]
 	-- Node Definition
-	minetest.register_node("castle:hole_"..name, {
+	core.register_node("castle:hole_"..name, {
 		drawtype = "nodebox",
 		description = S(desc.." Murder Hole"),
 		tiles = {tile..".png"},
@@ -53,7 +53,7 @@ for _, row in ipairs(hole.types) do
 	})
 	if craft_material then
 		--Choose craft material
-		minetest.register_craft({
+		core.register_craft({
 			output = "castle:hole_"..name.." 4",
 			recipe = {
 			{"",craft_material, "" },

@@ -1,6 +1,6 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-minetest.register_node(":flowers:cactus_decor", {
+core.register_node(":flowers:cactus_decor", {
 	description = S("Cactus decorative"),
 	drawtype = "nodebox",
 	tiles = {"default_cactus_top.png", "default_cactus_bottom.png", "default_cactus_side.png",

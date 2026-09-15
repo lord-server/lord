@@ -1,6 +1,6 @@
 -- Various kinds of window shutters
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 local shutters = {
 	{"oak",          "Unpainted oak", "#bf8a51:200" },
@@ -48,5 +48,5 @@ for i in ipairs(shutters) do
 	})
 end
 
-minetest.register_alias("lord_homedecor:shutter_purple", "lord_homedecor:shutter_violet")
+core.register_alias("lord_homedecor:shutter_purple", "lord_homedecor:shutter_violet")
 

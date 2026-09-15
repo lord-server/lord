@@ -1,4 +1,4 @@
-local S = minetest.get_translator("lord_projectiles")
+local S = core.get_translator("lord_projectiles")
 
 return {
     projectiles = {
@@ -240,7 +240,7 @@ return {
 					local min_pos = vector.subtract(node_pos, rad_vec)
 					local max_pos = vector.add(node_pos, rad_vec)
 					projectiles.explode_area(node_pos, radius, 5, projectile.object, { fleshy = 15 })
-					minetest.add_particlespawner({
+					core.add_particlespawner({
 						pos = {
 							min = min_pos,
 							max = max_pos,
@@ -271,7 +271,7 @@ return {
 					local min_pos = vector.subtract(pos, rad_vec)
 					local max_pos = vector.add(pos, rad_vec)
 					projectiles.explode_area(pos, radius, 5, projectile.object, { fire = 10 })
-					minetest.add_particlespawner({
+					core.add_particlespawner({
 						pos = {
 							min = min_pos,
 							max = max_pos,
@@ -333,7 +333,7 @@ return {
 					local min_pos = vector.subtract(node_pos, rad_vec)
 					local max_pos = vector.add(node_pos, rad_vec)
 					projectiles.explode_area(node_pos, radius, 3, projectile.object, { fleshy = 5 })
-					minetest.add_particlespawner({
+					core.add_particlespawner({
 						pos = {
 							min = min_pos,
 							max = max_pos,
@@ -364,7 +364,7 @@ return {
 					local min_pos = vector.subtract(pos, rad_vec)
 					local max_pos = vector.add(pos, rad_vec)
 					projectiles.explode_area(pos, radius, 3, projectile.object, { fleshy = 5 })
-					minetest.add_particlespawner({
+					core.add_particlespawner({
 						pos = {
 							min = min_pos,
 							max = max_pos,

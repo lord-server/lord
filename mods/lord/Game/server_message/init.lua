@@ -1,18 +1,18 @@
-minetest.mod(function(mod)
+core.mod(function(mod)
 	local resources = require('messages.resources')
 	local facts     = require('messages.facts')
 
-	local S = minetest.get_mod_translator()
-	local colorize = minetest.colorize
+	local S = core.get_mod_translator()
+	local colorize = core.colorize
 
 	-- периодичность в секундах
 	local MESSAGE_PERIOD = 30 * 60
 
 	local timer = 0
 	local show_links = true -- флаг для переключения между "ссылками" и "фактами"
-	minetest.register_globalstep(function(delta_time)
+	core.register_globalstep(function(delta_time)
 		timer = timer + delta_time;
-		if (timer >= MESSAGE_PERIOD) and (minetest.get_connected_players()[1] ~= nil) then
+		if (timer >= MESSAGE_PERIOD) and (core.get_connected_players()[1] ~= nil) then
 			local message = ''
 			if not show_links then
 				local used_indices = {} --используется для хранения индексов уже выбранных ресурсов
@@ -41,7 +41,7 @@ minetest.mod(function(mod)
 			message = message .. colorize(clans.COLOR, S('Clans: '))
 				.. S('Join the clan and find loyal allies! Learn more on the website:')
 				.. ' https://lord-server.ru/clans\n'
-			minetest.chat_send_all(message .. '\n')
+			core.chat_send_all(message .. '\n')
 			timer = 0
 			show_links = not show_links -- переключаем флаг для следующего сообщения
 		end

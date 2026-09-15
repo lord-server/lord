@@ -1,7 +1,7 @@
-local esc = minetest.formspec_escape
+local esc = core.formspec_escape
 
 
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
 ---
 --- @class quest_node.reward_chest.node.Form: base_classes.Form.Base
@@ -48,7 +48,7 @@ function Form:instantiate(player)
 			--- @param tab_self base_classes.Form.Element.Tab
 			get_spec = function(tab_self)
 				local meta     = tab_self.form.node_meta
-				local visitors = minetest.deserialize(meta:get_string("visitors"))
+				local visitors = core.deserialize(meta:get_string("visitors"))
 
 				return "textlist[0,0;7.75,9;visitors;" .. table.concat(visitors, ",") .. "]"
 			end,
@@ -57,7 +57,7 @@ end
 
 --- @param congratulations string
 function Form:saveCongratulations(congratulations)
-	local meta = self.node_meta or minetest.get_meta(self.node_position)
+	local meta = self.node_meta or core.get_meta(self.node_position)
 	meta:set_string("congratulations", congratulations)
 end
 

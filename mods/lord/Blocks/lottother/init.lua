@@ -1,10 +1,10 @@
-local S = minetest.get_mod_translator()
+local S = core.get_mod_translator()
 
-dofile(minetest.get_modpath("lottother") .. "/rings.lua")
-dofile(minetest.get_modpath("lottother") .. "/ms.lua")
-dofile(minetest.get_modpath("lottother") .. "/flags.lua")
+dofile(core.get_modpath("lottother") .. "/rings.lua")
+dofile(core.get_modpath("lottother") .. "/ms.lua")
+dofile(core.get_modpath("lottother") .. "/flags.lua")
 
-minetest.register_node("lottother:blue_torch", {
+core.register_node("lottother:blue_torch", {
 	description         = S("Blue Torch"),
 	drawtype            = "torchlike",
 	tiles               = {
@@ -30,12 +30,12 @@ minetest.register_node("lottother:blue_torch", {
 	walkable            = false,
 	floodable           = true,
 	on_flood = function(pos, oldnode, newnode) -- Взято из default/torch.lua
-		minetest.add_item(pos, ItemStack("lottother:blue_torch 1"))
+		core.add_item(pos, ItemStack("lottother:blue_torch 1"))
 		-- Play flame-extinguish sound if liquid is not an 'igniter'
-		local nodedef = minetest.registered_items[newnode.name]
+		local nodedef = core.registered_items[newnode.name]
 		if not (nodedef and nodedef.groups and
 				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
-			minetest.sound_play(
+			core.sound_play(
 				"default_cool_lava",
 				{pos = pos, max_hear_distance = 16, gain = 0.1},
 				true
@@ -55,7 +55,7 @@ minetest.register_node("lottother:blue_torch", {
 	legacy_wallmounted  = true,
 	sounds              = default.node_sound_defaults(),
 })
-minetest.register_node("lottother:orc_torch", {
+core.register_node("lottother:orc_torch", {
 	description         = S("Orc Torch"),
 	drawtype            = "torchlike",
 	tiles               = {
@@ -81,12 +81,12 @@ minetest.register_node("lottother:orc_torch", {
 	walkable            = false,
 	floodable           = true,
 	on_flood = function(pos, oldnode, newnode) -- Взято из default/torch.lua
-		minetest.add_item(pos, ItemStack("lottother:orc_torch 1"))
+		core.add_item(pos, ItemStack("lottother:orc_torch 1"))
 		-- Play flame-extinguish sound if liquid is not an 'igniter'
-		local nodedef = minetest.registered_items[newnode.name]
+		local nodedef = core.registered_items[newnode.name]
 		if not (nodedef and nodedef.groups and
 				nodedef.groups.igniter and nodedef.groups.igniter > 0) then
-			minetest.sound_play(
+			core.sound_play(
 				"default_cool_lava",
 				{pos = pos, max_hear_distance = 16, gain = 0.1},
 				true
@@ -107,7 +107,7 @@ minetest.register_node("lottother:orc_torch", {
 	sounds              = default.node_sound_defaults(),
 })
 
-minetest.register_node("lottother:blue_flame", {
+core.register_node("lottother:blue_flame", {
 	description       = S("Blue Flame"),
 	drawtype          = "firelike",
 	paramtype         = "light",
@@ -155,7 +155,7 @@ end
 function lottother.update_sounds_around(pos)
 	local p0, p1            = lottother.get_area_p0p1(pos)
 	local cp                = { x = (p0.x + p1.x) / 2, y = (p0.y + p1.y) / 2, z = (p0.z + p1.z) / 2 }
-	local flames_p          = minetest.find_nodes_in_area(p0, p1, { "lottother:blue_flame" })
+	local flames_p          = core.find_nodes_in_area(p0, p1, { "lottother:blue_flame" })
 	local should_have_sound = (#flames_p > 0)
 	local wanted_sound      = nil
 	if #flames_p >= 9 then
@@ -163,23 +163,23 @@ function lottother.update_sounds_around(pos)
 	elseif #flames_p > 0 then
 		wanted_sound = { name = "fire_small", gain = 1.5 }
 	end
-	local p0_hash = minetest.hash_node_position(p0)
+	local p0_hash = core.hash_node_position(p0)
 	local sound   = lottother.sounds[p0_hash]
 	if not sound then
 		if should_have_sound then
 			lottother.sounds[p0_hash] = {
-				handle = minetest.sound_play(wanted_sound, { pos = cp, loop = true }),
+				handle = core.sound_play(wanted_sound, { pos = cp, loop = true }),
 				name   = wanted_sound.name,
 			}
 		end
 	else
 		if not wanted_sound then
-			minetest.sound_stop(sound.handle)
+			core.sound_stop(sound.handle)
 			lottother.sounds[p0_hash] = nil
 		elseif sound.name ~= wanted_sound.name then
-			minetest.sound_stop(sound.handle)
+			core.sound_stop(sound.handle)
 			lottother.sounds[p0_hash] = {
-				handle = minetest.sound_play(wanted_sound, { pos = cp, loop = true }),
+				handle = core.sound_play(wanted_sound, { pos = cp, loop = true }),
 				name   = wanted_sound.name,
 			}
 		end
@@ -195,18 +195,18 @@ function lottother.on_flame_remove_at(pos)
 end
 
 function lottother.find_pos_for_flame_around(pos)
-	return minetest.find_node_near(pos, 1, { "air" })
+	return core.find_node_near(pos, 1, { "air" })
 end
 
 function lottother.flame_should_extinguish(pos)
-	if minetest.settings:get_bool("disable_lottother") then return true end
+	if core.settings:get_bool("disable_lottother") then return true end
 	local p0 = { x = pos.x - 2, y = pos.y, z = pos.z - 2 }
 	local p1 = { x = pos.x + 2, y = pos.y, z = pos.z + 2 }
-	local ps = minetest.find_nodes_in_area(p0, p1, { "group:puts_out_lottother" })
+	local ps = core.find_nodes_in_area(p0, p1, { "group:puts_out_lottother" })
 	return (#ps ~= 0)
 end
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "group:flammableblue" },
 	neighbors = { "group:igniterblue" },
 	interval  = 1,
@@ -217,79 +217,79 @@ minetest.register_abm({
 		end
 		local p = lottother.find_pos_for_flame_around(p0)
 		if p then
-			minetest.set_node(p, { name = "lottother:blue_flame" })
+			core.set_node(p, { name = "lottother:blue_flame" })
 			lottother.on_flame_add_at(p)
 		end
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "group:igniterblue" },
 	neighbors = { "air" },
 	interval  = 2,
 	chance    = 10,
 	action    = function(p0, node, _, _)
-		local reg = minetest.registered_nodes[node.name]
+		local reg = core.registered_nodes[node.name]
 		if not reg or not reg.groups.igniterblue or reg.groups.igniterblue < 2 then
 			return
 		end
 		local d = reg.groups.igniterblue
-		local p = minetest.find_node_near(p0, d, { "group:flammableblue" })
+		local p = core.find_node_near(p0, d, { "group:flammableblue" })
 		if p then
 			if lottother.flame_should_extinguish(p) then
 				return
 			end
 			local p2 = lottother.find_pos_for_flame_around(p)
 			if p2 then
-				minetest.set_node(p2, { name = "lottother:blue_flame" })
+				core.set_node(p2, { name = "lottother:blue_flame" })
 				lottother.on_flame_add_at(p2)
 			end
 		end
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:blue_flame" },
 	interval  = 1,
 	chance    = 2,
 	action    = function(p0, node, _, _)
 		if lottother.flame_should_extinguish(p0) then
-			minetest.remove_node(p0)
+			core.remove_node(p0)
 			lottother.on_flame_remove_at(p0)
 			return
 		end
 		if math.random(1, 3) == 1 then
 			return
 		end
-		if not minetest.find_node_near(p0, 1, { "group:flammableblue" }) then
-			minetest.remove_node(p0)
+		if not core.find_node_near(p0, 1, { "group:flammableblue" }) then
+			core.remove_node(p0)
 			lottother.on_flame_remove_at(p0)
 			return
 		end
 		if math.random(1, 4) == 1 then
-			local p = minetest.find_node_near(p0, 1, { "group:flammableblue" })
+			local p = core.find_node_near(p0, 1, { "group:flammableblue" })
 			if p then
 				if lottother.flame_should_extinguish(p0) then
 					return
 				end
-				minetest.remove_node(p)
-				minetest.check_for_falling(p)
+				core.remove_node(p)
+				core.check_for_falling(p)
 			end
 		else
-			minetest.remove_node(p0)
+			core.remove_node(p0)
 			lottother.on_flame_remove_at(p0)
 		end
 	end,
 })
 
-minetest.register_craft({
+core.register_craft({
 	output = 'lottother:blue_torch 2',
 	recipe = {
 		{ 'lottores:rough_rock_lump' },
 		{ 'group:stick' },
 	}
 })
-minetest.register_craft({
+core.register_craft({
 	output = 'lottother:orc_torch 2',
 	recipe = {
 		{ 'bones:bone' },
@@ -297,7 +297,7 @@ minetest.register_craft({
 	}
 })
 
-minetest.register_node("lottother:dirt", {
+core.register_node("lottother:dirt", {
 	description       = S("Dirt Substitute"),
 	tiles             = { "default_dirt.png" },
 	is_ground_content = true,
@@ -306,7 +306,7 @@ minetest.register_node("lottother:dirt", {
 	sounds            = default.node_sound_dirt_defaults(),
 })
 
-minetest.register_node("lottother:snow", {
+core.register_node("lottother:snow", {
 	description       = S("Snow Substitute"),
 	tiles             = { "default_snow.png" },
 	is_ground_content = true,
@@ -319,7 +319,7 @@ minetest.register_node("lottother:snow", {
 	}),
 })
 
-minetest.register_node("lottother:mordor_stone", {
+core.register_node("lottother:mordor_stone", {
 	description       = S("Mordor Stone Substitute"),
 	tiles             = { "lord_rocks_mordor_stone.png" },
 	is_ground_content = true,
@@ -328,7 +328,7 @@ minetest.register_node("lottother:mordor_stone", {
 	sounds            = default.node_sound_stone_defaults(),
 })
 
-minetest.register_node("lottother:air", {
+core.register_node("lottother:air", {
 	description         = S("Air Substitute"),
 	drawtype            = "glasslike",
 	tiles               = { "lottother_air.png" },
@@ -342,7 +342,7 @@ minetest.register_node("lottother:air", {
 	sounds              = default.node_sound_glass_defaults(),
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:dirt" },
 	neighbors = { "air" },
 	interval  = 5,
@@ -358,19 +358,19 @@ minetest.register_abm({
 		local down5 = { x = x, y = y - 5, z = z }
 		local down6 = { x = x, y = y - 6, z = z }
 		local down7 = { x = x, y = y - 7, z = z }
-		if minetest.get_node(down).name == "air" then
-			minetest.set_node(down, { name = "default:dirt" })
-			minetest.set_node(down2, { name = "default:dirt" })
-			minetest.set_node(down3, { name = "default:dirt" })
-			minetest.set_node(down4, { name = "default:dirt" })
-			minetest.set_node(down5, { name = "default:dirt" })
-			minetest.set_node(down6, { name = "default:dirt" })
-			minetest.set_node(down7, { name = "lottother:dirt" })
+		if core.get_node(down).name == "air" then
+			core.set_node(down, { name = "default:dirt" })
+			core.set_node(down2, { name = "default:dirt" })
+			core.set_node(down3, { name = "default:dirt" })
+			core.set_node(down4, { name = "default:dirt" })
+			core.set_node(down5, { name = "default:dirt" })
+			core.set_node(down6, { name = "default:dirt" })
+			core.set_node(down7, { name = "lottother:dirt" })
 		end
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:snow" },
 	neighbors = { "air" },
 	interval  = 5,
@@ -386,19 +386,19 @@ minetest.register_abm({
 		local down5 = { x = x, y = y - 5, z = z }
 		local down6 = { x = x, y = y - 6, z = z }
 		local down7 = { x = x, y = y - 7, z = z }
-		if minetest.get_node(down).name == "air" then
-			minetest.set_node(down, { name = "default:snowblock" })
-			minetest.set_node(down2, { name = "default:snowblock" })
-			minetest.set_node(down3, { name = "default:snowblock" })
-			minetest.set_node(down4, { name = "default:snowblock" })
-			minetest.set_node(down5, { name = "default:snowblock" })
-			minetest.set_node(down6, { name = "default:snowblock" })
-			minetest.set_node(down7, { name = "lottother:snow" })
+		if core.get_node(down).name == "air" then
+			core.set_node(down, { name = "default:snowblock" })
+			core.set_node(down2, { name = "default:snowblock" })
+			core.set_node(down3, { name = "default:snowblock" })
+			core.set_node(down4, { name = "default:snowblock" })
+			core.set_node(down5, { name = "default:snowblock" })
+			core.set_node(down6, { name = "default:snowblock" })
+			core.set_node(down7, { name = "lottother:snow" })
 		end
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:mordor_stone" },
 	neighbors = { "air" },
 	interval  = 5,
@@ -414,19 +414,19 @@ minetest.register_abm({
 		local down5 = { x = x, y = y - 5, z = z }
 		local down6 = { x = x, y = y - 6, z = z }
 		local down7 = { x = x, y = y - 7, z = z }
-		if minetest.get_node(down).name == "air" then
-			minetest.set_node(down, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down2, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down3, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down4, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down5, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down6, { name = "lord_rocks:mordor_stone" })
-			minetest.set_node(down7, { name = "lottother:mordor_stone" })
+		if core.get_node(down).name == "air" then
+			core.set_node(down, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down2, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down3, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down4, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down5, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down6, { name = "lord_rocks:mordor_stone" })
+			core.set_node(down7, { name = "lottother:mordor_stone" })
 		end
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:dirt" },
 	neighbors = { "default:dirt" },
 	interval  = 150,
@@ -436,11 +436,11 @@ minetest.register_abm({
 		local y    = pos.y
 		local z    = pos.z
 		local here = { x = x, y = y, z = z }
-		minetest.set_node(here, { name = "default:dirt" })
+		core.set_node(here, { name = "default:dirt" })
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:snow" },
 	neighbors = { "default:snowblock" },
 	interval  = 150,
@@ -450,11 +450,11 @@ minetest.register_abm({
 		local y    = pos.y
 		local z    = pos.z
 		local here = { x = x, y = y, z = z }
-		minetest.set_node(here, { name = "default:snowblock" })
+		core.set_node(here, { name = "default:snowblock" })
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:mordor_stone" },
 	neighbors = { "lord_rocks:mordor_stone" },
 	interval  = 150,
@@ -464,15 +464,15 @@ minetest.register_abm({
 		local y    = pos.y
 		local z    = pos.z
 		local here = { x = x, y = y, z = z }
-		minetest.set_node(here, { name = "lord_rocks:mordor_stone" })
+		core.set_node(here, { name = "lord_rocks:mordor_stone" })
 	end,
 })
 
-minetest.register_abm({
+core.register_abm({
 	nodenames = { "lottother:air" },
 	interval  = 7,
 	chance    = 1,
 	action    = function(pos, node, active_object_count, active_object_count_wider)
-		minetest.remove_node(pos)
+		core.remove_node(pos)
 	end,
 })

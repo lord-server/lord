@@ -10,9 +10,9 @@ local function register_instruments()
 			instrument
 		))
 
-		minetest.register_node('music_instruments:' .. instrument, {
+		core.register_node('music_instruments:' .. instrument, {
 			description = def.title,
-			_tt_help = def.description and minetest.colorize('#aaa',  '\n' .. def.description),
+			_tt_help = def.description and core.colorize('#aaa',  '\n' .. def.description),
 			drawtype = def.drawtype,
 			mesh = def.mesh,
 			paramtype = def.paramtype,
@@ -28,7 +28,7 @@ local function register_instruments()
 			end,
 
 			on_punch = function(pos)
-				local meta = minetest.get_meta(pos)
+				local meta = core.get_meta(pos)
 				local semitones = meta:get_int('semitones')
 
 				if def and def.notes[semitones] then
@@ -37,7 +37,7 @@ local function register_instruments()
 			end,
 
 			on_rightclick = function(pos)
-				local meta = minetest.get_meta(pos)
+				local meta = core.get_meta(pos)
 				local semitones = meta:get_int('semitones')
 
 				if def and def.notes[semitones] then
@@ -46,7 +46,7 @@ local function register_instruments()
 			end,
 		})
 
-		minetest.register_craft({
+		core.register_craft({
 			output = 'music_instruments:' .. instrument,
 			recipe = def.recipe,
 		})

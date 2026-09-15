@@ -10,8 +10,8 @@ local food_points = {
 }
 
 for item, points in pairs(food_points) do
-	minetest.override_item(item, {
-		on_use      = minetest.item_eat(points),
+	core.override_item(item, {
+		on_use      = core.item_eat(points),
 		_tt_food_hp = points,
 	})
 end

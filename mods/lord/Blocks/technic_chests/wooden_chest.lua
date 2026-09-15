@@ -17,10 +17,10 @@ local uudef = {
 	on_metadata_inventory_put = udef.on_metadata_inventory_put,
 	on_metadata_inventory_take = udef.on_metadata_inventory_take,
 }
-if minetest.registered_nodes["default:chest"].description == "Chest" then
+if core.registered_nodes["default:chest"].description == "Chest" then
 	uudef.description = udef.description
 end
-minetest.override_item("default:chest", uudef)
+core.override_item("default:chest", uudef)
 
 local ldef = technic.chests:definition("Wooden", {
 	width = 8,
@@ -45,7 +45,7 @@ local lldef = {
 	on_metadata_inventory_put = ldef.on_metadata_inventory_put,
 	on_metadata_inventory_take = ldef.on_metadata_inventory_take,
 }
-if minetest.registered_nodes["default:chest_locked"].description == "Locked Chest" then
+if core.registered_nodes["default:chest_locked"].description == "Locked Chest" then
 	lldef.description = ldef.description
 end
-minetest.override_item("default:chest_locked", lldef)
+core.override_item("default:chest_locked", lldef)
