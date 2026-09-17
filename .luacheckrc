@@ -32,6 +32,8 @@ return dofile("mods/Voxrame/game.luacheckrc"):extend({
 
 	exclude_files     = {
 		"mods/_various/",
+		"_ide_helper.lua",
+		"mods/lord/Game/Debug/lord_ghost_debug/.ghost_blocks.lua",
 	},
 
 	files             = {

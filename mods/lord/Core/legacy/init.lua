@@ -143,7 +143,8 @@ core.register_alias("lottspecial:scarecrow", "lottfarming:melon")
 core.register_alias("lottspecial:scarecrow_bottom", "lottfarming:melon")
 core.register_alias("lottspecial:scarecrow_light", "lottfarming:melon")
 
--- вернули ванильный `farming:wheat` обратно -- актуальный алиас теперь в mods/lord/_overwrites/MTG/farming/init.lua ("farming:sheaf_wheat" -> "farming:wheat")
+-- вернули ванильный `farming:wheat` обратно -- актуальный алиас теперь в
+-- mods/lord/_overwrites/MTG/farming/init.lua ("farming:sheaf_wheat" -> "farming:wheat")
 --core.register_alias("farming:wheat", "farming:sheaf_wheat")
 
 core.register_alias("lottfarming:barley", "lottfarming:sheaf_barley")
