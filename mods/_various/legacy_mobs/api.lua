@@ -2114,6 +2114,11 @@ local mob_activate = function(self, staticdata, def)
 		return
 	end
 
+	-- `hp_max` теперь в `initial_properties` и через метатаблицу прототипа
+	-- (в отличие от плоских полей раньше) больше не читается как `self.hp_max`,
+	-- а он используется по всему файлу -- восстанавливаем один раз здесь.
+	self.hp_max = self.hp_max or max(1, (def.hp_max or 10) * difficulty)
+
 	-- remove monsters in peaceful mode, or when no data
 	if (self.type == "monster" and peaceful_only) then
 
@@ -2141,8 +2146,10 @@ local mob_activate = function(self, staticdata, def)
 
 		self.base_texture = def.textures[random(1, #def.textures)]
 		self.base_mesh = def.mesh
-		self.base_size = self.visual_size
-		self.base_colbox = self.collisionbox
+		-- `collisionbox`/`visual_size` теперь в `initial_properties`, через
+		-- `self.X` (метатаблицу прототипа) больше не читаются -- берём из `def`.
+		self.base_size = def.visual_size or {x = 1, y = 1}
+		self.base_colbox = def.collisionbox
 	end
 
 	-- set texture, model and size
@@ -2369,7 +2376,18 @@ function legacy_mobs:register_mob(name, def)
 
 minetest.register_entity(name, {
 
-	stepheight = def.stepheight or 1.1,
+	initial_properties = {
+		stepheight            = def.stepheight or 1.1,
+		hp_max                = max(1, (def.hp_max or 10) * difficulty),
+		physical              = true,
+		collisionbox          = def.collisionbox,
+		visual                = def.visual,
+		visual_size           = def.visual_size or {x = 1, y = 1},
+		mesh                  = def.mesh,
+		makes_footstep_sound  = def.makes_footstep_sound or false,
+		use_texture_alpha     = def.use_texture_alpha or false,
+	},
+
 	name = name,
 	type = def.type,
 	attack_type = def.attack_type,
@@ -2384,13 +2402,6 @@ minetest.register_entity(name, {
 	rotate = math.rad(def.rotate or 0), --  0=front, 90=side, 180=back, 270=side2
 	lifetimer = def.lifetimer or 180, -- 3 minutes
 	hp_min = max(1, (def.hp_min or 5) * difficulty),
-	hp_max = max(1, (def.hp_max or 10) * difficulty),
-	physical = true,
-	collisionbox = def.collisionbox,
-	visual = def.visual,
-	visual_size = def.visual_size or {x = 1, y = 1},
-	mesh = def.mesh,
-	makes_footstep_sound = def.makes_footstep_sound or false,
 	view_range = def.view_range or 5,
 	walk_velocity = def.walk_velocity or 1,
 	run_velocity = def.run_velocity or 2,
@@ -2440,7 +2451,6 @@ minetest.register_entity(name, {
 	id = 0,
 	game_name = "mob",
 	texture_list = def.textures,
-	use_texture_alpha = def.use_texture_alpha or false,
 	child_texture = def.child_texture,
 	docile_by_day = def.docile_by_day or false,
 	time_of_day = 0.5,
@@ -3171,7 +3181,9 @@ function legacy_mobs:alias_mob(old_name, new_name)
 	-- entity
 	minetest.register_entity(":" .. old_name, {
 
-		physical = false,
+		initial_properties = {
+			physical = false,
+		},
 
 		on_step = function(self)
 
