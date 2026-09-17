@@ -17,7 +17,9 @@
         "rightclick",
         "leveled",
         "cooktime",
-        "colorize"
+        "colorize",
+        "facedir",
+        "burntime"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"

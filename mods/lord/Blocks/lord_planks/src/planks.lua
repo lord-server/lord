@@ -1,5 +1,8 @@
 local api = require("planks.api")
 
+local logger = core.get_mod_logger()
+
+
 planks = {} -- luacheck: ignore planks
 local function register_api()
 	_G.planks = api
@@ -13,10 +16,14 @@ local function register_lord_planks()
 	api.add_existing("default:junglewood")
 
 	for trunk_name, trunk in pairs(tree.trunks.get_nodes()) do
-		local planks_name = trunk_name:replace("^lord_trees:", "lord_planks:"):replace("_tree$", "")
-		api.register_planks(planks_name, trunk.groups.choppy or 2, trunk_name)
-		-- bin/minetest --info 2>&1 | grep 'use node'
-		core.log("info", "use node: " .. trunk_name .. " at " .. __FILE_LINE__())
+		-- MTG's own trunks (`default:tree`, `default:jungletree`) are already
+		-- covered above via `add_existing` -- skip them here.
+		if trunk_name:starts_with("lord_trees:") then
+			local planks_name = trunk_name:replace("^lord_trees:", "lord_planks:"):replace("_tree$", "")
+			api.register_planks(planks_name, trunk.groups.choppy or 2, trunk_name)
+			-- bin/minetest --info 2>&1 | grep 'use node'
+			logger.info("use node: " .. trunk_name .. " at " .. __FILE_LINE__())
+		end
 	end
 
 	api.register_planks("lord_planks:hardwood",  1, nil, { flammable = 1 })

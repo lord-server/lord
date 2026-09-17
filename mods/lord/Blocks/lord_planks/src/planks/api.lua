@@ -1,4 +1,5 @@
-local S = core.get_mod_translator()
+local S      = core.get_mod_translator()
+local logger = core.get_mod_logger()
 
 
 local planks = {
@@ -12,27 +13,28 @@ local planks = {
 local function add_existing(node_name)
 	local definition = core.registered_nodes[node_name]
 	core.override_item(node_name, {
-		groups = table.overwrite(definition.groups, { planks = 1 }),
+		groups = table.overwrite(definition.groups or {}, { planks = 1 }),
 	})
 	planks.nodes[node_name] = definition
 end
 
 --- @param node_name string       technical node name ("<mod>:<node>").
 --- @param hardness  number       how difficult to chop.
---- @param craft     string|table node name to craft from, or table with own recipe.
---- @param groups    table        additional or overwrite groups (default: {choppy = hardness, flammable = 3, wood = 1})
---- @param title     string       prefix to description of nodes or will extracted from `node_bane` (`title`.." Planks")
+--- @param craft?    string|table node name to craft from, or table with own recipe. `nil` to skip craft registration.
+--- @param groups?   table        additional or overwrite groups (default: {choppy = hardness, flammable = 3, wood = 1})
+--- @param title?    string       prefix to description of nodes or will extracted from `node_bane` (`title`.." Planks")
 local function register_planks(node_name, hardness, craft, groups, title)
 	local sub_name = node_name:split(":")[2]
+	assert(sub_name, "Invalid node name: " .. node_name)
 	title = title and title:first_to_upper() or sub_name:first_to_upper()
 	local texture = node_name:replace(":", "_") .. ".png"
 	if not io.file_exists(core.get_mod_textures_folder() .. texture) then
-		core.log("warning", ("Can't find texture: \"%s\". Planks `%s` not registered."):format(texture, node_name))
+		logger.warning("Can't find texture: \"%s\". Planks `%s` not registered.", texture, node_name)
 		return
 	end
 
 	-- bin/minetest --info 2>&1 | grep 'use texture'
-	core.log("info", "use texture: " .. texture .. " at " .. __FILE_LINE__())
+	logger.info("use texture: " .. texture .. " at " .. __FILE_LINE__())
 
 	core.register_node(node_name, {
 		description  = S(title .. " Planks"),
@@ -42,7 +44,7 @@ local function register_planks(node_name, hardness, craft, groups, title)
 			flammable      = 3,
 			wood           = 1,
 			planks         = 1,
-			wall_connected = 1
+			wall_connected = 1,
 		}, groups or {}),
 		sounds       = default.node_sound_wood_defaults(),
 		paramtype2   = "facedir",
@@ -52,9 +54,9 @@ local function register_planks(node_name, hardness, craft, groups, title)
 	planks.nodes[node_name]      = core.registered_nodes[node_name]
 	planks.lord_nodes[node_name] = core.registered_nodes[node_name]
 
-	local stairs_subname = sub_name
+	local stairs_sub_name = sub_name
 	stairs.register_stair_and_slab(
-		stairs_subname,
+		stairs_sub_name,
 		node_name,
 		table.overwrite({ choppy = hardness, flammable = 3, wooden = 1 }, groups or {}),
 		{ texture },
@@ -81,7 +83,8 @@ end
 return {
 	add_existing    = add_existing,
 	register_planks = register_planks,
-	--- @return NodeDefinition[]
+	--- @return NodeDefinition[string]
 	get_nodes       = function() return planks.nodes end,
+	--- @return NodeDefinition[string]
 	get_lord_nodes  = function() return planks.lord_nodes end,
 }
