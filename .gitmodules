@@ -23,6 +23,7 @@
 [submodule "mods/_minetest_game/flowers"]
 	path = mods/_minetest_game/flowers
 	url = https://github.com/minetest-game-mod/flowers
+	branch = lord
 [submodule "mods/_minetest_game/give_initial_stuff"]
 	path = mods/_minetest_game/give_initial_stuff
 	url = https://github.com/minetest-game-mod/give_initial_stuff
