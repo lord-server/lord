@@ -208,7 +208,9 @@ gaurds = {"dwarven", "elven", "gondor", "orc", "rohan", "uruk_hai"}
 for i, v in pairs(gaurds) do
     core.register_alias("lottnpc:" .. v .. "_guard_spawner", "default:dirt")
     core.register_entity(":lottnpc:" .. v .. "_guard", {
-        physical = false,
+        initial_properties = {
+            physical = false,
+        },
         on_step = function(self)
             self.object:remove()
         end
@@ -216,7 +218,9 @@ for i, v in pairs(gaurds) do
 end
 
 core.register_entity(":npcf:nametag", {
-	physical = false,
+	initial_properties = {
+		physical = false,
+	},
 	on_step = function(self)
 		self.object:remove()
 	end

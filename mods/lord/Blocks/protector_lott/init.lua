@@ -442,12 +442,14 @@ core.register_on_player_receive_fields(function(player,formname,fields)
 end)
 
 core.register_entity("protector_lott:display", {
-	physical = false,
-	collisionbox = {0, 0, 0, 0, 0, 0},
-	visual = "wielditem",
-	-- wielditem seems to be scaled to 1.5 times original node size
-	visual_size = {x = 1.0 / 1.5, y = 1.0 / 1.5},
-	textures = {"protector_lott:display_node"},
+	initial_properties = {
+		physical = false,
+		collisionbox = {0, 0, 0, 0, 0, 0},
+		visual = "wielditem",
+		-- wielditem seems to be scaled to 1.5 times original node size
+		visual_size = {x = 1.0 / 1.5, y = 1.0 / 1.5},
+		textures = {"protector_lott:display_node"},
+	},
 	on_activate = function(self, staticdata)
 		if legacy_mobs and legacy_mobs.entity == false then self.object:remove() end
 	end,

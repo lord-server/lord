@@ -287,11 +287,13 @@ end
 function npc:register_mob(name, definition)
 	core.register_entity(name, {
 		definition = definition,
-		physical = true,
 
-		collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
-		visual = "mesh",
-		mesh = "human_model.x",
+		initial_properties = {
+			physical = true,
+			collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
+			visual = "mesh",
+			mesh = "human_model.x",
+		},
 
 		texture = definition.texture or "lottmobs_rohan_guard_2.png",
 		mobname = definition.mobname or "Меродок",

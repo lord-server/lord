@@ -1,12 +1,14 @@
 
 local dummy_entity_base_definition = {
-	hp_max               = 1,
-	visual               = 'mesh',
-	collisionbox         = { 0, 0, 0, 0, 0, 0 },
-	physical             = false,
-	makes_footstep_sound = false,
-	automatic_rotate     = math.pi * -3,
-	static_save          = false,
+	initial_properties = {
+		hp_max               = 1,
+		visual               = 'mesh',
+		collisionbox         = { 0, 0, 0, 0, 0, 0 },
+		physical             = false,
+		makes_footstep_sound = false,
+		automatic_rotate     = math.pi * -3,
+		static_save          = false,
+	},
 	timer                = 0,
 	on_activate          = function(self, staticdata, dtime_s)
 		self.object:set_velocity({ x = 0, y = 0, z = 0 })

@@ -12,9 +12,11 @@ local function register_racial()
 	for _, race in pairs(racial) do
 		spawners.register("lottmobs:" .. race, {
 			dummy = {
-				visual_size = { x = 0.7, y = 0.7 },
-				mesh        = 'lottarmor_character_old.b3d',
-				textures    = { "lottmobs_" .. race .. ".png" },
+				initial_properties = {
+					visual_size = { x = 0.7, y = 0.7 },
+					mesh        = 'lottarmor_character_old.b3d',
+					textures    = { "lottmobs_" .. race .. ".png" },
+				},
 				offset      =  0.2,
 			},
 			night_only = "disabled",

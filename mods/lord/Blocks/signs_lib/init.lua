@@ -846,9 +846,11 @@ signs_text_on_activate = function(self)
 end
 
 core.register_entity(":signs:text", {
-    collisionbox = { 0, 0, 0, 0, 0, 0 },
-    visual = "upright_sprite",
-    textures = {},
+    initial_properties = {
+        collisionbox = { 0, 0, 0, 0, 0, 0 },
+        visual = "upright_sprite",
+        textures = {},
+    },
 
 	on_activate = signs_text_on_activate,
 })
