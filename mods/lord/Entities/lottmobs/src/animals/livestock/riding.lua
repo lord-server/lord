@@ -71,8 +71,28 @@ end
 
 function lottmobs.register_horse(name, craftitem, horse)
 
-	horse.makes_footstep_sound = true
-	horse.hp_max = horse.hp_max or horse.hp or 10
+	local hp_max = horse.hp_max or horse.hp or 10
+
+	horse.initial_properties = {
+		physical              = horse.physical,
+		collisionbox          = horse.collisionbox,
+		visual                = horse.visual,
+		visual_size           = horse.visual_size,
+		mesh                  = horse.mesh,
+		textures              = horse.textures,
+		stepheight            = horse.stepheight,
+		makes_footstep_sound  = true,
+		hp_max                = hp_max,
+	}
+	horse.physical = nil
+	horse.collisionbox = nil
+	horse.visual = nil
+	horse.visual_size = nil
+	horse.mesh = nil
+	horse.textures = nil
+	horse.stepheight = nil
+	horse.makes_footstep_sound = nil
+	horse.hp_max = nil
 
 	if craftitem ~= nil then
 
@@ -359,6 +379,7 @@ function lottmobs.register_horse(name, craftitem, horse)
 
 	--- @param static_data string
 	function horse:on_activate(static_data, _)
+		self.hp_max = self.object:get_properties().hp_max
 		self.object:set_armor_groups({ fleshy = 100 })
 		self.v = 0
 		self.driver = nil
