@@ -12,7 +12,7 @@ minetest.mod(function(mod)
 	)
 	-- --------------------------------
 	local clans_with_tapestries = {
-		'masons', 'vassals', 'hansa', 'international', 'liberty',
+		'masons', 'vassals', 'hansa', 'international', 'liberty', 'bmg',
 	}
 	for _, clan_name in pairs(clans_with_tapestries) do
 		local clan = clans.clan_get_by_name(clan_name)
