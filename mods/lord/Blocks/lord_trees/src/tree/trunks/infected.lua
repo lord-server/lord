@@ -55,29 +55,57 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 	core.override_item(parent_node_name, {
 		_is_infected        = false,
 		_infected_node_name = node_name,
-		on_rightclick       = function(pos, node, clicker, itemstack, pointed_thing)
+		on_rightclick       = function(pos, node, clicker, item_stack, pointed_thing)
+			if not clicker or not clicker:is_player() then
+				return item_stack
+			end
+			--- @cast clicker Player
+
 			local player_name = clicker:get_player_name()
-			pd(core.is_protected(pos, player_name), core.check_player_privs(player_name, "protection_bypass"))
+
 			if
 				core.is_protected(pos, player_name) and
 				not core.check_player_privs(player_name, "protection_bypass")
 			then
 				core.record_protection_violation(pos, player_name)
-				return itemstack
+				return item_stack
 			end
 
-			if not itemstack:get_name():is_one_of(INFECTED_BY) then
-				if not clicker:get_player_control().sneak then
-					return core.item_place_node(itemstack, clicker, pointed_thing)
-				end
+			if item_stack:get_name():is_one_of(INFECTED_BY) then
+				item_stack:take_item(1)
+				core.set_node(pos, { name = node_name })
 
-				return itemstack
+				return item_stack
 			end
 
-			itemstack:take_item(1)
-			core.set_node(pos, { name = node_name })
+			if clicker:get_player_control().sneak then
+				return item_stack
+			end
 
-			return itemstack
+			-- Here `on_rightclick` called by `on_place` of another item.
+			-- (e.g. torches picking a floor/wall/ceiling variant while `on_place`).
+			--
+			-- instead of being redirected right back here from `on_place`,
+			--     we temporarily disable `on_rightclick` of this node.
+			--
+			-- `pcall` "catch" errors, so we can garantee
+			--     that `on_rightclick` will be restored even if `on_place` fails.
+
+			-- TODO: use VX-19
+			-- TRY:
+			local trunk_def           = core.registered_nodes[node.name]
+			local original_on_rclick  = trunk_def.on_rightclick
+			local item_on_place       = item_stack:get_definition().on_place
+			trunk_def.on_rightclick   = nil
+			local ok, result          = pcall(item_on_place, item_stack, clicker, pointed_thing)
+			trunk_def.on_rightclick   = original_on_rclick
+
+			-- CATCH:
+			if not ok then
+				error(result, 0)
+			end
+
+			return result
 		end,
 	})
 

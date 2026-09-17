@@ -19,7 +19,8 @@
         "cooktime",
         "colorize",
         "facedir",
-        "burntime"
+        "burntime",
+        "privs"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"
