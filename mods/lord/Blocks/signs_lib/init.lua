@@ -278,7 +278,16 @@ local math_max = math.max
 local function fill_line(x, y, w, c)
 	c = c or "0"
 	local tex = { }
+	-- callers pass the *line's* full width as `w`, regardless of how far `x`
+	-- already is along the line, so clamp here instead of at every call site --
+	-- otherwise tiles land outside the `[combine` canvas (out-of-bounds warning spam).
+	if y < 0 or y >= (LINE_HEIGHT * NUMBER_OF_LINES) then
+		return ""
+	end
 	for xx = 0, math.max(0, w), COLORBGW do
+		if x + xx >= SIGN_WIDTH then
+			break
+		end
 		table.insert(tex, (":%d,%d=slc_%s.png"):format(x + xx, y, c))
 	end
 	return table.concat(tex)
@@ -443,7 +452,7 @@ signs_lib.update_sign = function(pos, fields, owner)
 		if fields.text and string.find(dump(fields.text), "@KEYWORD") then
 			meta:set_string("keyword", current_keyword)
 		else
-			meta:set_string("keyword", nil)
+			meta:set_string("keyword", "")
 		end
 	elseif string.find(dump(stored_text), "@KEYWORD") then -- we need to check if the password is being set/changed
 
