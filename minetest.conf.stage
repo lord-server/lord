@@ -119,7 +119,7 @@ chat_log_level = warning
 #    Current mapgens in a highly unstable state:
 #    -    The optional floatlands of v7 (disabled by default).
 #    type: enum values: v7, valleys, carpathian, v5, flat, fractal, singlenode, v6
-mg_name = carpathian
+mg_name = v7
 #    From how far blocks are generated for clients, stated in mapblocks (16 nodes).
 max_block_generate_distance = 6
 #    Limit of map generation, in nodes, in all 6 directions from (0, 0, 0).

@@ -4,13 +4,6 @@
 -- Aliases for map generator outputs
 --
 
-core.register_on_mapgen_init(function(params)
-	local mapgen = core.get_mapgen_setting
-	if mapgen("mg_name") == "singlenode" or mapgen("mg_name") == "v6" then
-		core.set_mapgen_setting("mg_name", "v7")
-	end
-end)
-
 core.register_alias("mapgen_stone", "default:stone")
 core.register_alias("mapgen_tree", "default:tree")
 core.register_alias("mapgen_leaves", "default:leaves")
