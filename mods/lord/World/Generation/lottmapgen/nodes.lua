@@ -103,12 +103,12 @@ core.register_node("lottmapgen:blackflowing", {
 	tiles                      = { "lottmapgen_black_water.png" },
 	special_tiles              = {
 		{
-			image            = "lottmapgen_black_water_flow.png",
+			name             = "lottmapgen_black_water_flow.png",
 			backface_culling = false,
 			animation        = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1 }
 		},
 		{
-			image            = "lottmapgen_black_water_flow.png",
+			name             = "lottmapgen_black_water_flow.png",
 			backface_culling = true,
 			animation        = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1 }
 		},
@@ -158,12 +158,12 @@ core.register_node("lottmapgen:black_river_flowing", {
 	tiles                      = { "lottmapgen_black_water.png" },
 	special_tiles              = {
 		{
-			image            = "lottmapgen_black_water_flow.png",
+			name             = "lottmapgen_black_water_flow.png",
 			backface_culling = false,
 			animation        = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1 }
 		},
 		{
-			image            = "lottmapgen_black_water_flow.png",
+			name             = "lottmapgen_black_water_flow.png",
 			backface_culling = true,
 			animation        = { type = "vertical_frames", aspect_w = 16, aspect_h = 16, length = 1 }
 		},

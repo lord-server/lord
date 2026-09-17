@@ -81,7 +81,7 @@ function lottblocks.register_lamp(
 		tiles          = {
 			top_texture, top_texture,
 			{
-				image            = texture,
+				name             = texture,
 				backface_culling = false,
 				animation        = {
 					type     = "vertical_frames",
@@ -118,7 +118,7 @@ function lottblocks.register_lamp(
 		tiles         = {
 			top_texture, top_texture,
 			{
-				image            = texture,
+				name             = texture,
 				backface_culling = false,
 				animation        = {
 					type     = "vertical_frames",

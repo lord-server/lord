@@ -339,7 +339,7 @@ stairs.register_stair_and_slab(
 
 core.register_craftitem("lord_homedecor:sticks", {
 	description = S("Small bundle of sticks"),
-	image = "building_blocks_sticks.png",
+	inventory_image = "building_blocks_sticks.png",
 	on_place_on_ground = core.craftitem_place_item,
 })
 

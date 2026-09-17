@@ -204,7 +204,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 
 		if textures.bgicon ~= nil then
 			ids.bg = player:hud_add({
-				hud_elem_type = "statbar",
+				type = "statbar",
 				position = pos,
 				text = textures.bgicon,
 				number = bgiconnumber,
@@ -220,7 +220,7 @@ function hb.register_hudbar(identifier, text_color, label, textures, default_sta
 		bar_size = {x=22, y=22}
 
 		ids.bar = player:hud_add({
-			hud_elem_type = "statbar",
+			type = "statbar",
 			position = pos,
 			text = bar_image,
 			number = barnumber,

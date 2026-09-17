@@ -11,7 +11,7 @@ end
 --- @param height number Height of a frame in pixels.
 --- @param length number Full loop length.
 local function animated_tile(image, width, height, length)
-	return { image = image, backface_culling = false, animation = animation_vf(width, height, length) }
+	return { name = image, backface_culling = false, animation = animation_vf(width, height, length) }
 end
 
 
