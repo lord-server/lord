@@ -60,13 +60,15 @@ legacy_mobs:register_mob("lottmobs:balrog", {
 	peaceful = true,
 	group_attack = true,
 	step = 1,
+	-- `balrog_model.b3d` has only these 3 clips (frames 1..155; 126..128 is a pause between walk and punch).
+	-- There are no run/shoot/die/fly clips in the model.
 	animation = {
-		stand_start = 0,
-		stand_end = 240,
-		walk_start = 240,
-		walk_end = 300,
-		punch_start = 300,
-		punch_end = 380,
+		stand_start = 1,
+		stand_end = 65,
+		walk_start = 66,
+		walk_end = 125,
+		punch_start = 129,
+		punch_end = 155,
 		speed_normal = 15,
 		speed_run = 15,
 	},
