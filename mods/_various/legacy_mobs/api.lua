@@ -141,15 +141,17 @@ local set_animation = function(self, anim)
 
 	if not self.animation then return end
 
-	self.animation.current = self.animation.current or ""
+	-- `self.animation` is the table from the mob definition, shared by all mobs of the type, so the current
+	-- animation must be stored on the mob itself (otherwise other mobs of the type skip setting the animation).
+	self.current_animation = self.current_animation or ""
 
-	if anim == self.animation.current
+	if anim == self.current_animation
 	or not self.animation[anim .. "_start"]
 	or not self.animation[anim .. "_end"] then
 		return
 	end
 
-	self.animation.current = anim
+	self.current_animation = anim
 
 	self.object:set_animation({
 		x = self.animation[anim .. "_start"],
