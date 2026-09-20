@@ -15,6 +15,188 @@ local function get_v(v)
 	return math.sqrt(v.x ^ 2 + v.z ^ 2)
 end
 
+--- Handles forward / backward / cruise-mode controls.
+--- @param self table boat entity
+--- @param ctrl table player control
+--- @param dtime number
+--- @param mod table `def.control_modifier`
+local function update_speed(self, ctrl, dtime, mod)
+	if ctrl.up and ctrl.down then
+		if not self.auto then
+			self.auto = true
+			core.chat_send_player(self.driver, S('Boat cruise mode on'))
+		end
+	elseif ctrl.down then
+		self.v = self.v - dtime * mod.down
+		if self.auto then
+			self.auto = false
+			core.chat_send_player(self.driver, S('Boat cruise mode off'))
+		end
+	elseif ctrl.up or self.auto then
+		self.v = self.v + dtime * mod.up
+	end
+end
+
+--- Handles left / right controls (steering is inverted while moving backward).
+--- @param self table boat entity
+--- @param ctrl table player control
+--- @param dtime number
+--- @param mod table `def.control_modifier`
+local function update_steering(self, ctrl, dtime, mod)
+	local direction = ctrl.left and 1 or (ctrl.right and -1 or 0)
+	if direction == 0 then
+		return
+	end
+	if self.v < -0.001 then
+		direction = -direction
+	end
+	self.object:set_yaw(self.object:get_yaw() + direction * dtime * mod.left_right)
+end
+
+--- @param self table boat entity
+--- @param dtime number
+--- @param mod table `def.control_modifier`
+local function apply_driver_control(self, dtime, mod)
+	local driver_objref = core.get_player_by_name(self.driver)
+	if not driver_objref then
+		return
+	end
+
+	local ctrl = driver_objref:get_player_control()
+	update_speed(self, ctrl, dtime, mod)
+	update_steering(self, ctrl, dtime, mod)
+end
+
+--- @param self table boat entity
+--- @return boolean
+local function is_idle(self)
+	local velo = self.object:get_velocity()
+
+	return not self.driver and self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0
+end
+
+--- @param self table boat entity
+--- @param dtime number
+local function apply_drag(self, dtime)
+	-- We need to preserve velocity sign to properly apply drag force
+	-- while moving backward
+	local drag = dtime * math.sign(self.v) * (0.01 + 0.0796 * self.v * self.v)
+	-- If drag is larger than velocity, then stop horizontal movement
+	if math.abs(self.v) <= math.abs(drag) then
+		self.v = 0
+	else
+		self.v = self.v - drag
+	end
+end
+
+--- Motion when there is no water under the boat: on the ground or in the air.
+--- @param self table boat entity
+--- @param pos table position under the boat
+--- @return table, table new velocity, new acceleration
+local function get_non_water_motion(self, pos)
+	local new_acce
+	local nodedef = core.registered_nodes[core.get_node(pos).name]
+	if (not nodedef) or nodedef.walkable then
+		self.v = 0
+		new_acce = { x = 0, y = 1, z = 0, }
+	else
+		new_acce = { x = 0, y = -9.8, z = 0, } -- freefall in air -9.81
+	end
+	local new_velo = get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y)
+	self.object:set_pos(self.object:get_pos())
+
+	return new_velo, new_acce
+end
+
+--- Motion when the boat is fully under water.
+--- @param self table boat entity
+--- @param vert_acce table `def.vertical_acceleration`
+--- @return table, table new velocity, new acceleration
+local function get_submerged_motion(self, vert_acce)
+	local new_acce = { x = 0, y = 0, z = 0, }
+	local y = self.object:get_velocity().y
+	if y >= vert_acce.fast_condition then
+		y = vert_acce.fast_up
+	elseif y < 0 then
+		new_acce = { x = 0, y = vert_acce.down, z = 0, }
+	else
+		new_acce = { x = 0, y = vert_acce.up, z = 0, }
+	end
+	local new_velo = get_velocity(self.v, self.object:get_yaw(), y)
+	self.object:set_pos(self.object:get_pos())
+
+	return new_velo, new_acce
+end
+
+--- Motion when the boat floats on the water surface.
+--- @param self table boat entity
+--- @return table, table new velocity, new acceleration
+local function get_surface_motion(self)
+	local new_acce = { x = 0, y = 0, z = 0, }
+	local new_velo
+	if math.abs(self.object:get_velocity().y) < 1 then
+		local pos = self.object:get_pos()
+		pos.y = math.floor(pos.y) + 0.5
+		self.object:set_pos(pos)
+		new_velo = get_velocity(self.v, self.object:get_yaw(), 0)
+	else
+		new_velo = get_velocity(self.v, self.object:get_yaw(), self.object:get_velocity().y)
+		self.object:set_pos(self.object:get_pos())
+	end
+
+	return new_velo, new_acce
+end
+
+--- @param self table boat entity
+--- @param def table boat definition
+--- @return table, table new velocity, new acceleration
+local function get_motion(self, def)
+	local pos = self.object:get_pos()
+	pos.y = pos.y - 0.5
+	if not is_water(pos) then
+		return get_non_water_motion(self, pos)
+	end
+
+	pos.y = pos.y + 1
+	if is_water(pos) then
+		return get_submerged_motion(self, def.vertical_acceleration)
+	end
+
+	return get_surface_motion(self)
+end
+
+--- Delegates `on_place` to the pointed node's `on_rightclick` (unless the player is sneaking).
+--- @return ItemStack|nil nil if the node has no `on_rightclick` or the player is sneaking
+local function try_node_on_rightclick(itemstack, placer, pointed_thing)
+	local under  = pointed_thing.under
+	local node   = core.get_node(under)
+	local udef   = core.registered_nodes[node.name]
+	local sneaks = placer and placer:is_player() and placer:get_player_control().sneak
+	if udef and udef.on_rightclick and not sneaks then
+		return udef.on_rightclick(under, node, placer, itemstack, pointed_thing) or itemstack
+	end
+end
+
+--- @param itemstack ItemStack
+--- @param placer ObjectRef|nil
+--- @param pointed_thing table
+--- @param boat_name string
+local function place_boat(itemstack, placer, pointed_thing, boat_name)
+	pointed_thing.under.y = pointed_thing.under.y + 0.5
+	local boat_ent = core.add_entity(pointed_thing.under, boat_name)
+	if not boat_ent then
+		return
+	end
+
+	if placer then
+		boat_ent:set_yaw(placer:get_look_horizontal())
+	end
+	local player_name = placer and placer:get_player_name() or ''
+	if not core.is_creative_enabled(player_name) then
+		itemstack:take_item()
+	end
+end
+
 
 lord_boats = {}
 
@@ -119,98 +301,15 @@ function lord_boats.register_boat(boat_name, def)
 	function boat_entity.on_step(self, dtime)
 		self.v = get_v(self.object:get_velocity()) * math.sign(self.v)
 		if self.driver then
-			local driver_objref = core.get_player_by_name(self.driver)
-			local mod = def.control_modifier
-			if driver_objref then
-				local ctrl = driver_objref:get_player_control()
-				if ctrl.up and ctrl.down then
-					if not self.auto then
-						self.auto = true
-						core.chat_send_player(self.driver, S("Boat cruise mode on"))
-					end
-				elseif ctrl.down then
-					self.v = self.v - dtime * mod.down
-					if self.auto then
-						self.auto = false
-						core.chat_send_player(self.driver, S("Boat cruise mode off"))
-					end
-				elseif ctrl.up or self.auto then
-					self.v = self.v + dtime * mod.up
-				end
-				if ctrl.left then
-					if self.v < -0.001 then
-						self.object:set_yaw(self.object:get_yaw() - dtime * mod.left_right)
-					else
-						self.object:set_yaw(self.object:get_yaw() + dtime * mod.left_right)
-					end
-				elseif ctrl.right then
-					if self.v < -0.001 then
-						self.object:set_yaw(self.object:get_yaw() + dtime * mod.left_right)
-					else
-						self.object:set_yaw(self.object:get_yaw() - dtime * mod.left_right)
-					end
-				end
-			end
+			apply_driver_control(self, dtime, def.control_modifier)
 		end
-		local velo = self.object:get_velocity()
-		if not self.driver and
-				self.v == 0 and velo.x == 0 and velo.y == 0 and velo.z == 0 then
+		if is_idle(self) then
 			self.object:set_pos(self.object:get_pos())
 			return
 		end
-		-- We need to preserve velocity sign to properly apply drag force
-		-- while moving backward
-		local drag = dtime * math.sign(self.v) * (0.01 + 0.0796 * self.v * self.v)
-		-- If drag is larger than velocity, then stop horizontal movement
-		if math.abs(self.v) <= math.abs(drag) then
-			self.v = 0
-		else
-			self.v = self.v - drag
-		end
+		apply_drag(self, dtime)
 
-		local p = self.object:get_pos()
-		p.y = p.y - 0.5
-		local new_velo
-		local new_acce = { x = 0, y = 0, z = 0, }
-		if not is_water(p) then
-			local nodedef = core.registered_nodes[core.get_node(p).name]
-			if (not nodedef) or nodedef.walkable then
-				self.v = 0
-				new_acce = { x = 0, y = 1, z = 0, }
-			else
-				new_acce = { x = 0, y = -9.8, z = 0, } -- freefall in air -9.81
-			end
-			new_velo = get_velocity(self.v, self.object:get_yaw(),
-				self.object:get_velocity().y)
-			self.object:set_pos(self.object:get_pos())
-		else
-			p.y = p.y + 1
-			if is_water(p) then
-				local y = self.object:get_velocity().y
-				local vert_acce = def.vertical_acceleration
-				if y >= vert_acce.fast_condition then
-					y = vert_acce.fast_up
-				elseif y < 0 then
-					new_acce = { x = 0, y = vert_acce.down, z = 0, }
-				else
-					new_acce = { x = 0, y = vert_acce.up, z = 0, }
-				end
-				new_velo = get_velocity(self.v, self.object:get_yaw(), y)
-				self.object:set_pos(self.object:get_pos())
-			else
-				new_acce = { x = 0, y = 0, z = 0, }
-				if math.abs(self.object:get_velocity().y) < 1 then
-					local pos = self.object:get_pos()
-					pos.y = math.floor(pos.y) + 0.5
-					self.object:set_pos(pos)
-					new_velo = get_velocity(self.v, self.object:get_yaw(), 0)
-				else
-					new_velo = get_velocity(self.v, self.object:get_yaw(),
-						self.object:get_velocity().y)
-					self.object:set_pos(self.object:get_pos())
-				end
-			end
-		end
+		local new_velo, new_acce = get_motion(self, def)
 		self.object:set_velocity(new_velo)
 		self.object:set_acceleration(new_acce)
 	end
@@ -226,33 +325,15 @@ function lord_boats.register_boat(boat_name, def)
 		groups = { flammable = 2, wooden = 1, },
 
 		on_place = function(itemstack, placer, pointed_thing)
-			local under = pointed_thing.under
-			local node = core.get_node(under)
-			local udef = core.registered_nodes[node.name]
-			if udef and udef.on_rightclick and
-					not (placer and placer:is_player() and
-					placer:get_player_control().sneak) then
-				return udef.on_rightclick(under, node, placer, itemstack,
-					pointed_thing) or itemstack
+			local result = try_node_on_rightclick(itemstack, placer, pointed_thing)
+			if result then
+				return result
 			end
 
-			if pointed_thing.type ~= "node" then
-				return itemstack
+			if pointed_thing.type == 'node' and is_water(pointed_thing.under) then
+				place_boat(itemstack, placer, pointed_thing, boat_name)
 			end
-			if not is_water(pointed_thing.under) then
-				return itemstack
-			end
-			pointed_thing.under.y = pointed_thing.under.y + 0.5
-			local boat_ent = core.add_entity(pointed_thing.under, boat_name)
-			if boat_ent then
-				if placer then
-					boat_ent:set_yaw(placer:get_look_horizontal())
-				end
-				local player_name = placer and placer:get_player_name() or ""
-				if not core.is_creative_enabled(player_name) then
-					itemstack:take_item()
-				end
-			end
+
 			return itemstack
 		end,
 	})
