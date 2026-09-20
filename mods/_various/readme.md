@@ -36,7 +36,6 @@
 ### `hud_modpack`
  - модпак создан из следующих модов:
    - hbhunger (https://repo.or.cz/w/minetest_hbhunger.git)
-   - hbsprint (https://github.com/GunshipPenguin/sprint)
    - hbarmor (http://repo.or.cz/w/minetest_hbarmor.git) 
    - hudbars (http://repo.or.cz/w/minetest_hudbars.git)
  - изменения:
