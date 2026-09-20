@@ -42,7 +42,6 @@ jobs:
               mods/lord/Blocks/protector_lott/ \
               mods/lord/Blocks/signs_lib/ \
               mods/lord/Blocks/technic_chests/ \
-              mods/lord/Entities/npc/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/discord/ \
               mods/lord/Game/lottachievements/ \
