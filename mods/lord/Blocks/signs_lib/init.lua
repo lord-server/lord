@@ -293,56 +293,69 @@ local function fill_line(x, y, w, c)
 	return table.concat(tex)
 end
 
-local function make_line_texture(line, lineno)
+--- Splits the word into the characters with the offsets, widths and colors.
+--- @param word  string
+--- @param state table  { width, maxw, cur_color } - state of the whole line
+--- @return table[], integer characters, width of the word
+local function parse_word(word, state)
+	local chars = { }
+	local ch_offs = 0
+	local word_l = #word
+	local i = 1
+	while i <= word_l  do
+		local c = word:sub(i, i)
+		if c == '#' then
+			-- определение цветового маркера
+			local cc = tonumber(word:sub(i+1, i+1), 16)
+			if cc then
+				i = i + 1
+				state.cur_color = cc
+			end
+		else
+			local w = charwidth[c]
+			if w then
+				state.width = state.width + w + 1
+				if state.width >= (SIGN_WIDTH - charwidth[' ']) then
+					state.width = 0
+				else
+					state.maxw = math_max(state.width, state.maxw)
+				end
+				if #chars < MAX_INPUT_CHARS then
+					table.insert(chars, {
+						off=ch_offs,
+						tex=FONT_FMT_SIMPLE:format(c:byte()),
+						col=('%X'):format(state.cur_color),
+					})
+				end
+				ch_offs = ch_offs + w
+			end
+		end
+		i = i + 1
+	end
 
-	local width = 0
-	local maxw = 0
+	return chars, ch_offs
+end
 
+--- We check which chars are available here.
+--- @param line string[] words
+--- @return table[], integer words (`chars` and `w`), max width of the line
+local function parse_line(line)
+	local state = { width = 0, maxw = 0, cur_color = 0 }
 	local words = { }
 
-	local cur_color = 0
-
-
-	-- We check which chars are available here.
-	for word_i, word in ipairs(line) do
-		local chars = { }
-		local ch_offs = 0
-		local word_l = #word
-		local i = 1
-		while i <= word_l  do
-			local c = word:sub(i, i)
-			if c == "#" then
-				-- определение цветового маркера
-				local cc = tonumber(word:sub(i+1, i+1), 16)
-				if cc then
-					i = i + 1
-					cur_color = cc
-				end
-			else
-				local w = charwidth[c]
-				if w then
-					width = width + w + 1
-					if width >= (SIGN_WIDTH - charwidth[" "]) then
-						width = 0
-					else
-						maxw = math_max(width, maxw)
-					end
-					if #chars < MAX_INPUT_CHARS then
-						table.insert(chars, {
-							off=ch_offs,
-							tex=FONT_FMT_SIMPLE:format(c:byte()),
-							col=("%X"):format(cur_color),
-						})
-					end
-					ch_offs = ch_offs + w
-				end
-			end
-			i = i + 1
-		end
-		width = width + charwidth[" "] + 1
-		maxw = math_max(width, maxw)
+	for _, word in ipairs(line) do
+		local chars, ch_offs = parse_word(word, state)
+		state.width = state.width + charwidth[' '] + 1
+		state.maxw = math_max(state.width, state.maxw)
 		table.insert(words, { chars=chars, w=ch_offs })
 	end
+
+	return words, state.maxw
+end
+
+local function make_line_texture(line, lineno)
+
+	local words, maxw = parse_line(line)
 
 	-- Okay, we actually build the "line texture" here.
 
@@ -353,7 +366,7 @@ local function make_line_texture(line, lineno)
 	local xpos = start_xpos
 	local ypos = (LINE_HEIGHT * lineno)
 
-	cur_color = nil
+	local cur_color = nil
 
 	for word_i, word in ipairs(words) do
 		local xoffs = (xpos - start_xpos)
@@ -439,57 +452,60 @@ local function make_infotext(text)
 	return table.concat(lines2, "\n")
 end
 
-signs_lib.update_sign = function(pos, fields, owner)
-
-	-- First, check if the interact keyword from CWz's mod is being set,
-	-- or has been changed since the last restart...
-
-	local meta = core.get_meta(pos)
-	local stored_text = meta:get_string("text") or ""
-	--current_keyword = mki_interact_keyword or current_keyword
-
-	if fields then -- ...we're editing the sign.
-		if fields.text and string.find(dump(fields.text), "@KEYWORD") then
-			meta:set_string("keyword", current_keyword)
-		else
-			meta:set_string("keyword", "")
-		end
-	elseif string.find(dump(stored_text), "@KEYWORD") then -- we need to check if the password is being set/changed
-
-		local stored_keyword = meta:get_string("keyword")
-		if stored_keyword and stored_keyword ~= "" and stored_keyword ~= current_keyword then
-			signs_lib.destruct_sign(pos)
-			meta:set_string("keyword", current_keyword)
-			local ownstr = ""
-			if owner then ownstr = "Locked sign, owned by "..owner.."\n" end
-			meta:set_string("infotext", ownstr..string.replace(make_infotext(stored_text), "@KEYWORD", current_keyword).." ")
-		end
-	end
-
-	local new
-
-	if fields then
-
-		fields.text = str.trim_to(fields.text, MAX_INPUT_CHARS)
-
-		local ownstr = ""
-		if owner then ownstr = S("Locked sign, owned by").." "..owner.."\n" end
-
-		meta:set_string("infotext", ownstr..string.replace(make_infotext(fields.text), "@KEYWORD", current_keyword).." ")
-		meta:set_string("text", fields.text)
-
-		meta:set_int("__signslib_new_format", 1)
-		new = true
+--- The interact keyword from CWz's mod is being set (the sign is being edited).
+--- @param meta   MetaDataRef
+--- @param fields table
+local function update_keyword_on_edit(meta, fields)
+	if fields.text and string.find(dump(fields.text), '@KEYWORD') then
+		meta:set_string('keyword', current_keyword)
 	else
-		new = (meta:get_int("__signslib_new_format") ~= 0)
+		meta:set_string('keyword', '')
 	end
-	local text = meta:get_string("text")
-	if text == nil then return end
-	local objects = core.get_objects_inside_radius(pos, 0.5)
+end
+
+--- The interact keyword has been changed since the last restart: the password is being changed.
+--- @param pos         Position
+--- @param meta        MetaDataRef
+--- @param stored_text string
+--- @param owner       string|nil
+local function update_keyword_on_change(pos, meta, stored_text, owner)
+	if not string.find(dump(stored_text), '@KEYWORD') then
+		return
+	end
+
+	local stored_keyword = meta:get_string('keyword')
+	if stored_keyword and stored_keyword ~= '' and stored_keyword ~= current_keyword then
+		signs_lib.destruct_sign(pos)
+		meta:set_string('keyword', current_keyword)
+		local ownstr = ''
+		if owner then ownstr = 'Locked sign, owned by '..owner..'\n' end
+		meta:set_string('infotext', ownstr..string.replace(make_infotext(stored_text), '@KEYWORD', current_keyword)..' ')
+	end
+end
+
+--- Saves the edited text into the meta.
+--- @param meta   MetaDataRef
+--- @param fields table
+--- @param owner  string|nil
+local function save_text(meta, fields, owner)
+	fields.text = str.trim_to(fields.text, MAX_INPUT_CHARS)
+
+	local ownstr = ''
+	if owner then ownstr = S('Locked sign, owned by')..' '..owner..'\n' end
+
+	meta:set_string('infotext', ownstr..string.replace(make_infotext(fields.text), '@KEYWORD', current_keyword)..' ')
+	meta:set_string('text', fields.text)
+
+	meta:set_int('__signslib_new_format', 1)
+end
+
+--- Updates the text on the existing entities (removes the redundant ones).
+--- @return boolean whether there was an entity
+local function update_text_entities(pos, text, new)
 	local found
-	for _, v in ipairs(objects) do
+	for _, v in ipairs(core.get_objects_inside_radius(pos, 0.5)) do
 		local e = v:get_luaentity()
-		if e and e.name == "signs:text" then
+		if e and e.name == 'signs:text' then
 			if found then
 				v:remove()
 			else
@@ -498,27 +514,62 @@ signs_lib.update_sign = function(pos, fields, owner)
 			end
 		end
 	end
-	if found then
+
+	return found
+end
+
+--- @param signnode table node
+--- @param pos      Position
+--- @return table|nil model of the text entity position
+local function get_text_position_info(signnode, pos)
+	local param2 = core.get_node(pos).param2
+	if signnode.name == 'signs:sign_yard' then
+		return signs_lib.yard_sign_model.textpos[param2 + 1]
+	elseif signnode.name == 'signs:sign_hanging' then
+		return signs_lib.hanging_sign_model.textpos[param2 + 1]
+	elseif string.find(signnode.name, 'sign_wall') then
+		if signnode.name == 'default:sign_wall'
+		  or signnode.name == 'locked_sign:sign_wall_locked' then
+			return signs_lib.regular_wall_sign_model.textpos[param2 + 1]
+		end
+
+		return signs_lib.metal_wall_sign_model.textpos[param2 + 1]
+	end
+
+	-- ...it must be a sign on a fence post.
+	return signs_lib.sign_post_model.textpos[param2 + 1]
+end
+
+signs_lib.update_sign = function(pos, fields, owner)
+
+	-- First, check if the interact keyword from CWz's mod is being set,
+	-- or has been changed since the last restart...
+
+	local meta = core.get_meta(pos)
+	local stored_text = meta:get_string('text') or ''
+	--current_keyword = mki_interact_keyword or current_keyword
+
+	if fields then -- ...we're editing the sign.
+		update_keyword_on_edit(meta, fields)
+	else
+		update_keyword_on_change(pos, meta, stored_text, owner)
+	end
+
+	local new
+	if fields then
+		save_text(meta, fields, owner)
+		new = true
+	else
+		new = (meta:get_int('__signslib_new_format') ~= 0)
+	end
+	local text = meta:get_string('text')
+	if text == nil then return end
+	if update_text_entities(pos, text, new) then
 		return
 	end
 
 	-- if there is no entity
-	local sign_info
-	local signnode = core.get_node(pos)
-	if signnode.name == "signs:sign_yard" then
-		sign_info = signs_lib.yard_sign_model.textpos[core.get_node(pos).param2 + 1]
-	elseif signnode.name == "signs:sign_hanging" then
-		sign_info = signs_lib.hanging_sign_model.textpos[core.get_node(pos).param2 + 1]
-	elseif string.find(signnode.name, "sign_wall") then
-		if signnode.name == "default:sign_wall"
-		  or signnode.name == "locked_sign:sign_wall_locked" then
-			sign_info = signs_lib.regular_wall_sign_model.textpos[core.get_node(pos).param2 + 1]
-		else
-			sign_info = signs_lib.metal_wall_sign_model.textpos[core.get_node(pos).param2 + 1]
-		end
-	else -- ...it must be a sign on a fence post.
-		sign_info = signs_lib.sign_post_model.textpos[core.get_node(pos).param2 + 1]
-	end
+	local sign_info = get_text_position_info(core.get_node(pos), pos)
 	if sign_info == nil then
 		return
 	end
@@ -529,85 +580,123 @@ signs_lib.update_sign = function(pos, fields, owner)
 			y = pos.y + sign_info.delta.y,
 			z = pos.z + sign_info.delta.z
 		},
-		"signs:text"
+		'signs:text'
 	):set_yaw(sign_info.yaw)
 end
 
 -- What kind of sign do we need to place, anyway?
 
-function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
-	local name
-	name = core.get_node(pointed_thing.under).name
-	if fences_with_sign[name] then
-		if core.is_protected(pointed_thing.under, placer:get_player_name()) then
-			core.record_protection_violation(pointed_thing.under,
-				placer:get_player_name())
-			return itemstack
-		end
-	else
-		name = core.get_node(pointed_thing.above).name
-		local def = core.registered_nodes[name]
-		if not def.buildable_to then
-			return itemstack
-		end
-		if core.is_protected(pointed_thing.above, placer:get_player_name()) then
-			core.record_protection_violation(pointed_thing.above,
-				placer:get_player_name())
-			return itemstack
-		end
+--- @param pos    Position
+--- @param placer Player
+--- @return boolean true (and the violation is recorded) if the position is protected for the placer
+local function is_protected_for(pos, placer)
+	if core.is_protected(pos, placer:get_player_name()) then
+		core.record_protection_violation(pos, placer:get_player_name())
+
+		return true
 	end
 
-	local node=core.get_node(pointed_thing.under)
+	return false
+end
+
+--- @param placer        Player
+--- @param pointed_thing pointed_thing
+--- @return boolean true if the sign can't be placed at the pointed thing
+local function is_placing_forbidden(placer, pointed_thing)
+	local name = core.get_node(pointed_thing.under).name
+	if fences_with_sign[name] then
+		return is_protected_for(pointed_thing.under, placer)
+	end
+
+	name = core.get_node(pointed_thing.above).name
+	local def = core.registered_nodes[name]
+	if not def.buildable_to then
+		return true
+	end
+
+	return is_protected_for(pointed_thing.above, placer)
+end
+
+--- @param pointed_thing pointed_thing
+--- @param placer        Player
+--- @return integer, integer facedir and wallmounted direction of the placing
+local function get_placing_dirs(pointed_thing, placer)
+	local above = pointed_thing.above
+	local under = pointed_thing.under
+	local dir = {x = under.x - above.x,
+				 y = under.y - above.y,
+				 z = under.z - above.z}
+
+	local wdir = core.dir_to_wallmounted(dir)
+
+	local placer_pos = placer:get_pos()
+	if placer_pos then
+		dir = {
+			x = above.x - placer_pos.x,
+			y = above.y - placer_pos.y,
+			z = above.z - placer_pos.z
+		}
+	end
+
+	return core.dir_to_facedir(dir), wdir
+end
+
+--- @param signname string
+--- @return boolean
+local function is_metal_wall_sign(signname)
+	return signname ~= 'default:sign_wall' and signname ~= 'locked_sign:sign_wall_locked'
+end
+
+--- Places the node of the wooden wall sign (default or locked).
+local function add_wooden_wall_sign(pos, signname, wdir, placer, locked)
+	core.add_node(pos, {name = signname, param2 = wdir }) -- note it's wallmounted here!
+	if locked then
+		local meta = core.get_meta(pos)
+		local owner = placer:get_player_name()
+		meta:set_string('owner', owner)
+	end
+end
+
+--- Adds the node of the sign of the proper type.
+local function add_sign_node(signname, pointed_thing, placer, locked, fdir, wdir)
+	local above = pointed_thing.above
+	local under = pointed_thing.under
+
+	local pt_name = core.get_node(under).name
+	print(dump(pt_name))
+
+	if fences_with_sign[pt_name] and signname == 'default:sign_wall' then
+		core.add_node(under, {name = fences_with_sign[pt_name], param2 = fdir})
+	elseif wdir == 0 and signname == 'default:sign_wall' then
+		core.add_node(above, {name = 'signs:sign_hanging', param2 = fdir})
+	elseif wdir == 1 and signname == 'default:sign_wall' then
+		core.add_node(above, {name = 'signs:sign_yard', param2 = fdir})
+	elseif is_metal_wall_sign(signname) then -- it's a metal wall sign.
+		core.add_node(above, {name = signname, param2 = fdir})
+	else -- it must be a default or locked wooden wall sign
+		add_wooden_wall_sign(above, signname, wdir, placer, locked)
+	end
+end
+
+function signs_lib.determine_sign_type(itemstack, placer, pointed_thing, locked)
+	if is_placing_forbidden(placer, pointed_thing) then
+		return itemstack
+	end
+
+	local node = core.get_node(pointed_thing.under)
 
 	if core.registered_nodes[node.name] and core.registered_nodes[node.name].on_rightclick then
 		return core.registered_nodes[node.name].on_rightclick(pointed_thing.under, node, placer, itemstack, pointed_thing)
-	else
-		local above = pointed_thing.above
-		local under = pointed_thing.under
-		local dir = {x = under.x - above.x,
-					 y = under.y - above.y,
-					 z = under.z - above.z}
-
-		local wdir = core.dir_to_wallmounted(dir)
-
-		local placer_pos = placer:get_pos()
-		if placer_pos then
-			dir = {
-				x = above.x - placer_pos.x,
-				y = above.y - placer_pos.y,
-				z = above.z - placer_pos.z
-			}
-		end
-
-		local fdir = core.dir_to_facedir(dir)
-
-		local pt_name = core.get_node(under).name
-		print(dump(pt_name))
-		local signname = itemstack:get_name()
-
-		if fences_with_sign[pt_name] and signname == "default:sign_wall" then
-			core.add_node(under, {name = fences_with_sign[pt_name], param2 = fdir})
-		elseif wdir == 0 and signname == "default:sign_wall" then
-			core.add_node(above, {name = "signs:sign_hanging", param2 = fdir})
-		elseif wdir == 1 and signname == "default:sign_wall" then
-			core.add_node(above, {name = "signs:sign_yard", param2 = fdir})
-		elseif signname ~= "default:sign_wall"
-		  and signname ~= "locked_sign:sign_wall_locked" then -- it's a metal wall sign.
-			core.add_node(above, {name = signname, param2 = fdir})
-		else -- it must be a default or locked wooden wall sign
-			core.add_node(above, {name = signname, param2 = wdir }) -- note it's wallmounted here!
-			if locked then
-				local meta = core.get_meta(above)
-				local owner = placer:get_player_name()
-				meta:set_string("owner", owner)
-			end
-		end
-
-		if not signs_lib.expect_infinite_stacks() then
-			itemstack:take_item()
-		end
-		return itemstack
 	end
+
+	local fdir, wdir = get_placing_dirs(pointed_thing, placer)
+	add_sign_node(itemstack:get_name(), pointed_thing, placer, locked, fdir, wdir)
+
+	if not signs_lib.expect_infinite_stacks() then
+		itemstack:take_item()
+	end
+
+	return itemstack
 end
 
 function signs_lib.receive_fields(pos, formname, fields, sender, lock)
@@ -866,6 +955,43 @@ core.register_entity(":signs:text", {
 
 -- And the good stuff here! :-)
 
+--- @param fencename string
+--- @param itemstack  ItemStack
+--- @param placer     Player
+--- @param pos        Position
+--- @param fdir       integer
+--- @return ItemStack
+local function place_fence(fencename, itemstack, placer, pos, fdir)
+	core.add_node(pos, {name = fencename, param2 = fdir})
+	if not signs_lib.expect_infinite_stacks() then
+		itemstack:take_item()
+	end
+	placer:set_wielded_item(itemstack)
+
+	return itemstack
+end
+
+--- `on_place` of the fence which can be turned into the fence with sign.
+local function on_place_fence(fencename, itemstack, placer, pointed_thing)
+	local node_above = core.get_node(pointed_thing.above)
+	local node_under = core.get_node(pointed_thing.under)
+	local def_above = core.registered_nodes[node_above.name]
+	local def_under = core.registered_nodes[node_under.name]
+	local fdir = core.dir_to_facedir(placer:get_look_dir())
+
+	if is_protected_for(pointed_thing.under, placer) or is_protected_for(pointed_thing.above, placer) then
+		return
+	end
+
+	if def_under and def_under.on_rightclick then
+		return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack) or itemstack
+	elseif def_under and def_under.buildable_to then
+		return place_fence(fencename, itemstack, placer, pointed_thing.under, fdir)
+	elseif not def_above or def_above.buildable_to then
+		return place_fence(fencename, itemstack, placer, pointed_thing.above, fdir)
+	end
+end
+
 function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
     local def = core.registered_nodes[fencename]
     local def_sign = core.registered_nodes[fencewithsignname]
@@ -877,41 +1003,8 @@ function signs_lib.register_fence_with_sign(fencename, fencewithsignname)
     def_sign = signs_lib.table_copy(def_sign)
     fences_with_sign[fencename] = fencewithsignname
 
-    def.on_place               = function(itemstack, placer, pointed_thing, ...)
-		local node_above = core.get_node(pointed_thing.above)
-		local node_under = core.get_node(pointed_thing.under)
-		local def_above = core.registered_nodes[node_above.name]
-		local def_under = core.registered_nodes[node_under.name]
-		local fdir = core.dir_to_facedir(placer:get_look_dir())
-		local playername = placer:get_player_name()
-
-		if core.is_protected(pointed_thing.under, playername) then
-			core.record_protection_violation(pointed_thing.under, playername)
-			return
-		end
-
-		if core.is_protected(pointed_thing.above, playername) then
-			core.record_protection_violation(pointed_thing.above, playername)
-			return
-		end
-
-		if def_under and def_under.on_rightclick then
-			return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack) or itemstack
-		elseif def_under and def_under.buildable_to then
-			core.add_node(pointed_thing.under, {name = fencename, param2 = fdir})
-			if not signs_lib.expect_infinite_stacks() then
-				itemstack:take_item()
-			end
-			placer:set_wielded_item(itemstack)
-			return itemstack
-		elseif not def_above or def_above.buildable_to then
-			core.add_node(pointed_thing.above, {name = fencename, param2 = fdir})
-			if not signs_lib.expect_infinite_stacks() then
-				itemstack:take_item()
-			end
-			placer:set_wielded_item(itemstack)
-			return itemstack
-		end
+    def.on_place               = function(itemstack, placer, pointed_thing)
+		return on_place_fence(fencename, itemstack, placer, pointed_thing)
 	end
 	def_sign.on_construct      = function(pos, ...)
 		signs_lib.construct_sign(pos)
