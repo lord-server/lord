@@ -135,14 +135,10 @@ max_objects_per_block = 512
 ## Security
 #    Prevent mods from doing insecure things like running shell commands.
 secure.enable_security = false
-#    Comma-separated list of trusted mods that are allowed to access insecure
-#    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = lp_api
 #    Comma-separated list of mods that are allowed to access HTTP APIs, which
 #    allow them to upload and download data to/from the internet.
 
-# For Discord
-secure.http_mods = lp_api, voxrame_http
+secure.http_mods = voxrame_http
 
 
 ## Advanced
@@ -299,13 +295,6 @@ mobs_spawn_protected = 0
 protector_pvp = false
 protector_spawn = 20
 protector_damage = 3
-
-# -------- _various/discord ---------
-# For Discord
-lp_api.enabled = false
-lp_api.channel_id = 284593326370324481
-lp_api.router.cmd = true
-lp_api.system_name = lord
 
 
 #
