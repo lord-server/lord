@@ -38,5 +38,4 @@ jobs:
               mods/_minetest_game/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/lottachievements/ \
-              mods/lord/World/Generation/lottmapgen/ \
-              mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua
+              mods/lord/World/Generation/lottmapgen/
