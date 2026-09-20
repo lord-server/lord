@@ -66,55 +66,71 @@ core.register_node("protector_lott:chest", {
 	end,
 })
 
+--- Moves the stack from one inventory to another.
+--- @param from_inv InvRef
+--- @param to_inv   InvRef
+--- @param stack    ItemStack
+local function move_item(from_inv, to_inv, stack)
+	local leftover = to_inv:add_item('main', stack)
+	from_inv:remove_item('main', stack)
+	if leftover and not leftover:is_empty() then
+		from_inv:add_item('main', stack)
+	end
+end
+
+--- Copies contents of the players inventory to the chest.
+--- @param player_inv InvRef
+--- @param chest_inv  InvRef
+local function move_to_chest(player_inv, chest_inv)
+	for _, v in ipairs(player_inv:get_list('main') or {}) do
+		if chest_inv and chest_inv:room_for_item('main', v) then
+			move_item(player_inv, chest_inv, v)
+		end
+	end
+end
+
+--- Copies contents of the chest to the players inventory.
+--- @param chest_inv  InvRef
+--- @param player_inv InvRef
+local function move_to_player(chest_inv, player_inv)
+	for _, v in ipairs(chest_inv:get_list('main') or {}) do
+		if player_inv:room_for_item('main', v) then
+			move_item(chest_inv, player_inv, v)
+		end
+	end
+end
+
+--- Changes the chest infotext to display the name.
+--- @param meta MetaDataRef
+--- @param name string
+local function rename_chest(meta, name)
+	if name ~= '' then
+		meta:set_string('name', name)
+		meta:set_string('infotext',
+		S('Protected Chest')..' (' .. name .. ')')
+	else
+		meta:set_string('infotext', S('Protected Chest'))
+	end
+end
+
 -- Protected Chest formspec buttons
 
 core.register_on_player_receive_fields(function(player, formname, fields)
 
-	if string.sub(formname, 0, string.len("protector_lott:chest_")) == "protector_lott:chest_" then
+	if string.sub(formname, 0, string.len('protector_lott:chest_')) == 'protector_lott:chest_' then
 
-		local pos_s = string.sub(formname,string.len("protector_lott:chest_") + 1)
+		local pos_s = string.sub(formname,string.len('protector_lott:chest_') + 1)
 		local pos = core.string_to_pos(pos_s)
 		local meta = core.get_meta(pos)
 		local chest_inv = meta:get_inventory()
 		local player_inv = player:get_inventory()
 
 		if fields.toup then
-
-			-- copy contents of players inventory to chest
-			for i, v in ipairs (player_inv:get_list("main") or {}) do
-				if (chest_inv and chest_inv:room_for_item('main', v)) then
-					local leftover = chest_inv:add_item('main', v)
-					player_inv:remove_item("main", v)
-					if (leftover and not(leftover:is_empty())) then
-						player_inv:add_item("main", v)
-					end
-				end
-			end
-
+			move_to_chest(player_inv, chest_inv)
 		elseif fields.todn then
-
-			-- copy contents of chest to players inventory
-			for i, v in ipairs (chest_inv:get_list('main') or {}) do
-				if (player_inv:room_for_item("main", v)) then
-					local leftover = player_inv:add_item("main", v)
-					chest_inv:remove_item('main', v)
-					if( leftover and not(leftover:is_empty())) then
-						chest_inv:add_item('main', v)
-					end
-				end
-			end
-
+			move_to_player(chest_inv, player_inv)
 		elseif fields.chestname then
-
-			-- change chest infotext to display name
-			if fields.chestname ~= "" then
-				meta:set_string("name", fields.chestname)
-				meta:set_string("infotext",
-				S("Protected Chest").." (" .. fields.chestname .. ")")
-			else
-				meta:set_string("infotext", S("Protected Chest"))
-			end
-
+			rename_chest(meta, fields.chestname)
 		end
 	end
 

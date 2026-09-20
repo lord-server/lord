@@ -37,7 +37,6 @@ jobs:
             --exclude-files \
               mods/_minetest_game/ \
               mods/lord/_experimental/lord_spawners/src/spawners/api.lua \
-              mods/lord/Blocks/protector_lott/ \
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/discord/ \
               mods/lord/Game/lottachievements/ \
