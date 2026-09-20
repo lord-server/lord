@@ -663,7 +663,6 @@ local function add_sign_node(signname, pointed_thing, placer, locked, fdir, wdir
 	local under = pointed_thing.under
 
 	local pt_name = core.get_node(under).name
-	print(dump(pt_name))
 
 	if fences_with_sign[pt_name] and signname == 'default:sign_wall' then
 		core.add_node(under, {name = fences_with_sign[pt_name], param2 = fdir})
