@@ -40,6 +40,5 @@ jobs:
               mods/lord/Entities/lottmobs/ \
               mods/lord/Game/discord/ \
               mods/lord/Game/lottachievements/ \
-              mods/lord/Player/hud_modpack/hudbars/ \
               mods/lord/World/Generation/lottmapgen/ \
               mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua
