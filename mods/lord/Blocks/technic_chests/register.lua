@@ -165,30 +165,50 @@ local function sort_inventory(inv)
 	inv:set_list("main", out_list)
 end
 
+--- @param data   table chest data
+--- @param meta   MetaDataRef
+--- @param fields table
+--- @return boolean
+local function needs_sorting(data, meta, fields)
+	return fields.sort or (data.autosort and fields.quit and meta:get_int('autosort') == 1)
+end
+
+--- @param meta   MetaDataRef
+--- @param fields table
+local function update_settings(meta, fields)
+	if fields.autosort_to_1 then meta:set_int('autosort', 1) end
+	if fields.autosort_to_0 then meta:set_int('autosort', 0) end
+	if fields.infotext_box then
+		meta:set_string('infotext', fields.infotext_box)
+	end
+end
+
+--- @param pos    Position
+--- @param meta   MetaDataRef
+--- @param data   table chest data
+--- @param lname  string lower-cased name of the chest
+--- @param fields table
+local function handle_fields(pos, meta, data, lname, fields)
+	if needs_sorting(data, meta, fields) then
+		sort_inventory(meta:get_inventory())
+	end
+	local page = fields.edit_infotext and 'edit_infotext' or 'main'
+	update_settings(meta, fields)
+	if data.color then
+		-- This sets the node
+		local nn = 'technic:'..lname..(data.locked and '_locked' or '')..'_chest'
+		check_color_buttons(pos, meta, nn, fields)
+	end
+	meta:get_inventory():set_size('main', data.width * data.height)
+	set_formspec(pos, data, page)
+end
+
 local function get_receive_fields(name, data)
 	local lname = name:lower()
 	return function(pos, formname, fields, sender)
 		local meta = core.get_meta(pos)
-		local page = "main"
-		if has_locked_chest_privilege(meta,sender) == true or not data.locked then
-			if fields.sort or (data.autosort and fields.quit and meta:get_int("autosort") == 1) then
-				sort_inventory(meta:get_inventory())
-			end
-			if fields.edit_infotext then
-				page = "edit_infotext"
-			end
-			if fields.autosort_to_1 then meta:set_int("autosort", 1) end
-			if fields.autosort_to_0 then meta:set_int("autosort", 0) end
-			if fields.infotext_box then
-				meta:set_string("infotext", fields.infotext_box)
-			end
-			if data.color then
-				-- This sets the node
-				local nn = "technic:"..lname..(data.locked and "_locked" or "").."_chest"
-				check_color_buttons(pos, meta, nn, fields)
-			end
-			meta:get_inventory():set_size("main", data.width * data.height)
-			set_formspec(pos, data, page)
+		if has_locked_chest_privilege(meta, sender) == true or not data.locked then
+			handle_fields(pos, meta, data, lname, fields)
 		end
 	end
 end
