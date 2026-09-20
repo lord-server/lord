@@ -194,7 +194,7 @@ function spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
 	end
 end
 
-local ENTITIES_MAX   = 6
+local ENTITIES_MAX   = 8
 local NODE_LIGHT_MIN = 13
 
 --- Puts the dummy entity into the active spawner if it has no one.
@@ -277,7 +277,7 @@ local function scan_activation_area(activation_area, mob_name)
 			not object:is_player()
 			and object:get_luaentity()
 			and object:get_luaentity().name ~= '__builtin:item'
-			and object:get_luaentity() == mob_name
+			and object:get_luaentity().name == mob_name
 		then
 			entities_near = entities_near + 1
 		end
