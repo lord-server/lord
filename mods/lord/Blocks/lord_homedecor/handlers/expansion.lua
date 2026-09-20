@@ -63,31 +63,45 @@ local function is_buildable_to(placer_name, ...)
 	return true
 end
 
+--- @param node2 string|nil
+--- @return string, boolean name of the node to set, whether it should get the `param2`
+local function resolve_second_node(node2)
+	if node2 == 'placeholder' then
+		return placeholder_node, false
+	end
+	-- this can be used to clear buildable_to nodes even though we are using a multinode mesh
+	-- do not assume by default, as we still might want to allow overlapping in some cases
+	node2 = node2 or 'air'
+
+	return node2, node2 ~= 'air'
+end
+
+--- call after_place_node of the placed node if available
+local function call_after_place_node(node_name, pos, placer)
+	local node_def = core.registered_nodes[node_name]
+	if node_def and node_def.after_place_node then
+		node_def.after_place_node(pos, placer)
+	end
+end
+
 -- place one or two nodes if and only if both can be placed
 local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 	local placer_name = placer:get_player_name() or ""
-	if is_buildable_to(placer_name, pos, pos2) then
-		fdir = fdir or core.dir_to_facedir(placer:get_look_dir())
-		core.set_node(pos, { name = node1, param2 = fdir })
-		node2 = node2 or "air" -- this can be used to clear buildable_to nodes even though we are using a multinode mesh
-		-- do not assume by default, as we still might want to allow overlapping in some cases
-		local has_facedir = node2 ~= "air"
-		if node2 == "placeholder" then
-			has_facedir = false
-			node2 = placeholder_node
-		end
-		core.set_node(pos2, { name = node2, param2 = (has_facedir and fdir) or nil })
-
-		-- call after_place_node of the placed node if available
-		local ctrl_node_def = core.registered_nodes[node1]
-		if ctrl_node_def and ctrl_node_def.after_place_node then
-			ctrl_node_def.after_place_node(pos, placer)
-		end
-
-		if not lord_homedecor.expect_infinite_stacks(placer) then
-			itemstack:take_item()
-		end
+	if not is_buildable_to(placer_name, pos, pos2) then
+		return itemstack
 	end
+
+	fdir = fdir or core.dir_to_facedir(placer:get_look_dir())
+	core.set_node(pos, { name = node1, param2 = fdir })
+	local node2_name, has_facedir = resolve_second_node(node2)
+	core.set_node(pos2, { name = node2_name, param2 = has_facedir and fdir or nil })
+
+	call_after_place_node(node1, pos, placer)
+
+	if not lord_homedecor.expect_infinite_stacks(placer) then
+		itemstack:take_item()
+	end
+
 	return itemstack
 end
 
@@ -246,6 +260,127 @@ local function is_same_banister_at(pos, compared_name)
 	return def_name == node_name
 end
 
+local DIAGONAL_BANISTER_PATTERN = 'lord_homedecor:banister_.*_diagonal'
+
+--- @param pos Position
+--- @param dx  number
+--- @param dy  number
+--- @param dz  number
+--- @return Position
+local function shifted(pos, dx, dy, dz)
+	return { x = pos.x + dx, y = pos.y + dy, z = pos.z + dz }
+end
+
+--- @param pos  Position
+--- @param fdir integer
+--- @return table<string, Position> positions around `pos` relative to the facedir
+local function get_banister_neighbour_positions(pos, fdir)
+	local left  = lord_homedecor.fdir_to_left[fdir + 1]
+	local right = lord_homedecor.fdir_to_right[fdir + 1]
+	local fwd   = lord_homedecor.fdir_to_fwd[fdir + 1]
+
+	return {
+		below           = shifted(pos, 0, -1, 0),
+		fwd             = shifted(pos, fwd[1], 0, fwd[2]),
+		left            = shifted(pos, left[1], 0, left[2]),
+		right           = shifted(pos, right[1], 0, right[2]),
+		left_below      = shifted(pos, left[1], -1, left[2]),
+		right_below     = shifted(pos, right[1], -1, right[2]),
+		left_fwd        = shifted(pos, left[1] + fwd[1], 0, left[2] + fwd[2]),
+		right_fwd       = shifted(pos, right[1] + fwd[1], 0, right[2] + fwd[2]),
+		left_fwd_above  = shifted(pos, left[1] + fwd[1], 1, left[2] + fwd[2]),
+		right_fwd_above = shifted(pos, right[1] + fwd[1], 1, right[2] + fwd[2]),
+		left_fwd_below  = shifted(pos, left[1] + fwd[1], -1, left[2] + fwd[2]),
+		right_fwd_below = shifted(pos, right[1] + fwd[1], -1, right[2] + fwd[2]),
+	}
+end
+
+--- @param placer_name string
+--- @param pos         Position
+--- @param itemstack   ItemStack
+--- @return string|nil message with the reason why the banister can't be placed
+local function get_banister_placement_error(placer_name, pos, itemstack)
+	local def      = core.registered_nodes[core.get_node(pos).name]
+	local abovepos = shifted(pos, 0, 1, 0)
+	local adef     = core.registered_nodes[core.get_node(abovepos).name]
+
+	if not (def and def.buildable_to) and not is_same_banister_at(pos, itemstack:get_name()) then
+		return S('Cannot place - the space is occupied by another block!')
+	end
+	if not (adef and adef.buildable_to) then
+		return S('Not enough room - the upper space is occupied!')
+	end
+	if core.is_protected(abovepos, placer_name) then
+		return S('Someone already owns that spot.')
+	end
+end
+
+--- try to place a diagonal one on the side of blocks stacked like stairs
+--- or follow an existing diagonal with another.
+--- @return string|nil name of the diagonal banister to place
+local function get_diagonal_banister_name(base_name, placer_name, near)
+	local below_buildable = is_buildable_to(placer_name, near.below)
+	local left_below_name  = core.get_node(near.left_below).name
+	local right_below_name = core.get_node(near.right_below).name
+
+	if (left_below_name:find('banister_.-_diagonal_right') and below_buildable)
+		or not is_buildable_to(placer_name, near.right_fwd_above) then
+		return string.replace(base_name, '_horizontal', '_diagonal_right')
+	end
+	if (right_below_name:find('banister_.-_diagonal_left') and below_buildable)
+		or not is_buildable_to(placer_name, near.left_fwd_above) then
+		return string.replace(base_name, '_horizontal', '_diagonal_left')
+	end
+end
+
+--- try to follow a diagonal with the corresponding horizontal: from the top of a diagonal,
+--- in-line with the nearest diagonal at the top, at the bottom of a diagonal, in-line at the bottom.
+--- @return string|nil, integer|nil, Position|nil name, facedir and position of the horizontal banister to place
+local function get_horizontal_banister_after_diagonal(placer_name, near)
+	local candidates = {
+		{ near.left_below,      false }, { near.right_below,      false },
+		{ near.left_fwd_below,  true  }, { near.right_fwd_below,  true  },
+		{ near.left,            false }, { near.right,            false },
+		{ near.left_fwd,        true  }, { near.right_fwd,        true  },
+	}
+	for _, candidate in ipairs(candidates) do
+		local node = core.get_node(candidate[1])
+		local is_fwd = candidate[2]
+		if node.name:find(DIAGONAL_BANISTER_PATTERN)
+			and (not is_fwd or is_buildable_to(placer_name, near.fwd)) then
+
+			return string.replace(node.name, '_diagonal_.-$', '_horizontal'),
+				node.param2, is_fwd and near.fwd or nil
+		end
+	end
+end
+
+--- @return string, integer, Position name, facedir and position of the banister to place
+local function choose_banister(base_name, placer_name, near, fdir, pos)
+	local diagonal_name = get_diagonal_banister_name(base_name, placer_name, near)
+	if diagonal_name then
+		return diagonal_name, fdir, pos
+	end
+
+	local horizontal_name, horizontal_fdir, horizontal_pos = get_horizontal_banister_after_diagonal(placer_name, near)
+	if horizontal_name then
+		return horizontal_name, horizontal_fdir, horizontal_pos or pos
+	end
+
+	return base_name, fdir, pos
+end
+
+--- manually invert left-right orientation
+--- @param name string
+--- @return string
+local function invert_banister_side(name)
+	if name:find('banister_.*_diagonal') then
+		return string.replace(name, '_left', '_right')
+	end
+
+	return string.replace(name, '_right', '_left')
+end
+
 --- @param itemstack     ItemStack
 --- @param placer        Player
 --- @param pointed_thing pointed_thing
@@ -255,134 +390,30 @@ function lord_homedecor.place_banister(itemstack, placer, pointed_thing)
 
 	local pos = select_node(pointed_thing)
 	if not pos then return itemstack end
-	local node = core.get_node(pos)
-	local def = core.registered_nodes[node.name]
 
-
-	local fdir = core.dir_to_facedir(placer:get_look_dir())
-	local meta = itemstack:get_meta()
-	local pindex = meta:get_int("palette_index")
-
-	local abovepos  = { x=pos.x, y=pos.y+1, z=pos.z }
-	local abovenode = core.get_node(abovepos)
-
-	local adef = core.registered_nodes[abovenode.name]
 	local placer_name = placer:get_player_name()
+	local error_message = get_banister_placement_error(placer_name, pos, itemstack)
+	if error_message then
+		core.chat_send_player(placer_name, error_message)
 
-	if not  (def and def.buildable_to) and not is_same_banister_at(pos, itemstack:get_name()) then
-		core.chat_send_player(placer_name, S("Cannot place - the space is occupied by another block!"))
 		return itemstack
 	end
 
-	if not (adef and adef.buildable_to) then
-		core.chat_send_player(placer_name, S("Not enough room - the upper space is occupied!"))
-		return itemstack
+	local fdir   = core.dir_to_facedir(placer:get_look_dir())
+	local pindex = itemstack:get_meta():get_int('palette_index')
+	local near   = get_banister_neighbour_positions(pos, fdir)
+
+	local new_place_name
+	new_place_name, fdir, pos = choose_banister(itemstack:get_name(), placer_name, near, fdir, pos)
+
+	if placer:get_player_control()['sneak'] then
+		new_place_name = invert_banister_side(new_place_name)
 	end
 
-	if core.is_protected(abovepos, placer_name) then
-		core.chat_send_player(placer_name, S("Someone already owns that spot."))
-		return itemstack
-	end
-
-	local lxd = lord_homedecor.fdir_to_left[fdir+1][1]
-	local lzd = lord_homedecor.fdir_to_left[fdir+1][2]
-
-	local rxd = lord_homedecor.fdir_to_right[fdir+1][1]
-	local rzd = lord_homedecor.fdir_to_right[fdir+1][2]
-
-	local fxd = lord_homedecor.fdir_to_fwd[fdir+1][1]
-	local fzd = lord_homedecor.fdir_to_fwd[fdir+1][2]
-
-	local below_pos =           { x=pos.x, y=pos.y-1, z=pos.z }
-	local fwd_pos =             { x=pos.x+fxd, y=pos.y, z=pos.z+fzd }
-	local left_pos =            { x=pos.x+lxd, y=pos.y, z=pos.z+lzd }
-	local right_pos =           { x=pos.x+rxd, y=pos.y, z=pos.z+rzd }
-	local left_fwd_pos =        { x=pos.x+lxd+fxd, y=pos.y, z=pos.z+lzd+fzd  }
-	local right_fwd_pos =       { x=pos.x+rxd+fxd, y=pos.y, z=pos.z+rzd+fzd  }
-	local right_fwd_above_pos = { x=pos.x+rxd+fxd, y=pos.y+1, z=pos.z+rzd+fzd }
-	local left_fwd_above_pos =  { x=pos.x+lxd+fxd, y=pos.y+1, z=pos.z+lzd+fzd }
-	local right_fwd_below_pos = { x=pos.x+rxd+fxd, y=pos.y-1, z=pos.z+rzd+fzd }
-	local left_fwd_below_pos =  { x=pos.x+lxd+fxd, y=pos.y-1, z=pos.z+lzd+fzd }
-
-	local below_node =           core.get_node(below_pos)
-	local left_node =            core.get_node(left_pos)
-	local right_node =           core.get_node(right_pos)
-	local left_fwd_node =        core.get_node(left_fwd_pos)
-	local right_fwd_node =        core.get_node(right_fwd_pos)
-	local left_below_node =      core.get_node({x=left_pos.x, y=left_pos.y-1, z=left_pos.z})
-	local right_below_node =     core.get_node({x=right_pos.x, y=right_pos.y-1, z=right_pos.z})
-	local right_fwd_below_node = core.get_node(right_fwd_below_pos)
-	local left_fwd_below_node =  core.get_node(left_fwd_below_pos)
-
-	local new_place_name = itemstack:get_name()
-
-	-- try to place a diagonal one on the side of blocks stacked like stairs
-	-- or follow an existing diagonal with another.
-	if (left_below_node and string.find(left_below_node.name, "banister_.-_diagonal_right")
-	  and below_node and is_buildable_to(placer_name, below_pos, below_pos))
-	  or not is_buildable_to(placer_name, right_fwd_above_pos, right_fwd_above_pos) then
-		new_place_name = string.replace(new_place_name, "_horizontal", "_diagonal_right")
-	elseif (right_below_node and string.find(right_below_node.name, "banister_.-_diagonal_left")
-	  and below_node and is_buildable_to(placer_name, below_pos, below_pos))
-	  or not is_buildable_to(placer_name, left_fwd_above_pos, left_fwd_above_pos) then
-		new_place_name = string.replace(new_place_name, "_horizontal", "_diagonal_left")
-
-	-- try to follow a diagonal with the corresponding horizontal
-	-- from the top of a diagonal...
-	elseif left_below_node and string.find(left_below_node.name, "lord_homedecor:banister_.*_diagonal") then
-		fdir = left_below_node.param2
-		new_place_name = string.replace(left_below_node.name, "_diagonal_.-$", "_horizontal")
-	elseif right_below_node and string.find(right_below_node.name, "lord_homedecor:banister_.*_diagonal") then
-		fdir = right_below_node.param2
-		new_place_name = string.replace(right_below_node.name, "_diagonal_.-$", "_horizontal")
-
-	-- try to place a horizontal in-line with the nearest diagonal, at the top
-	elseif left_fwd_below_node and string.find(left_fwd_below_node.name, "lord_homedecor:banister_.*_diagonal")
-	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
-		fdir = left_fwd_below_node.param2
-		pos = fwd_pos
-		new_place_name = string.replace(left_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
-	elseif right_fwd_below_node and string.find(right_fwd_below_node.name, "lord_homedecor:banister_.*_diagonal")
-	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
-		fdir = right_fwd_below_node.param2
-		pos = fwd_pos
-		new_place_name = string.replace(right_fwd_below_node.name, "_diagonal_.-$", "_horizontal")
-
-	-- try to follow a diagonal with a horizontal, at the bottom of the diagonal
-	elseif left_node and string.find(left_node.name, "lord_homedecor:banister_.*_diagonal") then
-		fdir = left_node.param2
-		new_place_name = string.replace(left_node.name, "_diagonal_.-$", "_horizontal")
-	elseif right_node and string.find(right_node.name, "lord_homedecor:banister_.*_diagonal") then
-		fdir = right_node.param2
-		new_place_name = string.replace(right_node.name, "_diagonal_.-$", "_horizontal")
-
-	-- try to place a horizontal in-line with the nearest diagonal, at the bottom
-	elseif left_fwd_node and string.find(left_fwd_node.name, "lord_homedecor:banister_.*_diagonal")
-	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
-		fdir = left_fwd_node.param2
-		pos = fwd_pos
-		new_place_name = string.replace(left_fwd_node.name, "_diagonal_.-$", "_horizontal")
-	elseif right_fwd_node and string.find(right_fwd_node.name, "lord_homedecor:banister_.*_diagonal")
-	  and is_buildable_to(placer_name, fwd_pos, fwd_pos) then
-		fdir = right_fwd_node.param2
-		pos = fwd_pos
-		new_place_name = string.replace(right_fwd_node.name, "_diagonal_.-$", "_horizontal")
-	end
-
-	-- manually invert left-right orientation
-	if placer:get_player_control()["sneak"] then
-		if string.find(new_place_name, "banister_.*_diagonal") then
-			new_place_name = string.replace(new_place_name, "_left", "_right")
-		else
-			new_place_name = string.replace(new_place_name, "_right", "_left")
-		end
-	end
-
-	local take_item = not is_same_banister_at(pos, new_place_name)
-	if take_item then
+	if not is_same_banister_at(pos, new_place_name) then
 		itemstack:take_item()
 	end
-	core.set_node(pos, {name = new_place_name, param2 = fdir+pindex})
+	core.set_node(pos, { name = new_place_name, param2 = fdir + pindex })
+
 	return itemstack
 end
-

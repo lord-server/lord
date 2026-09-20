@@ -45,41 +45,53 @@ lrfurn.colors = { -- mod changed to use colorize feature of minetest engine (cg7
 	{ "yellow",      "#dde000:240" }
 }
 
-function lrfurn.check_forward(pos, fdir, long, placer)
-	if not fdir or fdir > 3 then fdir = 0 end
-
-	local pos2 = { x = pos.x + lrfurn.fdir_to_fwd[fdir+1][1],     y=pos.y, z = pos.z + lrfurn.fdir_to_fwd[fdir+1][2]     }
-	local pos3 = { x = pos.x + lrfurn.fdir_to_fwd[fdir+1][1] * 2, y=pos.y, z = pos.z + lrfurn.fdir_to_fwd[fdir+1][2] * 2 }
-
-	local node2 = core.get_node(pos2)
-	if node2 and node2.name ~= "air" then
-		return false
-	elseif core.is_protected(pos2, placer:get_player_name()) then
-		if not long then
-			core.chat_send_player(
-				placer:get_player_name(),
-				S("Someone else owns the spot where other end goes!")
-			)
-		else
-			core.chat_send_player(
-				placer:get_player_name(),
-				S("Someone else owns the spot where the middle or far end goes!")
-			)
-		end
+--- @param pos               Position
+--- @param placer            Player
+--- @param protected_message string message for the case when the spot is protected
+--- @return boolean true if the spot is free (`air`) and not protected
+local function is_free_and_unprotected(pos, placer, protected_message)
+	local node = core.get_node(pos)
+	if node and node.name ~= 'air' then
 		return false
 	end
+	if core.is_protected(pos, placer:get_player_name()) then
+		core.chat_send_player(placer:get_player_name(), protected_message)
 
-	if long then
-		local node3 = core.get_node(pos3)
-		if node3 and node3.name ~= "air" then
-			return false
-		elseif core.is_protected(pos3, placer:get_player_name()) then
-			core.chat_send_player(placer:get_player_name(), S("Someone else owns the spot where the other end goes!"))
-			return false
-		end
+		return false
 	end
 
 	return true
+end
+
+function lrfurn.check_forward(pos, fdir, long, placer)
+	if not fdir or fdir > 3 then fdir = 0 end
+
+	local fwd  = lrfurn.fdir_to_fwd[fdir+1]
+	local pos2 = { x = pos.x + fwd[1],     y=pos.y, z = pos.z + fwd[2]     }
+	local pos3 = { x = pos.x + fwd[1] * 2, y=pos.y, z = pos.z + fwd[2] * 2 }
+
+	local message2 = long
+		and S('Someone else owns the spot where the middle or far end goes!')
+		or  S('Someone else owns the spot where other end goes!')
+	if not is_free_and_unprotected(pos2, placer, message2) then
+		return false
+	end
+
+	return not long or is_free_and_unprotected(pos3, placer, S('Someone else owns the spot where the other end goes!'))
+end
+
+--- @return boolean|nil true if the `on_rightclick` of the pointed node was called
+local function delegate_to_on_rightclick(itemstack, placer, pointed_thing, unode, undef)
+	if undef and undef.on_rightclick then
+		undef.on_rightclick(pointed_thing.under, unode, placer, itemstack, pointed_thing)
+
+		return true
+	end
+end
+
+--- @param def table|nil
+local function is_buildable(def)
+	return def and def.buildable_to
 end
 
 function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
@@ -89,16 +101,13 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 		return
 	end
 	local undef = core.registered_nodes[unode.name]
-	if undef and undef.on_rightclick then
-		undef.on_rightclick(pointed_thing.under, unode, placer,
-				itemstack, pointed_thing)
+	if delegate_to_on_rightclick(itemstack, placer, pointed_thing, unode, undef) then
 		return
 	end
 
 	local above = pointed_thing.above
 	local under = pointed_thing.under
-	local iswall = (above.y == under.y)
-	local isceiling = not iswall and (above.y < under.y)
+	local isceiling = above.y < under.y
 	local anode = core.get_node_or_nil(above)
 	if not anode then
 		return
@@ -106,19 +115,17 @@ function lord_homedecor.find_ceiling(itemstack, placer, pointed_thing)
 	local pos = pointed_thing.above
 	local node = anode
 
-	if undef and undef.buildable_to then
+	if is_buildable(undef) then
 		pos = pointed_thing.under
 		node = unode
 	end
 
 	if core.is_protected(pos, placer:get_player_name()) then
-		core.record_protection_violation(pos,
-				placer:get_player_name())
+		core.record_protection_violation(pos, placer:get_player_name())
 		return
 	end
 
-	local ndef = core.registered_nodes[node.name]
-	if not ndef or not ndef.buildable_to then
+	if not is_buildable(core.registered_nodes[node.name]) then
 		return
 	end
 	return isceiling, pos
