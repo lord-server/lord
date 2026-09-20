@@ -94,6 +94,28 @@ core.register_node("lottblocks:gen_dwarf_tomb_bottom", table.merge(tomb_bottom, 
 }))
 
 
+--- @param pos    Position
+--- @param placer  Player
+--- @return boolean true (and the protection violation is recorded) if the placer can't build at the position
+local function is_protected_for(pos, placer)
+	if core.is_protected(pos, placer:get_player_name()) and
+		not core.check_player_privs(placer, 'protection_bypass') then
+		core.record_protection_violation(pos, placer:get_player_name())
+
+		return true
+	end
+
+	return false
+end
+
+--- @param pos Position
+--- @return boolean
+local function is_buildable_to(pos)
+	local node_def = core.registered_nodes[core.get_node(pos).name]
+
+	return node_def ~= nil and node_def.buildable_to
+end
+
 -- Tomb nodes for players.
 -- Follow two blocks are drops from generated ones and used when player place the tomb.
 core.register_node("lottblocks:dwarf_tomb_top", table.merge(tomb_top, {
@@ -106,28 +128,14 @@ core.register_node("lottblocks:dwarf_tomb_top", table.merge(tomb_top, {
 			pos = pointed_thing.above
 		end
 
-		if core.is_protected(pos, placer:get_player_name()) and
-			not core.check_player_privs(placer, "protection_bypass") then
-			core.record_protection_violation(pos, placer:get_player_name())
-			return itemstack
-		end
-
-		local node_def = core.registered_nodes[core.get_node(pos).name]
-		if not node_def or not node_def.buildable_to then
+		if is_protected_for(pos, placer) or not is_buildable_to(pos) then
 			return itemstack
 		end
 
 		local dir = core.dir_to_facedir(placer:get_look_dir())
 		local botpos = vector.subtract(pos, core.facedir_to_dir(dir))
 
-		if core.is_protected(botpos, placer:get_player_name()) and
-			not core.check_player_privs(placer, "protection_bypass") then
-			core.record_protection_violation(botpos, placer:get_player_name())
-			return itemstack
-		end
-
-		local botdef = core.registered_nodes[core.get_node(botpos).name]
-		if not botdef or not botdef.buildable_to then
+		if is_protected_for(botpos, placer) or not is_buildable_to(botpos) then
 			return itemstack
 		end
 

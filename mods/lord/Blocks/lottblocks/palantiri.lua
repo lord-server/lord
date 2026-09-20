@@ -105,6 +105,210 @@ local function options_form(network)
 	return options
 end
 
+--- Checks the names given while the palantir configuring.
+--- @param fields table form fields
+--- @return string|nil error message
+local function get_names_error(fields)
+	if not fields.network or not fields.palantir
+		or fields.network == '' or fields.palantir == '' then
+		return S('Both the network and the palantir must have a name!!')
+	end
+	if fields.palantir == 'owner' or fields.palantir == 'options' then
+		return S('Palantir cannot use reserved name!')
+	end
+	if string.find(fields.palantir, ',') then
+		return S('Palantir cannot have commas in its name!')
+	end
+end
+
+--- Adds the palantir to the network (creates the network if it doesn't exist).
+--- @param pos         Position
+--- @param fields      table form fields
+--- @param player_name string
+--- @return string|nil error message
+local function add_to_network(pos, fields, player_name)
+	if not lottblocks.palantiri[fields.network] then
+		lottblocks.palantiri[fields.network]       = {}
+		lottblocks.palantiri[fields.network].owner = player_name
+	elseif lottblocks.palantiri[fields.network].owner ~= player_name then
+		return S('Someone else has a network with this name!')
+	end
+	if lottblocks.palantiri[fields.network][fields.palantir] then
+		return S('A palantir already exists on this network with the same name!')
+	end
+	lottblocks.palantiri[fields.network][fields.palantir] = pos
+
+	if not lottblocks.palantiri[fields.network].options then
+		lottblocks.palantiri[fields.network].options = {}
+		local options                                = lottblocks.palantiri[fields.network].options
+		for i, race in pairs(races_p) do
+			options[i] = 'true'
+		end
+	end
+end
+
+--- First step: the palantir gets a network and a name.
+--- @param pos         Position
+--- @param meta        MetaDataRef
+--- @param fields      table form fields
+--- @param player_name string
+local function configure_palantir(pos, meta, fields, player_name)
+	local error_message = get_names_error(fields) or add_to_network(pos, fields, player_name)
+	if error_message then
+		core.chat_send_player(player_name, core.colorize('red', error_message))
+
+		return
+	end
+
+	meta:set_string('network', fields.network)
+	meta:set_string('name', fields.palantir)
+	meta:set_string('formspec', options_form(fields.network))
+	save_palantiri()
+	meta:set_int('configured', 1)
+end
+
+--- Second step: the owner chooses the races that are allowed to use the network.
+--- @param meta        MetaDataRef
+--- @param fields      table form fields
+--- @param player_name string
+local function update_network_options(meta, fields, player_name)
+	local network = meta:get_string('network')
+	if not network then
+		return
+	end
+	if player_name == meta:get_string('owner') then
+		for i, race in pairs(races_p) do
+			if fields[i] ~= nil then
+				lottblocks.palantiri[network].options[i] = tostring(fields[i])
+			end
+		end
+	end
+	if fields.exit then
+		meta:set_string('formspec', formspec_update(meta))
+		meta:set_int('configured', 2)
+		save_palantiri()
+	end
+end
+
+--- @param pos Position
+--- @return boolean
+local function is_walkable_at(pos)
+	return core.registered_nodes[core.get_node(pos).name].walkable
+end
+
+--- @param sender Player
+local function send_wall_message(sender)
+	core.chat_send_player(
+		sender:get_player_name(),
+		core.colorize(purple, S('Sorry, at the point of teleport wall'))
+	)
+end
+
+--- Teleports the player to the target palantir of the network.
+--- @param pos      Position position of the used palantir
+--- @param formname string
+--- @param fields   table  form fields
+--- @param sender   Player
+--- @param network  string
+local function teleport_to_palantir(pos, formname, fields, sender, network)
+	local player_name = sender:get_player_name()
+	if fields.teleports == S('Teleport to...') then
+		if is_walkable_at({ x = pos.x, y = pos.y + 2, z = pos.z })
+			or is_walkable_at({ x = pos.x, y = pos.y + 1, z = pos.z }) then
+			send_wall_message(sender)
+
+			return
+		end
+		sender:set_pos({ x = pos.x, y = pos.y + 1, z = pos.z })
+		core.close_formspec(player_name, formname)
+
+		return
+	elseif fields.teleports == nil or lottblocks.palantiri[network][fields.teleports] == nil then
+		return
+	end
+
+	local p = lottblocks.palantiri[network][fields.teleports]
+	-- check target (node in the position target) / проверка, что мы телепортируемся не в стену
+	if is_walkable_at({ x = p.x + 1, y = p.y - 1, z = p.z })
+		or is_walkable_at({ x = p.x + 1, y = p.y, z = p.z })
+		or is_walkable_at({ x = p.x + 1, y = p.y + 1, z = p.z }) then
+		send_wall_message(sender)
+
+		return
+	end
+	sender:set_pos({ x = p.x + 1, y = p.y, z = p.z })
+	core.close_formspec(player_name, formname)
+end
+
+--- Not allowed player is thrown away somewhere and hurt.
+--- @param pos    Position
+--- @param fields table form fields
+--- @param sender Player
+local function throw_away(pos, fields, sender)
+	if fields.teleports and fields.teleports ~= S('Teleport to...') then
+		sender:set_pos({
+			x = pos.x + math.random(-50, 50),
+			y = pos.y + math.random(20, 50),
+			z = pos.z + math.random(-50, 50)
+		})
+		sender:set_hp(math.random(1, 10))
+	end
+end
+
+--- @param sender      Player
+--- @param meta        MetaDataRef
+--- @param network     string
+--- @param player_race string
+--- @return boolean
+local function can_teleport(sender, meta, network, player_race)
+	if sender:get_player_name() == meta:get_string('owner') then
+		return true
+	elseif core.check_player_privs(sender:get_player_name(), { palantiri = true }) then
+		return lottblocks.palantiri[network].options[player_race] == 'true'
+	end
+
+	return false
+end
+
+--- Third step: using of the configured palantir.
+--- @param pos         Position
+--- @param formname    string
+--- @param fields      table form fields
+--- @param sender      Player
+--- @param player_race string
+local function use_palantir(pos, formname, fields, sender, player_race)
+	local meta        = core.get_meta(pos)
+	local player_name = sender:get_player_name()
+
+	-- проверки перед перемещением
+	-- check privs / проверка привилегий
+	if not core.check_player_privs(sender, 'palantiri') then
+		core.chat_send_player(player_name,
+			core.colorize('red', S('You have no skill use the palantir!')))
+		return
+	end
+
+	if check_blocks(pos) == false then
+		core.chat_send_player(player_name,
+			core.colorize(purple, S('The palantiri is no longer anchored to the world!')))
+		core.remove_node(pos)
+		core.add_item(pos, 'lottblocks:palantir')
+		return
+	end
+
+	local network = meta:get_string('network')
+	if not network then
+		return
+	end
+
+	-- teleportation / собственно телепортация
+	if can_teleport(sender, meta, network, player_race) then
+		teleport_to_palantir(pos, formname, fields, sender, network)
+	else
+		throw_away(pos, fields, sender)
+	end
+end
+
 core.register_privilege("palantiri", {
 	description          = S("Allows editing palantiri"),
 	give_to_singleplayer = false,
@@ -162,141 +366,11 @@ core.register_node("lottblocks:palantir", {
 		local player_race = character.of(sender):get_race()
 
 		if configured == 0 then
-			if not fields.network or not fields.palantir
-				or fields.network == "" or fields.palantir == "" then
-				core.chat_send_player(player_name,
-					core.colorize("red", S("Both the network and the palantir must have a name!!")))
-				return
-			end
-			if fields.palantir == "owner" or fields.palantir == "options" then
-				core.chat_send_player(player_name,
-					core.colorize("red", S("Palantir cannot use reserved name!")))
-				return
-			end
-			if string.find(fields.palantir, ",") then
-				core.chat_send_player(player_name, core.colorize("red",
-					S("Palantir cannot have commas in its name!")))
-				return
-			end
-			if not lottblocks.palantiri[fields.network] then
-				lottblocks.palantiri[fields.network]       = {}
-				lottblocks.palantiri[fields.network].owner = player_name
-			else
-				if lottblocks.palantiri[fields.network].owner ~= player_name then
-					core.chat_send_player(player_name,
-						core.colorize("red", S("Someone else has a network with this name!")))
-					return
-				end
-			end
-			if not lottblocks.palantiri[fields.network][fields.palantir] then
-				lottblocks.palantiri[fields.network][fields.palantir] = pos
-			else
-				core.chat_send_player(player_name,
-					core.colorize("red", S("A palantir already exists on this network with the same name!")))
-				return
-			end
-			if not lottblocks.palantiri[fields.network].options then
-				lottblocks.palantiri[fields.network].options = {}
-				local options                                = lottblocks.palantiri[fields.network].options
-				for i, race in pairs(races_p) do
-					options[i] = "true"
-				end
-			end
-			meta:set_string("network", fields.network)
-			meta:set_string("name", fields.palantir)
-			meta:set_string("formspec", options_form(fields.network))
-			save_palantiri()
-			meta:set_int("configured", 1)
-		elseif meta:get_int("configured") == 1 then
-			local network = meta:get_string("network")
-			if not network then
-				return
-			end
-			if player_name == meta:get_string("owner") then
-				for i, race in pairs(races_p) do
-					if fields[i] ~= nil then
-						lottblocks.palantiri[network].options[i] = tostring(fields[i])
-					end
-				end
-			end
-			if fields.exit then
-				meta:set_string("formspec", formspec_update(meta))
-				meta:set_int("configured", 2)
-				save_palantiri()
-			end
+			configure_palantir(pos, meta, fields, player_name)
+		elseif configured == 1 then
+			update_network_options(meta, fields, player_name)
 		else
-			-- проверки перед перемещением
-			-- check privs / проверка привилегий
-			if not core.check_player_privs(sender, "palantiri") then
-				core.chat_send_player(player_name,
-					core.colorize("red", S("You have no skill use the palantir!")))
-				return
-			end
-
-			if check_blocks(pos) == false then
-				core.chat_send_player(player_name,
-					core.colorize(purple, S("The palantiri is no longer anchored to the world!")))
-				core.remove_node(pos)
-				core.add_item(pos, "lottblocks:palantir")
-				return
-			end
-
-			local can_tp  = false
-			local network = meta:get_string("network")
-			if not network then
-				return
-			end
-
-			if player_name == meta:get_string("owner") then
-				can_tp = true
-			elseif core.check_player_privs(player_name, { palantiri = true }) then
-				can_tp = lottblocks.palantiri[network].options[player_race] == "true"
-			end
-
-
-			-- teleportation / собственно телепортация
-			if can_tp == true then
-				if fields.teleports == S("Teleport to...") then
-					if
-						core.registered_nodes[core.get_node({ x = pos.x, y = pos.y + 2, z = pos.z }).name].walkable or
-						core.registered_nodes[core.get_node({ x = pos.x, y = pos.y + 1, z = pos.z }).name].walkable
-					then
-						core.chat_send_player(
-							sender:get_player_name(),
-							core.colorize(purple, S("Sorry, at the point of teleport wall"))
-						)
-						return
-					end
-					sender:set_pos({ x = pos.x, y = pos.y + 1, z = pos.z })
-					core.close_formspec(player_name, formname)
-					return
-				elseif fields.teleports == nil or
-					lottblocks.palantiri[meta:get_string("network")][fields.teleports] == nil then
-					return
-				end
-				local p = lottblocks.palantiri[meta:get_string("network")][fields.teleports]
-				-- check target (node in the position target) / проверка, что мы телепортируемся не в стену
-				if core.registered_nodes[core.get_node({ x = p.x + 1, y = p.y - 1, z = p.z }).name].walkable or
-					core.registered_nodes[core.get_node({ x = p.x + 1, y = p.y, z = p.z }).name].walkable or
-					core.registered_nodes[core.get_node({ x = p.x + 1, y = p.y + 1, z = p.z }).name].walkable then
-					core.chat_send_player(
-						sender:get_player_name(),
-						core.colorize(purple, S("Sorry, at the point of teleport wall"))
-					)
-					return
-				end
-				sender:set_pos({ x = p.x + 1, y = p.y, z = p.z })
-				core.close_formspec(player_name, formname)
-			elseif can_tp == false then
-				if fields.teleports and fields.teleports ~= S("Teleport to...") then
-					sender:set_pos({
-						x = pos.x + math.random(-50, 50),
-						y = pos.y + math.random(20, 50),
-						z = pos.z + math.random(-50, 50)
-					})
-					sender:set_hp(math.random(1, 10))
-				end
-			end
+			use_palantir(pos, formname, fields, sender, player_race)
 		end
 	end,
 	on_destruct               = function(pos)

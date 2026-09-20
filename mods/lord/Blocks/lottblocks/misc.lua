@@ -32,45 +32,40 @@ local function place_rope(pos, itemstack, player)
 	end
 end
 
+--- Removes rope nodes starting from `y + from` up to `y + to` (by `step`) until the first not rope (or protected) node.
+--- @param pos         Position
+--- @param y           integer  start level
+--- @param from        integer
+--- @param to          integer
+--- @param step        integer
+--- @param player_name string
+--- @return integer amount of removed nodes
+local function dig_rope_line(pos, y, from, to, step, player_name)
+	local dug_nodes = 0
+	for i = from, to, step do
+		pos.y = y + i
+		local node = core.get_node(pos)
+		if node ~= nil then
+			if node.name ~= 'lottblocks:elven_rope' or core.is_protected(pos, player_name) then
+				break
+			end
+			core.remove_node(pos)
+			dug_nodes = dug_nodes + 1
+		end
+	end
+
+	return dug_nodes
+end
+
 local function dig_rope(pos, digger)
 	if digger == nil and not digger:is_player() then
 		return
 	end
-	local dug_nodes = 0
 	local max_nodes = 200
 	local y = pos.y
-	for i = 1, max_nodes do
-		pos.y = y + i
-		local node = core.get_node(pos)
-		if node ~= nil then
-			if node.name == "lottblocks:elven_rope" then
-				if not core.is_protected(pos, digger:get_player_name()) then
-					core.remove_node(pos)
-					dug_nodes = dug_nodes + 1
-				else
-					break
-				end
-			else
-				break
-			end
-		end
-	end
-	for i = -1, -max_nodes, -1 do
-		pos.y = y + i
-		local node = core.get_node(pos)
-		if node ~= nil then
-			if node.name == "lottblocks:elven_rope" then
-				if not core.is_protected(pos, digger:get_player_name()) then
-					core.remove_node(pos)
-					dug_nodes = dug_nodes + 1
-				else
-					break
-				end
-			else
-				break
-			end
-		end
-	end
+	local player_name = digger:get_player_name()
+	local dug_nodes = dig_rope_line(pos, y, 1, max_nodes, 1, player_name)
+	dug_nodes = dug_nodes + dig_rope_line(pos, y, -1, -max_nodes, -1, player_name)
 	local inventory = digger:get_inventory()
 	if inventory == nil then
 		return
