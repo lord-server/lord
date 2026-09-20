@@ -42,6 +42,24 @@ local atan = function(x)
 end
 local table_copy = table.copy
 
+-- Debug settings for testing (see `debug_mobs` mod). Ignored on production.
+local dbg_no_attack         = false -- `debug_mobs.no_attack`: mobs never attack
+local dbg_animation_forever = nil   -- `debug_mobs.animation_forever`: `stand`|`walk`|`run`|`punch`|`attack`(= `punch`)
+if (minetest.settings:get("environment") or "production") ~= "production" then
+	dbg_no_attack = minetest.settings:get_bool("debug_mobs.no_attack", false)
+
+	local anim = minetest.settings:get("debug_mobs.animation_forever")
+	if anim and anim ~= "" then
+		anim = ({ attack = "punch" })[anim] or anim
+		if ({ stand = true, walk = true, run = true, punch = true })[anim] then
+			dbg_animation_forever = anim
+			dbg_no_attack         = true
+		else
+			minetest.log("warning", "[legacy_mobs] Unknown `debug_mobs.animation_forever`: " .. anim)
+		end
+	end
+end
+
 
 -- Load settings
 local damage_enabled = minetest.settings:get_bool("enable_damage")
@@ -80,6 +98,8 @@ end
 
 -- attack player/mob
 local do_attack = function(self, player)
+
+	if dbg_no_attack then return end
 
 	if self.state == "attack" then
 		return
@@ -1259,10 +1279,24 @@ function calculate_shot_direction(p1, p2, v0)
 	return v(delta.x / d, tan_angle, delta.z / d):normalize()
 end
 
+-- debug: play `dbg_animation_forever` non-stop (`stand`/`punch` in place, `walk`/`run` straight ahead, no turns)
+local do_debug_animation_forever = function(self)
+	local anim     = dbg_animation_forever
+	local velocity = ({ walk = self.walk_velocity, run = self.run_velocity })[anim]
+
+	self.state = velocity and "walk" or "stand"
+	set_velocity(self, (velocity and not is_at_cliff(self)) and velocity or 0)
+	set_animation(self, anim)
+end
+
 -- execute current state (stand, walk, run, attacks)
 local do_states = function(self, dtime)
 	if mob_is_dead(self) then
 		return
+	end
+
+	if dbg_animation_forever then
+		return do_debug_animation_forever(self)
 	end
 
 	local yaw

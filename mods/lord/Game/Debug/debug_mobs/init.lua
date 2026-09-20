@@ -1,5 +1,6 @@
 
 core.mod(function(mod)
+	-- Settings: see `readme.md` (`no_attack` and `animation_forever` are handled in `legacy_mobs/api.lua`).
 	local environment = core.settings:get('environment') or 'production'
 	if environment == 'production' then
 		return
