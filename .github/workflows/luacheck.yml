@@ -46,6 +46,5 @@ jobs:
               mods/lord/Player/hud_modpack/hbhunger/ \
               mods/lord/Player/hud_modpack/hbsprint/ \
               mods/lord/Player/hud_modpack/hudbars/ \
-              mods/lord/Items/lord_books/ \
               mods/lord/World/Generation/lottmapgen/ \
               mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua
