@@ -33,26 +33,9 @@ jobs:
       - name: Check Cyclomatic Complexity
         run: |
           $HOME/.luarocks/bin/luacheck . --max-cyclomatic-complexity 10 \
-            --globals lottachievements races \
+            --globals lottachievements \
             --exclude-files \
               mods/_minetest_game/ \
-              mods/lord/_experimental/lord_spawners/src/spawners/api.lua \
-              mods/lord/_overwrites/MTG/default/ \
-              mods/lord/Blocks/lottblocks/ \
-              mods/lord/Blocks/lord_homedecor/ \
-              mods/lord/Blocks/protector_lott/ \
-              mods/lord/Blocks/signs_lib/ \
-              mods/lord/Blocks/technic_chests/ \
-              mods/lord/Entities/npc/ \
               mods/lord/Entities/lottmobs/ \
-              mods/lord/Game/discord/ \
               mods/lord/Game/lottachievements/ \
-              mods/lord/Game/lord_classes/ \
-              mods/lord/Player/hud_modpack/hbhunger/ \
-              mods/lord/Player/hud_modpack/hbsprint/ \
-              mods/lord/Player/hud_modpack/hudbars/ \
-              mods/lord/Items/lord_replacer/ \
-              mods/lord/Items/lord_books/ \
-              mods/lord/Items/lord_boats/ \
-              mods/lord/World/Generation/lottmapgen/ \
-              mods/lord/Player/Help/lord_tooltips/src/snippet/properties/node.lua
+              mods/lord/World/Generation/lottmapgen/

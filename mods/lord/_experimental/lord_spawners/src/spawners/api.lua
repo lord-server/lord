@@ -194,68 +194,47 @@ function spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
 	end
 end
 
-function spawners.on_timer(pos, elapsed)
-	local meta      = core.get_meta(pos)
-	local node      = core.get_node(pos)
-	local mob_table = spawners.nodes[node.name]
+local ENTITIES_MAX   = 8
+local NODE_LIGHT_MIN = 13
 
-	if not mob_table then
-		return
-	end
-
-	local player_near           = false
-	local entities_near         = 0
-	local entities_max          = 6
-	local node_light_min        = 13
-
-	local mob_name              = mob_table.mod_prefix .. ":" .. mob_table.mob_name
-	local sound_custom          = mob_table.sound_custom
-	local night_only            = mob_table.night_only
-	local has_dummy             = false
-
-	local objects_inside_radius = core.get_objects_inside_radius(pos, 0.5)
-	for _, obj in ipairs(objects_inside_radius) do
+--- Puts the dummy entity into the active spawner if it has no one.
+--- @param pos               Position
+--- @param meta              MetaDataRef
+--- @param dummy_entity_name string
+local function restore_dummy_entity(pos, meta, dummy_entity_name)
+	local has_dummy = false
+	for _, obj in ipairs(core.get_objects_inside_radius(pos, 0.5)) do
 		local lua_ent = obj:get_luaentity()
-		if lua_ent and lua_ent.name == mob_table.dummy_entity_name then
+		if lua_ent and lua_ent.name == dummy_entity_name then
 			has_dummy = true
 		end
 	end
 
 	if not has_dummy and meta:get_string('status') == 'active' then
-		nodes.dummy_entity.add(pos, mob_table.dummy_entity_name)
+		nodes.dummy_entity.add(pos, dummy_entity_name)
+	end
+end
+
+--- @param node_light number|nil
+--- @param night_only boolean|string `true`, `false` or `'disabled'`
+--- @return string|nil message with the reason why the spawner has to wait
+local function get_light_wait_message(node_light, night_only)
+	if night_only == 'disabled' then
+		return nil
 	end
 
-	-- check spawner light
-	local node_light = core.get_node_light(pos)
-
-	if night_only ~= 'disabled' then
-		-- dark
-		if (not node_light or node_light < node_light_min) and not night_only then
-			spawners.set_status(pos, 'waiting', 'Too dark for mob to spawn. Waiting for day .. .')
-			spawners.tick_short(pos)
-			return
-		-- light
-		elseif node_light >= node_light_min and night_only then
-			spawners.set_status(pos, 'waiting', 'Too much light for mob to spawn. Waiting for night .. .')
-			spawners.tick_short(pos)
-			return
-		end
+	if (not node_light or node_light < NODE_LIGHT_MIN) and not night_only then
+		return 'Too dark for mob to spawn. Waiting for day .. .'
+	elseif node_light >= NODE_LIGHT_MIN and night_only then
+		return 'Too much light for mob to spawn. Waiting for night .. .'
 	end
+end
 
-	-- positions where mobs can spawn
-	local posmin         = { x = pos.x - 3, y = pos.y - 1, z = pos.z - 3 }
-	local posmax         = { x = pos.x + 4, y = pos.y + 4, z = pos.z + 4 }
-	local spawn_area_pos = core.find_nodes_in_area(posmin, posmax, 'air')
-
-	-- check if there is enough place to spawn mob
-	if #spawn_area_pos < 1 then
-		spawners.set_status(pos, 'waiting', 'Not enough place to spawn mob. Find more space!')
-		spawners.tick(pos)
-		return
-	end
-
-	-- spawn 2 mobs on 2 different positions by chance
-	local how_many              = math.random(1, 2)
+--- Chooses `how_many` random positions where the mobs can spawn.
+--- @param spawn_area_pos Position[] all the positions where mobs can spawn (positions can be removed from it)
+--- @param how_many       integer
+--- @return Position[]
+local function pick_random_positions(spawn_area_pos, how_many)
 	local spawn_area_random_pos = {}
 
 	-- get random spawn position from spawn area
@@ -276,29 +255,18 @@ function spawners.on_timer(pos, elapsed)
 		end
 	end
 
-	-- check if there is still enough place to spawn mob
-	if #spawn_area_random_pos < 1 then
-		spawners.set_status(pos, 'waiting', 'Not enough place to spawn mob. Searching for new location .. .')
-		spawners.tick_short(pos)
-		return
-	end
+	return spawn_area_random_pos
+end
 
-	-- area where player and entity count will be detected
-	local activation_area = core.get_objects_inside_radius(pos, 16)
+--- Detects the player and the mobs of the type inside the activation area.
+--- @param activation_area table[] objects
+--- @param mob_name        string
+--- @return boolean, integer whether a player is near, amount of the mobs near
+local function scan_activation_area(activation_area, mob_name)
+	local player_near   = false
+	local entities_near = 0
 
-	-- prevent object clutter on the map
-	if #activation_area > max_objects then
-		spawners.set_status(
-			pos,
-			'waiting',
-			'Too many objects in the area (' .. #activation_area .. '/' .. max_objects .. '), ' ..
-				'clean-up dropped objects first!'
-		)
-		spawners.tick_short(pos)
-		return
-	end
-
-	for k, object in ipairs(activation_area) do
+	for _, object in ipairs(activation_area) do
 		-- find player inside activation area
 		if object:is_player() then
 			player_near = true
@@ -309,27 +277,93 @@ function spawners.on_timer(pos, elapsed)
 			not object:is_player()
 			and object:get_luaentity()
 			and object:get_luaentity().name ~= '__builtin:item'
-			and object:get_luaentity() == mob_name
+			and object:get_luaentity().name == mob_name
 		then
 			entities_near = entities_near + 1
 		end
 		-- stop looping when met all conditions
-		if entities_near >= entities_max and player_near then
+		if entities_near >= ENTITIES_MAX and player_near then
 			break
 		end
 	end
 
+	return player_near, entities_near
+end
+
+--- Sets the "waiting" status and retries soon.
+--- @param pos     Position
+--- @param message string
+local function wait_short(pos, message)
+	spawners.set_status(pos, 'waiting', message)
+	spawners.tick_short(pos)
+end
+
+function spawners.on_timer(pos, elapsed)
+	local meta      = core.get_meta(pos)
+	local node      = core.get_node(pos)
+	local mob_table = spawners.nodes[node.name]
+
+	if not mob_table then
+		return
+	end
+
+	local mob_name = mob_table.mod_prefix .. ":" .. mob_table.mob_name
+
+	restore_dummy_entity(pos, meta, mob_table.dummy_entity_name)
+
+	-- check spawner light
+	local light_message = get_light_wait_message(core.get_node_light(pos), mob_table.night_only)
+	if light_message then
+		wait_short(pos, light_message)
+		return
+	end
+
+	-- positions where mobs can spawn
+	local posmin         = { x = pos.x - 3, y = pos.y - 1, z = pos.z - 3 }
+	local posmax         = { x = pos.x + 4, y = pos.y + 4, z = pos.z + 4 }
+	local spawn_area_pos = core.find_nodes_in_area(posmin, posmax, 'air')
+
+	-- check if there is enough place to spawn mob
+	if #spawn_area_pos < 1 then
+		spawners.set_status(pos, 'waiting', 'Not enough place to spawn mob. Find more space!')
+		spawners.tick(pos)
+		return
+	end
+
+	-- spawn 2 mobs on 2 different positions by chance
+	local spawn_area_random_pos = pick_random_positions(spawn_area_pos, math.random(1, 2))
+
+	-- check if there is still enough place to spawn mob
+	if #spawn_area_random_pos < 1 then
+		wait_short(pos, 'Not enough place to spawn mob. Searching for new location .. .')
+		return
+	end
+
+	-- area where player and entity count will be detected
+	local activation_area = core.get_objects_inside_radius(pos, 16)
+
+	-- prevent object clutter on the map
+	if #activation_area > max_objects then
+		wait_short(
+			pos,
+			'Too many objects in the area (' .. #activation_area .. '/' .. max_objects .. '), ' ..
+				'clean-up dropped objects first!'
+		)
+		return
+	end
+
+	local player_near, entities_near = scan_activation_area(activation_area, mob_name)
+
 	-- don't do anything and try again later when player not near or max entities reached
-	if entities_near >= entities_max or not player_near then
-		spawners.set_status(pos, 'waiting', 'max mobs reached: ' .. entities_near .. '/' .. entities_max)
-		spawners.tick_short(pos)
+	if entities_near >= ENTITIES_MAX or not player_near then
+		wait_short(pos, 'max mobs reached: ' .. entities_near .. '/' .. ENTITIES_MAX)
 		return
 	end
 
 	-- start spawning
-	spawners.start_spawning(spawn_area_random_pos, mob_name, sound_custom)
+	spawners.start_spawning(spawn_area_random_pos, mob_name, mob_table.sound_custom)
 
-	spawners.set_status(pos, 'active', 'spawner is active reached: ' .. entities_near .. '/' .. entities_max)
+	spawners.set_status(pos, 'active', 'spawner is active reached: ' .. entities_near .. '/' .. ENTITIES_MAX)
 	meta:set_int('tick', 0)
 	meta:set_int('tick_short', 0)
 

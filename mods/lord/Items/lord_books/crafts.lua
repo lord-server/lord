@@ -4,6 +4,12 @@
 
 local S = core.get_mod_translator()
 
+local book_form = dofile(core.get_modpath(core.get_current_modname()) .. '/book_form.lua')
+
+local has_group = book_form.has_group
+
+local KEY = 'zcg'
+
 local DEFAULT_LANG = core.settings:get("language")
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = os.getenv("LANG") end
 if DEFAULT_LANG == nil or DEFAULT_LANG == "" then DEFAULT_LANG = "en" end
@@ -30,49 +36,18 @@ zcg.items_in_group = function(group)
 	return items
 end
 
+--- The book of crafts has all the recipes, except forbidden, armor and cooking ones.
+local function is_wanted_craft(input, output)
+	if has_group(output, 'forbidden') or has_group(output, 'armor_use')
+		or has_group(output, 'armor_crafts') or has_group(output, 'cook_crafts') then
+		return false
+	end
+
+	return input.type ~= 'cooking'
+end
+
 zcg.add_craft = function(input, output, groups)
-	if core.get_item_group(output, "forbidden") > 0 then
-		return
-	end
-     if core.get_item_group(output, "armor_use") > 0 then
-		return
-	end
-     if core.get_item_group(output, "armor_crafts") > 0 then
-		return
-	end
-     if core.get_item_group(output, "cook_crafts") > 0 then
-		return
-	end
-	if not groups then groups = {} end
-	local c = {}
-	c.width = input.width
-	c.type = input.type
-	c.items = input.items
-	if c.items == nil then return end
-	for i, item in pairs(c.items) do
-		if item:starts_with("group:") then
-			local groupname = item:sub(7)
-			if groups[groupname] ~= nil then
-				c.items[i] = groups[groupname]
-			else
-				for _, gi in ipairs(zcg.items_in_group(groupname)) do
-					local g2 = groups
-					g2[groupname] = gi
-					zcg.add_craft({
-						width = c.width,
-						type = c.type,
-						items = table.copy(c.items)
-					}, output, g2) -- it is needed to copy the table, else groups won't work right
-				end
-				return
-			end
-		end
-	end
-     if c.type == "cooking" then
-          return
-     end
-	if c.width == 0 then c.width = 3 end
-	table.insert(zcg.crafts[output],c)
+	book_form.add_craft(zcg, input, output, groups, is_wanted_craft)
 end
 
 zcg.load_crafts = function(name)
@@ -139,97 +114,31 @@ zcg.form.NAME = "master_book_form"
 --- @param find        string
 --- @return string
 zcg.form.get_spec = function(player_name, find)
-	find = find or "";
+	find = find or ''
 	if zcg.need_load_all then zcg.load_all() end
-	local page = zcg.users[player_name].page
-	local alt = zcg.users[player_name].alt
-	local current_item = zcg.users[player_name].current_item
-	local formspec =
-		"size[8,7.75]" ..
-		"button_exit[6,7.25;2,0.5;;".. S("Exit").."]"
-	if zcg.users[player_name].history.index > 1 then
-		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zcg_previous;;false;false;books_previous_press.png]"
-	else
-		formspec = formspec .. "image[0,1;1,1;books_previous_inactive.png]"
-	end
-	if zcg.users[player_name].history.index < #zcg.users[player_name].history.list then
-		formspec = formspec .. "image_button[1,1;1,1;books_next.png;zcg_next;;false;false;books_next_press.png]"
-	else
-		formspec = formspec .. "image[1,1;1,1;books_next_inactive.png]"
-	end
 
-	-- Show craft recipe
-	if current_item ~= "" then
-		if zcg.crafts[current_item] then
-			if alt > #zcg.crafts[current_item] then
-				alt = #zcg.crafts[current_item]
-			end
-			if alt > 1 then
-				formspec = formspec .. "button[7,0;1,1;zcg_alt:"..(alt-1)..";^]"
-			end
-			if alt < #zcg.crafts[current_item] then
-				formspec = formspec .. "button[7,2;1,1;zcg_alt:"..(alt+1)..";v]"
-			end
-			local c = zcg.crafts[current_item][alt]
-			if c then
-				local x = 3
-				local y = 0
-				for i, item in pairs(c.items) do
-					formspec = formspec ..
-						"item_image_button[" ..
-							((i - 1) % c.width + x) .. "," .. (math.floor((i - 1) / c.width + y)) .. ";" ..
-							"1,1;" ..
-							item .. ";" ..
-							"zcg:" .. item .. ";" ..
-						"]"
-				end
-				if c.type == "normal" or c.type == "cooking" then
-					formspec = formspec .. "image[6,2;1,1;books_method_"..c.type..".png]"
-				else -- we don't have an image for other types of crafting
-					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
-				end
-				formspec = formspec .. "image[6,1;1,1;books_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;"..zcg.users[player_name].current_item..";;]"
-			end
-		end
-	end
+	local user     = zcg.users[player_name]
+	local formspec = 'size[8,7.75]'
+		.. 'button_exit[6,7.25;2,0.5;;' .. S('Exit') .. ']'
+		.. book_form.navigation_buttons(KEY, user.history)
+		.. book_form.selected_recipe(KEY, zcg, user)
 
 	-- Filter items by `filter` field value
 	formspec = formspec ..
-		"field[0.3,3.5;4,0.5;zcg_filter;" .. S("Search") .. ";" .. core.formspec_escape(find) .. "]" ..
-		"field_close_on_enter[zcg_filter;false]"
+		'field[0.3,3.5;4,0.5;' .. KEY .. '_filter;' .. S('Search') .. ';' .. core.formspec_escape(find) .. ']' ..
+		'field_close_on_enter[' .. KEY .. '_filter;false]'
 
-	local lang_code = core.get_player_information(player_name).lang_code or DEFAULT_LANG
+	local lang_code     = core.get_player_information(player_name).lang_code or DEFAULT_LANG
 	local filtered_list = filter_by_search(find, lang_code)
 
-	-- Node list
-	local npp = 8*3 -- nodes per page
-	local i = 0 -- for positionning buttons
-	local s = 0 -- for skipping pages
-	for _, name in ipairs(filtered_list) do
-		if s < page*npp then s = s+1 else
-			if i >= npp then break end
-			formspec = formspec ..
-				"item_image_button[" ..
-					(i % 8) .. "," .. (math.floor(i / 8) + 4) .. ";" ..
-					"1,1;" ..
-					name .. ";" ..
-					"zcg:" .. name .. ";" ..
-				"]"
-			i = i+1
-		end
-	end
-	if page > 0 then
-		formspec = formspec .. "button[0,7.25;1,.5;zcg_page:"..(page-1)..";<<]"
-	end
-	if i >= npp then
-		formspec = formspec .. "button[1,7.25;1,.5;zcg_page:"..(page+1)..";>>]"
-	end
-	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,7.25;".. S("Page").." "..(page+1).."/"..(math.floor(#filtered_list/npp+1)).."]"
-	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
-	formspec = formspec .. "label[0,0;".. S("Book of Crafts").."]"
+	local buttons, shown = book_form.item_buttons(KEY, filtered_list, user.page, 4)
+
 	return formspec
+		.. buttons
+		.. book_form.page_buttons(KEY, user.page, shown, '7.25')
+		.. book_form.page_label('7.25', user.page, #filtered_list)
+		.. 'background[5,5;1,1;books_formbg.png;true]'
+		.. 'label[0,0;' .. S('Book of Crafts') .. ']'
 end
 --- @param player_name string
 --- @param find        string
@@ -246,47 +155,7 @@ core.register_on_player_receive_fields(function(player, form_name, fields)
 		return
 	end
 
-	local pn = player:get_player_name();
-	if zcg.users[pn] == nil then zcg.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-	local search_phrase = fields.zcg_filter or "";
-	local new_filter =false
-	if fields.key_enter and fields.key_enter_field == "zcg_filter" and fields.zcg_filter then
-		new_filter = true
-		zcg.users[pn].page = 0
-	end
-	if fields.zcg or new_filter then
-		zcg.form.show(pn, search_phrase)
-		return
-	elseif fields.zcg_previous then
-		if zcg.users[pn].history.index > 1 then
-			zcg.users[pn].history.index = zcg.users[pn].history.index - 1
-			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			zcg.form.show(pn, search_phrase)
-		end
-	elseif fields.zcg_next then
-		if zcg.users[pn].history.index < #zcg.users[pn].history.list then
-			zcg.users[pn].history.index = zcg.users[pn].history.index + 1
-			zcg.users[pn].current_item = zcg.users[pn].history.list[zcg.users[pn].history.index]
-			zcg.form.show(pn, search_phrase)
-		end
-	end
-	for k, v in pairs(fields) do
-		if (k:starts_with("zcg:")) then
-			local ni = k:sub(5)
-			if zcg.crafts[ni] then
-				zcg.users[pn].current_item = ni
-				table.insert(zcg.users[pn].history.list, ni)
-				zcg.users[pn].history.index = #zcg.users[pn].history.list
-				zcg.form.show(pn, search_phrase)
-			end
-		elseif (k:starts_with("zcg_page:")) then
-			zcg.users[pn].page = tonumber(k:sub(10))
-			zcg.form.show(pn, search_phrase)
-		elseif (k:starts_with("zcg_alt:")) then
-			zcg.users[pn].alt = tonumber(k:sub(9))
-			zcg.form.show(pn, search_phrase)
-		end
-	end
+	book_form.handle_fields(zcg, KEY, player, fields, true)
 end)
 
 core.register_tool("lord_books:crafts_book",{

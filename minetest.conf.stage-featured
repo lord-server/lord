@@ -49,8 +49,7 @@ time_speed = 24
 ## Security
 # И НА ПРОДЕ `false` !!!
 secure.enable_security = false
-secure.trusted_mods = lp_api
-secure.http_mods = lp_api, voxrame_http
+secure.http_mods = voxrame_http
 
 
 #
@@ -133,12 +132,6 @@ mobs_spawn_protected = 0
 protector_pvp = true
 protector_spawn = 10
 #protector_damage = 3
-
-# -------- _various/discord ---------
-# For Discord
-lp_api.channel_id = 284678831866904578
-lp_api.router.cmd = true
-lp_api.system_name = lord-test
 
 
 #

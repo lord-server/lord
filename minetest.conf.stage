@@ -65,12 +65,8 @@ max_objects_per_block = 499
 #    Prevent mods from doing insecure things like running shell commands.
 # И НА ПРОДЕ `false` !!!
 secure.enable_security = false
-#    Comma-separated list of trusted mods that are allowed to access insecure
-#    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = lp_api
 
-# For Discord
-secure.http_mods = lp_api, voxrame_http
+secure.http_mods = voxrame_http
 
 
 ## Advanced
@@ -226,12 +222,6 @@ mobs_spawn_protected = 0
 protector_pvp = true
 protector_spawn = 10
 #protector_damage = 3
-
-# -------- _various/discord ---------
-# For Discord
-lp_api.channel_id = 284678831866904578
-lp_api.router.cmd = true
-lp_api.system_name = lord-test
 
 
 #

@@ -4,6 +4,12 @@
 
 local S = core.get_mod_translator()
 
+local book_form = dofile(core.get_modpath(core.get_current_modname()) .. '/book_form.lua')
+
+local has_group = book_form.has_group
+
+local KEY = 'zpc'
+
 zpc = {}
 zpc.users = {}
 zpc.crafts = {}
@@ -26,39 +32,13 @@ zpc.items_in_group = function(group)
 	return items
 end
 
-zpc.add_craft = function(input, output, groups)
-	if core.get_item_group(output, "armor_use") > 0 or core.get_item_group(output, "armor_crafts") > 0 then
-     if core.get_item_group(output, "forbidden") > 0 then
-		return
-	end
-	if not groups then groups = {} end
-	local c = {}
-	c.width = input.width
-	c.type = input.type
-	c.items = input.items
-	if c.items == nil then return end
-	for i, item in pairs(c.items) do
-		if item:starts_with("group:") then
-			local groupname = item:sub(7)
-			if groups[groupname] ~= nil then
-				c.items[i] = groups[groupname]
-			else
-				for _, gi in ipairs(zpc.items_in_group(groupname)) do
-					local g2 = groups
-					g2[groupname] = gi
-					zpc.add_craft({
-						width = c.width,
-						type = c.type,
-						items = table.copy(c.items)
-					}, output, g2) -- it is needed to copy the table, else groups won't work right
-				end
-				return
-			end
-		end
-	end
-	if c.width == 0 then c.width = 3 end
-	table.insert(zpc.crafts[output],c)
+--- The book of protection has the recipes of the armor (except forbidden one) only.
+local function is_wanted_craft(input, output)
+	return (has_group(output, 'armor_use') or has_group(output, 'armor_crafts')) and not has_group(output, 'forbidden')
 end
+
+zpc.add_craft = function(input, output, groups)
+	book_form.add_craft(zpc, input, output, groups, is_wanted_craft)
 end
 
 zpc.load_crafts = function(name)
@@ -101,86 +81,21 @@ zpc.form.NAME = "protection_book_form"
 --- @return string
 zpc.form.get_spec = function(player_name)
 	if zpc.need_load_all then zpc.load_all() end
-	local page = zpc.users[player_name].page
-	local alt = zpc.users[player_name].alt
-	local current_item = zpc.users[player_name].current_item
-	local formspec =
-		"size[8,7.5]" ..
-		"button_exit[6,7;2,0.5;;".. S("Exit").."]"
-	if zpc.users[player_name].history.index > 1 then
-		formspec = formspec .. "image_button[0,1;1,1;books_previous.png;zpc_previous;;false;false;books_previous_press.png]"
-	else
-		formspec = formspec .. "image[0,1;1,1;books_previous_inactive.png]"
-	end
-	if zpc.users[player_name].history.index < #zpc.users[player_name].history.list then
-		formspec = formspec .. "image_button[1,1;1,1;books_next.png;zpc_next;;false;false;books_next_press.png]"
-	else
-		formspec = formspec .. "image[1,1;1,1;books_next_inactive.png]"
-	end
-	-- Show craft recipe
-	if current_item ~= "" then
-		if zpc.crafts[current_item] then
-			if alt > #zpc.crafts[current_item] then
-				alt = #zpc.crafts[current_item]
-			end
-			if alt > 1 then
-				formspec = formspec .. "button[7,0;1,1;zpc_alt:"..(alt-1)..";^]"
-			end
-			if alt < #zpc.crafts[current_item] then
-				formspec = formspec .. "button[7,2;1,1;zpc_alt:"..(alt+1)..";v]"
-			end
-			local c = zpc.crafts[current_item][alt]
-			if c then
-				local x = 3
-				local y = 0
-				for i, item in pairs(c.items) do
-					formspec = formspec ..
-						"item_image_button[" ..
-							((i - 1) % c.width + x) .. "," .. (math.floor((i - 1) / c.width + y)) .. ";" ..
-							"1,1;" ..
-							item .. ";" ..
-							"zpc:" .. item .. ";" ..
-						"]"
-				end
-				if c.type == "normal" or c.type == "cooking" then
-					formspec = formspec .. "image[6,2;1,1;books_method_"..c.type..".png]"
-				else -- we don't have an image for other types of crafting
-					formspec = formspec .. "label[0,2;Method: "..c.type.."]"
-				end
-				formspec = formspec .. "image[6,1;1,1;books_craft_arrow.png]"
-				formspec = formspec .. "item_image_button[7,1;1,1;"..zpc.users[player_name].current_item..";;]"
-			end
-		end
-	end
 
-	-- Node list
-	local npp = 8*3 -- nodes per page
-	local i = 0 -- for positionning buttons
-	local s = 0 -- for skipping pages
-	for _, name in ipairs(zpc.itemlist) do
-		if s < page*npp then s = s+1 else
-			if i >= npp then break end
-			formspec = formspec ..
-				"item_image_button[" ..
-					(i % 8) .. "," .. (math.floor(i / 8) + 3.5) .. ";" ..
-					"1,1;" ..
-					name .. ";" ..
-					"zpc:" .. name .. ";" ..
-				"]"
-			i = i+1
-		end
-	end
-	if page > 0 then
-		formspec = formspec .. "button[0,7;1,.5;zpc_page:"..(page-1)..";<<]"
-	end
-	if i >= npp then
-		formspec = formspec .. "button[1,7;1,.5;zpc_page:"..(page+1)..";>>]"
-	end
-	-- The Y is approximatively the good one to have it centered vertically...
-	formspec = formspec .. "label[2,6.85;".. S("Page").." "..(page+1).."/"..(math.floor(#zpc.itemlist/npp+1)).."]"
-	formspec = formspec .. "label[0,0;".. S("Book of Protection").."]"
-	formspec = formspec .. "background[5,5;1,1;books_formbg.png;true]"
+	local user     = zpc.users[player_name]
+	local formspec = 'size[8,7.5]'
+		.. 'button_exit[6,7;2,0.5;;' .. S('Exit') .. ']'
+		.. book_form.navigation_buttons(KEY, user.history)
+		.. book_form.selected_recipe(KEY, zpc, user)
+
+	local buttons, shown = book_form.item_buttons(KEY, zpc.itemlist, user.page, 3.5)
+
 	return formspec
+		.. buttons
+		.. book_form.page_buttons(KEY, user.page, shown, '7')
+		.. book_form.page_label('6.85', user.page, #zpc.itemlist)
+		.. 'label[0,0;' .. S('Book of Protection') .. ']'
+		.. 'background[5,5;1,1;books_formbg.png;true]'
 end
 --- @param player_name string
 zpc.form.show = function(player_name)
@@ -196,41 +111,7 @@ core.register_on_player_receive_fields(function(player, form_name, fields)
 		return
 	end
 
-	local pn = player:get_player_name();
-	if zpc.users[pn] == nil then zpc.users[pn] = {current_item = "", alt = 1, page = 0, history={index=0,list={}}} end
-	if fields.zpc then
-		zpc.form.show(pn)
-		return
-	elseif fields.zpc_previous then
-		if zpc.users[pn].history.index > 1 then
-			zpc.users[pn].history.index = zpc.users[pn].history.index - 1
-			zpc.users[pn].current_item = zpc.users[pn].history.list[zpc.users[pn].history.index]
-			zpc.form.show(pn)
-		end
-	elseif fields.zpc_next then
-		if zpc.users[pn].history.index < #zpc.users[pn].history.list then
-			zpc.users[pn].history.index = zpc.users[pn].history.index + 1
-			zpc.users[pn].current_item = zpc.users[pn].history.list[zpc.users[pn].history.index]
-			zpc.form.show(pn)
-		end
-	end
-	for k, v in pairs(fields) do
-		if (k:starts_with("zpc:")) then
-			local ni = k:sub(5)
-			if zpc.crafts[ni] then
-				zpc.users[pn].current_item = ni
-				table.insert(zpc.users[pn].history.list, ni)
-				zpc.users[pn].history.index = #zpc.users[pn].history.list
-				zpc.form.show(pn)
-			end
-		elseif (k:starts_with("zpc_page:")) then
-			zpc.users[pn].page = tonumber(k:sub(10))
-			zpc.form.show(pn)
-		elseif (k:starts_with("zpc_alt:")) then
-			zpc.users[pn].alt = tonumber(k:sub(9))
-			zpc.form.show(pn)
-		end
-	end
+	book_form.handle_fields(zpc, KEY, player, fields, false)
 end)
 
 core.register_tool("lord_books:protection_book",{

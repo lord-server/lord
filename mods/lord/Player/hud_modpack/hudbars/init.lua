@@ -279,45 +279,49 @@ function hb.init_hudbar(player, identifier, start_value, start_max, start_hidden
 	return true
 end
 
-function hb.change_hudbar(player, identifier, new_value, new_max_value,
- new_icon, new_bgicon, new_bar, new_label, new_text_color)
-	if new_value == nil and new_max_value == nil and new_icon == nil and new_bgicon == nil and
-	 new_bar == nil and new_label == nil and new_text_color == nil then
-		return true
+--- @return boolean true if there is nothing to change
+local function is_nothing_to_change(new_value, new_max_value, new_icon, new_bgicon, new_bar, new_label, new_text_color)
+	return new_value == nil and new_max_value == nil and new_icon == nil and new_bgicon == nil and
+	 new_bar == nil and new_label == nil and new_text_color == nil
+end
+
+--- Updates the field of the state of the hudbar.
+--- @param state     table  hudstate of the player
+--- @param field     string `value` or `max`
+--- @param new_value number|nil
+--- @return number, boolean actual value, whether it was changed
+local function update_state(state, field, new_value)
+	if new_value == nil then
+		return state[field], false
 	end
-	if not player_exists(player) then
-		return false
+	if new_value == state[field] then
+		return new_value, false
 	end
 
-	local name = player:get_player_name()
-	local hudtable = hb.get_hudtable(identifier)
-	local value_changed, max_changed = false, false
+	state[field] = new_value
 
-	if new_value ~= nil then
-		if new_value ~= hudtable.hudstate[name].value then
-			hudtable.hudstate[name].value = new_value
-			value_changed = true
-		end
-	else
-		new_value = hudtable.hudstate[name].value
-	end
-	if new_max_value ~= nil then
-		if new_max_value ~= hudtable.hudstate[name].max then
-			hudtable.hudstate[name].max = new_max_value
-			max_changed = true
-		end
-	else
-		new_max_value = hudtable.hudstate[name].max
-	end
+	return new_value, true
+end
 
-	if new_icon ~= nil and hudtable.hudids[name].bar ~= nil then
-		player:hud_change(hudtable.hudids[name].bar, "text", new_icon)
+--- @param player    Player
+--- @param ids       table  hudids of the player
+--- @param new_icon  string|nil
+--- @param new_bgicon string|nil
+local function change_icons(player, ids, new_icon, new_bgicon)
+	if new_icon ~= nil and ids.bar ~= nil then
+		player:hud_change(ids.bar, "text", new_icon)
 	end
-	if new_bgicon ~= nil and hudtable.hudids[name].bg ~= nil then
-		player:hud_change(hudtable.hudids[name].bg, "text", new_bgicon)
+	if new_bgicon ~= nil and ids.bg ~= nil then
+		player:hud_change(ids.bg, "text", new_bgicon)
 	end
+end
 
-
+--- Writes to the log about the bad values.
+--- @param identifier    string
+--- @param name          string player name
+--- @param new_value     number
+--- @param new_max_value number
+local function log_bad_values(identifier, name, new_value, new_max_value)
 	local main_error_text =
 		"[hudbars] Bad call to hb.change_hudbar, identifier: “"..tostring(identifier).."”, player name: “"..name.."”. "
 	if new_max_value < new_value then
@@ -330,18 +334,50 @@ function hb.change_hudbar(player, identifier, new_value, new_max_value,
 	if new_value < 0 then
 		core.log("error", main_error_text.."new_value ("..new_value..") is smaller than 0!")
 	end
+end
 
-	if hudtable.hudstate[name].hidden == false then
-
-		if value_changed or max_changed then
-			local new_barlength = hb.value_to_barlength(new_value, new_max_value)
-			if new_barlength ~= hudtable.hudstate[name].barlength then
-				player:hud_change(hudtable.hudids[name].bar, "number", hb.value_to_barlength(new_value, new_max_value))
-				hudtable.hudstate[name].barlength = new_barlength
-			end
-
-		end
+--- Changes the length of the bar (if the bar is shown and the length is changed).
+--- @param player        Player
+--- @param hudtable      table
+--- @param name          string player name
+--- @param new_value     number
+--- @param new_max_value number
+local function change_barlength(player, hudtable, name, new_value, new_max_value)
+	local state = hudtable.hudstate[name]
+	if state.hidden ~= false then
+		return
 	end
+
+	local new_barlength = hb.value_to_barlength(new_value, new_max_value)
+	if new_barlength ~= state.barlength then
+		player:hud_change(hudtable.hudids[name].bar, "number", new_barlength)
+		state.barlength = new_barlength
+	end
+end
+
+function hb.change_hudbar(player, identifier, new_value, new_max_value,
+ new_icon, new_bgicon, new_bar, new_label, new_text_color)
+	if is_nothing_to_change(new_value, new_max_value, new_icon, new_bgicon, new_bar, new_label, new_text_color) then
+		return true
+	end
+	if not player_exists(player) then
+		return false
+	end
+
+	local name = player:get_player_name()
+	local hudtable = hb.get_hudtable(identifier)
+	local value_changed, max_changed
+
+	new_value, value_changed   = update_state(hudtable.hudstate[name], "value", new_value)
+	new_max_value, max_changed = update_state(hudtable.hudstate[name], "max", new_max_value)
+
+	change_icons(player, hudtable.hudids[name], new_icon, new_bgicon)
+	log_bad_values(identifier, name, new_value, new_max_value)
+
+	if value_changed or max_changed then
+		change_barlength(player, hudtable, name, new_value, new_max_value)
+	end
+
 	return true
 end
 

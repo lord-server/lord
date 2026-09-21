@@ -77,59 +77,72 @@ local function main_form_handle(self, clicker, fields, can_edit)
 	end
 end
 
+--- Applies the `action` to the first question with the given label and shows the main form
+--- @param self     table    mob object
+--- @param clicker  Player   player who uses form
+--- @param label    string   label of the question
+--- @param action   fun(questions:table, index:integer, item:table)
+local function apply_to_question(self, clicker, label, action)
+	for index, item in ipairs(self.questions) do
+		if item['label'] == label then
+			action(self.questions, index, item)
+			self:show_main(clicker)
+			break
+		end
+	end
+end
+
+-- in order of priority
+local QUESTION_ACTIONS = {
+	{ 'delete_question', function(questions, index) table.remove(questions, index) end },
+	{ 'hide_question',   function(_, _, item) item['enabled'] = false end },  -- hide question from players
+	{ 'show_question',   function(_, _, item) item['enabled'] = true end },   -- show question to players
+}
+
+--- Save question: updates all the questions with the given old label
+--- @param self    table  mob object
+--- @param clicker Player player who uses form
+--- @param fields  table  form fields
+local function save_question(self, clicker, fields)
+	for _, item in ipairs(self.questions) do
+		if item['label'] == fields['old_label'] then
+			item['label']    = fields['edit_label']
+			item['question'] = fields['edit_question']
+			item['answer']   = fields['edit_answer']
+		end
+	end
+	self:show_main(clicker)
+end
+
+--- Handles the question edit form
+--- @param self    table  mob object
+--- @param clicker Player player who uses form
+--- @param fields  table  form fields
+local function edit_form_handle(self, clicker, fields)
+	if fields['save_question'] ~= nil then
+		return save_question(self, clicker, fields)
+	end
+
+	for _, entry in ipairs(QUESTION_ACTIONS) do
+		if fields[entry[1]] ~= nil then
+			return apply_to_question(self, clicker, fields['old_label'], entry[2])
+		end
+	end
+
+	if fields['return_to_main'] ~= nil then
+		-- return to main menu from question edit
+		self:show_main(clicker)
+	end
+end
+
 local function form_handle(self, clicker, formname, fields, can_edit)
-	if formname == "npc:static_guide_answer" then
+	if formname == 'npc:static_guide_answer' then
 		-- return to main menu from question show
-		if fields["return_to_main"] ~= nil then
+		if fields['return_to_main'] ~= nil then
 			self:show_main(clicker)
 		end
-	elseif formname == "npc:edit_guide_answer" then
-		-- edit question
-		local oldlabel = fields["old_label"]
-		local label = fields["edit_label"]
-		local question = fields["edit_question"]
-		local answer = fields["edit_answer"]
-		if fields["save_question"] ~= nil then
-			-- save question
-			for _, item in ipairs(self.questions) do
-				if item["label"] == oldlabel then
-					item["label"] = label
-					item["question"] = question
-					item["answer"] = answer
-				end
-			end
-			self:show_main(clicker)
-		elseif fields["delete_question"] ~= nil then
-			-- delete question
-			for index, item in ipairs(self.questions) do
-				if item["label"] == oldlabel then
-					table.remove(self.questions, index)
-					self:show_main(clicker)
-					break
-				end
-			end
-		elseif fields["hide_question"] ~= nil then
-			-- hide question from players
-			for _, item in ipairs(self.questions) do
-				if item["label"] == oldlabel then
-					item["enabled"] = false
-					self:show_main(clicker)
-					break
-				end
-			end
-		elseif fields["show_question"] ~= nil then
-			-- show question to players
-			for _, item in ipairs(self.questions) do
-				if item["label"] == oldlabel then
-					item["enabled"] = true
-					self:show_main(clicker)
-					break
-				end
-			end
-		elseif fields["return_to_main"] ~= nil then
-			-- return to main menu from question edit
-			self:show_main(clicker)
-		end
+	elseif formname == 'npc:edit_guide_answer' then
+		edit_form_handle(self, clicker, fields)
 	end
 end
 

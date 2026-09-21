@@ -69,64 +69,195 @@ local furnace_can_dig = function(pos,player)
 		and inv:is_empty("src")
 end
 
-function lord_homedecor.register_furnace(name, furnacedef)
-	furnacedef.fire_fg = furnacedef.fire_bg or "default_furnace_fire_fg.png"
-	furnacedef.fire_bg = furnacedef.fire_bg or "default_furnace_fire_bg.png"
+--- Common logic for `allow_metadata_inventory_put` / `allow_metadata_inventory_move`.
+--- @param pos         Position
+--- @param listname    string target inventory list
+--- @param stack       ItemStack moved / put stack
+--- @param count       integer   amount to return when the move is allowed
+--- @param description string
+--- @return integer|nil allowed amount (nil for unknown list)
+local function get_allowed_count(pos, listname, stack, count, description)
+	if listname == 'fuel' then
+		if core.get_craft_result({ method = 'fuel', width = 1, items = { stack } }).time == 0 then
+			return 0
+		end
+		local meta = core.get_meta(pos)
+		if meta:get_inventory():is_empty('src') then
+			meta:set_string('infotext', S('%s is empty'):format(description))
+		end
+
+		return count
+	elseif listname == 'src' then
+		return count
+	elseif listname == 'dst' then
+		return 0
+	end
+end
+
+--- @param furnacedef table
+--- @param description string
+--- @return function, function, function `on_construct`, `allow_metadata_inventory_put`, `allow_metadata_inventory_move`
+local function make_furnace_callbacks(furnacedef, description)
+	local function furnace_construct(pos)
+		local meta = core.get_meta(pos)
+		meta:set_string('formspec', make_formspec(furnacedef, 0))
+		meta:set_string('infotext', description)
+		local inv = meta:get_inventory()
+		inv:set_size('fuel', 1)
+		inv:set_size('src', 1)
+		inv:set_size('dst', furnacedef.output_slots)
+	end
+
+	local function furnace_allow_put(pos, listname, index, stack, player)
+		return get_allowed_count(pos, listname, stack, stack:get_count(), description)
+	end
+
+	local function furnace_allow_move(pos, from_list, from_index, to_list, to_index, count, player)
+		local stack = core.get_meta(pos):get_inventory():get_stack(from_list, from_index)
+
+		return get_allowed_count(pos, to_list, stack, count, description)
+	end
+
+	return furnace_construct, furnace_allow_put, furnace_allow_move
+end
+
+--- @param furnacedef table
+local function set_furnace_defaults(furnacedef)
+	furnacedef.fire_fg = furnacedef.fire_bg or 'default_furnace_fire_fg.png'
+	furnacedef.fire_bg = furnacedef.fire_bg or 'default_furnace_fire_bg.png'
 
 	furnacedef.output_slots = furnacedef.output_slots or 4
 	furnacedef.output_width = furnacedef.output_width or 2
 
 	furnacedef.cook_speed = furnacedef.cook_speed or 1
+end
 
-	local description = furnacedef.description or "Furnace"
-
-	local furnace_construct = function(pos)
-		local meta = core.get_meta(pos)
-		meta:set_string("formspec", make_formspec(furnacedef, 0))
-		meta:set_string("infotext", description)
-		local inv = meta:get_inventory()
-		inv:set_size("fuel", 1)
-		inv:set_size("src", 1)
-		inv:set_size("dst", furnacedef.output_slots)
-	end
-
-	local furnace_allow_put = function(pos, listname, index, stack, player)
-		local meta = core.get_meta(pos)
-		local inv = meta:get_inventory()
-		if listname == "fuel" then
-			if core.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
-				if inv:is_empty("src") then
-					meta:set_string("infotext", S("%s is empty"):format(description))
-				end
-				return stack:get_count()
-			else
-				return 0
-			end
-		elseif listname == "src" then
-			return stack:get_count()
-		elseif listname == "dst" then
-			return 0
+--- @param meta MetaDataRef
+local function init_missing_timers(meta)
+	for _, property in ipairs({ 'fuel_totaltime', 'fuel_time', 'src_totaltime', 'src_time' }) do
+		if meta:get_string(property) == '' then
+			meta:set_float(property, 0.0)
 		end
 	end
-	local furnace_allow_move = function(pos, from_list, from_index, to_list, to_index, count, player)
-		local meta = core.get_meta(pos)
-		local inv = meta:get_inventory()
-		local stack = inv:get_stack(from_list, from_index)
-		if to_list == "fuel" then
-			if core.get_craft_result({method="fuel",width=1,items={stack}}).time ~= 0 then
-				if inv:is_empty("src") then
-					meta:set_string("infotext", S("%s is empty"):format(description))
-				end
-				return count
-			else
-				return 0
-			end
-		elseif to_list == "src" then
-			return count
-		elseif to_list == "dst" then
-			return 0
-		end
+end
+
+--- @param meta MetaDataRef
+--- @return boolean whether the fuel is still burning
+local function is_burning(meta)
+	return meta:get_float('fuel_time') < meta:get_float('fuel_totaltime')
+end
+
+--- Advance the burning fuel and finish cooking of the source item if it's time.
+--- @param meta        MetaDataRef
+--- @param inv         InvRef
+--- @param cook_speed  number
+--- @param cooked      table|nil result of the `cooking` craft for the source list
+--- @param aftercooked table|nil
+local function burn_and_cook(meta, inv, cook_speed, cooked, aftercooked)
+	meta:set_float('fuel_time', meta:get_float('fuel_time') + 1)
+	meta:set_float('src_time', meta:get_float('src_time') + cook_speed)
+	if not (cooked and cooked.item and meta:get_float('src_time') >= cooked.time) then
+		return
 	end
+
+	-- check if there's room for output in 'dst' list
+	if inv:room_for_item('dst', cooked.item) then
+		-- Put result in 'dst' list
+		inv:add_item('dst', cooked.item)
+		-- take stuff from 'src' list
+		inv:set_stack('src', 1, aftercooked.items[1])
+	end
+	meta:set_string('src_time', 0)
+end
+
+--- @param inv InvRef
+--- @return table|nil, table|nil result of the `cooking` craft for the source list
+local function get_cooking_result(inv)
+	local srclist = inv:get_list('src')
+	if srclist then
+		return core.get_craft_result({ method = 'cooking', width = 1, items = srclist })
+	end
+end
+
+--- Switch the furnace to the not burning node with the given infotext
+local function stop_furnace(meta, pos, furnacedef, idle_node_name, infotext)
+	meta:set_string('infotext', infotext)
+	core.swap_node_if_not_same(pos, idle_node_name)
+	meta:set_string('formspec', make_formspec(furnacedef, 0))
+end
+
+--- Takes a new portion of fuel if there is something to cook and room for the result.
+--- @param state table { meta, inv, pos, furnacedef, idle_node_name, desc, was_active }
+local function try_to_take_fuel(state)
+	local meta, inv = state.meta, state.inv
+	local cooked = get_cooking_result(inv)
+
+	local fuel, afterfuel
+	local fuellist = inv:get_list('fuel')
+	if fuellist then
+		fuel, afterfuel = core.get_craft_result({ method = 'fuel', width = 1, items = fuellist })
+	end
+
+	local stop = function(infotext)
+		stop_furnace(meta, state.pos, state.furnacedef, state.idle_node_name, infotext)
+	end
+
+	if (not fuel) or (fuel.time <= 0) then
+		stop(state.desc .. S(': Out of fuel'))
+	elseif cooked.item:is_empty() then
+		if state.was_active then
+			stop(S('%s is empty'):format(state.desc))
+		end
+	elseif not inv:room_for_item('dst', cooked.item) then
+		stop(state.desc .. S(': output bins are full'))
+	else
+		meta:set_string('fuel_totaltime', fuel.time)
+		meta:set_string('fuel_time', 0)
+
+		inv:set_stack('fuel', 1, afterfuel.items[1])
+	end
+end
+
+--- @param furnacedef       table
+--- @param node_name        string
+--- @param node_name_active string
+--- @return function ABM `action`
+local function make_furnace_action(furnacedef, node_name, node_name_active)
+	return function(pos, node, active_object_count, active_object_count_wider)
+		local meta = core.get_meta(pos)
+		init_missing_timers(meta)
+
+		local inv = meta:get_inventory()
+		local was_active = false
+		if is_burning(meta) then
+			was_active = true
+			burn_and_cook(meta, inv, furnacedef.cook_speed, get_cooking_result(inv))
+		end
+
+		-- XXX: Quick patch, make it better in the future.
+		local locked = node.name:find('_locked$') and '_locked' or ''
+		local desc = core.registered_nodes[node_name .. locked].description
+
+		if is_burning(meta) then
+			local percent = math.floor(meta:get_float('fuel_time') / meta:get_float('fuel_totaltime') * 100)
+			meta:set_string('infotext', S('%s active: %d%%'):format(desc, percent))
+			core.swap_node_if_not_same(pos, node_name_active .. locked)
+			meta:set_string('formspec', make_formspec(furnacedef, percent))
+			return
+		end
+
+		try_to_take_fuel({
+			meta = meta, inv = inv, pos = pos, furnacedef = furnacedef,
+			idle_node_name = node_name .. locked, desc = desc, was_active = was_active,
+		})
+	end
+end
+
+function lord_homedecor.register_furnace(name, furnacedef)
+	set_furnace_defaults(furnacedef)
+
+	local description = furnacedef.description or 'Furnace'
+	local furnace_construct, furnace_allow_put, furnace_allow_move = make_furnace_callbacks(furnacedef, description)
 
 	local def = {
 		description = description,
@@ -141,10 +272,10 @@ function lord_homedecor.register_furnace(name, furnacedef)
 	}
 
 	local def_active = {
-		description = description .. " (active)",
+		description = description .. ' (active)',
 		tiles = make_tiles(furnacedef.tiles_active, furnacedef.tile_format, true),
 		light_source = 8,
-		drop = "lord_homedecor:" .. name,
+		drop = 'lord_homedecor:' .. name,
 		groups = furnacedef.groups or {cracky=2, wall_connected = 1, not_in_creative_inventory=1},
 		sounds = furnacedef.sounds or default.node_sound_stone_defaults(),
 		on_construct = furnace_construct,
@@ -154,119 +285,24 @@ function lord_homedecor.register_furnace(name, furnacedef)
 		inventory = { lockable = true }
 	}
 
-	if furnacedef.extra_nodedef_fields then
-		for k, v in pairs(furnacedef.extra_nodedef_fields) do
-			def[k] = v
-			def_active[k] = v
-		end
+	for k, v in pairs(furnacedef.extra_nodedef_fields or {}) do
+		def[k] = v
+		def_active[k] = v
 	end
 
-	local name_active = name.."_active"
+	local name_active = name..'_active'
 
 	lord_homedecor.register(name, def)
 	lord_homedecor.register(name_active, def_active)
 
-	local node_name, node_name_active = "lord_homedecor:"..name, "lord_homedecor:"..name_active
+	local node_name, node_name_active = 'lord_homedecor:'..name, 'lord_homedecor:'..name_active
 
 	core.register_abm({
-		nodenames = { node_name, node_name_active, node_name .."_locked", node_name_active .."_locked"},
-		label = "furnaces",
+		nodenames = { node_name, node_name_active, node_name ..'_locked', node_name_active ..'_locked'},
+		label = 'furnaces',
 		interval = 1.0,
 		chance = 1,
-		action = function(pos, node, active_object_count, active_object_count_wider)
-			local meta = core.get_meta(pos)
-			for _, property in ipairs({
-					"fuel_totaltime",
-					"fuel_time",
-					"src_totaltime",
-					"src_time"
-			}) do
-				if meta:get_string(property) == "" then
-					meta:set_float(property, 0.0)
-				end
-			end
-
-			local inv = meta:get_inventory()
-
-			local srclist = inv:get_list("src")
-			local cooked
-			local aftercooked
-
-			if srclist then
-				cooked, aftercooked = core.get_craft_result({method = "cooking", width = 1, items = srclist})
-			end
-
-			local was_active = false
-
-			if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
-				was_active = true
-				meta:set_float("fuel_time", meta:get_float("fuel_time") + 1)
-				meta:set_float("src_time", meta:get_float("src_time") + furnacedef.cook_speed)
-				if cooked and cooked.item and meta:get_float("src_time") >= cooked.time then
-					-- check if there's room for output in "dst" list
-					if inv:room_for_item("dst",cooked.item) then
-						-- Put result in "dst" list
-						inv:add_item("dst", cooked.item)
-						-- take stuff from "src" list
-						inv:set_stack("src", 1, aftercooked.items[1])
-					end
-					meta:set_string("src_time", 0)
-				end
-			end
-
-			-- XXX: Quick patch, make it better in the future.
-			local locked = node.name:find("_locked$") and "_locked" or ""
-			local desc = core.registered_nodes[node_name ..locked].description
-
-			if meta:get_float("fuel_time") < meta:get_float("fuel_totaltime") then
-				local percent = math.floor(meta:get_float("fuel_time") /
-						meta:get_float("fuel_totaltime") * 100)
-				meta:set_string("infotext", S("%s active: %d%%"):format(desc,percent))
-				core.swap_node_if_not_same(pos, node_name_active ..locked)
-				meta:set_string("formspec", make_formspec(furnacedef, percent))
-				return
-			end
-
-			local fuel
-			local afterfuel
-			local fuellist = inv:get_list("fuel")
-			srclist = inv:get_list("src")
-
-			if srclist then
-				cooked = core.get_craft_result({method = "cooking", width = 1, items = srclist})
-			end
-			if fuellist then
-				fuel, afterfuel = core.get_craft_result({method = "fuel", width = 1, items = fuellist})
-			end
-
-			if (not fuel) or (fuel.time <= 0) then
-				meta:set_string("infotext",desc.. S(": Out of fuel"))
-				core.swap_node_if_not_same(pos, node_name ..locked)
-				meta:set_string("formspec", make_formspec(furnacedef, 0))
-				return
-			end
-
-			if cooked.item:is_empty() then
-				if was_active then
-					meta:set_string("infotext", S("%s is empty"):format(desc))
-					core.swap_node_if_not_same(pos, node_name ..locked)
-					meta:set_string("formspec", make_formspec(furnacedef, 0))
-				end
-				return
-			end
-
-			if not inv:room_for_item("dst", cooked.item) then
-				meta:set_string("infotext", desc.. S(": output bins are full"))
-				core.swap_node_if_not_same(pos, node_name ..locked)
-				meta:set_string("formspec", make_formspec(furnacedef, 0))
-				return
-			end
-
-			meta:set_string("fuel_totaltime", fuel.time)
-			meta:set_string("fuel_time", 0)
-
-			inv:set_stack("fuel", 1, afterfuel.items[1])
-		end,
+		action = make_furnace_action(furnacedef, node_name, node_name_active),
 	})
 
 end

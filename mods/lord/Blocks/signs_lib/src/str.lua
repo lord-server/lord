@@ -53,36 +53,45 @@ local function AnsiToUtf8(s) -- luacheck: ignore unused global variable AnsiToUt
 	return r
 end
 
+-- the first byte of the two-byte sequences
+local UTF8_LEAD_BYTES = {
+	[194] = true,
+	[208] = true,
+	[209] = true,
+	[210] = true,
+}
+
+--- Handles the byte of the multibyte sequence (>= 128).
+--- @param state table   { a = amount of the awaited bytes, j = previous byte }
+--- @param b     integer
+--- @return string|nil decoded character (`nil` if the character isn't complete yet)
+local function decode_multibyte(state, b)
+	if state.a == 2 then
+		state.a, state.j = 1, b
+	elseif state.a == 1 then
+		local ansi = utf8_decode[state.j] and utf8_decode[state.j][b]
+		if ansi then
+			state.a = 0
+
+			return ansi
+		end
+	elseif b == 226 then
+		state.a = 2
+	elseif UTF8_LEAD_BYTES[b] then
+		state.j, state.a = b, 1
+	else
+		return '_'
+	end
+end
+
 local function Utf8ToAnsi(s)
-	local a, j, r, b = 0, 0, ''
+	local state, r = { a = 0, j = 0 }, ''
 	for i = 1, s and s:len() or 0 do
-		b = s:byte(i)
+		local b = s:byte(i)
 		if b < 128 then
-			if nmdc[b] then
-				r = r..nmdc[b]
-			else
-				r = r..string.char(b)
-			end
-		elseif a == 2 then
-			a, j = a - 1, b
-		elseif a == 1 then
-			--if j == nil or b == nil then return r end
-			--print(j)
-			--print(b)
-			--local ansi = utf8_decode[j]
-			--if ansi == nil then return r end
-			--if ansi[b] == nil then return r end
-			if utf8_decode[j] then
-				if utf8_decode[j][b] then
-					a, r = a - 1, r..utf8_decode[j][b]
-				end
-			end
-		elseif b == 226 then
-			a = 2
-		elseif b == 194 or b == 208 or b == 209 or b == 210 then
-			j, a = b, 1
+			r = r..(nmdc[b] or string.char(b))
 		else
-			r = r..'_'
+			r = r..(decode_multibyte(state, b) or '')
 		end
 	end
 	return r

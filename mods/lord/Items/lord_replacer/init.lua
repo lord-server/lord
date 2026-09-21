@@ -74,6 +74,63 @@ local function get_replacer_selection(itemstack)
 	return selected_node
 end
 
+--- @param pos Position
+--- @return boolean
+local function has_non_empty_inventory(pos)
+	local inventory = core.get_inventory({ type = 'node', pos = pos })
+	if not inventory then
+		return false
+	end
+
+	for listname, _ in pairs(inventory:get_lists()) do
+		if not inventory:is_empty(listname) then
+			return true
+		end
+	end
+
+	return false
+end
+
+--- Checks whether the node at the position can be replaced.
+---@param player_name string
+---@param pointed_pos Position
+---@return string|nil @error message with the reason why the node can't be replaced
+local function get_replace_error(player_name, pointed_pos)
+	if has_non_empty_inventory(pointed_pos) then
+		return S('Error: non-empty node inventory found. Unload it first.')
+	end
+	if core.is_protected(pointed_pos, player_name) then
+		return S('Error: this node is protected.')
+	end
+	if table_has_value(REPLACER_IRREPLACEABLE, core.get_node(pointed_pos).name) then
+		return S('Error: this node is irreplaceable.')
+	end
+end
+
+--- Takes materials from the player and gives him the replaced node back (if it isn't `server` or creative).
+---@param player Player
+---@param selected_node NodeTable @`core.get_node` format
+---@param pointed_pos Position
+---@return boolean @false if the player has not enough materials
+local function take_materials(player, selected_node, pointed_pos)
+	if core.check_player_privs(player, 'server') or core.is_creative_enabled(player:get_player_name()) then
+		return true
+	end
+
+	local player_inv = player:get_inventory()
+	if not player_inv:contains_item('main', selected_node.name) then
+		return false
+	end
+	player_inv:remove_item('main', selected_node.name)
+
+	local node_being_replaced = core.get_node_or_nil(pointed_pos)
+	if node_being_replaced ~= nil and node_being_replaced.name ~= 'air' then
+		core.give_or_drop(player, ItemStack(node_being_replaced.name))
+	end
+
+	return true
+end
+
 --- Sets node from replacer.
 ---@param itemstack ItemStack
 ---@param pointed_thing pointed_thing
@@ -81,7 +138,7 @@ end
 ---@param place_above boolean @is `above` param in `core.get_pointed_thing_position`
 ---@return boolean @result of putting the node
 local function replacer_set_node(itemstack, pointed_thing, player, place_above)
-	if pointed_thing.type ~= "node" then
+	if pointed_thing.type ~= 'node' then
 		return false
 	end
 
@@ -90,42 +147,19 @@ local function replacer_set_node(itemstack, pointed_thing, player, place_above)
 		return false
 	end
 
-	local player_name = player:get_player_name()
-	local pointed_inventory = core.get_inventory({ type = "node", pos = pointed_pos, })
-	if pointed_inventory then
-		for listname, _ in pairs(pointed_inventory:get_lists()) do
-			if not pointed_inventory:is_empty(listname) then
-				core.chat_send_player(player_name, S("Error: non-empty node inventory found. Unload it first."))
-				return false
-			end
-		end
-	end
+	local player_name   = player:get_player_name()
+	local error_message = get_replace_error(player_name, pointed_pos)
+	if error_message then
+		core.chat_send_player(player_name, error_message)
 
-	if core.is_protected(pointed_pos, player_name) then
-		core.chat_send_player(player_name, S("Error: this node is protected."))
 		return false
 	end
 
 	local selected_node = get_replacer_selection(itemstack)
+	if not take_materials(player, selected_node, pointed_pos) then
+		core.chat_send_player(player_name, S('Error: not enough materials.'))
 
-	if table_has_value(REPLACER_IRREPLACEABLE, core.get_node(pointed_pos).name) then
-		core.chat_send_player(player_name, S("Error: this node is irreplaceable."))
 		return false
-	end
-
-	if not core.check_player_privs(player, "server") and not core.is_creative_enabled(player_name) then
-		local player_inv = player:get_inventory()
-
-		if not player_inv:contains_item("main", selected_node.name) then
-			core.chat_send_player(player_name, S("Error: not enough materials."))
-			return false
-		end
-		player_inv:remove_item("main", selected_node.name)
-
-		local node_being_replaced = core.get_node_or_nil(pointed_pos)
-		if node_being_replaced ~= nil and node_being_replaced.name ~= "air" then
-			core.give_or_drop(player, ItemStack(node_being_replaced.name))
-		end
 	end
 
 	core.set_node(pointed_pos, selected_node)

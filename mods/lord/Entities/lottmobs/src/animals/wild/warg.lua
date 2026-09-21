@@ -30,17 +30,32 @@ legacy_mobs:register_mob("lottmobs:warg", {
 	light_damage         = 0,
 	damage               = 8,
 	attack_type          = "dogfight", --Rather suitable name!
+	-- Clips in `warg.b3d` (frames 1..421):
+	--    1.. 36 - rest pose (T-pose, between clips)
+	--   40.. 78 - walk
+	--   84..131 - run
+	--  135..280 - stand (idle: tail wag 175..215, head turn 250..275)
+	--  305..335 - pose with moved legs (probably sit/lay) - NOT USED (no such animation in `legacy_mobs`)
+	--  355..390 - head/tail movement                      - NOT USED (no such animation in `legacy_mobs`)
+	--  398..421 - attack (leap)
 	animation            = {
-		speed_normal = 10,
-		speed_run    = 10,
+		speed_normal = 10, -- stand (slow, calm idle)
+		-- walk:
+		walk_start   = 40,
+		walk_end     = 78,
+		walk_speed   = 20,
+		-- run:
+		run_start    = 84,
+		run_end      = 131,
+		run_speed    = 90,
+		-- stand (idle):
 		stand_start  = 135,
 		stand_end    = 280,
-		walk_start   = 40,
-		walk_end     = 75,
-		run_start    = 80,
-		run_end      = 130,
-		punch_start  = 350,
-		punch_end    = 420,
+		stand_speed  = 10,
+		-- attack:
+		punch_start  = 398,
+		punch_end    = 421,
+		punch_speed  = 40,
 	},
 	on_rightclick        = function(self, clicker)
 		local item = clicker:get_wielded_item()

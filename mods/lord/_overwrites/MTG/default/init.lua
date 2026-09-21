@@ -619,44 +619,62 @@ function default.dig_tree(pos, node, name, digger, height, radius)
 	return true
 end
 
-local function grow_papyrus_but_on_soils(pos, node)
-	pos.y = pos.y - 1
-	local name = core.get_node(pos).name
+-- HACK: There's another, non-overridable ABM in minetest_game that grows
+-- papyrus on these nodes. They're explicitly excluded from this ABM to
+-- keep growth chances equal.
+local PAPYRUS_GROWING_IN_MTG = {
+	['default:dirt']                        = true,
+	['default:dirt_with_grass']             = true,
+	['default:dirt_with_dry_grass']         = true,
+	['default:dirt_with_rainforest_litter'] = true,
+	['default:dry_dirt']                    = true,
+	['default:dry_dirt_with_dry_grass']     = true,
+}
 
-	-- HACK: There's another, non-overridable ABM in minetest_game that grows
-	-- papyrus on these nodes. They're explicitly excluded from this ABM to
-	-- keep growth chances equal.
-	local is_growing_in_mtg =
-		name == "default:dirt" or
-		name == "default:dirt_with_grass" or
-		name == "default:dirt_with_dry_grass" or
-		name == "default:dirt_with_rainforest_litter" or
-		name == "default:dry_dirt" or
-		name == "default:dry_dirt_with_dry_grass"
-
-	local is_soil = core.get_item_group(name, "soil") ~= 0
+--- @param name string node name under the papyrus
+--- @return boolean
+local function is_papyrus_soil(name)
+	if PAPYRUS_GROWING_IN_MTG[name] then
+		return false
+	end
 
 	-- Technically sand isn't soil, but it's required to keep compatibility
-	if (not is_soil and name ~= "default:sand") or is_growing_in_mtg then
-		return
-	end
-	if not core.find_node_near(pos, 3, {"group:water"}) then
-		return
-	end
-	pos.y = pos.y + 1
+	return core.get_item_group(name, 'soil') ~= 0 or name == 'default:sand'
+end
+
+--- Moves `pos` up above the papyrus stack (max 4 nodes high)
+--- @param pos  Position
+--- @param node table    the lowest papyrus node
+--- @return integer, table height of the stack, the first node above it
+local function skip_papyrus_stack(pos, node)
 	local height = 0
-	while node.name == "default:papyrus" and height < 4 do
+	while node.name == 'default:papyrus' and height < 4 do
 		height = height + 1
 		pos.y = pos.y + 1
 		node = core.get_node(pos)
 	end
-	if height == 4 or node.name ~= "air" then
+
+	return height, node
+end
+
+local function grow_papyrus_but_on_soils(pos, node)
+	pos.y = pos.y - 1
+	local name = core.get_node(pos).name
+
+	if not is_papyrus_soil(name) or not core.find_node_near(pos, 3, { 'group:water' }) then
+		return
+	end
+
+	pos.y = pos.y + 1
+	local height, node_above = skip_papyrus_stack(pos, node)
+	if height == 4 or node_above.name ~= 'air' then
 		return
 	end
 	if core.get_node_light(pos) < 13 then
 		return
 	end
-	core.set_node(pos, {name = "default:papyrus"})
+	core.set_node(pos, { name = 'default:papyrus' })
+
 	return true
 end
 

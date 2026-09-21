@@ -284,90 +284,110 @@ local function get_staticdata(self)
 	return core.serialize(data)
 end
 
-function npc:register_mob(name, definition)
-	core.register_entity(name, {
+local PROPERTY_DEFAULTS = {
+	texture   = 'lottmobs_rohan_guard_2.png',
+	mobname   = 'Меродок',
+	greeting  = 'Привет! Как дела, что делаешь?',
+	color     = '#FFBB00',
+	face_user = false,
+	width     = 8,
+}
+
+-- mob content functions
+local FUNCTION_DEFAULTS = {
+	user_mob_content     = default_user_mob_content,
+	admin_mob_content    = default_admin_mob_content,
+	main_form_handle     = default_main_form_handle,
+	form_handle          = default_form_handle,
+	init_from_staticdata = default_init_from_staticdata,
+	init_new             = default_init_new,
+	get_mobdata          = default_get_mobdata,
+	configure_placed     = default_configure_placed,
+}
+
+--- @param name       string
+--- @param definition table mob definition
+local function register_entity(name, definition)
+	local entity = {
 		definition = definition,
 
 		initial_properties = {
 			physical = true,
 			collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
-			visual = "mesh",
-			mesh = "human_model.x",
+			visual = 'mesh',
+			mesh = 'human_model.x',
 		},
-
-		texture = definition.texture or "lottmobs_rohan_guard_2.png",
-		mobname = definition.mobname or "Меродок",
-		greeting = definition.greeting or "Привет! Как дела, что делаешь?",
-		color = definition.color or "#FFBB00",
-		face_user = definition.face_user or false,
-		width = definition.width or 8,
 
 		on_rightclick = interact_infomob,
 		on_punch = interact_infomob,
 		show_main = show_main,
 
-		-- mob content functions
-		user_mob_content = definition.user_mob_content or default_user_mob_content,
-		admin_mob_content = definition.admin_mob_content or default_admin_mob_content,
-		main_form_handle = definition.main_form_handle or default_main_form_handle,
-		form_handle = definition.form_handle or default_form_handle,
-		init_from_staticdata = definition.init_from_staticdata or default_init_from_staticdata,
-		init_new = definition.init_new or default_init_new,
-		get_mobdata = definition.get_mobdata or default_get_mobdata,
-		configure_placed = definition.configure_placed or default_configure_placed,
 		build_edit_header = definition.build_edit_header,
 		header_form_handler = definition.header_form_handler,
 
 		on_activate = on_activate,
 		get_staticdata = get_staticdata,
-	})
-
-	local description = name.." egg"
-	if definition.description then
-		description = definition.description
+	}
+	for key, default in pairs(PROPERTY_DEFAULTS) do
+		entity[key] = definition[key] or default
+	end
+	for key, default in pairs(FUNCTION_DEFAULTS) do
+		entity[key] = definition[key] or default
 	end
 
-	core.register_craftitem(name.."_egg", {
+	core.register_entity(name, entity)
+end
 
-		description = description,
-		inventory_image = "npc_info_mob.png",
-		groups = {not_in_creative_inventory = 1},
-		stack_max = 1,
+--- @param name       string
+--- @param definition table mob definition
+--- @return function `on_place` callback of the mob's egg
+local function make_egg_on_place(name, definition)
+	return function(itemstack, placer, pointed_thing)
+		local player = placer:get_player_name()
+		if not can_place(definition, player) then
+			return
+		end
 
-		on_place = function(itemstack, placer, pointed_thing)
-			local player = placer:get_player_name()
-			if not can_place(definition, player) then
+		local pos = pointed_thing.above
+
+		-- am I clicking on something with existing on_rightclick function?
+		local under = core.get_node(pointed_thing.under)
+		local def = core.registered_nodes[under.name]
+		if def and def.on_rightclick then
+			return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
+		end
+
+		if pos and not core.is_protected(pos, player) then
+			pos.y            = pos.y + 0.5
+
+			local data       = itemstack:get_metadata()
+			local entity     = core.add_entity(pos, name, data)
+			local lua_entity = entity:get_luaentity()
+
+			if not lua_entity then
+				entity:remove()
 				return
 			end
 
-			local pos = pointed_thing.above
+			-- since mob is unique we remove egg once spawned
+			itemstack:take_item()
 
-			-- am I clicking on something with existing on_rightclick function?
-			local under = core.get_node(pointed_thing.under)
-			local def = core.registered_nodes[under.name]
-			if def and def.on_rightclick then
-				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
-			end
+			lua_entity:configure_placed(player)
+		end
 
-			if pos and not core.is_protected(pos, player) then
-				pos.y            = pos.y + 0.5
+		return itemstack
+	end
+end
 
-				local data       = itemstack:get_metadata()
-				local entity     = core.add_entity(pos, name, data)
-				local lua_entity = entity:get_luaentity()
+function npc:register_mob(name, definition)
+	register_entity(name, definition)
 
-				if not lua_entity then
-					entity:remove()
-					return
-				end
+	core.register_craftitem(name..'_egg', {
+		description = definition.description or name..' egg',
+		inventory_image = 'npc_info_mob.png',
+		groups = {not_in_creative_inventory = 1},
+		stack_max = 1,
 
-				-- since mob is unique we remove egg once spawned
-				itemstack:take_item()
-
-				lua_entity:configure_placed(player)
-			end
-
-			return itemstack
-		end,
+		on_place = make_egg_on_place(name, definition),
 	})
 end

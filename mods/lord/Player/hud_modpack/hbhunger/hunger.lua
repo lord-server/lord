@@ -66,6 +66,72 @@ local function poisonp(tick, poison, time_left, player, player_name)
 	end
 end
 
+--- Saturation
+--- @param user          Player
+--- @param name          string
+--- @param h             number current satiation
+--- @param hunger_change number
+local function apply_saturation(user, name, h, hunger_change)
+	if h < 30 and hunger_change > 0 then
+		h = math.min(h + hunger_change, 30)
+	elseif hunger_change < 0 then
+		--Позволяет юзать отрицательное значение hunger_change
+		h = math.max(math.min(h + hunger_change, 30), 0)
+	else
+		return
+	end
+	hbhunger.hunger[name] = h
+	hbhunger.set_hunger_raw(user)
+end
+
+--- Healing
+--- @param user Player
+--- @param hp   number current hp
+--- @param heal number|nil
+local function apply_healing(user, hp, heal)
+	if hp < 20 and heal then
+		user:set_hp(math.min(hp + heal, 20))
+	end
+end
+
+--- Poison
+--- @param user   Player
+--- @param name   string
+--- @param poison number|nil
+local function apply_poison(user, name, poison)
+	if not poison then
+		return
+	end
+
+	-- Set poison bar
+	local hotbar_poison_texture
+	if poison < 0 then
+		hotbar_poison_texture = "hbhunger_icon_health_poison.png"
+	else
+		hotbar_poison_texture = "hbhunger_icon_health_regen.png"
+	end
+	hb.change_hudbar(user, "health", nil, nil, hotbar_poison_texture, nil, hotbar_poison_texture)
+	hbhunger.poisonings[name] = hbhunger.poisonings[name] + 1
+	poisonp(1, poison, 0, user, user:get_player_name())
+end
+
+--- Gives the replacement of the eaten item.
+--- @param itemstack        ItemStack
+--- @param user             Player
+--- @param replace_with_item string|nil
+local function give_replacement(itemstack, user, replace_with_item)
+	if itemstack:get_count() == 0 then
+		itemstack:add_item(replace_with_item)
+	else
+		local inv = user:get_inventory()
+		if inv:room_for_item("main", replace_with_item) then
+			inv:add_item("main", replace_with_item)
+		else
+			core.add_item(user:get_pos(), replace_with_item)
+		end
+	end
+end
+
 function hbhunger.item_eat(hunger_change, replace_with_item, poison, heal, sound)
 	return function(itemstack, user, pointed_thing)
 		if itemstack:take_item() ~= nil and user ~= nil then
@@ -77,49 +143,10 @@ function hbhunger.item_eat(hunger_change, replace_with_item, poison, heal, sound
 			end
 			core.sound_play({name = sound or "hbhunger_eat_generic", gain = 1}, {pos=user:get_pos(), max_hear_distance = 16})
 
-			-- Saturation
-			if h < 30 and hunger_change > 0 then
-				h = h + hunger_change
-				if h > 30 then h = 30 end
-				hbhunger.hunger[name] = h
-				hbhunger.set_hunger_raw(user)
-			elseif hunger_change < 0 then
-				h = h + hunger_change
-				if h > 30 then h = 30 end
-				if h < 0 then h = 0 end --Позволяет юзать отрицательное значение hunger_change
-				hbhunger.hunger[name] = h
-				hbhunger.set_hunger_raw(user)
-			end
-			-- Healing
-			if hp < 20 and heal then
-				hp = hp + heal
-				if hp > 20 then hp = 20 end
-				user:set_hp(hp)
-			end
-			-- Poison
-			if poison then
-				-- Set poison bar
-				local hotbar_poison_texture
-				if poison < 0 then
-					hotbar_poison_texture = "hbhunger_icon_health_poison.png"
-				else
-					hotbar_poison_texture = "hbhunger_icon_health_regen.png"
-				end
-				hb.change_hudbar(user, "health", nil, nil, hotbar_poison_texture, nil, hotbar_poison_texture)
-				hbhunger.poisonings[name] = hbhunger.poisonings[name] + 1
-				poisonp(1, poison, 0, user, user:get_player_name())
-			end
-
-			if itemstack:get_count() == 0 then
-				itemstack:add_item(replace_with_item)
-			else
-				local inv = user:get_inventory()
-				if inv:room_for_item("main", replace_with_item) then
-					inv:add_item("main", replace_with_item)
-				else
-					core.add_item(user:get_pos(), replace_with_item)
-				end
-			end
+			apply_saturation(user, name, h, hunger_change)
+			apply_healing(user, hp, heal)
+			apply_poison(user, name, poison)
+			give_replacement(itemstack, user, replace_with_item)
 		end
 		return itemstack
 	end

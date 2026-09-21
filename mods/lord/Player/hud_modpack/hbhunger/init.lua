@@ -117,6 +117,60 @@ end)
 local main_timer = 0
 local timer = 0
 local timer2 = 0
+
+--- heal player by 1 hp if not dead and satiation is > 15 (of 30)
+--- or damage player by 1 hp if satiation is < 2 (of 30)
+--- @param player Player
+--- @param h      number satiation
+local function apply_satiation_effects(player, h)
+	local hp = player:get_hp()
+	if h > 15 and hp > 0 and player:get_breath() > 0 then
+		player:set_hp(hp+1)
+	elseif h <= 1 then
+		if hp-1 >= 0 then player:set_hp(hp-1) end
+	end
+end
+
+--- lower satiation by 1 point after xx seconds
+--- @param player Player
+--- @param name   string
+--- @param h      number satiation
+local function lower_satiation(player, name, h)
+	if h > 0 then
+		h = h-1
+		hbhunger.hunger[name] = h
+		hbhunger.set_hunger_raw(player)
+	end
+end
+
+--- @param controls table player control
+--- @return boolean
+local function is_walking(controls)
+	return controls.up or controls.down or controls.left or controls.right
+end
+
+--- @param player         Player
+--- @param is_effect_tick boolean
+--- @param is_hunger_tick boolean
+local function update_player(player, is_effect_tick, is_hunger_tick)
+	local name = player:get_player_name()
+	local h = tonumber(hbhunger.hunger[name])
+	if is_effect_tick then
+		apply_satiation_effects(player, h)
+	end
+	if is_hunger_tick then
+		lower_satiation(player, name, h)
+	end
+
+	-- update all hud elements
+	update_hud(player)
+
+	-- Determine if the player is walking
+	if is_walking(player:get_player_control()) then
+		hbhunger.handle_node_actions(nil, nil, player)
+	end
+end
+
 core.register_globalstep(function(dtime)
 	main_timer = main_timer + dtime
 	timer = timer + dtime
@@ -124,36 +178,7 @@ core.register_globalstep(function(dtime)
 	if main_timer > hbhunger.HUD_TICK or timer > 4 or timer2 > hbhunger.HUNGER_TICK then
 		if main_timer > hbhunger.HUD_TICK then main_timer = 0 end
 		for _,player in ipairs(core.get_connected_players()) do
-		local name = player:get_player_name()
-
-		local h = tonumber(hbhunger.hunger[name])
-		local hp = player:get_hp()
-		if timer > 4 then
-			-- heal player by 1 hp if not dead and satiation is > 15 (of 30)
-			if h > 15 and hp > 0 and player:get_breath() > 0 then
-				player:set_hp(hp+1)
-				-- or damage player by 1 hp if satiation is < 2 (of 30)
-				elseif h <= 1 then
-					if hp-1 >= 0 then player:set_hp(hp-1) end
-				end
-			end
-			-- lower satiation by 1 point after xx seconds
-			if timer2 > hbhunger.HUNGER_TICK then
-				if h > 0 then
-					h = h-1
-					hbhunger.hunger[name] = h
-					hbhunger.set_hunger_raw(player)
-				end
-			end
-
-			-- update all hud elements
-			update_hud(player)
-
-			local controls = player:get_player_control()
-			-- Determine if the player is walking
-			if controls.up or controls.down or controls.left or controls.right then
-				hbhunger.handle_node_actions(nil, nil, player)
-			end
+			update_player(player, timer > 4, timer2 > hbhunger.HUNGER_TICK)
 		end
 	end
 	if timer > 4 then timer = 0 end

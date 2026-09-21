@@ -103,88 +103,123 @@ end
 -- 2 for "This area is owned by <owner>.
 -- 3 for checking protector overlaps
 
+--- bones mod compatibility: the owner of a corpse is allowed to dig it
+--- @param pos    Position
+--- @param digger string
+--- @return boolean
+local function is_corpse_owner(pos, digger)
+	local nodedef = core.registered_nodes[core.get_node(pos).name]
+	if nodedef ~= nil and nodedef.groups['corpse'] then
+		return core.get_meta(pos):get_string('owner') == digger
+	end
+
+	return false
+end
+
+--- @param digger    string
+--- @param owner     string
+--- @param pos       Position position of the protector
+--- @param members   string
+local function send_area_info(digger, owner, pos, members)
+	core.chat_send_player(digger,
+	S('This area is owned by')..' ' .. owner .. '.')
+	core.chat_send_player(digger,
+	S('Protection located at:')..' ' .. core.pos_to_string(pos))
+	if members ~= '' then
+		core.chat_send_player(digger,
+		S('Members:')..' '.. members .. '.')
+	end
+end
+
+--- Tells the digger that the area is protected (and punishes if it is needed).
+--- @param digger    string
+--- @param infolevel integer
+--- @param owner     string
+--- @param pos       Position position of the protector
+--- @param members   string
+local function notify_dig_denied(digger, infolevel, owner, pos, members)
+	if infolevel == 1 then
+		local dig_player = core.get_player_by_name(digger)
+		dig_player:set_hp(dig_player:get_hp()-protector.damage)
+		core.chat_send_player(digger,
+		S('This area is owned by')..' ' .. owner .. '!')
+	elseif infolevel == 2 then
+		send_area_info(digger, owner, pos, members)
+	end
+end
+
+--- @param positions Position[] positions of the protectors
+--- @param digger    string
+local function notify_can_build(positions, digger)
+	if #positions < 1 then
+		core.chat_send_player(digger,
+		S('This area is not protected.'))
+	end
+	core.chat_send_player(digger, S('You can build here.'))
+end
+
+--- @param digger    string
+--- @param owner     string
+--- @param meta      MetaDataRef
+--- @param onlyowner boolean
+--- @return boolean
+local function is_dig_denied(digger, owner, meta, onlyowner)
+	return owner ~= digger and (onlyowner or not protector.is_member(meta, digger))
+end
+
+--- Delprotect privileged users can override protections, and the owner of a corpse is allowed to dig it.
+--- @param pos       Position
+--- @param digger    string
+--- @param infolevel integer
+--- @return boolean
+local function is_dig_always_allowed(pos, digger, infolevel)
+	if core.check_player_privs(digger, {delprotect = true}) and infolevel == 1 then
+		return true
+	end
+
+	return is_corpse_owner(pos, digger)
+end
+
 -- @return boolean  result   whether digger is allowed to dig in the protector area
 -- @return nil      result   there are no protectors nearby
 protector.can_dig = function(r, pos, digger, onlyowner, infolevel)
 	if not digger then return false end
 	if not core.get_player_by_name(digger) then return false end
 
-	-- Delprotect privileged users can override protections
-
-	if core.check_player_privs(digger, {delprotect = true}) and infolevel == 1 then
+	if is_dig_always_allowed(pos, digger, infolevel) then
 		return true
 	end
 
 	if infolevel == 3 then infolevel = 1 end
-
-	-- bones mod compatibility: the owner of a corpse is allowed to dig it
-	local nodename = core.get_node(pos).name
-	local nodedef = core.registered_nodes[nodename]
-	if nodedef ~= nil then
-		if nodedef.groups["corpse"] then
-			local bones_meta = core.get_meta(pos)
-			if bones_meta:get_string("owner") == digger then
-				return true
-			end
-		end
-	end
 
 	-- Find the protector nodes
 
 	local positions = core.find_nodes_in_area(
 		{x = pos.x - r, y = pos.y - r, z = pos.z - r},
 		{x = pos.x + r, y = pos.y + r, z = pos.z + r},
-		{"group:protector"})
+		{'group:protector'})
 
 	local protectors_count = 0
-	local dig_player = core.get_player_by_name(digger)
-	local meta, owner, members
 	for _, p in ipairs(positions) do
 		protectors_count = protectors_count + 1
-		meta = core.get_meta(p)
-		owner = meta:get_string("owner")
-		members = meta:get_string("members")
+		local meta    = core.get_meta(p)
+		local owner   = meta:get_string('owner')
+		local members = meta:get_string('members')
 
-		if owner ~= digger then
-			if onlyowner or not protector.is_member(meta, digger) then
-				if infolevel == 1 then
-					core.get_player_by_name(digger):set_hp(dig_player:get_hp()-protector.damage)
-					core.chat_send_player(digger,
-					S("This area is owned by").." " .. owner .. "!")
-				elseif infolevel == 2 then
-					core.chat_send_player(digger,
-					S("This area is owned by").." " .. owner .. ".")
-					core.chat_send_player(digger,
-					S("Protection located at:").." " .. core.pos_to_string(p))
-					if members ~= "" then
-						core.chat_send_player(digger,
-						S("Members:").." ".. members .. ".")
-					end
-				end
-				return false
-			end
+		if is_dig_denied(digger, owner, meta, onlyowner) then
+			notify_dig_denied(digger, infolevel, owner, p, members)
+
+			return false
 		end
 
 		if infolevel == 2 then
-			core.chat_send_player(digger,
-			S("This area is owned by").." " .. owner .. ".")
-			core.chat_send_player(digger,
-			S("Protection located at:").." " .. core.pos_to_string(positions[1]))
-			if members ~= "" then
-				core.chat_send_player(digger,
-				S("Members:").." ".. members .. ".")
-			end
+			send_area_info(digger, owner, positions[1], members)
 			break
 		end
-
 	end
 
 	if infolevel == 2 then
-		if #positions < 1 then
-			core.chat_send_player(digger,
-			S("This area is not protected."))
-		end
-		core.chat_send_player(digger, S("You can build here."))
+		notify_can_build(positions, digger)
 	end
 
 	if protectors_count == 0 then
@@ -404,12 +439,41 @@ core.register_craft({
 	}
 })
 
+--- Adds the members typed in the field.
+--- @param meta   MetaDataRef
+--- @param fields table
+local function add_members(meta, fields)
+	if not ((fields.key_enter and fields.key_enter_field == 'protector_add_member') or fields.add) then
+		return
+	end
+
+	if spec.escape(fields.protector_add_member) ~= fields.protector_add_member then
+		protector.form_error = S('Invalid player name')
+	else
+		for _, i in ipairs(fields.protector_add_member:split(' ')) do
+			protector.add_member(meta, i)
+		end
+	end
+end
+
+--- Deletes the member whose "X" button was pressed.
+--- @param meta   MetaDataRef
+--- @param fields table
+local function delete_members(meta, fields)
+	local prefix = 'protector_del_member_'
+	for field, _ in pairs(fields) do
+		if string.sub(field, 0, string.len(prefix)) == prefix then
+			protector.del_member(meta, string.sub(field, string.len(prefix) + 1))
+		end
+	end
+end
+
 -- If name entered or button press
 core.register_on_player_receive_fields(function(player,formname,fields)
 
-	if string.sub(formname, 0, string.len("protector_lott:node_")) == "protector_lott:node_" then
+	if string.sub(formname, 0, string.len('protector_lott:node_')) == 'protector_lott:node_' then
 
-		local pos_s = string.sub(formname, string.len("protector_lott:node_") + 1)
+		local pos_s = string.sub(formname, string.len('protector_lott:node_') + 1)
 		local pos = core.string_to_pos(pos_s)
 		local meta = core.get_meta(pos)
 
@@ -417,21 +481,8 @@ core.register_on_player_receive_fields(function(player,formname,fields)
 			return
 		end
 
-		if (fields.key_enter and fields.key_enter_field == "protector_add_member") or fields.add then
-			if spec.escape(fields.protector_add_member) ~= fields.protector_add_member then
-				protector.form_error = S('Invalid player name')
-			else
-				for _, i in ipairs(fields.protector_add_member:split(" ")) do
-					protector.add_member(meta, i)
-				end
-			end
-		end
-
-		for field, value in pairs(fields) do
-			if string.sub(field, 0, string.len("protector_del_member_")) == "protector_del_member_" then
-				protector.del_member(meta, string.sub(field,string.len("protector_del_member_") + 1))
-			end
-		end
+		add_members(meta, fields)
+		delete_members(meta, fields)
 
 		if not (fields.close_me or fields.quit) then
 			core.show_formspec(player:get_player_name(), formname, protector.generate_formspec(meta))

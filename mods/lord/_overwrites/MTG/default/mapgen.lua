@@ -108,115 +108,112 @@ function generate_nyancats(seed, minp, maxp)
 	end
 end
 
+--- @param x integer
+--- @param z integer
+--- @return integer|nil ground level (0...15)
+local function find_ground_y(x, z)
+	for y = 30, 0, -1 do
+		if core.get_node({ x = x, y = y, z = z }).name ~= 'air' then
+			return y
+		end
+	end
+end
+
+--- Splits the mapchunk into `divlen`x`divlen` cells and for each of them calls `generate_at`
+--- for the random positions of the amount defined by the perlin noise.
+--- @param minp        Position
+--- @param maxp        Position
+--- @param seed        integer
+--- @param perlin      PerlinNoise
+--- @param divlen      integer   cell size
+--- @param get_amount  fun(noise:number):number amount of positions in the cell by the noise value
+--- @param generate_at fun(pr:PseudoRandom, x:integer, z:integer)
+local function generate_by_cells(minp, maxp, seed, perlin, divlen, get_amount, generate_at)
+	-- Assume X and Z lengths are equal
+	local divs = (maxp.x-minp.x)/divlen+1
+	for divx = 0, divs-1 do
+		for divz = 0, divs-1 do
+			local x0 = minp.x + math.floor((divx+0)*divlen)
+			local z0 = minp.z + math.floor((divz+0)*divlen)
+			local x1 = minp.x + math.floor((divx+1)*divlen)
+			local z1 = minp.z + math.floor((divz+1)*divlen)
+			-- Determine amount from perlin noise
+			local amount = get_amount(perlin:get_2d({ x = x0, y = z0 }))
+			-- Find random positions based on this random
+			local pr = PseudoRandom(seed+1)
+			for _ = 0, amount do
+				local x = pr:next(x0, x1)
+				local z = pr:next(z0, z1)
+				generate_at(pr, x, z)
+			end
+		end
+	end
+end
+
+local function generate_papyrus(minp, maxp, seed)
+	generate_by_cells(minp, maxp, seed, core.get_perlin(354, 3, 0.7, 100), 8,
+		function(noise)
+			return math.floor(noise * 45 - 20)
+		end,
+		function(pr, x, z)
+			if core.get_node({ x = x, y = 1, z = z }).name == 'default:dirt_with_grass' and
+					core.find_node_near({ x = x, y = 1, z = z }, 1, 'default:water_source') then
+				default.make_papyrus({ x = x, y = 2, z = z }, pr:next(2, 4))
+			end
+		end
+	)
+end
+
+local function generate_cactuses(minp, maxp, seed)
+	generate_by_cells(minp, maxp, seed, core.get_perlin(230, 3, 0.6, 100), 16,
+		function(noise)
+			return math.floor(noise * 6 - 3)
+		end,
+		function(pr, x, z)
+			local ground_y = find_ground_y(x, z)
+			-- If desert sand, make cactus
+			if ground_y and core.get_node({ x = x, y = ground_y, z = z }).name == 'default:desert_sand' then
+				default.make_cactus({ x = x, y = ground_y + 1, z = z }, pr:next(3, 4))
+			end
+		end
+	)
+end
+
+local function generate_grass(minp, maxp, seed)
+	generate_by_cells(minp, maxp, seed, core.get_perlin(329, 3, 0.6, 100), 16,
+		function(noise)
+			return math.floor(noise ^ 3 * 9)
+		end,
+		function(pr, x, z)
+			local ground_y = find_ground_y(x, z)
+			if not ground_y then
+				return
+			end
+
+			local p   = { x = x, y = ground_y + 1, z = z }
+			local def = core.registered_nodes[core.get_node(p).name]
+			-- Check if the node can be replaced
+			if not (def and def.buildable_to) then
+				return
+			end
+
+			local nn = core.get_node({ x = x, y = ground_y, z = z }).name
+			if nn == 'default:desert_sand' then
+				-- If desert sand, add dry shrub
+				core.set_node(p, { name = 'default:dry_shrub' })
+			elseif nn == 'default:dirt_with_grass' then
+				-- If dirt with grass, add grass
+				core.set_node(p, { name = 'default:grass_' .. pr:next(1, 5) })
+			end
+		end
+	)
+end
+
 core.register_on_generated(function(minp, maxp, seed)
 	if maxp.y >= 2 and minp.y <= 0 then
-		local perlin1, divlen, divs
-		-- Generate papyrus
-		perlin1 = core.get_perlin(354, 3, 0.7, 100)
-		-- Assume X and Z lengths are equal
-		divlen = 8
-		divs = (maxp.x-minp.x)/divlen+1;
-		for divx=0,divs-1 do
-		for divz=0,divs-1 do
-			local x0 = minp.x + math.floor((divx+0)*divlen)
-			local z0 = minp.z + math.floor((divz+0)*divlen)
-			local x1 = minp.x + math.floor((divx+1)*divlen)
-			local z1 = minp.z + math.floor((divz+1)*divlen)
-			-- Determine papyrus amount from perlin noise
-			local papyrus_amount = math.floor(perlin1:get_2d({x=x0, y=z0}) * 45 - 20)
-			-- Find random positions for papyrus based on this random
-			local pr = PseudoRandom(seed+1)
-			for i=0,papyrus_amount do
-				local x = pr:next(x0, x1)
-				local z = pr:next(z0, z1)
-				if core.get_node({x=x,y=1,z=z}).name == "default:dirt_with_grass" and
-						core.find_node_near({x=x,y=1,z=z}, 1, "default:water_source") then
-					default.make_papyrus({x=x,y=2,z=z}, pr:next(2, 4))
-				end
-			end
-		end
-		end
-		-- Generate cactuses
-		perlin1 = core.get_perlin(230, 3, 0.6, 100)
-		-- Assume X and Z lengths are equal
-		divlen = 16
-		divs = (maxp.x-minp.x)/divlen+1;
-		for divx=0,divs-1 do
-		for divz=0,divs-1 do
-			local x0 = minp.x + math.floor((divx+0)*divlen)
-			local z0 = minp.z + math.floor((divz+0)*divlen)
-			local x1 = minp.x + math.floor((divx+1)*divlen)
-			local z1 = minp.z + math.floor((divz+1)*divlen)
-			-- Determine cactus amount from perlin noise
-			local cactus_amount = math.floor(perlin1:get_2d({x=x0, y=z0}) * 6 - 3)
-			-- Find random positions for cactus based on this random
-			local pr = PseudoRandom(seed+1)
-			for i=0,cactus_amount do
-				local x = pr:next(x0, x1)
-				local z = pr:next(z0, z1)
-				-- Find ground level (0...15)
-				local ground_y = nil
-				for y=30,0,-1 do
-					if core.get_node({x=x,y=y,z=z}).name ~= "air" then
-						ground_y = y
-						break
-					end
-				end
-				-- If desert sand, make cactus
-				if ground_y and core.get_node({x=x,y=ground_y,z=z}).name == "default:desert_sand" then
-					default.make_cactus({x=x,y=ground_y+1,z=z}, pr:next(3, 4))
-				end
-			end
-		end
-		end
-		-- Generate grass
-		perlin1 = core.get_perlin(329, 3, 0.6, 100)
-		-- Assume X and Z lengths are equal
-		divlen = 16
-		divs = (maxp.x-minp.x)/divlen+1;
-		for divx=0,divs-1 do
-		for divz=0,divs-1 do
-			local x0 = minp.x + math.floor((divx+0)*divlen)
-			local z0 = minp.z + math.floor((divz+0)*divlen)
-			local x1 = minp.x + math.floor((divx+1)*divlen)
-			local z1 = minp.z + math.floor((divz+1)*divlen)
-			-- Determine grass amount from perlin noise
-			local grass_amount = math.floor(perlin1:get_2d({x=x0, y=z0}) ^ 3 * 9)
-			-- Find random positions for grass based on this random
-			local pr = PseudoRandom(seed+1)
-			for i=0,grass_amount do
-				local x = pr:next(x0, x1)
-				local z = pr:next(z0, z1)
-				-- Find ground level (0...15)
-				local ground_y = nil
-				for y=30,0,-1 do
-					if core.get_node({x=x,y=y,z=z}).name ~= "air" then
-						ground_y = y
-						break
-					end
-				end
-
-				if ground_y then
-					local p = {x=x,y=ground_y+1,z=z}
-					local nn = core.get_node(p).name
-					-- Check if the node can be replaced
-					if core.registered_nodes[nn] and
-						core.registered_nodes[nn].buildable_to then
-						nn = core.get_node({x=x,y=ground_y,z=z}).name
-						-- If desert sand, add dry shrub
-						if nn == "default:desert_sand" then
-							core.set_node(p,{name="default:dry_shrub"})
-
-						-- If dirt with grass, add grass
-						elseif nn == "default:dirt_with_grass" then
-							core.set_node(p,{name="default:grass_"..pr:next(1, 5)})
-						end
-					end
-				end
-
-			end
-		end
-		end
+		generate_papyrus(minp, maxp, seed)
+		generate_cactuses(minp, maxp, seed)
+		generate_grass(minp, maxp, seed)
 	end
 
 	-- Generate nyan cats
