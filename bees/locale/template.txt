@@ -1,0 +1,22 @@
+# textdomain: bees
+honey extractor=
+flying bees=
+wild bee hive=
+filled wild bee hive=
+bee hive=
+filled bee hive=
+empty hive frame=
+filled hive frame=
+honey bottle=
+bees wax=
+honey comb=
+smoker=
+grafting tool=
+industrial bee hive=
+this colony died, not enough flowers in area=
+queen is inserted, now for the empty frames=
+bees are acclimating=
+requires queen bee to function=
+does not have empty frame(s)=
+honey comb block=
+wax block=
