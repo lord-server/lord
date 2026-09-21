@@ -11,7 +11,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	output = "hopper:hopper",
-	recipe = {{"hopper:hopper_side"}}
+	recipe = {{"hopper:hopper_side"}} 
 })
 
 minetest.clear_craft({output = "hopper:hopper_void"})
