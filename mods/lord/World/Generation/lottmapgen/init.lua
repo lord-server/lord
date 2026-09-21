@@ -74,7 +74,7 @@ local np_random = {
 }
 
 -- Stuff
-local water_level = tonumber(core.get_mapgen_setting("water_level") or 1)
+local water_level = tonumber(core.get_mapgen_setting("water_level")) or 1
 
 local measure = core.settings:get_bool("mapgen_measure_chunk_gene_time", false)
 local chunk_pos_log = core.settings:get_bool("mapgen_chunk_pos_log", false)
@@ -100,6 +100,7 @@ local function get_band(value, low, high)
 end
 
 -- Biomes by the temperature (rows), by the humidity (columns) and (for the middle humidity) by the random (nested):
+--- @type table<string, table<string, number|table<string, number>>>
 local BIOMES_BY_CLIMATE = {
 	-- cold
 	low  = {
@@ -132,7 +133,7 @@ end
 --- @param air table above ground config to filling biome airspace with flora/buildings/...
 --- @param vm_area VoxelArea voxel map part manipulator
 --- @param vm_data table array of node's content IDs
---- @param index number node position index in `vm_data`
+--- @param index integer node position index in `vm_data`
 --- @return boolean whether it was filled or not
 local function biome_fill_airspace(air, vm_area, vm_data, index)
 	if type(air) == "number" then
@@ -208,7 +209,9 @@ local id_pearl = id("lottores:mineral_pearl")
 local id_waterlily = id("flowers:waterlily_waving")
 
 local config = dofile(core.get_modpath("lottmapgen").."/config.lua")
+--- @type table<number, number|fun():number>
 local biome_grass = config.biome_grass
+--- @type table<number, table> above ground config of each biome (see `biome_fill_airspace()`)
 local biome_airspace = config.biome_airspace
 
 --- @param biome number biome number (biome id)
@@ -362,7 +365,7 @@ local function replace_stone_by_biome(biome, data, vi)
 		return
 	end
 
-	if biome_gravel and math.random(100) <= GRAVEL_PERCENT then
+	if biome_gravel and math_random(100) <= GRAVEL_PERCENT then
 		data[vi] = biome_gravel
 	else
 		data[vi] = biome_stone
@@ -494,8 +497,11 @@ local function log_chunk_generation(min_pos, max_pos, stage)
 	end
 end
 
--- On generated function
-core.register_on_generated(function(min_pos, max_pos, seed)
+--- On generated function
+--- @param min_pos MapVector
+--- @param max_pos MapVector
+--- @param _seed   number
+local function on_generated(min_pos, max_pos, _seed)
 	if min_pos.y < (water_level-300) or min_pos.y > 1000 then
 		return
 	end
@@ -554,7 +560,9 @@ core.register_on_generated(function(min_pos, max_pos, seed)
 	end
 
 	log_chunk_generation(min_pos, max_pos, "end")
-end)
+end
+
+core.register_on_generated(on_generated)
 
 dofile(core.get_modpath("lottmapgen").."/deco.lua")
 dofile(core.get_modpath("lottmapgen").."/chests.lua")
