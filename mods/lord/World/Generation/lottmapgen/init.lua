@@ -77,6 +77,7 @@ local np_random = {
 local water_level = tonumber(core.get_mapgen_setting("water_level") or 1)
 
 local measure = core.settings:get_bool("mapgen_measure_chunk_gene_time", false)
+local chunk_pos_log = core.settings:get_bool("mapgen_chunk_pos_log", false)
 local chunk_gen_count = 0
 local chunk_gen_avg = 0
 
@@ -84,40 +85,45 @@ dofile(core.get_modpath("lottmapgen").."/nodes.lua")
 dofile(core.get_modpath("lottmapgen").."/functions.lua")
 dofile(core.get_modpath("lottmapgen").."/schematics.lua")
 
+--- @param value number
+--- @param low   number
+--- @param high  number
+--- @return string `low`, `mid` or `high`
+local function get_band(value, low, high)
+	if value < low then
+		return 'low'
+	elseif value > high then
+		return 'high'
+	end
+
+	return 'mid'
+end
+
+-- Biomes by the temperature (rows), by the humidity (columns) and (for the middle humidity) by the random (nested):
+local BIOMES_BY_CLIMATE = {
+	-- cold
+	low  = {
+		low = BIOME_ANGMAR, mid = BIOME_SNOWPLAINS, high = BIOME_TROLLSHAWS,
+	},
+	-- hot
+	high = {
+		low = BIOME_LORIEN, high = BIOME_FANGORN,
+		mid = { low = BIOME_MIRKWOOD, mid = BIOME_DUNLANDS, high = BIOME_HILLS },
+	},
+	-- moderate
+	mid  = {
+		low = BIOME_MORDOR, high = BIOME_ITHILIEN,
+		mid = { low = BIOME_SHIRE, mid = BIOME_GONDOR, high = BIOME_ROHAN },
+	},
+}
+
 local function detect_current_biome(n_temp, n_humid, n_ran)
-	local biome
-	if n_temp < LO_TEMPERATURE_THRESHOLD then
-		if n_humid < LO_HUMIDITY_THRESHOLD then
-			biome = BIOME_ANGMAR -- (Angmar)
-		elseif n_humid > HI_HUMIDITY_THRESHOLD then
-			biome = BIOME_TROLLSHAWS -- (Trollshaws)
-		else
-			biome = BIOME_SNOWPLAINS -- (Snowplains)
-		end
-	elseif n_temp > HI_TEMPERATURE_THRESHOLD then
-		if n_humid < LO_HUMIDITY_THRESHOLD then
-			biome = BIOME_LORIEN -- (Lorien)
-		elseif n_humid > HI_HUMIDITY_THRESHOLD then
-			biome = BIOME_FANGORN -- (Fangorn)
-		elseif n_ran < LO_RANDOM then
-			biome = BIOME_MIRKWOOD -- (Mirkwood)
-		elseif n_ran > HI_RANDOM then
-			biome = BIOME_HILLS -- (Iron Hills)
-		else
-			biome = BIOME_DUNLANDS -- (Dunlands)
-		end
-	else
-		if n_humid < LO_HUMIDITY_THRESHOLD then
-			biome = BIOME_MORDOR -- (Mordor)
-		elseif n_humid > HI_HUMIDITY_THRESHOLD then
-			biome = BIOME_ITHILIEN -- (Ithilien)
-		elseif n_ran < LO_RANDOM then
-			biome = BIOME_SHIRE -- (Shire)
-		elseif n_ran > HI_RANDOM then
-			biome = BIOME_ROHAN -- (Rohan)
-		else
-			biome = BIOME_GONDOR -- (Gondor)
-		end
+	local temperature_band = get_band(n_temp, LO_TEMPERATURE_THRESHOLD, HI_TEMPERATURE_THRESHOLD)
+	local humidity_band    = get_band(n_humid, LO_HUMIDITY_THRESHOLD, HI_HUMIDITY_THRESHOLD)
+
+	local biome = BIOMES_BY_CLIMATE[temperature_band][humidity_band]
+	if type(biome) == "table" then
+		biome = biome[get_band(n_ran, LO_RANDOM, HI_RANDOM)]
 	end
 
 	return biome
@@ -335,6 +341,159 @@ local function is_sand_layer(y, sand_min_y, surface_y)
 end
 
 
+--- State of the column which is being processed (from the top to the bottom).
+--- @class lottmapgen.Column
+--- @field x              number
+--- @field z              number
+--- @field biome          number
+--- @field temperature    number
+--- @field sand_y         number sandline
+--- @field sand_min_y     number lowest sand
+--- @field is_open        boolean open to sky?
+--- @field is_solid       boolean solid node above?
+--- @field is_water_above boolean water node above?
+--- @field surface_y      number y of last surface detected
+
+--- Replaces the stone by the stone (and the gravel) of the biome.
+local function replace_stone_by_biome(biome, data, vi)
+	local biome_gravel = get_biome_gravel(biome)
+	local biome_stone = get_biome_stone(biome)
+	if not biome_stone then
+		return
+	end
+
+	if biome_gravel and math.random(100) <= GRAVEL_PERCENT then
+		data[vi] = biome_gravel
+	else
+		data[vi] = biome_stone
+	end
+end
+
+--- Papyrus and waterlily in the shallow water.
+--- @param col lottmapgen.Column
+local function place_water_plants(col, y, vi, area, data)
+	local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and col.is_open
+	if not is_shallow_water or col.biome <= 4 or col.biome == BIOME_MORDOR then
+		return
+	end
+
+	if math_random(PAPYRUS_CHANCE) == 1 then
+		-- papyrus
+		lottmapgen_papyrus(col.x, (water_level + 1), col.z, area, data)
+		data[vi] = id_dirt
+	elseif math_random(20) == 1 then
+		-- waterlily
+		local water_level_vi = area:index(col.x, water_level + 1, col.z)
+		data[water_level_vi] = id_waterlily
+		data[vi] = id_dirt
+	end
+end
+
+--- The surface in the sand bounds.
+--- @param col lottmapgen.Column
+local function place_sand_surface(col, y, vi, area, data)
+	data[vi] = get_biome_sand(col.biome)
+
+	local is_beach = y >= water_level and y < (water_level + BEACH_LAYERS_COUNT)
+	local is_water_space = y < water_level and col.is_water_above
+
+	-- TODO: place beach stuff (`is_beach`)
+	if not is_beach and is_water_space then
+		place_water_plants(col, y, vi, area, data)
+		biome_place_water_bottom(col.biome, col.temperature, y, data, vi) -- bottom of river or sea
+	end
+end
+
+--- The surface which is supported by 2 stone nodes.
+--- @param col lottmapgen.Column
+local function place_surface(col, y, vi, area, data)
+	if y <= col.sand_y and y >= col.sand_min_y then -- surface in the sand bounds
+		place_sand_surface(col, y, vi, area, data)
+	elseif y > col.sand_y then -- above sandline
+		data[vi] = get_biome_grass(col.biome)
+		if col.is_open then -- if open to sky then flora & buildings
+			local surf_vi = area:index(col.x, col.surface_y + 1, col.z)
+			biome_fill_airspace(biome_airspace[col.biome], area, data, surf_vi)
+		end
+	end
+end
+
+--- @param col                   lottmapgen.Column
+--- @param node_uu_is_not_space  boolean
+local function process_stone_node(col, y, vi, area, data, node_uu_is_not_space)
+	if y > water_level - 32 then
+		replace_stone_by_biome(col.biome, data, vi)
+	end
+
+	if not col.is_solid then -- if surface
+		col.surface_y = y
+
+		if node_uu_is_not_space then -- if supported by 2 stone nodes
+			place_surface(col, y, vi, area, data)
+		end
+	elseif node_uu_is_not_space and is_sand_layer(y, col.sand_min_y, col.surface_y) then -- underground
+		data[vi] = get_biome_sand(col.biome)
+	end
+
+	col.is_open  = false
+	col.is_solid = true
+end
+
+--- @param col lottmapgen.Column
+local function process_space_node(col, node_id, y, vi, data)
+	col.is_solid = false
+
+	if node_id == id_water or node_id == id_river_water then
+		col.is_water_above = true
+		biome_replace_water(node_id, col.biome, data, vi)
+		place_ice_crust(col.temperature, y, data, vi) -- if it's frosty & not so deep
+	end
+end
+
+--- Working down the column for each node do.
+local function process_column(area, data, x, z, y0, y1, temperature, biome)
+	--- @type lottmapgen.Column
+	local col = {
+		x              = x,
+		z              = z,
+		biome          = biome,
+		temperature    = temperature,
+		sand_y         = (water_level + BEACH_LAYERS_COUNT) + math_random(-1, 1), -- sandline
+		sand_min_y     = (water_level - 15) + math_random(-5, 0), -- lowest sand
+		is_open        = true, -- open to sky?
+		is_solid       = true, -- solid node above?
+		is_water_above = false, -- water node above?
+		surface_y      = y1 + 80, -- y of last surface detected
+	}
+
+	for y = y1, y0, -1 do
+		local vi         = area:index(x, y, z)
+		local node_id    = data[vi]
+		local vi_uu      = area:index(x, y - 2, z)
+		local node_id_uu = data[vi_uu] -- under-under
+
+		local node_is_stone = table.contains(stones_ids, node_id)
+		local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
+		local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
+
+		if node_is_stone then
+			process_stone_node(col, y, vi, area, data, node_uu_is_not_space)
+		elseif node_is_space then
+			process_space_node(col, node_id, y, vi, data)
+		end
+	end
+end
+
+--- @param min_pos Position
+--- @param max_pos Position
+--- @param stage   string `start` or `end`
+local function log_chunk_generation(min_pos, max_pos, stage)
+	if chunk_pos_log then
+		Logger.action("chunk # from_" .. min_pos.x .. "_" .. min_pos.y .. "_" .. min_pos.z .. "_to_"
+			.. max_pos.x .. "_" .. max_pos.y .. "_" .. max_pos.z .. " generation " .. stage)
+	end
+end
+
 -- On generated function
 core.register_on_generated(function(min_pos, max_pos, seed)
 	if min_pos.y < (water_level-300) or min_pos.y > 1000 then
@@ -360,10 +519,7 @@ core.register_on_generated(function(min_pos, max_pos, seed)
 
 	local lua_gen_time = 0
 
-	if core.settings:get_bool("mapgen_chunk_pos_log") then
-		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
-			 .. x1 .. "_" .. y1 .. "_" .. z1 .. " generation start")
-	end
+	log_chunk_generation(min_pos, max_pos, "start")
 
 	core.with_map_part_do(min_pos, max_pos, function(area, data)
 
@@ -378,108 +534,7 @@ core.register_on_generated(function(min_pos, max_pos, seed)
 				local random      = nvals_random[xz_noise_index]
 				local biome       = detect_current_biome(temperature, humidity, random)
 
-				local sand_y         = (water_level + BEACH_LAYERS_COUNT) + math_random(-1, 1) -- sandline
-				local sand_min_y     = (water_level - 15) + math_random(-5, 0) -- lowest sand
-				local is_open        = true -- open to sky?
-				local is_solid       = true -- solid node above?
-				local is_water_above = false -- water node above?
-				local surface_y      = y1 + 80 -- y of last surface detected
-				for y = y1, y0, -1 do -- working down each column for each node do
-					local vi         = area:index(x, y, z)
-					local node_id    = data[vi]
-					local vi_uu      = area:index(x, y - 2, z)
-					local node_id_uu = data[vi_uu] -- under-under
-
-					local node_is_stone = table.contains(stones_ids, node_id)
-					local node_is_space = node_id == id_air or node_id == id_water or node_id == id_river_water
-					local node_uu_is_not_space = node_id_uu ~= id_air and node_id_uu ~= id_water
-
-					-- if stone
-					if node_is_stone then
-
-						if y > water_level - 32 then
-							local biome_gravel = get_biome_gravel(biome)
-							local biome_stone = get_biome_stone(biome)
-							if biome_stone then
-								if biome_gravel then
-									if math.random(100) <= GRAVEL_PERCENT then
-										data[vi] = biome_gravel
-									else
-										data[vi] = biome_stone
-									end
-								else
-									data[vi] = biome_stone
-								end
-							end
-						end
-
-						if not is_solid then -- if surface
-							surface_y = y
-
-							if node_uu_is_not_space then -- if supported by 2 stone nodes
-
-								if y <= sand_y and y >= sand_min_y then -- surface in the sand bounds
-									data[vi] = get_biome_sand(biome)
-
-									local is_beach = y >= water_level and y < (water_level + BEACH_LAYERS_COUNT)
-									local is_water_space = y < water_level and is_water_above
-
-
-									if is_beach then -- luacheck: ignore (empty if branch)
-										-- place beach stuff
-									elseif is_water_space then
-										local is_shallow_water = y >= (water_level - SHALLOW_WATER_DEPTH) and is_open
-										if is_shallow_water then
-											if biome > 4 and biome ~= BIOME_MORDOR then
-												-- papyrus
-												if math_random(PAPYRUS_CHANCE) == 1	then
-													lottmapgen_papyrus(x, (water_level + 1), z, area, data)
-													data[vi] = id_dirt
-												-- waterlily
-												elseif math_random(20) == 1 then
-													local water_level_vi = area:index(x, water_level + 1, z)
-													data[water_level_vi] = id_waterlily
-													data[vi] = id_dirt
-												end
-											end
-										end
-										biome_place_water_bottom(biome, temperature, y, data, vi) -- bottom of river or sea
-									end
-								elseif y > sand_y then -- above sandline
-									data[vi] = get_biome_grass(biome)
-									if is_open then -- if open to sky then flora & buildings
-										local surf_vi = area:index(x, surface_y + 1, z)
-										biome_fill_airspace(biome_airspace[biome], area, data, surf_vi)
-									end
-								end
-
-							end
-
-						else -- underground
-
-							if node_uu_is_not_space then
-
-								if is_sand_layer(y, sand_min_y, surface_y) then
-									data[vi] = get_biome_sand(biome)
-								end
-
-							end
-						end
-
-						is_open  = false
-						is_solid = true
-
-					elseif node_is_space then
-
-						is_solid = false
-
-						if node_id == id_water or node_id == id_river_water then
-							is_water_above = true
-							biome_replace_water(node_id, biome, data, vi)
-							place_ice_crust(temperature, y, data, vi) -- if it's frosty & not so deep
-						end
-					end
-				end
+				process_column(area, data, x, z, y0, y1, temperature, biome)
 
 				xz_noise_index = xz_noise_index + 1
 			end
@@ -498,10 +553,7 @@ core.register_on_generated(function(min_pos, max_pos, seed)
 		chunk_gen_count = chunk_gen_count + 1
 	end
 
-	if core.settings:get_bool("mapgen_chunk_pos_log") then
-		Logger.action("chunk # from_" .. x0 .. "_" .. y0 .. "_" .. z0 .. "_to_"
-			.. x1 .. "_" .. y1 .. "_" .. z1 .. " generation end")
-	end
+	log_chunk_generation(min_pos, max_pos, "end")
 end)
 
 dofile(core.get_modpath("lottmapgen").."/deco.lua")
