@@ -1,6 +1,6 @@
-core.clear_craft({output = "hopper:hopper"})
+minetest.clear_craft({output = "hopper:hopper"})
 
-core.register_craft({
+minetest.register_craft({
 	output = "hopper:hopper",
 	recipe = {
 		{"lottores:lead_ingot", "carts:gear",  "lottores:lead_ingot"},
@@ -9,15 +9,15 @@ core.register_craft({
 	}
 })
 
-core.register_craft({
+minetest.register_craft({
 	output = "hopper:hopper",
-	recipe = {{"hopper:hopper_side"}}
+	recipe = {{"hopper:hopper_side"}} 
 })
 
-core.clear_craft({output = "hopper:hopper_void"})
+minetest.clear_craft({output = "hopper:hopper_void"})
 
 -- TODO: for future
--- core.register_craft({
+-- minetest.register_craft({
 -- 	output = "hopper:hopper_void",
 -- 	recipe = {
 -- 		{"lottores:lead_ingot", "carts:steam_mechanism",  "lottores:lead_ingot"},
@@ -243,6 +243,14 @@ hopper:add_container({
 	{"top", "bees:extractor", "wax"},
 	{"top", "bees:extractor", "bottles_full"},
 	{"top", "bees:extractor", "frames_emptied"},
+	
+	-- ### bees: hives ###
+	{"bottom", "bees:hive_artificial", "frames"},
+	{"bottom", "bees:hive_artificial_filled", "frames"},
+	{"side", "bees:hive_artificial", "frames"},
+	{"side", "bees:hive_artificial_filled", "frames"},
+	{"top", "bees:hive_artificial_filled", "frames"},
+
 
 	-- ### laboratory ###
 	{"void", "laboratory:laboratory",        "src"},
@@ -286,3 +294,8 @@ hopper:add_container({
 	{"side", "lord_mail:mail_chest", "main"},
 	{"top", "lord_mail:mail_chest", "main"},
 })
+if minetest.registered_nodes["bees:extractor"] then
+	hopper:add_container({
+		{"top", "bees:extractor", "bottles_full"},
+	})
+end
