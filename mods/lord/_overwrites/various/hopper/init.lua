@@ -244,6 +244,13 @@ hopper:add_container({
 	{"top", "bees:extractor", "bottles_full"},
 	{"top", "bees:extractor", "frames_emptied"},
 
+	-- ### bees: hives ###
+	{"bottom", "bees:hive_artificial", "frames"},
+	{"bottom", "bees:hive_artificial_filled", "frames"},
+	{"side", "bees:hive_artificial", "frames"},
+	{"side", "bees:hive_artificial_filled", "frames"},
+	{"top", "bees:hive_artificial_filled", "frames"},
+
 	-- ### laboratory ###
 	{"void", "laboratory:laboratory",        "src"},
 	{"void", "laboratory:laboratory_active", "src"},
@@ -286,3 +293,9 @@ hopper:add_container({
 	{"side", "lord_mail:mail_chest", "main"},
 	{"top", "lord_mail:mail_chest", "main"},
 })
+
+if core.registered_nodes["bees:extractor"] then
+	hopper:add_container({
+		{"top", "bees:extractor", "bottles_full"},
+	})
+end
