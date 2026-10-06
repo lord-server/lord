@@ -13,11 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo recursively
-        uses: actions/checkout@v6
+      - name: Checkout repo
+        uses: actions/checkout@v7
         with:
-          submodules: recursive
           fetch-depth: 30
+
+      - name: Init Submodules
+        uses: ./.github/actions/init-submodules-cached
 
       - name: Install LuaCheck
         run: |

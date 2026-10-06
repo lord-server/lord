@@ -1,0 +1,26 @@
+name: Init Submodules Cached
+description: >
+  Initialize submodules at their pinned commits, reusing cached submodule git dirs.
+  Run after `actions/checkout` without `submodules`.
+
+runs:
+  using: composite
+  steps:
+    # Cache is keyed by the set of pinned commits. On a miss the closest older cache
+    # is restored, and `submodule update` fetches only the bumped submodules and always
+    # checks out the exact pinned SHA, so stale sources are never used
+    - name: Hash submodule commits
+      id: hash
+      shell: bash
+      run: echo "hash=$(git submodule status | awk '{print $1, $2}' | sha256sum | cut -c1-16)" >> "$GITHUB_OUTPUT"
+
+    - name: Cache submodules
+      uses: actions/cache@v6
+      with:
+        path: .git/modules
+        key: submodules-${{ steps.hash.outputs.hash }}
+        restore-keys: submodules-
+
+    - name: Init submodules
+      shell: bash
+      run: git submodule update --init --depth=1
