@@ -346,11 +346,7 @@ local function mob_damaged(self)
 
 	if show_health then
 		self.htimer = 2
-		if self.health_orig ~= nil then
-			self.nametag = "♥ " .. self.health .. " / " .. self.health_orig
-		else
-			self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
-		end
+		self.nametag = "♥ " .. self.health .. " / " .. self.hp_max
 		update_tag(self)
 	end
 
@@ -2230,7 +2226,6 @@ local mob_activate = function(self, staticdata, def)
 
 	if self.health == 0 then
         self.health = random (self.hp_min, self.hp_max)
-        self.health_orig = self.health
 	end
 
 	-- rnd: pathfinding init
