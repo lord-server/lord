@@ -31,11 +31,12 @@ local function register_rank_handler()
         for item_name, item_def in pairs(core.registered_items) do
             local _rank = item_def._rank
 
-            if _rank then
+            if _rank and item_def._rank_autocolorize ~= false then
                 local rank = Collection.get(_rank)
                 if rank and item_def.description then
-                    local title, description = item_def.description:match('^([^\n]*)(.*)$')
+                    local title, description = unpack(item_def.description:split('\n', true, 1))
                     if title then
+                        description = description and '\n' .. description or ''
                         core.override_item(item_name,{
                             description = core.colorize(rank.color, title) .. description
                         })
