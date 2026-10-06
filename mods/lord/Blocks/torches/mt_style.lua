@@ -14,7 +14,7 @@ core.register_craftitem(":lottother:blue_torch", {
 		local under = pointed_thing.under
 		local nu = core.get_node(under)
 		if core.registered_nodes[nu.name].on_rightclick then
-			return core.registered_nodes[nu.name].on_rightclick(under, nu, placer, itemstack)
+			return core.registered_nodes[nu.name].on_rightclick(under, nu, placer, itemstack, pointed_thing)
 		end
 		local wdir = core.dir_to_wallmounted({x = under.x - above.x, y = under.y - above.y, z = under.z - above.z})
 		if wdir < 1 and not torches.enable_ceiling then
@@ -156,7 +156,7 @@ core.register_craftitem(":lottother:orc_torch", {
 		local under = pointed_thing.under
 		local nu    = core.get_node(under)
 		if core.registered_nodes[nu.name].on_rightclick then
-			return core.registered_nodes[nu.name].on_rightclick(under, nu, placer, itemstack)
+			return core.registered_nodes[nu.name].on_rightclick(under, nu, placer, itemstack, pointed_thing)
 		end
 		local wdir = core.dir_to_wallmounted({ x = under.x - above.x, y = under.y - above.y, z = under.z - above.z })
 		if wdir < 1 and not torches.enable_ceiling then

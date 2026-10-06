@@ -90,15 +90,18 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 			--
 			-- `pcall` "catch" errors, so we can garantee
 			--     that `on_rightclick` will be restored even if `on_place` fails.
+			-- `rawset()` is required for the restore: the engine sets `__newindex` on node definitions
+			--     (see `builtin/game/register.lua`), which silently drops assignments to keys that are
+			--     currently absent (like `on_rightclick` while it's disabled), so a plain `=` would lose it.
 
 			-- TODO: use VX-19
 			-- TRY:
 			local trunk_def           = core.registered_nodes[node.name]
 			local original_on_rclick  = trunk_def.on_rightclick
 			local item_on_place       = item_stack:get_definition().on_place
-			trunk_def.on_rightclick   = nil
+			rawset(trunk_def, 'on_rightclick', nil)
 			local ok, result          = pcall(item_on_place, item_stack, clicker, pointed_thing)
-			trunk_def.on_rightclick   = original_on_rclick
+			rawset(trunk_def, 'on_rightclick', original_on_rclick)
 
 			-- CATCH:
 			if not ok then
