@@ -47,6 +47,12 @@ legacy_mobs:alias_mob('mobs:bee', 'bees:bee')
 legacy_mobs:spawn_specific("bees:bee", {"group:flower"}, {"air"}, 10, 20, 30, 5000, 1, 0, 1000)
 legacy_mobs:register_egg("bees:bee", S("Bee"), "mobs_bee_inv.png", 0)
 
+-- items of the old `mobs` mod (before LG-2064), still present in player inventories and chests
+core.register_alias('mobs:bee_set', 'bees:bee_set')
+core.register_alias('mobs:honey', 'bees:honey')
+core.register_alias('mobs:honey_block', 'bees:honey_block')
+core.register_alias('mobs:beehive', 'bees:beehive')
+
 -- honey
 core.register_craftitem("bees:honey", {
 	description = S("Honey"),
