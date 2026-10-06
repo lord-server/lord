@@ -14,12 +14,26 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Rust
-        uses: actions-rust-lang/setup-rust-toolchain@v1
-          
+      - name: Resolve latest emmylua_check version
+        id: emmylua
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          v=$(gh release view --repo EmmyLuaLs/emmylua-analyzer-rust --json tagName --jq .tagName)
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      # Cache key is the latest release, so a new release triggers exactly one rebuild
+      - name: Cache emmylua_check
+        id: emmylua_cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/emmylua_check
+          key: ${{ runner.os }}-emmylua_check-${{ steps.emmylua.outputs.version }}
+
       - name: Install emmylua_check
-        run: cargo install emmylua_check
-      
+        if: steps.emmylua_cache.outputs.cache-hit != 'true'
+        run: cargo install emmylua_check --version ${{ steps.emmylua.outputs.version }}
+
       - name: Run EmmyLua Check (Errors only)
         shell: bash
         run: |
