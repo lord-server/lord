@@ -10,9 +10,24 @@ jobs:
   emmylua-analysis:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
+
+      # Submodule git dirs are cached per set of pinned commits. On a miss the closest
+      # older cache is restored, and `submodule update` fetches only the bumped ones
+      # and always checks out the exact pinned SHA, so stale sources are never used
+      - name: Hash submodule commits
+        id: submodules
+        run: echo "hash=$(git submodule status | awk '{print $1, $2}' | sha256sum | cut -c1-16)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache submodules
+        uses: actions/cache@v6
         with:
-          submodules: recursive
+          path: .git/modules
+          key: submodules-${{ steps.submodules.outputs.hash }}
+          restore-keys: submodules-
+
+      - name: Init submodules
+        run: git submodule update --init --depth=1
 
       - name: Resolve latest emmylua_check version
         id: emmylua
@@ -25,7 +40,7 @@ jobs:
       # Cache key is the latest release, so a new release triggers exactly one rebuild
       - name: Cache emmylua_check
         id: emmylua_cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cargo/bin/emmylua_check
           key: ${{ runner.os }}-emmylua_check-${{ steps.emmylua.outputs.version }}
