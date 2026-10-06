@@ -1,7 +1,9 @@
 local trunks          = require('tree.trunks')
 local MiasmaParticles = require('tree.trunks.infected.MiasmaParticles')
 
-local S = core.get_mod_translator()
+local S      = core.get_mod_translator()
+local logger = core.get_mod_logger()
+local try    = Voxrame.exception.try
 
 
 local INFECTED_TRUNKS_GROUP = 'infected'
@@ -88,25 +90,25 @@ local function register_infected_trunk(parent_node_name, tree_height, leaves_rad
 			-- instead of being redirected right back here from `on_place`,
 			--     we temporarily disable `on_rightclick` of this node.
 			--
-			-- `pcall` "catch" errors, so we can garantee
+			-- `try()` catches errors, so we can guarantee
 			--     that `on_rightclick` will be restored even if `on_place` fails.
+			--
 			-- `rawset()` is required for the restore: the engine sets `__newindex` on node definitions
 			--     (see `builtin/game/register.lua`), which silently drops assignments to keys that are
-			--     currently absent (like `on_rightclick` while it's disabled), so a plain `=` would lose it.
+			--     currently absent (like `on_rightclick` while it's disabled), so a plain `=` would lose it
+			--     and no ifection will be provided after first rightclick.
+			local trunk_def          = core.registered_nodes[node.name]
+			local original_on_rclick = trunk_def.on_rightclick
+			local item_on_place      = item_stack:get_definition().on_place
+			local result             = item_stack
 
-			-- TODO: use VX-19
-			-- TRY:
-			local trunk_def           = core.registered_nodes[node.name]
-			local original_on_rclick  = trunk_def.on_rightclick
-			local item_on_place       = item_stack:get_definition().on_place
 			rawset(trunk_def, 'on_rightclick', nil)
-			local ok, result          = pcall(item_on_place, item_stack, clicker, pointed_thing)
+			try(function()
+				result = item_on_place(item_stack, clicker, pointed_thing)
+			end):catch(function(error, traceback)
+				logger.error('%s\n%s', tostring(error), debug.render_backtrace(traceback, true))
+			end)
 			rawset(trunk_def, 'on_rightclick', original_on_rclick)
-
-			-- CATCH:
-			if not ok then
-				error(result, 0)
-			end
 
 			return result
 		end,
