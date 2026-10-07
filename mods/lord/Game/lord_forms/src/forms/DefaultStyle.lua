@@ -28,7 +28,7 @@ end
 --- @return any ... @unpacked params if raw is false or not provided
 --- @overload fun(name:string):...
 function DefaultStyle.get_params_for(name, raw)
-	raw = raw == nil and false
+	raw = raw or false
 
 	if raw then
 		return config.params[name]

@@ -1,10 +1,17 @@
 local S        = core.get_mod_translator()
 local colorize = core.colorize
+local logger   = core.get_mod_logger()
 
+
+local RANK_BY_POWER = {
+	[1] = item_rank.Type.ADVANCED,
+	[2] = item_rank.Type.RARE,
+	[3] = item_rank.Type.EPIC,
+}
 
 --- @class lord_potions.PotionEffect
 --- @field name          string                   one of registered `lord_effects.<CONST>` names.
---- @field is_periodical boolean                  whether effect has action every second or not.
+--- @field is_periodical boolean?                 whether effect has action every second or not (`nil` means `false`).
 --- @field power         lord_potions.PotionPower applied power params of Effect. (amount, duration)
 --- @field group         string                   name of effect group.
 
@@ -23,7 +30,7 @@ local potions = {
 local function add_existing(node_name)
 	local definition = core.registered_nodes[node_name]
 	core.override_item(node_name, {
-		groups = table.overwrite(definition.groups, { potions = 1 }),
+		groups = table.merge(definition.groups, { potions = 1 }),
 	})
 	potions.all_items[node_name] = definition
 end
@@ -33,12 +40,19 @@ end
 --- @param description   string
 --- @param color         string
 --- @param effect        lord_potions.PotionEffect
---- @param groups        table
+--- @param groups        table?
 local function register_potion_node(item_name, title, description, color, effect, level, groups)
 	local power_abs = math.abs(level)
 	local sub_name  = item_name:split(':')[2]
+	assert(sub_name, 'item_name must be "<mod>:<name>": ' .. item_name)
+	--- @cast sub_name string `assert` above throws on `nil`
 	title           = title and title:first_to_upper() or sub_name:first_to_upper()
 	level           = level or 0
+
+	local rank_type  = RANK_BY_POWER[power_abs]
+	local rank       = rank_type and item_rank.get(rank_type)
+	local default_color = forms.DefaultStyle.get_params_for('listcolors', true)[5]
+	local rank_color = rank and rank.color or default_color
 
 	local content_opacity_by_level = tonumber(level) >= 0
 		and (120 - power_abs * 40)
@@ -51,10 +65,11 @@ local function register_potion_node(item_name, title, description, color, effect
 	local texture                  = bottle_contents_img .. '^(lord_potions_bottle.png)'
 
 	core.register_node(item_name, {
-		description     = S('Potion "@1"@2',
-			colorize('#ee8', title),
+		description     = colorize(rank_color, S(
+			'Potion "@1"@2',
+			colorize('#ee8', title) .. core.get_color_escape_sequence(rank_color),
 			level ~= 0 and ' '..S('(Power: @1)', level) or ''
-		),
+		)),
 		_tt_help        = description and colorize('#aaa',  '\n'..description),
 		inventory_image = texture,
 		tiles           = { texture },
@@ -65,6 +80,11 @@ local function register_potion_node(item_name, title, description, color, effect
 		drawtype        = 'plantlike',
 		paramtype       = 'light',
 		on_use          = function(itemstack, user, pointed_thing)
+			if not user or not user:is_player() then
+				logger.error('potion on_use: expected a player, got %s', tostring(user))
+				return itemstack
+			end
+			--- @cast user Player checked above
 			effects.for_player(user):apply(effect.name, effect.power.amount, effect.power.duration, {
 				name = effect.group, description = colorize('#ee8', title)
 			})
@@ -74,6 +94,8 @@ local function register_potion_node(item_name, title, description, color, effect
 			return itemstack
 		end,
 		_effect         = effect,
+		_rank           = rank_type,
+		_rank_autocolorize = false,
 	})
 end
 
@@ -101,7 +123,7 @@ end
 --- @param description   string  some words you want to displayed in tooltip before properties of power.
 --- @param color         string  color of potion liquid (bottle contents).
 --- @param effect        lord_potions.PotionEffect  one of registered `lord_effects.<CONST>` names.
---- @param groups        table  additional or overwrite groups for item definition groups.
+--- @param groups        table?  additional or overwrite groups for item definition groups.
 --- @param recipe        {input:string[],time:number|nil}  default time: 120.
 local function register_potion(name_prefix, title, description, color, effect, level, groups, recipe)
 	local power_abs = math.abs(level)
@@ -126,18 +148,18 @@ end
 --- @param crafting        lord_potions.PotionGroup.Crafting crafting ingredients & times of group of potions.
 --- @return {input:string[],output:string,time:number|nil}
 local function get_recipe_for(group_item_name, level, crafting)
-	level = math.abs(tonumber(level))
+	local power = math.abs(assert(tonumber(level), 'invalid potion level: ' .. tostring(level)))
 	crafting.times = crafting.times or { 120, 180, 240 }
 
 	--- @type {input:string[],output:string,time:number|nil}
 	local recipe = {
 		input  = {
 			-- we crafts each next-level potion from prev-level potion, and first one from `base`
-			[1] = level == 1 and crafting.ingredients.base or (group_item_name .. '_' .. (level-1)),
+			[1] = power == 1 and crafting.ingredients.base or (group_item_name .. '_' .. (power-1)),
 			[2] = crafting.ingredients.mixin,
 		},
-		output = group_item_name .. '_' .. level,
-		time   = crafting.times[level] or 120 + (level - 1) * 60,
+		output = group_item_name .. '_' .. power,
+		time   = crafting.times[power] or 120 + (power - 1) * 60,
 	}
 
 	return recipe

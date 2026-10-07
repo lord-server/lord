@@ -3,6 +3,7 @@ local S = core.get_mod_translator()
 --- @class lord_potions.PotionPower
 --- @field amount   number applying effect value (depends on effect).
 --- @field duration number time in seconds.
+--- @field color    string? optional color of potion liquid for this power level (overrides group `color`).
 
 --- @class lord_potions.PotionGroup.Crafting.Ingredients
 --- @field base  string name of item (+count) used for fist level. ex.: `"lord_potions:ingredient_geodes"`
@@ -10,7 +11,7 @@ local S = core.get_mod_translator()
 
 --- @class lord_potions.PotionGroup.Crafting
 --- @field ingredients lord_potions.PotionGroup.Crafting.Ingredients
---- @field times       number[]  array of times of cooking for each power level, ex.: `{ 120, 180, 240 }` - default.
+--- @field times       number[]?  array of times of cooking for each power level, ex.: `{ 120, 180, 240 }` - default.
 
 --- @class lord_potions.PotionGroup
 --- @field item_name     string  technical item/node name (`"<mod>:<node>"`), which used as prefix.
@@ -18,7 +19,7 @@ local S = core.get_mod_translator()
 --- @field description   string  some words you want to displayed in tooltip before properties.
 --- @field color         string  color of potion liquid (bottle contents).
 --- @field effect        string  one of registered `lord_effects.<CONST>` names.
---- @field is_periodical boolean whether effect has action every second or not.
+--- @field is_periodical boolean? whether effect has action every second or not (`nil` means `false`).
 --- @field powers        table<string,lord_potions.PotionPower> applied power params of Effect. (amount, duration)
 --- @field crafting      {ingredients:{base:string,mixin:string},times:number[]|nil}  default time: 60.
 
