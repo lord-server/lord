@@ -94,7 +94,7 @@
 	branch = lord
 [submodule "mods/_various/hopper"]
 	path = mods/_various/hopper
-	url = https://codeberg.org/tenplus1/hopper.git
+	url = https://codeberg.org/lord-server-forks/hopper.git
 
 [submodule "util/ide-helper"]
 	path = util/ide-helper/luanti
