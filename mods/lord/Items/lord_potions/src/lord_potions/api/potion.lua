@@ -3,11 +3,22 @@ local colorize = core.colorize
 local logger   = core.get_mod_logger()
 
 
+--- @type string[]
 local RANK_BY_POWER = {
 	[1] = item_rank.Type.ADVANCED,
 	[2] = item_rank.Type.RARE,
 	[3] = item_rank.Type.EPIC,
 }
+
+--- @param rank_type string?
+--- @return string
+local function get_rank_color(rank_type)
+	local rank = rank_type and item_rank.get(rank_type)
+
+	return rank
+		and rank.color
+		or  forms.DefaultStyle.get_params_for('listcolors', true)[5]
+end
 
 --- @class lord_potions.PotionEffect
 --- @field name          string                   one of registered `lord_effects.<CONST>` names.
@@ -50,9 +61,7 @@ local function register_potion_node(item_name, title, description, color, effect
 	level           = level or 0
 
 	local rank_type  = RANK_BY_POWER[power_abs]
-	local rank       = rank_type and item_rank.get(rank_type)
-	local default_color = forms.DefaultStyle.get_params_for('listcolors', true)[5]
-	local rank_color = rank and rank.color or default_color
+	local rank_color = get_rank_color(rank_type)
 
 	local content_opacity_by_level = tonumber(level) >= 0
 		and (120 - power_abs * 40)

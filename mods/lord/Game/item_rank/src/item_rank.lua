@@ -3,10 +3,15 @@ local Collection = require('item_rank.Collection')
 local config     = require('item_rank.config')
 
 
+--- @class item_rank
+--- @field Type     item_rank.Type
+--- @field get      fun(code: string): item_rank.Rank
+--- @field get_all  fun(): table<string, item_rank.Rank>
 item_rank = {} -- luacheck: ignore unused global variable item_rank
 
 local function register_api()
-	_G.item_rank = {
+	item_rank = {
+		--- @type item_rank.Type
         Type = Type,
         --- @param code string
         --- @return item_rank.Rank
