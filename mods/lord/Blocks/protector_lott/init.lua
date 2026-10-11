@@ -347,14 +347,14 @@ function core.item_place(itemstack, placer, pointed_thing, param2)
 					-- Situation A: a protector nearby forbids placing a new protector here
 					core.chat_send_player(user, S("Overlaps into another protected area!"))
 
-					return protector.old_node_place(itemstack, placer, pos, param2)
+					return itemstack
 				else
 					-- Situation B: a protector nearby allows placing a new protector here
 					-- check if there is a mod that controls whether a node is protected
 					if protector.old_is_protected_overlap(pos, user) then
 						core.chat_send_player(user, S("Overlaps into another protected area!"))
 
-						return protector.old_node_place(itemstack, placer, pos, param2)
+						return itemstack
 					end
 				end
 			else
@@ -363,7 +363,7 @@ function core.item_place(itemstack, placer, pointed_thing, param2)
 				if protector.old_is_protected_overlap(pos, user) then
 					core.chat_send_player(user, S("Overlaps into another protected area!"))
 
-					return protector.old_node_place(itemstack, placer, pos, param2)
+					return itemstack
 				end
 			end
 	    end
