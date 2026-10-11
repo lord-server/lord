@@ -63,7 +63,7 @@ core.register_node("bones:skeleton_body", {
 		local above_2 = {x = above.x, y = above.y, z = above.z}
 		above_2.y = above_2.y + 1
 		if core.registered_nodes[node_under.name].on_rightclick then
-			return core.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack)
+			return core.registered_nodes[node_under.name].on_rightclick(under, node_under, placer, itemstack, pointed_thing)
 		end
 		if core.is_protected(above, placer:get_player_name()) or
 		core.is_protected(above_2, placer:get_player_name()) then

@@ -983,7 +983,7 @@ local function on_place_fence(fencename, itemstack, placer, pointed_thing)
 	end
 
 	if def_under and def_under.on_rightclick then
-		return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack) or itemstack
+		return def_under.on_rightclick(pointed_thing.under, node_under, placer, itemstack, pointed_thing) or itemstack
 	elseif def_under and def_under.buildable_to then
 		return place_fence(fencename, itemstack, placer, pointed_thing.under, fdir)
 	elseif not def_above or def_above.buildable_to then

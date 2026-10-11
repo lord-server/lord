@@ -7,7 +7,7 @@ core.register_craftitem("lottfarming:white_mushroom_spore", {
 		local ptu = pointed_thing.under
 		local nu = core.get_node(ptu)
 		if core.registered_nodes[nu.name].on_rightclick then
-			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack, pointed_thing)
 		end
 		return place_spore(itemstack, placer, pointed_thing, "lottfarming:white_mushroom_1", 9)
 	end,

@@ -354,7 +354,7 @@ local function make_egg_on_place(name, definition)
 		local under = core.get_node(pointed_thing.under)
 		local def = core.registered_nodes[under.name]
 		if def and def.on_rightclick then
-			return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
+			return def.on_rightclick(pointed_thing.under, under, placer, itemstack, pointed_thing)
 		end
 
 		if pos and not core.is_protected(pos, player) then

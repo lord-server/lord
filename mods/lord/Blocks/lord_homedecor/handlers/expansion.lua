@@ -105,18 +105,18 @@ local function stack(itemstack, placer, fdir, pos, def, pos2, node1, node2)
 	return itemstack
 end
 
-local function rightclick_pointed_thing(pos, placer, itemstack)
+local function rightclick_pointed_thing(pos, placer, itemstack, pointed_thing)
 	local node = core.get_node_or_nil(pos)
 	if not node then return false end
 	local def = core.registered_nodes[node.name]
 	if not def or not def.on_rightclick then return false end
-	return def.on_rightclick(pos, node, placer, itemstack) or itemstack
+	return def.on_rightclick(pos, node, placer, itemstack, pointed_thing) or itemstack
 end
 
 -- Stack one node above another
 -- leave the last argument nil if it's one 2m high node
 function lord_homedecor.stack_vertically(itemstack, placer, pointed_thing, node1, node2)
-	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
+	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack, pointed_thing)
 	if rightclick_result then return rightclick_result end
 
 	local pos, def = select_node(pointed_thing)
@@ -132,7 +132,7 @@ end
 --    if it was placed as a right wing, then uses node1_right and node2_right instead
 
 function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node2, node1_right, node2_right)
-	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
+	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack, pointed_thing)
 	if rightclick_result then return rightclick_result end
 
 	local pos, def = select_node(pointed_thing)
@@ -155,7 +155,7 @@ function lord_homedecor.stack_wing(itemstack, placer, pointed_thing, node1, node
 end
 
 function lord_homedecor.stack_sideways(itemstack, placer, pointed_thing, node1, node2, dir)
-	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack)
+	local rightclick_result = rightclick_pointed_thing(pointed_thing.under, placer, itemstack, pointed_thing)
 	if rightclick_result then return rightclick_result end
 
 	local pos, def = select_node(pointed_thing)

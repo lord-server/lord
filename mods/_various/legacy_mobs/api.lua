@@ -2840,7 +2840,7 @@ function legacy_mobs:register_egg(mob, desc, background, addegg, no_creative)
 			local under = minetest.get_node(pointed_thing.under)
 			local def = minetest.registered_nodes[under.name]
 			if def and def.on_rightclick then
-				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
+				return def.on_rightclick(pointed_thing.under, under, placer, itemstack, pointed_thing)
 			end
 
 			if pos and within_limits(pos, 0) then
@@ -2886,7 +2886,7 @@ function legacy_mobs:register_egg(mob, desc, background, addegg, no_creative)
 			local under = minetest.get_node(pointed_thing.under)
 			local def = minetest.registered_nodes[under.name]
 			if def and def.on_rightclick then
-				return def.on_rightclick(pointed_thing.under, under, placer, itemstack)
+				return def.on_rightclick(pointed_thing.under, under, placer, itemstack, pointed_thing)
 			end
 
 			if pos

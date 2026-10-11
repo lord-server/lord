@@ -7,7 +7,7 @@ core.register_craftitem("lottfarming:pipeweed_seed", {
 		local ptu = pointed_thing.under
 		local nu  = core.get_node(ptu)
 		if core.registered_nodes[nu.name].on_rightclick then
-			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack)
+			return core.registered_nodes[nu.name].on_rightclick(ptu, nu, placer, itemstack, pointed_thing)
 		end
 		return place_seed(itemstack, placer, pointed_thing, "lottfarming:pipeweed_1", 34)
 	end,
