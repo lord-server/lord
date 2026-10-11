@@ -15,7 +15,7 @@ return function(item_string)
 	for type, damage in pairs(tool_capabilities.damage_groups) do
 		local damage_in_sec = string.format('%.2f', damage / interval)
 		local list_item = S(
-			'$dmg-item-tpl$ @1: @2 in @3 sec @4',
+			'@1: @2 in @3 sec @4',
 			colorize('#bbb', S(type..'_dmg')),
 			damage,
 			interval,

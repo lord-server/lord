@@ -32,7 +32,7 @@ unbreakable_dig=неломающиеся
 bendy_dig=гнущиеся
 
 # Damages:
-$dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 в @3 сек @4
+@1: @2 in @3 sec @4=@1: @2 в @3 сек @4
 @1/sec=@1/сек
 Punch Speed: @1=Скорость удара: @1
 fleshy_dmg=телесный
