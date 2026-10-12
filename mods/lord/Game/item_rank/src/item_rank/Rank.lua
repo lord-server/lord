@@ -2,4 +2,4 @@
 --- @field code string
 --- @field color string
 --- @field title string
---- @field discription string
+--- @field description string
