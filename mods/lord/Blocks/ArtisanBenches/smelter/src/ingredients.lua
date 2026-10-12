@@ -3,7 +3,7 @@ local S = core.get_mod_translator()
 
 core.register_craftitem('lord_smelter:crucible', {
 	description     = S('Crucible of Isengard'),
-	_annotation =
+	_annotation     =
 		S('A black crucible from the depths of Isengard.') .. '\n' ..
 		S('It smelted steel for the Uruk-Hai armies') .. '\n' ..
 		S('— and he still remembers that heat.'),
