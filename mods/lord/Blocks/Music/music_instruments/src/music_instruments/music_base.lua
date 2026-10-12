@@ -5,7 +5,7 @@ local def = config.base
 local function register_base()
 	core.register_node('music_instruments:base', {
 		description = def.title,
-		_tt_help = def.description and core.colorize('#aaa',  '\n' .. def.description),
+		_annotation = def.description,
 		drawtype = def.drawtype,
 		mesh = def.mesh,
 		tiles = def.tiles,

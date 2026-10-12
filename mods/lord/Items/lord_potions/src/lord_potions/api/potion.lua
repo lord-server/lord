@@ -79,7 +79,7 @@ local function register_potion_node(item_name, title, description, color, effect
 			colorize('#ee8', title) .. core.get_color_escape_sequence(rank_color),
 			level ~= 0 and ' '..S('(Power: @1)', level) or ''
 		)),
-		_tt_help        = description and colorize('#aaa',  '\n'..description),
+		_annotation     = description,
 		inventory_image = texture,
 		tiles           = { texture },
 		selection_box   = { type = 'fixed', fixed = { -0.25, -0.5, -0.25, 0.25, 0.3, 0.25 } },

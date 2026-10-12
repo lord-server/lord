@@ -1,5 +1,4 @@
-local S        = core.get_mod_translator()
-local colorize = core.colorize
+local S = core.get_mod_translator()
 
 local px = 1/16
 
@@ -56,7 +55,7 @@ core.register_craft({
 
 core.register_node("lottfarming:orc_medicine", {
 	description       = S("Orc medicine"),
-	_tt_help          = colorize('#aaa', S('Be careful. Who knows what these orcs have come up with.')),
+	_annotation       = S('Be careful. Who knows what these orcs have come up with.'),
 	inventory_image   = '(empty_16x16.png^[lowpart:50:lottfarming_orc_medicine.png)^vessels_drinking_glass_inv.png',
 	drawtype          = 'plantlike',
 	paramtype         = 'light',

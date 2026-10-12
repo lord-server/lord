@@ -28,7 +28,7 @@ end
 local function register_tuning_fork()
 	core.register_tool('music_instruments:tuning_fork', {
 		description = fork.title,
-		_tt_help = fork.description and core.colorize('#aaa',  '\n' .. fork.description),
+		_annotation = fork.description,
 		inventory_image = fork.inventory_image,
 		wield_image = fork.wield_image,
 		groups = fork.groups,

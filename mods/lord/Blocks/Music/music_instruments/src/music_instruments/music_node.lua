@@ -12,7 +12,7 @@ local function register_instruments()
 
 		core.register_node('music_instruments:' .. instrument, {
 			description = def.title,
-			_tt_help = def.description and core.colorize('#aaa',  '\n' .. def.description),
+			_annotation = def.description,
 			drawtype = def.drawtype,
 			mesh = def.mesh,
 			paramtype = def.paramtype,

@@ -20,7 +20,7 @@ local function register_ingredient(node_name, title, description, groups, recipe
 
 	core.register_node(node_name, {
 		description       = S('Ingredient "@1"', colorize('#dd8', title)),
-		_tt_help          = description and colorize('#aaa', '\n' .. description),
+		_annotation       = description,
 		inventory_image   = texture,
 		wield_image       = texture,
 		drawtype          = 'plantlike',

@@ -21,9 +21,7 @@ end
 
 core.register_tool('clans_tools:base_certificate', {
 	description     = S('Clan Base Certificate Blank'),
-	_tt_help        = colorize('#aaa',  '\n' ..
-		S('Only players with `@1` privilege can sign certificate.', certify_privilege_name)
-	),
+	_annotation     = S('Only players with `@1` privilege can sign certificate.', certify_privilege_name),
 	inventory_image = 'clans_tools_base_certificate.png',
 	stack_max       = 1,
 	on_use          = function(itemstack, player, pointed_thing)
