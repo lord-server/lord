@@ -23,6 +23,7 @@ core.register_craftitem("lottother:ringsilver_ingot", {
 })
 core.register_craftitem("lottother:ring", {
 	description = S("Plain Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
@@ -33,18 +34,21 @@ core.register_craftitem("lottother:ring", {
 --FUNCTION = Sets your health to max every 30 seconds.
 core.register_craftitem("lottother:blue_gem_ring", {
 	description = S("Blue Gem Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_bluegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:blue_am_ring", {
 	description = S("Blue Almost Magic Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_bluegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:vilya", {
 	description = S("Vilya"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_vilya.png",
     groups = {forbidden=1},
 	stack_max = 1,
@@ -62,18 +66,21 @@ end)
 --FUNCTION = Makes (good) mobs follow you.
 core.register_craftitem("lottother:red_gem_ring", {
 	description = S("Red Gem Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_redgem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:red_am_ring", {
 	description = S("Red Almost Magic Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_redgem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:narya", {
 	description = S("Narya"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_narya.png",
     groups = {forbidden=1},
 	stack_max = 1,
@@ -83,18 +90,21 @@ core.register_craftitem("lottother:narya", {
 --FUNCTION = Same armor stats as a full set of mithril.
 core.register_craftitem("lottother:white_gem_ring", {
 	description = S("White Gem Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_whitegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:white_am_ring", {
 	description = S("White Almost Magic Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_whitegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_tool("lottother:nenya", {
 	description = S("Nenya"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_nenya_inv.png",
 	groups = { armor_shield = 1, defense_fleshy = 75, forbidden = 1, armor_use = 30 },
 	wear = 0,
@@ -190,24 +200,28 @@ core.register_craft({
 --Mithril ring (base for Dwarf ring)
 core.register_craftitem("lottother:purple_gem_ring", {
 	description = S("Purple Gem Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_purplegem_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:purple_gem_mithril_ring", {
 	description = S("Purple Gem Mithril Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_purplegem_mithril_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_craftitem("lottother:purple_am_ring", {
 	description = S("Mithril Almost Magic Ring"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottother_purplegem_am_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
 })
 core.register_tool("lottother:dwarf_ring", {
 	description = S("Dwarf Ring"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_dwarf_ring.png",
 	groups = {forbidden=1},
 })
