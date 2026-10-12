@@ -896,6 +896,7 @@ core.register_node("lottores:mineral_salt", {
 
 core.register_node( "lottores:pearl_block", {
 	description = S("Pearl Block"),
+	_rank = item_rank.Type.LEGENDARY,
 	use_texture_alpha = "blend",
 	tiles = { "lottores_pearl_block.png" },
 	is_ground_content = true,
@@ -930,6 +931,7 @@ core.register_node("lottores:salt", {
 
 core.register_craftitem("lottores:pearl", {
 	description = S("Pearl"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottores_pearl.png",
 })
 
