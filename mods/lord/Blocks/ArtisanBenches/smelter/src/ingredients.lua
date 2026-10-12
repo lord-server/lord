@@ -13,7 +13,7 @@ core.register_craftitem('lord_smelter:crucible', {
 
 core.register_craftitem('lord_smelter:hearth', {
 	description     = S('Hearth of Khazad-dûm'),
-	_annotation =
+	_annotation     =
 		S('A blazing hearth from the depths of Khazad-dûm.') .. '\n' ..
 		S('Only it can produce heat sufficient to') .. '\n' ..
 		S('smelt mithril.'),
