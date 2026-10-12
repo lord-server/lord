@@ -8,6 +8,7 @@ local food_snippet       = require('snippet.food')
 local buffs_snippet      = require('snippet.buffs')
 local potions_snippet    = require('snippet.potions')
 local durability_snippet = require('snippet.durability')
+local hint_snippet       = require('snippet.hint')
 
 
 return {
@@ -22,5 +23,6 @@ return {
 		tt.register_snippet(buffs_snippet)
 		tt.register_snippet(potions_snippet)
 		tt.register_snippet(durability_snippet)
+		tt.register_snippet(hint_snippet)
 	end,
 }

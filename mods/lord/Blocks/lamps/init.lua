@@ -233,7 +233,8 @@ register_chains("tin", "Tin", "lottores:tin_ingot")
 
 -- Гаечный ключ
 core.register_tool("lamps:wrench", {
-	description = S("Wrench") .. "\n" .. S("(left click to tilt the chain)"),
+	description = S("Wrench"),
+	_hint = S("Left click to tilt the chain"),
 	inventory_image = "lamps_wrench.png",
 	groups = {tool = 1},
 	on_use = function(itemstack, user, pointed_thing)

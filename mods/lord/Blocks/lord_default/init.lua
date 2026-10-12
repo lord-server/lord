@@ -29,7 +29,7 @@ end
 -- Поджигание блока угля (каменного) факелом
 core.override_item("default:coalblock", {
 	on_punch = fire_by_torch_punch,
-	_tt_help = S("Ignited by a torch"),
+	_hint    = S("Ignited by a torch"),
 })
 
 ----------------------------------
@@ -48,7 +48,7 @@ core.register_node(":default:charcoalblock", {
 	groups            = { cracky = 3, flammable = 10 },
 	sounds            = default.node_sound_stone_defaults(),
 	on_punch          = fire_by_torch_punch,
-	_tt_help          = S("Ignited by a torch"),
+	_hint             = S("Ignited by a torch"),
 })
 
 core.register_craft({

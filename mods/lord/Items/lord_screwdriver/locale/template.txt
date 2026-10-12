@@ -1,4 +1,4 @@
 # textdomain: lord_screwdriver
-(left-click rotates face, right-click rotates axis)=
+Left-click rotates face, right-click rotates axis=
 Screwdriver=
 Galvorn Screwdriver=
