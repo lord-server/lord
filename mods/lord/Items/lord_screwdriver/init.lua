@@ -5,7 +5,8 @@ local S = core.get_mod_translator()
 
 -- Galvorn Screwdriver
 core.register_tool(":screwdriver:screwdriver_galvorn", {
-	description     = S("Galvorn Screwdriver") .. "\n" .. S("(left-click rotates face, right-click rotates axis)"),
+	description     = S("Galvorn Screwdriver"),
+	_tt_help        = S("(left-click rotates face, right-click rotates axis)"),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = "screwdriver_galvorn.png",
 	groups          = {tool = 1, galvorn_item = 1},

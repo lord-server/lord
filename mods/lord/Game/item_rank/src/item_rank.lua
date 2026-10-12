@@ -31,25 +31,36 @@ local function register_item_rank()
 	end
 end
 
-local function register_rank_handler()
-    core.register_on_mods_loaded(function()
-        for item_name, item_def in pairs(core.registered_items) do
-            local _rank = item_def._rank
+--- Colorizes item title with rank color.
+--- Runs after `tt` (see `optional_depends` in `mod.conf`), so title is taken from `_tt_original_description`
+--- and snippets, appended by `tt`, are kept as is.
+--- @param item_name string
+--- @param item_def  ItemDefinition
+--- @param rank      item_rank.Rank
+local function colorize_title(item_name, item_def, rank)
+	local description = item_def.description
+	if not description or description == '' then return end
 
-            if _rank and item_def._rank_autocolorize ~= false then
-                local rank = Collection.get(_rank)
-                if rank and item_def.description then
-                    local title, description = unpack(item_def.description:split('\n', true, 1))
-                    if title then
-                        description = description and '\n' .. description or ''
-                        core.override_item(item_name,{
-                            description = core.colorize(rank.color, title) .. description
-                        })
-                    end
-                end
-            end
-        end
-    end)
+	local original = item_def._tt_original_description or description
+	local snippets = description:sub(#original + 1)
+	local title    = core.colorize(rank.color, original)
+
+	core.override_item(item_name, {
+		description              = title .. snippets,
+		_tt_original_description = title,
+	})
+end
+
+local function register_rank_handler()
+	core.register_on_mods_loaded(function()
+		for item_name, item_def in pairs(core.registered_items) do
+			local rank = item_def._rank and Collection.get(item_def._rank)
+
+			if rank and item_def._rank_autocolorize ~= false then
+				colorize_title(item_name, item_def, rank)
+			end
+		end
+	end)
 end
 
 
