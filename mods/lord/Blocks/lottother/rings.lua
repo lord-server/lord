@@ -10,11 +10,13 @@ core.register_craftitem("lottother:beast_ring", {
 })
 core.register_craftitem("lottother:ringsilver_lump", {
 	description = S("Unrefined Ring Silver"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_ringsilver_lump.png",
     groups = {forbidden=1},
 })
 core.register_craftitem("lottother:ringsilver_ingot", {
 	description = S("Refined Ring Silver"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottother_ringsilver_ingot.png",
     groups = {forbidden=1},
 })
