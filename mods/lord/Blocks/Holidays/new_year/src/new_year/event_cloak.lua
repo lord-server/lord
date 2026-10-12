@@ -1,10 +1,8 @@
-local S        = core.get_mod_translator()
-local spec     = core.formspec
-local colorize = core.colorize
+local S    = core.get_mod_translator()
+local spec = core.formspec
 
 
 local function register_new_year_event_cloaks()
-	local event_cloak_message = colorize('#B380FF', S('Cloak of the 2026'))
 	local exchange_it_message = ''
 		.. S('One of the server\'s mighty guardians') .. '\n'
 		.. S('Whose power to send players into oblivion') .. '\n'
@@ -16,7 +14,8 @@ local function register_new_year_event_cloaks()
 		.. S('In honor of the New Year 2026!')
 
 	core.register_tool('new_year:cloak_2026', {
-		description     = event_cloak_message,
+		description     = S('Cloak of the 2026'),
+		_rank           = item_rank.Type.EPIC,
 		_collection     = item_collection.Id.NEW_YEAR,
 		inventory_image = 'new_year_cloak_2026_inv.png',
 		groups          = { clothes = 1, no_preview = 1, clothes_cloak = 1 },
@@ -33,7 +32,7 @@ local function register_new_year_event_cloaks()
 			end
 			local formspec = spec.formspec_version(4)
 				.. spec.size(8, 7)
-				.. spec.label(0.5, 0.6, event_cloak_message)
+				.. spec.label(0.5, 0.6, itemstack:get_short_description())
 				.. spec.label(0.5, 1.2, exchange_it_message)
 				.. spec.button_exit(2.5, 5.7, 3, 0.8, 'close', 'OK')
 

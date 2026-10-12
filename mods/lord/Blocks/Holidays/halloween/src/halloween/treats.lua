@@ -1,14 +1,16 @@
-local S        = core.get_mod_translator()
-local spec     = core.formspec
-local colorize = core.colorize
+local S    = core.get_mod_translator()
+local spec = core.formspec
 
 
 local function register_treats()
-	local candy_treat_title   = colorize('#B380FF', S('Candy Treat'))
 	local exchange_it_message = S('Exchange it for gifts at the spawn store')
 
 	core.register_craftitem('halloween:candy_treat', {
-		description     = candy_treat_title,
+		description     = S('Candy Treat'),
+		_rank           = item_rank.Type.EPIC,
+		_annotation     =
+			S('Even the Black Riders have a sweet tooth on this night.') .. '\n' ..
+			S('Trick or treat? The Witch-king chose the treat.'),
 		_collection     = item_collection.Id.HALLOWEEN,
 		inventory_image = 'halloween_candy_treat.png',
 		on_use          = function(itemstack, user)
@@ -24,7 +26,7 @@ local function register_treats()
 
 			local formspec = spec.formspec_version(4)
 				.. spec.size(7, 3)
-				.. spec.label(0.5, 0.6, candy_treat_title)
+				.. spec.label(0.5, 0.6, itemstack:get_short_description())
 				.. spec.label(0.5, 1.2, exchange_it_message)
 				.. spec.button_exit(2, 1.9, 3, 0.8, 'close', 'OK')
 
