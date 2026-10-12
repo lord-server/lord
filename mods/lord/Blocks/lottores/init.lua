@@ -116,52 +116,62 @@ core.register_craftitem("lottores:rough_rock_lump", {
 
 core.register_craftitem("lottores:silver_lump", {
 	description = S("Silver Lump"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottores_silver_lump.png",
 })
 
 core.register_craftitem("lottores:silver_ingot", {
 	description = S("Silver Ingot"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottores_silver_ingot.png",
 })
 
 core.register_craftitem("lottores:tin_lump", {
 	description = S("Tin Lump"),
+	_rank = item_rank.Type.ADVANCED,
 	inventory_image = "lottores_tin_lump.png",
 })
 
 core.register_craftitem("lottores:tin_ingot", {
 	description = S("Tin Ingot"),
+	_rank = item_rank.Type.ADVANCED,
 	inventory_image = "lottores_tin_ingot.png",
 })
 
 core.register_craftitem("lottores:lead_lump", {
 	description = S("Lead Lump"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottores_lead_lump.png",
 })
 
 core.register_craftitem("lottores:lead_ingot", {
 	description = S("Lead Ingot"),
+	_rank = item_rank.Type.EPIC,
 	inventory_image = "lottores_lead_ingot.png",
 })
 
 core.register_craftitem("lottores:mithril_lump", {
 	description = S("Mithril Lump"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottores_mithril_lump.png",
 })
 
 core.register_craftitem("lottores:mithril_ingot", {
 	description = S("Mithril Ingot"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottores_mithril_ingot.png",
 })
 
 core.register_craftitem("lottores:galvorn_ingot", {
 	description = S("Galvorn Ingot"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottores_galvorn_ingot.png",
      groups = {forbidden=1},
 })
 
 core.register_craftitem("lottores:tilkal_ingot", {
 	description = S("Tilkal Ingot"),
+	_rank = item_rank.Type.LEGENDARY,
 	inventory_image = "lottores_tilkal_ingot.png",
      groups = {forbidden=1},
 })
@@ -170,6 +180,7 @@ core.register_craftitem("lottores:tilkal_ingot", {
 
 core.register_node("lottores:tilkal", {
 	description = S("Tilkal"),
+	_rank = item_rank.Type.LEGENDARY,
 	tiles = {"lottores_tilkal.png"},
 	sounds = default.node_sound_metal_defaults(),
 	groups = {forbidden=1, wall_connected = 1},
@@ -318,6 +329,7 @@ core.register_node("lottores:geodes_crystal_5", {
 
 core.register_node("lottores:silver_block", {
 	description = S("Silver Block"),
+	_rank = item_rank.Type.EPIC,
 	tiles = {"lottores_silver_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2, wall_connected = 1},
@@ -326,6 +338,7 @@ core.register_node("lottores:silver_block", {
 
 core.register_node("lottores:tin_block", {
 	description = S("Tin Block"),
+	_rank = item_rank.Type.ADVANCED,
 	tiles = {"lottores_tin_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1, wall_connected = 1},
@@ -334,6 +347,7 @@ core.register_node("lottores:tin_block", {
 
 core.register_node("lottores:lead_block", {
 	description = S("Lead Block"),
+	_rank = item_rank.Type.EPIC,
 	tiles = {"lottores_lead_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1, wall_connected = 1},
@@ -342,6 +356,7 @@ core.register_node("lottores:lead_block", {
 
 core.register_node("lottores:mithril_block", {
 	description = S("Mithril Block"),
+	_rank = item_rank.Type.LEGENDARY,
 	tiles = {"lottores_mithril_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2, wall_connected = 1},
@@ -350,6 +365,7 @@ core.register_node("lottores:mithril_block", {
 
 core.register_node("lottores:galvorn_block", {
 	description = S("Galvorn Block"),
+	_rank = item_rank.Type.LEGENDARY,
 	tiles = {"lottores_galvorn_block.png"},
 	is_ground_content = true,
 	groups = {cracky=1,level=2,forbidden=1, wall_connected = 1},

@@ -723,6 +723,19 @@ core.register_node(":default:ice", {
 	sounds = default.node_sound_ice_defaults(),
 })
 
+-- Ранги металлов (см. `lord/Game/item_rank`)
+core.override_item("default:copper_lump",  { _rank = item_rank.Type.ADVANCED })
+core.override_item("default:copper_ingot", { _rank = item_rank.Type.ADVANCED })
+core.override_item("default:copperblock",  { _rank = item_rank.Type.ADVANCED })
+core.override_item("default:iron_lump",    { _rank = item_rank.Type.RARE })
+core.override_item("default:steel_ingot",  { _rank = item_rank.Type.RARE })
+core.override_item("default:steelblock",   { _rank = item_rank.Type.RARE })
+core.override_item("default:bronze_ingot", { _rank = item_rank.Type.RARE })
+core.override_item("default:bronzeblock",  { _rank = item_rank.Type.RARE })
+core.override_item("default:gold_lump",    { _rank = item_rank.Type.EPIC })
+core.override_item("default:gold_ingot",   { _rank = item_rank.Type.EPIC })
+core.override_item("default:goldblock",    { _rank = item_rank.Type.EPIC })
+
 -- Add food points description:
 dofile(core.get_modpath("lord_overwrites_mtg_default").."/food.lua")
 
