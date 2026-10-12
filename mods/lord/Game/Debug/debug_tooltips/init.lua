@@ -3,9 +3,7 @@ local colorize = core.colorize
 
 core.mod(function(mod)
 
-	--- @diagnostic disable-next-line: need-check-nil
-	local debug = core.settings:get_bool('debug', false)
-	if not debug then
+	if not mod.debug then
 		return
 	end
 
