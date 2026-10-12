@@ -16,7 +16,8 @@ local function register_new_year_event_cloaks()
 		.. S('In honor of the New Year 2026!')
 
 	core.register_tool('new_year:cloak_2026', {
-		description     = event_cloak_message .. '\n' .. S('New Year collection'),
+		description     = event_cloak_message,
+		_collection     = item_collection.Id.NEW_YEAR,
 		inventory_image = 'new_year_cloak_2026_inv.png',
 		groups          = { clothes = 1, no_preview = 1, clothes_cloak = 1 },
 		wear            = 0,

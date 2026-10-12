@@ -1,4 +1,5 @@
 local annotation_snippet = require('snippet.annotation')
+local collection_snippet = require('snippet.collection')
 local properties_snippet = require('snippet.properties')
 local digging_snippet    = require('snippet.digging')
 local damage_snippet     = require('snippet.damage')
@@ -12,6 +13,7 @@ local durability_snippet = require('snippet.durability')
 return {
 	init = function()
 		tt.register_snippet(annotation_snippet)
+		tt.register_snippet(collection_snippet)
 		tt.register_snippet(properties_snippet)
 		tt.register_snippet(digging_snippet)
 		tt.register_snippet(damage_snippet)

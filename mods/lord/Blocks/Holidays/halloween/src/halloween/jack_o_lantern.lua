@@ -48,10 +48,9 @@ local function extinguish(pos, node, clicker)
 end
 
 local function register_jack_o_lantern_nodes()
-	local jack_o_lantern_color_description = S('Jack-o-lantern') .. '\n' .. S('Halloween collection')
-
 	core.register_node('halloween:jack_o_lantern', {
-		description         = jack_o_lantern_color_description,
+		description         = S('Jack-o-lantern'),
+		_collection         = item_collection.Id.HALLOWEEN,
 		light_source        = 12,
 		tiles               = {
 			'lottfarming_pumpkin_top.png',
@@ -74,7 +73,8 @@ local function register_jack_o_lantern_nodes()
 	})
 
 	core.register_node('halloween:jack_o_lantern_unlit', {
-		description         = jack_o_lantern_color_description,
+		description         = S('Jack-o-lantern'),
+		_collection         = item_collection.Id.HALLOWEEN,
 		tiles               = {
 			'lottfarming_pumpkin_top.png',
 			'lottfarming_pumpkin_back.png',

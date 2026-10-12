@@ -22,6 +22,8 @@ core.register_craftitem("christmas:tree_no_decorations", {
 	inventory_image = "christmas_tree_no_decorations.png",
 })
 
+item_collection.Id.CHRISTMAS = 'christmas'
+item_collection.register(item_collection.Id.CHRISTMAS, { title = S('Christmas collection'), color = '#F8B' })
 candy_cane.register()
 
 --- CRAFTS: ----------------------------------------------------

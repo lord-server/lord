@@ -4,12 +4,12 @@ local colorize = core.colorize
 
 
 local function register_treats()
-	local candy_treat_title             = colorize('#B380FF', S('Candy Treat'))
-	local exchange_it_message           = S('Exchange it for gifts at the spawn store')
-	local seasonable_collection_message = colorize('#B380FF', S('Halloween collection'))
+	local candy_treat_title   = colorize('#B380FF', S('Candy Treat'))
+	local exchange_it_message = S('Exchange it for gifts at the spawn store')
 
 	core.register_craftitem('halloween:candy_treat', {
-		description     = candy_treat_title .. '\n' .. seasonable_collection_message,
+		description     = candy_treat_title,
+		_collection     = item_collection.Id.HALLOWEEN,
 		inventory_image = 'halloween_candy_treat.png',
 		on_use          = function(itemstack, user)
 			if not user or not user:is_player() then

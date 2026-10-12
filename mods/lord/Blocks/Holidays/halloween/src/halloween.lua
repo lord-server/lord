@@ -1,6 +1,8 @@
 local jack_o_lantern = require('halloween.jack_o_lantern')
 local treats         = require('halloween.treats')
 
+local S = core.get_mod_translator()
+
 
 --- Проверяет, находится ли текущая дата в хэллоуинском периоде
 --- @return boolean true если текущая дата в периоде с 24 октября по 7 ноября, иначе false
@@ -43,6 +45,11 @@ end
 return {
 	--- @param mod core.Mod
 	init = function(mod)
+		item_collection.Id.HALLOWEEN = 'halloween'
+		item_collection.register(item_collection.Id.HALLOWEEN, {
+			title = S('Halloween collection'),
+			color = '#F8B',
+		})
 		jack_o_lantern.register()
 		treats.register()
 		core.after(0, apply_halloween_changes)

@@ -7,7 +7,8 @@ local function register_candy_cane()
 	local candy_cane_title = colorize('#B380FF', S('Candy Cane'))
 
 	core.register_craftitem('christmas:candy_cane', {
-		description     = candy_cane_title .. '\n' .. colorize('#B380FF', S('Christmas collection')),
+		description     = candy_cane_title,
+		_collection     = item_collection.Id.CHRISTMAS,
 		inventory_image = 'christmas_candy_cane.png',
 		on_use          = function(itemstack, user)
 			if not user then
