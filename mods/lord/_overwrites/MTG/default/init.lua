@@ -736,6 +736,12 @@ core.override_item("default:gold_lump",    { _rank = item_rank.Type.EPIC })
 core.override_item("default:gold_ingot",   { _rank = item_rank.Type.EPIC })
 core.override_item("default:goldblock",    { _rank = item_rank.Type.EPIC })
 
+-- Ранги драгоценных камней
+core.override_item("default:diamond",      { _rank = item_rank.Type.RARE })
+core.override_item("default:diamondblock", { _rank = item_rank.Type.RARE })
+core.override_item("default:mese_crystal", { _rank = item_rank.Type.RARE })
+core.override_item("default:mese",         { _rank = item_rank.Type.RARE })
+
 -- Add food points description:
 dofile(core.get_modpath("lord_overwrites_mtg_default").."/food.lua")
 

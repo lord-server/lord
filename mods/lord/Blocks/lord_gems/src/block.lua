@@ -2,16 +2,17 @@ local S = core.get_mod_translator()
 
 
 local list_gems_blocks = {
-	'blue',
-	'red',
-	'white',
-	'purple',}
+	blue   = item_rank.Type.EPIC,
+	red    = item_rank.Type.LEGENDARY,
+	white  = item_rank.Type.LEGENDARY,
+	purple = item_rank.Type.LEGENDARY,
+}
 
 local function capitalize_first(s)
   return s:gsub('^%l', string.upper)
 end
 
-for _, node_source in pairs(list_gems_blocks) do
+for node_source, rank in pairs(list_gems_blocks) do
 	local node_name            = ('lord_gems:'..node_source..'_block')
 	local node_description     = (capitalize_first(node_source)..' Gem Block')
 	local node_tiles           = ('lord_gems_'..node_source..'_block.png'..'^[opacity:150')
@@ -37,6 +38,7 @@ for _, node_source in pairs(list_gems_blocks) do
 			core.sound_play( node_sound_file, { gain = 3, pos = pos, max_hear_distance = 10 }, true )
 		end,
 		groups              = { cracky = 1, level = 3 },
+		_rank               = rank,
 	})
 
 	-- Register crafts

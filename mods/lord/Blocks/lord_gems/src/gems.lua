@@ -4,21 +4,25 @@ local S = core.get_mod_translator()
 core.register_craftitem('lord_gems:blue', {
 	description     = S('Blue Gem'),
 	inventory_image = 'lord_gems_blue.png',
+	_rank           = item_rank.Type.EPIC,
 })
 
 core.register_craftitem('lord_gems:red', {
 	description     = S('Red Gem'),
 	inventory_image = 'lord_gems_red.png',
+	_rank           = item_rank.Type.LEGENDARY,
 })
 
 core.register_craftitem('lord_gems:white', {
 	description     = S('White Gem'),
 	inventory_image = 'lord_gems_white.png',
+	_rank           = item_rank.Type.LEGENDARY,
 })
 
 core.register_craftitem('lord_gems:purple', {
 	description     = S('Purple Gem'),
 	inventory_image = 'lord_gems_purple.png',
+	_rank           = item_rank.Type.LEGENDARY,
 	groups          = { forbidden = 1 },
 })
 
