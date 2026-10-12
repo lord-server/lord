@@ -4,6 +4,7 @@ local DWARF_RING_USES = 250
 
 core.register_craftitem("lottother:beast_ring", {
 	description = S("Beast Ring"),
+	_rank = item_rank.Type.MYTHICAL,
 	inventory_image = "lottother_beast_ring.png",
     groups = {forbidden=1},
 	stack_max = 1,
