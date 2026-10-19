@@ -143,7 +143,8 @@ core.register_craft({
 
 local forbidden_groups = { 'ghostly', 'door', 'mobs_spawner'}
 local accepted_groups = {
-	'stone', 'tree', 'wood', 'leaves', 'cracky', 'crumbly', 'wool', 'need_ghost_variant', 'slabs_replace', 'wool_stair'
+	'stone', 'tree', 'wood', 'leaves', 'cracky', 'crumbly', 'wool',
+	'need_ghost_variant', 'slabs_replace', 'wool_stair', 'mineable',
 }
 
 -- TODO: move into helpers, use something like 'table:containsOneOf()'

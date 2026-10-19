@@ -19,7 +19,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_iron", {
 		description = S("Iron Ore"),
 		tiles       = { rock_texture .. "^default_mineral_iron.png" },
-		groups      = { cracky = 2, wall_connected = 1 },
+		groups      = { mineable = 2, solid = 1, wall_connected = 1 },
 		drop        = "default:iron_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -27,7 +27,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_copper", {
 		description = S("Copper Ore"),
 		tiles       = { rock_texture .. "^default_mineral_copper.png" },
-		groups      = { cracky = 2, wall_connected = 1 },
+		groups      = { mineable = 1, solid = 1, wall_connected = 1 },
 		drop        = "default:copper_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -43,7 +43,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_gold", {
 		description = S("Gold Ore"),
 		tiles       = { rock_texture .. "^default_mineral_gold.png" },
-		groups      = { cracky = 2, wall_connected = 1 },
+		groups      = { mineable = 3, solid = 1, wall_connected = 1 },
 		drop        = "default:gold_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -62,7 +62,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_silver", {
 		description = S("Silver Ore"),
 		tiles       = { rock_texture .. "^lottores_silver_ore.png" },
-		groups      = { cracky = 2 },
+		groups      = { mineable = 3, solid = 1 },
 		drop        = "lottores:silver_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -70,7 +70,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_tin", {
 		description = S("Tin Ore"),
 		tiles       = { rock_texture .. "^lottores_tin_ore.png" },
-		groups      = { cracky = 3 },
+		groups      = { mineable = 1, solid = 1 },
 		drop        = "lottores:tin_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -78,7 +78,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_lead", {
 		description = S("Lead Ore"),
 		tiles       = { rock_texture .. "^lottores_lead_ore.png" },
-		groups      = { cracky = 2 },
+		groups      = { mineable = 4, solid = 1 },
 		drop        = "lottores:lead_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})
@@ -86,7 +86,7 @@ for name, registration in pairs(rocks.get_lord_rocks()) do
 	core.register_node("lord_ores:" .. stripped_name .. "_with_mithril", {
 		description = S("Mithril Ore"),
 		tiles       = { rock_texture .. "^lottores_mithril_ore.png" },
-		groups      = { cracky = 1 },
+		groups      = { mineable = 5, solid = 1 },
 		drop        = "lottores:mithril_lump",
 		sounds      = default.node_sound_stone_defaults(),
 	})

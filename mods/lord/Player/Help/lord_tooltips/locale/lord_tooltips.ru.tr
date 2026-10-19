@@ -18,6 +18,7 @@ explody=взрывающийся
 unbreakable=неломающийся
 bendy=гнущийся
 luminance=свечение
+mineable=добываемый
 
 # Digging:
 @1 blocks in @2s (minimal)=@1 блоки за @2s (минимально)
@@ -30,6 +31,7 @@ fleshy_dig=живые/прокалываемые
 explody_dig=взрывающиеся
 unbreakable_dig=неломающиеся
 bendy_dig=гнущиеся
+mineable_dig=добываемые
 
 # Damages:
 @1: @2 in @3 sec @4=@1: @2 в @3 сек @4

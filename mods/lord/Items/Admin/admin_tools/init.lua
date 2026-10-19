@@ -67,6 +67,8 @@ core.register_tool("admin_tools:admin_stick", {
 
 })
 
+local admin_pick_mineable_times = { [1] = 0.01, [2] = 0.01, [3] = 0.01, [4] = 0.01, [5] = 0.01 }
+
 core.register_tool("admin_tools:pick_admin", {
 	description = "Admins Pickaxe",
 	privs = {admin_pick=true},
@@ -77,6 +79,7 @@ core.register_tool("admin_tools:pick_admin", {
 		max_drop_level=1,
 		groupcaps = {
 			cracky      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
+			mineable    = { times = admin_pick_mineable_times, uses = 0, maxlevel = 0 },
 			crumbly     = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
 			choppy      = { times = { [1] = 0.01, [2] = 0.01, [3] = 0.01 }, uses = 0, maxlevel = 3 },
 			snappy      = { times = { [1] = 0.05, [2] = 0.02, [3] = 0.01 }, uses = 0, maxlevel = 3 },

@@ -9,7 +9,7 @@ local S = core.get_mod_translator()
 
 
 local dig_properties = {
-	'crumbly', 'cracky', 'snappy', 'choppy', 'fleshy', 'explody',
+	'crumbly', 'cracky', 'snappy', 'choppy', 'fleshy', 'explody', 'mineable',
 }
 
 

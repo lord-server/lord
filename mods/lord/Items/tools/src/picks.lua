@@ -31,6 +31,11 @@ return {
 			uses = 20,
 			maxlevel = 1
 		},
+		mineable            = {
+			times    = { [1]=2.0 },
+			uses     = 20,
+			maxlevel = 0
+		},
 		damage_groups       = { fleshy = 3 },
 		groups              = { pickaxe = 1 },
 	},
@@ -43,6 +48,11 @@ return {
 			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
 			uses = 20,
 			maxlevel = 2
+		},
+		mineable            = {
+			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
+			uses     = 20,
+			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
 		groups              = { steel_item = 1, pickaxe = 1 },
@@ -57,6 +67,11 @@ return {
 			uses = 30,
 			maxlevel = 2
 		},
+		mineable            = {
+			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
+			uses     = 30,
+			maxlevel = 0
+		},
 		damage_groups       = { fleshy=4 },
 		groups              = { bronze_item = 1, pickaxe = 1 },
 	},
@@ -69,6 +84,11 @@ return {
 			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
 			uses = 20,
 			maxlevel = 2
+		},
+		mineable            = {
+			times    = { [1]=1.60, [2]=2.40 },
+			uses     = 20,
+			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
 		groups              = { copper_item = 1, pickaxe = 1 },
@@ -83,6 +103,11 @@ return {
 			uses =25,
 			maxlevel = 2
 		},
+		mineable            = {
+			times    = { [1]=1.60, [2]=2.40 },
+			uses     = 25,
+			maxlevel = 0
+		},
 		damage_groups       = {fleshy=4},
 		groups              = {tin_item = 1, pickaxe = 1},
 	},
@@ -95,6 +120,11 @@ return {
 			times = { [1]=3.00, [2]=1.40, [3]=0.70 },
 			uses = 20,
 			maxlevel = 2
+		},
+		mineable            = {
+			times    = { [1]=0.80, [2]=1.20, [3]=1.80, [4]=2.60 },
+			uses     = 20,
+			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
 		groups              = { silver_item = 1, pickaxe = 1 },
@@ -109,6 +139,11 @@ return {
 			uses = 30,
 			maxlevel = 2
 		},
+		mineable            = {
+			times    = { [1]=0.80, [2]=1.20, [3]=1.80, [4]=2.60 },
+			uses     = 30,
+			maxlevel = 0
+		},
 		damage_groups       = { fleshy = 4 },
 		groups              = { gold_item = 1, pickaxe = 1 },
 	},
@@ -122,6 +157,11 @@ return {
 			uses = 30,
 			maxlevel = 3
 		},
+		mineable            = {
+			times    = { [1]=0.60, [2]=0.90, [3]=1.30, [4]=1.80, [5]=2.60 },
+			uses     = 30,
+			maxlevel = 0
+		},
 		damage_groups       = { fleshy = 5 },
 		groups              = { forbidden = 1, galvorn_item = 1, pickaxe = 1 },
 	},
@@ -134,6 +174,11 @@ return {
 			times = { [1]=1.5, [2]=0.8, [3]=0.40 },
 			uses = 60,
 			maxlevel = 3
+		},
+		mineable            = {
+			times    = { [1]=0.40, [2]=0.60, [3]=0.90, [4]=1.30, [5]=1.80 },
+			uses     = 60,
+			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 5 },
 		groups              = { mithril_item = 1, pickaxe = 1 },

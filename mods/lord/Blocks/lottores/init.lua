@@ -25,7 +25,7 @@ core.register_node("lottores:silver_ore", {
 	description = S("Silver Ore"),
 	tiles = {"default_stone.png^lottores_silver_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=2, wall_connected = 1},
+	groups = {mineable=3, solid=1, wall_connected = 1},
 	drop = 'lottores:silver_lump',
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -34,7 +34,7 @@ core.register_node("lottores:tin_ore", {
 	description = S("Tin Ore"),
 	tiles = {"default_stone.png^lottores_tin_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=3, wall_connected = 1},
+	groups = {mineable=1, solid=1, wall_connected = 1},
 	drop = "lottores:tin_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -43,7 +43,7 @@ core.register_node("lottores:lead_ore", {
 	description = S("Lead Ore"),
 	tiles = {"default_stone.png^lottores_lead_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=2, wall_connected = 1},
+	groups = {mineable=4, solid=1, wall_connected = 1},
 	drop = "lottores:lead_lump",
 	sounds = default.node_sound_stone_defaults(),
 })
@@ -52,7 +52,7 @@ core.register_node("lottores:mithril_ore", {
 	description = S("Mithril Ore"),
 	tiles = {"default_stone.png^lottores_mithril_ore.png"},
 	is_ground_content = true,
-	groups = {cracky=1, wall_connected = 1},
+	groups = {mineable=5, solid=1, wall_connected = 1},
 	drop = "lottores:mithril_lump",
 	sounds = default.node_sound_stone_defaults(),
 })

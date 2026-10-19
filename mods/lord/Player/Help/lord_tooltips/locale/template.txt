@@ -17,6 +17,7 @@ explody=
 unbreakable=
 bendy=
 luminance=
+mineable=
 
 # Digging:
 @1 blocks in @2s (minimal)=
@@ -29,6 +30,7 @@ fleshy_dig=
 explody_dig=
 unbreakable_dig=
 bendy_dig=
+mineable_dig=
 
 # Damages
 $dmg-item-tpl$ @1: @2 in @3 sec @4=@1: @2 in @3 sec @4

@@ -70,10 +70,11 @@ core.mod(function(mod)
 				full_punch_interval = itemdef.full_punch_interval,
 				max_drop_level      = itemdef.max_drop_level,
 				groupcaps           = {
-					cracky  = get_capability(itemdef, "cracky"),
-					choppy  = get_capability(itemdef, "choppy"),
-					snappy  = get_capability(itemdef, "snappy"),
-					crumbly = get_capability(itemdef, "crumbly")
+					cracky   = get_capability(itemdef, "cracky"),
+					choppy   = get_capability(itemdef, "choppy"),
+					snappy   = get_capability(itemdef, "snappy"),
+					crumbly  = get_capability(itemdef, "crumbly"),
+					mineable = get_capability(itemdef, "mineable"),
 				},
 				damage_groups       = itemdef.damage_groups,
 			},

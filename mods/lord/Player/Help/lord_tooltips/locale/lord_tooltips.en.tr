@@ -18,6 +18,7 @@ explody=explody
 unbreakable=unbreakable
 bendy=bendy
 luminance=luminance
+mineable=mineable
 
 # Digging:
 @1 blocks in @2s (minimal)=@1 блоки за @2s (минимально)
@@ -30,6 +31,7 @@ fleshy_dig=fleshy
 explody_dig=explody
 unbreakable_dig=unbreakable
 bendy_dig=bendy
+mineable_dig=mineable
 
 # Damages
 @1: @2 in @3 sec @4=@1: @2 in @3 sec @4
