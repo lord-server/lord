@@ -40,7 +40,123 @@ local S = core.get_mod_translator()
     if core.is_protected(pos, player:get_player_name()) then
       return 0
     end
-     return stack:get_count()
+    if player and player.is_fake_player == ":hopper" then
+      if listname == "frames" then
+        if stack:get_name() ~= "bees:frame_full" then
+          return 0
+        end
+      elseif listname == "queen" then
+        return 0
+      end
+    end
+    return stack:get_count()
+  end
+  local function has_empty_slot(inv, listname)
+    for i = 1, inv:get_size(listname) do
+      if inv:get_stack(listname, i):is_empty() then
+        return true
+      end
+    end
+    return false
+  end
+
+  local function spread_frames(inv)
+    local changed = true
+    while changed do
+      changed = false
+      for i = 1, inv:get_size('frames') do
+        local s = inv:get_stack('frames', i)
+        while s:get_count() > 1 do
+          local free_slot = nil
+          for j = 1, inv:get_size('frames') do
+            if j ~= i and inv:get_stack('frames', j):is_empty() then
+              free_slot = j
+              break
+            end
+          end
+          if not free_slot then break end
+          inv:set_stack('frames', free_slot, ItemStack(s:get_name() .. ' 1'))
+          s = ItemStack(s:get_name() .. ' ' .. (s:get_count() - 1))
+          inv:set_stack('frames', i, s)
+          changed = true
+        end
+      end
+    end
+  end
+
+  local function hopper_put_frames_hive(pos, inv, timer)
+    spread_frames(inv)
+    if inv:contains_item('queen', 'bees:bee')
+    and inv:contains_item('frames', 'bees:frame_empty') then
+      local meta = core.get_meta(pos)
+      timer:start(30)
+      meta:set_int('progress', 0)
+      meta:set_string('infotext', S('bees are acclimating'))
+    end
+  end
+
+  local function hopper_put_frames_filled(pos, inv, timer)
+    spread_frames(inv)
+    if inv:contains_item('frames', 'bees:frame_empty') then
+      core.swap_node_if_not_same(pos, 'bees:hive_artificial')
+      local new_meta = core.get_meta(pos)
+      timer:start(30)
+      new_meta:set_int('progress', 0)
+      new_meta:set_string('infotext', S('bees are acclimating'))
+    end
+  end
+
+  local function hive_on_put_player(pos, listname, stack)
+    local meta = core.get_meta(pos)
+    local inv = meta:get_inventory()
+    local timer = core.get_node_timer(pos)
+    meta:set_string('queen', stack:get_name())
+    meta:set_string('infotext', S('queen is inserted, now for the empty frames'))
+    if inv:contains_item('frames', 'bees:frame_empty') then
+      timer:start(30)
+      meta:set_int('progress', 0)
+      meta:set_string('infotext', S('bees are acclimating'))
+    end
+  end
+
+  local function hive_filled_on_put_player(pos)
+    local meta = core.get_meta(pos)
+    local inv = meta:get_inventory()
+    local timer = core.get_node_timer(pos)
+    if inv:contains_item('frames', 'bees:frame_empty') then
+      core.swap_node_if_not_same(pos, 'bees:hive_artificial')
+      timer:start(30)
+      meta:set_int('progress', 0)
+      meta:set_string('infotext', S('bees are acclimating'))
+    end
+  end
+
+  local function hopper_allow_put_hive(inv, listname, stack)
+    if listname == 'queen' then
+      if not stack:get_name():match('bees:bee*') then return 0 end
+      if not inv:get_stack('queen', 1):is_empty() then return 0 end
+      return 1
+    elseif listname == 'frames' then
+      if stack:get_name() ~= 'bees:frame_empty' then return 0 end
+      if not has_empty_slot(inv, 'frames') then return 0 end
+      return 1
+    end
+    return 0
+  end
+  local function hopper_allow_put_filled(inv, listname, stack)
+    if listname ~= 'frames' then return 0 end
+    if stack:get_name() ~= 'bees:frame_empty' then return 0 end
+    if not has_empty_slot(inv, 'frames') then return 0 end
+    return 1
+  end
+  local function player_allow_put(inv, listname, index, stack)
+    if not inv:get_stack(listname, index):is_empty() then return 0 end
+    if listname == 'queen' then
+      if stack:get_name():match('bees:bee*') then return 1 end
+    elseif listname == 'frames' then
+      if stack:get_name() == 'bees:frame_empty' then return 1 end
+    end
+    return 0
   end
 
 -- Ноды
@@ -155,35 +271,27 @@ local S = core.get_mod_translator()
     end,
 
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-      local meta = core.get_meta(pos)
-      local inv = meta:get_inventory()
-      local timer = core.get_node_timer(pos)
+      if player and player.is_fake_player == ":hopper" then
+        if listname == 'frames' then
+          hopper_put_frames_hive(pos, core.get_meta(pos):get_inventory(),
+            core.get_node_timer(pos))
+        end
+        return
+      end
       if core.is_protected(pos, player:get_player_name()) then
-        return 0
+        return
       end
       if listname == 'queen' or listname == 'frames' then
-        meta:set_string('queen', stack:get_name())
-        meta:set_string('infotext',S('queen is inserted, now for the empty frames'));
-        if inv:contains_item('frames', 'bees:frame_empty') then
-          timer:start(30)
-          meta:set_int('progress', 0)
-          meta:set_string('infotext',S('bees are acclimating'));
-        end
+        hive_on_put_player(pos, listname, stack)
       end
     end,
 
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if not core.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
-      if listname == 'queen' then
-        if stack:get_name():match('bees:bee*') then
-          return 1
-        end
-      elseif listname == 'frames' then
-        if stack:get_name() == ('bees:frame_empty') then
-          return 1
-        end
+      local inv = core.get_meta(pos):get_inventory()
+      if player and player.is_fake_player == ":hopper" then
+        return hopper_allow_put_hive(inv, listname, stack)
       end
-      return 0
+      return player_allow_put(inv, listname, index, stack)
     end,
   })
 
@@ -255,31 +363,24 @@ local S = core.get_mod_translator()
     end,
 
     allow_metadata_inventory_put = function(pos, listname, index, stack, player)
-      if not core.get_meta(pos):get_inventory():get_stack(listname, index):is_empty() then return 0 end
-      if listname == 'queen' then
-        if stack:get_name():match('bees:bee*') then
-          return 1
-        end
-      elseif listname == 'frames' then
-        if stack:get_name() == ('bees:frame_empty') then
-          return 1
-        end
+      local inv = core.get_meta(pos):get_inventory()
+      if player and player.is_fake_player == ":hopper" then
+        return hopper_allow_put_filled(inv, listname, stack)
       end
-      return 0
+      return player_allow_put(inv, listname, index, stack)
     end,
 
     on_metadata_inventory_put = function(pos, listname, index, stack, player)
-      local meta = core.get_meta(pos)
-      local inv = meta:get_inventory()
-      local timer = core.get_node_timer(pos)
+      if player and player.is_fake_player == ":hopper" then
+        if listname == 'frames' then
+          hopper_put_frames_filled(pos, core.get_meta(pos):get_inventory(),
+            core.get_node_timer(pos))
+        end
+        return
+      end
       if core.is_protected(pos, player:get_player_name()) then
-        return 0
+        return
       end
-      if inv:contains_item('frames', 'bees:frame_empty') then
-        core.swap_node_if_not_same(pos, 'bees:hive_artificial')
-        timer:start(30)
-        meta:set_int('progress', 0)
-        meta:set_string('infotext',S('bees are acclimating'));
-      end
+      hive_filled_on_put_player(pos)
     end,
   })

@@ -244,6 +244,12 @@ hopper:add_container({
 	{"top", "bees:extractor", "bottles_full"},
 	{"top", "bees:extractor", "frames_emptied"},
 
+	-- ### hive ###
+	{"bottom", "bees:hive_artificial", "frames"},
+    {"bottom", "bees:hive_artificial_filled", "frames"},
+	{"top", "bees:hive_artificial", "frames"},
+    {"top", "bees:hive_artificial_filled", "frames"},
+
 	-- ### laboratory ###
 	{"void", "laboratory:laboratory",        "src"},
 	{"void", "laboratory:laboratory_active", "src"},
