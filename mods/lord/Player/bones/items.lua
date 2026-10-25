@@ -92,13 +92,10 @@ if core.settings:get_bool('toggle_dungeons', false) then
 			fixed = {
 				{ -2*px, -8*px, -3*px,  -4*px, -7*px, -5*px },
 				{ -5*px, -8*px, -4*px,  -3*px, -7*px, -2*px },
-
 				{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
 				{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
-
 				{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
 				{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
-
 				{  2*px, -8*px,  3*px,   4*px, -7*px,  5*px },
 				{  3*px, -8*px,  2*px,   5*px, -7*px,  4*px },
 				{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
