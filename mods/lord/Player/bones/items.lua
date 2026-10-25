@@ -11,12 +11,26 @@ core.register_craftitem('bones:bone', {
 	description     = S('Bone'),
 	inventory_image = 'bones_bone_inv.png',
 })
+core.register_craftitem('bones:bone_2', {
+	description     = S('Bone'),
+	inventory_image = 'bones_bone_inv.png',
+})
 
 -- As for now, used only for dungeons generation testing
 -- Full implementation later
 if core.settings:get_bool('toggle_dungeons', false) then
 	-- Move into main declaration later
 	core.override_item('bones:bone', {
+		on_place = function(itemstack, placer, pointed_thing)
+			local stack  = ItemStack('bones:bone_' .. math.random(1, 2))
+			local placed = core.item_place(stack, placer, pointed_thing, math.random(0, 3))
+
+			return placed
+				and ItemStack('bones:bone ' .. (itemstack:get_count() - (1 - placed:get_count())))
+				or  itemstack
+		end,
+	})
+	core.override_item('bones:bone_2', {
 		on_place = function(itemstack, placer, pointed_thing)
 			local stack  = ItemStack('bones:bone_' .. math.random(1, 1))
 			local placed = core.item_place(stack, placer, pointed_thing, math.random(0, 3))
@@ -59,6 +73,35 @@ if core.settings:get_bool('toggle_dungeons', false) then
 				{  2*px, -8*px,  2*px,   4*px, -7*px,  4*px },
 				{  3*px, -8*px,  3*px,   5*px, -7*px,  5*px },
 				{  4*px, -8*px,  4*px,   6*px, -7*px,  6*px },
+			},
+		},
+	})
+	core.register_node("bones:bone_2", {
+		description       = S('Bone'),
+		inventory_image   = 'bones_bone_inv.png',
+		wield_image       = 'bones_bone_inv.png',
+		paramtype         = 'light',
+		paramtype2        = 'facedir',
+		is_ground_content = false,
+		drawtype = "nodebox",
+		tiles             = { 'bones_bone.png' },
+		groups            = { dig_immediate = 2 },
+		drop              = 'bones:bone',
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{ -2*px, -8*px, -3*px,  -4*px, -7*px, -5*px },
+				{ -5*px, -8*px, -4*px,  -3*px, -7*px, -2*px },
+
+				{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
+				{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
+
+				{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
+				{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
+
+				{  2*px, -8*px,  3*px,   4*px, -7*px,  5*px },
+				{  3*px, -8*px,  2*px,   5*px, -7*px,  4*px },
+				{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
 			},
 		},
 	})
