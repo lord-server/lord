@@ -1,5 +1,11 @@
 # Change Log
 
+## [2025.12.p7](https://github.com/lord-server/lord/releases/tag/2025.12.p7)
+ - Fix `http` -> `voxrame_http` mod name in configs. LG-2196.
+ - Servers configs: tune settings. LG-2267.
+ - CI: Deploy: append `world/secrets.conf` to `minetest.conf`. LG-2267.
+ - Web API: send auth token. LG-2267.
+
 ## [2025.12.p6](https://github.com/lord-server/lord/releases/tag/2025.12.p6)
  - CI: extract `job.merge.yml`, only mergre(no submodules sync), allow exec manully.
  - CI: remove usage of old token to use standart token.
