@@ -38,6 +38,9 @@ jobs:
               git submodule init
               git submodule update
               cp -f ${{ inputs.config_file }} minetest.conf
+              if [ -f ../../world/secrets.conf ]; then
+                cat ../../world/secrets.conf >> minetest.conf
+              fi
               echo 'Restarting lord service...'
               sudo systemctl restart ${{ inputs.service }}
               sleep 3
