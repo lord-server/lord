@@ -47,9 +47,8 @@ ask_reconnect_on_crash = true
 time_speed = 24
 
 ## Security
-# И НА ПРОДЕ `false` !!!
-secure.enable_security = false
-secure.trusted_mods = lp_api
+secure.enable_security = true
+secure.trusted_mods =
 secure.http_mods = lp_api, voxrame_http
 
 

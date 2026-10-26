@@ -63,11 +63,12 @@ max_objects_per_block = 499
 
 ## Security
 #    Prevent mods from doing insecure things like running shell commands.
-# И НА ПРОДЕ `false` !!!
-secure.enable_security = false
+secure.enable_security = true
 #    Comma-separated list of trusted mods that are allowed to access insecure
 #    functions even when mod security is on (via request_insecure_environment()).
-secure.trusted_mods = lp_api
+secure.trusted_mods =
+#    Comma-separated list of mods that are allowed to access HTTP APIs, which
+#    allow them to upload and download data to/from the internet.
 
 # For Discord
 secure.http_mods = lp_api, voxrame_http
