@@ -63,8 +63,7 @@ max_objects_per_block = 499
 
 ## Security
 #    Prevent mods from doing insecure things like running shell commands.
-# И НА ПРОДЕ `false` !!!
-secure.enable_security = false
+secure.enable_security = true
 
 secure.http_mods = voxrame_http
 

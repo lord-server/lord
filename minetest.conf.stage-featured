@@ -47,8 +47,7 @@ ask_reconnect_on_crash = true
 time_speed = 24
 
 ## Security
-# И НА ПРОДЕ `false` !!!
-secure.enable_security = false
+secure.enable_security = true
 secure.http_mods = voxrame_http
 
 

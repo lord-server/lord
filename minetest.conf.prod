@@ -134,7 +134,7 @@ max_objects_per_block = 512
 
 ## Security
 #    Prevent mods from doing insecure things like running shell commands.
-secure.enable_security = false
+secure.enable_security = true
 #    Comma-separated list of mods that are allowed to access HTTP APIs, which
 #    allow them to upload and download data to/from the internet.
 

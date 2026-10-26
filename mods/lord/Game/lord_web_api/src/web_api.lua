@@ -11,7 +11,10 @@ local function register_api()
 		return
 	end
 
-	local client = http.Client:new(config.base_url, { timeout = 5 })
+	local client = http.Client:new(config.base_url, {
+		timeout       = 5,
+		extra_headers = config.token and { "Authorization: Bearer " .. config.token } or nil,
+	})
 
 	_G.web_api = Api:new(client)
 end
