@@ -1,9 +1,13 @@
 local base_url = minetest.settings:get("lord_web_api.base_url")
 local timeout  = minetest.settings:get("lord_web_api.timeout") or 5
+local token    = minetest.settings:get("lord_web_api.token")
 
 if not base_url then
 	minetest.log("warning", "Can't find setting `lord_web_api.base_url`.")
 	return false
+end
+if not token then
+	minetest.log("warning", "Can't find setting `lord_web_api.token`. Requests will be sent without authorization.")
 end
 
 --- @class web_api.config
@@ -12,6 +16,8 @@ local config = {
 	base_url = base_url,
 	--- @type number in seconds
 	timeout  = timeout,
+	--- @type string|nil
+	token    = token,
 }
 
 
