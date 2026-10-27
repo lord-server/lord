@@ -2,7 +2,7 @@
 
 core.mod(function(mod)
 	local environment = core.settings:get('environment') or 'production'
-	if environment == 'production' or not mod.debug then
+	if environment == 'production' or not mod.settings:get_bool('enabled', false) then
 		return
 	end
 

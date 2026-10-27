@@ -11,6 +11,9 @@ core.mod(function(mod)
 	local count_file_path = mod.path .. '/.ghost_blocks_count.txt'
 	local state_file_path = mod.path .. '/.ghost_blocks.lua'
 
+	-- mod security disallows writing into mod folder: only for trusted mod (or with disabled security)
+	local insecure_io = (core.request_insecure_environment() or {}).io
+
 	local show_diff  = mod.settings:get_bool('show_diff', true)
 	local save_state = mod.settings:get_bool('save_state', false)
 
@@ -56,9 +59,15 @@ core.mod(function(mod)
 		end
 
 		mod.logger.error('Ghost blocks count: %d (previous: %d)', current_count, previous_count)
+		if not insecure_io then
+			mod.logger.error('Can\'t write to mod folder: mod is not in `secure.trusted_mods`')
+		end
+
+		local io_open = io.open
+		io.open = insecure_io and insecure_io.open or io_open  -- luacheck: ignore 122
 
 		local success
-		success = io.write_to_file(count_file_path, tostring(current_count))
+		success = insecure_io and io.write_to_file(count_file_path, tostring(current_count))
 		if not success then
 			mod.logger.error('Failed to write ghost blocks count to file')
 		end
@@ -82,10 +91,12 @@ core.mod(function(mod)
 		end
 
 		if save_state then
-			success = io.write_to_file(state_file_path, core.serialize(current_ghost_names))
+			success = insecure_io and io.write_to_file(state_file_path, core.serialize(current_ghost_names))
 			if not success then
 				mod.logger.error('Failed to write ghost blocks state to file')
 			end
 		end
+
+		io.open = io_open  -- luacheck: ignore 122
 	end)
 end)
