@@ -50,28 +50,8 @@ core.mod(function(mod)
 		end
 	end
 
-	-- Run after all mods are loaded
-	core.after(0, function()
-		local previous_count = tonumber(tostring(io.read_from_file(count_file_path))) or 0
-		local current_count, current_ghost_names = count_ghost_blocks()
-		if previous_count == current_count then
-			return
-		end
-
-		mod.logger.error('Ghost blocks count: %d (previous: %d)', current_count, previous_count)
-		if not insecure_io then
-			mod.logger.error('Can\'t write to mod folder: mod is not in `secure.trusted_mods`')
-		end
-
-		local io_open = io.open
-		io.open = insecure_io and insecure_io.open or io_open  -- luacheck: ignore 122
-
-		local success
-		success = insecure_io and io.write_to_file(count_file_path, tostring(current_count))
-		if not success then
-			mod.logger.error('Failed to write ghost blocks count to file')
-		end
-
+	--- @param current_ghost_names table<string, boolean>
+	local function show_diff_or_hint(current_ghost_names)
 		if show_diff and io.file_exists(state_file_path) then
 			local previous_ghost_names = dofile(state_file_path)
 			print_diff(current_ghost_names, previous_ghost_names)
@@ -89,14 +69,40 @@ core.mod(function(mod)
 				'  - unstash your changes and run'
 			)
 		end
+	end
 
-		if save_state then
-			success = insecure_io and io.write_to_file(state_file_path, core.serialize(current_ghost_names))
-			if not success then
-				mod.logger.error('Failed to write ghost blocks state to file')
-			end
+	--- @param current_count       number
+	--- @param current_ghost_names table<string, boolean>
+	local function write_files(current_count, current_ghost_names)
+		if not insecure_io then
+			mod.logger.error('Can\'t write to mod folder: mod is not in `secure.trusted_mods`')
+			return
+		end
+
+		local io_open = io.open
+		io.open = insecure_io.open  -- luacheck: ignore 122
+
+		if not io.write_to_file(count_file_path, tostring(current_count)) then
+			mod.logger.error('Failed to write ghost blocks count to file')
+		end
+		if save_state and not io.write_to_file(state_file_path, core.serialize(current_ghost_names)) then
+			mod.logger.error('Failed to write ghost blocks state to file')
 		end
 
 		io.open = io_open  -- luacheck: ignore 122
+	end
+
+	-- Run after all mods are loaded
+	core.after(0, function()
+		local previous_count = tonumber(tostring(io.read_from_file(count_file_path))) or 0
+		local current_count, current_ghost_names = count_ghost_blocks()
+		if previous_count == current_count then
+			return
+		end
+
+		mod.logger.error('Ghost blocks count: %d (previous: %d)', current_count, previous_count)
+
+		show_diff_or_hint(current_ghost_names)
+		write_files(current_count, current_ghost_names)
 	end)
 end)
