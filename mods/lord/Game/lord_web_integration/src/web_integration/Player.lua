@@ -10,6 +10,15 @@
 --- @field created_at string   format: "YYYY-MM-DD hh:mm:ss" ("2024-07-10 16:59:11")
 --- @field updated_at string   format: "YYYY-MM-DD hh:mm:ss" ("2024-07-10 16:59:11")
 
+--- HTTP codes of `/link` failures, which are player's fault (not API errors).
+local PLAYER_LINK_FAIL_CODES = {
+	[403] = true, -- linked to another account
+	[409] = true, -- code already used
+	[410] = true, -- code expired
+	[422] = true, -- code not found
+	[429] = true, -- too many attempts
+}
+
 --- @class web_integration.Player
 local Player = {
 	--- @private
@@ -135,5 +144,28 @@ function Player.offline(player)
 	})
 end
 
+--- @static
+--- @param player_name string
+--- @param code        string     one-time code, which user gets on the site
+--- @param on_done     fun(result:HTTPRequestResult)
+--- @param on_fail     fun(result:HTTPRequestResult)
+--- @return boolean false, if player web id is not found
+function Player.link(player_name, code, on_done, on_fail)
+	local player_web_id = Player.storage.get_player_web_id(player_name)
+	if not player_web_id then
+		Player.logger.error("Can't link player '%s': failed to get player web id", player_name)
+
+		return false
+	end
+
+	web_api.players:link(player_web_id, code, on_done, function(result)
+		if not PLAYER_LINK_FAIL_CODES[result.code] then
+			Player.logger.log_api_error(result)
+		end
+		if on_fail then on_fail(result) end
+	end)
+
+	return true
+end
 
 return Player

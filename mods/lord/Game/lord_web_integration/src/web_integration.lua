@@ -3,6 +3,7 @@ local Logger       = require("web_integration.Logger")
 local Player       = require("web_integration.Player")
 local Clan         = require("web_integration.Clan")
 local sync_command = require("web_integration.sync_command")
+local link_command = require("web_integration.link_command")
 
 
 local register_for_players = function()
@@ -55,5 +56,6 @@ return {
 		register_for_clans()
 
 		sync_command.register(Storage, Player, Clan)
+		link_command.register(Player)
 	end,
 }

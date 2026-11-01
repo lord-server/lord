@@ -1,0 +1,13 @@
+# textdomain: lord_web_integration
+
+Your character is already linked to another account.=Персонаж уже привязан к другому аккаунту.
+Code already used.=Код уже использован.
+Code expired.=Срок действия кода истёк.
+Code not found.=Код не найден.
+Too many attempts. Try again later.=Слишком много попыток. Попробуй позже.
+Your character is already linked to this account.=Персонаж уже привязан к этому аккаунту.
+Character linked to your account on the site.=Персонаж привязан к твоему аккаунту на сайте.
+Failed to link character. Try again later.=Не удалось привязать персонажа. Попробуй позже.
+Enter the code from your account page on the site: /link <code>=Введи код со страницы аккаунта на сайте: /link <код>
+Linking...=Привязываем...
+Link your character to your account on the site=Привязать персонажа к аккаунту на сайте
