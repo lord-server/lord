@@ -49,6 +49,15 @@ local function log_client_info(player_name)
 	)
 end
 
+--- @param player Player
+--- @param cheat  {type:string}
+local function log_cheat(player, cheat)
+	logger.action(
+		'%s: cheat: %s at %s',
+		player:get_player_name(), cheat.type, core.pos_to_string(player:get_pos(), 1)
+	)
+end
+
 
 return {
 	--- @param mod core.Mod
@@ -58,5 +67,6 @@ return {
 		core.register_on_joinplayer(function(player)
 			core.after(LOG_DELAY, log_client_info, player:get_player_name())
 		end)
+		core.register_on_cheat(log_cheat)
 	end,
 }
