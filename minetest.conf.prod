@@ -59,6 +59,14 @@ port = 30000
 #    type: int
 # max_packets_per_iteration = 1024
 
+#    Maximum number of blocks that are simultaneously sent per client.
+#    Окно неподтверждённых мапблоков на игрока: пока клиент не подтвердил получение (GotBlock),
+#    новые блоки ему не отправляются. Дальность прорисовки не меняется — всё нужное дойдёт,
+#    просто отдача растягивается во времени (сильнее при большом пинге). Ближние блоки в приоритете.
+#    Уменьшено с 40, чтобы сгладить всплески при входе/телепорте (`Packet quota used up` в логах).
+#    type: int
+max_simultaneous_block_sends_per_client = 20
+
 
 ## Game
 
