@@ -43,8 +43,6 @@ server_address = game.lord-server.ru
 server_url = https://lord-server.ru/
 #    Automatically report to the serverlist.
 server_announce = true
-#    Announce to this serverlist.
-serverlist_url = servers.minetest.net
 
 ## Network
 
@@ -162,7 +160,7 @@ secure.http_mods = voxrame_http
 #    Name of the player.
 #    When running a server, clients connecting with this name are admins.
 #    When starting from the main menu, this is overridden.
-name = Alek
+name = TheAlek
 
 ## Advanced
 # всё по умолчанию
@@ -203,19 +201,7 @@ max_block_generate_distance = 6
 
 
 ## Advanced
-
-#    Maximum number of blocks that can be queued for loading.
-#    Default for 5.4.0: = 1024
-emergequeue_limit_total = 256
-#    Maximum number of blocks to be queued that are to be loaded from file.
-#    This limit is enforced per player.
-#    Default for 5.4.0:    = 128
-emergequeue_limit_diskonly = 32
-
-#    Maximum number of blocks to be queued that are to be generated.
-#    This limit is enforced per player.
-#    Default for 5.4.0:     = 128
-#emergequeue_limit_generate = 32
+# всё по умолчанию
 
 
 #
