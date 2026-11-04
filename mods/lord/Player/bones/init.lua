@@ -160,9 +160,10 @@ local function move_inventory_list(from_inventory, from_list, to_inventory, to_l
 	end
 end
 --- @param player Player
-core.register_on_dieplayer(function(player)
+--- @return Position|nil, string|nil corpse position or `nil` & reason why there is no corpse
+local function place_corpse(player)
 	if core.is_creative_enabled(player) then
-		return
+		return nil, "creative"
 	end
 
 	local character = character.of(player)
@@ -170,12 +171,12 @@ core.register_on_dieplayer(function(player)
 	local gender = character:get_gender('male')
 	local skin =   character:get_skin_no(1)
 	if races.list[race].no_corpse then
-		return
+		return nil, "race " .. race
 	end
 
 	local corpse_pos = find_position_for_corpse(player)
 	if corpse_pos == nil then
-		return
+		return nil, "no place found"
 	end
 
 	local param2 = core.dir_to_facedir(player:get_look_dir())
@@ -207,6 +208,20 @@ core.register_on_dieplayer(function(player)
 		corpse_meta:set_int("time", 0)
 		core.get_node_timer(corpse_pos):start(10)
 	end
+
+	return corpse_pos
+end
+
+--- @param player Player
+core.register_on_dieplayer(function(player)
+	local death_pos = player:get_pos():round()
+	local corpse_pos, no_corpse_reason = place_corpse(player)
+
+	core.log("action", string.format(
+		"%s dies at %s, %s",
+		player:get_player_name(), core.pos_to_string(death_pos),
+		corpse_pos and ("corpse at " .. core.pos_to_string(corpse_pos)) or ("no corpse: " .. no_corpse_reason)
+	))
 end)
 
 dofile(core.get_modpath(core.get_current_modname()).."/".."items.lua")
