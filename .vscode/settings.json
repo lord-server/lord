@@ -21,7 +21,12 @@
         "facedir",
         "burntime",
         "privs",
-        "listcolors"
+        "listcolors",
+        "groupcaps",
+        "maxlevel",
+        "modpath",
+        "formspec",
+        "Luanti"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"

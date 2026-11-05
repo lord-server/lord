@@ -2,15 +2,27 @@ local string_format, table_concat, tostring
     = string.format, table.concat, tostring
 
 
---- Delay before logging: client sends window information some time after join.
-local LOG_DELAY = 2
+--- Logs information about clients.
+--- @static
+--- @class client.Info
+local Info = {
+	--- @static
+	--- @private
+	--- @type helpers.Logger
+	logger = nil, --- @diagnostic disable-line: assign-type-mismatch
+}
 
---- @type helpers.Logger
-local logger
+--- @static
+--- @param logger helpers.Logger
+function Info.init(logger)
+	Info.logger = logger
+end
 
---- @param info table
+--- @static
+--- @private
+--- @param info PlayerInformation
 --- @return string
-local function format_player_info(info)
+function Info.format_player_info(info)
 	return table_concat({
 		'ip='       .. tostring(info.address) .. ' (v' .. tostring(info.ip_version) .. ')',
 		'client='   .. tostring(info.version_string),
@@ -20,9 +32,11 @@ local function format_player_info(info)
 	}, ', ')
 end
 
---- @param window table|nil
+--- @static
+--- @private
+--- @param window PlayerWindowInformation|nil
 --- @return string
-local function format_window_info(window)
+function Info.format_window_info(window)
 	if not window then
 		return 'window=unknown'
 	end
@@ -36,37 +50,26 @@ local function format_window_info(window)
 	)
 end
 
+--- @static
 --- @param player_name string
-local function log_client_info(player_name)
-	local info = core.get_player_information(player_name)
-	if not info then
-		return
-	end
-
-	logger.action(
+--- @param player_info PlayerInformation
+--- @param window_info PlayerWindowInformation|nil
+function Info.log(player_name, player_info, window_info)
+	Info.logger.action(
 		'%s: %s, %s',
-		player_name, format_player_info(info), format_window_info(core.get_player_window_information(player_name))
+		player_name, Info.format_player_info(player_info), Info.format_window_info(window_info)
 	)
 end
 
+--- @static
 --- @param player Player
 --- @param cheat  {type:string}
-local function log_cheat(player, cheat)
-	logger.action(
+function Info.log_cheat(player, cheat)
+	Info.logger.action(
 		'%s: cheat: %s at %s',
 		player:get_player_name(), cheat.type, core.pos_to_string(player:get_pos(), 1)
 	)
 end
 
 
-return {
-	--- @param mod core.Mod
-	init = function(mod)
-		logger = mod.logger
-
-		core.register_on_joinplayer(function(player)
-			core.after(LOG_DELAY, log_client_info, player:get_player_name())
-		end)
-		core.register_on_cheat(log_cheat)
-	end,
-}
+return Info

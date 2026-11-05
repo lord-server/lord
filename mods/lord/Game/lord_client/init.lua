@@ -1,5 +1,5 @@
 
 
 core.mod(function(mod)
-	require('client_info').init(mod)
+	require('client').init(mod)
 end)

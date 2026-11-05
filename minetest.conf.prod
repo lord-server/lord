@@ -351,6 +351,13 @@ mapgen_chunk_pos_log = false
 # ------- lord/Game/lord_web_api
 lord_web_api.base_url = https://lord-server.ru/api
 
+# ------- lord/Game/lord_client
+# Минимальная версия клиента (игроков со старым клиентом отключает с объяснением).
+# Не может быть меньше требуемой игрой (`min_minetest_version` в `game.conf`) -- иначе применяется она.
+lord_client.min_version = 5.12
+# Где скачать клиент (показывается при отключении). Default: https://www.luanti.org/downloads/
+#lord_client.download_url = https://www.luanti.org/downloads/
+
 
 # ------- holding_points -------
 
