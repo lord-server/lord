@@ -16,22 +16,22 @@ core.mod(function(mod)
 
 	-- Source materials
 	tools.sources = {
-		wood    = "group:wood",
-		stone   = "group:stone",
-		steel   = "default:steel_ingot",
-		bronze  = "default:bronze_ingot",
-		copper  = "default:copper_ingot",
-		tin     = "lottores:tin_ingot",
-		silver  = "lottores:silver_ingot",
-		gold    = "default:gold_ingot",
-		galvorn = "lottores:galvorn_ingot",
-		mithril = "lottores:mithril_ingot",
+		wood    = 'group:wood',
+		stone   = 'group:stone',
+		steel   = 'default:steel_ingot',
+		bronze  = 'default:bronze_ingot',
+		copper  = 'default:copper_ingot',
+		tin     = 'lottores:tin_ingot',
+		silver  = 'lottores:silver_ingot',
+		gold    = 'default:gold_ingot',
+		galvorn = 'lottores:galvorn_ingot',
+		mithril = 'lottores:mithril_ingot',
 	}
 
 	-- A special item - the hand
-	core.register_item(":", {
-		type              = "none",
-		wield_image       = "wieldhand.png",
+	core.register_item(':', {
+		type              = 'none',
+		wield_image       = 'wieldhand.png',
 		wield_scale       = { x = 1, y = 1, z = 2.5 },
 		tool_capabilities = {
 			full_punch_interval = 0.9,
@@ -45,70 +45,83 @@ core.mod(function(mod)
 		}
 	})
 
-	local function get_capability(itemdef, cap)
-		if itemdef[cap] == nil then
+	--- Build a tool_capabilities groupcap table from an item definition
+	--- @param item_def ItemDefinition
+	--- @param cap      string         name of the capability to get from the item_def (e.g. "cracky", "choppy", etc.)
+	local function get_capability(item_def, cap)
+		if item_def[cap] == nil then
 			return nil
 		end
-		return {
-			times    = itemdef[cap].times,
-			uses     = itemdef[cap].uses,
-			maxlevel = itemdef[cap].maxlevel,
-			maxwear  = itemdef[cap].maxwear,
+		local caps = {
+			times    = item_def[cap].times,
+			uses     = item_def[cap].uses,
+			maxlevel = item_def[cap].maxlevel,
+			maxwear  = item_def[cap].maxwear,
 		}
+		-- LG-2263: get `uses` from `_durability` when not set explicitly.
+		--   in engine: `real_uses = uses * 3^leveldiff`, where
+		--   `leveldiff = cap.maxlevel - node.level`,
+		--   but we do not know the node level at this time,
+		--   so `uses = _durability / 3^maxlevel`.
+		if caps.uses == nil and item_def._durability and caps.maxlevel then
+			caps.uses = item_def._durability / 3 ^ caps.maxlevel
+		end
+
+		return caps
 	end
 
-	local function register_tool(tooltype, material, itemdef)
-		core.register_tool("tools:" .. tooltype .. "_" .. material, {
-			description       = itemdef.description,
-			inventory_image   = "tools_" .. tooltype .. "_" .. material .. ".png" ..
-				(itemdef.image_transform or ""),
-			wield_image       = "tools_" .. tooltype .. "_" .. material .. ".png" ..
-				(itemdef.wield_image_transform or ""),
-			range             = itemdef.range,
-			_rank             = itemdef._rank,
+	local function register_tool(type, material, item_def)
+		core.register_tool('tools:' .. type .. '_' .. material, {
+			description       = item_def.description,
+			inventory_image   = 'tools_' .. type .. '_' .. material .. '.png' ..
+				(item_def.image_transform or ''),
+			wield_image       = 'tools_' .. type .. '_' .. material .. '.png' ..
+				(item_def.wield_image_transform or ''),
+			range             = item_def.range,
+			_rank             = item_def._rank,
+			_durability       = item_def._durability,
 			tool_capabilities = {
-				full_punch_interval = itemdef.full_punch_interval,
-				max_drop_level      = itemdef.max_drop_level,
+				full_punch_interval = item_def.full_punch_interval,
+				max_drop_level      = item_def.max_drop_level,
 				groupcaps           = {
-					cracky   = get_capability(itemdef, "cracky"),
-					choppy   = get_capability(itemdef, "choppy"),
-					snappy   = get_capability(itemdef, "snappy"),
-					crumbly  = get_capability(itemdef, "crumbly"),
-					mineable = get_capability(itemdef, "mineable"),
+					cracky   = get_capability(item_def, 'cracky'),
+					choppy   = get_capability(item_def, 'choppy'),
+					snappy   = get_capability(item_def, 'snappy'),
+					crumbly  = get_capability(item_def, 'crumbly'),
+					mineable = get_capability(item_def, 'mineable'),
 				},
-				damage_groups       = itemdef.damage_groups,
+				damage_groups       = item_def.damage_groups,
 			},
-			groups            = itemdef.groups,
+			groups            = item_def.groups,
 		})
 	end
 
-	local function register_craft(tooltype, material, itemdef)
+	local function register_craft(type, material)
 		if tools.sources[material] == nil then
-			core.log("error", "Cannot find source material for the craft recipe" ..
-				" (output='" .. material .. "')")
+			mod.logger.error('Cannot find source material for the craft recipe (output=\'%s\')', material)
 		end
-		for _, r in pairs(tools[tooltype].get_recipes(tools.sources[material])) do
+		for _, r in pairs(tools[type].get_recipes(tools.sources[material])) do
 			core.register_craft({
-				output = "tools:" .. tooltype .. "_" .. material,
+				output = 'tools:' .. type .. '_' .. material,
 				recipe = r
 			})
 		end
 	end
 
-	local tooltypes = {
-		"pick", "shovel", "axe", "sword", "battleaxe", "warhammer", "spear", "dagger"
+	local tool_types = {
+		'pick', 'shovel', 'axe', 'sword', 'battleaxe', 'warhammer', 'spear', 'dagger'
 	}
 
-	for _, tooltype in ipairs(tooltypes) do
-		for material, _ in pairs(tools[tooltype]) do
-			local itemdef = tools[tooltype][material]
-			if type(itemdef) == "table" then
-				register_tool(tooltype, material, itemdef)
-				register_craft(tooltype, material, itemdef)
+	for _, tool_type in ipairs(tool_types) do
+		for material, _ in pairs(tools[tool_type]) do
+			local item_def = tools[tool_type][material]
+			if type(item_def) == 'table' then
+				register_tool(tool_type, material, item_def)
+				register_craft(tool_type, material)
 			end
 		end
 	end
 
-	dofile(core.get_modpath("tools") .. '/aliases.lua')
+	dofile(core.get_modpath('tools') .. '/aliases.lua')
 end)
 

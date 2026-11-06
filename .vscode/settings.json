@@ -26,7 +26,13 @@
         "maxlevel",
         "modpath",
         "formspec",
-        "Luanti"
+        "Luanti",
+        "Pickaxe",
+        "galvorn",
+        "mithril",
+        "battleaxes",
+        "warhammers",
+        "warhammer"
     ],
     "files.associations": {
         "minetest.conf.*": "properties"
