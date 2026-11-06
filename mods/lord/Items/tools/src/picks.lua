@@ -1,31 +1,34 @@
 local S = core.get_mod_translator()
 
 
---- @type table<string, integer>
-local durability = {
-	wood    = 30,
-	stone   = 60,
-	copper  = 180,
-	tin     = 225,
-	steel   = 180,
-	bronze  = 270,
-	silver  = 180,
-	gold    = 270,
-	galvorn = 810,
-	mithril = 1620,
-}
+--- pick      base   by formula (`times[n]=speed*1.5^(n-1)`)
+--- wood      -      no mineable — can't mine ore (only stone and coal)
+--- stone     2.00   [1]=2.00
+--- copper    1.60   [1]=1.60 [2]=2.40
+--- tin       1.60   [1]=1.60 [2]=2.40
+--- steel     1.00   [1]=1.00 [2]=1.50 [3]=2.25
+--- bronze    1.00   [1]=1.00 [2]=1.50 [3]=2.25
+--- silver    0.80   [1]=0.80 [2]=1.20 [3]=1.80 [4]=2.70
+--- gold      0.80   [1]=0.80 [2]=1.20 [3]=1.80 [4]=2.70
+--- galvorn   0.60   [1]=0.60 [2]=0.90 [3]=1.35 [4]=2.02 [5]=3.04
+--- mithril   0.40   [1]=0.40 [2]=0.60 [3]=0.90 [4]=1.35 [5]=2.02
 
---- кирка     база   предсказано формулой `times[n]=base*1.5^(n-1)` (реал <как-сейчас>)
---- wood      -      нет mineable — не добывает руду (только камень и уголь)
---- stone     2.00   [1]=2.00(реал 2.00)
---- copper    1.60   [1]=1.60(реал 1.60) [2]=2.40(реал 2.40)
---- tin       1.60   [1]=1.60(реал 1.60) [2]=2.40(реал 2.40)
---- steel     1.00   [1]=1.00(реал 1.00) [2]=1.50(реал 1.60) [3]=2.25(реал 2.40)
---- bronze    1.00   [1]=1.00(реал 1.00) [2]=1.50(реал 1.60) [3]=2.25(реал 2.40)
---- silver    0.80   [1]=0.80(реал 0.80) [2]=1.20(реал 1.20) [3]=1.80(реал 1.80) [4]=2.70(реал 2.60)
---- gold      0.80   [1]=0.80(реал 0.80) [2]=1.20(реал 1.20) [3]=1.80(реал 1.80) [4]=2.70(реал 2.60)
---- galvorn   0.60   [1]=0.60(реал 0.60) [2]=0.90(реал 0.90) [3]=1.35(реал 1.30) [4]=2.02(реал 1.80) [5]=3.04(реал 2.60)
---- mithril   0.40   [1]=0.40(реал 0.40) [2]=0.60(реал 0.60) [3]=0.90(реал 0.90) [4]=1.35(реал 1.30) [5]=2.02(реал 1.80)
+--- * `_durability` -> `uses`
+--- * `_speed`/`_tier` -> `mineable.times`
+--- в `tools/init.lua`: `times[n] = _speed * 1.5^(n-1)`, n = 1..`_tier`.
+--- @type table<string, { durability: integer, speed: number?, tier: integer? }>
+local stats = {
+	wood    = { durability = 30 },
+	stone   = { durability = 60,   speed = 2.00, tier = 1 },
+	copper  = { durability = 180,  speed = 1.60, tier = 2 },
+	tin     = { durability = 225,  speed = 1.60, tier = 2 },
+	steel   = { durability = 180,  speed = 1.00, tier = 3 },
+	bronze  = { durability = 270,  speed = 1.00, tier = 3 },
+	silver  = { durability = 180,  speed = 0.80, tier = 4 },
+	gold    = { durability = 270,  speed = 0.80, tier = 4 },
+	galvorn = { durability = 810,  speed = 0.60, tier = 5 },
+	mithril = { durability = 1620, speed = 0.40, tier = 5 },
+}
 
 
 return {
@@ -39,7 +42,7 @@ return {
 	wood = {
 		description         = S("Wooden Pickaxe"),
 		_rank               = item_rank.Type.COMMON,
-		_durability         = durability.wood,
+		_durability         = stats.wood.durability,
 		full_punch_interval = 1.2,
 		max_drop_level      = 0,
 		cracky              = {
@@ -53,7 +56,9 @@ return {
 	stone = {
 		description         = S("Stone Pickaxe"),
 		_rank               = item_rank.Type.COMMON,
-		_durability         = durability.stone,
+		_durability         = stats.stone.durability,
+		_speed              = stats.stone.speed,
+		_tier               = stats.stone.tier,
 		full_punch_interval = 1.3,
 		max_drop_level      = 0,
 		cracky              = {
@@ -61,7 +66,6 @@ return {
 			maxlevel = 1
 		},
 		mineable            = {
-			times    = { [1]=2.0 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 3 },
@@ -71,7 +75,9 @@ return {
 	copper = {
 		description         = S("Copper Pickaxe"),
 		_rank               = item_rank.Type.ADVANCED,
-		_durability         = durability.copper,
+		_durability         = stats.copper.durability,
+		_speed              = stats.copper.speed,
+		_tier               = stats.copper.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 1,
 		cracky              = {
@@ -79,7 +85,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=1.60, [2]=2.40 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
@@ -88,7 +93,9 @@ return {
 	tin = {
 		description         = S("Tin Pickaxe"),
 		_rank               = item_rank.Type.ADVANCED,
-		_durability         = durability.tin,
+		_durability         = stats.tin.durability,
+		_speed              = stats.tin.speed,
+		_tier               = stats.tin.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 1,
 		cracky              = {
@@ -96,7 +103,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=1.60, [2]=2.40 },
 			maxlevel = 0
 		},
 		damage_groups       = {fleshy=4},
@@ -106,7 +112,9 @@ return {
 	steel = {
 		description         = S("Steel Pickaxe"),
 		_rank               = item_rank.Type.RARE,
-		_durability         = durability.steel,
+		_durability         = stats.steel.durability,
+		_speed              = stats.steel.speed,
+		_tier               = stats.steel.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 1,
 		cracky              = {
@@ -114,7 +122,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
@@ -123,7 +130,9 @@ return {
 	bronze = {
 		description         = S("Bronze Pickaxe"),
 		_rank               = item_rank.Type.RARE,
-		_durability         = durability.bronze,
+		_durability         = stats.bronze.durability,
+		_speed              = stats.bronze.speed,
+		_tier               = stats.bronze.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 1,
 		cracky              = {
@@ -131,7 +140,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy=4 },
@@ -141,7 +149,9 @@ return {
 	silver = {
 		description         = S("Silver Pickaxe"),
 		_rank               = item_rank.Type.EPIC,
-		_durability         = durability.silver,
+		_durability         = stats.silver.durability,
+		_speed              = stats.silver.speed,
+		_tier               = stats.silver.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 2,
 		cracky              = {
@@ -149,7 +159,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=0.80, [2]=1.20, [3]=1.80, [4]=2.60 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
@@ -158,7 +167,9 @@ return {
 	gold = {
 		description         = S("Gold Pickaxe"),
 		_rank               = item_rank.Type.EPIC,
-		_durability         = durability.gold,
+		_durability         = stats.gold.durability,
+		_speed              = stats.gold.speed,
+		_tier               = stats.gold.tier,
 		full_punch_interval = 1.0,
 		max_drop_level      = 2,
 		cracky              = {
@@ -166,7 +177,6 @@ return {
 			maxlevel = 2
 		},
 		mineable            = {
-			times    = { [1]=0.80, [2]=1.20, [3]=1.80, [4]=2.60 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 4 },
@@ -176,7 +186,9 @@ return {
 	galvorn = {
 		description         = S("Galvorn Pickaxe"),
 		_rank               = item_rank.Type.LEGENDARY,
-		_durability         = durability.galvorn,
+		_durability         = stats.galvorn.durability,
+		_speed              = stats.galvorn.speed,
+		_tier               = stats.galvorn.tier,
 		full_punch_interval = 0.9,
 		max_drop_level      = 3,
 		cracky              = {
@@ -184,7 +196,6 @@ return {
 			maxlevel = 3
 		},
 		mineable            = {
-			times    = { [1]=0.60, [2]=0.90, [3]=1.30, [4]=1.80, [5]=2.60 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 5 },
@@ -193,7 +204,9 @@ return {
 	mithril = {
 		description         = S("Mithril Pickaxe"),
 		_rank               = item_rank.Type.LEGENDARY,
-		_durability         = durability.mithril,
+		_durability         = stats.mithril.durability,
+		_speed              = stats.mithril.speed,
+		_tier               = stats.mithril.tier,
 		full_punch_interval = 0.8,
 		max_drop_level      = 3,
 		cracky              = {
@@ -201,7 +214,6 @@ return {
 			maxlevel = 3
 		},
 		mineable            = {
-			times    = { [1]=0.40, [2]=0.60, [3]=0.90, [4]=1.30, [5]=1.80 },
 			maxlevel = 0
 		},
 		damage_groups       = { fleshy = 5 },

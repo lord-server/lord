@@ -45,6 +45,19 @@ core.mod(function(mod)
 		}
 	})
 
+	--- LG-2263: geometric progression for `mineable.times`.
+	--- @param base     number  @ `times[1]`, time on the easiest ore tier for this pick
+	--- @param max_tier integer @ highest ore tier this pick can mine
+	--- @return table<integer, number>
+	local function mineable_times(base, max_tier)
+		local times = {}
+		for tier = 1, max_tier do
+			times[tier] = base * 1.5 ^ (tier - 1)
+		end
+
+		return times
+	end
+
 	--- Build a tool_capabilities groupcap table from an item definition
 	--- @param item_def ItemDefinition
 	--- @param cap      string         name of the capability to get from the item_def (e.g. "cracky", "choppy", etc.)
@@ -59,12 +72,19 @@ core.mod(function(mod)
 			maxwear  = item_def[cap].maxwear,
 		}
 		-- LG-2263: get `uses` from `_durability` when not set explicitly.
-		--   in engine: `real_uses = uses * 3^leveldiff`, where
-		--   `leveldiff = cap.maxlevel - node.level`,
-		--   but we do not know the node level at this time,
-		--   so `uses = _durability / 3^maxlevel`.
+		--   In engine: `real_uses = uses * 3^leveldiff`, where
+		--   `leveldiff = cap.maxlevel - node.level`.
+		--   We do not know the node level at this time,
+		--   but for `mineable` nodes we have `node.level = 0` and `leveldiff = cap.maxlevel`,
+		--   so we can use:
+		--     `uses = _durability / 3^maxlevel`.
 		if caps.uses == nil and item_def._durability and caps.maxlevel then
 			caps.uses = item_def._durability / 3 ^ caps.maxlevel
+		end
+
+		-- LG-2263: get `times` from `_speed`/`_tier` when not set explicitly.
+		if caps.times == nil and item_def._speed and item_def._tier then
+			caps.times = mineable_times(item_def._speed, item_def._tier)
 		end
 
 		return caps
@@ -80,6 +100,8 @@ core.mod(function(mod)
 			range             = item_def.range,
 			_rank             = item_def._rank,
 			_durability       = item_def._durability,
+			_tier             = item_def._tier,
+			_speed            = item_def._speed,
 			tool_capabilities = {
 				full_punch_interval = item_def.full_punch_interval,
 				max_drop_level      = item_def.max_drop_level,
