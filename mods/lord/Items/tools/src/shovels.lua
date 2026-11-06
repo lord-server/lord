@@ -22,6 +22,7 @@ return {
 		damage_groups         = { fleshy = 2 },
 		groups                = { wooden = 1, shovel = 1, flammable = 2 },
 	},
+	-- tier 1
 	stone = {
 		description           = S("Stone Shovel"),
 		_rank                 = item_rank.Type.COMMON,
@@ -36,33 +37,7 @@ return {
 		damage_groups         = { fleshy = 2 },
 		groups                = { shovel = 1 },
 	},
-	steel = {
-		description           = S("Steel Shovel"),
-		_rank                 = item_rank.Type.RARE,
-		wield_image_transform = "^[transformR90",
-		full_punch_interval   = 1.1,
-		max_drop_level        = 1,
-		crumbly               = {
-			times = { [1]=1.50, [2]=0.90, [3]=0.40 },
-			uses = 30, maxlevel = 2
-		},
-		damage_groups         = { fleshy = 3 },
-		groups                = { steel_item = 1, shovel = 1 },
-	},
-	bronze = {
-		description           = S("Bronze Shovel"),
-		_rank                 = item_rank.Type.COMMON,
-		wield_image_transform = "^[transformR90",
-		full_punch_interval   = 1.1,
-		max_drop_level        = 1,
-		crumbly               = {
-			times = { [1]=1.50, [2]=0.90, [3]=0.40 },
-			uses = 40,
-			maxlevel = 2
-		},
-		damage_groups         = { fleshy = 3 },
-		groups                = { bronze_item = 1, shovel = 1 },
-	},
+	-- tier 2
 	copper = {
 		description           = S("Copper Shovel"),
 		_rank                 = item_rank.Type.ADVANCED,
@@ -91,6 +66,35 @@ return {
 		damage_groups = { fleshy = 3 },
 		groups = { tin_item = 1, shovel = 1 },
 	},
+	-- tier 3
+	steel = {
+		description           = S("Steel Shovel"),
+		_rank                 = item_rank.Type.RARE,
+		wield_image_transform = "^[transformR90",
+		full_punch_interval   = 1.1,
+		max_drop_level        = 1,
+		crumbly               = {
+			times = { [1]=1.50, [2]=0.90, [3]=0.40 },
+			uses = 30, maxlevel = 2
+		},
+		damage_groups         = { fleshy = 3 },
+		groups                = { steel_item = 1, shovel = 1 },
+	},
+	bronze = {
+		description           = S("Bronze Shovel"),
+		_rank                 = item_rank.Type.COMMON,
+		wield_image_transform = "^[transformR90",
+		full_punch_interval   = 1.1,
+		max_drop_level        = 1,
+		crumbly               = {
+			times = { [1]=1.50, [2]=0.90, [3]=0.40 },
+			uses = 40,
+			maxlevel = 2
+		},
+		damage_groups         = { fleshy = 3 },
+		groups                = { bronze_item = 1, shovel = 1 },
+	},
+	-- tier 4
 	silver = {
 		description           = S("Silver Shovel"),
 		_rank                 = item_rank.Type.EPIC,
@@ -119,6 +123,7 @@ return {
 		damage_groups         = { fleshy = 3 },
 		groups                = { gold_item = 1, shovel = 1 },
 	},
+	-- tier 5
 	galvorn = {
 		description           = S("Galvorn Shovel"),
 		_rank                 = item_rank.Type.LEGENDARY,

@@ -21,6 +21,7 @@ return {
 		full_punch_interval = 0.5,
 		groups              = { wooden = 1, sword = 1, flammable = 2 },
 	},
+	-- tier 1
 	stone       = {
 		description         = S("Stone Sword"),
 		_rank               = item_rank.Type.COMMON,
@@ -34,32 +35,7 @@ return {
 		full_punch_interval = 1.5,
 		groups              = { sword = 1 },
 	},
-	steel       = {
-		description         = S("Steel Sword"),
-		_rank               = item_rank.Type.RARE,
-		max_drop_level      = 1,
-		snappy              = {
-			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
-			uses     = 30,
-			maxlevel = 2
-		},
-		damage_groups       = { fleshy = 5.4 },
-		full_punch_interval = 1.20,
-		groups              = { steel_item = 1, sword = 1 },
-	},
-	bronze      = {
-		description         = S("Bronze Sword"),
-		_rank               = item_rank.Type.RARE,
-		max_drop_level      = 1,
-		snappy              = {
-			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
-			uses     = 40,
-			maxlevel = 2
-		},
-		damage_groups       = { fleshy = 4.76 },
-		full_punch_interval = 1.4,
-		groups              = { bronze_item = 1, sword = 1 },
-	},
+	-- tier 2
 	copper      = {
 		description         = S("Copper Sword"),
 		_rank               = item_rank.Type.ADVANCED,
@@ -86,6 +62,34 @@ return {
 		full_punch_interval = 1.00,
 		groups              = { tin_item = 1, sword = 1 },
 	},
+	-- tier 3
+	steel       = {
+		description         = S("Steel Sword"),
+		_rank               = item_rank.Type.RARE,
+		max_drop_level      = 1,
+		snappy              = {
+			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
+			uses     = 30,
+			maxlevel = 2
+		},
+		damage_groups       = { fleshy = 5.4 },
+		full_punch_interval = 1.20,
+		groups              = { steel_item = 1, sword = 1 },
+	},
+	bronze      = {
+		description         = S("Bronze Sword"),
+		_rank               = item_rank.Type.RARE,
+		max_drop_level      = 1,
+		snappy              = {
+			times    = { [1] = 2.5, [2] = 1.20, [3] = 0.35 },
+			uses     = 40,
+			maxlevel = 2
+		},
+		damage_groups       = { fleshy = 4.76 },
+		full_punch_interval = 1.4,
+		groups              = { bronze_item = 1, sword = 1 },
+	},
+	-- tier 4
 	silver      = {
 		description         = S("Silver Sword"),
 		_rank               = item_rank.Type.EPIC,
@@ -112,6 +116,7 @@ return {
 		full_punch_interval = 1.50,
 		groups              = { gold_item = 1, sword = 1 },
 	},
+	-- tier 5
 	galvorn     = {
 		description         = S("Galvorn Sword"),
 		_rank               = item_rank.Type.LEGENDARY,

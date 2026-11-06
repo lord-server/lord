@@ -17,6 +17,7 @@ return {
 		full_punch_interval = .25,
 		groups              = { wooden = 1 },
 	},
+	-- tier 1
 	stone       = {
 		description         = S("Stone Dagger"),
 		_rank               = item_rank.Type.COMMON,
@@ -26,26 +27,7 @@ return {
 		damage_groups       = { fleshy = .70 },
 		full_punch_interval = 0.25,
 	},
-	steel       = {
-		description         = S("Steel Dagger"),
-		_rank               = item_rank.Type.RARE,
-		range               = 2.5,
-		max_drop_level      = 0,
-		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 10, maxlevel = 1 },
-		damage_groups       = { fleshy = 1.5 },
-		full_punch_interval = 0.5,
-		groups              = { steel_item = 1 },
-	},
-	bronze      = {
-		description         = S("Bronze Dagger"),
-		_rank               = item_rank.Type.RARE,
-		range               = 2.5,
-		max_drop_level      = 0,
-		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 15, maxlevel = 1 },
-		damage_groups       = { fleshy = 2.2 },
-		full_punch_interval = 0.5,
-		groups              = { bronze_item = 1 },
-	},
+	-- tier 2
 	copper      = {
 		description         = S("Copper Dagger"),
 		_rank               = item_rank.Type.ADVANCED,
@@ -66,6 +48,28 @@ return {
 		full_punch_interval = 0.4,
 		groups              = { tin_item = 1 },
 	},
+	-- tier 3
+	steel       = {
+		description         = S("Steel Dagger"),
+		_rank               = item_rank.Type.RARE,
+		range               = 2.5,
+		max_drop_level      = 0,
+		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 10, maxlevel = 1 },
+		damage_groups       = { fleshy = 1.5 },
+		full_punch_interval = 0.5,
+		groups              = { steel_item = 1 },
+	},
+	bronze      = {
+		description         = S("Bronze Dagger"),
+		_rank               = item_rank.Type.RARE,
+		range               = 2.5,
+		max_drop_level      = 0,
+		snappy              = { times = { [2] = 1.00, [3] = 0.50 }, uses = 15, maxlevel = 1 },
+		damage_groups       = { fleshy = 2.2 },
+		full_punch_interval = 0.5,
+		groups              = { bronze_item = 1 },
+	},
+	-- tier 4
 	silver      = {
 		description         = S("Silver Dagger"),
 		_rank               = item_rank.Type.EPIC,
@@ -86,6 +90,7 @@ return {
 		full_punch_interval = .8,
 		groups              = { gold_item = 1 },
 	},
+	-- tier 5
 	galvorn     = {
 		description         = S("Galvorn Dagger"),
 		_rank               = item_rank.Type.LEGENDARY,

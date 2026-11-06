@@ -27,6 +27,7 @@ return {
 		damage_groups       = { fleshy=2 },
 		groups              = { wooden = 1, axe = 1, flammable = 2 },
 	},
+	-- tier 1
 	stone = {
 		description         = S("Stone Axe"),
 		_rank               = item_rank.Type.COMMON,
@@ -40,32 +41,7 @@ return {
 		damage_groups       = { fleshy = 3 },
 		groups              = { axe = 1 },
 	},
-	steel = {
-		description         = S("Steel Axe"),
-		_rank               = item_rank.Type.RARE,
-		full_punch_interval = 1.0,
-		max_drop_level      = 1,
-		choppy              = {
-			times = { [1]=2.50, [2]=1.40, [3]=1.00 },
-			uses = 20,
-			maxlevel = 2
-		},
-		damage_groups       = { fleshy = 4 },
-		groups              = { steel_item = 1, axe = 1 },
-	},
-	bronze = {
-		description         = S("Bronze Axe"),
-		_rank               = item_rank.Type.RARE,
-		full_punch_interval = 1.0,
-		max_drop_level      = 1,
-		choppy              = {
-			times = { [1]=2.50,
-			[2]=1.40, [3]=1.00 },
-			uses=30, maxlevel=2
-		},
-		damage_groups       = { fleshy = 4 },
-		groups              = { bronze_item = 1, axe = 1},
-	},
+	-- tier 2
 	copper = {
 		description         = S("Copper Axe"),
 		_rank               = item_rank.Type.ADVANCED,
@@ -92,6 +68,34 @@ return {
 		damage_groups       = { fleshy = 4 },
 		groups              = {tin_item = 1, axe = 1},
 	},
+	-- tier 3
+	steel = {
+		description         = S("Steel Axe"),
+		_rank               = item_rank.Type.RARE,
+		full_punch_interval = 1.0,
+		max_drop_level      = 1,
+		choppy              = {
+			times = { [1]=2.50, [2]=1.40, [3]=1.00 },
+			uses = 20,
+			maxlevel = 2
+		},
+		damage_groups       = { fleshy = 4 },
+		groups              = { steel_item = 1, axe = 1 },
+	},
+	bronze = {
+		description         = S("Bronze Axe"),
+		_rank               = item_rank.Type.RARE,
+		full_punch_interval = 1.0,
+		max_drop_level      = 1,
+		choppy              = {
+			times = { [1]=2.50,
+			[2]=1.40, [3]=1.00 },
+			uses=30, maxlevel=2
+		},
+		damage_groups       = { fleshy = 4 },
+		groups              = { bronze_item = 1, axe = 1},
+	},
+	-- tier 4
 	silver = {
 		description         = S("Silver Axe"),
 		_rank               = item_rank.Type.EPIC,
@@ -118,6 +122,7 @@ return {
 		damage_groups = { fleshy=4 },
 		groups = { gold_item = 1, axe = 1 },
 	},
+	-- tier 5
 	galvorn = {
 		description         = S("Galvorn Axe"),
 		_rank               = item_rank.Type.LEGENDARY,

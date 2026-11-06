@@ -19,6 +19,7 @@ return {
 		full_punch_interval   = 1.00,
 		groups                = { wooden = 1 },
 	},
+	-- tier 1
 	stone       = {
 		description           = S("Stone Spear"),
 		_rank                 = item_rank.Type.COMMON,
@@ -29,6 +30,29 @@ return {
 		damage_groups         = { fleshy = 4.50 },
 		full_punch_interval   = 1.50,
 	},
+	-- tier 2
+	copper      = {
+		description           = S("Copper Spear"),
+		_rank                 = item_rank.Type.ADVANCED,
+		wield_image_transform = "^[transformFX",
+		max_drop_level        = 1,
+		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
+		damage_groups         = { fleshy = 8.33 },
+		full_punch_interval   = 1.70,
+		groups                = { copper_item = 1 },
+	},
+	tin         = {
+		description           = S("Tin Spear"),
+		_rank               = item_rank.Type.ADVANCED,
+		wield_image_transform = "^[transformFX",
+		range                 = 6,
+		max_drop_level        = 1,
+		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
+		damage_groups         = { fleshy = 4.95 },
+		full_punch_interval   = 1.65,
+		groups                = { tin_item = 1 },
+	},
+	-- tier 3
 	steel       = {
 		description           = S("Steel Spear"),
 		_rank                 = item_rank.Type.RARE,
@@ -51,27 +75,7 @@ return {
 		full_punch_interval   = 1.75,
 		groups                = { bronze_item = 1 },
 	},
-	copper      = {
-		description           = S("Copper Spear"),
-		_rank                 = item_rank.Type.ADVANCED,
-		wield_image_transform = "^[transformFX",
-		max_drop_level        = 1,
-		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
-		damage_groups         = { fleshy = 8.33 },
-		full_punch_interval   = 1.70,
-		groups                = { copper_item = 1 },
-	},
-	tin         = {
-		description           = S("Tin Spear"),
-		_rank               = item_rank.Type.ADVANCED,
-		wield_image_transform = "^[transformFX",
-		range                 = 6,
-		max_drop_level        = 1,
-		snappy                = { times = { [1] = 2.70, [2] = 1.70, [3] = 0.70 }, uses = 5, maxlevel = 1 },
-		damage_groups         = { fleshy = 4.95 },
-		full_punch_interval   = 1.65,
-		groups                = { tin_item = 1 },
-	},
+	-- tier 4
 	silver      = {
 		description           = S("Silver Spear"),
 		_rank               = item_rank.Type.EPIC,
@@ -94,6 +98,7 @@ return {
 		full_punch_interval   = 1.9,
 		groups                = { gold_item = 1 },
 	},
+	-- tier 5
 	galvorn     = {
 		description           = S("Galvorn Spear"),
 		_rank                 = item_rank.Type.LEGENDARY,

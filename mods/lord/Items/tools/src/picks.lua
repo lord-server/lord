@@ -5,15 +5,27 @@ local S = core.get_mod_translator()
 local durability = {
 	wood    = 30,
 	stone   = 60,
-	steel   = 180,
-	bronze  = 270,
 	copper  = 180,
 	tin     = 225,
+	steel   = 180,
+	bronze  = 270,
 	silver  = 180,
 	gold    = 270,
 	galvorn = 810,
 	mithril = 1620,
 }
+
+--- кирка     база   предсказано формулой `times[n]=base*1.5^(n-1)` (реал <как-сейчас>)
+--- wood      -      нет mineable — не добывает руду (только камень и уголь)
+--- stone     2.00   [1]=2.00(реал 2.00)
+--- copper    1.60   [1]=1.60(реал 1.60) [2]=2.40(реал 2.40)
+--- tin       1.60   [1]=1.60(реал 1.60) [2]=2.40(реал 2.40)
+--- steel     1.00   [1]=1.00(реал 1.00) [2]=1.50(реал 1.60) [3]=2.25(реал 2.40)
+--- bronze    1.00   [1]=1.00(реал 1.00) [2]=1.50(реал 1.60) [3]=2.25(реал 2.40)
+--- silver    0.80   [1]=0.80(реал 0.80) [2]=1.20(реал 1.20) [3]=1.80(реал 1.80) [4]=2.70(реал 2.60)
+--- gold      0.80   [1]=0.80(реал 0.80) [2]=1.20(реал 1.20) [3]=1.80(реал 1.80) [4]=2.70(реал 2.60)
+--- galvorn   0.60   [1]=0.60(реал 0.60) [2]=0.90(реал 0.90) [3]=1.35(реал 1.30) [4]=2.02(реал 1.80) [5]=3.04(реал 2.60)
+--- mithril   0.40   [1]=0.40(реал 0.40) [2]=0.60(реал 0.60) [3]=0.90(реал 0.90) [4]=1.35(реал 1.30) [5]=2.02(реал 1.80)
 
 
 return {
@@ -37,6 +49,7 @@ return {
 		damage_groups       = { fleshy = 2 },
 		groups              = { wooden = 1, pickaxe = 1, flammable = 2 },
 	},
+	-- tier 1
 	stone = {
 		description         = S("Stone Pickaxe"),
 		_rank               = item_rank.Type.COMMON,
@@ -54,40 +67,7 @@ return {
 		damage_groups       = { fleshy = 3 },
 		groups              = { pickaxe = 1 },
 	},
-	steel = {
-		description         = S("Steel Pickaxe"),
-		_rank               = item_rank.Type.RARE,
-		_durability         = durability.steel,
-		full_punch_interval = 1.0,
-		max_drop_level      = 1,
-		cracky              = {
-			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
-			maxlevel = 2
-		},
-		mineable            = {
-			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
-			maxlevel = 0
-		},
-		damage_groups       = { fleshy = 4 },
-		groups              = { steel_item = 1, pickaxe = 1 },
-	},
-	bronze = {
-		description         = S("Bronze Pickaxe"),
-		_rank               = item_rank.Type.RARE,
-		_durability         = durability.bronze,
-		full_punch_interval = 1.0,
-		max_drop_level      = 1,
-		cracky              = {
-			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
-			maxlevel = 2
-		},
-		mineable            = {
-			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
-			maxlevel = 0
-		},
-		damage_groups       = { fleshy=4 },
-		groups              = { bronze_item = 1, pickaxe = 1 },
-	},
+	-- tier 2
 	copper = {
 		description         = S("Copper Pickaxe"),
 		_rank               = item_rank.Type.ADVANCED,
@@ -122,6 +102,42 @@ return {
 		damage_groups       = {fleshy=4},
 		groups              = {tin_item = 1, pickaxe = 1},
 	},
+	-- tier 3
+	steel = {
+		description         = S("Steel Pickaxe"),
+		_rank               = item_rank.Type.RARE,
+		_durability         = durability.steel,
+		full_punch_interval = 1.0,
+		max_drop_level      = 1,
+		cracky              = {
+			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
+			maxlevel = 2
+		},
+		mineable            = {
+			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
+			maxlevel = 0
+		},
+		damage_groups       = { fleshy = 4 },
+		groups              = { steel_item = 1, pickaxe = 1 },
+	},
+	bronze = {
+		description         = S("Bronze Pickaxe"),
+		_rank               = item_rank.Type.RARE,
+		_durability         = durability.bronze,
+		full_punch_interval = 1.0,
+		max_drop_level      = 1,
+		cracky              = {
+			times = { [1]=4.00, [2]=1.60, [3]=0.80 },
+			maxlevel = 2
+		},
+		mineable            = {
+			times    = { [1]=1.00, [2]=1.60, [3]=2.40 },
+			maxlevel = 0
+		},
+		damage_groups       = { fleshy=4 },
+		groups              = { bronze_item = 1, pickaxe = 1 },
+	},
+	-- tier 4
 	silver = {
 		description         = S("Silver Pickaxe"),
 		_rank               = item_rank.Type.EPIC,
@@ -156,6 +172,7 @@ return {
 		damage_groups       = { fleshy = 4 },
 		groups              = { gold_item = 1, pickaxe = 1 },
 	},
+	-- tier 5
 	galvorn = {
 		description         = S("Galvorn Pickaxe"),
 		_rank               = item_rank.Type.LEGENDARY,

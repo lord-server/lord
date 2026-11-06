@@ -19,6 +19,7 @@ return {
 		full_punch_interval = 1.55,
 		groups              = { wooden = 1 },
 	},
+	-- tier 1
 	stone       = {
 		description         = S("Stone Battleaxe"),
 		_rank               = item_rank.Type.COMMON,
@@ -29,28 +30,7 @@ return {
 		damage_groups       = { fleshy = 6.00 },
 		full_punch_interval = 1.60,
 	},
-	steel       = {
-		description         = S("Steel Battleaxe"),
-		_rank               = item_rank.Type.RARE,
-		range               = 4.5,
-		max_drop_level      = 1,
-		choppy              = { times = { [1] = 3, [2] = 1.90, [3] = 1.50 }, uses = 15, maxlevel = 2 },
-		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
-		damage_groups       = { fleshy = 7.00 },
-		full_punch_interval = 1.75,
-		groups              = { steel_item = 1 },
-	},
-	bronze      = {
-		description         = S("Bronze Battleaxe"),
-		_rank               = item_rank.Type.RARE,
-		range               = 4.5,
-		max_drop_level      = 1,
-		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
-		snappy              = { times = { [1] = 2.55, [2] = 1.25, [3] = 0.50 }, uses = 30, maxlevel = 2 },
-		damage_groups       = { fleshy = 8.1 },
-		full_punch_interval = 1.80,
-		groups              = { bronze_item = 1 },
-	},
+	-- tier 2
 	copper      = {
 		description         = S("Copper Battleaxe"),
 		_rank               = item_rank.Type.ADVANCED,
@@ -73,6 +53,30 @@ return {
 		full_punch_interval = 1.65,
 		groups              = { tin_item = 1 },
 	},
+	-- tier 3
+	steel       = {
+		description         = S("Steel Battleaxe"),
+		_rank               = item_rank.Type.RARE,
+		range               = 4.5,
+		max_drop_level      = 1,
+		choppy              = { times = { [1] = 3, [2] = 1.90, [3] = 1.50 }, uses = 15, maxlevel = 2 },
+		snappy              = { times = { [1] = 2.75, [2] = 1.45, [3] = 0.60 }, uses = 25, maxlevel = 2 },
+		damage_groups       = { fleshy = 7.00 },
+		full_punch_interval = 1.75,
+		groups              = { steel_item = 1 },
+	},
+	bronze      = {
+		description         = S("Bronze Battleaxe"),
+		_rank               = item_rank.Type.RARE,
+		range               = 4.5,
+		max_drop_level      = 1,
+		choppy              = { times = { [1] = 2.80, [2] = 1.70, [3] = 1.30 }, uses = 20, maxlevel = 2 },
+		snappy              = { times = { [1] = 2.55, [2] = 1.25, [3] = 0.50 }, uses = 30, maxlevel = 2 },
+		damage_groups       = { fleshy = 8.1 },
+		full_punch_interval = 1.80,
+		groups              = { bronze_item = 1 },
+	},
+	-- tier 4
 	silver      = {
 		description         = S("Silver Battleaxe"),
 		_rank               = item_rank.Type.EPIC,
@@ -95,6 +99,7 @@ return {
 		full_punch_interval = 1.90,
 		groups              = { gold_item = 1 },
 	},
+	-- tier 5
 	galvorn     = {
 		description         = S("Galvorn Battleaxe"),
 		_rank               = item_rank.Type.LEGENDARY,
