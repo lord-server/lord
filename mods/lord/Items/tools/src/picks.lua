@@ -2,15 +2,16 @@ local S = core.get_mod_translator()
 
 
 --- pick      base   by formula (`times[n]=speed*1.5^(n-1)`)
+--- ------------------------------------------------------------------
 --- wood      -      no mineable — can't mine ore (only stone and coal)
 --- stone     2.00   [1]=2.00
---- copper    1.60   [1]=1.60 [2]=2.40
---- tin       1.60   [1]=1.60 [2]=2.40
---- steel     1.00   [1]=1.00 [2]=1.50 [3]=2.25
---- bronze    1.00   [1]=1.00 [2]=1.50 [3]=2.25
---- silver    0.80   [1]=0.80 [2]=1.20 [3]=1.80 [4]=2.70
---- gold      0.80   [1]=0.80 [2]=1.20 [3]=1.80 [4]=2.70
---- galvorn   0.60   [1]=0.60 [2]=0.90 [3]=1.35 [4]=2.02 [5]=3.04
+--- copper    1.45   [1]=1.45 [2]=2.17
+--- tin       1.45   [1]=1.45 [2]=2.17
+--- steel     1.05   [1]=1.05 [2]=1.58 [3]=2.36
+--- bronze    0.90   [1]=0.90 [2]=1.35 [3]=2.03
+--- silver    0.75   [1]=0.75 [2]=1.13 [3]=1.69 [4]=2.53
+--- gold      0.75   [1]=0.75 [2]=1.13 [3]=1.69 [4]=2.53
+--- galvorn   0.55   [1]=0.55 [2]=0.83 [3]=1.24 [4]=1.86 [5]=2.78
 --- mithril   0.40   [1]=0.40 [2]=0.60 [3]=0.90 [4]=1.35 [5]=2.02
 
 --- * `_durability` -> `uses`
@@ -20,13 +21,13 @@ local S = core.get_mod_translator()
 local stats = {
 	wood    = { durability = 30 },
 	stone   = { durability = 60,   speed = 2.00, tier = 1 },
-	copper  = { durability = 180,  speed = 1.60, tier = 2 },
-	tin     = { durability = 225,  speed = 1.60, tier = 2 },
-	steel   = { durability = 180,  speed = 1.00, tier = 3 },
-	bronze  = { durability = 270,  speed = 1.00, tier = 3 },
-	silver  = { durability = 180,  speed = 0.80, tier = 4 },
-	gold    = { durability = 270,  speed = 0.80, tier = 4 },
-	galvorn = { durability = 810,  speed = 0.60, tier = 5 },
+	copper  = { durability = 120,  speed = 1.45, tier = 2 },
+	tin     = { durability = 150,  speed = 1.45, tier = 2 },
+	steel   = { durability = 240,  speed = 1.05, tier = 3 },
+	bronze  = { durability = 330,  speed = 0.90, tier = 3 },
+	silver  = { durability = 480,  speed = 0.75, tier = 4 },
+	gold    = { durability = 600,  speed = 0.75, tier = 4 },
+	galvorn = { durability = 960,  speed = 0.55, tier = 5 },
 	mithril = { durability = 1620, speed = 0.40, tier = 5 },
 }
 
