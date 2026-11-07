@@ -227,6 +227,9 @@ protector_spawn = 10
 #    Ours (LORD)
 #
 
+# ---- FEATURE TOGGLE ----
+toggle_smelter = true
+
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
 lord_spawns.common_spawn_pos = 330, 20, 160
