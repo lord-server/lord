@@ -208,7 +208,7 @@ register_chest_spawner("lord_chests:racial_elfmirk", {
 	{ "lord_wooden_stuff:table_lebethron", },
 	{ "lottarmor:helmet_gold", },
 	{ "lord_wooden_stuff:chair_lebethron", },
-	{ "lottores:galvornsword", },
+	{ "tools:sword_galvorn", },
 	{ "lottweapons:galvorn_spear", },
 	{ "lottweapons:galvorn_dagger", },
 	{ "bucket:bucket_water", },

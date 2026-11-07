@@ -315,7 +315,7 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 	run_velocity = 3,
 	damage = 4,
 	drops = {
-		{ name = "default:bronze_sword",         chance = 10, min = 1, max = 1, },
+		{ name = "default:sword_bronze",         chance = 10, min = 1, max = 1, },
 		{ name = "lottarmor:helmet_bronze",      chance = 20, min = 1, max = 1, },
 		{ name = "lottarmor:chestplate_bronze",  chance = 20, min = 1, max = 1, },
 		{ name = "lottarmor:leggings_bronze",    chance = 20, min = 1, max = 1, },
