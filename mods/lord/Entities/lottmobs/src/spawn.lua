@@ -107,9 +107,11 @@ lm:spawn_specific("lottmobs:dwarf",  stones, {"air"}, 8, 15, 30, 9000, 2, -31000
 lm:spawn_specific("lottmobs:dwarf1", stones, {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
 lm:spawn_specific("lottmobs:dwarf2", stones, {"air"}, 8, 15, 30, 9000, 2, -31000, -10)
 
-lm:spawn_specific("lottmobs:orc",    stones, {"air"}, -1, 6,  30, 4000,  3, -31000, -10)
-lm:spawn_specific("lottmobs:troll",  stones, {"air"}, -1, 5, 30, 12000, 3, -31000,   -10)
-lm:spawn_specific("lottmobs:spider", stones, {"air"}, -1,   4, 30, 12000, 2, -31000, -10)
+lm:spawn_specific("lottmobs:orc",    stones, {"air"}, -1, 6, 30,  4000, 3, -31000, -10)
+lm:spawn_specific("lottmobs:troll",  stones, {"air"}, -1, 5, 30, 12000, 3, -31000, -10)
+lm:spawn_specific("lottmobs:spider", stones, {"air"}, -1, 4, 30, 12000, 2, -31000, -10)
+-- Crucible of Isengard carrier, deep underground, rare.
+lm:spawn_specific("lord_mobs:uruk_hai_captain", stones, {"air"}, -1, 7, 30, 15000, 2, -31000, -40)
 
 lm:spawn_specific("lottmobs:nazgul",     stones, {"air"}, -1, 2, 30, 30000,  2, -31000, -100)
 lm:spawn_specific("lottmobs:witch_king", stones, {"air"}, -1, 2, 30, 60000,  1, -31000, -1000)

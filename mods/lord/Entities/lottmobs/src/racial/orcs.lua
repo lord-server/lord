@@ -303,7 +303,6 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 	visual = "mesh",
 	mesh = "human_model.x",
 	textures = {
-		{"lottmobs_uruk_hai.png"},
 		{"lottmobs_uruk_hai_1.png"},
 		{"lottmobs_uruk_hai_2.png"},
 		{"lottmobs_uruk_hai_3.png"},
@@ -325,6 +324,66 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 		{ name = "lottweapons:bronze_spear",     chance = 15, min = 1, max = 1, },
 		{ name = "lottfarming:potato",           chance = 5,  min = 1, max = 5, },
 		{ name = "lottmobs:rotten_meat",         chance = 5,  min = 1, max = 3, },
+	},
+	light_resistant = true,
+	drawtype = "front",
+	water_damage = 1,
+	lava_damage = 5,
+	light_damage = 0,
+	on_rightclick = nil,
+	attack_type = "dogfight",
+	animation = {
+		speed_normal = 15,
+		speed_run = 15,
+		stand_start = 0,
+		stand_end = 79,
+		walk_start = 168,
+		walk_end = 187,
+		run_start = 168,
+		run_end = 187,
+		punch_start = 189,
+		punch_end = 198,
+	},
+	jump = true,
+	sounds = {
+		war_cry = "mobs_barbarian_yell2",
+		death = "mobs_death2",
+		attack = "mobs_slash_attack",
+	},
+	attacks_monsters = true,
+	peaceful = true,
+	group_attack = true,
+	step = 1,
+	do_custom = function (self)
+		api.set_fear_height_by_state(self)
+	end
+})
+
+-- A bigger, tougher Uruk-hai carrying the Crucible of Isengard (Smelter level 2 upgrade ingredient).
+-- Stats scaled up moderately from `uruk_hai`, not to full steel/silver tier — players hunting it
+-- for the crucible are expected to still be in bronze/steel gear.
+legacy_mobs:register_mob(":lord_mobs:uruk_hai_captain", {
+	type = "monster",
+	hp_min = 45,
+	hp_max = 55,
+	collisionbox = {-0.33,-1.1,-0.33, 0.33,0.88,0.33},
+	visual = "mesh",
+	visual_size = { x = 1.2, y = 1.1, z = 1.2 },
+	mesh = "human_model.x",
+	textures = {
+		{"lottmobs_uruk_hai.png"},
+	},
+	makes_footstep_sound = true,
+	view_range = 20,
+	walk_velocity = 1,
+	armor = { soul = 90, fleshy = 85 },
+	run_velocity = 4,
+	damage = 7,
+	drops = {
+		{ name = "lord_smelter:crucible",  chance = 100/70, min =  1, max =  1, },
+		{ name = "lord_money:gold_coin",   chance = 100/40, min =  2, max =  3, },
+		{ name = "lord_money:silver_coin", chance = 100/60, min =  3, max =  5, },
+		{ name = "lord_money:copper_coin", chance = 100/80, min = 10, max = 30, },
 	},
 	light_resistant = true,
 	drawtype = "front",
