@@ -184,35 +184,37 @@ lottmobs.register_dwarf("2", 25, 25, textures3, 2.5, 3.5, 7, { soul = 100, flesh
 --        King
 -- --------------------
 
---Mithril-armored look, reserved for `dwarf_king` (see below).
+--Dwarf racial armor look, reserved for `dwarf_king` (see below). Item registration for
+--`lord_armor:dwarf_*` is unconditional (`racial/dwarf.lua`) — only the toggled crafts
+--(`toggle_racial_armor`) are gated, so this works regardless of that setting.
 local king_textures = {
     {
 		"lottmobs_dwarf_1.png",
-		"lottarmor_helmet_mithril.png^" ..
-			"lottarmor_chestplate_mithril.png^" ..
-			"lottarmor_leggings_mithril.png^" ..
-			"lottarmor_boots_mithril.png^" ..
-			"lottarmor_shield_mithril.png",
+		"lord_armor_dwarf_helmet.png^" ..
+			"lord_armor_dwarf_chestplate.png^" ..
+			"lord_armor_dwarf_leggings.png^" ..
+			"lord_armor_dwarf_boots.png^" ..
+			"lord_armor_dwarf_shield.png",
 		"tools_warhammer_mithril.png",
 		"lottarmor_trans.png",
 	},
     {
 		"lottmobs_dwarf_2.png",
-		"lottarmor_helmet_mithril.png^" ..
-			"lottarmor_chestplate_mithril.png^" ..
-			"lottarmor_leggings_mithril.png^" ..
-			"lottarmor_boots_mithril.png^" ..
-			"lottarmor_shield_mithril.png",
+		"lord_armor_dwarf_helmet.png^" ..
+			"lord_armor_dwarf_chestplate.png^" ..
+			"lord_armor_dwarf_leggings.png^" ..
+			"lord_armor_dwarf_boots.png^" ..
+			"lord_armor_dwarf_shield.png",
 		"tools_warhammer_mithril.png",
 		"lottarmor_trans.png",
 	},
     {
 		"lottmobs_dwarf_3.png",
-		"lottarmor_helmet_mithril.png^" ..
-			"lottarmor_chestplate_mithril.png^" ..
-			"lottarmor_leggings_mithril.png^" ..
-			"lottarmor_boots_mithril.png^" ..
-			"lottarmor_shield_mithril.png",
+		"lord_armor_dwarf_helmet.png^" ..
+			"lord_armor_dwarf_chestplate.png^" ..
+			"lord_armor_dwarf_leggings.png^" ..
+			"lord_armor_dwarf_boots.png^" ..
+			"lord_armor_dwarf_shield.png",
 		"tools_warhammer_mithril.png",
 		"lottarmor_trans.png",
 	},
@@ -234,9 +236,9 @@ legacy_mobs:register_mob(":lord_mobs:dwarf_king", {
 	view_range           = 20,
 	makes_footstep_sound = true,
 	walk_velocity        = 2,
-	run_velocity         = 5,
+	run_velocity         = 4.5,
 	armor                = { soul = 75, fleshy = 65 },
-	damage               = 10,
+	damage               = 8.5,
 	drops                = {
 		{ name = "lord_smelter:hearth",     chance = 100/60, min = 1, max = 1, },
 		{ name = "lottores:mithril_lump",   chance = 100/20, min = 2, max = 3, },
