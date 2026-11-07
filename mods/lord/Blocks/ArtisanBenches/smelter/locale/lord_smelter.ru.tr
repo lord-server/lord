@@ -5,7 +5,7 @@ Ingredients:=Ингредиенты:
 Result:=Результат:
 
 Smelter=Плавильня
-Smelter first level=Плавильня первого уровня
+(Level: @1)=(Уровень: @1)
 
 Crucible of Isengard=Тигель Изенгарда
 Hearth of Khazad-dûm=Горн Кхазад-дума

@@ -736,6 +736,9 @@ core.override_item("default:gold_lump",    { _rank = item_rank.Type.EPIC })
 core.override_item("default:gold_ingot",   { _rank = item_rank.Type.EPIC })
 core.override_item("default:goldblock",    { _rank = item_rank.Type.EPIC })
 
+-- LG-2206: обычная печь — самый базовый уровень плавки, ниже Плавильни
+core.override_item("default:furnace", { _rank = item_rank.Type.COMMON })
+
 -- LG-2262: ванильные руды переводятся на `mineable`/`solid`, `cracky` убирается
 -- (аналогично lord_ores/lottores — иначе эти ноды остаются лазейкой в обход тиров)
 core.override_item("default:stone_with_copper", { groups = { mineable = 1, solid = 1 } })

@@ -5,6 +5,7 @@ Ingredients:=Ingredients:
 Result:=Result:
 
 Smelter=Smelter
+(Level: @1)=(Level: @1)
 
 Crucible of Isengard=Crucible of Isengard
 Hearth of Khazad-dûm=Hearth of Khazad-dûm
