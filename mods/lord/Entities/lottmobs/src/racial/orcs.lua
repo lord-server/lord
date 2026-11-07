@@ -363,7 +363,8 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 -- Stats scaled up moderately from `uruk_hai`, not to full steel/silver tier — players hunting it
 -- for the crucible are expected to still be in bronze/steel gear.
 legacy_mobs:register_mob(":lord_mobs:uruk_hai_captain", {
-	type = "monster",
+	type = "monster", -- faction "monster": friendly to other orcs, hostile to npc-faction mobs
+	specific_attack = { "player" }, -- plus force-attack orc-race players too (same faction otherwise)
 	hp_min = 45,
 	hp_max = 55,
 	collisionbox = {-0.33,-1.1,-0.33, 0.33,0.88,0.33},
@@ -380,7 +381,7 @@ legacy_mobs:register_mob(":lord_mobs:uruk_hai_captain", {
 	run_velocity = 4,
 	damage = 7,
 	drops = {
-		{ name = "lord_smelter:crucible",  chance = 100/70, min =  1, max =  1, },
+		{ name = "lord_smelter:crucible",  chance = 100/60, min =  1, max =  1, },
 		{ name = "lord_money:gold_coin",   chance = 100/40, min =  2, max =  3, },
 		{ name = "lord_money:silver_coin", chance = 100/60, min =  3, max =  5, },
 		{ name = "lord_money:copper_coin", chance = 100/80, min = 10, max = 30, },
