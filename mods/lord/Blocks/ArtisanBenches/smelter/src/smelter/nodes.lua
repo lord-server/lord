@@ -18,6 +18,7 @@ return function(level)
 	return {
 		description   = S('Smelter') .. ' ' .. colorize(grey, S('(Level: @1)', level)),
 		_rank         = ranks[level],
+		stack_max     = 1,
 		drawtype      = 'mesh',
 		mesh          = 'lord_smelter_1.obj',
 		paramtype     = 'light',

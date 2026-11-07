@@ -9,6 +9,7 @@ core.register_craftitem('lord_smelter:crucible', {
 		S('— and he still remembers that heat.'),
 	_rank           = item_rank.Type.EPIC,
 	inventory_image = 'crucible_of_isengard.png',
+	stack_max       = 1,
 })
 
 core.register_craftitem('lord_smelter:hearth', {
@@ -19,4 +20,5 @@ core.register_craftitem('lord_smelter:hearth', {
 		S('smelt mithril.'),
 	_rank           = item_rank.Type.LEGENDARY,
 	inventory_image = 'hearth_kd.png',
+	stack_max       = 1,
 })
