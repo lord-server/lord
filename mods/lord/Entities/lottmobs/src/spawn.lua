@@ -111,10 +111,11 @@ lm:spawn_specific("lottmobs:orc",    stones, {"air"}, -1, 6, 30,  4000, 3, -3100
 lm:spawn_specific("lottmobs:troll",  stones, {"air"}, -1, 5, 30, 12000, 3, -31000, -10)
 lm:spawn_specific("lottmobs:spider", stones, {"air"}, -1, 4, 30, 12000, 2, -31000, -10)
 -- Crucible of Isengard carrier, deep underground, rare.
-lm:spawn_specific("lord_mobs:uruk_hai_captain", stones, {"air"}, -1, 7, 30, 17000, 1, -31000, -40)
+lm:spawn_specific("lord_mobs:uruk_hai_captain", stones, {"air"}, -1, 7, 30, 14000, 1,   -250,  -50)  --  -50
+lm:spawn_specific("lord_mobs:uruk_hai_captain", stones, {"air"}, -1, 7, 30, 16000, 1, -31000, -250)
 -- Hearth of Khazad-dûm carrier, deeper and rarer still (mid-boss, captain is the mini-boss).
-lm:spawn_specific("lord_mobs:dwarf_king",       stones, {"air"}, -1, 5, 30, 25000, 1, -31000, -120)
+lm:spawn_specific("lord_mobs:dwarf_king",       stones, {"air"}, -1, 5, 30, 25000, 1, -31000, -250)
 
-lm:spawn_specific("lottmobs:nazgul",     stones, {"air"}, -1, 2, 30, 30000,  2, -31000, -300)
-lm:spawn_specific("lottmobs:witch_king", stones, {"air"}, -1, 2, 30, 60000,  1, -31000, -1000)
+lm:spawn_specific("lottmobs:nazgul",     stones, {"air"}, -1, 2, 30, 30000,  2, -31000,   -350)      -- -350
+lm:spawn_specific("lottmobs:witch_king", stones, {"air"}, -1, 2, 30, 60000,  1, -31000,  -1000)
 lm:spawn_specific("lottmobs:balrog",     stones, {"air"}, -1, 2, 30, 100000, 1, -31000, -10000)
