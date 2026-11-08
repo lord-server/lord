@@ -12,6 +12,8 @@ end
 
 legacy_mobs:register_mob("lottmobs:nazgul", {
 	type = "monster",
+	specific_attack = { "player" }, -- attack all races, same faction otherwise wouldn't attack orcs
+	lifetimer = 7200, -- 2 hours
 	hp_min = 90,
 	hp_max = 110,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
@@ -74,6 +76,8 @@ legacy_mobs:register_mob("lottmobs:nazgul", {
 
 legacy_mobs:register_mob("lottmobs:witch_king", {
 	type = "monster",
+	specific_attack = { "player" }, -- attack all races, same faction otherwise wouldn't attack orcs
+	lifetimer = 7200, -- 2 hours
 	hp_min = 250,
 	hp_max = 350,
 	collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},

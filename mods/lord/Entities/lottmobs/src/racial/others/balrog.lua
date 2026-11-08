@@ -3,6 +3,8 @@ local api = require('fear_height.api')
 
 legacy_mobs:register_mob("lottmobs:balrog", {
 	type = "monster",
+	specific_attack = { "player" }, -- attack all races, same faction otherwise wouldn't attack orcs
+	lifetimer = 7200, -- despawn timer: 2 hours instead of the default 180s (`mob_step`)
 	--rotate = 180,
 	hp_min = 1000,
 	hp_max = 1250,

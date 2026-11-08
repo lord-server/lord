@@ -365,6 +365,7 @@ legacy_mobs:register_mob("lottmobs:uruk_hai", {
 legacy_mobs:register_mob(":lord_mobs:uruk_hai_captain", {
 	type = "monster", -- faction "monster": friendly to other orcs, hostile to npc-faction mobs
 	specific_attack = { "player" }, -- plus force-attack orc-race players too (same faction otherwise)
+	lifetimer = 7200, -- despawn timer: 2 hours instead of the default 180s (`mob_step`)
 	hp_min = 45,
 	hp_max = 55,
 	collisionbox = {-0.33,-1.1,-0.33, 0.33,0.88,0.33},
