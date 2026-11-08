@@ -1,5 +1,157 @@
 # Change Log
 
+## [2026.10](https://github.com/lord-server/lord/releases/tag/2026.10)
+ - Item Rank: item names are now colored by rank (Common, Advanced, Rare, Epic, Legendary, Mythical) — you can see at once how valuable an item is. LG-2113, LG-2184.
+   - Armor. LG-2114
+   - Weapons, tools & screwdrivers. LG-2190
+   - Racial armor & weapons. LG-2191
+   - Potions. LG-2192
+   - Unique & holiday items (Easter, Christmas, Halloween, New Year, "Guardian of Minas Tirith"). LG-2254.
+   - Ore lumps, ingots & metal blocks. LG-2255.
+   - Gems, pearls, jewelry silver & rings. LG-2256.
+ - Smelter:
+   - New crafting station — Smelter: iron and higher metals are now smelted only in it, the furnace smelts only tin & copper. LG-2102, LG-2111, LG-2115.
+   - 3 Smelter levels, each next one smelts more metals. LG-2206.
+   - New rare items to upgrade the Smelter:
+     - Crucible of Isengard (Epic) — to level 2. LG-2201
+     - Hearth of Khazad-dûm (Legendary) — to level 3. LG-2202
+ - Mobs:
+   - Uruk-hai captain — new mini-boss deep underground: attacks all races, drops Crucible of Isengard. LG-2206, LG-2279.
+   - Dwarf King — new rare boss, even deeper: drops Hearth of Khazad-dûm. LG-2280.
+   - Nazgul, Witch-king & Balrog now attack all races, including orcs. LG-1743. #2077
+   - Nazgul now spawn deeper. LG-2280.
+   - These bosses no longer disappear quickly — they stay up to 2 hours. LG-1743.
+ - Ore mining now requires a pickaxe of the right tier:
+   - tin & copper — stone pickaxe and better;
+   - iron — copper/tin pickaxe;
+   - silver & gold — steel/bronze pickaxe;
+   - lead — silver/gold pickaxe;
+   - mithril — galvorn/mithril pickaxe. LG-2262.
+ - New `/link <code>` command: link your character to your account on the site (get the code on your account page). LG-2268.
+ - Protected versions for all remaining doors: cherry, culumalda, elm, fir, hardwood, infected, plum, white, yavannamire & steel bar door. #2404
+ - Hoppers now work with artificial beehives: a hopper above puts frames in, a hopper below takes filled frames out. LG-2266
+ - Bones can be placed as decor: each placed bone gets a random shape and rotation. LG-2056.
+ - New BMG clan tapestry. #2416
+ - Players with an outdated client are now disconnected with a message showing the required version and a download link. LG-2272.
+
+ - Bugfixes:
+   - Fixed server crash when placing items in some cases (e.g. near protected areas). LG-2119.
+   - Tamed bees, bee eggs, honey, honey blocks & beehives from old versions no longer turn into "Unknown Item". LG-2169. #2392
+   - "Flame of Numenor" (racial human sword) can now be crafted. LG-2195. #2408
+   - Some human & orc mobs and dungeon chests dropped "Unknown Item" instead of steel, bronze & galvorn swords. LG-2277.
+   - Spawners: the limit of mobs around a spawner didn't work, now max 8 mobs. LG-2252.
+   - Hopper under a honey extractor now takes out honey & wax too, not only empty frames. LG-2135. #2299
+   - English: removed stray `$dmg-item-tpl$` text from the damage tooltip. LG-2151.
+   - Torches on tree trunks placed by players are no longer tilted. LG-2211. #2415
+   - Balrog & Warg animations fixed (no more twitching, "floating" and broken attack). LG-2240, LG-2241.
+   - Mobs: health in the nametag no longer shows current HP above maximum (e.g. `10 / 8`). LG-2217.
+
+ - Technical:
+   - Mobs: models optimization:
+     - Ent (-46% verts, -50% faces). LG-2223.
+     - Human: remove degenerate and duplicate faces (-20% faces). LG-2224.
+     - Boar: remove degenerate faces (-8% faces). LG-2229.
+     - Shirepony: merge triangles into quads (-37% faces). LG-2225.
+     - Ringwraith: remove degenerate faces and merge triangles into quads (-21% faces). LG-2226.
+     - Chicken: merge triangles into quads (-36% faces). LG-2227.
+     - Spider: merge triangles into quads (-50% faces). LG-2228.
+     - Horse: merge coplanar faces (-7% triangles). LG-2230.
+     - Balrog (-43% file size, -44% verts, -4% triangles). LG-2233.
+     - Warg (-21% file size, -38% verts, -2% triangles). LG-2235.
+   - Item Rank:
+     - `_rank_autocolorize = false` disables title coloring. LG-2207
+     - Colorize title after `tt`, keeping snippets. LG-2261.
+     - Fix typos. LG-2184.
+   - Tooltips:
+     - Support `_annotation` item property. LG-2257.
+     - Migrate item lore to `_annotation`. LG-2258.
+     - Add `_collection` item property & `item_collection` mod. LG-2259.
+     - Add `_hint` item property, move usage hints to it. LG-2260.
+   - Picks & Ores:
+     - Pickaxe uses derived from `_durability` (cracky+mineable). LG-2263.
+     - Tools: regroup materials by tier (wood, stone, copper, tin, steel, bronze, silver, gold, galvorn, mithril). LG-2263.
+     - `mineable.times` from geometric formula (`_speed`/`_tier`), unify stats table. LG-2263.
+     - Rebalance mineable durability/speed by ore tier (not `cracky.maxlevel`). LG-2263.
+   - Smelter:
+     - Mod `lord_` prefix; use `core.`; fix annotations. LG-2204.
+     - Fix typo in bronze recipe, add mirrored. LG-2198.
+     - Actualize all recipes: remove old from furnace, add new for Smelter, change timing. LG-2205.
+     - Stop playing sound, when removed (update `Voxrame`). LG-2197.
+     - Crucible/hearth/smelter nodes are not stackable. LG-2206.
+     - Dwarf king: wear dwarf racial armor, unconditional of `toggle_racial_armor`. LG-2280.
+     - Dwarf king: fix `visual_size` typo, tune speed. LG-2280.
+     - Smelter (level 1) can be crafted. LG-2199.
+   - Update `Voxrame`: use new tech name `voxrame_helpers`. VX-10.
+   - Update `Voxrame`: use new `Voxrame.terminal` instead `term`. VX-11
+   - Remove temporary duplicated `vector:{above|under}()`.
+   - `lord_trees`: fix trunk `on_rightclick` lost after torch placement, pass `pointed_thing` in torches. LG-2211.
+   - `lord_trees`: use Voxrame try/catch in infected trunks. LG-2253.
+   - Client: rename `lord_client_info` → `lord_client`. LG-2272.
+   - Client Info: log connecting client information; log more client events.
+   - Bones: log death & corpse position. LG-2055.
+   - Distribution: CDB:
+     - Use `voxrame_` prefix in new `item_rank` mod. LG-2189.
+     - Translations: fix russian `c`, some improvements in `christmas:candy_cane`, `halloween`, `new_year`. LG-2188.
+     - Main menu: background images. LG-1900
+   - Remove unused mods:
+     - `hbsprint` (disabled by `enable_stamina = false` since 2019). LG-2243.
+     - `discord`: `lp_api` mod (Discord is blocked). LG-2249.
+   - Deprecations & warnings:
+     - Migrate to `core.` instead `minetest.`. LG-2212
+     - Fix deprecations. LG-2213, LG-2214, LG-2216
+     - Update `MTG`. Fixes LG-2215.
+     - `legacy_mobs`: move real object properties into `initial_properties`. LG-2218.
+     - `lottmobs`: fix mount object properties deprecation (`register_horse`). LG-2218.
+     - Move remaining flat object properties into `initial_properties`. LG-2218.
+     - `lord_planks`: skip MTG's own trunks in planks-generation loop, log via mod logger. LG-2219.
+     - Core/legacy: comment out obsolete reversed `farming:wheat` alias. LG-2220.
+     - `signs_lib`: fix out-of-bounds combine tiles and undocumented `set_string(nil)`. LG-2221.
+     - Fix "missing texture(s), this is deprecated" warnings for rat/shirepony models. LG-2145.
+     - Remove stray backup file with disallowed `~` suffix (`lord_trees_infected_top1.png~`).
+   - Cyclomatic complexity:
+     - `lord_boats`. LG-707. Closes #726.
+     - `lord_classes`: remove from exclusions. LG-708. Closes #727.
+     - `lord_homedecor`. LG-709. Closes #728.
+     - `npc`. LG-716. Closes #735.
+     - MTG/`default`. LG-870. Closes #937.
+     - `lord_replacer`. LG-871. Closes #938.
+     - `lottblocks`. LG-872. Closes #939.
+     - `lord_books`. LG-873. Closes #940.
+     - `lottmapgen`: `init.lua`. LG-972.
+     - `signs_lib`. LG-2245.
+     - `technic_chests`. LG-2246.
+     - `protector_lott`. LG-2244.
+     - `hbhunger`. LG-2247.
+     - `hudbars`. LG-2248.
+     - `lord_spawners`. LG-2250.
+     - `lord_tooltips`. LG-2251.
+     - Potions. Relates to LG-2192.
+     - Debug: ghost. LG-2270.
+     - luacheck: remove needless `races` and `lottblocks` from `--globals`.
+   - Annotations: `lottmapgen`: fix EmmyLua warnings in `init.lua`. LG-1985.
+   - `signs_lib`: remove debug `print()` on placing a sign. LG-2245.
+   - Debug:
+     - Add `debug_mobs` with `no_damage` setting. Relates to LG-2240
+     - `debug_mobs`: add `no_attack` & `animation_forever` settings. Relates to LG-2240, LG-2241
+     - Ability to turn off `debug_tooltips.debug` separately from general `debug`.
+     - Picks & Ores: add cracky analyzer (only if `mod.debug`). Relates to LG-2262.
+     - Ghost & cracky: don't write into mod folder under mod security. LG-2270.
+   - Config:
+     - Stage: enable Smelter (`toggle_smelter`), update ghost blocks count. LG-2206.
+     - MapGen: fix `mg_name` in `prod`/`stage` configs, remove obsolete `register_on_mapgen_init` force. LG-1015. Closes #1137.
+     - prod: reduce `max_simultaneous_block_sends_per_client` to 20.
+     - prod: use defaults for `serverlist_url` & `emergequeue_limit_*`; admin: `TheAlek`.
+   - CI/CD:
+     - Merge to `dev`: configure right user.
+     - Use `origin` for explicit branch refs.
+     - Fix deploy to stages. LG-2200.
+     - luacheck: fix pipeline failures.
+     - `emmylua_check`: use built-in cargo, cache binary per latest release.
+     - `emmylua_check`: cache submodules, bump checkout to v7 and cache to v6.
+     - Cached submodules composite action for emmylua and luacheck, checkout to v7.
+     - `emmylua_check`: use `--severity error` and `--output-format github`.
+   - `.editorconfig`: indent for YAML.
+
 ## [2025.12.p7](https://github.com/lord-server/lord/releases/tag/2025.12.p7)
  - Fix `http` -> `voxrame_http` mod name in configs. LG-2196.
  - Servers configs: tune settings. LG-2267.
