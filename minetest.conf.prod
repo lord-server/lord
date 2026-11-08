@@ -295,6 +295,9 @@ protector_damage = 3
 #    Ours (LORD)
 #
 
+# ---- FEATURE TOGGLE ----
+toggle_smelter = true
+
 # ------- lord/lord_spawns -------
 # также см. настройку `static_spawnpoint` в основном разделе выше
 lord_spawns.common_spawn_pos = 0, 25001, -1
