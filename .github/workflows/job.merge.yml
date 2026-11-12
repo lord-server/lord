@@ -9,10 +9,18 @@ jobs:
   merge-to-dev:
     runs-on: ubuntu-latest
     steps:
+      # `dev` is protected: push with the `lord-ci[bot]` GitHub App token (it's in the branch protection bypass lists).
+      - name: Get `lord-ci[bot]` App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.CI_APP_CLIENT_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
           persist-credentials: true
       - name: Merge `master` -> `dev`
         run: |
