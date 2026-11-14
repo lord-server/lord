@@ -12,74 +12,69 @@ core.register_craftitem('bones:bone', {
 	inventory_image = 'bones_bone_inv.png',
 })
 
--- As for now, used only for dungeons generation testing
--- Full implementation later
-if core.settings:get_bool('toggle_dungeons', false) then
-	-- Move into main declaration later
-	core.override_item('bones:bone', {
-		on_place = function(itemstack, placer, pointed_thing)
-			local stack  = ItemStack('bones:bone_' .. math.random(1, 2))
-			local placed = core.item_place(stack, placer, pointed_thing, math.random(0, 3))
+core.override_item('bones:bone', {
+	on_place = function(itemstack, placer, pointed_thing)
+		local stack  = ItemStack('bones:bone_' .. math.random(1, 2))
+		local placed = core.item_place(stack, placer, pointed_thing, math.random(0, 3))
 
-			return placed
-				and ItemStack('bones:bone ' .. (itemstack:get_count() - (1 - placed:get_count())))
-				or  itemstack
-		end,
-	})
+		return placed
+			and ItemStack('bones:bone ' .. (itemstack:get_count() - (1 - placed:get_count())))
+			or  itemstack
+	end,
+})
 
-	local px = 1 / 16
-	local common_definition = {
-		description       = S('Bone'),
-		inventory_image   = 'bones_bone_inv.png',
-		wield_image       = 'bones_bone_inv.png',
-		paramtype         = 'light',
-		paramtype2        = 'facedir',
-		is_ground_content = false,
-		drawtype          = 'nodebox',
-		tiles             = { 'bones_bone.png' },
-		groups            = { dig_immediate = 2 },
-		drop              = 'bones:bone',
-	}
+local px = 1 / 16
+local common_definition = {
+	description       = S('Bone'),
+	inventory_image   = 'bones_bone_inv.png',
+	wield_image       = 'bones_bone_inv.png',
+	paramtype         = 'light',
+	paramtype2        = 'facedir',
+	is_ground_content = false,
+	drawtype          = 'nodebox',
+	tiles             = { 'bones_bone.png' },
+	groups            = { dig_immediate = 2 },
+	drop              = 'bones:bone',
+}
 
-	--- Registers bone node variant with given nodebox.
-	--- @param name           string     node name
-	--- @param fixed_node_box number[][] list of nodebox boxes
-	local function register_bone(name, fixed_node_box)
-		local def = table.copy(common_definition)
-		def.node_box = { type = 'fixed', fixed = fixed_node_box }
-		core.register_node(name, def)
-	end
-	register_bone('bones:bone_1', {
-		{ -6*px, -8*px, -7*px,  -4*px, -7*px, -5*px },
-		{ -7*px, -8*px, -6*px,  -5*px, -7*px, -4*px },
-
-		{  6*px, -8*px,  7*px,   4*px, -7*px,  5*px },
-		{  7*px, -8*px,  6*px,   5*px, -7*px,  4*px },
-
-		{ -6*px, -8*px, -6*px,  -4*px, -7*px, -4*px },
-		{ -5*px, -8*px, -5*px,  -3*px, -7*px, -3*px },
-		{ -4*px, -8*px, -4*px,  -2*px, -7*px, -2*px },
-		{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
-		{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
-		{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
-		{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
-		{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
-		{  2*px, -8*px,  2*px,   4*px, -7*px,  4*px },
-		{  3*px, -8*px,  3*px,   5*px, -7*px,  5*px },
-		{  4*px, -8*px,  4*px,   6*px, -7*px,  6*px },
-	})
-	register_bone('bones:bone_2', {
-		{ -2*px, -8*px, -3*px,  -4*px, -7*px, -5*px },
-		{ -5*px, -8*px, -4*px,  -3*px, -7*px, -2*px },
-		{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
-		{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
-		{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
-		{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
-		{  2*px, -8*px,  3*px,   4*px, -7*px,  5*px },
-		{  3*px, -8*px,  2*px,   5*px, -7*px,  4*px },
-		{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
-	})
+--- Registers bone node variant with given nodebox.
+--- @param name           string     node name
+--- @param fixed_node_box number[][] list of nodebox boxes
+local function register_bone(name, fixed_node_box)
+	local def = table.copy(common_definition)
+	def.node_box = { type = 'fixed', fixed = fixed_node_box }
+	core.register_node(name, def)
 end
+register_bone('bones:bone_1', {
+	{ -6*px, -8*px, -7*px,  -4*px, -7*px, -5*px },
+	{ -7*px, -8*px, -6*px,  -5*px, -7*px, -4*px },
+
+	{  6*px, -8*px,  7*px,   4*px, -7*px,  5*px },
+	{  7*px, -8*px,  6*px,   5*px, -7*px,  4*px },
+
+	{ -6*px, -8*px, -6*px,  -4*px, -7*px, -4*px },
+	{ -5*px, -8*px, -5*px,  -3*px, -7*px, -3*px },
+	{ -4*px, -8*px, -4*px,  -2*px, -7*px, -2*px },
+	{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
+	{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
+	{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
+	{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
+	{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
+	{  2*px, -8*px,  2*px,   4*px, -7*px,  4*px },
+	{  3*px, -8*px,  3*px,   5*px, -7*px,  5*px },
+	{  4*px, -8*px,  4*px,   6*px, -7*px,  6*px },
+})
+register_bone('bones:bone_2', {
+	{ -2*px, -8*px, -3*px,  -4*px, -7*px, -5*px },
+	{ -5*px, -8*px, -4*px,  -3*px, -7*px, -2*px },
+	{ -3*px, -8*px, -3*px,  -1*px, -7*px, -1*px },
+	{ -2*px, -8*px, -2*px,   0*px, -7*px,  0*px },
+	{ -1*px, -8*px, -1*px,   1*px, -7*px,  1*px },
+	{  0*px, -8*px,  0*px,   2*px, -7*px,  2*px },
+	{  2*px, -8*px,  3*px,   4*px, -7*px,  5*px },
+	{  3*px, -8*px,  2*px,   5*px, -7*px,  4*px },
+	{  1*px, -8*px,  1*px,   3*px, -7*px,  3*px },
+})
 
 core.register_tool('bones:bone_scythe', {
 	description       = S('Bone Scythe'),
