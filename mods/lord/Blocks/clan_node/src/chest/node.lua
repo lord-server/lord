@@ -16,7 +16,7 @@ local raid_notification_is_blocked = {
 
 ---@param clan_name string
 ---@param clan_title string
-local function send_raid_notification(clan_name, clan_title)
+local function send_raid_notification(clan_name, clan_title) -- luacheck: ignore (raids are temporary turned off)
 	core.chat_send_all(core.colorize("red", S("Clan @1 is under the raid", clan_title)))
 	if raid_notification_is_blocked[clan_name] then return end
 	raid_notification_is_blocked[clan_name] = true
@@ -121,7 +121,9 @@ local definition = {
 		local player_clan_name = player_clan and player_clan.name or nil
 		if not player_clan then	return end  -- open clan chest only for players from any clans, not for regular players
 		if player_clan_name ~= chest_clan_name and not is_admin then
-			send_raid_notification(chest_clan_name, chest_clan.title)
+			-- temporary turned off
+			-- send_raid_notification(chest_clan_name, chest_clan.title)
+			return
 		end
 		Form:new(clicker, pos):open()
 	end,
